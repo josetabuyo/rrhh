@@ -39,6 +39,8 @@ namespace General
                            row.GetString("grado", "Sin Dato"),
                            row.GetInt("id_area", 0),
                            row.GetString("area", "Sin Dato"),
+                           row.GetString("area_descrip_corta", "Sin Dato"),
+                           row.GetString("area_descrip_media", "Sin Dato"),
                            row.GetSmallintAsInt("id_planta", -1),
                            row.GetString("planta", "Sin Dato"),
                            row.GetInt("IdEstudio", -1),

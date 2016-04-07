@@ -139,6 +139,9 @@ var Reportes = {
             $('#div_grafico_de_rango_etareo').hide();
             $('#titulo_grafico').html("Seleccionar Informe");
 
+            $("#chk_incluir_dependencias").show();
+            $("#lbl_incluir_dependencias").show();
+
             //para subir al tope de la pantalla
             $('html,body').animate({
                 scrollTop: $("#Reportes").offset().top

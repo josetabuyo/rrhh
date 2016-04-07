@@ -37,10 +37,10 @@
                             <li class="Rango Etáreo"><a href="#" id="btn_nivel" class="link_listado">Nivel</a></li>
                             <li class="Rango Etáreo"><a href="#" id="btn_estudios" class="link_listado">Estudios</a></li>
                             <li class="Rango Etáreo"><a href="#" id="btn_plantas" class="link_listado">Plantas</a></li>
-                            <!--<li class="Rango Etáreo"><a href="#" id="btn_rango_etareo" class="link_listado">Rango Etáreo</a></li>-->
+                           <%-- <li class="Rango Etáreo"><a href="#" id="btn_rango_etareo" class="link_listado">Rango Etáreo</a></li>--%>
                         </ul>
                     </li>
-                    <!--<li class="Dotacion"><a href="#" class="link_listado">Sueldo</a></li>
+                    <%--<li class="Dotacion"><a href="#" class="link_listado">Sueldo</a></li>
                     <li id="btn_grafico_licencias" class="Licencias"><a href="#" class="link_listado">Licencias</a></li>
                      <li class="Horas Extras"><a href="#" class="link_listado">Horas Extras</a></li>
                     <li class="Otros"><a href="#" class="link_listado">Otros</a></li>-->
@@ -49,7 +49,10 @@
 
              <div id="div_filtros_graficos_y_tablas" style="position: absolute; left: 650px; width: 100%;">
                 <div style=" position: absolute;left: 150px; margin-top: 10px;">
-                    <h2 style="font-size: 1.1em;">Área Seleccionada: <span id="titulo_area">Seleccionar Área</span></h2>
+                    <h2 style="font-size: 1.1em;">Área Seleccionada: 
+                        <span id="titulo_area">Seleccionar Área</span>
+                        <input id="chk_incluir_dependencias" style="display:none" class="regular-checkbox" type="checkbox"/><label id="lbl_incluir_dependencias" style="display:none" for="chk_incluir_dependencias">Incluir dependencias</label>
+                    </h2>
                     <h2 style="font-size: 1.1em; ">Gráfico Seleccionado: <span id="titulo_grafico">Seleccionar Informe</span></h2>
                 </div>
                 <div id="div_grafico_de_dotacion" style="display:none">
@@ -90,8 +93,10 @@
             <div id="div_tabla_resultado_totales" style="min-width: 210px; height: 400px; margin: 0 30px">
                     <input type="text" id="search" class="search" class="buscador" placeholder="Buscar"
                         style="display: none;" />
-                     <a href="#" id="exportar_datos" class="btn btn-info" style="float: right; display: none; padding: 5px;">
+                     <a href="#" id="exportar_datos" class="btn btn-info" style="float: right; display: none; padding: 5px; margin-left:10px;">
                     Exportar Datos</a>
+                    <a href="#" id="btn_excel" class="btn btn-info" style="float: right; padding: 5px; margin-left:10px;">
+                    Excel</a>
                     <table id="tabla_resultado_totales" style="width:420px;">
                     </table>
                 </div>
@@ -115,6 +120,7 @@
                 </div>
    </div>
    </div>
+
 
    <div id="div_grafico_de_rango_etareo">
    <div id="div_filtros_rango_etareo" style="display: flex;position: absolute; display:none; top: 80px;left: 135px;">
@@ -186,6 +192,7 @@
                 ExportarAExcel.fnExcelReport(document.getElementById('tabla_detalle'));
             });
             $('#exportar_datos').click(function () {
+
                 ExportarAExcel.fnExcelReport(document.getElementById('tabla_resultado_totales'));
             });
         });

@@ -15,6 +15,7 @@ namespace General.Repositorios
         private static int tipo_anterior;
         private static DateTime fecha_anterior;
         private static Grafico grafico = new Grafico();
+        private static bool incluir_dependencias_anterior;
 
         public RepositorioDeReportes(IConexionBD conexion)
         {
@@ -22,9 +23,9 @@ namespace General.Repositorios
         }
 
 
-        public Grafico GetGraficoDotacion(int tipo, DateTime fecha, int id_area)
+        public Grafico GetGraficoDotacion(int tipo, DateTime fecha, int id_area, bool incluir_dependencias)
         {
-            if (fecha.Year == fecha_anterior.Year && fecha.Month == fecha_anterior.Month && fecha.Day == fecha_anterior.Day && id_area == id_area_anterior)
+            if (fecha.Year == fecha_anterior.Year && fecha.Month == fecha_anterior.Month && fecha.Day == fecha_anterior.Day && id_area == id_area_anterior && incluir_dependencias == incluir_dependencias_anterior)
             {
 
                 if (grafico.ContienePersonas())
@@ -38,10 +39,12 @@ namespace General.Repositorios
             tipo_anterior = tipo;
             fecha_anterior = fecha;
             id_area_anterior = id_area;
+            incluir_dependencias_anterior = incluir_dependencias;
             var parametros = new Dictionary<string, object>();
 
             parametros.Add("@fechacorte", fecha);
             parametros.Add("@id_area", id_area);
+            parametros.Add("@incluir_dependencias", incluir_dependencias);
             var tablaDatos = conexion_bd.Ejecutar("dbo.GRAF_RPT_Dotacion", parametros);
             if (tablaDatos.Rows.Count > 0)
             {
