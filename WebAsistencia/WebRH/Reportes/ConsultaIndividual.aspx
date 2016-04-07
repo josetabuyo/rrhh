@@ -21,11 +21,12 @@
     
     
     <div id="contenedor_consulta_rapida" style="margin:30px;">
-      <h1 style="font-weight: 200;">Consulta Individual</h1>
+        <a style="font-size: 1.6em;display: block;margin-bottom: 10px;" href="Reportes.aspx">Volver</a>
+      <h1 style="font-weight: 200; text-align:center;">Consulta Individual</h1>
         <div id="buscador_de_personas">
             <p class="buscarPersona" style="display: inline-block;">Buscar persona:
                 <div id="selector_usuario" class="selector_personas" style="display: inline-block;">
-                    <input id="buscador" type=hidden />
+                    <input id="buscador" type="hidden" />
                 </div>
             </p>
         </div>

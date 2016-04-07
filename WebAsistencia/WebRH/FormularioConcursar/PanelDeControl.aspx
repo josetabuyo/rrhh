@@ -85,7 +85,7 @@
               </div>
             </div>
 
-        <!--</div>-->
+        </div>
     </div>
     <asp:HiddenField ID="postulaciones" runat="server" />
             </form>

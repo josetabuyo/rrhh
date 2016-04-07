@@ -127,7 +127,7 @@
     position: absolute;
     /*left: 645px;*/
     height: 70px;
-    top: 90px;
+    top: 10px;
     background-color: #F8F8F8;
     border: 1px solid #D5D5D5;
     padding: 10px;
@@ -142,7 +142,7 @@
 {
     position: absolute;
     display: block;
-    top: 10px;
+    top: 170px;
     height: 70px;
     display: inline-block;
     background-color: #F8F8F8;
@@ -189,7 +189,7 @@
 #menu_grafico 
 {
     position: absolute;
-    top: 170px;
+    top: 90px;
     width: 135px;
     left: 645px;
     background-color: #F8F8F8;
@@ -318,4 +318,36 @@
 	color: #99a1a7;
 }
     
+    
+/*ESTILO PARA LOADER AJAX
+/* Start by setting display:none to make this hidden.
+   Then we position it in relation to the viewport window
+   with position:fixed. Width, height, top and left speak
+   for themselves. Background we set to 80% white with
+   our animation centered, and no-repeating */
+.loader {
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .8 ) 
+                url('../Imagenes/Botones/ajax-loader.gif') 
+                50% 50% 
+                no-repeat;
+}
+
+/* When the body has the loading class, we turn
+   the scrollbar off with overflow:hidden */
+body.loading {
+    overflow: hidden;   
+}
+
+/* Anytime the body has the loading class, our
+   modal element will be visible */
+body.loading .loader {
+    display: block;
+}
 

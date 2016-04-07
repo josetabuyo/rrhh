@@ -162,7 +162,9 @@ var GraficoDotacion = {
     GraficoYTabla: function (tipo, fecha, id_area, titulo, div_grafico, div_tabla, tabla) {
         var _this = this;
         $('#div_graficos_y_tablas').show();
+        $("body").addClass("loading");
         var grafico = Backend.ejecutarSincronico("GetGrafico", [{ tipo: parseInt(tipo), fecha: fecha, id_area: parseInt(id_area)}]);
+        
         var resultado = grafico.tabla_resumen;
         var tabla_detalle = grafico.tabla_detalle;
         if (resultado != null) {
@@ -170,6 +172,7 @@ var GraficoDotacion = {
             _this.ArmarGrafico(resultado, titulo, div_grafico);
             _this.DibujarTabla(resultado, div_tabla, tabla, tabla_detalle);
             _this.BuscadorDeTabla();
+            $("body").removeClass("loading");
 
         } else {
             _this.VisualizarContenido(false);
