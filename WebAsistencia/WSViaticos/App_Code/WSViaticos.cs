@@ -311,13 +311,10 @@ public class WSViaticos : System.Web.Services.WebService
                 table_resumen.Rows.Add(item.Id, item.Cantidad, item.Porcentaje);
             }
 
-
-
-
+            
             DataTable table_detalle = new DataTable();
             table_detalle.TableName = "Detalle";
-
-
+            
             table_detalle.Columns.Add("NroDocumento");
             table_detalle.Columns.Add("Apellido");
             table_detalle.Columns.Add("Nombre");
@@ -328,42 +325,35 @@ public class WSViaticos : System.Web.Services.WebService
             table_detalle.Columns.Add("Planta");
             table_detalle.Columns.Add("NivelEstudio");
             table_detalle.Columns.Add("Titulo");
-
+            table_detalle.Columns.Add("Area");
+            table_detalle.Columns.Add("Area Descrip Media");
 
             foreach (var item in grafico.tabla_detalle)
             {
-                table_detalle.Rows.Add(item.NroDocumento, item.Apellido, item.Nombre, item.Sexo, item.FechaNacimiento.ToShortDateString(), item.Nivel, item.Grado, item.Planta, item.NivelEstudio, item.Titulo);
+                table_detalle.Rows.Add(item.NroDocumento, item.Apellido, item.Nombre, item.Sexo, item.FechaNacimiento.ToShortDateString(), item.Nivel, item.Grado, item.Planta, item.NivelEstudio, item.Titulo, item.Area, item.AreaDescripMedia);
             }
-
-
-
+            
             //CREACIÓN DE LAS COLUMNAS
             //      table.Columns.Add("Categoria", typeof(string));
             //       table.Columns.Add("% Participación VM", typeof(double));
 
             var workbook = new XLWorkbook();
-
-
-
+            
             //   var dataTable_consulta_parametros = table;
             var dataTable_resumen = table_resumen;
             var dataTable_detalle = table_detalle;
             var ws = workbook.Worksheets.Add("Resumen");
-
-
+            
             ws.Style.Font.FontSize = 11;
             ws.Style.Font.FontName = "Verdana";
-
-
+            
             ws.Column("A").Width = 15;
             ws.Column("B").Width = 15;
             ws.Column("C").Width = 15;
 
             //  ws.Row(1).Height = 25;
             //  ws.Row(1).Style.Alignment.SetVertical(XLAlignmentVerticalValues.Center);
-
-
-
+            
             ws.Cell(1, 1).Value = "FECHA:";
             ws.Cell(2, 1).Value = "AREA:";
 
@@ -382,22 +372,17 @@ public class WSViaticos : System.Web.Services.WebService
             ws.Cell(4, 2).Value = "Cantidad";
             ws.Cell(4, 3).Value = "Porcentaje %";
 
-
             var rangeWithData = ws.Cell(5, 1).InsertData(dataTable_resumen.AsEnumerable());
 
             var lastCell = ws.LastCellUsed();
-
-
+            
             ws.Range(4, 1, lastCell.Address.RowNumber, lastCell.Address.ColumnNumber).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
             ws.Range(4, 1, lastCell.Address.RowNumber, lastCell.Address.ColumnNumber).Style.Border.OutsideBorder = XLBorderStyleValues.Medium;
-
-
-
+            
             workbook.Worksheets.Add(dataTable_detalle);
 
             //  string rut = HttpContext.Current.Request.PhysicalApplicationPath + "/Excel.xlsx";
-
-
+            
             using (var ms = new MemoryStream())
             {
                 workbook.SaveAs(ms);
@@ -420,13 +405,7 @@ public class WSViaticos : System.Web.Services.WebService
 
     /**/
     
-
-
-
-
-
-
-
+    
     [WebMethod]
     public Area[] GetAreas()
     {
