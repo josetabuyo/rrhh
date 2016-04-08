@@ -3944,6 +3944,8 @@
           <s:element minOccurs="0" maxOccurs="1" name="Grado" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="IdArea" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="Area" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AreaDescripCorta" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AreaDescripMedia" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="IdPlanta" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="Planta" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="IdEstudio" type="s:int" />

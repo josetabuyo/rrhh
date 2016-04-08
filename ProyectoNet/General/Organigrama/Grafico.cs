@@ -39,6 +39,8 @@ namespace General
                            row.GetString("grado", "Sin Dato"),
                            row.GetInt("id_area", 0),
                            row.GetString("area", "Sin Dato"),
+                           row.GetString("area_descrip_corta", "Sin Dato"),
+                           row.GetString("area_descrip_media", "Sin Dato"),
                            row.GetSmallintAsInt("id_planta", -1),
                            row.GetString("planta", "Sin Dato"),
                            row.GetInt("IdEstudio", -1),
@@ -441,6 +443,24 @@ namespace General
                 return false;
             }
             return true;
+        }
+
+        internal void GraficoPorArea(List<Area> areas)
+        {
+            List<Dotacion> tabla_personas = this.tabla_detalle.ToList();
+            List<Resumen> tabla = new List<Resumen>();
+            List<Contador> contador = new List<Contador>(); 
+            
+            tabla_personas.ForEach(p =>
+            {
+                
+            });
+            int total = tabla_personas.Count;
+
+            tabla.Add(GenerarRegistroResumen("Total", total, total));
+            tabla.Add(GenerarRegistroResumen("Femenino", femenino, total));
+            tabla.Add(GenerarRegistroResumen("Masculino", masculino, total));
+            this.tabla_resumen = tabla.OrderByDescending(t => t.Cantidad).ToList();
         }
     }
 }

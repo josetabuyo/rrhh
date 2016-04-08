@@ -99,6 +99,7 @@
     <Compile Include="Modi\Impersonator.cs" />
     <Compile Include="Modi\NetworkConnection.cs" />
     <Compile Include="Organigrama\AreaArbolDTO.cs" />
+    <Compile Include="Organigrama\Contador.cs" />
     <Compile Include="Organigrama\Resumen.cs" />
     <Compile Include="Organigrama\Dotacion.cs" />
     <Compile Include="Organigrama\Grafico.cs" />
