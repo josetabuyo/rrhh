@@ -20,8 +20,7 @@
         UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <!--<h1 style="text-align: center; font-weight:200;">Reportes</h1>-->
     <div>
-        <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" style="position: relative;
-            top: 0; width: 100%;" id="cbp-spmenu-s1">
+        <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" style="position: relative; top: 0; width: 100%;" id="cbp-spmenu-s1">
             
             <div id="contenedor_arbol_organigrama">
             </div>
@@ -171,6 +170,7 @@
     <script src="../Scripts/Graficos/svgcheckbx.js" type="text/javascript"></script>
     <script src="../Scripts/Graficos/classie.js" type="text/javascript"></script>
     <script src="../Scripts/ExportarAExcel.js" type="text/javascript"></script>
+    <script src="../scripts/Spin.js" type="text/javascript"></script>
     <script type="text/javascript">
 
         //EFECTOS DEL MENU ORGANIGRAMA
