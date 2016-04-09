@@ -369,7 +369,7 @@ var GraficoDotacion = {
                     style: {
                         fontWeight: 'bold',
                         color: 'gray'
-//                        color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                        //                        color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
                     }
                 }
             },
@@ -380,7 +380,7 @@ var GraficoDotacion = {
                 y: 25,
                 floating: true,
                 backgroundColor: 'white',
-//                backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+                //                backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
                 borderColor: '#CCC',
                 borderWidth: 1,
                 shadow: false
@@ -395,7 +395,7 @@ var GraficoDotacion = {
                     dataLabels: {
                         enabled: true,
                         color: 'white',
-//                        color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+                        //                        color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
                         style: {
                             textShadow: '0 0 3px black'
                         }
@@ -537,7 +537,14 @@ var GraficoDotacion = {
                         }
                         break;
                     case 5:
-                        titulo = "Tabla de la Dotación con Afiliación Gremial a " + criterio;
+                        titulo = "Dotación del Área " + criterio;
+                        for (var i = 0; i < tabla.length; i++) {
+                            if (tabla[i].AreaDescripMedia == criterio) {
+                                tabla_final.push(tabla[i]);
+                            }
+                        }
+                        
+                        //                        titulo = "Tabla de la Dotación con Afiliación Gremial a " + criterio;
                         /*for (var i = 0; i < tabla.length; i++) {
                         if (tabla[i].Nivel == nivel[1]) {
                         tabla_final.push(tabla[i]);
@@ -591,7 +598,7 @@ var GraficoDotacion = {
         if (visualizar) {
             $('#container_grafico_torta_totales').show();
         }
-       
+
         //        if (visualizar) {
         //            $('#div_grafico').show();
         //            $('#div_tabla_resumen').show();

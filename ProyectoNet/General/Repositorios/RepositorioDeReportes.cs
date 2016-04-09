@@ -78,8 +78,8 @@ namespace General.Repositorios
                     grafico.GraficoPorPlanta();
                     break;
                 case 5:
-                    List<Area> areas = BuscarAreas();
-                    grafico.GraficoPorArea(areas);
+                    //List<Area> areas = BuscarAreas();
+                    grafico.GraficoPorArea();
                     break;
                 //    grafico.GraficoPorAfiliacionGremial();
                 //    break;
@@ -89,10 +89,10 @@ namespace General.Repositorios
             }
         }
 
-        private static List<Area> BuscarAreas()
-        {
-            throw new NotImplementedException();
-        }
+        //private static List<Area> BuscarAreas()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
 
     }

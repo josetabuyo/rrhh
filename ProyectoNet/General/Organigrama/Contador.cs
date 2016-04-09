@@ -11,15 +11,16 @@ namespace General
     {
         public int Id { get; set; }
         public string Descripcion { get; set; }
-        public int Contador { get; set; }
+
+        public List<Dotacion> Personas { get; set; }
        
         public Contador() { }
 
-        public Contador(int id, string descripcion, int contador)
+        public Contador(int id, string descripcion)
         {
             this.Id = id;
             this.Descripcion = descripcion;
-            this.Contador = contador; 
+            this.Personas = new List<Dotacion>();
         }
 
     }
