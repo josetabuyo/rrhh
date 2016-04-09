@@ -215,10 +215,10 @@ var GraficoDotacion = {
                     a.download = "DOTACION_POR_PLANTA_" + fecha + "_.xlsx";
                     break;
                 case "5":
-                    a.download = "DOTACION_POR_AFILIACION_GREMIAL_" + fecha + "_.xlsx";
+                    a.download = "DOTACION_POR_AREA_" + fecha + "_.xlsx";
                     break;
-                case "6":
-                    a.download = "DOTACION_RANGO_ETARIO_" + fecha + "_.xlsx";
+//                case "6":
+//                    a.download = "DOTACION_RANGO_ETARIO_" + fecha + "_.xlsx";
 
                     break;
 
