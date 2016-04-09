@@ -78,13 +78,21 @@ namespace General.Repositorios
                     grafico.GraficoPorPlanta();
                     break;
                 case 5:
-                    grafico.GraficoPorAfiliacionGremial();
+                    //List<Area> areas = BuscarAreas();
+                    grafico.GraficoPorArea();
                     break;
-                case 6:
-                     grafico.GraficoRangoEtareo(fecha);
-                    break;
+                //    grafico.GraficoPorAfiliacionGremial();
+                //    break;
+                //case 6:
+                //    grafico.GraficoRangoEtareo(fecha);
+                //    break;
             }
         }
+
+        //private static List<Area> BuscarAreas()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
 
     }

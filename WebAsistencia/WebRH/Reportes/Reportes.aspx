@@ -20,7 +20,8 @@
         UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <!--<h1 style="text-align: center; font-weight:200;">Reportes</h1>-->
     <div>
-        <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" style="position: relative; top: 0; width: 100%;" id="cbp-spmenu-s1">
+        <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" style="position: relative;
+            top: 0; width: 100%;" id="cbp-spmenu-s1">
             
             <div id="contenedor_arbol_organigrama">
             </div>
@@ -36,10 +37,11 @@
                             <li class="Rango Etáreo"><a href="#" id="btn_nivel" class="link_listado">Nivel</a></li>
                             <li class="Rango Etáreo"><a href="#" id="btn_estudios" class="link_listado">Estudios</a></li>
                             <li class="Rango Etáreo"><a href="#" id="btn_plantas" class="link_listado">Plantas</a></li>
-                            <li class="Rango Etáreo"><a href="#" id="btn_rango_etareo" class="link_listado">Rango Etáreo</a></li>
+                            <li class="Rango Etáreo"><a href="#" id="btn_areas" class="link_listado">Áreas</a></li>
+                           <%-- <li class="Rango Etáreo"><a href="#" id="btn_rango_etareo" class="link_listado">Rango Etáreo</a></li>--%>
                         </ul>
                     </li>
-                   <%-- <li class="Dotacion"><a href="#" class="link_listado">Sueldo</a></li>
+                    <%--<li class="Dotacion"><a href="#" class="link_listado">Sueldo</a></li>
                     <li id="btn_grafico_licencias" class="Licencias"><a href="#" class="link_listado">Licencias</a></li>
                      <li class="Horas Extras"><a href="#" class="link_listado">Horas Extras</a></li>
                     <li class="Otros"><a href="#" class="link_listado">Otros</a></li>--%>
@@ -50,8 +52,7 @@
                 <div style=" position: absolute;left: 150px; margin-top: 10px;">
                     <h2 style="font-size: 1.1em;">Área Seleccionada: 
                         <span id="titulo_area">Seleccionar Área</span>
-                        <input id="chk_incluir_dependencias" style="display:none; margin-right: 5px; margin-left: 40px;" class="regular-checkbox" type="checkbox" />
-                        <label id="lbl_incluir_dependencias" style="display:none" for="chk_incluir_dependencias">Incluir dependencias</label>
+                        <input id="chk_incluir_dependencias" style="display:none" class="regular-checkbox" type="checkbox"/><label id="lbl_incluir_dependencias" style="display:none" for="chk_incluir_dependencias">Incluir dependencias</label>
                     </h2>
                     <h2 style="font-size: 1.1em; ">Gráfico Seleccionado: <span id="titulo_grafico">Seleccionar Informe</span></h2>
                 </div>
@@ -76,6 +77,7 @@
 						    <li><input id="cb2" class="regular-checkbox filtros" name="cb2" data-filtro="Nivel" type="checkbox"/><label for="cb2">Nivel</label></li>
 						    <li><input id="cb3" class="regular-checkbox filtros" name="cb3" data-filtro="Estudios" type="checkbox"/><label for="cb3">Estudios</label></li>
 						    <li><input id="cb4" class="regular-checkbox filtros" name="cb4" data-filtro="Plantas" type="checkbox"/><label for="cb4">Plantas</label></li>
+                            <li><input id="cb5" class="regular-checkbox filtros" name="cb5" data-filtro="Areas" type="checkbox"/><label for="cb4">Áreas</label></li>
 						    <%--<li><input id="cb5" class="regular-checkbox filtros" name="cb5" data-filtro="Afiliacion" type="checkbox"/><label for="cb5">Afiliación Gremial</label></li>--%>
 					    </ul>
 		
@@ -95,8 +97,8 @@
                         style="display: none;" />
                      <a href="#" id="exportar_datos" class="btn btn-info" style="float: right; display: none; padding: 5px; margin-left:10px;">
                     Exportar Datos</a>
-                    <!--<a href="#" id="btn_excel" class="btn btn-info" style="float: right; padding: 5px; margin-left:10px;">
-                    Excel</a>-->
+                    <a href="#" id="btn_excel" class="btn btn-info" style="float: right; padding: 5px; margin-left:10px;">
+                    Excel</a>
                     <table id="tabla_resultado_totales" style="width:420px;">
                     </table>
                 </div>
@@ -142,7 +144,6 @@
              
          </nav>
     </div>
-   
     </form>
     <div id="plantillas">
         <div class="arbol_organigrama">
@@ -170,7 +171,6 @@
     <script src="../Scripts/Graficos/svgcheckbx.js" type="text/javascript"></script>
     <script src="../Scripts/Graficos/classie.js" type="text/javascript"></script>
     <script src="../Scripts/ExportarAExcel.js" type="text/javascript"></script>
-    <script src="../scripts/Spin.js" type="text/javascript"></script>
     <script type="text/javascript">
 
         //EFECTOS DEL MENU ORGANIGRAMA

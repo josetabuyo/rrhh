@@ -444,5 +444,45 @@ namespace General
             }
             return true;
         }
+
+        internal void GraficoPorArea()
+        {
+            List<Dotacion> tabla_personas = this.tabla_detalle.ToList();
+            List<Resumen> tabla = new List<Resumen>();
+            List<Contador> contador = new List<Contador>();
+
+            tabla_personas.ForEach(p =>
+            {
+                if (contador.Count > 0)
+                {
+                    if (contador.Exists(area => area.Id == p.IdArea))
+                    {
+                        contador.Find(area => area.Id == p.IdArea).Personas.Add(p);
+                    }
+                    else
+                    {
+                        Contador nueva_area = new Contador(p.IdArea, p.AreaDescripMedia);
+                        nueva_area.Personas.Add(p);
+                        contador.Add(nueva_area);
+                        
+                    }
+                }
+                else
+                {
+                    Contador nueva_area = new Contador(p.IdArea, p.AreaDescripMedia);
+                    nueva_area.Personas.Add(p);
+                    contador.Add(nueva_area);
+                }
+
+            });
+            int total = tabla_personas.Count;
+            tabla.Add(GenerarRegistroResumen("Total", total, total));
+            
+            contador.ForEach(registro => { 
+            tabla.Add(GenerarRegistroResumen(registro.Descripcion, registro.Personas.Count, total));
+            });
+
+            this.tabla_resumen = tabla.OrderByDescending(t => t.Cantidad).ToList();
+        }
     }
 }
