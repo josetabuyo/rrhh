@@ -46,7 +46,9 @@ namespace General
                            row.GetInt("IdEstudio", -1),
                            row.GetString("Nivel_Estudios", "Sin Dato"),
                            row.GetString("Titulo_Obtenido", "Sin Dato"),
-                           row.GetDateTime("FechaNacimiento", DateTime.Today)
+                           row.GetDateTime("FechaNacimiento", DateTime.Today),
+                           row.GetInt("IdSecretaria", -1),
+                            row.GetInt("IdSubSecretaria", -1)
                 );
                 tabla.Add(persona);
             });
@@ -464,7 +466,7 @@ namespace General
                         Contador nueva_area = new Contador(p.IdArea, p.AreaDescripMedia);
                         nueva_area.Personas.Add(p);
                         contador.Add(nueva_area);
-                        
+
                     }
                 }
                 else
@@ -477,12 +479,98 @@ namespace General
             });
             int total = tabla_personas.Count;
             tabla.Add(GenerarRegistroResumen("Total", total, total));
-            
-            contador.ForEach(registro => { 
-            tabla.Add(GenerarRegistroResumen(registro.Descripcion, registro.Personas.Count, total));
+
+            contador.ForEach(registro =>
+            {
+                tabla.Add(GenerarRegistroResumen(registro.Descripcion, registro.Personas.Count, total));
             });
 
             this.tabla_resumen = tabla.OrderByDescending(t => t.Cantidad).ToList();
+        }
+
+        internal void GraficoPorSecretarias()
+        {
+            List<Dotacion> tabla_personas = this.tabla_detalle.ToList();
+            List<Resumen> tabla = new List<Resumen>();
+            List<Contador> contador = new List<Contador>();
+
+            tabla_personas.ForEach(p =>
+            {
+
+                if (contador.Count > 0)
+                {
+                    if (contador.Exists(area => area.Id == p.IdSecretaria))
+                    {
+                        contador.Find(area => area.Id == p.IdSecretaria).Personas.Add(p);
+                    }
+                    else
+                    {
+                        Contador nueva_area = new Contador(p.IdSecretaria, p.NombreSecretaria);
+                        nueva_area.Personas.Add(p);
+                        contador.Add(nueva_area);
+                    }
+                }
+                else
+                {
+                    Contador nueva_area = new Contador(p.IdSecretaria, p.NombreSecretaria);
+                    nueva_area.Personas.Add(p);
+                    contador.Add(nueva_area);
+                }
+            });
+
+            int total = tabla_personas.Count;
+            tabla.Add(GenerarRegistroResumen("Total", total, total));
+
+            contador.ForEach(registro =>
+            {
+                tabla.Add(GenerarRegistroResumen(registro.Descripcion, registro.Personas.Count, total));
+            });
+
+            this.tabla_resumen = tabla.OrderByDescending(t => t.Cantidad).ToList();
+
+
+        }
+
+        internal void GraficoPorSubSecretarias()
+        {
+            List<Dotacion> tabla_personas = this.tabla_detalle.ToList();
+            List<Resumen> tabla = new List<Resumen>();
+            List<Contador> contador = new List<Contador>();
+
+            tabla_personas.ForEach(p =>
+            {
+
+                if (contador.Count > 0)
+                {
+                    if (contador.Exists(area => area.Id == p.IdSubSecretaria))
+                    {
+                        contador.Find(area => area.Id == p.IdSubSecretaria).Personas.Add(p);
+                    }
+                    else
+                    {
+                        Contador nueva_area = new Contador(p.IdSubSecretaria, p.NombresubSecretaria);
+                        nueva_area.Personas.Add(p);
+                        contador.Add(nueva_area);
+                    }
+                }
+                else
+                {
+                    Contador nueva_area = new Contador(p.IdSubSecretaria, p.NombresubSecretaria);
+                    nueva_area.Personas.Add(p);
+                    contador.Add(nueva_area);
+                }
+            });
+
+            int total = tabla_personas.Count;
+            tabla.Add(GenerarRegistroResumen("Total", total, total));
+
+            contador.ForEach(registro =>
+            {
+                tabla.Add(GenerarRegistroResumen(registro.Descripcion, registro.Personas.Count, total));
+            });
+
+            this.tabla_resumen = tabla.OrderByDescending(t => t.Cantidad).ToList();
+
         }
     }
 }

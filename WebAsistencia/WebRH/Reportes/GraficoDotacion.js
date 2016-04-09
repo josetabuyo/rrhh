@@ -79,8 +79,16 @@ var GraficoDotacion = {
             $('#cb4')[0].checked = true;
         });
         $('#btn_areas').click(function () {
-            armarGraficoDesdeMenu("Plantas", 5, "Dotación por " + this.innerHTML);
+            armarGraficoDesdeMenu("Areas", 5, "Dotación por " + this.innerHTML);
             $('#cb5')[0].checked = true;
+        });
+        $('#btn_secretarias').click(function () {
+            armarGraficoDesdeMenu("Secreatarías", 6, "Dotación por " + this.innerHTML);
+            $('#cb6')[0].checked = true;
+        });
+        $('#btn_subsecretarias').click(function () {
+            armarGraficoDesdeMenu("SubSecretarías", 7, "Dotación por " + this.innerHTML);
+            $('#cb7')[0].checked = true;
         });
 
         function armarGraficoDesdeMenu(mi_filtro, tipo, texto) {

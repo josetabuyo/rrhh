@@ -38,6 +38,8 @@
                             <li class="Rango Etáreo"><a href="#" id="btn_estudios" class="link_listado">Estudios</a></li>
                             <li class="Rango Etáreo"><a href="#" id="btn_plantas" class="link_listado">Plantas</a></li>
                             <li class="Rango Etáreo"><a href="#" id="btn_areas" class="link_listado">Áreas</a></li>
+                            <li class="Rango Etáreo"><a href="#" id="btn_secretarias" class="link_listado">Secretarías</a></li>
+                            <li class="Rango Etáreo"><a href="#" id="btn_subsecretarias" class="link_listado">SubSecretarías</a></li>
                            <%-- <li class="Rango Etáreo"><a href="#" id="btn_rango_etareo" class="link_listado">Rango Etáreo</a></li>--%>
                         </ul>
                     </li>
@@ -78,6 +80,8 @@
 						    <li><input id="cb3" class="regular-checkbox filtros" name="cb3" data-filtro="Estudios" type="checkbox"/><label for="cb3">Estudios</label></li>
 						    <li><input id="cb4" class="regular-checkbox filtros" name="cb4" data-filtro="Plantas" type="checkbox"/><label for="cb4">Plantas</label></li>
                             <li><input id="cb5" class="regular-checkbox filtros" name="cb5" data-filtro="Areas" type="checkbox"/><label for="cb4">Áreas</label></li>
+                            <li><input id="cb6" class="regular-checkbox filtros" name="cb6" data-filtro="Secretarias" type="checkbox"/><label for="cb4">Secretarías</label></li>
+                            <li><input id="cb7" class="regular-checkbox filtros" name="cb7" data-filtro="SubSecretarias" type="checkbox"/><label for="cb4">SubSecretarías</label></li>
 						    <%--<li><input id="cb5" class="regular-checkbox filtros" name="cb5" data-filtro="Afiliacion" type="checkbox"/><label for="cb5">Afiliación Gremial</label></li>--%>
 					    </ul>
 		

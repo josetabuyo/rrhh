@@ -81,6 +81,14 @@ namespace General.Repositorios
                     //List<Area> areas = BuscarAreas();
                     grafico.GraficoPorArea();
                     break;
+                case 6:
+                    //List<Area> areas = BuscarAreas();
+                    grafico.GraficoPorSecretarias();
+                    break;
+                case 7:
+                    //List<Area> areas = BuscarAreas();
+                    grafico.GraficoPorSubSecretarias();
+                    break;
                 //    grafico.GraficoPorAfiliacionGremial();
                 //    break;
                 //case 6:
