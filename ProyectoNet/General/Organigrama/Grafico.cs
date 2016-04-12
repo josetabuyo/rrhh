@@ -48,7 +48,10 @@ namespace General
                            row.GetString("Titulo_Obtenido", "Sin Dato"),
                            row.GetDateTime("FechaNacimiento", DateTime.Today),
                            row.GetInt("IdSecretaria", -1),
-                            row.GetInt("IdSubSecretaria", -1)
+                            row.GetInt("IdSubSecretaria", -1),
+                            row.GetString("area_descrip_secretaria", "S/Nombre"),
+                            row.GetString("area_descrip_subsecretaria", "S/Nombre"),
+                            row.GetInt("Orden", 999999)
                 );
                 tabla.Add(persona);
             });
@@ -493,7 +496,7 @@ namespace General
             List<Dotacion> tabla_personas = this.tabla_detalle.ToList();
             List<Resumen> tabla = new List<Resumen>();
             List<Contador> contador = new List<Contador>();
-
+            tabla_personas.OrderBy(p => p.OrdenArea);
             tabla_personas.ForEach(p =>
             {
 
@@ -523,10 +526,11 @@ namespace General
 
             contador.ForEach(registro =>
             {
+             
                 tabla.Add(GenerarRegistroResumen(registro.Descripcion, registro.Personas.Count, total));
             });
 
-            this.tabla_resumen = tabla.OrderByDescending(t => t.Cantidad).ToList();
+            this.tabla_resumen = tabla;
 
 
         }
@@ -536,10 +540,10 @@ namespace General
             List<Dotacion> tabla_personas = this.tabla_detalle.ToList();
             List<Resumen> tabla = new List<Resumen>();
             List<Contador> contador = new List<Contador>();
-
+            tabla_personas.OrderBy(p => p.OrdenArea);
+            var nombre = "";
             tabla_personas.ForEach(p =>
             {
-
                 if (contador.Count > 0)
                 {
                     if (contador.Exists(area => area.Id == p.IdSubSecretaria))
@@ -548,14 +552,22 @@ namespace General
                     }
                     else
                     {
-                        Contador nueva_area = new Contador(p.IdSubSecretaria, p.NombresubSecretaria);
+                        if (!tabla_personas.Exists(area => area.IdSecretaria == p.IdSubSecretaria))
+                        {
+                            nombre = "|" + p.NombresubSecretaria;
+                        }
+                        Contador nueva_area = new Contador(p.IdSubSecretaria, nombre);
                         nueva_area.Personas.Add(p);
                         contador.Add(nueva_area);
                     }
                 }
                 else
                 {
-                    Contador nueva_area = new Contador(p.IdSubSecretaria, p.NombresubSecretaria);
+                    if (!tabla_personas.Exists(area => area.IdSecretaria == p.IdSubSecretaria))
+                    {
+                        nombre = "|" + p.NombresubSecretaria;
+                    }
+                    Contador nueva_area = new Contador(p.IdSubSecretaria, nombre);
                     nueva_area.Personas.Add(p);
                     contador.Add(nueva_area);
                 }
@@ -569,7 +581,7 @@ namespace General
                 tabla.Add(GenerarRegistroResumen(registro.Descripcion, registro.Personas.Count, total));
             });
 
-            this.tabla_resumen = tabla.OrderByDescending(t => t.Cantidad).ToList();
+            this.tabla_resumen = tabla;
 
         }
     }
