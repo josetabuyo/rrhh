@@ -217,8 +217,8 @@ var GraficoDotacion = {
                 case "5":
                     a.download = "DOTACION_POR_AREA_" + fecha + "_.xlsx";
                     break;
-//                case "6":
-//                    a.download = "DOTACION_RANGO_ETARIO_" + fecha + "_.xlsx";
+                //                case "6":   
+                //                    a.download = "DOTACION_RANGO_ETARIO_" + fecha + "_.xlsx";   
 
                     break;
 
@@ -423,9 +423,18 @@ var GraficoDotacion = {
 
         var divGrilla = $('#' + tabla);
         var tabla = resultado;
-
         var columnas = [];
-        columnas.push(new Columna("Información", { generar: function (un_registro) { return un_registro.Id } }));
+        columnas.push(new Columna("Información", {
+            generar: function (un_registro) {
+
+                if (un_registro.Id.slice(0, 1) == "|") {
+                    un_registro.Id = un_registro.Id.slice(1, -1);
+                    un_registro.Id = "&nbsp;" + "&nbsp;" + "&nbsp;" + "&nbsp;" + un_registro.Id;
+                }
+                return un_registro.Id;
+
+            } 
+        }));
         columnas.push(new Columna("Cantidad", { generar: function (un_registro) { return un_registro.Cantidad } }));
         columnas.push(new Columna("Porcentaje", { generar: function (un_registro) { return un_registro.Porcentaje + '%' } }));
         columnas.push(new Columna('Detalle', {
@@ -551,7 +560,20 @@ var GraficoDotacion = {
                                 tabla_final.push(tabla[i]);
                             }
                         }
-                        
+                    case 6:
+                        titulo = "Dotación del Área " + criterio;
+                        for (var i = 0; i < tabla.length; i++) {
+                            if (tabla[i].AreaDescripCorta == criterio) {
+                                tabla_final.push(tabla[i]);
+                            }
+                        }
+                    case 7:
+                        titulo = "Dotación del Área " + criterio;
+                        for (var i = 0; i < tabla.length; i++) {
+                            if (tabla[i].AreaDescripCorta == criterio) {
+                                tabla_final.push(tabla[i]);
+                            }
+                        }
                         //                        titulo = "Tabla de la Dotación con Afiliación Gremial a " + criterio;
                         /*for (var i = 0; i < tabla.length; i++) {
                         if (tabla[i].Nivel == nivel[1]) {
