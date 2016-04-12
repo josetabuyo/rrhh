@@ -426,11 +426,7 @@ var GraficoDotacion = {
         var columnas = [];
         columnas.push(new Columna("Información", {
             generar: function (un_registro) {
-
-                if (un_registro.Id.slice(0, 1) == "|") {
-                    un_registro.Id = un_registro.Id.slice(1, -1);
-                    un_registro.Id = "&nbsp;" + "&nbsp;" + "&nbsp;" + "&nbsp;" + un_registro.Id;
-                }
+                un_registro.Id = un_registro.Id.replace(/\|/g, "&nbsp;");
                 return un_registro.Id;
 
             } 
@@ -561,14 +557,14 @@ var GraficoDotacion = {
                             }
                         }
                     case 6:
-                        titulo = "Dotación del Área " + criterio;
+                        titulo = "Dotación de " + criterio.replace("&nbsp;"/g, ' ');
                         for (var i = 0; i < tabla.length; i++) {
                             if (tabla[i].AreaDescripCorta == criterio) {
                                 tabla_final.push(tabla[i]);
                             }
                         }
                     case 7:
-                        titulo = "Dotación del Área " + criterio;
+                        titulo = "Dotación de " + criterio.replace("&nbsp;" / g, ' ');
                         for (var i = 0; i < tabla.length; i++) {
                             if (tabla[i].AreaDescripCorta == criterio) {
                                 tabla_final.push(tabla[i]);

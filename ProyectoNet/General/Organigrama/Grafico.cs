@@ -554,7 +554,10 @@ namespace General
                     {
                         if (!tabla_personas.Exists(area => area.IdSecretaria == p.IdSubSecretaria))
                         {
-                            nombre = "|" + p.NombresubSecretaria;
+                            nombre = "|||||" + p.NombresubSecretaria;
+                        }
+                        else {
+                            nombre = p.NombresubSecretaria;
                         }
                         Contador nueva_area = new Contador(p.IdSubSecretaria, nombre);
                         nueva_area.Personas.Add(p);
@@ -565,7 +568,10 @@ namespace General
                 {
                     if (!tabla_personas.Exists(area => area.IdSecretaria == p.IdSubSecretaria))
                     {
-                        nombre = "|" + p.NombresubSecretaria;
+                        nombre = "|||||" + p.NombresubSecretaria;
+                    }
+                    else {
+                        nombre = p.NombresubSecretaria;
                     }
                     Contador nueva_area = new Contador(p.IdSubSecretaria, nombre);
                     nueva_area.Personas.Add(p);
