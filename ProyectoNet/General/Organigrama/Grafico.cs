@@ -115,6 +115,12 @@ namespace General
                        new Resumen(nivel, cantidad, float.Parse(String.Format("{0:0.##}", cantidad * 100 / total)));
             return registro_resumen;
         }
+        private Resumen GenerarRegistroResumen(string nivel, int cantidad, int total, int orden)
+        {
+            Resumen registro_resumen =
+                       new Resumen(nivel, cantidad, float.Parse(String.Format("{0:0.##}", cantidad * 100 / total)), orden);
+            return registro_resumen;
+        }
 
         internal void GraficoPorGenero()
         {
@@ -540,7 +546,6 @@ namespace General
             List<Dotacion> tabla_personas = this.tabla_detalle.ToList();
             List<Resumen> tabla = new List<Resumen>();
             List<Contador> contador = new List<Contador>();
-            tabla_personas.OrderBy(p => p.OrdenArea);
             var nombre = "";
             tabla_personas.ForEach(p =>
             {
@@ -561,6 +566,7 @@ namespace General
                         }
                         Contador nueva_area = new Contador(p.IdSubSecretaria, nombre);
                         nueva_area.Personas.Add(p);
+                        nueva_area.Orden = p.OrdenArea;
                         contador.Add(nueva_area);
                     }
                 }
@@ -575,6 +581,7 @@ namespace General
                     }
                     Contador nueva_area = new Contador(p.IdSubSecretaria, nombre);
                     nueva_area.Personas.Add(p);
+                    nueva_area.Orden = p.OrdenArea;
                     contador.Add(nueva_area);
                 }
             });
@@ -584,11 +591,11 @@ namespace General
 
             contador.ForEach(registro =>
             {
-                tabla.Add(GenerarRegistroResumen(registro.Descripcion, registro.Personas.Count, total));
+                tabla.Add(GenerarRegistroResumen(registro.Descripcion, registro.Personas.Count, total, registro.Orden));
             });
-
+           
             this.tabla_resumen = tabla;
-
+            this.tabla_resumen = tabla.OrderBy(t => t.Orden).ToList();
         }
     }
 }

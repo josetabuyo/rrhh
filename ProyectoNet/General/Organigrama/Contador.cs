@@ -11,6 +11,7 @@ namespace General
     {
         public int Id { get; set; }
         public string Descripcion { get; set; }
+        public int Orden { get; set; }
 
         public List<Dotacion> Personas { get; set; }
        
@@ -21,6 +22,13 @@ namespace General
             this.Id = id;
             this.Descripcion = descripcion;
             this.Personas = new List<Dotacion>();
+        }
+        public Contador(int id, string descripcion, int orden)
+        {
+            this.Id = id;
+            this.Descripcion = descripcion;
+            this.Personas = new List<Dotacion>();
+            this.Orden = orden;
         }
 
     }
