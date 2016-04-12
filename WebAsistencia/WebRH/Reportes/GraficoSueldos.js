@@ -38,7 +38,7 @@
                 alertify.error("Debe seleccinar un área desde el organigrama");
             }
             if (buscar) {
-                _this.GraficoYTabla(9, fecha, id_area, $("#chk_incluir_dependencias").is(":checked"), "div_tabla_detalle_sueldo", "tabla_detalle_sueldo");
+                _this.GraficoYTabla(fecha, id_area, $("#chk_incluir_dependencias").is(":checked"), "div_tabla_detalle_sueldo", "tabla_detalle_sueldo");
             }
 
         } else {
@@ -47,14 +47,13 @@
 
     },
 
-    GraficoYTabla: function (tipo, fecha, id_area, incluir_dependencias, div_tabla, tabla) {
+    GraficoYTabla: function (fecha, id_area, incluir_dependencias, div_tabla, tabla) {
         var _this = this;
         $('#div_resultados_sueldos').show();
-        var grafico = Backend.ejecutarSincronico("GetGrafico", [{ tipo: parseInt(tipo), fecha: fecha, id_area: parseInt(id_area), incluir_dependencias: incluir_dependencias}]);
-        var tabla_detalle = grafico.tabla_detalle;
-        if (tabla_detalle != null) {
+        var sueldos = Backend.ejecutarSincronico("GetReporteSueldosPorArea", [fecha, parseInt(id_area), incluir_dependencias]);
+        if (sueldos != null) {
            // _this.VisualizarContenido(true);
-            _this.DibujarTablaDetalle(tabla_detalle, div_tabla, tabla);
+            _this.DibujarTablaDetalle(sueldos, div_tabla, tabla);
             _this.BuscadorDeTabla();
 
         } else {
@@ -74,17 +73,16 @@
 
         var columnas = [];
 
-        columnas.push(new Columna("Area", { generar: function (un_registro) { return un_registro.AreaDescripMedia } }));
-        columnas.push(new Columna("NroDocumento", { generar: function (un_registro) { return un_registro.NroDocumento } }));
-        columnas.push(new Columna("Apellido", { generar: function (un_registro) { return un_registro.Apellido } }));
-        columnas.push(new Columna("Nombre", { generar: function (un_registro) { return un_registro.Nombre } }));
-        columnas.push(new Columna("Sexo", { generar: function (un_registro) { return un_registro.Sexo } }));
-        columnas.push(new Columna("FechaNacimiento", { generar: function (un_registro) { return _this.ConvertirFecha(un_registro.FechaNacimiento) } }));
-        columnas.push(new Columna("Nivel", { generar: function (un_registro) { return un_registro.Nivel } }));
-        columnas.push(new Columna("Grado", { generar: function (un_registro) { return un_registro.Grado } }));
-        columnas.push(new Columna("Planta", { generar: function (un_registro) { return un_registro.Planta } }));
-        columnas.push(new Columna("NivelEstudio", { generar: function (un_registro) { return un_registro.NivelEstudio } }));
-        columnas.push(new Columna("Titulo", { generar: function (un_registro) { return un_registro.Titulo } }));
+        columnas.push(new Columna("Sueldo Bruto", { generar: function (un_registro) { return un_registro.SueldoBruto } }));
+        columnas.push(new Columna("Sueldo Neto", { generar: function (un_registro) { return un_registro.SueldoNeto } }));
+        columnas.push(new Columna("Xtras Bruto", { generar: function (un_registro) { return un_registro.XtrasBruto } }));
+        columnas.push(new Columna("Xtras Neto", { generar: function (un_registro) { return un_registro.XtrasNeto } }));
+        columnas.push(new Columna("SAC Bruto", { generar: function (un_registro) { return un_registro.SACBruto } }));
+        columnas.push(new Columna("SAC Neto", { generar: function (un_registro) { return un_registro.SACNeto } }));
+        columnas.push(new Columna("Hs Simples", { generar: function (un_registro) { return un_registro.HsSimples } }));
+        columnas.push(new Columna("Hs 50%", { generar: function (un_registro) { return un_registro.Hs50 } }));
+        columnas.push(new Columna("Hs 100%", { generar: function (un_registro) { return un_registro.Hs100 } }));
+        columnas.push(new Columna("Comidas", { generar: function (un_registro) { return un_registro.Comidas } }));
         columnas.push(new Columna('Detalle', {
             generar: function (un_registro) {
                 var btn_accion = $('<a>');
@@ -115,7 +113,7 @@
     BuscadorDeTablaDetalle: function () {
 
         var options = {
-            valueNames: ['Area', 'NroDocumento', 'Apellido', 'Nombre', 'Sexo', 'Nivel', 'Grado', 'Planta', 'NivelEstudio', 'Titulo']
+            valueNames: ['Sueldo Bruto', 'Sueldo Neto', 'Xtras Bruto', 'Xtras Neto', 'SAC Bruto', 'SAC Neto', 'Hs Simples', 'Hs 50%', 'Hs 100%', 'Comidas']
         };
         var featureList = new List('div_tabla_detalle', options);
     },

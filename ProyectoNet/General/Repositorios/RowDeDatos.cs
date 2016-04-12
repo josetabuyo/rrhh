@@ -81,10 +81,16 @@ namespace General.Repositorios
             return (bool)dataRow[campo];
         }
 
-        public float getFloat(string campo)
+        public float GetFloat(string campo)
         {
             var valor_double = (double)dataRow[campo];
             return (float)valor_double;
+        }
+
+        public float GetFloat(string campo, float default_if_null)
+        {
+            if (this.GetObject(campo) is DBNull) return default_if_null;
+            return this.GetFloat(campo);
         }
 
         public Image GetImage(string campo)
