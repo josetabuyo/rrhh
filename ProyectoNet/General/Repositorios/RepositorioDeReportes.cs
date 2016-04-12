@@ -103,5 +103,22 @@ namespace General.Repositorios
         //}
 
 
+
+        public List<SueldoPersona> GetReporteSueldosPorArea(DateTime fecha, int id_area, bool incluir_dependencias)
+        {
+            parametros.Add("@fechacorte", fecha);
+            parametros.Add("@id_area", id_area);
+            parametros.Add("@incluir_dependencias", incluir_dependencias);
+            var tablaDatos = conexion_bd.Ejecutar("dbo.GRAF_RPT_Dotacion", parametros);
+            if (tablaDatos.Rows.Count > 0)
+            {
+                grafico.CrearDatos(tablaDatos.Rows);
+
+            }
+            if (grafico.ContienePersonas())
+            {
+                CrearResumen(tipo, fecha);
+            }
+        }
     }
 }
