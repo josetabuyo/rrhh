@@ -217,6 +217,12 @@ var GraficoDotacion = {
                 case "5":
                     a.download = "DOTACION_POR_AREA_" + fecha + "_.xlsx";
                     break;
+                case "6":
+                    a.download = "DOTACION_POR_SECRETARIAS_" + fecha + "_.xlsx";
+                    break;
+                case "7":
+                    a.download = "DOTACION_POR_SUBSECRETARIAS_" + fecha + "_.xlsx";
+                    break;
                 //                case "6":   
                 //                    a.download = "DOTACION_RANGO_ETARIO_" + fecha + "_.xlsx";   
 
