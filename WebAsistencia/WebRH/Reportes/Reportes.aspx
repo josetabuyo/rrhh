@@ -54,7 +54,7 @@
                 <div style=" position: absolute;left: 150px; margin-top: 10px;">
                     <h2 style="font-size: 1.1em;">Área Seleccionada: 
                         <span id="titulo_area">Seleccionar Área</span>
-                        <input id="chk_incluir_dependencias" style="display:none" class="regular-checkbox" type="checkbox"/><label id="lbl_incluir_dependencias" style="display:none" for="chk_incluir_dependencias">Incluir dependencias</label>
+                        <input id="chk_incluir_dependencias" style="display:none; margin: 0px 5px 0px 5px;" class="regular-checkbox" type="checkbox"/><label id="lbl_incluir_dependencias" style="display:none" for="chk_incluir_dependencias">Incluir dependencias</label>
                     </h2>
                     <h2 style="font-size: 1.1em; ">Gráfico Seleccionado: <span id="titulo_grafico">Seleccionar Informe</span></h2>
                 </div>
@@ -92,17 +92,17 @@
                 </div>
 
                 <div id="div_graficos_y_tablas" style="display:flex; width: 85%; left: 125px; position: absolute; top: 160px;">
-            <div id="div_grafico_y_tabla" style="display:flex; width: 100%; position: absolute; ">
+            <div id="div_grafico_y_tabla" style="width: 100%; position: absolute; ">
             <div id="container_grafico_torta_totales" style="width: 40%; height: 450px; border: 1px solid;
-                margin: 0 30px; display:none;">
+                margin: 0 30px; display:none;float:left;">
             </div>
             <div id="div_tabla_resultado_totales" style="min-width: 210px; height: 450px; margin: 0 30px;">
                     <input type="text" id="search" class="search" class="buscador" placeholder="Buscar"
                         style="display: none;" />
                     
                     <a href="#" id="btn_excel" class="btn btn-info" style="float: right; padding: 5px; margin-left:10px;"> Exportar Datos</a>
-                    <div style="overflow-y: scroll;height: 420px;">
-                    <table id="tabla_resultado_totales" style="width:420px;">
+                    <div style="overflow-y: scroll;max-height: 420px;">
+                    <table id="tabla_resultado_totales" style="width:100%;">
                     </div>
                     
                     </table>
@@ -121,7 +121,7 @@
                         
                         
                        
-                    <table id="tabla_detalle" style="width: 85%;">
+                    <table id="tabla_detalle" style="width: 95%;">
                     </table>
                 </div>
    </div>
