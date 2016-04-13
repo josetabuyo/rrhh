@@ -241,7 +241,7 @@ var GraficoDotacion = {
     GraficoYTabla: function (tipo, fecha, id_area, incluir_dependencias, titulo, div_grafico, div_tabla, tabla) {
         var _this = this;
         $('#div_graficos_y_tablas').show();
-        spinner = new Spinner({ scale: 2 }).spin($("body")[0]);
+        //spinner = new Spinner({ scale: 2 }).spin($("body")[0]);
         var grafico = Backend.ejecutarSincronico("GetGrafico", [{ tipo: parseInt(tipo), fecha: fecha, id_area: parseInt(id_area), incluir_dependencias: incluir_dependencias}]);
         var resultado = grafico.tabla_resumen;
         var tabla_detalle = grafico.tabla_detalle;
@@ -255,7 +255,7 @@ var GraficoDotacion = {
             _this.VisualizarContenido(false);
             alertify.error("No hay Personal en el Área seleccionada para la generación del Gráfico");
         }
-        spinner.stop();
+        //spinner.stop();
     },
 
     GraficoYTablaRangoEtareo: function (tipo, fecha, id_area, titulo, div_grafico, div_tabla, tabla) {
