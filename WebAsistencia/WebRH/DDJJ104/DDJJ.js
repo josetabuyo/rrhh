@@ -289,6 +289,8 @@ var ConsultarDDJJ = function (idArea) {
 
 var Generar_e_ImprimirDDJJ = function (idArea) {
 
+    spinner = new Spinner({ scale: 2 }).spin($("body")[0]);
+
     Backend.GetAreasParaDDJJ104(mesSeleccionado, anioSeleccionado, idArea)
     .onSuccess(function (respuesta) {
 
@@ -302,7 +304,7 @@ var Generar_e_ImprimirDDJJ = function (idArea) {
                 ContenedorGrilla.html("");
                 $("#ContenedorPersona").empty();
 
-                spinner = new Spinner({ scale: 2 }).spin($("body")[0]);
+                
 
                 getAreasDDJJ(function () {
                     ContenedorGrilla.html("");

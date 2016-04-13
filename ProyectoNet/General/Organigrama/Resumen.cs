@@ -12,6 +12,7 @@ namespace General
         public string Id { get; set; }
         public int Cantidad { get; set; }
         public float Porcentaje { get; set; }
+        public int Orden { get; set; }
         
 
         public Resumen() { }
@@ -21,6 +22,13 @@ namespace General
             this.Id = id;
             this.Cantidad = cantidad;
             this.Porcentaje = porcentaje;       
+        }
+        public Resumen(string id, int cantidad, float porcentaje, int orden)
+        {
+            this.Id = id;
+            this.Cantidad = cantidad;
+            this.Porcentaje = porcentaje;
+            this.Orden = orden;
         }
     }
 }

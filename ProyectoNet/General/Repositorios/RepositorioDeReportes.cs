@@ -81,6 +81,14 @@ namespace General.Repositorios
                     //List<Area> areas = BuscarAreas();
                     grafico.GraficoPorArea();
                     break;
+                case 6:
+                    //List<Area> areas = BuscarAreas();
+                    grafico.GraficoPorSecretarias();
+                    break;
+                case 7:
+                    //List<Area> areas = BuscarAreas();
+                    grafico.GraficoPorSubSecretarias();
+                    break;
                 //    grafico.GraficoPorAfiliacionGremial();
                 //    break;
                 //case 6:
@@ -95,5 +103,49 @@ namespace General.Repositorios
         //}
 
 
+
+        public List<SueldoPersona> GetReporteSueldosPorArea(DateTime fecha, int id_area, bool incluir_dependencias)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@fechacorte", fecha);
+            parametros.Add("@id_area", id_area);
+            parametros.Add("@incluir_dependencias", incluir_dependencias);
+            var tablaDatos = conexion_bd.Ejecutar("dbo.GRAF_RPT_Dotacion_Sueldos", parametros);
+
+            var lista_sueldos = new List<SueldoPersona>();
+
+            tablaDatos.Rows.ForEach(row =>
+            {
+                var persona = new SueldoPersona();
+                //persona.idPersona = row.GetInt("id_persona", 0);
+                //persona.legajo = row.GetInt("legajo", 0);
+                //persona.nroDocumento = row.GetInt("nro_documento", 0);
+                //persona.apellido = row.GetString("apellido", "Sin Dato");
+                //persona.nombre = row.GetString("nombre", "Sin Dato");
+                //persona.idArea = row.GetInt("id_persona", 0);
+                //persona.area = row.GetString("area", "Sin Dato");
+                //persona.areaDescripCorta = row.GetString("area_descrip_corta", "Sin Dato");
+                //persona.areaDescripMedia = row.GetString("area_descrip_media", "Sin Dato");
+                persona.sueldoAnio = row.GetInt("SueldoAño", 0);
+                persona.sueldoMes = row.GetInt("SueldoMes", 0);
+                persona.sueldoBruto = row.GetFloat("SueldoBruto", 0);
+                persona.sueldoNeto = row.GetFloat("SueldoNeto", 0);
+                persona.xtrasAnio = row.GetInt("XtrasAño", 0);
+                persona.xtrasMes = row.GetInt("XtrasMes", 0);
+                persona.xtrasBruto = row.GetFloat("XtrasBruto", 0);
+                persona.xtrasNeto = row.GetFloat("XtrasNeto", 0);
+                persona.SACAnio = row.GetInt("SACAño", 0);
+                persona.SACMes = row.GetInt("SACMes", 0);
+                persona.SACBruto = row.GetFloat("SACBruto", 0);
+                persona.SACNeto = row.GetFloat("SACNeto", 0);
+                persona.hsSimples = row.GetInt("HsSimples", 0);
+                persona.hs50 = row.GetInt("Hs50", 0);
+                persona.hs100 = row.GetInt("Hs100", 0);
+                persona.comidas = row.GetInt("Comidas", 0);
+
+                lista_sueldos.Add(persona);
+            });
+            return lista_sueldos;
+        }
     }
 }

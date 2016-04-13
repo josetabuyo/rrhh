@@ -39,6 +39,16 @@ var Reportes = {
             //window.location.replace("GraficoLicencias.aspx");
         })
 
+        $('#btn_grafico_sueldos').click(function () {
+            $('#titulo_grafico').html(this.innerHTML);
+
+            $('#div_grafico_de_dotacion').hide();
+            $('#div_filtros').hide();
+            $('#div_graficos_y_tablas').hide();
+            $('#div_filtros_rango_etareo').hide();
+
+        })
+
         this.dibujarArbolOrganigrama();
     },
     iniciarConsultaRapida: function () {

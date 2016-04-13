@@ -28,11 +28,16 @@ namespace General
         public string NivelEstudio { get; set; }
         public string Titulo { get; set; }
         public DateTime FechaNacimiento { get; set; }
+        public int IdSecretaria { get; set; }
+        public int IdSubSecretaria { get; set; }
+        public string NombreSecretaria { get; set; }
+        public string NombresubSecretaria { get; set; }
+        public int OrdenArea { get; set; }
 
 
         public Dotacion() { }
 
-        public Dotacion(int id_persona, int legajo, int nro_documento, string apellido, string nombre, int id_sexo, string sexo, string nivel, string grado, int id_area, string area, string area_descrip_corta, string area_descrip_media, int id_planta, string planta, int IdEstudio, string NivelEstudio, string Titulo, DateTime FechaNacimiento)
+        public Dotacion(int id_persona, int legajo, int nro_documento, string apellido, string nombre, int id_sexo, string sexo, string nivel, string grado, int id_area, string area, string area_descrip_corta, string area_descrip_media, int id_planta, string planta, int IdEstudio, string NivelEstudio, string Titulo, DateTime FechaNacimiento, int idSecretaria, int idSubSecretaria, string nombre_secretaria, string nombre_subsecretaria, int orden)
         {
             this.IdPersona = id_persona;
             this.Legajo = legajo;
@@ -53,6 +58,11 @@ namespace General
             this.FechaNacimiento = FechaNacimiento;
             this.AreaDescripCorta = AreaDescripCorta;
             this.AreaDescripMedia = area_descrip_media;
+            this.IdSecretaria = idSecretaria;
+            this.IdSubSecretaria = idSubSecretaria;
+            this.NombreSecretaria = nombre_secretaria;
+            this.NombresubSecretaria = nombre_subsecretaria;
+            this.OrdenArea = orden;
         }
 
         internal int Edad(DateTime fecha)

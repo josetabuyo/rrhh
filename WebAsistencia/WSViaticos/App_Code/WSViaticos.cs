@@ -214,7 +214,14 @@ public class WSViaticos : System.Web.Services.WebService
 
         return repositorio.CargarSolicitudDePase(nuevoPase);
     }
-    
+
+    [WebMethod]
+    public List<SueldoPersona> GetReporteSueldosPorArea(DateTime fecha, int id_area, bool incluir_dependencias, Usuario usuario)
+    {
+        RepositorioDeReportes repositorio = new RepositorioDeReportes(Conexion());
+        return repositorio.GetReporteSueldosPorArea(fecha, id_area, incluir_dependencias);
+    }
+
     [WebMethod]
     public Grafico GetGrafico(string criterio, Usuario usuario)
     {
@@ -548,11 +555,11 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public Persona[] GetPersonas(Area unArea)
+    public Persona[] GetPersonas(Area unArea, int imprimeplanillafirma )
     {
 
         RepositorioPersonas repositorio = new RepositorioPersonas();
-        List<Persona> personas = repositorio.GetPersonasDelArea(unArea);
+        List<Persona> personas = repositorio.GetPersonasDelArea(unArea, imprimeplanillafirma);
         Persona[] returnPersonas = new Persona[personas.Count];
 
         for (int i = 0; i < personas.Count; i++)

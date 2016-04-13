@@ -14,7 +14,7 @@ namespace General
 
         public static List<Persona> personas { get; set; }
 
-        public List<Persona> GetPersonasDelArea(Area unArea)
+        public List<Persona> GetPersonasDelArea(Area unArea, int imprimeplanillafirma)
         {
             SqlDataReader dr;
             Inasistencia InasistenciaActual;
@@ -22,6 +22,7 @@ namespace General
 
             ConexionDB cn = new ConexionDB("dbo.Web_GetAgentesDelArea");
             cn.AsignarParametro("@idArea", unArea.Id);
+            cn.AsignarParametro("@imprimeplanillafirma", imprimeplanillafirma);
             unArea.Personas = new List<Persona>();
             dr = cn.EjecutarConsulta();
 
