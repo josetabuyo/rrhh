@@ -99,9 +99,8 @@
             <div id="div_tabla_resultado_totales" style="min-width: 210px; height: 400px; margin: 0 30px">
                     <input type="text" id="search" class="search" class="buscador" placeholder="Buscar"
                         style="display: none;" />
-                     <a href="#" id="exportar_datos" class="btn btn-info" style="float: right; display: none; padding: 5px; margin-left:10px;">
-                    Exportar Datos</a>
-                    <a href="#" id="btn_excel" class="btn btn-info" style="float: right; padding: 5px; margin-left:10px;">       Excel</a>
+                    
+                    <a href="#" id="btn_excel" class="btn btn-info" style="float: right; padding: 5px; margin-left:10px;"> Exportar Datos</a>
                     <table id="tabla_resultado_totales" style="width:420px;">
                     </table>
                 </div>
@@ -118,8 +117,7 @@
                         style="display: none;" />
                         
                         
-                        <a href="#" id="exportar_datos_detalle" class="btn btn-info" style="float: right; display: none; padding: 5px;margin-right: 15%;">
-                    Exportar Datos</a>
+                       
                     <table id="tabla_detalle" style="width: 85%;">
                     </table>
                 </div>

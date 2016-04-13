@@ -432,7 +432,7 @@ var GraficoDotacion = {
         var _this = this;
         $("#" + tabla).empty();
         $("#search").show();
-        $("#exportar_datos").show();
+       
 
         var divGrilla = $('#' + tabla);
         var tabla = resultado;
@@ -476,7 +476,7 @@ var GraficoDotacion = {
         var _this = this;
         $("#" + tabla).empty();
         $("#search").show();
-        $("#exportar_datos").show();
+      
         var divGrilla = $('#' + tabla);
         var tabla = resultado;
 
@@ -523,8 +523,7 @@ var GraficoDotacion = {
         var _this = this;
         var tabla_final = [];
         $('#search_detalle').show();
-        $('#exportar_datos_detalle').show();
-
+       
         if (tabla.length > 0) {
             var titulo = "Tabla de Toda la Dotación del Área";
             if (criterio == "Total") {
