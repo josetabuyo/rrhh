@@ -226,8 +226,7 @@ var GraficoDotacion = {
                 //                case "6":   
                 //                    a.download = "DOTACION_RANGO_ETARIO_" + fecha + "_.xlsx";   
 
-                    break;
-
+                
                 default:
                     //     alert('');
                     break;
@@ -430,12 +429,14 @@ var GraficoDotacion = {
         var divGrilla = $('#' + tabla);
         var tabla = resultado;
         var columnas = [];
+        var nombre = "";
         columnas.push(new Columna("Información", {
             generar: function (un_registro) {
+                nombre = un_registro.Id.replace(/\|/g, "");
                 un_registro.Id = un_registro.Id.replace(/\|/g, "&nbsp;");
                 return un_registro.Id;
 
-            } 
+            }
         }));
         columnas.push(new Columna("Cantidad", { generar: function (un_registro) { return un_registro.Cantidad } }));
         columnas.push(new Columna("Porcentaje", { generar: function (un_registro) { return un_registro.Porcentaje + '%' } }));
@@ -563,16 +564,16 @@ var GraficoDotacion = {
                             }
                         }
                     case 6:
-                        titulo = "Dotación de " + criterio.replace("&nbsp;"/g, ' ');
+                        titulo = "Dotación de " + criterio;
                         for (var i = 0; i < tabla.length; i++) {
-                            if (tabla[i].AreaDescripCorta == criterio) {
+                            if (tabla[i].NombreSecretaria == criterio) {
                                 tabla_final.push(tabla[i]);
                             }
                         }
                     case 7:
-                        titulo = "Dotación de " + criterio.replace("&nbsp;" / g, ' ');
+                        titulo = "Dotación de " + criterio;
                         for (var i = 0; i < tabla.length; i++) {
-                            if (tabla[i].AreaDescripCorta == criterio) {
+                            if (tabla[i].NombresubSecretaria == criterio) {
                                 tabla_final.push(tabla[i]);
                             }
                         }
