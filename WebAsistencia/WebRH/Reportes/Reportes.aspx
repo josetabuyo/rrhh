@@ -96,12 +96,15 @@
             <div id="container_grafico_torta_totales" style="width: 40%; height: 450px; border: 1px solid;
                 margin: 0 30px; display:none;">
             </div>
-            <div id="div_tabla_resultado_totales" style="min-width: 210px; height: 400px; margin: 0 30px">
+            <div id="div_tabla_resultado_totales" style="min-width: 210px; height: 450px; margin: 0 30px;">
                     <input type="text" id="search" class="search" class="buscador" placeholder="Buscar"
                         style="display: none;" />
                     
                     <a href="#" id="btn_excel" class="btn btn-info" style="float: right; padding: 5px; margin-left:10px;"> Exportar Datos</a>
+                    <div style="overflow-y: scroll;height: 420px;">
                     <table id="tabla_resultado_totales" style="width:420px;">
+                    </div>
+                    
                     </table>
                 </div>
                 </div>
