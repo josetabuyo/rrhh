@@ -54,7 +54,7 @@
                 <div style=" position: absolute;left: 150px; margin-top: 10px;">
                     <h2 style="font-size: 1.1em;">Área Seleccionada: 
                         <span id="titulo_area">Seleccionar Área</span>
-                        <input id="chk_incluir_dependencias" style="display:none" class="regular-checkbox" type="checkbox"/><label id="lbl_incluir_dependencias" style="display:none" for="chk_incluir_dependencias">Incluir dependencias</label>
+                        <input id="chk_incluir_dependencias" style="display:none; margin: 0px 5px 0px 5px;" class="regular-checkbox" type="checkbox"/><label id="lbl_incluir_dependencias" style="display:none" for="chk_incluir_dependencias">Incluir dependencias</label>
                     </h2>
                     <h2 style="font-size: 1.1em; ">Gráfico Seleccionado: <span id="titulo_grafico">Seleccionar Informe</span></h2>
                 </div>
@@ -121,7 +121,7 @@
                         
                         
                        
-                    <table id="tabla_detalle" style="width: 100%;">
+                    <table id="tabla_detalle" style="width: 95%;">
                     </table>
                 </div>
    </div>
