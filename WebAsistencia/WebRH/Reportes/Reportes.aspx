@@ -92,17 +92,17 @@
                 </div>
 
                 <div id="div_graficos_y_tablas" style="display:flex; width: 85%; left: 125px; position: absolute; top: 160px;">
-            <div id="div_grafico_y_tabla" style="display:flex; width: 100%; position: absolute; ">
+            <div id="div_grafico_y_tabla" style="width: 100%; position: absolute; ">
             <div id="container_grafico_torta_totales" style="width: 40%; height: 450px; border: 1px solid;
-                margin: 0 30px; display:none;">
+                margin: 0 30px; display:none;float:left;">
             </div>
             <div id="div_tabla_resultado_totales" style="min-width: 210px; height: 450px; margin: 0 30px;">
                     <input type="text" id="search" class="search" class="buscador" placeholder="Buscar"
                         style="display: none;" />
                     
                     <a href="#" id="btn_excel" class="btn btn-info" style="float: right; padding: 5px; margin-left:10px;"> Exportar Datos</a>
-                    <div style="overflow-y: scroll;height: 420px;">
-                    <table id="tabla_resultado_totales" style="width:420px;">
+                    <div style="overflow-y: scroll;max-height: 420px;">
+                    <table id="tabla_resultado_totales" style="width:100%;">
                     </div>
                     
                     </table>
@@ -121,7 +121,7 @@
                         
                         
                        
-                    <table id="tabla_detalle" style="width: 85%;">
+                    <table id="tabla_detalle" style="width: 100%;">
                     </table>
                 </div>
    </div>

@@ -298,7 +298,7 @@ var GraficoDotacion = {
         for (var i = 0; i < resultado.length; i++) {
             if (resultado[i].Id != "Total") {
                 if (parseInt(resultado[i].Cantidad) > 0) {
-                    var porcion = [resultado[i].Id, parseInt(resultado[i].Cantidad)];
+                    var porcion = [resultado[i].Id.replace(/\|/g, ""), parseInt(resultado[i].Cantidad)];
                     datos.push(porcion);
                 }
             }

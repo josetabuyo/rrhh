@@ -106,7 +106,7 @@ namespace General
             tabla.Add(GenerarRegistroResumen("Nivel E", nivel_e, total));
             tabla.Add(GenerarRegistroResumen("Nivel F", nivel_f, total));
             tabla.Add(GenerarRegistroResumen("Nivel W", nivel_w, total));
-            //this.tabla_resumen = tabla.OrderByDescending(t => t.Cantidad).ToList();
+            this.tabla_resumen = tabla;
         }
 
         private Resumen GenerarRegistroResumen(string nivel, int cantidad, int total)
