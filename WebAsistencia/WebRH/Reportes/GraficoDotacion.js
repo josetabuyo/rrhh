@@ -45,6 +45,11 @@ var GraficoDotacion = {
         $('#btn_armarGrafico').click(function () {
             _this.BuscarDatos();
         });
+
+        $('#chk_incluir_dependencias').click(function () {
+            _this.BuscarDatos();
+        });
+
         $('#btn_armarGrafico_RangoEtaero').click(function () {
             _this.BuscarDatosRangoEtareo();
         });
@@ -57,6 +62,9 @@ var GraficoDotacion = {
         $('#btn_excel').click(function () {
             _this.BuscarExcel();
         });
+
+
+
         //Botones del Menu
         $('#btn_genero').click(function () {
             armarGraficoDesdeMenu("Genero", 1, "Dotación por " + this.innerHTML);
@@ -427,14 +435,14 @@ var GraficoDotacion = {
         var nombre = "";
         columnas.push(new Columna("Información", {
             generar: function (un_registro) {
-                nombre = un_registro.Id.replace(/\|/g, "");
-                un_registro.Id = un_registro.Id.replace(/\|/g, "&nbsp;");
-                return un_registro.Id;
+                nombre = un_registro.Id.replace(/\|/g, "&nbsp;");
+                un_registro.Id = un_registro.Id.replace(/\|/g, "");
+                return nombre;
 
             }
         }));
         columnas.push(new Columna("Cantidad", { generar: function (un_registro) { return un_registro.Cantidad } }));
-        columnas.push(new Columna("Porcentaje", { generar: function (un_registro) { return un_registro.Porcentaje + '%' } }));
+        columnas.push(new Columna("Porcentaje", { generar: function (un_registro) { return parseFloat(un_registro.Porcentaje).toFixed(2) + '%' } }));
         columnas.push(new Columna('Detalle', {
             generar: function (un_registro) {
                 var btn_accion = $('<a>');

@@ -106,19 +106,19 @@ namespace General
             tabla.Add(GenerarRegistroResumen("Nivel E", nivel_e, total));
             tabla.Add(GenerarRegistroResumen("Nivel F", nivel_f, total));
             tabla.Add(GenerarRegistroResumen("Nivel W", nivel_w, total));
-            this.tabla_resumen = tabla.OrderByDescending(t => t.Cantidad).ToList();
+            //this.tabla_resumen = tabla.OrderByDescending(t => t.Cantidad).ToList();
         }
 
         private Resumen GenerarRegistroResumen(string nivel, int cantidad, int total)
         {
             Resumen registro_resumen =
-                       new Resumen(nivel, cantidad, float.Parse(String.Format("{0:0.##}", cantidad * 100 / total)));
+                       new Resumen(nivel, cantidad, ((float)cantidad * (float)100 / (float)total));
             return registro_resumen;
         }
         private Resumen GenerarRegistroResumen(string nivel, int cantidad, int total, int orden)
         {
             Resumen registro_resumen =
-                       new Resumen(nivel, cantidad, float.Parse(String.Format("{0:0.##}", cantidad * 100 / total)), orden);
+                       new Resumen(nivel, cantidad, ((float)cantidad * (float)100 / (float)total), orden);
             return registro_resumen;
         }
 
@@ -474,6 +474,7 @@ namespace General
                     {
                         Contador nueva_area = new Contador(p.IdArea, p.AreaDescripMedia);
                         nueva_area.Personas.Add(p);
+                        nueva_area.Orden = p.OrdenArea;
                         contador.Add(nueva_area);
 
                     }
@@ -482,6 +483,7 @@ namespace General
                 {
                     Contador nueva_area = new Contador(p.IdArea, p.AreaDescripMedia);
                     nueva_area.Personas.Add(p);
+                    nueva_area.Orden = p.OrdenArea;
                     contador.Add(nueva_area);
                 }
 
@@ -491,10 +493,10 @@ namespace General
 
             contador.ForEach(registro =>
             {
-                tabla.Add(GenerarRegistroResumen(registro.Descripcion, registro.Personas.Count, total));
+                tabla.Add(GenerarRegistroResumen(registro.Descripcion, registro.Personas.Count, total, registro.Orden));
             });
 
-            this.tabla_resumen = tabla.OrderByDescending(t => t.Cantidad).ToList();
+            this.tabla_resumen = tabla.OrderBy(t => t.Orden).ToList();
         }
 
         internal void GraficoPorSecretarias()
@@ -502,7 +504,7 @@ namespace General
             List<Dotacion> tabla_personas = this.tabla_detalle.ToList();
             List<Resumen> tabla = new List<Resumen>();
             List<Contador> contador = new List<Contador>();
-            tabla_personas.OrderBy(p => p.OrdenArea);
+            
             tabla_personas.ForEach(p =>
             {
 
@@ -516,6 +518,7 @@ namespace General
                     {
                         Contador nueva_area = new Contador(p.IdSecretaria, p.NombreSecretaria);
                         nueva_area.Personas.Add(p);
+                        nueva_area.Orden = p.OrdenArea;
                         contador.Add(nueva_area);
                     }
                 }
@@ -523,6 +526,7 @@ namespace General
                 {
                     Contador nueva_area = new Contador(p.IdSecretaria, p.NombreSecretaria);
                     nueva_area.Personas.Add(p);
+                    nueva_area.Orden = p.OrdenArea;
                     contador.Add(nueva_area);
                 }
             });
@@ -532,12 +536,12 @@ namespace General
 
             contador.ForEach(registro =>
             {
-             
-                tabla.Add(GenerarRegistroResumen(registro.Descripcion, registro.Personas.Count, total));
+
+                tabla.Add(GenerarRegistroResumen(registro.Descripcion, registro.Personas.Count, total, registro.Orden));
             });
 
             this.tabla_resumen = tabla;
-
+            this.tabla_resumen = tabla.OrderBy(t => t.Orden).ToList();
 
         }
 
