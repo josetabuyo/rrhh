@@ -89,6 +89,37 @@
             }
         });
     });
+
+    //CONSULTAR PERSONAS DE BAJA CON PERMISOS
+    $("#btn_buscar_personas_de_baja").click(function () {
+        Backend.BuscarPersonaDeBajaConPermisos().onSuccess(function (data) {
+            _this.ArmarTabla($('#tabla_personas_de_baja'), data, _this);
+            $("#btn_buscar_personas_de_baja")[0].disabled = true;
+            console.log(data);
+        });
+    });
+
+
+    var objetoURL = getVarsUrl();
+    if (objetoURL.hasOwnProperty("Nombre")) {
+        var nombre_area = objetoURL.Nombre.replace(/\%20/g, ' ');
+        this.BackendBuscarUsuariosPorArea(this, nombre_area);
+    }
+
+    //CONSULTAR USUARIOS POR AREA
+    _this.BuscadorUsuariosPorArea(_this)
+
+    function getVarsUrl() {
+        var url = location.search.replace("?", "");
+        var arrUrl = url.split("&");
+        var urlObj = {};
+        for (var i = 0; i < arrUrl.length; i++) {
+            var x = arrUrl[i].split("=");
+            urlObj[x[0]] = decodeURIComponent(x[1]) 
+        }
+        return urlObj;
+    }
+
 };
 
 AdministradorDeUsuarios.prototype.cargarUsuario = function (usuario) {
@@ -108,6 +139,11 @@ AdministradorDeUsuarios.prototype.cargarUsuario = function (usuario) {
     $("#usuario_verificado").hide();
     $("#usuario_no_verificado").hide();
     $("#btn_verificar_usuario").hide();
+    $('#panel_personas_de_baja_con_permisos').insertAfter("#form1");
+    $('#panel_usuarios_por_area').insertAfter("#form1");
+   
+    $('.dynatree-folder span.dynatree-checkbox').remove();
+
     if (usuario.Verificado) $("#usuario_verificado").show();
     else {
         $("#usuario_no_verificado").show();
@@ -116,3 +152,81 @@ AdministradorDeUsuarios.prototype.cargarUsuario = function (usuario) {
     this.txt_nombre_usuario.text(usuario.Alias);
 
 };
+
+
+AdministradorDeUsuarios.prototype.BuscadorUsuariosPorArea = function (contexto) {
+    this.div_lista_areas = $("#lista_areas_para_consultar");
+
+
+    this.selector_de_areas = new SelectorDeAreas({
+        ui: $("#selector_area_usuarios"),
+        repositorioDeAreas: this.repositorioDeAreas,
+        placeholder: "ingrese el área que desea buscar",
+        alSeleccionarUnArea: function (area) {
+            $("#tabla_usuarios_por_area").html("");
+            contexto.BackendBuscarUsuariosPorArea(contexto, area.nombre);
+        }
+    });
+};
+
+AdministradorDeUsuarios.prototype.BackendBuscarUsuariosPorArea = function (contexto, nombre_area) {
+    $("body").addClass("loading");
+    Backend.BuscarUsuariosPorArea(nombre_area).onSuccess(function (data) {
+        $("body").removeClass("loading");
+        $("#p_nombre_area").html("Área: " + nombre_area);
+        contexto.ArmarTabla($('#tabla_usuarios_por_area'), data, contexto);                
+        });
+}
+
+
+AdministradorDeUsuarios.prototype.ArmarTabla = function (tabla, data, contexto_para_row_click) {
+
+    var columnas = [];
+
+    columnas.push(new Columna("Apellido", { generar: function (un_usuario) { if (un_usuario.Owner != null) return un_usuario.Owner.Apellido } }));
+    columnas.push(new Columna("Nombre", { generar: function (un_usuario) { if (un_usuario.Owner != null) return un_usuario.Owner.Nombre  } }));
+    columnas.push(new Columna("Documento", { generar: function (un_usuario) { if (un_usuario.Owner != null) return un_usuario.Owner.Documento } }));
+    columnas.push(new Columna("Usuario", { generar: function (un_usuario) { return un_usuario.Alias } }));
+
+    //columnas.push(new Columna("Funcionalidades", { generar: function (un_usuario) { return un_usuario.Fun } }));
+
+    var generador_de_celda_funcionalidades = {
+        generar: function (un_usuario) {
+
+            var funcionalidades = "";
+            for (var i = 0; i < un_usuario.Funcionalidades.length; i++) {
+                funcionalidades += un_usuario.Funcionalidades[i].Nombre + ' | ';
+            }
+
+            return funcionalidades;
+        }
+    };
+
+    columnas.push(new Columna('Permisos Asignados', generador_de_celda_funcionalidades));
+
+    this.GrillaDeUsuarios = new Grilla(columnas);
+    //this.GrillaDeUsuarios.AgregarEstilo("cuerpo_tabla_usuarios tr td");
+    //this.GrillaDeUsuarios.AgregarEstilo("celda_seleccionada");
+    this.GrillaDeUsuarios.AgregarEstilo("cuerpo_tabla_usuarios");
+
+    this.GrillaDeUsuarios.CambiarEstiloCabecera("cabecera_tabla_usuarios");
+    this.GrillaDeUsuarios.SetOnRowClickEventHandler(function (un_usuario) {
+        //$('#selector_usuario').val(un_usuario.Owner.Documento);
+        var persona_seleccionada = {};
+        persona_seleccionada.apellido = un_usuario.Owner.Apellido;
+        persona_seleccionada.nombre = un_usuario.Owner.Nombre;
+        persona_seleccionada.documento = un_usuario.Owner.Documento;
+        persona_seleccionada.id = un_usuario.Owner.Id;
+
+        //para subir al tope de la pantalla
+        $('html,body').animate({
+            scrollTop: $("#instrucciones_de_uso").offset().top
+        }, 1000);
+
+        $('.select2-chosen').html("");
+        contexto_para_row_click.selector_usuario.alSeleccionarUnaPersona(persona_seleccionada);
+    });
+    this.GrillaDeUsuarios.CargarObjetos(data);
+    this.GrillaDeUsuarios.DibujarEn(tabla);
+};
+

@@ -37,11 +37,14 @@
                             <li class="Rango Etáreo"><a href="#" id="btn_nivel" class="link_listado">Nivel</a></li>
                             <li class="Rango Etáreo"><a href="#" id="btn_estudios" class="link_listado">Estudios</a></li>
                             <li class="Rango Etáreo"><a href="#" id="btn_plantas" class="link_listado">Plantas</a></li>
+                            <li class="Rango Etáreo"><a href="#" id="btn_areas" class="link_listado">Áreas</a></li>
+                            <li class="Rango Etáreo"><a href="#" id="btn_secretarias" class="link_listado">Secretarías</a></li>
+                            <li class="Rango Etáreo"><a href="#" id="btn_subsecretarias" class="link_listado">SubSecretarías</a></li>
                            <%-- <li class="Rango Etáreo"><a href="#" id="btn_rango_etareo" class="link_listado">Rango Etáreo</a></li>--%>
                         </ul>
                     </li>
-                    <%--<li class="Dotacion"><a href="#" class="link_listado">Sueldo</a></li>
-                    <li id="btn_grafico_licencias" class="Licencias"><a href="#" class="link_listado">Licencias</a></li>
+                    <li class="Dotacion"><a href="#" id="btn_grafico_sueldo" class="link_listado">Sueldo</a></li>
+                    <%--<li id="btn_grafico_licencias" class="Licencias"><a href="#" class="link_listado">Licencias</a></li>
                      <li class="Horas Extras"><a href="#" class="link_listado">Horas Extras</a></li>
                     <li class="Otros"><a href="#" class="link_listado">Otros</a></li>--%>
                 </ul>
@@ -76,6 +79,9 @@
 						    <li><input id="cb2" class="regular-checkbox filtros" name="cb2" data-filtro="Nivel" type="checkbox"/><label for="cb2">Nivel</label></li>
 						    <li><input id="cb3" class="regular-checkbox filtros" name="cb3" data-filtro="Estudios" type="checkbox"/><label for="cb3">Estudios</label></li>
 						    <li><input id="cb4" class="regular-checkbox filtros" name="cb4" data-filtro="Plantas" type="checkbox"/><label for="cb4">Plantas</label></li>
+                            <li><input id="cb5" class="regular-checkbox filtros" name="cb5" data-filtro="Areas" type="checkbox"/><label for="cb4">Áreas</label></li>
+                            <li><input id="cb6" class="regular-checkbox filtros" name="cb6" data-filtro="Secretarias" type="checkbox"/><label for="cb4">Secretarías</label></li>
+                            <li><input id="cb7" class="regular-checkbox filtros" name="cb7" data-filtro="SubSecretarias" type="checkbox"/><label for="cb4">SubSecretarías</label></li>
 						    <%--<li><input id="cb5" class="regular-checkbox filtros" name="cb5" data-filtro="Afiliacion" type="checkbox"/><label for="cb5">Afiliación Gremial</label></li>--%>
 					    </ul>
 		
@@ -95,8 +101,7 @@
                         style="display: none;" />
                      <a href="#" id="exportar_datos" class="btn btn-info" style="float: right; display: none; padding: 5px; margin-left:10px;">
                     Exportar Datos</a>
-                    <a href="#" id="btn_excel" class="btn btn-info" style="float: right; padding: 5px; margin-left:10px;">
-                    Excel</a>
+                    <a href="#" id="btn_excel" class="btn btn-info" style="float: right; padding: 5px; margin-left:10px;">       Excel</a>
                     <table id="tabla_resultado_totales" style="width:420px;">
                     </table>
                 </div>
@@ -121,6 +126,24 @@
    </div>
    </div>
 
+    <div id="div_resultados_sueldos">
+        <div id="div_filtros_sueldos" style="display: flex;position: absolute; display:none; top: 80px;left: 135px;">
+            <div style="margin-left:20px;">
+                <div class="grupo_campos" style="margin-bottom: 9px;">
+                    <label>Fecha</label>
+                    <input id="txt_fecha_desde_sueldo" type="text" style="width: 100px; margin: 5px 10px 5px 46px;" />
+                    <input id="btn_buscar_sueldo" type="button" class="btn btn-primary" value="Buscar" />
+                </div>                    
+            </div>
+        </div>  
+        <div id="div_tabla_detalle_sueldo" style="margin: 0 30px; width: 100%; position: absolute; top: 465px;">               
+            <span id="lb_titulo_tabla_detalle"></span>
+            <br />        
+            <input type="text" id="search_detalle_sueldo" class="search" class="buscador" placeholder="Buscar" style="display: none;" />
+            <a href="#" id="exportar_datos_detalle_sueldo" class="btn btn-info" style="float: right; display: none; padding: 5px;margin-right: 15%;"> Exportar Datos</a>
+            <table id="tabla_detalle_sueldo" style="width: 85%;"> </table>
+        </div> 
+   </div>
 
    <div id="div_grafico_de_rango_etareo">
    <div id="div_filtros_rango_etareo" style="display: flex;position: absolute; display:none; top: 80px;left: 135px;">
@@ -145,7 +168,8 @@
     </form>
     <div id="plantillas">
         <div class="arbol_organigrama">
-            <center><img alt="loader" id="spinner" src="../Imagenes/spinner.gif" width="100px" height="100px"></center>
+            <center>
+                <img alt="loader" id="spinner" src="../Imagenes/spinner.gif" width="100px" height="100px"></center>
         </div>
         <div class="area_en_arbol">
             <div id="area">
@@ -187,11 +211,11 @@
                 //disableOther('showLeftPush');
             };
             GraficoDotacion.Inicializar();
+            GraficoSueldos.Inicializar();
             $('#exportar_datos_detalle').click(function () {
                 ExportarAExcel.fnExcelReport(document.getElementById('tabla_detalle'));
             });
             $('#exportar_datos').click(function () {
-
                 ExportarAExcel.fnExcelReport(document.getElementById('tabla_resultado_totales'));
             });
         });

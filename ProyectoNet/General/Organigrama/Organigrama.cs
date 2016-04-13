@@ -36,8 +36,17 @@ namespace General
 
             RelacionarNodosSegun(dependencias);
 
+            QuitarNodosSinPadre();
         }
 
+        private void QuitarNodosSinPadre()
+        {
+            var nodos_no_root = NodosNoRoot();
+            var nodos_sin_padre = nodos_no_root.Where(n => !n.TenesPadre()).ToList();
+            nodos_sin_padre.ForEach(n => {
+                this.nodos.Remove(n);
+            });            
+        }
 
         private void RelacionarNodosSegun(List<List<Area>> dependencias)
         {
@@ -179,5 +188,19 @@ namespace General
             return this.nodos.Count;
         }
 
+        private AreaArbolDTO generarAreaParaArbol(Area area)
+        {
+            var area_arbol = new AreaArbolDTO(area);
+            AreasInferioresInmediatasDe(area).ForEach(a =>
+            {
+                area_arbol.areasDependientes.Add(generarAreaParaArbol(a));
+            });
+            return area_arbol;
+        }
+
+        public AreaArbolDTO GetArbol()
+        {
+            return generarAreaParaArbol(NodoRoot().Area());         
+        }
     }
 }

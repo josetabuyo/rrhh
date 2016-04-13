@@ -20,7 +20,9 @@
 				<div id="menu_principal" class="hi-icon-wrap hi-icon-effect-8">
             
                 </div>
+               
             </div>
+
         </form>
                 
 
@@ -37,6 +39,7 @@
                     
                     <!--<![endif]-->
                 </a>
+
                 <%--<div id="contenedor_descripcion_item">--%>
                   <%-- <div id="descripcion_item"> Esta es una descripcion </div>--%>
 

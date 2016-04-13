@@ -55,10 +55,15 @@ namespace General
         {
             if (organigrama == null)
             {
+                var parametros = new Dictionary<string, object>();
+                parametros.Add("@FechaVigencia", DateTime.Now);
+                parametros.Add("@Muestra_Depto", 1);
+                parametros.Add("@Muestra_Lugares_de_Trabajo", 1);
                 var areas = new List<Area>();
                 var dependencias = new List<List<Area>>();
 
-                TablaDeDatos estructura = conexion_bd.Ejecutar("dbo.VIA_GetOrganigrama", new Dictionary<string, object>());
+                //TablaDeDatos estructura = conexion_bd.Ejecutar("dbo.VIA_GetOrganigrama", new Dictionary<string, object>());
+                TablaDeDatos estructura = conexion_bd.Ejecutar("dbo.VIA_Get_AreasParaProtocolo", parametros);
 
                 foreach (var row in estructura.Rows)
                 {
@@ -103,7 +108,12 @@ namespace General
         private static void AgregarAreaCreadaDesdeRow(RowDeDatos row, List<Area> areas_del_organigrama)
         {
             if (!row.GetBoolean("Baja"))
-                areas_del_organigrama.Add(new Area(row.GetInt("Id_Area"), row.GetString("Descripcion"), row.GetBoolean("Presenta_DDJJ")));
+            {
+                var area = new Area(row.GetInt("Id_Area"), row.GetString("Descripcion"), row.GetBoolean("Presenta_DDJJ"));
+                area.Jerarquia = row.GetInt("Nivel_Jerarquia");
+                area.Orden = row.GetInt("Orden");
+                areas_del_organigrama.Add(area);
+            }
         }
 
         private static Area AreaRepetida(RowDeDatos row, List<Area> areas_del_organigrama)

@@ -96,6 +96,13 @@
     <Compile Include="ConstantesDeDatosDeContacto.cs" />
     <Compile Include="DDJJ104\AreaParaDDJJ104.cs" />
     <Compile Include="DDJJ104\DDJJ104_2001.cs" />
+    <Compile Include="Modi\Impersonator.cs" />
+    <Compile Include="Modi\NetworkConnection.cs" />
+    <Compile Include="Organigrama\AreaArbolDTO.cs" />
+    <Compile Include="Organigrama\Contador.cs" />
+    <Compile Include="Organigrama\Resumen.cs" />
+    <Compile Include="Organigrama\Dotacion.cs" />
+    <Compile Include="Organigrama\Grafico.cs" />
     <Compile Include="Postular\AnexosDeEtapas.cs" />
     <Compile Include="Postular\ConstantesConcursar.cs" />
     <Compile Include="DictionaryExtension.cs" />
@@ -109,6 +116,10 @@
     <Compile Include="MAU\IRepositorioDeAccesosAURL.cs" />
     <Compile Include="MAU\IRepositorioDeMenues.cs" />
     <Compile Include="MAU\RepositorioDeFuncionalidadesDeUsuarios_EnMemoria.cs" />
+    <Compile Include="Campo.cs" />
+    <Compile Include="Formulario.cs" />
+    <Compile Include="Repositorios\RepositorioDeReportes.cs" />
+    <Compile Include="Repositorios\RepositorioDeFormularios.cs" />
     <Compile Include="Repositorios\RepositorioDeParametrosGenerales.cs" />
     <Compile Include="Repositorios\DDJJ104\RepositorioDDJJ104.cs" />
     <Compile Include="Postular\AmbitoLaboral.cs" />
@@ -194,6 +205,7 @@
     <Compile Include="Repositorios\RepositorioLazySingleton.cs" />
     <Compile Include="Postular\Sexo.cs" />
     <Compile Include="Postular\TipoDeDocumento.cs" />
+    <Compile Include="Repositorios\SueldoPersona.cs" />
     <Compile Include="Viaticos\PersonaNula.cs" />
     <Compile Include="Repositorios\IRepositorioDePersonas.cs" />
     <Compile Include="MAU\RepositorioDeAccesosAURL.cs" />

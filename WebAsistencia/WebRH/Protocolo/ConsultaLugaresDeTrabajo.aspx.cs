@@ -17,6 +17,7 @@ public partial class FormularioProtocolo_ConsultaLugaresDeTrabajo : System.Web.U
 
     private void MostrarAreasEnLaGrilla(WSViaticosSoapClient servicio)
     {
-        this.areasJSON.Value = JsonConvert.SerializeObject(servicio.GetAreasParaLugaresDeTrabajo());
+        var areas = servicio.GetAreasParaLugaresDeTrabajo();
+        this.areasJSON.Value = JsonConvert.SerializeObject(areas);
     }
 }

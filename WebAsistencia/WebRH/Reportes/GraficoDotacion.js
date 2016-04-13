@@ -45,6 +45,11 @@ var GraficoDotacion = {
         $('#btn_armarGrafico').click(function () {
             _this.BuscarDatos();
         });
+
+        $('#chk_incluir_dependencias').click(function () {
+            _this.BuscarDatos();
+        });
+
         $('#btn_armarGrafico_RangoEtaero').click(function () {
             _this.BuscarDatosRangoEtareo();
         });
@@ -57,6 +62,9 @@ var GraficoDotacion = {
         $('#btn_excel').click(function () {
             _this.BuscarExcel();
         });
+
+
+
         //Botones del Menu
         $('#btn_genero').click(function () {
             armarGraficoDesdeMenu("Genero", 1, "Dotación por " + this.innerHTML);
@@ -77,6 +85,18 @@ var GraficoDotacion = {
         $('#btn_plantas').click(function () {
             armarGraficoDesdeMenu("Plantas", 4, "Dotación por " + this.innerHTML);
             $('#cb4')[0].checked = true;
+        });
+        $('#btn_areas').click(function () {
+            armarGraficoDesdeMenu("Areas", 5, "Dotación por " + this.innerHTML);
+            $('#cb5')[0].checked = true;
+        });
+        $('#btn_secretarias').click(function () {
+            armarGraficoDesdeMenu("Secreatarías", 6, "Dotación por " + this.innerHTML);
+            $('#cb6')[0].checked = true;
+        });
+        $('#btn_subsecretarias').click(function () {
+            armarGraficoDesdeMenu("SubSecretarías", 7, "Dotación por " + this.innerHTML);
+            $('#cb7')[0].checked = true;
         });
 
         function armarGraficoDesdeMenu(mi_filtro, tipo, texto) {
@@ -177,7 +197,7 @@ var GraficoDotacion = {
         }
 
 
-        var resultado = Backend.ejecutarSincronico("ExcelGenerado", [{ tipo: parseInt(tipo), fecha: fecha, id_area: parseInt(id_area)}]);
+        var resultado = Backend.ejecutarSincronico("ExcelGenerado", [{ tipo: parseInt(tipo), fecha: fecha, id_area: parseInt(id_area), incluir_dependencias: $("#chk_incluir_dependencias").is(":checked")}]);
 
         if (resultado.length > 0) {
 
@@ -203,13 +223,18 @@ var GraficoDotacion = {
                     a.download = "DOTACION_POR_PLANTA_" + fecha + "_.xlsx";
                     break;
                 case "5":
-                    a.download = "DOTACION_POR_AFILIACION_GREMIAL_" + fecha + "_.xlsx";
+                    a.download = "DOTACION_POR_AREA_" + fecha + "_.xlsx";
                     break;
                 case "6":
-                    a.download = "DOTACION_RANGO_ETARIO_" + fecha + "_.xlsx";
-
+                    a.download = "DOTACION_POR_SECRETARIAS_" + fecha + "_.xlsx";
                     break;
+                case "7":
+                    a.download = "DOTACION_POR_SUBSECRETARIAS_" + fecha + "_.xlsx";
+                    break;
+                //                case "6":   
+                //                    a.download = "DOTACION_RANGO_ETARIO_" + fecha + "_.xlsx";   
 
+                
                 default:
                     //     alert('');
                     break;
@@ -253,12 +278,12 @@ var GraficoDotacion = {
 
     GraficoYTablaRangoEtareo: function (tipo, fecha, id_area, titulo, div_grafico, div_tabla, tabla) {
         var _this = this;
-        var grafico = Backend.ejecutarSincronico("GetGraficoRangoEtareo", [{ tipo: parseInt(tipo), fecha: fecha, id_area: parseInt(id_area)}]);
+        var grafico = Backend.ejecutarSincronico("GetGrafico", [{ tipo: parseInt(tipo), fecha: fecha, id_area: parseInt(id_area)}]);
         var resultado = grafico.tabla_resumen;
         var tabla_detalle = grafico.tabla_detalle;
         if (resultado.length > 0) {
-            _this.VisualizarContenido(true);
-            _this.ArmarGrafico(resultado, titulo, div_grafico);
+            //_this.VisualizarContenido(true);
+            _this.ArmarGraficoRangoEtareo(resultado, titulo, div_grafico);
             _this.DibujarTabla(resultado, div_tabla, tabla, tabla_detalle);
             _this.BuscadorDeTabla();
 
@@ -364,7 +389,8 @@ var GraficoDotacion = {
                     enabled: true,
                     style: {
                         fontWeight: 'bold',
-                        color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                        color: 'gray'
+                        //                        color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
                     }
                 }
             },
@@ -374,7 +400,8 @@ var GraficoDotacion = {
                 verticalAlign: 'top',
                 y: 25,
                 floating: true,
-                backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+                backgroundColor: 'white',
+                //                backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
                 borderColor: '#CCC',
                 borderWidth: 1,
                 shadow: false
@@ -388,7 +415,8 @@ var GraficoDotacion = {
                     stacking: 'normal',
                     dataLabels: {
                         enabled: true,
-                        color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+                        color: 'white',
+                        //                        color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
                         style: {
                             textShadow: '0 0 3px black'
                         }
@@ -397,11 +425,6 @@ var GraficoDotacion = {
             },
             series: datos
         });
-
-
-
-
-
 
     },
 
@@ -413,11 +436,18 @@ var GraficoDotacion = {
 
         var divGrilla = $('#' + tabla);
         var tabla = resultado;
-
         var columnas = [];
-        columnas.push(new Columna("Información", { generar: function (un_registro) { return un_registro.Id } }));
+        var nombre = "";
+        columnas.push(new Columna("Información", {
+            generar: function (un_registro) {
+                nombre = un_registro.Id.replace(/\|/g, "&nbsp;");
+                un_registro.Id = un_registro.Id.replace(/\|/g, "");
+                return nombre;
+
+            }
+        }));
         columnas.push(new Columna("Cantidad", { generar: function (un_registro) { return un_registro.Cantidad } }));
-        columnas.push(new Columna("Porcentaje", { generar: function (un_registro) { return un_registro.Porcentaje + '%' } }));
+        columnas.push(new Columna("Porcentaje", { generar: function (un_registro) { return parseFloat(un_registro.Porcentaje).toFixed(2) + '%' } }));
         columnas.push(new Columna('Detalle', {
             generar: function (un_registro) {
                 var btn_accion = $('<a>');
@@ -535,7 +565,27 @@ var GraficoDotacion = {
                         }
                         break;
                     case 5:
-                        titulo = "Tabla de la Dotación con Afiliación Gremial a " + criterio;
+                        titulo = "Dotación del Área " + criterio;
+                        for (var i = 0; i < tabla.length; i++) {
+                            if (tabla[i].AreaDescripMedia == criterio) {
+                                tabla_final.push(tabla[i]);
+                            }
+                        }
+                    case 6:
+                        titulo = "Dotación de " + criterio;
+                        for (var i = 0; i < tabla.length; i++) {
+                            if (tabla[i].NombreSecretaria == criterio) {
+                                tabla_final.push(tabla[i]);
+                            }
+                        }
+                    case 7:
+                        titulo = "Dotación de " + criterio;
+                        for (var i = 0; i < tabla.length; i++) {
+                            if (tabla[i].NombresubSecretaria == criterio) {
+                                tabla_final.push(tabla[i]);
+                            }
+                        }
+                        //                        titulo = "Tabla de la Dotación con Afiliación Gremial a " + criterio;
                         /*for (var i = 0; i < tabla.length; i++) {
                         if (tabla[i].Nivel == nivel[1]) {
                         tabla_final.push(tabla[i]);
@@ -589,7 +639,7 @@ var GraficoDotacion = {
         if (visualizar) {
             $('#container_grafico_torta_totales').show();
         }
-       
+
         //        if (visualizar) {
         //            $('#div_grafico').show();
         //            $('#div_tabla_resumen').show();

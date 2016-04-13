@@ -21,6 +21,10 @@ using General.MAU;
 using General.Postular;
 using System.Web;
 
+using System.Data;
+using System.IO;
+using ClosedXML.Excel;
+
 [WebService(Namespace = "http://wsviaticos.gov.ar/")]
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
 // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
@@ -211,7 +215,213 @@ public class WSViaticos : System.Web.Services.WebService
         return repositorio.CargarSolicitudDePase(nuevoPase);
     }
 
+    [WebMethod]
+    public List<SueldoPersona> GetReporteSueldosPorArea(DateTime fecha, int id_area, bool incluir_dependencias, Usuario usuario)
+    {
+        RepositorioDeReportes repositorio = new RepositorioDeReportes(Conexion());
+        return repositorio.GetReporteSueldosPorArea(fecha, id_area, incluir_dependencias);
+    }
 
+    [WebMethod]
+    public Grafico GetGrafico(string criterio, Usuario usuario)
+    {
+
+        var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
+        int tipo = (int)((JValue)criterio_deserializado["tipo"]);
+        int dia = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(0, 2)));
+        int mes = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(3, 2)));
+        int anio = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(6, 4)));
+        bool incluir_dependencias = (bool)((JValue)criterio_deserializado["incluir_dependencias"]);
+        DateTime fecha = new DateTime(anio, mes, dia);
+         int id_area = (int)((JValue)criterio_deserializado["id_area"]);
+        RepositorioDeReportes repositorio = new RepositorioDeReportes(Conexion());
+        return repositorio.GetGraficoDotacion(tipo, fecha, id_area, incluir_dependencias);
+
+
+
+
+        //List<Campo> campos = new List<Campo>();
+        //if (tipo == 1)
+        //{
+        //    Campo campo1 = new Campo("A", "23", true);
+        //    Campo campo2 = new Campo("B", "15", true);
+        //    Campo campo3 = new Campo("C", "49", true);
+        //    Campo campo4 = new Campo("D", "101", true);
+        //    Campo campo5 = new Campo("E", "20", true);
+        //    campos.Add(campo1);
+        //    campos.Add(campo2);
+        //    campos.Add(campo3);
+        //    campos.Add(campo4);
+        //    campos.Add(campo5);
+
+     
+
+        //}
+        //if (tipo == 2)
+        //{
+        //    Campo campo1 = new Campo("A", "2", true);
+        //    Campo campo2 = new Campo("B", "5", true);
+        //    Campo campo3 = new Campo("C", "4", true);
+        //    campos.Add(campo1);
+        //    campos.Add(campo2);
+        //    campos.Add(campo3);
+        //}
+        //if (tipo == 3)
+        //{
+        //    Campo campo1 = new Campo("A", "3", true);
+        //    Campo campo2 = new Campo("B", "11", true);
+        //    Campo campo3 = new Campo("C", "125", true);
+        //    Campo campo4 = new Campo("D", "248", true);
+        //    campos.Add(campo1);
+        //    campos.Add(campo2);
+        //    campos.Add(campo3);
+        //    campos.Add(campo4);
+        //}
+        //return campos.ToArray(); ;
+    }
+
+
+
+    /*Grafico Excel*/
+    [WebMethod]
+    public string ExcelGenerado(string criterio, Usuario usuario)
+    {
+        try
+        {
+            //
+            //    var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
+            //    int tipo = (int)((JValue)criterio_deserializado["tipo"]);
+            //    DateTime fecha = (DateTime)((JValue)criterio_deserializado["fecha"]);
+            //    int id_area = (int)((JValue)criterio_deserializado["id_area"]);
+            //    RepositorioDeReportes repositorio = new RepositorioDeReportes(Conexion());
+            //    Grafico graf = repositorio.GetGraficoDotacion(tipo, fecha, id_area);
+            ////    graf.tabla_detalle 
+            // //
+            var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
+            Grafico grafico = GetGrafico(criterio, usuario);
+
+            //     DataTable table = new DataTable();
+            //      table.TableName = "Participacion-VM";
+
+            DataTable table_resumen = new DataTable();
+            table_resumen.TableName = "Resumen";
+
+            int id_area = (int)((JValue)criterio_deserializado["id_area"]);
+
+            int dia = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(0, 2)));
+            int mes = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(3, 2)));
+            int anio = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(6, 4)));
+            DateTime fecha = new DateTime(anio, mes, dia);
+
+
+            Area area = RepositorioDeAreas().GetAreaPorId(id_area);
+
+
+            table_resumen.Columns.Add("Informacion");
+            table_resumen.Columns.Add("Cantidad");
+            table_resumen.Columns.Add("Porcentaje");
+
+
+            foreach (var item in grafico.tabla_resumen)
+            {
+                table_resumen.Rows.Add(item.Id, item.Cantidad, item.Porcentaje);
+            }
+
+            
+            DataTable table_detalle = new DataTable();
+            table_detalle.TableName = "Detalle";
+            
+            table_detalle.Columns.Add("NroDocumento");
+            table_detalle.Columns.Add("Apellido");
+            table_detalle.Columns.Add("Nombre");
+            table_detalle.Columns.Add("Sexo");
+            table_detalle.Columns.Add("FechaNacimiento");
+            table_detalle.Columns.Add("Nivel");
+            table_detalle.Columns.Add("Grado");
+            table_detalle.Columns.Add("Planta");
+            table_detalle.Columns.Add("NivelEstudio");
+            table_detalle.Columns.Add("Titulo");
+            table_detalle.Columns.Add("Area");
+            table_detalle.Columns.Add("Area Descrip Media");
+
+            foreach (var item in grafico.tabla_detalle)
+            {
+                table_detalle.Rows.Add(item.NroDocumento, item.Apellido, item.Nombre, item.Sexo, item.FechaNacimiento.ToShortDateString(), item.Nivel, item.Grado, item.Planta, item.NivelEstudio, item.Titulo, item.Area, item.AreaDescripMedia);
+            }
+            
+            //CREACIÓN DE LAS COLUMNAS
+            //      table.Columns.Add("Categoria", typeof(string));
+            //       table.Columns.Add("% Participación VM", typeof(double));
+
+            var workbook = new XLWorkbook();
+            
+            //   var dataTable_consulta_parametros = table;
+            var dataTable_resumen = table_resumen;
+            var dataTable_detalle = table_detalle;
+            var ws = workbook.Worksheets.Add("Resumen");
+            
+            ws.Style.Font.FontSize = 11;
+            ws.Style.Font.FontName = "Verdana";
+            
+            ws.Column("A").Width = 15;
+            ws.Column("B").Width = 15;
+            ws.Column("C").Width = 15;
+
+            //  ws.Row(1).Height = 25;
+            //  ws.Row(1).Style.Alignment.SetVertical(XLAlignmentVerticalValues.Center);
+            
+            ws.Cell(1, 1).Value = "FECHA:";
+            ws.Cell(2, 1).Value = "AREA:";
+
+            ws.Cell(1, 1).Style.Font.Bold = true;
+            ws.Cell(2, 1).Style.Font.Bold = true;
+
+            ws.Cell(1, 2).Value = fecha.ToShortDateString();
+            ws.Cell(2, 2).Value = area.Nombre.ToUpper();
+
+            ws.Range(4, 1, 4, 3).Style.Fill.BackgroundColor = XLColor.FromArgb(79, 129, 189);
+            ws.Range(4, 1, 4, 3).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+
+            ws.Range(4, 1, 4, 3).Style.Font.FontColor = XLColor.White;
+
+            ws.Cell(4, 1).Value = "Informacion";
+            ws.Cell(4, 2).Value = "Cantidad";
+            ws.Cell(4, 3).Value = "Porcentaje %";
+
+            var rangeWithData = ws.Cell(5, 1).InsertData(dataTable_resumen.AsEnumerable());
+
+            var lastCell = ws.LastCellUsed();
+            
+            ws.Range(4, 1, lastCell.Address.RowNumber, lastCell.Address.ColumnNumber).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+            ws.Range(4, 1, lastCell.Address.RowNumber, lastCell.Address.ColumnNumber).Style.Border.OutsideBorder = XLBorderStyleValues.Medium;
+            
+            workbook.Worksheets.Add(dataTable_detalle);
+
+            //  string rut = HttpContext.Current.Request.PhysicalApplicationPath + "/Excel.xlsx";
+            
+            using (var ms = new MemoryStream())
+            {
+                workbook.SaveAs(ms);
+
+                // return ms.ToArray();
+
+                //return File(ms.ToArray(), MediaTypeNames.Application.Octet, "excel2"+ ".xlsx");
+                return Convert.ToBase64String(ms.ToArray());
+            }
+
+
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+
+    }
+
+
+    /**/
+    
+    
     [WebMethod]
     public Area[] GetAreas()
     {
@@ -227,6 +437,15 @@ public class WSViaticos : System.Web.Services.WebService
             returnAreas[i] = areas[i];
         }
         return returnAreas;
+    }
+
+    [WebMethod]
+    public AreaArbolDTO GetArbolOrganigrama()
+    {
+        //var repositorio = new RepositorioDeAreas(Conexion());
+
+        var repositorio = RepositorioDeOrganigrama.NuevoRepositorioOrganigrama(Conexion());
+        return repositorio.GetOrganigrama().GetArbol();
     }
 
     [WebMethod]
@@ -1905,6 +2124,12 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public string GetUsuarioWindows()
+    {
+        return Environment.UserName;
+    }
+
+    [WebMethod]
     public List<Area> GetAreasParaLugaresDeTrabajo()
     {
         return RepositorioDeAreas().GetAreasParaLugaresDeTrabajo();
@@ -1991,56 +2216,65 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public RespuestaABusquedaDeLegajos BuscarLegajosParaDigitalizacion(string criterio)
+    public RespuestaABusquedaDeLegajos BuscarLegajosParaDigitalizacion(string criterio, Usuario usuario)
     {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 2)) throw (new Exception("El usuario no tiene permisos para MODI"));
         return servicioDeDigitalizacionDeLegajos().BuscarLegajos(criterio);
     }
 
     [WebMethod]
-    public ImagenModi GetImagenPorId(int id_imagen)
+    public ImagenModi GetImagenPorId(int id_imagen, Usuario usuario)
     {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 2)) throw (new Exception("El usuario no tiene permisos para MODI"));
         return servicioDeDigitalizacionDeLegajos().GetImagenPorId(id_imagen);
     }
 
     [WebMethod]
-    public int AgregarImagenSinAsignarAUnLegajo(int id_interna, string nombre_imagen, string bytes_imagen)
+    public int AgregarImagenSinAsignarAUnLegajo(int id_interna, string nombre_imagen, string bytes_imagen, Usuario usuario)
     {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 2)) throw (new Exception("El usuario no tiene permisos para MODI"));
         return servicioDeDigitalizacionDeLegajos().AgregarImagenSinAsignarAUnLegajo(id_interna, nombre_imagen, bytes_imagen);
     }
 
     [WebMethod]
-    public int AgregarImagenAUnFolioDeUnLegajo(int id_interna, int numero_folio, string nombre_imagen, string bytes_imagen)
+    public int AgregarImagenAUnFolioDeUnLegajo(int id_interna, int numero_folio, string nombre_imagen, string bytes_imagen, Usuario usuario)
     {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 2)) throw (new Exception("El usuario no tiene permisos para MODI"));
         return servicioDeDigitalizacionDeLegajos().AgregarImagenAUnFolioDeUnLegajo(id_interna, numero_folio, nombre_imagen, bytes_imagen);
     }
 
     [WebMethod]
-    public ImagenModi GetThumbnailPorId(int id_imagen, int alto, int ancho)
+    public ImagenModi GetThumbnailPorId(int id_imagen, int alto, int ancho, Usuario usuario)
     {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 2)) throw (new Exception("El usuario no tiene permisos para MODI"));
         return servicioDeDigitalizacionDeLegajos().GetThumbnailPorId(id_imagen, alto, ancho);
     }
 
     [WebMethod]
     public int AsignarImagenAFolioDeLegajo(int id_imagen, int nro_folio, Usuario usuario)
     {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 2)) throw (new Exception("El usuario no tiene permisos para MODI"));
         return servicioDeDigitalizacionDeLegajos().AsignarImagenAFolioDeLegajo(id_imagen, nro_folio, usuario);
     }
 
     [WebMethod]
     public void AsignarImagenAFolioDeLegajoPasandoPagina(int id_imagen, int nro_folio, int pagina, Usuario usuario)
     {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 2)) throw (new Exception("El usuario no tiene permisos para MODI"));
         servicioDeDigitalizacionDeLegajos().AsignarImagenAFolioDeLegajoPasandoPagina(id_imagen, nro_folio, pagina, usuario);
     }
 
     [WebMethod]
     public void AsignarCategoriaADocumento(int id_categoria, string tabla, int id_documento, Usuario usuario)
     {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 2)) throw (new Exception("El usuario no tiene permisos para MODI"));
         servicioDeDigitalizacionDeLegajos().AsignarCategoriaADocumento(id_categoria, tabla, id_documento, usuario);
     }
 
     [WebMethod]
     public void DesAsignarImagen(int id_imagen, Usuario usuario)
     {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 2)) throw (new Exception("El usuario no tiene permisos para MODI"));
         servicioDeDigitalizacionDeLegajos().DesAsignarImagen(id_imagen, usuario);
     }
 
@@ -2120,6 +2354,12 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public Persona GetPersonaUsuarioLogueado(Usuario usuario)
+    {
+        return RepositorioDeUsuarios().GetPersonaPorIdUsuario(usuario.Id);
+    }
+
+    [WebMethod]
     public bool ElUsuarioPuedeAccederALaURL(Usuario usuario, string url)
     {
         return Autorizador().ElUsuarioPuedeAccederALaURL(usuario, url);
@@ -2176,10 +2416,43 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public Usuario[] BuscarPersonaDeBajaConPermisos()
+    {
+        var usuarios = RepositorioDeUsuarios().GetUsuariosConPersonasDeBaja().ToArray();
+        return usuarios;
+    }
+
+    [WebMethod]
+    public Usuario[] BuscarUsuariosPorArea(string nombre_area)
+    {
+        var usuarios = RepositorioDeUsuarios().GetUsuariosPorArea(nombre_area).ToArray();
+        return usuarios;
+    }
+
+    
+    [WebMethod]
     public Area[] AreasAdministradasPor(Usuario usuario)
     {
-         return Autorizador().AreasAdministradasPor(usuario).ToArray();
+        //GRANI 20151228: Se cambia por un error de referencia circular.
+        //return Autorizador().AreasAdministradasPor(usuario).ToArray();
+
+        JsonSerializerSettings settings = new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects };
+
+        var listaDeAreas = Autorizador().AreasAdministradasPor(usuario).ToArray();
+        var stringDeAreas = JsonConvert.SerializeObject(listaDeAreas, Formatting.Indented, new JsonSerializerSettings() { ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore });
+        
+        Area[] areas = JsonConvert.DeserializeObject<Area[]>(stringDeAreas);
+        return areas;
     }
+
+    //[WebMethod]
+    //public string AreasAdministradasPor2(Usuario usuario)
+    //{
+    //    //return JsonConvert.SerializeObject(blah,settings);
+    //    JsonSerializerSettings settings = new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects };
+    //    var blah = Autorizador().AreasAdministradasPor(usuario).ToArray();
+    //    return JsonConvert.SerializeObject(blah, Formatting.Indented, new JsonSerializerSettings() { ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore });
+    //}
 
     [WebMethod]
     public Area[] AreasAdministradasPorIdUsuario(int id_usuario)
@@ -3192,7 +3465,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public CvConocimientoCompetenciaInformatica[] BuscarConocimientoCompetenciaInformatica(string criterio, Usuario usuario)
     {
-        return RepositorioDeConocimientosCompetenciasInformaticas.Nuevo(Conexion()).Find(criterio).ToArray();
+        return RepositorioDeConocimientosCompetenciasInformaticas.Nuevo(Conexion()).Find(criterio).FindAll(i => i.SoloVisiblePara == usuario.Id || i.SoloVisiblePara == -1).ToArray();
     }
 
     [WebMethod]
@@ -3275,7 +3548,55 @@ public class WSViaticos : System.Web.Services.WebService
 
     #endregion
 
-    private RepositorioLicencias RepoLicencias()
+    #region Formularios
+        [WebMethod]
+        public Formulario GetFormulario(string criterio, Usuario usuario)
+        {
+            return new RepositorioDeFormularios(Conexion()).GetFormulario(criterio, usuario);
+        }
+
+        [WebMethod]
+        public void GuardarCambiosEnFormulario(Formulario form, Usuario usuario)
+        {
+            new RepositorioDeFormularios(Conexion()).GuardarDatos(form, usuario);
+        }
+
+        [WebMethod]
+        public void GuardarCabeceraFormulario(Formulario form, Usuario usuario)
+        {
+            //el true es para poner en impreso
+            new RepositorioDeFormularios(Conexion()).GuardarVersion(form, usuario,true);
+        }
+
+        [WebMethod]
+        public int GetIdCabeceraFormulario(Formulario form, Usuario usuario)
+        {
+            //el true es para poner en impreso
+            return new RepositorioDeFormularios(Conexion()).GetUltimaCabeceraFormulario(form, usuario);
+        }
+    #endregion
+
+    #region Reportes
+        [WebMethod]
+        public string GetConsultaRapida(int documento , Usuario usuario)
+        {
+
+            return RepositorioDePersonas().GetConsultaRapida(documento);
+
+        }
+
+        [WebMethod]
+        public string GetCarreraAdministrativa(int documento, Usuario usuario)
+        {
+
+            return RepositorioDePersonas().GetCarreraAdministrativa(documento);
+
+        }
+
+    #endregion
+
+
+        private RepositorioLicencias RepoLicencias()
     {
         return new RepositorioLicencias(Conexion());
     }

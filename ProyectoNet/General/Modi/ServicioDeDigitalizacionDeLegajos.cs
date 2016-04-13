@@ -6,16 +6,19 @@ using General.Repositorios;
 using System.IO;
 using General.MAU;
 using System.Drawing;
+using System.Configuration;
 
 namespace General.Modi
 {
     public class ServicioDeDigitalizacionDeLegajos: IServicioDeDigitalizacionDeLegajos
     {
         private IConexionBD conexion_db;
-        
+        private FileSystem file_system { get; set; }
+
         public ServicioDeDigitalizacionDeLegajos(IConexionBD una_conexion)
         {
             this.conexion_db = una_conexion;
+            this.file_system = new FileSystem();
         }
 
         public RespuestaABusquedaDeLegajos BuscarLegajos(string criterio)
@@ -59,7 +62,14 @@ namespace General.Modi
             imagen.id = primera_fila.GetInt("id_imagen");
             imagen.idInterna = primera_fila.GetInt("id_interna");
             imagen.nombre = primera_fila.GetString("nombre_imagen");
-            imagen.SetImagen(primera_fila.GetImage("bytes_imagen"));
+            Image img;
+            if (primera_fila.GetObject("bytes_imagen") is DBNull){
+                img = file_system.getImagenFromPath(ConfigurationManager.AppSettings["CarpetaDigitalizacion"] +id_imagen + ".jpg");
+            }else{
+                img = primera_fila.GetImage("bytes_imagen");
+            }
+            
+            imagen.SetImagen(img);
 
             if (!(primera_fila.GetObject("folio_doc") is DBNull))
             {
@@ -138,14 +148,16 @@ namespace General.Modi
 
         public int AgregarImagenSinAsignarAUnLegajo(int id_interna, string nombre_imagen, string bytes_imagen)
         {
-            byte[] imageBytes = Convert.FromBase64String(bytes_imagen);
+            //byte[] imageBytes = Convert.FromBase64String(bytes_imagen);         
 
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_interna", id_interna);
             parametros.Add("@nombre_imagen", nombre_imagen);
-            parametros.Add("@bytes_imagen", imageBytes);
+            //parametros.Add("@bytes_imagen", imageBytes);
 
-            return int.Parse(this.conexion_db.EjecutarEscalar("dbo.MODI_Agregar_Imagen_Sin_Asignar_A_Un_Legajo", parametros).ToString()); 
+            int id_imagen = int.Parse(this.conexion_db.EjecutarEscalar("dbo.MODI_Agregar_Imagen_Sin_Asignar_A_Un_Legajo", parametros).ToString());
+            this.file_system.guardarImagenEnPath(ConfigurationManager.AppSettings["CarpetaDigitalizacion"] +id_imagen + ".jpg", bytes_imagen);
+            return id_imagen;
         }
 
         public int AgregarImagenAUnFolioDeUnLegajo(int id_interna, int numero_folio, string nombre_imagen, string bytes_imagen)
@@ -165,7 +177,9 @@ namespace General.Modi
             parametros.Add("@tabla", folio.tabla);
             parametros.Add("@id_documento", folio.idDocumento);
 
-            return int.Parse(this.conexion_db.EjecutarEscalar("dbo.MODI_Agregar_Imagen_A_Un_Folio_De_Un_Legajo", parametros).ToString());
+            int id_imagen = int.Parse(this.conexion_db.EjecutarEscalar("dbo.MODI_Agregar_Imagen_A_Un_Folio_De_Un_Legajo", parametros).ToString());
+            this.file_system.guardarImagenEnPath(ConfigurationManager.AppSettings["CarpetaDigitalizacion"] + id_imagen + ".jpg", bytes_imagen);
+            return id_imagen;
         }
         
         //private List<LegajoModi> GetLegajoPorDocumento(int numero_de_documento)
@@ -306,7 +320,6 @@ namespace General.Modi
             }
             return id_categoria;
         }
-
     }
 }
 

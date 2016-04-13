@@ -118,7 +118,8 @@ namespace General.Repositorios
                          Direccion = area_completa.Direccion,
                          DatosDeContacto = area_completa.DatosDeContacto,
                          datos_del_responsable = new Responsable(row.GetString("Nombre"), row.GetString("Apellido").ToUpper(), "", "", ""),
-                         Asistentes = area_completa.Asistentes
+                         Asistentes = area_completa.Asistentes,
+                         CantidadDeUsuarios = row.GetSmallintAsInt("CantidadDeUsuarios", 0)
                      });
                  });
              }

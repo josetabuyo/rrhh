@@ -16,7 +16,7 @@
     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'></span>" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
 
     <fieldset style="text-align: center">
-        <legend>Certificación de Servicios segun Decisión Administrativa N° 104/2001</legend>
+        <legend>Certificación de Servicios según Decisión Administrativa N° 104/2001</legend>
     </fieldset>
 
     <div>    
