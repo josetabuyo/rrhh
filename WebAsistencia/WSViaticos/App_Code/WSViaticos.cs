@@ -336,11 +336,11 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public Persona[] GetPersonas(Area unArea)
+    public Persona[] GetPersonas(Area unArea, int imprimeplanillafirma )
     {
 
         RepositorioPersonas repositorio = new RepositorioPersonas();
-        List<Persona> personas = repositorio.GetPersonasDelArea(unArea);
+        List<Persona> personas = repositorio.GetPersonasDelArea(unArea, imprimeplanillafirma);
         Persona[] returnPersonas = new Persona[personas.Count];
 
         for (int i = 0; i < personas.Count; i++)

@@ -17,7 +17,7 @@ public partial class Planillas : System.Web.UI.Page
             TableCell tc; TableRow tr;
             WSViaticosSoapClient s = new WSViaticosSoapClient();
             //WSViaticos.WSViaticos s = new WSViaticos.WSViaticos();
-            Persona[] personas = s.GetPersonas((Area)Session["areaActual"]);
+            Persona[] personas = s.GetPersonas((Area)Session["areaActual"], 1);
             foreach (Persona unaPersona in personas)
             {
                 if (!unaPersona.Es1184)

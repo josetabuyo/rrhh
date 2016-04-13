@@ -3605,7 +3605,6 @@
           <s:element minOccurs="0" maxOccurs="1" name="DDJJ" type="tns:DDJJ104_2001" />
           <s:element minOccurs="0" maxOccurs="1" name="AreaSuperior" type="tns:AreaParaDDJJ104" />
           <s:element minOccurs="0" maxOccurs="1" name="Direccion" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="CantidadPersonas" type="s:int" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfAreaParaDDJJ104">
@@ -4037,6 +4036,7 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="unArea" type="tns:Area" />
+            <s:element minOccurs="1" maxOccurs="1" name="imprimeplanillafirma" type="s:int" />
           </s:sequence>
         </s:complexType>
       </s:element>
