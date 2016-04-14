@@ -34,8 +34,6 @@
         public int Jerarquia { get; set; }
         public int Orden { get; set; }
 
-        public Direccion DireccionSeparada { get; set; }
-
         public Area(int IdArea)
         {
             this.Id = IdArea;
