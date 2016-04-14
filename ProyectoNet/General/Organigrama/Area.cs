@@ -31,6 +31,8 @@
         public List<ContactoArea> Contacto { get { return _Contacto; } set { _Contacto = value; }}
         public List<DatoDeContacto> DatosDeContacto;
         public int CantidadDeUsuarios { get; set; }
+        public int Jerarquia { get; set; }
+        public int Orden { get; set; }
 
         public Direccion DireccionSeparada { get; set; }
 
