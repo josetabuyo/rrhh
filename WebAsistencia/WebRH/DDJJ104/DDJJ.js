@@ -71,11 +71,11 @@ var DibujarGrillaDDJJ = function () {
     grilla = new Grilla(
         [
             new Columna("Area", { generar: function (un_area) { return un_area.Nombre; } }),
-			new Columna("Cant. Personas", {
-			    generar: function (un_area) {
-			        return contarPersonasDelArea(un_area);
-			    }
-			}),
+//			new Columna("Cant. Personas", {
+//			    generar: function (un_area) {
+//			        return contarPersonasDelArea(un_area);
+//			    }
+//			}),
             new Columna("Estado", {
                 generar: function (un_area) {
                     var dec_jurada = un_area.DDJJ; //_.findWhere(un_area.DDJJ, { Mes: mesSeleccionado, Anio: anioSeleccionado });
