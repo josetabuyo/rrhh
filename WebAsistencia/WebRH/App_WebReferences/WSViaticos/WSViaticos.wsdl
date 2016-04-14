@@ -162,9 +162,9 @@
           <s:element minOccurs="0" maxOccurs="1" name="Responsables" type="tns:ArrayOfPersona" />
           <s:element minOccurs="0" maxOccurs="1" name="Contacto" type="tns:ArrayOfContactoArea" />
           <s:element minOccurs="1" maxOccurs="1" name="CantidadDeUsuarios" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="DireccionSeparada" type="tns:Direccion" />
           <s:element minOccurs="1" maxOccurs="1" name="Jerarquia" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="Orden" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="DireccionSeparada" type="tns:Direccion" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="Responsable">
@@ -3999,6 +3999,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="Id" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="Cantidad" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="Porcentaje" type="s:float" />
+          <s:element minOccurs="1" maxOccurs="1" name="Orden" type="s:int" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfDotacion">
