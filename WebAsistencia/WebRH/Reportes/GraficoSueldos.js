@@ -2,9 +2,9 @@
     Inicializar: function () {
         var _this = this;
 
-        $('#txt_fecha_desde').datepicker();
-        $('#txt_fecha_desde').datepicker('option', 'dateFormat', 'dd/mm/yy');
-        $('#txt_fecha_desde').datepicker("setDate", new Date());
+        $('#txt_fecha_desde_sueldo').datepicker();
+        $('#txt_fecha_desde_sueldo').datepicker('option', 'dateFormat', 'dd/mm/yy');
+        $('#txt_fecha_desde_sueldo').datepicker("setDate", new Date());
 
         localStorage.removeItem("alias");
         localStorage.removeItem("idArea");
@@ -24,11 +24,6 @@
         if (typeof (Storage) !== "undefined") {
             var id_area = localStorage.getItem("idArea");
             var alias = localStorage.getItem("alias");
-
-            if (tipo == null || tipo == undefined) {
-                buscar = false;
-                alertify.error("Debe seleccionar un filtro");
-            }
             if (fecha == null || fecha == "") {
                 buscar = false;
                 alertify.error("Debe completar la fecha de corte para la búsqueda de datos");
@@ -50,7 +45,7 @@
     GraficoYTabla: function (fecha, id_area, incluir_dependencias, div_tabla, tabla) {
         var _this = this;
         $('#div_resultados_sueldos').show();
-        var sueldos = Backend.ejecutarSincronico("GetReporteSueldosPorArea", [fecha, parseInt(id_area), incluir_dependencias]);
+        var sueldos = Backend.ejecutarSincronico("GetReporteSueldosPorArea", [{ fecha: fecha, id_area: parseInt(id_area), incluir_dependencias: incluir_dependencias}]);
         if (sueldos != null) {
            // _this.VisualizarContenido(true);
             _this.DibujarTablaDetalle(sueldos, div_tabla, tabla);
@@ -73,6 +68,9 @@
 
         var columnas = [];
 
+        columnas.push(new Columna("Área", { generar: function (un_registro) { return un_registro.areaDescripCorta } }));
+        columnas.push(new Columna("Apellido", { generar: function (un_registro) { return un_registro.apellido } }));
+        columnas.push(new Columna("Nombre", { generar: function (un_registro) { return un_registro.nombre } }));
         columnas.push(new Columna("Sueldo Bruto", { generar: function (un_registro) { return un_registro.SueldoBruto } }));
         columnas.push(new Columna("Sueldo Neto", { generar: function (un_registro) { return un_registro.SueldoNeto } }));
         columnas.push(new Columna("Xtras Bruto", { generar: function (un_registro) { return un_registro.XtrasBruto } }));

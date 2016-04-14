@@ -16,41 +16,35 @@
 </head>
 <body>
     <form id="Reportes" runat="server">
-    <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold; padding-top:20px;'>Reportes</span> <br/> "
-        UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
-    <!--<h1 style="text-align: center; font-weight:200;">Reportes</h1>-->
+    <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold; padding-top:20px;'>Reportes</span> <br/> " UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <div>
-        <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" style="position: relative;
-            top: 0; width: 100%;" id="cbp-spmenu-s1">
-            
-            <div id="contenedor_arbol_organigrama">
+        <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" style="position: relative; top: 0; width: 100%;" id="cbp-spmenu-s1">
+            <div id="contenedor_arbol_organigrama"> </div>
+            <input id="btn_consulta_rapida" type="button" class="btn_consulta_individual" requierefuncionalidad="32" value="Consulta Individual" />
+            <input type="button" class="btn_organigrama" id="showLeftPush" value="Organigrama" />
+            <div id="menu_grafico">
+               <h2 class="">Gráficos</h2>
+                 <ul class="lista" >
+                   <li><a href="#" id="btn_grafico_dotacion" class="link_listado">Dotación</a>
+                       <ul>
+                           <li class="Rango Etáreo"><a href="#" id="btn_genero" class="link_listado">Género</a></li>
+                           <li class="Rango Etáreo"><a href="#" id="btn_nivel" class="link_listado">Nivel</a></li>
+                           <li class="Rango Etáreo"><a href="#" id="btn_estudios" class="link_listado">Estudios</a></li>
+                           <li class="Rango Etáreo"><a href="#" id="btn_plantas" class="link_listado">Plantas</a></li>
+                           <li class="Rango Etáreo"><a href="#" id="btn_areas" class="link_listado">Áreas</a></li>
+                           <li class="Rango Etáreo"><a href="#" id="btn_secretarias" class="link_listado">Secretarías</a></li>
+                           <li class="Rango Etáreo"><a href="#" id="btn_subsecretarias" class="link_listado">SubSecretarías</a></li>
+                          <%-- <li class="Rango Etáreo"><a href="#" id="btn_rango_etareo" class="link_listado">Rango Etáreo</a></li>--%>
+                       </ul>
+                   </li>
+                   <li class="Dotacion"><a href="#" id="btn_grafico_sueldo" class="link_listado">Sueldo</a></li>
+                   <%--<li id="btn_grafico_licencias" class="Licencias"><a href="#" class="link_listado">Licencias</a></li>
+                    <li class="Horas Extras"><a href="#" class="link_listado">Horas Extras</a></li>
+                   <li class="Otros"><a href="#" class="link_listado">Otros</a></li>--%>
+               </ul>
             </div>
-             <input id="btn_consulta_rapida" type="button" class="btn_consulta_individual" requierefuncionalidad="32" value="Consulta Individual" />
-             <input type="button" class="btn_organigrama" id="showLeftPush" value="Organigrama" />
-           
-             <div id="menu_grafico">
-                <h2 class="">Gráficos</h2>
-                  <ul class="lista" >
-                    <li><a href="#" id="btn_grafico_dotacion" class="link_listado">Dotación</a>
-                        <ul>
-                            <li class="Rango Etáreo"><a href="#" id="btn_genero" class="link_listado">Género</a></li>
-                            <li class="Rango Etáreo"><a href="#" id="btn_nivel" class="link_listado">Nivel</a></li>
-                            <li class="Rango Etáreo"><a href="#" id="btn_estudios" class="link_listado">Estudios</a></li>
-                            <li class="Rango Etáreo"><a href="#" id="btn_plantas" class="link_listado">Plantas</a></li>
-                            <li class="Rango Etáreo"><a href="#" id="btn_areas" class="link_listado">Áreas</a></li>
-                            <li class="Rango Etáreo"><a href="#" id="btn_secretarias" class="link_listado">Secretarías</a></li>
-                            <li class="Rango Etáreo"><a href="#" id="btn_subsecretarias" class="link_listado">SubSecretarías</a></li>
-                           <%-- <li class="Rango Etáreo"><a href="#" id="btn_rango_etareo" class="link_listado">Rango Etáreo</a></li>--%>
-                        </ul>
-                    </li>
-                    <li class="Dotacion"><a href="#" id="btn_grafico_sueldo" class="link_listado">Sueldo</a></li>
-                    <%--<li id="btn_grafico_licencias" class="Licencias"><a href="#" class="link_listado">Licencias</a></li>
-                     <li class="Horas Extras"><a href="#" class="link_listado">Horas Extras</a></li>
-                    <li class="Otros"><a href="#" class="link_listado">Otros</a></li>--%>
-                </ul>
-             </div>
 
-             <div id="div_filtros_graficos_y_tablas" style="position: absolute; left: 650px; width: 100%;">
+            <div id="div_filtros_graficos_y_tablas" style="position: absolute; left: 650px; width: 100%;">
                 <div style=" position: absolute;left: 150px; margin-top: 10px;">
                     <h2 style="font-size: 1.1em;">Área Seleccionada: 
                         <span id="titulo_area">Seleccionar Área</span>
@@ -58,113 +52,92 @@
                     </h2>
                     <h2 style="font-size: 1.1em; ">Gráfico Seleccionado: <span id="titulo_grafico">Seleccionar Informe</span></h2>
                 </div>
+ <%--GRAFICO DE DOTACIÓN--%>
                 <div id="div_grafico_de_dotacion" style="display:none">
-                <div id="div_filtros" style="display: flex;position: absolute; display:none; top: 80px;left: 135px;">
-                    <div style="margin-left:20px;">
-                    <div class="grupo_campos" style="margin-bottom: 9px;">
-                        <label>
-                            Fecha</label>
-                        <input id="txt_fecha_desde" type="text" style="width: 100px; margin: 5px 10px 5px 46px;" />
-                         <input id="btn_armarGrafico" type="button" class="btn btn-primary" value="Graficar" />
-                    </div>
-                    <div class="grupo_campos nueva_linea">
-                        <label>
-                            Filtros:</label>
-                            <!--Saque las clases para los checkbox porque eran un quilombo manipularlos 
-                            ac-custom ac-checkbox ac-cross-->
-                        <div class="" autocomplete="off" style="margin-left: 50px;">
-                        <section>
-					    <ul class="lista_filtros">
-						    <li><input id="cb1" class="regular-checkbox filtros" name="cb1" data-filtro="Genero" type="checkbox"/><label for="cb1">Género</label></li>
-						    <li><input id="cb2" class="regular-checkbox filtros" name="cb2" data-filtro="Nivel" type="checkbox"/><label for="cb2">Nivel</label></li>
-						    <li><input id="cb3" class="regular-checkbox filtros" name="cb3" data-filtro="Estudios" type="checkbox"/><label for="cb3">Estudios</label></li>
-						    <li><input id="cb4" class="regular-checkbox filtros" name="cb4" data-filtro="Plantas" type="checkbox"/><label for="cb4">Plantas</label></li>
-                            <li><input id="cb5" class="regular-checkbox filtros" name="cb5" data-filtro="Areas" type="checkbox"/><label for="cb4">Áreas</label></li>
-                            <li><input id="cb6" class="regular-checkbox filtros" name="cb6" data-filtro="Secretarias" type="checkbox"/><label for="cb4">Secretarías</label></li>
-                            <li><input id="cb7" class="regular-checkbox filtros" name="cb7" data-filtro="SubSecretarias" type="checkbox"/><label for="cb4">SubSecretarías</label></li>
-						    <%--<li><input id="cb5" class="regular-checkbox filtros" name="cb5" data-filtro="Afiliacion" type="checkbox"/><label for="cb5">Afiliación Gremial</label></li>--%>
-					    </ul>
-		
-			            </section>
+                    <div id="div_filtros" style="display: flex;position: absolute; display:none; top: 80px;left: 135px;">
+                        <div style="margin-left:20px;">
+                            <div class="grupo_campos" style="margin-bottom: 9px;">
+                                <label>Fecha</label>
+                                <input id="txt_fecha_desde" type="text" style="width: 100px; margin: 5px 10px 5px 46px;" />
+                                <input id="btn_armarGrafico" type="button" class="btn btn-primary" value="Graficar" />
+                            </div>
+                            <div class="grupo_campos nueva_linea">
+                                <label>Filtros:</label>
+                                <!--Saque las clases para los checkbox porque eran un quilombo manipularlos 
+                                ac-custom ac-checkbox ac-cross-->
+                                <div class="" autocomplete="off" style="margin-left: 50px;">
+                                    <section>
+					                    <ul class="lista_filtros">
+						                    <li><input id="cb1" class="regular-checkbox filtros" name="cb1" data-filtro="Genero" type="checkbox"/><label for="cb1">Género</label></li>
+						                    <li><input id="cb2" class="regular-checkbox filtros" name="cb2" data-filtro="Nivel" type="checkbox"/><label for="cb2">Nivel</label></li>
+						                    <li><input id="cb3" class="regular-checkbox filtros" name="cb3" data-filtro="Estudios" type="checkbox"/><label for="cb3">Estudios</label></li>
+						                    <li><input id="cb4" class="regular-checkbox filtros" name="cb4" data-filtro="Plantas" type="checkbox"/><label for="cb4">Plantas</label></li>
+                                            <li><input id="cb5" class="regular-checkbox filtros" name="cb5" data-filtro="Areas" type="checkbox"/><label for="cb4">Áreas</label></li>
+                                            <li><input id="cb6" class="regular-checkbox filtros" name="cb6" data-filtro="Secretarias" type="checkbox"/><label for="cb4">Secretarías</label></li>
+                                            <li><input id="cb7" class="regular-checkbox filtros" name="cb7" data-filtro="SubSecretarias" type="checkbox"/><label for="cb4">SubSecretarías</label></li>
+						                    <%--<li><input id="cb5" class="regular-checkbox filtros" name="cb5" data-filtro="Afiliacion" type="checkbox"/><label for="cb5">Afiliación Gremial</label></li>--%>
+					                    </ul>
+			                        </section>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    </div>
-                </div>
-
-                <div id="div_graficos_y_tablas" style="display:flex; width: 85%; left: 125px; position: absolute; top: 160px;">
-            <div id="div_grafico_y_tabla" style="width: 100%; position: absolute; ">
-            <div id="container_grafico_torta_totales" style="width: 40%; height: 450px; border: 1px solid;
-                margin: 0 30px; display:none;float:left;">
-            </div>
-            <div id="div_tabla_resultado_totales" style="min-width: 210px; height: 450px; margin: 0 30px;">
-                    <input type="text" id="search" class="search" class="buscador" placeholder="Buscar"
-                        style="display: none;" />
+                    <div id="div_graficos_y_tablas" style="display:flex; width: 85%; left: 125px; position: absolute; top: 160px;">
+                        <div id="div_grafico_y_tabla" style="width: 100%; position: absolute; ">
+                            <div id="container_grafico_torta_totales" style="width: 40%; height: 450px; border: 1px solid; margin: 0 30px; display:none;float:left;">
+                            </div>
+                            <div id="div_tabla_resultado_totales" style="min-width: 210px; height: 450px; margin: 0 30px;">
+                                <input type="text" id="search" class="search" class="buscador" placeholder="Buscar" style="display: none;" />
+                                <a href="#" id="btn_excel" class="btn btn-info" style="float: right; padding: 5px; margin-left:10px;"> Exportar Datos</a>
+                                <div style="overflow-y: scroll;max-height: 420px;">
+                                    <table id="tabla_resultado_totales" style="width:100%;"></table>
+                                </div>
                     
-                    <a href="#" id="btn_excel" class="btn btn-info" style="float: right; padding: 5px; margin-left:10px;"> Exportar Datos</a>
-                    <div style="overflow-y: scroll;max-height: 420px;">
-                    <table id="tabla_resultado_totales" style="width:100%;">
-                    </div>
                     
-                    </table>
-                </div>
-                </div>
-
-                
-                <div id="div_tabla_detalle" style="margin: 0 30px; width: 100%; position: absolute; top: 465px;">
-                <%--<div style="text-align: center;">--%>
-                <span id="lb_titulo_tabla_detalle"></span>
-                <br />
-               <%-- </div>--%>
-                
-                    <input type="text" id="search_detalle" class="search" class="buscador" placeholder="Buscar"
-                        style="display: none;" />
-                        
-                        
-                       
-                    <table id="tabla_detalle" style="width: 95%;">
-                    </table>
-                </div>
-   </div>
-   </div>
-
-    <div id="div_resultados_sueldos">
-        <div id="div_filtros_sueldos" style="display: flex;position: absolute; display:none; top: 80px;left: 135px;">
-            <div style="margin-left:20px;">
-                <div class="grupo_campos" style="margin-bottom: 9px;">
-                    <label>Fecha</label>
-                    <input id="txt_fecha_desde_sueldo" type="text" style="width: 100px; margin: 5px 10px 5px 46px;" />
-                    <input id="btn_buscar_sueldo" type="button" class="btn btn-primary" value="Buscar" />
-                </div>                    
-            </div>
-        </div>  
-        <div id="div_tabla_detalle_sueldo" style="margin: 0 30px; width: 100%; position: absolute; top: 465px;">               
-            <span id="lb_titulo_tabla_detalle"></span>
-            <br />        
-            <input type="text" id="search_detalle_sueldo" class="search" class="buscador" placeholder="Buscar" style="display: none;" />
-            <a href="#" id="exportar_datos_detalle_sueldo" class="btn btn-info" style="float: right; display: none; padding: 5px;margin-right: 15%;"> Exportar Datos</a>
-            <table id="tabla_detalle_sueldo" style="width: 85%;"> </table>
-        </div> 
-   </div>
-
-   <div id="div_grafico_de_rango_etareo">
-   <div id="div_filtros_rango_etareo" style="display: flex;position: absolute; display:none; top: 80px;left: 135px;">
-                    <div style="margin-left:20px;">
-                    <div class="grupo_campos" style="margin-bottom: 9px;">
-                        <label>
-                            Fecha</label>
-                        <input id="txt_fecha_desde_rango_etareo" type="text" style="width: 100px; margin: 5px 10px 5px 46px;" />
-                         <input id="btn_armarGrafico_RangoEtaero" type="button" class="btn btn-primary" value="Graficar" />
-                    </div>
-                    
+                            </div>
+                        </div>
+                        <div id="div_tabla_detalle" style="margin: 0 30px; width: 100%; position: absolute; top: 465px;">
+                            <span id="lb_titulo_tabla_detalle"></span>
+                            <br />
+                            <input type="text" id="search_detalle" class="search" class="buscador" placeholder="Buscar" style="display: none;" />
+                            <table id="tabla_detalle" style="width: 95%;"> </table>
+                        </div>
                     </div>
                 </div>
-                <div id="container_grafico_rango_etareo" style="width: 40%; height: 450px; border: 1px solid;
-                margin: 0 30px; display:none;">
-            </div>
-   </div>
-        </div>
-             
-         </nav>
+ <%--GRAFICO DE SUELDOS--%>
+                <div id="div_resultados_sueldos" style="display:none">
+                    <div id="div_filtros_sueldos" style="display:none; flex;position: absolute;top:80px;left: 135px;">
+                        <div style="margin-left:20px;">
+                            <div class="grupo_campos" style="margin-bottom: 9px;">
+                                <label>Fecha</label>
+                                <input id="txt_fecha_desde_sueldo" type="text" style="width: 100px; margin: 5px 10px 5px 46px;" />
+                                <input id="btn_buscar_sueldo" type="button" class="btn btn-primary" value="Buscar" />
+                            </div>                    
+                        </div>
+                    </div>  
+                    <div id="div_tabla_detalle_sueldo" style="margin: -310px 0px 0px 148px; width: 100%; position: absolute; top: 465px;">               
+                        <span id="lb_titulo_tabla_detalle"></span>
+                        <br />        
+                        <input type="text" id="search_detalle_sueldo" class="search" class="buscador" placeholder="Buscar" style="display: none;" />
+                        <a href="#" id="exportar_datos_detalle_sueldo" class="btn btn-info" style="float: right; display: none; padding: 5px;margin-right: 15%;"> Exportar Datos</a>
+                        <table id="tabla_detalle_sueldo" style="width: 80%;"> </table>
+                    </div> 
+               </div>
+               <div id="div_grafico_de_rango_etareo">
+                    <div id="div_filtros_rango_etareo" style="display: flex;position: absolute; display:none; top: 80px;left: 135px;">
+                        <div style="margin-left:20px;">
+                            <div class="grupo_campos" style="margin-bottom: 9px;">
+                                <label>Fecha</label>
+                                <input id="txt_fecha_desde_rango_etareo" type="text" style="width: 100px; margin: 5px 10px 5px 46px;" />
+                                <input id="btn_armarGrafico_RangoEtaero" type="button" class="btn btn-primary" value="Graficar" />
+                            </div>
+                        </div>
+                    </div>
+                    <div id="container_grafico_rango_etareo" style="width: 40%; height: 450px; border: 1px solid; margin: 0 30px; display:none;">
+                    </div>
+               </div>
+            </div>   
+        </nav>
     </div>
     </form>
     <div id="plantillas">
@@ -187,6 +160,7 @@
     </div>
     <script type="text/javascript" src="../Scripts/underscore-min.js"></script>
     <script type="text/javascript" src="GraficoDotacion.js"></script>
+    <script type="text/javascript" src="GraficoSueldos.js"></script>
     <script src="../Scripts/Graficos/highcharts.js" type="text/javascript"></script>
     <script src="../Scripts/Graficos/highcharts-3d.js" type="text/javascript"></script>
     <script src="../Scripts/Graficos/data.js" type="text/javascript"></script>

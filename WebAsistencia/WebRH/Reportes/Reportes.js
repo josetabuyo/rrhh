@@ -7,15 +7,8 @@
 var Reportes = {
     start: function () {
         var _this = this;
-
-        //localStorage.removeItem("alias");
-        //localStorage.removeItem("idArea");
-
-        //$('#titulo_area').html(localStorage.getItem("alias"));
-
         $('#btn_consulta_rapida').click(function () {
             window.location.href = "ConsultaIndividual.aspx";
-            //window.location.replace("ConsultaIndividual.aspx");
         })
         $('#btn_grafico_dotacion').click(function () {
             $('#titulo_grafico').html(this.innerHTML);
@@ -24,29 +17,30 @@ var Reportes = {
             $('#div_filtros').show();
             $('#div_graficos_y_tablas').hide();
             $('#div_filtros_rango_etareo').hide();
-            //window.location.replace("GraficoDotacion.aspx");
+            $('#div_resultados_sueldos').hide();
+            $('#div_filtros_sueldos').hide();
         })
         $('#btn_rango_etareo').click(function () {
             $('#titulo_grafico').html(this.innerHTML);
             $('#div_grafico_de_dotacion').hide();
             $('#div_filtros').hide();
+            $('#div_resultados_sueldos').hide();
+            $('#div_filtros_sueldos').hide();
             $('#div_grafico_de_rango_etareo').show();
             $('#div_filtros_rango_etareo').show();
-            //window.location.replace("GraficoDotacion.aspx");
         })
 
         $('#btn_grafico_licencias').click(function () {
-            //window.location.replace("GraficoLicencias.aspx");
         })
 
-        $('#btn_grafico_sueldos').click(function () {
+        $('#btn_grafico_sueldo').click(function () {
             $('#titulo_grafico').html(this.innerHTML);
-
             $('#div_grafico_de_dotacion').hide();
             $('#div_filtros').hide();
             $('#div_graficos_y_tablas').hide();
             $('#div_filtros_rango_etareo').hide();
-
+            $('#div_resultados_sueldos').show();
+            $('#div_filtros_sueldos').show();
         })
 
         this.dibujarArbolOrganigrama();
