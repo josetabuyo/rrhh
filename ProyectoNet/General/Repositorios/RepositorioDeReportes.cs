@@ -118,13 +118,13 @@ namespace General.Repositorios
             {
                 var persona = new SueldoPersona();
                 persona.idPersona = row.GetInt("id_persona", 0);
-                persona.legajo = row.GetInt("legajo", 0);
-                persona.nroDocumento = row.GetInt("nro_documento", 0);
+                //persona.legajo = row.GetInt("legajo", 0);
+                persona.nroDocumento = row.GetInt("nrodocumento", 0);
                 persona.apellido = row.GetString("apellido", "Sin Dato");
                 persona.nombre = row.GetString("nombre", "Sin Dato");
-                persona.area = row.GetString("area", "Sin Dato");
-                persona.areaDescripCorta = row.GetString("area_descrip_corta", "Sin Dato");
-                persona.areaDescripMedia = row.GetString("area_descrip_media", "Sin Dato");
+                persona.idArea = row.GetInt("id_area", 0);
+                //persona.areaDescripCorta = row.GetString("area_descrip_corta", "Sin Dato");
+                persona.areaDescripMedia = row.GetString("descripcion", "Sin Dato");
                 persona.sueldoAnio = row.GetSmallintAsInt("SueldoAnio", 0);
                 persona.sueldoMes = row.GetSmallintAsInt("SueldoMes", 0);
                 persona.sueldoBruto = row.GetFloat("SueldoBruto", 0);

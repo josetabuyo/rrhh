@@ -190,6 +190,9 @@
             $('#exportar_datos_detalle').click(function () {
                 ExportarAExcel.fnExcelReport(document.getElementById('tabla_detalle'));
             });
+            $('#exportar_datos_detalle_sueldo').click(function () {
+                ExportarAExcel.fnExcelReport(document.getElementById('tabla_detalle_sueldo'));
+            });
             $('#exportar_datos').click(function () {
                 ExportarAExcel.fnExcelReport(document.getElementById('tabla_resultado_totales'));
             });

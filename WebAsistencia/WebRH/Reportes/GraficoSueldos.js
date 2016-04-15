@@ -11,7 +11,8 @@
 
         $('#btn_buscar_sueldo').click(function () {
             _this.BuscarDatos();
-        });      
+            
+        });
     },
 
 
@@ -45,9 +46,11 @@
     GraficoYTabla: function (fecha, id_area, incluir_dependencias, div_tabla, tabla) {
         var _this = this;
         $('#div_resultados_sueldos').show();
+        $('#search_detalle_sueldo').show();
+        $('#exportar_datos_detalle_sueldo').show();
         var sueldos = Backend.ejecutarSincronico("GetReporteSueldosPorArea", [{ fecha: fecha, id_area: parseInt(id_area), incluir_dependencias: incluir_dependencias}]);
         if (sueldos != null) {
-           // _this.VisualizarContenido(true);
+            // _this.VisualizarContenido(true);
             _this.DibujarTablaDetalle(sueldos, div_tabla, tabla);
             _this.BuscadorDeTabla();
 
@@ -56,7 +59,7 @@
             alertify.error("No hay Personal en el Área seleccionada para la generación del Gráfico");
         }
     },
-   
+
 
     DibujarTablaDetalle: function (resultado, div_tabla, tabla) {
         var _this = this;
@@ -68,19 +71,19 @@
 
         var columnas = [];
 
-        columnas.push(new Columna("Área", { generar: function (un_registro) { return un_registro.areaDescripCorta } }));
+        columnas.push(new Columna("Área", { generar: function (un_registro) { return un_registro.areaDescripMedia } }));
         columnas.push(new Columna("Apellido", { generar: function (un_registro) { return un_registro.apellido } }));
         columnas.push(new Columna("Nombre", { generar: function (un_registro) { return un_registro.nombre } }));
-        columnas.push(new Columna("Sueldo Bruto", { generar: function (un_registro) { return un_registro.SueldoBruto } }));
-        columnas.push(new Columna("Sueldo Neto", { generar: function (un_registro) { return un_registro.SueldoNeto } }));
-        columnas.push(new Columna("Xtras Bruto", { generar: function (un_registro) { return un_registro.XtrasBruto } }));
-        columnas.push(new Columna("Xtras Neto", { generar: function (un_registro) { return un_registro.XtrasNeto } }));
+        columnas.push(new Columna("Sueldo Bruto", { generar: function (un_registro) { return un_registro.sueldoBruto } }));
+        columnas.push(new Columna("Sueldo Neto", { generar: function (un_registro) { return un_registro.sueldoNeto } }));
+        columnas.push(new Columna("Xtras Bruto", { generar: function (un_registro) { return un_registro.xtrasBruto } }));
+        columnas.push(new Columna("Xtras Neto", { generar: function (un_registro) { return un_registro.xtrasNeto } }));
         columnas.push(new Columna("SAC Bruto", { generar: function (un_registro) { return un_registro.SACBruto } }));
         columnas.push(new Columna("SAC Neto", { generar: function (un_registro) { return un_registro.SACNeto } }));
-        columnas.push(new Columna("Hs Simples", { generar: function (un_registro) { return un_registro.HsSimples } }));
-        columnas.push(new Columna("Hs 50%", { generar: function (un_registro) { return un_registro.Hs50 } }));
-        columnas.push(new Columna("Hs 100%", { generar: function (un_registro) { return un_registro.Hs100 } }));
-        columnas.push(new Columna("Comidas", { generar: function (un_registro) { return un_registro.Comidas } }));
+        columnas.push(new Columna("Hs Simples", { generar: function (un_registro) { return un_registro.hsSimples } }));
+        columnas.push(new Columna("Hs 50%", { generar: function (un_registro) { return un_registro.hs50 } }));
+        columnas.push(new Columna("Hs 100%", { generar: function (un_registro) { return un_registro.hs100 } }));
+        columnas.push(new Columna("Comidas", { generar: function (un_registro) { return un_registro.comidas } }));
         columnas.push(new Columna('Detalle', {
             generar: function (un_registro) {
                 var btn_accion = $('<a>');
@@ -107,7 +110,7 @@
         _this.GrillaResumen.DibujarEn(divGrilla);
         _this.BuscadorDeTablaDetalle();
     },
-    
+
     BuscadorDeTablaDetalle: function () {
 
         var options = {
@@ -115,7 +118,7 @@
         };
         var featureList = new List('div_tabla_detalle', options);
     },
-   
+
     ConvertirFecha: function (fecha) {
         var dia = fecha.substring(8, 10);
         var mes = fecha.substring(5, 7);
@@ -130,7 +133,7 @@
     },
 
 
-     BuscarExcel: function (tipo, fecha, id_area) {
+    BuscarExcel: function (tipo, fecha, id_area) {
         var _this = this;
 
         var tipo = checks_activos.slice(-1)[0];
@@ -142,60 +145,21 @@
             return;
         }
 
-
         var resultado = Backend.ejecutarSincronico("ExcelGenerado", [{ tipo: parseInt(tipo), fecha: fecha, id_area: parseInt(id_area), incluir_dependencias: $("#chk_incluir_dependencias").is(":checked")}]);
 
         if (resultado.length > 0) {
 
             var a = window.document.createElement('a');
-
             a.href = "data:application/vnd.ms-excel;base64," + resultado;
-
-            // alert(tipo);
-
-            switch (tipo.toString()) {
-
-                case "1":
-
-                    a.download = "DOTACION_POR_GENERO_" + fecha + "_.xlsx";
-                    break;
-                case "2":
-                    a.download = "DOTACION__POR_NIVEL_" + fecha + "_.xlsx";
-                    break;
-                case "3":
-                    a.download = "DOTACION_POR_ESTUDIO_" + fecha + "_.xlsx";
-                    break;
-                case "4":
-                    a.download = "DOTACION_POR_PLANTA_" + fecha + "_.xlsx";
-                    break;
-                case "5":
-                    a.download = "DOTACION_POR_AREA_" + fecha + "_.xlsx";
-                    break;
-//                case "6":
-//                    a.download = "DOTACION_RANGO_ETARIO_" + fecha + "_.xlsx";
-
-                    break;
-
-                default:
-                    //     alert('');
-                    break;
-            }
-
-
-
-            // a.download = "excel.xlsx";
-
-            // Append anchor to body.
+            a.download = "RECIBOS_DE_SUELDO_" + fecha + "_.xlsx";               
+        
             document.body.appendChild(a)
             a.click();
-
-
-            // Remove anchor from body
             document.body.removeChild(a)
 
 
         }
-        //   _this.GraficoYTabla(tipo, fecha, id_area, "Dotación por Nivel del Área aaa", "container_grafico_torta_totales", "div_tabla_resultado_totales", "tabla_resultado_totales");
+       
     }
 
 }
