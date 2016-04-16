@@ -11,10 +11,26 @@
 
         $('#btn_buscar_sueldo').click(function () {
             _this.BuscarDatos();
-            
+
         });
     },
 
+    FormatearNumero: function (numero) {
+        if (numero == 0) return "";
+        var n = numero.toFixed(2).toString().replace(".", ",");
+        n = n.toString()
+        while (true) {
+            var n2 = n.replace(/(\d)(\d{3})($|,|\.)/g, '$1.$2$3')
+            if (n == n2) break
+            n = n2
+        }
+        return '$' + n;
+    },
+
+    FormatearABlanco: function (numero) {
+        if (numero == 0) return "";
+        return numero;
+    },
 
     BuscarDatos: function () {
         var _this = this;
@@ -71,19 +87,20 @@
 
         var columnas = [];
 
-        columnas.push(new Columna("Área", { generar: function (un_registro) { return un_registro.areaDescripMedia } }));
+        columnas.push(new Columna("Area", { generar: function (un_registro) { return un_registro.areaDescripMedia } }));
+        columnas.push(new Columna("Documento", { generar: function (un_registro) { return un_registro.nroDocumento } }));
         columnas.push(new Columna("Apellido", { generar: function (un_registro) { return un_registro.apellido } }));
         columnas.push(new Columna("Nombre", { generar: function (un_registro) { return un_registro.nombre } }));
-        columnas.push(new Columna("Sueldo Bruto", { generar: function (un_registro) { return un_registro.sueldoBruto } }));
-        columnas.push(new Columna("Sueldo Neto", { generar: function (un_registro) { return un_registro.sueldoNeto } }));
-        columnas.push(new Columna("Xtras Bruto", { generar: function (un_registro) { return un_registro.xtrasBruto } }));
-        columnas.push(new Columna("Xtras Neto", { generar: function (un_registro) { return un_registro.xtrasNeto } }));
-        columnas.push(new Columna("SAC Bruto", { generar: function (un_registro) { return un_registro.SACBruto } }));
-        columnas.push(new Columna("SAC Neto", { generar: function (un_registro) { return un_registro.SACNeto } }));
-        columnas.push(new Columna("Hs Simples", { generar: function (un_registro) { return un_registro.hsSimples } }));
-        columnas.push(new Columna("Hs 50%", { generar: function (un_registro) { return un_registro.hs50 } }));
-        columnas.push(new Columna("Hs 100%", { generar: function (un_registro) { return un_registro.hs100 } }));
-        columnas.push(new Columna("Comidas", { generar: function (un_registro) { return un_registro.comidas } }));
+        columnas.push(new Columna("SueldoBruto", { generar: function (un_registro) { return _this.FormatearNumero(un_registro.sueldoBruto); } }));
+        columnas.push(new Columna("SueldoNeto", { generar: function (un_registro) { return _this.FormatearNumero(un_registro.sueldoNeto); } }));
+        columnas.push(new Columna("ExtrasBruto", { generar: function (un_registro) { return _this.FormatearNumero(un_registro.xtrasBruto); } }));
+        columnas.push(new Columna("ExtrasNeto", { generar: function (un_registro) { return _this.FormatearNumero(un_registro.xtrasNeto); } }));
+        //columnas.push(new Columna("SAC Bruto", { generar: function (un_registro) { return un_registro.SACBruto } }));
+        //columnas.push(new Columna("SAC Neto", { generar: function (un_registro) { return un_registro.SACNeto } }));
+        columnas.push(new Columna("HsSimples", { generar: function (un_registro) { return _this.FormatearABlanco(un_registro.hsSimples); } }));
+        columnas.push(new Columna("Hs50%", { generar: function (un_registro) { return _this.FormatearABlanco(un_registro.hs50); } }));
+        columnas.push(new Columna("Hs100%", { generar: function (un_registro) { return _this.FormatearABlanco(un_registro.hs100); } }));
+        columnas.push(new Columna("Comidas", { generar: function (un_registro) { return _this.FormatearABlanco(un_registro.comidas); } }));
         columnas.push(new Columna('Detalle', {
             generar: function (un_registro) {
                 var btn_accion = $('<a>');
@@ -94,7 +111,7 @@
                 btn_accion.append(img);
                 btn_accion.click(function () {
                     console.log(un_registro);
-                    localStorage.setItem("documento", un_registro.NroDocumento);
+                    localStorage.setItem("documento", un_registro.nroDocumento);
                     window.open('ConsultaIndividual.aspx', '_blank');
                     //window.location.replace("ConsultaIndividual.aspx");
                 });
@@ -114,9 +131,9 @@
     BuscadorDeTablaDetalle: function () {
 
         var options = {
-            valueNames: ['Sueldo Bruto', 'Sueldo Neto', 'Xtras Bruto', 'Xtras Neto', 'SAC Bruto', 'SAC Neto', 'Hs Simples', 'Hs 50%', 'Hs 100%', 'Comidas']
+            valueNames: ['Area', 'Documento', 'Apellido', 'Nombre', 'SueldoBruto', 'SueldoNeto', 'ExtrasBruto', 'ExtrasNeto', 'HsSimples', 'Hs50%', 'Hs100%', 'Comidas']
         };
-        var featureList = new List('div_tabla_detalle', options);
+        var featureList = new List('div_tabla_detalle_sueldo', options);
     },
 
     ConvertirFecha: function (fecha) {
@@ -151,15 +168,15 @@
 
             var a = window.document.createElement('a');
             a.href = "data:application/vnd.ms-excel;base64," + resultado;
-            a.download = "RECIBOS_DE_SUELDO_" + fecha + "_.xlsx";               
-        
+            a.download = "RECIBOS_DE_SUELDO_" + fecha + "_.xlsx";
+
             document.body.appendChild(a)
             a.click();
             document.body.removeChild(a)
 
 
         }
-       
+
     }
 
 }

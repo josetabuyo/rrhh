@@ -48,7 +48,6 @@ var GraficoDotacion = {
         });
 
         $('#chk_incluir_dependencias').click(function () {
-            _this.BuscarDatos();
         });
 
         $('#btn_armarGrafico_RangoEtaero').click(function () {
