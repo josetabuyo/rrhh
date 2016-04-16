@@ -16,20 +16,24 @@
     },
 
     FormatearNumero: function (numero) {
+        var _this = this;
         if (numero == 0) return "";
-        var n = numero.toFixed(2).toString().replace(".", ",");
+        return '$' + _this.FormatearConPunto(numero.toFixed(2).toString().replace(".", ","));
+    },
+
+    FormatearABlanco: function (numero) {
+        if (numero == 0) return "";
+        return numero;
+    },
+
+    FormatearConPunto: function (n){
         n = n.toString()
         while (true) {
             var n2 = n.replace(/(\d)(\d{3})($|,|\.)/g, '$1.$2$3')
             if (n == n2) break
             n = n2
         }
-        return '$' + n;
-    },
-
-    FormatearABlanco: function (numero) {
-        if (numero == 0) return "";
-        return numero;
+        return n;
     },
 
     BuscarDatos: function () {
@@ -88,7 +92,7 @@
         var columnas = [];
 
         columnas.push(new Columna("Area", { generar: function (un_registro) { return un_registro.areaDescripMedia } }));
-        columnas.push(new Columna("Documento", { generar: function (un_registro) { return un_registro.nroDocumento } }));
+        columnas.push(new Columna("Documento", { generar: function (un_registro) { return _this.FormatearConPunto(un_registro.nroDocumento); } }));
         columnas.push(new Columna("Apellido", { generar: function (un_registro) { return un_registro.apellido } }));
         columnas.push(new Columna("Nombre", { generar: function (un_registro) { return un_registro.nombre } }));
         columnas.push(new Columna("SueldoBruto", { generar: function (un_registro) { return _this.FormatearNumero(un_registro.sueldoBruto); } }));
