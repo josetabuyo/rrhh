@@ -73,31 +73,41 @@ var GraficoDotacion = {
         });
 
         $('#btn_nivel').click(function () {
+            ocultarOtrosGraficos();
             armarGraficoDesdeMenu("Nivel", 2, "Dotación por " + this.innerHTML);
             $('#cb2')[0].checked = true;
         });
 
         $('#btn_estudios').click(function () {
+            ocultarOtrosGraficos();
             armarGraficoDesdeMenu("Estudios", 3, "Dotación por " + this.innerHTML);
             $('#cb3')[0].checked = true;
         });
 
         $('#btn_plantas').click(function () {
+            ocultarOtrosGraficos();
             armarGraficoDesdeMenu("Plantas", 4, "Dotación por " + this.innerHTML);
             $('#cb4')[0].checked = true;
         });
         $('#btn_areas').click(function () {
+            ocultarOtrosGraficos();
             armarGraficoDesdeMenu("Areas", 5, "Dotación por " + this.innerHTML);
             $('#cb5')[0].checked = true;
         });
         $('#btn_secretarias').click(function () {
+            ocultarOtrosGraficos();
             armarGraficoDesdeMenu("Secreatarías", 6, "Dotación por " + this.innerHTML);
             $('#cb6')[0].checked = true;
         });
         $('#btn_subsecretarias').click(function () {
+            ocultarOtrosGraficos();
             armarGraficoDesdeMenu("SubSecretarías", 7, "Dotación por " + this.innerHTML);
             $('#cb7')[0].checked = true;
         });
+
+        function ocultarOtrosGraficos() {
+            $('#div_resultados_sueldos').hide();
+        };
 
         function armarGraficoDesdeMenu(mi_filtro, tipo, texto) {
             checks_activos = [];
@@ -231,8 +241,8 @@ var GraficoDotacion = {
                 case "7":
                     a.download = "DOTACION_POR_SUBSECRETARIAS_" + fecha + "_.xlsx";
                     break;
-                //                case "6":        
-                //                    a.download = "DOTACION_RANGO_ETARIO_" + fecha + "_.xlsx";        
+                //                case "6":            
+                //                    a.download = "DOTACION_RANGO_ETARIO_" + fecha + "_.xlsx";            
 
 
                 default:
