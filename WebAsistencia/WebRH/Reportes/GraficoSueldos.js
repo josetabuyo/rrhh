@@ -16,6 +16,9 @@
     },
 
     FormatearNumero: function (numero) {
+        if (numero == null) {
+            return "";
+        }
         var _this = this;
         if (numero == 0) return "";
         return '$' + _this.FormatearConPunto(numero.toFixed(2).toString().replace(".", ","));
@@ -26,7 +29,10 @@
         return numero;
     },
 
-    FormatearConPunto: function (n){
+    FormatearConPunto: function (n) {
+        if (n == null) {
+            return "";
+        }
         n = n.toString()
         while (true) {
             var n2 = n.replace(/(\d)(\d{3})($|,|\.)/g, '$1.$2$3')
@@ -68,7 +74,8 @@
         $('#div_resultados_sueldos').show();
         $('#search_detalle_sueldo').show();
         $('#exportar_datos_detalle_sueldo').show();
-        var sueldos = Backend.ejecutarSincronico("GetReporteSueldosPorArea", [{ fecha: fecha, id_area: parseInt(id_area), incluir_dependencias: incluir_dependencias}]);
+        var grafico = Backend.ejecutarSincronico("GetReporteSueldosPorArea", [{ fecha: fecha, id_area: parseInt(id_area), incluir_dependencias: incluir_dependencias}]);
+        var sueldos = grafico.tabla_detalle;
         if (sueldos != null) {
             // _this.VisualizarContenido(true);
             _this.DibujarTablaDetalle(sueldos, div_tabla, tabla);
@@ -91,20 +98,20 @@
 
         var columnas = [];
 
-        columnas.push(new Columna("Area", { generar: function (un_registro) { return un_registro.areaDescripMedia } }));
-        columnas.push(new Columna("Documento", { generar: function (un_registro) { return _this.FormatearConPunto(un_registro.nroDocumento); } }));
-        columnas.push(new Columna("Apellido", { generar: function (un_registro) { return un_registro.apellido } }));
-        columnas.push(new Columna("Nombre", { generar: function (un_registro) { return un_registro.nombre } }));
-        columnas.push(new Columna("SueldoBruto", { generar: function (un_registro) { return _this.FormatearNumero(un_registro.sueldoBruto); } }));
-        columnas.push(new Columna("SueldoNeto", { generar: function (un_registro) { return _this.FormatearNumero(un_registro.sueldoNeto); } }));
-        columnas.push(new Columna("ExtrasBruto", { generar: function (un_registro) { return _this.FormatearNumero(un_registro.xtrasBruto); } }));
-        columnas.push(new Columna("ExtrasNeto", { generar: function (un_registro) { return _this.FormatearNumero(un_registro.xtrasNeto); } }));
+        columnas.push(new Columna("Area", { generar: function (un_registro) { return un_registro.AreaDescripCorta } }));
+        columnas.push(new Columna("Documento", { generar: function (un_registro) { return _this.FormatearConPunto(un_registro.NroDocumento); } }));
+        columnas.push(new Columna("Apellido", { generar: function (un_registro) { return un_registro.Apellido } }));
+        columnas.push(new Columna("Nombre", { generar: function (un_registro) { return un_registro.Nombre } }));
+        columnas.push(new Columna("SueldoBruto", { generar: function (un_registro) { return _this.FormatearNumero(un_registro.SueldoBruto); } }));
+        columnas.push(new Columna("SueldoNeto", { generar: function (un_registro) { return _this.FormatearNumero(un_registro.SueldoNeto); } }));
+        columnas.push(new Columna("ExtrasBruto", { generar: function (un_registro) { return _this.FormatearNumero(un_registro.ExtrasBruto); } }));
+        columnas.push(new Columna("ExtrasNeto", { generar: function (un_registro) { return _this.FormatearNumero(un_registro.ExtrasNeto); } }));
         //columnas.push(new Columna("SAC Bruto", { generar: function (un_registro) { return un_registro.SACBruto } }));
         //columnas.push(new Columna("SAC Neto", { generar: function (un_registro) { return un_registro.SACNeto } }));
-        columnas.push(new Columna("HsSimples", { generar: function (un_registro) { return _this.FormatearABlanco(un_registro.hsSimples); } }));
-        columnas.push(new Columna("Hs50%", { generar: function (un_registro) { return _this.FormatearABlanco(un_registro.hs50); } }));
-        columnas.push(new Columna("Hs100%", { generar: function (un_registro) { return _this.FormatearABlanco(un_registro.hs100); } }));
-        columnas.push(new Columna("Comidas", { generar: function (un_registro) { return _this.FormatearABlanco(un_registro.comidas); } }));
+        columnas.push(new Columna("HsSimples", { generar: function (un_registro) { return _this.FormatearABlanco(un_registro.HsSimples); } }));
+        columnas.push(new Columna("Hs50%", { generar: function (un_registro) { return _this.FormatearABlanco(un_registro.Hs50); } }));
+        columnas.push(new Columna("Hs100%", { generar: function (un_registro) { return _this.FormatearABlanco(un_registro.Hs100); } }));
+        columnas.push(new Columna("Comidas", { generar: function (un_registro) { return _this.FormatearABlanco(un_registro.Comidas); } }));
         columnas.push(new Columna('Detalle', {
             generar: function (un_registro) {
                 var btn_accion = $('<a>');

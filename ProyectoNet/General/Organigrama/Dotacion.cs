@@ -33,6 +33,22 @@ namespace General
         public string NombreSecretaria { get; set; }
         public string NombresubSecretaria { get; set; }
         public int OrdenArea { get; set; }
+        public int SueldoAnio { get; set; }
+        public int SueldoMes { get; set; }
+        public float SueldoBruto { get; set; }
+        public float SueldoNeto { get; set; }
+        public int ExtrasAnio { get; set; }
+        public int ExtrasMes { get; set; }
+        public float ExtrasBruto { get; set; }
+        public float ExtrasNeto { get; set; }
+        public int SACAnio { get; set; }
+        public int SACMes { get; set; }
+        public float SACBruto { get; set; }
+        public float SACNeto { get; set; }
+        public int HsSimples { get; set; }
+        public int Hs50 { get; set; }
+        public int Hs100 { get; set; }
+        public int Comidas { get; set; }
 
 
         public Dotacion() { }
@@ -73,5 +89,9 @@ namespace General
 
             return age;
         }
+
+
+
+       
     }
 }

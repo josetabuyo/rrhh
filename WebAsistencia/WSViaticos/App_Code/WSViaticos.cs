@@ -216,7 +216,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public List<SueldoPersona> GetReporteSueldosPorArea(string criterio, Usuario usuario)
+    public Grafico GetReporteSueldosPorArea(string criterio, Usuario usuario)
     {
         var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
         int dia = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(0, 2)));
