@@ -30,9 +30,11 @@
     },
 
     FormatearConPunto: function (n) {
+
         if (n == null) {
             return "";
         }
+
         n = n.toString()
         while (true) {
             var n2 = n.replace(/(\d)(\d{3})($|,|\.)/g, '$1.$2$3')
@@ -74,19 +76,28 @@
         $('#div_resultados_sueldos').show();
         $('#search_detalle_sueldo').show();
         $('#exportar_datos_detalle_sueldo').show();
-        var grafico = Backend.ejecutarSincronico("GetReporteSueldosPorArea", [{ fecha: fecha, id_area: parseInt(id_area), incluir_dependencias: incluir_dependencias}]);
-        var sueldos = grafico.tabla_detalle;
-        if (sueldos != null) {
-            // _this.VisualizarContenido(true);
-            _this.DibujarTablaDetalle(sueldos, div_tabla, tabla);
-            _this.BuscadorDeTabla();
+        var spinner = new Spinner({ scale: 3 });
+        spinner.spin($("html")[0]);
 
-        } else {
-            _this.VisualizarContenido(false);
-            alertify.error("No hay Personal en el Área seleccionada para la generación del Gráfico");
-        }
+        Backend.GetReporteSueldosPorArea({ fecha: fecha, id_area: parseInt(id_area), incluir_dependencias: incluir_dependencias })
+            .onSuccess(function (grafico) {
+                var sueldos = grafico.tabla_detalle;
+                if (sueldos != null) {
+                    // _this.VisualizarContenido(true);
+                    _this.DibujarTablaDetalle(sueldos, div_tabla, tabla);
+                    _this.BuscadorDeTablaDetalle();
+                     
+                } else {
+                    _this.VisualizarContenido(false);
+                    alertify.error("No hay Personal en el Área seleccionada para la generación del Gráfico");
+                }
+                spinner.stop();
+            })
+            .onError(function () {
+                alertify.error("No hay Personal en el Área seleccionada para la generación del Gráfico");
+                spinner.stop();
+            })
     },
-
 
     DibujarTablaDetalle: function (resultado, div_tabla, tabla) {
         var _this = this;

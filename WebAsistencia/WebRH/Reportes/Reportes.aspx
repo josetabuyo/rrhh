@@ -142,8 +142,6 @@
     </form>
     <div id="plantillas">
         <div class="arbol_organigrama">
-            <center>
-                <img alt="loader" id="spinner" src="../Imagenes/spinner.gif" width="100px" height="100px"></center>
         </div>
         <div class="area_en_arbol">
             <div id="area">
@@ -168,36 +166,38 @@
     <script src="../Scripts/Graficos/svgcheckbx.js" type="text/javascript"></script>
     <script src="../Scripts/Graficos/classie.js" type="text/javascript"></script>
     <script src="../Scripts/ExportarAExcel.js" type="text/javascript"></script>
+    <script src="../Scripts/Spin.js" type="text/javascript"></script>
     <script type="text/javascript">
 
         //EFECTOS DEL MENU ORGANIGRAMA
 
-        Backend.start();
+        Backend.start(function () {
+            $(document).ready(function () {
+                var menuLeft = document.getElementById('cbp-spmenu-s1'),
+				    showLeftPush = document.getElementById('showLeftPush'),
+				    body = document.body;
 
-        $(document).ready(function () {
-            var menuLeft = document.getElementById('cbp-spmenu-s1'),
-				showLeftPush = document.getElementById('showLeftPush'),
-				body = document.body;
-
-            showLeftPush.onclick = function () {
-                classie.toggle(this, 'active');
-                classie.toggle(body, 'cbp-spmenu-push-toright');
-                classie.toggle(menuLeft, 'cbp-spmenu-open');
-                //disableOther('showLeftPush');
-            };
-            GraficoDotacion.Inicializar();
-            GraficoSueldos.Inicializar();
-            $('#exportar_datos_detalle').click(function () {
-                ExportarAExcel.fnExcelReport(document.getElementById('tabla_detalle'));
-            });
-            $('#exportar_datos_detalle_sueldo').click(function () {
-                ExportarAExcel.fnExcelReport(document.getElementById('tabla_detalle_sueldo'));
-            });
-            $('#exportar_datos').click(function () {
-                ExportarAExcel.fnExcelReport(document.getElementById('tabla_resultado_totales'));
+                showLeftPush.onclick = function () {
+                    classie.toggle(this, 'active');
+                    classie.toggle(body, 'cbp-spmenu-push-toright');
+                    classie.toggle(menuLeft, 'cbp-spmenu-open');
+                    //disableOther('showLeftPush');
+                };
+                GraficoDotacion.Inicializar();
+                GraficoSueldos.Inicializar();
+                $('#exportar_datos_detalle').click(function () {
+                    ExportarAExcel.fnExcelReport(document.getElementById('tabla_detalle'));
+                });
+                $('#exportar_datos_detalle_sueldo').click(function () {
+                    ExportarAExcel.fnExcelReport(document.getElementById('tabla_detalle_sueldo'));
+                });
+                $('#exportar_datos').click(function () {
+                    ExportarAExcel.fnExcelReport(document.getElementById('tabla_resultado_totales'));
+                });
             });
         });
-			
+
+        
     </script>
 </body>
 </html>
