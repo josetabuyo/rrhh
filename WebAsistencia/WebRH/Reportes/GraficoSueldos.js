@@ -26,7 +26,7 @@
         return numero;
     },
 
-    FormatearConPunto: function (n){
+    FormatearConPunto: function (n) {
         n = n.toString()
         while (true) {
             var n2 = n.replace(/(\d)(\d{3})($|,|\.)/g, '$1.$2$3')
@@ -68,18 +68,28 @@
         $('#div_resultados_sueldos').show();
         $('#search_detalle_sueldo').show();
         $('#exportar_datos_detalle_sueldo').show();
-        var sueldos = Backend.ejecutarSincronico("GetReporteSueldosPorArea", [{ fecha: fecha, id_area: parseInt(id_area), incluir_dependencias: incluir_dependencias}]);
-        if (sueldos != null) {
-            // _this.VisualizarContenido(true);
-            _this.DibujarTablaDetalle(sueldos, div_tabla, tabla);
-            _this.BuscadorDeTabla();
 
-        } else {
-            _this.VisualizarContenido(false);
-            alertify.error("No hay Personal en el Área seleccionada para la generación del Gráfico");
-        }
+        var spinner = new Spinner({ scale: 3 });
+        spinner.spin($("html")[0]);
+
+        Backend.GetReporteSueldosPorArea({ fecha: fecha, id_area: parseInt(id_area), incluir_dependencias: incluir_dependencias })
+            .onSuccess(function (sueldos) {
+                if (sueldos != null) {
+                    // _this.VisualizarContenido(true);
+                    _this.DibujarTablaDetalle(sueldos, div_tabla, tabla);
+                    _this.BuscadorDeTabla();
+
+                } else {
+                    _this.VisualizarContenido(false);
+                    alertify.error("No hay Personal en el Área seleccionada para la generación del Gráfico");
+                }
+                spinner.stop();
+            })
+            .onError(function () {
+                alertify.error("No hay Personal en el Área seleccionada para la generación del Gráfico");
+                spinner.stop();
+            })
     },
-
 
     DibujarTablaDetalle: function (resultado, div_tabla, tabla) {
         var _this = this;

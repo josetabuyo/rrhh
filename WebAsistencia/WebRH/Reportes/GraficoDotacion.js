@@ -231,10 +231,10 @@ var GraficoDotacion = {
                 case "7":
                     a.download = "DOTACION_POR_SUBSECRETARIAS_" + fecha + "_.xlsx";
                     break;
-                //                case "6":   
-                //                    a.download = "DOTACION_RANGO_ETARIO_" + fecha + "_.xlsx";   
+                //                case "6":        
+                //                    a.download = "DOTACION_RANGO_ETARIO_" + fecha + "_.xlsx";        
 
-                
+
                 default:
                     //     alert('');
                     break;
@@ -261,21 +261,28 @@ var GraficoDotacion = {
     GraficoYTabla: function (tipo, fecha, id_area, incluir_dependencias, titulo, div_grafico, div_tabla, tabla) {
         var _this = this;
         $('#div_graficos_y_tablas').show();
-        //spinner = new Spinner({ scale: 2 }).spin($("body")[0]);
-        var grafico = Backend.ejecutarSincronico("GetGrafico", [{ tipo: parseInt(tipo), fecha: fecha, id_area: parseInt(id_area), incluir_dependencias: incluir_dependencias}]);
-        var resultado = grafico.tabla_resumen;
-        var tabla_detalle = grafico.tabla_detalle;
-        if (resultado != null) {
-            _this.VisualizarContenido(true);
-            _this.ArmarGrafico(resultado, titulo, div_grafico);
-            _this.DibujarTabla(resultado, div_tabla, tabla, tabla_detalle);
-            _this.BuscadorDeTabla();
+        var spinner = new Spinner({ scale: 3 });
+        spinner.spin($("html")[0]);
+        Backend.GetGrafico({ tipo: parseInt(tipo), fecha: fecha, id_area: parseInt(id_area), incluir_dependencias: incluir_dependencias })
+            .onSuccess(function (grafico) {
+                var resultado = grafico.tabla_resumen;
+                var tabla_detalle = grafico.tabla_detalle;
+                if (resultado != null) {
+                    _this.VisualizarContenido(true);
+                    _this.ArmarGrafico(resultado, titulo, div_grafico);
+                    _this.DibujarTabla(resultado, div_tabla, tabla, tabla_detalle);
+                    _this.BuscadorDeTabla();
 
-        } else {
-            _this.VisualizarContenido(false);
-            alertify.error("No hay Personal en el Área seleccionada para la generación del Gráfico");
-        }
-        //spinner.stop();
+                } else {
+                    _this.VisualizarContenido(false);
+                    alertify.error("No hay Personal en el Área seleccionada para la generación del Gráfico");
+                }
+                spinner.stop();
+            })
+            .onError(function () {
+                alertify.error("error al pedir datos");
+                spinner.stop();
+            });
     },
 
     GraficoYTablaRangoEtareo: function (tipo, fecha, id_area, titulo, div_grafico, div_tabla, tabla) {
@@ -434,7 +441,7 @@ var GraficoDotacion = {
         var _this = this;
         $("#" + tabla).empty();
         $("#search").show();
-       
+
 
         var divGrilla = $('#' + tabla);
         var tabla = resultado;
@@ -478,7 +485,7 @@ var GraficoDotacion = {
         var _this = this;
         $("#" + tabla).empty();
         $("#search").show();
-      
+
         var divGrilla = $('#' + tabla);
         var tabla = resultado;
 
@@ -525,7 +532,7 @@ var GraficoDotacion = {
         var _this = this;
         var tabla_final = [];
         $('#search_detalle').show();
-       
+
         if (tabla.length > 0) {
             var titulo = "Tabla de Toda la Dotación del Área";
             if (criterio == "Total") {
