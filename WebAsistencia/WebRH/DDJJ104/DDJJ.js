@@ -90,6 +90,7 @@ var DibujarGrillaDDJJ = function () {
 
     grilla.CargarObjetos(lista_areas_del_usuario);
     grilla.DibujarEn(ContenedorGrilla);
+    BuscardoAreas();
     grilla.SetOnRowClickEventHandler(function () {
         return true;
     });
@@ -469,6 +470,16 @@ var DibujarGrillaPersonas = function (un_area, contenedor_grilla, es_impresion) 
         });
     });
 }
+
+
+function BuscardoAreas() {
+
+    var options = {
+        valueNames: ['Area', 'Estado']
+    };
+    var featureList = new List('grilla', options);
+};
+
 
 function NombreMes(num) {
     switch (num) {
