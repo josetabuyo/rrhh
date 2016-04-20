@@ -112,7 +112,19 @@
                                 <label>Fecha</label>
                                 <input id="txt_fecha_desde_sueldo" type="text" style="width: 100px; margin: 5px 10px 5px 46px;" />
                                 <input id="btn_buscar_sueldo" type="button" class="btn btn-primary" value="Buscar" />
-                            </div>                    
+                            </div> 
+                            <div class="grupo_campos nueva_linea">
+                                <label>Agrupar por:</label>
+                                <div class="" autocomplete="off" style="margin-left: 50px;">
+                                    <section>
+					                    <ul class="lista_filtros">
+						                    <li><input id="cb_SinAgrupar" class="regular-checkbox filtros_sueldo" name="cb8" data-filtro="SinAgrupar_sueldo" type="checkbox"/><label for="cb_SinAgrupar">Sin Agrupar</label></li>
+                                            <li><input id="cb_Secretarias_sueldo" class="regular-checkbox filtros_sueldo" name="cb9" data-filtro="Secretarias_sueldo" type="checkbox"/><label for="cb_Secretarias">Secretarías</label></li>
+						                    <li><input id="cb_SubSecretarias_sueldo" class="regular-checkbox filtros_sueldo" name="cb0" data-filtro="Subsecretariasr_sueldo" type="checkbox"/><label for="cb_SubSecretarias">Subsecretarias</label></li>
+					                    </ul>
+			                        </section>
+                                </div>
+                            </div>                   
                         </div>
                     </div>  
                     <div id="div_tabla_detalle_sueldo" style="margin: -310px 0px 0px 148px; width: 100%; position: absolute; top: 465px;">               

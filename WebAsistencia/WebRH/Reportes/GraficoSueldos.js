@@ -1,4 +1,9 @@
-﻿var GraficoSueldos = {
+﻿var checks_activos = [1];
+var filtro;
+var spinner;
+
+
+var GraficoSueldos = {
     Inicializar: function () {
         var _this = this;
 
@@ -8,11 +13,32 @@
 
         localStorage.removeItem("alias");
         localStorage.removeItem("idArea");
+        $('#cb_SinAgrupar').prop('checked', true);
 
         $('#btn_buscar_sueldo').click(function () {
             _this.BuscarDatos();
 
         });
+
+
+        $('.filtros_sueldo').change(function () {
+            $('.filtros_sueldo').each(function () {
+                this.checked = false;
+                checks_activos = [];
+            });
+            this.checked = true;
+
+            filtro = this.dataset.filtro;
+            var nombre = this.name;
+            var lastChar = nombre.substr(nombre.length - 1);
+            checks_activos.push(lastChar);
+
+            _this.BuscarDatos();
+
+            $('#titulo_grafico').html("Dotación por " + this.nextElementSibling.innerHTML);
+           
+        });
+
     },
 
     FormatearNumero: function (numero) {
@@ -77,9 +103,10 @@
         $('#search_detalle_sueldo').show();
         $('#exportar_datos_detalle_sueldo').show();
         var spinner = new Spinner({ scale: 3 });
+        var tipo = checks_activos.slice(-1)[0];
         spinner.spin($("html")[0]);
 
-        Backend.GetReporteSueldosPorArea({ fecha: fecha, id_area: parseInt(id_area), incluir_dependencias: incluir_dependencias })
+        Backend.GetReporteSueldosPorArea({ tipo: parseInt(tipo), fecha: fecha, id_area: parseInt(id_area), incluir_dependencias: incluir_dependencias })
             .onSuccess(function (grafico) {
                 var sueldos = grafico.tabla_detalle;
                 if (sueldos != null) {

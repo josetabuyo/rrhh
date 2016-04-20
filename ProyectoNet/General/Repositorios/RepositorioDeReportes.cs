@@ -78,16 +78,22 @@ namespace General.Repositorios
                     grafico.GraficoPorPlanta();
                     break;
                 case 5:
-                    //List<Area> areas = BuscarAreas();
                     grafico.GraficoPorArea();
                     break;
                 case 6:
-                    //List<Area> areas = BuscarAreas();
                     grafico.GraficoPorSecretarias();
                     break;
                 case 7:
-                    //List<Area> areas = BuscarAreas();
                     grafico.GraficoPorSubSecretarias();
+                    break;
+                case 8:
+                    grafico.GraficoDeSueldoPorArea();
+                    break;
+                case 9:
+                    grafico.GraficoDeSueldoPorSecretarias();
+                    break;
+                case 10:
+                    grafico.GraficoDeSueldoPorSubSecretarias();
                     break;
                 //    grafico.GraficoPorAfiliacionGremial();
                 //    break;
@@ -104,15 +110,31 @@ namespace General.Repositorios
 
 
 
-        public Grafico GetReporteSueldosPorArea(DateTime fecha, int id_area, bool incluir_dependencias)
+        public Grafico GetReporteSueldosPorArea(int tipo, DateTime fecha, int id_area, bool incluir_dependencias)
         {
+            if (tipo == 0) tipo = 10;
+
+            if (fecha.Year == fecha_anterior.Year && fecha.Month == fecha_anterior.Month && fecha.Day == fecha_anterior.Day && id_area == id_area_anterior && incluir_dependencias == incluir_dependencias_anterior)
+            {
+
+                if (grafico.ContienePersonas())
+                {
+                    CrearResumen(tipo, fecha);
+                }
+
+                return grafico;
+
+            }
+            tipo_anterior = tipo;
+            fecha_anterior = fecha;
+            id_area_anterior = id_area;
+            incluir_dependencias_anterior = incluir_dependencias;
             var parametros = new Dictionary<string, object>();
             parametros.Add("@fechacorte", fecha);
             parametros.Add("@id_area", id_area);
             parametros.Add("@incluir_dependencias", incluir_dependencias);
             var tablaDatos = conexion_bd.Ejecutar("dbo.GRAF_RPT_Dotacion_Sueldos", parametros);
 
-            Grafico grafico = new Grafico();
             var lista_sueldos = new List<Dotacion>();
 
             tablaDatos.Rows.ForEach(row =>
@@ -145,6 +167,7 @@ namespace General.Repositorios
                 persona.HsSimples = row.GetSmallintAsInt("HsSimples", 0);
                 persona.Hs50 = row.GetSmallintAsInt("Hs50", 0);
                 persona.Hs100 = row.GetSmallintAsInt("Hs100", 0);
+                persona.HsTotalesSimples(persona.HsSimples, persona.Hs50, persona.Hs100);
                 persona.Comidas = row.GetSmallintAsInt("Comidas", 0);
 
                 lista_sueldos.Add(persona);

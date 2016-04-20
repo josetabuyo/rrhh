@@ -219,6 +219,7 @@ public class WSViaticos : System.Web.Services.WebService
     public Grafico GetReporteSueldosPorArea(string criterio, Usuario usuario)
     {
         var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
+        int tipo = (int)((JValue)criterio_deserializado["tipo"]);
         int dia = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(0, 2)));
         int mes = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(3, 2)));
         int anio = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(6, 4)));
@@ -226,7 +227,7 @@ public class WSViaticos : System.Web.Services.WebService
         DateTime fecha = new DateTime(anio, mes, dia);
         int id_area = (int)((JValue)criterio_deserializado["id_area"]);
         RepositorioDeReportes repositorio = new RepositorioDeReportes(Conexion());
-        return repositorio.GetReporteSueldosPorArea(fecha, id_area, incluir_dependencias);
+        return repositorio.GetReporteSueldosPorArea(tipo, fecha, id_area, incluir_dependencias);
     }
 
     [WebMethod]

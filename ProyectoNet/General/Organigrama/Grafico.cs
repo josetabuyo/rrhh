@@ -504,7 +504,7 @@ namespace General
             List<Dotacion> tabla_personas = this.tabla_detalle.ToList();
             List<Resumen> tabla = new List<Resumen>();
             List<Contador> contador = new List<Contador>();
-            
+
             tabla_personas.ForEach(p =>
             {
 
@@ -565,7 +565,8 @@ namespace General
                         {
                             nombre = "|||||" + p.NombresubSecretaria;
                         }
-                        else {
+                        else
+                        {
                             nombre = p.NombresubSecretaria;
                         }
                         Contador nueva_area = new Contador(p.IdSubSecretaria, nombre);
@@ -580,7 +581,8 @@ namespace General
                     {
                         nombre = "|||||" + p.NombresubSecretaria;
                     }
-                    else {
+                    else
+                    {
                         nombre = p.NombresubSecretaria;
                     }
                     Contador nueva_area = new Contador(p.IdSubSecretaria, nombre);
@@ -597,9 +599,83 @@ namespace General
             {
                 tabla.Add(GenerarRegistroResumen(registro.Descripcion, registro.Personas.Count, total, registro.Orden));
             });
-           
+
             this.tabla_resumen = tabla;
             this.tabla_resumen = tabla.OrderBy(t => t.Orden).ToList();
+        }
+
+        internal void GraficoDeSueldoPorSecretarias()
+        {
+            List<Dotacion> tabla_personas = this.tabla_detalle.ToList();
+            List<Resumen> tabla = new List<Resumen>();
+            List<Contador> contador = new List<Contador>();
+
+            tabla_personas.ForEach(p =>
+            {
+
+                if (contador.Count > 0)
+                {
+                    if (contador.Exists(area => area.Id == p.IdSecretaria))
+                    {
+                        contador.Find(area => area.Id == p.IdSecretaria).Personas.Add(p);
+                    }
+                    else
+                    {
+                        Contador nueva_area = new Contador(p.IdSecretaria, p.NombreSecretaria);
+                        nueva_area.Personas.Add(p);
+                        nueva_area.Orden = p.OrdenArea;
+                        contador.Add(nueva_area);
+                    }
+                }
+                else
+                {
+                    Contador nueva_area = new Contador(p.IdSecretaria, p.NombreSecretaria);
+                    nueva_area.Personas.Add(p);
+                    nueva_area.Orden = p.OrdenArea;
+                    contador.Add(nueva_area);
+                }
+            });
+
+            int total = tabla_personas.Count;
+            tabla.Add(GenerarRegistroResumen("Total", total, total));
+
+            contador.ForEach(registro =>
+            {
+
+                tabla.Add(GenerarRegistroResumenSueldo(registro, total));
+            });
+
+            this.tabla_resumen = tabla;
+            this.tabla_resumen = tabla.OrderBy(t => t.Orden).ToList();
+
+        }
+
+        private Resumen GenerarRegistroResumenSueldo(Contador registro, int total)
+        {
+            Resumen resumen = GenerarRegistroResumen(registro.Descripcion, registro.Personas.Count, total, registro.Orden);
+            resumen.SumatoriaSueldo = registro.Personas.Sum(p => p.SueldoBruto);
+            resumen.SumatoriaExtras = registro.Personas.Sum(p => p.hsTotalesSimples);
+            resumen.PrimedioSueldo = resumen.SumatoriaSueldo / (float)total;
+            var personas_con_extras = registro.Personas.FindAll(p => p.HsSimples != 0 || p.Hs100 != 0 || p.Hs50 != 0);
+            if (personas_con_extras.Count != 0)
+            {
+                resumen.PrimedioExtras = resumen.SumatoriaExtras / (float)personas_con_extras.Count;
+            }
+            var sueldos_ordenados = registro.Personas.OrderBy(p => p.SueldoBruto).ToList();
+            resumen.MedianaSueldo = sueldos_ordenados.Skip(registro.Personas.Count / 2).Take(1).ToList().First().SueldoBruto;
+            var extras_ordenados = personas_con_extras.OrderBy(p => p.hsTotalesSimples).ToList();
+            resumen.MedianaExtras = extras_ordenados.Skip(extras_ordenados.Count / 2).Take(1).ToList().First().hsTotalesSimples;
+            return resumen;
+        }
+
+        internal void GraficoDeSueldoPorSubSecretarias()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void GraficoDeSueldoPorArea()
+        {
+            throw new NotImplementedException();
         }
     }
 }
