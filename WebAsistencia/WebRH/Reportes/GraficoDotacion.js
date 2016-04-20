@@ -63,6 +63,9 @@ var GraficoDotacion = {
             _this.BuscarExcel();
         });
 
+        $('#exportar_datos_detalle_sueldo').click(function () {
+            _this.BuscarExcelSueldos();
+        });
 
 
         //Botones del Menu
@@ -266,6 +269,89 @@ var GraficoDotacion = {
         }
         //   _this.GraficoYTabla(tipo, fecha, id_area, "Dotación por Nivel del Área aaa", "container_grafico_torta_totales", "div_tabla_resultado_totales", "tabla_resultado_totales");
     },
+
+
+
+    BuscarExcelSueldos: function (tipo, fecha, id_area) {
+        var _this = this;
+
+        var tipo = checks_activos.slice(-1)[0];
+        var fecha = $('#txt_fecha_desde').val();
+        //Me fijo si esta seteado el storage
+        var id_area = localStorage.getItem("idArea");
+
+        if (id_area == null) {
+            return;
+        }
+
+
+        var resultado = Backend.ejecutarSincronico("ExcelGeneradoSueldos", [{ tipo: parseInt(tipo), fecha: fecha, id_area: parseInt(id_area), incluir_dependencias: $("#chk_incluir_dependencias").is(":checked")}]);
+
+        if (resultado.length > 0) {
+
+            var a = window.document.createElement('a');
+
+            a.href = "data:application/vnd.ms-excel;base64," + resultado;
+
+            // alert(tipo);
+
+            switch (tipo.toString()) {
+
+                case "1":
+
+                    a.download = "DETALLE_SUELDOS_POR_DOTACION_DE_AREA" + fecha + "_.xlsx";
+                    break;
+                case "2":
+                    a.download = "DOTACION__POR_NIVEL_" + fecha + "_.xlsx";
+                    break;
+                case "3":
+                    a.download = "DOTACION_POR_ESTUDIO_" + fecha + "_.xlsx";
+                    break;
+                case "4":
+                    a.download = "DOTACION_POR_PLANTA_" + fecha + "_.xlsx";
+                    break;
+                case "5":
+                    a.download = "DOTACION_POR_AREA_" + fecha + "_.xlsx";
+                    break;
+                case "6":
+                    a.download = "DOTACION_POR_SECRETARIAS_" + fecha + "_.xlsx";
+                    break;
+                case "7":
+                    a.download = "DOTACION_POR_SUBSECRETARIAS_" + fecha + "_.xlsx";
+                    break;
+                //                case "6":             
+                //                    a.download = "DOTACION_RANGO_ETARIO_" + fecha + "_.xlsx";             
+
+
+                default:
+                    //     alert('');
+                    break;
+            }
+
+
+
+            // a.download = "excel.xlsx";
+
+            // Append anchor to body.
+            document.body.appendChild(a)
+            a.click();
+
+
+            // Remove anchor from body
+            document.body.removeChild(a)
+
+
+        }
+        //   _this.GraficoYTabla(tipo, fecha, id_area, "Dotación por Nivel del Área aaa", "container_grafico_torta_totales", "div_tabla_resultado_totales", "tabla_resultado_totales");
+    },
+
+
+
+
+
+
+
+
 
 
     GraficoYTabla: function (tipo, fecha, id_area, incluir_dependencias, titulo, div_grafico, div_tabla, tabla) {
