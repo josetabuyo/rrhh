@@ -1,4 +1,4 @@
-﻿var checks_activos = [1];
+﻿var checks_activos = [8];
 var filtro;
 var spinner;
 

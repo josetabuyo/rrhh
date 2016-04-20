@@ -53,6 +53,25 @@ namespace General
                             row.GetString("area_descrip_subsecretaria", "S/Nombre"),
                             row.GetInt("Orden", 999999)
                 );
+
+                persona.SueldoAnio = row.GetSmallintAsInt("SueldoAnio", 0);
+                persona.SueldoMes = row.GetSmallintAsInt("SueldoMes", 0);
+                persona.SueldoBruto = row.GetFloat("SueldoBruto", 0);
+                persona.SueldoNeto = row.GetFloat("SueldoNeto", 0);
+                persona.ExtrasAnio = row.GetSmallintAsInt("XtrasAnio", 0);
+                persona.ExtrasMes = row.GetSmallintAsInt("XtrasMes", 0);
+                persona.ExtrasBruto = row.GetFloat("XtrasBruto", 0);
+                persona.ExtrasNeto = row.GetFloat("XtrasNeto", 0);
+                persona.SACAnio = row.GetInt("SACAnio", 0);
+                persona.SACMes = row.GetInt("SACMes", 0);
+                persona.SACBruto = row.GetFloat("SACBruto", 0);
+                persona.SACNeto = row.GetFloat("SACNeto", 0);
+                persona.HsSimples = row.GetSmallintAsInt("HsSimples", 0);
+                persona.Hs50 = row.GetSmallintAsInt("Hs50", 0);
+                persona.Hs100 = row.GetSmallintAsInt("Hs100", 0);
+                persona.HsTotalesSimples(persona.HsSimples, persona.Hs50, persona.Hs100);
+                persona.Comidas = row.GetSmallintAsInt("Comidas", 0);
+
                 tabla.Add(persona);
             });
             this.tabla_detalle = tabla;
@@ -675,7 +694,7 @@ namespace General
 
         internal void GraficoDeSueldoPorArea()
         {
-            throw new NotImplementedException();
+           
         }
     }
 }

@@ -55,7 +55,7 @@ namespace General.Repositorios
             {
                 CrearResumen(tipo, fecha);
             }
-           
+
 
             return grafico;
 
@@ -123,7 +123,6 @@ namespace General.Repositorios
                 }
 
                 return grafico;
-
             }
             tipo_anterior = tipo;
             fecha_anterior = fecha;
@@ -135,45 +134,17 @@ namespace General.Repositorios
             parametros.Add("@incluir_dependencias", incluir_dependencias);
             var tablaDatos = conexion_bd.Ejecutar("dbo.GRAF_RPT_Dotacion_Sueldos", parametros);
 
-            var lista_sueldos = new List<Dotacion>();
 
-            tablaDatos.Rows.ForEach(row =>
+            if (tablaDatos.Rows.Count > 0)
             {
-                var persona = new Dotacion();
-                persona.IdPersona = row.GetInt("id_persona", 0);
-                persona.Legajo = row.GetInt("legajo", 0);
-                persona.NroDocumento = row.GetInt("nrodocumento", 0);
-                persona.Apellido = row.GetString("apellido", "Sin Dato");
-                persona.Nombre = row.GetString("nombre", "Sin Dato");
-                persona.IdArea = row.GetInt("id_area", 0);
-                persona.AreaDescripCorta = row.GetString("area_descrip_corta", "Sin Dato");
-                persona.IdSecretaria = row.GetInt("IdSecretaria", 0);
-                persona.NombreSecretaria = row.GetString("area_descrip_secretaria", "Sin Dato");
-                persona.IdSubSecretaria = row.GetInt("IdSubsecretaria", 0);
-                persona.NombresubSecretaria = row.GetString("area_descrip_subsecretaria", "Sin Dato");
-                persona.OrdenArea = row.GetSmallintAsInt("Orden", 0);
-                persona.SueldoAnio = row.GetSmallintAsInt("SueldoAnio", 0);
-                persona.SueldoMes = row.GetSmallintAsInt("SueldoMes", 0);
-                persona.SueldoBruto = row.GetFloat("SueldoBruto", 0);
-                persona.SueldoNeto = row.GetFloat("SueldoNeto", 0);
-                persona.ExtrasAnio = row.GetSmallintAsInt("XtrasAnio", 0);
-                persona.ExtrasMes = row.GetSmallintAsInt("XtrasMes", 0);
-                persona.ExtrasBruto = row.GetFloat("XtrasBruto", 0);
-                persona.ExtrasNeto = row.GetFloat("XtrasNeto", 0);
-                persona.SACAnio = row.GetInt("SACAnio", 0);
-                persona.SACMes = row.GetInt("SACMes", 0);
-                persona.SACBruto = row.GetFloat("SACBruto", 0);
-                persona.SACNeto = row.GetFloat("SACNeto", 0);
-                persona.HsSimples = row.GetSmallintAsInt("HsSimples", 0);
-                persona.Hs50 = row.GetSmallintAsInt("Hs50", 0);
-                persona.Hs100 = row.GetSmallintAsInt("Hs100", 0);
-                persona.HsTotalesSimples(persona.HsSimples, persona.Hs50, persona.Hs100);
-                persona.Comidas = row.GetSmallintAsInt("Comidas", 0);
-
-                lista_sueldos.Add(persona);
-            });
-            grafico.tabla_detalle = lista_sueldos;
+                grafico.CrearDatos(tablaDatos.Rows);
+            }
+            if (grafico.ContienePersonas())
+            {
+                CrearResumen(tipo, fecha);
+            }
             return grafico;
+
         }
     }
 }
