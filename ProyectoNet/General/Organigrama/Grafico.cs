@@ -656,7 +656,6 @@ namespace General
             });
 
             int total = tabla_personas.Count;
-            tabla.Add(GenerarRegistroResumen("Total", total, total));
 
             contador.ForEach(registro =>
             {
@@ -683,18 +682,119 @@ namespace General
             var sueldos_ordenados = registro.Personas.OrderBy(p => p.SueldoBruto).ToList();
             resumen.MedianaSueldo = sueldos_ordenados.Skip(registro.Personas.Count / 2).Take(1).ToList().First().SueldoBruto;
             var extras_ordenados = personas_con_extras.OrderBy(p => p.hsTotalesSimples).ToList();
-            resumen.MedianaExtras = extras_ordenados.Skip(extras_ordenados.Count / 2).Take(1).ToList().First().hsTotalesSimples;
+            if (extras_ordenados.Count > 0)
+            {
+                resumen.MedianaExtras = extras_ordenados.Skip(extras_ordenados.Count / 2).Take(1).ToList().First().hsTotalesSimples;
+            }
+            else
+            {
+                resumen.MedianaExtras = 0;
+            }
+
             return resumen;
         }
 
         internal void GraficoDeSueldoPorSubSecretarias()
         {
-            throw new NotImplementedException();
+            List<Dotacion> tabla_personas = this.tabla_detalle.ToList();
+            List<Resumen> tabla = new List<Resumen>();
+            List<Contador> contador = new List<Contador>();
+            var nombre = "";
+            tabla_personas.ForEach(p =>
+            {
+                if (contador.Count > 0)
+                {
+                    if (contador.Exists(area => area.Id == p.IdSubSecretaria))
+                    {
+                        contador.Find(area => area.Id == p.IdSubSecretaria).Personas.Add(p);
+                    }
+                    else
+                    {
+                        if (!tabla_personas.Exists(area => area.IdSecretaria == p.IdSubSecretaria))
+                        {
+                            nombre = "|||||" + p.NombresubSecretaria;
+                        }
+                        else
+                        {
+                            nombre = p.NombresubSecretaria;
+                        }
+                        Contador nueva_area = new Contador(p.IdSubSecretaria, nombre);
+                        nueva_area.Personas.Add(p);
+                        nueva_area.Orden = p.OrdenArea;
+                        contador.Add(nueva_area);
+                    }
+                }
+                else
+                {
+                    if (!tabla_personas.Exists(area => area.IdSecretaria == p.IdSubSecretaria))
+                    {
+                        nombre = "|||||" + p.NombresubSecretaria;
+                    }
+                    else
+                    {
+                        nombre = p.NombresubSecretaria;
+                    }
+                    Contador nueva_area = new Contador(p.IdSubSecretaria, nombre);
+                    nueva_area.Personas.Add(p);
+                    nueva_area.Orden = p.OrdenArea;
+                    contador.Add(nueva_area);
+                }
+            });
+
+            int total = tabla_personas.Count;
+            //tabla.Add(GenerarRegistroResumen("Total", total, total));
+
+            contador.ForEach(registro =>
+            {
+                tabla.Add(GenerarRegistroResumenSueldo(registro, total));
+            });
+
+            this.tabla_resumen = tabla;
+            this.tabla_resumen = tabla.OrderBy(t => t.Orden).ToList();
+
         }
 
         internal void GraficoDeSueldoPorArea()
         {
-           
+
+            List<Dotacion> tabla_personas = this.tabla_detalle.ToList();
+            List<Resumen> tabla = new List<Resumen>();
+            List<Contador> contador = new List<Contador>();
+
+            tabla_personas.ForEach(p =>
+            {
+                if (contador.Count > 0)
+                {
+                    if (contador.Exists(area => area.Id == p.IdArea))
+                    {
+                        contador.Find(area => area.Id == p.IdArea).Personas.Add(p);
+                    }
+                    else
+                    {
+                        Contador nueva_area = new Contador(p.IdArea, p.AreaDescripMedia);
+                        nueva_area.Personas.Add(p);
+                        nueva_area.Orden = p.OrdenArea;
+                        contador.Add(nueva_area);
+
+                    }
+                }
+                else
+                {
+                    Contador nueva_area = new Contador(p.IdArea, p.AreaDescripMedia);
+                    nueva_area.Personas.Add(p);
+                    nueva_area.Orden = p.OrdenArea;
+                    contador.Add(nueva_area);
+                }
+
+            });
+            int total = tabla_personas.Count;
+
+            contador.ForEach(registro =>
+            {
+                tabla.Add(GenerarRegistroResumenSueldo(registro, total));
+            });
+
+            this.tabla_resumen = tabla.OrderBy(t => t.Orden).ToList();
         }
     }
 }

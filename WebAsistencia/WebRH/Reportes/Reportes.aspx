@@ -126,13 +126,22 @@
                                 </div>
                             </div>                   
                         </div>
-                    </div>  
-                    <div id="div_tabla_detalle_sueldo" style="margin: -310px 0px 0px 148px; width: 100%; position: absolute; top: 465px;">               
+                    </div>
+                    <input id="btn_mostrar_resumen" type="button" class="btn btn-primary" value="Volver al Resumen" style="margin-left: 45%;  margin-top: 145px; display:none;"/>  
+                    <div id="div_tabla_sueldo" style="margin: -310px 0px 0px 148px; width: 100%; position: absolute; top: 465px;">               
+                        <span id="lb_titulo_tabla"></span>
+                        
+                        <br />        
+                        <input type="text" id="search_sueldo" class="search" class="buscador" placeholder="Buscar" style="display: none;" />
+                        <a href="#" id="exportar_datos_sueldo" class="btn btn-info" style="float: right; display: none; padding: 5px;margin-right: 15%;"> Exportar Datos</a>
+                        <table id="tabla_sueldo" style="width: 80%;"> </table>
+                    </div> 
+                    
+                    <div id="div_tabla_sueldo_detalle" style="margin: -310px 0px 0px 148px; width: 100%; position: absolute; top: 465px;">               
                         <span id="lb_titulo_tabla_detalle"></span>
                         <br />        
                         <input type="text" id="search_detalle_sueldo" class="search" class="buscador" placeholder="Buscar" style="display: none;" />
-                        <a href="#" id="exportar_datos_detalle_sueldo" class="btn btn-info" style="float: right; display: none; padding: 5px;margin-right: 15%;"> Exportar Datos</a>
-                        <table id="tabla_detalle_sueldo" style="width: 80%;"> </table>
+                        <table id="tabla_sueldo_detalle" style="width: 80%; margin-top: 38px;"> </table>
                     </div> 
                </div>
                <div id="div_grafico_de_rango_etareo">

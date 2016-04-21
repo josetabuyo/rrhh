@@ -3940,6 +3940,12 @@
           <s:element minOccurs="1" maxOccurs="1" name="Cantidad" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="Porcentaje" type="s:float" />
           <s:element minOccurs="1" maxOccurs="1" name="Orden" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="SumatoriaSueldo" type="s:float" />
+          <s:element minOccurs="1" maxOccurs="1" name="PrimedioSueldo" type="s:float" />
+          <s:element minOccurs="1" maxOccurs="1" name="MedianaSueldo" type="s:float" />
+          <s:element minOccurs="1" maxOccurs="1" name="SumatoriaExtras" type="s:float" />
+          <s:element minOccurs="1" maxOccurs="1" name="PrimedioExtras" type="s:float" />
+          <s:element minOccurs="1" maxOccurs="1" name="MedianaExtras" type="s:float" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfDotacion">
@@ -3988,6 +3994,7 @@
           <s:element minOccurs="1" maxOccurs="1" name="HsSimples" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="Hs50" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="Hs100" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="hsTotalesSimples" type="s:float" />
           <s:element minOccurs="1" maxOccurs="1" name="Comidas" type="s:int" />
         </s:sequence>
       </s:complexType>
