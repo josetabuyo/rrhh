@@ -241,8 +241,8 @@ var GraficoDotacion = {
                 case "7":
                     a.download = "DOTACION_POR_SUBSECRETARIAS_" + fecha + "_.xlsx";
                     break;
-                //                case "6":            
-                //                    a.download = "DOTACION_RANGO_ETARIO_" + fecha + "_.xlsx";            
+                //                case "6":             
+                //                    a.download = "DOTACION_RANGO_ETARIO_" + fecha + "_.xlsx";             
 
 
                 default:
@@ -289,7 +289,8 @@ var GraficoDotacion = {
                 }
                 spinner.stop();
             })
-            .onError(function () {
+            .onError(function (e) {
+                var error = e;
                 alertify.error("error al pedir datos");
                 spinner.stop();
             });

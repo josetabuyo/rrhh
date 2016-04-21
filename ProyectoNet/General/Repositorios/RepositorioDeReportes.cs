@@ -146,6 +146,7 @@ namespace General.Repositorios
                 persona.Hs50 = row.GetSmallintAsInt("Hs50", 0);
                 persona.Hs100 = row.GetSmallintAsInt("Hs100", 0);
                 persona.Comidas = row.GetSmallintAsInt("Comidas", 0);
+                persona.UnidadRetributiva = row.GetSmallintAsInt("UR", 0);
 
                 lista_sueldos.Add(persona);
             });

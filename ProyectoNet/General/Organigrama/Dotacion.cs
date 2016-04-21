@@ -49,6 +49,7 @@ namespace General
         public int Hs50 { get; set; }
         public int Hs100 { get; set; }
         public int Comidas { get; set; }
+        public int UnidadRetributiva { get; set; }
 
 
         public Dotacion() { }
