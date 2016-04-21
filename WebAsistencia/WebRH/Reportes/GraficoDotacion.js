@@ -299,7 +299,7 @@ var GraficoDotacion = {
 
                 case "1":
 
-                    a.download = "DETALLE_SUELDOS_POR_DOTACION_DE_AREA" + fecha + "_.xlsx";
+                    a.download = "DETALLE_SUELDOS_" + fecha + "_.xlsx";
                     break;
                 case "2":
                     a.download = "DOTACION__POR_NIVEL_" + fecha + "_.xlsx";

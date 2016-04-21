@@ -303,14 +303,36 @@ public class WSViaticos : System.Web.Services.WebService
             {  valor_extra_bruto = item.ExtrasBruto;
                 //  table_resumen.Rows.Add(item.AreaDescripCorta, item.NroDocumento, item.Apellido, item.Nombre, item.SueldoBruto, item.SueldoNeto, item.ExtrasBruto, item.ExtrasNeto, item.HsSimples, item.Hs50, item.Hs100, item.Comidas);
             }
+            object valor_extra_neto = null;
+            if (item.ExtrasNeto != 0)
+            {
+                valor_extra_neto = item.ExtrasNeto;
+            }
 
+            object valor_horas_simples = null;
+            if (item.HsSimples != 0)
+            {
+                valor_horas_simples = item.HsSimples;
+            }
 
-
-
-         
-                table_resumen.Rows.Add(item.AreaDescripCorta, item.NroDocumento, item.Apellido, item.Nombre, item.SueldoBruto, item.SueldoNeto,valor_extra_bruto , item.ExtrasNeto, item.HsSimples, item.Hs50, item.Hs100, item.Comidas);
-     
-           
+            object valor_horas_50 = null;
+            if (item.Hs50 != 0)
+            {
+                valor_horas_50 = item.Hs50;
+            }
+            object valor_horas_100 = null;
+            if (item.Hs100 != 0)
+            {
+                valor_horas_100 = item.Hs100;
+            }
+            object valor_comidas = null;
+            if (item.Hs100 != 0)
+            {
+                valor_comidas = item.Comidas;
+            }
+            
+            table_resumen.Rows.Add(item.AreaDescripCorta, item.NroDocumento, item.Apellido, item.Nombre, item.SueldoBruto, item.SueldoNeto, valor_extra_bruto, valor_extra_neto, valor_horas_simples, valor_horas_50, valor_horas_100, valor_comidas);
+               
 
              }     
        
