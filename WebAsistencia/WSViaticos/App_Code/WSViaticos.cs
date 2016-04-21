@@ -298,8 +298,21 @@ public class WSViaticos : System.Web.Services.WebService
       
         foreach (var item in grafico.tabla_detalle)
         {
-            table_resumen.Rows.Add(item.AreaDescripCorta, item.NroDocumento,item.Apellido, item.Nombre, item.SueldoBruto, item.SueldoNeto, item.ExtrasBruto, item.ExtrasNeto,item.HsSimples, item.Hs50, item.Hs100,item.Comidas);
-        }     
+            object valor_extra_bruto = null;
+            if (item.ExtrasBruto!=0)
+            {  valor_extra_bruto = item.ExtrasBruto;
+                //  table_resumen.Rows.Add(item.AreaDescripCorta, item.NroDocumento, item.Apellido, item.Nombre, item.SueldoBruto, item.SueldoNeto, item.ExtrasBruto, item.ExtrasNeto, item.HsSimples, item.Hs50, item.Hs100, item.Comidas);
+            }
+
+
+
+
+         
+                table_resumen.Rows.Add(item.AreaDescripCorta, item.NroDocumento, item.Apellido, item.Nombre, item.SueldoBruto, item.SueldoNeto,valor_extra_bruto , item.ExtrasNeto, item.HsSimples, item.Hs50, item.Hs100, item.Comidas);
+     
+           
+
+             }     
        
         var workbook = new XLWorkbook();
 
@@ -363,6 +376,9 @@ public class WSViaticos : System.Web.Services.WebService
 
         ws.Range(4, 1, lastCell.Address.RowNumber, lastCell.Address.ColumnNumber).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
         ws.Range(4, 1, lastCell.Address.RowNumber, lastCell.Address.ColumnNumber).Style.Border.OutsideBorder = XLBorderStyleValues.Medium;
+
+        ws.Range(5, 2, lastCell.Address.RowNumber, 2).DataType=XLCellValues.Number;
+        ws.Range(5, 5, lastCell.Address.RowNumber, lastCell.Address.ColumnNumber).DataType = XLCellValues.Number;
 
        // workbook.Worksheets.Add(dataTable_resumen);
 
