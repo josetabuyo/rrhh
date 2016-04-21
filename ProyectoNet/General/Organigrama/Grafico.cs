@@ -673,7 +673,14 @@ namespace General
             Resumen resumen = GenerarRegistroResumen(registro.Descripcion, registro.Personas.Count, total, registro.Orden);
             resumen.SumatoriaSueldo = registro.Personas.Sum(p => p.SueldoBruto);
             resumen.SumatoriaExtras = registro.Personas.Sum(p => p.hsTotalesSimples);
-            resumen.PrimedioSueldo = resumen.SumatoriaSueldo / (float)total;
+            if (registro.Personas.Count > 0)
+            {
+                resumen.PrimedioSueldo = resumen.SumatoriaSueldo / (float)registro.Personas.Count;
+            }
+            else {
+                resumen.PrimedioSueldo = 0;
+            }
+           
             var personas_con_extras = registro.Personas.FindAll(p => p.HsSimples != 0 || p.Hs100 != 0 || p.Hs50 != 0);
             if (personas_con_extras.Count != 0)
             {

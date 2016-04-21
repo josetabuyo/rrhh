@@ -304,7 +304,7 @@ var GraficoSueldos = {
     BuscadorDeTabla: function () {
 
         var options = {
-            valueNames: ['Información', 'Cantidad', 'Porcentaje']
+            valueNames: ['Información', 'Cantidad', 'Porcentaje', 'SumatoriaSueldo', 'PrimedioSueldo', 'MedianaSueldo', 'SumatoriaExtras', 'PrimedioExtras', 'MedianaExtras']
         };
         var featureList = new List('div_tabla_sueldo', options);
     },
