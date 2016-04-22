@@ -219,6 +219,7 @@ public class WSViaticos : System.Web.Services.WebService
     public Grafico GetReporteSueldosPorArea(string criterio, Usuario usuario)
     {
         var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
+        int tipo = (int)((JValue)criterio_deserializado["tipo"]);
         int dia = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(0, 2)));
         int mes = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(3, 2)));
         int anio = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(6, 4)));
@@ -226,7 +227,7 @@ public class WSViaticos : System.Web.Services.WebService
         DateTime fecha = new DateTime(anio, mes, dia);
         int id_area = (int)((JValue)criterio_deserializado["id_area"]);
         RepositorioDeReportes repositorio = new RepositorioDeReportes(Conexion());
-        return repositorio.GetReporteSueldosPorArea(fecha, id_area, incluir_dependencias);
+        return repositorio.GetReporteSueldosPorArea(tipo, fecha, id_area, incluir_dependencias);
     }
 
     [WebMethod]
@@ -246,6 +247,167 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
 
+
+
+
+    /*Grafico Excel Sueldo*/
+
+    [WebMethod]
+    public string ExcelGeneradoSueldos(string criterio, Usuario usuario)
+    {
+        try
+        {                  
+        
+        var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
+        int tipo = (int)((JValue)criterio_deserializado["tipo"]);
+        int dia = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(0, 2)));
+        int mes = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(3, 2)));
+        int anio = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(6, 4)));
+        bool incluir_dependencias = (bool)((JValue)criterio_deserializado["incluir_dependencias"]);
+        DateTime fecha = new DateTime(anio, mes, dia);
+        int id_area = (int)((JValue)criterio_deserializado["id_area"]);
+        
+        RepositorioDeReportes repositorio = new RepositorioDeReportes(Conexion());
+
+        Grafico grafico = repositorio.GetReporteSueldosPorArea(tipo, fecha, id_area, incluir_dependencias);
+       // return repositorio.GetReporteSueldosPorArea(fecha, id_area, incluir_dependencias);
+
+        DataTable table_resumen = new DataTable();
+        table_resumen.TableName = "Sueldos";
+
+       // int id_area = (int)((JValue)criterio_deserializado["id_area"]);
+
+      //  int dia = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(0, 2)));
+      //  int mes = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(3, 2)));
+      //  int anio = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(6, 4)));
+      //  DateTime fecha = new DateTime(anio, mes, dia);
+            
+        Area area = RepositorioDeAreas().GetAreaPorId(id_area);
+            
+        table_resumen.Columns.Add("Area");
+        table_resumen.Columns.Add("Documento");
+        table_resumen.Columns.Add("Apellido");
+        table_resumen.Columns.Add("Nombre");
+        table_resumen.Columns.Add("SueldoBruto");
+        table_resumen.Columns.Add("SueldoNeto");
+        table_resumen.Columns.Add("ExtrasBruto");
+        table_resumen.Columns.Add("ExtrasNeto");
+        table_resumen.Columns.Add("HsSimples");
+        table_resumen.Columns.Add("Hs50%");
+        table_resumen.Columns.Add("Hs100%");
+        table_resumen.Columns.Add("Comidas");
+      
+        foreach (var item in grafico.tabla_detalle)
+        {
+            object valor_extra_bruto = null;
+            if (item.ExtrasBruto!=0)
+            {  valor_extra_bruto = item.ExtrasBruto;
+                //  table_resumen.Rows.Add(item.AreaDescripCorta, item.NroDocumento, item.Apellido, item.Nombre, item.SueldoBruto, item.SueldoNeto, item.ExtrasBruto, item.ExtrasNeto, item.HsSimples, item.Hs50, item.Hs100, item.Comidas);
+            }
+
+
+
+
+         
+                table_resumen.Rows.Add(item.AreaDescripCorta, item.NroDocumento, item.Apellido, item.Nombre, item.SueldoBruto, item.SueldoNeto,valor_extra_bruto , item.ExtrasNeto, item.HsSimples, item.Hs50, item.Hs100, item.Comidas);
+     
+           
+
+             }     
+       
+        var workbook = new XLWorkbook();
+
+        //   var dataTable_consulta_parametros = table;
+        var dataTable_resumen = table_resumen;
+     //   var dataTable_detalle = table_detalle;
+        var ws = workbook.Worksheets.Add("Sueldos");
+
+        ws.Style.Font.FontSize = 11;
+        ws.Style.Font.FontName = "Verdana";
+
+        ws.Column("A").Width = 15;
+        ws.Column("B").Width = 15;
+        ws.Column("C").Width = 25;
+        ws.Column("D").Width = 25;
+        ws.Column("E").Width = 18;
+        ws.Column("F").Width = 18;
+        ws.Column("G").Width = 18;
+        ws.Column("H").Width = 18;
+        ws.Column("I").Width = 18;
+        ws.Column("J").Width = 18;
+        ws.Column("K").Width = 18;
+        ws.Column("L").Width = 18;
+
+        //  ws.Row(1).Height = 25;
+        //  ws.Row(1).Style.Alignment.SetVertical(XLAlignmentVerticalValues.Center);
+
+        ws.Cell(1, 1).Value = "FECHA:";
+        ws.Cell(2, 1).Value = "AREA:";
+
+        ws.Cell(1, 1).Style.Font.Bold = true;
+        ws.Cell(2, 1).Style.Font.Bold = true;
+
+        ws.Cell(1, 2).Value = fecha.ToShortDateString();
+        ws.Cell(2, 2).Value = area.Nombre.ToUpper();
+
+        ws.Range(4, 1, 4, 12).Style.Fill.BackgroundColor = XLColor.FromArgb(79, 129, 189);
+        ws.Range(4, 1, 4, 12).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+
+        ws.Range(4, 1, 4, 12).Style.Font.FontColor = XLColor.White;
+
+        ws.Cell(4, 1).Value = "AREA";
+        ws.Cell(4, 2).Value = "DOCUMENTO";
+        ws.Cell(4, 3).Value = "APELLIDO";
+        ws.Cell(4, 4).Value = "NOMBRE";
+        ws.Cell(4, 5).Value = "SUELDO BRUTO";
+        ws.Cell(4, 6).Value = "SUELDO NETO";
+        ws.Cell(4, 7).Value = "EXTRAS BRUTO";
+        ws.Cell(4, 8).Value = "EXTRAS NETO";
+        ws.Cell(4, 9).Value = "HS SIMPLES";
+        ws.Cell(4, 10).Value = "HS 50%";
+        ws.Cell(4, 11).Value = "HS 100%";
+        ws.Cell(4, 12).Value = "COMIDAS";
+      //  ws.Cell(4, 1).Value = "Informacion";
+      //  ws.Cell(4, 2).Value = "Cantidad";
+      //  ws.Cell(4, 3).Value = "Porcentaje %";
+
+        var rangeWithData = ws.Cell(5, 1).InsertData(dataTable_resumen.AsEnumerable());
+
+        var lastCell = ws.LastCellUsed();
+
+        ws.Range(4, 1, lastCell.Address.RowNumber, lastCell.Address.ColumnNumber).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+        ws.Range(4, 1, lastCell.Address.RowNumber, lastCell.Address.ColumnNumber).Style.Border.OutsideBorder = XLBorderStyleValues.Medium;
+
+        ws.Range(5, 2, lastCell.Address.RowNumber, 2).DataType=XLCellValues.Number;
+        ws.Range(5, 5, lastCell.Address.RowNumber, lastCell.Address.ColumnNumber).DataType = XLCellValues.Number;
+
+       // workbook.Worksheets.Add(dataTable_resumen);
+
+        //  string rut = HttpContext.Current.Request.PhysicalApplicationPath + "/Excel.xlsx";
+
+        using (var ms = new MemoryStream())
+        {
+            workbook.SaveAs(ms);
+
+            // return ms.ToArray();
+
+            //return File(ms.ToArray(), MediaTypeNames.Application.Octet, "excel2"+ ".xlsx");
+            return Convert.ToBase64String(ms.ToArray());
+        }
+
+
+            //
+        }
+        catch (Exception ex)
+        {
+
+            throw ex;
+        }
+
+    }
+
+
+    /**/
 
 
     /*Grafico Excel*/

@@ -13,7 +13,12 @@ namespace General
         public int Cantidad { get; set; }
         public float Porcentaje { get; set; }
         public int Orden { get; set; }
-        
+        public float SumatoriaSueldo { get; set; }
+        public float PrimedioSueldo { get; set; }
+        public float MedianaSueldo { get; set; }
+        public float SumatoriaExtras { get; set; }
+        public float PrimedioExtras { get; set; }
+        public float MedianaExtras { get; set; }
 
         public Resumen() { }
 
