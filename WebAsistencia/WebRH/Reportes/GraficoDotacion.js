@@ -76,51 +76,37 @@ var GraficoDotacion = {
         });
 
         $('#btn_nivel').click(function () {
-            ocultarOtrosGraficos();
+            _this.OcultarOtrosGraficos();
             armarGraficoDesdeMenu("Nivel", 2, "Dotación por " + this.innerHTML);
             $('#cb2')[0].checked = true;
         });
 
         $('#btn_estudios').click(function () {
-            ocultarOtrosGraficos();
+            _this.OcultarOtrosGraficos();
             armarGraficoDesdeMenu("Estudios", 3, "Dotación por " + this.innerHTML);
             $('#cb3')[0].checked = true;
         });
 
         $('#btn_plantas').click(function () {
-            ocultarOtrosGraficos();
+            _this.OcultarOtrosGraficos();
             armarGraficoDesdeMenu("Plantas", 4, "Dotación por " + this.innerHTML);
             $('#cb4')[0].checked = true;
         });
         $('#btn_areas').click(function () {
-            ocultarOtrosGraficos();
+            _this.OcultarOtrosGraficos();
             armarGraficoDesdeMenu("Areas", 5, "Dotación por " + this.innerHTML);
             $('#cb5')[0].checked = true;
         });
         $('#btn_secretarias').click(function () {
-            ocultarOtrosGraficos();
+            _this.OcultarOtrosGraficos();
             armarGraficoDesdeMenu("Secreatarías", 6, "Dotación por " + this.innerHTML);
             $('#cb6')[0].checked = true;
         });
         $('#btn_subsecretarias').click(function () {
-            ocultarOtrosGraficos();
+            _this.OcultarOtrosGraficos();
             armarGraficoDesdeMenu("SubSecretarías", 7, "Dotación por " + this.innerHTML);
             $('#cb7')[0].checked = true;
         });
-
-        function ocultarOtrosGraficos() {
-            $('#div_resultados_sueldos').hide();
-            $('#div_resultados_sueldos').hide();
-            $('#div_filtros_sueldos').hide();
-            $('#btn_mostrar_resumen').hide();
-            $('#div_tabla_sueldo').hide();
-            $('#search_sueldo').hide();
-            $('#exportar_datos_sueldo').hide();
-            $('#tabla_sueldo').hide();
-            $('#div_tabla_sueldo_detalle').hide();
-            $('#search_detalle_sueldo').hide();
-            $('#tabla_sueldo_detalle').hide();  
-        };
 
         function armarGraficoDesdeMenu(mi_filtro, tipo, texto) {
             checks_activos = [];
@@ -140,13 +126,24 @@ var GraficoDotacion = {
     },
 
 
-
+    OcultarOtrosGraficos: function () {
+        $('#div_resultados_sueldos').hide();
+        $('#div_filtros_sueldos').hide();
+        $('#btn_mostrar_resumen').hide();
+        $('#div_tabla_sueldo').hide();
+        $('#search_sueldo').hide();
+        $('#exportar_datos_sueldo').hide();
+        $('#tabla_sueldo').hide();
+        $('#div_tabla_sueldo_detalle').hide();
+        $('#search_detalle_sueldo').hide();
+        $('#tabla_sueldo_detalle').hide();
+    },
 
     BuscarDatos: function () {
         var _this = this;
         var buscar = true;
         $('#div_tabla_detalle').hide();
-
+        _this.OcultarOtrosGraficos();
         var tipo = checks_activos.slice(-1)[0];
         var fecha = $('#txt_fecha_desde').val();
         //Me fijo si esta seteado el storage
@@ -254,8 +251,8 @@ var GraficoDotacion = {
                 case "7":
                     a.download = "DOTACION_POR_SUBSECRETARIAS_" + fecha + "_.xlsx";
                     break;
-                //                case "6":             
-                //                    a.download = "DOTACION_RANGO_ETARIO_" + fecha + "_.xlsx";             
+                //                case "6":              
+                //                    a.download = "DOTACION_RANGO_ETARIO_" + fecha + "_.xlsx";              
 
 
                 default:
@@ -329,8 +326,8 @@ var GraficoDotacion = {
                 case "7":
                     a.download = "DOTACION_POR_SUBSECRETARIAS_" + fecha + "_.xlsx";
                     break;
-                //                case "6":             
-                //                    a.download = "DOTACION_RANGO_ETARIO_" + fecha + "_.xlsx";             
+                //                case "6":              
+                //                    a.download = "DOTACION_RANGO_ETARIO_" + fecha + "_.xlsx";              
 
 
                 default:
@@ -598,7 +595,7 @@ var GraficoDotacion = {
 
         var columnas = [];
 
-        columnas.push(new Columna("Area", { generar: function (un_registro) { return un_registro.AreaDescripMedia } }));
+        columnas.push(new Columna("Area", { generar: function (un_registro) { return un_registro.Area } }));
         columnas.push(new Columna("NroDocumento", { generar: function (un_registro) { return un_registro.NroDocumento } }));
         columnas.push(new Columna("Apellido", { generar: function (un_registro) { return un_registro.Apellido } }));
         columnas.push(new Columna("Nombre", { generar: function (un_registro) { return un_registro.Nombre } }));
@@ -682,7 +679,7 @@ var GraficoDotacion = {
                     case 5:
                         titulo = "Dotación del Área " + criterio;
                         for (var i = 0; i < tabla.length; i++) {
-                            if (tabla[i].AreaDescripMedia == criterio) {
+                            if (tabla[i].Area == criterio) {
                                 tabla_final.push(tabla[i]);
                             }
                         }

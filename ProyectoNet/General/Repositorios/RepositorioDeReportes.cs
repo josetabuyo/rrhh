@@ -26,8 +26,8 @@ namespace General.Repositorios
 
         public Grafico GetGraficoDotacion(int tipo, DateTime fecha, int id_area, bool incluir_dependencias)
         {
-            detalle_sueldo = false;
-            if (fecha.Year == fecha_anterior.Year && fecha.Month == fecha_anterior.Month && fecha.Day == fecha_anterior.Day && id_area == id_area_anterior && incluir_dependencias == incluir_dependencias_anterior)
+            
+            if (fecha.Year == fecha_anterior.Year && fecha.Month == fecha_anterior.Month && fecha.Day == fecha_anterior.Day && id_area == id_area_anterior && incluir_dependencias == incluir_dependencias_anterior && !detalle_sueldo)
             {
 
                 if (grafico.ContienePersonas())
@@ -38,6 +38,7 @@ namespace General.Repositorios
                 return grafico;
 
             }
+            detalle_sueldo = false;
             tipo_anterior = tipo;
             fecha_anterior = fecha;
             id_area_anterior = id_area;
@@ -114,10 +115,10 @@ namespace General.Repositorios
 
         public Grafico GetReporteSueldosPorArea(int tipo, DateTime fecha, int id_area, bool incluir_dependencias)
         {
-            detalle_sueldo = true;
+            
             if (tipo == 0) tipo = 10;
 
-            if (fecha.Year == fecha_anterior.Year && fecha.Month == fecha_anterior.Month && fecha.Day == fecha_anterior.Day && id_area == id_area_anterior && incluir_dependencias == incluir_dependencias_anterior)
+            if (fecha.Year == fecha_anterior.Year && fecha.Month == fecha_anterior.Month && fecha.Day == fecha_anterior.Day && id_area == id_area_anterior && incluir_dependencias == incluir_dependencias_anterior && detalle_sueldo)
             {
 
                 if (grafico.ContienePersonas())
@@ -127,6 +128,7 @@ namespace General.Repositorios
 
                 return grafico;
             }
+            detalle_sueldo = true;
             tipo_anterior = tipo;
             fecha_anterior = fecha;
             id_area_anterior = id_area;

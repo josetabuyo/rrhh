@@ -81,6 +81,14 @@ var GraficoSueldos = {
     BuscarDatos: function () {
         var _this = this;
         var buscar = true;
+        $('#div_resultados_sueldos').show();
+        $('#div_filtros_sueldos').show();
+
+        $('#div_tabla_sueldo').show();
+        $('#search_sueldo').show();
+        $('#exportar_datos_sueldo').show();
+        $('#tabla_sueldo').show();
+        
 
         var fecha = $('#txt_fecha_desde_sueldo').val();
         //Me fijo si esta seteado el storage
@@ -158,12 +166,12 @@ var GraficoSueldos = {
         }));
         columnas.push(new Columna("Cantidad", { generar: function (un_registro) { return un_registro.Cantidad } }));
         columnas.push(new Columna("Porcentaje", { generar: function (un_registro) { return parseFloat(un_registro.Porcentaje).toFixed(2) + '%' } }));
-        columnas.push(new Columna("SumatoriaSueldo", { generar: function (un_registro) { return un_registro.SumatoriaSueldo } }));
-        columnas.push(new Columna("PrimedioSueldo", { generar: function (un_registro) { return un_registro.PrimedioSueldo } }));
-        columnas.push(new Columna("MedianaSueldo", { generar: function (un_registro) { return un_registro.MedianaSueldo } }));
-        columnas.push(new Columna("SumatoriaExtras", { generar: function (un_registro) { return un_registro.SumatoriaExtras } }));
-        columnas.push(new Columna("PrimedioExtras", { generar: function (un_registro) { return un_registro.PrimedioExtras } }));
-        columnas.push(new Columna("MedianaExtras", { generar: function (un_registro) { return un_registro.MedianaExtras } }));
+        columnas.push(new Columna("SumatoriaSueldo", { generar: function (un_registro) { return _this.FormatearNumero(un_registro.SumatoriaSueldo) } }));
+        columnas.push(new Columna("PrimedioSueldo", { generar: function (un_registro) { return _this.FormatearNumero(un_registro.PrimedioSueldo) } }));
+        columnas.push(new Columna("MedianaSueldo", { generar: function (un_registro) { return _this.FormatearNumero(un_registro.MedianaSueldo) } }));
+        columnas.push(new Columna("SumatoriaExtras", { generar: function (un_registro) { return _this.FormatearABlanco(un_registro.SumatoriaExtras) } }));
+        columnas.push(new Columna("PrimedioExtras", { generar: function (un_registro) { return _this.FormatearABlanco(parseFloat(un_registro.PrimedioExtras).toFixed(2)) } }));
+        columnas.push(new Columna("MedianaExtras", { generar: function (un_registro) { return _this.FormatearABlanco(un_registro.MedianaExtras) } }));
         columnas.push(new Columna('Detalle', {
             generar: function (un_registro) {
                 var btn_accion = $('<a>');
@@ -197,7 +205,7 @@ var GraficoSueldos = {
 
         var columnas = [];
 
-        columnas.push(new Columna("Area", { generar: function (un_registro) { return un_registro.AreaDescripMedia } }));
+        columnas.push(new Columna("Area", { generar: function (un_registro) { return un_registro.Area } }));
         columnas.push(new Columna("Documento", { generar: function (un_registro) { return _this.FormatearConPunto(un_registro.NroDocumento); } }));
         columnas.push(new Columna("Apellido", { generar: function (un_registro) { return un_registro.Apellido + ', ' + un_registro.Nombre } }));
         //columnas.push(new Columna("Nombre", { generar: function (un_registro) { return un_registro.Nombre } }));
@@ -257,7 +265,7 @@ var GraficoSueldos = {
                     case 8:
                         titulo = "Dotación de " + criterio;
                         for (var i = 0; i < tabla.length; i++) {
-                            if (tabla[i].AreaDescripMedia == criterio) {
+                            if (tabla[i].Area == criterio) {
                                 tabla_final.push(tabla[i]);
                             }
                         }
