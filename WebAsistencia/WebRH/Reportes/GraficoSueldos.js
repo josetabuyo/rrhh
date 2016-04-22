@@ -199,8 +199,8 @@ var GraficoSueldos = {
 
         columnas.push(new Columna("Area", { generar: function (un_registro) { return un_registro.AreaDescripMedia } }));
         columnas.push(new Columna("Documento", { generar: function (un_registro) { return _this.FormatearConPunto(un_registro.NroDocumento); } }));
-        columnas.push(new Columna("Apellido", { generar: function (un_registro) { return un_registro.Apellido } }));
-        columnas.push(new Columna("Nombre", { generar: function (un_registro) { return un_registro.Nombre } }));
+        columnas.push(new Columna("Apellido", { generar: function (un_registro) { return un_registro.Apellido + ', ' + un_registro.Nombre } }));
+        //columnas.push(new Columna("Nombre", { generar: function (un_registro) { return un_registro.Nombre } }));
         columnas.push(new Columna("SueldoBruto", { generar: function (un_registro) { return _this.FormatearNumero(un_registro.SueldoBruto); } }));
         columnas.push(new Columna("SueldoNeto", { generar: function (un_registro) { return _this.FormatearNumero(un_registro.SueldoNeto); } }));
         columnas.push(new Columna("ExtrasBruto", { generar: function (un_registro) { return _this.FormatearNumero(un_registro.ExtrasBruto); } }));
@@ -211,6 +211,7 @@ var GraficoSueldos = {
         columnas.push(new Columna("Hs50%", { generar: function (un_registro) { return _this.FormatearABlanco(un_registro.Hs50); } }));
         columnas.push(new Columna("Hs100%", { generar: function (un_registro) { return _this.FormatearABlanco(un_registro.Hs100); } }));
         columnas.push(new Columna("Comidas", { generar: function (un_registro) { return _this.FormatearABlanco(un_registro.Comidas); } }));
+        columnas.push(new Columna("UR", { generar: function (un_registro) { return _this.FormatearABlanco(un_registro.UnidadRetributiva); } }));
         columnas.push(new Columna('Detalle', {
             generar: function (un_registro) {
                 var btn_accion = $('<a>');
@@ -296,7 +297,7 @@ var GraficoSueldos = {
     BuscadorDeTablaDetalle: function () {
 
         var options = {
-            valueNames: ['Area', 'Documento', 'Apellido', 'Nombre', 'SueldoBruto', 'SueldoNeto', 'ExtrasBruto', 'ExtrasNeto', 'HsSimples', 'Hs50%', 'Hs100%', 'Comidas']
+            valueNames: ['Area', 'Documento', 'Apellido', 'Nombre', 'SueldoBruto', 'SueldoNeto', 'ExtrasBruto', 'ExtrasNeto', 'HsSimples', 'Hs50%', 'Hs100%', 'Comidas','UR']
         };
         var featureList = new List('div_tabla_sueldo_detalle', options);
     },

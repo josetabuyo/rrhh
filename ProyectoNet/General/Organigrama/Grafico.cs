@@ -53,9 +53,10 @@ namespace General
                             row.GetString("area_descrip_subsecretaria", "S/Nombre"),
                             row.GetInt("Orden", 999999)
                 );
-
                 if (sueldo)
                 {
+
+
                     persona.SueldoAnio = row.GetSmallintAsInt("SueldoAnio", 0);
                     persona.SueldoMes = row.GetSmallintAsInt("SueldoMes", 0);
                     persona.SueldoBruto = row.GetFloat("SueldoBruto", 0);
@@ -73,8 +74,8 @@ namespace General
                     persona.Hs100 = row.GetSmallintAsInt("Hs100", 0);
                     persona.HsTotalesSimples(persona.HsSimples, persona.Hs50, persona.Hs100);
                     persona.Comidas = row.GetSmallintAsInt("Comidas", 0);
+                    persona.UnidadRetributiva = row.GetSmallintAsInt("UR", 0);
                 }
-               
 
                 tabla.Add(persona);
             });
@@ -681,10 +682,11 @@ namespace General
             {
                 resumen.PrimedioSueldo = resumen.SumatoriaSueldo / (float)registro.Personas.Count;
             }
-            else {
+            else
+            {
                 resumen.PrimedioSueldo = 0;
             }
-           
+
             var personas_con_extras = registro.Personas.FindAll(p => p.HsSimples != 0 || p.Hs100 != 0 || p.Hs50 != 0);
             if (personas_con_extras.Count != 0)
             {

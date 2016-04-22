@@ -16,6 +16,7 @@ namespace General.Repositorios
         private static DateTime fecha_anterior;
         private static Grafico grafico = new Grafico();
         private static bool incluir_dependencias_anterior;
+        private static bool detalle_sueldo;
 
         public RepositorioDeReportes(IConexionBD conexion)
         {
@@ -25,6 +26,7 @@ namespace General.Repositorios
 
         public Grafico GetGraficoDotacion(int tipo, DateTime fecha, int id_area, bool incluir_dependencias)
         {
+            detalle_sueldo = false;
             if (fecha.Year == fecha_anterior.Year && fecha.Month == fecha_anterior.Month && fecha.Day == fecha_anterior.Day && id_area == id_area_anterior && incluir_dependencias == incluir_dependencias_anterior)
             {
 
@@ -112,6 +114,7 @@ namespace General.Repositorios
 
         public Grafico GetReporteSueldosPorArea(int tipo, DateTime fecha, int id_area, bool incluir_dependencias)
         {
+            detalle_sueldo = true;
             if (tipo == 0) tipo = 10;
 
             if (fecha.Year == fecha_anterior.Year && fecha.Month == fecha_anterior.Month && fecha.Day == fecha_anterior.Day && id_area == id_area_anterior && incluir_dependencias == incluir_dependencias_anterior)

@@ -110,6 +110,16 @@ var GraficoDotacion = {
 
         function ocultarOtrosGraficos() {
             $('#div_resultados_sueldos').hide();
+            $('#div_resultados_sueldos').hide();
+            $('#div_filtros_sueldos').hide();
+            $('#btn_mostrar_resumen').hide();
+            $('#div_tabla_sueldo').hide();
+            $('#search_sueldo').hide();
+            $('#exportar_datos_sueldo').hide();
+            $('#tabla_sueldo').hide();
+            $('#div_tabla_sueldo_detalle').hide();
+            $('#search_detalle_sueldo').hide();
+            $('#tabla_sueldo_detalle').hide();  
         };
 
         function armarGraficoDesdeMenu(mi_filtro, tipo, texto) {
@@ -244,8 +254,8 @@ var GraficoDotacion = {
                 case "7":
                     a.download = "DOTACION_POR_SUBSECRETARIAS_" + fecha + "_.xlsx";
                     break;
-                //                case "6":            
-                //                    a.download = "DOTACION_RANGO_ETARIO_" + fecha + "_.xlsx";            
+                //                case "6":             
+                //                    a.download = "DOTACION_RANGO_ETARIO_" + fecha + "_.xlsx";             
 
 
                 default:
@@ -375,7 +385,8 @@ var GraficoDotacion = {
                 }
                 spinner.stop();
             })
-            .onError(function () {
+            .onError(function (e) {
+                var error = e;
                 alertify.error("error al pedir datos");
                 spinner.stop();
             });

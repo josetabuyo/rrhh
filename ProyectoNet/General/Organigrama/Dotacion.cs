@@ -50,6 +50,7 @@ namespace General
         public int Hs100 { get; set; }
         public float hsTotalesSimples { get; set; }
         public int Comidas { get; set; }
+        public int UnidadRetributiva { get; set; }
 
 
         public Dotacion() { }
