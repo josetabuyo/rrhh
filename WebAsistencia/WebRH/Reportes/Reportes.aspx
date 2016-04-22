@@ -127,20 +127,24 @@
                             </div>                   
                         </div>
                     </div>
-                    <input id="btn_mostrar_resumen" type="button" class="btn btn-primary" value="Volver al Resumen" style="margin-left: 45%;  margin-top: 145px; display:none;"/>  
+
                     <div id="div_tabla_sueldo" style="margin: -310px 0px 0px 148px; width: 100%; position: absolute; top: 465px;">               
                         <span id="lb_titulo_tabla"></span>
                         
-                        <br />        
-                        <input type="text" id="search_sueldo" class="search" class="buscador" placeholder="Buscar" style="display: none;" />
-                        <a href="#" id="exportar_datos_sueldo" class="btn btn-info" style="float: right; display: none; padding: 5px;margin-right: 15%;"> Exportar Datos</a>
+                        <div style="width:80%; margin: 20px 0px 10px 0px;">
+                            <input type="text" id="search_sueldo" class="search" class="buscador" placeholder="Buscar" style="display: none;" />
+                            <a href="#" id="exportar_datos_sueldo" class="btn btn-info" style="float: right; display: none; padding: 5px;"> Exportar Datos</a>
+                        </div>
                         <table id="tabla_sueldo" style="width: 80%;"> </table>
                     </div> 
                     
-                    <div id="div_tabla_sueldo_detalle" style="margin: -310px 0px 0px 148px; width: 100%; position: absolute; top: 465px;">               
+                    <div id="div_tabla_sueldo_detalle" style="margin: -310px 0px 0px 148px; width: 100%; position: absolute; top: 465px; display:none;">               
                         <span id="lb_titulo_tabla_detalle"></span>
-                        <br />        
-                        <input type="text" id="search_detalle_sueldo" class="search" class="buscador" placeholder="Buscar" style="display: none;" />
+                        <br />  
+                        <div style="width:80%;">
+                            <input type="text" id="search_detalle_sueldo" class="search" class="buscador" placeholder="Buscar" style="display: none; margin: 0;" />
+                            <input id="btn_mostrar_resumen" type="button" class="btn btn-primary" value="Volver al Resumen" style="display:none; float: right;"/>  
+                        </div>
                         <table id="tabla_sueldo_detalle" style="width: 80%; margin-top: 38px;"> </table>
                     </div> 
                </div>
