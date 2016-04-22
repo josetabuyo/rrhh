@@ -48,7 +48,7 @@ namespace General.Repositorios
             var tablaDatos = conexion_bd.Ejecutar("dbo.GRAF_RPT_Dotacion", parametros);
             if (tablaDatos.Rows.Count > 0)
             {
-                grafico.CrearDatos(tablaDatos.Rows);
+                grafico.CrearDatos(tablaDatos.Rows, false);
 
             }
             if (grafico.ContienePersonas())
@@ -137,7 +137,7 @@ namespace General.Repositorios
 
             if (tablaDatos.Rows.Count > 0)
             {
-                grafico.CrearDatos(tablaDatos.Rows);
+                grafico.CrearDatos(tablaDatos.Rows, true);
             }
             if (grafico.ContienePersonas())
             {
