@@ -167,7 +167,7 @@ var GraficoSueldos = {
         columnas.push(new Columna("Cantidad", { generar: function (un_registro) { return un_registro.Cantidad } }));
         columnas.push(new Columna("Porcentaje", { generar: function (un_registro) { return parseFloat(un_registro.Porcentaje).toFixed(2) + '%' } }));
         columnas.push(new Columna("SumatoriaSueldo", { generar: function (un_registro) { return _this.FormatearNumero(un_registro.SumatoriaSueldo) } }));
-        columnas.push(new Columna("PrimedioSueldo", { generar: function (un_registro) { return _this.FormatearNumero(un_registro.PrimedioSueldo) } }));
+        columnas.push(new Columna("PromedioSueldo", { generar: function (un_registro) { return _this.FormatearNumero(un_registro.PrimedioSueldo) } }));
         columnas.push(new Columna("MedianaSueldo", { generar: function (un_registro) { return _this.FormatearNumero(un_registro.MedianaSueldo) } }));
         columnas.push(new Columna("SumatoriaExtras", { generar: function (un_registro) { return _this.FormatearABlanco(un_registro.SumatoriaExtras) } }));
         columnas.push(new Columna("PrimedioExtras", { generar: function (un_registro) { return _this.FormatearABlanco(parseFloat(un_registro.PrimedioExtras).toFixed(2)) } }));
@@ -207,7 +207,7 @@ var GraficoSueldos = {
 
         columnas.push(new Columna("Area", { generar: function (un_registro) { return un_registro.Area } }));
         columnas.push(new Columna("Documento", { generar: function (un_registro) { return _this.FormatearConPunto(un_registro.NroDocumento); } }));
-        columnas.push(new Columna("Apellido", { generar: function (un_registro) { return un_registro.Apellido + ', ' + un_registro.Nombre } }));
+        columnas.push(new Columna("Apellido_Nombre", { generar: function (un_registro) { return (un_registro.Apellido + ", " + un_registro.Nombre) } }));
         //columnas.push(new Columna("Nombre", { generar: function (un_registro) { return un_registro.Nombre } }));
         columnas.push(new Columna("SueldoBruto", { generar: function (un_registro) { return _this.FormatearNumero(un_registro.SueldoBruto); } }));
         columnas.push(new Columna("SueldoNeto", { generar: function (un_registro) { return _this.FormatearNumero(un_registro.SueldoNeto); } }));
@@ -305,7 +305,7 @@ var GraficoSueldos = {
     BuscadorDeTablaDetalle: function () {
 
         var options = {
-            valueNames: ['Area', 'Documento', 'Apellido', 'Nombre', 'SueldoBruto', 'SueldoNeto', 'ExtrasBruto', 'ExtrasNeto', 'HsSimples', 'Hs50%', 'Hs100%', 'Comidas','UR']
+            valueNames: ['Area', 'Documento', 'Apellido_Nombre', 'SueldoBruto', 'SueldoNeto', 'ExtrasBruto', 'ExtrasNeto', 'HsSimples', 'Hs50%', 'Hs100%', 'Comidas', 'UR']
         };
         var featureList = new List('div_tabla_sueldo_detalle', options);
     },
@@ -313,7 +313,7 @@ var GraficoSueldos = {
     BuscadorDeTabla: function () {
 
         var options = {
-            valueNames: ['Información', 'Cantidad', 'Porcentaje', 'SumatoriaSueldo', 'PrimedioSueldo', 'MedianaSueldo', 'SumatoriaExtras', 'PrimedioExtras', 'MedianaExtras']
+            valueNames: ['Información', 'Cantidad', 'Porcentaje', 'SumatoriaSueldo', 'PromedioSueldo', 'MedianaSueldo', 'SumatoriaExtras', 'PrimedioExtras', 'MedianaExtras']
         };
         var featureList = new List('div_tabla_sueldo', options);
     },

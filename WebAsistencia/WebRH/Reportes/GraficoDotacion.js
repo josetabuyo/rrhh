@@ -597,8 +597,8 @@ var GraficoDotacion = {
 
         columnas.push(new Columna("Area", { generar: function (un_registro) { return un_registro.Area } }));
         columnas.push(new Columna("NroDocumento", { generar: function (un_registro) { return un_registro.NroDocumento } }));
-        columnas.push(new Columna("Apellido", { generar: function (un_registro) { return un_registro.Apellido } }));
-        columnas.push(new Columna("Nombre", { generar: function (un_registro) { return un_registro.Nombre } }));
+        columnas.push(new Columna("Apellido_Nombre", { generar: function (un_registro) { return (un_registro.Apellido + ", " + un_registro.Nombre) } }));
+        //columnas.push(new Columna("Nombre", { generar: function (un_registro) { return un_registro.Nombre } }));
         columnas.push(new Columna("Sexo", { generar: function (un_registro) { return un_registro.Sexo } }));
         columnas.push(new Columna("FechaNacimiento", { generar: function (un_registro) { return _this.ConvertirFecha(un_registro.FechaNacimiento) } }));
         columnas.push(new Columna("Nivel", { generar: function (un_registro) { return un_registro.Nivel } }));
@@ -729,7 +729,7 @@ var GraficoDotacion = {
     BuscadorDeTablaDetalle: function () {
 
         var options = {
-            valueNames: ['Area', 'NroDocumento', 'Apellido', 'Nombre', 'Sexo', 'Nivel', 'Grado', 'Planta', 'NivelEstudio', 'Titulo']
+            valueNames: ['Area', 'NroDocumento', 'Apellido_Nombre', 'Sexo', 'Nivel', 'Grado', 'Planta', 'NivelEstudio', 'Titulo']
         };
         var featureList = new List('div_tabla_detalle', options);
     },
