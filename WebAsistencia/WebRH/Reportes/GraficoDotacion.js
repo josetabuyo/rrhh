@@ -63,7 +63,7 @@ var GraficoDotacion = {
             _this.BuscarExcel();
         });
 
-        $('#exportar_datos_detalle_sueldo').click(function () {
+        $('#exportar_datos_sueldo').click(function () {
             _this.BuscarExcelSueldos();
         });
 
@@ -302,38 +302,38 @@ var GraficoDotacion = {
 
             // alert(tipo);
 
-            switch (tipo.toString()) {
+       //     switch (tipo.toString()) {
 
-                case "1":
+     //           case "1":
 
                     a.download = "DETALLE_SUELDOS_" + fecha + "_.xlsx";
-                    break;
-                case "2":
-                    a.download = "DOTACION__POR_NIVEL_" + fecha + "_.xlsx";
-                    break;
-                case "3":
-                    a.download = "DOTACION_POR_ESTUDIO_" + fecha + "_.xlsx";
-                    break;
-                case "4":
-                    a.download = "DOTACION_POR_PLANTA_" + fecha + "_.xlsx";
-                    break;
-                case "5":
-                    a.download = "DOTACION_POR_AREA_" + fecha + "_.xlsx";
-                    break;
-                case "6":
-                    a.download = "DOTACION_POR_SECRETARIAS_" + fecha + "_.xlsx";
-                    break;
-                case "7":
-                    a.download = "DOTACION_POR_SUBSECRETARIAS_" + fecha + "_.xlsx";
-                    break;
-                //                case "6":              
-                //                    a.download = "DOTACION_RANGO_ETARIO_" + fecha + "_.xlsx";              
+//                    break;
+//                case "2":
+//                    a.download = "DOTACION__POR_NIVEL_" + fecha + "_.xlsx";
+//                    break;
+//                case "3":
+//                    a.download = "DOTACION_POR_ESTUDIO_" + fecha + "_.xlsx";
+//                    break;
+//                case "4":
+//                    a.download = "DOTACION_POR_PLANTA_" + fecha + "_.xlsx";
+//                    break;
+//                case "5":
+//                    a.download = "DOTACION_POR_AREA_" + fecha + "_.xlsx";
+//                    break;
+//                case "6":
+//                    a.download = "DOTACION_POR_SECRETARIAS_" + fecha + "_.xlsx";
+//                    break;
+//                case "7":
+//                    a.download = "DOTACION_POR_SUBSECRETARIAS_" + fecha + "_.xlsx";
+//                    break;
+//                //                case "6":              
+//                //                    a.download = "DOTACION_RANGO_ETARIO_" + fecha + "_.xlsx";              
 
 
-                default:
-                    //     alert('');
-                    break;
-            }
+//                default:
+//                    //     alert('');
+//                    break;
+            //}
 
 
 

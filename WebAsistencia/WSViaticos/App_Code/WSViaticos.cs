@@ -273,17 +273,32 @@ public class WSViaticos : System.Web.Services.WebService
        // return repositorio.GetReporteSueldosPorArea(fecha, id_area, incluir_dependencias);
 
         DataTable table_resumen = new DataTable();
-        table_resumen.TableName = "Sueldos";
+        table_resumen.TableName = "Detalle";
 
-       // int id_area = (int)((JValue)criterio_deserializado["id_area"]);
-
-      //  int dia = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(0, 2)));
-      //  int mes = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(3, 2)));
-      //  int anio = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(6, 4)));
-      //  DateTime fecha = new DateTime(anio, mes, dia);
-            
+        DataTable table_detalle = new DataTable();
+        table_detalle.TableName = "Sueldos";
+                            
         Area area = RepositorioDeAreas().GetAreaPorId(id_area);
             
+                    
+                table_detalle.Columns.Add("Informacion");	
+                table_detalle.Columns.Add("Cantidad");	
+                table_detalle.Columns.Add("Porcentaje");	
+                table_detalle.Columns.Add("SumatoriaSueldo");	
+                table_detalle.Columns.Add("PromedioSueldo");	
+                table_detalle.Columns.Add("MedianaSueldo");	
+                table_detalle.Columns.Add("SumatoriaExtras");	
+                table_detalle.Columns.Add("PromedioExtras");
+                table_detalle.Columns.Add("MedianaExtras");
+
+                foreach (var item in grafico.tabla_resumen)
+                {
+
+                    table_detalle.Rows.Add(item.Id, item.Cantidad, item.Porcentaje, item.SumatoriaSueldo, item.PrimedioSueldo, item.MedianaSueldo,item.PrimedioExtras, item.SumatoriaExtras);
+           
+                }
+
+
         table_resumen.Columns.Add("Area");
         table_resumen.Columns.Add("Documento");
         table_resumen.Columns.Add("Apellido");
@@ -296,7 +311,7 @@ public class WSViaticos : System.Web.Services.WebService
         table_resumen.Columns.Add("Hs50%");
         table_resumen.Columns.Add("Hs100%");
         table_resumen.Columns.Add("Comidas");
-      
+        table_resumen.Columns.Add("UR");
         foreach (var item in grafico.tabla_detalle)
         {
             object valor_extra_bruto = null;
@@ -331,8 +346,14 @@ public class WSViaticos : System.Web.Services.WebService
             {
                 valor_comidas = item.Comidas;
             }
-            
-            table_resumen.Rows.Add(item.AreaDescripCorta, item.NroDocumento, item.Apellido, item.Nombre, item.SueldoBruto, item.SueldoNeto, valor_extra_bruto, valor_extra_neto, valor_horas_simples, valor_horas_50, valor_horas_100, valor_comidas);
+            object valor_UR = null;
+            if (item.UnidadRetributiva != 0)
+            {
+                valor_UR = item.UnidadRetributiva;
+            }
+
+
+            table_resumen.Rows.Add(item.AreaDescripCorta, item.NroDocumento, item.Apellido, item.Nombre, item.SueldoBruto, item.SueldoNeto, valor_extra_bruto, valor_extra_neto, valor_horas_simples, valor_horas_50, valor_horas_100, valor_comidas, valor_UR);
                
 
              }     
@@ -341,12 +362,12 @@ public class WSViaticos : System.Web.Services.WebService
 
         //   var dataTable_consulta_parametros = table;
         var dataTable_resumen = table_resumen;
-     //   var dataTable_detalle = table_detalle;
+        var dataTable_detalle = table_detalle;
         var ws = workbook.Worksheets.Add("Sueldos");
 
         ws.Style.Font.FontSize = 11;
         ws.Style.Font.FontName = "Verdana";
-
+        
         ws.Column("A").Width = 15;
         ws.Column("B").Width = 15;
         ws.Column("C").Width = 25;
@@ -359,6 +380,7 @@ public class WSViaticos : System.Web.Services.WebService
         ws.Column("J").Width = 18;
         ws.Column("K").Width = 18;
         ws.Column("L").Width = 18;
+        ws.Column("M").Width = 18;
 
         //  ws.Row(1).Height = 25;
         //  ws.Row(1).Style.Alignment.SetVertical(XLAlignmentVerticalValues.Center);
@@ -393,7 +415,7 @@ public class WSViaticos : System.Web.Services.WebService
       //  ws.Cell(4, 2).Value = "Cantidad";
       //  ws.Cell(4, 3).Value = "Porcentaje %";
 
-        var rangeWithData = ws.Cell(5, 1).InsertData(dataTable_resumen.AsEnumerable());
+        var rangeWithData = ws.Cell(5, 1).InsertData(dataTable_detalle.AsEnumerable());
 
         var lastCell = ws.LastCellUsed();
 
@@ -403,7 +425,21 @@ public class WSViaticos : System.Web.Services.WebService
         ws.Range(5, 2, lastCell.Address.RowNumber, 2).DataType=XLCellValues.Number;
         ws.Range(5, 5, lastCell.Address.RowNumber, lastCell.Address.ColumnNumber).DataType = XLCellValues.Number;
 
-       // workbook.Worksheets.Add(dataTable_resumen);
+        workbook.Worksheets.Add(dataTable_resumen);
+
+        workbook.Worksheet(2).Column("A").Width = 25;
+        workbook.Worksheet(2).Column("B").Width = 25;
+        workbook.Worksheet(2).Column("C").Width = 25;
+        workbook.Worksheet(2).Column("D").Width = 25;
+        workbook.Worksheet(2).Column("E").Width = 18;
+        workbook.Worksheet(2).Column("F").Width = 18;
+        workbook.Worksheet(2).Column("G").Width = 18;
+        workbook.Worksheet(2).Column("H").Width = 18;
+        workbook.Worksheet(2).Column("I").Width = 18;
+        workbook.Worksheet(2).Column("J").Width = 18;
+        workbook.Worksheet(2).Column("K").Width = 18;
+        workbook.Worksheet(2).Column("L").Width = 18;
+        workbook.Worksheet(2).Column("M").Width = 18;
 
         //  string rut = HttpContext.Current.Request.PhysicalApplicationPath + "/Excel.xlsx";
 
