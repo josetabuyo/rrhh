@@ -283,7 +283,7 @@ public class WSViaticos : System.Web.Services.WebService
                     
                 table_detalle.Columns.Add("Informacion");	
                 table_detalle.Columns.Add("Cantidad");	
-                table_detalle.Columns.Add("Porcentaje");	
+                table_detalle.Columns.Add("Porcentaje (%)");	
                 table_detalle.Columns.Add("SumatoriaSueldo");	
                 table_detalle.Columns.Add("PromedioSueldo");	
                 table_detalle.Columns.Add("MedianaSueldo");	
@@ -294,9 +294,18 @@ public class WSViaticos : System.Web.Services.WebService
                 foreach (var item in grafico.tabla_resumen)
                 {
 
-                    table_detalle.Rows.Add(item.Id, item.Cantidad, item.Porcentaje, item.SumatoriaSueldo, item.PrimedioSueldo, item.MedianaSueldo,item.PrimedioExtras, item.SumatoriaExtras);
+                    table_detalle.Rows.Add(item.Id, 
+                        item.Cantidad,
+                      Math.Truncate(item.Porcentaje * 100) / 100, 
+                        item.SumatoriaSueldo, 
+                        item.PrimedioSueldo, 
+                        item.MedianaSueldo,
+                        item.SumatoriaExtras, 
+                        item.PrimedioExtras,                         
+                        item.MedianaExtras);
            
                 }
+
 
 
         table_resumen.Columns.Add("Area");
@@ -352,18 +361,15 @@ public class WSViaticos : System.Web.Services.WebService
                 valor_UR = item.UnidadRetributiva;
             }
 
-
-            table_resumen.Rows.Add(item.AreaDescripCorta, item.NroDocumento, item.Apellido, item.Nombre, item.SueldoBruto, item.SueldoNeto, valor_extra_bruto, valor_extra_neto, valor_horas_simples, valor_horas_50, valor_horas_100, valor_comidas, valor_UR);
-               
-
-             }     
+            table_resumen.Rows.Add(item.Area, item.NroDocumento, item.Apellido, item.Nombre, item.SueldoBruto, item.SueldoNeto, valor_extra_bruto, valor_extra_neto, valor_horas_simples, valor_horas_50, valor_horas_100, valor_comidas, valor_UR);
+            }     
        
         var workbook = new XLWorkbook();
 
         //   var dataTable_consulta_parametros = table;
         var dataTable_resumen = table_resumen;
         var dataTable_detalle = table_detalle;
-        var ws = workbook.Worksheets.Add("Sueldos");
+        var ws = workbook.Worksheets.Add("Resumen");
 
         ws.Style.Font.FontSize = 11;
         ws.Style.Font.FontName = "Verdana";
@@ -394,23 +400,24 @@ public class WSViaticos : System.Web.Services.WebService
         ws.Cell(1, 2).Value = fecha.ToShortDateString();
         ws.Cell(2, 2).Value = area.Nombre.ToUpper();
 
-        ws.Range(4, 1, 4, 12).Style.Fill.BackgroundColor = XLColor.FromArgb(79, 129, 189);
-        ws.Range(4, 1, 4, 12).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+        ws.Range(4, 1, 4, 9).Style.Fill.BackgroundColor = XLColor.FromArgb(79, 129, 189);
+        ws.Range(4, 1, 4, 9).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
 
-        ws.Range(4, 1, 4, 12).Style.Font.FontColor = XLColor.White;
+        ws.Range(4, 1, 4, 9).Style.Font.FontColor = XLColor.White;
+            
 
-        ws.Cell(4, 1).Value = "AREA";
-        ws.Cell(4, 2).Value = "DOCUMENTO";
-        ws.Cell(4, 3).Value = "APELLIDO";
-        ws.Cell(4, 4).Value = "NOMBRE";
-        ws.Cell(4, 5).Value = "SUELDO BRUTO";
-        ws.Cell(4, 6).Value = "SUELDO NETO";
-        ws.Cell(4, 7).Value = "EXTRAS BRUTO";
-        ws.Cell(4, 8).Value = "EXTRAS NETO";
-        ws.Cell(4, 9).Value = "HS SIMPLES";
-        ws.Cell(4, 10).Value = "HS 50%";
-        ws.Cell(4, 11).Value = "HS 100%";
-        ws.Cell(4, 12).Value = "COMIDAS";
+        ws.Cell(4, 1).Value = "Informacion";
+        ws.Cell(4, 2).Value = "Cantidad";
+        ws.Cell(4, 3).Value = "Porcentaje %";
+        ws.Cell(4, 4).Value = "SumatoriaSueldo";
+        ws.Cell(4, 5).Value = "PromedioSueldo";
+        ws.Cell(4, 6).Value = "MedianaSueldo";
+        ws.Cell(4, 7).Value = "SumatoriaExtras";
+        ws.Cell(4, 8).Value = "PromedioExtras";
+        ws.Cell(4, 9).Value = "MedianaExtras";
+    //   ws.Cell(4, 10).Value = "HS 50%";
+    //    ws.Cell(4, 11).Value = "HS 100%";
+    //    ws.Cell(4, 12).Value = "COMIDAS";
       //  ws.Cell(4, 1).Value = "Informacion";
       //  ws.Cell(4, 2).Value = "Cantidad";
       //  ws.Cell(4, 3).Value = "Porcentaje %";
@@ -422,13 +429,20 @@ public class WSViaticos : System.Web.Services.WebService
         ws.Range(4, 1, lastCell.Address.RowNumber, lastCell.Address.ColumnNumber).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
         ws.Range(4, 1, lastCell.Address.RowNumber, lastCell.Address.ColumnNumber).Style.Border.OutsideBorder = XLBorderStyleValues.Medium;
 
-        ws.Range(5, 2, lastCell.Address.RowNumber, 2).DataType=XLCellValues.Number;
-        ws.Range(5, 5, lastCell.Address.RowNumber, lastCell.Address.ColumnNumber).DataType = XLCellValues.Number;
+        //ws.Range(5, 2, lastCell.Address.RowNumber, 2).DataType=XLCellValues.Number;
+        ws.Range(5, 2, lastCell.Address.RowNumber, lastCell.Address.ColumnNumber).DataType = XLCellValues.Number;
+
+
+      
 
         workbook.Worksheets.Add(dataTable_resumen);
 
+        var lastCell2 = workbook.Worksheet(2).LastCellUsed();
+        workbook.Worksheet(2).Range(2, 2, lastCell2.Address.RowNumber, 2).DataType = XLCellValues.Number;
+        workbook.Worksheet(2).Range(2, 5, lastCell2.Address.RowNumber, 13).DataType = XLCellValues.Number;
+
         workbook.Worksheet(2).Column("A").Width = 25;
-        workbook.Worksheet(2).Column("B").Width = 25;
+        workbook.Worksheet(2).Column("B").Width = 14;
         workbook.Worksheet(2).Column("C").Width = 25;
         workbook.Worksheet(2).Column("D").Width = 25;
         workbook.Worksheet(2).Column("E").Width = 18;
