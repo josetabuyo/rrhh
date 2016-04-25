@@ -119,7 +119,7 @@ public class WSViaticos : System.Web.Services.WebService
         List<MesDto> meses = new List<MesDto>();
 
         DateTime fechaActual = DateTime.Now;
-        if (fechaActual.Day > 25)
+        if (fechaActual.Day > 22)
         {
             meses.Add(new MesDto() { Mes = fechaActual.Month, NombreMes = DateTimeFormatInfo.CurrentInfo.GetMonthName(fechaActual.Month), Anio = fechaActual.Year });
         }

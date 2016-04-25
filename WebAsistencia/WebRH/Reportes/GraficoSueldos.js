@@ -26,7 +26,7 @@ var GraficoSueldos = {
             $('#tabla_sueldo_detalle').hide();
             $("#search_detalle_sueldo").hide();
             $('#div_tabla_sueldo').show();
-            
+
         });
 
         $('.filtros_sueldo').change(function () {
@@ -34,6 +34,10 @@ var GraficoSueldos = {
                 this.checked = false;
                 checks_activos = [];
             });
+            $('#tabla_sueldo_detalle').hide();
+            $('#btn_mostrar_resumen').hide();
+            $('#div_tabla_sueldo_detalle').hide();
+
             this.checked = true;
 
             filtro = this.dataset.filtro;
@@ -88,7 +92,7 @@ var GraficoSueldos = {
         $('#search_sueldo').show();
         $('#exportar_datos_sueldo').show();
         $('#tabla_sueldo').show();
-        
+
 
         var fecha = $('#txt_fecha_desde_sueldo').val();
         //Me fijo si esta seteado el storage
@@ -253,8 +257,8 @@ var GraficoSueldos = {
         $('#search_sueldo_detalle').show();
         $('#btn_mostrar_resumen').show();
         $('#div_tabla_sueldo').hide();
-        
-        
+
+
 
         if (tabla.length > 0) {
             var titulo = "Tabla de Toda la Dotación del Área";

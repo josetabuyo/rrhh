@@ -505,7 +505,7 @@ namespace General
                 }
                 else
                 {
-                    Contador nueva_area = new Contador(p.IdArea, p.AreaDescripMedia);
+                    Contador nueva_area = new Contador(p.IdArea, p.Area);
                     nueva_area.Personas.Add(p);
                     nueva_area.Orden = p.OrdenArea;
                     contador.Add(nueva_area);
