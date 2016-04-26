@@ -661,7 +661,7 @@ namespace General
             });
 
             int total = tabla_personas.Count;
-
+            tabla.Add(GenerarRegistroResumenSueldoTotal(contador));
             contador.ForEach(registro =>
             {
 
@@ -755,7 +755,7 @@ namespace General
             });
 
             int total = tabla_personas.Count;
-            //tabla.Add(GenerarRegistroResumen("Total", total, total));
+            tabla.Add(GenerarRegistroResumenSueldoTotal(contador));
 
             contador.ForEach(registro =>
             {
@@ -801,7 +801,7 @@ namespace General
 
             });
             int total = tabla_personas.Count;
-
+            tabla.Add(GenerarRegistroResumenSueldoTotal(contador));
             contador.ForEach(registro =>
             {
                 tabla.Add(GenerarRegistroResumenSueldo(registro, total));
@@ -809,5 +809,19 @@ namespace General
 
             this.tabla_resumen = tabla.OrderBy(t => t.Orden).ToList();
         }
+
+        private Resumen GenerarRegistroResumenSueldoTotal(List<Contador> tabla_personas)
+        {
+            List<Dotacion> dotacion_total = new List<Dotacion>();
+            Contador contador_total = new Contador();
+            tabla_personas.ForEach(personas => dotacion_total.AddRange(personas.Personas));
+            contador_total.Personas = dotacion_total;
+            contador_total.Id = 0;
+            contador_total.Orden = 0;
+            contador_total.Descripcion = "Total";
+            return GenerarRegistroResumenSueldo(contador_total, contador_total.Personas.Count);
+        }
+
+        
     }
 }

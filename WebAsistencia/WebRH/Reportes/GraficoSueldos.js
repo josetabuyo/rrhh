@@ -234,7 +234,7 @@ var GraficoSueldos = {
                 btn_accion.append(img);
                 btn_accion.click(function () {
                     console.log(un_registro);
-                    localStorage.setItem("documento", un_registro.nroDocumento);
+                    localStorage.setItem("documento", un_registro.NroDocumento);
                     window.open('ConsultaIndividual.aspx', '_blank');
                     //window.location.replace("ConsultaIndividual.aspx");
                 });
