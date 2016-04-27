@@ -152,7 +152,7 @@ namespace General
                     var area = new AreaParaDDJJ104();
                     area.Id = a.Id;
                     area.Nombre = a.Nombre;
-                    area.Personas.AddRange(repoPersonas.GetPersonasDelAreaParaDDJJ104(mes, anio, a));
+                    area.Personas.AddRange(repoPersonas.GetPersonasDelAreaParaDDJJ104(mes, anio, a).FindAll(x => x.Area.Id == id_area));
 
                     //CARGO LAS AREAS QUE DEPENDEN Y LAS PERSONAS    
                     areas_completas.ForEach(area_dependiente =>
@@ -162,7 +162,7 @@ namespace General
                             var area_informal = new AreaParaDDJJ104();
                             area_informal.Id = area_dependiente.Id;
                             area_informal.Nombre = area_dependiente.Nombre;
-                            area_informal.Personas = repoPersonas.GetPersonasDelAreaParaDDJJ104(mes, anio, area_dependiente);
+                            area_informal.Personas = repoPersonas.GetPersonasDelAreaParaDDJJ104(mes, anio, area_dependiente).FindAll(x=> x.Area.Id == id_area);
 
                             if (area_informal.Personas.Count > 0)
                                 area.AreasInformalesDependientes.Add(area_informal);    
