@@ -2,6 +2,31 @@
 <wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://wsviaticos.gov.ar/">
+      <s:element name="BuscarSexos">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuscarSexosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BuscarSexosResult" type="tns:ArrayOfSexo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfSexo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Sexo" nillable="true" type="tns:Sexo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Sexo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="BuscarAmbitosLaborales">
         <s:complexType>
           <s:sequence>
@@ -2377,31 +2402,20 @@
           <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
         </s:sequence>
       </s:complexType>
-      <s:element name="BuscarSexos">
+      <s:element name="GetAlumnoByDNI">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="dni" type="s:int" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="BuscarSexosResponse">
+      <s:element name="GetAlumnoByDNIResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="BuscarSexosResult" type="tns:ArrayOfSexo" />
+            <s:element minOccurs="0" maxOccurs="1" name="GetAlumnoByDNIResult" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="ArrayOfSexo">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Sexo" nillable="true" type="tns:Sexo" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="Sexo">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="GetCursosDelAlumno">
         <s:complexType>
           <s:sequence>
@@ -4028,6 +4042,21 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="ExcelDDJJ104">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExcelDDJJ104Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ExcelDDJJ104Result" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetAreas">
         <s:complexType />
       </s:element>
@@ -5203,22 +5232,14 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetAlumnoByDNI">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="dni" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetAlumnoByDNIResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetAlumnoByDNIResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="BuscarSexosSoapIn">
+    <wsdl:part name="parameters" element="tns:BuscarSexos" />
+  </wsdl:message>
+  <wsdl:message name="BuscarSexosSoapOut">
+    <wsdl:part name="parameters" element="tns:BuscarSexosResponse" />
+  </wsdl:message>
   <wsdl:message name="BuscarAmbitosLaboralesSoapIn">
     <wsdl:part name="parameters" element="tns:BuscarAmbitosLaborales" />
   </wsdl:message>
@@ -5783,11 +5804,11 @@
   <wsdl:message name="BuscarTiposDeDocumentoSoapOut">
     <wsdl:part name="parameters" element="tns:BuscarTiposDeDocumentoResponse" />
   </wsdl:message>
-  <wsdl:message name="BuscarSexosSoapIn">
-    <wsdl:part name="parameters" element="tns:BuscarSexos" />
+  <wsdl:message name="GetAlumnoByDNISoapIn">
+    <wsdl:part name="parameters" element="tns:GetAlumnoByDNI" />
   </wsdl:message>
-  <wsdl:message name="BuscarSexosSoapOut">
-    <wsdl:part name="parameters" element="tns:BuscarSexosResponse" />
+  <wsdl:message name="GetAlumnoByDNISoapOut">
+    <wsdl:part name="parameters" element="tns:GetAlumnoByDNIResponse" />
   </wsdl:message>
   <wsdl:message name="GetCursosDelAlumnoSoapIn">
     <wsdl:part name="parameters" element="tns:GetCursosDelAlumno" />
@@ -6335,6 +6356,12 @@
   <wsdl:message name="ExcelGeneradoSoapOut">
     <wsdl:part name="parameters" element="tns:ExcelGeneradoResponse" />
   </wsdl:message>
+  <wsdl:message name="ExcelDDJJ104SoapIn">
+    <wsdl:part name="parameters" element="tns:ExcelDDJJ104" />
+  </wsdl:message>
+  <wsdl:message name="ExcelDDJJ104SoapOut">
+    <wsdl:part name="parameters" element="tns:ExcelDDJJ104Response" />
+  </wsdl:message>
   <wsdl:message name="GetAreasSoapIn">
     <wsdl:part name="parameters" element="tns:GetAreas" />
   </wsdl:message>
@@ -6707,13 +6734,11 @@
   <wsdl:message name="GetAlumnosSoapOut">
     <wsdl:part name="parameters" element="tns:GetAlumnosResponse" />
   </wsdl:message>
-  <wsdl:message name="GetAlumnoByDNISoapIn">
-    <wsdl:part name="parameters" element="tns:GetAlumnoByDNI" />
-  </wsdl:message>
-  <wsdl:message name="GetAlumnoByDNISoapOut">
-    <wsdl:part name="parameters" element="tns:GetAlumnoByDNIResponse" />
-  </wsdl:message>
   <wsdl:portType name="WSViaticosSoap">
+    <wsdl:operation name="BuscarSexos">
+      <wsdl:input message="tns:BuscarSexosSoapIn" />
+      <wsdl:output message="tns:BuscarSexosSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="BuscarAmbitosLaborales">
       <wsdl:input message="tns:BuscarAmbitosLaboralesSoapIn" />
       <wsdl:output message="tns:BuscarAmbitosLaboralesSoapOut" />
@@ -7090,9 +7115,9 @@
       <wsdl:input message="tns:BuscarTiposDeDocumentoSoapIn" />
       <wsdl:output message="tns:BuscarTiposDeDocumentoSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="BuscarSexos">
-      <wsdl:input message="tns:BuscarSexosSoapIn" />
-      <wsdl:output message="tns:BuscarSexosSoapOut" />
+    <wsdl:operation name="GetAlumnoByDNI">
+      <wsdl:input message="tns:GetAlumnoByDNISoapIn" />
+      <wsdl:output message="tns:GetAlumnoByDNISoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetCursosDelAlumno">
       <wsdl:input message="tns:GetCursosDelAlumnoSoapIn" />
@@ -7458,6 +7483,10 @@
       <wsdl:input message="tns:ExcelGeneradoSoapIn" />
       <wsdl:output message="tns:ExcelGeneradoSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="ExcelDDJJ104">
+      <wsdl:input message="tns:ExcelDDJJ104SoapIn" />
+      <wsdl:output message="tns:ExcelDDJJ104SoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetAreas">
       <wsdl:input message="tns:GetAreasSoapIn" />
       <wsdl:output message="tns:GetAreasSoapOut" />
@@ -7706,13 +7735,18 @@
       <wsdl:input message="tns:GetAlumnosSoapIn" />
       <wsdl:output message="tns:GetAlumnosSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="GetAlumnoByDNI">
-      <wsdl:input message="tns:GetAlumnoByDNISoapIn" />
-      <wsdl:output message="tns:GetAlumnoByDNISoapOut" />
-    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="WSViaticosSoap" type="tns:WSViaticosSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="BuscarSexos">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarSexos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="BuscarAmbitosLaborales">
       <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarAmbitosLaborales" style="document" />
       <wsdl:input>
@@ -8559,8 +8593,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="BuscarSexos">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarSexos" style="document" />
+    <wsdl:operation name="GetAlumnoByDNI">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetAlumnoByDNI" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -9387,6 +9421,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ExcelDDJJ104">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ExcelDDJJ104" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetAreas">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetAreas" style="document" />
       <wsdl:input>
@@ -9945,18 +9988,18 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetAlumnoByDNI">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetAlumnoByDNI" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="WSViaticosSoap12" type="tns:WSViaticosSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="BuscarSexos">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarSexos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="BuscarAmbitosLaborales">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarAmbitosLaborales" style="document" />
       <wsdl:input>
@@ -10803,8 +10846,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="BuscarSexos">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarSexos" style="document" />
+    <wsdl:operation name="GetAlumnoByDNI">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetAlumnoByDNI" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -11631,6 +11674,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ExcelDDJJ104">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ExcelDDJJ104" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetAreas">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetAreas" style="document" />
       <wsdl:input>
@@ -12189,22 +12241,13 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetAlumnoByDNI">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetAlumnoByDNI" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="WSViaticos">
     <wsdl:port name="WSViaticosSoap" binding="tns:WSViaticosSoap">
-      <soap:address location="http://localhost:48142/WSViaticos/WSViaticos.asmx" />
+      <soap:address location="http://localhost:43412/WSViaticos/WSViaticos.asmx" />
     </wsdl:port>
     <wsdl:port name="WSViaticosSoap12" binding="tns:WSViaticosSoap12">
-      <soap12:address location="http://localhost:48142/WSViaticos/WSViaticos.asmx" />
+      <soap12:address location="http://localhost:43412/WSViaticos/WSViaticos.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

@@ -29,6 +29,7 @@
         <label>Ingrese el Area o Estado que desea buscar: </label>
         <input type="text" id="search" class="search" class="buscador" placeholder="Buscar Area/Estado" style="width:250px"; />
         <div id="ContenedorGrilla" runat="server" style="width: 90%"></div>
+        <div id="DivBotonExcel" runat="server" style="width: 90%"></div>
     </div>
     
     <div id="grillaPersonas" runat="server" style="width: 100%" align="center">
