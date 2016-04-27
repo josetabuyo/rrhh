@@ -132,7 +132,7 @@ var GraficoSueldos = {
                 var sueldos = grafico.tabla_detalle;
                 var resultado = grafico.tabla_resumen;
                 var tabla_detalle = grafico.tabla_detalle;
-                if (sueldos != null) {
+                if (sueldos.length > 0) {
                     // _this.VisualizarContenido(true);
                     _this.DibujarTabla(resultado, div_tabla, tabla, tabla_detalle);
                     //_this.DibujarTablaDetalle(sueldos, div_tabla, tabla);
@@ -141,6 +141,7 @@ var GraficoSueldos = {
                 } else {
                     _this.VisualizarContenido(false);
                     alertify.error("No hay Personal en el Área seleccionada para la generación del Gráfico");
+                    _this.DibujarTabla(resultado, div_tabla, tabla, tabla_detalle);
                 }
                 spinner.stop();
             })

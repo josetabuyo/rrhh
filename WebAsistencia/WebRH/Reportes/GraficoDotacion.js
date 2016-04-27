@@ -370,7 +370,7 @@ var GraficoDotacion = {
             .onSuccess(function (grafico) {
                 var resultado = grafico.tabla_resumen;
                 var tabla_detalle = grafico.tabla_detalle;
-                if (resultado != null) {
+                if (resultado.length > 0) {
                     _this.VisualizarContenido(true);
                     _this.ArmarGrafico(resultado, titulo, div_grafico);
                     _this.DibujarTabla(resultado, div_tabla, tabla, tabla_detalle);
@@ -378,6 +378,7 @@ var GraficoDotacion = {
 
                 } else {
                     _this.VisualizarContenido(false);
+                    $('#div_graficos_y_tablas').hide();
                     alertify.error("No hay Personal en el Área seleccionada para la generación del Gráfico");
                 }
                 spinner.stop();
