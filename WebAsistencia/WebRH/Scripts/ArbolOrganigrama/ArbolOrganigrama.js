@@ -81,6 +81,11 @@ ArbolOrganigrama.prototype.dibujarArea = function (area, contenedor, es_area_hij
             setTimeout(function () { _this.selector_de_areas.limpiar(); }, 1);
             _this.call_alSeleccionar(area);
         });
+    } else {
+        div_nombre.click(function () {
+            alertify.error("No tiene permiso para emitir reportes sobre el area seleccionada");
+            setTimeout(function () { _this.selector_de_areas.limpiar(); }, 1);
+        });
     }
     contenedor.append(vista_area);
     var hay_algun_area_del_usuario_en_esta_rama = false;
