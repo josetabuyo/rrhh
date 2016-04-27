@@ -251,8 +251,8 @@ var GraficoDotacion = {
                 case "7":
                     a.download = "DOTACION_POR_SUBSECRETARIAS_" + fecha + "_.xlsx";
                     break;
-                //                case "6":              
-                //                    a.download = "DOTACION_RANGO_ETARIO_" + fecha + "_.xlsx";              
+                //                case "6":               
+                //                    a.download = "DOTACION_RANGO_ETARIO_" + fecha + "_.xlsx";               
 
 
                 default:
@@ -302,37 +302,37 @@ var GraficoDotacion = {
 
             // alert(tipo);
 
-       //     switch (tipo.toString()) {
+            //     switch (tipo.toString()) {
 
-     //           case "1":
+            //           case "1":
 
-                    a.download = "DETALLE_SUELDOS_" + fecha + "_.xlsx";
-//                    break;
-//                case "2":
-//                    a.download = "DOTACION__POR_NIVEL_" + fecha + "_.xlsx";
-//                    break;
-//                case "3":
-//                    a.download = "DOTACION_POR_ESTUDIO_" + fecha + "_.xlsx";
-//                    break;
-//                case "4":
-//                    a.download = "DOTACION_POR_PLANTA_" + fecha + "_.xlsx";
-//                    break;
-//                case "5":
-//                    a.download = "DOTACION_POR_AREA_" + fecha + "_.xlsx";
-//                    break;
-//                case "6":
-//                    a.download = "DOTACION_POR_SECRETARIAS_" + fecha + "_.xlsx";
-//                    break;
-//                case "7":
-//                    a.download = "DOTACION_POR_SUBSECRETARIAS_" + fecha + "_.xlsx";
-//                    break;
-//                //                case "6":              
-//                //                    a.download = "DOTACION_RANGO_ETARIO_" + fecha + "_.xlsx";              
+            a.download = "DETALLE_SUELDOS_" + fecha + "_.xlsx";
+            //                    break;
+            //                case "2":
+            //                    a.download = "DOTACION__POR_NIVEL_" + fecha + "_.xlsx";
+            //                    break;
+            //                case "3":
+            //                    a.download = "DOTACION_POR_ESTUDIO_" + fecha + "_.xlsx";
+            //                    break;
+            //                case "4":
+            //                    a.download = "DOTACION_POR_PLANTA_" + fecha + "_.xlsx";
+            //                    break;
+            //                case "5":
+            //                    a.download = "DOTACION_POR_AREA_" + fecha + "_.xlsx";
+            //                    break;
+            //                case "6":
+            //                    a.download = "DOTACION_POR_SECRETARIAS_" + fecha + "_.xlsx";
+            //                    break;
+            //                case "7":
+            //                    a.download = "DOTACION_POR_SUBSECRETARIAS_" + fecha + "_.xlsx";
+            //                    break;
+            //                //                case "6":              
+            //                //                    a.download = "DOTACION_RANGO_ETARIO_" + fecha + "_.xlsx";              
 
 
-//                default:
-//                    //     alert('');
-//                    break;
+            //                default:
+            //                    //     alert('');
+            //                    break;
             //}
 
 
@@ -411,7 +411,12 @@ var GraficoDotacion = {
         for (var i = 0; i < resultado.length; i++) {
             if (resultado[i].Id != "Total") {
                 if (parseInt(resultado[i].Cantidad) > 0) {
-                    var porcion = [resultado[i].Id.replace(/\|/g, ""), parseInt(resultado[i].Cantidad)];
+                    if (resultado[i].DescripcionGrafico == null) {
+                        nombre = resultado[i].Id.replace(/\|/g, "");
+                    }else{
+                        nombre = resultado[i].DescripcionGrafico;
+                    }
+                    var porcion = [nombre, parseInt(resultado[i].Cantidad)];
                     datos.push(porcion);
                 }
             }

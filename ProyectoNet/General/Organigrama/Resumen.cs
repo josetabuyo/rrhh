@@ -10,6 +10,7 @@ namespace General
     public class Resumen
     {
         public string Id { get; set; }
+        public string DescripcionGrafico { get; set; }
         public int Cantidad { get; set; }
         public float Porcentaje { get; set; }
         public int Orden { get; set; }
@@ -22,18 +23,26 @@ namespace General
 
         public Resumen() { }
 
+        public Resumen(string id, string descripcionGrafico, int cantidad, float porcentaje)
+        {
+            this.Id = id;
+            this.Cantidad = cantidad;
+            this.Porcentaje = porcentaje;
+            this.DescripcionGrafico = descripcionGrafico;
+        }
         public Resumen(string id, int cantidad, float porcentaje)
         {
             this.Id = id;
             this.Cantidad = cantidad;
-            this.Porcentaje = porcentaje;       
+            this.Porcentaje = porcentaje;
         }
-        public Resumen(string id, int cantidad, float porcentaje, int orden)
+        public Resumen(string id, string descripcionGrafico, int cantidad, float porcentaje, int orden)
         {
             this.Id = id;
             this.Cantidad = cantidad;
             this.Porcentaje = porcentaje;
             this.Orden = orden;
+            this.DescripcionGrafico = descripcionGrafico;
         }
     }
 }

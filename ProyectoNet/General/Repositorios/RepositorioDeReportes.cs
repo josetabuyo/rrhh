@@ -64,15 +64,17 @@ namespace General.Repositorios
 
         }
 
-        private static void CrearResumen(int tipo, DateTime fecha)
+        private void CrearResumen(int tipo, DateTime fecha)
         {
             switch (tipo)
             {
                 case 1:
+                    
                     grafico.GraficoPorGenero();
                     break;
                 case 2:
-                    grafico.GraficoPorNivel();
+                    List<string> niveles = getNiveles();
+                    grafico.GraficoPorNivel(niveles);
                     break;
                 case 3:
                     grafico.GraficoPorEstudio();
@@ -150,6 +152,20 @@ namespace General.Repositorios
             }
             return grafico;
 
+        }
+
+
+        private List<string> getNiveles()
+        {
+            var parametros = new Dictionary<string, object>();
+            var tablaDatos = conexion_bd.Ejecutar("dbo.GRAF_GET_Niveles", parametros);
+            List<string> listaNiveles = new List<string>();
+
+
+            tablaDatos.Rows.ForEach(nivel => listaNiveles.Add(nivel.GetString("Nivel","Sin dato").ToString()));
+
+
+            return listaNiveles;
         }
     }
 }
