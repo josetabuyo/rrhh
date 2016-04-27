@@ -256,22 +256,30 @@ public class WSViaticos : System.Web.Services.WebService
     public string ExcelGeneradoSueldos(string criterio, Usuario usuario)
     {
         try
-        {                  
-        
-        var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
-        int tipo = (int)((JValue)criterio_deserializado["tipo"]);
-        int dia = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(0, 2)));
-        int mes = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(3, 2)));
-        int anio = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(6, 4)));
-        bool incluir_dependencias = (bool)((JValue)criterio_deserializado["incluir_dependencias"]);
-        DateTime fecha = new DateTime(anio, mes, dia);
-        int id_area = (int)((JValue)criterio_deserializado["id_area"]);
-        
-        RepositorioDeReportes repositorio = new RepositorioDeReportes(Conexion());
+        {
 
-        Grafico grafico = repositorio.GetReporteSueldosPorArea(tipo, fecha, id_area, incluir_dependencias);
+            var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
+            int tipo = (int)((JValue)criterio_deserializado["tipo"]);
+            int dia = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(0, 2)));
+            int mes = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(3, 2)));
+            int anio = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(6, 4)));
+            bool incluir_dependencias = (bool)((JValue)criterio_deserializado["incluir_dependencias"]);
+            DateTime fecha = new DateTime(anio, mes, dia);
+            int id_area = (int)((JValue)criterio_deserializado["id_area"]);
+
+            RepositorioDeReportes repositorio = new RepositorioDeReportes(Conexion());
+
+            return repositorio.ExcelGeneradoSueldos(tipo, dia, mes, anio, incluir_dependencias, id_area);
+        }
+        catch (Exception ex)
+        {
+
+            throw ex;
+        }
+
+ //       Grafico grafico = repositorio.GetReporteSueldosPorArea(tipo, fecha, id_area, incluir_dependencias);
        // return repositorio.GetReporteSueldosPorArea(fecha, id_area, incluir_dependencias);
-
+/*
         DataTable table_resumen = new DataTable();
         table_resumen.TableName = "Detalle";
 
@@ -475,7 +483,7 @@ public class WSViaticos : System.Web.Services.WebService
 
             throw ex;
         }
-
+            */
     }
 
 
