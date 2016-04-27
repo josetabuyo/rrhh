@@ -256,22 +256,30 @@ public class WSViaticos : System.Web.Services.WebService
     public string ExcelGeneradoSueldos(string criterio, Usuario usuario)
     {
         try
-        {                  
-        
-        var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
-        int tipo = (int)((JValue)criterio_deserializado["tipo"]);
-        int dia = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(0, 2)));
-        int mes = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(3, 2)));
-        int anio = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(6, 4)));
-        bool incluir_dependencias = (bool)((JValue)criterio_deserializado["incluir_dependencias"]);
-        DateTime fecha = new DateTime(anio, mes, dia);
-        int id_area = (int)((JValue)criterio_deserializado["id_area"]);
-        
-        RepositorioDeReportes repositorio = new RepositorioDeReportes(Conexion());
+        {
 
-        Grafico grafico = repositorio.GetReporteSueldosPorArea(tipo, fecha, id_area, incluir_dependencias);
+            var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
+            int tipo = (int)((JValue)criterio_deserializado["tipo"]);
+            int dia = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(0, 2)));
+            int mes = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(3, 2)));
+            int anio = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(6, 4)));
+            bool incluir_dependencias = (bool)((JValue)criterio_deserializado["incluir_dependencias"]);
+            DateTime fecha = new DateTime(anio, mes, dia);
+            int id_area = (int)((JValue)criterio_deserializado["id_area"]);
+
+            RepositorioDeReportes repositorio = new RepositorioDeReportes(Conexion());
+
+            return repositorio.ExcelGeneradoSueldos(tipo, dia, mes, anio, incluir_dependencias, id_area);
+        }
+        catch (Exception ex)
+        {
+
+            throw ex;
+        }
+
+ //       Grafico grafico = repositorio.GetReporteSueldosPorArea(tipo, fecha, id_area, incluir_dependencias);
        // return repositorio.GetReporteSueldosPorArea(fecha, id_area, incluir_dependencias);
-
+/*
         DataTable table_resumen = new DataTable();
         table_resumen.TableName = "Detalle";
 
@@ -475,7 +483,7 @@ public class WSViaticos : System.Web.Services.WebService
 
             throw ex;
         }
-
+            */
     }
 
 
@@ -618,6 +626,86 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
 
+
+
+    /*Excel DDJJ104*/
+    [WebMethod]
+    public string ExcelDDJJ104(string criterio, Usuario usuario)
+    {
+        var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
+
+        int mes = (int)((JValue)criterio_deserializado["mes"]);
+        int anio = (int)((JValue)criterio_deserializado["anio"]);
+        int id_area = (int)((JValue)criterio_deserializado["id_area"]);
+
+
+        AreaParaDDJJ104[] areas = GetAreasParaDDJJ104(mes, anio, id_area, usuario);
+
+        try
+        {
+           
+            DataTable table_resumen = new DataTable();
+            table_resumen.TableName = "Areas";
+
+            table_resumen.Columns.Add("Areas");
+            table_resumen.Columns.Add("Estado");
+
+            foreach (var item in areas)
+            {
+                table_resumen.Rows.Add(item.Nombre, item.DDJJ.Estado);
+            }
+
+            var workbook = new XLWorkbook();
+
+            var dataTable_resumen = table_resumen;
+            
+            var ws = workbook.Worksheets.Add("Areas");
+
+            ws.Style.Font.FontSize = 11;
+            ws.Style.Font.FontName = "Verdana";
+
+            //ws.Column("A").Width = 15;
+            //ws.Column("B").Width = 15;
+            //ws.Column("C").Width = 15;
+
+            //ws.Cell(1, 1).Value = "FECHA:";
+            //ws.Cell(2, 1).Value = "AREA:";
+
+            //ws.Cell(1, 1).Style.Font.Bold = true;
+            //ws.Cell(2, 1).Style.Font.Bold = true;
+
+            //ws.Cell(1, 2).Value = fecha.ToShortDateString();
+            //ws.Cell(2, 2).Value = area.Nombre.ToUpper();
+
+            //ws.Range(4, 1, 4, 3).Style.Fill.BackgroundColor = XLColor.FromArgb(79, 129, 189);
+            //ws.Range(4, 1, 4, 3).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+
+            //ws.Range(4, 1, 4, 3).Style.Font.FontColor = XLColor.White;
+
+            //ws.Cell(4, 1).Value = "Informacion";
+            //ws.Cell(4, 2).Value = "Cantidad";
+            //ws.Cell(4, 3).Value = "Porcentaje %";
+
+            var rangeWithData = ws.Cell(1, 1).InsertData(dataTable_resumen.AsEnumerable());
+
+            //var lastCell = ws.LastCellUsed();
+            //ws.Range(4, 1, lastCell.Address.RowNumber, lastCell.Address.ColumnNumber).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+            //ws.Range(4, 1, lastCell.Address.RowNumber, lastCell.Address.ColumnNumber).Style.Border.OutsideBorder = XLBorderStyleValues.Medium;
+
+           
+            using (var ms = new MemoryStream())
+            {
+                workbook.SaveAs(ms);
+                return Convert.ToBase64String(ms.ToArray());
+            }
+
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+
+    }
 
     /**/
     
