@@ -10,6 +10,22 @@
     /*border: black solid;*/
 }
 
+.arbol_organigrama #buscador_de_area
+{
+    
+}
+
+.arbol_organigrama #buscador_de_area .combo_buscar_area
+{
+    width: 90% !important;
+    margin-bottom: 20px;
+}
+
+.arbol_organigrama #areas_arbol
+{
+    
+}   
+
 .area_en_arbol
 {
     /*margin-left:10px;*/
@@ -153,3 +169,4 @@
 {
     font-size: 9px;
 }
+

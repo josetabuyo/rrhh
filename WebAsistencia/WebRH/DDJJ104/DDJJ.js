@@ -90,6 +90,17 @@ var DibujarGrillaDDJJ = function () {
 
     grilla.CargarObjetos(lista_areas_del_usuario);
     grilla.DibujarEn(ContenedorGrilla);
+    BuscardoAreas();
+
+//    var divBtnExportarExcel = $("#DivBotonExcel")
+//    botonExcel = $("<input type='button'>");
+//    botonExcel.val("Exportar a Excel");
+//    botonExcel.click(function () {
+//        BuscarExcel(mesSeleccionado, anioSeleccionado, 0);
+//    });
+//    divBtnExportarExcel.append(botonExcel);
+
+
     grilla.SetOnRowClickEventHandler(function () {
         return true;
     });
@@ -470,6 +481,16 @@ var DibujarGrillaPersonas = function (un_area, contenedor_grilla, es_impresion) 
     });
 }
 
+
+function BuscardoAreas() {
+
+    var options = {
+        valueNames: ['Area', 'Estado']
+    };
+    var featureList = new List('grilla', options);
+};
+
+
 function NombreMes(num) {
     switch (num) {
         case 1: return "enero";
@@ -488,3 +509,36 @@ function NombreMes(num) {
 
     return "";
 }
+
+
+
+ function BuscarExcel (mesSeleccionado, anioSeleccionado, idArea) {
+        var _this = this;
+
+        if (mesSeleccionado == null) {
+            return;
+        }
+
+        var resultado = Backend.ejecutarSincronico("ExcelDDJJ104", [{ mes: parseInt(mesSeleccionado), anio: parseInt(anioSeleccionado), id_area: parseInt(idArea)}]);
+
+        if (resultado.length > 0) {
+
+            var a = window.document.createElement('a');
+
+            a.href = "data:application/vnd.ms-excel;base64," + resultado;
+
+            a.download = "Areas_DDJJ104_" + mesSeleccionado + anioSeleccionado + "_.xlsx";
+            
+
+            // Append anchor to body.
+            document.body.appendChild(a)
+            a.click();
+
+
+            // Remove anchor from body
+            document.body.removeChild(a)
+
+
+        }
+        //   _this.GraficoYTabla(tipo, fecha, id_area, "Dotación por Nivel del Área aaa", "container_grafico_torta_totales", "div_tabla_resultado_totales", "tabla_resultado_totales");
+    }
