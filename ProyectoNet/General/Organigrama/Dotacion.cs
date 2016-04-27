@@ -48,7 +48,9 @@ namespace General
         public int HsSimples { get; set; }
         public int Hs50 { get; set; }
         public int Hs100 { get; set; }
+        public float hsTotalesSimples { get; set; }
         public int Comidas { get; set; }
+        public int UnidadRetributiva { get; set; }
 
 
         public Dotacion() { }
@@ -92,6 +94,11 @@ namespace General
 
 
 
-       
+
+
+        internal void HsTotalesSimples(int simple, int al_50, int al_100)
+        {
+            this.hsTotalesSimples = (float)simple + (float)al_50 * (float)1.5 + (float)al_100 * (float)2;
+        }
     }
 }

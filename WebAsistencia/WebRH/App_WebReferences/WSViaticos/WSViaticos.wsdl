@@ -3954,6 +3954,12 @@
           <s:element minOccurs="1" maxOccurs="1" name="Cantidad" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="Porcentaje" type="s:float" />
           <s:element minOccurs="1" maxOccurs="1" name="Orden" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="SumatoriaSueldo" type="s:float" />
+          <s:element minOccurs="1" maxOccurs="1" name="PrimedioSueldo" type="s:float" />
+          <s:element minOccurs="1" maxOccurs="1" name="MedianaSueldo" type="s:float" />
+          <s:element minOccurs="1" maxOccurs="1" name="SumatoriaExtras" type="s:float" />
+          <s:element minOccurs="1" maxOccurs="1" name="PrimedioExtras" type="s:float" />
+          <s:element minOccurs="1" maxOccurs="1" name="MedianaExtras" type="s:float" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfDotacion">
@@ -4002,7 +4008,9 @@
           <s:element minOccurs="1" maxOccurs="1" name="HsSimples" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="Hs50" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="Hs100" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="hsTotalesSimples" type="s:float" />
           <s:element minOccurs="1" maxOccurs="1" name="Comidas" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="UnidadRetributiva" type="s:int" />
         </s:sequence>
       </s:complexType>
       <s:element name="GetReporteSueldosPorAreaResponse">
@@ -4024,6 +4032,21 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="GetGraficoResult" type="tns:Grafico" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExcelGeneradoSueldos">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExcelGeneradoSueldosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ExcelGeneradoSueldosResult" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -6350,6 +6373,12 @@
   <wsdl:message name="GetGraficoSoapOut">
     <wsdl:part name="parameters" element="tns:GetGraficoResponse" />
   </wsdl:message>
+  <wsdl:message name="ExcelGeneradoSueldosSoapIn">
+    <wsdl:part name="parameters" element="tns:ExcelGeneradoSueldos" />
+  </wsdl:message>
+  <wsdl:message name="ExcelGeneradoSueldosSoapOut">
+    <wsdl:part name="parameters" element="tns:ExcelGeneradoSueldosResponse" />
+  </wsdl:message>
   <wsdl:message name="ExcelGeneradoSoapIn">
     <wsdl:part name="parameters" element="tns:ExcelGenerado" />
   </wsdl:message>
@@ -7478,6 +7507,10 @@
     <wsdl:operation name="GetGrafico">
       <wsdl:input message="tns:GetGraficoSoapIn" />
       <wsdl:output message="tns:GetGraficoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ExcelGeneradoSueldos">
+      <wsdl:input message="tns:ExcelGeneradoSueldosSoapIn" />
+      <wsdl:output message="tns:ExcelGeneradoSueldosSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="ExcelGenerado">
       <wsdl:input message="tns:ExcelGeneradoSoapIn" />
@@ -9405,6 +9438,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetGrafico">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetGrafico" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExcelGeneradoSueldos">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ExcelGeneradoSueldos" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -11658,6 +11700,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetGrafico">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetGrafico" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExcelGeneradoSueldos">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ExcelGeneradoSueldos" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

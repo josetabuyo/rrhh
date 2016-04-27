@@ -2,14 +2,23 @@
     var _this = this;
     this.vistaArbol = $("#plantillas .arbol_organigrama").clone();
     contenedor.append(this.vistaArbol);
-    var spinner = new Spinner({ scale: 2 });
-    spinner.spin(this.vistaArbol[0]);
+    //var spinner = new Spinner({ scale: 2 });
+    //spinner.spin(this.vistaArbol[0]);
     Backend.GetArbolOrganigrama().onSuccess(function (area_raiz) {
         Backend.AreasAdministradasPor().onSuccess(function (areas_usuario) {
             _this.areasUsuario = areas_usuario;
-            _this.dibujarArea(area_raiz, _this.vistaArbol);
-            spinner.stop();
+            _this.dibujarArea(area_raiz, _this.vistaArbol.find("#areas_arbol"));
+            //spinner.stop();
         });
+    });
+
+    this.selector_de_areas = new SelectorDeAreas({
+        ui: this.vistaArbol.find("#buscador_de_area"),
+        repositorioDeAreas: new RepositorioDeAreas(new ProveedorAjax("../")),
+        placeholder: "Ingrese área a buscar o seleccione en el árbol",
+        alSeleccionarUnArea: function (area) {
+            _this.vistaArbol.find(".area_" + area.id).click();
+        }
     });
 };
 
@@ -20,6 +29,7 @@ ArbolOrganigrama.prototype.dibujarArea = function (area, contenedor, es_area_hij
     var cuerpo_area = vista_area.find("#area");
     var cont_areas_dependientes = vista_area.children("#areas_dependientes");
     div_nombre.text(area.nombre);
+    div_nombre.addClass("area_" + area.id);
 
     var btn_expandir = vista_area.find("#btn_expandir");
     var btn_contraer = vista_area.find("#btn_contraer");
@@ -36,7 +46,7 @@ ArbolOrganigrama.prototype.dibujarArea = function (area, contenedor, es_area_hij
     btn_contraer.click();
 
     switch (area.jerarquia) {
-        case 1000: 
+        case 1000:
             cuerpo_area.addClass("ministerio");
             break;
         case 900:
@@ -62,12 +72,13 @@ ArbolOrganigrama.prototype.dibujarArea = function (area, contenedor, es_area_hij
             break;
     }
     var es_area_del_usuario = _.findWhere(this.areasUsuario, { Id: area.id }) && true;
-    if (es_area_del_usuario || es_area_hija_de_una_del_usuario) {        
+    if (es_area_del_usuario || es_area_hija_de_una_del_usuario) {
         div_nombre.click(function () {
             _this.vistaArbol.find(".area_seleccionada_en_arbol").each(function (ia, v_area) {
                 $(v_area).removeClass("area_seleccionada_en_arbol");
             });
             div_nombre.addClass("area_seleccionada_en_arbol");
+            setTimeout(function () { _this.selector_de_areas.limpiar(); }, 1);
             _this.call_alSeleccionar(area);
         });
     }

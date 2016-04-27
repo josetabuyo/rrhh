@@ -9,6 +9,9 @@
     <link rel="stylesheet" type="text/css" href="Reportes.css" />
     <link rel="stylesheet" type="text/css" href="../Scripts/ArbolOrganigrama/ArbolOrganigrama.css" />
     <link rel="stylesheet" type="text/css" href="../Estilos/component.css" />
+    <link rel="stylesheet" type="text/css" href="../estilos/SelectorDeAreas.css"/>    
+    <link rel="stylesheet" type="text/css" href="../scripts/select2-3.4.4/select2.css" />
+
     <%= Referencias.Javascript("../")%>
     <script type="text/javascript" src="../Scripts/underscore-min.js"></script>
     <script type="text/javascript" src="Reportes.js"></script>
@@ -19,7 +22,9 @@
     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold; padding-top:20px;'>Reportes</span> <br/> " UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <div>
         <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" style="position: relative; top: 0; width: 100%;" id="cbp-spmenu-s1">
-            <div id="contenedor_arbol_organigrama"> </div>
+            <div id="contenedor_arbol_organigrama"> 
+
+            </div>
             <input id="btn_consulta_rapida" type="button" class="btn_consulta_individual" requierefuncionalidad="32" value="Consulta Individual" />
             <input type="button" class="btn_organigrama" id="showLeftPush" value="Organigrama" />
             <div id="menu_grafico">
@@ -112,15 +117,40 @@
                                 <label>Fecha</label>
                                 <input id="txt_fecha_desde_sueldo" type="text" style="width: 100px; margin: 5px 10px 5px 46px;" />
                                 <input id="btn_buscar_sueldo" type="button" class="btn btn-primary" value="Buscar" />
-                            </div>                    
+                            </div> 
+                            <div class="grupo_campos nueva_linea">
+                                <label>Agrupar por:</label>
+                                <div class="" autocomplete="off" style="margin-left: 50px;">
+                                    <section>
+					                    <ul class="lista_filtros">
+						                    <li><input id="cb_SinAgrupar" class="regular-checkbox filtros_sueldo" name="cb8" data-filtro="SinAgrupar_sueldo" type="checkbox"/><label for="cb_SinAgrupar">Sin Agrupar</label></li>
+                                            <li><input id="cb_Secretarias_sueldo" class="regular-checkbox filtros_sueldo" name="cb9" data-filtro="Secretarias_sueldo" type="checkbox"/><label for="cb_Secretarias">Secretarías</label></li>
+						                    <li><input id="cb_SubSecretarias_sueldo" class="regular-checkbox filtros_sueldo" name="cb0" data-filtro="Subsecretariasr_sueldo" type="checkbox"/><label for="cb_SubSecretarias">Subsecretarias</label></li>
+					                    </ul>
+			                        </section>
+                                </div>
+                            </div>                   
                         </div>
-                    </div>  
-                    <div id="div_tabla_detalle_sueldo" style="margin: -310px 0px 0px 148px; width: 100%; position: absolute; top: 465px;">               
+                    </div>
+
+                    <div id="div_tabla_sueldo" style="margin: -310px 0px 0px 148px; width: 100%; position: absolute; top: 465px;">               
+                        <span id="lb_titulo_tabla"></span>
+                        
+                        <div style="width:80%; margin: 20px 0px 10px 0px;">
+                            <input type="text" id="search_sueldo" class="search" class="buscador" placeholder="Buscar" style="display: none;" />
+                            <a href="#" id="exportar_datos_sueldo" class="btn btn-info" style="float: right; display: none; padding: 5px;"> Exportar Datos</a>
+                        </div>
+                        <table id="tabla_sueldo" style="width: 80%;"> </table>
+                    </div> 
+                    
+                    <div id="div_tabla_sueldo_detalle" style="margin: -310px 0px 0px 148px; width: 100%; position: absolute; top: 465px; display:none;">               
                         <span id="lb_titulo_tabla_detalle"></span>
-                        <br />        
-                        <input type="text" id="search_detalle_sueldo" class="search" class="buscador" placeholder="Buscar" style="display: none;" />
-                        <a href="#" id="exportar_datos_detalle_sueldo" class="btn btn-info" style="float: right; display: none; padding: 5px;margin-right: 15%;"> Exportar Datos</a>
-                        <table id="tabla_detalle_sueldo" style="width: 80%;"> </table>
+                        <br />  
+                        <div style="width:80%;">
+                            <input type="text" id="search_detalle_sueldo" class="search" class="buscador" placeholder="Buscar" style="display: none; margin: 0;" />
+                            <input id="btn_mostrar_resumen" type="button" class="btn btn-primary" value="Volver al Resumen" style="display:none; float: right;"/>  
+                        </div>
+                        <table id="tabla_sueldo_detalle" style="width: 80%; margin-top: 38px;"> </table>
                     </div> 
                </div>
                <div id="div_grafico_de_rango_etareo">
@@ -142,6 +172,11 @@
     </form>
     <div id="plantillas">
         <div class="arbol_organigrama">
+            <div id="buscador_de_area" class="selector_areas">
+                <input id="buscador" type=hidden class="combo_buscar_area"/>
+            </div>
+            <div id="areas_arbol">
+            </div>
         </div>
         <div class="area_en_arbol">
             <div id="area">
@@ -155,6 +190,9 @@
             <div id="areas_dependientes">
             </div>
         </div>
+        <div class="vista_area_en_selector">
+            <div id="nombre"></div> 
+        </div>
     </div>
     <script type="text/javascript" src="../Scripts/underscore-min.js"></script>
     <script type="text/javascript" src="GraficoDotacion.js"></script>
@@ -166,7 +204,13 @@
     <script src="../Scripts/Graficos/svgcheckbx.js" type="text/javascript"></script>
     <script src="../Scripts/Graficos/classie.js" type="text/javascript"></script>
     <script src="../Scripts/ExportarAExcel.js" type="text/javascript"></script>
-    <script src="../Scripts/Spin.js" type="text/javascript"></script>
+    <script src="../Scripts/Spin.js" type="text/javascript"></script>   
+    
+    <script type="text/javascript" src="../Scripts/SelectorDeAreas.js"></script>
+    <script type="text/javascript" src="../Scripts/RepositorioDeAreas.js"></script>
+    <script type="text/javascript" src="../Scripts/Area.js"></script> 
+    <script type="text/javascript" src="../Scripts/select2-3.4.4/Select2.min.js"></script>
+    <script type="text/javascript" src="../Scripts/select2-3.4.4/select2_locale_es.js"></script>
     <script type="text/javascript">
 
         //EFECTOS DEL MENU ORGANIGRAMA
