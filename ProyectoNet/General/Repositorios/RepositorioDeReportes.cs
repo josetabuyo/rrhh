@@ -26,10 +26,10 @@ namespace General.Repositorios
         {
             this.conexion_bd = conexion;
         }
-        
+
         public Grafico GetGraficoDotacion(int tipo, DateTime fecha, int id_area, bool incluir_dependencias)
         {
-            
+
             if (fecha.Year == fecha_anterior.Year && fecha.Month == fecha_anterior.Month && fecha.Day == fecha_anterior.Day && id_area == id_area_anterior && incluir_dependencias == incluir_dependencias_anterior && !detalle_sueldo)
             {
 
@@ -57,6 +57,11 @@ namespace General.Repositorios
                 grafico.CrearDatos(tablaDatos.Rows, false);
 
             }
+            else
+            {
+                grafico.tabla_detalle = new List<Dotacion>();
+                grafico.tabla_resumen = new List<Resumen>();
+            }
             if (grafico.ContienePersonas())
             {
                 CrearResumen(tipo, fecha);
@@ -72,7 +77,7 @@ namespace General.Repositorios
             switch (tipo)
             {
                 case 1:
-                    
+
                     grafico.GraficoPorGenero();
                     break;
                 case 2:
@@ -118,7 +123,7 @@ namespace General.Repositorios
 
         public Grafico GetReporteSueldosPorArea(int tipo, DateTime fecha, int id_area, bool incluir_dependencias)
         {
-            
+
             if (tipo == 0) tipo = 10;
 
             if (fecha.Year == fecha_anterior.Year && fecha.Month == fecha_anterior.Month && fecha.Day == fecha_anterior.Day && id_area == id_area_anterior && incluir_dependencias == incluir_dependencias_anterior && detalle_sueldo)
@@ -147,6 +152,11 @@ namespace General.Repositorios
             {
                 grafico.CrearDatos(tablaDatos.Rows, true);
             }
+            else
+            {
+                grafico.tabla_detalle = new List<Dotacion>();
+                grafico.tabla_resumen = new List<Resumen>();
+            }
             if (grafico.ContienePersonas())
             {
                 CrearResumen(tipo, fecha);
@@ -163,7 +173,7 @@ namespace General.Repositorios
             List<string> listaNiveles = new List<string>();
 
 
-            tablaDatos.Rows.ForEach(nivel => listaNiveles.Add(nivel.GetString("Nivel","Sin dato").ToString()));
+            tablaDatos.Rows.ForEach(nivel => listaNiveles.Add(nivel.GetString("Nivel", "Sin dato").ToString()));
 
 
             return listaNiveles;
