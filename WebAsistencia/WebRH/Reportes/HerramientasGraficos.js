@@ -13,15 +13,12 @@ var HerramientasGraficos = {
         $('#btn_salir_menu').click(function () {
             $('#showTop').click();
         });
-
         $('#btn_armarGrafico').click(function () {
-            _this.BuscarDatos(tipo_busqueda);
+            _this.BuscarDatos(fecha, tipo_busqueda);
         });
-
         $('#btn_excel').click(function () {
             _this.BuscarExcel(tipo_busqueda);
         });
-
     },
 
     IniciarNuevoGrafico: function () {
@@ -69,18 +66,49 @@ var HerramientasGraficos = {
             $('#div_tabla_sueldo_detalle').hide();
             $('#search_detalle_sueldo').hide();
             $('#tabla_sueldo_detalle').hide();
-        }
-       
-    },
-
-    BuscarDatos: function (tipo_busqueda) {
-        if (tipo_busqueda == 1) {
-            GraficoDotacion.BuscarDatos();
+            $('#div_grafico_de_dotacion').show();
+            $('#div_filtros').show();
+            $('#div_graficos_y_tablas').hide();
+            $('#div_filtros_rango_etareo').hide();
         }
 
     },
 
-    BuscarExcel: function (tipo_busqeuda) {
+    BuscarDatos: function (fecha, tipo_busqueda) {
+        var _this = this;
+        var buscar = true;
+        _this.OcultarOtrosGraficos(tipo_busqueda);
+        var tipo = checks_activos.slice(-1)[0];
+        //Me fijo si esta seteado el storage
+        if (typeof (Storage) !== "undefined") {
+            var id_area = localStorage.getItem("idArea");
+            var alias = localStorage.getItem("alias");
+
+            if (tipo == null || tipo == undefined) {
+                buscar = false;
+                alertify.error("Debe seleccionar un filtro");
+            }
+            if (fecha == null || fecha == "") {
+                buscar = false;
+                alertify.error("Debe completar la fecha de corte para la búsqueda de datos");
+            }
+            if (id_area == null || id_area == "") {
+                buscar = false;
+                alertify.error("Debe seleccinar un área desde el organigrama");
+            }
+
+        } else {
+            console.log("No soporta localStorage"); // No soporta Storage
+        }
+
+        if (buscar) {
+            if (tipo_busqueda == 1) {
+                GraficoDotacion.BuscarDatos(tipo, fecha.val(), id_area, filtro, alias);
+            }
+        }
+    },
+
+    BuscarExcel: function (tipo_busqueda) {
         if (tipo_busqueda == 1) {
             GraficoDotacion.BuscarExcel();
         }

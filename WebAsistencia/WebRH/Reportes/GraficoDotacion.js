@@ -4,104 +4,65 @@ var GraficoDotacion = {
 
     Inicializar: function () {
         var _this = this;
-       
-
         HerramientasGraficos.SettearValoresDeInicio($('#txt_fecha_desde'), grafico_de_dotacion);
         HerramientasGraficos.IniciarNuevoGrafico();
         HerramientasGraficos.SettearChecks($('.filtros'), "Dotación por ", grafico_de_dotacion, $('#cb1'), "Género");
+        _this.SettearBotonesDelMenu(_this);
+    },
 
-
-        //Botones del Menu
+    SettearBotonesDelMenu: function (_this) {
         $('#btn_genero').click(function () {
             armarGraficoDesdeMenu("Genero", 1, "Dotación por " + this.innerHTML);
-
             $('#cb1')[0].checked = true;
         });
-
         $('#btn_nivel').click(function () {
-            HerramientasGraficos.OcultarOtrosGraficos(grafico_de_dotacion);
             armarGraficoDesdeMenu("Nivel", 2, "Dotación por " + this.innerHTML);
             $('#cb2')[0].checked = true;
         });
-
         $('#btn_estudios').click(function () {
-            HerramientasGraficos.OcultarOtrosGraficos(grafico_de_dotacion);
             armarGraficoDesdeMenu("Estudios", 3, "Dotación por " + this.innerHTML);
             $('#cb3')[0].checked = true;
         });
-
         $('#btn_plantas').click(function () {
-            HerramientasGraficos.OcultarOtrosGraficos(grafico_de_dotacion);
             armarGraficoDesdeMenu("Plantas", 4, "Dotación por " + this.innerHTML);
             $('#cb4')[0].checked = true;
         });
         $('#btn_areas').click(function () {
-            HerramientasGraficos.OcultarOtrosGraficos(grafico_de_dotacion);
             armarGraficoDesdeMenu("Areas", 5, "Dotación por " + this.innerHTML);
             $('#cb5')[0].checked = true;
         });
         $('#btn_secretarias').click(function () {
-            HerramientasGraficos.OcultarOtrosGraficos(grafico_de_dotacion);
             armarGraficoDesdeMenu("Secreatarías", 6, "Dotación por " + this.innerHTML);
             $('#cb6')[0].checked = true;
         });
         $('#btn_subsecretarias').click(function () {
-            HerramientasGraficos.OcultarOtrosGraficos(grafico_de_dotacion);
             armarGraficoDesdeMenu("SubSecretarías", 7, "Dotación por " + this.innerHTML);
             $('#cb7')[0].checked = true;
         });
 
         function armarGraficoDesdeMenu(mi_filtro, tipo, texto) {
+
+            HerramientasGraficos.OcultarOtrosGraficos(grafico_de_dotacion);
             checks_activos = [];
             filtro = mi_filtro;
-            $('#div_grafico_de_dotacion').show();
-            $('#div_filtros').show();
-            $('#div_graficos_y_tablas').hide();
-            $('#div_filtros_rango_etareo').hide();
             checks_activos.push(tipo);
-            _this.BuscarDatos();
+
+            HerramientasGraficos.BuscarDatos($('#txt_fecha_desde'), grafico_de_dotacion);
+            
             $('#titulo_grafico').html(texto);
             $('.filtros').each(function () {
                 this.checked = false;
             });
-
         };
     },
 
-
-
-    BuscarDatos: function () {
+    BuscarDatos: function (tipo, fecha, id_area, filtro, alias) {
         var _this = this;
-        var buscar = true;
+
         $('#div_tabla_detalle').hide();
-        HerramientasGraficos.OcultarOtrosGraficos(grafico_de_dotacion);
-        var tipo = checks_activos.slice(-1)[0];
-        var fecha = $('#txt_fecha_desde').val();
-        //Me fijo si esta seteado el storage
-        if (typeof (Storage) !== "undefined") {
-            var id_area = localStorage.getItem("idArea");
-            var alias = localStorage.getItem("alias");
 
-            if (tipo == null || tipo == undefined) {
-                buscar = false;
-                alertify.error("Debe seleccionar un filtro");
-            }
-            if (fecha == null || fecha == "") {
-                buscar = false;
-                alertify.error("Debe completar la fecha de corte para la búsqueda de datos");
-            }
-            if (id_area == null || id_area == "") {
-                buscar = false;
-                alertify.error("Debe seleccinar un área desde el organigrama");
-            }
-            if (buscar) {
-                _this.GraficoYTabla(tipo, fecha, id_area, $("#chk_incluir_dependencias").is(":checked"), "Dotación por " + filtro + " del Área " + alias, "container_grafico_torta_totales", "div_tabla_resultado_totales", "tabla_resultado_totales");
-            }
+        _this.GraficoYTabla(tipo, fecha, id_area, $("#chk_incluir_dependencias").is(":checked"), "Dotación por " + filtro + " del Área " + alias, "container_grafico_torta_totales", "div_tabla_resultado_totales", "tabla_resultado_totales");
 
-
-        } else {
-            console.log("No soporta localStorage"); // No soporta Storage
-        }
 
     },
 
@@ -125,8 +86,6 @@ var GraficoDotacion = {
             var a = window.document.createElement('a');
 
             a.href = "data:application/vnd.ms-excel;base64," + resultado;
-
-            // alert(tipo);
 
             switch (tipo.toString()) {
 
@@ -183,10 +142,8 @@ var GraficoDotacion = {
             var a = window.document.createElement('a');
 
             a.href = "data:application/vnd.ms-excel;base64," + resultado;
-
-
-
             a.download = "DETALLE_SUELDOS_" + fecha + "_.xlsx";
+
             document.body.appendChild(a)
             a.click();
             document.body.removeChild(a)
@@ -208,14 +165,17 @@ var GraficoDotacion = {
             .onSuccess(function (grafico) {
                 var resultado = grafico.tabla_resumen;
                 var tabla_detalle = grafico.tabla_detalle;
-                if (resultado != null) {
+                if (resultado.length > 0) {
                     _this.VisualizarContenido(true);
+                    $("#btn_excel").show();
                     _this.ArmarGrafico(resultado, titulo, div_grafico);
                     _this.DibujarTabla(resultado, div_tabla, tabla, tabla_detalle);
                     _this.BuscadorDeTabla();
 
                 } else {
                     _this.VisualizarContenido(false);
+                    $('#div_graficos_y_tablas').hide();
+                    $("#btn_excel").hide();
                     alertify.error("No hay Personal en el Área seleccionada para la generación del Gráfico");
                 }
                 spinner.stop();
@@ -233,7 +193,12 @@ var GraficoDotacion = {
         for (var i = 0; i < resultado.length; i++) {
             if (resultado[i].Id != "Total") {
                 if (parseInt(resultado[i].Cantidad) > 0) {
-                    var porcion = [resultado[i].Id.replace(/\|/g, ""), parseInt(resultado[i].Cantidad)];
+                    if (resultado[i].DescripcionGrafico == null) {
+                        nombre = resultado[i].Id.replace(/\|/g, "");
+                    } else {
+                        nombre = resultado[i].DescripcionGrafico;
+                    }
+                    var porcion = [nombre, parseInt(resultado[i].Cantidad)];
                     datos.push(porcion);
                 }
             }

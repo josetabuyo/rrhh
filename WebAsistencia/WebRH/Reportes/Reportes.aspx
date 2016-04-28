@@ -9,6 +9,9 @@
     <link rel="stylesheet" type="text/css" href="Reportes.css" />
     <link rel="stylesheet" type="text/css" href="../Scripts/ArbolOrganigrama/ArbolOrganigrama.css" />
     <link rel="stylesheet" type="text/css" href="../Estilos/component.css" />
+    <link rel="stylesheet" type="text/css" href="../estilos/SelectorDeAreas.css"/>    
+    <link rel="stylesheet" type="text/css" href="../scripts/select2-3.4.4/select2.css" />
+
     <%= Referencias.Javascript("../")%>
     <script type="text/javascript" src="../Scripts/underscore-min.js"></script>
     <script type="text/javascript" src="Reportes.js"></script>
@@ -19,7 +22,9 @@
     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold; padding-top:20px;'>Reportes</span> <br/> " UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <div>
         <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" style="position: relative; top: 0; width: 100%;" id="cbp-spmenu-s1">
-            <div id="contenedor_arbol_organigrama"> </div>
+            <div id="contenedor_arbol_organigrama"> 
+
+            </div>
             <input id="btn_consulta_rapida" type="button" class="btn_consulta_individual" requierefuncionalidad="32" value="Consulta Individual" />
             <input type="button" class="btn_organigrama" id="showLeftPush" value="Organigrama" />
             <div id="menu_grafico">
@@ -167,6 +172,11 @@
     </form>
     <div id="plantillas">
         <div class="arbol_organigrama">
+            <div id="buscador_de_area" class="selector_areas">
+                <input id="buscador" type=hidden class="combo_buscar_area"/>
+            </div>
+            <div id="areas_arbol">
+            </div>
         </div>
         <div class="area_en_arbol">
             <div id="area">
@@ -180,6 +190,9 @@
             <div id="areas_dependientes">
             </div>
         </div>
+        <div class="vista_area_en_selector">
+            <div id="nombre"></div> 
+        </div>
     </div>
     <script type="text/javascript" src="../Scripts/underscore-min.js"></script>
     <script type="text/javascript" src="HerramientasGraficos.js"></script>
@@ -192,7 +205,13 @@
     <script src="../Scripts/Graficos/svgcheckbx.js" type="text/javascript"></script>
     <script src="../Scripts/Graficos/classie.js" type="text/javascript"></script>
     <script src="../Scripts/ExportarAExcel.js" type="text/javascript"></script>
-    <script src="../Scripts/Spin.js" type="text/javascript"></script>
+    <script src="../Scripts/Spin.js" type="text/javascript"></script>   
+    
+    <script type="text/javascript" src="../Scripts/SelectorDeAreas.js"></script>
+    <script type="text/javascript" src="../Scripts/RepositorioDeAreas.js"></script>
+    <script type="text/javascript" src="../Scripts/Area.js"></script> 
+    <script type="text/javascript" src="../Scripts/select2-3.4.4/Select2.min.js"></script>
+    <script type="text/javascript" src="../Scripts/select2-3.4.4/select2_locale_es.js"></script>
     <script type="text/javascript">
 
         //EFECTOS DEL MENU ORGANIGRAMA
