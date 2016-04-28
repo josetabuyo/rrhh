@@ -201,7 +201,7 @@ namespace General.Repositorios
 
                 foreach (var item in grafico.tabla_resumen)
                 {
-                    table_resumen.Rows.Add(item.Id, item.Cantidad, item.Porcentaje);
+                    table_resumen.Rows.Add(item.Id.Replace("|"," "), item.Cantidad, item.Porcentaje);
                 }
                 
                 DataTable table_detalle = new DataTable();
