@@ -54,6 +54,7 @@
 
     <script type="text/javascript" src="AdministradorDeLugaresDeTrabajo.js"></script>
     <script type="text/javascript" src="../Scripts/Area.js"></script>
+    <script type="text/javascript" src="../Scripts/underscore-min.js"></script>
     <script type="text/javascript" src="VistaDeArea.js"></script>
     <script type="text/javascript" src="VistaDeAsistente.js"></script>
     <script type="text/javascript" src="../SACC/Scripts/AdministradorDeMensajes.js"></script>

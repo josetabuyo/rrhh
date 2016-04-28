@@ -11,13 +11,5 @@ public partial class FormularioProtocolo_ConsultaLugaresDeTrabajo : System.Web.U
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        var servicio = new WSViaticos.WSViaticosSoapClient();
-        MostrarAreasEnLaGrilla(servicio);
-    }
-
-    private void MostrarAreasEnLaGrilla(WSViaticosSoapClient servicio)
-    {
-        var areas = servicio.GetAreasParaLugaresDeTrabajo();
-        this.areasJSON.Value = JsonConvert.SerializeObject(areas);
     }
 }
