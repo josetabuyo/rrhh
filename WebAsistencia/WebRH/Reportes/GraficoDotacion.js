@@ -6,7 +6,8 @@ var GraficoDotacion = {
         var _this = this;
         HerramientasGraficos.SettearValoresDeInicio($('#txt_fecha_desde'), grafico_de_dotacion);
         HerramientasGraficos.IniciarNuevoGrafico();
-        HerramientasGraficos.SettearChecks($('.filtros'), "Dotación por ", grafico_de_dotacion, $('#cb1'), "Género");
+        HerramientasGraficos.SettearChecks($('.filtros'), "Dotación por ", grafico_de_dotacion, $('#cb1'), "Género", $('#txt_fecha_desde'));
+
         _this.SettearBotonesDelMenu(_this);
     },
 

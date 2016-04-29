@@ -30,7 +30,7 @@ var HerramientasGraficos = {
         }
     },
 
-    SettearChecks: function (grupo_checks, titulo, tipo_busqueda, check_por_default, nombre_check_por_default) {
+    SettearChecks: function (grupo_checks, titulo, tipo_busqueda, check_por_default, nombre_check_por_default, fecha) {
         var _this = this;
         check_por_default.prop('checked', true);
         filtro = nombre_check_por_default;
@@ -47,7 +47,7 @@ var HerramientasGraficos = {
             var lastChar = nombre.substr(nombre.length - 1);
             checks_activos.push(lastChar);
 
-            _this.BuscarDatos(tipo_busqueda);
+            _this.BuscarDatos(fecha, tipo_busqueda);
 
             $('#titulo_grafico').html(titulo + this.nextElementSibling.innerHTML);
 
