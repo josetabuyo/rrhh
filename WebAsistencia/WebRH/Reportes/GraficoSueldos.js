@@ -337,8 +337,7 @@ var GraficoSueldos = {
         }
     },
 
-
-    BuscarExcel: function (tipo, fecha, id_area) {
+    BuscarExcelSueldos: function (tipo, fecha, id_area) {
         var _this = this;
 
         var tipo = checks_activos.slice(-1)[0];
@@ -350,13 +349,15 @@ var GraficoSueldos = {
             return;
         }
 
-        var resultado = Backend.ejecutarSincronico("ExcelGenerado", [{ tipo: parseInt(tipo), fecha: fecha, id_area: parseInt(id_area), incluir_dependencias: $("#chk_incluir_dependencias").is(":checked")}]);
+
+        var resultado = Backend.ejecutarSincronico("ExcelGeneradoSueldos", [{ tipo: parseInt(tipo), fecha: fecha, id_area: parseInt(id_area), incluir_dependencias: $("#chk_incluir_dependencias").is(":checked")}]);
 
         if (resultado.length > 0) {
 
             var a = window.document.createElement('a');
+
             a.href = "data:application/vnd.ms-excel;base64," + resultado;
-            a.download = "RECIBOS_DE_SUELDO_" + fecha + "_.xlsx";
+            a.download = "DETALLE_SUELDOS_" + fecha + "_.xlsx";
 
             document.body.appendChild(a)
             a.click();
@@ -365,6 +366,6 @@ var GraficoSueldos = {
 
         }
 
-    }
+    }    
 
 }

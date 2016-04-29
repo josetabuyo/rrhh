@@ -49,7 +49,7 @@ var GraficoDotacion = {
             checks_activos.push(tipo);
 
             HerramientasGraficos.BuscarDatos($('#txt_fecha_desde'), grafico_de_dotacion);
-            
+
             $('#titulo_grafico').html(texto);
             $('.filtros').each(function () {
                 this.checked = false;
@@ -59,105 +59,11 @@ var GraficoDotacion = {
 
     BuscarDatos: function (tipo, fecha, id_area, filtro, alias) {
         var _this = this;
-
         $('#div_tabla_detalle').hide();
-
-        _this.GraficoYTabla(tipo, fecha, id_area, $("#chk_incluir_dependencias").is(":checked"), "Dotación por " + filtro + " del Área " + alias, "container_grafico_torta_totales", "div_tabla_resultado_totales", "tabla_resultado_totales");
-
-
+        _this.Graficar(tipo, fecha, id_area, $("#chk_incluir_dependencias").is(":checked"), "Dotación por " + filtro + " del Área " + alias, "container_grafico_torta_totales", "div_tabla_resultado_totales", "tabla_resultado_totales");
     },
 
-    BuscarExcel: function (tipo, fecha, id_area) {
-        var _this = this;
-
-        var tipo = checks_activos.slice(-1)[0];
-        var fecha = $('#txt_fecha_desde').val();
-        //Me fijo si esta seteado el storage
-        var id_area = localStorage.getItem("idArea");
-
-        if (id_area == null) {
-            return;
-        }
-
-
-        var resultado = Backend.ejecutarSincronico("ExcelGenerado", [{ tipo: parseInt(tipo), fecha: fecha, id_area: parseInt(id_area), incluir_dependencias: $("#chk_incluir_dependencias").is(":checked")}]);
-
-        if (resultado.length > 0) {
-
-            var a = window.document.createElement('a');
-
-            a.href = "data:application/vnd.ms-excel;base64," + resultado;
-
-            switch (tipo.toString()) {
-
-                case "1":
-
-                    a.download = "DOTACION_POR_GENERO_" + fecha + "_.xlsx";
-                    break;
-                case "2":
-                    a.download = "DOTACION__POR_NIVEL_" + fecha + "_.xlsx";
-                    break;
-                case "3":
-                    a.download = "DOTACION_POR_ESTUDIO_" + fecha + "_.xlsx";
-                    break;
-                case "4":
-                    a.download = "DOTACION_POR_PLANTA_" + fecha + "_.xlsx";
-                    break;
-                case "5":
-                    a.download = "DOTACION_POR_AREA_" + fecha + "_.xlsx";
-                    break;
-                case "6":
-                    a.download = "DOTACION_POR_SECRETARIAS_" + fecha + "_.xlsx";
-                    break;
-                case "7":
-                    a.download = "DOTACION_POR_SUBSECRETARIAS_" + fecha + "_.xlsx";
-                    break;
-                default:
-                    break;
-            }
-            document.body.appendChild(a)
-            a.click();
-            document.body.removeChild(a)
-        }
-    },
-
-
-
-    BuscarExcelSueldos: function (tipo, fecha, id_area) {
-        var _this = this;
-
-        var tipo = checks_activos.slice(-1)[0];
-        var fecha = $('#txt_fecha_desde').val();
-        //Me fijo si esta seteado el storage
-        var id_area = localStorage.getItem("idArea");
-
-        if (id_area == null) {
-            return;
-        }
-
-
-        var resultado = Backend.ejecutarSincronico("ExcelGeneradoSueldos", [{ tipo: parseInt(tipo), fecha: fecha, id_area: parseInt(id_area), incluir_dependencias: $("#chk_incluir_dependencias").is(":checked")}]);
-
-        if (resultado.length > 0) {
-
-            var a = window.document.createElement('a');
-
-            a.href = "data:application/vnd.ms-excel;base64," + resultado;
-            a.download = "DETALLE_SUELDOS_" + fecha + "_.xlsx";
-
-            document.body.appendChild(a)
-            a.click();
-            document.body.removeChild(a)
-
-
-        }
-
-    },
-
-
-
-
-    GraficoYTabla: function (tipo, fecha, id_area, incluir_dependencias, titulo, div_grafico, div_tabla, tabla) {
+    Graficar: function (tipo, fecha, id_area, incluir_dependencias, titulo, div_grafico, div_tabla, tabla) {
         var _this = this;
         $('#div_graficos_y_tablas').show();
         var spinner = new Spinner({ scale: 3 });
@@ -167,14 +73,12 @@ var GraficoDotacion = {
                 var resultado = grafico.tabla_resumen;
                 var tabla_detalle = grafico.tabla_detalle;
                 if (resultado.length > 0) {
-                    _this.VisualizarContenido(true);
                     $("#btn_excel").show();
                     _this.ArmarGrafico(resultado, titulo, div_grafico);
                     _this.DibujarTabla(resultado, div_tabla, tabla, tabla_detalle);
                     _this.BuscadorDeTabla();
-
                 } else {
-                    _this.VisualizarContenido(false);
+                   
                     $('#div_graficos_y_tablas').hide();
                     $("#btn_excel").hide();
                     alertify.error("No hay Personal en el Área seleccionada para la generación del Gráfico");
@@ -184,10 +88,44 @@ var GraficoDotacion = {
             .onError(function (e) {
                 var error = e;
                 alertify.error("error al pedir datos");
+                console.log(e);
                 spinner.stop();
             });
     },
 
+    BuscarExcel: function (tipo_check, fecha, id_area) {
+        var _this = this;
+        var nombre_del_archivo = "";
+        var resultado = Backend.ejecutarSincronico("ExcelGenerado", [{ tipo: parseInt(tipo_check), fecha: fecha, id_area: parseInt(id_area), incluir_dependencias: $("#chk_incluir_dependencias").is(":checked")}]);
+        if (resultado.length > 0) {
+            switch (tipo_check) {
+                case 1:
+                    nombre_del_archivo = "DOTACION_POR_GENERO_" + fecha + "_.xlsx";
+                    break;
+                case 2:
+                    nombre_del_archivo = "DOTACION__POR_NIVEL_" + fecha + "_.xlsx";
+                    break;
+                case 3:
+                    nombre_del_archivo = "DOTACION_POR_ESTUDIO_" + fecha + "_.xlsx";
+                    break;
+                case 4:
+                    nombre_del_archivo = "DOTACION_POR_PLANTA_" + fecha + "_.xlsx";
+                    break;
+                case 5:
+                    nombre_del_archivo = "DOTACION_POR_AREA_" + fecha + "_.xlsx";
+                    break;
+                case 6:
+                    nombre_del_archivo = "DOTACION_POR_SECRETARIAS_" + fecha + "_.xlsx";
+                    break;
+                case 7:
+                    nombre_del_archivo = "DOTACION_POR_SUBSECRETARIAS_" + fecha + "_.xlsx";
+                    break;
+                default:
+                    break;
+            }
+            HerramientasGraficos.ExportarArchivo(nombre_del_archivo, resultado); 
+        }
+    },
 
     CrearDatos: function (resultado) {
         var datos = [];
@@ -415,11 +353,11 @@ var GraficoDotacion = {
             }
             titulo = titulo + " del Área " + localStorage.getItem("alias");
             $('#lb_titulo_tabla_detalle').text(titulo);
-            _this.VisualizarContenido(true);
+           
             _this.DibujarTablaDetalle(tabla_final, "div_tabla_detalle", "tabla_detalle");
 
         } else {
-            _this.VisualizarContenido(false);
+           
             alertify.error("No hay Reportes para los parámetros seleccionados");
         }
     },
@@ -445,13 +383,5 @@ var GraficoDotacion = {
         var anio = fecha.substring(0, 4);
         return dia + "/" + mes + "/" + anio;
     },
-
-    VisualizarContenido: function (visualizar) {
-        if (visualizar) {
-            $('#container_grafico_torta_totales').show();
-        }
-
-
-    }
 
 }

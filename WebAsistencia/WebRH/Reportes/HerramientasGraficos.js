@@ -16,9 +16,13 @@ var HerramientasGraficos = {
         $('#btn_armarGrafico').click(function () {
             _this.BuscarDatos(fecha, tipo_busqueda);
         });
-        $('#btn_excel').click(function () {
-            _this.BuscarExcel(tipo_busqueda);
+        $('#exportar_datos_sueldo').click(function () {
+            _this.BuscarExcelSueldos();
         });
+        $('#btn_excel').click(function () {
+            _this.BuscarExcel(tipo_busqueda, fecha);
+        });
+
     },
 
     IniciarNuevoGrafico: function () {
@@ -56,6 +60,7 @@ var HerramientasGraficos = {
 
     OcultarOtrosGraficos: function (tipo_busqueda) {
         if (tipo_busqueda == 1) {
+            $('#container_grafico_torta_totales').show();
             $('#div_resultados_sueldos').hide();
             $('#div_filtros_sueldos').hide();
             $('#btn_mostrar_resumen').hide();
@@ -108,12 +113,24 @@ var HerramientasGraficos = {
         }
     },
 
-    BuscarExcel: function (tipo_busqueda) {
-        if (tipo_busqueda == 1) {
-            GraficoDotacion.BuscarExcel();
+    BuscarExcel: function (tipo_busqueda, fecha) {
+        var tipo = checks_activos.slice(-1)[0];
+        var id_area = localStorage.getItem("idArea");
+        if (id_area == null) {
+            alertify.error("No hay Un Área Seleccionada para realziar la Exportación de Datos");
+            return;
         }
+        if (tipo_busqueda == 1) {
+            GraficoDotacion.BuscarExcel(tipo, fecha.val(), id_area);
+        }
+    },
+
+    ExportarArchivo: function (nombre_del_archivo, resultado) {
+        var a = window.document.createElement('a');
+        a.href = "data:application/vnd.ms-excel;base64," + resultado;
+        a.download = nombre_del_archivo;
+        document.body.appendChild(a)
+        a.click();
+        document.body.removeChild(a)
     }
-
-
-
 }

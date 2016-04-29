@@ -54,9 +54,6 @@ var GraficoDotacion = {
             $('#showTop').click();
 
         });
-        $('#btn_excel').click(function () {
-            _this.BuscarExcel();
-        });
 
         $('#exportar_datos_sueldo').click(function () {
             _this.BuscarExcelSueldos();
