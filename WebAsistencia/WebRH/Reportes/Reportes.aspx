@@ -195,6 +195,7 @@
         </div>
     </div>
     <script type="text/javascript" src="../Scripts/underscore-min.js"></script>
+    <script type="text/javascript" src="GraficoHerramientas.js"></script>
     <script type="text/javascript" src="GraficoDotacion.js"></script>
     <script type="text/javascript" src="GraficoSueldos.js"></script>
     <script src="../Scripts/Graficos/highcharts.js" type="text/javascript"></script>

@@ -51,6 +51,13 @@ var GraficoSueldos = {
 
         });
 
+
+        $('#exportar_datos_sueldo').click(function () {
+            _this.BuscarExcelSueldos();
+        });
+
+
+
     },
 
     FormatearNumero: function (numero) {
@@ -306,6 +313,35 @@ var GraficoSueldos = {
             alertify.error("No hay Reportes para los parámetros seleccionados");
         }
     },
+
+    BuscarExcelSueldos: function (tipo, fecha, id_area) {
+        var _this = this;
+
+        var tipo = checks_activos.slice(-1)[0];
+        var fecha = $('#txt_fecha_desde').val();
+        //Me fijo si esta seteado el storage
+        var id_area = localStorage.getItem("idArea");
+
+        if (id_area == null) {
+            return;
+        }
+
+
+        var resultado = Backend.ejecutarSincronico("ExcelGeneradoSueldos", [{ tipo: parseInt(tipo), fecha: fecha, id_area: parseInt(id_area), incluir_dependencias: $("#chk_incluir_dependencias").is(":checked")}]);
+
+        if (resultado.length > 0) {
+
+            var a = window.document.createElement('a');
+
+            a.href = "data:application/vnd.ms-excel;base64," + resultado;
+
+            a.download = "DETALLE_SUELDOS_" + fecha + "_.xlsx";
+            document.body.appendChild(a)
+            a.click();
+            document.body.removeChild(a)
+        }
+    },
+
 
     BuscadorDeTablaDetalle: function () {
 
