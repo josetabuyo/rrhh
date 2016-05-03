@@ -25,11 +25,11 @@
                 </div>
             </div>
         </div>
-    <p style="font-size:18px;font-weight: bold;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ac nisi id urna blandit varius sit amet vel est. Quisque hendrerit orci mollis tortor condimentum commodo. Nunc sollicitudin mi odio, nec varius erat pulvinar ut. Integer placerat euismod ullamcorper. Etiam faucibus purus lectus, non consectetur nisl mattis vitae. Integer lacinia felis nibh. Mauris sed pretium leo, vel sollicitudin nunc. Integer aliquam diam nec tincidunt ullamcorper. Nullam id vestibulum augue. </p>
+    <p style="font-size:18px;font-weight: bold;margin-top:5%;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ac nisi id urna blandit varius sit amet vel est. Quisque hendrerit orci mollis tortor condimentum commodo. Nunc sollicitudin mi odio, nec varius erat pulvinar ut. Integer placerat euismod ullamcorper. Etiam faucibus purus lectus, non consectetur nisl mattis vitae. Integer lacinia felis nibh. Mauris sed pretium leo, vel sollicitudin nunc. Integer aliquam diam nec tincidunt ullamcorper. Nullam id vestibulum augue. </p>
     <br>
     <br>
     <br>
-    <div class="separador"></div>
+ 
         <p class="titulos">Vehículo:</p>
     <div class="separador"></div> 
             <table class="tabla-principal">
@@ -76,21 +76,21 @@
                     <td colspan="2" class="celda">Teléfono:</td>
                     <td id="telefono" colspan="2" class="celda2">15-1234-5678</td>
                 </tr> 
-                <tr>
-                    <td colspan="2" class="celda">Imágen:</td>
-                    <td id="imagen1" colspan="2" class="celda-imagen"></td>
-                </tr>
-                <tr>
-                    <td colspan="2" class="celda">Imágen:</td>
-                    <td id="imagen2" colspan="2" class="celda-imagen"></td>
-                </tr>
-                <tr>
-                    <td colspan="2" class="celda">Imágen:</td>
-                    <td id="imagen3" colspan="2" class="celda-imagen"></td>
-                </tr>
+                 
            </table>
-    
-    <div class="separador"></div>    
+
+           <div class="contenedor-imagen-vehiculo">
+           
+           <a href="../Imagenes/vehiculos-prueba/golf1999.jpg" target="_blank">
+  <img href="../Imagenes/vehiculos-prueba/golf1999.jpg" class="imagenes" src="../Imagenes/vehiculos-prueba/golf1999.jpg">
+</a>
+<a href="../Imagenes/vehiculos-prueba/golf1999-1.jpg" target="_blank">
+  <img  class="imagenes" src="../Imagenes/vehiculos-prueba/golf1999-1.jpg">
+</a>
+<a href="../Imagenes/vehiculos-prueba/golf1999-2.jpg" target="_blank">
+  <img class="imagenes" src="../Imagenes/vehiculos-prueba/golf1999-2.jpg">
+</a>
+           
         <p class="titulos">Conductor:</p>
     <div class="separador"></div> 
             <table class="tabla-principal">

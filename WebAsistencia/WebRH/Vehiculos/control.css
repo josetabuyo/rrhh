@@ -125,7 +125,8 @@ width: 80%;
 }
 
 .celda-imagen {
-    display:inline-block;
+    width: 80%;
+    height: 100%;
 }
 
 .separador {
@@ -137,12 +138,26 @@ width: 100%;
 }
 
 .titulos {
-margin-left:1%;
-font-size:18px;
+margin-left: 0%;
+font-size:20px;
 font-weight: bold;
 
 }
+    
+ .imagenes {
+  width: inherit !important;   /* This makes the next two lines work in IE8. */
+  max-width: 30% !important;  /* Add !important if needed. */
+  height: auto !important;    /* Add !important if needed. */
+  margin-top: -2%;
+  margin-bottom: 7%;
+}
+ 
+.contenedor-imagen-vehiculo
+{
+ float: left;   
+    }
 
+    
 /*background: rgba(0, 0, 0, 0) -moz-linear-gradient(center top , #fff 0%, #f8fafd 100%) repeat scroll 0 0;
     border: 1px outset #ccc;
     border-radius: 10px;*/
