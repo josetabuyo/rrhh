@@ -5,20 +5,14 @@ var spinner;
 
 var GraficoSueldos = {
     Inicializar: function () {
+
         var _this = this;
-
-        $('#txt_fecha_desde_sueldo').datepicker();
-        $('#txt_fecha_desde_sueldo').datepicker('option', 'dateFormat', 'dd/mm/yy');
-        $('#txt_fecha_desde_sueldo').datepicker("setDate", new Date());
-
-        localStorage.removeItem("alias");
-        localStorage.removeItem("idArea");
-        $('#cb_SinAgrupar').prop('checked', true);
-
-        $('#btn_buscar_sueldo').click(function () {
-            _this.BuscarDatos();
-
-        });
+        GraficoHerramientas.InicializarFecha($('#txt_fecha_desde_sueldo'));
+        GraficoHerramientas.BlanquearParametrosDeBusqueda();
+        GraficoHerramientas.ActivarPrimerCheck($('#cb_SinAgrupar'), "Áreas");
+        _this.OcultarOtrosGraficos();
+        _this.SettearEventosDeLaPagina();
+        //_this.SettearEventosDelMenu();
 
         $('#btn_mostrar_resumen').click(function () {
             $('#search_sueldo_detalle').hide();
@@ -28,113 +22,56 @@ var GraficoSueldos = {
             $('#div_tabla_sueldo').show();
 
         });
-
-        $('.filtros_sueldo').change(function () {
-            $('.filtros_sueldo').each(function () {
-                this.checked = false;
-                checks_activos = [];
-            });
-            $('#tabla_sueldo_detalle').hide();
-            $('#btn_mostrar_resumen').hide();
-            $('#div_tabla_sueldo_detalle').hide();
-
-            this.checked = true;
-
-            filtro = this.dataset.filtro;
-            var nombre = this.name;
-            var lastChar = nombre.substr(nombre.length - 1);
-            checks_activos.push(lastChar);
-
-            _this.BuscarDatos();
-
-            $('#titulo_grafico').html("Dotación por " + this.nextElementSibling.innerHTML);
-
-        });
-
-
-        $('#exportar_datos_sueldo').click(function () {
-            _this.BuscarExcelSueldos();
-        });
-
-
-
     },
 
-    FormatearNumero: function (numero) {
-        if (numero == null) {
-            return "";
-        }
+    OcultarOtrosGraficos: function(){
+    
+    },
+
+    SettearEventosDeLaPagina: function () {
         var _this = this;
-        if (numero == 0) return "";
-        return '$' + _this.FormatearConPunto(numero.toFixed(2).toString().replace(".", ","));
+        GraficoHerramientas.SettearEventosDeChecks(_this, $('.filtros_sueldo'), $('#tabla_sueldo_detalle'), $('#titulo_grafico'), "Sueldo por ");
+
+        $('#btn_buscar_sueldo').click(function () {
+            _this.BuscarDatos();
+        });
+        $('#exportar_datos_sueldo').click(function () {
+            _this.ObtenerLosDatosDeSueldoParaElExport();
+        });
     },
 
-    FormatearABlanco: function (numero) {
-        if (numero == 0) return "";
-        return numero;
-    },
-
-    FormatearConPunto: function (n) {
-
-        if (n == null) {
-            return "";
-        }
-
-        n = n.toString()
-        while (true) {
-            var n2 = n.replace(/(\d)(\d{3})($|,|\.)/g, '$1.$2$3')
-            if (n == n2) break
-            n = n2
-        }
-        return n;
-    },
 
     BuscarDatos: function () {
+
         var _this = this;
-        var buscar = true;
+        var check_seleccionado = checks_activos.slice(-1)[0];
+        var fecha = $('#txt_fecha_desde_sueldo').val();
+        var id_area = localStorage.getItem("idArea");
+        var alias = localStorage.getItem("alias");
+
+        if (GraficoHerramientas.VerificarDatosObligatoriosParaBackend(fecha, check_seleccionado, id_area)) {
+            _this.ObtenerLosDatosDeSueldo(check_seleccionado, fecha, id_area, $("#chk_incluir_dependencias").is(":checked"), "Dotación por " + filtro + " del Área " + alias, "container_grafico_torta_totales", "div_tabla_resultado_totales", "tabla_resultado_totales");
+        }
+
         $('#div_resultados_sueldos').show();
         $('#div_filtros_sueldos').show();
-
         $('#div_tabla_sueldo').show();
         $('#search_sueldo').show();
         $('#exportar_datos_sueldo').show();
         $('#tabla_sueldo').show();
 
-
-        var fecha = $('#txt_fecha_desde_sueldo').val();
-        //Me fijo si esta seteado el storage
-        if (typeof (Storage) !== "undefined") {
-            var id_area = localStorage.getItem("idArea");
-            var alias = localStorage.getItem("alias");
-            if (fecha == null || fecha == "") {
-                buscar = false;
-                alertify.error("Debe completar la fecha de corte para la búsqueda de datos");
-            }
-            if (id_area == null || id_area == "") {
-                buscar = false;
-                alertify.error("Debe seleccinar un área desde el organigrama");
-            }
-            if (buscar) {
-                _this.GraficoYTabla(fecha, id_area, $("#chk_incluir_dependencias").is(":checked"), "div_tabla_sueldo", "tabla_sueldo");
-            }
-
-        } else {
-            console.log("No soporta localStorage"); // No soporta Storage
-        }
-
     },
 
-    GraficoYTabla: function (fecha, id_area, incluir_dependencias, div_tabla, tabla) {
+    ObtenerLosDatosDeSueldo: function (check_seleccionado, fecha, id_area, titulo, container, incluir_dependencias, div_tabla, tabla) {
         var _this = this;
         $('#div_resultados_sueldos').show();
         $('#search_sueldo').show();
         $('#exportar_datos_sueldo').show();
         $("#search_detalle_sueldo").hide();
         var spinner = new Spinner({ scale: 3 });
-        var tipo = checks_activos.slice(-1)[0];
         spinner.spin($("html")[0]);
 
-        Backend.GetReporteSueldosPorArea({ tipo: parseInt(tipo), fecha: fecha, id_area: parseInt(id_area), incluir_dependencias: incluir_dependencias })
+        Backend.GetReporteSueldosPorArea({ tipo: parseInt(check_seleccionado), fecha: fecha, id_area: parseInt(id_area), incluir_dependencias: incluir_dependencias })
             .onSuccess(function (grafico) {
                 var sueldos = grafico.tabla_detalle;
                 var resultado = grafico.tabla_resumen;
@@ -178,12 +115,12 @@ var GraficoSueldos = {
         }));
         columnas.push(new Columna("Cantidad", { generar: function (un_registro) { return un_registro.Cantidad } }));
         columnas.push(new Columna("Porcentaje", { generar: function (un_registro) { return parseFloat(un_registro.Porcentaje).toFixed(2) + '%' } }));
-        columnas.push(new Columna("SumatoriaSueldo", { generar: function (un_registro) { return _this.FormatearNumero(un_registro.SumatoriaSueldo) } }));
-        columnas.push(new Columna("PromedioSueldo", { generar: function (un_registro) { return _this.FormatearNumero(un_registro.PrimedioSueldo) } }));
-        columnas.push(new Columna("MedianaSueldo", { generar: function (un_registro) { return _this.FormatearNumero(un_registro.MedianaSueldo) } }));
-        columnas.push(new Columna("SumatoriaExtras", { generar: function (un_registro) { return _this.FormatearABlanco(un_registro.SumatoriaExtras) } }));
-        columnas.push(new Columna("PrimedioExtras", { generar: function (un_registro) { return _this.FormatearABlanco(parseFloat(un_registro.PrimedioExtras).toFixed(2)) } }));
-        columnas.push(new Columna("MedianaExtras", { generar: function (un_registro) { return _this.FormatearABlanco(un_registro.MedianaExtras) } }));
+        columnas.push(new Columna("SumatoriaSueldo", { generar: function (un_registro) { return GraficoHerramientas.ConvertirAMonedaLocal(un_registro.SumatoriaSueldo) } }));
+        columnas.push(new Columna("PromedioSueldo", { generar: function (un_registro) { return GraficoHerramientas.ConvertirAMonedaLocal(un_registro.PrimedioSueldo) } }));
+        columnas.push(new Columna("MedianaSueldo", { generar: function (un_registro) { return GraficoHerramientas.ConvertirAMonedaLocal(un_registro.MedianaSueldo) } }));
+        columnas.push(new Columna("SumatoriaExtras", { generar: function (un_registro) { return GraficoHerramientas.ConvertirEnBlanco(un_registro.SumatoriaExtras) } }));
+        columnas.push(new Columna("PrimedioExtras", { generar: function (un_registro) { return GraficoHerramientas.ConvertirEnBlanco(parseFloat(un_registro.PrimedioExtras).toFixed(2)) } }));
+        columnas.push(new Columna("MedianaExtras", { generar: function (un_registro) { return GraficoHerramientas.ConvertirEnBlanco(un_registro.MedianaExtras) } }));
         columnas.push(new Columna('Detalle', {
             generar: function (un_registro) {
                 var btn_accion = $('<a>');
@@ -218,20 +155,20 @@ var GraficoSueldos = {
         var columnas = [];
 
         columnas.push(new Columna("Area", { generar: function (un_registro) { return un_registro.Area } }));
-        columnas.push(new Columna("Documento", { generar: function (un_registro) { return _this.FormatearConPunto(un_registro.NroDocumento); } }));
+        columnas.push(new Columna("Documento", { generar: function (un_registro) { return GraficoHerramientas.ConvertirANumeroConPuntos(un_registro.NroDocumento); } }));
         columnas.push(new Columna("Apellido_Nombre", { generar: function (un_registro) { return (un_registro.Apellido + ", " + un_registro.Nombre) } }));
         //columnas.push(new Columna("Nombre", { generar: function (un_registro) { return un_registro.Nombre } }));
-        columnas.push(new Columna("SueldoBruto", { generar: function (un_registro) { return _this.FormatearNumero(un_registro.SueldoBruto); } }));
-        columnas.push(new Columna("SueldoNeto", { generar: function (un_registro) { return _this.FormatearNumero(un_registro.SueldoNeto); } }));
-        columnas.push(new Columna("ExtrasBruto", { generar: function (un_registro) { return _this.FormatearNumero(un_registro.ExtrasBruto); } }));
-        columnas.push(new Columna("ExtrasNeto", { generar: function (un_registro) { return _this.FormatearNumero(un_registro.ExtrasNeto); } }));
+        columnas.push(new Columna("SueldoBruto", { generar: function (un_registro) { return GraficoHerramientas.ConvertirAMonedaLocal(un_registro.SueldoBruto); } }));
+        columnas.push(new Columna("SueldoNeto", { generar: function (un_registro) { return GraficoHerramientas.ConvertirAMonedaLocal(un_registro.SueldoNeto); } }));
+        columnas.push(new Columna("ExtrasBruto", { generar: function (un_registro) { return GraficoHerramientas.ConvertirAMonedaLocal(un_registro.ExtrasBruto); } }));
+        columnas.push(new Columna("ExtrasNeto", { generar: function (un_registro) { return GraficoHerramientas.ConvertirAMonedaLocal(un_registro.ExtrasNeto); } }));
         //columnas.push(new Columna("SAC Bruto", { generar: function (un_registro) { return un_registro.SACBruto } }));
         //columnas.push(new Columna("SAC Neto", { generar: function (un_registro) { return un_registro.SACNeto } }));
-        columnas.push(new Columna("HsSimples", { generar: function (un_registro) { return _this.FormatearABlanco(un_registro.HsSimples); } }));
-        columnas.push(new Columna("Hs50%", { generar: function (un_registro) { return _this.FormatearABlanco(un_registro.Hs50); } }));
-        columnas.push(new Columna("Hs100%", { generar: function (un_registro) { return _this.FormatearABlanco(un_registro.Hs100); } }));
-        columnas.push(new Columna("Comidas", { generar: function (un_registro) { return _this.FormatearABlanco(un_registro.Comidas); } }));
-        columnas.push(new Columna("UR", { generar: function (un_registro) { return _this.FormatearABlanco(un_registro.UnidadRetributiva); } }));
+        columnas.push(new Columna("HsSimples", { generar: function (un_registro) { return GraficoHerramientas.ConvertirEnBlanco(un_registro.HsSimples); } }));
+        columnas.push(new Columna("Hs50%", { generar: function (un_registro) { return GraficoHerramientas.ConvertirEnBlanco(un_registro.Hs50); } }));
+        columnas.push(new Columna("Hs100%", { generar: function (un_registro) { return GraficoHerramientas.ConvertirEnBlanco(un_registro.Hs100); } }));
+        columnas.push(new Columna("Comidas", { generar: function (un_registro) { return GraficoHerramientas.ConvertirEnBlanco(un_registro.Comidas); } }));
+        columnas.push(new Columna("UR", { generar: function (un_registro) { return GraficoHerramientas.ConvertirEnBlanco(un_registro.UnidadRetributiva); } }));
         columnas.push(new Columna('Detalle', {
             generar: function (un_registro) {
                 var btn_accion = $('<a>');
@@ -314,7 +251,7 @@ var GraficoSueldos = {
         }
     },
 
-    BuscarExcelSueldos: function (tipo, fecha, id_area) {
+    ObtenerLosDatosDeSueldoParaElExport: function (tipo, fecha, id_area) {
         var _this = this;
 
         var tipo = checks_activos.slice(-1)[0];
@@ -345,18 +282,18 @@ var GraficoSueldos = {
 
     BuscadorDeTablaDetalle: function () {
 
-        var options = {
-            valueNames: ['Area', 'Documento', 'Apellido_Nombre', 'SueldoBruto', 'SueldoNeto', 'ExtrasBruto', 'ExtrasNeto', 'HsSimples', 'Hs50%', 'Hs100%', 'Comidas', 'UR']
-        };
-        var featureList = new List('div_tabla_sueldo_detalle', options);
+//        var options = {
+//            valueNames: ['Area', 'Documento', 'Apellido_Nombre', 'SueldoBruto', 'SueldoNeto', 'ExtrasBruto', 'ExtrasNeto', 'HsSimples', 'Hs50%', 'Hs100%', 'Comidas', 'UR']
+//        };
+//        var featureList = new List('div_tabla_sueldo_detalle', options);
     },
 
     BuscadorDeTabla: function () {
 
-        var options = {
-            valueNames: ['Información', 'Cantidad', 'Porcentaje', 'SumatoriaSueldo', 'PromedioSueldo', 'MedianaSueldo', 'SumatoriaExtras', 'PrimedioExtras', 'MedianaExtras']
-        };
-        var featureList = new List('div_tabla_sueldo', options);
+//        var options = {
+//            valueNames: ['Información', 'Cantidad', 'Porcentaje', 'SumatoriaSueldo', 'PromedioSueldo', 'MedianaSueldo', 'SumatoriaExtras', 'PrimedioExtras', 'MedianaExtras']
+//        };
+//        var featureList = new List('div_tabla_sueldo', options);
     },
 
     ConvertirFecha: function (fecha) {

@@ -6,54 +6,20 @@ var GraficoDotacion = {
 
     Inicializar: function () {
         var _this = this;
-        //Inicializa la Fecha para la Búsqueda
-        $('#txt_fecha_desde').datepicker();
-        $('#txt_fecha_desde').datepicker('option', 'dateFormat', 'dd/mm/yy');
-        $('#txt_fecha_desde').datepicker("setDate", new Date());
-
-        localStorage.removeItem("alias");
-        localStorage.removeItem("idArea");
-
-        //Activa el primer check (siempre debe haber uno)
-        $('#cb1').prop('checked', true);
-        filtro = "Género";
-        //Para que no rompa la librería por si la página se cargó anteriormente
-        if (window.Highcharts) {
-            window.Highcharts = null;
-        }
-
+        GraficoHerramientas.InicializarFecha($('#txt_fecha_desde'));
+        GraficoHerramientas.BlanquearParametrosDeBusqueda();
+        GraficoHerramientas.ActivarPrimerCheck($('#cb1'), "Género");
+        _this.OcultarOtrosGraficos();
         _this.SettearEventosDeLaPagina();
         _this.SettearEventosDelMenu();
-
     },
 
     SettearEventosDeLaPagina: function () {
         var _this = this;
-        //Setea el comportamiento de los checks
-        $('.filtros').change(function () {
-            $('.filtros').each(function () {
-                this.checked = false;
-                checks_activos = [];
-                $('#div_tabla_detalle').hide();
-            });
-
-            this.checked = true;
-            filtro = this.dataset.filtro;
-            var nombre = this.name;
-            var lastChar = nombre.substr(nombre.length - 1);
-            checks_activos.push(lastChar);
-            //Acción del check
-            _this.BuscarDatos();
-
-            $('#titulo_grafico').html("Dotación por " + this.nextElementSibling.innerHTML);
-        });
+        GraficoHerramientas.SettearEventosDeChecks(_this, $('.filtros'), $('#div_tabla_detalle'), $('#titulo_grafico'), "Dotación por ");
 
         $('#btn_armarGrafico').click(function () {
             _this.BuscarDatos();
-        });
-        $('#btn_salir_menu').click(function () {
-            $('#showTop').click();
-
         });
         $('#btn_excel').click(function () {
             _this.ObtenerLosDatosDeDotacionParaElExport();
@@ -62,25 +28,21 @@ var GraficoDotacion = {
 
     SettearEventosDelMenu: function () {
         var _this = this;
-        //Botones del Menu
         $('#btn_genero').click(function () {
+            _this.OcultarOtrosGraficos();
             armarGraficoDesdeMenu("Genero", 1, "Dotación por " + this.innerHTML);
-
             $('#cb1')[0].checked = true;
         });
-
         $('#btn_nivel').click(function () {
             _this.OcultarOtrosGraficos();
             armarGraficoDesdeMenu("Nivel", 2, "Dotación por " + this.innerHTML);
             $('#cb2')[0].checked = true;
         });
-
         $('#btn_estudios').click(function () {
             _this.OcultarOtrosGraficos();
             armarGraficoDesdeMenu("Estudios", 3, "Dotación por " + this.innerHTML);
             $('#cb3')[0].checked = true;
         });
-
         $('#btn_plantas').click(function () {
             _this.OcultarOtrosGraficos();
             armarGraficoDesdeMenu("Plantas", 4, "Dotación por " + this.innerHTML);
@@ -105,44 +67,25 @@ var GraficoDotacion = {
         function armarGraficoDesdeMenu(mi_filtro, tipo, texto) {
             checks_activos = [];
             filtro = mi_filtro;
-            $('#div_grafico_de_dotacion').show();
-            $('#div_filtros').show();
-            $('#div_graficos_y_tablas').hide();
-
+            _this.VisualizarGraficoYTablaResumen(true);
             checks_activos.push(tipo);
             _this.BuscarDatos();
             $('#titulo_grafico').html(texto);
             $('.filtros').each(function () {
                 this.checked = false;
             });
-
         };
-    },
-
-    OcultarOtrosGraficos: function () {
-        $('#div_resultados_sueldos').hide();
-        $('#div_filtros_sueldos').hide();
-        $('#btn_mostrar_resumen').hide();
-        $('#div_tabla_sueldo').hide();
-        $('#search_sueldo').hide();
-        $('#exportar_datos_sueldo').hide();
-        $('#tabla_sueldo').hide();
-        $('#div_tabla_sueldo_detalle').hide();
-        $('#search_detalle_sueldo').hide();
-        $('#tabla_sueldo_detalle').hide();
     },
 
     BuscarDatos: function () {
         var _this = this;
-        //$('#div_tabla_detalle').hide();
-        //_this.OcultarOtrosGraficos();
-        var tipo = checks_activos.slice(-1)[0];
+        var check_seleccionado = checks_activos.slice(-1)[0];
         var fecha = $('#txt_fecha_desde').val();
         var id_area = localStorage.getItem("idArea");
         var alias = localStorage.getItem("alias");
 
-        if (_this.VerificarDatosObligatoriosParaBackend()) {
-            _this.ObtenerLosDatosDeDotacion(tipo, fecha, id_area, $("#chk_incluir_dependencias").is(":checked"), "Dotación por " + filtro + " del Área " + alias, "container_grafico_torta_totales", "div_tabla_resultado_totales", "tabla_resultado_totales");
+        if (GraficoHerramientas.VerificarDatosObligatoriosParaBackend(fecha, check_seleccionado, id_area)) {
+            _this.ObtenerLosDatosDeDotacion(check_seleccionado, fecha, id_area, $("#chk_incluir_dependencias").is(":checked"), "Dotación por " + filtro + " del Área " + alias, "container_grafico_torta_totales", "div_tabla_resultado_totales", "tabla_resultado_totales");
         }
     },
 
@@ -175,10 +118,12 @@ var GraficoDotacion = {
 
     ObtenerLosDatosDeDotacionParaElExport: function () {
         var _this = this;
-        if (_this.VerificarDatosObligatoriosParaBackend()) {
-            var check_seleccionado = checks_activos.slice(-1)[0];
-            var fecha = $('#txt_fecha_desde').val();
-            var id_area = localStorage.getItem("idArea");
+        var check_seleccionado = checks_activos.slice(-1)[0];
+        var fecha = $('#txt_fecha_desde').val();
+        var id_area = localStorage.getItem("idArea");
+
+        if (GraficoHerramientas.VerificarDatosObligatoriosParaBackend(fecha, check_seleccionado, id_area)) {
+
             var spinner = new Spinner({ scale: 3 });
             spinner.spin($("html")[0]);
 
@@ -219,29 +164,6 @@ var GraficoDotacion = {
             });
             spinner.stop();
         }
-    },
-
-    VerificarDatosObligatoriosParaBackend: function () {
-        var _this = this;
-        var buscar = true;
-
-        var check_seleccionado = checks_activos.slice(-1)[0];
-        var fecha = $('#txt_fecha_desde').val();
-        var id_area = localStorage.getItem("idArea");
-
-        if (check_seleccionado == null || check_seleccionado == undefined || check_seleccionado == "") {
-            buscar = false;
-            alertify.error("Debe seleccionar un filtro desde los checkbox");
-        }
-        if (fecha == null || fecha == undefined || fecha == "") {
-            buscar = false;
-            alertify.error("Debe completar la fecha de corte para la búsqueda de datos");
-        }
-        if (id_area == null || id_area == undefined || id_area == "") {
-            buscar = false;
-            alertify.error("Debe seleccinar un área desde el Organigrama");
-        }
-        return buscar;
     },
 
 
@@ -380,7 +302,7 @@ var GraficoDotacion = {
         var tabla = resultado;
         var nombre = "";
         var columnas = [];
-       
+
         columnas.push(new Columna("Información", {
             generar: function (un_registro) {
                 nombre = un_registro.Id.replace(/\|/g, "&nbsp;");
@@ -455,11 +377,11 @@ var GraficoDotacion = {
         if (visualizar) {
             $('#container_grafico_torta_totales').show();
             $("#search").show();
-            $('#div_graficos_y_tablas').show();           
+            $('#div_graficos_y_tablas').show();
         } else {
             $('#container_grafico_torta_totales').hide();
             $("#search").hide();
-            $('#div_graficos_y_tablas').hide();  
+            $('#div_graficos_y_tablas').hide();
         }
     },
 
@@ -473,6 +395,27 @@ var GraficoDotacion = {
             $('#search_detalle').hide();
             $('#div_tabla_detalle').hide();
         }
+    },
+
+    VisualizarGraficoYTablaResumen: function (visualizar) {
+        if (visualizar) {
+            $('#div_grafico_de_dotacion').show();
+            $('#div_filtros').show();
+            $('#div_graficos_y_tablas').hide();
+        }
+    },
+
+    OcultarOtrosGraficos: function () {
+        $('#div_resultados_sueldos').hide();
+        $('#div_filtros_sueldos').hide();
+        $('#btn_mostrar_resumen').hide();
+        $('#div_tabla_sueldo').hide();
+        $('#search_sueldo').hide();
+        $('#exportar_datos_sueldo').hide();
+        $('#tabla_sueldo').hide();
+        $('#div_tabla_sueldo_detalle').hide();
+        $('#search_detalle_sueldo').hide();
+        $('#tabla_sueldo_detalle').hide();
     },
 
     //BUSCADORES DE LAS TALBAS
