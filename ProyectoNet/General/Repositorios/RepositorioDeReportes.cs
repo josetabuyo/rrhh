@@ -83,7 +83,8 @@ namespace General.Repositorios
                     grafico.GraficoPorEstudio();
                     break;
                 case 4:
-                    grafico.GraficoPorPlanta();
+                    Dictionary<int, string> plantas = getTipoPlanta();
+                    grafico.GraficoPorPlanta(plantas);
                     break;
                 case 5:
                     grafico.GraficoPorArea();
@@ -167,6 +168,19 @@ namespace General.Repositorios
 
 
             return listaNiveles;
+        }
+
+        private Dictionary<int, string> getTipoPlanta()
+        {
+            var parametros = new Dictionary<string, object>();
+            var tablaDatos = conexion_bd.Ejecutar("dbo.GEN_GET_Tipo_Planta", parametros);
+            //List<int> listaTipoPlanta = new List<int>();
+            Dictionary<int, string> listaPlanta = new Dictionary<int, string>();
+
+            tablaDatos.Rows.ForEach(plan => listaPlanta.Add(plan.GetSmallintAsInt("id", 0), plan.GetString("descripcion", "No Especifica")));
+
+
+            return listaPlanta;
         }
 
 
