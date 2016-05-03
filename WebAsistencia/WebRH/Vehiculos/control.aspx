@@ -1,5 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="control.aspx.cs" Inherits="Vehiculos_Default" %>
-
+﻿
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -50,7 +49,7 @@
         
                 <tr>
                     <td colspan="2" class="celda">Dominio:</td>
-                    <td id="dominio" colspan="2" class="celda2">Sedan</td>
+                    <td id="dominio" colspan="2" class="celda2">Sedan 4 Puertas</td>
                 </tr>
         
                 <tr>
