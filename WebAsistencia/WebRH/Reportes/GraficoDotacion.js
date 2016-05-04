@@ -103,17 +103,18 @@ var GraficoDotacion = {
                 if (tabla_resumen.length > 0) {
                     _this.VisualizarTablaResumenYGrafico(true);
                     _this.DibujarElGrafico(tabla_resumen, titulo, div_grafico);
-                    _this.DibujarTabla(tabla_resumen, div_tabla, tabla, tabla_detalle);
+                    _this.DibujarTablaResumen(tabla_resumen, div_tabla, tabla, tabla_detalle);
                     _this.BuscadorDeTabla();
                 } else {
                     _this.VisualizarTablaResumenYGrafico(false);
                     alertify.error("No hay Personal en el Área seleccionada para la generación del Gráfico");
                 }
+                spinner.stop();
             })
             .onError(function (e) {
-                alertify.error("error al pedir datos. Detalle: " + e);
+                spinner.stop();
+                alertify.error("Error al pedir datos. Detalle: " + e);
             });
-        spinner.stop();
     },
 
     ObtenerLosDatosDeDotacionParaElExport: function () {
@@ -158,11 +159,13 @@ var GraficoDotacion = {
                 } else {
                     alertify.error("No se han encontrado datos para Exportar");
                 }
+                spinner.stop();
             })
             .onError(function (e) {
+                spinner.stop();
                 alertify.error("error al Exportar datos. Detalle: " + e);
             });
-            spinner.stop();
+
         }
     },
 
@@ -238,7 +241,7 @@ var GraficoDotacion = {
                             if (tabla[i].Sexo == criterio) {
                                 tabla_final.push(tabla[i]);
                             }
-                        }
+                        } break;
                     case 2:
                         titulo = "Tabla de la Dotación de " + criterio;
                         var nivel = criterio.split(" ");
@@ -246,42 +249,42 @@ var GraficoDotacion = {
                             if (tabla[i].Nivel == nivel[1]) {
                                 tabla_final.push(tabla[i]);
                             }
-                        }
+                        } break;
                     case 3:
                         titulo = "Tabla de la Dotación con Nivel de Estudios " + criterio;
                         for (var i = 0; i < tabla.length; i++) {
                             if (tabla[i].NivelEstudio == criterio) {
                                 tabla_final.push(tabla[i]);
                             }
-                        }
+                        } break;
                     case 4:
                         titulo = "Tabla de la Dotación con Tipo de Planta " + criterio;
                         for (var i = 0; i < tabla.length; i++) {
                             if (tabla[i].Planta == criterio) {
                                 tabla_final.push(tabla[i]);
                             }
-                        }
+                        } break;
                     case 5:
                         titulo = "Dotación del Área " + criterio;
                         for (var i = 0; i < tabla.length; i++) {
                             if (tabla[i].Area == criterio) {
                                 tabla_final.push(tabla[i]);
                             }
-                        }
+                        } break;
                     case 6:
                         titulo = "Dotación de " + criterio;
                         for (var i = 0; i < tabla.length; i++) {
                             if (tabla[i].NombreSecretaria == criterio) {
                                 tabla_final.push(tabla[i]);
                             }
-                        }
+                        } break;
                     case 7:
                         titulo = "Dotación de " + criterio;
                         for (var i = 0; i < tabla.length; i++) {
                             if (tabla[i].NombresubSecretaria == criterio) {
                                 tabla_final.push(tabla[i]);
                             }
-                        }
+                        } break;
                 }
             }
             titulo = titulo + " del Área " + localStorage.getItem("alias");
@@ -295,9 +298,10 @@ var GraficoDotacion = {
     },
 
     //DIBUJO DE LAS TABLAS
-    DibujarTabla: function (resultado, div_tabla, tabla, tabla_detalle) {
-        $("#" + tabla).empty();
+    DibujarTablaResumen: function (resultado, div_tabla, tabla, tabla_detalle) {
         var _this = this;
+        $("#" + tabla).empty();
+
         var divGrilla = $('#' + tabla);
         var tabla = resultado;
         var nombre = "";
@@ -333,8 +337,8 @@ var GraficoDotacion = {
     },
 
     DibujarTablaDetalle: function (resultado, div_tabla, tabla) {
-        $("#" + tabla).empty();
         var _this = this;
+        $("#" + tabla).empty();
         var divGrilla = $('#' + tabla);
         var tabla = resultado;
         var columnas = [];

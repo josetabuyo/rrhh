@@ -144,13 +144,13 @@
                     </div> 
                     
                     <div id="div_tabla_sueldo_detalle" style="margin: -310px 0px 0px 148px; width: 100%; position: absolute; top: 465px; display:none;">               
-                        <span id="lb_titulo_tabla_detalle"></span>
                         <br />  
-                        <div style="width:80%;">
+                        <div style="width:80%; margin-bottom:5px">
                             <input type="text" id="search_detalle_sueldo" class="search" class="buscador" placeholder="Buscar" style="display: none; margin: 0;" />
                             <input id="btn_mostrar_resumen" type="button" class="btn btn-primary" value="Volver al Resumen" style="display:none; float: right;"/>  
                         </div>
-                        <table id="tabla_sueldo_detalle" style="width: 80%; margin-top: 38px;"> </table>
+                        <span id="lb_titulo_tabla_sueldo_detalle"></span>
+                        <table id="tabla_sueldo_detalle" style="width: 80%; margin-top: 10px;"> </table>
                     </div> 
                </div>
                <div id="div_grafico_de_rango_etareo">
