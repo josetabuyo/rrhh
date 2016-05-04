@@ -216,10 +216,10 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public Grafico GetReporteSueldosPorArea(string criterio, Usuario usuario)
+    public GraficoSueldo GetReporteSueldosPorArea(string criterio, Usuario usuario)
     {
         var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
-        int tipo = (int)((JValue)criterio_deserializado["tipo"]);
+        string tipo = ((JValue)criterio_deserializado["tipo"]).ToString();
         int dia = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(0, 2)));
         int mes = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(3, 2)));
         int anio = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(6, 4)));
@@ -235,7 +235,7 @@ public class WSViaticos : System.Web.Services.WebService
     {
 
         var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
-        int tipo = (int)((JValue)criterio_deserializado["tipo"]);
+        string tipo = ((JValue)criterio_deserializado["tipo"]).ToString();
         int dia = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(0, 2)));
         int mes = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(3, 2)));
         int anio = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(6, 4)));
@@ -243,7 +243,7 @@ public class WSViaticos : System.Web.Services.WebService
         DateTime fecha = new DateTime(anio, mes, dia);
          int id_area = (int)((JValue)criterio_deserializado["id_area"]);
         RepositorioDeReportes repositorio = new RepositorioDeReportes(Conexion());
-        return repositorio.GetGraficoDotacion(tipo, fecha, id_area, incluir_dependencias);
+        return repositorio.GetGraficoDotacion(new GraficoDotacion(), tipo, fecha, id_area, incluir_dependencias);
 
     }
 
@@ -259,7 +259,7 @@ public class WSViaticos : System.Web.Services.WebService
         {
 
             var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
-            int tipo = (int)((JValue)criterio_deserializado["tipo"]);
+            string tipo = ((JValue)criterio_deserializado["tipo"]).ToString();
             int dia = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(0, 2)));
             int mes = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(3, 2)));
             int anio = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(6, 4)));
@@ -269,7 +269,7 @@ public class WSViaticos : System.Web.Services.WebService
 
             RepositorioDeReportes repositorio = new RepositorioDeReportes(Conexion());
 
-            return repositorio.ExcelGeneradoSueldos(tipo, dia, mes, anio, incluir_dependencias, id_area);
+            return repositorio.ExcelGeneradoSueldos(new GraficoSueldo(), tipo, dia, mes, anio, incluir_dependencias, id_area);
         }
         catch (Exception ex)
         {

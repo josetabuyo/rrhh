@@ -8,6 +8,7 @@ using System.Data;
 using ClosedXML.Excel;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 
 namespace General.Repositorios
 {
@@ -16,9 +17,9 @@ namespace General.Repositorios
         private IConexionBD conexion_bd;
         private List<object> datos_bd;
         private static int id_area_anterior;
-        private static int tipo_anterior;
+        private static string tipo_anterior;
         private static DateTime fecha_anterior;
-        private static Grafico grafico = new Grafico();
+        private static GraficoSueldo GRAFICOSUELDO;
         private static bool incluir_dependencias_anterior;
         private static bool detalle_sueldo;
 
@@ -27,7 +28,7 @@ namespace General.Repositorios
             this.conexion_bd = conexion;
         }
         
-        public Grafico GetGraficoDotacion(int tipo, DateTime fecha, int id_area, bool incluir_dependencias)
+        public Grafico GetGraficoDotacion(GraficoDotacion grafico, string tipo, DateTime fecha, int id_area, bool incluir_dependencias)
         {
             
             if (fecha.Year == fecha_anterior.Year && fecha.Month == fecha_anterior.Month && fecha.Day == fecha_anterior.Day && id_area == id_area_anterior && incluir_dependencias == incluir_dependencias_anterior && !detalle_sueldo)
@@ -35,7 +36,7 @@ namespace General.Repositorios
 
                 if (grafico.ContienePersonas())
                 {
-                    CrearResumen(tipo, fecha);
+                    CrearResumen(grafico, tipo, fecha);
                 }
 
                 return grafico;
@@ -54,22 +55,30 @@ namespace General.Repositorios
             var tablaDatos = conexion_bd.Ejecutar("dbo.GRAF_RPT_Dotacion", parametros);
             if (tablaDatos.Rows.Count > 0)
             {
-                grafico.CrearDatos(tablaDatos.Rows, false);
+                grafico.CrearDatos(tablaDatos.Rows);
 
             }
             if (grafico.ContienePersonas())
             {
-                CrearResumen(tipo, fecha);
+                CrearResumen(grafico, tipo, fecha);
             }
 
+            
 
             return grafico;
 
         }
 
-        private void CrearResumen(int tipo, DateTime fecha)
+        private void CrearResumen(Grafico grafico, string tipo, DateTime fecha)
         {
-            switch (tipo)
+
+            //Type magicType = Type.GetType(grafico.GetType().FullName);
+            //ConstructorInfo magicConstructor = magicType.GetConstructor(Type.EmptyTypes);
+            //object magicClassObject = magicConstructor.Invoke(new object[] { });
+            MethodInfo magicMethod = grafico.GetType().GetMethod(tipo);// magicType.GetMethod("GraficoPorArea");
+            magicMethod.Invoke(grafico, new object[] { });
+
+            /*switch (tipo)
             {
                 case 1:
                     
@@ -96,20 +105,20 @@ namespace General.Repositorios
                     grafico.GraficoPorSubSecretarias();
                     break;
                 case 8:
-                    grafico.GraficoDeSueldoPorArea();
+                    grafico.GraficoPorArea();
                     break;
                 case 9:
-                    grafico.GraficoDeSueldoPorSecretarias();
+                    grafico.GraficoPorSecretarias();
                     break;
                 case 10:
-                    grafico.GraficoDeSueldoPorSubSecretarias();
+                    grafico.GraficoPorSubSecretarias();
                     break;
                 //    grafico.GraficoPorAfiliacionGremial();
                 //    break;
                 //case 6:
                 //    grafico.GraficoRangoEtareo(fecha);
                 //    break;
-            }
+            }*/
         }
 
         //private static List<Area> BuscarAreas()
@@ -117,17 +126,19 @@ namespace General.Repositorios
         //    throw new NotImplementedException();
         //}
 
-        public Grafico GetReporteSueldosPorArea(int tipo, DateTime fecha, int id_area, bool incluir_dependencias)
+        public GraficoSueldo GetReporteSueldosPorArea(string tipo, DateTime fecha, int id_area, bool incluir_dependencias)
         {
-            
-            if (tipo == 0) tipo = 10;
+
+            GraficoSueldo grafico = new GraficoSueldo();
+
+            //if (tipo == 0) tipo = 10;
 
             if (fecha.Year == fecha_anterior.Year && fecha.Month == fecha_anterior.Month && fecha.Day == fecha_anterior.Day && id_area == id_area_anterior && incluir_dependencias == incluir_dependencias_anterior && detalle_sueldo)
             {
 
-                if (grafico.ContienePersonas())
+                if (GRAFICOSUELDO.ContienePersonas())
                 {
-                    CrearResumen(tipo, fecha);
+                    CrearResumen(GRAFICOSUELDO, tipo, fecha);
                 }
 
                 return grafico;
@@ -146,12 +157,14 @@ namespace General.Repositorios
 
             if (tablaDatos.Rows.Count > 0)
             {
-                grafico.CrearDatos(tablaDatos.Rows, true);
+                grafico.CrearDatos(tablaDatos.Rows);
             }
             if (grafico.ContienePersonas())
             {
-                CrearResumen(tipo, fecha);
+                CrearResumen(grafico, tipo, fecha);
             }
+
+            GRAFICOSUELDO = grafico;
             return grafico;
 
         }
@@ -186,13 +199,13 @@ namespace General.Repositorios
 
         #region Archivos Excel
 
-        public string ExcelGeneradoSueldos(int tipo, int dia, int mes, int anio, bool incluir_dependencias, int id_area)
+        public string ExcelGeneradoSueldos(GraficoSueldo grafico, string tipo, int dia, int mes, int anio, bool incluir_dependencias, int id_area)
         {
             try
             {
                 DateTime fecha = new DateTime(anio, mes, dia);
                 RepositorioDeAreas repositorio_de_areas = RepositorioDeAreas.NuevoRepositorioDeAreas(this.conexion_bd);
-                Grafico grafico = GetReporteSueldosPorArea(tipo, fecha, id_area, incluir_dependencias);
+                Grafico graficoExcel = GetReporteSueldosPorArea(tipo, fecha, id_area, incluir_dependencias);
                 // return repositorio.GetReporteSueldosPorArea(fecha, id_area, incluir_dependencias);
 
                 DataTable table_resumen = new DataTable();
@@ -213,7 +226,7 @@ namespace General.Repositorios
                 table_detalle.Columns.Add("PromedioExtras");
                 table_detalle.Columns.Add("MedianaExtras");
 
-                foreach (var item in grafico.tabla_resumen)
+                foreach (var item in graficoExcel.tabla_resumen)
                 {
                     table_detalle.Rows.Add(item.Id,
                         item.Cantidad,
