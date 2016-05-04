@@ -8,7 +8,7 @@ using System.Data.SqlClient;
 
 namespace General
 {
-    public class vehiculo
+    public class Vehiculo
     {
         private int _numerovehiculo;
         private string _dominio;
@@ -30,9 +30,10 @@ namespace General
         public int Anio { get { return _anio; } }
         public string Observacion { get { return _observacion; } }
 
-        public vehiculo() { }
+        public Vehiculo() { }
 
-        public vehiculo(int NumeroVehiculo) 
+        public Vehiculo(int NumeroVehiculo,
+            string Dominio, string Segmento, string Marca, string Modelo, string Motor, string Chasis, int Anio, string Observacion) 
         {
             this._numerovehiculo = NumeroVehiculo;
             this._dominio = Dominio;

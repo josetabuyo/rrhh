@@ -25,11 +25,10 @@
                 </div>
             </div>
         </div>
-    <p style="font-size:18px;font-weight: bold;margin-top:5%;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ac nisi id urna blandit varius sit amet vel est. Quisque hendrerit orci mollis tortor condimentum commodo. Nunc sollicitudin mi odio, nec varius erat pulvinar ut. Integer placerat euismod ullamcorper. Etiam faucibus purus lectus, non consectetur nisl mattis vitae. Integer lacinia felis nibh. Mauris sed pretium leo, vel sollicitudin nunc. Integer aliquam diam nec tincidunt ullamcorper. Nullam id vestibulum augue. </p>
-    <br>
-    <br>
-    <br>
- 
+        <div id="Contenedor-parrafo">
+            <p class="parrafo">Por la presente, se le informa a los usuarios que el sitio es para uso exclusivo de las autoridades pertinentes, con el fin de verificar información institucional. El uso indebido del mismo será penalizado por las autoridades correspondientes.</p>
+        </div>
+     
         <p class="titulos">Vehículo:</p>
     <div class="separador"></div> 
             <table class="tabla-principal">
@@ -73,32 +72,37 @@
                 </tr> 
                 
                 <tr>
-                    <td colspan="2" class="celda">Teléfono:</td>
-                    <td id="telefono" colspan="2" class="celda2">15-1234-5678</td>
+                    <td colspan="2" class="celda">Responsable del bien:</td>
+                    <td id="responsable" colspan="2" class="celda2">MALDONADO, Mirta Susana</td>
                 </tr> 
                  
            </table>
 
-           <div class="contenedor-imagen-vehiculo">
-           
-           <a href="../Imagenes/vehiculos-prueba/golf1999.jpg" target="_blank">
-  <img href="../Imagenes/vehiculos-prueba/golf1999.jpg" class="imagenes" src="../Imagenes/vehiculos-prueba/golf1999.jpg">
-</a>
-<a href="../Imagenes/vehiculos-prueba/golf1999-1.jpg" target="_blank">
-  <img  class="imagenes" src="../Imagenes/vehiculos-prueba/golf1999-1.jpg">
-</a>
-<a href="../Imagenes/vehiculos-prueba/golf1999-2.jpg" target="_blank">
-  <img class="imagenes" src="../Imagenes/vehiculos-prueba/golf1999-2.jpg">
-</a>
+         <div class="contenedor-imagen-vehiculo"> 
+            
+            <a href="../Imagenes/vehiculos-prueba/golf1999.jpg" target="_blank">
+                <img href="../Imagenes/vehiculos-prueba/golf1999.jpg" class="imagenes" src="../Imagenes/vehiculos-prueba/golf1999.jpg">
+            </a>
+            <a href="../Imagenes/vehiculos-prueba/golf1999-1.jpg" target="_blank">
+                <img  class="imagenes" src="../Imagenes/vehiculos-prueba/golf1999-1.jpg">
+            </a>
+            <a href="../Imagenes/vehiculos-prueba/golf1999-2.jpg" target="_blank">
+                <img class="imagenes" src="../Imagenes/vehiculos-prueba/golf1999-2.jpg">
+            </a>
+            <a href="../Imagenes/vehiculos-prueba/golf1999-2.jpg" target="_blank">
+                <img class="imagenes" src="../Imagenes/vehiculos-prueba/golf1999-2.jpg">
+            </a>
+
+        </div>
            
         <p class="titulos">Conductor:</p>
-    <div class="separador"></div> 
+        <div class="separador"></div> 
+            
             <table class="tabla-principal">
- 
-                <tr>
+                 <tr>
                      <td colspan="2" class="celda">Nombre Completo:</td>
                       <td id="nombre" colspan="2" class="celda2"></td>
-               </tr>
+                 </tr>
       
                 <tr>
                      <td colspan="2" class="celda">DNI:</td>
@@ -114,5 +118,6 @@
                     <td id="Imagen-conductor" colspan="2" class="celda-imagen"></td>
                 </tr>
             </table>
+
         </body>
                 </html>
