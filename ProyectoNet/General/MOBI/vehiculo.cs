@@ -16,6 +16,9 @@ namespace General
         public string Chasis;
         public string Anio;
         public string Observacion;
+        public string Area;
+        public string Apellido;
+        public string Nombre;
 
         public Vehiculo() { }
     }

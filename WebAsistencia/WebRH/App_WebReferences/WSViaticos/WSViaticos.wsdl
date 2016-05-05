@@ -655,6 +655,9 @@
           <s:element minOccurs="0" maxOccurs="1" name="Chasis" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Anio" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Observacion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Area" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Apellido" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="GetDniPorAlias">

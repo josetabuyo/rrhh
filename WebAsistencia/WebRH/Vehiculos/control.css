@@ -87,6 +87,7 @@
     color:White;
     font-size:10px;
         }
+        
 .tabla-principal
         {
     margin-top:1%;
@@ -141,6 +142,7 @@
  
 .contenedor-imagen-vehiculo {
     float: left;
+    display:none;
         }
 
 .Contenedor-parrafo {
@@ -155,3 +157,13 @@
 /*background: rgba(0, 0, 0, 0) -moz-linear-gradient(center top , #fff 0%, #f8fafd 100%) repeat scroll 0 0;
     border: 1px outset #ccc;
     border-radius: 10px;*/
+    
+    
+.contenedor-conductor {
+     display: none;
+     }
+     
+ .contenedor-banner-parrafo
+ {
+     display:none;
+ }

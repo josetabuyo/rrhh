@@ -4,8 +4,10 @@
     <title>Control Vehicular</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link id="link1" rel="stylesheet" href="control.css" type="text/css" />
+    <link rel="stylesheet" href="animate.css">
 </head>
 <body>
+<div id="contenedor-banner-parrafo">
     <div id="contenedor_imagen">
         <div id="barra_menu_contenedor_imagen">
             <img src="../Imagenes/BarraMenu/encabezado_sin_logos.png" id="encabezado_sin_logo"
@@ -27,10 +29,16 @@
             de las autoridades pertinentes, con el fin de verificar información institucional.
             El uso indebido del mismo será penalizado por las autoridades correspondientes.</p>
     </div>
+    </div>
+
+
+    <div id="contenedor-vehiculos">
     <p class="titulos">
         Vehículo:</p>
     <div class="separador">
     </div>
+    </div>
+
     <table class="tabla-principal">
         <tr>
             <td colspan="2" class="celda">
@@ -85,7 +93,7 @@
             <td colspan="2" class="celda">
                 Asignado al sector:
             </td>
-            <td id="sector" colspan="2" class="celda2">
+            <td id="area" colspan="2" class="celda2">
                 Subsecretaría de Abordaje Territorial
             </td>
         </tr>
@@ -94,10 +102,10 @@
                 Responsable del bien:
             </td>
             <td id="responsable" colspan="2" class="celda2">
-                MALDONADO, Mirta Susana
             </td>
         </tr>
     </table>
+    
     <div class="contenedor-imagen-vehiculo">
         <a href="../Imagenes/vehiculos-prueba/golf1999.jpg" target="_blank">
             <img href="../Imagenes/vehiculos-prueba/golf1999.jpg" class="imagenes" src="../Imagenes/vehiculos-prueba/golf1999.jpg">
@@ -109,11 +117,15 @@
             <img class="imagenes" src="../Imagenes/vehiculos-prueba/golf1999-2.jpg">
         </a>
     </div>
+
+    <div id="contenedor-conductor">
     <p class="titulos">
         Conductor:</p>
     <div class="separador">
     </div>
-    <table class="tabla-principal">
+    </div>
+
+    <table class="tabla-principal display-none">
         <tr>
             <td colspan="2" class="celda">
                 Nombre Completo:

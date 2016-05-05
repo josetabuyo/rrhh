@@ -40,7 +40,9 @@ namespace General.Repositorios
                 unVehiculo.Chasis = row.GetString("Chasis");
                 unVehiculo.Anio = row.GetString("Anio");
                 unVehiculo.Observacion = row.GetString("Observacion");
-
+                unVehiculo.Area = row.GetString("Area");
+                unVehiculo.Apellido = row.GetString("Apellido");
+                unVehiculo.Nombre = row.GetString("Nombre");
             };
 
             return unVehiculo;
