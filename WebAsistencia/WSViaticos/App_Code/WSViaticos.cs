@@ -3135,8 +3135,14 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
 
-
-
+    #region MOBI
+    [WebMethod]
+    public Vehiculo ObtenerVehiculoPorID(string id_vehiculo)
+    {
+        var repo  = new RepositorioDeVehiculos(Conexion());
+        return repo.ObtenerVehiculoPorID(id_vehiculo);
+    }
+    #endregion
 
 
     #region mau

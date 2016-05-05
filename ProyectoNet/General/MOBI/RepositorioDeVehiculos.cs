@@ -7,69 +7,43 @@ using System.Linq;
 using Extensiones;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System.Collections.IEnumerable;
+
 
 namespace General.Repositorios
 {
-    public class RepositorioDeVehiculos : RepositorioLazySingleton<Vehiculo>
+    public class RepositorioDeVehiculos
     {
-        private static RepositorioDeVehiculos _instancia;
+        private IConexionBD conexion_bd;
 
-        private RepositorioDeVehiculos(IConexionBD conexion)
-            :base(conexion, 10)
+        public RepositorioDeVehiculos(IConexionBD conexion)
         {
+            this.conexion_bd = conexion;
         }
 
-        public static RepositorioDeVehiculos Nuevo(IConexionBD conexion)
+        public Vehiculo ObtenerVehiculoPorID(string id_vehiculo)
         {
-            if (!(_instancia != null && !_instancia.ExpiroTiempoDelRepositorio())) _instancia = new RepositorioDeVehiculos(conexion);
-            return _instancia;
-        }
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@Id_Bien", id_vehiculo);
 
-        public List<Vehiculo> All()
-        {
-            return this.Obtener();
-        }
+            var tablaDatos = this.conexion_bd.Ejecutar("dbo.MOBI_GetVehiculosPorIdBien", parametros);
 
-        public Vehiculo ObtenerVehiculoPorID(Vehiculo, unVehiculo)
-        {
-            var parametros = new List<Vehiculo>();
-            parametros.Add("@Id_Bien", unVehiculo.NumeroVehiculo);
-
-            var tablaDatos = this.conexion.Ejecutar("dbo.MOBI_GetVehiculosPorIdBien", parametros);
-
-            return unVehiculo(tablaDatos);
-
-        }
-
-        protected override List<Vehiculo> ObtenerDesdeLaBase()
-        {
-            var tablaDatos = conexion.Ejecutar("dbo.MOBI_GetVehiculosPorIdBien");
-            var vehiculos = new List<Vehiculo>();
+            var unVehiculo = new Vehiculo();
             if (tablaDatos.Rows.Count > 0)
             {
-                tablaDatos.Rows.ForEach(row =>
-                {
-                    vehiculos.Add(new Vehiculo{row.GetInt("NumeroVehiculo"), 
-                                                row.GetString("Dominio"),
-                                                row.GetString("Segmento"),
-                                                row.GetString("Marca"),
-                                                row.GetString("Modelo"),
-                                                row.GetString("Motor"),
-                                                row.GetString("Chasis"),
-                                                row.GetInt("Anio"),
-                                                row.GetInt("Observacion"),
-                    });
-            
-            });
+                var row = tablaDatos.Rows[0];
+                unVehiculo.NumeroVehiculo = row.GetString("NumeroVehiculo");
+                unVehiculo.Dominio = row.GetString("Dominio");
+                unVehiculo.Segmento = row.GetString("Segmento");
+                unVehiculo.Marca = row.GetString("Marca");
+                unVehiculo.Modelo = row.GetString("Modelo");
+                unVehiculo.Motor = row.GetString("Motor");
+                unVehiculo.Chasis = row.GetString("Chasis");
+                unVehiculo.Anio = row.GetString("Anio");
+                unVehiculo.Observacion = row.GetString("Observacion");
 
-         
-                };
-            return vehiculos;
-            }
+            };
 
-            
+            return unVehiculo;
         }
-
-        
     }
+}
