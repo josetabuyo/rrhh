@@ -38,5 +38,6 @@ namespace General
                 return new TipoDePlantaGeneral(this._Id, this._Descripcion);
             }
         }
+
     }
 }
