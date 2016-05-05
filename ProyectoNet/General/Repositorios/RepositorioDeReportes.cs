@@ -170,7 +170,7 @@ namespace General.Repositorios
         #region Archivos Excel
 
 
-        public string ExcelGenerado(int tipo, int dia, int mes, int anio, bool incluir_dependencias, DateTime fecha, int id_area)
+        public string ExcelGenerado(string tipo, int dia, int mes, int anio, bool incluir_dependencias, DateTime fecha, int id_area)
         {
             try
             {              
@@ -280,7 +280,7 @@ namespace General.Repositorios
 
         }
         
-        public string ExcelGeneradoSueldos(int tipo, int dia, int mes, int anio, bool incluir_dependencias, int id_area)
+        public string ExcelGeneradoSueldos(string tipo, int dia, int mes, int anio, bool incluir_dependencias, int id_area)
         {
             try
             {
@@ -332,7 +332,7 @@ namespace General.Repositorios
                 table_resumen.Columns.Add("Hs100%");
                 table_resumen.Columns.Add("Comidas");
                 table_resumen.Columns.Add("UR");
-                foreach (var item in grafico.tabla_detalle)
+                foreach (var item in graficoExcel.tabla_detalle)
                 {
                     object valor_extra_bruto = null;
                     if (item.ExtrasBruto != 0)
