@@ -216,7 +216,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public GraficoSueldo GetReporteSueldosPorArea(string criterio, Usuario usuario)
+    public GraficoSueldo GetReporteSueldos(string criterio, Usuario usuario)
     {
         var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
         string tipo = ((JValue)criterio_deserializado["tipo"]).ToString();
@@ -231,7 +231,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public Grafico GetGrafico(string criterio, Usuario usuario)
+    public GraficoDotacion GetGrafico(string criterio, Usuario usuario)
     {
 
         var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
@@ -243,7 +243,7 @@ public class WSViaticos : System.Web.Services.WebService
         DateTime fecha = new DateTime(anio, mes, dia);
          int id_area = (int)((JValue)criterio_deserializado["id_area"]);
         RepositorioDeReportes repositorio = new RepositorioDeReportes(Conexion());
-        return repositorio.GetGraficoDotacion(new GraficoDotacion(), tipo, fecha, id_area, incluir_dependencias);
+        return repositorio.GetGraficoDotacion(tipo, fecha, id_area, incluir_dependencias);
 
     }
 

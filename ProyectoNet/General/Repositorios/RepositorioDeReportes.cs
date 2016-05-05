@@ -20,6 +20,7 @@ namespace General.Repositorios
         private static string tipo_anterior;
         private static DateTime fecha_anterior;
         private static GraficoSueldo GRAFICOSUELDO;
+        private static GraficoDotacion GRAFICODOTACION;
         private static bool incluir_dependencias_anterior;
         private static bool detalle_sueldo;
 
@@ -28,18 +29,19 @@ namespace General.Repositorios
             this.conexion_bd = conexion;
         }
         
-        public Grafico GetGraficoDotacion(GraficoDotacion grafico, string tipo, DateTime fecha, int id_area, bool incluir_dependencias)
+        public GraficoDotacion GetGraficoDotacion(string tipo, DateTime fecha, int id_area, bool incluir_dependencias)
         {
-            
+            GraficoDotacion grafico = new GraficoDotacion();
+
             if (fecha.Year == fecha_anterior.Year && fecha.Month == fecha_anterior.Month && fecha.Day == fecha_anterior.Day && id_area == id_area_anterior && incluir_dependencias == incluir_dependencias_anterior && !detalle_sueldo)
             {
 
-                if (grafico.ContienePersonas())
+                if (GRAFICODOTACION.ContienePersonas())
                 {
-                    CrearResumen(grafico, tipo, fecha);
+                    CrearResumen(GRAFICODOTACION, tipo, fecha);
                 }
 
-                return grafico;
+                return GRAFICODOTACION;
 
             }
             detalle_sueldo = false;
@@ -63,7 +65,7 @@ namespace General.Repositorios
                 CrearResumen(grafico, tipo, fecha);
             }
 
-            
+            GRAFICODOTACION = grafico;
 
             return grafico;
 
@@ -131,8 +133,6 @@ namespace General.Repositorios
 
             GraficoSueldo grafico = new GraficoSueldo();
 
-            //if (tipo == 0) tipo = 10;
-
             if (fecha.Year == fecha_anterior.Year && fecha.Month == fecha_anterior.Month && fecha.Day == fecha_anterior.Day && id_area == id_area_anterior && incluir_dependencias == incluir_dependencias_anterior && detalle_sueldo)
             {
 
@@ -141,7 +141,7 @@ namespace General.Repositorios
                     CrearResumen(GRAFICOSUELDO, tipo, fecha);
                 }
 
-                return grafico;
+                return GRAFICOSUELDO;
             }
             detalle_sueldo = true;
             tipo_anterior = tipo;

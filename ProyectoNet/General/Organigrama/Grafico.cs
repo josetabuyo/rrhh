@@ -229,7 +229,7 @@ namespace General
 
         public bool ContienePersonas()
         {
-            if (this.tabla_detalle == null)
+            if (this.tabla_detalle.Count == 0)
             {
                 return false;
             }

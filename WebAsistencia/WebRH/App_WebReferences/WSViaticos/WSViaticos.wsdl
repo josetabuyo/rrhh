@@ -3943,7 +3943,7 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetReporteSueldosPorArea">
+      <s:element name="GetReporteSueldos">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
@@ -4035,10 +4035,10 @@
           <s:extension base="tns:Grafico" />
         </s:complexContent>
       </s:complexType>
-      <s:element name="GetReporteSueldosPorAreaResponse">
+      <s:element name="GetReporteSueldosResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetReporteSueldosPorAreaResult" type="tns:GraficoSueldo" />
+            <s:element minOccurs="0" maxOccurs="1" name="GetReporteSueldosResult" type="tns:GraficoSueldo" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -4053,10 +4053,15 @@
       <s:element name="GetGraficoResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetGraficoResult" type="tns:Grafico" />
+            <s:element minOccurs="0" maxOccurs="1" name="GetGraficoResult" type="tns:GraficoDotacion" />
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:complexType name="GraficoDotacion">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Grafico" />
+        </s:complexContent>
+      </s:complexType>
       <s:element name="ExcelGeneradoSueldos">
         <s:complexType>
           <s:sequence>
@@ -6375,11 +6380,11 @@
   <wsdl:message name="CargarPasePlanoSoapOut">
     <wsdl:part name="parameters" element="tns:CargarPasePlanoResponse" />
   </wsdl:message>
-  <wsdl:message name="GetReporteSueldosPorAreaSoapIn">
-    <wsdl:part name="parameters" element="tns:GetReporteSueldosPorArea" />
+  <wsdl:message name="GetReporteSueldosSoapIn">
+    <wsdl:part name="parameters" element="tns:GetReporteSueldos" />
   </wsdl:message>
-  <wsdl:message name="GetReporteSueldosPorAreaSoapOut">
-    <wsdl:part name="parameters" element="tns:GetReporteSueldosPorAreaResponse" />
+  <wsdl:message name="GetReporteSueldosSoapOut">
+    <wsdl:part name="parameters" element="tns:GetReporteSueldosResponse" />
   </wsdl:message>
   <wsdl:message name="GetGraficoSoapIn">
     <wsdl:part name="parameters" element="tns:GetGrafico" />
@@ -7512,9 +7517,9 @@
       <wsdl:input message="tns:CargarPasePlanoSoapIn" />
       <wsdl:output message="tns:CargarPasePlanoSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="GetReporteSueldosPorArea">
-      <wsdl:input message="tns:GetReporteSueldosPorAreaSoapIn" />
-      <wsdl:output message="tns:GetReporteSueldosPorAreaSoapOut" />
+    <wsdl:operation name="GetReporteSueldos">
+      <wsdl:input message="tns:GetReporteSueldosSoapIn" />
+      <wsdl:output message="tns:GetReporteSueldosSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetGrafico">
       <wsdl:input message="tns:GetGraficoSoapIn" />
@@ -9444,8 +9449,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetReporteSueldosPorArea">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetReporteSueldosPorArea" style="document" />
+    <wsdl:operation name="GetReporteSueldos">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetReporteSueldos" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -11706,8 +11711,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetReporteSueldosPorArea">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetReporteSueldosPorArea" style="document" />
+    <wsdl:operation name="GetReporteSueldos">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetReporteSueldos" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
