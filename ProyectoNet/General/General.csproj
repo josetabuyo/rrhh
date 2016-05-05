@@ -106,6 +106,9 @@
     <Compile Include="DDJJ104\DDJJ104_2001.cs" />
     <Compile Include="Modi\Impersonator.cs" />
     <Compile Include="Modi\NetworkConnection.cs" />
+    <Compile Include="Organigrama\GraficoRangoEtareo.cs" />
+    <Compile Include="Organigrama\GraficoSueldo.cs" />
+    <Compile Include="Organigrama\GraficoDotacion.cs" />
     <Compile Include="Organigrama\Direccion.cs" />
     <Compile Include="Organigrama\AreaArbolDTO.cs" />
     <Compile Include="Organigrama\Contador.cs" />

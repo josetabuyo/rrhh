@@ -11,7 +11,7 @@ var Reportes = {
             window.location.href = "ConsultaIndividual.aspx";
         })
         $('#btn_grafico_dotacion').click(function () {
-            checks_activos = [1];
+            checks_activos = ["GraficoPorGenero"];
             $('#titulo_grafico').html(this.innerHTML);
 
             $('#div_grafico_de_dotacion').show();
@@ -36,7 +36,7 @@ var Reportes = {
 
         $('#btn_grafico_sueldo').click(function () {
             $('#titulo_grafico').html(this.innerHTML);
-            checks_activos = [8];
+            checks_activos = ["GraficoPorArea"];
             $('#div_grafico_de_dotacion').hide();
             $('#div_filtros').hide();
             $('#div_graficos_y_tablas').hide();
