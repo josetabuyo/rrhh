@@ -1,178 +1,46 @@
-﻿var checks_activos = [1];
+﻿var checks_activos = ["GraficoPorArea"];
 var filtro;
 var spinner;
 
-var GraficoDotacion = {
+var GraficoRangoEtario = {
 
     Inicializar: function () {
+
         var _this = this;
-
-        $('#txt_fecha_desde').datepicker();
-        $('#txt_fecha_desde').datepicker('option', 'dateFormat', 'dd/mm/yy');
-        $('#txt_fecha_desde').datepicker("setDate", new Date());
-
-        localStorage.removeItem("alias");
-        localStorage.removeItem("idArea");
-
-        $('#txt_fecha_desde_rango_etareo').datepicker();
-        $('#txt_fecha_desde_rango_etareo').datepicker('option', 'dateFormat', 'dd/mm/yy');
-        $('#txt_fecha_desde_rango_etareo').datepicker("setDate", new Date());
-        $('#cb1').prop('checked', true);
-        filtro = "Género";
-        //Para que no rompa la librería por si la página se cargó anteriormente
-        if (window.Highcharts) {
-            window.Highcharts = null;
-        }
-
-        $('.filtros').change(function () {
-            $('.filtros').each(function () {
-                this.checked = false;
-                checks_activos = [];
-                $('#div_tabla_detalle').hide();
-            });
-            this.checked = true;
-
-            filtro = this.dataset.filtro;
-            var nombre = this.name;
-            var lastChar = nombre.substr(nombre.length - 1);
-            checks_activos.push(lastChar);
-
-            _this.BuscarDatos();
-
-            $('#titulo_grafico').html("Dotación por " + this.nextElementSibling.innerHTML);
-            //_this.MarcarOpcionDeGrafico(lastChar, this);
-        });
-
-        $('#btn_armarGrafico').click(function () {
-            _this.BuscarDatos();
-        });
-
-        $('#chk_incluir_dependencias').click(function () {
-        });
-
-        $('#btn_armarGrafico_RangoEtaero').click(function () {
-            _this.BuscarDatosRangoEtareo();
-        });
-
-
-        $('#btn_salir_menu').click(function () {
-            $('#showTop').click();
-
-        });
-        $('#btn_excel').click(function () {
-            _this.BuscarExcel();
-        });
-
-        $('#exportar_datos_sueldo').click(function () {
-            _this.BuscarExcelSueldos();
-        });
-
-
-        //Botones del Menu
-        $('#btn_genero').click(function () {
-            armarGraficoDesdeMenu("Genero", 1, "Dotación por " + this.innerHTML);
-
-            $('#cb1')[0].checked = true;
-        });
-
-        $('#btn_nivel').click(function () {
-            _this.OcultarOtrosGraficos();
-            armarGraficoDesdeMenu("Nivel", 2, "Dotación por " + this.innerHTML);
-            $('#cb2')[0].checked = true;
-        });
-
-        $('#btn_estudios').click(function () {
-            _this.OcultarOtrosGraficos();
-            armarGraficoDesdeMenu("Estudios", 3, "Dotación por " + this.innerHTML);
-            $('#cb3')[0].checked = true;
-        });
-
-        $('#btn_plantas').click(function () {
-            _this.OcultarOtrosGraficos();
-            armarGraficoDesdeMenu("Plantas", 4, "Dotación por " + this.innerHTML);
-            $('#cb4')[0].checked = true;
-        });
-        $('#btn_areas').click(function () {
-            _this.OcultarOtrosGraficos();
-            armarGraficoDesdeMenu("Areas", 5, "Dotación por " + this.innerHTML);
-            $('#cb5')[0].checked = true;
-        });
-        $('#btn_secretarias').click(function () {
-            _this.OcultarOtrosGraficos();
-            armarGraficoDesdeMenu("Secreatarías", 6, "Dotación por " + this.innerHTML);
-            $('#cb6')[0].checked = true;
-        });
-        $('#btn_subsecretarias').click(function () {
-            _this.OcultarOtrosGraficos();
-            armarGraficoDesdeMenu("SubSecretarías", 7, "Dotación por " + this.innerHTML);
-            $('#cb7')[0].checked = true;
-        });
-
-        function armarGraficoDesdeMenu(mi_filtro, tipo, texto) {
-            checks_activos = [];
-            filtro = mi_filtro;
-            $('#div_grafico_de_dotacion').show();
-            $('#div_filtros').show();
-            $('#div_graficos_y_tablas').hide();
-            $('#div_filtros_rango_etareo').hide();
-            checks_activos.push(tipo);
-            _this.BuscarDatos();
-            $('#titulo_grafico').html(texto);
-            $('.filtros').each(function () {
-                this.checked = false;
-            });
-
-        };
+        GraficoHerramientas.InicializarFecha($('#txt_fecha_desde_rangoEtario'));
+        GraficoHerramientas.BlanquearParametrosDeBusqueda();
+        GraficoHerramientas.ActivarPrimerCheck($('#cb_SinAgrupar_RangoEtario'), "Áreas");
+        _this.OcultarOtrosGraficos();
+        _this.SettearEventosDeLaPagina();
     },
 
+    SettearEventosDeLaPagina: function () {
+        var _this = this;
+        GraficoHerramientas.SettearEventosDeChecks(_this, $('.filtros_rangoEtario'), $('#div_tabla_rangoEtario_detalle'), $('#titulo_grafico_rangoEtario'), "Rango por ");
 
-    OcultarOtrosGraficos: function () {
-        $('#div_resultados_sueldos').hide();
-        $('#div_filtros_sueldos').hide();
-        $('#btn_mostrar_resumen').hide();
-        $('#div_tabla_sueldo').hide();
-        $('#search_sueldo').hide();
-        $('#exportar_datos_sueldo').hide();
-        $('#tabla_sueldo').hide();
-        $('#div_tabla_sueldo_detalle').hide();
-        $('#search_detalle_sueldo').hide();
-        $('#tabla_sueldo_detalle').hide();
+        $('#btn_armarGrafico_rangoEtario').click(function () {
+            _this.BuscarDatos();
+        });
+        $('#btn_excel_rangoEtario').click(function () {
+            _this.ObtenerLosDatosDeRangoEtarioParaElExport();
+        });
     },
+
 
     BuscarDatos: function () {
         var _this = this;
-        var buscar = true;
-        $('#div_tabla_detalle').hide();
-        _this.OcultarOtrosGraficos();
-        var tipo = checks_activos.slice(-1)[0];
-        var fecha = $('#txt_fecha_desde').val();
-        //Me fijo si esta seteado el storage
-        if (typeof (Storage) !== "undefined") {
-            var id_area = localStorage.getItem("idArea");
-            var alias = localStorage.getItem("alias");
+        var check_seleccionado = checks_activos.slice(-1)[0];
+        var fecha = $('#txt_fecha_desde_rangoEtario').val();
+        var id_area = localStorage.getItem("idArea");
+        var alias = localStorage.getItem("alias");
 
-            if (tipo == null || tipo == undefined) {
-                buscar = false;
-                alertify.error("Debe seleccionar un filtro");
-            }
-            if (fecha == null || fecha == "") {
-                buscar = false;
-                alertify.error("Debe completar la fecha de corte para la búsqueda de datos");
-            }
-            if (id_area == null || id_area == "") {
-                buscar = false;
-                alertify.error("Debe seleccinar un área desde el organigrama");
-            }
-            if (buscar) {
-                _this.GraficoYTabla(tipo, fecha, id_area, $("#chk_incluir_dependencias").is(":checked"), "Dotación por " + filtro + " del Área " + alias, "container_grafico_torta_totales", "div_tabla_resultado_totales", "tabla_resultado_totales");
-            }
-
-
-        } else {
-            console.log("No soporta localStorage"); // No soporta Storage
+        if (GraficoHerramientas.VerificarDatosObligatoriosParaBackend(fecha, check_seleccionado, id_area)) {
+            _this.ObtenerLosDatosDeRangoEtario(check_seleccionado, fecha, id_area, $("#chk_incluir_dependencias").is(":checked"), "Rango Etario por " + filtro + " del Área " + alias, "container_grafico_rangoEtario", "div_tabla_resultado_rangoEtario", "tabla_resultado_rangoEtareo");
         }
-
     },
+
+
+  
 
     BuscarDatosRangoEtareo: function () {
         var _this = this;
@@ -251,8 +119,8 @@ var GraficoDotacion = {
                 case "7":
                     a.download = "DOTACION_POR_SUBSECRETARIAS_" + fecha + "_.xlsx";
                     break;
-                //                case "6":               
-                //                    a.download = "DOTACION_RANGO_ETARIO_" + fecha + "_.xlsx";               
+                //                case "6":                
+                //                    a.download = "DOTACION_RANGO_ETARIO_" + fecha + "_.xlsx";                
 
 
                 default:
@@ -414,7 +282,7 @@ var GraficoDotacion = {
                 if (parseInt(resultado[i].Cantidad) > 0) {
                     if (resultado[i].DescripcionGrafico == null) {
                         nombre = resultado[i].Id.replace(/\|/g, "");
-                    }else{
+                    } else {
                         nombre = resultado[i].DescripcionGrafico;
                     }
                     var porcion = [nombre, parseInt(resultado[i].Cantidad)];
@@ -739,18 +607,18 @@ var GraficoDotacion = {
         };
         var featureList = new List('div_tabla_detalle', options);
     },
-    ExportarDatosGraficoValorMercadoYContable: function () {
-        //                var sessionTable = "ExportarDatosGraficoValorMercadoYContable";
-        //                var fecha_reporte = $("#fecha_hasta").val().toString();
-        //                var fileName = "GraficoValorMercadoYContable_" + fecha_reporte + '_' + $("#id_cartera option:selected").text();
-        //                exportXLS(sessionTable, fileName);
-    },
 
-    ConvertirFecha: function (fecha) {
-        var dia = fecha.substring(8, 10);
-        var mes = fecha.substring(5, 7);
-        var anio = fecha.substring(0, 4);
-        return dia + "/" + mes + "/" + anio;
+    OcultarOtrosGraficos: function () {
+        $('#div_resultados_sueldos').hide();
+        $('#div_filtros_sueldos').hide();
+        $('#div_tabla_sueldo').hide();
+        $('#div_tabla_sueldo_detalle').hide();
+        $('#search_detalle_sueldo').hide();
+        $('#search_sueldo').hide();
+        $('#exportar_datos_sueldo').hide();
+        $('#tabla_sueldo').hide();
+        $('#tabla_sueldo_detalle').hide();
+        $('#btn_mostrar_resumen').hide();
     },
 
     VisualizarContenido: function (visualizar) {

@@ -12,11 +12,9 @@ var GraficoSueldos = {
         GraficoHerramientas.ActivarPrimerCheck($('#cb_SinAgrupar'), "Áreas");
         _this.OcultarOtrosGraficos();
         _this.SettearEventosDeLaPagina();
-        //_this.SettearEventosDelMenu();
 
         $('#btn_mostrar_resumen').click(function () {
             _this.VisualizarResumenDeSueldos(true);
-
         });
     },
 
