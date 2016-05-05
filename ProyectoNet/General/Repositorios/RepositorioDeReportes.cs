@@ -73,54 +73,24 @@ namespace General.Repositorios
 
         private void CrearResumen(Grafico grafico, string tipo, DateTime fecha)
         {
+            //por el metodo traido del front, llamo al que corresponde segun el tipo...(ej.:GraficoDotacion -> GraficoPorArea)
+            MethodInfo magicMethod = grafico.GetType().GetMethod(tipo);
 
-            //Type magicType = Type.GetType(grafico.GetType().FullName);
-            //ConstructorInfo magicConstructor = magicType.GetConstructor(Type.EmptyTypes);
-            //object magicClassObject = magicConstructor.Invoke(new object[] { });
-            MethodInfo magicMethod = grafico.GetType().GetMethod(tipo);// magicType.GetMethod("GraficoPorArea");
-            magicMethod.Invoke(grafico, new object[] { });
-
-            /*switch (tipo)
+            //temporal? Tuev que ponerle switch para pasarle datos al invoke de la base
+            switch (tipo)
             {
-                case 1:
-                    
-                    grafico.GraficoPorGenero();
-                    break;
-                case 2:
+                case "GraficoPorNivel":
                     List<string> niveles = getNiveles();
-                    grafico.GraficoPorNivel(niveles);
+                    magicMethod.Invoke(grafico, new object[] { niveles });
                     break;
-                case 3:
-                    grafico.GraficoPorEstudio();
+                case "GraficoPorPlanta":
+                        Dictionary<int, string> plantas = getTipoPlanta();
+                        magicMethod.Invoke(grafico, new object[] { plantas });
                     break;
-                case 4:
-                    Dictionary<int, string> plantas = getTipoPlanta();
-                    grafico.GraficoPorPlanta(plantas);
+                default:
+                    magicMethod.Invoke(grafico, new object[] { });
                     break;
-                case 5:
-                    grafico.GraficoPorArea();
-                    break;
-                case 6:
-                    grafico.GraficoPorSecretarias();
-                    break;
-                case 7:
-                    grafico.GraficoPorSubSecretarias();
-                    break;
-                case 8:
-                    grafico.GraficoPorArea();
-                    break;
-                case 9:
-                    grafico.GraficoPorSecretarias();
-                    break;
-                case 10:
-                    grafico.GraficoPorSubSecretarias();
-                    break;
-                //    grafico.GraficoPorAfiliacionGremial();
-                //    break;
-                //case 6:
-                //    grafico.GraficoRangoEtareo(fecha);
-                //    break;
-            }*/
+            }
         }
 
         //private static List<Area> BuscarAreas()
@@ -170,7 +140,7 @@ namespace General.Repositorios
         }
 
 
-        private List<string> getNiveles()
+        public List<string> getNiveles()
         {
             var parametros = new Dictionary<string, object>();
             var tablaDatos = conexion_bd.Ejecutar("dbo.GRAF_GET_Niveles", parametros);

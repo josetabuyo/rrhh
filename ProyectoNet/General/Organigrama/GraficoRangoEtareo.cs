@@ -57,7 +57,7 @@ namespace General
         }
 
 
-        public void GraficoRangoEtareo(DateTime fecha)
+        public void GraficoRangoEtareoXX(DateTime fecha)
         {
             List<Dotacion> tabla_personas = this.tabla_detalle.ToList();
             List<Resumen> tabla = new List<Resumen>();

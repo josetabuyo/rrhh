@@ -132,26 +132,26 @@ var GraficoDotacion = {
             .onSuccess(function (resultado) {
                 if (resultado.length > 0) {
                     var nombre_del_documento = "";
-                    switch (tipo) {
-                        case 1:
+                    switch (check_seleccionado) {
+                        case "GraficoPorGenero":
                             nombre_del_documento = "DOTACION_POR_GENERO_";
                             break;
-                        case 2:
+                        case "GraficoPorNivel":
                             nombre_del_documento = "DOTACION__POR_NIVEL_";
                             break;
-                        case 3:
+                        case "GraficoPorEstudio":
                             nombre_del_documento = "DOTACION_POR_ESTUDIO_";
                             break;
-                        case 4:
+                        case "GraficoPorPlanta":
                             nombre_del_documento = "DOTACION_POR_PLANTA_";
                             break;
-                        case 5:
+                        case "GraficoPorArea":
                             nombre_del_documento = "DOTACION_POR_AREA_";
                             break;
-                        case 6:
+                        case "GraficoPorSecretarias":
                             nombre_del_documento = "DOTACION_POR_SECRETARIAS_";
                             break;
-                        case 7:
+                        case "GraficoPorSubSecretarias":
                             nombre_del_documento = "DOTACION_POR_SUBSECRETARIAS_";
                             break;
                         default:

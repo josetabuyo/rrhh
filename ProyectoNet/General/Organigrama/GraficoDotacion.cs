@@ -91,26 +91,6 @@ namespace General
             this.tabla_resumen = tabla;
         }
 
-        /*private Resumen GenerarRegistroResumen(string nivel, int cantidad, int total)
-        {
-            Resumen registro_resumen =
-                       new Resumen(nivel, cantidad, ((float)cantidad * (float)100 / (float)total));
-            return registro_resumen;
-        }
-
-        private Resumen GenerarRegistroResumen(string nivel, string descripcion, int cantidad, int total)
-        {
-            Resumen registro_resumen =
-                       new Resumen(nivel, descripcion, cantidad, ((float)cantidad * (float)100 / (float)total));
-            return registro_resumen;
-        }
-        private Resumen GenerarRegistroResumen(string nivel, string descripcion, int cantidad, int total, int orden)
-        {
-            Resumen registro_resumen =
-                       new Resumen(nivel, descripcion, cantidad, ((float)cantidad * (float)100 / (float)total), orden);
-            return registro_resumen;
-        }*/
-
         public void GraficoPorGenero()
         {
             List<Dotacion> tabla_personas = this.tabla_detalle.ToList();
@@ -294,15 +274,6 @@ namespace General
             tabla.Add(GenerarRegistroResumen(">65", mas_de_65, total));
             this.tabla_resumen = tabla.OrderByDescending(t => t.Cantidad).ToList();
         }
-
-        /*public override bool ContienePersonas()
-        {
-            if (this.tabla_detalle == null)
-            {
-                return false;
-            }
-            return true;
-        }*/
 
         public override void GraficoPorArea()
         {
