@@ -109,5 +109,71 @@ var GraficoHerramientas = {
             alertify.error("Debe seleccinar un área desde el Organigrama");
         }
         return buscar;
+    },
+
+    OcultarTodosLosReportesExcepto: function (opcion) {
+        switch (opcion) {
+            case "Dotacion":
+
+                $('#div_resultados_sueldos').hide();
+                $('#div_filtros_sueldos').hide();
+                $('#btn_mostrar_resumen').hide();
+                $('#div_tabla_sueldo').hide();
+                $('#search_sueldo').hide();
+                $('#exportar_datos_sueldo').hide();
+                $('#tabla_sueldo').hide();
+                $('#div_tabla_sueldo_detalle').hide();
+                $('#search_detalle_sueldo').hide();
+                $('#tabla_sueldo_detalle').hide();
+
+
+                $('#div_grafico_de_dotacion').show();
+                $('#div_filtros').show();
+
+                $('#div_graficos_y_tablas').hide();
+                $('#div_filtros_rango_etareo').hide();
+                $('#div_resultados_sueldos').hide();
+                $('#div_filtros_sueldos').hide();
+                break;
+
+            case "Sueldo":
+                $('#div_resultados_sueldos').hide();
+                $('#div_filtros_sueldos').show();
+                $('#btn_mostrar_resumen').hide();
+                $('#div_tabla_sueldo').hide();
+                $('#search_sueldo').hide();
+                $('#exportar_datos_sueldo').hide();
+                $('#tabla_sueldo').hide();
+                $('#div_tabla_sueldo_detalle').hide();
+                $('#search_detalle_sueldo').hide();
+                $('#tabla_sueldo_detalle').hide();
+                $('#container_grafico_torta_totales').hide();
+                $("#search").hide();
+                $('#div_graficos_y_tablas').hide();
+                $('#search_detalle').hide();
+                $('#div_tabla_detalle').hide();
+                $('#div_grafico_de_dotacion').hide();
+                $('#div_filtros').hide();
+
+               
+                $('#div_filtros').hide();
+                $('#div_filtros_rango_etareo').hide();
+                $('#div_resultados_sueldos').show();
+                $('#div_filtros_sueldos').show();
+
+                break;
+
+            case "RangoEtario":
+                $('#titulo_grafico').html(this.innerHTML);
+                $('#div_grafico_de_dotacion').hide();
+                $('#div_filtros').hide();
+                $('#div_resultados_sueldos').hide();
+                $('#div_filtros_sueldos').hide();
+                $('#div_grafico_de_rango_etareo').show();
+                $('#div_filtros_rango_etareo').show();
+                break;
+
+        }
+
     }
 }
