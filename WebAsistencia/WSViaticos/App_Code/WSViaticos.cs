@@ -66,6 +66,12 @@ public class WSViaticos : System.Web.Services.WebService
     //    var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas(), Autorizador());
     //    return responsableDDJJ.AreasSinDDJJInferioresA(area).ToArray(); 
     //}
+    [WebMethod]
+    public int DiasHabilesEntreFechas(DateTime desde, DateTime hasta)
+    {
+        var repo = new RepositorioLicencias(Conexion());
+        return repo.DiasHabilesEntreFechas(desde, hasta);
+    }
 
     [WebMethod]
     public AreaParaDDJJ104[] GetAreasParaDDJJ104(int mes, int anio, int id_area, Usuario usuario)
