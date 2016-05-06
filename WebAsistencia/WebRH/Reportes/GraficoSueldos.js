@@ -81,7 +81,7 @@ var GraficoSueldos = {
         var id_area = localStorage.getItem("idArea");
 
         if (GraficoHerramientas.VerificarDatosObligatoriosParaBackend(fecha, check_seleccionado, id_area)) {
-            Backend.ExcelGenerado({ tipo: check_seleccionado, fecha: fecha, id_area: parseInt(id_area), incluir_dependencias: $("#chk_incluir_dependencias").is(":checked") })
+            Backend.ExcelGeneradoSueldos({ tipo: check_seleccionado, fecha: fecha, id_area: parseInt(id_area), incluir_dependencias: $("#chk_incluir_dependencias").is(":checked") })
              .onSuccess(function (resultado) {
                  if (resultado.length > 0) {
                      var nombre_del_documento = "DETALLE_SUELDOS_" + fecha + "_.xlsx";

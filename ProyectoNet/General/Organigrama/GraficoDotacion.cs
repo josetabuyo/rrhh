@@ -20,37 +20,8 @@ namespace General
 
             list.ForEach(row =>
             {
-                Dotacion persona =
-                       new Dotacion(
-                           row.GetInt("id_persona", 0),
-                           row.GetInt("legajo", 0),
-                          row.GetInt("nrodocumento", 0),
-                           row.GetString("apellido", "Sin Dato"),
-                           row.GetString("nombre", "Sin Dato"),
-                           row.GetSmallintAsInt("id_sexo", 0),
-                          row.GetString("descrip_sexo", "Sin Dato"),
-                           row.GetString("nivel", "Sin Dato"),
-                           row.GetString("grado", "Sin Dato"),
-                           row.GetInt("id_area", 0),
-                           row.GetString("area", "Sin Dato"),
-                           row.GetString("area_descrip_corta", "Sin Dato"),
-                           row.GetString("area_descrip_media", "Sin Dato"),
-                           row.GetSmallintAsInt("id_planta", -1),
-                           row.GetString("planta", "Sin Dato"),
-                           row.GetInt("IdEstudio", -1),
-                           row.GetString("Nivel_Estudios", "Sin Dato"),
-                           row.GetString("Titulo_Obtenido", "Sin Dato"),
-                           row.GetDateTime("FechaNacimiento", DateTime.Today),
-                           row.GetInt("IdSecretaria", -1),
-                            row.GetInt("IdSubSecretaria", -1),
-                            row.GetString("area_descrip_secretaria", "S/Nombre"),
-                            row.GetString("area_descrip_subsecretaria", "S/Nombre"),
-                            row.GetString("area_descrip_secretaria_corta", "S/Nombre"),
-                            row.GetString("area_descrip_subsecretaria_corta", "S/Nombre"),
-                            row.GetInt("Orden", 999999)
-                );
+                Dotacion persona = crearPersonaDotacion(row);
                 
-
                 tabla.Add(persona);
             });
             this.tabla_detalle = tabla;

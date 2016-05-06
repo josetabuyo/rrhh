@@ -78,7 +78,7 @@ var GraficoHerramientas = {
             });
 
             this.checked = true;
-            filtro = this.dataset.filtro;
+            filtro = this.nextSibling.innerHTML;
             var nombre = this.name;
             //var lastChar = nombre.substr(nombre.length - 1);
             var lastChar = $(this).data("grafico");

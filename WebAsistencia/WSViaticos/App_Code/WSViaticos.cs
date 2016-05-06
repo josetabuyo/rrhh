@@ -268,7 +268,7 @@ public class WSViaticos : System.Web.Services.WebService
 
             RepositorioDeReportes repositorio = new RepositorioDeReportes(Conexion());
 
-            return repositorio.ExcelGeneradoSueldos(new GraficoSueldo(), tipo, dia, mes, anio, incluir_dependencias, id_area);
+            return repositorio.ExcelGeneradoSueldos(tipo, dia, mes, anio, incluir_dependencias, id_area);
         }
         catch (Exception ex)
         {
@@ -289,7 +289,7 @@ public class WSViaticos : System.Web.Services.WebService
             try
             {
                 var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
-                int tipo = (int)((JValue)criterio_deserializado["tipo"]);
+                string tipo = ((JValue)criterio_deserializado["tipo"]).ToString();
                 int dia = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(0, 2)));
                 int mes = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(3, 2)));
                 int anio = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(6, 4)));
