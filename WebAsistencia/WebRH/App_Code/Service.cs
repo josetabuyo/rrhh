@@ -142,6 +142,13 @@ public class AjaxWS : System.Web.Services.WebService
 
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public void AsignarImagenAFolioDeLegajoPasandoPagina(int id_imagen, int nro_folio, int pagina)
+    {
+        backEndService.AsignarImagenAFolioDeLegajoPasandoPagina(id_imagen, nro_folio, pagina, usuarioLogueado);
+    }
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public void AsignarCategoriaADocumento(int id_categoria, string tabla, int id_documento)
     {
         backEndService.AsignarCategoriaADocumento(id_categoria, tabla, id_documento, usuarioLogueado);

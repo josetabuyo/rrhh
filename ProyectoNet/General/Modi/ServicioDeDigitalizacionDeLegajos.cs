@@ -61,18 +61,25 @@ namespace General.Modi
             var primera_fila = tabla_imagen.Rows.First(); 
 
             var imagen = new ImagenModi();
-            imagen.id = primera_fila.GetInt("id_imagen");
+            imagen.id = id_imagen;
             imagen.idInterna = primera_fila.GetInt("id_interna");
             imagen.nombre = primera_fila.GetString("nombre_imagen");
 
             var bytes_imagen = this.repo_archivos.GetArchivo(primera_fila.GetInt("id_archivo"));
 
-            Image img;
-            if (primera_fila.GetObject("bytes_imagen") is DBNull){
-                img = file_system.getImagenFromPath(ConfigurationManager.AppSettings["CarpetaDigitalizacion"] +id_imagen + ".jpg");
-            }else{
-                img = primera_fila.GetImage("bytes_imagen");
-            }
+            var bytes = Convert.FromBase64String(bytes_imagen);
+            MemoryStream ms = new MemoryStream(bytes, 0,
+                bytes.Length);
+
+            ms.Write(bytes, 0, bytes.Length);
+            Image img = Image.FromStream(ms, true);
+
+            //Image img;
+            //if (primera_fila.GetObject("bytes_imagen") is DBNull){
+            //    img = file_system.getImagenFromPath(ConfigurationManager.AppSettings["CarpetaDigitalizacion"] +id_imagen + ".jpg");
+            //}else{
+            //    img = primera_fila.GetImage("bytes_imagen");
+            //}
             
             imagen.SetImagen(img);
 
@@ -174,18 +181,23 @@ namespace General.Modi
             int orden = 1;
             if (folio.imagenes.Any()) orden = folio.imagenes.Max(i => i.orden) + 1;
 
-            byte[] imageBytes = Convert.FromBase64String(bytes_imagen);
+            var id_archivo = this.repo_archivos.GuardarArchivo(bytes_imagen);
+
+            //byte[] imageBytes = Convert.FromBase64String(bytes_imagen);
+
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_interna", id_interna);
             parametros.Add("@nombre_imagen", nombre_imagen);
-            parametros.Add("@bytes_imagen", imageBytes);
+            parametros.Add("@id_archivo", id_archivo);
+
             parametros.Add("@folio_doc", folio.folioDocumento);
             parametros.Add("@faz", orden);
             parametros.Add("@tabla", folio.tabla);
             parametros.Add("@id_documento", folio.idDocumento);
+            
 
             int id_imagen = int.Parse(this.conexion_db.EjecutarEscalar("dbo.MODI_Agregar_Imagen_A_Un_Folio_De_Un_Legajo", parametros).ToString());
-            this.file_system.guardarImagenEnPath(ConfigurationManager.AppSettings["CarpetaDigitalizacion"] + id_imagen + ".jpg", bytes_imagen);
+            //this.file_system.guardarImagenEnPath(ConfigurationManager.AppSettings["CarpetaDigitalizacion"] + id_imagen + ".jpg", bytes_imagen);
             return id_imagen;
         }
         

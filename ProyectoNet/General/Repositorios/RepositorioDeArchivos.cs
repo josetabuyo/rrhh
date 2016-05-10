@@ -21,9 +21,25 @@ namespace General.Repositorios
             return int.Parse(this.conexion.EjecutarEscalar("dbo.FS_SubirArchivo", parametros).ToString());
         }
 
-        internal string GetArchivo(int id_archivo)
+        public string GetArchivo(int id_archivo)
         {
-            
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id", id_archivo);
+            var tabla_resultado = this.conexion.Ejecutar("dbo.FS_IniciarPedidoArchivo", parametros);
+            if (tabla_resultado.Rows.Count == 0) throw new Exception("no existe el archivo buscado");
+            if (tabla_resultado.Rows[0].GetObject("bytes_file") is DBNull)
+            {
+                while (tabla_resultado.Rows[0].GetObject("bytes_file") is DBNull)
+                {
+                    System.Threading.Thread.Sleep(500);
+                    tabla_resultado = this.conexion.Ejecutar("dbo.FS_ObtenerArchivoPedido", parametros);
+                }
+                return tabla_resultado.Rows[0].GetString("bytes_file");
+            }
+            else
+            {
+                return tabla_resultado.Rows[0].GetString("bytes_file");
+            }            
         }
     }
 }
