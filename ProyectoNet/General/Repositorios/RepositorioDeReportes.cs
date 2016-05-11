@@ -21,6 +21,7 @@ namespace General.Repositorios
         private static DateTime fecha_anterior;
         private static GraficoSueldo GRAFICOSUELDO;
         private static GraficoDotacion GRAFICODOTACION;
+        private static GraficoRangoEtareo GRAFICORANGOETARIO;
         private static bool incluir_dependencias_anterior;
         private static bool detalle_sueldo;
 
@@ -87,6 +88,10 @@ namespace General.Repositorios
                         Dictionary<int, string> plantas = getTipoPlanta();
                         magicMethod.Invoke(grafico, new object[] { plantas });
                     break;
+                //case "GraficoPorRangoEtario":
+                //    DateTime fecha_reporte = fecha;
+                //    magicMethod.Invoke(grafico, new object[] { fecha_reporte });
+                //    break;
                 default:
                     magicMethod.Invoke(grafico, new object[] { });
                     break;
@@ -464,6 +469,45 @@ namespace General.Repositorios
         }
         
         #endregion
-        
+
+
+        public GraficoRangoEtareo GetGraficoRangoEtario(string tipo, DateTime fecha, int id_area, bool incluir_dependencias)
+        {
+            GraficoRangoEtareo grafico = new GraficoRangoEtareo();
+
+            if (fecha.Year == fecha_anterior.Year && fecha.Month == fecha_anterior.Month && fecha.Day == fecha_anterior.Day && id_area == id_area_anterior && incluir_dependencias == incluir_dependencias_anterior && detalle_sueldo)
+            {
+
+                if (GRAFICORANGOETARIO.ContienePersonas())
+                {
+                    CrearResumen(GRAFICOSUELDO, tipo, fecha);
+                }
+
+                return GRAFICORANGOETARIO;
+            }
+            detalle_sueldo = true;
+            tipo_anterior = tipo;
+            fecha_anterior = fecha;
+            id_area_anterior = id_area;
+            incluir_dependencias_anterior = incluir_dependencias;
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@fechacorte", fecha);
+            parametros.Add("@id_area", id_area);
+            parametros.Add("@incluir_dependencias", incluir_dependencias);
+            var tablaDatos = conexion_bd.Ejecutar("dbo.GRAF_RPT_Dotacion", parametros);
+
+
+            if (tablaDatos.Rows.Count > 0)
+            {
+                grafico.CrearDatos(tablaDatos.Rows, fecha);
+            }
+            if (grafico.ContienePersonas())
+            {
+                CrearResumen(grafico, tipo, fecha);
+            }
+
+            GRAFICORANGOETARIO = grafico;
+            return grafico;
+        }
     }
 }

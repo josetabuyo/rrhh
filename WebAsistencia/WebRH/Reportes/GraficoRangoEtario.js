@@ -44,7 +44,7 @@ var GraficoRangoEtario = {
         var spinner = new Spinner({ scale: 3 });
         spinner.spin($("html")[0]);
 
-        Backend.GetGrafico({ tipo: tipo, fecha: fecha, id_area: parseInt(id_area), incluir_dependencias: incluir_dependencias })
+        Backend.GetGraficoRangoEtario({ tipo: tipo, fecha: fecha, id_area: parseInt(id_area), incluir_dependencias: incluir_dependencias })
             .onSuccess(function (grafico) {
                 var tabla_resumen = grafico.tabla_resumen;
                 var tabla_detalle = grafico.tabla_detalle;

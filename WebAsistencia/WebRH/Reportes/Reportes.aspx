@@ -151,7 +151,7 @@
                     <div id="div_filtros_rangoEtario" style="display: flex;position: absolute; display:none; top: 80px;left: 135px;">
                         <div style="margin-left:20px;">
                             <div class="grupo_campos" style="margin-bottom: 9px;">
-                                <label>Fecha Rango:</label>
+                                <label>Fecha:</label>
                                 <input id="txt_fecha_desde_rangoEtario" type="text" style="width: 100px; margin: 5px 10px 5px 46px;" />
                                 <input id="btn_armarGrafico_rangoEtario" type="button" class="btn btn-primary" value="Graficar" />
                             </div>

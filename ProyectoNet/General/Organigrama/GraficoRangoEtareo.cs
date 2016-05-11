@@ -13,7 +13,7 @@ namespace General
         //public override List<Dotacion> tabla_detalle;
 
 
-        public override void CrearDatos(List<RowDeDatos> list)
+        public override void CrearDatos(List<RowDeDatos> list, DateTime fecha_reporte)
         {
 
             List<Dotacion> tabla = new List<Dotacion>();
@@ -47,9 +47,10 @@ namespace General
                             row.GetString("area_descrip_subsecretaria", "S/Nombre"),
                             row.GetString("area_descrip_secretaria_corta", "S/Nombre"),
                             row.GetString("area_descrip_subsecretaria_corta", "S/Nombre"),
-                            row.GetInt("Orden", 999999)
+                            row.GetInt("Orden", 999999)   
                 );
-                
+                persona.Edad(fecha_reporte);
+ 
 
                 tabla.Add(persona);
             });
@@ -57,7 +58,7 @@ namespace General
         }
 
 
-        public void GraficoRangoEtareoXX(DateTime fecha)
+        public void GraficoPorRangoEtario(DateTime fecha)
         {
             List<Dotacion> tabla_personas = this.tabla_detalle.ToList();
             List<Resumen> tabla = new List<Resumen>();
