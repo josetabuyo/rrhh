@@ -8,7 +8,7 @@ var GraficoSueldos = {
 
         var _this = this;
         GraficoHerramientas.InicializarFecha($('#txt_fecha_desde_sueldo'));
-        GraficoHerramientas.BlanquearParametrosDeBusqueda();
+//        GraficoHerramientas.BlanquearParametrosDeBusqueda();
         GraficoHerramientas.ActivarPrimerCheck($('#cb_SinAgrupar'), "Áreas");
         GraficoHerramientas.OcultarTodosLosReportesExcepto("Sueldo");
         _this.SettearEventosDeLaPagina();

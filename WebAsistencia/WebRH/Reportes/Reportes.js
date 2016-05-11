@@ -14,17 +14,20 @@ var Reportes = {
             checks_activos = ["GraficoPorGenero"];
             $('#titulo_grafico').html(this.innerHTML);
             GraficoHerramientas.OcultarTodosLosReportesExcepto("Dotacion");
+            GraficoDotacion.Inicializar();
         })
-        $('#btn_rango_etareo').click(function () {
-            $('#titulo_grafico').html(this.innerHTML);
+        $('#btn_grafico_rangoEtario').click(function () {
+            $('#titulo_grafico_rangoEtario').html(this.innerHTML);
             checks_activos = ["GraficoPorArea"];
             GraficoHerramientas.OcultarTodosLosReportesExcepto("RangoEtario");
+            GraficoRangoEtario.Inicializar();
         })
 
         $('#btn_grafico_sueldo').click(function () {
             $('#titulo_grafico').html(this.innerHTML);
             checks_activos = ["GraficoPorArea"];
             GraficoHerramientas.OcultarTodosLosReportesExcepto("Sueldo");
+            GraficoSueldos.Inicializar();
         })
 
         this.dibujarArbolOrganigrama();

@@ -134,11 +134,14 @@ var GraficoHerramientas = {
                 $('#div_filtros_rango_etareo').hide();
                 $('#div_resultados_sueldos').hide();
                 $('#div_filtros_sueldos').hide();
+
+                $('#div_grafico_de_rangoEtario').hide();
+                $('#div_filtros_rangoEtario').hide();
+
                 break;
 
             case "Sueldo":
                 $('#div_resultados_sueldos').hide();
-                $('#div_filtros_sueldos').show();
                 $('#btn_mostrar_resumen').hide();
                 $('#div_tabla_sueldo').hide();
                 $('#search_sueldo').hide();
@@ -161,6 +164,9 @@ var GraficoHerramientas = {
                 $('#div_resultados_sueldos').show();
                 $('#div_filtros_sueldos').show();
 
+                $('#div_grafico_de_rangoEtario').hide();
+                $('#div_filtros_rangoEtario').hide();
+
                 break;
 
             case "RangoEtario":
@@ -169,8 +175,11 @@ var GraficoHerramientas = {
                 $('#div_filtros').hide();
                 $('#div_resultados_sueldos').hide();
                 $('#div_filtros_sueldos').hide();
-                $('#div_grafico_de_rango_etareo').show();
-                $('#div_filtros_rango_etareo').show();
+                $('#btn_excel_rangoEtario').hide();
+       
+                $('#div_grafico_de_rangoEtario').show();
+                $('#div_filtros_rangoEtario').show();
+
                 break;
 
         }

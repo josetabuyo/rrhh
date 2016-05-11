@@ -7,7 +7,7 @@ var GraficoDotacion = {
     Inicializar: function () {
         var _this = this;
         GraficoHerramientas.InicializarFecha($('#txt_fecha_desde'));
-        GraficoHerramientas.BlanquearParametrosDeBusqueda();
+//        GraficoHerramientas.BlanquearParametrosDeBusqueda();
         GraficoHerramientas.ActivarPrimerCheck($('#cb1'), "Género");
         GraficoHerramientas.OcultarTodosLosReportesExcepto("Dotacion");
         _this.SettearEventosDeLaPagina();
