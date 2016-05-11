@@ -38,7 +38,7 @@
                 </div>
             </div>
             <div class="box-content">
-                <form id="Form1" class="form-horizontal" runat="server">
+                <div id="div1" class="form-horizontal" runat="server">
                 <fieldset>
                     <asp:HiddenField ID="HiddenField_IdBien" runat="server" />
                     <div class="control-group">
@@ -109,8 +109,10 @@
                         OnClick="btnCancekar_Click" />
                 </div>
                 <asp:Button ID="btnAsignar" runat="server" onclick="btnAsignar_Click" ClientIDMode="Static" style="display:none;" />
-                </form>
+                </div>
+                <br />
             </div>
+
         </div>
         <!--/span-->
     </div>

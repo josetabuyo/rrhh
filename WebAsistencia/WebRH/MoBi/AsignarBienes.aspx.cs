@@ -85,8 +85,8 @@ public partial class MoBi_AsignarBienes : System.Web.UI.Page
             Convert.ToInt32(HiddenField_IdBien.Value),
             Convert.ToInt32(DropDownAreasDestino.SelectedItem.Value),
             (checkAgenteDestino.Checked ? Convert.ToInt32(DropDownAgenteDestino.SelectedItem.Value) : IdUsuario),
-            txtObservaciones.Text,IdUsuario)) 
-            Response.Redirect("BienesDisponibles.aspx") ;
+            txtObservaciones.Text,IdUsuario))
+            Response.Redirect("BienesDisponibles.aspx");
     }
 
 }

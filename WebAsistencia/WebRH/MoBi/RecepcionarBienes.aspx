@@ -48,7 +48,7 @@
                 </div>
             </div>
             <div class="box-content">
-                <form id="Form1" class="form-horizontal" runat="server">
+                <div id="div1" class="form-horizontal" runat="server">
                 <fieldset>
                     <div class="control-group">
                         <label class="control-label" for="selectError3">
@@ -138,7 +138,7 @@
                             <asp:Button ID="btnRechazar" runat="server" onclick="btnRechazar_Click" ClientIDMode="Static" style="display:none;" />
                     </div>
                 </fieldset>
-                </form>
+                </div>
             </div>
         </div>
         <!--/span-->

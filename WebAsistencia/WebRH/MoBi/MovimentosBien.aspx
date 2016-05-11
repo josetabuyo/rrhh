@@ -2,13 +2,8 @@
     CodeFile="MovimentosBien.aspx.cs" Inherits="MoBi_MovimentosBien" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-    <script type="text/javascript">
-        function BackPage() {
-            parent.history.back();
-            return false;
-        }
-    </script>
 </asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <ul class="breadcrumb">
         <li><i class="icon-home"></i><a href="Default.aspx">Módulo Bienes</a><i class="icon-angle-right">
@@ -28,7 +23,7 @@
                 </div>
             </div>
             <div class="box-content">
-                <form id="Form1" class="form-horizontal" runat="server">
+                <div id="div1" class="form-horizontal" runat="server">
                 <fieldset>
                     <asp:HiddenField ID="HiddenField_IdBien" runat="server" />
                     <div class="control-group">
@@ -91,11 +86,11 @@
                         </div>
                     </div>
                 </fieldset>
-                </form>
+                </div>
                 <div class="box-content" style="text-align: center">
-                    <a href="BienesDisponibles.aspx">
-                        <button class="btn btn-small">
-                            <i class='icon-arrow-left'></i> Atrás</button></a>
+                        <asp:LinkButton ID="lkBtn" runat="server" class='btn btn-small' 
+                        onclick="lkBtn_Click" ><i class='icon-arrow-left'></i> Atrás</asp:LinkButton>
+
                 </div>
             </div>
     </div>

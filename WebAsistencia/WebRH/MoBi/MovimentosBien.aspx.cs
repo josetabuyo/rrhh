@@ -27,4 +27,8 @@ public partial class MoBi_MovimentosBien : System.Web.UI.Page
         GridViewMovimientos.DataBind();
     }
 
+    protected void lkBtn_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("BienesDisponibles.aspx");
+    }
 }

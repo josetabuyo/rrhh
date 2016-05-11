@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div class="box-content">
-                <form id="Form1" class="form-horizontal" runat="server">
+                <div id="div1" class="form-horizontal" runat="server">
                 <fieldset>
                     <div class="control-group">
                         <label class="control-label" for="selectError3">
@@ -105,7 +105,7 @@
                         </div>
                     </div>
                 </fieldset>
-                </form>
+                </div>
             </div>
         </div>
         <!--/span-->
