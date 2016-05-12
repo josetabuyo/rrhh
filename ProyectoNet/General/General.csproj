@@ -105,6 +105,13 @@
     <Compile Include="ConstantesDeDatosDeContacto.cs" />
     <Compile Include="DDJJ104\AreaParaDDJJ104.cs" />
     <Compile Include="DDJJ104\DDJJ104_2001.cs" />
+    <Compile Include="MoBi\MoBi_Agente.cs" />
+    <Compile Include="MoBi\MoBi_Area.cs" />
+    <Compile Include="MoBi\MoBi_Bien.cs" />
+    <Compile Include="MoBi\MoBi_Evento.cs" />
+    <Compile Include="MoBi\MoBi_TipoBien.cs" />
+    <Compile Include="MoBi\MoBi_Vehiculo.cs" />
+    <Compile Include="MoBi\RepositorioMoBi.cs" />
     <Compile Include="Modi\Impersonator.cs" />
     <Compile Include="Modi\NetworkConnection.cs" />
     <Compile Include="Organigrama\Direccion.cs" />

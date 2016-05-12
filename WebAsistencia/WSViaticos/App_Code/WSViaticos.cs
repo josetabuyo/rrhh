@@ -257,7 +257,6 @@ public class WSViaticos : System.Web.Services.WebService
     {
         try
         {
-
             var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
             int tipo = (int)((JValue)criterio_deserializado["tipo"]);
             int dia = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(0, 2)));
@@ -277,354 +276,38 @@ public class WSViaticos : System.Web.Services.WebService
             throw ex;
         }
 
- //       Grafico grafico = repositorio.GetReporteSueldosPorArea(tipo, fecha, id_area, incluir_dependencias);
-       // return repositorio.GetReporteSueldosPorArea(fecha, id_area, incluir_dependencias);
-/*
-        DataTable table_resumen = new DataTable();
-        table_resumen.TableName = "Detalle";
 
-        DataTable table_detalle = new DataTable();
-        table_detalle.TableName = "Sueldos";
-                            
-        Area area = RepositorioDeAreas().GetAreaPorId(id_area);
-            
-                    
-                table_detalle.Columns.Add("Informacion");	
-                table_detalle.Columns.Add("Cantidad");	
-                table_detalle.Columns.Add("Porcentaje (%)");	
-                table_detalle.Columns.Add("SumatoriaSueldo");	
-                table_detalle.Columns.Add("PromedioSueldo");	
-                table_detalle.Columns.Add("MedianaSueldo");	
-                table_detalle.Columns.Add("SumatoriaExtras");	
-                table_detalle.Columns.Add("PromedioExtras");
-                table_detalle.Columns.Add("MedianaExtras");
-
-                foreach (var item in grafico.tabla_resumen)
-                {
-
-                    table_detalle.Rows.Add(item.Id, 
-                        item.Cantidad,
-                      Math.Truncate(item.Porcentaje * 100) / 100, 
-                        item.SumatoriaSueldo, 
-                        item.PrimedioSueldo, 
-                        item.MedianaSueldo,
-                        item.SumatoriaExtras, 
-                        item.PrimedioExtras,                         
-                        item.MedianaExtras);
-           
-                }
-
-
-
-        table_resumen.Columns.Add("Area");
-        table_resumen.Columns.Add("Documento");
-        table_resumen.Columns.Add("Apellido");
-        table_resumen.Columns.Add("Nombre");
-        table_resumen.Columns.Add("SueldoBruto");
-        table_resumen.Columns.Add("SueldoNeto");
-        table_resumen.Columns.Add("ExtrasBruto");
-        table_resumen.Columns.Add("ExtrasNeto");
-        table_resumen.Columns.Add("HsSimples");
-        table_resumen.Columns.Add("Hs50%");
-        table_resumen.Columns.Add("Hs100%");
-        table_resumen.Columns.Add("Comidas");
-        table_resumen.Columns.Add("UR");
-        foreach (var item in grafico.tabla_detalle)
-        {
-            object valor_extra_bruto = null;
-            if (item.ExtrasBruto!=0)
-            {  valor_extra_bruto = item.ExtrasBruto;
-                //  table_resumen.Rows.Add(item.AreaDescripCorta, item.NroDocumento, item.Apellido, item.Nombre, item.SueldoBruto, item.SueldoNeto, item.ExtrasBruto, item.ExtrasNeto, item.HsSimples, item.Hs50, item.Hs100, item.Comidas);
-            }
-            object valor_extra_neto = null;
-            if (item.ExtrasNeto != 0)
-            {
-                valor_extra_neto = item.ExtrasNeto;
-            }
-
-            object valor_horas_simples = null;
-            if (item.HsSimples != 0)
-            {
-                valor_horas_simples = item.HsSimples;
-            }
-
-            object valor_horas_50 = null;
-            if (item.Hs50 != 0)
-            {
-                valor_horas_50 = item.Hs50;
-            }
-            object valor_horas_100 = null;
-            if (item.Hs100 != 0)
-            {
-                valor_horas_100 = item.Hs100;
-            }
-            object valor_comidas = null;
-            if (item.Hs100 != 0)
-            {
-                valor_comidas = item.Comidas;
-            }
-            object valor_UR = null;
-            if (item.UnidadRetributiva != 0)
-            {
-                valor_UR = item.UnidadRetributiva;
-            }
-
-            table_resumen.Rows.Add(item.Area, item.NroDocumento, item.Apellido, item.Nombre, item.SueldoBruto, item.SueldoNeto, valor_extra_bruto, valor_extra_neto, valor_horas_simples, valor_horas_50, valor_horas_100, valor_comidas, valor_UR);
-            }     
-       
-        var workbook = new XLWorkbook();
-
-        //   var dataTable_consulta_parametros = table;
-        var dataTable_resumen = table_resumen;
-        var dataTable_detalle = table_detalle;
-        var ws = workbook.Worksheets.Add("Resumen");
-
-        ws.Style.Font.FontSize = 11;
-        ws.Style.Font.FontName = "Verdana";
-        
-        ws.Column("A").Width = 15;
-        ws.Column("B").Width = 15;
-        ws.Column("C").Width = 25;
-        ws.Column("D").Width = 25;
-        ws.Column("E").Width = 18;
-        ws.Column("F").Width = 18;
-        ws.Column("G").Width = 18;
-        ws.Column("H").Width = 18;
-        ws.Column("I").Width = 18;
-        ws.Column("J").Width = 18;
-        ws.Column("K").Width = 18;
-        ws.Column("L").Width = 18;
-        ws.Column("M").Width = 18;
-
-        //  ws.Row(1).Height = 25;
-        //  ws.Row(1).Style.Alignment.SetVertical(XLAlignmentVerticalValues.Center);
-
-        ws.Cell(1, 1).Value = "FECHA:";
-        ws.Cell(2, 1).Value = "AREA:";
-
-        ws.Cell(1, 1).Style.Font.Bold = true;
-        ws.Cell(2, 1).Style.Font.Bold = true;
-
-        ws.Cell(1, 2).Value = fecha.ToShortDateString();
-        ws.Cell(2, 2).Value = area.Nombre.ToUpper();
-
-        ws.Range(4, 1, 4, 9).Style.Fill.BackgroundColor = XLColor.FromArgb(79, 129, 189);
-        ws.Range(4, 1, 4, 9).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
-
-        ws.Range(4, 1, 4, 9).Style.Font.FontColor = XLColor.White;
-            
-
-        ws.Cell(4, 1).Value = "Informacion";
-        ws.Cell(4, 2).Value = "Cantidad";
-        ws.Cell(4, 3).Value = "Porcentaje %";
-        ws.Cell(4, 4).Value = "SumatoriaSueldo";
-        ws.Cell(4, 5).Value = "PromedioSueldo";
-        ws.Cell(4, 6).Value = "MedianaSueldo";
-        ws.Cell(4, 7).Value = "SumatoriaExtras";
-        ws.Cell(4, 8).Value = "PromedioExtras";
-        ws.Cell(4, 9).Value = "MedianaExtras";
-    //   ws.Cell(4, 10).Value = "HS 50%";
-    //    ws.Cell(4, 11).Value = "HS 100%";
-    //    ws.Cell(4, 12).Value = "COMIDAS";
-      //  ws.Cell(4, 1).Value = "Informacion";
-      //  ws.Cell(4, 2).Value = "Cantidad";
-      //  ws.Cell(4, 3).Value = "Porcentaje %";
-
-        var rangeWithData = ws.Cell(5, 1).InsertData(dataTable_detalle.AsEnumerable());
-
-        var lastCell = ws.LastCellUsed();
-
-        ws.Range(4, 1, lastCell.Address.RowNumber, lastCell.Address.ColumnNumber).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
-        ws.Range(4, 1, lastCell.Address.RowNumber, lastCell.Address.ColumnNumber).Style.Border.OutsideBorder = XLBorderStyleValues.Medium;
-
-        //ws.Range(5, 2, lastCell.Address.RowNumber, 2).DataType=XLCellValues.Number;
-        ws.Range(5, 2, lastCell.Address.RowNumber, lastCell.Address.ColumnNumber).DataType = XLCellValues.Number;
-
-
-      
-
-        workbook.Worksheets.Add(dataTable_resumen);
-
-        var lastCell2 = workbook.Worksheet(2).LastCellUsed();
-        workbook.Worksheet(2).Range(2, 2, lastCell2.Address.RowNumber, 2).DataType = XLCellValues.Number;
-        workbook.Worksheet(2).Range(2, 5, lastCell2.Address.RowNumber, 13).DataType = XLCellValues.Number;
-
-        workbook.Worksheet(2).Column("A").Width = 25;
-        workbook.Worksheet(2).Column("B").Width = 14;
-        workbook.Worksheet(2).Column("C").Width = 25;
-        workbook.Worksheet(2).Column("D").Width = 25;
-        workbook.Worksheet(2).Column("E").Width = 18;
-        workbook.Worksheet(2).Column("F").Width = 18;
-        workbook.Worksheet(2).Column("G").Width = 18;
-        workbook.Worksheet(2).Column("H").Width = 18;
-        workbook.Worksheet(2).Column("I").Width = 18;
-        workbook.Worksheet(2).Column("J").Width = 18;
-        workbook.Worksheet(2).Column("K").Width = 18;
-        workbook.Worksheet(2).Column("L").Width = 18;
-        workbook.Worksheet(2).Column("M").Width = 18;
-
-        //  string rut = HttpContext.Current.Request.PhysicalApplicationPath + "/Excel.xlsx";
-
-        using (var ms = new MemoryStream())
-        {
-            workbook.SaveAs(ms);
-
-            // return ms.ToArray();
-
-            //return File(ms.ToArray(), MediaTypeNames.Application.Octet, "excel2"+ ".xlsx");
-            return Convert.ToBase64String(ms.ToArray());
-        }
-
-
-            //
-        }
-        catch (Exception ex)
-        {
-
-            throw ex;
-        }
-            */
     }
 
 
     /**/
-
-
+    
     /*Grafico Excel*/
     [WebMethod]
     public string ExcelGenerado(string criterio, Usuario usuario)
-    {
-        try
-        {
-            //
-            //    var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
-            //    int tipo = (int)((JValue)criterio_deserializado["tipo"]);
-            //    DateTime fecha = (DateTime)((JValue)criterio_deserializado["fecha"]);
-            //    int id_area = (int)((JValue)criterio_deserializado["id_area"]);
-            //    RepositorioDeReportes repositorio = new RepositorioDeReportes(Conexion());
-            //    Grafico graf = repositorio.GetGraficoDotacion(tipo, fecha, id_area);
-            ////    graf.tabla_detalle 
-            // //
-            var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
-            Grafico grafico = GetGrafico(criterio, usuario);
-
-            //     DataTable table = new DataTable();
-            //      table.TableName = "Participacion-VM";
-
-            DataTable table_resumen = new DataTable();
-            table_resumen.TableName = "Resumen";
-
-            int id_area = (int)((JValue)criterio_deserializado["id_area"]);
-
-            int dia = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(0, 2)));
-            int mes = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(3, 2)));
-            int anio = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(6, 4)));
-            DateTime fecha = new DateTime(anio, mes, dia);
-
-
-            Area area = RepositorioDeAreas().GetAreaPorId(id_area);
-
-
-            table_resumen.Columns.Add("Informacion");
-            table_resumen.Columns.Add("Cantidad");
-            table_resumen.Columns.Add("Porcentaje");
-
-
-            foreach (var item in grafico.tabla_resumen)
+    {      
+            try
             {
-                table_resumen.Rows.Add(item.Id, item.Cantidad, item.Porcentaje);
+                var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
+                int tipo = (int)((JValue)criterio_deserializado["tipo"]);
+                int dia = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(0, 2)));
+                int mes = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(3, 2)));
+                int anio = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(6, 4)));
+                bool incluir_dependencias = (bool)((JValue)criterio_deserializado["incluir_dependencias"]);
+                DateTime fecha = new DateTime(anio, mes, dia);
+                int id_area = (int)((JValue)criterio_deserializado["id_area"]);
+
+                RepositorioDeReportes repositorio = new RepositorioDeReportes(Conexion());
+
+                return repositorio.ExcelGenerado(tipo, dia, mes, anio, incluir_dependencias,fecha, id_area);
             }
-
-            
-            DataTable table_detalle = new DataTable();
-            table_detalle.TableName = "Detalle";
-            
-            table_detalle.Columns.Add("NroDocumento");
-            table_detalle.Columns.Add("Apellido");
-            table_detalle.Columns.Add("Nombre");
-            table_detalle.Columns.Add("Sexo");
-            table_detalle.Columns.Add("FechaNacimiento");
-            table_detalle.Columns.Add("Nivel");
-            table_detalle.Columns.Add("Grado");
-            table_detalle.Columns.Add("Planta");
-            table_detalle.Columns.Add("NivelEstudio");
-            table_detalle.Columns.Add("Titulo");
-            table_detalle.Columns.Add("Area");
-            table_detalle.Columns.Add("Area Descrip Media");
-
-            foreach (var item in grafico.tabla_detalle)
+            catch (Exception ex)
             {
-                table_detalle.Rows.Add(item.NroDocumento, item.Apellido, item.Nombre, item.Sexo, item.FechaNacimiento.ToShortDateString(), item.Nivel, item.Grado, item.Planta, item.NivelEstudio, item.Titulo, item.Area, item.AreaDescripMedia);
+                throw ex;
             }
-            
-            //CREACIÓN DE LAS COLUMNAS
-            //      table.Columns.Add("Categoria", typeof(string));
-            //       table.Columns.Add("% Participación VM", typeof(double));
-
-            var workbook = new XLWorkbook();
-            
-            //   var dataTable_consulta_parametros = table;
-            var dataTable_resumen = table_resumen;
-            var dataTable_detalle = table_detalle;
-            var ws = workbook.Worksheets.Add("Resumen");
-            
-            ws.Style.Font.FontSize = 11;
-            ws.Style.Font.FontName = "Verdana";
-            
-            ws.Column("A").Width = 15;
-            ws.Column("B").Width = 15;
-            ws.Column("C").Width = 15;
-
-            //  ws.Row(1).Height = 25;
-            //  ws.Row(1).Style.Alignment.SetVertical(XLAlignmentVerticalValues.Center);
-            
-            ws.Cell(1, 1).Value = "FECHA:";
-            ws.Cell(2, 1).Value = "AREA:";
-
-            ws.Cell(1, 1).Style.Font.Bold = true;
-            ws.Cell(2, 1).Style.Font.Bold = true;
-
-            ws.Cell(1, 2).Value = fecha.ToShortDateString();
-            ws.Cell(2, 2).Value = area.Nombre.ToUpper();
-
-            ws.Range(4, 1, 4, 3).Style.Fill.BackgroundColor = XLColor.FromArgb(79, 129, 189);
-            ws.Range(4, 1, 4, 3).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
-
-            ws.Range(4, 1, 4, 3).Style.Font.FontColor = XLColor.White;
-
-            ws.Cell(4, 1).Value = "Informacion";
-            ws.Cell(4, 2).Value = "Cantidad";
-            ws.Cell(4, 3).Value = "Porcentaje %";
-
-            var rangeWithData = ws.Cell(5, 1).InsertData(dataTable_resumen.AsEnumerable());
-
-            var lastCell = ws.LastCellUsed();
-            
-            ws.Range(4, 1, lastCell.Address.RowNumber, lastCell.Address.ColumnNumber).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
-            ws.Range(4, 1, lastCell.Address.RowNumber, lastCell.Address.ColumnNumber).Style.Border.OutsideBorder = XLBorderStyleValues.Medium;
-            
-            workbook.Worksheets.Add(dataTable_detalle);
-
-            //  string rut = HttpContext.Current.Request.PhysicalApplicationPath + "/Excel.xlsx";
-            
-            using (var ms = new MemoryStream())
-            {
-                workbook.SaveAs(ms);
-
-                // return ms.ToArray();
-
-                //return File(ms.ToArray(), MediaTypeNames.Application.Octet, "excel2"+ ".xlsx");
-                return Convert.ToBase64String(ms.ToArray());
-            }
-
 
         }
-        catch (Exception ex)
-        {
-            throw ex;
-        }
-
-    }
+    
 
 
 
@@ -3135,16 +2818,6 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
 
-    #region MOBI
-    [WebMethod]
-    public Vehiculo ObtenerVehiculoPorID(string id_vehiculo)
-    {
-        var repo  = new RepositorioDeVehiculos(Conexion());
-        return repo.ObtenerVehiculoPorID(id_vehiculo);
-    }
-    #endregion
-
-
     #region mau
 
 
@@ -3889,8 +3562,75 @@ public class WSViaticos : System.Web.Services.WebService
 
     #endregion
 
+        #region mobi
 
-        private RepositorioLicencias RepoLicencias()
+        [WebMethod]
+        public Vehiculo ObtenerVehiculoPorID(string id_vehiculo)
+        {
+            var repo = new RepositorioDeVehiculos(Conexion());
+            return repo.ObtenerVehiculoPorID(id_vehiculo);
+        }
+
+        [WebMethod]
+        public MoBi_Area[] Mobi_GetAreasUsuario(int IdUsuario)
+        {
+            RepositorioMoBi rMoBi = new RepositorioMoBi();
+            return rMoBi.GetAreasUsuario(IdUsuario);
+        }
+
+        [WebMethod]
+        public MoBi_Area[] Mobi_GetAreasUsuarioCBO(int IdUsuario, int IdTipoBien, bool MostrarSoloAreasConBienes)
+        {
+            RepositorioMoBi rMoBi = new RepositorioMoBi();
+            return rMoBi.GetAreasUsuarioCBO(IdUsuario, IdTipoBien, MostrarSoloAreasConBienes);
+        }
+
+        [WebMethod]
+        public MoBi_TipoBien[] Mobi_GetTipoBien()
+        {
+            RepositorioMoBi rMoBi = new RepositorioMoBi();
+            return rMoBi.GetTipoDeBienes();
+        }
+
+        [WebMethod]
+        public MoBi_Bien[] Mobi_GetBienesDelArea(int IdArea, int IdTipoBien)
+        {
+            RepositorioMoBi rMoBi = new RepositorioMoBi();
+            return rMoBi.GetBienesDelArea(IdArea, IdTipoBien);
+        }
+
+        [WebMethod]
+        public MoBi_Bien[] Mobi_GetBienesDelAreaRecepcion(int IdArea, int IdTipoBien)
+        {
+            RepositorioMoBi rMoBi = new RepositorioMoBi();
+            return rMoBi.GetBienesDelAreaRecepcion(IdArea, IdTipoBien);
+        }
+
+        [WebMethod]
+        public MoBi_Evento[] Mobi_GetEventosBien(int IdBien)
+        {
+            RepositorioMoBi rMoBi = new RepositorioMoBi();
+            return rMoBi.GetEventosBien(IdBien);
+        }
+
+        [WebMethod]
+        public MoBi_Agente[] Mobi_GetAgentesArea(int IdArea)
+        {
+            RepositorioMoBi rMoBi = new RepositorioMoBi();
+            return rMoBi.GetAgentes(IdArea);
+        }
+
+        [WebMethod]
+        public bool Mobi_GuardarEventoBien(MoBi_Evento.enumTipoEvento tipoEvento, int IdBien, int IdArea, int IdPersona, string Observaciones, int IdUser)
+        {
+            RepositorioMoBi rMoBi = new RepositorioMoBi();
+            return rMoBi.GuardarNuevoEventoBien(tipoEvento, IdBien, IdArea, IdPersona, Observaciones, IdUser);
+        }
+
+
+        #endregion
+
+    private RepositorioLicencias RepoLicencias()
     {
         return new RepositorioLicencias(Conexion());
     }
@@ -3944,7 +3684,6 @@ public class WSViaticos : System.Web.Services.WebService
     {
         return General.MAU.RepositorioDeFuncionalidadesDeUsuarios.NuevoRepositorioDeFuncionalidadesDeUsuarios(Conexion(), RepositorioDeFuncionalidades());
     }
-
 
     private Autorizador Autorizador()
     {
@@ -4004,5 +3743,6 @@ public class WSViaticos : System.Web.Services.WebService
     {
         return RepositorioDeComites.Nuevo(Conexion());
     }
+
 
 }
