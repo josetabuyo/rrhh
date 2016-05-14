@@ -7,13 +7,17 @@ using System.Reflection;
 
 namespace General
 {
-    public class GraficoRangoEtareo : Grafico
+    public class GraficoRangoEtario : Grafico
     {
         //public override List<Resumen> tabla_resumen;
         //public override List<Dotacion> tabla_detalle;
 
+        public override void CrearDatos(List<RowDeDatos> list)
+        {
+            throw new Exception();
+        }
 
-        public override void CrearDatos(List<RowDeDatos> list, DateTime fecha_reporte)
+        public void CrearDatos(List<RowDeDatos> list, DateTime fecha_reporte)
         {
 
             List<Dotacion> tabla = new List<Dotacion>();
@@ -47,10 +51,10 @@ namespace General
                             row.GetString("area_descrip_subsecretaria", "S/Nombre"),
                             row.GetString("area_descrip_secretaria_corta", "S/Nombre"),
                             row.GetString("area_descrip_subsecretaria_corta", "S/Nombre"),
-                            row.GetInt("Orden", 999999)   
+                            row.GetInt("Orden", 999999)
                 );
                 persona.Edad(fecha_reporte);
- 
+
 
                 tabla.Add(persona);
             });
@@ -110,51 +114,65 @@ namespace General
             tabla.Add(GenerarRegistroResumen("56-60", de_56_a_60, total));
             tabla.Add(GenerarRegistroResumen("61-65", de_61_a_65, total));
             tabla.Add(GenerarRegistroResumen(">65", mas_de_65, total));
-            this.tabla_resumen = tabla.OrderByDescending(t => t.Cantidad).ToList();
+           
         }
 
-        
+
         public override void GraficoPorArea()
         {
             List<Dotacion> tabla_personas = this.tabla_detalle.ToList();
             List<Resumen> tabla = new List<Resumen>();
-            List<Contador> contador = new List<Contador>();
+
+            int de_18_a_25 = 0;
+            int de_26_a_35 = 0;
+            int de_36_a_45 = 0;
+            int de_46_a_55 = 0;
+            int de_56_a_60 = 0;
+            int de_61_a_65 = 0;
+            int mas_de_65 = 0;
 
             tabla_personas.ForEach(p =>
             {
-                if (contador.Count > 0)
+                if (p.EdadPersona >= 18 && p.EdadPersona <= 25)
                 {
-                    if (contador.Exists(area => area.Id == p.IdArea))
-                    {
-                        contador.Find(area => area.Id == p.IdArea).Personas.Add(p);
-                    }
-                    else
-                    {
-                        Contador nueva_area = new Contador(p.IdArea, p.Area, p.AreaDescripCorta);
-                        nueva_area.Personas.Add(p);
-                        nueva_area.Orden = p.OrdenArea;
-                        contador.Add(nueva_area);
-
-                    }
+                    de_18_a_25++;
                 }
-                else
+                else if (p.EdadPersona >= 26 && p.EdadPersona <= 35)
                 {
-                    Contador nueva_area = new Contador(p.IdArea, p.Area, p.AreaDescripCorta);
-                    nueva_area.Personas.Add(p);
-                    nueva_area.Orden = p.OrdenArea;
-                    contador.Add(nueva_area);
+                    de_26_a_35++;
                 }
-
+                else if (p.EdadPersona >= 36 && p.EdadPersona <= 45)
+                {
+                    de_36_a_45++;
+                }
+                else if (p.EdadPersona >= 46 && p.EdadPersona <= 55)
+                {
+                    de_46_a_55++;
+                }
+                else if (p.EdadPersona >= 56 && p.EdadPersona <= 60)
+                {
+                    de_56_a_60++;
+                }
+                else if (p.EdadPersona >= 61 && p.EdadPersona <= 65)
+                {
+                    de_61_a_65++;
+                }
+                else if (p.EdadPersona > 65)
+                {
+                    mas_de_65++;
+                }
             });
             int total = tabla_personas.Count;
-            tabla.Add(GenerarRegistroResumen("Total", "Total", total, total));
 
-            contador.ForEach(registro =>
-            {
-                tabla.Add(GenerarRegistroResumen(registro.Descripcion, registro.DescripcionGrafico, registro.Personas.Count, total, registro.Orden));
-            });
-
-            this.tabla_resumen = tabla.OrderBy(t => t.Orden).ToList();
+            tabla.Add(GenerarRegistroResumen("Total", total, total));
+            tabla.Add(GenerarRegistroResumen("18-25", de_18_a_25, total));
+            tabla.Add(GenerarRegistroResumen("26-35", de_26_a_35, total));
+            tabla.Add(GenerarRegistroResumen("36-45", de_36_a_45, total));
+            tabla.Add(GenerarRegistroResumen("46-55", de_46_a_55, total));
+            tabla.Add(GenerarRegistroResumen("56-60", de_56_a_60, total));
+            tabla.Add(GenerarRegistroResumen("61-65", de_61_a_65, total));
+            tabla.Add(GenerarRegistroResumen(">65", mas_de_65, total));
+            this.tabla_resumen = tabla;          
         }
 
         public override void GraficoPorSecretarias()
@@ -262,8 +280,8 @@ namespace General
             this.tabla_resumen = tabla.OrderBy(t => t.Orden).ToList();
         }
 
-       
 
-        
+
+
     }
 }

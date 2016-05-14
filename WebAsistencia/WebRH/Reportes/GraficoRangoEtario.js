@@ -99,19 +99,40 @@ var GraficoRangoEtario = {
         }
     },
 
+    ObtenerDatosParaGrafico: function (personas) {
+        var hombres_y_mujeres = [];
+        var hombres = [];
+        var mujeres = [];
+
+        //        for (var i = 0; i < personas.length; i++) {
+        //            if (parseInt(personas[i].IdSexo) == 1) {
+        //            hombres.push()
+        //            }
+        //        }
+    },
+    ObtenerCategorias: function (categorias) {
+        var detalle_categorias = [];
+        for (var i = 0; i < categorias.length; i++) {
+            if (categorias[i].Id != "Total") {
+                detalle_categorias.push(categorias[i].Id);
+            }
+        }
+        return detalle_categorias;
+    },
 
     //DIBUJAR GRAFICO
     DibujarElGrafico: function (datos_del_resumen, titulo, div_grafico) {
+        var _this = this;
         var datos = this.CrearDatosDesdeElResumenParaArmarElGrafico(datos_del_resumen);
-        var grafico = [{ type: 'pie', name: 'Rango Etário', data: datos}];
-        var categorias = ['18 a 25', '26 a 35', '36 a 45', '46 a 55', '56 a 60', '61 a 65', '> 65'];
+        var categorias = _this.ObtenerCategorias(datos_del_resumen); //['18 a 25', '26 a 35', '36 a 45', '46 a 55', '56 a 60', '61 a 65', '> 65'];
+        var separados_por_sexo = _this.ObtenerDatosParaGrafico(datos);
         var datos = [{
-                name: 'Hombres',
-                data: [5, 3, 4, 7, 2, 5, 1]
-            }, {
-                name: 'Mujeres',
-                data: [3, 4, 4, 2, 5, 3, 54]
-            }];
+            name: 'Hombres',
+            data: [5, 3, 4, 7, 2, 5, 1]
+        }, {
+            name: 'Mujeres',
+            data: [3, 4, 4, 2, 5, 3, 54]
+        }];
 
         $('#' + div_grafico).highcharts({
             chart: {

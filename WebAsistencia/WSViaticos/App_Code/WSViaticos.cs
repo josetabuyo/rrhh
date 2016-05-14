@@ -248,7 +248,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public GraficoDotacion GetGraficoRangoEtario(string criterio, Usuario usuario)
+    public GraficoRangoEtario GetGraficoRangoEtario(string criterio, Usuario usuario)
     {
 
         var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);

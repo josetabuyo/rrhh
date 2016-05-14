@@ -21,7 +21,7 @@ namespace General.Repositorios
         private static DateTime fecha_anterior;
         private static GraficoSueldo GRAFICOSUELDO;
         private static GraficoDotacion GRAFICODOTACION;
-        private static GraficoRangoEtareo GRAFICORANGOETARIO;
+        private static GraficoRangoEtario GRAFICORANGOETARIO;
         private static bool incluir_dependencias_anterior;
         private static bool detalle_sueldo;
 
@@ -471,16 +471,16 @@ namespace General.Repositorios
         #endregion
 
 
-        public GraficoRangoEtareo GetGraficoRangoEtario(string tipo, DateTime fecha, int id_area, bool incluir_dependencias)
+        public GraficoRangoEtario GetGraficoRangoEtario(string tipo, DateTime fecha, int id_area, bool incluir_dependencias)
         {
-            GraficoRangoEtareo grafico = new GraficoRangoEtareo();
+            GraficoRangoEtario grafico = new GraficoRangoEtario();
 
             if (fecha.Year == fecha_anterior.Year && fecha.Month == fecha_anterior.Month && fecha.Day == fecha_anterior.Day && id_area == id_area_anterior && incluir_dependencias == incluir_dependencias_anterior && detalle_sueldo)
             {
 
                 if (GRAFICORANGOETARIO.ContienePersonas())
                 {
-                    CrearResumen(GRAFICOSUELDO, tipo, fecha);
+                    CrearResumen(GRAFICORANGOETARIO, tipo, fecha);
                 }
 
                 return GRAFICORANGOETARIO;
