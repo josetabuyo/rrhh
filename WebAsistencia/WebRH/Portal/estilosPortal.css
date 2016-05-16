@@ -10,35 +10,45 @@
     position:absolute;
 }
 .user{
-    top:125px;
-    left:110px;
+   /* top:125px;
+    left:110px;*/
+    top: 385px;
+    left: 920px;
 }
 .home{
-   top:50px;
-   left:360px;
+   /*top:50px;
+   left:360px;*/
+    top: 450px;
+    left: 1160px;
 }
 .shop{
-   top:90px;
-   left:625px;
+   /*top:90px;
+   left:625px;*/
+   top: 600px;
+  left: 1170px;
 }
 .camera{
-   top:230px;
-   left:835px;
+   /*top:230px;
+   left:835px;*/
+   top: 750px;
+   left: 1135px;
 }
 .fav{
-   top:420px;
-   left:950px;
+   /*top:420px;
+   left:950px;*/
+   top: 800px;
+   left: 950px;
 }
 a.icon{
-    width:52px;
-    height:52px;
+    width:125px;
+    height:125px;
     position:absolute;
     top:0px;
     left:0px;
     cursor:pointer;
 }
 .user a.icon{
-    background:transparent url(../Imagenes/portal/user.png) no-repeat 0px 0px;
+    background:transparent url(../Imagenes/portal/datosPersonalesSmall.png) no-repeat;
 }
 .home a.icon{
     background:transparent url(../Imagenes/portal/home.png) no-repeat 0px 0px;
@@ -68,6 +78,7 @@ a.icon{
     width:147px;
     height:52px;
     color:#222;
+    color:#fff;
     font-size:18px;
     top:0px;
     left:52px;
@@ -108,5 +119,44 @@ a.icon{
     -moz-box-shadow:1px 1px 4px #666;
     -webkit-box-shadow:1px 1px 4px #666;
     box-shadow:1px 1px 4px #666;
+}
+
+@media (max-width: 600px) {
+  .user{
+   /* top:125px;
+    left:110px;*/
+    top: 385px;
+    left: 920px;
+}
+.home{
+   top:50px;
+   left:360px;
+}
+.shop{
+   /*top:90px;
+   left:625px;*/
+   top: 600px;
+  left: 1170px;
+}
+.camera{
+   /*top:230px;
+   left:835px;*/
+   top: 750px;
+   left: 1135px;
+}
+.fav{
+   /*top:420px;
+   left:950px;*/
+   top: 800px;
+   left: 950px;
+}
+a.icon{
+    width:125px;
+    height:125px;
+    position:absolute;
+    top:0px;
+    left:0px;
+    cursor:pointer;
+}
 }
 

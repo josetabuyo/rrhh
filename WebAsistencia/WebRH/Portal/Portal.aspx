@@ -1,14 +1,18 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Portal.aspx.cs" Inherits="Portal_Portal" %>
-
+<%@ Register Src="~/BarraMenu/BarraMenu.ascx" TagName="BarraMenu" TagPrefix="uc2" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
         <title>Portal RRHH</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <meta name="description" content="Awesome Bubble Navigation with jQuery" />
-        <meta name="keywords" content="jquery, circular menu, navigation, round, bubble"/>
         <link rel="stylesheet" href="estilosPortal.css" type="text/css" media="screen"/>
+        <!-- CSS media query on a link element -->
+        <link rel="stylesheet" media="(max-width: 1600px)" href="estilosPortal.css" />
+         <%= Referencias.Css("../")%>
+
+        <%= Referencias.Javascript("../")%>
+
         <style>
             *{
                 margin:0;
@@ -16,7 +20,8 @@
             }
             body{
                 font-family:Arial;
-                background:#fff url(../Imagenes/portal/bg.png) no-repeat top left;
+                background-color: #031427;
+                /*background:#fff url(../Imagenes/portal/bg.png) no-repeat top center;*/
             }
             .title{
                 width:548px;
@@ -45,15 +50,17 @@
     </head>
 <body>
     <form id="form1" runat="server">
+    <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold; padding-top:20px;'>PORTAL</span> <br/> " UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <div id="content">
             <a class="back" href="http://tympanus.net/codrops/2010/04/29/awesome-bubble-navigation-with-jquery"></a>
             <div class="title"></div>
 
             <div class="navigation" id="nav">
+                <img src="../Imagenes/portal/principal.png" alt="" width="199" height="199" style="position: absolute;top: 550px;left: 900px;"/>
                 <div class="item user">
                     <img src="../Imagenes/portal/bg_user.png" alt="" width="199" height="199" class="circle"/>
                     <a href="#" class="icon"></a>
-                    <h2>User</h2>
+                    <h2 style="left: 0; position: absolute;top: -50px;line-height: 25px;text-indent: 0px; text-align: center;">DATOS PERSONALES</h2>
                     <ul>
                         <li><a href="#">Profile</a></li>
                         <li><a href="#">Properties</a></li>
@@ -63,7 +70,7 @@
                 <div class="item home">
                     <img src="../Imagenes/portal/bg_home.png" alt="" width="199" height="199" class="circle"/>
                     <a href="#" class="icon"></a>
-                    <h2>Home</h2>
+                    <h2>ESTUDIOS</h2>
                     <ul>
                         <li><a href="#">Portfolio</a></li>
                         <li><a href="#">Services</a></li>
@@ -73,7 +80,7 @@
                 <div class="item shop">
                     <img src="../Imagenes/portal/bg_shop.png" alt="" width="199" height="199" class="circle"/>
                     <a href="#" class="icon"></a>
-                    <h2>Shop</h2>
+                    <h2>LICENCIAS</h2>
                     <ul>
                         <li><a href="#">Catalogue</a></li>
                         <li><a href="#">Orders</a></li>
@@ -83,7 +90,7 @@
                 <div class="item camera">
                     <img src="../Imagenes/portal/bg_camera.png" alt="" width="199" height="199" class="circle"/>
                     <a href="#" class="icon"></a>
-                    <h2>Photos</h2>
+                    <h2>NOTIFICACIONES</h2>
                     <ul>
                         <li><a href="#">Gallery</a></li>
                         <li><a href="#">Prints</a></li>
@@ -93,13 +100,14 @@
                 <div class="item fav">
                     <img src="../Imagenes/portal/bg_fav.png" alt="" width="199" height="199" class="circle"/>
                     <a href="#" class="icon"></a>
-                    <h2>Love</h2>
+                    <h2>CAPACITACIONES</h2>
                     <ul>
                         <li><a href="#">Social</a></li>
                         <li><a href="#">Support</a></li>
                         <li><a href="#">Comments</a></li>
                     </ul>
                 </div>
+                
             </div>
         </div>
     </form>
