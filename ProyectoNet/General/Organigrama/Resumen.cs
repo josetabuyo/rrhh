@@ -20,6 +20,8 @@ namespace General
         public float SumatoriaExtras { get; set; }
         public float PrimedioExtras { get; set; }
         public float MedianaExtras { get; set; }
+        public int CantidadHombres { get; set; }
+        public int CantidadMujeres { get; set; }
         public float PorcentajeHombres { get; set; }
         public float PorcentajeMujeres { get; set; }
 

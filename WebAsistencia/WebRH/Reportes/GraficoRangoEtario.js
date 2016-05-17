@@ -267,6 +267,8 @@ var GraficoRangoEtario = {
         }));
         columnas.push(new Columna("Cantidad", { generar: function (un_registro) { return un_registro.Cantidad } }));
         columnas.push(new Columna("Porcentaje", { generar: function (un_registro) { return parseFloat(un_registro.Porcentaje).toFixed(2) + '%' } }));
+        columnas.push(new Columna("Porcentaje Hombres", { generar: function (un_registro) { return parseFloat(un_registro.PorcentajeHombres).toFixed(2) + '%' } }));
+        columnas.push(new Columna("Porcentaje Mujeres", { generar: function (un_registro) { return parseFloat(un_registro.PorcentajeMujeres).toFixed(2) + '%' } }));
         columnas.push(new Columna('Detalle', {
             generar: function (un_registro) {
                 var btn_accion = $('<a>');
