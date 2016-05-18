@@ -121,6 +121,7 @@ namespace General.Repositorios
                          Asistentes = area_completa.Asistentes,
                          CantidadDeUsuarios = row.GetSmallintAsInt("CantidadDeUsuarios", 0)
                      });
+
                  });
              }
 
@@ -172,7 +173,7 @@ namespace General.Repositorios
                             datos_del_responsable = datos_responsable,
                             Asistentes = Asistentes,
                             DatosDeContacto = DatosDeContacto,
-                            PresentaDDJJ = row.GetBoolean("presenta_DDJJ"),
+                            PresentaDDJJ = row.GetBoolean("presenta_DDJJ")
                         });
                     }
                     else

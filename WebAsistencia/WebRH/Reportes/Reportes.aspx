@@ -73,13 +73,13 @@
                                 <div class="" autocomplete="off" style="margin-left: 50px;">
                                     <section>
 					                    <ul class="lista_filtros">
-						                    <li><input id="cb1" class="regular-checkbox filtros" name="cb1" data-filtro="Genero" type="checkbox"/><label for="cb1">Género</label></li>
-						                    <li><input id="cb2" class="regular-checkbox filtros" name="cb2" data-filtro="Nivel" type="checkbox"/><label for="cb2">Nivel</label></li>
-						                    <li><input id="cb3" class="regular-checkbox filtros" name="cb3" data-filtro="Estudios" type="checkbox"/><label for="cb3">Estudios</label></li>
-						                    <li><input id="cb4" class="regular-checkbox filtros" name="cb4" data-filtro="Plantas" type="checkbox"/><label for="cb4">Plantas</label></li>
-                                            <li><input id="cb5" class="regular-checkbox filtros" name="cb5" data-filtro="Areas" type="checkbox"/><label for="cb4">Áreas</label></li>
-                                            <li><input id="cb6" class="regular-checkbox filtros" name="cb6" data-filtro="Secretarias" type="checkbox"/><label for="cb4">Secretarías</label></li>
-                                            <li><input id="cb7" class="regular-checkbox filtros" name="cb7" data-filtro="SubSecretarias" type="checkbox"/><label for="cb4">SubSecretarías</label></li>
+						                    <li><input id="cb1" class="regular-checkbox filtros" name="cb1"  data-grafico="GraficoPorGenero" type="checkbox"/><label for="cb1">Género</label></li>
+						                    <li><input id="cb2" class="regular-checkbox filtros" name="cb2"  data-grafico="GraficoPorNivel" type="checkbox"/><label for="cb2">Nivel</label></li>
+						                    <li><input id="cb3" class="regular-checkbox filtros" name="cb3"  data-grafico="GraficoPorEstudio" type="checkbox"/><label for="cb3">Estudios</label></li>
+						                    <li><input id="cb4" class="regular-checkbox filtros" name="cb4"  data-grafico="GraficoPorPlanta" type="checkbox"/><label for="cb4">Plantas</label></li>
+                                            <li><input id="cb5" class="regular-checkbox filtros" name="cb5"  data-grafico="GraficoPorArea" type="checkbox"/><label for="cb4">Áreas</label></li>
+                                            <li><input id="cb6" class="regular-checkbox filtros" name="cb6"  data-grafico="GraficoPorSecretarias" type="checkbox"/><label for="cb4">Secretarías</label></li>
+                                            <li><input id="cb7" class="regular-checkbox filtros" name="cb7"  data-grafico="GraficoPorSubSecretarias" type="checkbox"/><label for="cb4">SubSecretarías</label></li>
 						                    <%--<li><input id="cb5" class="regular-checkbox filtros" name="cb5" data-filtro="Afiliacion" type="checkbox"/><label for="cb5">Afiliación Gremial</label></li>--%>
 					                    </ul>
 			                        </section>
@@ -123,9 +123,9 @@
                                 <div class="" autocomplete="off" style="margin-left: 50px;">
                                     <section>
 					                    <ul class="lista_filtros">
-						                    <li><input id="cb_SinAgrupar" class="regular-checkbox filtros_sueldo" name="cb8" data-filtro="SinAgrupar_sueldo" type="checkbox"/><label for="cb_SinAgrupar">Sin Agrupar</label></li>
-                                            <li><input id="cb_Secretarias_sueldo" class="regular-checkbox filtros_sueldo" name="cb9" data-filtro="Secretarias_sueldo" type="checkbox"/><label for="cb_Secretarias">Secretarías</label></li>
-						                    <li><input id="cb_SubSecretarias_sueldo" class="regular-checkbox filtros_sueldo" name="cb0" data-filtro="Subsecretariasr_sueldo" type="checkbox"/><label for="cb_SubSecretarias">Subsecretarias</label></li>
+						                    <li><input id="cb_SinAgrupar" class="regular-checkbox filtros_sueldo" name="cb8" data-grafico="GraficoPorArea" type="checkbox"/><label for="cb_SinAgrupar">Sin Agrupar</label></li>
+                                            <li><input id="cb_Secretarias_sueldo" class="regular-checkbox filtros_sueldo" name="cb9" data-grafico="GraficoPorSecretarias" type="checkbox"/><label for="cb_Secretarias">Secretarías</label></li>
+						                    <li><input id="cb_SubSecretarias_sueldo" class="regular-checkbox filtros_sueldo" name="cb0" data-grafico="GraficoPorSubSecretarias" type="checkbox"/><label for="cb_SubSecretarias">Subsecretarias</label></li>
 					                    </ul>
 			                        </section>
                                 </div>
@@ -144,13 +144,13 @@
                     </div> 
                     
                     <div id="div_tabla_sueldo_detalle" style="margin: -310px 0px 0px 148px; width: 100%; position: absolute; top: 465px; display:none;">               
-                        <span id="lb_titulo_tabla_detalle"></span>
                         <br />  
-                        <div style="width:80%;">
+                        <div style="width:80%; margin-bottom:5px">
                             <input type="text" id="search_detalle_sueldo" class="search" class="buscador" placeholder="Buscar" style="display: none; margin: 0;" />
                             <input id="btn_mostrar_resumen" type="button" class="btn btn-primary" value="Volver al Resumen" style="display:none; float: right;"/>  
                         </div>
-                        <table id="tabla_sueldo_detalle" style="width: 80%; margin-top: 38px;"> </table>
+                        <span id="lb_titulo_tabla_sueldo_detalle"></span>
+                        <table id="tabla_sueldo_detalle" style="width: 80%; margin-top: 10px;"> </table>
                     </div> 
                </div>
                <div id="div_grafico_de_rango_etareo">
@@ -195,6 +195,7 @@
         </div>
     </div>
     <script type="text/javascript" src="../Scripts/underscore-min.js"></script>
+    <script type="text/javascript" src="GraficoHerramientas.js"></script>
     <script type="text/javascript" src="GraficoDotacion.js"></script>
     <script type="text/javascript" src="GraficoSueldos.js"></script>
     <script src="../Scripts/Graficos/highcharts.js" type="text/javascript"></script>
