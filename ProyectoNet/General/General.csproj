@@ -99,6 +99,15 @@
     <Compile Include="Asistencia\VacacionesSolicitables.cs" />
     <Compile Include="Calendario\CalculadorDeDias.cs" />
     <Compile Include="Calendario\Periodo.cs" />
+    <Compile Include="MOBI\MoBi_Agente.cs" />
+    <Compile Include="MOBI\MoBi_Area.cs" />
+    <Compile Include="MOBI\MoBi_Bien.cs" />
+    <Compile Include="MOBI\MoBi_Evento.cs" />
+    <Compile Include="MOBI\MoBi_TipoBien.cs" />
+    <Compile Include="MOBI\MoBi_Vehiculo.cs" />
+    <Compile Include="MOBI\RepositorioDeVehiculos.cs" />
+    <Compile Include="MOBI\RepositorioMoBi.cs" />
+    <Compile Include="MOBI\vehiculo.cs" />
     <Compile Include="Repositorios\RepositorioDeArchivos.cs" />
     <Compile Include="Vehiculos\vehiculo.cs" />
     <Compile Include="Logger.cs" />
