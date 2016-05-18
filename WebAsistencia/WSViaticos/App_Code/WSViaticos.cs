@@ -335,27 +335,88 @@ public class WSViaticos : System.Web.Services.WebService
 
             foreach (var item in areas)
             {
-                table_resumen.Rows.Add(item.Nombre, item.DDJJ.Estado);
+                string ColEstado = "";
+                string ColNombreArea = "";
+
+                if (item.DDJJ != null)
+                {
+                    switch (item.DDJJ.Estado)
+	                {
+                        case 1:
+                            ColEstado = "Impresa no recepcionada";
+                            break;
+                        case 2:
+                            ColEstado = "Recepcionada";
+                            break;
+
+                        default:
+                            ColEstado = "";
+                            break;
+	                }
+                }
+                else
+                {
+                    ColEstado = "Sin Generar";
+                }
+
+
+                //switch (item.Jerarquia)
+                //{
+                //    case 1000:	//Unidad Ministro
+                //        ColNombreArea = item.Nombre;
+                //        break;
+                //    case 900:	//Secretaría
+                //        ColNombreArea = "   " + item.Nombre;
+                //        break;
+                //    case 800:	//SubSecretaría
+                //        ColNombreArea = "       " + item.Nombre;
+                //        break;
+                //    case 700:	//Dir. Nac/General
+                //        ColNombreArea = "           " + item.Nombre;
+                //        break;
+                //    case 600:	//Dirección
+                //        ColNombreArea = "               " + item.Nombre;
+                //        break;
+                //    case 500:   //Coordinación
+                //        ColNombreArea = "                   " + item.Nombre;
+                //        break;
+                //    case 400:	//Departamento
+                //        ColNombreArea = "                       " + item.Nombre;
+                //        break;
+                //    case 300:	//Lugar de Trabajo
+                //        ColNombreArea = "                           " + item.Nombre;
+                //        break;
+                //}
+
+                
+                int EspaciosEnBlanco = (int) Math.Truncate(((decimal)(1000-item.Jerarquia)/20));
+                string cadena = "";
+                for (int i = 0; i < EspaciosEnBlanco; i++)
+                {
+                    cadena = cadena + " ";
+                }
+                ColNombreArea = cadena + item.Nombre;
+
+                table_resumen.Rows.Add(ColNombreArea, ColEstado);
             }
 
             var workbook = new XLWorkbook();
 
             var dataTable_resumen = table_resumen;
             
-            var ws = workbook.Worksheets.Add("Areas");
+            var ws = workbook.Worksheets.Add("DDJJ104");
 
             ws.Style.Font.FontSize = 11;
             ws.Style.Font.FontName = "Verdana";
 
-            //ws.Column("A").Width = 15;
-            //ws.Column("B").Width = 15;
-            //ws.Column("C").Width = 15;
+            //ws.Column("A").Width = 115;
+            //ws.Column("B").Width = 50;
+            
+            ws.Cell(1, 1).Value = "AREA:";
+            ws.Cell(1, 2).Value = "ESTADO:";
 
-            //ws.Cell(1, 1).Value = "FECHA:";
-            //ws.Cell(2, 1).Value = "AREA:";
-
-            //ws.Cell(1, 1).Style.Font.Bold = true;
-            //ws.Cell(2, 1).Style.Font.Bold = true;
+            ws.Cell(1, 1).Style.Font.Bold = true;
+            ws.Cell(1, 2).Style.Font.Bold = true;
 
             //ws.Cell(1, 2).Value = fecha.ToShortDateString();
             //ws.Cell(2, 2).Value = area.Nombre.ToUpper();
@@ -369,7 +430,7 @@ public class WSViaticos : System.Web.Services.WebService
             //ws.Cell(4, 2).Value = "Cantidad";
             //ws.Cell(4, 3).Value = "Porcentaje %";
 
-            var rangeWithData = ws.Cell(1, 1).InsertData(dataTable_resumen.AsEnumerable());
+            var rangeWithData = ws.Cell(2, 1).InsertData(dataTable_resumen.AsEnumerable());
 
             //var lastCell = ws.LastCellUsed();
             //ws.Range(4, 1, lastCell.Address.RowNumber, lastCell.Address.ColumnNumber).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
