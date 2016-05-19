@@ -24,6 +24,7 @@ var GraficoSueldos = {
         GraficoHerramientas.SettearEventosDeChecks(_this, $('.filtros_sueldo'), $('#div_tabla_sueldo_detalle'), $('#titulo_grafico'), "Sueldo por ");
 
         $('#btn_buscar_sueldo').click(function () {
+            GraficoHerramientas.OcultarTodosLosReportesExcepto("Sueldo");
             _this.BuscarDatos();
         });
         $('#exportar_datos_sueldo').click(function () {

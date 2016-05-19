@@ -18,6 +18,7 @@ var GraficoRangoEtario = {
         GraficoHerramientas.SettearEventosDeChecks(_this, $('.filtros_rangoEtario'), $('#div_tabla_detalle_rangoEtario'), $('#titulo_grafico_rangoEtario'), "Agrupar por ");
 
         $('#btn_armarGrafico_rangoEtario').click(function () {
+            GraficoHerramientas.OcultarTodosLosReportesExcepto("RangoEtario");
             _this.BuscarDatos();
         });
         $('#btn_excel_rangoEtario').click(function () {
