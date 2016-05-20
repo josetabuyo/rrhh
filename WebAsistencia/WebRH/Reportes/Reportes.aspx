@@ -156,13 +156,13 @@
                                 <input id="btn_armarGrafico_rangoEtario" type="button" class="btn btn-primary" value="Graficar" />
                             </div>
                             <div class="grupo_campos nueva_linea">
-                                <label>Agrupar por:</label>
+                               <%-- <label>Agrupar por:</label>--%>
                                 <div class="" autocomplete="off" style="margin-left: 50px;">
                                     <section>
 					                    <ul class="lista_filtros">
-						                    <li><input id="cb_SinAgrupar_rangoEtario" class="regular-checkbox filtros_rangoEtario" name="cb8" data-grafico="GraficoPorArea" type="checkbox"/><label for="cb_SinAgrupar">Sin Agrupar</label></li>
+						                    <%--<li><input id="cb_SinAgrupar_rangoEtario" class="regular-checkbox filtros_rangoEtario" name="cb8" data-grafico="GraficoPorArea" type="checkbox"/><label for="cb_SinAgrupar">Sin Agrupar</label></li>
                                             <li><input id="cb_Secretarias_rangoEtario" class="regular-checkbox filtros_rangoEtario" name="cb9" data-grafico="GraficoPorSecretarias" type="checkbox"/><label for="cb_Secretarias">Secretarías</label></li>
-						                    <li><input id="cb_SubSecretarias_rangoEtario" class="regular-checkbox filtros_rangoEtario" name="cb0" data-grafico="GraficoPorSubSecretarias" type="checkbox"/><label for="cb_SubSecretarias">Subsecretarias</label></li>
+						                    <li><input id="cb_SubSecretarias_rangoEtario" class="regular-checkbox filtros_rangoEtario" name="cb0" data-grafico="GraficoPorSubSecretarias" type="checkbox"/><label for="cb_SubSecretarias">Subsecretarias</label></li>--%>
 					                    </ul>
 			                        </section>
                                 </div>

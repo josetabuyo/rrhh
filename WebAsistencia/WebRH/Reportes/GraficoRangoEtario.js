@@ -33,7 +33,7 @@ var GraficoRangoEtario = {
         var alias = localStorage.getItem("alias");
 
         if (GraficoHerramientas.VerificarDatosObligatoriosParaBackend(fecha, check_seleccionado, id_area)) {
-            _this.ObtenerLosDatosDeRangoEtario(check_seleccionado, fecha, id_area, $("#chk_incluir_dependencias").is(":checked"), "Rango Etário por " + filtro + " del Área " + alias, "container_grafico_rangoEtario", "div_tabla_resultado_rangoEtario", "tabla_resultado_rangoEtario");
+            _this.ObtenerLosDatosDeRangoEtario(check_seleccionado, fecha, id_area, $("#chk_incluir_dependencias").is(":checked"), "Rango Etário del Área " + alias, "container_grafico_rangoEtario", "div_tabla_resultado_rangoEtario", "tabla_resultado_rangoEtario");
         }
     },
 
@@ -235,7 +235,7 @@ var GraficoRangoEtario = {
                         } break;
                 }
             }
-            titulo = "Detalle de Rango Etário del Área " + criterio;
+            titulo = "Detalle de Rango Etário del Área "; //+ criterio;
             //titulo = titulo + " del Área " + localStorage.getItem("alias");
             $('#lb_titulo_tabla_detalle_rangoEtario').text(titulo);
             _this.VisualizarTablaDetalle(true);
