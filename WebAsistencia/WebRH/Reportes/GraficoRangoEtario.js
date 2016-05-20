@@ -113,7 +113,7 @@ var GraficoRangoEtario = {
     DibujarElGrafico: function (datos_del_resumen, titulo, div_grafico) {
         var _this = this;
         var datos = this.CrearDatosDesdeElResumenParaArmarElGrafico(datos_del_resumen);
-        var categorias = _this.ObtenerCategorias(datos_del_resumen); 
+        var categorias = _this.ObtenerCategorias(datos_del_resumen);
 
         $('#' + div_grafico).highcharts({
             chart: {
@@ -200,16 +200,27 @@ var GraficoRangoEtario = {
             if (criterio == "Total") {
                 tabla_final = tabla;
             } else {
+                var fecha_menor = 0;
+                var fecha_mayor = 0;
                 switch (checks_activos[0]) {
                     case "GraficoPorArea":
-                        for (var i = 0; i < tabla.length; i++) {
-                            if (criterio.indexOf('-') > -1) {
-
+                        if (criterio.indexOf('-') > -1) {
+                            fecha_menor = parseInt(criterio.substring(0, 2));
+                            fecha_mayor = parseInt(criterio.substring(3, 5));
+                            for (var i = 0; i < tabla.length; i++) {
+                                if (tabla[i].EdadPersona >= fecha_menor && tabla[i].EdadPersona <= fecha_mayor) {
+                                    tabla_final.push(tabla[i]);
+                                }
                             }
-                            if (tabla[i].Area == criterio) {
-                                tabla_final.push(tabla[i]);
+                        } else {
+                            fecha_menor = parseInt(criterio.substring(1, 3));
+                            for (var i = 0; i < tabla.length; i++) {
+                                if (tabla[i].EdadPersona >= fecha_menor) {
+                                    tabla_final.push(tabla[i]);
+                                }
                             }
-                        } break;
+                        }
+                        break;
                     case "GraficoPorSecretarias":
                         for (var i = 0; i < tabla.length; i++) {
                             if (tabla[i].NombresubSecretaria == criterio) {
@@ -287,6 +298,7 @@ var GraficoRangoEtario = {
         columnas.push(new Columna("Area", { generar: function (un_registro) { return un_registro.Area } }));
         columnas.push(new Columna("NroDocumento", { generar: function (un_registro) { return un_registro.NroDocumento } }));
         columnas.push(new Columna("Apellido_Nombre", { generar: function (un_registro) { return (un_registro.Apellido + ", " + un_registro.Nombre) } }));
+        columnas.push(new Columna("Edad", { generar: function (un_registro) { return un_registro.EdadPersona } }));
         columnas.push(new Columna("Sexo", { generar: function (un_registro) { return un_registro.Sexo } }));
         columnas.push(new Columna("FechaNacimiento", { generar: function (un_registro) { return GraficoHerramientas.ConvertirFecha(un_registro.FechaNacimiento) } }));
         columnas.push(new Columna("Nivel", { generar: function (un_registro) { return un_registro.Nivel } }));
@@ -359,7 +371,7 @@ var GraficoRangoEtario = {
     },
     BuscadorDeTablaDetalle: function () {
         var options = {
-            valueNames: ['Area', 'NroDocumento', 'Apellido_Nombre', 'Sexo', 'Nivel', 'Grado', 'Planta', 'NivelEstudio', 'Titulo']
+            valueNames: ['Area', 'NroDocumento', 'Apellido_Nombre', 'Edad', 'Sexo', 'Nivel', 'Grado', 'Planta', 'NivelEstudio', 'Titulo']
         };
         var featureList = new List('div_tabla_detalle_rangoEtario', options);
     }
