@@ -256,11 +256,14 @@ namespace General
                 resumen.PorcentajeHombres = (float)subtotal_masculino * (float)100 / (float)subtotal;
                 resumen.PorcentajeMujeres = (float)subtotal_femenino * (float)100 / (float)subtotal;
             }
-            else {
+            else
+            {
                 resumen.PorcentajeHombres = 0;
                 resumen.PorcentajeMujeres = 0;
             }
-           
+            resumen.CantidadHombres = subtotal_masculino;
+            resumen.CantidadMujeres = subtotal_femenino;
+
             return resumen;
         }
 

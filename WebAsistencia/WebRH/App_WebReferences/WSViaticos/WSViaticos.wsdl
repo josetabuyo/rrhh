@@ -3985,6 +3985,8 @@
           <s:element minOccurs="1" maxOccurs="1" name="SumatoriaExtras" type="s:float" />
           <s:element minOccurs="1" maxOccurs="1" name="PrimedioExtras" type="s:float" />
           <s:element minOccurs="1" maxOccurs="1" name="MedianaExtras" type="s:float" />
+          <s:element minOccurs="1" maxOccurs="1" name="CantidadHombres" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CantidadMujeres" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="PorcentajeHombres" type="s:float" />
           <s:element minOccurs="1" maxOccurs="1" name="PorcentajeMujeres" type="s:float" />
         </s:sequence>
