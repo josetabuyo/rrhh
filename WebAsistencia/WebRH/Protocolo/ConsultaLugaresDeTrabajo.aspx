@@ -18,9 +18,13 @@
             <uc2:BarraMenu ID="BarraMenu" runat="server" UrlEstilos="../Estilos/" UrlImagenes="../Imagenes/" />
             <div id="ContenedorPrincipal" class="contenedor_principal contenedor_principal_consulta_protocolo">            
                 <legend>
-                    Listado de Lugares de Trabajo del Ministerio de Desarrollo Social de Nación                     
-                    <input type="text" id="search" class="search" placeholder="Buscar"/>     
+                    Listado de Lugares de Trabajo del Ministerio de Desarrollo Social de Nación  
+                    <div id=search_box>
+                        <input type="text" id="search" class="search" placeholder="Buscar"/>     
+                        <a href="#" id="exportar"><img src="excel_icon.png"/></a>      
+                    </div>     
                 </legend>  
+                
                 <div id="ContenedorPlanilla" runat="server">
  
                 </div>
@@ -50,6 +54,7 @@
 
     <script type="text/javascript" src="AdministradorDeLugaresDeTrabajo.js"></script>
     <script type="text/javascript" src="../Scripts/Area.js"></script>
+    <script type="text/javascript" src="../Scripts/underscore-min.js"></script>
     <script type="text/javascript" src="VistaDeArea.js"></script>
     <script type="text/javascript" src="VistaDeAsistente.js"></script>
     <script type="text/javascript" src="../SACC/Scripts/AdministradorDeMensajes.js"></script>
@@ -58,7 +63,10 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            var admin = new AdministradorDeLugaresDeTrabajo();
+            Backend.start(function () {
+                var admin = new AdministradorDeLugaresDeTrabajo();
+            });
+           
 
             //Estilos para ver coloreada la grilla en Internet Explorer
             $("tbody tr:even").css('background-color', '#E6E6FA');

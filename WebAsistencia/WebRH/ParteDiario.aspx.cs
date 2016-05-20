@@ -13,7 +13,7 @@ public partial class ParteDiario : System.Web.UI.Page
         Area area = (Area)Session["areaActual"];
         WSViaticosSoapClient s = new WSViaticosSoapClient();
         //WSViaticos.WSViaticos s = new WSViaticos.WSViaticos();
-        Persona[] personas = s.GetPersonas(area);
+        Persona[] personas = s.GetPersonas(area, 0);
         this.LArea.Text = area.Nombre;
         this.LFecha.Text = DateTime.Now.ToShortDateString();
 

@@ -1,5 +1,6 @@
 ﻿
 var lista_areas_del_usuario;
+
 var ContenedorGrilla;
 var mesSeleccionado;
 var anioSeleccionado;
@@ -52,7 +53,7 @@ var completarComboMeses = function () {
 
 
 var getAreasDDJJ = function (callback) {
-    Backend.GetAreasParaDDJJ104(mesSeleccionado, anioSeleccionado)
+    Backend.GetAreasParaDDJJ104(mesSeleccionado, anioSeleccionado, 0)
     .onSuccess(function (respuesta) {
         lista_areas_del_usuario = respuesta;
         callback();
@@ -70,11 +71,11 @@ var DibujarGrillaDDJJ = function () {
     grilla = new Grilla(
         [
             new Columna("Area", { generar: function (un_area) { return un_area.Nombre; } }),
-			new Columna("Cant. Personas", {
-			    generar: function (un_area) {
-			        return contarPersonasDelArea(un_area);
-			    }
-			}),
+//			new Columna("Cant. Personas", {
+//			    generar: function (un_area) {
+//			        return contarPersonasDelArea(un_area);
+//			    }
+//			}),
             new Columna("Estado", {
                 generar: function (un_area) {
                     var dec_jurada = un_area.DDJJ; //_.findWhere(un_area.DDJJ, { Mes: mesSeleccionado, Anio: anioSeleccionado });
@@ -89,6 +90,19 @@ var DibujarGrillaDDJJ = function () {
 
     grilla.CargarObjetos(lista_areas_del_usuario);
     grilla.DibujarEn(ContenedorGrilla);
+    BuscardoAreas();
+
+
+    $("#DivBotonExcel").empty();
+    var divBtnExportarExcel = $("#DivBotonExcel")
+    botonExcel = $("<input type='button'>");
+    botonExcel.val("Exportar a Excel");
+    botonExcel.click(function () {
+        BuscarExcel(mesSeleccionado, anioSeleccionado, 0);
+    });
+    divBtnExportarExcel.append(botonExcel);
+
+
     grilla.SetOnRowClickEventHandler(function () {
         return true;
     });
@@ -99,6 +113,7 @@ var contarPersonasDelArea = function (un_area) {
     _.forEach(un_area.AreasInformalesDependientes, function (area_informal) {
         cant_personas += area_informal.Personas.length;
     })
+
     return cant_personas;
 };
 
@@ -112,7 +127,7 @@ var GeneradorBotones = function () {
         var ContenedorBotones = $("<div>");
         var boton;
 
-        if (un_area.Personas.length > 0) {
+        //if (un_area.CantidadPersonas > 0) {
 
             var botonConsultar;
             botonConsultar = $("<input type='button'>");
@@ -124,7 +139,7 @@ var GeneradorBotones = function () {
             switch (estado) {
                 case 0:
                     boton = $("<input type='button'>");
-                    boton.val("Imprimir");
+                    boton.val("Generar e Imprimir");
                     boton.click(function () {
                         Generar_e_ImprimirDDJJ(un_area.Id);
                     });
@@ -137,7 +152,7 @@ var GeneradorBotones = function () {
                     });
                     break;
             }
-        }
+        //}
 
         ContenedorBotones.append(boton);
 
@@ -217,7 +232,7 @@ var DibujarFormularioDDJJ104 = function (un_area) {
         $(mesddjj).html(NombreMes(mesSeleccionado));
         $(anioddjj).html(anioSeleccionado);
         $(areadireccionddjj).html(un_area.Direccion);
-        $(areadependenciaddjj).html(un_area.AreaSuperior.Nombre);
+        //$(areadependenciaddjj).html(un_area.AreaSuperior.Nombre);
         $(areadireccionddjj).html(un_area.Direccion);
         var ddjj = un_area.DDJJ; //_.findWhere(un_area.DDJJ, { Anio: anioSeleccionado, Mes: mesSeleccionado });
         // pantalla_impresion.find("#nroddjj104").html("DDJJ Nro " + ddjj.Id);
@@ -254,9 +269,21 @@ var DibujarFormularioDDJJ104 = function (un_area) {
 //}
 
 var ConsultarDDJJ = function (idArea) {
-    var un_area = _.find(lista_areas_del_usuario, function (a) { return a.Id == idArea; });
 
-    DibujarGrillaPersonas(un_area, $("#ContenedorPersona", false));
+    $("#ContenedorPersona").empty();
+    spinner = new Spinner({ scale: 2 }).spin($("body")[0]);
+
+    Backend.GetAreasParaDDJJ104(mesSeleccionado, anioSeleccionado, idArea)
+    .onSuccess(function (respuesta) {
+        DibujarGrillaPersonas(respuesta[0], $("#ContenedorPersona", false));
+        spinner.stop();
+    })
+    .onError(function (error, as, asd) {
+        alertify.alert(error);
+    });
+
+    
+
 };
 
 //var GenerarDDJJ = function (idArea) {
@@ -274,39 +301,50 @@ var ConsultarDDJJ = function (idArea) {
 //};
 
 var Generar_e_ImprimirDDJJ = function (idArea) {
-    var un_area = _.find(lista_areas_del_usuario, function (a) { return a.Id == idArea; });
 
-    Backend.GenerarDDJJ104(un_area, mesSeleccionado, anioSeleccionado)
-    .onSuccess(function (ddjj) {
-        if (ddjj) {
-            //un_area.DDJJ.push(ddjj);
-            un_area.DDJJ = ddjj;
-            ImprimirDDJJ(idArea);
+    spinner = new Spinner({ scale: 2 }).spin($("body")[0]);
 
-            ContenedorGrilla.html("");
-            $("#ContenedorPersona").empty();
+    Backend.GetAreasParaDDJJ104(mesSeleccionado, anioSeleccionado, idArea)
+    .onSuccess(function (respuesta) {
 
-            spinner = new Spinner({ scale: 2 }).spin($("body")[0]);
+        Backend.GenerarDDJJ104(respuesta[0], mesSeleccionado, anioSeleccionado)
+        .onSuccess(function (ddjj) {
+            if (ddjj) {
+                //un_area.DDJJ.push(ddjj);
+                respuesta[0].DDJJ = ddjj;
+                ImprimirDDJJ(idArea);
 
-            getAreasDDJJ(function () {
                 ContenedorGrilla.html("");
-                DibujarGrillaDDJJ();
-                spinner.stop();
-            });            
-        }
+                $("#ContenedorPersona").empty();
+
+                
+
+                getAreasDDJJ(function () {
+                    ContenedorGrilla.html("");
+                    DibujarGrillaDDJJ();
+                    spinner.stop();
+                });
+            }
+        })
+        .onError(function (error, as, asd) {
+        alertify.alert(error);
+        });
     })
     .onError(function (error, as, asd) {
         alertify.alert(error);
     });
-
 };
 
 
 var ImprimirDDJJ = function (idArea) {
-    var un_area = _.find(lista_areas_del_usuario, function (a) { return a.Id == idArea; });
-    DibujarFormularioDDJJ104(un_area);
+    Backend.GetAreasParaDDJJ104(mesSeleccionado, anioSeleccionado, idArea)
+    .onSuccess(function (respuesta) {
+        DibujarFormularioDDJJ104(respuesta[0]);
+    })
+    .onError(function (error, as, asd) {
+        alertify.alert(error);
+    });
 };
-
 
 
 var DibujarGrillaPersonas = function (un_area, contenedor_grilla, es_impresion) {
@@ -387,6 +425,7 @@ var DibujarGrillaPersonas = function (un_area, contenedor_grilla, es_impresion) 
 
     //IMPRIMIR AREAS INFORMALES
     un_area.AreasInformalesDependientes.forEach(function (area_informal) {
+
         contenedor_grilla.append($("<br/>"));
         contenedor_grilla.append($("<div class='nombre_area_informal'><b>" + area_informal.Nombre + "<b/></div>"));
         var grilla_area_informal = new Grilla(
@@ -433,6 +472,7 @@ var DibujarGrillaPersonas = function (un_area, contenedor_grilla, es_impresion) 
                 }
             }
         }
+
         else {
             grilla_area_informal.CargarObjetos(area_informal.Personas);
         }
@@ -442,6 +482,16 @@ var DibujarGrillaPersonas = function (un_area, contenedor_grilla, es_impresion) 
         });
     });
 }
+
+
+function BuscardoAreas() {
+
+    var options = {
+        valueNames: ['Area', 'Estado']
+    };
+    var featureList = new List('grilla', options);
+};
+
 
 function NombreMes(num) {
     switch (num) {
@@ -461,3 +511,36 @@ function NombreMes(num) {
 
     return "";
 }
+
+
+
+ function BuscarExcel (mesSeleccionado, anioSeleccionado, idArea) {
+        var _this = this;
+
+        if (mesSeleccionado == null) {
+            return;
+        }
+
+        var resultado = Backend.ejecutarSincronico("ExcelDDJJ104", [{ mes: parseInt(mesSeleccionado), anio: parseInt(anioSeleccionado), id_area: parseInt(idArea)}]);
+
+        if (resultado.length > 0) {
+
+            var a = window.document.createElement('a');
+
+            a.href = "data:application/vnd.ms-excel;base64," + resultado;
+
+            a.download = "Areas_DDJJ104_" + mesSeleccionado + anioSeleccionado + "_.xlsx";
+            
+
+            // Append anchor to body.
+            document.body.appendChild(a)
+            a.click();
+
+
+            // Remove anchor from body
+            document.body.removeChild(a)
+
+
+        }
+        //   _this.GraficoYTabla(tipo, fecha, id_area, "Dotación por Nivel del Área aaa", "container_grafico_torta_totales", "div_tabla_resultado_totales", "tabla_resultado_totales");
+    }

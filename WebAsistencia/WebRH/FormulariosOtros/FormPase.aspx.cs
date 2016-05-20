@@ -15,7 +15,7 @@ public partial class FormPase : System.Web.UI.Page
             this.LFecha.Text = DateTime.Now.ToShortDateString();
             this.LNombre.Text = ((Persona)Session["personaPase"]).Apellido + ", " + ((Persona)Session["personaPase"]).Nombre;
             this.LDocumento.Text = ((Persona)Session["personaPase"]).Documento.ToString("###,###,##0");
-            this.LArea.Text = ((Area)Session["areaPase"]).Nombre;
+            this.LArea.Text = ((Area)Session["areaPase"]).Nombre.ToUpper();
         }
         catch (Exception)
         {
@@ -23,7 +23,7 @@ public partial class FormPase : System.Web.UI.Page
         }
         try
         {
-            this.LAreaEmisora.Text = ((Area)Session["areaActual"]).Nombre;
+            this.LAreaEmisora.Text = ((Area)Session["areaActual"]).Nombre.ToUpper();
         }
         catch (Exception)
         {

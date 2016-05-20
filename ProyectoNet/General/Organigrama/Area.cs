@@ -5,6 +5,7 @@
     using System.Text;
     using System.Data.SqlClient;
     using General;
+    using General.MAU;
 
     public class Area
     {
@@ -32,6 +33,9 @@
         public List<DatoDeContacto> DatosDeContacto;
         public Direccion DireccionCompleta { get; set; }
         public Responsable Responsable { get; set; }
+        public int CantidadDeUsuarios { get; set; }
+        public int Jerarquia { get; set; }
+        public int Orden { get; set; }
 
         public Area(int IdArea)
         {

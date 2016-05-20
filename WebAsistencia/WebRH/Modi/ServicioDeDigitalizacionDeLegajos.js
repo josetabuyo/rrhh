@@ -75,7 +75,7 @@ ServicioDeDigitalizacionDeLegajos.prototype.asignarImagenAFolioDeLegajo = functi
 };
 
 ServicioDeDigitalizacionDeLegajos.prototype.asignarImagenAFolioDeLegajoPasandoPagina = function (id_imagen, nro_folio, pagina, onSuccess) {
-    this.proveedor_ajax.postearAUrl({ url: "asignarImagenAFolioDeLegajoPasandoPagina",
+    this.proveedor_ajax.postearAUrl({ url: "AsignarImagenAFolioDeLegajoPasandoPagina",
         data: {
             id_imagen: id_imagen,
             nro_folio: nro_folio,

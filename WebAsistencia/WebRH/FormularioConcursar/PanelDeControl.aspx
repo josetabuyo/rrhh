@@ -53,6 +53,9 @@
             <p>Tambi&eacute;n podr&aacute;s encontrar en esta p&aacute;gina toda la informaci&oacute;n relativa al desarrollo y evoluci&oacute;n de tus postulaciones en los distintos llamados en los que participes, pudiendo consultar las Actas de los Comit&eacute;s y toda otra informaci&oacute;n que pudiera resultar de inter&eacute;s.</p>
             <p>Esperamos transformar este lugar en un instrumento din&aacute;mico de comunicaci&oacute;n, el cual ir&aacute; creciendo y evolucionando de acuerdo a la experiencia mutua de quienes integramos el Ministerio y, principalmente de quienes, como vos, nos aporten nuevas ideas y nos acerquen sus necesidades informativas para mejorar cada d&iacute;a en este gran desaf&iacute;o de gestionar personas y crear nuevas capacidades para un Estado moderno, inteligente y comprometido con la realidad actual.</p>
             <p>Por &uacute;ltimo, en el siguiente link podr&aacute;n encontrar el manual de introducci&oacute;n al sistema POSTULAR. En el encontrar&aacute;n toda la informaci&oacute;n necesaria para aprender a usar el m&oacute;dulo con todas sus opciones. <a href="http://www.plataformapersonas.com.ar/archivos/instructivo.pdf" target="_blank">Abrir Gu&iacute;a</a></p>
+        
+            <%--<img src="../Imagenes/underConstruccion.jpg" alt="actualizacion" width="400" height="400" />
+            <h1>El Sitio se encuentra en mantenimiento <br /> Estamos trabajando para usted <br />Disculpes las molestias ocasionadas </h1>--%>
         </div>
 
         <div style="float:right; " class="panel_derecho">
@@ -82,7 +85,7 @@
               </div>
             </div>
 
-        <!--</div>-->
+        </div>
     </div>
     <asp:HiddenField ID="postulaciones" runat="server" />
             </form>
