@@ -101,6 +101,7 @@
     <Compile Include="Calendario\CalculadorDeDias.cs" />
     <Compile Include="Calendario\Periodo.cs" />
     <Compile Include="Repositorios\RepositorioDeArchivos.cs" />
+    <Compile Include="SACC\Oficina.cs" />
     <Compile Include="Vehiculos\vehiculo.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="ConstantesDeDatosDeContacto.cs" />
