@@ -76,7 +76,7 @@ ServicioDeDigitalizacionDeLegajos.prototype.asignarImagenAFolioDeLegajo = functi
             onSuccess(orden);
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            Alertify.error("error al asignar imágen");
+            alertify.error("error al asignar imágen");
             _this.spinner.stop();
             PageHelper.habilitarInput();
         }
@@ -99,7 +99,7 @@ ServicioDeDigitalizacionDeLegajos.prototype.asignarImagenAFolioDeLegajoPasandoPa
             onSuccess();
         },
         error: function (error) {
-            Alertify.error("error al asignar imágen");
+            alertify.error("error al asignar imágen");
             _this.spinner.stop();
             PageHelper.habilitarInput();
         }
@@ -120,7 +120,7 @@ ServicioDeDigitalizacionDeLegajos.prototype.desAsignarImagen = function (id_imag
             onSuccess();
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            Alertify.error("error al des asignar imágen");
+            alertify.error("error al des asignar imágen");
             _this.spinner.stop();
             PageHelper.habilitarInput();
         }
@@ -143,7 +143,7 @@ ServicioDeDigitalizacionDeLegajos.prototype.agregarImagenSinAsignarAUnLegajo = f
             onSuccess(id_imagen);
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            Alertify.error("error al agregar imágen");
+            alertify.error("error al agregar imágen");
             _this.spinner.stop();
             PageHelper.habilitarInput();
         }
@@ -167,7 +167,7 @@ ServicioDeDigitalizacionDeLegajos.prototype.agregarImagenAUnFolioDeUnLegajo = fu
             onSuccess(id_imagen);
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            Alertify.error("error al agregar imágen");
+            alertify.error("error al agregar imágen");
             _this.spinner.stop();
             PageHelper.habilitarInput();
         }
