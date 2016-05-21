@@ -1,5 +1,6 @@
 ﻿var ServicioDeDigitalizacionDeLegajos = function (un_proveedor_ajax) {
     this.proveedor_ajax = un_proveedor_ajax;
+    this.spinner = new Spinner({ scale: 3 });
 };
 
 ServicioDeDigitalizacionDeLegajos.prototype.buscarLegajosParaDigitalizacion = function (criterio, on_legajo_encontrado, on_legajo_no_encontrado, on_error_de_comunicaciones) {
@@ -61,20 +62,31 @@ ServicioDeDigitalizacionDeLegajos.prototype.getImagenPorId = function (id_imagen
 };
 
 ServicioDeDigitalizacionDeLegajos.prototype.asignarImagenAFolioDeLegajo = function (id_imagen, nro_folio, onSuccess) {
+    var _this = this;
+    this.spinner.spin($("html")[0]);
+    PageHelper.deshabilitarInput();
     this.proveedor_ajax.postearAUrl({ url: "AsignarImagenAFolioDeLegajo",
         data: {
             id_imagen: id_imagen,
             nro_folio: nro_folio
         },
         success: function (orden) {
+            _this.spinner.stop();
+            PageHelper.habilitarInput();
             onSuccess(orden);
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
+            Alertify.error("error al asignar imágen");
+            _this.spinner.stop();
+            PageHelper.habilitarInput();
         }
     });
 };
 
 ServicioDeDigitalizacionDeLegajos.prototype.asignarImagenAFolioDeLegajoPasandoPagina = function (id_imagen, nro_folio, pagina, onSuccess) {
+    var _this = this;
+    this.spinner.spin($("html")[0]);
+    PageHelper.deshabilitarInput();
     this.proveedor_ajax.postearAUrl({ url: "AsignarImagenAFolioDeLegajoPasandoPagina",
         data: {
             id_imagen: id_imagen,
@@ -82,27 +94,43 @@ ServicioDeDigitalizacionDeLegajos.prototype.asignarImagenAFolioDeLegajoPasandoPa
             pagina: pagina
         },
         success: function () {
+            _this.spinner.stop();
+            PageHelper.habilitarInput();
             onSuccess();
         },
         error: function (error) {
+            Alertify.error("error al asignar imágen");
+            _this.spinner.stop();
+            PageHelper.habilitarInput();
         }
     });
 };
 
 ServicioDeDigitalizacionDeLegajos.prototype.desAsignarImagen = function (id_imagen, onSuccess) {
+    var _this = this;
+    this.spinner.spin($("html")[0]);
+    PageHelper.deshabilitarInput();
     this.proveedor_ajax.postearAUrl({ url: "DesAsignarImagen",
         data: {
             id_imagen: id_imagen
         },
         success: function (imagen) {
+            _this.spinner.stop();
+            PageHelper.habilitarInput();
             onSuccess();
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
+            Alertify.error("error al des asignar imágen");
+            _this.spinner.stop();
+            PageHelper.habilitarInput();
         }
     });
 };
 
 ServicioDeDigitalizacionDeLegajos.prototype.agregarImagenSinAsignarAUnLegajo = function (id_interna, nombre_imagen, bytes_imagen, onSuccess) {
+    var _this = this;
+    this.spinner.spin($("html")[0]);
+    PageHelper.deshabilitarInput();
     this.proveedor_ajax.postearAUrl({ url: "AgregarImagenSinAsignarAUnLegajo",
         data: {
             id_interna: id_interna,
@@ -110,14 +138,22 @@ ServicioDeDigitalizacionDeLegajos.prototype.agregarImagenSinAsignarAUnLegajo = f
             bytes_imagen: bytes_imagen
         },
         success: function (id_imagen) {
+            _this.spinner.stop();
+            PageHelper.habilitarInput();
             onSuccess(id_imagen);
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
+            Alertify.error("error al agregar imágen");
+            _this.spinner.stop();
+            PageHelper.habilitarInput();
         }
     });
 };
 
 ServicioDeDigitalizacionDeLegajos.prototype.agregarImagenAUnFolioDeUnLegajo = function (id_interna, numero_folio, nombre_imagen, bytes_imagen, onSuccess) {
+    var _this = this;
+    this.spinner.spin($("html")[0]);
+    PageHelper.deshabilitarInput();
     this.proveedor_ajax.postearAUrl({ url: "AgregarImagenAUnFolioDeUnLegajo",
         data: {
             id_interna: id_interna,
@@ -126,9 +162,14 @@ ServicioDeDigitalizacionDeLegajos.prototype.agregarImagenAUnFolioDeUnLegajo = fu
             numero_folio: numero_folio
         },
         success: function (id_imagen) {
+            _this.spinner.stop();
+            PageHelper.habilitarInput();
             onSuccess(id_imagen);
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
+            Alertify.error("error al agregar imágen");
+            _this.spinner.stop();
+            PageHelper.habilitarInput();
         }
     });
 };
