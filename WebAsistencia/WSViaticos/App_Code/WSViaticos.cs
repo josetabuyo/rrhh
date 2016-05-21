@@ -66,6 +66,12 @@ public class WSViaticos : System.Web.Services.WebService
     //    var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas(), Autorizador());
     //    return responsableDDJJ.AreasSinDDJJInferioresA(area).ToArray(); 
     //}
+    [WebMethod]
+    public int DiasHabilesEntreFechas(DateTime desde, DateTime hasta)
+    {
+        var repo = new RepositorioLicencias(Conexion());
+        return repo.DiasHabilesEntreFechas(desde, hasta);
+    }
 
     [WebMethod]
     public AreaParaDDJJ104[] GetAreasParaDDJJ104(int mes, int anio, int id_area, Usuario usuario)
@@ -244,6 +250,23 @@ public class WSViaticos : System.Web.Services.WebService
          int id_area = (int)((JValue)criterio_deserializado["id_area"]);
         RepositorioDeReportes repositorio = new RepositorioDeReportes(Conexion());
         return repositorio.GetGraficoDotacion(tipo, fecha, id_area, incluir_dependencias);
+
+    }
+
+    [WebMethod]
+    public GraficoRangoEtario GetGraficoRangoEtario(string criterio, Usuario usuario)
+    {
+
+        var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
+        string tipo = ((JValue)criterio_deserializado["tipo"]).ToString();
+        int dia = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(0, 2)));
+        int mes = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(3, 2)));
+        int anio = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(6, 4)));
+        bool incluir_dependencias = (bool)((JValue)criterio_deserializado["incluir_dependencias"]);
+        DateTime fecha = new DateTime(anio, mes, dia);
+        int id_area = (int)((JValue)criterio_deserializado["id_area"]);
+        RepositorioDeReportes repositorio = new RepositorioDeReportes(Conexion());
+        return repositorio.GetGraficoRangoEtario(tipo, fecha, id_area, incluir_dependencias);
 
     }
 
