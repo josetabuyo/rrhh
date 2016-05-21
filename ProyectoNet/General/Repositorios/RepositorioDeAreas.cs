@@ -467,7 +467,7 @@ namespace General.Repositorios
             var tablaDatos_aux = conexion.Ejecutar("dbo.ESTR_Get_Oficina_AUX", parametros);
             tablaDatos_aux.Rows.ForEach(row =>
             {
-                Combo opcion = new Combo(indice_auxiliar + row.GetSmallintAsInt("Id_Oficina"), row.GetString("Oficina"));
+                Combo opcion = new Combo(indice_auxiliar + row.GetSmallintAsInt("Id"), "Piso:" + row.GetString("Piso") + " ,Ofic:" + row.GetString("Dpto") + " ,UF:" + row.GetString("UF"));
                 combo.Add(opcion);
             });
             return combo;
