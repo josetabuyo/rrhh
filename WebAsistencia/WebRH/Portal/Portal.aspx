@@ -31,7 +31,7 @@
 			                <div class="ch-info">
 				                <div class="ch-info-front ch-img-1"></div>
 				                <div class="ch-info-back">
-					                <h3 style="font-size: 0.5em;text-align: center;margin-top: 10px;">DATOS PERSONALES</h3>
+					                <h3 style="margin-top:10px;">DATOS PERSONALES</h3>
 				                </div>	
 			                </div>
 		                </div>
@@ -44,7 +44,7 @@
 			            <div class="ch-info">
 				            <div class="ch-info-front ch-img-1"></div>
 				            <div class="ch-info-back">
-					            <h3 style="font-size: 0.5em;text-align: center;margin-top: 30px;">ESTUDIOS</h3>
+					            <h3>ESTUDIOS</h3>
 				            </div>	
 			            </div>
 		            </div>
@@ -59,7 +59,7 @@
 			            <div class="ch-info">
 				            <div class="ch-info-front ch-img-1"></div>
 				            <div class="ch-info-back">
-					            <h3 style="font-size: 0.5em;text-align: center;margin-top: 30px;">LICENCIAS</h3>
+					            <h3>LICENCIAS</h3>
 				            </div>	
 			            </div>
 		            </div>
@@ -74,7 +74,7 @@
 			            <div class="ch-info">
 				            <div class="ch-info-front ch-img-1"></div>
 				            <div class="ch-info-back">
-					            <h3 style="font-size: 0.4em;text-align: center;margin-top: 30px;">NOTIFICACIONES</h3>
+					            <h3 style="font-size: 0.4em;">NOTIFICACIONES</h3>
 				            </div>	
 			            </div>
 		            </div>
@@ -89,7 +89,7 @@
 			            <div class="ch-info">
 				            <div class="ch-info-front ch-img-1"></div>
 				            <div class="ch-info-back">
-					            <h3 style="font-size: 0.4em;text-align: center;margin-top: 30px;">CAPACITACIONES</h3>
+					            <h3 style="font-size: 0.4em;">CAPACITACIONES</h3>
 				            </div>	
 			            </div>
 		            </div>
@@ -104,7 +104,7 @@
 			            <div class="ch-info">
 				            <div class="ch-info-front ch-img-1"></div>
 				            <div class="ch-info-back">
-					            <h3 style="font-size: 0.5em;text-align: center;margin-top: 30px;">BENEFICIOS</h3>
+					            <h3>BENEFICIOS</h3>
 				            </div>	
 			            </div>
 		            </div>
@@ -124,7 +124,7 @@
 			            <div class="ch-info">
 				            <div class="ch-info-front ch-img-1"></div>
 				            <div class="ch-info-back">
-					            <h3 style="font-size: 0.5em;text-align: center;margin-top: 30px;">VIÁTICOS</h3>
+					            <h3>VIÁTICOS</h3>
 				            </div>	
 			            </div>
 		            </div>
@@ -135,7 +135,7 @@
 			            <div class="ch-info">
 				            <div class="ch-info-front ch-img-1"></div>
 				            <div class="ch-info-back">
-					            <h3 style="font-size: 0.5em;text-align: center;margin-top: 30px;">PERFIL</h3>
+					            <h3>PERFIL</h3>
 				            </div>	
 			            </div>
 		            </div>
