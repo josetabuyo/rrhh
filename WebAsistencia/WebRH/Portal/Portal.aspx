@@ -31,7 +31,7 @@
 			                <div class="ch-info">
 				                <div class="ch-info-front ch-img-1"></div>
 				                <div class="ch-info-back">
-					                <h3 style="font-size: 12px;text-align: center;margin-top: 10px;">DATOS PERSONALES</h3>
+					                <h3 style="font-size: 0.5em;text-align: center;margin-top: 10px;">DATOS PERSONALES</h3>
 				                </div>	
 			                </div>
 		                </div>
@@ -39,34 +39,112 @@
 	                </div>
                     
                <%-- </div>--%>
-                <div class="item estudios test" data-toggle="tooltip" data-placement="right" title="ESTUDIOS">
-                    <%--<img src="../Imagenes/portal/bg_home.png" alt="" width="199" height="199" class="circle"/>--%>
+               <div class="ch-item ch-img-1 item estudios test">				
+		            <div class="ch-info-wrap">
+			            <div class="ch-info">
+				            <div class="ch-info-front ch-img-1"></div>
+				            <div class="ch-info-back">
+					            <h3 style="font-size: 0.5em;text-align: center;margin-top: 30px;">ESTUDIOS</h3>
+				            </div>	
+			            </div>
+		            </div>
+                    <a href="#" class="icon "  ></a>
+	            </div>
+                <%--<div class="item estudios test" data-toggle="tooltip" data-placement="right" title="ESTUDIOS">
+                    <%--<img src="../Imagenes/portal/bg_home.png" alt="" width="199" height="199" class="circle"/>
                     <a href="#" class="icon"></a>
-                </div>
-                <div class="item licencias" data-toggle="tooltip" data-placement="right" title="LICENCIAS">
-                    <%--<img src="../Imagenes/portal/bg_shop.png" alt="" width="199" height="199" class="circle"/>--%>
+                </div>--%>
+                <div class="ch-item ch-img-1 item licencias test">				
+		            <div class="ch-info-wrap">
+			            <div class="ch-info">
+				            <div class="ch-info-front ch-img-1"></div>
+				            <div class="ch-info-back">
+					            <h3 style="font-size: 0.5em;text-align: center;margin-top: 30px;">LICENCIAS</h3>
+				            </div>	
+			            </div>
+		            </div>
+                    <a href="#" class="icon "  ></a>
+	            </div>
+                <%--<div class="item licencias" data-toggle="tooltip" data-placement="right" title="LICENCIAS">
+                    <%--<img src="../Imagenes/portal/bg_shop.png" alt="" width="199" height="199" class="circle"/>
                     <a href="#" class="icon"></a>
-                </div>
-                <div class="item notificaciones" data-toggle="tooltip" data-placement="right" title="NOTIFICACIONES">
-                    <%--<img src="../Imagenes/portal/bg_camera.png" alt="" width="199" height="199" class="circle"/>--%>
+                </div>--%>
+                <div class="ch-item ch-img-1 item notificaciones test">				
+		            <div class="ch-info-wrap">
+			            <div class="ch-info">
+				            <div class="ch-info-front ch-img-1"></div>
+				            <div class="ch-info-back">
+					            <h3 style="font-size: 0.4em;text-align: center;margin-top: 30px;">NOTIFICACIONES</h3>
+				            </div>	
+			            </div>
+		            </div>
+                    <a href="#" class="icon "  ></a>
+	            </div>
+                <%--<div class="item notificaciones" data-toggle="tooltip" data-placement="right" title="NOTIFICACIONES">
+                    <%--<img src="../Imagenes/portal/bg_camera.png" alt="" width="199" height="199" class="circle"/>
                     <a href="#" class="icon"></a>
-                </div>
-                <div class="item capacitaciones" data-toggle="tooltip" data-placement="right" title="CAPACITACIONES">
-                   <%-- <img src="../Imagenes/portal/bg_fav.png" alt="" width="199" height="199" class="circle"/>--%>
+                </div>--%>
+                <div class="ch-item ch-img-1 item capacitaciones test">				
+		            <div class="ch-info-wrap">
+			            <div class="ch-info">
+				            <div class="ch-info-front ch-img-1"></div>
+				            <div class="ch-info-back">
+					            <h3 style="font-size: 0.4em;text-align: center;margin-top: 30px;">CAPACITACIONES</h3>
+				            </div>	
+			            </div>
+		            </div>
+                    <a href="#" class="icon "  ></a>
+	            </div>
+                <%--<div class="item capacitaciones" data-toggle="tooltip" data-placement="right" title="CAPACITACIONES">
+                   <%-- <img src="../Imagenes/portal/bg_fav.png" alt="" width="199" height="199" class="circle"/>
                     <a href="#" class="icon"></a>
-                </div>
-                <div class="item beneficios" data-toggle="tooltip" data-placement="right" title="BENEFICIOS">
-                    <%--<img src="../Imagenes/portal/bg_fav.png" alt="" width="199" height="199" class="circle"/>--%>
+                </div>--%>
+                <div class="ch-item ch-img-1 item beneficios test">				
+		            <div class="ch-info-wrap">
+			            <div class="ch-info">
+				            <div class="ch-info-front ch-img-1"></div>
+				            <div class="ch-info-back">
+					            <h3 style="font-size: 0.5em;text-align: center;margin-top: 30px;">BENEFICIOS</h3>
+				            </div>	
+			            </div>
+		            </div>
+                    <a href="#" class="icon "  ></a>
+	            </div>
+               <%-- <div class="item beneficios" data-toggle="tooltip" data-placement="right" title="BENEFICIOS">
+                    <%--<img src="../Imagenes/portal/bg_fav.png" alt="" width="199" height="199" class="circle"/>
                     <a href="#" class="icon"></a>
-                </div>
-                <div class="item viaticos" data-toggle="tooltip" data-placement="right" title="VIÁTICOS">
-                   <%-- <img src="../Imagenes/portal/bg_fav.png" alt="" width="199" height="199" class="circle"/>--%>
+                </div>--%>
+
+               <%-- <div class="item viaticos" data-toggle="tooltip" data-placement="right" title="VIÁTICOS">
+                   <%-- <img src="../Imagenes/portal/bg_fav.png" alt="" width="199" height="199" class="circle"/>
                     <a href="#" class="icon"></a>
-                </div>
-                <div class="item perfil" data-toggle="tooltip" data-placement="right" title="PERFIL">
-                    <%--<img src="../Imagenes/portal/bg_fav.png" alt="" width="199" height="199" class="circle"/>--%>
+                </div>--%>
+                <div class="ch-item ch-img-1 item viaticos test">				
+		            <div class="ch-info-wrap">
+			            <div class="ch-info">
+				            <div class="ch-info-front ch-img-1"></div>
+				            <div class="ch-info-back">
+					            <h3 style="font-size: 0.5em;text-align: center;margin-top: 30px;">VIÁTICOS</h3>
+				            </div>	
+			            </div>
+		            </div>
+                    <a href="#" class="icon "  ></a>
+	            </div>
+                <div class="ch-item ch-img-1 item perfil test">				
+		            <div class="ch-info-wrap">
+			            <div class="ch-info">
+				            <div class="ch-info-front ch-img-1"></div>
+				            <div class="ch-info-back">
+					            <h3 style="font-size: 0.5em;text-align: center;margin-top: 30px;">PERFIL</h3>
+				            </div>	
+			            </div>
+		            </div>
+                    <a href="#" class="icon "  ></a>
+	            </div>
+               <%-- <div class="item perfil" data-toggle="tooltip" data-placement="right" title="PERFIL">
+                    <%--<img src="../Imagenes/portal/bg_fav.png" alt="" width="199" height="199" class="circle"/>
                     <a href="#" class="icon"></a>
-                </div>
+                </div>--%>
 
             </div>
 

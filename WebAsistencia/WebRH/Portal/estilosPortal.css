@@ -178,7 +178,12 @@ a.icon{
     /*background-position:0px -52px;*/
 }
 
-
+@media screen and (max-width: 519px) and (min-width: 240px) {
+   .navigation{
+        top: 0px;
+        left: -510px;
+    }
+}
 
 @media screen and (max-width: 900px) and (min-width: 520px) {
    .navigation{
@@ -325,7 +330,7 @@ a.icon{
 .ch-info .ch-info-back {
 	opacity: 0;
 	/*background: #223e87;*/
-	background: rgba(0, 0, 0, 0.4);
+	background: rgba(0, 0, 0, 0.8);
 	pointer-events: none;
 	transform: scale(1.5);
 	transition: all 0.4s ease-in-out 0.2s;
