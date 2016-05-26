@@ -168,7 +168,7 @@
     },
     //Configuracion Inicial
 
-    CompletarDatosArea: function (area) {
+        CompletarDatosArea: function (area) {
         $("#txt_nombre_apellido").val(area.Responsable.NombreApellido);
         $("#txt_NroDocumento").val(area.Responsable.Documento);
         $("#txt_IdInterna").val(area.Responsable.IdInterna);
@@ -178,10 +178,13 @@
         $("#txt_Piso").val(area.DireccionCompleta.Piso);
         $("#txt_Oficina").val(area.DireccionCompleta.Dto);
         $("#txt_UF").val(area.DireccionCompleta.UF);
-        $("#txt_Localidad").val(area.DireccionCompleta.Localidad.Nombre);
-        $("#txt_CodigoPostal").val(area.DireccionCompleta.Localidad.CodigoPostal);
-        $("#txt_Partido").val(area.DireccionCompleta.Localidad.NombrePartido);
-        $("#txt_Provincia").val(area.DireccionCompleta.Localidad.NombreProvincia);
+        if (area.DireccionCompleta.Localidad != null) {
+            $("#txt_Localidad").val(area.DireccionCompleta.Localidad.Nombre);
+            $("#txt_CodigoPostal").val(area.DireccionCompleta.Localidad.CodigoPostal);
+            $("#txt_Partido").val(area.DireccionCompleta.Localidad.NombrePartido);
+            $("#txt_Provincia").val(area.DireccionCompleta.Localidad.NombreProvincia);
+        }
+      
         
 
     },

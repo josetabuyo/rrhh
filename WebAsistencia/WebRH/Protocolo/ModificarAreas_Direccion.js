@@ -77,7 +77,10 @@
     CargarCombos: function () {
         //        this.CargarComboProvincia();
         //        this.CargarComboLocalidad(area.DireccionCompleta.Localidad.IdProvincia);
-        this.CargarComboEdificio(area.DireccionCompleta.IdEdificio, area.DireccionCompleta.Localidad.Id);
+        if (area.DireccionCompleta.Localidad != null) {
+            this.CargarComboEdificio(area.DireccionCompleta.IdEdificio, area.DireccionCompleta.Localidad.Id);
+        }
+
         this.CargarComboOficina(area.DireccionCompleta.IdOficina, area.DireccionCompleta.IdEdificio);
     },
 
@@ -283,9 +286,12 @@
 
     //SETTEAR DATOS
     SettearValores: function (direccion) {
-        $("#txt_direccion_CodigoPostal").val(direccion.Localidad.CodigoPostal);
-        $("#txt_direccion_Partido").val(direccion.Localidad.NombrePartido);
-        $("#txt_direccion_Provincia").val(direccion.Localidad.NombreProvincia);
+        if (direccion.Localidad != null) {
+            $("#txt_direccion_CodigoPostal").val(direccion.Localidad.CodigoPostal);
+            $("#txt_direccion_Partido").val(direccion.Localidad.NombrePartido);
+            $("#txt_direccion_Provincia").val(direccion.Localidad.NombreProvincia);
+        }
+       
 
         $("#txt_direccion_Calle").val(direccion.Calle);
         $("#txt_direccion_Nro").val(direccion.Numero);
@@ -302,10 +308,12 @@
 
         $('#cmb_oficina_edificio').val(direccion.IdEdificio).change();
 
-        $("#cmb_edificio_provincia").val(direccion.Localidad.NombreProvincia);
-        $("#cmb_edificio_localidad").val(direccion.Localidad.CodigoPostal);
+        if (direccion.Localidad != null) {
+            $("#cmb_edificio_provincia").val(direccion.Localidad.NombreProvincia);
+            $("#cmb_edificio_localidad").val(direccion.Localidad.CodigoPostal);
+            $("#txt_oficina_codigopostal").val(direccion.Localidad.CodigoPostal);
+        }    
         $("#txt_edificio_calle").val(direccion.Calle);
-        $("#txt_oficina_codigopostal").val(direccion.Localidad.CodigoPostal);
         $("#txt_edificio_numero").val(direccion.Numero);
 
     },
