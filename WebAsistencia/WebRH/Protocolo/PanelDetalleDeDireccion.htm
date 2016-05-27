@@ -13,7 +13,7 @@
                     <label for="Localidad" style="margin-left: 14px;">
                         Localidad:
                     </label>
-                    <select id="cmb_direccion_localidad" style="width: 285px;" data-validar="esNoBlanco"
+                    <select id="cmb_direccion_localidad" style="width: 285px;" data-validar="haySeleccionEnCombo"
                         disabled>
                     </select>
                 </div>
@@ -36,7 +36,7 @@
                 <div id="div_x_edificio" class="grupo_campos nueva_linea">
                     <label for="Provincia" style="margin-left: 27px;">
                         Edificio:</label>
-                    <select id="cmb_direccion_edificio" style="width: 201px;" data-validar="esNoBlanco">
+                    <select id="cmb_direccion_edificio" style="width: 201px;" data-validar="haySeleccionEnCombo">
                     </select>
                     <!-- <input type="button" class="btn btn-primary" style="margin: 0px 10px 10px;" id="btn_nuevo_edificio"
                         value="Agregar nuevo Edificio" />-->
@@ -44,7 +44,7 @@
                 <div id="div_x_oficina" class="grupo_campos nueva_linea">
                     <label for="Provincia" style="margin-left: 29px;">
                         Oficina:</label>
-                    <select id="cmb_direccion_oficina" style="width: 201px;" data-validar="esNoBlanco">
+                    <select id="cmb_direccion_oficina" style="width: 201px;" data-validar="haySeleccionEnCombo">
                     </select>
                     <input type="button" class="btn btn-primary" style="margin: -44px 73px 10px;" id="btn_nueva_oficina_edificio"
                         value="Agregar nueva Oficina / Edificio" />
@@ -100,7 +100,7 @@
                 <div id="div3" class="grupo_campos nueva_linea">
                     <label for="Provincia" style="margin-left: 13px;">
                         Edificio:</label>
-                    <select id="cmb_oficina_edificio" style="width: 326px;" data-validar="esNoBlanco">
+                    <select id="cmb_oficina_edificio" style="width: 326px;" data-validar="haySeleccionEnCombo">
                     </select>
                     <input type="button" class="btn btn-primary" style="margin: 0px 30px 10px;" id="btn_nuevo_edificio"
                         value="Agregar nuevo Edificio" />
@@ -136,7 +136,7 @@
                 <div id="div2" class="grupo_campos">
                     <label for="CodigoPostal">
                         Código Postal:</label>
-                    <input id="txt_oficina_codigopostal" type="text" style="width: 75px;" data-validar="esNumeroNatural" />
+                    <input id="txt_oficina_codigopostal" type="text" style="width: 75px;" data-validar="esNumeroNaturalSinCero,esNoBlanco" />
                 </div>
                 <div id="div8" class="grupo_campos">
                     <input type="button" class="btn btn-primary" style="margin-left: 100px;" id="bnt_buscar_localidad"
@@ -146,7 +146,7 @@
                     <label for="Provincia" style="margin-left: 25px;">
                         Provincia:
                     </label>
-                    <select id="cmb_edificio_provincia" style="width: 323px;" data-validar="esNoBlanco"
+                    <select id="cmb_edificio_provincia" style="width: 323px;" data-validar="haySeleccionEnCombo"
                         disabled>
                     </select>
                 </div>
@@ -154,7 +154,7 @@
                     <label for="Localidad" style="margin-left: 25px;">
                         Localidad:
                     </label>
-                    <select id="cmb_edificio_localidad" style="width: 323px;" data-validar="esNoBlanco"
+                    <select id="cmb_edificio_localidad" style="width: 323px;" data-validar="haySeleccionEnCombo"
                         disabled>
                     </select>
                 </div>
@@ -169,7 +169,7 @@
                         Nro:
                     </label>
                     <input id="txt_edificio_numero" type="text" style="width: 50px; margin-left: 5px;"
-                        data-validar="esNumeroNatural" />
+                        data-validar="esNumeroNaturalSinCero,esNoBlanco" />
                 </div>
                 <div class="btn-fld nueva_linea">
                     <input type="button" class="btn btn-primary" id="btn_guardar_edificio" value="Guardar Edificio" />
