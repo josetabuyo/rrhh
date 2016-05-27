@@ -8,6 +8,11 @@ body{
     background:url(../Imagenes/portal/background_portal_empleado.jpg) no-repeat #003E67;
     overflow-x:hidden;
 }
+
+#barra_menu_contenedor_imagen 
+{
+    margin-top:5px;
+    }
 .title{
     width:548px;
     height:119px;
@@ -31,14 +36,14 @@ a.back{
 
 .navigation{
     margin: 0px auto;
-    font-family: "Trebuchet MS", sans-serif;
+    font-family: Arial, sans-serif;
     font-size: 24px;
     font-style: normal;
     font-weight: bold;
     letter-spacing: 1.4px;
     position:relative;
-    top: 0px;
-    left:40px;
+    top: 30px;
+    left:60px;
     
 }
 .navigation .item{
@@ -65,13 +70,6 @@ a.back{
     filter: alpha(opacity=100);
 }
 
-
-
-.fondo 
-{
- 
-    }
-
 .principal 
 {
     position: relative;
@@ -82,59 +80,35 @@ a.back{
     
  
 .datosPersonales{
-    /*top: 85px;
-    left: 650px;*/
-    
     top: 60px;
     left: 660px;
 }
 .estudios{
-   /* top: 130px;
-    left: 750px;*/
-    
     top: 110px;
     left: 790px;
 }
 .licencias{
-  /*  top: 230px;
-    left: 795px;*/
-    
     top: 240px;
     left: 840px;
 }
 .notificaciones{
-   /* top: 335px;
-    left: 755px;*/
-    
     top: 370px;
     left: 788px;
 }
 .capacitaciones{
-   /* top: 375px;
-    left: 650px;*/
-    
     top: 420px;
     left: 658px;
 }
 .beneficios{
-   /* top: 335px;
-    left: 550px;*/
-    
     top: 367px;
     left: 533px;
 }
 .viaticos{
-   /* top: 230px;
-    left: 510px;*/
-    
-        top: 240px;
+    top: 240px;
     left: 480px;
 }
 .perfil{
-    /*top: 130px;
-    left: 550px;*/
-    
-        top: 110px;
+    top: 110px;
     left: 530px;
 }
 
@@ -160,7 +134,7 @@ a.icon{
     background:transparent url(../Imagenes/portal/licencias.png) no-repeat 0px 0px;
 }
 .notificaciones a.icon{
-    background:transparent url(../Imagenes/portal/notificaciones1.png) no-repeat 0px 0px;
+    background:transparent url(../Imagenes/portal/notificaciones.png) no-repeat 0px 0px;
 }
 .capacitaciones a.icon{
     background:transparent url(../Imagenes/portal/capacitacion.png) no-repeat 0px 0px;
@@ -180,14 +154,14 @@ a.icon{
 
 @media screen and (max-width: 519px) and (min-width: 240px) {
    .navigation{
-        top: 0px;
+        top: 30px;
         left: -510px;
     }
 }
 
 @media screen and (max-width: 900px) and (min-width: 520px) {
    .navigation{
-        top: 0px;
+        top: 30px;
         left: -390px;
     }
     
@@ -199,7 +173,7 @@ a.icon{
 
 @media screen and (max-width: 1200px) and (min-width: 901px) {
    .navigation{
-        top: 0px;
+        top: 30px;
         left: -110px;
     }
 }
@@ -293,10 +267,13 @@ a.icon{
 	position: relative;
 	box-shadow: 0 1px 2px rgba(0,0,0,0.1);
 	cursor: default;
+	
+	-webkit-box-shadow: -13px 13px 11px 0px rgba(50, 50, 50, 0.6);
+    -moz-box-shadow:    -13px 13px 11px 0px rgba(50, 50, 50, 0.6);
+    box-shadow:         -13px 13px 11px 0px rgba(50, 50, 50, 0.6);
 }
 
-.ch-info-wrap, 
-.ch-info{
+.ch-info-wrap, .ch-info{
 	position: absolute;
 	width: 90px;
 	height: 90px;
@@ -309,7 +286,7 @@ a.icon{
 	background: #f9f9f9 url(../Imagenes/portal/bg.jpg);
 	box-shadow: 
 		0 0 0 20px rgba(255,255,255,0.2), 
-		inset 0 0 3px rgba(115,114, 23, 0.8);
+		inset 0 0 3px rgba(115,114, 23, 1);
 	
 
 }
@@ -324,16 +301,17 @@ a.icon{
 }
 
 .ch-info .ch-info-front {
-	transition: all 0.6s ease-in-out;
+	transition: all 0.3s ease-in-out;
 }
 
 .ch-info .ch-info-back {
 	opacity: 0;
 	/*background: #223e87;*/
-	background: rgba(0, 0, 0, 0.8);
+	
+	background: rgb(28, 36, 49);
 	pointer-events: none;
 	transform: scale(1.5);
-	transition: all 0.4s ease-in-out 0.2s;
+	transition: all 0.2s ease-in-out 0.2s;
 }
 
 .ch-item:hover .ch-info-front {
@@ -354,5 +332,67 @@ a.icon{
     font-size: 0.5em;
     text-align: center;
     margin-top: 30px;
+}
+
+
+/*3D PANTALLA INCIIAL */
+
+.ch-info-wrap_3d{
+	position: absolute;
+	width: 250px;
+	height: 250px;
+	border-radius: 50%;
+	perspective: 800px;
+	transition: all 0.4s ease-in-out;
+    top: 180px;
+    left: 600px;
+    z-index:9;
+	background: #f9f9f9 url(../Imagenes/portal/portal_empleado.png);
+	box-shadow: 
+		0 0 0 0 rgba(255,255,255,0.8), 
+		inset 0 0 3px rgba(115,114, 23, 0.8);
+
+}
+
+.ch-info_3d{
+	position: absolute;
+    width: 250px;
+    height: 250px;
+	border-radius: 50%;
+	transition: all 0.4s ease-in-out;
+	transform-style: preserve-3d;
+}
+
+.ch-info_3d > div {
+	display: block;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	background-position: center center;
+	backface-visibility: hidden;
+}
+
+.ch-info_3d .ch-info-back_3d {
+	transform: rotate3d(0,1,0,180deg);
+	/*background: #000;*/
+	background-image: url(../Imagenes/portal/portal_empleado.png);
+}
+
+.ch-img-1_3d { 
+	/*background-image: url(../Imagenes/portal/portal_empleado.png);*/
+}
+
+.ch-item_3d:hover .ch-info-wrap_3d 
+{
+    box-shadow: 
+		0 0 0 20px rgba(255,255,255,0.2), 
+		inset 0 0 3px rgba(115,114, 23, 0.8);
+	
+		/*background-image: url(../Imagenes/portal/portal_empleado.png);*/
+}
+
+.ch-item_3d:hover .ch-info_3d {
+	transform: rotate3d(0,1,0,-180deg);
 }
 

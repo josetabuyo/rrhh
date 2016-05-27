@@ -17,11 +17,23 @@
     </head>
 <body>
     <form id="form1" runat="server">
-    <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold; padding-top:20px;'>PORTAL</span> <br/> " UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
+    <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:18px; font-weight: bold; padding-top:25px;'>Portal<br/> del Empleado</span> <br/> " UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <div id="content">
 
             <div class="navigation ch-grid" id="nav">
-                <img src="../Imagenes/portal/portal_empleado.png" alt="" class="principal"/>
+                <div class="ch-item_3d ch-img-1_3d">				
+		            <div class="ch-info-wrap_3d">
+			            <div class="ch-info_3d">
+				            <div class="ch-info-front ch-img-1_3d"></div>
+				            <div class="ch-info-back_3d">
+                           <%-- <h3>Bears Type</h3>
+					<p>by Josh Schott <a href="http://drbl.in/ewUW">View on Dribbble</a></p>--%>
+					           <%-- <img src="../Imagenes/portal/portal_empleado.png" alt="" class=""/>--%>
+				            </div>	
+			            </div>
+		            </div>
+	            </div>
+               
                 
                 
                 <%--<div class="item datosPersonales test ch-item ch-img-3" data-toggle="tooltip" data-placement="right" title="DATOS PERSONALES">--%>
@@ -31,7 +43,7 @@
 			                <div class="ch-info">
 				                <div class="ch-info-front ch-img-1"></div>
 				                <div class="ch-info-back">
-					                <h3 style="margin-top:10px;">DATOS PERSONALES</h3>
+					                <h3 style="margin-top: 30px; line-height: 14px;">DATOS PERSONALES</h3>
 				                </div>	
 			                </div>
 		                </div>
@@ -74,7 +86,7 @@
 			            <div class="ch-info">
 				            <div class="ch-info-front ch-img-1"></div>
 				            <div class="ch-info-back">
-					            <h3 style="font-size: 0.4em;">NOTIFICACIONES</h3>
+					            <h3 style="font-size: 0.35em;">NOTIFICACIONES</h3>
 				            </div>	
 			            </div>
 		            </div>
@@ -89,7 +101,7 @@
 			            <div class="ch-info">
 				            <div class="ch-info-front ch-img-1"></div>
 				            <div class="ch-info-back">
-					            <h3 style="font-size: 0.4em;">CAPACITACIONES</h3>
+					            <h3 style="font-size: 0.35em;">CAPACITACIONES</h3>
 				            </div>	
 			            </div>
 		            </div>
@@ -150,7 +162,7 @@
 
         </div>
         <div style="color: #fff; width: 100%; position: absolute; top: 720px;">
-            <p style="text-align: center;"> &copy; PROPIEDAD INTELECTUAL / TODOS LOS DERECHOS RESERVADOS / MINISTERIO DE DESARROLLO SOCIAL</p>
+            <p style="text-align: center; font-size: smaller; letter-spacing: 1.5px;"> &copy; PROPIEDAD INTELECTUAL / TODOS LOS DERECHOS RESERVADOS / MINISTERIO DE DESARROLLO SOCIAL</p>
         </div>
         
     </form>
