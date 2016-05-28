@@ -168,7 +168,7 @@
     },
     //Configuracion Inicial
 
-        CompletarDatosArea: function (area) {
+    CompletarDatosArea: function (area) {
         $("#txt_nombre_apellido").val(area.Responsable.NombreApellido);
         $("#txt_NroDocumento").val(area.Responsable.Documento);
         $("#txt_IdInterna").val(area.Responsable.IdInterna);
@@ -184,8 +184,8 @@
             $("#txt_Partido").val(area.DireccionCompleta.Localidad.NombrePartido);
             $("#txt_Provincia").val(area.DireccionCompleta.Localidad.NombreProvincia);
         }
-      
-        
+
+
 
     },
 
@@ -202,10 +202,8 @@
                 metodoDeGuardado: "ModificarResponsable",
                 modelo: area,
                 mensajeDeGuardadoExitoso: "Para modificar los datos del Repsonsable, por favor comuníquese con Recursos Humanos",
-                mensajeDeGuardadoErroneo: "Para modificar los datos del Repsonsable, por favor comuníquese con Recursos Humanos",
-                alModificar: function (area) {
-                   
-                }
+                mensajeDeGuardadoErroneo: "Para modificar los datos del Repsonsable, por favor comuníquese con Recursos Humanos"
+                
             });
         });
         _this.btn_modificar_direccion.click(function () {
@@ -213,7 +211,8 @@
                 path_html: "PanelDetalleDeDireccion.htm",
                 metodoDeGuardado: "ModificarDireccion",
                 mensajeDeGuardadoExitoso: "La Dirección ha sido guardado exitosamente",
-                mensajeDeGuardadoErroneo: "Error al modificar la Dirección"
+                mensajeDeGuardadoErroneo: "Error al modificar la Dirección",
+                alModificar: function () { console.log("modifico"); }
             });
         });
     }
