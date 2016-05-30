@@ -570,7 +570,7 @@ namespace General.Repositorios
 
             if (tablaDatos.Rows.Count > 0)
             {
-                id = id + tablaDatos.Rows.First().GetInt("id");
+                id = id + tablaDatos.Rows.First().GetSmallintAsInt("id");
             }
             else {
                 id = 0;
