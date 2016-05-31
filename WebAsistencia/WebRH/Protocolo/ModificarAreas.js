@@ -208,11 +208,12 @@
         });
         _this.btn_modificar_direccion.click(function () {
             var panel_detalle = new PanelDetalleGenerico({
+                //modelo: area,
                 path_html: "PanelDetalleDeDireccion.htm",
-                metodoDeGuardado: "ModificarDireccion",
-                mensajeDeGuardadoExitoso: "La Dirección ha sido guardado exitosamente",
-                mensajeDeGuardadoErroneo: "Error al modificar la Dirección",
-                alModificar: function () { console.log("modifico"); }
+                //metodoDeGuardado: "ModificarDireccionDelArea",
+                //mensajeDeGuardadoExitoso: "La Dirección ha sido guardado exitosamente",
+                //mensajeDeGuardadoErroneo: "Error al modificar la Dirección",
+                //alModificar: function () { console.log("modifico"); }
             });
         });
     }

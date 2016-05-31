@@ -2593,6 +2593,16 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public void ModificarDireccionDelArea(Area area, Usuario usuario)
+    {
+        //RepositorioDeAreas().ModificarResponsable(area, usuario.Id);
+        string hola = "";
+    }
+
+    
+
+
+    [WebMethod]
     public Combo[] ObtenerEdificiosPorLocalidad(string criterio, Usuario usuario)
     {
         var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);

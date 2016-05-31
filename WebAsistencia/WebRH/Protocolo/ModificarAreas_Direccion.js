@@ -10,6 +10,9 @@
 
     DefinirEventos: function () {
         var _this = this;
+        $('"btn_guardar_direccion').click(function () { 
+        //hacer el guardado en el back de toda la dirección
+        });
         $('#btn_nuevo_edificio').click(function () {
             $("#div_agregar_edificio").show();
             $("#div_agregar_oficina").hide();
@@ -206,8 +209,8 @@
     },
 
     EdificioValido: function () {
-
-        return $('#div_agregar_edificio').esValido();
+        return true;
+        // return $('#div_agregar_edificio').esValido();
     },
 
     SettearValorEdificio: function () {
