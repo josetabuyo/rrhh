@@ -23,7 +23,6 @@ public partial class BarraMenu_BarraMenuMobi : System.Web.UI.UserControl
         {
             Usuario usuario = ((Usuario)Session["usuario"]);
             this.LabelUsuario.Text = usuario.Alias;
-            this.LabelUsuario.Text = usuario.Alias;
         }
         catch (Exception)
         {
@@ -49,20 +48,4 @@ public partial class BarraMenu_BarraMenuMobi : System.Web.UI.UserControl
         }
     }
 
-    protected void SolicitarViaticoLinkButton_Click(object sender, EventArgs e)
-    {
-        Response.Redirect("~\\FormularioDeViaticos\\FCargaComisionDeServicio.aspx");
-    }
-
-    protected void DetalleDeViaticoLinkButton_Click(object sender, EventArgs e)
-    {
-        Response.Redirect("~\\FormularioDeViaticosAprobacion\\FControlDeAprobacion.aspx");
-    }
-
-
-    private bool EstaEnModoDesarrollo()
-    {
-        string development_key = ConfigurationManager.AppSettings["developmentMode"];
-        return development_key.Equals("afkr73p21");
-    }
 }

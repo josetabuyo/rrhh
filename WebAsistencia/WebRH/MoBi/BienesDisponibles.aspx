@@ -2,6 +2,17 @@
     CodeFile="BienesDisponibles.aspx.cs" Inherits="MoBi_BienesDisponibles" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+    <style type="text/css">
+        .radio {
+            padding: 0px;
+         }
+         
+         .radio {
+             padding-top: 4px;
+         }
+         
+    
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <ul class="breadcrumb">
@@ -32,9 +43,33 @@
                             </asp:DropDownList>
                         </div>
                     </div>
+
+                    <div class="control-group">
+						<label class="control-label">Áreas</label>
+						<div class="controls">
+							<label class="radio" style="padding-left: 0;">
+							    <div class="radio" style="padding-left: 0;">
+                                    <asp:RadioButton ID="rbTodasLasAreas2" runat="server" GroupName="gnMostrarAreas" 
+                                        Checked="true" AutoPostBack="True" 
+                                        oncheckedchanged="rbTodasLasAreas_CheckedChanged" />
+                                </div>
+							    Mostrar solo las áreas con bienes.
+							</label>
+							<div style="clear:both"></div>
+							<label class="radio" style="padding-left: 0;">
+							    <div class="radio" style="padding-left: 0;">
+                                    <asp:RadioButton ID="rbAreasConBienes" runat="server" GroupName="gnMostrarAreas" 
+                                    AutoPostBack="True" oncheckedchanged="rbAreasConBienes_CheckedChanged" />
+                                </div>
+							    Mostrar todas las áreas.
+							</label>
+							<div style="clear:both"></div>
+						</div>
+					</div>
+
                     <div class="control-group">
                         <label class="control-label" for="selectError3">
-                            Área</label>
+                            </label>
                         <div class="controls">
                             <asp:DropDownList ID="DropDownAreasUsuario" runat="server" Width="90%" 
                                 data-rel="chosen" AutoPostBack="True" 
@@ -42,6 +77,7 @@
                             </asp:DropDownList>
                         </div>
                     </div>
+
                     <!-- style="display: none;" -->
                     <div class="row-fluid hideInIE8 circleStats" style="display: none;">
                         <div class="span2" ontablet="span4" ondesktop="span2">
@@ -110,7 +146,6 @@
         </div>
         <!--/span-->
     </div>
-    <asp:Label ID="Label1" runat="server" Text="?"></asp:Label>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolderFooter" runat="Server">
 </asp:Content>

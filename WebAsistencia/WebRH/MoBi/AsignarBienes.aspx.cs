@@ -44,7 +44,15 @@ public partial class MoBi_AsignarBienes : System.Web.UI.Page
         DropDownAgenteDestino.DataValueField = "Id";
         DropDownAgenteDestino.DataBind();
         DropDownAgenteDestino.SelectedIndex = -1;
-        
+        DropDownAgenteDestino.Enabled = true;
+
+        if (DropDownAgenteDestino.Items.Count < 1)
+        {
+            DropDownAgenteDestino.Items.Clear();
+            DropDownAgenteDestino.Items.Add(new ListItem("<< NO HAY AGENTES EN EL ÁREA >>", "-1"));
+            DropDownAgenteDestino.SelectedIndex = 0;
+            DropDownAgenteDestino.Enabled = false;
+        }
     }
 
     protected void DropDownAreasDestino_SelectedIndexChanged(object sender, EventArgs e)

@@ -17,8 +17,8 @@ public partial class MoBi_RecepcionarBienes : System.Web.UI.Page
         {
             Usuario usuario = ((Usuario)Session["usuario"]);
             WSViaticosSoapClient ws = Servicio();
-            Cargar_AreasDelUsuario(ws, usuario.Id);
             Cargar_TiposDeBienes(ws);
+            Cargar_AreasDelUsuario(ws, usuario.Id);
             Cargar_Bienes(ws, Convert.ToInt32(DropDownAreasUsuario.SelectedValue), Convert.ToInt32(DropDownListTipoDeBien.SelectedValue));
             ws.Close();
             ws = null;

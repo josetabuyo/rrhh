@@ -15,15 +15,8 @@ public partial class MoBi_BienesDisponibles : System.Web.UI.Page
             Usuario usuario = ((Usuario)Session["usuario"]);
             WSViaticosSoapClient ws = Servicio();
             Cargar_TiposDeBienes(ws);
-            Cargar_AreasDelUsuario(ws, usuario.Id, Convert.ToInt32(DropDownListTipoDeBien.SelectedValue), false);
+            Cargar_AreasDelUsuario(ws, usuario.Id, Convert.ToInt32(DropDownListTipoDeBien.SelectedValue), true);
             Cargar_Bienes(ws, Convert.ToInt32(DropDownAreasUsuario.SelectedValue), Convert.ToInt32(DropDownListTipoDeBien.SelectedValue));
-
-
-            /*****************************************/
-            Area[] aAreas = ws.AreasAdministradasPorIdUsuario(usuario.Id);
-            Label1.Text = usuario.Id.ToString() + " - " + aAreas.Count().ToString();
-            /*****************************************/
-
         }
     }
 
@@ -74,11 +67,27 @@ public partial class MoBi_BienesDisponibles : System.Web.UI.Page
         Cargar_Bienes(Servicio(), Convert.ToInt32(DropDownAreasUsuario.SelectedValue), Convert.ToInt32(DropDownListTipoDeBien.SelectedValue));
     }
 
-    protected void DropDownListTipoDeBien_SelectedIndexChanged(object sender, EventArgs e)
+    private void ActualizarAreasYBienes( )
     {
         WSViaticosSoapClient ws = Servicio();
         Usuario usuario = ((Usuario)Session["usuario"]);
-        Cargar_AreasDelUsuario(ws, usuario.Id, Convert.ToInt32(DropDownListTipoDeBien.SelectedValue), false);
+        bool MostrarTodasLasAreas = (rbTodasLasAreas2.Checked ? true : false);
+        Cargar_AreasDelUsuario(ws, usuario.Id, Convert.ToInt32(DropDownListTipoDeBien.SelectedValue), MostrarTodasLasAreas);
         Cargar_Bienes(ws, Convert.ToInt32(DropDownAreasUsuario.SelectedValue), Convert.ToInt32(DropDownListTipoDeBien.SelectedValue));
+    }
+
+    protected void DropDownListTipoDeBien_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        ActualizarAreasYBienes();
+    }
+
+    protected void rbAreasConBienes_CheckedChanged(object sender, EventArgs e)
+    {
+        ActualizarAreasYBienes();
+    }
+
+    protected void rbTodasLasAreas_CheckedChanged(object sender, EventArgs e)
+    {
+        ActualizarAreasYBienes();
     }
 }

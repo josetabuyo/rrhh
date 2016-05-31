@@ -95,7 +95,7 @@
     <form id="Form1" method="post" runat="server" >
 
     <uc2:BarraMenuMobi ID="BarraMenu" runat="server" 
-        Feature="<div style='margin-top: 6px;'> <span style='font-size:20px; font-weight: bold;'>MOBI</span> <br/> <span style='font-size:12px;'> Módulo de Bienes </span> </div>" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" UrlPassword="../" />
+        Feature="<div style='margin-top: 6px;'> <span style='font-size:20px; font-weight: bold;'>Mo.Bi.</span> <br/> <span style='font-size:12px;'> Módulo de Bienes </span> </div>" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" UrlPassword="../" />
 
     <div class="container-fluid-full">
         <div class="row-fluid">
