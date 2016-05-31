@@ -142,7 +142,7 @@
 		            </div>
                     <a href="#" class="icon "  ></a>
 	            </div>
-                <div class="ch-item ch-img-1 item perfil test">				
+                <div style="box-shadow:none;" class="ch-item ch-img-1 item perfil test">				
 		            <div class="ch-info-wrap">
 			            <div class="ch-info">
 				            <div class="ch-info-front ch-img-1"></div>

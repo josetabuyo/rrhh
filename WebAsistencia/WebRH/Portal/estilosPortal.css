@@ -374,9 +374,9 @@ a.icon{
 }
 
 .ch-info_3d .ch-info-back_3d {
-	transform: rotate3d(0,1,0,180deg);
-	/*background: #000;*/
-	background-image: url(../Imagenes/portal/portal_empleado.png);
+	/*transform: rotate3d(0,1,0,180deg);
+	/*background: #000;
+	background-image: url(../Imagenes/portal/portal_empleado.png);*/
 }
 
 .ch-img-1_3d { 
@@ -385,14 +385,23 @@ a.icon{
 
 .ch-item_3d:hover .ch-info-wrap_3d 
 {
-    box-shadow: 
+   box-shadow: 
 		0 0 0 20px rgba(255,255,255,0.2), 
 		inset 0 0 3px rgba(115,114, 23, 0.8);
-	
+		
+		/*-webkit-transform: scale(1.1);
+	-moz-transform: scale(1.1);
+	-ms-transform: scale(1.1);
+	transform: scale(1.1);*/
 		/*background-image: url(../Imagenes/portal/portal_empleado.png);*/
 }
 
-.ch-item_3d:hover .ch-info_3d {
+/*.ch-item_3d:hover .ch-info_3d {
 	transform: rotate3d(0,1,0,-180deg);
-}
+}*/
+
+
+
+
+
 
