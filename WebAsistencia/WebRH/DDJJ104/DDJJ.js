@@ -92,13 +92,15 @@ var DibujarGrillaDDJJ = function () {
     grilla.DibujarEn(ContenedorGrilla);
     BuscardoAreas();
 
-//    var divBtnExportarExcel = $("#DivBotonExcel")
-//    botonExcel = $("<input type='button'>");
-//    botonExcel.val("Exportar a Excel");
-//    botonExcel.click(function () {
-//        BuscarExcel(mesSeleccionado, anioSeleccionado, 0);
-//    });
-//    divBtnExportarExcel.append(botonExcel);
+
+    $("#DivBotonExcel").empty();
+    var divBtnExportarExcel = $("#DivBotonExcel")
+    botonExcel = $("<input type='button'>");
+    botonExcel.val("Exportar a Excel");
+    botonExcel.click(function () {
+        BuscarExcel(mesSeleccionado, anioSeleccionado, 0);
+    });
+    divBtnExportarExcel.append(botonExcel);
 
 
     grilla.SetOnRowClickEventHandler(function () {

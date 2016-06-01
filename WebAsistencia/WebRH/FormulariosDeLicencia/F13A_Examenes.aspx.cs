@@ -129,9 +129,13 @@ public partial class FormulariosDeLicencia_Default : System.Web.UI.Page
     {
         bool DatosValidos = true;
 
+
+        WSViaticosSoapClient s = new WSViaticosSoapClient();
+        
+
         if (this.rbSecundario.Checked)
 	    {
-            if (DesdeHasta1.DiasEntreFechas() > 3)
+            if (DesdeHasta1.DiasHabilesEntreFechas(s) > 3)
             {
                 DatosValidos = false;
             }
@@ -139,7 +143,7 @@ public partial class FormulariosDeLicencia_Default : System.Web.UI.Page
 
         if (this.rbTerciario.Checked)
         {
-            if (DesdeHasta1.DiasEntreFechas() > 6)
+            if (DesdeHasta1.DiasHabilesEntreFechas(s) > 6)
             {
                 DatosValidos = false;
             }

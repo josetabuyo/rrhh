@@ -67,6 +67,7 @@ namespace General
                 var area = new AreaParaDDJJ104();
                 area.Id = a.Id;
                 area.Nombre = a.Nombre;
+                area.Jerarquia = a.Jerarquia;
                 area.DDJJ = new RepositorioDDJJ104().GetDDJJParaElArea(a).Find(x => x.Mes == mes && x.Anio == anio);
 
                 //CARGO LAS AREAS QUE DEPENDEN Y LAS PERSONAS

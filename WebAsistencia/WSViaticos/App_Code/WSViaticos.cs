@@ -66,6 +66,12 @@ public class WSViaticos : System.Web.Services.WebService
     //    var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas(), Autorizador());
     //    return responsableDDJJ.AreasSinDDJJInferioresA(area).ToArray(); 
     //}
+    [WebMethod]
+    public int DiasHabilesEntreFechas(DateTime desde, DateTime hasta)
+    {
+        var repo = new RepositorioLicencias(Conexion());
+        return repo.DiasHabilesEntreFechas(desde, hasta);
+    }
 
     [WebMethod]
     public AreaParaDDJJ104[] GetAreasParaDDJJ104(int mes, int anio, int id_area, Usuario usuario)
@@ -247,6 +253,23 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
 
+    [WebMethod]
+    public GraficoRangoEtario GetGraficoRangoEtario(string criterio, Usuario usuario)
+    {
+
+        var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
+        string tipo = ((JValue)criterio_deserializado["tipo"]).ToString();
+        int dia = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(0, 2)));
+        int mes = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(3, 2)));
+        int anio = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(6, 4)));
+        bool incluir_dependencias = (bool)((JValue)criterio_deserializado["incluir_dependencias"]);
+        DateTime fecha = new DateTime(anio, mes, dia);
+        int id_area = (int)((JValue)criterio_deserializado["id_area"]);
+        RepositorioDeReportes repositorio = new RepositorioDeReportes(Conexion());
+        return repositorio.GetGraficoRangoEtario(tipo, fecha, id_area, incluir_dependencias);
+
+    }
+
 
 
 
@@ -335,27 +358,88 @@ public class WSViaticos : System.Web.Services.WebService
 
             foreach (var item in areas)
             {
-                table_resumen.Rows.Add(item.Nombre, item.DDJJ.Estado);
+                string ColEstado = "";
+                string ColNombreArea = "";
+
+                if (item.DDJJ != null)
+                {
+                    switch (item.DDJJ.Estado)
+	                {
+                        case 1:
+                            ColEstado = "Impresa no recepcionada";
+                            break;
+                        case 2:
+                            ColEstado = "Recepcionada";
+                            break;
+
+                        default:
+                            ColEstado = "";
+                            break;
+	                }
+                }
+                else
+                {
+                    ColEstado = "Sin Generar";
+                }
+
+
+                //switch (item.Jerarquia)
+                //{
+                //    case 1000:	//Unidad Ministro
+                //        ColNombreArea = item.Nombre;
+                //        break;
+                //    case 900:	//Secretaría
+                //        ColNombreArea = "   " + item.Nombre;
+                //        break;
+                //    case 800:	//SubSecretaría
+                //        ColNombreArea = "       " + item.Nombre;
+                //        break;
+                //    case 700:	//Dir. Nac/General
+                //        ColNombreArea = "           " + item.Nombre;
+                //        break;
+                //    case 600:	//Dirección
+                //        ColNombreArea = "               " + item.Nombre;
+                //        break;
+                //    case 500:   //Coordinación
+                //        ColNombreArea = "                   " + item.Nombre;
+                //        break;
+                //    case 400:	//Departamento
+                //        ColNombreArea = "                       " + item.Nombre;
+                //        break;
+                //    case 300:	//Lugar de Trabajo
+                //        ColNombreArea = "                           " + item.Nombre;
+                //        break;
+                //}
+
+                
+                int EspaciosEnBlanco = (int) Math.Truncate(((decimal)(1000-item.Jerarquia)/20));
+                string cadena = "";
+                for (int i = 0; i < EspaciosEnBlanco; i++)
+                {
+                    cadena = cadena + " ";
+                }
+                ColNombreArea = cadena + item.Nombre;
+
+                table_resumen.Rows.Add(ColNombreArea, ColEstado);
             }
 
             var workbook = new XLWorkbook();
 
             var dataTable_resumen = table_resumen;
             
-            var ws = workbook.Worksheets.Add("Areas");
+            var ws = workbook.Worksheets.Add("DDJJ104");
 
             ws.Style.Font.FontSize = 11;
             ws.Style.Font.FontName = "Verdana";
 
-            //ws.Column("A").Width = 15;
-            //ws.Column("B").Width = 15;
-            //ws.Column("C").Width = 15;
+            //ws.Column("A").Width = 115;
+            //ws.Column("B").Width = 50;
+            
+            ws.Cell(1, 1).Value = "AREA:";
+            ws.Cell(1, 2).Value = "ESTADO:";
 
-            //ws.Cell(1, 1).Value = "FECHA:";
-            //ws.Cell(2, 1).Value = "AREA:";
-
-            //ws.Cell(1, 1).Style.Font.Bold = true;
-            //ws.Cell(2, 1).Style.Font.Bold = true;
+            ws.Cell(1, 1).Style.Font.Bold = true;
+            ws.Cell(1, 2).Style.Font.Bold = true;
 
             //ws.Cell(1, 2).Value = fecha.ToShortDateString();
             //ws.Cell(2, 2).Value = area.Nombre.ToUpper();
@@ -369,7 +453,7 @@ public class WSViaticos : System.Web.Services.WebService
             //ws.Cell(4, 2).Value = "Cantidad";
             //ws.Cell(4, 3).Value = "Porcentaje %";
 
-            var rangeWithData = ws.Cell(1, 1).InsertData(dataTable_resumen.AsEnumerable());
+            var rangeWithData = ws.Cell(2, 1).InsertData(dataTable_resumen.AsEnumerable());
 
             //var lastCell = ws.LastCellUsed();
             //ws.Range(4, 1, lastCell.Address.RowNumber, lastCell.Address.ColumnNumber).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
@@ -2818,7 +2902,6 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
 
-
     #region mau
 
 
@@ -2849,6 +2932,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     #endregion
+
 
     #region CV
 
@@ -3562,6 +3646,73 @@ public class WSViaticos : System.Web.Services.WebService
 
     #endregion
 
+        #region mobi
+
+        [WebMethod]
+        public Vehiculo ObtenerVehiculoPorID(string id_vehiculo)
+        {
+            var repo = new RepositorioDeVehiculos(Conexion());
+            return repo.ObtenerVehiculoPorID(id_vehiculo);
+        }
+
+        [WebMethod]
+        public MoBi_Area[] Mobi_GetAreasUsuario(int IdUsuario)
+        {
+            RepositorioMoBi rMoBi = new RepositorioMoBi();
+            return rMoBi.GetAreasUsuario(IdUsuario);
+        }
+
+        [WebMethod]
+        public MoBi_Area[] Mobi_GetAreasUsuarioCBO(int IdUsuario, int IdTipoBien, bool MostrarSoloAreasConBienes)
+        {
+            RepositorioMoBi rMoBi = new RepositorioMoBi();
+            return rMoBi.GetAreasUsuarioCBO(IdUsuario, IdTipoBien, MostrarSoloAreasConBienes);
+        }
+
+        [WebMethod]
+        public MoBi_TipoBien[] Mobi_GetTipoBien()
+        {
+            RepositorioMoBi rMoBi = new RepositorioMoBi();
+            return rMoBi.GetTipoDeBienes();
+        }
+
+        [WebMethod]
+        public MoBi_Bien[] Mobi_GetBienesDelArea(int IdArea, int IdTipoBien)
+        {
+            RepositorioMoBi rMoBi = new RepositorioMoBi();
+            return rMoBi.GetBienesDelArea(IdArea, IdTipoBien);
+        }
+
+        [WebMethod]
+        public MoBi_Bien[] Mobi_GetBienesDelAreaRecepcion(int IdArea, int IdTipoBien)
+        {
+            RepositorioMoBi rMoBi = new RepositorioMoBi();
+            return rMoBi.GetBienesDelAreaRecepcion(IdArea, IdTipoBien);
+        }
+
+        [WebMethod]
+        public MoBi_Evento[] Mobi_GetEventosBien(int IdBien)
+        {
+            RepositorioMoBi rMoBi = new RepositorioMoBi();
+            return rMoBi.GetEventosBien(IdBien);
+        }
+
+        [WebMethod]
+        public MoBi_Agente[] Mobi_GetAgentesArea(int IdArea)
+        {
+            RepositorioMoBi rMoBi = new RepositorioMoBi();
+            return rMoBi.GetAgentes(IdArea);
+        }
+
+        [WebMethod]
+        public bool Mobi_GuardarEventoBien(MoBi_Evento.enumTipoEvento tipoEvento, int IdBien, int IdArea, int IdPersona, string Observaciones, int IdUser)
+        {
+            RepositorioMoBi rMoBi = new RepositorioMoBi();
+            return rMoBi.GuardarNuevoEventoBien(tipoEvento, IdBien, IdArea, IdPersona, Observaciones, IdUser);
+        }
+
+
+        #endregion
 
     private RepositorioLicencias RepoLicencias()
     {
@@ -3617,7 +3768,6 @@ public class WSViaticos : System.Web.Services.WebService
     {
         return General.MAU.RepositorioDeFuncionalidadesDeUsuarios.NuevoRepositorioDeFuncionalidadesDeUsuarios(Conexion(), RepositorioDeFuncionalidades());
     }
-
 
     private Autorizador Autorizador()
     {
@@ -3678,74 +3828,5 @@ public class WSViaticos : System.Web.Services.WebService
         return RepositorioDeComites.Nuevo(Conexion());
     }
 
-
-
-    #region mobi
-
-    [WebMethod]
-    public Vehiculo ObtenerVehiculoPorID(string id_vehiculo)
-    {
-        var repo = new RepositorioDeVehiculos(Conexion());
-        return repo.ObtenerVehiculoPorID(id_vehiculo);
-    }
-
-    [WebMethod]
-    public MoBi_Area[] Mobi_GetAreasUsuario(int IdUsuario)
-    {
-        RepositorioMoBi rMoBi = new RepositorioMoBi();
-        return rMoBi.GetAreasUsuario(IdUsuario);
-    }
-
-    [WebMethod]
-    public MoBi_Area[] Mobi_GetAreasUsuarioCBO(int IdUsuario, int IdTipoBien, bool MostrarSoloAreasConBienes)
-    {
-        RepositorioMoBi rMoBi = new RepositorioMoBi();
-        return rMoBi.GetAreasUsuarioCBO(IdUsuario, IdTipoBien, MostrarSoloAreasConBienes);
-    }
-
-    [WebMethod]
-    public MoBi_TipoBien[] Mobi_GetTipoBien()
-    {
-        RepositorioMoBi rMoBi = new RepositorioMoBi();
-        return rMoBi.GetTipoDeBienes();
-    }
-
-    [WebMethod]
-    public MoBi_Bien[] Mobi_GetBienesDelArea(int IdArea, int IdTipoBien)
-    {
-        RepositorioMoBi rMoBi = new RepositorioMoBi();
-        return rMoBi.GetBienesDelArea(IdArea, IdTipoBien);
-    }
-
-    [WebMethod]
-    public MoBi_Bien[] Mobi_GetBienesDelAreaRecepcion(int IdArea, int IdTipoBien)
-    {
-        RepositorioMoBi rMoBi = new RepositorioMoBi();
-        return rMoBi.GetBienesDelAreaRecepcion(IdArea, IdTipoBien);
-    }
-
-    [WebMethod]
-    public MoBi_Evento[] Mobi_GetEventosBien(int IdBien)
-    {
-        RepositorioMoBi rMoBi = new RepositorioMoBi();
-        return rMoBi.GetEventosBien(IdBien);
-    }
-
-    [WebMethod]
-    public MoBi_Agente[] Mobi_GetAgentesArea(int IdArea)
-    {
-        RepositorioMoBi rMoBi = new RepositorioMoBi();
-        return rMoBi.GetAgentes(IdArea);
-    }
-
-    [WebMethod]
-    public bool Mobi_GuardarEventoBien(MoBi_Evento.enumTipoEvento tipoEvento, int IdBien, int IdArea, int IdPersona, string Observaciones, int IdUser)
-    {
-        RepositorioMoBi rMoBi = new RepositorioMoBi();
-        return rMoBi.GuardarNuevoEventoBien(tipoEvento, IdBien, IdArea, IdPersona, Observaciones, IdUser);
-    }
-
-
-    #endregion
 
 }

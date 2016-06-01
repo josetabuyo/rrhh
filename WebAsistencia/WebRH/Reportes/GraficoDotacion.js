@@ -7,9 +7,9 @@ var GraficoDotacion = {
     Inicializar: function () {
         var _this = this;
         GraficoHerramientas.InicializarFecha($('#txt_fecha_desde'));
-        GraficoHerramientas.BlanquearParametrosDeBusqueda();
+//        GraficoHerramientas.BlanquearParametrosDeBusqueda();
         GraficoHerramientas.ActivarPrimerCheck($('#cb1'), "Género");
-        _this.OcultarOtrosGraficos();
+        GraficoHerramientas.OcultarTodosLosReportesExcepto("Dotacion");
         _this.SettearEventosDeLaPagina();
         _this.SettearEventosDelMenu();
     },
@@ -29,37 +29,37 @@ var GraficoDotacion = {
     SettearEventosDelMenu: function () {
         var _this = this;
         $('#btn_genero').click(function () {
-            _this.OcultarOtrosGraficos();
+            GraficoHerramientas.OcultarTodosLosReportesExcepto("Dotacion");
             armarGraficoDesdeMenu("Genero", "GraficoPorGenero", "Dotación por " + this.innerHTML);
             $('#cb1')[0].checked = true;
         });
         $('#btn_nivel').click(function () {
-            _this.OcultarOtrosGraficos();
+            GraficoHerramientas.OcultarTodosLosReportesExcepto("Dotacion");
             armarGraficoDesdeMenu("Nivel", "GraficoPorNivel", "Dotación por " + this.innerHTML);
             $('#cb2')[0].checked = true;
         });
         $('#btn_estudios').click(function () {
-            _this.OcultarOtrosGraficos();
+            GraficoHerramientas.OcultarTodosLosReportesExcepto("Dotacion");
             armarGraficoDesdeMenu("Estudios", "GraficoPorEstudio", "Dotación por " + this.innerHTML);
             $('#cb3')[0].checked = true;
         });
         $('#btn_plantas').click(function () {
-            _this.OcultarOtrosGraficos();
+            GraficoHerramientas.OcultarTodosLosReportesExcepto("Dotacion");
             armarGraficoDesdeMenu("Plantas", "GraficoPorPlanta", "Dotación por " + this.innerHTML);
             $('#cb4')[0].checked = true;
         });
         $('#btn_areas').click(function () {
-            _this.OcultarOtrosGraficos();
+            GraficoHerramientas.OcultarTodosLosReportesExcepto("Dotacion");
             armarGraficoDesdeMenu("Areas", "GraficoPorArea", "Dotación por " + this.innerHTML);
             $('#cb5')[0].checked = true;
         });
         $('#btn_secretarias').click(function () {
-            _this.OcultarOtrosGraficos();
+            GraficoHerramientas.OcultarTodosLosReportesExcepto("Dotacion");
             armarGraficoDesdeMenu("Secreatarías", "GraficoPorSecretarias", "Dotación por " + this.innerHTML);
             $('#cb6')[0].checked = true;
         });
         $('#btn_subsecretarias').click(function () {
-            _this.OcultarOtrosGraficos();
+            GraficoHerramientas.OcultarTodosLosReportesExcepto("Dotacion");
             armarGraficoDesdeMenu("SubSecretarías", "GraficoPorSubSecretarias", "Dotación por " + this.innerHTML);
             $('#cb7')[0].checked = true;
         });
@@ -414,19 +414,6 @@ var GraficoDotacion = {
             $('#div_filtros').show();
             $('#div_graficos_y_tablas').hide();
         }
-    },
-
-    OcultarOtrosGraficos: function () {
-        $('#div_resultados_sueldos').hide();
-        $('#div_filtros_sueldos').hide();
-        $('#btn_mostrar_resumen').hide();
-        $('#div_tabla_sueldo').hide();
-        $('#search_sueldo').hide();
-        $('#exportar_datos_sueldo').hide();
-        $('#tabla_sueldo').hide();
-        $('#div_tabla_sueldo_detalle').hide();
-        $('#search_detalle_sueldo').hide();
-        $('#tabla_sueldo_detalle').hide();
     },
 
     //BUSCADORES DE LAS TALBAS
