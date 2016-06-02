@@ -505,6 +505,236 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="ObtenerVehiculoPorID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="id_vehiculo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerVehiculoPorIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerVehiculoPorIDResult" type="tns:Vehiculo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Vehiculo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="NumeroVehiculo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Dominio" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Segmento" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Marca" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Modelo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Motor" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Chasis" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Anio" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Observacion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Area" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Apellido" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Mobi_GetAreasUsuario">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IdUsuario" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Mobi_GetAreasUsuarioResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Mobi_GetAreasUsuarioResult" type="tns:ArrayOfMoBi_Area" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfMoBi_Area">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MoBi_Area" nillable="true" type="tns:MoBi_Area" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MoBi_Area">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Path" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Mobi_GetAreasUsuarioCBO">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IdUsuario" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="IdTipoBien" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="MostrarSoloAreasConBienes" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Mobi_GetAreasUsuarioCBOResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Mobi_GetAreasUsuarioCBOResult" type="tns:ArrayOfMoBi_Area" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Mobi_GetTipoBien">
+        <s:complexType />
+      </s:element>
+      <s:element name="Mobi_GetTipoBienResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Mobi_GetTipoBienResult" type="tns:ArrayOfMoBi_TipoBien" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfMoBi_TipoBien">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MoBi_TipoBien" nillable="true" type="tns:MoBi_TipoBien" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MoBi_TipoBien">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Mobi_GetBienesDelArea">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IdArea" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="IdTipoBien" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Mobi_GetBienesDelAreaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Mobi_GetBienesDelAreaResult" type="tns:ArrayOfMoBi_Bien" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfMoBi_Bien">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MoBi_Bien" nillable="true" type="tns:MoBi_Bien" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MoBi_Bien">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Asignacion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Remitente" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="UltMov" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Estado" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdTipoBien" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Mobi_GetBienesDelAreaRecepcion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IdArea" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="IdTipoBien" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Mobi_GetBienesDelAreaRecepcionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Mobi_GetBienesDelAreaRecepcionResult" type="tns:ArrayOfMoBi_Bien" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Mobi_GetEventosBien">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IdBien" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Mobi_GetEventosBienResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Mobi_GetEventosBienResult" type="tns:ArrayOfMoBi_Evento" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfMoBi_Evento">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MoBi_Evento" nillable="true" type="tns:MoBi_Evento" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MoBi_Evento">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Operador" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Responsable" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Area" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Observaciones" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TipoEvento" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Fecha" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Mobi_GetAgentesArea">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IdArea" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Mobi_GetAgentesAreaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Mobi_GetAgentesAreaResult" type="tns:ArrayOfMoBi_Agente" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfMoBi_Agente">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MoBi_Agente" nillable="true" type="tns:MoBi_Agente" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MoBi_Agente">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Documento" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Apellido" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Mobi_GuardarEventoBien">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="tipoEvento" type="tns:enumTipoEvento" />
+            <s:element minOccurs="1" maxOccurs="1" name="IdBien" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="IdArea" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="IdPersona" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Observaciones" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="IdUser" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="enumTipoEvento">
+        <s:restriction base="s:string">
+          <s:enumeration value="ALTA_PROVISORIA" />
+          <s:enumeration value="ALTA_DEFINITIVA" />
+          <s:enumeration value="ASIGNACION_FORMAL_TRANSITO" />
+          <s:enumeration value="ASIGNACION_FORMAL_RECEPCION" />
+          <s:enumeration value="ASIGNACION_OPERATIVA_TRANSITO" />
+          <s:enumeration value="ASIGNACION_OPERATIVA_RECEPCION" />
+          <s:enumeration value="ASIGNACION_OPERATIVA_RECHAZO" />
+          <s:enumeration value="SOLICITUD_REPARACION" />
+          <s:enumeration value="EN_REPARACION" />
+          <s:enumeration value="BAJA" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="Mobi_GuardarEventoBienResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Mobi_GuardarEventoBienResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetInstanciasDeEvaluacion">
         <s:complexType>
           <s:sequence>
@@ -5416,6 +5646,60 @@
   <wsdl:message name="GetCarreraAdministrativaSoapOut">
     <wsdl:part name="parameters" element="tns:GetCarreraAdministrativaResponse" />
   </wsdl:message>
+  <wsdl:message name="ObtenerVehiculoPorIDSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerVehiculoPorID" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerVehiculoPorIDSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerVehiculoPorIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="Mobi_GetAreasUsuarioSoapIn">
+    <wsdl:part name="parameters" element="tns:Mobi_GetAreasUsuario" />
+  </wsdl:message>
+  <wsdl:message name="Mobi_GetAreasUsuarioSoapOut">
+    <wsdl:part name="parameters" element="tns:Mobi_GetAreasUsuarioResponse" />
+  </wsdl:message>
+  <wsdl:message name="Mobi_GetAreasUsuarioCBOSoapIn">
+    <wsdl:part name="parameters" element="tns:Mobi_GetAreasUsuarioCBO" />
+  </wsdl:message>
+  <wsdl:message name="Mobi_GetAreasUsuarioCBOSoapOut">
+    <wsdl:part name="parameters" element="tns:Mobi_GetAreasUsuarioCBOResponse" />
+  </wsdl:message>
+  <wsdl:message name="Mobi_GetTipoBienSoapIn">
+    <wsdl:part name="parameters" element="tns:Mobi_GetTipoBien" />
+  </wsdl:message>
+  <wsdl:message name="Mobi_GetTipoBienSoapOut">
+    <wsdl:part name="parameters" element="tns:Mobi_GetTipoBienResponse" />
+  </wsdl:message>
+  <wsdl:message name="Mobi_GetBienesDelAreaSoapIn">
+    <wsdl:part name="parameters" element="tns:Mobi_GetBienesDelArea" />
+  </wsdl:message>
+  <wsdl:message name="Mobi_GetBienesDelAreaSoapOut">
+    <wsdl:part name="parameters" element="tns:Mobi_GetBienesDelAreaResponse" />
+  </wsdl:message>
+  <wsdl:message name="Mobi_GetBienesDelAreaRecepcionSoapIn">
+    <wsdl:part name="parameters" element="tns:Mobi_GetBienesDelAreaRecepcion" />
+  </wsdl:message>
+  <wsdl:message name="Mobi_GetBienesDelAreaRecepcionSoapOut">
+    <wsdl:part name="parameters" element="tns:Mobi_GetBienesDelAreaRecepcionResponse" />
+  </wsdl:message>
+  <wsdl:message name="Mobi_GetEventosBienSoapIn">
+    <wsdl:part name="parameters" element="tns:Mobi_GetEventosBien" />
+  </wsdl:message>
+  <wsdl:message name="Mobi_GetEventosBienSoapOut">
+    <wsdl:part name="parameters" element="tns:Mobi_GetEventosBienResponse" />
+  </wsdl:message>
+  <wsdl:message name="Mobi_GetAgentesAreaSoapIn">
+    <wsdl:part name="parameters" element="tns:Mobi_GetAgentesArea" />
+  </wsdl:message>
+  <wsdl:message name="Mobi_GetAgentesAreaSoapOut">
+    <wsdl:part name="parameters" element="tns:Mobi_GetAgentesAreaResponse" />
+  </wsdl:message>
+  <wsdl:message name="Mobi_GuardarEventoBienSoapIn">
+    <wsdl:part name="parameters" element="tns:Mobi_GuardarEventoBien" />
+  </wsdl:message>
+  <wsdl:message name="Mobi_GuardarEventoBienSoapOut">
+    <wsdl:part name="parameters" element="tns:Mobi_GuardarEventoBienResponse" />
+  </wsdl:message>
   <wsdl:message name="GetInstanciasDeEvaluacionSoapIn">
     <wsdl:part name="parameters" element="tns:GetInstanciasDeEvaluacion" />
   </wsdl:message>
@@ -6911,6 +7195,42 @@
       <wsdl:input message="tns:GetCarreraAdministrativaSoapIn" />
       <wsdl:output message="tns:GetCarreraAdministrativaSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="ObtenerVehiculoPorID">
+      <wsdl:input message="tns:ObtenerVehiculoPorIDSoapIn" />
+      <wsdl:output message="tns:ObtenerVehiculoPorIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_GetAreasUsuario">
+      <wsdl:input message="tns:Mobi_GetAreasUsuarioSoapIn" />
+      <wsdl:output message="tns:Mobi_GetAreasUsuarioSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_GetAreasUsuarioCBO">
+      <wsdl:input message="tns:Mobi_GetAreasUsuarioCBOSoapIn" />
+      <wsdl:output message="tns:Mobi_GetAreasUsuarioCBOSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_GetTipoBien">
+      <wsdl:input message="tns:Mobi_GetTipoBienSoapIn" />
+      <wsdl:output message="tns:Mobi_GetTipoBienSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_GetBienesDelArea">
+      <wsdl:input message="tns:Mobi_GetBienesDelAreaSoapIn" />
+      <wsdl:output message="tns:Mobi_GetBienesDelAreaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_GetBienesDelAreaRecepcion">
+      <wsdl:input message="tns:Mobi_GetBienesDelAreaRecepcionSoapIn" />
+      <wsdl:output message="tns:Mobi_GetBienesDelAreaRecepcionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_GetEventosBien">
+      <wsdl:input message="tns:Mobi_GetEventosBienSoapIn" />
+      <wsdl:output message="tns:Mobi_GetEventosBienSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_GetAgentesArea">
+      <wsdl:input message="tns:Mobi_GetAgentesAreaSoapIn" />
+      <wsdl:output message="tns:Mobi_GetAgentesAreaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_GuardarEventoBien">
+      <wsdl:input message="tns:Mobi_GuardarEventoBienSoapIn" />
+      <wsdl:output message="tns:Mobi_GuardarEventoBienSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetInstanciasDeEvaluacion">
       <wsdl:input message="tns:GetInstanciasDeEvaluacionSoapIn" />
       <wsdl:output message="tns:GetInstanciasDeEvaluacionSoapOut" />
@@ -7998,6 +8318,87 @@
     </wsdl:operation>
     <wsdl:operation name="GetCarreraAdministrativa">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetCarreraAdministrativa" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerVehiculoPorID">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ObtenerVehiculoPorID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_GetAreasUsuario">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetAreasUsuario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_GetAreasUsuarioCBO">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetAreasUsuarioCBO" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_GetTipoBien">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetTipoBien" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_GetBienesDelArea">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetBienesDelArea" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_GetBienesDelAreaRecepcion">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetBienesDelAreaRecepcion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_GetEventosBien">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetEventosBien" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_GetAgentesArea">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetAgentesArea" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_GuardarEventoBien">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/Mobi_GuardarEventoBien" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -10287,6 +10688,87 @@
     </wsdl:operation>
     <wsdl:operation name="GetCarreraAdministrativa">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetCarreraAdministrativa" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerVehiculoPorID">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ObtenerVehiculoPorID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_GetAreasUsuario">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetAreasUsuario" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_GetAreasUsuarioCBO">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetAreasUsuarioCBO" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_GetTipoBien">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetTipoBien" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_GetBienesDelArea">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetBienesDelArea" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_GetBienesDelAreaRecepcion">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetBienesDelAreaRecepcion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_GetEventosBien">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetEventosBien" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_GetAgentesArea">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetAgentesArea" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_GuardarEventoBien">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/Mobi_GuardarEventoBien" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
