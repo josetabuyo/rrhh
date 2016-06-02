@@ -19,6 +19,7 @@ namespace General
         public AreaParaDDJJ104 AreaSuperior { get; set; }
         public string Direccion { get; set; }
         public int Jerarquia { get; set; }
+        
 
         public AreaParaDDJJ104()
         {
