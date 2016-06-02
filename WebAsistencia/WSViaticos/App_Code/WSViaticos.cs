@@ -87,10 +87,20 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public DDJJ104_2001 GenerarDDJJ104(Area area, int mes, int anio, Usuario usuario)
+    public DDJJ104_2001 GenerarDDJJ104(int id_area, int mes, int anio, Usuario usuario)
     {
+        //RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
+        //return ddjj.GenerarDDJJ104(usuario, area, mes, anio);
+
+        var UnArea = GetAreasParaDDJJ104(mes, anio, id_area, usuario);
+
         RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
-        return ddjj.GenerarDDJJ104(usuario, area, mes, anio);
+
+        DDJJ104_2001 cabe = new DDJJ104_2001();
+        cabe = ddjj.GenerarDDJJ104(usuario, UnArea[0], mes, anio);
+	    
+
+        return cabe;
     }
 
     [WebMethod]
