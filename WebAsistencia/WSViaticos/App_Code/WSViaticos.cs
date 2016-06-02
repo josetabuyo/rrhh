@@ -66,6 +66,12 @@ public class WSViaticos : System.Web.Services.WebService
     //    var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas(), Autorizador());
     //    return responsableDDJJ.AreasSinDDJJInferioresA(area).ToArray(); 
     //}
+    [WebMethod]
+    public int DiasHabilesEntreFechas(DateTime desde, DateTime hasta)
+    {
+        var repo = new RepositorioLicencias(Conexion());
+        return repo.DiasHabilesEntreFechas(desde, hasta);
+    }
 
     [WebMethod]
     public AreaParaDDJJ104[] GetAreasParaDDJJ104(int mes, int anio, int id_area, Usuario usuario)
@@ -256,6 +262,56 @@ public class WSViaticos : System.Web.Services.WebService
         return repositorio.GetGraficoDotacion(tipo, fecha, id_area, incluir_dependencias);
 
     }
+
+    [WebMethod]
+    public GraficoRangoEtario GetGraficoRangoEtario(string criterio, Usuario usuario)
+    {
+
+        var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
+        string tipo = ((JValue)criterio_deserializado["tipo"]).ToString();
+        int dia = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(0, 2)));
+        int mes = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(3, 2)));
+        int anio = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(6, 4)));
+        bool incluir_dependencias = (bool)((JValue)criterio_deserializado["incluir_dependencias"]);
+        DateTime fecha = new DateTime(anio, mes, dia);
+        int id_area = (int)((JValue)criterio_deserializado["id_area"]);
+        RepositorioDeReportes repositorio = new RepositorioDeReportes(Conexion());
+        return repositorio.GetGraficoRangoEtario(tipo, fecha, id_area, incluir_dependencias);
+
+    }
+
+
+
+    /*Gráfico rango etário*/
+
+    [WebMethod]
+    public string ExcelGeneradoRangoEtario(string criterio, Usuario usuario)
+    {
+        try
+        {
+            var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
+            string tipo = ((JValue)criterio_deserializado["tipo"]).ToString();
+            int dia = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(0, 2)));
+            int mes = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(3, 2)));
+            int anio = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(6, 4)));
+            bool incluir_dependencias = (bool)((JValue)criterio_deserializado["incluir_dependencias"]);
+            DateTime fecha = new DateTime(anio, mes, dia);
+            int id_area = (int)((JValue)criterio_deserializado["id_area"]);
+
+            RepositorioDeReportes repositorio = new RepositorioDeReportes(Conexion());
+
+            return repositorio.ExcelGeneradoRangoEtario(tipo, dia, mes, anio, incluir_dependencias, id_area);
+        }
+        catch (Exception ex)
+        {
+
+            throw ex;
+        }
+
+
+    }
+
+    /**/
 
 
 
@@ -2889,10 +2945,6 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
 
-
-
-
-
     #region mau
 
 
@@ -3637,8 +3689,75 @@ public class WSViaticos : System.Web.Services.WebService
 
     #endregion
 
+        #region mobi
 
-        private RepositorioLicencias RepoLicencias()
+        [WebMethod]
+        public Vehiculo ObtenerVehiculoPorID(string id_vehiculo)
+        {
+            var repo = new RepositorioDeVehiculos(Conexion());
+            return repo.ObtenerVehiculoPorID(id_vehiculo);
+        }
+
+        [WebMethod]
+        public MoBi_Area[] Mobi_GetAreasUsuario(int IdUsuario)
+        {
+            RepositorioMoBi rMoBi = new RepositorioMoBi();
+            return rMoBi.GetAreasUsuario(IdUsuario);
+        }
+
+        [WebMethod]
+        public MoBi_Area[] Mobi_GetAreasUsuarioCBO(int IdUsuario, int IdTipoBien, bool MostrarSoloAreasConBienes)
+        {
+            RepositorioMoBi rMoBi = new RepositorioMoBi();
+            return rMoBi.GetAreasUsuarioCBO(IdUsuario, IdTipoBien, MostrarSoloAreasConBienes);
+        }
+
+        [WebMethod]
+        public MoBi_TipoBien[] Mobi_GetTipoBien()
+        {
+            RepositorioMoBi rMoBi = new RepositorioMoBi();
+            return rMoBi.GetTipoDeBienes();
+        }
+
+        [WebMethod]
+        public MoBi_Bien[] Mobi_GetBienesDelArea(int IdArea, int IdTipoBien)
+        {
+            RepositorioMoBi rMoBi = new RepositorioMoBi();
+            return rMoBi.GetBienesDelArea(IdArea, IdTipoBien);
+        }
+
+        [WebMethod]
+        public MoBi_Bien[] Mobi_GetBienesDelAreaRecepcion(int IdArea, int IdTipoBien)
+        {
+            RepositorioMoBi rMoBi = new RepositorioMoBi();
+            return rMoBi.GetBienesDelAreaRecepcion(IdArea, IdTipoBien);
+        }
+
+        [WebMethod]
+        public MoBi_Evento[] Mobi_GetEventosBien(int IdBien)
+        {
+            RepositorioMoBi rMoBi = new RepositorioMoBi();
+            return rMoBi.GetEventosBien(IdBien);
+        }
+
+        [WebMethod]
+        public MoBi_Agente[] Mobi_GetAgentesArea(int IdArea)
+        {
+            RepositorioMoBi rMoBi = new RepositorioMoBi();
+            return rMoBi.GetAgentes(IdArea);
+        }
+
+        [WebMethod]
+        public bool Mobi_GuardarEventoBien(MoBi_Evento.enumTipoEvento tipoEvento, int IdBien, int IdArea, int IdPersona, string Observaciones, int IdUser)
+        {
+            RepositorioMoBi rMoBi = new RepositorioMoBi();
+            return rMoBi.GuardarNuevoEventoBien(tipoEvento, IdBien, IdArea, IdPersona, Observaciones, IdUser);
+        }
+
+
+        #endregion
+
+    private RepositorioLicencias RepoLicencias()
     {
         return new RepositorioLicencias(Conexion());
     }
@@ -3692,7 +3811,6 @@ public class WSViaticos : System.Web.Services.WebService
     {
         return General.MAU.RepositorioDeFuncionalidadesDeUsuarios.NuevoRepositorioDeFuncionalidadesDeUsuarios(Conexion(), RepositorioDeFuncionalidades());
     }
-
 
     private Autorizador Autorizador()
     {
@@ -3752,5 +3870,6 @@ public class WSViaticos : System.Web.Services.WebService
     {
         return RepositorioDeComites.Nuevo(Conexion());
     }
+
 
 }

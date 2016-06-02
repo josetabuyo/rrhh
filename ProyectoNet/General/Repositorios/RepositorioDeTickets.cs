@@ -6,7 +6,7 @@ namespace General.Repositorios
 {
     public class RepositorioDeTickets
     {
-        public IConexionBD conexion_bd { get; set; }
+        private IConexionBD conexion_bd { get; set; }
 
         public RepositorioDeTickets(IConexionBD conexion)
         {
