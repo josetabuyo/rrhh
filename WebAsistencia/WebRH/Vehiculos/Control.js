@@ -1,6 +1,15 @@
 ﻿$(function () {
     Backend.start(function () {
-        Backend.ObtenerVehiculoPorID(document.URL.split('?')[1]).onSuccess(function (vehiculo) {
+        var param = document.URL.split('?')[1];
+
+        if (param !== parseInt(param))
+            param = 1;
+
+
+        if (param < 0 && param > 16)
+            param = 1;
+
+        Backend.ObtenerVehiculoPorID(param).onSuccess(function (vehiculo) {
             $("#marca").text(vehiculo.Marca);
             $("#Modelo").text(vehiculo.Modelo);
             $("#segmento").text(vehiculo.Segmento);
@@ -18,5 +27,6 @@
             $(".contenedor-imagen-vehiculo").addClass("animated zoomIn");
             $("#contenedor-banner-parrafo").addClass("animated slideInDown");
         });
+
     });
 });

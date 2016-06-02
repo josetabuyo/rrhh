@@ -5,6 +5,7 @@
     margin-right:10%;
     line-height: 18px;
     color: white;
+        font-family: Arial
     }
 
 #barra_menu_contenedor {
@@ -12,8 +13,8 @@
     }
 
 #encabezado_sin_logo {
-    height: 60px;
-    width: 1024px; 
+    height: 63px;
+    width: 1010px; 
     }
 
 #barra_menu_contenedor_imagen {
@@ -79,7 +80,7 @@
 #barra_menu_nombre_sistema
         {
     position: absolute;
-    top: -5px;
+    top: -15px;
     left: 187px;
     width: 265px;
     text-align: center;
@@ -94,21 +95,24 @@
     margin-bottom:5%;
     font-size:1.1em;
     width:100%;
-    background-color:black;
+    background-color: #031427;
     border-radius: 10px;
         }
 
 .celda {
-    border: 3px double #000;
+ 
     padding: 3px;
     width: 20%;         
-    border-radius: 10px;
+ /* border: 3px double #000;
+border-radius: 10px;*/
         }
 
 .celda2 {
-    border: 3px double #000;
+   
     padding: 3px;
     width: 80%;
+  /*   border: 3px double #000;
+    border-radius: 10px;*/
         }
 
 .celda-imagen {
@@ -167,3 +171,17 @@
  {
      display:none;
  }
+ 
+ .barra-azul
+ {
+     margin-top: 1%;
+    height: 12px;
+    width: 100%;
+     background-color: #003580;
+     
+     }
+     
+     #barra-foot
+     {
+         margin-top: -50px;
+         }

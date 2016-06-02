@@ -18,20 +18,13 @@
             <div id="barra_menu_nombre_sistema">
                 <span style="font-size: 18px; font-weight: bold;"></span>
                 <br>
-                <span style="font-size: 18px; font-weight: bold;">Control<br>
-                    Vehicular </span>
+                <span style="font-size: 18px; font-weight: bold;">Consulta<br>
+                    de<br> Vigencia </span>
             </div>
         </div>
     </div>
-    <div id="Contenedor-parrafo">
-        <p class="parrafo">
-            Por la presente, se le informa a los usuarios que el sitio es para uso exclusivo
-            de las autoridades pertinentes, con el fin de verificar información institucional.
-            El uso indebido del mismo será penalizado por las autoridades correspondientes.</p>
-    </div>
-    </div>
-
-
+    
+   
     <div id="contenedor-vehiculos">
     <p class="titulos">
         Vehículo:</p>
@@ -94,18 +87,19 @@
                 Asignado al sector:
             </td>
             <td id="area" colspan="2" class="celda2">
-                Subsecretaría de Abordaje Territorial
+                
             </td>
         </tr>
         <tr>
             <td colspan="2" class="celda">
-                Responsable del bien:
+                Conductor:
             </td>
             <td id="responsable" colspan="2" class="celda2">
             </td>
         </tr>
     </table>
-    
+    <div class="barra-azul" style="margin-top: -20px">
+    </div>
     <div class="contenedor-imagen-vehiculo">
         <a href="../Imagenes/vehiculos-prueba/golf1999.jpg" target="_blank">
             <img href="../Imagenes/vehiculos-prueba/golf1999.jpg" class="imagenes" src="../Imagenes/vehiculos-prueba/golf1999.jpg">
@@ -116,8 +110,11 @@
         </a><a href="../Imagenes/vehiculos-prueba/golf1999-2.jpg" target="_blank">
             <img class="imagenes" src="../Imagenes/vehiculos-prueba/golf1999-2.jpg">
         </a>
+    <div id="barra-foot" class="barra-azul">
     </div>
-
+    </div>
+    
+<%--
     <div id="contenedor-conductor">
     <p class="titulos">
         Conductor:</p>
@@ -154,7 +151,7 @@
             <td id="Imagen-conductor" colspan="2" class="celda-imagen">
             </td>
         </tr>
-    </table>
+    </table>--%>
 </body>
      <%= Referencias.Javascript("../")%>
     <script type="text/javascript" src="../Scripts/underscore-min.js"></script>
