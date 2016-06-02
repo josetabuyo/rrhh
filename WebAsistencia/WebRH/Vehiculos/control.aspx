@@ -5,6 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link id="link1" rel="stylesheet" href="control.css" type="text/css" />
     <link rel="stylesheet" href="animate.css">
+
 </head>
 <body>
 <div id="contenedor-banner-parrafo">
@@ -24,15 +25,18 @@
         </div>
     </div>
     
-   
+   <div id="contenedor-imagenes">
     <div id="contenedor-vehiculos">
-    <p class="titulos">
-        Vehículo:</p>
+    <div class="div-titulos">
+        <p id="titulo">
+        Vehículo
+        </p></div>  
     <div class="separador">
     </div>
     </div>
 
     <table class="tabla-principal">
+
         <tr>
             <td colspan="2" class="celda">
                 Marca:
@@ -98,8 +102,7 @@
             </td>
         </tr>
     </table>
-    <div class="barra-azul" style="margin-top: -20px">
-    </div>
+  </div>
     <div class="contenedor-imagen-vehiculo">
         <a href="../Imagenes/vehiculos-prueba/golf1999.jpg" target="_blank">
             <img href="../Imagenes/vehiculos-prueba/golf1999.jpg" class="imagenes" src="../Imagenes/vehiculos-prueba/golf1999.jpg">
@@ -110,8 +113,6 @@
         </a><a href="../Imagenes/vehiculos-prueba/golf1999-2.jpg" target="_blank">
             <img class="imagenes" src="../Imagenes/vehiculos-prueba/golf1999-2.jpg">
         </a>
-    <div id="barra-foot" class="barra-azul">
-    </div>
     </div>
     
 <%--
