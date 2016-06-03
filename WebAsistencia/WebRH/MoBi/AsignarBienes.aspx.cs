@@ -8,13 +8,7 @@ using WSViaticos;
 
 public partial class MoBi_AsignarBienes : System.Web.UI.Page
 {
-    /*******************************************/
-    /*******************************************/
-    /*******************************************/
-    private int IdUsuario = 0;
-    /*******************************************/
-    /*******************************************/
-    /*******************************************/
+    private int ParamEmpty = -1;
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -24,8 +18,9 @@ public partial class MoBi_AsignarBienes : System.Web.UI.Page
             txtArea.Text = (string)(Session["MOBI_AreaOrigen"]);
             txtTipoBien.Text = (string)(Session["MOBI_TipoBien"]);
             txtItem.Text = (string)(Session["MOBI_Item"]);
+            Usuario usuario = ((Usuario)Session["usuario"]);
             WSViaticosSoapClient ws = new WSViaticosSoapClient();
-            Cargar_AreasDelUsuario(ws, IdUsuario);
+            Cargar_AreasDelUsuario(ws, usuario.Id);
         }
     }
 
@@ -49,7 +44,15 @@ public partial class MoBi_AsignarBienes : System.Web.UI.Page
         DropDownAgenteDestino.DataValueField = "Id";
         DropDownAgenteDestino.DataBind();
         DropDownAgenteDestino.SelectedIndex = -1;
-        
+        DropDownAgenteDestino.Enabled = true;
+
+        if (DropDownAgenteDestino.Items.Count < 1)
+        {
+            DropDownAgenteDestino.Items.Clear();
+            DropDownAgenteDestino.Items.Add(new ListItem("<< NO HAY AGENTES EN EL ÁREA >>", "-1"));
+            DropDownAgenteDestino.SelectedIndex = 0;
+            DropDownAgenteDestino.Enabled = false;
+        }
     }
 
     protected void DropDownAreasDestino_SelectedIndexChanged(object sender, EventArgs e)
@@ -79,13 +82,14 @@ public partial class MoBi_AsignarBienes : System.Web.UI.Page
     protected void btnAsignar_Click(object sender, EventArgs e)
     {
         WSViaticosSoapClient ws = new WSViaticosSoapClient();
+        Usuario usuario = ((Usuario)Session["usuario"]);
         if(
         ws.Mobi_GuardarEventoBien(
             enumTipoEvento.ASIGNACION_OPERATIVA_TRANSITO,
             Convert.ToInt32(HiddenField_IdBien.Value),
             Convert.ToInt32(DropDownAreasDestino.SelectedItem.Value),
-            (checkAgenteDestino.Checked ? Convert.ToInt32(DropDownAgenteDestino.SelectedItem.Value) : IdUsuario),
-            txtObservaciones.Text,IdUsuario))
+            (checkAgenteDestino.Checked ? Convert.ToInt32(DropDownAgenteDestino.SelectedItem.Value) : ParamEmpty),
+            txtObservaciones.Text, usuario.Id))
             Response.Redirect("BienesDisponibles.aspx");
     }
 
