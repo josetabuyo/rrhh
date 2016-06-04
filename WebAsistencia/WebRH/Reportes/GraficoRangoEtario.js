@@ -76,7 +76,7 @@ var GraficoRangoEtario = {
             var spinner = new Spinner({ scale: 3 });
             spinner.spin($("html")[0]);
 
-            Backend.ExcelGenerado({ tipo: check_seleccionado, fecha: fecha, id_area: parseInt(id_area), incluir_dependencias: $("#chk_incluir_dependencias").is(":checked") })
+            Backend.ExcelGeneradoRangoEtario({ tipo: check_seleccionado, fecha: fecha, id_area: parseInt(id_area), incluir_dependencias: $("#chk_incluir_dependencias").is(":checked") })
             .onSuccess(function (resultado) {
                 if (resultado.length > 0) {
                     var nombre_del_documento = "DETALLE_RANGOETARIO_" + fecha + "_.xlsx";
@@ -335,6 +335,7 @@ var GraficoRangoEtario = {
             $('#container_grafico_rangoEtario').show();
             $("#search_rangoEtario").show();
             $('#div_graficos_y_tablas_rangoEtario').show();
+            $("#btn_excel_rangoEtario").show();
         } else {
             $('#container_grafico_rangoEtario').hide();
             $("#search_rangoEtario").hide();
@@ -351,6 +352,7 @@ var GraficoRangoEtario = {
             $('#container_grafico_rangoEtario').hide();
             $('#search_detalle_rangoEtario').hide();
             $('#div_tabla_detalle_rangoEtario').hide();
+            $("#btn_excel_rangoEtario").show();
         }
     },
 
@@ -359,6 +361,7 @@ var GraficoRangoEtario = {
             $('#div_grafico_de_rangoEtario').show();
             $('#div_filtros_rangoEtario').show();
             $('#div_graficos_y_tablas_rangoEtario').hide();
+            $("#btn_excel_rangoEtario").show();
         }
     },
 

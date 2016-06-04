@@ -88,6 +88,9 @@ namespace General
             this.OrdenArea = orden;
         }
 
+        
+       
+
         internal int Edad(DateTime fecha)
         {
             DateTime now = fecha;

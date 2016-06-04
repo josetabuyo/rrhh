@@ -1,0 +1,17 @@
+30/05/2016 20:39:37 - ---------------------------------------------
+30/05/2016 20:39:37 - System.Web.HttpUnhandledException (0x80004005): Se produjo una excepción de tipo 'System.Web.HttpUnhandledException'. ---> System.NullReferenceException: Referencia a objeto no establecida como instancia de un objeto.
+   en MoBi_AsignarBienes.checkAgenteDestino_CheckedChanged(Object sender, EventArgs e) en c:\Repo3\repo3\WebAsistencia\WebRH\MoBi\AsignarBienes.aspx.cs:línea 74
+   en System.Web.UI.WebControls.CheckBox.OnCheckedChanged(EventArgs e)
+   en System.Web.UI.WebControls.CheckBox.RaisePostDataChangedEvent()
+   en System.Web.UI.WebControls.CheckBox.System.Web.UI.IPostBackDataHandler.RaisePostDataChangedEvent()
+   en System.Web.UI.Page.RaiseChangedEvents()
+   en System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+   en System.Web.UI.Page.HandleError(Exception e)
+   en System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+   en System.Web.UI.Page.ProcessRequest(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+   en System.Web.UI.Page.ProcessRequest()
+   en System.Web.UI.Page.ProcessRequestWithNoAssert(HttpContext context)
+   en System.Web.UI.Page.ProcessRequest(HttpContext context)
+   en ASP.mobi_asignarbienes_aspx.ProcessRequest(HttpContext context) en c:\Windows\Microsoft.NET\Framework\v4.0.30319\Temporary ASP.NET Files\webrh\95ba95a6\98e24e6e\App_Web_5wuizgh2.6.cs:línea 0
+   en System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   en System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
