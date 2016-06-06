@@ -10,7 +10,7 @@
 
     DefinirEventos: function () {
         var _this = this;
-        $('"btn_guardar_direccion').click(function () { 
+        $('btn_guardar_direccion').click(function () { 
         //hacer el guardado en el back de toda la dirección
         });
         $('#btn_nuevo_edificio').click(function () {
