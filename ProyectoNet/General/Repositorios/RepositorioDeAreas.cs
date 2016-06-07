@@ -112,19 +112,19 @@ namespace General.Repositorios
                     var id_area = row.GetSmallintAsInt("Id_area");
                     var area_completa = areas_completas.Find(ar => ar.Id == id_area);
 
-                     areas.Add(new Area
-                     {
-                         Id = id_area,
-                         Nombre = row.GetString("Descripcion"),
-                         Direccion = area_completa.Direccion,
-                         DatosDeContacto = area_completa.DatosDeContacto,
-                         datos_del_responsable = new Responsable(row.GetString("Nombre"), row.GetString("Apellido").ToUpper(), "", "", ""),
-                         Asistentes = area_completa.Asistentes,
-                         CantidadDeUsuarios = row.GetSmallintAsInt("CantidadDeUsuarios", 0)
-                     });
+                    areas.Add(new Area
+                    {
+                        Id = id_area,
+                        Nombre = row.GetString("Descripcion"),
+                        Direccion = area_completa.Direccion,
+                        DatosDeContacto = area_completa.DatosDeContacto,
+                        datos_del_responsable = new Responsable(row.GetString("Nombre"), row.GetString("Apellido").ToUpper(), "", "", ""),
+                        Asistentes = area_completa.Asistentes,
+                        CantidadDeUsuarios = row.GetSmallintAsInt("CantidadDeUsuarios", 0)
+                    });
 
-                 });
-             }
+                });
+            }
 
             return areas;
         }
@@ -154,7 +154,7 @@ namespace General.Repositorios
                                                             row.GetSmallintAsInt("Prioridad_Asistente"),
                                                             row.GetString("Telefono_Asistente"),
                                                             row.GetString("Telefono_Asistente"),//Falta cambiar por Fax!!!
-                                                            row.GetString("Mail_Asistente"));                                                            
+                                                            row.GetString("Mail_Asistente"));
                         if (asistente.Descripcion_Cargo.Trim() != "" && asistente.Apellido.Trim() != "") Asistentes.Add(asistente);
 
                         Responsable datos_responsable = new Responsable(row.GetString("Nombre_Responsable"),
@@ -456,7 +456,7 @@ namespace General.Repositorios
             List<Combo> combo = new List<Combo>();
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_Edificio", id_edificio);
-             parametros.Add("@id_area", id_area);
+            parametros.Add("@id_area", id_area);
             var tablaDatos = conexion.Ejecutar("dbo.ESTR_GET_Oficinas", parametros);
             tablaDatos.Rows.ForEach(row =>
             {
@@ -508,7 +508,48 @@ namespace General.Repositorios
 
                 edificio.Localidad = localidad;
             }
-            return edificio;  
+            else
+            {
+                parametros.Clear();
+                id_edificio = id_edificio - indice_auxiliar;
+                parametros.Add("@id_Edificio", id_edificio);
+
+                tablaDatos = conexion.Ejecutar("dbo.ESTR_GET_Edificios_Por_Id_AUX", parametros);
+
+                if (tablaDatos.Rows.Count > 0)
+                {
+                    var edificio_bd = tablaDatos.Rows.First();
+                    Localidad localidad = new Localidad();
+                    edificio.Id = edificio_bd.GetSmallintAsInt("id_Edificio") + indice_auxiliar;
+                    edificio.Numero = edificio_bd.GetInt("Numero");
+                    edificio.Calle = edificio_bd.GetString("Calle");
+                    edificio.Nombre = edificio_bd.GetString("Edificio");
+                    localidad.Id = edificio_bd.GetInt("Localidad");
+                    var localidad_base = tablaDatos.Rows.First();
+                        localidad.CodigoPostal = localidad_base.GetInt("codigopostal");
+                        localidad.IdProvincia = localidad_base.GetInt("Id_Provincia");
+                        localidad.NombreProvincia = localidad_base.GetString("nombreProvincia");
+                        localidad.Nombre = localidad_base.GetString("nombrelocalidad");
+
+                    //parametros.Clear();
+                    //tablaDatos.Clear();
+                    //parametros.Add("@localidad", localidad.Id);
+                    //tablaDatos = conexion.Ejecutar("dbo.GetLocalidad", parametros);
+                    //if (tablaDatos.Rows.Count > 0)
+                    //{
+                    //    var localidad_base = tablaDatos.Rows.First();
+                    //    localidad.CodigoPostal = localidad_base.GetInt("codigopostal");
+                    //    localidad.IdProvincia = localidad_base.GetInt("Id_Provincia");
+                    //    localidad.NombreProvincia = localidad_base.GetString("nombreProvincia");
+                    //    localidad.IdPartido = localidad_base.GetSmallintAsInt("partido");
+                    //    localidad.NombrePartido = localidad_base.GetString("DescPartido");
+                    //    localidad.Nombre = localidad_base.GetString("nombrelocalidad");
+                    //}
+
+                    edificio.Localidad = localidad;
+                }
+            }
+            return edificio;
         }
 
         public Oficina ObtenerOficinaPorId(int id_oficina)
@@ -526,9 +567,26 @@ namespace General.Repositorios
                 oficina.Nombre = oficina_bd.GetString("Oficina");
                 oficina.Dto = oficina_bd.GetString("Dpto");
                 oficina.Piso = oficina_bd.GetString("Piso");
-                oficina.UF = oficina_bd.GetString("UF"); 
+                oficina.UF = oficina_bd.GetString("UF");
             }
-            return oficina;  
+            else
+            {
+                parametros.Clear();
+                id_oficina = id_oficina - indice_auxiliar;
+                parametros.Add("@oficina", id_oficina);
+                tablaDatos = conexion.Ejecutar("dbo.ESTR_GET_Oficinas_AUX", parametros);
+                if (tablaDatos.Rows.Count > 0)
+                {
+                    var oficina_bd = tablaDatos.Rows.First();
+                    oficina.Id = oficina_bd.GetSmallintAsInt("Id_Oficina") + indice_auxiliar;
+                    oficina.Nombre = oficina_bd.GetString("Oficina");
+                    oficina.Dto = oficina_bd.GetString("Dpto");
+                    oficina.Piso = oficina_bd.GetString("Piso");
+                    oficina.UF = oficina_bd.GetString("UF");
+                }
+            }
+
+            return oficina;
         }
 
         public int GuardarEdificioPendienteDeAptobacion(int id_provincia, string nombre_provincia, int id_localidad, string nombre_localidad, int codigo_postal, string calle, string numero, Usuario usuario)
@@ -550,7 +608,8 @@ namespace General.Repositorios
             {
                 id = id + tablaDatos.Rows.First().GetSmallintAsInt("id");
             }
-            else {
+            else
+            {
                 id = 0;
             }
             return id;
@@ -572,7 +631,8 @@ namespace General.Repositorios
             {
                 id = id + tablaDatos.Rows.First().GetSmallintAsInt("id");
             }
-            else {
+            else
+            {
                 id = 0;
             }
             return id;
