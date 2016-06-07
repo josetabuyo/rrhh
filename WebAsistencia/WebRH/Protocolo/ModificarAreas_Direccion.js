@@ -262,6 +262,7 @@
     SettearValores: function (direccion) {
         if (direccion.Localidad != null) {
             $("#txt_direccion_CodigoPostal").val(direccion.Localidad.CodigoPostal);
+            $("#cmb_direccion_localidad").append('<option value=' + direccion.Localidad.CodigoPostal + '>' + direccion.Localidad.Nombre + '</option>');
             $("#txt_direccion_Partido").val(direccion.Localidad.NombrePartido);
             $("#txt_direccion_Provincia").val(direccion.Localidad.NombreProvincia);
         }
@@ -310,6 +311,8 @@
 
             var direccion = area.DireccionCompleta;
             $("#txt_direccion_CodigoPostal").val(direccion.Localidad.CodigoPostal);
+            $("#cmb_direccion_localidad").append('<option value=' + direccion.Localidad.CodigoPostal + '>' + direccion.Localidad.Nombre + '</option>');
+
             $("#txt_direccion_Partido").val(direccion.Localidad.NombrePartido);
             $("#txt_direccion_Provincia").val(direccion.Localidad.NombreProvincia);
 
