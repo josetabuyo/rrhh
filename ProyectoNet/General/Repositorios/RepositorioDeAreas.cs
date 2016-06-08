@@ -531,20 +531,20 @@ namespace General.Repositorios
                         localidad.NombreProvincia = localidad_base.GetString("nombreProvincia");
                         localidad.Nombre = localidad_base.GetString("nombrelocalidad");
 
-                    //parametros.Clear();
-                    //tablaDatos.Clear();
-                    //parametros.Add("@localidad", localidad.Id);
-                    //tablaDatos = conexion.Ejecutar("dbo.GetLocalidad", parametros);
-                    //if (tablaDatos.Rows.Count > 0)
-                    //{
-                    //    var localidad_base = tablaDatos.Rows.First();
-                    //    localidad.CodigoPostal = localidad_base.GetInt("codigopostal");
-                    //    localidad.IdProvincia = localidad_base.GetInt("Id_Provincia");
-                    //    localidad.NombreProvincia = localidad_base.GetString("nombreProvincia");
-                    //    localidad.IdPartido = localidad_base.GetSmallintAsInt("partido");
-                    //    localidad.NombrePartido = localidad_base.GetString("DescPartido");
-                    //    localidad.Nombre = localidad_base.GetString("nombrelocalidad");
-                    //}
+                        parametros.Clear();
+                        tablaDatos.Clear();
+                        parametros.Add("@localidad", localidad.Id);
+                        tablaDatos = conexion.Ejecutar("dbo.GetLocalidad", parametros);
+                        if (tablaDatos.Rows.Count > 0)
+                        {
+                            var localidad_base2 = tablaDatos.Rows.First();
+                            localidad.CodigoPostal = localidad_base2.GetInt("codigopostal");
+                            localidad.IdProvincia = localidad_base2.GetInt("Id_Provincia");
+                            localidad.NombreProvincia = localidad_base2.GetString("nombreProvincia");
+                            localidad.IdPartido = localidad_base2.GetSmallintAsInt("partido");
+                            localidad.NombrePartido = localidad_base2.GetString("DescPartido");
+                            localidad.Nombre = localidad_base2.GetString("nombrelocalidad");
+                        }
 
                     edificio.Localidad = localidad;
                 }
@@ -701,6 +701,7 @@ namespace General.Repositorios
             parametros.Add("@dto", dto);
             parametros.Add("@piso", piso);
             parametros.Add("@uf", uf);
+            parametros.Add("@id_usuario", usuario.Id);
 
             var tablaDatos = conexion.Ejecutar("dbo.ESTR_Ins_DomicilioPendienteAprobacion", parametros);
             return "";

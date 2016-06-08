@@ -79,23 +79,31 @@
     },
 
     GuardarCambiosEnDireccion: function () {
-        var resultado = Backend.ejecutarSincronico("GuardarCambiosEnDireccion", [{ 
-        IdArea: area.Id,
-        IdLocaldiad: area.DireccionCompleta.Localidad.Id, 
-        IdPartido: area.DireccionCompleta.Localidad.IdPartido,
-        IdProvincia: area.DireccionCompleta.Localidad.IdProvincia,
-        CodigoPostal: area.DireccionCompleta.Localidad.CodigoPostal,
-        NombreLocalidad: area.DireccionCompleta.Localidad.Nombre,
-        NombrePartido: area.DireccionCompleta.Localidad.NombrePartido,
-        NombreProvincia: area.DireccionCompleta.Localidad.NombreProvincia,
-        IdEdificio: parseInt(area.DireccionCompleta.IdEdificio),
-        Calle: area.DireccionCompleta.Calle,
-        Numero: area.DireccionCompleta.Numero,
-        IdOficina: parseInt(area.DireccionCompleta.IdOficina),
-        Dto: area.DireccionCompleta.Dto,
-        Piso: area.DireccionCompleta.Piso,
-        UF: area.DireccionCompleta.UF
+        var resultado = Backend.ejecutarSincronico("GuardarCambiosEnDireccion", [{
+            IdArea: area.Id,
+            IdLocaldiad: area.DireccionCompleta.Localidad.Id,
+            IdPartido: area.DireccionCompleta.Localidad.IdPartido,
+            IdProvincia: area.DireccionCompleta.Localidad.IdProvincia,
+            CodigoPostal: area.DireccionCompleta.Localidad.CodigoPostal,
+            NombreLocalidad: area.DireccionCompleta.Localidad.Nombre,
+            NombrePartido: area.DireccionCompleta.Localidad.NombrePartido,
+            NombreProvincia: area.DireccionCompleta.Localidad.NombreProvincia,
+            IdEdificio: parseInt(area.DireccionCompleta.IdEdificio),
+            Calle: area.DireccionCompleta.Calle,
+            Numero: area.DireccionCompleta.Numero,
+            IdOficina: parseInt(area.DireccionCompleta.IdOficina),
+            Dto: area.DireccionCompleta.Dto,
+            Piso: area.DireccionCompleta.Piso,
+            UF: area.DireccionCompleta.UF
         }]);
+        if (resultado == "") {
+            $('#txt_resultado').text("La modificación de la dirección se envió correctamente. Los cambios en la misma se verá reflejados cuando sean aprobados por Recursos Humanos. Puede cerrar esta ventana.")
+            $('#txt_resultado').css("color", "Green");
+        } else {
+            $('#txt_resultado').text(resultado);
+            $('#txt_resultado').css("color", "Red");
+        }
+
     },
     CargarDatosDeCodigoPostal: function (codigo_postal) {
         var localidad = Backend.ejecutarSincronico("CargarDatosDeCodigoPostal", [{
