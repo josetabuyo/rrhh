@@ -100,41 +100,12 @@ img
     margin-top: -15px;
     border-style: none;
 }
-        
-#btn_consultar_areas
+
+.btn_menu_herramientas
 {
     float:right;
     margin-top: 4px;
     margin-right:4px;
-}
-
-#btn_consultar_trabajo
-{
-    float:right;
-    margin-top: 4px;
-    margin-right: 4px;
-}
-
-#btn_consultar_mis_areas
-{
-    float: right;
-    margin-top:4px;
-    margin-right:4px;    
-}
-
-#btn_consultar_areas_ddjj
-{
-    float: right;
-    margin-top:4px;
-        
-}
-
-
-#btn_consultar_mis_inasistencias
-{
-    float: right;
-    margin-top:4px;
-    margin-right:4px;    
 }
 
 .contenedor_principal_seleccion_areas
