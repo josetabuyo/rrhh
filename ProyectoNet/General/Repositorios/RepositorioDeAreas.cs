@@ -667,5 +667,43 @@ namespace General.Repositorios
 
             return localidad;
         }
+
+
+        public string GuardarCambiosEnDireccion(int id_area, int id_localidad, int id_partido, int id_provincia, int codigo_postal, string nombre_localidad, string nombre_partido, string nombre_provincia, int id_edificio, string calle, int numero, int id_oficina, string dto, string piso, string uf, Usuario usuario)
+        {
+            if (id_area < 0) return "Error al obtener el Id de Área";
+            if (id_localidad < 0) return "Error al obtener el Id de la Localidad";
+            if (id_partido < 0) return "Error al obtener el Id del Partido";
+            if (id_provincia < 0) return "Error al obtener el Id de la Provincia";
+            if (codigo_postal <= 0) return "Error al obtener el Código Postal";
+            if (nombre_localidad == "") return "Error al obtener el Nombre de la Localidad";
+            if (nombre_partido == "") return "Error al obtener el Nombre del Partido";
+            if (nombre_provincia == "") return "Error al obtener el Nombre de la Provincia";
+            if (id_edificio <= 0) return "Error al obtener el Id del Edificio";
+            if (calle == "") return "Error al obtener el Nombre de la Calle";
+            if (numero <= 0) return "Error al obtener el Número de la Calle";
+            if (id_oficina <= 0) return "Error al obtener el Id de la Oficina";
+           
+            
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_area", id_area);
+            parametros.Add("@id_localidad", id_localidad);
+            parametros.Add("@id_partido", id_partido);
+            parametros.Add("@id_provincia", id_provincia);
+            parametros.Add("@codigo_postal", codigo_postal);
+            parametros.Add("@nombre_localidad", nombre_localidad);
+            parametros.Add("@nombre_partido", nombre_partido);
+            parametros.Add("@nombre_provincia", nombre_provincia);
+            parametros.Add("@id_edificio", id_edificio);
+            parametros.Add("@calle", calle);
+            parametros.Add("@numero", numero);
+            parametros.Add("@id_oficina", id_oficina);
+            parametros.Add("@dto", dto);
+            parametros.Add("@piso", piso);
+            parametros.Add("@uf", uf);
+
+            var tablaDatos = conexion.Ejecutar("dbo.ESTR_Ins_DomicilioPendienteAprobacion", parametros);
+            return "";
+        }
     }
 }
