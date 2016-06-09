@@ -706,5 +706,19 @@ namespace General.Repositorios
             var tablaDatos = conexion.Ejecutar("dbo.ESTR_Ins_DomicilioPendienteAprobacion", parametros);
             return "";
         }
+
+        public string BuscarCambiosEnDireccion(int id_area)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_area", id_area);
+            var tablaDatos = conexion.Ejecutar("dbo.ESTR_Get_DomicilioPendienteAprobacion", parametros);
+            if (tablaDatos.Rows.Count > 0)
+            {
+                var cambio = tablaDatos.Rows.First().GetSmallintAsInt("Usuario_Alta");
+                return "Ya existe una Solicitud de Modificación de Datos solicitada por el usuario " + cambio + ". Para guardar sus modificaciones, seleccione Guardar Cambios nuevamente. " + 
+                    "CUIDADO: Si guarda los cambios pisará los enviados por el usuario anterior.";
+            }
+            return "";
+        }
     }
 }

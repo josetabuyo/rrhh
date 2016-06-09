@@ -2740,6 +2740,17 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
 
+    [WebMethod]
+    public string BuscarCambiosEnDireccion(string criterio)
+    {
+        var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
+
+        int id_area = (int)((JValue)criterio_deserializado["IdArea"]);
+
+        return RepositorioDeAreas().BuscarCambiosEnDireccion(id_area);
+
+    }
+
 
     [WebMethod]
     public Localidad CargarDatosDeCodigoPostal(string criterio)
