@@ -204,13 +204,11 @@ margin-bottom: 2%;
      display:none;
  }
  
- /*.barra-azul
+/* .barra-azul
  {
-     margin-top: 1%;
     height: 12px;
     width: 100%;
-     background-color: #003580;
-     
+    background-color: #003580;
      }*/
      
      #barra-foot
@@ -224,3 +222,21 @@ margin-bottom: 2%;
      margin-left:10%;
      margin-right:10%;
      }
+     
+     #VehiculoAlertaInvalido
+{   
+    margin-top:10px;
+    text-align:center;
+}
+
+hr {
+  color: white;
+  margin-top: -5%;
+  border: 0; 
+  height: 2px; 
+  text-align: center; 
+  background-color: #fff ;
+  background: radial-gradient(left, #031427,  #fff,  #031427);
+  background: -webkit-radial-gradient(left,100% 100px, #031427,  #fff,  #031427);
+  background : -moz-radial-gradient(left,100% 100px, #031427,  #fff,  #031427);
+}

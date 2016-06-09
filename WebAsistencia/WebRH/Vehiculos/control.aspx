@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
     <title>Control Vehicular</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -8,6 +9,7 @@
 
 </head>
 <body>
+<%--<div id="barra-azul"></div>--%>
 <div id="contenedor-banner-parrafo">
     <div id="contenedor_imagen">
         <div id="barra_menu_contenedor_imagen">
@@ -15,7 +17,10 @@
                 alt="logosistema" />
             <img src="../Imagenes/logo_sistema.png" id="img_logo_sistema" alt="logosistema" />
             <img src="../Imagenes/logo_ministerio.png" id="img_logo_minis" alt="logosistema" />
+            
             <img src="../Imagenes/logo_direccion.png" id="img_logo_direccion" alt="logosistema" />
+            
+            
             <div id="barra_menu_nombre_sistema">
                 <span style="font-size: 18px; font-weight: bold;"></span>
                 <br>
@@ -103,7 +108,9 @@
         </tr>
     </table>
   </div>
+ 
     <div class="contenedor-imagen-vehiculo">
+     <hr>
         <a href="../Imagenes/vehiculos-prueba/golf1999.jpg" target="_blank">
             <img href="../Imagenes/vehiculos-prueba/golf1999.jpg" class="imagenes" src="../Imagenes/vehiculos-prueba/golf1999.jpg">
         </a><a href="../Imagenes/vehiculos-prueba/golf1999-1.jpg" target="_blank">
@@ -114,7 +121,11 @@
             <img class="imagenes" src="../Imagenes/vehiculos-prueba/golf1999-2.jpg">
         </a>
     </div>
-    
+    <!--
+<div id="VehiculoAlertaInvalido" class="alert  alert-error">
+                     <a class="close" data-dismiss="alert">X</a> <strong>Error</strong> No se encontraron vehiculos con esa referencia.
+                </div>-->
+
 <%--
     <div id="contenedor-conductor">
     <p class="titulos">
