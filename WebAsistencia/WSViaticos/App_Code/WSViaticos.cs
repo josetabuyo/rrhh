@@ -93,10 +93,20 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public DDJJ104_2001 GenerarDDJJ104(Area area, int mes, int anio, Usuario usuario)
+    public DDJJ104_2001 GenerarDDJJ104(int id_area, int mes, int anio, Usuario usuario)
     {
+        //RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
+        //return ddjj.GenerarDDJJ104(usuario, area, mes, anio);
+
+        var UnArea = GetAreasParaDDJJ104(mes, anio, id_area, usuario);
+
         RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
-        return ddjj.GenerarDDJJ104(usuario, area, mes, anio);
+
+        DDJJ104_2001 cabe = new DDJJ104_2001();
+        cabe = ddjj.GenerarDDJJ104(usuario, UnArea[0], mes, anio);
+	    
+
+        return cabe;
     }
 
     [WebMethod]
@@ -130,36 +140,36 @@ public class WSViaticos : System.Web.Services.WebService
             meses.Add(new MesDto() { Mes = fechaActual.Month, NombreMes = DateTimeFormatInfo.CurrentInfo.GetMonthName(fechaActual.Month), Anio = fechaActual.Year });
         }
 
-        DateTime fechaAnterior = DateTime.Now.AddMonths(-1);
-        meses.Add(new MesDto() { Mes = fechaAnterior.Month, NombreMes = DateTimeFormatInfo.CurrentInfo.GetMonthName(fechaAnterior.Month), Anio = fechaAnterior.Year });        
+        var mesesGenerados = GetMesesGenerados();
+
+        meses.AddRange(mesesGenerados);
+
+        //foreach (var item in mesesGenerados)
+        //{
+        //    string sFecha = "01" + Convert.ToString(item.Mes) + Convert.ToString(item.Anio);
+        //    DateTime fechaAnterior = Convert.ToDateTime(sFecha);
+        //    meses.Add(new MesDto() { Mes = fechaAnterior.Month, NombreMes = DateTimeFormatInfo.CurrentInfo.GetMonthName(fechaAnterior.Month), Anio = fechaAnterior.Year });    
+        //}
 
         return meses.ToArray();
     }
 
     //[WebMethod]
-    //public MesDto[] GetMesesGenerados(AreaParaDDJJ104 ddjj, Usuario usuario)
-    //{
-    //    var RepositorioDDJJ = new RepositorioDDJJ104();
+    public MesDto[] GetMesesGenerados()
+    {
+        var RepositorioDDJJ = new RepositorioDDJJ104();
 
-    //    if (ddjj == null)
-    //    {
-    //        ddjj = new AreaParaDDJJ104();
-    //        ddjj.Mes = 0;
-    //        ddjj.Anio = 0;
-    //    }
-    //    ddjj.Agente = new Persona() { Id = usuario.Id };
+        List<DDJJ104_2001> ListDDJJ = RepositorioDDJJ.GetMesesGenerados();
 
-    //    List<AreaParaDDJJ104> ListDDJJ = RepositorioDDJJ.GetMesesGenerados(ddjj);
+        List<MesDto> meses = new List<MesDto>();
 
-    //    List<MesDto> meses = new List<MesDto>();
+        foreach (var item in ListDDJJ)
+        {
+            meses.Add(new MesDto() { Mes = item.Mes, NombreMes = DateTimeFormatInfo.CurrentInfo.GetMonthName(item.Mes), Anio = item.Anio });
+        }
 
-    //    foreach (var item in ListDDJJ)
-    //    {
-    //        meses.Add(new MesDto() { Mes = item.Mes, NombreMes = DateTimeFormatInfo.CurrentInfo.GetMonthName(item.Mes), Anio = item.Anio });
-    //    }
-
-    //    return meses.ToArray();
-    //}
+        return meses.ToArray();
+    }
 
 
     //FIN: DDJJ 104 ---------------
@@ -269,6 +279,39 @@ public class WSViaticos : System.Web.Services.WebService
         return repositorio.GetGraficoRangoEtario(tipo, fecha, id_area, incluir_dependencias);
 
     }
+
+
+
+    /*Gráfico rango etário*/
+
+    [WebMethod]
+    public string ExcelGeneradoRangoEtario(string criterio, Usuario usuario)
+    {
+        try
+        {
+            var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
+            string tipo = ((JValue)criterio_deserializado["tipo"]).ToString();
+            int dia = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(0, 2)));
+            int mes = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(3, 2)));
+            int anio = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(6, 4)));
+            bool incluir_dependencias = (bool)((JValue)criterio_deserializado["incluir_dependencias"]);
+            DateTime fecha = new DateTime(anio, mes, dia);
+            int id_area = (int)((JValue)criterio_deserializado["id_area"]);
+
+            RepositorioDeReportes repositorio = new RepositorioDeReportes(Conexion());
+
+            return repositorio.ExcelGeneradoRangoEtario(tipo, dia, mes, anio, incluir_dependencias, id_area);
+        }
+        catch (Exception ex)
+        {
+
+            throw ex;
+        }
+
+
+    }
+
+    /**/
 
 
 

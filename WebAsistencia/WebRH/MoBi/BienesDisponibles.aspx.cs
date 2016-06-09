@@ -8,23 +8,14 @@ using WSViaticos;
 
 public partial class MoBi_BienesDisponibles : System.Web.UI.Page
 {
-    /*******************************************/
-    /*******************************************/
-    /*******************************************/
-    private int IdUsuario = 0;
-    /*******************************************/
-    /*******************************************/
-    /*******************************************/
-    /*******************************************/
-    
-
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!Page.IsPostBack)
         {
+            Usuario usuario = ((Usuario)Session["usuario"]);
             WSViaticosSoapClient ws = Servicio();
             Cargar_TiposDeBienes(ws);
-            Cargar_AreasDelUsuario(ws, IdUsuario, Convert.ToInt32(DropDownListTipoDeBien.SelectedValue), false);
+            Cargar_AreasDelUsuario(ws, usuario.Id, Convert.ToInt32(DropDownListTipoDeBien.SelectedValue), true);
             Cargar_Bienes(ws, Convert.ToInt32(DropDownAreasUsuario.SelectedValue), Convert.ToInt32(DropDownListTipoDeBien.SelectedValue));
         }
     }
@@ -75,10 +66,28 @@ public partial class MoBi_BienesDisponibles : System.Web.UI.Page
     {
         Cargar_Bienes(Servicio(), Convert.ToInt32(DropDownAreasUsuario.SelectedValue), Convert.ToInt32(DropDownListTipoDeBien.SelectedValue));
     }
-    protected void DropDownListTipoDeBien_SelectedIndexChanged(object sender, EventArgs e)
+
+    private void ActualizarAreasYBienes( )
     {
         WSViaticosSoapClient ws = Servicio();
-        Cargar_AreasDelUsuario(ws, IdUsuario, Convert.ToInt32(DropDownListTipoDeBien.SelectedValue), false);
+        Usuario usuario = ((Usuario)Session["usuario"]);
+        bool MostrarTodasLasAreas = (rbTodasLasAreas2.Checked ? true : false);
+        Cargar_AreasDelUsuario(ws, usuario.Id, Convert.ToInt32(DropDownListTipoDeBien.SelectedValue), MostrarTodasLasAreas);
         Cargar_Bienes(ws, Convert.ToInt32(DropDownAreasUsuario.SelectedValue), Convert.ToInt32(DropDownListTipoDeBien.SelectedValue));
+    }
+
+    protected void DropDownListTipoDeBien_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        ActualizarAreasYBienes();
+    }
+
+    protected void rbAreasConBienes_CheckedChanged(object sender, EventArgs e)
+    {
+        ActualizarAreasYBienes();
+    }
+
+    protected void rbTodasLasAreas_CheckedChanged(object sender, EventArgs e)
+    {
+        ActualizarAreasYBienes();
     }
 }

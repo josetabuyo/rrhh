@@ -62,7 +62,7 @@ namespace General
         //}
 
 
-        public DDJJ104_2001 GenerarDDJJ104(Usuario usuario, Area area, int mes, int anio)
+        public DDJJ104_2001 GenerarDDJJ104(Usuario usuario, AreaParaDDJJ104 area, int mes, int anio)
         {
             ConexionDB cn = new ConexionDB("dbo.PLA_ADD_DDJJ104_Cabecera");
             cn.AsignarParametro("@Id_Area", area.Id);
@@ -98,6 +98,29 @@ namespace General
 
                         orden++;
                     }
+
+
+                    foreach (var areasDependiente in area.AreasInformalesDependientes)
+                    {
+                        foreach (var personas in areasDependiente.Personas)
+                        {
+                            string[] Cat_Mod = personas.Categoria.ToString().Split('#');
+
+                            cn.CrearComandoConTransaccionIniciada("dbo.PLA_ADD_DDJJ104_Detalle");
+                            cn.AsignarParametro("@Id_DDJJ", id_ddjj_nuevo);
+                            cn.AsignarParametro("@Id_Persona", personas.Id);
+                            cn.AsignarParametro("@Orden", orden);
+                            cn.AsignarParametro("@Id_Area_Persona", personas.Area.Id);
+                            cn.AsignarParametro("@Mod_Contratacion", Cat_Mod[1].Trim());
+                            cn.AsignarParametro("@Categoria", Cat_Mod[0].Trim());
+
+                            cn.EjecutarSinResultado();
+
+                            orden++;
+                        }
+                    }
+
+
                 }
 
             }
@@ -181,6 +204,33 @@ namespace General
         //}
 
 
+        public List<DDJJ104_2001> GetMesesGenerados()
+        {
+            SqlDataReader dr;
+            ConexionDB cn = new ConexionDB("dbo.PLA_GET_Meses_Generados");
+            //cn.AsignarParametro("@Usuario_Generacion", ddjj.Agente.Id);
+            //cn.AsignarParametro("@Mes", ddjj.Mes);
+            //cn.AsignarParametro("@Año", ddjj.Anio);
+
+            dr = cn.EjecutarConsulta();
+
+            DDJJ104_2001 ddjj104;
+            List<DDJJ104_2001> listaddjj104 = new List<DDJJ104_2001>();
+
+            while (dr.Read())
+            {
+                ddjj104 = new DDJJ104_2001();
+                ddjj104.Mes = dr.GetInt16(dr.GetOrdinal("Mes"));
+                ddjj104.Anio = dr.GetInt16(dr.GetOrdinal("Año"));
+                //ddjj104.IdDDJJ = dr.GetInt32(dr.GetOrdinal("Id_DDJJ"));
+
+                listaddjj104.Add(ddjj104);
+            }
+
+            cn.Desconestar();
+
+            return listaddjj104;
+        }
        
 
 

@@ -111,7 +111,7 @@ var DibujarGrillaDDJJ = function () {
 var contarPersonasDelArea = function (un_area) {
     var cant_personas = un_area.Personas.length;
     _.forEach(un_area.AreasInformalesDependientes, function (area_informal) {
-        cant_personas += area_informal.Personas.length;
+        cant_personas += area_informal.Personas.length + 4; ///Sumo 4 por el encabezado de cada Area informal
     })
 
     return cant_personas;
@@ -304,21 +304,20 @@ var Generar_e_ImprimirDDJJ = function (idArea) {
 
     spinner = new Spinner({ scale: 2 }).spin($("body")[0]);
 
-    Backend.GetAreasParaDDJJ104(mesSeleccionado, anioSeleccionado, idArea)
-    .onSuccess(function (respuesta) {
+    //Backend.GetAreasParaDDJJ104(mesSeleccionado, anioSeleccionado, idArea)
+    //.onSuccess(function (respuesta) {
 
-        Backend.GenerarDDJJ104(respuesta[0], mesSeleccionado, anioSeleccionado)
+    Backend.GenerarDDJJ104(idArea, mesSeleccionado, anioSeleccionado)
         .onSuccess(function (ddjj) {
             if (ddjj) {
                 //un_area.DDJJ.push(ddjj);
-                respuesta[0].DDJJ = ddjj;
+                //respuesta[0].DDJJ = ddjj;
                 ImprimirDDJJ(idArea);
 
                 ContenedorGrilla.html("");
                 $("#ContenedorPersona").empty();
 
                 
-
                 getAreasDDJJ(function () {
                     ContenedorGrilla.html("");
                     DibujarGrillaDDJJ();
@@ -329,10 +328,10 @@ var Generar_e_ImprimirDDJJ = function (idArea) {
         .onError(function (error, as, asd) {
         alertify.alert(error);
         });
-    })
-    .onError(function (error, as, asd) {
-        alertify.alert(error);
-    });
+    //})
+    //.onError(function (error, as, asd) {
+    //    alertify.alert(error);
+    //});
 };
 
 
@@ -350,9 +349,9 @@ var ImprimirDDJJ = function (idArea) {
 var DibujarGrillaPersonas = function (un_area, contenedor_grilla, es_impresion) {
     //Maximo por hoja solo con el 1er encabezado entran 56 personas.
     //Si hay otra area entran 52 personas porque el encabezado cuenta 4 personas mas.
-    var personas_pagina_1 = 40;
-    var personas_pagina_mayor_que_1 = 60;
-    var personas_calulo_por_hoja = 54;
+    var personas_pagina_1 = 43; //40;
+    var personas_pagina_mayor_que_1 = 62; //60;
+    var personas_calculo_por_hoja = 56; //esto es porque cuento los espacios para completar la hoja
     var cantidad_de_persona_por_hoja = personas_pagina_1;
     var cantidad_de_filas_por_cabecera = 4;
     var contador_de_registros_por_pagina = 0;
@@ -360,7 +359,8 @@ var DibujarGrillaPersonas = function (un_area, contenedor_grilla, es_impresion) 
 
     var cantidad_total_de_personas = contarPersonasDelArea(un_area);
     var cantidad_restantes_de_personas = cantidad_total_de_personas - cantidad_de_persona_por_hoja;
-    var cantidad_total_de_hojas = Math.ceil(cantidad_restantes_de_personas / personas_calulo_por_hoja) + 1;
+    var cantidad_total_de_hojas = Math.ceil(cantidad_restantes_de_personas / personas_calculo_por_hoja) +1;
+
 
     //IMPRIMIR AREAS FORMALES
     contenedor_grilla.empty();
@@ -394,8 +394,8 @@ var DibujarGrillaPersonas = function (un_area, contenedor_grilla, es_impresion) 
                     contenedor_grilla.append($("<br/>"));
                     contenedor_grilla.append($("<br/>"));
                     contenedor_grilla.append($("<br/>"));
-
                     contenedor_grilla.append($("<br/>"));
+
                     contenedor_grilla.append($("<div class='nombre_area_informal'><b>" + un_area.Nombre + " (continuación)" + "<b/>" + "(Pag: " + contador_de_paginas + "/" + cantidad_total_de_hojas + ")</div>"));
                     grilla = new Grilla(
                 [
@@ -426,34 +426,42 @@ var DibujarGrillaPersonas = function (un_area, contenedor_grilla, es_impresion) 
     //IMPRIMIR AREAS INFORMALES
     un_area.AreasInformalesDependientes.forEach(function (area_informal) {
 
-        contenedor_grilla.append($("<br/>"));
-        contenedor_grilla.append($("<div class='nombre_area_informal'><b>" + area_informal.Nombre + "<b/></div>"));
-        var grilla_area_informal = new Grilla(
-        [
-            new Columna("APELLIDO Y NOMBRE", { generar: function (una_persona) { return una_persona.Apellido + ", " + una_persona.Nombre; } }),
-			new Columna("CUIL/CUIT", { generar: function (una_persona) { return una_persona.Cuit; } }),
-            new Columna("ESCALAFON O MODALIDAD DE CONTRATACION", { generar: function (una_persona) { return una_persona.Categoria.split("#")[1]; } }),
-            new Columna("NIVEL O CATEGORIA", { generar: function (una_persona) { return una_persona.Categoria.split("#")[0]; } }),
-		]);
+        if ((contador_de_registros_por_pagina + cantidad_de_filas_por_cabecera) >= cantidad_de_persona_por_hoja) {
+            contador_de_registros_por_pagina = contador_de_registros_por_pagina + cantidad_de_filas_por_cabecera;
+            contenedor_grilla.append($("<br />"));
+            contenedor_grilla.append($("<br />"));
+        }
+        else {
+            contenedor_grilla.append($("<br/>"));
+            contenedor_grilla.append($("<div class='nombre_area_informal'><b>" + area_informal.Nombre + "<b/></div>"));
+            var grilla_area_informal = new Grilla(
+            [
+                new Columna("APELLIDO Y NOMBRE", { generar: function (una_persona) { return una_persona.Apellido + ", " + una_persona.Nombre; } }),
+			    new Columna("CUIL/CUIT", { generar: function (una_persona) { return una_persona.Cuit; } }),
+                new Columna("ESCALAFON O MODALIDAD DE CONTRATACION", { generar: function (una_persona) { return una_persona.Categoria.split("#")[1]; } }),
+                new Columna("NIVEL O CATEGORIA", { generar: function (una_persona) { return una_persona.Categoria.split("#")[0]; } }),
+		    ]);
+        }
 
         if (es_impresion) {
             contador_de_registros_por_pagina = contador_de_registros_por_pagina + cantidad_de_filas_por_cabecera;
             if (area_informal.Personas.length > 0) {
                 for (var i = 0; i < area_informal.Personas.length; i++) {
 
-                    //CONTROLO PARA HACER LE SALTO DE PAGINA
+                    //CONTROLO PARA HACER EL SALTO DE PAGINA
                     if (contador_de_registros_por_pagina >= cantidad_de_persona_por_hoja) {
                         cantidad_de_persona_por_hoja = personas_pagina_mayor_que_1;
                         contador_de_paginas = contador_de_paginas + 1;
-                        grilla_area_informal.DibujarEn(contenedor_grilla);
+                        if (grilla_area_informal != null) {
+                            grilla_area_informal.DibujarEn(contenedor_grilla);
+                        }
+                        contenedor_grilla.append($("<br />"));
+                        contenedor_grilla.append($("<br />"));
+                        contenedor_grilla.append($("<br />"));
+                        contenedor_grilla.append($("<br />"));
+                        //contenedor_grilla.append($("<br />"));
+                        //contenedor_grilla.append($("<br/>"));
 
-                        contenedor_grilla.append($("<br />"));
-                        contenedor_grilla.append($("<br />"));
-                        contenedor_grilla.append($("<br />"));
-                        contenedor_grilla.append($("<br />"));
-                        contenedor_grilla.append($("<br />"));
-
-                        contenedor_grilla.append($("<br/>"));
                         contenedor_grilla.append($("<div class='nombre_area_informal'><b>" + area_informal.Nombre + " (continuación)" + "<b/>" + "(Pag: " + contador_de_paginas + "/" + cantidad_total_de_hojas + ")</div>"));
                         var grilla_area_informal = new Grilla(
                     [
