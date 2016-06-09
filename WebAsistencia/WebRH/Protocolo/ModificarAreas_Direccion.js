@@ -1,4 +1,5 @@
-﻿var ModificarAreas_Direccion = {
+﻿var contador_guardado = 0;
+var ModificarAreas_Direccion = {
 
     Iniciar: function () {
         var _this = this;
@@ -10,8 +11,8 @@
 
     DefinirEventos: function () {
         var _this = this;
-        $('btn_guardar_direccion').click(function () {
-            //hacer el guardado en el back de toda la dirección
+        $('#btn_guardar_direccion').click(function () {
+            _this.GuardarCambiosEnDireccion();
         });
         $('#btn_nuevo_edificio').click(function () {
             $("#div_agregar_edificio").show();
@@ -78,7 +79,40 @@
         this.CargarComboOficina(area.DireccionCompleta.IdOficina, area.DireccionCompleta.IdEdificio);
     },
 
+    GuardarCambiosEnDireccion: function () {
+        var resultado = Backend.ejecutarSincronico("BuscarCambiosEnDireccion", [{ IdArea: area.Id}]);
 
+        if (resultado != "" && contador_guardado < 1) {
+            alertify.alert(resultado);
+            contador_guardado = contador_guardado + 1;
+        } else {
+            var resultado = Backend.ejecutarSincronico("GuardarCambiosEnDireccion", [{
+                IdArea: area.Id,
+                IdLocaldiad: area.DireccionCompleta.Localidad.Id,
+                IdPartido: area.DireccionCompleta.Localidad.IdPartido,
+                IdProvincia: area.DireccionCompleta.Localidad.IdProvincia,
+                CodigoPostal: area.DireccionCompleta.Localidad.CodigoPostal,
+                NombreLocalidad: area.DireccionCompleta.Localidad.Nombre,
+                NombrePartido: area.DireccionCompleta.Localidad.NombrePartido,
+                NombreProvincia: area.DireccionCompleta.Localidad.NombreProvincia,
+                IdEdificio: parseInt(area.DireccionCompleta.IdEdificio),
+                Calle: area.DireccionCompleta.Calle,
+                Numero: area.DireccionCompleta.Numero,
+                IdOficina: parseInt(area.DireccionCompleta.IdOficina),
+                Dto: area.DireccionCompleta.Dto,
+                Piso: area.DireccionCompleta.Piso,
+                UF: area.DireccionCompleta.UF
+            }]);
+
+            if (resultado == "") {
+                $('#txt_resultado').text("La modificación de la dirección se envió correctamente. Los cambios en la misma se verá reflejados cuando sean aprobados por Recursos Humanos. Puede cerrar esta ventana.")
+                $('#txt_resultado').css("color", "Green");
+            } else {
+                $('#txt_resultado').text(resultado);
+                $('#txt_resultado').css("color", "Red");
+            }
+        }
+    },
     CargarDatosDeCodigoPostal: function (codigo_postal) {
         var localidad = Backend.ejecutarSincronico("CargarDatosDeCodigoPostal", [{
             CodigoPostal: parseInt(codigo_postal)

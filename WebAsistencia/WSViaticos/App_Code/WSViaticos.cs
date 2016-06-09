@@ -2632,7 +2632,7 @@ public class WSViaticos : System.Web.Services.WebService
         string hola = "";
     }
 
-    
+
 
 
     [WebMethod]
@@ -2708,6 +2708,47 @@ public class WSViaticos : System.Web.Services.WebService
         string uf = (string)((JValue)criterio_deserializado["UF"]);
 
         return RepositorioDeAreas().GuardarOficinaPendienteDeAptobacion(id_edificio, piso, oficina, uf, usuario);
+    }
+
+    [WebMethod]
+    public string GuardarCambiosEnDireccion(string criterio, Usuario usuario)
+    {
+        var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
+        
+         int id_area = (int)((JValue)criterio_deserializado["IdArea"]);
+        //LOCALIDAD
+        int id_localidad = (int)((JValue)criterio_deserializado["IdLocaldiad"]);
+        int id_partido = (int)((JValue)criterio_deserializado["IdPartido"]);
+        int id_provincia = (int)((JValue)criterio_deserializado["IdProvincia"]);
+        int codigo_postal = (int)((JValue)criterio_deserializado["CodigoPostal"]);
+        string nombre_localidad = (string)((JValue)criterio_deserializado["NombreLocalidad"]);
+        string nombre_partido = (string)((JValue)criterio_deserializado["NombrePartido"]);
+        string nombre_provincia = (string)((JValue)criterio_deserializado["NombreProvincia"]);
+
+       //EDIFICIO
+        int id_edificio = (int)((JValue)criterio_deserializado["IdEdificio"]);
+        string calle = (string)((JValue)criterio_deserializado["Calle"]);
+        int numero = (int)((JValue)criterio_deserializado["Numero"]);
+        
+        //OFICINA
+        int id_oficina = (int)((JValue)criterio_deserializado["IdOficina"]);
+        string dto = (string)((JValue)criterio_deserializado["Dto"]);
+        string piso = (string)((JValue)criterio_deserializado["Piso"]);
+        string uf = (string)((JValue)criterio_deserializado["UF"]);
+
+        return RepositorioDeAreas().GuardarCambiosEnDireccion(id_area, id_localidad, id_partido, id_provincia, codigo_postal, nombre_localidad, nombre_partido, nombre_provincia, id_edificio, calle, numero, id_oficina, dto, piso, uf, usuario);
+
+    }
+
+    [WebMethod]
+    public string BuscarCambiosEnDireccion(string criterio)
+    {
+        var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
+
+        int id_area = (int)((JValue)criterio_deserializado["IdArea"]);
+
+        return RepositorioDeAreas().BuscarCambiosEnDireccion(id_area);
+
     }
 
 
@@ -3818,73 +3859,73 @@ public class WSViaticos : System.Web.Services.WebService
 
     #endregion
 
-        #region mobi
+    #region mobi
 
-        [WebMethod]
-        public Vehiculo ObtenerVehiculoPorID(string id_vehiculo)
-        {
-            var repo = new RepositorioDeVehiculos(Conexion());
-            return repo.ObtenerVehiculoPorID(id_vehiculo);
-        }
+    [WebMethod]
+    public Vehiculo ObtenerVehiculoPorID(string id_vehiculo)
+    {
+        var repo = new RepositorioDeVehiculos(Conexion());
+        return repo.ObtenerVehiculoPorID(id_vehiculo);
+    }
 
-        [WebMethod]
-        public MoBi_Area[] Mobi_GetAreasUsuario(int IdUsuario)
-        {
-            RepositorioMoBi rMoBi = new RepositorioMoBi();
-            return rMoBi.GetAreasUsuario(IdUsuario);
-        }
+    [WebMethod]
+    public MoBi_Area[] Mobi_GetAreasUsuario(int IdUsuario)
+    {
+        RepositorioMoBi rMoBi = new RepositorioMoBi();
+        return rMoBi.GetAreasUsuario(IdUsuario);
+    }
 
-        [WebMethod]
-        public MoBi_Area[] Mobi_GetAreasUsuarioCBO(int IdUsuario, int IdTipoBien, bool MostrarSoloAreasConBienes)
-        {
-            RepositorioMoBi rMoBi = new RepositorioMoBi();
-            return rMoBi.GetAreasUsuarioCBO(IdUsuario, IdTipoBien, MostrarSoloAreasConBienes);
-        }
+    [WebMethod]
+    public MoBi_Area[] Mobi_GetAreasUsuarioCBO(int IdUsuario, int IdTipoBien, bool MostrarSoloAreasConBienes)
+    {
+        RepositorioMoBi rMoBi = new RepositorioMoBi();
+        return rMoBi.GetAreasUsuarioCBO(IdUsuario, IdTipoBien, MostrarSoloAreasConBienes);
+    }
 
-        [WebMethod]
-        public MoBi_TipoBien[] Mobi_GetTipoBien()
-        {
-            RepositorioMoBi rMoBi = new RepositorioMoBi();
-            return rMoBi.GetTipoDeBienes();
-        }
+    [WebMethod]
+    public MoBi_TipoBien[] Mobi_GetTipoBien()
+    {
+        RepositorioMoBi rMoBi = new RepositorioMoBi();
+        return rMoBi.GetTipoDeBienes();
+    }
 
-        [WebMethod]
-        public MoBi_Bien[] Mobi_GetBienesDelArea(int IdArea, int IdTipoBien)
-        {
-            RepositorioMoBi rMoBi = new RepositorioMoBi();
-            return rMoBi.GetBienesDelArea(IdArea, IdTipoBien);
-        }
+    [WebMethod]
+    public MoBi_Bien[] Mobi_GetBienesDelArea(int IdArea, int IdTipoBien)
+    {
+        RepositorioMoBi rMoBi = new RepositorioMoBi();
+        return rMoBi.GetBienesDelArea(IdArea, IdTipoBien);
+    }
 
-        [WebMethod]
-        public MoBi_Bien[] Mobi_GetBienesDelAreaRecepcion(int IdArea, int IdTipoBien)
-        {
-            RepositorioMoBi rMoBi = new RepositorioMoBi();
-            return rMoBi.GetBienesDelAreaRecepcion(IdArea, IdTipoBien);
-        }
+    [WebMethod]
+    public MoBi_Bien[] Mobi_GetBienesDelAreaRecepcion(int IdArea, int IdTipoBien)
+    {
+        RepositorioMoBi rMoBi = new RepositorioMoBi();
+        return rMoBi.GetBienesDelAreaRecepcion(IdArea, IdTipoBien);
+    }
 
-        [WebMethod]
-        public MoBi_Evento[] Mobi_GetEventosBien(int IdBien)
-        {
-            RepositorioMoBi rMoBi = new RepositorioMoBi();
-            return rMoBi.GetEventosBien(IdBien);
-        }
+    [WebMethod]
+    public MoBi_Evento[] Mobi_GetEventosBien(int IdBien)
+    {
+        RepositorioMoBi rMoBi = new RepositorioMoBi();
+        return rMoBi.GetEventosBien(IdBien);
+    }
 
-        [WebMethod]
-        public MoBi_Agente[] Mobi_GetAgentesArea(int IdArea)
-        {
-            RepositorioMoBi rMoBi = new RepositorioMoBi();
-            return rMoBi.GetAgentes(IdArea);
-        }
+    [WebMethod]
+    public MoBi_Agente[] Mobi_GetAgentesArea(int IdArea)
+    {
+        RepositorioMoBi rMoBi = new RepositorioMoBi();
+        return rMoBi.GetAgentes(IdArea);
+    }
 
-        [WebMethod]
-        public bool Mobi_GuardarEventoBien(MoBi_Evento.enumTipoEvento tipoEvento, int IdBien, int IdArea, int IdPersona, string Observaciones, int IdUser)
-        {
-            RepositorioMoBi rMoBi = new RepositorioMoBi();
-            return rMoBi.GuardarNuevoEventoBien(tipoEvento, IdBien, IdArea, IdPersona, Observaciones, IdUser);
-        }
+    [WebMethod]
+    public bool Mobi_GuardarEventoBien(MoBi_Evento.enumTipoEvento tipoEvento, int IdBien, int IdArea, int IdPersona, string Observaciones, int IdUser)
+    {
+        RepositorioMoBi rMoBi = new RepositorioMoBi();
+        return rMoBi.GuardarNuevoEventoBien(tipoEvento, IdBien, IdArea, IdPersona, Observaciones, IdUser);
+    }
 
 
-        #endregion
+    #endregion
 
     private RepositorioLicencias RepoLicencias()
     {

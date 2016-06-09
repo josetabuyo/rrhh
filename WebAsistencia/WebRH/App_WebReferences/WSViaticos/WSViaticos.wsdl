@@ -2,65 +2,29 @@
 <wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://wsviaticos.gov.ar/">
-      <s:element name="GetPantallaRecepcionDocumentacion">
+      <s:element name="GuardarEtapaAPostulaciones">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="postulacion" type="tns:Postulacion" />
+            <s:element minOccurs="0" maxOccurs="1" name="idpostulaciones" type="tns:ArrayOfInt" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_etapa_postulacion" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="Postulacion">
+      <s:complexType name="ArrayOfInt">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Perfil" type="tns:Perfil" />
-          <s:element minOccurs="0" maxOccurs="1" name="Postulante" type="tns:Persona" />
-          <s:element minOccurs="1" maxOccurs="1" name="FechaPostulacion" type="s:dateTime" />
-          <s:element minOccurs="0" maxOccurs="1" name="Motivo" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Observaciones" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Numero" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Etapas" type="tns:ArrayOfEtapaPostulacion" />
-          <s:element minOccurs="0" maxOccurs="1" name="DocumentacionRecibida" type="tns:ArrayOfDocumentacionRecibida" />
-          <s:element minOccurs="0" maxOccurs="1" name="DocumentacionARecibir" type="tns:ArrayOfDocumentacionRecibida" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="int" type="s:int" />
         </s:sequence>
       </s:complexType>
-      <s:complexType name="Perfil">
+      <s:complexType name="Usuario">
         <s:sequence>
           <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Familia" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Profesion" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Denominacion" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Nivel" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Agrupamiento" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="Vacantes" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Tipo" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Numero" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Comite" type="tns:Comite" />
-          <s:element minOccurs="1" maxOccurs="1" name="FechaDesde" type="s:dateTime" />
-          <s:element minOccurs="1" maxOccurs="1" name="FechaHasta" type="s:dateTime" />
-          <s:element minOccurs="1" maxOccurs="1" name="Baja" type="s:boolean" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="Comite">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Integrantes" type="tns:ArrayOfIntegranteComite" />
-          <s:element minOccurs="0" maxOccurs="1" name="Puesto" type="tns:Perfil" />
-          <s:element minOccurs="1" maxOccurs="1" name="Numero" type="s:int" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="ArrayOfIntegranteComite">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="IntegranteComite" nillable="true" type="tns:IntegranteComite" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="IntegranteComite">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Apellido" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="TipoDocumento" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="NroDocumento" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="EsTitular" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Alias" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Owner" type="tns:Persona" />
+          <s:element minOccurs="1" maxOccurs="1" name="Habilitado" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Verificado" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Funcionalidades" type="tns:ArrayOfFuncionalidad" />
+          <s:element minOccurs="1" maxOccurs="1" name="EsFirmante" type="s:boolean" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="Persona">
@@ -233,29 +197,6 @@
           <s:element minOccurs="0" maxOccurs="1" name="UsuarioDeCarga" type="tns:Usuario" />
         </s:sequence>
       </s:complexType>
-      <s:complexType name="Usuario">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Alias" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Owner" type="tns:Persona" />
-          <s:element minOccurs="1" maxOccurs="1" name="Habilitado" type="s:boolean" />
-          <s:element minOccurs="1" maxOccurs="1" name="Verificado" type="s:boolean" />
-          <s:element minOccurs="0" maxOccurs="1" name="Funcionalidades" type="tns:ArrayOfFuncionalidad" />
-          <s:element minOccurs="1" maxOccurs="1" name="EsFirmante" type="s:boolean" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="ArrayOfFuncionalidad">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Funcionalidad" nillable="true" type="tns:Funcionalidad" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="Funcionalidad">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="Grupo" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-        </s:sequence>
-      </s:complexType>
       <s:complexType name="Inasistencia">
         <s:sequence>
           <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
@@ -289,6 +230,114 @@
         <s:sequence>
           <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfFuncionalidad">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Funcionalidad" nillable="true" type="tns:Funcionalidad" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Funcionalidad">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Grupo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GuardarEtapaAPostulacionesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GuardarEtapaAPostulacionesResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTableroDeControlDePostulaciones">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_usuario" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTableroDeControlDePostulacionesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTableroDeControlDePostulacionesResult" type="tns:ArrayOfResumenDePostulaciones" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfResumenDePostulaciones">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ResumenDePostulaciones" nillable="true" type="tns:ResumenDePostulaciones" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ResumenDePostulaciones">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="IdPerfil" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="DescripcionPerfil" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="NumeroComite" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Postulados" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Inscriptos" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetPantallaRecepcionDocumentacion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="postulacion" type="tns:Postulacion" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Postulacion">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Perfil" type="tns:Perfil" />
+          <s:element minOccurs="0" maxOccurs="1" name="Postulante" type="tns:Persona" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaPostulacion" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Motivo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Observaciones" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Numero" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Etapas" type="tns:ArrayOfEtapaPostulacion" />
+          <s:element minOccurs="0" maxOccurs="1" name="DocumentacionRecibida" type="tns:ArrayOfDocumentacionRecibida" />
+          <s:element minOccurs="0" maxOccurs="1" name="DocumentacionARecibir" type="tns:ArrayOfDocumentacionRecibida" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Perfil">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Familia" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Profesion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Denominacion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nivel" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Agrupamiento" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Vacantes" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Tipo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Numero" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Comite" type="tns:Comite" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaDesde" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaHasta" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Baja" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Comite">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Integrantes" type="tns:ArrayOfIntegranteComite" />
+          <s:element minOccurs="0" maxOccurs="1" name="Puesto" type="tns:Perfil" />
+          <s:element minOccurs="1" maxOccurs="1" name="Numero" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfIntegranteComite">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="IntegranteComite" nillable="true" type="tns:IntegranteComite" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="IntegranteComite">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Apellido" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TipoDocumento" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="NroDocumento" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="EsTitular" type="s:boolean" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfEtapaPostulacion">
@@ -1583,6 +1632,35 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="GuardarOficinaPendienteDeAptobacionResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarCambiosEnDireccion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarCambiosEnDireccionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GuardarCambiosEnDireccionResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuscarCambiosEnDireccion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuscarCambiosEnDireccionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BuscarCambiosEnDireccionResult" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -2946,55 +3024,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GuardarEtapaAPostulaciones">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="idpostulaciones" type="tns:ArrayOfInt" />
-            <s:element minOccurs="1" maxOccurs="1" name="id_etapa_postulacion" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:complexType name="ArrayOfInt">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="int" type="s:int" />
-        </s:sequence>
-      </s:complexType>
-      <s:element name="GuardarEtapaAPostulacionesResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="GuardarEtapaAPostulacionesResult" type="s:boolean" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetTableroDeControlDePostulaciones">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id_usuario" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetTableroDeControlDePostulacionesResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetTableroDeControlDePostulacionesResult" type="tns:ArrayOfResumenDePostulaciones" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:complexType name="ArrayOfResumenDePostulaciones">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="ResumenDePostulaciones" nillable="true" type="tns:ResumenDePostulaciones" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="ResumenDePostulaciones">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="IdPerfil" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="DescripcionPerfil" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="NumeroComite" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="Postulados" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="Inscriptos" type="s:int" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="GetPlanillaAsistencias">
         <s:complexType>
           <s:sequence>
@@ -5801,6 +5830,18 @@
       </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="GuardarEtapaAPostulacionesSoapIn">
+    <wsdl:part name="parameters" element="tns:GuardarEtapaAPostulaciones" />
+  </wsdl:message>
+  <wsdl:message name="GuardarEtapaAPostulacionesSoapOut">
+    <wsdl:part name="parameters" element="tns:GuardarEtapaAPostulacionesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTableroDeControlDePostulacionesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTableroDeControlDePostulaciones" />
+  </wsdl:message>
+  <wsdl:message name="GetTableroDeControlDePostulacionesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTableroDeControlDePostulacionesResponse" />
+  </wsdl:message>
   <wsdl:message name="GetPantallaRecepcionDocumentacionSoapIn">
     <wsdl:part name="parameters" element="tns:GetPantallaRecepcionDocumentacion" />
   </wsdl:message>
@@ -6100,6 +6141,18 @@
   </wsdl:message>
   <wsdl:message name="GuardarOficinaPendienteDeAptobacionSoapOut">
     <wsdl:part name="parameters" element="tns:GuardarOficinaPendienteDeAptobacionResponse" />
+  </wsdl:message>
+  <wsdl:message name="GuardarCambiosEnDireccionSoapIn">
+    <wsdl:part name="parameters" element="tns:GuardarCambiosEnDireccion" />
+  </wsdl:message>
+  <wsdl:message name="GuardarCambiosEnDireccionSoapOut">
+    <wsdl:part name="parameters" element="tns:GuardarCambiosEnDireccionResponse" />
+  </wsdl:message>
+  <wsdl:message name="BuscarCambiosEnDireccionSoapIn">
+    <wsdl:part name="parameters" element="tns:BuscarCambiosEnDireccion" />
+  </wsdl:message>
+  <wsdl:message name="BuscarCambiosEnDireccionSoapOut">
+    <wsdl:part name="parameters" element="tns:BuscarCambiosEnDireccionResponse" />
   </wsdl:message>
   <wsdl:message name="CargarDatosDeCodigoPostalSoapIn">
     <wsdl:part name="parameters" element="tns:CargarDatosDeCodigoPostal" />
@@ -6520,18 +6573,6 @@
   </wsdl:message>
   <wsdl:message name="BuscarPostulacionesDePreInscriptosSoapOut">
     <wsdl:part name="parameters" element="tns:BuscarPostulacionesDePreInscriptosResponse" />
-  </wsdl:message>
-  <wsdl:message name="GuardarEtapaAPostulacionesSoapIn">
-    <wsdl:part name="parameters" element="tns:GuardarEtapaAPostulaciones" />
-  </wsdl:message>
-  <wsdl:message name="GuardarEtapaAPostulacionesSoapOut">
-    <wsdl:part name="parameters" element="tns:GuardarEtapaAPostulacionesResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetTableroDeControlDePostulacionesSoapIn">
-    <wsdl:part name="parameters" element="tns:GetTableroDeControlDePostulaciones" />
-  </wsdl:message>
-  <wsdl:message name="GetTableroDeControlDePostulacionesSoapOut">
-    <wsdl:part name="parameters" element="tns:GetTableroDeControlDePostulacionesResponse" />
   </wsdl:message>
   <wsdl:message name="GetPlanillaAsistenciasSoapIn">
     <wsdl:part name="parameters" element="tns:GetPlanillaAsistencias" />
@@ -7464,6 +7505,14 @@
     <wsdl:part name="parameters" element="tns:GuardarAsistenciasResponse" />
   </wsdl:message>
   <wsdl:portType name="WSViaticosSoap">
+    <wsdl:operation name="GuardarEtapaAPostulaciones">
+      <wsdl:input message="tns:GuardarEtapaAPostulacionesSoapIn" />
+      <wsdl:output message="tns:GuardarEtapaAPostulacionesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTableroDeControlDePostulaciones">
+      <wsdl:input message="tns:GetTableroDeControlDePostulacionesSoapIn" />
+      <wsdl:output message="tns:GetTableroDeControlDePostulacionesSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetPantallaRecepcionDocumentacion">
       <wsdl:input message="tns:GetPantallaRecepcionDocumentacionSoapIn" />
       <wsdl:output message="tns:GetPantallaRecepcionDocumentacionSoapOut" />
@@ -7663,6 +7712,14 @@
     <wsdl:operation name="GuardarOficinaPendienteDeAptobacion">
       <wsdl:input message="tns:GuardarOficinaPendienteDeAptobacionSoapIn" />
       <wsdl:output message="tns:GuardarOficinaPendienteDeAptobacionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GuardarCambiosEnDireccion">
+      <wsdl:input message="tns:GuardarCambiosEnDireccionSoapIn" />
+      <wsdl:output message="tns:GuardarCambiosEnDireccionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BuscarCambiosEnDireccion">
+      <wsdl:input message="tns:BuscarCambiosEnDireccionSoapIn" />
+      <wsdl:output message="tns:BuscarCambiosEnDireccionSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="CargarDatosDeCodigoPostal">
       <wsdl:input message="tns:CargarDatosDeCodigoPostalSoapIn" />
@@ -7943,14 +8000,6 @@
     <wsdl:operation name="BuscarPostulacionesDePreInscriptos">
       <wsdl:input message="tns:BuscarPostulacionesDePreInscriptosSoapIn" />
       <wsdl:output message="tns:BuscarPostulacionesDePreInscriptosSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GuardarEtapaAPostulaciones">
-      <wsdl:input message="tns:GuardarEtapaAPostulacionesSoapIn" />
-      <wsdl:output message="tns:GuardarEtapaAPostulacionesSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetTableroDeControlDePostulaciones">
-      <wsdl:input message="tns:GetTableroDeControlDePostulacionesSoapIn" />
-      <wsdl:output message="tns:GetTableroDeControlDePostulacionesSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetPlanillaAsistencias">
       <wsdl:input message="tns:GetPlanillaAsistenciasSoapIn" />
@@ -8575,6 +8624,24 @@
   </wsdl:portType>
   <wsdl:binding name="WSViaticosSoap" type="tns:WSViaticosSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GuardarEtapaAPostulaciones">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarEtapaAPostulaciones" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTableroDeControlDePostulaciones">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetTableroDeControlDePostulaciones" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetPantallaRecepcionDocumentacion">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetPantallaRecepcionDocumentacion" style="document" />
       <wsdl:input>
@@ -9018,6 +9085,24 @@
     </wsdl:operation>
     <wsdl:operation name="GuardarOficinaPendienteDeAptobacion">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarOficinaPendienteDeAptobacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarCambiosEnDireccion">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarCambiosEnDireccion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarCambiosEnDireccion">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarCambiosEnDireccion" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -9648,24 +9733,6 @@
     </wsdl:operation>
     <wsdl:operation name="BuscarPostulacionesDePreInscriptos">
       <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarPostulacionesDePreInscriptos" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GuardarEtapaAPostulaciones">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarEtapaAPostulaciones" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetTableroDeControlDePostulaciones">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetTableroDeControlDePostulaciones" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -11071,6 +11138,24 @@
   </wsdl:binding>
   <wsdl:binding name="WSViaticosSoap12" type="tns:WSViaticosSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GuardarEtapaAPostulaciones">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarEtapaAPostulaciones" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTableroDeControlDePostulaciones">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetTableroDeControlDePostulaciones" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetPantallaRecepcionDocumentacion">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetPantallaRecepcionDocumentacion" style="document" />
       <wsdl:input>
@@ -11514,6 +11599,24 @@
     </wsdl:operation>
     <wsdl:operation name="GuardarOficinaPendienteDeAptobacion">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarOficinaPendienteDeAptobacion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarCambiosEnDireccion">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarCambiosEnDireccion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarCambiosEnDireccion">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarCambiosEnDireccion" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -12144,24 +12247,6 @@
     </wsdl:operation>
     <wsdl:operation name="BuscarPostulacionesDePreInscriptos">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarPostulacionesDePreInscriptos" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GuardarEtapaAPostulaciones">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarEtapaAPostulaciones" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetTableroDeControlDePostulaciones">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetTableroDeControlDePostulaciones" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
