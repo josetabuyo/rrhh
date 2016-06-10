@@ -1,10 +1,23 @@
-﻿body {
-    background-color:#031427;
+﻿html
+{
+    background: linear-gradient(to bottom, black 0%,black 50%,#000000 50%,#031427 50%,#031427 100%); /* W3C */
+/*     background: -webkit-gradient(linear, center top, center bottom, from(#000), to(#031427));
+    background: -webkit-linear-gradient(#000, #031427);
+    background: -moz-linear-gradient(#000, #031427);
+    background: -o-linear-gradient(#000, #031427);
+    background: -ms-linear-gradient(#000, #031427);
+    background: linear-gradient(#000, #031427);*/
+    }
+
+body 
+{   
+   /* background-color:#031427;*/
     width:80%;
     margin-left:10%;
     margin-right:10%;
     line-height: 18px;
     color: white;
+        font-family: Arial
     }
 
 #barra_menu_contenedor {
@@ -12,8 +25,8 @@
     }
 
 #encabezado_sin_logo {
-    height: 60px;
-    width: 1024px; 
+    height: 63px;
+    width: 1010px; 
     }
 
 #barra_menu_contenedor_imagen {
@@ -79,7 +92,7 @@
 #barra_menu_nombre_sistema
         {
     position: absolute;
-    top: -5px;
+    top: -15px;
     left: 187px;
     width: 265px;
     text-align: center;
@@ -90,25 +103,36 @@
         
 .tabla-principal
         {
-    margin-top:1%;
-    margin-bottom:5%;
+    margin-top:0%;
+    margin-bottom:0%;
     font-size:1.1em;
     width:100%;
-    background-color:black;
+    background-color: #031427;
     border-radius: 10px;
         }
 
 .celda {
-    border: 3px double #000;
+ 
     padding: 3px;
     width: 20%;         
-    border-radius: 10px;
+ /* border: 3px double #000;
+border-radius: 10px;*/
+        }
+        
+        #celda-titulo {
+ 
+    padding: 3px;
+    width: 100%;         
+margin-top: 2%;
+margin-bottom: 2%;
         }
 
 .celda2 {
-    border: 3px double #000;
+   
     padding: 3px;
     width: 80%;
+  /*   border: 3px double #000;
+    border-radius: 10px;*/
         }
 
 .celda-imagen {
@@ -117,32 +141,44 @@
         }
 
 .separador {
-    margin-bottom: -1%;
-    margin-top: -1%;
+/*    margin-bottom: 2%;*/
+  /*  margin-top: 2%;*/
     background-color: white;
     height: 2px;
     width: 100%;
     border-radius: 10px;
         }
 
-.titulos {
-    margin-left: 0%;
+.div-titulos 
+{
+   /* background-color: #031427;*/
+   border-radius: 10px;
+    margin-bottom: 0%;
     font-size:1.3em;
     font-weight: bold;
-        }
+    height: 100%;
+    text-align: left;
+    margin-top: 3%;
+
+     display:inline-block;
+  }
+  
+
     
  .imagenes {
     width: inherit !important;   /* This makes the next two lines work in IE8. */
     max-width: 31% !important;  /* Add !important if needed. */
     height: auto !important;    /* Add !important if needed. */
     margin-top: 1%;
-    margin-bottom: 7%;
-    margin-left: 1%;
+    margin-bottom: 5%;
+    margin-left: 10%;
+    border-radius: 10px;
         }
  
 .contenedor-imagen-vehiculo {
     float: left;
     display:none;
+    margin-top: 15%;
         }
 
 .Contenedor-parrafo {
@@ -167,3 +203,40 @@
  {
      display:none;
  }
+ 
+/* .barra-azul
+ {
+    height: 12px;
+    width: 100%;
+    background-color: #003580;
+     }*/
+     
+     #barra-foot
+     {
+         margin-top: -50px;
+         }
+         
+ #contenedor-imagenes
+ {
+     width:80%;
+     margin-left:10%;
+     margin-right:10%;
+     }
+     
+     #VehiculoAlertaInvalido
+{   
+    margin-top:10px;
+    text-align:center;
+}
+
+hr {
+  color: white;
+  margin-top: -5%;
+  border: 0; 
+  height: 2px; 
+  text-align: center; 
+  background-color: #fff ;
+  background: radial-gradient(left, #031427,  #fff,  #031427);
+  background: -webkit-radial-gradient(left,100% 100px, #031427,  #fff,  #031427);
+  background : -moz-radial-gradient(left,100% 100px, #031427,  #fff,  #031427);
+}

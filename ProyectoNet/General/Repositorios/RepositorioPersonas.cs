@@ -182,11 +182,14 @@ namespace General
                     Area = new Area() { Id = dr.GetInt32(dr.GetOrdinal("id_area")) },
                     Categoria = ObtenerCategoria(dr),
 
+                    Esta_Cargada = dr.GetInt32(dr.GetOrdinal("esta_cargado")),
+
                     //Area = unArea,
                     TipoDePlanta = new TipoDePlanta
                     {
                         Descripcion = dr.GetValue(dr.GetOrdinal("planta")).ToString()
                     }
+
                 };
                 unArea.Personas.Add(persona);
             }

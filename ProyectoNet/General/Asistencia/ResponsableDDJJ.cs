@@ -155,22 +155,45 @@ namespace General
                     area.Nombre = a.Nombre;
                     area.Personas.AddRange(repoPersonas.GetPersonasDelAreaParaDDJJ104(mes, anio, a).FindAll(x => x.Area.Id == id_area));
 
-                    //CARGO LAS AREAS QUE DEPENDEN Y LAS PERSONAS    
-                    areas_completas.ForEach(area_dependiente =>
+                    if (area.Personas != null && area.Personas.Count > 0 && area.Personas[0].Esta_Cargada == 1)
                     {
-                        if (!area_dependiente.PresentaDDJJ)
+
+                        //CARGO LAS AREAS QUE DEPENDEN Y LAS PERSONAS
+                        areas_completas.ForEach(area_dependiente =>
                         {
-                            var area_informal = new AreaParaDDJJ104();
-                            area_informal.Id = area_dependiente.Id;
-                            area_informal.Nombre = area_dependiente.Nombre;
-                            area_informal.Personas = repoPersonas.GetPersonasDelAreaParaDDJJ104(mes, anio, area_dependiente).FindAll(x=> x.Area.Id == id_area);
+                            if (!area_dependiente.PresentaDDJJ)
+                            {
+                                var area_informal = new AreaParaDDJJ104();
+                                area_informal.Id = area_dependiente.Id;
+                                area_informal.Nombre = area_dependiente.Nombre;
+                                area_informal.Personas = repoPersonas.GetPersonasDelAreaParaDDJJ104(mes, anio, a).FindAll(x => x.Area.Id == area_informal.Id);
 
-                            if (area_informal.Personas.Count > 0)
-                                area.AreasInformalesDependientes.Add(area_informal);    
-                        }
-                    });
-                    area.DDJJ = new RepositorioDDJJ104().GetDDJJParaElArea(a).Find(x => x.Mes == mes && x.Anio == anio);
+                                if (area_informal.Personas.Count > 0)
+                                    area.AreasInformalesDependientes.Add(area_informal);
+                            }
+                        });
+                        area.DDJJ = new RepositorioDDJJ104().GetDDJJParaElArea(a).Find(x => x.Mes == mes && x.Anio == anio);
 
+                    }
+                    else
+                    {
+
+                        //CARGO LAS AREAS QUE DEPENDEN Y LAS PERSONAS
+                        areas_completas.ForEach(area_dependiente =>
+                        {
+                            if (!area_dependiente.PresentaDDJJ)
+                            {
+                                var area_informal = new AreaParaDDJJ104();
+                                area_informal.Id = area_dependiente.Id;
+                                area_informal.Nombre = area_dependiente.Nombre;
+                                area_informal.Personas = repoPersonas.GetPersonasDelAreaParaDDJJ104(mes, anio, area_dependiente).FindAll(x => x.Area.Id == area_informal.Id);
+
+                                if (area_informal.Personas.Count > 0)
+                                    area.AreasInformalesDependientes.Add(area_informal);
+                            }
+                        });
+                        area.DDJJ = new RepositorioDDJJ104().GetDDJJParaElArea(a).Find(x => x.Mes == mes && x.Anio == anio);
+                    }
                     //var area_superior = un_Organigrama.AreaSuperiorDe(a);
                     //area.AreaSuperior = new AreaParaDDJJ104();
                     //area.AreaSuperior.Id = area_superior.Id;

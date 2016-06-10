@@ -56,13 +56,13 @@
         
         .APELLIDO_Y_NOMBRE
         {
-            width: 40%;
+            width: 45%;
             font-size:10px;
         }          
         
         .CUIL_CUIT
         {
-            width: 20%;
+            width: 15%;
             text-align:center;
             font-size:10px;
         }
@@ -105,13 +105,13 @@
             
             .APELLIDO_Y_NOMBRE
             {
-                width: 40%;
+                width: 45%;
                 font-size:10px;
             }          
         
             .CUIL_CUIT
             {
-                width: 20%;
+                width: 15%;
                 text-align:center;
                 font-size:10px;
             }
