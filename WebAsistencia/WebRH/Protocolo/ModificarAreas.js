@@ -9,15 +9,15 @@
 
         _this.btn_agregar_contacto.click(function () {
             var panel_detalle = new PanelDetalleGenerico({
-                path_html: "PanelDetalleDeContacto.htm",
-                metodoDeGuardado: "GuardarContactoArea",
-                mensajeDeGuardadoExitoso: "El Contacto ha sido guardado exitosamente",
-                mensajeDeGuardadoErroneo: "Error al agregar el Contacto",
-                alModificar: function (nuevo_contacto) {
-                    _this.GrillaContactos.BorrarContenido();
-                    _this.contactos.push(nuevo_contacto);
-                    _this.GrillaContactos.CargarObjetos(_this.contactos);
-                }
+                path_html: "PanelDetalleDeContacto.htm"
+//                metodoDeGuardado: "GuardarContactoArea",
+//                mensajeDeGuardadoExitoso: "El Contacto ha sido guardado exitosamente",
+//                mensajeDeGuardadoErroneo: "Error al agregar el Contacto",
+//                alModificar: function (nuevo_contacto) {
+//                    _this.GrillaContactos.BorrarContenido();
+//                    _this.contactos.push(nuevo_contacto);
+//                    _this.GrillaContactos.CargarObjetos(_this.contactos);
+//                }
             });
         });
 
