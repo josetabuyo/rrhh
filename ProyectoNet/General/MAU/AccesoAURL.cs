@@ -21,6 +21,12 @@ namespace General.MAU
             this.Funcionalidad = funcionalidad;
             this.Url = url;
             this.Id = id;
-        }        
+        }
+
+        public override string ToString()
+        {
+            return this.Funcionalidad.ToString() + " url: " + this.Url; ;
+        }
+
     }
 }

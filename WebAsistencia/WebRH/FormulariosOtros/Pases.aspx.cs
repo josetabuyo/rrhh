@@ -18,7 +18,7 @@ public partial class FormulariosOtros_Pases : System.Web.UI.Page
         Area areaPase = new Area();
         
         areaPase.Id = int.Parse(this.selected_area_id.Value);
-        areaPase.Nombre = this.selected_area_name.Value; ;
+        areaPase.Nombre = this.selected_area_name.Value;
 
         Session["areaPase"] = areaPase;
 

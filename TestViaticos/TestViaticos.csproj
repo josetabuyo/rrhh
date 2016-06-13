@@ -80,7 +80,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppConexionTest.cs" />
+    <Compile Include="BruteForce.cs" />
     <Compile Include="CodigoTareaTest.cs" />
+    <Compile Include="TestKey.cs" />
     <Compile Include="TestPermisos.cs" />
     <Compile Include="TestRepositorioDePerfiles.cs" />
     <Compile Include="TestRepoLazy.cs" />

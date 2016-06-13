@@ -76,6 +76,7 @@ namespace General.MAU
         protected override void QuitarDeLaBase(MenuDelSistema objeto)
         {
             throw new NotImplementedException();
+            
         }
     }
 }

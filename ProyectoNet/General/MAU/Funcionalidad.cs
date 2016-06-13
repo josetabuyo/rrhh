@@ -28,5 +28,10 @@ namespace General.MAU
             return this.Id == ((Funcionalidad)obj).Id;
         }
 
+        public override string ToString()
+        {
+            return this.Grupo + "->" + this.Nombre;
+        }
+
     }
 }
