@@ -3691,6 +3691,21 @@ public class WSViaticos : System.Web.Services.WebService
 
         #region mobi
 
+         [WebMethod]
+        public void AgregarTarjetonTODOSlosVehiculos()
+        {
+            var repo = new RepositorioTarjetones(Conexion());
+            repo.AgregarTarjetonTODOSlosVehiculos();
+
+        }
+
+        [WebMethod]
+        public Tarjeton NuevoTarjeton(int id_Bien)
+        {
+            var repo = new RepositorioTarjetones(Conexion());
+            return repo.NuevoTarjeton(id_Bien);
+        }
+
         [WebMethod]
         public Vehiculo ObtenerVehiculoPorID(string id_vehiculo)
         {
