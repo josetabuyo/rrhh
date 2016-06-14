@@ -47,7 +47,7 @@ var ModificarAreas_Contacto = {
         var combo = $('#cmb_TipoContacto');
         combo.empty();
 
-        var tipos = Backend.ejecutarSincronico("ObtenerTiposDeContacto");
+        var tipos = Backend.ejecutarSincronico("ObtenerTiposDeContacto", []);
 
         if (tipos.length > 0) {
             for (var i = 0; i < tipos.length; i++) {
