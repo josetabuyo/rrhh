@@ -21,8 +21,8 @@
     <MetadataSource Address="http://localhost:43412/WSViaticos/WSViaticos.asmx" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="WSViaticos.disco" MetadataType="Disco" ID="6ef328a3-3502-409e-8977-c1acfabacfaf" SourceId="1" SourceUrl="http://localhost:43412/WSViaticos/WSViaticos.asmx?disco" />
     <MetadataFile FileName="WSViaticos.wsdl" MetadataType="Wsdl" ID="ca87a31a-a0d9-4b11-aded-f794d66e7ebe" SourceId="1" SourceUrl="http://localhost:43412/WSViaticos/WSViaticos.asmx?wsdl" />
+    <MetadataFile FileName="WSViaticos.disco" MetadataType="Disco" ID="6ef328a3-3502-409e-8977-c1acfabacfaf" SourceId="1" SourceUrl="http://localhost:43412/WSViaticos/WSViaticos.asmx?disco" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

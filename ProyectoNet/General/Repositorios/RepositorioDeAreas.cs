@@ -451,6 +451,18 @@ namespace General.Repositorios
             return combo;
         }
 
+        public List<Combo> ObtenerTiposDeContacto()
+        {
+            List<Combo> combo = new List<Combo>();
+            var tablaDatos = conexion.Ejecutar("dbo.LEG_GET_Tabla_Tipo_De_Dato");
+            tablaDatos.Rows.ForEach(row =>
+            {
+                Combo opcion = new Combo(row.GetSmallintAsInt("id"), row.GetString("descripcion"));
+                combo.Add(opcion);
+            });
+            return combo;
+        }
+
         public List<Combo> ObtenerOficinaPorEdificio(int id_edificio, int id_area, Usuario usuario)
         {
             List<Combo> combo = new List<Combo>();
@@ -526,25 +538,25 @@ namespace General.Repositorios
                     edificio.Nombre = edificio_bd.GetString("Edificio");
                     localidad.Id = edificio_bd.GetInt("Localidad");
                     var localidad_base = tablaDatos.Rows.First();
-                        localidad.CodigoPostal = localidad_base.GetInt("codigopostal");
-                        localidad.IdProvincia = localidad_base.GetInt("Id_Provincia");
-                        localidad.NombreProvincia = localidad_base.GetString("nombreProvincia");
-                        localidad.Nombre = localidad_base.GetString("nombrelocalidad");
+                    localidad.CodigoPostal = localidad_base.GetInt("codigopostal");
+                    localidad.IdProvincia = localidad_base.GetInt("Id_Provincia");
+                    localidad.NombreProvincia = localidad_base.GetString("nombreProvincia");
+                    localidad.Nombre = localidad_base.GetString("nombrelocalidad");
 
-                        parametros.Clear();
-                        tablaDatos.Clear();
-                        parametros.Add("@localidad", localidad.Id);
-                        tablaDatos = conexion.Ejecutar("dbo.GetLocalidad", parametros);
-                        if (tablaDatos.Rows.Count > 0)
-                        {
-                            var localidad_base2 = tablaDatos.Rows.First();
-                            localidad.CodigoPostal = localidad_base2.GetInt("codigopostal");
-                            localidad.IdProvincia = localidad_base2.GetInt("Id_Provincia");
-                            localidad.NombreProvincia = localidad_base2.GetString("nombreProvincia");
-                            localidad.IdPartido = localidad_base2.GetSmallintAsInt("partido");
-                            localidad.NombrePartido = localidad_base2.GetString("DescPartido");
-                            localidad.Nombre = localidad_base2.GetString("nombrelocalidad");
-                        }
+                    parametros.Clear();
+                    tablaDatos.Clear();
+                    parametros.Add("@localidad", localidad.Id);
+                    tablaDatos = conexion.Ejecutar("dbo.GetLocalidad", parametros);
+                    if (tablaDatos.Rows.Count > 0)
+                    {
+                        var localidad_base2 = tablaDatos.Rows.First();
+                        localidad.CodigoPostal = localidad_base2.GetInt("codigopostal");
+                        localidad.IdProvincia = localidad_base2.GetInt("Id_Provincia");
+                        localidad.NombreProvincia = localidad_base2.GetString("nombreProvincia");
+                        localidad.IdPartido = localidad_base2.GetSmallintAsInt("partido");
+                        localidad.NombrePartido = localidad_base2.GetString("DescPartido");
+                        localidad.Nombre = localidad_base2.GetString("nombrelocalidad");
+                    }
 
                     edificio.Localidad = localidad;
                 }
@@ -683,8 +695,8 @@ namespace General.Repositorios
             if (calle == "") return "Error al obtener el Nombre de la Calle";
             if (numero <= 0) return "Error al obtener el Número de la Calle";
             if (id_oficina <= 0) return "Error al obtener el Id de la Oficina";
-           
-            
+
+
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_area", id_area);
             parametros.Add("@id_localidad", id_localidad);
@@ -707,6 +719,23 @@ namespace General.Repositorios
             return "";
         }
 
+        public string GuardarCambiosEnContacto(int id_area, int estado, int tipo_dato, string dato, int orden, Usuario usuario)
+        {
+            if (id_area < 0) return "Error al obtener el Id de Área";
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_area", id_area);
+            parametros.Add("@estado", estado);
+            parametros.Add("@tipo_dato", tipo_dato);
+            parametros.Add("@dato", dato);
+            parametros.Add("@orden", orden);
+            parametros.Add("@id_usuario", usuario.Id);
+
+            var tablaDatos = conexion.Ejecutar("dbo.ESTR_Ins_ContactoPendienteAprobacion", parametros);
+            return "";
+
+        }
+
+
         public string BuscarCambiosEnDireccion(int id_area)
         {
             var parametros = new Dictionary<string, object>();
@@ -715,10 +744,27 @@ namespace General.Repositorios
             if (tablaDatos.Rows.Count > 0)
             {
                 var cambio = tablaDatos.Rows.First().GetSmallintAsInt("Usuario_Alta");
-                return "Ya existe una Solicitud de Modificación de Datos solicitada por el usuario " + cambio + ". Para guardar sus modificaciones, seleccione Guardar Cambios nuevamente. " + 
+                return "Ya existe una Solicitud de Modificación de Datos solicitada por el usuario " + cambio + ". Para guardar sus modificaciones, seleccione Guardar Cambios nuevamente. " +
                     "CUIDADO: Si guarda los cambios pisará los enviados por el usuario anterior.";
             }
             return "";
         }
+
+        public string BuscarCambiosEnContacto(int id_area)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_area", id_area);
+            var tablaDatos = conexion.Ejecutar("dbo.ESTR_Get_ContactosPendientesAprobacion", parametros);
+            if (tablaDatos.Rows.Count > 0)
+            {
+                var cambio = tablaDatos.Rows.First().GetSmallintAsInt("Usuario_Alta");
+                return "Ya existe una Solicitud de Modificación de Datos solicitada por el usuario " + cambio + ". Para guardar sus modificaciones, seleccione Guardar Cambios nuevamente. " +
+                    "CUIDADO: Si guarda los cambios pisará los enviados por el usuario anterior.";
+            }
+            return "";
+        }
+
+
+        
     }
 }

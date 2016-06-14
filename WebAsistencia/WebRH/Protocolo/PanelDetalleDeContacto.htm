@@ -13,9 +13,6 @@
                     <label for="cmb_TipoContacto">
                         Tipo de Contacto:</label>
                     <select id="cmb_TipoContacto" style="width: 160px;" data-validar="esNoBlanco">
-                        <option value="1">Teléfono</option>
-                        <option value="2">Fax</option>
-                        <option value="3">Mail</option>
                     </select>
                 </div>
                 <div class="grupo_campos nueva_linea">
@@ -25,7 +22,7 @@
                     <input id="txt_Contacto" type="text" style="width: 314px;" data-validar="esNoBlanco" />
                 </div>
                 <div id="div11" class="btn-fld nueva_linea">
-                    <input type="button" class="btn btn-primary" id="btn_guardar_direccion" value="Guardar Cambios" />
+                    <input type="button" class="btn btn-primary" id="btn_guardar_contacto" value="Guardar Cambios" />
                     <p id="txt_resultado">
                     </p>
                 </div>
@@ -36,3 +33,10 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        ModificarAreas_Contacto.Iniciar();
+    });
+   
+</script>

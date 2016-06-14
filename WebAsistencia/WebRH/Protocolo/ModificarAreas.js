@@ -6,18 +6,9 @@
         _this.contactos = contactos;
         _this.divGrillaContacto = $('#tabla_contactos');
         _this.btn_agregar_contacto = $("#btn_agregar_contacto");
-
         _this.btn_agregar_contacto.click(function () {
             var panel_detalle = new PanelDetalleGenerico({
                 path_html: "PanelDetalleDeContacto.htm"
-//                metodoDeGuardado: "GuardarContactoArea",
-//                mensajeDeGuardadoExitoso: "El Contacto ha sido guardado exitosamente",
-//                mensajeDeGuardadoErroneo: "Error al agregar el Contacto",
-//                alModificar: function (nuevo_contacto) {
-//                    _this.GrillaContactos.BorrarContenido();
-//                    _this.contactos.push(nuevo_contacto);
-//                    _this.GrillaContactos.CargarObjetos(_this.contactos);
-//                }
             });
         });
 
@@ -209,7 +200,7 @@
         _this.btn_modificar_direccion.click(function () {
             var panel_detalle = new PanelDetalleGenerico({
                 //modelo: area,
-                path_html: "PanelDetalleDeDireccion.htm",
+                path_html: "PanelDetalleDeDireccion.htm"
                 //metodoDeGuardado: "ModificarDireccionDelArea",
                 //mensajeDeGuardadoExitoso: "La Dirección ha sido guardado exitosamente",
                 //mensajeDeGuardadoErroneo: "Error al modificar la Dirección",

@@ -2643,7 +2643,11 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
 
-
+    [WebMethod]
+    public Combo[] ObtenerTiposDeContacto()
+    {
+        return RepositorioDeAreas().ObtenerTiposDeContacto().ToArray();
+    }
 
     [WebMethod]
     public Combo[] ObtenerEdificiosPorLocalidad(string criterio, Usuario usuario)
@@ -2751,6 +2755,21 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public string GuardarCambiosEnContacto(string criterio, Usuario usuario)
+    {
+        var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
+
+        int id_area = (int)((JValue)criterio_deserializado["IdArea"]);
+        int estado = (int)((JValue)criterio_deserializado["Estado"]);
+        int tipo_dato = (int)((JValue)criterio_deserializado["TipoDato"]);        
+        string dato = (string)((JValue)criterio_deserializado["Dato"]);
+        int orden = (int)((JValue)criterio_deserializado["Orden"]);
+        
+        return RepositorioDeAreas().GuardarCambiosEnContacto(id_area, estado, tipo_dato, dato, orden, usuario);
+
+    }
+
+    [WebMethod]
     public string BuscarCambiosEnDireccion(string criterio)
     {
         var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
@@ -2761,6 +2780,15 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
 
+    [WebMethod]
+    public string BuscarCambiosEnContacto(string criterio)
+    {
+        var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
+
+        int id_area = (int)((JValue)criterio_deserializado["IdArea"]);
+        return RepositorioDeAreas().BuscarCambiosEnContacto(id_area);
+
+    }
 
     [WebMethod]
     public Localidad CargarDatosDeCodigoPostal(string criterio)
