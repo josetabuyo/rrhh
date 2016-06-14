@@ -562,6 +562,20 @@
           <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
         </s:sequence>
       </s:complexType>
+      <s:element name="ObtenerVehiculoPorIDVerificacion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="id_verificacion" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerVehiculoPorIDVerificacionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerVehiculoPorIDVerificacionResult" type="tns:Vehiculo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="Mobi_GetAreasUsuario">
         <s:complexType>
           <s:sequence>
@@ -5659,6 +5673,12 @@
   <wsdl:message name="ObtenerVehiculoPorIDSoapOut">
     <wsdl:part name="parameters" element="tns:ObtenerVehiculoPorIDResponse" />
   </wsdl:message>
+  <wsdl:message name="ObtenerVehiculoPorIDVerificacionSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerVehiculoPorIDVerificacion" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerVehiculoPorIDVerificacionSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerVehiculoPorIDVerificacionResponse" />
+  </wsdl:message>
   <wsdl:message name="Mobi_GetAreasUsuarioSoapIn">
     <wsdl:part name="parameters" element="tns:Mobi_GetAreasUsuario" />
   </wsdl:message>
@@ -7204,6 +7224,10 @@
       <wsdl:input message="tns:ObtenerVehiculoPorIDSoapIn" />
       <wsdl:output message="tns:ObtenerVehiculoPorIDSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="ObtenerVehiculoPorIDVerificacion">
+      <wsdl:input message="tns:ObtenerVehiculoPorIDVerificacionSoapIn" />
+      <wsdl:output message="tns:ObtenerVehiculoPorIDVerificacionSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="Mobi_GetAreasUsuario">
       <wsdl:input message="tns:Mobi_GetAreasUsuarioSoapIn" />
       <wsdl:output message="tns:Mobi_GetAreasUsuarioSoapOut" />
@@ -8337,6 +8361,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerVehiculoPorID">
       <soap:operation soapAction="http://wsviaticos.gov.ar/ObtenerVehiculoPorID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerVehiculoPorIDVerificacion">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ObtenerVehiculoPorIDVerificacion" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -10707,6 +10740,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerVehiculoPorID">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/ObtenerVehiculoPorID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerVehiculoPorIDVerificacion">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ObtenerVehiculoPorIDVerificacion" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

@@ -9,7 +9,7 @@
 //        if (param < 0 && param > 16)
 //            param = 1;
 
-        Backend.ObtenerVehiculoPorID(param).onSuccess(function (vehiculo) {
+        Backend.ObtenerVehiculoPorIDVerificacion(param).onSuccess(function (vehiculo) {
             $("#marca").text(vehiculo.Marca);
             $("#Modelo").text(vehiculo.Modelo);
             $("#segmento").text(vehiculo.Segmento);

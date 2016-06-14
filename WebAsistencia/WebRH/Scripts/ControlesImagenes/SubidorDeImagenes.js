@@ -1,4 +1,8 @@
-﻿var SubidorDeImagenes = {
-    
+﻿var SubidorDeImagenes = function () {
+
+};
+
+SubidorDeImagenes.prototype.SubirImagen = function () {
+
 
 };

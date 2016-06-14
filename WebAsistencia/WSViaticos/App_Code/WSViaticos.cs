@@ -3699,6 +3699,13 @@ public class WSViaticos : System.Web.Services.WebService
         }
 
         [WebMethod]
+        public Vehiculo ObtenerVehiculoPorIDVerificacion(string id_verificacion)
+        {
+            var repo = new RepositorioDeVehiculos(Conexion());
+            return repo.ObtenerVehiculoPorIDVerificacion(id_verificacion);
+        }
+
+        [WebMethod]
         public MoBi_Area[] Mobi_GetAreasUsuario(int IdUsuario)
         {
             RepositorioMoBi rMoBi = new RepositorioMoBi();
