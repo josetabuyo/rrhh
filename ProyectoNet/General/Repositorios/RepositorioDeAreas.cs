@@ -797,7 +797,14 @@ namespace General.Repositorios
                 tablaDatos.Rows.ForEach(row =>
                           {
                               var contacto = new DatoDeContacto(row.GetInt("Id"), "Teléfono", row.GetString("Dato"), row.GetSmallintAsInt("Orden"));
-                              area.DatosDeContacto.Add(contacto);
+                              if (area.DatosDeContacto.Exists(c => c.Id == contacto.Id))
+                              {
+                                  area.DatosDeContacto.Remove(area.DatosDeContacto.Find(c => c.Id == contacto.Id));
+                              }
+                              else
+                              {
+                                  area.DatosDeContacto.Add(contacto);
+                              }
                           });
             }
             return area;
