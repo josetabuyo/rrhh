@@ -765,6 +765,42 @@ namespace General.Repositorios
         }
 
 
-        
+        public Area BuscarDatosDelAreaSinAprobacion(Area area)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_area", area.Id);
+            var tablaDatos = conexion.Ejecutar("dbo.ESTR_Get_DomicilioPendienteAprobacion", parametros);
+
+            if (tablaDatos.Rows.Count > 0)
+            {
+                var registro = tablaDatos.Rows.First();
+
+                area.DireccionCompleta.Localidad.Id = registro.GetInt("Id_Localidad");
+                area.DireccionCompleta.Localidad.IdPartido = registro.GetInt("Id_Partido");
+                area.DireccionCompleta.Localidad.IdProvincia = registro.GetInt("Id_Provincia");
+                area.DireccionCompleta.Localidad.CodigoPostal = registro.GetInt("Codigo_postal");
+                area.DireccionCompleta.Localidad.Nombre = registro.GetString("Nombre_Localidad");
+                area.DireccionCompleta.Localidad.NombrePartido = registro.GetString("Nombre_Partido");
+                area.DireccionCompleta.Localidad.NombreProvincia = registro.GetString("Nombre_Provincia");
+                area.DireccionCompleta.IdEdificio = registro.GetInt("Id_Edificio");
+                area.DireccionCompleta.Calle = registro.GetString("Calle");
+                area.DireccionCompleta.Numero = registro.GetInt("Numero");
+                area.DireccionCompleta.IdOficina = registro.GetInt("Id_Oficina");
+                area.DireccionCompleta.Piso = registro.GetString("Piso");
+                area.DireccionCompleta.Dto = registro.GetString("Dpto");
+                area.DireccionCompleta.UF = registro.GetString("UF");
+               // area.IdUsuarioModificaor = registro.GetInt("Usuario_Alta");
+            }
+            tablaDatos = conexion.Ejecutar("dbo.ESTR_Get_ContactosPendientesAprobacion", parametros);
+            if (tablaDatos.Rows.Count > 0)
+            {
+                tablaDatos.Rows.ForEach(row =>
+                          {
+                              var contacto = new DatoDeContacto(row.GetInt("Id"), "Teléfono", row.GetString("Dato"), row.GetSmallintAsInt("Orden"));
+                              area.DatosDeContacto.Add(contacto);
+                          });
+            }
+            return area;
+        }
     }
 }

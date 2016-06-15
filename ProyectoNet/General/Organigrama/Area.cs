@@ -36,7 +36,8 @@
         public int CantidadDeUsuarios { get; set; }
         public int Jerarquia { get; set; }
         public int Orden { get; set; }
-        
+        public int IdUsuarioModificaor { get; set; }
+        public string NombreUsuarioModificador { get; set; }
 
         public Area(int IdArea)
         {

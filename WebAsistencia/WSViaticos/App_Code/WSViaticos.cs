@@ -2643,6 +2643,13 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
 
+    
+ [WebMethod]
+    public Area BuscarDatosDelAreaSinAprobacion(Area area, Usuario usuario)
+    {
+        return RepositorioDeAreas().BuscarDatosDelAreaSinAprobacion(area);
+    }
+
     [WebMethod]
     public Combo[] ObtenerTiposDeContacto()
     {

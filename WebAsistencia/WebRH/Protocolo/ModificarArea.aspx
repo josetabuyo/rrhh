@@ -31,11 +31,12 @@
                     </label>
                     <h2>
                         Modificación de Datos del Área</h2>
-                    <%--<p>
+                    <p>
                         <div class="btn-fld" style="float: right;">
-                            <input type="button" class="btn btn-primary" id="btn_enviar" value="Enviar Cambios para su Aprobación" />
+                            <input type="button" class="btn btn-primary" id="btn_buscarSinAprobacion" value="Visualizar Datos Enviados para Aprobación" />
+                            <input type="button" class="btn btn-primary" id="btn_buscarDatosOriginales" value="Visualizar Datos Actuales" style="display:none" />
                         </div>
-                    </p>--%>
+                    </p>
                 </div>
                 <div id="contenido_form_ModificarArea" class="fondo_form">
                     <fieldset style="width: 95%; padding-left: 3%;">

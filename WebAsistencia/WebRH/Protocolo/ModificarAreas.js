@@ -2,7 +2,7 @@
     //TABLA PARA LOS CONTACTOS
     armarGrillaContacto: function (contactos) {
         var _this = this;
-
+        $('#tabla_contactos').empty();
         _this.contactos = contactos;
         _this.divGrillaContacto = $('#tabla_contactos');
         _this.btn_agregar_contacto = $("#btn_agregar_contacto");
@@ -158,6 +158,19 @@
         });
     },
     //Configuracion Inicial
+    SettearEventos: function () {
+        var _this = this;
+        $('#btn_buscarSinAprobacion').click(function () {
+            _this.BuscarDatosSinAprobacion();
+        });
+        $('#btn_buscarDatosOriginales').click(function () {
+            $('#btn_buscarDatosOriginales').hide();
+            $('#btn_buscarSinAprobacion').show();
+            _this.CompletarDatosArea(area_dinamica);
+            _this.armarGrillaContacto(area_dinamica);
+        });
+
+    },
 
     CompletarDatosArea: function (area) {
         $("#txt_nombre_apellido").val(area.Responsable.NombreApellido);
@@ -175,14 +188,19 @@
             $("#txt_Partido").val(area.DireccionCompleta.Localidad.NombrePartido);
             $("#txt_Provincia").val(area.DireccionCompleta.Localidad.NombreProvincia);
         }
+    },
 
-
-
+    BuscarDatosSinAprobacion: function () {
+        var nueva_area = Backend.ejecutarSincronico("BuscarDatosDelAreaSinAprobacion", [area]);
+        $('#btn_buscarDatosOriginales').show();
+        $('#btn_buscarSinAprobacion').hide();
+        this.CompletarDatosArea(nueva_area);
+        this.armarGrillaContacto(nueva_area.DatosDeContacto)
     },
 
     Inicio: function () {
         var _this = this;
-
+        _this.SettearEventos();
         _this.btn_modificar_responsable = $("#btn_modificar_responsable");
         _this.btn_modificar_direccion = $("#btn_modificar_direccion");
 
@@ -194,17 +212,12 @@
                 modelo: area,
                 mensajeDeGuardadoExitoso: "Para modificar los datos del Repsonsable, por favor comuníquese con Recursos Humanos",
                 mensajeDeGuardadoErroneo: "Para modificar los datos del Repsonsable, por favor comuníquese con Recursos Humanos"
-                
             });
         });
         _this.btn_modificar_direccion.click(function () {
             var panel_detalle = new PanelDetalleGenerico({
-                //modelo: area,
                 path_html: "PanelDetalleDeDireccion.htm"
-                //metodoDeGuardado: "ModificarDireccionDelArea",
-                //mensajeDeGuardadoExitoso: "La Dirección ha sido guardado exitosamente",
-                //mensajeDeGuardadoErroneo: "Error al modificar la Dirección",
-                //alModificar: function () { console.log("modifico"); }
+
             });
         });
     }
