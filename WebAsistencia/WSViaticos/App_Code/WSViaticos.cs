@@ -25,6 +25,7 @@ using System.Data;
 using System.IO;
 using ClosedXML.Excel;
 
+
 [WebService(Namespace = "http://wsviaticos.gov.ar/")]
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
 // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
@@ -3567,6 +3568,19 @@ public class WSViaticos : System.Web.Services.WebService
     #endregion
 
 
+        #region Portal
+
+        [WebMethod]
+        public string GetEstudios(int doc, Usuario usuario)
+        {
+            RepositorioLegajo repo = RepoLegajo();
+
+            return repo.getEstudios(16533276);
+        }
+
+
+        #endregion 
+
         private RepositorioLicencias RepoLicencias()
     {
         return new RepositorioLicencias(Conexion());
@@ -3605,6 +3619,11 @@ public class WSViaticos : System.Web.Services.WebService
     private RepositorioDeAreas RepositorioDeAreas()
     {
         return General.Repositorios.RepositorioDeAreas.NuevoRepositorioDeAreas(Conexion());
+    }
+
+    private RepositorioLegajo RepoLegajo()  
+    {
+        return General.Repositorios.RepositorioLegajo.NuevoRepositorioDeLegajos(Conexion());
     }
 
     private IRepositorioDeUsuarios RepositorioDeUsuarios()

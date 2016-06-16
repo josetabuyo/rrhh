@@ -430,6 +430,21 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetEstudios">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="doc" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEstudiosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetEstudiosResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetEvaluacionesDeAlumno">
         <s:complexType>
           <s:sequence>
@@ -5342,6 +5357,12 @@
   <wsdl:message name="GetCarreraAdministrativaSoapOut">
     <wsdl:part name="parameters" element="tns:GetCarreraAdministrativaResponse" />
   </wsdl:message>
+  <wsdl:message name="GetEstudiosSoapIn">
+    <wsdl:part name="parameters" element="tns:GetEstudios" />
+  </wsdl:message>
+  <wsdl:message name="GetEstudiosSoapOut">
+    <wsdl:part name="parameters" element="tns:GetEstudiosResponse" />
+  </wsdl:message>
   <wsdl:message name="GetEvaluacionesDeAlumnoSoapIn">
     <wsdl:part name="parameters" element="tns:GetEvaluacionesDeAlumno" />
   </wsdl:message>
@@ -6825,6 +6846,10 @@
       <wsdl:input message="tns:GetCarreraAdministrativaSoapIn" />
       <wsdl:output message="tns:GetCarreraAdministrativaSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetEstudios">
+      <wsdl:input message="tns:GetEstudiosSoapIn" />
+      <wsdl:output message="tns:GetEstudiosSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetEvaluacionesDeAlumno">
       <wsdl:input message="tns:GetEvaluacionesDeAlumnoSoapIn" />
       <wsdl:output message="tns:GetEvaluacionesDeAlumnoSoapOut" />
@@ -7885,6 +7910,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetCarreraAdministrativa">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetCarreraAdministrativa" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEstudios">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetEstudios" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -10147,6 +10181,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetCarreraAdministrativa">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetCarreraAdministrativa" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEstudios">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetEstudios" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

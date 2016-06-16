@@ -38,11 +38,11 @@
                 
                 <%--<div class="item datosPersonales test ch-item ch-img-3" data-toggle="tooltip" data-placement="right" title="DATOS PERSONALES">--%>
                    <%-- <img src="../Imagenes/portal/bg_user.png" alt="" width="100" height="100" class="circle"/>--%>
-                   <div class="ch-item ch-img-1 item datosPersonales test">				
+                   <div id="btnDatosPersonales" class="ch-item ch-img-1 item datosPersonales test">				
 		                <div class="ch-info-wrap">
 			                <div class="ch-info">
 				                <div class="ch-info-front ch-img-1"></div>
-				                <div class="ch-info-back">
+				                <div  class="ch-info-back">
 					                <h3 style="margin-top: 30px; line-height: 14px;">DATOS PERSONALES</h3>
 				                </div>	
 			                </div>
@@ -51,7 +51,7 @@
 	                </div>
                     
                <%-- </div>--%>
-               <div class="ch-item ch-img-1 item estudios test">				
+               <div id="btnEstudios" class="ch-item ch-img-1 item estudios test">				
 		            <div class="ch-info-wrap">
 			            <div class="ch-info">
 				            <div class="ch-info-front ch-img-1"></div>
@@ -60,7 +60,7 @@
 				            </div>	
 			            </div>
 		            </div>
-                    <a href="#" class="icon "  ></a>
+                    <a href="Estudios.aspx" class="icon "  ></a>
 	            </div>
                 <%--<div class="item estudios test" data-toggle="tooltip" data-placement="right" title="ESTUDIOS">
                     <%--<img src="../Imagenes/portal/bg_home.png" alt="" width="199" height="199" class="circle"/>
@@ -173,6 +173,14 @@
         <script type="text/javascript">
             $(document).ready(function () {
                 $('[data-toggle="tooltip"]').tooltip();
+
+                $('#btnDatosPersonales').click(function () {
+                    window.location.href = 'DatosPersonales.aspx';
+                });
+
+                $('#btnEstudios').click(function () {
+                    window.location.href = 'Estudios.aspx';
+                });
             });
 
             /*$(function () {
