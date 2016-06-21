@@ -16,27 +16,29 @@
 
         columnas.push(new Columna("Tipo de Contacto", { generar: function (un_contacto) { return un_contacto.Descripcion } }));
         columnas.push(new Columna("Contacto", { generar: function (un_contacto) { return un_contacto.Dato } }));
-        columnas.push(new Columna('Acciones', {
+        columnas.push(new Columna("Orden", { generar: function (un_contacto) { return un_contacto.Orden } }));
+        columnas.push(new Columna('Eliminar Contacto', {
             generar: function (un_contacto) {
+                document.getElementById("btn_editar").style.display = 'none';
                 var contenedorBtnAcciones = $("#plantillas .botonera_grilla").clone();
-                var btn_editar = contenedorBtnAcciones.find("#btn_editar");
-                var btn_eliminarContacto = contenedorBtnAcciones.find("#btn_eliminarContacto");
+//                var btn_editar = contenedorBtnAcciones.find("#btn_editar");
+                var btn_eliminar = contenedorBtnAcciones.find("#btn_eliminar");
 
-                btn_editar.click(function () {
-                    var panel_detalle = new PanelDetalleGenerico({
-                        modelo: un_contacto,
-                        path_html: "PanelDetalleDeContacto.htm",
-                        metodoDeGuardado: "ActualizarContactoArea",
-                        mensajeDeGuardadoExitoso: "El Contacto del Área fue actualizado correctamente",
-                        mensajeDeGuardadoErroneo: "Error al actualizar el Contacto del Área",
-                        alModificar: function (contacto_modificado) {
-                            _this.GrillaContactos.BorrarContenido();
-                            _this.GrillaContactos.CargarObjetos(_this.contactos);
-                        }
-                    });
-                });
+//                btn_editar.click(function () {
+//                    var panel_detalle = new PanelDetalleGenerico({
+//                        modelo: un_contacto,
+//                        path_html: "PanelDetalleDeContacto.htm"
+//                        //                        metodoDeGuardado: "ActualizarContactoArea",
+//                        //                        mensajeDeGuardadoExitoso: "El Contacto del Área fue actualizado correctamente",
+//                        //                        mensajeDeGuardadoErroneo: "Error al actualizar el Contacto del Área",
+//                        //                        alModificar: function (contacto_modificado) {
+//                        //                            _this.GrillaContactos.BorrarContenido();
+//                        //                            _this.GrillaContactos.CargarObjetos(_this.contactos);
+//                        //                        }
+//                    });
+//                });
 
-                btn_eliminarContacto.click(function () {
+                btn_eliminar.click(function () {
                     _this.eliminarContacto(un_contacto);
                 });
 

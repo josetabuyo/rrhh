@@ -27,9 +27,9 @@ var ModificarAreas_Contacto = {
             var resultado = Backend.ejecutarSincronico("GuardarCambiosEnContacto", [{
                 IdArea: area.Id,
                 Estado: 1,
-                TipoDato: 1,
-                Dato: "1",
-                Orden: 1
+                TipoDato: parseInt($('#cmb_TipoContacto').val()),
+                Dato: $('#txt_Contacto').val(),
+                Orden: parseInt($('#txt_Orden').val())
             }]);
 
             if (resultado == "") {

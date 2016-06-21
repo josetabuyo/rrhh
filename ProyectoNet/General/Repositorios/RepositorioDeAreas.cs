@@ -796,7 +796,7 @@ namespace General.Repositorios
             {
                 tablaDatos.Rows.ForEach(row =>
                           {
-                              var contacto = new DatoDeContacto(row.GetInt("Id"), "Teléfono", row.GetString("Dato"), row.GetSmallintAsInt("Orden"));
+                              var contacto = new DatoDeContacto(row.GetInt("Id"), row.GetString("Descripcion"), row.GetString("Dato"), row.GetSmallintAsInt("Orden"));
                               if (area.DatosDeContacto.Exists(c => c.Id == contacto.Id))
                               {
                                   area.DatosDeContacto.Remove(area.DatosDeContacto.Find(c => c.Id == contacto.Id));

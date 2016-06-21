@@ -34,7 +34,7 @@
                     <p>
                         <div class="btn-fld" style="float: right;">
                             <input type="button" class="btn btn-primary" id="btn_buscarSinAprobacion" value="Visualizar Datos Enviados para Aprobación" />
-                            <input type="button" class="btn btn-primary" id="btn_buscarDatosOriginales" value="Visualizar Datos Actuales" style="display:none" />
+                            <input type="button" class="btn btn-primary" id="btn_buscarDatosOriginales" value="Volver a los Datos Actuales" style="display:none" />
                         </div>
                     </p>
                 </div>
