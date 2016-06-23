@@ -10,7 +10,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title> Consulta Vehicular</title>
     <link rel="stylesheet" href="css/ConsultaVehicular.css" type="text/css"/>
-    <link rel="stylesheet" href="css/DetalleVehiculo.css" type="text/css"/>
+    <%--<link rel="stylesheet" href="css/DetalleVehiculo.css" type="text/css"/>--%>
     <%= Referencias.Css("../")%>
     <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
     <link rel="stylesheet" href="css/animate.css">
@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
 </head>
 <body class="body-detalle">
+
     <form id="form1" runat="server">
      
          <div id="contenedor_imagen">
@@ -46,6 +47,7 @@
             </div>
             <asp:ScriptManager ID="ScriptManager1" runat="server">
             </asp:ScriptManager>
+        </div>
         </div>
     </form>
 </body>

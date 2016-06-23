@@ -532,12 +532,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="AgregarTarjetonTODOSlosVehiculos">
-        <s:complexType />
-      </s:element>
-      <s:element name="AgregarTarjetonTODOSlosVehiculosResponse">
-        <s:complexType />
-      </s:element>
       <s:element name="NuevoTarjeton">
         <s:complexType>
           <s:sequence>
@@ -558,20 +552,27 @@
           <s:element minOccurs="1" maxOccurs="1" name="id_Bien" type="s:int" />
         </s:sequence>
       </s:complexType>
-      <s:element name="ObtenerVehiculoPorID">
+      <s:element name="ObtenerVehiculoPorIDVerificacion">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="id_vehiculo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="id_verificacion" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="ObtenerVehiculoPorIDResponse">
+      <s:element name="ObtenerVehiculoPorIDVerificacionResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ObtenerVehiculoPorIDResult" type="tns:Vehiculo" />
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerVehiculoPorIDVerificacionResult" type="tns:RespuestaVehiculo" />
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:complexType name="RespuestaVehiculo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="id_verificacion" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Respuesta" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="vehiculo" type="tns:Vehiculo" />
+        </s:sequence>
+      </s:complexType>
       <s:complexType name="Vehiculo">
         <s:sequence>
           <s:element minOccurs="0" maxOccurs="1" name="NumeroVehiculo" type="s:string" />
@@ -588,20 +589,6 @@
           <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
         </s:sequence>
       </s:complexType>
-      <s:element name="ObtenerVehiculoPorIDVerificacion">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="id_verificacion" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ObtenerVehiculoPorIDVerificacionResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ObtenerVehiculoPorIDVerificacionResult" type="tns:Vehiculo" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
       <s:element name="Mobi_GetAreasUsuario">
         <s:complexType>
           <s:sequence>
@@ -5693,23 +5680,11 @@
   <wsdl:message name="GetCarreraAdministrativaSoapOut">
     <wsdl:part name="parameters" element="tns:GetCarreraAdministrativaResponse" />
   </wsdl:message>
-  <wsdl:message name="AgregarTarjetonTODOSlosVehiculosSoapIn">
-    <wsdl:part name="parameters" element="tns:AgregarTarjetonTODOSlosVehiculos" />
-  </wsdl:message>
-  <wsdl:message name="AgregarTarjetonTODOSlosVehiculosSoapOut">
-    <wsdl:part name="parameters" element="tns:AgregarTarjetonTODOSlosVehiculosResponse" />
-  </wsdl:message>
   <wsdl:message name="NuevoTarjetonSoapIn">
     <wsdl:part name="parameters" element="tns:NuevoTarjeton" />
   </wsdl:message>
   <wsdl:message name="NuevoTarjetonSoapOut">
     <wsdl:part name="parameters" element="tns:NuevoTarjetonResponse" />
-  </wsdl:message>
-  <wsdl:message name="ObtenerVehiculoPorIDSoapIn">
-    <wsdl:part name="parameters" element="tns:ObtenerVehiculoPorID" />
-  </wsdl:message>
-  <wsdl:message name="ObtenerVehiculoPorIDSoapOut">
-    <wsdl:part name="parameters" element="tns:ObtenerVehiculoPorIDResponse" />
   </wsdl:message>
   <wsdl:message name="ObtenerVehiculoPorIDVerificacionSoapIn">
     <wsdl:part name="parameters" element="tns:ObtenerVehiculoPorIDVerificacion" />
@@ -7258,17 +7233,9 @@
       <wsdl:input message="tns:GetCarreraAdministrativaSoapIn" />
       <wsdl:output message="tns:GetCarreraAdministrativaSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="AgregarTarjetonTODOSlosVehiculos">
-      <wsdl:input message="tns:AgregarTarjetonTODOSlosVehiculosSoapIn" />
-      <wsdl:output message="tns:AgregarTarjetonTODOSlosVehiculosSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="NuevoTarjeton">
       <wsdl:input message="tns:NuevoTarjetonSoapIn" />
       <wsdl:output message="tns:NuevoTarjetonSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerVehiculoPorID">
-      <wsdl:input message="tns:ObtenerVehiculoPorIDSoapIn" />
-      <wsdl:output message="tns:ObtenerVehiculoPorIDSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="ObtenerVehiculoPorIDVerificacion">
       <wsdl:input message="tns:ObtenerVehiculoPorIDVerificacionSoapIn" />
@@ -8405,26 +8372,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="AgregarTarjetonTODOSlosVehiculos">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/AgregarTarjetonTODOSlosVehiculos" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="NuevoTarjeton">
       <soap:operation soapAction="http://wsviaticos.gov.ar/NuevoTarjeton" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerVehiculoPorID">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/ObtenerVehiculoPorID" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -10802,26 +10751,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="AgregarTarjetonTODOSlosVehiculos">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/AgregarTarjetonTODOSlosVehiculos" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="NuevoTarjeton">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/NuevoTarjeton" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerVehiculoPorID">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/ObtenerVehiculoPorID" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

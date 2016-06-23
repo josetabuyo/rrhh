@@ -9,9 +9,12 @@
     <title>Control Vehicular</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link id="link1" rel="stylesheet" href="css/DetalleVehiculo.css" type="text/css" />
-    <link rel="stylesheet" href="../Vehiculos/css/animate.css">
-    <link rel="stylesheet" href="../Vehiculos/css/bootstrap-responsive.css">
-    <link rel="stylesheet" href="../Vehiculos/css/bootstrap-responsive.min.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
+    <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery.printElement.min.js"></script>
 
 </head>
 <body>
@@ -138,6 +141,9 @@
             <img class="imagenes" src="../Imagenes/vehiculos-prueba/golf1999-2.jpg">
         </a>
     </div>
+  <!--   <div id="dialog" title="Basic dialog">
+  <p>This is the default dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
+</div>-->
     <!--
 <div id="VehiculoAlertaInvalido" class="alert  alert-error">
                      <a class="close" data-dismiss="alert">X</a> <strong>Error</strong> No se encontraron vehiculos con esa referencia.
@@ -187,4 +193,3 @@
     <script type="text/javascript" src="../Scripts/underscore-min.js"></script>
     <script type="text/javascript" src="../Vehiculos/js/DetalleVehiculo.js"></script>
 </html>
-
