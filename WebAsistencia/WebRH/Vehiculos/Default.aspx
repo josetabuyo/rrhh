@@ -7,27 +7,30 @@
 
 
 <head>
+  <title>Control Vehicular</title>
+      <link rel="stylesheet" href="css/ConsultaVehicular.css" type="text/css"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title> Consulta Vehicular</title>
-    <link rel="stylesheet" href="css/ConsultaVehicular.css" type="text/css"/>
-    <%--<link rel="stylesheet" href="css/DetalleVehiculo.css" type="text/css"/>--%>
-    <%= Referencias.Css("../")%>
-    <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
+    <link id="link1" rel="stylesheet" href="css/DetalleVehiculo.css" type="text/css" />
     <link rel="stylesheet" href="css/animate.css">
     <link rel="stylesheet" href="css/bootstrap-responsive.css">
     <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
+    <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery.printElement.min.js"></script>
+    <%= Referencias.Javascript("../")%>
+    <script type="text/javascript" src="../Scripts/underscore-min.js"></script>
 </head>
-<body class="body-detalle">
+<body>
 
-    <form id="form1" runat="server">
+    <form id="form1" runat="server" style="height:auto;">
      
-         <div id="contenedor_imagen">
-                <div id="barra_menu_contenedor_imagen">
-                    <img src="../Imagenes/BarraMenu/encabezado_sin_logos.png" id="encabezado_sin_logo"
-                        alt="logosistema" />
-                    <img src="../Imagenes/logo_sistema.png" id="img_logo_sistema" alt="logosistema" />
-                    <img src="../Imagenes/logo_ministerio.png" id="img_logo_minis" alt="logosistema" />
-                    <img src="../Imagenes/logo_direccion.png" id="img_logo_direccion" alt="logosistema" />
+     <div id="contenedor_imagen">
+            <div id="barra_menu_contenedor_imagen">
+                <img src="../Imagenes/BarraMenu/encabezado_sin_logos.png" id="encabezado_sin_logo"
+                    alt="logosistema" />
+                <img src="../Imagenes/logo_sistema.png" id="img_logo_sistema" alt="logosistema" />
+                <img src="../Imagenes/logo_ministerio.png" id="img_logo_minis" alt="logosistema" />
+                <img src="../Imagenes/logo_direccion.png" id="img_logo_direccion" alt="logosistema" />
             
             
                     <div id="barra_menu_nombre_sistema">
@@ -35,10 +38,11 @@
                         <br>
                         <span id="titulo-del-menu">Consulta<br>de<br> Vigencia </span>
                     </div>
-                </div>
-        <div id="barra-azul">
+            </div>
+                    <div id="barra-azul">
     
-        </div>
+                    </div>
+    </div>
 
          <div id="Contenido">
             <div id="contenedor_controles">
@@ -47,7 +51,8 @@
             </div>
             <asp:ScriptManager ID="ScriptManager1" runat="server">
             </asp:ScriptManager>
-        </div>
+
+
         </div>
     </form>
 </body>

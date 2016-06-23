@@ -1,25 +1,27 @@
-﻿#contenedor_controles
+﻿html
 {
-    margin-top: 8%;
+background: black !important;
+    }
+
+#contenedor_controles
+{
     text-align: center;
-    margin-top: 20%;
+    margin-top: 10%;
 }
 
 #btn_verificar
 {
     margin-top:-1% !important;
+    border-radius: 2px;
+    height: 30px;
+    width: auto !important;
+    display:inline-block;
     }
     
-    
-           #contenedor-detalle
-        {
-                background: linear-gradient(to bottom, black 0%,black 50%,#000000 50%,#031427 50%,#031427 100%) !important; /* W3C */
-    background: -webkit-gradient(to bottom, black 0%,black 50%,#000000 50%,#031427 50%,#031427 100%)) !important;
-    background: -webkit-linear-gradient(to bottom, black 0%,black 50%,#000000 50%,#031427 50%,#031427 100%) !important;
-    background: -moz-linear-gradient(to bottom, black 0%,black 50%,#000000 50%,#031427 50%,#031427 100%) !important;
-    background: -o-linear-gradient(to bottom, black 0%,black 50%,#000000 50%,#031427 50%,#031427 100%) !important;
-    background: -ms-linear-gradient(to bottom, black 0%,black 50%,#000000 50%,#031427 50%,#031427 100%) !important;
-    background: linear-gradient(to bottom, black 0%,black 50%,#000000 50%,#031427 50%,#031427 100%) !important;
-            }
-        
+#txt_codigo_verificacion
+{
+    height: 25px;
+    border-radius: 2px;
+    width: 30%;
+    }
     

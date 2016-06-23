@@ -6,6 +6,9 @@
 
             if (respuesta_vehiculo.Respuesta == 0) {
                 $("#mensaje_error").show();
+                alert("Ha ingresado una tarjeta inválida o ingresado incorrectamente al sitio.");
+
+
                 return;
             }
 
