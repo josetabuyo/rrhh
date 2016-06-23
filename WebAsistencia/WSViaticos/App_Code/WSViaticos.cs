@@ -3707,17 +3707,35 @@ public class WSViaticos : System.Web.Services.WebService
         }
 
         [WebMethod]
-        public Vehiculo ObtenerVehiculoPorID(string id_vehiculo)
-        {
-            var repo = new RepositorioDeVehiculos(Conexion());
-            return repo.ObtenerVehiculoPorID(id_vehiculo);
-        }
-
-        [WebMethod]
         public Vehiculo ObtenerVehiculoPorIDVerificacion(string id_verificacion)
         {
             var repo = new RepositorioDeVehiculos(Conexion());
             return repo.ObtenerVehiculoPorIDVerificacion(id_verificacion);
+        }
+
+        [WebMethod]
+        public RespuestaVehiculo ObtenerVehiculoPorIDVerificacion(string id_verificacion)
+        {
+            var repo = new RepositorioDeVehiculos(Conexion());
+            var una_respuesta = new RespuestaVehiculo();
+            una_respuesta.Respuesta = 1;
+
+            if (id_verificacion == null)
+            {
+                una_respuesta.Respuesta = 0;
+                return una_respuesta;
+            }
+
+            try
+            {
+                una_respuesta.vehiculo = repo.ObtenerVehiculoPorIDVerificacion(id_verificacion);
+            }
+            catch (ExcepcionDeVehiculoInexistente e)
+            {
+                una_respuesta.Respuesta = 0;
+            }
+
+            return una_respuesta;
         }
 
         [WebMethod]
