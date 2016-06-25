@@ -1,0 +1,35 @@
+﻿<div id="form_experienciasLaborales">
+	<div id="form_experienciasLaborales-ct">
+		<div id="form_experienciasLaborales-header" class="form_concursar_header">
+			<h2>Experiencia Laboral</h2>
+			<p>
+			</p>
+		</div>
+		<div id="contenido_form_experiencias_laborales" class="fondo_form">
+			<fieldset style="width:95%; padding-left:3%;">
+				<legend style="margin-bottom:20px;">Ingrese una experiencia laboral relevante para la postulación</legend>
+				 <h5><em>*</em>Campos Obligatorios</h5>
+                
+                <div class="grupo_campos" >
+
+					<label for="txt_experiencia_laboral_fecha_inicio">Fecha Inicio <em>*</em></label>
+					<input id="txt_experiencia_laboral_fecha_inicio" type="text" style="width:128px;" rh-control-type="datepicker" rh-model-property="FechaInicio" data-validar="esNoBlanco"/>
+
+					<label for="cmb_modalidad">Obra Social</label>
+                    <select id="cmb_modalidad" style="width:235px;" rh-control-type="combo" rh-data-provider="ModalidadContratacion"
+                            rh-model-property="ModalidadContratacion" data-validar="haySeleccionEnCombo" >
+					</select>
+					<label for="experiencia-laboral_puesto">Nro. de Afiliado <em>*</em></label>
+					<input id="experiencia-laboral_puesto" type="text" style="width:250px;" rh-control-type="textbox" rh-model-property="PuestoOcupado" data-validar="esNoBlanco"/>
+
+
+				</div>
+				
+				
+			</fieldset>
+			<div class="btn-fld">
+				<input type="button" class="btn btn-primary" id="btn_guardar" value="Agregar"/>
+			</div>
+		</div>
+	</div>
+</div>

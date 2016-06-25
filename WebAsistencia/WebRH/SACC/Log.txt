@@ -1,0 +1,34 @@
+13/06/2016 09:07:31 p.m. - ---------------------------------------------
+13/06/2016 09:07:31 p.m. - System.Web.HttpUnhandledException (0x80004005): Se produjo una excepción de tipo 'System.Web.HttpUnhandledException'. ---> System.ServiceModel.FaultException: System.Web.Services.Protocols.SoapException: El servidor no puede procesar la solicitud. ---> General.OrganigramaException: El Organigrama No Posee las Áreas y Relaciones entre Áreas Básicas y por lo tanto es inconsistente
+   en General.Organigrama..ctor(List`1 areas_del_organigrama, List`1 dependencias) en C:\Repositorios\Agustin\rrhh\rrhh\ProyectoNet\General\Organigrama\Organigrama.cs:línea 27
+   en General.RepositorioDeOrganigrama.GetOrganigrama() en C:\Repositorios\Agustin\rrhh\rrhh\ProyectoNet\General\Repositorios\RepositorioDeOrganigrama.cs:línea 89
+   en WSViaticos.GetCursosDto(Usuario usuario) en c:\Repositorios\Agustin\rrhh\rrhh\WebAsistencia\WSViaticos\App_Code\WSViaticos.cs:línea 1811
+   --- Fin del seguimiento de la pila de la excepción interna ---
+
+Server stack trace: 
+   en System.ServiceModel.Channels.ServiceChannel.HandleReply(ProxyOperationRuntime operation, ProxyRpc& rpc)
+   en System.ServiceModel.Channels.ServiceChannel.Call(String action, Boolean oneway, ProxyOperationRuntime operation, Object[] ins, Object[] outs, TimeSpan timeout)
+   en System.ServiceModel.Channels.ServiceChannelProxy.InvokeService(IMethodCallMessage methodCall, ProxyOperationRuntime operation)
+   en System.ServiceModel.Channels.ServiceChannelProxy.Invoke(IMessage message)
+
+Exception rethrown at [0]: 
+   en System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+   en System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)
+   en WSViaticos.WSViaticosSoap.GetCursosDto(Usuario usuario)
+   en WSViaticos.WSViaticosSoapClient.GetCursosDto(Usuario usuario) en c:\windows\Microsoft.NET\Framework\v4.0.30319\Temporary ASP.NET Files\webrh\56d93a6c\552d3061\App_WebReferences.-ukxpbnv.0.cs:línea 14880
+   en SACC_FormAsignarAlumnos.CompletarCombosDeCursos() en c:\Repositorios\Agustin\rrhh\rrhh\WebAsistencia\WebRH\SACC\FormAsignarAlumnos.aspx.cs:línea 56
+   en SACC_FormAsignarAlumnos.Page_Load(Object sender, EventArgs e) en c:\Repositorios\Agustin\rrhh\rrhh\WebAsistencia\WebRH\SACC\FormAsignarAlumnos.aspx.cs:línea 18
+   en System.Web.Util.CalliHelper.EventArgFunctionCaller(IntPtr fp, Object o, Object t, EventArgs e)
+   en System.Web.Util.CalliEventHandlerDelegateProxy.Callback(Object sender, EventArgs e)
+   en System.Web.UI.Control.OnLoad(EventArgs e)
+   en System.Web.UI.Control.LoadRecursive()
+   en System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+   en System.Web.UI.Page.HandleError(Exception e)
+   en System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+   en System.Web.UI.Page.ProcessRequest(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+   en System.Web.UI.Page.ProcessRequest()
+   en System.Web.UI.Page.ProcessRequestWithNoAssert(HttpContext context)
+   en System.Web.UI.Page.ProcessRequest(HttpContext context)
+   en ASP.sacc_formasignaralumnos_aspx.ProcessRequest(HttpContext context) en c:\windows\Microsoft.NET\Framework\v4.0.30319\Temporary ASP.NET Files\webrh\56d93a6c\552d3061\App_Web_z2wsbkmp.4.cs:línea 0
+   en System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   en System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)

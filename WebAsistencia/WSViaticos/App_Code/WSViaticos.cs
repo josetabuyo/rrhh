@@ -24,6 +24,7 @@ using System.Web;
 using System.Data;
 using System.IO;
 using ClosedXML.Excel;
+using General.MNL;
 
 [WebService(Namespace = "http://wsviaticos.gov.ar/")]
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
@@ -934,6 +935,15 @@ public class WSViaticos : System.Web.Services.WebService
     //    catch (Exception e) { }
     //    return JsonConvert.SerializeObject(new {ticket = documento.ticket});
     //}
+
+    [WebMethod]
+    public NovedadDeLiquidacion[] CambiosDeObraSocialDe(int id_persona)
+    {
+        var novedades = new List<NovedadDeLiquidacion>();
+        novedades.Add(NovedadDeLiquidacion.CambioDeObraSocial(DateTime.Now, new ObraSocial(1, "UPCN")));
+        novedades.Add(NovedadDeLiquidacion.CambioDeObraSocial(DateTime.Now.AddDays(-5), new ObraSocial(2, "OSDE")));
+        return novedades.ToArray();
+    }
 
     [WebMethod]
     public string GuardarDocumento_Ajax(string documento_JSON, Usuario usuario)

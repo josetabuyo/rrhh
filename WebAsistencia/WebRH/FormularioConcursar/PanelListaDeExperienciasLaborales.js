@@ -53,8 +53,6 @@
                         },
                         alCargar: function (ui, modelo) {
                             _this.completarComboSinep(ui,modelo);
-                           
-                   
                         }
                     });
                 });
@@ -117,12 +115,8 @@
                 $("#cmb_modalidad").val('');
                 $("#cmb_modalidad").prop('disabled', true);
                 $("#div_vigencia").attr("style", "display:none");
-
-
             }
-
             //alert(this.value); // or $(this).val()
         });
-
     }
 }
