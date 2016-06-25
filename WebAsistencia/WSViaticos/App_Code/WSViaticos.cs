@@ -2796,6 +2796,14 @@ public class WSViaticos : System.Web.Services.WebService
         return RepositorioDeAreas().BuscarCambiosEnContacto(id_area);
 
     }
+     [WebMethod]
+    public string EliminarContactoArea(string criterio)
+    {
+        var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
+        return "hola";
+    }
+
+    
 
     [WebMethod]
     public Localidad CargarDatosDeCodigoPostal(string criterio)

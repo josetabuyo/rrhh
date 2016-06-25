@@ -59,18 +59,19 @@
     },
     eliminarContacto: function (un_contacto) {
         var _this = this;
-        alertify.confirm("¿Está seguro que desea eliminar este registro?", function (e) {
+        alertify.confirm("¿Está seguro que desea eliminar este Contacto?", function (e) {
             if (e) {
-                Backend.EliminarContactoArea(un_contacto)
-                    .onSuccess(function (respuesta) {
-                        alertify.success("Contacto eliminado correctamente");
-                        _this.GrillaContactos.QuitarObjeto(_this.divGrillaContacto, un_contacto);
-                        var indice = _this.contactos.indexOf(un_contacto);
-                        _this.contactos.splice(indice, 1);
-                    })
-                    .onError(function (error, as, asd) {
-                        alertify.error("No se pudo eliminar el Contacto");
-                    });
+                var nueva_area = Backend.ejecutarSincronico("EliminarContactoArea", [un_contacto]);
+//                Backend.EliminarContactoArea(un_contacto)
+//                    .onSuccess(function (respuesta) {
+//                        alertify.success("Contacto eliminado correctamente");
+//                        _this.GrillaContactos.QuitarObjeto(_this.divGrillaContacto, un_contacto);
+//                        var indice = _this.contactos.indexOf(un_contacto);
+//                        _this.contactos.splice(indice, 1);
+//                    })
+//                    .onError(function (error, as, asd) {
+//                        alertify.error("No se pudo eliminar el Contacto");
+//                    });
             }
         });
     },
