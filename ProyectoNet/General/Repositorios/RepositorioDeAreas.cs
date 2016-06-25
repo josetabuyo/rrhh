@@ -809,5 +809,12 @@ namespace General.Repositorios
             }
             return area;
         }
+
+        public void EliminarContactoArea(int id_contacto)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_contacto", id_contacto);
+            conexion.EjecutarSinResultado("dbo.ESTR_Get_DomicilioPendienteAprobacion", parametros);
+        }
     }
 }

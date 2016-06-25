@@ -104,7 +104,7 @@ public class WSViaticos : System.Web.Services.WebService
 
         DDJJ104_2001 cabe = new DDJJ104_2001();
         cabe = ddjj.GenerarDDJJ104(usuario, UnArea[0], mes, anio);
-	    
+
 
         return cabe;
     }
@@ -2643,8 +2643,8 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
 
-    
- [WebMethod]
+    #region MODIFICACIÓN DE DATOS DEL ÁREA
+    [WebMethod]
     public Area BuscarDatosDelAreaSinAprobacion(Area area, Usuario usuario)
     {
         return RepositorioDeAreas().BuscarDatosDelAreaSinAprobacion(area);
@@ -2735,8 +2735,8 @@ public class WSViaticos : System.Web.Services.WebService
     public string GuardarCambiosEnDireccion(string criterio, Usuario usuario)
     {
         var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
-        
-         int id_area = (int)((JValue)criterio_deserializado["IdArea"]);
+
+        int id_area = (int)((JValue)criterio_deserializado["IdArea"]);
         //LOCALIDAD
         int id_localidad = (int)((JValue)criterio_deserializado["IdLocaldiad"]);
         int id_partido = (int)((JValue)criterio_deserializado["IdPartido"]);
@@ -2746,11 +2746,11 @@ public class WSViaticos : System.Web.Services.WebService
         string nombre_partido = (string)((JValue)criterio_deserializado["NombrePartido"]);
         string nombre_provincia = (string)((JValue)criterio_deserializado["NombreProvincia"]);
 
-       //EDIFICIO
+        //EDIFICIO
         int id_edificio = (int)((JValue)criterio_deserializado["IdEdificio"]);
         string calle = (string)((JValue)criterio_deserializado["Calle"]);
         int numero = (int)((JValue)criterio_deserializado["Numero"]);
-        
+
         //OFICINA
         int id_oficina = (int)((JValue)criterio_deserializado["IdOficina"]);
         string dto = (string)((JValue)criterio_deserializado["Dto"]);
@@ -2768,10 +2768,10 @@ public class WSViaticos : System.Web.Services.WebService
 
         int id_area = (int)((JValue)criterio_deserializado["IdArea"]);
         int estado = (int)((JValue)criterio_deserializado["Estado"]);
-        int tipo_dato = (int)((JValue)criterio_deserializado["TipoDato"]);        
+        int tipo_dato = (int)((JValue)criterio_deserializado["TipoDato"]);
         string dato = (string)((JValue)criterio_deserializado["Dato"]);
         int orden = (int)((JValue)criterio_deserializado["Orden"]);
-        
+
         return RepositorioDeAreas().GuardarCambiosEnContacto(id_area, estado, tipo_dato, dato, orden, usuario);
 
     }
@@ -2796,14 +2796,16 @@ public class WSViaticos : System.Web.Services.WebService
         return RepositorioDeAreas().BuscarCambiosEnContacto(id_area);
 
     }
-     [WebMethod]
-    public string EliminarContactoArea(string criterio)
+    [WebMethod]
+    public void EliminarContactoArea(string criterio)
     {
         var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
-        return "hola";
+        int id = (int)((JValue)criterio_deserializado["Id"]);
+        RepositorioDeAreas().EliminarContactoArea(id);
+
     }
 
-    
+
 
     [WebMethod]
     public Localidad CargarDatosDeCodigoPostal(string criterio)
@@ -2821,6 +2823,7 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
 
+    #endregion
     #endregion
 
     [WebMethod]

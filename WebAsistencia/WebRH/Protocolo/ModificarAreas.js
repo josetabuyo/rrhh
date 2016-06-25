@@ -61,7 +61,7 @@
         var _this = this;
         alertify.confirm("¿Está seguro que desea eliminar este Contacto?", function (e) {
             if (e) {
-                var nueva_area = Backend.ejecutarSincronico("EliminarContactoArea", [un_contacto]);
+                Backend.ejecutarSincronico("EliminarContactoArea", [un_contacto]);
 //                Backend.EliminarContactoArea(un_contacto)
 //                    .onSuccess(function (respuesta) {
 //                        alertify.success("Contacto eliminado correctamente");
