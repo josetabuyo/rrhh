@@ -814,7 +814,7 @@ namespace General.Repositorios
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_contacto", id_contacto);
-            conexion.EjecutarSinResultado("dbo.ESTR_Get_DomicilioPendienteAprobacion", parametros);
+            conexion.EjecutarSinResultado("dbo.ESTR_Del_ContactoPendienteAprobacion", parametros);
         }
     }
 }
