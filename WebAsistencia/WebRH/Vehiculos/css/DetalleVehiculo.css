@@ -1,8 +1,11 @@
 ﻿html
 {
-        background: black;
-    height:auto !important;
-    width:auto !important;
+    width:100% !important;
+    background-image: linear-gradient(bottom, #031427 0%, #031427 40%, #000000 40%, #000000 100%);
+    background-image: -o-linear-gradient(bottom, #031427 0%, #031427 40%, #000000 40%, #000000 100%);
+    background-image: -moz-linear-gradient(bottom, #031427 0%, #031427 40%, #000000 40%, #000000 100%);
+    background-image: -webkit-linear-gradient(bottom, #031427 0%, #031427 40%, #000000 40%, #000000 100%);
+    background-image: -ms-linear-gradient(bottom,#031427 0%, #031427 40%, #000000 40%, #000000 100%);
     }
 
 body
@@ -14,12 +17,6 @@ body
 
 #body-entero
 {
- /*   background: linear-gradient(to bottom, black 0%,black 50%,#000000 50%,#031427 50%,#031427 100%) !important; /* W3C *//*
-    background: -webkit-gradient(to bottom, black 0%,black 50%,#000000 50%,#031427 50%,#031427 100%)) !important;
-    background: -webkit-linear-gradient(to bottom, black 0%,black 50%,#000000 50%,#031427 50%,#031427 100%) !important;
-    background: -moz-linear-gradient(to bottom, black 0%,black 50%,#000000 50%,#031427 50%,#031427 100%) !important;
-    background: -o-linear-gradient(to bottom, black 0%,black 50%,#000000 50%,#031427 50%,#031427 100%) !important;
-    background: -ms-linear-gradient(to bottom, black 0%,black 50%,#000000 50%,#031427 50%,#031427 100%) !important;*/
     margin: 0% !important;
     height: 100% !important;
     }
@@ -32,7 +29,6 @@ body
     border-top-style: solid; 
     width: auto;
     position: relative;
-    top: 100%;
 }
 
 
@@ -53,8 +49,8 @@ body
 
 #encabezado_sin_logo 
 {
-    height: 63px;
-    width: auto; 
+    height: 85px;
+    width: 100% !important; 
 }
 
 #barra_menu_contenedor_imagen 
@@ -112,7 +108,7 @@ body
 {
     width: 100%;
     background-color:#00001c;  
-    height: 63px;
+    height: 75px;
 }
     
 #contenedor_barraInferior 
@@ -126,44 +122,51 @@ body
 #barra_menu_nombre_sistema
 {
     position: absolute;
-    top: -17%;
+    top: 1%;
     left: 27%;
     width: auto;
     text-align: center;
     font-family: Arial;
-    color:White;
-    font-size:10px;
+    color: White;
+    font-size: 9px;
 }
         
 .tabla-principal
 {
     margin-top:0%;
     margin-bottom:0%;
-    font-size:1.0em;
+    font-size:1.2em;
     width:100%;
     background-color: #031427;
     border-radius: 10px;
+    margin-bottom: 5%;
 }
 
-.celda 
-{
-    padding: 3px;
-    width: 20%;         
-}
-        
 #celda-titulo 
 {
-    padding: 3px;
+    padding: 7px;
     width: 100%;         
     margin-top: 2%;
     margin-bottom: 2%;
 }
 
+.celda 
+{
+    padding: 7px;
+    width: 40%; 
+    padding-left: 3%;   
+    padding-bottom: 1%;
+    padding-top: 1%     
+}
+      
 .celda2 
 {
-    padding: 3px;
+    padding: 1%;
     width: 80%;
 }
+  
+
+
 
 .celda-imagen
 {
@@ -183,7 +186,7 @@ body
 {
     border-radius: 10px;
     margin-bottom: 0%;
-    font-size:1.3em;
+    font-size:1.5em;
     font-weight: bold;
     height: 100%;
     text-align: left;
@@ -208,7 +211,10 @@ body
 {
     float: left;
     display:none;
-    margin-top: 15%;
+    margin-top: 5%;
+    width: 78%;
+    margin-left: 11%;
+    margin-bottom: 5%;
 }
 
 .Contenedor-parrafo 
@@ -259,7 +265,7 @@ body
 hr 
 {
     color: white;
-    margin-top: -5%;
+    margin-top: 0%;
     border: 0;
     height: 2px;
     text-align: center; 
@@ -273,6 +279,34 @@ hr
 {
     font-size: 18px; 
     font-weight: bold;
+    }
+    
+.carousel{
+    background: #2f4357;
+    margin-top: 20px;
+}
+
+.carousel .item img{
+    margin: 0 auto; /* Align slide image horizontally center */
+}
+
+.bs-example{
+	margin: 20px;
+}
+    
+#mensaje_error
+{
+    text-align: center;
+    background: white;
+    height: 100%;
+    margin-top: 5%;
+    width: 50%;
+    margin-left: 25%;
+    border-radius: 14px;
+    font-size: 1.1em;
+    background-color: gainsboro;
+    padding: 0.5%;
+
     }
 
 @media only screen and (max-width: 850px) and (min-width:550px)
@@ -290,10 +324,7 @@ hr
         padding-right: 0% !important;
        }
        
-       #contenedor-vehiculos
-       {
-        margin-top: 8%;
-       }
+       
           
 }
 
@@ -318,7 +349,7 @@ hr
        {
         height: 25px !important;
         width: auto;
-        margin-left: -15%;
+        margin-left: -22%;
         margin-top: 2.0%;
            }
            
@@ -327,18 +358,17 @@ hr
         height: 17px;
         width: auto;
         float: right;
-        position: absolute;
-        margin-right: -36%;
-        margin-left: 50%;
-        margin-top: 5%;
+        margin-right: -73%;
+        margin-top: 4%;
         }
         
         #img_logo_minis
         {
         height: 17px;
         width: auto;
-        top: 2%;
+        top: 10%;
         float: right;
+        margin-right: -22%
         }
         
         #titulo-del-menu
@@ -347,14 +377,20 @@ hr
          font-size: 12px; 
          font-weight: bold;
          float: right;
+         margin-right: 6%;
+         margin-top: 5%;
         }
         
         #barra_menu_nombre_sistema
         {
-         top: -5%;
-         left: 25%;
+         top: -4%;
+         left: 24.5%;
         }
         
+        #contenedor-vehiculos
+       {
+        margin-top: 20%;
+       }
         
         
        

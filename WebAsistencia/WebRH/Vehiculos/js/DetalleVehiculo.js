@@ -6,10 +6,18 @@
 
             if (respuesta_vehiculo.Respuesta == 0) {
                 $("#mensaje_error").show();
-                alert("Ha ingresado una tarjeta inválida o ingresado incorrectamente al sitio.");
-
-
+                $("#mensaje_error").addClass("animated slideInDown");
+                $("#Contenido").hide();
+                document.getElementById("mihtml").style.height = "100%";
+         
                 return;
+            }
+
+            if (respuesta_vehiculo.vehiculo.Apellido == "Sin Asignación") {
+                $("#responsable").text(respuesta_vehiculo.vehiculo.Apellido);
+            }
+            else {
+                $("#responsable").text(respuesta_vehiculo.vehiculo.Apellido + ', ' + respuesta_vehiculo.vehiculo.Nombre);
             }
 
             $("#marca").text(respuesta_vehiculo.vehiculo.Marca);
@@ -20,15 +28,30 @@
             $("#Motor").text(respuesta_vehiculo.vehiculo.Motor);
             $("#chasis").text(respuesta_vehiculo.vehiculo.Chasis);
             $("#area").text(respuesta_vehiculo.vehiculo.Area);
-            $("#responsable").text(respuesta_vehiculo.vehiculo.Apellido + ', ' + respuesta_vehiculo.vehiculo.Nombre);
+
             $(".tabla-principal").show();
             $(".contenedor-imagen-vehiculo").show();
+            $("#mensaje_error").hide();
             $(".tabla-principal").addClass("animated slideInLeft");
             $("#contenedor-vehiculos").addClass("animated slideInRight");
             $("#contenedor-conductor").addClass("animated slideInRight");
             $(".contenedor-imagen-vehiculo").addClass("animated zoomIn");
             $("#contenedor-banner-parrafo").addClass("animated slideInDown");
             $("#barra_menu_contenedor_imagen").addClass("animated slideInDown");
+
+            $(function () {
+               $("#button").on("click", function () {
+                    window.location = "Default.aspx";
+                });
+            });
+
+            $(document).ready(function () {
+                $("#myCarousel").carousel({
+                    interval: 3000,
+                    pause: false
+                });
+            
+             });
 
         });
 
