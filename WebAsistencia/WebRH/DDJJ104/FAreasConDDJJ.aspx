@@ -19,6 +19,11 @@
         <legend>Certificación de Servicios según Decisión Administrativa N° 104/2001</legend>
     </fieldset>
 
+    <div style="text-align: right">
+        <a style="font-size: 1.6em;display: block;margin-bottom: 10px;" href="ConsultaIndividualDDJJ.aspx">Consulta Individual de DDJJ104</a>
+    </div>
+    
+
     <div>    
         <select runat="server" title="Seleccione un mes" id="cmbMeses" name="Meses" enableviewstate="false"
             style="text-transform: capitalize;">
