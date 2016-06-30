@@ -2797,11 +2797,15 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
     [WebMethod]
-    public void EliminarContactoArea(string criterio)
+    public void EliminarContactoArea(string criterio, Usuario usuario)
     {
         var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
         int id = (int)((JValue)criterio_deserializado["Id"]);
-        RepositorioDeAreas().EliminarContactoArea(id);
+        int tipo_dato = (int)((JValue)criterio_deserializado["TipoDato"]);
+        string dato = (string)((JValue)criterio_deserializado["Dato"]);
+        int orden = (int)((JValue)criterio_deserializado["Orden"]);
+        int id_area = (int)((JValue)criterio_deserializado["IdArea"]);
+        RepositorioDeAreas().EliminarContactoArea(id, tipo_dato, dato, orden, id_area, usuario);
 
     }
 

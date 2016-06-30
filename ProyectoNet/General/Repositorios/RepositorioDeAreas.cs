@@ -797,6 +797,7 @@ namespace General.Repositorios
                 tablaDatos.Rows.ForEach(row =>
                           {
                               var contacto = new DatoDeContacto(row.GetInt("Id"), row.GetString("Descripcion"), row.GetString("Dato"), row.GetSmallintAsInt("Orden"));
+                              contacto.IdContacto = row.GetSmallintAsInt("Id");
                               if (area.DatosDeContacto.Exists(c => c.Id == contacto.Id))
                               {
                                   area.DatosDeContacto.Remove(area.DatosDeContacto.Find(c => c.Id == contacto.Id));
@@ -810,10 +811,14 @@ namespace General.Repositorios
             return area;
         }
 
-        public void EliminarContactoArea(int id_contacto)
+        public void EliminarContactoArea(int id_contacto, int tipo_dato, string dato, int orden, int id_area, Usuario usuario)
         {
             var parametros = new Dictionary<string, object>();
-            parametros.Add("@id_contacto", id_contacto);
+            parametros.Add("@id_area", id_area);
+            parametros.Add("@tipo_dato", tipo_dato);
+            parametros.Add("@dato", dato);
+            parametros.Add("@orden", orden);
+            parametros.Add("@id_usuario", usuario.Id);
             conexion.EjecutarSinResultado("dbo.ESTR_Del_ContactoPendienteAprobacion", parametros);
         }
     }

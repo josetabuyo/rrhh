@@ -21,27 +21,10 @@
             generar: function (un_contacto) {
                 document.getElementById("btn_editar").style.display = 'none';
                 var contenedorBtnAcciones = $("#plantillas .botonera_grilla").clone();
-//                var btn_editar = contenedorBtnAcciones.find("#btn_editar");
                 var btn_eliminar = contenedorBtnAcciones.find("#btn_eliminar");
-
-//                btn_editar.click(function () {
-//                    var panel_detalle = new PanelDetalleGenerico({
-//                        modelo: un_contacto,
-//                        path_html: "PanelDetalleDeContacto.htm"
-//                        //                        metodoDeGuardado: "ActualizarContactoArea",
-//                        //                        mensajeDeGuardadoExitoso: "El Contacto del Área fue actualizado correctamente",
-//                        //                        mensajeDeGuardadoErroneo: "Error al actualizar el Contacto del Área",
-//                        //                        alModificar: function (contacto_modificado) {
-//                        //                            _this.GrillaContactos.BorrarContenido();
-//                        //                            _this.GrillaContactos.CargarObjetos(_this.contactos);
-//                        //                        }
-//                    });
-//                });
-
                 btn_eliminar.click(function () {
                     _this.eliminarContacto(un_contacto);
                 });
-
                 return contenedorBtnAcciones;
             }
         }
@@ -61,17 +44,7 @@
         var _this = this;
         alertify.confirm("¿Está seguro que desea eliminar este Contacto?", function (e) {
             if (e) {
-                Backend.ejecutarSincronico("EliminarContactoArea", [un_contacto]);
-//                Backend.EliminarContactoArea(un_contacto)
-//                    .onSuccess(function (respuesta) {
-//                        alertify.success("Contacto eliminado correctamente");
-//                        _this.GrillaContactos.QuitarObjeto(_this.divGrillaContacto, un_contacto);
-//                        var indice = _this.contactos.indexOf(un_contacto);
-//                        _this.contactos.splice(indice, 1);
-//                    })
-//                    .onError(function (error, as, asd) {
-//                        alertify.error("No se pudo eliminar el Contacto");
-//                    });
+                Backend.ejecutarSincronico("EliminarContactoArea", [{ Id: parseInt(un_contacto.Id), TipoDato: parseInt(un_contacto.IdContacto), Dato: un_contacto.Dato, Orden: parseInt(un_contacto.Orden), IdArea: parseInt(area.Id)}]);
             }
         });
     },
