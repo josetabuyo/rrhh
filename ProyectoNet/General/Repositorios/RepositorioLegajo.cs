@@ -42,6 +42,8 @@ namespace General.Repositorios
             
             }
 
+            lista_estudios.Sort((estudio1, estudio2) => estudio2.fechaEgreso.CompareTo(estudio1.fechaEgreso));
+
             return JsonConvert.SerializeObject(lista_estudios.ToArray()); 
 
         }

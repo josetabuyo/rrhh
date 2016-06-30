@@ -12,22 +12,61 @@
 
         <%= Referencias.Javascript("../")%>
 
+        <style>
+        .cajaEstudioOculta 
+        {
+            display:none;
+        }
+
+        .caja_estudio_posta 
+        {
+            margin: 10px;
+            border-bottom: 1px solid;
+            background: rgba(25, 75, 180, 0.05);
+            padding: 10px;
+            /*display: inline-block;*/
+            border-radius: 20px;
+            max-width:500px;
+
+        }
+        
+        .div_dentro_de_caja_estudio 
+        {
+            vertical-align:middle;
+            display:inline-block;
+            width: 90%;
+        }
+        
+        .img_caja_estudio 
+        {
+            float: left;
+            width:50px;
+            height:50px;
+        }
+        
+        </style>
+
     </head>
 <body>
     <form id="form1" runat="server">
-    <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:18px; font-weight: bold; padding-top:25px;'>Datos<br/>Personales</span> <br/> " UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
+    <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:18px; font-weight: bold; padding-top:25px;'><br/> Estudios</span> " UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <div>
-    <h1 style="text-align:center;">Estudios</h1>
-    <p>Estudios cargados en su legajo:</p>
+    <h1 style="text-align:center; margin: 20px;">Estudios</h1>
+    <p>Estudios cargados en el sistema (ordenados por más actual):</p>
 
     <div id="listadoEstudios">
     
     </div>
 
-    <div style="display:none;" class="cajaEstudio">
-        <p>Nivel:<span class="nivel"></span> </p>
-        <p>Titulo:<span class="titulo"></span> </p>
-        <p>Fecha Egreso:<span class="fecha"></span> </p>
+    <div class="cajaEstudioOculta">
+        
+            <img src="../Imagenes/diploma.png" class="img_caja_estudio" alt="diploma" />
+            <div class="div_dentro_de_caja_estudio" >
+                <p><span class="titulo"></span> (<span class="nivel"></span>)</p>
+                <p>Fecha Egreso: <span class="fecha"></span> </p>
+            </div>
+            
+        
     </div>
     
     </div>
