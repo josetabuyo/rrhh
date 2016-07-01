@@ -17,13 +17,13 @@ using AdministracionDeUsuarios;
 using General.Sacc;
 using General.Sacc.Seguridad;
 using General.MAU;
-
 using General.Postular;
 using System.Web;
 
 using System.Data;
 using System.IO;
 using ClosedXML.Excel;
+
 
 [WebService(Namespace = "http://wsviaticos.gov.ar/")]
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
@@ -114,6 +114,20 @@ public class WSViaticos : System.Web.Services.WebService
     {
         return new RepositorioDeParametrosGenerales(Conexion()).GetLeyendaAnio(anio);
     }
+
+
+    //CONSULTA INDIVIDUAL
+    [WebMethod]
+    public DDJJ104_Consulta[] GetConsultaIndividualPorPersona(int mesdesde, int aniodesde, int meshasta, int aniohasta, int nrodoc_persona, int estado, int orden, Usuario usuario)
+    {
+        var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas(), Autorizador());
+        var a = new DDJJ104_Consulta[1];
+
+        a = responsableDDJJ.GetConsultaIndividualPorPersona(mesdesde, aniodesde, meshasta, aniohasta, nrodoc_persona, estado, orden, usuario).ToArray();
+        
+        return a;
+    }
+
 
     //[WebMethod]
     //public AreaParaDDJJ104[] ImprimirDDJJ104(List<AreaParaDDJJ104> lista)

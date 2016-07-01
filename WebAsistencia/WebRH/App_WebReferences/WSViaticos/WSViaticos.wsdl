@@ -2,6 +2,82 @@
 <wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://wsviaticos.gov.ar/">
+      <s:element name="BuscarModalidadContratacion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuscarModalidadContratacionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BuscarModalidadContratacionResult" type="tns:ArrayOfCvModalidadContratacion" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfCvModalidadContratacion">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CvModalidadContratacion" nillable="true" type="tns:CvModalidadContratacion" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CvModalidadContratacion">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="BuscarInstitucionesEventosAcademicos">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuscarInstitucionesEventosAcademicosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BuscarInstitucionesEventosAcademicosResult" type="tns:ArrayOfCVInstitucionesEventos" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfCVInstitucionesEventos">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CVInstitucionesEventos" nillable="true" type="tns:CVInstitucionesEventos" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CVInstitucionesEventos">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="SoloVisiblePara" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="BuscarPaises">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuscarPaisesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BuscarPaisesResult" type="tns:ArrayOfPais" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfPais">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Pais" nillable="true" type="tns:Pais" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Pais">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="BuscarUnidadesTiempo">
         <s:complexType>
           <s:sequence>
@@ -244,6 +320,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="Cuit" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Legajo" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Categoria" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Esta_Cargada" type="s:int" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="Area">
@@ -264,7 +341,6 @@
           <s:element minOccurs="1" maxOccurs="1" name="CantidadDeUsuarios" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="Jerarquia" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="Orden" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="Esta_Cargada" type="s:boolean" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="Responsable">
@@ -711,6 +787,88 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetMenuPara">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="nombre_menu" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMenuParaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetMenuParaResult" type="tns:MenuDelSistema" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MenuDelSistema">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Items" type="tns:ArrayOfItemDeMenu" />
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfItemDeMenu">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ItemDeMenu" nillable="true" type="tns:ItemDeMenu" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ItemDeMenu">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Orden" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="NombreItem" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Acceso" type="tns:AccesoAURL" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AccesoAURL">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Url" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Funcionalidad" type="tns:Funcionalidad" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="RefrescarCacheMAU">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RefrescarCacheMAUResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="RefrescarCacheMAUResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetInstanciasDeEvaluacion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_curso" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetInstanciasDeEvaluacionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetInstanciasDeEvaluacionResult" type="tns:ArrayOfInstanciaDeEvaluacion" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfInstanciaDeEvaluacion">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="InstanciaDeEvaluacion" nillable="true" type="tns:InstanciaDeEvaluacion" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="InstanciaDeEvaluacion">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="GuardarEvaluaciones">
         <s:complexType>
           <s:sequence>
@@ -878,17 +1036,6 @@
           <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="InstanciasDeEvaluacion" type="tns:ArrayOfInstanciaDeEvaluacion" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="ArrayOfInstanciaDeEvaluacion">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="InstanciaDeEvaluacion" nillable="true" type="tns:InstanciaDeEvaluacion" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="InstanciaDeEvaluacion">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="Organismo">
@@ -1821,18 +1968,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="ArrayOfCVInstitucionesEventos">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="CVInstitucionesEventos" nillable="true" type="tns:CVInstitucionesEventos" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="CVInstitucionesEventos">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="SoloVisiblePara" type="s:int" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="AgregarInstitucionesEvento">
         <s:complexType>
           <s:sequence>
@@ -2665,70 +2800,107 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="BuscarModalidadContratacion">
+      <s:element name="GetMesesCursoDto">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_curso" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="BuscarModalidadContratacionResponse">
+      <s:element name="GetMesesCursoDtoResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="BuscarModalidadContratacionResult" type="tns:ArrayOfCvModalidadContratacion" />
+            <s:element minOccurs="0" maxOccurs="1" name="GetMesesCursoDtoResult" type="tns:ArrayOfMesDto" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="ArrayOfCvModalidadContratacion">
+      <s:complexType name="ArrayOfMesDto">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="CvModalidadContratacion" nillable="true" type="tns:CvModalidadContratacion" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MesDto" nillable="true" type="tns:MesDto" />
         </s:sequence>
       </s:complexType>
-      <s:complexType name="CvModalidadContratacion">
+      <s:complexType name="MesDto">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Mes" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="NombreMes" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Anio" type="s:int" />
         </s:sequence>
       </s:complexType>
-      <s:element name="BuscarInstitucionesEventosAcademicos">
+      <s:element name="GuardarAsistencias">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="asistencias_nuevas_dto" type="tns:ArrayOfAcumuladorDto" />
+            <s:element minOccurs="0" maxOccurs="1" name="asistencias_originales_dto" type="tns:ArrayOfAcumuladorDto" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuarioLogueado" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="BuscarInstitucionesEventosAcademicosResponse">
+      <s:element name="GuardarAsistenciasResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="BuscarInstitucionesEventosAcademicosResult" type="tns:ArrayOfCVInstitucionesEventos" />
+            <s:element minOccurs="0" maxOccurs="1" name="GuardarAsistenciasResult" type="tns:PlanillaAsistenciasDto" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="BuscarPaises">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="BuscarPaisesResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="BuscarPaisesResult" type="tns:ArrayOfPais" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:complexType name="ArrayOfPais">
+      <s:complexType name="PlanillaAsistenciasDto">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Pais" nillable="true" type="tns:Pais" />
+          <s:element minOccurs="1" maxOccurs="1" name="CodigoError" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="MensajeError" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Alumnos" type="tns:ArrayOfAlumno" />
+          <s:element minOccurs="0" maxOccurs="1" name="DetalleAsistenciasPorAlumno" type="tns:ArrayOfDetalleAsistenciasDto" />
+          <s:element minOccurs="0" maxOccurs="1" name="FechasDeCursada" type="tns:ArrayOfFechaDeCursada" />
+          <s:element minOccurs="1" maxOccurs="1" name="HorasCatedra" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Observaciones" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Docente" type="s:string" />
         </s:sequence>
       </s:complexType>
-      <s:complexType name="Pais">
+      <s:complexType name="ArrayOfDetalleAsistenciasDto">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DetalleAsistenciasDto" nillable="true" type="tns:DetalleAsistenciasDto" />
         </s:sequence>
       </s:complexType>
+      <s:complexType name="DetalleAsistenciasDto">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="IdAlumno" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdCurso" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Asistencias" type="tns:ArrayOfAcumuladorDto" />
+          <s:element minOccurs="1" maxOccurs="1" name="AsistenciasPeriodo" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="AsistenciasTotal" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="InasistenciasPeriodo" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="InasistenciasTotal" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfFechaDeCursada">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="FechaDeCursada" nillable="true" type="tns:FechaDeCursada" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="FechaDeCursada">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Dia" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NombreDia" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Fecha" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="HorasCatedra" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetPlanillaAsistencias">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_curso" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="fecha_desde" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="fecha_hasta" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPlanillaAsistenciasResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPlanillaAsistenciasResult" type="tns:PlanillaAsistenciasDto" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetMaxHorasCatedraCurso">
         <s:complexType>
           <s:sequence>
@@ -3398,27 +3570,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="ItemDeMenu">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="Orden" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="NombreItem" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Acceso" type="tns:AccesoAURL" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="AccesoAURL">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Url" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Funcionalidad" type="tns:Funcionalidad" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="ArrayOfItemDeMenu">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="ItemDeMenu" nillable="true" type="tns:ItemDeMenu" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="ItemsDelMenuResponse">
         <s:complexType>
           <s:sequence>
@@ -3982,56 +4133,6 @@
       <s:element name="DenegarFuncionalidadAResponse">
         <s:complexType />
       </s:element>
-      <s:element name="GetMenuPara">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="nombre_menu" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:complexType name="MenuDelSistema">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Items" type="tns:ArrayOfItemDeMenu" />
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-        </s:sequence>
-      </s:complexType>
-      <s:element name="GetMenuParaResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetMenuParaResult" type="tns:MenuDelSistema" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="RefrescarCacheMAU">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="RefrescarCacheMAUResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="RefrescarCacheMAUResult" type="s:boolean" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetInstanciasDeEvaluacion">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id_curso" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetInstanciasDeEvaluacionResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetInstanciasDeEvaluacionResult" type="tns:ArrayOfInstanciaDeEvaluacion" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
       <s:element name="GetUsuarios">
         <s:complexType />
       </s:element>
@@ -4131,21 +4232,53 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetConsultaIndividualPorPersona">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="mesdesde" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="aniodesde" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="meshasta" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="aniohasta" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="nrodoc_persona" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="estado" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="orden" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="DDJJ104_Consulta">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="mes" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="anio" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="area_generacion" type="tns:Area" />
+          <s:element minOccurs="0" maxOccurs="1" name="fecha_generacion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="usuario_generacion" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="recepcionada" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="fecha_recibido" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="usuario_recibido" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="firmante" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="persona" type="tns:Persona" />
+          <s:element minOccurs="0" maxOccurs="1" name="mod_contratacion" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="estado" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="estado_descrip" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfDDJJ104_Consulta">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DDJJ104_Consulta" nillable="true" type="tns:DDJJ104_Consulta" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetConsultaIndividualPorPersonaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetConsultaIndividualPorPersonaResult" type="tns:ArrayOfDDJJ104_Consulta" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetMeses">
         <s:complexType />
       </s:element>
-      <s:complexType name="MesDto">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Mes" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="NombreMes" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="Anio" type="s:int" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="ArrayOfMesDto">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="MesDto" nillable="true" type="tns:MesDto" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="GetMesesResponse">
         <s:complexType>
           <s:sequence>
@@ -4358,6 +4491,21 @@
           <s:extension base="tns:Grafico" />
         </s:complexContent>
       </s:complexType>
+      <s:element name="ExcelGeneradoRangoEtario">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExcelGeneradoRangoEtarioResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ExcelGeneradoRangoEtarioResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="ExcelGeneradoSueldos">
         <s:complexType>
           <s:sequence>
@@ -5451,97 +5599,26 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetMesesCursoDto">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id_curso" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetMesesCursoDtoResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetMesesCursoDtoResult" type="tns:ArrayOfMesDto" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GuardarAsistencias">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="asistencias_nuevas_dto" type="tns:ArrayOfAcumuladorDto" />
-            <s:element minOccurs="0" maxOccurs="1" name="asistencias_originales_dto" type="tns:ArrayOfAcumuladorDto" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuarioLogueado" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:complexType name="PlanillaAsistenciasDto">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="CodigoError" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="MensajeError" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Alumnos" type="tns:ArrayOfAlumno" />
-          <s:element minOccurs="0" maxOccurs="1" name="DetalleAsistenciasPorAlumno" type="tns:ArrayOfDetalleAsistenciasDto" />
-          <s:element minOccurs="0" maxOccurs="1" name="FechasDeCursada" type="tns:ArrayOfFechaDeCursada" />
-          <s:element minOccurs="1" maxOccurs="1" name="HorasCatedra" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Observaciones" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Docente" type="s:string" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="ArrayOfDetalleAsistenciasDto">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="DetalleAsistenciasDto" nillable="true" type="tns:DetalleAsistenciasDto" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="DetalleAsistenciasDto">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="IdAlumno" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="IdCurso" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Asistencias" type="tns:ArrayOfAcumuladorDto" />
-          <s:element minOccurs="1" maxOccurs="1" name="AsistenciasPeriodo" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="AsistenciasTotal" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="InasistenciasPeriodo" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="InasistenciasTotal" type="s:int" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="ArrayOfFechaDeCursada">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="FechaDeCursada" nillable="true" type="tns:FechaDeCursada" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="FechaDeCursada">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="Dia" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="NombreDia" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="Fecha" type="s:dateTime" />
-          <s:element minOccurs="1" maxOccurs="1" name="HorasCatedra" type="s:int" />
-        </s:sequence>
-      </s:complexType>
-      <s:element name="GuardarAsistenciasResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GuardarAsistenciasResult" type="tns:PlanillaAsistenciasDto" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetPlanillaAsistencias">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id_curso" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="fecha_desde" type="s:dateTime" />
-            <s:element minOccurs="1" maxOccurs="1" name="fecha_hasta" type="s:dateTime" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetPlanillaAsistenciasResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetPlanillaAsistenciasResult" type="tns:PlanillaAsistenciasDto" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="BuscarModalidadContratacionSoapIn">
+    <wsdl:part name="parameters" element="tns:BuscarModalidadContratacion" />
+  </wsdl:message>
+  <wsdl:message name="BuscarModalidadContratacionSoapOut">
+    <wsdl:part name="parameters" element="tns:BuscarModalidadContratacionResponse" />
+  </wsdl:message>
+  <wsdl:message name="BuscarInstitucionesEventosAcademicosSoapIn">
+    <wsdl:part name="parameters" element="tns:BuscarInstitucionesEventosAcademicos" />
+  </wsdl:message>
+  <wsdl:message name="BuscarInstitucionesEventosAcademicosSoapOut">
+    <wsdl:part name="parameters" element="tns:BuscarInstitucionesEventosAcademicosResponse" />
+  </wsdl:message>
+  <wsdl:message name="BuscarPaisesSoapIn">
+    <wsdl:part name="parameters" element="tns:BuscarPaises" />
+  </wsdl:message>
+  <wsdl:message name="BuscarPaisesSoapOut">
+    <wsdl:part name="parameters" element="tns:BuscarPaisesResponse" />
+  </wsdl:message>
   <wsdl:message name="BuscarUnidadesTiempoSoapIn">
     <wsdl:part name="parameters" element="tns:BuscarUnidadesTiempo" />
   </wsdl:message>
@@ -5679,6 +5756,24 @@
   </wsdl:message>
   <wsdl:message name="Mobi_GuardarEventoBienSoapOut">
     <wsdl:part name="parameters" element="tns:Mobi_GuardarEventoBienResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetMenuParaSoapIn">
+    <wsdl:part name="parameters" element="tns:GetMenuPara" />
+  </wsdl:message>
+  <wsdl:message name="GetMenuParaSoapOut">
+    <wsdl:part name="parameters" element="tns:GetMenuParaResponse" />
+  </wsdl:message>
+  <wsdl:message name="RefrescarCacheMAUSoapIn">
+    <wsdl:part name="parameters" element="tns:RefrescarCacheMAU" />
+  </wsdl:message>
+  <wsdl:message name="RefrescarCacheMAUSoapOut">
+    <wsdl:part name="parameters" element="tns:RefrescarCacheMAUResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetInstanciasDeEvaluacionSoapIn">
+    <wsdl:part name="parameters" element="tns:GetInstanciasDeEvaluacion" />
+  </wsdl:message>
+  <wsdl:message name="GetInstanciasDeEvaluacionSoapOut">
+    <wsdl:part name="parameters" element="tns:GetInstanciasDeEvaluacionResponse" />
   </wsdl:message>
   <wsdl:message name="GuardarEvaluacionesSoapIn">
     <wsdl:part name="parameters" element="tns:GuardarEvaluaciones" />
@@ -6166,23 +6261,23 @@
   <wsdl:message name="AgregarConocimientoCompetenciaInformaticaSoapOut">
     <wsdl:part name="parameters" element="tns:AgregarConocimientoCompetenciaInformaticaResponse" />
   </wsdl:message>
-  <wsdl:message name="BuscarModalidadContratacionSoapIn">
-    <wsdl:part name="parameters" element="tns:BuscarModalidadContratacion" />
+  <wsdl:message name="GetMesesCursoDtoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetMesesCursoDto" />
   </wsdl:message>
-  <wsdl:message name="BuscarModalidadContratacionSoapOut">
-    <wsdl:part name="parameters" element="tns:BuscarModalidadContratacionResponse" />
+  <wsdl:message name="GetMesesCursoDtoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetMesesCursoDtoResponse" />
   </wsdl:message>
-  <wsdl:message name="BuscarInstitucionesEventosAcademicosSoapIn">
-    <wsdl:part name="parameters" element="tns:BuscarInstitucionesEventosAcademicos" />
+  <wsdl:message name="GuardarAsistenciasSoapIn">
+    <wsdl:part name="parameters" element="tns:GuardarAsistencias" />
   </wsdl:message>
-  <wsdl:message name="BuscarInstitucionesEventosAcademicosSoapOut">
-    <wsdl:part name="parameters" element="tns:BuscarInstitucionesEventosAcademicosResponse" />
+  <wsdl:message name="GuardarAsistenciasSoapOut">
+    <wsdl:part name="parameters" element="tns:GuardarAsistenciasResponse" />
   </wsdl:message>
-  <wsdl:message name="BuscarPaisesSoapIn">
-    <wsdl:part name="parameters" element="tns:BuscarPaises" />
+  <wsdl:message name="GetPlanillaAsistenciasSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPlanillaAsistencias" />
   </wsdl:message>
-  <wsdl:message name="BuscarPaisesSoapOut">
-    <wsdl:part name="parameters" element="tns:BuscarPaisesResponse" />
+  <wsdl:message name="GetPlanillaAsistenciasSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPlanillaAsistenciasResponse" />
   </wsdl:message>
   <wsdl:message name="GetMaxHorasCatedraCursoSoapIn">
     <wsdl:part name="parameters" element="tns:GetMaxHorasCatedraCurso" />
@@ -6640,24 +6735,6 @@
   <wsdl:message name="DenegarFuncionalidadASoapOut">
     <wsdl:part name="parameters" element="tns:DenegarFuncionalidadAResponse" />
   </wsdl:message>
-  <wsdl:message name="GetMenuParaSoapIn">
-    <wsdl:part name="parameters" element="tns:GetMenuPara" />
-  </wsdl:message>
-  <wsdl:message name="GetMenuParaSoapOut">
-    <wsdl:part name="parameters" element="tns:GetMenuParaResponse" />
-  </wsdl:message>
-  <wsdl:message name="RefrescarCacheMAUSoapIn">
-    <wsdl:part name="parameters" element="tns:RefrescarCacheMAU" />
-  </wsdl:message>
-  <wsdl:message name="RefrescarCacheMAUSoapOut">
-    <wsdl:part name="parameters" element="tns:RefrescarCacheMAUResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetInstanciasDeEvaluacionSoapIn">
-    <wsdl:part name="parameters" element="tns:GetInstanciasDeEvaluacion" />
-  </wsdl:message>
-  <wsdl:message name="GetInstanciasDeEvaluacionSoapOut">
-    <wsdl:part name="parameters" element="tns:GetInstanciasDeEvaluacionResponse" />
-  </wsdl:message>
   <wsdl:message name="GetUsuariosSoapIn">
     <wsdl:part name="parameters" element="tns:GetUsuarios" />
   </wsdl:message>
@@ -6687,6 +6764,12 @@
   </wsdl:message>
   <wsdl:message name="GetLeyendaAnioSoapOut">
     <wsdl:part name="parameters" element="tns:GetLeyendaAnioResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetConsultaIndividualPorPersonaSoapIn">
+    <wsdl:part name="parameters" element="tns:GetConsultaIndividualPorPersona" />
+  </wsdl:message>
+  <wsdl:message name="GetConsultaIndividualPorPersonaSoapOut">
+    <wsdl:part name="parameters" element="tns:GetConsultaIndividualPorPersonaResponse" />
   </wsdl:message>
   <wsdl:message name="GetMesesSoapIn">
     <wsdl:part name="parameters" element="tns:GetMeses" />
@@ -6741,6 +6824,12 @@
   </wsdl:message>
   <wsdl:message name="GetGraficoRangoEtarioSoapOut">
     <wsdl:part name="parameters" element="tns:GetGraficoRangoEtarioResponse" />
+  </wsdl:message>
+  <wsdl:message name="ExcelGeneradoRangoEtarioSoapIn">
+    <wsdl:part name="parameters" element="tns:ExcelGeneradoRangoEtario" />
+  </wsdl:message>
+  <wsdl:message name="ExcelGeneradoRangoEtarioSoapOut">
+    <wsdl:part name="parameters" element="tns:ExcelGeneradoRangoEtarioResponse" />
   </wsdl:message>
   <wsdl:message name="ExcelGeneradoSueldosSoapIn">
     <wsdl:part name="parameters" element="tns:ExcelGeneradoSueldos" />
@@ -7096,25 +7185,19 @@
   <wsdl:message name="GetCalendarioDeCursoSoapOut">
     <wsdl:part name="parameters" element="tns:GetCalendarioDeCursoResponse" />
   </wsdl:message>
-  <wsdl:message name="GetMesesCursoDtoSoapIn">
-    <wsdl:part name="parameters" element="tns:GetMesesCursoDto" />
-  </wsdl:message>
-  <wsdl:message name="GetMesesCursoDtoSoapOut">
-    <wsdl:part name="parameters" element="tns:GetMesesCursoDtoResponse" />
-  </wsdl:message>
-  <wsdl:message name="GuardarAsistenciasSoapIn">
-    <wsdl:part name="parameters" element="tns:GuardarAsistencias" />
-  </wsdl:message>
-  <wsdl:message name="GuardarAsistenciasSoapOut">
-    <wsdl:part name="parameters" element="tns:GuardarAsistenciasResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetPlanillaAsistenciasSoapIn">
-    <wsdl:part name="parameters" element="tns:GetPlanillaAsistencias" />
-  </wsdl:message>
-  <wsdl:message name="GetPlanillaAsistenciasSoapOut">
-    <wsdl:part name="parameters" element="tns:GetPlanillaAsistenciasResponse" />
-  </wsdl:message>
   <wsdl:portType name="WSViaticosSoap">
+    <wsdl:operation name="BuscarModalidadContratacion">
+      <wsdl:input message="tns:BuscarModalidadContratacionSoapIn" />
+      <wsdl:output message="tns:BuscarModalidadContratacionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BuscarInstitucionesEventosAcademicos">
+      <wsdl:input message="tns:BuscarInstitucionesEventosAcademicosSoapIn" />
+      <wsdl:output message="tns:BuscarInstitucionesEventosAcademicosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BuscarPaises">
+      <wsdl:input message="tns:BuscarPaisesSoapIn" />
+      <wsdl:output message="tns:BuscarPaisesSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="BuscarUnidadesTiempo">
       <wsdl:input message="tns:BuscarUnidadesTiempoSoapIn" />
       <wsdl:output message="tns:BuscarUnidadesTiempoSoapOut" />
@@ -7206,6 +7289,18 @@
     <wsdl:operation name="Mobi_GuardarEventoBien">
       <wsdl:input message="tns:Mobi_GuardarEventoBienSoapIn" />
       <wsdl:output message="tns:Mobi_GuardarEventoBienSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMenuPara">
+      <wsdl:input message="tns:GetMenuParaSoapIn" />
+      <wsdl:output message="tns:GetMenuParaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RefrescarCacheMAU">
+      <wsdl:input message="tns:RefrescarCacheMAUSoapIn" />
+      <wsdl:output message="tns:RefrescarCacheMAUSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInstanciasDeEvaluacion">
+      <wsdl:input message="tns:GetInstanciasDeEvaluacionSoapIn" />
+      <wsdl:output message="tns:GetInstanciasDeEvaluacionSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GuardarEvaluaciones">
       <wsdl:input message="tns:GuardarEvaluacionesSoapIn" />
@@ -7531,17 +7626,17 @@
       <wsdl:input message="tns:AgregarConocimientoCompetenciaInformaticaSoapIn" />
       <wsdl:output message="tns:AgregarConocimientoCompetenciaInformaticaSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="BuscarModalidadContratacion">
-      <wsdl:input message="tns:BuscarModalidadContratacionSoapIn" />
-      <wsdl:output message="tns:BuscarModalidadContratacionSoapOut" />
+    <wsdl:operation name="GetMesesCursoDto">
+      <wsdl:input message="tns:GetMesesCursoDtoSoapIn" />
+      <wsdl:output message="tns:GetMesesCursoDtoSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="BuscarInstitucionesEventosAcademicos">
-      <wsdl:input message="tns:BuscarInstitucionesEventosAcademicosSoapIn" />
-      <wsdl:output message="tns:BuscarInstitucionesEventosAcademicosSoapOut" />
+    <wsdl:operation name="GuardarAsistencias">
+      <wsdl:input message="tns:GuardarAsistenciasSoapIn" />
+      <wsdl:output message="tns:GuardarAsistenciasSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="BuscarPaises">
-      <wsdl:input message="tns:BuscarPaisesSoapIn" />
-      <wsdl:output message="tns:BuscarPaisesSoapOut" />
+    <wsdl:operation name="GetPlanillaAsistencias">
+      <wsdl:input message="tns:GetPlanillaAsistenciasSoapIn" />
+      <wsdl:output message="tns:GetPlanillaAsistenciasSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetMaxHorasCatedraCurso">
       <wsdl:input message="tns:GetMaxHorasCatedraCursoSoapIn" />
@@ -7847,18 +7942,6 @@
       <wsdl:input message="tns:DenegarFuncionalidadASoapIn" />
       <wsdl:output message="tns:DenegarFuncionalidadASoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="GetMenuPara">
-      <wsdl:input message="tns:GetMenuParaSoapIn" />
-      <wsdl:output message="tns:GetMenuParaSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="RefrescarCacheMAU">
-      <wsdl:input message="tns:RefrescarCacheMAUSoapIn" />
-      <wsdl:output message="tns:RefrescarCacheMAUSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetInstanciasDeEvaluacion">
-      <wsdl:input message="tns:GetInstanciasDeEvaluacionSoapIn" />
-      <wsdl:output message="tns:GetInstanciasDeEvaluacionSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="GetUsuarios">
       <wsdl:input message="tns:GetUsuariosSoapIn" />
       <wsdl:output message="tns:GetUsuariosSoapOut" />
@@ -7878,6 +7961,10 @@
     <wsdl:operation name="GetLeyendaAnio">
       <wsdl:input message="tns:GetLeyendaAnioSoapIn" />
       <wsdl:output message="tns:GetLeyendaAnioSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultaIndividualPorPersona">
+      <wsdl:input message="tns:GetConsultaIndividualPorPersonaSoapIn" />
+      <wsdl:output message="tns:GetConsultaIndividualPorPersonaSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetMeses">
       <wsdl:input message="tns:GetMesesSoapIn" />
@@ -7914,6 +8001,10 @@
     <wsdl:operation name="GetGraficoRangoEtario">
       <wsdl:input message="tns:GetGraficoRangoEtarioSoapIn" />
       <wsdl:output message="tns:GetGraficoRangoEtarioSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ExcelGeneradoRangoEtario">
+      <wsdl:input message="tns:ExcelGeneradoRangoEtarioSoapIn" />
+      <wsdl:output message="tns:ExcelGeneradoRangoEtarioSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="ExcelGeneradoSueldos">
       <wsdl:input message="tns:ExcelGeneradoSueldosSoapIn" />
@@ -8151,21 +8242,36 @@
       <wsdl:input message="tns:GetCalendarioDeCursoSoapIn" />
       <wsdl:output message="tns:GetCalendarioDeCursoSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="GetMesesCursoDto">
-      <wsdl:input message="tns:GetMesesCursoDtoSoapIn" />
-      <wsdl:output message="tns:GetMesesCursoDtoSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GuardarAsistencias">
-      <wsdl:input message="tns:GuardarAsistenciasSoapIn" />
-      <wsdl:output message="tns:GuardarAsistenciasSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetPlanillaAsistencias">
-      <wsdl:input message="tns:GetPlanillaAsistenciasSoapIn" />
-      <wsdl:output message="tns:GetPlanillaAsistenciasSoapOut" />
-    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="WSViaticosSoap" type="tns:WSViaticosSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="BuscarModalidadContratacion">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarModalidadContratacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarInstitucionesEventosAcademicos">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarInstitucionesEventosAcademicos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarPaises">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarPaises" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="BuscarUnidadesTiempo">
       <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarUnidadesTiempo" style="document" />
       <wsdl:input>
@@ -8366,6 +8472,33 @@
     </wsdl:operation>
     <wsdl:operation name="Mobi_GuardarEventoBien">
       <soap:operation soapAction="http://wsviaticos.gov.ar/Mobi_GuardarEventoBien" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMenuPara">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetMenuPara" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RefrescarCacheMAU">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/RefrescarCacheMAU" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInstanciasDeEvaluacion">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetInstanciasDeEvaluacion" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -9102,8 +9235,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="BuscarModalidadContratacion">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarModalidadContratacion" style="document" />
+    <wsdl:operation name="GetMesesCursoDto">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetMesesCursoDto" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -9111,8 +9244,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="BuscarInstitucionesEventosAcademicos">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarInstitucionesEventosAcademicos" style="document" />
+    <wsdl:operation name="GuardarAsistencias">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarAsistencias" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -9120,8 +9253,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="BuscarPaises">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarPaises" style="document" />
+    <wsdl:operation name="GetPlanillaAsistencias">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetPlanillaAsistencias" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -9813,33 +9946,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetMenuPara">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetMenuPara" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="RefrescarCacheMAU">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/RefrescarCacheMAU" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetInstanciasDeEvaluacion">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetInstanciasDeEvaluacion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetUsuarios">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetUsuarios" style="document" />
       <wsdl:input>
@@ -9878,6 +9984,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetLeyendaAnio">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetLeyendaAnio" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultaIndividualPorPersona">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetConsultaIndividualPorPersona" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -9959,6 +10074,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetGraficoRangoEtario">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetGraficoRangoEtario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExcelGeneradoRangoEtario">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ExcelGeneradoRangoEtario" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -10497,36 +10621,36 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetMesesCursoDto">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetMesesCursoDto" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GuardarAsistencias">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarAsistencias" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetPlanillaAsistencias">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetPlanillaAsistencias" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="WSViaticosSoap12" type="tns:WSViaticosSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="BuscarModalidadContratacion">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarModalidadContratacion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarInstitucionesEventosAcademicos">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarInstitucionesEventosAcademicos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarPaises">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarPaises" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="BuscarUnidadesTiempo">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarUnidadesTiempo" style="document" />
       <wsdl:input>
@@ -10727,6 +10851,33 @@
     </wsdl:operation>
     <wsdl:operation name="Mobi_GuardarEventoBien">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/Mobi_GuardarEventoBien" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMenuPara">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetMenuPara" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RefrescarCacheMAU">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/RefrescarCacheMAU" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInstanciasDeEvaluacion">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetInstanciasDeEvaluacion" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -11463,8 +11614,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="BuscarModalidadContratacion">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarModalidadContratacion" style="document" />
+    <wsdl:operation name="GetMesesCursoDto">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetMesesCursoDto" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -11472,8 +11623,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="BuscarInstitucionesEventosAcademicos">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarInstitucionesEventosAcademicos" style="document" />
+    <wsdl:operation name="GuardarAsistencias">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarAsistencias" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -11481,8 +11632,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="BuscarPaises">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarPaises" style="document" />
+    <wsdl:operation name="GetPlanillaAsistencias">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetPlanillaAsistencias" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -12174,33 +12325,6 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetMenuPara">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetMenuPara" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="RefrescarCacheMAU">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/RefrescarCacheMAU" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetInstanciasDeEvaluacion">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetInstanciasDeEvaluacion" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetUsuarios">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetUsuarios" style="document" />
       <wsdl:input>
@@ -12239,6 +12363,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetLeyendaAnio">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetLeyendaAnio" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultaIndividualPorPersona">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetConsultaIndividualPorPersona" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -12320,6 +12453,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetGraficoRangoEtario">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetGraficoRangoEtario" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExcelGeneradoRangoEtario">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ExcelGeneradoRangoEtario" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -12851,33 +12993,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetCalendarioDeCurso">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetCalendarioDeCurso" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetMesesCursoDto">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetMesesCursoDto" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GuardarAsistencias">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarAsistencias" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetPlanillaAsistencias">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetPlanillaAsistencias" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

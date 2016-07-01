@@ -70,7 +70,7 @@ var Consultar = function() {
 
 
 var getConsultaIndividual = function (callback) {
-    Backend.GetAreasParaDDJJ104(4, 2016, 0)
+    Backend.GetConsultaIndividualPorPersona(4, 2016, 4, 2016, 0, 0, 0)
     .onSuccess(function (respuesta) {
         lista_areas_del_usuario = respuesta;
         callback();
@@ -86,7 +86,19 @@ var DibujarGrillaDDJJ = function () {
     $("#ContenedorPersona").empty();
     grilla = new Grilla(
         [
-            new Columna("Area", { generar: function (un_area) { return un_area.Nombre; } }),
+            new Columna("Mes", { generar: function (consulta) { return consulta.mes; } }),
+            new Columna("Año", { generar: function (consulta) { return consulta.anio; } }),
+            new Columna("Area", { generar: function (consulta) { return consulta.area_generacion.Nombre; } }),
+            new Columna("Apellido", { generar: function (consulta) { return consulta.persona.Apellido; } }),
+            new Columna("Nombre", { generar: function (consulta) { return consulta.persona.Nombre; } }),
+            new Columna("fecha_generacion", { generar: function (consulta) { return consulta.fecha_generacion; } }),
+            new Columna("usuario_generacion", { generar: function (consulta) { return consulta.usuario_generacion; } }),
+            new Columna("fecha_recibido", { generar: function (consulta) { return consulta.fecha_recibido; } }),
+            new Columna("usuario_recibido", { generar: function (consulta) { return consulta.usuario_recibido; } }),
+            new Columna("firmante", { generar: function (consulta) { return consulta.firmante; } }),
+            new Columna("Categoria", { generar: function (consulta) { return consulta.persona.Categoria; } }),
+            new Columna("mod_contratacion", { generar: function (consulta) { return consulta.mod_contratacion; } }),
+            new Columna("estado_descrip", { generar: function (consulta) { return consulta.estado_descrip; } }),
 
 		]);
 
