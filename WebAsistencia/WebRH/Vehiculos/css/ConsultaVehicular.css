@@ -1,0 +1,43 @@
+﻿
+html
+{
+  height: 100% !important;
+    }
+
+#barra_menu_nombre_sistema2
+{
+    position: absolute;
+    top: -2%;
+    left: 27%;
+    width: auto;
+    text-align: center;
+    font-family: Arial;
+    color: White;
+    font-size: 9px;
+    }
+
+#contenedor_controles
+{
+    text-align: center;
+    margin-top: 15%;
+    margin-bottom: 15%;
+}
+
+#btn_verificar
+{
+    margin-top:-1% !important;
+    border-radius: 2px;
+    height: 30px;
+    width: auto !important;
+    display:inline-block;
+    }
+    
+#txt_codigo_verificacion
+{
+    height: 25px;
+    border-radius: 2px;
+    width: 30%;
+    font-size: 100% !important;
+    font-weight: bold;
+    padding-left: 0.5%;
+    }
