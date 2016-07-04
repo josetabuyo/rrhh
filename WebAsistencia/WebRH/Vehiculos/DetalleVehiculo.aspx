@@ -40,7 +40,7 @@
                     </div>
 
                     	<div id="mensaje_error" title="Error" style="display:none">
-		<p id="prueba">Se ha ingresado un código incorrecto. Por favor, verifique e inténtelo nuevamente.  </p>
+		<p id="prueba">Se ha ingresado un código incorrecto.<br> Por favor, verifique e inténtelo nuevamente.  </p>
 
         <input type="button" id="button" value="Volver">
 	</div>
