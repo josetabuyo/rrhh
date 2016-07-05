@@ -127,7 +127,7 @@
   </div>
 
 
-
+<%--
     <div class="contenedor-imagen-vehiculo">
 
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -158,7 +158,7 @@
     </a>
 </div>
 </div>
-
+--%>
 <%--        <a href="../Imagenes/vehiculos-prueba/golf1999.jpg" target="_blank">
             <img href="../Imagenes/vehiculos-prueba/golf1999.jpg" class="imagenes" src="../Imagenes/vehiculos-prueba/golf1999.jpg">
         </a><a href="../Imagenes/vehiculos-prueba/golf1999-1.jpg" target="_blank">
