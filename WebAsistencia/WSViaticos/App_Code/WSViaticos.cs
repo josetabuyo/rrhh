@@ -3706,7 +3706,7 @@ public class WSViaticos : System.Web.Services.WebService
             var una_respuesta = new RespuestaVehiculo();
             una_respuesta.Respuesta = 1;
 
-            if (id_verificacion == null)
+            if (String.IsNullOrEmpty(id_verificacion) )
             {
                 una_respuesta.Respuesta = 0;
                 return una_respuesta;

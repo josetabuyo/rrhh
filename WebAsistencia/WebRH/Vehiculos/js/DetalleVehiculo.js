@@ -9,7 +9,6 @@
                 $("#mensaje_error").addClass("animated slideInDown");
                 $("#Contenido").hide();
                 document.getElementById("mihtml").style.height = "100%";
-         
                 return;
             }
 
@@ -39,19 +38,10 @@
             $("#contenedor-banner-parrafo").addClass("animated slideInDown");
             $("#barra_menu_contenedor_imagen").addClass("animated slideInDown");
 
-            $(function () {
-               $("#button").on("click", function () {
-                    window.location = "Default.aspx";
-                });
-            });
-
-            $(document).ready(function () {
-                $("#myCarousel").carousel({
-                    interval: 3000,
-                    pause: false
-                });
-            
-             });
+           $("#myCarousel").carousel({
+                interval: 3000,
+                pause: false
+            })
 
         });
 
