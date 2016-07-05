@@ -26,8 +26,6 @@
             <div id="contenedor_imagen">
                 <div id="contenedor_encabezado_sin_logo">
                 <img src="../Imagenes/BarraMenu/encabezado_sin_logos.png" id="encabezado_sin_logo" />
-                
-                
                 </div>
         
                 <div id="contenedor_logo_sistema">
