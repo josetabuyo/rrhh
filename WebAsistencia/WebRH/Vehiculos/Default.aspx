@@ -50,7 +50,7 @@
 
                 <asp:ScriptManager ID="ScriptManager1" runat="server">
                 </asp:ScriptManager>
-                <hr>
+             
         </div>
     </form>
     
