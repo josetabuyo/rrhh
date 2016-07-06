@@ -37,12 +37,15 @@
         
         .imagen 
         {
-                width: 40%;
-                height: 100px;
-                background: #fff;
-                display: inline-block;
-                border-radius: 45px;
-                margin: 20px;
+             width: 120px;
+            height: 120px;
+            background: #fff;
+            display: inline-block;
+            margin: 20px;
+            background-repeat: no-repeat;
+            background-position: 50%;
+            border-radius: 50%;
+            background-size: 100% auto;
         }
         
         #apellido
@@ -80,7 +83,32 @@
             margin-bottom:15px;
         }
         
-        
+        .papel {
+            
+            position:relative;
+            }
+         .papel:before, .papel:after {
+            -webkit-box-shadow: 0 15px 2px rgba(0,0,0, .7);
+            -moz-box-shadow: 0 15px 10px rgba(0, 0, 0, 0.7);
+            box-shadow: 0 15px 10px rgba(0, 0, 0, 0.7);
+            position: absolute; 
+            bottom: 15px;
+            z-index: -1; 
+            width: 50%;
+            height: 20%;
+            content: "";
+            }
+          /*.papel:before {
+            -webkit-transform: rotate(-3deg);
+            -moz-transform: rotate(-3deg); 
+            -o-transform: rotate(-3deg);
+            }*/
+          .papel:after {
+            -webkit-transform: rotate(3deg);
+            -moz-transform: rotate(3deg);
+            -o-transform: rotate(3deg);
+            right: 10px;
+            }
         
         </style>
 
@@ -120,7 +148,7 @@
                    <p class=""><span id="estudio">Universitario</span></p>
                 </div>
             </div>
-            <div class="caja_der">
+            <div class="caja_der papel">
             <legend style="margin-top: 20px;">Cargo y Actividad</legend>
                 <div>
                     <p class=""><label>Sector: </label><span id="sector"></span></p> 
