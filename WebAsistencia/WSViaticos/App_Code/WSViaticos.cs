@@ -168,6 +168,26 @@ public class WSViaticos : System.Web.Services.WebService
         return meses.ToArray();
     }
 
+
+    [WebMethod]
+    public EstadoDto[] GetEstadosDDJJ104(int mostrarSinGenerar)
+    {
+        List<EstadoDto> estado = new List<EstadoDto>();
+
+
+        estado.Add(new EstadoDto() { Id = 9, Descripcion = "Mostrar Todos" });
+        if (mostrarSinGenerar == 1)
+        {
+            estado.Add(new EstadoDto() { Id = 0, Descripcion = "Sin Generar" });    
+        }
+        estado.Add(new EstadoDto() { Id = 1, Descripcion = "Impresa no recepcionada" });
+        estado.Add(new EstadoDto() { Id = 2, Descripcion = "Recepcionada" });
+       
+        return estado.ToArray();
+    }
+
+
+
     //[WebMethod]
     public MesDto[] GetMesesGenerados()
     {

@@ -3,6 +3,7 @@ var mesSeleccionadoDesde;
 var anioSeleccionadoDesde;
 var mesSeleccionadoHasta;
 var anioSeleccionadoHasta;
+var estadoSeleccionado;
 
 
 Backend.start(function () {
@@ -10,11 +11,12 @@ Backend.start(function () {
         ContenedorGrilla = $("#ContenedorGrilla");
         $("#ContenedorPersona").empty();
 
-        //$('#cmbMesesDesde').hide();
-        //$('#cmbMesesHasta').hide();
+        //$('#divComboDesde').hide();
+        //$('#divComboHasta').hide();
+
         completarComboMeses($('#cmbMesesDesde'));
         completarComboMeses($('#cmbMesesHasta'));
-
+        completarComboEstado(0, $('#cmbEstado'));
         GenerarBoton();
     });
 });
@@ -48,6 +50,23 @@ var completarComboMeses = function (combo) {
     });
 }
 
+var completarComboEstado = function (mostrarSinGenerar, combo) {
+    var estado = combo;
+    estado.html("");
+    Backend.GetEstadosDDJJ104(mostrarSinGenerar)
+    .onSuccess(function (respuesta) {
+        for (var i = 0; i < respuesta.length; i++) {
+            item = new Option(respuesta[i].Descripcion, respuesta[i].Id);
+            $(item).html(respuesta[i].Descripcion);
+            estado.append(item);
+        }
+        estado.show();
+    })
+    .onError(function (error, as, asd) {
+        alertify.alert(error);
+    });
+}
+
 
 var Consultar = function() { 
 
@@ -60,7 +79,8 @@ var Consultar = function() {
     anioSeleccionadoDesde = parseInt($("#cmbMesesDesde").val().split("-")[1]);
     mesSeleccionadoHasta  = parseInt($("#cmbMesesHasta").val().split("-")[0]);
     anioSeleccionadoHasta = parseInt($("#cmbMesesHasta").val().split("-")[1]);
-            
+    estadoSeleccionado =    parseInt($("#cmbEstado").val());
+
     getConsultaIndividual(function () {
         DibujarGrillaDDJJ();
         spinner.stop();                 
@@ -70,7 +90,14 @@ var Consultar = function() {
 
 
 var getConsultaIndividual = function (callback) {
-    Backend.GetConsultaIndividualPorPersona(4, 2016, 4, 2016, 0, 0, 0)
+
+    var documento = $('#documento').text().trim();
+
+    if (documento == "") {
+        documento = 0;
+    }
+
+    Backend.GetConsultaIndividualPorPersona(mesSeleccionadoDesde, anioSeleccionadoDesde, mesSeleccionadoHasta, anioSeleccionadoHasta, documento, estadoSeleccionado, 0)
     .onSuccess(function (respuesta) {
         lista_areas_del_usuario = respuesta;
         callback();
@@ -91,15 +118,14 @@ var DibujarGrillaDDJJ = function () {
             new Columna("Area", { generar: function (consulta) { return consulta.area_generacion.Nombre; } }),
             new Columna("Apellido", { generar: function (consulta) { return consulta.persona.Apellido; } }),
             new Columna("Nombre", { generar: function (consulta) { return consulta.persona.Nombre; } }),
-            new Columna("fecha_generacion", { generar: function (consulta) { return consulta.fecha_generacion; } }),
-            new Columna("usuario_generacion", { generar: function (consulta) { return consulta.usuario_generacion; } }),
-            new Columna("fecha_recibido", { generar: function (consulta) { return consulta.fecha_recibido; } }),
-            new Columna("usuario_recibido", { generar: function (consulta) { return consulta.usuario_recibido; } }),
-            new Columna("firmante", { generar: function (consulta) { return consulta.firmante; } }),
+            new Columna("Fecha Generación", { generar: function (consulta) { return consulta.fecha_generacion; } }),
+            new Columna("Usuario Generación", { generar: function (consulta) { return consulta.usuario_generacion; } }),
+            new Columna("Fecha Recibido", { generar: function (consulta) { return consulta.fecha_recibido; } }),
+            new Columna("Usuario Recibido", { generar: function (consulta) { return consulta.usuario_recibido; } }),
+            new Columna("Firmante", { generar: function (consulta) { return consulta.firmante; } }),
             new Columna("Categoria", { generar: function (consulta) { return consulta.persona.Categoria; } }),
-            new Columna("mod_contratacion", { generar: function (consulta) { return consulta.mod_contratacion; } }),
-            new Columna("estado_descrip", { generar: function (consulta) { return consulta.estado_descrip; } }),
-
+            new Columna("Mod Contratación", { generar: function (consulta) { return consulta.mod_contratacion; } }),
+            new Columna("Estado", { generar: function (consulta) { return consulta.estado_descrip; } })
 		]);
 
     grilla.CargarObjetos(lista_areas_del_usuario);

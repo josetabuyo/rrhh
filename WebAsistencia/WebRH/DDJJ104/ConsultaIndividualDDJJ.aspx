@@ -19,40 +19,49 @@
     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'></span>"
         UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <fieldset style="text-align: center">
-        <legend>Consultar Individual de DDJJ 104</legend>
+        <legend>Consulta Individual de DDJJ 104</legend>
     </fieldset>
-    <div style="text-align: right">
-        <a style="font-size: 1.6em; display: block; margin-bottom: 10px;" href="FAreasConDDJJ.aspx">
-            Volver</a>
-    </div>
+    <%--<div style="text-align: right">
+        <a style="font-size: 1.6em; display: block; margin-bottom: 10px;" href="FAreasConDDJJ.aspx">Volver</a>
+    </div>--%>
     <div id="contenedor_consulta_rapida" style="margin: 30px;">
       
-        <div>
-            <p class="buscarPersona" style="display: inline-block;">
+        <div id="divComboDesde">
+            <p  style="display: inline-block;">
                 Desde:
-                <select runat="server" title="Seleccione un mes" id="cmbMesesDesde" name="Meses"
+                <select runat="server" title="Seleccione un mes" id="cmbMesesDesde" 
                     enableviewstate="false" style="text-transform: capitalize;">
                 </select>
             </p>
         </div>
-        <div>
-            <p class="buscarPersona" style="display: inline-block;">
+        <div id="divComboHasta">
+            <p  style="display: inline-block;">
                 Hasta:
-                <select runat="server" title="Seleccione un mes" id="cmbMesesHasta" name="Meses"
+                <select runat="server" title="Seleccione un mes" id="cmbMesesHasta" 
                     enableviewstate="false" style="text-transform: capitalize;">
                 </select>
             </p>
         </div>
 
+        <div>
+            <p  style="display: inline-block;">
+                Estado:
+                <select runat="server" title="Estado" id="cmbEstado"
+                    enableviewstate="false" style="text-transform: capitalize;">
+                </select>
+            </p>
+        </div>
 
         <div id="buscador_de_personas">
-            <p class="buscarPersona" style="display: inline-block;">
+            <p  style="display: inline-block;">
                 Persona:
-                <div id="selector_usuario" class="selector_personas" style="display: inline-block;">
+             <div id="selector_usuario" class="selector_personas" style="display: inline-block;">
                     <input id="buscador" type="hidden" />
-                </div>
+            </div>   
             </p>
         </div>
+
+        
 
         <%--
         <span id="mensaje"></span>
@@ -93,6 +102,7 @@
                                 <span id="edad"></span>
                             </p>
                         </div>
+                        
                         <div>
                             <p class="bloque_consulta">
                                 <label>
@@ -140,7 +150,8 @@
                     </fieldset>
                 </div>
             </div>
-            <div class="linea dato_personal">
+            --%>
+            <%--<div class="linea dato_personal">
                 <fieldset>
                     <legend>Cargo y Actividad</legend>
                     <div>
@@ -190,7 +201,6 @@
                 </fieldset>
             </div>
         </div>--%>
-
         <%--<div id="lean_overlay" class="estilo_formulario">
             <div class="modal_close_concursar">
             </div>
