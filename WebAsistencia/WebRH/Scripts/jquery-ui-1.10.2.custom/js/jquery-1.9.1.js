@@ -3342,8 +3342,13 @@ jQuery.Event = function( src, props ) {
 
 		// Events bubbling up the document may have been marked as prevented
 		// by a handler lower down the tree; reflect the correct value.
-		this.isDefaultPrevented = ( src.defaultPrevented || src.returnValue === false ||
-			src.getPreventDefault && src.getPreventDefault() ) ? returnTrue : returnFalse;
+		
+
+        //07/07/2016 - Inicio Comentada por Germán y Belén para que no rompa el guardado de Licencias en Firefox
+		this.isDefaultPrevented = src.defaultPrevented || src.defaultPrevented === undefined && (src.returnValue === false || src.getPreventDefault && src.getPreventDefault()) ? returnTrue : returnFalse;
+        //		this.isDefaultPrevented = ( src.defaultPrevented || src.returnValue === false ||
+		//			src.getPreventDefault && src.getPreventDefault() ) ? returnTrue : returnFalse;
+		//07/07/2016 - Fin 
 
 	// Event type
 	} else {
