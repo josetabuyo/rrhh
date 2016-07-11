@@ -1,21 +1,22 @@
 ﻿html
 {
-    width: 1024px !important;
-    height: 1000px !important;
+    position: absolute;
+    top: 0%;
+    bottom:0%;
+    left:0%;
+    right:0%;
     background-color: #031427 !important;
-   /* background-image: linear-gradient(bottom, #031427 0%, #031427 40%, #000000 40%, #000000 100%);
-    background-image: -o-linear-gradient(bottom, #031427 0%, #031427 40%, #000000 40%, #000000 100%);
-    background-image: -moz-linear-gradient(bottom, #031427 0%, #031427 40%, #000000 40%, #000000 100%);
-    background-image: -webkit-linear-gradient(bottom, #031427 0%, #031427 40%, #000000 40%, #000000 100%);
-    background-image: -ms-linear-gradient(bottom,#031427 0%, #031427 40%, #000000 40%, #000000 100%);*/
     }
 
 body
 {
-    height: 100% !important;
-    width: auto !important;
+    position: absolute;
+    top: 0%;
+    bottom: 0%;
+    right:0%;
+    left: 0%;
+    overflow-y: hidden;
     margin: 0% !important;
-    background-color: #031427 !important
     }
 
 #body-entero
@@ -28,9 +29,9 @@ body
 {
     width: 100%;
     background-color: #00001c;
-    height: 83px;
+    height: 100px;
    /*padding-bottom: 45px;*/
-    position: fixed;
+    position: absolute;
     top: 0%;
 }
 
@@ -80,7 +81,7 @@ body
 {
      width: 150px;
     height: 27px;
-    position: fixed;
+    position: absolute;
     top: 31px;
     left: 890px;
 }
@@ -89,7 +90,7 @@ body
 {
        width: 130px;
     height: 26px;
-    position: fixed;
+    position: absolute;
     top: 32px;
     left: 725px;
 }
@@ -305,18 +306,35 @@ hr
 #mensaje_error
 {
      text-align: center;
-    background: white;
-    height: 120px;
-    margin-top: 5%;
-    width: 400px;
-    margin-left: 25%;
-    border-radius: 14px;
-    font-size: 18px;
-    background-color: gainsboro;
-    padding: 1%;
-    position:absolute;
-
-    }
+     background: white;
+     height: 140px;
+     margin-top: 10%;
+     width: 367px;
+     margin-left: 25%;
+     border-radius: 14px;
+     font-size: 18px;
+     background-color: gainsboro;
+     padding: 0.5%;
+     position:absolute;
+     border: 3px solid rgb(25, 75, 180);
+}
+    
+#txt_mensaje_error
+{
+    padding-top: 6px !important;
+}
+        
+#volver_mensaje_error
+{
+    border: 2px solid rgb(25, 75, 180);
+    border-radius: 5px;
+    font-size: 20px;
+    padding: 5px;
+    margin-top: 0px;
+    background-color: #ababab;
+    box-shadow: 5px 5px 15px #888888;
+}
+   
 
 @media only screen and (max-width: 850px) and (min-width:550px)
 {

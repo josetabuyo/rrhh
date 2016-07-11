@@ -7,7 +7,7 @@
 
 
 <head>
-  <title>Control Vehicular</title>
+  <title>Control de Vigencia</title>
       <link rel="stylesheet" href="css/Default-vehiculos.css" type="text/css"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link id="link1" rel="stylesheet" href="css/DetalleVehiculo.css" type="text/css" />

@@ -42,8 +42,8 @@
                     </div>
 
                     	<div id="mensaje_error" title="Error" style="display:none">
-		<p id="prueba">Se ha ingresado un código incorrecto.<br> Por favor, verifique e inténtelo nuevamente.  </p>
-        <a href="javascript:history.back()">Volver</a>
+		<p id="txt_mensaje_error">Se ha ingresado un código incorrecto.<br> Por favor, verifique e inténtelo nuevamente.  <br></p>
+        <a href="javascript:history.back()"><p id="volver_mensaje_error">Volver</p></a>
 
 	</div>
     <div id="Contenido">
@@ -127,7 +127,6 @@
   </div>
 
 
-<%--
     <div class="contenedor-imagen-vehiculo">
 
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -158,7 +157,7 @@
     </a>
 </div>
 </div>
---%>
+
 <%--        <a href="../Imagenes/vehiculos-prueba/golf1999.jpg" target="_blank">
             <img href="../Imagenes/vehiculos-prueba/golf1999.jpg" class="imagenes" src="../Imagenes/vehiculos-prueba/golf1999.jpg">
         </a><a href="../Imagenes/vehiculos-prueba/golf1999-1.jpg" target="_blank">

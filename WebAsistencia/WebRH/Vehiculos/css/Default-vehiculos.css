@@ -1,11 +1,18 @@
 ﻿html
 {
     background-color: #031427 !important;
+    
    /* background-image: linear-gradient(bottom, #031427 0%, #031427 40%, #000000 40%, #000000 100%);
     background-image: -o-linear-gradient(bottom, #031427 0%, #031427 40%, #000000 40%, #000000 100%);
     background-image: -moz-linear-gradient(bottom, #031427 0%, #031427 40%, #000000 40%, #000000 100%);
     background-image: -webkit-linear-gradient(bottom, #031427 0%, #031427 40%, #000000 40%, #000000 100%);
     background-image: -ms-linear-gradient(bottom,#031427 0%, #031427 40%, #000000 40%, #000000 100%);*/
+    }
+
+#contenedor_encabezado_sin_logo
+{
+   
+   
     }
 
 #barra_menu_nombre_sistema2
@@ -20,12 +27,21 @@
     top: -11px;
     }
 
+
+#contenedor_logo_dir
+{
+  position: absolute;
+  top: 33px;
+  right: 400px;
+  float: right
+    }
+    
 #contenedor_controles
 {
-    position: fixed;
+    position: absolute;
     width: 100%;
     left: 30%;
-    top: 200px;
+    top: 50px;
 }
 
 #btn_verificar
@@ -47,10 +63,3 @@
     padding-left: 0.5%;
     }
 
-#contenedor_logo_dir
-{
-  position: absolute;
-  top: 33px;
-  right: 400px;
-  float: right
-    }
