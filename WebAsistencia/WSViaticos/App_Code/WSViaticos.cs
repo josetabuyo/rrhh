@@ -3783,6 +3783,26 @@ public class WSViaticos : System.Web.Services.WebService
 
         #endregion
 
+    #region archivos
+
+        [WebMethod]
+        public Imagen GetThumbnail(int id_imagen, int alto, int ancho)
+        {
+            return new RepositorioDeImagenes(Conexion()).GetThumbnail(id_imagen, alto, ancho);
+        }
+
+        [WebMethod]
+        public Imagen GetImagen(int id_imagen)
+        {
+            return new RepositorioDeImagenes(Conexion()).GetImagen(id_imagen);
+        }
+
+    #endregion
+
+
+
+
+
     private RepositorioLicencias RepoLicencias()
     {
         return new RepositorioLicencias(Conexion());

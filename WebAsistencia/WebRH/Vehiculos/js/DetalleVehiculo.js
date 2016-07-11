@@ -38,11 +38,13 @@
             $("#contenedor-banner-parrafo").addClass("animated slideInDown");
             $("#barra_menu_contenedor_imagen").addClass("animated slideInDown");
 
-           $("#myCarousel").carousel({
-                interval: 3000,
-                pause: false
-            })
+            //            $("#myCarousel").carousel({
+            //                interval: 3000,
+            //                pause: false
+            //            })
 
+            var prueba_imagen = new VistaThumbnail({ id: 54, alto: 100, ancho: 100 });
+            prueba_imagen.dibujarEn($("#contenedor-imagenes"));
         });
 
     });

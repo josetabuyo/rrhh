@@ -44,5 +44,15 @@ namespace General.Repositorios
                 return tabla_resultado.Rows[0].GetString("bytes_file");
             }            
         }
+
+        public string GetArchivoAsync(int id_archivo)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id", id_archivo);
+            var tabla_resultado = this.conexion.Ejecutar("dbo.FS_IniciarPedidoArchivo", parametros);
+            if (tabla_resultado.Rows.Count == 0) throw new Exception("no existe el archivo buscado");
+
+            return tabla_resultado.Rows[0].GetString("bytes_file", "reintentar");
+        }
     }
 }

@@ -15,17 +15,14 @@
 <%--<link type="text/css" rel="stylesheet" href="css/bootstrap-responsive.css">
     <link type="text/css" rel="stylesheet" href="css/bootstrap-responsive.min.css">--%>
     <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
-    <script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
     <script type="text/javascript" src="../Scripts/jquery.printElement.min.js"></script>
     <script type="text/javascript" src="../Scripts/underscore-min.js"></script>
     <script type="text/javascript" src="../Vehiculos/js/DetalleVehiculo.js"></script>
     <script type="text/javascript" src="../Vehiculos/js/carousel.js"></script>
     <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script type="text/javascript" src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="../Scripts/ControlesImagenes/VistaThumbnail.js"></script>
     <%= Referencias.Javascript("../")%>
 </head>
 <body>
