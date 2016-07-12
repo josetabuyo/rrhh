@@ -43,8 +43,10 @@
             //                pause: false
             //            })
 
-            var prueba_imagen = new VistaThumbnail({ id: 54, alto: 100, ancho: 100 });
-            prueba_imagen.dibujarEn($("#contenedor-imagenes"));
+            var prueba_imagen = new VistaThumbnail({ id: 54, contenedor: $("#prueba_imagen") });
+            var prueba_imagen1 = new VistaThumbnail({ id: 55, contenedor: $("#prueba_imagen1") });
+            var prueba_imagen2 = new VistaThumbnail({ id: 56, contenedor: $("#prueba_imagen2") });
+            var prueba_imagen3 = new VistaThumbnail({ id: 57, contenedor: $("#prueba_imagen3") });
         });
 
     });

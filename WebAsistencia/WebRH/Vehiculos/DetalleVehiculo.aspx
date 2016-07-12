@@ -45,6 +45,11 @@
 	</div>
     <div id="Contenido">
         <div id="contenedor-imagenes">
+            <div id="prueba_imagen" style="width:200px; height:200px; position:relative;display:inline-block"></div>
+            <div id="prueba_imagen1" style="width:200px; height:200px; position:relative;display:inline-block"></div>
+            <div id="prueba_imagen2" style="width:200px; height:200px; position:relative;display:inline-block"></div>
+            <div id="prueba_imagen3" style="width:200px; height:200px; position:relative;display:inline-block"></div>
+
             <div id="contenedor-vehiculos">
                     <div class="div-titulos">
                         <p id="titulo">

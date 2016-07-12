@@ -34,8 +34,8 @@ namespace General.Repositorios
             var imagen_resizeada = FixedSize(imagen, ancho, alto);
 
             var ms_thumb = new MemoryStream();
-            imagen.Save(ms_thumb, System.Drawing.Imaging.ImageFormat.Jpeg);
-            imageBytes = ms.ToArray();
+            imagen_resizeada.Save(ms_thumb, System.Drawing.Imaging.ImageFormat.Jpeg);
+            imageBytes = ms_thumb.ToArray();
             var img_resizeada = new Imagen();
             img_resizeada.bytes = Convert.ToBase64String(imageBytes);
             img_resizeada.reintentar = false;
