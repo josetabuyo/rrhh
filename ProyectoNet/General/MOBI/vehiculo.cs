@@ -19,7 +19,9 @@ namespace General
         public string Area;
         public string Apellido;
         public string Nombre;
-
-        public Vehiculo() { }
+        public List<int> imagenes;
+        public Vehiculo() {
+            imagenes = new List<int>();
+        }
     }
 }
