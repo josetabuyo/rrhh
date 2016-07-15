@@ -808,9 +808,9 @@ namespace General.Repositorios
             return Prorrogas;
         }
 
-        public ProrrogaLicenciaOrdinaria GetProrrogaDe(int periodo)
+        public ProrrogaLicenciaOrdinaria CargarDatos(ProrrogaLicenciaOrdinaria prorroga)
         {
-            return TodasLasProrrogas().Find(p => p.Periodo == periodo);
+            return TodasLasProrrogas().Find(p => p.Periodo == prorroga.Periodo);
 
             /*unaProrroga.Periodo = DateTime.Today.Year;
             
@@ -865,11 +865,12 @@ namespace General.Repositorios
 
         internal int GetProrrogaPlantaGeneral(int anio)
         {
-            //ProrrogaLicenciaOrdinaria prorroga_del_anio = new ProrrogaLicenciaOrdinaria();
+            ProrrogaLicenciaOrdinaria prorroga_del_anio = new ProrrogaLicenciaOrdinaria();
+            prorroga_del_anio.Periodo = anio;
             //ProrrogaLicenciaOrdinaria prorroga_aplicable = new ProrrogaLicenciaOrdinaria();
             //prorroga_del_anio.Periodo = anio;
-            
-            var prorroga_aplicable = GetProrrogaDe(anio);
+
+            var prorroga_aplicable = CargarDatos(prorroga_del_anio);
 
             return prorroga_aplicable.UsufructoHasta - prorroga_aplicable.UsufructoDesde;
 
