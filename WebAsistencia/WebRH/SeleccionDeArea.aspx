@@ -25,7 +25,6 @@
 
         <div id="titulo_areas_a_administrar" style="text-shadow: 2px 2px 5px rgba(150, 150, 150, 1);">
             Áreas a Administrar                 
-           
             <a id="btn_consultar_consulta_ddjj" RequiereFuncionalidad="23" class="btn btn-primary" href="DDJJ104/ConsultaIndividualDDJJ.aspx">Consultas DDJJ 104/2001</a>
             <a id="btn_consultar_areas_ddjj" RequiereFuncionalidad="22" class="btn btn-primary" href="DDJJ104/FAreasConDDJJ.aspx">DDJJ 104/2001</a>
             <a id="btn_consultar_areas" class="btn btn-primary" href="Protocolo/ConsultaProtocolo.aspx">Autoridades</a>
