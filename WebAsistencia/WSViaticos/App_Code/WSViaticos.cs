@@ -3712,15 +3712,15 @@ public class WSViaticos : System.Web.Services.WebService
                 return una_respuesta;
             }
 
-            try
-            {
-                una_respuesta.vehiculo = repo.ObtenerVehiculoPorIDVerificacion(id_verificacion);
-            }
-            catch (ExcepcionDeVehiculoInexistente e)
+          
+           
+            una_respuesta.vehiculo = repo.ObtenerVehiculoPorIDVerificacion(id_verificacion);
+                
+            if (string.IsNullOrEmpty(una_respuesta.vehiculo.Dominio))
             {
                 una_respuesta.Respuesta = 0;
             }
-
+               
             return una_respuesta;
         }
 

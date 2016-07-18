@@ -1,6 +1,7 @@
 ﻿html
 {
-    background-color: #031427 !important;
+    /*background-color: #031427 !important;*/
+    
    /* background-image: linear-gradient(bottom, #031427 0%, #031427 40%, #000000 40%, #000000 100%);
     background-image: -o-linear-gradient(bottom, #031427 0%, #031427 40%, #000000 40%, #000000 100%);
     background-image: -moz-linear-gradient(bottom, #031427 0%, #031427 40%, #000000 40%, #000000 100%);
@@ -17,24 +18,34 @@
     color: White;
     font-size: 9px;
     left: 333px;
-    top: -11px;
+    top: 8%;
+    line-height: 25px !important;
     }
 
+
+#contenedor_logo_dir
+{
+  position: absolute;
+  top: 33px;
+  right: 400px;
+  float: right
+    }
+    
 #contenedor_controles
 {
-    position: fixed;
+    position: absolute;
     width: 100%;
     left: 30%;
-    top: 200px;
+    top: 50px;
 }
 
 #btn_verificar
 {
-    margin-top:-1% !important;
+       margin-top: -0.7% !important;
     border-radius: 2px;
-    height: 37px;
+    height: 30px;
     width: auto !important;
-    display:inline-block;
+    display: inline-block;
     }
     
 #txt_codigo_verificacion
@@ -47,10 +58,4 @@
     padding-left: 0.5%;
     }
 
-#contenedor_logo_dir
-{
-  position: absolute;
-  top: 33px;
-  right: 400px;
-  float: right
-    }
+

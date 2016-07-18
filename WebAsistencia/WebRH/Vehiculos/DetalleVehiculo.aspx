@@ -1,29 +1,13 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="DetalleVehiculo.aspx.cs" Inherits="Vehiculos_DetalleVehiculo" %>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html id="mihtml" xmlns="http://www.w3.org/1999/xhtml">
-
+<html>
 <head>
-    <title>Control Vehicular</title>
+    <title>Control de Vigencia</title>
+    <%= Referencias.Javascript("../")%>
+    <%= Referencias.Css("../")%>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link id="link1" rel="stylesheet" href="css/DetalleVehiculo.css" type="text/css" />
-    <link type="text/css" rel="stylesheet" href="css/animate.css">
-    <link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
-    <link type="text/css" rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-    <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/ui-darkness/jquery-ui.min.css" rel="stylesheet">
-<%--<link type="text/css" rel="stylesheet" href="css/bootstrap-responsive.css">
-    <link type="text/css" rel="stylesheet" href="css/bootstrap-responsive.min.css">--%>
-    <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
-    <script type="text/javascript" src="../Scripts/jquery.printElement.min.js"></script>
-    <script type="text/javascript" src="../Scripts/underscore-min.js"></script>
+    <link id="link1" rel="stylesheet" href="css/DetalleVehiculo.css" type="text/css"/>
     <script type="text/javascript" src="../Vehiculos/js/DetalleVehiculo.js"></script>
     <script type="text/javascript" src="../Vehiculos/js/carousel.js"></script>
-    <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.js"></script>
-    <script type="text/javascript" src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../Scripts/ControlesImagenes/VistaThumbnail.js"></script>
-    <%= Referencias.Javascript("../")%>
 </head>
 <body>
     <div id="contenedor_imagen">
@@ -39,8 +23,8 @@
                     </div>
 
                     	<div id="mensaje_error" title="Error" style="display:none">
-		<p id="prueba">Se ha ingresado un código incorrecto.<br> Por favor, verifique e inténtelo nuevamente.  </p>
-        <a href="javascript:history.back()">Volver</a>
+		<p id="txt_mensaje_error">Se ha ingresado un código incorrecto.<br> Por favor, verifique e inténtelo nuevamente.  <br></p>
+        <a href="javascript:history.back()"><p id="volver_mensaje_error">Volver</p></a>
 
 	</div>
     <div id="Contenido">
@@ -126,7 +110,6 @@
   </div>
 
 
-<%--
     <div class="contenedor-imagen-vehiculo">
 
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -157,17 +140,7 @@
     </a>
 </div>
 </div>
---%>
-<%--        <a href="../Imagenes/vehiculos-prueba/golf1999.jpg" target="_blank">
-            <img href="../Imagenes/vehiculos-prueba/golf1999.jpg" class="imagenes" src="../Imagenes/vehiculos-prueba/golf1999.jpg">
-        </a><a href="../Imagenes/vehiculos-prueba/golf1999-1.jpg" target="_blank">
-            <img class="imagenes" src="../Imagenes/vehiculos-prueba/golf1999-1.jpg">
-        </a><a href="../Imagenes/vehiculos-prueba/golf1999-2.jpg" target="_blank">
-            <img class="imagenes" src="../Imagenes/vehiculos-prueba/golf1999-2.jpg">
-        </a><a href="../Imagenes/vehiculos-prueba/golf1999-2.jpg" target="_blank">
-            <img class="imagenes" src="../Imagenes/vehiculos-prueba/golf1999-2.jpg">
-        </a>--%>
-    
+
     </div>
 
 </body>
