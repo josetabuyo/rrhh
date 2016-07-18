@@ -70,11 +70,11 @@ namespace General
 
             var permitidas_aplicables = permitidas_consumibles2.FindAll(consumible => consumible.CantidadDeDias() > 0);
             var primera_permitida_aplicable = new VacacionesPermitidas();
-            if (permitidas_aplicables.Count() == 0)
-            {
-                _repositorio_licencia.LoguearError(permitidas_log, aprobadas, persona, fecha_calculo);
+            //if (permitidas_aplicables.Count() == 0)
+            //{
+            _repositorio_licencia.LoguearError(permitidas_log, aprobadas, persona, fecha_calculo, permitidas_consumibles2);
                 throw new SolicitudInvalidaException(); 
-            }
+            //}
             primera_permitida_aplicable = permitidas_aplicables.First();
       
             if (primera_permitida_aplicable.CantidadDeDias() > aprobadas.CantidadDeDias())

@@ -806,13 +806,13 @@ namespace General.Repositorios
             return unaProrroga;
         }
 
-        public void LoguearError(List<VacacionesPermitidas> permitidas_log, SolicitudesDeVacaciones aprobadas, Persona persona, DateTime fecha_calculo)
+        public void LoguearError(List<VacacionesPermitidas> permitidas_log, SolicitudesDeVacaciones aprobadas, Persona persona, DateTime fecha_calculo, List<VacacionesPermitidas> vacacionesPermitidas)
         {
             var parametros = new Dictionary<string, object>();
 
             //Persona a loguear
-            parametros.Add("@apellido", persona.Apellido);
-            parametros.Add("@nombre", persona.Nombre);
+            parametros.Add("@apellido", "N/A");
+            parametros.Add("@nombre", "N/A");
             parametros.Add("@documento", persona.Documento);
 
             //Licencia con Conflicto
@@ -820,7 +820,25 @@ namespace General.Repositorios
             parametros.Add("@anio_minimo_imputable", aprobadas.AnioMinimoImputable(persona));
             parametros.Add("@fecha_desde", aprobadas.Desde());
             parametros.Add("@fecha_hasta", aprobadas.Hasta());
-            parametros.Add("@cantidad_de_dias", aprobadas.CantidadDeDias());
+
+
+            bool primero = true;
+            int total = 0;
+            vacacionesPermitidas.ForEach(p =>
+            {
+                if (primero)
+                {
+                    total = p.CantidadDeDias();
+                }
+                else
+                {
+                    total = total - p.CantidadDeDias();
+                }
+                primero = false;
+            });
+            parametros.Add("@cantidad_de_dias", total);
+            parametros.Add("@anio_imputado", vacacionesPermitidas.First().Periodo);
+            //parametros.Add("@cantidad_de_dias", aprobadas.CantidadDeDias());
 
             //Próxima Licencia sin calcular
             //if (permitidas_log.Count > 0)
