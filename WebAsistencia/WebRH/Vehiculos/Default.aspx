@@ -2,17 +2,19 @@
 <html>
 <head>
     <title>Control de Vigencia</title>
-    <link rel="stylesheet" href="css/Default-vehiculos.css" type="text/css" />
-
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link id="link2" rel="stylesheet" href="css/DetalleVehiculo.css" type="text/css"/>
-    <script type="text/javascript" src="../Vehiculos/js/DetalleVehiculo.js"></script>
     <%= Referencias.Javascript("../")%>
     <%= Referencias.Css("../")%>
-
-    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <link rel="stylesheet" href="css/Default-vehiculos.css" type="text/css" />
+    <link id="link2" rel="stylesheet" href="css/DetalleVehiculo.css" type="text/css"/>
 </head>
 <body>
+                <div id="fondo-Arriba">
+                            </div>
+                <div id="fondo-Abajo">
+                            </div>
+
+
     <form id="form1" runat="server" style="height: auto;">
         <div id="contenedor_imagen">
             <div id="contenedor_encabezado_sin_logo">
@@ -33,17 +35,16 @@
             </div>
         </div>
         <div id="Contenido">
-            <div id="fondo-Arriba">
+            
                 <div id="contenedor_controles">
                     <input type="text" id="txt_codigo_verificacion" />
                     <input type="button" id="btn_verificar" value="Verificar" />
                 </div>
                 <asp:ScriptManager ID="ScriptManager1" runat="server">
                 </asp:ScriptManager>
-            </div>
+            
         
-            <div id="fondo-Abajo">
-            </div>
+            
         
         </div>
     </form>

@@ -30,9 +30,10 @@ body
     width: 100%;
     background-color: #00001c;
     height: 100px;
-   /*padding-bottom: 45px;*/
+    /*padding-bottom: 45px;*/
     position: absolute;
     top: 0%;
+    left: 0px !important;
 }
 
 #barra-azul
@@ -105,27 +106,27 @@ body
 	background-color: #EEE;
 }
 
-#fondo-Arriba
+#contendor-fondos
 {
+    margin-top: 120px !important;
+    }
+
+#fondo-Arriba {
     background-color: #000000;
     top: 0px;
-    left:0px;
-    right:0px;
-    bottom:50%;
+    left: 0px;
+    right: 0px;
+    bottom: 0%;
     position: absolute;
-    }
-
-#fondo-Abajo
-{
+}
+#fondo-Abajo {
     background-color: #031427;
     position: absolute;
-    top: 50%;
-    left:0px;
-    right:0px;
-    bottom:0%;
-    }
-
-
+    top: 60%;
+    left: 0px;
+    right: 0px;
+    bottom: 0%;
+}
 
 #Contenido
 {   
@@ -158,6 +159,7 @@ body
     font-size: 9px;
     left: 333px;
     top: 0px;
+    line-height: 25px !important;
 }
         
 .tabla-principal
@@ -284,7 +286,7 @@ body
      margin-left:10%;
      margin-right:10%;
 }
-     
+
 #VehiculoAlertaInvalido
 {   
     margin-top:10px;
@@ -294,7 +296,6 @@ body
 hr 
 {
     color: white;
-    margin-top: -7px;
     border: 0;
     height: 2px;
     text-align: center; 
@@ -303,6 +304,7 @@ hr
     background: -webkit-radial-gradient(left,100% 100px, #031427,  #fff,  #031427);
     background: -moz-radial-gradient(left,100% 100px, #031427,  #fff,  #031427);
 }
+
 
 #titulo-del-menu
 {
@@ -358,7 +360,6 @@ hr
 /*
 @media only screen and (max-width: 850px) and (min-width:550px)
 {
-
        html
        {
         background: linear-gradient(to bottom, black 0%,black 60%,#000000 60%,#031427 60%,#031427 40%); 
@@ -369,10 +370,7 @@ hr
         font-size: 0.9em !important; 
         padding-left: 0% !important;
         padding-right: 0% !important;
-       }
-       
-       
-          
+       }    
 }
 
 @media only screen and (max-width: 549px)
@@ -397,8 +395,7 @@ hr
         height: 25px !important;
         width: auto;
         margin-left: -22%;
-        margin-top: 2.0%;
-        
+        margin-top: 2.0%;       
            }
            
        #img_logo_direccion
@@ -438,10 +435,6 @@ hr
         #contenedor-vehiculos
        {
         margin-top: 20%;
-       }
-        
-        
-       
-       
+       }           
 }*/
 

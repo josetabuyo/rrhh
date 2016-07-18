@@ -1,18 +1,12 @@
 ﻿html
 {
-    background-color: #031427 !important;
+    /*background-color: #031427 !important;*/
     
    /* background-image: linear-gradient(bottom, #031427 0%, #031427 40%, #000000 40%, #000000 100%);
     background-image: -o-linear-gradient(bottom, #031427 0%, #031427 40%, #000000 40%, #000000 100%);
     background-image: -moz-linear-gradient(bottom, #031427 0%, #031427 40%, #000000 40%, #000000 100%);
     background-image: -webkit-linear-gradient(bottom, #031427 0%, #031427 40%, #000000 40%, #000000 100%);
     background-image: -ms-linear-gradient(bottom,#031427 0%, #031427 40%, #000000 40%, #000000 100%);*/
-    }
-
-#contenedor_encabezado_sin_logo
-{
-   
-   
     }
 
 #barra_menu_nombre_sistema2
@@ -24,7 +18,8 @@
     color: White;
     font-size: 9px;
     left: 333px;
-    top: -11px;
+    top: 8%;
+    line-height: 25px !important;
     }
 
 
@@ -46,11 +41,11 @@
 
 #btn_verificar
 {
-    margin-top:-1% !important;
+       margin-top: -0.7% !important;
     border-radius: 2px;
-    height: 37px;
+    height: 30px;
     width: auto !important;
-    display:inline-block;
+    display: inline-block;
     }
     
 #txt_codigo_verificacion
@@ -62,4 +57,5 @@
     font-weight: bold;
     padding-left: 0.5%;
     }
+
 
