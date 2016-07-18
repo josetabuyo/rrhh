@@ -1,5 +1,10 @@
 ﻿html
-{
+{ 
+  top: 0px;
+  right: 0px;
+  left: 0px;
+  bottom: 0px;
+  position: absolute;
     /*background-color: #031427 !important;*/
     
    /* background-image: linear-gradient(bottom, #031427 0%, #031427 40%, #000000 40%, #000000 100%);
@@ -8,20 +13,6 @@
     background-image: -webkit-linear-gradient(bottom, #031427 0%, #031427 40%, #000000 40%, #000000 100%);
     background-image: -ms-linear-gradient(bottom,#031427 0%, #031427 40%, #000000 40%, #000000 100%);*/
     }
-
-#barra_menu_nombre_sistema2
-{
-    position: absolute;
-    width: auto;
-    text-align: center;
-    font-family: Arial;
-    color: White;
-    font-size: 9px;
-    left: 333px;
-    top: 8%;
-    line-height: 25px !important;
-    }
-
 
 #contenedor_logo_dir
 {
@@ -57,5 +48,6 @@
     font-weight: bold;
     padding-left: 0.5%;
     }
+
 
 
