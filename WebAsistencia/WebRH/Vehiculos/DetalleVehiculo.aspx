@@ -6,8 +6,10 @@
     <%= Referencias.Css("../")%>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link id="link1" rel="stylesheet" href="css/DetalleVehiculo.css" type="text/css"/>
-    <script type="text/javascript" src="../Vehiculos/js/DetalleVehiculo.js"></script>
-    <script type="text/javascript" src="../Vehiculos/js/carousel.js"></script>
+    <script type="text/javascript" src="js/DetalleVehiculo.js"></script>
+    <script type="text/javascript" src="js/carousel.js"></script>
+
+    <script type="text/javascript" src="../Scripts/ControlesImagenes/VistaThumbnail.js"></script>
 </head>
 <body>
     <div id="contenedor_imagen">
