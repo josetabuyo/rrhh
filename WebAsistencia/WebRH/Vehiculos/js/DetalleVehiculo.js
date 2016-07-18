@@ -32,7 +32,7 @@
             $(".contenedor-imagen-vehiculo").show();
             $("#mensaje_error").hide();
             $(".tabla-principal").addClass("animated slideInLeft");
-            $("#contenedor-vehiculos").addClass("animated slideInRight");
+            $("#titulo-separador-vehiculos").addClass("animated slideInRight");
             $("#contenedor-conductor").addClass("animated slideInRight");
             $(".contenedor-imagen-vehiculo").addClass("animated zoomIn");
             $("#contenedor-banner-parrafo").addClass("animated slideInDown");

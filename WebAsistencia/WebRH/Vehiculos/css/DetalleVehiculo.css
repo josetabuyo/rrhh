@@ -2,35 +2,26 @@
 {
     position: absolute;
     top: 0%;
-    bottom:0%;
-    left:0%;
-    right:0%;
-    /*background-color: #031427 !important;*/
-    overflow-x: hidden;
-    }
+    bottom: 0%;
+    left: 0%;
+    right: 0%; /*background-color: #031427 !important;*/
+}
 
 body
 {
     position: absolute;
     top: 0%;
     bottom: 0%;
-    right:0%;
+    right: 0%;
     left: 0%;
     margin: 0% !important;
-    }
+}
 
-#body-entero
-{
-    margin: 0% !important;
-    height: 100% !important;
-    }
-
-#contenedor_imagen 
+#contenedor_imagen
 {
     width: 100%;
     background-color: #00001c;
-    height: 100px;
-    /*padding-bottom: 45px;*/
+    height: 125px; /*padding-bottom: 45px;*/
     position: absolute;
     top: 0%;
     left: 0px !important;
@@ -41,31 +32,31 @@ body
     background-color: rgb(25, 75, 180);
     height: 30px;
     border-color: white;
-    border-top-style: solid; 
+    border-top-style: solid;
     width: auto;
     position: relative;
 }
 
-#barra_menu_contenedor 
+#barra_menu_contenedor
 {
     height: 95px;
 }
 
-#encabezado_sin_logo 
+#encabezado_sin_logo
 {
     height: 90px;
     width: 885px !important;
     margin-left: 100px !important;
 }
 
-#barra_menu_contenedor_imagen 
+#barra_menu_contenedor_imagen
 {
-    background-color:#00001c;  
+    background-color: #00001c;
     position: absolute;
     left: 50%;
-	min-height: 30px;
-	width: auto;
-	margin-left: -33.5%;
+    min-height: 30px;
+    width: auto;
+    margin-left: -33.5%;
 }
 
 #img_logo_sistema
@@ -74,44 +65,44 @@ body
     height: 39px;
     position: absolute;
     top: 25px;
-    left: 80px;
-    /*float:left;*/    
+    left: 80px; /*float:left;*/
 }
 
- #img_logo_minis 
+#img_logo_minis
 {
-     width: 150px;
+    width: 150px;
     height: 27px;
     position: absolute;
     top: 31px;
     left: 890px;
 }
 
-#img_logo_direccion 
+#img_logo_direccion
 {
-       width: 130px;
+    width: 130px;
     height: 26px;
     position: absolute;
     top: 32px;
     left: 725px;
 }
- 
-#barra_menu 
+
+#barra_menu
 {
-	position: absolute;
+    position: absolute;
     left: 50%;
-	min-height: 30px;
-	width: 1024px;
-	margin-left: -512px;	
-	background-color: #EEE;
+    min-height: 30px;
+    width: 1024px;
+    margin-left: -512px;
+    background-color: #EEE;
 }
 
 #contendor-fondos
 {
     margin-top: 120px !important;
-    }
+}
 
-#fondo-Arriba {
+#fondo-Arriba
+{
     background-color: #000000;
     top: 0px;
     left: 0px;
@@ -119,7 +110,9 @@ body
     bottom: 0%;
     position: absolute;
 }
-#fondo-Abajo {
+
+#fondo-Abajo
+{
     background-color: #031427;
     position: absolute;
     top: 60%;
@@ -129,73 +122,77 @@ body
 }
 
 #Contenido
-{   
-    width:80%;
+{
+   /* width: 80%;
     left: 10%;
-    right: 10%;
+    right: 10%;*/
     top: 150px;
     line-height: 18px;
     color: white;
     font-family: Arial;
     position: absolute;
+    overflow-y: auto;
+    left: 0;
+    right: 0;
+    bottom: 0
 }
 
-  
-#contenedor_barraInferior 
+#contenedor_barraInferior
 {
     width: 100%;
-    background-color:rgb(25, 75, 180);
+    background-color: rgb(25, 75, 180);
     height: 30px;
-    border-top: 3px solid white;   
+    border-top: 3px solid white;
 }
 
 #barra_menu_nombre_sistema
 {
-     position: absolute;
+    position: absolute;
     width: auto;
     text-align: center;
     font-family: Arial;
     color: White;
     font-size: 9px;
     left: 333px;
-    top: 0px;
+    top: 8%;
     line-height: 25px !important;
 }
-        
+
 .tabla-principal
-{   color: white;
-    margin-top:0%;
-    margin-bottom:0%;
-    font-size:1.2em;
-    width:100%;
+{
+    color: white;
+    margin-top: 0%;
+    margin-bottom: 0%;
+    font-size: 1.2em;
+    width: 100%;
     background-color: #00001c;
     border-radius: 10px;
     margin-bottom: 5%;
 }
 
-#celda-titulo 
+#celda-titulo
 {
     padding: 7px;
-    width: 100%;         
+    width: 100%;
     margin-top: 2%;
     margin-bottom: 2%;
 }
 
-.celda 
+.celda
 {
     padding: 7px;
-    width: 40%; 
-    padding-left: 3%;   
+    width: 40%;
+    padding-left: 3%;
     padding-bottom: 1%;
-    padding-top: 1%     
+    padding-top: 1%;
 }
-      
-.celda2 
+
+.celda2
 {
     padding: 1%;
     width: 80%;
 }
-  
+
 
 
 
@@ -205,7 +202,7 @@ body
     height: 100%;
 }
 
-.separador 
+.separador
 {
     background-color: white;
     height: 2px;
@@ -213,89 +210,44 @@ body
     border-radius: 10px;
 }
 
-.div-titulos 
+.div-titulos
 {
     border-radius: 10px;
     margin-bottom: 0%;
-    font-size:1.5em;
+    font-size: 1.5em;
     font-weight: bold;
-    height: 100%;
+   /* height: 100%;*/
     text-align: left;
-    margin-top: 3%;
-    display:inline-block;
+    /*margin-top: 3%;*/
+    display: inline-block;
 }
-  
 
-    
- .imagenes 
+
+
+.imagenes
 {
-    width: inherit !important;   /* This makes the next two lines work in IE8. */
-    max-width: 31% !important;  /* Add !important if needed. */
-    height: auto !important;    /* Add !important if needed. */
+    width: inherit !important; /* This makes the next two lines work in IE8. */
+    max-width: 31% !important; /* Add !important if needed. */
+    height: auto !important; /* Add !important if needed. */
     margin-top: 1%;
     margin-bottom: 5%;
     margin-left: 12.5%;
     border-radius: 10px;
 }
- 
+
 .contenedor-imagen-vehiculo
 {
     width: 80%;
     margin-left: 10%;
-    margin-right: 10    
+    margin-right: 10;    
 }
 
-.Contenedor-parrafo 
-{
-     font-weight: bold;
-     margin-top:5%;
-     margin-bottom: 5%;
-}
-        
-.parrafo 
-{
-     font-size: 1.2em !important; 
-}
-    
-.contenedor-conductor 
-{
-     display: none;
-}
-     
-.contenedor-banner-parrafo
- {
-     display:none;
- }
- 
-  #contenedor-vehiculos
-       {
-        margin-top: 3%;
-       }
-              
-#barra-foot
-{
-     margin-top: -50px;
-}
-         
-#contenedor-imagenes
-{
-     width:80%;
-     margin-left:10%;
-     margin-right:10%;
-}
-
-#VehiculoAlertaInvalido
-{   
-    margin-top:10px;
-    text-align:center;
-}
-
-hr 
+hr
 {
     color: white;
     border: 0;
     height: 2px;
-    text-align: center; 
+    text-align: center;
     background-color: #fff;
     background: radial-gradient(left, #031427,  #fff,  #031427);
     background: -webkit-radial-gradient(left,100% 100px, #031427,  #fff,  #031427);
@@ -307,42 +259,45 @@ hr
 {
     font-size: 20px;
     font-weight: bold;
-    }
-    
-.carousel{
+}
+
+.carousel
+{
     background: #2f4357;
     margin-top: 20px;
 }
 
-.carousel .item img{
+.carousel .item img
+{
     margin: 0 auto; /* Align slide image horizontally center */
 }
 
-.bs-example{
-	margin: 20px;
+.bs-example
+{
+    margin: 20px;
 }
-    
+
 #mensaje_error
 {
-     text-align: center;
-     background: white;
-     height: 140px;
-     margin-top: 10%;
-     width: 367px;
-     margin-left: 25%;
-     border-radius: 14px;
-     font-size: 18px;
-     background-color: gainsboro;
-     padding: 0.5%;
-     position:absolute;
-     border: 3px solid rgb(25, 75, 180);
+    text-align: center;
+    background: white;
+    height: 140px;
+    margin-top: 10%;
+    width: 367px;
+    margin-left: 25%;
+    border-radius: 14px;
+    font-size: 18px;
+    background-color: gainsboro;
+    padding: 0.5%;
+    position: absolute;
+    border: 3px solid rgb(25, 75, 180);
 }
-    
+
 #txt_mensaje_error
 {
     padding-top: 6px !important;
 }
-        
+
 #volver_mensaje_error
 {
     border: 2px solid rgb(25, 75, 180);
@@ -353,7 +308,7 @@ hr
     background-color: #ababab;
     box-shadow: 5px 5px 15px #888888;
 }
-   
+
 /*
 @media only screen and (max-width: 850px) and (min-width:550px)
 {

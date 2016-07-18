@@ -25,7 +25,7 @@
                 <img src="../Imagenes/logo_direccion.png" id="img_logo_direccion" alt="logosistema" />
                 <img src="../Imagenes/logo_ministerio.png" id="img_logo_minis" alt="logosistema" />
             </div>
-            <div id="barra_menu_nombre_sistema2">
+            <div id="barra_menu_nombre_sistema">
                 <p id="titulo-del-menu">
                     Consulta<br>
                     de<br>
@@ -49,7 +49,6 @@
         </div>
     </form>
 </body>
-<%= Referencias.Javascript("../")%>
 <script type="text/javascript">
     $(document).ready(function () {
         Backend.start(function () {

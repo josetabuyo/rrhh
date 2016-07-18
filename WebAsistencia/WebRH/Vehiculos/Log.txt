@@ -342,3 +342,111 @@ Exception rethrown at [0]:
    en System.Web.SessionState.SessionStateModule.BeginAcquireState(Object source, EventArgs e, AsyncCallback cb, Object extraData)
    en System.Web.HttpApplication.AsyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
    en System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+18/07/2016 13:22:14 - ---------------------------------------------
+18/07/2016 13:22:14 - System.ServiceModel.CommunicationException: Error al deserializar el cuerpo del mensaje de respuesta para la operación 'GetUsuarioNulo'. ---> System.InvalidOperationException: Error en el documento XML (1, 277). ---> System.Xml.XmlException: Se superó la cuota máxima de caracteres de tabla de nombres (16384) al leer los datos XML. La tabla de nombres es una estructura de datos que se emplea para almacenar las cadenas encontradas durante el procesamiento XML. Los documentos XML largos con valores de atributo, nombres de atributo y nombres de elemento no repetidos pueden hacer que se sobrepase la cuota. Esta cuota puede aumentarse cambiando la propiedad MaxNameTableCharCount en el objeto XmlDictionaryReaderQuotas usado al crear el lector XML. Línea 1, posición 277.
+   en System.Xml.XmlExceptionHelper.ThrowXmlException(XmlDictionaryReader reader, String res, String arg1, String arg2, String arg3)
+   en System.Xml.XmlExceptionHelper.ThrowMaxNameTableCharCountExceeded(XmlDictionaryReader reader, Int32 maxNameTableCharCount)
+   en System.Xml.XmlBaseReader.QuotaNameTable.Add(Int32 charCount)
+   en System.Xml.XmlBaseReader.QuotaNameTable.Add(String value)
+   en Microsoft.Xml.Serialization.GeneratedAssembly.XmlSerializationReaderWSViaticosSoap.InitIDs()
+   en System.Xml.Serialization.XmlSerializationReader.Init(XmlReader r, XmlDeserializationEvents events, String encodingStyle, TempAssembly tempAssembly)
+   en System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   en System.ServiceModel.Dispatcher.XmlSerializerOperationFormatter.DeserializeBody(XmlDictionaryReader reader, MessageVersion version, XmlSerializer serializer, MessagePartDescription returnPart, MessagePartDescriptionCollection bodyParts, Object[] parameters, Boolean isRequest)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+
+Server stack trace: 
+   en System.ServiceModel.Dispatcher.XmlSerializerOperationFormatter.DeserializeBody(XmlDictionaryReader reader, MessageVersion version, XmlSerializer serializer, MessagePartDescription returnPart, MessagePartDescriptionCollection bodyParts, Object[] parameters, Boolean isRequest)
+   en System.ServiceModel.Dispatcher.XmlSerializerOperationFormatter.DeserializeBody(XmlDictionaryReader reader, MessageVersion version, String action, MessageDescription messageDescription, Object[] parameters, Boolean isRequest)
+   en System.ServiceModel.Dispatcher.OperationFormatter.DeserializeBodyContents(Message message, Object[] parameters, Boolean isRequest)
+   en System.ServiceModel.Dispatcher.OperationFormatter.DeserializeReply(Message message, Object[] parameters)
+   en System.ServiceModel.Dispatcher.ProxyOperationRuntime.AfterReply(ProxyRpc& rpc)
+   en System.ServiceModel.Channels.ServiceChannel.HandleReply(ProxyOperationRuntime operation, ProxyRpc& rpc)
+   en System.ServiceModel.Channels.ServiceChannel.Call(String action, Boolean oneway, ProxyOperationRuntime operation, Object[] ins, Object[] outs, TimeSpan timeout)
+   en System.ServiceModel.Channels.ServiceChannelProxy.InvokeService(IMethodCallMessage methodCall, ProxyOperationRuntime operation)
+   en System.ServiceModel.Channels.ServiceChannelProxy.Invoke(IMessage message)
+
+Exception rethrown at [0]: 
+   en System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+   en System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)
+   en WSViaticos.WSViaticosSoap.GetUsuarioNulo()
+   en WSViaticos.WSViaticosSoapClient.GetUsuarioNulo() en c:\Users\clurgo\AppData\Local\Temp\Temporary ASP.NET Files\webrh\df8a7146\84c3bc9a\App_WebReferences.w8mu21ds.0.cs:línea 16029
+   en ASP.global_asax.Session_Start(Object sender, EventArgs e) en c:\Repositorio\Javier\RRHH\WebAsistencia\WebRH\Global.asax:línea 7
+   en System.Web.SessionState.SessionStateModule.RaiseOnStart(EventArgs e)
+   en System.Web.SessionState.SessionStateModule.CompleteAcquireState()
+   en System.Web.SessionState.SessionStateModule.BeginAcquireState(Object source, EventArgs e, AsyncCallback cb, Object extraData)
+   en System.Web.HttpApplication.AsyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   en System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+18/07/2016 13:22:18 - ---------------------------------------------
+18/07/2016 13:22:18 - System.ServiceModel.CommunicationException: Error al deserializar el cuerpo del mensaje de respuesta para la operación 'GetUsuarioNulo'. ---> System.InvalidOperationException: Error en el documento XML (1, 277). ---> System.Xml.XmlException: Se superó la cuota máxima de caracteres de tabla de nombres (16384) al leer los datos XML. La tabla de nombres es una estructura de datos que se emplea para almacenar las cadenas encontradas durante el procesamiento XML. Los documentos XML largos con valores de atributo, nombres de atributo y nombres de elemento no repetidos pueden hacer que se sobrepase la cuota. Esta cuota puede aumentarse cambiando la propiedad MaxNameTableCharCount en el objeto XmlDictionaryReaderQuotas usado al crear el lector XML. Línea 1, posición 277.
+   en System.Xml.XmlExceptionHelper.ThrowXmlException(XmlDictionaryReader reader, String res, String arg1, String arg2, String arg3)
+   en System.Xml.XmlExceptionHelper.ThrowMaxNameTableCharCountExceeded(XmlDictionaryReader reader, Int32 maxNameTableCharCount)
+   en System.Xml.XmlBaseReader.QuotaNameTable.Add(Int32 charCount)
+   en System.Xml.XmlBaseReader.QuotaNameTable.Add(String value)
+   en Microsoft.Xml.Serialization.GeneratedAssembly.XmlSerializationReaderWSViaticosSoap.InitIDs()
+   en System.Xml.Serialization.XmlSerializationReader.Init(XmlReader r, XmlDeserializationEvents events, String encodingStyle, TempAssembly tempAssembly)
+   en System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   en System.ServiceModel.Dispatcher.XmlSerializerOperationFormatter.DeserializeBody(XmlDictionaryReader reader, MessageVersion version, XmlSerializer serializer, MessagePartDescription returnPart, MessagePartDescriptionCollection bodyParts, Object[] parameters, Boolean isRequest)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+
+Server stack trace: 
+   en System.ServiceModel.Dispatcher.XmlSerializerOperationFormatter.DeserializeBody(XmlDictionaryReader reader, MessageVersion version, XmlSerializer serializer, MessagePartDescription returnPart, MessagePartDescriptionCollection bodyParts, Object[] parameters, Boolean isRequest)
+   en System.ServiceModel.Dispatcher.XmlSerializerOperationFormatter.DeserializeBody(XmlDictionaryReader reader, MessageVersion version, String action, MessageDescription messageDescription, Object[] parameters, Boolean isRequest)
+   en System.ServiceModel.Dispatcher.OperationFormatter.DeserializeBodyContents(Message message, Object[] parameters, Boolean isRequest)
+   en System.ServiceModel.Dispatcher.OperationFormatter.DeserializeReply(Message message, Object[] parameters)
+   en System.ServiceModel.Dispatcher.ProxyOperationRuntime.AfterReply(ProxyRpc& rpc)
+   en System.ServiceModel.Channels.ServiceChannel.HandleReply(ProxyOperationRuntime operation, ProxyRpc& rpc)
+   en System.ServiceModel.Channels.ServiceChannel.Call(String action, Boolean oneway, ProxyOperationRuntime operation, Object[] ins, Object[] outs, TimeSpan timeout)
+   en System.ServiceModel.Channels.ServiceChannelProxy.InvokeService(IMethodCallMessage methodCall, ProxyOperationRuntime operation)
+   en System.ServiceModel.Channels.ServiceChannelProxy.Invoke(IMessage message)
+
+Exception rethrown at [0]: 
+   en System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+   en System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)
+   en WSViaticos.WSViaticosSoap.GetUsuarioNulo()
+   en WSViaticos.WSViaticosSoapClient.GetUsuarioNulo() en c:\Users\clurgo\AppData\Local\Temp\Temporary ASP.NET Files\webrh\df8a7146\84c3bc9a\App_WebReferences.w8mu21ds.0.cs:línea 16029
+   en ASP.global_asax.Session_Start(Object sender, EventArgs e) en c:\Repositorio\Javier\RRHH\WebAsistencia\WebRH\Global.asax:línea 7
+   en System.Web.SessionState.SessionStateModule.RaiseOnStart(EventArgs e)
+   en System.Web.SessionState.SessionStateModule.CompleteAcquireState()
+   en System.Web.SessionState.SessionStateModule.BeginAcquireState(Object source, EventArgs e, AsyncCallback cb, Object extraData)
+   en System.Web.HttpApplication.AsyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   en System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+18/07/2016 13:22:24 - ---------------------------------------------
+18/07/2016 13:22:24 - System.ServiceModel.CommunicationException: Error al deserializar el cuerpo del mensaje de respuesta para la operación 'GetUsuarioNulo'. ---> System.InvalidOperationException: Error en el documento XML (1, 277). ---> System.Xml.XmlException: Se superó la cuota máxima de caracteres de tabla de nombres (16384) al leer los datos XML. La tabla de nombres es una estructura de datos que se emplea para almacenar las cadenas encontradas durante el procesamiento XML. Los documentos XML largos con valores de atributo, nombres de atributo y nombres de elemento no repetidos pueden hacer que se sobrepase la cuota. Esta cuota puede aumentarse cambiando la propiedad MaxNameTableCharCount en el objeto XmlDictionaryReaderQuotas usado al crear el lector XML. Línea 1, posición 277.
+   en System.Xml.XmlExceptionHelper.ThrowXmlException(XmlDictionaryReader reader, String res, String arg1, String arg2, String arg3)
+   en System.Xml.XmlExceptionHelper.ThrowMaxNameTableCharCountExceeded(XmlDictionaryReader reader, Int32 maxNameTableCharCount)
+   en System.Xml.XmlBaseReader.QuotaNameTable.Add(Int32 charCount)
+   en System.Xml.XmlBaseReader.QuotaNameTable.Add(String value)
+   en Microsoft.Xml.Serialization.GeneratedAssembly.XmlSerializationReaderWSViaticosSoap.InitIDs()
+   en System.Xml.Serialization.XmlSerializationReader.Init(XmlReader r, XmlDeserializationEvents events, String encodingStyle, TempAssembly tempAssembly)
+   en System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   en System.ServiceModel.Dispatcher.XmlSerializerOperationFormatter.DeserializeBody(XmlDictionaryReader reader, MessageVersion version, XmlSerializer serializer, MessagePartDescription returnPart, MessagePartDescriptionCollection bodyParts, Object[] parameters, Boolean isRequest)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+
+Server stack trace: 
+   en System.ServiceModel.Dispatcher.XmlSerializerOperationFormatter.DeserializeBody(XmlDictionaryReader reader, MessageVersion version, XmlSerializer serializer, MessagePartDescription returnPart, MessagePartDescriptionCollection bodyParts, Object[] parameters, Boolean isRequest)
+   en System.ServiceModel.Dispatcher.XmlSerializerOperationFormatter.DeserializeBody(XmlDictionaryReader reader, MessageVersion version, String action, MessageDescription messageDescription, Object[] parameters, Boolean isRequest)
+   en System.ServiceModel.Dispatcher.OperationFormatter.DeserializeBodyContents(Message message, Object[] parameters, Boolean isRequest)
+   en System.ServiceModel.Dispatcher.OperationFormatter.DeserializeReply(Message message, Object[] parameters)
+   en System.ServiceModel.Dispatcher.ProxyOperationRuntime.AfterReply(ProxyRpc& rpc)
+   en System.ServiceModel.Channels.ServiceChannel.HandleReply(ProxyOperationRuntime operation, ProxyRpc& rpc)
+   en System.ServiceModel.Channels.ServiceChannel.Call(String action, Boolean oneway, ProxyOperationRuntime operation, Object[] ins, Object[] outs, TimeSpan timeout)
+   en System.ServiceModel.Channels.ServiceChannelProxy.InvokeService(IMethodCallMessage methodCall, ProxyOperationRuntime operation)
+   en System.ServiceModel.Channels.ServiceChannelProxy.Invoke(IMessage message)
+
+Exception rethrown at [0]: 
+   en System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+   en System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)
+   en WSViaticos.WSViaticosSoap.GetUsuarioNulo()
+   en WSViaticos.WSViaticosSoapClient.GetUsuarioNulo() en c:\Users\clurgo\AppData\Local\Temp\Temporary ASP.NET Files\webrh\df8a7146\84c3bc9a\App_WebReferences.w8mu21ds.0.cs:línea 16029
+   en ASP.global_asax.Session_Start(Object sender, EventArgs e) en c:\Repositorio\Javier\RRHH\WebAsistencia\WebRH\Global.asax:línea 7
+   en System.Web.SessionState.SessionStateModule.RaiseOnStart(EventArgs e)
+   en System.Web.SessionState.SessionStateModule.CompleteAcquireState()
+   en System.Web.SessionState.SessionStateModule.BeginAcquireState(Object source, EventArgs e, AsyncCallback cb, Object extraData)
+   en System.Web.HttpApplication.AsyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   en System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
