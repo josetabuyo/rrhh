@@ -240,12 +240,9 @@ body
  
 .contenedor-imagen-vehiculo
 {
-    float: left;
-    display:none;
-    margin-top: 5%;
-    width: 78%;
-    margin-left: 11%;
-    margin-bottom: 5%;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10    
 }
 
 .Contenedor-parrafo 

@@ -8,7 +8,7 @@
                 $("#mensaje_error").show();
                 $("#mensaje_error").addClass("animated slideInDown");
                 $("#Contenido").hide();
-               /* document.getElementById("mihtml").style.height = "100%";*/
+                document.getElementById("mihtml").style.height = "100%";
                 return;
             }
 
@@ -38,15 +38,15 @@
             $("#contenedor-banner-parrafo").addClass("animated slideInDown");
             $("#barra_menu_contenedor_imagen").addClass("animated slideInDown");
 
-            //            $("#myCarousel").carousel({
-            //                interval: 3000,
-            //                pause: false
-            //            })
+            $("#myCarousel").carousel({
+                interval: 5000,
+                pause: true
+            });
 
             _.forEach(respuesta_vehiculo.vehiculo.imagenes, function (id_imagen) {
-                var cont_imagen = $('<div style="width:200px; height:200px; position:relative;display:inline-block"></div>');
+                var cont_imagen = $('<div class="item" style="height:100%; width:100%; position:relative"></div>');
                 var img = new VistaThumbnail({ id: id_imagen, contenedor: cont_imagen });
-                $("#carrusele").append(cont_imagen);
+                $(".carousel-inner").append(cont_imagen);
             });
         });
 
