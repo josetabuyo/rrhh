@@ -40,8 +40,8 @@ namespace General
             }
             else
             {
-                prorroga.UsufructoDesde = fecha_calculo.Year - (anios + 1);
-                prorroga.UsufructoHasta = fecha_calculo.Year - 1;
+                prorroga.UsufructoDesde = fecha_calculo.Year + 1 - anios;
+                prorroga.UsufructoHasta = fecha_calculo.Year + 1;
             }
 
             return prorroga;
