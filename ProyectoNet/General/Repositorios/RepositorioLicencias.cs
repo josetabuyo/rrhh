@@ -857,9 +857,33 @@ namespace General.Repositorios
                 parametros.Add("@documento", dni);
                 this.conexion.EjecutarSinResultado("LIC_GEN_Ins_LogPeriodoCalculoLicenciasWeb", parametros);
                 parametros.Clear();
-            });
+            }); 
+        }
 
-           
+        public void GuardarSaldoLicencia(Persona persona)
+        {
+            var parametros = new Dictionary<string, object>();
+            var parametros3 = new Dictionary<string, object>();
+
+             parametros.Add("@documento", persona.Documento);
+
+            int id_interna =  (int)this.conexion.EjecutarEscalar("LIC_GEN_GETLegajoConDNI", parametros);
+
+            parametros3.Add("@id_interna", id_interna);
+            parametros3.Add("@SoloOrdinarias",1);
+
+            var tablaDatos =  this.conexion.Ejecutar("ASIS_GET_Licencia", parametros3);
+            tablaDatos.Rows.ForEach(row =>
+            {
+                var parametros2 = new Dictionary<string, object>();
+                parametros2.Add("@pediodo", row.GetSmallintAsInt("año"));
+                parametros2.Add("@disponible", row.GetSmallintAsInt("restan"));
+                parametros2.Add("@documento", persona.Documento);
+                this.conexion.EjecutarSinResultado("LIC_GEN_Ins_LogPeriodoCalculoLicenciasLAN", parametros2);
+                parametros2.Clear();
+
+            });
+                
         }
     }
 }

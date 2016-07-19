@@ -597,6 +597,13 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public void GuardarSaldoLicenciaLAN(Persona persona)
+    {
+        RepoLicencias().GuardarSaldoLicencia(persona);
+    }
+    
+
+    [WebMethod]
     public SaldoLicencia GetSaldoLicencia14FoH(Persona unaPersona, ConceptoDeLicencia concepto, DateTime fecha)
     {
 
