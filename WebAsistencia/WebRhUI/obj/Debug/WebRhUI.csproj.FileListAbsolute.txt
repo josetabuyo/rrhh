@@ -1,0 +1,4 @@
+C:\Repositorios\Belén\rrhh\WebAsistencia\WebRhUI\bin\Debug\WebRhUI.dll
+C:\Repositorios\Belén\rrhh\WebAsistencia\WebRhUI\bin\Debug\WebRhUI.pdb
+C:\Repositorios\Belén\rrhh\WebAsistencia\WebRhUI\obj\Debug\WebRhUI.dll
+C:\Repositorios\Belén\rrhh\WebAsistencia\WebRhUI\obj\Debug\WebRhUI.pdb

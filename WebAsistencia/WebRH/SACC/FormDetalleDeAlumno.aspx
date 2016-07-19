@@ -121,14 +121,16 @@
             <h2 class="sub_eval">Perfil</h2> 
         <div  class="content">
          <ul>
-                <li>Asistencia: <small>Sin informaci&oacute;n</small></li>
-                <li>Puntulidad: <small>Sin informaci&oacute;n</small></li>    
-                <li>Nivel de Compromiso: <small>Sin informaci&oacute;n</small></li>
-                <li>Participación: <small>Sin informaci&oacute;n</small></li>
-                <li>Cumplimiento con las Tareas: <small>Sin informaci&oacute;n</small></li>
-                <li>Integración al Grupo: <small>Sin informaci&oacute;n</small></li>
-                <li>Respeta las Normas de Convivencia: <small>Sin informaci&oacute;n</small></li>
-                <li>Responsabilidad: <small>Sin informaci&oacute;n</small></li>
+                <li>Asistencia: <small id="AlumnoPerfilAsistencia">Sin informaci&oacute;n</small></li>
+                <li>Puntulidad: <small id="AlumnoPerfilPuntualidad">Sin informaci&oacute;n</small></li>    
+                <li>Nivel de Compromiso: <small id="AlumnoPerfilCompromiso">Sin informaci&oacute;n</small></li>
+                <li>Participación: <small id="AlumnoPerfilParticipacion">Sin informaci&oacute;n</small></li>
+                <li>Cumplimiento con las Tareas: <small id="AlumnoPerfilCumplimiento">Sin informaci&oacute;n</small></li>
+                <li>Integración al Grupo: <small id="AlumnoPerfilIntegracion">Sin informaci&oacute;n</small></li>
+                <li>Respeta las Normas de Convivencia: <small id="AlumnoPerfilRespeto">Sin informaci&oacute;n</small></li>
+                <li>Responsabilidad: <small id="AlumnoPerfilResponsabilidad">Sin informaci&oacute;n</small></li>
+                <li>Otro 1:<small id="AlumnoPerfilOtro1">Otro1</small></li>
+                <li>Otro 2:<small id="AlumnoPerfilOtro2">Otro2</small></li>
             </ul>
         </div>
 
@@ -140,6 +142,7 @@
      <asp:HiddenField ID="cursosJSON" runat="server" EnableViewState="true"/>
      <asp:HiddenField ID="asistenciasJSON" runat="server" EnableViewState="true"/>
      <asp:HiddenField ID="evaluacionesJSON" runat="server" EnableViewState="true"/>
+     <asp:HiddenField ID="alumnoPerfilJSON" runat="server" EnableViewState="true"/>
 
     <%= Referencias.Javascript("../") %>
     <script type="text/javascript" src="Scripts/FichaAlumno.js"></script>
@@ -176,7 +179,17 @@
                 ficha_direccion:  $('#direccion'),
                 ficha_tutor:  $('#tutor'),
                 ficha_fecha_nac: $('#fecha_nac'),
-                ficha_ingreso: $('#fecha_ingreso')
+                ficha_ingreso: $('#fecha_ingreso'),
+                ficha_perfil_asistencia: $('#AlumnoPerfilAsistencia'),
+                ficha_perfil_puntualidad: $('#AlumnoPerfilPuntualidad'),
+                ficha_perfil_compromiso: $('#AlumnoPerfilCompromiso'),
+                ficha_perfil_participacion: $('#AlumnoPerfilParticipacion'),
+                ficha_perfil_cumplimiento: $('#AlumnoPerfilCumplimiento'),
+                ficha_perfil_integracion: $('#AlumnoPerfilIntegracion'),
+                ficha_perfil_respeto: $('#AlumnoPerfilRespeto'),
+                ficha_perfil_responsabilidad: $('#AlumnoPerfilResponsabilidad'),
+                ficha_perfil_otro1: $('#AlumnoPerfilOtro1'),
+                ficha_perfil_otro2: $('#AlumnoPerfilOtro2')
             }
 
             var ficha_alumno = new FichaAlumno(items_pantalla);

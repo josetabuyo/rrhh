@@ -1,4 +1,4 @@
-ALTER PROCEDURE [dbo].[SACC_Ins_Observacion]
+CREATE PROCEDURE [dbo].[SACC_Ins_Observacion]
 (	
 	@FechaCarga  [smalldatetime],				
 	@Relacion  [varchar](100),					
