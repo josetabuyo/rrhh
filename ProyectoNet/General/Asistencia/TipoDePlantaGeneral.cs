@@ -22,7 +22,7 @@ namespace General
             this._descripcion = descripcion;
         }
 
-        protected static int anios = 0;
+        protected int anios = 0;
 
         public override ProrrogaLicenciaOrdinaria Prorroga(DateTime fecha_calculo)
         {
