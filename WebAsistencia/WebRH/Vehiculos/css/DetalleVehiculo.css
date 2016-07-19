@@ -30,13 +30,17 @@ body
 #barra-azul
 {
     background-color: rgb(25, 75, 180);
-    height: 30px;
+    height: 35px;
     border-color: white;
     border-top-style: solid;
     width: auto;
     position: relative;
 }
 
+.btn-primary
+{
+    margin-top: 5px;
+}
 #barra_menu_contenedor
 {
     height: 95px;
@@ -123,9 +127,7 @@ body
 
 #Contenido
 {
-   /* width: 80%;
-    left: 10%;
-    right: 10%;*/
+    /* width: 80%;     left: 10%;     right: 10%;*/
     top: 150px;
     line-height: 18px;
     color: white;
@@ -134,7 +136,7 @@ body
     overflow-y: auto;
     left: 0;
     right: 0;
-    bottom: 0
+    bottom: 0;
 }
 
 #contenedor_barraInferior
@@ -217,10 +219,8 @@ body
     border-radius: 10px;
     margin-bottom: 0%;
     font-size: 1.9em;
-    font-weight: bold;
-   /* height: 100%;*/
-    text-align: left;
-    /*margin-top: 3%;*/
+    font-weight: bold; /* height: 100%;*/
+    text-align: left; /*margin-top: 3%;*/
     display: inline-block;
 }
 
@@ -241,7 +241,6 @@ body
 {
     width: 60%;
     margin-left: 20%;
-      
 }
 
 hr
@@ -313,10 +312,18 @@ hr
 
 #contenedor-vehiculos
 {
-    width:60%;
+    width: 60%;
     margin-left: 20%;
     margin-top: 1%;
-    }
+}
+
+.carousel-inner
+{
+    border-radius: 10px !important;
+    border: solid;
+    background-color: #00001c;
+    border-color: #808080;
+}
 
 /*
 @media only screen and (max-width: 850px) and (min-width:550px)

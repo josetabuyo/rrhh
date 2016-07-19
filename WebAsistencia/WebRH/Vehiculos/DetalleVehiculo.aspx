@@ -34,6 +34,8 @@
                 Vigencia</p>
         </div>
         <div id="barra-azul">
+        <button type="button" class="btn btn-primary">Default</button>
+        <button type="button" class="btn btn-primary">Default</button>
         </div>
     </div>
     <div id="mensaje_error" title="Error" style="display: none">
@@ -49,8 +51,7 @@
     </div>
     <div id="Contenido">
         <div id="contenedor-imagenes">
-            <div id="carrusele">
-            </div>
+            
             <div id="contenedor-vehiculos">
                 <div class="div-titulos">
                     <p id="titulo">
