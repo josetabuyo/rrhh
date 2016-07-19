@@ -43,14 +43,23 @@ public partial class FormulariosDeLicencia_Partes_SaldoOrdinaria : System.Web.UI
             WSViaticosSoapClient s = new WSViaticosSoapClient();
             //WSViaticos.WSViaticos s = new WSViaticos.WSViaticos();
 
-            //WSAsistencia s = new WSAsistencia();  
+            List<Persona> personas_list = GetEmpleadosExcelFaby(); //GetSerra(); //
             SaldoLicencia saldo;
-            saldo = s.GetSaldoLicencia((Persona)Session["persona"], this.Concepto);
-            Session["saldoLicencia"] = saldo;
-            foreach (SaldoLicenciaDetalle d in saldo.Detalle)
+            personas_list.ForEach(p =>
             {
-                InsertarDetalleDeSaldo(d);
-            }
+                saldo = s.GetSaldoLicencia(p, this.Concepto);
+                s.GuardarSaldoLicencia(saldo, p);
+            });
+
+
+            //WSAsistencia s = new WSAsistencia();  
+           
+            //saldo = s.GetSaldoLicencia((Persona)Session["persona"], this.Concepto);
+            //Session["saldoLicencia"] = saldo;
+            //foreach (SaldoLicenciaDetalle d in saldo.Detalle)
+            //{
+            //    InsertarDetalleDeSaldo(d);
+            //}
         }
         else
         {

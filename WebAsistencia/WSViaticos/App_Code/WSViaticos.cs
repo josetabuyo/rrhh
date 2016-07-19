@@ -82,11 +82,11 @@ public class WSViaticos : System.Web.Services.WebService
         if (id_area == 0)
         {
             //Traigo las areas formales
-            a = responsableDDJJ.GetAreasParaDDJJ104(mes, anio, id_area, usuario).ToArray();    
+            a = responsableDDJJ.GetAreasParaDDJJ104(mes, anio, id_area, usuario).ToArray();
         }
         else
         {
-            a = responsableDDJJ.GetAreasParaDDJJ104InferioresA(mes, anio, id_area, usuario).ToArray();    
+            a = responsableDDJJ.GetAreasParaDDJJ104InferioresA(mes, anio, id_area, usuario).ToArray();
         }
 
         return a;
@@ -104,7 +104,7 @@ public class WSViaticos : System.Web.Services.WebService
 
         DDJJ104_2001 cabe = new DDJJ104_2001();
         cabe = ddjj.GenerarDDJJ104(usuario, UnArea[0], mes, anio);
-	    
+
 
         return cabe;
     }
@@ -257,7 +257,7 @@ public class WSViaticos : System.Web.Services.WebService
         int anio = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(6, 4)));
         bool incluir_dependencias = (bool)((JValue)criterio_deserializado["incluir_dependencias"]);
         DateTime fecha = new DateTime(anio, mes, dia);
-         int id_area = (int)((JValue)criterio_deserializado["id_area"]);
+        int id_area = (int)((JValue)criterio_deserializado["id_area"]);
         RepositorioDeReportes repositorio = new RepositorioDeReportes(Conexion());
         return repositorio.GetGraficoDotacion(tipo, fecha, id_area, incluir_dependencias);
 
@@ -347,33 +347,33 @@ public class WSViaticos : System.Web.Services.WebService
 
 
     /**/
-    
+
     /*Grafico Excel*/
     [WebMethod]
     public string ExcelGenerado(string criterio, Usuario usuario)
-    {      
-            try
-            {
-                var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
-                string tipo = ((JValue)criterio_deserializado["tipo"]).ToString();
-                int dia = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(0, 2)));
-                int mes = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(3, 2)));
-                int anio = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(6, 4)));
-                bool incluir_dependencias = (bool)((JValue)criterio_deserializado["incluir_dependencias"]);
-                DateTime fecha = new DateTime(anio, mes, dia);
-                int id_area = (int)((JValue)criterio_deserializado["id_area"]);
+    {
+        try
+        {
+            var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
+            string tipo = ((JValue)criterio_deserializado["tipo"]).ToString();
+            int dia = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(0, 2)));
+            int mes = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(3, 2)));
+            int anio = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(6, 4)));
+            bool incluir_dependencias = (bool)((JValue)criterio_deserializado["incluir_dependencias"]);
+            DateTime fecha = new DateTime(anio, mes, dia);
+            int id_area = (int)((JValue)criterio_deserializado["id_area"]);
 
-                RepositorioDeReportes repositorio = new RepositorioDeReportes(Conexion());
+            RepositorioDeReportes repositorio = new RepositorioDeReportes(Conexion());
 
-                return repositorio.ExcelGenerado(tipo, dia, mes, anio, incluir_dependencias,fecha, id_area);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
+            return repositorio.ExcelGenerado(tipo, dia, mes, anio, incluir_dependencias, fecha, id_area);
         }
-    
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+
+    }
+
 
 
 
@@ -392,7 +392,7 @@ public class WSViaticos : System.Web.Services.WebService
 
         try
         {
-           
+
             DataTable table_resumen = new DataTable();
             table_resumen.TableName = "Areas";
 
@@ -407,7 +407,7 @@ public class WSViaticos : System.Web.Services.WebService
                 if (item.DDJJ != null)
                 {
                     switch (item.DDJJ.Estado)
-	                {
+                    {
                         case 1:
                             ColEstado = "Impresa no recepcionada";
                             break;
@@ -418,7 +418,7 @@ public class WSViaticos : System.Web.Services.WebService
                         default:
                             ColEstado = "";
                             break;
-	                }
+                    }
                 }
                 else
                 {
@@ -454,8 +454,8 @@ public class WSViaticos : System.Web.Services.WebService
                 //        break;
                 //}
 
-                
-                int EspaciosEnBlanco = (int) Math.Truncate(((decimal)(1000-item.Jerarquia)/20));
+
+                int EspaciosEnBlanco = (int)Math.Truncate(((decimal)(1000 - item.Jerarquia) / 20));
                 string cadena = "";
                 for (int i = 0; i < EspaciosEnBlanco; i++)
                 {
@@ -469,7 +469,7 @@ public class WSViaticos : System.Web.Services.WebService
             var workbook = new XLWorkbook();
 
             var dataTable_resumen = table_resumen;
-            
+
             var ws = workbook.Worksheets.Add("DDJJ104");
 
             ws.Style.Font.FontSize = 11;
@@ -477,7 +477,7 @@ public class WSViaticos : System.Web.Services.WebService
 
             //ws.Column("A").Width = 115;
             //ws.Column("B").Width = 50;
-            
+
             ws.Cell(1, 1).Value = "AREA:";
             ws.Cell(1, 2).Value = "ESTADO:";
 
@@ -502,7 +502,7 @@ public class WSViaticos : System.Web.Services.WebService
             //ws.Range(4, 1, lastCell.Address.RowNumber, lastCell.Address.ColumnNumber).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
             //ws.Range(4, 1, lastCell.Address.RowNumber, lastCell.Address.ColumnNumber).Style.Border.OutsideBorder = XLBorderStyleValues.Medium;
 
-           
+
             using (var ms = new MemoryStream())
             {
                 workbook.SaveAs(ms);
@@ -518,8 +518,8 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     /**/
-    
-    
+
+
     [WebMethod]
     public Area[] GetAreas()
     {
@@ -589,6 +589,13 @@ public class WSViaticos : System.Web.Services.WebService
         return saldo;
     }
 
+
+    [WebMethod]
+    public void GuardarSaldoLicencia(SaldoLicencia saldo, Persona persona)
+    {
+        RepoLicencias().GuardarSaldoLicencia(saldo, persona);
+    }
+
     [WebMethod]
     public SaldoLicencia GetSaldoLicencia14FoH(Persona unaPersona, ConceptoDeLicencia concepto, DateTime fecha)
     {
@@ -653,7 +660,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public Persona[] GetPersonas(Area unArea, int imprimeplanillafirma )
+    public Persona[] GetPersonas(Area unArea, int imprimeplanillafirma)
     {
 
         RepositorioPersonas repositorio = new RepositorioPersonas();
@@ -2527,7 +2534,7 @@ public class WSViaticos : System.Web.Services.WebService
         return usuarios;
     }
 
-    
+
     [WebMethod]
     public Area[] AreasAdministradasPor(Usuario usuario)
     {
@@ -2538,7 +2545,7 @@ public class WSViaticos : System.Web.Services.WebService
 
         var listaDeAreas = Autorizador().AreasAdministradasPor(usuario).ToArray();
         var stringDeAreas = JsonConvert.SerializeObject(listaDeAreas, Formatting.Indented, new JsonSerializerSettings() { ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore });
-        
+
         Area[] areas = JsonConvert.DeserializeObject<Area[]>(stringDeAreas);
         return areas;
     }
@@ -2599,6 +2606,8 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     #endregion
+
+
 
     [WebMethod]
     public bool RefrescarCacheMAU(Usuario usuario)
@@ -3017,7 +3026,7 @@ public class WSViaticos : System.Web.Services.WebService
         return RepoPostulaciones().InscripcionManual(postulacion, datosPersonales, folio, usuario);
     }
 
-    
+
 
     [WebMethod]
     public Postulacion[] GetPostulaciones(Usuario usuario)
@@ -3394,7 +3403,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public void GuardarFolios(string nro_inscripcion, int nro_ficha_inscripcion, int nro_foto, int nro_foto_dni, int nro_foto_titulo, int nro_cv, int nro_doc_respaldo, Usuario usuario)
     {
-        
+
         RepoPostulaciones().GuardarFolios(nro_inscripcion, DateTime.Today, nro_ficha_inscripcion, nro_foto, nro_foto_dni, nro_foto_titulo, nro_cv, nro_doc_respaldo, usuario.Id);
     }
 
@@ -3643,145 +3652,145 @@ public class WSViaticos : System.Web.Services.WebService
     #endregion
 
     #region Formularios
-        [WebMethod]
-        public Formulario GetFormulario(string criterio, Usuario usuario)
-        {
-            return new RepositorioDeFormularios(Conexion()).GetFormulario(criterio, usuario);
-        }
+    [WebMethod]
+    public Formulario GetFormulario(string criterio, Usuario usuario)
+    {
+        return new RepositorioDeFormularios(Conexion()).GetFormulario(criterio, usuario);
+    }
 
-        [WebMethod]
-        public void GuardarCambiosEnFormulario(Formulario form, Usuario usuario)
-        {
-            new RepositorioDeFormularios(Conexion()).GuardarDatos(form, usuario);
-        }
+    [WebMethod]
+    public void GuardarCambiosEnFormulario(Formulario form, Usuario usuario)
+    {
+        new RepositorioDeFormularios(Conexion()).GuardarDatos(form, usuario);
+    }
 
-        [WebMethod]
-        public void GuardarCabeceraFormulario(Formulario form, Usuario usuario)
-        {
-            //el true es para poner en impreso
-            new RepositorioDeFormularios(Conexion()).GuardarVersion(form, usuario,true);
-        }
+    [WebMethod]
+    public void GuardarCabeceraFormulario(Formulario form, Usuario usuario)
+    {
+        //el true es para poner en impreso
+        new RepositorioDeFormularios(Conexion()).GuardarVersion(form, usuario, true);
+    }
 
-        [WebMethod]
-        public int GetIdCabeceraFormulario(Formulario form, Usuario usuario)
-        {
-            //el true es para poner en impreso
-            return new RepositorioDeFormularios(Conexion()).GetUltimaCabeceraFormulario(form, usuario);
-        }
+    [WebMethod]
+    public int GetIdCabeceraFormulario(Formulario form, Usuario usuario)
+    {
+        //el true es para poner en impreso
+        return new RepositorioDeFormularios(Conexion()).GetUltimaCabeceraFormulario(form, usuario);
+    }
     #endregion
 
     #region Reportes
-        [WebMethod]
-        public string GetConsultaRapida(int documento , Usuario usuario)
-        {
+    [WebMethod]
+    public string GetConsultaRapida(int documento, Usuario usuario)
+    {
 
-            return RepositorioDePersonas().GetConsultaRapida(documento);
+        return RepositorioDePersonas().GetConsultaRapida(documento);
 
-        }
+    }
 
-        [WebMethod]
-        public string GetCarreraAdministrativa(int documento, Usuario usuario)
-        {
+    [WebMethod]
+    public string GetCarreraAdministrativa(int documento, Usuario usuario)
+    {
 
-            return RepositorioDePersonas().GetCarreraAdministrativa(documento);
+        return RepositorioDePersonas().GetCarreraAdministrativa(documento);
 
-        }
+    }
 
     #endregion
 
-        #region mobi
+    #region mobi
 
 
-        [WebMethod]
-        public Tarjeton NuevoTarjeton(int id_Bien)
+    [WebMethod]
+    public Tarjeton NuevoTarjeton(int id_Bien)
+    {
+        var repo = new RepositorioTarjetones(Conexion());
+        return repo.NuevoTarjeton(id_Bien);
+    }
+
+    [WebMethod]
+    public RespuestaVehiculo ObtenerVehiculoPorIDVerificacion(string id_verificacion)
+    {
+        var repo = new RepositorioDeVehiculos(Conexion());
+        var una_respuesta = new RespuestaVehiculo();
+        una_respuesta.Respuesta = 1;
+
+        if (String.IsNullOrEmpty(id_verificacion))
         {
-            var repo = new RepositorioTarjetones(Conexion());
-            return repo.NuevoTarjeton(id_Bien);
-        }
-
-        [WebMethod]
-        public RespuestaVehiculo ObtenerVehiculoPorIDVerificacion(string id_verificacion)
-        {
-            var repo = new RepositorioDeVehiculos(Conexion());
-            var una_respuesta = new RespuestaVehiculo();
-            una_respuesta.Respuesta = 1;
-
-            if (String.IsNullOrEmpty(id_verificacion) )
-            {
-                una_respuesta.Respuesta = 0;
-                return una_respuesta;
-            }
-
-            try
-            {
-                una_respuesta.vehiculo = repo.ObtenerVehiculoPorIDVerificacion(id_verificacion);
-            }
-            catch (ExcepcionDeVehiculoInexistente e)
-            {
-                una_respuesta.Respuesta = 0;
-            }
-
+            una_respuesta.Respuesta = 0;
             return una_respuesta;
         }
 
-        [WebMethod]
-        public MoBi_Area[] Mobi_GetAreasUsuario(int IdUsuario)
+        try
         {
-            RepositorioMoBi rMoBi = new RepositorioMoBi();
-            return rMoBi.GetAreasUsuario(IdUsuario);
+            una_respuesta.vehiculo = repo.ObtenerVehiculoPorIDVerificacion(id_verificacion);
+        }
+        catch (ExcepcionDeVehiculoInexistente e)
+        {
+            una_respuesta.Respuesta = 0;
         }
 
-        [WebMethod]
-        public MoBi_Area[] Mobi_GetAreasUsuarioCBO(int IdUsuario, int IdTipoBien, bool MostrarSoloAreasConBienes)
-        {
-            RepositorioMoBi rMoBi = new RepositorioMoBi();
-            return rMoBi.GetAreasUsuarioCBO(IdUsuario, IdTipoBien, MostrarSoloAreasConBienes);
-        }
+        return una_respuesta;
+    }
 
-        [WebMethod]
-        public MoBi_TipoBien[] Mobi_GetTipoBien()
-        {
-            RepositorioMoBi rMoBi = new RepositorioMoBi();
-            return rMoBi.GetTipoDeBienes();
-        }
+    [WebMethod]
+    public MoBi_Area[] Mobi_GetAreasUsuario(int IdUsuario)
+    {
+        RepositorioMoBi rMoBi = new RepositorioMoBi();
+        return rMoBi.GetAreasUsuario(IdUsuario);
+    }
 
-        [WebMethod]
-        public MoBi_Bien[] Mobi_GetBienesDelArea(int IdArea, int IdTipoBien)
-        {
-            RepositorioMoBi rMoBi = new RepositorioMoBi();
-            return rMoBi.GetBienesDelArea(IdArea, IdTipoBien);
-        }
+    [WebMethod]
+    public MoBi_Area[] Mobi_GetAreasUsuarioCBO(int IdUsuario, int IdTipoBien, bool MostrarSoloAreasConBienes)
+    {
+        RepositorioMoBi rMoBi = new RepositorioMoBi();
+        return rMoBi.GetAreasUsuarioCBO(IdUsuario, IdTipoBien, MostrarSoloAreasConBienes);
+    }
 
-        [WebMethod]
-        public MoBi_Bien[] Mobi_GetBienesDelAreaRecepcion(int IdArea, int IdTipoBien)
-        {
-            RepositorioMoBi rMoBi = new RepositorioMoBi();
-            return rMoBi.GetBienesDelAreaRecepcion(IdArea, IdTipoBien);
-        }
+    [WebMethod]
+    public MoBi_TipoBien[] Mobi_GetTipoBien()
+    {
+        RepositorioMoBi rMoBi = new RepositorioMoBi();
+        return rMoBi.GetTipoDeBienes();
+    }
 
-        [WebMethod]
-        public MoBi_Evento[] Mobi_GetEventosBien(int IdBien)
-        {
-            RepositorioMoBi rMoBi = new RepositorioMoBi();
-            return rMoBi.GetEventosBien(IdBien);
-        }
+    [WebMethod]
+    public MoBi_Bien[] Mobi_GetBienesDelArea(int IdArea, int IdTipoBien)
+    {
+        RepositorioMoBi rMoBi = new RepositorioMoBi();
+        return rMoBi.GetBienesDelArea(IdArea, IdTipoBien);
+    }
 
-        [WebMethod]
-        public MoBi_Agente[] Mobi_GetAgentesArea(int IdArea)
-        {
-            RepositorioMoBi rMoBi = new RepositorioMoBi();
-            return rMoBi.GetAgentes(IdArea);
-        }
+    [WebMethod]
+    public MoBi_Bien[] Mobi_GetBienesDelAreaRecepcion(int IdArea, int IdTipoBien)
+    {
+        RepositorioMoBi rMoBi = new RepositorioMoBi();
+        return rMoBi.GetBienesDelAreaRecepcion(IdArea, IdTipoBien);
+    }
 
-        [WebMethod]
-        public bool Mobi_GuardarEventoBien(MoBi_Evento.enumTipoEvento tipoEvento, int IdBien, int IdArea, int IdPersona, string Observaciones, int IdUser)
-        {
-            RepositorioMoBi rMoBi = new RepositorioMoBi();
-            return rMoBi.GuardarNuevoEventoBien(tipoEvento, IdBien, IdArea, IdPersona, Observaciones, IdUser);
-        }
+    [WebMethod]
+    public MoBi_Evento[] Mobi_GetEventosBien(int IdBien)
+    {
+        RepositorioMoBi rMoBi = new RepositorioMoBi();
+        return rMoBi.GetEventosBien(IdBien);
+    }
+
+    [WebMethod]
+    public MoBi_Agente[] Mobi_GetAgentesArea(int IdArea)
+    {
+        RepositorioMoBi rMoBi = new RepositorioMoBi();
+        return rMoBi.GetAgentes(IdArea);
+    }
+
+    [WebMethod]
+    public bool Mobi_GuardarEventoBien(MoBi_Evento.enumTipoEvento tipoEvento, int IdBien, int IdArea, int IdPersona, string Observaciones, int IdUser)
+    {
+        RepositorioMoBi rMoBi = new RepositorioMoBi();
+        return rMoBi.GuardarNuevoEventoBien(tipoEvento, IdBien, IdArea, IdPersona, Observaciones, IdUser);
+    }
 
 
-        #endregion
+    #endregion
 
     private RepositorioLicencias RepoLicencias()
     {

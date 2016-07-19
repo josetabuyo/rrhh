@@ -72,8 +72,9 @@ namespace General
             var primera_permitida_aplicable = new VacacionesPermitidas();
             if (permitidas_aplicables.Count() == 0)
             {
-                _repositorio_licencia.LoguearError(permitidas_log, aprobadas, persona, fecha_calculo);
-                throw new SolicitudInvalidaException(); 
+               // _repositorio_licencia.LoguearError(permitidas_log, aprobadas, persona, fecha_calculo);
+                //throw new SolicitudInvalidaException(); 
+                return;
             }
             primera_permitida_aplicable = permitidas_aplicables.First();
       

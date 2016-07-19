@@ -845,5 +845,21 @@ namespace General.Repositorios
             return prorroga_aplicable.UsufructoHasta - prorroga_aplicable.UsufructoDesde;
 
         }
+
+        public void GuardarSaldoLicencia(SaldoLicencia saldo, Persona persona)
+        {
+            var parametros = new Dictionary<string, object>();
+            var dni = persona.Documento;
+            saldo.Detalle.ForEach(d =>
+            {
+                parametros.Add("@disponible", d.Disponible);
+                parametros.Add("@pediodo", d.Periodo);
+                parametros.Add("@documento", dni);
+                this.conexion.EjecutarSinResultado("LIC_GEN_Ins_LogPeriodoCalculoLicenciasWeb", parametros);
+                parametros.Clear();
+            });
+
+           
+        }
     }
 }
