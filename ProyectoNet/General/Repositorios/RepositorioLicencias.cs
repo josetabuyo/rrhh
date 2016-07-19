@@ -482,9 +482,11 @@ namespace General.Repositorios
         private List<VacacionesPermitidas> CalcularVacacionesPermitidasNoPerdidas(List<VacacionesPermitidas> vaca_permitidas, List<VacacionesPermitidas> vaca_perdidas)
         {
             List<VacacionesPermitidas> vacaciones_reales = new List<VacacionesPermitidas>();
-            vaca_permitidas.ForEach(permitida => {
+            vaca_permitidas.ForEach(permitida =>
+            {
 
-                if (vaca_perdidas.Exists(perdida => perdida.Periodo == permitida.Periodo && perdida.CantidadDeDias() <= permitida.CantidadDeDias())) {
+                if (vaca_perdidas.Exists(perdida => perdida.Periodo == permitida.Periodo && perdida.CantidadDeDias() <= permitida.CantidadDeDias()))
+                {
                     var perdido = vaca_perdidas.Find(perdida => perdida.Periodo == permitida.Periodo && perdida.CantidadDeDias() <= permitida.CantidadDeDias());
                     permitida.RestarDias(perdido.CantidadDeDias());
                 }
@@ -494,7 +496,7 @@ namespace General.Repositorios
             return vacaciones_reales;
         }
 
-       
+
 
         public List<VacacionesPermitidas> GetVacacionPermitidaPara(Periodo periodo, Licencia licencia)
         {
@@ -806,9 +808,17 @@ namespace General.Repositorios
             return unaProrroga;
         }
 
-        public void LoguearError(List<VacacionesPermitidas> permitidas_log, SolicitudesDeVacaciones aprobadas, Persona persona, DateTime fecha_calculo, List<VacacionesPermitidas> vacacionesPermitidas)
+        public void LoguearError(SolicitudesDeVacaciones aprobadas, int anio, Persona persona, DateTime fecha_calculo, bool ya_imputados, bool error)
         {
             var parametros = new Dictionary<string, object>();
+
+            if (error)
+            {
+                parametros.Add("@comentario", "Error por Exceso de Cantidad de Días permitidos hasta la fecha de la solicitud");
+            }
+            else {
+                parametros.Add("@comentario", "");
+            }
 
             //Persona a loguear
             parametros.Add("@apellido", "N/A");
@@ -821,24 +831,48 @@ namespace General.Repositorios
             parametros.Add("@fecha_desde", aprobadas.Desde());
             parametros.Add("@fecha_hasta", aprobadas.Hasta());
 
-
-            bool primero = true;
-            int total = 0;
-            vacacionesPermitidas.ForEach(p =>
+            parametros.Add("@anio_imputado", anio);
+            if (ya_imputados)
             {
-                if (primero)
-                {
-                    total = p.CantidadDeDias();
-                }
-                else
-                {
-                    total = total - p.CantidadDeDias();
-                }
-                primero = false;
-            });
-            parametros.Add("@cantidad_de_dias", total);
-            parametros.Add("@anio_imputado", vacacionesPermitidas.First().Periodo);
-            //parametros.Add("@cantidad_de_dias", aprobadas.CantidadDeDias());
+                parametros.Add("@cantidad_de_dias", aprobadas.GetDiasYaImputados());
+            }
+            else
+            {
+                parametros.Add("@cantidad_de_dias", aprobadas.CantidadDeDias());
+            }
+            
+            parametros.Add("@fecha_calculo", fecha_calculo);
+
+            this.conexion.EjecutarSinResultado("LIC_GEN_Ins_LogErroresCalculoLicencias", parametros);
+
+
+            //if (aprobadas.CantidadDeDias() > vacacionesPermitidas.First().CantidadDeDias())
+            //{
+            //    parametros.Add("@anio_imputado", vacacionesPermitidas.First().Periodo);
+            //    parametros.Add("@cantidad_de_dias", vacacionesPermitidas.First().CantidadDeDias());
+
+            //    this.conexion.EjecutarSinResultado("LIC_GEN_Ins_LogErroresCalculoLicencias", parametros);
+
+            //    parametros.Clear();
+
+            //    parametros.Add("@apellido", "N/A");
+            //    parametros.Add("@nombre", "N/A");
+            //    parametros.Add("@documento", persona.Documento);
+            //    parametros.Add("@anio_maximo_imputable", aprobadas.AnioMaximoImputable().First().Periodo());
+            //    parametros.Add("@anio_minimo_imputable", aprobadas.AnioMinimoImputable(persona));
+            //    parametros.Add("@fecha_desde", aprobadas.Desde());
+            //    parametros.Add("@fecha_hasta", aprobadas.Hasta());
+            //    parametros.Add("@anio_imputado", vacacionesPermitidas.Last().Periodo);
+            //    parametros.Add("@cantidad_de_dias", aprobadas.CantidadDeDias() - vacacionesPermitidas.First().CantidadDeDias());
+            //    parametros.Add("@fecha_calculo", fecha_calculo);
+            //    this.conexion.EjecutarSinResultado("LIC_GEN_Ins_LogErroresCalculoLicencias", parametros);
+
+            //}
+            //else {
+            //    parametros.Add("@anio_imputado", vacacionesPermitidas.First().Periodo);
+            //    parametros.Add("@cantidad_de_dias", aprobadas.CantidadDeDias());
+            //    this.conexion.EjecutarSinResultado("LIC_GEN_Ins_LogErroresCalculoLicencias", parametros);
+            //}
 
             //Próxima Licencia sin calcular
             //if (permitidas_log.Count > 0)
@@ -847,9 +881,9 @@ namespace General.Repositorios
             //    parametros.Add("@cantidad_dias", permitidas_log.First().CantidadDeDias());
             //}
 
-            parametros.Add("@fecha_calculo", fecha_calculo);
 
-            this.conexion.EjecutarSinResultado("LIC_GEN_Ins_LogErroresCalculoLicencias", parametros);
+
+           
         }
 
 

@@ -36,6 +36,11 @@ namespace General
             this._dias_ya_imputados = this._dias_ya_imputados + dias_ya_imputados;
         }
 
+        public int GetDiasYaImputados()
+        {
+            return this._dias_ya_imputados;
+        }
+
         public int CantidadDeDias()
         {
             return (_hasta - _desde).Days + 1 - _dias_ya_imputados;

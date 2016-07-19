@@ -53,7 +53,7 @@ public partial class FormulariosDeLicencia_Partes_SaldoOrdinaria : System.Web.UI
             //}
 
 
-            List<Persona> personas_list = GetEmpleadosExcelFaby();
+            List<Persona> personas_list = GetEmpleadosExcelFaby(); //GetSerra(); //
 
             personas_list.ForEach(p =>
             {
@@ -90,6 +90,12 @@ public partial class FormulariosDeLicencia_Partes_SaldoOrdinaria : System.Web.UI
         tc.Font.Names = fuentes;
         tr.Cells.Add(tc);
         this.TDiasDisponibles.Rows.Add(tr);
+    }
+    private List<Persona> GetSerra()
+    {
+        List<Persona> personas_list = new List<Persona>();
+        var persona0 = new Persona(); persona0.Documento = 11488589; personas_list.Add(persona0);
+        return personas_list;
     }
 
     private List<Persona> GetEmpleadosExcelFaby()

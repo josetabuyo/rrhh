@@ -9,7 +9,7 @@ namespace General.Repositorios
         bool GetLicenciasQueSePisanCon(General.Licencia unaLicencia);
         bool GetSolicitudesQueSePisanCon(General.Licencia unaLicencia);
         string Guardar(General.Licencia unaLicencia);
-        void LoguearError(List<VacacionesPermitidas> permitidas_log, SolicitudesDeVacaciones aprobadas, Persona persona, DateTime fecha_calculo, List<VacacionesPermitidas> vacacionesPermitidas);
+        void LoguearError(SolicitudesDeVacaciones aprobadas, int anio, Persona persona, DateTime fecha_calculo, bool ya_imputadas, bool error);
         //System.Collections.Generic.List<General.VacacionesPermitidas> GetVacacionesPermitidas( System.Collections.Generic.List<General.Persona> personas, System.Collections.Generic.List<General.Periodo> periodos );
         List<VacacionesPermitidas> GetVacacionesPermitidas();
         List<VacacionesPermitidas> GetVacacionPermitidaPara(Persona persona, Periodo periodo, Licencia licencia);

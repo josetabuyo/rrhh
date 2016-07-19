@@ -72,19 +72,26 @@ namespace General
             var primera_permitida_aplicable = new VacacionesPermitidas();
             //if (permitidas_aplicables.Count() == 0)
             //{
-            _repositorio_licencia.LoguearError(permitidas_log, aprobadas, persona, fecha_calculo, permitidas_consumibles2);
-                throw new SolicitudInvalidaException(); 
+           // _repositorio_licencia.LoguearError(permitidas_log, aprobadas, persona, fecha_calculo, permitidas_consumibles2);
+              
             //}
+            if (permitidas_aplicables.Count() == 0) {
+                _repositorio_licencia.LoguearError(aprobadas, 0 ,persona, fecha_calculo, true, true);
+                return;
+            }
             primera_permitida_aplicable = permitidas_aplicables.First();
+
       
             if (primera_permitida_aplicable.CantidadDeDias() > aprobadas.CantidadDeDias())
             {
                 primera_permitida_aplicable.RestarDias(aprobadas.CantidadDeDias());
+                _repositorio_licencia.LoguearError(aprobadas, primera_permitida_aplicable.Periodo, persona, fecha_calculo, false, false);
             }
             else
             {
                 aprobadas.DiasYaImputados(primera_permitida_aplicable.CantidadDeDias());
                 primera_permitida_aplicable.RestarDias(primera_permitida_aplicable.CantidadDeDias());
+                _repositorio_licencia.LoguearError(aprobadas, primera_permitida_aplicable.Periodo, persona, fecha_calculo, true, false);
                 if (primera_permitida_aplicable.CantidadDeDias() == 0) {
                     permitidas_consumibles.Remove(primera_permitida_aplicable);
                 }
@@ -93,6 +100,8 @@ namespace General
                     ImputarA(aprobadas, permitidas_consumibles, persona, fecha_calculo);
                 }
             }
+
+            
         }
 
         //private void ImputarA(SolicitudesDeVacaciones pendiente, List<VacacionesPermitidas> permitidas_consumibles, Persona persona)
