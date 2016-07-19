@@ -19,19 +19,34 @@
     <form id="form1" runat="server">
     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'></span>"
         UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
-    <fieldset style="text-align: center">
-        <%--<legend>Consulta Individual de DDJJ 104</legend>--%>
-        <div id="divBtnConsultaIndividual" runat="server" style="width: 90%"></div>
-        <div id="divBtnConsultaPorAreas" runat="server" style="width: 90%"></div>
-    </fieldset>
-    <%--<div style="text-align: right">
-        <a style="font-size: 1.6em; display: block; margin-bottom: 10px;" href="FAreasConDDJJ.aspx">Volver</a>
-    </div>--%>
+   <%-- <fieldset style="text-align: center">
+        <legend>Consultas DDJJ 104/2001</legend>
+    </fieldset>--%>
+
+    <div style="" align="center">
+    
+
+    <div style="display:block;
+        
+        width: 50%;
+        padding: 0;
+        margin-bottom: 27px;
+        font-size: 19.5px;
+        line-height: 36px;
+        color: #333333;
+        border: 0;
+        border-bottom: 1px solid #e5e5e5; 
+        text-shadow: 2px 2px 5px rgba(150, 150, 150, 1); text-align: left;" >
+        Consultas DDJJ 104/2001
+
+        <div id="DivBotonConsultaPorPersona" runat="server" style="display: block; float: right; margin-top: 4px; margin-left: 4px; border: #0055cc;"></div>
+        <div id="DivBotonConsultaPorArea" runat="server" style="display: block; float: right; margin-top: 4px; margin-left: 4px; border: #0055cc;"></div>
+    </div>
+
+    </div>
+
     <div id="contenedor_consulta_rapida" style="margin: 30px;">
       
-        <div id="DivBotonConsultaPorPersona" runat="server" style="width: 90%"></div>
-        <div id="DivBotonConsultaPorArea" runat="server" style="width: 90%"></div>
-
         <div id="divComboDesde">
             <p  style="display: inline-block;">
                 Desde:
@@ -58,21 +73,27 @@
             </p>
         </div>
       
-      <uc3:BuscadorDeAreas ID="buscador" runat="server" />
+       <div id="divBuscadorArea">
+            <uc3:BuscadorDeAreas ID="buscador" runat="server" />
+       </div>
 
-      <uc3:BuscadorDePersonas ID="buscadorPersonas" runat="server" />
-        
+       <div id="divBuscadorPersona">
+            <uc3:BuscadorDePersonas ID="buscadorPersonas" runat="server" />
+       </div>
+
     </div>
-    
    
-
     <div id="DivBotonConsultar" runat="server" style="width: 90%"></div>
     
     <div id="ContenedorGrilla" runat="server" style="width: 100%" align="center">
         <div id="ContenedorPersona" runat="server" style="width: 90%"></div>
     </div>
 
+
+    <%--<asp:HiddenField ID="hfIdPersona" runat="server" />--%>
+
     </form>
+
 </body>
 
 <script src="ConsultasDDJJ.js" type="text/javascript"></script>
@@ -82,9 +103,9 @@
 <script src="../scripts/Spin.js" type="text/javascript"></script>
 
 
-
 <script type="text/javascript">
-
-
 </script>
+
+
+
 </html>

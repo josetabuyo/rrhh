@@ -4,24 +4,53 @@ var anioSeleccionadoDesde;
 var mesSeleccionadoHasta;
 var anioSeleccionadoHasta;
 var estadoSeleccionado;
-
+var consultaSeleccionada;
 
 Backend.start(function () {
     $(document).ready(function () {
+
+        GenerarBoton();
+
         ContenedorGrilla = $("#ContenedorGrilla");
         $("#ContenedorPersona").empty();
 
-        //$('#divComboDesde').hide();
-        //$('#divComboHasta').hide();
+        $('#divComboDesde').hide();
+        $('#divComboHasta').hide();
+        $('#divEstado').hide();
+        $('#divBuscadorArea').hide();
+        $('#divBuscadorPersona').hide();
+        $('#DivBotonConsultar').hide();
+        
 
         completarComboMeses($('#cmbMesesDesde'));
         completarComboMeses($('#cmbMesesHasta'));
         completarComboEstado(0, $('#cmbEstado'));
-        GenerarBoton();
+
     });
 });
 
-var GenerarBoton = function() {
+var GenerarBoton = function () {
+
+    $("#DivBotonConsultaPorPersona").empty();
+    var divBtnConsultar = $("#DivBotonConsultaPorPersona")
+    botonConsultar = $("<input type='button'>");
+    botonConsultar.val("Consulta por Persona");
+    botonConsultar.click(function () {
+        ConsultarPorPersona();
+    });
+    divBtnConsultar.append(botonConsultar);
+
+
+    $("#DivBotonConsultaPorArea").empty();
+    var divBtnConsultar = $("#DivBotonConsultaPorArea")
+    botonConsultar = $("<input type='button'>");
+    botonConsultar.val("Consulta por Area");
+    botonConsultar.click(function () {
+        ConsultarPorArea();
+    });
+    divBtnConsultar.append(botonConsultar);
+
+
     $("#DivBotonConsultar").empty();
     var divBtnConsultar = $("#DivBotonConsultar")
     botonConsultar = $("<input type='button'>");
@@ -30,6 +59,7 @@ var GenerarBoton = function() {
         Consultar();
     });
     divBtnConsultar.append(botonConsultar);
+
 }
 
 
@@ -43,7 +73,7 @@ var completarComboMeses = function (combo) {
             $(item).html(respuesta[i].NombreMes + ' - ' + respuesta[i].Anio);
             meses.append(item);
         }
-        meses.show();
+       // meses.show();
     })
     .onError(function (error, as, asd) {
         alertify.alert(error);
@@ -60,7 +90,7 @@ var completarComboEstado = function (mostrarSinGenerar, combo) {
             $(item).html(respuesta[i].Descripcion);
             estado.append(item);
         }
-        estado.show();
+       // estado.show();
     })
     .onError(function (error, as, asd) {
         alertify.alert(error);
@@ -68,43 +98,72 @@ var completarComboEstado = function (mostrarSinGenerar, combo) {
 }
 
 
-var Consultar = function() { 
+var Consultar = function () {
 
     ContenedorGrilla.html("");
     $("#ContenedorPersona").empty();
 
     spinner = new Spinner({ scale: 2 }).spin($("body")[0]);
 
-    mesSeleccionadoDesde  = parseInt($("#cmbMesesDesde").val().split("-")[0]);
+    mesSeleccionadoDesde = parseInt($("#cmbMesesDesde").val().split("-")[0]);
     anioSeleccionadoDesde = parseInt($("#cmbMesesDesde").val().split("-")[1]);
-    mesSeleccionadoHasta  = parseInt($("#cmbMesesHasta").val().split("-")[0]);
+    mesSeleccionadoHasta = parseInt($("#cmbMesesHasta").val().split("-")[0]);
     anioSeleccionadoHasta = parseInt($("#cmbMesesHasta").val().split("-")[1]);
-    estadoSeleccionado =    parseInt($("#cmbEstado").val());
+    estadoSeleccionado = parseInt($("#cmbEstado").val());
 
     getConsultaIndividual(function () {
         DibujarGrillaDDJJ();
-        spinner.stop();                 
-    });            
+        spinner.stop();
+    });
 
+}
+
+var ConsultarPorPersona = function () {
+    $('#divComboDesde').show();
+    $('#divComboHasta').show();
+    $('#divEstado').show();
+    $('#divBuscadorArea').hide();
+    $('#divBuscadorPersona').show();
+    $('#DivBotonConsultar').show();
+
+    consultaSeleccionada = "PERSONA";
+}
+
+var ConsultarPorArea = function () {
+    $('#divComboDesde').show();
+    $('#divComboHasta').show();
+    $('#divEstado').show();
+    $('#divBuscadorArea').show();
+    $('#divBuscadorPersona').hide();
+    $('#DivBotonConsultar').show();
+
+    consultaSeleccionada = "AREA"
 }
 
 
 var getConsultaIndividual = function (callback) {
 
-    var documento = $('#documento').text().trim();
-
-    if (documento == "") {
-        documento = 0;
+    if (consultaSeleccionada == "PERSONA") {
+        var documento = $('#documento').text().trim();
+        if (documento == "") {
+            documento = 0;
+        }
+        Backend.GetConsultaIndividualPorPersona(mesSeleccionadoDesde, anioSeleccionadoDesde, mesSeleccionadoHasta, anioSeleccionadoHasta, documento, estadoSeleccionado, 0)
+        .onSuccess(function (respuesta) {
+            lista_areas_del_usuario = respuesta;
+            callback();
+        })
+        .onError(function (error, as, asd) {
+            alertify.alert(error);
+        });
     }
 
-    Backend.GetConsultaIndividualPorPersona(mesSeleccionadoDesde, anioSeleccionadoDesde, mesSeleccionadoHasta, anioSeleccionadoHasta, documento, estadoSeleccionado, 0)
-    .onSuccess(function (respuesta) {
-        lista_areas_del_usuario = respuesta;
-        callback();
-    })
-    .onError(function (error, as, asd) {
-        alertify.alert(error);
-    });
+
+    if (consultaSeleccionada == "AREA") {
+        spinner.stop();
+        alert("Falta Implementar");
+    }
+
 }
 
 var DibujarGrillaDDJJ = function () {

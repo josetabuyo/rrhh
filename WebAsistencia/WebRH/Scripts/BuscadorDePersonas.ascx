@@ -50,7 +50,8 @@
             repositorioDePersonas: new RepositorioDePersonas(new ProveedorAjax("../")),
             placeholder: "nombre, apellido, documento o legajo",
             alSeleccionarUnaPersona: function (persona_seleccionada) {
-                alert(persona_seleccionada.nombre);
+                //alert(persona_seleccionada.nombre);
+                //hfIdPersona = persona_seleccionada.nombre;
             }
         });
 
