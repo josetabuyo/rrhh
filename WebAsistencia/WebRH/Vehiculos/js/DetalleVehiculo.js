@@ -8,7 +8,6 @@
                 $("#mensaje_error").show();
                 $("#mensaje_error").addClass("animated slideInDown");
                 $("#Contenido").hide();
-                document.getElementById("mihtml").style.height = "100%";
                 return;
             }
 

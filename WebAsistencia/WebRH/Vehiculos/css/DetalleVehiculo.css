@@ -163,11 +163,13 @@ body
     color: white;
     margin-top: 0%;
     margin-bottom: 0%;
-    font-size: 1.2em;
+    font-size: 1.5em;
     width: 100%;
     background-color: #00001c;
     border-radius: 10px;
     margin-bottom: 5%;
+    width: 60%;
+    margin-left: 20%;
 }
 
 #celda-titulo
@@ -183,8 +185,8 @@ body
     padding: 7px;
     width: 40%;
     padding-left: 3%;
-    padding-bottom: 1%;
-    padding-top: 1%;
+    padding-bottom: 2%;
+    padding-top: 2%;
 }
 
 .celda2
@@ -214,7 +216,7 @@ body
 {
     border-radius: 10px;
     margin-bottom: 0%;
-    font-size: 1.5em;
+    font-size: 1.9em;
     font-weight: bold;
    /* height: 100%;*/
     text-align: left;
@@ -237,9 +239,9 @@ body
 
 .contenedor-imagen-vehiculo
 {
-    width: 80%;
-    margin-left: 10%;
-    margin-right: 10;    
+    width: 60%;
+    margin-left: 20%;
+      
 }
 
 hr
@@ -281,8 +283,8 @@ hr
 {
     text-align: center;
     background: white;
-    height: 140px;
-    margin-top: 10%;
+    height: 110px;
+    margin-top: 15%;
     width: 367px;
     margin-left: 25%;
     border-radius: 14px;
@@ -295,19 +297,26 @@ hr
 
 #txt_mensaje_error
 {
-    padding-top: 6px !important;
+    padding-top: 8px !important;
 }
 
 #volver_mensaje_error
 {
     border: 2px solid rgb(25, 75, 180);
     border-radius: 5px;
-    font-size: 20px;
+    font-size: 25px;
     padding: 5px;
-    margin-top: 0px;
+    margin-top: 25px;
     background-color: #ababab;
     box-shadow: 5px 5px 15px #888888;
 }
+
+#contenedor-vehiculos
+{
+    width:60%;
+    margin-left: 20%;
+    margin-top: 1%;
+    }
 
 /*
 @media only screen and (max-width: 850px) and (min-width:550px)
