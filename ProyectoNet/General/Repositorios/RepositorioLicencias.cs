@@ -784,16 +784,42 @@ namespace General.Repositorios
             return vacaciones_pendientes_ordenadas;
         }
 
-        public ProrrogaLicenciaOrdinaria CargarDatos(ProrrogaLicenciaOrdinaria unaProrroga)
+        protected static List<ProrrogaLicenciaOrdinaria> Prorrogas;
+        public List<ProrrogaLicenciaOrdinaria> TodasLasProrrogas()
         {
-            unaProrroga.Periodo = DateTime.Today.Year;
+            if (Prorrogas == null)
+            {
+                var result = new List<ProrrogaLicenciaOrdinaria>();
+                ConexionDB cn = new ConexionDB("dbo.WEB_GetProrrogasOrdinaria");
 
+                SqlDataReader dr;
+                dr = cn.EjecutarConsulta();
+
+                while (dr.Read())
+                {
+                    var unaProrroga = new ProrrogaLicenciaOrdinaria();
+                    unaProrroga.UsufructoDesde = dr.GetInt16(dr.GetOrdinal("Prorroga_Desde"));
+                    unaProrroga.UsufructoHasta = dr.GetInt16(dr.GetOrdinal("Prorroga_Hasta"));
+                    unaProrroga.Periodo = dr.GetInt16(dr.GetOrdinal("Periodo_Usufructo"));
+                    result.Add(unaProrroga);
+                }
+                Prorrogas = result;
+            }
+            return Prorrogas;
+        }
+
+        public ProrrogaLicenciaOrdinaria CargarDatos(ProrrogaLicenciaOrdinaria prorroga)
+        {
+            return TodasLasProrrogas().Find(p => p.Periodo == prorroga.Periodo);
+
+            /*unaProrroga.Periodo = DateTime.Today.Year;
+            
             ConexionDB cn = new ConexionDB("dbo.WEB_GetProrrogaOrdinaria");
             cn.AsignarParametro("@periodo", unaProrroga.Periodo);
 
             SqlDataReader dr;
             dr = cn.EjecutarConsulta();
-
+            
             if (dr.Read())
             {
                 unaProrroga.UsufructoDesde = dr.GetInt16(dr.GetOrdinal("Prorroga_Desde"));
@@ -803,7 +829,9 @@ namespace General.Repositorios
             {
                 unaProrroga = null;
             }
+
             return unaProrroga;
+             */
         }
 
         public void LoguearError(List<VacacionesPermitidas> permitidas_log, SolicitudesDeVacaciones aprobadas, Persona persona, DateTime fecha_calculo)
@@ -838,9 +866,11 @@ namespace General.Repositorios
         internal int GetProrrogaPlantaGeneral(int anio)
         {
             ProrrogaLicenciaOrdinaria prorroga_del_anio = new ProrrogaLicenciaOrdinaria();
-            ProrrogaLicenciaOrdinaria prorroga_aplicable = new ProrrogaLicenciaOrdinaria();
             prorroga_del_anio.Periodo = anio;
-            prorroga_aplicable = CargarDatos(prorroga_del_anio);
+            //ProrrogaLicenciaOrdinaria prorroga_aplicable = new ProrrogaLicenciaOrdinaria();
+            //prorroga_del_anio.Periodo = anio;
+
+            var prorroga_aplicable = CargarDatos(prorroga_del_anio);
 
             return prorroga_aplicable.UsufructoHasta - prorroga_aplicable.UsufructoDesde;
 

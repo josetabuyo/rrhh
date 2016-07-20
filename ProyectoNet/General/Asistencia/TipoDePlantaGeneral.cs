@@ -22,29 +22,27 @@ namespace General
             this._descripcion = descripcion;
         }
 
-        protected static int anios = 0;
+        protected int anios = 0;
 
         public override ProrrogaLicenciaOrdinaria Prorroga(DateTime fecha_calculo)
         {
-            int anio_calculo = fecha_calculo.Year;
             var prorroga = new ProrrogaLicenciaOrdinaria();
-            RepositorioLicencias repo = new RepositorioLicencias(Conexion());
             if (anios == 0)
             {
-                if (fecha_calculo.Month != 12)
-                {
-                    //Si no es diciembre, el año de cálculo es el anterior
-                    anios = repo.GetProrrogaPlantaGeneral(anio_calculo - 1);
-                }
-                else
-                {
-                    anios = repo.GetProrrogaPlantaGeneral(anio_calculo);
-                }
+                RepositorioLicencias repo = new RepositorioLicencias(Conexion());
+                anios = repo.GetProrrogaPlantaGeneral(fecha_calculo.Year);
+            }          
 
+            if (fecha_calculo.Month == 12)
+            {
+                prorroga.UsufructoDesde = fecha_calculo.Year - anios;
+                prorroga.UsufructoHasta = fecha_calculo.Year;
             }
-
-            prorroga.UsufructoDesde = anio_calculo - anios;
-            prorroga.UsufructoHasta = anio_calculo;
+            else
+            {
+                prorroga.UsufructoDesde = fecha_calculo.Year + 1 - anios;
+                prorroga.UsufructoHasta = fecha_calculo.Year + 1;
+            }
 
             return prorroga;
         }
