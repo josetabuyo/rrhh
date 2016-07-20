@@ -26,22 +26,20 @@ namespace General
 
         public override ProrrogaLicenciaOrdinaria Prorroga(DateTime fecha_calculo)
         {
-            int anio_calculo = fecha_calculo.Year;
             var prorroga = new ProrrogaLicenciaOrdinaria();
             RepositorioLicencias repo = new RepositorioLicencias(Conexion());
-            if (anios == 0)
-            {
+            int anio_calculo = fecha_calculo.Year;
+
                 if (fecha_calculo.Month != 12)
                 {
-                    //Si no es diciembre, el año de cálculo es el anterior
-                    anios = repo.GetProrrogaPlantaGeneral(anio_calculo - 1);
+                   
+                    anio_calculo = anio_calculo - 1;
+                    anios = repo.GetProrrogaPlantaGeneral(anio_calculo);
                 }
                 else
                 {
                     anios = repo.GetProrrogaPlantaGeneral(anio_calculo);
                 }
-
-            }
 
             prorroga.UsufructoDesde = anio_calculo - anios;
             prorroga.UsufructoHasta = anio_calculo;
