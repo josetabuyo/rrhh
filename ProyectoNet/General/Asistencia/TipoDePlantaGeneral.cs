@@ -22,7 +22,7 @@ namespace General
             this._descripcion = descripcion;
         }
 
-        protected static int anios = 0;
+        protected int anios = 0;
 
         public override ProrrogaLicenciaOrdinaria Prorroga(DateTime fecha_calculo)
         {
@@ -40,8 +40,8 @@ namespace General
             }
             else
             {
-                prorroga.UsufructoDesde = fecha_calculo.Year - (anios + 1);
-                prorroga.UsufructoHasta = fecha_calculo.Year - 1;
+                prorroga.UsufructoDesde = fecha_calculo.Year + 1 - anios;
+                prorroga.UsufructoHasta = fecha_calculo.Year + 1;
             }
 
             return prorroga;
