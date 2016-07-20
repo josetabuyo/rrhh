@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-<<<<<<< HEAD
+
 using General.MAU;
-=======
 using General;
->>>>>>> 72d56941bd9091ba31f4d7f9197569b2780be6f0
+
 
 namespace General.Repositorios
 {
@@ -155,7 +154,7 @@ namespace General.Repositorios
         {
             var perfiles = new List<AlumnoPerfil>();
             var parametros = new Dictionary<string, object>();
-            var tablaDatos = conexion_bd.Ejecutar("dbo.SACC_Get_AlumnosPerfil");
+            var tablaDatos = conexion.Ejecutar("dbo.SACC_Get_AlumnosPerfil");
             tablaDatos.Rows.ForEach(row =>
             {
                 var perfil = new AlumnoPerfil()
