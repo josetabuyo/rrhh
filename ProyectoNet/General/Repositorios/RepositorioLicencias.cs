@@ -842,7 +842,7 @@ namespace General.Repositorios
 
             if (error)
             {
-                parametros.Add("@comentario", "Error por Exceso de Cantidad de Días permitidos hasta la fecha de la solicitud");
+                parametros.Add("@comentario", "Al Actualizar la prórroga dio Error por Exceso de Cantidad de Días permitidos hasta la fecha de la solicitud");
             }
             else {
                 parametros.Add("@comentario", "");
