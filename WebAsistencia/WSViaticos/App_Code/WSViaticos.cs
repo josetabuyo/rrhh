@@ -128,6 +128,16 @@ public class WSViaticos : System.Web.Services.WebService
         return a;
     }
 
+    [WebMethod]
+    public DDJJ104_Consulta[] GetConsultaPorArea(int mesdesde, int aniodesde, int meshasta, int aniohasta, int id_area, int estado, int orden, Usuario usuario)
+    {
+        var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas(), Autorizador());
+        var a = new DDJJ104_Consulta[1];
+
+        a = responsableDDJJ.GetConsultaPorArea(mesdesde, aniodesde, meshasta, aniohasta, id_area, estado, orden, usuario).ToArray();
+
+        return a;
+    }
 
     //[WebMethod]
     //public AreaParaDDJJ104[] ImprimirDDJJ104(List<AreaParaDDJJ104> lista)

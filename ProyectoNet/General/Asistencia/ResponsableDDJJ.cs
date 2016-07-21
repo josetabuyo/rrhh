@@ -216,10 +216,13 @@ namespace General
         {
             var repositorio = new RepositorioDDJJ104();
             return repositorio.GetConsultaIndividualPorPersona(mesdesde, aniodesde, meshasta, aniohasta, nrodoc_persona, estado, orden,usuario);
-
         }
 
-
+        public List<DDJJ104_Consulta> GetConsultaPorArea(int mesdesde, int aniodesde, int meshasta, int aniohasta, int id_area, int estado, int orden, Usuario usuario)
+        {
+            var repositorio = new RepositorioDDJJ104();
+            return repositorio.GetConsultaPorArea(mesdesde, aniodesde, meshasta, aniohasta, id_area, estado, orden, usuario);
+        }
 
 
 
@@ -247,5 +250,7 @@ namespace General
         //    ddjj.MarcarDDJJ104Impresa(nroDDJJ, estado);
         //}
 
+
+       
     }
 }

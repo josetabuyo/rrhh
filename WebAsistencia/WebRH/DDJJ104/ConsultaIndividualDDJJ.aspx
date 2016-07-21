@@ -48,7 +48,7 @@
     <div id="contenedor_consulta_rapida" style="margin: 30px;">
       
         <div id="divComboDesde">
-            <p  style="display: inline-block;">
+            <p  style="display: inline-block; margin:auto; margin-right: 10px" >
                 Desde:
                 <select runat="server" title="Seleccione un mes" id="cmbMesesDesde" 
                     enableviewstate="false" style="text-transform: capitalize;">
@@ -56,7 +56,7 @@
             </p>
         </div>
         <div id="divComboHasta">
-            <p  style="display: inline-block;">
+            <p  style="display: inline-block; margin:auto">
                 Hasta:
                 <select runat="server" title="Seleccione un mes" id="cmbMesesHasta" 
                     enableviewstate="false" style="text-transform: capitalize;">
@@ -65,7 +65,7 @@
         </div>
 
         <div id="divEstado">
-            <p  style="display: inline-block;">
+            <p  style="display: inline-block; margin:auto;">
                 Estado:
                 <select runat="server" title="Estado" id="cmbEstado"
                     enableviewstate="false" style="text-transform: capitalize;">
@@ -74,11 +74,11 @@
         </div>
       
        <div id="divBuscadorArea">
-            <uc3:BuscadorDeAreas ID="buscador" runat="server" />
+            <uc3:BuscadorDeAreas ID="buscador" runat="server"  style="display: inline-block; margin:auto;" />
        </div>
 
        <div id="divBuscadorPersona">
-            <uc3:BuscadorDePersonas ID="buscadorPersonas" runat="server" />
+            <uc3:BuscadorDePersonas ID="buscadorPersonas" runat="server"  style="display: inline-block; margin:auto;" />
        </div>
 
     </div>

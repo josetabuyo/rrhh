@@ -283,6 +283,59 @@ namespace General
 
             return listaddjj104;
         }
+
+
+        internal List<DDJJ104_Consulta> GetConsultaPorArea(int mesdesde, int aniodesde, int meshasta, int aniohasta, int id_area, int estado, int orden, Usuario usuario)
+        {
+            SqlDataReader dr;
+            ConexionDB cn = new ConexionDB("dbo.PLA_GET_DDJJ104_PorArea");
+            cn.AsignarParametro("@mesDesde", mesdesde);
+            cn.AsignarParametro("@anioDesde", aniodesde);
+            //cn.AsignarParametro("@mesHasta", meshasta);
+            //cn.AsignarParametro("@anioHasta", aniohasta);
+            cn.AsignarParametro("@area", id_area);
+            //cn.AsignarParametro("@estado", estado);
+            //cn.AsignarParametro("@orden", orden);
+
+            dr = cn.EjecutarConsulta();
+
+            List<DDJJ104_Consulta> listaddjj104 = new List<DDJJ104_Consulta>();
+
+            while (dr.Read())
+            {
+                DDJJ104_Consulta ddjj104 = new DDJJ104_Consulta();
+                //ddjj104.id = dr.GetInt32(dr.GetOrdinal("Id_DDJJ"));
+                ddjj104.mes = dr.GetInt32(dr.GetOrdinal("Mes"));
+                ddjj104.anio = dr.GetInt32(dr.GetOrdinal("Año"));
+                ddjj104.area_generacion = new Area();
+                ddjj104.area_generacion.Id = dr.GetInt32(dr.GetOrdinal("Id_Area"));
+                ddjj104.area_generacion.Nombre = dr.GetString(dr.GetOrdinal("Area")).ToString();
+                ddjj104.fecha_generacion = dr.GetString(dr.GetOrdinal("Fecha_Generacion")).ToString();
+                ddjj104.usuario_generacion = dr.GetString(dr.GetOrdinal("Usuario_Generacion")).ToString();
+                ddjj104.recepcionada = dr.GetBoolean(dr.GetOrdinal("Recepcionada"));
+                ddjj104.fecha_recibido = dr.GetString(dr.GetOrdinal("Fecha_Recibido")).ToString();
+                ddjj104.usuario_recibido = dr.GetString(dr.GetOrdinal("Usuario_Recibido")).ToString();
+                ddjj104.firmante = dr.GetString(dr.GetOrdinal("Firmante")).ToString();
+                //ddjj104.persona = new Persona();
+                //ddjj104.persona.Id = dr.GetInt32(dr.GetOrdinal("Id_Persona"));
+                //ddjj104.persona.Apellido = dr.GetString(dr.GetOrdinal("Apellido")).ToString();
+                //ddjj104.persona.Nombre = dr.GetString(dr.GetOrdinal("Nombre")).ToString();
+                //ddjj104.persona.Categoria = dr.GetString(dr.GetOrdinal("Categoria")).ToString();
+                //ddjj104.mod_contratacion = dr.GetString(dr.GetOrdinal("Mod_Contratacion")).ToString();
+                //ddjj104.estado = dr.GetInt16(dr.GetOrdinal("Estado"));
+                //ddjj104.estado_descrip = dr.GetString(dr.GetOrdinal("Estado_Descrip")).ToString();
+
+                listaddjj104.Add(ddjj104);
+            }
+
+            cn.Desconestar();
+
+            return listaddjj104;
+        }
+
+
+
+
     }
 
 }

@@ -111,7 +111,7 @@ var Consultar = function () {
     anioSeleccionadoHasta = parseInt($("#cmbMesesHasta").val().split("-")[1]);
     estadoSeleccionado = parseInt($("#cmbEstado").val());
 
-    getConsultaIndividual(function () {
+    getConsulta(function () {
         DibujarGrillaDDJJ();
         spinner.stop();
     });
@@ -141,7 +141,7 @@ var ConsultarPorArea = function () {
 }
 
 
-var getConsultaIndividual = function (callback) {
+var getConsulta = function (callback) {
 
     if (consultaSeleccionada == "PERSONA") {
         var documento = $('#documento').text().trim();
@@ -160,8 +160,19 @@ var getConsultaIndividual = function (callback) {
 
 
     if (consultaSeleccionada == "AREA") {
-        spinner.stop();
-        alert("Falta Implementar");
+        var idarea = $('#hfIdArea').val();
+        if (idarea == "") {
+            idarea = 0;
+        }
+        Backend.GetConsultaPorArea(mesSeleccionadoDesde, anioSeleccionadoDesde, mesSeleccionadoHasta, anioSeleccionadoHasta, idarea, estadoSeleccionado, 0)
+        .onSuccess(function (respuesta) {
+            lista_areas_del_usuario = respuesta;
+            callback();
+        })
+        .onError(function (error, as, asd) {
+            alertify.alert(error);
+        });
+
     }
 
 }
@@ -170,7 +181,9 @@ var DibujarGrillaDDJJ = function () {
     var grilla;
 
     $("#ContenedorPersona").empty();
-    grilla = new Grilla(
+
+    if (consultaSeleccionada == "PERSONA") {
+        grilla = new Grilla(
         [
             new Columna("Mes", { generar: function (consulta) { return consulta.mes; } }),
             new Columna("Año", { generar: function (consulta) { return consulta.anio; } }),
@@ -186,10 +199,26 @@ var DibujarGrillaDDJJ = function () {
             new Columna("Mod Contratación", { generar: function (consulta) { return consulta.mod_contratacion; } }),
             new Columna("Estado", { generar: function (consulta) { return consulta.estado_descrip; } })
 		]);
+    }
+
+    if (consultaSeleccionada == "AREA") {
+        grilla = new Grilla(
+        [
+            new Columna("Mes", { generar: function (consulta) { return consulta.mes; } }),
+            new Columna("Año", { generar: function (consulta) { return consulta.anio; } }),
+            new Columna("Area", { generar: function (consulta) { return consulta.area_generacion.Nombre; } }),
+            new Columna("Fecha Generación", { generar: function (consulta) { return consulta.fecha_generacion; } }),
+            new Columna("Usuario Generación", { generar: function (consulta) { return consulta.usuario_generacion; } }),
+            new Columna("Fecha Recibido", { generar: function (consulta) { return consulta.fecha_recibido; } }),
+            new Columna("Usuario Recibido", { generar: function (consulta) { return consulta.usuario_recibido; } }),
+            new Columna("Firmante", { generar: function (consulta) { return consulta.firmante; } })
+		]);
+    }
+
 
     grilla.CargarObjetos(lista_areas_del_usuario);
     grilla.DibujarEn(ContenedorGrilla);
-    
+
 
     $("#DivBotonExcel").empty();
     var divBtnExportarExcel = $("#DivBotonExcel")

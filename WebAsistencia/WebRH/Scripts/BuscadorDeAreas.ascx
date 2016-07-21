@@ -9,9 +9,10 @@
 <script type="text/javascript" src="../Scripts/select2-3.4.4/Select2.min.js"></script>
 <script type="text/javascript" src="../Scripts/select2-3.4.4/select2_locale_es.js"></script>
 
-  
-  
- <div id="buscador_de_area" class="selector_areas">Área:
+<input id="hfIdArea" type="hidden" /> 
+
+
+<div id="buscador_de_area" class="selector_areas">Área:
     <input id="buscador" type="hidden" />
 </div>
             
@@ -29,7 +30,8 @@
             repositorioDeAreas: new RepositorioDeAreas(new ProveedorAjax("../")),
             placeholder: "Ingrese área a buscar",
             alSeleccionarUnArea: function (area) {
-                alert(area.id);
+                //alert(area.id);
+                $("#hfIdArea").val(area.id);
             }
         });
 
