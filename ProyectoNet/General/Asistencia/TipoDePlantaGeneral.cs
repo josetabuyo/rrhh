@@ -23,35 +23,25 @@ namespace General
         }
 
         protected int anios = 0;
-        protected static int anio_anterior = 0;
+
 
         public override ProrrogaLicenciaOrdinaria Prorroga(DateTime fecha_calculo)
         {
             var prorroga = new ProrrogaLicenciaOrdinaria();
             RepositorioLicencias repo = new RepositorioLicencias(Conexion());
             int anio_calculo = fecha_calculo.Year;
-            if (anio_anterior != anio_calculo)
-            {
-                anios = 0;
-                anio_anterior = anio_calculo;
-            }
-            
-           
-            if (anios == 0)
-            {
-                if (fecha_calculo.Month != 12)
-                {
-                    //Si no es diciembre, el año de cálculo es el anterior
-                    anio_calculo = anio_calculo - 1;
-                    anios = repo.GetProrrogaPlantaGeneral(anio_calculo);
-                }
-                else
-                {
-                    anios = repo.GetProrrogaPlantaGeneral(anio_calculo);
-                }
 
-            }
+            if (fecha_calculo.Month != 12)
+            {
 
+                anio_calculo = anio_calculo - 1;
+                anios = repo.GetProrrogaPlantaGeneral(anio_calculo);
+            }
+            else
+            {
+                anios = repo.GetProrrogaPlantaGeneral(anio_calculo);
+            }
+            anios = 6;
             prorroga.UsufructoDesde = anio_calculo - anios;
             prorroga.UsufructoHasta = anio_calculo;
 
