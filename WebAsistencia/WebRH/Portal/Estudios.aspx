@@ -12,6 +12,7 @@
 
         <%= Referencias.Javascript("../")%>
 
+        <link rel="stylesheet" media="(max-width: 1600px)" href="estilosPortalSecciones.css" />
         <style>
         .cajaEstudioOculta 
         {
@@ -51,22 +52,80 @@
     <form id="form1" runat="server">
     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:18px; font-weight: bold; padding-top:25px;'><br/> Estudios</span> " UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <div>
-    <h1 style="text-align:center; margin: 20px;">Estudios</h1>
-    <p>Estudios cargados en el sistema (ordenados por más actual):</p>
+     <div class="container-fluid">
+        <h1 style="text-align:center; margin:30px; ">Estudios</h1>
+        <div style="margin: 0 auto;" class="row">
+            <div style="text-align:center;" class="caja_izq">
+                <div class="imagen">
+                
+                </div>
+                <div style="text-align:center;">
+                    <p class=""><span id="apellido">Caíno</span> <span id="nombre">Fernando</span></p>
+                    <p class=""><span id="cargo">Analista en Gestión de la información</span></p>
+                </div>
+                <hr  />
+                <h3 class="h3_caja_izq">Accesos directos</h3>
+                <div class="div_texto_caja_izq">
+                    <ul>
+                        <li class=""><a href="DatosPersonales.aspx" style="color: #fff;" >Datos Personales</a></li>
+                        <li class=""><a href="Estudios.aspx" style="color: #fff;" >Estudios</a></li>
+                        <li class=""><a href="Perfil.aspx" style="color: #fff;">Cerrera Administrativa</a></li>
+                        <li class=""><a href="#" style="color: #fff;" >Licencias</a></li>
+                        <li class=""><a href="#" style="color: #fff;" >Notificaciones</a></li>
+                        <li class=""><a href="#" style="color: #fff;">Capacitaciones</a></li>
+                        <li class=""><a href="#" style="color: #fff;" >Beneficios</a></li>
+                        <li class=""><a href="#" style="color: #fff;">Viáticos</a></li>
+                   </ul>
+                </div>
+            </div>
+            <div class="caja_der papel">
+            <legend style="margin-top: 20px;">Estudios</legend>
+            <p>Estudios cargados en el sistema (ordenados por más actual):</p>
 
-    <div id="listadoEstudios">
+            <div id="listadoEstudios">
     
-    </div>
+            </div>
+               
+                <legend style="margin-top: 20px;">Estudios</legend>
+                    <table class="tabla_familiar">
+                        <thead>
+                            <tr>
+                                <th>Titulo</th>
+                                <th>Nivel</th>
+                                <th>Institución</th>
+                                <th>F. Egreso</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Lic. en Adminitración</td>
+                                <td>Universitario</td>
+                                <td>UBA</td>
+                                <td>19/05/1981</td>
+                            </tr>
+                            <tr>
+                                <td>Diseño web</td>
+                                <td>Terciario</td>
+                                <td>Da Vinci</td>
+                                <td>19/05/2015</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+               
+            </div>
+        </div>
+   
 
+    
+    
+    
     <div class="cajaEstudioOculta">
-        
             <img src="../Imagenes/diploma.png" class="img_caja_estudio" alt="diploma" />
             <div class="div_dentro_de_caja_estudio" >
                 <p><span class="titulo"></span> (<span class="nivel"></span>)</p>
                 <p>Fecha Egreso: <span class="fecha"></span> </p>
             </div>
-            
-        
     </div>
     
     </div>

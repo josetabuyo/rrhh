@@ -9,7 +9,7 @@
         <meta name="viewport" content="width=device-width">
         <link rel="stylesheet" href="estilosPortal.css" type="text/css" media="screen"/>
         <!-- CSS media query on a link element -->
-        <link rel="stylesheet" media="(max-width: 1600px)" href="estilosPortal.css" />
+        <link rel="stylesheet" media="(max-width: 1600px)" href="estilosPortalSecciones.css" />
          <%= Referencias.Css("../")%>
 
         <%= Referencias.Javascript("../")%>
@@ -43,7 +43,7 @@
 			                <div class="ch-info">
 				                <div class="ch-info-front ch-img-1"></div>
 				                <div  class="ch-info-back">
-					                <h3 style="margin-top: 30px; line-height: 14px;">DATOS PERSONALES</h3>
+					                <h3 style="margin-top: 30px; line-height: 14px;">Datos Personales</h3>
 				                </div>	
 			                </div>
 		                </div>
@@ -66,7 +66,7 @@
                     <%--<img src="../Imagenes/portal/bg_home.png" alt="" width="199" height="199" class="circle"/>
                     <a href="#" class="icon"></a>
                 </div>--%>
-                <div class="ch-item ch-img-1 item licencias test">				
+                <div id="btnLicencias" class="ch-item ch-img-1 item licencias test">				
 		            <div class="ch-info-wrap">
 			            <div class="ch-info">
 				            <div class="ch-info-front ch-img-1"></div>
@@ -81,7 +81,7 @@
                     <%--<img src="../Imagenes/portal/bg_shop.png" alt="" width="199" height="199" class="circle"/>
                     <a href="#" class="icon"></a>
                 </div>--%>
-                <div class="ch-item ch-img-1 item notificaciones test">				
+                <div id="btnNotificaciones" class="ch-item ch-img-1 item notificaciones test">				
 		            <div class="ch-info-wrap">
 			            <div class="ch-info">
 				            <div class="ch-info-front ch-img-1"></div>
@@ -96,7 +96,7 @@
                     <%--<img src="../Imagenes/portal/bg_camera.png" alt="" width="199" height="199" class="circle"/>
                     <a href="#" class="icon"></a>
                 </div>--%>
-                <div class="ch-item ch-img-1 item capacitaciones test">				
+                <div id="btnCapacitaciones" class="ch-item ch-img-1 item capacitaciones test">				
 		            <div class="ch-info-wrap">
 			            <div class="ch-info">
 				            <div class="ch-info-front ch-img-1"></div>
@@ -111,7 +111,7 @@
                    <%-- <img src="../Imagenes/portal/bg_fav.png" alt="" width="199" height="199" class="circle"/>
                     <a href="#" class="icon"></a>
                 </div>--%>
-                <div class="ch-item ch-img-1 item beneficios test">				
+                <div id="btnBeneficios" class="ch-item ch-img-1 item beneficios test">				
 		            <div class="ch-info-wrap">
 			            <div class="ch-info">
 				            <div class="ch-info-front ch-img-1"></div>
@@ -131,7 +131,7 @@
                    <%-- <img src="../Imagenes/portal/bg_fav.png" alt="" width="199" height="199" class="circle"/>
                     <a href="#" class="icon"></a>
                 </div>--%>
-                <div class="ch-item ch-img-1 item viaticos test">				
+                <div id="btnViaticos" class="ch-item ch-img-1 item viaticos test">				
 		            <div class="ch-info-wrap">
 			            <div class="ch-info">
 				            <div class="ch-info-front ch-img-1"></div>
@@ -142,7 +142,7 @@
 		            </div>
                     <a href="#" class="icon "  ></a>
 	            </div>
-                <div style="box-shadow:none;" class="ch-item ch-img-1 item perfil test">				
+                <div id="btnPerfil" style="box-shadow:none;" class="ch-item ch-img-1 item perfil test">				
 		            <div class="ch-info-wrap">
 			            <div class="ch-info">
 				            <div class="ch-info-front ch-img-1"></div>
@@ -180,6 +180,10 @@
 
                 $('#btnEstudios').click(function () {
                     window.location.href = 'Estudios.aspx';
+                });
+
+                $('#btnPerfil').click(function () {
+                    window.location.href = 'Perfil.aspx';
                 });
             });
 

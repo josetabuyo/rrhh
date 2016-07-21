@@ -1,0 +1,127 @@
+
+
+/*ESTILOS SECCIONESSSS*/
+
+ .caja_izq 
+        {
+            color:#f4efe9; 
+            background:#413f40; 
+            width:20%; 
+            display:inline-block; 
+            min-height:600px;
+            float:left;
+        }
+        
+        .caja_der 
+        {
+            color:#4d4b4c; 
+            background:#fffdfe; 
+            width:60%; 
+            display:inline-block; 
+            min-height:600px;
+            border: 1px solid #d0d0d0;
+            padding: 0px 20px 0px 20px;
+        }
+        
+        .imagen 
+        {
+             width: 120px;
+            height: 120px;
+            background: #fff;
+            display: inline-block;
+            margin: 20px;
+            background-repeat: no-repeat;
+            background-position: 50%;
+            border-radius: 50%;
+            background-size: 100% auto;
+        }
+        
+        #apellido
+        {
+            color: #cdc8c4;
+            font-size: 1.8em;
+        }
+        
+        #nombre 
+        {
+            color: #f9f4ee;
+            font-size: 1.8em;
+        }
+        
+        #cargo 
+        {
+            font-size: 1.1em;
+        }
+        
+        hr 
+        {
+            width:80%; margin:0 auto;
+        }
+        
+        .div_texto_caja_izq 
+        {
+            text-align:left; 
+            margin-left:40px;
+        }
+        
+        .h3_caja_izq 
+        {
+            text-align:left; 
+            margin-left:30px;
+            margin-top:20px;
+            margin-bottom:15px;
+        }
+        
+        .papel {
+            
+            position:relative;
+            }
+         .papel:before, .papel:after {
+            -webkit-box-shadow: 0 15px 2px rgba(0,0,0, .4);
+            -moz-box-shadow: 0 15px 2px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 15px 2px rgba(0, 0, 0, 0.4);
+            position: absolute; 
+            bottom: 15px;
+            z-index: -1; 
+            width: 50%;
+            height: 20%;
+            content: "";
+            }
+          /*.papel:before {
+            -webkit-transform: rotate(-3deg);
+            -moz-transform: rotate(-3deg); 
+            -o-transform: rotate(-3deg);
+            }*/
+          .papel:after {
+            -webkit-transform: rotate(3deg);
+            -moz-transform: rotate(3deg);
+            -o-transform: rotate(3deg);
+            right: 10px;
+            }
+            
+            .cajitas 
+            {
+                width: 40%;
+                display: inline-block;
+            }
+            
+            .item_cajita 
+            {
+                font-weight: bold;
+            }
+                
+            .tabla_familiar 
+                {
+                    border: solid 1px;
+                    width: 100%;
+                    text-align: center;
+                    padding:10px;
+                }
+                
+            .tabla_familiar > thead > tr > th, .tabla_familiar > tbody > tr > td 
+            {
+               border: solid 1px;
+            }
+
+
+
