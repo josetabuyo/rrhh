@@ -44,13 +44,13 @@ public partial class FormulariosDeLicencia_Partes_SaldoOrdinaria : System.Web.UI
             WSViaticosSoapClient s = new WSViaticosSoapClient();
             //WSViaticos.WSViaticos s = new WSViaticos.WSViaticos();
 
-            List<Persona> personas_list = GetEmpleadosExcelFabyDotacionParcial(); //GetEmpleadosExcelFaby(); //GetSerra(); //
+            List<Persona> personas_list = GetEmpleadosExcelFaby(); //GetEmpleadosExcelFabyDotacionParcial(); // //GetSerra(); //
             SaldoLicencia saldo;
             personas_list.ForEach(p =>
             {
                 saldo = s.GetSaldoLicencia(p, this.Concepto);
-               // s.GuardarSaldoLicencia(saldo, p);
-                s.GuardarSaldoLicenciaLAN(p);
+                s.GuardarSaldoLicencia(saldo, p);
+                // s.GuardarSaldoLicenciaLAN(p);
 
             });
 
@@ -92,6 +92,15 @@ public partial class FormulariosDeLicencia_Partes_SaldoOrdinaria : System.Web.UI
         return personas_list;
     }
 
+
+
+    private List<Persona> GetDosCasos()
+    {
+        List<Persona> personas_list = new List<Persona>();
+        var persona130 = new Persona(); persona130.Documento = 13687754; personas_list.Add(persona130);
+        var persona187 = new Persona(); persona187.Documento = 4514173; personas_list.Add(persona187);
+        return personas_list;
+    }
 
     private List<Persona> GetEmpleadosExcelFabyDotacionParcial()
     {

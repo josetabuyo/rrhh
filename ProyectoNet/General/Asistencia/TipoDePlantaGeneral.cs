@@ -41,7 +41,7 @@ namespace General
             {
                 anios = repo.GetProrrogaPlantaGeneral(anio_calculo);
             }
-            anios = 6;
+
             prorroga.UsufructoDesde = anio_calculo - anios;
             prorroga.UsufructoHasta = anio_calculo;
 
