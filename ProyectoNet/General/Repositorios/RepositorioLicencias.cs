@@ -845,9 +845,6 @@ namespace General.Repositorios
         {
             ProrrogaLicenciaOrdinaria prorroga_del_anio = new ProrrogaLicenciaOrdinaria();
             prorroga_del_anio.Periodo = anio;
-            //ProrrogaLicenciaOrdinaria prorroga_aplicable = new ProrrogaLicenciaOrdinaria();
-            //prorroga_del_anio.Periodo = anio;
-
             var prorroga_aplicable = CargarDatos(prorroga_del_anio);
 
             return prorroga_aplicable.UsufructoHasta - prorroga_aplicable.UsufructoDesde;
