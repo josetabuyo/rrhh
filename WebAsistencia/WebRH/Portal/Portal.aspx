@@ -75,7 +75,7 @@
 				            </div>	
 			            </div>
 		            </div>
-                    <a href="#" class="icon "  ></a>
+                    <a href="Licencias.aspx" class="icon "  ></a>
 	            </div>
                 <%--<div class="item licencias" data-toggle="tooltip" data-placement="right" title="LICENCIAS">
                     <%--<img src="../Imagenes/portal/bg_shop.png" alt="" width="199" height="199" class="circle"/>
@@ -184,6 +184,10 @@
 
                 $('#btnPerfil').click(function () {
                     window.location.href = 'Perfil.aspx';
+                });
+
+                $('#btnLicencias').click(function () {
+                    window.location.href = 'Licencias.aspx';
                 });
             });
 
