@@ -834,16 +834,16 @@ namespace General.Repositorios
             this.conexion.EjecutarSinResultado("LIC_GEN_Ins_LogErroresCalculoLicencias", parametros);
         }
 
-
         internal int GetProrrogaPlantaGeneral(int anio)
         {
             ProrrogaLicenciaOrdinaria prorroga_del_anio = new ProrrogaLicenciaOrdinaria();
-            ProrrogaLicenciaOrdinaria prorroga_aplicable = new ProrrogaLicenciaOrdinaria();
             prorroga_del_anio.Periodo = anio;
-            prorroga_aplicable = CargarDatos(prorroga_del_anio);
+            //ProrrogaLicenciaOrdinaria prorroga_aplicable = new ProrrogaLicenciaOrdinaria();
+            //prorroga_del_anio.Periodo = anio;
+
+            var prorroga_aplicable = CargarDatos(prorroga_del_anio);
 
             return prorroga_aplicable.UsufructoHasta - prorroga_aplicable.UsufructoDesde;
-
         }
     }
 }
