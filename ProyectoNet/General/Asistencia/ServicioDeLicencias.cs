@@ -51,6 +51,7 @@ namespace General
             //{
             //    unSaldo = _repositorio_licencia.CargarSaldoLicenciaGeneralDe(concepto, unaPersona);
             //}
+            var log = concepto.GetAnalisisCalculoVacacionesPara(this._repositorio_licencia, repo_personas, unaPersona, fecha_de_consulta);
 
             return concepto.RealizarCalculoDeSaldo(this._repositorio_licencia, repo_personas, unaPersona, fecha_de_consulta);
 

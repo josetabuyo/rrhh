@@ -57,14 +57,21 @@ namespace General
             return permitidas_consumibles;
         }
 
+
         private void ImputarA(SolicitudesDeVacaciones aprobadas, List<VacacionesPermitidas> permitidas_consumibles, Persona persona, DateTime fecha_calculo)
         {
 
             //permitidas_consumibles.RemoveAll(consumible => aprobadas.AnioMinimoImputable() > consumible.Periodo && aprobadas.AnioMaximoImputable().Last().Periodo() <= consumible.Periodo);
             var permitidas_consumibles_log = new List<VacacionesPermitidas>(permitidas_consumibles);
+            
+            //quito las vacaciones que fueron permitidas, pero no se las puede tomar porque ya las perdió.
             permitidas_consumibles.RemoveAll(consumible => aprobadas.AnioMinimoImputable(persona) > consumible.Periodo);
+
+            
             var permitidas_consumibles2 = new List<VacacionesPermitidas>(permitidas_consumibles);
             var permitidas_log = new List<VacacionesPermitidas>(permitidas_consumibles2);
+            
+            //me quedo solo con la parte que puedo consumir, de las vacaciones que se aprobaron.
             permitidas_consumibles2.RemoveAll(consumible => aprobadas.AnioMaximoImputable().Last().Periodo() < consumible.Periodo);
 
 
@@ -75,6 +82,7 @@ namespace General
                 _repositorio_licencia.LoguearError(permitidas_log, aprobadas, persona, fecha_calculo);
                 throw new SolicitudInvalidaException(); 
             }
+            
             primera_permitida_aplicable = permitidas_aplicables.First();
       
             if (primera_permitida_aplicable.CantidadDeDias() > aprobadas.CantidadDeDias())

@@ -476,10 +476,28 @@ namespace General.Repositorios
             List<VacacionesPermitidas> vaca_permitidas = ConstruirVacacionesPermitidas(tablaDatos);
             List<VacacionesPermitidas> vaca_perdidas = ConstruirVacacionesPerdidas(tablaDatosPerdidas);
 
-            return CalcularVacacionesPermitidasNoPerdidas(vaca_permitidas, vaca_perdidas);
+            var logs = new List<LogCalculoVacaciones>();
+
+            return CalcularVacacionesPermitidasNoPerdidas(vaca_permitidas, vaca_perdidas, logs);
         }
 
-        private List<VacacionesPermitidas> CalcularVacacionesPermitidasNoPerdidas(List<VacacionesPermitidas> vaca_permitidas, List<VacacionesPermitidas> vaca_perdidas)
+        public void xx(Persona persona, ConceptoDeLicencia concepto)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@nro_documento", persona.Documento);
+
+            var tablaDatosPerdidas = this.conexion.Ejecutar("dbo.LIC_GEN_GetDiasPerdidos", parametros);
+
+            parametros.Add("@id_concepto_licencia", concepto.Id);
+
+            var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetDiasPermitidos", parametros);
+
+            List<VacacionesPermitidas> vaca_permitidas = ConstruirVacacionesPermitidas(tablaDatos);
+            List<VacacionesPermitidas> vaca_perdidas = ConstruirVacacionesPerdidas(tablaDatosPerdidas);
+
+        }
+
+        private List<VacacionesPermitidas> CalcularVacacionesPermitidasNoPerdidas(List<VacacionesPermitidas> vaca_permitidas, List<VacacionesPermitidas> vaca_perdidas, List<LogCalculoVacaciones> logs)
         {
             List<VacacionesPermitidas> vacaciones_reales = new List<VacacionesPermitidas>();
             vaca_permitidas.ForEach(permitida => {

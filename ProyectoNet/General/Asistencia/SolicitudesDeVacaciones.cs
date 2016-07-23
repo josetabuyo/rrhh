@@ -46,6 +46,10 @@ namespace General
             return persona.TipoDePlanta.Prorroga(this.Desde()).UsufructoDesde;
         }
 
+        /// <summary>
+        /// devuelve el año al cual 
+        /// </summary>
+        /// <returns></returns>
         public List<CantidadDeDiasPorPeriodo> AnioMaximoImputable()
         {
             return this._creador_dias_por_periodo.AnioMaximoImputable(this); //VER MAÑANA CON AGUS

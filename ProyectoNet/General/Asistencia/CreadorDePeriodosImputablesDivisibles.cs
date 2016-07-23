@@ -5,6 +5,10 @@ using System.Text;
 
 namespace General
 {
+    /// <summary>
+    /// Es un caso particular de creador de "periodos imputables" que devolvera
+    ///     más de un período imputable, por cortarse la licencia en 2 partes (en primero de diciembre)
+    /// </summary>
     public class CreadorDePeriodosImputablesDivisibles : CreadorDePeriodosImputables
     {
         public override List<CantidadDeDiasPorPeriodo> AnioMaximoImputable(SolicitudesDeVacaciones aprobadas)
