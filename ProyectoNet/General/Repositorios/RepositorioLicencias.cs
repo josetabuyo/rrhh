@@ -476,28 +476,10 @@ namespace General.Repositorios
             List<VacacionesPermitidas> vaca_permitidas = ConstruirVacacionesPermitidas(tablaDatos);
             List<VacacionesPermitidas> vaca_perdidas = ConstruirVacacionesPerdidas(tablaDatosPerdidas);
 
-            var logs = new List<LogCalculoVacaciones>();
-
-            return CalcularVacacionesPermitidasNoPerdidas(vaca_permitidas, vaca_perdidas, logs);
+            return CalcularVacacionesPermitidasNoPerdidas(vaca_permitidas, vaca_perdidas);
         }
 
-        public void xx(Persona persona, ConceptoDeLicencia concepto)
-        {
-            var parametros = new Dictionary<string, object>();
-            parametros.Add("@nro_documento", persona.Documento);
-
-            var tablaDatosPerdidas = this.conexion.Ejecutar("dbo.LIC_GEN_GetDiasPerdidos", parametros);
-
-            parametros.Add("@id_concepto_licencia", concepto.Id);
-
-            var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetDiasPermitidos", parametros);
-
-            List<VacacionesPermitidas> vaca_permitidas = ConstruirVacacionesPermitidas(tablaDatos);
-            List<VacacionesPermitidas> vaca_perdidas = ConstruirVacacionesPerdidas(tablaDatosPerdidas);
-
-        }
-
-        private List<VacacionesPermitidas> CalcularVacacionesPermitidasNoPerdidas(List<VacacionesPermitidas> vaca_permitidas, List<VacacionesPermitidas> vaca_perdidas, List<LogCalculoVacaciones> logs)
+        private List<VacacionesPermitidas> CalcularVacacionesPermitidasNoPerdidas(List<VacacionesPermitidas> vaca_permitidas, List<VacacionesPermitidas> vaca_perdidas)
         {
             List<VacacionesPermitidas> vacaciones_reales = new List<VacacionesPermitidas>();
             vaca_permitidas.ForEach(permitida => {
@@ -802,6 +784,11 @@ namespace General.Repositorios
             return vacaciones_pendientes_ordenadas;
         }
 
+        public ProrrogaLicenciaOrdinaria CargarDatos(ProrrogaLicenciaOrdinaria prorroga)
+        {
+            return TodasLasProrrogas().Find(p => p.Periodo == prorroga.Periodo);
+        }
+
         protected static List<ProrrogaLicenciaOrdinaria> Prorrogas;
         public List<ProrrogaLicenciaOrdinaria> TodasLasProrrogas()
         {
@@ -824,32 +811,6 @@ namespace General.Repositorios
                 Prorrogas = result;
             }
             return Prorrogas;
-        }
-
-        public ProrrogaLicenciaOrdinaria CargarDatos(ProrrogaLicenciaOrdinaria prorroga)
-        {
-            return TodasLasProrrogas().Find(p => p.Periodo == prorroga.Periodo);
-
-            /*unaProrroga.Periodo = DateTime.Today.Year;
-            
-            ConexionDB cn = new ConexionDB("dbo.WEB_GetProrrogaOrdinaria");
-            cn.AsignarParametro("@periodo", unaProrroga.Periodo);
-
-            SqlDataReader dr;
-            dr = cn.EjecutarConsulta();
-            
-            if (dr.Read())
-            {
-                unaProrroga.UsufructoDesde = dr.GetInt16(dr.GetOrdinal("Prorroga_Desde"));
-                unaProrroga.UsufructoHasta = dr.GetInt16(dr.GetOrdinal("Prorroga_Hasta"));
-            }
-            else
-            {
-                unaProrroga = null;
-            }
-
-            return unaProrroga;
-             */
         }
 
         public void LoguearError(List<VacacionesPermitidas> permitidas_log, SolicitudesDeVacaciones aprobadas, Persona persona, DateTime fecha_calculo)
@@ -880,18 +841,13 @@ namespace General.Repositorios
             this.conexion.EjecutarSinResultado("LIC_GEN_Ins_LogErroresCalculoLicencias", parametros);
         }
 
-
         internal int GetProrrogaPlantaGeneral(int anio)
         {
             ProrrogaLicenciaOrdinaria prorroga_del_anio = new ProrrogaLicenciaOrdinaria();
             prorroga_del_anio.Periodo = anio;
-            //ProrrogaLicenciaOrdinaria prorroga_aplicable = new ProrrogaLicenciaOrdinaria();
-            //prorroga_del_anio.Periodo = anio;
-
             var prorroga_aplicable = CargarDatos(prorroga_del_anio);
 
             return prorroga_aplicable.UsufructoHasta - prorroga_aplicable.UsufructoDesde;
-
         }
     }
 }
