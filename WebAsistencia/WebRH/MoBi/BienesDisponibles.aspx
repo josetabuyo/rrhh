@@ -123,6 +123,7 @@
                                             CommandName="MOV" CommandArgument='<%# Container.DataItemIndex %>'><i style="font-size: large;" class='icon-calendar'></i></asp:LinkButton>
                                         <asp:LinkButton ID="lbAsignar" runat="server" CssClass="btn btn-info" ToolTip="Asignar bien"
                                             CommandName="ASIG" CommandArgument='<%# Container.DataItemIndex %>'><i style="font-size: large;" class='icon-share'></i></asp:LinkButton>
+                                        <input type=button id="btnVerBien" value="ver"/>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>
