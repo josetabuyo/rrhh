@@ -34,8 +34,8 @@
                 Vigencia</p>
         </div>
         <div id="barra-azul">
-        <button type="button" class="btn btn-primary">Default</button>
-        <button type="button" class="btn btn-primary">Default</button>
+        <a id="boton-volver" href="javascript:history.back()" class="posicion-boton-imagenes btn btn-primary">Volver</a>
+        <a id="boton-imagenes" href="#contenedor-imagen-vehiculo" class="posicion-boton-imagenes btn btn-primary">Imágenes</a>
         </div>
     </div>
     <div id="mensaje_error" title="Error" style="display: none">

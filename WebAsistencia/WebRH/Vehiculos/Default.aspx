@@ -7,6 +7,7 @@
     <%= Referencias.Css("../")%>
     <link rel="stylesheet" href="css/Default-vehiculos.css" type="text/css" />
     <link id="link2" rel="stylesheet" href="css/DetalleVehiculo.css" type="text/css"/>
+    <link rel="icon" href="../Imagenes/iconos/logoweb-favicon.png">
 </head>
 <body>
                 <div id="fondo-Arriba">
@@ -52,6 +53,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         Backend.start(function () {
+            $("#contenedor_controles").addClass("animated slideInLeft");
             $("#btn_verificar").click(function () {
                 window.location = "DetalleVehiculo.aspx?" + $("#txt_codigo_verificacion").val();
             });

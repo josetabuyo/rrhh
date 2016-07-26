@@ -128,7 +128,7 @@ body
 #Contenido
 {
     /* width: 80%;     left: 10%;     right: 10%;*/
-    top: 150px;
+    top: 130px;
     line-height: 18px;
     color: white;
     font-family: Arial;
@@ -280,17 +280,19 @@ hr
 
 #mensaje_error
 {
-    text-align: center;
+        text-align: center;
     background: white;
     height: 110px;
-    margin-top: 15%;
+    margin-top: 10%;
     width: 367px;
-    margin-left: 25%;
     border-radius: 14px;
     font-size: 18px;
     background-color: gainsboro;
     padding: 0.5%;
     position: absolute;
+    /* width: 100%; */
+    left: 30%;
+    top: 50px;
     border: 3px solid rgb(25, 75, 180);
 }
 
@@ -304,8 +306,8 @@ hr
     border: 2px solid rgb(25, 75, 180);
     border-radius: 5px;
     font-size: 25px;
-    padding: 5px;
-    margin-top: 25px;
+    padding: 10px;
+    margin-top: 20px;
     background-color: #ababab;
     box-shadow: 5px 5px 15px #888888;
 }
@@ -324,6 +326,11 @@ hr
     background-color: #00001c;
     border-color: #808080;
 }
+
+.posicion-boton-imagenes
+{
+ margin-left: 5px;   
+    }
 
 /*
 @media only screen and (max-width: 850px) and (min-width:550px)

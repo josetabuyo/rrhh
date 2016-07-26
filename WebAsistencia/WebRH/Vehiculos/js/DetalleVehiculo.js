@@ -3,6 +3,8 @@
         var param = document.URL.split('?')[1];
 
         Backend.ObtenerVehiculoPorIDVerificacion(param).onSuccess(function (respuesta_vehiculo) {
+            $("#volver").addClass("animated slideInLeft");
+            $("#boton-imagenes").addClass("animated slideInLeft");       
 
             if (respuesta_vehiculo.Respuesta == 0) {
                 $("#mensaje_error").show();
@@ -36,6 +38,12 @@
             $(".contenedor-imagen-vehiculo").addClass("animated zoomIn");
             $("#contenedor-banner-parrafo").addClass("animated slideInDown");
             $("#barra_menu_contenedor_imagen").addClass("animated slideInDown");
+
+            $("#boton-imagenes").click(function () {
+                document.location.href = "#contenedor-imagen-vehiculo";
+            });
+
+        
 
             $("#myCarousel").carousel({
                 interval: 5000,
