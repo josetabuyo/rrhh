@@ -3693,8 +3693,9 @@ public class WSViaticos : System.Web.Services.WebService
 
 
         [WebMethod]
-        public Tarjeton NuevoTarjeton(int id_Bien)
+        public Tarjeton NuevoTarjeton(int id_Bien, Usuario usuario)
         {
+            if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 33)) throw (new Exception("El usuario no tiene permisos para el modulo de bienes"));
             var repo = new RepositorioTarjetones(Conexion());
             return repo.NuevoTarjeton(id_Bien);
         }
