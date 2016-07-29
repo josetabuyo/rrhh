@@ -63,14 +63,14 @@ namespace General
 
             //permitidas_consumibles.RemoveAll(consumible => aprobadas.AnioMinimoImputable() > consumible.Periodo && aprobadas.AnioMaximoImputable().Last().Periodo() <= consumible.Periodo);
             var permitidas_consumibles_log = new List<VacacionesPermitidas>(permitidas_consumibles);
-            
+
             //quito las vacaciones que fueron permitidas, pero no se las puede tomar porque ya las perdió.
             permitidas_consumibles.RemoveAll(consumible => aprobadas.AnioMinimoImputable(persona) > consumible.Periodo);
 
-            
+
             var permitidas_consumibles2 = new List<VacacionesPermitidas>(permitidas_consumibles);
             var permitidas_log = new List<VacacionesPermitidas>(permitidas_consumibles2);
-            
+
             //me quedo solo con la parte que puedo consumir, de las vacaciones que se aprobaron.
             permitidas_consumibles2.RemoveAll(consumible => aprobadas.AnioMaximoImputable().Last().Periodo() < consumible.Periodo);
 
@@ -80,11 +80,11 @@ namespace General
             if (permitidas_aplicables.Count() == 0)
             {
                 _repositorio_licencia.LoguearError(permitidas_log, aprobadas, persona, fecha_calculo);
-                throw new SolicitudInvalidaException(); 
+                throw new SolicitudInvalidaException();
             }
-            
+
             primera_permitida_aplicable = permitidas_aplicables.First();
-      
+
             if (primera_permitida_aplicable.CantidadDeDias() > aprobadas.CantidadDeDias())
             {
                 primera_permitida_aplicable.RestarDias(aprobadas.CantidadDeDias());
@@ -93,7 +93,8 @@ namespace General
             {
                 aprobadas.DiasYaImputados(primera_permitida_aplicable.CantidadDeDias());
                 primera_permitida_aplicable.RestarDias(primera_permitida_aplicable.CantidadDeDias());
-                if (primera_permitida_aplicable.CantidadDeDias() == 0) {
+                if (primera_permitida_aplicable.CantidadDeDias() == 0)
+                {
                     permitidas_consumibles.Remove(primera_permitida_aplicable);
                 }
                 if (aprobadas.CantidadDeDias() > 0)
@@ -138,19 +139,35 @@ namespace General
             return fecha.Year - offset;
         }
 
-        public List<VacacionesSolicitables> DiasSolicitables(List<VacacionesPermitidas> permitidas, List<SolicitudesDeVacaciones> solicitudes, DateTime fecha_de_calculo, Persona persona)
+        /// <summary>
+        /// Agrega un registro a la tabla del analisis para las vacaciones permitidas consumibles
+        /// </summary>
+        /// <param name="analisis">la coleccion de registros del analisis en curso</param>
+        /// <param name="permitidas_consumibles">la cantidad de dias consumibles con su periodo</param>
+        protected void CargarAnalisisConPermitidasConsumibles(List<LogCalculoVacaciones> analisis, VacacionesPermitidas permitidas_consumibles)
+        {
+            analisis.Add(new LogCalculoVacaciones() { PeriodoAutorizado = permitidas_consumibles.Periodo, CantidadDiasAutorizados = permitidas_consumibles.CantidadDeDias() });
+        }
+
+        public List<VacacionesSolicitables> DiasSolicitables(List<VacacionesPermitidas> permitidas, List<SolicitudesDeVacaciones> solicitudes, DateTime fecha_de_calculo, Persona persona, List<LogCalculoVacaciones> analisis)
         {
             var vacaciones_solicitables = new List<VacacionesSolicitables>();
 
-         //   var pendientes_de_aprobar = pendientes.FindAll(pend => pend.Desde() >= aprobadas.Last().Desde());
-            
+            //   var pendientes_de_aprobar = pendientes.FindAll(pend => pend.Desde() >= aprobadas.Last().Desde());
+
             var permitidas_consumibles = Clonar(permitidas);
+            permitidas_consumibles.OrderBy(pc => pc.Periodo).ToList().ForEach(pc =>
+            {
+                CargarAnalisisConPermitidasConsumibles(analisis, pc);
+            });
+            
+
             solicitudes = this.DividirSolicitudes(solicitudes);
             if (solicitudes.Count() == 0)
             {
                 var vacaciones_permitidas = permitidas_consumibles.FindAll(permitida => permitida.Periodo >= persona.TipoDePlanta.Prorroga(fecha_de_calculo).UsufructoDesde);// fecha_de_calculo.Year - 1); //El -1 representa la prórroga
-               vacaciones_permitidas.ForEach(permitida => vacaciones_solicitables.Add(new VacacionesSolicitables(permitida.Periodo, permitida.CantidadDeDias())));
-               return vacaciones_solicitables;
+                vacaciones_permitidas.ForEach(permitida => vacaciones_solicitables.Add(new VacacionesSolicitables(permitida.Periodo, permitida.CantidadDeDias())));
+                return vacaciones_solicitables;
             }
 
 
