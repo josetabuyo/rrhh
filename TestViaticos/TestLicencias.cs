@@ -13,11 +13,11 @@ namespace TestViaticos
     [TestClass]
     public class TestLicencias
     {
-        List<LogCalculoVacaciones> analisis;
+        AnalisisDeLicenciaOrdinaria analisis;
         [TestInitialize]
         public void setup()
         {
-            analisis = new List<LogCalculoVacaciones>();
+            analisis = new AnalisisDeLicenciaOrdinaria();
         }
 
         [TestMethod]
@@ -106,6 +106,7 @@ namespace TestViaticos
         //    Assert.AreEqual(20, dias_restantes_de_juan);
         //}
 
+        //analisis ya testeado
         [TestMethod]
         public void juan_deberia_poder_solicitar_5_dias_para_2001()
         {
@@ -122,47 +123,7 @@ namespace TestViaticos
 
         }
 
-        #region analisis_de_licencias
-
-        [TestMethod]
-        public void deberia_ver_un_registro_de_analisis_cuando_juan_puede_solicitar_5_dias_para_el_2001()
-        {
-            var permitidas_para_juan = new List<VacacionesPermitidas>() { VacacionesPermitidas(2001, 5) };
-            var aprobadas_para_juan = new List<SolicitudesDeVacaciones>();
-            var fecha_de_hoy = new DateTime(2002, 01, 01);
-
-            var listado_solicitables = calculador().DiasSolicitables(permitidas_para_juan, aprobadas_para_juan, fecha_de_hoy, TestObjects.UnaPersona(), analisis);
-
-            AssertAnalisis(analisis.First(), 2001, DateTime.MinValue, DateTime.MinValue, 0, 5);
-        }
-
-        [TestMethod]
-        public void deberia_ver_dos_registros_de_analisis_cuando_juan_puede_solicitar_5_dias_para_2001_y_10_dias_para_2002_en_el_2003()
-        {
-            var permitidas_para_juan = new List<VacacionesPermitidas>() { VacacionesPermitidas(2011, 5), VacacionesPermitidas(2012, 10) };
-            var aprobadas_para_juan = new List<SolicitudesDeVacaciones>();
-            var fecha_de_hoy = new DateTime(2003, 01, 01);
-
-            var listado_solicitables = calculador().DiasSolicitables(permitidas_para_juan, aprobadas_para_juan, fecha_de_hoy, TestObjects.UnaPersona(), analisis);
-
-            Assert.AreEqual(2, analisis.Count());
-
-            AssertAnalisis(analisis.First(), 2011, DateTime.MinValue,DateTime.MinValue, 0, 5);
-            AssertAnalisis(analisis.Last(), 2012, DateTime.MinValue, DateTime.MinValue, 0, 10);
-
-        }
-
-        protected void AssertAnalisis(LogCalculoVacaciones registro, int periodo, DateTime desde, DateTime hasta, int descontados, int autorizados)
-        {
-            Assert.AreEqual(periodo, registro.PeriodoAutorizado);
-            Assert.AreEqual(desde, registro.LicenciaDesde);
-            Assert.AreEqual(hasta, registro.LicenciaHasta);
-            Assert.AreEqual(descontados, registro.CantidadDiasDescontados);
-            Assert.AreEqual(autorizados, registro.CantidadDiasAutorizados);
-        }
-
-        #endregion
-
+        //analisis ya testeado
         [TestMethod]
         public void juan_deberia_poder_solicitar_5_dias_para_2001_y_10_dias_para_2002_en_el_2003()
         {
@@ -182,6 +143,90 @@ namespace TestViaticos
             Assert.AreEqual(10, vacaciones_solicitables_2002.CantidadDeDias());
         }
 
+        #region analisis_de_licencias
+        
+        [TestMethod]
+        public void deberia_ver_un_registro_de_analisis_cuando_juan_puede_solicitar_5_dias_para_el_2001()
+        {
+            var permitidas_para_juan = new List<VacacionesPermitidas>() { VacacionesPermitidas(2001, 5) };
+            var aprobadas_para_juan = new List<SolicitudesDeVacaciones>();
+            var fecha_de_hoy = new DateTime(2002, 01, 01);
+
+            var listado_solicitables = calculador().DiasSolicitables(permitidas_para_juan, aprobadas_para_juan, fecha_de_hoy, TestObjects.UnaPersona(), analisis);
+
+            AssertAnalisis(analisis.First(), 2001, DateTime.MinValue, DateTime.MinValue, 0, 5);
+        }
+
+        [TestMethod]
+        public void deberia_ver_dos_registros_de_analisis_cuando_juan_tiene_autorizados_5_dias_para_2001_y_10_dias_para_2002_en_el_2003()
+        {
+            var permitidas_para_juan = new List<VacacionesPermitidas>() { VacacionesPermitidas(2011, 5), VacacionesPermitidas(2012, 10) };
+            var aprobadas_para_juan = new List<SolicitudesDeVacaciones>();
+            var fecha_de_hoy = new DateTime(2003, 01, 01);
+
+            var listado_solicitables = calculador().DiasSolicitables(permitidas_para_juan, aprobadas_para_juan, fecha_de_hoy, TestObjects.UnaPersona(), analisis);
+
+            Assert.AreEqual(2, analisis.Count());
+
+            AssertAnalisis(analisis.First(), 2011, DateTime.MinValue,DateTime.MinValue, 0, 5);
+            AssertAnalisis(analisis.Last(), 2012, DateTime.MinValue, DateTime.MinValue, 0, 10);
+
+        }
+
+        [TestMethod]
+        public void deberia_ver_el_registro_de_analisis_cuando_juan_solicita_7_dias_para_2012()
+        {
+            var permitidas_para_juan = new List<VacacionesPermitidas>() { VacacionesPermitidas(2012, 12) };
+            var aprobadas_para_juan = new List<SolicitudesDeVacaciones>() { new VacacionesAprobadas(juan, primero_de_enero_2013(), cinco_de_enero_2013()) };
+
+            var listado_solicitables = calculador().DiasSolicitables(permitidas_para_juan, aprobadas_para_juan, fecha_de_hoy(), TestObjects.UnaPersona(), analisis);
+
+            Assert.AreEqual(1, analisis.Count());
+            AssertAnalisis(analisis.First(), 2012, primero_de_enero_2013(), cinco_de_enero_2013(), 5, 12);
+        }
+
+        [TestMethod]
+        public void deberia_ver_dos_registros_de_analisis_si_juan_solicitaro_2_veces_dias_para_2012()
+        {
+            var permitidas_para_juan = new List<VacacionesPermitidas>() { VacacionesPermitidas(2012, 12) };
+            var aprobadas_para_juan = new List<SolicitudesDeVacaciones>() { new VacacionesAprobadas(juan, primero_de_enero_2013(), cinco_de_enero_2013()), new VacacionesAprobadas(juan, primero_de_febrero_2013(), cinco_de_febrero_2013()) };
+
+            var listado_solicitables = calculador().DiasSolicitables(permitidas_para_juan, aprobadas_para_juan, fecha_de_hoy(), TestObjects.UnaPersona(), analisis);
+
+            Assert.AreEqual(2, analisis.Count());
+            AssertAnalisis(analisis.First(), 2012, primero_de_enero_2013(), cinco_de_enero_2013(), 5, 12);
+            AssertAnalisis(analisis.Last(), 0, primero_de_febrero_2013(), cinco_de_febrero_2013(), 5, 0);
+        }
+
+        [TestMethod]
+        public void deberia_ver_dos_registros_cuando_juan_solicita_7_dias_para_2012_y_le_quedan_20_mas_para_2013()
+        {
+            var permitidas_para_juan = new List<VacacionesPermitidas>() { VacacionesPermitidas(2012, 12), VacacionesPermitidas(2013, 20) };
+            var aprobadas_para_juan = new List<SolicitudesDeVacaciones>() { new VacacionesAprobadas(juan, primero_de_enero_2013(), cinco_de_enero_2013()) };
+            var fecha_hoy = new DateTime(2013, 01, 01);
+
+            var listado_solicitables = calculador().DiasSolicitables(permitidas_para_juan, aprobadas_para_juan, fecha_hoy, TestObjects.UnaPersona(), analisis);
+
+            Assert.AreEqual(2, analisis.Count());
+            AssertAnalisis(analisis.First(), 2012, primero_de_enero_2013(), cinco_de_enero_2013(), 5, 12);
+            AssertAnalisis(analisis.Last(), 2013, DateTime.MinValue, DateTime.MinValue, 0, 20);
+
+
+        }
+
+        protected void AssertAnalisis(LogCalculoVacaciones registro, int periodo, DateTime desde, DateTime hasta, int descontados, int autorizados)
+        {
+            Assert.AreEqual(periodo, registro.PeriodoAutorizado);
+            Assert.AreEqual(desde, registro.LicenciaDesde);
+            Assert.AreEqual(hasta, registro.LicenciaHasta);
+            Assert.AreEqual(descontados, registro.CantidadDiasDescontados);
+            Assert.AreEqual(autorizados, registro.CantidadDiasAutorizados);
+        }
+
+        #endregion
+
+        
+        //no analizada (redundante)
         [TestMethod]
         public void juan_no_deberia_poder_solicitar_5_dias_para_2001_y_10_dias_para_2002_en_el_2014()
         {
@@ -193,6 +238,7 @@ namespace TestViaticos
             Assert.AreEqual(0, listado_solicitables.Count());
         }
 
+        //analizada
         [TestMethod]
         public void juan_deberia_poder_solicitar_7_dias_para_2012()
         {
@@ -207,6 +253,7 @@ namespace TestViaticos
             Assert.AreEqual(7, vacaciones_solicitables.CantidadDeDias());
         }
 
+        //analizada
         [TestMethod]
         public void juan_deberia_poder_solicitar_2_dias_para_2012()
         {
@@ -222,7 +269,7 @@ namespace TestViaticos
 
         }
 
-
+        //analizada
         [TestMethod]
         public void juan_deberia_poder_solicitar_7_dias_para_2012_y_20_para_2013()
         {

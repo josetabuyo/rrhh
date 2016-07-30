@@ -22,7 +22,7 @@ namespace General
             CalculadorDeVacaciones calculador_de_vacaciones = new CalculadorDeVacaciones(repositorio_licencia);
             List<SolicitudesDeVacaciones> solicitudes = new List<SolicitudesDeVacaciones>(this.LicenciasAprobadasPara(repositorio_licencia, unaPersona).ToArray());
             this.LicenciasPendientesPara(repositorio_licencia, unaPersona).ForEach(pendiente => solicitudes.Add(pendiente));            
-            List<VacacionesSolicitables> vacaciones_solicitables = calculador_de_vacaciones.DiasSolicitables(this.LicenciasPermitidasPara(repositorio_licencia, unaPersona), solicitudes, fecha_de_consulta, unaPersona, new List<LogCalculoVacaciones>());
+            List<VacacionesSolicitables> vacaciones_solicitables = calculador_de_vacaciones.DiasSolicitables(this.LicenciasPermitidasPara(repositorio_licencia, unaPersona), solicitudes, fecha_de_consulta, unaPersona, new AnalisisDeLicenciaOrdinaria());
 
             vacaciones_solicitables.ForEach(vac_solic => saldo.Detalle.Add(new SaldoLicenciaDetalle { Periodo = vac_solic.Periodo(), Disponible = vac_solic.CantidadDeDias() }));
 
@@ -31,10 +31,10 @@ namespace General
 
 
 
-        public override List<LogCalculoVacaciones> GetAnalisisCalculoVacacionesPara(IRepositorioLicencia repositorio_licencia, IRepositorioDePersonas repositorio_personas, Persona unaPersona, DateTime fecha_de_consulta)
+        public override AnalisisDeLicenciaOrdinaria GetAnalisisCalculoVacacionesPara(IRepositorioLicencia repositorio_licencia, IRepositorioDePersonas repositorio_personas, Persona unaPersona, DateTime fecha_de_consulta)
         {
          
-            var analisis = new List<LogCalculoVacaciones>();
+            var analisis = new AnalisisDeLicenciaOrdinaria();
 
             var saldo = new SaldoLicencia();
             saldo.Detalle = new List<SaldoLicenciaDetalle>();

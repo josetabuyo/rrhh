@@ -58,7 +58,7 @@ namespace General
         }
 
 
-        private void ImputarA(SolicitudesDeVacaciones aprobadas, List<VacacionesPermitidas> permitidas_consumibles, Persona persona, DateTime fecha_calculo)
+        private void ImputarA(SolicitudesDeVacaciones aprobadas, List<VacacionesPermitidas> permitidas_consumibles, Persona persona, DateTime fecha_calculo, AnalisisDeLicenciaOrdinaria analisis)
         {
 
             //permitidas_consumibles.RemoveAll(consumible => aprobadas.AnioMinimoImputable() > consumible.Periodo && aprobadas.AnioMaximoImputable().Last().Periodo() <= consumible.Periodo);
@@ -88,6 +88,8 @@ namespace General
             if (primera_permitida_aplicable.CantidadDeDias() > aprobadas.CantidadDeDias())
             {
                 primera_permitida_aplicable.RestarDias(aprobadas.CantidadDeDias());
+                analisis.Add(aprobadas, primera_permitida_aplicable);
+
             }
             else
             {
@@ -99,7 +101,7 @@ namespace General
                 }
                 if (aprobadas.CantidadDeDias() > 0)
                 {
-                    ImputarA(aprobadas, permitidas_consumibles, persona, fecha_calculo);
+                    ImputarA(aprobadas, permitidas_consumibles, persona, fecha_calculo, analisis);
                 }
             }
         }
@@ -139,17 +141,9 @@ namespace General
             return fecha.Year - offset;
         }
 
-        /// <summary>
-        /// Agrega un registro a la tabla del analisis para las vacaciones permitidas consumibles
-        /// </summary>
-        /// <param name="analisis">la coleccion de registros del analisis en curso</param>
-        /// <param name="permitidas_consumibles">la cantidad de dias consumibles con su periodo</param>
-        protected void CargarAnalisisConPermitidasConsumibles(List<LogCalculoVacaciones> analisis, VacacionesPermitidas permitidas_consumibles)
-        {
-            analisis.Add(new LogCalculoVacaciones() { PeriodoAutorizado = permitidas_consumibles.Periodo, CantidadDiasAutorizados = permitidas_consumibles.CantidadDeDias() });
-        }
 
-        public List<VacacionesSolicitables> DiasSolicitables(List<VacacionesPermitidas> permitidas, List<SolicitudesDeVacaciones> solicitudes, DateTime fecha_de_calculo, Persona persona, List<LogCalculoVacaciones> analisis)
+
+        public List<VacacionesSolicitables> DiasSolicitables(List<VacacionesPermitidas> permitidas, List<SolicitudesDeVacaciones> solicitudes, DateTime fecha_de_calculo, Persona persona, AnalisisDeLicenciaOrdinaria analisis)
         {
             var vacaciones_solicitables = new List<VacacionesSolicitables>();
 
@@ -158,9 +152,9 @@ namespace General
             var permitidas_consumibles = Clonar(permitidas);
             permitidas_consumibles.OrderBy(pc => pc.Periodo).ToList().ForEach(pc =>
             {
-                CargarAnalisisConPermitidasConsumibles(analisis, pc);
+                analisis.Add(pc);
             });
-            
+
 
             solicitudes = this.DividirSolicitudes(solicitudes);
             if (solicitudes.Count() == 0)
@@ -171,7 +165,7 @@ namespace General
             }
 
 
-            solicitudes.ForEach(solicitud => ImputarA(solicitud.Clonar(), permitidas_consumibles, persona, fecha_de_calculo));
+            solicitudes.ForEach(solicitud => ImputarA(solicitud.Clonar(), permitidas_consumibles, persona, fecha_de_calculo, analisis));
 
             permitidas_consumibles.RemoveAll(consumible => consumible.Periodo < persona.TipoDePlanta.Prorroga(fecha_de_calculo).UsufructoDesde);
 
