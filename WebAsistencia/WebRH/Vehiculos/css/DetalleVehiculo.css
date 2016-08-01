@@ -162,16 +162,19 @@ body
 
 .tabla-principal
 {
+
     color: white;
+    box-shadow: 4px 4px 5px white;
     margin-top: 0%;
     margin-bottom: 0%;
     font-size: 1.5em;
     width: 100%;
     background-color: #00001c;
-    border-radius: 10px;
     margin-bottom: 5%;
     width: 60%;
     margin-left: 20%;
+    border-radius: 10px;
+    border-color: white;
 }
 
 #celda-titulo
@@ -220,8 +223,10 @@ body
     margin-bottom: 0%;
     font-size: 1.9em;
     font-weight: bold; /* height: 100%;*/
-    text-align: left; /*margin-top: 3%;*/
-    display: inline-block;
+    text-align: left;
+    padding-left: 20px;
+     /*margin-top: 3%;*/
+ /*   display: inline-block;*/
 }
 
 
@@ -323,14 +328,33 @@ hr
 {
     border-radius: 10px !important;
     border: solid;
+   /*box-shadow: 7px 7px 12px white;*/
     background-color: #00001c;
-    border-color: #808080;
+    
 }
 
 .posicion-boton-imagenes
 {
- margin-left: 5px;   
+ position: absolute;  
+ margin-left: 10px;
+ box-shadow: 1px 1px 4px white;
+ 
     }
+
+#boton-volver
+{
+    }
+
+#boton-imagenes
+{
+    left: 140px;
+    }
+    
+    #boton-datos-vehiculo
+    {
+        left: 70px;
+        }
+
 
 /*
 @media only screen and (max-width: 850px) and (min-width:550px)

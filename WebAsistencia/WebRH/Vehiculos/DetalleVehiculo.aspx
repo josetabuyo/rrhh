@@ -34,8 +34,9 @@
                 Vigencia</p>
         </div>
         <div id="barra-azul">
-        <a id="boton-volver" href="javascript:history.back()" class="posicion-boton-imagenes btn btn-primary">Volver</a>
-        <a id="boton-imagenes" href="#contenedor-imagen-vehiculo" class="posicion-boton-imagenes btn btn-primary">Imágenes</a>
+        <a id="boton-volver" href="https://rrhh.desarrollosocial.gob.ar/vehiculos/" class="posicion-boton-imagenes btn btn-primary">Volver</a>
+        <a id="boton-datos-vehiculo" href="#datos-vehiculo" class="posicion-boton-imagenes btn btn-primary">Datos</a>
+        <a id="boton-imagenes" href="#myCarousel" class="posicion-boton-imagenes btn btn-primary">Imágenes</a>
         </div>
     </div>
     <div id="mensaje_error" title="Error" style="display: none">
@@ -53,15 +54,15 @@
         <div id="contenedor-imagenes">
             
             <div id="contenedor-vehiculos">
-                <div class="div-titulos">
+                <div class="div-titulos animated slideInRight"">
                     <p id="titulo">
                         Vehículo
                     </p>
                 </div>
-                <div class="separador">
-                </div>
+            <%--    <div class="separador">
+                </div>--%>
             </div>
-            <table class="tabla-principal">
+            <table id="datos-vehiculo" class="tabla-principal">
                 <tr>
                     <td colspan="2" class="celda">
                         Marca:
