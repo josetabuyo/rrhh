@@ -18,31 +18,32 @@
     <form id="form1" runat="server">
     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:18px; font-weight: bold; padding-top:25px;'>Datos<br/>Personales</span> <br/> " UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <div class="container-fluid">
-        <h1 style="text-align:center; margin:30px; ">Datos Personales</h1>
+        <h1 style="text-align:center; margin:30px; "></h1>
         <div style="margin: 0 auto;" class="row">
             <div style="text-align:center;" class="caja_izq"></div>
 
             <div class="caja_der papel">
-            <legend style="margin-top: 20px;">Mis Datos</legend>
+            <p class="mensaje_cambio_datos" >Si alguno de los datos que está viendo no es correcto o hubiera que actualizar, por favor envíe un mail a <a href="mailto:xxx@example.com" target="_blank">xxx@example.com</a> </p>
+            <legend style="margin-top: 20px;">MIS DATOS</legend>
                 <div class="cajitas">
-                   <p class=""><label class="item_cajita">Legajo: </label><span id="Span1">123456879</span></p>
-                    <p class=""><label class="item_cajita">Documento: </label><span id="Span2">31000000</span></p>
+                   <p class=""><label class="item_cajita">Legajo: </label><span id="legajo">123456879</span></p>
+                    <p class=""><label class="item_cajita">Documento: </label><span id="dni">31000000</span></p>
                 </div>
                  <div class="cajitas">
-                    <p><label  class="item_cajita">Edad: </label><span id="Span3">31</span></p>
-                    <p class=""><label class="item_cajita">F. Nacimiento: </label><span id="Span4">18/07/1984</span></p>
+                    <p><label  class="item_cajita">Edad: </label><span id="edad">31</span></p>
+                    <p class=""><label class="item_cajita">F. Nacimiento: </label><span id="fechaNac">18/07/1984</span></p>
                 </div>
                 <div class="cajitas">
-                    <p class=""><label class="item_cajita">Sexo: </label><span id="Span5"></span>Masculino</p>
-                    <p class=""><label class="item_cajita">Estado Civil: </label><span id="Span6">Soltero</span></p>
+                    <p class=""><label class="item_cajita">Sexo: </label><span id="sexo"></span>Masculino</p>
+                    <p class=""><label class="item_cajita">Estado Civil: </label><span id="estadoCivil">Soltero</span></p>
                  </div>
                  <div class="cajitas">
-                    <p class=""><label class="item_cajita">CUIL: </label><span id="Span7">20-20202020-5</span></p>
-                    <p class=""><label class="item_cajita">Domicilio: </label><span id="Span8">Avalos 1301 - Villa Pueyrredon - C.A.B.A. </span></p>
+                    <p class=""><label class="item_cajita">CUIL: </label><span id="cuil">20-20202020-5</span></p>
+                    <p class=""><label class="item_cajita">Domicilio: </label><span id="direccion">Avalos 1301 - Villa Pueyrredon - C.A.B.A.</span></p>
                  </div>
-                <legend style="margin-top: 20px;">Datos Familiares</legend>
-                    <table class="tabla_familiar">
-                        <thead>
+                <legend style="margin-top: 20px;">DATOS FAMILIARES</legend>
+                    <table class="table table-striped table-bordered table-condensed">
+                        <thead class="estilo_tabla_portal">
                             <tr>
                                 <th>Parentezco</th>
                                 <th>Apellido</th>
@@ -80,9 +81,9 @@
                         </tbody>
                     </table>
 
-                    <legend style="margin-top: 50px;">Exámenes psicofísicos</legend>
-                    <table class="tabla_familiar">
-                        <thead>
+                    <legend style="margin-top: 50px;">EXÁMENES PSICOFÍSICOS</legend>
+                    <table class="table table-striped table-bordered table-condensed">
+                        <thead class="estilo_tabla_portal">
                             <tr>
                                 <th>Fecha</th>
                                 <th>Motivo</th>

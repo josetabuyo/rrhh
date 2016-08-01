@@ -127,10 +127,11 @@ hr
                 
     .tabla_familiar
         {
-            border: solid 1px;
+            /*border: solid 1px;*/
             width: 100%;
             text-align: center;
             padding:10px;
+            margin-bottom: 10px;
         }
                 
     .tabla_familiar > thead > tr > th, .tabla_familiar > tbody > tr > td 
@@ -141,15 +142,15 @@ hr
 legend {
     display: block;
     width: 100%;
-    background: #003e67;
+    background: rgba(138, 138, 138, 0.05);
     margin-bottom: 27px;
     font-size: 19.5px;
     line-height: 36px;
     padding: 5px;
     text-align: center;
-    color: #ffffff;
+    color: #000000;
     border: 0;
-    border-bottom: 1px solid #e5e5e5;
+    border-bottom: 2px solid #e5e5e5;
 }
 
 .btn_exportar 
@@ -161,4 +162,31 @@ legend {
     margin-top: -30px;
 }
 
+.mensaje_cambio_datos 
+{
+    font-size: 1.1em;
+    margin-top: 15px;
+    background: rgba(158, 29, 29, 0.22);
+    padding: 10px;
+}
 
+.no_disponible 
+{
+    opacity: .5;
+    pointer-events: none;
+    }
+
+.estilo_tabla_portal 
+{
+    font-family: "Humnst777 BT" !important;
+    font-size: 11px !important;
+    background-color: #003e67 !important;
+    color: #FFF !important;
+    text-align: center !important;
+    }
+    
+.table tbody tr:hover td, .table tbody tr:hover th 
+{
+    background:transparent;
+
+}

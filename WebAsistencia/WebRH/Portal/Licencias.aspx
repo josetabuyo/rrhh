@@ -19,12 +19,13 @@
     <form id="form1" runat="server">
     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:18px; font-weight: bold; padding-top:25px;'>Datos<br/>Personales</span> <br/> " UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <div class="container-fluid">
-        <h1 style="text-align:center; margin:30px; ">Licencias</h1>
+        <h1 style="text-align:center; margin:30px; "></h1>
         <div style="margin: 0 auto;" class="row">
         <div style="text-align:center;" class="caja_izq"></div>
 
             <div class="caja_der papel">
-            <legend style="margin-top: 20px;">Licencias Tomadas</legend>
+            <p class="mensaje_cambio_datos" >Si alguno de los datos que está viendo no es correcto o hubiera que actualizar, por favor envíe un mail a <a href="mailto:xxx@example.com" target="_blank">xxx@example.com</a> </p>
+            <legend style="margin-top: 20px;">LICENCIAS TOMADAS</legend>
             <p>Elegir tipo de Licencia: 
                 <select id="cmbLicTomadas" >
                     <option value="0">Seleccionar</option>
@@ -35,8 +36,8 @@
             
             <p id="textoLicenciaElegida" style="font-weight:bold;"></p>
             <a href="#" id="btn_excel_tomadas" class="btn_exportar">Exportar Datos</a>
-            <table id="tablaLicenciasTomadas" class="tabla_familiar">
-                <thead>
+            <table id="tablaLicenciasTomadas" class="table table-striped table-bordered table-condensed">
+                <thead class="estilo_tabla_portal">
                     <tr>
                         <th>Año</th>
                         <th>Anual Autorizados</th>
@@ -58,31 +59,36 @@
                 </tbody>
             </table>
 
-                    <legend style="margin-top: 50px; margin-bottom:50px;">Licencias Pendientes</legend>
+                    <legend style="margin-top: 50px; margin-bottom:50px;">LICENCIAS PENDIENTES</legend>
                     <a href="#" id="btn_excel_pendientes" class="btn_exportar">Exportar Datos</a>
-                    <table class="tabla_familiar">
-                        <thead>
+                    <table class="table table-striped table-bordered table-condensed">
+                        <thead class="estilo_tabla_portal">
                             <tr>
                                 <th>Año</th>
                                 <th>Días Pendientes</th>
+                                <th>Vencimiento</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>2016</td>
                                 <td>25</td>
+                                <td>2018</td>
                             </tr>
                             <tr>
                                 <td>2015</td>
                                 <td>20</td>
+                                 <td>2017</td>
                             </tr>
                             <tr>
                                 <td>2014</td>
                                 <td>20</td>
+                                 <td>2016</td>
                             </tr>
                             <tr>
                                 <td>2013</td>
                                 <td>15</td>
+                                 <td>2015</td>
                             </tr>
                         </tbody>
                     </table>
