@@ -112,6 +112,7 @@
                         <asp:GridView ID="GridViewBienes" runat="server" Width="100%" AutoGenerateColumns="False"
                             DataKeyNames="id" OnRowCommand="GridViewBienes_RowCommand" CssClass="table table-striped table-bordered bootstrap-datatable">
                             <Columns>
+                                <asp:BoundField DataField="Id" HeaderText="Id"></asp:BoundField>
                                 <asp:BoundField DataField="Descripcion" HeaderText="Item"></asp:BoundField>
                                 <asp:BoundField DataField="Estado" HeaderText="Estado / Ult. Evento" />
                                 <asp:BoundField DataField="UltMov" HeaderText="Fecha" />
@@ -123,7 +124,7 @@
                                             CommandName="MOV" CommandArgument='<%# Container.DataItemIndex %>'><i style="font-size: large;" class='icon-calendar'></i></asp:LinkButton>
                                         <asp:LinkButton ID="lbAsignar" runat="server" CssClass="btn btn-info" ToolTip="Asignar bien"
                                             CommandName="ASIG" CommandArgument='<%# Container.DataItemIndex %>'><i style="font-size: large;" class='icon-share'></i></asp:LinkButton>
-                                        <input type=button id="btnVerBien" value="ver"/>
+                                        <a class="btn btn-info"><i style="font-size: large;" class='icon-edit btnVerBien'></i></a>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>

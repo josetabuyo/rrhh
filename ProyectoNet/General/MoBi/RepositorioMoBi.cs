@@ -218,6 +218,11 @@ namespace General.Repositorios
         }
 
 
+
+        public MoBi_Bien GetBienPorId(int id_bien)
+        {
+            return new MoBi_Bien();
+        }
     }
 
 }

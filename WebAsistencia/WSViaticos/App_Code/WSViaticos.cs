@@ -3747,6 +3747,13 @@ public class WSViaticos : System.Web.Services.WebService
         }
 
         [WebMethod]
+        public MoBi_Bien[] Mobi_GetBienPorId(int id_bien)
+        {
+            RepositorioMoBi rMoBi = new RepositorioMoBi();
+            return rMoBi.GetBienPorId(id_bien);
+        }
+
+        [WebMethod]
         public MoBi_Bien[] Mobi_GetBienesDelArea(int IdArea, int IdTipoBien)
         {
             RepositorioMoBi rMoBi = new RepositorioMoBi();
