@@ -50,6 +50,8 @@
                 pause: true
             });
 
+        
+
             _.forEach(respuesta_vehiculo.vehiculo.imagenes, function (id_imagen) {
                 var cont_imagen = $('<div class="item" style="height:100%; width:100%; position:relative"></div>');
                 var img = new VistaThumbnail({ id: id_imagen, contenedor: cont_imagen });

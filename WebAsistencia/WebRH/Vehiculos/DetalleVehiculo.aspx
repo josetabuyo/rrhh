@@ -11,7 +11,9 @@
     <script type="text/javascript" src="js/DetalleVehiculo.js"></script>
     <script type="text/javascript" src="js/carousel.js"></script>
     <script type="text/javascript" src="../Scripts/ControlesImagenes/VistaThumbnail.js"></script>
+    <link rel="icon" href="../Imagenes/iconos/logoweb-favicon.png">
 </head>
+
 <body>
     <div id="fondo-Arriba">
     </div>
@@ -51,15 +53,19 @@
         </a>
     </div>
     <div id="Contenido">
+
         <div id="contenedor-imagenes">
             
             <div id="contenedor-vehiculos">
+            
+            
+
                 <div class="div-titulos animated slideInRight"">
                     <p id="titulo">
                         Vehículo
                     </p>
                 </div>
-            <%--    <div class="separador">
+               <%--<div class="separador">
                 </div>--%>
             </div>
             <table id="datos-vehiculo" class="tabla-principal">
