@@ -291,11 +291,11 @@ namespace General
             ConexionDB cn = new ConexionDB("dbo.PLA_GET_DDJJ104_PorArea");
             cn.AsignarParametro("@mesDesde", mesdesde);
             cn.AsignarParametro("@anioDesde", aniodesde);
-            //cn.AsignarParametro("@mesHasta", meshasta);
-            //cn.AsignarParametro("@anioHasta", aniohasta);
+            cn.AsignarParametro("@mesHasta", meshasta);
+            cn.AsignarParametro("@anioHasta", aniohasta);
             cn.AsignarParametro("@area", id_area);
-            //cn.AsignarParametro("@estado", estado);
-            //cn.AsignarParametro("@orden", orden);
+            cn.AsignarParametro("@estado", estado);
+            cn.AsignarParametro("@orden", orden);
 
             dr = cn.EjecutarConsulta();
 
@@ -322,8 +322,8 @@ namespace General
                 //ddjj104.persona.Nombre = dr.GetString(dr.GetOrdinal("Nombre")).ToString();
                 //ddjj104.persona.Categoria = dr.GetString(dr.GetOrdinal("Categoria")).ToString();
                 //ddjj104.mod_contratacion = dr.GetString(dr.GetOrdinal("Mod_Contratacion")).ToString();
-                //ddjj104.estado = dr.GetInt16(dr.GetOrdinal("Estado"));
-                //ddjj104.estado_descrip = dr.GetString(dr.GetOrdinal("Estado_Descrip")).ToString();
+                ddjj104.estado = dr.GetInt16(dr.GetOrdinal("Estado"));
+                ddjj104.estado_descrip = dr.GetString(dr.GetOrdinal("Estado_Descrip")).ToString();
 
                 listaddjj104.Add(ddjj104);
             }

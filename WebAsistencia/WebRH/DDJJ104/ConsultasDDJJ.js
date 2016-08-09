@@ -9,7 +9,7 @@ var consultaSeleccionada;
 Backend.start(function () {
     $(document).ready(function () {
 
-        GenerarBoton();
+        //GenerarBoton();
 
         ContenedorGrilla = $("#ContenedorGrilla");
         $("#ContenedorPersona").empty();
@@ -24,7 +24,9 @@ Backend.start(function () {
 
         completarComboMeses($('#cmbMesesDesde'));
         completarComboMeses($('#cmbMesesHasta'));
-        completarComboEstado(0, $('#cmbEstado'));
+        //completarComboEstado(0, $('#cmbEstado'));
+
+        GenerarBoton();
 
     });
 });
@@ -126,6 +128,8 @@ var ConsultarPorPersona = function () {
     $('#divBuscadorPersona').show();
     $('#DivBotonConsultar').show();
 
+    completarComboEstado(0, $('#cmbEstado'));
+
     consultaSeleccionada = "PERSONA";
 }
 
@@ -136,6 +140,8 @@ var ConsultarPorArea = function () {
     $('#divBuscadorArea').show();
     $('#divBuscadorPersona').hide();
     $('#DivBotonConsultar').show();
+
+    completarComboEstado(1, $('#cmbEstado'));
 
     consultaSeleccionada = "AREA"
 }
@@ -211,7 +217,8 @@ var DibujarGrillaDDJJ = function () {
             new Columna("Usuario Generación", { generar: function (consulta) { return consulta.usuario_generacion; } }),
             new Columna("Fecha Recibido", { generar: function (consulta) { return consulta.fecha_recibido; } }),
             new Columna("Usuario Recibido", { generar: function (consulta) { return consulta.usuario_recibido; } }),
-            new Columna("Firmante", { generar: function (consulta) { return consulta.firmante; } })
+            new Columna("Firmante", { generar: function (consulta) { return consulta.firmante; } }),
+            new Columna("Estado", { generar: function (consulta) { return consulta.estado_descrip; } })
 		]);
     }
 

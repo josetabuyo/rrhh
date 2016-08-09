@@ -48,7 +48,7 @@
     <div id="contenedor_consulta_rapida" style="margin: 30px;">
       
         <div id="divComboDesde">
-            <p  style="display: inline-block; margin:auto; margin-right: 10px" >
+            <p  style="display: inline-block; margin:auto" >
                 Desde:
                 <select runat="server" title="Seleccione un mes" id="cmbMesesDesde" 
                     enableviewstate="false" style="text-transform: capitalize;">
@@ -63,9 +63,8 @@
                 </select>
             </p>
         </div>
-
         <div id="divEstado">
-            <p  style="display: inline-block; margin:auto;">
+            <p  style="display: inline-block; margin:auto">
                 Estado:
                 <select runat="server" title="Estado" id="cmbEstado"
                     enableviewstate="false" style="text-transform: capitalize;">
