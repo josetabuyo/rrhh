@@ -53,12 +53,8 @@
         </a>
     </div>
     <div id="Contenido">
-
-        <div id="contenedor-imagenes">
             
             <div id="contenedor-vehiculos">
-            
-            
 
                 <div class="div-titulos animated slideInRight"">
                     <p id="titulo">
@@ -133,20 +129,32 @@
                     </td>
                 </tr>
             </table>
-        </div>
+        
+
+
         <div class="contenedor-imagen-vehiculo">
             <div id="myCarousel" class="carousel slide" data-ride="carousel" style="width: 100%;
                 height: 500px;">
                 <!-- Wrapper for carousel items -->
                 <div class="carousel-inner" style="width: 100%; height: 100%;">
                 </div>
-            </div>
+            
+
             <!-- Carousel controls -->
-            <a class="carousel-control left" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left">
-            </span></a><a class="carousel-control right" href="#myCarousel" data-slide="next"><span
-                class="glyphicon glyphicon-chevron-right"></span></a>
+            <a class="carousel-control left" href="#myCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left">
+            </span>
+            </a>
+            
+            <a class="carousel-control right" href="#myCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right">
+            </span>
+            </a>
+            </div>
         </div>
+        </div>
+
     </div>
-    </div>
+    
 </body>
 </html>
