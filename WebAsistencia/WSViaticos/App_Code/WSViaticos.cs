@@ -3747,7 +3747,7 @@ public class WSViaticos : System.Web.Services.WebService
         }
 
         [WebMethod]
-        public MoBi_Bien[] Mobi_GetBienPorId(int id_bien)
+        public MoBi_Bien Mobi_GetBienPorId(int id_bien)
         {
             RepositorioMoBi rMoBi = new RepositorioMoBi();
             return rMoBi.GetBienPorId(id_bien);
