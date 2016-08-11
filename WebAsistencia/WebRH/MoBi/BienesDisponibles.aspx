@@ -148,6 +148,12 @@
         </div>
         <!--/span-->
     </div>
+
+    <div id="pantalla_edicion_bien">
+        <label class="lbl_nombre_atributo"> Descripcion:</label>
+        <div id="ed_descripcion_bien"></div>
+        <div id="ed_contenedor_imagenes"></div>
+    </div>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolderFooter" runat="Server">
 </asp:Content>

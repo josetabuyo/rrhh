@@ -3728,63 +3728,63 @@ public class WSViaticos : System.Web.Services.WebService
         [WebMethod]
         public MoBi_Area[] Mobi_GetAreasUsuario(int IdUsuario)
         {
-            RepositorioMoBi rMoBi = new RepositorioMoBi();
+            RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
             return rMoBi.GetAreasUsuario(IdUsuario);
         }
 
         [WebMethod]
         public MoBi_Area[] Mobi_GetAreasUsuarioCBO(int IdUsuario, int IdTipoBien, bool MostrarSoloAreasConBienes)
         {
-            RepositorioMoBi rMoBi = new RepositorioMoBi();
+            RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
             return rMoBi.GetAreasUsuarioCBO(IdUsuario, IdTipoBien, MostrarSoloAreasConBienes);
         }
 
         [WebMethod]
         public MoBi_TipoBien[] Mobi_GetTipoBien()
         {
-            RepositorioMoBi rMoBi = new RepositorioMoBi();
+            RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
             return rMoBi.GetTipoDeBienes();
         }
 
         [WebMethod]
         public MoBi_Bien Mobi_GetBienPorId(int id_bien)
         {
-            RepositorioMoBi rMoBi = new RepositorioMoBi();
+            RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
             return rMoBi.GetBienPorId(id_bien);
         }
 
         [WebMethod]
         public MoBi_Bien[] Mobi_GetBienesDelArea(int IdArea, int IdTipoBien)
         {
-            RepositorioMoBi rMoBi = new RepositorioMoBi();
+            RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
             return rMoBi.GetBienesDelArea(IdArea, IdTipoBien);
         }
 
         [WebMethod]
         public MoBi_Bien[] Mobi_GetBienesDelAreaRecepcion(int IdArea, int IdTipoBien)
         {
-            RepositorioMoBi rMoBi = new RepositorioMoBi();
+            RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
             return rMoBi.GetBienesDelAreaRecepcion(IdArea, IdTipoBien);
         }
 
         [WebMethod]
         public MoBi_Evento[] Mobi_GetEventosBien(int IdBien)
         {
-            RepositorioMoBi rMoBi = new RepositorioMoBi();
+            RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
             return rMoBi.GetEventosBien(IdBien);
         }
 
         [WebMethod]
         public MoBi_Agente[] Mobi_GetAgentesArea(int IdArea)
         {
-            RepositorioMoBi rMoBi = new RepositorioMoBi();
+            RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
             return rMoBi.GetAgentes(IdArea);
         }
 
         [WebMethod]
         public bool Mobi_GuardarEventoBien(MoBi_Evento.enumTipoEvento tipoEvento, int IdBien, int IdArea, int IdPersona, string Observaciones, int IdUser)
         {
-            RepositorioMoBi rMoBi = new RepositorioMoBi();
+            RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
             return rMoBi.GuardarNuevoEventoBien(tipoEvento, IdBien, IdArea, IdPersona, Observaciones, IdUser);
         }
 

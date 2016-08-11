@@ -1,0 +1,31 @@
+#pantalla_edicion_bien
+{
+    
+}
+
+.lbl_nombre_atributo
+{
+    display: inline-block;
+}
+
+#ed_descripcion_bien
+{
+    display: inline-block;
+}
+
+#ed_contenedor_imagenes
+{
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    height: 100px;
+}
+
+.imagen_bien
+{
+    position: relative;
+    display: inline-block;
+    height: 100px;
+    width:100px;
+}
