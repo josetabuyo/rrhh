@@ -51,7 +51,7 @@
             <p  style="display: inline-block; margin:auto" >
                 Desde:
                 <select runat="server" title="Seleccione un mes" id="cmbMesesDesde" 
-                    enableviewstate="false" style="text-transform: capitalize;">
+                    enableviewstate="false" style="text-transform: capitalize;" >
                 </select>
             </p>
         </div>

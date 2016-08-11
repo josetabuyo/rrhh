@@ -40,6 +40,7 @@ var GenerarBoton = function () {
     botonConsultar.click(function () {
         ConsultarPorPersona();
     });
+    botonConsultar.addClass("btn btn-primary");
     divBtnConsultar.append(botonConsultar);
 
 
@@ -50,6 +51,7 @@ var GenerarBoton = function () {
     botonConsultar.click(function () {
         ConsultarPorArea();
     });
+    botonConsultar.addClass("btn btn-primary");
     divBtnConsultar.append(botonConsultar);
 
 
@@ -60,6 +62,7 @@ var GenerarBoton = function () {
     botonConsultar.click(function () {
         Consultar();
     });
+    botonConsultar.addClass("btn btn-primary");
     divBtnConsultar.append(botonConsultar);
 
 }
