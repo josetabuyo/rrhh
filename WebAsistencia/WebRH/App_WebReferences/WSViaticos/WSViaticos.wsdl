@@ -831,6 +831,21 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="ConsultaExcelDDJJ104_Persona">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaExcelDDJJ104_PersonaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaExcelDDJJ104_PersonaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="ConcederFuncionalidadA">
         <s:complexType>
           <s:sequence>
@@ -5815,6 +5830,12 @@
   <wsdl:message name="Mobi_GuardarEventoBienSoapOut">
     <wsdl:part name="parameters" element="tns:Mobi_GuardarEventoBienResponse" />
   </wsdl:message>
+  <wsdl:message name="ConsultaExcelDDJJ104_PersonaSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaExcelDDJJ104_Persona" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaExcelDDJJ104_PersonaSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaExcelDDJJ104_PersonaResponse" />
+  </wsdl:message>
   <wsdl:message name="ConcederFuncionalidadASoapIn">
     <wsdl:part name="parameters" element="tns:ConcederFuncionalidadA" />
   </wsdl:message>
@@ -7356,6 +7377,10 @@
       <wsdl:input message="tns:Mobi_GuardarEventoBienSoapIn" />
       <wsdl:output message="tns:Mobi_GuardarEventoBienSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="ConsultaExcelDDJJ104_Persona">
+      <wsdl:input message="tns:ConsultaExcelDDJJ104_PersonaSoapIn" />
+      <wsdl:output message="tns:ConsultaExcelDDJJ104_PersonaSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="ConcederFuncionalidadA">
       <wsdl:input message="tns:ConcederFuncionalidadASoapIn" />
       <wsdl:output message="tns:ConcederFuncionalidadASoapOut" />
@@ -8556,6 +8581,15 @@
     </wsdl:operation>
     <wsdl:operation name="Mobi_GuardarEventoBien">
       <soap:operation soapAction="http://wsviaticos.gov.ar/Mobi_GuardarEventoBien" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaExcelDDJJ104_Persona">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ConsultaExcelDDJJ104_Persona" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -10953,6 +10987,15 @@
     </wsdl:operation>
     <wsdl:operation name="Mobi_GuardarEventoBien">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/Mobi_GuardarEventoBien" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaExcelDDJJ104_Persona">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ConsultaExcelDDJJ104_Persona" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

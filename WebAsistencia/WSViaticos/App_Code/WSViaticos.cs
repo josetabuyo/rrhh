@@ -3916,4 +3916,110 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
 
+    /*Excel Consulta Personas DDJJ104*/
+    [WebMethod]
+    public string ConsultaExcelDDJJ104_Persona(string criterio, Usuario usuario)
+    {
+        var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
+
+        int mesdesde = (int)((JValue)criterio_deserializado["mesdesde"]);
+        int aniodesde = (int)((JValue)criterio_deserializado["aniodesde"]);
+        int meshasta = (int)((JValue)criterio_deserializado["meshasta"]);
+        int aniohasta = (int)((JValue)criterio_deserializado["aniohasta"]);
+        int nrodoc_persona = (int)((JValue)criterio_deserializado["nrodoc_persona"]);
+        int estado = (int)((JValue)criterio_deserializado["estado"]);
+        int orden = (int)((JValue)criterio_deserializado["orden"]);
+        
+        DDJJ104_Consulta[] personas = GetConsultaIndividualPorPersona(mesdesde, aniodesde, meshasta, aniohasta, nrodoc_persona, estado, orden, usuario);
+        
+        try
+        {
+            DataTable table_resumen = new DataTable();
+            table_resumen.TableName = "Agentes";
+
+            table_resumen.Columns.Add("Mes");
+            table_resumen.Columns.Add("Año");
+            table_resumen.Columns.Add("Area");
+            table_resumen.Columns.Add("Apellido");
+            table_resumen.Columns.Add("Nombre");
+            table_resumen.Columns.Add("FechaGeneracion");
+            table_resumen.Columns.Add("UsuarioGeneracion");
+            table_resumen.Columns.Add("FechaRecibido");
+            table_resumen.Columns.Add("UsuarioRecibido");
+            table_resumen.Columns.Add("Firmante");
+            table_resumen.Columns.Add("Categoria");
+            table_resumen.Columns.Add("ModContratación");
+            table_resumen.Columns.Add("Estado");
+
+            foreach (var item in personas)
+            {
+                table_resumen.Rows.Add(
+                    item.mes.ToString(),
+                    item.anio.ToString(),
+                    item.area_generacion.Nombre,
+                    item.persona.Apellido,
+                    item.persona.Nombre,
+                    item.fecha_generacion,
+                    item.usuario_generacion,
+                    item.fecha_recibido,
+                    item.usuario_recibido,
+                    item.firmante,
+                    item.persona.Categoria,
+                    item.mod_contratacion,
+                    item.estado_descrip
+                    );
+            }
+
+            var workbook = new XLWorkbook();
+            var dataTable_resumen = table_resumen;
+            var ws = workbook.Worksheets.Add("Consulta");
+
+            ws.Style.Font.FontSize = 9;
+            ws.Style.Font.FontName = "Verdana";
+
+            ws.Cell(1, 1).Value = "Mes";
+            ws.Cell(1, 2).Value = "Anio";
+            ws.Cell(1, 3).Value = "Area";
+            ws.Cell(1, 4).Value = "Apellido";
+            ws.Cell(1, 5).Value = "Nombre";
+            ws.Cell(1, 6).Value = "Fecha generacion";
+            ws.Cell(1, 7).Value = "Usuario generacion";
+            ws.Cell(1, 8).Value = "Fecha recibido";
+            ws.Cell(1, 9).Value = "Usuario recibido";
+            ws.Cell(1, 10).Value = "Firmante";
+            ws.Cell(1, 11).Value = "Categoria";
+            ws.Cell(1, 12).Value = "Mod Contratacion";
+            ws.Cell(1, 13).Value = "Estado";
+
+            ws.Cell(1, 1).Style.Font.Bold = true;
+            ws.Cell(1, 2).Style.Font.Bold = true;
+            ws.Cell(1, 3).Style.Font.Bold = true;
+            ws.Cell(1, 4).Style.Font.Bold = true;
+            ws.Cell(1, 5).Style.Font.Bold = true;
+            ws.Cell(1, 6).Style.Font.Bold = true;
+            ws.Cell(1, 7).Style.Font.Bold = true;
+            ws.Cell(1, 8).Style.Font.Bold = true;
+            ws.Cell(1, 9).Style.Font.Bold = true;
+            ws.Cell(1, 10).Style.Font.Bold = true;
+            ws.Cell(1, 11).Style.Font.Bold = true;
+            ws.Cell(1, 12).Style.Font.Bold = true;
+            ws.Cell(1, 13).Style.Font.Bold = true;
+
+            var rangeWithData = ws.Cell(2, 1).InsertData(dataTable_resumen.AsEnumerable());
+
+            using (var ms = new MemoryStream())
+            {
+                workbook.SaveAs(ms);
+                return Convert.ToBase64String(ms.ToArray());
+            }
+
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+
+    }
+
+       
 }

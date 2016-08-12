@@ -27,7 +27,6 @@
     
 
     <div style="display:block;
-        
         width: 50%;
         padding: 0;
         margin-bottom: 27px;
@@ -82,8 +81,11 @@
 
     </div>
    
-    <div id="DivBotonConsultar" runat="server" style="width: 90%"></div>
-    
+    <div style="width: 100%">
+        <div id="DivBotonConsultar" runat="server" style="display: block; float: left;" ></div>  
+        <div id="DivBotonExcel" runat="server" style="display: block; float: right;"></div>  
+    </div>
+
     <div id="ContenedorGrilla" runat="server" style="width: 100%" align="center">
         <div id="ContenedorPersona" runat="server" style="width: 90%"></div>
     </div>

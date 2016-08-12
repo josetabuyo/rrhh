@@ -134,6 +134,9 @@ var ConsultarPorPersona = function () {
     completarComboEstado(0, $('#cmbEstado'));
 
     consultaSeleccionada = "PERSONA";
+
+    ContenedorGrilla.html("");
+    $("#ContenedorPersona").empty();
 }
 
 var ConsultarPorArea = function () {
@@ -147,6 +150,9 @@ var ConsultarPorArea = function () {
     completarComboEstado(1, $('#cmbEstado'));
 
     consultaSeleccionada = "AREA"
+
+    ContenedorGrilla.html("");
+    $("#ContenedorPersona").empty();
 }
 
 
@@ -235,12 +241,52 @@ var DibujarGrillaDDJJ = function () {
     botonExcel = $("<input type='button'>");
     botonExcel.val("Exportar a Excel");
     botonExcel.click(function () {
-        BuscarExcel(mesSeleccionado, anioSeleccionado, 0);
+        BuscarExcel();
     });
+    botonExcel.addClass("btn btn-primary");
     divBtnExportarExcel.append(botonExcel);
 
 
     grilla.SetOnRowClickEventHandler(function () {
         return true;
     });
+}
+
+
+
+function BuscarExcel() {
+
+    //GetConsultaIndividualPorPersona
+    //GetConsultaPorArea
+
+
+    var _this = this;
+    var documento = $('#documento').text().trim();
+    if (documento == "") {
+        documento = 0;
+    }
+
+    var resultado = Backend.ejecutarSincronico("ConsultaExcelDDJJ104_Persona", [{ 
+        mesdesde: parseInt(mesSeleccionadoDesde),
+        aniodesde: parseInt(anioSeleccionadoDesde),
+        meshasta: parseInt(mesSeleccionadoHasta),
+        aniohasta: parseInt(anioSeleccionadoHasta),
+        nrodoc_persona: parseInt(documento),
+        estado: parseInt(estadoSeleccionado),
+        orden: parseInt(0)
+    }]);
+
+    if (resultado.length > 0) {
+        var a = window.document.createElement('a');
+        a.href = "data:application/vnd.ms-excel;base64," + resultado;
+        a.download = "Consulta_personas_DDJJ104_" + mesSeleccionadoDesde + anioSeleccionadoDesde + "_" + mesSeleccionadoHasta + anioSeleccionadoHasta + "_.xlsx";
+
+        // Append anchor to body.
+        document.body.appendChild(a)
+        a.click();
+
+        // Remove anchor from body
+        document.body.removeChild(a)
+
+    }
 }
