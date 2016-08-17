@@ -121,6 +121,8 @@ var Consultar = function () {
         spinner.stop();
     });
 
+    $('#DivBotonExcel').show();
+
 }
 
 var ConsultarPorPersona = function () {
@@ -137,6 +139,9 @@ var ConsultarPorPersona = function () {
 
     ContenedorGrilla.html("");
     $("#ContenedorPersona").empty();
+
+    $('#DivBotonExcel').hide();
+    
 }
 
 var ConsultarPorArea = function () {
@@ -153,6 +158,8 @@ var ConsultarPorArea = function () {
 
     ContenedorGrilla.html("");
     $("#ContenedorPersona").empty();
+
+    $('#DivBotonExcel').hide();
 }
 
 
@@ -259,27 +266,55 @@ function BuscarExcel() {
     //GetConsultaIndividualPorPersona
     //GetConsultaPorArea
 
-
     var _this = this;
-    var documento = $('#documento').text().trim();
-    if (documento == "") {
-        documento = 0;
+    var nombreArchivo = "";
+
+    if (consultaSeleccionada == "PERSONA") {
+
+        var documento = $('#documento').text().trim();
+        if (documento == "") {
+            documento = 0;
+        }
+
+        var resultado = Backend.ejecutarSincronico("ConsultaExcelDDJJ104_Persona", [{
+            mesdesde: parseInt(mesSeleccionadoDesde),
+            aniodesde: parseInt(anioSeleccionadoDesde),
+            meshasta: parseInt(mesSeleccionadoHasta),
+            aniohasta: parseInt(anioSeleccionadoHasta),
+            nrodoc_persona: parseInt(documento),
+            estado: parseInt(estadoSeleccionado),
+            orden: parseInt(0)
+        }]);
+
+
+        nombreArchivo = "Consulta_personas_DDJJ104_" + mesSeleccionadoDesde + anioSeleccionadoDesde + "_" + mesSeleccionadoHasta + anioSeleccionadoHasta + "_.xlsx";
     }
 
-    var resultado = Backend.ejecutarSincronico("ConsultaExcelDDJJ104_Persona", [{ 
-        mesdesde: parseInt(mesSeleccionadoDesde),
-        aniodesde: parseInt(anioSeleccionadoDesde),
-        meshasta: parseInt(mesSeleccionadoHasta),
-        aniohasta: parseInt(anioSeleccionadoHasta),
-        nrodoc_persona: parseInt(documento),
-        estado: parseInt(estadoSeleccionado),
-        orden: parseInt(0)
-    }]);
+    if (consultaSeleccionada == "AREA") {
+
+        var idarea = $('#hfIdArea').val();
+        if (idarea == "") {
+            idarea = 0;
+        }
+
+        var resultado = Backend.ejecutarSincronico("ConsultaExcelDDJJ104_Area", [{
+            mesdesde: parseInt(mesSeleccionadoDesde),
+            aniodesde: parseInt(anioSeleccionadoDesde),
+            meshasta: parseInt(mesSeleccionadoHasta),
+            aniohasta: parseInt(anioSeleccionadoHasta),
+            area: parseInt(idarea),
+            estado: parseInt(estadoSeleccionado),
+            orden: parseInt(0)
+        }]);
+
+        nombreArchivo = "Consulta_Areas_DDJJ104_" + mesSeleccionadoDesde + anioSeleccionadoDesde + "_" + mesSeleccionadoHasta + anioSeleccionadoHasta + "_.xlsx";
+    }
+    
 
     if (resultado.length > 0) {
         var a = window.document.createElement('a');
         a.href = "data:application/vnd.ms-excel;base64," + resultado;
-        a.download = "Consulta_personas_DDJJ104_" + mesSeleccionadoDesde + anioSeleccionadoDesde + "_" + mesSeleccionadoHasta + anioSeleccionadoHasta + "_.xlsx";
+        a.download = nombreArchivo;
 
         // Append anchor to body.
         document.body.appendChild(a)
