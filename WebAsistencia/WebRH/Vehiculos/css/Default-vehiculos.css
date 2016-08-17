@@ -1,0 +1,56 @@
+﻿html
+{
+    background-color: #031427 !important;
+   /* background-image: linear-gradient(bottom, #031427 0%, #031427 40%, #000000 40%, #000000 100%);
+    background-image: -o-linear-gradient(bottom, #031427 0%, #031427 40%, #000000 40%, #000000 100%);
+    background-image: -moz-linear-gradient(bottom, #031427 0%, #031427 40%, #000000 40%, #000000 100%);
+    background-image: -webkit-linear-gradient(bottom, #031427 0%, #031427 40%, #000000 40%, #000000 100%);
+    background-image: -ms-linear-gradient(bottom,#031427 0%, #031427 40%, #000000 40%, #000000 100%);*/
+    }
+
+#barra_menu_nombre_sistema2
+{
+    position: absolute;
+    width: auto;
+    text-align: center;
+    font-family: Arial;
+    color: White;
+    font-size: 9px;
+    left: 333px;
+    top: -11px;
+    }
+
+#contenedor_controles
+{
+    position: fixed;
+    width: 100%;
+    left: 30%;
+    top: 200px;
+}
+
+#btn_verificar
+{
+    margin-top:-1% !important;
+    border-radius: 2px;
+    height: 37px;
+    width: auto !important;
+    display:inline-block;
+    }
+    
+#txt_codigo_verificacion
+{
+    height: 30px;
+    border-radius: 2px;
+    width: 30%;
+    font-size: 100% !important;
+    font-weight: bold;
+    padding-left: 0.5%;
+    }
+
+#contenedor_logo_dir
+{
+  position: absolute;
+  top: 33px;
+  right: 400px;
+  float: right
+    }

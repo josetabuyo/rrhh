@@ -1,0 +1,408 @@
+﻿html
+{
+    width: 1024px !important;
+    height: 1000px !important;
+    background-color: #031427 !important;
+   /* background-image: linear-gradient(bottom, #031427 0%, #031427 40%, #000000 40%, #000000 100%);
+    background-image: -o-linear-gradient(bottom, #031427 0%, #031427 40%, #000000 40%, #000000 100%);
+    background-image: -moz-linear-gradient(bottom, #031427 0%, #031427 40%, #000000 40%, #000000 100%);
+    background-image: -webkit-linear-gradient(bottom, #031427 0%, #031427 40%, #000000 40%, #000000 100%);
+    background-image: -ms-linear-gradient(bottom,#031427 0%, #031427 40%, #000000 40%, #000000 100%);*/
+    }
+
+body
+{
+    height: 100% !important;
+    width: auto !important;
+    margin: 0% !important;
+    background-color: #031427 !important
+    }
+
+#body-entero
+{
+    margin: 0% !important;
+    height: 100% !important;
+    }
+
+#contenedor_imagen 
+{
+    width: 100%;
+    background-color: #00001c;
+    height: 83px;
+   /*padding-bottom: 45px;*/
+    position: fixed;
+    top: 0%;
+}
+
+#barra-azul
+{
+    background-color: rgb(25, 75, 180);
+    height: 30px;
+    border-color: white;
+    border-top-style: solid; 
+    width: auto;
+    position: relative;
+}
+
+#barra_menu_contenedor 
+{
+    height: 95px;
+}
+
+#encabezado_sin_logo 
+{
+    height: 90px;
+    width: 885px !important;
+    margin-left: 100px !important;
+}
+
+#barra_menu_contenedor_imagen 
+{
+    background-color:#00001c;  
+    position: absolute;
+    left: 50%;
+	min-height: 30px;
+	width: auto;
+	margin-left: -33.5%;
+}
+
+#img_logo_sistema
+{
+    width: 130px;
+    height: 39px;
+    position: absolute;
+    top: 25px;
+    left: 80px;
+    /*float:left;*/    
+}
+
+ #img_logo_minis 
+{
+     width: 150px;
+    height: 27px;
+    position: fixed;
+    top: 31px;
+    left: 890px;
+}
+
+#img_logo_direccion 
+{
+       width: 130px;
+    height: 26px;
+    position: fixed;
+    top: 32px;
+    left: 725px;
+}
+ 
+#barra_menu 
+{
+	position: absolute;
+    left: 50%;
+	min-height: 30px;
+	width: 1024px;
+	margin-left: -512px;	
+	background-color: #EEE;
+}
+
+
+
+#Contenido
+{   
+    width:80%;
+    margin-left:10%;
+    margin-right:10%;
+    margin-top: 150px;
+    line-height: 18px;
+    color: white;
+    font-family: Arial;
+    position: fixed;
+}
+
+  
+#contenedor_barraInferior 
+{
+    width: 100%;
+    background-color:rgb(25, 75, 180);
+    height: 30px;
+    border-top: 3px solid white;   
+}
+
+#barra_menu_nombre_sistema
+{
+     position: absolute;
+    width: auto;
+    text-align: center;
+    font-family: Arial;
+    color: White;
+    font-size: 9px;
+    left: 333px;
+    top: 0px;
+}
+        
+.tabla-principal
+{   color: white;
+    margin-top:0%;
+    margin-bottom:0%;
+    font-size:1.2em;
+    width:100%;
+    background-color: #00001c;
+    border-radius: 10px;
+    margin-bottom: 5%;
+}
+
+#celda-titulo 
+{
+    padding: 7px;
+    width: 100%;         
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.celda 
+{
+    padding: 7px;
+    width: 40%; 
+    padding-left: 3%;   
+    padding-bottom: 1%;
+    padding-top: 1%     
+}
+      
+.celda2 
+{
+    padding: 1%;
+    width: 80%;
+}
+  
+
+
+
+.celda-imagen
+{
+    width: 80%;
+    height: 100%;
+}
+
+.separador 
+{
+    background-color: white;
+    height: 2px;
+    width: 100%;
+    border-radius: 10px;
+}
+
+.div-titulos 
+{
+    border-radius: 10px;
+    margin-bottom: 0%;
+    font-size:1.5em;
+    font-weight: bold;
+    height: 100%;
+    text-align: left;
+    margin-top: 3%;
+    display:inline-block;
+}
+  
+
+    
+ .imagenes 
+{
+    width: inherit !important;   /* This makes the next two lines work in IE8. */
+    max-width: 31% !important;  /* Add !important if needed. */
+    height: auto !important;    /* Add !important if needed. */
+    margin-top: 1%;
+    margin-bottom: 5%;
+    margin-left: 12.5%;
+    border-radius: 10px;
+}
+ 
+.contenedor-imagen-vehiculo
+{
+    float: left;
+    display:none;
+    margin-top: 5%;
+    width: 78%;
+    margin-left: 11%;
+    margin-bottom: 5%;
+}
+
+.Contenedor-parrafo 
+{
+     font-weight: bold;
+     margin-top:5%;
+     margin-bottom: 5%;
+}
+        
+.parrafo 
+{
+     font-size: 1.2em !important; 
+}
+    
+.contenedor-conductor 
+{
+     display: none;
+}
+     
+.contenedor-banner-parrafo
+ {
+     display:none;
+ }
+ 
+  #contenedor-vehiculos
+       {
+        margin-top: 3%;
+       }
+              
+#barra-foot
+{
+     margin-top: -50px;
+}
+         
+#contenedor-imagenes
+{
+     width:80%;
+     margin-left:10%;
+     margin-right:10%;
+}
+     
+#VehiculoAlertaInvalido
+{   
+    margin-top:10px;
+    text-align:center;
+}
+
+hr 
+{
+    color: white;
+    margin-top: -7px;
+    border: 0;
+    height: 2px;
+    text-align: center; 
+    background-color: #fff;
+    background: radial-gradient(left, #031427,  #fff,  #031427);
+    background: -webkit-radial-gradient(left,100% 100px, #031427,  #fff,  #031427);
+    background: -moz-radial-gradient(left,100% 100px, #031427,  #fff,  #031427);
+}
+
+#titulo-del-menu
+{
+    font-size: 20px;
+    font-weight: bold;
+    }
+    
+.carousel{
+    background: #2f4357;
+    margin-top: 20px;
+}
+
+.carousel .item img{
+    margin: 0 auto; /* Align slide image horizontally center */
+}
+
+.bs-example{
+	margin: 20px;
+}
+    
+#mensaje_error
+{
+     text-align: center;
+    background: white;
+    height: 120px;
+    margin-top: 5%;
+    width: 400px;
+    margin-left: 25%;
+    border-radius: 14px;
+    font-size: 18px;
+    background-color: gainsboro;
+    padding: 1%;
+    position:absolute;
+
+    }
+
+@media only screen and (max-width: 850px) and (min-width:550px)
+{
+
+       html
+       {
+        background: linear-gradient(to bottom, black 0%,black 60%,#000000 60%,#031427 60%,#031427 40%); /* W3C */
+       }
+       
+       body  
+       {
+        font-size: 0.9em !important; 
+        padding-left: 0% !important;
+        padding-right: 0% !important;
+       }
+       
+       
+          
+}
+
+@media only screen and (max-width: 549px)
+{
+       html
+       {
+        background: linear-gradient(to bottom, black 0%,black 60%,#000000 60%,#031427 60%,#031427 40%); /* W3C */
+       }
+       
+       body  
+       {
+        font-size: 0.9em !important; 
+       } 
+
+       #encabezado_sin_logo 
+       {
+        width: 100%;       
+       }
+       
+       #img_logo_sistema
+       {
+        height: 25px !important;
+        width: auto;
+        margin-left: -22%;
+        margin-top: 2.0%;
+        
+           }
+           
+       #img_logo_direccion
+        {
+        height: 17px;
+        width: auto;
+        float: right;
+        margin-right: -73%;
+        margin-top: 4%;
+        }
+        
+        #img_logo_minis
+        {
+        height: 17px;
+        width: auto;
+        top: 10%;
+        float: right;
+        margin-right: -22%
+        }
+        
+        #titulo-del-menu
+       
+        {
+         font-size: 12px; 
+         font-weight: bold;
+         float: right;
+         margin-right: 6%;
+         margin-top: 5%;
+        }
+        
+        #barra_menu_nombre_sistema
+        {
+         top: -4%;
+         left: 24.5%;
+        }
+        
+        #contenedor-vehiculos
+       {
+        margin-top: 20%;
+       }
+        
+        
+       
+        
+}

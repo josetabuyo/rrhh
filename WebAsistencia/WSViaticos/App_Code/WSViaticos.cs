@@ -3735,11 +3735,37 @@ public class WSViaticos : System.Web.Services.WebService
 
         #region mobi
 
+
         [WebMethod]
-        public Vehiculo ObtenerVehiculoPorID(string id_vehiculo)
+        public Tarjeton NuevoTarjeton(int id_Bien)
+        {
+            var repo = new RepositorioTarjetones(Conexion());
+            return repo.NuevoTarjeton(id_Bien);
+        }
+
+        [WebMethod]
+        public RespuestaVehiculo ObtenerVehiculoPorIDVerificacion(string id_verificacion)
         {
             var repo = new RepositorioDeVehiculos(Conexion());
-            return repo.ObtenerVehiculoPorID(id_vehiculo);
+            var una_respuesta = new RespuestaVehiculo();
+            una_respuesta.Respuesta = 1;
+
+            if (String.IsNullOrEmpty(id_verificacion) )
+            {
+                una_respuesta.Respuesta = 0;
+                return una_respuesta;
+            }
+
+            try
+            {
+                una_respuesta.vehiculo = repo.ObtenerVehiculoPorIDVerificacion(id_verificacion);
+            }
+            catch (ExcepcionDeVehiculoInexistente e)
+            {
+                una_respuesta.Respuesta = 0;
+            }
+
+            return una_respuesta;
         }
 
         [WebMethod]
