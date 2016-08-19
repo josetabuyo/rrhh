@@ -194,6 +194,7 @@
     <script src="js/ABM.js"></script>
 
     <script type="text/javascript" src="../Scripts/ControlesImagenes/VistaThumbnail.js"></script>
+    <script type="text/javascript" src="../Scripts/ControlesImagenes/SubidorDeImagenes.js"></script>
     <script type="text/javascript" src="../Scripts/Backend.js"></script>
     <script src="../scripts/vex-2.1.1/js/vex.combined.min.js"></script>
     <!-- end: JavaScript-->

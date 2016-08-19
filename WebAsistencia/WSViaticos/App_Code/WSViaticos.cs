@@ -3788,7 +3788,19 @@ public class WSViaticos : System.Web.Services.WebService
             return rMoBi.GuardarNuevoEventoBien(tipoEvento, IdBien, IdArea, IdPersona, Observaciones, IdUser);
         }
 
+        [WebMethod]
+        public bool Mobi_AsignarImagenABien(int id_bien, int id_imagen)
+        {
+            RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
+            return rMoBi.AsignarImagenABien(id_bien, id_imagen);
+        }
 
+        [WebMethod]
+        public bool Mobi_DesAsignarImagenABien(int id_bien, int id_imagen)
+        {
+            RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
+            return rMoBi.DesAsignarImagenABien(id_bien, id_imagen);
+        }
         #endregion
 
     #region archivos
@@ -3804,6 +3816,13 @@ public class WSViaticos : System.Web.Services.WebService
         {
             return new RepositorioDeImagenes(Conexion()).GetImagen(id_imagen);
         }
+
+        [WebMethod]
+        public int SubirImagen(string bytes_imagen)
+        {
+            return new RepositorioDeImagenes(Conexion()).SubirImagen(bytes_imagen);
+        }
+
 
     #endregion
 

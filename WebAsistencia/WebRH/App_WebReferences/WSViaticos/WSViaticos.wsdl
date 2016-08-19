@@ -811,6 +811,36 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="Mobi_AsignarImagenABien">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_bien" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_imagen" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Mobi_AsignarImagenABienResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Mobi_AsignarImagenABienResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Mobi_DesAsignarImagenABien">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_bien" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_imagen" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Mobi_DesAsignarImagenABienResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Mobi_DesAsignarImagenABienResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetThumbnail">
         <s:complexType>
           <s:sequence>
@@ -845,6 +875,20 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="GetImagenResult" type="tns:Imagen" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SubirImagen">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="bytes_imagen" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SubirImagenResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SubirImagenResult" type="s:int" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -5800,6 +5844,18 @@
   <wsdl:message name="Mobi_GuardarEventoBienSoapOut">
     <wsdl:part name="parameters" element="tns:Mobi_GuardarEventoBienResponse" />
   </wsdl:message>
+  <wsdl:message name="Mobi_AsignarImagenABienSoapIn">
+    <wsdl:part name="parameters" element="tns:Mobi_AsignarImagenABien" />
+  </wsdl:message>
+  <wsdl:message name="Mobi_AsignarImagenABienSoapOut">
+    <wsdl:part name="parameters" element="tns:Mobi_AsignarImagenABienResponse" />
+  </wsdl:message>
+  <wsdl:message name="Mobi_DesAsignarImagenABienSoapIn">
+    <wsdl:part name="parameters" element="tns:Mobi_DesAsignarImagenABien" />
+  </wsdl:message>
+  <wsdl:message name="Mobi_DesAsignarImagenABienSoapOut">
+    <wsdl:part name="parameters" element="tns:Mobi_DesAsignarImagenABienResponse" />
+  </wsdl:message>
   <wsdl:message name="GetThumbnailSoapIn">
     <wsdl:part name="parameters" element="tns:GetThumbnail" />
   </wsdl:message>
@@ -5811,6 +5867,12 @@
   </wsdl:message>
   <wsdl:message name="GetImagenSoapOut">
     <wsdl:part name="parameters" element="tns:GetImagenResponse" />
+  </wsdl:message>
+  <wsdl:message name="SubirImagenSoapIn">
+    <wsdl:part name="parameters" element="tns:SubirImagen" />
+  </wsdl:message>
+  <wsdl:message name="SubirImagenSoapOut">
+    <wsdl:part name="parameters" element="tns:SubirImagenResponse" />
   </wsdl:message>
   <wsdl:message name="RefrescarCacheMAUSoapIn">
     <wsdl:part name="parameters" element="tns:RefrescarCacheMAU" />
@@ -7349,6 +7411,14 @@
       <wsdl:input message="tns:Mobi_GuardarEventoBienSoapIn" />
       <wsdl:output message="tns:Mobi_GuardarEventoBienSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="Mobi_AsignarImagenABien">
+      <wsdl:input message="tns:Mobi_AsignarImagenABienSoapIn" />
+      <wsdl:output message="tns:Mobi_AsignarImagenABienSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_DesAsignarImagenABien">
+      <wsdl:input message="tns:Mobi_DesAsignarImagenABienSoapIn" />
+      <wsdl:output message="tns:Mobi_DesAsignarImagenABienSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetThumbnail">
       <wsdl:input message="tns:GetThumbnailSoapIn" />
       <wsdl:output message="tns:GetThumbnailSoapOut" />
@@ -7356,6 +7426,10 @@
     <wsdl:operation name="GetImagen">
       <wsdl:input message="tns:GetImagenSoapIn" />
       <wsdl:output message="tns:GetImagenSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SubirImagen">
+      <wsdl:input message="tns:SubirImagenSoapIn" />
+      <wsdl:output message="tns:SubirImagenSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="RefrescarCacheMAU">
       <wsdl:input message="tns:RefrescarCacheMAUSoapIn" />
@@ -8555,6 +8629,24 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="Mobi_AsignarImagenABien">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/Mobi_AsignarImagenABien" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_DesAsignarImagenABien">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/Mobi_DesAsignarImagenABien" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetThumbnail">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetThumbnail" style="document" />
       <wsdl:input>
@@ -8566,6 +8658,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetImagen">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetImagen" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SubirImagen">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/SubirImagen" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -10961,6 +11062,24 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="Mobi_AsignarImagenABien">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/Mobi_AsignarImagenABien" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_DesAsignarImagenABien">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/Mobi_DesAsignarImagenABien" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetThumbnail">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetThumbnail" style="document" />
       <wsdl:input>
@@ -10972,6 +11091,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetImagen">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetImagen" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SubirImagen">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/SubirImagen" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

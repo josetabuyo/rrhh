@@ -124,7 +124,7 @@
                                             CommandName="MOV" CommandArgument='<%# Container.DataItemIndex %>'><i style="font-size: large;" class='icon-calendar'></i></asp:LinkButton>
                                         <asp:LinkButton ID="lbAsignar" runat="server" CssClass="btn btn-info" ToolTip="Asignar bien"
                                             CommandName="ASIG" CommandArgument='<%# Container.DataItemIndex %>'><i style="font-size: large;" class='icon-share'></i></asp:LinkButton>
-                                        <a class="btn btn-info"><i style="font-size: large;" class='icon-edit btnVerBien'></i></a>
+                                        <a class="btn btn-info btnVerBien" style="width: 16px;"><i style="font-size: large;" class='icon-edit'></i></a>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>
@@ -153,6 +153,7 @@
         <label class="lbl_nombre_atributo"> Descripcion:</label>
         <div id="ed_descripcion_bien"></div>
         <div id="ed_contenedor_imagenes"></div>
+        <div id="btn_add_imagen"> + </div>
     </div>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolderFooter" runat="Server">

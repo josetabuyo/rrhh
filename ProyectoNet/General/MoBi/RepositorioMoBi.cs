@@ -248,6 +248,24 @@ namespace General.Repositorios
 
             return bien;
         }
+
+        public bool AsignarImagenABien(int id_bien, int id_imagen)
+        {
+            var parametros_asignar_imagen = new Dictionary<string, object>();
+            parametros_asignar_imagen.Add("@idBien", id_bien);
+            parametros_asignar_imagen.Add("@idImagen", id_imagen);
+            this.conexion_bd.Ejecutar("dbo.MOBI_AsignarImagenABien", parametros_asignar_imagen);
+            return true;
+        }
+
+        public bool DesAsignarImagenABien(int id_bien, int id_imagen)
+        {
+            var parametros_desasignar_imagen = new Dictionary<string, object>();
+            parametros_desasignar_imagen.Add("@idBien", id_bien);
+            parametros_desasignar_imagen.Add("@idImagen", id_imagen);
+            this.conexion_bd.Ejecutar("dbo.MOBI_DesAsignarImagenABien", parametros_desasignar_imagen);
+            return true;
+        }
     }
 
 }

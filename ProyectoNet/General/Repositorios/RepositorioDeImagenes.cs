@@ -51,6 +51,14 @@ namespace General.Repositorios
             return img;           
         }
 
+        public int SubirImagen(string bytes_imagen)
+        {
+            var parametros_subir_imagen = new Dictionary<string, object>();
+            parametros_subir_imagen.Add("@bytes", bytes_imagen);
+            var id_imagen = int.Parse(this.conexion.EjecutarEscalar("dbo.FS_SubirArchivo", parametros_subir_imagen).ToString());
+            return id_imagen;
+        }
+
         static Image FixedSize(Image imgPhoto, int Width, int Height)
         {
             int sourceWidth = imgPhoto.Width;
