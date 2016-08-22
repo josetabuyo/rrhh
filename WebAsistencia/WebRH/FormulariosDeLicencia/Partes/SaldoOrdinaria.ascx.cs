@@ -12,16 +12,16 @@ public partial class FormulariosDeLicencia_Partes_SaldoOrdinaria : System.Web.UI
     public int DiasDisponibles
     {
         get { return _DiasDisponibles; }
-        set { _DiasDisponibles = value; }
+        set {_DiasDisponibles = value;}
     }
 
     private int _DiasSolicitados;
     public int DiasSolicitados
     {
         get { return _DiasSolicitados; }
-        set { 
-            _DiasSolicitados = value;
-            this.LSolicitadas.Text = value.ToString() + " Días";
+        set {
+                _DiasSolicitados = value;
+                this.LSolicitadas.Text = value.ToString() + " Días";    
         }
     }
 
@@ -63,20 +63,24 @@ public partial class FormulariosDeLicencia_Partes_SaldoOrdinaria : System.Web.UI
 
     private void InsertarDetalleDeSaldo(SaldoLicenciaDetalle detalle)
     {
-        TableRow tr = new TableRow();
-        TableCell tc = new TableCell();
-        string[] fuentes = { "Tahoma" };
-        tc.Text = "&nbsp;&nbsp;&nbsp;&nbsp;Periodo " + detalle.Periodo.ToString() + ": ";
-        tc.Font.Size = FontUnit.Small;
-        tc.Font.Names = fuentes;
-        tr.Cells.Add(tc);
+        //GPR y FC 22/08/2016: Fabian nos pidio que no se muestren los periodos con disponible en 0.
+        if (detalle.Disponible > 0) 
+        {
+            TableRow tr = new TableRow();
+            TableCell tc = new TableCell();
+            string[] fuentes = { "Tahoma" };
+            tc.Text = "&nbsp;&nbsp;&nbsp;&nbsp;Periodo " + detalle.Periodo.ToString() + ": ";
+            tc.Font.Size = FontUnit.Small;
+            tc.Font.Names = fuentes;
+            tr.Cells.Add(tc);
 
-        tc = new TableCell();
-        tc.Text = detalle.Disponible.ToString() + " Días";
-        this.DiasDisponibles += detalle.Disponible;
-        tc.Font.Size = FontUnit.Small;
-        tc.Font.Names = fuentes;
-        tr.Cells.Add(tc);
-        this.TDiasDisponibles.Rows.Add(tr);
+            tc = new TableCell();
+            tc.Text = detalle.Disponible.ToString() + " Días";
+            this.DiasDisponibles += detalle.Disponible;
+            tc.Font.Size = FontUnit.Small;
+            tc.Font.Names = fuentes;
+            tr.Cells.Add(tc);
+            this.TDiasDisponibles.Rows.Add(tr);
+        }
     }
 }
