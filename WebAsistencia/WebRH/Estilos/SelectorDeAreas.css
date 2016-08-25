@@ -7,3 +7,9 @@
 {
     display:inline-block;
 }
+
+
+.selector_areas #buscador
+{
+    width:450px !important;
+}
