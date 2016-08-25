@@ -92,6 +92,11 @@ namespace General
         {
             return (this.Desde() <= new DateTime(this.Desde().Year, 11, 30) && (this.Hasta() >= new DateTime(this.Desde().Year, 12, 01)));
         }
-        
+
+
+        public int DiasYaImputados()
+        {
+            return _dias_ya_imputados;
+        }
     }
 }

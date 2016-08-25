@@ -1,20 +1,15 @@
-﻿    |<%@ Page Language="C#" AutoEventWireup="true" CodeFile="CalculoDeLicenciaOrdinaria.aspx.cs"
+﻿    <%@ Page Language="C#" AutoEventWireup="true" CodeFile="CalculoDeLicenciaOrdinaria.aspx.cs"
     Inherits="FormulariosDeLicencia_CalculoDeLicenciaOrdinaria" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-    <style type="text/css">
-
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head runat="server"><title></title><style type="text/css">
         table 
         {
-            border-collapse: collapse;
+            //border-collapse: collapse;
         }
-        table td{
+        table td {
 
-            padding:0px;
-            border:0px;
+            //padding:0px;
+            //border:0px;
         }
         
         .usufructo-a 
@@ -41,12 +36,16 @@
             background-color: #FFAFA0;
         }
 
-    </style>
-
-</head>
-<body>
-    <form id="form1" runat="server">
+    </style></head><body><form id="form1" runat="server">
     <div>
+ 
+        <asp:TextBox ID="textbox_dni" runat="server"></asp:TextBox>
+ 
+ <asp:Button runat="server" Text="Buscar" />
+      <asp:Table ID="tabla_analsis" runat="server">
+        </asp:Table>
+
+    <%--<div>
         <table>
             <tr>
                 <td colspan="2">
@@ -200,7 +199,8 @@
                 </td>
             </tr>
         </table>
-    </div>
+    </div>--%>
+      
     </form>
 </body>
 </html>

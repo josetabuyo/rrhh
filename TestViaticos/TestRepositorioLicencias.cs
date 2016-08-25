@@ -54,7 +54,7 @@ namespace TestViaticos
             var repo_licencia = new RepositorioLicencias(conexion);
             // ServicioDeLicencias servicio_de_licencias = new ServicioDeLicencias(new RepositorioLicencias(conexion));
 
-            Assert.AreEqual(4, repo_licencia.GetVacacionPermitidaPara(persona, TestObjects.ConceptoLicenciaOrdinaria()).Count());
+            Assert.AreEqual(4, repo_licencia.GetVacacionPermitidaDescontandoPerdidasPara(persona, TestObjects.ConceptoLicenciaOrdinaria()).Count());
         }
 
         [TestMethod]
@@ -180,7 +180,7 @@ namespace TestViaticos
         public void cuando_le_solicito_a_un_tipo_de_planta_la_prorroga_debe_devolver_su_correspondiente_prorroga()
         {
             TipoDePlantaContratado tipo_planta_contratado = new TipoDePlantaContratado();
-            TipoDePlantaGeneral tipo_planta_general = new TipoDePlantaGeneral(1, "Planta Permanente");
+            TipoDePlantaGeneral tipo_planta_general = new TipoDePlantaGeneral(1, "Planta Permanente", TestObjects.RepoLicenciaMockeado());
             var fecha_calculo = new DateTime(2014, 01, 01);
 
             Assert.AreEqual(2012, tipo_planta_contratado.Prorroga(fecha_calculo).UsufructoDesde);

@@ -33,7 +33,6 @@ namespace General
 
         public override AnalisisDeLicenciaOrdinaria GetAnalisisCalculoVacacionesPara(IRepositorioLicencia repositorio_licencia, IRepositorioDePersonas repositorio_personas, Persona unaPersona, DateTime fecha_de_consulta)
         {
-         
             var analisis = new AnalisisDeLicenciaOrdinaria();
 
             var saldo = new SaldoLicencia();
@@ -45,17 +44,23 @@ namespace General
             var aprobadas = this.LicenciasAprobadasPara(repositorio_licencia, unaPersona);
             var solicitudes = new List<SolicitudesDeVacaciones>(aprobadas.ToArray());
             this.LicenciasPendientesPara(repositorio_licencia, unaPersona).ForEach(pendiente => solicitudes.Add(pendiente));
-            var permitidas = this.LicenciasPermitidasPara(repositorio_licencia, unaPersona);
-            var vacaciones_solicitables = calculador_de_vacaciones.DiasSolicitables(permitidas, solicitudes, fecha_de_consulta, unaPersona, analisis);
+            var permitidas_descontando_perdidas = this.LicenciasPermitidasPara(repositorio_licencia, unaPersona);
+            var vacaciones_solicitables = calculador_de_vacaciones.DiasSolicitables(permitidas_descontando_perdidas, solicitudes, fecha_de_consulta, unaPersona, analisis);
+            var permitidas_calculadas = this.LicenciasCalculadasPara(repositorio_licencia, unaPersona);
 
             vacaciones_solicitables.ForEach(vac_solic => saldo.Detalle.Add(new SaldoLicenciaDetalle { Periodo = vac_solic.Periodo(), Disponible = vac_solic.CantidadDeDias() }));
-
+            analisis.SetCalculoSinDescuento(permitidas_calculadas);
             return analisis;
+        }
+
+        public List<VacacionesPermitidas> LicenciasCalculadasPara(IRepositorioLicencia repositorio_licencia, Persona persona)
+        {
+            return repositorio_licencia.GetVacasPermitidasPara(persona, this);
         }
 
         public List<VacacionesPermitidas> LicenciasPermitidasPara(IRepositorioLicencia repositorio_licencia, Persona persona)
         {
-            return repositorio_licencia.GetVacacionPermitidaPara(persona, this);// ObtenerLicenciasPermitidasPara(persona);
+            return repositorio_licencia.GetVacacionPermitidaDescontandoPerdidasPara(persona, this);// ObtenerLicenciasPermitidasPara(persona);
         }
 
 

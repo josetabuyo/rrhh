@@ -24,8 +24,12 @@ namespace General
             }
 
             linea.CantidadDiasDescontados = aprobadas.CantidadDeDias();
-            linea.LicenciaDesde = aprobadas.Desde();
-            linea.LicenciaHasta = aprobadas.Hasta();
+            if (!lineas.Any(l => l.LicenciaDesde.Equals(aprobadas.Desde())))
+            {
+                linea.LicenciaDesde = aprobadas.Desde();
+                linea.LicenciaHasta = aprobadas.Hasta();
+            }
+
 
         }
 
@@ -39,6 +43,25 @@ namespace General
             lineas.Add(new LogCalculoVacaciones() { PeriodoAutorizado = permitidas_consumibles.Periodo, CantidadDiasAutorizados = permitidas_consumibles.CantidadDeDias() });
         }
 
+        public void Add(VacacionesPermitidas permitidas_consumibles, SolicitudesDeVacaciones solicitud, AnalisisDeLicenciaOrdinaria analisis)
+        {
+            var log = this.lineas.Find(l => l.PeriodoAutorizado == permitidas_consumibles.Periodo);
+            if (analisis.LineaCompleta(log))
+            {
+                log = new LogCalculoVacaciones() { PeriodoAutorizado = 0, CantidadDiasAutorizados = 0, CantidadDiasDescontados = solicitud.DiasYaImputados(), LicenciaDesde = solicitud.Desde(), LicenciaHasta = solicitud.Hasta() };
+                analisis.AddALaAuthorizacionDelPeriodo(log, permitidas_consumibles.Periodo);
+
+            }
+            else
+            {
+                log.CantidadDiasDescontados = solicitud.DiasYaImputados();
+                log.LicenciaDesde = solicitud.Desde();
+                log.LicenciaHasta = solicitud.Hasta();
+            }
+            //var log = new LogCalculoVacaciones() { PeriodoAutorizado = 0, CantidadDiasAutorizados = 0, CantidadDiasDescontados = solicitud.DiasYaImputados(), LicenciaDesde = solicitud.Desde(), LicenciaHasta = solicitud.Hasta() };
+            //lineas.Add(log);
+        }
+
         protected bool LineaCompleta(LogCalculoVacaciones linea)
         {
             return !linea.LicenciaDesde.Equals(DateTime.MinValue);
@@ -47,6 +70,18 @@ namespace General
         public void Add(LogCalculoVacaciones logCalculoVacaciones)
         {
             lineas.Add(logCalculoVacaciones);
+        }
+
+        public void AddALaAuthorizacionDelPeriodo(LogCalculoVacaciones log, int periodo)
+        {
+            var lineas_del_periodo = lineas.FindAll(l => l.PeriodoAutorizado == periodo);
+            lineas.Insert(lineas.IndexOf(lineas_del_periodo.Last()) + 1, log);
+            //throw new NotImplementedException();
+        }
+
+        public LogCalculoVacaciones At(int i)
+        {
+            return lineas[i];
         }
 
         public LogCalculoVacaciones First()
@@ -64,5 +99,45 @@ namespace General
             return lineas.Count();
         }
 
+        public void SetCalculoSinDescuento(List<VacacionesPermitidas> permitidas_calculadas)
+        {
+
+        }
+
+        public void LasAutorizadasSinDescontarSon(List<VacacionesPermitidas> permitidas)
+        {
+            List<LogCalculoVacaciones> perdidas = new List<LogCalculoVacaciones>();
+            permitidas.ForEach(perm =>
+            {
+                var linea_del_periodo = lineas.Find(l => l.PeriodoAutorizado == perm.Periodo);
+                if (linea_del_periodo != null)
+                {
+                    if (linea_del_periodo.CantidadDiasAutorizados != perm.CantidadDeDias())
+                    {
+                        var dias_perdidos = perm.CantidadDeDias() - linea_del_periodo.CantidadDiasAutorizados;
+                        linea_del_periodo.CantidadDiasAutorizados = perm.CantidadDeDias();
+                        var per = new LogCalculoVacaciones();
+                        per.PeriodoAutorizado = perm.Periodo;
+                        per.CantidadDiasDescontados = dias_perdidos;
+                        perdidas.Add(per);
+                    }
+                }
+
+                perdidas.ForEach(p =>
+                {
+                    var index = 0;
+                    var primera = lineas.Find(l => l.PeriodoAutorizado == p.PeriodoAutorizado);
+                    for (int i = lineas.IndexOf(primera); i < lineas.Count; i++)
+                    {
+                        if (lineas[i].PeriodoAutorizado != 0)
+                        {
+                            index = i + 1;
+                        }
+                    }
+                    p.PeriodoAutorizado = 0;
+                    lineas.Insert(index, p);
+                });
+            });
+        }
     }
 }

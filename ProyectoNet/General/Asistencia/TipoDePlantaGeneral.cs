@@ -14,12 +14,14 @@ namespace General
 
         private string _descripcion;
         public string Descripcion { get { return _descripcion; }  }
+        protected IRepositorioLicencia _repoLicencias { get; set; }
 
 
-        public TipoDePlantaGeneral(int id, string descripcion)
+        public TipoDePlantaGeneral(int id, string descripcion, IRepositorioLicencia repo)
         {
             this._id = id;
             this._descripcion = descripcion;
+            this._repoLicencias = repo;
         }
 
         protected int anios = 0;
@@ -28,18 +30,18 @@ namespace General
         public override ProrrogaLicenciaOrdinaria Prorroga(DateTime fecha_calculo)
         {
             var prorroga = new ProrrogaLicenciaOrdinaria();
-            RepositorioLicencias repo = new RepositorioLicencias(Conexion());
+            //RepositorioLicencias _repoLicencias = new RepositorioLicencias(Conexion());
             int anio_calculo = fecha_calculo.Year;
 
             if (fecha_calculo.Month != 12)
             {
 
                 anio_calculo = anio_calculo - 1;
-                anios = repo.GetProrrogaPlantaGeneral(anio_calculo);
+                anios = _repoLicencias.GetProrrogaPlantaGeneral(anio_calculo);
             }
             else
             {
-                anios = repo.GetProrrogaPlantaGeneral(anio_calculo);
+                anios = _repoLicencias.GetProrrogaPlantaGeneral(anio_calculo);
             }
 
             prorroga.UsufructoDesde = anio_calculo - anios;

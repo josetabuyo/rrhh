@@ -98,6 +98,7 @@ namespace General
                 if (primera_permitida_aplicable.CantidadDeDias() == 0)
                 {
                     permitidas_consumibles.Remove(primera_permitida_aplicable);
+                    analisis.Add(primera_permitida_aplicable, aprobadas, analisis);
                 }
                 if (aprobadas.CantidadDeDias() > 0)
                 {
@@ -142,7 +143,6 @@ namespace General
         }
 
 
-
         public List<VacacionesSolicitables> DiasSolicitables(List<VacacionesPermitidas> permitidas, List<SolicitudesDeVacaciones> solicitudes, DateTime fecha_de_calculo, Persona persona, AnalisisDeLicenciaOrdinaria analisis)
         {
             var vacaciones_solicitables = new List<VacacionesSolicitables>();
@@ -174,10 +174,11 @@ namespace General
 
             permitidas_consumibles.ForEach(consumible => vacaciones_solicitables.Add(new VacacionesSolicitables(consumible.Periodo, consumible.CantidadDeDias())));
 
+            analisis.LasAutorizadasSinDescontarSon(_repositorio_licencia.GetVacasPermitidasPara(persona, new ConceptoLicenciaAnualOrdinaria()));
+
             return vacaciones_solicitables;
 
         }
-
 
         public List<SolicitudesDeVacaciones> DividirSolicitudes(List<SolicitudesDeVacaciones> solicitudes_original)
         {

@@ -74,6 +74,15 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public AnalisisDeLicenciaOrdinaria GetAnalisisLicenciaOrdinaria(Persona persona)
+    {
+        var ordinaria = new ConceptoLicenciaAnualOrdinaria();
+        var analisis = ordinaria.GetAnalisisCalculoVacacionesPara(RepoLicencias(), RepositorioDePersonas(), persona, DateTime.Now);
+
+        return analisis;
+    }
+
+    [WebMethod]
     public AreaParaDDJJ104[] GetAreasParaDDJJ104(int mes, int anio, int id_area, Usuario usuario)
     {
         var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas(), Autorizador());
