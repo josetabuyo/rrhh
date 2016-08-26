@@ -27,7 +27,7 @@ public partial class MoBi_RecepcionarBienes : System.Web.UI.Page
 
     private void Cargar_AreasDelUsuario(WSViaticosSoapClient ws, int IdUsuario)
     {
-        WSViaticos.MoBi_Area[] AreasUsuario = ws.Mobi_GetAreasUsuario(IdUsuario);
+        WSViaticos.MoBi_Area[] AreasUsuario = ws.Mobi_GetAreasDelUsuarioRecepcionBienes(IdUsuario);
         DropDownAreasUsuario.DataSource = AreasUsuario.OfType<MoBi_Area>().ToList();
         DropDownAreasUsuario.DataTextField = "Nombre";
         DropDownAreasUsuario.DataValueField = "Id";

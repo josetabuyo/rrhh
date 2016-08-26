@@ -114,8 +114,8 @@
                                 <asp:BoundField DataField="Asignacion" HeaderText="Operador" />
                                 <asp:TemplateField HeaderText="Acciones">
                                     <ItemTemplate>
-                                        <a class="btn btn-success" title="Recepcionar bien." onclick="show_recepcion(<%# Container.DataItemIndex %>, 0);"><i class="icon-ok-circle"></i></a>
-                                        <a class="btn btn-danger" title="Rechazar bien." onclick="show_recepcion(<%# Container.DataItemIndex %>, 1);"><i class="icon-ban-circle"></i></a>
+                                        <a class="btn btn-webrh" title="Recepcionar bien." onclick="show_recepcion(<%# Container.DataItemIndex %>, 0);"><i class="icon-ok-circle icon-btn" style="color: #86B404" ></i></a>
+                                        <a class="btn btn-webrh" title="Rechazar bien." onclick="show_recepcion(<%# Container.DataItemIndex %>, 1);"><i class="icon-ban-circle icon-btn" style="color: #F78181"></i></a>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>

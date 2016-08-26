@@ -15,19 +15,19 @@ public partial class MoBi_AsignarBienes : System.Web.UI.Page
         if (!Page.IsPostBack)
         {
             HiddenField_IdBien.Value = Convert.ToString(Session["MOBI_IdBien"]);
-            txtArea.Text = (string)(Session["MOBI_AreaOrigen"]);
             txtTipoBien.Text = (string)(Session["MOBI_TipoBien"]);
             txtItem.Text = (string)(Session["MOBI_Item"]);
             Usuario usuario = ((Usuario)Session["usuario"]);
             WSViaticosSoapClient ws = new WSViaticosSoapClient();
             Cargar_AreasDelUsuario(ws, usuario.Id);
+            Cargar_InfoAdicBien(ws, Convert.ToInt32(HiddenField_IdBien.Value) );
         }
     }
 
 
     private void Cargar_AreasDelUsuario(WSViaticosSoapClient ws, int IdUsuario)
     {
-        WSViaticos.MoBi_Area[] AreasUsuario = ws.Mobi_GetAreasUsuario(IdUsuario);
+        WSViaticos.MoBi_Area[] AreasUsuario = ws.Mobi_GetAreasDelUsuario( IdUsuario);
         DropDownAreasDestino.DataSource = AreasUsuario.OfType<MoBi_Area>().ToList();
         DropDownAreasDestino.DataTextField = "Nombre";
         DropDownAreasDestino.DataValueField = "Id";
@@ -36,8 +36,7 @@ public partial class MoBi_AsignarBienes : System.Web.UI.Page
     }
 
     private void Cargar_AgentesDelArea(WSViaticosSoapClient ws, int IdArea)
-    {
-        
+    {        
         WSViaticos.MoBi_Agente[] AgentesDelArea = ws.Mobi_GetAgentesArea(IdArea);
         DropDownAgenteDestino.DataSource = AgentesDelArea.OfType<MoBi_Agente>().ToList();
         DropDownAgenteDestino.DataTextField = "Descripcion";
@@ -54,6 +53,13 @@ public partial class MoBi_AsignarBienes : System.Web.UI.Page
             DropDownAgenteDestino.Enabled = false;
         }
     }
+
+    private void Cargar_InfoAdicBien(WSViaticosSoapClient ws, int IdBien)
+    {
+        MoBi_Bien bien = ws.Mobi_GetBien(IdBien);
+        txtArea.Text =  bien.AreaActual;
+    }
+
 
     protected void DropDownAreasDestino_SelectedIndexChanged(object sender, EventArgs e)
     {
