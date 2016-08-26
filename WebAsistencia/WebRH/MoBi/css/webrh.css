@@ -1,0 +1,31 @@
+﻿.btn-webrh {
+  background-color: #eeeeee;
+  border-color: #BDBDBD;
+  margin-bottom: 3px;
+}
+
+.btn-webrh:hover,
+.btn-webrh:focus,
+.btn-webrh:active {
+  background-color: #CEE3F6;
+  border-color: #81BEF7;
+}
+
+.btn-webrh.disabled:hover,
+.btn-webrh[disabled]:hover,
+fieldset[disabled] .btn-webrh:hover,
+.btn-webrh.disabled:focus,
+.btn-webrh[disabled]:focus,
+fieldset[disabled] .btn-webrh:focus,
+.btn-webrh.disabled:active,
+.btn-webrh[disabled]:active,
+fieldset[disabled] .btn-webrh:active {
+  background-color: #eeeeee;
+  border-color: #eeeeee;
+}
+
+
+.icon-btn {
+    font-size: medium;
+    color: #848484;
+}
