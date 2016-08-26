@@ -13,15 +13,13 @@ namespace General.Repositorios
         {
         }
 
-        public MoBi_Area[] GetAreasUsuario(int IdUsuario)
+        public MoBi_Area[] GetAreasDelUsuario(int IdUsuario)
         {
             List<MoBi_Area> lau = new List<MoBi_Area>();
             MoBi_Area area;
-            SqlDataReader dr;
             ConexionDB cn = new ConexionDB("dbo.MOBI_GetAreasDelUsuario");
             cn.AsignarParametro("@IdUsuario", IdUsuario);
-            dr = cn.EjecutarConsulta();
-
+            SqlDataReader dr = cn.EjecutarConsulta();
             while (dr.Read())
             {
                 area = new MoBi_Area();
@@ -30,21 +28,41 @@ namespace General.Repositorios
                 lau.Add(area);
             }
             cn.Desconestar();
+            dr.Dispose(); dr.Close(); dr = null;
+            return lau.ToArray();
+        }
+
+        public MoBi_Area[] GetAreasDelUsuarioRecepcionBienes(int IdUsuario)
+        {
+            List<MoBi_Area> lau = new List<MoBi_Area>();
+            MoBi_Area area;
+            ConexionDB cn = new ConexionDB("dbo.MOBI_GetAreasDelUsuarioRecepcionBienes");
+            cn.AsignarParametro("@IdUsuario", IdUsuario);
+            SqlDataReader dr = cn.EjecutarConsulta();
+            while (dr.Read())
+            {
+                area = new MoBi_Area();
+                area.Id = dr.GetInt32(dr.GetOrdinal("id"));
+                area.Nombre = dr.GetString(dr.GetOrdinal("nombre"));
+                lau.Add(area);
+            }
+            cn.Desconestar();
+            dr.Dispose(); dr.Close(); dr = null;
             return lau.ToArray();
         }
 
 
-        public MoBi_Area[] GetAreasUsuarioCBO(int IdUsuario, int IdTipoBien, bool MostrarSoloAreasConBienes)
+        public MoBi_Area[] GetAreasDelUsuarioBienesDisponibles(int IdUsuario, int IdTipoBien, bool IncluirDependencias, bool MostrarTodasAreas)
         {
             List<MoBi_Area> lau = new List<MoBi_Area>();
             MoBi_Area area;
             SqlDataReader dr;
-            ConexionDB cn = new ConexionDB("dbo.MOBI_GetAreasDelUsuarioCBO");
+            ConexionDB cn = new ConexionDB("dbo.MOBI_GetAreasDelUsuarioBienesDisponibles");
             cn.AsignarParametro("@IdUsuario", IdUsuario);
-            cn.AsignarParametro("@Id_TipoBien", IdTipoBien);	 
-            cn.AsignarParametro("@MostrarSoloAreasConBienes", MostrarSoloAreasConBienes);
+            cn.AsignarParametro("@Id_TipoBien", IdTipoBien);
+            cn.AsignarParametro("@Incluir_Dependencias", IncluirDependencias);
+            cn.AsignarParametro("@Mostrar_Todas_Areas", MostrarTodasAreas);
             dr = cn.EjecutarConsulta();
-
             while (dr.Read())
             {
                 area = new MoBi_Area();
@@ -53,9 +71,9 @@ namespace General.Repositorios
                 lau.Add(area);
             }
             cn.Desconestar();
+            dr.Dispose(); dr.Close(); dr = null;
             return lau.ToArray();
         }
-
 
         public MoBi_TipoBien[] GetTipoDeBienes()
         {
@@ -73,8 +91,30 @@ namespace General.Repositorios
                 ltb.Add(tipoBien);
             }
             cn.Desconestar();
+            dr.Dispose(); dr.Close(); dr = null;
             return ltb.ToArray();
         }
+
+
+        public MoBi_Bien GetBien(int IdBien) {
+            ConexionDB cn = new ConexionDB("dbo.MOBI_GetBien");
+            cn.AsignarParametro("@IdBien", IdBien);
+            SqlDataReader dr = cn.EjecutarConsulta();
+            MoBi_Bien bien = new MoBi_Bien();
+            if (dr.Read()) { 
+                bien.Id = dr.GetInt32(dr.GetOrdinal("id"));
+                bien.Descripcion = dr.GetString(dr.GetOrdinal("descripcion"));
+                bien.Estado = dr.GetString(dr.GetOrdinal("estado"));
+                bien.UltMov = dr.GetDateTime(dr.GetOrdinal("ultMovimiento"));
+                bien.Remitente = dr.GetString(dr.GetOrdinal("remitente"));
+                bien.Asignacion = dr.GetString(dr.GetOrdinal("asignacion"));
+                bien.AreaActual = dr.GetString(dr.GetOrdinal("area_actual"));
+            }
+            cn.Desconestar();
+            dr.Dispose(); dr.Close(); dr = null;
+            return bien;
+        }
+
 
         public MoBi_Bien[] GetBienesDelArea( int IdArea, int IdTipoBien)
         {
@@ -111,7 +151,6 @@ namespace General.Repositorios
             cn.AsignarParametro("@IdArea", IdArea);
             cn.AsignarParametro("@IdTipoBien", IdTipoBien);
             dr = cn.EjecutarConsulta();
-
             while (dr.Read())
             {
                 bien = new MoBi_Bien();

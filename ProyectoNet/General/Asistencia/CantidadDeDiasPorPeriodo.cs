@@ -5,10 +5,6 @@ using System.Text;
 
 namespace General
 {
-    /// <summary>
-    /// Estructura de datos, que contiene dias, y periodo.
-    /// e.g. 5 días, año 2005
-    /// </summary>
     public class CantidadDeDiasPorPeriodo
     {
         protected int _perido;

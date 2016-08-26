@@ -87,7 +87,6 @@
     <Compile Include="TestPostular.cs" />
     <Compile Include="TestAlertas.cs" />
     <Compile Include="TestMail.cs" />
-    <Compile Include="TestRepositorioLicencias.cs" />
     <Compile Include="TestSACC\TestReportes.cs" />
     <Compile Include="TestSACC\TestArticuladores.cs" />
     <Compile Include="TestModi\TestServicioDeDigitalizacionDeLegajos.cs" />
@@ -125,7 +124,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="TestLicencias.cs" />
     <Compile Include="TestObjects.cs" />
     <Compile Include="TestOrganigrama.cs" />
     <Compile Include="TestRepositorioZonas.cs" />

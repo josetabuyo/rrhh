@@ -73,14 +73,14 @@ public class WSViaticos : System.Web.Services.WebService
         return repo.DiasHabilesEntreFechas(desde, hasta);
     }
 
-    [WebMethod]
-    public AnalisisDeLicenciaOrdinaria GetAnalisisLicenciaOrdinaria(Persona persona)
-    {
-        var ordinaria = new ConceptoLicenciaAnualOrdinaria();
-        var analisis = ordinaria.GetAnalisisCalculoVacacionesPara(RepoLicencias(), RepositorioDePersonas(), persona, DateTime.Now);
+    //[WebMethod]
+    //public AnalisisDeLicenciaOrdinaria GetAnalisisLicenciaOrdinaria(Persona persona)
+    //{
+    //    var ordinaria = new ConceptoLicenciaAnualOrdinaria();
+    //    var analisis = ordinaria.GetAnalisisCalculoVacacionesPara(RepoLicencias(), RepositorioDePersonas(), persona, DateTime.Now);
 
-        return analisis;
-    }
+    //    return analisis;
+    //}
 
     [WebMethod]
     public AreaParaDDJJ104[] GetAreasParaDDJJ104(int mes, int anio, int id_area, Usuario usuario)
@@ -125,28 +125,28 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
 
-    //CONSULTA INDIVIDUAL
-    [WebMethod]
-    public DDJJ104_Consulta[] GetConsultaIndividualPorPersona(int mesdesde, int aniodesde, int meshasta, int aniohasta, int nrodoc_persona, int estado, int orden, Usuario usuario)
-    {
-        var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas(), Autorizador());
-        var a = new DDJJ104_Consulta[1];
+    ////CONSULTA INDIVIDUAL
+    //[WebMethod]
+    //public DDJJ104_Consulta[] GetConsultaIndividualPorPersona(int mesdesde, int aniodesde, int meshasta, int aniohasta, int nrodoc_persona, int estado, int orden, Usuario usuario)
+    //{
+    //    var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas(), Autorizador());
+    //    var a = new DDJJ104_Consulta[1];
 
-        a = responsableDDJJ.GetConsultaIndividualPorPersona(mesdesde, aniodesde, meshasta, aniohasta, nrodoc_persona, estado, orden, usuario).ToArray();
+    //    a = responsableDDJJ.GetConsultaIndividualPorPersona(mesdesde, aniodesde, meshasta, aniohasta, nrodoc_persona, estado, orden, usuario).ToArray();
         
-        return a;
-    }
+    //    return a;
+    //}
 
-    [WebMethod]
-    public DDJJ104_Consulta[] GetConsultaPorArea(int mesdesde, int aniodesde, int meshasta, int aniohasta, int id_area, int estado, int orden, Usuario usuario)
-    {
-        var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas(), Autorizador());
-        var a = new DDJJ104_Consulta[1];
+    //[WebMethod]
+    //public DDJJ104_Consulta[] GetConsultaPorArea(int mesdesde, int aniodesde, int meshasta, int aniohasta, int id_area, int estado, int orden, Usuario usuario)
+    //{
+    //    var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas(), Autorizador());
+    //    var a = new DDJJ104_Consulta[1];
 
-        a = responsableDDJJ.GetConsultaPorArea(mesdesde, aniodesde, meshasta, aniohasta, id_area, estado, orden, usuario).ToArray();
+    //    a = responsableDDJJ.GetConsultaPorArea(mesdesde, aniodesde, meshasta, aniohasta, id_area, estado, orden, usuario).ToArray();
 
-        return a;
-    }
+    //    return a;
+    //}
 
     //[WebMethod]
     //public AreaParaDDJJ104[] ImprimirDDJJ104(List<AreaParaDDJJ104> lista)
@@ -3723,6 +3723,7 @@ public class WSViaticos : System.Web.Services.WebService
         }
     #endregion
 
+
     #region Reportes
         [WebMethod]
         public string GetConsultaRapida(int documento , Usuario usuario)
@@ -3742,99 +3743,122 @@ public class WSViaticos : System.Web.Services.WebService
 
     #endregion
 
-        #region mobi
 
+    #region mobi
 
-        [WebMethod]
-        public Tarjeton NuevoTarjeton(int id_Bien)
+    [WebMethod]
+    public Vehiculo ObtenerVehiculoPorID(string id_vehiculo)
+    {
+        var repo = new RepositorioDeVehiculos(Conexion());
+        return repo.ObtenerVehiculoPorID(id_vehiculo);
+    }
+
+    [WebMethod]
+    public Tarjeton NuevoTarjeton(int id_Bien)
+    {
+        var repo = new RepositorioTarjetones(Conexion());
+        return repo.NuevoTarjeton(id_Bien);
+    }
+
+    [WebMethod]
+    public RespuestaVehiculo ObtenerVehiculoPorIDVerificacion(string id_verificacion)
+    {
+        var repo = new RepositorioDeVehiculos(Conexion());
+        var una_respuesta = new RespuestaVehiculo();
+        una_respuesta.Respuesta = 1;
+
+        if (String.IsNullOrEmpty(id_verificacion))
         {
-            var repo = new RepositorioTarjetones(Conexion());
-            return repo.NuevoTarjeton(id_Bien);
-        }
-
-        [WebMethod]
-        public RespuestaVehiculo ObtenerVehiculoPorIDVerificacion(string id_verificacion)
-        {
-            var repo = new RepositorioDeVehiculos(Conexion());
-            var una_respuesta = new RespuestaVehiculo();
-            una_respuesta.Respuesta = 1;
-
-            if (String.IsNullOrEmpty(id_verificacion) )
-            {
-                una_respuesta.Respuesta = 0;
-                return una_respuesta;
-            }
-
-            try
-            {
-                una_respuesta.vehiculo = repo.ObtenerVehiculoPorIDVerificacion(id_verificacion);
-            }
-            catch (ExcepcionDeVehiculoInexistente e)
-            {
-                una_respuesta.Respuesta = 0;
-            }
-
+            una_respuesta.Respuesta = 0;
             return una_respuesta;
         }
 
-        [WebMethod]
-        public MoBi_Area[] Mobi_GetAreasUsuario(int IdUsuario)
+        try
         {
-            RepositorioMoBi rMoBi = new RepositorioMoBi();
-            return rMoBi.GetAreasUsuario(IdUsuario);
+            una_respuesta.vehiculo = repo.ObtenerVehiculoPorIDVerificacion(id_verificacion);
+        }
+        catch (ExcepcionDeVehiculoInexistente e)
+        {
+            una_respuesta.Respuesta = 0;
         }
 
-        [WebMethod]
-        public MoBi_Area[] Mobi_GetAreasUsuarioCBO(int IdUsuario, int IdTipoBien, bool MostrarSoloAreasConBienes)
-        {
-            RepositorioMoBi rMoBi = new RepositorioMoBi();
-            return rMoBi.GetAreasUsuarioCBO(IdUsuario, IdTipoBien, MostrarSoloAreasConBienes);
-        }
-
-        [WebMethod]
-        public MoBi_TipoBien[] Mobi_GetTipoBien()
-        {
-            RepositorioMoBi rMoBi = new RepositorioMoBi();
-            return rMoBi.GetTipoDeBienes();
-        }
-
-        [WebMethod]
-        public MoBi_Bien[] Mobi_GetBienesDelArea(int IdArea, int IdTipoBien)
-        {
-            RepositorioMoBi rMoBi = new RepositorioMoBi();
-            return rMoBi.GetBienesDelArea(IdArea, IdTipoBien);
-        }
-
-        [WebMethod]
-        public MoBi_Bien[] Mobi_GetBienesDelAreaRecepcion(int IdArea, int IdTipoBien)
-        {
-            RepositorioMoBi rMoBi = new RepositorioMoBi();
-            return rMoBi.GetBienesDelAreaRecepcion(IdArea, IdTipoBien);
-        }
-
-        [WebMethod]
-        public MoBi_Evento[] Mobi_GetEventosBien(int IdBien)
-        {
-            RepositorioMoBi rMoBi = new RepositorioMoBi();
-            return rMoBi.GetEventosBien(IdBien);
-        }
-
-        [WebMethod]
-        public MoBi_Agente[] Mobi_GetAgentesArea(int IdArea)
-        {
-            RepositorioMoBi rMoBi = new RepositorioMoBi();
-            return rMoBi.GetAgentes(IdArea);
-        }
-
-        [WebMethod]
-        public bool Mobi_GuardarEventoBien(MoBi_Evento.enumTipoEvento tipoEvento, int IdBien, int IdArea, int IdPersona, string Observaciones, int IdUser)
-        {
-            RepositorioMoBi rMoBi = new RepositorioMoBi();
-            return rMoBi.GuardarNuevoEventoBien(tipoEvento, IdBien, IdArea, IdPersona, Observaciones, IdUser);
-        }
+        return una_respuesta;
+    }
 
 
-        #endregion
+    [WebMethod]
+    public MoBi_Area[] Mobi_GetAreasDelUsuario(int IdUsuario)
+    {
+        RepositorioMoBi rMoBi = new RepositorioMoBi();
+        return rMoBi.GetAreasDelUsuario(IdUsuario);
+    }
+
+    [WebMethod]
+    public MoBi_Area[] Mobi_GetAreasDelUsuarioRecepcionBienes(int IdUsuario)
+    {
+        RepositorioMoBi rMoBi = new RepositorioMoBi();
+        return rMoBi.GetAreasDelUsuarioRecepcionBienes(IdUsuario);
+    }
+
+    [WebMethod]
+    public MoBi_Area[] Mobi_GetAreasDelUsuarioBienesDisponibles(int IdUsuario, int IdTipoBien, bool IncluirDependencias, bool MostrarTodasAreas)
+    {
+        RepositorioMoBi rMoBi = new RepositorioMoBi();
+        return rMoBi.GetAreasDelUsuarioBienesDisponibles(IdUsuario, IdTipoBien, IncluirDependencias, MostrarTodasAreas);
+    }
+
+    [WebMethod]
+    public MoBi_TipoBien[] Mobi_GetTipoBien()
+    {
+        RepositorioMoBi rMoBi = new RepositorioMoBi();
+        return rMoBi.GetTipoDeBienes();
+    }
+
+    [WebMethod]
+    public MoBi_Bien Mobi_GetBien(int IdBien)
+    {
+        RepositorioMoBi rMoBi = new RepositorioMoBi();
+        return rMoBi.GetBien(IdBien);
+    }
+
+    [WebMethod]
+    public MoBi_Bien[] Mobi_GetBienesDelArea(int IdArea, int IdTipoBien)
+    {
+        RepositorioMoBi rMoBi = new RepositorioMoBi();
+        return rMoBi.GetBienesDelArea(IdArea, IdTipoBien);
+    }
+
+    [WebMethod]
+    public MoBi_Bien[] Mobi_GetBienesDelAreaRecepcion(int IdArea, int IdTipoBien)
+    {
+        RepositorioMoBi rMoBi = new RepositorioMoBi();
+        return rMoBi.GetBienesDelAreaRecepcion(IdArea, IdTipoBien);
+    }
+
+    [WebMethod]
+    public MoBi_Evento[] Mobi_GetEventosBien(int IdBien)
+    {
+        RepositorioMoBi rMoBi = new RepositorioMoBi();
+        return rMoBi.GetEventosBien(IdBien);
+    }
+
+    [WebMethod]
+    public MoBi_Agente[] Mobi_GetAgentesArea(int IdArea)
+    {
+        RepositorioMoBi rMoBi = new RepositorioMoBi();
+        return rMoBi.GetAgentes(IdArea);
+    }
+
+    [WebMethod]
+    public bool Mobi_GuardarEventoBien(MoBi_Evento.enumTipoEvento tipoEvento, int IdBien, int IdArea, int IdPersona, string Observaciones, int IdUser)
+    {
+        RepositorioMoBi rMoBi = new RepositorioMoBi();
+        return rMoBi.GuardarNuevoEventoBien(tipoEvento, IdBien, IdArea, IdPersona, Observaciones, IdUser);
+    }
+
+
+    #endregion
+
 
     private RepositorioLicencias RepoLicencias()
     {
@@ -3952,199 +3976,199 @@ public class WSViaticos : System.Web.Services.WebService
 
 
     /*Excel Consulta Personas DDJJ104*/
-    [WebMethod]
-    public string ConsultaExcelDDJJ104_Persona(string criterio, Usuario usuario)
-    {
-        var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
+    //[WebMethod]
+    //public string ConsultaExcelDDJJ104_Persona(string criterio, Usuario usuario)
+    //{
+    //    var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
 
-        int mesdesde = (int)((JValue)criterio_deserializado["mesdesde"]);
-        int aniodesde = (int)((JValue)criterio_deserializado["aniodesde"]);
-        int meshasta = (int)((JValue)criterio_deserializado["meshasta"]);
-        int aniohasta = (int)((JValue)criterio_deserializado["aniohasta"]);
-        int nrodoc_persona = (int)((JValue)criterio_deserializado["nrodoc_persona"]);
-        int estado = (int)((JValue)criterio_deserializado["estado"]);
-        int orden = (int)((JValue)criterio_deserializado["orden"]);
+    //    int mesdesde = (int)((JValue)criterio_deserializado["mesdesde"]);
+    //    int aniodesde = (int)((JValue)criterio_deserializado["aniodesde"]);
+    //    int meshasta = (int)((JValue)criterio_deserializado["meshasta"]);
+    //    int aniohasta = (int)((JValue)criterio_deserializado["aniohasta"]);
+    //    int nrodoc_persona = (int)((JValue)criterio_deserializado["nrodoc_persona"]);
+    //    int estado = (int)((JValue)criterio_deserializado["estado"]);
+    //    int orden = (int)((JValue)criterio_deserializado["orden"]);
         
-        DDJJ104_Consulta[] personas = GetConsultaIndividualPorPersona(mesdesde, aniodesde, meshasta, aniohasta, nrodoc_persona, estado, orden, usuario);
+    //    DDJJ104_Consulta[] personas = GetConsultaIndividualPorPersona(mesdesde, aniodesde, meshasta, aniohasta, nrodoc_persona, estado, orden, usuario);
         
-        try
-        {
-            DataTable table_resumen = new DataTable();
-            table_resumen.TableName = "Agentes";
+    //    try
+    //    {
+    //        DataTable table_resumen = new DataTable();
+    //        table_resumen.TableName = "Agentes";
 
-            table_resumen.Columns.Add("Mes");
-            table_resumen.Columns.Add("Año");
-            table_resumen.Columns.Add("Area");
-            table_resumen.Columns.Add("Apellido");
-            table_resumen.Columns.Add("Nombre");
-            table_resumen.Columns.Add("FechaGeneracion");
-            table_resumen.Columns.Add("UsuarioGeneracion");
-            table_resumen.Columns.Add("FechaRecibido");
-            table_resumen.Columns.Add("UsuarioRecibido");
-            table_resumen.Columns.Add("Firmante");
-            table_resumen.Columns.Add("Categoria");
-            table_resumen.Columns.Add("ModContratación");
-            table_resumen.Columns.Add("Estado");
+    //        table_resumen.Columns.Add("Mes");
+    //        table_resumen.Columns.Add("Año");
+    //        table_resumen.Columns.Add("Area");
+    //        table_resumen.Columns.Add("Apellido");
+    //        table_resumen.Columns.Add("Nombre");
+    //        table_resumen.Columns.Add("FechaGeneracion");
+    //        table_resumen.Columns.Add("UsuarioGeneracion");
+    //        table_resumen.Columns.Add("FechaRecibido");
+    //        table_resumen.Columns.Add("UsuarioRecibido");
+    //        table_resumen.Columns.Add("Firmante");
+    //        table_resumen.Columns.Add("Categoria");
+    //        table_resumen.Columns.Add("ModContratación");
+    //        table_resumen.Columns.Add("Estado");
 
-            foreach (var item in personas)
-            {
-                table_resumen.Rows.Add(
-                    item.mes.ToString(),
-                    item.anio.ToString(),
-                    item.area_generacion.Nombre,
-                    item.persona.Apellido,
-                    item.persona.Nombre,
-                    item.fecha_generacion,
-                    item.usuario_generacion,
-                    item.fecha_recibido,
-                    item.usuario_recibido,
-                    item.firmante,
-                    item.persona.Categoria,
-                    item.mod_contratacion,
-                    item.estado_descrip
-                    );
-            }
+    //        foreach (var item in personas)
+    //        {
+    //            table_resumen.Rows.Add(
+    //                item.mes.ToString(),
+    //                item.anio.ToString(),
+    //                item.area_generacion.Nombre,
+    //                item.persona.Apellido,
+    //                item.persona.Nombre,
+    //                item.fecha_generacion,
+    //                item.usuario_generacion,
+    //                item.fecha_recibido,
+    //                item.usuario_recibido,
+    //                item.firmante,
+    //                item.persona.Categoria,
+    //                item.mod_contratacion,
+    //                item.estado_descrip
+    //                );
+    //        }
 
-            var workbook = new XLWorkbook();
-            var dataTable_resumen = table_resumen;
-            var ws = workbook.Worksheets.Add("Consulta");
+    //        var workbook = new XLWorkbook();
+    //        var dataTable_resumen = table_resumen;
+    //        var ws = workbook.Worksheets.Add("Consulta");
 
-            ws.Style.Font.FontSize = 9;
-            ws.Style.Font.FontName = "Verdana";
+    //        ws.Style.Font.FontSize = 9;
+    //        ws.Style.Font.FontName = "Verdana";
 
-            ws.Cell(1, 1).Value = "Mes";
-            ws.Cell(1, 2).Value = "Anio";
-            ws.Cell(1, 3).Value = "Area";
-            ws.Cell(1, 4).Value = "Apellido";
-            ws.Cell(1, 5).Value = "Nombre";
-            ws.Cell(1, 6).Value = "Fecha generacion";
-            ws.Cell(1, 7).Value = "Usuario generacion";
-            ws.Cell(1, 8).Value = "Fecha recibido";
-            ws.Cell(1, 9).Value = "Usuario recibido";
-            ws.Cell(1, 10).Value = "Firmante";
-            ws.Cell(1, 11).Value = "Categoria";
-            ws.Cell(1, 12).Value = "Mod Contratacion";
-            ws.Cell(1, 13).Value = "Estado";
+    //        ws.Cell(1, 1).Value = "Mes";
+    //        ws.Cell(1, 2).Value = "Anio";
+    //        ws.Cell(1, 3).Value = "Area";
+    //        ws.Cell(1, 4).Value = "Apellido";
+    //        ws.Cell(1, 5).Value = "Nombre";
+    //        ws.Cell(1, 6).Value = "Fecha generacion";
+    //        ws.Cell(1, 7).Value = "Usuario generacion";
+    //        ws.Cell(1, 8).Value = "Fecha recibido";
+    //        ws.Cell(1, 9).Value = "Usuario recibido";
+    //        ws.Cell(1, 10).Value = "Firmante";
+    //        ws.Cell(1, 11).Value = "Categoria";
+    //        ws.Cell(1, 12).Value = "Mod Contratacion";
+    //        ws.Cell(1, 13).Value = "Estado";
 
-            ws.Cell(1, 1).Style.Font.Bold = true;
-            ws.Cell(1, 2).Style.Font.Bold = true;
-            ws.Cell(1, 3).Style.Font.Bold = true;
-            ws.Cell(1, 4).Style.Font.Bold = true;
-            ws.Cell(1, 5).Style.Font.Bold = true;
-            ws.Cell(1, 6).Style.Font.Bold = true;
-            ws.Cell(1, 7).Style.Font.Bold = true;
-            ws.Cell(1, 8).Style.Font.Bold = true;
-            ws.Cell(1, 9).Style.Font.Bold = true;
-            ws.Cell(1, 10).Style.Font.Bold = true;
-            ws.Cell(1, 11).Style.Font.Bold = true;
-            ws.Cell(1, 12).Style.Font.Bold = true;
-            ws.Cell(1, 13).Style.Font.Bold = true;
+    //        ws.Cell(1, 1).Style.Font.Bold = true;
+    //        ws.Cell(1, 2).Style.Font.Bold = true;
+    //        ws.Cell(1, 3).Style.Font.Bold = true;
+    //        ws.Cell(1, 4).Style.Font.Bold = true;
+    //        ws.Cell(1, 5).Style.Font.Bold = true;
+    //        ws.Cell(1, 6).Style.Font.Bold = true;
+    //        ws.Cell(1, 7).Style.Font.Bold = true;
+    //        ws.Cell(1, 8).Style.Font.Bold = true;
+    //        ws.Cell(1, 9).Style.Font.Bold = true;
+    //        ws.Cell(1, 10).Style.Font.Bold = true;
+    //        ws.Cell(1, 11).Style.Font.Bold = true;
+    //        ws.Cell(1, 12).Style.Font.Bold = true;
+    //        ws.Cell(1, 13).Style.Font.Bold = true;
 
-            var rangeWithData = ws.Cell(2, 1).InsertData(dataTable_resumen.AsEnumerable());
+    //        var rangeWithData = ws.Cell(2, 1).InsertData(dataTable_resumen.AsEnumerable());
 
-            using (var ms = new MemoryStream())
-            {
-                workbook.SaveAs(ms);
-                return Convert.ToBase64String(ms.ToArray());
-            }
+    //        using (var ms = new MemoryStream())
+    //        {
+    //            workbook.SaveAs(ms);
+    //            return Convert.ToBase64String(ms.ToArray());
+    //        }
 
-        }
-        catch (Exception ex)
-        {
-            throw ex;
-        }
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        throw ex;
+    //    }
 
-    }
+    //}
 
 
-    /*Excel Consulta Area DDJJ104*/
-    [WebMethod]
-    public string ConsultaExcelDDJJ104_Area(string criterio, Usuario usuario)
-    {
-        var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
+    ///*Excel Consulta Area DDJJ104*/
+    //[WebMethod]
+    //public string ConsultaExcelDDJJ104_Area(string criterio, Usuario usuario)
+    //{
+    //    var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
 
-        int mesdesde = (int)((JValue)criterio_deserializado["mesdesde"]);
-        int aniodesde = (int)((JValue)criterio_deserializado["aniodesde"]);
-        int meshasta = (int)((JValue)criterio_deserializado["meshasta"]);
-        int aniohasta = (int)((JValue)criterio_deserializado["aniohasta"]);
-        int area = (int)((JValue)criterio_deserializado["area"]);
-        int estado = (int)((JValue)criterio_deserializado["estado"]);
-        int orden = (int)((JValue)criterio_deserializado["orden"]);
+    //    int mesdesde = (int)((JValue)criterio_deserializado["mesdesde"]);
+    //    int aniodesde = (int)((JValue)criterio_deserializado["aniodesde"]);
+    //    int meshasta = (int)((JValue)criterio_deserializado["meshasta"]);
+    //    int aniohasta = (int)((JValue)criterio_deserializado["aniohasta"]);
+    //    int area = (int)((JValue)criterio_deserializado["area"]);
+    //    int estado = (int)((JValue)criterio_deserializado["estado"]);
+    //    int orden = (int)((JValue)criterio_deserializado["orden"]);
 
-        DDJJ104_Consulta[] consulta_area = GetConsultaPorArea(mesdesde, aniodesde, meshasta, aniohasta, area, estado, orden, usuario);
+    //    DDJJ104_Consulta[] consulta_area = GetConsultaPorArea(mesdesde, aniodesde, meshasta, aniohasta, area, estado, orden, usuario);
 
-        try
-        {
-            DataTable table_resumen = new DataTable();
-            table_resumen.TableName = "Areas";
+    //    try
+    //    {
+    //        DataTable table_resumen = new DataTable();
+    //        table_resumen.TableName = "Areas";
 
-            table_resumen.Columns.Add("Mes");
-            table_resumen.Columns.Add("Año");
-            table_resumen.Columns.Add("Area");
-            table_resumen.Columns.Add("FechaGeneracion");
-            table_resumen.Columns.Add("UsuarioGeneracion");
-            table_resumen.Columns.Add("FechaRecibido");
-            table_resumen.Columns.Add("UsuarioRecibido");
-            table_resumen.Columns.Add("Firmante");
-            table_resumen.Columns.Add("Estado");
+    //        table_resumen.Columns.Add("Mes");
+    //        table_resumen.Columns.Add("Año");
+    //        table_resumen.Columns.Add("Area");
+    //        table_resumen.Columns.Add("FechaGeneracion");
+    //        table_resumen.Columns.Add("UsuarioGeneracion");
+    //        table_resumen.Columns.Add("FechaRecibido");
+    //        table_resumen.Columns.Add("UsuarioRecibido");
+    //        table_resumen.Columns.Add("Firmante");
+    //        table_resumen.Columns.Add("Estado");
 
-            foreach (var item in consulta_area)
-            {
-                table_resumen.Rows.Add(
-                    item.mes.ToString(),
-                    item.anio.ToString(),
-                    item.area_generacion.Nombre,
-                    item.fecha_generacion,
-                    item.usuario_generacion,
-                    item.fecha_recibido,
-                    item.usuario_recibido,
-                    item.firmante,
-                    item.estado_descrip
-                    );
-            }
+    //        foreach (var item in consulta_area)
+    //        {
+    //            table_resumen.Rows.Add(
+    //                item.mes.ToString(),
+    //                item.anio.ToString(),
+    //                item.area_generacion.Nombre,
+    //                item.fecha_generacion,
+    //                item.usuario_generacion,
+    //                item.fecha_recibido,
+    //                item.usuario_recibido,
+    //                item.firmante,
+    //                item.estado_descrip
+    //                );
+    //        }
 
-            var workbook = new XLWorkbook();
-            var dataTable_resumen = table_resumen;
-            var ws = workbook.Worksheets.Add("Consulta");
+    //        var workbook = new XLWorkbook();
+    //        var dataTable_resumen = table_resumen;
+    //        var ws = workbook.Worksheets.Add("Consulta");
 
-            ws.Style.Font.FontSize = 9;
-            ws.Style.Font.FontName = "Verdana";
+    //        ws.Style.Font.FontSize = 9;
+    //        ws.Style.Font.FontName = "Verdana";
 
-            ws.Cell(1, 1).Value = "Mes";
-            ws.Cell(1, 2).Value = "Anio";
-            ws.Cell(1, 3).Value = "Area";
-            ws.Cell(1, 4).Value = "Fecha generacion";
-            ws.Cell(1, 5).Value = "Usuario generacion";
-            ws.Cell(1, 6).Value = "Fecha recibido";
-            ws.Cell(1, 7).Value = "Usuario recibido";
-            ws.Cell(1, 8).Value = "Firmante";
-            ws.Cell(1, 9).Value = "Estado";
+    //        ws.Cell(1, 1).Value = "Mes";
+    //        ws.Cell(1, 2).Value = "Anio";
+    //        ws.Cell(1, 3).Value = "Area";
+    //        ws.Cell(1, 4).Value = "Fecha generacion";
+    //        ws.Cell(1, 5).Value = "Usuario generacion";
+    //        ws.Cell(1, 6).Value = "Fecha recibido";
+    //        ws.Cell(1, 7).Value = "Usuario recibido";
+    //        ws.Cell(1, 8).Value = "Firmante";
+    //        ws.Cell(1, 9).Value = "Estado";
 
-            ws.Cell(1, 1).Style.Font.Bold = true;
-            ws.Cell(1, 2).Style.Font.Bold = true;
-            ws.Cell(1, 3).Style.Font.Bold = true;
-            ws.Cell(1, 4).Style.Font.Bold = true;
-            ws.Cell(1, 5).Style.Font.Bold = true;
-            ws.Cell(1, 6).Style.Font.Bold = true;
-            ws.Cell(1, 7).Style.Font.Bold = true;
-            ws.Cell(1, 8).Style.Font.Bold = true;
-            ws.Cell(1, 9).Style.Font.Bold = true;
+    //        ws.Cell(1, 1).Style.Font.Bold = true;
+    //        ws.Cell(1, 2).Style.Font.Bold = true;
+    //        ws.Cell(1, 3).Style.Font.Bold = true;
+    //        ws.Cell(1, 4).Style.Font.Bold = true;
+    //        ws.Cell(1, 5).Style.Font.Bold = true;
+    //        ws.Cell(1, 6).Style.Font.Bold = true;
+    //        ws.Cell(1, 7).Style.Font.Bold = true;
+    //        ws.Cell(1, 8).Style.Font.Bold = true;
+    //        ws.Cell(1, 9).Style.Font.Bold = true;
             
-            var rangeWithData = ws.Cell(2, 1).InsertData(dataTable_resumen.AsEnumerable());
+    //        var rangeWithData = ws.Cell(2, 1).InsertData(dataTable_resumen.AsEnumerable());
 
-            using (var ms = new MemoryStream())
-            {
-                workbook.SaveAs(ms);
-                return Convert.ToBase64String(ms.ToArray());
-            }
+    //        using (var ms = new MemoryStream())
+    //        {
+    //            workbook.SaveAs(ms);
+    //            return Convert.ToBase64String(ms.ToArray());
+    //        }
 
-        }
-        catch (Exception ex)
-        {
-            throw ex;
-        }
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        throw ex;
+    //    }
 
-    }
+    //}
 
        
 }

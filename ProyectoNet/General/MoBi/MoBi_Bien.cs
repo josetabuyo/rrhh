@@ -14,6 +14,8 @@ namespace General
         private DateTime _UltMov;
         private string _Remitente;
         private string _Asignacion;
+        private string _AreaActual;
+
 
         public string Asignacion
         {
@@ -60,6 +62,13 @@ namespace General
         {
             get { return _Id; }
             set { _Id = value; }
+        }
+
+
+        public string AreaActual
+        {
+            get { return _AreaActual; }
+            set { _AreaActual = value; }
         }
 
     }

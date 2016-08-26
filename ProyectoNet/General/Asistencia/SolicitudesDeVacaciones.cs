@@ -46,10 +46,6 @@ namespace General
             return persona.TipoDePlanta.Prorroga(this.Desde()).UsufructoDesde;
         }
 
-        /// <summary>
-        /// devuelve el año al cual 
-        /// </summary>
-        /// <returns></returns>
         public List<CantidadDeDiasPorPeriodo> AnioMaximoImputable()
         {
             return this._creador_dias_por_periodo.AnioMaximoImputable(this); //VER MAÑANA CON AGUS
@@ -92,11 +88,6 @@ namespace General
         {
             return (this.Desde() <= new DateTime(this.Desde().Year, 11, 30) && (this.Hasta() >= new DateTime(this.Desde().Year, 12, 01)));
         }
-
-
-        public int DiasYaImputados()
-        {
-            return _dias_ya_imputados;
-        }
+        
     }
 }

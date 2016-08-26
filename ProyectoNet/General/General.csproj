@@ -75,10 +75,8 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Asistencia\AnalisisDeLicenciaOrdinaria.cs" />
     <Compile Include="Asistencia\ConceptoLicenciaAnualOrdinaria.cs" />
     <Compile Include="Asistencia\ConceptoLicenciaGeneral.cs" />
-    <Compile Include="Asistencia\LogCalculoVacaciones.cs" />
     <Compile Include="Asistencia\ResponsableDDJJ.cs" />
     <Compile Include="Asistencia\SolicitudesDeVacaciones.cs" />
     <Compile Include="Asistencia\TipoDePlantaGeneral.cs" />
@@ -101,7 +99,6 @@
     <Compile Include="Asistencia\VacacionesSolicitables.cs" />
     <Compile Include="Calendario\CalculadorDeDias.cs" />
     <Compile Include="Calendario\Periodo.cs" />
-    <Compile Include="DDJJ104\DDJJ104_Consulta.cs" />
     <Compile Include="MOBI\ExcepcionDeVehiculoInexistente.cs" />
     <Compile Include="MOBI\RespuestaVehiculo.cs" />
     <Compile Include="MOBI\RepositorioTarjetones.cs" />

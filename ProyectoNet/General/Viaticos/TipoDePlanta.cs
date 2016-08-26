@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 
 using System.Text;
-using General.Repositorios;
 
 namespace General
 {
@@ -28,7 +27,7 @@ namespace General
             throw new Exception("Responsabilidad de la subclase");
         }
 
-        public TipoDePlanta InstanciaDeSubclase(IRepositorioLicencia repo)
+        public TipoDePlanta InstanciaDeSubclase()
         {
             if (this.Id == 22)
             {
@@ -36,7 +35,7 @@ namespace General
             }
             else
             {
-                return new TipoDePlantaGeneral(this._Id, this._Descripcion, repo);
+                return new TipoDePlantaGeneral(this._Id, this._Descripcion);
             }
         }
 
