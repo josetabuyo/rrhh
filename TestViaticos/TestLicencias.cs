@@ -178,6 +178,7 @@ namespace TestViaticos
         {
             var permitidas_para_juan = new List<VacacionesPermitidas>() { VacacionesPermitidas(2012, 12) };
             var aprobadas_para_juan = new List<SolicitudesDeVacaciones>() { new VacacionesAprobadas(juan, primero_de_enero_2013(), cinco_de_enero_2013()) };
+            Expect.Once.On((TestObjects.RepoLicenciaMockeado())).Method("GetVacasPermitidasPara").Will(Return.Value(permitidas_para_juan));
 
             var listado_solicitables = calculador().DiasSolicitables(permitidas_para_juan, aprobadas_para_juan, fecha_de_hoy(), TestObjects.UnaPersona(), analisis);
 
@@ -190,6 +191,7 @@ namespace TestViaticos
         {
             var permitidas_para_juan = new List<VacacionesPermitidas>() { VacacionesPermitidas(2012, 12) };
             var aprobadas_para_juan = new List<SolicitudesDeVacaciones>() { new VacacionesAprobadas(juan, primero_de_enero_2013(), cinco_de_enero_2013()), new VacacionesAprobadas(juan, primero_de_febrero_2013(), cinco_de_febrero_2013()) };
+            Expect.Once.On((TestObjects.RepoLicenciaMockeado())).Method("GetVacasPermitidasPara").Will(Return.Value(permitidas_para_juan));
 
             var listado_solicitables = calculador().DiasSolicitables(permitidas_para_juan, aprobadas_para_juan, fecha_de_hoy(), TestObjects.UnaPersona(), analisis);
 
@@ -204,6 +206,7 @@ namespace TestViaticos
             var permitidas_para_juan = new List<VacacionesPermitidas>() { VacacionesPermitidas(2012, 12), VacacionesPermitidas(2013, 20) };
             var aprobadas_para_juan = new List<SolicitudesDeVacaciones>() { new VacacionesAprobadas(juan, primero_de_enero_2013(), cinco_de_enero_2013()) };
             var fecha_hoy = new DateTime(2013, 01, 01);
+            Expect.Once.On((TestObjects.RepoLicenciaMockeado())).Method("GetVacasPermitidasPara").Will(Return.Value(permitidas_para_juan));
 
             var listado_solicitables = calculador().DiasSolicitables(permitidas_para_juan, aprobadas_para_juan, fecha_hoy, TestObjects.UnaPersona(), analisis);
 
@@ -222,6 +225,7 @@ namespace TestViaticos
             var permitidas_para_juan = new List<VacacionesPermitidas>() { VacacionesPermitidas(2007, 10) };
             var aprobadas_para_juan = new List<SolicitudesDeVacaciones>() { new VacacionesAprobadas(juan, f1, f2), new VacacionesAprobadas(juan, f3, f4) };
             var fecha_hoy = new DateTime(2016, 01, 01);
+            Expect.Once.On((TestObjects.RepoLicenciaMockeado())).Method("GetVacasPermitidasPara").Will(Return.Value(permitidas_para_juan));
 
             var listado_solicitables = calculador().DiasSolicitables(permitidas_para_juan, aprobadas_para_juan, fecha_hoy, TestObjects.UnaPersona(), analisis);
 
@@ -252,6 +256,8 @@ namespace TestViaticos
             Expect.AtLeastOnce.On(repo).
             Method("GetProrrogaPlantaGeneral").
             Will(Return.Value(5));
+
+            ElRepoDeLicenciasNoDevuelveVacasPermitidas();
 
             var permitidas_para_juan = new List<VacacionesPermitidas>() { VacacionesPermitidas(2007, 10), VacacionesPermitidas(2008, 25) };
             var aprobadas_para_juan = new List<SolicitudesDeVacaciones>() { new VacacionesAprobadas(juan, f1, f2), new VacacionesAprobadas(juan, f3, f4), new VacacionesAprobadas(juan, f5, f6) };
@@ -291,6 +297,8 @@ namespace TestViaticos
             Expect.AtLeastOnce.On(repo).
             Method("GetProrrogaPlantaGeneral").
             Will(Return.Value(5));
+            
+            ElRepoDeLicenciasNoDevuelveVacasPermitidas();
 
             var permitidas_para_juan = new List<VacacionesPermitidas>() { VacacionesPermitidas(2007, 10), VacacionesPermitidas(2008, 25), VacacionesPermitidas(2009, 25), VacacionesPermitidas(2010, 30) };
             var aprobadas_para_juan = new List<SolicitudesDeVacaciones>() {             
@@ -320,6 +328,8 @@ namespace TestViaticos
             var permitidas_para_juan = new List<VacacionesPermitidas>() { VacacionesPermitidas(2009, 25), VacacionesPermitidas(2010, 30) };
             var aprobadas_para_juan = new List<SolicitudesDeVacaciones>() { new VacacionesAprobadas(juan, f1, f2) };
             var fecha_hoy = new DateTime(2016, 01, 01);
+            Expect.Once.On((TestObjects.RepoLicenciaMockeado())).Method("GetVacasPermitidasPara").Will(Return.Value(permitidas_para_juan));
+
 
             var listado_solicitables = calculador().DiasSolicitables(permitidas_para_juan, aprobadas_para_juan, fecha_hoy, TestObjects.UnaPersona(), analisis);
 
@@ -334,6 +344,7 @@ namespace TestViaticos
             var permitidas_para_juan = new List<VacacionesPermitidas>() { VacacionesPermitidas(2010, 35), VacacionesPermitidas(2011, 35), VacacionesPermitidas(2012, 35) };
             var aprobadas_para_juan = new List<SolicitudesDeVacaciones>() { new VacacionesAprobadas(juan, F("06/01/2014"), F("17/01/2014")) };
             var fecha_hoy = new DateTime(2016, 01, 01);
+            Expect.Once.On((TestObjects.RepoLicenciaMockeado())).Method("GetVacasPermitidasPara").Will(Return.Value(permitidas_para_juan));
 
             calculador().DiasSolicitables(permitidas_para_juan, aprobadas_para_juan, fecha_hoy, TestObjects.UnaPersona(), analisis);
 
@@ -390,6 +401,7 @@ namespace TestViaticos
         {
             var permitidas_para_juan = new List<VacacionesPermitidas>() { VacacionesPermitidas(2012, 12) };
             var aprobadas_para_juan = new List<SolicitudesDeVacaciones>() { new VacacionesAprobadas(juan, primero_de_enero_2013(), cinco_de_enero_2013()) };
+            Expect.Once.On((TestObjects.RepoLicenciaMockeado())).Method("GetVacasPermitidasPara").Will(Return.Value(permitidas_para_juan));
 
             var listado_solicitables = calculador().DiasSolicitables(permitidas_para_juan, aprobadas_para_juan, fecha_de_hoy(), TestObjects.UnaPersona(), analisis);
             var vacaciones_solicitables = listado_solicitables.First();
@@ -405,6 +417,7 @@ namespace TestViaticos
         {
             var permitidas_para_juan = new List<VacacionesPermitidas>() { VacacionesPermitidas(2012, 12) };
             var aprobadas_para_juan = new List<SolicitudesDeVacaciones>() { new VacacionesAprobadas(juan, primero_de_enero_2013(), cinco_de_enero_2013()), new VacacionesAprobadas(juan, primero_de_febrero_2013(), cinco_de_febrero_2013()) };
+            Expect.Once.On((TestObjects.RepoLicenciaMockeado())).Method("GetVacasPermitidasPara").Will(Return.Value(permitidas_para_juan));
 
             var listado_solicitables = calculador().DiasSolicitables(permitidas_para_juan, aprobadas_para_juan, fecha_de_hoy(), TestObjects.UnaPersona(), analisis);
             var vacaciones_solicitables = listado_solicitables.First();
@@ -422,6 +435,7 @@ namespace TestViaticos
             var permitidas_para_juan = new List<VacacionesPermitidas>() { VacacionesPermitidas(2012, 12), VacacionesPermitidas(2013, 20) };
             var aprobadas_para_juan = new List<SolicitudesDeVacaciones>() { new VacacionesAprobadas(juan, primero_de_enero_2013(), cinco_de_enero_2013()) };
             var fecha_hoy = new DateTime(2013, 01, 01);
+            Expect.Once.On((TestObjects.RepoLicenciaMockeado())).Method("GetVacasPermitidasPara").Will(Return.Value(permitidas_para_juan));
 
             var listado_solicitables = calculador().DiasSolicitables(permitidas_para_juan, aprobadas_para_juan, fecha_hoy, TestObjects.UnaPersona(), analisis);
 
@@ -463,6 +477,9 @@ namespace TestViaticos
             var permitidas_para_juan = new List<VacacionesPermitidas>() { VacacionesPermitidas(2011, 12), VacacionesPermitidas(2012, 20) };
             var aprobadas_para_juan = new List<SolicitudesDeVacaciones>() { new VacacionesAprobadas(juan, primero_de_enero_2013(), cinco_de_enero_2013()), new VacacionesAprobadas(juan, primero_de_marzo_2013(), diez_de_marzo_2013()) };
             var fecha_hoy = new DateTime(2013, 01, 01);
+            
+            Expect.Once.On((TestObjects.RepoLicenciaMockeado())).Method("GetVacasPermitidasPara").Will(Return.Value(permitidas_para_juan));
+
 
             var listado_solicitables = calculador().DiasSolicitables(permitidas_para_juan, aprobadas_para_juan, fecha_hoy, TestObjects.UnaPersona(), analisis);
 
@@ -517,6 +534,8 @@ namespace TestViaticos
             var permitidas_para_juan = new List<VacacionesPermitidas>() { VacacionesPermitidas(2012, 12), VacacionesPermitidas(2013, 20) };
             var aprobadas_para_juan = new List<SolicitudesDeVacaciones>() { new VacacionesAprobadas(juan, primero_de_enero_2013(), cinco_de_enero_2013()), new VacacionesAprobadas(juan, primero_de_marzo_2014(), diez_de_marzo_2014()), new VacacionesPendientesDeAprobacion(juan, new DateTime(2014, 04, 01), new DateTime(2014, 04, 05)) };
             var fecha_de_hoy = new DateTime(2014, 12, 01);
+            Expect.Once.On((TestObjects.RepoLicenciaMockeado())).Method("GetVacasPermitidasPara").Will(Return.Value(permitidas_para_juan));
+
 
             var listado_solicitables = calculador().DiasSolicitables(permitidas_para_juan, aprobadas_para_juan, fecha_de_hoy, TestObjects.UnaPersona(), analisis);
 
@@ -535,6 +554,8 @@ namespace TestViaticos
             var permitidas_para_juan_hasta_2012 = new List<VacacionesPermitidas>() { vacaciones_permitidas_2011, VacacionesPermitidas(2012, 20) };
             var aprobadas_para_juan_al_30_11_2013 = new List<SolicitudesDeVacaciones>() { new VacacionesAprobadas(juan, primero_de_enero_2012(), quince_de_enero_2012()) };
             var fecha_hoy = new DateTime(2013, 01, 01);
+            Expect.AtLeastOnce.On((TestObjects.RepoLicenciaMockeado())).Method("GetVacasPermitidasPara").Will(Return.Value(permitidas_para_juan_hasta_2012));
+
             var listado_solicitables_al_31_11_2013 = calculador().DiasSolicitables(permitidas_para_juan_hasta_2012, aprobadas_para_juan_al_30_11_2013, fecha_hoy, TestObjects.UnaPersona(), analisis);
 
             Assert.AreEqual(2, listado_solicitables_al_31_11_2013.Count());
@@ -680,6 +701,8 @@ namespace TestViaticos
         public void deberia_tener_20_dias_perdidos_para_2009()
         {
             var fecha_de_hoy = new DateTime(2014, 01, 01);
+            ElRepoDeLicenciasNoDevuelveVacasPermitidas();
+
             var lista_de_dias_pendientes_por_periodo = calculador().DiasSolicitables(VacacionesPermitidas(), VacacionesAprobadas(), fecha_de_hoy, TestObjects.UnaPersona(), analisis);
             //las aprob se deben imputar a 2011 a 2012
             Assert.AreEqual(2, lista_de_dias_pendientes_por_periodo.Count());
@@ -693,6 +716,7 @@ namespace TestViaticos
         public void carla_solicita_aprobacion_de_33_dias_de_vacaciones_que_deberan_imputarse_a_20_permitidas_del_2012_y_20_permitidas_del_2013_quedandole_7_dias()
         {
             var vacaciones_solicitadas = new List<SolicitudesDeVacaciones>() { new VacacionesPendientesDeAprobacion(juan, new DateTime(2014, 01, 06), new DateTime(2014, 02, 07)) };
+            ElRepoDeLicenciasNoDevuelveVacasPermitidas();
 
             var fecha_de_hoy = new DateTime(2014, 03, 06);
 
@@ -701,6 +725,11 @@ namespace TestViaticos
             Assert.AreEqual(1, lista_de_dias_pendientes_por_periodo.Count());
             Assert.AreEqual(7, lista_de_dias_pendientes_por_periodo.Find(l => l.Periodo() == 2013).CantidadDeDias());
 
+        }
+
+        private void ElRepoDeLicenciasNoDevuelveVacasPermitidas()
+        {
+            Expect.Once.On((TestObjects.RepoLicenciaMockeado())).Method("GetVacasPermitidasPara").Will(Return.Value(new List<VacacionesPermitidas>()));
         }
 
         [TestMethod]
@@ -724,6 +753,7 @@ namespace TestViaticos
         {
             var vacaciones_solicitadas = new List<SolicitudesDeVacaciones>() { new VacacionesPendientesDeAprobacion(juan, new DateTime(2013, 11, 26), new DateTime(2013, 12, 5)) };
             var fecha_de_hoy = new DateTime(2013, 11, 30); //SI CAMBIO LA FECHA CAMBIA LA IMPUTACION
+            ElRepoDeLicenciasNoDevuelveVacasPermitidas();
 
             var lista_de_dias_pendientes_por_periodo = calculador().DiasSolicitables(VacacionesPermitidasParaCarla2(), vacaciones_solicitadas, fecha_de_hoy, TestObjects.UnaPersona(), analisis);
 
@@ -766,6 +796,7 @@ namespace TestViaticos
         {
             var vacaciones_solicitadas = new List<SolicitudesDeVacaciones>() { new VacacionesPendientesDeAprobacion(juan, new DateTime(2014, 03, 01), new DateTime(2014, 03, 30)) };
             var fecha_de_hoy = new DateTime(2014, 01, 01);
+            ElRepoDeLicenciasNoDevuelveVacasPermitidas();
 
             var lista_de_dias_pendientes_por_periodo = calculador().DiasSolicitables(VacacionesPermitidasal2014(), vacaciones_solicitadas, fecha_de_hoy, TestObjects.UnaPersona(), analisis);
 
@@ -780,6 +811,7 @@ namespace TestViaticos
         {
             var vacaciones_solicitadas = new List<SolicitudesDeVacaciones>() { new VacacionesPendientesDeAprobacion(juan, new DateTime(2013, 11, 26), new DateTime(2013, 12, 5)) };
             var fecha_de_hoy = new DateTime(2013, 10, 25);
+            ElRepoDeLicenciasNoDevuelveVacasPermitidas();
 
             var lista_de_dias_pendientes_por_periodo = calculador().DiasSolicitables(VacacionesPermitidasParaCarla(), vacaciones_solicitadas, fecha_de_hoy, TestObjects.UnaPersona(), analisis);
 
@@ -797,6 +829,7 @@ namespace TestViaticos
         {
             var permitidas_para_juan_hasta_2012 = new List<VacacionesPermitidas>() { VacacionesPermitidas(2011, 20), VacacionesPermitidas(2012, 20) };
             var vacaciones_solicitadas = new List<SolicitudesDeVacaciones>() { new VacacionesAprobadas(juan, new DateTime(2012, 11, 16), new DateTime(2012, 12, 20)) };
+            Expect.Once.On((TestObjects.RepoLicenciaMockeado())).Method("GetVacasPermitidasPara").Will(Return.Value(permitidas_para_juan_hasta_2012));
 
             var licencia_solicitables = calculador().DiasSolicitables(permitidas_para_juan_hasta_2012, vacaciones_solicitadas, fecha_de_hoy(), TestObjects.UnaPersona(), analisis);
 
@@ -811,6 +844,8 @@ namespace TestViaticos
         {
             var permitidas_para_juan_hasta_2012 = new List<VacacionesPermitidas>() { VacacionesPermitidas(2010, 20), VacacionesPermitidas(2011, 20) };
             var vacaciones_solicitadas = new List<SolicitudesDeVacaciones>() { new VacacionesAprobadas(juan, new DateTime(2012, 11, 16), new DateTime(2012, 12, 15)) };
+            Expect.Once.On((TestObjects.RepoLicenciaMockeado())).Method("GetVacasPermitidasPara").Will(Return.Value(permitidas_para_juan_hasta_2012));
+
             var fecha = new DateTime(2012, 12, 20);
             var licencia_solicitables = calculador().DiasSolicitables(permitidas_para_juan_hasta_2012, vacaciones_solicitadas, fecha, TestObjects.UnaPersona(), analisis);
 
@@ -853,6 +888,7 @@ namespace TestViaticos
             var una_persona = TestObjects.UnaPersona();
             var permitidas_para_juan_hasta_2012 = new List<VacacionesPermitidas>() { VacacionesPermitidas(2011, 20), VacacionesPermitidas(2012, 20), VacacionesPermitidas(2013, 20) };
             var vacaciones_solicitadas = new List<SolicitudesDeVacaciones>() { new VacacionesAprobadas(una_persona, new DateTime(2012, 01, 01), new DateTime(2012, 01, 15)) };//del 01-01 al 04-02
+            Expect.Once.On((TestObjects.RepoLicenciaMockeado())).Method("GetVacasPermitidasPara").Will(Return.Value(permitidas_para_juan_hasta_2012));
 
             una_persona.TipoDePlanta = new TipoDePlantaContratado();
 

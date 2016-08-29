@@ -21,29 +21,10 @@ namespace General
             // TODO: Complete member initialization
         }
 
-        //public List<VacacionesPermitidas> GetVacacionesPermitidas()
-        //{
-        //    return _repositorio_licencia.GetVacacionesPermitidas();
-        //}
-
         public List<VacacionesPermitidas> ObtenerLicenciasPermitidasPara(Persona persona, Periodo periodo, Licencia licencia)
         {
             return _repositorio_licencia.GetVacacionPermitidaPara(persona, periodo, licencia);
         }
-
-        //public List<VacacionesAprobadas> ObtenerLicenciasAprobadasPara(Persona persona, Periodo periodo, Licencia licencia)
-        //{
-        //    return _repositorio_licencia.GetVacacionesAprobadasPara(persona, periodo, licencia);
-        //}
-
-        //public List<VacacionesPermitidas> ObtenerLicenciasPermitidasPara(Persona persona)
-        //{
-        //    ConceptoDeLicencia concepto = new ConceptoDeLicencia();
-        //    concepto.Id = CodigosDeLicencias.Vacaciones;
-        //    Licencia licencia_por_vacaciones = new Licencia();
-        //    licencia_por_vacaciones.Concepto = concepto;
-        //    return _repositorio_licencia.GetVacacionPermitidaPara(persona, licencia_por_vacaciones);// ObtenerLicenciasPermitidasPara(persona);
-        //}
 
         public object DiasRestantes(VacacionesPermitidas permitidas, VacacionesAprobadas aprobadas, VacacionesPendientesDeAprobacion pendientes_de_aprobar)
         {
@@ -106,33 +87,6 @@ namespace General
                 }
             }
         }
-
-        //private void ImputarA(SolicitudesDeVacaciones pendiente, List<VacacionesPermitidas> permitidas_consumibles, Persona persona)
-        //{
-
-        //    //permitidas_consumibles.RemoveAll(consumible => aprobadas.AnioMinimoImputable() > consumible.Periodo && aprobadas.AnioMaximoImputable().Last().Periodo() <= consumible.Periodo);
-        //    permitidas_consumibles.RemoveAll(consumible => pendiente.AnioMinimoImputable(persona) > consumible.Periodo);
-
-        //    var permitidas_aplicables = permitidas_consumibles.FindAll(consumible => consumible.CantidadDeDias() > 0);
-        //    var primera_permitida_aplicable = new VacacionesPermitidas();
-        //    if (permitidas_aplicables.Count() == 0) throw new SolicitudInvalidaException();
-        //    primera_permitida_aplicable = permitidas_aplicables.First();
-
-        //    if (primera_permitida_aplicable.CantidadDeDias() > (pendiente.CantidadDeDias()))
-        //    {
-        //        primera_permitida_aplicable.RestarDias(pendiente.CantidadDeDias());
-        //    }
-        //    else
-        //    {
-        //        pendiente.DiasYaImputados(primera_permitida_aplicable.CantidadDeDias());
-        //        primera_permitida_aplicable.RestarDias(primera_permitida_aplicable.CantidadDeDias());
-        //        if (primera_permitida_aplicable.CantidadDeDias() == 0)
-        //        {
-        //            permitidas_consumibles.Remove(primera_permitida_aplicable);
-        //        }
-        //        ImputarA(pendiente, permitidas_consumibles, persona);
-        //    }
-        //}
 
 
         protected int AnioMinimoImputable(DateTime fecha)
