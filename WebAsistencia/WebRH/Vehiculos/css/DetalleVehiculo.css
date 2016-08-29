@@ -128,7 +128,7 @@ body
 #Contenido
 {
     /* width: 80%;     left: 10%;     right: 10%;*/
-    top: 150px;
+    top: 130px;
     line-height: 18px;
     color: white;
     font-family: Arial;
@@ -162,16 +162,19 @@ body
 
 .tabla-principal
 {
+
     color: white;
+    box-shadow: 4px 4px 5px #D0D0D0;
     margin-top: 0%;
     margin-bottom: 0%;
     font-size: 1.5em;
     width: 100%;
     background-color: #00001c;
-    border-radius: 10px;
     margin-bottom: 5%;
     width: 60%;
     margin-left: 20%;
+    border-radius: 10px;
+    border-color: white;
 }
 
 #celda-titulo
@@ -186,19 +189,16 @@ body
 {
     padding: 7px;
     width: 40%;
-    padding-left: 3%;
-    padding-bottom: 2%;
-    padding-top: 2%;
+    padding-left: 2%;
+    padding-bottom: 10px;
+    padding-top: 10px;
 }
 
 .celda2
 {
-    padding: 1%;
+    padding:10px;
     width: 80%;
 }
-
-
-
 
 .celda-imagen
 {
@@ -210,18 +210,30 @@ body
 {
     background-color: white;
     height: 2px;
+    margin-bottom: 2%;
     width: 100%;
     border-radius: 10px;
 }
 
 .div-titulos
 {
+    
     border-radius: 10px;
-    margin-bottom: 0%;
+    /* border: solid; */
+    margin-bottom: 20px;
     font-size: 1.9em;
-    font-weight: bold; /* height: 100%;*/
-    text-align: left; /*margin-top: 3%;*/
-    display: inline-block;
+    font-weight: bold;
+    /* height: 100%; */
+    padding-top: 15px;
+    padding-bottom: 5px;
+    text-align: left;
+    padding-left: 12px;
+    margin-top: -30px;
+    /* display: inline-block; */
+    background-color: #00001c;
+    box-shadow: 4px 4px 5px #D0D0D0;
+    
+   
 }
 
 
@@ -280,18 +292,21 @@ hr
 
 #mensaje_error
 {
-    text-align: center;
+        text-align: center;
     background: white;
     height: 110px;
-    margin-top: 15%;
+    margin-top: 10%;
     width: 367px;
-    margin-left: 25%;
     border-radius: 14px;
     font-size: 18px;
     background-color: gainsboro;
     padding: 0.5%;
     position: absolute;
+    /* width: 100%; */
+    left: 30%;
+    top: 50px;
     border: 3px solid rgb(25, 75, 180);
+    box-shadow: 5px 5px 5px grey;
 }
 
 #txt_mensaje_error
@@ -304,8 +319,8 @@ hr
     border: 2px solid rgb(25, 75, 180);
     border-radius: 5px;
     font-size: 25px;
-    padding: 5px;
-    margin-top: 25px;
+    padding: 10px;
+    margin-top: 20px;
     background-color: #ababab;
     box-shadow: 5px 5px 15px #888888;
 }
@@ -314,16 +329,42 @@ hr
 {
     width: 60%;
     margin-left: 20%;
-    margin-top: 1%;
+    margin-top: 3%;
 }
 
 .carousel-inner
 {
     border-radius: 10px !important;
     border: solid;
+   /*box-shadow: 7px 7px 12px white;*/
     background-color: #00001c;
-    border-color: #808080;
+    
 }
+
+.posicion-boton-imagenes
+{
+ position: absolute;  
+ margin-left: 10px;
+ box-shadow: 1px 1px 4px white;
+ 
+    }
+
+#boton-volver
+{
+    }
+
+#boton-imagenes
+{
+    left: 140px;
+    }
+    
+    #boton-datos-vehiculo
+    {
+        left: 70px;
+        }
+
+
+
 
 /*
 @media only screen and (max-width: 850px) and (min-width:550px)

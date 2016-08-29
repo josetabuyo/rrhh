@@ -11,7 +11,9 @@
     <script type="text/javascript" src="js/DetalleVehiculo.js"></script>
     <script type="text/javascript" src="js/carousel.js"></script>
     <script type="text/javascript" src="../Scripts/ControlesImagenes/VistaThumbnail.js"></script>
+    <link rel="icon" href="../Imagenes/iconos/logoweb-favicon.png">
 </head>
+
 <body>
     <div id="fondo-Arriba">
     </div>
@@ -34,8 +36,9 @@
                 Vigencia</p>
         </div>
         <div id="barra-azul">
-        <button type="button" class="btn btn-primary">Default</button>
-        <button type="button" class="btn btn-primary">Default</button>
+        <a id="boton-volver" href="https://rrhh.desarrollosocial.gob.ar/vehiculos/" class="posicion-boton-imagenes btn btn-primary">Volver</a>
+        <a id="boton-datos-vehiculo" href="#datos-vehiculo" class="posicion-boton-imagenes btn btn-primary">Datos</a>
+        <a id="boton-imagenes" href="#myCarousel" class="posicion-boton-imagenes btn btn-primary">Imágenes</a>
         </div>
     </div>
     <div id="mensaje_error" title="Error" style="display: none">
@@ -50,18 +53,18 @@
         </a>
     </div>
     <div id="Contenido">
-        <div id="contenedor-imagenes">
-            
+            <div id="prueba"> </div>
             <div id="contenedor-vehiculos">
-                <div class="div-titulos">
+
+                <div class="div-titulos animated slideInRight"">
                     <p id="titulo">
                         Vehículo
                     </p>
                 </div>
-                <div class="separador">
-                </div>
+               <%--<div class="separador">
+                </div>--%>
             </div>
-            <table class="tabla-principal">
+            <table id="datos-vehiculo" class="tabla-principal">
                 <tr>
                     <td colspan="2" class="celda">
                         Marca:
@@ -126,20 +129,32 @@
                     </td>
                 </tr>
             </table>
-        </div>
+        
+
+
         <div class="contenedor-imagen-vehiculo">
             <div id="myCarousel" class="carousel slide" data-ride="carousel" style="width: 100%;
                 height: 500px;">
                 <!-- Wrapper for carousel items -->
                 <div class="carousel-inner" style="width: 100%; height: 100%;">
                 </div>
-            </div>
+            
+
             <!-- Carousel controls -->
-            <a class="carousel-control left" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left">
-            </span></a><a class="carousel-control right" href="#myCarousel" data-slide="next"><span
-                class="glyphicon glyphicon-chevron-right"></span></a>
+            <a class="carousel-control left" href="#myCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left">
+            </span>
+            </a>
+            
+            <a class="carousel-control right" href="#myCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right">
+            </span>
+            </a>
+            </div>
         </div>
+        </div>
+
     </div>
-    </div>
+    
 </body>
 </html>
