@@ -99,6 +99,7 @@
     <Compile Include="Asistencia\VacacionesSolicitables.cs" />
     <Compile Include="Calendario\CalculadorDeDias.cs" />
     <Compile Include="Calendario\Periodo.cs" />
+    <Compile Include="DDJJ104\DDJJ104_Consulta.cs" />
     <Compile Include="MOBI\ExcepcionDeVehiculoInexistente.cs" />
     <Compile Include="MOBI\RespuestaVehiculo.cs" />
     <Compile Include="MOBI\RepositorioTarjetones.cs" />
