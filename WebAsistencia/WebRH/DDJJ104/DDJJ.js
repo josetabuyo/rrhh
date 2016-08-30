@@ -463,7 +463,7 @@ var DibujarGrillaPersonas = function (un_area, contenedor_grilla, es_impresion) 
                         //contenedor_grilla.append($("<br/>"));
 
                         contenedor_grilla.append($("<div class='nombre_area_informal'><b>" + area_informal.Nombre + " (continuación)" + "<b/>" + "(Pag: " + contador_de_paginas + "/" + cantidad_total_de_hojas + ")</div>"));
-                        var grilla_area_informal = new Grilla(
+                        grilla_area_informal = new Grilla(
                     [
                         new Columna("APELLIDO Y NOMBRE", { generar: function (una_persona) { return una_persona.Apellido + ", " + una_persona.Nombre; } }),
 			            new Columna("CUIL/CUIT", { generar: function (una_persona) { return una_persona.Cuit; } }),

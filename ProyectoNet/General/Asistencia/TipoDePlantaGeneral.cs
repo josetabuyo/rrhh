@@ -14,38 +14,42 @@ namespace General
 
         private string _descripcion;
         public string Descripcion { get { return _descripcion; }  }
+        protected IRepositorioLicencia _repoLicencias { get; set; }
 
 
-        public TipoDePlantaGeneral(int id, string descripcion)
+        public TipoDePlantaGeneral(int id, string descripcion, IRepositorioLicencia repo)
         {
             this._id = id;
             this._descripcion = descripcion;
+            this._repoLicencias = repo;
         }
 
-        protected static int anios = 0;
+        protected int anios = 0;
+
 
         public override ProrrogaLicenciaOrdinaria Prorroga(DateTime fecha_calculo)
         {
             var prorroga = new ProrrogaLicenciaOrdinaria();
-            if (anios == 0)
-            {
-                RepositorioLicencias repo = new RepositorioLicencias(Conexion());
-                anios = repo.GetProrrogaPlantaGeneral(fecha_calculo.Year);
-            }          
+            //RepositorioLicencias _repoLicencias = new RepositorioLicencias(Conexion());
+            int anio_calculo = fecha_calculo.Year;
 
-            if (fecha_calculo.Month == 12)
+            if (fecha_calculo.Month != 12)
             {
-                prorroga.UsufructoDesde = fecha_calculo.Year - anios;
-                prorroga.UsufructoHasta = fecha_calculo.Year;
+
+                anio_calculo = anio_calculo - 1;
+                anios = _repoLicencias.GetProrrogaPlantaGeneral(anio_calculo);
             }
             else
             {
-                prorroga.UsufructoDesde = fecha_calculo.Year - (anios + 1);
-                prorroga.UsufructoHasta = fecha_calculo.Year - 1;
+                anios = _repoLicencias.GetProrrogaPlantaGeneral(anio_calculo);
             }
+
+            prorroga.UsufructoDesde = anio_calculo - anios;
+            prorroga.UsufructoHasta = anio_calculo;
 
             return prorroga;
         }
+
 
         public ConexionBDSQL Conexion()
         {

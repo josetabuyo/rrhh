@@ -11,6 +11,7 @@ SelectorDePersonas.prototype.start = function () {
         minimumInputLength: 3,
         width: 'resolve',
         placeholder: this.placeholder || 'ingrese nombre, apellido, documento o legajo',
+        allowClear: true,
         query: function (query) {
             _this.repositorioDePersonas.buscarPersonas(
                 query.term,
