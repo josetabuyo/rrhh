@@ -196,7 +196,7 @@ public partial class FormulariosDeLicencia_Partes_SaldoOrdinaria : System.Web.UI
         var persona83 = new Persona(); persona83.Documento = 12504384; personas_list.Add(persona83);
         var persona84 = new Persona(); persona84.Documento = 13313581; personas_list.Add(persona84);
         var persona85 = new Persona(); persona85.Documento = 17229657; personas_list.Add(persona85);
-        var persona86 = new Persona(); persona86.Documento = 13945818; personas_list.Add(persona86);
+        //var persona86 = new Persona(); persona86.Documento = 13945818; personas_list.Add(persona86);rompia porque queria traer prorroga para el 2016...faby dice que puede ser xq tomo mas dias que los que tiene
         var persona87 = new Persona(); persona87.Documento = 7787921; personas_list.Add(persona87);
         var persona88 = new Persona(); persona88.Documento = 10587494; personas_list.Add(persona88);
         var persona89 = new Persona(); persona89.Documento = 13214723; personas_list.Add(persona89);
@@ -342,6 +342,10 @@ public partial class FormulariosDeLicencia_Partes_SaldoOrdinaria : System.Web.UI
         var persona229 = new Persona(); persona229.Documento = 16613236; personas_list.Add(persona229);
         var persona230 = new Persona(); persona230.Documento = 10936508; personas_list.Add(persona230);
         var persona231 = new Persona(); persona231.Documento = 14480543; personas_list.Add(persona231);
+
+        var persona232 = new Persona(); persona232.Documento = 25130550; personas_list.Add(persona232);
+        var persona233 = new Persona(); persona233.Documento = 20225799; personas_list.Add(persona233);
+
         return personas_list;
     }
 }
