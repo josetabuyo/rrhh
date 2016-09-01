@@ -213,6 +213,7 @@ public partial class FormulariosDeLicencia_Partes_SaldoOrdinaria : System.Web.UI
     private List<Persona> GetEmpleadosExcelFaby()
     {
         List<Persona> personas_list = new List<Persona>();
+
         var persona0 = new Persona(); persona0.Documento = 17203040; personas_list.Add(persona0);
         var persona1 = new Persona(); persona1.Documento = 13615584; personas_list.Add(persona1);
         var persona2 = new Persona(); persona2.Documento = 18110361; personas_list.Add(persona2);
@@ -445,6 +446,9 @@ public partial class FormulariosDeLicencia_Partes_SaldoOrdinaria : System.Web.UI
         var persona229 = new Persona(); persona229.Documento = 16613236; personas_list.Add(persona229);
         var persona230 = new Persona(); persona230.Documento = 10936508; personas_list.Add(persona230);
         var persona231 = new Persona(); persona231.Documento = 14480543; personas_list.Add(persona231);
+
+        var persona232 = new Persona(); persona232.Documento = 25130550; personas_list.Add(persona232);
+        var persona233 = new Persona(); persona233.Documento = 20225799; personas_list.Add(persona233);
         return personas_list;
     }
 }
