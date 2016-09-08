@@ -17,10 +17,14 @@ namespace General
         public void Add(SolicitudesDeVacaciones aprobadas, VacacionesPermitidas primera_permitida_aplicable)
         {
             var linea = lineas.Find(l => l.PeriodoAutorizado.Equals(primera_permitida_aplicable.Periodo));
+
+            int index_of_primer_linea_proximo_periodo = IndexOfPrimerLineaProximoPeriodo(primera_permitida_aplicable.Periodo);
+
             if (LineaCompleta(linea))
             {
                 linea = new LogCalculoVacaciones();
-                this.lineas.Add(linea);
+                this.lineas.Insert(index_of_primer_linea_proximo_periodo, linea);
+                //this.lineas.Add(linea);
             }
 
             linea.CantidadDiasDescontados = aprobadas.CantidadDeDias();
@@ -31,6 +35,21 @@ namespace General
             }
 
 
+        }
+
+        private int IndexOfPrimerLineaProximoPeriodo(int periodo)
+        {
+            var primer_linea_proximo_periodo = lineas.Find(l => l.PeriodoAutorizado.Equals(periodo + 1));
+            int index_of_primer_linea_proximo_periodo;
+            if (primer_linea_proximo_periodo != null)
+            {
+                index_of_primer_linea_proximo_periodo = this.lineas.IndexOf(primer_linea_proximo_periodo);
+            }
+            else
+            {
+                index_of_primer_linea_proximo_periodo = this.lineas.Count() - 1;
+            }
+            return index_of_primer_linea_proximo_periodo;
         }
 
         /// <summary>
@@ -75,7 +94,8 @@ namespace General
         public void AddALaAuthorizacionDelPeriodo(LogCalculoVacaciones log, int periodo)
         {
             var lineas_del_periodo = lineas.FindAll(l => l.PeriodoAutorizado == periodo);
-            lineas.Insert(lineas.IndexOf(lineas_del_periodo.Last()) + 1, log);
+            var index_of_primer_linea_proximo_periodo = IndexOfPrimerLineaProximoPeriodo(periodo);
+            lineas.Insert(index_of_primer_linea_proximo_periodo, log);
             //throw new NotImplementedException();
         }
 
@@ -131,7 +151,7 @@ namespace General
                     {
                         if (lineas[i].PeriodoAutorizado != 0)
                         {
-                            index = i + 1;
+                            index = i;
                         }
                     }
                     p.PeriodoAutorizado = 0;

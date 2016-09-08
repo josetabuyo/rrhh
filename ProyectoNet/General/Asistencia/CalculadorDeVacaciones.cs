@@ -102,13 +102,11 @@ namespace General
             var vacaciones_solicitables = new List<VacacionesSolicitables>();
 
             //   var pendientes_de_aprobar = pendientes.FindAll(pend => pend.Desde() >= aprobadas.Last().Desde());
-
             var permitidas_consumibles = Clonar(permitidas);
             permitidas_consumibles.OrderBy(pc => pc.Periodo).ToList().ForEach(pc =>
             {
                 analisis.Add(pc);
             });
-
 
             solicitudes = this.DividirSolicitudes(solicitudes);
             if (solicitudes.Count() == 0)
@@ -118,7 +116,6 @@ namespace General
                 return vacaciones_solicitables;
             }
 
-
             solicitudes.ForEach(solicitud => ImputarA(solicitud.Clonar(), permitidas_consumibles, persona, fecha_de_calculo, analisis));
 
             permitidas_consumibles.RemoveAll(consumible => consumible.Periodo < persona.TipoDePlanta.Prorroga(fecha_de_calculo).UsufructoDesde);
@@ -127,11 +124,10 @@ namespace General
             //pendientes_de_aprobar.ForEach(pendiente => ImputarA(pendiente.Clonar(), permitidas_consumibles,persona));
 
             permitidas_consumibles.ForEach(consumible => vacaciones_solicitables.Add(new VacacionesSolicitables(consumible.Periodo, consumible.CantidadDeDias())));
-
+            
             analisis.LasAutorizadasSinDescontarSon(_repositorio_licencia.GetVacasPermitidasPara(persona, new ConceptoLicenciaAnualOrdinaria()));
-
+            
             return vacaciones_solicitables;
-
         }
 
         public List<SolicitudesDeVacaciones> DividirSolicitudes(List<SolicitudesDeVacaciones> solicitudes_original)
