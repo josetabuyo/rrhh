@@ -120,7 +120,7 @@
 				            </div>	
 			            </div>
 		            </div>
-                    <a href="#" class="icon "  ></a>
+                    <a href="Recibo.aspx" class="icon "  ></a>
 	            </div>
                <%-- <div class="item beneficios" data-toggle="tooltip" data-placement="right" title="BENEFICIOS">
                     <%--<img src="../Imagenes/portal/bg_fav.png" alt="" width="199" height="199" class="circle"/>
