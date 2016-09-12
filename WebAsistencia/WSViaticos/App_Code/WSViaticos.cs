@@ -3746,8 +3746,9 @@ public class WSViaticos : System.Web.Services.WebService
 
 
         [WebMethod]
-        public Tarjeton NuevoTarjeton(int id_Bien)
+        public Tarjeton NuevoTarjeton(int id_Bien, Usuario usuario)
         {
+            if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 33)) throw (new Exception("El usuario no tiene permisos para el modulo de bienes"));
             var repo = new RepositorioTarjetones(Conexion());
             return repo.NuevoTarjeton(id_Bien);
         }
@@ -3765,15 +3766,15 @@ public class WSViaticos : System.Web.Services.WebService
                 return una_respuesta;
             }
 
-            try
-            {
-                una_respuesta.vehiculo = repo.ObtenerVehiculoPorIDVerificacion(id_verificacion);
-            }
-            catch (ExcepcionDeVehiculoInexistente e)
+          
+           
+            una_respuesta.vehiculo = repo.ObtenerVehiculoPorIDVerificacion(id_verificacion);
+                
+            if (string.IsNullOrEmpty(una_respuesta.vehiculo.Dominio))
             {
                 una_respuesta.Respuesta = 0;
             }
-
+               
             return una_respuesta;
         }
 
@@ -3835,6 +3836,26 @@ public class WSViaticos : System.Web.Services.WebService
 
 
         #endregion
+
+    #region archivos
+
+        [WebMethod]
+        public Imagen GetThumbnail(int id_imagen, int alto, int ancho)
+        {
+            return new RepositorioDeImagenes(Conexion()).GetThumbnail(id_imagen, alto, ancho);
+        }
+
+        [WebMethod]
+        public Imagen GetImagen(int id_imagen)
+        {
+            return new RepositorioDeImagenes(Conexion()).GetImagen(id_imagen);
+        }
+
+    #endregion
+
+
+
+
 
     private RepositorioLicencias RepoLicencias()
     {

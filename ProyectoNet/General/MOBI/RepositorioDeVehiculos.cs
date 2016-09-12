@@ -104,6 +104,12 @@ namespace General.Repositorios
                 unVehiculo.Area = row.GetString("Area");
                 unVehiculo.Apellido = row.GetString("Apellido");
                 unVehiculo.Nombre = row.GetString("Nombre");
+
+
+                tablaDatos.Rows.ForEach(r => {
+                    if(r.GetObject("id_imagen") is DBNull) return;
+                    unVehiculo.imagenes.Add(r.GetInt("id_imagen"));
+                });
             };
 
             return unVehiculo;

@@ -3,12 +3,13 @@
         var param = document.URL.split('?')[1];
 
         Backend.ObtenerVehiculoPorIDVerificacion(param).onSuccess(function (respuesta_vehiculo) {
+            $("#volver").addClass("animated slideInLeft");
+            $("#boton-imagenes").addClass("animated slideInLeft");       
 
             if (respuesta_vehiculo.Respuesta == 0) {
                 $("#mensaje_error").show();
                 $("#mensaje_error").addClass("animated slideInDown");
                 $("#Contenido").hide();
-                document.getElementById("mihtml").style.height = "100%";
                 return;
             }
 
@@ -32,16 +33,36 @@
             $(".contenedor-imagen-vehiculo").show();
             $("#mensaje_error").hide();
             $(".tabla-principal").addClass("animated slideInLeft");
-            $("#contenedor-vehiculos").addClass("animated slideInRight");
+            $("#titulo-separador-vehiculos").addClass("animated slideInRight");
             $("#contenedor-conductor").addClass("animated slideInRight");
             $(".contenedor-imagen-vehiculo").addClass("animated zoomIn");
             $("#contenedor-banner-parrafo").addClass("animated slideInDown");
             $("#barra_menu_contenedor_imagen").addClass("animated slideInDown");
 
-           $("#myCarousel").carousel({
-                interval: 3000,
-                pause: false
-            })
+            $("#boton-imagenes").click(function () {
+                document.location.href = "#contenedor-imagen-vehiculo";
+            });
+
+            
+
+            $("#myCarousel").carousel({
+                interval: 5000,
+                pause: true
+            });
+
+           
+
+            _.forEach(respuesta_vehiculo.vehiculo.imagenes, function (id_imagen) {
+                var cont_imagen = $('<div class="item" style="height:100%; width:100%; position:relative"></div>');
+                var img = new VistaThumbnail({ id: id_imagen, contenedor: cont_imagen });
+                $(".carousel-inner").append(cont_imagen);
+            });
+
+            if (respuesta_vehiculo.vehiculo.imagenes.length == 0 ) {
+                $("#myCarousel").hide();
+                $("#boton-imagenes").hide(); 
+            }
+
 
         });
 

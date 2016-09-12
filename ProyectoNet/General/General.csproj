@@ -144,6 +144,8 @@
     <Compile Include="MAU\RepositorioDeFuncionalidadesDeUsuarios_EnMemoria.cs" />
     <Compile Include="Campo.cs" />
     <Compile Include="Formulario.cs" />
+    <Compile Include="Repositorios\Imagen.cs" />
+    <Compile Include="Repositorios\RepositorioDeImagenes.cs" />
     <Compile Include="Repositorios\RepositorioDeArchivos.cs" />
     <Compile Include="Repositorios\RepositorioDeReportes.cs" />
     <Compile Include="Repositorios\RepositorioDeFormularios.cs" />
