@@ -47,7 +47,14 @@ namespace General
             }
             else
             {
-                index_of_primer_linea_proximo_periodo = this.lineas.Count() - 1;
+                if (this.lineas.Count() == 1)
+                {
+                    index_of_primer_linea_proximo_periodo = 1;
+                }
+                else
+                {
+                    index_of_primer_linea_proximo_periodo = this.lineas.Count() - 1;
+                }
             }
             return index_of_primer_linea_proximo_periodo;
         }
