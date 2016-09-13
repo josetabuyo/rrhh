@@ -124,9 +124,10 @@ namespace General
             //pendientes_de_aprobar.ForEach(pendiente => ImputarA(pendiente.Clonar(), permitidas_consumibles,persona));
 
             permitidas_consumibles.ForEach(consumible => vacaciones_solicitables.Add(new VacacionesSolicitables(consumible.Periodo, consumible.CantidadDeDias())));
-            
+
             analisis.LasAutorizadasSinDescontarSon(_repositorio_licencia.GetVacasPermitidasPara(persona, new ConceptoLicenciaAnualOrdinaria()));
-            
+            analisis.CompletarLicenciasPerdidasPorVencimiento();
+
             return vacaciones_solicitables;
         }
 

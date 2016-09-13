@@ -55,6 +55,7 @@ namespace General
                 {
                     index_of_primer_linea_proximo_periodo = this.lineas.Count() - 1;
                 }
+
             }
             return index_of_primer_linea_proximo_periodo;
         }
@@ -143,7 +144,7 @@ namespace General
                     {
                         var dias_perdidos = perm.CantidadDeDias() - linea_del_periodo.CantidadDiasAutorizados;
                         linea_del_periodo.CantidadDiasAutorizados = perm.CantidadDeDias();
-                        var per = new LogCalculoVacaciones();
+                        var per = new LogCalculoVacaciones() { PerdidaExplicitamente = true };
                         per.PeriodoAutorizado = perm.Periodo;
                         per.CantidadDiasDescontados = dias_perdidos;
                         perdidas.Add(per);
@@ -165,6 +166,37 @@ namespace General
                     lineas.Insert(index, p);
                 });
             });
+        }
+
+        public void CompletarLicenciasPerdidasPorVencimiento()
+        {
+            var periodo = 0;
+            var suma = 0;
+            var suma_esperada = 0;
+
+            for (int i = 0; i < this.lineas.Count; i++)
+            {
+                if (lineas[i].PeriodoAutorizado != 0)
+                {
+                    if (suma_esperada != suma && HaySolicitudPosteriorA(lineas[i]))
+                    {
+                        lineas.Insert(i, new LogCalculoVacaciones() { PerdidaPorVencimiento = true, CantidadDiasDescontados = suma_esperada - suma });
+                        i++;
+                    }
+
+                    periodo = lineas[i].PeriodoAutorizado;
+                    suma_esperada = lineas[i].CantidadDiasAutorizados;
+                    suma = 0;
+                }
+
+                suma += lineas[i].CantidadDiasDescontados;
+            }
+        }
+
+        protected bool HaySolicitudPosteriorA(LogCalculoVacaciones logCalculoVacaciones)
+        {
+            var lineas_posteriores = lineas.GetRange(this.lineas.IndexOf(logCalculoVacaciones), lineas.Count - this.lineas.IndexOf(logCalculoVacaciones));
+            return lineas_posteriores.Any(l => !l.LicenciaDesde.Equals(DateTime.MinValue));
         }
     }
 }
