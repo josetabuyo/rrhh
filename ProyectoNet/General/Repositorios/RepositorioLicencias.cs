@@ -927,5 +927,19 @@ namespace General.Repositorios
             return prorroga_aplicable.UsufructoHasta - prorroga_aplicable.UsufructoDesde;
 
         }
+
+        public List<Persona> GetDNIDotacion()
+        {
+            List<Persona> personas = new List<Persona>();
+            var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetDNIDotacion");
+
+            tablaDatos.Rows.ForEach(row =>
+            {
+                Persona persona = new Persona();
+                persona.Documento = row.GetInt("NroDocumento");
+                personas.Add(persona);
+            });
+            return personas;
+        }
     }
 }

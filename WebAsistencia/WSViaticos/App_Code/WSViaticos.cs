@@ -598,6 +598,14 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
 
+     [WebMethod]
+    public List<Persona> GetDNIDotacion()
+    {
+        return RepoLicencias().GetDNIDotacion();
+    }
+
+    
+
     [WebMethod]
     public bool DiasHabilitadosEntreFechas(DateTime desde, DateTime hasta, int idconcepto)
     {
