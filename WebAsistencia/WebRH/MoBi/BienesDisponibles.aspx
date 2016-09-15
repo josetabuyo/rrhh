@@ -2,6 +2,8 @@
     CodeFile="BienesDisponibles.aspx.cs" Inherits="MoBi_BienesDisponibles" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+
+
     <style type="text/css">
         .radio
         {
