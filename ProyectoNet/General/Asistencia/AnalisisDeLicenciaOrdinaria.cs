@@ -147,25 +147,34 @@ namespace General
                         var per = new LogCalculoVacaciones() { PerdidaExplicitamente = true };
                         per.PeriodoAutorizado = perm.Periodo;
                         per.CantidadDiasDescontados = dias_perdidos;
+                        per.PerdidaExplicitamente = true;
                         perdidas.Add(per);
                     }
                 }
 
-                perdidas.ForEach(p =>
+
+            });
+
+            perdidas.ForEach(p =>
                 {
                     var index = 0;
+                    var found = false;
                     var primera = lineas.Find(l => l.PeriodoAutorizado == p.PeriodoAutorizado);
-                    for (int i = lineas.IndexOf(primera); i < lineas.Count; i++)
+                    index = lineas.IndexOf(primera) + 1;
+                    for (int i = lineas.IndexOf(primera) + 1; i < lineas.Count; i++)
                     {
-                        if (lineas[i].PeriodoAutorizado != 0)
+                        if (lineas[i].PeriodoAutorizado == 0 && ! found)
                         {
                             index = i;
+                        }
+                        else
+                        {
+                            found = true;
                         }
                     }
                     p.PeriodoAutorizado = 0;
                     lineas.Insert(index, p);
                 });
-            });
         }
 
         public void CompletarLicenciasPerdidasPorVencimiento()

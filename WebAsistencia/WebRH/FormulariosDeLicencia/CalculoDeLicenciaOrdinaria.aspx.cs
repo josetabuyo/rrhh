@@ -67,7 +67,7 @@ public partial class FormulariosDeLicencia_CalculoDeLicenciaOrdinaria : System.W
     {
         var row = new TableRow();
 
-        var css_class = ClassInfoLicenciaFor(log.LicenciaDesde);
+        var css_class = ClassInfoLicenciaFor(log);
 
         var cell = new TableCell();
         cell.CssClass = css_class;
@@ -107,8 +107,17 @@ public partial class FormulariosDeLicencia_CalculoDeLicenciaOrdinaria : System.W
     public string LastLicenciaClass { get; set; }
     public string LastCabeceraClass { get; set; }
     
-    public string ClassInfoLicenciaFor(DateTime fecha)
+    public string ClassInfoLicenciaFor(LogCalculoVacaciones log)
     {
+        var fecha = log.LicenciaDesde;
+        if (log.PerdidaExplicitamente)
+        {
+            return "perdidas";
+        }
+        if (log.PerdidaPorVencimiento)
+        {
+            return "vencidas";
+        }
         if (fecha != DateTime.MinValue)
         {
             var new_class = NextLicenciaClass();

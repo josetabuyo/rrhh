@@ -4346,6 +4346,8 @@
           <s:element minOccurs="1" maxOccurs="1" name="YaFueAprobada" type="s:boolean" />
           <s:element minOccurs="1" maxOccurs="1" name="LicenciaDesde" type="s:dateTime" />
           <s:element minOccurs="1" maxOccurs="1" name="LicenciaHasta" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="PerdidaExplicitamente" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="PerdidaPorVencimiento" type="s:boolean" />
         </s:sequence>
       </s:complexType>
       <s:element name="GetAnalisisLicenciaOrdinariaResponse">
