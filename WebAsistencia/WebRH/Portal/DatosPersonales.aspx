@@ -26,20 +26,20 @@
             <p class="mensaje_cambio_datos" >Si alguno de los datos que está viendo no es correcto o hubiera que actualizar, por favor envíe un mail a <a href="mailto:xxx@example.com" target="_blank">xxx@example.com</a> </p>
             <legend style="margin-top: 20px;">MIS DATOS</legend>
                 <div class="cajitas">
-                   <p class=""><label class="item_cajita">Legajo: </label><span id="legajo">123456879</span></p>
-                    <p class=""><label class="item_cajita">Documento: </label><span id="dni">31000000</span></p>
+                   <p class=""><label class="item_cajita">Legajo: </label><span id="legajo"></span></p>
+                    <p class=""><label class="item_cajita">Documento: </label><span id="dni"></span></p>
                 </div>
                  <div class="cajitas">
                     <p><label  class="item_cajita">Edad: </label><span id="edad">31</span></p>
-                    <p class=""><label class="item_cajita">F. Nacimiento: </label><span id="fechaNac">18/07/1984</span></p>
+                    <p class=""><label class="item_cajita">F. Nacimiento: </label><span id="fechaNac"></span></p>
                 </div>
                 <div class="cajitas">
-                    <p class=""><label class="item_cajita">Sexo: </label><span id="sexo"></span>Masculino</p>
-                    <p class=""><label class="item_cajita">Estado Civil: </label><span id="estadoCivil">Soltero</span></p>
+                    <p class=""><label class="item_cajita">Sexo: </label><span id="sexo"></span></p>
+                    <p class=""><label class="item_cajita">Estado Civil: </label><span id="estadoCivil"></span></p>
                  </div>
                  <div class="cajitas">
-                    <p class=""><label class="item_cajita">CUIL: </label><span id="cuil">20-20202020-5</span></p>
-                    <p class=""><label class="item_cajita">Domicilio: </label><span id="direccion">Avalos 1301 - Villa Pueyrredon - C.A.B.A.</span></p>
+                    <p class=""><label class="item_cajita">CUIL: </label><span id="cuil"></span></p>
+                    <p class=""><label class="item_cajita">Domicilio: </label><span id="domicilio"></span></p>
                  </div>
                 <legend style="margin-top: 20px;">DATOS FAMILIARES</legend>
                     <table class="table table-striped table-bordered table-condensed">
@@ -115,11 +115,16 @@
 
     </form>
 </body>
+<script type="text/javascript" src="Legajo.js"></script>
 <script type="text/javascript" >
 
     $(document).ready(function ($) {
         //para cargar el menu izquierdo 
         $(".caja_izq").load("SeccionIzquierda.htm");
+
+        Backend.start(function () {
+            Legajo.getDatosPersonales();
+        });
 
     });
 

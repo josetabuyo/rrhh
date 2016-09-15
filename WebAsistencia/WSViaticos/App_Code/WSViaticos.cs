@@ -3575,7 +3575,24 @@ public class WSViaticos : System.Web.Services.WebService
         {
             RepositorioLegajo repo = RepoLegajo();
 
-            return repo.getEstudios(16533276);
+            return repo.getEstudios(usuario.Owner.Documento);
+        }
+
+        [WebMethod]
+        public string GetDatosPersonales(Usuario usuario)
+        {
+
+            return RepositorioDePersonas().GetConsultaRapida(usuario.Owner.Documento);
+
+        }
+
+        [WebMethod]
+        public string GetFamiliares(Usuario usuario)
+        {
+            RepositorioLegajo repo = RepoLegajo();
+
+            return repo.getFamiliares(usuario.Owner.Documento);
+
         }
 
 
