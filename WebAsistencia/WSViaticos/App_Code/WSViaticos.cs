@@ -3833,15 +3833,17 @@ public class WSViaticos : System.Web.Services.WebService
         }
 
         [WebMethod]
-        public bool Mobi_AsignarImagenABien(int id_bien, int id_imagen)
+        public bool Mobi_AsignarImagenABien(int id_bien, int id_imagen, Usuario usuario)
         {
+            if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 37)) throw (new Exception("El usuario no tiene permisos editar bienes"));
             RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
             return rMoBi.AsignarImagenABien(id_bien, id_imagen);
         }
 
         [WebMethod]
-        public bool Mobi_DesAsignarImagenABien(int id_bien, int id_imagen)
+        public bool Mobi_DesAsignarImagenABien(int id_bien, int id_imagen, Usuario usuario)
         {
+            if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 37)) throw (new Exception("El usuario no tiene permisos editar bienes"));
             RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
             return rMoBi.DesAsignarImagenABien(id_bien, id_imagen);
         }

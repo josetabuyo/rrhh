@@ -46,6 +46,7 @@
     padding-top: 4px;
     font-size: 25px;
     cursor: cell;
+    display: none;
 }
 
 #btn_add_imagen:hover
