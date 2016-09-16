@@ -289,6 +289,7 @@ public class WSViaticos : System.Web.Services.WebService
     public GraficoSueldo GetReporteSueldos(string criterio, Usuario usuario)
     {
         if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 31)) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 39)) throw (new Exception("El usuario no tiene permisos para acceder al reporte de sueldos"));
         var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
         string tipo = ((JValue)criterio_deserializado["tipo"]).ToString();
         int dia = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(0, 2)));
@@ -305,6 +306,7 @@ public class WSViaticos : System.Web.Services.WebService
     public GraficoDotacion GetGrafico(string criterio, Usuario usuario)
     {
         if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 31)) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 38)) throw (new Exception("El usuario no tiene permisos para acceder al reporte de dotacion"));
         var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
         string tipo = ((JValue)criterio_deserializado["tipo"]).ToString();
         int dia = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(0, 2)));
