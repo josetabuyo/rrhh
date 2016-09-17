@@ -31,7 +31,7 @@
             <a id="btn_consultar_trabajo" class="btn btn-primary" href="Protocolo/ConsultaLugaresDeTrabajo.aspx">Lugares de Trabajo</a>
             <a id="btn_consultar_mis_areas" class="btn btn-primary"  href="Protocolo/ConsultaListadoPersonasACargo.aspx">Personas a Cargo</a>
             <a id="btn_consultar_mis_inasistencias" class="btn btn-primary" href="Protocolo/ConsultaListadoLicencias.aspx">Licencias y Pases E/T</a>
-            
+            <a id="btn_analisis_licencia" RequiereFuncionalidad="35" class="btn btn-primary" href="FormulariosDeLicencia/CalculoDeLicenciaOrdinaria.aspx">Analisis Licencias</a>
         </div>
         
         <div id="contenedor_areas_usuario">          

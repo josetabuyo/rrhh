@@ -296,38 +296,9 @@ namespace General.Repositorios
 
 
         public List<VacacionesPermitidas> GetVacacionesPermitidas()
-        {// CREO QUE SE PUEDE BOTTAR
-            //List<Persona> personas, List<Periodo> periodos
-
-            //var parametros = new Dictionary<string, object>();
-            //parametros.Add("@documento", evaluacion.Alumno.Id);
-            //parametros.Add("@periodo", evaluacion.Curso.Id);
-            //parametros.Add("@id_concepto_licencia", 1);
-            //List<VacacionesPermitidas> vacaciones_permitidas = new List<VacacionesPermitidas>();
-
+        {
             var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetDiasPermitidos");
-
             return ConstruirVacacionesPermitidas(tablaDatos);
-
-            //tablaDatos.Rows.ForEach(row =>
-            //{
-            //    Persona persona = new Persona();
-            //    persona.Documento = row.GetInt("NroDocumento");
-            //    persona.Apellido = row.GetString("Apellido");
-            //    persona.Nombre = row.GetString("Nombre");
-
-            //    Periodo periodo = new Periodo();
-            //    periodo.anio = row.GetSmallintAsInt("Periodo");
-
-            //    int dias = row.GetSmallintAsInt("Dias_Autorizados");
-            //    int concepto = row.GetSmallintAsInt("Id_Concepto_Licencia");
-
-            //    VacacionesPermitidas vacaciones = new VacacionesPermitidas(persona, periodo, dias, concepto);
-
-            //    vacaciones_permitidas.Add(vacaciones);
-            //});
-
-            // return vacaciones_permitidas;
         }
 
         public void EliminarLicenciaPendienteAprobacion(int id)
@@ -340,19 +311,11 @@ namespace General.Repositorios
         public List<VacacionesAprobadas> GetVacacionesAprobadasPara(Persona persona)
         {
             var parametros = new Dictionary<string, object>();
-
-
             parametros.Add("@nro_documento", persona.Documento);
-
-            //parametros.Add("@periodo", periodo.anio);
-
-            //parametros.Add("@id_concepto_licencia", licencia.Concepto);
-
 
             var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetDiasAprobados", parametros);
 
             return ConstruirVacacionesAprobadas(tablaDatos);
-
         }
 
         public List<VacacionesAprobadas> GetVacacionesAprobadasPara(Persona persona, ConceptoDeLicencia concepto)
@@ -461,7 +424,17 @@ namespace General.Repositorios
 
         }
 
-        public List<VacacionesPermitidas> GetVacacionPermitidaPara(Persona persona, ConceptoDeLicencia concepto)
+        public List<VacacionesPermitidas> GetVacasPermitidasPara(Persona persona, ConceptoDeLicencia concepto)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@nro_documento", persona.Documento);
+            parametros.Add("@id_concepto_licencia", concepto.Id);
+            var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetDiasPermitidos", parametros);
+            var vaca_permitidas = ConstruirVacacionesPermitidas(tablaDatos);
+            return vaca_permitidas;
+        }
+
+        public List<VacacionesPermitidas> GetVacacionPermitidaDescontandoPerdidasPara(Persona persona, ConceptoDeLicencia concepto)
         {
             //HCER LA LÓGICA DE FABY    
             var parametros = new Dictionary<string, object>();
@@ -469,11 +442,11 @@ namespace General.Repositorios
 
             var tablaDatosPerdidas = this.conexion.Ejecutar("dbo.LIC_GEN_GetDiasPerdidos", parametros);
 
-            parametros.Add("@id_concepto_licencia", concepto.Id);
+            //parametros.Add("@id_concepto_licencia", concepto.Id);
+            //var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetDiasPermitidos", parametros);
+            //List<VacacionesPermitidas> vaca_permitidas = ConstruirVacacionesPermitidas(tablaDatos);
 
-            var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetDiasPermitidos", parametros);
-
-            List<VacacionesPermitidas> vaca_permitidas = ConstruirVacacionesPermitidas(tablaDatos);
+            List<VacacionesPermitidas> vaca_permitidas = GetVacasPermitidasPara(persona, concepto);
             List<VacacionesPermitidas> vaca_perdidas = ConstruirVacacionesPerdidas(tablaDatosPerdidas);
 
             return CalcularVacacionesPermitidasNoPerdidas(vaca_permitidas, vaca_perdidas);
@@ -505,7 +478,6 @@ namespace General.Repositorios
             var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetDiasAprobados", parametros);
 
             return ConstruirVacacionesPermitidas(tablaDatos);
-
         }
 
 
@@ -841,7 +813,7 @@ namespace General.Repositorios
             this.conexion.EjecutarSinResultado("LIC_GEN_Ins_LogErroresCalculoLicencias", parametros);
         }
 
-        internal int GetProrrogaPlantaGeneral(int anio)
+        public int GetProrrogaPlantaGeneral(int anio)
         {
             ProrrogaLicenciaOrdinaria prorroga_del_anio = new ProrrogaLicenciaOrdinaria();
             prorroga_del_anio.Periodo = anio;

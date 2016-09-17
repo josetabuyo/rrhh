@@ -37,8 +37,9 @@ public class WSViaticos : System.Web.Services.WebService
 
 
     [WebMethod]
-    public Usuario[] GetUsuarios()
+    public Usuario[] GetUsuarios(Usuario usuario)
     {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 9)) throw (new Exception("El usuario no tiene permisos para el modulo de usuarios"));
         RepositorioUsuarios repoUsuarios = new RepositorioUsuarios(Conexion());
         List<Usuario> usuarios = repoUsuarios.GetTodosLosUsuarios();
         Usuario[] retuUsuarios = new Usuario[usuarios.Count];
@@ -71,6 +72,15 @@ public class WSViaticos : System.Web.Services.WebService
     {
         var repo = new RepositorioLicencias(Conexion());
         return repo.DiasHabilesEntreFechas(desde, hasta);
+    }
+
+    [WebMethod]
+    public AnalisisDeLicenciaOrdinaria GetAnalisisLicenciaOrdinaria(Persona persona)
+    {
+        var ordinaria = new ConceptoLicenciaAnualOrdinaria();
+        var analisis = ordinaria.GetAnalisisCalculoVacacionesPara(RepoLicencias(), RepositorioDePersonas(), persona, DateTime.Now);
+
+        return analisis;
     }
 
     [WebMethod]
@@ -278,6 +288,8 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public GraficoSueldo GetReporteSueldos(string criterio, Usuario usuario)
     {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 31)) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 39)) throw (new Exception("El usuario no tiene permisos para acceder al reporte de sueldos"));
         var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
         string tipo = ((JValue)criterio_deserializado["tipo"]).ToString();
         int dia = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(0, 2)));
@@ -293,7 +305,8 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public GraficoDotacion GetGrafico(string criterio, Usuario usuario)
     {
-
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 31)) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 38)) throw (new Exception("El usuario no tiene permisos para acceder al reporte de dotacion"));
         var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
         string tipo = ((JValue)criterio_deserializado["tipo"]).ToString();
         int dia = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(0, 2)));
@@ -310,7 +323,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public GraficoRangoEtario GetGraficoRangoEtario(string criterio, Usuario usuario)
     {
-
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 31)) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
         var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
         string tipo = ((JValue)criterio_deserializado["tipo"]).ToString();
         int dia = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(0, 2)));
@@ -331,6 +344,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string ExcelGeneradoRangoEtario(string criterio, Usuario usuario)
     {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 31)) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
         try
         {
             var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
@@ -365,6 +379,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string ExcelGeneradoSueldos(string criterio, Usuario usuario)
     {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 31)) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
         try
         {
             var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
@@ -395,7 +410,8 @@ public class WSViaticos : System.Web.Services.WebService
     /*Grafico Excel*/
     [WebMethod]
     public string ExcelGenerado(string criterio, Usuario usuario)
-    {      
+    {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 31)) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
             try
             {
                 var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
@@ -2484,8 +2500,9 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public Usuario CrearUsuarioPara(int id_persona)
+    public Usuario CrearUsuarioPara(int id_persona, Usuario usuario)
     {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 26)) throw (new Exception("El usuario no tiene permisos para crear usuarios"));
         return RepositorioDeUsuarios().CrearUsuarioPara(id_persona);
     }
 
@@ -2663,6 +2680,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public EvaluacionDto[] GuardarEvaluaciones(EvaluacionDto[] evaluaciones_nuevas_dto, EvaluacionDto[] evaluaciones_originales_dto, Usuario usuario)
     {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 8)) throw (new Exception("El usuario no tiene permisos para administrar macc"));
         var evaluaciones_no_procesadas = new List<EvaluacionDto>();
         var repo_alumnos = RepoAlumnos();
         var repo_cursos = RepositorioDeCursos();
@@ -2933,7 +2951,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public ObservacionDTO[] GuardarObservaciones(ObservacionDTO[] observaciones_nuevas_dto, ObservacionDTO[] observaciones_originales_dto, Usuario usuario)
     {
-
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 8)) throw (new Exception("El usuario no tiene permisos para administrar macc"));
         var observaciones_no_procesadas = new List<ObservacionDTO>();
         var repo_cursos = RepositorioDeCursos();
 
@@ -3015,6 +3033,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public bool VerificarUsuario(int id_usuario, Usuario usuario)
     {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 21)) throw (new Exception("El usuario no tiene permisos para verificar usuario"));
         return Autorizador().VerificarUsuario(id_usuario, usuario);
     }
 
@@ -3057,6 +3076,8 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string GuardarPostulacionManual(string postulacion, string datosPersonales, string folio, Usuario usuario)
     {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 20)) throw (new Exception("El usuario no tiene permisos inscripcion manual"));
+
         // var postulaciones = new Postulacion();
         return RepoPostulaciones().InscripcionManual(postulacion, datosPersonales, folio, usuario);
     }
@@ -3438,6 +3459,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public void GuardarFolios(string nro_inscripcion, int nro_ficha_inscripcion, int nro_foto, int nro_foto_dni, int nro_foto_titulo, int nro_cv, int nro_doc_respaldo, Usuario usuario)
     {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 15)) throw (new Exception("El usuario no tiene permisos pre inscripcion documental"));
         
         RepoPostulaciones().GuardarFolios(nro_inscripcion, DateTime.Today, nro_ficha_inscripcion, nro_foto, nro_foto_dni, nro_foto_titulo, nro_cv, nro_doc_respaldo, usuario.Id);
     }
@@ -3452,6 +3474,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public void GuardarCambiosEnAdmitidos(List<Postulacion> postulaciones, Usuario usuario)
     {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 17)) throw (new Exception("El usuario no tiene permisos para admision"));
 
         RepoPostulaciones().GuardarCambiosEnAdmitidos(postulaciones, usuario.Id);
     }
@@ -3690,18 +3713,21 @@ public class WSViaticos : System.Web.Services.WebService
         [WebMethod]
         public Formulario GetFormulario(string criterio, Usuario usuario)
         {
+            if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 27)) throw (new Exception("El usuario no tiene permisos para formularios"));
             return new RepositorioDeFormularios(Conexion()).GetFormulario(criterio, usuario);
         }
 
         [WebMethod]
         public void GuardarCambiosEnFormulario(Formulario form, Usuario usuario)
         {
+            if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 27)) throw (new Exception("El usuario no tiene permisos para formularios"));
             new RepositorioDeFormularios(Conexion()).GuardarDatos(form, usuario);
         }
 
         [WebMethod]
         public void GuardarCabeceraFormulario(Formulario form, Usuario usuario)
         {
+            if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 27)) throw (new Exception("El usuario no tiene permisos para formularios"));
             //el true es para poner en impreso
             new RepositorioDeFormularios(Conexion()).GuardarVersion(form, usuario,true);
         }
@@ -3709,6 +3735,7 @@ public class WSViaticos : System.Web.Services.WebService
         [WebMethod]
         public int GetIdCabeceraFormulario(Formulario form, Usuario usuario)
         {
+            if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 27)) throw (new Exception("El usuario no tiene permisos para formularios"));
             //el true es para poner en impreso
             return new RepositorioDeFormularios(Conexion()).GetUltimaCabeceraFormulario(form, usuario);
         }

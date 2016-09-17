@@ -51,6 +51,11 @@ using General.Repositorios;
             set { _DiasHabiles = value; }
         }
 
+        public virtual AnalisisDeLicenciaOrdinaria GetAnalisisCalculoVacacionesPara(IRepositorioLicencia iRepositorioLicencia, IRepositorioDePersonas repositorio_personas, Persona persona, DateTime fecha_de_consulta)
+        {
+            throw new Exception("Responsabilidad de la subclase");
+        }
+
         public virtual SaldoLicencia RealizarCalculoDeSaldo(IRepositorioLicencia iRepositorioLicencia, IRepositorioDePersonas repositorio_personas, Persona persona, DateTime fecha_de_consulta)
         {
             throw new Exception("Responsabilidad de la subclase");
