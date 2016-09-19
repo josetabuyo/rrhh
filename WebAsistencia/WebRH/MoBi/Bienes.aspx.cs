@@ -106,6 +106,10 @@ public partial class MoBi_Bienes : System.Web.UI.Page
     {
         GridViewRow row = e.Row;
         if (row.RowType == DataControlRowType.DataRow)
-            row.Attributes.Add("onclick", "Show_Bien_Detalle('" + GridViewBienes.DataKeys[e.Row.RowIndex].Value.ToString() + "');");
+        {
+            row.Attributes["id"] = "row_" + row.RowIndex.ToString();
+            row.Attributes.Add("onclick", "Seleccionar_Row(this);");
+            row.Cells[2].Text = "<a class=\"btn_detalle\"><img alt=\"Detalle\" src=\"../Imagenes/detalle.png\" width=\"15px\" height=\"15px\" /></a>";
+        }
     }
 }
