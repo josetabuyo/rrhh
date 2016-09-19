@@ -42,7 +42,10 @@
                     <p class=""><label class="item_cajita">Domicilio: </label><span id="domicilio"></span></p>
                  </div>
                 <legend style="margin-top: 20px;">DATOS FAMILIARES</legend>
-                    <table class="table table-striped table-bordered table-condensed">
+                  <div id="tabla_familiar">
+    
+                </div>
+                    <%--<table class="table table-striped table-bordered table-condensed">
                         <thead class="estilo_tabla_portal">
                             <tr>
                                 <th>Parentezco</th>
@@ -79,7 +82,7 @@
                                 <td>DNI</td>
                             </tr>
                         </tbody>
-                    </table>
+                    </table>--%>
 
                     <legend style="margin-top: 50px;">EXÁMENES PSICOFÍSICOS</legend>
                     <table class="table table-striped table-bordered table-condensed">
@@ -124,6 +127,7 @@
 
         Backend.start(function () {
             Legajo.getDatosPersonales();
+            Legajo.getDatosFamiliares();
         });
 
     });

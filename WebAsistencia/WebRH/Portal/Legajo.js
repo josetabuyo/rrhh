@@ -88,28 +88,25 @@
         Backend.GetFamiliares()
             .onSuccess(function (familiaresJSON) {
 
-                var estudios = JSON.parse(estudiosJSON);
+                var familiares = JSON.parse(familiaresJSON);
 
                 var _this = this;
-                $("#tabla").empty();
-                var divGrilla = $("#tabla");
+                $("#tabla_familiar").empty();
+                var divGrilla = $("#tabla_familiar");
                 //var tabla = resultado;
                 var columnas = [];
 
-                columnas.push(new Columna("Titulo", { generar: function (un_estudio) { return un_estudio.titulo } }));
-                columnas.push(new Columna("Nivel", { generar: function (un_estudio) { return un_estudio.nombreDeNivel } }));
-                columnas.push(new Columna("Institución", { generar: function (un_estudio) { return ("XXX") } }));
-                columnas.push(new Columna("F. Egreso", { generar: function (un_estudio) {
-                    var fecha_sin_hora = un_estudio.fechaEgreso.split("T");
-                    var fecha = fecha_sin_hora[0].split("-");
-                    return fecha[2] + "/" + fecha[1] + "/" + fecha[0];
-                }
-                }));
+                columnas.push(new Columna("Parentesco", { generar: function (un_familiar) { return un_familiar.Parentesco } }));
+                columnas.push(new Columna("Apellido", { generar: function (un_familiar) { return un_familiar.Apellido } }));
+                columnas.push(new Columna("Nombre", { generar: function (un_familiar) { return un_familiar.Nombre } }));
+                columnas.push(new Columna("N doc", { generar: function (un_familiar) { return un_familiar.Documento } }));
+                columnas.push(new Columna("Tipo DNI", { generar: function (un_familiar) { return un_familiar.TipoDNI } }));
+                
 
                 _this.Grilla = new Grilla(columnas);
-                _this.Grilla.SetOnRowClickEventHandler(function (un_estudio) { });
+                _this.Grilla.SetOnRowClickEventHandler(function (un_familiar) { });
                 _this.Grilla.CambiarEstiloCabecera("estilo_tabla_portal");
-                _this.Grilla.CargarObjetos(estudios);
+                _this.Grilla.CargarObjetos(familiares);
                 _this.Grilla.DibujarEn(divGrilla);
                 $('.table-hover').removeClass("table-hover");
 

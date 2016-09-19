@@ -69,30 +69,7 @@
                  <div id="tabla">
     
                 </div>
-                   <%-- <table id="tabla" class="tabla_familiar">
-                        <thead>
-                            <tr>
-                                <th>Titulo</th>
-                                <th>Nivel</th>
-                                <th>Institución</th>
-                                <th>F. Egreso</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Lic. en Adminitración</td>
-                                <td>Universitario</td>
-                                <td>UBA</td>
-                                <td>19/05/1981</td>
-                            </tr>
-                            <tr>
-                                <td>Diseño web</td>
-                                <td>Terciario</td>
-                                <td>Da Vinci</td>
-                                <td>19/05/2015</td>
-                            </tr>
-                        </tbody>
-                    </table>--%>
+                 
                 </div>
                
             </div>

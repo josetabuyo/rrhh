@@ -53,27 +53,30 @@ namespace General.Repositorios
             List<Persona> lista_personas = new List<Persona>();
             var parametros = new Dictionary<string, object>();
             parametros.Add("@Doc_Titular", doc);
+            parametros.Add("@Id_Interna", 0);
+            
             var tablaDatos = conexion.Ejecutar("dbo.LEG_GET_DDJJ_Familiares", parametros);
+            var list_de_familiares = new List<Object>{};
+
 
             if (tablaDatos.Rows.Count > 0)
             {
                 tablaDatos.Rows.ForEach(row =>
                 {
-                    lista_personas.Add(new Persona
+                    list_de_familiares.Add(new 
                     {
                         Nombre = row.GetString("Nombre", "Sin información"),
                         Apellido = row.GetString("Apellido", "Sin información"),
-                        nombreDeNivel = row.GetString("Nivel", "Sin información"),
-                        titulo = row.GetString("Titulo", "Sin información"),
-                        fechaEgreso = row.GetDateTime("Fecha_Egreso", new DateTime(1900, 1, 1))
+                        Parentesco = row.GetString("Parentesco", "Sin información"),
+                        Documento = row.GetInt("Nro_Doc", 0),
+                        TipoDNI = row.GetString("Tipo_Doc", "Sin información"),
+
                     });
                 });
 
             }
 
-            lista_estudios.Sort((estudio1, estudio2) => estudio2.fechaEgreso.CompareTo(estudio1.fechaEgreso));
-
-            return JsonConvert.SerializeObject(lista_estudios.ToArray());
+            return JsonConvert.SerializeObject(list_de_familiares);
 
         }
 
