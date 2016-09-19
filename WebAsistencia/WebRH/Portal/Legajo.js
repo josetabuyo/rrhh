@@ -25,7 +25,7 @@
                     var fecha_sin_hora = un_estudio.fechaEgreso.split("T");
                     var fecha = fecha_sin_hora[0].split("-");
                     return fecha[2] + "/" + fecha[1] + "/" + fecha[0];
-                } 
+                }
                 }));
 
                 _this.Grilla = new Grilla(columnas);
@@ -53,5 +53,68 @@
             .onError(function (e) {
 
             });
+    },
+    getDatosPersonales: function () {
+        Backend.GetDatosPersonales()
+            .onSuccess(function (datos) {
+
+                var data = $.parseJSON(datos);
+
+                if (!$.isEmptyObject(data)) {
+
+                    $('#mensaje').html("");
+
+                    $('#legajo').html(data.Legajo);
+                    $('#fechaNac').html(data.FechaNacimiento);
+                    $('#edad').html(data.Edad);
+                    $('#cuil').html(data.Cuil);
+                    $('#sexo').html(data.Sexo);
+                    $('#estadoCivil').html(data.EstadoCivil);
+                    $('#dni').html(data.Documento);
+                    $('#domicilio').html(data.Domicilio);
+                    $('#cargo').html(data.Cargo);
+
+                }
+
+
+            })
+            .onError(function (e) {
+
+            });
+
+    },
+    getDatosFamiliares: function () {
+
+        Backend.GetFamiliares()
+            .onSuccess(function (familiaresJSON) {
+
+                var familiares = JSON.parse(familiaresJSON);
+
+                var _this = this;
+                $("#tabla_familiar").empty();
+                var divGrilla = $("#tabla_familiar");
+                //var tabla = resultado;
+                var columnas = [];
+
+                columnas.push(new Columna("Parentesco", { generar: function (un_familiar) { return un_familiar.Parentesco } }));
+                columnas.push(new Columna("Apellido", { generar: function (un_familiar) { return un_familiar.Apellido } }));
+                columnas.push(new Columna("Nombre", { generar: function (un_familiar) { return un_familiar.Nombre } }));
+                columnas.push(new Columna("N doc", { generar: function (un_familiar) { return un_familiar.Documento } }));
+                columnas.push(new Columna("Tipo DNI", { generar: function (un_familiar) { return un_familiar.TipoDNI } }));
+                
+
+                _this.Grilla = new Grilla(columnas);
+                _this.Grilla.SetOnRowClickEventHandler(function (un_familiar) { });
+                _this.Grilla.CambiarEstiloCabecera("estilo_tabla_portal");
+                _this.Grilla.CargarObjetos(familiares);
+                _this.Grilla.DibujarEn(divGrilla);
+                $('.table-hover').removeClass("table-hover");
+
+
+            })
+            .onError(function (e) {
+
+            });
+    
     }
 }

@@ -48,6 +48,38 @@ namespace General.Repositorios
 
         }
 
+        public string getFamiliares(int doc)
+        {
+            List<Persona> lista_personas = new List<Persona>();
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@Doc_Titular", doc);
+            parametros.Add("@Id_Interna", 0);
+            
+            var tablaDatos = conexion.Ejecutar("dbo.LEG_GET_DDJJ_Familiares", parametros);
+            var list_de_familiares = new List<Object>{};
+
+
+            if (tablaDatos.Rows.Count > 0)
+            {
+                tablaDatos.Rows.ForEach(row =>
+                {
+                    list_de_familiares.Add(new 
+                    {
+                        Nombre = row.GetString("Nombre", "Sin información"),
+                        Apellido = row.GetString("Apellido", "Sin información"),
+                        Parentesco = row.GetString("Parentesco", "Sin información"),
+                        Documento = row.GetInt("Nro_Doc", 0),
+                        TipoDNI = row.GetString("Tipo_Doc", "Sin información"),
+
+                    });
+                });
+
+            }
+
+            return JsonConvert.SerializeObject(list_de_familiares);
+
+        }
+
         protected override List<Legajo> ObtenerDesdeLaBase()
         {
             throw new NotImplementedException();
