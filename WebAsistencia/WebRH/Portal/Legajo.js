@@ -101,7 +101,7 @@
                 columnas.push(new Columna("Nombre", { generar: function (un_familiar) { return un_familiar.Nombre } }));
                 columnas.push(new Columna("N doc", { generar: function (un_familiar) { return un_familiar.Documento } }));
                 columnas.push(new Columna("Tipo DNI", { generar: function (un_familiar) { return un_familiar.TipoDNI } }));
-                
+
 
                 _this.Grilla = new Grilla(columnas);
                 _this.Grilla.SetOnRowClickEventHandler(function (un_familiar) { });
@@ -115,6 +115,27 @@
             .onError(function (e) {
 
             });
-    
+
+    },
+
+        getDatosLicencias: function () { 
+             Backend.GetLicencias()
+                    .onSuccess(function (licenciasJSON) {
+
+                        var licencias = JSON.parse(licenciasJSON);
+
+                        var _this = this;
+                        $("#tabla_familiar").empty();
+                        var divGrilla = $("#tabla_familiar");
+                        //var tabla = resultado;
+                        var columnas = [];
+
+                        columnas.push(new Columna("Parentesco", { generar: function (un_familiar) { return un_familiar.Parentesco } }));
+                        columnas.push(new Columna("Apellido", { generar: function (un_familiar) { return un_familiar.Apellido } }));
+                        columnas.push(new Columna("Nombre", { generar: function (un_familiar) { return un_familiar.Nombre } }));
+                        columnas.push(new Columna("N doc", { generar: function (un_familiar) { return un_familiar.Documento } }));
+                        columnas.push(new Columna("Tipo DNI", { generar: function (un_familiar) { return un_familiar.TipoDNI } }));
+                    
+                    })
     }
 }
