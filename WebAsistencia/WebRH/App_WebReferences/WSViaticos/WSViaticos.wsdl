@@ -753,6 +753,32 @@
           <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
         </s:sequence>
       </s:complexType>
+      <s:element name="Mobi_GetBienPorId">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_bien" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Mobi_GetBienPorIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Mobi_GetBienPorIdResult" type="tns:MoBi_Bien" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MoBi_Bien">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Imagenes" type="tns:ArrayOfInt" />
+          <s:element minOccurs="0" maxOccurs="1" name="Asignacion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Remitente" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="UltMov" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Estado" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdTipoBien" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="Mobi_GetBienesDelArea">
         <s:complexType>
           <s:sequence>
@@ -771,17 +797,6 @@
       <s:complexType name="ArrayOfMoBi_Bien">
         <s:sequence>
           <s:element minOccurs="0" maxOccurs="unbounded" name="MoBi_Bien" nillable="true" type="tns:MoBi_Bien" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="MoBi_Bien">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="Asignacion" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Remitente" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="UltMov" type="s:dateTime" />
-          <s:element minOccurs="0" maxOccurs="1" name="Estado" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="IdTipoBien" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
         </s:sequence>
       </s:complexType>
       <s:element name="Mobi_GetBienesDelAreaRecepcion">
@@ -890,6 +905,38 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="Mobi_AsignarImagenABien">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_bien" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_imagen" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Mobi_AsignarImagenABienResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Mobi_AsignarImagenABienResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Mobi_DesAsignarImagenABien">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_bien" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_imagen" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Mobi_DesAsignarImagenABienResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Mobi_DesAsignarImagenABienResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetThumbnail">
         <s:complexType>
           <s:sequence>
@@ -924,6 +971,20 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="GetImagenResult" type="tns:Imagen" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SubirImagen">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="bytes_imagen" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SubirImagenResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SubirImagenResult" type="s:int" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -4073,6 +4134,7 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="id_persona" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -4297,7 +4359,11 @@
         <s:complexType />
       </s:element>
       <s:element name="GetUsuarios">
-        <s:complexType />
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
       </s:element>
       <s:element name="GetUsuariosResponse">
         <s:complexType>
@@ -4346,6 +4412,8 @@
           <s:element minOccurs="1" maxOccurs="1" name="YaFueAprobada" type="s:boolean" />
           <s:element minOccurs="1" maxOccurs="1" name="LicenciaDesde" type="s:dateTime" />
           <s:element minOccurs="1" maxOccurs="1" name="LicenciaHasta" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="PerdidaExplicitamente" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="PerdidaPorVencimiento" type="s:boolean" />
         </s:sequence>
       </s:complexType>
       <s:element name="GetAnalisisLicenciaOrdinariaResponse">
@@ -5927,6 +5995,12 @@
   <wsdl:message name="Mobi_GetTipoBienSoapOut">
     <wsdl:part name="parameters" element="tns:Mobi_GetTipoBienResponse" />
   </wsdl:message>
+  <wsdl:message name="Mobi_GetBienPorIdSoapIn">
+    <wsdl:part name="parameters" element="tns:Mobi_GetBienPorId" />
+  </wsdl:message>
+  <wsdl:message name="Mobi_GetBienPorIdSoapOut">
+    <wsdl:part name="parameters" element="tns:Mobi_GetBienPorIdResponse" />
+  </wsdl:message>
   <wsdl:message name="Mobi_GetBienesDelAreaSoapIn">
     <wsdl:part name="parameters" element="tns:Mobi_GetBienesDelArea" />
   </wsdl:message>
@@ -5957,6 +6031,18 @@
   <wsdl:message name="Mobi_GuardarEventoBienSoapOut">
     <wsdl:part name="parameters" element="tns:Mobi_GuardarEventoBienResponse" />
   </wsdl:message>
+  <wsdl:message name="Mobi_AsignarImagenABienSoapIn">
+    <wsdl:part name="parameters" element="tns:Mobi_AsignarImagenABien" />
+  </wsdl:message>
+  <wsdl:message name="Mobi_AsignarImagenABienSoapOut">
+    <wsdl:part name="parameters" element="tns:Mobi_AsignarImagenABienResponse" />
+  </wsdl:message>
+  <wsdl:message name="Mobi_DesAsignarImagenABienSoapIn">
+    <wsdl:part name="parameters" element="tns:Mobi_DesAsignarImagenABien" />
+  </wsdl:message>
+  <wsdl:message name="Mobi_DesAsignarImagenABienSoapOut">
+    <wsdl:part name="parameters" element="tns:Mobi_DesAsignarImagenABienResponse" />
+  </wsdl:message>
   <wsdl:message name="GetThumbnailSoapIn">
     <wsdl:part name="parameters" element="tns:GetThumbnail" />
   </wsdl:message>
@@ -5968,6 +6054,12 @@
   </wsdl:message>
   <wsdl:message name="GetImagenSoapOut">
     <wsdl:part name="parameters" element="tns:GetImagenResponse" />
+  </wsdl:message>
+  <wsdl:message name="SubirImagenSoapIn">
+    <wsdl:part name="parameters" element="tns:SubirImagen" />
+  </wsdl:message>
+  <wsdl:message name="SubirImagenSoapOut">
+    <wsdl:part name="parameters" element="tns:SubirImagenResponse" />
   </wsdl:message>
   <wsdl:message name="ConsultaExcelDDJJ104_PersonaSoapIn">
     <wsdl:part name="parameters" element="tns:ConsultaExcelDDJJ104_Persona" />
@@ -7510,6 +7602,10 @@
       <wsdl:input message="tns:Mobi_GetTipoBienSoapIn" />
       <wsdl:output message="tns:Mobi_GetTipoBienSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="Mobi_GetBienPorId">
+      <wsdl:input message="tns:Mobi_GetBienPorIdSoapIn" />
+      <wsdl:output message="tns:Mobi_GetBienPorIdSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="Mobi_GetBienesDelArea">
       <wsdl:input message="tns:Mobi_GetBienesDelAreaSoapIn" />
       <wsdl:output message="tns:Mobi_GetBienesDelAreaSoapOut" />
@@ -7530,6 +7626,14 @@
       <wsdl:input message="tns:Mobi_GuardarEventoBienSoapIn" />
       <wsdl:output message="tns:Mobi_GuardarEventoBienSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="Mobi_AsignarImagenABien">
+      <wsdl:input message="tns:Mobi_AsignarImagenABienSoapIn" />
+      <wsdl:output message="tns:Mobi_AsignarImagenABienSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_DesAsignarImagenABien">
+      <wsdl:input message="tns:Mobi_DesAsignarImagenABienSoapIn" />
+      <wsdl:output message="tns:Mobi_DesAsignarImagenABienSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetThumbnail">
       <wsdl:input message="tns:GetThumbnailSoapIn" />
       <wsdl:output message="tns:GetThumbnailSoapOut" />
@@ -7537,6 +7641,10 @@
     <wsdl:operation name="GetImagen">
       <wsdl:input message="tns:GetImagenSoapIn" />
       <wsdl:output message="tns:GetImagenSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SubirImagen">
+      <wsdl:input message="tns:SubirImagenSoapIn" />
+      <wsdl:output message="tns:SubirImagenSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="ConsultaExcelDDJJ104_Persona">
       <wsdl:input message="tns:ConsultaExcelDDJJ104_PersonaSoapIn" />
@@ -8726,6 +8834,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="Mobi_GetBienPorId">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetBienPorId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="Mobi_GetBienesDelArea">
       <soap:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetBienesDelArea" style="document" />
       <wsdl:input>
@@ -8771,6 +8888,24 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="Mobi_AsignarImagenABien">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/Mobi_AsignarImagenABien" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_DesAsignarImagenABien">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/Mobi_DesAsignarImagenABien" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetThumbnail">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetThumbnail" style="document" />
       <wsdl:input>
@@ -8782,6 +8917,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetImagen">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetImagen" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SubirImagen">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/SubirImagen" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -11177,6 +11321,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="Mobi_GetBienPorId">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetBienPorId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="Mobi_GetBienesDelArea">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetBienesDelArea" style="document" />
       <wsdl:input>
@@ -11222,6 +11375,24 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="Mobi_AsignarImagenABien">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/Mobi_AsignarImagenABien" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_DesAsignarImagenABien">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/Mobi_DesAsignarImagenABien" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetThumbnail">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetThumbnail" style="document" />
       <wsdl:input>
@@ -11233,6 +11404,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetImagen">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetImagen" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SubirImagen">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/SubirImagen" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
