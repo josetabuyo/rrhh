@@ -69,9 +69,13 @@
         
         .Detalle:hover
         {
-            background-color: blue;
-        } 
+            background-color: #58ACFA;
+        }
         
+        .active-result
+        {
+            font-size: x-small;
+        }
     </style>
     <script type="text/javascript">
 
@@ -117,10 +121,17 @@
             celdas.removeClass('celda_on_hover');
         }
 
-        function Seleccionar_Row( row_sel ) {
+        function Seleccionar_Row(row_sel) {
             Deseleccionar_Todo();
             $(row_sel).find("td").addClass('celda_seleccionada');
         }
+
+        function Abrir_Detalle_Bien(id_bien) {
+            localStorage.setItem("idBien",id_bien );
+            window.location.href = 'BienesDetalle.aspx';            
+        }
+
+
 
     </script>
 </asp:Content>
@@ -165,31 +176,11 @@
             OnRowDataBound="GridViewBienes_RowDataBound">
             <Columns>
                 <asp:BoundField DataField="Descripcion" HeaderText="Bien"></asp:BoundField>
-                <asp:BoundField DataField="Estado" HeaderText="Ubicación" />
-                <asp:TemplateField HeaderText=""/>
+                <asp:BoundField DataField="Estado" HeaderText="Estado" />
+                <asp:BoundField DataField="Remitente" HeaderText="Asignación" />
+                <asp:TemplateField HeaderText="" />
             </Columns>
         </asp:GridView>
-
-
-
-<table id="tabla_sueldo_detalle" style="width: 80%; margin-top: 10px; display: table;">
-    <table class="table table-striped table-bordered table-condensed table-hover" style="cursor: pointer;">
-        <thead class="detalle_viatico_titulo_tabla_detalle">
-            <tr>
-                <th class="sort" data-sort="Area">Area</th>
-                <th class="sort" data-sort="Documento">Documento</th>
-                <th class="sort" data-sort="Detalle">Detalle</th>
-            </tr>
-         </thead>
-         <tbody class="list">
-            <tr>
-                <td class="Area">Coordinación General de Ceremonial y Protocolo</td>
-                <td class="Documento">36.398.972</td>
-                <td class="Detalle"><a><img src="../Imagenes/detalle.png" width="15px" height="15px"></a></td>
-             </tr>
-             </tbody></table></table>
-
-
     </div>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolderFooter" runat="Server">

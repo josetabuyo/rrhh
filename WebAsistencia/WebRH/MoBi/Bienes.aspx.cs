@@ -40,12 +40,6 @@ public partial class MoBi_Bienes : System.Web.UI.Page
 
     private void Cargar_AreasDelUsuario(WSViaticosSoapClient ws, int IdUsuario, int IdTipoBien, bool IncluirDependencias)
     {
-        //WSViaticos.MoBi_Area[] AreasUsuario = ws.Mobi_GetAreasDelUsuarioBienesDisponibles( IdUsuario, IdTipoBien, IncluirDependencias, BienEsVehiculoYTienePermServGrales());
-        //DropDownAreasUsuario.DataSource = AreasUsuario.OfType<MoBi_Area>().ToList();
-        //DropDownAreasUsuario.DataTextField = "Nombre";
-        //DropDownAreasUsuario.DataValueField = "Id";
-        //DropDownAreasUsuario.DataBind();
-
         WSViaticos.MoBi_Area[] AreasUsuario = ws.Mobi_GetAreasUsuarioCBO(IdUsuario, IdTipoBien, true );
         DropDownAreasUsuario.DataSource = AreasUsuario.OfType<MoBi_Area>().ToList();
         DropDownAreasUsuario.DataTextField = "Nombre";
@@ -112,12 +106,12 @@ public partial class MoBi_Bienes : System.Web.UI.Page
     protected void GridViewBienes_RowDataBound(object sender, GridViewRowEventArgs e)
     {
         GridViewRow row = e.Row;
+        var indexRowBtn = 3;
         if (row.RowType == DataControlRowType.DataRow)
         {
             row.Attributes["id"] = "row_" + row.RowIndex.ToString();
             row.Attributes.Add("onclick", "Seleccionar_Row(this);");
-            //row.Cells[2].Attributes.Add("class", "Detalle");
-            row.Cells[2].Text = "<a><img class=\"Detalle\" alt=\"Detalle\" src=\"../Imagenes/detalle.png\" /></a>";
+            row.Cells[indexRowBtn].Text = "<a><img class=\"Detalle\" alt=\"Detalle\" src=\"../Imagenes/detalle.png\" onclick=\"Abrir_Detalle_Bien(" +  GridViewBienes.DataKeys[row.RowIndex].Value + ");\" /></a>";
         }
     }
 }
