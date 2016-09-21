@@ -10,6 +10,7 @@
     <!-- CSS media query on a link element -->
     <%= Referencias.Css("../")%>
     <%= Referencias.Javascript("../")%>
+    <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
     <link rel="stylesheet" media="(max-width: 1600px)" href="estilosPortalSecciones.css" />
 </head>
 <body>
@@ -27,151 +28,30 @@
                     Si alguno de los datos que está viendo no es correcto o hubiera que actualizar,
                     por favor envíe un mail a <a href="mailto:xxx@example.com" target="_blank">xxx@example.com</a>
                 </p>
-                <legend style="margin-top: 20px;">LICENCIAS EN TRÁMITE</legend>
-                <%--<p>Elegir tipo de Licencia: 
-                <select id="cmbLicTomadas" >
-                    <option value="0">Seleccionar</option>
-                    <option value="1">9 - Ordinaria Anual</option>
-                    <option value="2">14f - Razones Particulares</option>
-                </select>
-            </p>--%>
-                <%--<p id="textoLicenciaElegida" style="font-weight: bold;">
-                </p>--%>
-                <a href="#" id="btn_excel_tomadas" class="btn_exportar">Exportar Datos</a>
-                <table id="tablaLicenciasTomadas" class="table table-striped table-bordered table-condensed">
-                    <thead class="estilo_tabla_portal">
-                        <tr>
-                            <th>
-                                Año
-                            </th>
-                            <th>
-                                Anual Autorizados
-                            </th>
-                            <th>
-                                Anual Tomados
-                            </th>
-                            <th>
-                                Anual Restan
-                            </th>
-                            <th>
-                                Desde
-                            </th>
-                            <th>
-                                Hasta
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                2016
-                            </td>
-                            <td>
-                                6
-                            </td>
-                            <td>
-                                1
-                            </td>
-                            <td>
-                                5
-                            </td>
-                            <td>
-                                18/01/01
-                            </td>
-                            <td>
-                                19/01/01
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <legend style="margin-top: 20px;">LICENCIAS EN TRÁMITE</legend><a href="#" id="btn_excel_tramite"
+                    class="btn_exportar">Exportar Datos</a>
+                <div id="tablaLicenciasEnTramite" class="table table-striped table-bordered table-condensed">
+                </div>
                 <legend style="margin-top: 50px; margin-bottom: 50px;">LICENCIAS ORDINARIAS DISPONIBLES</legend>
                 <a href="#" id="btn_excel_pendientes" class="btn_exportar">Exportar Datos</a>
-                <table class="table table-striped table-bordered table-condensed">
-                    <thead class="estilo_tabla_portal">
-                        <tr>
-                            <th>
-                                Año
-                            </th>
-                            <th>
-                                Días Pendientes
-                            </th>
-                            <th>
-                                Vencimiento
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                2016
-                            </td>
-                            <td>
-                                25
-                            </td>
-                            <td>
-                                2018
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                2015
-                            </td>
-                            <td>
-                                20
-                            </td>
-                            <td>
-                                2017
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                2014
-                            </td>
-                            <td>
-                                20
-                            </td>
-                            <td>
-                                2016
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                2013
-                            </td>
-                            <td>
-                                15
-                            </td>
-                            <td>
-                                2015
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div id="tablaLicenciasOrdinariasDisponibles" class="table table-striped table-bordered table-condensed">
+                </div>
             </div>
         </div>
     </div>
     </form>
 </body>
+<script type="text/javascript" src="Legajo.js"></script>
 <script type="text/javascript">
 
     $(document).ready(function ($) {
-
-        $('#tablaLicenciasTomadas').hide();
-        $('#btn_excel_tomadas').hide();
 
         //para cargar el menu izquierdo 
         $(".caja_izq").load("SeccionIzquierda.htm");
 
         Backend.start(function () {
-
-            $("#cmbLicTomadas").change(function () {
-                $('#textoLicenciaElegida').html($("#cmbLicTomadas option:selected").text());
-                $('#tablaLicenciasTomadas').show();
-                $('#btn_excel_tomadas').show();
-            });
-
+            Legajo.getDatosLicencias();
         });
-
     });
 
 </script>

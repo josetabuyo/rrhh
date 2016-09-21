@@ -118,24 +118,55 @@
 
     },
 
-        getDatosLicencias: function () { 
-             Backend.GetLicencias()
-                    .onSuccess(function (licenciasJSON) {
+    getDatosLicencias: function () {
 
-                        var licencias = JSON.parse(licenciasJSON);
+        Backend.GetLicenciasEnTramite()
+                    .onSuccess(function (licenciasJSON) {
+                        var licencias = [];
+                        if (licenciasJSON != "") {
+                            licencias = JSON.parse(licenciasJSON);
+                        }
 
                         var _this = this;
-                        $("#tabla_familiar").empty();
-                        var divGrilla = $("#tabla_familiar");
-                        //var tabla = resultado;
+                        $("#tablaLicenciasEnTramite").empty();
+                        var divGrilla = $("#tablaLicenciasEnTramite");
                         var columnas = [];
-
-                        columnas.push(new Columna("Parentesco", { generar: function (un_familiar) { return un_familiar.Parentesco } }));
-                        columnas.push(new Columna("Apellido", { generar: function (un_familiar) { return un_familiar.Apellido } }));
-                        columnas.push(new Columna("Nombre", { generar: function (un_familiar) { return un_familiar.Nombre } }));
-                        columnas.push(new Columna("N doc", { generar: function (un_familiar) { return un_familiar.Documento } }));
-                        columnas.push(new Columna("Tipo DNI", { generar: function (un_familiar) { return un_familiar.TipoDNI } }));
-                    
+                        columnas.push(new Columna("Tipo de Licencia", { generar: function (una_licencia) { return una_licencia.Descripcion } }));
+                        columnas.push(new Columna("Fecha Desde", { generar: function (una_licencia) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_licencia.Desde) } }));
+                        columnas.push(new Columna("FEcha Hasta", { generar: function (una_licencia) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_licencia.Hasta) } }));
+                        columnas.push(new Columna("Estado", { generar: function (una_licencia) { return una_licencia.Estado } }));
+                        _this.Grilla = new Grilla(columnas);
+                        _this.Grilla.CambiarEstiloCabecera("estilo_tabla_portal");
+                        _this.Grilla.CargarObjetos(licencias);
+                        _this.Grilla.DibujarEn(divGrilla);
+                        $('.table-hover').removeClass("table-hover");
                     })
+                    .onError(function (e) {
+
+                    });
+
+        Backend.GetLicenciasOrdinariasDisponibles()
+                    .onSuccess(function (licenciasJSON) {
+                        var licencias = [];
+                        if (licenciasJSON != "") {
+                            licencias = JSON.parse(licenciasJSON).Detalle;
+                        }
+                        var _this = this;
+                        $("#tablaLicenciasOrdinariasDisponibles").empty();
+                        var divGrilla = $("#tablaLicenciasOrdinariasDisponibles");
+                        var columnas = [];
+                        columnas.push(new Columna("Año", { generar: function (una_licencia) { return una_licencia.Periodo } }));
+                        columnas.push(new Columna("Días Disponibles", { generar: function (una_licencia) { return una_licencia.Disponible } }));
+
+                        _this.Grilla = new Grilla(columnas);
+                        _this.Grilla.CambiarEstiloCabecera("estilo_tabla_portal");
+                        _this.Grilla.CargarObjetos(licencias);
+                        _this.Grilla.DibujarEn(divGrilla);
+                        $('.table-hover').removeClass("table-hover");
+                    })
+                    .onError(function (e) {
+
+                    });
+
     }
 }
