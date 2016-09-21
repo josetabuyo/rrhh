@@ -52,7 +52,8 @@
             text-align: center;
             margin-top: 5px;
             margin-left: -140px;
-            margin-bottom: 25px;
+            margin-bottom: 25px;            
+            font-family: Calibri,Verdana,Arial;
         }
         
         .contenedor table
@@ -76,6 +77,12 @@
         {
             font-size: x-small;
         }
+        
+        legend input 
+        {
+            margin-left: 10px;
+        }
+        
     </style>
     <script type="text/javascript">
 
@@ -136,9 +143,12 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <legend class="contenedor">Bienes:
+
+    <legend class="contenedor" style="margin-left: -30px; text-shadow: 2px 2px 5px rgba(150, 150, 150, 1);" >
+            Bienes:
         <input type="text" id="searchInput" class="search" placeholder="Buscar">
     </legend>
+
     <div class="contenedor">
         <table>
             <tbody>
