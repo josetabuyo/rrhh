@@ -66,7 +66,7 @@
                         </tbody>
                     </table>
 
-                    <legend style="margin-top: 50px;">CARRERA ADMINISTRATIVA</legend>
+                    <%--<legend style="margin-top: 50px;">CARRERA ADMINISTRATIVA</legend>
                     <table class="table table-striped table-bordered table-condensed">
                         <thead class="estilo_tabla_portal">
                             <tr>
@@ -113,7 +113,7 @@
                             </tr>
 
                         </tbody>
-                    </table>
+                    </table>--%>
 
                 </div>
                

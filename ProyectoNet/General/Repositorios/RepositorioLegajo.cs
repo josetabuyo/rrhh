@@ -33,10 +33,14 @@ namespace General.Repositorios
             if (tablaDatos.Rows.Count > 0) {
                 tablaDatos.Rows.ForEach(row =>
                 {
+                    int idUniversidad = traerMasDatosDelEstudio(row.GetInt("id"));
+                    string nombre_universidad = traerNombre(idUniversidad);
+
                     lista_estudios.Add(new Estudio {
                         nombreDeNivel = row.GetString("Nivel","Sin información"),
                         titulo = row.GetString("Titulo", "Sin información"),
-                        fechaEgreso = row.GetDateTime("Fecha_Egreso",new DateTime(1900,1,1))
+                        fechaEgreso = row.GetDateTime("Fecha_Egreso",new DateTime(1900,1,1)),
+                        nombreUniversidad = nombre_universidad
                     }); 
                 });
             
@@ -47,6 +51,49 @@ namespace General.Repositorios
             return JsonConvert.SerializeObject(lista_estudios.ToArray()); 
 
         }
+
+        private int traerMasDatosDelEstudio(int idEstudio)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@IdEstudio", idEstudio);
+            parametros.Add("@Tipo", 1);
+            var tablaDatos = conexion.Ejecutar("dbo.LEG_GET_Estudio_Realizado_ID", parametros);
+            int idUniversidad = 0;
+
+            if (tablaDatos.Rows.Count > 0)
+            {
+                tablaDatos.Rows.ForEach(row =>
+                {
+                    idUniversidad = row.GetSmallintAsInt("Id_Universidad", 0);
+
+                });
+
+            }
+
+            return idUniversidad;
+        }
+
+        private string traerNombre(int idUniversidad)
+        {
+            string nombreUniversidad = "Sin datos";
+            var tablaDatos = conexion.Ejecutar("dbo.LEG_GET_Universidades");
+
+            if (tablaDatos.Rows.Count > 0)
+            {
+                tablaDatos.Rows.ForEach(row =>
+                {
+                    if (idUniversidad == row.GetSmallintAsInt("id",0)) {
+                        nombreUniversidad = row.GetString("Universidad", "Sin datos");
+                    }
+                    
+
+                });
+
+            }
+
+            return nombreUniversidad;
+        }
+
 
         public string getFamiliares(int doc)
         {
@@ -77,6 +124,37 @@ namespace General.Repositorios
             }
 
             return JsonConvert.SerializeObject(list_de_familiares);
+
+        }
+
+        public string getPsicofisicos(int doc)
+        {
+            //List<Persona> lista_personas = new List<Persona>();
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@Legajo", doc);
+            parametros.Add("@id", 0);
+
+            var tablaDatos = conexion.Ejecutar("dbo.LEG_GET_Psicofisicos", parametros);
+            var list_de_examenes = new List<Object> { };
+
+
+            if (tablaDatos.Rows.Count > 0)
+            {
+                tablaDatos.Rows.ForEach(row =>
+                {
+                    list_de_examenes.Add(new
+                    {
+                        Folio = row.GetString("Folio_Nro", "Sin información"),
+                        Motivo = row.GetString("Motivo", "Sin información"),
+                        Resultado = row.GetString("Resultado", "Sin información"),
+                        Organismo = row.GetString("Org_Expidió", "Sin información")
+
+                    });
+                });
+
+            }
+
+            return JsonConvert.SerializeObject(list_de_examenes);
 
         }
 

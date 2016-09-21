@@ -3595,6 +3595,15 @@ public class WSViaticos : System.Web.Services.WebService
 
         }
 
+        [WebMethod]
+        public string GetPsicofisicos(Usuario usuario)
+        {
+            RepositorioLegajo repo = RepoLegajo();
+
+            return repo.getPsicofisicos(usuario.Owner.Documento);
+
+        }
+
 
         #endregion 
 
