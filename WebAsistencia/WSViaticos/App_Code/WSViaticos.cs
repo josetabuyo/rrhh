@@ -3596,6 +3596,29 @@ public class WSViaticos : System.Web.Services.WebService
         }
 
         [WebMethod]
+        public string GetLicenciasEnTramite(Usuario usuario)
+        {
+           var personas = new List<Persona>();
+           var persona = new Persona();
+            persona = usuario.Owner;
+            personas.Add(persona);
+            var respuesta = this.GetAusentesEntreFechasPara(personas.ToArray(), DateTime.Today, new DateTime(9999,12,31));
+            if (respuesta.Count() > 0)
+            {
+                return JsonConvert.SerializeObject(respuesta.First().Inasistencias);
+            }
+            return "";
+           
+        }
+        [WebMethod]
+        public string GetLicenciasOrdinariasDisponibles(Usuario usuario)
+        {
+            var concepto = new ConceptoDeLicencia();
+            concepto.Id = 1;
+            return JsonConvert.SerializeObject(this.GetSaldoLicencia(usuario.Owner, concepto));
+        }
+    
+        [WebMethod]
         public string GetPsicofisicos(Usuario usuario)
         {
             RepositorioLegajo repo = RepoLegajo();
