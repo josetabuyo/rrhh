@@ -52,9 +52,89 @@
     <div id="ed_descripcion_bien"></div>
     <div id="ed_contenedor_imagenes"></div>
     <div id="btn_add_imagen"> + </div>
+
+    <div id="Contenido">
+            <table id="datos-vehiculo" class="tabla-principal">
+                <tr>
+                    <td colspan="2" class="celda">
+                        Marca:
+                    </td>
+                    <td id="marca" colspan="2" class="celda2">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="celda">
+                        Modelo:
+                    </td>
+                    <td id="Modelo" colspan="2" class="celda2">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="celda">
+                        Segmento:
+                    </td>
+                    <td id="segmento" colspan="2" class="celda2">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="celda">
+                        Dominio:
+                    </td>
+                    <td id="dominio" colspan="2" class="celda2">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="celda">
+                        Año:
+                    </td>
+                    <td id="año" colspan="2" class="celda2">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="celda">
+                        Motor:
+                    </td>
+                    <td id="Motor" colspan="2" class="celda2">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="celda">
+                        Chasis:
+                    </td>
+                    <td id="chasis" colspan="2" class="celda2">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="celda">
+                        Asignado al sector:
+                    </td>
+                    <td id="area" colspan="2" class="celda2">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="celda">
+                        Conductor:
+                    </td>
+                    <td id="responsable" colspan="2" class="celda2">
+                    </td>
+                </tr>
+            </table>
+    </div>
+
 </form>
 
 </body>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        Backend.start(function () {
+            //$("#contenedor_controles").addClass("animated slideInLeft");
+            
+                window.location = "DetalleVehiculo.aspx?" + "X5NVCXOL";
+            
+        });
+    });
+
 
 
 <script type="text/javascript" src="../Scripts/jquery.leanModal.min.js"></script>
@@ -66,6 +146,6 @@
 <script src="../scripts/vex-2.1.1/js/vex.combined.min.js"></script>
 
 <script type="text/javascript" src="js/BienesDetalle.js"></script>
-
+<script type="text/javascript" src="js/DetalleVehiculo.js"></script>
 
 </html>

@@ -267,7 +267,7 @@ public class AjaxWS : System.Web.Services.WebService
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public string CrearUsuarioPara(int id_persona)
     {
-        var respuesta = backEndService.CrearUsuarioPara(id_persona);
+        var respuesta = backEndService.CrearUsuarioPara(id_persona, usuarioLogueado);
         var respuestaSerializada = Newtonsoft.Json.JsonConvert.SerializeObject(respuesta);
         return respuestaSerializada;
     }
