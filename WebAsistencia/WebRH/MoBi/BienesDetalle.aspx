@@ -125,16 +125,6 @@
 
 </body>
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        Backend.start(function () {
-            //$("#contenedor_controles").addClass("animated slideInLeft");
-            
-                window.location = "DetalleVehiculo.aspx?" + "X5NVCXOL";
-            
-        });
-    });
-
 
 
 <script type="text/javascript" src="../Scripts/jquery.leanModal.min.js"></script>
@@ -143,9 +133,29 @@
 <script src="../scripts/Spin.js" type="text/javascript"></script>
 <script type="text/javascript" src="../Scripts/ControlesImagenes/VistaThumbnail.js"></script>
 <script type="text/javascript" src="../Scripts/ControlesImagenes/SubidorDeImagenes.js"></script>
-<script src="../scripts/vex-2.1.1/js/vex.combined.min.js"></script>
+<script type="text/javascript" src="../scripts/vex-2.1.1/js/vex.combined.min.js"></script>
 
 <script type="text/javascript" src="js/BienesDetalle.js"></script>
 <script type="text/javascript" src="js/DetalleVehiculo.js"></script>
+
+<script type="text/javascript">
+
+   
+    $(document).ready(function () { 
+        Backend.start(function () {
+            //$("#contenedor_controles").addClass("animated slideInLeft");
+
+
+            //  window.location = "DetalleVehiculo.aspx?" + "X5NVCXOL";
+
+         
+
+
+
+        });
+    });
+    
+
+</script>
 
 </html>
