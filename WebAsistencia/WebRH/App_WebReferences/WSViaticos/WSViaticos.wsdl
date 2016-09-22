@@ -501,6 +501,48 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetPsicofisicos">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPsicofisicosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPsicofisicosResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDesignaciones">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDesignacionesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDesignacionesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDesignacionActual">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDesignacionActualResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDesignacionActualResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetEvaluacionesDeAlumno">
         <s:complexType>
           <s:sequence>
@@ -5443,6 +5485,24 @@
   <wsdl:message name="GetLicenciasOrdinariasDisponiblesSoapOut">
     <wsdl:part name="parameters" element="tns:GetLicenciasOrdinariasDisponiblesResponse" />
   </wsdl:message>
+  <wsdl:message name="GetPsicofisicosSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPsicofisicos" />
+  </wsdl:message>
+  <wsdl:message name="GetPsicofisicosSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPsicofisicosResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDesignacionesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDesignaciones" />
+  </wsdl:message>
+  <wsdl:message name="GetDesignacionesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDesignacionesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDesignacionActualSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDesignacionActual" />
+  </wsdl:message>
+  <wsdl:message name="GetDesignacionActualSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDesignacionActualResponse" />
+  </wsdl:message>
   <wsdl:message name="GetEvaluacionesDeAlumnoSoapIn">
     <wsdl:part name="parameters" element="tns:GetEvaluacionesDeAlumno" />
   </wsdl:message>
@@ -6946,6 +7006,18 @@
       <wsdl:input message="tns:GetLicenciasOrdinariasDisponiblesSoapIn" />
       <wsdl:output message="tns:GetLicenciasOrdinariasDisponiblesSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetPsicofisicos">
+      <wsdl:input message="tns:GetPsicofisicosSoapIn" />
+      <wsdl:output message="tns:GetPsicofisicosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDesignaciones">
+      <wsdl:input message="tns:GetDesignacionesSoapIn" />
+      <wsdl:output message="tns:GetDesignacionesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDesignacionActual">
+      <wsdl:input message="tns:GetDesignacionActualSoapIn" />
+      <wsdl:output message="tns:GetDesignacionActualSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetEvaluacionesDeAlumno">
       <wsdl:input message="tns:GetEvaluacionesDeAlumnoSoapIn" />
       <wsdl:output message="tns:GetEvaluacionesDeAlumnoSoapOut" />
@@ -8051,6 +8123,33 @@
     </wsdl:operation>
     <wsdl:operation name="GetLicenciasOrdinariasDisponibles">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetLicenciasOrdinariasDisponibles" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPsicofisicos">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetPsicofisicos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDesignaciones">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetDesignaciones" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDesignacionActual">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetDesignacionActual" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -10358,6 +10457,33 @@
     </wsdl:operation>
     <wsdl:operation name="GetLicenciasOrdinariasDisponibles">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetLicenciasOrdinariasDisponibles" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPsicofisicos">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetPsicofisicos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDesignaciones">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetDesignaciones" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDesignacionActual">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetDesignacionActual" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

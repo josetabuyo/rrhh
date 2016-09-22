@@ -45,70 +45,10 @@
                   <div id="tabla_familiar">
     
                 </div>
-                    <%--<table class="table table-striped table-bordered table-condensed">
-                        <thead class="estilo_tabla_portal">
-                            <tr>
-                                <th>Parentezco</th>
-                                <th>Apellido</th>
-                                <th>Nombre</th>
-                                <th>F. Nac</th>
-                                <th>N doc</th>
-                                <th>Tipo DNI</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Hermano</td>
-                                <td>Caino</td>
-                                <td>German Daniel</td>
-                                <td>19/05/1981</td>
-                                <td>28888888</td>
-                                <td>DNI</td>
-                            </tr>
-                            <tr>
-                                <td>Madre</td>
-                                <td>Bruschi</td>
-                                <td>Maria Irente</td>
-                                <td>19/05/1981</td>
-                                <td>28888888</td>
-                                <td>DNI</td>
-                            </tr>
-                            <tr>
-                                <td>Padre</td>
-                                <td>Caino</td>
-                                <td>Daniel Alberto</td>
-                                <td>19/05/1981</td>
-                                <td>28888888</td>
-                                <td>DNI</td>
-                            </tr>
-                        </tbody>
-                    </table>--%>
-
+                   
                     <legend style="margin-top: 50px;">EXÁMENES PSICOFÍSICOS</legend>
-                    <table class="table table-striped table-bordered table-condensed">
-                        <thead class="estilo_tabla_portal">
-                            <tr>
-                                <th>Fecha</th>
-                                <th>Motivo</th>
-                                <th>Resultado</th>
-                                <th>Organismo</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>19/05/1981</td>
-                                <td>Ingreso</td>
-                                <td>Provisorio</td>
-                                <td>Depto Medicina</td>
-                            </tr>
-                            <tr>
-                                <td>19/05/1981</td>
-                                <td>Ingreso Planta</td>
-                                <td>Apto</td>
-                                <td>Depto Medicina</td>
-                            </tr>
-
-                        </tbody>
+                    <table id="tabla_psicofisicos" class="table table-striped table-bordered table-condensed">
+                        
                     </table>
 
                 </div>
@@ -128,6 +68,7 @@
         Backend.start(function () {
             Legajo.getDatosPersonales();
             Legajo.getDatosFamiliares();
+            Legajo.getPsicofisicos();
         });
 
     });

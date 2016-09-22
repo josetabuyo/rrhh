@@ -38,83 +38,8 @@
                  </div>
 
                 <legend style="margin-top: 20px;">DESIGNACIONES</legend>
-                    <table class="table table-striped table-bordered table-condensed">
-                        <thead class="estilo_tabla_portal">
-                            <tr>
-                                <th>Nro Acto</th>
-                                <th>Fecha Acto</th>
-                                <th>Motivo</th>
-                                <th>Situación de Revista</th>
-                                <th>Folio</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>5182</td>
-                                <td>21/09/2010</td>
-                                <td>Aprobacion de...</td>
-                                <td>Contratada | C 0 | Te...</td>
-                                <td>00-001/003</td>
-                            </tr>
-                            <tr>
-                                <td>1864</td>
-                                <td>07/09/2015</td>
-                                <td>Designación</td>
-                                <td>Permanente | C 1 | A..</td>
-                                <td>00-090/095</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <legend style="margin-top: 50px;">CARRERA ADMINISTRATIVA</legend>
-                    <table class="table table-striped table-bordered table-condensed">
-                        <thead class="estilo_tabla_portal">
-                            <tr>
-                                <th>Jurisdicción</th>
-                                <th>Organismo</th>
-                                <th>Régimen</th>
-                                <th>Agrupamiento</th>
-                                <th>Categoria</th>
-                                <th>Cargo</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>MDS</td>
-                                <td>Secretaria de Coordinacion</td>
-                                <td>Decreto 1421</td>
-                                <td>General</td>
-                                <td>C</td>
-                                <td>Tecnico-Administrativo</td>
-                            </tr>
-                            <tr>
-                                <td>MDS</td>
-                                <td>MDS</td>
-                                <td>Decreto 1421</td>
-                                <td>General</td>
-                                <td>C</td>
-                                <td>Tecnico-Administrativo</td>
-                            </tr>
-                             <tr>
-                                <td>MDS</td>
-                                <td>MDS</td>
-                                <td>Decreto 1421</td>
-                                <td>General</td>
-                                <td>C</td>
-                                <td>Profesional</td>
-                            </tr>
-                            <tr>
-                                <td>MDS</td>
-                                <td>MDS</td>
-                                <td>SINEP-Dto 209..</td>
-                                <td>Profesional</td>
-                                <td>C</td>
-                                <td>Analista Profesional</td>
-                            </tr>
-
-                        </tbody>
-                    </table>
-
+                    <div id="tablaDesignaciones" class="table table-striped table-bordered table-condensed"> 
+                    </div>
                 </div>
                
             </div>
@@ -122,6 +47,7 @@
 
     </form>
 </body>
+<script type="text/javascript" src="Legajo.js"></script>
 <script type="text/javascript" >
 
     $(document).ready(function ($) {
@@ -129,6 +55,10 @@
         //para cargar el menu izquierdo 
         $(".caja_izq").load("SeccionIzquierda.htm");
 
+        Backend.start(function () {
+            Legajo.GetDatosDesignaciones();
+        });
+        
     });
 
 </script> 

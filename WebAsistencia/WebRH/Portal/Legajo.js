@@ -20,7 +20,7 @@
 
                 columnas.push(new Columna("Titulo", { generar: function (un_estudio) { return un_estudio.titulo } }));
                 columnas.push(new Columna("Nivel", { generar: function (un_estudio) { return un_estudio.nombreDeNivel } }));
-                columnas.push(new Columna("Institución", { generar: function (un_estudio) { return ("XXX") } }));
+                columnas.push(new Columna("Institución", { generar: function (un_estudio) { return un_estudio.nombreUniversidad } }));
                 columnas.push(new Columna("F. Egreso", { generar: function (un_estudio) {
                     var fecha_sin_hora = un_estudio.fechaEgreso.split("T");
                     var fecha = fecha_sin_hora[0].split("-");
@@ -117,6 +117,39 @@
             });
 
     },
+    getPsicofisicos: function () {
+
+        Backend.GetPsicofisicos()
+            .onSuccess(function (psicofisicosJSON) {
+
+                var psicofisicos = JSON.parse(psicofisicosJSON);
+
+                var _this = this;
+                $("#tabla_psicofisicos").empty();
+                var divGrilla = $("#tabla_psicofisicos");
+                //var tabla = resultado;
+                var columnas = [];
+
+                columnas.push(new Columna("Folio", { generar: function (un_examen) { return un_examen.Folio } }));
+                columnas.push(new Columna("Motivo", { generar: function (un_examen) { return un_examen.Motivo } }));
+                columnas.push(new Columna("Resultado", { generar: function (un_examen) { return un_examen.Resultado } }));
+                columnas.push(new Columna("Organismo", { generar: function (un_examen) { return un_examen.Organismo } }));
+
+
+                _this.Grilla = new Grilla(columnas);
+                _this.Grilla.SetOnRowClickEventHandler(function (un_examen) { });
+                _this.Grilla.CambiarEstiloCabecera("estilo_tabla_portal");
+                _this.Grilla.CargarObjetos(psicofisicos);
+                _this.Grilla.DibujarEn(divGrilla);
+                $('.table-hover').removeClass("table-hover");
+
+
+            })
+            .onError(function (e) {
+
+            });
+
+    },
 
     getDatosLicencias: function () {
 
@@ -168,5 +201,46 @@
 
                     });
 
+    },
+
+                GetDatosDesignaciones: function () {
+
+//                    Backend.GetDesignacionActual()
+//                    .onSuccess(function (designacionJSON) {
+//                          designacion = JSON.parse(designacionJSON);
+//                       
+//                    })
+//                    .onError(function (e) {
+
+//                    });
+
+
+
+                      Backend.getDesignaciones()
+                    .onSuccess(function (designacionesJSON) {
+                        var designaciones = [];
+                        if (designacionesJSON != "") {
+                            designaciones = JSON.parse(designacionesJSON).Detalle;
+                        }
+                        var _this = this;
+                        $("#tablaDesignaciones").empty();
+                        var divGrilla = $("#tablaDesignaciones");
+                        var columnas = [];
+                        columnas.push(new Columna("Tipo Acto", { generar: function (una_designacion) { return una_designacion.TipoActo } }));
+                        columnas.push(new Columna("Nro Acto", { generar: function (una_designacion) { return una_designacion.NroActo } }));
+                        columnas.push(new Columna("Fecha Acto", { generar: function (una_designacion) { return una_designacion.FechActo } }));
+                        columnas.push(new Columna("Motivo", { generar: function (una_designacion) { return una_designacion.Motivo } }));
+                        columnas.push(new Columna("Situación de Revista", { generar: function (una_designacion) { return una_designacion.SituacionRevista } }));
+                        columnas.push(new Columna("Folio", { generar: function (una_designacion) { return una_designacion.Folio } }));
+
+                        _this.Grilla = new Grilla(columnas);
+                        _this.Grilla.CambiarEstiloCabecera("estilo_tabla_portal");
+                        _this.Grilla.CargarObjetos(licencias);
+                        _this.Grilla.DibujarEn(divGrilla);
+                        $('.table-hover').removeClass("table-hover");
+                    })
+                    .onError(function (e) {
+
+                    });
     }
 }

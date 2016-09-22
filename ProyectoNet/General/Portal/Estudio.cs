@@ -11,6 +11,7 @@ namespace General
         public String titulo;
         public DateTime fechaEgreso;
         public String folio;
+        public String nombreUniversidad;
 
         public Estudio()
         {
