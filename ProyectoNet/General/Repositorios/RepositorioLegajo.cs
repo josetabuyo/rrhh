@@ -158,6 +158,92 @@ namespace General.Repositorios
 
         }
 
+
+        public string GetReciboDeSueldo(int documento)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@Documento", documento);
+
+            var recibo = new object();
+            var listaReciboDetalle = new List<object>();
+            var cabeceraRecibo = new object();
+
+            var tablaDatos = conexion.Ejecutar("dbo.PLA_GET_Impresion_Recibos_Haberes", parametros);
+
+            if (tablaDatos.Rows.Count > 0)
+            {
+                int idRecibo = tablaDatos.Rows.Last().GetInt("Id_Recibo");
+
+                cabeceraRecibo = traerCabeceraRecibo(idRecibo);
+
+                listaReciboDetalle = traerDetalleRecibo(idRecibo);
+
+                recibo = new
+                {
+                    Cabecera = cabeceraRecibo,
+                    Detalle = listaReciboDetalle
+                };
+
+            }
+
+            return JsonConvert.SerializeObject(recibo);
+
+        }
+
+        private List<object> traerDetalleRecibo(int idRecibo)
+        {
+
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@Id_Recibo", idRecibo);
+            var listaDetalleRecibo = new List<object>();
+            var un_detalle = new object();
+
+            var tablaDatos = conexion.Ejecutar("dbo.RPT_PLA_Recibos_Haberes_Detalle", parametros);
+
+            tablaDatos.Rows.ForEach(row =>
+            {
+                un_detalle = new
+                {
+                    //Nombre = row.GetString("Nombre", ""),
+                    Concepto = row.GetString("Concepto", ""),
+                    Aporte = row.GetDecimal("Aporte", 0),
+                    Descuento = row.GetDecimal("Descuento", 0),
+                    Descripcion = row.GetString("Descripcion", "")
+                };
+
+                listaDetalleRecibo.Add(un_detalle);
+            });
+
+            return listaDetalleRecibo;
+        }
+
+        private object traerCabeceraRecibo(int idRecibo)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@Id_recibo", idRecibo);
+            var cabeceraRecibo = new object();
+
+            var tablaDatos = conexion.Ejecutar("dbo.RPT_PLA_Recibo_Haberes_Header", parametros);
+
+            if (tablaDatos.Rows.Count > 0)
+            {
+
+                cabeceraRecibo = new
+                {
+                    //Nombre = row.GetString("Nombre", ""),
+                    Legajo = tablaDatos.Rows.First().GetInt("Legajo", 0),
+                    Agente = tablaDatos.Rows.First().GetString("Agente", ""),
+                    CUIL = tablaDatos.Rows.First().GetString("CUIL", ""),
+                    Oficina = tablaDatos.Rows.First().GetSmallintAsInt("Oficina", 0),
+                    Orden = tablaDatos.Rows.First().GetSmallintAsInt("Orden", 0)
+
+                };
+
+            }
+
+            return cabeceraRecibo;
+        } 
+
         public string getDesignaciones(int doc)
         {
             var parametros = new Dictionary<string, object>();

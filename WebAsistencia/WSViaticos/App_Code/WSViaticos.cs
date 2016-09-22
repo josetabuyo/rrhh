@@ -3623,9 +3623,18 @@ public class WSViaticos : System.Web.Services.WebService
     {
         RepositorioLegajo repo = RepoLegajo();
 
-        return repo.getPsicofisicos(usuario.Owner.Documento);
 
+        return repo.getPsicofisicos(usuario.Owner.Documento);
     }
+
+    [WebMethod]
+    public string GetRecibo(Usuario usuario)
+    {
+        RepositorioLegajo repo = RepoLegajo();
+
+        return repo.GetReciboDeSueldo(usuario.Owner.Documento);
+    }
+
     [WebMethod]
     public string GetDesignaciones(Usuario usuario)
     {

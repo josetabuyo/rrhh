@@ -515,6 +515,20 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetRecibo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReciboResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetReciboResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetDesignaciones">
         <s:complexType>
           <s:sequence>
@@ -5491,6 +5505,12 @@
   <wsdl:message name="GetPsicofisicosSoapOut">
     <wsdl:part name="parameters" element="tns:GetPsicofisicosResponse" />
   </wsdl:message>
+  <wsdl:message name="GetReciboSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRecibo" />
+  </wsdl:message>
+  <wsdl:message name="GetReciboSoapOut">
+    <wsdl:part name="parameters" element="tns:GetReciboResponse" />
+  </wsdl:message>
   <wsdl:message name="GetDesignacionesSoapIn">
     <wsdl:part name="parameters" element="tns:GetDesignaciones" />
   </wsdl:message>
@@ -7010,6 +7030,10 @@
       <wsdl:input message="tns:GetPsicofisicosSoapIn" />
       <wsdl:output message="tns:GetPsicofisicosSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetRecibo">
+      <wsdl:input message="tns:GetReciboSoapIn" />
+      <wsdl:output message="tns:GetReciboSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetDesignaciones">
       <wsdl:input message="tns:GetDesignacionesSoapIn" />
       <wsdl:output message="tns:GetDesignacionesSoapOut" />
@@ -8132,6 +8156,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetPsicofisicos">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetPsicofisicos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRecibo">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetRecibo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -10466,6 +10499,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetPsicofisicos">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetPsicofisicos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRecibo">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetRecibo" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

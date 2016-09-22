@@ -281,7 +281,7 @@ namespace General.Repositorios
                         Nivel = row.GetString("Nivel", ""),
                         Grado = row.GetString("Grado", ""),
                         Cargo = row.GetString("Cargo", ""),
-                        FechaDesde = row.GetDateTime("Fecha_Desde",new DateTime(1900,01,01)).ToShortDateString(),
+                        FechaDesde = row.GetDateTime("Fecha_Desde", new DateTime(1900, 01, 01)).ToShortDateString(),
                         FechaHasta = row.GetDateTime("Fecha_Hasta", new DateTime(1900, 01, 01)).ToShortDateString(),
                         ActoTipo = row.GetString("Acto_tipo", ""),
                         ActoTipoNro = row.GetString("Acto_nro", ""),
@@ -295,6 +295,7 @@ namespace General.Repositorios
 
             return JsonConvert.SerializeObject(lista.ToArray());
 
-        } 
+        }
+
     }
 }
