@@ -10,7 +10,7 @@
          <%= Referencias.Css("../")%>
 
         <%= Referencias.Javascript("../")%>
-
+        <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
         <link rel="stylesheet" media="(max-width: 1600px)" href="estilosPortalSecciones.css" />
 
     </head>
@@ -26,15 +26,15 @@
             <p class="mensaje_cambio_datos" >Si alguno de los datos que está viendo no es correcto o hubiera que actualizar, por favor envíe un mail a <a href="mailto:xxx@example.com" target="_blank">xxx@example.com</a> </p>
             <legend style="margin-top: 20px;">PERFIL PROFESIONAL</legend>
                 <div class="cajitas">
-                   <p class=""><label class="item_cajita">Sector: </label><span id="Span1">Dirección de Diseño y Desarrollo Organizacional para la Gestión de las Personas</span></p>
-                    <p class=""><label class="item_cajita">Nivel y Grado: </label><span id="Span2">C - 1</span></p>
+                   <p class=""><label class="item_cajita">Sector: </label><span id="txt_sector"></span></p>
+                    <p class=""><label class="item_cajita">Nivel y Grado: </label><span id="txt_nivel_grado"></span></p>
                 </div>
                  <div class="cajitas">
-                    <p><label  class="item_cajita">Planta: </label><span id="Span3">Permanente</span></p>
-                    <p class=""><label class="item_cajita">Agrupamiento: </label><span id="Span4">Profesional</span></p>
+                    <p><label  class="item_cajita">Planta: </label><span id="txt_planta"></span></p>
+                    <p class=""><label class="item_cajita">Agrupamiento: </label><span id="txt_agrupamiento"></span></p>
                 </div>
                 <div class="cajitas">
-                    <p class=""><label class="item_cajita">Ingreso: </label><span id="Span5"></span>01/09/2010</p>
+                    <p class=""><label class="item_cajita">Ingreso: </label><span id="txt_ingreso"></span></p>
                  </div>
 
                 <legend style="margin-top: 20px;">DESIGNACIONES</legend>

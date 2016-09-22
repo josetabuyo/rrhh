@@ -260,7 +260,7 @@ namespace General.Repositorios
                     list_de_designaciones.Add(new
                     {
                         TipoActo = row.GetString("acto_tipo", "Sin información"),
-                        NroActo = row.GetInt("acto_nro", 0),
+                        NroActo = row.GetSmallintAsInt("acto_nro", 0),
                         FechActo = row.GetDateTime("acto_fecha"),
                         Motivo = row.GetString("motivoDesc", "Sin información"),
                         SituacionRevista = row.GetString("SR", "Sin información"),

@@ -225,24 +225,30 @@
             });
     },
 
-                GetDatosDesignaciones: function () {
+    GetDatosDesignaciones: function () {
 
-//                    Backend.GetDesignacionActual()
-//                    .onSuccess(function (designacionJSON) {
-//                          designacion = JSON.parse(designacionJSON);
-//                       
-//                    })
-//                    .onError(function (e) {
+        Backend.GetDesignacionActual()
+                    .onSuccess(function (designacionJSON) {
+                        designacion = JSON.parse(designacionJSON);
+                        $('#txt_sector').text(designacion.Sector);
+                        $('#txt_nivel_grado').text(designacion.Nivel);
+                        $('#txt_planta').text(designacion.Planta);
+                        $('#txt_agrupamiento').text(designacion.Agrupamiento);
+                        $('#txt_ingreso').text(designacion.IngresoMinisterio);
+                        $('#txt_sector').text(designacion.Sector);
 
-//                    });
+                    })
+                    .onError(function (e) {
+
+                    });
 
 
 
-                      Backend.getDesignaciones()
+        Backend.GetDesignaciones()
                     .onSuccess(function (designacionesJSON) {
                         var designaciones = [];
                         if (designacionesJSON != "") {
-                            designaciones = JSON.parse(designacionesJSON).Detalle;
+                            designaciones = JSON.parse(designacionesJSON);
                         }
                         var _this = this;
                         $("#tablaDesignaciones").empty();
@@ -250,14 +256,14 @@
                         var columnas = [];
                         columnas.push(new Columna("Tipo Acto", { generar: function (una_designacion) { return una_designacion.TipoActo } }));
                         columnas.push(new Columna("Nro Acto", { generar: function (una_designacion) { return una_designacion.NroActo } }));
-                        columnas.push(new Columna("Fecha Acto", { generar: function (una_designacion) { return una_designacion.FechActo } }));
+                        columnas.push(new Columna("Fecha Acto", { generar: function (una_designacion) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_designacion.FechActo) } }));
                         columnas.push(new Columna("Motivo", { generar: function (una_designacion) { return una_designacion.Motivo } }));
                         columnas.push(new Columna("Situación de Revista", { generar: function (una_designacion) { return una_designacion.SituacionRevista } }));
                         columnas.push(new Columna("Folio", { generar: function (una_designacion) { return una_designacion.Folio } }));
 
                         _this.Grilla = new Grilla(columnas);
                         _this.Grilla.CambiarEstiloCabecera("estilo_tabla_portal");
-                        _this.Grilla.CargarObjetos(licencias);
+                        _this.Grilla.CargarObjetos(designaciones);
                         _this.Grilla.DibujarEn(divGrilla);
                         $('.table-hover').removeClass("table-hover");
                     })
