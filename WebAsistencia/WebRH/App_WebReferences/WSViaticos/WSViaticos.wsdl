@@ -473,6 +473,34 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetLicenciasEnTramite">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLicenciasEnTramiteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetLicenciasEnTramiteResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLicenciasOrdinariasDisponibles">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLicenciasOrdinariasDisponiblesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetLicenciasOrdinariasDisponiblesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetPsicofisicos">
         <s:complexType>
           <s:sequence>
@@ -484,6 +512,20 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="GetPsicofisicosResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRecibo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReciboResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetReciboResult" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -5417,11 +5459,29 @@
   <wsdl:message name="GetFamiliaresSoapOut">
     <wsdl:part name="parameters" element="tns:GetFamiliaresResponse" />
   </wsdl:message>
+  <wsdl:message name="GetLicenciasEnTramiteSoapIn">
+    <wsdl:part name="parameters" element="tns:GetLicenciasEnTramite" />
+  </wsdl:message>
+  <wsdl:message name="GetLicenciasEnTramiteSoapOut">
+    <wsdl:part name="parameters" element="tns:GetLicenciasEnTramiteResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetLicenciasOrdinariasDisponiblesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetLicenciasOrdinariasDisponibles" />
+  </wsdl:message>
+  <wsdl:message name="GetLicenciasOrdinariasDisponiblesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetLicenciasOrdinariasDisponiblesResponse" />
+  </wsdl:message>
   <wsdl:message name="GetPsicofisicosSoapIn">
     <wsdl:part name="parameters" element="tns:GetPsicofisicos" />
   </wsdl:message>
   <wsdl:message name="GetPsicofisicosSoapOut">
     <wsdl:part name="parameters" element="tns:GetPsicofisicosResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetReciboSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRecibo" />
+  </wsdl:message>
+  <wsdl:message name="GetReciboSoapOut">
+    <wsdl:part name="parameters" element="tns:GetReciboResponse" />
   </wsdl:message>
   <wsdl:message name="GetEvaluacionesDeAlumnoSoapIn">
     <wsdl:part name="parameters" element="tns:GetEvaluacionesDeAlumno" />
@@ -6918,9 +6978,21 @@
       <wsdl:input message="tns:GetFamiliaresSoapIn" />
       <wsdl:output message="tns:GetFamiliaresSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetLicenciasEnTramite">
+      <wsdl:input message="tns:GetLicenciasEnTramiteSoapIn" />
+      <wsdl:output message="tns:GetLicenciasEnTramiteSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLicenciasOrdinariasDisponibles">
+      <wsdl:input message="tns:GetLicenciasOrdinariasDisponiblesSoapIn" />
+      <wsdl:output message="tns:GetLicenciasOrdinariasDisponiblesSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetPsicofisicos">
       <wsdl:input message="tns:GetPsicofisicosSoapIn" />
       <wsdl:output message="tns:GetPsicofisicosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRecibo">
+      <wsdl:input message="tns:GetReciboSoapIn" />
+      <wsdl:output message="tns:GetReciboSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetEvaluacionesDeAlumno">
       <wsdl:input message="tns:GetEvaluacionesDeAlumnoSoapIn" />
@@ -8016,8 +8088,35 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetLicenciasEnTramite">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetLicenciasEnTramite" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLicenciasOrdinariasDisponibles">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetLicenciasOrdinariasDisponibles" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetPsicofisicos">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetPsicofisicos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRecibo">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetRecibo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -10314,8 +10413,35 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetLicenciasEnTramite">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetLicenciasEnTramite" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLicenciasOrdinariasDisponibles">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetLicenciasOrdinariasDisponibles" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetPsicofisicos">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetPsicofisicos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRecibo">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetRecibo" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

@@ -3627,6 +3627,15 @@ public class WSViaticos : System.Web.Services.WebService
 
         }
 
+        [WebMethod]
+        public string GetRecibo(Usuario usuario)
+        {
+            RepositorioLegajo repo = RepoLegajo();
+
+            return repo.GetReciboDeSueldo(usuario.Owner.Documento);
+
+        }
+
 
         #endregion 
 

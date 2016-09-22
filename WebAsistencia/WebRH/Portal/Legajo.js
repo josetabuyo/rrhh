@@ -116,10 +116,10 @@
 
             });
 
-        },
-        getPsicofisicos: function () {
+    },
+    getPsicofisicos: function () {
 
-            Backend.GetPsicofisicos()
+        Backend.GetPsicofisicos()
             .onSuccess(function (psicofisicosJSON) {
 
                 var psicofisicos = JSON.parse(psicofisicosJSON);
@@ -149,7 +149,7 @@
 
             });
 
-        }
+
 
     },
 
@@ -180,6 +180,7 @@
 
                     });
 
+
         Backend.GetLicenciasOrdinariasDisponibles()
                     .onSuccess(function (licenciasJSON) {
                         var licencias = [];
@@ -203,5 +204,24 @@
 
                     });
 
+    },
+    getReciboDeSueldo: function () {
+        Backend.GetRecibo()
+            .onSuccess(function (reciboJSON) {
+
+                var recibo = JSON.parse(reciboJSON);
+
+                var _this = this;
+
+                $('#celdaLegajo').html(recibo.Cabecera.Legajo);
+                $('#celdaNombre').html(recibo.Cabecera.Agente);
+                $('#celdaCUIL').html(recibo.Cabecera.CUIL);
+                $('#celdaOficina').html(recibo.Cabecera.Oficina);
+                $('#celdaOrden').html(recibo.Cabecera.Orden);
+
+            })
+            .onError(function (e) {
+
+            });
     }
 }

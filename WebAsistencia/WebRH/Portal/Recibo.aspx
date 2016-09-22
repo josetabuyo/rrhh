@@ -23,8 +23,8 @@
         <div style="text-align:center;" class="caja_izq no-print"></div>
          <div  class="caja_der papel" style="width:35%;">
          <div id="div_recibo">
-            <p class="">Dirección de Diseño y Desarrollo Organizacional para la Gestión de Personas, Dirección de Recursos Humanos y 
-         Organización, Secretaría de Coordinación y Monitoreo Institucional, Unidad Ministro, Ministerio de Desarrollo Social </p>
+            <%--<p class="">Dirección de Diseño y Desarrollo Organizacional para la Gestión de Personas, Dirección de Recursos Humanos y 
+         Organización, Secretaría de Coordinación y Monitoreo Institucional, Unidad Ministro, Ministerio de Desarrollo Social </p>--%>
          <table id="tabla_recibo_encabezado">
             <thead>
                 <tr>
@@ -36,11 +36,11 @@
                 </tr>
            
                 <tr>
-                    <td>654357</td>
-                    <td>Caíno, Fernando</td>
-                    <td>20-11111111-31</td>
-                    <td>20201</td>
-                    <td>123</td>
+                    <td id="celdaLegajo"></td>
+                    <td id="celdaNombre"></td>
+                    <td id="celdaCUIL"></td>
+                    <td id="celdaOficina"></td>
+                    <td id="celdaOrden"></td>
                 </tr>
             <tr>
                     <th colspan="1" rowspan="2" class="ancho_primera_columna">Código</th>
@@ -110,7 +110,7 @@
             </tbody>
          </table>
          
-         <div class="bloque_final">
+        <%-- <div class="bloque_final">
             <p>Categ: <span></span></p>
             <p>Opción: <span></span></p>
             <p>AFJP: <span></span></p>
@@ -131,7 +131,7 @@
 
          <p>Firma Autorizante: <span class="subrayado"></span></p>
 
-         <p>Articulo 12 de la Ley N° 17250, Depositado: <span></span></p>
+         <p>Articulo 12 de la Ley N° 17250, Depositado: <span></span></p>--%>
 
          </div>
          
@@ -139,13 +139,20 @@
     </div>
     </form>
 </body>
+<script type="text/javascript" src="Legajo.js"></script>
 <script type="text/javascript" >
 
     $(document).ready(function ($) {
         //para cargar el menu izquierdo 
         $(".caja_izq").load("SeccionIzquierda.htm");
 
+        Backend.start(function () {
+            Legajo.getReciboDeSueldo();
+
+        });
+
     });
+
 
 </script> 
 </html>
