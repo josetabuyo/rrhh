@@ -127,7 +127,8 @@
         }
 
         function Abrir_Detalle_Bien(id_bien) {
-            localStorage.setItem("idBien",id_bien );
+            localStorage.setItem("idBien", id_bien);
+            localStorage.setItem("idVerificador", "X5NVCXOL");
             window.location.href = 'BienesDetalle.aspx';            
         }
 

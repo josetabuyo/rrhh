@@ -30,35 +30,38 @@ $(function () {
                 });
             });
         });
-    });
-});
 
-//                if (tiene_permisos_de_edicion) {
-//                    ui.find("#btn_add_imagen").show();
-//                    ui.find("#btn_add_imagen").click(function () {
-//                        var subidor = new SubidorDeImagenes();
-//                        subidor.subirImagen(function (id_imagen) {
-//                            Backend.Mobi_AsignarImagenABien(id_bien, id_imagen).onSuccess(function () {
-//                                var cont_imagen = $('<div class="imagen_bien"></div>');
-//                                var img = new VistaThumbnail({
-//                                    id: id_imagen,
-//                                    contenedor: cont_imagen,
-//                                    alEliminar: function () {
-//                                        vex.dialog.confirm({
-//                                            message: 'Está seguro que desea eliminar esta imágen?',
-//                                            callback: function (value) {
-//                                                if (value) {
-//                                                    Backend.Mobi_DesAsignarImagenABien(id_bien, id_imagen).onSuccess(function () {
-//                                                        img.contenedor.remove();
-//                                                    });
-//                                                }
-//                                            }
-//                                      
-//                                        });
-//                                    }
-//                                });
-//                                $("#ed_contenedor_imagenes").append(cont_imagen);
-//                            });
-//                        });
-//                    });
-//                }
+
+        //------------DATOS DEL VEHICULO-----------------------
+        var idVerificador = localStorage.getItem("idVerificador");
+
+        Backend.ObtenerVehiculoPorIDVerificacion(idVerificador).onSuccess(function (respuesta_vehiculo) {
+
+            if (respuesta_vehiculo.Respuesta == 0) {
+                return;
+            }
+            
+            $("#marca").text(respuesta_vehiculo.vehiculo.Marca);
+            $("#Modelo").text(respuesta_vehiculo.vehiculo.Modelo);
+            $("#segmento").text(respuesta_vehiculo.vehiculo.Segmento);
+            $("#dominio").text(respuesta_vehiculo.vehiculo.Dominio);
+            $("#año").text(respuesta_vehiculo.vehiculo.Anio);
+            $("#Motor").text(respuesta_vehiculo.vehiculo.Motor);
+            $("#chasis").text(respuesta_vehiculo.vehiculo.Chasis);
+            $("#area").text(respuesta_vehiculo.vehiculo.Area);
+            if (respuesta_vehiculo.vehiculo.Apellido == "Sin Asignación") {
+                $("#responsable").text(respuesta_vehiculo.vehiculo.Apellido);
+            }
+            else {
+                $("#responsable").text(respuesta_vehiculo.vehiculo.Apellido + ', ' + respuesta_vehiculo.vehiculo.Nombre);
+            }
+        });
+
+        //------------------------------------
+
+
+    });
+
+
+
+});
