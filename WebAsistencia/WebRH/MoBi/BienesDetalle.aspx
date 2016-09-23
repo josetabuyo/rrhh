@@ -35,8 +35,8 @@
             <a id="btn_consultar_historia" class="btn btn-primary" href="MovimentosBien.aspx">Historial</a>
         </div>
     </div>--%>
-    <label class="lbl_nombre_atributo">Descripcion:</label>
-    <div id="ed_descripcion_bien"></div>
+    <%--<label class="lbl_nombre_atributo">Descripcion:</label>
+    <div id="ed_descripcion_bien"></div>--%>
     <div id="ed_contenedor_imagenes"></div>
     <div id="btn_add_imagen">+</div>
     <div id="Contenido">
