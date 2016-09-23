@@ -205,12 +205,21 @@
                     });
 
     },
+
+    ConvertirAMonedaOVacio: function (numero) {
+        if (numero == "0") {
+            return "";
+        } else {
+            return "$" + numero;
+        }
+    },
+
     getReciboDeSueldo: function () {
         Backend.GetRecibo()
             .onSuccess(function (reciboJSON) {
 
                 var recibo = JSON.parse(reciboJSON);
-
+                var detalle = "";
                 var _this = this;
 
                 $('#celdaLegajo').html(recibo.Cabecera.Legajo);
@@ -218,6 +227,17 @@
                 $('#celdaCUIL').html(recibo.Cabecera.CUIL);
                 $('#celdaOficina').html(recibo.Cabecera.Oficina);
                 $('#celdaOrden').html(recibo.Cabecera.Orden);
+
+                for (var i = 0; i < recibo.Detalle.length; i++) {
+
+                    if (recibo.Detalle[i].Aporte != "0" || recibo.Detalle[i].Descuento != "0") {
+                        detalle = detalle + "<tr><td>" + recibo.Detalle[i].Concepto + "</td><td class=\"columna_concepto\">" + recibo.Detalle[i].Descripcion + "</td><td>" + Legajo.ConvertirAMonedaOVacio(recibo.Detalle[i].Aporte) + "</td><td colspan=\"2\">" + Legajo.ConvertirAMonedaOVacio(recibo.Detalle[i].Descuento) + "</td></tr>";
+                    }
+
+                }
+
+                $("#tabla_recibo_encabezado > tbody ").append(detalle);
+
 
             })
             .onError(function (e) {

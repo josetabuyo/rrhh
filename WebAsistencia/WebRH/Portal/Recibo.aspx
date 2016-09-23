@@ -53,7 +53,7 @@
                 </tr>
            </thead>
            <tbody>
-                 <tr>
+                <%-- <tr>
                     <td>123</td>
                     <td class="columna_concepto">Sueldo basico</td>
                     <td>$ 5000.00</td>
@@ -106,7 +106,7 @@
                     <td></td>
                     <td class="celda_neto">Neto:</td>
                     <td class="celda_importe_neto" colspan="2" ></td>
-                </tr>
+                </tr>--%>
             </tbody>
          </table>
          
