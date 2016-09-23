@@ -9,8 +9,11 @@ namespace General.Repositorios
 {
     public class RepositorioMoBi
     {
-        public RepositorioMoBi()
+        private IConexionBD conexion_bd;
+
+        public RepositorioMoBi(IConexionBD conexion)
         {
+            this.conexion_bd = conexion;
         }
 
         public MoBi_Area[] GetAreasUsuario(int IdUsuario)
@@ -218,6 +221,51 @@ namespace General.Repositorios
         }
 
 
+
+        public MoBi_Bien GetBienPorId(int id_bien)
+        {
+
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@IdBien", id_bien);
+
+            var tablaDatos = this.conexion_bd.Ejecutar("dbo.MOBI_GetBienPorId", parametros);
+
+
+            var bien = new MoBi_Bien();
+            if (tablaDatos.Rows.Count > 0)
+            {
+                var row = tablaDatos.Rows[0];
+
+                bien.Id = row.GetInt("Id");
+                bien.Descripcion = row.GetString("descripcion");                
+
+                tablaDatos.Rows.ForEach(r =>
+                {
+                    if (r.GetObject("id_imagen") is DBNull) return;
+                    bien.Imagenes.Add(r.GetInt("id_imagen"));
+                });
+            };
+
+            return bien;
+        }
+
+        public bool AsignarImagenABien(int id_bien, int id_imagen)
+        {
+            var parametros_asignar_imagen = new Dictionary<string, object>();
+            parametros_asignar_imagen.Add("@idBien", id_bien);
+            parametros_asignar_imagen.Add("@idImagen", id_imagen);
+            this.conexion_bd.Ejecutar("dbo.MOBI_AsignarImagenABien", parametros_asignar_imagen);
+            return true;
+        }
+
+        public bool DesAsignarImagenABien(int id_bien, int id_imagen)
+        {
+            var parametros_desasignar_imagen = new Dictionary<string, object>();
+            parametros_desasignar_imagen.Add("@idBien", id_bien);
+            parametros_desasignar_imagen.Add("@idImagen", id_imagen);
+            this.conexion_bd.Ejecutar("dbo.MOBI_DesAsignarImagenABien", parametros_desasignar_imagen);
+            return true;
+        }
     }
 
 }

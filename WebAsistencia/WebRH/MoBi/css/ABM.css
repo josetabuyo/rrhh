@@ -1,0 +1,70 @@
+#pantalla_edicion_bien
+{
+    
+}
+
+.lbl_nombre_atributo
+{
+    display: inline-block;
+}
+
+#ed_descripcion_bien
+{
+    display: inline-block;
+}
+
+#ed_contenedor_imagenes
+{
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    height: 150px;
+    background-color: lightgrey;
+}
+
+.imagen_bien
+{
+    position: relative;
+    display: inline-block;
+    height: 150px;
+    width:150px;
+    margin-left: 20px;
+}
+
+#btn_add_imagen
+{
+    position: absolute;
+    background-color: #39a084;
+    font-weight: bold;
+    border-radius: 50%;
+    right: 10px;
+    bottom: 10px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding-top: 4px;
+    font-size: 25px;
+    cursor: cell;
+}
+
+#btn_add_imagen:hover
+{
+    background-color: #yellow !important ;
+    height: 32px;
+    height: 32px;
+    right: 9px;
+    bottom: 9px;
+    padding-top: 5px;
+    font-size: 28px;
+}
+
+#btn_add_imagen:active { 
+    border: solid 1px yellow;
+    height: 28px;
+    height: 28px;
+    right: 11px;
+    bottom: 11px;
+    padding-top: 2px;
+    font-size: 23px;
+}

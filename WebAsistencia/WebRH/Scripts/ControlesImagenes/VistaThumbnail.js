@@ -4,16 +4,20 @@
     this.contenedor.load("../Scripts/ControlesImagenes/VistaThumbnail.html", function () {
         _this.img_thumbnail = _this.contenedor.find('#img_thumbnail');
         _this.img_estatica = _this.contenedor.find('#img_estatica');
+        _this.btn_eliminar = _this.contenedor.find('#btn_eliminar');
 
-        _this.contenedor.click(function () {
-            new VisualizadorDeImagenes({ imagen: _this });
-        });
+        if (_this.alEliminar) {
+            _this.btn_eliminar.show();
+            _this.btn_eliminar.click(function () {
+                _this.alEliminar();
+            });
+        }
 
         _this.img_thumbnail.hide();
         _this.img_estatica.show();
 
         _this.getImagen();
-    });    
+    });
 };
 
 VistaThumbnail.prototype.getImagen = function () {

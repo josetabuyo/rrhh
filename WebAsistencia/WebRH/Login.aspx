@@ -22,6 +22,7 @@
                     <h5 style="color: white;aligment: Justify">En este momento NO SE ENCUENTRA VIGENTE NINGUNA BUSQUEDA de personal, ni Proceso de Selección, ni Concurso por parte de este Organismo. <br /><br />
                     <%--Por este motivo, si bien es posible realizar la carga de los datos personales y Currículum Vitae, dichos datos NO SERÁN UTILIZADOS en lo inmediato para incorporaciones al Ministerio.--%></h5>
                 </div>
+                
            
                 <input type="text" id="usuario" class="span3" nullValue="usuario" runat="server"/><br />
                 <input type="password" id="password" class="span3" nullValue="contraseña" runat="server"/><br />
@@ -38,6 +39,7 @@
                                 usuario o la contraseña ingresados no son v&aacute;lidos o el usuario está dado de baja.
                 </div>  
             </div>
+            <div style="margin: 0 auto; ;padding: 10px; position: absolute; right: 0; bottom:0; margin-bottom: 5px; margin-right: 50px; color: beige;">Versión: 1.1</div>
         <div id="registrarse_dialog"></div>
         <div id="recuperar_dialog"></div>
     </div>

@@ -62,6 +62,12 @@ namespace General
             set { _Id = value; }
         }
 
+        public List<int> Imagenes;
+
+        public MoBi_Bien()
+        {
+            this.Imagenes = new List<int>();
+        }
     }
 
 }
