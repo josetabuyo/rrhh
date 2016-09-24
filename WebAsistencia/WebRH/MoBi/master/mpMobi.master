@@ -1,5 +1,5 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="mpMobi.master.cs" Inherits="MoBi_master_mpMobi" %>
-<%@ Register Src="~/BarraMenu/BarraMenuMobi.ascx" TagName="BarraMenuMobi" TagPrefix="uc2" %>
+<%@ Register Src="~/BarraMenu/BarraMenu.ascx" TagName="BarraMenu" TagPrefix="uc2" %>
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -69,41 +69,20 @@
     </style>
 
     <link  type="text/css" href="css/webrh.css" rel="stylesheet" />
-
     <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
-    <script type="text/javascript" language="javascript">
-//        $(document).ready(function () {
-//            $(".bootstrap-datatable tr:has(td)").each(function () {
-//                var t = $(this).text().toLowerCase();
-//                $("<td class='indexColumn'></td>")
-//                .hide().text(t).appendTo(this);
-//            });
-
-//            $("#texto").keyup(function () {
-//                var s = $(this).val().toLowerCase().split(" ");
-//                $(".bootstrap-datatable tr:hidden").show();
-//                if ($(this).val() == "") return;
-//                $.each(s, function () {
-//                    $(".bootstrap-datatable tr:visible .indexColumn:not(:contains('"
-//                     + this + "'))").parent().hide();
-//                });
-//            });
-        });
-    </script>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
 <body>
 
     <form id="Form1" method="post" runat="server" >
-
-    <uc2:BarraMenuMobi ID="BarraMenu" runat="server" 
-        Feature="<div style='margin-top: 6px;'> <span style='font-size:20px; font-weight: bold;'>Mo.Bi.</span> <br/> <span style='font-size:12px;'> Módulo de Bienes </span> </div>" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" UrlPassword="../" />
+    <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<div style='margin-top: 6px;'> <span style='font-size:20px; font-weight: bold;'>Mo.Bi.</span> <br/> <span style='font-size:12px;'> Módulo de Bienes </span> </div>"
+        UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
 
     <div class="container-fluid-full">
         <div class="row-fluid">
             <!-- start: Content -->
-            <div id="content_body" class="span10" style="height: 100vh; width: 110%; background-color: White; margin-top: 1px;">
+            <div id="content_body" class="span10" style="height: 1000vh; width: 110%; background-color: White; margin-top: 1px;">
                 <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                 </asp:ContentPlaceHolder>
             </div>
