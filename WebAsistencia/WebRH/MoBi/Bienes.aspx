@@ -138,7 +138,7 @@
             localStorage.setItem("idBien", id_bien);
             localStorage.setItem("verificacion", verificacion);
             localStorage.setItem("tipobien", tipobien);
-            localStorage.setItem("tipobien", decripcion);
+            localStorage.setItem("decripcion", decripcion);
             window.location.href = 'BienesDetalle.aspx';
         }
 
