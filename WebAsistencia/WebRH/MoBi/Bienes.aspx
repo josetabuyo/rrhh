@@ -133,10 +133,15 @@
             $(row_sel).find("td").addClass('celda_seleccionada');
         }
 
-        function Abrir_Detalle_Bien(id_bien) {
+
+        function Show_Detalle_Bien(id_bien, verificacion) {
+
+        var descrip_bien = 
+
             localStorage.setItem("idBien", id_bien);
-            localStorage.setItem("idVerificador", "X5NVCXOL");
-            window.location.href = 'BienesDetalle.aspx';            
+            localStorage.setItem("verificacion", verificacion);
+            localStorage.setItem("descripBien", MOBI_Item);       
+            window.location.href = 'BienesDetalle.aspx';
         }
 
 
@@ -183,12 +188,11 @@
     </div>
     <div class="contenedor">
         <asp:GridView ID="GridViewBienes" runat="server" AutoGenerateColumns="False" Width="80%"
-            DataKeyNames="id" CssClass="table table-striped table-bordered table-condensed table-hover"
+            DataKeyNames="id,verificacion" CssClass="table table-striped table-bordered table-condensed table-hover"
             OnRowDataBound="GridViewBienes_RowDataBound">
             <Columns>
-                <asp:BoundField DataField="Descripcion" HeaderText="Bien"></asp:BoundField>
-                <asp:BoundField DataField="Estado" HeaderText="Estado" />
-                <asp:BoundField DataField="Remitente" HeaderText="Asignación" />
+                <asp:BoundField DataField="descripcion" HeaderText="Bien"></asp:BoundField>
+                <asp:BoundField DataField="ubicacion" HeaderText="Ubicación" />
                 <asp:TemplateField HeaderText="" />
             </Columns>
         </asp:GridView>

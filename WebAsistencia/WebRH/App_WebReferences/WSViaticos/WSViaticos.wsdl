@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://wsviaticos.gov.ar/">
       <s:element name="BuscarTiposCompetenciaInformatica">
@@ -732,6 +732,23 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="Mobi_GetAreasDelUsuarioBienesDisponibles">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IdUsuario" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="IdTipoBien" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Incluir_Dependencias" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="Mostrar_Todas_Areas" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Mobi_GetAreasDelUsuarioBienesDisponiblesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Mobi_GetAreasDelUsuarioBienesDisponiblesResult" type="tns:ArrayOfMoBi_Area" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="Mobi_GetTipoBien">
         <s:complexType />
       </s:element>
@@ -770,6 +787,8 @@
       <s:complexType name="MoBi_Bien">
         <s:sequence>
           <s:element minOccurs="0" maxOccurs="1" name="Imagenes" type="tns:ArrayOfInt" />
+          <s:element minOccurs="0" maxOccurs="1" name="Ubicacion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Verificacion" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Asignacion" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Remitente" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="UltMov" type="s:dateTime" />
@@ -811,6 +830,21 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="Mobi_GetBienesDelAreaRecepcionResult" type="tns:ArrayOfMoBi_Bien" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Mobi_GetBienesDisponibles">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IdArea" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="IdTipoBien" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Mobi_GetBienesDisponiblesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Mobi_GetBienesDisponiblesResult" type="tns:ArrayOfMoBi_Bien" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -5989,6 +6023,12 @@
   <wsdl:message name="Mobi_GetAreasUsuarioCBOSoapOut">
     <wsdl:part name="parameters" element="tns:Mobi_GetAreasUsuarioCBOResponse" />
   </wsdl:message>
+  <wsdl:message name="Mobi_GetAreasDelUsuarioBienesDisponiblesSoapIn">
+    <wsdl:part name="parameters" element="tns:Mobi_GetAreasDelUsuarioBienesDisponibles" />
+  </wsdl:message>
+  <wsdl:message name="Mobi_GetAreasDelUsuarioBienesDisponiblesSoapOut">
+    <wsdl:part name="parameters" element="tns:Mobi_GetAreasDelUsuarioBienesDisponiblesResponse" />
+  </wsdl:message>
   <wsdl:message name="Mobi_GetTipoBienSoapIn">
     <wsdl:part name="parameters" element="tns:Mobi_GetTipoBien" />
   </wsdl:message>
@@ -6012,6 +6052,12 @@
   </wsdl:message>
   <wsdl:message name="Mobi_GetBienesDelAreaRecepcionSoapOut">
     <wsdl:part name="parameters" element="tns:Mobi_GetBienesDelAreaRecepcionResponse" />
+  </wsdl:message>
+  <wsdl:message name="Mobi_GetBienesDisponiblesSoapIn">
+    <wsdl:part name="parameters" element="tns:Mobi_GetBienesDisponibles" />
+  </wsdl:message>
+  <wsdl:message name="Mobi_GetBienesDisponiblesSoapOut">
+    <wsdl:part name="parameters" element="tns:Mobi_GetBienesDisponiblesResponse" />
   </wsdl:message>
   <wsdl:message name="Mobi_GetEventosBienSoapIn">
     <wsdl:part name="parameters" element="tns:Mobi_GetEventosBien" />
@@ -7598,6 +7644,10 @@
       <wsdl:input message="tns:Mobi_GetAreasUsuarioCBOSoapIn" />
       <wsdl:output message="tns:Mobi_GetAreasUsuarioCBOSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="Mobi_GetAreasDelUsuarioBienesDisponibles">
+      <wsdl:input message="tns:Mobi_GetAreasDelUsuarioBienesDisponiblesSoapIn" />
+      <wsdl:output message="tns:Mobi_GetAreasDelUsuarioBienesDisponiblesSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="Mobi_GetTipoBien">
       <wsdl:input message="tns:Mobi_GetTipoBienSoapIn" />
       <wsdl:output message="tns:Mobi_GetTipoBienSoapOut" />
@@ -7613,6 +7663,10 @@
     <wsdl:operation name="Mobi_GetBienesDelAreaRecepcion">
       <wsdl:input message="tns:Mobi_GetBienesDelAreaRecepcionSoapIn" />
       <wsdl:output message="tns:Mobi_GetBienesDelAreaRecepcionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_GetBienesDisponibles">
+      <wsdl:input message="tns:Mobi_GetBienesDisponiblesSoapIn" />
+      <wsdl:output message="tns:Mobi_GetBienesDisponiblesSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="Mobi_GetEventosBien">
       <wsdl:input message="tns:Mobi_GetEventosBienSoapIn" />
@@ -8825,6 +8879,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="Mobi_GetAreasDelUsuarioBienesDisponibles">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetAreasDelUsuarioBienesDisponibles" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="Mobi_GetTipoBien">
       <soap:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetTipoBien" style="document" />
       <wsdl:input>
@@ -8854,6 +8917,15 @@
     </wsdl:operation>
     <wsdl:operation name="Mobi_GetBienesDelAreaRecepcion">
       <soap:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetBienesDelAreaRecepcion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_GetBienesDisponibles">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetBienesDisponibles" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -11312,6 +11384,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="Mobi_GetAreasDelUsuarioBienesDisponibles">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetAreasDelUsuarioBienesDisponibles" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="Mobi_GetTipoBien">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetTipoBien" style="document" />
       <wsdl:input>
@@ -11341,6 +11422,15 @@
     </wsdl:operation>
     <wsdl:operation name="Mobi_GetBienesDelAreaRecepcion">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetBienesDelAreaRecepcion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_GetBienesDisponibles">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetBienesDisponibles" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

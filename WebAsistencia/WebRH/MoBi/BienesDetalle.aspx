@@ -17,7 +17,12 @@
 
     <form id="form1" runat="server">
     <asp:HiddenField ID="hidden_idBien" runat="server" />
+    <asp:HiddenField ID="descrip_bien" runat="server" />
     <input type ="hidden" id = "hid" runat="server" />
+
+    <%--//GER20160926--%>
+    <asp:HiddenField ID="hidden_descripBien" runat="server" />
+    <input type ="hidden" id = "hdescripBien" runat="server" />
 
 
     <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="True">
@@ -142,7 +147,17 @@
 
     $(document).ready(function () {    
         var id_bien = localStorage.getItem("idBien"); 
-        $("#hid").val(id_bien);   
+        $("#hid").val(id_bien);
+
+
+        
+
+        //GER20160926
+        var descrip_bien = localStorage.getItem("descripBien");
+        $("#hdescripBien").val(descrip_bien);   
+
+      
+        ---
 
     });   
 
