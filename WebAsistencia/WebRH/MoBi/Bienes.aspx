@@ -134,11 +134,11 @@
         }
 
 
-        function Show_Detalle_Bien(id_bien, verificacion, tipobien, decripcion  ) {
+        function Show_Detalle_Bien(id_bien, verificacion, tipobien, descripcion) {
             localStorage.setItem("idBien", id_bien);
             localStorage.setItem("verificacion", verificacion);
             localStorage.setItem("tipobien", tipobien);
-            localStorage.setItem("decripcion", decripcion);
+            localStorage.setItem("descripcion", descripcion);
             window.location.href = 'BienesDetalle.aspx';
         }
 
