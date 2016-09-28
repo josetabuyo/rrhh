@@ -18,6 +18,7 @@
     <form id="form1" runat="server">
     <asp:HiddenField ID="hidden_idBien" runat="server" />
     <asp:HiddenField ID="descrip_bien" runat="server" />
+    <asp:HiddenField ID="tipo_bien" runat="server" />
     <input type ="hidden" id = "hid" runat="server" />
 
     <%--//GER20160926--%>
@@ -153,11 +154,11 @@
         
 
         //GER20160926
-        var descrip_bien = localStorage.getItem("descripBien");
+        var descrip_bien = localStorage.getItem("descripcion");
         $("#hdescripBien").val(descrip_bien);   
 
       
-        ---
+       
 
     });   
 

@@ -14,8 +14,19 @@ public partial class MoBi_HistorialBienes : System.Web.UI.Page
         {
          //   var id_bien = Convert.ToString(Session["MOBI_IdBien"]);
           //  txtTipoBien.Text = (string)(Session["MOBI_TipoBien"]);
-            txtItem.Text = (string)(Session["MOBI_Item"]);
+            txtItem.Enabled = true;
+
+            var descripcion = Request.QueryString["MOBI_Item"];
+
+            txtItem.Text = descripcion;
+
+            txtItem.Enabled = false;
             var id =  Request.QueryString["idBien"];
+
+            var tipobien = Request.QueryString["TIPO_Item"];
+
+            txtTipoBien.Text = tipobien;
+
             WSViaticosSoapClient ws = new WSViaticosSoapClient();
             Cargar_Bienes(ws, Convert.ToInt32(id));
         }
