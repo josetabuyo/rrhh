@@ -12,7 +12,20 @@
     <%= Referencias.Javascript("../")%>
 </head>
 <body>
+
+
+
     <form id="form1" runat="server">
+    <asp:HiddenField ID="hidden_idBien" runat="server" />
+    <%--<asp:HiddenField ID="descrip_bien" runat="server" />--%>
+    <asp:HiddenField ID="tipo_bien" runat="server" />
+    <input type ="hidden" id = "hid" runat="server" />
+
+    <%--//GER20160926--%>
+    <asp:HiddenField ID="hidden_descripBien" runat="server" />
+    <input type ="hidden" id = "hdescripBien" runat="server" />
+
+
     <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="True">
     </asp:ScriptManager>
     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'></span>"
@@ -24,7 +37,12 @@
             Detalle de Vehiculo
             <div id="DivBotonMovimientos" runat="server" style="display: block; float: right;
                 margin-top: 4px; margin-left: 4px; border: #0055cc;">
-                <asp:Button runat="server" ID="btnMovimientos" CssClass="btn btn-primary" Text="Consultar movimientos" /> 
+                <asp:Button runat="server" ID="btnMovimientos" CssClass="btn btn-primary" 
+                    Text="Consultar movimientos" UseSubmitBehavior="True" 
+                    onclick="btnMovimientos_Click1"  /> 
+           
+               
+           
             </div>
             
         </div>
@@ -35,8 +53,12 @@
             <a id="btn_consultar_historia" class="btn btn-primary" href="MovimentosBien.aspx">Historial</a>
         </div>
     </div>--%>
+    
     <%--<label class="lbl_nombre_atributo">Descripcion:</label>
-    <div id="ed_descripcion_bien"></div>--%>
+    <div id="ed_descripcion_bien" runat="server" contenteditable="true">
+    </div>--%>
+
+
     <div id="ed_contenedor_imagenes"></div>
     <div id="btn_add_imagen">+</div>
     <div id="Contenido">
@@ -117,8 +139,18 @@
 <script type="text/javascript" src="../Scripts/ControlesImagenes/SubidorDeImagenes.js"></script>
 <script type="text/javascript" src="../scripts/vex-2.1.1/js/vex.combined.min.js"></script>
 <script type="text/javascript" src="js/BienesDetalle.js"></script>
+
 <script type="text/javascript">
 
+    $(document).ready(function () {    
+        var id_bien = localStorage.getItem("idBien"); 
+        $("#hid").val(id_bien);
+
+        //GER20160926
+        var descrip_bien = localStorage.getItem("descripcion");
+        $("#hdescripBien").val(descrip_bien);   
+
+    });   
 
 </script>
 </html>

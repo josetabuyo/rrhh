@@ -2,9 +2,21 @@
 $(function () {
     Backend.start(function () {
         var id_bien = localStorage.getItem("idBien");
+        var descripcion = localStorage.getItem("descripcion");
+        var tipo_bien = localStorage.getItem("tipobien");
+        $("#hid").val(id_bien);
+
+        $("#hdescripBien").val(descripcion);
+        $("#tipo_bien").val(tipo_bien);
+
         Backend.ElUsuarioLogueadoTienePermisosPara(37).onSuccess(function (tiene_permisos_de_edicion) {
             Backend.Mobi_GetBienPorId(id_bien).onSuccess(function (bien) {
-                $("#ed_descripcion_bien").text(bien.Descripcion);
+//                $("#ed_descripcion_bien").text(bien.Descripcion);
+                
+                $("#hdescripBien").text(bien.Descripcion); //GER20160926
+//                localStorage.setItem("descripBien", bien.Descripcion); //GER20160926
+                
+
                 $("#ed_contenedor_imagenes").empty();
                 _.forEach(bien.Imagenes, function (id_imagen) {
                     var cont_imagen = $('<div class="imagen_bien"></div>');
@@ -33,7 +45,7 @@ $(function () {
 
 
         //------------DATOS DEL VEHICULO-----------------------
-        var idVerificador = localStorage.getItem("idVerificador");
+        var idVerificador = localStorage.getItem("verificacion");
 
         Backend.ObtenerVehiculoPorIDVerificacion(idVerificador).onSuccess(function (respuesta_vehiculo) {
 
