@@ -17,7 +17,7 @@
 
     <form id="form1" runat="server">
     <asp:HiddenField ID="hidden_idBien" runat="server" />
-    <asp:HiddenField ID="descrip_bien" runat="server" />
+    <%--<asp:HiddenField ID="descrip_bien" runat="server" />--%>
     <asp:HiddenField ID="tipo_bien" runat="server" />
     <input type ="hidden" id = "hid" runat="server" />
 
@@ -53,14 +53,10 @@
             <a id="btn_consultar_historia" class="btn btn-primary" href="MovimentosBien.aspx">Historial</a>
         </div>
     </div>--%>
-    <label class="lbl_nombre_atributo">Descripcion:</label>
+    
+    <%--<label class="lbl_nombre_atributo">Descripcion:</label>
     <div id="ed_descripcion_bien" runat="server" contenteditable="true">
-    
-  
-    
-    </div>
-
-
+    </div>--%>
 
 
     <div id="ed_contenedor_imagenes"></div>
@@ -150,15 +146,9 @@
         var id_bien = localStorage.getItem("idBien"); 
         $("#hid").val(id_bien);
 
-
-        
-
         //GER20160926
         var descrip_bien = localStorage.getItem("descripcion");
         $("#hdescripBien").val(descrip_bien);   
-
-      
-       
 
     });   
 
