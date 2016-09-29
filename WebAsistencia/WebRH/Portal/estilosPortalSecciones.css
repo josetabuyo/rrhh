@@ -206,7 +206,7 @@ legend {
 #div_recibo 
 {
     /*background: url('../Imagenes/portal/recibo3.jpg') no-repeat;*/
-    width: 400px;
+   /*width: 400px;*/
     height:700px;
     position:relative;
     -webkit-print-color-adjust: exact;

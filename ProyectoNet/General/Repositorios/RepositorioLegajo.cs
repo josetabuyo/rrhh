@@ -159,10 +159,42 @@ namespace General.Repositorios
         }
 
 
-        public string GetReciboDeSueldo(int documento)
+        public string GetLiquidaciones(int anio, int mes, string cuil)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@anio", anio);
+            parametros.Add("@mes", mes);
+            parametros.Add("@cuil", cuil);
+
+            var liquidacion = new object();
+            var listaLiquidaciones = new List<object>();
+
+            var tablaDatos = conexion.Ejecutar("dbo.PLA_GET_Liquidaciones_Por_Persona_y_Periodo", parametros);
+
+            if (tablaDatos.Rows.Count > 0)
+            {
+                tablaDatos.Rows.ForEach(row =>
+                {
+                    liquidacion = new
+                    {
+                        Id = row.GetInt("liquidacion", 0),
+                        Descripcion = row.GetString("Descripcion","Sin nombre")
+                    };
+
+                    listaLiquidaciones.Add(liquidacion);
+                });
+
+            }
+
+            return JsonConvert.SerializeObject(listaLiquidaciones);
+
+        }
+
+        public string GetReciboDeSueldo(int documento, int liq)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@Documento", documento);
+            parametros.Add("@liquidacion", liq);
 
             var recibo = new object();
             var listaReciboDetalle = new List<object>();
@@ -235,7 +267,12 @@ namespace General.Repositorios
                     Agente = tablaDatos.Rows.First().GetString("Agente", ""),
                     CUIL = tablaDatos.Rows.First().GetString("CUIL", ""),
                     Oficina = tablaDatos.Rows.First().GetSmallintAsInt("Oficina", 0),
-                    Orden = tablaDatos.Rows.First().GetSmallintAsInt("Orden", 0)
+                    Orden = tablaDatos.Rows.First().GetSmallintAsInt("Orden", 0),
+                    Bruto = tablaDatos.Rows.First().GetString("SBruto"),
+                    Neto = tablaDatos.Rows.First().GetString("SNeto"),
+                    Descuentos = tablaDatos.Rows.First().GetString("SDescuentos"),
+                    NivelGrado = tablaDatos.Rows.First().GetString("NivelGrado"),
+                    Area = tablaDatos.Rows.First().GetString("area")
 
                 };
 

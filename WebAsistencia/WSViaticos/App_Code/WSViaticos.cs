@@ -3628,11 +3628,22 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string GetRecibo(Usuario usuario)
+    public string GetRecibo(int liquidacion, Usuario usuario)
     {
         RepositorioLegajo repo = RepoLegajo();
 
-        return repo.GetReciboDeSueldo(usuario.Owner.Documento);
+        return repo.GetReciboDeSueldo(usuario.Owner.Documento, liquidacion);
+    }
+
+    [WebMethod]
+    public string GetLiquidaciones(int anio, int mes, Usuario usuario)
+    {
+        RepositorioLegajo repo = RepoLegajo();
+        string datosPersonales = RepositorioDePersonas().GetConsultaRapida(usuario.Owner.Documento);
+        Type type = datosPersonales.GetType();
+        string cuil = JObject.Parse(datosPersonales).Property("Cuil").Value.ToString();
+
+        return repo.GetLiquidaciones(anio, mes, cuil);
     }
 
     [WebMethod]

@@ -214,9 +214,12 @@
         }
     },
 
-    getReciboDeSueldo: function () {
-        Backend.GetRecibo()
+    getReciboDeSueldo: function (liquidacion) {
+        Backend.GetRecibo(liquidacion)
             .onSuccess(function (reciboJSON) {
+                $("#tabla_recibo_encabezado tbody tr").remove();
+                $("#tabla_recibo_encabezado").show();
+                
 
                 var recibo = JSON.parse(reciboJSON);
                 var detalle = "";
@@ -231,10 +234,15 @@
                 for (var i = 0; i < recibo.Detalle.length; i++) {
 
                     if (recibo.Detalle[i].Aporte != "0" || recibo.Detalle[i].Descuento != "0") {
-                        detalle = detalle + "<tr><td>" + recibo.Detalle[i].Concepto + "</td><td class=\"columna_concepto\">" + recibo.Detalle[i].Descripcion + "</td><td>" + Legajo.ConvertirAMonedaOVacio(recibo.Detalle[i].Aporte) + "</td><td colspan=\"2\">" + Legajo.ConvertirAMonedaOVacio(recibo.Detalle[i].Descuento) + "</td></tr>";
+                        detalle = detalle + "<tr><td>" + recibo.Detalle[i].Concepto + "</td><td class=\"columna_concepto\">"
+                        + recibo.Detalle[i].Descripcion + "</td><td>" + Legajo.ConvertirAMonedaOVacio(recibo.Detalle[i].Aporte) + "</td><td colspan=\"2\">"
+                        + Legajo.ConvertirAMonedaOVacio(recibo.Detalle[i].Descuento) + "</td></tr>";
                     }
 
                 }
+
+                detalle += "<tr class='ultima_fila'><td></td><td></td><td class='celda_neto'>Bruto:</td><td class=''> $ " + recibo.Cabecera.Bruto + "</td><td class=''> $ " + recibo.Cabecera.Descuentos + "</td></tr>";
+                detalle += "<tr class='ultima_fila'><td></td><td></td><td class='celda_neto'>Neto:</td><td class='celda_importe_neto' colspan='2'>$ " + recibo.Cabecera.Neto + "</td></tr>";
 
                 $("#tabla_recibo_encabezado > tbody ").append(detalle);
 
@@ -244,7 +252,47 @@
 
             });
     },
+    bindearBotonLiquidacion: function () {
+        var _this = this;
+        var btn = $('#cmb_meses').change(function () {
+            $("#tabla_recibo_encabezado tbody tr").remove();
+            var anio = $("#cmb_anio option:selected").val();
+            var mes = $("#cmb_meses option:selected").val();
+            var div_controles = $("#caja_controles");
+            div_controles.empty();
+           
 
+            Backend.GetLiquidaciones(anio, mes)
+                    .onSuccess(function (liquidacionesJSON) {
+                        var liquidaciones = [];
+                        if (liquidacionesJSON != "") {
+                            liquidaciones = JSON.parse(liquidacionesJSON);
+
+
+                            for (var i = 0; i < liquidaciones.length; i++) {
+
+                                var radio = "<input style='margin-left:10px' type='radio' name='liquidacion' value='" + liquidaciones[i].Id + "'>" + liquidaciones[i].Descripcion;
+                                div_controles.append(radio);
+
+                            }
+
+                            $('input[name=liquidacion]').change(function () {
+                                var liquidacion = $('input[name=liquidacion]:checked').val();
+                                _this.getReciboDeSueldo(liquidacion);
+                            });
+
+
+                        }
+
+
+                    })
+                    .onError(function (e) {
+
+                    });
+
+        });
+
+    },
     GetDatosDesignaciones: function () {
 
         Backend.GetDesignacionActual()
