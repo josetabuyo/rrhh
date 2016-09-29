@@ -95,4 +95,5 @@ public partial class MoBi_Bienes : System.Web.UI.Page
             row.Cells[indexRowBtn].Text = "<a><img class=\"Detalle\" alt=\"Detalle\" src=\"../Imagenes/detalle.png\" onclick=\"Show_Detalle_Bien(" + GridViewBienes.DataKeys[row.RowIndex].Values["id"] + ", '" + GridViewBienes.DataKeys[row.RowIndex].Values["verificacion"] + "', '" +  DropDownListTipoDeBien.SelectedItem.Text + "', '" +  row.Cells[0].Text   + "' );\" /></a>";
         }
     }
+
 }
