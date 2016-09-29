@@ -14,7 +14,11 @@ public partial class _Default : System.Web.UI.Page
         var ws = new WSViaticosSoapClient();
         var lstFunciones = ws.FuncionalidadesPara(usuario.Id);
         if (lstFunciones.Any(x => x.Nombre == "1.alta_baja_asoc_bien"))
-            Response.Redirect("BienesDisponibles.aspx");
+            #if DEBUG
+                Response.Redirect("BienesABA.aspx");
+            #else
+                Response.Redirect("BienesDisponibles.aspx");
+            #endif
         else if (lstFunciones.Any(x => x.Nombre == "2.consulta_bien"))
             Response.Redirect("Bienes.aspx");
         else
