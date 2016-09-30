@@ -3,7 +3,6 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <%= Referencias.Css("../")%>
-    <link rel="stylesheet" type="text/css" href="Reportes.css" />
     <link rel="stylesheet" type="text/css" href="../Scripts/ArbolOrganigrama/ArbolOrganigrama.css" />
     <link rel="stylesheet" type="text/css" href="../Estilos/component.css" />
     <link rel="stylesheet" type="text/css" href="../estilos/SelectorDeAreas.css" />
