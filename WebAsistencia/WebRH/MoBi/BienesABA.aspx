@@ -1,8 +1,8 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MoBi/master/mpMobi.master" AutoEventWireup="true"
-    CodeFile="Bienes.aspx.cs" Inherits="MoBi_Bienes" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MoBi/master/mpMobi.master" AutoEventWireup="true" CodeFile="BienesABA.aspx.cs" Inherits="MoBi_BienesABA" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <%= Referencias.Css("../")%>
+    <link rel="stylesheet" type="text/css" href="Reportes.css" />
     <link rel="stylesheet" type="text/css" href="../Scripts/ArbolOrganigrama/ArbolOrganigrama.css" />
     <link rel="stylesheet" type="text/css" href="../Estilos/component.css" />
     <link rel="stylesheet" type="text/css" href="../estilos/SelectorDeAreas.css" />
@@ -134,9 +134,6 @@
 
 
         function Show_Detalle_Bien(id_bien, verificacion, tipobien, descripcion) {
-
-        var descrip_bien = 
-
             localStorage.setItem("idBien", id_bien);
             localStorage.setItem("verificacion", verificacion);
             localStorage.setItem("tipobien", tipobien);
@@ -151,7 +148,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
 
     <legend class="contenedor" style="margin-left: -30px; text-shadow: 2px 2px 5px rgba(150, 150, 150, 1);" >
-            Bienes:
+            Alta, Baja y Asociación de Bienes:
         <input type="text" id="searchInput" class="search" placeholder="Buscar">
     </legend>
 

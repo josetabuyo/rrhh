@@ -6,10 +6,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using WSViaticos;
 
-
-public partial class MoBi_Bienes : System.Web.UI.Page
+public partial class MoBi_BienesModificacion : System.Web.UI.Page
 {
-
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!Page.IsPostBack)
@@ -95,5 +93,4 @@ public partial class MoBi_Bienes : System.Web.UI.Page
             row.Cells[indexRowBtn].Text = "<a><img class=\"Detalle\" alt=\"Detalle\" src=\"../Imagenes/detalle.png\" onclick=\"Show_Detalle_Bien(" + GridViewBienes.DataKeys[row.RowIndex].Values["id"] + ", '" + GridViewBienes.DataKeys[row.RowIndex].Values["verificacion"] + "', '" +  DropDownListTipoDeBien.SelectedItem.Text + "', '" +  row.Cells[0].Text   + "' );\" /></a>";
         }
     }
-
 }

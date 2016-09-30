@@ -7,9 +7,8 @@ using System.Web.UI.WebControls;
 using WSViaticos;
 
 
-public partial class MoBi_Bienes : System.Web.UI.Page
+public partial class MoBi_BienesABA : System.Web.UI.Page
 {
-
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!Page.IsPostBack)
@@ -19,7 +18,7 @@ public partial class MoBi_Bienes : System.Web.UI.Page
             if (!TienePermisosConsulta(ws, usuario.Id))
                 Response.Redirect("../MenuPrincipal/Menu.aspx");
             Cargar_TiposDeBienes(ws);
-            Cargar_AreasDelUsuario(ws, usuario.Id, Convert.ToInt32(DropDownListTipoDeBien.SelectedValue), true);
+            Cargar_AreasDelUsuario(ws, usuario.Id, Convert.ToInt32(DropDownListTipoDeBien.SelectedValue),  true);
             Cargar_Bienes(ws, Convert.ToInt32(DropDownAreasUsuario.SelectedValue), Convert.ToInt32(DropDownListTipoDeBien.SelectedValue));
         }
     }
@@ -31,7 +30,7 @@ public partial class MoBi_Bienes : System.Web.UI.Page
 
     private void Cargar_AreasDelUsuario(WSViaticosSoapClient ws, int IdUsuario, int IdTipoBien, bool IncluirDependencias)
     {
-        WSViaticos.MoBi_Area[] AreasUsuario = ws.Mobi_GetAreasDelUsuarioBienesDisponibles( IdUsuario, IdTipoBien, IncluirDependencias, false);
+        WSViaticos.MoBi_Area[] AreasUsuario = ws.Mobi_GetAreasDelUsuarioBienesDisponibles( IdUsuario, IdTipoBien, IncluirDependencias, true);
         DropDownAreasUsuario.DataSource = AreasUsuario.OfType<MoBi_Area>().ToList();
         DropDownAreasUsuario.DataTextField = "Nombre";
         DropDownAreasUsuario.DataValueField = "Id";
@@ -95,5 +94,4 @@ public partial class MoBi_Bienes : System.Web.UI.Page
             row.Cells[indexRowBtn].Text = "<a><img class=\"Detalle\" alt=\"Detalle\" src=\"../Imagenes/detalle.png\" onclick=\"Show_Detalle_Bien(" + GridViewBienes.DataKeys[row.RowIndex].Values["id"] + ", '" + GridViewBienes.DataKeys[row.RowIndex].Values["verificacion"] + "', '" +  DropDownListTipoDeBien.SelectedItem.Text + "', '" +  row.Cells[0].Text   + "' );\" /></a>";
         }
     }
-
 }

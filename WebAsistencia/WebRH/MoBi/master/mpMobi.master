@@ -125,9 +125,14 @@
     <script src="js/counter.js"></script>
     <script src="js/retina.js"></script>
     <script src="js/custom.js"></script>
-    <!-- end: JavaScript-->
-    <script src="js/jquery-simple-pagination-plugin.js" type="text/javascript"></script>
-    
+    <!-- Imagenes -->
+    <script src="js/ABM.js"></script>
+    <script type="text/javascript" src="../Scripts/ControlesImagenes/VistaThumbnail.js"></script>
+    <script type="text/javascript" src="../Scripts/ControlesImagenes/SubidorDeImagenes.js"></script>
+    <script type="text/javascript" src="../Scripts/Backend.js"></script>
+    <script src="../scripts/vex-2.1.1/js/vex.combined.min.js"></script>
+    <!-- Paginacion -->
+    <script src="js/jquery-simple-pagination-plugin.js" type="text/javascript"></script>    
     <script type="text/javascript">
         (function ($) {
             $('#first-container').simplePagination(
@@ -149,6 +154,7 @@
             );
         })(jQuery);
     </script>
+    <!-- end: JavaScript-->
 
     <asp:ContentPlaceHolder ID="ContentPlaceHolderFooter" runat="server">
     </asp:ContentPlaceHolder>
