@@ -4,7 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head id="Head1" runat="server">
+    <head id="Head1" runat="server">
         <title>Portal RRHH</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <meta name="viewport" content="width=device-width">
@@ -25,6 +25,36 @@
          <div id="div_recibo">
             <%--<p class="">Dirección de Diseño y Desarrollo Organizacional para la Gestión de Personas, Dirección de Recursos Humanos y 
          Organización, Secretaría de Coordinación y Monitoreo Institucional, Unidad Ministro, Ministerio de Desarrollo Social </p>--%>
+         <div  style="margin:10px;">
+         <p>Seleccione año y mes del recibo que quiera ver:  </p>
+             <select style="width:60px;" id="cmb_anio">
+                <option value="2016">2016</option>
+                <option value="2015">2015</option>
+                <option value="2014">2014</option>
+                <option value="2013">2013</option>
+                <option value="2012">2012</option>
+                <option value="2011">2011</option>
+                <option value="2010">2010</option>
+             </select>
+             <select style="width:100px;" id="cmb_meses">
+                <option value="1">Enero</option>
+                <option value="2">Febrero</option>
+                <option value="3">Marzo</option>
+                <option value="4">Abril</option>
+                <option value="5">Mayo</option>
+                <option value="6">Junio</option>
+                <option value="7">Julio</option>
+                <option value="8">Agosto</option>
+                <option value="9">Septiembre</option>
+                <option value="10">Octubre</option>
+                <option value="11">Noviembre</option>
+                <option value="12">Diciembre</option>
+             </select>
+             <div id="caja_controles">
+                
+             </div>
+             </div>
+
          <table id="tabla_recibo_encabezado">
             <thead>
                 <tr>
@@ -53,60 +83,7 @@
                 </tr>
            </thead>
            <tbody>
-                <%-- <tr>
-                    <td>123</td>
-                    <td class="columna_concepto">Sueldo basico</td>
-                    <td>$ 5000.00</td>
-                    <td colspan="2" ></td>
-                </tr>
-                <tr>
-                    <td>123</td>
-                    <td class="columna_concepto">Sueldo basico</td>
-                    <td>$ 5000.00</td>
-                    <td colspan="2" ></td>
-                </tr>
-                <tr>
-                    <td>123</td>
-                    <td class="columna_concepto">Sueldo basico</td>
-                    <td>$ 5000.00</td>
-                    <td colspan="2" ></td>
-                </tr>
-                <tr>
-                    <td>123</td>
-                    <td class="columna_concepto">Sueldo basico</td>
-                    <td>$ 5000.00</td>
-                    <td colspan="2" ></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td colspan="2" ></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td colspan="2" ></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td colspan="2" ></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td colspan="2" ></td>
-                </tr>
-                <tr class="ultima_fila">
-                    <td></td>
-                    <td></td>
-                    <td class="celda_neto">Neto:</td>
-                    <td class="celda_importe_neto" colspan="2" ></td>
-                </tr>--%>
+               
             </tbody>
          </table>
          
@@ -147,7 +124,15 @@
         $(".caja_izq").load("SeccionIzquierda.htm");
 
         Backend.start(function () {
-            Legajo.getReciboDeSueldo();
+            Legajo.bindearBotonLiquidacion();
+
+            $("#tabla_recibo_encabezado").hide();
+            var day = new Date();
+            var mes = day.getMonth();
+            $("#cmb_meses").val(mes).trigger('change'); ;
+
+            
+            //Legajo.getReciboDeSueldo();
 
         });
 
