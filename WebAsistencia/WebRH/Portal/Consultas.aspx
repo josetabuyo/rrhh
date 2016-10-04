@@ -21,7 +21,9 @@
     <div class="container-fluid">
         <h1 style="text-align:center; margin:30px; "></h1>
         <div style="text-align:center;" class="caja_izq no-print"></div>
-         <div  class="caja_der papel" style="width:35%;">         
+         <div  class="caja_der papel" style="width:35%;">
+         <input id="btn_nueva_consulta" type="button" class="btn btn-primary" style="margin:10px" value="Realizar nueva consulta" />  
+               <div id="tablaConsultas" class="table table-striped table-bordered table-condensed">  
          </div>
     </div>
     </form>
@@ -34,7 +36,7 @@
         $(".caja_izq").load("SeccionIzquierda.htm");
 
         Backend.start(function () {
-//            Legajo.getReciboDeSueldo();
+            Legajo.getConsultas();
 
         });
 
