@@ -11,4 +11,14 @@ public partial class MoBi_MenuBienes : System.Web.UI.Page
     {
 
     }
+
+    protected void btnConsultar_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("Bienes.aspx");
+    }
+
+    protected void btnAlta_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("BienesDisponibles.aspx");
+    }
 }

@@ -16,8 +16,6 @@
 
 <body>
 <form id="form1" runat="server">
-
-    
     
     <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="True">
     </asp:ScriptManager>
@@ -32,13 +30,15 @@
             <div id="DivBotonAlta" runat="server" style="display: block; float: right;
                 margin-top: 4px; margin-left: 4px; border: #0055cc;">
                 <asp:Button runat="server" ID="btnAlta" RequiereFuncionalidad="37" CssClass="btn btn-primary" 
-                    Text="Alta/Baja de Bienes" UseSubmitBehavior="True" /> 
+                    Text="Alta/Baja de Bienes" UseSubmitBehavior="True" 
+                    onclick="btnAlta_Click" />
             </div>
 
             <div id="DivBotonConsulta" runat="server" style="display: block; float: right;
                 margin-top: 4px; margin-left: 4px; border: #0055cc;">
                 <asp:Button runat="server" ID="btnConsultar" RequiereFuncionalidad="41" CssClass="btn btn-primary" 
-                    Text="Consultar Bienes" UseSubmitBehavior="True" /> 
+                    Text="Consultar Bienes" UseSubmitBehavior="True" 
+                    onclick="btnConsultar_Click" /> 
             </div>
 
         </div>
