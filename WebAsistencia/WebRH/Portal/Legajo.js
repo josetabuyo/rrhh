@@ -219,7 +219,7 @@
             .onSuccess(function (reciboJSON) {
                 $("#tabla_recibo_encabezado tbody tr").remove();
                 $("#tabla_recibo_encabezado").show();
-                
+
 
                 var recibo = JSON.parse(reciboJSON);
                 var detalle = "";
@@ -260,7 +260,7 @@
             var mes = $("#cmb_meses option:selected").val();
             var div_controles = $("#caja_controles");
             div_controles.empty();
-           
+
 
             Backend.GetLiquidaciones(anio, mes)
                     .onSuccess(function (liquidacionesJSON) {
@@ -338,5 +338,38 @@
                     .onError(function (e) {
 
                     });
+    },
+
+    getConsultas: function () {
+        Backend.GetConsultasDePortal()
+                    .onSuccess(function (consultasJSON) {
+                        var consultas = [];
+                        if (consultasJSON != "") {
+                            consultas = JSON.parse(consultasJSON);
+                        }
+                        var _this = this;
+                        $("#tablaConsultas").empty();
+                        var divGrilla = $("#tablaConsultas");
+                        var columnas = [];
+                        columnas.push(new Columna("Id", { generar: function (una_designacion) { return una_designacion.TipoActo } }));
+                        columnas.push(new Columna("Fecha", { generar: function (una_designacion) { return una_designacion.NroActo } }));
+                        columnas.push(new Columna("Tipo", { generar: function (una_designacion) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_designacion.FechActo) } }));
+                        columnas.push(new Columna("Estado", { generar: function (una_designacion) { return una_designacion.SituacionRevista } }));
+                        columnas.push(new Columna("Responsable", { generar: function (una_designacion) { return una_designacion.Folio } }));
+                        columnas.push(new Columna("Fecha", { generar: function (una_designacion) { return una_designacion.SituacionRevista } }));
+                        columnas.push(new Columna("Ver MASSSS", { generar: function (una_designacion) { return una_designacion.SituacionRevista } }));
+
+                        _this.Grilla = new Grilla(columnas);
+                        _this.Grilla.CambiarEstiloCabecera("estilo_tabla_portal");
+                        _this.Grilla.CargarObjetos(designaciones);
+                        _this.Grilla.DibujarEn(divGrilla);
+                        $('.table-hover').removeClass("table-hover");
+                    })
+                    .onError(function (e) {
+
+                    });
+
+
     }
+
 }

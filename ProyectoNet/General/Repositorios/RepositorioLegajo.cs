@@ -312,6 +312,37 @@ namespace General.Repositorios
 
         }
 
+        public string GetConsultasDePortal(int doc)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@Doc", doc);
+
+            var tablaDatos = conexion.Ejecutar("dbo.LEG_GETConsultasDePortal", parametros);
+            var list_de_designaciones = new List<Object> { };
+
+            if (tablaDatos.Rows.Count > 0)
+            {
+                tablaDatos.Rows.ForEach(row =>
+                {
+                    list_de_designaciones.Add(new
+                    {
+                        Id = row.GetInt("id", 0),
+                         = row.GetString("acto_tipo", "Sin información"),
+                        NroActo = row.GetSmallintAsInt("acto_nro", 0),
+                        FechActo = row.GetDateTime("acto_fecha"),
+                        Motivo = row.GetString("motivoDesc", "Sin información"),
+                        SituacionRevista = row.GetString("SR", "Sin información"),
+                        Folio = row.GetString("folio", "Sin información"),
+
+                    });
+                });
+
+            }
+
+            return JsonConvert.SerializeObject(list_de_designaciones);
+
+        }
+
         protected override List<Legajo> ObtenerDesdeLaBase()
         {
             throw new NotImplementedException();
