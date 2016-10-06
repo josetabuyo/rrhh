@@ -210,7 +210,7 @@
         if (numero == "0") {
             return "";
         } else {
-            return "$" + numero;
+            return "$ " + numero;
         }
     },
 
@@ -219,7 +219,7 @@
             .onSuccess(function (reciboJSON) {
                 $("#tabla_recibo_encabezado tbody tr").remove();
                 $("#tabla_recibo_encabezado").show();
-                
+
 
                 var recibo = JSON.parse(reciboJSON);
                 var detalle = "";
@@ -231,6 +231,12 @@
                 $('#celdaOficina').html(recibo.Cabecera.Oficina);
                 $('#celdaOrden').html(recibo.Cabecera.Orden);
 
+                $('#bloque_final').show();
+                $('#area').html(recibo.Cabecera.Area);
+                $('#domicilio').html(recibo.Cabecera.Domicilio);
+                $('#fechaLiquidacion').html(recibo.Cabecera.FechaLiquidacion);
+                $('#categoria').html(recibo.Cabecera.NivelGrado);
+
                 for (var i = 0; i < recibo.Detalle.length; i++) {
 
                     if (recibo.Detalle[i].Aporte != "0" || recibo.Detalle[i].Descuento != "0") {
@@ -241,8 +247,8 @@
 
                 }
 
-                detalle += "<tr class='ultima_fila'><td></td><td></td><td class='celda_neto'>Bruto:</td><td class=''> $ " + recibo.Cabecera.Bruto + "</td><td class=''> $ " + recibo.Cabecera.Descuentos + "</td></tr>";
-                detalle += "<tr class='ultima_fila'><td></td><td></td><td class='celda_neto'>Neto:</td><td class='celda_importe_neto' colspan='2'>$ " + recibo.Cabecera.Neto + "</td></tr>";
+                detalle += "<tr style='border-bottom:none;' class='ultima_fila'><td style='border: none;'></td><td style='border: none;'></td><td class='celda_bruto_nombre'><strong>Bruto:</strong></td><td class='celda_bruto'> $ " + recibo.Cabecera.Bruto + "</td><td class=''> $ " + recibo.Cabecera.Descuentos + "</td></tr>";
+                detalle += "<tr style='border:none;' class='ultima_fila'><td style='border: none;'></td><td style='border: none;'></td><td class='celda_neto'><strong>Neto:</strong></td><td class='celda_importe_neto' colspan='2'><strong>$ " + recibo.Cabecera.Neto + "</strong></td></tr>";
 
                 $("#tabla_recibo_encabezado > tbody ").append(detalle);
 
@@ -260,7 +266,7 @@
             var mes = $("#cmb_meses option:selected").val();
             var div_controles = $("#caja_controles");
             div_controles.empty();
-           
+
 
             Backend.GetLiquidaciones(anio, mes)
                     .onSuccess(function (liquidacionesJSON) {
@@ -271,7 +277,7 @@
 
                             for (var i = 0; i < liquidaciones.length; i++) {
 
-                                var radio = "<input style='margin-left:10px' type='radio' name='liquidacion' value='" + liquidaciones[i].Id + "'>" + liquidaciones[i].Descripcion;
+                                var radio = "<input style='margin-left:10px' type='radio' name='liquidacion' value='" + liquidaciones[i].Id + "'/> " + liquidaciones[i].Descripcion;
                                 div_controles.append(radio);
 
                             }

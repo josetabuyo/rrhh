@@ -21,12 +21,12 @@
     <div class="container-fluid">
         <h1 style="text-align:center; margin:30px; "></h1>
         <div style="text-align:center;" class="caja_izq no-print"></div>
-         <div  class="caja_der papel" style="width:35%;">
+         <div  class="caja_der papel" >
          <div id="div_recibo">
             <%--<p class="">Dirección de Diseño y Desarrollo Organizacional para la Gestión de Personas, Dirección de Recursos Humanos y 
          Organización, Secretaría de Coordinación y Monitoreo Institucional, Unidad Ministro, Ministerio de Desarrollo Social </p>--%>
          <div  style="margin:10px;">
-         <p>Seleccione año y mes del recibo que quiera ver:  </p>
+         <p>Seleccione año y mes para ver las liquidaciones correspondientes. Luego, elija la liquidación para ver el recibo.</p>
              <select style="width:60px;" id="cmb_anio">
                 <option value="2016">2016</option>
                 <option value="2015">2015</option>
@@ -57,7 +57,7 @@
 
          <table id="tabla_recibo_encabezado">
             <thead>
-                <tr>
+                <tr class="fila_header">
                     <th style="width:67px;" class="">Legajo No.</th>
                     <th style="width:311px;" class="">Apellido y Nombre</th>
                     <th style="width:100px;">CUIL</th>
@@ -65,19 +65,19 @@
                     <th style="width:85px;">N. Orden</th>
                 </tr>
            
-                <tr>
+                <tr style="height: 30px;">
                     <td id="celdaLegajo"></td>
                     <td id="celdaNombre"></td>
                     <td id="celdaCUIL"></td>
                     <td id="celdaOficina"></td>
                     <td id="celdaOrden"></td>
                 </tr>
-            <tr>
+            <tr class="fila_header">
                     <th colspan="1" rowspan="2" class="ancho_primera_columna">Código</th>
                     <th colspan="1" rowspan="2" class="ancho_segunda_columna">Descripción</th>
                     <th colspan="3" class="">Importe</th>
                 </tr>
-                <tr>
+                <tr class="fila_header">
                     <th colspan="1" style="width:110px;">Haberes</th>
                     <th colspan="2" style="width:110px;">Descuentos</th>
                 </tr>
@@ -87,30 +87,28 @@
             </tbody>
          </table>
          
-        <%-- <div class="bloque_final">
-            <p>Categ: <span></span></p>
-            <p>Opción: <span></span></p>
-            <p>AFJP: <span></span></p>
+       <div id="bloque_final" style="display:none; margin-top:20px;">
+            <p><strong>Área:</strong> <span id="area"></span></p>
+            <p><strong>Categ:</strong> <span id="categoria"></span></p>
+            <p><strong>Fecha Liq:</strong> <span id="fechaLiquidacion"></span></p>
+            <p><strong>Domicilio:</strong> <span id="domicilio"></span></p>
         </div>
 
-        <div class="bloque_final">
-            <p>Fecha Liq:</p>
-            <p>Tipo Liq:</p>
-        </div>
 
+<%--
          <p>Recibí el importe neto y Copia del recibo de la presente liquidación.</p>
          <p>Certifico que el Nro. de Documento <span>xxxx</span> corresponde a mi Documento Civico (Decreto N°: 1221/80).</p>
          
-         <p>Domicilio:<span class="subrayado"></span></p>
+         
 
          <br />
          <p>Firma del empleado: <span class="subrayado"></span></p>
 
          <p>Firma Autorizante: <span class="subrayado"></span></p>
 
-         <p>Articulo 12 de la Ley N° 17250, Depositado: <span></span></p>--%>
+         <p>Articulo 12 de la Ley N° 17250, Depositado: <span></span></p>
 
-         </div>
+         </div>--%>
          
          </div>
     </div>

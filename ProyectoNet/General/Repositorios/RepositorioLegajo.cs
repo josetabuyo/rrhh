@@ -268,11 +268,13 @@ namespace General.Repositorios
                     CUIL = tablaDatos.Rows.First().GetString("CUIL", ""),
                     Oficina = tablaDatos.Rows.First().GetSmallintAsInt("Oficina", 0),
                     Orden = tablaDatos.Rows.First().GetSmallintAsInt("Orden", 0),
-                    Bruto = tablaDatos.Rows.First().GetString("SBruto"),
-                    Neto = tablaDatos.Rows.First().GetString("SNeto"),
-                    Descuentos = tablaDatos.Rows.First().GetString("SDescuentos"),
-                    NivelGrado = tablaDatos.Rows.First().GetString("NivelGrado"),
-                    Area = tablaDatos.Rows.First().GetString("area")
+                    Bruto = tablaDatos.Rows.First().GetString("SBruto",""),
+                    Neto = tablaDatos.Rows.First().GetString("SNeto",""),
+                    Descuentos = tablaDatos.Rows.First().GetString("SDescuentos",""),
+                    NivelGrado = tablaDatos.Rows.First().GetString("NivelGrado",""),
+                    Area = tablaDatos.Rows.First().GetString("area",""),
+                    Domicilio = tablaDatos.Rows.First().GetString("Domicilio",""),
+                    FechaLiquidacion = tablaDatos.Rows.First().GetString("F_Liquidacion", "")
 
                 };
 
