@@ -35,6 +35,11 @@
         {
             background-color: #FFAFA0;
         }
+        
+        .vencidas
+        {
+            background-color: #88FF00;
+        }
 
     </style></head><body><form id="form1" runat="server">
     <div>
@@ -44,7 +49,10 @@
  <asp:Button runat="server" Text="Buscar" />
       <asp:Table ID="tabla_analsis" runat="server">
         </asp:Table>
-
+        <table>
+            <tr><td style="background-color:#FFAFA0; min-width:50px;"></td><td>Perdidas</td></tr>
+            <tr><td style="background-color:#88FF00; min-width:50px;"></td><td>Vencidas</td></tr>
+        </table>
     <%--<div>
         <table>
             <tr>
