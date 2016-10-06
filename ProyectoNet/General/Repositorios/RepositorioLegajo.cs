@@ -326,13 +326,13 @@ namespace General.Repositorios
                 {
                     list_de_designaciones.Add(new
                     {
-                        Id = row.GetInt("id", 0),
-                         = row.GetString("acto_tipo", "Sin información"),
-                        NroActo = row.GetSmallintAsInt("acto_nro", 0),
-                        FechActo = row.GetDateTime("acto_fecha"),
-                        Motivo = row.GetString("motivoDesc", "Sin información"),
-                        SituacionRevista = row.GetString("SR", "Sin información"),
-                        Folio = row.GetString("folio", "Sin información"),
+                        //Id = row.GetInt("id", 0),
+                        // = row.GetString("acto_tipo", "Sin información"),
+                        //NroActo = row.GetSmallintAsInt("acto_nro", 0),
+                        //FechActo = row.GetDateTime("acto_fecha"),
+                        //Motivo = row.GetString("motivoDesc", "Sin información"),
+                        //SituacionRevista = row.GetString("SR", "Sin información"),
+                        //Folio = row.GetString("folio", "Sin información"),
 
                     });
                 });
