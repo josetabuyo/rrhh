@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://wsviaticos.gov.ar/">
       <s:element name="BuscarTiposDeDocumento">
@@ -557,6 +557,20 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="GetDesignacionesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetConsultasDePortal">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetConsultasDePortalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetConsultasDePortalResult" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -5540,6 +5554,12 @@
   <wsdl:message name="GetDesignacionesSoapOut">
     <wsdl:part name="parameters" element="tns:GetDesignacionesResponse" />
   </wsdl:message>
+  <wsdl:message name="GetConsultasDePortalSoapIn">
+    <wsdl:part name="parameters" element="tns:GetConsultasDePortal" />
+  </wsdl:message>
+  <wsdl:message name="GetConsultasDePortalSoapOut">
+    <wsdl:part name="parameters" element="tns:GetConsultasDePortalResponse" />
+  </wsdl:message>
   <wsdl:message name="GetDesignacionActualSoapIn">
     <wsdl:part name="parameters" element="tns:GetDesignacionActual" />
   </wsdl:message>
@@ -7065,6 +7085,10 @@
       <wsdl:input message="tns:GetDesignacionesSoapIn" />
       <wsdl:output message="tns:GetDesignacionesSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetConsultasDePortal">
+      <wsdl:input message="tns:GetConsultasDePortalSoapIn" />
+      <wsdl:output message="tns:GetConsultasDePortalSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetDesignacionActual">
       <wsdl:input message="tns:GetDesignacionActualSoapIn" />
       <wsdl:output message="tns:GetDesignacionActualSoapOut" />
@@ -8210,6 +8234,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetDesignaciones">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetDesignaciones" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultasDePortal">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetConsultasDePortal" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -10562,6 +10595,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetDesignaciones">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetDesignaciones" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultasDePortal">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetConsultasDePortal" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
