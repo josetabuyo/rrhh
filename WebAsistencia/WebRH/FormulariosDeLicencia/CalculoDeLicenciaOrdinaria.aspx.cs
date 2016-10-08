@@ -41,18 +41,6 @@ public partial class FormulariosDeLicencia_CalculoDeLicenciaOrdinaria : System.W
         var row = new TableRow();
 
         var cell = new TableCell();
-        cell.Text = "Desde";
-        row.Cells.Add(cell);
-
-        cell = new TableCell();
-        cell.Text = "Hasta";
-        row.Cells.Add(cell);
-        
-        cell = new TableCell();
-        cell.Text = "Descontados";
-        row.Cells.Add(cell);
-        
-        cell = new TableCell();
         cell.Text = "Periodo";
         row.Cells.Add(cell);
 
@@ -60,6 +48,18 @@ public partial class FormulariosDeLicencia_CalculoDeLicenciaOrdinaria : System.W
         cell.Text = "Autorizados";
         row.Cells.Add(cell);
 
+        cell = new TableCell();
+        cell.Text = "Utilizados";
+        row.Cells.Add(cell);
+
+        cell = new TableCell();
+        cell.Text = "Desde";
+        row.Cells.Add(cell);
+
+        cell = new TableCell();
+        cell.Text = "Hasta";
+        row.Cells.Add(cell);
+        
         return row;
     }
 
@@ -67,24 +67,43 @@ public partial class FormulariosDeLicencia_CalculoDeLicenciaOrdinaria : System.W
     {
         var row = new TableRow();
 
+        AddInfoPeriodo(row, log);
+
         var css_class = ClassInfoLicenciaFor(log);
 
         var cell = new TableCell();
         cell.CssClass = css_class;
-        AddFecha(cell, log.LicenciaDesde);
-        row.Cells.Add(cell);
-
-        cell = new TableCell();
-        cell.CssClass = css_class;
-        AddFecha(cell, log.LicenciaHasta);
-        row.Cells.Add(cell);
-
-        cell = new TableCell();
-        cell.CssClass = css_class;
         cell.Text = log.CantidadDiasDescontados.ToString();
         row.Cells.Add(cell);
 
-        AddInfoPeriodo(row, log);
+        if (log.PerdidaPorVencimiento)
+        {
+            cell = new TableCell();
+            cell.CssClass = css_class;
+            cell.ColumnSpan = 2;
+            cell.Text = "Vencidas";
+            row.Cells.Add(cell);
+        }
+        else if (log.PerdidaExplicitamente)
+        {
+            cell = new TableCell();
+            cell.CssClass = css_class;
+            cell.ColumnSpan = 2;
+            cell.Text = "Perdida";
+            row.Cells.Add(cell);
+        } else
+        {
+            cell = new TableCell();
+            cell.CssClass = css_class;
+            AddFecha(cell, log.LicenciaDesde);
+            row.Cells.Add(cell);
+
+            cell = new TableCell();
+            cell.CssClass = css_class;
+            AddFecha(cell, log.LicenciaHasta);
+            row.Cells.Add(cell);
+        }
+        
         return row;
     }
 
