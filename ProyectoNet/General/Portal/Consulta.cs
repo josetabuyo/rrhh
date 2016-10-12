@@ -9,13 +9,10 @@ namespace General
     {
         public int Id;
         public Persona creador;
-        public string nombre_contestador;
         public DateTime fechaCreacion;
-        public int tipo_id;
-        public string tipo_descripcion;
+        public KeyValuePair<int, string> tipo_consulta;
         public string motivo;
-        public int estado_id;
-        public string estado_descripcion;
+        public KeyValuePair<int, string> estado;
         public Persona contestador;
         public DateTime fechaContestacion;
         public string respuesta;
