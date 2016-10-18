@@ -3664,6 +3664,15 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public bool NuevaConsultaDePortal(Consulta consulta, Usuario usuario)
+    {
+        RepositorioLegajo repo = RepoLegajo();
+
+        return repo.NuevaConsultaDePortal(usuario.Owner.Documento, consulta);
+
+    }
+
+    [WebMethod]
     public string GetDesignacionActual(Usuario usuario)
     {
 

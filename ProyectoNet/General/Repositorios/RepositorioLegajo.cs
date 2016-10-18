@@ -342,6 +342,22 @@ namespace General.Repositorios
             return JsonConvert.SerializeObject(list_de_designaciones);
 
         }
+        
+        public bool NuevaConsultaDePortal(int doc, Consulta consulta)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@Doc", doc);
+            parametros.Add("@Doc", doc);
+            parametros.Add("@Doc", doc);
+            parametros.Add("@Doc", doc);
+            parametros.Add("@Doc", doc);
+            parametros.Add("@Doc", doc);
+            parametros.Add("@Doc", doc);
+
+            bool resultado = (bool) conexion.EjecutarEscalar("dbo.LEG_NuevaConsultaDePortal", parametros);
+            return resultado;
+        }
+
 
         protected override List<Legajo> ObtenerDesdeLaBase()
         {
@@ -357,9 +373,5 @@ namespace General.Repositorios
         {
             throw new NotImplementedException();
         }
-
-
-
-
     }
 }

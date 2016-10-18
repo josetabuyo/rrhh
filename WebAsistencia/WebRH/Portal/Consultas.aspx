@@ -12,7 +12,8 @@
          <%= Referencias.Css("../")%>
 
         <%= Referencias.Javascript("../")%>
-
+        <link href="../scripts/vex-2.1.1/css/vex.css" rel="stylesheet">
+        <link href="../scripts/vex-2.1.1/css/vex-theme-os.css" rel="stylesheet">
         <link rel="stylesheet" media="(max-width: 1600px)" href="estilosPortalSecciones.css" />
     </head>
 <body>
@@ -25,10 +26,20 @@
          <input id="btn_nueva_consulta" type="button" class="btn btn-primary" style="margin:10px" value="Realizar nueva consulta" />  
                <div id="tablaConsultas" class="table table-striped table-bordered table-condensed">  
          </div>
+         <div id="txt_alta_ticket">
+            <select id="cmb_tipo_consulta">
+                <option value="1">Error en el sitio</option>
+                <option value="2">Duda sobre el sitio</option>
+                <option value="3">Consulta administrativa</option>
+                <option value="4">Sugerencia</option>
+            </select>
+            <textarea id="motivo_consulta" placeholder="ingrese su consulta aquí"></textarea>
+         </div>
     </div>
     </form>
 </body>
 <script type="text/javascript" src="Legajo.js"></script>
+ <script src="../scripts/vex-2.1.1/js/vex.combined.min.js"></script>
 <script type="text/javascript" >
 
     $(document).ready(function ($) {
@@ -40,6 +51,24 @@
 
         });
 
+        $("#btn_nueva_consulta").click(function () {
+            vex.defaultOptions.className = 'vex-theme-os';
+            vex.open({
+                afterOpen: function ($vexContent) {
+                    var ui = $("#");
+                    return $vexContent.append(ui);
+                },
+                css: {
+                    'padding-top': "4%",
+                    'padding-bottom': "0%"
+                },
+                contentCSS: {
+                    width: "80%",
+                    height: "80%"
+                }
+            });
+
+        });
     });
 
 

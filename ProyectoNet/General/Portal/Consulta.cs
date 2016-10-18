@@ -10,9 +10,11 @@ namespace General
         public int Id;
         public Persona creador;
         public DateTime fechaCreacion;
-        public KeyValuePair<int, string> tipo_consulta;
+        public int id_tipo_consulta;
+        public string tipo_consulta;
         public string motivo;
-        public KeyValuePair<int, string> estado;
+        public int id_estado;
+        public string estado;
         public Persona contestador;
         public DateTime fechaContestacion;
         public string respuesta;
@@ -21,7 +23,5 @@ namespace General
         {
 
         }
-
-
     }
 }
