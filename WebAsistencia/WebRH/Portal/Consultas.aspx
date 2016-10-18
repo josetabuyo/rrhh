@@ -26,17 +26,18 @@
          <input id="btn_nueva_consulta" type="button" class="btn btn-primary" style="margin:10px" value="Realizar nueva consulta" />  
                <div id="tablaConsultas" class="table table-striped table-bordered table-condensed">  
          </div>
-         <div id="txt_alta_ticket">
-            <select id="cmb_tipo_consulta">
-                <option value="1">Error en el sitio</option>
-                <option value="2">Duda sobre el sitio</option>
-                <option value="3">Consulta administrativa</option>
-                <option value="4">Sugerencia</option>
-            </select>
-            <textarea id="motivo_consulta" placeholder="ingrese su consulta aquí"></textarea>
-         </div>
+         
     </div>
     </form>
+    <div id="txt_alta_ticket" style="display:none">
+        <select id="cmb_tipo_consulta">
+            <option value="1">Error en el sitio</option>
+            <option value="2">Duda sobre el sitio</option>
+            <option value="3">Consulta administrativa</option>
+            <option value="4">Sugerencia</option>
+        </select>
+        <textarea id="motivo_consulta" placeholder="ingrese su consulta aquí"></textarea>
+    </div>
 </body>
 <script type="text/javascript" src="Legajo.js"></script>
  <script src="../scripts/vex-2.1.1/js/vex.combined.min.js"></script>
