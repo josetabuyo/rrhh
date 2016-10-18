@@ -22,16 +22,45 @@ namespace General
             CalculadorDeVacaciones calculador_de_vacaciones = new CalculadorDeVacaciones(repositorio_licencia);
             List<SolicitudesDeVacaciones> solicitudes = new List<SolicitudesDeVacaciones>(this.LicenciasAprobadasPara(repositorio_licencia, unaPersona).ToArray());
             this.LicenciasPendientesPara(repositorio_licencia, unaPersona).ForEach(pendiente => solicitudes.Add(pendiente));            
-            List<VacacionesSolicitables> vacaciones_solicitables = calculador_de_vacaciones.DiasSolicitables(this.LicenciasPermitidasPara(repositorio_licencia, unaPersona), solicitudes, fecha_de_consulta, unaPersona);
+            List<VacacionesSolicitables> vacaciones_solicitables = calculador_de_vacaciones.DiasSolicitables(this.LicenciasPermitidasPara(repositorio_licencia, unaPersona), solicitudes, fecha_de_consulta, unaPersona, new AnalisisDeLicenciaOrdinaria());
 
             vacaciones_solicitables.ForEach(vac_solic => saldo.Detalle.Add(new SaldoLicenciaDetalle { Periodo = vac_solic.Periodo(), Disponible = vac_solic.CantidadDeDias() }));
 
             return saldo;
-
         }
+
+
+
+        public override AnalisisDeLicenciaOrdinaria GetAnalisisCalculoVacacionesPara(IRepositorioLicencia repositorio_licencia, IRepositorioDePersonas repositorio_personas, Persona unaPersona, DateTime fecha_de_consulta)
+        {
+            var analisis = new AnalisisDeLicenciaOrdinaria();
+
+            var saldo = new SaldoLicencia();
+            saldo.Detalle = new List<SaldoLicenciaDetalle>();
+
+            unaPersona.TipoDePlanta = repositorio_personas.GetTipoDePlantaActualDe(unaPersona);
+            var calculador_de_vacaciones = new CalculadorDeVacaciones(repositorio_licencia);
+
+            var aprobadas = this.LicenciasAprobadasPara(repositorio_licencia, unaPersona);
+            var solicitudes = new List<SolicitudesDeVacaciones>(aprobadas.ToArray());
+            this.LicenciasPendientesPara(repositorio_licencia, unaPersona).ForEach(pendiente => solicitudes.Add(pendiente));
+            var permitidas_descontando_perdidas = this.LicenciasPermitidasPara(repositorio_licencia, unaPersona);
+            var vacaciones_solicitables = calculador_de_vacaciones.DiasSolicitables(permitidas_descontando_perdidas, solicitudes, fecha_de_consulta, unaPersona, analisis);
+            var permitidas_calculadas = this.LicenciasCalculadasPara(repositorio_licencia, unaPersona);
+
+            vacaciones_solicitables.ForEach(vac_solic => saldo.Detalle.Add(new SaldoLicenciaDetalle { Periodo = vac_solic.Periodo(), Disponible = vac_solic.CantidadDeDias() }));
+            analisis.SetCalculoSinDescuento(permitidas_calculadas);
+            return analisis;
+        }
+
+        public List<VacacionesPermitidas> LicenciasCalculadasPara(IRepositorioLicencia repositorio_licencia, Persona persona)
+        {
+            return repositorio_licencia.GetVacasPermitidasPara(persona, this);
+        }
+
         public List<VacacionesPermitidas> LicenciasPermitidasPara(IRepositorioLicencia repositorio_licencia, Persona persona)
         {
-            return repositorio_licencia.GetVacacionPermitidaPara(persona, this);// ObtenerLicenciasPermitidasPara(persona);
+            return repositorio_licencia.GetVacacionPermitidaDescontandoPerdidasPara(persona, this);// ObtenerLicenciasPermitidasPara(persona);
         }
 
 

@@ -191,7 +191,7 @@ namespace General
             this.tabla_resumen = tabla.OrderByDescending(t => t.Cantidad).ToList();
         }
 
-        public void GraficoRangoEtareo(DateTime fecha)
+        public void GraficoRangoEtario(DateTime fecha)
         {
             List<Dotacion> tabla_personas = this.tabla_detalle.ToList();
             List<Resumen> tabla = new List<Resumen>();

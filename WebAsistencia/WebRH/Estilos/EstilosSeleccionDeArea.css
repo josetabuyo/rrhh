@@ -137,6 +137,13 @@ img
     margin-right:4px;    
 }
 
+#btn_consultar_consulta_ddjj {
+    display: block;
+    float: right;
+    margin-top: 4px;
+    margin-left: 4px;
+}
+
 .contenedor_principal_seleccion_areas
 {
     top:100px;

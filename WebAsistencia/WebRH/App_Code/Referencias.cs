@@ -19,15 +19,17 @@ public class Referencias
             <link rel=""stylesheet"" href=""__RUTA_ORIGEN__SACC/Estilos/EstilosSACC.css"" type=""text/css""/>
             <link rel=""stylesheet"" href=""__RUTA_ORIGEN__Estilos/alertify.core.css"" type=""text/css""/>
             <link rel=""stylesheet"" href=""__RUTA_ORIGEN__Estilos/alertify.default.css"" type=""text/css""/>
-            <link rel=""stylesheet"" href=""__RUTA_ORIGEN__Scripts/opentip/opentip.css"" type=""text/css""/>";
+            <link rel=""stylesheet"" href=""__RUTA_ORIGEN__Scripts/opentip/opentip.css"" type=""text/css""/>
+            <link rel=""stylesheet"" href=""__RUTA_ORIGEN__Estilos/animate.css"" type=""text/css""/>";
         refs = refs.Replace("__RUTA_ORIGEN__", ruta_origen);
         return refs;
     }
 
     public static string Javascript(string ruta_origen){
-        var refs = @"   
+        var refs = @"
+            <script type=""text/javascript"" src=""http://code.jquery.com/jquery-latest.min.js""></script>
+            <script type=""text/javascript"" src=""__RUTA_ORIGEN__Scripts/underscore-min.js""></script>
             <script type=""text/javascript"" src=""__RUTA_ORIGEN__Scripts/jquery-ui-1.10.2.custom/js/jquery-1.9.1.js""></script>
-           
             <script type=""text/javascript"" src=""__RUTA_ORIGEN__Scripts/bootstrap/js/jquery.js""></script>
             <script type=""text/javascript"" src=""__RUTA_ORIGEN__Scripts/alertify.js""></script>
             <script type=""text/javascript"" src=""__RUTA_ORIGEN__Scripts/jquery-ui-1.10.2.custom/js/jquery-ui-1.10.2.custom.min.js""></script>

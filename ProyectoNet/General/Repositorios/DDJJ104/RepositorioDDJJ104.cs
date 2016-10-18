@@ -5,6 +5,7 @@ using System.Text;
 using System.Data.SqlClient;
 using General.Repositorios;
 using General.MAU;
+using General;
 
 namespace General
 {
@@ -62,7 +63,7 @@ namespace General
         //}
 
 
-        public DDJJ104_2001 GenerarDDJJ104(Usuario usuario, Area area, int mes, int anio)
+        public DDJJ104_2001 GenerarDDJJ104(Usuario usuario, AreaParaDDJJ104 area, int mes, int anio)
         {
             ConexionDB cn = new ConexionDB("dbo.PLA_ADD_DDJJ104_Cabecera");
             cn.AsignarParametro("@Id_Area", area.Id);
@@ -98,6 +99,29 @@ namespace General
 
                         orden++;
                     }
+
+
+                    foreach (var areasDependiente in area.AreasInformalesDependientes)
+                    {
+                        foreach (var personas in areasDependiente.Personas)
+                        {
+                            string[] Cat_Mod = personas.Categoria.ToString().Split('#');
+
+                            cn.CrearComandoConTransaccionIniciada("dbo.PLA_ADD_DDJJ104_Detalle");
+                            cn.AsignarParametro("@Id_DDJJ", id_ddjj_nuevo);
+                            cn.AsignarParametro("@Id_Persona", personas.Id);
+                            cn.AsignarParametro("@Orden", orden);
+                            cn.AsignarParametro("@Id_Area_Persona", personas.Area.Id);
+                            cn.AsignarParametro("@Mod_Contratacion", Cat_Mod[1].Trim());
+                            cn.AsignarParametro("@Categoria", Cat_Mod[0].Trim());
+
+                            cn.EjecutarSinResultado();
+
+                            orden++;
+                        }
+                    }
+
+
                 }
 
             }
@@ -181,7 +205,135 @@ namespace General
         //}
 
 
-       
+        public List<DDJJ104_2001> GetMesesGenerados()
+        {
+            SqlDataReader dr;
+            ConexionDB cn = new ConexionDB("dbo.PLA_GET_Meses_Generados");
+            //cn.AsignarParametro("@Usuario_Generacion", ddjj.Agente.Id);
+            //cn.AsignarParametro("@Mes", ddjj.Mes);
+            //cn.AsignarParametro("@Año", ddjj.Anio);
+
+            dr = cn.EjecutarConsulta();
+
+            DDJJ104_2001 ddjj104;
+            List<DDJJ104_2001> listaddjj104 = new List<DDJJ104_2001>();
+
+            while (dr.Read())
+            {
+                ddjj104 = new DDJJ104_2001();
+                ddjj104.Mes = dr.GetInt16(dr.GetOrdinal("Mes"));
+                ddjj104.Anio = dr.GetInt16(dr.GetOrdinal("Año"));
+                //ddjj104.IdDDJJ = dr.GetInt32(dr.GetOrdinal("Id_DDJJ"));
+
+                listaddjj104.Add(ddjj104);
+            }
+
+            cn.Desconestar();
+
+            return listaddjj104;
+        }
+
+
+
+
+        internal List<DDJJ104_Consulta> GetConsultaIndividualPorPersona(int mesdesde, int aniodesde, int meshasta, int aniohasta, int nrodoc_persona, int estado, int orden, Usuario usuario)
+        {
+            SqlDataReader dr;
+            ConexionDB cn = new ConexionDB("dbo.PLA_GET_DDJJ104_PorPersona");
+            cn.AsignarParametro("@mesDesde", mesdesde);
+            cn.AsignarParametro("@anioDesde", aniodesde);
+            cn.AsignarParametro("@mesHasta", meshasta);
+            cn.AsignarParametro("@anioHasta", aniohasta);
+            cn.AsignarParametro("@persona", nrodoc_persona);
+            cn.AsignarParametro("@estado", estado);
+            cn.AsignarParametro("@orden", orden);
+
+            dr = cn.EjecutarConsulta();
+
+            List<DDJJ104_Consulta> listaddjj104 = new List<DDJJ104_Consulta>();
+
+            while (dr.Read())
+            {
+                DDJJ104_Consulta ddjj104 = new DDJJ104_Consulta();
+                ddjj104.id = dr.GetInt32(dr.GetOrdinal("Id_DDJJ"));
+                ddjj104.mes = dr.GetInt32(dr.GetOrdinal("Mes"));
+                ddjj104.anio = dr.GetInt32(dr.GetOrdinal("Año"));
+                ddjj104.area_generacion = new Area();
+                ddjj104.area_generacion.Id = dr.GetInt32(dr.GetOrdinal("Id_Area"));
+                ddjj104.area_generacion.Nombre = dr.GetString(dr.GetOrdinal("Area")).ToString();
+                ddjj104.fecha_generacion = dr.GetString(dr.GetOrdinal("Fecha_Generacion")).ToString();
+                ddjj104.usuario_generacion = dr.GetString(dr.GetOrdinal("Usuario_Generacion")).ToString();
+                ddjj104.recepcionada = dr.GetBoolean(dr.GetOrdinal("Recepcionada"));
+                ddjj104.fecha_recibido = dr.GetString( dr.GetOrdinal("Fecha_Recibido")).ToString();
+                ddjj104.usuario_recibido = dr.GetString(dr.GetOrdinal("Usuario_Recibido")).ToString();
+                ddjj104.firmante = dr.GetString(dr.GetOrdinal("Firmante")).ToString();
+                ddjj104.persona = new Persona();
+                ddjj104.persona.Id = dr.GetInt32(dr.GetOrdinal("Id_Persona"));
+                ddjj104.persona.Apellido = dr.GetString(dr.GetOrdinal("Apellido")).ToString();
+                ddjj104.persona.Nombre = dr.GetString(dr.GetOrdinal("Nombre")).ToString();
+                ddjj104.persona.Categoria = dr.GetString(dr.GetOrdinal("Categoria")).ToString();
+                ddjj104.mod_contratacion = dr.GetString(dr.GetOrdinal("Mod_Contratacion")).ToString();
+                ddjj104.estado = dr.GetInt16(dr.GetOrdinal("Estado"));
+                ddjj104.estado_descrip = dr.GetString(dr.GetOrdinal("Estado_Descrip")).ToString();
+
+                listaddjj104.Add(ddjj104);
+            }
+
+            cn.Desconestar();
+
+            return listaddjj104;
+        }
+
+
+        internal List<DDJJ104_Consulta> GetConsultaPorArea(int mesdesde, int aniodesde, int meshasta, int aniohasta, int id_area, int estado, int orden, Usuario usuario)
+        {
+            SqlDataReader dr;
+            ConexionDB cn = new ConexionDB("dbo.PLA_GET_DDJJ104_PorArea");
+            cn.AsignarParametro("@mesDesde", mesdesde);
+            cn.AsignarParametro("@anioDesde", aniodesde);
+            cn.AsignarParametro("@mesHasta", meshasta);
+            cn.AsignarParametro("@anioHasta", aniohasta);
+            cn.AsignarParametro("@area", id_area);
+            cn.AsignarParametro("@estado", estado);
+            cn.AsignarParametro("@orden", orden);
+
+            dr = cn.EjecutarConsulta();
+
+            List<DDJJ104_Consulta> listaddjj104 = new List<DDJJ104_Consulta>();
+
+            while (dr.Read())
+            {
+                DDJJ104_Consulta ddjj104 = new DDJJ104_Consulta();
+                //ddjj104.id = dr.GetInt32(dr.GetOrdinal("Id_DDJJ"));
+                ddjj104.mes = dr.GetInt32(dr.GetOrdinal("Mes"));
+                ddjj104.anio = dr.GetInt32(dr.GetOrdinal("Año"));
+                ddjj104.area_generacion = new Area();
+                ddjj104.area_generacion.Id = dr.GetInt32(dr.GetOrdinal("Id_Area"));
+                ddjj104.area_generacion.Nombre = dr.GetString(dr.GetOrdinal("Area")).ToString();
+                ddjj104.fecha_generacion = dr.GetString(dr.GetOrdinal("Fecha_Generacion")).ToString();
+                ddjj104.usuario_generacion = dr.GetString(dr.GetOrdinal("Usuario_Generacion")).ToString();
+                ddjj104.recepcionada = dr.GetBoolean(dr.GetOrdinal("Recepcionada"));
+                ddjj104.fecha_recibido = dr.GetString(dr.GetOrdinal("Fecha_Recibido")).ToString();
+                ddjj104.usuario_recibido = dr.GetString(dr.GetOrdinal("Usuario_Recibido")).ToString();
+                ddjj104.firmante = dr.GetString(dr.GetOrdinal("Firmante")).ToString();
+                //ddjj104.persona = new Persona();
+                //ddjj104.persona.Id = dr.GetInt32(dr.GetOrdinal("Id_Persona"));
+                //ddjj104.persona.Apellido = dr.GetString(dr.GetOrdinal("Apellido")).ToString();
+                //ddjj104.persona.Nombre = dr.GetString(dr.GetOrdinal("Nombre")).ToString();
+                //ddjj104.persona.Categoria = dr.GetString(dr.GetOrdinal("Categoria")).ToString();
+                //ddjj104.mod_contratacion = dr.GetString(dr.GetOrdinal("Mod_Contratacion")).ToString();
+                ddjj104.estado = dr.GetInt16(dr.GetOrdinal("Estado"));
+                ddjj104.estado_descrip = dr.GetString(dr.GetOrdinal("Estado_Descrip")).ToString();
+
+                listaddjj104.Add(ddjj104);
+            }
+
+            cn.Desconestar();
+
+            return listaddjj104;
+        }
+
+
 
 
     }

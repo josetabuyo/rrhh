@@ -17,7 +17,6 @@ using AdministracionDeUsuarios;
 using General.Sacc;
 using General.Sacc.Seguridad;
 using General.MAU;
-
 using General.Postular;
 using System.Web;
 
@@ -38,8 +37,9 @@ public class WSViaticos : System.Web.Services.WebService
 
 
     [WebMethod]
-    public Usuario[] GetUsuarios()
+    public Usuario[] GetUsuarios(Usuario usuario)
     {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 9)) throw (new Exception("El usuario no tiene permisos para el modulo de usuarios"));
         RepositorioUsuarios repoUsuarios = new RepositorioUsuarios(Conexion());
         List<Usuario> usuarios = repoUsuarios.GetTodosLosUsuarios();
         Usuario[] retuUsuarios = new Usuario[usuarios.Count];
@@ -67,6 +67,21 @@ public class WSViaticos : System.Web.Services.WebService
     //    var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas(), Autorizador());
     //    return responsableDDJJ.AreasSinDDJJInferioresA(area).ToArray(); 
     //}
+    [WebMethod]
+    public int DiasHabilesEntreFechas(DateTime desde, DateTime hasta)
+    {
+        var repo = new RepositorioLicencias(Conexion());
+        return repo.DiasHabilesEntreFechas(desde, hasta);
+    }
+
+    [WebMethod]
+    public AnalisisDeLicenciaOrdinaria GetAnalisisLicenciaOrdinaria(Persona persona)
+    {
+        var ordinaria = new ConceptoLicenciaAnualOrdinaria();
+        var analisis = ordinaria.GetAnalisisCalculoVacacionesPara(RepoLicencias(), RepositorioDePersonas(), persona, DateTime.Now);
+
+        return analisis;
+    }
 
     [WebMethod]
     public AreaParaDDJJ104[] GetAreasParaDDJJ104(int mes, int anio, int id_area, Usuario usuario)
@@ -88,16 +103,50 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public DDJJ104_2001 GenerarDDJJ104(Area area, int mes, int anio, Usuario usuario)
+    public DDJJ104_2001 GenerarDDJJ104(int id_area, int mes, int anio, Usuario usuario)
     {
+        //RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
+        //return ddjj.GenerarDDJJ104(usuario, area, mes, anio);
+
+        var UnArea = GetAreasParaDDJJ104(mes, anio, id_area, usuario);
+
         RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
-        return ddjj.GenerarDDJJ104(usuario, area, mes, anio);
+
+        DDJJ104_2001 cabe = new DDJJ104_2001();
+        cabe = ddjj.GenerarDDJJ104(usuario, UnArea[0], mes, anio);
+	    
+
+        return cabe;
     }
 
     [WebMethod]
     public string GetLeyendaAnio(int anio)
     {
         return new RepositorioDeParametrosGenerales(Conexion()).GetLeyendaAnio(anio);
+    }
+
+
+    //CONSULTA INDIVIDUAL
+    [WebMethod]
+    public DDJJ104_Consulta[] GetConsultaIndividualPorPersona(int mesdesde, int aniodesde, int meshasta, int aniohasta, int nrodoc_persona, int estado, int orden, Usuario usuario)
+    {
+        var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas(), Autorizador());
+        var a = new DDJJ104_Consulta[1];
+
+        a = responsableDDJJ.GetConsultaIndividualPorPersona(mesdesde, aniodesde, meshasta, aniohasta, nrodoc_persona, estado, orden, usuario).ToArray();
+        
+        return a;
+    }
+
+    [WebMethod]
+    public DDJJ104_Consulta[] GetConsultaPorArea(int mesdesde, int aniodesde, int meshasta, int aniohasta, int id_area, int estado, int orden, Usuario usuario)
+    {
+        var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas(), Autorizador());
+        var a = new DDJJ104_Consulta[1];
+
+        a = responsableDDJJ.GetConsultaPorArea(mesdesde, aniodesde, meshasta, aniohasta, id_area, estado, orden, usuario).ToArray();
+
+        return a;
     }
 
     //[WebMethod]
@@ -125,36 +174,56 @@ public class WSViaticos : System.Web.Services.WebService
             meses.Add(new MesDto() { Mes = fechaActual.Month, NombreMes = DateTimeFormatInfo.CurrentInfo.GetMonthName(fechaActual.Month), Anio = fechaActual.Year });
         }
 
-        DateTime fechaAnterior = DateTime.Now.AddMonths(-1);
-        meses.Add(new MesDto() { Mes = fechaAnterior.Month, NombreMes = DateTimeFormatInfo.CurrentInfo.GetMonthName(fechaAnterior.Month), Anio = fechaAnterior.Year });
+        var mesesGenerados = GetMesesGenerados();
+
+        meses.AddRange(mesesGenerados);
+
+        //foreach (var item in mesesGenerados)
+        //{
+        //    string sFecha = "01" + Convert.ToString(item.Mes) + Convert.ToString(item.Anio);
+        //    DateTime fechaAnterior = Convert.ToDateTime(sFecha);
+        //    meses.Add(new MesDto() { Mes = fechaAnterior.Month, NombreMes = DateTimeFormatInfo.CurrentInfo.GetMonthName(fechaAnterior.Month), Anio = fechaAnterior.Year });    
+        //}
 
         return meses.ToArray();
     }
 
+
+    [WebMethod]
+    public EstadoDto[] GetEstadosDDJJ104(int mostrarSinGenerar)
+    {
+        List<EstadoDto> estado = new List<EstadoDto>();
+
+
+        estado.Add(new EstadoDto() { Id = 9, Descripcion = "Mostrar Todos" });
+        if (mostrarSinGenerar == 1)
+        {
+            estado.Add(new EstadoDto() { Id = 0, Descripcion = "Sin Generar" });    
+        }
+        estado.Add(new EstadoDto() { Id = 1, Descripcion = "Impresa no recepcionada" });
+        estado.Add(new EstadoDto() { Id = 2, Descripcion = "Recepcionada" });
+       
+        return estado.ToArray();
+    }
+
+
+
     //[WebMethod]
-    //public MesDto[] GetMesesGenerados(AreaParaDDJJ104 ddjj, Usuario usuario)
-    //{
-    //    var RepositorioDDJJ = new RepositorioDDJJ104();
+    public MesDto[] GetMesesGenerados()
+    {
+        var RepositorioDDJJ = new RepositorioDDJJ104();
 
-    //    if (ddjj == null)
-    //    {
-    //        ddjj = new AreaParaDDJJ104();
-    //        ddjj.Mes = 0;
-    //        ddjj.Anio = 0;
-    //    }
-    //    ddjj.Agente = new Persona() { Id = usuario.Id };
+        List<DDJJ104_2001> ListDDJJ = RepositorioDDJJ.GetMesesGenerados();
 
-    //    List<AreaParaDDJJ104> ListDDJJ = RepositorioDDJJ.GetMesesGenerados(ddjj);
+        List<MesDto> meses = new List<MesDto>();
 
-    //    List<MesDto> meses = new List<MesDto>();
+        foreach (var item in ListDDJJ)
+        {
+            meses.Add(new MesDto() { Mes = item.Mes, NombreMes = DateTimeFormatInfo.CurrentInfo.GetMonthName(item.Mes), Anio = item.Anio });
+        }
 
-    //    foreach (var item in ListDDJJ)
-    //    {
-    //        meses.Add(new MesDto() { Mes = item.Mes, NombreMes = DateTimeFormatInfo.CurrentInfo.GetMonthName(item.Mes), Anio = item.Anio });
-    //    }
-
-    //    return meses.ToArray();
-    //}
+        return meses.ToArray();
+    }
 
 
     //FIN: DDJJ 104 ---------------
@@ -219,6 +288,8 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public GraficoSueldo GetReporteSueldos(string criterio, Usuario usuario)
     {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 31)) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 39)) throw (new Exception("El usuario no tiene permisos para acceder al reporte de sueldos"));
         var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
         string tipo = ((JValue)criterio_deserializado["tipo"]).ToString();
         int dia = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(0, 2)));
@@ -234,7 +305,8 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public GraficoDotacion GetGrafico(string criterio, Usuario usuario)
     {
-
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 31)) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 38)) throw (new Exception("El usuario no tiene permisos para acceder al reporte de dotacion"));
         var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
         string tipo = ((JValue)criterio_deserializado["tipo"]).ToString();
         int dia = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(0, 2)));
@@ -248,6 +320,57 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
 
+    [WebMethod]
+    public GraficoRangoEtario GetGraficoRangoEtario(string criterio, Usuario usuario)
+    {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 31)) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
+        var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
+        string tipo = ((JValue)criterio_deserializado["tipo"]).ToString();
+        int dia = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(0, 2)));
+        int mes = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(3, 2)));
+        int anio = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(6, 4)));
+        bool incluir_dependencias = (bool)((JValue)criterio_deserializado["incluir_dependencias"]);
+        DateTime fecha = new DateTime(anio, mes, dia);
+        int id_area = (int)((JValue)criterio_deserializado["id_area"]);
+        RepositorioDeReportes repositorio = new RepositorioDeReportes(Conexion());
+        return repositorio.GetGraficoRangoEtario(tipo, fecha, id_area, incluir_dependencias);
+
+    }
+
+
+
+    /*Gráfico rango etário*/
+
+    [WebMethod]
+    public string ExcelGeneradoRangoEtario(string criterio, Usuario usuario)
+    {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 31)) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
+        try
+        {
+            var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
+            string tipo = ((JValue)criterio_deserializado["tipo"]).ToString();
+            int dia = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(0, 2)));
+            int mes = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(3, 2)));
+            int anio = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(6, 4)));
+            bool incluir_dependencias = (bool)((JValue)criterio_deserializado["incluir_dependencias"]);
+            DateTime fecha = new DateTime(anio, mes, dia);
+            int id_area = (int)((JValue)criterio_deserializado["id_area"]);
+
+            RepositorioDeReportes repositorio = new RepositorioDeReportes(Conexion());
+
+            return repositorio.ExcelGeneradoRangoEtario(tipo, dia, mes, anio, incluir_dependencias, id_area);
+        }
+        catch (Exception ex)
+        {
+
+            throw ex;
+        }
+
+
+    }
+
+    /**/
+
 
 
 
@@ -256,6 +379,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string ExcelGeneradoSueldos(string criterio, Usuario usuario)
     {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 31)) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
         try
         {
             var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
@@ -287,16 +411,17 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string ExcelGenerado(string criterio, Usuario usuario)
     {
-        try
-        {
-            var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
-            string tipo = ((JValue)criterio_deserializado["tipo"]).ToString();
-            int dia = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(0, 2)));
-            int mes = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(3, 2)));
-            int anio = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(6, 4)));
-            bool incluir_dependencias = (bool)((JValue)criterio_deserializado["incluir_dependencias"]);
-            DateTime fecha = new DateTime(anio, mes, dia);
-            int id_area = (int)((JValue)criterio_deserializado["id_area"]);
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 31)) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
+            try
+            {
+                var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
+                string tipo = ((JValue)criterio_deserializado["tipo"]).ToString();
+                int dia = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(0, 2)));
+                int mes = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(3, 2)));
+                int anio = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(6, 4)));
+                bool incluir_dependencias = (bool)((JValue)criterio_deserializado["incluir_dependencias"]);
+                DateTime fecha = new DateTime(anio, mes, dia);
+                int id_area = (int)((JValue)criterio_deserializado["id_area"]);
 
             RepositorioDeReportes repositorio = new RepositorioDeReportes(Conexion());
 
@@ -336,27 +461,88 @@ public class WSViaticos : System.Web.Services.WebService
 
             foreach (var item in areas)
             {
-                table_resumen.Rows.Add(item.Nombre, item.DDJJ.Estado);
+                string ColEstado = "";
+                string ColNombreArea = "";
+
+                if (item.DDJJ != null)
+                {
+                    switch (item.DDJJ.Estado)
+	                {
+                        case 1:
+                            ColEstado = "Impresa no recepcionada";
+                            break;
+                        case 2:
+                            ColEstado = "Recepcionada";
+                            break;
+
+                        default:
+                            ColEstado = "";
+                            break;
+	                }
+                }
+                else
+                {
+                    ColEstado = "Sin Generar";
+                }
+
+
+                //switch (item.Jerarquia)
+                //{
+                //    case 1000:	//Unidad Ministro
+                //        ColNombreArea = item.Nombre;
+                //        break;
+                //    case 900:	//Secretaría
+                //        ColNombreArea = "   " + item.Nombre;
+                //        break;
+                //    case 800:	//SubSecretaría
+                //        ColNombreArea = "       " + item.Nombre;
+                //        break;
+                //    case 700:	//Dir. Nac/General
+                //        ColNombreArea = "           " + item.Nombre;
+                //        break;
+                //    case 600:	//Dirección
+                //        ColNombreArea = "               " + item.Nombre;
+                //        break;
+                //    case 500:   //Coordinación
+                //        ColNombreArea = "                   " + item.Nombre;
+                //        break;
+                //    case 400:	//Departamento
+                //        ColNombreArea = "                       " + item.Nombre;
+                //        break;
+                //    case 300:	//Lugar de Trabajo
+                //        ColNombreArea = "                           " + item.Nombre;
+                //        break;
+                //}
+
+                
+                int EspaciosEnBlanco = (int) Math.Truncate(((decimal)(1000-item.Jerarquia)/20));
+                string cadena = "";
+                for (int i = 0; i < EspaciosEnBlanco; i++)
+                {
+                    cadena = cadena + " ";
+                }
+                ColNombreArea = cadena + item.Nombre;
+
+                table_resumen.Rows.Add(ColNombreArea, ColEstado);
             }
 
             var workbook = new XLWorkbook();
 
             var dataTable_resumen = table_resumen;
 
-            var ws = workbook.Worksheets.Add("Areas");
+            var ws = workbook.Worksheets.Add("DDJJ104");
 
             ws.Style.Font.FontSize = 11;
             ws.Style.Font.FontName = "Verdana";
 
-            //ws.Column("A").Width = 15;
-            //ws.Column("B").Width = 15;
-            //ws.Column("C").Width = 15;
+            //ws.Column("A").Width = 115;
+            //ws.Column("B").Width = 50;
+            
+            ws.Cell(1, 1).Value = "AREA:";
+            ws.Cell(1, 2).Value = "ESTADO:";
 
-            //ws.Cell(1, 1).Value = "FECHA:";
-            //ws.Cell(2, 1).Value = "AREA:";
-
-            //ws.Cell(1, 1).Style.Font.Bold = true;
-            //ws.Cell(2, 1).Style.Font.Bold = true;
+            ws.Cell(1, 1).Style.Font.Bold = true;
+            ws.Cell(1, 2).Style.Font.Bold = true;
 
             //ws.Cell(1, 2).Value = fecha.ToShortDateString();
             //ws.Cell(2, 2).Value = area.Nombre.ToUpper();
@@ -370,7 +556,7 @@ public class WSViaticos : System.Web.Services.WebService
             //ws.Cell(4, 2).Value = "Cantidad";
             //ws.Cell(4, 3).Value = "Porcentaje %";
 
-            var rangeWithData = ws.Cell(1, 1).InsertData(dataTable_resumen.AsEnumerable());
+            var rangeWithData = ws.Cell(2, 1).InsertData(dataTable_resumen.AsEnumerable());
 
             //var lastCell = ws.LastCellUsed();
             //ws.Range(4, 1, lastCell.Address.RowNumber, lastCell.Address.ColumnNumber).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
@@ -2314,8 +2500,9 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public Usuario CrearUsuarioPara(int id_persona)
+    public Usuario CrearUsuarioPara(int id_persona, Usuario usuario)
     {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 26)) throw (new Exception("El usuario no tiene permisos para crear usuarios"));
         return RepositorioDeUsuarios().CrearUsuarioPara(id_persona);
     }
 
@@ -2493,6 +2680,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public EvaluacionDto[] GuardarEvaluaciones(EvaluacionDto[] evaluaciones_nuevas_dto, EvaluacionDto[] evaluaciones_originales_dto, Usuario usuario)
     {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 8)) throw (new Exception("El usuario no tiene permisos para administrar macc"));
         var evaluaciones_no_procesadas = new List<EvaluacionDto>();
         var repo_alumnos = RepoAlumnos();
         var repo_cursos = RepositorioDeCursos();
@@ -2763,7 +2951,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public ObservacionDTO[] GuardarObservaciones(ObservacionDTO[] observaciones_nuevas_dto, ObservacionDTO[] observaciones_originales_dto, Usuario usuario)
     {
-
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 8)) throw (new Exception("El usuario no tiene permisos para administrar macc"));
         var observaciones_no_procesadas = new List<ObservacionDTO>();
         var repo_cursos = RepositorioDeCursos();
 
@@ -2819,10 +3007,6 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
 
-
-
-
-
     #region mau
 
 
@@ -2849,6 +3033,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public bool VerificarUsuario(int id_usuario, Usuario usuario)
     {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 21)) throw (new Exception("El usuario no tiene permisos para verificar usuario"));
         return Autorizador().VerificarUsuario(id_usuario, usuario);
     }
 
@@ -2891,6 +3076,8 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string GuardarPostulacionManual(string postulacion, string datosPersonales, string folio, Usuario usuario)
     {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 20)) throw (new Exception("El usuario no tiene permisos inscripcion manual"));
+
         // var postulaciones = new Postulacion();
         return RepoPostulaciones().InscripcionManual(postulacion, datosPersonales, folio, usuario);
     }
@@ -3272,7 +3459,8 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public void GuardarFolios(string nro_inscripcion, int nro_ficha_inscripcion, int nro_foto, int nro_foto_dni, int nro_foto_titulo, int nro_cv, int nro_doc_respaldo, Usuario usuario)
     {
-
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 15)) throw (new Exception("El usuario no tiene permisos pre inscripcion documental"));
+        
         RepoPostulaciones().GuardarFolios(nro_inscripcion, DateTime.Today, nro_ficha_inscripcion, nro_foto, nro_foto_dni, nro_foto_titulo, nro_cv, nro_doc_respaldo, usuario.Id);
     }
 
@@ -3286,6 +3474,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public void GuardarCambiosEnAdmitidos(List<Postulacion> postulaciones, Usuario usuario)
     {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 17)) throw (new Exception("El usuario no tiene permisos para admision"));
 
         RepoPostulaciones().GuardarCambiosEnAdmitidos(postulaciones, usuario.Id);
     }
@@ -3521,31 +3710,35 @@ public class WSViaticos : System.Web.Services.WebService
     #endregion
 
     #region Formularios
-    [WebMethod]
-    public Formulario GetFormulario(string criterio, Usuario usuario)
-    {
-        return new RepositorioDeFormularios(Conexion()).GetFormulario(criterio, usuario);
-    }
+        [WebMethod]
+        public Formulario GetFormulario(string criterio, Usuario usuario)
+        {
+            if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 27)) throw (new Exception("El usuario no tiene permisos para formularios"));
+            return new RepositorioDeFormularios(Conexion()).GetFormulario(criterio, usuario);
+        }
 
-    [WebMethod]
-    public void GuardarCambiosEnFormulario(Formulario form, Usuario usuario)
-    {
-        new RepositorioDeFormularios(Conexion()).GuardarDatos(form, usuario);
-    }
+        [WebMethod]
+        public void GuardarCambiosEnFormulario(Formulario form, Usuario usuario)
+        {
+            if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 27)) throw (new Exception("El usuario no tiene permisos para formularios"));
+            new RepositorioDeFormularios(Conexion()).GuardarDatos(form, usuario);
+        }
 
-    [WebMethod]
-    public void GuardarCabeceraFormulario(Formulario form, Usuario usuario)
-    {
-        //el true es para poner en impreso
-        new RepositorioDeFormularios(Conexion()).GuardarVersion(form, usuario, true);
-    }
+        [WebMethod]
+        public void GuardarCabeceraFormulario(Formulario form, Usuario usuario)
+        {
+            if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 27)) throw (new Exception("El usuario no tiene permisos para formularios"));
+            //el true es para poner en impreso
+            new RepositorioDeFormularios(Conexion()).GuardarVersion(form, usuario,true);
+        }
 
-    [WebMethod]
-    public int GetIdCabeceraFormulario(Formulario form, Usuario usuario)
-    {
-        //el true es para poner en impreso
-        return new RepositorioDeFormularios(Conexion()).GetUltimaCabeceraFormulario(form, usuario);
-    }
+        [WebMethod]
+        public int GetIdCabeceraFormulario(Formulario form, Usuario usuario)
+        {
+            if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 27)) throw (new Exception("El usuario no tiene permisos para formularios"));
+            //el true es para poner en impreso
+            return new RepositorioDeFormularios(Conexion()).GetUltimaCabeceraFormulario(form, usuario);
+        }
     #endregion
 
     #region Reportes
@@ -3567,7 +3760,154 @@ public class WSViaticos : System.Web.Services.WebService
 
     #endregion
 
+    #region mobi
 
+
+        [WebMethod]
+        public Tarjeton NuevoTarjeton(int id_Bien, Usuario usuario)
+        {
+            if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 33)) throw (new Exception("El usuario no tiene permisos para el modulo de bienes"));
+            var repo = new RepositorioTarjetones(Conexion());
+            return repo.NuevoTarjeton(id_Bien);
+        }
+
+        [WebMethod]
+        public RespuestaVehiculo ObtenerVehiculoPorIDVerificacion(string id_verificacion)
+        {
+            var repo = new RepositorioDeVehiculos(Conexion());
+            var una_respuesta = new RespuestaVehiculo();
+            una_respuesta.Respuesta = 1;
+            if (String.IsNullOrEmpty(id_verificacion) )
+            {
+                una_respuesta.Respuesta = 0;
+                return una_respuesta;
+            }           
+            una_respuesta.vehiculo = repo.ObtenerVehiculoPorIDVerificacion(id_verificacion);                
+            if (string.IsNullOrEmpty(una_respuesta.vehiculo.Dominio))
+            {
+                una_respuesta.Respuesta = 0;
+            }
+            return una_respuesta;
+        }
+
+        [WebMethod]
+        public MoBi_Area[] Mobi_GetAreasUsuario(int IdUsuario)
+        {
+            RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
+            return rMoBi.GetAreasUsuario(IdUsuario);
+        }
+
+        [WebMethod]
+        public MoBi_Area[] Mobi_GetAreasUsuarioCBO(int IdUsuario, int IdTipoBien, bool MostrarSoloAreasConBienes)
+        {
+            RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
+            return rMoBi.GetAreasUsuarioCBO(IdUsuario, IdTipoBien, MostrarSoloAreasConBienes);
+        }
+
+        [WebMethod]
+        public MoBi_Area[] Mobi_GetAreasDelUsuarioBienesDisponibles(int IdUsuario, int IdTipoBien, bool Incluir_Dependencias,bool Mostrar_Todas_Areas )
+        {
+            RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
+            return rMoBi.GetAreasDelUsuarioBienesDisponibles(IdUsuario, IdTipoBien, Incluir_Dependencias, Mostrar_Todas_Areas);
+        }
+
+
+        [WebMethod]
+        public MoBi_TipoBien[] Mobi_GetTipoBien()
+        {
+            RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
+            return rMoBi.GetTipoDeBienes();
+        }
+
+        [WebMethod]
+        public MoBi_Bien Mobi_GetBienPorId(int id_bien)
+        {
+            RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
+            return rMoBi.GetBienPorId(id_bien);
+        }
+
+        [WebMethod]
+        public MoBi_Bien[] Mobi_GetBienesDelArea(int IdArea, int IdTipoBien)
+        {
+            RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
+            return rMoBi.GetBienesDelArea(IdArea, IdTipoBien);
+        }
+
+        [WebMethod]
+        public MoBi_Bien[] Mobi_GetBienesDelAreaRecepcion(int IdArea, int IdTipoBien)
+        {
+            RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
+            return rMoBi.GetBienesDelAreaRecepcion(IdArea, IdTipoBien);
+        }
+
+        [WebMethod]
+        public MoBi_Bien[] Mobi_GetBienesDisponibles(int IdArea, int IdTipoBien)
+        {
+            RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
+            return rMoBi.GetBienesDisponibles(IdArea, IdTipoBien);
+        }
+
+        [WebMethod]
+        public MoBi_Evento[] Mobi_GetEventosBien(int IdBien)
+        {
+            RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
+            return rMoBi.GetEventosBien(IdBien);
+        }
+
+        [WebMethod]
+        public MoBi_Agente[] Mobi_GetAgentesArea(int IdArea)
+        {
+            RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
+            return rMoBi.GetAgentes(IdArea);
+        }
+
+        [WebMethod]
+        public bool Mobi_GuardarEventoBien(MoBi_Evento.enumTipoEvento tipoEvento, int IdBien, int IdArea, int IdPersona, string Observaciones, int IdUser)
+        {
+            RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
+            return rMoBi.GuardarNuevoEventoBien(tipoEvento, IdBien, IdArea, IdPersona, Observaciones, IdUser);
+        }
+
+        [WebMethod]
+        public bool Mobi_AsignarImagenABien(int id_bien, int id_imagen, Usuario usuario)
+        {
+            if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 37)) throw (new Exception("El usuario no tiene permisos editar bienes"));
+            RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
+            return rMoBi.AsignarImagenABien(id_bien, id_imagen);
+        }
+
+        [WebMethod]
+        public bool Mobi_DesAsignarImagenABien(int id_bien, int id_imagen, Usuario usuario)
+        {
+            if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 37)) throw (new Exception("El usuario no tiene permisos editar bienes"));
+            RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
+            return rMoBi.DesAsignarImagenABien(id_bien, id_imagen);
+        }
+        #endregion
+
+
+    #region archivos
+
+        [WebMethod]
+        public Imagen GetThumbnail(int id_imagen, int alto, int ancho)
+        {
+            return new RepositorioDeImagenes(Conexion()).GetThumbnail(id_imagen, alto, ancho);
+        }
+
+        [WebMethod]
+        public Imagen GetImagen(int id_imagen)
+        {
+            return new RepositorioDeImagenes(Conexion()).GetImagen(id_imagen);
+        }
+
+        [WebMethod]
+        public int SubirImagen(string bytes_imagen)
+        {
+            return new RepositorioDeImagenes(Conexion()).SubirImagen(bytes_imagen);
+        }
+
+
+    #endregion
     #region Portal
 
     [WebMethod]
@@ -3726,7 +4066,6 @@ public class WSViaticos : System.Web.Services.WebService
         return General.MAU.RepositorioDeFuncionalidadesDeUsuarios.NuevoRepositorioDeFuncionalidadesDeUsuarios(Conexion(), RepositorioDeFuncionalidades());
     }
 
-
     private Autorizador Autorizador()
     {
         var repo_funcionalidades = RepositorioDeFuncionalidades();
@@ -3786,4 +4125,201 @@ public class WSViaticos : System.Web.Services.WebService
         return RepositorioDeComites.Nuevo(Conexion());
     }
 
+
+    /*Excel Consulta Personas DDJJ104*/
+    [WebMethod]
+    public string ConsultaExcelDDJJ104_Persona(string criterio, Usuario usuario)
+    {
+        var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
+
+        int mesdesde = (int)((JValue)criterio_deserializado["mesdesde"]);
+        int aniodesde = (int)((JValue)criterio_deserializado["aniodesde"]);
+        int meshasta = (int)((JValue)criterio_deserializado["meshasta"]);
+        int aniohasta = (int)((JValue)criterio_deserializado["aniohasta"]);
+        int nrodoc_persona = (int)((JValue)criterio_deserializado["nrodoc_persona"]);
+        int estado = (int)((JValue)criterio_deserializado["estado"]);
+        int orden = (int)((JValue)criterio_deserializado["orden"]);
+        
+        DDJJ104_Consulta[] personas = GetConsultaIndividualPorPersona(mesdesde, aniodesde, meshasta, aniohasta, nrodoc_persona, estado, orden, usuario);
+        
+        try
+        {
+            DataTable table_resumen = new DataTable();
+            table_resumen.TableName = "Agentes";
+
+            table_resumen.Columns.Add("Mes");
+            table_resumen.Columns.Add("Año");
+            table_resumen.Columns.Add("Area");
+            table_resumen.Columns.Add("Apellido");
+            table_resumen.Columns.Add("Nombre");
+            table_resumen.Columns.Add("FechaGeneracion");
+            table_resumen.Columns.Add("UsuarioGeneracion");
+            table_resumen.Columns.Add("FechaRecibido");
+            table_resumen.Columns.Add("UsuarioRecibido");
+            table_resumen.Columns.Add("Firmante");
+            table_resumen.Columns.Add("Categoria");
+            table_resumen.Columns.Add("ModContratación");
+            table_resumen.Columns.Add("Estado");
+
+            foreach (var item in personas)
+            {
+                table_resumen.Rows.Add(
+                    item.mes.ToString(),
+                    item.anio.ToString(),
+                    item.area_generacion.Nombre,
+                    item.persona.Apellido,
+                    item.persona.Nombre,
+                    item.fecha_generacion,
+                    item.usuario_generacion,
+                    item.fecha_recibido,
+                    item.usuario_recibido,
+                    item.firmante,
+                    item.persona.Categoria,
+                    item.mod_contratacion,
+                    item.estado_descrip
+                    );
+            }
+
+            var workbook = new XLWorkbook();
+            var dataTable_resumen = table_resumen;
+            var ws = workbook.Worksheets.Add("Consulta");
+
+            ws.Style.Font.FontSize = 9;
+            ws.Style.Font.FontName = "Verdana";
+
+            ws.Cell(1, 1).Value = "Mes";
+            ws.Cell(1, 2).Value = "Anio";
+            ws.Cell(1, 3).Value = "Area";
+            ws.Cell(1, 4).Value = "Apellido";
+            ws.Cell(1, 5).Value = "Nombre";
+            ws.Cell(1, 6).Value = "Fecha generacion";
+            ws.Cell(1, 7).Value = "Usuario generacion";
+            ws.Cell(1, 8).Value = "Fecha recibido";
+            ws.Cell(1, 9).Value = "Usuario recibido";
+            ws.Cell(1, 10).Value = "Firmante";
+            ws.Cell(1, 11).Value = "Categoria";
+            ws.Cell(1, 12).Value = "Mod Contratacion";
+            ws.Cell(1, 13).Value = "Estado";
+
+            ws.Cell(1, 1).Style.Font.Bold = true;
+            ws.Cell(1, 2).Style.Font.Bold = true;
+            ws.Cell(1, 3).Style.Font.Bold = true;
+            ws.Cell(1, 4).Style.Font.Bold = true;
+            ws.Cell(1, 5).Style.Font.Bold = true;
+            ws.Cell(1, 6).Style.Font.Bold = true;
+            ws.Cell(1, 7).Style.Font.Bold = true;
+            ws.Cell(1, 8).Style.Font.Bold = true;
+            ws.Cell(1, 9).Style.Font.Bold = true;
+            ws.Cell(1, 10).Style.Font.Bold = true;
+            ws.Cell(1, 11).Style.Font.Bold = true;
+            ws.Cell(1, 12).Style.Font.Bold = true;
+            ws.Cell(1, 13).Style.Font.Bold = true;
+
+            var rangeWithData = ws.Cell(2, 1).InsertData(dataTable_resumen.AsEnumerable());
+
+            using (var ms = new MemoryStream())
+            {
+                workbook.SaveAs(ms);
+                return Convert.ToBase64String(ms.ToArray());
+            }
+
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+
+    }
+
+
+    /*Excel Consulta Area DDJJ104*/
+    [WebMethod]
+    public string ConsultaExcelDDJJ104_Area(string criterio, Usuario usuario)
+    {
+        var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
+
+        int mesdesde = (int)((JValue)criterio_deserializado["mesdesde"]);
+        int aniodesde = (int)((JValue)criterio_deserializado["aniodesde"]);
+        int meshasta = (int)((JValue)criterio_deserializado["meshasta"]);
+        int aniohasta = (int)((JValue)criterio_deserializado["aniohasta"]);
+        int area = (int)((JValue)criterio_deserializado["area"]);
+        int estado = (int)((JValue)criterio_deserializado["estado"]);
+        int orden = (int)((JValue)criterio_deserializado["orden"]);
+
+        DDJJ104_Consulta[] consulta_area = GetConsultaPorArea(mesdesde, aniodesde, meshasta, aniohasta, area, estado, orden, usuario);
+
+        try
+        {
+            DataTable table_resumen = new DataTable();
+            table_resumen.TableName = "Areas";
+
+            table_resumen.Columns.Add("Mes");
+            table_resumen.Columns.Add("Año");
+            table_resumen.Columns.Add("Area");
+            table_resumen.Columns.Add("FechaGeneracion");
+            table_resumen.Columns.Add("UsuarioGeneracion");
+            table_resumen.Columns.Add("FechaRecibido");
+            table_resumen.Columns.Add("UsuarioRecibido");
+            table_resumen.Columns.Add("Firmante");
+            table_resumen.Columns.Add("Estado");
+
+            foreach (var item in consulta_area)
+            {
+                table_resumen.Rows.Add(
+                    item.mes.ToString(),
+                    item.anio.ToString(),
+                    item.area_generacion.Nombre,
+                    item.fecha_generacion,
+                    item.usuario_generacion,
+                    item.fecha_recibido,
+                    item.usuario_recibido,
+                    item.firmante,
+                    item.estado_descrip
+                    );
+            }
+
+            var workbook = new XLWorkbook();
+            var dataTable_resumen = table_resumen;
+            var ws = workbook.Worksheets.Add("Consulta");
+
+            ws.Style.Font.FontSize = 9;
+            ws.Style.Font.FontName = "Verdana";
+
+            ws.Cell(1, 1).Value = "Mes";
+            ws.Cell(1, 2).Value = "Anio";
+            ws.Cell(1, 3).Value = "Area";
+            ws.Cell(1, 4).Value = "Fecha generacion";
+            ws.Cell(1, 5).Value = "Usuario generacion";
+            ws.Cell(1, 6).Value = "Fecha recibido";
+            ws.Cell(1, 7).Value = "Usuario recibido";
+            ws.Cell(1, 8).Value = "Firmante";
+            ws.Cell(1, 9).Value = "Estado";
+
+            ws.Cell(1, 1).Style.Font.Bold = true;
+            ws.Cell(1, 2).Style.Font.Bold = true;
+            ws.Cell(1, 3).Style.Font.Bold = true;
+            ws.Cell(1, 4).Style.Font.Bold = true;
+            ws.Cell(1, 5).Style.Font.Bold = true;
+            ws.Cell(1, 6).Style.Font.Bold = true;
+            ws.Cell(1, 7).Style.Font.Bold = true;
+            ws.Cell(1, 8).Style.Font.Bold = true;
+            ws.Cell(1, 9).Style.Font.Bold = true;
+            
+            var rangeWithData = ws.Cell(2, 1).InsertData(dataTable_resumen.AsEnumerable());
+
+            using (var ms = new MemoryStream())
+            {
+                workbook.SaveAs(ms);
+                return Convert.ToBase64String(ms.ToArray());
+            }
+
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+
+    }
+
+       
 }

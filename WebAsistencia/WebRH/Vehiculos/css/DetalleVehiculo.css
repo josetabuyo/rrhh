@@ -1,0 +1,450 @@
+﻿
+html
+{
+    position: absolute;
+    top: 0%;
+    bottom: 0%;
+    left: 0%;
+    right: 0%; /*background-color: #031427 !important;*/
+}
+
+body
+{
+    position: absolute;
+    top: 0%;
+    bottom: 0%;
+    right: 0%;
+    left: 0%;
+    margin: 0% !important;
+}
+
+#contenedor_imagen
+{
+    width: 100%;
+    background-color: #00001c;
+    height: 125px; /*padding-bottom: 45px;*/
+    position: absolute;
+    top: 0%;
+    left: 0px !important;
+}
+
+#barra-azul
+{
+    background-color: rgb(25, 75, 180);
+    height: 35px;
+    border-color: white;
+    border-top-style: solid;
+    width: auto;
+    position: relative;
+}
+
+.btn-primary
+{
+    margin-top: 5px;
+}
+#barra_menu_contenedor
+{
+    height: 95px;
+}
+
+#encabezado_sin_logo
+{
+    height: 90px;
+    width: 885px !important;
+    margin-left: 100px !important;
+}
+
+#barra_menu_contenedor_imagen
+{
+    background-color: #00001c;
+    position: absolute;
+    left: 50%;
+    min-height: 30px;
+    width: auto;
+    margin-left: -33.5%;
+}
+
+#img_logo_sistema
+{
+    width: 130px;
+    height: 39px;
+    position: absolute;
+    top: 25px;
+    left: 80px; /*float:left;*/
+}
+
+#img_logo_minis
+{
+    width: 150px;
+    height: 27px;
+    position: absolute;
+    top: 31px;
+    left: 890px;
+}
+
+#img_logo_direccion
+{
+    width: 130px;
+    height: 26px;
+    position: absolute;
+    top: 32px;
+    left: 725px;
+}
+
+#barra_menu
+{
+    position: absolute;
+    left: 50%;
+    min-height: 30px;
+    width: 1024px;
+    margin-left: -512px;
+    background-color: #EEE;
+}
+
+#contendor-fondos
+{
+    margin-top: 120px !important;
+}
+
+#fondo-Arriba
+{
+    background-color: #000000;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0%;
+    position: absolute;
+}
+
+#fondo-Abajo
+{
+    background-color: #031427;
+    position: absolute;
+    top: 60%;
+    left: 0px;
+    right: 0px;
+    bottom: 0%;
+}
+
+#Contenido
+{
+    /* width: 80%;     left: 10%;     right: 10%;*/
+    top: 130px;
+    line-height: 18px;
+    color: white;
+    font-family: Arial;
+    position: absolute;
+    overflow-y: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+#contenedor_barraInferior
+{
+    width: 100%;
+    background-color: rgb(25, 75, 180);
+    height: 30px;
+    border-top: 3px solid white;
+}
+
+#barra_menu_nombre_sistema
+{
+    position: absolute;
+    width: auto;
+    text-align: center;
+    font-family: Arial;
+    color: White;
+    font-size: 9px;
+    left: 333px;
+    top: 8%;
+    line-height: 25px !important;
+}
+
+.tabla-principal
+{
+
+    color: white;
+    box-shadow: 4px 4px 5px #D0D0D0;
+    margin-top: 0%;
+    margin-bottom: 0%;
+    font-size: 1.5em;
+    width: 100%;
+    background-color: #00001c;
+    margin-bottom: 5%;
+    width: 60%;
+    margin-left: 20%;
+    border-radius: 10px;
+    border-color: white;
+}
+
+#celda-titulo
+{
+    padding: 7px;
+    width: 100%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.celda
+{
+    padding: 7px;
+    width: 40%;
+    padding-left: 2%;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.celda2
+{
+    padding:10px;
+    width: 80%;
+}
+
+.celda-imagen
+{
+    width: 80%;
+    height: 100%;
+}
+
+.separador
+{
+    background-color: white;
+    height: 2px;
+    margin-bottom: 2%;
+    width: 100%;
+    border-radius: 10px;
+}
+
+.div-titulos
+{
+    
+    border-radius: 10px;
+    /* border: solid; */
+    margin-bottom: 20px;
+    font-size: 1.9em;
+    font-weight: bold;
+    /* height: 100%; */
+    padding-top: 15px;
+    padding-bottom: 5px;
+    text-align: left;
+    padding-left: 12px;
+    margin-top: -30px;
+    /* display: inline-block; */
+    background-color: #00001c;
+    box-shadow: 4px 4px 5px #D0D0D0;
+    
+   
+}
+
+
+
+.imagenes
+{
+    width: inherit !important; /* This makes the next two lines work in IE8. */
+    max-width: 31% !important; /* Add !important if needed. */
+    height: auto !important; /* Add !important if needed. */
+    margin-top: 1%;
+    margin-bottom: 5%;
+    margin-left: 12.5%;
+    border-radius: 10px;
+}
+
+.contenedor-imagen-vehiculo
+{
+    width: 60%;
+    margin-left: 20%;
+}
+
+hr
+{
+    color: white;
+    border: 0;
+    height: 2px;
+    text-align: center;
+    background-color: #fff;
+    background: radial-gradient(left, #031427,  #fff,  #031427);
+    background: -webkit-radial-gradient(left,100% 100px, #031427,  #fff,  #031427);
+    background: -moz-radial-gradient(left,100% 100px, #031427,  #fff,  #031427);
+}
+
+
+#titulo-del-menu
+{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.carousel
+{
+    background: #2f4357;
+    margin-top: 20px;
+}
+
+.carousel .item img
+{
+    margin: 0 auto; /* Align slide image horizontally center */
+}
+
+.bs-example
+{
+    margin: 20px;
+}
+
+#mensaje_error
+{
+        text-align: center;
+    background: white;
+    height: 110px;
+    margin-top: 10%;
+    width: 367px;
+    border-radius: 14px;
+    font-size: 18px;
+    background-color: gainsboro;
+    padding: 0.5%;
+    position: absolute;
+    /* width: 100%; */
+    left: 30%;
+    top: 50px;
+    border: 3px solid rgb(25, 75, 180);
+    box-shadow: 5px 5px 5px grey;
+}
+
+#txt_mensaje_error
+{
+    padding-top: 8px !important;
+}
+
+#volver_mensaje_error
+{
+    border: 2px solid rgb(25, 75, 180);
+    border-radius: 5px;
+    font-size: 25px;
+    padding: 10px;
+    margin-top: 20px;
+    background-color: #ababab;
+    box-shadow: 5px 5px 15px #888888;
+}
+
+#contenedor-vehiculos
+{
+    width: 60%;
+    margin-left: 20%;
+    margin-top: 3%;
+}
+
+.carousel-inner
+{
+    border-radius: 10px !important;
+    border: solid;
+   /*box-shadow: 7px 7px 12px white;*/
+    background-color: #00001c;
+    
+}
+
+.posicion-boton-imagenes
+{
+ position: absolute;  
+ margin-left: 10px;
+ box-shadow: 1px 1px 4px white;
+ 
+    }
+
+#boton-volver
+{
+    }
+
+#boton-imagenes
+{
+    left: 140px;
+    }
+    
+    #boton-datos-vehiculo
+    {
+        left: 70px;
+        }
+
+
+
+
+/*
+@media only screen and (max-width: 850px) and (min-width:550px)
+{
+       html
+       {
+        background: linear-gradient(to bottom, black 0%,black 60%,#000000 60%,#031427 60%,#031427 40%); 
+       }
+       
+       body  
+       {
+        font-size: 0.9em !important; 
+        padding-left: 0% !important;
+        padding-right: 0% !important;
+       }    
+}
+
+@media only screen and (max-width: 549px)
+{
+       html
+       {
+        background: linear-gradient(to bottom, black 0%,black 60%,#000000 60%,#031427 60%,#031427 40%);
+       }
+       
+       body  
+       {
+        font-size: 0.9em !important; 
+       } 
+
+       #encabezado_sin_logo 
+       {
+        width: 100%;       
+       }
+       
+       #img_logo_sistema
+       {
+        height: 25px !important;
+        width: auto;
+        margin-left: -22%;
+        margin-top: 2.0%;       
+           }
+           
+       #img_logo_direccion
+        {
+        height: 17px;
+        width: auto;
+        float: right;
+        margin-right: -73%;
+        margin-top: 4%;
+        }
+        
+        #img_logo_minis
+        {
+        height: 17px;
+        width: auto;
+        top: 10%;
+        float: right;
+        margin-right: -22%
+        }
+        
+        #titulo-del-menu
+       
+        {
+         font-size: 12px; 
+         font-weight: bold;
+         float: right;
+         margin-right: 6%;
+         margin-top: 5%;
+        }
+        
+        #barra_menu_nombre_sistema
+        {
+         top: -4%;
+         left: 24.5%;
+        }
+        
+        #contenedor-vehiculos
+       {
+        margin-top: 20%;
+       }           
+}*/
+

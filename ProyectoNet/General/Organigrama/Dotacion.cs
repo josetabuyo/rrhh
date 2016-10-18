@@ -53,6 +53,7 @@ namespace General
         public float hsTotalesSimples { get; set; }
         public int Comidas { get; set; }
         public int UnidadRetributiva { get; set; }
+        public int EdadPersona { get; set; }
 
 
         public Dotacion() { }
@@ -87,12 +88,15 @@ namespace General
             this.OrdenArea = orden;
         }
 
+        
+       
+
         internal int Edad(DateTime fecha)
         {
             DateTime now = fecha;
             int age = now.Year - this.FechaNacimiento.Year;
             if (this.FechaNacimiento > now.AddYears(-age)) age--;
-
+            this.EdadPersona = age;
             return age;
         }
 

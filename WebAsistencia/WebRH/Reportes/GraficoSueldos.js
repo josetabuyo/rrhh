@@ -8,15 +8,13 @@ var GraficoSueldos = {
 
         var _this = this;
         GraficoHerramientas.InicializarFecha($('#txt_fecha_desde_sueldo'));
-        GraficoHerramientas.BlanquearParametrosDeBusqueda();
+//        GraficoHerramientas.BlanquearParametrosDeBusqueda();
         GraficoHerramientas.ActivarPrimerCheck($('#cb_SinAgrupar'), "Áreas");
-        _this.OcultarOtrosGraficos();
+        GraficoHerramientas.OcultarTodosLosReportesExcepto("Sueldo");
         _this.SettearEventosDeLaPagina();
-        //_this.SettearEventosDelMenu();
 
         $('#btn_mostrar_resumen').click(function () {
             _this.VisualizarResumenDeSueldos(true);
-
         });
     },
 
@@ -26,6 +24,7 @@ var GraficoSueldos = {
         GraficoHerramientas.SettearEventosDeChecks(_this, $('.filtros_sueldo'), $('#div_tabla_sueldo_detalle'), $('#titulo_grafico'), "Sueldo por ");
 
         $('#btn_buscar_sueldo').click(function () {
+            GraficoHerramientas.OcultarTodosLosReportesExcepto("Sueldo");
             _this.BuscarDatos();
         });
         $('#exportar_datos_sueldo').click(function () {
@@ -284,27 +283,6 @@ var GraficoSueldos = {
     },
 
     // VISUALIZACIÓN
-    OcultarOtrosGraficos: function () {
-        $('#div_resultados_sueldos').hide();
-        $('#div_filtros_sueldos').show();
-        $('#btn_mostrar_resumen').hide();
-        $('#div_tabla_sueldo').hide();
-        $('#search_sueldo').hide();
-        $('#exportar_datos_sueldo').hide();
-        $('#tabla_sueldo').hide();
-        $('#div_tabla_sueldo_detalle').hide();
-        $('#search_detalle_sueldo').hide();
-        $('#tabla_sueldo_detalle').hide();
-        $('#container_grafico_torta_totales').hide();
-        $("#search").hide();
-        $('#div_graficos_y_tablas').hide();
-        $('#search_detalle').hide();
-        $('#div_tabla_detalle').hide();
-        $('#div_grafico_de_dotacion').hide();
-        $('#div_filtros').hide();
-
-    },
-
     VisualizarResumenDeSueldos: function (visualizar) {
         if (visualizar) {
             $('#search_sueldo_detalle').hide();
