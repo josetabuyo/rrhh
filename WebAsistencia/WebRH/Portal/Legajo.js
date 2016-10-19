@@ -351,17 +351,17 @@
                         $("#tablaConsultas").empty();
                         var divGrilla = $("#tablaConsultas");
                         var columnas = [];
-                        columnas.push(new Columna("Id", { generar: function (una_designacion) { return una_designacion.TipoActo } }));
-                        columnas.push(new Columna("Fecha", { generar: function (una_designacion) { return una_designacion.NroActo } }));
-                        columnas.push(new Columna("Tipo", { generar: function (una_designacion) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_designacion.FechActo) } }));
-                        columnas.push(new Columna("Estado", { generar: function (una_designacion) { return una_designacion.SituacionRevista } }));
-                        columnas.push(new Columna("Responsable", { generar: function (una_designacion) { return una_designacion.Folio } }));
-                        columnas.push(new Columna("Fecha", { generar: function (una_designacion) { return una_designacion.SituacionRevista } }));
-                        columnas.push(new Columna("Ver MASSSS", { generar: function (una_designacion) { return una_designacion.SituacionRevista } }));
+                        columnas.push(new Columna("Id", { generar: function (una_consulta) { return una_consulta.Id } }));
+                        columnas.push(new Columna("Fecha", { generar: function (una_consulta) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_consulta.fechaCreacion) } }));
+                        columnas.push(new Columna("Tipo", { generar: function (una_consulta) { return una_consulta.tipo_consulta } }));
+                        columnas.push(new Columna("Estado", { generar: function (una_consulta) { return una_consulta.estado } }));
+                        columnas.push(new Columna("Responsable", { generar: function (una_consulta) { return una_consulta.contestador.Nombre } }));
+                        columnas.push(new Columna("Fecha", { generar: function (una_consulta) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_consulta.fechaContestacion) } }));
+                       // columnas.push(new Columna("Ver MASSSS", { generar: function (una_consulta) { return una_consulta.SituacionRevista } }));
 
                         _this.Grilla = new Grilla(columnas);
                         _this.Grilla.CambiarEstiloCabecera("estilo_tabla_portal");
-                        _this.Grilla.CargarObjetos(designaciones);
+                        _this.Grilla.CargarObjetos(consultas);
                         _this.Grilla.DibujarEn(divGrilla);
                         $('.table-hover').removeClass("table-hover");
                     })

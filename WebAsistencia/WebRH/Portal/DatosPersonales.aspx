@@ -9,9 +9,8 @@
         <meta name="viewport" content="width=device-width">
         <!-- CSS media query on a link element -->
          <%= Referencias.Css("../")%>
-
         <%= Referencias.Javascript("../")%>
-
+        <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
         <link rel="stylesheet" media="(max-width: 1600px)" href="estilosPortalSecciones.css" />
     </head>
 <body>

@@ -312,34 +312,34 @@ namespace General.Repositorios
 
         }
 
-        public string GetConsultasDePortal(int doc)
+        public string GetConsultasDePortal(int id_usuario)
         {
             var parametros = new Dictionary<string, object>();
-            parametros.Add("@Doc", doc);
+            parametros.Add("@Id_usuario", id_usuario);
+            List<Consulta> consultas = new List<Consulta>();
 
             var tablaDatos = conexion.Ejecutar("dbo.LEG_GETConsultasDePortal", parametros);
-            var list_de_designaciones = new List<Object> { };
-
+          
             if (tablaDatos.Rows.Count > 0)
             {
                 tablaDatos.Rows.ForEach(row =>
                 {
-                    list_de_designaciones.Add(new
-                    {
-                        //Id = row.GetInt("id", 0),
-                        // = row.GetString("acto_tipo", "Sin información"),
-                        //NroActo = row.GetSmallintAsInt("acto_nro", 0),
-                        //FechActo = row.GetDateTime("acto_fecha"),
-                        //Motivo = row.GetString("motivoDesc", "Sin información"),
-                        //SituacionRevista = row.GetString("SR", "Sin información"),
-                        //Folio = row.GetString("folio", "Sin información"),
-
-                    });
+                    Consulta consulta = new Consulta(
+                        row.GetInt("Id"), 
+                        row.GetDateTime("fecha_creacion"), 
+                        row.GetString("tipo_consulta"),
+                        row.GetString("motivo"),
+                        row.GetString("estado"), 
+                        "Belén Cevey",//row.GetString("is_usuario_responsable"), 
+                        row.GetDateTime("fecha_contestacion", new DateTime()), 
+                        row.GetString("respuesta", ""));
+                    consultas.Add(consulta);
+                   
                 });
 
             }
 
-            return JsonConvert.SerializeObject(list_de_designaciones);
+            return JsonConvert.SerializeObject(consultas);
 
         }
         
