@@ -3760,7 +3760,7 @@ public class WSViaticos : System.Web.Services.WebService
 
     #endregion
 
-        #region mobi
+    #region mobi
 
 
         [WebMethod]
@@ -3777,22 +3777,16 @@ public class WSViaticos : System.Web.Services.WebService
             var repo = new RepositorioDeVehiculos(Conexion());
             var una_respuesta = new RespuestaVehiculo();
             una_respuesta.Respuesta = 1;
-
             if (String.IsNullOrEmpty(id_verificacion) )
             {
                 una_respuesta.Respuesta = 0;
                 return una_respuesta;
-            }
-
-          
-           
-            una_respuesta.vehiculo = repo.ObtenerVehiculoPorIDVerificacion(id_verificacion);
-                
+            }           
+            una_respuesta.vehiculo = repo.ObtenerVehiculoPorIDVerificacion(id_verificacion);                
             if (string.IsNullOrEmpty(una_respuesta.vehiculo.Dominio))
             {
                 una_respuesta.Respuesta = 0;
             }
-               
             return una_respuesta;
         }
 
@@ -3809,6 +3803,14 @@ public class WSViaticos : System.Web.Services.WebService
             RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
             return rMoBi.GetAreasUsuarioCBO(IdUsuario, IdTipoBien, MostrarSoloAreasConBienes);
         }
+
+        [WebMethod]
+        public MoBi_Area[] Mobi_GetAreasDelUsuarioBienesDisponibles(int IdUsuario, int IdTipoBien, bool Incluir_Dependencias,bool Mostrar_Todas_Areas )
+        {
+            RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
+            return rMoBi.GetAreasDelUsuarioBienesDisponibles(IdUsuario, IdTipoBien, Incluir_Dependencias, Mostrar_Todas_Areas);
+        }
+
 
         [WebMethod]
         public MoBi_TipoBien[] Mobi_GetTipoBien()
@@ -3839,6 +3841,13 @@ public class WSViaticos : System.Web.Services.WebService
         }
 
         [WebMethod]
+        public MoBi_Bien[] Mobi_GetBienesDisponibles(int IdArea, int IdTipoBien)
+        {
+            RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
+            return rMoBi.GetBienesDisponibles(IdArea, IdTipoBien);
+        }
+
+        [WebMethod]
         public MoBi_Evento[] Mobi_GetEventosBien(int IdBien)
         {
             RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
@@ -3860,19 +3869,22 @@ public class WSViaticos : System.Web.Services.WebService
         }
 
         [WebMethod]
-        public bool Mobi_AsignarImagenABien(int id_bien, int id_imagen)
+        public bool Mobi_AsignarImagenABien(int id_bien, int id_imagen, Usuario usuario)
         {
+            if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 37)) throw (new Exception("El usuario no tiene permisos editar bienes"));
             RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
             return rMoBi.AsignarImagenABien(id_bien, id_imagen);
         }
 
         [WebMethod]
-        public bool Mobi_DesAsignarImagenABien(int id_bien, int id_imagen)
+        public bool Mobi_DesAsignarImagenABien(int id_bien, int id_imagen, Usuario usuario)
         {
+            if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 37)) throw (new Exception("El usuario no tiene permisos editar bienes"));
             RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
             return rMoBi.DesAsignarImagenABien(id_bien, id_imagen);
         }
         #endregion
+
 
     #region archivos
 
@@ -3896,8 +3908,6 @@ public class WSViaticos : System.Web.Services.WebService
 
 
     #endregion
-
-
 
 
 

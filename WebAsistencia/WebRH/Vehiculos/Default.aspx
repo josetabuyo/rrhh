@@ -39,7 +39,7 @@
             
                 <div id="contenedor_controles">
                     <input type="text" id="txt_codigo_verificacion" />
-                    <input type="button" id="btn_verificar" value="Verificar" />
+                    <input type="button" id="btn_verificar" value="Verificar" onclick="return btn_verificar_onclick()" />
                 </div>
                 <asp:ScriptManager ID="ScriptManager1" runat="server">
                 </asp:ScriptManager>
@@ -59,5 +59,9 @@
             });
         });
     });
+    function btn_verificar_onclick() {
+
+    }
+
 </script>
 </html>
