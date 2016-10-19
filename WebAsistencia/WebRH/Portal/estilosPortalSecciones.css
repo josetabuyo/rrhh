@@ -332,3 +332,37 @@ legend {
         
 }
 
+
+ /*estilos alta consulta*/
+ 
+ #pantalla_alta_ticket
+ {
+    position: absolute;
+    top: 10px;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+ }
+ 
+ #cmb_tipo_consulta
+ {
+    display: inline-block;
+    width: 100%;
+ }
+ 
+ #txt_motivo_consulta
+ {
+    display: inline-block;
+    position: absolute;
+    left: 0px;
+    bottom: 28px;
+    top: 38px;
+    width: 100%;
+ }
+ 
+ #btn_enviar_consulta
+ {
+    position: absolute;
+    right: -9px;
+    bottom: -9px;
+ }

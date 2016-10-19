@@ -343,19 +343,16 @@ namespace General.Repositorios
 
         }
         
-        public bool NuevaConsultaDePortal(int doc, Consulta consulta)
+        public int NuevaConsultaDePortal(int id_usuario, Consulta consulta)
         {
             var parametros = new Dictionary<string, object>();
-            parametros.Add("@Doc", doc);
-            parametros.Add("@Doc", doc);
-            parametros.Add("@Doc", doc);
-            parametros.Add("@Doc", doc);
-            parametros.Add("@Doc", doc);
-            parametros.Add("@Doc", doc);
-            parametros.Add("@Doc", doc);
+            parametros.Add("@id_usuario_creador", id_usuario);
+            parametros.Add("@id_tipo_consulta", consulta.id_tipo_consulta);
+            parametros.Add("@tipo_consulta", consulta.tipo_consulta);
+            parametros.Add("@motivo", consulta.motivo);
 
-            bool resultado = (bool) conexion.EjecutarEscalar("dbo.LEG_NuevaConsultaDePortal", parametros);
-            return resultado;
+            var resultado = conexion.EjecutarEscalar("dbo.LEG_NuevaConsultaDePortal", parametros);
+            return (int)(decimal)resultado;
         }
 
 
