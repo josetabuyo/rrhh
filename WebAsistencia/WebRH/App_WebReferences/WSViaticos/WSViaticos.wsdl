@@ -600,7 +600,7 @@
       <s:element name="NuevaConsultaDePortalResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="NuevaConsultaDePortalResult" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="NuevaConsultaDePortalResult" type="s:int" />
           </s:sequence>
         </s:complexType>
       </s:element>

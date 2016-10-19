@@ -20,6 +20,7 @@
     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:18px; font-weight: bold; padding-top:25px;'>Datos<br/>Recibo</span> <br/> " UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <div class="container-fluid">
         <h1 style="text-align:center; margin:30px; "></h1>
+        <div style="text-align:right; margin-right:20%"><a href="Consultas.aspx">Realizar/Visualizar Consultas</a></div>
         <div style="text-align:center;" class="caja_izq no-print"></div>
          <div  class="caja_der papel" style="width:35%;">
          <div id="div_recibo">
