@@ -89,7 +89,7 @@ public partial class FormulariosDeLicencia_CalculoDeLicenciaOrdinaria : System.W
             cell = new TableCell();
             cell.CssClass = css_class;
             cell.ColumnSpan = 2;
-            cell.Text = "Perdida";
+            cell.Text = log.Observacion;
             row.Cells.Add(cell);
         } else
         {

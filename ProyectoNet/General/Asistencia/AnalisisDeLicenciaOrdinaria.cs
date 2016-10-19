@@ -142,7 +142,7 @@ namespace General
 
         }
 
-        public void LasAutorizadasSinDescontarSon(List<VacacionesPermitidas> permitidas)
+        public void LasAutorizadasSinDescontarSon(List<VacacionesPermitidas> vacas_perdidas, List<VacacionesPermitidas> permitidas)
         {
             List<LogCalculoVacaciones> perdidas = new List<LogCalculoVacaciones>();
             permitidas.ForEach(perm =>
@@ -154,15 +154,20 @@ namespace General
                     {
                         var dias_perdidos = perm.CantidadDeDias() - linea_del_periodo.CantidadDiasAutorizados;
                         linea_del_periodo.CantidadDiasAutorizados = perm.CantidadDeDias();
-                        var per = new LogCalculoVacaciones() { PerdidaExplicitamente = true };
+                        var per = new LogCalculoVacaciones();
                         per.PeriodoAutorizado = perm.Periodo;
                         per.CantidadDiasDescontados = dias_perdidos;
                         per.PerdidaExplicitamente = true;
+
+                        var vp = vacas_perdidas.Find(v => v.Periodo == perm.Periodo);
+                        if (vp != null)
+                        {
+                            per.Observacion = vp.Observacion;
+                        }
+
                         perdidas.Add(per);
                     }
                 }
-
-
             });
 
             perdidas.ForEach(p =>

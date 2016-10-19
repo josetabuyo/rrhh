@@ -49,11 +49,11 @@
  <asp:Button runat="server" Text="Buscar" />
       <asp:Table ID="tabla_analsis" runat="server">
         </asp:Table>
-        <table>
+        <%--<table>
             <tr><td style="background-color:#FFAFA0; min-width:50px;"></td><td>Perdidas</td></tr>
             <tr><td style="background-color:#88FF00; min-width:50px;"></td><td>Vencidas</td></tr>
         </table>
-    <%--<div>
+    <div>
         <table>
             <tr>
                 <td colspan="2">

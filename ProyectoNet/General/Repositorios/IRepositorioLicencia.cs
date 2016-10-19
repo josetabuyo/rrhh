@@ -16,7 +16,7 @@ namespace General.Repositorios
         List<VacacionesPermitidas> GetVacasPermitidasPara(Persona persona, ConceptoDeLicencia concepto);
         List<VacacionesAprobadas> GetVacacionesAprobadasPara(Persona persona);
 
-        List<VacacionesPermitidas> GetVacacionPermitidaDescontandoPerdidasPara(Persona persona, ConceptoDeLicencia concepto);
+        List<VacacionesPermitidas> GetVacacionPermitidaDescontandoPerdidasPara(Persona persona, ConceptoDeLicencia concepto, List<VacacionesPermitidas> perdidas);
         List<VacacionesPermitidas> GetVacacionPermitidaPara(Periodo periodo, Licencia licencia);
 
         List<VacacionesAprobadas> GetVacacionesAprobadasPara(Persona persona, ConceptoDeLicencia concepto);
@@ -26,7 +26,7 @@ namespace General.Repositorios
 
         ProrrogaLicenciaOrdinaria CargarDatos(ProrrogaLicenciaOrdinaria unaProrroga);
 
-
+        List<VacacionesPermitidas> VacacionesPerdidasDe(int documento);
         int GetProrrogaPlantaGeneral(int anio_calculo);
     }
 }

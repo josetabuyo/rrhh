@@ -13,11 +13,14 @@ namespace General
         protected int _anio;
         protected int _concepto;
         protected int _prorroga;
+        
 
         public Persona Persona { get { return _persona; } }
         public int Periodo { get { return _anio; } }
         public int Concepto { get { return _concepto; } }
         public int Prorroga { get { return _prorroga; } }
+
+        public string Observacion { get; set; }
 
         public VacacionesPermitidas(Persona persona, int periodo, int dias, int concepto, int prorroga) 
         {

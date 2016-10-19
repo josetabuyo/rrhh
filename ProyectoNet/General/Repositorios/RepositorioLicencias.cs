@@ -402,7 +402,7 @@ namespace General.Repositorios
                 int concepto = 1;
 
                 VacacionesPermitidas vacaciones = new VacacionesPermitidas(persona, periodo, dias);
-
+                vacaciones.Observacion = row.GetString("Observacion");
                 vacaciones_perdidas.Add(vacaciones);
             });
 
@@ -434,20 +434,20 @@ namespace General.Repositorios
             return vaca_permitidas;
         }
 
-        public List<VacacionesPermitidas> GetVacacionPermitidaDescontandoPerdidasPara(Persona persona, ConceptoDeLicencia concepto)
+        public List<VacacionesPermitidas> VacacionesPerdidasDe(int dni_persona)
         {
-            //HCER LA LÓGICA DE FABY    
             var parametros = new Dictionary<string, object>();
-            parametros.Add("@nro_documento", persona.Documento);
-
+            parametros.Add("@nro_documento", dni_persona);
             var tablaDatosPerdidas = this.conexion.Ejecutar("dbo.LIC_GEN_GetDiasPerdidos", parametros);
 
-            //parametros.Add("@id_concepto_licencia", concepto.Id);
-            //var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetDiasPermitidos", parametros);
-            //List<VacacionesPermitidas> vaca_permitidas = ConstruirVacacionesPermitidas(tablaDatos);
+            return ConstruirVacacionesPerdidas(tablaDatosPerdidas);
+            
+        }
 
+        public List<VacacionesPermitidas> GetVacacionPermitidaDescontandoPerdidasPara(Persona persona, ConceptoDeLicencia concepto, List<VacacionesPermitidas> vaca_perdidas)
+        {
             List<VacacionesPermitidas> vaca_permitidas = GetVacasPermitidasPara(persona, concepto);
-            List<VacacionesPermitidas> vaca_perdidas = ConstruirVacacionesPerdidas(tablaDatosPerdidas);
+            vaca_perdidas.AddRange(VacacionesPerdidasDe(persona.Documento));
 
             return CalcularVacacionesPermitidasNoPerdidas(vaca_permitidas, vaca_perdidas);
         }
