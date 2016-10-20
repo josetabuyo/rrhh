@@ -38,25 +38,25 @@ public partial class FormulariosDeLicencia_CalculoDeLicenciaOrdinaria : System.W
 
     protected TableRow Header()
     {
-        var row = new TableRow();
+        var row = new TableHeaderRow();
 
-        var cell = new TableCell();
+        var cell = new TableHeaderCell();
         cell.Text = "Periodo";
         row.Cells.Add(cell);
 
-        cell = new TableCell();
+        cell = new TableHeaderCell();
         cell.Text = "Autorizados";
         row.Cells.Add(cell);
 
-        cell = new TableCell();
+        cell = new TableHeaderCell();
         cell.Text = "Utilizados";
         row.Cells.Add(cell);
 
-        cell = new TableCell();
+        cell = new TableHeaderCell();
         cell.Text = "Desde";
         row.Cells.Add(cell);
 
-        cell = new TableCell();
+        cell = new TableHeaderCell();
         cell.Text = "Hasta";
         row.Cells.Add(cell);
         
