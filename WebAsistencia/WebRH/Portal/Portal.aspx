@@ -131,7 +131,7 @@
                    <%-- <img src="../Imagenes/portal/bg_fav.png" alt="" width="199" height="199" class="circle"/>
                     <a href="#" class="icon"></a>
                 </div>--%>
-                <div id="btnViaticos" class="ch-item ch-img-1 item viaticos test">				
+                <div id="btnOrganigrama" class="ch-item ch-img-1 item viaticos test">				
 		            <div class="ch-info-wrap">
 			            <div class="ch-info">
 				            <div class="ch-info-front ch-img-1"></div>
@@ -189,6 +189,11 @@
                 $('#btnLicencias').click(function () {
                     window.location.href = 'Licencias.aspx';
                 });
+
+                $('#btnOrganigrama').click(function () {
+                    window.location.href = '../Protocolo/ConsultaLugaresDeTrabajo.aspx';
+                });
+                
             });
 
             /*$(function () {
