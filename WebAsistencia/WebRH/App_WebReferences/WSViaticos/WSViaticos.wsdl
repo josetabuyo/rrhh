@@ -1022,6 +1022,177 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetEstudios">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEstudiosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetEstudiosResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDatosPersonales">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDatosPersonalesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDatosPersonalesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFamiliares">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFamiliaresResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetFamiliaresResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLicenciasEnTramite">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLicenciasEnTramiteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetLicenciasEnTramiteResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLicenciasOrdinariasDisponibles">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLicenciasOrdinariasDisponiblesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetLicenciasOrdinariasDisponiblesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPsicofisicos">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPsicofisicosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPsicofisicosResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRecibo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="liquidacion" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReciboResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetReciboResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLiquidaciones">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="anio" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="mes" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLiquidacionesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetLiquidacionesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDesignaciones">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDesignacionesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDesignacionesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDesignacionActual">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDesignacionActualResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDesignacionActualResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDocumentosDelLegajo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDocumentosDelLegajoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDocumentosDelLegajoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetNombreDeLaPersona">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetNombreDeLaPersonaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetNombreDeLaPersonaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="ConsultaExcelDDJJ104_Persona">
         <s:complexType>
           <s:sequence>
@@ -6108,6 +6279,78 @@
   <wsdl:message name="SubirImagenSoapOut">
     <wsdl:part name="parameters" element="tns:SubirImagenResponse" />
   </wsdl:message>
+  <wsdl:message name="GetEstudiosSoapIn">
+    <wsdl:part name="parameters" element="tns:GetEstudios" />
+  </wsdl:message>
+  <wsdl:message name="GetEstudiosSoapOut">
+    <wsdl:part name="parameters" element="tns:GetEstudiosResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDatosPersonalesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDatosPersonales" />
+  </wsdl:message>
+  <wsdl:message name="GetDatosPersonalesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDatosPersonalesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFamiliaresSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFamiliares" />
+  </wsdl:message>
+  <wsdl:message name="GetFamiliaresSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFamiliaresResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetLicenciasEnTramiteSoapIn">
+    <wsdl:part name="parameters" element="tns:GetLicenciasEnTramite" />
+  </wsdl:message>
+  <wsdl:message name="GetLicenciasEnTramiteSoapOut">
+    <wsdl:part name="parameters" element="tns:GetLicenciasEnTramiteResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetLicenciasOrdinariasDisponiblesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetLicenciasOrdinariasDisponibles" />
+  </wsdl:message>
+  <wsdl:message name="GetLicenciasOrdinariasDisponiblesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetLicenciasOrdinariasDisponiblesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPsicofisicosSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPsicofisicos" />
+  </wsdl:message>
+  <wsdl:message name="GetPsicofisicosSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPsicofisicosResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetReciboSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRecibo" />
+  </wsdl:message>
+  <wsdl:message name="GetReciboSoapOut">
+    <wsdl:part name="parameters" element="tns:GetReciboResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetLiquidacionesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetLiquidaciones" />
+  </wsdl:message>
+  <wsdl:message name="GetLiquidacionesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetLiquidacionesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDesignacionesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDesignaciones" />
+  </wsdl:message>
+  <wsdl:message name="GetDesignacionesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDesignacionesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDesignacionActualSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDesignacionActual" />
+  </wsdl:message>
+  <wsdl:message name="GetDesignacionActualSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDesignacionActualResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentosDelLegajoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDocumentosDelLegajo" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentosDelLegajoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDocumentosDelLegajoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetNombreDeLaPersonaSoapIn">
+    <wsdl:part name="parameters" element="tns:GetNombreDeLaPersona" />
+  </wsdl:message>
+  <wsdl:message name="GetNombreDeLaPersonaSoapOut">
+    <wsdl:part name="parameters" element="tns:GetNombreDeLaPersonaResponse" />
+  </wsdl:message>
   <wsdl:message name="ConsultaExcelDDJJ104_PersonaSoapIn">
     <wsdl:part name="parameters" element="tns:ConsultaExcelDDJJ104_Persona" />
   </wsdl:message>
@@ -7701,6 +7944,54 @@
       <wsdl:input message="tns:SubirImagenSoapIn" />
       <wsdl:output message="tns:SubirImagenSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetEstudios">
+      <wsdl:input message="tns:GetEstudiosSoapIn" />
+      <wsdl:output message="tns:GetEstudiosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDatosPersonales">
+      <wsdl:input message="tns:GetDatosPersonalesSoapIn" />
+      <wsdl:output message="tns:GetDatosPersonalesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFamiliares">
+      <wsdl:input message="tns:GetFamiliaresSoapIn" />
+      <wsdl:output message="tns:GetFamiliaresSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLicenciasEnTramite">
+      <wsdl:input message="tns:GetLicenciasEnTramiteSoapIn" />
+      <wsdl:output message="tns:GetLicenciasEnTramiteSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLicenciasOrdinariasDisponibles">
+      <wsdl:input message="tns:GetLicenciasOrdinariasDisponiblesSoapIn" />
+      <wsdl:output message="tns:GetLicenciasOrdinariasDisponiblesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPsicofisicos">
+      <wsdl:input message="tns:GetPsicofisicosSoapIn" />
+      <wsdl:output message="tns:GetPsicofisicosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRecibo">
+      <wsdl:input message="tns:GetReciboSoapIn" />
+      <wsdl:output message="tns:GetReciboSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLiquidaciones">
+      <wsdl:input message="tns:GetLiquidacionesSoapIn" />
+      <wsdl:output message="tns:GetLiquidacionesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDesignaciones">
+      <wsdl:input message="tns:GetDesignacionesSoapIn" />
+      <wsdl:output message="tns:GetDesignacionesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDesignacionActual">
+      <wsdl:input message="tns:GetDesignacionActualSoapIn" />
+      <wsdl:output message="tns:GetDesignacionActualSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentosDelLegajo">
+      <wsdl:input message="tns:GetDocumentosDelLegajoSoapIn" />
+      <wsdl:output message="tns:GetDocumentosDelLegajoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNombreDeLaPersona">
+      <wsdl:input message="tns:GetNombreDeLaPersonaSoapIn" />
+      <wsdl:output message="tns:GetNombreDeLaPersonaSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="ConsultaExcelDDJJ104_Persona">
       <wsdl:input message="tns:ConsultaExcelDDJJ104_PersonaSoapIn" />
       <wsdl:output message="tns:ConsultaExcelDDJJ104_PersonaSoapOut" />
@@ -8999,6 +9290,114 @@
     </wsdl:operation>
     <wsdl:operation name="SubirImagen">
       <soap:operation soapAction="http://wsviaticos.gov.ar/SubirImagen" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEstudios">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetEstudios" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDatosPersonales">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetDatosPersonales" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFamiliares">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetFamiliares" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLicenciasEnTramite">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetLicenciasEnTramite" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLicenciasOrdinariasDisponibles">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetLicenciasOrdinariasDisponibles" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPsicofisicos">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetPsicofisicos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRecibo">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetRecibo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLiquidaciones">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetLiquidaciones" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDesignaciones">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetDesignaciones" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDesignacionActual">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetDesignacionActual" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentosDelLegajo">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetDocumentosDelLegajo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNombreDeLaPersona">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetNombreDeLaPersona" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -11504,6 +11903,114 @@
     </wsdl:operation>
     <wsdl:operation name="SubirImagen">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/SubirImagen" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEstudios">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetEstudios" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDatosPersonales">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetDatosPersonales" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFamiliares">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetFamiliares" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLicenciasEnTramite">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetLicenciasEnTramite" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLicenciasOrdinariasDisponibles">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetLicenciasOrdinariasDisponibles" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPsicofisicos">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetPsicofisicos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRecibo">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetRecibo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLiquidaciones">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetLiquidaciones" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDesignaciones">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetDesignaciones" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDesignacionActual">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetDesignacionActual" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentosDelLegajo">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetDocumentosDelLegajo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNombreDeLaPersona">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetNombreDeLaPersona" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

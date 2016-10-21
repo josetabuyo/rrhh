@@ -7,7 +7,7 @@
     <link id="link1" rel="stylesheet" href="<%= UrlEstilos %>EstilosBarraMenu.css" type="text/css" />
 </head>
 
-<div id= "barra_menu_contenedor">
+<div id= "barra_menu_contenedor" class="no-print">
         <div id="contenedor_imagen">
             <div id="barra_menu_contenedor_imagen">
             <% if (Feature != ""){%> 

@@ -93,6 +93,18 @@ namespace General.Repositorios
             return this.GetFloat(campo);
         }
 
+        public decimal GetDecimal(string campo)
+        {
+            var valor_decimal = (decimal)dataRow[campo];
+            return (decimal)valor_decimal;
+        }
+
+        public decimal GetDecimal(string campo, decimal default_if_null)
+        {
+            if (this.GetObject(campo) is DBNull) return default_if_null;
+            return this.GetDecimal(campo);
+        }
+
         public Image GetImage(string campo)
         {
             var bytes = (byte[])dataRow[campo];
