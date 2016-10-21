@@ -191,8 +191,10 @@
             DataKeyNames="id,verificacion" CssClass="table table-striped table-bordered table-condensed table-hover"
             OnRowDataBound="GridViewBienes_RowDataBound">
             <Columns>
+            
+                <asp:BoundField DataField="ubicacion" HeaderText="Lugar"></asp:BoundField>
                 <asp:BoundField DataField="descripcion" HeaderText="Bien"></asp:BoundField>
-                <asp:BoundField DataField="ubicacion" HeaderText="Ubicación" />
+                <asp:BoundField DataField="estado" HeaderText="Estado" />
                 <asp:TemplateField HeaderText="" />
             </Columns>
         </asp:GridView>

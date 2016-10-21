@@ -87,7 +87,7 @@ public partial class MoBi_Bienes : System.Web.UI.Page
     protected void GridViewBienes_RowDataBound(object sender, GridViewRowEventArgs e)
     {
         GridViewRow row = e.Row;
-        var indexRowBtn = 2;
+        var indexRowBtn = 3;
         if (row.RowType == DataControlRowType.DataRow)
         {
             row.Attributes["id"] = "row_" + row.RowIndex.ToString();

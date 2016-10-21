@@ -143,6 +143,7 @@ namespace General.Repositorios
                 bien.Descripcion = dr.GetString(dr.GetOrdinal("descripcion"));
                 bien.Ubicacion = dr.GetString(dr.GetOrdinal("ubicacion"));
                 bien.Verificacion = dr.GetString(dr.GetOrdinal("verificacion"));
+                bien.Estado = dr.GetString(dr.GetOrdinal("estado"));
                 lb.Add(bien);
             }
             dr.Close(); dr.Dispose(); dr = null;
