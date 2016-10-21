@@ -187,10 +187,33 @@ namespace General.Repositorios
             throw new NotImplementedException();
         }
 
+        public void CachearTipoDePlantaDe(string nros_documento)
+        {
+
+            CacheTiposDePlantaActual = new Dictionary<int, TipoDePlanta>();
+            SqlDataReader dr;
+
+            ConexionDB cn = new ConexionDB("[dbo].[Web_GetTipoDePlantaDePersonas]");
+            cn.AsignarParametro("@Documentos", nros_documento);
+            dr = cn.EjecutarConsulta();
+            
+            TipoDePlanta planta = null;
+
+            while (dr.Read())
+            {
+                CacheTiposDePlantaActual.Add(dr.GetInt32(dr.GetOrdinal("documento")),TipoDePlantaFromDR(dr, planta));
+            }
+        }
 
         public TipoDePlanta GetTipoDePlantaActualDe(Persona unaPersona)
         {
             SqlDataReader dr;
+
+            if (EstaCacheadoGetTipoDePlantaActualDe(unaPersona))
+            {
+                return CacheTiposDePlantaActual[unaPersona.Documento];
+            }
+
             ConexionDB cn = new ConexionDB("[dbo].[Web_GetTipoDePlantaDePersona]");
             cn.AsignarParametro("@Documento", unaPersona.Documento);
             dr = cn.EjecutarConsulta();
@@ -200,16 +223,31 @@ namespace General.Repositorios
             //FC: antes solo devolvia el tipo de planta comun con el id que trae del sp
             if (dr.Read())
             {
-                //planta = new TipoDePlanta {Id = dr.GetInt16(dr.GetOrdinal("idPlanta"))};
-                if (dr.GetInt16(dr.GetOrdinal("idPlanta")) == 22)
-                {
-                    planta = new TipoDePlantaContratado();
-                }
-                else { 
-                    planta = new TipoDePlantaGeneral(dr.GetInt16(dr.GetOrdinal("idPlanta")),"Planta Permanente", new RepositorioLicencias(conexion));
-                }
+                planta = TipoDePlantaFromDR(dr, planta);
             }
             return planta;
+        }
+
+        private TipoDePlanta TipoDePlantaFromDR(SqlDataReader dr, TipoDePlanta planta)
+        {
+            //planta = new TipoDePlanta {Id = dr.GetInt16(dr.GetOrdinal("idPlanta"))};
+            if (dr.GetInt16(dr.GetOrdinal("idPlanta")) == 22)
+            {
+                planta = new TipoDePlantaContratado();
+            }
+            else
+            {
+                planta = new TipoDePlantaGeneral(dr.GetInt16(dr.GetOrdinal("idPlanta")), "Planta Permanente", new RepositorioLicencias(conexion));
+            }
+            return planta;
+        }
+
+
+        Dictionary<int, TipoDePlanta> CacheTiposDePlantaActual;
+        protected bool EstaCacheadoGetTipoDePlantaActualDe(Persona unaPersona)
+        {
+            if (CacheTiposDePlantaActual == null) return false;
+            return CacheTiposDePlantaActual.ContainsKey(unaPersona.Documento);
         }
 
         public string GetConsultaRapida(int documento) {

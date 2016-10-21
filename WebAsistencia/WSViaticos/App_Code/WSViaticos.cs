@@ -78,7 +78,19 @@ public class WSViaticos : System.Web.Services.WebService
     public AnalisisDeLicenciaOrdinaria GetAnalisisLicenciaOrdinaria(Persona persona)
     {
         var ordinaria = new ConceptoLicenciaAnualOrdinaria();
-        var analisis = ordinaria.GetAnalisisCalculoVacacionesPara(RepoLicencias(), RepositorioDePersonas(), persona, DateTime.Now);
+        var analisis = new AnalisisDeLicenciaOrdinaria();
+        var begin_time = DateTime.Now;
+        var repo_licencias = RepoLicencias();
+        var repo_personas = RepositorioDePersonas();
+
+        repo_licencias.CachearVacacionesAprobadasPara("," + persona.Documento + ",", new ConceptoLicenciaAnualOrdinaria());
+        repo_personas.CachearTipoDePlantaDe("," + persona.Documento + ",");
+
+//        for (int i = 0; i < 5; i++)
+//        {
+            analisis = ordinaria.GetAnalisisCalculoVacacionesPara(repo_licencias, repo_personas, persona, DateTime.Now);    
+//        }
+        var tiempo = DateTime.Now - begin_time;
 
         return analisis;
     }

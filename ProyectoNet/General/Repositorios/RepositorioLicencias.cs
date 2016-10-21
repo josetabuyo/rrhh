@@ -318,19 +318,54 @@ namespace General.Repositorios
             return ConstruirVacacionesAprobadas(tablaDatos);
         }
 
-        public List<VacacionesAprobadas> GetVacacionesAprobadasPara(Persona persona, ConceptoDeLicencia concepto)
-        {
+        Dictionary<int, List<VacacionesAprobadas>> CacheVacacionesAprobadas;
+        public void CachearVacacionesAprobadasPara(string nros_documento, ConceptoDeLicencia concepto) {
+            CacheVacacionesAprobadas = new Dictionary<int, List<VacacionesAprobadas>>();
+
             var parametros = new Dictionary<string, object>();
 
+            parametros.Add("@nros_documento", nros_documento);
+            parametros.Add("@id_concepto_licencia", concepto.Id);
+
+            var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetVariosDiasAprobados", parametros);
+
+            var vacasAprobadas = ConstruirVacacionesAprobadas(tablaDatos);
+            vacasAprobadas.ForEach(vaca =>
+            {
+                AddToCache(vaca.Persona.Documento, vaca);
+            });
+        }
+
+        protected void AddToCache(int dni, VacacionesAprobadas vaca)
+        {
+            if (!CacheVacacionesAprobadas.ContainsKey(dni))
+            {
+                CacheVacacionesAprobadas.Add(dni, new List<VacacionesAprobadas>());
+            }
+            CacheVacacionesAprobadas[dni].Add(vaca);
+        }
+
+        protected bool EstaCacheadoVacacionesAprobadas(Persona unaPersona)
+        {
+            if (CacheVacacionesAprobadas == null) return false;
+            return CacheVacacionesAprobadas.ContainsKey(unaPersona.Documento);
+        }
+
+        public List<VacacionesAprobadas> GetVacacionesAprobadasPara(Persona persona, ConceptoDeLicencia concepto)
+        {
+            if (EstaCacheadoVacacionesAprobadas(persona))
+            {
+                return CacheVacacionesAprobadas[persona.Documento];
+            }
+
+            var parametros = new Dictionary<string, object>();
 
             parametros.Add("@nro_documento", persona.Documento);
             parametros.Add("@id_concepto_licencia", concepto.Id);
 
-
             var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetDiasAprobados", parametros);
 
             return ConstruirVacacionesAprobadas(tablaDatos);
-
         }
 
         protected List<VacacionesAprobadas> ConstruirVacacionesAprobadas(TablaDeDatos tablaDatos)
