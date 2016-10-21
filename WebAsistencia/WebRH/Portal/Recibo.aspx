@@ -7,7 +7,7 @@
     <head id="Head1" runat="server">
         <title>Portal RRHH</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <meta name="viewport" content="width=device-width">
+        <meta name="viewport" content="width=device-width"/>
         <!-- CSS media query on a link element -->
          <%= Referencias.Css("../")%>
 
@@ -26,15 +26,10 @@
             <%--<p class="">Dirección de Diseño y Desarrollo Organizacional para la Gestión de Personas, Dirección de Recursos Humanos y 
          Organización, Secretaría de Coordinación y Monitoreo Institucional, Unidad Ministro, Ministerio de Desarrollo Social </p>--%>
          <div  style="margin:10px;">
-         <p>Seleccione año y mes para ver las liquidaciones correspondientes. Luego, elija la liquidación para ver el recibo.</p>
+         <p>Seleccione año y mes para ver los recibos de sueldos correspondientes:</p>
              <select style="width:60px;" id="cmb_anio">
                 <option value="2016">2016</option>
                 <option value="2015">2015</option>
-                <option value="2014">2014</option>
-                <option value="2013">2013</option>
-                <option value="2012">2012</option>
-                <option value="2011">2011</option>
-                <option value="2010">2010</option>
              </select>
              <select style="width:100px;" id="cmb_meses">
                 <option value="1">Enero</option>
@@ -115,23 +110,26 @@
     </form>
 </body>
 <script type="text/javascript" src="Legajo.js"></script>
+<script type="text/javascript" src="../Scripts/Spin.js"></script>
 <script type="text/javascript" >
 
     $(document).ready(function ($) {
         //para cargar el menu izquierdo 
-        $(".caja_izq").load("SeccionIzquierda.htm");
+        $(".caja_izq").load("SeccionIzquierda.htm", function () {
+            Backend.start(function () {
+                Legajo.getNombre();
 
-        Backend.start(function () {
-            Legajo.bindearBotonLiquidacion();
+                Legajo.bindearBotonLiquidacion();
 
-            $("#tabla_recibo_encabezado").hide();
-            var day = new Date();
-            var mes = day.getMonth();
-            $("#cmb_meses").val(mes).trigger('change'); ;
+                $("#tabla_recibo_encabezado").hide();
+                var day = new Date();
+                var mes = day.getMonth() + 1;
+                var anio = day.getFullYear();
 
-            
-            //Legajo.getReciboDeSueldo();
 
+                $("#cmb_anio").trigger('change');
+                $("#cmb_meses").val(mes).trigger('change');
+            });
         });
 
     });

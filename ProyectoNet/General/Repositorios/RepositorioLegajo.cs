@@ -281,7 +281,37 @@ namespace General.Repositorios
             }
 
             return cabeceraRecibo;
-        } 
+        }
+
+
+        public string getDocumentosLegajo(string legajo)
+        {
+            {
+                var parametros = new Dictionary<string, object>();
+                parametros.Add("@id", legajo);
+                parametros.Add("@legajo", legajo);
+                var tablaDatos = conexion.Ejecutar("dbo.LEG_GET_Indice_Documentos", parametros);
+                var list_de_documentos = new List<Object> { };
+
+                if (tablaDatos.Rows.Count > 0)
+                {
+                    tablaDatos.Rows.ForEach(row =>
+                    {
+                        list_de_documentos.Add(new
+                        {
+                            Id = row.GetInt("id", 0),
+                            Nombre = row.GetString("TIPO", "Sin información"),
+                            Folio = row.GetString("FOLIO", "Sin información")
+
+                        });
+                    });
+
+                }
+
+                return JsonConvert.SerializeObject(list_de_documentos);
+            }
+        }
+
 
         public string getDesignaciones(int doc)
         {

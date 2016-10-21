@@ -1025,7 +1025,6 @@
       <s:element name="GetEstudios">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="doc" type="s:int" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
@@ -1163,6 +1162,34 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="GetDesignacionActualResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDocumentosDelLegajo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDocumentosDelLegajoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDocumentosDelLegajoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetNombreDeLaPersona">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetNombreDeLaPersonaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetNombreDeLaPersonaResult" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -6311,6 +6338,18 @@
   <wsdl:message name="GetDesignacionActualSoapOut">
     <wsdl:part name="parameters" element="tns:GetDesignacionActualResponse" />
   </wsdl:message>
+  <wsdl:message name="GetDocumentosDelLegajoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDocumentosDelLegajo" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentosDelLegajoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDocumentosDelLegajoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetNombreDeLaPersonaSoapIn">
+    <wsdl:part name="parameters" element="tns:GetNombreDeLaPersona" />
+  </wsdl:message>
+  <wsdl:message name="GetNombreDeLaPersonaSoapOut">
+    <wsdl:part name="parameters" element="tns:GetNombreDeLaPersonaResponse" />
+  </wsdl:message>
   <wsdl:message name="ConsultaExcelDDJJ104_PersonaSoapIn">
     <wsdl:part name="parameters" element="tns:ConsultaExcelDDJJ104_Persona" />
   </wsdl:message>
@@ -7944,6 +7983,14 @@
       <wsdl:input message="tns:GetDesignacionActualSoapIn" />
       <wsdl:output message="tns:GetDesignacionActualSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetDocumentosDelLegajo">
+      <wsdl:input message="tns:GetDocumentosDelLegajoSoapIn" />
+      <wsdl:output message="tns:GetDocumentosDelLegajoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNombreDeLaPersona">
+      <wsdl:input message="tns:GetNombreDeLaPersonaSoapIn" />
+      <wsdl:output message="tns:GetNombreDeLaPersonaSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="ConsultaExcelDDJJ104_Persona">
       <wsdl:input message="tns:ConsultaExcelDDJJ104_PersonaSoapIn" />
       <wsdl:output message="tns:ConsultaExcelDDJJ104_PersonaSoapOut" />
@@ -9332,6 +9379,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetDesignacionActual">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetDesignacionActual" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentosDelLegajo">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetDocumentosDelLegajo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNombreDeLaPersona">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetNombreDeLaPersona" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -11927,6 +11992,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetDesignacionActual">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetDesignacionActual" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentosDelLegajo">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetDocumentosDelLegajo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNombreDeLaPersona">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetNombreDeLaPersona" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

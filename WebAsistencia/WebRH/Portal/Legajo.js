@@ -1,20 +1,24 @@
-﻿var Legajo = {
+﻿var spinner;
+var mes;
+
+var Legajo = {
     init: function () {
 
     },
     getEstudios: function () {
-        var data = JSON.stringify({
-            doc: 123
-        });
+        var spinner = new Spinner({ scale: 2 });
+        spinner.spin($("html")[0]);
 
-        Backend.GetEstudios(123)
+        Backend.GetEstudios()
             .onSuccess(function (estudiosJSON) {
+
+                spinner.stop();
 
                 var estudios = JSON.parse(estudiosJSON);
 
                 var _this = this;
-                $("#tabla").empty();
-                var divGrilla = $("#tabla");
+                $("#tabla_estudios").empty();
+                var divGrilla = $("#tabla_estudios");
                 //var tabla = resultado;
                 var columnas = [];
 
@@ -51,10 +55,13 @@
 
             })
             .onError(function (e) {
-
+                spinner.stop();
             });
     },
     getDatosPersonales: function () {
+        var spinner = new Spinner({ scale: 2 });
+        spinner.spin($("html")[0]);
+
         Backend.GetDatosPersonales()
             .onSuccess(function (datos) {
 
@@ -76,10 +83,11 @@
 
                 }
 
+                spinner.stop();
 
             })
             .onError(function (e) {
-
+                spinner.stop();
             });
 
     },
@@ -118,9 +126,12 @@
 
     },
     getPsicofisicos: function () {
+        var spinner = new Spinner({ scale: 2 });
+        spinner.spin($("html")[0]);
 
         Backend.GetPsicofisicos()
             .onSuccess(function (psicofisicosJSON) {
+                spinner.stop();
 
                 var psicofisicos = JSON.parse(psicofisicosJSON);
 
@@ -146,7 +157,7 @@
 
             })
             .onError(function (e) {
-
+                spinner.stop();
             });
 
 
@@ -154,6 +165,8 @@
     },
 
     getDatosLicencias: function () {
+        var spinner = new Spinner({ scale: 2 });
+        spinner.spin($("html")[0]);
 
         Backend.GetLicenciasEnTramite()
                     .onSuccess(function (licenciasJSON) {
@@ -175,6 +188,8 @@
                         _this.Grilla.CargarObjetos(licencias);
                         _this.Grilla.DibujarEn(divGrilla);
                         $('.table-hover').removeClass("table-hover");
+
+
                     })
                     .onError(function (e) {
 
@@ -199,9 +214,11 @@
                         _this.Grilla.CargarObjetos(licencias);
                         _this.Grilla.DibujarEn(divGrilla);
                         $('.table-hover').removeClass("table-hover");
+
+                        spinner.stop();
                     })
                     .onError(function (e) {
-
+                        spinner.stop();
                     });
 
     },
@@ -215,11 +232,16 @@
     },
 
     getReciboDeSueldo: function (liquidacion) {
+        var spinner = new Spinner({ scale: 2 });
+        spinner.spin($("html")[0]);
+
         Backend.GetRecibo(liquidacion)
             .onSuccess(function (reciboJSON) {
+                spinner.stop();
+
                 $("#tabla_recibo_encabezado tbody tr").remove();
                 $("#tabla_recibo_encabezado").show();
-
+                $("#bloque_final").show();
 
                 var recibo = JSON.parse(reciboJSON);
                 var detalle = "";
@@ -255,18 +277,45 @@
 
             })
             .onError(function (e) {
-
+                spinner.stop();
             });
     },
     bindearBotonLiquidacion: function () {
         var _this = this;
+
+
+        var btn_combo_anio = $('#cmb_anio').change(function () {
+            var anio_combo = $("#cmb_anio option:selected").val();
+            var day = new Date();
+            mes = day.getMonth();
+            var anio = day.getFullYear();
+
+            //borro lo meses que no estan vigentes para este año
+            if (anio_combo == anio) {
+                $("#cmb_meses option").each(function () {
+                    if (mes <= $(this).val()) {
+                        $(this).attr('disabled', 'disabled');
+                    }
+                });
+            } else {
+                $("#cmb_meses option").each(function () {
+                    $(this).removeAttr('disabled');
+                });
+            }
+        });
+
         var btn = $('#cmb_meses').change(function () {
             $("#tabla_recibo_encabezado tbody tr").remove();
+            $("#tabla_recibo_encabezado").hide();
+            $("#bloque_final").hide();
+
             var anio = $("#cmb_anio option:selected").val();
-            var mes = $("#cmb_meses option:selected").val();
+            mes = $("#cmb_meses option:selected").val() - 1;
             var div_controles = $("#caja_controles");
             div_controles.empty();
 
+            var spinner = new Spinner({ scale: 2 });
+            spinner.spin($("html")[0]);
 
             Backend.GetLiquidaciones(anio, mes)
                     .onSuccess(function (liquidacionesJSON) {
@@ -277,7 +326,25 @@
 
                             for (var i = 0; i < liquidaciones.length; i++) {
 
-                                var radio = "<input style='margin-left:10px' type='radio' name='liquidacion' value='" + liquidaciones[i].Id + "'/> " + liquidaciones[i].Descripcion;
+                                var texto_extra;
+
+                                if (liquidaciones[i].Descripcion.toLowerCase().indexOf("extras") >= 0) {
+                                    var mes_cobrado_valor = mes + 1;
+                                    var mes_cobrado_texto = $("#cmb_meses option[value=" + mes_cobrado_valor + "]").text();
+                                    var mes_liquidado_valor = mes - 1;
+                                    var mes_liquidado_texto = $("#cmb_meses option[value=" + mes_liquidado_valor + "]").text();
+
+                                    texto_extra = "(cobrado a principios del mes de " + mes_cobrado_texto + ", liquidación de " + mes_liquidado_texto + ")";
+                                } else {
+                                    var mes_cobrado_valor = mes + 1;
+                                    var mes_cobrado_texto = $("#cmb_meses option[value=" + mes_cobrado_valor + "]").text();
+                                    var mes_liquidado_valor = mes;
+                                    var mes_liquidado_texto = $("#cmb_meses option[value=" + mes_liquidado_valor + "]").text();
+
+                                    texto_extra = "(cobrado a principios del mes de " + mes_cobrado_texto + ", liquidación de " + mes_liquidado_texto + ")";
+                                }
+
+                                var radio = "<input style='margin-left:10px' type='radio' name='liquidacion' value='" + liquidaciones[i].Id + "'/> " + liquidaciones[i].Descripcion + ' ' + texto_extra + "<br/>";
                                 div_controles.append(radio);
 
                             }
@@ -287,19 +354,21 @@
                                 _this.getReciboDeSueldo(liquidacion);
                             });
 
-
+                            spinner.stop();
                         }
 
 
                     })
                     .onError(function (e) {
-
+                        spinner.stop();
                     });
 
         });
 
     },
     GetDatosDesignaciones: function () {
+        var spinner = new Spinner({ scale: 2 });
+        spinner.spin($("html")[0]);
 
         Backend.GetDesignacionActual()
                     .onSuccess(function (designacionJSON) {
@@ -340,9 +409,55 @@
                         _this.Grilla.CargarObjetos(designaciones);
                         _this.Grilla.DibujarEn(divGrilla);
                         $('.table-hover').removeClass("table-hover");
+
+                        spinner.stop();
                     })
                     .onError(function (e) {
-
+                        spinner.stop();
                     });
+    },
+    getDocumentos: function () {
+        var spinner = new Spinner({ scale: 2 });
+        spinner.spin($("html")[0]);
+
+        Backend.GetDocumentosDelLegajo()
+            .onSuccess(function (documentosJSON) {
+
+                spinner.stop();
+
+                var documentos = JSON.parse(documentosJSON);
+
+                var _this = this;
+                $("#tabla_documentos").empty();
+                var divGrilla = $("#tabla_documentos");
+                //var tabla = resultado;
+                var columnas = [];
+
+                columnas.push(new Columna("Documento", { generar: function (un_documento) { return un_documento.Nombre } }));
+                columnas.push(new Columna("Folio", { generar: function (un_documento) { return un_documento.Folio } }));
+
+
+                _this.Grilla = new Grilla(columnas);
+                _this.Grilla.SetOnRowClickEventHandler(function (un_documento) { });
+                _this.Grilla.CambiarEstiloCabecera("estilo_tabla_portal");
+                _this.Grilla.CargarObjetos(documentos);
+                _this.Grilla.DibujarEn(divGrilla);
+                $('.table-hover').removeClass("table-hover");
+
+
+            })
+            .onError(function (e) {
+                spinner.stop();
+            });
+    },
+    getNombre: function () {
+        Backend.GetNombreDeLaPersona()
+        .onSuccess(function (nombre) {
+            $("#nombre_empleado").html(nombre);
+           
+        })
+        .onError(function (e) {
+
+        });
     }
 }

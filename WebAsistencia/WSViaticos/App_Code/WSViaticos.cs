@@ -3911,7 +3911,7 @@ public class WSViaticos : System.Web.Services.WebService
     #region Portal
 
     [WebMethod]
-    public string GetEstudios(int doc, Usuario usuario)
+    public string GetEstudios(Usuario usuario)
     {
         RepositorioLegajo repo = RepoLegajo();
 
@@ -4000,6 +4000,22 @@ public class WSViaticos : System.Web.Services.WebService
     {
 
         return RepositorioDePersonas().GetConsultaRapida(usuario.Owner.Documento);
+
+    }
+
+    [WebMethod]
+    public string GetDocumentosDelLegajo(Usuario usuario)
+    {
+
+        return RepoLegajo().getDocumentosLegajo(usuario.Owner.Legajo);
+
+    }
+
+    [WebMethod]
+    public string GetNombreDeLaPersona(Usuario usuario)
+    {
+
+        return usuario.Owner.Apellido + ", " + usuario.Owner.Nombre;
 
     }
 
