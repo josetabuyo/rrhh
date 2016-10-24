@@ -222,13 +222,34 @@ var Legajo = {
                     });
 
     },
-
     ConvertirAMonedaOVacio: function (numero) {
+                    var _this = this;
+                    if (numero == null) {
+                        return "";
+                    }
+                    var _this = this;
+                    if (numero == 0) return "";
+                    return '$ ' + _this.ConvertirANumeroConPuntos(numero.toFixed(2).toString().replace(".", ","));
+
         if (numero == "0") {
             return "";
         } else {
             return "$ " + numero;
         }
+    },
+    ConvertirANumeroConPuntos: function (n) {
+
+        if (n == null) {
+            return "";
+        }
+
+        n = n.toString()
+        while (true) {
+            var n2 = n.replace(/(\d)(\d{3})($|,|\.)/g, '$1.$2$3')
+            if (n == n2) break
+            n = n2
+        }
+        return n;
     },
 
     getReciboDeSueldo: function (liquidacion) {
@@ -269,8 +290,8 @@ var Legajo = {
 
                 }
 
-                detalle += "<tr style='border-bottom:none;' class='ultima_fila'><td style='border: none;'></td><td style='border: none;'></td><td class='celda_bruto_nombre'><strong>Bruto:</strong></td><td class='celda_bruto'> $ " + recibo.Cabecera.Bruto + "</td><td class=''> $ " + recibo.Cabecera.Descuentos + "</td></tr>";
-                detalle += "<tr style='border:none;' class='ultima_fila'><td style='border: none;'></td><td style='border: none;'></td><td class='celda_neto'><strong>Neto:</strong></td><td class='celda_importe_neto' colspan='2'><strong>$ " + recibo.Cabecera.Neto + "</strong></td></tr>";
+                detalle += "<tr style='border-bottom:none;' class='ultima_fila'><td style='border: none;'></td><td style='border: none;'></td><td class='celda_bruto_nombre'><strong>Bruto:</strong></td><td class='celda_bruto'>" + Legajo.ConvertirAMonedaOVacio(parseInt(recibo.Cabecera.Bruto)) + "</td><td class=''> " + Legajo.ConvertirAMonedaOVacio(parseInt(recibo.Cabecera.Descuentos)) + "</td></tr>";
+                detalle += "<tr style='border:none;' class='ultima_fila'><td style='border: none;'></td><td style='border: none;'></td><td class='celda_neto'><strong>Neto:</strong></td><td class='celda_importe_neto' colspan='2'><strong>" + Legajo.ConvertirAMonedaOVacio(parseInt(recibo.Cabecera.Neto)) + "</strong></td></tr>";
 
                 $("#tabla_recibo_encabezado > tbody ").append(detalle);
 
