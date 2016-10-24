@@ -13,9 +13,10 @@ namespace General.Repositorios
         //System.Collections.Generic.List<General.VacacionesPermitidas> GetVacacionesPermitidas( System.Collections.Generic.List<General.Persona> personas, System.Collections.Generic.List<General.Periodo> periodos );
         List<VacacionesPermitidas> GetVacacionesPermitidas();
         List<VacacionesPermitidas> GetVacacionPermitidaPara(Persona persona, Periodo periodo, Licencia licencia);
+        List<VacacionesPermitidas> GetVacasPermitidasPara(Persona persona, ConceptoDeLicencia concepto);
         List<VacacionesAprobadas> GetVacacionesAprobadasPara(Persona persona);
 
-        List<VacacionesPermitidas> GetVacacionPermitidaPara(Persona persona, ConceptoDeLicencia concepto);
+        List<VacacionesPermitidas> GetVacacionPermitidaDescontandoPerdidasPara(Persona persona, ConceptoDeLicencia concepto, List<VacacionesPermitidas> perdidas);
         List<VacacionesPermitidas> GetVacacionPermitidaPara(Periodo periodo, Licencia licencia);
 
         List<VacacionesAprobadas> GetVacacionesAprobadasPara(Persona persona, ConceptoDeLicencia concepto);
@@ -24,6 +25,8 @@ namespace General.Repositorios
         List<VacacionesPendientesDeAprobacion> GetVacacionesPendientesPara(Persona persona);
 
         ProrrogaLicenciaOrdinaria CargarDatos(ProrrogaLicenciaOrdinaria unaProrroga);
-        
+
+        List<VacacionesPermitidas> VacacionesPerdidasDe(int documento);
+        int GetProrrogaPlantaGeneral(int anio_calculo);
     }
 }

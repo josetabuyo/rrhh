@@ -40,33 +40,53 @@
                     <p class=""><label class="item_cajita">Domicilio: </label><span id="domicilio"></span></p>
                  </div>
                 <legend style="margin-top: 20px;">DATOS FAMILIARES</legend>
-                  <div id="tabla_familiar">
+                    <div id="tabla_familiar">
     
-                </div>
+                    </div>
                    
                     <legend style="margin-top: 50px;">EXÁMENES PSICOFÍSICOS</legend>
                     <table id="tabla_psicofisicos" class="table table-striped table-bordered table-condensed">
                         
                     </table>
 
+                    <legend style="margin-top: 20px;">ESTUDIOS</legend>
+
+                    <div id="tabla_estudios">
+    
+                    </div>
+
                 </div>
                
+            </div>
+        </div>
+
+         <div class="cajaEstudioOculta">
+            <img src="../Imagenes/diploma.png" class="img_caja_estudio" alt="diploma" />
+            <div class="div_dentro_de_caja_estudio" >
+                <p><span class="titulo"></span> (<span class="nivel"></span>)</p>
+                <p>Fecha Egreso: <span class="fecha"></span> </p>
             </div>
         </div>
 
     </form>
 </body>
 <script type="text/javascript" src="Legajo.js"></script>
+<script type="text/javascript" src="../Scripts/Spin.js"></script>
 <script type="text/javascript" >
 
     $(document).ready(function ($) {
         //para cargar el menu izquierdo 
-        $(".caja_izq").load("SeccionIzquierda.htm");
-        Backend.start(function () {
-            Legajo.getDatosPersonales();
-            Legajo.getDatosFamiliares();
-            Legajo.getPsicofisicos();
+        $(".caja_izq").load("SeccionIzquierda.htm", function() {
+            Backend.start(function () {
+                Legajo.getNombre();
+                Legajo.getDatosPersonales();
+                Legajo.getDatosFamiliares();
+                Legajo.getPsicofisicos();
+                Legajo.getEstudios();
+            });
         });
+
+        
 
     });
 

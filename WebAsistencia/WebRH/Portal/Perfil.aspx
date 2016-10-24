@@ -49,15 +49,17 @@
     </form>
 </body>
 <script type="text/javascript" src="Legajo.js"></script>
+<script type="text/javascript" src="../Scripts/Spin.js"></script>
 <script type="text/javascript" >
 
     $(document).ready(function ($) {
 
         //para cargar el menu izquierdo 
-        $(".caja_izq").load("SeccionIzquierda.htm");
-
-        Backend.start(function () {
-            Legajo.GetDatosDesignaciones();
+        $(".caja_izq").load("SeccionIzquierda.htm", function () {
+            Backend.start(function () {
+                Legajo.getNombre();
+                Legajo.GetDatosDesignaciones();
+            });
         });
         
     });

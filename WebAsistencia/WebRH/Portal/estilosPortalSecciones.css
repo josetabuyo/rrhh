@@ -4,10 +4,12 @@
 
 ul {
 	list-style: none;
+	margin:0px;
+	margin-top: 20px;
 }
 
 ul li:before {
-	content: "\00BB \0020";
+	/*content: "\00BB \0020";*/
 }
 
  .caja_izq 
@@ -15,11 +17,18 @@ ul li:before {
     color:#f4efe9; 
     /*background:#413f40; */
     background:#003e67;
-           
+    min-width: 155px;
     width:18%; 
     display:inline-block; 
     min-height:600px;
     float:left;
+}
+
+.icon_menu_izq 
+{
+  margin-right: 10px;
+  width:40px;
+  height:40px;
 }
         
 .caja_der 
@@ -49,6 +58,7 @@ ul li:before {
 .div_texto_caja_izq > ul > li > a
 {
     color:#fff;
+    text-decoration:none;
     }
         
 #apellido
@@ -59,7 +69,7 @@ ul li:before {
         
 #nombre 
 {
-    color: #f9f4ee;
+    color: #fff;
     font-size: 1.8em;
 }
         
@@ -78,6 +88,15 @@ hr
     text-align:left; 
     margin-left:20px;
 }
+
+.div_texto_caja_izq ul li
+{
+    font-size: 1.4em;
+    line-height: 28px;
+    margin-bottom:5px;
+}
+
+    
         
 .h3_caja_izq 
 {
@@ -207,10 +226,10 @@ legend {
 {
     /*background: url('../Imagenes/portal/recibo3.jpg') no-repeat;*/
    /*width: 400px;*/
-    height:700px;
+    min-height: 600px;
     position:relative;
     -webkit-print-color-adjust: exact;
-    font-size:11px;
+   /*font-size:11px;*/
     }
     
     
@@ -248,7 +267,10 @@ legend {
 {
     text-align:center;
     height:400px;
-    border:1px solid #000;
+    border:1px solid #ddd;
+    border-bottom: none; 
+    border-left: none; 
+    margin-top:15px;
     
 }
 
@@ -267,14 +289,14 @@ legend {
 
 #tabla_recibo_encabezado tr th, #tabla_recibo_detalle tr th
 {
-    border:1px solid #000;
+    border:1px solid #ddd;
     font-size:12px;
  }
  
  #tabla_recibo_encabezado tr td, #tabla_recibo_detalle tr td
 {
-    border-right:1px solid #000;
-    border-left:1px solid #000;
+    border-right:1px solid #ddd;
+    border-left:1px solid #ddd;
     border-bottom:none;
     font-size:12px;
  }
@@ -302,19 +324,36 @@ legend {
 
 .ultima_fila 
 {
-    border-top: 2px solid #000;    
+    border-top: 2px solid #ddd;    
 }
 
 .celda_neto 
 {
-    border:1px solid #000;
+    border:1px solid #ddd;
     border-right: none !important;
+    border-bottom: 1px solid #ddd !important;
+    background: rgba(138, 138, 138, 0.05);
 }
+
+.celda_bruto_nombre 
+{
+ width: 160px;
+ background: rgba(138, 138, 138, 0.05);
+}
+
+.celda_bruto
+{
+    width: 80px;
+}
+
+
 
 .celda_importe_neto 
 {
-    border:1px solid #000;
+    border:1px solid #ddd;
     border-left: none !important;
+    border-bottom: 1px solid #ddd !important;
+    background: rgba(138, 138, 138, 0.05);
 }
 
 .bloque_final p
@@ -327,11 +366,68 @@ legend {
 .subrayado 
 {
       width:35%;
-      border-bottom:1px solid #000;
+      border-bottom:1px solid #ddd;
       display: inline-block;
         
 }
 
+.fila_header 
+{
+    background: rgba(138, 138, 138, 0.05);
+}
+
+.fila_header th
+{
+    font-size: 1.2em;
+    height: 30px;
+}
+
+.cajaEstudioOculta 
+        {
+            display:none;
+        }
+
+        .caja_estudio_posta 
+        {
+            margin: 10px;
+            border-bottom: 1px solid;
+            background: rgba(25, 75, 180, 0.05);
+            padding: 10px;
+            /*display: inline-block;*/
+            border-radius: 20px;
+            max-width:500px;
+
+        }
+        
+        .div_dentro_de_caja_estudio 
+        {
+            vertical-align:middle;
+            display:inline-block;
+            width: 90%;
+        }
+        
+        .img_caja_estudio 
+        {
+            float: left;
+            width:50px;
+            height:50px;
+        }
+
+
+
+@media screen and (max-width: 680px)  {
+    .caja_der 
+    {
+        border: none;
+    }
+}
+
+
+#nombre_empleado 
+{
+    color: #fff;
+    font-size: 1.5em;
+}
 
  /*estilos alta consulta*/
  

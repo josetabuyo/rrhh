@@ -1,6 +1,7 @@
 ﻿#region
 
 using System;
+using WSViaticos;
 
 #endregion
 
@@ -69,23 +70,42 @@ public partial class FormulariosDeLicencia_Partes_DesdeHasta : System.Web.UI.Use
 
     public int DiasEntreFechas()
     {
-        if (this.TBDesde.Text == null || this.TBHasta.Text == null)
+        if (FechasNoValidas())
+        {
             return 0;
-
-        if (this.TBDesde.Text == "" || this.TBHasta.Text == "")
-            return 0;
-
+        }
         TimeSpan diff = DateTime.Parse(this.TBHasta.Text) - DateTime.Parse(this.TBDesde.Text);
         return diff.Days + 1;
     }
 
-    public bool DiasHabilitadosEntreFechas(int concepto)
+    protected bool FechasNoValidas()
     {
         if (this.TBDesde.Text == null || this.TBHasta.Text == null)
-            return false;
+            return true;
 
         if (this.TBDesde.Text == "" || this.TBHasta.Text == "")
+            return true;
+
+        if (this.Desde > this.Hasta)
             return false;
+        return false;
+    }
+
+    public int DiasHabilesEntreFechas(WSViaticosSoapClient dataProvider)
+    {
+        if (FechasNoValidas())
+        {
+            return 0;
+        }
+        return dataProvider.DiasHabilesEntreFechas(this.Desde, this.Hasta);
+    }
+
+    public bool DiasHabilitadosEntreFechas(int concepto)
+    {
+        if (FechasNoValidas())
+        {
+            return false;
+        }
         var servicio = new WSViaticos.WSViaticosSoapClient();
         return servicio.DiasHabilitadosEntreFechas(DateTime.Parse(this.TBDesde.Text), DateTime.Parse(this.TBHasta.Text), concepto);
     }

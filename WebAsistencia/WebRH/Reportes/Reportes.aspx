@@ -9,9 +9,8 @@
     <link rel="stylesheet" type="text/css" href="Reportes.css" />
     <link rel="stylesheet" type="text/css" href="../Scripts/ArbolOrganigrama/ArbolOrganigrama.css" />
     <link rel="stylesheet" type="text/css" href="../Estilos/component.css" />
-    <link rel="stylesheet" type="text/css" href="../estilos/SelectorDeAreas.css"/>    
+    <link rel="stylesheet" type="text/css" href="../estilos/SelectorDeAreas.css" />
     <link rel="stylesheet" type="text/css" href="../scripts/select2-3.4.4/select2.css" />
-
     <%= Referencias.Javascript("../")%>
     <script type="text/javascript" src="../Scripts/underscore-min.js"></script>
     <script type="text/javascript" src="Reportes.js"></script>
@@ -19,9 +18,11 @@
 </head>
 <body>
     <form id="Reportes" runat="server">
-    <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold; padding-top:20px;'>Reportes</span> <br/> " UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
+    <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold; padding-top:20px;'>Reportes</span> <br/> "
+        UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <div>
-        <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" style="position: relative; top: 0; width: 100%;" id="cbp-spmenu-s1">
+        <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" style="position: relative;
+            top: 0; width: 100%;" id="cbp-spmenu-s1">
             <div id="contenedor_arbol_organigrama"> 
 
             </div>
@@ -30,7 +31,7 @@
             <div id="menu_grafico">
                <h2 class="">Gráficos</h2>
                  <ul class="lista" >
-                   <li><a href="#" id="btn_grafico_dotacion" class="link_listado">Dotación</a>
+                   <li requierefuncionalidad="38"><a href="#" id="btn_grafico_dotacion" class="link_listado">Dotación</a>
                        <ul>
                            <li class="Rango Etáreo"><a href="#" id="btn_genero" class="link_listado">Género</a></li>
                            <li class="Rango Etáreo"><a href="#" id="btn_nivel" class="link_listado">Nivel</a></li>
@@ -39,13 +40,10 @@
                            <li class="Rango Etáreo"><a href="#" id="btn_areas" class="link_listado">Áreas</a></li>
                            <li class="Rango Etáreo"><a href="#" id="btn_secretarias" class="link_listado">Secretarías</a></li>
                            <li class="Rango Etáreo"><a href="#" id="btn_subsecretarias" class="link_listado">SubSecretarías</a></li>
-                          <%-- <li class="Rango Etáreo"><a href="#" id="btn_rango_etareo" class="link_listado">Rango Etáreo</a></li>--%>
                        </ul>
                    </li>
-                   <li class="Dotacion"><a href="#" id="btn_grafico_sueldo" class="link_listado">Sueldo</a></li>
-                   <%--<li id="btn_grafico_licencias" class="Licencias"><a href="#" class="link_listado">Licencias</a></li>
-                    <li class="Horas Extras"><a href="#" class="link_listado">Horas Extras</a></li>
-                   <li class="Otros"><a href="#" class="link_listado">Otros</a></li>--%>
+                   <li class="Dotacion" requierefuncionalidad="39"><a href="#" id="btn_grafico_sueldo" class="link_listado">Sueldo</a></li>
+                   <li class="Dotacion" requierefuncionalidad="38"><a href="#" id="btn_grafico_rangoEtario" class="link_listado">Rango Etário</a></li>
                </ul>
             </div>
 
@@ -68,8 +66,6 @@
                             </div>
                             <div class="grupo_campos nueva_linea">
                                 <label>Filtros:</label>
-                                <!--Saque las clases para los checkbox porque eran un quilombo manipularlos 
-                                ac-custom ac-checkbox ac-cross-->
                                 <div class="" autocomplete="off" style="margin-left: 50px;">
                                     <section>
 					                    <ul class="lista_filtros">
@@ -80,7 +76,6 @@
                                             <li><input id="cb5" class="regular-checkbox filtros" name="cb5"  data-grafico="GraficoPorArea" type="checkbox"/><label for="cb4">Áreas</label></li>
                                             <li><input id="cb6" class="regular-checkbox filtros" name="cb6"  data-grafico="GraficoPorSecretarias" type="checkbox"/><label for="cb4">Secretarías</label></li>
                                             <li><input id="cb7" class="regular-checkbox filtros" name="cb7"  data-grafico="GraficoPorSubSecretarias" type="checkbox"/><label for="cb4">SubSecretarías</label></li>
-						                    <%--<li><input id="cb5" class="regular-checkbox filtros" name="cb5" data-filtro="Afiliacion" type="checkbox"/><label for="cb5">Afiliación Gremial</label></li>--%>
 					                    </ul>
 			                        </section>
                                 </div>
@@ -97,8 +92,6 @@
                                 <div style="overflow-y: scroll;max-height: 420px;">
                                     <table id="tabla_resultado_totales" style="width:100%;"></table>
                                 </div>
-                    
-                    
                             </div>
                         </div>
                         <div id="div_tabla_detalle" style="margin: 0 30px; width: 100%; position: absolute; top: 465px;">
@@ -153,19 +146,49 @@
                         <table id="tabla_sueldo_detalle" style="width: 80%; margin-top: 10px;"> </table>
                     </div> 
                </div>
-               <div id="div_grafico_de_rango_etareo">
-                    <div id="div_filtros_rango_etareo" style="display: flex;position: absolute; display:none; top: 80px;left: 135px;">
+<%--GRAFICO RANGO ETÁRIO--%>
+                <div id="div_grafico_de_rangoEtario" style="display:none">
+                    <div id="div_filtros_rangoEtario" style="display: flex;position: absolute; display:none; top: 80px;left: 135px;">
                         <div style="margin-left:20px;">
                             <div class="grupo_campos" style="margin-bottom: 9px;">
-                                <label>Fecha</label>
-                                <input id="txt_fecha_desde_rango_etareo" type="text" style="width: 100px; margin: 5px 10px 5px 46px;" />
-                                <input id="btn_armarGrafico_RangoEtaero" type="button" class="btn btn-primary" value="Graficar" />
+                                <label>Fecha:</label>
+                                <input id="txt_fecha_desde_rangoEtario" type="text" style="width: 100px; margin: 5px 10px 5px 46px;" />
+                                <input id="btn_armarGrafico_rangoEtario" type="button" class="btn btn-primary" value="Graficar" />
                             </div>
+                            <div class="grupo_campos nueva_linea">
+                               <%-- <label>Agrupar por:</label>--%>
+                                <div class="" autocomplete="off" style="margin-left: 50px;">
+                                    <section>
+					                    <ul class="lista_filtros">
+						                    <%--<li><input id="cb_SinAgrupar_rangoEtario" class="regular-checkbox filtros_rangoEtario" name="cb8" data-grafico="GraficoPorArea" type="checkbox"/><label for="cb_SinAgrupar">Sin Agrupar</label></li>
+                                            <li><input id="cb_Secretarias_rangoEtario" class="regular-checkbox filtros_rangoEtario" name="cb9" data-grafico="GraficoPorSecretarias" type="checkbox"/><label for="cb_Secretarias">Secretarías</label></li>
+						                    <li><input id="cb_SubSecretarias_rangoEtario" class="regular-checkbox filtros_rangoEtario" name="cb0" data-grafico="GraficoPorSubSecretarias" type="checkbox"/><label for="cb_SubSecretarias">Subsecretarias</label></li>--%>
+					                    </ul>
+			                        </section>
+                                </div>
+                            </div>   
                         </div>
                     </div>
-                    <div id="container_grafico_rango_etareo" style="width: 40%; height: 450px; border: 1px solid; margin: 0 30px; display:none;">
+                    <div id="div_graficos_y_tablas_rangoEtario" style="display:flex; width: 85%; left: 125px; position: absolute; top: 160px;">
+                        <div id="div_grafico_y_tabla_rangoEtario" style="width: 100%; position: absolute; ">
+                            <div id="container_grafico_rangoEtario" style="width: 40%; height: 450px; border: 1px solid; margin: 0 30px; display:none;float:left;">
+                            </div>
+                            <div id="div_tabla_resultado_rangoEtario" style="min-width: 210px; height: 450px; margin: 0 30px;">
+                                <input type="text" id="search_rangoEtario" class="search" class="buscador" placeholder="Buscar" style="display: none;" />
+                                <a href="#" id="btn_excel_rangoEtario" class="btn btn-info" style="float: right; padding: 5px; margin-left:10px;"> Exportar Datos</a>
+                                <div style="overflow-y: scroll;max-height: 420px;">
+                                    <table id="tabla_resultado_rangoEtario" style="width:100%;"></table>
+                                </div>                    
+                            </div>
+                        </div>
+                        <div id="div_tabla_detalle_rangoEtario" style="margin: 0 30px; width: 100%; position: absolute; top: 465px;">
+                            <span id="lb_titulo_tabla_detalle_rangoEtario"></span>
+                            <br />
+                            <input type="text" id="search_detalle_rangoEtario" class="search" class="buscador" placeholder="Buscar" style="display: none;" />
+                            <table id="tabla_detalle_rangoEtario" style="width: 95%;"> </table>
+                        </div>
                     </div>
-               </div>
+                </div>
             </div>   
         </nav>
     </div>
@@ -173,7 +196,7 @@
     <div id="plantillas">
         <div class="arbol_organigrama">
             <div id="buscador_de_area" class="selector_areas">
-                <input id="buscador" type=hidden class="combo_buscar_area"/>
+                <input id="buscador" type="hidden" class="combo_buscar_area" />
             </div>
             <div id="areas_arbol">
             </div>
@@ -191,13 +214,15 @@
             </div>
         </div>
         <div class="vista_area_en_selector">
-            <div id="nombre"></div> 
+            <div id="nombre">
+            </div>
         </div>
     </div>
     <script type="text/javascript" src="../Scripts/underscore-min.js"></script>
     <script type="text/javascript" src="GraficoHerramientas.js"></script>
     <script type="text/javascript" src="GraficoDotacion.js"></script>
     <script type="text/javascript" src="GraficoSueldos.js"></script>
+    <script type="text/javascript" src="GraficoRangoEtario.js"></script>
     <script src="../Scripts/Graficos/highcharts.js" type="text/javascript"></script>
     <script src="../Scripts/Graficos/highcharts-3d.js" type="text/javascript"></script>
     <script src="../Scripts/Graficos/data.js" type="text/javascript"></script>
@@ -205,11 +230,10 @@
     <script src="../Scripts/Graficos/svgcheckbx.js" type="text/javascript"></script>
     <script src="../Scripts/Graficos/classie.js" type="text/javascript"></script>
     <script src="../Scripts/ExportarAExcel.js" type="text/javascript"></script>
-    <script src="../Scripts/Spin.js" type="text/javascript"></script>   
-    
+    <script src="../Scripts/Spin.js" type="text/javascript"></script>
     <script type="text/javascript" src="../Scripts/SelectorDeAreas.js"></script>
     <script type="text/javascript" src="../Scripts/RepositorioDeAreas.js"></script>
-    <script type="text/javascript" src="../Scripts/Area.js"></script> 
+    <script type="text/javascript" src="../Scripts/Area.js"></script>
     <script type="text/javascript" src="../Scripts/select2-3.4.4/Select2.min.js"></script>
     <script type="text/javascript" src="../Scripts/select2-3.4.4/select2_locale_es.js"></script>
     <script type="text/javascript">
@@ -228,8 +252,10 @@
                     classie.toggle(menuLeft, 'cbp-spmenu-open');
                     //disableOther('showLeftPush');
                 };
-                GraficoDotacion.Inicializar();
-                GraficoSueldos.Inicializar();
+                GraficoHerramientas.BlanquearParametrosDeBusqueda();
+//                GraficoDotacion.Inicializar();
+//                GraficoSueldos.Inicializar();
+//                GraficoRangoEtario.Inicializar();
                 $('#exportar_datos_detalle').click(function () {
                     ExportarAExcel.fnExcelReport(document.getElementById('tabla_detalle'));
                 });

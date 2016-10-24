@@ -268,18 +268,50 @@ namespace General.Repositorios
                     CUIL = tablaDatos.Rows.First().GetString("CUIL", ""),
                     Oficina = tablaDatos.Rows.First().GetSmallintAsInt("Oficina", 0),
                     Orden = tablaDatos.Rows.First().GetSmallintAsInt("Orden", 0),
-                    Bruto = tablaDatos.Rows.First().GetString("SBruto"),
-                    Neto = tablaDatos.Rows.First().GetString("SNeto"),
-                    Descuentos = tablaDatos.Rows.First().GetString("SDescuentos"),
-                    NivelGrado = tablaDatos.Rows.First().GetString("NivelGrado"),
-                    Area = tablaDatos.Rows.First().GetString("area")
+                    Bruto = tablaDatos.Rows.First().GetString("SBruto",""),
+                    Neto = tablaDatos.Rows.First().GetString("SNeto",""),
+                    Descuentos = tablaDatos.Rows.First().GetString("SDescuentos",""),
+                    NivelGrado = tablaDatos.Rows.First().GetString("NivelGrado",""),
+                    Area = tablaDatos.Rows.First().GetString("area",""),
+                    Domicilio = tablaDatos.Rows.First().GetString("Domicilio",""),
+                    FechaLiquidacion = tablaDatos.Rows.First().GetString("F_Liquidacion", "")
 
                 };
 
             }
 
             return cabeceraRecibo;
-        } 
+        }
+
+
+        public string getDocumentosLegajo(string legajo)
+        {
+            {
+                var parametros = new Dictionary<string, object>();
+                parametros.Add("@id", legajo);
+                parametros.Add("@legajo", legajo);
+                var tablaDatos = conexion.Ejecutar("dbo.LEG_GET_Indice_Documentos", parametros);
+                var list_de_documentos = new List<Object> { };
+
+                if (tablaDatos.Rows.Count > 0)
+                {
+                    tablaDatos.Rows.ForEach(row =>
+                    {
+                        list_de_documentos.Add(new
+                        {
+                            Id = row.GetInt("id", 0),
+                            Nombre = row.GetString("TIPO", "Sin información"),
+                            Folio = row.GetString("FOLIO", "Sin información")
+
+                        });
+                    });
+
+                }
+
+                return JsonConvert.SerializeObject(list_de_documentos);
+            }
+        }
+
 
         public string getDesignaciones(int doc)
         {

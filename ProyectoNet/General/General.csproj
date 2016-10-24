@@ -75,8 +75,10 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Asistencia\AnalisisDeLicenciaOrdinaria.cs" />
     <Compile Include="Asistencia\ConceptoLicenciaAnualOrdinaria.cs" />
     <Compile Include="Asistencia\ConceptoLicenciaGeneral.cs" />
+    <Compile Include="Asistencia\LogCalculoVacaciones.cs" />
     <Compile Include="Asistencia\ResponsableDDJJ.cs" />
     <Compile Include="Asistencia\SolicitudesDeVacaciones.cs" />
     <Compile Include="Asistencia\TipoDePlantaGeneral.cs" />
@@ -103,19 +105,31 @@
     <Compile Include="Portal\Estudio.cs" />
     <Compile Include="Portal\Legajo.cs" />
     <Compile Include="Repositorios\RepositorioLegajo.cs" />
-    <Compile Include="Vehiculos\vehiculo.cs" />
+    <Compile Include="DDJJ104\DDJJ104_Consulta.cs" />
+    <Compile Include="MOBI\ExcepcionDeVehiculoInexistente.cs" />
+    <Compile Include="MOBI\RespuestaVehiculo.cs" />
+    <Compile Include="MOBI\RepositorioTarjetones.cs" />
+    <Compile Include="MOBI\RepositorioDeVehiculos.cs" />
+    <Compile Include="MOBI\vehiculo.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="ConstantesDeDatosDeContacto.cs" />
     <Compile Include="DDJJ104\AreaParaDDJJ104.cs" />
     <Compile Include="DDJJ104\DDJJ104_2001.cs" />
+    <Compile Include="MoBi\MoBi_Agente.cs" />
+    <Compile Include="MoBi\MoBi_Area.cs" />
+    <Compile Include="MoBi\MoBi_Bien.cs" />
+    <Compile Include="MoBi\MoBi_Evento.cs" />
+    <Compile Include="MoBi\MoBi_TipoBien.cs" />
+    <Compile Include="MoBi\MoBi_Vehiculo.cs" />
+    <Compile Include="MoBi\RepositorioMoBi.cs" />
     <Compile Include="Modi\Impersonator.cs" />
     <Compile Include="Modi\NetworkConnection.cs" />
-    <Compile Include="Organigrama\GraficoRangoEtareo.cs" />
-    <Compile Include="Organigrama\GraficoSueldo.cs" />
-    <Compile Include="Organigrama\GraficoDotacion.cs" />
     <Compile Include="Organigrama\Direccion.cs" />
     <Compile Include="Organigrama\AreaArbolDTO.cs" />
     <Compile Include="Organigrama\Contador.cs" />
+    <Compile Include="Organigrama\GraficoDotacion.cs" />
+    <Compile Include="Organigrama\GraficoRangoEtareo.cs" />
+    <Compile Include="Organigrama\GraficoSueldo.cs" />
     <Compile Include="Organigrama\Resumen.cs" />
     <Compile Include="Organigrama\Dotacion.cs" />
     <Compile Include="Organigrama\Grafico.cs" />
@@ -134,6 +148,9 @@
     <Compile Include="MAU\RepositorioDeFuncionalidadesDeUsuarios_EnMemoria.cs" />
     <Compile Include="Campo.cs" />
     <Compile Include="Formulario.cs" />
+    <Compile Include="Repositorios\Imagen.cs" />
+    <Compile Include="Repositorios\RepositorioDeImagenes.cs" />
+    <Compile Include="Repositorios\RepositorioDeArchivos.cs" />
     <Compile Include="Repositorios\RepositorioDeReportes.cs" />
     <Compile Include="Repositorios\RepositorioDeFormularios.cs" />
     <Compile Include="Repositorios\RepositorioDeParametrosGenerales.cs" />

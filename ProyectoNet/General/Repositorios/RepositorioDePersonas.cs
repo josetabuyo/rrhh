@@ -206,7 +206,7 @@ namespace General.Repositorios
                     planta = new TipoDePlantaContratado();
                 }
                 else { 
-                    planta = new TipoDePlantaGeneral(dr.GetInt16(dr.GetOrdinal("idPlanta")),"Planta Permanente");
+                    planta = new TipoDePlantaGeneral(dr.GetInt16(dr.GetOrdinal("idPlanta")),"Planta Permanente", new RepositorioLicencias(conexion));
                 }
             }
             return planta;

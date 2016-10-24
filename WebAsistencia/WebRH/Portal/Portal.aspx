@@ -56,11 +56,11 @@
 			            <div class="ch-info">
 				            <div class="ch-info-front ch-img-1"></div>
 				            <div class="ch-info-back">
-					            <h3>ESTUDIOS</h3>
+					            <h3>DOCUMENTOS</h3>
 				            </div>	
 			            </div>
 		            </div>
-                    <a href="Estudios.aspx" class="icon "  ></a>
+                    <a href="Documentos.aspx" class="icon "  ></a>
 	            </div>
                 <%--<div class="item estudios test" data-toggle="tooltip" data-placement="right" title="ESTUDIOS">
                     <%--<img src="../Imagenes/portal/bg_home.png" alt="" width="199" height="199" class="circle"/>
@@ -86,7 +86,7 @@
 			            <div class="ch-info">
 				            <div class="ch-info-front ch-img-1"></div>
 				            <div class="ch-info-back">
-					            <h3 style="font-size: 0.35em;">NOTIFICACIONES</h3>
+					            <h3 style="font-size: 0.35em;">TRAMITACIONES</h3>
 				            </div>	
 			            </div>
 		            </div>
@@ -116,7 +116,7 @@
 			            <div class="ch-info">
 				            <div class="ch-info-front ch-img-1"></div>
 				            <div class="ch-info-back">
-					            <h3>BENEFICIOS</h3>
+					            <h3>RECIBO</h3>
 				            </div>	
 			            </div>
 		            </div>
@@ -131,12 +131,12 @@
                    <%-- <img src="../Imagenes/portal/bg_fav.png" alt="" width="199" height="199" class="circle"/>
                     <a href="#" class="icon"></a>
                 </div>--%>
-                <div id="btnViaticos" class="ch-item ch-img-1 item viaticos test">				
+                <div id="btnOrganigrama" class="ch-item ch-img-1 item viaticos test">				
 		            <div class="ch-info-wrap">
 			            <div class="ch-info">
 				            <div class="ch-info-front ch-img-1"></div>
 				            <div class="ch-info-back">
-					            <h3>VIÁTICOS</h3>
+					            <h3>ORGANIGRAMA</h3>
 				            </div>	
 			            </div>
 		            </div>
@@ -179,7 +179,7 @@
                 });
 
                 $('#btnEstudios').click(function () {
-                    window.location.href = 'Estudios.aspx';
+                    window.location.href = 'Documentos.aspx';
                 });
 
                 $('#btnPerfil').click(function () {
@@ -189,6 +189,11 @@
                 $('#btnLicencias').click(function () {
                     window.location.href = 'Licencias.aspx';
                 });
+
+                $('#btnOrganigrama').click(function () {
+                    window.location.href = '../Protocolo/ConsultaLugaresDeTrabajo.aspx';
+                });
+                
             });
 
             /*$(function () {

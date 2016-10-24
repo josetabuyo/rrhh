@@ -115,7 +115,7 @@
                                             <asp:Label ID="Label8" runat="server" Font-Bold="True" Font-Names="Tahoma" Font-Overline="False"
                                                 Font-Size="16px" Text="Máximo permitido Anualmente:"></asp:Label><br />
                                             <asp:Label ID="Label9" runat="server" Text="Secundario: 12 días"></asp:Label><br />
-                                            <asp:Label ID="Label10" runat="server" Text="Ingreso/Terciario/Univ/Posgrado: 20 días "></asp:Label></td>
+                                            <asp:Label ID="Label10" runat="server" Text="Ingreso/Terciario/Univ/Posgrado: 28 días "></asp:Label></td>
                                     </tr>
                                 </table>
                             </fieldset>
