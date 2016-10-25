@@ -150,10 +150,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
 
-    <legend class="contenedor" style="margin-left: -30px; text-shadow: 2px 2px 5px rgba(150, 150, 150, 1);" >
-            Bienes:
-        <input type="text" id="searchInput" class="search" placeholder="Buscar">
-    </legend>
+    
 
     <div class="contenedor">
         <table>
@@ -186,6 +183,12 @@
             </tbody>
         </table>
     </div>
+
+    <legend class="contenedor" style="margin-left: -30px; text-shadow: 2px 2px 5px rgba(150, 150, 150, 1);" >
+            Bienes:
+        <input type="text" id="searchInput" class="search" placeholder="Buscar" style="width: 400px">
+    </legend>
+
     <div class="contenedor">
         <asp:GridView ID="GridViewBienes" runat="server" AutoGenerateColumns="False" Width="80%"
             DataKeyNames="id,verificacion" CssClass="table table-striped table-bordered table-condensed table-hover"
