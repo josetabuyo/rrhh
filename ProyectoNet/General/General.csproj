@@ -101,9 +101,12 @@
     <Compile Include="Asistencia\VacacionesSolicitables.cs" />
     <Compile Include="Calendario\CalculadorDeDias.cs" />
     <Compile Include="Calendario\Periodo.cs" />
+    <Compile Include="Organigrama\GraficoContratos.cs" />
+    <Compile Include="Organigrama\PersonaContrato.cs" />
     <Compile Include="Portal\Consulta.cs" />
     <Compile Include="Portal\Estudio.cs" />
     <Compile Include="Portal\Legajo.cs" />
+    <Compile Include="Repositorios\RepositorioDeContratos.cs" />
     <Compile Include="Repositorios\RepositorioLegajo.cs" />
     <Compile Include="DDJJ104\DDJJ104_Consulta.cs" />
     <Compile Include="MOBI\ExcepcionDeVehiculoInexistente.cs" />

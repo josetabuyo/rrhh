@@ -22,6 +22,7 @@ namespace General.Repositorios
         private static GraficoSueldo GRAFICOSUELDO;
         private static GraficoDotacion GRAFICODOTACION;
         private static GraficoRangoEtario GRAFICORANGOETARIO;
+        private static GraficoContratos GRAFICO_CONTRATO;
         private static bool incluir_dependencias_anterior;
         private static bool detalle_sueldo;
 
@@ -68,6 +69,48 @@ namespace General.Repositorios
             }
 
             GRAFICODOTACION = grafico;
+
+            return grafico;
+
+        }
+
+        public GraficoContratos GetGraficoContratados(string tipo, DateTime fecha, int id_area, bool incluir_dependencias)
+        {
+            GraficoContratos grafico = new GraficoContratos();
+
+
+            if (GRAFICO_CONTRATO != null)
+            {
+                if (GRAFICO_CONTRATO.ContienePersonas())
+                {
+                    CrearResumen(GRAFICO_CONTRATO, tipo, fecha);
+                }
+
+                return GRAFICO_CONTRATO;
+            }
+
+
+            id_area_anterior = id_area;
+            incluir_dependencias_anterior = incluir_dependencias;
+            var parametros = new Dictionary<string, object>();
+
+            parametros.Add("@id_area", id_area);
+            parametros.Add("@renovar", "P");
+            parametros.Add("@usuario", 1);
+            parametros.Add("@orden", 0);
+            //parametros.Add("@incluir_dependencias", incluir_dependencias);
+            var tablaDatos = conexion_bd.Ejecutar("dbo.CTR_GET_Seleccion_Contratos_WEB", parametros);
+            if (tablaDatos.Rows.Count > 0)
+            {
+                grafico.CrearDatos(tablaDatos.Rows);
+
+            }
+            if (grafico.ContienePersonas())
+            {
+                CrearResumen(grafico,tipo,fecha);
+            }
+
+            GRAFICO_CONTRATO = grafico;
 
             return grafico;
 
