@@ -43,7 +43,7 @@
  <%--GRAFICO DE DOTACIÓN--%>
                 <div id="div_grafico_de_dotacion" style="display:none">
                     <div id="div_filtros" style="display: flex;position: absolute; display:none; top: 80px;left: 135px;">
-                        <div style="margin-left:20px;">
+                        <%--<div style="margin-left:20px;">
                            
                             <div class="grupo_campos nueva_linea">
                                 <label>Filtros:</label>
@@ -61,7 +61,7 @@
 			                        </section>
                                 </div>
                             </div>
-                        </div>
+                        </div>--%>
                     </div>
                     <div id="div_graficos_y_tablas" style="display:flex; width: 85%; left: 125px; position: absolute; top: 160px;">
                         <div id="div_grafico_y_tabla" style="width: 100%; position: absolute; ">
@@ -79,6 +79,9 @@
                             <span id="lb_titulo_tabla_detalle"></span>
                             <br />
                             <input type="text" id="search_detalle" class="search" class="buscador" placeholder="Buscar" style="display: none;" />
+                            <a href="#" id="btn_exportarExcelDetalle" class="btn btn-info" style="display: none; float: right; padding: 5px; margin-left:10px; margin-right: 70px;s"> Exportar Datos</a>
+                            <a href="#" id="btn_generarInforme" class="btn btn-info" style="display: none; float: right; padding: 5px; margin-left:10px; "> Generar Informe</a>
+                          
                             <table id="tabla_detalle" style="width: 95%;"> </table>
                         </div>
                     </div>
@@ -149,17 +152,17 @@
                 };
                 GraficoHerramientas.BlanquearParametrosDeBusqueda();
                 GraficoContratos.Inicializar();
-                //                GraficoDotacion.Inicializar();
-                //                GraficoSueldos.Inicializar();
-                //                GraficoRangoEtario.Inicializar();
-                $('#exportar_datos_detalle').click(function () {
+
+                $('#btn_exportarExcelDetalle').click(function () {
                     ExportarAExcel.fnExcelReport(document.getElementById('tabla_detalle'));
                 });
-                $('#exportar_datos_detalle_sueldo').click(function () {
-                    ExportarAExcel.fnExcelReport(document.getElementById('tabla_detalle_sueldo'));
-                });
+
                 $('#exportar_datos').click(function () {
                     ExportarAExcel.fnExcelReport(document.getElementById('tabla_resultado_totales'));
+                });
+
+                $('#btn_generarInforme').click(function () {
+                    alert("informe");
                 });
             });
         });

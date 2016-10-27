@@ -2,6 +2,81 @@
 <wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://wsviaticos.gov.ar/">
+      <s:element name="BuscarNacionalidades">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuscarNacionalidadesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BuscarNacionalidadesResult" type="tns:ArrayOfNacionalidad" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfNacionalidad">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Nacionalidad" nillable="true" type="tns:Nacionalidad" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Nacionalidad">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="BuscarNivelesDeIdioma">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuscarNivelesDeIdiomaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BuscarNivelesDeIdiomaResult" type="tns:ArrayOfNivelDeIdioma" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfNivelDeIdioma">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="NivelDeIdioma" nillable="true" type="tns:NivelDeIdioma" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="NivelDeIdioma">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="BuscarNivelCompetenciaInformatica">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuscarNivelCompetenciaInformaticaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BuscarNivelCompetenciaInformaticaResult" type="tns:ArrayOfCvNivelCompetenciaInformatica" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfCvNivelCompetenciaInformatica">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CvNivelCompetenciaInformatica" nillable="true" type="tns:CvNivelCompetenciaInformatica" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CvNivelCompetenciaInformatica">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="BuscarTiposCompetenciaInformatica">
         <s:complexType>
           <s:sequence>
@@ -1266,6 +1341,46 @@
             <s:element minOccurs="0" maxOccurs="1" name="ConsultaExcelDDJJ104_AreaResult" type="s:string" />
           </s:sequence>
         </s:complexType>
+      </s:element>
+      <s:element name="AreasAdministradasPor">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AreasAdministradasPorResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AreasAdministradasPorResult" type="tns:ArrayOfArea" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AreasAdministradasPorIdUsuario">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_usuario" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AreasAdministradasPorIdUsuarioResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AreasAdministradasPorIdUsuarioResult" type="tns:ArrayOfArea" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AsignarAreaAUnUsuario">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_usuario" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_area" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AsignarAreaAUnUsuarioResponse">
+        <s:complexType />
       </s:element>
       <s:element name="DesAsignarAreaAUnUsuario">
         <s:complexType>
@@ -3167,81 +3282,39 @@
           <s:element minOccurs="0" maxOccurs="1" name="Provincias" type="tns:ArrayOfProvincia" />
         </s:sequence>
       </s:complexType>
-      <s:element name="BuscarNacionalidades">
+      <s:element name="TransicionarDocumento">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_documento" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_area_origen" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_area_destino" type="s:int" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="BuscarNacionalidadesResponse">
+      <s:element name="TransicionarDocumentoResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="BuscarNacionalidadesResult" type="tns:ArrayOfNacionalidad" />
+            <s:element minOccurs="0" maxOccurs="1" name="TransicionarDocumentoResult" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="ArrayOfNacionalidad">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Nacionalidad" nillable="true" type="tns:Nacionalidad" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="Nacionalidad">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
-        </s:sequence>
-      </s:complexType>
-      <s:element name="BuscarNivelesDeIdioma">
+      <s:element name="TransicionarDocumentoConAreaIntermedia">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_documento" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_area_origen" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_area_intermedia" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_area_destino" type="s:int" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="BuscarNivelesDeIdiomaResponse">
+      <s:element name="TransicionarDocumentoConAreaIntermediaResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="BuscarNivelesDeIdiomaResult" type="tns:ArrayOfNivelDeIdioma" />
+            <s:element minOccurs="0" maxOccurs="1" name="TransicionarDocumentoConAreaIntermediaResult" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="ArrayOfNivelDeIdioma">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="NivelDeIdioma" nillable="true" type="tns:NivelDeIdioma" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="NivelDeIdioma">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
-        </s:sequence>
-      </s:complexType>
-      <s:element name="BuscarNivelCompetenciaInformatica">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="BuscarNivelCompetenciaInformaticaResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="BuscarNivelCompetenciaInformaticaResult" type="tns:ArrayOfCvNivelCompetenciaInformatica" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:complexType name="ArrayOfCvNivelCompetenciaInformatica">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="CvNivelCompetenciaInformatica" nillable="true" type="tns:CvNivelCompetenciaInformatica" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="CvNivelCompetenciaInformatica">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="EstaEnElArea">
         <s:complexType>
           <s:sequence>
@@ -4567,46 +4640,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="AreasAdministradasPor">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="AreasAdministradasPorResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="AreasAdministradasPorResult" type="tns:ArrayOfArea" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="AreasAdministradasPorIdUsuario">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id_usuario" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="AreasAdministradasPorIdUsuarioResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="AreasAdministradasPorIdUsuarioResult" type="tns:ArrayOfArea" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="AsignarAreaAUnUsuario">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id_usuario" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="id_area" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="AsignarAreaAUnUsuarioResponse">
-        <s:complexType />
-      </s:element>
       <s:element name="GetUsuarios">
         <s:complexType>
           <s:sequence>
@@ -4920,6 +4953,7 @@
         <s:sequence>
           <s:element minOccurs="0" maxOccurs="1" name="tabla_resumen" type="tns:ArrayOfResumen" />
           <s:element minOccurs="0" maxOccurs="1" name="tabla_detalle" type="tns:ArrayOfDotacion" />
+          <s:element minOccurs="0" maxOccurs="1" name="tabla_detalle_contratos" type="tns:ArrayOfPersonaContrato" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfResumen">
@@ -5000,6 +5034,25 @@
           <s:element minOccurs="1" maxOccurs="1" name="EdadPersona" type="s:int" />
         </s:sequence>
       </s:complexType>
+      <s:complexType name="ArrayOfPersonaContrato">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PersonaContrato" nillable="true" type="tns:PersonaContrato" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PersonaContrato">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="NroDocumento" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Apellido" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdArea" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Area" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AreaDescripCorta" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AreaDescripMedia" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="OrdenArea" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Informe" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Estado" type="s:string" />
+        </s:sequence>
+      </s:complexType>
       <s:complexType name="GraficoSueldo">
         <s:complexContent mixed="false">
           <s:extension base="tns:Grafico" />
@@ -5048,6 +5101,56 @@
         </s:complexType>
       </s:element>
       <s:complexType name="GraficoRangoEtario">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Grafico" />
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="AgregarRenovacionContrato">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AgregarRenovacionContratoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AgregarRenovacionContratoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GenerarInformeContrato">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GenerarInformeContratoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GenerarInformeContratoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGraficoContratados">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGraficoContratadosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetGraficoContratadosResult" type="tns:GraficoContratos" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="GraficoContratos">
         <s:complexContent mixed="false">
           <s:extension base="tns:Grafico" />
         </s:complexContent>
@@ -6060,41 +6163,26 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="TransicionarDocumento">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id_documento" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="id_area_origen" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="id_area_destino" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="TransicionarDocumentoResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="TransicionarDocumentoResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="TransicionarDocumentoConAreaIntermedia">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id_documento" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="id_area_origen" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="id_area_intermedia" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="id_area_destino" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="TransicionarDocumentoConAreaIntermediaResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="TransicionarDocumentoConAreaIntermediaResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="BuscarNacionalidadesSoapIn">
+    <wsdl:part name="parameters" element="tns:BuscarNacionalidades" />
+  </wsdl:message>
+  <wsdl:message name="BuscarNacionalidadesSoapOut">
+    <wsdl:part name="parameters" element="tns:BuscarNacionalidadesResponse" />
+  </wsdl:message>
+  <wsdl:message name="BuscarNivelesDeIdiomaSoapIn">
+    <wsdl:part name="parameters" element="tns:BuscarNivelesDeIdioma" />
+  </wsdl:message>
+  <wsdl:message name="BuscarNivelesDeIdiomaSoapOut">
+    <wsdl:part name="parameters" element="tns:BuscarNivelesDeIdiomaResponse" />
+  </wsdl:message>
+  <wsdl:message name="BuscarNivelCompetenciaInformaticaSoapIn">
+    <wsdl:part name="parameters" element="tns:BuscarNivelCompetenciaInformatica" />
+  </wsdl:message>
+  <wsdl:message name="BuscarNivelCompetenciaInformaticaSoapOut">
+    <wsdl:part name="parameters" element="tns:BuscarNivelCompetenciaInformaticaResponse" />
+  </wsdl:message>
   <wsdl:message name="BuscarTiposCompetenciaInformaticaSoapIn">
     <wsdl:part name="parameters" element="tns:BuscarTiposCompetenciaInformatica" />
   </wsdl:message>
@@ -6418,6 +6506,24 @@
   </wsdl:message>
   <wsdl:message name="ConsultaExcelDDJJ104_AreaSoapOut">
     <wsdl:part name="parameters" element="tns:ConsultaExcelDDJJ104_AreaResponse" />
+  </wsdl:message>
+  <wsdl:message name="AreasAdministradasPorSoapIn">
+    <wsdl:part name="parameters" element="tns:AreasAdministradasPor" />
+  </wsdl:message>
+  <wsdl:message name="AreasAdministradasPorSoapOut">
+    <wsdl:part name="parameters" element="tns:AreasAdministradasPorResponse" />
+  </wsdl:message>
+  <wsdl:message name="AreasAdministradasPorIdUsuarioSoapIn">
+    <wsdl:part name="parameters" element="tns:AreasAdministradasPorIdUsuario" />
+  </wsdl:message>
+  <wsdl:message name="AreasAdministradasPorIdUsuarioSoapOut">
+    <wsdl:part name="parameters" element="tns:AreasAdministradasPorIdUsuarioResponse" />
+  </wsdl:message>
+  <wsdl:message name="AsignarAreaAUnUsuarioSoapIn">
+    <wsdl:part name="parameters" element="tns:AsignarAreaAUnUsuario" />
+  </wsdl:message>
+  <wsdl:message name="AsignarAreaAUnUsuarioSoapOut">
+    <wsdl:part name="parameters" element="tns:AsignarAreaAUnUsuarioResponse" />
   </wsdl:message>
   <wsdl:message name="DesAsignarAreaAUnUsuarioSoapIn">
     <wsdl:part name="parameters" element="tns:DesAsignarAreaAUnUsuario" />
@@ -6905,23 +7011,17 @@
   <wsdl:message name="BuscarProvinciasSoapOut">
     <wsdl:part name="parameters" element="tns:BuscarProvinciasResponse" />
   </wsdl:message>
-  <wsdl:message name="BuscarNacionalidadesSoapIn">
-    <wsdl:part name="parameters" element="tns:BuscarNacionalidades" />
+  <wsdl:message name="TransicionarDocumentoSoapIn">
+    <wsdl:part name="parameters" element="tns:TransicionarDocumento" />
   </wsdl:message>
-  <wsdl:message name="BuscarNacionalidadesSoapOut">
-    <wsdl:part name="parameters" element="tns:BuscarNacionalidadesResponse" />
+  <wsdl:message name="TransicionarDocumentoSoapOut">
+    <wsdl:part name="parameters" element="tns:TransicionarDocumentoResponse" />
   </wsdl:message>
-  <wsdl:message name="BuscarNivelesDeIdiomaSoapIn">
-    <wsdl:part name="parameters" element="tns:BuscarNivelesDeIdioma" />
+  <wsdl:message name="TransicionarDocumentoConAreaIntermediaSoapIn">
+    <wsdl:part name="parameters" element="tns:TransicionarDocumentoConAreaIntermedia" />
   </wsdl:message>
-  <wsdl:message name="BuscarNivelesDeIdiomaSoapOut">
-    <wsdl:part name="parameters" element="tns:BuscarNivelesDeIdiomaResponse" />
-  </wsdl:message>
-  <wsdl:message name="BuscarNivelCompetenciaInformaticaSoapIn">
-    <wsdl:part name="parameters" element="tns:BuscarNivelCompetenciaInformatica" />
-  </wsdl:message>
-  <wsdl:message name="BuscarNivelCompetenciaInformaticaSoapOut">
-    <wsdl:part name="parameters" element="tns:BuscarNivelCompetenciaInformaticaResponse" />
+  <wsdl:message name="TransicionarDocumentoConAreaIntermediaSoapOut">
+    <wsdl:part name="parameters" element="tns:TransicionarDocumentoConAreaIntermediaResponse" />
   </wsdl:message>
   <wsdl:message name="EstaEnElAreaSoapIn">
     <wsdl:part name="parameters" element="tns:EstaEnElArea" />
@@ -7373,24 +7473,6 @@
   <wsdl:message name="BuscarUsuariosPorAreaSoapOut">
     <wsdl:part name="parameters" element="tns:BuscarUsuariosPorAreaResponse" />
   </wsdl:message>
-  <wsdl:message name="AreasAdministradasPorSoapIn">
-    <wsdl:part name="parameters" element="tns:AreasAdministradasPor" />
-  </wsdl:message>
-  <wsdl:message name="AreasAdministradasPorSoapOut">
-    <wsdl:part name="parameters" element="tns:AreasAdministradasPorResponse" />
-  </wsdl:message>
-  <wsdl:message name="AreasAdministradasPorIdUsuarioSoapIn">
-    <wsdl:part name="parameters" element="tns:AreasAdministradasPorIdUsuario" />
-  </wsdl:message>
-  <wsdl:message name="AreasAdministradasPorIdUsuarioSoapOut">
-    <wsdl:part name="parameters" element="tns:AreasAdministradasPorIdUsuarioResponse" />
-  </wsdl:message>
-  <wsdl:message name="AsignarAreaAUnUsuarioSoapIn">
-    <wsdl:part name="parameters" element="tns:AsignarAreaAUnUsuario" />
-  </wsdl:message>
-  <wsdl:message name="AsignarAreaAUnUsuarioSoapOut">
-    <wsdl:part name="parameters" element="tns:AsignarAreaAUnUsuarioResponse" />
-  </wsdl:message>
   <wsdl:message name="GetUsuariosSoapIn">
     <wsdl:part name="parameters" element="tns:GetUsuarios" />
   </wsdl:message>
@@ -7498,6 +7580,24 @@
   </wsdl:message>
   <wsdl:message name="GetGraficoRangoEtarioSoapOut">
     <wsdl:part name="parameters" element="tns:GetGraficoRangoEtarioResponse" />
+  </wsdl:message>
+  <wsdl:message name="AgregarRenovacionContratoSoapIn">
+    <wsdl:part name="parameters" element="tns:AgregarRenovacionContrato" />
+  </wsdl:message>
+  <wsdl:message name="AgregarRenovacionContratoSoapOut">
+    <wsdl:part name="parameters" element="tns:AgregarRenovacionContratoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GenerarInformeContratoSoapIn">
+    <wsdl:part name="parameters" element="tns:GenerarInformeContrato" />
+  </wsdl:message>
+  <wsdl:message name="GenerarInformeContratoSoapOut">
+    <wsdl:part name="parameters" element="tns:GenerarInformeContratoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetGraficoContratadosSoapIn">
+    <wsdl:part name="parameters" element="tns:GetGraficoContratados" />
+  </wsdl:message>
+  <wsdl:message name="GetGraficoContratadosSoapOut">
+    <wsdl:part name="parameters" element="tns:GetGraficoContratadosResponse" />
   </wsdl:message>
   <wsdl:message name="ExcelGeneradoRangoEtarioSoapIn">
     <wsdl:part name="parameters" element="tns:ExcelGeneradoRangoEtario" />
@@ -7835,19 +7935,19 @@
   <wsdl:message name="EstadoServicioDeAlertasSoapOut">
     <wsdl:part name="parameters" element="tns:EstadoServicioDeAlertasResponse" />
   </wsdl:message>
-  <wsdl:message name="TransicionarDocumentoSoapIn">
-    <wsdl:part name="parameters" element="tns:TransicionarDocumento" />
-  </wsdl:message>
-  <wsdl:message name="TransicionarDocumentoSoapOut">
-    <wsdl:part name="parameters" element="tns:TransicionarDocumentoResponse" />
-  </wsdl:message>
-  <wsdl:message name="TransicionarDocumentoConAreaIntermediaSoapIn">
-    <wsdl:part name="parameters" element="tns:TransicionarDocumentoConAreaIntermedia" />
-  </wsdl:message>
-  <wsdl:message name="TransicionarDocumentoConAreaIntermediaSoapOut">
-    <wsdl:part name="parameters" element="tns:TransicionarDocumentoConAreaIntermediaResponse" />
-  </wsdl:message>
   <wsdl:portType name="WSViaticosSoap">
+    <wsdl:operation name="BuscarNacionalidades">
+      <wsdl:input message="tns:BuscarNacionalidadesSoapIn" />
+      <wsdl:output message="tns:BuscarNacionalidadesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BuscarNivelesDeIdioma">
+      <wsdl:input message="tns:BuscarNivelesDeIdiomaSoapIn" />
+      <wsdl:output message="tns:BuscarNivelesDeIdiomaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BuscarNivelCompetenciaInformatica">
+      <wsdl:input message="tns:BuscarNivelCompetenciaInformaticaSoapIn" />
+      <wsdl:output message="tns:BuscarNivelCompetenciaInformaticaSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="BuscarTiposCompetenciaInformatica">
       <wsdl:input message="tns:BuscarTiposCompetenciaInformaticaSoapIn" />
       <wsdl:output message="tns:BuscarTiposCompetenciaInformaticaSoapOut" />
@@ -8063,6 +8163,18 @@
     <wsdl:operation name="ConsultaExcelDDJJ104_Area">
       <wsdl:input message="tns:ConsultaExcelDDJJ104_AreaSoapIn" />
       <wsdl:output message="tns:ConsultaExcelDDJJ104_AreaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AreasAdministradasPor">
+      <wsdl:input message="tns:AreasAdministradasPorSoapIn" />
+      <wsdl:output message="tns:AreasAdministradasPorSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AreasAdministradasPorIdUsuario">
+      <wsdl:input message="tns:AreasAdministradasPorIdUsuarioSoapIn" />
+      <wsdl:output message="tns:AreasAdministradasPorIdUsuarioSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AsignarAreaAUnUsuario">
+      <wsdl:input message="tns:AsignarAreaAUnUsuarioSoapIn" />
+      <wsdl:output message="tns:AsignarAreaAUnUsuarioSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="DesAsignarAreaAUnUsuario">
       <wsdl:input message="tns:DesAsignarAreaAUnUsuarioSoapIn" />
@@ -8388,17 +8500,13 @@
       <wsdl:input message="tns:BuscarProvinciasSoapIn" />
       <wsdl:output message="tns:BuscarProvinciasSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="BuscarNacionalidades">
-      <wsdl:input message="tns:BuscarNacionalidadesSoapIn" />
-      <wsdl:output message="tns:BuscarNacionalidadesSoapOut" />
+    <wsdl:operation name="TransicionarDocumento">
+      <wsdl:input message="tns:TransicionarDocumentoSoapIn" />
+      <wsdl:output message="tns:TransicionarDocumentoSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="BuscarNivelesDeIdioma">
-      <wsdl:input message="tns:BuscarNivelesDeIdiomaSoapIn" />
-      <wsdl:output message="tns:BuscarNivelesDeIdiomaSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="BuscarNivelCompetenciaInformatica">
-      <wsdl:input message="tns:BuscarNivelCompetenciaInformaticaSoapIn" />
-      <wsdl:output message="tns:BuscarNivelCompetenciaInformaticaSoapOut" />
+    <wsdl:operation name="TransicionarDocumentoConAreaIntermedia">
+      <wsdl:input message="tns:TransicionarDocumentoConAreaIntermediaSoapIn" />
+      <wsdl:output message="tns:TransicionarDocumentoConAreaIntermediaSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="EstaEnElArea">
       <wsdl:input message="tns:EstaEnElAreaSoapIn" />
@@ -8700,18 +8808,6 @@
       <wsdl:input message="tns:BuscarUsuariosPorAreaSoapIn" />
       <wsdl:output message="tns:BuscarUsuariosPorAreaSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="AreasAdministradasPor">
-      <wsdl:input message="tns:AreasAdministradasPorSoapIn" />
-      <wsdl:output message="tns:AreasAdministradasPorSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="AreasAdministradasPorIdUsuario">
-      <wsdl:input message="tns:AreasAdministradasPorIdUsuarioSoapIn" />
-      <wsdl:output message="tns:AreasAdministradasPorIdUsuarioSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="AsignarAreaAUnUsuario">
-      <wsdl:input message="tns:AsignarAreaAUnUsuarioSoapIn" />
-      <wsdl:output message="tns:AsignarAreaAUnUsuarioSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="GetUsuarios">
       <wsdl:input message="tns:GetUsuariosSoapIn" />
       <wsdl:output message="tns:GetUsuariosSoapOut" />
@@ -8783,6 +8879,18 @@
     <wsdl:operation name="GetGraficoRangoEtario">
       <wsdl:input message="tns:GetGraficoRangoEtarioSoapIn" />
       <wsdl:output message="tns:GetGraficoRangoEtarioSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AgregarRenovacionContrato">
+      <wsdl:input message="tns:AgregarRenovacionContratoSoapIn" />
+      <wsdl:output message="tns:AgregarRenovacionContratoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GenerarInformeContrato">
+      <wsdl:input message="tns:GenerarInformeContratoSoapIn" />
+      <wsdl:output message="tns:GenerarInformeContratoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGraficoContratados">
+      <wsdl:input message="tns:GetGraficoContratadosSoapIn" />
+      <wsdl:output message="tns:GetGraficoContratadosSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="ExcelGeneradoRangoEtario">
       <wsdl:input message="tns:ExcelGeneradoRangoEtarioSoapIn" />
@@ -9008,17 +9116,36 @@
       <wsdl:input message="tns:EstadoServicioDeAlertasSoapIn" />
       <wsdl:output message="tns:EstadoServicioDeAlertasSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="TransicionarDocumento">
-      <wsdl:input message="tns:TransicionarDocumentoSoapIn" />
-      <wsdl:output message="tns:TransicionarDocumentoSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="TransicionarDocumentoConAreaIntermedia">
-      <wsdl:input message="tns:TransicionarDocumentoConAreaIntermediaSoapIn" />
-      <wsdl:output message="tns:TransicionarDocumentoConAreaIntermediaSoapOut" />
-    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="WSViaticosSoap" type="tns:WSViaticosSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="BuscarNacionalidades">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarNacionalidades" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarNivelesDeIdioma">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarNivelesDeIdioma" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarNivelCompetenciaInformatica">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarNivelCompetenciaInformatica" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="BuscarTiposCompetenciaInformatica">
       <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarTiposCompetenciaInformatica" style="document" />
       <wsdl:input>
@@ -9498,6 +9625,33 @@
     </wsdl:operation>
     <wsdl:operation name="ConsultaExcelDDJJ104_Area">
       <soap:operation soapAction="http://wsviaticos.gov.ar/ConsultaExcelDDJJ104_Area" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AreasAdministradasPor">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/AreasAdministradasPor" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AreasAdministradasPorIdUsuario">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/AreasAdministradasPorIdUsuario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AsignarAreaAUnUsuario">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/AsignarAreaAUnUsuario" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -10234,8 +10388,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="BuscarNacionalidades">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarNacionalidades" style="document" />
+    <wsdl:operation name="TransicionarDocumento">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/TransicionarDocumento" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -10243,17 +10397,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="BuscarNivelesDeIdioma">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarNivelesDeIdioma" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="BuscarNivelCompetenciaInformatica">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarNivelCompetenciaInformatica" style="document" />
+    <wsdl:operation name="TransicionarDocumentoConAreaIntermedia">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/TransicionarDocumentoConAreaIntermedia" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -10936,33 +11081,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="AreasAdministradasPor">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/AreasAdministradasPor" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="AreasAdministradasPorIdUsuario">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/AreasAdministradasPorIdUsuario" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="AsignarAreaAUnUsuario">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/AsignarAreaAUnUsuario" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetUsuarios">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetUsuarios" style="document" />
       <wsdl:input>
@@ -11118,6 +11236,33 @@
     </wsdl:operation>
     <wsdl:operation name="GetGraficoRangoEtario">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetGraficoRangoEtario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AgregarRenovacionContrato">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/AgregarRenovacionContrato" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerarInformeContrato">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GenerarInformeContrato" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGraficoContratados">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetGraficoContratados" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -11629,27 +11774,36 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="TransicionarDocumento">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/TransicionarDocumento" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="TransicionarDocumentoConAreaIntermedia">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/TransicionarDocumentoConAreaIntermedia" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="WSViaticosSoap12" type="tns:WSViaticosSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="BuscarNacionalidades">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarNacionalidades" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarNivelesDeIdioma">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarNivelesDeIdioma" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarNivelCompetenciaInformatica">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarNivelCompetenciaInformatica" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="BuscarTiposCompetenciaInformatica">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarTiposCompetenciaInformatica" style="document" />
       <wsdl:input>
@@ -12129,6 +12283,33 @@
     </wsdl:operation>
     <wsdl:operation name="ConsultaExcelDDJJ104_Area">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/ConsultaExcelDDJJ104_Area" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AreasAdministradasPor">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/AreasAdministradasPor" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AreasAdministradasPorIdUsuario">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/AreasAdministradasPorIdUsuario" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AsignarAreaAUnUsuario">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/AsignarAreaAUnUsuario" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -12865,8 +13046,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="BuscarNacionalidades">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarNacionalidades" style="document" />
+    <wsdl:operation name="TransicionarDocumento">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/TransicionarDocumento" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -12874,17 +13055,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="BuscarNivelesDeIdioma">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarNivelesDeIdioma" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="BuscarNivelCompetenciaInformatica">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarNivelCompetenciaInformatica" style="document" />
+    <wsdl:operation name="TransicionarDocumentoConAreaIntermedia">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/TransicionarDocumentoConAreaIntermedia" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -13567,33 +13739,6 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="AreasAdministradasPor">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/AreasAdministradasPor" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="AreasAdministradasPorIdUsuario">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/AreasAdministradasPorIdUsuario" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="AsignarAreaAUnUsuario">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/AsignarAreaAUnUsuario" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetUsuarios">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetUsuarios" style="document" />
       <wsdl:input>
@@ -13749,6 +13894,33 @@
     </wsdl:operation>
     <wsdl:operation name="GetGraficoRangoEtario">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetGraficoRangoEtario" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AgregarRenovacionContrato">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/AgregarRenovacionContrato" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerarInformeContrato">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GenerarInformeContrato" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGraficoContratados">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetGraficoContratados" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -14253,24 +14425,6 @@
     </wsdl:operation>
     <wsdl:operation name="EstadoServicioDeAlertas">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/EstadoServicioDeAlertas" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="TransicionarDocumento">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/TransicionarDocumento" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="TransicionarDocumentoConAreaIntermedia">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/TransicionarDocumentoConAreaIntermedia" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

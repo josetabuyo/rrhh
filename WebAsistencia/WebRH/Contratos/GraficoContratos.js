@@ -12,7 +12,7 @@ var GraficoContratos = {
         //       GraficoHerramientas.OcultarTodosLosReportesExcepto("Dotacion");
         _this.dibujarArbolOrganigrama();
         _this.SettearEventosDeLaPagina();
-        _this.SettearEventosDelMenu();
+        //_this.SettearEventosDelMenu();
     },
 
     SettearEventosDeLaPagina: function () {
@@ -31,7 +31,7 @@ var GraficoContratos = {
         // $('#btn_genero').click(function () {
         // GraficoHerramientas.OcultarTodosLosReportesExcepto("Dotacion");
 
-        $('#cb1')[0].checked = true;
+        //$('#cb1')[0].checked = true;
         // });
 
 
@@ -79,11 +79,11 @@ var GraficoContratos = {
         var _this = this;
         var spinner = new Spinner({ scale: 3 });
         spinner.spin($("html")[0]);
-      
-        Backend.GetGrafico({ tipo: tipo, fecha: fecha, id_area: parseInt(id_area), incluir_dependencias: incluir_dependencias })
+
+        Backend.GetGraficoContratados({ tipo: tipo, fecha: fecha, id_area: parseInt(id_area), incluir_dependencias: incluir_dependencias })
             .onSuccess(function (grafico) {
                 var tabla_resumen = grafico.tabla_resumen;
-                var tabla_detalle = grafico.tabla_detalle;
+                var tabla_detalle = grafico.tabla_detalle_contratos;
                 if (tabla_resumen.length > 0) {
                     _this.VisualizarTablaResumenYGrafico(true);
                     _this.DibujarElGrafico(tabla_resumen, titulo, div_grafico);
@@ -106,7 +106,7 @@ var GraficoContratos = {
         var check_seleccionado = checks_activos.slice(-1)[0];
         var fecha = $('#txt_fecha_desde').val();
         var id_area = localStorage.getItem("idArea");
-        
+
 
         if (GraficoHerramientas.VerificarDatosObligatoriosParaBackend(fecha, check_seleccionado, id_area)) {
 
@@ -228,7 +228,7 @@ var GraficoContratos = {
             } else {
                 switch (checks_activos[0]) {
                     case "GraficoPorArea":
-                        titulo = "Contratos del Área " + criterio;
+                        titulo = "Personas del Área " + criterio;
                         for (var i = 0; i < tabla.length; i++) {
                             if (tabla[i].Area == criterio) {
                                 tabla_final.push(tabla[i]);
@@ -292,30 +292,96 @@ var GraficoContratos = {
         var tabla = resultado;
         var columnas = [];
 
+        $("#btn_exportarExcelDetalle").show();
+        $("#btn_generarInforme").show();
+
         columnas.push(new Columna("Area", { generar: function (un_registro) { return un_registro.Area } }));
         columnas.push(new Columna("NroDocumento", { generar: function (un_registro) { return un_registro.NroDocumento } }));
         columnas.push(new Columna("Apellido_Nombre", { generar: function (un_registro) { return (un_registro.Apellido + ", " + un_registro.Nombre) } }));
         columnas.push(new Columna('Detalle', {
             generar: function (un_registro) {
-                var btn_accion = $('<a>');
-                var img = $('<img>');
-                img.attr('src', '../Imagenes/detalle.png');
-                img.attr('width', '15px');
-                img.attr('height', '15px');
-                btn_accion.append(img);
-                btn_accion.click(function () {
-                    console.log(un_registro);
-                    localStorage.setItem("documento", un_registro.NroDocumento);
-                    window.open('ConsultaIndividual.aspx', '_blank');
-                });
-                return btn_accion;
+
+                var div = $('<div>');
+
+                //Si la persona ya fue informado, se deshabilitan los radio button, sino, no.
+                var habilitado = "";
+                if (un_registro.Informe != 0)
+                    habilitado = "disabled";
+
+                //Me fijo que estado tiene (Renovado, No renovado, Pendiente) para marcar los radios
+                var checkRenovado = "";
+                var checkNoRenovado = "";
+                var checkPendiente = "";
+                switch (un_registro.Estado) {
+                    case "R":
+                        checkRenovado = "checked";
+                        checkNoRenovado = "";
+                        checkPendiente = "";
+                        break;
+                    case "N":
+                        checkRenovado = "";
+                        checkNoRenovado = "checked";
+                        checkPendiente = "";
+                        break;
+                    default:
+                        checkRenovado = "";
+                        checkNoRenovado = "";
+                        checkPendiente = "checked";
+                }
+
+
+                var radioRenovar = $('<input id="radioRenovar" ' + habilitado + ' ' + checkRenovado + ' data-area="' + un_registro.IdArea + '" type="radio" name="contratos_' + un_registro.NroDocumento + '" value="R"  /> <span style="color:green;">Renovar</span><br/>');
+                var radioNoRenovar = $('<input id="radioNoRenovar" ' + habilitado + ' ' + checkNoRenovado + ' data-area="' + un_registro.IdArea + '" type="radio" name="contratos_' + un_registro.NroDocumento + '" value="N"  /> <span style="color:red;">No Renovar</span><br/>');
+                var radioPendiente = $('<input id="radioPendiente" ' + habilitado + ' ' + checkPendiente + ' data-area="' + un_registro.IdArea + '" type="radio" name="contratos_' + un_registro.NroDocumento + '" value="P"  /> <span style="color:#000;">Pendiente</span><br/>');
+
+
+                div.append(radioRenovar);
+                div.append(radioNoRenovar);
+                div.append(radioPendiente);
+
+
+                return div;
             }
         }));
+        columnas.push(new Columna('Informe', {
+            generar: function (un_registro) {
+                var div = $('<div>');
+                div.html(un_registro.Informe);
+
+                return div;
+            }
+        }));
+
+
+
+
         _this.GrillaResumen = new Grilla(columnas);
         _this.GrillaResumen.SetOnRowClickEventHandler(function (un_registro) { });
         _this.GrillaResumen.CargarObjetos(tabla);
         _this.GrillaResumen.DibujarEn(divGrilla);
         _this.BuscadorDeTablaDetalle();
+
+        //Bindeo eventos sobre los radio buttons
+        $('input:radio').change(
+                function () {
+                    if ($(this).is(':checked')) {
+
+                        var doc = $(this)[0].name.split('_')[1];
+                        var accio = $(this).val(); // $(this).data("accion");
+                        var area = $(this).data("area");
+
+                        Backend.AgregarRenovacionContrato({ id_area: area, documento: doc, accion: accio })
+                            .onSuccess(function (rto) {
+                                alertify.success("Ok");
+
+                            })
+                            .onError(function (e) {
+
+                                alertify.error("Error");
+                            });
+
+                    }
+                });
     },
 
     //VISUALIZADORES

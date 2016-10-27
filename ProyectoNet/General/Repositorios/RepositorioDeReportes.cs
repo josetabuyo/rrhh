@@ -81,7 +81,7 @@ namespace General.Repositorios
 
             if (GRAFICO_CONTRATO != null)
             {
-                if (GRAFICO_CONTRATO.ContienePersonas())
+                if (GRAFICO_CONTRATO.ContienePersonasAContratar())
                 {
                     CrearResumen(GRAFICO_CONTRATO, tipo, fecha);
                 }
@@ -94,8 +94,8 @@ namespace General.Repositorios
             incluir_dependencias_anterior = incluir_dependencias;
             var parametros = new Dictionary<string, object>();
 
-            parametros.Add("@id_area", id_area);
-            parametros.Add("@renovar", "P");
+            parametros.Add("@area", id_area);
+            parametros.Add("@accion", "P");
             parametros.Add("@usuario", 1);
             parametros.Add("@orden", 0);
             //parametros.Add("@incluir_dependencias", incluir_dependencias);
@@ -105,7 +105,7 @@ namespace General.Repositorios
                 grafico.CrearDatos(tablaDatos.Rows);
 
             }
-            if (grafico.ContienePersonas())
+            if (grafico.ContienePersonasAContratar())
             {
                 CrearResumen(grafico,tipo,fecha);
             }

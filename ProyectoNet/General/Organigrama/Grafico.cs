@@ -83,6 +83,15 @@ namespace General
             return true;
         }
 
+        public bool ContienePersonasAContratar()
+        {
+            if (this.tabla_detalle_contratos.Count == 0)
+            {
+                return false;
+            }
+            return true;
+        }
+
         public abstract void GraficoPorArea();
         public abstract void GraficoPorSecretarias();
         public abstract void GraficoPorSubSecretarias();

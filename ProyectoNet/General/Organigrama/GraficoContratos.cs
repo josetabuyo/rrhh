@@ -37,7 +37,9 @@ namespace General
                         row.GetInt("id_area", 0),
                         row.GetString("Area_Real", ""),
                         row.GetString("Area_Real", ""),
-                        0
+                        0,
+                        0,
+                        "P"
                         );
         }
          
@@ -79,7 +81,7 @@ namespace General
 
             contador.ForEach(registro =>
             {
-                tabla.Add(GenerarRegistroResumen(registro.Descripcion, registro.DescripcionGrafico, registro.Personas.Count, total, registro.Orden));
+                tabla.Add(GenerarRegistroResumen(registro.Descripcion, registro.DescripcionGrafico, registro.PersonasContrato.Count, total, registro.Orden));
             });
 
             this.tabla_resumen = tabla.OrderBy(t => t.Orden).ToList();
