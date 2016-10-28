@@ -29,18 +29,18 @@
          </div>
          <div id="div_detalle_consulta" style="display:none;">
          <label style="margin-right: 24px;">Motivo:</label>
-         <textarea id="ta_motivo" style="width: 100%;" readonly></textarea>
+         <textarea id="ta_motivo" style="width: 100%; height:150px;" readonly></textarea>
          <br />
          <br />
           <label>Respuesta:</label>
-         <textarea id="ta_respuesta" style="width: 100%;" readonly></textarea>
+         <textarea id="ta_respuesta" style="width: 100%; height: 150px;" readonly></textarea>
          </div>
     </div>
     </form>
     <div id="pantalla_alta_ticket" style="display:none">
         <select id="cmb_tipo_consulta">
         </select>
-        <textarea id="txt_motivo_consulta" placeholder="ingrese su consulta aquí"></textarea>
+        <textarea id="txt_motivo_consulta" placeholder="ingrese su consulta aquí" maxlength="1000"></textarea>
         <input id="btn_enviar_consulta" type="button" class="btn btn-primary" style="margin:10px" value="Enviar" />
     </div>
 </body>
