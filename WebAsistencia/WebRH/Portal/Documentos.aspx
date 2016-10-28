@@ -24,25 +24,13 @@
         <div style="margin: 0 auto;" class="row">
          <div style="text-align:right; margin-right:20%"><a href="Consultas.aspx">Realizar/Visualizar Consultas</a></div>
             <div style="text-align:center;" class="caja_izq"></div>
-
-            <div class="caja_der papel">
-            <p class="mensaje_cambio_datos" >Si alguno de los datos que está viendo no es correcto o hubiera que actualizar, por favor envíe un mail a <a href="mailto:xxx@example.com" target="_blank">xxx@example.com</a> </p>
-            <%--<legend style="margin-top: 20px;">Estudios</legend>
-            <p>Estudios cargados en el sistema (ordenados por más actual):</p>
-            --%>
-           
-               
+            <div class="caja_der papel">   
                 <legend style="margin-top: 20px;">Documentos del Legajo</legend>
-
                  <div id="tabla_documentos">
-    
                 </div>
-                 
                 </div>
-               
             </div>
         </div>
-   
     </div>
     </form>
 </body>

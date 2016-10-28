@@ -25,10 +25,6 @@
             <div style="text-align: center;" class="caja_izq">
             </div>
             <div class="caja_der papel">
-                <p class="mensaje_cambio_datos">
-                    Si alguno de los datos que está viendo no es correcto o hubiera que actualizar,
-                    por favor envíe un mail a <a href="mailto:xxx@example.com" target="_blank">xxx@example.com</a>
-                </p>
                 <legend style="margin-top: 20px;">LICENCIAS EN TRÁMITE</legend><a href="#" id="btn_excel_tramite"
                     class="btn_exportar">Exportar Datos</a>
                 <div id="tablaLicenciasEnTramite" class="table table-striped table-bordered table-condensed">
