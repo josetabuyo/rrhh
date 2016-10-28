@@ -23,13 +23,13 @@ namespace General.Repositorios
         }
 
 
-        public string AgregaAccionAPersona(int idArea, int documento, string accion, int idUsuario) {
+        public string AgregaAccionAPersona(int idArea, int documento, string estado, int idUsuario) {
             var parametros = new Dictionary<string, object>();
 
             parametros.Add("@id_area", idArea);
             parametros.Add("@documento", documento);
             parametros.Add("@usuario_alta", idUsuario);
-            parametros.Add("@accion", accion);
+            parametros.Add("@estado", estado);
             //parametros.Add("@incluir_dependencias", incluir_dependencias);
             var tablaDatos = conexion_bd.Ejecutar("dbo.CTR_ADD_Seleccion_Contratos_WEB", parametros);
            

@@ -78,27 +78,28 @@ namespace General.Repositorios
         {
             GraficoContratos grafico = new GraficoContratos();
 
-
-            if (GRAFICO_CONTRATO != null)
+            /*if (incluir_dependencias == incluir_dependencias_anterior)
             {
-                if (GRAFICO_CONTRATO.ContienePersonasAContratar())
+                if (GRAFICO_CONTRATO != null)
                 {
-                    CrearResumen(GRAFICO_CONTRATO, tipo, fecha);
+                    if (GRAFICO_CONTRATO.ContienePersonasAContratar())
+                    {
+                        CrearResumen(GRAFICO_CONTRATO, tipo, fecha);
+                    }
+
+                    return GRAFICO_CONTRATO;
                 }
+            }*/
 
-                return GRAFICO_CONTRATO;
-            }
-
-
-            id_area_anterior = id_area;
+            //id_area_anterior = id_area;
             incluir_dependencias_anterior = incluir_dependencias;
             var parametros = new Dictionary<string, object>();
 
             parametros.Add("@area", id_area);
-            parametros.Add("@accion", "P");
+            parametros.Add("@estado_selecc", "P");
             parametros.Add("@usuario", 1);
-            parametros.Add("@orden", 0);
-            //parametros.Add("@incluir_dependencias", incluir_dependencias);
+            //parametros.Add("@orden", 0);
+            parametros.Add("@incluir_dependencias", incluir_dependencias);
             var tablaDatos = conexion_bd.Ejecutar("dbo.CTR_GET_Seleccion_Contratos_WEB", parametros);
             if (tablaDatos.Rows.Count > 0)
             {

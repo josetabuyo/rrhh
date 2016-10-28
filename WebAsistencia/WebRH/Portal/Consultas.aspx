@@ -15,7 +15,7 @@
         <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
         <link href="../scripts/vex-2.1.1/css/vex.css" rel="stylesheet">
         <link href="../scripts/vex-2.1.1/css/vex-theme-os.css" rel="stylesheet">
-        <link rel="stylesheet" media="(max-width: 1600px)" href="estilosPortalSecciones.css" />
+        <link rel="stylesheet"  href="estilosPortalSecciones.css" />
     </head>
 <body>
     <form id="form1" runat="server">
