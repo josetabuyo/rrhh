@@ -524,7 +524,7 @@ var Legajo = {
                         });
                     })
                     .onError(function (e) {
-
+                        alert("No se han podido obtener los tipos de Consulta.")
                     });
 
     }

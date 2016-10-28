@@ -366,7 +366,7 @@ namespace General.Repositorios
                         row.GetString("tipo_consulta"),
                         row.GetString("motivo"),
                         row.GetString("estado"),
-                        "Belén Cevey",//row.GetString("is_usuario_responsable"), 
+                        row.GetString("is_usuario_responsable", "-"), 
                         row.GetDateTime("fecha_contestacion", new DateTime()),
                         row.GetString("respuesta", ""));
                     consultas.Add(consulta);
@@ -407,7 +407,6 @@ namespace General.Repositorios
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_usuario_creador", id_usuario);
             parametros.Add("@id_tipo_consulta", consulta.id_tipo_consulta);
-            parametros.Add("@tipo_consulta", consulta.tipo_consulta);
             parametros.Add("@motivo", consulta.motivo);
 
             var resultado = conexion.EjecutarEscalar("dbo.LEG_NuevaConsultaDePortal", parametros);
