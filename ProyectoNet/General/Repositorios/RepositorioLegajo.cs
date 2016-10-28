@@ -12,7 +12,8 @@ namespace General.Repositorios
 
         private static RepositorioLegajo _instancia;
 
-        private RepositorioLegajo(IConexionBD conexion):base(conexion,10)
+        private RepositorioLegajo(IConexionBD conexion)
+            : base(conexion, 10)
         {
 
         }
@@ -30,25 +31,27 @@ namespace General.Repositorios
             parametros.Add("@NroDocumento", doc);
             var tablaDatos = conexion.Ejecutar("dbo.LEG_GET_Estudios_Realizados", parametros);
 
-            if (tablaDatos.Rows.Count > 0) {
+            if (tablaDatos.Rows.Count > 0)
+            {
                 tablaDatos.Rows.ForEach(row =>
                 {
                     int idUniversidad = traerMasDatosDelEstudio(row.GetInt("id"));
                     string nombre_universidad = traerNombre(idUniversidad);
 
-                    lista_estudios.Add(new Estudio {
-                        nombreDeNivel = row.GetString("Nivel","Sin información"),
+                    lista_estudios.Add(new Estudio
+                    {
+                        nombreDeNivel = row.GetString("Nivel", "Sin información"),
                         titulo = row.GetString("Titulo", "Sin información"),
-                        fechaEgreso = row.GetDateTime("Fecha_Egreso",new DateTime(1900,1,1)),
+                        fechaEgreso = row.GetDateTime("Fecha_Egreso", new DateTime(1900, 1, 1)),
                         nombreUniversidad = nombre_universidad
-                    }); 
+                    });
                 });
-            
+
             }
 
             lista_estudios.Sort((estudio1, estudio2) => estudio2.fechaEgreso.CompareTo(estudio1.fechaEgreso));
 
-            return JsonConvert.SerializeObject(lista_estudios.ToArray()); 
+            return JsonConvert.SerializeObject(lista_estudios.ToArray());
 
         }
 
@@ -82,10 +85,11 @@ namespace General.Repositorios
             {
                 tablaDatos.Rows.ForEach(row =>
                 {
-                    if (idUniversidad == row.GetSmallintAsInt("id",0)) {
+                    if (idUniversidad == row.GetSmallintAsInt("id", 0))
+                    {
                         nombreUniversidad = row.GetString("Universidad", "Sin datos");
                     }
-                    
+
 
                 });
 
@@ -101,16 +105,16 @@ namespace General.Repositorios
             var parametros = new Dictionary<string, object>();
             parametros.Add("@Doc_Titular", doc);
             parametros.Add("@Id_Interna", 0);
-            
+
             var tablaDatos = conexion.Ejecutar("dbo.LEG_GET_DDJJ_Familiares", parametros);
-            var list_de_familiares = new List<Object>{};
+            var list_de_familiares = new List<Object> { };
 
 
             if (tablaDatos.Rows.Count > 0)
             {
                 tablaDatos.Rows.ForEach(row =>
                 {
-                    list_de_familiares.Add(new 
+                    list_de_familiares.Add(new
                     {
                         Nombre = row.GetString("Nombre", "Sin información"),
                         Apellido = row.GetString("Apellido", "Sin información"),
@@ -178,7 +182,7 @@ namespace General.Repositorios
                     liquidacion = new
                     {
                         Id = row.GetInt("liquidacion", 0),
-                        Descripcion = row.GetString("Descripcion","Sin nombre")
+                        Descripcion = row.GetString("Descripcion", "Sin nombre")
                     };
 
                     listaLiquidaciones.Add(liquidacion);
@@ -268,12 +272,12 @@ namespace General.Repositorios
                     CUIL = tablaDatos.Rows.First().GetString("CUIL", ""),
                     Oficina = tablaDatos.Rows.First().GetSmallintAsInt("Oficina", 0),
                     Orden = tablaDatos.Rows.First().GetSmallintAsInt("Orden", 0),
-                    Bruto = tablaDatos.Rows.First().GetString("SBruto",""),
-                    Neto = tablaDatos.Rows.First().GetString("SNeto",""),
-                    Descuentos = tablaDatos.Rows.First().GetString("SDescuentos",""),
-                    NivelGrado = tablaDatos.Rows.First().GetString("NivelGrado",""),
-                    Area = tablaDatos.Rows.First().GetString("area",""),
-                    Domicilio = tablaDatos.Rows.First().GetString("Domicilio",""),
+                    Bruto = tablaDatos.Rows.First().GetString("SBruto", ""),
+                    Neto = tablaDatos.Rows.First().GetString("SNeto", ""),
+                    Descuentos = tablaDatos.Rows.First().GetString("SDescuentos", ""),
+                    NivelGrado = tablaDatos.Rows.First().GetString("NivelGrado", ""),
+                    Area = tablaDatos.Rows.First().GetString("area", ""),
+                    Domicilio = tablaDatos.Rows.First().GetString("Domicilio", ""),
                     FechaLiquidacion = tablaDatos.Rows.First().GetString("F_Liquidacion", "")
 
                 };
@@ -321,7 +325,7 @@ namespace General.Repositorios
 
             var tablaDatos = conexion.Ejecutar("dbo.LEG_GET_Designaciones", parametros);
             var list_de_designaciones = new List<Object> { };
-            
+
             if (tablaDatos.Rows.Count > 0)
             {
                 tablaDatos.Rows.ForEach(row =>
@@ -351,22 +355,22 @@ namespace General.Repositorios
             List<Consulta> consultas = new List<Consulta>();
 
             var tablaDatos = conexion.Ejecutar("dbo.LEG_GETConsultasDePortal", parametros);
-          
+
             if (tablaDatos.Rows.Count > 0)
             {
                 tablaDatos.Rows.ForEach(row =>
                 {
                     Consulta consulta = new Consulta(
-                        row.GetInt("Id"), 
-                        row.GetDateTime("fecha_creacion"), 
+                        row.GetInt("Id"),
+                        row.GetDateTime("fecha_creacion"),
                         row.GetString("tipo_consulta"),
                         row.GetString("motivo"),
-                        row.GetString("estado"), 
+                        row.GetString("estado"),
                         "Belén Cevey",//row.GetString("is_usuario_responsable"), 
-                        row.GetDateTime("fecha_contestacion", new DateTime()), 
+                        row.GetDateTime("fecha_contestacion", new DateTime()),
                         row.GetString("respuesta", ""));
                     consultas.Add(consulta);
-                   
+
                 });
 
             }
@@ -374,7 +378,30 @@ namespace General.Repositorios
             return JsonConvert.SerializeObject(consultas);
 
         }
-        
+
+        public string GetTiposDeConsultaDePortal()
+        {
+            
+            var tipos_consultas = new List<Object> { };
+
+            var tablaDatos = conexion.Ejecutar("dbo.LEG_GetTiposDeConsultaDePortal");
+
+            if (tablaDatos.Rows.Count > 0)
+            {
+                tablaDatos.Rows.ForEach(row =>
+                tipos_consultas.Add(new
+                    {
+
+                        id = row.GetSmallintAsInt("id"),
+                        descripcion = row.GetString("descripcion")
+                    })
+                );
+            }
+
+            return JsonConvert.SerializeObject(tipos_consultas);
+
+        }
+
         public int NuevaConsultaDePortal(int id_usuario, Consulta consulta)
         {
             var parametros = new Dictionary<string, object>();

@@ -1165,6 +1165,16 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetTiposDeConsultaDePortal">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetTiposDeConsultaDePortalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTiposDeConsultaDePortalResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="NuevaConsultaDePortal">
         <s:complexType>
           <s:sequence>
@@ -6383,6 +6393,12 @@
   <wsdl:message name="GetConsultasDePortalSoapOut">
     <wsdl:part name="parameters" element="tns:GetConsultasDePortalResponse" />
   </wsdl:message>
+  <wsdl:message name="GetTiposDeConsultaDePortalSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTiposDeConsultaDePortal" />
+  </wsdl:message>
+  <wsdl:message name="GetTiposDeConsultaDePortalSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTiposDeConsultaDePortalResponse" />
+  </wsdl:message>
   <wsdl:message name="NuevaConsultaDePortalSoapIn">
     <wsdl:part name="parameters" element="tns:NuevaConsultaDePortal" />
   </wsdl:message>
@@ -8040,6 +8056,10 @@
       <wsdl:input message="tns:GetConsultasDePortalSoapIn" />
       <wsdl:output message="tns:GetConsultasDePortalSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetTiposDeConsultaDePortal">
+      <wsdl:input message="tns:GetTiposDeConsultaDePortalSoapIn" />
+      <wsdl:output message="tns:GetTiposDeConsultaDePortalSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="NuevaConsultaDePortal">
       <wsdl:input message="tns:NuevaConsultaDePortalSoapIn" />
       <wsdl:output message="tns:NuevaConsultaDePortalSoapOut" />
@@ -9444,6 +9464,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetConsultasDePortal">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetConsultasDePortal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTiposDeConsultaDePortal">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetTiposDeConsultaDePortal" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -12075,6 +12104,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetConsultasDePortal">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetConsultasDePortal" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTiposDeConsultaDePortal">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetTiposDeConsultaDePortal" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

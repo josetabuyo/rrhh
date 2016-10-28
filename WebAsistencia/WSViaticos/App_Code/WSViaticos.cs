@@ -4004,6 +4004,15 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public string GetTiposDeConsultaDePortal()
+    {
+        RepositorioLegajo repo = RepoLegajo();
+
+        return repo.GetTiposDeConsultaDePortal();
+
+    }
+
+    [WebMethod]
     public int NuevaConsultaDePortal(Consulta consulta, Usuario usuario)
     {
         return RepoLegajo().NuevaConsultaDePortal(usuario.Id, consulta);

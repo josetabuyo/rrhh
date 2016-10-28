@@ -223,13 +223,13 @@ var Legajo = {
 
     },
     ConvertirAMonedaOVacio: function (numero) {
-                    var _this = this;
-                    if (numero == null) {
-                        return "";
-                    }
-                    var _this = this;
-                    if (numero == 0) return "";
-                    return '$ ' + _this.ConvertirANumeroConPuntos(numero.toFixed(2).toString().replace(".", ","));
+        var _this = this;
+        if (numero == null) {
+            return "";
+        }
+        var _this = this;
+        if (numero == 0) return "";
+        return '$ ' + _this.ConvertirANumeroConPuntos(numero.toFixed(2).toString().replace(".", ","));
 
         if (numero == "0") {
             return "";
@@ -476,7 +476,7 @@ var Legajo = {
         Backend.GetNombreDeLaPersona()
         .onSuccess(function (nombre) {
             $("#nombre_empleado").html(nombre);
-           
+
         })
         .onError(function (e) {
 
@@ -500,7 +500,7 @@ var Legajo = {
                         columnas.push(new Columna("Estado", { generar: function (una_consulta) { return una_consulta.estado } }));
                         columnas.push(new Columna("Responsable", { generar: function (una_consulta) { return una_consulta.contestador.Nombre } }));
                         columnas.push(new Columna("Fecha", { generar: function (una_consulta) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_consulta.fechaContestacion) } }));
-                       // columnas.push(new Columna("Ver MASSSS", { generar: function (una_consulta) { return una_consulta.SituacionRevista } }));
+                        // columnas.push(new Columna("Ver MASSSS", { generar: function (una_consulta) { return una_consulta.SituacionRevista } }));
 
                         _this.Grilla = new Grilla(columnas);
                         _this.Grilla.CambiarEstiloCabecera("estilo_tabla_portal");
@@ -511,7 +511,21 @@ var Legajo = {
                     .onError(function (e) {
 
                     });
+    },
+    GetComboTipoConsulta: function () {
+        Backend.GetTiposDeConsultaDePortal()
+                    .onSuccess(function (tiposconsultaJSON) {
+                        var tiposconsulta = JSON.parse(tiposconsultaJSON);
+                        $.each(tiposconsulta, function (i, tipoconsulta) {
+                            $('#cmb_tipo_consulta').append($('<option>', {
+                                value: tipoconsulta.id,
+                                text: tipoconsulta.descripcion
+                            }));
+                        });
+                    })
+                    .onError(function (e) {
 
+                    });
 
     }
 

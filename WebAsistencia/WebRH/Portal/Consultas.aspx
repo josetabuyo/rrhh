@@ -32,11 +32,6 @@
     </form>
     <div id="pantalla_alta_ticket" style="display:none">
         <select id="cmb_tipo_consulta">
-            <option value="1">Error en el sitio</option>
-            <option value="2">Duda sobre el sitio</option>
-            <option value="3">Consulta administrativa</option>
-            <option value="4">Solicitud de cambio de datos</option>
-            <option value="5">Sugerencia</option>
         </select>
         <textarea id="txt_motivo_consulta" placeholder="ingrese su consulta aquí"></textarea>
         <input id="btn_enviar_consulta" type="button" class="btn btn-primary" style="margin:10px" value="Enviar" />
@@ -49,11 +44,11 @@
     $(document).ready(function ($) {
         //para cargar el menu izquierdo 
         $(".caja_izq").load("SeccionIzquierda.htm", function () {
-            
+
             Backend.start(function () {
                 Legajo.getNombre();
                 Legajo.getConsultas();
-
+                Legajo.GetComboTipoConsulta();
                 $("#btn_nueva_consulta").click(function () {
                     vex.defaultOptions.className = 'vex-theme-os';
                     vex.open({
