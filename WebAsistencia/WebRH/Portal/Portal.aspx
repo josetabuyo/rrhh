@@ -9,7 +9,7 @@
         <meta name="viewport" content="width=device-width">
         <link rel="stylesheet" href="estilosPortal.css" type="text/css" media="screen"/>
         <!-- CSS media query on a link element -->
-        <link rel="stylesheet" media="(max-width: 1600px)" href="estilosPortalSecciones.css" />
+        <link rel="stylesheet" href="estilosPortalSecciones.css" />
          <%= Referencias.Css("../")%>
 
         <%= Referencias.Javascript("../")%>
