@@ -482,8 +482,14 @@ var Legajo = {
 
         });
     },
+    MostrarDetalleDeConsulta: function (motivo, respuesta) {
+        $('#div_detalle_consulta').show();
+        $('#ta_motivo').val(motivo);
+        $('#ta_respuesta').val(respuesta);
+    },
 
     getConsultas: function () {
+        var _this_original = this;
         Backend.GetConsultasDePortal()
                     .onSuccess(function (consultasJSON) {
                         var consultas = [];
@@ -500,7 +506,20 @@ var Legajo = {
                         columnas.push(new Columna("Estado", { generar: function (una_consulta) { return una_consulta.estado } }));
                         columnas.push(new Columna("Responsable", { generar: function (una_consulta) { return una_consulta.contestador.Nombre } }));
                         columnas.push(new Columna("Fecha", { generar: function (una_consulta) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_consulta.fechaContestacion) } }));
-                        // columnas.push(new Columna("Ver MASSSS", { generar: function (una_consulta) { return una_consulta.SituacionRevista } }));
+                        columnas.push(new Columna('Detalle', {
+                            generar: function (una_consulta) {
+                                var btn_accion = $('<a>');
+                                var img = $('<img>');
+                                img.attr('src', '../Imagenes/detalle.png');
+                                img.attr('width', '15px');
+                                img.attr('height', '15px');
+                                btn_accion.append(img);
+                                btn_accion.click(function () {
+                                    _this_original.MostrarDetalleDeConsulta(una_consulta.motivo, una_consulta.respuesta);
+                                });
+                                return btn_accion;
+                            }
+                        }));
 
                         _this.Grilla = new Grilla(columnas);
                         _this.Grilla.CambiarEstiloCabecera("estilo_tabla_portal");

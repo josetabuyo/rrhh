@@ -27,7 +27,14 @@
          <input id="btn_nueva_consulta" type="button" class="btn btn-primary" style="margin:10px" value="Realizar nueva consulta" />  
          <div id="tablaConsultas" class="table table-striped table-bordered table-condensed">  
          </div>
-         
+         <div id="div_detalle_consulta" style="display:none;">
+         <label style="margin-right: 24px;">Motivo:</label>
+         <textarea id="ta_motivo" style="width: 100%;" readonly></textarea>
+         <br />
+         <br />
+          <label>Respuesta:</label>
+         <textarea id="ta_respuesta" style="width: 100%;" readonly></textarea>
+         </div>
     </div>
     </form>
     <div id="pantalla_alta_ticket" style="display:none">
