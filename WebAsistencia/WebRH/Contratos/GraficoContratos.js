@@ -13,6 +13,9 @@ var GraficoContratos = {
         _this.dibujarArbolOrganigrama();
         _this.SettearEventosDeLaPagina();
         //_this.SettearEventosDelMenu();
+        $("#chk_incluir_dependencias").click(function () {
+            _this.BuscarDatos();
+        });
     },
 
     SettearEventosDeLaPagina: function () {
