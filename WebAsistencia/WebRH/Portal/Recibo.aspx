@@ -13,7 +13,7 @@
 
         <%= Referencias.Javascript("../")%>
 
-        <link rel="stylesheet" media="(max-width: 1600px)" href="estilosPortalSecciones.css" />
+        <link rel="stylesheet" href="estilosPortalSecciones.css" />
     </head>
 <body>
     <form id="form1" runat="server">
