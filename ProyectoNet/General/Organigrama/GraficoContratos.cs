@@ -34,12 +34,13 @@ namespace General
                         row.GetInt("Nro_Documento", 0),
                         row.GetString("Apellido", "Sin Dato"),
                         row.GetString("Nombre", "Sin Dato"),
-                        row.GetInt("id_area", 0),
-                        row.GetString("Area_Real", ""),
-                        row.GetString("Area_Real", ""),
-                        0,
-                        0,
-                        "P"
+                        row.GetInt("Id_Area_Actual", 0),
+                        row.GetString("Area_Actual", ""),
+                        row.GetString("Area_Actual", ""),
+                        0,//orden
+                        row.GetInt("NroInforme", 0),
+                        row.GetString("estado_seleccion_descriptivo", ""),
+                        row.GetSmallintAsInt("estado_seleccion", 0)//id_estado
                         );
         }
          
@@ -54,25 +55,25 @@ namespace General
             {
                 if (contador.Count > 0)
                 {
-                    if (contador.Exists(area => area.Id == p.IdArea))
+                    if (contador.Exists(estado => estado.Id == p.IdEstado))
                     {
-                        contador.Find(area => area.Id == p.IdArea).PersonasContrato.Add(p);
+                        contador.Find(estado => estado.Id == p.IdEstado).PersonasContrato.Add(p);
                     }
                     else
                     {
-                        Contador nueva_area = new Contador(p.IdArea, p.Area, p.AreaDescripCorta,0, "");
-                        nueva_area.PersonasContrato.Add(p);
-                        nueva_area.Orden = p.OrdenArea;
-                        contador.Add(nueva_area);
+                        Contador nuevo_estado = new Contador(p.IdEstado, p.Estado, p.Estado,0, "");
+                        nuevo_estado.PersonasContrato.Add(p);
+                        nuevo_estado.Orden = p.OrdenArea;
+                        contador.Add(nuevo_estado);
 
                     }
                 }
                 else
                 {
-                    Contador nueva_area = new Contador(p.IdArea, p.Area, p.AreaDescripCorta,0, "");
-                    nueva_area.PersonasContrato.Add(p);
-                    nueva_area.Orden = p.OrdenArea;
-                    contador.Add(nueva_area);
+                    Contador nuevo_estado = new Contador(p.IdEstado, p.Estado, p.Estado, 0, "");
+                    nuevo_estado.PersonasContrato.Add(p);
+                    nuevo_estado.Orden = p.OrdenArea;
+                    contador.Add(nuevo_estado);
                 }
 
             });

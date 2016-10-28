@@ -43,6 +43,6 @@ namespace General
             this.Orden = orden;
             this.DescripcionGrafico = descripcionGrafico;
         }
-
+        
     }
 }
