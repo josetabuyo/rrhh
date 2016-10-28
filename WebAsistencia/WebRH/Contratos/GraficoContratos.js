@@ -14,6 +14,8 @@ var GraficoContratos = {
         _this.SettearEventosDeLaPagina();
         //_this.SettearEventosDelMenu();
         $("#chk_incluir_dependencias").click(function () {
+            _this.VisualizarGraficoYTablaResumen(true);
+            _this.VisualizarTablaDetalle(false);
             _this.BuscarDatos();
         });
     },
