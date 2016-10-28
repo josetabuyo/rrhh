@@ -78,7 +78,7 @@ namespace General.Repositorios
         {
             GraficoContratos grafico = new GraficoContratos();
 
-            if (id_area == id_area_anterior && incluir_dependencias == incluir_dependencias_anterior)
+            /*if (incluir_dependencias == incluir_dependencias_anterior)
             {
                 if (GRAFICO_CONTRATO != null)
                 {
@@ -89,9 +89,9 @@ namespace General.Repositorios
 
                     return GRAFICO_CONTRATO;
                 }
-            }
+            }*/
 
-            id_area_anterior = id_area;
+            //id_area_anterior = id_area;
             incluir_dependencias_anterior = incluir_dependencias;
             var parametros = new Dictionary<string, object>();
 
