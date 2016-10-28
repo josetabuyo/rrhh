@@ -230,7 +230,7 @@ var GraficoContratos = {
                     case "GraficoPorArea":
                         titulo = "Personas del Área " + criterio;
                         for (var i = 0; i < tabla.length; i++) {
-                            if (tabla[i].Area == criterio) {
+                            if (tabla[i].Estado == criterio) {
                                 tabla_final.push(tabla[i]);
                             }
                         } break;
@@ -312,13 +312,15 @@ var GraficoContratos = {
                 var checkRenovado = "";
                 var checkNoRenovado = "";
                 var checkPendiente = "";
-                switch (un_registro.Estado) {
-                    case "R":
+                switch (un_registro.IdEstado) {
+                    case 2:
+                    case 4:
                         checkRenovado = "checked";
                         checkNoRenovado = "";
                         checkPendiente = "";
                         break;
-                    case "N":
+                    case 3:
+                    case 5:
                         checkRenovado = "";
                         checkNoRenovado = "checked";
                         checkPendiente = "";
@@ -330,9 +332,9 @@ var GraficoContratos = {
                 }
 
 
-                var radioRenovar = $('<input id="radioRenovar" ' + habilitado + ' ' + checkRenovado + ' data-area="' + un_registro.IdArea + '" type="radio" name="contratos_' + un_registro.NroDocumento + '" value="R"  /> <span style="color:green;">Renovar</span><br/>');
-                var radioNoRenovar = $('<input id="radioNoRenovar" ' + habilitado + ' ' + checkNoRenovado + ' data-area="' + un_registro.IdArea + '" type="radio" name="contratos_' + un_registro.NroDocumento + '" value="N"  /> <span style="color:red;">No Renovar</span><br/>');
-                var radioPendiente = $('<input id="radioPendiente" ' + habilitado + ' ' + checkPendiente + ' data-area="' + un_registro.IdArea + '" type="radio" name="contratos_' + un_registro.NroDocumento + '" value="P"  /> <span style="color:#000;">Pendiente</span><br/>');
+                var radioRenovar = $('<input id="radioRenovar" ' + habilitado + ' ' + checkRenovado + ' data-area="' + un_registro.IdArea + '" type="radio" name="contratos_' + un_registro.NroDocumento + '" value="2"  /> <span style="color:green;">Renovar</span><br/>');
+                var radioNoRenovar = $('<input id="radioNoRenovar" ' + habilitado + ' ' + checkNoRenovado + ' data-area="' + un_registro.IdArea + '" type="radio" name="contratos_' + un_registro.NroDocumento + '" value="3"  /> <span style="color:red;">No Renovar</span><br/>');
+                var radioPendiente = $('<input id="radioPendiente" ' + habilitado + ' ' + checkPendiente + ' data-area="' + un_registro.IdArea + '" type="radio" name="contratos_' + un_registro.NroDocumento + '" value="1"  /> <span style="color:#000;">Pendiente</span><br/>');
 
 
                 div.append(radioRenovar);
