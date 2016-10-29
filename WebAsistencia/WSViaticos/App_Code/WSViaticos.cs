@@ -356,20 +356,16 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string GenerarInformeContrato(string criterio, Usuario usuario)
     {
-        /*if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 31)) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 31)) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
         if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 38)) throw (new Exception("El usuario no tiene permisos para acceder al reporte de dotacion"));
         var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
-        string tipo = ((JValue)criterio_deserializado["tipo"]).ToString();
-        int dia = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(0, 2)));
-        int mes = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(3, 2)));
-        int anio = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(6, 4)));
-        bool incluir_dependencias = (bool)((JValue)criterio_deserializado["incluir_dependencias"]);
-        DateTime fecha = new DateTime(anio, mes, dia);
-        int id_area = (int)((JValue)criterio_deserializado["id_area"]);
-        RepositorioDeReportes repositorio = new RepositorioDeReportes(Conexion());
-        return repositorio.GetGraficoContratados(tipo, fecha, id_area, incluir_dependencias);*/
-        return "";
 
+        bool incluir_dependencias = (bool)((JValue)criterio_deserializado["incluir_dependencias"]);
+        int id_area = Int32.Parse((string)((JValue)criterio_deserializado["id_area"]));
+        int id_estado = (int)((JValue)criterio_deserializado["id_estado"]);
+
+        RepositorioDeContratos repositorio = new RepositorioDeContratos(Conexion());
+        return repositorio.GenerarInforme(id_area, id_estado, incluir_dependencias, usuario.Id);
     }
 
     [WebMethod]

@@ -36,15 +36,16 @@ namespace General.Repositorios
             return "ok";
         }
 
-        //PARA IMPLEMENTAR PROXIMAMENTE
-        public string GenerarInforme(int idArea, int idUsuario)
+        public string GenerarInforme(int id_area, int id_estado, bool incluir_dependencias, int id_usuario)
         {
             var parametros = new Dictionary<string, object>();
 
-            parametros.Add("@id_area", idArea);
-           
-            //parametros.Add("@incluir_dependencias", incluir_dependencias);
-            //var tablaDatos = conexion_bd.Ejecutar("dbo.CTR_ADD_Seleccion_Contratos_WEB", parametros);
+            parametros.Add("@id_area", id_area);
+            parametros.Add("@estado", id_estado);
+            parametros.Add("@usuario", id_usuario);           
+            parametros.Add("@incluir_dependencias", incluir_dependencias);
+
+            var tablaDatos = conexion_bd.Ejecutar("dbo.CTR_ADD_seleccion_contratos_WEB_inf", parametros);
 
             return "ok";
         }
