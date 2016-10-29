@@ -488,6 +488,14 @@ var Legajo = {
         $('#ta_respuesta').val(respuesta);
     },
 
+    TratarConsulta: function (creador, tipo, motivo){
+    $('#tablaConsultas').hide();
+    $('#div_detalle_consulta').show();
+    $('#txt_creador').val(creador);
+    $('#txt_tipo').val(tipo);
+    $('#ta_motivo').val(motivo);
+    },
+
     getConsultas: function () {
         var _this_original = this;
         Backend.GetConsultasDePortal()
@@ -546,6 +554,49 @@ var Legajo = {
                         alert("No se han podido obtener los tipos de Consulta.")
                     });
 
-    }
+    },
+
+     getConsultasTodas: function () {
+        var _this_original = this;
+        Backend.GetConsultasTodasDePortal(6)
+                    .onSuccess(function (consultasJSON) {
+                        var consultas = [];
+                        if (consultasJSON != "") {
+                            consultas = JSON.parse(consultasJSON);
+                        }
+                        var _this = this;
+                        $("#tablaConsultas").empty();
+                        var divGrilla = $("#tablaConsultas");
+                        var columnas = [];
+                        var creador = "";
+                        columnas.push(new Columna("Id", { generar: function (una_consulta) { return una_consulta.Id } }));
+                        columnas.push(new Columna("Fecha Creación", { generar: function (una_consulta) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_consulta.fechaCreacion) } }));
+                        columnas.push(new Columna("Tipo de Consulta", { generar: function (una_consulta) { return una_consulta.tipo_consulta } }));
+                        columnas.push(new Columna("Creador", { generar: function (una_consulta, creador) { creador = una_consulta.creador.Apellido + ", " + una_consulta.creador.Nombre; return creador } }));
+                        columnas.push(new Columna('Tratar', {
+                            generar: function (una_consulta) {
+                                var btn_accion = $('<a>');
+                                var img = $('<img>');
+                                img.attr('src', '../Imagenes/edit.png');
+                                img.attr('width', '15px');
+                                img.attr('height', '15px');
+                                btn_accion.append(img);
+                                btn_accion.click(function () {
+                                    _this_original.TratarConsulta(creador, una_consulta.tipo_consulta, una_consulta.motivo);
+                                });
+                                return btn_accion;
+                            }
+                        }));
+
+                        _this.Grilla = new Grilla(columnas);
+                        _this.Grilla.CambiarEstiloCabecera("estilo_tabla_portal");
+                        _this.Grilla.CargarObjetos(consultas);
+                        _this.Grilla.DibujarEn(divGrilla);
+                        $('.table-hover').removeClass("table-hover");
+                    })
+                    .onError(function (e) {
+
+                    });
+    },
 
 }

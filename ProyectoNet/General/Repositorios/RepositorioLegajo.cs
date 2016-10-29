@@ -353,7 +353,7 @@ namespace General.Repositorios
             var parametros = new Dictionary<string, object>();
             parametros.Add("@Id_usuario", id_usuario);
             List<Consulta> consultas = new List<Consulta>();
-
+            Persona creador = new Persona();
             var tablaDatos = conexion.Ejecutar("dbo.LEG_GETConsultasDePortal", parametros);
 
             if (tablaDatos.Rows.Count > 0)
@@ -362,11 +362,45 @@ namespace General.Repositorios
                 {
                     Consulta consulta = new Consulta(
                         row.GetInt("Id"),
+                        creador,
                         row.GetDateTime("fecha_creacion"),
                         row.GetString("tipo_consulta"),
                         row.GetString("motivo"),
                         row.GetString("estado"),
-                        row.GetString("is_usuario_responsable", "-"), 
+                        row.GetString("is_usuario_responsable", "-"),
+                        row.GetDateTime("fecha_contestacion", new DateTime()),
+                        row.GetString("respuesta", ""));
+                    consultas.Add(consulta);
+
+                });
+
+            }
+
+            return JsonConvert.SerializeObject(consultas);
+
+        }
+        public string GetConsultasTodasDePortal(int estado)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@Estado", estado);
+            List<Consulta> consultas = new List<Consulta>();
+
+            var tablaDatos = conexion.Ejecutar("dbo.LEG_GETConsultasDePortal", parametros);
+
+            if (tablaDatos.Rows.Count > 0)
+            {
+                tablaDatos.Rows.ForEach(row =>
+                {
+                    Persona creador = new Persona(row.GetInt("id_usuario_creador"), 123, "Belén", "Cevey", new Area());
+
+                    Consulta consulta = new Consulta(
+                        row.GetInt("Id"),
+                        creador,
+                        row.GetDateTime("fecha_creacion"),
+                        row.GetString("tipo_consulta"),
+                        row.GetString("motivo"),
+                        row.GetString("estado"),
+                        row.GetString("is_usuario_responsable", "-"),
                         row.GetDateTime("fecha_contestacion", new DateTime()),
                         row.GetString("respuesta", ""));
                     consultas.Add(consulta);
@@ -381,7 +415,7 @@ namespace General.Repositorios
 
         public string GetTiposDeConsultaDePortal()
         {
-            
+
             var tipos_consultas = new List<Object> { };
 
             var tablaDatos = conexion.Ejecutar("dbo.LEG_GetTiposDeConsultaDePortal");

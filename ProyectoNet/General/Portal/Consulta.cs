@@ -21,7 +21,7 @@ namespace General
 
         public Consulta() { }
 
-        public Consulta(int id, DateTime fecha_creacion, string tipo_consulta, string motivo, string estado, string contestador, DateTime fecha_contestacion, string respuesta)
+        public Consulta(int id, Persona creador, DateTime fecha_creacion, string tipo_consulta, string motivo, string estado, string contestador, DateTime fecha_contestacion, string respuesta)
         {
             this.contestador = new Persona();
             this.Id = id;
@@ -32,6 +32,7 @@ namespace General
             this.contestador.Nombre = contestador;
             this.fechaContestacion = fecha_contestacion;
             this.respuesta = respuesta;
+            this.creador = creador;
         }
 
 

@@ -3994,6 +3994,7 @@ public class WSViaticos : System.Web.Services.WebService
         return repo.getDesignaciones(usuario.Owner.Documento);
 
     }
+
     [WebMethod]
     public string GetConsultasDePortal(Usuario usuario)
     {
@@ -4002,6 +4003,16 @@ public class WSViaticos : System.Web.Services.WebService
         return repo.GetConsultasDePortal(usuario.Id);
 
     }
+
+    [WebMethod]
+    public string GetConsultasTodasDePortal(int estado)
+    {
+        RepositorioLegajo repo = RepoLegajo();
+
+        return repo.GetConsultasTodasDePortal(estado);
+
+    }
+   
 
     [WebMethod]
     public string GetTiposDeConsultaDePortal()
