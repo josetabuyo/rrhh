@@ -261,6 +261,8 @@ var GraficoContratos = {
         var nombre = "";
         var columnas = [];
 
+        var id_area = localStorage.getItem("idArea");
+
         columnas.push(new Columna("Información", {
             generar: function (un_registro) {
                 nombre = un_registro.Id.replace(/\|/g, "&nbsp;");
@@ -272,16 +274,36 @@ var GraficoContratos = {
         columnas.push(new Columna("Porcentaje", { generar: function (un_registro) { return parseFloat(un_registro.Porcentaje).toFixed(2) + '%' } }));
         columnas.push(new Columna('Detalle', {
             generar: function (un_registro) {
+                var cont = $('<div>');
                 var btn_accion = $('<a>');
                 var img = $('<img>');
                 img.attr('src', '../Imagenes/detalle.png');
                 img.attr('width', '15px');
                 img.attr('height', '15px');
+                btn_accion.attr('style', 'display:inline-block');
                 btn_accion.append(img);
                 btn_accion.click(function () {
                     _this.FiltrarPersonasParaTablaDetalle(un_registro.Id, tabla_detalle);
                 });
-                return btn_accion;
+                cont.append(btn_accion);
+
+                if ((un_registro.Orden == 2 || un_registro.Orden == 3) && un_registro.Cantidad >0) {
+                    var btn_informe = $('<input>');
+                    btn_informe.attr('type', 'button');
+                    btn_informe.attr('value', 'Generar Informe');
+                    btn_informe.attr('class', 'btn');
+                    btn_informe.attr('style', 'display:inline-block');
+                    btn_informe.click(function () {
+                        
+                        Backend.GenerarInformeContrato({    id_area: id_area, 
+                                                            incluir_dependencias: $("#chk_incluir_dependencias").is(":checked"),
+                                                            id_estado: un_registro.Orden   //GRONCHADA DE JAVI (YO): Meti en orden el id_estado HACERLO MEJOR
+                                                        });
+                    });
+                    cont.append(btn_informe);
+                }
+
+                return cont;
             }
         }));
         _this.GrillaResumen = new Grilla(columnas);
