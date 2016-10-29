@@ -653,7 +653,7 @@ namespace General.Repositorios
             {
                 DateTime fecha = new DateTime(anio, mes, dia);
                 RepositorioDeAreas repositorio_de_areas = RepositorioDeAreas.NuevoRepositorioDeAreas(this.conexion_bd);
-                Grafico graficoExcel = GetGraficoContratados(tipo, fecha, id_area, incluir_dependencias);
+                GraficoContratos graficoExcel = GetGraficoContratados(tipo, fecha, id_area, incluir_dependencias);
 
                 DataTable table_resumen = new DataTable();
                 table_resumen.TableName = "Resumen";
@@ -666,43 +666,30 @@ namespace General.Repositorios
                 table_resumen.Columns.Add("Informacion");
                 table_resumen.Columns.Add("Cantidad");
                 table_resumen.Columns.Add("Porcentaje(%)");
-                table_resumen.Columns.Add("Porcentaje Hombres");
-                table_resumen.Columns.Add("Porcentaje Mujeres");
-
+                            
                 table_detalle.Columns.Add("Area");
                 table_detalle.Columns.Add("NroDocumento");
                 table_detalle.Columns.Add("Apellido_Nombre");
-                table_detalle.Columns.Add("Edad");
-                table_detalle.Columns.Add("Sexo");
-                table_detalle.Columns.Add("FechaNacimiento");
-                table_detalle.Columns.Add("Nivel");
-                table_detalle.Columns.Add("Grado");
-                table_detalle.Columns.Add("Planta");
-                table_detalle.Columns.Add("NivelEstudio");
+                table_detalle.Columns.Add("Detalle");
+                table_detalle.Columns.Add("Informe");
+
 
                 foreach (var item in graficoExcel.tabla_resumen)
                 {
                     table_resumen.Rows.Add(item.Id,
                         item.Cantidad,
-                        Math.Truncate(item.Porcentaje * 100) / 100,
-                        Math.Truncate(item.PorcentajeHombres * 100) / 100,
-                        Math.Truncate(item.PorcentajeMujeres * 100) / 100
+                        Math.Truncate(item.Porcentaje * 100) / 100                      
                         );
                 }
 
-                foreach (var item in graficoExcel.tabla_detalle)
+                foreach (var item in graficoExcel.tabla_detalle_contratos)
                 {
 
                     table_detalle.Rows.Add(item.Area,
                         item.NroDocumento,
                         item.Apellido + " " + item.Nombre,
-                        item.Edad(DateTime.Now),
-                        item.Sexo,
-                        item.FechaNacimiento.ToShortDateString(),
-                        item.Nivel,
-                        item.Grado,
-                        item.Planta,
-                        item.NivelEstudio
+                        item.Estado,
+                        item.Informe
                         );
                 }
 
@@ -722,25 +709,25 @@ namespace General.Repositorios
                 ws.Column("D").Width = 25;
                 ws.Column("E").Width = 25;
 
-                ws.Cell(1, 1).Value = "FECHA:";
-                ws.Cell(2, 1).Value = "AREA:";
+               // ws.Cell(1, 1).Value = "FECHA:";
+             //  ws.Cell(2, 1).Value = "AREA:";
 
                 ws.Cell(1, 1).Style.Font.Bold = true;
                 ws.Cell(2, 1).Style.Font.Bold = true;
 
-                ws.Cell(1, 2).Value = fecha.ToShortDateString();
-                ws.Cell(2, 2).Value = area.Nombre.ToUpper();
+              //  ws.Cell(1, 2).Value = fecha.ToShortDateString();
+             //   ws.Cell(2, 2).Value = area.Nombre.ToUpper();
 
-                ws.Range(4, 1, 4, 5).Style.Fill.BackgroundColor = XLColor.FromArgb(79, 129, 189);
-                ws.Range(4, 1, 4, 5).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+                ws.Range(4, 1, 4, 3).Style.Fill.BackgroundColor = XLColor.FromArgb(79, 129, 189);
+                ws.Range(4, 1, 4, 3).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
 
-                ws.Range(4, 1, 4, 5).Style.Font.FontColor = XLColor.White;
+                ws.Range(4, 1, 4, 3).Style.Font.FontColor = XLColor.White;
 
                 ws.Cell(4, 1).Value = "Informacion";
                 ws.Cell(4, 2).Value = "Cantidad";
                 ws.Cell(4, 3).Value = "Porcentaje %";
-                ws.Cell(4, 4).Value = "Porcentaje Hombres";
-                ws.Cell(4, 5).Value = "Porcentaje Mujeres";
+             //   ws.Cell(4, 4).Value = "Porcentaje Hombres";
+             //   ws.Cell(4, 5).Value = "Porcentaje Mujeres";
 
 
                 var rangeWithData = ws.Cell(5, 1).InsertData(dataTable_resumen.AsEnumerable());
@@ -755,11 +742,11 @@ namespace General.Repositorios
                 workbook.Worksheets.Add(dataTable_detalle);
 
                 var lastCell2 = workbook.Worksheet(2).LastCellUsed();
-                workbook.Worksheet(2).Range(2, 2, lastCell2.Address.RowNumber, 2).DataType = XLCellValues.Number;
+                //workbook.Worksheet(2).Range(2, 2, lastCell2.Address.RowNumber, 2).DataType = XLCellValues.Number;
 
 
-                workbook.Worksheet(2).Range(2, 4, lastCell2.Address.RowNumber, 4).DataType = XLCellValues.Number;
-                workbook.Worksheet(2).Range(2, 8, lastCell2.Address.RowNumber, 8).DataType = XLCellValues.Number;
+                //workbook.Worksheet(2).Range(2, 4, lastCell2.Address.RowNumber, 4).DataType = XLCellValues.Number;
+                //workbook.Worksheet(2).Range(2, 8, lastCell2.Address.RowNumber, 8).DataType = XLCellValues.Number;
 
                 workbook.Worksheet(2).Column("A").Width = 25;
                 workbook.Worksheet(2).Column("B").Width = 15;

@@ -109,47 +109,37 @@ var GraficoContratos = {
     ObtenerLosDatosDeDotacionParaElExport: function () {
         var _this = this;
         var check_seleccionado = checks_activos.slice(-1)[0];
-        var fecha = $('#txt_fecha_desde').val();
+        var fecha = new Date();
         var id_area = localStorage.getItem("idArea");
+        var tipo = "GraficoPorArea";
 
+        var anio = fecha.getFullYear();
+        var mes = fecha.getMonth() + 1;
+        var dia = fecha.getDate();
+
+        var fecha_completa = anio + "/" + mes + "/" + dia;
 
         if (GraficoHerramientas.VerificarDatosObligatoriosParaBackend(fecha, check_seleccionado, id_area)) {
 
             var spinner = new Spinner({ scale: 3 });
             spinner.spin($("html")[0]);
 
-            Backend.ExcelGenerado({ tipo: check_seleccionado, fecha: fecha, id_area: parseInt(id_area), incluir_dependencias: $("#chk_incluir_dependencias").is(":checked") })
+            Backend.ExcelGeneradoContratos({ tipo: tipo, fecha: fecha, id_area: parseInt(id_area), incluir_dependencias: $("#chk_incluir_dependencias").is(":checked") })
             .onSuccess(function (resultado) {
                 if (resultado.length > 0) {
                     var nombre_del_documento = "";
-                    switch (check_seleccionado) {
-                        case "GraficoPorGenero":
-                            nombre_del_documento = "DOTACION_POR_GENERO_";
-                            break;
-                        case "GraficoPorNivel":
-                            nombre_del_documento = "DOTACION__POR_NIVEL_";
-                            break;
-                        case "GraficoPorEstudio":
-                            nombre_del_documento = "DOTACION_POR_ESTUDIO_";
-                            break;
-                        case "GraficoPorPlanta":
-                            nombre_del_documento = "DOTACION_POR_PLANTA_";
-                            break;
-                        case "GraficoPorArea":
-                            nombre_del_documento = "DOTACION_POR_AREA_";
-                            break;
-                        case "GraficoPorSecretarias":
-                            nombre_del_documento = "DOTACION_POR_SECRETARIAS_";
-                            break;
-                        case "GraficoPorSubSecretarias":
-                            nombre_del_documento = "DOTACION_POR_SUBSECRETARIAS_";
-                            break;
-                        default:
-                            nombre_del_documento = "ERROR_DE_FILTRO_";
-                    };
+                    nombre_del_documento = "ESTADO_RENOV_CONTRATOS_";
+                    //                    switch (check_seleccionado) {
+                    //                        case "GraficoPorGenero":
+                    //                            nombre_del_documento = "DOTACION_POR_GENERO_";
+                    //                            break;
+                    //                     
+                    //                        default:
+                    //                            nombre_del_documento = "ERROR_DE_FILTRO_";
+                    //                    };
                     var a = window.document.createElement('a');
                     a.href = "data:application/vnd.ms-excel;base64," + resultado;
-                    a.download = nombre_del_documento + fecha + "_.xlsx";
+                    a.download = nombre_del_documento + fecha_completa + "_.xlsx";
                     document.body.appendChild(a);
                     a.click();
                     document.body.removeChild(a);

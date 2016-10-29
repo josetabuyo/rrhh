@@ -2,6 +2,53 @@
 <wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://wsviaticos.gov.ar/">
+      <s:element name="BuscarProvincias">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuscarProvinciasResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BuscarProvinciasResult" type="tns:ArrayOfProvincia" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfProvincia">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Provincia" nillable="true" type="tns:Provincia" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Provincia">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CodigoAFIP" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Localidades" type="tns:ArrayOfLocalidad" />
+          <s:element minOccurs="0" maxOccurs="1" name="Zona" type="tns:Zona" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfLocalidad">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Localidad" nillable="true" type="tns:Localidad" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Localidad">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdProvincia" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Zona">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Provincias" type="tns:ArrayOfProvincia" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="BuscarNacionalidades">
         <s:complexType>
           <s:sequence>
@@ -588,18 +635,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="ArrayOfLocalidad">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Localidad" nillable="true" type="tns:Localidad" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="Localidad">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="IdProvincia" type="s:int" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="GetFormulario">
         <s:complexType>
           <s:sequence>
@@ -1342,6 +1377,25 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="BuscarUsuariosPorArea">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="nombre_area" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuscarUsuariosPorAreaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BuscarUsuariosPorAreaResult" type="tns:ArrayOfUsuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfUsuario">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Usuario" nillable="true" type="tns:Usuario" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="AreasAdministradasPor">
         <s:complexType>
           <s:sequence>
@@ -3247,41 +3301,6 @@
           <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
         </s:sequence>
       </s:complexType>
-      <s:element name="BuscarProvincias">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="BuscarProvinciasResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="BuscarProvinciasResult" type="tns:ArrayOfProvincia" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:complexType name="ArrayOfProvincia">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Provincia" nillable="true" type="tns:Provincia" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="Provincia">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="CodigoAFIP" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Localidades" type="tns:ArrayOfLocalidad" />
-          <s:element minOccurs="0" maxOccurs="1" name="Zona" type="tns:Zona" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="Zona">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Provincias" type="tns:ArrayOfProvincia" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="TransicionarDocumento">
         <s:complexType>
           <s:sequence>
@@ -4614,29 +4633,10 @@
       <s:element name="BuscarPersonaDeBajaConPermisos">
         <s:complexType />
       </s:element>
-      <s:complexType name="ArrayOfUsuario">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Usuario" nillable="true" type="tns:Usuario" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="BuscarPersonaDeBajaConPermisosResponse">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="BuscarPersonaDeBajaConPermisosResult" type="tns:ArrayOfUsuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="BuscarUsuariosPorArea">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="nombre_area" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="BuscarUsuariosPorAreaResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="BuscarUsuariosPorAreaResult" type="tns:ArrayOfUsuario" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -5156,6 +5156,21 @@
           <s:extension base="tns:Grafico" />
         </s:complexContent>
       </s:complexType>
+      <s:element name="ExcelGeneradoContratos">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExcelGeneradoContratosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ExcelGeneradoContratosResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="ExcelGeneradoRangoEtario">
         <s:complexType>
           <s:sequence>
@@ -6166,6 +6181,12 @@
       </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="BuscarProvinciasSoapIn">
+    <wsdl:part name="parameters" element="tns:BuscarProvincias" />
+  </wsdl:message>
+  <wsdl:message name="BuscarProvinciasSoapOut">
+    <wsdl:part name="parameters" element="tns:BuscarProvinciasResponse" />
+  </wsdl:message>
   <wsdl:message name="BuscarNacionalidadesSoapIn">
     <wsdl:part name="parameters" element="tns:BuscarNacionalidades" />
   </wsdl:message>
@@ -6507,6 +6528,12 @@
   </wsdl:message>
   <wsdl:message name="ConsultaExcelDDJJ104_AreaSoapOut">
     <wsdl:part name="parameters" element="tns:ConsultaExcelDDJJ104_AreaResponse" />
+  </wsdl:message>
+  <wsdl:message name="BuscarUsuariosPorAreaSoapIn">
+    <wsdl:part name="parameters" element="tns:BuscarUsuariosPorArea" />
+  </wsdl:message>
+  <wsdl:message name="BuscarUsuariosPorAreaSoapOut">
+    <wsdl:part name="parameters" element="tns:BuscarUsuariosPorAreaResponse" />
   </wsdl:message>
   <wsdl:message name="AreasAdministradasPorSoapIn">
     <wsdl:part name="parameters" element="tns:AreasAdministradasPor" />
@@ -7006,12 +7033,6 @@
   <wsdl:message name="BuscarModalidadDeInscripcionSoapOut">
     <wsdl:part name="parameters" element="tns:BuscarModalidadDeInscripcionResponse" />
   </wsdl:message>
-  <wsdl:message name="BuscarProvinciasSoapIn">
-    <wsdl:part name="parameters" element="tns:BuscarProvincias" />
-  </wsdl:message>
-  <wsdl:message name="BuscarProvinciasSoapOut">
-    <wsdl:part name="parameters" element="tns:BuscarProvinciasResponse" />
-  </wsdl:message>
   <wsdl:message name="TransicionarDocumentoSoapIn">
     <wsdl:part name="parameters" element="tns:TransicionarDocumento" />
   </wsdl:message>
@@ -7468,12 +7489,6 @@
   <wsdl:message name="BuscarPersonaDeBajaConPermisosSoapOut">
     <wsdl:part name="parameters" element="tns:BuscarPersonaDeBajaConPermisosResponse" />
   </wsdl:message>
-  <wsdl:message name="BuscarUsuariosPorAreaSoapIn">
-    <wsdl:part name="parameters" element="tns:BuscarUsuariosPorArea" />
-  </wsdl:message>
-  <wsdl:message name="BuscarUsuariosPorAreaSoapOut">
-    <wsdl:part name="parameters" element="tns:BuscarUsuariosPorAreaResponse" />
-  </wsdl:message>
   <wsdl:message name="GetUsuariosSoapIn">
     <wsdl:part name="parameters" element="tns:GetUsuarios" />
   </wsdl:message>
@@ -7599,6 +7614,12 @@
   </wsdl:message>
   <wsdl:message name="GetGraficoContratadosSoapOut">
     <wsdl:part name="parameters" element="tns:GetGraficoContratadosResponse" />
+  </wsdl:message>
+  <wsdl:message name="ExcelGeneradoContratosSoapIn">
+    <wsdl:part name="parameters" element="tns:ExcelGeneradoContratos" />
+  </wsdl:message>
+  <wsdl:message name="ExcelGeneradoContratosSoapOut">
+    <wsdl:part name="parameters" element="tns:ExcelGeneradoContratosResponse" />
   </wsdl:message>
   <wsdl:message name="ExcelGeneradoRangoEtarioSoapIn">
     <wsdl:part name="parameters" element="tns:ExcelGeneradoRangoEtario" />
@@ -7937,6 +7958,10 @@
     <wsdl:part name="parameters" element="tns:EstadoServicioDeAlertasResponse" />
   </wsdl:message>
   <wsdl:portType name="WSViaticosSoap">
+    <wsdl:operation name="BuscarProvincias">
+      <wsdl:input message="tns:BuscarProvinciasSoapIn" />
+      <wsdl:output message="tns:BuscarProvinciasSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="BuscarNacionalidades">
       <wsdl:input message="tns:BuscarNacionalidadesSoapIn" />
       <wsdl:output message="tns:BuscarNacionalidadesSoapOut" />
@@ -8164,6 +8189,10 @@
     <wsdl:operation name="ConsultaExcelDDJJ104_Area">
       <wsdl:input message="tns:ConsultaExcelDDJJ104_AreaSoapIn" />
       <wsdl:output message="tns:ConsultaExcelDDJJ104_AreaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BuscarUsuariosPorArea">
+      <wsdl:input message="tns:BuscarUsuariosPorAreaSoapIn" />
+      <wsdl:output message="tns:BuscarUsuariosPorAreaSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="AreasAdministradasPor">
       <wsdl:input message="tns:AreasAdministradasPorSoapIn" />
@@ -8497,10 +8526,6 @@
       <wsdl:input message="tns:BuscarModalidadDeInscripcionSoapIn" />
       <wsdl:output message="tns:BuscarModalidadDeInscripcionSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="BuscarProvincias">
-      <wsdl:input message="tns:BuscarProvinciasSoapIn" />
-      <wsdl:output message="tns:BuscarProvinciasSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="TransicionarDocumento">
       <wsdl:input message="tns:TransicionarDocumentoSoapIn" />
       <wsdl:output message="tns:TransicionarDocumentoSoapOut" />
@@ -8805,10 +8830,6 @@
       <wsdl:input message="tns:BuscarPersonaDeBajaConPermisosSoapIn" />
       <wsdl:output message="tns:BuscarPersonaDeBajaConPermisosSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="BuscarUsuariosPorArea">
-      <wsdl:input message="tns:BuscarUsuariosPorAreaSoapIn" />
-      <wsdl:output message="tns:BuscarUsuariosPorAreaSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="GetUsuarios">
       <wsdl:input message="tns:GetUsuariosSoapIn" />
       <wsdl:output message="tns:GetUsuariosSoapOut" />
@@ -8892,6 +8913,10 @@
     <wsdl:operation name="GetGraficoContratados">
       <wsdl:input message="tns:GetGraficoContratadosSoapIn" />
       <wsdl:output message="tns:GetGraficoContratadosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ExcelGeneradoContratos">
+      <wsdl:input message="tns:ExcelGeneradoContratosSoapIn" />
+      <wsdl:output message="tns:ExcelGeneradoContratosSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="ExcelGeneradoRangoEtario">
       <wsdl:input message="tns:ExcelGeneradoRangoEtarioSoapIn" />
@@ -9120,6 +9145,15 @@
   </wsdl:portType>
   <wsdl:binding name="WSViaticosSoap" type="tns:WSViaticosSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="BuscarProvincias">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarProvincias" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="BuscarNacionalidades">
       <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarNacionalidades" style="document" />
       <wsdl:input>
@@ -9626,6 +9660,15 @@
     </wsdl:operation>
     <wsdl:operation name="ConsultaExcelDDJJ104_Area">
       <soap:operation soapAction="http://wsviaticos.gov.ar/ConsultaExcelDDJJ104_Area" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarUsuariosPorArea">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarUsuariosPorArea" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -10380,15 +10423,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="BuscarProvincias">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarProvincias" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="TransicionarDocumento">
       <soap:operation soapAction="http://wsviaticos.gov.ar/TransicionarDocumento" style="document" />
       <wsdl:input>
@@ -11073,15 +11107,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="BuscarUsuariosPorArea">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarUsuariosPorArea" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetUsuarios">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetUsuarios" style="document" />
       <wsdl:input>
@@ -11264,6 +11289,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetGraficoContratados">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetGraficoContratados" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExcelGeneradoContratos">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ExcelGeneradoContratos" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -11778,6 +11812,15 @@
   </wsdl:binding>
   <wsdl:binding name="WSViaticosSoap12" type="tns:WSViaticosSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="BuscarProvincias">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarProvincias" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="BuscarNacionalidades">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarNacionalidades" style="document" />
       <wsdl:input>
@@ -12284,6 +12327,15 @@
     </wsdl:operation>
     <wsdl:operation name="ConsultaExcelDDJJ104_Area">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/ConsultaExcelDDJJ104_Area" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarUsuariosPorArea">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarUsuariosPorArea" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -13038,15 +13090,6 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="BuscarProvincias">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarProvincias" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="TransicionarDocumento">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/TransicionarDocumento" style="document" />
       <wsdl:input>
@@ -13731,15 +13774,6 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="BuscarUsuariosPorArea">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarUsuariosPorArea" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetUsuarios">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetUsuarios" style="document" />
       <wsdl:input>
@@ -13922,6 +13956,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetGraficoContratados">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetGraficoContratados" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExcelGeneradoContratos">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ExcelGeneradoContratos" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
