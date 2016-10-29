@@ -493,7 +493,7 @@ var Legajo = {
     $('#div_detalle_consulta').show();
     $('#txt_creador').val(creador);
     $('#txt_tipo').val(tipo);
-    $('#ta_motivo').val(motivo);
+    $('#ta_motivo').text(motivo);
     },
 
     getConsultas: function () {
@@ -556,8 +556,14 @@ var Legajo = {
 
     },
 
+    VolverAConsulta: function(){
+      $('#div_detalle_consulta').hide();
+      $('#tablaConsultas').show();
+    },
+
      getConsultasTodas: function () {
         var _this_original = this;
+        $('#btn_volver_consulta').click(function () {_this_original.VolverAConsulta();});
         Backend.GetConsultasTodasDePortal(6)
                     .onSuccess(function (consultasJSON) {
                         var consultas = [];
@@ -568,11 +574,10 @@ var Legajo = {
                         $("#tablaConsultas").empty();
                         var divGrilla = $("#tablaConsultas");
                         var columnas = [];
-                        var creador = "";
                         columnas.push(new Columna("Id", { generar: function (una_consulta) { return una_consulta.Id } }));
                         columnas.push(new Columna("Fecha Creación", { generar: function (una_consulta) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_consulta.fechaCreacion) } }));
                         columnas.push(new Columna("Tipo de Consulta", { generar: function (una_consulta) { return una_consulta.tipo_consulta } }));
-                        columnas.push(new Columna("Creador", { generar: function (una_consulta, creador) { creador = una_consulta.creador.Apellido + ", " + una_consulta.creador.Nombre; return creador } }));
+                        columnas.push(new Columna("Creador", { generar: function (una_consulta) { return una_consulta.creador.Apellido + ", " + una_consulta.creador.Nombre; } }));
                         columnas.push(new Columna('Tratar', {
                             generar: function (una_consulta) {
                                 var btn_accion = $('<a>');
@@ -582,7 +587,7 @@ var Legajo = {
                                 img.attr('height', '15px');
                                 btn_accion.append(img);
                                 btn_accion.click(function () {
-                                    _this_original.TratarConsulta(creador, una_consulta.tipo_consulta, una_consulta.motivo);
+                                    _this_original.TratarConsulta(una_consulta.creador.Apellido + ", " + una_consulta.creador.Nombre, una_consulta.tipo_consulta, una_consulta.motivo);
                                 });
                                 return btn_accion;
                             }

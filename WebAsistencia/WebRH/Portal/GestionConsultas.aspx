@@ -41,8 +41,9 @@
                 <div id="tablaConsultas" class="table table-striped table-bordered table-condensed">
                 </div>
                 <div id="div_detalle_consulta" style="display: none;">
-                <label id="txt_creador"></label>
-                <label id="txt_tipo"></label>
+                    <label style="margin-right: 20px;">Creador:</label><input type="text" id="txt_creador"readonly />
+                    <label style="margin-right: 20px;margin-left: 20px;">Tipo de Consulta:</label><input type="text" id="txt_tipo" readonly />
+                    <br />
                     <label style="margin-right: 24px;">
                         Motivo:</label>
                     <textarea id="ta_motivo" style="width: 100%; height: 150px;" readonly></textarea>
@@ -51,10 +52,12 @@
                     <label>
                         Respuesta:</label>
                     <textarea id="ta_respuesta" style="width: 100%; height: 150px;"></textarea>
+                     <div style="text-align:center;">
                      <input id="Button5" type="button" class="btn btn-primary" style="margin: 10px; width: 100px;"
                 value="Responder" />
-                <input id="Button6" type="button" class="btn btn-primary" style="margin: 10px; width: 100px;"
+                <input id="btn_volver_consulta" type="button" class="btn btn-primary" style="margin: 10px; width: 100px;"
                 value="Volver" />
+                </div>
                 </div>
             </div>
         </div>
