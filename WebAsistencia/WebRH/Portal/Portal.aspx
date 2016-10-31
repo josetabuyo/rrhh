@@ -190,6 +190,10 @@
                     window.location.href = 'Licencias.aspx';
                 });
 
+                $('#btnBeneficios').click(function () {
+                    window.location.href = 'Recibo.aspx';
+                });
+
                 $('#btnOrganigrama').click(function () {
                     window.location.href = '../Protocolo/ConsultaLugaresDeTrabajo.aspx';
                 });
