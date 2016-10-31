@@ -73,6 +73,12 @@ namespace General
                        new Resumen(nivel, descripcion, cantidad, ((float)cantidad * (float)100 / (float)total), orden);
             return registro_resumen;
         }
+        protected Resumen GenerarRegistroResumen(string nivel, string descripcion, int cantidad, int total, int orden, int idEstado)
+        {
+            Resumen registro_resumen =
+                       new Resumen(idEstado.ToString(), descripcion, cantidad, ((float)cantidad * (float)100 / (float)total), orden);
+            return registro_resumen;
+        }
 
         public bool ContienePersonas()
         {

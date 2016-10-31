@@ -50,6 +50,22 @@ namespace General.Repositorios
             return "ok";
         }
 
+        public string GetInformesGenerados(int id_area, int id_estado, bool incluir_dependencias)
+        {
+            var parametros = new Dictionary<string, object>();
+
+            parametros.Add("@id_area", id_area);
+            parametros.Add("@estado", id_estado);
+            parametros.Add("@incluir_dependencias", incluir_dependencias);
+
+            var tablaDatos = conexion_bd.Ejecutar("dbo.xxx", parametros);
+
+            if (tablaDatos.Rows.Count > 0)
+            { }
+
+            return "ok";
+        }
+
         
     }
 }

@@ -82,7 +82,7 @@ namespace General
 
             contador.ForEach(registro =>
             {
-                tabla.Add(GenerarRegistroResumen(registro.Descripcion, registro.DescripcionGrafico, registro.PersonasContrato.Count, total, registro.Id));
+                tabla.Add(GenerarRegistroResumen(registro.Descripcion, registro.DescripcionGrafico, registro.PersonasContrato.Count, total, 0, registro.Id));
                 //GRONCHADA DE JAVI (YO): Meti en orden el id_estado HACERLO MEJOR
             });
 

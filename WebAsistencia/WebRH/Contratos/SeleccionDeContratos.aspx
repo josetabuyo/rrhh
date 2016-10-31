@@ -75,12 +75,22 @@
                                 </div>
                             </div>
                         </div>
+                        <div id="div_tabla_informes" style="margin: 0 30px; width: 100%; position: absolute; top: 465px;">
+                            <span id="lb_titulo_tabla_informes"></span>
+                            <br />
+                           <%-- <input type="text" id="Text1" class="search" class="buscador" placeholder="Buscar" style="display: none;" />--%>
+                           <%-- <a href="#" id="A1" class="btn btn-info" style="display: none; float: right; padding: 5px; margin-left:10px; margin-right: 70px;s"> Exportar Datos</a>--%>
+                            <%--<a href="#" id="btn_generarInforme" class="btn btn-info" style="display: none; float: right; padding: 5px; margin-left:10px; "> Generar Informe</a>--%>
+                          
+                            <table id="tabla_informe" style="width: 95%;"> </table>
+                        </div>
+
                         <div id="div_tabla_detalle" style="margin: 0 30px; width: 100%; position: absolute; top: 465px;">
                             <span id="lb_titulo_tabla_detalle"></span>
                             <br />
                             <input type="text" id="search_detalle" class="search" class="buscador" placeholder="Buscar" style="display: none;" />
                             <a href="#" id="btn_exportarExcelDetalle" class="btn btn-info" style="display: none; float: right; padding: 5px; margin-left:10px; margin-right: 70px;s"> Exportar Datos</a>
-                            <a href="#" id="btn_generarInforme" class="btn btn-info" style="display: none; float: right; padding: 5px; margin-left:10px; "> Generar Informe</a>
+                            <%--<a href="#" id="btn_generarInforme" class="btn btn-info" style="display: none; float: right; padding: 5px; margin-left:10px; "> Generar Informe</a>--%>
                           
                             <table id="tabla_detalle" style="width: 95%;"> </table>
                         </div>
@@ -161,9 +171,9 @@
                     ExportarAExcel.fnExcelReport(document.getElementById('tabla_resultado_totales'));
                 });
 
-                $('#btn_generarInforme').click(function () {
-                    alert("informe");
-                });
+//                $('#btn_generarInforme').click(function () {
+//                    alert("informe");
+//                });
             });
         });
 

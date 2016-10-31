@@ -1,6 +1,8 @@
 ﻿var checks_activos = ["GraficoPorArea"];
 var filtro;
 var spinner;
+var tabla_resumen;
+var tabla_detalle;
 
 var GraficoContratos = {
 
@@ -87,8 +89,8 @@ var GraficoContratos = {
 
         Backend.GetGraficoContratados({ tipo: tipo, fecha: fecha, id_area: parseInt(id_area), incluir_dependencias: incluir_dependencias })
             .onSuccess(function (grafico) {
-                var tabla_resumen = grafico.tabla_resumen;
-                var tabla_detalle = grafico.tabla_detalle_contratos;
+                tabla_resumen = grafico.tabla_resumen;
+                tabla_detalle = grafico.tabla_detalle_contratos;
                 if (tabla_resumen.length > 0) {
                     _this.VisualizarTablaResumenYGrafico(true);
                     _this.DibujarElGrafico(tabla_resumen, titulo, div_grafico);
@@ -225,7 +227,7 @@ var GraficoContratos = {
                     case "GraficoPorArea":
                         titulo = "Personas del Área " + criterio;
                         for (var i = 0; i < tabla.length; i++) {
-                            if (tabla[i].Estado == criterio) {
+                            if (tabla[i].IdEstado == criterio) {
                                 tabla_final.push(tabla[i]);
                             }
                         } break;
@@ -255,8 +257,8 @@ var GraficoContratos = {
 
         columnas.push(new Columna("Información", {
             generar: function (un_registro) {
-                nombre = un_registro.Id.replace(/\|/g, "&nbsp;");
-                un_registro.Id = un_registro.Id.replace(/\|/g, "");
+                nombre = un_registro.DescripcionGrafico.replace(/\|/g, "&nbsp;");
+                un_registro.DescripcionGrafico = un_registro.DescripcionGrafico.replace(/\|/g, "");
                 return nombre;
             }
         }));
@@ -277,18 +279,60 @@ var GraficoContratos = {
                 });
                 cont.append(btn_accion);
 
-                if ((un_registro.Orden == 2 || un_registro.Orden == 3) && un_registro.Cantidad >0) {
+                if (un_registro.Id == 2 || un_registro.Id == 3) {
                     var btn_informe = $('<input>');
                     btn_informe.attr('type', 'button');
                     btn_informe.attr('value', 'Generar Informe');
-                    btn_informe.attr('class', 'btn');
+                    btn_informe.attr('class', 'btn btn-info');
                     btn_informe.attr('style', 'display:inline-block');
                     btn_informe.click(function () {
-                        
-                        Backend.GenerarInformeContrato({    id_area: id_area, 
-                                                            incluir_dependencias: $("#chk_incluir_dependencias").is(":checked"),
-                                                            id_estado: un_registro.Orden   //GRONCHADA DE JAVI (YO): Meti en orden el id_estado HACERLO MEJOR
-                                                        });
+
+                        var spinner = new Spinner({ scale: 3 });
+                        spinner.spin($("html")[0]);
+
+                        var datos = { id_area: id_area,
+                            incluir_dependencias: $("#chk_incluir_dependencias").is(":checked"),
+                            id_estado: un_registro.Id //es el id de estado
+                        };
+
+                        Backend.GenerarInformeContrato(datos)
+                        .onSuccess(function (resultado) {
+                            alertify.success("Informe generado con éxito");
+                            spinner.stop();
+                        })
+                        .onError(function (e) {
+                            spinner.stop();
+                            alertify.error("Error al generar informe");
+                        });
+
+                    });
+                    cont.append(btn_informe);
+                }
+
+                if (un_registro.Id == 4 || un_registro.Id == 5) {
+                    var btn_informe = $('<input>');
+                    btn_informe.attr('type', 'button');
+                    btn_informe.attr('value', 'Ver Informe');
+                    btn_informe.attr('class', 'btn btn-info');
+                    btn_informe.attr('style', 'display:inline-block');
+                    btn_informe.click(function () {
+
+                        var datos = { id_area: id_area,
+                            incluir_dependencias: $("#chk_incluir_dependencias").is(":checked"),
+                            id_estado: un_registro.Id  
+                        };
+
+                        //_this.FiltrarInformesParaTabla(un_registro.Id, tabla_detalle);
+                        Backend.GetInformesGeneradosPorArea(datos)
+                            .onSuccess(function (resultado) {
+                                _this.DibujarTablaInformes(resultado);
+                            })
+                            .onError(function (e) {
+                                spinner.stop();
+                                alertify.error("Error al generar informe");
+                            });
+
+
                     });
                     cont.append(btn_informe);
                 }
@@ -474,5 +518,52 @@ var GraficoContratos = {
             }, 1000);*/
             console.log(area);
         });
+    },
+
+    DibujarTablaInformes: function (informes) {
+        var _this = this;
+        $("#tabla_informe").empty();
+        var divGrilla = $('#tabla_informe');
+        var tabla = resultado;
+        var columnas = [];
+
+        //$("#btn_exportarExcelDetalle").show();
+        //$("#btn_generarInforme").show();
+
+        columnas.push(new Columna("N° Informe", { generar: function (un_registro) { return un_registro.Informe } }));
+        columnas.push(new Columna("Fecha", { generar: function (un_registro) { return un_registro.Fecha } }));
+        columnas.push(new Columna("Usuario", { generar: function (un_registro) { return (un_registro.Usuario) } }));
+        columnas.push(new Columna('Ver Detalle', {
+            generar: function (un_registro) {
+
+                var div = $('<div>');
+
+                var btn_accion = $('<a>');
+                var img = $('<img>');
+                img.attr('src', '../Imagenes/detalle.png');
+                img.attr('width', '15px');
+                img.attr('height', '15px');
+                btn_accion.attr('style', 'display:inline-block');
+                btn_accion.append(img);
+                btn_accion.click(function () {
+                   // _this.FiltrarPersonasParaTablaDetalle(un_registro.Id, tabla_detalle);hacer esta logica
+                });
+                div.append(btn_accion);
+
+
+                return div;
+            }
+        }));
+
+
+
+
+        _this.GrillaResumen = new Grilla(columnas);
+        _this.GrillaResumen.SetOnRowClickEventHandler(function (un_registro) { });
+        _this.GrillaResumen.CargarObjetos(informes);
+        _this.GrillaResumen.DibujarEn(divGrilla);
+        //_this.BuscadorDeTablaDetalle();
+
+
     }
 }
