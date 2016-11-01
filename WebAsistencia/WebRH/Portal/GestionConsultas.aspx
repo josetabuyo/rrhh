@@ -24,9 +24,9 @@
         <h1 style="text-align: center; margin: 30px;">
         </h1>
         <div style="text-align: center;" class="caja_izq no-print">
-            <input id="Button1" type="button" class="btn btn-primary" style="margin: 10px; width: 150px;"
+            <input id="btn_consultas_pendientes" type="button" class="btn btn-primary" style="margin: 10px; width: 150px;"
                 value="Consultas pendientes" />
-            <input id="Button2" type="button" class="btn btn-primary" style="margin: 10px; width: 150px;"
+            <input id="btn_consultas_historicas" type="button" class="btn btn-primary" style="margin: 10px; width: 150px;"
                 value="Consultas históricas" />
             <input id="Button3" type="button" class="btn btn-primary" style="margin: 10px; width: 150px;"
                 value="Parametría" />
@@ -69,7 +69,8 @@
 
     $(document).ready(function ($) {
         Backend.start(function () {
-            Legajo.getConsultasTodas();
+
+            Legajo.getConsultasParaGestion();
         });
     });
 

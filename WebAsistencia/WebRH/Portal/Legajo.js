@@ -561,10 +561,22 @@ var Legajo = {
       $('#tablaConsultas').show();
     },
 
-     getConsultasTodas: function () {
+    getConsultasParaGestion: function () {
+    var _this = this;
+     $('#btn_volver_consulta').click(function () {
+        _this.VolverAConsulta();
+     });
+     $('#btn_consultas_pendientes').click(function () {
+        _this.getConsultasTodas(6);
+     });
+      $('#btn_consultas_historicas').click(function () {
+        _this.getConsultasTodas(0);
+     });
+     $('#btn_consultas_pendientes').click();
+    },
+     getConsultasTodas: function (estado) {
         var _this_original = this;
-        $('#btn_volver_consulta').click(function () {_this_original.VolverAConsulta();});
-        Backend.GetConsultasTodasDePortal(6)
+        Backend.GetConsultasTodasDePortal(estado)
                     .onSuccess(function (consultasJSON) {
                         var consultas = [];
                         if (consultasJSON != "") {
