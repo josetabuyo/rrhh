@@ -309,10 +309,10 @@ var Legajo = {
         var btn_combo_anio = $('#cmb_anio').change(function () {
             var anio_combo = $("#cmb_anio option:selected").val();
             var day = new Date();
-            mes = day.getMonth();
+            mes = day.getMonth() + 2;
             var anio = day.getFullYear();
 
-            //borro lo meses que no estan vigentes para este año
+            //inhabilito lo meses que no estan vigentes para este año
             if (anio_combo == anio) {
                 $("#cmb_meses option").each(function () {
                     if (mes <= $(this).val()) {
