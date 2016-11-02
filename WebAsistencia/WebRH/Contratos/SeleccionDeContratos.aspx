@@ -42,8 +42,8 @@
                 </div>
  <%--GRAFICO DE DOTACIÓN--%>
                 <div id="div_grafico_de_dotacion" style="display:none">
-                    <div id="div_filtros" style="display: flex;position: absolute; display:none; top: 80px;left: 135px;">
-                        <%--<div style="margin-left:20px;">
+                   <%-- <div id="div_filtros" style="display: flex;position: absolute; display:none; top: 80px;left: 135px;">
+                        <div style="margin-left:20px;">
                            
                             <div class="grupo_campos nueva_linea">
                                 <label>Filtros:</label>
@@ -61,9 +61,9 @@
 			                        </section>
                                 </div>
                             </div>
-                        </div>--%>
-                    </div>
-                    <div id="div_graficos_y_tablas" style="display:flex; width: 85%; left: 125px; position: absolute; top: 160px;">
+                        </div>
+                    </div>--%>
+                    <div id="div_graficos_y_tablas" style="display:flex; width: 85%; left: 125px; position: absolute; top: 90px;">
                         <div id="div_grafico_y_tabla" style="width: 100%; position: absolute; ">
                             <div id="container_grafico_torta_totales" style="width: 40%; height: 450px; border: 1px solid; margin: 0 30px; display:none;float:left;">
                             </div>
@@ -75,7 +75,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="div_tabla_informes" style="margin: 0 30px; width: 100%; position: absolute; top: 465px;">
+                       
+                    </div>
+
+                    <div style="width: 85%; left: 125px; position: absolute; top: 560px;">
+                     <div id="div_tabla_informes" style="margin: 0 30px; width: 100%; ">
                             <span id="lb_titulo_tabla_informes"></span>
                             <br />
                            <%-- <input type="text" id="Text1" class="search" class="buscador" placeholder="Buscar" style="display: none;" />--%>
@@ -85,11 +89,11 @@
                             <table id="tabla_informe" style="width: 95%;"> </table>
                         </div>
 
-                        <div id="div_tabla_detalle" style="margin: 0 30px; width: 100%; position: absolute; top: 465px;">
+                        <div id="div_tabla_detalle" style="margin: 0 30px; width: 100%;">
                             <span id="lb_titulo_tabla_detalle"></span>
                             <br />
                             <input type="text" id="search_detalle" class="search" class="buscador" placeholder="Buscar" style="display: none;" />
-                            <a href="#" id="btn_exportarExcelDetalle" class="btn btn-info" style="display: none; float: right; padding: 5px; margin-left:10px; margin-right: 70px;s"> Exportar Datos</a>
+                            <a href="#" id="btn_exportarExcelDetalle" class="btn btn-info" style="display: none; float: right; padding: 5px; margin-left:10px; margin-right: 70px;"> Exportar Datos</a>
                             <%--<a href="#" id="btn_generarInforme" class="btn btn-info" style="display: none; float: right; padding: 5px; margin-left:10px; "> Generar Informe</a>--%>
                           
                             <table id="tabla_detalle" style="width: 95%;"> </table>

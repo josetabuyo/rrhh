@@ -35,24 +35,7 @@ var GraficoContratos = {
     },
     SettearEventosDelMenu: function () {
         var _this = this;
-        // $('#btn_genero').click(function () {
-        // GraficoHerramientas.OcultarTodosLosReportesExcepto("Dotacion");
 
-        //$('#cb1')[0].checked = true;
-        // });
-
-
-        /*function armarGraficoDesdeMenu(mi_filtro, tipo, texto) {
-        checks_activos = [];
-        filtro = mi_filtro;
-        _this.VisualizarGraficoYTablaResumen(true);
-        checks_activos.push(tipo);
-        _this.BuscarDatos();
-        $('#titulo_grafico').html(texto);
-        $('.filtros').each(function () {
-        this.checked = false;
-        });
-        };*/
     },
     armarGraficoDesdeMenu: function (mi_filtro, tipo, texto) {
         var _this = this;
@@ -131,14 +114,7 @@ var GraficoContratos = {
                 if (resultado.length > 0) {
                     var nombre_del_documento = "";
                     nombre_del_documento = "ESTADO_RENOV_CONTRATOS_";
-                    //                    switch (check_seleccionado) {
-                    //                        case "GraficoPorGenero":
-                    //                            nombre_del_documento = "DOTACION_POR_GENERO_";
-                    //                            break;
-                    //                     
-                    //                        default:
-                    //                            nombre_del_documento = "ERROR_DE_FILTRO_";
-                    //                    };
+
                     var a = window.document.createElement('a');
                     a.href = "data:application/vnd.ms-excel;base64," + resultado;
                     a.download = nombre_del_documento + fecha_completa + "_.xlsx";
@@ -231,6 +207,13 @@ var GraficoContratos = {
                                 tabla_final.push(tabla[i]);
                             }
                         } break;
+                    case "GraficoPorInforme":
+                        titulo = "Personas del Informe " + criterio;
+                        for (var i = 0; i < tabla.length; i++) {
+                            if (tabla[i].Informe == criterio) {
+                                tabla_final.push(tabla[i]);
+                            }
+                        } break;
                 }
             }
             titulo = titulo + " del Área " + localStorage.getItem("alias");
@@ -275,6 +258,8 @@ var GraficoContratos = {
                 btn_accion.attr('style', 'display:inline-block');
                 btn_accion.append(img);
                 btn_accion.click(function () {
+                    checks_activos = ["GraficoPorArea"];
+                    $('#div_tabla_informes').hide();
                     _this.FiltrarPersonasParaTablaDetalle(un_registro.Id, tabla_detalle);
                 });
                 cont.append(btn_accion);
@@ -312,19 +297,27 @@ var GraficoContratos = {
                 if (un_registro.Id == 4 || un_registro.Id == 5) {
                     var btn_informe = $('<input>');
                     btn_informe.attr('type', 'button');
-                    btn_informe.attr('value', 'Ver Informe');
+                    btn_informe.attr('value', 'Ver Informes');
                     btn_informe.attr('class', 'btn btn-info');
                     btn_informe.attr('style', 'display:inline-block');
                     btn_informe.click(function () {
 
+                        $('#div_tabla_detalle').hide();
+
                         var datos = { id_area: id_area,
                             incluir_dependencias: $("#chk_incluir_dependencias").is(":checked"),
-                            id_estado: un_registro.Id  
+                            id_estado: un_registro.Id
                         };
 
+
+
+                        var spinner = new Spinner({ scale: 3 });
+                        spinner.spin($("html")[0]);
                         //_this.FiltrarInformesParaTabla(un_registro.Id, tabla_detalle);
                         Backend.GetInformesGeneradosPorArea(datos)
                             .onSuccess(function (resultado) {
+                                spinner.stop();
+
                                 _this.DibujarTablaInformes(resultado);
                             })
                             .onError(function (e) {
@@ -373,18 +366,33 @@ var GraficoContratos = {
                 var checkRenovado = "";
                 var checkNoRenovado = "";
                 var checkPendiente = "";
+                var ocultarRenovado = false;
+                var ocultarNoRenovado = false;
+                var ocultarPendiente = false;
                 switch (un_registro.IdEstado) {
                     case 2:
-                    case 4:
                         checkRenovado = "checked";
                         checkNoRenovado = "";
                         checkPendiente = "";
                         break;
+                    case 4:
+                        checkRenovado = "checked";
+                        checkNoRenovado = "";
+                        checkPendiente = "";
+                        ocultarNoRenovado = true;
+                        ocultarPendiente = true;
+                        break;
                     case 3:
+                        checkRenovado = "";
+                        checkNoRenovado = "checked";
+                        checkPendiente = "";
+                        break;
                     case 5:
                         checkRenovado = "";
                         checkNoRenovado = "checked";
                         checkPendiente = "";
+                        ocultarRenovado = true;
+                        ocultarPendiente = true;
                         break;
                     default:
                         checkRenovado = "";
@@ -393,14 +401,26 @@ var GraficoContratos = {
                 }
 
 
-                var radioRenovar = $('<input id="radioRenovar" ' + habilitado + ' ' + checkRenovado + ' data-area="' + un_registro.IdArea + '" type="radio" name="contratos_' + un_registro.NroDocumento + '" value="2"  /> <span style="color:green;">Renovar</span><br/>');
-                var radioNoRenovar = $('<input id="radioNoRenovar" ' + habilitado + ' ' + checkNoRenovado + ' data-area="' + un_registro.IdArea + '" type="radio" name="contratos_' + un_registro.NroDocumento + '" value="3"  /> <span style="color:red;">No Renovar</span><br/>');
-                var radioPendiente = $('<input id="radioPendiente" ' + habilitado + ' ' + checkPendiente + ' data-area="' + un_registro.IdArea + '" type="radio" name="contratos_' + un_registro.NroDocumento + '" value="1"  /> <span style="color:#000;">Pendiente</span><br/>');
+                if (!ocultarRenovado) {
+                    var radioRenovar = $('<input id="radioRenovar" ' + habilitado + ' ' + checkRenovado + ' data-area="' + un_registro.IdArea + '" type="radio" name="contratos_' + un_registro.NroDocumento + '" value="2"  /> <span style="color:green;">Renovar</span><br/>');
+                    div.append(radioRenovar);
+                }
+
+                if (!ocultarNoRenovado) {
+                    var radioNoRenovar = $('<input id="radioNoRenovar" ' + habilitado + ' ' + checkNoRenovado + ' data-area="' + un_registro.IdArea + '" type="radio" name="contratos_' + un_registro.NroDocumento + '" value="3"  /> <span style="color:red;">No Renovar</span><br/>');
+                    div.append(radioNoRenovar);
+                }
+
+                if (!ocultarPendiente) {
+                    var radioPendiente = $('<input id="radioPendiente" ' + habilitado + ' ' + checkPendiente + ' data-area="' + un_registro.IdArea + '" type="radio" name="contratos_' + un_registro.NroDocumento + '" value="1"  /> <span style="color:#000;">Pendiente</span><br/>');
+                    div.append(radioPendiente);
+                }
+                
 
 
-                div.append(radioRenovar);
-                div.append(radioNoRenovar);
-                div.append(radioPendiente);
+
+                
+                
 
 
                 return div;
@@ -520,18 +540,24 @@ var GraficoContratos = {
         });
     },
 
-    DibujarTablaInformes: function (informes) {
+    DibujarTablaInformes: function (informesJSON) {
         var _this = this;
         $("#tabla_informe").empty();
+        $('#div_tabla_informes').show();
         var divGrilla = $('#tabla_informe');
-        var tabla = resultado;
+        var informes = JSON.parse(informesJSON);
         var columnas = [];
 
         //$("#btn_exportarExcelDetalle").show();
         //$("#btn_generarInforme").show();
 
         columnas.push(new Columna("N° Informe", { generar: function (un_registro) { return un_registro.Informe } }));
-        columnas.push(new Columna("Fecha", { generar: function (un_registro) { return un_registro.Fecha } }));
+        columnas.push(new Columna("Fecha", { generar: function (un_registro) {
+            var fecha_sin_hora = un_registro.Fecha.split("T");
+            var fecha = fecha_sin_hora[0].split("-");
+            return fecha[2] + "/" + fecha[1] + "/" + fecha[0];
+        }
+        }));
         columnas.push(new Columna("Usuario", { generar: function (un_registro) { return (un_registro.Usuario) } }));
         columnas.push(new Columna('Ver Detalle', {
             generar: function (un_registro) {
@@ -543,13 +569,27 @@ var GraficoContratos = {
                 img.attr('src', '../Imagenes/detalle.png');
                 img.attr('width', '15px');
                 img.attr('height', '15px');
-                btn_accion.attr('style', 'display:inline-block');
+                btn_accion.attr('style', 'display:inline-block; border-bottom: none;');
                 btn_accion.append(img);
                 btn_accion.click(function () {
-                   // _this.FiltrarPersonasParaTablaDetalle(un_registro.Id, tabla_detalle);hacer esta logica
+                    checks_activos = ["GraficoPorInforme"];
+                    _this.FiltrarPersonasParaTablaDetalle(un_registro.Informe, tabla_detalle);
                 });
-                div.append(btn_accion);
 
+                var btn_impresion = $('<a>');
+                var img = $('<img>');
+                img.attr('src', '../Imagenes/Botones/impresora.png');
+                img.attr('width', '25px');
+                img.attr('height', '25px');
+                btn_impresion.attr('style', 'display:inline-block; border-bottom: none;');
+                btn_impresion.append(img);
+                btn_impresion.click(function () {
+                    // _this.FiltrarPersonasParaTablaDetalle(un_registro.Id, tabla_detalle);hacer esta logica
+                });
+
+
+                div.append(btn_accion);
+                div.append(btn_impresion);
 
                 return div;
             }
