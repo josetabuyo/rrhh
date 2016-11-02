@@ -66,6 +66,7 @@ namespace General.Repositorios
             {
                 tablaDatos.Rows.ForEach(row =>
                 {
+                   
                     //if (!(list_de_informes.Any(i => i.Informe == row.GetInt("nroinforme", 0))))
                    // {
                         list_de_informes.Add(new

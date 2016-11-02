@@ -546,6 +546,7 @@ var GraficoContratos = {
         $('#div_tabla_informes').show();
         var divGrilla = $('#tabla_informe');
         var informes = JSON.parse(informesJSON);
+        var informes_no_duplicados = _.uniq(informes, 'Informe'); 
         var columnas = [];
 
         //$("#btn_exportarExcelDetalle").show();
@@ -600,7 +601,7 @@ var GraficoContratos = {
 
         _this.GrillaResumen = new Grilla(columnas);
         _this.GrillaResumen.SetOnRowClickEventHandler(function (un_registro) { });
-        _this.GrillaResumen.CargarObjetos(informes);
+        _this.GrillaResumen.CargarObjetos(informes_no_duplicados);
         _this.GrillaResumen.DibujarEn(divGrilla);
         //_this.BuscadorDeTablaDetalle();
 
