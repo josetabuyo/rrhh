@@ -4,6 +4,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Sistema RRHH - Formulario de pase</title>
+    <script language="JavaScript">
+        function redireccionar() {
+            //redirecciono despues de 6 segundos de presionado el boton
+            setTimeout("location.href='https://rrhh.desarrollosocial.gob.ar/Principal.aspx'", 6000);
+        }
+   </script>
+
     <style type="text/css">
         .style1
         {
@@ -120,8 +127,8 @@
                             <td class="negroTH" colspan="2" align="center" style="height: 26px">
                                 <asp:Button ID="Button2" runat="server" OnClick="Button2_Click" Style="margin-left: 86px;
                                     margin-right: 0px" Text="Cancelar" Width="136px" />
-                                <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" OnClientClick="javascript: window.print()"
-                                    Text="Enviar e Imprimir" Style="margin-left: 112px" />&nbsp;
+                                <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" OnClientClick="javascript: redireccionar();"
+                                    Text="Enviar y Descargar" Style="margin-left: 112px" />&nbsp;
                             </td>
                         </tr>
                     </table>

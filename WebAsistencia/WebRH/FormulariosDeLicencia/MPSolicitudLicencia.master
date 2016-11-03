@@ -6,6 +6,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Principal</title>
+    <script language="JavaScript">
+        function redireccionar() {
+            //redirecciono despues de 6 segundos de presionado el boton
+            setTimeout("location.href='https://rrhh.desarrollosocial.gob.ar/Principal.aspx'", 6000);
+        }
+  </script>
 </head>
 <body>
     <form id="form1" runat="server">

@@ -4,13 +4,18 @@ using System;
 using System.Web.UI.WebControls;
 using WSViaticos;
 ////using WSWebRH;
+using System.Collections.Generic;
+using System.Web;
+using System.Text;
 
 #endregion
 
 public partial class FormulariosDeLicencia_Default : System.Web.UI.Page
 {
     private ConceptoDeLicencia _Concepto;
-
+    private String pathPdfTemplate = "\\Licenciaspdf\\Licencia Extraordinaria con goce de haberes para rendir examenes.pdf";// path del pdf que se rellenara
+    private String nombrePdf = "Licencia\u00A0Extraordinaria\u00A0con\u00A0goce\u00A0de\u00A0haberes\u00A0para\u00A0rendir\u00A0examenes.pdf";// nombre del pdf que se generara
+    
     #region CargaContenidos
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -76,7 +81,9 @@ public partial class FormulariosDeLicencia_Default : System.Web.UI.Page
             string error = s.CargarLicencia(l);
             if (error == null)
             {
-                Response.Redirect("~\\Principal.aspx");
+                //genero el pdf como respuesta
+                this.GenerarPdf(this.pathPdfTemplate, this.nombrePdf, System.Web.HttpContext.Current.Response, l);
+           
             }
             else
             {
@@ -181,6 +188,34 @@ public partial class FormulariosDeLicencia_Default : System.Web.UI.Page
 
     #endregion
 
+    private void GenerarPdf(string pathPdfTemplate, string nombrePdf, System.Web.HttpResponse respuestaHTTP, Licencia l)
+    {
+        //diccionario donde guardar los keys y valores a llenar en los pdf
+        Dictionary<string, string> dic = new Dictionary<string, string>();
+        //clase que realiza el relleno del pdf
+        RellenadorPdf rellenador = new RellenadorPdf();
+        
+        //lleno el diccionario  
 
+        //obtengo la fecha actual del server, posteriormente tomo solo la parte de la fecha
+        //tambien se puede usar "MM/dd/yyyy" para que me retorne exactamente esa cantidad de digitos
+
+        dic.Add("nyap", l.Persona.Apellido + ", " + l.Persona.Nombre);
+        dic.Add("dni", Convert.ToString(l.Persona.Documento));
+        dic.Add("area", l.Persona.Area.Nombre);
+        if (rbSecundario.Checked)
+            dic.Add("grupo1", "op1");
+        else
+            dic.Add("grupo1", "op2");
+        dic.Add("d1", this.TBFechaDeExamen.Text);
+        dic.Add("d2", l.Desde.ToShortDateString());
+        dic.Add("d3", l.Hasta.ToShortDateString());
+        dic.Add("fechaSolicitud", (DateTime.Now.Date).ToString("d"));
+        dic.Add("daño", Convert.ToString(0));// Este es un dato estatico, en realidad debe ser calculado
+
+        rellenador.FillPDF(Server.MapPath("~") + pathPdfTemplate, nombrePdf, dic, respuestaHTTP);
+
+
+    }
 
 }

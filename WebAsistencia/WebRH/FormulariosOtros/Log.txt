@@ -118,3 +118,24 @@
    en ASP.formulariosotros_pases_aspx.ProcessRequest(HttpContext context) en c:\windows\Microsoft.NET\Framework\v4.0.30319\Temporary ASP.NET Files\webrh\56d93a6c\552d3061\App_Web_r4zsxmt2.0.cs:línea 0
    en System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
    en System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+02/11/2016 08:27:36 p.m. - ---------------------------------------------
+02/11/2016 08:27:36 p.m. - System.Web.HttpUnhandledException (0x80004005): Se produjo una excepción de tipo 'System.Web.HttpUnhandledException'. ---> System.Collections.Generic.KeyNotFoundException: La clave proporcionada no se encontró en el diccionario.
+   en System.Collections.Generic.Dictionary`2.get_Item(TKey key)
+   en RellenadorPdf.FillPDF(String pathPdfTemplate, String nombrePdf, Dictionary`2 dic, HttpResponse respuestaHTTP) en c:\repositorioJuanBack\rrhh\WebAsistencia\WebRH\App_Code\utilitarios\RellenadorPdf.cs:línea 48
+   en FormPase.GenerarPdf(String pathPdfTemplate, String nombrePdf, HttpResponse respuestaHTTP, PaseDeArea pase) en c:\repositorioJuanBack\rrhh\WebAsistencia\WebRH\FormulariosOtros\FormPase.aspx.cs:línea 106
+   en FormPase.Button1_Click(Object sender, EventArgs e) en c:\repositorioJuanBack\rrhh\WebAsistencia\WebRH\FormulariosOtros\FormPase.aspx.cs:línea 72
+   en System.Web.UI.WebControls.Button.OnClick(EventArgs e)
+   en System.Web.UI.WebControls.Button.RaisePostBackEvent(String eventArgument)
+   en System.Web.UI.WebControls.Button.System.Web.UI.IPostBackEventHandler.RaisePostBackEvent(String eventArgument)
+   en System.Web.UI.Page.RaisePostBackEvent(IPostBackEventHandler sourceControl, String eventArgument)
+   en System.Web.UI.Page.RaisePostBackEvent(NameValueCollection postData)
+   en System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+   en System.Web.UI.Page.HandleError(Exception e)
+   en System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+   en System.Web.UI.Page.ProcessRequest(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+   en System.Web.UI.Page.ProcessRequest()
+   en System.Web.UI.Page.ProcessRequestWithNoAssert(HttpContext context)
+   en System.Web.UI.Page.ProcessRequest(HttpContext context)
+   en ASP.formulariosotros_formpase_aspx.ProcessRequest(HttpContext context) en c:\Windows\Microsoft.NET\Framework\v4.0.30319\Temporary ASP.NET Files\webrh\61e6ac21\4bd7f936\App_Web_wr24kqvf.0.cs:línea 0
+   en System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   en System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)

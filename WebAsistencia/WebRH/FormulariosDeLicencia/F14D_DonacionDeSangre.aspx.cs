@@ -3,13 +3,18 @@
 using System;
 using System.Web.UI.WebControls;
 using WSViaticos;
-////using WSWebRH;
+using System.Collections.Generic;
+using System.Web;
+using System.Text;
 
 #endregion
 
 public partial class FormulariosDeLicencia_Default : System.Web.UI.Page
 {
     ConceptoDeLicencia _Concepto;
+    private String pathPdfTemplate = "\\Licenciaspdf\\Inasistencia por Donacion de Sangre.pdf";// path del pdf que se rellenara
+    private String nombrePdf = "Inasistencia\u00A0por\u00A0Donacion\u00A0de\u00A0Sangre.pdf";// nombre del pdf que se generara
+
     #region CargaContenidos
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -66,7 +71,9 @@ El día de la donación, siempre que se presente la certificación médica corre
             string error = s.CargarLicencia(l);
             if (error == null)
             {
-                Response.Redirect("~\\Principal.aspx");
+                //genero el pdf como respuesta
+                this.GenerarPdf(this.pathPdfTemplate, this.nombrePdf, System.Web.HttpContext.Current.Response, l);
+                
             }
             else
             {
@@ -113,5 +120,27 @@ El día de la donación, siempre que se presente la certificación médica corre
 
     #endregion
 
+    private void GenerarPdf(string pathPdfTemplate, string nombrePdf, System.Web.HttpResponse respuestaHTTP, Licencia l)
+    {
+        //diccionario donde guardar los keys y valores a llenar en los pdf
+        Dictionary<string, string> dic = new Dictionary<string, string>();
+        //clase que realiza el relleno del pdf
+        RellenadorPdf rellenador = new RellenadorPdf();
+
+        //lleno el diccionario  
+
+        //obtengo la fecha actual del server, posteriormente tomo solo la parte de la fecha
+        //tambien se puede usar "MM/dd/yyyy" para que me retorne exactamente esa cantidad de digitos
+
+        dic.Add("nyap", l.Persona.Apellido + ", " + l.Persona.Nombre);
+        dic.Add("dni", Convert.ToString(l.Persona.Documento));
+        dic.Add("area", l.Persona.Area.Nombre);
+        dic.Add("d1", l.Desde.ToShortDateString());//es lo mismo que poner this.TBDesde.Text
+        dic.Add("fechaSolicitud", (DateTime.Now.Date).ToString("d"));
+
+        rellenador.FillPDF(Server.MapPath("~") + pathPdfTemplate, nombrePdf, dic, respuestaHTTP);
+
+            
+    }
 
 }
