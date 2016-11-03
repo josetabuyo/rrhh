@@ -676,7 +676,7 @@ namespace General.Repositorios
 
                 foreach (var item in graficoExcel.tabla_resumen)
                 {
-                    table_resumen.Rows.Add(item.Id,
+                    table_resumen.Rows.Add(item.DescripcionGrafico,
                         item.Cantidad,
                         Math.Truncate(item.Porcentaje * 100) / 100                      
                         );
