@@ -62,7 +62,11 @@ namespace General
                     }
                     else
                     {
+<<<<<<< HEAD
                         Contador nuevo_estado = new Contador(p.IdEstado, p.Estado, p.EstadoCorto,0, "");
+=======
+                        Contador nuevo_estado = new Contador(p.IdEstado, p.Estado, p.Estado, p.IdEstado, "");
+>>>>>>> 90a09173b7697a1bd4df50b9cf720c79ae5191ed
                         nuevo_estado.PersonasContrato.Add(p);
                         nuevo_estado.Orden = p.OrdenArea;
                         contador.Add(nuevo_estado);
@@ -71,7 +75,11 @@ namespace General
                 }
                 else
                 {
+<<<<<<< HEAD
                     Contador nuevo_estado = new Contador(p.IdEstado, p.Estado, p.EstadoCorto, 0, "");
+=======
+                    Contador nuevo_estado = new Contador(p.IdEstado, p.Estado, p.Estado, p.IdEstado, "");
+>>>>>>> 90a09173b7697a1bd4df50b9cf720c79ae5191ed
                     nuevo_estado.PersonasContrato.Add(p);
                     nuevo_estado.Orden = p.OrdenArea;
                     contador.Add(nuevo_estado);
@@ -83,10 +91,11 @@ namespace General
 
             contador.ForEach(registro =>
             {
-                tabla.Add(GenerarRegistroResumen(registro.Descripcion, registro.DescripcionGrafico, registro.PersonasContrato.Count, total, 0, registro.Id));
+                tabla.Add(GenerarRegistroResumen(registro.Descripcion, registro.DescripcionGrafico, registro.PersonasContrato.Count, total, registro.Orden, registro.Id));
             });
 
-            this.tabla_resumen = tabla.OrderBy(t => t.Orden).ToList();
+           // this.tabla_resumen = tabla.OrderBy(t => t.Orden).ToList();
+            this.tabla_resumen = tabla.OrderBy(t => t.Id).ToList();
         }
 
         public override void GraficoPorSecretarias()
