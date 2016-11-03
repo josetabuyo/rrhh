@@ -198,6 +198,7 @@
         <s:sequence>
           <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Persona" type="tns:Persona" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfFuncionalidad">
@@ -4431,6 +4432,7 @@
       <s:complexType name="AnalisisDeLicenciaOrdinaria">
         <s:sequence>
           <s:element minOccurs="0" maxOccurs="1" name="lineas" type="tns:ArrayOfLogCalculoVacaciones" />
+          <s:element minOccurs="0" maxOccurs="1" name="Saldo" type="tns:ArrayOfVacacionesSolicitables" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfLogCalculoVacaciones">
@@ -4449,6 +4451,17 @@
           <s:element minOccurs="1" maxOccurs="1" name="PerdidaExplicitamente" type="s:boolean" />
           <s:element minOccurs="1" maxOccurs="1" name="PerdidaPorVencimiento" type="s:boolean" />
           <s:element minOccurs="0" maxOccurs="1" name="Observacion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfVacacionesSolicitables">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="VacacionesSolicitables" nillable="true" type="tns:VacacionesSolicitables" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="VacacionesSolicitables">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Period" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Dias" type="s:int" />
         </s:sequence>
       </s:complexType>
       <s:element name="GetAnalisisLicenciaOrdinariaResponse">
