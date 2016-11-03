@@ -214,12 +214,25 @@ var GraficoContratos = {
                                 tabla_final.push(tabla[i]);
                             }
                         } break;
+                    case "ImpresionInforme":
+                        for (var i = 0; i < tabla.length; i++) {
+                            if (tabla[i].Informe == criterio) {
+                                tabla_final.push(tabla[i]);
+                            }
+                        } break;
                 }
             }
-            titulo = titulo + " del Área " + localStorage.getItem("alias");
-            $('#lb_titulo_tabla_detalle').text(titulo);
-            _this.VisualizarTablaDetalle(true);
-            _this.DibujarTablaDetalle(tabla_final, "div_tabla_detalle", "tabla_detalle");
+
+            if (checks_activos[0] == "ImpresionInforme") {
+                return tabla_final;
+            }
+            else {
+                titulo = titulo + " del Área " + localStorage.getItem("alias");
+                $('#lb_titulo_tabla_detalle').text(titulo);
+                _this.VisualizarTablaDetalle(true);
+                _this.DibujarTablaDetalle(tabla_final, "div_tabla_detalle", "tabla_detalle");
+            }
+
         } else {
             _this.VisualizarTablaDetalle(false);
             alertify.error("No hay Datos para la Fila de Resumen Seleccionada");
@@ -415,12 +428,12 @@ var GraficoContratos = {
                     var radioPendiente = $('<input id="radioPendiente" ' + habilitado + ' ' + checkPendiente + ' data-area="' + un_registro.IdArea + '" type="radio" name="contratos_' + un_registro.NroDocumento + '" value="1"  /> <span style="color:#000;">Pendiente</span><br/>');
                     div.append(radioPendiente);
                 }
-                
 
 
 
-                
-                
+
+
+
 
 
                 return div;
@@ -546,7 +559,7 @@ var GraficoContratos = {
         $('#div_tabla_informes').show();
         var divGrilla = $('#tabla_informe');
         var informes = JSON.parse(informesJSON);
-        var informes_no_duplicados = _.uniq(informes, 'Informe'); 
+        var informes_no_duplicados = _.uniq(informes, 'Informe');
         var columnas = [];
 
         //$("#btn_exportarExcelDetalle").show();
@@ -585,7 +598,36 @@ var GraficoContratos = {
                 btn_impresion.attr('style', 'display:inline-block; border-bottom: none;');
                 btn_impresion.append(img);
                 btn_impresion.click(function () {
-                    // _this.FiltrarPersonasParaTablaDetalle(un_registro.Id, tabla_detalle);hacer esta logica
+                    //GPR
+                    checks_activos = ["ImpresionInforme"];
+                    var tabla = _this.FiltrarPersonasParaTablaDetalle(un_registro.Informe, tabla_detalle);
+
+                    var w = window.open("ImpresionSeleccionDeContratos.aspx");
+
+                    w.onload = function () {
+                        var pantalla_impresion = $(w.document);
+
+                        //Declaro los campos que tiene la pantalla de impresion
+                        var t = w.document.getElementById("PanelImpresion");
+                        var leyendaPorAnio = w.document.getElementById("LeyendaPorAnio");
+                        var nroInforme = w.document.getElementById("NroInforme");
+                        var fecha = w.document.getElementById("Fecha");
+
+                        //Completo los campos
+                        Backend.GetLeyendaAnio(2016)
+                            .onSuccess(function (respuesta) {
+                                $(leyendaPorAnio).html(respuesta);
+                            })
+                            .onError(function (error, as, asd) {
+                                alertify.alert("Error al obtener leyenda del año");
+                            });
+
+                        $(nroInforme).html(un_registro.Informe.toString());
+                        $(fecha).html("Buenos Aires " + un_registro.Fecha);
+
+                    }
+
+
                 });
 
 
