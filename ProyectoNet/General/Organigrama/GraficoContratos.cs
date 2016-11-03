@@ -62,11 +62,7 @@ namespace General
                     }
                     else
                     {
-<<<<<<< HEAD
-                        Contador nuevo_estado = new Contador(p.IdEstado, p.Estado, p.EstadoCorto,0, "");
-=======
-                        Contador nuevo_estado = new Contador(p.IdEstado, p.Estado, p.Estado, p.IdEstado, "");
->>>>>>> 90a09173b7697a1bd4df50b9cf720c79ae5191ed
+                        Contador nuevo_estado = new Contador(p.IdEstado, p.Estado, p.EstadoCorto, p.IdEstado, "");
                         nuevo_estado.PersonasContrato.Add(p);
                         nuevo_estado.Orden = p.OrdenArea;
                         contador.Add(nuevo_estado);
@@ -75,11 +71,7 @@ namespace General
                 }
                 else
                 {
-<<<<<<< HEAD
-                    Contador nuevo_estado = new Contador(p.IdEstado, p.Estado, p.EstadoCorto, 0, "");
-=======
-                    Contador nuevo_estado = new Contador(p.IdEstado, p.Estado, p.Estado, p.IdEstado, "");
->>>>>>> 90a09173b7697a1bd4df50b9cf720c79ae5191ed
+                    Contador nuevo_estado = new Contador(p.IdEstado, p.Estado, p.EstadoCorto, p.IdEstado, "");
                     nuevo_estado.PersonasContrato.Add(p);
                     nuevo_estado.Orden = p.OrdenArea;
                     contador.Add(nuevo_estado);
