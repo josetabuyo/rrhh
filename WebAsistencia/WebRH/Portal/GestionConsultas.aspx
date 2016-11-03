@@ -41,8 +41,9 @@
                 <div id="tablaConsultas" class="table table-striped table-bordered table-condensed">
                 </div>
                 <div id="div_detalle_consulta" style="display: none;">
-                    <label style="margin-right: 20px;">Creador:</label><input type="text" id="txt_creador"readonly />
-                    <label style="margin-right: 20px;margin-left: 20px;">Tipo de Consulta:</label><input type="text" id="txt_tipo" readonly />
+                    <label style="margin-right: 20px;">ID:</label><input type="text" id="txt_nro_consulta"readonly style="width: 50px;"/>
+                    <label style="margin-right: 20px;">Creador:</label><input type="text" id="txt_creador"readonly style="width: 250px;"/>
+                    <label style="margin-right: 20px;margin-left: 20px;">Tipo de Consulta:</label><input type="text" id="txt_tipo" readonly style="width: 150px;"/>
                     <br />
                     <label style="margin-right: 24px;">
                         Motivo:</label>
@@ -53,7 +54,7 @@
                         Respuesta:</label>
                     <textarea id="ta_respuesta" style="width: 100%; height: 150px;"></textarea>
                      <div style="text-align:center;">
-                     <input id="Button5" type="button" class="btn btn-primary" style="margin: 10px; width: 100px;"
+                     <input id="btn_responder_consulta" type="button" class="btn btn-primary" style="margin: 10px; width: 100px;"
                 value="Responder" />
                 <input id="btn_volver_consulta" type="button" class="btn btn-primary" style="margin: 10px; width: 100px;"
                 value="Volver" />
@@ -64,12 +65,11 @@
     </form>
 </body>
 <script type="text/javascript" src="Legajo.js"></script>
-<script src="../scripts/vex-2.1.1/js/vex.combined.min.js"></script>
+<script type="text/javascript" src="../scripts/vex-2.1.1/js/vex.combined.min.js"></script>
 <script type="text/javascript">
 
     $(document).ready(function ($) {
         Backend.start(function () {
-
             Legajo.getConsultasParaGestion();
         });
     });

@@ -488,12 +488,14 @@ var Legajo = {
         $('#ta_respuesta').val(respuesta);
     },
 
-    TratarConsulta: function (creador, tipo, motivo){
+    TratarConsulta: function (nro_consulta, creador, tipo, motivo) {
     $('#tablaConsultas').hide();
     $('#div_detalle_consulta').show();
     $('#txt_creador').val(creador);
+    $('#txt_nro_consulta').val(nro_consulta);
     $('#txt_tipo').val(tipo);
     $('#ta_motivo').text(motivo);
+    
     },
 
     getConsultas: function () {
@@ -561,10 +563,25 @@ var Legajo = {
       $('#tablaConsultas').show();
     },
 
+    ResponderConsulta: function(){
+    var id = parseInt($('#txt_nro_consulta').val());
+    var respuesta = $('#ta_respuesta').val();
+     Backend.ResponderConsulta(id, respuesta)
+                    .onSuccess(function () { 
+                    $('#btn_volver_consulta').click();
+                    alertify("Se ha actualizado correctamente");
+                    })
+                    .onError(function (e) {
+                    });
+    },
+
     getConsultasParaGestion: function () {
     var _this = this;
      $('#btn_volver_consulta').click(function () {
         _this.VolverAConsulta();
+     });
+      $('#btn_responder_consulta').click(function () {
+        _this.ResponderConsulta();
      });
      $('#btn_consultas_pendientes').click(function () {
         _this.getConsultasTodas(6);
@@ -574,6 +591,7 @@ var Legajo = {
      });
      $('#btn_consultas_pendientes').click();
     },
+
      getConsultasTodas: function (estado) {
         var _this_original = this;
         Backend.GetConsultasTodasDePortal(estado)
@@ -599,7 +617,7 @@ var Legajo = {
                                 img.attr('height', '15px');
                                 btn_accion.append(img);
                                 btn_accion.click(function () {
-                                    _this_original.TratarConsulta(una_consulta.creador.Apellido + ", " + una_consulta.creador.Nombre, una_consulta.tipo_consulta, una_consulta.motivo);
+                                    _this_original.TratarConsulta(una_consulta.Id, una_consulta.creador.Apellido + ", " + una_consulta.creador.Nombre, una_consulta.tipo_consulta, una_consulta.motivo);
                                 });
                                 return btn_accion;
                             }

@@ -353,13 +353,15 @@ namespace General.Repositorios
             var parametros = new Dictionary<string, object>();
             parametros.Add("@Id_usuario", id_usuario);
             List<Consulta> consultas = new List<Consulta>();
-            Persona creador = new Persona();
+            Area area = new Area();
             var tablaDatos = conexion.Ejecutar("dbo.LEG_GETConsultasDePortal", parametros);
 
             if (tablaDatos.Rows.Count > 0)
             {
                 tablaDatos.Rows.ForEach(row =>
                 {
+                    Persona creador = new Persona(row.GetInt("id_usuario_creador"), 0,row.GetString("nombre_creador"), row.GetString("apellido_creador"), area);
+                    Persona responsable = new Persona(row.GetInt("is_usuario_responsable"), 0, row.GetString("nombre_responsable"), row.GetString("apellido_responsable"), area);
                     Consulta consulta = new Consulta(
                         row.GetInt("Id"),
                         creador,
@@ -367,13 +369,11 @@ namespace General.Repositorios
                         row.GetString("tipo_consulta"),
                         row.GetString("motivo"),
                         row.GetString("estado"),
-                        row.GetString("is_usuario_responsable", "-"),
+                        responsable,
                         row.GetDateTime("fecha_contestacion", new DateTime()),
                         row.GetString("respuesta", ""));
                     consultas.Add(consulta);
-
                 });
-
             }
 
             return JsonConvert.SerializeObject(consultas);
@@ -384,15 +384,16 @@ namespace General.Repositorios
             var parametros = new Dictionary<string, object>();
             parametros.Add("@Estado", estado);
             List<Consulta> consultas = new List<Consulta>();
-
+            Area area = new Area();
             var tablaDatos = conexion.Ejecutar("dbo.LEG_GETConsultasDePortal", parametros);
 
             if (tablaDatos.Rows.Count > 0)
             {
                 tablaDatos.Rows.ForEach(row =>
                 {
-                    Persona creador = new Persona(row.GetInt("id_usuario_creador"), 123, "Belén", "Cevey", new Area());
-
+                    Persona creador = new Persona(row.GetInt("id_usuario_creador"), 0, row.GetString("nombre_creador"), row.GetString("apellido_creador"), area);
+                    Persona responsable = new Persona(row.GetInt("is_usuario_responsable", 0), 0, row.GetString("nombre_responsable", ""), row.GetString("apellido_responsable", ""), area);
+                    
                     Consulta consulta = new Consulta(
                         row.GetInt("Id"),
                         creador,
@@ -400,7 +401,7 @@ namespace General.Repositorios
                         row.GetString("tipo_consulta"),
                         row.GetString("motivo"),
                         row.GetString("estado"),
-                        row.GetString("is_usuario_responsable", "-"),
+                        responsable,
                         row.GetDateTime("fecha_contestacion", new DateTime()),
                         row.GetString("respuesta", ""));
                     consultas.Add(consulta);
@@ -412,6 +413,18 @@ namespace General.Repositorios
             return JsonConvert.SerializeObject(consultas);
 
         }
+
+        public void ResponderConsulta(int id, string respuesta, int id_usuario)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@Id", id);
+            parametros.Add("@Respuesta", respuesta);
+            parametros.Add("@Id_Usuario", id_usuario);
+
+            conexion.EjecutarSinResultado("dbo.LEG_UPDConsultasDePortal", parametros);
+        }
+
+        
 
         public string GetTiposDeConsultaDePortal()
         {

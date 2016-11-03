@@ -4012,6 +4012,15 @@ public class WSViaticos : System.Web.Services.WebService
         return repo.GetConsultasTodasDePortal(estado);
 
     }
+
+    [WebMethod]
+    public void ResponderConsulta(int id, string respuesta, Usuario usuario)
+    {
+        RepositorioLegajo repo = RepoLegajo();
+
+        repo.ResponderConsulta(id, respuesta, usuario.Owner.Id);
+
+    }
    
 
     [WebMethod]
@@ -4026,7 +4035,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public int NuevaConsultaDePortal(Consulta consulta, Usuario usuario)
     {
-        return RepoLegajo().NuevaConsultaDePortal(usuario.Id, consulta);
+        return RepoLegajo().NuevaConsultaDePortal(usuario.Owner.Id, consulta);
 
     }
 
