@@ -158,10 +158,10 @@ var GraficoContratos = {
                 pie: {
                     allowPointSelect: true,
                     cursor: 'pointer',
-                    depth: 35,
+                    depth: 35,                    
                     dataLabels: {
                         enabled: true,
-                        format: '{point.name}' + ': ' + '{point.percentage:.2f}' + '%',
+                        format: '{point.name}',
                         style: {
                             textShadow: ''
                         }

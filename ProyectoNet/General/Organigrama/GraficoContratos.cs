@@ -40,6 +40,7 @@ namespace General
                         0,//orden
                         row.GetInt("NroInforme", 0),
                         row.GetString("estado_seleccion_descriptivo", ""),
+                        row.GetString("estado_seleccion_corto", ""),
                         row.GetSmallintAsInt("estado_seleccion", 0)//id_estado
                         );
         }
@@ -61,7 +62,7 @@ namespace General
                     }
                     else
                     {
-                        Contador nuevo_estado = new Contador(p.IdEstado, p.Estado, p.Estado,0, "");
+                        Contador nuevo_estado = new Contador(p.IdEstado, p.Estado, p.EstadoCorto,0, "");
                         nuevo_estado.PersonasContrato.Add(p);
                         nuevo_estado.Orden = p.OrdenArea;
                         contador.Add(nuevo_estado);
@@ -70,7 +71,7 @@ namespace General
                 }
                 else
                 {
-                    Contador nuevo_estado = new Contador(p.IdEstado, p.Estado, p.Estado, 0, "");
+                    Contador nuevo_estado = new Contador(p.IdEstado, p.Estado, p.EstadoCorto, 0, "");
                     nuevo_estado.PersonasContrato.Add(p);
                     nuevo_estado.Orden = p.OrdenArea;
                     contador.Add(nuevo_estado);
