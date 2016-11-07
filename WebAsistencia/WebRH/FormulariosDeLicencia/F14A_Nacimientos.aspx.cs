@@ -163,6 +163,7 @@ Al agente varón, por nacimiento de hijo, tres (3) días laborables.";
         dic.Add("nyap", l.Persona.Apellido + ", " + l.Persona.Nombre);
         dic.Add("dni", Convert.ToString(l.Persona.Documento));
         dic.Add("area", l.Persona.Area.Nombre);
+        dic.Add("categoria", l.Persona.Categoria + " " + l.Persona.Grado + " " + l.Persona.Nivel);
         dic.Add("d1", this.TBDesde.Text);
         dic.Add("fechaSolicitud", (DateTime.Now.Date).ToString("d"));
         dic.Add("d2", l.Desde.ToShortDateString());

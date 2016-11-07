@@ -171,6 +171,7 @@ El agente (varón o mujer) que tenga hijos menores de edad, en caso de fallecer 
         dic.Add("nyap", l.Persona.Apellido + ", " + l.Persona.Nombre);
         dic.Add("dni", Convert.ToString(l.Persona.Documento));
         dic.Add("area", l.Persona.Area.Nombre);
+        dic.Add("categoria", l.Persona.Categoria + " " + l.Persona.Grado + " " + l.Persona.Nivel);
         dic.Add("d1", l.Desde.ToShortDateString());
         /*los siguientes dos datos no son del mismo solicitante???*/
         dic.Add("nyap2", this.TBApellido.Text);

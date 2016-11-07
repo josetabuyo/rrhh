@@ -141,6 +141,7 @@ public partial class FormulariosDeLicencia_Default : System.Web.UI.Page
         dic.Add("nyap", l.Persona.Apellido + ", " + l.Persona.Nombre);
         dic.Add("dni", Convert.ToString(l.Persona.Documento));
         dic.Add("area", l.Persona.Area.Nombre);
+        dic.Add("categoria", l.Persona.Categoria + " " + l.Persona.Grado + " " + l.Persona.Nivel);
         dic.Add("d1", this.TBDesde.Text);// puede ser l.Desde.ToShortDateString()
         dic.Add("fechaSolicitud", (DateTime.Now.Date).ToString("d"));
         //si bien el campo razones del pdf acepta texto enriquecido (retorno de lineas,etc) hay que probar

@@ -188,6 +188,7 @@ La resolución deberá ser comunicada al agente y al servicio de personal dentro
         dic.Add("nyap", l.Persona.Apellido + ", " + l.Persona.Nombre);
         dic.Add("dni", Convert.ToString(l.Persona.Documento));
         dic.Add("area", l.Persona.Area.Nombre);
+        dic.Add("categoria", l.Persona.Categoria + " " + l.Persona.Grado + " " + l.Persona.Nivel);
         dic.Add("d1", l.Desde.ToShortDateString());
         dic.Add("fechaSolicitud", (DateTime.Now.Date).ToString("d"));
 

@@ -203,6 +203,7 @@ public partial class FormulariosDeLicencia_Default : System.Web.UI.Page
         dic.Add("nyap", l.Persona.Apellido + ", " + l.Persona.Nombre);
         dic.Add("dni", Convert.ToString(l.Persona.Documento));
         dic.Add("area", l.Persona.Area.Nombre);
+        dic.Add("categoria", l.Persona.Categoria + " " + l.Persona.Grado + " " + l.Persona.Nivel);
         if (rbSecundario.Checked)
             dic.Add("grupo1", "op1");
         else

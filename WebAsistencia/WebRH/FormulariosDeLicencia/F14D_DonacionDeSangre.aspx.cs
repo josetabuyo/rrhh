@@ -134,7 +134,9 @@ El día de la donación, siempre que se presente la certificación médica corre
 
         dic.Add("nyap", l.Persona.Apellido + ", " + l.Persona.Nombre);
         dic.Add("dni", Convert.ToString(l.Persona.Documento));
+        //dic.Add("dni", l.Persona.Documento.ToString("###,###,##0"));
         dic.Add("area", l.Persona.Area.Nombre);
+        dic.Add("categoria", l.Persona.Categoria + " " + l.Persona.Grado + " " + l.Persona.Nivel);
         dic.Add("d1", l.Desde.ToShortDateString());//es lo mismo que poner this.TBDesde.Text
         dic.Add("fechaSolicitud", (DateTime.Now.Date).ToString("d"));
 

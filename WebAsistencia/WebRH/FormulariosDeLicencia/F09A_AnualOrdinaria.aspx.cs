@@ -159,6 +159,7 @@ ESTA SOLICITUD DEBE SER RECIBIDA EN LA DIRECCION DE ADMINISTRACIÓN DE PERSONAL 
         dic.Add("nyap", l.Persona.Apellido+", "+l.Persona.Nombre);
         dic.Add("dni", Convert.ToString(l.Persona.Documento));
         dic.Add("area", l.Persona.Area.Nombre);
+        dic.Add("categoria", l.Persona.Categoria + " " + l.Persona.Grado + " " + l.Persona.Nivel);
         dic.Add("d2", l.Desde.ToShortDateString());
         dic.Add("d3", l.Hasta.ToShortDateString());
         dic.Add("fechaSolicitud", (DateTime.Now.Date).ToString("d"));          
