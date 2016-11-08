@@ -10,7 +10,7 @@ public partial class FormulariosDeLicencia_MPSolicitudLicencia : System.Web.UI.M
     protected void Page_Load(object sender, EventArgs e)
     {
         //utilizado para pruebas hardcodeadas
-        Area area = new Area();
+   /*     Area area = new Area();
         area.Nombre = "Area de Prueba general para los conceptos de licencia";
         area.Id = 1327;
         Session["areaActual"] = area;
@@ -19,7 +19,7 @@ public partial class FormulariosDeLicencia_MPSolicitudLicencia : System.Web.UI.M
         agente.Nombre = "Juan Carlos";
         agente.Apellido = "Testeando";
         agente.Documento = 29753914;
-        Session["persona"] = agente;
+        Session["persona"] = agente;*/
         
         /////
 
