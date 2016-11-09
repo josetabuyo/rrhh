@@ -21,13 +21,14 @@ namespace General
 
         public Consulta() { }
 
-        public Consulta(int id, Persona creador, DateTime fecha_creacion, string tipo_consulta, string motivo, string estado, Persona contestador, DateTime fecha_contestacion, string respuesta)
+        public Consulta(int id, Persona creador, DateTime fecha_creacion, string tipo_consulta, string motivo, int id_estado, string estado, Persona contestador, DateTime fecha_contestacion, string respuesta)
         {
             this.contestador = new Persona();
             this.Id = id;
             this.fechaCreacion = fecha_creacion;
             this.tipo_consulta = tipo_consulta;
             this.motivo = motivo;
+            this.id_estado = id_estado;
             this.estado = estado;
             this.contestador = contestador;
             this.fechaContestacion = fecha_contestacion;

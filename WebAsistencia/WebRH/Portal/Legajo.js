@@ -489,6 +489,8 @@ var Legajo = {
     },
 
     TratarConsulta: function (nro_consulta, creador, tipo, motivo) {
+     $('#btn_responder_consulta').show();
+      $('#ta_respuesta').prop("disabled", false);
     $('#tablaConsultas').hide();
     $('#div_detalle_consulta').show();
     $('#txt_creador').val(creador);
@@ -496,6 +498,13 @@ var Legajo = {
     $('#txt_tipo').val(tipo);
     $('#ta_motivo').text(motivo);
     
+    },
+
+    VisualizarConsulta: function (nro_consulta, creador, tipo, motivo, respuesta) {
+    this.TratarConsulta(nro_consulta, creador, tipo, motivo);
+     $('#btn_responder_consulta').hide();
+    $('#ta_respuesta').text(respuesta);
+    $('#ta_respuesta').prop("disabled", true);
     },
 
     getConsultas: function () {
@@ -612,14 +621,24 @@ var Legajo = {
                             generar: function (una_consulta) {
                                 var btn_accion = $('<a>');
                                 var img = $('<img>');
-                                img.attr('src', '../Imagenes/edit.png');
                                 img.attr('width', '15px');
                                 img.attr('height', '15px');
-                                btn_accion.append(img);
-                                btn_accion.click(function () {
-                                    _this_original.TratarConsulta(una_consulta.Id, una_consulta.creador.Apellido + ", " + una_consulta.creador.Nombre, una_consulta.tipo_consulta, una_consulta.motivo);
-                                });
-                                return btn_accion;
+                                if (una_consulta.id_estado == 6 ) {
+                                   
+                                    img.attr('src', '../Imagenes/edit.png');
+                                   
+                                    btn_accion.click(function () {
+                                        _this_original.TratarConsulta(una_consulta.Id, una_consulta.creador.Apellido + ", " + una_consulta.creador.Nombre, una_consulta.tipo_consulta, una_consulta.motivo);
+                                    });
+                                    
+                                 }else{
+                                 img.attr('src', '../Imagenes/icons-lupa-finish.jpg');
+                                    btn_accion.click(function () {
+                                        _this_original.VisualizarConsulta(una_consulta.Id, una_consulta.creador.Apellido + ", " + una_consulta.creador.Nombre, una_consulta.tipo_consulta, una_consulta.motivo, una_consulta.respuesta);
+                                    });
+                                 }
+                                  btn_accion.append(img);   
+                                  return btn_accion;
                             }
                         }));
 

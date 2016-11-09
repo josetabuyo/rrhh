@@ -361,13 +361,14 @@ namespace General.Repositorios
                 tablaDatos.Rows.ForEach(row =>
                 {
                     Persona creador = new Persona(row.GetInt("id_usuario_creador"), 0,row.GetString("nombre_creador"), row.GetString("apellido_creador"), area);
-                    Persona responsable = new Persona(row.GetInt("is_usuario_responsable"), 0, row.GetString("nombre_responsable"), row.GetString("apellido_responsable"), area);
+                    Persona responsable = new Persona(row.GetInt("is_usuario_responsable", 0), 0, row.GetString("nombre_responsable", ""), row.GetString("apellido_responsable", ""), area);
                     Consulta consulta = new Consulta(
                         row.GetInt("Id"),
                         creador,
                         row.GetDateTime("fecha_creacion"),
                         row.GetString("tipo_consulta"),
                         row.GetString("motivo"),
+                        row.GetSmallintAsInt("id_estado"),
                         row.GetString("estado"),
                         responsable,
                         row.GetDateTime("fecha_contestacion", new DateTime()),
@@ -382,7 +383,11 @@ namespace General.Repositorios
         public string GetConsultasTodasDePortal(int estado)
         {
             var parametros = new Dictionary<string, object>();
-            parametros.Add("@Estado", estado);
+            if (estado != 0)
+            {
+                parametros.Add("@Estado", estado);
+            }
+            
             List<Consulta> consultas = new List<Consulta>();
             Area area = new Area();
             var tablaDatos = conexion.Ejecutar("dbo.LEG_GETConsultasDePortal", parametros);
@@ -400,6 +405,7 @@ namespace General.Repositorios
                         row.GetDateTime("fecha_creacion"),
                         row.GetString("tipo_consulta"),
                         row.GetString("motivo"),
+                        row.GetSmallintAsInt("id_estado"),
                         row.GetString("estado"),
                         responsable,
                         row.GetDateTime("fecha_contestacion", new DateTime()),
