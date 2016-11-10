@@ -222,5 +222,7 @@ namespace General
             var lineas_posteriores = lineas.GetRange(this.lineas.IndexOf(logCalculoVacaciones), lineas.Count - this.lineas.IndexOf(logCalculoVacaciones));
             return lineas_posteriores.Any(l => !l.LicenciaDesde.Equals(DateTime.MinValue));
         }
+
+        public List<VacacionesSolicitables> Saldo { get; set; }
     }
 }

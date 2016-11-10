@@ -22,6 +22,7 @@ namespace General.Repositorios
         private static GraficoSueldo GRAFICOSUELDO;
         private static GraficoDotacion GRAFICODOTACION;
         private static GraficoRangoEtario GRAFICORANGOETARIO;
+        private static GraficoContratos GRAFICO_CONTRATO;
         private static bool incluir_dependencias_anterior;
         private static bool detalle_sueldo;
 
@@ -68,6 +69,49 @@ namespace General.Repositorios
             }
 
             GRAFICODOTACION = grafico;
+
+            return grafico;
+
+        }
+
+        public GraficoContratos GetGraficoContratados(string tipo, DateTime fecha, int id_area, bool incluir_dependencias)
+        {
+            GraficoContratos grafico = new GraficoContratos();
+
+            /*if (incluir_dependencias == incluir_dependencias_anterior)
+            {
+                if (GRAFICO_CONTRATO != null)
+                {
+                    if (GRAFICO_CONTRATO.ContienePersonasAContratar())
+                    {
+                        CrearResumen(GRAFICO_CONTRATO, tipo, fecha);
+                    }
+
+                    return GRAFICO_CONTRATO;
+                }
+            }*/
+
+            //id_area_anterior = id_area;
+            incluir_dependencias_anterior = incluir_dependencias;
+            var parametros = new Dictionary<string, object>();
+
+            parametros.Add("@area", id_area);
+            parametros.Add("@estado_selecc", "P");
+            parametros.Add("@usuario", 1);
+            //parametros.Add("@orden", 0);
+            parametros.Add("@incluir_dependencias", incluir_dependencias);
+            var tablaDatos = conexion_bd.Ejecutar("dbo.CTR_GET_Seleccion_Contratos_WEB", parametros);
+            if (tablaDatos.Rows.Count > 0)
+            {
+                grafico.CrearDatos(tablaDatos.Rows);
+
+            }
+            if (grafico.ContienePersonasAContratar())
+            {
+                CrearResumen(grafico,tipo,fecha);
+            }
+
+            GRAFICO_CONTRATO = grafico;
 
             return grafico;
 
@@ -463,10 +507,6 @@ namespace General.Repositorios
 
         }
 
-
-
-
-
         public string ExcelGeneradoRangoEtario(string tipo, int dia, int mes, int anio, bool incluir_dependencias, int id_area)
         {
             try
@@ -606,7 +646,133 @@ namespace General.Repositorios
             }
 
         }
-     
+
+        public string ExcelGeneradoContratos(string tipo, int dia, int mes, int anio, bool incluir_dependencias, int id_area)
+        {
+            try
+            {
+                DateTime fecha = new DateTime(anio, mes, dia);
+                RepositorioDeAreas repositorio_de_areas = RepositorioDeAreas.NuevoRepositorioDeAreas(this.conexion_bd);
+                GraficoContratos graficoExcel = GetGraficoContratados(tipo, fecha, id_area, incluir_dependencias);
+
+                DataTable table_resumen = new DataTable();
+                table_resumen.TableName = "Resumen";
+
+                DataTable table_detalle = new DataTable();
+                table_detalle.TableName = "Detalle";
+
+                Area area = repositorio_de_areas.GetAreaPorId(id_area);
+
+                table_resumen.Columns.Add("Informacion");
+                table_resumen.Columns.Add("Cantidad");
+                table_resumen.Columns.Add("Porcentaje(%)");
+                            
+                table_detalle.Columns.Add("Area");
+                table_detalle.Columns.Add("NroDocumento");
+                table_detalle.Columns.Add("Apellido_Nombre");
+                table_detalle.Columns.Add("Detalle");
+                table_detalle.Columns.Add("Informe");
+
+
+                foreach (var item in graficoExcel.tabla_resumen)
+                {
+                    table_resumen.Rows.Add(item.DescripcionGrafico,
+                        item.Cantidad,
+                        Math.Truncate(item.Porcentaje * 100) / 100                      
+                        );
+                }
+
+                foreach (var item in graficoExcel.tabla_detalle_contratos)
+                {
+
+                    table_detalle.Rows.Add(item.Area,
+                        item.NroDocumento,
+                        item.Apellido + " " + item.Nombre,
+                        item.Estado,
+                        item.Informe
+                        );
+                }
+
+
+                var workbook = new XLWorkbook();
+                //var dataTable_consulta_parametros = table;
+                var dataTable_resumen = table_resumen;
+                var dataTable_detalle = table_detalle;
+                var ws = workbook.Worksheets.Add("Resumen");
+
+                ws.Style.Font.FontSize = 11;
+                ws.Style.Font.FontName = "Verdana";
+
+                ws.Column("A").Width = 15;
+                ws.Column("B").Width = 15;
+                ws.Column("C").Width = 25;
+                ws.Column("D").Width = 25;
+                ws.Column("E").Width = 25;
+
+               // ws.Cell(1, 1).Value = "FECHA:";
+             //  ws.Cell(2, 1).Value = "AREA:";
+
+                ws.Cell(1, 1).Style.Font.Bold = true;
+                ws.Cell(2, 1).Style.Font.Bold = true;
+
+              //  ws.Cell(1, 2).Value = fecha.ToShortDateString();
+             //   ws.Cell(2, 2).Value = area.Nombre.ToUpper();
+
+                ws.Range(4, 1, 4, 3).Style.Fill.BackgroundColor = XLColor.FromArgb(79, 129, 189);
+                ws.Range(4, 1, 4, 3).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+
+                ws.Range(4, 1, 4, 3).Style.Font.FontColor = XLColor.White;
+
+                ws.Cell(4, 1).Value = "Informacion";
+                ws.Cell(4, 2).Value = "Cantidad";
+                ws.Cell(4, 3).Value = "Porcentaje %";
+             //   ws.Cell(4, 4).Value = "Porcentaje Hombres";
+             //   ws.Cell(4, 5).Value = "Porcentaje Mujeres";
+
+
+                var rangeWithData = ws.Cell(5, 1).InsertData(dataTable_resumen.AsEnumerable());
+
+                var lastCell = ws.LastCellUsed();
+
+                ws.Range(4, 1, lastCell.Address.RowNumber, lastCell.Address.ColumnNumber).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+                ws.Range(4, 1, lastCell.Address.RowNumber, lastCell.Address.ColumnNumber).Style.Border.OutsideBorder = XLBorderStyleValues.Medium;
+
+                ws.Range(5, 2, lastCell.Address.RowNumber, lastCell.Address.ColumnNumber).DataType = XLCellValues.Number;
+
+                workbook.Worksheets.Add(dataTable_detalle);
+
+                var lastCell2 = workbook.Worksheet(2).LastCellUsed();
+                //workbook.Worksheet(2).Range(2, 2, lastCell2.Address.RowNumber, 2).DataType = XLCellValues.Number;
+
+
+                //workbook.Worksheet(2).Range(2, 4, lastCell2.Address.RowNumber, 4).DataType = XLCellValues.Number;
+                //workbook.Worksheet(2).Range(2, 8, lastCell2.Address.RowNumber, 8).DataType = XLCellValues.Number;
+
+                workbook.Worksheet(2).Column("A").Width = 25;
+                workbook.Worksheet(2).Column("B").Width = 15;
+                workbook.Worksheet(2).Column("C").Width = 25;
+                workbook.Worksheet(2).Column("D").Width = 8;
+                workbook.Worksheet(2).Column("E").Width = 10;
+                workbook.Worksheet(2).Column("F").Width = 18;
+                workbook.Worksheet(2).Column("G").Width = 7;
+                workbook.Worksheet(2).Column("H").Width = 18;
+                workbook.Worksheet(2).Column("I").Width = 18;
+                workbook.Worksheet(2).Column("J").Width = 18;
+
+
+                using (var ms = new MemoryStream())
+                {
+                    workbook.SaveAs(ms);
+                    return Convert.ToBase64String(ms.ToArray());
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
 
 
         #endregion

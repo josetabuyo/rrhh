@@ -27,7 +27,7 @@ public class Referencias
 
     public static string Javascript(string ruta_origen){
         var refs = @"
-            <script type=""text/javascript"" src=""http://code.jquery.com/jquery-latest.min.js""></script>
+            <script type=""text/javascript"" src=""__RUTA_ORIGEN__Scripts/jquery-latest.min.js""></script>
             <script type=""text/javascript"" src=""__RUTA_ORIGEN__Scripts/underscore-min.js""></script>
             <script type=""text/javascript"" src=""__RUTA_ORIGEN__Scripts/jquery-ui-1.10.2.custom/js/jquery-1.9.1.js""></script>
             <script type=""text/javascript"" src=""__RUTA_ORIGEN__Scripts/bootstrap/js/jquery.js""></script>

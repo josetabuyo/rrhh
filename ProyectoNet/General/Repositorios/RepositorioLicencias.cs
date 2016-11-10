@@ -16,7 +16,6 @@ namespace General.Repositorios
         {
         }
 
-
         #region IRepositorioLicencias Members
 
 
@@ -294,7 +293,6 @@ namespace General.Repositorios
         }
         #endregion
 
-
         public List<VacacionesPermitidas> GetVacacionesPermitidas()
         {
             var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetDiasPermitidos");
@@ -318,19 +316,166 @@ namespace General.Repositorios
             return ConstruirVacacionesAprobadas(tablaDatos);
         }
 
-        public List<VacacionesAprobadas> GetVacacionesAprobadasPara(Persona persona, ConceptoDeLicencia concepto)
+        public void Cachear<T>(string nros_documento, string sp, Dictionary<string, object> parametros, Dictionary<int, List<T>> cache, Func<RowDeDatos, IConPersona> constructor) where T : IConPersona
+        {
+            
+            var tablaDatos = this.conexion.Ejecutar(sp, parametros, 3000);
+
+            List<T> items = new List<T>();
+            tablaDatos.Rows.ForEach(row =>
+            {
+                var it = (T)constructor(row);
+                AddToCache<T>(it.Persona.Documento, cache, it);
+            });
+
+            nros_documento.Split(',').ToList().ForEach(doc =>
+            {
+                if (doc != string.Empty)
+                {
+                    var numeric_doc = int.Parse(doc);
+                    if (!cache.ContainsKey(numeric_doc))
+                    {
+                        cache.Add(numeric_doc, new List<T>());
+                    }
+                }
+            });
+        }
+
+        public void CachearGetVacacionesPendientesAprobacion(string nros_documento)
         {
             var parametros = new Dictionary<string, object>();
+            parametros.Add("@nros_documento", nros_documento);
+            parametros.Add("@id_concepto_licencia", 1);
+            this.CacheVacacionesPendientesAprobacion = new Dictionary<int, List<VacacionesPendientesDeAprobacion>>();
+            this.Cachear<VacacionesPendientesDeAprobacion>(nros_documento, "dbo.LIC_GEN_GetDiasPendientesDeAprobacionVarios", 
+                parametros, this.CacheVacacionesPendientesAprobacion, 
+                (RowDeDatos row) => {
+                    Persona persona = new Persona();
+                    persona.Documento = row.GetInt("NroDocumento");
+                    persona.Apellido = row.GetString("Apellido");
+                    persona.Nombre = row.GetString("Nombre");
 
+                    DateTime fecha_desde = row.GetDateTime("Desde");
+                    DateTime fecha_hasta = row.GetDateTime("Hasta");
+                    return new VacacionesPendientesDeAprobacion(persona, fecha_desde, fecha_hasta);
+                });
+        }
+
+        public void CachearVacacionesPermitidasPara(string nros_documento, ConceptoDeLicencia concepto)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@nros_documento", nros_documento);
+            parametros.Add("@id_concepto_licencia", concepto.Id);
+            this.CacheDiasPermitidos = new Dictionary<int, List<VacacionesPermitidas>>();
+            Cachear<VacacionesPermitidas>(nros_documento, "dbo.LIC_GEN_GetDiasPermitidosVarios", parametros, this.CacheDiasPermitidos,
+                (RowDeDatos row) => {
+                    Persona persona = new Persona();
+                    persona.Documento = row.GetInt("NroDocumento");
+                    persona.Apellido = row.GetString("Apellido");
+                    persona.Nombre = row.GetString("Nombre");
+
+                    int periodo = row.GetSmallintAsInt("Periodo");
+                    int dias = row.GetSmallintAsInt("Dias_Autorizados");
+
+                    return new VacacionesPermitidas(persona, periodo, dias);
+                });
+        }
+
+        Dictionary<int, List<VacacionesAprobadas>> CacheVacacionesAprobadas;
+        public void CachearVacacionesAprobadasPara(string nros_documento, ConceptoDeLicencia concepto)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@nros_documento", nros_documento);
+            parametros.Add("@id_concepto_licencia", concepto.Id);
+            this.CacheVacacionesAprobadas = new Dictionary<int, List<VacacionesAprobadas>>();
+            Cachear<VacacionesAprobadas>(nros_documento, "dbo.LIC_GEN_GetVariosDiasAprobados", parametros, this.CacheVacacionesAprobadas,
+                (RowDeDatos row) =>
+                {
+                    Persona persona = new Persona();
+                    persona.Documento = row.GetInt("NroDocumento");
+                    persona.Apellido = row.GetString("Apellido");
+                    persona.Nombre = row.GetString("Nombre");
+
+                    DateTime fecha_desde = row.GetDateTime("Desde");
+                    DateTime fecha_hasta = row.GetDateTime("Hasta");
+
+                    return new VacacionesAprobadas(persona, fecha_desde, fecha_hasta);
+                });
+        }
+
+        Dictionary<int, List<VacacionesPermitidas>> CacheDiasPerdidos;
+        public void CachearVacacionesPerdidas(string nros_documento)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@nros_documento", nros_documento);
+            this.CacheDiasPerdidos = new Dictionary<int, List<VacacionesPermitidas>>();
+            Cachear<VacacionesPermitidas>(nros_documento, "dbo.LIC_GEN_GetDiasPerdidosVarios", parametros, this.CacheDiasPerdidos,
+                (RowDeDatos row) => {
+                    Persona persona = new Persona();
+                    persona.Documento = row.GetInt("NroDocumento");
+                    persona.Apellido = row.GetString("Apellido");
+                    persona.Nombre = row.GetString("Nombre");
+
+                    int periodo = row.GetSmallintAsInt("Periodo");
+
+                    int dias = row.GetSmallintAsInt("Dias_Perdidos");
+
+                    VacacionesPermitidas vacaciones = new VacacionesPermitidas(persona, periodo, dias);
+                    vacaciones.Observacion = row.GetString("Observacion");
+
+                    return vacaciones;
+                });
+        }
+
+        public List<VacacionesPermitidas> GetVacasPermitidasPara(Persona persona, ConceptoDeLicencia concepto)
+        {
+            if (EstaCacheado<VacacionesPermitidas>(this.CacheDiasPermitidos, persona.Documento))
+            {
+                var result = new List<VacacionesPermitidas>();
+                CacheDiasPermitidos[persona.Documento].ForEach(v =>
+                {
+                    result.Add(v.Clonar());
+                });
+                return result;
+            }
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@nro_documento", persona.Documento);
+            parametros.Add("@id_concepto_licencia", concepto.Id);
+            var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetDiasPermitidos", parametros);
+            var vaca_permitidas = ConstruirVacacionesPermitidas(tablaDatos);
+            return vaca_permitidas;
+        }
+
+        protected void AddToCache<T>(int dni, Dictionary<int, List<T>> cache, T item)
+        {
+            if (!cache.ContainsKey(dni))
+            {
+                cache.Add(dni, new List<T>());
+            }
+            cache[dni].Add(item);
+        }
+
+        public bool EstaCacheado<T>(Dictionary<int, List<T>> cache, int documento)
+        {
+            if (cache == null) return false;
+            return cache.ContainsKey(documento);
+        }
+
+        public List<VacacionesAprobadas> GetVacacionesAprobadasPara(Persona persona, ConceptoDeLicencia concepto)
+        {
+            if (EstaCacheado<VacacionesAprobadas>(this.CacheVacacionesAprobadas, persona.Documento))
+            {
+                return CacheVacacionesAprobadas[persona.Documento];
+            }
+
+            var parametros = new Dictionary<string, object>();
 
             parametros.Add("@nro_documento", persona.Documento);
             parametros.Add("@id_concepto_licencia", concepto.Id);
 
-
             var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetDiasAprobados", parametros);
 
             return ConstruirVacacionesAprobadas(tablaDatos);
-
         }
 
         protected List<VacacionesAprobadas> ConstruirVacacionesAprobadas(TablaDeDatos tablaDatos)
@@ -417,31 +562,30 @@ namespace General.Repositorios
             parametros.Add("@periodo", periodo.anio);
             parametros.Add("@id_concepto_licencia", licencia.Concepto.Id);
 
-
             var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetDiasPermitidos", parametros);
 
             return ConstruirVacacionesPermitidas(tablaDatos);
-
         }
 
-        public List<VacacionesPermitidas> GetVacasPermitidasPara(Persona persona, ConceptoDeLicencia concepto)
-        {
-            var parametros = new Dictionary<string, object>();
-            parametros.Add("@nro_documento", persona.Documento);
-            parametros.Add("@id_concepto_licencia", concepto.Id);
-            var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetDiasPermitidos", parametros);
-            var vaca_permitidas = ConstruirVacacionesPermitidas(tablaDatos);
-            return vaca_permitidas;
-        }
-
+        Dictionary<int, List<VacacionesPermitidas>> CacheDiasPermitidos;
         public List<VacacionesPermitidas> VacacionesPerdidasDe(int dni_persona)
         {
+            if (EstaCacheado<VacacionesPermitidas>(this.CacheDiasPermitidos, dni_persona)) {
+                return CacheDePerdidasDe(dni_persona);
+            }
             var parametros = new Dictionary<string, object>();
             parametros.Add("@nro_documento", dni_persona);
             var tablaDatosPerdidas = this.conexion.Ejecutar("dbo.LIC_GEN_GetDiasPerdidos", parametros);
 
             return ConstruirVacacionesPerdidas(tablaDatosPerdidas);
-            
+        }
+
+        protected List<VacacionesPermitidas> CacheDePerdidasDe(int dni_persona)
+        {
+            if (!CacheDiasPerdidos.ContainsKey(dni_persona)) {
+                return new List<VacacionesPermitidas>();
+            }
+            return CacheDiasPerdidos[dni_persona];
         }
 
         public List<VacacionesPermitidas> GetVacacionPermitidaDescontandoPerdidasPara(Persona persona, ConceptoDeLicencia concepto, List<VacacionesPermitidas> vaca_perdidas)
@@ -455,9 +599,11 @@ namespace General.Repositorios
         private List<VacacionesPermitidas> CalcularVacacionesPermitidasNoPerdidas(List<VacacionesPermitidas> vaca_permitidas, List<VacacionesPermitidas> vaca_perdidas)
         {
             List<VacacionesPermitidas> vacaciones_reales = new List<VacacionesPermitidas>();
-            vaca_permitidas.ForEach(permitida => {
+            vaca_permitidas.ForEach(permitida =>
+            {
 
-                if (vaca_perdidas.Exists(perdida => perdida.Periodo == permitida.Periodo && perdida.CantidadDeDias() <= permitida.CantidadDeDias())) {
+                if (vaca_perdidas.Exists(perdida => perdida.Periodo == permitida.Periodo && perdida.CantidadDeDias() <= permitida.CantidadDeDias()))
+                {
                     var perdido = vaca_perdidas.Find(perdida => perdida.Periodo == permitida.Periodo && perdida.CantidadDeDias() <= permitida.CantidadDeDias());
                     permitida.RestarDias(perdido.CantidadDeDias());
                 }
@@ -466,8 +612,6 @@ namespace General.Repositorios
             });
             return vacaciones_reales;
         }
-
-       
 
         public List<VacacionesPermitidas> GetVacacionPermitidaPara(Periodo periodo, Licencia licencia)
         {
@@ -480,35 +624,61 @@ namespace General.Repositorios
             return ConstruirVacacionesPermitidas(tablaDatos);
         }
 
-
         public List<VacacionesPendientesDeAprobacion> GetVacacionesPendientesPara(Persona persona)
         {
             var parametros = new Dictionary<string, object>();
-
-
             parametros.Add("@nro_documento", persona.Documento);
-
 
             var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetDiasPendientesDeAprobacion", parametros);
 
             return ConstruirVacacionesPendientes(tablaDatos);
-
         }
 
 
+
+        Dictionary<int, List<VacacionesPendientesDeAprobacion>> CacheVacacionesPendientesAprobacion;
+        //public void CachearGetVacacionesPendientesAprobacion(string nros_documento, ConceptoDeLicencia concepto)
+        //{
+        //    CacheVacacionesPendientesAprobacion = new Dictionary<int, List<VacacionesPendientesDeAprobacion>>();
+        //    var parametros = new Dictionary<string, object>();
+
+        //    parametros.Add("@nros_documento", nros_documento);
+        //    parametros.Add("@id_concepto_licencia", concepto.Id);
+
+        //    var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetDiasPendientesDeAprobacionVarios", parametros);
+
+        //    var pendientes = ConstruirVacacionesPendientes(tablaDatos);
+        //    pendientes.ForEach(pend =>
+        //    {
+        //        AddToCache<VacacionesPendientesDeAprobacion>(pend.Persona.Documento, CacheVacacionesPendientesAprobacion, pend);
+        //    });
+        //}
+
+        public List<VacacionesPendientesDeAprobacion> VacasPendientesDeAprobacionCacheadasPara(Persona persona)
+        {
+            if (!CacheVacacionesPendientesAprobacion.ContainsKey(persona.Documento))
+            {
+                return new List<VacacionesPendientesDeAprobacion>();
+            }
+            return CacheVacacionesPendientesAprobacion[persona.Documento];
+        }
+
         public List<VacacionesPendientesDeAprobacion> GetVacacionesPendientesPara(Persona persona, ConceptoDeLicencia concepto)
         {
-            var parametros = new Dictionary<string, object>();
+            if (EstaCacheado<VacacionesPendientesDeAprobacion>(this.CacheVacacionesPendientesAprobacion, persona.Documento))
+            {
+                return VacasPendientesDeAprobacionCacheadasPara(persona);
 
+            }
+
+            var parametros = new Dictionary<string, object>();
 
             parametros.Add("@nro_documento", persona.Documento);
             parametros.Add("@id_concepto_licencia", concepto.Id);
 
-
             var tablaDatos = this.conexion.Ejecutar("dbo.LIC_GEN_GetDiasPendientesDeAprobacion", parametros);
 
             return ConstruirVacacionesPendientes(tablaDatos);
-
         }
 
         public List<Persona> GetAusentesEntreFechasPara(List<Persona> personas, DateTime fecha_desde, DateTime fecha_hasta)
@@ -729,6 +899,8 @@ namespace General.Repositorios
             return false;
         }
 
+        
+
         protected List<VacacionesPendientesDeAprobacion> ConstruirVacacionesPendientes(TablaDeDatos tablaDatos)
         {
             List<VacacionesPendientesDeAprobacion> vacaciones_pendientes = new List<VacacionesPendientesDeAprobacion>();
@@ -809,8 +981,15 @@ namespace General.Repositorios
             //}
 
             parametros.Add("@fecha_calculo", fecha_calculo);
-
-            this.conexion.EjecutarSinResultado("LIC_GEN_Ins_LogErroresCalculoLicencias", parametros);
+            try
+            {
+                this.conexion.EjecutarSinResultado("LIC_GEN_Ins_LogErroresCalculoLicencias", parametros);
+            }
+            catch (SqlException sql)
+            {
+                throw new ErrorLogException("Error al intentar loguear error de calculo de licencias", sql);
+            }
+            
         }
 
         public int GetProrrogaPlantaGeneral(int anio)
@@ -820,6 +999,86 @@ namespace General.Repositorios
             var prorroga_aplicable = CargarDatos(prorroga_del_anio);
 
             return prorroga_aplicable.UsufructoHasta - prorroga_aplicable.UsufructoDesde;
+        }
+
+
+        public void LoguearDetalleCalculoLicencia(SolicitudesDeVacaciones aprobadas, int anio, Persona persona, DateTime fecha_calculo, bool ya_imputados, bool error)
+        {
+            var parametros = new Dictionary<string, object>();
+
+            if (error)
+            {
+                parametros.Add("@comentario", "Al Actualizar la prórroga dio Error por Exceso de Cantidad de Días permitidos hasta la fecha de la solicitud");
+            }
+            else
+            {
+                parametros.Add("@comentario", "");
+            }
+
+            //Persona a loguear
+            parametros.Add("@apellido", "N/A");
+            parametros.Add("@nombre", "N/A");
+            parametros.Add("@documento", persona.Documento);
+
+            //Licencia con Conflicto
+            parametros.Add("@anio_maximo_imputable", aprobadas.AnioMaximoImputable().First().Periodo());
+            parametros.Add("@anio_minimo_imputable", aprobadas.AnioMinimoImputable(persona));
+            parametros.Add("@fecha_desde", aprobadas.Desde());
+            parametros.Add("@fecha_hasta", aprobadas.Hasta());
+
+            parametros.Add("@anio_imputado", anio);
+            if (ya_imputados)
+            {
+                parametros.Add("@cantidad_de_dias", aprobadas.GetDiasYaImputados());
+            }
+            else
+            {
+                parametros.Add("@cantidad_de_dias", aprobadas.CantidadDeDias());
+            }
+
+            parametros.Add("@fecha_calculo", fecha_calculo);
+
+            this.conexion.EjecutarSinResultado("LIC_GEN_Ins_LogErroresCalculoLicencias", parametros);
+
+
+            //if (aprobadas.CantidadDeDias() > vacacionesPermitidas.First().CantidadDeDias())
+            //{
+            //    parametros.Add("@anio_imputado", vacacionesPermitidas.First().Periodo);
+            //    parametros.Add("@cantidad_de_dias", vacacionesPermitidas.First().CantidadDeDias());
+
+            //    this.conexion.EjecutarSinResultado("LIC_GEN_Ins_LogErroresCalculoLicencias", parametros);
+
+            //    parametros.Clear();
+
+            //    parametros.Add("@apellido", "N/A");
+            //    parametros.Add("@nombre", "N/A");
+            //    parametros.Add("@documento", persona.Documento);
+            //    parametros.Add("@anio_maximo_imputable", aprobadas.AnioMaximoImputable().First().Periodo());
+            //    parametros.Add("@anio_minimo_imputable", aprobadas.AnioMinimoImputable(persona));
+            //    parametros.Add("@fecha_desde", aprobadas.Desde());
+            //    parametros.Add("@fecha_hasta", aprobadas.Hasta());
+            //    parametros.Add("@anio_imputado", vacacionesPermitidas.Last().Periodo);
+            //    parametros.Add("@cantidad_de_dias", aprobadas.CantidadDeDias() - vacacionesPermitidas.First().CantidadDeDias());
+            //    parametros.Add("@fecha_calculo", fecha_calculo);
+            //    this.conexion.EjecutarSinResultado("LIC_GEN_Ins_LogErroresCalculoLicencias", parametros);
+
+            //}
+            //else {
+            //    parametros.Add("@anio_imputado", vacacionesPermitidas.First().Periodo);
+            //    parametros.Add("@cantidad_de_dias", aprobadas.CantidadDeDias());
+            //    this.conexion.EjecutarSinResultado("LIC_GEN_Ins_LogErroresCalculoLicencias", parametros);
+            //}
+
+            //Próxima Licencia sin calcular
+            //if (permitidas_log.Count > 0)
+            //{
+            //    parametros.Add("@periodo_", permitidas_log.First().Periodo);
+            //    parametros.Add("@cantidad_dias", permitidas_log.First().CantidadDeDias());
+            //}
+
+
+
+
         }
     }
 }

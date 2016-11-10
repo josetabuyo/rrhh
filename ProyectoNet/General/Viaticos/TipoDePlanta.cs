@@ -7,7 +7,7 @@ using General.Repositorios;
 namespace General
 {
     
-    public class TipoDePlanta
+    public class TipoDePlanta: IConPersona
     {
         private int _Id;
         public int Id
@@ -40,5 +40,11 @@ namespace General
             }
         }
 
+        public Persona Persona { get; set; }
+
+        public DateTime Desde()
+        {
+            return DateTime.Now;
+        }
     }
 }

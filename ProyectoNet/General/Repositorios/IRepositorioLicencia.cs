@@ -28,5 +28,7 @@ namespace General.Repositorios
 
         List<VacacionesPermitidas> VacacionesPerdidasDe(int documento);
         int GetProrrogaPlantaGeneral(int anio_calculo);
+
+        void LoguearDetalleCalculoLicencia(SolicitudesDeVacaciones aprobadas, int anio, Persona persona, DateTime fecha_calculo, bool ya_imputados, bool error);
     }
 }
