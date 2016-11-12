@@ -127,7 +127,7 @@ namespace General.Repositorios
             return lb.ToArray();
         }
 
-        public MoBi_Bien[] GetBienesDisponibles(int IdArea, int IdTipoBien)
+        public MoBi_Bien[] GetBienesDisponibles(int IdArea, int IdTipoBien, int IdUsuario)
         {
             List<MoBi_Bien> lb = new List<MoBi_Bien>();
             MoBi_Bien bien;
@@ -135,6 +135,8 @@ namespace General.Repositorios
             ConexionDB cn = new ConexionDB("dbo.MOBI_GetBienesDisponibles");
             cn.AsignarParametro("@IdArea", IdArea);
             cn.AsignarParametro("@IdTipoBien", IdTipoBien);
+            cn.AsignarParametro("@IdUsuario", IdUsuario);
+
             dr = cn.EjecutarConsulta();
             while (dr.Read())
             {
