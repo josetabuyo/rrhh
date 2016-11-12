@@ -20,7 +20,7 @@ public partial class MoBi_Bienes : System.Web.UI.Page
                 Response.Redirect("../MenuPrincipal/Menu.aspx");
             Cargar_TiposDeBienes(ws);
             Cargar_AreasDelUsuario(ws, usuario.Id, Convert.ToInt32(DropDownListTipoDeBien.SelectedValue), true);
-            Cargar_Bienes(ws, Convert.ToInt32(DropDownAreasUsuario.SelectedValue), Convert.ToInt32(DropDownListTipoDeBien.SelectedValue));
+            Cargar_Bienes(ws, Convert.ToInt32(DropDownAreasUsuario.SelectedValue), Convert.ToInt32(DropDownListTipoDeBien.SelectedValue), usuario.Id);
         }
     }
 
@@ -47,16 +47,17 @@ public partial class MoBi_Bienes : System.Web.UI.Page
         DropDownListTipoDeBien.DataBind();
     }
 
-    private void Cargar_Bienes(WSViaticosSoapClient ws, int IdArea, int IdTipoBien)
+    private void Cargar_Bienes(WSViaticosSoapClient ws, int IdArea, int IdTipoBien, int IdUsuario)
     {
-        WSViaticos.MoBi_Bien[] Bienes = ws.Mobi_GetBienesDisponibles(IdArea, IdTipoBien);
+        WSViaticos.MoBi_Bien[] Bienes = ws.Mobi_GetBienesDisponibles(IdArea, IdTipoBien, IdUsuario);
         GridViewBienes.DataSource = Bienes.OfType<MoBi_Bien>().ToList();
         GridViewBienes.DataBind();
     }
 
     protected void DropDownAreasUsuario_SelectedIndexChanged(object sender, EventArgs e)
     {
-        Cargar_Bienes(Servicio(), Convert.ToInt32(DropDownAreasUsuario.SelectedValue), Convert.ToInt32(DropDownListTipoDeBien.SelectedValue));
+        Usuario usuario = ((Usuario)Session["usuario"]);
+        Cargar_Bienes(Servicio(), Convert.ToInt32(DropDownAreasUsuario.SelectedValue), Convert.ToInt32(DropDownListTipoDeBien.SelectedValue), usuario.Id);
     }
 
     protected void DropDownListTipoDeBien_SelectedIndexChanged(object sender, EventArgs e)
@@ -75,7 +76,7 @@ public partial class MoBi_Bienes : System.Web.UI.Page
         Usuario usuario = ((Usuario)Session["usuario"]);
         bool IncluirDependencias = (chkIncluirDependencias.Checked ? true : false);
         Cargar_AreasDelUsuario(ws, usuario.Id, Convert.ToInt32(DropDownListTipoDeBien.SelectedValue), IncluirDependencias);
-        Cargar_Bienes(ws, Convert.ToInt32(DropDownAreasUsuario.SelectedValue), Convert.ToInt32(DropDownListTipoDeBien.SelectedValue));
+        Cargar_Bienes(ws, Convert.ToInt32(DropDownAreasUsuario.SelectedValue), Convert.ToInt32(DropDownListTipoDeBien.SelectedValue), usuario.Id);
     }
 
     private bool TienePermisosConsulta( WSViaticosSoapClient ws, int user_id )
