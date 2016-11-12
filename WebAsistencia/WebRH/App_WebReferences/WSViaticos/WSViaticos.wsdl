@@ -838,6 +838,7 @@
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="IdArea" type="s:int" />
             <s:element minOccurs="1" maxOccurs="1" name="IdTipoBien" type="s:int" />
+			<s:element minOccurs="1" maxOccurs="1" name="IdUsuario" type="s:int" />
           </s:sequence>
         </s:complexType>
       </s:element>
