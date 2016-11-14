@@ -136,12 +136,20 @@ AdministradorDeUsuarios.prototype.cargarUsuario = function (usuario) {
     this.lbl_apellido.text(usuario.Owner.Apellido);
     this.lbl_documento.text(usuario.Owner.Documento);
     this.lbl_legajo.text(usuario.Owner.Legajo);
+
+    if (usuario.Owner.IdImagen >= 0) {
+        var img = new VistaThumbnail({ id: usuario.Owner.IdImagen, contenedor: $("#foto_usuario") });
+        $("#foto_usuario_generica").hide();
+    }   
+    else
+        $("#foto_usuario_generica").show();
+
     $("#usuario_verificado").hide();
     $("#usuario_no_verificado").hide();
     $("#btn_verificar_usuario").hide();
     $('#panel_personas_de_baja_con_permisos').insertAfter("#form1");
     $('#panel_usuarios_por_area').insertAfter("#form1");
-   
+
     $('.dynatree-folder span.dynatree-checkbox').remove();
 
     if (usuario.Verificado) $("#usuario_verificado").show();
