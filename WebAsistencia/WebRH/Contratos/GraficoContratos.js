@@ -87,7 +87,8 @@ var GraficoContratos = {
             })
             .onError(function (e) {
                 spinner.stop();
-                alertify.error("Error al pedir datos. Detalle: " + e);
+                alertify.error("No hay persona asignadas al Área seleccionada")
+                //alertify.error("Error al pedir datos. Detalle: " + e);
             });
     },
 
