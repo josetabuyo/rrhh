@@ -78,7 +78,7 @@
                        
                     </div>
 
-                    <div style="width: 85%; left: 125px; position: absolute; top: 560px;">
+                    <div id="div_detalle_informe" style="width: 85%; left: 125px; position: absolute; top: 560px;">
                      <div id="div_tabla_informes" style="margin: 0 30px; width: 100%; ">
                             <span id="lb_titulo_tabla_informes"></span>
                             <br />

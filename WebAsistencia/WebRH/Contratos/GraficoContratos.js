@@ -69,26 +69,34 @@ var GraficoContratos = {
         var _this = this;
         var spinner = new Spinner({ scale: 3 });
         spinner.spin($("html")[0]);
+        //$('#div_detalle_informe').hide();
+        //$('#div_tabla_detalle').hide(); aaaaaaaaaaaaaaaaa
+        _this.VisualizarTablaDetalle(false);
 
         Backend.GetGraficoContratados({ tipo: tipo, fecha: fecha, id_area: parseInt(id_area), incluir_dependencias: incluir_dependencias })
             .onSuccess(function (grafico) {
                 tabla_resumen = grafico.tabla_resumen;
                 tabla_detalle = grafico.tabla_detalle_contratos;
-                if (tabla_resumen.length > 0) {
-                    _this.VisualizarTablaResumenYGrafico(true);
-                    _this.DibujarElGrafico(tabla_resumen, titulo, div_grafico);
-                    _this.DibujarTablaResumen(tabla_resumen, div_tabla, tabla, tabla_detalle);
-                    _this.BuscadorDeTabla();
+                if (tabla_resumen == null) {
+                    alertify.error("No hay persona asignadas al Área seleccionada");
+
                 } else {
-                    _this.VisualizarTablaResumenYGrafico(false);
-                    alertify.error("No hay Personal en el Área seleccionada para la generación del Gráfico");
+                    if (tabla_resumen.length > 0) {
+                        _this.VisualizarTablaResumenYGrafico(true);
+                        _this.DibujarElGrafico(tabla_resumen, titulo, div_grafico);
+                        _this.DibujarTablaResumen(tabla_resumen, div_tabla, tabla, tabla_detalle);
+                        _this.BuscadorDeTabla();
+                    } else {
+                        _this.VisualizarTablaResumenYGrafico(false);
+                        alertify.error("No hay Personal en el Área seleccionada para la generación del Gráfico");
+                    }
                 }
-                spinner.stop();
+                spinner.stop()
+
             })
             .onError(function (e) {
                 spinner.stop();
-                alertify.error("No hay persona asignadas al Área seleccionada")
-                //alertify.error("Error al pedir datos. Detalle: " + e);
+                alertify.error("Error al pedir datos. Detalle: " + e);
             });
     },
 
@@ -159,7 +167,7 @@ var GraficoContratos = {
                 pie: {
                     allowPointSelect: true,
                     cursor: 'pointer',
-                    depth: 35,                    
+                    depth: 35,
                     dataLabels: {
                         enabled: true,
                         format: '{point.name}',
@@ -194,6 +202,8 @@ var GraficoContratos = {
     FiltrarPersonasParaTablaDetalle: function (criterio, tabla) {
         var _this = this;
         var tabla_final = [];
+        _this.VisualizarTablaDetalle(true);
+        //$('#div_detalle_informe').show();aaaaaaaaaa
 
         if (tabla.length > 0) {
             var titulo = "Tabla de Toda la Dotación del Área";
@@ -272,7 +282,6 @@ var GraficoContratos = {
                     btn_informe.attr('class', 'btn btn-info');
                     btn_informe.attr('style', 'display:inline-block');
                     btn_informe.click(function () {
-
                         var spinner = new Spinner({ scale: 3 });
                         spinner.spin($("html")[0]);
 
@@ -290,7 +299,7 @@ var GraficoContratos = {
                             spinner.stop();
                             alertify.error("Error al generar informe");
                         });
-
+                        //$('#div_detalle_informe').show(); $('#div_tabla_detalle').show();aaaaaaaaaaaaaa
                     });
                     cont.append(btn_informe);
                 }
@@ -303,7 +312,7 @@ var GraficoContratos = {
                     btn_informe.attr('style', 'display:inline-block');
                     btn_informe.click(function () {
 
-                        $('#div_tabla_detalle').hide();
+                        //$('#div_tabla_detalle').hide();aaaaaaaaaaaaaaa
 
                         var datos = { id_area: id_area,
                             incluir_dependencias: $("#chk_incluir_dependencias").is(":checked"),
@@ -318,7 +327,7 @@ var GraficoContratos = {
                         Backend.GetInformesGeneradosPorArea(datos)
                             .onSuccess(function (resultado) {
                                 spinner.stop();
-
+                                _this.VisualizarTablaDetalle(true);
                                 _this.DibujarTablaInformes(resultado);
                             })
                             .onError(function (e) {
@@ -416,12 +425,12 @@ var GraficoContratos = {
                     var radioPendiente = $('<input id="radioPendiente" ' + habilitado + ' ' + checkPendiente + ' data-area="' + un_registro.IdArea + '" type="radio" name="contratos_' + un_registro.NroDocumento + '" value="1"  /> <span style="color:#000;">Pendiente</span><br/>');
                     div.append(radioPendiente);
                 }
-                
 
 
 
-                
-                
+
+
+
 
 
                 return div;
@@ -547,7 +556,7 @@ var GraficoContratos = {
         $('#div_tabla_informes').show();
         var divGrilla = $('#tabla_informe');
         var informes = JSON.parse(informesJSON);
-        var informes_no_duplicados = _.uniq(informes, 'Informe'); 
+        var informes_no_duplicados = _.uniq(informes, 'Informe');
         var columnas = [];
 
         //$("#btn_exportarExcelDetalle").show();
