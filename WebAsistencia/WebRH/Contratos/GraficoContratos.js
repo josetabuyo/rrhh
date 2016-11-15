@@ -602,31 +602,7 @@ var GraficoContratos = {
                     checks_activos = ["ImpresionInforme"];
                     var tabla = _this.FiltrarPersonasParaTablaDetalle(un_registro.Informe, tabla_detalle);
 
-                    var w = window.open("ImpresionSeleccionDeContratos.aspx");
-
-                    w.onload = function () {
-                        var pantalla_impresion = $(w.document);
-
-                        //Declaro los campos que tiene la pantalla de impresion
-                        var t = w.document.getElementById("PanelImpresion");
-                        var leyendaPorAnio = w.document.getElementById("LeyendaPorAnio");
-                        var nroInforme = w.document.getElementById("NroInforme");
-                        var fecha = w.document.getElementById("Fecha");
-
-                        //Completo los campos
-                        Backend.GetLeyendaAnio(2016)
-                            .onSuccess(function (respuesta) {
-                                $(leyendaPorAnio).html(respuesta);
-                            })
-                            .onError(function (error, as, asd) {
-                                alertify.alert("Error al obtener leyenda del año");
-                            });
-
-                        $(nroInforme).html(un_registro.Informe.toString());
-                        $(fecha).html("Buenos Aires " + un_registro.Fecha);
-
-                    }
-
+                    DibujarGrillaInformeImpresion(un_registro, tabla);
 
                 });
 
@@ -649,4 +625,125 @@ var GraficoContratos = {
 
 
     }
+}
+
+
+var DibujarGrillaInformeImpresion = function (un_registro, tabla) {
+
+    var vista_ddjj_imprimir = $("<table style='page-break-before: always; width:100%'>");
+    DibujarGrillaPersonas(un_registro, tabla, vista_ddjj_imprimir);
+
+    var w = window.open("ImpresionSeleccionDeContratos.aspx");
+
+    w.onload = function () {
+        var pantalla_impresion = $(w.document);
+
+        //Declaro los campos que tiene la pantalla de impresion
+        var t = w.document.getElementById("PanelImpresion");
+        
+        var leyendaPorAnio = w.document.getElementById("LeyendaPorAnio");
+        var nroInforme = w.document.getElementById("NroInforme");
+        var fecha = w.document.getElementById("Fecha");
+
+
+        //Completo los campos
+        Backend.GetLeyendaAnio(2016)
+            .onSuccess(function (respuesta) {
+                $(leyendaPorAnio).html(respuesta);
+            })
+            .onError(function (error, as, asd) {
+                alertify.alert("Error al obtener leyenda del año");
+            });
+
+        $(nroInforme).html(un_registro.Informe.toString());
+
+        var fecha_sin_hora = un_registro.Fecha.split("T");
+        var fecha_sin_formato = fecha_sin_hora[0].split("-");
+        $(fecha).html("Buenos Aires " + fecha_sin_formato[2] + "/" + fecha_sin_formato[1] + "/" + fecha_sin_formato[0]);
+
+        $(t).html(vista_ddjj_imprimir.html());
+    }
+}
+
+
+var DibujarGrillaPersonas = function (un_registro, resultado, contenedor_grilla) {
+    //Maximo por hoja solo con el 1er encabezado entran 56 personas.
+    //Si hay otra area entran 52 personas porque el encabezado cuenta 4 personas mas.
+    ////    var personas_pagina_1 = 43; //40;
+    ////    var personas_pagina_mayor_que_1 = 62; //60;
+    ////    var personas_calculo_por_hoja = 56; //esto es porque cuento los espacios para completar la hoja
+    ////    var cantidad_de_persona_por_hoja = personas_pagina_1;
+    ////    var cantidad_de_filas_por_cabecera = 4;
+    ////    var contador_de_registros_por_pagina = 0;
+    ////    var contador_de_paginas = 1;
+
+    ////    var cantidad_total_de_personas = contarPersonasDelArea(un_area);
+    ////    var cantidad_restantes_de_personas = cantidad_total_de_personas - cantidad_de_persona_por_hoja;
+    ////    var cantidad_total_de_hojas = Math.ceil(cantidad_restantes_de_personas / personas_calculo_por_hoja) + 1;
+
+    contenedor_grilla.empty();
+    for (var i = 0; i < resultado.length; i++) {
+        
+        contenedor_grilla.append($("<br/>"));
+        contenedor_grilla.append($("<div><b>" + resultado[i].Area + "<b/></div>"));
+        contenedor_grilla.append($("<br/>"));
+        contenedor_grilla.append($());
+
+        var columnas = [];
+        columnas.push(new Columna("Area", { generar: function (resultado) { return resultado.Area } }));
+        columnas.push(new Columna("NroDocumento", { generar: function (resultado) { return resultado.NroDocumento } }));
+        columnas.push(new Columna("Apellido_Nombre", { generar: function (resultado) { return (resultado.Apellido + ", " + resultado.Nombre) } }));
+
+        GrillaResumen = new Grilla(columnas);
+
+        GrillaResumen.CargarObjetos(resultado);
+        GrillaResumen.DibujarEn(contenedor_grilla);
+        GrillaResumen.SetOnRowClickEventHandler(function (un_registro) { });
+    }
+
+    /*
+    if (es_impresion) {
+    contador_de_registros_por_pagina = contador_de_registros_por_pagina + cantidad_de_filas_por_cabecera;
+    if (un_area.Personas.length > 0) {
+    for (var i = 0; i < un_area.Personas.length; i++) {
+
+    //CONTROLO PARA HACER LE SALTO DE PAGINA
+    if (contador_de_registros_por_pagina >= cantidad_de_persona_por_hoja) {
+    cantidad_de_persona_por_hoja = personas_pagina_mayor_que_1;
+    contador_de_paginas = contador_de_paginas + 1;
+    grilla.DibujarEn(contenedor_grilla);
+
+    contenedor_grilla.append($("<br/>"));
+    contenedor_grilla.append($("<br/>"));
+    contenedor_grilla.append($("<br/>"));
+    contenedor_grilla.append($("<br/>"));
+
+    contenedor_grilla.append($("<div class='nombre_area_informal'><b>" + un_area.Nombre + " (continuación)" + "<b/>" + "(Pag: " + contador_de_paginas + "/" + cantidad_total_de_hojas + ")</div>"));
+    grilla = new Grilla(
+    [
+    new Columna("APELLIDO Y NOMBRE", { generar: function (una_persona) { return una_persona.Apellido + ", " + una_persona.Nombre; } }),
+    new Columna("CUIL/CUIT", { generar: function (una_persona) { return una_persona.Cuit; } }),
+    new Columna("ESCALAFON O MODALIDAD DE CONTRATACION", { generar: function (una_persona) { return una_persona.Categoria.split("#")[1]; } }),
+    new Columna("NIVEL O CATEGORIA", { generar: function (una_persona) { return una_persona.Categoria.split("#")[0]; } }),
+    ]);
+    contador_de_registros_por_pagina = cantidad_de_filas_por_cabecera;
+    }
+    //FIN SALTO DE PAGINA
+
+    var obj = un_area.Personas[i];
+    grilla.CargarObjeto(obj);
+    contador_de_registros_por_pagina = contador_de_registros_por_pagina + 1;
+    }
+    }
+    }
+    else {
+    grilla.CargarObjetos(un_area.Personas);
+    }
+
+    grilla.DibujarEn(contenedor_grilla);
+    grilla.SetOnRowClickEventHandler(function () {
+    return true;
+    });
+    */
+
 }

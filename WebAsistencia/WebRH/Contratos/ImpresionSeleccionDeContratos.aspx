@@ -23,6 +23,7 @@
     <br />
     <div runat="server" align="center" style="width: 100%">
         <div id="PanelImpresion" runat="server" align="center" style="width: 90%; height: 100%;font-size: small"></div>
+       
     </div>
     <br />
     <input type="button" value="Imprimir" id="ocultar" />
