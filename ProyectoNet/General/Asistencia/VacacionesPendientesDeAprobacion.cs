@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using General.Repositorios;
 
 namespace General
 {
-    public class VacacionesPendientesDeAprobacion : SolicitudesDeVacaciones
+    public class VacacionesPendientesDeAprobacion : SolicitudesDeVacaciones, IConPersona
     {
 
 

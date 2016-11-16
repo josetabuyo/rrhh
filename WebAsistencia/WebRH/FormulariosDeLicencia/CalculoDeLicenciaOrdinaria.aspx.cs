@@ -34,6 +34,40 @@ public partial class FormulariosDeLicencia_CalculoDeLicenciaOrdinaria : System.W
         {
             t.Rows.Add(RowFrom(linea));
         });
+
+        t = this.tabla_saldo;
+        t.Rows.Add(SaldoHeader());
+        analisis.Saldo.ToList().ForEach(saldo =>
+            {
+                t.Rows.Add(RowSaldoFrom(saldo));
+            });
+    }
+
+    protected TableRow RowSaldoFrom(VacacionesSolicitables saldo)
+    {
+        var row = new TableRow();
+        var cell = new TableCell();
+        cell.Text = saldo.Period.ToString();
+        row.Cells.Add(cell);
+        cell = new TableCell();
+        cell.Text = saldo.Dias.ToString();
+        row.Cells.Add(cell);
+        
+        return row;
+    }
+
+    private TableRow SaldoHeader()
+    {
+        TableHeaderRow row = new TableHeaderRow();
+        TableHeaderCell cell = new TableHeaderCell();
+        cell.Text = "Periodo";
+        row.Cells.Add(cell);
+
+        cell = new TableHeaderCell();
+        cell.Text = "Disponible";
+        row.Cells.Add(cell);
+
+        return row;
     }
 
     protected TableRow Header()

@@ -49,6 +49,7 @@ namespace General
 
             vacaciones_solicitables.ForEach(vac_solic => saldo.Detalle.Add(new SaldoLicenciaDetalle { Periodo = vac_solic.Periodo(), Disponible = vac_solic.CantidadDeDias() }));
             analisis.SetCalculoSinDescuento(permitidas_calculadas);
+            analisis.Saldo = vacaciones_solicitables;
             return analisis;
         }
 
