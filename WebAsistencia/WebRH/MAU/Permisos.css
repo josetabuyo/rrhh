@@ -61,7 +61,6 @@
     position: absolute;
     left:10px;
     top:10px;
-    right:10px;
     height:195px;
     width:539px;
 }
@@ -71,7 +70,6 @@
     position: absolute;
     left:10px;
     bottom:10px;
-    right:10px;
     top:236px;
     width:539px;
     height:initial;
@@ -89,23 +87,25 @@
 
 #panel_datos_personales
 {
-    display:inline-block;
-    font-weight:bold;
-    font-size:medium;
-    margin-top: 17px;
+    font-weight: bold;
+    font-size: medium;
+    position: absolute;
+    top: 16px;
+    right: 222px;
 }
 
 #panel_password
 {
     background-color: lavender;
-    margin-left: -11px;
     padding-top: 7px;
-    margin-right: -10px;
     height: 70px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     transition: all .3s ease-in-out;
-    position: relative;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
 }
 
 #panel_password:hover
@@ -137,8 +137,14 @@
 
 #foto_usuario
 {
-    display:inline-block;
-    vertical-align:top;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    height: 128px;
+    width: 128px;
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 #txt_nombre_usuario

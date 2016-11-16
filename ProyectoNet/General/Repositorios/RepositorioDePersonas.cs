@@ -143,7 +143,8 @@ namespace General.Repositorios
                         Nombre = row.GetString("Nombre"),
                         Apellido = row.GetString("Apellido"),
                         Legajo = legajo,
-                        Documento = row.GetInt("Nro_Documento")
+                        Documento = row.GetInt("Nro_Documento"),
+                        IdImagen = row.GetInt("IdImagen", -1)
                     });
                 });
             }

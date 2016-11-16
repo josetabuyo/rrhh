@@ -44,7 +44,7 @@ ul li:before {
         
 .imagen 
 {
-        width: 120px;
+    width: 120px;
     height: 120px;
     background: #fff url(../Imagenes/silueta.gif);
     display: inline-block;
@@ -53,6 +53,8 @@ ul li:before {
     background-position: 50% 100%;
     border-radius: 50%;
     background-size: 100% auto;
+    position: relative;
+    overflow: auto;
 }
         
 .div_texto_caja_izq > ul > li > a

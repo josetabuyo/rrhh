@@ -4140,6 +4140,7 @@ public class WSViaticos : System.Web.Services.WebService
         return repo.getDesignaciones(usuario.Owner.Documento);
 
     }
+
     [WebMethod]
     public string GetConsultasDePortal(Usuario usuario)
     {
@@ -4150,9 +4151,37 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public string GetConsultasTodasDePortal(int estado)
+    {
+        RepositorioLegajo repo = RepoLegajo();
+
+        return repo.GetConsultasTodasDePortal(estado);
+
+    }
+
+    [WebMethod]
+    public void ResponderConsulta(int id, string respuesta, Usuario usuario)
+    {
+        RepositorioLegajo repo = RepoLegajo();
+
+        repo.ResponderConsulta(id, respuesta, usuario.Owner.Id);
+
+    }
+   
+
+    [WebMethod]
+    public string GetTiposDeConsultaDePortal()
+    {
+        RepositorioLegajo repo = RepoLegajo();
+
+        return repo.GetTiposDeConsultaDePortal();
+
+    }
+
+    [WebMethod]
     public int NuevaConsultaDePortal(Consulta consulta, Usuario usuario)
     {
-        return RepoLegajo().NuevaConsultaDePortal(usuario.Id, consulta);
+        return RepoLegajo().NuevaConsultaDePortal(usuario.Owner.Id, consulta);
 
     }
 
@@ -4173,11 +4202,9 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string GetNombreDeLaPersona(Usuario usuario)
+    public Usuario GetUsuarioLogueado(Usuario usuario)
     {
-
-        return usuario.Owner.Apellido + ", " + usuario.Owner.Nombre;
-
+        return usuario;
     }
 
 

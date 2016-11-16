@@ -26,7 +26,9 @@
             </div>  
             <div id="panel_datos_usuario" style="display:none">
                 <div id="panel_superior_izquierdo" class="estilo_formulario">
-                    <img id="foto_usuario" src="usuario.png" alt="Usuario" width="128" height="128">
+                    <div id="foto_usuario">
+                        <img id="foto_usuario_generica" src=usuario.png/>
+                    </div>
                     <div id="panel_datos_personales">
                         <div class="linea dato_personal">
                             <div id="nombre"></div>
@@ -147,6 +149,7 @@
 <script type="text/javascript" src="../Scripts/RepositorioDeAreas.js"></script>
 <script type="text/javascript" src="../Scripts/Area.js"></script>
 <script type="text/javascript" src="../Scripts/alertify.js"></script>
+<script type="text/javascript" src="../Scripts/ControlesImagenes/VistaThumbnail.js"></script>
 
 <script type="text/javascript" src="../Scripts/select2-3.4.4/Select2.min.js"></script>
 <script type="text/javascript" src="../Scripts/select2-3.4.4/select2_locale_es.js"></script>

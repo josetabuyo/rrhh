@@ -22,9 +22,7 @@
         <div style="margin: 0 auto;" class="row">
         <div style="text-align:right; margin-right:20%"><a href="Consultas.aspx">Realizar/Visualizar Consultas</a></div>
             <div style="text-align:center;" class="caja_izq"></div>
-
             <div class="caja_der papel">
-            <p class="mensaje_cambio_datos" >Si alguno de los datos que está viendo no es correcto o hubiera que actualizar, por favor envíe un mail a <a href="mailto:xxx@example.com" target="_blank">xxx@example.com</a> </p>
             <legend style="margin-top: 20px;">PERFIL PROFESIONAL</legend>
                 <div class="cajitas">
                    <p class=""><label class="item_cajita">Sector: </label><span id="txt_sector"></span></p>
@@ -50,6 +48,7 @@
 </body>
 <script type="text/javascript" src="Legajo.js"></script>
 <script type="text/javascript" src="../Scripts/Spin.js"></script>
+<script type="text/javascript" src="../Scripts/ControlesImagenes/VistaThumbnail.js"></script>
 <script type="text/javascript" >
 
     $(document).ready(function ($) {

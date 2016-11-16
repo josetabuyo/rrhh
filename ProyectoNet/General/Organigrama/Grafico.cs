@@ -91,11 +91,15 @@ namespace General
 
         public bool ContienePersonasAContratar()
         {
-            if (this.tabla_detalle_contratos.Count == 0)
+            if (this.tabla_detalle_contratos != null)
             {
-                return false;
+                if (this.tabla_detalle_contratos.Count == 0)
+                {
+                    return false;
+                }
+                return true;
             }
-            return true;
+            return false;
         }
 
         public abstract void GraficoPorArea();
