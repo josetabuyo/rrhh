@@ -151,11 +151,6 @@
         <table>
             <tbody>
                 <tr>
-                    <td colspan="6">
-                        <input type="text" id="searchInput" class="search" placeholder="Filtrar resultados" style="width: 300px; margin-top: -10px; margin-bottom: 15px; ">
-                    </td>
-                </tr>
-                <tr>
                     <td class="td_leyenda">
                         Tipo de Bien:
                     </td>
@@ -183,8 +178,9 @@
             </tbody>
         </table>
     </div>
-    
     <div class="contenedor">
+        <input type="text" id="searchInput" class="search" placeholder="Buscar"
+            style="width: 300px; margin-top: -10px; margin-bottom: 15px;">
         <asp:GridView ID="GridViewBienes" runat="server" AutoGenerateColumns="False" Width="80%"
             DataKeyNames="id,verificacion" CssClass="table table-striped table-bordered table-condensed table-hover"
             OnRowDataBound="GridViewBienes_RowDataBound">
