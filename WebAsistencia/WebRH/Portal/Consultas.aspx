@@ -91,6 +91,7 @@
 </body>
 <script type="text/javascript" src="Legajo.js"></script>
 <script src="../scripts/vex-2.1.1/js/vex.combined.min.js"></script>
+<script type="text/javascript" src="../Scripts/ControlesImagenes/VistaThumbnail.js"></script>
 <script type="text/javascript">
 
     $(document).ready(function ($) {

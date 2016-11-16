@@ -473,14 +473,19 @@ var Legajo = {
             });
     },
     getNombre: function () {
-        Backend.GetNombreDeLaPersona()
-        .onSuccess(function (nombre) {
-            $("#nombre_empleado").html(nombre);
+        Backend.GetUsuarioLogueado()
+        .onSuccess(function (usuario) {
+            $("#nombre_empleado").html(usuario.Owner.Apellido + ", " + usuario.Owner.Nombre);
 
+            if (usuario.Owner.IdImagen >= 0) {
+                var img = new VistaThumbnail({ id: usuario.Owner.IdImagen, contenedor: $(".imagen") });
+            }   
         })
         .onError(function (e) {
 
         });
+
+        
     },
     MostrarDetalleDeConsulta: function (motivo, respuesta) {
         $('#div_detalle_consulta').show();

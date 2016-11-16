@@ -4190,11 +4190,9 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string GetNombreDeLaPersona(Usuario usuario)
+    public Usuario GetUsuarioLogueado(Usuario usuario)
     {
-
-        return usuario.Owner.Apellido + ", " + usuario.Owner.Nombre;
-
+        return usuario;
     }
 
 

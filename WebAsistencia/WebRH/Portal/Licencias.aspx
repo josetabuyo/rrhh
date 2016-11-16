@@ -40,6 +40,7 @@
 </body>
 <script type="text/javascript" src="Legajo.js"></script>
 <script type="text/javascript" src="../Scripts/Spin.js"></script>s
+<script type="text/javascript" src="../Scripts/ControlesImagenes/VistaThumbnail.js"></script>
 <script type="text/javascript">
 
     $(document).ready(function ($) {
