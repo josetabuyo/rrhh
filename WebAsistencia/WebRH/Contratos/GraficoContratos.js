@@ -76,8 +76,6 @@ var GraficoContratos = {
         var _this = this;
         var spinner = new Spinner({ scale: 3 });
         spinner.spin($("html")[0]);
-        //$('#div_detalle_informe').hide();
-        //$('#div_tabla_detalle').hide(); aaaaaaaaaaaaaaaaa
         _this.VisualizarTablaDetalle(false);
 
         Backend.GetGraficoContratados({ tipo: tipo, fecha: fecha, id_area: parseInt(id_area), incluir_dependencias: incluir_dependencias })
@@ -280,7 +278,9 @@ var GraficoContratos = {
                 btn_accion.append(img);
                 btn_accion.click(function () {
                     checks_activos = ["GraficoPorArea"];
+                    $('#div_tabla_detalle').hide();
                     $('#div_tabla_informes').hide();
+                    
                     _this.FiltrarPersonasParaTablaDetalle(un_registro.Id, tabla_detalle);
                 });
                 cont.append(btn_accion);
@@ -294,7 +294,6 @@ var GraficoContratos = {
                     btn_informe.click(function () {
                         var spinner = new Spinner({ scale: 3 });
                         spinner.spin($("html")[0]);
-
                         var datos = { id_area: id_area,
                             incluir_dependencias: $("#chk_incluir_dependencias").is(":checked"),
                             id_estado: un_registro.Id //es el id de estado
@@ -321,7 +320,7 @@ var GraficoContratos = {
                     btn_informe.attr('class', 'btn btn-info');
                     btn_informe.attr('style', 'display:inline-block');
                     btn_informe.click(function () {
-
+                        $('#div_tabla_detalle').hide();
                         //$('#div_tabla_detalle').hide();aaaaaaaaaaaaaaa
 
                         var datos = { id_area: id_area,
@@ -337,7 +336,7 @@ var GraficoContratos = {
                         Backend.GetInformesGeneradosPorArea(datos)
                             .onSuccess(function (resultado) {
                                 spinner.stop();
-                                _this.VisualizarTablaDetalle(true);
+                               // _this.VisualizarTablaDetalle(true);
                                 _this.DibujarTablaInformes(resultado);
                             })
                             .onError(function (e) {
@@ -543,7 +542,8 @@ var GraficoContratos = {
             localStorage.setItem("idArea", area.id);
             localStorage.setItem("alias", area.alias);
             $('#titulo_area').html(area.alias);
-
+            $('#div_tabla_informes').hide();
+            
             $('#div_grafico_de_dotacion').hide();
             $('#div_grafico_de_rango_etareo').hide();
             $('#titulo_grafico').html("Seleccionar Informe");
