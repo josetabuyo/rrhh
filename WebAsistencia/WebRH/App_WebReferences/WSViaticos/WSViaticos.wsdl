@@ -5052,6 +5052,7 @@
           <s:element minOccurs="1" maxOccurs="1" name="Informe" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="IdEstado" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="Estado" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EstadoCorto" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="GraficoSueldo">
@@ -5159,6 +5160,19 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:complexType name="EstadoContrato">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NombreCorto" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Orden" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfEstadoContrato">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="EstadoContrato" nillable="true" type="tns:EstadoContrato" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="GetGraficoContratadosResponse">
         <s:complexType>
           <s:sequence>
@@ -5168,7 +5182,11 @@
       </s:element>
       <s:complexType name="GraficoContratos">
         <s:complexContent mixed="false">
-          <s:extension base="tns:Grafico" />
+          <s:extension base="tns:Grafico">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Estados" type="tns:ArrayOfEstadoContrato" />
+            </s:sequence>
+          </s:extension>
         </s:complexContent>
       </s:complexType>
       <s:element name="ExcelGeneradoContratos">

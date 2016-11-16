@@ -10,6 +10,7 @@ namespace General
 {
     public class GraficoContratos : Grafico
     {
+        public List<EstadoContrato> Estados;
         //public override List<Resumen> tabla_resumen;
         //public override List<Dotacion> tabla_detalle;
 
@@ -22,7 +23,6 @@ namespace General
             list.ForEach(row =>
             {
                 PersonaContrato persona = crearPersonaContrato(row);
-
                 tabla.Add(persona);
             });
             this.tabla_detalle_contratos = tabla;
@@ -52,42 +52,28 @@ namespace General
             List<Resumen> tabla = new List<Resumen>();
             List<Contador> contador = new List<Contador>();
 
+            Estados.ForEach(e =>
+            {
+                Contador nuevo_estado = new Contador(e.Id, e.Nombre, e.NombreCorto, e.Id, "");
+                nuevo_estado.Orden = e.Orden;
+                contador.Add(nuevo_estado);
+            });
+
             tabla_personas.ForEach(p =>
             {
-                if (contador.Count > 0)
-                {
-                    if (contador.Exists(estado => estado.Id == p.IdEstado))
-                    {
-                        contador.Find(estado => estado.Id == p.IdEstado).PersonasContrato.Add(p);
-                    }
-                    else
-                    {
-                        Contador nuevo_estado = new Contador(p.IdEstado, p.Estado, p.EstadoCorto, p.IdEstado, "");
-                        nuevo_estado.PersonasContrato.Add(p);
-                        nuevo_estado.Orden = p.OrdenArea;
-                        contador.Add(nuevo_estado);
-
-                    }
-                }
-                else
-                {
-                    Contador nuevo_estado = new Contador(p.IdEstado, p.Estado, p.EstadoCorto, p.IdEstado, "");
-                    nuevo_estado.PersonasContrato.Add(p);
-                    nuevo_estado.Orden = p.OrdenArea;
-                    contador.Add(nuevo_estado);
-                }
-
+                contador.Find(estado => estado.Id == p.IdEstado).PersonasContrato.Add(p);
             });
+
             int total = tabla_personas.Count;
             tabla.Add(GenerarRegistroResumen("Total", "Total", total, total));
 
-            contador.ForEach(registro =>
+            contador.OrderBy(c=> c.Orden).ToList().ForEach(registro =>
             {
                 tabla.Add(GenerarRegistroResumen(registro.Descripcion, registro.DescripcionGrafico, registro.PersonasContrato.Count, total, registro.Orden, registro.Id));
             });
 
-           // this.tabla_resumen = tabla.OrderBy(t => t.Orden).ToList();
-            this.tabla_resumen = tabla.OrderBy(t => t.Id).ToList();
+            this.tabla_resumen = tabla.ToList();
+            //this.tabla_resumen = tabla.OrderBy(t => t.Id).ToList();
         }
 
         public override void GraficoPorSecretarias()

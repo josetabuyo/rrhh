@@ -17,7 +17,14 @@
     <script type="text/javascript" src="../Scripts/underscore-min.js"></script>
 
     <script type="text/javascript" src="../Scripts/ArbolOrganigrama/ArbolOrganigrama.js"></script>
-</head>
+
+    <style>
+        #div_tabla_resultado_totales tbody tr
+        {
+            height: 45px;
+        }
+    </style>
+    </head>
 <body>
     <form id="form1" runat="server">
     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold; padding-top:20px;'>Contratos</span> <br/> "
@@ -37,9 +44,10 @@
                     <h2 style="font-size: 1.1em;">Área Seleccionada: 
                         <span id="titulo_area">Seleccionar Área</span>
                         <input id="chk_incluir_dependencias" style="display:none; margin: 0px 5px 0px 5px;" class="regular-checkbox" type="checkbox"/><label id="lbl_incluir_dependencias" style="display:none" for="chk_incluir_dependencias">Incluir dependencias</label>
-                    </h2>
-                   
+                        
+                    </h2>                   
                 </div>
+                <input type="button" style="position: absolute; right: 107px; top: 22px;" class="btn btn-info" value= "refrescar" id="btn_refrescar" />
  <%--GRAFICO DE DOTACIÓN--%>
                 <div id="div_grafico_de_dotacion" style="display:none">
                    <%-- <div id="div_filtros" style="display: flex;position: absolute; display:none; top: 80px;left: 135px;">

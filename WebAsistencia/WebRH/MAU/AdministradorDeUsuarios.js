@@ -1,5 +1,6 @@
 ﻿var AdministradorDeUsuarios = function () {
     var _this = this;
+
     this.panel_datos_usuario = $('#panel_datos_usuario');
     this.lbl_nombre = $('#nombre');
     this.lbl_apellido = $('#apellido');

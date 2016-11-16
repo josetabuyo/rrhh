@@ -18,6 +18,7 @@ var GraficoContratos = {
         $("#chk_incluir_dependencias").click(function () {
             _this.VisualizarGraficoYTablaResumen(true);
             _this.VisualizarTablaDetalle(false);
+            $("#div_tabla_informes").hide();           
             _this.BuscarDatos();
         });
     },
@@ -31,6 +32,12 @@ var GraficoContratos = {
         });
         $('#btn_excel').click(function () {
             _this.ObtenerLosDatosDeDotacionParaElExport();
+        });
+        $("#btn_refrescar").click(function () {
+            _this.VisualizarGraficoYTablaResumen(true);
+            _this.VisualizarTablaDetalle(false);
+            $("#div_tabla_informes").hide();
+            _this.BuscarDatos();
         });
     },
     SettearEventosDelMenu: function () {
@@ -261,6 +268,9 @@ var GraficoContratos = {
         columnas.push(new Columna('Detalle', {
             generar: function (un_registro) {
                 var cont = $('<div>');
+
+                if (un_registro.Cantidad == 0) return cont;
+
                 var btn_accion = $('<a>');
                 var img = $('<img>');
                 img.attr('src', '../Imagenes/detalle.png');
@@ -526,8 +536,8 @@ var GraficoContratos = {
 
     dibujarArbolOrganigrama: function () {
         var _this = this;
-        var arbol_organigrama = new ArbolOrganigrama($("#contenedor_arbol_organigrama"));
-        arbol_organigrama.alSeleccionar(function (area) {
+        _this.arbol_organigrama = new ArbolOrganigrama($("#contenedor_arbol_organigrama"));
+        _this.arbol_organigrama.alSeleccionar(function (area) {
             $('.lista').show();
             $('#showLeftPush').click();
             localStorage.setItem("idArea", area.id);
