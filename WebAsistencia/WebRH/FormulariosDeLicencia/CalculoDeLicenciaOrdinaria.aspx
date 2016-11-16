@@ -88,7 +88,7 @@
                 <asp:TextBox ID="textbox_dni" runat="server"></asp:TextBox>
                 <asp:Button runat="server" Text="Buscar" /><br />
                 <asp:CheckBox Text="Persistir Resultados" runat="server" ID="ChkPersistirResultados" Checked="false" />
-                
+                <small>(LIC_LogSaldosCalculoLicencia / LIC_LogAnalisisCalculoLicencia)</small>
             </td>
         </tr>
         <tr>
