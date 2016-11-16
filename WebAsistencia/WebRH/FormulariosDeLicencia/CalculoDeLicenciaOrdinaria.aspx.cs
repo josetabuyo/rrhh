@@ -26,7 +26,7 @@ public partial class FormulariosDeLicencia_CalculoDeLicenciaOrdinaria : System.W
         persona = new Persona();
 
         persona.Documento = int.Parse(this.textbox_dni.Text);
-        var analisis = s.GetAnalisisLicenciaOrdinaria(persona);
+        var analisis = s.GetAnalisisLicenciaOrdinaria(this.textbox_dni.Text, this.ChkPersistirResultados.Checked);
 
         var t = this.tabla_analsis;
         t.Rows.Add(Header());

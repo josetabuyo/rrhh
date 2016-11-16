@@ -5,6 +5,7 @@ using System.Text;
 using General;
 using General.Repositorios;
 using System.Data.SqlClient;
+using System.Data;
 
 namespace General.Repositorios
 {
@@ -1001,7 +1002,6 @@ namespace General.Repositorios
             return prorroga_aplicable.UsufructoHasta - prorroga_aplicable.UsufructoDesde;
         }
 
-
         public void LoguearDetalleCalculoLicencia(SolicitudesDeVacaciones aprobadas, int anio, Persona persona, DateTime fecha_calculo, bool ya_imputados, bool error)
         {
             var parametros = new Dictionary<string, object>();
@@ -1079,6 +1079,95 @@ namespace General.Repositorios
 
 
 
+        }
+
+        public TablaDeDatos TablaLogAnalisisLicencia()
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@documento", -1);
+
+            return this.conexion.Ejecutar("LIC_GEN_Get_LogAnalisisLicencia", parametros);
+        }
+
+        public TablaDeDatos TablaLogSaldoAnalisisLicencia()
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@documento", -1);
+
+            return this.conexion.Ejecutar("LIC_GEN_Get_LogSaldoLicencia", parametros);
+        }
+
+        public void AddToBulkAnalisisLicencias(AnalisisDeLicenciaOrdinaria analisis, int documento, DataTable tabla_log_analisis_licencia)
+        {
+            var i = 1;
+            int last = 0;
+            var now = DateTime.Now;
+            analisis.lineas.ForEach(l =>
+            {
+                var row = tabla_log_analisis_licencia.NewRow();
+                row["id"] = i++;
+                row["documento"] = documento;
+                row["cantidad_de_dias_imputables"] = l.CantidadDiasDescontados;
+
+                if (l.PeriodoAutorizado == 0 && last != 0)
+                {
+                    row["anio_imputado"] = last;
+                }
+                else
+                {
+                    row["anio_imputado"] = l.PeriodoAutorizado;
+                }
+
+                if (l.LicenciaDesde.Equals(DateTime.MinValue))
+                {
+                    row["fecha_desde_solicitada"] = DBNull.Value;
+                }
+                else
+                {
+                    row["fecha_desde_solicitada"] = l.LicenciaDesde;
+                }
+
+                if (l.LicenciaHasta.Equals(DateTime.MinValue))
+                {
+                    row["fecha_hasta_solicitada"] = DBNull.Value;
+                }
+                else
+                {
+                    row["fecha_hasta_solicitada"] = l.LicenciaHasta;
+                }
+
+                if (l.PeriodoAutorizado != 0)
+                {
+                    last = l.PeriodoAutorizado;
+                }
+
+                row["fecha_de_calculo"] = now;
+
+                tabla_log_analisis_licencia.Rows.Add((DataRow)row);
+            });
+        }
+
+        public void BulkInsertTablaAnalisisLicencia(DataTable analisis)
+        {
+            this.conexion.Bulk(analisis, "LIC_LogAnalisisCalculoLicencia");
+        }
+
+        public void AddToBulkSaldosAnalisisLicencias(AnalisisDeLicenciaOrdinaria analisis, int documento, DataTable tabla_log_saldos_analisis_licencia)
+        {
+            var i = 1;
+            analisis.Saldo.ForEach(l =>
+            {
+                var row = tabla_log_saldos_analisis_licencia.NewRow();
+                row["disponible"] = l.Dias;
+                row["periodo"] = l.Period;
+                row["documento"] = documento;
+                tabla_log_saldos_analisis_licencia.Rows.Add((DataRow)row);
+            });
+        }
+
+        public void BulkInsertTablaSaldosAnalisisLicencia(DataTable analisis)
+        {
+            this.conexion.Bulk(analisis, "LIC_LogSaldosCalculoLicencia");
         }
     }
 }

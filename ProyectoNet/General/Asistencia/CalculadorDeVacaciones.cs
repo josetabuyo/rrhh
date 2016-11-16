@@ -61,8 +61,8 @@ namespace General
             if (permitidas_aplicables.Count() == 0)
             {
                 _repositorio_licencia.LoguearError(permitidas_log, aprobadas, persona, fecha_calculo);
-                //return;
-                throw new SolicitudInvalidaException();
+                return;
+                //throw new SolicitudInvalidaException();
             }
 
             primera_permitida_aplicable = permitidas_aplicables.First();

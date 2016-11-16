@@ -43,8 +43,8 @@ namespace General.Repositorios
                 throw Ex;
             }
 
-           
-           
+
+
         }
 
         public bool EjecutarSinResultado(string nombreProcedimiento, Dictionary<string, object> parametros)
@@ -85,10 +85,10 @@ namespace General.Repositorios
             }
             catch (Exception e)
             {
-                
+
                 throw;
             }
-           
+
             CerrarBD();
             return resultado;
         }
@@ -148,7 +148,7 @@ namespace General.Repositorios
         }
 
 
-        
+
         public TablaDeDatos Ejecutar(string procedimiento, int command_timeout = 30)
         {
             AbrirBD();
@@ -229,7 +229,30 @@ namespace General.Repositorios
                 
             });
             */
-        }
 
+
+        public void Bulk(System.Data.DataTable analisis, string table_name)
+        {
+            AbrirBD();
+            SqlBulkCopy bulkCopy =
+                new SqlBulkCopy
+                (
+                    this.conexion,
+                    SqlBulkCopyOptions.TableLock |
+                    SqlBulkCopyOptions.FireTriggers |
+                    SqlBulkCopyOptions.UseInternalTransaction,
+                    null
+                    );
+
+
+            bulkCopy.DestinationTableName = table_name;
+            
+            bulkCopy.WriteToServer(analisis);
+            this.conexion.Close();
+
+            analisis.Clear();
+        }
     }
+
+}
 
