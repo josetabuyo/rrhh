@@ -32,8 +32,8 @@ namespace General
         {
             return new PersonaContrato(
                         row.GetInt("Nro_Documento", 0),
-                        row.GetString("Apellido", "Sin Dato"),
                         row.GetString("Nombre", "Sin Dato"),
+                        row.GetString("Apellido", "Sin Dato"),
                         row.GetInt("Id_Area_Actual", 0),
                         row.GetString("Area_Actual", ""),
                         row.GetString("Area_Actual", ""),
