@@ -603,9 +603,7 @@ var GraficoContratos = {
                     var tabla = _this.FiltrarPersonasParaTablaDetalle(un_registro.Informe, tabla_detalle);
 
                     DibujarGrillaInformeImpresion(un_registro, tabla);
-
                 });
-
 
                 div.append(btn_accion);
                 div.append(btn_impresion);
@@ -613,8 +611,6 @@ var GraficoContratos = {
                 return div;
             }
         }));
-
-
 
 
         _this.GrillaResumen = new Grilla(columnas);
@@ -630,7 +626,7 @@ var GraficoContratos = {
 
 var DibujarGrillaInformeImpresion = function (un_registro, tabla) {
 
-    var vista_ddjj_imprimir = $("<table style='page-break-before: always; width:100%'>");
+    var vista_ddjj_imprimir = $("<table style='page-break-before: always; border:1; width:100%'>");
     DibujarGrillaPersonas(un_registro, tabla, vista_ddjj_imprimir);
 
     var w = window.open("ImpresionSeleccionDeContratos.aspx");
@@ -665,6 +661,23 @@ var DibujarGrillaInformeImpresion = function (un_registro, tabla) {
     }
 }
 
+/// te dice si un vector de areas, contiene alguna con el id_area_dado
+var contieneIdArea = function(id_area, array_areas) {
+    for (var i = 0; i < array_areas.length; i++) {
+        if(array_areas[i].IdArea == id_area) return true;
+    }
+    return false;
+};
+
+var personasDelArea = function (id_area, array_personas) {
+    var resultado = [];
+    for (var i = 0; i < array_personas.length; i++) {
+        if (array_personas[i].IdArea == id_area) {
+            resultado.push(array_personas[i]);
+        };
+    }
+    return resultado;
+}
 
 var DibujarGrillaPersonas = function (un_registro, resultado, contenedor_grilla) {
     //Maximo por hoja solo con el 1er encabezado entran 56 personas.
@@ -682,21 +695,36 @@ var DibujarGrillaPersonas = function (un_registro, resultado, contenedor_grilla)
     ////    var cantidad_total_de_hojas = Math.ceil(cantidad_restantes_de_personas / personas_calculo_por_hoja) + 1;
 
     contenedor_grilla.empty();
+
+    var areas_distintas = [];
     for (var i = 0; i < resultado.length; i++) {
-        
+        if (!contieneIdArea(resultado[i].IdArea, areas_distintas)) {
+            areas_distintas.push(resultado[i]);
+        }
+    }
+
+    for (var i = 0; i < areas_distintas.length; i++) {
+
+        /*var queryResult = Enumerable.From(resultado)
+        .Where(function (x) { return x.IdArea == resultado[i].IdArea });
+        var data_post = { lista: queryResult.ToArray() };*/
+
         contenedor_grilla.append($("<br/>"));
-        contenedor_grilla.append($("<div><b>" + resultado[i].Area + "<b/></div>"));
+        contenedor_grilla.append($("<div><b>" + areas_distintas[i].Area + "<b/></div>"));
         contenedor_grilla.append($("<br/>"));
         contenedor_grilla.append($());
 
         var columnas = [];
-        columnas.push(new Columna("Area", { generar: function (resultado) { return resultado.Area } }));
+        //columnas.push(new Columna("Area", { generar: function (resultado) { return resultado.Area } }));
         columnas.push(new Columna("NroDocumento", { generar: function (resultado) { return resultado.NroDocumento } }));
         columnas.push(new Columna("Apellido_Nombre", { generar: function (resultado) { return (resultado.Apellido + ", " + resultado.Nombre) } }));
+        columnas.push(new Columna("Estado", { generar: function (resultado) { return (resultado.Estado) } }));
 
         GrillaResumen = new Grilla(columnas);
 
-        GrillaResumen.CargarObjetos(resultado);
+        var personasArea = personasDelArea(areas_distintas[i].IdArea, resultado);
+
+        GrillaResumen.CargarObjetos(personasArea);
         GrillaResumen.DibujarEn(contenedor_grilla);
         GrillaResumen.SetOnRowClickEventHandler(function (un_registro) { });
     }

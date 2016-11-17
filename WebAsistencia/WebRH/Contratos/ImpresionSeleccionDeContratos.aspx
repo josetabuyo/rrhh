@@ -5,10 +5,90 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Impresión de informe</title>
+
+    <%--<script type="text/javascript" src="../scripts/bootstrap/js/jquery.js">--%>
+    <%--<%= Referencias.Javascript("../../") %>--%>
+    
+    <style type="text/css"  >
+        
+        .SaltoDePagina
+        {
+            PAGE-BREAK-AFTER: always;
+        }
+        
+        #PanelImpresion>table
+        {
+            width:100%;
+            border-spacing:0px;  
+            border-collapse:collapse; 
+            position:relative; 
+        }   
+        
+        #PanelImpresion>table tr
+        {
+            page-break-inside:avoid;
+            page-break-after:always;
+            height:15px;
+        }        
+        
+        #PanelImpresion>table th, #PanelImpresion>table td
+        {
+            border:1px solid;               
+        }        
+           
+        .celda
+        {
+             page-break-inside:avoid;
+             page-break-after:always;
+        }
+         
+        
+        
+        @media print
+        {
+
+        #ocultar
+        {
+            display: none;
+        }
+                        
+        #PanelImpresion>table
+        {
+            width:100%;
+            border-spacing:0px;  
+            border-collapse:collapse; 
+            position:relative; 
+        }   
+        
+        #PanelImpresion>table tr
+        {
+            page-break-inside:avoid;
+            page-break-after:always;
+            
+        }        
+        
+        #PanelImpresion>table th, #PanelImpresion>table td
+        {
+            border:1px solid;               
+        }        
+           
+        .celda
+        {
+             page-break-inside:avoid;
+             page-break-after:always;
+        }
+            
+        }      
+        
+    </style>
+
+
+
+
 </head>
 <body>
     <form id="form1" runat="server">
-    <div align="right" style="width: 95%; font-size: x-small; font-family: 'ShelleyAllegro BT';">
+    <div align="right" style="width: 95%; font-size: small; font-family: 'ShelleyAllegro BT';">
         <b><a id="LeyendaPorAnio"></a></b>
     </div>
     <br />
@@ -26,7 +106,24 @@
        
     </div>
     <br />
-    <input type="button" value="Imprimir" id="ocultar" />
+    <input type="button" value="Imprimir" id="ocultar" onclick="window.print()" />
     </form>
 </body>
+
+
+
+<%--
+<script type="text/javascript">
+    Backend.start(function () {
+        $(document).ready(function () {
+            $("#ocultar").click(function () {
+                window.print();
+
+            });
+        });
+    });
+   
+</script>
+--%>
+
 </html>
