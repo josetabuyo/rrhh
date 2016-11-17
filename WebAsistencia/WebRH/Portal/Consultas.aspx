@@ -43,11 +43,11 @@
                 <h5>
                     Desde aquí podrá:</h5>
                 <ul style="margin-left: 10px;">
-                    <li type="disc">Realizar Consultas Adminsitrativas</li>
+                    <li type="disc">Realizar Consultas Administrativas</li>
                     <li type="disc">Solicitar Cambios y Correcciones de Datos</li>
                     <li type="disc">Aclarar sus dudas e inquietudes sobre las herramientas del Sitio y de
                         Gestión</li>
-                    <li type="disc">Enviar Segerencias y Comentarios</li>
+                    <li type="disc">Enviar Sugerencias y Comentarios</li>
                 </ul>
                 <br />
                 <br />
