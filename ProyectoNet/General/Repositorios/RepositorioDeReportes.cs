@@ -101,10 +101,23 @@ namespace General.Repositorios
             //parametros.Add("@orden", 0);
             parametros.Add("@incluir_dependencias", incluir_dependencias);
             var tablaDatos = conexion_bd.Ejecutar("dbo.CTR_GET_Seleccion_Contratos_WEB", parametros);
+
+            var tablaDatosEstados = conexion_bd.Ejecutar("dbo.CTR_GET_Seleccion_Estados_WEB");
+
+            grafico.Estados = new List<EstadoContrato>();
+
+            tablaDatosEstados.Rows.ForEach(row => {
+                var estado = new EstadoContrato();
+                estado.Id = row.GetInt("Id");
+                estado.Nombre = row.GetString("Estado");
+                estado.NombreCorto = row.GetString("NombreCorto");
+                estado.Orden = row.GetInt("Orden");
+                grafico.Estados.Add(estado);
+            });
+
             if (tablaDatos.Rows.Count > 0)
             {
                 grafico.CrearDatos(tablaDatos.Rows);
-
             }
             if (grafico.ContienePersonasAContratar())
             {
@@ -676,7 +689,7 @@ namespace General.Repositorios
 
                 foreach (var item in graficoExcel.tabla_resumen)
                 {
-                    table_resumen.Rows.Add(item.Id,
+                    table_resumen.Rows.Add(item.DescripcionGrafico,
                         item.Cantidad,
                         Math.Truncate(item.Porcentaje * 100) / 100                      
                         );

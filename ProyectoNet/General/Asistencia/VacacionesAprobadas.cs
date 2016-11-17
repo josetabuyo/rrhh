@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using General;
+using General.Repositorios;
 
 namespace General
 {
-    public class VacacionesAprobadas : SolicitudesDeVacaciones
+    public class VacacionesAprobadas : SolicitudesDeVacaciones, IConPersona
     {
         private Periodo _periodo;
         private int _concepto;

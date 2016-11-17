@@ -216,6 +216,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="Legajo" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Categoria" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="Esta_Cargada" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdImagen" type="s:int" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="Area">
@@ -345,6 +346,7 @@
         <s:sequence>
           <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Persona" type="tns:Persona" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfFuncionalidad">
@@ -1300,6 +1302,42 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetConsultasTodasDePortal">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="estado" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetConsultasTodasDePortalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetConsultasTodasDePortalResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ResponderConsulta">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="respuesta" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ResponderConsultaResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetTiposDeConsultaDePortal">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetTiposDeConsultaDePortalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTiposDeConsultaDePortalResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="NuevaConsultaDePortal">
         <s:complexType>
           <s:sequence>
@@ -1358,17 +1396,17 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetNombreDeLaPersona">
+      <s:element name="GetUsuarioLogueado">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetNombreDeLaPersonaResponse">
+      <s:element name="GetUsuarioLogueadoResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetNombreDeLaPersonaResult" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GetUsuarioLogueadoResult" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -4672,13 +4710,15 @@
       <s:element name="GetAnalisisLicenciaOrdinaria">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="persona" type="tns:Persona" />
+            <s:element minOccurs="0" maxOccurs="1" name="csv_dnis" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="persistir_resultados" type="s:boolean" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:complexType name="AnalisisDeLicenciaOrdinaria">
         <s:sequence>
           <s:element minOccurs="0" maxOccurs="1" name="lineas" type="tns:ArrayOfLogCalculoVacaciones" />
+          <s:element minOccurs="0" maxOccurs="1" name="Saldo" type="tns:ArrayOfVacacionesSolicitables" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfLogCalculoVacaciones">
@@ -4697,6 +4737,17 @@
           <s:element minOccurs="1" maxOccurs="1" name="PerdidaExplicitamente" type="s:boolean" />
           <s:element minOccurs="1" maxOccurs="1" name="PerdidaPorVencimiento" type="s:boolean" />
           <s:element minOccurs="0" maxOccurs="1" name="Observacion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfVacacionesSolicitables">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="VacacionesSolicitables" nillable="true" type="tns:VacacionesSolicitables" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="VacacionesSolicitables">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Period" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Dias" type="s:int" />
         </s:sequence>
       </s:complexType>
       <s:element name="GetAnalisisLicenciaOrdinariaResponse">
@@ -5052,6 +5103,7 @@
           <s:element minOccurs="1" maxOccurs="1" name="Informe" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="IdEstado" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="Estado" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EstadoCorto" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="GraficoSueldo">
@@ -5159,6 +5211,19 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:complexType name="EstadoContrato">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NombreCorto" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Orden" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfEstadoContrato">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="EstadoContrato" nillable="true" type="tns:EstadoContrato" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="GetGraficoContratadosResponse">
         <s:complexType>
           <s:sequence>
@@ -5168,7 +5233,11 @@
       </s:element>
       <s:complexType name="GraficoContratos">
         <s:complexContent mixed="false">
-          <s:extension base="tns:Grafico" />
+          <s:extension base="tns:Grafico">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Estados" type="tns:ArrayOfEstadoContrato" />
+            </s:sequence>
+          </s:extension>
         </s:complexContent>
       </s:complexType>
       <s:element name="ExcelGeneradoContratos">
@@ -6514,6 +6583,24 @@
   <wsdl:message name="GetConsultasDePortalSoapOut">
     <wsdl:part name="parameters" element="tns:GetConsultasDePortalResponse" />
   </wsdl:message>
+  <wsdl:message name="GetConsultasTodasDePortalSoapIn">
+    <wsdl:part name="parameters" element="tns:GetConsultasTodasDePortal" />
+  </wsdl:message>
+  <wsdl:message name="GetConsultasTodasDePortalSoapOut">
+    <wsdl:part name="parameters" element="tns:GetConsultasTodasDePortalResponse" />
+  </wsdl:message>
+  <wsdl:message name="ResponderConsultaSoapIn">
+    <wsdl:part name="parameters" element="tns:ResponderConsulta" />
+  </wsdl:message>
+  <wsdl:message name="ResponderConsultaSoapOut">
+    <wsdl:part name="parameters" element="tns:ResponderConsultaResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTiposDeConsultaDePortalSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTiposDeConsultaDePortal" />
+  </wsdl:message>
+  <wsdl:message name="GetTiposDeConsultaDePortalSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTiposDeConsultaDePortalResponse" />
+  </wsdl:message>
   <wsdl:message name="NuevaConsultaDePortalSoapIn">
     <wsdl:part name="parameters" element="tns:NuevaConsultaDePortal" />
   </wsdl:message>
@@ -6532,11 +6619,11 @@
   <wsdl:message name="GetDocumentosDelLegajoSoapOut">
     <wsdl:part name="parameters" element="tns:GetDocumentosDelLegajoResponse" />
   </wsdl:message>
-  <wsdl:message name="GetNombreDeLaPersonaSoapIn">
-    <wsdl:part name="parameters" element="tns:GetNombreDeLaPersona" />
+  <wsdl:message name="GetUsuarioLogueadoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUsuarioLogueado" />
   </wsdl:message>
-  <wsdl:message name="GetNombreDeLaPersonaSoapOut">
-    <wsdl:part name="parameters" element="tns:GetNombreDeLaPersonaResponse" />
+  <wsdl:message name="GetUsuarioLogueadoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUsuarioLogueadoResponse" />
   </wsdl:message>
   <wsdl:message name="ConsultaExcelDDJJ104_PersonaSoapIn">
     <wsdl:part name="parameters" element="tns:ConsultaExcelDDJJ104_Persona" />
@@ -8191,6 +8278,18 @@
       <wsdl:input message="tns:GetConsultasDePortalSoapIn" />
       <wsdl:output message="tns:GetConsultasDePortalSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetConsultasTodasDePortal">
+      <wsdl:input message="tns:GetConsultasTodasDePortalSoapIn" />
+      <wsdl:output message="tns:GetConsultasTodasDePortalSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ResponderConsulta">
+      <wsdl:input message="tns:ResponderConsultaSoapIn" />
+      <wsdl:output message="tns:ResponderConsultaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTiposDeConsultaDePortal">
+      <wsdl:input message="tns:GetTiposDeConsultaDePortalSoapIn" />
+      <wsdl:output message="tns:GetTiposDeConsultaDePortalSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="NuevaConsultaDePortal">
       <wsdl:input message="tns:NuevaConsultaDePortalSoapIn" />
       <wsdl:output message="tns:NuevaConsultaDePortalSoapOut" />
@@ -8203,9 +8302,9 @@
       <wsdl:input message="tns:GetDocumentosDelLegajoSoapIn" />
       <wsdl:output message="tns:GetDocumentosDelLegajoSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="GetNombreDeLaPersona">
-      <wsdl:input message="tns:GetNombreDeLaPersonaSoapIn" />
-      <wsdl:output message="tns:GetNombreDeLaPersonaSoapOut" />
+    <wsdl:operation name="GetUsuarioLogueado">
+      <wsdl:input message="tns:GetUsuarioLogueadoSoapIn" />
+      <wsdl:output message="tns:GetUsuarioLogueadoSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="ConsultaExcelDDJJ104_Persona">
       <wsdl:input message="tns:ConsultaExcelDDJJ104_PersonaSoapIn" />
@@ -9647,6 +9746,33 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetConsultasTodasDePortal">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetConsultasTodasDePortal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ResponderConsulta">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ResponderConsulta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTiposDeConsultaDePortal">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetTiposDeConsultaDePortal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="NuevaConsultaDePortal">
       <soap:operation soapAction="http://wsviaticos.gov.ar/NuevaConsultaDePortal" style="document" />
       <wsdl:input>
@@ -9674,8 +9800,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetNombreDeLaPersona">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetNombreDeLaPersona" style="document" />
+    <wsdl:operation name="GetUsuarioLogueado">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetUsuarioLogueado" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -12323,6 +12449,33 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetConsultasTodasDePortal">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetConsultasTodasDePortal" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ResponderConsulta">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ResponderConsulta" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTiposDeConsultaDePortal">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetTiposDeConsultaDePortal" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="NuevaConsultaDePortal">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/NuevaConsultaDePortal" style="document" />
       <wsdl:input>
@@ -12350,8 +12503,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetNombreDeLaPersona">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetNombreDeLaPersona" style="document" />
+    <wsdl:operation name="GetUsuarioLogueado">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetUsuarioLogueado" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

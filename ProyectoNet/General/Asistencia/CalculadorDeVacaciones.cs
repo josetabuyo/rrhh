@@ -61,7 +61,8 @@ namespace General
             if (permitidas_aplicables.Count() == 0)
             {
                 _repositorio_licencia.LoguearError(permitidas_log, aprobadas, persona, fecha_calculo);
-                throw new SolicitudInvalidaException();
+                return;
+                //throw new SolicitudInvalidaException();
             }
 
             primera_permitida_aplicable = permitidas_aplicables.First();
@@ -70,16 +71,18 @@ namespace General
             {
                 primera_permitida_aplicable.RestarDias(aprobadas.CantidadDeDias());
                 analisis.Add(aprobadas, primera_permitida_aplicable);
-
+                //_repositorio_licencia.LoguearDetalleCalculoLicencia(aprobadas, primera_permitida_aplicable.Periodo, persona, fecha_calculo, false, false);
             }
             else
             {
                 aprobadas.DiasYaImputados(primera_permitida_aplicable.CantidadDeDias());
                 primera_permitida_aplicable.RestarDias(primera_permitida_aplicable.CantidadDeDias());
+                //_repositorio_licencia.LoguearDetalleCalculoLicencia(aprobadas, primera_permitida_aplicable.Periodo, persona, fecha_calculo, true, false);
                 if (primera_permitida_aplicable.CantidadDeDias() == 0)
                 {
                     permitidas_consumibles.Remove(primera_permitida_aplicable);
                     analisis.Add(primera_permitida_aplicable, aprobadas, analisis);
+                    
                 }
                 if (aprobadas.CantidadDeDias() > 0)
                 {
