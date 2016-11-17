@@ -12,5 +12,7 @@ namespace General.Repositorios
         bool EjecutarSinResultado(string nombreProcedimiento, Dictionary<string, object> parametros);
 
         //void PseudoBulk(AnalisisDeLicenciaOrdinaria analisis);
+
+        void Bulk(System.Data.DataTable analisis, string p);
     }
 }
