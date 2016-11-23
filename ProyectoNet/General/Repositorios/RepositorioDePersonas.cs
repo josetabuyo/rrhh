@@ -13,7 +13,7 @@ namespace General.Repositorios
         private static RepositorioDePersonas _instancia;
 
         private RepositorioDePersonas(IConexionBD conexion)
-            :base(conexion, 1)
+            : base(conexion, 1)
         {
         }
 
@@ -33,7 +33,7 @@ namespace General.Repositorios
         {
             try
             {
-                var criterio_deserializado = (JObject) JsonConvert.DeserializeObject(criterio);
+                var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
                 bool filtrar_por_documento = false;
                 int documento = -1;
 
@@ -43,12 +43,14 @@ namespace General.Repositorios
                 bool filtrar_por_id = false;
                 int id = -1;
 
-                if (criterio_deserializado["Documento"]!= null) {
+                if (criterio_deserializado["Documento"] != null)
+                {
                     filtrar_por_documento = true;
                     documento = (int)((JValue)criterio_deserializado["Documento"]);
                 }
 
-                if (criterio_deserializado["ConLegajo"] != null) {
+                if (criterio_deserializado["ConLegajo"] != null)
+                {
                     filtrar_por_tiene_legajo = true;
                     con_legajo = (bool)((JValue)criterio_deserializado["ConLegajo"]);
                 }
@@ -92,7 +94,7 @@ namespace General.Repositorios
                             persona.Legajo.Contains(palabra)
                         )
                     );
-            }            
+            }
         }
 
         public bool BuscarPersonasConUsuario(string criterio)
@@ -141,7 +143,8 @@ namespace General.Repositorios
                         Nombre = row.GetString("Nombre"),
                         Apellido = row.GetString("Apellido"),
                         Legajo = legajo,
-                        Documento = row.GetInt("Nro_Documento")
+                        Documento = row.GetInt("Nro_Documento"),
+                        IdImagen = row.GetInt("IdImagen", -1)
                     });
                 });
             }
@@ -187,10 +190,45 @@ namespace General.Repositorios
             throw new NotImplementedException();
         }
 
+        public void CachearTipoDePlantaDe(string nros_documento)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@Documentos", nros_documento);
+            this.CacheTiposDePlantaActual = new Dictionary<int, List<TipoDePlanta>>();
+
+            new RepositorioLicencias(this.conexion).Cachear<TipoDePlanta>(nros_documento, "[dbo].[Web_GetTipoDePlantaDePersonas]", parametros, this.CacheTiposDePlantaActual,
+                (RowDeDatos row) =>
+                {
+                    Persona persona = new Persona();
+                    persona.Documento = row.GetInt("Documento");
+
+                    var id_planta = int.Parse(row.GetObject("idPlanta").ToString());
+                    if (id_planta == 22)
+                    {
+                        var tp = new TipoDePlantaContratado();
+                        tp.Persona = persona;
+                        return tp;
+                    }
+                    else
+                    {
+                        var tp = new TipoDePlantaGeneral(id_planta, "Planta Permanente", new RepositorioLicencias(conexion));
+                        tp.Persona = persona;
+                        return tp;
+                    }
+                });
+        }
+
+        Dictionary<int, List<TipoDePlanta>> CacheTiposDePlantaActual;
 
         public TipoDePlanta GetTipoDePlantaActualDe(Persona unaPersona)
         {
             SqlDataReader dr;
+
+            if (new RepositorioLicencias(this.conexion).EstaCacheado<TipoDePlanta>(this.CacheTiposDePlantaActual, unaPersona.Documento))
+            {
+                return CacheTiposDePlantaActual[unaPersona.Documento].First();
+            }
+
             ConexionDB cn = new ConexionDB("[dbo].[Web_GetTipoDePlantaDePersona]");
             cn.AsignarParametro("@Documento", unaPersona.Documento);
             dr = cn.EjecutarConsulta();
@@ -200,19 +238,35 @@ namespace General.Repositorios
             //FC: antes solo devolvia el tipo de planta comun con el id que trae del sp
             if (dr.Read())
             {
-                //planta = new TipoDePlanta {Id = dr.GetInt16(dr.GetOrdinal("idPlanta"))};
-                if (dr.GetInt16(dr.GetOrdinal("idPlanta")) == 22)
-                {
-                    planta = new TipoDePlantaContratado();
-                }
-                else { 
-                    planta = new TipoDePlantaGeneral(dr.GetInt16(dr.GetOrdinal("idPlanta")),"Planta Permanente", new RepositorioLicencias(conexion));
-                }
+                planta = TipoDePlantaFromDR(dr, planta);
             }
             return planta;
         }
 
-        public string GetConsultaRapida(int documento) {
+        private TipoDePlanta TipoDePlantaFromDR(SqlDataReader dr, TipoDePlanta planta)
+        {
+            //planta = new TipoDePlanta {Id = dr.GetInt16(dr.GetOrdinal("idPlanta"))};
+            if (dr.GetInt16(dr.GetOrdinal("idPlanta")) == 22)
+            {
+                planta = new TipoDePlantaContratado();
+            }
+            else
+            {
+                planta = new TipoDePlantaGeneral(dr.GetInt16(dr.GetOrdinal("idPlanta")), "Planta Permanente", new RepositorioLicencias(conexion));
+            }
+            return planta;
+        }
+
+
+
+        /*protected bool EstaCacheadoGetTipoDePlantaActualDe(Persona unaPersona)
+        {
+            if (CacheTiposDePlantaActual == null) return false;
+            return CacheTiposDePlantaActual.ContainsKey(unaPersona.Documento);
+        }*/
+
+        public string GetConsultaRapida(int documento)
+        {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@Documento", documento);
             var consulta = new object();
@@ -228,21 +282,21 @@ namespace General.Repositorios
                         //Nombre = row.GetString("Nombre", ""),
                         Apellido = row.GetString("Apellido", "Sin dato"),
                         Legajo = row.GetInt("id_interna", 0),
-                        FechaNacimiento = row.GetString("FechaNacimiento","Sin dato"),
-                        Edad = row.GetSmallintAsInt("Edad",0 ),
+                        FechaNacimiento = row.GetString("FechaNacimiento", "Sin dato"),
+                        Edad = row.GetSmallintAsInt("Edad", 0),
                         Cuil = row.GetString("Cuil", "Sin dato"),
                         Sexo = row.GetString("Sexo", "Sin dato"),
                         EstadoCivil = row.GetString("EstadoCivil", "Sin dato"),
                         Documento = row.GetString("Documento", "Sin dato"),
                         Domicilio = row.GetString("Domicilio", "Sin dato"),
                         Estudio = row.GetString("Estudio", "Sin dato"),
-                        Desde = row.GetDateTime("Desde",new DateTime(1900,01,01)),
+                        Desde = row.GetDateTime("Desde", new DateTime(1900, 01, 01)),
                         Nivel = row.GetString("Nivel", "Sin dato"),
                         Sector = row.GetString("Sector", "Sin dato"),
                         Planta = row.GetString("Planta", "Sin dato"),
                         Cargo = row.GetString("Cargo", "Sin dato"),
                         Agrupamiento = row.GetString("Agrupamiento", "Sin dato"),
-                        IngresoMinisterio = row.GetDateTime("IngresoMinisterio",new DateTime(1900,01,01)).ToShortDateString(),
+                        IngresoMinisterio = row.GetDateTime("IngresoMinisterio", new DateTime(1900, 01, 01)).ToShortDateString(),
                         AntMinisterio = row.GetString("AntMinisterio", "Sin dato"),
                         AntEstado = row.GetString("AntEstado", "Sin dato"),
                         AntPrivada = row.GetString("AntPrivada", "Sin dato"),
@@ -255,7 +309,7 @@ namespace General.Repositorios
             }
 
             return JsonConvert.SerializeObject(consulta);
-        
+
         }
 
         public string GetCarreraAdministrativa(int documento)
@@ -281,7 +335,7 @@ namespace General.Repositorios
                         Nivel = row.GetString("Nivel", ""),
                         Grado = row.GetString("Grado", ""),
                         Cargo = row.GetString("Cargo", ""),
-                        FechaDesde = row.GetDateTime("Fecha_Desde",new DateTime(1900,01,01)).ToShortDateString(),
+                        FechaDesde = row.GetDateTime("Fecha_Desde", new DateTime(1900, 01, 01)).ToShortDateString(),
                         FechaHasta = row.GetDateTime("Fecha_Hasta", new DateTime(1900, 01, 01)).ToShortDateString(),
                         ActoTipo = row.GetString("Acto_tipo", ""),
                         ActoTipoNro = row.GetString("Acto_nro", ""),
@@ -295,6 +349,11 @@ namespace General.Repositorios
 
             return JsonConvert.SerializeObject(lista.ToArray());
 
-        } 
+        }
+
+        /*public void GuardarAnalisis(AnalisisDeLicenciaOrdinaria analisis)
+        {
+            conexion.PseudoBulk(analisis);
+        }*/
     }
 }

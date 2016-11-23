@@ -11,6 +11,7 @@ namespace General
     {
         public List<Resumen> tabla_resumen;
         public List<Dotacion> tabla_detalle;
+        public List<PersonaContrato> tabla_detalle_contratos;
 
         public Grafico()
         {
@@ -72,6 +73,12 @@ namespace General
                        new Resumen(nivel, descripcion, cantidad, ((float)cantidad * (float)100 / (float)total), orden);
             return registro_resumen;
         }
+        protected Resumen GenerarRegistroResumen(string nivel, string descripcion, int cantidad, int total, int orden, int idEstado)
+        {
+            Resumen registro_resumen =
+                       new Resumen(idEstado.ToString(), descripcion, cantidad, ((float)cantidad * (float)100 / (float)total), orden);
+            return registro_resumen;
+        }
 
         public bool ContienePersonas()
         {
@@ -80,6 +87,19 @@ namespace General
                 return false;
             }
             return true;
+        }
+
+        public bool ContienePersonasAContratar()
+        {
+            if (this.tabla_detalle_contratos != null)
+            {
+                if (this.tabla_detalle_contratos.Count == 0)
+                {
+                    return false;
+                }
+                return true;
+            }
+            return false;
         }
 
         public abstract void GraficoPorArea();

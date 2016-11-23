@@ -108,7 +108,7 @@ ArbolOrganigrama.prototype.dibujarArea = function (area, contenedor, es_area_hij
 };
 
 ArbolOrganigrama.prototype.alSeleccionar = function (callback) {
-    if(!this.callbacks_seleccionar) this.callbacks_seleccionar = []; 
+    if (!this.callbacks_seleccionar) this.callbacks_seleccionar = [];
     this.callbacks_seleccionar.push(callback);
 }
 

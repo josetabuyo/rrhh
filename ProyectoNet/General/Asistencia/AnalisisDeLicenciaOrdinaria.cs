@@ -20,9 +20,15 @@ namespace General
 
             int index_of_primer_linea_proximo_periodo = IndexOfPrimerLineaProximoPeriodo(primera_permitida_aplicable.Periodo);
 
+
             if (LineaCompleta(linea))
             {
+                if (lineaConAcarreoDeLineaAnterior(linea))
+                {
+                    index_of_primer_linea_proximo_periodo++;
+                }
                 linea = new LogCalculoVacaciones();
+                
                 this.lineas.Insert(index_of_primer_linea_proximo_periodo, linea);
                 //this.lineas.Add(linea);
             }
@@ -35,6 +41,11 @@ namespace General
             }
 
 
+        }
+
+        private static bool lineaConAcarreoDeLineaAnterior(LogCalculoVacaciones linea)
+        {
+            return linea.LicenciaDesde.Equals(DateTime.MinValue) && linea.CantidadDiasDescontados != 0;
         }
 
         private int IndexOfPrimerLineaProximoPeriodo(int periodo)
@@ -77,7 +88,6 @@ namespace General
             {
                 log = new LogCalculoVacaciones() { PeriodoAutorizado = 0, CantidadDiasAutorizados = 0, CantidadDiasDescontados = solicitud.DiasYaImputados(), LicenciaDesde = solicitud.Desde(), LicenciaHasta = solicitud.Hasta() };
                 analisis.AddALaAuthorizacionDelPeriodo(log, permitidas_consumibles.Periodo);
-
             }
             else
             {
@@ -91,7 +101,7 @@ namespace General
 
         protected bool LineaCompleta(LogCalculoVacaciones linea)
         {
-            return !linea.LicenciaDesde.Equals(DateTime.MinValue);
+            return !(linea.LicenciaDesde.Equals(DateTime.MinValue) && linea.CantidadDiasDescontados == 0);
         }
 
         public void Add(LogCalculoVacaciones logCalculoVacaciones)
@@ -132,7 +142,7 @@ namespace General
 
         }
 
-        public void LasAutorizadasSinDescontarSon(List<VacacionesPermitidas> permitidas)
+        public void LasAutorizadasSinDescontarSon(List<VacacionesPermitidas> vacas_perdidas, List<VacacionesPermitidas> permitidas)
         {
             List<LogCalculoVacaciones> perdidas = new List<LogCalculoVacaciones>();
             permitidas.ForEach(perm =>
@@ -144,15 +154,20 @@ namespace General
                     {
                         var dias_perdidos = perm.CantidadDeDias() - linea_del_periodo.CantidadDiasAutorizados;
                         linea_del_periodo.CantidadDiasAutorizados = perm.CantidadDeDias();
-                        var per = new LogCalculoVacaciones() { PerdidaExplicitamente = true };
+                        var per = new LogCalculoVacaciones();
                         per.PeriodoAutorizado = perm.Periodo;
                         per.CantidadDiasDescontados = dias_perdidos;
                         per.PerdidaExplicitamente = true;
+
+                        var vp = vacas_perdidas.Find(v => v.Periodo == perm.Periodo);
+                        if (vp != null)
+                        {
+                            per.Observacion = vp.Observacion;
+                        }
+
                         perdidas.Add(per);
                     }
                 }
-
-
             });
 
             perdidas.ForEach(p =>
@@ -207,5 +222,7 @@ namespace General
             var lineas_posteriores = lineas.GetRange(this.lineas.IndexOf(logCalculoVacaciones), lineas.Count - this.lineas.IndexOf(logCalculoVacaciones));
             return lineas_posteriores.Any(l => !l.LicenciaDesde.Equals(DateTime.MinValue));
         }
+
+        public List<VacacionesSolicitables> Saldo { get; set; }
     }
 }

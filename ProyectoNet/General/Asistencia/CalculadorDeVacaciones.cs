@@ -61,7 +61,8 @@ namespace General
             if (permitidas_aplicables.Count() == 0)
             {
                 _repositorio_licencia.LoguearError(permitidas_log, aprobadas, persona, fecha_calculo);
-                throw new SolicitudInvalidaException();
+                return;
+                //throw new SolicitudInvalidaException();
             }
 
             primera_permitida_aplicable = permitidas_aplicables.First();
@@ -70,16 +71,18 @@ namespace General
             {
                 primera_permitida_aplicable.RestarDias(aprobadas.CantidadDeDias());
                 analisis.Add(aprobadas, primera_permitida_aplicable);
-
+                //_repositorio_licencia.LoguearDetalleCalculoLicencia(aprobadas, primera_permitida_aplicable.Periodo, persona, fecha_calculo, false, false);
             }
             else
             {
                 aprobadas.DiasYaImputados(primera_permitida_aplicable.CantidadDeDias());
                 primera_permitida_aplicable.RestarDias(primera_permitida_aplicable.CantidadDeDias());
+                //_repositorio_licencia.LoguearDetalleCalculoLicencia(aprobadas, primera_permitida_aplicable.Periodo, persona, fecha_calculo, true, false);
                 if (primera_permitida_aplicable.CantidadDeDias() == 0)
                 {
                     permitidas_consumibles.Remove(primera_permitida_aplicable);
                     analisis.Add(primera_permitida_aplicable, aprobadas, analisis);
+                    
                 }
                 if (aprobadas.CantidadDeDias() > 0)
                 {
@@ -97,9 +100,10 @@ namespace General
         }
 
 
-        public List<VacacionesSolicitables> DiasSolicitables(List<VacacionesPermitidas> permitidas, List<SolicitudesDeVacaciones> solicitudes, DateTime fecha_de_calculo, Persona persona, AnalisisDeLicenciaOrdinaria analisis)
+        public List<VacacionesSolicitables> DiasSolicitables(List<VacacionesPermitidas> permitidas, List<SolicitudesDeVacaciones> solicitudes, DateTime fecha_de_calculo, Persona persona, AnalisisDeLicenciaOrdinaria analisis, List<VacacionesPermitidas> perdidas)
         {
             var vacaciones_solicitables = new List<VacacionesSolicitables>();
+            //var perdidas = new List<VacacionesPermitidas>();
 
             //   var pendientes_de_aprobar = pendientes.FindAll(pend => pend.Desde() >= aprobadas.Last().Desde());
             var permitidas_consumibles = Clonar(permitidas);
@@ -120,12 +124,11 @@ namespace General
 
             permitidas_consumibles.RemoveAll(consumible => consumible.Periodo < persona.TipoDePlanta.Prorroga(fecha_de_calculo).UsufructoDesde);
 
-            //imputo las pendientes a las permitidas consumibles
-            //pendientes_de_aprobar.ForEach(pendiente => ImputarA(pendiente.Clonar(), permitidas_consumibles,persona));
-
             permitidas_consumibles.ForEach(consumible => vacaciones_solicitables.Add(new VacacionesSolicitables(consumible.Periodo, consumible.CantidadDeDias())));
 
-            analisis.LasAutorizadasSinDescontarSon(_repositorio_licencia.GetVacasPermitidasPara(persona, new ConceptoLicenciaAnualOrdinaria()));
+            //var perdidas = _repositorio_licencia.VacacionesPerdidasDe(persona.Documento);
+            
+            analisis.LasAutorizadasSinDescontarSon(perdidas, _repositorio_licencia.GetVacasPermitidasPara(persona, new ConceptoLicenciaAnualOrdinaria()));
             analisis.CompletarLicenciasPerdidasPorVencimiento();
 
             return vacaciones_solicitables;
