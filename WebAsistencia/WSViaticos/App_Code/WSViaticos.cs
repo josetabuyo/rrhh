@@ -4146,7 +4146,7 @@ public class WSViaticos : System.Web.Services.WebService
     {
         RepositorioLegajo repo = RepoLegajo();
 
-        return repo.GetConsultasDePortal(usuario.Id);
+        return repo.GetConsultasDePortal(usuario.Owner.Id);
 
     }
 
