@@ -62,7 +62,7 @@
     <div id="ed_contenedor_imagenes"></div>
     <div id="btn_add_imagen">+</div>
     <div id="Contenido">
-        <table id="datos-vehiculo" class="tabla-principal">
+        <table id="datos-vehiculo" class="tabla-principal" style="border-width: thin; border-style: solid; border-color: #808080">
             <tr>
                 <td colspan="2" class="celda">
                     Marca:
