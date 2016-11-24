@@ -43,11 +43,11 @@
                 <h5>
                     Desde aquí podrá:</h5>
                 <ul style="margin-left: 10px;">
-                    <li type="disc">Realizar Consultas Adminsitrativas</li>
+                    <li type="disc">Realizar Consultas Administrativas</li>
                     <li type="disc">Solicitar Cambios y Correcciones de Datos</li>
                     <li type="disc">Aclarar sus dudas e inquietudes sobre las herramientas del Sitio y de
                         Gestión</li>
-                    <li type="disc">Enviar Segerencias y Comentarios</li>
+                    <li type="disc">Enviar Sugerencias y Comentarios</li>
                 </ul>
                 <br />
                 <br />
@@ -61,7 +61,7 @@
                 <br />
                 <h5 style="float: left;">
                     Si quiere ver las consultas enviadas, seleccione aquí:</h5>
-                <input id="btn_consultas_historicas" type="button" class="btn btn-primary" style="margin: 10px;
+                <input id="btn_consultas_historicas_del_empleado" type="button" class="btn btn-primary" style="margin: 10px;
                     margin-top: -5px;" value="Consultas enviadas" />
             </div>
             <div id="div_consultas_enviadas" style="display: none;">
@@ -97,7 +97,7 @@
     $(document).ready(function ($) {
         //para cargar el menu izquierdo 
         $(".caja_izq").load("SeccionIzquierda.htm", function () {
-            $("#btn_consultas_historicas").click(function () {
+            $("#btn_consultas_historicas_del_empleado").click(function () {
                 $("#div_consultas_enviadas").show();
                 $("#div_explicacion_consultas").hide();
             });
@@ -108,7 +108,7 @@
 
             });
             $("#link_nuevos_mensajes").click(function () {
-                $("#btn_consultas_historicas").click();
+                $("#btn_consultas_historicas_del_empleado").click();
             });
 
 
