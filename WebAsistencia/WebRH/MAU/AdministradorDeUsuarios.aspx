@@ -41,7 +41,11 @@
                         <div class="linea dato_personal">
                             <div>Legajo:</div>
                             <div id="legajo"></div>    
-                        </div>                 
+                        </div>     
+<%--                        <div class="linea dato_personal">
+                            <div>Email:</div>
+                            <div id="email"></div>    
+                        </div>   --%>              
                     </div>
                     <div id="panel_password">
                         <div class="linea linea_nombre_usuario">
