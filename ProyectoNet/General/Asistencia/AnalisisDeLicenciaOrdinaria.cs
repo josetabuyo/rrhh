@@ -20,17 +20,24 @@ namespace General
 
             int index_of_primer_linea_proximo_periodo = IndexOfPrimerLineaProximoPeriodo(primera_permitida_aplicable.Periodo);
 
-
             if (LineaCompleta(linea))
             {
-                if (lineaConAcarreoDeLineaAnterior(linea))
+                /*if (lineaConAcarreoDeLineaAnterior(linea))
                 {
                     index_of_primer_linea_proximo_periodo++;
+                }*/
+
+                if (lineas.Count > index_of_primer_linea_proximo_periodo) {
+                    linea = lineas[index_of_primer_linea_proximo_periodo];
                 }
+
+                if (lineaConAcarreoDeLineaAnterior(linea)) {
+                    index_of_primer_linea_proximo_periodo++;
+                }
+
                 linea = new LogCalculoVacaciones();
                 
                 this.lineas.Insert(index_of_primer_linea_proximo_periodo, linea);
-                //this.lineas.Add(linea);
             }
 
             linea.CantidadDiasDescontados = aprobadas.CantidadDeDias();

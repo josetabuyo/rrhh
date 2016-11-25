@@ -3987,10 +3987,10 @@ public class WSViaticos : System.Web.Services.WebService
         }
 
         [WebMethod]
-        public MoBi_Bien[] Mobi_GetBienesDisponibles(int IdArea, int IdTipoBien)
+        public MoBi_Bien[] Mobi_GetBienesDisponibles(int IdArea, int IdTipoBien, int IdUsuario)
         {
             RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
-            return rMoBi.GetBienesDisponibles(IdArea, IdTipoBien);
+            return rMoBi.GetBienesDisponibles(IdArea, IdTipoBien, IdUsuario);
         }
 
         [WebMethod]
@@ -4146,7 +4146,7 @@ public class WSViaticos : System.Web.Services.WebService
     {
         RepositorioLegajo repo = RepoLegajo();
 
-        return repo.GetConsultasDePortal(usuario.Id);
+        return repo.GetConsultasDePortal(usuario.Owner.Id);
 
     }
 
