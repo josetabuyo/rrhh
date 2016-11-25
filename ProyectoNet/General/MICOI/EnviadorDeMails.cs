@@ -17,7 +17,7 @@ namespace General
  	            
                 MailMessage msg = new MailMessage();
                 msg.To.Add(to);
-                msg.From = new MailAddress("rhusuarios@desarrollosocial.gov.ar");
+                msg.From = new MailAddress("rhusuarios@desarrollosocial.gob.ar");
                 msg.Subject = asunto;
                 msg.IsBodyHtml = true;
                 msg.Body = cuerpo;
