@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Net;
 using System.Net.Mail;
+using System.Security.Cryptography.X509Certificates;
+using System.Net.Security;
 
 namespace General
 {
@@ -15,14 +17,16 @@ namespace General
  	            
                 MailMessage msg = new MailMessage();
                 msg.To.Add(to);
-                msg.From = new MailAddress(cred.UserName);
+                msg.From = new MailAddress("rhusuarios@desarrollosocial.gob.ar");
                 msg.Subject = asunto;
                 msg.IsBodyHtml = true;
                 msg.Body = cuerpo;
                
-                SmtpClient client = new SmtpClient("mailserver.desarrollosocial.gov.ar", 25);
-
+                SmtpClient client = new SmtpClient("owa.desarrollosocial.gob.ar", 25);
+                client.EnableSsl = true;
+                client.UseDefaultCredentials = false;
                 client.Credentials = cred; // Send our account login details to the client.
+                ServicePointManager.ServerCertificateValidationCallback = delegate(object s, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors) { return true; };
                 client.Send(msg);          // Send our email.                
             }
             catch(Exception e){

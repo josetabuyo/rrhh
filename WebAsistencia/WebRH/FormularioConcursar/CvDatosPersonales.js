@@ -51,7 +51,7 @@ function replicarDireccion () {
              _this.cmb_lugar_nac[0].disabled = true;
              _this.txt_fechaNac[0].disabled = true;
              _this.txt_dni[0].disabled = true;
-             $("#lema_para_empleados").html("Si usted ya es empleado del Ministerio y desea cambiar sus datos personales, deberá realizarlo a través de la Dirección De Diseño y Desarrollo Organizacional Para la Gestión de Personas (RR.HH.) ubicada en el piso 21 del edificio ubicado en la Av. 9 de Julio 1925. Puede contactarse llamando al número 4382-1867 o enviando un mail a la casilla concursos@desarrollosocial.gov.ar");
+             $("#lema_para_empleados").html("Si usted ya es empleado del Ministerio y desea cambiar sus datos personales, deberá realizarlo a través de la Dirección De Diseño y Desarrollo Organizacional Para la Gestión de Personas (RR.HH.) ubicada en el piso 21 del edificio ubicado en la Av. 9 de Julio 1925. Puede contactarse llamando al número 4382-1867 o enviando un mail a la casilla concursos@desarrollosocial.gob.ar");
              $("#contenedor_datos_legajos").find('select').prop('disabled', true);
          }
 

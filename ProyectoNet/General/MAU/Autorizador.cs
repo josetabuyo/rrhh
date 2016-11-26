@@ -236,7 +236,7 @@ namespace General.MAU
         {
             var enviador = new EnviadorDeMails();
             MailAddress mail_re_recupero = new MailAddress(mail);
-            enviador.EnviarMail(new NetworkCredential("no-reply@desarrollosocial.gov.ar", "1234"),
+            enviador.EnviarMail(new NetworkCredential("rhusuarios", "RRhh2016"),
                     mail,
                    titulo,
                     cuerpo,
