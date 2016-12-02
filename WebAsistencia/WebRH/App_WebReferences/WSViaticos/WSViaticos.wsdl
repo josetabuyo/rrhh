@@ -5084,6 +5084,8 @@
           <s:element minOccurs="1" maxOccurs="1" name="Comidas" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="UnidadRetributiva" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="EdadPersona" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="CUIL" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaIngreso" type="s:dateTime" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfPersonaContrato">
@@ -5105,6 +5107,8 @@
           <s:element minOccurs="1" maxOccurs="1" name="IdEstado" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="Estado" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="EstadoCorto" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CUIL" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaIngreso" type="s:dateTime" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="GraficoSueldo">

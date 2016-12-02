@@ -54,11 +54,12 @@ namespace General
         public int Comidas { get; set; }
         public int UnidadRetributiva { get; set; }
         public int EdadPersona { get; set; }
-
+        public string CUIL { get; set; }
+        public DateTime FechaIngreso { get; set; }
 
         public Dotacion() { }
 
-        public Dotacion(int id_persona, int legajo, int nro_documento, string apellido, string nombre, int id_sexo, string sexo, string nivel, string grado, int id_area, string area, string area_descrip_corta, string area_descrip_media, int id_planta, string planta, int IdEstudio, string NivelEstudio, string Titulo, DateTime FechaNacimiento, int idSecretaria, int idSubSecretaria, string nombre_secretaria, string nombre_subsecretaria, string nombre_secretaria_corta, string nombre_subsecretaria_corta, int orden)
+        public Dotacion(int id_persona, int legajo, int nro_documento, string apellido, string nombre, int id_sexo, string sexo, string nivel, string grado, int id_area, string area, string area_descrip_corta, string area_descrip_media, int id_planta, string planta, int IdEstudio, string NivelEstudio, string Titulo, DateTime FechaNacimiento, int idSecretaria, int idSubSecretaria, string nombre_secretaria, string nombre_subsecretaria, string nombre_secretaria_corta, string nombre_subsecretaria_corta, int orden, string _cuil, DateTime fechingreso)
         {
             this.IdPersona = id_persona;
             this.Legajo = legajo;
@@ -86,6 +87,8 @@ namespace General
             this.NombreSecretariaCorta = nombre_secretaria_corta;
             this.NombresubSecretaria = nombre_subsecretaria;
             this.OrdenArea = orden;
+            this.CUIL = _cuil;
+            this.FechaIngreso = fechingreso;
         }
 
         
@@ -108,5 +111,7 @@ namespace General
         {
             this.hsTotalesSimples = (float)simple + (float)al_50 * (float)1.5 + (float)al_100 * (float)2;
         }
+
+
     }
 }

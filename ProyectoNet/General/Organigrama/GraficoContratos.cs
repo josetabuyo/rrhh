@@ -41,7 +41,9 @@ namespace General
                         row.GetInt("NroInforme", 0),
                         row.GetString("estado_seleccion_descriptivo", ""),
                         row.GetString("estado_seleccion_corto", ""),
-                        row.GetSmallintAsInt("estado_seleccion", 0)//id_estado
+                        row.GetSmallintAsInt("estado_seleccion", 0),//id_estado,
+                        row.GetString("CUIL", ""),
+                        row.GetDateTime("FechaIngreso", DateTime.MinValue)
                         );
         }
          
