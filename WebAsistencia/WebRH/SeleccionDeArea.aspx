@@ -91,7 +91,7 @@
 
        alertify.alert(
          "<p>Para solicitar la modificación de los datos del Área, enviar un correo electrónico a</p>"
-       + "<p><b>rhcomunica@desarrollosocial.gov.ar</b></p>"
+       + "<p><b>rhcomunica@desarrollosocial.gob.ar</b></p>"
        + "</br>"
 
        );
