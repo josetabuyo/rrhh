@@ -231,7 +231,7 @@
 //                }
 //                })
 //                .onError(function (error, as, asd) {
-//                    alertify.alert(error);
+                //                    alertify.alert("", error);
 //                });
             });
         });

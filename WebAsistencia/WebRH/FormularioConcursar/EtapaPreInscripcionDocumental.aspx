@@ -104,9 +104,9 @@
 
     function ImprimirAnexo3Modificado() {
 
-        alertify.confirm("¿Está seguro que desea imprimir el anexo de documentación?", function (e) {
-            if (e) {
-
+        alertify.confirm("",
+            "¿Está seguro que desea imprimir el anexo de documentación?", 
+            function () {
                 /*localStorage.setItem("empleado", $("#span_empleado").text());
                 localStorage.setItem("dni", $("#span_dni_postulante").text());
                 localStorage.setItem("idPostulante", $("#idPostulante").val());
@@ -114,19 +114,19 @@
                 window.showModalDialog("PanelDetalleDeFoliosAnexo.htm", "", "dialogHeight: " + 150 + "px;");*/
           //      window.location.href = 'AnexoIIICantHojas.aspx';
 
-            } else {
+            }, function {
 
             }
-        });
+        );
     
     
     }
 
 
     function ImprimirCaratula() {
-        alertify.confirm("¿Está seguro que desea imprimir la carátula?", function (e) {
-            if (e) {
-              
+        alertify.confirm("",
+            "¿Está seguro que desea imprimir la carátula?", 
+            function () {              
                 localStorage.setItem("empleado", $("#span_empleado").text());
                 localStorage.setItem("perfil", $("#span_perfil").text());
                 localStorage.setItem("codigo_postu", $("#span_codigo").text());
@@ -134,10 +134,11 @@
                 window.open('Caratula.aspx', '_blank');
                 //window.location.href = 'Caratula.aspx';
 
-            } else {
+            }, 
+            function () { 
                
             }
-        });
+        );
 
     }
 

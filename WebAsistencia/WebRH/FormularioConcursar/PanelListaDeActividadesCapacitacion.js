@@ -70,8 +70,8 @@
     eliminar: function (una_actividad_capacitacion) {
         var _this = this;
         // confirm dialog
-        alertify.confirm("¿Está seguro que desea eliminar la actividad?", function (e) {
-            if (e) {
+        alertify.confirm("", "¿Está seguro que desea eliminar la actividad?", 
+            function () {
                 Backend.EliminarCvActividadCapacitacion(una_actividad_capacitacion)
                     .onSuccess(function (respuesta) {
                         alertify.success("Actividad eliminada correctamente");
@@ -82,7 +82,8 @@
                     .onError(function (error, as, asd) {
                         alertify.error("No se pudo eliminar el antecedente");
                     });   
-            } 
-        });
+            },
+            function(){} 
+        );
     }
 }

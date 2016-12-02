@@ -42,10 +42,11 @@
                             <div>Legajo:</div>
                             <div id="legajo"></div>    
                         </div>     
-<%--                        <div class="linea dato_personal">
+                        <div class="linea dato_personal">
                             <div>Email:</div>
-                            <div id="email"></div>    
-                        </div>   --%>              
+                            <div id="email"></div>   
+                            <input id="btn_modificar_mail" type="button" class="btn btn-warning" value="Modificar"  RequiereFuncionalidad = "45"/> 
+                        </div>                 
                     </div>
                     <div id="panel_password">
                         <div class="linea linea_nombre_usuario">

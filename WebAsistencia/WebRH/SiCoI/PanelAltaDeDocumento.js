@@ -111,15 +111,15 @@ var PanelAltaDeDocumento = function (cfg) {
                     self.validarAltaDeDocumento();
                     self.validarAltaDeDocumento();
                     self._panel_documentos.refrescarDocumentos();
-                 
-                    alertify.alert("Se creó un documento con el número de ticket: " + ticket);
+
+                    alertify.alert("", "Se creó un documento con el número de ticket: " + ticket);
                 }
                 if (respuesta.tipoDeRespuesta == "altaDeDocumento.error") {
-                    alertify.alert("Error al dar de alta el documento: " + respuesta.error);
+                    alertify.alert("", "Error al dar de alta el documento: " + respuesta.error);
                 }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alertify.alert(errorThrown);
+                alertify.alert("", errorThrown);
             }
         });
     });

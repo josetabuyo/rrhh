@@ -31,11 +31,11 @@ var PanelDetalleDeDocumento = function (cfg) {
                     self._panel_documentos.refrescarGrilla();
                 }
                 if (respuesta.tipoDeRespuesta == "guardarDocumento.error") {
-                    alertify.alert("Error al guardar cambios en documento: " + respuesta.error);
+                    alertify.alert("", "Error al guardar cambios en documento: " + respuesta.error);
                 }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alertify.alert(errorThrown);
+                alertify.alert("", errorThrown);
             }
         });                   
         self.cerrar();

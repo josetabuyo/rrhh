@@ -83,8 +83,8 @@
     eliminar: function (una_experiencia) {
         var _this = this;
         // confirm dialog
-        alertify.confirm("¿Está seguro que desea eliminar la experiencia laboral?", function (e) {
-            if (e) {
+        alertify.confirm("", "¿Está seguro que desea eliminar la experiencia laboral?", 
+            function () {
                 Backend.EliminarCvExperienciaLaboral(una_experiencia)
                     .onSuccess(function (respuesta) {
                         alertify.success("Experiencia eliminada correctamente");
@@ -95,8 +95,9 @@
                     .onError(function (error, as, asd) {
                         alertify.error("No se pudo eliminar la experiencia");
                     });
-            }
-        });
+            },
+            function(){}
+        );
     },
         completarComboSinep: function (ui,una_experiencia) {
             if (una_experiencia.AmbitoLaboral == 2) {

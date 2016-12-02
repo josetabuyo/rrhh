@@ -58,7 +58,8 @@ namespace General.MAU
         {
             if (tablaDatos.Rows.Count == 0) return new UsuarioNulo();
             var row = tablaDatos.Rows.First();
-            Usuario usuario = new Usuario(row.GetSmallintAsInt("Id"), row.GetString("Alias"), row.GetString("Clave_Encriptada"), !row.GetBoolean("Baja")); 
+            Usuario usuario = new Usuario(row.GetSmallintAsInt("Id"), row.GetString("Alias"), row.GetString("Clave_Encriptada"), !row.GetBoolean("Baja"));
+            usuario.MailRegistro = row.GetString("MailRegistro", "");
             if (!(row.GetObject("Id_Persona") is DBNull))
             {
                 usuario.Owner = repositorio_de_personas.GetPersonaPorId(row.GetInt("Id_Persona"));

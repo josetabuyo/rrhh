@@ -40,7 +40,7 @@ VistaDePermisosDeUnUsuario.prototype.start = function () {
                                 function () {
                                     node.select(false);
                                 },
-                                function () { alertify.alert("error al denegar permisos"); }
+                                function () { alertify.alert("", "error al denegar permisos"); }
                             );
                         }
                         else {
@@ -50,7 +50,7 @@ VistaDePermisosDeUnUsuario.prototype.start = function () {
                                 function () {
                                     node.select(true);
                                 },
-                                function () { alertify.alert("error al conceder permisos"); }
+                                function () { alertify.alert("", "error al conceder permisos"); }
                             );
                             }
                         return false;
@@ -63,7 +63,7 @@ VistaDePermisosDeUnUsuario.prototype.start = function () {
             });
         },
         function (error) { //on error
-            alertify.alert(error);
+            alertify.alert("", error);
         }
     );
 };
@@ -82,7 +82,7 @@ VistaDePermisosDeUnUsuario.prototype.setUsuario = function (un_usuario) {
             }
         },
         function (error) { //on error
-            alertify.alert('error');
+            alertify.alert("", 'error');
         }
     );
 };
