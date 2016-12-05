@@ -26,9 +26,10 @@
             </div>  
             <div id="panel_datos_usuario" style="display:none">
                 <div id="panel_superior_izquierdo" class="estilo_formulario">
-                    <div id="foto_usuario">
-                        <img id="foto_usuario_generica" src=usuario.png/>
+                    <div id="foto_usuario">                        
                     </div>
+                    <img id="foto_usuario_generica" src=usuario.png/>
+
                     <div id="panel_datos_personales">
                         <div class="linea dato_personal">
                             <div id="nombre"></div>

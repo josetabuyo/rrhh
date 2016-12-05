@@ -51,7 +51,7 @@
                     Backend.ElUsuarioLogueadoTienePermisosPara(26).onSuccess(function (tiene_permisos) {
                         if (tiene_permisos) {
                             alertify.confirm("",
-                                la_persona_seleccionada.nombre + " " + la_persona_seleccionada.apellido + " no tiene usuario, desea crear uno?", 
+                                la_persona_seleccionada.nombre + " " + la_persona_seleccionada.apellido + " no tiene usuario, desea crear uno?",
                                 function () {
                                     _this.repositorioDeUsuarios.crearUsuarioPara(la_persona_seleccionada.id,
                                         function (usuario) {
@@ -66,12 +66,12 @@
                                         }
                                     );
                                 },
-                                function(){
+                                function () {
                                     alertify.error("No se creó un usuario para " + la_persona_seleccionada.nombre + " " + la_persona_seleccionada.apellido);
                                 }
                             );
                         } else {
-                                alertify.alert("", la_persona_seleccionada.nombre + " " + la_persona_seleccionada.apellido + " no tiene usuario.");
+                            alertify.alert("", la_persona_seleccionada.nombre + " " + la_persona_seleccionada.apellido + " no tiene usuario.");
                         }
                     });
 
@@ -87,8 +87,17 @@
 
     this.btn_modificar_mail.click(function () {
         alertify.prompt(' ', 'Ingrese el mail del usuario', _this.usuario.MailRegistro
-               , function (evt, value) { alertify.success('You entered: ' + value) }
-               , function () {  });
+               , function (evt, value) {
+                   Backend.ModificarMailRegistro(_this.usuario.Id, value).onSuccess(function () {
+                       alertify.success("Se ha modificado correctamente su mail");
+                       alertify.prompt().close();
+                       _this.lbl_email.text(value);
+                   }).onerror(function () {
+                       alertify.success("Error al modificar el mail");
+                       alertify.prompt().close(); 
+                   });
+               }
+               , function () { });
     });
 
 
@@ -153,10 +162,13 @@ AdministradorDeUsuarios.prototype.cargarUsuario = function (usuario) {
 
     if (usuario.Owner.IdImagen >= 0) {
         var img = new VistaThumbnail({ id: usuario.Owner.IdImagen, contenedor: $("#foto_usuario") });
+        $("#foto_usuario").show();
         $("#foto_usuario_generica").hide();
     }
-    else
+    else {
+        $("#foto_usuario").hide();
         $("#foto_usuario_generica").show();
+    }
 
     $("#usuario_verificado").hide();
     $("#usuario_no_verificado").hide();

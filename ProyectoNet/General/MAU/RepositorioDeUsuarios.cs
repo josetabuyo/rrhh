@@ -135,6 +135,16 @@ namespace General.MAU
             return true;
         }
 
+        public bool ModificarMailRegistro(int id_usuario, string mail)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@Id_Usuario", id_usuario);
+            parametros.Add("@NuevoMail", mail);
+
+            conexion.Ejecutar("dbo.GEN_Modificar_email_registro", parametros);
+            return true;
+        }
+
         public string ResetearPassword(int id_usuario)
         {
             var clave_nueva = ClaveRandom();
