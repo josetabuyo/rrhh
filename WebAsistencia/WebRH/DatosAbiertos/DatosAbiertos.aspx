@@ -15,7 +15,7 @@
             <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:18px; font-weight: bold;'>Datos Abiertos</span> <br/> <span style='font-size:12px;'> Administración de Usuarios </span>" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" UrlPassword="../" />        
             <div id="pagina">
                 <div id="titulo">Mapa del estado</div>
-                <div id="presentacion">Desde esta página podrá descargar el mapa del MDS</div>
+                <div id="presentacion">Desde este acceso se puede descargar en formato xls el archivo actualizado al día de hoy</div>
                 <a href="#" id="btn_mapa_del_estado_xls"> 
                     <img src="xls.png" height=50px width=50px />
                     <div>Mapa del MDS</div>
