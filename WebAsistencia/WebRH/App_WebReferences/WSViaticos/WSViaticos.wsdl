@@ -1411,6 +1411,20 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="ExcelMapaDelEstado">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExcelMapaDelEstadoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ExcelMapaDelEstadoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="ConsultaExcelDDJJ104_Persona">
         <s:complexType>
           <s:sequence>
@@ -6630,6 +6644,12 @@
   <wsdl:message name="GetUsuarioLogueadoSoapOut">
     <wsdl:part name="parameters" element="tns:GetUsuarioLogueadoResponse" />
   </wsdl:message>
+  <wsdl:message name="ExcelMapaDelEstadoSoapIn">
+    <wsdl:part name="parameters" element="tns:ExcelMapaDelEstado" />
+  </wsdl:message>
+  <wsdl:message name="ExcelMapaDelEstadoSoapOut">
+    <wsdl:part name="parameters" element="tns:ExcelMapaDelEstadoResponse" />
+  </wsdl:message>
   <wsdl:message name="ConsultaExcelDDJJ104_PersonaSoapIn">
     <wsdl:part name="parameters" element="tns:ConsultaExcelDDJJ104_Persona" />
   </wsdl:message>
@@ -8311,6 +8331,10 @@
       <wsdl:input message="tns:GetUsuarioLogueadoSoapIn" />
       <wsdl:output message="tns:GetUsuarioLogueadoSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="ExcelMapaDelEstado">
+      <wsdl:input message="tns:ExcelMapaDelEstadoSoapIn" />
+      <wsdl:output message="tns:ExcelMapaDelEstadoSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="ConsultaExcelDDJJ104_Persona">
       <wsdl:input message="tns:ConsultaExcelDDJJ104_PersonaSoapIn" />
       <wsdl:output message="tns:ConsultaExcelDDJJ104_PersonaSoapOut" />
@@ -9807,6 +9831,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetUsuarioLogueado">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetUsuarioLogueado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExcelMapaDelEstado">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ExcelMapaDelEstado" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -12510,6 +12543,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetUsuarioLogueado">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetUsuarioLogueado" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExcelMapaDelEstado">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ExcelMapaDelEstado" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
