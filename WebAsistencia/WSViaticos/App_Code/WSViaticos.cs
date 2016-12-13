@@ -2635,6 +2635,12 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public bool ModificarMiMail(string mail, Usuario usuario)
+    {
+        return RepositorioDeUsuarios().ModificarMailRegistro(usuario.Id, mail);
+    }
+
+    [WebMethod]
     public Usuario GetUsuarioPorAlias(string alias)
     {
         return RepositorioDeUsuarios().GetUsuarioPorAlias(alias);
