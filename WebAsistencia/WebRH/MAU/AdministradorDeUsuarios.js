@@ -80,9 +80,19 @@
     };
 
     this.btn_reset_password.click(function () {
-        Backend.ResetearPassword(_this.usuario.Id).onSuccess(function (nueva_clave) {
-            alertify.alert("", "El nuevo password para el usuario: " + _this.usuario.Alias + " es: " + nueva_clave);
-        });
+
+        alertify.confirm('Modificar contraseña', '¿Está seguro de querer reinciar la contraseña', function () {
+            Backend.ResetearPassword(_this.usuario.Id).onSuccess(
+                        function (nueva_clave) {
+                            alertify.alert("Se ha modificado la contraseña.", "La nueva contraseña para el usuario: "
+                                                + _this.usuario.Alias + " es: " + nueva_clave);
+                        });
+        }
+
+        , function () {
+            alertify.alert("Modificación cancelada.");
+        }
+        );
     });
 
     this.btn_modificar_mail.click(function () {
@@ -94,7 +104,7 @@
                        _this.lbl_email.text(value);
                    }).onerror(function () {
                        alertify.success("Error al modificar el mail");
-                       alertify.prompt().close(); 
+                       alertify.prompt().close();
                    });
                }
                , function () { });
