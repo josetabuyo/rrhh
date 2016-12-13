@@ -39,6 +39,10 @@
                 <legend style="margin-top: 20px;">DESIGNACIONES</legend>
                     <div id="tablaDesignaciones" class="table table-striped table-bordered table-condensed"> 
                     </div>
+
+                    <legend style="margin-top: 20px;">CARRERA ADMINISTRATIVA</legend>
+                    <div id="tablaCarreraAdministrativa" class="table table-striped table-bordered table-condensed"> 
+                    </div>
                 </div>
                
             </div>
@@ -58,9 +62,10 @@
             Backend.start(function () {
                 Legajo.getNombre();
                 Legajo.GetDatosDesignaciones();
+                Legajo.GetCarreraAdministrativa();
             });
         });
-        
+
     });
 
 </script> 

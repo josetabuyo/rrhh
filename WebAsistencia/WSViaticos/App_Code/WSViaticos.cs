@@ -4194,6 +4194,14 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public string GetCarreraAdministrativaPortal(Usuario usuario)
+    {
+
+        return RepoLegajo().getCarreraAdminstrativa((usuario.Owner.Documento));
+
+    }
+
+    [WebMethod]
     public string GetDocumentosDelLegajo(Usuario usuario)
     {
 
