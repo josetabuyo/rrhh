@@ -316,7 +316,7 @@ namespace General.Repositorios
             }
         }
 
-
+       
         public string getDesignaciones(int doc)
         {
             var parametros = new Dictionary<string, object>();
@@ -380,6 +380,7 @@ namespace General.Repositorios
             return JsonConvert.SerializeObject(consultas);
 
         }
+
         public string GetConsultasTodasDePortal(int estado)
         {
             var parametros = new Dictionary<string, object>();
@@ -463,6 +464,15 @@ namespace General.Repositorios
             parametros.Add("@motivo", consulta.motivo);
 
             var resultado = conexion.EjecutarEscalar("dbo.LEG_NuevaConsultaDePortal", parametros);
+            return (int)(decimal)resultado;
+        }
+
+        public int GetConsultasNoLeidas(int id_usuario)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_usuario_creador", id_usuario);
+
+            var resultado = conexion.EjecutarEscalar("dbo.LEG_GetConsultasPortalNoLeidas", parametros);
             return (int)(decimal)resultado;
         }
 

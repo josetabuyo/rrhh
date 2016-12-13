@@ -1369,6 +1369,20 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetConsultasNoLeidas">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetConsultasNoLeidasResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetConsultasNoLeidasResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetDesignacionActual">
         <s:complexType>
           <s:sequence>
@@ -6608,6 +6622,12 @@
   <wsdl:message name="NuevaConsultaDePortalSoapOut">
     <wsdl:part name="parameters" element="tns:NuevaConsultaDePortalResponse" />
   </wsdl:message>
+  <wsdl:message name="GetConsultasNoLeidasSoapIn">
+    <wsdl:part name="parameters" element="tns:GetConsultasNoLeidas" />
+  </wsdl:message>
+  <wsdl:message name="GetConsultasNoLeidasSoapOut">
+    <wsdl:part name="parameters" element="tns:GetConsultasNoLeidasResponse" />
+  </wsdl:message>
   <wsdl:message name="GetDesignacionActualSoapIn">
     <wsdl:part name="parameters" element="tns:GetDesignacionActual" />
   </wsdl:message>
@@ -8295,6 +8315,10 @@
       <wsdl:input message="tns:NuevaConsultaDePortalSoapIn" />
       <wsdl:output message="tns:NuevaConsultaDePortalSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetConsultasNoLeidas">
+      <wsdl:input message="tns:GetConsultasNoLeidasSoapIn" />
+      <wsdl:output message="tns:GetConsultasNoLeidasSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetDesignacionActual">
       <wsdl:input message="tns:GetDesignacionActualSoapIn" />
       <wsdl:output message="tns:GetDesignacionActualSoapOut" />
@@ -9776,6 +9800,15 @@
     </wsdl:operation>
     <wsdl:operation name="NuevaConsultaDePortal">
       <soap:operation soapAction="http://wsviaticos.gov.ar/NuevaConsultaDePortal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultasNoLeidas">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetConsultasNoLeidas" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -12479,6 +12512,15 @@
     </wsdl:operation>
     <wsdl:operation name="NuevaConsultaDePortal">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/NuevaConsultaDePortal" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultasNoLeidas">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetConsultasNoLeidas" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
