@@ -1,5 +1,6 @@
 ﻿var spinner;
 var mes;
+var consultas_sin_leer = 0;
 
 var Legajo = {
     init: function () {
@@ -484,9 +485,21 @@ var Legajo = {
         .onError(function (e) {
 
         });
-
-        
+        this.GetConsultasNoLeidas(); 
     },
+
+    GetConsultasNoLeidas: function(){
+     Backend.GetConsultasNoLeidas()
+        .onSuccess(function (cantidad) {
+        consultas_sin_leer = cantidad;
+            if (cantidad > 0) {
+                $("#link_consultas").html("Consultas (" + cantidad + ")");
+            }  
+        })
+        .onError(function (e) {
+        });
+    },
+
     MostrarDetalleDeConsulta: function (motivo, respuesta) {
         $('#div_detalle_consulta').show();
         $('#ta_motivo').val(motivo);
