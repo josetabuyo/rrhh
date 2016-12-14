@@ -5,6 +5,7 @@ using System.Web;
 using System.Data;
 using System.Drawing;
 using System.IO;
+using System.Text;
 
 namespace General.Repositorios
 {
@@ -52,6 +53,15 @@ namespace General.Repositorios
         {
             if (this.GetObject(campo) is DBNull) return default_if_null;
             return (string)dataRow[campo];
+        }
+
+        public string GetTodoComoString(String campo, String default_if_null)
+        {
+            if (this.GetObject(campo) is DBNull) return default_if_null;
+            StringBuilder output = new StringBuilder();
+            output.AppendFormat("{0} ", dataRow[campo]);
+            output.AppendLine();
+            return output.ToString().Trim();
         }
 
         public DateTime GetDateTime(String campo)

@@ -162,8 +162,9 @@ var GraficoSueldos = {
         var columnas = [];
 
         columnas.push(new Columna("Area", { generar: function (un_registro) { return un_registro.Area } }));
-        columnas.push(new Columna("Documento", { generar: function (un_registro) { return GraficoHerramientas.ConvertirANumeroConPuntos(un_registro.NroDocumento); } }));
+        columnas.push(new Columna("CUIL", { generar: function (un_registro) { return un_registro.CUIL } }));
         columnas.push(new Columna("Apellido_Nombre", { generar: function (un_registro) { return (un_registro.Apellido + ", " + un_registro.Nombre) } }));
+        columnas.push(new Columna("FechaIngreso", { generar: function (un_registro) { return GraficoHerramientas.ConvertirFecha(un_registro.FechaIngreso) } }));
         columnas.push(new Columna("SueldoBruto", { generar: function (un_registro) { return GraficoHerramientas.ConvertirAMonedaLocal(un_registro.SueldoBruto); } }));
         columnas.push(new Columna("SueldoNeto", { generar: function (un_registro) { return GraficoHerramientas.ConvertirAMonedaLocal(un_registro.SueldoNeto); } }));
         columnas.push(new Columna("ExtrasBruto", { generar: function (un_registro) { return GraficoHerramientas.ConvertirAMonedaLocal(un_registro.ExtrasBruto); } }));

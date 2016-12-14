@@ -296,11 +296,12 @@ var GraficoRangoEtario = {
         var columnas = [];
 
         columnas.push(new Columna("Area", { generar: function (un_registro) { return un_registro.Area } }));
-        columnas.push(new Columna("NroDocumento", { generar: function (un_registro) { return un_registro.NroDocumento } }));
+        columnas.push(new Columna("CUIL", { generar: function (un_registro) { return un_registro.CUIL } }));
         columnas.push(new Columna("Apellido_Nombre", { generar: function (un_registro) { return (un_registro.Apellido + ", " + un_registro.Nombre) } }));
         columnas.push(new Columna("Edad", { generar: function (un_registro) { return un_registro.EdadPersona } }));
         columnas.push(new Columna("Sexo", { generar: function (un_registro) { return un_registro.Sexo } }));
         columnas.push(new Columna("FechaNacimiento", { generar: function (un_registro) { return GraficoHerramientas.ConvertirFecha(un_registro.FechaNacimiento) } }));
+        columnas.push(new Columna("FechaIngreso", { generar: function (un_registro) { return GraficoHerramientas.ConvertirFecha(un_registro.FechaIngreso) } }));
         columnas.push(new Columna("Nivel", { generar: function (un_registro) { return un_registro.Nivel } }));
         columnas.push(new Columna("Grado", { generar: function (un_registro) { return un_registro.Grado } }));
         columnas.push(new Columna("Planta", { generar: function (un_registro) { return un_registro.Planta } }));

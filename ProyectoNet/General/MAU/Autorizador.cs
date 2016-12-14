@@ -236,7 +236,7 @@ namespace General.MAU
         {
             var enviador = new EnviadorDeMails();
             MailAddress mail_re_recupero = new MailAddress(mail);
-            enviador.EnviarMail(new NetworkCredential("rhusuarios", "RRhh2016"),
+            enviador.EnviarMail(new NetworkCredential("rhusuarios", "RRhh2016", "sds_domain_1"),
                     mail,
                    titulo,
                     cuerpo,

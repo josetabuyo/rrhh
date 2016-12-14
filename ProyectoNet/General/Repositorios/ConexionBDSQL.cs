@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Data;
 
 namespace General.Repositorios
 {
@@ -33,7 +34,9 @@ namespace General.Repositorios
             var un_comando = CrearComando(nombreProcedimiento);
             try
             {
+                //un_comando.Transaction = conexion.BeginTransaction(IsolationLevel.ReadUncommitted);
                 un_comando.ExecuteNonQuery();
+                //un_comando.Transaction.Commit();
                 CerrarBD();
                 return true;
             }
@@ -53,7 +56,9 @@ namespace General.Repositorios
             var un_comando = CrearComando(nombreProcedimiento, parametros);
             try
             {
+                //un_comando.Transaction = conexion.BeginTransaction(IsolationLevel.ReadUncommitted);
                 un_comando.ExecuteNonQuery();
+                //un_comando.Transaction.Commit();
                 CerrarBD();
                 return true;
             }
@@ -69,7 +74,9 @@ namespace General.Repositorios
         {
             AbrirBD();
             var un_comando = CrearComando(nombreProcedimiento);
+            //un_comando.Transaction = conexion.BeginTransaction(IsolationLevel.ReadUncommitted);
             object resultado = un_comando.ExecuteScalar();
+            //un_comando.Transaction.Commit();
             CerrarBD();
             return resultado;
         }
@@ -81,7 +88,9 @@ namespace General.Repositorios
             object resultado = new object();
             try
             {
+                //un_comando.Transaction = conexion.BeginTransaction(IsolationLevel.ReadUncommitted);
                 resultado = un_comando.ExecuteScalar();
+                //un_comando.Transaction.Commit();
             }
             catch (Exception e)
             {
