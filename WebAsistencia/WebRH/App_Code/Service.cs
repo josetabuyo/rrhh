@@ -217,7 +217,7 @@ public class AjaxWS : System.Web.Services.WebService
     {
         var respuesta = backEndService.GetMenuPara(nombre_menu, usuarioLogueado);
 
-        respuesta = AplicarConfiguracionDeEntorno(respuesta);
+   //     respuesta = AplicarConfiguracionDeEntorno(respuesta);
 
         var respuestaSerializada = Newtonsoft.Json.JsonConvert.SerializeObject(respuesta);
 
