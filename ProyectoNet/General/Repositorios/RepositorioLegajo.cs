@@ -473,7 +473,7 @@ namespace General.Repositorios
             parametros.Add("@id_usuario_creador", id_usuario);
 
             var resultado = conexion.EjecutarEscalar("dbo.LEG_GetConsultasPortalNoLeidas", parametros);
-            return (int)(decimal)resultado;
+            return (int)resultado;
         }
 
 
