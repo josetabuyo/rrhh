@@ -189,7 +189,7 @@ namespace General.MAU
             var titulo = "Bienvenido al SIGIRH";
             var cuerpo = "Nombre de Usuario: " + usuario.Alias + Environment.NewLine + "Contraseña: " + clave;
 
-            EnviarMail(aspirante.Email, titulo, cuerpo);
+            EnviadorDeMails.EnviarMail(aspirante.Email, titulo, cuerpo);
             return true;
         }
 
@@ -213,8 +213,9 @@ namespace General.MAU
             }
             return false;
         }
-           
-     
+
+
+
         private void EnviarMailDeRecupero(Usuario usuario, string mail)
         {
             if (usuario.Habilitado)
@@ -228,23 +229,11 @@ namespace General.MAU
                               "Luego de ingresar al sistema con la nueva clave, podrá cambiarla desde " +
                               "la opción 'Cambiar Contraseña en el menú superior derecho";
 
-                EnviarMail(mail, titulo, cuerpo);  
+                EnviadorDeMails.EnviarMail(mail, titulo, cuerpo);  
             }
         }
 
-        private void EnviarMail(string mail, string titulo, string cuerpo)
-        {
-            var enviador = new EnviadorDeMails();
-            MailAddress mail_re_recupero = new MailAddress(mail);
-            enviador.EnviarMail(new NetworkCredential("rhusuarios", "RRhh2016", "sds_domain_1"),
-                    mail,
-                   titulo,
-                    cuerpo,
-                    () => { },
-                    () => { throw new Exception("No se pudo enviar un mail con la clave"); }
-                );
-        }
-
+        
         public bool VerificarUsuario(int id_usuario, Usuario usuario)
         {
             if (!ElUsuarioTienePermisosPara(usuario.Id, 21)) return false;

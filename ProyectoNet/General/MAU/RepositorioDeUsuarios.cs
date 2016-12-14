@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using General.Repositorios;
+using System.Net.Mail;
 
 namespace General.MAU
 {
@@ -153,8 +154,14 @@ namespace General.MAU
             parametros.Add("@clave_encriptada", Encriptador.EncriptarSHA1(clave_nueva));
 
             conexion.Ejecutar("dbo.MAU_GuardarUsuario", parametros);
+            //Enviar Mail de reseteo
+            var usuario = this.GetUsuarioPorId(id_usuario);
+            var titulo = "Bienvenido al SIGIRH";
+            var cuerpo = "Nombre de Usuario: " + usuario.Alias + Environment.NewLine + "Contraseña: " + clave_nueva;
+            EnviadorDeMails.EnviarMail(usuario.MailRegistro, titulo, cuerpo);
             return clave_nueva;
         }
+
 
         private static string ClaveRandom()
         {
