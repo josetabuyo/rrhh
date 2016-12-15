@@ -24,7 +24,19 @@ public partial class _Default : System.Web.UI.Page
         if (ws.Login(nombre_usuario, password)){
             var usu = ws.GetUsuarioPorAlias(nombre_usuario);
             Session[ConstantesDeSesion.USUARIO] = usu;
-            Response.Redirect("MenuPrincipal/Menu.aspx");
+            //FC: esta logica también está en el botón INICIO de la barra de menu del sistema. Si se cambia aca, cambiar alla también.
+            if (usu.Verificado && usu.Owner.Legajo != null)
+            {
+                Response.Redirect("Portal/Portal.aspx");
+            }
+            else
+            {
+                //FC: si la persona no esta verificada, entra a la pantalla de modulos y en caso que no tuviera permiso para ninguno, lo deriva a POSTULAR
+                Response.Redirect("MenuPrincipal/Menu.aspx");
+            }
+            
+
+            
         }
         else
         {

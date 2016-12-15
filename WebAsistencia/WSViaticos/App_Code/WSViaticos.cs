@@ -2802,7 +2802,8 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public MenuDelSistema GetMenuPara(string nombre_menu, Usuario usuario)
     {
-        return Autorizador().GetMenuPara(nombre_menu, usuario);
+        MenuDelSistema menu = Autorizador().GetMenuPara(nombre_menu, usuario);
+        return menu;
     }
 
     #endregion
