@@ -4209,6 +4209,14 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public string GetCarreraAdministrativaPortal(Usuario usuario)
+    {
+
+        return RepoLegajo().getCarreraAdminstrativa((usuario.Owner.Documento));
+
+    }
+
+    [WebMethod]
     public string GetDocumentosDelLegajo(Usuario usuario)
     {
 
@@ -4224,6 +4232,28 @@ public class WSViaticos : System.Web.Services.WebService
 
 
     #endregion
+
+    #region DatosAbiertos
+
+    [WebMethod]
+    public string ExcelMapaDelEstado(Usuario usuario)
+    {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 46)) throw (new Exception("El usuario no tiene permisos para el modulo de datos abiertos"));
+        try
+        {
+            RepositorioDeDatosAbiertos repositorio = new RepositorioDeDatosAbiertos(Conexion());
+
+            return repositorio.ExcelGeneradoMapaDelEstado();
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+
+    }
+
+    #endregion
+
 
     private RepositorioLicencias RepoLicencias()
     {

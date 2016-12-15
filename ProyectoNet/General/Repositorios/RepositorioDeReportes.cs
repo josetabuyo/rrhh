@@ -251,11 +251,13 @@ namespace General.Repositorios
                 DataTable table_detalle = new DataTable();
                 table_detalle.TableName = "Detalle";
 
-                table_detalle.Columns.Add("NroDocumento");
+               // table_detalle.Columns.Add("NroDocumento");
+                table_detalle.Columns.Add("CUIL");
                 table_detalle.Columns.Add("Apellido");
                 table_detalle.Columns.Add("Nombre");
                 table_detalle.Columns.Add("Sexo");
                 table_detalle.Columns.Add("FechaNacimiento");
+                table_detalle.Columns.Add("FechaIngreso");
                 table_detalle.Columns.Add("Nivel");
                 table_detalle.Columns.Add("Grado");
                 table_detalle.Columns.Add("Planta");
@@ -266,7 +268,7 @@ namespace General.Repositorios
 
                 foreach (var item in grafico.tabla_detalle)
                 {
-                    table_detalle.Rows.Add(item.NroDocumento, item.Apellido, item.Nombre, item.Sexo, item.FechaNacimiento.ToShortDateString(), item.Nivel, item.Grado, item.Planta, item.NivelEstudio, item.Titulo, item.Area, item.AreaDescripMedia);
+                    table_detalle.Rows.Add(item.CUIL, item.Apellido, item.Nombre, item.Sexo, item.FechaNacimiento.ToShortDateString(), item.FechaIngreso.ToShortDateString(), item.Nivel, item.Grado, item.Planta, item.NivelEstudio, item.Titulo, item.Area, item.AreaDescripMedia);
                 }
 
                 //CREACIÓN DE LAS COLUMNAS
@@ -377,9 +379,11 @@ namespace General.Repositorios
                 }
 
                 table_resumen.Columns.Add("Area");
-                table_resumen.Columns.Add("Documento");
+             //   table_resumen.Columns.Add("Documento");
+                table_resumen.Columns.Add("CUIL");
                 table_resumen.Columns.Add("Apellido");
                 table_resumen.Columns.Add("Nombre");
+                table_resumen.Columns.Add("FechaIngreso");
                 table_resumen.Columns.Add("SueldoBruto");
                 table_resumen.Columns.Add("SueldoNeto");
                 table_resumen.Columns.Add("ExtrasBruto");
@@ -428,7 +432,7 @@ namespace General.Repositorios
                     {
                         valor_UR = item.UnidadRetributiva;
                     }
-                    table_resumen.Rows.Add(item.Area, item.NroDocumento, item.Apellido, item.Nombre, item.SueldoBruto, item.SueldoNeto, valor_extra_bruto, valor_extra_neto, valor_horas_simples, valor_horas_50, valor_horas_100, valor_comidas, valor_UR);
+                    table_resumen.Rows.Add(item.Area, item.CUIL, item.Apellido, item.Nombre,item.FechaIngreso.ToShortDateString(), item.SueldoBruto, item.SueldoNeto, valor_extra_bruto, valor_extra_neto, valor_horas_simples, valor_horas_50, valor_horas_100, valor_comidas, valor_UR);
                 }
 
                 var workbook = new XLWorkbook();
@@ -485,13 +489,16 @@ namespace General.Repositorios
                 ws.Range(4, 1, lastCell.Address.RowNumber, lastCell.Address.ColumnNumber).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
                 ws.Range(4, 1, lastCell.Address.RowNumber, lastCell.Address.ColumnNumber).Style.Border.OutsideBorder = XLBorderStyleValues.Medium;
 
-                ws.Range(5, 2, lastCell.Address.RowNumber, lastCell.Address.ColumnNumber).DataType = XLCellValues.Number;
+                ws.Range(5, 3, lastCell.Address.RowNumber, lastCell.Address.ColumnNumber).DataType = XLCellValues.Number;
 
                 workbook.Worksheets.Add(dataTable_resumen);
 
                 var lastCell2 = workbook.Worksheet(2).LastCellUsed();
-                workbook.Worksheet(2).Range(2, 2, lastCell2.Address.RowNumber, 2).DataType = XLCellValues.Number;
-                workbook.Worksheet(2).Range(2, 5, lastCell2.Address.RowNumber, 13).DataType = XLCellValues.Number;
+              //  workbook.Worksheet(2).Range(2, 2, lastCell2.Address.RowNumber, 2).DataType = XLCellValues.Number;
+              //  workbook.Worksheet(2).Range(2, 5, lastCell2.Address.RowNumber, 13).DataType = XLCellValues.Number;
+
+                  workbook.Worksheet(2).Range(2, 2, lastCell2.Address.RowNumber, 2).DataType = XLCellValues.Number;
+                  workbook.Worksheet(2).Range(2, 6, lastCell2.Address.RowNumber, 14).DataType = XLCellValues.Number;
 
                 workbook.Worksheet(2).Column("A").Width = 25;
                 workbook.Worksheet(2).Column("B").Width = 14;
@@ -543,11 +550,13 @@ namespace General.Repositorios
                 table_resumen.Columns.Add("Porcentaje Mujeres");
 
                 table_detalle.Columns.Add("Area");
-                table_detalle.Columns.Add("NroDocumento");
+                //table_detalle.Columns.Add("NroDocumento");
+                table_detalle.Columns.Add("CUIL");
                 table_detalle.Columns.Add("Apellido_Nombre");
                 table_detalle.Columns.Add("Edad");
                 table_detalle.Columns.Add("Sexo");
                 table_detalle.Columns.Add("FechaNacimiento");
+                table_detalle.Columns.Add("FechaIngreso");
                 table_detalle.Columns.Add("Nivel");
                 table_detalle.Columns.Add("Grado");
                 table_detalle.Columns.Add("Planta");
@@ -567,11 +576,13 @@ namespace General.Repositorios
                 {
                    
                     table_detalle.Rows.Add(item.Area,
-                        item.NroDocumento,
+                     //   item.NroDocumento,
+                         item.CUIL,
                         item.Apellido + " " + item.Nombre,
                         item.Edad(DateTime.Now),
                         item.Sexo,
                         item.FechaNacimiento.ToShortDateString(),
+                        item.FechaIngreso.ToShortDateString(),
                         item.Nivel,
                         item.Grado,
                         item.Planta,
@@ -632,7 +643,7 @@ namespace General.Repositorios
              
                 
                 workbook.Worksheet(2).Range(2, 4, lastCell2.Address.RowNumber, 4).DataType = XLCellValues.Number;
-                workbook.Worksheet(2).Range(2, 8, lastCell2.Address.RowNumber,8).DataType = XLCellValues.Number;
+              //  workbook.Worksheet(2).Range(2, 8, lastCell2.Address.RowNumber,8).DataType = XLCellValues.Number;
 
                 workbook.Worksheet(2).Column("A").Width = 25;
                 workbook.Worksheet(2).Column("B").Width = 15;
@@ -640,7 +651,7 @@ namespace General.Repositorios
                 workbook.Worksheet(2).Column("D").Width = 8;
                 workbook.Worksheet(2).Column("E").Width = 10;
                 workbook.Worksheet(2).Column("F").Width = 18;
-                workbook.Worksheet(2).Column("G").Width = 7;
+                workbook.Worksheet(2).Column("G").Width = 18;
                 workbook.Worksheet(2).Column("H").Width = 18;
                 workbook.Worksheet(2).Column("I").Width = 18;
                 workbook.Worksheet(2).Column("J").Width = 18;
@@ -767,7 +778,7 @@ namespace General.Repositorios
                 workbook.Worksheet(2).Column("D").Width = 8;
                 workbook.Worksheet(2).Column("E").Width = 10;
                 workbook.Worksheet(2).Column("F").Width = 18;
-                workbook.Worksheet(2).Column("G").Width = 7;
+                workbook.Worksheet(2).Column("G").Width = 18;
                 workbook.Worksheet(2).Column("H").Width = 18;
                 workbook.Worksheet(2).Column("I").Width = 18;
                 workbook.Worksheet(2).Column("J").Width = 18;

@@ -496,6 +496,43 @@ var Legajo = {
                         spinner.stop();
                     });
     },
+    GetCarreraAdministrativa: function () {
+        var spinner = new Spinner({ scale: 2 });
+        spinner.spin($("html")[0]);
+
+        Backend.GetCarreraAdministrativaPortal()
+                    .onSuccess(function (carreraJSON) {
+                        var carreras = [];
+                        if (carreraJSON != "") {
+                            carreras = JSON.parse(carreraJSON);
+                        }
+                        var _this = this;
+                        $("#tablaCarreraAdministrativa").empty();
+                        var divGrilla = $("#tablaCarreraAdministrativa");
+                        var columnas = [];
+                        columnas.push(new Columna("Organismo", { generar: function (una_carrera) { return una_carrera.Organismo } }));
+                        columnas.push(new Columna("Regimen", { generar: function (una_carrera) { return una_carrera.Regimen } }));
+                        columnas.push(new Columna("Agrupamiento", { generar: function (una_carrera) { return una_carrera.Agrupamiento } }));
+                        columnas.push(new Columna("Nivel", { generar: function (una_carrera) { return una_carrera.Nivel } }));
+                        columnas.push(new Columna("Grado", { generar: function (una_carrera) { return una_carrera.Grado } }));
+                        columnas.push(new Columna("Cargo", { generar: function (una_carrera) { return una_carrera.Cargo } }));
+                        columnas.push(new Columna("FechaDesde", { generar: function (una_carrera) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_carrera.FechaDesde) } }));
+                        columnas.push(new Columna("FechaHasta", { generar: function (una_carrera) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_carrera.FechaHasta) } }));
+                        columnas.push(new Columna("DescCausa", { generar: function (una_carrera) { return una_carrera.DescCausa } }));
+                        columnas.push(new Columna("Folio", { generar: function (una_carrera) { return una_carrera.Folio } }));
+
+                        _this.Grilla = new Grilla(columnas);
+                        _this.Grilla.CambiarEstiloCabecera("estilo_tabla_portal");
+                        _this.Grilla.CargarObjetos(carreras);
+                        _this.Grilla.DibujarEn(divGrilla);
+                        $('.table-hover').removeClass("table-hover");
+
+                        spinner.stop();
+                    })
+                    .onError(function (e) {
+                        spinner.stop();
+                    });
+    },
     getDocumentos: function () {
         var spinner = new Spinner({ scale: 2 });
         spinner.spin($("html")[0]);
