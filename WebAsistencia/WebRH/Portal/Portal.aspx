@@ -116,7 +116,7 @@
 			            <div class="ch-info">
 				            <div class="ch-info-front ch-img-1"></div>
 				            <div class="ch-info-back">
-					            <h3>RECIBO</h3>
+					            <h3>BENEFICIOS</h3>
 				            </div>	
 			            </div>
 		            </div>
@@ -147,7 +147,7 @@
 			            <div class="ch-info">
 				            <div class="ch-info-front ch-img-1"></div>
 				            <div class="ch-info-back">
-					            <h3>PERFIL</h3>
+					            <h3>CARRERA</h3>
 				            </div>	
 			            </div>
 		            </div>
@@ -199,7 +199,7 @@
                 });
 
                 $('#btnOrganigrama').click(function () {
-                    window.location.href = '../Protocolo/ConsultaLugaresDeTrabajo.aspx';
+                    window.location.href = 'Organigrama.aspx';
                 });
                 
             });
