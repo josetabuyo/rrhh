@@ -316,7 +316,7 @@ namespace General.Repositorios
             }
         }
 
-       
+
         public string getDesignaciones(int doc)
         {
             var parametros = new Dictionary<string, object>();
@@ -395,7 +395,7 @@ namespace General.Repositorios
             {
                 tablaDatos.Rows.ForEach(row =>
                 {
-                    Persona creador = new Persona(row.GetInt("id_usuario_creador"), 0,row.GetString("nombre_creador"), row.GetString("apellido_creador"), area);
+                    Persona creador = new Persona(row.GetInt("id_usuario_creador"), 0, row.GetString("nombre_creador"), row.GetString("apellido_creador"), area);
                     Persona responsable = new Persona(row.GetInt("is_usuario_responsable", 0), 0, row.GetString("nombre_responsable", ""), row.GetString("apellido_responsable", ""), area);
                     Consulta consulta = new Consulta(
                         row.GetInt("Id"),
@@ -423,7 +423,7 @@ namespace General.Repositorios
             {
                 parametros.Add("@Estado", estado);
             }
-            
+
             List<Consulta> consultas = new List<Consulta>();
             Area area = new Area();
             var tablaDatos = conexion.Ejecutar("dbo.LEG_GETConsultasDePortal", parametros);
@@ -434,7 +434,7 @@ namespace General.Repositorios
                 {
                     Persona creador = new Persona(row.GetInt("id_usuario_creador"), 0, row.GetString("nombre_creador"), row.GetString("apellido_creador"), area);
                     Persona responsable = new Persona(row.GetInt("is_usuario_responsable", 0), 0, row.GetString("nombre_responsable", ""), row.GetString("apellido_responsable", ""), area);
-                    
+
                     Consulta consulta = new Consulta(
                         row.GetInt("Id"),
                         creador,
@@ -466,7 +466,14 @@ namespace General.Repositorios
             conexion.EjecutarSinResultado("dbo.LEG_UPDConsultasDePortal", parametros);
         }
 
-        
+
+
+        public void MarcarConsultaComoLeida(int id_consulta)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@Id_consulta", id_consulta);
+            conexion.EjecutarSinResultado("dbo.LEG_UDPConsultaLeida", parametros);
+        }
 
         public string GetTiposDeConsultaDePortal()
         {

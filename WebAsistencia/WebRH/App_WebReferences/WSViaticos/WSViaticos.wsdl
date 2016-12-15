@@ -2,7 +2,7 @@
 <wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://wsviaticos.gov.ar/">
-      <s:element name="ConsultaExcelDDJJ104_Area">
+      <s:element name="ConsultaExcelDDJJ104_Persona">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
@@ -189,6 +189,21 @@
           <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
         </s:sequence>
       </s:complexType>
+      <s:element name="ConsultaExcelDDJJ104_PersonaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaExcelDDJJ104_PersonaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaExcelDDJJ104_Area">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="ConsultaExcelDDJJ104_AreaResponse">
         <s:complexType>
           <s:sequence>
@@ -1354,6 +1369,16 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="MarcarConsultaComoLeida">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_consulta" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MarcarConsultaComoLeidaResponse">
+        <s:complexType />
+      </s:element>
       <s:element name="NuevaConsultaDePortal">
         <s:complexType>
           <s:sequence>
@@ -1465,21 +1490,6 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="ExcelMapaDelEstadoResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ConsultaExcelDDJJ104_Persona">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ConsultaExcelDDJJ104_PersonaResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ConsultaExcelDDJJ104_PersonaResult" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -6312,6 +6322,12 @@
       </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="ConsultaExcelDDJJ104_PersonaSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaExcelDDJJ104_Persona" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaExcelDDJJ104_PersonaSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaExcelDDJJ104_PersonaResponse" />
+  </wsdl:message>
   <wsdl:message name="ConsultaExcelDDJJ104_AreaSoapIn">
     <wsdl:part name="parameters" element="tns:ConsultaExcelDDJJ104_Area" />
   </wsdl:message>
@@ -6654,6 +6670,12 @@
   <wsdl:message name="GetTiposDeConsultaDePortalSoapOut">
     <wsdl:part name="parameters" element="tns:GetTiposDeConsultaDePortalResponse" />
   </wsdl:message>
+  <wsdl:message name="MarcarConsultaComoLeidaSoapIn">
+    <wsdl:part name="parameters" element="tns:MarcarConsultaComoLeida" />
+  </wsdl:message>
+  <wsdl:message name="MarcarConsultaComoLeidaSoapOut">
+    <wsdl:part name="parameters" element="tns:MarcarConsultaComoLeidaResponse" />
+  </wsdl:message>
   <wsdl:message name="NuevaConsultaDePortalSoapIn">
     <wsdl:part name="parameters" element="tns:NuevaConsultaDePortal" />
   </wsdl:message>
@@ -6695,12 +6717,6 @@
   </wsdl:message>
   <wsdl:message name="ExcelMapaDelEstadoSoapOut">
     <wsdl:part name="parameters" element="tns:ExcelMapaDelEstadoResponse" />
-  </wsdl:message>
-  <wsdl:message name="ConsultaExcelDDJJ104_PersonaSoapIn">
-    <wsdl:part name="parameters" element="tns:ConsultaExcelDDJJ104_Persona" />
-  </wsdl:message>
-  <wsdl:message name="ConsultaExcelDDJJ104_PersonaSoapOut">
-    <wsdl:part name="parameters" element="tns:ConsultaExcelDDJJ104_PersonaResponse" />
   </wsdl:message>
   <wsdl:message name="BuscarPersonaDeBajaConPermisosSoapIn">
     <wsdl:part name="parameters" element="tns:BuscarPersonaDeBajaConPermisos" />
@@ -8131,6 +8147,10 @@
     <wsdl:part name="parameters" element="tns:EstadoServicioDeAlertasResponse" />
   </wsdl:message>
   <wsdl:portType name="WSViaticosSoap">
+    <wsdl:operation name="ConsultaExcelDDJJ104_Persona">
+      <wsdl:input message="tns:ConsultaExcelDDJJ104_PersonaSoapIn" />
+      <wsdl:output message="tns:ConsultaExcelDDJJ104_PersonaSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="ConsultaExcelDDJJ104_Area">
       <wsdl:input message="tns:ConsultaExcelDDJJ104_AreaSoapIn" />
       <wsdl:output message="tns:ConsultaExcelDDJJ104_AreaSoapOut" />
@@ -8359,6 +8379,10 @@
       <wsdl:input message="tns:GetTiposDeConsultaDePortalSoapIn" />
       <wsdl:output message="tns:GetTiposDeConsultaDePortalSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="MarcarConsultaComoLeida">
+      <wsdl:input message="tns:MarcarConsultaComoLeidaSoapIn" />
+      <wsdl:output message="tns:MarcarConsultaComoLeidaSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="NuevaConsultaDePortal">
       <wsdl:input message="tns:NuevaConsultaDePortalSoapIn" />
       <wsdl:output message="tns:NuevaConsultaDePortalSoapOut" />
@@ -8386,10 +8410,6 @@
     <wsdl:operation name="ExcelMapaDelEstado">
       <wsdl:input message="tns:ExcelMapaDelEstadoSoapIn" />
       <wsdl:output message="tns:ExcelMapaDelEstadoSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="ConsultaExcelDDJJ104_Persona">
-      <wsdl:input message="tns:ConsultaExcelDDJJ104_PersonaSoapIn" />
-      <wsdl:output message="tns:ConsultaExcelDDJJ104_PersonaSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="BuscarPersonaDeBajaConPermisos">
       <wsdl:input message="tns:BuscarPersonaDeBajaConPermisosSoapIn" />
@@ -9346,6 +9366,15 @@
   </wsdl:portType>
   <wsdl:binding name="WSViaticosSoap" type="tns:WSViaticosSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ConsultaExcelDDJJ104_Persona">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ConsultaExcelDDJJ104_Persona" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ConsultaExcelDDJJ104_Area">
       <soap:operation soapAction="http://wsviaticos.gov.ar/ConsultaExcelDDJJ104_Area" style="document" />
       <wsdl:input>
@@ -9859,6 +9888,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="MarcarConsultaComoLeida">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/MarcarConsultaComoLeida" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="NuevaConsultaDePortal">
       <soap:operation soapAction="http://wsviaticos.gov.ar/NuevaConsultaDePortal" style="document" />
       <wsdl:input>
@@ -9915,15 +9953,6 @@
     </wsdl:operation>
     <wsdl:operation name="ExcelMapaDelEstado">
       <soap:operation soapAction="http://wsviaticos.gov.ar/ExcelMapaDelEstado" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ConsultaExcelDDJJ104_Persona">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/ConsultaExcelDDJJ104_Persona" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -12076,6 +12105,15 @@
   </wsdl:binding>
   <wsdl:binding name="WSViaticosSoap12" type="tns:WSViaticosSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ConsultaExcelDDJJ104_Persona">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ConsultaExcelDDJJ104_Persona" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ConsultaExcelDDJJ104_Area">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/ConsultaExcelDDJJ104_Area" style="document" />
       <wsdl:input>
@@ -12589,6 +12627,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="MarcarConsultaComoLeida">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/MarcarConsultaComoLeida" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="NuevaConsultaDePortal">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/NuevaConsultaDePortal" style="document" />
       <wsdl:input>
@@ -12645,15 +12692,6 @@
     </wsdl:operation>
     <wsdl:operation name="ExcelMapaDelEstado">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/ExcelMapaDelEstado" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ConsultaExcelDDJJ104_Persona">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/ConsultaExcelDDJJ104_Persona" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

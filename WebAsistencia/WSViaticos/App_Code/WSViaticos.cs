@@ -4179,6 +4179,12 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public void MarcarConsultaComoLeida(int id_consulta)
+    {
+        RepoLegajo().MarcarConsultaComoLeida(id_consulta);
+    }
+
+    [WebMethod]
     public int NuevaConsultaDePortal(Consulta consulta, Usuario usuario)
     {
         return RepoLegajo().NuevaConsultaDePortal(usuario.Owner.Id, consulta);

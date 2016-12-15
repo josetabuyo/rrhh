@@ -35,7 +35,7 @@
                     <b style="color: #0074cc">Ministerio de Desarrollo Social de la Nación</b></h4>
                 <br />
                 <br />
-                <h5 id="link_nuevos_mensajes" style="float: right;cursor:pointer;">
+                <h5 id="link_nuevos_mensajes" style="float: right;cursor:pointer;display:none;">
                     <p style="text-align: center; font-size: initial; color: #1a8662;">
                         Nuevos mensajes!</p>
                     <br />

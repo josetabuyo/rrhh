@@ -531,16 +531,21 @@ var Legajo = {
         consultas_sin_leer = cantidad;
             if (cantidad > 0) {
                 $("#link_consultas").html("Consultas (" + cantidad + ")");
-            }  
+                 $("#link_nuevos_mensajes").show();   
+            } else{
+             $("#link_nuevos_mensajes").hide();
+            } 
         })
         .onError(function (e) {
         });
     },
 
-    MostrarDetalleDeConsulta: function (motivo, respuesta) {
+    MostrarDetalleDeConsulta: function (id, motivo, respuesta) {
         $('#div_detalle_consulta').show();
         $('#ta_motivo').val(motivo);
         $('#ta_respuesta').val(respuesta);
+        Backend.MarcarConsultaComoLeida(id).onSuccess(function(){}).onError(function(e){});
+         this.GetConsultasNoLeidas(); 
     },
 
     TratarConsulta: function (nro_consulta, creador, tipo, motivo) {
@@ -589,7 +594,7 @@ var Legajo = {
                                 img.attr('height', '15px');
                                 btn_accion.append(img);
                                 btn_accion.click(function () {
-                                    _this_original.MostrarDetalleDeConsulta(una_consulta.motivo, una_consulta.respuesta);
+                                    _this_original.MostrarDetalleDeConsulta(una_consulta.Id, una_consulta.motivo, una_consulta.respuesta);
                                 });
                                 return btn_accion;
                             }
