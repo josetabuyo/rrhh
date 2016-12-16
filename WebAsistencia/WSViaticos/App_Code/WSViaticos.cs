@@ -74,8 +74,23 @@ public class WSViaticos : System.Web.Services.WebService
         return repo.DiasHabilesEntreFechas(desde, hasta);
     }
 
+
+    [WebMethod]
+    public string GetAnalisisLicenciaOrdinariaUsuarioLogueado(Usuario usuario)
+    {
+        var concepto = new ConceptoDeLicencia();
+        concepto.Id = 1;
+        return JsonConvert.SerializeObject(this.GetAnalisisLicenciaOrdinariaLocal(usuario.Owner.Documento.ToString(), false));
+    }
+
     [WebMethod]
     public AnalisisDeLicenciaOrdinaria GetAnalisisLicenciaOrdinaria(string csv_dnis, bool persistir_resultados)
+    {
+        return GetAnalisisLicenciaOrdinariaLocal(csv_dnis, persistir_resultados);
+    }
+
+    
+    public AnalisisDeLicenciaOrdinaria GetAnalisisLicenciaOrdinariaLocal(string csv_dnis, bool persistir_resultados)
     {
         var ordinaria = new ConceptoLicenciaAnualOrdinaria();
         var analisis = new AnalisisDeLicenciaOrdinaria();
@@ -2802,7 +2817,8 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public MenuDelSistema GetMenuPara(string nombre_menu, Usuario usuario)
     {
-        return Autorizador().GetMenuPara(nombre_menu, usuario);
+        MenuDelSistema menu = Autorizador().GetMenuPara(nombre_menu, usuario);
+        return menu;
     }
 
     #endregion
@@ -4146,7 +4162,7 @@ public class WSViaticos : System.Web.Services.WebService
     {
         RepositorioLegajo repo = RepoLegajo();
 
-        return repo.GetConsultasDePortal(usuario.Id);
+        return repo.GetConsultasDePortal(usuario.Owner.Id);
 
     }
 
@@ -4194,6 +4210,14 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public string GetCarreraAdministrativaPortal(Usuario usuario)
+    {
+
+        return RepoLegajo().getCarreraAdminstrativa((usuario.Owner.Documento));
+
+    }
+
+    [WebMethod]
     public string GetDocumentosDelLegajo(Usuario usuario)
     {
 
@@ -4209,6 +4233,28 @@ public class WSViaticos : System.Web.Services.WebService
 
 
     #endregion
+
+    #region DatosAbiertos
+
+    [WebMethod]
+    public string ExcelMapaDelEstado(Usuario usuario)
+    {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 46)) throw (new Exception("El usuario no tiene permisos para el modulo de datos abiertos"));
+        try
+        {
+            RepositorioDeDatosAbiertos repositorio = new RepositorioDeDatosAbiertos(Conexion());
+
+            return repositorio.ExcelGeneradoMapaDelEstado();
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+
+    }
+
+    #endregion
+
 
     private RepositorioLicencias RepoLicencias()
     {

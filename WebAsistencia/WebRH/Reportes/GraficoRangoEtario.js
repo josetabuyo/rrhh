@@ -79,10 +79,10 @@ var GraficoRangoEtario = {
             Backend.ExcelGeneradoRangoEtario({ tipo: check_seleccionado, fecha: fecha, id_area: parseInt(id_area), incluir_dependencias: $("#chk_incluir_dependencias").is(":checked") })
             .onSuccess(function (resultado) {
                 if (resultado.length > 0) {
-                    var nombre_del_documento = "DETALLE_RANGOETARIO_" + fecha + "_.xlsx";
+                    var nombre_del_documento = "DETALLE_RANGOETARIO_" + fecha;
                     var a = window.document.createElement('a');
                     a.href = "data:application/vnd.ms-excel;base64," + resultado;
-                    a.download = nombre_del_documento + fecha + "_.xlsx";
+                    a.download = nombre_del_documento + ".xlsx";
                     document.body.appendChild(a);
                     a.click();
                     document.body.removeChild(a);
@@ -296,11 +296,12 @@ var GraficoRangoEtario = {
         var columnas = [];
 
         columnas.push(new Columna("Area", { generar: function (un_registro) { return un_registro.Area } }));
-        columnas.push(new Columna("NroDocumento", { generar: function (un_registro) { return un_registro.NroDocumento } }));
+        columnas.push(new Columna("CUIL", { generar: function (un_registro) { return un_registro.CUIL } }));
         columnas.push(new Columna("Apellido_Nombre", { generar: function (un_registro) { return (un_registro.Apellido + ", " + un_registro.Nombre) } }));
         columnas.push(new Columna("Edad", { generar: function (un_registro) { return un_registro.EdadPersona } }));
         columnas.push(new Columna("Sexo", { generar: function (un_registro) { return un_registro.Sexo } }));
         columnas.push(new Columna("FechaNacimiento", { generar: function (un_registro) { return GraficoHerramientas.ConvertirFecha(un_registro.FechaNacimiento) } }));
+        columnas.push(new Columna("FechaIngreso", { generar: function (un_registro) { return GraficoHerramientas.ConvertirFecha(un_registro.FechaIngreso) } }));
         columnas.push(new Columna("Nivel", { generar: function (un_registro) { return un_registro.Nivel } }));
         columnas.push(new Columna("Grado", { generar: function (un_registro) { return un_registro.Grado } }));
         columnas.push(new Columna("Planta", { generar: function (un_registro) { return un_registro.Planta } }));

@@ -81,12 +81,12 @@
                     <%--<img src="../Imagenes/portal/bg_shop.png" alt="" width="199" height="199" class="circle"/>
                     <a href="#" class="icon"></a>
                 </div>--%>
-                <div id="btnNotificaciones" class="ch-item ch-img-1 item notificaciones test">				
+                <div id="btnNotificaciones" class="ch-item ch-img-1 item capacitaciones test">				
 		            <div class="ch-info-wrap">
 			            <div class="ch-info">
 				            <div class="ch-info-front ch-img-1"></div>
 				            <div class="ch-info-back">
-					            <h3 style="font-size: 0.35em;">TRAMITACIONES</h3>
+					            <h3 style="font-size: 0.35em;">APLICATIVOS</h3>
 				            </div>	
 			            </div>
 		            </div>
@@ -96,7 +96,7 @@
                     <%--<img src="../Imagenes/portal/bg_camera.png" alt="" width="199" height="199" class="circle"/>
                     <a href="#" class="icon"></a>
                 </div>--%>
-                <div id="btnCapacitaciones" class="ch-item ch-img-1 item capacitaciones test">				
+                <div id="btnCapacitaciones" class="ch-item ch-img-1 item notificaciones test">				
 		            <div class="ch-info-wrap">
 			            <div class="ch-info">
 				            <div class="ch-info-front ch-img-1"></div>
@@ -116,7 +116,7 @@
 			            <div class="ch-info">
 				            <div class="ch-info-front ch-img-1"></div>
 				            <div class="ch-info-back">
-					            <h3>RECIBO</h3>
+					            <h3>BENEFICIOS</h3>
 				            </div>	
 			            </div>
 		            </div>
@@ -147,7 +147,7 @@
 			            <div class="ch-info">
 				            <div class="ch-info-front ch-img-1"></div>
 				            <div class="ch-info-back">
-					            <h3>PERFIL</h3>
+					            <h3>CARRERA</h3>
 				            </div>	
 			            </div>
 		            </div>
@@ -194,8 +194,12 @@
                     window.location.href = 'Recibo.aspx';
                 });
 
+                $('#btnNotificaciones').click(function () {
+                    window.location.href = '../MenuPrincipal/Menu.aspx';
+                });
+
                 $('#btnOrganigrama').click(function () {
-                    window.location.href = '../Protocolo/ConsultaLugaresDeTrabajo.aspx';
+                    window.location.href = 'Organigrama.aspx';
                 });
                 
             });

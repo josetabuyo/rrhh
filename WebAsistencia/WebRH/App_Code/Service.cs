@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Services;
 using System.Web.Script.Services;
 using Newtonsoft.Json;
+using System.Configuration;
 
 /// <summary>
 /// Descripción breve de AjaxWS
@@ -215,8 +216,34 @@ public class AjaxWS : System.Web.Services.WebService
     public string GetMenu(string nombre_menu)
     {
         var respuesta = backEndService.GetMenuPara(nombre_menu, usuarioLogueado);
+
+        respuesta = AplicarConfiguracionDeEntorno(respuesta);
+
         var respuestaSerializada = Newtonsoft.Json.JsonConvert.SerializeObject(respuesta);
+
         return respuestaSerializada;
+    }
+
+    protected WSViaticos.MenuDelSistema AplicarConfiguracionDeEntorno(WSViaticos.MenuDelSistema respuesta)
+    {
+        if (EstoyEnEntornoDeDesarrollo())
+        {
+            AgregarWebRHAUrls(respuesta);
+        }
+        return respuesta;
+    }
+
+    protected void AgregarWebRHAUrls(WSViaticos.MenuDelSistema respuesta)
+    {
+        respuesta.Items.ToList().ForEach(item =>
+        {
+            item.Acceso.Url = "/WebRH" + item.Acceso.Url;
+        });
+    }
+
+    protected bool EstoyEnEntornoDeDesarrollo()
+    {
+        return ConfigurationManager.AppSettings["developmentMode"].Equals("afkr73p21");
     }
 
     [WebMethod(EnableSession = true)]

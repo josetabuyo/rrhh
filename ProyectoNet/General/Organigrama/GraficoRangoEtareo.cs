@@ -51,7 +51,9 @@ namespace General
                             row.GetString("area_descrip_subsecretaria", "S/Nombre"),
                             row.GetString("area_descrip_secretaria_corta", "S/Nombre"),
                             row.GetString("area_descrip_subsecretaria_corta", "S/Nombre"),
-                            row.GetInt("Orden", 999999)
+                            row.GetInt("Orden", 999999),
+                            row.GetString("CUIL", ""),
+                            row.GetDateTime("FechaIngreso", DateTime.MinValue)
                 );
                 persona.Edad(fecha_reporte);
 

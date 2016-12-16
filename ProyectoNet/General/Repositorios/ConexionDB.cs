@@ -93,7 +93,10 @@ namespace General.Repositorios
         {
             try
             {
-                return _Comando.ExecuteReader();
+                //_Comando.Transaction = _Coneccion.BeginTransaction(IsolationLevel.ReadUncommitted);
+                var resp =  _Comando.ExecuteReader();
+                //_Comando.Transaction.Commit();
+                return resp;
             }
             catch (Exception Ex)
             {
@@ -106,7 +109,9 @@ namespace General.Repositorios
         {
             try
             {
+                //_Comando.Transaction = _Coneccion.BeginTransaction(IsolationLevel.ReadUncommitted);
                 _Comando.ExecuteNonQuery();
+                //_Comando.Transaction.Commit();
                 return true;
             }
             catch (Exception Ex)
@@ -119,7 +124,10 @@ namespace General.Repositorios
         {
             try
             {
-                return _Comando.ExecuteScalar();
+                //_Comando.Transaction = _Coneccion.BeginTransaction(IsolationLevel.ReadUncommitted);
+                var resp =  _Comando.ExecuteScalar();
+                //_Comando.Transaction.Commit();
+                return resp;
             }
             catch (Exception Ex)
             {
