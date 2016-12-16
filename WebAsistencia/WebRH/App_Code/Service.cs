@@ -925,6 +925,13 @@ public class AjaxWS : System.Web.Services.WebService
             argumentos_a_enviar.Add(usuarioLogueado);
         }
         var respuesta = metodo.Invoke(backEndService, argumentos_a_enviar.ToArray());
+
+        if ((nombre_metodo == "ModificarMiMail") || (nombre_metodo == "ModificarMailRegistro"))
+        {
+            this.usuarioLogueado = backEndService.GetUsuarioPorId(this.usuarioLogueado.Id);
+            Session[ConstantesDeSesion.USUARIO] = this.usuarioLogueado;
+        }
+
         return Newtonsoft.Json.JsonConvert.SerializeObject(respuesta);
     }
 

@@ -29,7 +29,7 @@
                 Backend.ModificarMiMail(mail).onSuccess(function (ok) {
                     if (ok) {
                         alertify.success("Mail modificado correctamente");
-                        cargar_menu();
+                        cargar_menu();         
                     }
                     else alertify.error("Error al modificar el mail");
                 }).onError(function () {
