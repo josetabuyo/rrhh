@@ -85,10 +85,10 @@ var GraficoSueldos = {
             Backend.ExcelGeneradoSueldos({ tipo: check_seleccionado, fecha: fecha, id_area: parseInt(id_area), incluir_dependencias: $("#chk_incluir_dependencias").is(":checked") })
              .onSuccess(function (resultado) {
                  if (resultado.length > 0) {
-                     var nombre_del_documento = "DETALLE_SUELDOS_" + fecha + "_.xlsx";
+                     var nombre_del_documento = "DETALLE_SUELDOS_" + fecha;
                      var a = window.document.createElement('a');
                      a.href = "data:application/vnd.ms-excel;base64," + resultado;
-                     a.download = nombre_del_documento + fecha + "_.xlsx";
+                     a.download = nombre_del_documento + "_.xlsx";
                      document.body.appendChild(a);
                      a.click();
                      document.body.removeChild(a);

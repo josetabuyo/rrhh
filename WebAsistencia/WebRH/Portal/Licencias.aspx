@@ -33,6 +33,11 @@
                 <a href="#" id="btn_excel_pendientes" class="btn_exportar">Exportar Datos</a>
                 <div id="tablaLicenciasOrdinariasDisponibles" class="table table-striped table-bordered table-condensed">
                 </div>
+
+                <legend style="margin-top: 50px; margin-bottom: 50px;">HISTORICO DE LICENCIAS ORDINARIAS</legend>
+                <a href="#" id="A1" class="btn_exportar">Exportar Datos</a>
+                <div id="tablaHistoricoLicenciasOrdinarias" class="table table-striped table-bordered table-condensed">
+                </div>
             </div>
         </div>
     </div>

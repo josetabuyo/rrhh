@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Consultas.aspx.cs" Inherits="Portal_Consultas" %>
+
 <%@ Register Src="~/BarraMenu/BarraMenu.ascx" TagName="BarraMenu" TagPrefix="uc2" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
     <title>Portal RRHH</title>
@@ -35,39 +35,23 @@
                     <b style="color: #0074cc">Ministerio de Desarrollo Social de la Nación</b></h4>
                 <br />
                 <br />
-                <h5 id="link_nuevos_mensajes" style="float: right;cursor:pointer;display:none;">
+                <input id="btn_nueva_consulta" type="button" class="btn btn-primary" value="Realizar nueva consulta" />
+                <br />
+                <br />
+                <br />
+
+            </div>
+            <div id="div_consultas_enviadas">
+            <h5>
+                    Consultas enviadas:</h5>
+            <h5 id="link_nuevos_mensajes" style="cursor:pointer;display:none;text-align: center;">
                     <p style="text-align: center; font-size: initial; color: #1a8662;">
                         Nuevos mensajes!</p>
                     <br />
                     <img style="margin-top: -28px; width: 140px;" alt="icono" src="../Imagenes/portal/respuestas.gif" /></h5>
-                <h5>
-                    Desde aquí podrá:</h5>
-                <ul style="margin-left: 10px;">
-                    <li type="disc">Realizar Consultas Administrativas</li>
-                    <li type="disc">Solicitar Cambios y Correcciones de Datos</li>
-                    <li type="disc">Aclarar sus dudas e inquietudes sobre las herramientas del Sitio y de
-                        Gestión</li>
-                    <li type="disc">Enviar Sugerencias y Comentarios</li>
-                </ul>
-                <br />
-                <br />
-                <br />
-                <h5 style="float: left;">
-                    Si quiere generar una consulta, seleccione aquí:</h5>
-                <input id="btn_nueva_consulta" type="button" class="btn btn-primary" style="margin: 10px;
-                    margin-top: -5px;" value="Realizar nueva consulta" />
-                <br />
-                <br />
-                <br />
-                <h5 style="float: left;">
-                    Si quiere ver las consultas enviadas, seleccione aquí:</h5>
-                <input id="btn_consultas_historicas_del_empleado" type="button" class="btn btn-primary" style="margin: 10px;
-                    margin-top: -5px;" value="Consultas enviadas" />
-            </div>
-            <div id="div_consultas_enviadas" style="display: none;">
                 <div id="tablaConsultas" class="table table-striped table-bordered table-condensed">
                 </div>
-                <input id="btn_volver_explicacion" type="button" class="btn btn-primary" value="Volver" />
+                <%-- <input id="btn_volver_explicacion" type="button" class="btn btn-primary" value="Volver" />--%>
             </div>
             <div id="div_detalle_consulta" style="display: none;">
                 <label style="margin-right: 24px;">
