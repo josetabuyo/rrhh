@@ -33,7 +33,20 @@ public partial class FormularioDeViaticos_BarraMenu : System.Web.UI.UserControl
     protected void VolverAInicioLinkButton_Click(object sender, EventArgs e)
     {
         {
-            Response.Redirect("~\\MenuPrincipal\\Menu.aspx");
+           
+                Usuario usu = (Usuario)Session[ConstantesDeSesion.USUARIO];// ((Usuario)Session["usuario"]);
+                //FC: esta logica también está en el Login.aspx.cs del proyecto WebRH. Si se cambia aca, cambiar alla también.
+                if (usu.Verificado && usu.Owner.Legajo != null)
+                {
+                    Response.Redirect("~\\Portal\\Portal.aspx");
+                }
+                else
+                {
+                    //FC: si la persona no esta verificada, entra a la pantalla de modulos y en caso que no tuviera permiso para ninguno, lo deriva a POSTULAR
+                    Response.Redirect("~\\MenuPrincipal\\Menu.aspx");
+                }
+           
+           
         }
     }
 

@@ -221,6 +221,64 @@ var Legajo = {
                         spinner.stop();
                     });
 
+        Backend.GetAnalisisLicenciaOrdinariaUsuarioLogueado()
+                    .onSuccess(function (analisisJSON) {
+                        var lineas = [];
+                        if (analisisJSON != "") {
+                            lineas = JSON.parse(analisisJSON).lineas;
+                        }
+                        var _this = this;
+                        var numeroParaGrilla = function (numero) {
+
+                            if (numero == 0) {
+                                return "";
+                            } else {
+                                return numero;
+                            }
+                        }
+                        var fechaParaGrilla = function (str_fecha) {
+                            if (str_fecha == "0001-01-01T00:00:00") {
+                                return "";
+                            }
+                            var fh = new Date(str_fecha);
+                            var dia = fh.getDate() + 1;
+                            var mes = fh.getMonth() + 1;
+                            var str = dia + '/' + mes + '/' + fh.getFullYear();
+                            return str;
+                        }
+
+                        $("#tablaHistoricoLicenciasOrdinarias").empty();
+                        var divGrilla = $("#tablaHistoricoLicenciasOrdinarias");
+                        var columnas = [];
+                        columnas.push(new Columna("Periodo", { generar: function (una_linea) { return numeroParaGrilla(una_linea.PeriodoAutorizado); } }));
+                        columnas.push(new Columna("Autorizados", { generar: function (una_linea) { return numeroParaGrilla(una_linea.CantidadDiasAutorizados); } }));
+                        columnas.push(new Columna("Utilizados", { generar: function (una_linea) { return una_linea.CantidadDiasDescontados } }));
+                        columnas.push(new Columna("Desde", { generar: function (una_linea) {
+                            if (una_linea.PerdidaPorVencimiento == true) {
+                                return "Vencidas";
+                            } else if (una_linea.PerdidaExplicitamente == true) {
+                                return una_linea.Observacion;
+                            } else {
+                                return fechaParaGrilla(una_linea.LicenciaDesde);
+                            }
+                        }
+                        }));
+                        columnas.push(new Columna("Hasta", { generar: function (una_linea) { return fechaParaGrilla(una_linea.LicenciaHasta) } }));
+
+                        _this.Grilla = new Grilla(columnas);
+                        _this.Grilla.CambiarEstiloCabecera("estilo_tabla_portal");
+                        _this.Grilla.CargarObjetos(lineas);
+                        _this.Grilla.DibujarEn(divGrilla);
+                        $('.table-hover').removeClass("table-hover");
+
+                        spinner.stop();
+
+                    })
+                    .onError(function (e) {
+                        spinner.stop();
+                    });
+
+
     },
     ConvertirAMonedaOVacio: function (numero) {
         var _this = this;
@@ -516,13 +574,13 @@ var Legajo = {
 
             if (usuario.Owner.IdImagen >= 0) {
                 var img = new VistaThumbnail({ id: usuario.Owner.IdImagen, contenedor: $(".imagen") });
-            }   
+            }
         })
         .onError(function (e) {
 
         });
 
-        
+
     },
     MostrarDetalleDeConsulta: function (motivo, respuesta) {
         $('#div_detalle_consulta').show();
@@ -531,22 +589,22 @@ var Legajo = {
     },
 
     TratarConsulta: function (nro_consulta, creador, tipo, motivo) {
-     $('#btn_responder_consulta').show();
-      $('#ta_respuesta').prop("disabled", false);
-    $('#tablaConsultas').hide();
-    $('#div_detalle_consulta').show();
-    $('#txt_creador').val(creador);
-    $('#txt_nro_consulta').val(nro_consulta);
-    $('#txt_tipo').val(tipo);
-    $('#ta_motivo').text(motivo);
-    
+        $('#btn_responder_consulta').show();
+        $('#ta_respuesta').prop("disabled", false);
+        $('#tablaConsultas').hide();
+        $('#div_detalle_consulta').show();
+        $('#txt_creador').val(creador);
+        $('#txt_nro_consulta').val(nro_consulta);
+        $('#txt_tipo').val(tipo);
+        $('#ta_motivo').text(motivo);
+
     },
 
     VisualizarConsulta: function (nro_consulta, creador, tipo, motivo, respuesta) {
-    this.TratarConsulta(nro_consulta, creador, tipo, motivo);
-     $('#btn_responder_consulta').hide();
-    $('#ta_respuesta').text(respuesta);
-    $('#ta_respuesta').prop("disabled", true);
+        this.TratarConsulta(nro_consulta, creador, tipo, motivo);
+        $('#btn_responder_consulta').hide();
+        $('#ta_respuesta').text(respuesta);
+        $('#ta_respuesta').prop("disabled", true);
     },
 
     getConsultas: function () {
@@ -609,41 +667,41 @@ var Legajo = {
 
     },
 
-    VolverAConsulta: function(){
-      $('#div_detalle_consulta').hide();
-      $('#tablaConsultas').show();
+    VolverAConsulta: function () {
+        $('#div_detalle_consulta').hide();
+        $('#tablaConsultas').show();
     },
 
-    ResponderConsulta: function(){
-    var id = parseInt($('#txt_nro_consulta').val());
-    var respuesta = $('#ta_respuesta').val();
-     Backend.ResponderConsulta(id, respuesta)
-                    .onSuccess(function () { 
-                    $('#btn_volver_consulta').click();
-                    alertify("Se ha actualizado correctamente");
+    ResponderConsulta: function () {
+        var id = parseInt($('#txt_nro_consulta').val());
+        var respuesta = $('#ta_respuesta').val();
+        Backend.ResponderConsulta(id, respuesta)
+                    .onSuccess(function () {
+                        $('#btn_volver_consulta').click();
+                        alertify("Se ha actualizado correctamente");
                     })
                     .onError(function (e) {
                     });
     },
 
     getConsultasParaGestion: function () {
-    var _this = this;
-     $('#btn_volver_consulta').click(function () {
-        _this.VolverAConsulta();
-     });
-      $('#btn_responder_consulta').click(function () {
-        _this.ResponderConsulta();
-     });
-     $('#btn_consultas_pendientes').click(function () {
-        _this.getConsultasTodas(6);
-     });
-      $('#btn_consultas_historicas').click(function () {
-        _this.getConsultasTodas(0);
-     });
-     $('#btn_consultas_pendientes').click();
+        var _this = this;
+        $('#btn_volver_consulta').click(function () {
+            _this.VolverAConsulta();
+        });
+        $('#btn_responder_consulta').click(function () {
+            _this.ResponderConsulta();
+        });
+        $('#btn_consultas_pendientes').click(function () {
+            _this.getConsultasTodas(6);
+        });
+        $('#btn_consultas_historicas').click(function () {
+            _this.getConsultasTodas(0);
+        });
+        $('#btn_consultas_pendientes').click();
     },
 
-     getConsultasTodas: function (estado) {
+    getConsultasTodas: function (estado) {
         var _this_original = this;
         Backend.GetConsultasTodasDePortal(estado)
                     .onSuccess(function (consultasJSON) {
@@ -665,22 +723,22 @@ var Legajo = {
                                 var img = $('<img>');
                                 img.attr('width', '15px');
                                 img.attr('height', '15px');
-                                if (una_consulta.id_estado == 6 ) {
-                                   
+                                if (una_consulta.id_estado == 6) {
+
                                     img.attr('src', '../Imagenes/edit.png');
-                                   
+
                                     btn_accion.click(function () {
                                         _this_original.TratarConsulta(una_consulta.Id, una_consulta.creador.Apellido + ", " + una_consulta.creador.Nombre, una_consulta.tipo_consulta, una_consulta.motivo);
                                     });
-                                    
-                                 }else{
-                                 img.attr('src', '../Imagenes/icons-lupa-finish.jpg');
+
+                                } else {
+                                    img.attr('src', '../Imagenes/icons-lupa-finish.jpg');
                                     btn_accion.click(function () {
                                         _this_original.VisualizarConsulta(una_consulta.Id, una_consulta.creador.Apellido + ", " + una_consulta.creador.Nombre, una_consulta.tipo_consulta, una_consulta.motivo, una_consulta.respuesta);
                                     });
-                                 }
-                                  btn_accion.append(img);   
-                                  return btn_accion;
+                                }
+                                btn_accion.append(img);
+                                return btn_accion;
                             }
                         }));
 
@@ -693,6 +751,6 @@ var Legajo = {
                     .onError(function (e) {
 
                     });
-    },
+    }
 
 }

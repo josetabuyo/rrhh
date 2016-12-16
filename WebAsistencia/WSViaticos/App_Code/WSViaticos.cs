@@ -74,8 +74,23 @@ public class WSViaticos : System.Web.Services.WebService
         return repo.DiasHabilesEntreFechas(desde, hasta);
     }
 
+
+    [WebMethod]
+    public string GetAnalisisLicenciaOrdinariaUsuarioLogueado(Usuario usuario)
+    {
+        var concepto = new ConceptoDeLicencia();
+        concepto.Id = 1;
+        return JsonConvert.SerializeObject(this.GetAnalisisLicenciaOrdinariaLocal(usuario.Owner.Documento.ToString(), false));
+    }
+
     [WebMethod]
     public AnalisisDeLicenciaOrdinaria GetAnalisisLicenciaOrdinaria(string csv_dnis, bool persistir_resultados)
+    {
+        return GetAnalisisLicenciaOrdinariaLocal(csv_dnis, persistir_resultados);
+    }
+
+    
+    public AnalisisDeLicenciaOrdinaria GetAnalisisLicenciaOrdinariaLocal(string csv_dnis, bool persistir_resultados)
     {
         var ordinaria = new ConceptoLicenciaAnualOrdinaria();
         var analisis = new AnalisisDeLicenciaOrdinaria();
@@ -2815,7 +2830,8 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public MenuDelSistema GetMenuPara(string nombre_menu, Usuario usuario)
     {
-        return Autorizador().GetMenuPara(nombre_menu, usuario);
+        MenuDelSistema menu = Autorizador().GetMenuPara(nombre_menu, usuario);
+        return menu;
     }
 
     #endregion
