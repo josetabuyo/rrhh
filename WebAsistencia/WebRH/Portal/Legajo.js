@@ -634,16 +634,22 @@ var Legajo = {
                             consultas = JSON.parse(consultasJSON);
                         }
                         var _this = this;
-                        $("#tablaConsultas").empty();
-                        var divGrilla = $("#tablaConsultas");
-                        var columnas = [];
-                        columnas.push(new Columna("Id", { generar: function (una_consulta) { return una_consulta.Id } }));
-                        columnas.push(new Columna("Fecha Creación", { generar: function (una_consulta) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_consulta.fechaCreacion) } }));
-                        columnas.push(new Columna("Tipo de Consulta", { generar: function (una_consulta) { return una_consulta.tipo_consulta } }));
-                        columnas.push(new Columna("Estado", { generar: function (una_consulta) { return una_consulta.estado } }));
-                        columnas.push(new Columna("Responsable", { generar: function (una_consulta) { return una_consulta.contestador.Nombre } }));
-                        columnas.push(new Columna("Fecha Respuesta", { generar: function (una_consulta) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_consulta.fechaContestacion) } }));
-                        columnas.push(new Columna('Detalle', {
+                        $("#tablaConsultas_noleidas").empty();
+                        $("#tablaConsultas_pendientes").empty();
+                        $("#tablaConsultas_historicas").empty();
+                        var divGrilla_noleidas = $("#tablaConsultas_noleidas");
+                        var divGrilla_pendientes = $("#tablaConsultas_pendientes");
+                        var divGrilla_historicas = $("#tablaConsultas_historicas");
+                        var columnas_noleidas = [];
+                        var columnas_pendientes = [];
+                        var columnas_historicas = [];
+                        columnas_noleidas.push(new Columna("Id", { generar: function (una_consulta) { return una_consulta.Id } }));
+                        columnas_noleidas.push(new Columna("Fecha Creación", { generar: function (una_consulta) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_consulta.fechaCreacion) } }));
+                        columnas_noleidas.push(new Columna("Tipo de Consulta", { generar: function (una_consulta) { return una_consulta.tipo_consulta } }));
+                        columnas_noleidas.push(new Columna("Estado", { generar: function (una_consulta) { return una_consulta.estado } }));
+                        columnas_noleidas.push(new Columna("Responsable", { generar: function (una_consulta) { return una_consulta.contestador.Nombre } }));
+                        columnas_noleidas.push(new Columna("Fecha Respuesta", { generar: function (una_consulta) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_consulta.fechaContestacion) } }));
+                        columnas_noleidas.push(new Columna('Detalle', {
                             generar: function (una_consulta) {
                                 var btn_accion = $('<a>');
                                 var img = $('<img>');
@@ -658,10 +664,62 @@ var Legajo = {
                             }
                         }));
 
-                        _this.Grilla = new Grilla(columnas);
-                        _this.Grilla.CambiarEstiloCabecera("estilo_tabla_portal");
-                        _this.Grilla.CargarObjetos(consultas);
-                        _this.Grilla.DibujarEn(divGrilla);
+                        columnas_pendientes.push(new Columna("Id", { generar: function (una_consulta) { return una_consulta.Id } }));
+                        columnas_pendientes.push(new Columna("Fecha Creación", { generar: function (una_consulta) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_consulta.fechaCreacion) } }));
+                        columnas_pendientes.push(new Columna("Tipo de Consulta", { generar: function (una_consulta) { return una_consulta.tipo_consulta } }));
+                        columnas_pendientes.push(new Columna("Estado", { generar: function (una_consulta) { return una_consulta.estado } }));
+                        columnas_pendientes.push(new Columna("Responsable", { generar: function (una_consulta) { return una_consulta.contestador.Nombre } }));
+                        columnas_pendientes.push(new Columna("Fecha Respuesta", { generar: function (una_consulta) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_consulta.fechaContestacion) } }));
+                        columnas_pendientes.push(new Columna('Detalle', {
+                            generar: function (una_consulta) {
+                                var btn_accion = $('<a>');
+                                var img = $('<img>');
+                                img.attr('src', '../Imagenes/detalle.png');
+                                img.attr('width', '15px');
+                                img.attr('height', '15px');
+                                btn_accion.append(img);
+                                btn_accion.click(function () {
+                                    _this_original.MostrarDetalleDeConsulta(una_consulta.Id, una_consulta.motivo, una_consulta.respuesta);
+                                });
+                                return btn_accion;
+                            }
+                        }));
+
+                        columnas_historicas.push(new Columna("Id", { generar: function (una_consulta) { return una_consulta.Id } }));
+                        columnas_historicas.push(new Columna("Fecha Creación", { generar: function (una_consulta) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_consulta.fechaCreacion) } }));
+                        columnas_historicas.push(new Columna("Tipo de Consulta", { generar: function (una_consulta) { return una_consulta.tipo_consulta } }));
+                        columnas_historicas.push(new Columna("Estado", { generar: function (una_consulta) { return una_consulta.estado } }));
+                        columnas_historicas.push(new Columna("Responsable", { generar: function (una_consulta) { return una_consulta.contestador.Nombre } }));
+                        columnas_historicas.push(new Columna("Fecha Respuesta", { generar: function (una_consulta) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_consulta.fechaContestacion) } }));
+                        columnas_historicas.push(new Columna('Detalle', {
+                            generar: function (una_consulta) {
+                                var btn_accion = $('<a>');
+                                var img = $('<img>');
+                                img.attr('src', '../Imagenes/detalle.png');
+                                img.attr('width', '15px');
+                                img.attr('height', '15px');
+                                btn_accion.append(img);
+                                btn_accion.click(function () {
+                                    _this_original.MostrarDetalleDeConsulta(una_consulta.Id, una_consulta.motivo, una_consulta.respuesta);
+                                });
+                                return btn_accion;
+                            }
+                        }));
+
+                        _this.divGrilla_noleidas = new Grilla(columnas_noleidas);
+                        _this.divGrilla_noleidas.CambiarEstiloCabecera("estilo_tabla_portal");
+                        _this.divGrilla_noleidas.CargarObjetos(consultas);
+                        _this.divGrilla_noleidas.DibujarEn(divGrilla_noleidas);
+
+                        _this.divGrilla_pendientes = new Grilla(columnas_pendientes);
+                        _this.divGrilla_pendientes.CambiarEstiloCabecera("estilo_tabla_portal");
+                        _this.divGrilla_pendientes.CargarObjetos(consultas);
+                        _this.divGrilla_pendientes.DibujarEn(divGrilla_pendientes);
+
+                        _this.divGrilla_historicas = new Grilla(columnas_historicas);
+                        _this.divGrilla_historicas.CambiarEstiloCabecera("estilo_tabla_portal");
+                        _this.divGrilla_historicas.CargarObjetos(consultas);
+                        _this.divGrilla_historicas.DibujarEn(divGrilla_historicas);
                         $('.table-hover').removeClass("table-hover");
                     })
                     .onError(function (e) {

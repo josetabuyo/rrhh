@@ -435,7 +435,7 @@ legend {
  
  #pantalla_alta_ticket
  {
-    position: absolute;
+    /*position: absolute;*/
     top: 10px;
     bottom: 10px;
     left: 10px;
@@ -444,23 +444,55 @@ legend {
  
  #cmb_tipo_consulta
  {
-    display: inline-block;
+    /*display: inline-block;*/
     width: 100%;
  }
  
  #txt_motivo_consulta
  {
-    display: inline-block;
-    position: absolute;
+   /* display: inline-block;
+    position: absolute;*/
     left: 0px;
     bottom: 28px;
     top: 38px;
     width: 100%;
+    height: 100%;
  }
  
  #btn_enviar_consulta
  {
-    position: absolute;
+    /*position: absolute;*/
     right: -9px;
     bottom: -9px;
  }
+ 
+ @-webkit-keyframes glowing {
+  0% { background-color: #B20000; -webkit-box-shadow: 0 0 3px #B20000; }
+  50% { background-color: #FF0000; -webkit-box-shadow: 0 0 40px #FF0000; }
+  100% { background-color: #B20000; -webkit-box-shadow: 0 0 3px #B20000; }
+}
+
+@-moz-keyframes glowing {
+  0% { background-color: #0055cc; -moz-box-shadow: 0 0 3px #0055cc; }
+  50% { background-color: #0081cc; -moz-box-shadow: 0 0 40px #0081cc; }
+  100% { background-color: #003e67; -moz-box-shadow: 0 0 3px #003e67; }
+}
+
+@-o-keyframes glowing {
+  0% { background-color: #0055cc; box-shadow: 0 0 3px #0055cc; }
+  50% { background-color: #0081cc; box-shadow: 0 0 40px #0081cc; }
+  100% { background-color: #003e67; box-shadow: 0 0 3px #003e67; }
+}
+
+@keyframes glowing {
+  0% { background-color: #0055cc; box-shadow: 0 0 3px #0055cc; }
+  50% { background-color: #0081cc; box-shadow: 0 0 40px #0081cc; }
+  100% { background-color: #003e67; box-shadow: 0 0 3px #003e67; }
+}
+
+.boton_destellante {
+  -webkit-animation: glowing 1500ms infinite;
+  -moz-animation: glowing 1500ms infinite;
+  -o-animation: glowing 1500ms infinite;
+  animation: glowing 1500ms infinite;
+}

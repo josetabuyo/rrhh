@@ -33,23 +33,33 @@
                     y solicitar asistencia Web sobre toda la gestión y procesos de los Colaboradores
                     del<br />
                     <b style="color: #0074cc">Ministerio de Desarrollo Social de la Nación</b></h4>
-                <br />
-                <br />
-                <input id="btn_nueva_consulta" type="button" class="btn btn-primary" value="Realizar nueva consulta" />
-                <br />
-                <br />
-                <br />
-
-            </div>
-            <div id="div_consultas_enviadas">
-            <h5>
-                    Consultas enviadas:</h5>
-            <h5 id="link_nuevos_mensajes" style="cursor:pointer;display:none;text-align: center;">
-                    <p style="text-align: center; font-size: initial; color: #1a8662;">
+                <h5 id="link_nuevos_mensajes" style="cursor: pointer; display: none; text-align: center;
+                    float: right; margin-top: -5px;">
+                    <p style="text-align: center; font-size: 13px; color: #1a8662;">
                         Nuevos mensajes!</p>
                     <br />
-                    <img style="margin-top: -28px; width: 140px;" alt="icono" src="../Imagenes/portal/respuestas.gif" /></h5>
-                <div id="tablaConsultas" class="table table-striped table-bordered table-condensed">
+                    <img style="margin-top: -30px; width: 90px;" alt="icono" src="../Imagenes/portal/respuestas.gif" />
+                </h5>
+                <br />
+                <br />
+                <input id="btn_nueva_consulta" type="button" class="btn btn-primary boton_destellante"
+                    value="Realizar nueva consulta" />
+            </div>
+            <br />
+            <br />
+            <br />
+            <div id="div_consultas_enviadas">
+                <h5>
+                    Consultas no leídas:</h5>
+                <div id="tablaConsultas_noleidas" class="table table-striped table-bordered table-condensed">
+                </div>
+                <h5>
+                    Consultas pendientes de una respuesta:</h5>
+                <div id="tablaConsultas_pendientes" class="table table-striped table-bordered table-condensed">
+                </div>
+                <h5>
+                    Consultas históricas:</h5>
+                <div id="tablaConsultas_historicas" class="table table-striped table-bordered table-condensed">
                 </div>
                 <%-- <input id="btn_volver_explicacion" type="button" class="btn btn-primary" value="Volver" />--%>
             </div>
@@ -66,11 +76,15 @@
         </div>
     </form>
     <div id="pantalla_alta_ticket" style="display: none">
-        <select id="cmb_tipo_consulta">
-        </select>
-        <textarea id="txt_motivo_consulta" placeholder="ingrese su consulta aquí" maxlength="1000"></textarea>
-        <input id="btn_enviar_consulta" type="button" class="btn btn-primary" style="margin: 10px"
-            value="Enviar" />
+    <p>Seleccione el tipo de Consulta y escriba un texto a continuación</p>
+        <div style="width: 39%;float:left;">
+            <select id="cmb_tipo_consulta">
+            </select></div>
+        <div style="width: 59%; float:right;">
+            <textarea id="txt_motivo_consulta" placeholder="ingrese su consulta aquí" maxlength="1000"></textarea>
+            <input id="btn_enviar_consulta" type="button" class="btn btn-primary" style="margin: 10px"
+                value="Enviar" />
+        </div>
     </div>
 </body>
 <script type="text/javascript" src="Legajo.js"></script>
