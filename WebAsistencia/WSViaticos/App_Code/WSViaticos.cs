@@ -2643,6 +2643,19 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public bool ModificarMailRegistro(int id_usuario, string mail,  Usuario usuario)
+    {
+        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 45)) return RepositorioDeUsuarios().ModificarMailRegistro(id_usuario, mail);
+        else throw new Exception("El usuario no tiene permisos para modificar mails");
+    }
+
+    [WebMethod]
+    public bool ModificarMiMail(string mail, Usuario usuario)
+    {
+        return RepositorioDeUsuarios().ModificarMailRegistro(usuario.Id, mail);
+    }
+
+    [WebMethod]
     public Usuario GetUsuarioPorAlias(string alias)
     {
         return RepositorioDeUsuarios().GetUsuarioPorAlias(alias);
@@ -2817,7 +2830,8 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public MenuDelSistema GetMenuPara(string nombre_menu, Usuario usuario)
     {
-        return Autorizador().GetMenuPara(nombre_menu, usuario);
+        MenuDelSistema menu = Autorizador().GetMenuPara(nombre_menu, usuario);
+        return menu;
     }
 
     #endregion

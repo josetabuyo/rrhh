@@ -25,7 +25,7 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        alertify.alert("No tiene permisos para entrar a esta página");
+        alertify.alert("", "No tiene permisos para entrar a esta página");
     });
 </script>
 </html>

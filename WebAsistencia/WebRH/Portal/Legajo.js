@@ -600,8 +600,10 @@ var Legajo = {
 
     MostrarDetalleDeConsulta: function (id, motivo, respuesta) {
         $('#div_detalle_consulta').show();
-        $('#ta_motivo').val(motivo);
-        $('#ta_respuesta').val(respuesta);
+        //$('#ta_motivo').val(motivo);
+        $('#ta_motivo').html('"' + motivo + '"');
+        //$('#ta_respuesta').val(respuesta);
+        $('#ta_respuesta').html('"' + respuesta + '"');
         Backend.MarcarConsultaComoLeida(id).onSuccess(function(){}).onError(function(e){});
          this.GetConsultasNoLeidas(); 
     },
@@ -733,7 +735,8 @@ var Legajo = {
                         $.each(tiposconsulta, function (i, tipoconsulta) {
                             $('#cmb_tipo_consulta').append($('<option>', {
                                 value: tipoconsulta.id,
-                                text: tipoconsulta.descripcion
+                                text: tipoconsulta.descripcion,
+                                placeholder: tipoconsulta.placeholder
                             }));
                         });
                     })

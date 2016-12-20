@@ -63,32 +63,30 @@
                 </div>
                 <%-- <input id="btn_volver_explicacion" type="button" class="btn btn-primary" value="Volver" />--%>
             </div>
-            <div id="div_detalle_consulta" style="display: none;">
-                <label style="margin-right: 24px;">
-                    Motivo:</label>
-                <textarea id="ta_motivo" style="width: 100%; height: 150px;" readonly></textarea>
+            <div id="div_detalle_consulta" style="display: none; margin-bottom:10px;">
+                <label style="font-size: initial;"><strong>Motivo:</strong></label>
+                <p id="ta_motivo" style="display: inline; font-style: italic;"></p>
+                <%--<textarea id="ta_motivo" style="width: 100%; height: 150px;" readonly></textarea>--%>
                 <br />
                 <br />
-                <label>
-                    Respuesta:</label>
-                <textarea id="ta_respuesta" style="width: 100%; height: 150px;" readonly></textarea>
+                <label style="font-size: initial;"><strong>Respuesta:</strong></label>
+                <p id="ta_respuesta" style="display: inline; font-style: italic;"></p>
+                
+                <%--<textarea id="ta_respuesta" style="width: 100%; height: 150px;" readonly></textarea>--%>
             </div>
         </div>
     </form>
     <div id="pantalla_alta_ticket" style="display: none">
-    <p>Seleccione el tipo de Consulta y escriba un texto a continuación</p>
-        <div style="width: 39%;float:left;">
-            <select id="cmb_tipo_consulta">
-            </select></div>
-        <div style="width: 59%; float:right;">
-            <textarea id="txt_motivo_consulta" placeholder="ingrese su consulta aquí" maxlength="1000"></textarea>
-            <input id="btn_enviar_consulta" type="button" class="btn btn-primary" style="margin: 10px"
-                value="Enviar" />
-        </div>
+        <h3>Seleccione el tipo de consulta que quiere realizar en el menu izquierdo y luego complete el campo derecho.</h3>
+        <br />
+        <select id="cmb_tipo_consulta" size="7">
+        </select>
+        <textarea id="txt_motivo_consulta" placeholder="Ingrese su consulta aquí" maxlength="1000"></textarea>
+        <input id="btn_enviar_consulta" type="button" class="btn btn-primary" style="margin: auto;display: block; width: 100px;height: 30px;" value="ENVIAR" />
     </div>
 </body>
 <script type="text/javascript" src="Legajo.js"></script>
-<script src="../scripts/vex-2.1.1/js/vex.combined.min.js"></script>
+<script type="text/javascript" src="../scripts/vex-2.1.1/js/vex.combined.min.js"></script>
 <script type="text/javascript" src="../Scripts/ControlesImagenes/VistaThumbnail.js"></script>
 <script type="text/javascript">
 
@@ -116,6 +114,7 @@
                 Legajo.getNombre();
                 Legajo.getConsultas();
                 Legajo.GetComboTipoConsulta();
+
                 $("#btn_nueva_consulta").click(function () {
                     vex.defaultOptions.className = 'vex-theme-os';
                     vex.open({
@@ -123,6 +122,12 @@
                             var ui = $("#pantalla_alta_ticket").clone();
                             $vexContent.append(ui);
                             ui.show();
+                            ui.find("#cmb_tipo_consulta").change(function () {
+                                var textoCustomizado = this.options[this.selectedIndex].getAttribute('placeholder');
+                                ui.find("#txt_motivo_consulta").attr("placeholder", textoCustomizado); //[0].placeholder = textoCustomizado;
+                            });
+                            
+
                             ui.find("#btn_enviar_consulta").click(function () {
                                 Backend.NuevaConsultaDePortal({
                                     id_tipo_consulta: ui.find("#cmb_tipo_consulta").val(),
@@ -131,6 +136,7 @@
                                 }).onSuccess(function (id_consulta) {
                                     alertify.success("Consulta enviada con éxito");
                                     vex.close();
+                                    Legajo.getConsultas();
                                 }).onError(function (id_consulta) {
                                     alertify.error("Error al enviar consulta");
                                 });

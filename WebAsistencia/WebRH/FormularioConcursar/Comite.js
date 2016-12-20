@@ -13,7 +13,7 @@
                 _this.armarTablasComite(comite);
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alertify.alert("Error al querer ver el comite.");
+                alertify.alert("", "Error al querer ver el comite.");
             }
         });
 

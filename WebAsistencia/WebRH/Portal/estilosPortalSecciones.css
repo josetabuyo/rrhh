@@ -445,18 +445,19 @@ legend {
  #cmb_tipo_consulta
  {
     /*display: inline-block;*/
-    width: 100%;
+    width: 20%;
  }
  
  #txt_motivo_consulta
  {
-   /* display: inline-block;
-    position: absolute;*/
+    display: inline-block;
+    width: 70%;
+    height:150px;
+   /* position: absolute;
     left: 0px;
     bottom: 28px;
     top: 38px;
-    width: 100%;
-    height: 100%;
+    width: 100%;*/
  }
  
  #btn_enviar_consulta

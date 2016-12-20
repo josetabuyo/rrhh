@@ -89,5 +89,11 @@ namespace AdministracionDeUsuarios
         {
             throw new NotImplementedException();
         }
+
+
+        public bool ModificarMailRegistro(int id_usuario, string mail)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

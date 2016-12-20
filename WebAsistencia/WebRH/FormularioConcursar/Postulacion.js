@@ -33,7 +33,7 @@
 
         _this.btn_postular.click(function () {
             if (!($('#chk_bases').attr('checked'))) {
-                alertify.alert('Debe aceptar los términos y bases del concurso');
+                alertify.alert("", 'Debe aceptar los términos y bases del concurso');
                 return;
             }
             var postulacion = {};
@@ -54,7 +54,7 @@
                     una_postulacion: postulacion
                 },
                 success: function (postulacion) {
-                    alertify.alert("Usted se postuló correctamente. <br> Número de postulación: " + postulacion.Numero, function () {
+                    alertify.alert("", "Usted se postuló correctamente. <br> Número de postulación: " + postulacion.Numero, function () {
                         proveedor_ajax.postearAUrl({ url: "SetObjetoEnSesion",
                             data: {
                                 nombre: 'Postulacion', //postulacion
@@ -64,7 +64,7 @@
                                 window.location.href = "PostInscripcion.aspx?id=" + postulacion.Id + "&fh=" + postulacion.FechaPostulacion;
                             },
                             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                                alertify.alert("Error");
+                                alertify.alert("", "Error");
                             }
                         }); //alModificar(respuesta);
                         //$(".modal_close_concursar").click();
@@ -73,7 +73,7 @@
                     });
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    alertify.alert(errorThrown);
+                    alertify.alert("", errorThrown);
                 }
             });
 

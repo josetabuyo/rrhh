@@ -6,8 +6,10 @@
     this.lbl_apellido = $('#apellido');
     this.lbl_documento = $('#documento');
     this.lbl_legajo = $('#legajo');
+    this.lbl_email = $('#email');
     this.txt_nombre_usuario = $('#txt_nombre_usuario');
     this.btn_reset_password = $('#btn_reset_password');
+    this.btn_modificar_mail = $('#btn_modificar_mail');
 
     var proveedor_ajax = new ProveedorAjax("../");
     this.autorizador = new Autorizador(proveedor_ajax);
@@ -48,26 +50,28 @@
                 if (error == "LA_PERSONA_NO_TIENE_USUARIO") {
                     Backend.ElUsuarioLogueadoTienePermisosPara(26).onSuccess(function (tiene_permisos) {
                         if (tiene_permisos) {
-                            alertify.confirm(la_persona_seleccionada.nombre + " " + la_persona_seleccionada.apellido + " no tiene usuario, desea crear uno?", function (usuario_acepto) {
-                                if (usuario_acepto) {
+                            alertify.confirm("",
+                                la_persona_seleccionada.nombre + " " + la_persona_seleccionada.apellido + " no tiene usuario, desea crear uno?",
+                                function () {
                                     _this.repositorioDeUsuarios.crearUsuarioPara(la_persona_seleccionada.id,
-                                function (usuario) {
-                                    alertify.success("Se ha creado un usuario para " + la_persona_seleccionada.nombre + " " + la_persona_seleccionada.apellido);
-                                    _this.repositorioDeUsuarios.resetearPassword(usuario.Id, function (nueva_clave) {
-                                        alertify.alert("El password para el usuario: " + usuario.Alias + " es: " + nueva_clave);
-                                    });
-                                    _this.cargarUsuario(usuario);
+                                        function (usuario) {
+                                            alertify.success("Se ha creado un usuario para " + la_persona_seleccionada.nombre + " " + la_persona_seleccionada.apellido);
+                                            _this.repositorioDeUsuarios.resetearPassword(usuario.Id, function (nueva_clave) {
+                                                alertify.alert("", "El password para el usuario: " + usuario.Alias + " es: " + nueva_clave);
+                                            });
+                                            _this.cargarUsuario(usuario);
+                                        },
+                                        function (error) {
+                                            alertify.error("Error al crear un usuario para " + la_persona_seleccionada.nombre + " " + la_persona_seleccionada.apellido);
+                                        }
+                                    );
                                 },
-                                function (error) {
-                                    alertify.error("Error al crear un usuario para " + la_persona_seleccionada.nombre + " " + la_persona_seleccionada.apellido);
-                                }
-                            );
-                                } else {
+                                function () {
                                     alertify.error("No se creó un usuario para " + la_persona_seleccionada.nombre + " " + la_persona_seleccionada.apellido);
                                 }
-                            });
+                            );
                         } else {
-                            alertify.alert(la_persona_seleccionada.nombre + " " + la_persona_seleccionada.apellido + " no tiene usuario.");
+                            alertify.alert("", la_persona_seleccionada.nombre + " " + la_persona_seleccionada.apellido + " no tiene usuario.");
                         }
                     });
 
@@ -76,10 +80,37 @@
     };
 
     this.btn_reset_password.click(function () {
-        Backend.ResetearPassword(_this.usuario.Id).onSuccess(function (nueva_clave) {
-            alertify.alert("El nuevo password para el usuario: " + _this.usuario.Alias + " es: " + nueva_clave);
-        });
+
+        alertify.confirm('Modificar contraseña', '¿Está seguro de querer reinciar la contraseña', function () {
+            Backend.ResetearPassword(_this.usuario.Id).onSuccess(
+                        function (nueva_clave) {
+                            alertify.alert("Se ha modificado la contraseña.", "La nueva contraseña para el usuario: "
+                                                + _this.usuario.Alias + " es: " + nueva_clave);
+                        });
+        }
+
+        , function () {
+            alertify.alert("Modificación cancelada.");
+        }
+        );
     });
+
+    this.btn_modificar_mail.click(function () {
+        alertify.prompt(' ', 'Ingrese el mail del usuario', _this.usuario.MailRegistro
+               , function (evt, value) {
+                   Backend.ModificarMailRegistro(_this.usuario.Id, value).onSuccess(function () {
+                       alertify.success("Se ha modificado correctamente su mail");
+                       alertify.prompt().close();
+                       _this.lbl_email.text(value);
+                   }).onerror(function () {
+                       alertify.success("Error al modificar el mail");
+                       alertify.prompt().close();
+                   });
+               }
+               , function () { });
+    });
+
+
 
     $("#btn_verificar_usuario").click(function () {
         Backend.VerificarUsuario(_this.usuario.Id).onSuccess(function (verifico_ok) {
@@ -116,7 +147,7 @@
         var urlObj = {};
         for (var i = 0; i < arrUrl.length; i++) {
             var x = arrUrl[i].split("=");
-            urlObj[x[0]] = decodeURIComponent(x[1]) 
+            urlObj[x[0]] = decodeURIComponent(x[1])
         }
         return urlObj;
     }
@@ -137,13 +168,17 @@ AdministradorDeUsuarios.prototype.cargarUsuario = function (usuario) {
     this.lbl_apellido.text(usuario.Owner.Apellido);
     this.lbl_documento.text(usuario.Owner.Documento);
     this.lbl_legajo.text(usuario.Owner.Legajo);
+    this.lbl_email.text(usuario.MailRegistro);
 
     if (usuario.Owner.IdImagen >= 0) {
         var img = new VistaThumbnail({ id: usuario.Owner.IdImagen, contenedor: $("#foto_usuario") });
+        $("#foto_usuario").show();
         $("#foto_usuario_generica").hide();
-    }   
-    else
+    }
+    else {
+        $("#foto_usuario").hide();
         $("#foto_usuario_generica").show();
+    }
 
     $("#usuario_verificado").hide();
     $("#usuario_no_verificado").hide();

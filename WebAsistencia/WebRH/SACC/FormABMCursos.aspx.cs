@@ -177,11 +177,11 @@ public partial class SACC_FormABMCursos : System.Web.UI.Page
         {
             this.LimpiarFormulario();
             this.CargarGrilla();
-            ClientScript.RegisterStartupScript(this.GetType(), "MensajeCursoEliminado", "<script>alertify.alert('Se ha eliminado el curso');</script>");
+            ClientScript.RegisterStartupScript(this.GetType(), "MensajeCursoEliminado", "<script>alertify.alert('', 'Se ha eliminado el curso');</script>");
         }
         else
         {
-           ClientScript.RegisterStartupScript(this.GetType(), "MensajeCursoNoEliminado", "<script>alertify.alert('No se puede eliminar el curso porque tiene alumnos inscriptos');</script>");
+           ClientScript.RegisterStartupScript(this.GetType(), "MensajeCursoNoEliminado", "<script>alertify.alert('', 'No se puede eliminar el curso porque tiene alumnos inscriptos');</script>");
         }
     }
 

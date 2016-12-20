@@ -182,16 +182,16 @@ FichaAlumno.prototype.CompletarDetalleEvaluaciones = function (evaluacion) {
 
 //                    _this.GetCursosDTO();
 
-//                    alertify.alert("Se inscribieron los alumnos correctamente");
+//                    alertify.alert("", "Se inscribieron los alumnos correctamente");
 //                }
 //                if (respuesta.tipoDeRespuesta == "inscripcionAlumno.error") {
-//                    alertify.alert("Error al inscribir alumnos: " + respuesta.error);
+//                    alertify.alert("", "Error al inscribir alumnos: " + respuesta.error);
 //                }
 
 
 //            },
 //            error: function (XMLHttpRequest, textStatus, errorThrown) {
-//                alertify.alert(errorThrown);
+//                alertify.alert("", errorThrown);
 //            }
 //        });
 //    };
@@ -212,7 +212,7 @@ FichaAlumno.prototype.CompletarDetalleEvaluaciones = function (evaluacion) {
 
 //            },
 //            error: function (XMLHttpRequest, textStatus, errorThrown) {
-//                alertify.alert(errorThrown);
+//                alertify.alert("", errorThrown);
 //            }
 //        });
 //     };
