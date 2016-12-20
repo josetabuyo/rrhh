@@ -657,7 +657,8 @@ var Legajo = {
                         $.each(tiposconsulta, function (i, tipoconsulta) {
                             $('#cmb_tipo_consulta').append($('<option>', {
                                 value: tipoconsulta.id,
-                                text: tipoconsulta.descripcion
+                                text: tipoconsulta.descripcion,
+                                placeholder: tipoconsulta.placeholder
                             }));
                         });
                     })
