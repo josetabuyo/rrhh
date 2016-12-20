@@ -13,7 +13,7 @@ Menu.prototype.getMenu = function (nombre_menu) {
             var respuesta = JSON.parse(respuestaJson.d);
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alertify.alert(errorThrown);
+            alertify.alert("", errorThrown);
         }
     });
 };

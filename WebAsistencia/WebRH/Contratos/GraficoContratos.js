@@ -677,7 +677,7 @@ var DibujarGrillaInformeImpresion = function (un_registro, tabla) {
                 $(leyendaPorAnio).html(respuesta);
             })
             .onError(function (error, as, asd) {
-                alertify.alert("Error al obtener leyenda del año");
+                alertify.alert("", "Error al obtener leyenda del año");
             });
 
         $(nroInforme).html(un_registro.Informe.toString());

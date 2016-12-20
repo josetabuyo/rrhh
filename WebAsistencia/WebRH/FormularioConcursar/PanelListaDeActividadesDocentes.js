@@ -72,8 +72,8 @@
     eliminar: function (una_actividad_docente) {
         var _this = this;
         // confirm dialog
-        alertify.confirm("¿Está seguro que desea eliminar este registro?", function (e) {
-            if (e) {
+        alertify.confirm("", "¿Está seguro que desea eliminar este registro?", 
+            function () {
                 Backend.EliminarCvActividadDocente(una_actividad_docente)
                     .onSuccess(function (respuesta) {
                         alertify.success("Docencia eliminada correctamente");
@@ -84,8 +84,9 @@
                     .onError(function (error, as, asd) {
                         alertify.error("No se pudo eliminar la docencia");
                     });   
-            } 
-        });
+            },
+            function(){} 
+        );
 
 
 

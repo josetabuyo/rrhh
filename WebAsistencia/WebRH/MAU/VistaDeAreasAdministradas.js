@@ -41,6 +41,6 @@ VistaDeAreasAdministradas.prototype.setUsuario = function (un_usuario) {
             vista_area.dibujarEn(_this.div_lista_areas);
         }
     }, function () {
-        alertify.alert("error al obtener las areas administradas por el usuario")
+        alertify.alert("", "error al obtener las areas administradas por el usuario")
     });
 };

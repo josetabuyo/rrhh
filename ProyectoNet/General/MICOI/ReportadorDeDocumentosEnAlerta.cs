@@ -67,7 +67,7 @@ namespace General
 
         private void enviarAlertasPorMail()
         {
-            enviador.EnviarMail(new NetworkCredential("serviciodealertas@desarrollosocial.gob.ar", "1234"),
+            EnviadorDeMails.EnviarMail(new NetworkCredential("serviciodealertas@desarrollosocial.gob.ar", "1234"),
                 this.mail_to,
                 "Documentos en alerta",
             

@@ -41,19 +41,19 @@
 
             eliminar.click(function () {
                 var mensaje = "¿Está seguro que desea eliminar su postulación al puesto: " + postulacion.Perfil.Denominacion + "?";
-                alertify.confirm(mensaje, function (e) {
-                    if (e) {
+                alertify.confirm("", mensaje, 
+                    function () {
                         // user clicked "ok"
                         Backend.EliminarPostulacionPorUsuario(postulacion).onSuccess(function () {
                             _this.armarPostulaciones($.grep(_this.postulaciones, function (p) {
                                 return p !== postulacion;
                             }));
                         });
-                    } else {
+                    }, 
+                    function (){
                         alertify.error("No se ha eliminado la Postulación");
                     }
-                });
-
+                );
             });
         };
 

@@ -172,6 +172,28 @@
         <script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-tooltip.js"></script>
         <script type="text/javascript">
             $(document).ready(function () {
+                Backend.start(function () {
+                    Backend.GetUsuarioLogueado().onSuccess(function (usuario) {
+                        var levantar_prompt = function () {
+                            alertify.prompt("Ingrese su mail", "Para continuar debe ingresar una dirección de correo válida", "", function (ev, mail) {
+                                Backend.ModificarMiMail(mail).onSuccess(function (ok) {
+                                    if (ok) {
+                                        alertify.success("Mail modificado correctamente");
+                                    }
+                                    else alertify.error("Error al modificar el mail");
+                                }).onError(function () {
+                                    alertify.error("Error al modificar el mail");
+                                });
+                            }, function () {
+                                setTimeout(function () { levantar_prompt(); }, 100);
+                            });
+                        };
+                        if (usuario.MailRegistro == '') {
+                            levantar_prompt();
+                        }
+                    });
+                });                
+
                 $('[data-toggle="tooltip"]').tooltip();
 
                 $('#btnDatosPersonales').click(function () {
@@ -201,7 +223,7 @@
                 $('#btnOrganigrama').click(function () {
                     window.location.href = 'Organigrama.aspx';
                 });
-                
+
             });
 
             /*$(function () {

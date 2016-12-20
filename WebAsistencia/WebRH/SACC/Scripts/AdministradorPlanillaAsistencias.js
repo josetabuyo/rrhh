@@ -52,7 +52,7 @@ var CargarComboMeses = function () {
                 }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alertify.alert(errorThrown);
+                alertify.alert("", errorThrown);
             }
         });
     }
@@ -165,7 +165,7 @@ var GetCursos = function () {
             CargarComboAnios();
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alertify.alert(errorThrown);
+            alertify.alert("", errorThrown);
         }
     });
 }

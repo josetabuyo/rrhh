@@ -23,7 +23,6 @@ public partial class FormularioDeViaticos_BarraMenu : System.Web.UI.UserControl
         {
             Usuario usuario = ((Usuario)Session["usuario"]);
             this.LabelUsuario.Text = usuario.Alias;
-            this.LabelUsuario.Text = usuario.Alias;
         }
         catch (Exception)
         {

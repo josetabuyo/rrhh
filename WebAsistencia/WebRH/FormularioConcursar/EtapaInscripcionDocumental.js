@@ -19,7 +19,7 @@
         .onSuccess(function (postulaciones) {
             if (postulaciones.length == 0) {
                // $("#contenedorTabla").empty();
-                alertify.alert('No se encontraron resultados');
+                alertify.alert("", 'No se encontraron resultados');
                 $("#contenedorTabla").hide();
                 $("#detalle_de_comite").hide();
                } else {
@@ -158,9 +158,9 @@
             Backend.GuardarEtapaAPostulaciones(idpostulaciones, 3)
              .onSuccess(function (resultado) {
                  if (resultado == true) {
-                     alertify.alert('Las postulaciones pasaron a la etapa de Admisión');
+                     alertify.alert("", 'Las postulaciones pasaron a la etapa de Admisión');
                  } else {
-                     alertify.alert('Hubo un error en el guardado. ');
+                     alertify.alert("", 'Hubo un error en el guardado. ');
                  }
 
                  //location.reload();
@@ -169,7 +169,7 @@
                 alertify.error(error.statusText);
             });
         } else {
-            alertify.alert('No ha seleccionado a nadie del listado.');
+            alertify.alert("", 'No ha seleccionado a nadie del listado.');
         }
 
 
