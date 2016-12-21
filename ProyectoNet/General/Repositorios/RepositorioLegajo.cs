@@ -432,7 +432,7 @@ namespace General.Repositorios
             {
                 tablaDatos.Rows.ForEach(row =>
                 {
-                    Persona creador = new Persona(row.GetInt("id_usuario_creador"), 0, row.GetString("nombre_creador"), row.GetString("apellido_creador"), area);
+                    Persona creador = new Persona(row.GetInt("id_usuario_creador"), row.GetInt("NroDocumento"), row.GetString("nombre_creador"), row.GetString("apellido_creador"), area);
                     Persona responsable = new Persona(row.GetInt("is_usuario_responsable", 0), 0, row.GetString("nombre_responsable", ""), row.GetString("apellido_responsable", ""), area);
 
                     Consulta consulta = new Consulta(

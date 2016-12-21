@@ -82,12 +82,12 @@ var Reportes = {
                 //$('#resta').html(data.RestaAnt);
                 //$('#total').html(data.ANTTotalTotal);
                 //$('#nombre').html(data.ANTTotalTotal);
-                $('#btn_timeline').click(function () {
+                /*$('#btn_timeline').click(function () {
                     Backend.GetCarreraAdministrativa(documento).onSuccess(function (datos) {
                         $('#contenedor_timeLine').empty();
                         _this.armarTimeline(datos);
                     });
-                })
+                })*/
             } else {
                 $('#panel_izquierdo').hide();
                 $('#mensaje').html("No se encontraron datos para la persona con documento " + documento);

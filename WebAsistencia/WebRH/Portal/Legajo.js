@@ -580,19 +580,19 @@ var Legajo = {
         .onError(function (e) {
 
         });
-        this.GetConsultasNoLeidas(); 
+        this.GetConsultasNoLeidas();
     },
 
-    GetConsultasNoLeidas: function(){
-     Backend.GetConsultasNoLeidas()
+    GetConsultasNoLeidas: function () {
+        Backend.GetConsultasNoLeidas()
         .onSuccess(function (cantidad) {
-        consultas_sin_leer = cantidad;
+            consultas_sin_leer = cantidad;
             if (cantidad > 0) {
                 $("#link_consultas").html("Consultas (" + cantidad + ")");
-                 $("#link_nuevos_mensajes").show();   
-            } else{
-             $("#link_nuevos_mensajes").hide();
-            } 
+                $("#link_nuevos_mensajes").show();
+            } else {
+                $("#link_nuevos_mensajes").hide();
+            }
         })
         .onError(function (e) {
         });
@@ -604,8 +604,8 @@ var Legajo = {
         $('#ta_motivo').html('"' + motivo + '"');
         //$('#ta_respuesta').val(respuesta);
         $('#ta_respuesta').html('"' + respuesta + '"');
-        Backend.MarcarConsultaComoLeida(id).onSuccess(function(){}).onError(function(e){});
-         this.GetConsultasNoLeidas(); 
+        Backend.MarcarConsultaComoLeida(id).onSuccess(function () { }).onError(function (e) { });
+        this.GetConsultasNoLeidas();
     },
 
     TratarConsulta: function (nro_consulta, creador, tipo, motivo) {
@@ -613,7 +613,8 @@ var Legajo = {
         $('#ta_respuesta').prop("disabled", false);
         $('#tablaConsultas').hide();
         $('#div_detalle_consulta').show();
-        $('#txt_creador').val(creador);
+        $('#txt_creador').val(creador.Apellido + ", " + creador.Nombre);
+        $('#nroDocumentoCreador').val(creador.Documento);
         $('#txt_nro_consulta').val(nro_consulta);
         $('#txt_tipo').val(tipo);
         $('#ta_motivo').text(motivo);
@@ -795,7 +796,7 @@ var Legajo = {
                         columnas.push(new Columna("Id", { generar: function (una_consulta) { return una_consulta.Id } }));
                         columnas.push(new Columna("Fecha Creación", { generar: function (una_consulta) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_consulta.fechaCreacion) } }));
                         columnas.push(new Columna("Tipo de Consulta", { generar: function (una_consulta) { return una_consulta.tipo_consulta } }));
-                        columnas.push(new Columna("Creador", { generar: function (una_consulta) { return una_consulta.creador.Apellido + ", " + una_consulta.creador.Nombre; } }));
+                        columnas.push(new Columna("Creador", { generar: function (una_consulta) { return una_consulta.creador.Apellido + ", " + una_consulta.creador.Nombre } }));
                         columnas.push(new Columna('Tratar', {
                             generar: function (una_consulta) {
                                 var btn_accion = $('<a>');
@@ -807,13 +808,13 @@ var Legajo = {
                                     img.attr('src', '../Imagenes/edit.png');
 
                                     btn_accion.click(function () {
-                                        _this_original.TratarConsulta(una_consulta.Id, una_consulta.creador.Apellido + ", " + una_consulta.creador.Nombre, una_consulta.tipo_consulta, una_consulta.motivo);
+                                        _this_original.TratarConsulta(una_consulta.Id, una_consulta.creador, una_consulta.tipo_consulta, una_consulta.motivo);
                                     });
 
                                 } else {
                                     img.attr('src', '../Imagenes/icons-lupa-finish.jpg');
                                     btn_accion.click(function () {
-                                        _this_original.VisualizarConsulta(una_consulta.Id, una_consulta.creador.Apellido + ", " + una_consulta.creador.Nombre, una_consulta.tipo_consulta, una_consulta.motivo, una_consulta.respuesta);
+                                        _this_original.VisualizarConsulta(una_consulta.Id, una_consulta.creador, una_consulta.tipo_consulta, una_consulta.motivo, una_consulta.respuesta);
                                     });
                                 }
                                 btn_accion.append(img);
@@ -830,6 +831,47 @@ var Legajo = {
                     .onError(function (e) {
 
                     });
+    },
+    getConsultaIndividual: function (documento, ui) {
+        var _this = this;
+        Backend.GetConsultaRapida(documento).onSuccess(function (datos) {
+            var data = $.parseJSON(datos);
+            if (!$.isEmptyObject(data)) {
+                ui.find("#panel_izquierdo").delay(300).animate({ "opacity": "1" }, 300);
+                ui.find('#mensaje').html("");
+                ui.find('#nombre_consulta').html(data.Apellido);
+                ui.find('#legajo_consulta').html(data.Legajo);
+                ui.find('#fechaNacimiento').html(data.FechaNacimiento);
+                ui.find('#edad').html(data.Edad);
+                ui.find('#cuil').html(data.Cuil);
+                ui.find('#sexo').html(data.Sexo);
+                ui.find('#estadoCivil').html(data.EstadoCivil);
+                ui.find('#documento_consulta').html(data.Documento);
+                ui.find('#domicilio').html(data.Domicilio);
+                ui.find('#estudio').html(data.Estudio);
+                ui.find('#nivel_grado').html(data.Nivel);
+                ui.find('#sector').html(data.Sector);
+                ui.find('#planta').html(data.Planta);
+                ui.find('#cargo').html(data.Cargo);
+                ui.find('#agrupamiento').html(data.Agrupamiento);
+                ui.find('#ing_min').html(data.IngresoMinisterio);
+                //$('#ant_min').html(data.AntMinisterio);
+                //$('#estado').html(data.AntEstado);
+                //$('#privada').html(data.AntPrivada);
+                //$('#resta').html(data.RestaAnt);
+                //$('#total').html(data.ANTTotalTotal);
+                //$('#nombre').html(data.ANTTotalTotal);
+                /*$('#btn_timeline').click(function () {
+                Backend.GetCarreraAdministrativa(documento).onSuccess(function (datos) {
+                $('#contenedor_timeLine').empty();
+                _this.armarTimeline(datos);
+                });
+                })*/
+            } else {
+                ui.find('#panel_izquierdo').hide();
+                ui.find('#mensaje').html("No se encontraron datos para la persona con documento " + documento);
+            }
+        });
     }
 
 }

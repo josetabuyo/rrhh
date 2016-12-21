@@ -2,6 +2,8 @@
     Inherits="Portal_GestionConsultas" %>
 
 <%@ Register Src="~/BarraMenu/BarraMenu.ascx" TagName="BarraMenu" TagPrefix="uc2" %>
+<%@ Register Src="~/ConsultaIndividual.ascx" TagName="Consulta" TagPrefix="uc3" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
@@ -14,6 +16,7 @@
     <script type="text/javascript" src="../Scripts/ConversorDeFechas.js"></script>
     <link href="../scripts/vex-2.1.1/css/vex.css" rel="stylesheet">
     <link href="../scripts/vex-2.1.1/css/vex-theme-os.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../Reportes/Reportes.css" />
     <link rel="stylesheet" media="(max-width: 1600px)" href="estilosPortalSecciones.css" />
 </head>
 <body>
@@ -42,7 +45,8 @@
                 </div>
                 <div id="div_detalle_consulta" style="display: none;">
                     <label style="margin-right: 20px;">ID:</label><input type="text" id="txt_nro_consulta"readonly style="width: 50px;"/>
-                    <label style="margin-right: 20px;">Creador:</label><input type="text" id="txt_creador"readonly style="width: 250px;"/>
+                    <label style="margin-right: 20px;">Creador:</label><input type="text" id="txt_creador"readonly style="width: 250px;"/><input type="hidden" id="nroDocumentoCreador" />
+                    <a id="btnConsultaIndividual" href="#" style="display: inline;" ><img src="../Imagenes/detalle.png" width="25px" height="25px" style="vertical-align: top;" /></a>
                     <label style="margin-right: 20px;margin-left: 20px;">Tipo de Consulta:</label><input type="text" id="txt_tipo" readonly style="width: 150px;"/>
                     <br />
                     <label style="margin-right: 24px;">
@@ -63,6 +67,12 @@
             </div>
         </div>
     </form>
+    <div id="pantalla_consulta_individual" style="display: none">
+        <h3>Consulta Individual</h3>
+        <br />
+        <uc3:Consulta ID="Consulta1"  runat="server"  />
+    </div>
+        
 </body>
 <script type="text/javascript" src="Legajo.js"></script>
 <script type="text/javascript" src="../scripts/vex-2.1.1/js/vex.combined.min.js"></script>
@@ -72,6 +82,43 @@
         Backend.start(function () {
             Legajo.getConsultasParaGestion();
         });
+
+        $("#btnConsultaIndividual").click(function () {
+
+            vex.defaultOptions.className = 'vex-theme-os';
+            vex.open({
+                afterOpen: function ($vexContent) {
+                    var ui = $("#pantalla_consulta_individual").clone();
+                    $vexContent.append(ui);
+                    ui.show();
+                    Legajo.getConsultaIndividual($('#nroDocumentoCreador').val(), ui);
+                    /*ui.find("#btn_enviar_consulta").click(function () {
+                        Backend.NuevaConsultaDePortal({
+                            id_tipo_consulta: ui.find("#cmb_tipo_consulta").val(),
+                            tipo_consulta: ui.find("#cmb_tipo_consulta option:selected").text(),
+                            motivo: ui.find("#txt_motivo_consulta").val()
+                        }).onSuccess(function (id_consulta) {
+                            alertify.success("Consulta enviada con éxito");
+                            vex.close();
+                            Legajo.getConsultas();
+                        }).onError(function (id_consulta) {
+                            alertify.error("Error al enviar consulta");
+                        });
+                    });*/
+                    return ui;
+                },
+                css: {
+                    'padding-top': "4%",
+                    'padding-bottom': "0%"
+                },
+                contentCSS: {
+                    width: "47%",
+                    height: "740px"
+                }
+            });
+
+        });
+
     });
 
 
