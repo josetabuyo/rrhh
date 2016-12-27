@@ -14,6 +14,11 @@
     <link href="../scripts/vex-2.1.1/css/vex.css" rel="stylesheet">
     <link href="../scripts/vex-2.1.1/css/vex-theme-os.css" rel="stylesheet">
     <link rel="stylesheet" media="(max-width: 1600px)" href="estilosPortalSecciones.css" />
+    <script>
+        $(function () {
+            $("#accordion").accordion();
+        });
+    </script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -48,7 +53,7 @@
             <br />
             <br />
             <br />
-            <div id="div_consultas_enviadas">
+            <div id="accordion">
                 <h5>
                     Nuevas respuestas:</h5>
                 <div id="tablaConsultas_noleidas" class="table table-striped table-bordered table-condensed">
@@ -63,26 +68,32 @@
                 </div>
                 <%-- <input id="btn_volver_explicacion" type="button" class="btn btn-primary" value="Volver" />--%>
             </div>
-            <div id="div_detalle_consulta" style="display: none; margin-bottom:10px;">
-                <label style="font-size: initial;"><strong>Motivo:</strong></label>
-                <p id="ta_motivo" style="display: inline; font-style: italic;"></p>
+            <div id="div_detalle_consulta" style="display: none; margin-bottom: 10px;">
+                <label style="font-size: initial;">
+                    <strong>Motivo:</strong></label>
+                <p id="ta_motivo" style="display: inline; font-style: italic;">
+                </p>
                 <%--<textarea id="ta_motivo" style="width: 100%; height: 150px;" readonly></textarea>--%>
                 <br />
                 <br />
-                <label style="font-size: initial;"><strong>Respuesta:</strong></label>
-                <p id="ta_respuesta" style="display: inline; font-style: italic;"></p>
-                
+                <label style="font-size: initial;">
+                    <strong>Respuesta:</strong></label>
+                <p id="ta_respuesta" style="display: inline; font-style: italic;">
+                </p>
                 <%--<textarea id="ta_respuesta" style="width: 100%; height: 150px;" readonly></textarea>--%>
             </div>
         </div>
     </form>
     <div id="pantalla_alta_ticket" style="display: none">
-        <h3>Seleccione el tipo de consulta que quiere realizar en el menu izquierdo y luego complete el campo derecho.</h3>
+        <h3>
+            Seleccione el tipo de consulta que quiere realizar en el menu izquierdo y luego
+            complete el campo derecho.</h3>
         <br />
         <select id="cmb_tipo_consulta" size="7">
         </select>
         <textarea id="txt_motivo_consulta" placeholder="Ingrese su consulta aquí" maxlength="1000"></textarea>
-        <input id="btn_enviar_consulta" type="button" class="btn btn-primary" style="margin: auto;display: block; width: 100px;height: 30px;" value="ENVIAR" />
+        <input id="btn_enviar_consulta" type="button" class="btn btn-primary" style="margin: auto;
+            display: block; width: 100px; height: 30px;" value="ENVIAR" />
     </div>
 </body>
 <script type="text/javascript" src="Legajo.js"></script>
@@ -126,7 +137,7 @@
                                 var textoCustomizado = this.options[this.selectedIndex].getAttribute('placeholder');
                                 ui.find("#txt_motivo_consulta").attr("placeholder", textoCustomizado); //[0].placeholder = textoCustomizado;
                             });
-                            
+
 
                             ui.find("#btn_enviar_consulta").click(function () {
                                 Backend.NuevaConsultaDePortal({
