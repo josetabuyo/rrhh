@@ -27,20 +27,20 @@
         <h1 style="text-align: center; margin: 30px;">
         </h1>
         <div style="text-align: center;" class="caja_izq no-print">
-            <input id="btn_consultas_pendientes" type="button" class="btn btn-primary" style="margin: 10px; width: 150px;"
-                value="Consultas pendientes" />
-            <input id="btn_consultas_historicas" type="button" class="btn btn-primary" style="margin: 10px; width: 150px;"
-                value="Consultas históricas" />
-            <input id="Button3" type="button" class="btn btn-primary" style="margin: 10px; width: 150px;"
-                value="Parametría" />
-            <input id="Button4" type="button" class="btn btn-primary" style="margin: 10px; width: 150px;"
-                value="Reportes" />
+        <p style="margin:25px; font-size: 2.1em; color: #fff;">ACCIONES</p>
+            <input id="btn_consultas_pendientes" type="button" class="btn_gestion_consulta" style="margin: 10px; width: 150px; font-size: smaller;"
+                value="CONSULTAS PENDIENTES" />
+            <input id="btn_consultas_historicas" type="button" class="btn_gestion_consulta" style="margin: 10px; width: 150px; font-size: smaller;"
+                value="CONSULTAS HISTORICAS" />
+            <input id="Button3" type="button" class="btn_gestion_consulta" style="margin: 10px; width: 150px; font-size: smaller;"
+                value="PARAMETRIA" />
+            <input id="Button4" type="button" class="btn_gestion_consulta" style="margin: 10px; width: 150px; font-size: smaller;"
+                value="REPORTES" />
         </div>
         <div class="caja_der papel">
             <%--DIV 1--%>
             <div id="consultas">
-                <h2 id="consultas_titulo">
-                    Consultas Pendientes</h2>
+                <legend id="legend_gestion" style="margin-top:10px;">CONSULTAS PENDIENTES</legend>
                 <div id="tablaConsultas" class="table table-striped table-bordered table-condensed">
                 </div>
                 <div id="div_detalle_consulta" style="display: none;">

@@ -4189,6 +4189,18 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public string GetConsultasDePortalParaUnUsuario(int idUsuarioAConsultar)
+    {
+        RepositorioLegajo repo = RepoLegajo();
+
+        return repo.GetConsultasDePortal(idUsuarioAConsultar);
+
+    }
+
+    
+
+
+    [WebMethod]
     public void ResponderConsulta(int id, string respuesta, Usuario usuario)
     {
         RepositorioLegajo repo = RepoLegajo();

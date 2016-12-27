@@ -17,7 +17,7 @@ ul li:before {
     color:#f4efe9; 
     /*background:#413f40; */
     background:#003e67;
-    min-width: 155px;
+    min-width: 185px;
     width:18%; 
     display:inline-block; 
     min-height:600px;
@@ -496,4 +496,13 @@ legend {
   -moz-animation: glowing 1500ms infinite;
   -o-animation: glowing 1500ms infinite;
   animation: glowing 1500ms infinite;
+}
+
+
+.btn_gestion_consulta {
+    height: 50px;
+    background-color: #F8F8F8;
+    border: 1px solid #D5D5D5;
+    border-radius: 5px;
+    width: 200px;
 }
