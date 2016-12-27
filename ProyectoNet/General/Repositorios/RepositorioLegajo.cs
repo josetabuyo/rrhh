@@ -407,7 +407,8 @@ namespace General.Repositorios
                         row.GetString("estado"),
                         responsable,
                         row.GetDateTime("fecha_contestacion", new DateTime()),
-                        row.GetString("respuesta", "Sin respuesta aún"));
+                        row.GetString("respuesta", "Sin respuesta aún"),
+                        row.GetBoolean("leido"));
                     consultas.Add(consulta);
                 });
             }
@@ -445,7 +446,8 @@ namespace General.Repositorios
                         row.GetString("estado"),
                         responsable,
                         row.GetDateTime("fecha_contestacion", new DateTime()),
-                        row.GetString("respuesta", ""));
+                        row.GetString("respuesta", ""),
+                        row.GetBoolean("leido"));
                     consultas.Add(consulta);
 
                 });

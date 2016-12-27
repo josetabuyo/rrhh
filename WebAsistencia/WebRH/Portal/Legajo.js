@@ -649,7 +649,6 @@ var Legajo = {
                         columnas_noleidas.push(new Columna("Id", { generar: function (una_consulta) { return una_consulta.Id } }));
                         columnas_noleidas.push(new Columna("Fecha Creación", { generar: function (una_consulta) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_consulta.fechaCreacion) } }));
                         columnas_noleidas.push(new Columna("Tipo de Consulta", { generar: function (una_consulta) { return una_consulta.tipo_consulta } }));
-                        columnas_noleidas.push(new Columna("Estado", { generar: function (una_consulta) { return una_consulta.estado } }));
                         columnas_noleidas.push(new Columna("Responsable", { generar: function (una_consulta) { return una_consulta.contestador.Nombre } }));
                         columnas_noleidas.push(new Columna("Fecha Respuesta", { generar: function (una_consulta) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_consulta.fechaContestacion) } }));
                         columnas_noleidas.push(new Columna('Detalle', {
@@ -671,8 +670,6 @@ var Legajo = {
                         columnas_pendientes.push(new Columna("Fecha Creación", { generar: function (una_consulta) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_consulta.fechaCreacion) } }));
                         columnas_pendientes.push(new Columna("Tipo de Consulta", { generar: function (una_consulta) { return una_consulta.tipo_consulta } }));
                         columnas_pendientes.push(new Columna("Estado", { generar: function (una_consulta) { return una_consulta.estado } }));
-                        columnas_pendientes.push(new Columna("Responsable", { generar: function (una_consulta) { return una_consulta.contestador.Nombre } }));
-                        columnas_pendientes.push(new Columna("Fecha Respuesta", { generar: function (una_consulta) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_consulta.fechaContestacion) } }));
                         columnas_pendientes.push(new Columna('Detalle', {
                             generar: function (una_consulta) {
                                 var btn_accion = $('<a>');
@@ -711,17 +708,17 @@ var Legajo = {
 
                         _this.divGrilla_noleidas = new Grilla(columnas_noleidas);
                         _this.divGrilla_noleidas.CambiarEstiloCabecera("estilo_tabla_portal");
-                        _this.divGrilla_noleidas.CargarObjetos(consultas);
+                        _this.divGrilla_noleidas.CargarObjetos(_this_original.ConsultasNoLeidas(consultas));
                         _this.divGrilla_noleidas.DibujarEn(divGrilla_noleidas);
 
                         _this.divGrilla_pendientes = new Grilla(columnas_pendientes);
                         _this.divGrilla_pendientes.CambiarEstiloCabecera("estilo_tabla_portal");
-                        _this.divGrilla_pendientes.CargarObjetos(consultas);
+                        _this.divGrilla_pendientes.CargarObjetos(_this_original.ConsultasPendientes(consultas));
                         _this.divGrilla_pendientes.DibujarEn(divGrilla_pendientes);
 
                         _this.divGrilla_historicas = new Grilla(columnas_historicas);
                         _this.divGrilla_historicas.CambiarEstiloCabecera("estilo_tabla_portal");
-                        _this.divGrilla_historicas.CargarObjetos(consultas);
+                        _this.divGrilla_historicas.CargarObjetos(_this_original.ConsultasHistoricas(consultas));
                         _this.divGrilla_historicas.DibujarEn(divGrilla_historicas);
                         $('.table-hover').removeClass("table-hover");
                     })
@@ -729,6 +726,16 @@ var Legajo = {
 
                     });
     },
+    ConsultasNoLeidas: function (consultas) {
+        return $.grep(consultas, function (consulta) { return consulta.leida; });
+    },
+    ConsultasPendientes: function (consultas) {
+        return $.grep(consultas, function (consulta) { return (consulta.id_estado != 7 && consulta.id_estado != 8) });
+    },
+    ConsultasHistoricas: function (consultas) {
+        return consultas;
+    },
+
     GetComboTipoConsulta: function () {
         Backend.GetTiposDeConsultaDePortal()
                     .onSuccess(function (tiposconsultaJSON) {

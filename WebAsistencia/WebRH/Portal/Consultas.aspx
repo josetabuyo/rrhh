@@ -50,7 +50,7 @@
             <br />
             <div id="div_consultas_enviadas">
                 <h5>
-                    Consultas no leídas:</h5>
+                    Nuevas respuestas:</h5>
                 <div id="tablaConsultas_noleidas" class="table table-striped table-bordered table-condensed">
                 </div>
                 <h5>
@@ -58,7 +58,7 @@
                 <div id="tablaConsultas_pendientes" class="table table-striped table-bordered table-condensed">
                 </div>
                 <h5>
-                    Consultas históricas:</h5>
+                    Todas las Consultas:</h5>
                 <div id="tablaConsultas_historicas" class="table table-striped table-bordered table-condensed">
                 </div>
                 <%-- <input id="btn_volver_explicacion" type="button" class="btn btn-primary" value="Volver" />--%>

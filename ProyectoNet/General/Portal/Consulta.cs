@@ -18,10 +18,11 @@ namespace General
         public Persona contestador;
         public DateTime fechaContestacion;
         public string respuesta;
+        public bool leida;
 
         public Consulta() { }
 
-        public Consulta(int id, Persona creador, DateTime fecha_creacion, string tipo_consulta, string motivo, int id_estado, string estado, Persona contestador, DateTime fecha_contestacion, string respuesta)
+        public Consulta(int id, Persona creador, DateTime fecha_creacion, string tipo_consulta, string motivo, int id_estado, string estado, Persona contestador, DateTime fecha_contestacion, string respuesta, bool leida)
         {
             this.contestador = new Persona();
             this.Id = id;
@@ -34,6 +35,7 @@ namespace General
             this.fechaContestacion = fecha_contestacion;
             this.respuesta = respuesta;
             this.creador = creador;
+            this.leida = leida;
         }
 
 
