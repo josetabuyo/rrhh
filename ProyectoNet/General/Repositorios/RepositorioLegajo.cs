@@ -388,30 +388,7 @@ namespace General.Repositorios
             var parametros = new Dictionary<string, object>();
             parametros.Add("@Id_usuario", id_usuario);
             List<Consulta> consultas = new List<Consulta>();
-            Area area = new Area();
-            var tablaDatos = conexion.Ejecutar("dbo.LEG_GETConsultasDePortal", parametros);
-
-            if (tablaDatos.Rows.Count > 0)
-            {
-                tablaDatos.Rows.ForEach(row =>
-                {
-                    Persona creador = new Persona(row.GetInt("id_usuario_creador"), 0, row.GetString("nombre_creador"), row.GetString("apellido_creador"), area);
-                    Persona responsable = new Persona(row.GetInt("is_usuario_responsable", 0), 0, row.GetString("nombre_responsable", ""), row.GetString("apellido_responsable", ""), area);
-                    Consulta consulta = new Consulta(
-                        row.GetInt("Id"),
-                        creador,
-                        row.GetDateTime("fecha_creacion"),
-                        row.GetString("tipo_consulta"),
-                        row.GetString("motivo"),
-                        row.GetSmallintAsInt("id_estado"),
-                        row.GetString("estado"),
-                        responsable,
-                        row.GetDateTime("fecha_contestacion", new DateTime()),
-                        row.GetString("respuesta", "Sin respuesta aún"),
-                        row.GetBoolean("leido"));
-                    consultas.Add(consulta);
-                });
-            }
+            getConsultasPorCriterio(parametros, consultas);
 
             return JsonConvert.SerializeObject(consultas);
 
@@ -426,6 +403,14 @@ namespace General.Repositorios
             }
 
             List<Consulta> consultas = new List<Consulta>();
+            getConsultasPorCriterio(parametros, consultas);
+
+            return JsonConvert.SerializeObject(consultas);
+
+        }
+
+        private void getConsultasPorCriterio(Dictionary<string, object> parametros, List<Consulta> consultas)
+        {
             Area area = new Area();
             var tablaDatos = conexion.Ejecutar("dbo.LEG_GETConsultasDePortal", parametros);
 
@@ -453,9 +438,6 @@ namespace General.Repositorios
                 });
 
             }
-
-            return JsonConvert.SerializeObject(consultas);
-
         }
 
         public void ResponderConsulta(int id, string respuesta, int id_usuario)
