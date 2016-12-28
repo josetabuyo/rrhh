@@ -432,7 +432,7 @@ namespace General.Repositorios
                         responsable,
                         row.GetDateTime("fecha_contestacion", new DateTime()),
                         row.GetString("respuesta", ""),
-                        row.GetBoolean("leido"));
+                        row.GetBoolean("leido",false));
                     consultas.Add(consulta);
 
                 });

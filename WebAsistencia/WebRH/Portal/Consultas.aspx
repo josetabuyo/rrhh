@@ -49,7 +49,7 @@
             <br />
             <br />
             <br />
-            <div class="accordion" id="accordion">
+            <div style="margin-top: 20px;" class="accordion" id="accordion">
                 <div class="accordion-group">
                     <div id="ancla1" class="accordion-heading ">
                         <a class="accordion-toggle titulo_acordion" style="text-align: center;" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">NUEVAS RESPUESTAS</a>
