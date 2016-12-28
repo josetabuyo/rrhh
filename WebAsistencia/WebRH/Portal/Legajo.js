@@ -252,7 +252,7 @@ var Legajo = {
                         var columnas = [];
                         columnas.push(new Columna("Periodo", { generar: function (una_linea) { return numeroParaGrilla(una_linea.PeriodoAutorizado); } }));
                         columnas.push(new Columna("Autorizados", { generar: function (una_linea) { return numeroParaGrilla(una_linea.CantidadDiasAutorizados); } }));
-                        columnas.push(new Columna("Utilizados", { generar: function (una_linea) { return una_linea.CantidadDiasDescontados } }));
+                        columnas.push(new Columna("Descontados", { generar: function (una_linea) { return una_linea.CantidadDiasDescontados } }));
                         columnas.push(new Columna("Desde", { generar: function (una_linea) {
                             if (una_linea.PerdidaPorVencimiento == true) {
                                 return "Vencidas";

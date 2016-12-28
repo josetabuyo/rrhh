@@ -369,11 +369,9 @@ namespace TestViaticos
 
             calculador().DiasSolicitables(permitidas_para_juan, aprobadas_para_juan, fecha_hoy, TestObjects.UnaPersona(), analisis, perdidas);
 
-            Assert.AreEqual(analisis.Count(), 5);
-            AssertAnalisis(analisis.First(), 2010, DateTime.MinValue, DateTime.MinValue, 0, 35);
-            AssertAnalisis(analisis.At(1), 0, DateTime.MinValue, DateTime.MinValue, 35, 0);
-            AssertAnalisis(analisis.At(2), 2011, DateTime.MinValue, DateTime.MinValue, 0, 35);
-            AssertAnalisis(analisis.At(3), 0, DateTime.MinValue, DateTime.MinValue, 35, 0);
+            Assert.AreEqual(analisis.Count(), 3);
+            AssertAnalisis(analisis.First(), 2010, DateTime.MinValue, DateTime.MinValue, 35, 35);
+            AssertAnalisis(analisis.At(1), 2011, DateTime.MinValue, DateTime.MinValue, 35, 35);
             AssertAnalisis(analisis.Last(), 2012, F("06/01/2014"), F("17/01/2014"), 12, 35);
         }
 

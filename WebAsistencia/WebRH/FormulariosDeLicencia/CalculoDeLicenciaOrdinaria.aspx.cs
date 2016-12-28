@@ -83,7 +83,7 @@ public partial class FormulariosDeLicencia_CalculoDeLicenciaOrdinaria : System.W
         row.Cells.Add(cell);
 
         cell = new TableHeaderCell();
-        cell.Text = "Utilizados";
+        cell.Text = "Descontados";
         row.Cells.Add(cell);
 
         cell = new TableHeaderCell();

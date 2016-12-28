@@ -195,7 +195,17 @@ namespace General
                         }
                     }
                     p.PeriodoAutorizado = 0;
-                    lineas.Insert(index, p);
+
+                    if (primera.CantidadDiasDescontados == 0)
+                    {
+                        primera.CantidadDiasDescontados = p.CantidadDiasDescontados;
+                        primera.Observacion = p.Observacion;
+                        primera.PerdidaExplicitamente = p.PerdidaExplicitamente;
+                    }
+                    else
+                    {
+                        lineas.Insert(index, p);
+                    }
                 });
         }
 
@@ -211,8 +221,15 @@ namespace General
                 {
                     if (suma_esperada != suma && HaySolicitudPosteriorA(lineas[i]))
                     {
-                        lineas.Insert(i, new LogCalculoVacaciones() { PerdidaPorVencimiento = true, CantidadDiasDescontados = suma_esperada - suma });
-                        i++;
+                        if (lineas[i-1].CantidadDiasDescontados == 0)
+                        {
+                            lineas[i - 1].PerdidaPorVencimiento = true;
+                            lineas[i - 1].CantidadDiasDescontados = suma_esperada - suma;
+                        } else {
+                            lineas.Insert(i, new LogCalculoVacaciones() { PerdidaPorVencimiento = true, CantidadDiasDescontados = suma_esperada - suma });
+                            i++;
+                        }
+                        
                     }
 
                     periodo = lineas[i].PeriodoAutorizado;
