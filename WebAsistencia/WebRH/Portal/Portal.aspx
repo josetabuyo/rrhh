@@ -172,7 +172,8 @@
         <script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-tooltip.js"></script>
         <script type="text/javascript">
             $(document).ready(function () {
-                Backend.start(function () {
+                //DESCOMENTAR CUANDO SE TERMINE SINO HINCHABA LAS PELOTAS
+                /*Backend.start(function () {
                     Backend.GetUsuarioLogueado().onSuccess(function (usuario) {
                         var levantar_prompt = function () {
                             alertify.prompt("Ingrese su mail", "Para continuar debe ingresar una dirección de correo válida", "", function (ev, mail) {
@@ -192,7 +193,7 @@
                             levantar_prompt();
                         }
                     });
-                });                
+                });           */     
 
                 $('[data-toggle="tooltip"]').tooltip();
 

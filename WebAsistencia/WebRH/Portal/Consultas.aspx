@@ -14,12 +14,7 @@
     <link href="../scripts/vex-2.1.1/css/vex.css" rel="stylesheet">
     <link href="../scripts/vex-2.1.1/css/vex-theme-os.css" rel="stylesheet">
     <link rel="stylesheet" media="(max-width: 1600px)" href="estilosPortalSecciones.css" />
-    <link rel="stylesheet" href="chat.css" />
-    <script>
-        $(function () {
-            $("#accordion").accordion();
-        });
-    </script>
+    
 </head>
 <body>
     <form id="form1" runat="server">
@@ -54,19 +49,66 @@
             <br />
             <br />
             <br />
-            <div id="accordion">
-                <h5>
+            <div style="margin-top: 20px;" class="accordion" id="accordion">
+                <div class="accordion-group">
+                    <div id="ancla1" class="accordion-heading ">
+                        <a class="accordion-toggle titulo_acordion" style="text-align: center;" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">NUEVAS RESPUESTAS</a>
+                    </div>
+                    <div id="collapseOne" class="accordion-body collapse">
+                        <div class="accordion-inner fondo_form">
+                            <fieldset style="width: 100%;">
+                                
+                                <div id="tablaConsultas_noleidas" class="table table-striped table-bordered table-condensed">
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+                 <br />
+                <hr style="clear: both; background-color: #0088cc;" />
+                <div class="accordion-group">
+                    <div id="ancla2" class="accordion-heading ">
+                        <a class="accordion-toggle titulo_acordion" style="text-align: center;" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">CONSULTAS PENDIENTES DE UNA RESPUESTA</a>
+                    </div>
+                    <div id="collapseTwo" class="accordion-body collapse">
+                        <div class="accordion-inner fondo_form">
+                            <fieldset style="width: 100%;">
+                                
+                                <div id="tablaConsultas_pendientes" class="table table-striped table-bordered table-condensed">
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <hr style="clear: both; background-color: #0088cc;" />
+                <div class="accordion-group">
+                    <div id="ancla3" class="accordion-heading ">
+                        <a class="accordion-toggle titulo_acordion" style="text-align: center;" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">TODAS LAS CONSULTAS</a>
+                    </div>
+                    <div id="collapseThree" class="accordion-body collapse">
+                        <div class="accordion-inner fondo_form">
+                            <fieldset style="width: 100%;">
+                                
+                                <div id="tablaConsultas_historicas" class="table table-striped table-bordered table-condensed">
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+                
+                <%--<h5>
                     Nuevas respuestas:</h5>
                 <div id="tablaConsultas_noleidas" class="table table-striped table-bordered table-condensed">
                 </div>
-                <h5>
-                    Consultas pendientes de una respuesta:</h5>
+                <h5>--%>
+                  <%--  Consultas pendientes de una respuesta:</h5>
                 <div id="tablaConsultas_pendientes" class="table table-striped table-bordered table-condensed">
                 </div>
                 <h5>
                     Todas las Consultas:</h5>
                 <div id="tablaConsultas_historicas" class="table table-striped table-bordered table-condensed">
-                </div>
+                </div>--%>
                 <%-- <input id="btn_volver_explicacion" type="button" class="btn btn-primary" value="Volver" />--%>
             </div>
             <div id="div_detalle_consulta" style="display: none; margin-bottom: 10px;">
@@ -86,9 +128,9 @@
         </div>
     </form>
     <div id="pantalla_alta_ticket" style="display: none">
-        <h3>
-            Seleccione el tipo de consulta que quiere realizar en el menu izquierdo y luego
-            complete el campo derecho.</h3>
+        <p style="font-size: xx-large; text-align: center; margin-top: 10px;">Realizar consulta</p>
+        <br />
+        <p>Seleccione el tipo de consulta que quiere realizar desde el menu izquierdo de la pantalla. Luego complete el campo de texto con su duda en cuestión</p>
         <br />
         <select id="cmb_tipo_consulta" size="7">
         </select>
@@ -123,6 +165,7 @@
     </div>
 </body>
 <script type="text/javascript" src="Legajo.js"></script>
+<script type="text/javascript" src="../Scripts/Spin.js"></script>
 <script type="text/javascript" src="../scripts/vex-2.1.1/js/vex.combined.min.js"></script>
 <script type="text/javascript" src="../Scripts/ControlesImagenes/VistaThumbnail.js"></script>
 <script type="text/javascript">
@@ -150,47 +193,9 @@
             Backend.start(function () {
                 Legajo.getNombre();
                 Legajo.getConsultas();
-                Legajo.GetComboTipoConsulta();
+                Legajo.GetComboTipoConsulta();//aca dentro bindeo el evento del boton realizar consulta
 
-                $("#btn_nueva_consulta").click(function () {
-                    vex.defaultOptions.className = 'vex-theme-os';
-                    vex.open({
-                        afterOpen: function ($vexContent) {
-                            var ui = $("#pantalla_alta_ticket").clone();
-                            $vexContent.append(ui);
-                            ui.show();
-                            ui.find("#cmb_tipo_consulta").change(function () {
-                                var textoCustomizado = this.options[this.selectedIndex].getAttribute('placeholder');
-                                ui.find("#txt_motivo_consulta").attr("placeholder", textoCustomizado); //[0].placeholder = textoCustomizado;
-                            });
-
-
-                            ui.find("#btn_enviar_consulta").click(function () {
-                                Backend.NuevaConsultaDePortal({
-                                    id_tipo_consulta: ui.find("#cmb_tipo_consulta").val(),
-                                    tipo_consulta: ui.find("#cmb_tipo_consulta option:selected").text(),
-                                    motivo: ui.find("#txt_motivo_consulta").val()
-                                }).onSuccess(function (id_consulta) {
-                                    alertify.success("Consulta enviada con éxito");
-                                    vex.close();
-                                    Legajo.getConsultas();
-                                }).onError(function (id_consulta) {
-                                    alertify.error("Error al enviar consulta");
-                                });
-                            });
-                            return ui;
-                        },
-                        css: {
-                            'padding-top': "4%",
-                            'padding-bottom': "0%"
-                        },
-                        contentCSS: {
-                            width: "80%",
-                            height: "80%"
-                        }
-                    });
-
-                });
+                
             });
         });
     });

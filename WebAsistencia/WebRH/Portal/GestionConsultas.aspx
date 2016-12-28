@@ -27,7 +27,7 @@
         <h1 style="text-align: center; margin: 30px;">
         </h1>
         <div style="text-align: center;" class="caja_izq no-print">
-        <p style="margin:25px; font-size: 2.1em; color: #fff;">ACCIONES</p>
+        <p style="margin:25px; font-size: 2.1em; color: #fff;">Menú</p>
             <input id="btn_consultas_pendientes" type="button" class="btn_gestion_consulta" style="margin: 10px; width: 150px; font-size: smaller;"
                 value="CONSULTAS PENDIENTES" />
             <input id="btn_consultas_historicas" type="button" class="btn_gestion_consulta" style="margin: 10px; width: 150px; font-size: smaller;"
@@ -41,6 +41,7 @@
             <%--DIV 1--%>
             <div id="consultas">
                 <legend id="legend_gestion" style="margin-top:10px;">CONSULTAS PENDIENTES</legend>
+                <input type="text" id="search" class="search" class="buscador" placeholder="Buscar" style="display: none;" />
                 <div id="tablaConsultas" class="table table-striped table-bordered table-condensed">
                 </div>
                 <div id="div_detalle_consulta" style="display: none;">
@@ -68,13 +69,14 @@
         </div>
     </form>
     <div id="pantalla_consulta_individual" style="display: none">
-        <h3>Consulta Individual</h3>
+        <p style="font-size: xx-large; text-align: center; margin-top: 10px;">Consulta Individual</p>
         <br />
         <uc3:Consulta ID="Consulta1"  runat="server"  />
     </div>
         
 </body>
 <script type="text/javascript" src="Legajo.js"></script>
+<script type="text/javascript" src="../Scripts/Spin.js"></script>
 <script type="text/javascript" src="../scripts/vex-2.1.1/js/vex.combined.min.js"></script>
 <script type="text/javascript">
 
@@ -112,8 +114,8 @@
                     'padding-bottom': "0%"
                 },
                 contentCSS: {
-                    width: "47%",
-                    height: "740px"
+                    width: "80%",
+                    height: "830px"
                 }
             });
 
