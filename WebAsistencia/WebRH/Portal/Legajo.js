@@ -598,14 +598,15 @@ var Legajo = {
         });
     },
 
-    MostrarDetalleDeConsulta: function (id, motivo, respuesta) {
-
+    MostrarDetalleDeConsulta: function (consulta) {
+        var _this = this;
         vex.defaultOptions.className = 'vex-theme-os';
         vex.open({
             afterOpen: function ($vexContent) {
                 var ui = $("#pantalla_consulta_ticket").clone();
                 $vexContent.append(ui);
                 ui.show();
+                _this.ArmarChat(consulta);
                 ui.find("#btn_enviar_consulta").click(function () {
                     Backend.NuevaConsultaDePortal({
                         id_tipo_consulta: ui.find("#cmb_tipo_consulta").val(),
@@ -631,13 +632,29 @@ var Legajo = {
             }
         });
 
-
-
-
-
         Backend.MarcarConsultaComoLeida(id).onSuccess(function () { }).onError(function (e) { });
         this.GetConsultasNoLeidas();
     },
+
+    ArmarChat: function (consulta) {
+        var _this = this;
+        var id = "self_" + consulta.id;
+        jQuery('#chat_self').clone().appendTo('#listado_chat').attr("id", id);
+        _this.CompletarContenidoChat(id, consulta.motivo, consulta.creador.Apellido + ", " + consulta.creador.Nombre + " - " + consulta.fechaCreacion); 
+        if (consulta.fechaContestacion != null) {
+            var id = "other_" + consulta.id;
+            jQuery('#chat_other').clone().appendTo('#listado_chat').attr("id", id);
+            _this.CompletarContenidoChat(id, consulta.contestador.Apellido + ", " + consulta.contestador.Nombre + " - " + consulta.fechaContestacion); 
+        }
+    },
+
+    CompletarContenidoChat: function (id, texto, responsable_fecha_hora) {
+        var _this = this;
+        var objeto = "#" + id
+        $(objeto).find("[id='chat_mensaje']").text(texto);
+        $(objeto).find("[id='chat_time']").text(responsable_fecha_hora);
+
+     },
 
     TratarConsulta: function (nro_consulta, creador, tipo, motivo) {
         $('#btn_responder_consulta').show();
@@ -692,7 +709,7 @@ var Legajo = {
                                 img.attr('height', '15px');
                                 btn_accion.append(img);
                                 btn_accion.click(function () {
-                                    _this_original.MostrarDetalleDeConsulta(una_consulta.Id, una_consulta.motivo, una_consulta.respuesta);
+                                    _this_original.MostrarDetalleDeConsulta(una_consulta);
                                 });
                                 return btn_accion;
                             }
@@ -711,7 +728,7 @@ var Legajo = {
                                 img.attr('height', '15px');
                                 btn_accion.append(img);
                                 btn_accion.click(function () {
-                                    _this_original.MostrarDetalleDeConsulta(una_consulta.Id, una_consulta.motivo, una_consulta.respuesta);
+                                    _this_original.MostrarDetalleDeConsulta(una_consulta);
                                 });
                                 return btn_accion;
                             }
@@ -732,7 +749,7 @@ var Legajo = {
                                 img.attr('height', '15px');
                                 btn_accion.append(img);
                                 btn_accion.click(function () {
-                                    _this_original.MostrarDetalleDeConsulta(una_consulta.Id, una_consulta.motivo, una_consulta.respuesta);
+                                    _this_original.MostrarDetalleDeConsulta(una_consulta);
                                 });
                                 return btn_accion;
                             }
@@ -800,7 +817,7 @@ var Legajo = {
                                 img.attr('height', '15px');
                                 btn_accion.append(img);
                                 btn_accion.click(function () {
-                                    _this_original.MostrarDetalleDeConsulta(una_consulta.Id, una_consulta.motivo, una_consulta.respuesta);
+                                    _this_original.MostrarDetalleDeConsulta(una_consulta);
                                 });
                                 return btn_accion;
                             }

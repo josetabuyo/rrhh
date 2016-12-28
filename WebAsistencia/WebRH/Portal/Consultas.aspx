@@ -100,41 +100,26 @@
         <h3 style="text-align: center;">
             CONSULTA NÚMERO.</h3>
         <br />
-        <ol class="chat">
-            <li class="other">
-                <div class="avatar">
-                    <img src="http://i.imgur.com/DY6gND0.png" draggable="false" /></div>
-                <div class="msg">
-                    <p>
-                        Hola!</p>
-                    <p>
-                        Te vienes a cenar al centro?v jkdfj kldj kldfsñj fklñsdm jklñsdg mjgsdmklñgj sldk jksdljg klsdjsfklj klsfdjgk lsjgklsdj klsdfj klgsdfj klj klsdg sdfjsdfhdjkl  jkldjfk ljgkldklgjd kfjdklfjkl klj fkdlj fdklj kldf
-                        <emoji class="pizza" />
-                    </p>
-                    <time>20:17</time>
+        <ol class="chat" id="listado_chat">
+            <li id="chat_individual" class="other" style="display:none;">
+                <div id="chat_avatar" class="avatar">
+                    <img id="chat_imagen" draggable="false" />
+                </div>
+                <div id="chat_mensaje" class="msg">
+                    <time id="chat_time">20:18</time>
                 </div>
             </li>
-            <li class="self">
-                <div class="avatar">
-                    <img src="http://i.imgur.com/HYcn9xO.png" draggable="false" /></div>
-                <div class="msg">
-                    <p>
-                        Puff...</p>
-                    <p>
-                        Aún estoy haciendo el contexto de Góngora...
-                        <emoji class="books" />
-                    </p>
-                    <p>
-                        Mejor otro día</p>
-                    <time>20:18</time>
+            <li id="chat_individual" class="self">
+                <div id="chat_avatar" class="avatar">
+                    <img id="chat_imagen" draggable="false" /></div>
+                <div id="chat_mensaje" class="msg">
+                    <time id="chat_time">20:17</time>
                 </div>
             </li>
         </ol>
-        <input class="textarea" type="text" placeholder="Type here!" /><div class="emojis">
-        </div>
         <br />
         <input id="btn_cerrar" type="button" class="btn btn-primary" style="margin: auto;
-            display: block; width: 100px; height: 30px;" value="Cerrar Consulta" />
+            display: block; width: 100px; height: 30px;" value="Cerrar" />
     </div>
 </body>
 <script type="text/javascript" src="Legajo.js"></script>
