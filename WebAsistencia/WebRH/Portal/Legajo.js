@@ -599,11 +599,42 @@ var Legajo = {
     },
 
     MostrarDetalleDeConsulta: function (id, motivo, respuesta) {
-        $('#div_detalle_consulta').show();
-        //$('#ta_motivo').val(motivo);
-        $('#ta_motivo').html('"' + motivo + '"');
-        //$('#ta_respuesta').val(respuesta);
-        $('#ta_respuesta').html('"' + respuesta + '"');
+
+        vex.defaultOptions.className = 'vex-theme-os';
+        vex.open({
+            afterOpen: function ($vexContent) {
+                var ui = $("#pantalla_consulta_ticket").clone();
+                $vexContent.append(ui);
+                ui.show();
+                ui.find("#btn_enviar_consulta").click(function () {
+                    Backend.NuevaConsultaDePortal({
+                        id_tipo_consulta: ui.find("#cmb_tipo_consulta").val(),
+                        tipo_consulta: ui.find("#cmb_tipo_consulta option:selected").text(),
+                        motivo: ui.find("#txt_motivo_consulta").val()
+                    }).onSuccess(function (id_consulta) {
+                        alertify.success("Consulta enviada con éxito");
+                        vex.close();
+                        Legajo.getConsultas();
+                    }).onError(function (id_consulta) {
+                        alertify.error("Error al enviar consulta");
+                    });
+                });
+                return ui;
+            },
+            css: {
+                'padding-top': "4%",
+                'padding-bottom': "0%"
+            },
+            contentCSS: {
+                width: "80%",
+                height: "80%"
+            }
+        });
+
+
+
+
+
         Backend.MarcarConsultaComoLeida(id).onSuccess(function () { }).onError(function (e) { });
         this.GetConsultasNoLeidas();
     },
