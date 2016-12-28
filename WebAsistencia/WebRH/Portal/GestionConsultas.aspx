@@ -41,6 +41,7 @@
             <%--DIV 1--%>
             <div id="consultas">
                 <legend id="legend_gestion" style="margin-top:10px;">CONSULTAS PENDIENTES</legend>
+                <input type="text" id="search" class="search" class="buscador" placeholder="Buscar" style="display: none;" />
                 <div id="tablaConsultas" class="table table-striped table-bordered table-condensed">
                 </div>
                 <div id="div_detalle_consulta" style="display: none;">
