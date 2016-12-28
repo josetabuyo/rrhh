@@ -647,7 +647,7 @@ var Legajo = {
                         var columnas_noleidas = [];
                         var columnas_pendientes = [];
                         var columnas_historicas = [];
-                        columnas_noleidas.push(new Columna("Id", { generar: function (una_consulta) { return una_consulta.Id } }));
+                        columnas_noleidas.push(new Columna("#", { generar: function (una_consulta) { return una_consulta.Id } }));
                         columnas_noleidas.push(new Columna("Fecha Creación", { generar: function (una_consulta) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_consulta.fechaCreacion) } }));
                         columnas_noleidas.push(new Columna("Tipo de Consulta", { generar: function (una_consulta) { return una_consulta.tipo_consulta } }));
                         columnas_noleidas.push(new Columna("Responsable", { generar: function (una_consulta) { return una_consulta.contestador.Nombre } }));
@@ -754,7 +754,7 @@ var Legajo = {
                         var columnas_historicas = [];
 
 
-                        columnas_historicas.push(new Columna("Id", { generar: function (una_consulta) { return una_consulta.Id } }));
+                        columnas_historicas.push(new Columna("#", { generar: function (una_consulta) { return una_consulta.Id } }));
                         columnas_historicas.push(new Columna("Fecha Creación", { generar: function (una_consulta) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_consulta.fechaCreacion) } }));
                         columnas_historicas.push(new Columna("Tipo de Consulta", { generar: function (una_consulta) { return una_consulta.tipo_consulta } }));
                         columnas_historicas.push(new Columna("Estado", { generar: function (una_consulta) { return una_consulta.estado } }));

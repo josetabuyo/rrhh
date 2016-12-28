@@ -14,11 +14,7 @@
     <link href="../scripts/vex-2.1.1/css/vex.css" rel="stylesheet">
     <link href="../scripts/vex-2.1.1/css/vex-theme-os.css" rel="stylesheet">
     <link rel="stylesheet" media="(max-width: 1600px)" href="estilosPortalSecciones.css" />
-    <script>
-        $(function () {
-            $("#accordion").accordion();
-        });
-    </script>
+    
 </head>
 <body>
     <form id="form1" runat="server">
@@ -53,19 +49,66 @@
             <br />
             <br />
             <br />
-            <div id="accordion">
-                <h5>
+            <div class="accordion" id="accordion">
+                <div class="accordion-group">
+                    <div id="ancla1" class="accordion-heading ">
+                        <a class="accordion-toggle titulo_acordion" style="" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">NUEVAS RESPUESTAS</a>
+                    </div>
+                    <div id="collapseOne" class="accordion-body collapse">
+                        <div class="accordion-inner fondo_form">
+                            <fieldset style="width: 100%;">
+                                
+                                <div id="tablaConsultas_noleidas" class="table table-striped table-bordered table-condensed">
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+                 <br />
+                <hr style="clear: both; background-color: #0088cc;" />
+                <div class="accordion-group">
+                    <div id="ancla2" class="accordion-heading ">
+                        <a class="accordion-toggle titulo_acordion" style="" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">CONSULTAS PENDIENTES DE UNA RESPUESTA</a>
+                    </div>
+                    <div id="collapseTwo" class="accordion-body collapse">
+                        <div class="accordion-inner fondo_form">
+                            <fieldset style="width: 100%;">
+                                
+                                <div id="tablaConsultas_pendientes" class="table table-striped table-bordered table-condensed">
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <hr style="clear: both; background-color: #0088cc;" />
+                <div class="accordion-group">
+                    <div id="ancla3" class="accordion-heading ">
+                        <a class="accordion-toggle titulo_acordion" style="" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">TODAS LAS CONSULTAS</a>
+                    </div>
+                    <div id="collapseThree" class="accordion-body collapse">
+                        <div class="accordion-inner fondo_form">
+                            <fieldset style="width: 100%;">
+                                
+                                <div id="tablaConsultas_historicas" class="table table-striped table-bordered table-condensed">
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+                
+                <%--<h5>
                     Nuevas respuestas:</h5>
                 <div id="tablaConsultas_noleidas" class="table table-striped table-bordered table-condensed">
                 </div>
-                <h5>
-                    Consultas pendientes de una respuesta:</h5>
+                <h5>--%>
+                  <%--  Consultas pendientes de una respuesta:</h5>
                 <div id="tablaConsultas_pendientes" class="table table-striped table-bordered table-condensed">
                 </div>
                 <h5>
                     Todas las Consultas:</h5>
                 <div id="tablaConsultas_historicas" class="table table-striped table-bordered table-condensed">
-                </div>
+                </div>--%>
                 <%-- <input id="btn_volver_explicacion" type="button" class="btn btn-primary" value="Volver" />--%>
             </div>
             <div id="div_detalle_consulta" style="display: none; margin-bottom: 10px;">
