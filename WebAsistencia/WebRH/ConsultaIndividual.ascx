@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ConsultaIndividual.ascx.cs" Inherits="ConsultaIndividual" %>
 
-<div id="panel_izquierdo" class="estilo_formulario">
+<div id="panel_izquierdo" style="width:95%;" class="estilo_formulario">
     <div class="bloque_foto">
         <img id="foto_usuario" src="../Imagenes/silueta.gif" alt="Usuario" width="128" height="128">
         <!--<input id="btn_timeline" type="button" value="Carrera" class="btn btn-primary" />-->

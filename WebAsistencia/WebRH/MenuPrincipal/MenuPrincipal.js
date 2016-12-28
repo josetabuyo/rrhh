@@ -24,12 +24,14 @@
     };
 
     Backend.GetUsuarioLogueado().onSuccess(function (usuario) {
-        var levantar_prompt = function () {
+        cargar_menu();
+        //DESCOMENTAR CUANDO ESTE LISTO XQ HINCHABA LAS BOLAS. TB ESTA EN PORTAL.aspx
+        /*var levantar_prompt = function () {
             alertify.prompt("Ingrese su mail", "Para continuar debe ingresar una dirección de correo válida", "", function (ev, mail) {
                 Backend.ModificarMiMail(mail).onSuccess(function (ok) {
                     if (ok) {
                         alertify.success("Mail modificado correctamente");
-                        cargar_menu();         
+                        cargar_menu();
                     }
                     else alertify.error("Error al modificar el mail");
                 }).onError(function () {
@@ -43,7 +45,7 @@
             levantar_prompt();
         } else {
             cargar_menu();
-        }
+        }*/
     });
 
 };

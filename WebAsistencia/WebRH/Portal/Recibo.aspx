@@ -23,12 +23,14 @@
         <div style="text-align:right; margin-right:20%"><a href="Consultas.aspx">Realizar/Visualizar Consultas</a></div>
         <div style="text-align:center;" class="caja_izq no-print"></div>
          <div  class="caja_der papel" >
+         <legend style="margin-top: 20px;">RECIBO DE SUELDO</legend>
          <div id="div_recibo">
             <%--<p class="">Dirección de Diseño y Desarrollo Organizacional para la Gestión de Personas, Dirección de Recursos Humanos y 
          Organización, Secretaría de Coordinación y Monitoreo Institucional, Unidad Ministro, Ministerio de Desarrollo Social </p>--%>
          <div  style="margin:10px;">
          <p>Seleccione año y mes para ver los recibos de sueldos correspondientes:</p>
              <select style="width:60px;" id="cmb_anio">
+                <option value="2017">2017</option>
                 <option value="2016">2016</option>
                 <option value="2015">2015</option>
              </select>
