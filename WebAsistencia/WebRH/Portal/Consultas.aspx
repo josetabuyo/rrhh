@@ -14,7 +14,7 @@
     <link href="../scripts/vex-2.1.1/css/vex.css" rel="stylesheet">
     <link href="../scripts/vex-2.1.1/css/vex-theme-os.css" rel="stylesheet">
     <link rel="stylesheet" media="(max-width: 1600px)" href="estilosPortalSecciones.css" />
-    
+    <link rel="stylesheet" href="chat.css" />
 </head>
 <body>
     <form id="form1" runat="server">
@@ -52,28 +52,29 @@
             <div style="margin-top: 20px;" class="accordion" id="accordion">
                 <div class="accordion-group">
                     <div id="ancla1" class="accordion-heading ">
-                        <a class="accordion-toggle titulo_acordion" style="text-align: center;" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">NUEVAS RESPUESTAS</a>
+                        <a class="accordion-toggle titulo_acordion" style="text-align: center;" data-toggle="collapse"
+                            data-parent="#accordion" href="#collapseOne" id="acordeon_1">RESPUESTAS NO LEIDAS</a>
                     </div>
                     <div id="collapseOne" class="accordion-body collapse">
                         <div class="accordion-inner fondo_form">
                             <fieldset style="width: 100%;">
-                                
                                 <div id="tablaConsultas_noleidas" class="table table-striped table-bordered table-condensed">
                                 </div>
                             </fieldset>
                         </div>
                     </div>
                 </div>
-                 <br />
+                <br />
                 <hr style="clear: both; background-color: #0088cc;" />
                 <div class="accordion-group">
                     <div id="ancla2" class="accordion-heading ">
-                        <a class="accordion-toggle titulo_acordion" style="text-align: center;" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">CONSULTAS PENDIENTES DE UNA RESPUESTA</a>
+                        <a class="accordion-toggle titulo_acordion" style="text-align: center;" data-toggle="collapse"
+                            data-parent="#accordion" href="#collapseTwo" id="acordeon_2">CONSULTAS ESPERANDO
+                            UNA RESPUESTA</a>
                     </div>
                     <div id="collapseTwo" class="accordion-body collapse">
                         <div class="accordion-inner fondo_form">
                             <fieldset style="width: 100%;">
-                                
                                 <div id="tablaConsultas_pendientes" class="table table-striped table-bordered table-condensed">
                                 </div>
                             </fieldset>
@@ -84,25 +85,24 @@
                 <hr style="clear: both; background-color: #0088cc;" />
                 <div class="accordion-group">
                     <div id="ancla3" class="accordion-heading ">
-                        <a class="accordion-toggle titulo_acordion" style="text-align: center;" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">TODAS LAS CONSULTAS</a>
+                        <a class="accordion-toggle titulo_acordion" style="text-align: center;" data-toggle="collapse"
+                            data-parent="#accordion" href="#collapseThree" id="acordeon_3">TODAS LAS CONSULTAS</a>
                     </div>
                     <div id="collapseThree" class="accordion-body collapse">
                         <div class="accordion-inner fondo_form">
                             <fieldset style="width: 100%;">
-                                
                                 <div id="tablaConsultas_historicas" class="table table-striped table-bordered table-condensed">
                                 </div>
                             </fieldset>
                         </div>
                     </div>
                 </div>
-                
                 <%--<h5>
                     Nuevas respuestas:</h5>
                 <div id="tablaConsultas_noleidas" class="table table-striped table-bordered table-condensed">
                 </div>
                 <h5>--%>
-                  <%--  Consultas pendientes de una respuesta:</h5>
+                <%--  Consultas pendientes de una respuesta:</h5>
                 <div id="tablaConsultas_pendientes" class="table table-striped table-bordered table-condensed">
                 </div>
                 <h5>
@@ -128,9 +128,12 @@
         </div>
     </form>
     <div id="pantalla_alta_ticket" style="display: none">
-        <p style="font-size: xx-large; text-align: center; margin-top: 10px;">Realizar consulta</p>
+        <p style="font-size: xx-large; text-align: center; margin-top: 10px;">
+            Realizar consulta</p>
         <br />
-        <p>Seleccione el tipo de consulta que quiere realizar desde el menu izquierdo de la pantalla. Luego complete el campo de texto con su duda en cuestión</p>
+        <p>
+            Seleccione el tipo de consulta que quiere realizar desde el menu izquierdo de la
+            pantalla. Luego complete el campo de texto con su duda en cuestión</p>
         <br />
         <select id="cmb_tipo_consulta" size="7">
         </select>
@@ -143,7 +146,8 @@
             CONSULTA NÚMERO.</h3>
         <br />
         <ol class="chat" id="listado_chat">
-            <li id="chat_individual" class="other" style="display:none;">
+            <%--MODELO DE CLONADO OTHER--%>
+            <li id="chat_individual_other" class="other" style="display: none;">
                 <div id="chat_avatar" class="avatar">
                     <img id="chat_imagen" draggable="false" />
                 </div>
@@ -151,11 +155,12 @@
                     <time id="chat_time">20:18</time>
                 </div>
             </li>
-            <li id="chat_individual" class="self">
+            <%--MODELO DE CLONADO SELF--%>
+            <li id="chat_individual_self" class="self" style="display: none;">
                 <div id="chat_avatar" class="avatar">
                     <img id="chat_imagen" draggable="false" /></div>
                 <div id="chat_mensaje" class="msg">
-                    <time id="chat_time">20:17</time>
+                    <time id="chat_time"></time>
                 </div>
             </li>
         </ol>
@@ -193,9 +198,9 @@
             Backend.start(function () {
                 Legajo.getNombre();
                 Legajo.getConsultas();
-                Legajo.GetComboTipoConsulta();//aca dentro bindeo el evento del boton realizar consulta
+                Legajo.GetComboTipoConsulta(); //aca dentro bindeo el evento del boton realizar consulta
 
-                
+
             });
         });
     });

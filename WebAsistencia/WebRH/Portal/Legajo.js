@@ -607,18 +607,19 @@ var Legajo = {
                 $vexContent.append(ui);
                 ui.show();
                 _this.ArmarChat(consulta);
-                ui.find("#btn_enviar_consulta").click(function () {
-                    Backend.NuevaConsultaDePortal({
-                        id_tipo_consulta: ui.find("#cmb_tipo_consulta").val(),
-                        tipo_consulta: ui.find("#cmb_tipo_consulta option:selected").text(),
-                        motivo: ui.find("#txt_motivo_consulta").val()
-                    }).onSuccess(function (id_consulta) {
-                        alertify.success("Consulta enviada con éxito");
-                        vex.close();
-                        Legajo.getConsultas();
-                    }).onError(function (id_consulta) {
-                        alertify.error("Error al enviar consulta");
-                    });
+                ui.find("#btn_cerrar").click(function () {
+                    vex.close();
+                    //                    Backend.NuevaConsultaDePortal({
+                    //                        id_tipo_consulta: ui.find("#cmb_tipo_consulta").val(),
+                    //                        tipo_consulta: ui.find("#cmb_tipo_consulta option:selected").text(),
+                    //                        motivo: ui.find("#txt_motivo_consulta").val()
+                    //                    }).onSuccess(function (id_consulta) {
+                    //                        alertify.success("Consulta enviada con éxito");
+                    //                        vex.close();
+                    //                        Legajo.getConsultas();
+                    //                    }).onError(function (id_consulta) {
+                    //                        alertify.error("Error al enviar consulta");
+                    //                    });
                 });
                 return ui;
             },
@@ -632,19 +633,21 @@ var Legajo = {
             }
         });
 
-        Backend.MarcarConsultaComoLeida(id).onSuccess(function () { }).onError(function (e) { });
+        Backend.MarcarConsultaComoLeida(consulta.Id).onSuccess(function () { }).onError(function (e) { });
         this.GetConsultasNoLeidas();
     },
 
     ArmarChat: function (consulta) {
         var _this = this;
-        var id = "self_" + consulta.id;
-        jQuery('#chat_self').clone().appendTo('#listado_chat').attr("id", id);
-        _this.CompletarContenidoChat(id, consulta.motivo, consulta.creador.Apellido + ", " + consulta.creador.Nombre + " - " + consulta.fechaCreacion); 
-        if (consulta.fechaContestacion != null) {
-            var id = "other_" + consulta.id;
-            jQuery('#chat_other').clone().appendTo('#listado_chat').attr("id", id);
-            _this.CompletarContenidoChat(id, consulta.contestador.Apellido + ", " + consulta.contestador.Nombre + " - " + consulta.fechaContestacion); 
+        var id = "self_" + consulta.Id;
+        jQuery('#chat_individual_self').clone().appendTo('#listado_chat').attr("id", id);
+        _this.CompletarContenidoChat(id, consulta.motivo, consulta.creador.Apellido + ", " + consulta.creador.Nombre + " - " + consulta.fechaCreacion);
+        $('#' + id).show();
+        if (consulta.respuesta != "") {
+            var id2 = "other_" + consulta.Id;
+            jQuery('#chat_individual_other').clone().appendTo('#listado_chat').attr("id", id2);
+            _this.CompletarContenidoChat(id2, consulta.contestador.Apellido + ", " + consulta.contestador.Nombre + " - " + consulta.fechaContestacion);
+            $('#' + id2).show();
         }
     },
 
@@ -654,7 +657,7 @@ var Legajo = {
         $(objeto).find("[id='chat_mensaje']").text(texto);
         $(objeto).find("[id='chat_time']").text(responsable_fecha_hora);
 
-     },
+    },
 
     TratarConsulta: function (nro_consulta, creador, tipo, motivo) {
         $('#btn_responder_consulta').show();
@@ -781,12 +784,17 @@ var Legajo = {
                     });
     },
     ConsultasNoLeidas: function (consultas) {
-        return $.grep(consultas, function (consulta) { return consulta.leida; });
+        var resultado = $.grep(consultas, function (consulta) { return consulta.leida; });
+        $('#acordeon_1').text("RESPUESTAS NO LEIDAS (" + resultado.length + ")");
+        return resultado;
     },
     ConsultasPendientes: function (consultas) {
-        return $.grep(consultas, function (consulta) { return (consulta.id_estado != 7 && consulta.id_estado != 8) });
+        var resultado = $.grep(consultas, function (consulta) { return (consulta.id_estado != 7 && consulta.id_estado != 8) });
+        $('#acordeon_2').text("CONSULTAS ESPERANDO UNA RESPUESTA (" + resultado.length + ")");
+        return resultado;
     },
     ConsultasHistoricas: function (consultas) {
+        $('#acordeon_3').text("TODAS LAS CONSULTAS (" + consultas.length + ")");
         return consultas;
     },
 
