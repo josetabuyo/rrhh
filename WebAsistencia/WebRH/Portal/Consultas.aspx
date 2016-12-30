@@ -141,29 +141,30 @@
         <input id="btn_enviar_consulta" type="button" class="btn btn-primary" style="margin: auto;
             display: block; width: 100px; height: 30px;" value="ENVIAR" />
     </div>
-    <div id="pantalla_consulta_ticket" style="display: none">
-        <h3 style="text-align: center;">
+    <div id="pantalla_consulta_ticket" style="display: none;">
+        <h3 id="titulo_consulta" style="text-align: center;">
             CONSULTA NÚMERO.</h3>
-        <br />
-        <ol class="chat" id="listado_chat">
-            <%--MODELO DE CLONADO OTHER--%>
-            <li id="chat_individual_other" class="other" style="display: none;">
-                <div id="chat_avatar" class="avatar">
-                    <img id="chat_imagen" draggable="false" />
-                </div>
-                <div id="chat_mensaje" class="msg">
-                    <time id="chat_time">20:18</time>
-                </div>
-            </li>
-            <%--MODELO DE CLONADO SELF--%>
-            <li id="chat_individual_self" class="self" style="display: none;">
-                <div id="chat_avatar" class="avatar">
-                    <img id="chat_imagen" draggable="false" /></div>
-                <div id="chat_mensaje" class="msg">
-                    <time id="chat_time"></time>
-                </div>
-            </li>
-        </ol>
+        <div style="height: 300px;margin-top:-10px; overflow: scroll; overflow-x: hidden;">
+            <ol class="chat" id="listado_chat">
+                <li id="other" class="other" style="display: none;">
+                    <div class="avatar">
+                        <img src="../Imagenes/Portal/icono_rrhh.png" draggable="false" /></div>
+                    <div class="msg">
+                        <time class="time">20:17</time>
+                    </div>
+                </li>
+                <br />
+                <li id="self" class="self" style="display: none;">
+                    <div class="avatar">
+                        <div class="imagen" style="width: 40px; height: 40px; margin-left: 0px; margin-top: 0px;">
+                        </div>
+                    </div>
+                    <div class="msg">
+                        <time class="time">20:18</time>
+                    </div>
+                </li>
+            </ol>
+        </div>
         <br />
         <input id="btn_cerrar" type="button" class="btn btn-primary" style="margin: auto;
             display: block; width: 100px; height: 30px;" value="Cerrar" />

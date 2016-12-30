@@ -217,7 +217,7 @@ public class AjaxWS : System.Web.Services.WebService
     {
         var respuesta = backEndService.GetMenuPara(nombre_menu, usuarioLogueado);
 
-   //     respuesta = AplicarConfiguracionDeEntorno(respuesta);
+        //     respuesta = AplicarConfiguracionDeEntorno(respuesta);
 
         var respuestaSerializada = Newtonsoft.Json.JsonConvert.SerializeObject(respuesta);
 
@@ -335,8 +335,8 @@ public class AjaxWS : System.Web.Services.WebService
     {
         backEndService.EliminarLicenciaPendienteAprobacion(id);
     }
-    
-    
+
+
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public void EliminarPasePendienteAprobacion(int id_pase)
@@ -868,7 +868,8 @@ public class AjaxWS : System.Web.Services.WebService
 
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public string GetComite(int idComite){
+    public string GetComite(int idComite)
+    {
         var comite = backEndService.GetComite(idComite);
         return JsonConvert.SerializeObject(comite);
     }
@@ -905,7 +906,7 @@ public class AjaxWS : System.Web.Services.WebService
     public string EjecutarEnBackend(string nombre_metodo, String[] argumentos_json)
     {
         System.Reflection.MethodInfo metodo = backEndService.GetType().GetMethods().ToList().Find(m => m.Name == nombre_metodo);
-        if(metodo==null) throw new Exception("Error: No se encontró el método " + nombre_metodo + " en el WEB SERVICE" );
+        if (metodo == null) throw new Exception("Error: No se encontró el método " + nombre_metodo + " en el WEB SERVICE");
 
         var argumentos_esperados = metodo.GetParameters();
 

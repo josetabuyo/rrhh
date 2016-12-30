@@ -606,7 +606,9 @@ var Legajo = {
                 var ui = $("#pantalla_consulta_ticket").clone();
                 $vexContent.append(ui);
                 ui.show();
-                _this.ArmarChat(consulta);
+
+                ui.find("#titulo_consulta").text("CONSULTA NÚMERO " + consulta.Id);
+                _this.ArmarChat(ui, consulta);
                 ui.find("#btn_cerrar").click(function () {
                     vex.close();
                     //                    Backend.NuevaConsultaDePortal({
@@ -625,7 +627,8 @@ var Legajo = {
             },
             css: {
                 'padding-top': "4%",
-                'padding-bottom': "0%"
+                'padding-bottom': "0%",
+                'background-color': "rgb(249, 248, 248)"
             },
             contentCSS: {
                 width: "80%",
@@ -637,25 +640,27 @@ var Legajo = {
         this.GetConsultasNoLeidas();
     },
 
-    ArmarChat: function (consulta) {
+    ArmarChat: function (ui, consulta) {
         var _this = this;
-        var id = "self_" + consulta.Id;
-        jQuery('#chat_individual_self').clone().appendTo('#listado_chat').attr("id", id);
-        _this.CompletarContenidoChat(id, consulta.motivo, consulta.creador.Apellido + ", " + consulta.creador.Nombre + " - " + consulta.fechaCreacion);
-        $('#' + id).show();
+        var listado = ui.find("#listado_chat");
+        var id_self = "self_" + consulta.Id;
+        var id_other = "other_" + consulta.Id;
+
+        jQuery('#self').clone().appendTo(listado).attr("id", id_self);
+        _this.CompletarContenidoChat(id_self, consulta.motivo, consulta.creador.Apellido + ", " + consulta.creador.Nombre + " - " + consulta.fechaCreacion);
+        $('#' + id_self).show();
+
         if (consulta.respuesta != "") {
-            var id2 = "other_" + consulta.Id;
-            jQuery('#chat_individual_other').clone().appendTo('#listado_chat').attr("id", id2);
-            _this.CompletarContenidoChat(id2, consulta.contestador.Apellido + ", " + consulta.contestador.Nombre + " - " + consulta.fechaContestacion);
-            $('#' + id2).show();
+            jQuery('#other').clone().appendTo(listado).attr("id", id_other);
+            _this.CompletarContenidoChat(id_other, consulta.respuesta, consulta.contestador.Apellido + ", " + consulta.contestador.Nombre + " - " + consulta.fechaContestacion);
+            $('#' + id_other).show();
         }
     },
 
     CompletarContenidoChat: function (id, texto, responsable_fecha_hora) {
-        var _this = this;
-        var objeto = "#" + id
-        $(objeto).find("[id='chat_mensaje']").text(texto);
-        $(objeto).find("[id='chat_time']").text(responsable_fecha_hora);
+        var hora = '<time class="time">' + responsable_fecha_hora + '</time>';
+        $("#" + id).find(".msg").html(texto + "<br/>" + hora);
+
 
     },
 
