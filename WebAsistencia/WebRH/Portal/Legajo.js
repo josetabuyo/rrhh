@@ -1,6 +1,5 @@
 ﻿var spinner;
 var mes;
-var consultas_sin_leer = 0;
 
 var Legajo = {
     init: function () {
@@ -584,15 +583,19 @@ var Legajo = {
     },
 
     GetConsultasNoLeidas: function () {
+        var _this = this;
         Backend.GetConsultasNoLeidas()
         .onSuccess(function (cantidad) {
-            consultas_sin_leer = cantidad;
             if (cantidad > 0) {
                 $("#link_consultas").html("Consultas (" + cantidad + ")");
                 $("#link_nuevos_mensajes").show();
+                _this.ConsultasNoLeidas(cantidad);
             } else {
                 $("#link_nuevos_mensajes").hide();
+                _this.ConsultasNoLeidas(cantidad);
+                $("#link_consultas").html("Consultas");
             }
+            _this.getConsultas();
         })
         .onError(function (e) {
         });
