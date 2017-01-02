@@ -73,8 +73,8 @@
     eliminar: function (una_competencia_informatica) {
         var _this = this;
         // confirm dialog
-        alertify.confirm("¿Está seguro que desea eliminar la competencia informática?", function (e) {
-            if (e) {
+        alertify.confirm("", "¿Está seguro que desea eliminar la competencia informática?", 
+            function () {
                 Backend.EliminarCvCompetenciaInformatica(una_competencia_informatica)
                     .onSuccess(function (respuesta) {
                         alertify.success("Competencia informática eliminada correctamente");
@@ -85,7 +85,8 @@
                     .onError(function (error, as, asd) {
                         alertify.error("No se pudo eliminar la competencia informática");
                     }); 
-            } 
-        });
+            },
+            function(){}
+        );
     }
 }

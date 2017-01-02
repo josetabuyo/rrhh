@@ -55,9 +55,12 @@
         <script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-tooltip.js"></script>
 
         <script type="text/javascript">
-            $(document).ready(function () {
-                var menu = new MenuPrincipal({ ui: $("#menu_principal"), autorizador: new Autorizador(new ProveedorAjax("../")) });
+            Backend.start(function () {
+                $(document).ready(function () {
+                    var menu = new MenuPrincipal({ ui: $("#menu_principal"), autorizador: new Autorizador(new ProveedorAjax("../")) });
+                });
             });
+           
         </script> 
 	
     </body>    

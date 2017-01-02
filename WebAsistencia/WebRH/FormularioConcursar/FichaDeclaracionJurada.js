@@ -13,14 +13,14 @@
             },
             success: function (respuesta) {
 
-                //alertify.alert("El id de la postulacion es: " + respuesta.Id);
+                //alertify.alert("", "El id de la postulacion es: " + respuesta.Id);
                 _this.dibujarPuesto(respuesta);
                 Curriculum.dibujarCV(curriculum);
                 //_this.dibujarCV(curriculum);
 
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alertify.alert("Error en la postulacion seleccionada.");
+                alertify.alert("", "Error en la postulacion seleccionada.");
             }
         }); //FIN AJAX
     },

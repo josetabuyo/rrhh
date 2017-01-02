@@ -81,7 +81,7 @@ var completarComboMeses = function (combo) {
        // meses.show();
     })
     .onError(function (error, as, asd) {
-        alertify.alert(error);
+        alertify.alert("", error);
     });
 }
 
@@ -98,7 +98,7 @@ var completarComboEstado = function (mostrarSinGenerar, combo) {
        // estado.show();
     })
     .onError(function (error, as, asd) {
-        alertify.alert(error);
+        alertify.alert("", error);
     });
 }
 
@@ -176,7 +176,7 @@ var getConsulta = function (callback) {
             callback();
         })
         .onError(function (error, as, asd) {
-            alertify.alert(error);
+            alertify.alert("", error);
         });
     }
 
@@ -192,7 +192,7 @@ var getConsulta = function (callback) {
             callback();
         })
         .onError(function (error, as, asd) {
-            alertify.alert(error);
+            alertify.alert("", error);
         });
 
     }

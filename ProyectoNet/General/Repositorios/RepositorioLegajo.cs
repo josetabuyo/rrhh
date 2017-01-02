@@ -481,7 +481,8 @@ namespace General.Repositorios
                     {
 
                         id = row.GetSmallintAsInt("id"),
-                        descripcion = row.GetString("descripcion")
+                        descripcion = row.GetString("descripcion"),
+                        placeholder = row.GetString("placeholder")
                     })
                 );
             }

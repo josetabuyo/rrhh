@@ -32,7 +32,7 @@ namespace TestViaticos
             Action on_success = () => envio_ok = true;
             Action on_error = () => envio_ok = false;
             var enviador = new EnviadorDeMails();
-            enviador.EnviarMail(cred,
+            EnviadorDeMails.EnviarMail(cred,
                                 "jlurgo@gmail.com", 
                                 "Prueba", 
                                 "Esto es un test",

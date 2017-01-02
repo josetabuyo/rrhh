@@ -71,8 +71,8 @@
     eliminar: function (una_matricula) {
         var _this = this;
         // confirm dialog
-        alertify.confirm("¿Está seguro que desea eliminar la matrícula?", function (e) {
-            if (e) {
+        alertify.confirm("", "¿Está seguro que desea eliminar la matrícula?", 
+            function () {
                 Backend.EliminarCvMatricula(una_matricula)
                     .onSuccess(function (respuesta) {
                         alertify.success("Matrícula eliminada correctamente");
@@ -83,8 +83,9 @@
                     .onError(function (error, as, asd) {
                         alertify.error("No se pudo eliminar la matrícula");
                     });   
-            } 
-        });
+            },
+            function(){}
+        );
 
 
 

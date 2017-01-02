@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using General.Repositorios;
+using System.Net.Mail;
 
 namespace General.MAU
 {
@@ -58,7 +59,8 @@ namespace General.MAU
         {
             if (tablaDatos.Rows.Count == 0) return new UsuarioNulo();
             var row = tablaDatos.Rows.First();
-            Usuario usuario = new Usuario(row.GetSmallintAsInt("Id"), row.GetString("Alias"), row.GetString("Clave_Encriptada"), !row.GetBoolean("Baja")); 
+            Usuario usuario = new Usuario(row.GetSmallintAsInt("Id"), row.GetString("Alias"), row.GetString("Clave_Encriptada"), !row.GetBoolean("Baja"));
+            usuario.MailRegistro = row.GetString("MailRegistro", "");
             if (!(row.GetObject("Id_Persona") is DBNull))
             {
                 usuario.Owner = repositorio_de_personas.GetPersonaPorId(row.GetInt("Id_Persona"));
@@ -134,6 +136,16 @@ namespace General.MAU
             return true;
         }
 
+        public bool ModificarMailRegistro(int id_usuario, string mail)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@Id_Usuario", id_usuario);
+            parametros.Add("@NuevoMail", mail);
+
+            conexion.Ejecutar("dbo.GEN_Modificar_email_registro", parametros);
+            return true;
+        }
+
         public string ResetearPassword(int id_usuario)
         {
             var clave_nueva = ClaveRandom();
@@ -142,8 +154,14 @@ namespace General.MAU
             parametros.Add("@clave_encriptada", Encriptador.EncriptarSHA1(clave_nueva));
 
             conexion.Ejecutar("dbo.MAU_GuardarUsuario", parametros);
+            //Enviar Mail de reseteo
+            var usuario = this.GetUsuarioPorId(id_usuario);
+            var titulo = "Bienvenido al SIGIRH";
+            var cuerpo = "Nombre de Usuario: " + usuario.Alias + Environment.NewLine + "Contraseña: " + clave_nueva;
+            EnviadorDeMails.EnviarMail(usuario.MailRegistro, titulo, cuerpo);
             return clave_nueva;
         }
+
 
         private static string ClaveRandom()
         {

@@ -216,12 +216,12 @@
                              // _this.MostrarDetalleErrores(respuesta);
 
                                  location.href = "FormPlanillaObservaciones.aspx";
-                             //alertify.alert("Las observaciones se guardaron correctamente");
+                             //alertify.alert("", "Las observaciones se guardaron correctamente");
                              //_this.CargarObservacionesDTO();
 
                          },
                          error: function (XMLHttpRequest, textStatus, errorThrown) {
-                             alertify.alert(errorThrown);
+                             alertify.alert("", errorThrown);
                          }
                      });
                  };
@@ -308,7 +308,7 @@
 
                  ValidarCamposVacios = function () {
                      if (FechaCargaField.val() == "" || FechaCargaField.val() == "FechaCarga") {
-                         alertify.alert("Complete el campo fecha de carga");
+                         alertify.alert("", "Complete el campo fecha de carga");
                          return false;
                      }
                      return true;

@@ -1,5 +1,5 @@
 ﻿    function mostrarMensaje(mensaje) {
-        alertify.alert(mensaje);
+        alertify.alert("", mensaje);
     }
 
     $(document).ready(function () {      

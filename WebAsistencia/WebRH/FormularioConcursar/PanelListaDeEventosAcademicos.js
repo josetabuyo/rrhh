@@ -90,8 +90,8 @@
     eliminar: function (un_evento_academico) {
         var _this = this;
         // confirm dialog
-        alertify.confirm("¿Está seguro que desea eliminar la el evento académico?", function (e) {
-            if (e) {
+        alertify.confirm("", "¿Está seguro que desea eliminar la el evento académico?", 
+            function () {
                 Backend.EliminarCvEventosAcademicos(un_evento_academico)
                     .onSuccess(function (respuesta) {
                         alertify.success("Evento académico eliminado correctamente");
@@ -102,8 +102,9 @@
                     .onError(function (error, as, asd) {
                         alertify.error("No se pudo eliminar el evento académico");
                     });
-            }
-        });
+            },
+            function(){}
+        );
 
 
 

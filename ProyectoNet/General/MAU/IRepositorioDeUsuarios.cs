@@ -19,5 +19,6 @@ namespace General.MAU
         Persona GetPersonaPorIdUsuario(int id_usuario);
         List<Usuario> GetUsuariosConPersonasDeBaja();
         List<Usuario> GetUsuariosPorArea(string nombre_area);
+        bool ModificarMailRegistro(int id_usuario, string mail);
     }
 }

@@ -10,16 +10,13 @@ namespace General.MAU
 {
     public class Usuario
     {
-        private int p;
-        private string p_2;
-        private string p_3;
-        private bool p_4;
-
         public int Id { get; set; }
         public string Alias { get; set; }
         public Persona Owner { get; set; }
         public bool Habilitado { get; set; }
         public bool Verificado { get; set; }
+        public string MailRegistro { get; set; }
+
         public List<Funcionalidad> Funcionalidades { get; set; }
 
         protected string clave_encriptada { get; set; }
@@ -81,5 +78,7 @@ namespace General.MAU
         {
             return this.Id;
         }
+
+
     }
 }

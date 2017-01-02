@@ -77,8 +77,8 @@
     eliminar: function (un_estudio) {
         var _this = this;
         // confirm dialog
-        alertify.confirm("¿Está seguro que desea eliminar la capacidad?", function (e) {
-            if (e) {
+        alertify.confirm("", "¿Está seguro que desea eliminar la capacidad?", 
+            function () {
                 Backend.EliminarCvAntecedenteAcademico(un_estudio)
                     .onSuccess(function (respuesta) {
                         alertify.success("Antecedente eliminado correctamente");
@@ -89,7 +89,8 @@
                     .onError(function (error, as, asd) {
                         alertify.error("No se pudo eliminar el antecedente");
                     });   
-            }
-        });
+            },
+            function(){}
+        );
     }
 }

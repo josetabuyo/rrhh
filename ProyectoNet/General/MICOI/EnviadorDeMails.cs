@@ -11,7 +11,19 @@ namespace General
 {
     public class EnviadorDeMails
     {
-        public void EnviarMail(NetworkCredential cred, string to, string asunto, string cuerpo, Action on_success, Action on_error)
+        public static void EnviarMail(string mail, string titulo, string cuerpo)
+        {
+            MailAddress mail_re_recupero = new MailAddress(mail);
+            EnviarMail(new NetworkCredential("rhusuarios", "RRhh2016", "sds_domain_1"),
+                    mail,
+                   titulo,
+                    cuerpo,
+                    () => { },
+                    () => { throw new Exception("No se pudo enviar un mail con la clave"); }
+                );
+        }
+
+        public static void EnviarMail(NetworkCredential cred, string to, string asunto, string cuerpo, Action on_success, Action on_error)
         {
             try{
  	            

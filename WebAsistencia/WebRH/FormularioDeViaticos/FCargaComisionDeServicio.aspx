@@ -129,7 +129,7 @@
    
         function mostrarMensaje(mensaje) {
 //            debugger;
-            alertify.alert(mensaje);
+            alertify.alert("", mensaje);
             muestra('contenido_a_mostrar')
         }
 
@@ -289,7 +289,7 @@
                     }
 
                     function onFailure(error) {
-                        alertify.alert(error);
+                        alertify.alert("", error);
                     }
 
                     function QuitarEstadia(id_estadia) {

@@ -47,7 +47,7 @@ var admin_planilla;
                         }
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        alertify.alert(errorThrown);
+                        alertify.alert("", errorThrown);
                     }
                 });
             }
@@ -94,11 +94,11 @@ var admin_planilla;
                             planilla_original = JSON.parse(respuestaJson.d);
                         }
                         else {
-                            alertify.alert(respuesta.MensajeError);
+                            alertify.alert("", respuesta.MensajeError);
                         }
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        alertify.alert(errorThrown);
+                        alertify.alert("", errorThrown);
                     }
                 });
             } else {
@@ -127,7 +127,7 @@ var admin_planilla;
 
             }
             if (calificaciones_no_validas > 0) {
-                alertify.alert("Hay calificaciones mal cargadas, no se puede realizar el guardado");
+                alertify.alert("", "Hay calificaciones mal cargadas, no se puede realizar el guardado");
             } else {
 
                 var data_post = JSON.stringify({
@@ -144,12 +144,12 @@ var admin_planilla;
                         var respuesta = JSON.parse(respuestaJson.d);
                         if (respuesta.length > 0)
                             _this.MostrarDetalleErrores(respuesta);
-                        alertify.alert("Las calificaciones se guardaron correctamente");
+                        alertify.alert("", "Las calificaciones se guardaron correctamente");
                         _this.cargarPlanilla();
                         
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        alertify.alert(errorThrown);
+                        alertify.alert("", errorThrown);
                     }
                 });
             }
@@ -202,7 +202,7 @@ var admin_planilla;
 
             }
 
-            alertify.alert(mensaje);
+            alertify.alert("", mensaje);
         }
 
         _this.imprimirPlanilla = function () {
@@ -233,7 +233,7 @@ var admin_planilla;
                 ArmarComboCurso(cursos);
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alertify.alert(errorThrown);
+                alertify.alert("", errorThrown);
             }
         });
     }

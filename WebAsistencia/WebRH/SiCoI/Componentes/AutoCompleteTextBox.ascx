@@ -23,7 +23,7 @@
                         }))
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        alertify.alert(textStatus);
+                        alertify.alert("", textStatus);
                     }
                 });
             },

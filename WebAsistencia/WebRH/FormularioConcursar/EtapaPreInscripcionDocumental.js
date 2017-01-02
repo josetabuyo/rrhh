@@ -45,8 +45,8 @@
 
         _this.btn_guardar.click(function () {
 
-            alertify.confirm("¿Está seguro que desea imprimir el anexo de documentación?", function (e) {
-                if (e) {
+            alertify.confirm("", "¿Está seguro que desea imprimir el anexo de documentación?", 
+                function () {
                     var lista_foliables = $(".foliables");
                     var lista_documentacion_recibida = [];
                     var postulacion = $("#postulacion");
@@ -59,16 +59,17 @@
                         if (resultado == true) {
                             _this.AbrirPopUpFolios();
                         } else {
-                            alertify.alert('Esta postulación ya poseé el estado Inscripción Documental.');
+                            alertify.alert("", 'Esta postulación ya poseé el estado Inscripción Documental.');
                         }
                     })
                        .onError(function (error) {
                            alertify.error(error.statusText);
                        });
-                } else {
+                }, 
+                function(){
                     alertify.error("Se ha cancelado la operación");
                 }
-            });
+            );
 
         });
 
@@ -103,11 +104,11 @@
                     _this.CompletarDatos(respuesta);
                 }
                 else {
-                    alertify.alert("Código no encontrado");
+                    alertify.alert("", "Código no encontrado");
                 }
             },
             function (errorThrown) {
-                alertify.alert(errorThrown);
+                alertify.alert("", errorThrown);
             }
         );
     },

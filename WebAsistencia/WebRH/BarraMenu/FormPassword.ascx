@@ -30,23 +30,23 @@
                 }
 
                 if (pass_nueva != pass_nueva_repetida) {
-                    alertify.alert("Las contrase&ntilde;as no coinciden");
+                    alertify.alert("", "Las contrase&ntilde;as no coinciden");
                     return;
                 }
                 //FC: agregar estas validaciones cuando salgamos a produccion
                 if (pass_nueva.length < 8) {
-                    alertify.alert("La contrase&ntilde;a debe ser tener al menos 8 d&iacute;gitos ");
+                    alertify.alert("", "La contrase&ntilde;a debe ser tener al menos 8 d&iacute;gitos ");
                     return;
                 }
 
                 if (pass_nueva == pass_actual) {
-                    alertify.alert("La contrase&ntilde;a debe ser distinta de la actual");
+                    alertify.alert("", "La contrase&ntilde;a debe ser distinta de la actual");
                     return;
                 }
 
                 var matches = pass_nueva.match(/\d+/g);
                 if (matches == null) {
-                    alertify.alert('La contrase&ntilde;a debe tener algun n&uacute;mero');
+                    alertify.alert('', 'La contrase&ntilde;a debe tener algun n&uacute;mero');
                     return false;
                 }
 
@@ -66,7 +66,7 @@
                         var respuesta = JSON.parse(respuestaJson.d);
                         if (respuesta.tipoDeRespuesta == "cambioPassword.ok") {
 
-                            alertify.alert("Se cambio la contrase&ntilde;a correctamente");
+                            alertify.alert("", "Se cambio la contrase&ntilde;a correctamente");
                             $(".modal_close").click();
                             $('#pass_actual').val("");
                             $('#pass_nueva').val("");
@@ -75,7 +75,7 @@
                         }
 
                         if (respuesta.tipoDeRespuesta == "cambioPassword.error") {
-                            alertify.alert("La contrase&ntilde;a actual no es correcta");
+                            alertify.alert("", "La contrase&ntilde;a actual no es correcta");
                             $(".modal_close").click();
                             return;
                         }
@@ -90,7 +90,7 @@
 
         var ValidarCamposVacios = function (pass_actual, pass_nueva, pass_nueva_repetida) {
             if (pass_actual == "" || pass_nueva == "" || pass_nueva_repetida == "") {
-                alertify.alert("Complete todos los campos");
+                alertify.alert("", "Complete todos los campos");
                 return false;
             }
             return true;

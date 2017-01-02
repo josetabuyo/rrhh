@@ -82,15 +82,17 @@
         </div>
     </form>
     <div id="pantalla_alta_ticket" style="display: none">
-        <select id="cmb_tipo_consulta">
+        <h3>Seleccione el tipo de consulta que quiere realizar en el menu izquierdo y luego complete el campo derecho.</h3>
+        <br />
+        <select id="cmb_tipo_consulta" size="7">
         </select>
-        <textarea id="txt_motivo_consulta" placeholder="ingrese su consulta aquí" maxlength="1000"></textarea>
+        <textarea id="txt_motivo_consulta" placeholder="Ingrese su consulta aquí" maxlength="1000"></textarea>
         <input id="btn_enviar_consulta" type="button" class="btn btn-primary" style="margin: 10px"
             value="Enviar" />
     </div>
 </body>
 <script type="text/javascript" src="Legajo.js"></script>
-<script src="../scripts/vex-2.1.1/js/vex.combined.min.js"></script>
+<script type="text/javascript" src="../scripts/vex-2.1.1/js/vex.combined.min.js"></script>
 <script type="text/javascript" src="../Scripts/ControlesImagenes/VistaThumbnail.js"></script>
 <script type="text/javascript">
 
@@ -118,6 +120,7 @@
                 Legajo.getNombre();
                 Legajo.getConsultas();
                 Legajo.GetComboTipoConsulta();
+
                 $("#btn_nueva_consulta").click(function () {
                     vex.defaultOptions.className = 'vex-theme-os';
                     vex.open({
@@ -125,6 +128,12 @@
                             var ui = $("#pantalla_alta_ticket").clone();
                             $vexContent.append(ui);
                             ui.show();
+                            ui.find("#cmb_tipo_consulta").change(function () {
+                                var textoCustomizado = this.options[this.selectedIndex].getAttribute('placeholder');
+                                ui.find("#txt_motivo_consulta").attr("placeholder", textoCustomizado); //[0].placeholder = textoCustomizado;
+                            });
+                            
+
                             ui.find("#btn_enviar_consulta").click(function () {
                                 Backend.NuevaConsultaDePortal({
                                     id_tipo_consulta: ui.find("#cmb_tipo_consulta").val(),

@@ -217,7 +217,7 @@ public class AjaxWS : System.Web.Services.WebService
     {
         var respuesta = backEndService.GetMenuPara(nombre_menu, usuarioLogueado);
 
-        respuesta = AplicarConfiguracionDeEntorno(respuesta);
+   //     respuesta = AplicarConfiguracionDeEntorno(respuesta);
 
         var respuestaSerializada = Newtonsoft.Json.JsonConvert.SerializeObject(respuesta);
 
@@ -925,6 +925,13 @@ public class AjaxWS : System.Web.Services.WebService
             argumentos_a_enviar.Add(usuarioLogueado);
         }
         var respuesta = metodo.Invoke(backEndService, argumentos_a_enviar.ToArray());
+
+        if ((nombre_metodo == "ModificarMiMail") || (nombre_metodo == "ModificarMailRegistro"))
+        {
+            this.usuarioLogueado = backEndService.GetUsuarioPorId(this.usuarioLogueado.Id);
+            Session[ConstantesDeSesion.USUARIO] = this.usuarioLogueado;
+        }
+
         return Newtonsoft.Json.JsonConvert.SerializeObject(respuesta);
     }
 
