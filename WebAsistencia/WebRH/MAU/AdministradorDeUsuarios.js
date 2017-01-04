@@ -96,7 +96,7 @@
     });
 
     this.btn_modificar_mail.click(function () {
-        alertify.prompt(' ', 'Ingrese el mail del usuario', _this.usuario.MailRegistro
+        alertify.prompt(' ', 'Ingrese el mail del usuario', ''
                , function (evt, value) {
                    Backend.ModificarMailRegistro(_this.usuario.Id, value).onSuccess(function () {
                        alertify.success("Se ha modificado correctamente su mail");
