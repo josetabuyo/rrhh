@@ -102,7 +102,7 @@
                        alertify.success("Se ha modificado correctamente su mail");
                        alertify.prompt().close();
                        _this.lbl_email.text(value);
-                   }).onerror(function () {
+                   }).onError(function () {
                        alertify.success("Error al modificar el mail");
                        alertify.prompt().close();
                    });
