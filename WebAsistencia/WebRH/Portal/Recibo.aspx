@@ -28,12 +28,7 @@
             <%--<p class="">Dirección de Diseño y Desarrollo Organizacional para la Gestión de Personas, Dirección de Recursos Humanos y 
          Organización, Secretaría de Coordinación y Monitoreo Institucional, Unidad Ministro, Ministerio de Desarrollo Social </p>--%>
          <div  style="margin:10px;">
-         <p>Seleccione año y mes para ver los recibos de sueldos correspondientes:</p>
-             <select style="width:60px;" id="cmb_anio">
-                <option value="2017">2017</option>
-                <option value="2016">2016</option>
-                <option value="2015">2015</option>
-             </select>
+         <p>Seleccioná un mes para ver los recibos correspondientes al sueldo cobrado a principios del mes de:</p>
              <select style="width:100px;" id="cmb_meses">
                 <option value="1">Enero</option>
                 <option value="2">Febrero</option>
@@ -47,6 +42,11 @@
                 <option value="10">Octubre</option>
                 <option value="11">Noviembre</option>
                 <option value="12">Diciembre</option>
+             </select>
+              <select style="width:60px;" id="cmb_anio">
+                <option value="2017">2017</option>
+                <option value="2016">2016</option>
+                <option value="2015">2015</option>
              </select>
              <div id="caja_controles">
                 

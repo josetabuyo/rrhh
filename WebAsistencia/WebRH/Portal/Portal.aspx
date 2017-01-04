@@ -86,7 +86,7 @@
 			            <div class="ch-info">
 				            <div class="ch-info-front ch-img-1"></div>
 				            <div class="ch-info-back">
-					            <h3 style="font-size: 0.35em;">APLICATIVOS</h3>
+					            <h3 style="font-size: 0.35em;">APLICACIONES</h3>
 				            </div>	
 			            </div>
 		            </div>

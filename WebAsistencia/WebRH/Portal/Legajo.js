@@ -241,10 +241,8 @@ var Legajo = {
                                 return "";
                             }
                             var fh = new Date(str_fecha);
-                            var dia = fh.getDate() + 1;
-                            var mes = fh.getMonth() + 1;
-                            var str = dia + '/' + mes + '/' + fh.getFullYear();
-                            return str;
+                            fh.setDate(fh.getDate() + 1);
+                            return fh.getDate() + '/' + fh.getMonth() + '/' + fh.getFullYear();
                         }
 
                         $("#tablaHistoricoLicenciasOrdinarias").empty();
@@ -391,6 +389,10 @@ var Legajo = {
 
             var anio = $("#cmb_anio option:selected").val();
             mes = $("#cmb_meses option:selected").val() - 1;
+            if (mes == 0) {
+                mes = 12;
+                anio = anio - 1;
+            }
             var div_controles = $("#caja_controles");
             div_controles.empty();
 
@@ -409,14 +411,23 @@ var Legajo = {
                                 var texto_extra;
 
                                 if (liquidaciones[i].Descripcion.toLowerCase().indexOf("extras") >= 0) {
-                                    var mes_cobrado_valor = mes + 1;
+
+                                    if (mes + 1 > 12) {
+                                        var mes_cobrado_valor = 1;
+                                    } else {
+                                        var mes_cobrado_valor = mes + 1;
+                                    }
                                     var mes_cobrado_texto = $("#cmb_meses option[value=" + mes_cobrado_valor + "]").text();
                                     var mes_liquidado_valor = mes - 1;
                                     var mes_liquidado_texto = $("#cmb_meses option[value=" + mes_liquidado_valor + "]").text();
 
                                     texto_extra = "(cobrado a principios del mes de " + mes_cobrado_texto + ", liquidación de " + mes_liquidado_texto + ")";
                                 } else {
-                                    var mes_cobrado_valor = mes + 1;
+                                    if (mes + 1 > 12) {
+                                        var mes_cobrado_valor = 1;
+                                    } else {
+                                        var mes_cobrado_valor = mes + 1;
+                                    }
                                     var mes_cobrado_texto = $("#cmb_meses option[value=" + mes_cobrado_valor + "]").text();
                                     var mes_liquidado_valor = mes;
                                     var mes_liquidado_texto = $("#cmb_meses option[value=" + mes_liquidado_valor + "]").text();
