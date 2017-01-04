@@ -242,7 +242,13 @@ var Legajo = {
                             }
                             var fh = new Date(str_fecha);
                             fh.setDate(fh.getDate() + 1);
-                            return fh.getDate() + '/' + fh.getMonth() + '/' + fh.getFullYear();
+                            var mes = fh.getMonth() + 1;
+                            var anio = fh.getFullYear();
+                            if (mes > 12) {
+                                mes = 1;
+                                anio = anio + 1;
+                            }
+                            return fh.getDate() + '/' + mes + '/' + anio;
                         }
 
                         $("#tablaHistoricoLicenciasOrdinarias").empty();
