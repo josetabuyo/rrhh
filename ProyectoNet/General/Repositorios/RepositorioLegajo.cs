@@ -412,7 +412,7 @@ namespace General.Repositorios
         private void getConsultasPorCriterio(Dictionary<string, object> parametros, List<Consulta> consultas)
         {
             Area area = new Area();
-            var tablaDatos = conexion.Ejecutar("dbo.LEG_GETConsultasDePortal", parametros);
+            var tablaDatos = conexion.Ejecutar("dbo.LEG_GETConsultasDePortal2", parametros);
 
             if (tablaDatos.Rows.Count > 0)
             {
@@ -447,7 +447,7 @@ namespace General.Repositorios
             parametros.Add("@Respuesta", respuesta);
             parametros.Add("@Id_Usuario", id_usuario);
 
-            conexion.EjecutarSinResultado("dbo.LEG_UPDConsultasDePortal", parametros);
+            conexion.EjecutarSinResultado("dbo.LEG_UPDConsultasDePortal2", parametros);
         }
 
 
@@ -499,7 +499,7 @@ namespace General.Repositorios
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_usuario_creador", id_usuario);
 
-            var resultado = conexion.EjecutarEscalar("dbo.LEG_GetConsultasPortalNoLeidas", parametros);
+            var resultado = conexion.EjecutarEscalar("dbo.LEG_GetConsultasPortalNoLeidas2", parametros);
             return (int)resultado;
         }
 
