@@ -369,6 +369,7 @@ var Legajo = {
 
 
         var btn_combo_anio = $('#cmb_anio').change(function () {
+            $('#cmb_meses').change();
             var anio_combo = $("#cmb_anio option:selected").val();
             var day = new Date();
             mes = day.getMonth() + 2;

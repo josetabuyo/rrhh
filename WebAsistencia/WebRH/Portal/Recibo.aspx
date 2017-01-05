@@ -130,9 +130,9 @@
                 var mes = day.getMonth() + 1;
                 var anio = day.getFullYear();
 
-
+                $("#cmb_meses").val(mes)
                 $("#cmb_anio").trigger('change');
-                $("#cmb_meses").val(mes).trigger('change');
+                //$("#cmb_meses").val(mes).trigger('change');
             });
         });
 
