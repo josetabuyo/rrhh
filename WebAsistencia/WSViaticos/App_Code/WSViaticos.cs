@@ -4276,7 +4276,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string ExcelMapaDelEstado(Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 46)) throw (new Exception("El usuario no tiene permisos para el modulo de datos abiertos"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 46)) throw (new Exception("El usuario no tiene permisos para el modulo de datos abiertos-Mapa del estado"));
         try
         {
             RepositorioDeDatosAbiertos repositorio = new RepositorioDeDatosAbiertos(Conexion());
@@ -4289,6 +4289,27 @@ public class WSViaticos : System.Web.Services.WebService
         }
 
     }
+
+
+    [WebMethod]
+    public string ExcelPlanificacionDotaciones(Usuario usuario)
+    {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 47)) throw (new Exception("El usuario no tiene permisos para el modulo de datos abiertos-Planificación de dotaciones"));
+        try
+        {
+            RepositorioDeDatosAbiertos repositorio = new RepositorioDeDatosAbiertos(Conexion());
+
+            return repositorio.ExcelPlanificacionDotaciones();
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+
+    }
+
+
+
 
     #endregion
 

@@ -1786,6 +1786,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="contestador" type="tns:Persona" />
           <s:element minOccurs="1" maxOccurs="1" name="fechaContestacion" type="s:dateTime" />
           <s:element minOccurs="0" maxOccurs="1" name="respuesta" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="leida" type="s:boolean" />
         </s:sequence>
       </s:complexType>
       <s:element name="NuevaConsultaDePortalResponse">
@@ -1876,6 +1877,20 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="ExcelMapaDelEstadoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExcelPlanificacionDotaciones">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExcelPlanificacionDotacionesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ExcelPlanificacionDotacionesResult" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -6808,6 +6823,12 @@
   <wsdl:message name="ExcelMapaDelEstadoSoapOut">
     <wsdl:part name="parameters" element="tns:ExcelMapaDelEstadoResponse" />
   </wsdl:message>
+  <wsdl:message name="ExcelPlanificacionDotacionesSoapIn">
+    <wsdl:part name="parameters" element="tns:ExcelPlanificacionDotaciones" />
+  </wsdl:message>
+  <wsdl:message name="ExcelPlanificacionDotacionesSoapOut">
+    <wsdl:part name="parameters" element="tns:ExcelPlanificacionDotacionesResponse" />
+  </wsdl:message>
   <wsdl:message name="FuncionalidadesParaSoapIn">
     <wsdl:part name="parameters" element="tns:FuncionalidadesPara" />
   </wsdl:message>
@@ -8515,6 +8536,10 @@
       <wsdl:input message="tns:ExcelMapaDelEstadoSoapIn" />
       <wsdl:output message="tns:ExcelMapaDelEstadoSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="ExcelPlanificacionDotaciones">
+      <wsdl:input message="tns:ExcelPlanificacionDotacionesSoapIn" />
+      <wsdl:output message="tns:ExcelPlanificacionDotacionesSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="FuncionalidadesPara">
       <wsdl:input message="tns:FuncionalidadesParaSoapIn" />
       <wsdl:output message="tns:FuncionalidadesParaSoapOut" />
@@ -10098,6 +10123,15 @@
     </wsdl:operation>
     <wsdl:operation name="ExcelMapaDelEstado">
       <soap:operation soapAction="http://wsviaticos.gov.ar/ExcelMapaDelEstado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExcelPlanificacionDotaciones">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ExcelPlanificacionDotaciones" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -12873,6 +12907,15 @@
     </wsdl:operation>
     <wsdl:operation name="ExcelMapaDelEstado">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/ExcelMapaDelEstado" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExcelPlanificacionDotaciones">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ExcelPlanificacionDotaciones" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
