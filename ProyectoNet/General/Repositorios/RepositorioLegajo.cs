@@ -424,15 +424,15 @@ namespace General.Repositorios
                         row.GetLong("Id"),
                         creador,
                         row.GetDateTime("fecha_creacion"),
-                        row.GetDateTime(("fecha_cierre"), new DateTime(999,12,31)),
+                        row.GetDateTime(("fecha_cierre"), new DateTime(9999, 12, 31)),
                         row.GetSmallintAsInt("id_tipo_consulta"),
                         row.GetString("tipo_consulta"),
                         row.GetSmallintAsInt("id_estado"),
                         row.GetString("estado"),
-                        row.GetSmallintAsInt(("calificacion"),0),
+                        row.GetSmallintAsInt(("calificacion"), 0),
                         row.GetBoolean("leido", false),
                         respuestas);
-                    
+
                     consultas.Add(consulta);
 
                 });
@@ -462,13 +462,26 @@ namespace General.Repositorios
         public string GetDetalleDeConsulta(int id_consulta)
         {
             List<Respuesta> respuestas = new List<Respuesta>();
+            Area area = new Area();
             var parametros = new Dictionary<string, object>();
             parametros.Add("@Id_consulta", id_consulta);
-            var tablaDatos = conexion.Ejecutar("dbo.LEG_UDPConsultaLeida", parametros);
-            
+            var tablaDatos = conexion.Ejecutar("dbo.LEG_GetDetalleDeConsultaDePortal", parametros);
+            if (tablaDatos.Rows.Count > 0)
+            {
+                tablaDatos.Rows.ForEach(row =>
+                {
+                    Persona persona = new Persona(row.GetInt("id_usuario"), row.GetInt("NroDocumento"), row.GetString("nombre"), row.GetString("apellido"), area);
+                    Respuesta respuesta = new Respuesta(
+                        row.GetInt("id_orden"),
+                        persona,
+                        row.GetDateTime("fecha_creacion"),
+                        row.GetString("texto"));
+                    respuestas.Add(respuesta);
+                });
+            }
             return JsonConvert.SerializeObject(respuestas);
-
         }
+
 
         public string GetTiposDeConsultaDePortal()
         {

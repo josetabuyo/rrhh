@@ -621,8 +621,12 @@ var Legajo = {
 
     MostrarDetalleDeConsulta: function (consulta) {
         var _this = this;
-        Backend.GetDetalleDeConsulta(consulta.id)
-        .onSuccess(function (consulta) {
+        Backend.GetDetalleDeConsulta(consulta.Id)
+        .onSuccess(function (respuestasJSON) {
+            var respuestas = [];
+            if (respuestasJSON != "") {
+                respuestas = JSON.parse(respuestasJSON);
+            }
             vex.defaultOptions.className = 'vex-theme-os';
             vex.open({
                 afterOpen: function ($vexContent) {
@@ -631,7 +635,7 @@ var Legajo = {
                     ui.show();
 
                     ui.find("#titulo_consulta").text("CONSULTA NÚMERO " + consulta.Id);
-                    _this.ArmarChat(ui, consulta);
+                    _this.ArmarChat(ui, respuestas);
                     ui.find("#btn_cerrar").click(function () {
                         vex.close();
                     });
@@ -656,19 +660,19 @@ var Legajo = {
 
     },
 
-    ArmarChat: function (ui, consulta) {
+    ArmarChat: function (ui, respuesta) {
         var _this = this;
         var listado = ui.find("#listado_chat");
-        var id_self = "self_" + consulta.Id;
-        var id_other = "other_" + consulta.Id;
-
+        var id_self = "self_" + respuesta.Id;
+        var id_other = "other_" + respuesta.Id;
+        //hacer un for!!!
         jQuery('#self').clone().appendTo(listado).attr("id", id_self);
-        _this.CompletarContenidoChat(id_self, consulta.motivo, consulta.creador.Apellido + ", " + consulta.creador.Nombre + " - " + consulta.fechaCreacion);
+        _this.CompletarContenidoChat(id_self, respuesta.texto, respuesta.persona.Apellido + ", " + respuesta.persona.Nombre + " - " + consulta.fecha);
         $('#' + id_self).show();
 
         if (consulta.respuesta != "") {
             jQuery('#other').clone().appendTo(listado).attr("id", id_other);
-            _this.CompletarContenidoChat(id_other, consulta.respuesta, consulta.contestador.Apellido + ", " + consulta.contestador.Nombre + " - " + consulta.fechaContestacion);
+            _this.CompletarContenidoChat(id_other, respuesta.texto, respuesta.persona.Apellido + ", " + respuesta.persona.Nombre + " - " + consulta.fecha);
             $('#' + id_other).show();
         }
     },
@@ -764,8 +768,8 @@ var Legajo = {
                         columnas_historicas.push(new Columna("Fecha Creación", { generar: function (una_consulta) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_consulta.fechaCreacion) } }));
                         columnas_historicas.push(new Columna("Tipo de Consulta", { generar: function (una_consulta) { return una_consulta.tipo_consulta } }));
                         columnas_historicas.push(new Columna("Estado", { generar: function (una_consulta) { return una_consulta.estado } }));
-                        columnas_historicas.push(new Columna("Responsable", { generar: function (una_consulta) { return una_consulta.contestador.Nombre } }));
-                        columnas_historicas.push(new Columna("Fecha Respuesta", { generar: function (una_consulta) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_consulta.fechaContestacion) } }));
+                        columnas_historicas.push(new Columna("Fecha Cierre", { generar: function (una_consulta) { return _this_original.ConvertirFecha(una_consulta.fechaCierre) } }));
+                        columnas_historicas.push(new Columna("Calificación", { generar: function (una_consulta) { return _this_original.ConvertirCalificacion(una_consulta.calificacion) } }));
                         columnas_historicas.push(new Columna('Detalle', {
                             generar: function (una_consulta) {
                                 var btn_accion = $('<a>');
@@ -803,6 +807,19 @@ var Legajo = {
                     .onError(function (e) {
 
                     });
+    },
+    ConvertirCalificacion: function (nota) {
+        if (nota == 0) {
+            return "";
+        }
+        return nota;
+    },
+    ConvertirFecha: function (fecha) {
+        var fecha_final = ConversorDeFechas.deIsoAFechaEnCriollo(fecha)
+        if (fecha_final == "31/12/9999") {
+            return "";
+        }
+        return fecha_final;
     },
     ConsultasNoLeidas: function (consultas) {
         var resultado = $.grep(consultas, function (consulta) { return consulta.leida; });

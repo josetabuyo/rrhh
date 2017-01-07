@@ -13,7 +13,7 @@
     <script type="text/javascript" src="../Scripts/ConversorDeFechas.js"></script>
     <link href="../scripts/vex-2.1.1/css/vex.css" rel="stylesheet">
     <link href="../scripts/vex-2.1.1/css/vex-theme-os.css" rel="stylesheet">
-    <link rel="stylesheet"  href="estilosPortalSecciones.css" />
+    <link rel="stylesheet" href="estilosPortalSecciones.css" />
     <link rel="stylesheet" href="chat.css" />
 </head>
 <body>
@@ -29,11 +29,13 @@
             <div id="div_explicacion_consultas">
                 <br />
                 <h4 style="color: #003e67; text-align: center">
-                    Bienvenido al espacio brindado por la Oficina de <b style="color: #0074cc">RECURSOS
-                        HUMANOS</b> para que usted pueda realizar consultas, comentarios, sugerencias
-                    y solicitar asistencia Web sobre toda la gestión y procesos de los Colaboradores
-                    del<br />
-                    <b style="color: #0074cc">Ministerio de Desarrollo Social de la Nación</b></h4>
+                    Este espacio es para que lo aprovechemos juntos como herramienta de comunicación
+                    y conocimiento mutuo. <br />Desde aquí podés realizar tus consultas, comentarios, sugerencias
+                    y solicitar las asistencia de los integrantes de la <br /><b style="color: #0074cc">Dirección
+                        General de Recursos Humanos y Organización</b> <br />para lo que consideres necesario.<br />
+                    También recibirás notificaciones, avisos y noticias que consideremos que pueden
+                    resultar de tu interés.
+                </h4>
                 <h5 id="link_nuevos_mensajes" style="cursor: pointer; display: none; text-align: center;
                     float: right; margin-top: -5px;">
                     <p style="text-align: center; font-size: 13px; color: #1a8662;">
@@ -144,7 +146,7 @@
     <div id="pantalla_consulta_ticket" style="display: none;">
         <h3 id="titulo_consulta" style="text-align: center;">
             CONSULTA NÚMERO.</h3>
-        <div style="height: 300px;margin-top:-10px; overflow: scroll; overflow-x: hidden;">
+        <div style="height: 300px; margin-top: -10px; overflow: scroll; overflow-x: hidden;">
             <ol class="chat" id="listado_chat">
                 <li id="other" class="other" style="display: none;">
                     <div class="avatar">
