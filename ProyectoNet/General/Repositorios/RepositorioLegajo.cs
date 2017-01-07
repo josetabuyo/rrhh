@@ -418,21 +418,21 @@ namespace General.Repositorios
             {
                 tablaDatos.Rows.ForEach(row =>
                 {
-                    Persona creador = new Persona(row.GetInt("id_usuario_creador"), row.GetInt("NroDocumento"), row.GetString("nombre_creador"), row.GetString("apellido_creador"), area);
-                    Persona responsable = new Persona(row.GetInt("is_usuario_responsable", 0), 0, row.GetString("nombre_responsable", ""), row.GetString("apellido_responsable", ""), area);
-
+                    Persona creador = new Persona(row.GetInt("id_usuario"), row.GetInt("NroDocumento"), row.GetString("nombre"), row.GetString("apellido"), area);
+                    List<Respuesta> respuestas = new List<Respuesta>();
                     Consulta consulta = new Consulta(
-                        row.GetInt("Id"),
+                        row.GetLong("Id"),
                         creador,
                         row.GetDateTime("fecha_creacion"),
+                        row.GetDateTime(("fecha_cierre"), new DateTime(999,12,31)),
+                        row.GetSmallintAsInt("id_tipo_consulta"),
                         row.GetString("tipo_consulta"),
-                        row.GetString("motivo"),
                         row.GetSmallintAsInt("id_estado"),
                         row.GetString("estado"),
-                        responsable,
-                        row.GetDateTime("fecha_contestacion", new DateTime()),
-                        row.GetString("respuesta", ""),
-                        row.GetBoolean("leido",false));
+                        row.GetSmallintAsInt(("calificacion"),0),
+                        row.GetBoolean("leido", false),
+                        respuestas);
+                    
                     consultas.Add(consulta);
 
                 });
@@ -459,6 +459,17 @@ namespace General.Repositorios
             conexion.EjecutarSinResultado("dbo.LEG_UDPConsultaLeida", parametros);
         }
 
+        public string GetDetalleDeConsulta(int id_consulta)
+        {
+            List<Respuesta> respuestas = new List<Respuesta>();
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@Id_consulta", id_consulta);
+            var tablaDatos = conexion.Ejecutar("dbo.LEG_UDPConsultaLeida", parametros);
+            
+            return JsonConvert.SerializeObject(respuestas);
+
+        }
+
         public string GetTiposDeConsultaDePortal()
         {
 
@@ -483,15 +494,15 @@ namespace General.Repositorios
 
         }
 
-        public int NuevaConsultaDePortal(int id_usuario, Consulta consulta)
+        public int NuevaConsultaDePortal(int id_usuario, int id_tipo_consulta, string motivo)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_usuario_creador", id_usuario);
-            parametros.Add("@id_tipo_consulta", consulta.id_tipo_consulta);
-            parametros.Add("@motivo", consulta.motivo);
+            parametros.Add("@id_tipo_consulta", id_tipo_consulta);
+            parametros.Add("@motivo", motivo);
 
-            var resultado = conexion.EjecutarEscalar("dbo.LEG_NuevaConsultaDePortal", parametros);
-            return (int)(decimal)resultado;
+            var resultado = conexion.EjecutarEscalar("dbo.LEG_NuevaConsultaDePortal2", parametros);
+            return (int)(long)resultado;
         }
 
         public int GetConsultasNoLeidas(int id_usuario)

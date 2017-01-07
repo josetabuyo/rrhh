@@ -621,44 +621,39 @@ var Legajo = {
 
     MostrarDetalleDeConsulta: function (consulta) {
         var _this = this;
-        vex.defaultOptions.className = 'vex-theme-os';
-        vex.open({
-            afterOpen: function ($vexContent) {
-                var ui = $("#pantalla_consulta_ticket").clone();
-                $vexContent.append(ui);
-                ui.show();
+        Backend.GetDetalleDeConsulta(consulta.id)
+        .onSuccess(function (consulta) {
+            vex.defaultOptions.className = 'vex-theme-os';
+            vex.open({
+                afterOpen: function ($vexContent) {
+                    var ui = $("#pantalla_consulta_ticket").clone();
+                    $vexContent.append(ui);
+                    ui.show();
 
-                ui.find("#titulo_consulta").text("CONSULTA NÚMERO " + consulta.Id);
-                _this.ArmarChat(ui, consulta);
-                ui.find("#btn_cerrar").click(function () {
-                    vex.close();
-                    //                    Backend.NuevaConsultaDePortal({
-                    //                        id_tipo_consulta: ui.find("#cmb_tipo_consulta").val(),
-                    //                        tipo_consulta: ui.find("#cmb_tipo_consulta option:selected").text(),
-                    //                        motivo: ui.find("#txt_motivo_consulta").val()
-                    //                    }).onSuccess(function (id_consulta) {
-                    //                        alertify.success("Consulta enviada con éxito");
-                    //                        vex.close();
-                    //                        Legajo.getConsultas();
-                    //                    }).onError(function (id_consulta) {
-                    //                        alertify.error("Error al enviar consulta");
-                    //                    });
-                });
-                return ui;
-            },
-            css: {
-                'padding-top': "4%",
-                'padding-bottom': "0%",
-                'background-color': "rgb(249, 248, 248)"
-            },
-            contentCSS: {
-                width: "80%",
-                height: "80%"
-            }
+                    ui.find("#titulo_consulta").text("CONSULTA NÚMERO " + consulta.Id);
+                    _this.ArmarChat(ui, consulta);
+                    ui.find("#btn_cerrar").click(function () {
+                        vex.close();
+                    });
+                    return ui;
+                },
+                css: {
+                    'padding-top': "4%",
+                    'padding-bottom': "0%",
+                    'background-color': "rgb(249, 248, 248)"
+                },
+                contentCSS: {
+                    width: "80%",
+                    height: "80%"
+                }
+            });
+
+            Backend.MarcarConsultaComoLeida(consulta.Id).onSuccess(function () { }).onError(function (e) { });
+            this.GetConsultasNoLeidas();
+        })
+        .onError(function (e) {
         });
 
-        Backend.MarcarConsultaComoLeida(consulta.Id).onSuccess(function () { }).onError(function (e) { });
-        this.GetConsultasNoLeidas();
     },
 
     ArmarChat: function (ui, consulta) {
@@ -923,7 +918,7 @@ var Legajo = {
                                     ui.find("#btn_enviar_consulta").click(function () {
                                         Backend.NuevaConsultaDePortal({
                                             id_tipo_consulta: ui.find("#cmb_tipo_consulta").val(),
-                                            tipo_consulta: ui.find("#cmb_tipo_consulta option:selected").text(),
+                                            //tipo_consulta: ui.find("#cmb_tipo_consulta option:selected").text(),
                                             motivo: ui.find("#txt_motivo_consulta").val()
                                         }).onSuccess(function (id_consulta) {
                                             alertify.success("Consulta enviada con éxito");

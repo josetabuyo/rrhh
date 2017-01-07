@@ -103,6 +103,17 @@ namespace General.Repositorios
             return this.GetFloat(campo);
         }
 
+        public long GetLong(string campo)
+        {
+            var valor_long = (long)dataRow[campo];
+            return (long)valor_long;
+        }
+        public long GetLong(string campo, long default_if_null)
+        {
+            if (this.GetObject(campo) is DBNull) return default_if_null;
+            return this.GetLong(campo);
+        }
+
         public decimal GetDecimal(string campo)
         {
             var valor_decimal = (decimal)dataRow[campo];
