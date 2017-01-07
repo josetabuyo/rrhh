@@ -103,7 +103,7 @@
                        alertify.prompt().close();
                        _this.lbl_email.text(value);
                    }).onError(function () {
-                       alertify.success("Error al modificar el mail");
+                       alertify.error("Error al modificar el mail");
                        alertify.prompt().close();
                    });
                }
