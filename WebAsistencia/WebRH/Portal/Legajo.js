@@ -660,21 +660,22 @@ var Legajo = {
 
     },
 
-    ArmarChat: function (ui, respuesta) {
+    ArmarChat: function (ui, respuestas) {
         var _this = this;
         var listado = ui.find("#listado_chat");
-        var id_self = "self_" + respuesta.Id;
-        var id_other = "other_" + respuesta.Id;
-        //hacer un for!!!
-        jQuery('#self').clone().appendTo(listado).attr("id", id_self);
-        _this.CompletarContenidoChat(id_self, respuesta.texto, respuesta.persona.Apellido + ", " + respuesta.persona.Nombre + " - " + consulta.fecha);
-        $('#' + id_self).show();
-
-        if (consulta.respuesta != "") {
-            jQuery('#other').clone().appendTo(listado).attr("id", id_other);
-            _this.CompletarContenidoChat(id_other, respuesta.texto, respuesta.persona.Apellido + ", " + respuesta.persona.Nombre + " - " + consulta.fecha);
-            $('#' + id_other).show();
-        }
+        for (var i = 0; i < respuestas.length; i++) {
+            if ((i % 2) == 0) {
+                var id_self = "self_" + respuestas[i].Id;
+                jQuery('#self').clone().appendTo(listado).attr("id", id_self);
+                _this.CompletarContenidoChat(id_self, respuestas[i].texto, respuestas[i].persona.Apellido + ", " + respuestas[i].persona.Nombre + " - " + respuestas[i].fecha);
+                $('#' + id_self).show();
+            } else {
+                var id_other = "other_" + respuesta[i].Id;
+                jQuery('#other').clone().appendTo(listado).attr("id", id_other);
+                _this.CompletarContenidoChat(id_other, respuestas[i].texto, respuestas[i].persona.Apellido + ", " + respuestas[i].persona.Nombre + " - " + respuestas[i].fecha);
+                $('#' + id_other).show();
+            }
+        };
     },
 
     CompletarContenidoChat: function (id, texto, responsable_fecha_hora) {
@@ -980,9 +981,10 @@ var Legajo = {
                     .onSuccess(function () {
                         $('#btn_volver_consulta').click();
                         $('#ta_respuesta').val("");
-                        alertify("Se ha actualizado correctamente");
+                        alertify.success("Se ha actualizado correctamente");
                     })
                     .onError(function (e) {
+                        alertify.error("Error al conectarse con el sistema backend");
                     });
     },
 
