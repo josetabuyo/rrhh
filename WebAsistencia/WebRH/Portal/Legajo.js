@@ -372,13 +372,13 @@ var Legajo = {
             $('#cmb_meses').change();
             var anio_combo = $("#cmb_anio option:selected").val();
             var day = new Date();
-            mes = day.getMonth() + 2;
+            mes_para_inhabilitar = day.getMonth() + 2;
             var anio = day.getFullYear();
 
             //inhabilito lo meses que no estan vigentes para este año
             if (anio_combo == anio) {
                 $("#cmb_meses option").each(function () {
-                    if (mes <= $(this).val()) {
+                    if (mes_para_inhabilitar <= $(this).val()) {
                         $(this).attr('disabled', 'disabled');
                     }
                 });
