@@ -17,7 +17,7 @@
     <link href="../scripts/vex-2.1.1/css/vex.css" rel="stylesheet">
     <link href="../scripts/vex-2.1.1/css/vex-theme-os.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../Reportes/Reportes.css" />
-    <link rel="stylesheet" media="(max-width: 1600px)" href="estilosPortalSecciones.css" />
+    <link rel="stylesheet" type="text/css" href="estilosPortalSecciones.css" />
 </head>
 <body>
     <form id="form1" runat="server">
@@ -66,6 +66,7 @@
                 </div>
                 </div>
             </div>
+        </div>
         </div>
     </form>
     <div id="pantalla_consulta_individual" style="display: none">

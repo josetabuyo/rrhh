@@ -165,6 +165,13 @@ namespace General.Repositorios
 
         public string GetLiquidaciones(int anio, int mes, string cuil)
         {
+
+            if (mes == 0)
+            {
+                mes = 12;
+                anio = anio - 1;
+            }
+                
             var parametros = new Dictionary<string, object>();
             parametros.Add("@anio", anio);
             parametros.Add("@mes", mes);
