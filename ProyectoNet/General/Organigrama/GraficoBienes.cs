@@ -44,7 +44,7 @@ namespace General
 
             Estados.ForEach(e =>
             {
-                Contador nuevo_estado = new Contador(e.Id, e.Nombre, e.Codigo, e.Id, "B");
+                Contador nuevo_estado = new Contador(e.Id, e.Codigo, e.Nombre, e.Id, "B");
                 nuevo_estado.Orden = e.Id;
                 contador.Add(nuevo_estado);
             });

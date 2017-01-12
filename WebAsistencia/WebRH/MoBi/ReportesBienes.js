@@ -25,7 +25,7 @@ var GraficoContratos = {
 
     SettearEventosDeLaPagina: function () {
         var _this = this;
-        GraficoHerramientas.SettearEventosDeChecks(_this, $('.filtros'), $('#div_tabla_detalle'), $('#titulo_grafico'), "Contratos por ");
+        GraficoHerramientas.SettearEventosDeChecks(_this, $('.filtros'), $('#div_tabla_detalle'), $('#titulo_grafico'), "Bienes por ");
 
         $('#btn_armarGrafico').click(function () {
             _this.BuscarDatos();
@@ -66,7 +66,7 @@ var GraficoContratos = {
         var tipo = "GraficoPorArea";
 
         if (GraficoHerramientas.VerificarDatosObligatoriosParaBackend(fecha, check_seleccionado, id_area)) {
-            _this.ObtenerLosDatosDeDotacion(tipo, fecha, id_area, $("#chk_incluir_dependencias").is(":checked"), "Personas del Área " + alias, "container_grafico_torta_totales", "div_tabla_resultado_totales", "tabla_resultado_totales");
+            _this.ObtenerLosDatosDeDotacion(tipo, fecha, id_area, $("#chk_incluir_dependencias").is(":checked"), "Bienes del Área " + alias, "container_grafico_torta_totales", "div_tabla_resultado_totales", "tabla_resultado_totales");
         }
     },
 
@@ -85,7 +85,7 @@ var GraficoContratos = {
                 tabla_resumen = grafico.tabla_resumen;
                 tabla_detalle = grafico.tabla_detalle_contratos;
                 if (tabla_resumen == null) {
-                    alertify.error("No hay persona asignadas al Área seleccionada");
+                    alertify.error("No hay bienes asignadas al Área seleccionada");
 
                 } else {
                     if (tabla_resumen.length > 0) {
@@ -95,7 +95,7 @@ var GraficoContratos = {
                         _this.BuscadorDeTabla();
                     } else {
                         _this.VisualizarTablaResumenYGrafico(false);
-                        alertify.error("No hay Personal en el Área seleccionada para la generación del Gráfico");
+                        alertify.error("No hay Bienes en el Área seleccionada para la generación del Gráfico");
                     }
                 }
                 spinner.stop()
@@ -129,7 +129,7 @@ var GraficoContratos = {
             .onSuccess(function (resultado) {
                 if (resultado.length > 0) {
                     var nombre_del_documento = "";
-                    nombre_del_documento = "ESTADO_RENOV_CONTRATOS_";
+                    nombre_del_documento = "ESTADO_BIENES_";
 
                     var a = window.document.createElement('a');
                     a.href = "data:application/vnd.ms-excel;base64," + resultado;
@@ -154,7 +154,7 @@ var GraficoContratos = {
     //DIBUJAR GRAFICO
     DibujarElGrafico: function (datos_del_resumen, titulo, div_grafico) {
         var datos = this.CrearDatosDesdeElResumenParaArmarElGrafico(datos_del_resumen);
-        var grafico = [{ type: 'pie', name: 'Selección de Contratos', data: datos}];
+        var grafico = [{ type: 'pie', name: 'Selección de Bienes', data: datos}];
         $('#' + div_grafico).highcharts({
             chart: {
                 type: 'pie',
@@ -220,7 +220,7 @@ var GraficoContratos = {
             } else {
                 switch (checks_activos[0]) {
                     case "GraficoPorArea":
-                        titulo = "Personas del Área " + criterio;
+                        titulo = "Bienes del Área " + criterio;
                         for (var i = 0; i < tabla.length; i++) {
                             if (tabla[i].IdEstado == criterio) {
                                 tabla_final.push(tabla[i]);
@@ -309,69 +309,69 @@ var GraficoContratos = {
                 });
                 cont.append(btn_accion);
 
-                if (un_registro.Id == 2 || un_registro.Id == 3) {
-                    var btn_informe = $('<input>');
-                    btn_informe.attr('type', 'button');
-                    btn_informe.attr('value', 'Generar Informe');
-                    btn_informe.attr('class', 'btn btn-info');
-                    btn_informe.attr('style', 'display:inline-block');
-                    btn_informe.click(function () {
-                        var spinner = new Spinner({ scale: 3 });
-                        spinner.spin($("html")[0]);
-                        var datos = { id_area: id_area,
-                            incluir_dependencias: $("#chk_incluir_dependencias").is(":checked"),
-                            id_estado: un_registro.Id //es el id de estado
-                        };
+//                if (un_registro.Id == 2 || un_registro.Id == 3) {
+//                    var btn_informe = $('<input>');
+//                    btn_informe.attr('type', 'button');
+//                    btn_informe.attr('value', 'Generar Informe');
+//                    btn_informe.attr('class', 'btn btn-info');
+//                    btn_informe.attr('style', 'display:inline-block');
+//                    btn_informe.click(function () {
+//                        var spinner = new Spinner({ scale: 3 });
+//                        spinner.spin($("html")[0]);
+//                        var datos = { id_area: id_area,
+//                            incluir_dependencias: $("#chk_incluir_dependencias").is(":checked"),
+//                            id_estado: un_registro.Id //es el id de estado
+//                        };
 
-                        Backend.GenerarInformeContrato(datos)
-                        .onSuccess(function (resultado) {
-                            alertify.success("Informe generado con éxito");
-                            spinner.stop();
-                        })
-                        .onError(function (e) {
-                            spinner.stop();
-                            alertify.error("Error al generar informe");
-                        });
-                        //$('#div_detalle_informe').show(); $('#div_tabla_detalle').show();aaaaaaaaaaaaaa
-                    });
-                    cont.append(btn_informe);
-                }
+//                        Backend.GenerarInformeContrato(datos)
+//                        .onSuccess(function (resultado) {
+//                            alertify.success("Informe generado con éxito");
+//                            spinner.stop();
+//                        })
+//                        .onError(function (e) {
+//                            spinner.stop();
+//                            alertify.error("Error al generar informe");
+//                        });
+//                        //$('#div_detalle_informe').show(); $('#div_tabla_detalle').show();aaaaaaaaaaaaaa
+//                    });
+//                    cont.append(btn_informe);
+//                }
 
-                if (un_registro.Id == 4 || un_registro.Id == 5) {
-                    var btn_informe = $('<input>');
-                    btn_informe.attr('type', 'button');
-                    btn_informe.attr('value', 'Ver Informes');
-                    btn_informe.attr('class', 'btn btn-info');
-                    btn_informe.attr('style', 'display:inline-block');
-                    btn_informe.click(function () {
-                        $('#div_tabla_detalle').hide();
-                        //$('#div_tabla_detalle').hide();aaaaaaaaaaaaaaa
+//                if (un_registro.Id == 4 || un_registro.Id == 5) {
+//                    var btn_informe = $('<input>');
+//                    btn_informe.attr('type', 'button');
+//                    btn_informe.attr('value', 'Ver Informes');
+//                    btn_informe.attr('class', 'btn btn-info');
+//                    btn_informe.attr('style', 'display:inline-block');
+//                    btn_informe.click(function () {
+//                        $('#div_tabla_detalle').hide();
+//                        //$('#div_tabla_detalle').hide();aaaaaaaaaaaaaaa
 
-                        var datos = { id_area: id_area,
-                            incluir_dependencias: $("#chk_incluir_dependencias").is(":checked"),
-                            id_estado: un_registro.Id
-                        };
-
-
-
-                        var spinner = new Spinner({ scale: 3 });
-                        spinner.spin($("html")[0]);
-                        //_this.FiltrarInformesParaTabla(un_registro.Id, tabla_detalle);
-                        Backend.GetInformesGeneradosPorArea(datos)
-                            .onSuccess(function (resultado) {
-                                spinner.stop();
-                                // _this.VisualizarTablaDetalle(true);
-                                _this.DibujarTablaInformes(resultado);
-                            })
-                            .onError(function (e) {
-                                spinner.stop();
-                                alertify.error("Error al generar informe");
-                            });
+//                        var datos = { id_area: id_area,
+//                            incluir_dependencias: $("#chk_incluir_dependencias").is(":checked"),
+//                            id_estado: un_registro.Id
+//                        };
 
 
-                    });
-                    cont.append(btn_informe);
-                }
+
+//                        var spinner = new Spinner({ scale: 3 });
+//                        spinner.spin($("html")[0]);
+//                        //_this.FiltrarInformesParaTabla(un_registro.Id, tabla_detalle);
+//                        Backend.GetInformesGeneradosPorArea(datos)
+//                            .onSuccess(function (resultado) {
+//                                spinner.stop();
+//                                // _this.VisualizarTablaDetalle(true);
+//                                _this.DibujarTablaInformes(resultado);
+//                            })
+//                            .onError(function (e) {
+//                                spinner.stop();
+//                                alertify.error("Error al generar informe");
+//                            });
+
+
+//                    });
+//                    cont.append(btn_informe);
+//                }
 
                 return cont;
             }
