@@ -171,7 +171,7 @@ namespace General.Repositorios
                 mes = 12;
                 anio = anio - 1;
             }
-                
+
             var parametros = new Dictionary<string, object>();
             parametros.Add("@anio", anio);
             parametros.Add("@mes", mes);
@@ -426,14 +426,17 @@ namespace General.Repositorios
                 tablaDatos.Rows.ForEach(row =>
                 {
                     Persona creador = new Persona(row.GetInt("id_usuario"), row.GetInt("NroDocumento"), row.GetString("nombre"), row.GetString("apellido"), area);
+                    Persona responsable = new Persona(row.GetInt("id_responsable", 0), row.GetInt("NroDocumentoResponsable",0), row.GetString("nombreResponsable", ""), row.GetString("apellidoResponsable",""), area);
                     List<Respuesta> respuestas = new List<Respuesta>();
                     Consulta consulta = new Consulta(
                         row.GetLong("Id"),
                         creador,
                         row.GetDateTime("fecha_creacion"),
-                        row.GetDateTime(("fecha_cierre"), new DateTime(9999, 12, 31)),
+                        row.GetDateTime(("fecha_respuesta"), new DateTime(9999, 12, 31)),
+                        responsable,
                         row.GetSmallintAsInt("id_tipo_consulta"),
                         row.GetString("tipo_consulta"),
+                        row.GetString("resumen"),
                         row.GetSmallintAsInt("id_estado"),
                         row.GetString("estado"),
                         row.GetSmallintAsInt(("calificacion"), 0),
@@ -449,15 +452,52 @@ namespace General.Repositorios
 
         public void ResponderConsulta(int id, string respuesta, int id_usuario)
         {
+            var resumen = respuesta;
+            if (respuesta.Length > 100) resumen = respuesta.Substring(0, 100);
+            var id_estado = 7;
+            var leido = false;
+            var calificacion = 0;
+            UpdateConsulta(id, respuesta, id_usuario, resumen, id_estado, leido, calificacion);
+        }
+        public void RepreguntarConsulta(int id, string respuesta, int id_usuario)
+        {
+            var resumen = respuesta;
+            if (respuesta.Length > 100) resumen = respuesta.Substring(0, 100);
+            var id_estado = 6;
+            var leido = true;
+            var calificacion = 0;
+            UpdateConsulta(id, respuesta, id_usuario, resumen, id_estado, leido, calificacion);
+        }
+        public void CerrarConsulta(int id, int id_usuario, int calificacion)
+        {
+            var respuesta = "";
+            var resumen = "";
+            var id_estado = 9;
+            var leido = true;
+            UpdateConsulta(id, respuesta, id_usuario, resumen, id_estado, leido, calificacion);
+        }
+        public void EliminarConsulta(int id, int id_usuario)
+        {
+            var resumen = "";
+            var respuesta = "";
+            var id_estado = 8;
+            var leido = true;
+            var calificacion = 0;
+            UpdateConsulta(id, respuesta, id_usuario, resumen, id_estado, leido, calificacion);
+        }
+
+        private void UpdateConsulta(int id, string respuesta, int id_usuario, string resumen, int id_estado, bool leido, int calificacion)
+        {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@Id", id);
             parametros.Add("@Respuesta", respuesta);
             parametros.Add("@Id_Usuario", id_usuario);
-
+            parametros.Add("@resumen", resumen);
+            parametros.Add("@id_estado", id_estado);
+            parametros.Add("@leido", leido);
+            parametros.Add("@calificacion", calificacion);
             conexion.EjecutarSinResultado("dbo.LEG_UPDConsultasDePortal2", parametros);
         }
-
-
 
         public void MarcarConsultaComoLeida(int id_consulta)
         {
@@ -517,9 +557,12 @@ namespace General.Repositorios
         public int NuevaConsultaDePortal(int id_usuario, int id_tipo_consulta, string motivo)
         {
             var parametros = new Dictionary<string, object>();
+            var resumen = motivo;
+            if (motivo.Length > 100) resumen = motivo.Substring(0, 100);
             parametros.Add("@id_usuario_creador", id_usuario);
             parametros.Add("@id_tipo_consulta", id_tipo_consulta);
             parametros.Add("@motivo", motivo);
+            parametros.Add("@resumen", resumen);
 
             var resultado = conexion.EjecutarEscalar("dbo.LEG_NuevaConsultaDePortal2", parametros);
             return (int)(long)resultado;

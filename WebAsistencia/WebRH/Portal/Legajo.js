@@ -864,8 +864,8 @@ var Legajo = {
                         columnas_historicas.push(new Columna("Estado", { generar: function (una_consulta) { return una_consulta.estado } }));
                         columnas_historicas.push(new Columna("Creador", { generar: function (una_consulta) { return una_consulta.creador.Apellido + ', ' + una_consulta.creador.Nombre } }));
                         columnas_historicas.push(new Columna("Responsable", { generar: function (una_consulta) {
-                            if (una_consulta.contestador.Apellido != "") {
-                                return una_consulta.contestador.Apellido + ', ' + una_consulta.contestador.Nombre
+                            if (una_consulta.responsable.Apellido != "") {
+                                return una_consulta.responsable.Apellido + ', ' + una_consulta.responsable.Nombre
                             } else {
                                 return "<span style='color:red;'>PENDIENTE</span>";
                             }
@@ -934,11 +934,8 @@ var Legajo = {
 
 
                                     ui.find("#btn_enviar_consulta").click(function () {
-                                        Backend.NuevaConsultaDePortal({
-                                            id_tipo_consulta: ui.find("#cmb_tipo_consulta").val(),
-                                            //tipo_consulta: ui.find("#cmb_tipo_consulta option:selected").text(),
-                                            motivo: ui.find("#txt_motivo_consulta").val()
-                                        }).onSuccess(function (id_consulta) {
+                                        Backend.NuevaConsultaDePortal( parseInt(ui.find("#cmb_tipo_consulta").val()), ui.find("#txt_motivo_consulta").val()
+                                        ).onSuccess(function (id_consulta) {
                                             alertify.success("Consulta enviada con éxito");
                                             vex.close();
                                             Legajo.getConsultas();
@@ -1034,8 +1031,8 @@ var Legajo = {
                         columnas.push(new Columna("Estado", { generar: function (una_consulta) { return una_consulta.estado } }));
                         if (estado != 6) {
                             columnas.push(new Columna("Responsable", { generar: function (una_consulta) {
-                                if (una_consulta.contestador.Apellido != "") {
-                                    return una_consulta.contestador.Apellido + ', ' + una_consulta.contestador.Nombre
+                                if (una_consulta.responsable.Apellido != "") {
+                                    return una_consulta.responsable.Apellido + ', ' + una_consulta.responsable.Nombre
                                 } else {
                                     return "<span style='color:red;'>PENDIENTE</span>";
                                 }
@@ -1068,7 +1065,7 @@ var Legajo = {
                                     img.attr('title', 'Responder');
 
                                     btn_accion.click(function () {
-                                        _this_original.TratarConsulta(una_consulta.Id, una_consulta.creador, una_consulta.tipo_consulta, una_consulta.motivo);
+                                        _this_original.TratarConsulta(una_consulta.Id, una_consulta.creador, una_consulta.tipo_consulta, una_consulta.resumen); //TRANSITORIO HASTA HACER LA PANTALLA DE CHAT
                                     });
 
                                 } else {
@@ -1076,7 +1073,7 @@ var Legajo = {
                                     img.attr('data-toggle', 'tooltip');
                                     img.attr('title', 'Consultar');
                                     btn_accion.click(function () {
-                                        _this_original.VisualizarConsulta(una_consulta.Id, una_consulta.creador, una_consulta.tipo_consulta, una_consulta.motivo, una_consulta.respuesta);
+                                        _this_original.VisualizarConsulta(una_consulta.Id, una_consulta.creador, una_consulta.tipo_consulta, "falta", una_consulta.resumen); //TRANSITORIO HASTA HACER LA PANTALLA DE CHAT
                                     });
                                 }
 
