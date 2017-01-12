@@ -12,6 +12,7 @@ namespace General
         public List<Resumen> tabla_resumen;
         public List<Dotacion> tabla_detalle;
         public List<PersonaContrato> tabla_detalle_contratos;
+        public List<MoBi_Bien> tabla_detalle_bienes;
 
         public Grafico()
         {

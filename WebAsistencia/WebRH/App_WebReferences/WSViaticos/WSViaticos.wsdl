@@ -212,6 +212,34 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetTableroDeControlDePostulaciones">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_usuario" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTableroDeControlDePostulacionesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTableroDeControlDePostulacionesResult" type="tns:ArrayOfResumenDePostulaciones" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfResumenDePostulaciones">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ResumenDePostulaciones" nillable="true" type="tns:ResumenDePostulaciones" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ResumenDePostulaciones">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="IdPerfil" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="DescripcionPerfil" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="NumeroComite" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Postulados" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Inscriptos" type="s:int" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="GetPantallaRecepcionDocumentacion">
         <s:complexType>
           <s:sequence>
@@ -1325,6 +1353,7 @@
       </s:element>
       <s:complexType name="MoBi_Bien">
         <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id_Estado" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="Imagenes" type="tns:ArrayOfInt" />
           <s:element minOccurs="0" maxOccurs="1" name="Ubicacion" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Verificacion" type="s:string" />
@@ -1838,6 +1867,21 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="ExcelMapaDelEstadoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ElUsuarioLogueadoTienePermisosPara">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_funcionalidad" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ElUsuarioLogueadoTienePermisosParaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ElUsuarioLogueadoTienePermisosParaResult" type="s:boolean" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -3407,34 +3451,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetTableroDeControlDePostulaciones">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id_usuario" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetTableroDeControlDePostulacionesResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetTableroDeControlDePostulacionesResult" type="tns:ArrayOfResumenDePostulaciones" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:complexType name="ArrayOfResumenDePostulaciones">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="ResumenDePostulaciones" nillable="true" type="tns:ResumenDePostulaciones" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="ResumenDePostulaciones">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="IdPerfil" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="DescripcionPerfil" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="NumeroComite" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="Postulados" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="Inscriptos" type="s:int" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="TransicionarDocumento">
         <s:complexType>
           <s:sequence>
@@ -4724,21 +4740,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="ElUsuarioLogueadoTienePermisosPara">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id_funcionalidad" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ElUsuarioLogueadoTienePermisosParaResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="ElUsuarioLogueadoTienePermisosParaResult" type="s:boolean" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
       <s:element name="GetUsuarios">
         <s:complexType>
           <s:sequence>
@@ -5080,6 +5081,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="tabla_resumen" type="tns:ArrayOfResumen" />
           <s:element minOccurs="0" maxOccurs="1" name="tabla_detalle" type="tns:ArrayOfDotacion" />
           <s:element minOccurs="0" maxOccurs="1" name="tabla_detalle_contratos" type="tns:ArrayOfPersonaContrato" />
+          <s:element minOccurs="0" maxOccurs="1" name="tabla_detalle_bienes" type="tns:ArrayOfMoBi_Bien" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfResumen">
@@ -5315,6 +5317,42 @@
           <s:extension base="tns:Grafico">
             <s:sequence>
               <s:element minOccurs="0" maxOccurs="1" name="Estados" type="tns:ArrayOfEstadoContrato" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="GetGraficoBienes">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="EstadoMoBi">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Codigo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfEstadoMoBi">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="EstadoMoBi" nillable="true" type="tns:EstadoMoBi" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetGraficoBienesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetGraficoBienesResult" type="tns:GraficoBienes" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="GraficoBienes">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Grafico">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Estados" type="tns:ArrayOfEstadoMoBi" />
             </s:sequence>
           </s:extension>
         </s:complexContent>
@@ -6356,6 +6394,12 @@
   <wsdl:message name="ConsultaExcelDDJJ104_AreaSoapOut">
     <wsdl:part name="parameters" element="tns:ConsultaExcelDDJJ104_AreaResponse" />
   </wsdl:message>
+  <wsdl:message name="GetTableroDeControlDePostulacionesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTableroDeControlDePostulaciones" />
+  </wsdl:message>
+  <wsdl:message name="GetTableroDeControlDePostulacionesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTableroDeControlDePostulacionesResponse" />
+  </wsdl:message>
   <wsdl:message name="GetPantallaRecepcionDocumentacionSoapIn">
     <wsdl:part name="parameters" element="tns:GetPantallaRecepcionDocumentacion" />
   </wsdl:message>
@@ -6751,6 +6795,12 @@
   </wsdl:message>
   <wsdl:message name="ExcelMapaDelEstadoSoapOut">
     <wsdl:part name="parameters" element="tns:ExcelMapaDelEstadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ElUsuarioLogueadoTienePermisosParaSoapIn">
+    <wsdl:part name="parameters" element="tns:ElUsuarioLogueadoTienePermisosPara" />
+  </wsdl:message>
+  <wsdl:message name="ElUsuarioLogueadoTienePermisosParaSoapOut">
+    <wsdl:part name="parameters" element="tns:ElUsuarioLogueadoTienePermisosParaResponse" />
   </wsdl:message>
   <wsdl:message name="FuncionalidadesParaSoapIn">
     <wsdl:part name="parameters" element="tns:FuncionalidadesPara" />
@@ -7250,12 +7300,6 @@
   <wsdl:message name="GuardarEtapaAPostulacionesSoapOut">
     <wsdl:part name="parameters" element="tns:GuardarEtapaAPostulacionesResponse" />
   </wsdl:message>
-  <wsdl:message name="GetTableroDeControlDePostulacionesSoapIn">
-    <wsdl:part name="parameters" element="tns:GetTableroDeControlDePostulaciones" />
-  </wsdl:message>
-  <wsdl:message name="GetTableroDeControlDePostulacionesSoapOut">
-    <wsdl:part name="parameters" element="tns:GetTableroDeControlDePostulacionesResponse" />
-  </wsdl:message>
   <wsdl:message name="TransicionarDocumentoSoapIn">
     <wsdl:part name="parameters" element="tns:TransicionarDocumento" />
   </wsdl:message>
@@ -7688,12 +7732,6 @@
   <wsdl:message name="ElUsuarioTienePermisosParaSoapOut">
     <wsdl:part name="parameters" element="tns:ElUsuarioTienePermisosParaResponse" />
   </wsdl:message>
-  <wsdl:message name="ElUsuarioLogueadoTienePermisosParaSoapIn">
-    <wsdl:part name="parameters" element="tns:ElUsuarioLogueadoTienePermisosPara" />
-  </wsdl:message>
-  <wsdl:message name="ElUsuarioLogueadoTienePermisosParaSoapOut">
-    <wsdl:part name="parameters" element="tns:ElUsuarioLogueadoTienePermisosParaResponse" />
-  </wsdl:message>
   <wsdl:message name="GetUsuariosSoapIn">
     <wsdl:part name="parameters" element="tns:GetUsuarios" />
   </wsdl:message>
@@ -7831,6 +7869,12 @@
   </wsdl:message>
   <wsdl:message name="GetGraficoContratadosSoapOut">
     <wsdl:part name="parameters" element="tns:GetGraficoContratadosResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetGraficoBienesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetGraficoBienes" />
+  </wsdl:message>
+  <wsdl:message name="GetGraficoBienesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetGraficoBienesResponse" />
   </wsdl:message>
   <wsdl:message name="ExcelGeneradoContratosSoapIn">
     <wsdl:part name="parameters" element="tns:ExcelGeneradoContratos" />
@@ -8183,6 +8227,10 @@
       <wsdl:input message="tns:ConsultaExcelDDJJ104_AreaSoapIn" />
       <wsdl:output message="tns:ConsultaExcelDDJJ104_AreaSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetTableroDeControlDePostulaciones">
+      <wsdl:input message="tns:GetTableroDeControlDePostulacionesSoapIn" />
+      <wsdl:output message="tns:GetTableroDeControlDePostulacionesSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetPantallaRecepcionDocumentacion">
       <wsdl:input message="tns:GetPantallaRecepcionDocumentacionSoapIn" />
       <wsdl:output message="tns:GetPantallaRecepcionDocumentacionSoapOut" />
@@ -8446,6 +8494,10 @@
     <wsdl:operation name="ExcelMapaDelEstado">
       <wsdl:input message="tns:ExcelMapaDelEstadoSoapIn" />
       <wsdl:output message="tns:ExcelMapaDelEstadoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ElUsuarioLogueadoTienePermisosPara">
+      <wsdl:input message="tns:ElUsuarioLogueadoTienePermisosParaSoapIn" />
+      <wsdl:output message="tns:ElUsuarioLogueadoTienePermisosParaSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="FuncionalidadesPara">
       <wsdl:input message="tns:FuncionalidadesParaSoapIn" />
@@ -8779,10 +8831,6 @@
       <wsdl:input message="tns:GuardarEtapaAPostulacionesSoapIn" />
       <wsdl:output message="tns:GuardarEtapaAPostulacionesSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="GetTableroDeControlDePostulaciones">
-      <wsdl:input message="tns:GetTableroDeControlDePostulacionesSoapIn" />
-      <wsdl:output message="tns:GetTableroDeControlDePostulacionesSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="TransicionarDocumento">
       <wsdl:input message="tns:TransicionarDocumentoSoapIn" />
       <wsdl:output message="tns:TransicionarDocumentoSoapOut" />
@@ -9071,10 +9119,6 @@
       <wsdl:input message="tns:ElUsuarioTienePermisosParaSoapIn" />
       <wsdl:output message="tns:ElUsuarioTienePermisosParaSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="ElUsuarioLogueadoTienePermisosPara">
-      <wsdl:input message="tns:ElUsuarioLogueadoTienePermisosParaSoapIn" />
-      <wsdl:output message="tns:ElUsuarioLogueadoTienePermisosParaSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="GetUsuarios">
       <wsdl:input message="tns:GetUsuariosSoapIn" />
       <wsdl:output message="tns:GetUsuariosSoapOut" />
@@ -9166,6 +9210,10 @@
     <wsdl:operation name="GetGraficoContratados">
       <wsdl:input message="tns:GetGraficoContratadosSoapIn" />
       <wsdl:output message="tns:GetGraficoContratadosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGraficoBienes">
+      <wsdl:input message="tns:GetGraficoBienesSoapIn" />
+      <wsdl:output message="tns:GetGraficoBienesSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="ExcelGeneradoContratos">
       <wsdl:input message="tns:ExcelGeneradoContratosSoapIn" />
@@ -9409,6 +9457,15 @@
     </wsdl:operation>
     <wsdl:operation name="ConsultaExcelDDJJ104_Area">
       <soap:operation soapAction="http://wsviaticos.gov.ar/ConsultaExcelDDJJ104_Area" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTableroDeControlDePostulaciones">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetTableroDeControlDePostulaciones" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -10003,6 +10060,15 @@
     </wsdl:operation>
     <wsdl:operation name="ExcelMapaDelEstado">
       <soap:operation soapAction="http://wsviaticos.gov.ar/ExcelMapaDelEstado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ElUsuarioLogueadoTienePermisosPara">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ElUsuarioLogueadoTienePermisosPara" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -10757,15 +10823,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetTableroDeControlDePostulaciones">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetTableroDeControlDePostulaciones" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="TransicionarDocumento">
       <soap:operation soapAction="http://wsviaticos.gov.ar/TransicionarDocumento" style="document" />
       <wsdl:input>
@@ -11414,15 +11471,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ElUsuarioLogueadoTienePermisosPara">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/ElUsuarioLogueadoTienePermisosPara" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetUsuarios">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetUsuarios" style="document" />
       <wsdl:input>
@@ -11623,6 +11671,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetGraficoContratados">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetGraficoContratados" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGraficoBienes">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetGraficoBienes" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -12157,6 +12214,15 @@
     </wsdl:operation>
     <wsdl:operation name="ConsultaExcelDDJJ104_Area">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/ConsultaExcelDDJJ104_Area" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTableroDeControlDePostulaciones">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetTableroDeControlDePostulaciones" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -12751,6 +12817,15 @@
     </wsdl:operation>
     <wsdl:operation name="ExcelMapaDelEstado">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/ExcelMapaDelEstado" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ElUsuarioLogueadoTienePermisosPara">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ElUsuarioLogueadoTienePermisosPara" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -13505,15 +13580,6 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetTableroDeControlDePostulaciones">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetTableroDeControlDePostulaciones" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="TransicionarDocumento">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/TransicionarDocumento" style="document" />
       <wsdl:input>
@@ -14162,15 +14228,6 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ElUsuarioLogueadoTienePermisosPara">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/ElUsuarioLogueadoTienePermisosPara" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetUsuarios">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetUsuarios" style="document" />
       <wsdl:input>
@@ -14371,6 +14428,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetGraficoContratados">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetGraficoContratados" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGraficoBienes">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetGraficoBienes" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

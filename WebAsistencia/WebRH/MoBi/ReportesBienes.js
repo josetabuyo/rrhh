@@ -78,7 +78,9 @@ var GraficoContratos = {
         spinner.spin($("html")[0]);
         _this.VisualizarTablaDetalle(false);
 
-        Backend.GetGraficoContratados({ tipo: tipo, fecha: fecha, id_area: parseInt(id_area), incluir_dependencias: incluir_dependencias })
+
+        //Backend.GetGraficoContratados({ tipo: tipo, fecha: fecha, id_area: parseInt(id_area), incluir_dependencias: incluir_dependencias })
+        Backend.GetGraficoBienes({ tipo: tipo, fecha: fecha, id_area: parseInt(id_area), incluir_dependencias: incluir_dependencias })
             .onSuccess(function (grafico) {
                 tabla_resumen = grafico.tabla_resumen;
                 tabla_detalle = grafico.tabla_detalle_contratos;

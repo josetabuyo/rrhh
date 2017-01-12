@@ -101,11 +101,13 @@
     <Compile Include="Asistencia\VacacionesSolicitables.cs" />
     <Compile Include="Calendario\CalculadorDeDias.cs" />
     <Compile Include="Calendario\Periodo.cs" />
+    <Compile Include="Organigrama\GraficoBienes.cs" />
     <Compile Include="Organigrama\GraficoContratos.cs" />
     <Compile Include="Organigrama\PersonaContrato.cs" />
     <Compile Include="Portal\Consulta.cs" />
     <Compile Include="Portal\Estudio.cs" />
     <Compile Include="Portal\Legajo.cs" />
+    <Compile Include="Repositorios\EstadoMoBi.cs" />
     <Compile Include="Repositorios\RepositorioDeDatosAbiertos.cs" />
     <Compile Include="Repositorios\EstadoContrato.cs" />
     <Compile Include="Repositorios\RepositorioDeContratos.cs" />

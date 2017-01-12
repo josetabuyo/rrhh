@@ -465,6 +465,23 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
 
+
+    [WebMethod]
+    public GraficoBienes GetGraficoBienes(string criterio, Usuario usuario)
+    {
+        //if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 43)) throw (new Exception("El usuario no tiene permisos para el modulo de contratos"));
+        var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
+        string tipo = ((JValue)criterio_deserializado["tipo"]).ToString();
+
+        bool incluir_dependencias = (bool)((JValue)criterio_deserializado["incluir_dependencias"]);
+        DateTime fecha = DateTime.Today;
+        int id_area = (int)((JValue)criterio_deserializado["id_area"]);
+        RepositorioDeReportes repositorio = new RepositorioDeReportes(Conexion());
+        return repositorio.GetGraficoBienes(tipo, fecha, id_area, incluir_dependencias);
+
+    }
+
+
     /*Excel contratos*/
 
     [WebMethod]

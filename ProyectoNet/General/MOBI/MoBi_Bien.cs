@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using General.Repositorios;
 
 namespace General
 {
@@ -14,6 +15,8 @@ namespace General
         private DateTime _UltMov;
         private string _Remitente;
         private string _Asignacion;
+
+        public int Id_Estado;
 
         public string Ubicacion { get; set; }
         public string Verificacion { get; set; }
@@ -73,6 +76,19 @@ namespace General
         {
             this.Imagenes = new List<int>();
         }
+
+
+        public MoBi_Bien(int id, int id_tipobien, string descripcion_bien, string estado, int id_estado, DateTime fecha_movimiento) 
+        {
+            _Id = id;
+            _IdTipoBien = id_tipobien;
+            _Descripcion = descripcion_bien;
+            _Estado = estado;
+            Id_Estado = id_estado;
+            _UltMov = fecha_movimiento;
+        }
+
+
     }
 
 }
