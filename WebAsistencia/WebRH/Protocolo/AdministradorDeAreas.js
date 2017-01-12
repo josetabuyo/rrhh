@@ -1,5 +1,5 @@
 ﻿var AdministradorDeAreas = function () {
-    var json_areas = JSON.parse($('#areasJSON').val());
+    var json_areas = Backend.ejecutarSincronico("GetAreasParaProtocolo", []); // JSON.parse($('#areasJSON').val());
     var areas = [];
     for (var i = 0; i < json_areas.length; i++) {
         areas.push(new Area(json_areas[i]));

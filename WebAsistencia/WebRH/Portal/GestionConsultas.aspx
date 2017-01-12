@@ -36,6 +36,8 @@
                 value="PARAMETRIA" />
             <input id="Button4" type="button" class="btn_gestion_consulta" style="margin: 10px; width: 150px; font-size: smaller;"
                 value="REPORTES" />
+            <input id="Button1" type="button" onclick="javascript:location.href='Consultas.aspx'" class="btn_gestion_consulta" style="margin: 10px; width: 150px; font-size: smaller;"
+                value="PORTAL" />
         </div>
         <div class="caja_der papel">
             <%--DIV 1--%>
