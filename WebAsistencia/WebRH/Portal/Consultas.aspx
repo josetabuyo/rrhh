@@ -43,10 +43,11 @@
                     <br />
                     <img style="margin-top: -30px; width: 90px;" alt="icono" src="../Imagenes/portal/respuestas.gif" />
                 </h5>
-                <br />
-                <br />
-                <input id="btn_nueva_consulta" type="button" class="btn btn-primary boton_destellante"
-                    value="Realizar nueva consulta" />
+
+                <div style="margin-top: 20px;">
+                    <input id="btn_nueva_consulta" type="button" style="position: absolute;left: 25px;" class="btn btn-primary boton_destellante" value="Realizar nueva consulta" />
+                    <a id="Button1" href="GestionConsultas.aspx" RequiereFuncionalidad="49" class="btn btn-primary" style="position: absolute; right: 25px;">Gestión de consultas</a>
+                </div>
             </div>
             <br />
             <br />
