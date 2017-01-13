@@ -4237,6 +4237,12 @@ public class WSViaticos : System.Web.Services.WebService
         return RepoLegajo().NuevaConsultaDePortal(usuario.Owner.Id, id_tipo_consulta, motivo);
 
     }
+     [WebMethod]
+    public void RepreguntarConsulta(int id_consulta, string motivo, Usuario usuario)
+    {
+        RepoLegajo().RepreguntarConsulta(id_consulta, motivo, usuario.Owner.Id);
+    }
+     
 
     [WebMethod]
     public int GetConsultasNoLeidas(Usuario usuario)

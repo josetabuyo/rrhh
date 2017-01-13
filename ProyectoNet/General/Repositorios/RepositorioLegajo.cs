@@ -455,7 +455,7 @@ namespace General.Repositorios
             var resumen = respuesta;
             if (respuesta.Length > 100) resumen = respuesta.Substring(0, 100);
             var id_estado = 7;
-            var leido = false;
+            var leido = true;
             var calificacion = 0;
             UpdateConsulta(id, respuesta, id_usuario, resumen, id_estado, leido, calificacion);
         }
@@ -464,7 +464,7 @@ namespace General.Repositorios
             var resumen = respuesta;
             if (respuesta.Length > 100) resumen = respuesta.Substring(0, 100);
             var id_estado = 6;
-            var leido = true;
+            var leido = false;
             var calificacion = 0;
             UpdateConsulta(id, respuesta, id_usuario, resumen, id_estado, leido, calificacion);
         }
@@ -473,7 +473,7 @@ namespace General.Repositorios
             var respuesta = "";
             var resumen = "";
             var id_estado = 9;
-            var leido = true;
+            var leido = false;
             UpdateConsulta(id, respuesta, id_usuario, resumen, id_estado, leido, calificacion);
         }
         public void EliminarConsulta(int id, int id_usuario)
@@ -481,7 +481,7 @@ namespace General.Repositorios
             var resumen = "";
             var respuesta = "";
             var id_estado = 8;
-            var leido = true;
+            var leido = false;
             var calificacion = 0;
             UpdateConsulta(id, respuesta, id_usuario, resumen, id_estado, leido, calificacion);
         }
@@ -503,7 +503,7 @@ namespace General.Repositorios
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@Id_consulta", id_consulta);
-            conexion.EjecutarSinResultado("dbo.LEG_UDPConsultaLeida", parametros);
+            conexion.EjecutarSinResultado("dbo.LEG_UPDConsultaLeida2", parametros);
         }
 
         public string GetDetalleDeConsulta(int id_consulta)

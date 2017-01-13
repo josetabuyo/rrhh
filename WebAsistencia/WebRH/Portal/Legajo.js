@@ -635,10 +635,17 @@ var Legajo = {
                     ui.show();
 
                     ui.find("#titulo_consulta").text("CONSULTA NÚMERO " + consulta.Id);
-                    _this.ArmarChat(ui, respuestas);
+                    _this.ArmarChat(ui, consulta, respuestas);
                     ui.find("#btn_cerrar").click(function () {
                         vex.close();
                     });
+                    ui.find("#btn_pepreguntar").click(function () {
+                        ui.find('#div_repreguntar').show();
+                    });
+                    ui.find("#btn_enviar_pepregunta").click(function () {
+                        _this.Repreguntar(ui, consulta);
+                    });
+
                     return ui;
                 },
                 css: {
@@ -653,24 +660,36 @@ var Legajo = {
             });
 
             Backend.MarcarConsultaComoLeida(consulta.Id).onSuccess(function () { }).onError(function (e) { });
-            this.GetConsultasNoLeidas();
+            _this.GetConsultasNoLeidas();
         })
         .onError(function (e) {
         });
 
     },
+    Repreguntar: function (ui, consulta) {
+        var repregunta = ui.find("#ta_repreguntar").val();
+        if (repregunta == "") {
+            alertify.error("Escriba un texto");
+        } else {
+            Backend.RepreguntarConsulta(parseInt(consulta.Id), repregunta).onSuccess(function () {
+                alertify.success("Pregunta enviada correctamente.");
+            }).onError(function (e) {
+                alertify.error("Error al intentar enviar la pregunta");
+            });
+        }
 
-    ArmarChat: function (ui, respuestas) {
+    },
+    ArmarChat: function (ui, consulta, respuestas) {
         var _this = this;
         var listado = ui.find("#listado_chat");
         for (var i = 0; i < respuestas.length; i++) {
-            if ((i % 2) == 0) {
-                var id_self = "self_" + respuestas[i].Id;
+            if (consulta.creador.Id == respuestas[i].persona.Id) {
+                var id_self = "self_" + respuestas[i].id_orden;
                 jQuery('#self').clone().appendTo(listado).attr("id", id_self);
                 _this.CompletarContenidoChat(id_self, respuestas[i].texto, respuestas[i].persona.Apellido + ", " + respuestas[i].persona.Nombre + " - " + respuestas[i].fecha);
                 $('#' + id_self).show();
             } else {
-                var id_other = "other_" + respuesta[i].Id;
+                var id_other = "other_" + respuestas[i].id_orden;
                 jQuery('#other').clone().appendTo(listado).attr("id", id_other);
                 _this.CompletarContenidoChat(id_other, respuestas[i].texto, respuestas[i].persona.Apellido + ", " + respuestas[i].persona.Nombre + " - " + respuestas[i].fecha);
                 $('#' + id_other).show();
@@ -729,8 +748,8 @@ var Legajo = {
                         columnas_noleidas.push(new Columna("#", { generar: function (una_consulta) { return una_consulta.Id } }));
                         columnas_noleidas.push(new Columna("Fecha Creación", { generar: function (una_consulta) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_consulta.fechaCreacion) } }));
                         columnas_noleidas.push(new Columna("Tipo de Consulta", { generar: function (una_consulta) { return una_consulta.tipo_consulta } }));
-                        columnas_noleidas.push(new Columna("Responsable", { generar: function (una_consulta) { return una_consulta.contestador.Nombre } }));
-                        columnas_noleidas.push(new Columna("Fecha Respuesta", { generar: function (una_consulta) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_consulta.fechaContestacion) } }));
+                        columnas_noleidas.push(new Columna("Responsable", { generar: function (una_consulta) { return una_consulta.responsable.Nombre + una_consulta.responsable.Apellido } }));
+                        columnas_noleidas.push(new Columna("Fecha Respuesta", { generar: function (una_consulta) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_consulta.fechaRespuesta) } }));
                         columnas_noleidas.push(new Columna('Detalle', {
                             generar: function (una_consulta) {
                                 var btn_accion = $('<a>');
@@ -934,7 +953,7 @@ var Legajo = {
 
 
                                     ui.find("#btn_enviar_consulta").click(function () {
-                                        Backend.NuevaConsultaDePortal( parseInt(ui.find("#cmb_tipo_consulta").val()), ui.find("#txt_motivo_consulta").val()
+                                        Backend.NuevaConsultaDePortal(parseInt(ui.find("#cmb_tipo_consulta").val()), ui.find("#txt_motivo_consulta").val()
                                         ).onSuccess(function (id_consulta) {
                                             alertify.success("Consulta enviada con éxito");
                                             vex.close();
