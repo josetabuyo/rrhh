@@ -17,7 +17,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'></span>"
+    <uc2:BarraMenu ID="BarraMenu1" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'></span>"
         UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
    <%-- <fieldset style="text-align: center">
         <legend>Consultas DDJJ 104/2001</legend>
@@ -72,11 +72,11 @@
         </div>
       
        <div id="divBuscadorArea">
-            <uc3:BuscadorDeAreas ID="buscador" runat="server"  style="display: inline-block; margin:auto;" />
+            <uc3:BuscadorDeAreas ID="buscador1" runat="server"  style="display: inline-block; margin:auto;" />
        </div>
 
        <div id="divBuscadorPersona">
-            <uc3:BuscadorDePersonas ID="buscadorPersonas" runat="server"  style="display: inline-block; margin:auto;" />
+            <uc3:BuscadorDePersonas ID="buscadorPersonas1" runat="server"  style="display: inline-block; margin:auto;" />
        </div>
 
     </div>
