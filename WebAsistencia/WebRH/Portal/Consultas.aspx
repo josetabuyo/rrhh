@@ -163,7 +163,8 @@
             <ol class="chat" id="listado_chat">
                 <li id="other" class="other" style="display: none;">
                     <div class="avatar">
-                        <img src="../Imagenes/Portal/icono_rrhh.png" draggable="false" /></div>
+                        <img src="../Imagenes/Portal/icono_rrhh.png" draggable="false" >
+                        </div>
                     <div class="msg">
                         <time class="time">20:17</time>
                     </div>
@@ -183,7 +184,7 @@
         <br />
         <div style="text-align: center;">
             <input id="btn_pepreguntar" type="button" class="btn btn-primary" value="Repreguntar" />
-            <input id="btn_cerrar" type="button" class="btn btn-primary" value="Cerrar" />
+            <input id="btn_cerrar" type="button" class="btn btn-primary" value="Dar por finalizada la consula" />
         </div>
     </div>
 </body>
