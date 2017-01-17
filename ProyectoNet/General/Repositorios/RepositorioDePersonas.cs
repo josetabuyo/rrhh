@@ -302,7 +302,11 @@ namespace General.Repositorios
                         AntPrivada = row.GetString("AntPrivada", "Sin dato"),
                         //RestaAnt = row.GetString("RestaAnt", "Sin dato"),
                         //AntTotal = row.GetString("AntTotal", "Sin dato"),
-                        ANTTotalTotal = row.GetString("ANTTotalTotal", "Sin dato")
+                        ANTTotalTotal = row.GetString("ANTTotalTotal", "Sin dato"),
+                        FechaBaja = row.GetString("FechaBaja", ""),
+                        FechaBloqueo = row.GetDateTime("fecha_bloqueo", new DateTime(1900, 01, 01)).ToShortDateString(),
+                        CargoGremial = row.GetString("cargo_gremial", ""),
+                        ActoAlta = row.GetString("acto_alta", "")
 
                     };
                 });
