@@ -9,8 +9,9 @@ using ClosedXML.Excel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using General.Repositorios;
 
-namespace General.Repositorios
+namespace General.DatosAbiertos
 {
     public class RepositorioDeDatosAbiertos
     {
@@ -29,6 +30,39 @@ namespace General.Repositorios
         public RepositorioDeDatosAbiertos(IConexionBD conexion)
         {
             this.conexion_bd = conexion;
+        }
+
+        public List<ConsultaOPD> getConsultas()
+        {
+            var consultas = new List<ConsultaOPD>();
+            var tablaDatos = conexion_bd.Ejecutar("dbo.OPD_GetConsultas");
+            if (tablaDatos.Rows.Count > 0)
+            {
+                ConsultaOPD una_consulta = new ConsultaOPD();
+                ParametroConsultaOPD un_parametro;
+
+                tablaDatos.Rows.ForEach(row =>
+                {
+                    if (consultas.FindAll(t => t.Id == row.GetInt("IdConsulta")).Count == 0)
+                    {
+                        una_consulta = new ConsultaOPD();
+                        una_consulta.Id = row.GetInt("IdConsulta");
+                        una_consulta.Nombre = row.GetString("NombreConsulta");
+                        una_consulta.Descripcion = row.GetString("DescripcionConsulta");
+                        una_consulta.SP = row.GetString("SP");
+
+                        consultas.Add(una_consulta);
+                    }
+                    un_parametro = new ParametroConsultaOPD();
+                    un_parametro.Id = row.GetInt("IdParametro");
+                    un_parametro.Nombre = row.GetString("NombreParametro");
+                    un_parametro.Valor = row.GetString("ValorParametro");
+                    un_parametro.Tipo = row.GetString("TipoParametro");
+
+                    una_consulta.Parametros.Add(un_parametro);       
+                });
+            }
+            return consultas;
         }
 
         public string ExcelGeneradoMapaDelEstado()
