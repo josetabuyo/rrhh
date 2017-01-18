@@ -4279,14 +4279,15 @@ public class WSViaticos : System.Web.Services.WebService
     public ConsultaOPD[] GetConsultasOPD(Usuario usuario)
     {
         RepositorioDeDatosAbiertos repositorio = new RepositorioDeDatosAbiertos(Conexion());
-        return repositorio.getConsultas().ToArray();        
+
+        return repositorio.getConsultas().FindAll(c => Autorizador().ElUsuarioTienePermisosPara(usuario.Id, c.Funcionalidad)).ToArray();        
     }
 
     [WebMethod]
     public string EjecutarConsultaOPD(int idConsulta, Usuario usuario)
     {
         RepositorioDeDatosAbiertos repositorio = new RepositorioDeDatosAbiertos(Conexion());
-        return repositorio.EjecutarConsultaOPD();
+        return repositorio.EjecutarConsultaOPD(idConsulta);
     }
 
 

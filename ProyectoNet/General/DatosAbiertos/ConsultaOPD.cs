@@ -12,6 +12,7 @@ namespace General.DatosAbiertos
         public string Nombre;
         public string Descripcion;
         public string SP;
+        public int Funcionalidad;
 
         public List<ParametroConsultaOPD> Parametros;
         public ConsultaOPD()

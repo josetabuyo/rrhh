@@ -13,7 +13,7 @@
                         var spinner = new Spinner({ scale: 3 });
                         spinner.spin($("html")[0]);
 
-                        Backend.EjecutarConsultaOPD()
+                        Backend.EjecutarConsultaOPD(c.Id)
                             .onSuccess(function (resultado) {
                                 if (resultado.length > 0) {
                                     var a = window.document.createElement('a');

@@ -35,11 +35,11 @@ namespace General.DatosAbiertos
         public List<ConsultaOPD> getConsultas()
         {
             var consultas = new List<ConsultaOPD>();
-            var tablaDatos = conexion_bd.Ejecutar("dbo.OPD_GetConsultas");
+            var tablaDatos = conexion_bd.Ejecutar("dbo.DATA_GetConsultas");
             if (tablaDatos.Rows.Count > 0)
             {
                 ConsultaOPD una_consulta = new ConsultaOPD();
-                ParametroConsultaOPD un_parametro;
+                //ParametroConsultaOPD un_parametro;
 
                 tablaDatos.Rows.ForEach(row =>
                 {
@@ -50,23 +50,79 @@ namespace General.DatosAbiertos
                         una_consulta.Nombre = row.GetString("NombreConsulta");
                         una_consulta.Descripcion = row.GetString("DescripcionConsulta");
                         una_consulta.SP = row.GetString("SP");
+                        una_consulta.Funcionalidad = row.GetInt("idFuncionalidad");
 
                         consultas.Add(una_consulta);
                     }
-                    if (row.GetInt("IdParametro", -1) >= 0)
-                    {
-                        un_parametro = new ParametroConsultaOPD();
-                        un_parametro.Id = row.GetInt("IdParametro");
-                        un_parametro.Nombre = row.GetString("NombreParametro");
-                        un_parametro.Valor = row.GetString("ValorParametro");
-                        un_parametro.Tipo = row.GetString("TipoParametro");
+                //    if (row.GetInt("IdParametro", -1) >= 0)
+                //    {
+                //        un_parametro = new ParametroConsultaOPD();
+                //        un_parametro.Id = row.GetInt("IdParametro");
+                //        un_parametro.Nombre = row.GetString("NombreParametro");
+                //        un_parametro.Valor = row.GetString("ValorParametro");
+                //        un_parametro.Tipo = row.GetString("TipoParametro");
 
-                        una_consulta.Parametros.Add(un_parametro);
-                    }
+                //        una_consulta.Parametros.Add(un_parametro);
+                //    }
                 });
             }
             return consultas;
         }
+
+
+
+        public string EjecutarConsultaOPD(int id_consulta)
+        {
+            try
+            {
+                var consulta = this.getConsultas().Find(c=> c.Id==id_consulta);
+                var parametros = new Dictionary<string, object>();
+                var tablaDatos = conexion_bd.Ejecutar(consulta.SP);
+
+                DataTable tablaExcel = new DataTable();
+                tablaExcel.TableName = consulta.Nombre;
+
+                foreach (DataColumn dc in tablaDatos.Columns)
+                {
+                    tablaExcel.Columns.Add(dc.ColumnName);
+                }
+
+                tablaDatos.Rows.ForEach((row) =>
+                {
+                    var dr = tablaExcel.NewRow();
+                    foreach (DataColumn dc in tablaDatos.Columns)
+                    {
+                        dr[dc.ColumnName] = row.GetTodoComoString(dc.ColumnName, "");
+                    }
+
+                    tablaExcel.Rows.Add(dr);
+                });
+
+
+                var workbook = new XLWorkbook();
+
+                var dataTable_detalle = tablaExcel;
+                workbook.Worksheets.Add(dataTable_detalle);
+
+
+                using (var ms = new MemoryStream())
+                {
+                    workbook.SaveAs(ms);
+
+                    return Convert.ToBase64String(ms.ToArray());
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+
+
+
 
         public string ExcelGeneradoMapaDelEstado()
         {
@@ -99,61 +155,17 @@ namespace General.DatosAbiertos
                     tablaExcel.Rows.Add(dr);
                 });
 
-                //CREACIÓN DE LAS COLUMNAS
-                //      table.Columns.Add("Categoria", typeof(string));
-                //       table.Columns.Add("% Participación VM", typeof(double));
 
                 var workbook = new XLWorkbook();
 
                 var dataTable_detalle = tablaExcel;
-                //var ws = workbook.Worksheets.Add("Resumen");
-
-                //ws.Style.Font.FontSize = 11;
-                //ws.Style.Font.FontName = "Verdana";
-
-                //ws.Column("A").Width = 15;
-                //ws.Column("B").Width = 15;
-                //ws.Column("C").Width = 15;
-
-                ////  ws.Row(1).Height = 25;
-                ////  ws.Row(1).Style.Alignment.SetVertical(XLAlignmentVerticalValues.Center);
-
-                //ws.Cell(1, 1).Value = "FECHA:";
-                //ws.Cell(2, 1).Value = "AREA:";
-
-                //ws.Cell(1, 1).Style.Font.Bold = true;
-                //ws.Cell(2, 1).Style.Font.Bold = true;
-
-                ////ws.Cell(1, 2).Value = fecha.ToShortDateString();
-                ////ws.Cell(2, 2).Value = area.Nombre.ToUpper();
-
-                //ws.Range(4, 1, 4, 3).Style.Fill.BackgroundColor = XLColor.FromArgb(79, 129, 189);
-                //ws.Range(4, 1, 4, 3).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
-
-                //ws.Range(4, 1, 4, 3).Style.Font.FontColor = XLColor.White;
-
-                //ws.Cell(4, 1).Value = "Informacion";
-                //ws.Cell(4, 2).Value = "Cantidad";
-                //ws.Cell(4, 3).Value = "Porcentaje %";
-
-                ////var rangeWithData = ws.Cell(5, 1).InsertData(dataTable_resumen.AsEnumerable());
-
-                //var lastCell = ws.LastCellUsed();
-
-                //ws.Range(4, 1, lastCell.Address.RowNumber, lastCell.Address.ColumnNumber).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
-                //ws.Range(4, 1, lastCell.Address.RowNumber, lastCell.Address.ColumnNumber).Style.Border.OutsideBorder = XLBorderStyleValues.Medium;
-
                 workbook.Worksheets.Add(dataTable_detalle);
 
-                //  string rut = HttpContext.Current.Request.PhysicalApplicationPath + "/Excel.xlsx";
 
                 using (var ms = new MemoryStream())
                 {
                     workbook.SaveAs(ms);
 
-                    // return ms.ToArray();
-
-                    //return File(ms.ToArray(), MediaTypeNames.Application.Octet, "excel2"+ ".xlsx");
                     return Convert.ToBase64String(ms.ToArray());
                 }
 
@@ -200,61 +212,16 @@ namespace General.DatosAbiertos
                     tablaExcel.Rows.Add(dr);
                 });
 
-                //CREACIÓN DE LAS COLUMNAS
-                //      table.Columns.Add("Categoria", typeof(string));
-                //       table.Columns.Add("% Participación VM", typeof(double));
-
                 var workbook = new XLWorkbook();
 
                 var dataTable_detalle = tablaExcel;
-                //var ws = workbook.Worksheets.Add("Resumen");
-
-                //ws.Style.Font.FontSize = 11;
-                //ws.Style.Font.FontName = "Verdana";
-
-                //ws.Column("A").Width = 15;
-                //ws.Column("B").Width = 15;
-                //ws.Column("C").Width = 15;
-
-                ////  ws.Row(1).Height = 25;
-                ////  ws.Row(1).Style.Alignment.SetVertical(XLAlignmentVerticalValues.Center);
-
-                //ws.Cell(1, 1).Value = "FECHA:";
-                //ws.Cell(2, 1).Value = "AREA:";
-
-                //ws.Cell(1, 1).Style.Font.Bold = true;
-                //ws.Cell(2, 1).Style.Font.Bold = true;
-
-                ////ws.Cell(1, 2).Value = fecha.ToShortDateString();
-                ////ws.Cell(2, 2).Value = area.Nombre.ToUpper();
-
-                //ws.Range(4, 1, 4, 3).Style.Fill.BackgroundColor = XLColor.FromArgb(79, 129, 189);
-                //ws.Range(4, 1, 4, 3).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
-
-                //ws.Range(4, 1, 4, 3).Style.Font.FontColor = XLColor.White;
-
-                //ws.Cell(4, 1).Value = "Informacion";
-                //ws.Cell(4, 2).Value = "Cantidad";
-                //ws.Cell(4, 3).Value = "Porcentaje %";
-
-                ////var rangeWithData = ws.Cell(5, 1).InsertData(dataTable_resumen.AsEnumerable());
-
-                //var lastCell = ws.LastCellUsed();
-
-                //ws.Range(4, 1, lastCell.Address.RowNumber, lastCell.Address.ColumnNumber).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
-                //ws.Range(4, 1, lastCell.Address.RowNumber, lastCell.Address.ColumnNumber).Style.Border.OutsideBorder = XLBorderStyleValues.Medium;
 
                 workbook.Worksheets.Add(dataTable_detalle);
-
-                //  string rut = HttpContext.Current.Request.PhysicalApplicationPath + "/Excel.xlsx";
 
                 using (var ms = new MemoryStream())
                 {
                     workbook.SaveAs(ms);
 
-                    // return ms.ToArray();
-
-                    //return File(ms.ToArray(), MediaTypeNames.Application.Octet, "excel2"+ ".xlsx");
                     return Convert.ToBase64String(ms.ToArray());
                 }
 
@@ -266,12 +233,6 @@ namespace General.DatosAbiertos
         
         
         
-        }
-
-
-        public string EjecutarConsultaOPD()
-        {
-            return "";
         }
     }
 }
