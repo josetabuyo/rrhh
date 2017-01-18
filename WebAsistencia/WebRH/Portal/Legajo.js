@@ -637,13 +637,32 @@ var Legajo = {
                     ui.find("#titulo_consulta").text("CONSULTA NÚMERO " + consulta.Id);
                     _this.ArmarChat(ui, consulta, respuestas);
                     ui.find("#btn_cerrar").click(function () {
-                        vex.close();
+                        ui.find('#div_calificar').show();
+                        ui.find('#div_chat').hide();
+                        ui.find('#btn_pepreguntar').hide();
+                        ui.find('#btn_cerrar').hide();
+                        ui.find('#btn_calificar').show();
+                        ui.find('#btn_volver').show();
+                        _this.Calificar(ui, consulta);
                     });
                     ui.find("#btn_pepreguntar").click(function () {
                         ui.find('#div_repreguntar').show();
+
                     });
                     ui.find("#btn_enviar_pepregunta").click(function () {
                         _this.Repreguntar(ui, consulta);
+                        vex.close();
+                    });
+                    ui.find("#btn_calificar").click(function () {
+
+                    });
+                    ui.find("#btn_volver").click(function () {
+                        ui.find('#div_calificar').hide();
+                        ui.find('#div_chat').show();
+                        ui.find('#btn_pepreguntar').show();
+                        ui.find('#btn_cerrar').show();
+                        ui.find('#btn_calificar').hide();
+                        ui.find('#btn_volver').hide();
                     });
 
                     return ui;
@@ -666,6 +685,7 @@ var Legajo = {
         });
 
     },
+    Calificar: function (ui, consulta) { },
     Repreguntar: function (ui, consulta) {
         var repregunta = ui.find("#ta_repreguntar").val();
         if (repregunta == "") {
