@@ -53,13 +53,16 @@ namespace General.DatosAbiertos
 
                         consultas.Add(una_consulta);
                     }
-                    un_parametro = new ParametroConsultaOPD();
-                    un_parametro.Id = row.GetInt("IdParametro");
-                    un_parametro.Nombre = row.GetString("NombreParametro");
-                    un_parametro.Valor = row.GetString("ValorParametro");
-                    un_parametro.Tipo = row.GetString("TipoParametro");
+                    if (row.GetInt("IdParametro", -1) >= 0)
+                    {
+                        un_parametro = new ParametroConsultaOPD();
+                        un_parametro.Id = row.GetInt("IdParametro");
+                        un_parametro.Nombre = row.GetString("NombreParametro");
+                        un_parametro.Valor = row.GetString("ValorParametro");
+                        un_parametro.Tipo = row.GetString("TipoParametro");
 
-                    una_consulta.Parametros.Add(un_parametro);       
+                        una_consulta.Parametros.Add(un_parametro);
+                    }
                 });
             }
             return consultas;
@@ -265,5 +268,10 @@ namespace General.DatosAbiertos
         
         }
 
+
+        public string EjecutarConsultaOPD()
+        {
+            return "";
+        }
     }
 }

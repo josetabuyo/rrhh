@@ -4276,10 +4276,17 @@ public class WSViaticos : System.Web.Services.WebService
     #region DatosAbiertos
 
     [WebMethod]
-    public ConsultaOPD[] getConsultasOPD(Usuario usuario)
+    public ConsultaOPD[] GetConsultasOPD(Usuario usuario)
     {
         RepositorioDeDatosAbiertos repositorio = new RepositorioDeDatosAbiertos(Conexion());
         return repositorio.getConsultas().ToArray();        
+    }
+
+    [WebMethod]
+    public string EjecutarConsultaOPD(int idConsulta, Usuario usuario)
+    {
+        RepositorioDeDatosAbiertos repositorio = new RepositorioDeDatosAbiertos(Conexion());
+        return repositorio.EjecutarConsultaOPD();
     }
 
 
