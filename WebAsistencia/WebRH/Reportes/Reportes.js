@@ -76,6 +76,35 @@ var Reportes = {
                 $('#cargo').html(data.Cargo);
                 $('#agrupamiento').html(data.Agrupamiento);
                 $('#ing_min').html(data.IngresoMinisterio);
+
+                if (data.FechaBaja != "") {
+                    $('#baja').html(data.FechaBaja);
+                } else {
+                    $('#baja').html("Activo");
+                }
+
+                if (data.FechaBloqueo != "01/01/1900") {
+                    $('#bloqueo').html(data.FechaBloqueo);
+                    $('#bloqueo').parent().show();
+                } else {
+                    $('#bloqueo').parent().hide();
+                }
+
+                if (data.CargoGremial != "") {
+                    $('#cargo_gremial').html(data.CargoGremial);
+                    $('#cargo_gremial').parent().show();
+                } else {
+                    $('#cargo_gremial').parent().hide();
+                }
+
+                if (data.ActoAlta != "") {
+                    $('#acto_alta').html(data.ActoAlta);
+                    $('#acto_alta').parent().show();
+                } else {
+                    $('#acto_alta').parent().hide();
+                }
+
+
                 //$('#ant_min').html(data.AntMinisterio);
                 //$('#estado').html(data.AntEstado);
                 //$('#privada').html(data.AntPrivada);
@@ -83,10 +112,10 @@ var Reportes = {
                 //$('#total').html(data.ANTTotalTotal);
                 //$('#nombre').html(data.ANTTotalTotal);
                 /*$('#btn_timeline').click(function () {
-                    Backend.GetCarreraAdministrativa(documento).onSuccess(function (datos) {
-                        $('#contenedor_timeLine').empty();
-                        _this.armarTimeline(datos);
-                    });
+                Backend.GetCarreraAdministrativa(documento).onSuccess(function (datos) {
+                $('#contenedor_timeLine').empty();
+                _this.armarTimeline(datos);
+                });
                 })*/
             } else {
                 $('#panel_izquierdo').hide();

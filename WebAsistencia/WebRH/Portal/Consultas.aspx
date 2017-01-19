@@ -11,6 +11,7 @@
     <%= Referencias.Css("../")%>
     <%= Referencias.Javascript("../")%>
     <script type="text/javascript" src="../Scripts/ConversorDeFechas.js"></script>
+    <link rel="stylesheet" href="estrellas.css">
     <link href="../scripts/vex-2.1.1/css/vex.css" rel="stylesheet">
     <link href="../scripts/vex-2.1.1/css/vex-theme-os.css" rel="stylesheet">
     <link rel="stylesheet" href="estilosPortalSecciones.css" />
@@ -153,8 +154,8 @@
     <div id="pantalla_consulta_ticket" style="display: none;">
         <h3 id="titulo_consulta" style="text-align: center;">
             CONSULTA NÚMERO.</h3>
-        <div id="div_chat"style="height: 370px; margin-top: -10px; overflow: scroll; overflow-x: hidden;">
-            <div id="div_repreguntar" style="text-align:center; display:none;">
+        <div id="div_chat" style="height: 370px; margin-top: -10px; overflow: scroll; overflow-x: hidden;">
+            <div id="div_repreguntar" style="text-align: center; display: none;">
                 <textarea id="ta_repreguntar" placeholder="Ingrese su consulta aquí" maxlength="1000"
                     style="width: 100%; margin-top: 30px;" rows="5"></textarea>
                 <input id="btn_enviar_pepregunta" type="button" class="btn btn-primary" style="margin-bottom: -50px;"
@@ -163,7 +164,8 @@
             <ol class="chat" id="listado_chat">
                 <li id="other" class="other" style="display: none;">
                     <div class="avatar">
-                        <img src="../Imagenes/Portal/icono_rrhh.png" draggable="false" /></div>
+                        <img src="../Imagenes/Portal/icono_rrhh.png" draggable="false">
+                    </div>
                     <div class="msg">
                         <time class="time">20:17</time>
                     </div>
@@ -180,15 +182,13 @@
                 </li>
             </ol>
         </div>
-        <div id="div_calificar" style="display:none;">
-        hola
-        </div>
         <br />
         <div style="text-align: center;">
             <input id="btn_pepreguntar" type="button" class="btn btn-primary" value="Repreguntar" />
-            <input id="btn_cerrar" type="button" class="btn btn-primary" value="Cerrar" />
-            <input id="btn_calificar" type="button" class="btn btn-primary" value="Calificar" style="display:none;" />
-            <input id="btn_volver" type="button" class="btn btn-primary" value="Volver" style="display:none;" />
+            <input id="btn_cerrar" type="button" class="btn btn-primary" value="Dar por finalizada la consula" />
+            <input id="btn_calificar" type="button" class="btn btn-primary" value="Calificar"
+                style="display: none;" />
+            <input id="btn_volver" type="button" class="btn btn-primary" value="Volver" style="display: none;" />
         </div>
     </div>
 </body>

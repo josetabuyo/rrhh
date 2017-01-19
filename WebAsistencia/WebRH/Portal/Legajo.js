@@ -637,7 +637,7 @@ var Legajo = {
                     ui.find("#titulo_consulta").text("CONSULTA NÚMERO " + consulta.Id);
                     _this.ArmarChat(ui, consulta, respuestas);
                     ui.find("#btn_cerrar").click(function () {
-                        ui.find('#div_calificar').show();
+                        ui.append('<div id="div_calificar"></div>');
                         ui.find('#div_chat').hide();
                         ui.find('#btn_pepreguntar').hide();
                         ui.find('#btn_cerrar').hide();
@@ -685,7 +685,12 @@ var Legajo = {
         });
 
     },
-    Calificar: function (ui, consulta) { },
+    Calificar: function (ui, consulta) {
+        localStorage.setItem("consulta_calificacion", JSON.stringify(consulta));
+        $("#div_calificar").load("estrellas.html");
+
+    
+    },
     Repreguntar: function (ui, consulta) {
         var repregunta = ui.find("#ta_repreguntar").val();
         if (repregunta == "") {

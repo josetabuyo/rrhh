@@ -63,6 +63,12 @@
                             <div>
                                 <p class="bloque_consulta_full"><label>Estudio: </label><span id="estudio"></span></p>
                             </div>
+                            <div>
+                                <p class="bloque_consulta_full"><label>Baja: </label><span id="baja"></span></p>
+                                <p class="bloque_consulta_full" style="display:none;"><label>Bloqueo Sueldo: </label><span id="bloqueo" ></span></p>
+                                <p class="bloque_consulta_full" style="display:none;"><label>Gremio: </label><span id="cargo_gremial" ></span></p>
+                                <p class="bloque_consulta_full" style="display:none;"><label>Acta: </label><span id="acto_alta" ></span></p>
+                            </div>
                         </fieldset>
                     </div>
                 </div>
