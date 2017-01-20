@@ -1,31 +1,25 @@
-﻿#btn_mapa_del_estado_xls
+﻿#plantillas
+{
+    display: none;
+}
+
+.btn_xls
 {
     
 }
-#btn_mapa_del_estado_xls div
+.btn_xls div
 {
 
 }
 
-#titulo_mapa_estado
-{
-    font-size: 30px;
-    margin-bottom: 12px;
-}
-
-#titulo_planificacion
+.titulo
 {
     font-size: 30px;
     margin-bottom: 12px;
 }
 
-#presentacion
-{
-    font-size: 17px;
-    margin-bottom: 10px;
-}
 
-#presentacion_planificacion
+.presentacion
 {
     font-size: 17px;
     margin-bottom: 10px;

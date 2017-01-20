@@ -23,6 +23,7 @@ using System.Web;
 using System.Data;
 using System.IO;
 using ClosedXML.Excel;
+using General.DatosAbiertos;
 
 
 [WebService(Namespace = "http://wsviaticos.gov.ar/")]
@@ -218,6 +219,7 @@ public class WSViaticos : System.Web.Services.WebService
 
         return a;
     }
+
 
     //[WebMethod]
     //public AreaParaDDJJ104[] ImprimirDDJJ104(List<AreaParaDDJJ104> lista)
@@ -4288,6 +4290,22 @@ public class WSViaticos : System.Web.Services.WebService
     #endregion
 
     #region DatosAbiertos
+
+    [WebMethod]
+    public ConsultaOPD[] GetConsultasOPD(Usuario usuario)
+    {
+        RepositorioDeDatosAbiertos repositorio = new RepositorioDeDatosAbiertos(Conexion());
+
+        return repositorio.getConsultas().FindAll(c => Autorizador().ElUsuarioTienePermisosPara(usuario.Id, c.Funcionalidad)).ToArray();        
+    }
+
+    [WebMethod]
+    public string EjecutarConsultaOPD(int idConsulta, Usuario usuario)
+    {
+        RepositorioDeDatosAbiertos repositorio = new RepositorioDeDatosAbiertos(Conexion());
+        return repositorio.EjecutarConsultaOPD(idConsulta);
+    }
+
 
     [WebMethod]
     public string ExcelMapaDelEstado(Usuario usuario)

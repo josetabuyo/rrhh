@@ -1137,7 +1137,7 @@ var Legajo = {
 
                                     btn_accion.click(function () {
                                         _this_original.TratarConsulta(una_consulta.Id, una_consulta.creador, una_consulta.tipo_consulta, una_consulta.resumen); //TRANSITORIO HASTA HACER LA PANTALLA DE CHAT
-                                    });
+                                    });aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
                                 } else {
                                     img.attr('src', '../Imagenes/icons-lupa-finish.jpg');
