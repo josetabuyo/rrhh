@@ -651,7 +651,7 @@ var Legajo = {
                     }
 
                     ui.find("#btn_cerrar").click(function () {
-                        ui.find('#contenedor_estrellas').append('<div id="div_calificar" style="margin-top: 100px; margin-bottom:170px;"></div>');
+                        ui.find('#contenedor_estrellas').append('<div id="div_calificar" style="margin-top: 100px; margin-bottom:120px;"></div>');
                         ui.find('#div_chat').hide();
                         ui.find('#btn_pepreguntar').hide();
                         ui.find('#btn_cerrar').hide();
@@ -669,6 +669,8 @@ var Legajo = {
                     });
                     ui.find("#btn_calificar").click(function () {
                         _this.EnviarCalificacion(consulta);
+                        vex.close();
+                        _this.getConsultas();
                     });
                     return ui;
                 },
