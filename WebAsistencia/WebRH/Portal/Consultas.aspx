@@ -182,6 +182,7 @@
                 </li>
             </ol>
         </div>
+        <div id="contenedor_estrellas"></div>
         <br />
         <div style="text-align: center; margin-top: -15px;">
             <input id="btn_pepreguntar" type="button" class="btn btn-primary" value="Repreguntar" />
