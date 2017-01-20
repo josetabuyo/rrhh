@@ -471,7 +471,7 @@ namespace General.Repositorios
         public void CerrarConsulta(int id,  int calificacion, int id_usuario)
         {
             var respuesta = "";
-            var resumen = "";
+            var resumen = "CONSULTA CERRADA";
             var id_estado = 9;
             var leido = false;
             UpdateConsulta(id, respuesta, id_usuario, resumen, id_estado, leido, calificacion);

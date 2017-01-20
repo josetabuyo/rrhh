@@ -1,5 +1,6 @@
 ﻿var spinner;
 var mes;
+var idUsuario;
 
 var Legajo = {
     init: function () {
@@ -590,6 +591,8 @@ var Legajo = {
         .onSuccess(function (usuario) {
             $("#nombre_empleado").html(usuario.Owner.Apellido + ", " + usuario.Owner.Nombre);
 
+            idUsuario = usuario.Owner.Id;
+
             if (usuario.Owner.IdImagen >= 0) {
                 var img = new VistaThumbnail({ id: usuario.Owner.IdImagen, contenedor: $(".imagen") });
             }
@@ -648,7 +651,7 @@ var Legajo = {
                     }
 
                     ui.find("#btn_cerrar").click(function () {
-                        ui.append('<div id="div_calificar" style="margin-top: 100px;"></div>');
+                        ui.find('#contenedor_estrellas').append('<div id="div_calificar" style="margin-top: 100px; margin-bottom:170px;"></div>');
                         ui.find('#div_chat').hide();
                         ui.find('#btn_pepreguntar').hide();
                         ui.find('#btn_cerrar').hide();
@@ -719,15 +722,31 @@ var Legajo = {
         if (nota == 5) return "Excelente";
     },
     Repreguntar: function (ui, consulta) {
+        var _this = this;
         var repregunta = ui.find("#ta_repreguntar").val();
         if (repregunta == "") {
             alertify.error("Escriba un texto");
         } else {
-            Backend.RepreguntarConsulta(parseInt(consulta.Id), repregunta).onSuccess(function () {
-                alertify.success("Pregunta enviada correctamente.");
-            }).onError(function (e) {
-                alertify.error("Error al intentar enviar la pregunta");
-            });
+
+            if (consulta.creador.Id != idUsuario) {
+                Backend.ResponderConsulta(consulta.Id, repregunta)
+                                    .onSuccess(function () {
+                                        vex.close();
+                                        _this.getConsultasTodas(6);
+                                        alertify.success("Se ha actualizado correctamente");
+
+                                    })
+                                    .onError(function (e) {
+                                        alertify.error("Error al conectarse con el sistema backend");
+                                    });
+            } else {
+                Backend.RepreguntarConsulta(parseInt(consulta.Id), repregunta).onSuccess(function () {
+                    alertify.success("Pregunta enviada correctamente.");
+                }).onError(function (e) {
+                    alertify.error("Error al intentar enviar la pregunta");
+                });
+            }
+
         }
 
     },
@@ -738,12 +757,12 @@ var Legajo = {
             if (consulta.creador.Id == respuestas[i].persona.Id) {
                 var id_self = "self_" + respuestas[i].id_orden;
                 jQuery('#self').clone().appendTo(listado).attr("id", id_self);
-                _this.CompletarContenidoChat(id_self, respuestas[i].texto, respuestas[i].persona.Apellido + ", " + respuestas[i].persona.Nombre + " - " + respuestas[i].fecha);
+                _this.CompletarContenidoChat(id_self, respuestas[i].texto, respuestas[i].persona.Apellido + ", " + respuestas[i].persona.Nombre + " - " + ConversorDeFechas.deIsoAFechaEnCriollo(respuestas[i].fecha));
                 $('#' + id_self).show();
             } else {
                 var id_other = "other_" + respuestas[i].id_orden;
                 jQuery('#other').clone().appendTo(listado).attr("id", id_other);
-                _this.CompletarContenidoChat(id_other, respuestas[i].texto, respuestas[i].persona.Apellido + ", " + respuestas[i].persona.Nombre + " - " + respuestas[i].fecha);
+                _this.CompletarContenidoChat(id_other, respuestas[i].texto, respuestas[i].persona.Apellido + ", " + respuestas[i].persona.Nombre + " - " + ConversorDeFechas.deIsoAFechaEnCriollo(respuestas[i].fecha));
                 $('#' + id_other).show();
             }
         };
@@ -1042,19 +1061,19 @@ var Legajo = {
         $('#search').show();
     },
 
-    ResponderConsulta: function () {
-        var id = parseInt($('#txt_nro_consulta').val());
-        var respuesta = $('#ta_respuesta').val();
-        Backend.ResponderConsulta(id, respuesta)
-                    .onSuccess(function () {
-                        $('#btn_volver_consulta').click();
-                        $('#ta_respuesta').val("");
-                        alertify.success("Se ha actualizado correctamente");
-                    })
-                    .onError(function (e) {
-                        alertify.error("Error al conectarse con el sistema backend");
-                    });
-    },
+    //    ResponderConsulta: function () {
+    //        var id = parseInt($('#txt_nro_consulta').val());
+    //        var respuesta = $('#ta_respuesta').val();
+    //        Backend.ResponderConsulta(id, respuesta)
+    //                    .onSuccess(function () {
+    //                        $('#btn_volver_consulta').click();
+    //                        $('#ta_respuesta').val("");
+    //                        alertify.success("Se ha actualizado correctamente");
+    //                    })
+    //                    .onError(function (e) {
+    //                        alertify.error("Error al conectarse con el sistema backend");
+    //                    });
+    //    },
 
     getConsultasParaGestion: function () {
         var _this = this;
@@ -1136,15 +1155,17 @@ var Legajo = {
                                     img.attr('title', 'Responder');
 
                                     btn_accion.click(function () {
-                                        _this_original.TratarConsulta(una_consulta.Id, una_consulta.creador, una_consulta.tipo_consulta, una_consulta.resumen); //TRANSITORIO HASTA HACER LA PANTALLA DE CHAT
-                                    });aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                                        _this_original.MostrarDetalleDeConsulta(una_consulta);
+                                        //_this_original.TratarConsulta(una_consulta.Id, una_consulta.creador, una_consulta.tipo_consulta, una_consulta.resumen); //TRANSITORIO HASTA HACER LA PANTALLA DE CHAT
+                                    });
 
                                 } else {
                                     img.attr('src', '../Imagenes/icons-lupa-finish.jpg');
                                     img.attr('data-toggle', 'tooltip');
                                     img.attr('title', 'Consultar');
                                     btn_accion.click(function () {
-                                        _this_original.VisualizarConsulta(una_consulta.Id, una_consulta.creador, una_consulta.tipo_consulta, "falta", una_consulta.resumen); //TRANSITORIO HASTA HACER LA PANTALLA DE CHAT
+                                        _this_original.MostrarDetalleDeConsulta(una_consulta);
+                                        //_this_original.VisualizarConsulta(una_consulta.Id, una_consulta.creador, una_consulta.tipo_consulta, "falta", una_consulta.resumen); //TRANSITORIO HASTA HACER LA PANTALLA DE CHAT
                                     });
                                 }
 
