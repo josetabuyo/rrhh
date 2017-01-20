@@ -149,7 +149,7 @@
         </select>
         <textarea id="txt_motivo_consulta" placeholder="Ingrese su consulta aquí" maxlength="1000"></textarea>
         <input id="btn_enviar_consulta" type="button" class="btn btn-primary" style="margin: auto;
-            display: block; width: 100px; height: 30px;" value="ENVIAR" />
+            display: block; width: 100px; height: 30px;margin-top:10px;padding-bottom: 25px;" value="ENVIAR" />
     </div>
     <div id="pantalla_consulta_ticket" style="display: none;">
         <h3 id="titulo_consulta" style="text-align: center;">
@@ -158,8 +158,8 @@
             <div id="div_repreguntar" style="text-align: center; display: none;">
                 <textarea id="ta_repreguntar" placeholder="Ingrese su consulta aquí" maxlength="1000"
                     style="width: 100%; margin-top: 30px;" rows="5"></textarea>
-                <input id="btn_enviar_pepregunta" type="button" class="btn btn-primary" style="margin-bottom: -50px;"
-                    value="Enviar" />
+                <input id="btn_enviar_pepregunta" type="button" class="btn btn-primary" style="margin-top: 5px;
+                    margin-bottom: -30px;" value="Enviar" />
             </div>
             <ol class="chat" id="listado_chat">
                 <li id="other" class="other" style="display: none;">
@@ -183,12 +183,12 @@
             </ol>
         </div>
         <br />
-        <div style="text-align: center;">
+        <div style="text-align: center; margin-top: -15px;">
             <input id="btn_pepreguntar" type="button" class="btn btn-primary" value="Repreguntar" />
             <input id="btn_cerrar" type="button" class="btn btn-primary" value="Dar por finalizada la consula" />
+            <span id="txt_mensaje_calificacion"></span>
             <input id="btn_calificar" type="button" class="btn btn-primary" value="Calificar"
                 style="display: none;" />
-            <input id="btn_volver" type="button" class="btn btn-primary" value="Volver" style="display: none;" />
         </div>
     </div>
 </body>

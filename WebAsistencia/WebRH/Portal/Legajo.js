@@ -636,13 +636,24 @@ var Legajo = {
 
                     ui.find("#titulo_consulta").text("CONSULTA NÚMERO " + consulta.Id);
                     _this.ArmarChat(ui, consulta, respuestas);
+                    if (consulta.id_estado == "9") {
+                        ui.find("#btn_pepreguntar").hide();
+                        ui.find("#btn_cerrar").hide();
+                        ui.find("#txt_mensaje_calificacion").text("Consulta cerrada y calificada con: " + _this.CalificacionToString(consulta.calificacion));
+                        ui.find("#txt_mensaje_calificacion").show();
+                    } else {
+                        ui.find("#btn_pepreguntar").show();
+                        ui.find("#btn_cerrar").show();
+                        ui.find("#txt_mensaje_calificacion").hide();
+                    }
+
                     ui.find("#btn_cerrar").click(function () {
-                        ui.append('<div id="div_calificar"></div>');
+                        ui.append('<div id="div_calificar" style="margin-top: 100px;"></div>');
                         ui.find('#div_chat').hide();
                         ui.find('#btn_pepreguntar').hide();
                         ui.find('#btn_cerrar').hide();
                         ui.find('#btn_calificar').show();
-                        ui.find('#btn_volver').show();
+
                         _this.Calificar(ui, consulta);
                     });
                     ui.find("#btn_pepreguntar").click(function () {
@@ -654,17 +665,8 @@ var Legajo = {
                         vex.close();
                     });
                     ui.find("#btn_calificar").click(function () {
-
+                        _this.EnviarCalificacion(consulta);
                     });
-                    ui.find("#btn_volver").click(function () {
-                        ui.find('#div_calificar').hide();
-                        ui.find('#div_chat').show();
-                        ui.find('#btn_pepreguntar').show();
-                        ui.find('#btn_cerrar').show();
-                        ui.find('#btn_calificar').hide();
-                        ui.find('#btn_volver').hide();
-                    });
-
                     return ui;
                 },
                 css: {
@@ -688,8 +690,33 @@ var Legajo = {
     Calificar: function (ui, consulta) {
         localStorage.setItem("consulta_calificacion", JSON.stringify(consulta));
         $("#div_calificar").load("estrellas.html");
+    },
+    EnviarCalificacion: function (consulta) {
+        var nota = "";
+        for (var i = 0; i < 5; i++) {
+            var j = 4 - i;
+            if ($('[data-element-num="' + j + '"]').hasClass("rating_el hover active")) {
+                nota = parseInt($('[data-element-num="' + j + '"]').attr("data-element-num")) + 1;
+                break;
+            }
+        }
+        if (nota == "") {
+            alertify.error("Debe seleccionar la calificacion haciendo click sobre las estrellas")
+        } else {
+            Backend.CerrarConsulta(parseInt(consulta.Id), nota).onSuccess(function () {
+                alertify.success("Pregunta cerrada y calificada correctamente.");
+            }).onError(function (e) {
+                alertify.error("Error al intentar cerrar la pregunta");
+            });
+        }
 
-    
+    },
+    CalificacionToString: function (nota) {
+        if (nota == 1) return "Insatisfecho";
+        if (nota == 2) return "Poco Satisfecho";
+        if (nota == 3) return "Bueno";
+        if (nota == 4) return "Muy Bueno";
+        if (nota == 5) return "Excelente";
     },
     Repreguntar: function (ui, consulta) {
         var repregunta = ui.find("#ta_repreguntar").val();
@@ -872,7 +899,7 @@ var Legajo = {
         return resultado;
     },
     ConsultasPendientes: function (consultas) {
-        var resultado = $.grep(consultas, function (consulta) { return (consulta.id_estado != 7 && consulta.id_estado != 8) });
+        var resultado = $.grep(consultas, function (consulta) { return (consulta.id_estado != 7 && consulta.id_estado != 8 && consulta.id_estado != 9) });
         $('#acordeon_2').text("CONSULTAS ESPERANDO UNA RESPUESTA (" + resultado.length + ")");
         return resultado;
     },

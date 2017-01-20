@@ -468,7 +468,7 @@ namespace General.Repositorios
             var calificacion = 0;
             UpdateConsulta(id, respuesta, id_usuario, resumen, id_estado, leido, calificacion);
         }
-        public void CerrarConsulta(int id, int id_usuario, int calificacion)
+        public void CerrarConsulta(int id,  int calificacion, int id_usuario)
         {
             var respuesta = "";
             var resumen = "";

@@ -4242,7 +4242,11 @@ public class WSViaticos : System.Web.Services.WebService
     {
         RepoLegajo().RepreguntarConsulta(id_consulta, motivo, usuario.Owner.Id);
     }
-     
+      [WebMethod]
+    public void CerrarConsulta(int id_consulta, int calificacion, Usuario usuario)
+    {
+        RepoLegajo().CerrarConsulta(id_consulta, calificacion, usuario.Owner.Id);
+    }
 
     [WebMethod]
     public int GetConsultasNoLeidas(Usuario usuario)

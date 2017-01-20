@@ -1807,6 +1807,18 @@
       <s:element name="RepreguntarConsultaResponse">
         <s:complexType />
       </s:element>
+      <s:element name="CerrarConsulta">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_consulta" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="calificacion" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CerrarConsultaResponse">
+        <s:complexType />
+      </s:element>
       <s:element name="GetConsultasNoLeidas">
         <s:complexType>
           <s:sequence>
@@ -6810,6 +6822,12 @@
   <wsdl:message name="RepreguntarConsultaSoapOut">
     <wsdl:part name="parameters" element="tns:RepreguntarConsultaResponse" />
   </wsdl:message>
+  <wsdl:message name="CerrarConsultaSoapIn">
+    <wsdl:part name="parameters" element="tns:CerrarConsulta" />
+  </wsdl:message>
+  <wsdl:message name="CerrarConsultaSoapOut">
+    <wsdl:part name="parameters" element="tns:CerrarConsultaResponse" />
+  </wsdl:message>
   <wsdl:message name="GetConsultasNoLeidasSoapIn">
     <wsdl:part name="parameters" element="tns:GetConsultasNoLeidas" />
   </wsdl:message>
@@ -8543,6 +8561,10 @@
       <wsdl:input message="tns:RepreguntarConsultaSoapIn" />
       <wsdl:output message="tns:RepreguntarConsultaSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="CerrarConsulta">
+      <wsdl:input message="tns:CerrarConsultaSoapIn" />
+      <wsdl:output message="tns:CerrarConsultaSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetConsultasNoLeidas">
       <wsdl:input message="tns:GetConsultasNoLeidasSoapIn" />
       <wsdl:output message="tns:GetConsultasNoLeidasSoapOut" />
@@ -10118,6 +10140,15 @@
     </wsdl:operation>
     <wsdl:operation name="RepreguntarConsulta">
       <soap:operation soapAction="http://wsviaticos.gov.ar/RepreguntarConsulta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CerrarConsulta">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/CerrarConsulta" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -12920,6 +12951,15 @@
     </wsdl:operation>
     <wsdl:operation name="RepreguntarConsulta">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/RepreguntarConsulta" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CerrarConsulta">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/CerrarConsulta" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
