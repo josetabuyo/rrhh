@@ -74,6 +74,7 @@ public partial class Principal : System.Web.UI.Page
                     if (!unaPersona.InasistenciaActual.Aprobada)
                     {
                         ibEliminarInasistencia = new ImageButton();
+                        ibEliminarInasistencia.ID = "idEliminar";
                         ibEliminarInasistencia.ImageUrl = "Imagenes/eliminar.PNG";
                         ibEliminarInasistencia.Click += new ImageClickEventHandler(ibEliminarInasistencia_Click);
                         ibEliminarInasistencia.Width = 15;
@@ -141,20 +142,32 @@ public partial class Principal : System.Web.UI.Page
 
     void ibEliminarInasistencia_Click(object sender, ImageClickEventArgs e)
     {
+
+        string confirmValue = Request.Form["confirm_value"];
+        if (confirmValue == "Yes")
+        {
+            Persona persona = new Persona();
+            TableRow rowClickeada = (TableRow)((TableCell)((ImageButton)sender).Parent).Parent;
+            string[] nombreCompleto = rowClickeada.Cells[2].Text.Split(',');
+
+            persona.Documento = int.Parse(rowClickeada.Cells[1].Text.Replace(".", "").Replace("&nbsp;", ""));
+            persona.Apellido = nombreCompleto[0];
+            persona.Nombre = nombreCompleto[1];
+            persona.Area = (Area)Session["areaActual"];
+
+            WSViaticosSoapClient ws = new WSViaticosSoapClient();
+            //WSViaticos.WSViaticos ws = new WSViaticos.WSViaticos();
+            ws.EliminarInasistenciaActual(persona);
+            Response.Redirect("~\\Principal.aspx");
+            //this.Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('You clicked YES!')", true);
+        }
+        else
+        {
+            //this.Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Ha cancelado la operación')", true);
+        }
+
         //AgenteE agente = new AgenteE();
-        Persona persona = new Persona();
-        TableRow rowClickeada = (TableRow)((TableCell)((ImageButton)sender).Parent).Parent;
-        string[] nombreCompleto = rowClickeada.Cells[2].Text.Split(',');
 
-        persona.Documento = int.Parse(rowClickeada.Cells[1].Text.Replace(".", "").Replace("&nbsp;", ""));
-        persona.Apellido = nombreCompleto[0];
-        persona.Nombre = nombreCompleto[1];
-        persona.Area = (Area)Session["areaActual"];
-
-        WSViaticosSoapClient ws = new WSViaticosSoapClient();
-        //WSViaticos.WSViaticos ws = new WSViaticos.WSViaticos();
-        ws.EliminarInasistenciaActual(persona);
-        Response.Redirect("~\\Principal.aspx");
     }
 
     void lbAsistencia_Click(object sender, EventArgs e)
