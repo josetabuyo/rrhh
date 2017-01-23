@@ -50,7 +50,7 @@
 </body>
 <script>
 $(document).ready(function ($) {
-    $('#idEliminar').click(function () {
+    $('.eliminar').click(function () {
         var confirm_value = document.createElement("INPUT");
         confirm_value.type = "hidden";
         confirm_value.name = "confirm_value";

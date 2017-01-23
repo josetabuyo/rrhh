@@ -78,7 +78,7 @@ var Reportes = {
                 $('#ing_min').html(data.IngresoMinisterio);
 
                 if (data.FechaBaja != "") {
-                    $('#baja').html(data.FechaBaja);
+                    $('#baja').html("BAJA a partir del " + data.FechaBaja);
                 } else {
                     $('#baja').html("Activo");
                 }

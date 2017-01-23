@@ -74,7 +74,7 @@ public partial class Principal : System.Web.UI.Page
                     if (!unaPersona.InasistenciaActual.Aprobada)
                     {
                         ibEliminarInasistencia = new ImageButton();
-                        ibEliminarInasistencia.ID = "idEliminar";
+                        ibEliminarInasistencia.CssClass = "eliminar";
                         ibEliminarInasistencia.ImageUrl = "Imagenes/eliminar.PNG";
                         ibEliminarInasistencia.Click += new ImageClickEventHandler(ibEliminarInasistencia_Click);
                         ibEliminarInasistencia.Width = 15;
