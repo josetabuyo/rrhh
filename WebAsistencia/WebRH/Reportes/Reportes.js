@@ -58,6 +58,27 @@ var Reportes = {
         Backend.GetConsultaRapida(documento).onSuccess(function (datos) {
             var data = $.parseJSON(datos);
             if (!$.isEmptyObject(data)) {
+
+                Backend.GetUsuarioPorIdPersona(data.IdPersona)
+                    .onSuccess(function (usuario) {
+                        if (usuario.Id != 0) {
+                            if (usuario.Owner.IdImagen >= 0) {
+                                var img = new VistaThumbnail({ id: usuario.Owner.IdImagen, contenedor: $("#foto_usuario") });
+                                $("#foto_usuario").show();
+                                $("#foto_usuario_generica").hide();
+                            }
+                            else {
+                                $("#foto_usuario").hide();
+                                $("#foto_usuario_generica").show();
+                            }
+                        } else {
+                            $("#foto_usuario").hide();
+                            $("#foto_usuario_generica").show();
+                        }
+                    });
+
+
+
                 $("#panel_izquierdo").delay(300).animate({ "opacity": "1" }, 300);
                 $('#mensaje').html("");
                 $('#nombre_consulta').html(data.Apellido);
