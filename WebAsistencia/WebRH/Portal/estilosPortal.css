@@ -11,7 +11,7 @@ body{
 
 #barra_menu_contenedor_imagen 
 {
-    margin-top:5px;
+    /*margin-top:5px;*/
     }
 .title{
     width:548px;
@@ -43,7 +43,7 @@ a.back{
     letter-spacing: 1.4px;
     position:relative;
     top: 30px;
-    left:60px;
+    left:-4%;
     
 }
 .navigation .item{
