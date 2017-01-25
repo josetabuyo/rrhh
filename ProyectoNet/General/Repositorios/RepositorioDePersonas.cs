@@ -279,7 +279,7 @@ namespace General.Repositorios
                 {
                     consulta = new
                     {
-                        //Nombre = row.GetString("Nombre", ""),
+                        IdPersona = row.GetInt("IdPersona", 0),
                         Apellido = row.GetString("Apellido", "Sin dato"),
                         Legajo = row.GetInt("id_interna", 0),
                         FechaNacimiento = row.GetString("FechaNacimiento", "Sin dato"),
