@@ -19,7 +19,8 @@
     <link rel="stylesheet" type="text/css" href="../Reportes/Reportes.css" />
     <link rel="stylesheet" type="text/css" href="estilosPortalSecciones.css" />
     <link rel="stylesheet" href="estrellas.css">
-    <link rel="stylesheet" href="chat.css" />
+    <link rel="stylesheet" href="chat.css" />    
+      <link rel="stylesheet" href="font-awesome.min.css" /><link rel="stylesheet" href="lato.css" />
 </head>
 <body>
     <form id="form1" runat="server">
