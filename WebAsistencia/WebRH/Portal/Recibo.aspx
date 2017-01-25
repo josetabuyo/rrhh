@@ -20,7 +20,7 @@
     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:18px; font-weight: bold; padding-top:25px;'>Datos<br/>Recibo</span> <br/> " UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <div class="container-fluid">
         <h1 style="text-align:center; margin:30px; "></h1>
-        <div style="text-align:right; margin-right:20%"><a href="Consultas.aspx">Realizar/Visualizar Consultas</a></div>
+        
         <div style="text-align:center;" class="caja_izq no-print"></div>
          <div  class="caja_der papel" >
          <legend style="margin-top: 20px;">RECIBO DE SUELDO</legend>
@@ -85,6 +85,7 @@
             </tbody>
          </table>
          
+        <p style="font-weight: bold; text-align: center; margin-top: 20px;">SOLO PARA INFORMACIÓN - NO VÁLIDO COMO COMPROBANTE</p>
        <div id="bloque_final" style="display:none; margin-top:20px;">
             <p><strong>Área:</strong> <span id="area"></span></p>
             <p><strong>Categ:</strong> <span id="categoria"></span></p>

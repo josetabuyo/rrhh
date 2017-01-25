@@ -48,4 +48,19 @@
     </form>    
     <script type="text/javascript" src="MAU/HabilitadorDeControles.js"></script>
 </body>
+<script>
+$(document).ready(function ($) {
+    $('.eliminar').click(function () {
+        var confirm_value = document.createElement("INPUT");
+        confirm_value.type = "hidden";
+        confirm_value.name = "confirm_value";
+        if (confirm("¿Está seguro de querer eliminar la licencia?")) {
+            confirm_value.value = "Yes";
+        } else {
+            confirm_value.value = "No";
+        }
+        document.forms[0].appendChild(confirm_value);
+        });
+    });
+    </script>
 </html>

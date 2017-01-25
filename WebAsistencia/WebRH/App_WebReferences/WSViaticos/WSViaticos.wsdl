@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://wsviaticos.gov.ar/">
       <s:element name="ConsultaExcelDDJJ104_Persona">
@@ -1765,36 +1765,59 @@
       <s:element name="MarcarConsultaComoLeidaResponse">
         <s:complexType />
       </s:element>
+      <s:element name="GetDetalleDeConsulta">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_consulta" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDetalleDeConsultaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDetalleDeConsultaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="NuevaConsultaDePortal">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="consulta" type="tns:Consulta" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_tipo_consulta" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="motivo" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="Consulta">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="creador" type="tns:Persona" />
-          <s:element minOccurs="1" maxOccurs="1" name="fechaCreacion" type="s:dateTime" />
-          <s:element minOccurs="1" maxOccurs="1" name="id_tipo_consulta" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="tipo_consulta" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="motivo" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="id_estado" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="estado" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="contestador" type="tns:Persona" />
-          <s:element minOccurs="1" maxOccurs="1" name="fechaContestacion" type="s:dateTime" />
-          <s:element minOccurs="0" maxOccurs="1" name="respuesta" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="leida" type="s:boolean" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="NuevaConsultaDePortalResponse">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="NuevaConsultaDePortalResult" type="s:int" />
           </s:sequence>
         </s:complexType>
+      </s:element>
+      <s:element name="RepreguntarConsulta">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_consulta" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="motivo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RepreguntarConsultaResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="CerrarConsulta">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_consulta" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="calificacion" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CerrarConsultaResponse">
+        <s:complexType />
       </s:element>
       <s:element name="GetConsultasNoLeidas">
         <s:complexType>
@@ -1891,6 +1914,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="SP" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Funcionalidad" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="Parametros" type="tns:ArrayOfParametroConsultaOPD" />
         </s:sequence>
       </s:complexType>
@@ -6837,11 +6861,29 @@
   <wsdl:message name="MarcarConsultaComoLeidaSoapOut">
     <wsdl:part name="parameters" element="tns:MarcarConsultaComoLeidaResponse" />
   </wsdl:message>
+  <wsdl:message name="GetDetalleDeConsultaSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDetalleDeConsulta" />
+  </wsdl:message>
+  <wsdl:message name="GetDetalleDeConsultaSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDetalleDeConsultaResponse" />
+  </wsdl:message>
   <wsdl:message name="NuevaConsultaDePortalSoapIn">
     <wsdl:part name="parameters" element="tns:NuevaConsultaDePortal" />
   </wsdl:message>
   <wsdl:message name="NuevaConsultaDePortalSoapOut">
     <wsdl:part name="parameters" element="tns:NuevaConsultaDePortalResponse" />
+  </wsdl:message>
+  <wsdl:message name="RepreguntarConsultaSoapIn">
+    <wsdl:part name="parameters" element="tns:RepreguntarConsulta" />
+  </wsdl:message>
+  <wsdl:message name="RepreguntarConsultaSoapOut">
+    <wsdl:part name="parameters" element="tns:RepreguntarConsultaResponse" />
+  </wsdl:message>
+  <wsdl:message name="CerrarConsultaSoapIn">
+    <wsdl:part name="parameters" element="tns:CerrarConsulta" />
+  </wsdl:message>
+  <wsdl:message name="CerrarConsultaSoapOut">
+    <wsdl:part name="parameters" element="tns:CerrarConsultaResponse" />
   </wsdl:message>
   <wsdl:message name="GetConsultasNoLeidasSoapIn">
     <wsdl:part name="parameters" element="tns:GetConsultasNoLeidas" />
@@ -8576,9 +8618,21 @@
       <wsdl:input message="tns:MarcarConsultaComoLeidaSoapIn" />
       <wsdl:output message="tns:MarcarConsultaComoLeidaSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetDetalleDeConsulta">
+      <wsdl:input message="tns:GetDetalleDeConsultaSoapIn" />
+      <wsdl:output message="tns:GetDetalleDeConsultaSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="NuevaConsultaDePortal">
       <wsdl:input message="tns:NuevaConsultaDePortalSoapIn" />
       <wsdl:output message="tns:NuevaConsultaDePortalSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RepreguntarConsulta">
+      <wsdl:input message="tns:RepreguntarConsultaSoapIn" />
+      <wsdl:output message="tns:RepreguntarConsultaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CerrarConsulta">
+      <wsdl:input message="tns:CerrarConsultaSoapIn" />
+      <wsdl:output message="tns:CerrarConsultaSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetConsultasNoLeidas">
       <wsdl:input message="tns:GetConsultasNoLeidasSoapIn" />
@@ -10143,8 +10197,35 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetDetalleDeConsulta">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetDetalleDeConsulta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="NuevaConsultaDePortal">
       <soap:operation soapAction="http://wsviaticos.gov.ar/NuevaConsultaDePortal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RepreguntarConsulta">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/RepreguntarConsulta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CerrarConsulta">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/CerrarConsulta" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -12945,8 +13026,35 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetDetalleDeConsulta">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetDetalleDeConsulta" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="NuevaConsultaDePortal">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/NuevaConsultaDePortal" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RepreguntarConsulta">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/RepreguntarConsulta" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CerrarConsulta">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/CerrarConsulta" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

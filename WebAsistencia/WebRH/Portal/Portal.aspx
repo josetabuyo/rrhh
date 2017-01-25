@@ -56,7 +56,7 @@
 			            <div class="ch-info">
 				            <div class="ch-info-front ch-img-1"></div>
 				            <div class="ch-info-back">
-					            <h3>DOCUMENTOS</h3>
+					            <h3 style="font-size: 0.35em;">DOCUMENTOS</h3>
 				            </div>	
 			            </div>
 		            </div>
@@ -136,7 +136,7 @@
 			            <div class="ch-info">
 				            <div class="ch-info-front ch-img-1"></div>
 				            <div class="ch-info-back">
-					            <h3>ORGANIGRAMA</h3>
+					            <h3 style="font-size: 0.35em;">ORGANIGRAMA</h3>
 				            </div>	
 			            </div>
 		            </div>

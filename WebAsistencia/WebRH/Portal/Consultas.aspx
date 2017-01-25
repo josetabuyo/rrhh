@@ -11,9 +11,10 @@
     <%= Referencias.Css("../")%>
     <%= Referencias.Javascript("../")%>
     <script type="text/javascript" src="../Scripts/ConversorDeFechas.js"></script>
+    <link rel="stylesheet" href="estrellas.css">
     <link href="../scripts/vex-2.1.1/css/vex.css" rel="stylesheet">
     <link href="../scripts/vex-2.1.1/css/vex-theme-os.css" rel="stylesheet">
-    <link rel="stylesheet"  href="estilosPortalSecciones.css" />
+    <link rel="stylesheet" href="estilosPortalSecciones.css" />
     <link rel="stylesheet" href="chat.css" />
 </head>
 <body>
@@ -29,22 +30,31 @@
             <div id="div_explicacion_consultas">
                 <br />
                 <h4 style="color: #003e67; text-align: center">
-                    Bienvenido al espacio brindado por la Oficina de <b style="color: #0074cc">RECURSOS
-                        HUMANOS</b> para que usted pueda realizar consultas, comentarios, sugerencias
-                    y solicitar asistencia Web sobre toda la gestión y procesos de los Colaboradores
-                    del<br />
-                    <b style="color: #0074cc">Ministerio de Desarrollo Social de la Nación</b></h4>
+                    Este espacio es para que lo aprovechemos juntos como herramienta de comunicación
+                    y conocimiento mutuo.
+                    <br />
+                    Desde aquí podés realizar tus consultas, comentarios, sugerencias y solicitar las
+                    asistencia de los integrantes de la
+                    <br />
+                    <b style="color: #0074cc">Dirección General de Recursos Humanos y Organización</b>
+                    <br />
+                    para lo que consideres necesario.<br />
+                    También recibirás notificaciones, avisos y noticias que consideremos que pueden
+                    resultar de tu interés.
+                </h4>
                 <h5 id="link_nuevos_mensajes" style="cursor: pointer; display: none; text-align: center;
-                    float: right; margin-top: -5px;">
+                    float: right; margin-top: -49px;">
                     <p style="text-align: center; font-size: 13px; color: #1a8662;">
                         Nuevos mensajes!</p>
                     <br />
                     <img style="margin-top: -30px; width: 90px;" alt="icono" src="../Imagenes/portal/respuestas.gif" />
                 </h5>
-                <br />
-                <br />
-                <input id="btn_nueva_consulta" type="button" class="btn btn-primary boton_destellante"
-                    value="Realizar nueva consulta" />
+                <div style="margin-top: 20px;">
+                    <input id="btn_nueva_consulta" type="button" style="position: absolute; left: 25px;"
+                        class="btn btn-primary boton_destellante" value="Realizar nueva consulta" />
+                    <a id="Button1" href="GestionConsultas.aspx" requierefuncionalidad="49" class="btn btn-primary"
+                        style="position: absolute; right: 25px;">Gestión de consultas</a>
+                </div>
             </div>
             <br />
             <br />
@@ -139,16 +149,23 @@
         </select>
         <textarea id="txt_motivo_consulta" placeholder="Ingrese su consulta aquí" maxlength="1000"></textarea>
         <input id="btn_enviar_consulta" type="button" class="btn btn-primary" style="margin: auto;
-            display: block; width: 100px; height: 30px;" value="ENVIAR" />
+            display: block; width: 100px; height: 30px;margin-top:10px;padding-bottom: 25px;" value="ENVIAR" />
     </div>
     <div id="pantalla_consulta_ticket" style="display: none;">
         <h3 id="titulo_consulta" style="text-align: center;">
             CONSULTA NÚMERO.</h3>
-        <div style="height: 300px;margin-top:-10px; overflow: scroll; overflow-x: hidden;">
+        <div id="div_chat" style="height: 370px; margin-top: -10px; overflow: scroll; overflow-x: hidden;">
+            <div id="div_repreguntar" style="text-align: center; display: none;">
+                <textarea id="ta_repreguntar" placeholder="Ingrese su consulta aquí" maxlength="1000"
+                    style="width: 100%; margin-top: 30px;" rows="5"></textarea>
+                <input id="btn_enviar_pepregunta" type="button" class="btn btn-primary" style="margin-top: 5px;
+                    margin-bottom: -30px;" value="Enviar" />
+            </div>
             <ol class="chat" id="listado_chat">
                 <li id="other" class="other" style="display: none;">
                     <div class="avatar">
-                        <img src="../Imagenes/Portal/icono_rrhh.png" draggable="false" /></div>
+                        <img src="../Imagenes/Portal/icono_rrhh.png" draggable="false">
+                    </div>
                     <div class="msg">
                         <time class="time">20:17</time>
                     </div>
@@ -165,9 +182,15 @@
                 </li>
             </ol>
         </div>
+        <div id="contenedor_estrellas"></div>
         <br />
-        <input id="btn_cerrar" type="button" class="btn btn-primary" style="margin: auto;
-            display: block; width: 100px; height: 30px;" value="Cerrar" />
+        <div style="text-align: center; margin-top: -15px;">
+            <input id="btn_pepreguntar" type="button" class="btn btn-primary" value="Repreguntar" />
+            <input id="btn_cerrar" type="button" class="btn btn-primary" value="Dar por finalizada la consula" />
+            <span id="txt_mensaje_calificacion"></span>
+            <input id="btn_calificar" type="button" class="btn btn-primary" value="Calificar"
+                style="display: none;" />
+        </div>
     </div>
 </body>
 <script type="text/javascript" src="Legajo.js"></script>
