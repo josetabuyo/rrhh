@@ -1,0 +1,142 @@
+#foto_usuario
+{
+    height: 60px;
+    position: absolute;
+    right: 20px;
+    top: 61px;
+}
+
+.datos_usuario
+{
+    display: inline-block;
+}
+
+#info_usuario
+{
+    position: absolute;
+    width: 150px;
+    left: 55px;
+    top: 10px;
+}
+
+.menu_usuario
+{
+    position: absolute;
+    top: 125px;
+    width: 265px;
+    height: 422px;
+    background-color: white;
+    border: solid rgb(25, 75, 180) !important;
+}
+
+#contenedor_menu_cuadrados
+{
+    right: 22px !important;
+    width: 390px;
+    height: 300px;
+}
+#contenedor_menu_usuarios
+{
+    right: 22px !important;
+}
+
+
+#foto_usuario_menu
+{
+    position: absolute;
+    width: 150px;
+    left: 55px;
+    top: 10px;
+}
+
+.datos_usuario
+{
+    display: block;
+}
+
+.cabecera_menu_usuario
+{
+    position: absolute;
+    left: 64px;
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+#nombre_user
+{
+    top: 160px;
+}
+#apellido_user
+{
+    top: 185px;
+}
+#dni_user
+{
+    top: 213px;
+    font-size: 1.2em !important;
+    left: 85px;
+}
+#email_user
+{
+    top: 285px;
+    font-size: 1em !important;
+    left: 18px;
+}
+
+#cambiar-email_usuario
+{
+    position: absolute;
+    top: 298px;
+    left: -7px;
+    height: 34px !important;
+    width: 159px !important;
+}
+
+#cambiar-constrasena_usuario
+{
+    position: absolute;
+    top: 229px;
+    left: -7px;
+}
+
+#cerrar-sesion_usuario
+{
+    position: absolute;
+    top: 372px;
+    left: 94px;
+    height: 25px;
+    width: 102px;
+    padding: 0 !important;
+}
+
+#usuario
+{
+    position: absolute;
+    top: 155px;
+    left: 5px;
+}
+
+#menu_cuadrados
+{
+    height: 24px;
+    position: absolute;
+    right: 100px;
+    top: 79px;
+}
+
+#menu_mensajes
+{
+    height: 41px;
+    position: absolute;
+    right: 140px;
+    top: 68px;
+}
+
+
+#home_imagen
+{
+    height: 36px;
+    position: absolute;
+    left: 20px;
+    top: 73px;
+}
