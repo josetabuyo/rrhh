@@ -154,7 +154,7 @@
     <div id="pantalla_consulta_ticket" style="display: none;">
         <h3 id="titulo_consulta" style="text-align: center;">
             CONSULTA NÚMERO.</h3>
-        <div id="div_chat" style="height: 370px; margin-top: -10px; overflow: scroll; overflow-x: hidden;">
+        <div id="div_chat" style="height: 320px; margin-top: -10px; overflow: scroll; overflow-x: hidden;">
             <div id="div_repreguntar" style="text-align: center; display: none;">
                 <textarea id="ta_repreguntar" placeholder="Ingrese su consulta aquí" maxlength="1000"
                     style="width: 100%; margin-top: 30px;" rows="5"></textarea>
