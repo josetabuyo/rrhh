@@ -9,6 +9,7 @@
 #barra_menu_contenedor
 {
     height: 95px;
+    margin-bottom: 18px;
 }
 
 #barra_menu_contenedor_imagen
@@ -148,3 +149,19 @@
     color: rgb(110, 208, 226) !important;
     background-color: #194ab4 !important;
 }
+
+.clickeable
+{
+    cursor: pointer;
+    }
+
+#barra_navegacion
+{
+    z-index: 99999;
+    }
+    
+    .borde-circular
+    {
+        border-radius: 50%;
+        border-color: Black;
+        }

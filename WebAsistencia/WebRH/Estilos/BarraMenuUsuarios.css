@@ -4,6 +4,7 @@
     position: absolute;
     right: 20px;
     top: 61px;
+    cursor: pointer;
 }
 
 .datos_usuario
@@ -32,12 +33,14 @@
 #contenedor_menu_cuadrados
 {
     right: 22px !important;
-    width: 390px;
-    height: 300px;
+    width: 340px;
+    height: 320px;
+    padding: 20px;
 }
 #contenedor_menu_usuarios
 {
     right: 22px !important;
+    
 }
 
 
@@ -122,6 +125,7 @@
     position: absolute;
     right: 100px;
     top: 79px;
+    cursor: pointer;
 }
 
 #menu_mensajes
@@ -130,6 +134,7 @@
     position: absolute;
     right: 140px;
     top: 68px;
+    cursor: pointer;
 }
 
 
@@ -140,3 +145,10 @@
     left: 20px;
     top: 73px;
 }
+
+#contenedor_menu_mensajes
+{
+    right: 22px;
+    width: 500px;
+    height: 300px;
+    }
