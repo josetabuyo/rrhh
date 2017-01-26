@@ -23,6 +23,7 @@
 #panel_datos_personales {
     display: inline-block;
     width: 78%;
+    margin-left: 128px;
 }
 .dato_personal {
     margin: 12px;
@@ -317,6 +318,17 @@
 	left: 3px;
 	color: #99a1a7;
 }
-    
+
+.foto_usuario {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    height: 128px;
+    width: 128px;
+    margin-left: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+}
     
 

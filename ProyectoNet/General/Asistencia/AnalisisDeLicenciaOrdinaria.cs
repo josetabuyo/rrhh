@@ -22,21 +22,18 @@ namespace General
 
             if (LineaCompleta(linea))
             {
-                /*if (lineaConAcarreoDeLineaAnterior(linea))
+                if (lineas.Count > index_of_primer_linea_proximo_periodo)
                 {
-                    index_of_primer_linea_proximo_periodo++;
-                }*/
-
-                if (lineas.Count > index_of_primer_linea_proximo_periodo) {
                     linea = lineas[index_of_primer_linea_proximo_periodo];
                 }
 
-                if (lineaConAcarreoDeLineaAnterior(linea)) {
+                if (lineaConAcarreoDeLineaAnterior(linea))
+                {
                     index_of_primer_linea_proximo_periodo++;
                 }
 
                 linea = new LogCalculoVacaciones();
-                
+
                 this.lineas.Insert(index_of_primer_linea_proximo_periodo, linea);
             }
 
@@ -57,7 +54,16 @@ namespace General
 
         private int IndexOfPrimerLineaProximoPeriodo(int periodo)
         {
-            var primer_linea_proximo_periodo = lineas.Find(l => l.PeriodoAutorizado.Equals(periodo + 1));
+            var lineas_de_periodos_posteriores = lineas.FindAll(l => l.PeriodoAutorizado >= periodo + 1);
+            var proximo_periodo = periodo + 1;
+            if (lineas_de_periodos_posteriores.Count > 0) {
+                proximo_periodo = lineas_de_periodos_posteriores.OrderBy(l => l.PeriodoAutorizado).First().PeriodoAutorizado;
+            }
+            //var proximo_periodo = periodo + 1;
+
+            var primer_linea_proximo_periodo = lineas.Find(l => l.PeriodoAutorizado.Equals(proximo_periodo));
+
+
             int index_of_primer_linea_proximo_periodo;
             if (primer_linea_proximo_periodo != null)
             {
@@ -185,7 +191,7 @@ namespace General
                     index = lineas.IndexOf(primera) + 1;
                     for (int i = lineas.IndexOf(primera) + 1; i < lineas.Count; i++)
                     {
-                        if (lineas[i].PeriodoAutorizado == 0 && ! found)
+                        if (lineas[i].PeriodoAutorizado == 0 && !found)
                         {
                             index = i;
                         }
@@ -231,5 +237,31 @@ namespace General
         }
 
         public List<VacacionesSolicitables> Saldo { get; set; }
+
+
+        /// <summary>
+        /// cuando hay cero dias tomados, porque todas las vacaciones de cierto periodo se vencieron, hay que
+        /// quitar la linea anterior a la que dice x dias vencidos, que dirá, cero dias descontados.
+        /// </summary>
+        public void QuitarLineasInnecesarias()
+        {
+            var perdidas = this.lineas.FindAll(l => l.PerdidaExplicitamente || l.PerdidaPorVencimiento);
+            if (perdidas == null) return;
+            if (perdidas.Count == 0) return;
+
+            foreach (var p in perdidas)
+            {
+                var index = this.lineas.IndexOf(p);
+                if (index > 0 && lineas[index - 1].CantidadDiasDescontados == 0)
+                {
+                    lineas[index - 1].CantidadDiasDescontados = lineas[index].CantidadDiasDescontados;
+                    lineas[index - 1].LicenciaDesde = lineas[index].LicenciaDesde;
+                    lineas[index - 1].LicenciaHasta = lineas[index].LicenciaHasta;
+                    lineas[index - 1].PerdidaExplicitamente = lineas[index].PerdidaExplicitamente;
+                    lineas[index - 1].PerdidaPorVencimiento = lineas[index].PerdidaPorVencimiento;
+                    lineas.Remove(lineas[index]);
+                }
+            }
+        }
     }
 }

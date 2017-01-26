@@ -17,7 +17,10 @@
     <link href="../scripts/vex-2.1.1/css/vex.css" rel="stylesheet">
     <link href="../scripts/vex-2.1.1/css/vex-theme-os.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../Reportes/Reportes.css" />
-    <link rel="stylesheet" media="(max-width: 1600px)" href="estilosPortalSecciones.css" />
+    <link rel="stylesheet" type="text/css" href="estilosPortalSecciones.css" />
+    <link rel="stylesheet" href="estrellas.css">
+    <link rel="stylesheet" href="chat.css" />    
+      <link rel="stylesheet" href="font-awesome.min.css" /><link rel="stylesheet" href="lato.css" />
 </head>
 <body>
     <form id="form1" runat="server">
@@ -32,10 +35,12 @@
                 value="CONSULTAS PENDIENTES" />
             <input id="btn_consultas_historicas" type="button" class="btn_gestion_consulta" style="margin: 10px; width: 150px; font-size: smaller;"
                 value="CONSULTAS HISTORICAS" />
-            <input id="Button3" type="button" class="btn_gestion_consulta" style="margin: 10px; width: 150px; font-size: smaller;"
+           <%-- <input id="Button3" type="button" class="btn_gestion_consulta" style="margin: 10px; width: 150px; font-size: smaller;"
                 value="PARAMETRIA" />
             <input id="Button4" type="button" class="btn_gestion_consulta" style="margin: 10px; width: 150px; font-size: smaller;"
-                value="REPORTES" />
+                value="REPORTES" />--%>
+            <input id="Button1" type="button" onclick="javascript:location.href='Consultas.aspx'" class="btn_gestion_consulta" style="margin: 10px; width: 150px; font-size: smaller;"
+                value="PORTAL" />
         </div>
         <div class="caja_der papel">
             <%--DIV 1--%>
@@ -67,7 +72,46 @@
                 </div>
             </div>
         </div>
+        </div>
     </form>
+    <div id="pantalla_consulta_ticket" style="display: none;">
+        <h3 id="titulo_consulta" style="text-align: center;">
+            CONSULTA NÚMERO.</h3>
+        <div id="div_chat" style="height: 310px; margin-top: -10px; overflow: scroll; overflow-x: hidden;">
+            <div id="div_repreguntar" style="text-align: center; display: none;">
+                <textarea id="ta_repreguntar" placeholder="Ingrese su consulta aquí" maxlength="1000"
+                    style="width: 100%; margin-top: 30px;" rows="5"></textarea>
+                <input id="btn_enviar_pepregunta" type="button" class="btn btn-primary" style="margin-top: 5px;
+                    margin-bottom: -30px;" value="Enviar" />
+            </div>
+            <ol class="chat" id="listado_chat">
+                <li id="other" class="other" style="display: none;">
+                    <div class="avatar">
+                        <img src="../Imagenes/Portal/icono_rrhh.png" draggable="false">
+                    </div>
+                    <div class="msg">
+                        <time class="time">20:17</time>
+                    </div>
+                </li>
+                <br />
+                <li id="self" class="self" style="display: none;">
+                    <div class="avatar">
+                        <div class="imagen" style="width: 40px; height: 40px; margin-left: 0px; margin-top: 0px;">
+                        </div>
+                    </div>
+                    <div class="msg">
+                        <time class="time">20:18</time>
+                    </div>
+                </li>
+            </ol>
+        </div>
+        <br />
+        <div style="text-align: center; ">
+            <input id="btn_pepreguntar" type="button" class="btn btn-primary" value="Responder" />
+        </div>
+    </div>
+
+
     <div id="pantalla_consulta_individual" style="display: none">
         <p style="font-size: xx-large; text-align: center; margin-top: 10px;">Consulta Individual</p>
         <br />

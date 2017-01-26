@@ -2,40 +2,44 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using General;
 
 namespace General
 {
     public class Consulta
     {
-        public int Id;
+        public long Id;
         public Persona creador;
         public DateTime fechaCreacion;
+        public DateTime fechaRespuesta;
+        public Persona responsable;
         public int id_tipo_consulta;
         public string tipo_consulta;
-        public string motivo;
+        public string resumen;
         public int id_estado;
         public string estado;
-        public Persona contestador;
-        public DateTime fechaContestacion;
-        public string respuesta;
+        public int calificacion;
         public bool leida;
+        public List<Respuesta> respuestas;
 
         public Consulta() { }
 
-        public Consulta(int id, Persona creador, DateTime fecha_creacion, string tipo_consulta, string motivo, int id_estado, string estado, Persona contestador, DateTime fecha_contestacion, string respuesta, bool leida)
+        public Consulta(long id, Persona creador, DateTime fecha_creacion, DateTime fecha_respuesta, Persona responsable, int id_tipo_consulta, string tipo_consulta, string resumen, int id_estado, string estado, int calificacion, bool leida, List<Respuesta> respuestas)
         {
-            this.contestador = new Persona();
             this.Id = id;
+            this.creador = creador;
             this.fechaCreacion = fecha_creacion;
+            this.fechaRespuesta = fecha_respuesta;
+            this.responsable = responsable;
+            this.id_tipo_consulta = id_tipo_consulta;
             this.tipo_consulta = tipo_consulta;
-            this.motivo = motivo;
+            this.resumen = resumen;
             this.id_estado = id_estado;
             this.estado = estado;
-            this.contestador = contestador;
-            this.fechaContestacion = fecha_contestacion;
-            this.respuesta = respuesta;
-            this.creador = creador;
+            this.calificacion = calificacion;
             this.leida = leida;
+            this.respuestas = respuestas;
+
         }
 
 

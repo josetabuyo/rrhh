@@ -55,7 +55,6 @@ namespace General
             //me quedo solo con la parte que puedo consumir, de las vacaciones que se aprobaron.
             permitidas_consumibles2.RemoveAll(consumible => aprobadas.AnioMaximoImputable().Last().Periodo() < consumible.Periodo);
 
-
             var permitidas_aplicables = permitidas_consumibles2.FindAll(consumible => consumible.CantidadDeDias() > 0);
             var primera_permitida_aplicable = new VacacionesPermitidas();
             if (permitidas_aplicables.Count() == 0)
@@ -120,7 +119,9 @@ namespace General
                 return vacaciones_solicitables;
             }
 
-            solicitudes.ForEach(solicitud => ImputarA(solicitud.Clonar(), permitidas_consumibles, persona, fecha_de_calculo, analisis));
+            solicitudes.ForEach(solicitud =>
+                ImputarA(solicitud.Clonar(), permitidas_consumibles, persona, fecha_de_calculo, analisis)
+                );
 
             permitidas_consumibles.RemoveAll(consumible => consumible.Periodo < persona.TipoDePlanta.Prorroga(fecha_de_calculo).UsufructoDesde);
 
@@ -130,6 +131,7 @@ namespace General
             
             analisis.LasAutorizadasSinDescontarSon(perdidas, _repositorio_licencia.GetVacasPermitidasPara(persona, new ConceptoLicenciaAnualOrdinaria()));
             analisis.CompletarLicenciasPerdidasPorVencimiento();
+            analisis.QuitarLineasInnecesarias();
 
             return vacaciones_solicitables;
         }
