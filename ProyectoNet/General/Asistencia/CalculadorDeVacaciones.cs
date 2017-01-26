@@ -131,6 +131,7 @@ namespace General
             
             analisis.LasAutorizadasSinDescontarSon(perdidas, _repositorio_licencia.GetVacasPermitidasPara(persona, new ConceptoLicenciaAnualOrdinaria()));
             analisis.CompletarLicenciasPerdidasPorVencimiento();
+            analisis.QuitarLineasInnecesarias();
 
             return vacaciones_solicitables;
         }

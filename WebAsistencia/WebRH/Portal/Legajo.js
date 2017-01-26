@@ -242,7 +242,7 @@ var Legajo = {
                                 return "";
                             }
                             var fh = new Date(str_fecha);
-                            fh.setDate(fh.getDate() + 1);
+                            fh.setDate(fh.getDate());
                             var mes = fh.getMonth() + 1;
                             var anio = fh.getFullYear();
                             if (mes > 12) {
