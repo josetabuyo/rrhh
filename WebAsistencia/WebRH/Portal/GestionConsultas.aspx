@@ -86,7 +86,7 @@
         <div style="display: flex; margin-left: 35%;">
             <h3 id="titulo_consulta" style="text-align: center;">
                 CONSULTA NÚMERO.</h3>
-            <img id="btn_info_usuario" src="../Imagenes/silueta.gif" style="width: 20px; height: 20px;
+            <img id="btn_info_usuario" src="../Imagenes/detalle.png" style="width: 20px; height: 20px;
                 margin-left: 15px;cursor:pointer;" draggable="false"></div>
         <div id="div_chat" style="height: 310px; margin-top: -10px; overflow: scroll; overflow-x: hidden;">
             <div id="div_repreguntar" style="text-align: center; display: none;">
