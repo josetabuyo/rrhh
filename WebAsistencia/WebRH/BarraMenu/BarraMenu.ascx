@@ -30,9 +30,9 @@
     <div id="barra_navegacion">
         <div id="barra_azul">
         </div>
-        <a href="../Portal/Portal.aspx">
+        <div id="boton_home">
             <img src="<%= UrlImagenes %>Home-icono.png" id="home_imagen" alt="homeicono" />
-        </a>
+        </div>
         <div id="contenedor_imagen_usuario">
             <img src="<%= UrlImagenes %>portal/portal_empleado.png" id="foto_usuario" alt="fotouser" />
         </div>
@@ -40,25 +40,28 @@
             <div id="contenedor_foto_usuario_del_menu">
                 <img src="<%= UrlImagenes %>portal/portal_empleado.png" id="foto_usuario_menu" alt="fotousuariomenu" />
             </div>
+
             <div id="nombre_user" class="cabecera_menu_usuario">
-                Matías Julián
-            </div>
+                         </div>
+
             <div id="apellido_user" class="cabecera_menu_usuario">
-                Sáenz Tejeira
-            </div>
+                         </div>
+
             <div id="dni_user" class="cabecera_menu_usuario">
-                31.937.582
-            </div>
+                         </div>
+            
             <div id="email_user" class="cabecera_menu_usuario">
-                msaenz@desarrollosocial.gob.ar
-            </div>
+                           </div>
+
             <div id="info_usuario">
                 <button id="cambiar-email_usuario" type="button" class="btn btn-info datos_usuario">
                     Modificar correo</button>
                 <button id="cambiar-constrasena_usuario" type="button" class="btn btn-info datos_usuario">
                     Modificar contraseña</button>
-                <button id="cerrar-sesion_usuario" type="button" class="btn btn-primary datos_usuario">
-                    Cerrar Sesión</button>
+                    <div id="cerrar-sesion_usuario">
+                <asp:Button ID="CerrarSessionLinkButton" CssClass="barra_menu_botones" runat="server"
+                    OnClick="CerrarSessionLinkButton_Click" Text="Cerrar Sesión"></asp:Button>
+                    </div>
             </div>
         </div>
         <div id="contenedor_imagen_cuadrados">
@@ -113,7 +116,7 @@
                     Cambiar Contraseña</a>
                 <asp:Button ID="CerrarSessionLinkButton" CssClass="barra_menu_botones" runat="server"
                     OnClick="CerrarSessionLinkButton_Click" Text="Cerrar Sesión"></asp:Button>
-            </div>
+                </div>
             <uc5:FormPassword ID="FormPassword" runat="server" />
         </div>
     </div>--%>

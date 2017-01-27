@@ -33,9 +33,11 @@
 #contenedor_menu_cuadrados
 {
     right: 22px !important;
-    width: 340px;
-    height: 320px;
+    width: 240px;
+    height: auto;
     padding: 20px;
+    /* display: inline-block !important; */
+    float: left;
 }
 #contenedor_menu_usuarios
 {
@@ -60,7 +62,7 @@
 .cabecera_menu_usuario
 {
     position: absolute;
-    left: 64px;
+    left: 65px;
     font-weight: bold;
     font-size: 1.5em;
 }
@@ -72,6 +74,7 @@
 #apellido_user
 {
     top: 185px;
+    left: 48px;
 }
 #dni_user
 {
@@ -152,3 +155,9 @@
     width: 500px;
     height: 300px;
     }
+    
+    #boton_home
+    {
+        cursor: pointer;
+        }
+    

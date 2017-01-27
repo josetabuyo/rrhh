@@ -50,16 +50,16 @@ public partial class FormularioDeViaticos_BarraMenu : System.Web.UI.UserControl
     //    }
     //}
 
-    //protected void CerrarSessionLinkButton_Click(object sender, EventArgs e)
-    //{
-    //    if (Session != null)
-    //    {
-    //        Session.Clear();
-    //        Session.RemoveAll();
-    //        Session.Abandon();
-    //        Response.Redirect("~\\Login.aspx");
-    //    }
-    //}
+    protected void CerrarSessionLinkButton_Click(object sender, EventArgs e)
+    {
+        if (Session != null)
+        {
+            Session.Clear();
+            Session.RemoveAll();
+            Session.Abandon();
+            Response.Redirect("~\\Login.aspx");
+        }
+    }
 
     //protected void SolicitarViaticoLinkButton_Click(object sender, EventArgs e)
     //{
