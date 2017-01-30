@@ -663,6 +663,13 @@ var Legajo = {
                         ui.find('#div_repreguntar').show();
 
                     });
+                    ui.find("#btn_info_usuario").click(function () {
+
+                        localStorage.setItem("documento", consulta.creador.Documento);
+                        window.open('../Reportes/ConsultaIndividual.aspx', '_blank');
+
+                    });
+                    
                     ui.find("#btn_enviar_pepregunta").click(function () {
                         _this.Repreguntar(ui, consulta);
                         vex.close();
