@@ -236,7 +236,22 @@ namespace General
             return lineas_posteriores.Any(l => !l.LicenciaDesde.Equals(DateTime.MinValue));
         }
 
-        public List<VacacionesSolicitables> Saldo { get; set; }
+        protected List<VacacionesSolicitables> sld;
+        public List<VacacionesSolicitables> Saldo
+        {
+            get
+            {
+                return sld;
+            }
+            set {
+                sld = new List<VacacionesSolicitables>();
+                value.ForEach(s => {
+                    if (s.Dias != 0) {
+                        sld.Add(s);
+                    }
+                });
+            }
+        }
 
 
         /// <summary>
