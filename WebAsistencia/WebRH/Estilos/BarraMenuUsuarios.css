@@ -1,6 +1,7 @@
-#foto_usuario
+#foto_usuario_icono
 {
     height: 60px;
+    width: 60px;
     position: absolute;
     right: 20px;
     top: 61px;
@@ -30,19 +31,42 @@
     border: solid rgb(25, 75, 180) !important;
 }
 
+
 #contenedor_menu_cuadrados
 {
     right: 22px !important;
-    width: 240px;
+    width: 260px;
     height: auto;
     padding: 20px;
     /* display: inline-block !important; */
     float: left;
+    z-index: 9999;
+        border-radius: 40px;
 }
+
+.sombrita
+{
+    border-radius: 50px !important;
+    border-color: Black;
+    -webkit-border-radius: 500px;
+    box-shadow: 15px 20px 25px rgba(0,0,0,0.7) !important;
+    -webkit-box-shadow: 20px 20px 25px rgba(0,0,0,0.7);
+    -moz-box-shadow: 20px 20px 25px rgba(0,0,0,0.7);
+    }
+
+.sombrita-iconos
+{
+    box-shadow: 3px 5px 8px rgba(0,0,0,0.7) !important;
+    -webkit-box-shadow: 3px 5px 8px rgba(0,0,0,0.7);
+    -moz-box-shadow: 3px 5px 8px rgba(0,0,0,0.7);
+    }
+
+
 #contenedor_menu_usuarios
 {
     right: 22px !important;
-    
+     z-index: 99999;
+         border-radius: 30px;
 }
 
 
@@ -52,6 +76,13 @@
     width: 150px;
     left: 55px;
     top: 10px;
+    border-radius: 80px !important;
+    border-color: Black;
+    -webkit-border-radius: 500px;
+    box-shadow: 11px 8px 27px rgba(0,0,0,0.7) !important;
+    -webkit-box-shadow: 11px 8px 27px rgba(0,0,0,0.7);
+    -moz-box-shadow:11px 8px 27px rgba(0,0,0,0.7);
+    
 }
 
 .datos_usuario
@@ -69,50 +100,52 @@
 
 #nombre_user
 {
-    top: 160px;
+    top: 170px;
 }
 #apellido_user
 {
-    top: 185px;
+    top: 195px;
     left: 48px;
 }
 #dni_user
 {
-    top: 213px;
+    top: 222px;
     font-size: 1.2em !important;
-    left: 85px;
+    left: 92px;
 }
 #email_user
 {
-    top: 285px;
+   top: 300px;
     font-size: 1em !important;
-    left: 18px;
+    left: 20px;
+        font-style: italic;
 }
 
 #cambiar-email_usuario
 {
     position: absolute;
-    top: 298px;
-    left: -7px;
+    top: 316px;
+    left: -5px;
     height: 34px !important;
     width: 159px !important;
 }
 
-#cambiar-constrasena_usuario
+#go
 {
-    position: absolute;
-    top: 229px;
-    left: -7px;
+        position: absolute;
+    top: 240px;
+    left: -5px;
 }
 
 #cerrar-sesion_usuario
 {
-    position: absolute;
-    top: 372px;
-    left: 94px;
+   position: absolute;
+    top: 370px;
+    left: 28px;
     height: 25px;
     width: 102px;
     padding: 0 !important;
+    border-radius: 5px;
 }
 
 #usuario
@@ -154,6 +187,8 @@
     right: 22px;
     width: 500px;
     height: 300px;
+    z-index: 9999;
+        border-radius: 40px;
     }
     
     #boton_home

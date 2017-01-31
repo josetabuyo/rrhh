@@ -3,7 +3,6 @@ var BotonDesplegable = function (nombre_boton, elemento_desplegable) {
 
     var boton = $("#" + nombre_boton);
     var elemento = $("#" + elemento_desplegable);
-    elemento.hide();
 
     boton.click(function () {
         elemento.toggle();

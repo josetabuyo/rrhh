@@ -34,9 +34,9 @@
             <img src="<%= UrlImagenes %>Home-icono.png" id="home_imagen" alt="homeicono" />
         </div>
         <div id="contenedor_imagen_usuario">
-            <img src="<%= UrlImagenes %>portal/portal_empleado.png" id="foto_usuario" alt="fotouser" />
+            <img src="<%= UrlImagenes %>portal/portal_empleado.png" id="foto_usuario_icono" alt="fotouser" />
         </div>
-        <div id="contenedor_menu_usuarios" class="menu_usuario">
+        <div id="contenedor_menu_usuarios" class="menu_usuario" style="display: none;">
             <div id="contenedor_foto_usuario_del_menu">
                 <img src="<%= UrlImagenes %>portal/portal_empleado.png" id="foto_usuario_menu" alt="fotousuariomenu" />
             </div>
@@ -56,8 +56,11 @@
             <div id="info_usuario">
                 <button id="cambiar-email_usuario" type="button" class="btn btn-info datos_usuario">
                     Modificar correo</button>
-                <button id="cambiar-constrasena_usuario" type="button" class="btn btn-info datos_usuario">
-                    Modificar contraseña</button>
+                <%--<button id="cambiar-constrasena_usuario" type="button" class="btn btn-info datos_usuario">
+                    Modificar contraseña </button>--%>
+                    <a id="go" rel="leanModal" class="btn barra_menu_botones" name="signup" href="#signup">
+                    Cambiar Contraseña</a>
+                    <uc5:FormPassword ID="FormPassword" runat="server" />
                     <div id="cerrar-sesion_usuario">
                 <asp:Button ID="CerrarSessionLinkButton" CssClass="barra_menu_botones" runat="server"
                     OnClick="CerrarSessionLinkButton_Click" Text="Cerrar Sesión"></asp:Button>
@@ -67,7 +70,7 @@
         <div id="contenedor_imagen_cuadrados">
             <img src="<%= UrlImagenes %>cuadraditos.png" id="menu_cuadrados" alt="fotousuariomenu" />
         </div>
-        <div id="contenedor_menu_cuadrados" class="menu_usuario">
+        <div id="contenedor_menu_cuadrados" class="menu_usuario" style="display: none;">
 
             <a  href="../SACC/Inicio.aspx">
                 <img class="borde-circular" src="../MenuPrincipal/macc.png"></a>
@@ -97,7 +100,7 @@
         <div id="contenedor_imagen_mensajes">
             <img src="<%= UrlImagenes %>mensajes-icono.png" id="menu_mensajes" alt="fotousuariomenu" />
         </div>
-        <div id="contenedor_menu_mensajes" class="menu_usuario">
+        <div id="contenedor_menu_mensajes" class="menu_usuario" style="display: none;">
         </div>
     </div>
     <%--<div id="contenedor_barraInferior">
