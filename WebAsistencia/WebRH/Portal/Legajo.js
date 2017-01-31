@@ -669,7 +669,7 @@ var Legajo = {
                         window.open('../Reportes/ConsultaIndividual.aspx', '_blank');
 
                     });
-                    
+
                     ui.find("#btn_enviar_pepregunta").click(function () {
                         _this.Repreguntar(ui, consulta);
                         vex.close();
@@ -1033,14 +1033,18 @@ var Legajo = {
 
 
                                     ui.find("#btn_enviar_consulta").click(function () {
-                                        Backend.NuevaConsultaDePortal(parseInt(ui.find("#cmb_tipo_consulta").val()), ui.find("#txt_motivo_consulta").val()
-                                        ).onSuccess(function (id_consulta) {
-                                            alertify.success("Consulta enviada con éxito");
-                                            vex.close();
-                                            Legajo.getConsultas();
-                                        }).onError(function (id_consulta) {
-                                            alertify.error("Error al enviar consulta");
-                                        });
+                                        if (ui.find("#txt_motivo_consulta").val() == "" || ui.find("#cmb_tipo_consulta").val() == null) {
+                                            alertify.error("El tipo de consulta y el texto de la consulta son campos obligatorios");
+                                        } else {
+                                            Backend.NuevaConsultaDePortal(parseInt(ui.find("#cmb_tipo_consulta").val()), ui.find("#txt_motivo_consulta").val()
+                                            ).onSuccess(function (id_consulta) {
+                                                alertify.success("Consulta enviada con éxito");
+                                                vex.close();
+                                                Legajo.getConsultas();
+                                            }).onError(function (id_consulta) {
+                                                alertify.error("Error al enviar consulta");
+                                            });
+                                        }
                                     });
                                     return ui;
                                 },
