@@ -1,13 +1,14 @@
 ﻿$(document).ready(function () {
     Backend.start(function () {
-        var boton_usuario = new BotonDesplegable("foto_usuario_icono", "contenedor_menu_usuarios");
+    var boton_usuario = new BotonDesplegable("foto_usuario_icono", "contenedor_menu_usuarios");
     var boton_aplicaciones = new BotonDesplegable("menu_cuadrados", "contenedor_menu_cuadrados");
     var boton_mensajes = new BotonDesplegable("menu_mensajes", "contenedor_menu_mensajes");
+     
         
         $('#boton_home').click(function () {
-            window.location.href = 'Portal.aspx';
+            window.location.href = '../Portal/Portal.aspx';
         });
-   
+
         Backend.GetUsuarioLogueado().onSuccess(function (usuario) {
 
             document.getElementById('nombre_user').innerHTML = usuario.Owner.Nombre;
@@ -30,7 +31,44 @@
         }
         );
             })
-            
+
+    if (usuario.Owner.IdImagen >= 0) {
+        var img = new VistaThumbnail({ id: usuario.Owner.IdImagen, contenedor: $("#foto_usuario_menu") });
+
+        
+
+        $("#foto_usuario_menu").show();
+        $("#foto_usuario_generica").hide();
+        $('#vista_thumbnail').css('position','initial');
+        $('#vista_thumbnail').css('top', '20px');
+        $('#vista_thumbnail').css('right', '20px');
+    }
+    else {
+        $("#foto_usuario_menu").hide();
+        $("#foto_usuario_generica").show();
+    }
+           
+
+        $('#cambiar-email_usuario').click(function () {
+        alertify.prompt(' ', 'Ingrese el mail del usuario', ''
+               , function (evt, value) {
+                   
+                   Backend.ModificarMailRegistro(usuario.Id, value).onSuccess(function () {
+                   
+                       alertify.success("Se ha modificado correctamente su mail");
+                       alertify.prompt().close();
+                       $('#email_user').text(value);
+                   }).onError(function () {
+                       alertify.error("Error al modificar el mail");
+                       alertify.prompt().close();
+                   });
+               }
+               , function () { 
+               });
+    
+	});
+	
+
         });
     });
 });

@@ -2,12 +2,16 @@
 <%@ Register Src="FormPassword.ascx" TagName="FormPassword" TagPrefix="uc5" %>
 <head>
     <title></title>
+
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link id="link1" rel="stylesheet" href="<%= UrlEstilos %>EstilosBarraMenu.css" type="text/css" />
     <link id="link2" rel="stylesheet" href="<%= UrlEstilos %>BarraMenuUsuarios.css" type="text/css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script type="text/javascript" src="../BarraMenu/BarraMenu.js"></script>
     <script type="text/javascript" src="../BarraMenu/BotonDesplegable.js"></script>
+    <script type="text/javascript" src="../Scripts/ControlesImagenes/VistaThumbnail.js"></script>
+    <%= Referencias.Javascript("../")%>
+
 </head>
 <div id="barra_menu_contenedor" class="no-print">
     <div id="contenedor_imagen">
@@ -37,9 +41,9 @@
             <img src="<%= UrlImagenes %>portal/portal_empleado.png" id="foto_usuario_icono" alt="fotouser" />
         </div>
         <div id="contenedor_menu_usuarios" class="menu_usuario" style="display: none;">
-            <div id="contenedor_foto_usuario_del_menu">
-                <img src="<%= UrlImagenes %>portal/portal_empleado.png" id="foto_usuario_menu" alt="fotousuariomenu" />
-            </div>
+             <div id="foto_usuario_menu" class="foto_menu_estilo">                        
+                    </div>
+                    <img id="foto_usuario_generica" src="<%= UrlImagenes %>portal/portal_empleado.png" alt="fotousuariogenerica" class="foto_menu_estilo" />
 
             <div id="nombre_user" class="cabecera_menu_usuario">
                          </div>
@@ -54,7 +58,7 @@
                            </div>
 
             <div id="info_usuario">
-                <button id="cambiar-email_usuario" type="button" class="btn btn-info datos_usuario">
+                <button id="cambiar-email_usuario" type="button" class="btn barra_menu_botones">
                     Modificar correo</button>
                 <%--<button id="cambiar-constrasena_usuario" type="button" class="btn btn-info datos_usuario">
                     Modificar contraseña </button>--%>
