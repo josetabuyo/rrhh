@@ -34,14 +34,14 @@
 
 #contenedor_menu_cuadrados
 {
-    right: 22px !important;
-    width: 260px;
+        right: 7% !important;
+    width: 20%;
     height: auto;
-    padding: 20px;
+    padding: 2%;
     /* display: inline-block !important; */
     float: left;
     z-index: 9999;
-        border-radius: 40px;
+    border-radius: 40px;
 }
 
 .sombrita
@@ -52,21 +52,21 @@
     box-shadow: 15px 20px 25px rgba(0,0,0,0.7) !important;
     -webkit-box-shadow: 20px 20px 25px rgba(0,0,0,0.7);
     -moz-box-shadow: 20px 20px 25px rgba(0,0,0,0.7);
-    }
+}
 
 .sombrita-iconos
 {
     box-shadow: 3px 5px 8px rgba(0,0,0,0.7) !important;
     -webkit-box-shadow: 3px 5px 8px rgba(0,0,0,0.7);
     -moz-box-shadow: 3px 5px 8px rgba(0,0,0,0.7);
-    }
+}
 
 
 #contenedor_menu_usuarios
 {
-    right: 22px !important;
-     z-index: 99999;
-         border-radius: 30px;
+    right: 2% !important;
+    z-index: 99999;
+    border-radius: 30px;
 }
 
 
@@ -76,13 +76,14 @@
     width: 150px;
     left: 55px;
     top: 10px;
+    height: 150px;
+    overflow: hidden;
     border-radius: 80px !important;
     border-color: Black;
     -webkit-border-radius: 500px;
     box-shadow: 11px 8px 27px rgba(0,0,0,0.7) !important;
     -webkit-box-shadow: 11px 8px 27px rgba(0,0,0,0.7);
-    -moz-box-shadow:11px 8px 27px rgba(0,0,0,0.7);
-    
+    -moz-box-shadow: 11px 8px 27px rgba(0,0,0,0.7);
 }
 
 .datos_usuario
@@ -100,7 +101,7 @@
 
 #nombre_user
 {
-    top: 170px;
+    top: 40%;
 }
 #apellido_user
 {
@@ -115,10 +116,10 @@
 }
 #email_user
 {
-   top: 300px;
+    top: 300px;
     font-size: 1em !important;
     left: 20px;
-        font-style: italic;
+    font-style: italic;
 }
 
 #cambiar-email_usuario
@@ -132,14 +133,14 @@
 
 #go
 {
-        position: absolute;
+  position: absolute;
     top: 240px;
-    left: -5px;
+    left: -3%;
 }
 
 #cerrar-sesion_usuario
 {
-   position: absolute;
+    position: absolute;
     top: 370px;
     left: 28px;
     height: 25px;
@@ -184,15 +185,58 @@
 
 #contenedor_menu_mensajes
 {
-    right: 22px;
-    width: 500px;
-    height: 300px;
+        right: 10.5%;
+    width: 35%;
+    height: auto;
     z-index: 9999;
-        border-radius: 40px;
+    border-radius: 4%;
+}
+
+#boton_home
+{
+    cursor: pointer;
+}
+
+.contenedor_de_alertas_y_mensajes
+{
+    display: flex;
+    flex-direction: column;
+    border-color: Blue;
+    justify-content: flex-start;
+    height: 100%;
+}
+
+.mensaje_alerta
+{
+     height: 82px;
+    width: 96%;
+    overflow: hidden;
+    cursor: pointer;
+    padding: 1%;
+    margin: 2%;
+    border-style: dotted;
+    border-width: 2px;
+}
+
+.titulo_mensaje_alerta
+{
+margin-bottom: 5px;
+    font-size: 1.3em;
+}
+
+.contenido_mensaje_alerta
+{
+    margin-bottom: 2%;
+    overflow:hidden;
+    
     }
     
-    #boton_home
-    {
-        cursor: pointer;
-        }
+.sombra-mensaje
+{
     
+    border-color: rgba(0,0,0,0.7);
+    -webkit-border-radius: 5%;
+    box-shadow: 3px 13px 10px rgba(0,0,0,0.7) !important;
+    -webkit-box-shadow: 3px 13px 10px rgba(0,0,0,0.7);
+    -moz-box-shadow: 3px 13px 10px rgba(0,0,0,0.7);    
+    }

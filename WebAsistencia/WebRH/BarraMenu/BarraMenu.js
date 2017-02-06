@@ -34,14 +34,9 @@
 
     if (usuario.Owner.IdImagen >= 0) {
         var img = new VistaThumbnail({ id: usuario.Owner.IdImagen, contenedor: $("#foto_usuario_menu") });
-
-        
-
+        var img2 = new VistaThumbnail({ id: usuario.Owner.IdImagen, contenedor: $("#foto_usuario_icono") });
         $("#foto_usuario_menu").show();
         $("#foto_usuario_generica").hide();
-        $('#vista_thumbnail').css('position','initial');
-        $('#vista_thumbnail').css('top', '20px');
-        $('#vista_thumbnail').css('right', '20px');
     }
     else {
         $("#foto_usuario_menu").hide();
