@@ -1108,6 +1108,21 @@ var Legajo = {
             $('#legend_gestion').html("CONSULTAS HISTÓRICAS");
             _this.getConsultasTodas(0);
         });
+        $('#btn_notificaciones_creacion').click(function () {
+            $('#div_detalle_consulta').hide();
+            $('#tablaConsultas').show();
+            $('#legend_gestion').html("CONSULTAS HISTÓRICAS");
+            _this.getConsultasTodas(0);
+        });
+        $('#btn_notificaciones_historicas').click(function () {
+            $('#div_detalle_consulta').hide();
+            $('#tablaConsultas').show();
+            $('#legend_gestion').html("CONSULTAS HISTÓRICAS");
+            _this.getConsultasTodas(0);
+        });
+
+        
+
         $('#btn_consultas_pendientes').click();
     },
 

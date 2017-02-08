@@ -36,6 +36,10 @@
                 width: 150px; font-size: smaller;" value="CONSULTAS PENDIENTES" />
             <input id="btn_consultas_historicas" type="button" class="btn_gestion_consulta" style="margin: 10px;
                 width: 150px; font-size: smaller;" value="CONSULTAS HISTORICAS" />
+                  <input id="btn_notificaciones_creacion" type="button" class="btn_gestion_consulta" style="margin: 10px;
+                width: 150px; font-size: smaller;" value="CREAR NOTIFICACIONES" />
+                   <input id="btn_notificaciones_historicas" type="button" class="btn_gestion_consulta" style="margin: 10px;
+                width: 150px; font-size: smaller;" value="NOTIFICACIONES ENVIADAS" />
             <%-- <input id="Button3" type="button" class="btn_gestion_consulta" style="margin: 10px; width: 150px; font-size: smaller;"
                 value="PARAMETRIA" />
             <input id="Button4" type="button" class="btn_gestion_consulta" style="margin: 10px; width: 150px; font-size: smaller;"
