@@ -1,9 +1,10 @@
 ﻿#barra_azul
 {
-    height: 40px;
+    height: 50px;
     width: 100%;
     background-color: rgb(25, 75, 180);
     border-top: solid white;
+    border-bottom: solid white;
 }
 
 #barra_menu_contenedor
@@ -25,25 +26,29 @@
 #img_logo_sistema
 {
     position: absolute;
-    top: 14px;
-    left: 15px; /*float:left;*/
+    top: 50%;
+    right: 97%;
+    height: 175%;
+    /*float:left;*/
 }
 
 #img_logo_minis
 {
     position: absolute;
-    top: 17px;
-    right: 70px;
-    float: right;
+    top: 74%;
+    right: 8%;
+    /* height: 101%; */
+    /* float: right; */
 }
 
 #img_logo_direccion
 {
     /*z-index: 2000;*/
     position: absolute;
-    top: 19px;
-    right: 230px;
-    float: right;
+    height: 100%;
+    top: 80%;
+    left: 99%;
+    /* float: right; */
 }
 
 
@@ -65,7 +70,7 @@
 {
     width: 100%;
     background-color: #00001c;
-    height: 69px;
+    height: 80px;
 }
 
 #contenedor_barraInferior

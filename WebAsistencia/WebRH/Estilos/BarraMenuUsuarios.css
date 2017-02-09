@@ -1,10 +1,10 @@
 #foto_usuario_icono
 {
-    height: 60px;
-    width: 60px;
+    height: 62px;
+    width: 62px;
     position: absolute;
     right: 20px;
-    top: 61px;
+    top: 75px;
     cursor: pointer;
 }
 
@@ -24,7 +24,7 @@
 .menu_usuario
 {
     position: absolute;
-    top: 125px;
+    top: 140px;
     width: 265px;
     height: 422px;
     background-color: white;
@@ -35,13 +35,13 @@
 #contenedor_menu_cuadrados
 {
         right: 7% !important;
-    width: 20%;
-    height: auto;
-    padding: 2%;
-    /* display: inline-block !important; */
-    float: left;
-    z-index: 9999;
-    border-radius: 40px;
+        width: 20%;
+        height: auto;
+        padding: 2%;
+        /* display: inline-block !important; */
+        float: left;
+        z-index: 9999;
+        border-radius: 40px;
 }
 
 .sombrita
@@ -158,29 +158,33 @@
 
 #menu_cuadrados
 {
-    height: 24px;
+    height: 26px;
+    width: 30px;
     position: absolute;
     right: 100px;
-    top: 79px;
+    top: 90px;
     cursor: pointer;
 }
 
 #menu_mensajes
 {
-    height: 41px;
     position: absolute;
-    right: 140px;
-    top: 68px;
+    left: 0px;
+    height: 100%;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
     cursor: pointer;
+    /* background-size: 100%; */
 }
 
 
 #home_imagen
 {
-    height: 36px;
+    height: 40px;
     position: absolute;
-    left: 20px;
-    top: 73px;
+    left: 15px;
+    top: 86px;
 }
 
 #contenedor_menu_mensajes
@@ -239,4 +243,15 @@ margin-bottom: 5px;
     box-shadow: 3px 13px 10px rgba(0,0,0,0.7) !important;
     -webkit-box-shadow: 3px 13px 10px rgba(0,0,0,0.7);
     -moz-box-shadow: 3px 13px 10px rgba(0,0,0,0.7);    
+    }
+
+#contenedor_imagen_mensajes
+{
+    height: 48px;
+    width: 50px;
+    position: absolute;
+    right: 145px;
+    top: 76px;
+    cursor: pointer;
+    background-size: 100%;
     }

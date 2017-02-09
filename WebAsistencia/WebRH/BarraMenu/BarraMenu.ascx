@@ -52,8 +52,8 @@
             <div id="info_usuario">
                 <button id="cambiar-email_usuario" type="button" class="btn barra_menu_botones sombrita-iconos">
                     Modificar correo</button>
-                <%--<button id="cambiar-constrasena_usuario" type="button" class="btn btn-info datos_usuario">
-                    Modificar contraseña </button>--%>
+                    <%--<button id="cambiar-constrasena_usuario" type="button" class="btn btn-info datos_usuario">
+                        Modificar contraseña </button>--%>
                     <a id="go" rel="leanModal" class="btn barra_menu_botones sombrita-iconos" name="signup" href="#signup">
                     Cambiar Contraseña</a>
                     <uc5:FormPassword ID="FormPassword" runat="server" />
@@ -68,7 +68,7 @@
         </div>
         <div id="contenedor_menu_cuadrados" class="menu_usuario sombrita" style="display: none;">
 
-            <a  href="../SACC/Inicio.aspx">
+         <%--   <a  href="../SACC/Inicio.aspx">
                 <img class="borde-circular" src="../MenuPrincipal/macc.png"></a>
             <a href="../SACC/Inicio.aspx">
             <img class="borde-circular" src="../MenuPrincipal/mau.png">
@@ -91,7 +91,7 @@
             </a>
             <a  href="../SeleccionDeArea.aspx">
             <img class="borde-circular" src="../MenuPrincipal/Administración_de_Areas.png">
-             </a>
+             </a>--%>
         </div>
         <div id="contenedor_imagen_mensajes">
             <img src="<%= UrlImagenes %>mensajes-icono.png" id="menu_mensajes" alt="fotousuariomenu" />
