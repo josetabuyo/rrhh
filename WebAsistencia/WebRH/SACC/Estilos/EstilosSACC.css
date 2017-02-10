@@ -137,6 +137,7 @@ text-align: right;
   background-image: none;
   background-repeat: no-repeat;
   filter: none;
+      margin-top: 24px;
 }
 
 .navbar .nav > li > a {
@@ -197,6 +198,7 @@ text-align: right;
     
      .estilo_formulario 
     {
+        
         height:550px;
         /*margin-left: 10px;*/
         margin-bottom:10px; 

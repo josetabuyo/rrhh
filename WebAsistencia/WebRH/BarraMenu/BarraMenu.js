@@ -20,7 +20,7 @@
                 //                modulito.text(item.NombreItem);
                 var imagen = $('<img>');
                 imagen.attr('src', '../MenuPrincipal/' + item.NombreItem.replace(/ /g, '_') + '.png');
-                imagen.attr('class', 'sombrita');
+                imagen.attr('class', 'redondeo-modulos');
                 imagen.attr('style', 'margin: 5px;');
                 modulito.append(imagen);
                 $('#contenedor_menu_cuadrados').append(modulito);
@@ -30,6 +30,8 @@
             }
 
         });
+
+
 
 
         Backend.GetUsuarioLogueado().onSuccess(function (usuario) {
@@ -66,22 +68,72 @@
                 $("#foto_usuario_generica").show();
             }
 
+            var validateEmail = function (mail) {
+                if (mail == '' || mail == null) {
+                    return false;
+                }
+                var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                return re.test(mail);
+            }
+
+            var levantar_prompt = function () {
+                alertify.prompt("Ingrese su mail",
+                "Para continuar debe ingresar una dirección de correo válida",
+                "",
+                function (ev, mail) {
+                    if (validateEmail(email)) {
+                        Backend.ModificarMiMail(mail)
+                        .onSuccess(function (ok) {
+                            if (ok) {
+                                alertify.success("Mail modificado correctamente");
+                            } else {
+                                alertify.error("Error al modificar el mail");
+                            }
+
+                        })
+                        .onError(function () {
+
+                            alertify.error("Error al modificar el mail");
+                            levantar_prompt();
+                        });
+                    }
+                    else {
+                        alertify.error("Mail no valido");
+                    }
+                },
+                function () {
+                    setTimeout(function () { levantar_prompt(); }, 100);
+                });
+            }
+
+
 
             $('#cambiar-email_usuario').click(function () {
-                alertify.prompt(' ', 'Ingrese el mail del usuario', ''
-               , function (evt, value) {
+                alertify.prompt(' ',
+                'Ingrese el mail del usuario',
+                 '',
+                    function (evt, value) {
+                        if (validateEmail(value)) {
+                            Backend.ModificarMailRegistro(usuario.Id, value)
+                        .onSuccess(function () {
 
-                   Backend.ModificarMailRegistro(usuario.Id, value).onSuccess(function () {
+                            alertify.success("Se ha modificado correctamente su mail");
+                            alertify.prompt().close();
+                            $('#email_user').text(value);
 
-                       alertify.success("Se ha modificado correctamente su mail");
-                       alertify.prompt().close();
-                       $('#email_user').text(value);
-                   }).onError(function () {
-                       alertify.error("Error al modificar el mail");
-                       alertify.prompt().close();
-                   });
-               }
+                        })
+                        .onError(function () {
+                            alertify.error("Error al modificar el mail");
+                            alertify.prompt().close();
+                        });
+                        }
+                    else {
+                        alertify.error("Los datos ingresados no corresponden a un mail válido. Inténtelo nuevamente");
+                        }
+                    }
+
                , function () {
+
                });
 
             });

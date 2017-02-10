@@ -33,6 +33,7 @@
             <img src="<%= UrlImagenes %>portal/portal_empleado.png" id="foto_usuario_icono" alt="fotouser" />
         </div>
         <div id="contenedor_menu_usuarios" class="menu_usuario sombrita" style="display: none;">
+        <div class="flechita"></div>
              <div id="foto_usuario_menu" class="foto_menu_estilo">                        
                     </div>
                     <img id="foto_usuario_generica" src="<%= UrlImagenes %>portal/portal_empleado.png" alt="fotousuariogenerica" class="foto_menu_estilo" />
@@ -64,40 +65,17 @@
             </div>
         </div>
         <div id="contenedor_imagen_cuadrados" class="sombrita">
+        
             <img src="<%= UrlImagenes %>cuadraditos.png" id="menu_cuadrados" alt="fotousuariomenu" />
         </div>
         <div id="contenedor_menu_cuadrados" class="menu_usuario sombrita" style="display: none;">
-
-         <%--   <a  href="../SACC/Inicio.aspx">
-                <img class="borde-circular" src="../MenuPrincipal/macc.png"></a>
-            <a href="../SACC/Inicio.aspx">
-            <img class="borde-circular" src="../MenuPrincipal/mau.png">
-            </a>
-            <a href="../SACC/Inicio.aspx">
-            <img class="borde-circular" src="../MenuPrincipal/mobi.png">
-            </a>
-              <a href="../MODI/Modi.aspx">
-            <img class="borde-circular" src="../MenuPrincipal/modi.png">
-                </a>
-                <a href="../SACC/Inicio.aspx">
-            <img class="borde-circular" src="../MenuPrincipal/Postular.png">
-             </a>
-
-              <a href="../SACC/Inicio.aspx">
-            <img class="borde-circular"  src="../MenuPrincipal/Reportes.png">
-            </a>
-            <a href="../SACC/Inicio.aspx">
-            <img class="borde-circular" src="../MenuPrincipal/Formularios.png">
-            </a>
-            <a  href="../SeleccionDeArea.aspx">
-            <img class="borde-circular" src="../MenuPrincipal/Administración_de_Areas.png">
-             </a>--%>
+        <div class="flechita"></div>
         </div>
         <div id="contenedor_imagen_mensajes">
             <img src="<%= UrlImagenes %>mensajes-icono.png" id="menu_mensajes" alt="fotousuariomenu" />
         </div>
         <div id="contenedor_menu_mensajes" class="menu_usuario" style="display: none;">
-
+         <div class="flechita"></div>
         <div class="contenedor_de_alertas_y_mensajes">
                 <div class="mensaje_alerta sombra-mensaje">
                 <p class="titulo_mensaje_alerta">Mensaje 1</p>
