@@ -1,6 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="GestionConsultas.aspx.cs"
-    Inherits="Portal_GestionConsultas" %>
-
+    Inherits="Portal_GestionConsultas" ValidateRequest="false"%>
 <%@ Register Src="~/BarraMenu/BarraMenu.ascx" TagName="BarraMenu" TagPrefix="uc2" %>
 <%@ Register Src="~/ConsultaIndividual.ascx" TagName="Consulta" TagPrefix="uc3" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -13,6 +12,8 @@
     <%= Referencias.Css("../")%>
     <%= Referencias.Javascript("../")%>
     <script type="text/javascript" src="../Scripts/ConversorDeFechas.js"></script>
+    <script type="text/javascript" src="editor.js"></script>
+    <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
     <link href="../scripts/vex-2.1.1/css/vex.css" rel="stylesheet">
     <link href="../scripts/vex-2.1.1/css/vex-theme-os.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../Reportes/Reportes.css" />
@@ -36,10 +37,10 @@
                 width: 150px; font-size: smaller;" value="CONSULTAS PENDIENTES" />
             <input id="btn_consultas_historicas" type="button" class="btn_gestion_consulta" style="margin: 10px;
                 width: 150px; font-size: smaller;" value="CONSULTAS HISTORICAS" />
-                  <input id="btn_notificaciones_creacion" type="button" class="btn_gestion_consulta" style="margin: 10px;
-                width: 150px; font-size: smaller;" value="CREAR NOTIFICACIONES" />
-                   <input id="btn_notificaciones_historicas" type="button" class="btn_gestion_consulta" style="margin: 10px;
-                width: 150px; font-size: smaller;" value="NOTIFICACIONES ENVIADAS" />
+            <input id="btn_notificaciones_creacion" type="button" class="btn_gestion_consulta"
+                style="margin: 10px; width: 150px; font-size: smaller;" value="CREAR NOTIFICACIONES" />
+            <input id="btn_notificaciones_historicas" type="button" class="btn_gestion_consulta"
+                style="margin: 10px; width: 150px; font-size: smaller;" value="NOTIFICACIONES ENVIADAS" />
             <%-- <input id="Button3" type="button" class="btn_gestion_consulta" style="margin: 10px; width: 150px; font-size: smaller;"
                 value="PARAMETRIA" />
             <input id="Button4" type="button" class="btn_gestion_consulta" style="margin: 10px; width: 150px; font-size: smaller;"
@@ -83,6 +84,19 @@
                     </div>
                 </div>
             </div>
+            <div id="notificaciones">
+                <div id="div_crear_nofificacion">
+                    <label>
+                        Documentos separados por ";"</label>
+                    <input id="input_documentos" style="width: 100%;" />
+                   
+                    <textarea name="editor1" id="editor1" rows="10" cols="80"> </textarea>
+                    <br />
+                    <button id="boton_grabar_notificacion" class="btn ">
+                        Grabar</button>
+                  
+                </div>
+            </div>
         </div>
     </div>
     </form>
@@ -91,7 +105,7 @@
             <h3 id="titulo_consulta" style="text-align: center;">
                 CONSULTA NÚMERO.</h3>
             <img id="btn_info_usuario" src="../Imagenes/detalle.png" style="width: 20px; height: 20px;
-                margin-left: 15px;cursor:pointer;" draggable="false"></div>
+                margin-left: 15px; cursor: pointer;" draggable="false"></div>
         <div id="div_chat" style="height: 310px; margin-top: -10px; overflow: scroll; overflow-x: hidden;">
             <div id="div_repreguntar" style="text-align: center; display: none;">
                 <textarea id="ta_repreguntar" placeholder="Ingrese su consulta aquí" maxlength="1000"

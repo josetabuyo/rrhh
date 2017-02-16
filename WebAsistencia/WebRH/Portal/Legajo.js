@@ -1090,6 +1090,8 @@ var Legajo = {
 
     getConsultasParaGestion: function () {
         var _this = this;
+        $('#consultas').show();
+        $('#notificaciones').hide();
         $('#btn_volver_consulta').click(function () {
             _this.VolverAConsulta();
         });
@@ -1098,20 +1100,27 @@ var Legajo = {
         });
         $('#btn_consultas_pendientes').click(function () {
             $('#div_detalle_consulta').hide();
+            $('#consultas').show();
+            $('#notificaciones').hide();
             $('#tablaConsultas').show();
             $('#legend_gestion').html("CONSULTAS PENDIENTES");
             _this.getConsultasTodas(6);
         });
         $('#btn_consultas_historicas').click(function () {
             $('#div_detalle_consulta').hide();
+            $('#consultas').show();
+            $('#notificaciones').hide();
             $('#tablaConsultas').show();
             $('#legend_gestion').html("CONSULTAS HISTÓRICAS");
             _this.getConsultasTodas(0);
         });
         $('#btn_notificaciones_creacion').click(function () {
-            $('#div_detalle_consulta').hide();
-            $('#tablaConsultas').show();
-            $('#legend_gestion').html("CONSULTAS HISTÓRICAS");
+            CKEDITOR.replace('editor1');
+            Editor.Inicializar();
+           
+            $('#consultas').hide();
+            $('#notificaciones').show();
+            $('#legend_gestion').html("CREAR NOTIFICACIÓN");
             _this.getConsultasTodas(0);
         });
         $('#btn_notificaciones_historicas').click(function () {
@@ -1121,7 +1130,7 @@ var Legajo = {
             _this.getConsultasTodas(0);
         });
 
-        
+
 
         $('#btn_consultas_pendientes').click();
     },
