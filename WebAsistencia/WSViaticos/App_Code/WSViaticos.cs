@@ -4573,6 +4573,12 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
 
+    [WebMethod]
+    public string EvalGetAgentesEvaluables()
+    {
+        return "hola";
+    }
+
 
     /*Excel Consulta Area DDJJ104*/
     [WebMethod]
