@@ -1,0 +1,38 @@
+25/02/2016 09:26:00 p.m. - ---------------------------------------------
+25/02/2016 09:26:00 p.m. - System.Web.HttpUnhandledException (0x80004005): Se produjo una excepción de tipo 'System.Web.HttpUnhandledException'. ---> System.ServiceModel.FaultException: System.Web.Services.Protocols.SoapException: El servidor no puede procesar la solicitud. ---> System.NullReferenceException: Referencia a objeto no establecida como instancia de un objeto.
+   en General.Articulador.<>c__DisplayClass15.<CalificacionDelCurso>b__14(Evaluacion e) en C:\Repositorios\FernandoAssembla\Git_SistemaWeb\rrhh2\rrhh\ProyectoNet\General\SACC\Articulador.cs:línea 226
+   en System.Collections.Generic.List`1.Find(Predicate`1 match)
+   en General.Articulador.CalificacionDelCurso(Curso curso, List`1 evaluaciones) en C:\Repositorios\FernandoAssembla\Git_SistemaWeb\rrhh2\rrhh\ProyectoNet\General\SACC\Articulador.cs:línea 226
+   en General.Articulador.EstadoDelAlumnoParaElCurso(Curso curso, List`1 evaluaciones) en C:\Repositorios\FernandoAssembla\Git_SistemaWeb\rrhh2\rrhh\ProyectoNet\General\SACC\Articulador.cs:línea 213
+   en WSViaticos.<>c__DisplayClass64.<GetCursosDelAlumno>b__62(Curso curso) en c:\Repositorios\FernandoAssembla\Git_SistemaWeb\rrhh2\rrhh\WebAsistencia\WSViaticos\App_Code\WSViaticos.cs:línea 1273
+   en System.Collections.Generic.List`1.ForEach(Action`1 action)
+   en WSViaticos.GetCursosDelAlumno(Int32 dni) en c:\Repositorios\FernandoAssembla\Git_SistemaWeb\rrhh2\rrhh\WebAsistencia\WSViaticos\App_Code\WSViaticos.cs:línea 1264
+   --- Fin del seguimiento de la pila de la excepción interna ---
+
+Server stack trace: 
+   en System.ServiceModel.Channels.ServiceChannel.HandleReply(ProxyOperationRuntime operation, ProxyRpc& rpc)
+   en System.ServiceModel.Channels.ServiceChannel.Call(String action, Boolean oneway, ProxyOperationRuntime operation, Object[] ins, Object[] outs, TimeSpan timeout)
+   en System.ServiceModel.Channels.ServiceChannelProxy.InvokeService(IMethodCallMessage methodCall, ProxyOperationRuntime operation)
+   en System.ServiceModel.Channels.ServiceChannelProxy.Invoke(IMessage message)
+
+Exception rethrown at [0]: 
+   en System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+   en System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)
+   en WSViaticos.WSViaticosSoap.GetCursosDelAlumno(Int32 dni)
+   en WSViaticos.WSViaticosSoapClient.GetCursosDelAlumno(Int32 dni) en c:\Windows\Microsoft.NET\Framework\v4.0.30319\Temporary ASP.NET Files\webrh\936eec72\4a47507\App_WebReferences.ywvgrul9.0.cs:línea 14033
+   en SACC_FormDetalleDeAlumno.CargarGrilla() en c:\Repositorios\FernandoAssembla\Git_SistemaWeb\rrhh2\rrhh\WebAsistencia\WebRH\SACC\FormDetalleDeAlumno.aspx.cs:línea 39
+   en SACC_FormDetalleDeAlumno.Page_Load(Object sender, EventArgs e) en c:\Repositorios\FernandoAssembla\Git_SistemaWeb\rrhh2\rrhh\WebAsistencia\WebRH\SACC\FormDetalleDeAlumno.aspx.cs:línea 19
+   en System.Web.Util.CalliHelper.EventArgFunctionCaller(IntPtr fp, Object o, Object t, EventArgs e)
+   en System.Web.Util.CalliEventHandlerDelegateProxy.Callback(Object sender, EventArgs e)
+   en System.Web.UI.Control.OnLoad(EventArgs e)
+   en System.Web.UI.Control.LoadRecursive()
+   en System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+   en System.Web.UI.Page.HandleError(Exception e)
+   en System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+   en System.Web.UI.Page.ProcessRequest(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+   en System.Web.UI.Page.ProcessRequest()
+   en System.Web.UI.Page.ProcessRequestWithNoAssert(HttpContext context)
+   en System.Web.UI.Page.ProcessRequest(HttpContext context)
+   en ASP.sacc_formdetalledealumno_aspx.ProcessRequest(HttpContext context) en c:\Windows\Microsoft.NET\Framework\v4.0.30319\Temporary ASP.NET Files\webrh\936eec72\4a47507\App_Web_yttvmnaw.2.cs:línea 0
+   en System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   en System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
