@@ -39,6 +39,8 @@
         </div>
     </form>
 </body>
+<script type="text/javascript" src="ListadoAgentes.js"></script>
+<script type="text/javascript" src="../Scripts/Spin.js"></script>
 <script type="text/javascript" >
 
     $(document).ready(function ($) {

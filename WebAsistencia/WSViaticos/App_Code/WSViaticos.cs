@@ -52,6 +52,15 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
 
+    [WebMethod]
+    public string EvalGetAgentesEvaluables(Usuario usuario)
+    {
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        return repo.GetAgentesEvaluablesPor(usuario);
+        
+    }
+
+
     #region asistencia
 
     //INICIO: DDJJ 104 ---------------
@@ -4352,7 +4361,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string GetFormularioDeEvaluacion(int idNivel,int idEvaluacion, int idEvaluado, Usuario usuario)
     {
-        RepositorioEvaluacionDesempenio repositorio = RepositorioEvaluacionDesempenio.NuevoRepositorioDeLegajos(Conexion());
+        RepositorioEvaluacionDesempenio repositorio = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
         return repositorio.getFormularioDeEvaluacion(idNivel, idEvaluacion, idEvaluado);
     }
 
