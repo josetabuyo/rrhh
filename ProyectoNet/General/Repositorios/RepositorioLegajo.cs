@@ -163,7 +163,17 @@ namespace General.Repositorios
         }
         public void EnviarNotificacion(string notificacion, List<int> documentos, int usuario)
         {
-            var hola = "hola";
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@notificacion", notificacion);
+            parametros.Add("@id_creador", usuario);
+            conexion.EjecutarSinResultado("dbo.LEG_INSNotificacionTexto", parametros);
+
+            documentos.ForEach(d =>
+            {
+                parametros.Clear();
+                parametros.Add("@documento", d);
+                conexion.EjecutarSinResultado("dbo.LEG_INSNotificacionUsuario", parametros);
+            });
         }
 
         public string GetLiquidaciones(int anio, int mes, string cuil)
