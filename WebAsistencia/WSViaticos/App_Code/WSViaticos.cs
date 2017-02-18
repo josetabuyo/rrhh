@@ -52,6 +52,15 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
 
+    [WebMethod]
+    public string EvalGetAgentesEvaluables(Usuario usuario)
+    {
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        return repo.GetAgentesEvaluablesPor(usuario);
+        
+    }
+
+
     #region asistencia
 
     //INICIO: DDJJ 104 ---------------
@@ -4572,13 +4581,6 @@ public class WSViaticos : System.Web.Services.WebService
         }
 
     }
-
-    [WebMethod]
-    public string EvalGetAgentesEvaluables()
-    {
-        return "hola";
-    }
-
 
     /*Excel Consulta Area DDJJ104*/
     [WebMethod]

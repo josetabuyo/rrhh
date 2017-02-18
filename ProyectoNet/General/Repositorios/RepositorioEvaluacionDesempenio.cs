@@ -16,7 +16,7 @@ namespace General.Repositorios
             _conexion = conexion;
         }
 
-        public static RepositorioEvaluacionDesempenio NuevoRepositorioDeLegajos(IConexionBD conexion)
+        public static RepositorioEvaluacionDesempenio NuevoRepositorioEvaluacion(IConexionBD conexion)
         {
             if (!(_instancia != null)) _instancia = new RepositorioEvaluacionDesempenio(conexion);
             return _instancia;
@@ -25,6 +25,11 @@ namespace General.Repositorios
         public string getEvaluaciones(int doc)
         {
             return JsonConvert.SerializeObject("hola");
+        }
+
+        public string GetAgentesEvaluablesPor(MAU.Usuario usuario)
+        {
+            JsonConvert.SerializeObject("hola");
         }
     }
  
