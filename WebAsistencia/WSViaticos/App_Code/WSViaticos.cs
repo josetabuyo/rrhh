@@ -4162,6 +4162,12 @@ public class WSViaticos : System.Web.Services.WebService
 
         return repo.GetLiquidaciones(anio, mes, cuil);
     }
+    [WebMethod]
+    public void EnviarNotificacion(string notificacion, List<int> documentos, Usuario usuario)
+    {
+        RepositorioLegajo repo = RepoLegajo();
+        repo.EnviarNotificacion(notificacion, documentos, usuario.Owner.Id);
+    }
 
     [WebMethod]
     public string GetDesignaciones(Usuario usuario)

@@ -161,7 +161,10 @@ namespace General.Repositorios
             return JsonConvert.SerializeObject(list_de_examenes);
 
         }
-
+        public void EnviarNotificacion(string notificacion, List<int> documentos, int usuario)
+        {
+            var hola = "hola";
+        }
 
         public string GetLiquidaciones(int anio, int mes, string cuil)
         {
@@ -426,7 +429,7 @@ namespace General.Repositorios
                 tablaDatos.Rows.ForEach(row =>
                 {
                     Persona creador = new Persona(row.GetInt("id_usuario"), row.GetInt("NroDocumento"), row.GetString("nombre"), row.GetString("apellido"), area);
-                    Persona responsable = new Persona(row.GetInt("id_responsable", 0), row.GetInt("NroDocumentoResponsable",0), row.GetString("nombreResponsable", ""), row.GetString("apellidoResponsable",""), area);
+                    Persona responsable = new Persona(row.GetInt("id_responsable", 0), row.GetInt("NroDocumentoResponsable", 0), row.GetString("nombreResponsable", ""), row.GetString("apellidoResponsable", ""), area);
                     List<Respuesta> respuestas = new List<Respuesta>();
                     Consulta consulta = new Consulta(
                         row.GetLong("Id"),
@@ -468,7 +471,7 @@ namespace General.Repositorios
             var calificacion = 0;
             UpdateConsulta(id, respuesta, id_usuario, resumen, id_estado, leido, calificacion);
         }
-        public void CerrarConsulta(int id,  int calificacion, int id_usuario)
+        public void CerrarConsulta(int id, int calificacion, int id_usuario)
         {
             var respuesta = "";
             var resumen = "CONSULTA CERRADA";

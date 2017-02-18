@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="GestionConsultas.aspx.cs"
-    Inherits="Portal_GestionConsultas" ValidateRequest="false"%>
+    Inherits="Portal_GestionConsultas" ValidateRequest="false" %>
+
 <%@ Register Src="~/BarraMenu/BarraMenu.ascx" TagName="BarraMenu" TagPrefix="uc2" %>
 <%@ Register Src="~/ConsultaIndividual.ascx" TagName="Consulta" TagPrefix="uc3" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -89,12 +90,12 @@
                     <label>
                         Documentos separados por ";"</label>
                     <input id="input_documentos" style="width: 100%;" />
-                   
                     <textarea name="editor1" id="editor1" rows="10" cols="80"> </textarea>
                     <br />
                     <button id="boton_grabar_notificacion" class="btn ">
                         Grabar</button>
-                  
+                    <input id="boton_vista_previa" type="button" class="btn btn-primary" style="margin: 10px;
+                        width: 100px;" value="Vista Previa" />
                 </div>
             </div>
         </div>
@@ -150,7 +151,6 @@
 <script type="text/javascript" src="../Scripts/Spin.js"></script>
 <script type="text/javascript" src="../scripts/vex-2.1.1/js/vex.combined.min.js"></script>
 <script type="text/javascript">
-
     $(document).ready(function ($) {
         Backend.start(function () {
             Legajo.getConsultasParaGestion();
