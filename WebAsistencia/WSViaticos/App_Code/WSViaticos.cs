@@ -4347,6 +4347,16 @@ public class WSViaticos : System.Web.Services.WebService
 
     #endregion
 
+    #region EvaluacionesDesempenio
+
+    [WebMethod]
+    public string GetFormularioDeEvaluacion(int idNivel,int idEvaluacion, int idEvaluado, Usuario usuario)
+    {
+        RepositorioEvaluacionDesempenio repositorio = RepositorioEvaluacionDesempenio.NuevoRepositorioDeLegajos(Conexion());
+        return repositorio.getFormularioDeEvaluacion(idNivel, idEvaluacion, idEvaluado);
+    }
+
+    #endregion
 
     private RepositorioLicencias RepoLicencias()
     {
@@ -4571,12 +4581,6 @@ public class WSViaticos : System.Web.Services.WebService
             throw ex;
         }
 
-    }
-
-    [WebMethod]
-    public string EvalGetAgentesEvaluables()
-    {
-        return "hola";
     }
 
 
