@@ -29,7 +29,7 @@ namespace General.Repositorios
 
         public string GetAgentesEvaluablesPor(MAU.Usuario usuario)
         {
-            JsonConvert.SerializeObject("hola");
+            return JsonConvert.SerializeObject("hola");
         }
     }
  
