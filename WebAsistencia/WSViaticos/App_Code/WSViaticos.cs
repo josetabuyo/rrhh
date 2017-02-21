@@ -4365,6 +4365,23 @@ public class WSViaticos : System.Web.Services.WebService
         return repositorio.getFormularioDeEvaluacion(idNivel, idEvaluacion, idEvaluado);
     }
 
+    [WebMethod]
+    public string InsertarEvaluacion(int idEvaluado, int idEvaluador, int idFormulario, int periodo, string pregYRtas, Usuario usuario)
+    {
+        RepositorioEvaluacionDesempenio repositorio = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        var preguntasYRespuestas = JsonConvert.DeserializeObject(pregYRtas);
+
+        var criterio_deserializado = (JArray)JsonConvert.DeserializeObject(pregYRtas);
+
+        //int mesdesde = (int)((JValue)criterio_deserializado["mesdesde"]);
+
+        var item1 = preguntasYRespuestas;
+        var idEvaluacion = repositorio.insertarEvaluacion(idEvaluado, idEvaluador, idFormulario, periodo);
+       
+        //var rto = repositorio.insertarEvaluacionDetalle(idEvaluacion, 
+        return "asd";
+    }
+
     #endregion
 
     private RepositorioLicencias RepoLicencias()

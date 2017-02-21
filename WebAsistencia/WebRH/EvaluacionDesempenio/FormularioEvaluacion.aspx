@@ -8,6 +8,24 @@
     <title>Evaluación de Desempeño</title>
     <%= Referencias.Css("../")%>
     <%= Referencias.Javascript("../")%>
+    <style>
+.input_form 
+{
+    margin: 5px !important;
+}
+        
+.plantilla_form 
+{
+    margin: 20px;
+}
+
+.pregunta 
+{
+    font-size: large;
+    font-weight: bolder;
+}
+    
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -15,23 +33,33 @@
         UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" UrlPassword="../" />
 
     <div class="container-fluid">
-        <h1 style="text-align: center; margin: 30px;"></h1>
+    <div id="encabezado">
+        <div id="izq" style="width:60%; float:left;">
+            <h1 style="margin: 10px;">Formulario de Evaluación de Desempeño. Nivel:<span id="nivel">1. GERENCIAL</span> </h1>
+            <h3 style="margin: 10px;">Nombre Evaluado: <span id="nombre_evaluado">Fernando</span></h3>
+        </div>
+        <div id="der" style="width:30%; float:right; border:1px solid; text-align:center; margin: 30px;">
+            <h1>Puntaje</h1>
+            <h1 id="puntaje">Muy Alto</h1>
+        </div>
+    </div>
+        
         <div style="margin: 0 auto;" class="row">
-            <div class="caja_der papel">
-                <legend style="margin-top: 20px;">FORMULARIO EVALUACIÓN</legend>
+            <div class="">
+                <legend style="margin-top: 20px; text-align: center;">FORMULARIO EVALUACIÓN</legend>
                 <div id="contenedor">
                 
                 </div>
+                    <input id="btnGuardarFormulario" type="button" value="Guardar" class="btn btn-primary" />
                     
-                    
-                    <div id="plantilla" style="display:none;" >
+                    <div id="plantilla" class="plantilla_form" style="display:none; " >
                         <p class="pregunta"></p>
                         <div>
-                            <p><input type="checkbox" name="rta1" /><span class="rta1"></span></p>
-                            <p><input type="checkbox" name="rta1" /><span class="rta2"></span></p>
-                            <p><input type="checkbox" name="rta1" /><span class="rta3"></span></p>
-                            <p><input type="checkbox" name="rta1" /><span class="rta4"></span></p>
-                            <p><input type="checkbox" name="rta1" /><span class="rta5"></span></p>
+                            <p><input type="checkbox" name="rta1" data-opcion="1" class="input_form" /><span class="rta1"></span></p>
+                            <p><input type="checkbox" name="rta1" data-opcion="2" class="input_form" /><span class="rta2"></span></p>
+                            <p><input type="checkbox" name="rta1" data-opcion="3" class="input_form" /><span class="rta3"></span></p>
+                            <p><input type="checkbox" name="rta1" data-opcion="4" class="input_form" /><span class="rta4"></span></p>
+                            <p><input type="checkbox" name="rta1" data-opcion="5" class="input_form" /><span class="rta5"></span></p>
                         </div>
                     </div>
                 </div>

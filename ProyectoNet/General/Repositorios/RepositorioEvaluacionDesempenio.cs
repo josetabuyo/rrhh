@@ -62,6 +62,35 @@ namespace General.Repositorios
         {
             return JsonConvert.SerializeObject("hola");
         }
+
+        public int insertarEvaluacion(int idEvaluado, int idEvaluador, int idFormulario, int periodo)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_evaluacion", 0);
+            parametros.Add("@id_evaluador", idEvaluador);
+            parametros.Add("@id_evaluado", idEvaluado);
+            parametros.Add("@id_formulario", idFormulario);
+            parametros.Add("@id_periodo", periodo);
+            parametros.Add("@estado", 0);
+            parametros.Add("@baja", 0);
+            //parametros.Add("@fecha", DateTime());
+            
+
+            return (int)_conexion.EjecutarEscalar("dbo.EVAL_INS_Evaluacion", parametros);
+            
+        }
+
+        public string insertarEvaluacionDetalle(int idEvaluacion, int idPregunta, int opcion)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_evaluacion", idEvaluacion);
+            parametros.Add("@id_pregunta", idPregunta);
+            parametros.Add("@opcion_elegida", opcion);
+
+
+            return _conexion.EjecutarEscalar("dbo.EVAL_INS_Evaluacion_Detalle", parametros).ToString();
+
+        }
     }
  
 }
