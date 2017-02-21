@@ -11,26 +11,29 @@ namespace General
         public int Id;
         public Persona creador;
         public DateTime fechaCreacion;
+        public string titulo;
         public string texto;
         public List<Destinatario> destinatarios;
         public bool leido;
 
         public Notificacion() { }
 
-        public Notificacion(int id, Persona creador, DateTime fechaCreacion, string texto, List<Destinatario> destinatarios)
+        public Notificacion(int id, Persona creador, DateTime fechaCreacion, string titulo, string texto, List<Destinatario> destinatarios)
         {
             this.Id = id;
             this.creador = creador;
             this.fechaCreacion = fechaCreacion;
             this.texto = texto;
+            this.titulo = titulo;
             this.destinatarios = destinatarios;
         }
-        public Notificacion(int id, Persona creador, DateTime fechaCreacion, string texto, List<Destinatario> destinatarios, bool leido)
+        public Notificacion(int id, Persona creador, DateTime fechaCreacion, string titulo, string texto, List<Destinatario> destinatarios, bool leido)
         {
             this.Id = id;
             this.creador = creador;
             this.fechaCreacion = fechaCreacion;
             this.texto = texto;
+            this.titulo = titulo;
             this.leido = leido;
         }
     }

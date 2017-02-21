@@ -30,7 +30,8 @@
         var data = CKEDITOR.instances.editor1.getData();
         localStorage.setItem("notificacion_html", data);
         var documentos = this.ObtenerListadoDeDocumentos();
-        Backend.EnviarNotificacion(data, documentos)
+        var titulo = this.ObtenerTitulo();
+        Backend.EnviarNotificacion(data, documentos, titulo)
             .onSuccess(function () {
                 alert("Notificación Guardada Correctamente")
             })
@@ -38,7 +39,12 @@
                 alert("Error al guardar la notificación")
             });
     },
-
+    ObtenerTitulo: function () {
+        if ($("#input_titulo").val() == "") {
+            return "Notificación de Recursos Humanos"
+        }
+        return $("#input_titulo").val();
+    },
     ObtenerListadoDeDocumentos: function () {
         var resultado = [];
         var listado = $("#input_documentos").val();

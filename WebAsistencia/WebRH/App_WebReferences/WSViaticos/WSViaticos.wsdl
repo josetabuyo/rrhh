@@ -1682,6 +1682,7 @@
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="notificacion" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="documentos" type="tns:ArrayOfInt" />
+            <s:element minOccurs="0" maxOccurs="1" name="titulo" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
@@ -1789,6 +1790,17 @@
         </s:complexType>
       </s:element>
       <s:element name="MarcarConsultaComoLeidaResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="MarcarNotificacionComoLeida">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MarcarNotificacionComoLeidaResponse">
         <s:complexType />
       </s:element>
       <s:element name="GetDetalleDeConsulta">
@@ -6899,6 +6911,12 @@
   <wsdl:message name="MarcarConsultaComoLeidaSoapOut">
     <wsdl:part name="parameters" element="tns:MarcarConsultaComoLeidaResponse" />
   </wsdl:message>
+  <wsdl:message name="MarcarNotificacionComoLeidaSoapIn">
+    <wsdl:part name="parameters" element="tns:MarcarNotificacionComoLeida" />
+  </wsdl:message>
+  <wsdl:message name="MarcarNotificacionComoLeidaSoapOut">
+    <wsdl:part name="parameters" element="tns:MarcarNotificacionComoLeidaResponse" />
+  </wsdl:message>
   <wsdl:message name="GetDetalleDeConsultaSoapIn">
     <wsdl:part name="parameters" element="tns:GetDetalleDeConsulta" />
   </wsdl:message>
@@ -8664,6 +8682,10 @@
       <wsdl:input message="tns:MarcarConsultaComoLeidaSoapIn" />
       <wsdl:output message="tns:MarcarConsultaComoLeidaSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="MarcarNotificacionComoLeida">
+      <wsdl:input message="tns:MarcarNotificacionComoLeidaSoapIn" />
+      <wsdl:output message="tns:MarcarNotificacionComoLeidaSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetDetalleDeConsulta">
       <wsdl:input message="tns:GetDetalleDeConsultaSoapIn" />
       <wsdl:output message="tns:GetDetalleDeConsultaSoapOut" />
@@ -10254,6 +10276,15 @@
     </wsdl:operation>
     <wsdl:operation name="MarcarConsultaComoLeida">
       <soap:operation soapAction="http://wsviaticos.gov.ar/MarcarConsultaComoLeida" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MarcarNotificacionComoLeida">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/MarcarNotificacionComoLeida" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -13101,6 +13132,15 @@
     </wsdl:operation>
     <wsdl:operation name="MarcarConsultaComoLeida">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/MarcarConsultaComoLeida" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MarcarNotificacionComoLeida">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/MarcarNotificacionComoLeida" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

@@ -908,7 +908,7 @@ var Legajo = {
 
                     });
     },
-    getNotificaciones: function () {
+    GetNotificaciones: function () {
         var _this_original = this;
         Backend.GetNotificacionesDePortal()
                     .onSuccess(function (notificacionesJSON) {
@@ -916,6 +916,13 @@ var Legajo = {
                         if (notificacionesJSON != "") {
                             notificaciones = JSON.parse(notificacionesJSON);
                         }
+                        var contador = 0;
+                        for (var i = 0; i < notificaciones.length; i++) {
+                            if (!notificaciones[i].leido) {
+                                contador = contador + 1;
+                            }
+                        }
+                        $("#boton_notificaciones").text("Notificaciones (" + contador + ")");
                         //POP UP
                         $("#boton_notificaciones").click(function () {
                             vex.defaultOptions.className = 'vex-theme-os';
@@ -931,7 +938,8 @@ var Legajo = {
 
                                     columnas.push(new Columna("#", { generar: function (una_notificacion) { return una_notificacion.Id } }));
                                     columnas.push(new Columna("Fecha Creación", { generar: function (una_notificacion) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_notificacion.fechaCreacion) } }));
-                                    columnas.push(new Columna("Estado", { generar: function (una_notificacion) { if (una_notificacion.leida) {return "LEIDA"} return "NUEVA" } }));
+                                    columnas.push(new Columna("Título", { generar: function (una_notificacion) { return una_notificacion.titulo } }));
+                                    columnas.push(new Columna("Estado", { generar: function (una_notificacion) { if (una_notificacion.leido) { return "LEIDA" } return "NUEVA" } }));
                                     columnas.push(new Columna('Detalle', {
                                         generar: function (una_notificacion) {
                                             var btn_accion = $('<a>');
@@ -974,6 +982,8 @@ var Legajo = {
                     });
     },
     MostrarDetalleDeNotificacion: function (notificacion) {
+        Backend.MarcarNotificacionComoLeida(notificacion.Id).onSuccess(function () { }).onError(function (e) { });
+        this.GetNotificaciones();
         localStorage.setItem("notificacion_html", notificacion.texto);
         window.open('VistaPrevia.htm', '_blank');
     },

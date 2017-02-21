@@ -90,6 +90,10 @@
                     <label>
                         Documentos separados por ";"</label>
                     <input id="input_documentos" style="width: 100%;" />
+                     <label>
+                        Título</label>
+                    <input id="input_titulo" style="width: 100%;" />
+                    <br />
                     <textarea name="editor1" id="editor1" rows="10" cols="80"> </textarea>
                     <br />
                     <button id="boton_grabar_notificacion" class="btn ">

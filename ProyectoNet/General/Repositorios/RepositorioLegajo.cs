@@ -161,10 +161,11 @@ namespace General.Repositorios
             return JsonConvert.SerializeObject(list_de_examenes);
 
         }
-        public void EnviarNotificacion(string notificacion, List<int> documentos, int usuario)
+        public void EnviarNotificacion(string notificacion, List<int> documentos, string titulo, int usuario)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@notificacion", notificacion);
+            parametros.Add("@titulo", titulo);
             parametros.Add("@id_creador", usuario);
             conexion.EjecutarSinResultado("dbo.LEG_INSNotificacionTexto", parametros);
 
@@ -420,6 +421,7 @@ namespace General.Repositorios
                         row.GetInt("Id"),
                         creador,
                         row.GetDateTime("fecha_creacion"),
+                        row.GetString("titulo"),
                         row.GetString("texto"),
                         destinatarios,
                         row.GetBoolean("leido"));
@@ -548,6 +550,13 @@ namespace General.Repositorios
             var parametros = new Dictionary<string, object>();
             parametros.Add("@Id_consulta", id_consulta);
             conexion.EjecutarSinResultado("dbo.LEG_UPDConsultaLeida2", parametros);
+        }
+        public void MarcarNotificacionComoLeida(int id, int documento)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id", id);
+            parametros.Add("@documento", documento);
+            conexion.EjecutarSinResultado("dbo.LEG_UPDNotificacionLeida", parametros);
         }
 
         public string GetDetalleDeConsulta(int id_consulta)

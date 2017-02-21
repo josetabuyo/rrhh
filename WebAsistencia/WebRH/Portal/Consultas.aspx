@@ -226,16 +226,11 @@
                 $("#btn_consultas_historicas_del_empleado").click();
             });
 
-
-
-
             Backend.start(function () {
                 Legajo.getNombre();
                 Legajo.getConsultas();
-                Legajo.getNotificaciones();
+                Legajo.GetNotificaciones();
                 Legajo.GetComboTipoConsulta(); //aca dentro bindeo el evento del boton realizar consulta
-
-
             });
         });
     });

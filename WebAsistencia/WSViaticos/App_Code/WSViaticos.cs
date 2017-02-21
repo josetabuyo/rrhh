@@ -4163,10 +4163,10 @@ public class WSViaticos : System.Web.Services.WebService
         return repo.GetLiquidaciones(anio, mes, cuil);
     }
     [WebMethod]
-    public void EnviarNotificacion(string notificacion, List<int> documentos, Usuario usuario)
+    public void EnviarNotificacion(string notificacion, List<int> documentos, string titulo, Usuario usuario)
     {
         RepositorioLegajo repo = RepoLegajo();
-        repo.EnviarNotificacion(notificacion, documentos, usuario.Owner.Id);
+        repo.EnviarNotificacion(notificacion, documentos, titulo, usuario.Owner.Id);
     }
 
     [WebMethod]
@@ -4239,6 +4239,11 @@ public class WSViaticos : System.Web.Services.WebService
     public void MarcarConsultaComoLeida(int id_consulta)
     {
         RepoLegajo().MarcarConsultaComoLeida(id_consulta);
+    }
+    [WebMethod]
+    public void MarcarNotificacionComoLeida(int id, Usuario usuario)
+    {
+        RepoLegajo().MarcarNotificacionComoLeida(id, usuario.Owner.Documento);
     }
 
     [WebMethod]
