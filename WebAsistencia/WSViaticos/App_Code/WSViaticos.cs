@@ -57,7 +57,6 @@ public class WSViaticos : System.Web.Services.WebService
     {
         var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
         return repo.GetAgentesEvaluablesPor(usuario);
-        
     }
 
 

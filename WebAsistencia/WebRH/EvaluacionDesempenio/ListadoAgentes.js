@@ -19,7 +19,10 @@ var ListadoAgentes = {
 
             var columnas = [];
 
+            columnas.push(new Columna("Dni", { generar: function (un_agente) { return un_agente.nro_documento } }));
+            columnas.push(new Columna("Apellido", { generar: function (un_agente) { return un_agente.apellido } }));
             columnas.push(new Columna("Nombre", { generar: function (un_agente) { return un_agente.nombre } }));
+            columnas.push(new Columna("Evaluacion", { generar: function (un_agente) { return "A Evaluar" } }));
             /*columnas.push(new Columna("Nivel", { generar: function (un_estudio) { return un_estudio.nombreDeNivel } }));
             columnas.push(new Columna("Institución", { generar: function (un_estudio) { return un_estudio.nombreUniversidad } }));
             columnas.push(new Columna("F. Egreso", { generar: function (un_estudio) {
@@ -28,6 +31,13 @@ var ListadoAgentes = {
                 return fecha[2] + "/" + fecha[1] + "/" + fecha[0];
             }
             }));*/
+
+            _this.Grilla = new Grilla(columnas);
+            _this.Grilla.SetOnRowClickEventHandler(function (un_agente) {  });
+            _this.Grilla.CambiarEstiloCabecera("estilo_tabla_portal");
+            _this.Grilla.CargarObjetos(agentes);
+            _this.Grilla.DibujarEn(divGrilla);
+            $('.table-hover').removeClass("table-hover");
 
         })
         .onError(function (e) {
