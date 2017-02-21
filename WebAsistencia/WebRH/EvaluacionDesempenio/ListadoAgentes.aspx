@@ -22,7 +22,6 @@
                 </div>
             </div>
         </div>
-    </div>
     </form>
 </body>
 <script type="text/javascript" src="ListadoAgentes.js"></script>

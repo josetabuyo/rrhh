@@ -2002,6 +2002,42 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetFormularioDeEvaluacion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idNivel" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="idEvaluacion" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="idEvaluado" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFormularioDeEvaluacionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetFormularioDeEvaluacionResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertarEvaluacion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idEvaluado" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="idEvaluador" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="idFormulario" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="periodo" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="pregYRtas" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertarEvaluacionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="InsertarEvaluacionResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="ElUsuarioLogueadoTienePermisosPara">
         <s:complexType>
           <s:sequence>
@@ -6959,6 +6995,18 @@
   <wsdl:message name="ExcelPlanificacionDotacionesSoapOut">
     <wsdl:part name="parameters" element="tns:ExcelPlanificacionDotacionesResponse" />
   </wsdl:message>
+  <wsdl:message name="GetFormularioDeEvaluacionSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFormularioDeEvaluacion" />
+  </wsdl:message>
+  <wsdl:message name="GetFormularioDeEvaluacionSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFormularioDeEvaluacionResponse" />
+  </wsdl:message>
+  <wsdl:message name="InsertarEvaluacionSoapIn">
+    <wsdl:part name="parameters" element="tns:InsertarEvaluacion" />
+  </wsdl:message>
+  <wsdl:message name="InsertarEvaluacionSoapOut">
+    <wsdl:part name="parameters" element="tns:InsertarEvaluacionResponse" />
+  </wsdl:message>
   <wsdl:message name="ElUsuarioLogueadoTienePermisosParaSoapIn">
     <wsdl:part name="parameters" element="tns:ElUsuarioLogueadoTienePermisosPara" />
   </wsdl:message>
@@ -8694,6 +8742,14 @@
       <wsdl:input message="tns:ExcelPlanificacionDotacionesSoapIn" />
       <wsdl:output message="tns:ExcelPlanificacionDotacionesSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetFormularioDeEvaluacion">
+      <wsdl:input message="tns:GetFormularioDeEvaluacionSoapIn" />
+      <wsdl:output message="tns:GetFormularioDeEvaluacionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertarEvaluacion">
+      <wsdl:input message="tns:InsertarEvaluacionSoapIn" />
+      <wsdl:output message="tns:InsertarEvaluacionSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="ElUsuarioLogueadoTienePermisosPara">
       <wsdl:input message="tns:ElUsuarioLogueadoTienePermisosParaSoapIn" />
       <wsdl:output message="tns:ElUsuarioLogueadoTienePermisosParaSoapOut" />
@@ -10340,6 +10396,24 @@
     </wsdl:operation>
     <wsdl:operation name="ExcelPlanificacionDotaciones">
       <soap:operation soapAction="http://wsviaticos.gov.ar/ExcelPlanificacionDotaciones" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFormularioDeEvaluacion">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetFormularioDeEvaluacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertarEvaluacion">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/InsertarEvaluacion" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -13178,6 +13252,24 @@
     </wsdl:operation>
     <wsdl:operation name="ExcelPlanificacionDotaciones">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/ExcelPlanificacionDotaciones" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFormularioDeEvaluacion">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetFormularioDeEvaluacion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertarEvaluacion">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/InsertarEvaluacion" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
