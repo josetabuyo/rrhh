@@ -908,6 +908,73 @@ var Legajo = {
 
                     });
     },
+    getNotificaciones: function () {
+        var _this_original = this;
+        Backend.GetNotificacionesDePortal()
+                    .onSuccess(function (notificacionesJSON) {
+                        var notificaciones = [];
+                        if (notificacionesJSON != "") {
+                            notificaciones = JSON.parse(notificacionesJSON);
+                        }
+                        //POP UP
+                        $("#boton_notificaciones").click(function () {
+                            vex.defaultOptions.className = 'vex-theme-os';
+                            vex.open({
+                                afterOpen: function ($vexContent) {
+                                    var ui = $("#pantalla_notificaciones").clone();
+                                    $vexContent.append(ui);
+                                    ui.show();
+                                    var _this = this;
+                                    ui.find("#table_notificaciones").empty();
+                                    var divGrilla_noleidas = ui.find("#table_notificaciones");
+                                    var columnas_noleidas = [];
+
+                                    columnas_noleidas.push(new Columna("#", { generar: function (una_consulta) { return una_consulta.Id } }));
+                                    columnas_noleidas.push(new Columna("Fecha Creación", { generar: function (una_consulta) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_consulta.fechaCreacion) } }));
+                                    columnas_noleidas.push(new Columna("Estado", { generar: function (una_consulta) { return una_consulta.tipo_consulta } }));
+                                    columnas_noleidas.push(new Columna('Detalle', {
+                                        generar: function (una_consulta) {
+                                            var btn_accion = $('<a>');
+                                            var img = $('<img>');
+                                            img.attr('src', '../Imagenes/detalle.png');
+                                            img.attr('width', '15px');
+                                            img.attr('height', '15px');
+                                            btn_accion.append(img);
+                                            btn_accion.click(function () {
+                                                _this_original.MostrarDetalleDeConsulta(una_consulta);
+                                            });
+                                            return btn_accion;
+                                        }
+                                    }));
+
+
+
+                                    _this.divGrilla_noleidas = new Grilla(columnas_noleidas);
+                                    _this.divGrilla_noleidas.CambiarEstiloCabecera("estilo_tabla_portal");
+                                    _this.divGrilla_noleidas.SetOnRowClickEventHandler(function (una_consulta) { });
+                                    _this.divGrilla_noleidas.CargarObjetos(_this_original.ConsultasNoLeidas(consultas));
+                                    _this.divGrilla_noleidas.DibujarEn(divGrilla_noleidas);
+
+                                    $('.table-hover').removeClass("table-hover");
+                                    return ui;
+                                },
+                                css: {
+                                    'padding-top': "4%",
+                                    'padding-bottom': "0%"
+                                },
+                                contentCSS: {
+                                    width: "80%",
+                                    height: "60%"
+                                }
+                            });
+
+                        });
+                      
+                    })
+                    .onError(function (e) {
+
+                    });
+    },
     ConvertirCalificacion: function (nota) {
         if (nota == 0) {
             return "";
@@ -1117,7 +1184,7 @@ var Legajo = {
         $('#btn_notificaciones_creacion').click(function () {
             CKEDITOR.replace('editor1');
             Editor.Inicializar();
-           
+
             $('#consultas').hide();
             $('#notificaciones').show();
             $('#legend_gestion').html("CREAR NOTIFICACIÓN");

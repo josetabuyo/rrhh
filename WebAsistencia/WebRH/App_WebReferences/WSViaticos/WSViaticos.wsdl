@@ -1717,6 +1717,20 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetNotificacionesDePortal">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetNotificacionesDePortalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetNotificacionesDePortalResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetConsultasTodasDePortal">
         <s:complexType>
           <s:sequence>
@@ -6849,6 +6863,12 @@
   <wsdl:message name="GetConsultasDePortalSoapOut">
     <wsdl:part name="parameters" element="tns:GetConsultasDePortalResponse" />
   </wsdl:message>
+  <wsdl:message name="GetNotificacionesDePortalSoapIn">
+    <wsdl:part name="parameters" element="tns:GetNotificacionesDePortal" />
+  </wsdl:message>
+  <wsdl:message name="GetNotificacionesDePortalSoapOut">
+    <wsdl:part name="parameters" element="tns:GetNotificacionesDePortalResponse" />
+  </wsdl:message>
   <wsdl:message name="GetConsultasTodasDePortalSoapIn">
     <wsdl:part name="parameters" element="tns:GetConsultasTodasDePortal" />
   </wsdl:message>
@@ -8620,6 +8640,10 @@
       <wsdl:input message="tns:GetConsultasDePortalSoapIn" />
       <wsdl:output message="tns:GetConsultasDePortalSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetNotificacionesDePortal">
+      <wsdl:input message="tns:GetNotificacionesDePortalSoapIn" />
+      <wsdl:output message="tns:GetNotificacionesDePortalSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetConsultasTodasDePortal">
       <wsdl:input message="tns:GetConsultasTodasDePortalSoapIn" />
       <wsdl:output message="tns:GetConsultasTodasDePortalSoapOut" />
@@ -10176,6 +10200,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetConsultasDePortal">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetConsultasDePortal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNotificacionesDePortal">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetNotificacionesDePortal" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -13014,6 +13047,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetConsultasDePortal">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetConsultasDePortal" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNotificacionesDePortal">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetNotificacionesDePortal" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

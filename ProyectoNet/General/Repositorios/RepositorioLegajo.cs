@@ -403,6 +403,37 @@ namespace General.Repositorios
 
         }
 
+        public string GetNotificacionesDePortal(int id_usuario)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@documento", id_usuario);
+            List<Notificacion> consultas = new List<Notificacion>();
+            var tablaDatos = conexion.Ejecutar("dbo.LEG_GETNotificaciones", parametros);
+            var area = new Area();
+            if (tablaDatos.Rows.Count > 0)
+            {
+                tablaDatos.Rows.ForEach(row =>
+                {
+                    Persona creador = new Persona(row.GetInt("id_usuario"), row.GetInt("NroDocumento"), row.GetString("nombre"), row.GetString("apellido"), area);
+                    List<Destinatario> destinatarios = new List<Destinatario>();
+                    Notificacion notificaciones = new Notificacion(
+                        row.GetInt("Id"),
+                        creador,
+                        row.GetDateTime("fecha_creacion"),
+                        row.GetString("texto"),
+                        destinatarios,
+                        row.GetBoolean("leido"));
+
+                    consultas.Add(notificaciones);
+
+                });
+
+            }
+
+            return JsonConvert.SerializeObject(consultas);
+
+        }
+
         public string GetConsultasDePortal(int id_usuario)
         {
             var parametros = new Dictionary<string, object>();

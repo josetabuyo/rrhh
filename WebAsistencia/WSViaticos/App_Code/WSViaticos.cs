@@ -4186,6 +4186,14 @@ public class WSViaticos : System.Web.Services.WebService
         return repo.GetConsultasDePortal(usuario.Owner.Id);
 
     }
+    [WebMethod]
+    public string GetNotificacionesDePortal(Usuario usuario)
+    {
+        RepositorioLegajo repo = RepoLegajo();
+
+        return repo.GetNotificacionesDePortal(usuario.Owner.Documento);
+
+    }
 
     [WebMethod]
     public string GetConsultasTodasDePortal(int estado)
