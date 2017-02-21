@@ -926,14 +926,14 @@ var Legajo = {
                                     ui.show();
                                     var _this = this;
                                     ui.find("#table_notificaciones").empty();
-                                    var divGrilla_noleidas = ui.find("#table_notificaciones");
-                                    var columnas_noleidas = [];
+                                    var divGrilla = ui.find("#table_notificaciones");
+                                    var columnas = [];
 
-                                    columnas_noleidas.push(new Columna("#", { generar: function (una_consulta) { return una_consulta.Id } }));
-                                    columnas_noleidas.push(new Columna("Fecha Creación", { generar: function (una_consulta) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_consulta.fechaCreacion) } }));
-                                    columnas_noleidas.push(new Columna("Estado", { generar: function (una_consulta) { return una_consulta.tipo_consulta } }));
-                                    columnas_noleidas.push(new Columna('Detalle', {
-                                        generar: function (una_consulta) {
+                                    columnas.push(new Columna("#", { generar: function (una_notificacion) { return una_notificacion.Id } }));
+                                    columnas.push(new Columna("Fecha Creación", { generar: function (una_notificacion) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_notificacion.fechaCreacion) } }));
+                                    columnas.push(new Columna("Estado", { generar: function (una_notificacion) { if (una_notificacion.leida) {return "LEIDA"} return "NUEVA" } }));
+                                    columnas.push(new Columna('Detalle', {
+                                        generar: function (una_notificacion) {
                                             var btn_accion = $('<a>');
                                             var img = $('<img>');
                                             img.attr('src', '../Imagenes/detalle.png');
@@ -941,19 +941,17 @@ var Legajo = {
                                             img.attr('height', '15px');
                                             btn_accion.append(img);
                                             btn_accion.click(function () {
-                                                _this_original.MostrarDetalleDeConsulta(una_consulta);
+                                                _this_original.MostrarDetalleDeNotificacion(una_notificacion);
                                             });
                                             return btn_accion;
                                         }
                                     }));
 
-
-
-                                    _this.divGrilla_noleidas = new Grilla(columnas_noleidas);
-                                    _this.divGrilla_noleidas.CambiarEstiloCabecera("estilo_tabla_portal");
-                                    _this.divGrilla_noleidas.SetOnRowClickEventHandler(function (una_consulta) { });
-                                    _this.divGrilla_noleidas.CargarObjetos(_this_original.ConsultasNoLeidas(consultas));
-                                    _this.divGrilla_noleidas.DibujarEn(divGrilla_noleidas);
+                                    _this.divGrilla = new Grilla(columnas);
+                                    _this.divGrilla.CambiarEstiloCabecera("estilo_tabla_portal");
+                                    _this.divGrilla.SetOnRowClickEventHandler(function (una_notificacion) { });
+                                    _this.divGrilla.CargarObjetos(notificaciones);
+                                    _this.divGrilla.DibujarEn(divGrilla);
 
                                     $('.table-hover').removeClass("table-hover");
                                     return ui;
@@ -969,11 +967,15 @@ var Legajo = {
                             });
 
                         });
-                      
+
                     })
                     .onError(function (e) {
 
                     });
+    },
+    MostrarDetalleDeNotificacion: function (notificacion) {
+        localStorage.setItem("notificacion_html", notificacion.texto);
+        window.open('VistaPrevia.htm', '_blank');
     },
     ConvertirCalificacion: function (nota) {
         if (nota == 0) {

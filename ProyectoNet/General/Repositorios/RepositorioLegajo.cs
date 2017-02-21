@@ -414,7 +414,7 @@ namespace General.Repositorios
             {
                 tablaDatos.Rows.ForEach(row =>
                 {
-                    Persona creador = new Persona(row.GetInt("id_usuario"), row.GetInt("NroDocumento"), row.GetString("nombre"), row.GetString("apellido"), area);
+                    Persona creador = new Persona(row.GetInt("id_usuario_creador"), 0, "", "", area);
                     List<Destinatario> destinatarios = new List<Destinatario>();
                     Notificacion notificaciones = new Notificacion(
                         row.GetInt("Id"),
