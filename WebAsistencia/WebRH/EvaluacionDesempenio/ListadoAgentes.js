@@ -23,17 +23,49 @@ var ListadoAgentes = {
             columnas.push(new Columna("Apellido", { generar: function (un_agente) { return un_agente.apellido } }));
             columnas.push(new Columna("Nombre", { generar: function (un_agente) { return un_agente.nombre } }));
             columnas.push(new Columna("Evaluacion", { generar: function (un_agente) { return "A Evaluar" } }));
-            /*columnas.push(new Columna("Nivel", { generar: function (un_estudio) { return un_estudio.nombreDeNivel } }));
-            columnas.push(new Columna("Institución", { generar: function (un_estudio) { return un_estudio.nombreUniversidad } }));
-            columnas.push(new Columna("F. Egreso", { generar: function (un_estudio) {
-            var fecha_sin_hora = un_estudio.fechaEgreso.split("T");
-            var fecha = fecha_sin_hora[0].split("-");
-            return fecha[2] + "/" + fecha[1] + "/" + fecha[0];
-            }
-            }));*/
+            columnas.push(new Columna('Accion', {
+                generar: function (un_agente) {
+                    var btn_accion = $('<a>');
+                    var img = $('<img>');
+                    img.attr('src', '../Imagenes/detalle.png');
+                    img.attr('width', '15px');
+                    img.attr('height', '15px');
+                    btn_accion.append(img);
+                    btn_accion.click(function () {
+                        localStorage.setItem("idPeriodo", un_agente.id_periodo);
+                        localStorage.setItem("idEvaluado", un_agente.id_evaluado);
+                        localStorage.setItem("idEvaluacion", un_agente.id_evaluacion);
+
+                        /*si nunca fue evaluado, no sabemos que nivel tiene, 
+                        hay que pedir al usuario que lo ingrese*/
+                        if (un_agente.id_nivel == "0") {
+                            vex.defaultOptions.className = 'vex-theme-os';
+                            vex.open({
+                                afterOpen: function ($vexContent) {
+                                    var ui = $("#div_niveles").clone();
+                                    $vexContent.append(ui);
+                                    ui.find("#btn_nivel").click(function () {
+                                        localStorage.setItem("idNivel", ui.find("#select_niveles").val());
+                                        window.location.href = 'FormularioEvaluacion.aspx';
+                                    });
+                                    ui.show();
+                                    return ui;
+                                },
+                                css: {
+                                    'padding-top': "4%",
+                                    'padding-bottom': "0%"
+                                }
+                            });
+                        } else {
+                            window.location.href = 'FormularioEvaluacion.aspx';
+                        }
+                    });
+                    return btn_accion;
+                }
+            }));
 
             _this.Grilla = new Grilla(columnas);
-            _this.Grilla.SetOnRowClickEventHandler(function (un_agente) {  });
+            _this.Grilla.SetOnRowClickEventHandler(function (un_agente) { });
             _this.Grilla.CambiarEstiloCabecera("estilo_tabla_portal");
             _this.Grilla.CargarObjetos(agentes);
             _this.Grilla.DibujarEn(divGrilla);

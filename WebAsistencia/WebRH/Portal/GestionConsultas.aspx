@@ -147,19 +147,6 @@
                     $vexContent.append(ui);
                     ui.show();
                     Legajo.getConsultaIndividual($('#nroDocumentoCreador').val(), ui);
-                    /*ui.find("#btn_enviar_consulta").click(function () {
-                    Backend.NuevaConsultaDePortal({
-                    id_tipo_consulta: ui.find("#cmb_tipo_consulta").val(),
-                    tipo_consulta: ui.find("#cmb_tipo_consulta option:selected").text(),
-                    motivo: ui.find("#txt_motivo_consulta").val()
-                    }).onSuccess(function (id_consulta) {
-                    alertify.success("Consulta enviada con éxito");
-                    vex.close();
-                    Legajo.getConsultas();
-                    }).onError(function (id_consulta) {
-                    alertify.error("Error al enviar consulta");
-                    });
-                    });*/
                     return ui;
                 },
                 css: {

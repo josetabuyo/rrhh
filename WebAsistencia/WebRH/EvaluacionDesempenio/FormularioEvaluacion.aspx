@@ -74,11 +74,10 @@
     $(document).ready(function ($) {
 
         // Retrieve
-        var nivel = 1;// localStorage.getItem("idNivel");
-        var periodo = 1;// localStorage.getItem("idPeriodo");
-        var evaluado = 1; //localStorage.getItem("idEvaluado");
-        var evaluacion = 1; //localStorage.getItem("idEvaluacion");
-
+        var nivel = localStorage.getItem("idNivel");
+        var periodo = localStorage.getItem("idPeriodo");
+        var evaluado = localStorage.getItem("idEvaluado");
+        var evaluacion = localStorage.getItem("idEvaluacion");
 
         Backend.start(function () {
             ListadoAgentes.getFormularioDeEvaluacion(nivel, evaluacion, evaluado);
