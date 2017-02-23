@@ -101,6 +101,12 @@
                     <input id="boton_vista_previa" type="button" class="btn btn-primary" style="margin: 10px;
                         width: 100px;" value="Vista Previa" />
                 </div>
+                <div id="div_notificaciones_enviadas">
+                <div id="tableNotificaciones" class="table table-striped table-bordered table-condensed">
+                </div>
+                <div id="tableNotificacionesUsuarios" class="table table-striped table-bordered table-condensed">
+                </div>
+                </div>
             </div>
         </div>
     </div>

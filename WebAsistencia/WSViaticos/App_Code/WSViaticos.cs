@@ -4205,6 +4205,15 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public string GetNotificacionesTodasDePortal()
+    {
+        RepositorioLegajo repo = RepoLegajo();
+
+        return repo.GetNotificacionesTodasDePortal();
+
+    }
+
+    [WebMethod]
     public string GetConsultasDePortalParaUnUsuario(int idUsuarioAConsultar)
     {
         RepositorioLegajo repo = RepoLegajo();
