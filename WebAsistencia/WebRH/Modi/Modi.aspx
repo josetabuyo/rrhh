@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Modi.aspx.cs"
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Modi.aspx.cs" Async="true"
     Inherits="AltaDeDocumento" EnableEventValidation="false" %>
 
 <%@ Register Src="~/BarraMenu/BarraMenu.ascx" TagName="BarraMenu" TagPrefix="uc2" %>

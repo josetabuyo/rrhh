@@ -67,21 +67,28 @@ namespace General.Modi
 
             var bytes_imagen = this.repo_archivos.GetArchivo(primera_fila.GetInt("id_archivo"));
 
-            var bytes = Convert.FromBase64String(bytes_imagen);
-            MemoryStream ms = new MemoryStream(bytes, 0,
-                bytes.Length);
+            if (bytes_imagen != "")
+            {
+                var bytes = Convert.FromBase64String(bytes_imagen);
+                MemoryStream ms = new MemoryStream(bytes, 0,
+                    bytes.Length);
 
-            ms.Write(bytes, 0, bytes.Length);
-            Image img = Image.FromStream(ms, true);
+                ms.Write(bytes, 0, bytes.Length);
+                Image img = Image.FromStream(ms, true);
 
-            //Image img;
-            //if (primera_fila.GetObject("bytes_imagen") is DBNull){
-            //    img = file_system.getImagenFromPath(ConfigurationManager.AppSettings["CarpetaDigitalizacion"] +id_imagen + ".jpg");
-            //}else{
-            //    img = primera_fila.GetImage("bytes_imagen");
-            //}
-            
-            imagen.SetImagen(img);
+                //Image img;
+                //if (primera_fila.GetObject("bytes_imagen") is DBNull){
+                //    img = file_system.getImagenFromPath(ConfigurationManager.AppSettings["CarpetaDigitalizacion"] +id_imagen + ".jpg");
+                //}else{
+                //    img = primera_fila.GetImage("bytes_imagen");
+                //}
+
+                imagen.SetImagen(img);
+            }
+            else
+            {
+                imagen.bytesImagen = "";
+            }
 
             if (!(primera_fila.GetObject("folio_doc") is DBNull))
             {

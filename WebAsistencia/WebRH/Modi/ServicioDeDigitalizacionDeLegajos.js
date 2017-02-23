@@ -34,18 +34,50 @@ ServicioDeDigitalizacionDeLegajos.prototype.asignarCategoriaADocumento = functio
 };
 
 ServicioDeDigitalizacionDeLegajos.prototype.getThumbnailPorId = function (id_imagen, alto, ancho, on_imagen_encontrada) {
-    this.proveedor_ajax.postearAUrl({ url: "GetThumbnailPorId",
-        data: {
+    var _this = this;
+    $.ajax({
+        url: "http://localhost:43414/AjaxWS.asmx/GetThumbnailPorId",
+        type: "POST",
+        data: JSON.stringify({
             id_imagen: id_imagen,
             alto: alto,
             ancho: ancho
-        },
-        success: function (imagen) {
-            on_imagen_encontrada(imagen);
+        }),
+        async: true,
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        success: function (respuestaJson) {
+            var imagen;
+            if (respuestaJson.hasOwnProperty('d')) {
+                imagen = JSON.parse(respuestaJson.d);
+            } else {
+                imagen = respuestaJson;
+            }
+            if (!imagen.bytesImagen) {
+                setTimeout(function () { _this.getThumbnailPorId(id_imagen, alto, ancho, on_imagen_encontrada); }, 100);
+            } else {
+                on_imagen_encontrada(imagen);
+            }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
+            console.log("error al postear a url:", XMLHttpRequest, textStatus, errorThrown);
+
         }
     });
+
+
+    //    this.proveedor_ajax.postearAUrl({ url: "GetThumbnailPorId",
+    //        data: {
+    //            id_imagen: id_imagen,
+    //            alto: alto,
+    //            ancho: ancho
+    //        },
+    //        success: function (imagen) {
+    //            on_imagen_encontrada(imagen);
+    //        },
+    //        error: function (XMLHttpRequest, textStatus, errorThrown) {
+    //        }
+    //    });
 };
 
 ServicioDeDigitalizacionDeLegajos.prototype.getImagenPorId = function (id_imagen, on_imagen_encontrada) {
@@ -173,3 +205,5 @@ ServicioDeDigitalizacionDeLegajos.prototype.agregarImagenAUnFolioDeUnLegajo = fu
         }
     });
 };
+
+var recibir = function (obje) { console.log(obje) };

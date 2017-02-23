@@ -5,7 +5,7 @@
 
 VistaDeImagen.prototype.start = function () {
     this.id = this.o.idImagen;
-    this.ui = $("#plantilla_ui_imagen").clone();
+    this.ui = $("#plantillas #plantilla_ui_imagen").clone();
     this.img_thumbnail = this.ui.find('#img_thumbnail');
     this.img_estatica = this.ui.find('#img_estatica');
     this.folioLegajo = this.o.numeroDeFolio || "";

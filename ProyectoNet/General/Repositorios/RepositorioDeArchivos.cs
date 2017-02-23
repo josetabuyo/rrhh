@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Timers;
+using System.IO;
 
 namespace General.Repositorios
 {
@@ -11,7 +13,7 @@ namespace General.Repositorios
 
         public RepositorioDeArchivos(IConexionBD una_conexion)
         {
-            this.conexion = una_conexion; 
+            this.conexion = una_conexion;
         }
 
         public int GuardarArchivo(string bytes_archivo)
@@ -41,8 +43,8 @@ namespace General.Repositorios
             }
             else
             {
-                return tabla_resultado.Rows[0].GetString("bytes_file");
-            }            
+                return tabla_resultado.Rows[0].GetString("bytes_file", "");
+            }
         }
 
         public string GetArchivoAsync(int id_archivo)
@@ -53,6 +55,31 @@ namespace General.Repositorios
             if (tabla_resultado.Rows.Count == 0) throw new Exception("no existe el archivo buscado");
 
             return tabla_resultado.Rows[0].GetString("bytes_file", "reintentar");
+        }
+
+        public void BajarArchivoAServer(int id_archivo)
+        {
+            var tmr = new Timer();
+            tmr.Interval = 500;
+            tmr.Elapsed += (sender, e) =>
+            {
+                try
+                {
+                    var bytes_file = GetArchivoAsync(id_archivo);
+                    if (bytes_file == "reintentar") return;
+                    byte[] imageBytes = Encoding.ASCII.GetBytes(bytes_file);
+                    FileStream fs = new FileStream(System.Web.HttpContext.Current.Server.MapPath("/CacheImagenes/") + id_archivo + ".jpg", FileMode.Create);
+                    fs.Write(imageBytes, 0, imageBytes.Count());
+                    fs.Close();
+                    tmr.Stop();
+                }
+                catch (Exception ex)
+                {
+                    tmr.Stop();
+                    throw ex;
+                }
+            };
+            tmr.Start();
         }
     }
 }

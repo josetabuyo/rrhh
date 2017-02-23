@@ -108,7 +108,7 @@ public class AjaxWS : System.Web.Services.WebService
     {
         var respuesta = backEndService.GetImagenPorId(id_imagen, usuarioLogueado);
         var respuestaSerializada = Newtonsoft.Json.JsonConvert.SerializeObject(respuesta);
-        return respuestaSerializada;
+        return "recibir(" + respuestaSerializada + ")";
     }
 
     [WebMethod(EnableSession = true)]

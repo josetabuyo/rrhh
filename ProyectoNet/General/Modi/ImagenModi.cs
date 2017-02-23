@@ -35,16 +35,22 @@ namespace General.Modi
 
         public ImagenModi GetThumbnail(int alto, int ancho)
         {
-            byte[] imageBytes = Convert.FromBase64String(this.bytesImagen);
-            MemoryStream ms = new MemoryStream(imageBytes, 0,
-                imageBytes.Length);
-
-            ms.Write(imageBytes, 0, imageBytes.Length);
-            Image image = Image.FromStream(ms, true);
-
             var imagen_ret = new ImagenModi();
             imagen_ret.nombre = this.nombre;
-            imagen_ret.SetImagen(FixedSize(image, ancho, alto));
+            if (this.bytesImagen != "")
+            {
+                byte[] imageBytes = Convert.FromBase64String(this.bytesImagen);
+                MemoryStream ms = new MemoryStream(imageBytes, 0,
+                    imageBytes.Length);
+
+                ms.Write(imageBytes, 0, imageBytes.Length);
+                Image image = Image.FromStream(ms, true);
+                imagen_ret.SetImagen(FixedSize(image, ancho, alto));
+            }
+            else
+            {
+                imagen_ret.bytesImagen = "";
+            }
             return imagen_ret;
         }
 

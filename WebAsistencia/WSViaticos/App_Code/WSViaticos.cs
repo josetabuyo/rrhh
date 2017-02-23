@@ -2572,6 +2572,13 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public string BajarArchivoAServer(int id_archivo, Usuario usuario)
+    {
+        RepoArchivos().BajarArchivoAServer(id_archivo);
+        return "ok";
+    }
+
+    [WebMethod]
     public int AsignarImagenAFolioDeLegajo(int id_imagen, int nro_folio, Usuario usuario)
     {
         if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 2)) throw (new Exception("El usuario no tiene permisos para MODI"));
@@ -4356,6 +4363,11 @@ public class WSViaticos : System.Web.Services.WebService
     private RepositorioDeAlumnos RepoAlumnos()
     {
         return new RepositorioDeAlumnos(Conexion(), RepositorioDeCursos(), RepoModalidades());
+    }
+
+    private RepositorioDeArchivos RepoArchivos()
+    {
+        return new RepositorioDeArchivos(Conexion());
     }
 
     private RepositorioDeModalidades RepoModalidades()
