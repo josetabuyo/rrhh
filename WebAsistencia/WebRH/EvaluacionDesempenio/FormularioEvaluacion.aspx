@@ -55,11 +55,11 @@
                     <div id="plantilla" class="plantilla_form" style="display:none; " >
                         <p class="pregunta"></p>
                         <div>
-                            <p><input type="checkbox" name="rta1" data-opcion="1" class="input_form" /><span class="rta1"></span></p>
-                            <p><input type="checkbox" name="rta1" data-opcion="2" class="input_form" /><span class="rta2"></span></p>
-                            <p><input type="checkbox" name="rta1" data-opcion="3" class="input_form" /><span class="rta3"></span></p>
-                            <p><input type="checkbox" name="rta1" data-opcion="4" class="input_form" /><span class="rta4"></span></p>
-                            <p><input type="checkbox" name="rta1" data-opcion="5" class="input_form" /><span class="rta5"></span></p>
+                            <p><input type="radio" name="rta1" data-opcion="1" class="input_form" /><span class="rta1"></span></p>
+                            <p><input type="radio" name="rta1" data-opcion="2" class="input_form" /><span class="rta2"></span></p>
+                            <p><input type="radio" name="rta1" data-opcion="3" class="input_form" /><span class="rta3"></span></p>
+                            <p><input type="radio" name="rta1" data-opcion="4" class="input_form" /><span class="rta4"></span></p>
+                            <p><input type="radio" name="rta1" data-opcion="5" class="input_form" /><span class="rta5"></span></p>
                         </div>
                     </div>
                 </div>

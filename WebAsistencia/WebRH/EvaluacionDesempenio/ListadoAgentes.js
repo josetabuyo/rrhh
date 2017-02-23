@@ -67,14 +67,19 @@ var ListadoAgentes = {
                 var idEvaluado = 1;
                 var periodo = 1;
 
-                var plantillas = $('.plantilla');
-
+                // var plantillas = $('.plantilla');
+                var radioButtonsChecked = $('#plantilla input:radio:checked');
+                console.log(radioButtonsChecked); 
+                /*
                 var pregYRtas = [
                         { idPregunta: 1, idRespuesta: 1 },
                         { idPregunta: 2, idRespuesta: 3 },
                         { idPregunta: 3, idRespuesta: 5 },
                         { idPregunta: 4, idRespuesta: 5 }
                       ];
+                */
+
+                var pregYRtas = [];
 
                 var jsonPregYRtas = JSON.stringify(pregYRtas);
 
