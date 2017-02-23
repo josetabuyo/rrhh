@@ -5,7 +5,11 @@
 
 #contenedor_principal_modi
 {
-    height:500px;
+    position: absolute;
+    top: 96px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
 }
 
 #ui_buscador_de_legajos
@@ -101,9 +105,14 @@
 }
 
 #ui_vista_de_resultados_de_legajos
-{
-    margin:10px;   
+{  
     transition: all .5s;
+    margin: 10px;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    left: 0px;
 }
 
 #lbl_titulo_imagenes_no_asignadas
@@ -130,8 +139,12 @@
 
 #panel_documentos
 {
-    max-height: 400px;
     overflow-y: auto;
+    position: absolute;
+    top: 161px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
 }
 
 .placeholder_sortable
