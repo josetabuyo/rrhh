@@ -167,12 +167,13 @@ namespace General.Repositorios
             parametros.Add("@notificacion", notificacion);
             parametros.Add("@titulo", titulo);
             parametros.Add("@id_creador", usuario);
-            conexion.EjecutarSinResultado("dbo.LEG_INSNotificacionTexto", parametros);
+            var id_notificacion = conexion.EjecutarEscalar("dbo.LEG_INSNotificacionTexto", parametros);
 
             documentos.ForEach(d =>
             {
                 parametros.Clear();
                 parametros.Add("@documento", d);
+                parametros.Add("@id_notificacion", id_notificacion);
                 conexion.EjecutarSinResultado("dbo.LEG_INSNotificacionUsuario", parametros);
             });
         }
