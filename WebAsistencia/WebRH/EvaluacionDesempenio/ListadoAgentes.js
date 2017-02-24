@@ -34,7 +34,7 @@ var ListadoAgentes = {
                     btn_accion.click(function () {
                         localStorage.setItem("idPeriodo", un_agente.id_periodo);
                         localStorage.setItem("idEvaluado", un_agente.id_evaluado);
-                        localStorage.setItem("idEvaluacion", un_agente.id_evaluacion);
+                        localStorage.setItem("idEvaluacion", 7);
 
                         /*si nunca fue evaluado, no sabemos que nivel tiene, 
                         hay que pedir al usuario que lo ingrese*/
@@ -99,33 +99,50 @@ var ListadoAgentes = {
                 plantilla.find(".rta4").text(value.Rta4);
                 plantilla.find(".rta5").text(value.Rta5);
 
+                plantilla.find(".input_form").attr('name', value.idPregunta);
+
+
+                if (value.OpcionElegida != 0) {
+                    plantilla.find('data-opcion=' + value.OpcionElegida).checked = true;
+                }
 
                 $('#contenedor').append(plantilla);
             });
 
             $('#btnGuardarFormulario').click(function () {
-                var idNivel = 1;
-                var idEvaluacion = 1;
-                var idEvaluado = 1;
-                var periodo = 1;
+                var nivel = localStorage.getItem("idNivel");
+                var periodo = localStorage.getItem("idPeriodo");
+                var evaluado = localStorage.getItem("idEvaluado");
+                var evaluacion = localStorage.getItem("idEvaluacion");
 
                 // var plantillas = $('.plantilla');
-                var radioButtonsChecked = $('#plantilla input:radio:checked');
-                console.log(radioButtonsChecked); 
-                /*
-                var pregYRtas = [
-                        { idPregunta: 1, idRespuesta: 1 },
-                        { idPregunta: 2, idRespuesta: 3 },
-                        { idPregunta: 3, idRespuesta: 5 },
-                        { idPregunta: 4, idRespuesta: 5 }
-                      ];
-                */
-
+                var radioButtonsChecked = $('.input_form:checked');
                 var pregYRtas = [];
 
-                var jsonPregYRtas = JSON.stringify(pregYRtas);
+                $.each(radioButtonsChecked, function (key, value) {
 
-                Backend.InsertarEvaluacion(idNivel, idEvaluacion, idEvaluado, periodo, jsonPregYRtas)
+                    pregYRtas.push(
+                                { idPregunta: parseInt(value.parentElement.parentElement.previousElementSibling.dataset.identificador),
+                                    idRespuesta: parseInt(value.dataset.opcion)
+                                }
+                            );
+                });
+
+                console.log(pregYRtas);
+                /*
+                var pregYRtas = [
+                { idPregunta: 1, idRespuesta: 1 },
+                { idPregunta: 2, idRespuesta: 3 },
+                { idPregunta: 3, idRespuesta: 5 },
+                { idPregunta: 4, idRespuesta: 5 }
+                ];
+                */
+
+
+
+                var jsonPregYRtas = JSON.stringify(pregYRtas);
+                //cambiar el 2do idEvaluado por idEvaluador
+                Backend.InsertarEvaluacion(idEvaluado, idEvaluado, idNivel, periodo, jsonPregYRtas)
                     .onSuccess(function (rto) {
                         spinner.stop();
                         //var form = JSON.parse(formularioJSON);

@@ -4361,7 +4361,7 @@ public class WSViaticos : System.Web.Services.WebService
     public string GetFormularioDeEvaluacion(int idNivel,int idEvaluacion, int idEvaluado, Usuario usuario)
     {
         RepositorioEvaluacionDesempenio repositorio = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
-        return repositorio.getFormularioDeEvaluacion(idNivel, idEvaluacion, idEvaluado);
+        return repositorio.getFormularioDeEvaluacion(idNivel, idEvaluado, idEvaluacion );
     }
 
     [WebMethod]
@@ -4371,14 +4371,27 @@ public class WSViaticos : System.Web.Services.WebService
         var preguntasYRespuestas = JsonConvert.DeserializeObject(pregYRtas);
 
         var criterio_deserializado = (JArray)JsonConvert.DeserializeObject(pregYRtas);
-
+        //var idPregunta = (int)criterio_deserializado[0].First.First;
+        //var idRespuesta = (int)criterio_deserializado[0].Last.Last;
         //int mesdesde = (int)((JValue)criterio_deserializado["mesdesde"]);
 
         var item1 = preguntasYRespuestas;
         var idEvaluacion = repositorio.insertarEvaluacion(idEvaluado, idEvaluador, idFormulario, periodo);
-       
-        //var rto = repositorio.insertarEvaluacionDetalle(idEvaluacion, 
-        return "asd";
+
+        //var idPregunta = (int)criterio_deserializado[0].First.First;
+        //var idRespuesta = (int)criterio_deserializado[0].Last.Last;
+
+        foreach (var item in criterio_deserializado)
+        {
+            int idPregunta = (int)item.First.First;
+            int idRespuesta = (int)item.Last.Last;
+
+            repositorio.insertarEvaluacionDetalle(idEvaluacion, idPregunta, idRespuesta);
+
+        }
+        
+
+        return "ok";
     }
 
     #endregion

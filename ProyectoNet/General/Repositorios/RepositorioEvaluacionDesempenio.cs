@@ -26,36 +26,70 @@ namespace General.Repositorios
         public string getFormularioDeEvaluacion(int nivel, int evaluado, int evaluacion)
         {
             var parametros = new Dictionary<string, object>();
-            parametros.Add("@id_formulario", nivel);
-            var tablaDatos = _conexion.Ejecutar("dbo.EVAL_GET_Formulario", parametros);
             var list_de_pregYRtas = new List<Object> { };
+            var tablaDatos = new TablaDeDatos();
 
-            if (tablaDatos.Rows.Count > 0)
+            if (evaluacion != 0)
             {
-                tablaDatos.Rows.ForEach(row =>
+                parametros.Add("@id_evaluacion", evaluacion);
+                tablaDatos = _conexion.Ejecutar("dbo.EVAL_GET_Evaluacion", parametros);
+
+                if (tablaDatos.Rows.Count > 0)
                 {
-                    list_de_pregYRtas.Add(new
+                    tablaDatos.Rows.ForEach(row =>
                     {
-                        Orden = row.GetSmallintAsInt("Orden", 0),
-                        idPregunta = row.GetSmallintAsInt("id_pregunta", 0),
-                        idConcepto = row.GetSmallintAsInt("id_concepto", 0),
-                        Enunciado = row.GetString("Enunciado", "Sin enunciado"),
-                        Factor = row.GetString("Factor", "0"),
-                        idNivel = row.GetSmallintAsInt("id_nivel", 0),
-                        DescripcionNivel = row.GetString("descripcion_nivel", "Sin información"),
-                        DetalleNivel = row.GetString("detalle_nivel", "Sin información"),
-                        Rta1 = row.GetString("Rpta1", "Sin información"),
-                        Rta2 = row.GetString("Rpta2", "Sin información"),
-                        Rta3 = row.GetString("Rpta3", "Sin información"),
-                        Rta4 = row.GetString("Rpta4", "Sin información"),
-                        Rta5 = row.GetString("Rpta5", "Sin información"),
-                        Concepto = row.GetString("concepto", "Sin información"),
+                        list_de_pregYRtas.Add(new
+                        {
+                            idPregunta = row.GetSmallintAsInt("id_pregunta", 0),
+                            Enunciado = row.GetString("Enunciado", "Sin enunciado"),
+                            Rta1 = row.GetString("Rpta1", "Sin información"),
+                            Rta2 = row.GetString("Rpta2", "Sin información"),
+                            Rta3 = row.GetString("Rpta3", "Sin información"),
+                            Rta4 = row.GetString("Rpta4", "Sin información"),
+                            Rta5 = row.GetString("Rpta5", "Sin información"),
+                            OpcionElegida = row.GetSmallintAsInt("opcion_elegida", 0)
 
+                        });
                     });
-                });
 
+                }
+            }
+            else
+            {
+
+                parametros.Add("@id_formulario", nivel);
+                tablaDatos = _conexion.Ejecutar("dbo.EVAL_GET_Formulario", parametros);
+
+                if (tablaDatos.Rows.Count > 0)
+                {
+                    tablaDatos.Rows.ForEach(row =>
+                    {
+                        list_de_pregYRtas.Add(new
+                        {
+                            Orden = row.GetSmallintAsInt("Orden", 0),
+                            idPregunta = row.GetSmallintAsInt("id_pregunta", 0),
+                            idConcepto = row.GetSmallintAsInt("id_concepto", 0),
+                            Enunciado = row.GetString("Enunciado", "Sin enunciado"),
+                            Factor = row.GetString("Factor", "0"),
+                            idNivel = row.GetSmallintAsInt("id_nivel", 0),
+                            DescripcionNivel = row.GetString("descripcion_nivel", "Sin información"),
+                            DetalleNivel = row.GetString("detalle_nivel", "Sin información"),
+                            Rta1 = row.GetString("Rpta1", "Sin información"),
+                            Rta2 = row.GetString("Rpta2", "Sin información"),
+                            Rta3 = row.GetString("Rpta3", "Sin información"),
+                            Rta4 = row.GetString("Rpta4", "Sin información"),
+                            Rta5 = row.GetString("Rpta5", "Sin información"),
+                            Concepto = row.GetString("concepto", "Sin información"),
+                            OpcionElegida = row.GetSmallintAsInt("opcion_elegida", 0)
+
+                        });
+                    });
+
+                }
             }
 
+            
+            
             return JsonConvert.SerializeObject(list_de_pregYRtas);
         }
 
@@ -116,15 +150,14 @@ namespace General.Repositorios
             
         }
 
-        public string insertarEvaluacionDetalle(int idEvaluacion, int idPregunta, int opcion)
+        public void insertarEvaluacionDetalle(int idEvaluacion, int idPregunta, int opcion)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_evaluacion", idEvaluacion);
             parametros.Add("@id_pregunta", idPregunta);
             parametros.Add("@opcion_elegida", opcion);
 
-
-            return _conexion.EjecutarEscalar("dbo.EVAL_INS_Evaluacion_Detalle", parametros).ToString();
+            _conexion.Ejecutar("dbo.EVAL_INS_Evaluacion_Detalle", parametros);
 
         }
     }
