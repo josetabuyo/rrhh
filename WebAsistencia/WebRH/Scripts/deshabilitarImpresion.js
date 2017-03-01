@@ -10,3 +10,7 @@
         $('body').removeClass('no_imprimible');
     });
 });
+function ImprimirPantalla() {
+    window.print();
+    alert("La Licencia quedó activada en el Sistema");
+};

@@ -43,17 +43,18 @@
                     resultar de tu interés.
                 </h4>
                 <h5 id="link_nuevos_mensajes" style="cursor: pointer; display: none; text-align: center;
-                    float: right; margin-top: -49px;">
-                    <p style="text-align: center; font-size: 13px; color: #1a8662;">
+                    float: left; margin-top: 8px; margin-left: 195px;">
+                    <p style="text-align: center; font-size: 13px; color: #1a8662; margin-top: 10px;">
                         Nuevos mensajes!</p>
                     <br />
-                    <img style="margin-top: -30px; width: 90px;" alt="icono" src="../Imagenes/portal/respuestas.gif" />
+                    <img style="margin-top: -14px; width: 40px;" alt="icono" src="../Imagenes/portal/respuestas.gif" />
                 </h5>
                 <div style="margin-top: 20px;">
                     <input id="btn_nueva_consulta" type="button" style="position: absolute; left: 25px;"
                         class="btn btn-primary boton_destellante" value="Realizar nueva consulta" />
-                    <a id="Button1" href="GestionConsultas.aspx" requierefuncionalidad="49" class="btn btn-primary"
-                        style="position: absolute; right: 25px;">Gestión de consultas</a>
+                    <a id="boton_notificaciones" class="btn btn-primary" style="margin-left: 20px;
+                        float: right;">Notificaciones</a> <a id="Button1" href="GestionConsultas.aspx" requierefuncionalidad="49"
+                            class="btn btn-primary" style="float: right;">Gestión de consultas </a>
                 </div>
             </div>
             <br />
@@ -149,7 +150,15 @@
         </select>
         <textarea id="txt_motivo_consulta" placeholder="Ingrese su consulta aquí" maxlength="1000"></textarea>
         <input id="btn_enviar_consulta" type="button" class="btn btn-primary" style="margin: auto;
-            display: block; width: 100px; height: 30px;margin-top:10px;padding-bottom: 25px;" value="ENVIAR" />
+            display: block; width: 100px; height: 30px; margin-top: 10px; padding-bottom: 25px;"
+            value="ENVIAR" />
+    </div>
+    <div id="pantalla_notificaciones" style="display: none">
+        <p style="font-size: xx-large; text-align: center; margin-top: 10px;">
+            Notificaciones</p>
+        <br />
+        <div id="table_notificaciones" class="table table-striped table-bordered table-condensed">
+        </div>
     </div>
     <div id="pantalla_consulta_ticket" style="display: none;">
         <h3 id="titulo_consulta" style="text-align: center;">
@@ -182,7 +191,8 @@
                 </li>
             </ol>
         </div>
-        <div id="contenedor_estrellas"></div>
+        <div id="contenedor_estrellas">
+        </div>
         <br />
         <div style="text-align: center; margin-top: -15px;">
             <input id="btn_pepreguntar" type="button" class="btn btn-primary" value="Repreguntar" />
@@ -216,15 +226,11 @@
                 $("#btn_consultas_historicas_del_empleado").click();
             });
 
-
-
-
             Backend.start(function () {
                 Legajo.getNombre();
                 Legajo.getConsultas();
+                Legajo.GetNotificaciones();
                 Legajo.GetComboTipoConsulta(); //aca dentro bindeo el evento del boton realizar consulta
-
-
             });
         });
     });

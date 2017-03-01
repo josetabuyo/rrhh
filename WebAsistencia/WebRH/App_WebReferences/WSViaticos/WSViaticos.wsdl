@@ -1677,6 +1677,19 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="EnviarNotificacion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="notificacion" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="documentos" type="tns:ArrayOfInt" />
+            <s:element minOccurs="0" maxOccurs="1" name="titulo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EnviarNotificacionResponse">
+        <s:complexType />
+      </s:element>
       <s:element name="GetDesignaciones">
         <s:complexType>
           <s:sequence>
@@ -1702,6 +1715,20 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="GetConsultasDePortalResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetNotificacionesDePortal">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetNotificacionesDePortalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetNotificacionesDePortalResult" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -1763,6 +1790,17 @@
         </s:complexType>
       </s:element>
       <s:element name="MarcarConsultaComoLeidaResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="MarcarNotificacionComoLeida">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MarcarNotificacionComoLeidaResponse">
         <s:complexType />
       </s:element>
       <s:element name="GetDetalleDeConsulta">
@@ -6819,6 +6857,12 @@
   <wsdl:message name="GetLiquidacionesSoapOut">
     <wsdl:part name="parameters" element="tns:GetLiquidacionesResponse" />
   </wsdl:message>
+  <wsdl:message name="EnviarNotificacionSoapIn">
+    <wsdl:part name="parameters" element="tns:EnviarNotificacion" />
+  </wsdl:message>
+  <wsdl:message name="EnviarNotificacionSoapOut">
+    <wsdl:part name="parameters" element="tns:EnviarNotificacionResponse" />
+  </wsdl:message>
   <wsdl:message name="GetDesignacionesSoapIn">
     <wsdl:part name="parameters" element="tns:GetDesignaciones" />
   </wsdl:message>
@@ -6830,6 +6874,12 @@
   </wsdl:message>
   <wsdl:message name="GetConsultasDePortalSoapOut">
     <wsdl:part name="parameters" element="tns:GetConsultasDePortalResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetNotificacionesDePortalSoapIn">
+    <wsdl:part name="parameters" element="tns:GetNotificacionesDePortal" />
+  </wsdl:message>
+  <wsdl:message name="GetNotificacionesDePortalSoapOut">
+    <wsdl:part name="parameters" element="tns:GetNotificacionesDePortalResponse" />
   </wsdl:message>
   <wsdl:message name="GetConsultasTodasDePortalSoapIn">
     <wsdl:part name="parameters" element="tns:GetConsultasTodasDePortal" />
@@ -6860,6 +6910,12 @@
   </wsdl:message>
   <wsdl:message name="MarcarConsultaComoLeidaSoapOut">
     <wsdl:part name="parameters" element="tns:MarcarConsultaComoLeidaResponse" />
+  </wsdl:message>
+  <wsdl:message name="MarcarNotificacionComoLeidaSoapIn">
+    <wsdl:part name="parameters" element="tns:MarcarNotificacionComoLeida" />
+  </wsdl:message>
+  <wsdl:message name="MarcarNotificacionComoLeidaSoapOut">
+    <wsdl:part name="parameters" element="tns:MarcarNotificacionComoLeidaResponse" />
   </wsdl:message>
   <wsdl:message name="GetDetalleDeConsultaSoapIn">
     <wsdl:part name="parameters" element="tns:GetDetalleDeConsulta" />
@@ -8590,6 +8646,10 @@
       <wsdl:input message="tns:GetLiquidacionesSoapIn" />
       <wsdl:output message="tns:GetLiquidacionesSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="EnviarNotificacion">
+      <wsdl:input message="tns:EnviarNotificacionSoapIn" />
+      <wsdl:output message="tns:EnviarNotificacionSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetDesignaciones">
       <wsdl:input message="tns:GetDesignacionesSoapIn" />
       <wsdl:output message="tns:GetDesignacionesSoapOut" />
@@ -8597,6 +8657,10 @@
     <wsdl:operation name="GetConsultasDePortal">
       <wsdl:input message="tns:GetConsultasDePortalSoapIn" />
       <wsdl:output message="tns:GetConsultasDePortalSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNotificacionesDePortal">
+      <wsdl:input message="tns:GetNotificacionesDePortalSoapIn" />
+      <wsdl:output message="tns:GetNotificacionesDePortalSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetConsultasTodasDePortal">
       <wsdl:input message="tns:GetConsultasTodasDePortalSoapIn" />
@@ -8617,6 +8681,10 @@
     <wsdl:operation name="MarcarConsultaComoLeida">
       <wsdl:input message="tns:MarcarConsultaComoLeidaSoapIn" />
       <wsdl:output message="tns:MarcarConsultaComoLeidaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="MarcarNotificacionComoLeida">
+      <wsdl:input message="tns:MarcarNotificacionComoLeidaSoapIn" />
+      <wsdl:output message="tns:MarcarNotificacionComoLeidaSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetDetalleDeConsulta">
       <wsdl:input message="tns:GetDetalleDeConsultaSoapIn" />
@@ -10134,6 +10202,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="EnviarNotificacion">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/EnviarNotificacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetDesignaciones">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetDesignaciones" style="document" />
       <wsdl:input>
@@ -10145,6 +10222,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetConsultasDePortal">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetConsultasDePortal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNotificacionesDePortal">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetNotificacionesDePortal" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -10190,6 +10276,15 @@
     </wsdl:operation>
     <wsdl:operation name="MarcarConsultaComoLeida">
       <soap:operation soapAction="http://wsviaticos.gov.ar/MarcarConsultaComoLeida" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MarcarNotificacionComoLeida">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/MarcarNotificacionComoLeida" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -12963,6 +13058,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="EnviarNotificacion">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/EnviarNotificacion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetDesignaciones">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetDesignaciones" style="document" />
       <wsdl:input>
@@ -12974,6 +13078,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetConsultasDePortal">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetConsultasDePortal" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNotificacionesDePortal">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetNotificacionesDePortal" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -13019,6 +13132,15 @@
     </wsdl:operation>
     <wsdl:operation name="MarcarConsultaComoLeida">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/MarcarConsultaComoLeida" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MarcarNotificacionComoLeida">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/MarcarNotificacionComoLeida" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
