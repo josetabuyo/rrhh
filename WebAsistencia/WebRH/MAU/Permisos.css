@@ -60,9 +60,9 @@
 {
     position: absolute;
     left:10px;
-    top:10px;
-    height:195px;
-    width:539px;
+    top: 35px;
+    width: 564px;
+    height: 235px;
 }
 
 #panel_inferior_izquierdo
@@ -70,19 +70,18 @@
     position: absolute;
     left:10px;
     bottom:10px;
-    top:236px;
-    width:539px;
-    height:initial;
+    top: 281px;
+    width: 565px;
+    height: 303px;
 }
 
 #panel_derecho
 {
     position: absolute;
     left:580px;
-    top:10px;
+    top: 35px;
     bottom:10px;
     right:10px;
-    height:initial;
 }
 
 #panel_datos_personales
@@ -99,7 +98,7 @@
     background-color: lavender;
     padding-top: 7px;
     top: 160px;
-    height: 70px;
+    height: 80px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     transition: all .3s ease-in-out;
@@ -173,6 +172,7 @@
     left:0px;
     right:0px;
     overflow-y:auto;
+    height: 203px;
 }
 
 #selector_area_administrada
@@ -190,7 +190,7 @@
 
 .area_administrada
 {
-    height: 30px;
+    height: 45px;
     border-radius:6px;
     padding:5px;
     background-color:lavender;
@@ -216,11 +216,12 @@
 
 .selector_areas
 {
-    margin:5px;
+    margin: 2px;
     position:absolute;
     bottom:5px;
     left: 5px;
     right: 5px;
+    /* margin-top: 0px; */
 }
 
 .selector_areas #buscador

@@ -9,9 +9,9 @@
 
 #barra_menu_contenedor
 {
-    height: 95px;
+    height: auto;
     margin-bottom: 18px;
-}
+    }
 
 #barra_menu_contenedor_imagen
 {

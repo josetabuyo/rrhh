@@ -112,13 +112,14 @@
 #contenedor_arbol_organigrama
 {
     display: inline-block;
-    width: 600px; 
+    width: 600px;
     float: left;
-    margin-left: 45px;
+    margin-left: 40px;
     background-color: #FCFCFC;
     border-radius: 0 5px 5px 5px;
     border-right: 1px solid #D5D5D5;
     padding-top: 20px;
+    margin-top: 20px;
 }
     
 
@@ -137,6 +138,7 @@
     font-size: initial;
     width: 135px !important;
     letter-spacing: 1px;
+    margin-top: 10px;
 }
 
 .btn_consulta_individual 

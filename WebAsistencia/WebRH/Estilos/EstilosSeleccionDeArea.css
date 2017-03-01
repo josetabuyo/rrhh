@@ -10,6 +10,13 @@ img
 {
     border:none;    
 }
+
+.acomodar_botones_del_menu
+{
+    margin-top: 2px;
+    }
+        
+
         
 .botoncitos
 {
@@ -132,9 +139,10 @@ img
 
 #btn_consultar_mis_inasistencias
 {
-    float: right;
-    margin-top:4px;
-    margin-right:4px;    
+    float: left;
+  /*  margin-top:4px;
+    margin-right:4px;*/
+  margin: 6px 5px 0px 0px !important
 }
 
 #btn_consultar_consulta_ddjj {
@@ -171,5 +179,5 @@ tbody tr:odd
     line-height: 36px;
     color: #333333;
     border: 0;
-    border-bottom: 1px solid #e5e5e5;
+    /*border-bottom: 1px solid #e5e5e5;*/
 }

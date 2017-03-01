@@ -18,7 +18,7 @@
             <div id="ContenedorPrincipal" class="contenedor_principal contenedor_principal_consulta_protocolo">            
                 <legend>
                     Listado de Áreas del Ministerio de Desarrollo Social de Nación                     
-                    <input type="text" id="search" class="search" placeholder="Buscar"/>     
+                    <input style="height:35px;" type="text" id="search" class="search" placeholder="Buscar"/>     
                 </legend>  
                 <div id="ContenedorPlanilla" runat="server">
  

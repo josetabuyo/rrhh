@@ -20,7 +20,7 @@
             <div id="ContenedorPrincipal" class="contenedor_principal contenedor_principal_consulta_protocolo">            
                 <legend>
                     Listado de Personas de mis Áreas a cargo                     
-                    <input type="text" id="search" class="search" placeholder="Buscar"/>     
+                    <input type="text" id="search" class="search" style="height: 32px !important" placeholder="Buscar"/>     
                 </legend>  
                 <div id="ContenedorPlanilla" runat="server">
  

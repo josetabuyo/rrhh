@@ -15,11 +15,11 @@
     <link href="../scripts/select2-3.4.4/select2.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
-    <form id="form1" runat="server">
+    <form id="form1" runat="server" style="margin: 0px !important;">
         <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:18px; font-weight: bold;'>M.A.U.</span> <br/> <span style='font-size:12px;'> Administración de Usuarios </span>" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" UrlPassword="../" />        
         <div id="administrador_usuarios">            
             <div id="panel_busqueda">
-                <div id="instrucciones_de_uso">Ingrese la persona que desea administrar --></div>
+                <div id="instrucciones_de_uso">Ingrese la persona que desea administrar</div>
                 <div id="selector_usuario" class="selector_personas">
                     <input id="buscador" type=hidden class="buscarPersona" />
                 </div>
@@ -51,7 +51,7 @@
                     </div>
                     <div id="panel_password">
                         <div class="linea linea_nombre_usuario">
-                            <div class="titulo">Nombre de Usuario:</div>
+                            <div class="titulo">Nombre de Usuario</div>
                             <div id="txt_nombre_usuario"> </div>  
                         </div>
                         <div class="linea linea_passwrd">
