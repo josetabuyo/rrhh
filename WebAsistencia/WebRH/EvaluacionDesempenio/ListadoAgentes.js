@@ -34,7 +34,12 @@ var ListadoAgentes = {
                     btn_accion.click(function () {
                         localStorage.setItem("idPeriodo", un_agente.id_periodo);
                         localStorage.setItem("idEvaluado", un_agente.id_evaluado);
-                        localStorage.setItem("idEvaluacion", 7);
+                        localStorage.setItem("idEvaluacion", un_agente.id_evaluacion);
+                        localStorage.setItem("apellido", un_agente.apellido);
+                        localStorage.setItem("nombre", un_agente.nombre);
+                        localStorage.setItem("apellido", un_agente.apellido);
+                        localStorage.setItem("descripcionPeriodo", un_agente.descripcion_periodo);
+                        localStorage.setItem("descripcionNivel", un_agente.descripcion_nivel);
 
                         /*si nunca fue evaluado, no sabemos que nivel tiene, 
                         hay que pedir al usuario que lo ingrese*/

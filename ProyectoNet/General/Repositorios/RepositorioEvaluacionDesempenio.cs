@@ -88,8 +88,8 @@ namespace General.Repositorios
                 }
             }
 
-            
-            
+
+
             return JsonConvert.SerializeObject(list_de_pregYRtas);
         }
 
@@ -98,36 +98,46 @@ namespace General.Repositorios
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_evaluador", usuario.Owner.Id);
             var tablaDatos = _conexion.Ejecutar("dbo.EVAL_GET_Evaluados_Evaluador", parametros);
-            
 
             var tipos_consultas = new List<Object> { };
 
             if (tablaDatos.Rows.Count > 0)
             {
+                var id_evaluado_anterior = 0;
                 tablaDatos.Rows.ForEach(row =>
-                tipos_consultas.Add(new
                 {
 
-                    id_evaluado = row.GetSmallintAsInt("id_evaluado"),
-                    apellido = row.GetString("apellido"),
-                    nombre = row.GetString("nombre"),
-                    nro_documento = row.GetInt("NroDocumento"),
-                    id_evaluacion = row.GetString("id_evaluacion", "0"),
-                    estado = row.GetString("estado_evaluacion",""),
-                    id_periodo = row.GetString("id_periodo", "0"),
-                    descripcion_periodo = row.GetString("descripcion_periodo", ""),
-                    id_nivel = row.GetString("id_nivel", "0"),
-                    id_pregunta = row.GetString("id_pregunta", "0"),
-                    orden_pregunta = row.GetString("orden_pregunta", "0"),
-                    enunciado = row.GetString("enunciado", ""),
-                    rpta1 = row.GetString("rpta1", ""),
-                    rpta2 = row.GetString("rpta2", ""),
-                    rpta3 = row.GetString("rpta3", ""),
-                    rpta4 = row.GetString("rpta4", ""),
-                    rpta5 = row.GetString("rpta5", "")
+                    //if (row.GetSmallintAsInt("id_evaluado") != id_evaluado_anterior)
+                    //{
+                        id_evaluado_anterior = row.GetSmallintAsInt("id_evaluado");
+                        tipos_consultas.Add(new
+                        {
 
-                })
-                );
+                            id_evaluado = id_evaluado_anterior,
+                            apellido = row.GetString("apellido"),
+                            nombre = row.GetString("nombre"),
+                            nro_documento = row.GetInt("NroDocumento"),
+                            id_evaluacion = row.GetInt("id_evaluacion", 0),
+                            estado = row.GetInt("estado_evaluacion", 0),
+                            id_periodo = row.GetInt("id_periodo", 0),
+                            descripcion_periodo = row.GetString("descripcion_periodo", ""),
+                            id_nivel = row.GetSmallintAsInt("id_nivel", 0),
+                            id_pregunta = row.GetSmallintAsInt("id_pregunta", 0),
+                            orden_pregunta = row.GetSmallintAsInt("orden_pregunta", 0),
+                            enunciado = row.GetString("enunciado", ""),
+                            descripcion_nivel = row.GetString("descripcion_nivel",""),
+                            rpta1 = row.GetString("rpta1", ""),
+                            rpta2 = row.GetString("rpta2", ""),
+                            rpta3 = row.GetString("rpta3", ""),
+                            rpta4 = row.GetString("rpta4", ""),
+                            rpta5 = row.GetString("rpta5", "")
+
+                        });
+                    //}
+                    //else
+                    {
+                    }
+                });
             }
 
             return JsonConvert.SerializeObject(tipos_consultas);
@@ -144,10 +154,10 @@ namespace General.Repositorios
             parametros.Add("@estado", 0);
             parametros.Add("@baja", 0);
             //parametros.Add("@fecha", DateTime());
-            
+
 
             return (int)_conexion.EjecutarEscalar("dbo.EVAL_INS_Evaluacion", parametros);
-            
+
         }
 
         public void insertarEvaluacionDetalle(int idEvaluacion, int idPregunta, int opcion)
@@ -169,5 +179,5 @@ namespace General.Repositorios
             _conexion.Ejecutar("dbo.EVAL_DEL_Evaluacion_Detalle", parametros);
         }
     }
- 
+
 }
