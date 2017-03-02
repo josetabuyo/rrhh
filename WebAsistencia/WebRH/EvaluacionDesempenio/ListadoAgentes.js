@@ -103,7 +103,8 @@ var ListadoAgentes = {
 
 
                 if (value.OpcionElegida != 0) {
-                    plantilla.find('data-opcion=' + value.OpcionElegida).checked = true;
+                    var element = plantilla.find('data-opcion=' + value.OpcionElegida);
+                    console.log(element);
                 }
 
                 $('#contenedor').append(plantilla);
