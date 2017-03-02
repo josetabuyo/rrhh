@@ -80,7 +80,7 @@ namespace General.Repositorios
                             Rta4 = row.GetString("Rpta4", "Sin información"),
                             Rta5 = row.GetString("Rpta5", "Sin información"),
                             Concepto = row.GetString("concepto", "Sin información"),
-                            OpcionElegida = row.GetSmallintAsInt("opcion_elegida", 0)
+                            OpcionElegida = 0
 
                         });
                     });
@@ -159,6 +159,14 @@ namespace General.Repositorios
 
             _conexion.Ejecutar("dbo.EVAL_INS_Evaluacion_Detalle", parametros);
 
+        }
+
+        public void deleteEvaluacionDetalle(int idEval)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_evaluacion", idEval);
+
+            _conexion.Ejecutar("dbo.EVAL_DEL_Evaluacion_Detalle", parametros);
         }
     }
  

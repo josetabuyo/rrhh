@@ -2026,6 +2026,7 @@
             <s:element minOccurs="1" maxOccurs="1" name="idEvaluador" type="s:int" />
             <s:element minOccurs="1" maxOccurs="1" name="idFormulario" type="s:int" />
             <s:element minOccurs="1" maxOccurs="1" name="periodo" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="idEval" type="s:int" />
             <s:element minOccurs="0" maxOccurs="1" name="pregYRtas" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>

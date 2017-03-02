@@ -103,7 +103,9 @@ var ListadoAgentes = {
 
 
                 if (value.OpcionElegida != 0) {
-                    plantilla.find('data-opcion=' + value.OpcionElegida).checked = true;
+                    //chequear los radios elegidos
+                    //var radios = plantilla.find('.input_form').data('opcion')
+                    plantilla.find('[data-opcion=' + value.OpcionElegida + ']').attr('checked', true);
                 }
 
                 $('#contenedor').append(plantilla);
@@ -142,9 +144,10 @@ var ListadoAgentes = {
 
                 var jsonPregYRtas = JSON.stringify(pregYRtas);
                 //cambiar el 2do idEvaluado por idEvaluador
-                Backend.InsertarEvaluacion(idEvaluado, idEvaluado, idNivel, periodo, jsonPregYRtas)
+                Backend.InsertarEvaluacion(idEvaluado, idNivel, periodo, evaluacion, jsonPregYRtas)
                     .onSuccess(function (rto) {
                         spinner.stop();
+                        alert('Se ha guardado con exito!');
                         //var form = JSON.parse(formularioJSON);
                     })
                 .onError(function (e) {
