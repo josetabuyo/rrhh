@@ -106,23 +106,23 @@ namespace General.Repositorios
 
             if (tablaDatos.Rows.Count > 0)
             {
-                var id_evaluado_anterior = 0;
+                var id_evaluacion_anterior = 0;
                 tablaDatos.Rows.ForEach(row =>
                 {
 
                     if (primer_row == true)
                     {
                         primer_row = false;
-                        id_evaluado_anterior = row.GetSmallintAsInt("id_evaluado");
-                        evaluador = newEvaluadoFromRow(row, detalle_preguntas, id_evaluado_anterior);
+                        id_evaluacion_anterior = row.GetSmallintAsInt("id_evaluacion", 0);
+                        evaluador = newEvaluadoFromRow(row, detalle_preguntas, id_evaluacion_anterior);
                     }
 
-                    if (row.GetSmallintAsInt("id_evaluado") != id_evaluado_anterior)
+                    if (row.GetSmallintAsInt("id_evaluacion", 0) != id_evaluacion_anterior)
                     {
                         tipos_consultas.Add(evaluador);
-                        id_evaluado_anterior = row.GetSmallintAsInt("id_evaluado");
+                        id_evaluacion_anterior = row.GetSmallintAsInt("id_evaluacion", 0);
                         detalle_preguntas = new List<object>();
-                        evaluador = newEvaluadoFromRow(row, detalle_preguntas, id_evaluado_anterior);
+                        evaluador = newEvaluadoFromRow(row, detalle_preguntas, id_evaluacion_anterior);
                         AddDetallePreguntasA(detalle_preguntas, row);
                         
                     }
