@@ -85,6 +85,12 @@ var ListadoAgentes = {
         var spinner = new Spinner({ scale: 2 });
         spinner.spin($("html")[0]);
 
+        var nombre = localStorage.getItem("apellido") + ', ' + localStorage.getItem("nombre");
+        var descripcionNivel = localStorage.getItem("descripcionNivel");
+
+        $('#nivel').html(descripcionNivel);
+        $('#nombre_evaluado').html(nombre);
+
         Backend.GetFormularioDeEvaluacion(idNivel, idEvaluacion, idEvaluado)
         .onSuccess(function (formularioJSON) {
             spinner.stop();
@@ -121,6 +127,7 @@ var ListadoAgentes = {
                 var periodo = localStorage.getItem("idPeriodo");
                 var evaluado = localStorage.getItem("idEvaluado");
                 var evaluacion = localStorage.getItem("idEvaluacion");
+
 
                 // var plantillas = $('.plantilla');
                 var radioButtonsChecked = $('.input_form:checked');

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
 using General.MAU;
+using System.Reflection;
 
 namespace General.Repositorios
 {
@@ -27,18 +28,20 @@ namespace General.Repositorios
         {
             var parametros = new Dictionary<string, object>();
             var list_de_pregYRtas = new List<Object> { };
+            var list_de_pregYRtasRespondidas = new List<Object> { };
             var tablaDatos = new TablaDeDatos();
 
             if (evaluacion != 0)
             {
                 parametros.Add("@id_evaluacion", evaluacion);
                 tablaDatos = _conexion.Ejecutar("dbo.EVAL_GET_Evaluacion", parametros);
+                
 
                 if (tablaDatos.Rows.Count > 0)
                 {
                     tablaDatos.Rows.ForEach(row =>
                     {
-                        list_de_pregYRtas.Add(new
+                        list_de_pregYRtasRespondidas.Add(new
                         {
                             idPregunta = row.GetSmallintAsInt("id_pregunta", 0),
                             Enunciado = row.GetString("Enunciado", "Sin enunciado"),
@@ -54,9 +57,8 @@ namespace General.Repositorios
 
                 }
             }
-            else
-            {
 
+                parametros = new Dictionary<string, object>();
                 parametros.Add("@id_formulario", nivel);
                 tablaDatos = _conexion.Ejecutar("dbo.EVAL_GET_Formulario", parametros);
 
@@ -64,6 +66,7 @@ namespace General.Repositorios
                 {
                     tablaDatos.Rows.ForEach(row =>
                     {
+                        
                         list_de_pregYRtas.Add(new
                         {
                             Orden = row.GetSmallintAsInt("Orden", 0),
@@ -86,9 +89,40 @@ namespace General.Repositorios
                     });
 
                 }
+            
+
+            //Obtengo el objeto anónimo
+        //var persona = ObtenerPersona();
+        //Obtengo el tipo del objeto anónimo
+       // Type tipoPersona = persona.GetType();
+        //Obtengo todas las propiedades del objeto anónimo
+        //PropertyInfo[] propiedades = tipoPersona.GetProperties();
+        //Para cada propiedad...
+        //foreach (PropertyInfo propiedad in propiedades)
+       // {
+	    //... creo un objeto con el valor de la propiedad...
+	   // object valorPropiedadActual = propiedad.GetValue(persona, null);
+	    //... y muestro la información por pantalla
+	   // Console.WriteLine("Propiedad: {0} \nValor: {1}\n\n",
+	   //     propiedad.Name, valorPropiedadActual.ToString());
+       // }
+
+            foreach (var item in list_de_pregYRtasRespondidas)
+            {
+                var idPreguntaDeLaEvaluacion = (int)item.GetType().GetProperty("idPregunta").GetValue(item, null);
+                var opcionElegida = (Int32)item.GetType().GetProperty("OpcionElegida").GetValue(item, null);
+                foreach (var subItem in list_de_pregYRtas)
+	            {
+                    var idPreguntaDelFormVacio = (int)subItem.GetType().GetProperty("idPregunta").GetValue(subItem, null);
+                    if (idPreguntaDelFormVacio == idPreguntaDeLaEvaluacion)
+                    {
+                        PropertyInfo propertyInfo = subItem.GetType().GetProperty("OpcionElegida");
+                        propertyInfo.SetValue(subItem, opcionElegida, null);
+                    }
+                    
+	            }
             }
-
-
+            
 
             return JsonConvert.SerializeObject(list_de_pregYRtas);
         }

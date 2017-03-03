@@ -2023,7 +2023,6 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="idEvaluado" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="idEvaluador" type="s:int" />
             <s:element minOccurs="1" maxOccurs="1" name="idFormulario" type="s:int" />
             <s:element minOccurs="1" maxOccurs="1" name="periodo" type="s:int" />
             <s:element minOccurs="1" maxOccurs="1" name="idEval" type="s:int" />
