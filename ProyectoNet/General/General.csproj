@@ -107,6 +107,8 @@
     <Compile Include="Organigrama\GraficoContratos.cs" />
     <Compile Include="Organigrama\PersonaContrato.cs" />
     <Compile Include="Portal\Consulta.cs" />
+    <Compile Include="Portal\Destinatario.cs" />
+    <Compile Include="Portal\Notificacion.cs" />
     <Compile Include="Portal\Estudio.cs" />
     <Compile Include="Portal\Legajo.cs" />
     <Compile Include="Portal\Respuesta.cs" />
