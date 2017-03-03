@@ -4170,6 +4170,12 @@ public class WSViaticos : System.Web.Services.WebService
 
         return repo.GetLiquidaciones(anio, mes, cuil);
     }
+    [WebMethod]
+    public void EnviarNotificacion(string notificacion, List<int> documentos, string titulo, Usuario usuario)
+    {
+        RepositorioLegajo repo = RepoLegajo();
+        repo.EnviarNotificacion(notificacion, documentos, titulo, usuario.Owner.Id);
+    }
 
     [WebMethod]
     public string GetDesignaciones(Usuario usuario)
@@ -4188,6 +4194,14 @@ public class WSViaticos : System.Web.Services.WebService
         return repo.GetConsultasDePortal(usuario.Owner.Id);
 
     }
+    [WebMethod]
+    public string GetNotificacionesDePortal(Usuario usuario)
+    {
+        RepositorioLegajo repo = RepoLegajo();
+
+        return repo.GetNotificacionesDePortal(usuario.Owner.Documento);
+
+    }
 
     [WebMethod]
     public string GetConsultasTodasDePortal(int estado)
@@ -4195,6 +4209,15 @@ public class WSViaticos : System.Web.Services.WebService
         RepositorioLegajo repo = RepoLegajo();
 
         return repo.GetConsultasTodasDePortal(estado);
+
+    }
+
+    [WebMethod]
+    public string GetNotificacionesTodasDePortal()
+    {
+        RepositorioLegajo repo = RepoLegajo();
+
+        return repo.GetNotificacionesTodasDePortal();
 
     }
 
@@ -4233,6 +4256,11 @@ public class WSViaticos : System.Web.Services.WebService
     public void MarcarConsultaComoLeida(int id_consulta)
     {
         RepoLegajo().MarcarConsultaComoLeida(id_consulta);
+    }
+    [WebMethod]
+    public void MarcarNotificacionComoLeida(int id, Usuario usuario)
+    {
+        RepoLegajo().MarcarNotificacionComoLeida(id, usuario.Owner.Documento);
     }
 
     [WebMethod]

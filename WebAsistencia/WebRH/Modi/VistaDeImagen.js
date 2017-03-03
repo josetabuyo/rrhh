@@ -75,17 +75,18 @@ VistaDeImagen.prototype.start = function () {
         scroll: false
     });
 
-    this.img_thumbnail.hide();
-    this.img_estatica.show();
-    this.o.servicioDeLegajos.getThumbnailPorId(
-        this.id,
-        90,
-        90,
-        function (imagen) {
-            _this.img_thumbnail.show();
-            _this.img_estatica.hide();
-            _this.img_thumbnail.attr("src", "data:image/png;base64," + imagen.bytesImagen)
-        });
+    this.img_thumbnail.show();
+    this.img_estatica.hide();
+//    this.img_estatica.show();
+//    this.o.servicioDeLegajos.getThumbnailPorId(
+//        this.id,
+//        90,
+//        90,
+//        function (imagen) {
+//            _this.img_thumbnail.show();
+//            _this.img_estatica.hide();
+//            _this.img_thumbnail.attr("src", "data:image/png;base64," + imagen.bytesImagen)
+//        });
 };
 
 VistaDeImagen.prototype.dibujarEn = function (panel) {
