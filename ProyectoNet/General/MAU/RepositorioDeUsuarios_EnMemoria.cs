@@ -95,5 +95,11 @@ namespace AdministracionDeUsuarios
         {
             throw new NotImplementedException();
         }
+
+
+        public bool SolicitarCambioImagen(int id_usuario, int id_imagen)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

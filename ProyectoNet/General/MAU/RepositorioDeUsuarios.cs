@@ -309,5 +309,16 @@ namespace General.MAU
 
             return lista_de_usuarios;
         }
+
+
+        public bool SolicitarCambioImagen(int id_usuario, int id_imagen)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_usuario", id_usuario);
+            parametros.Add("@id_imagen", id_imagen);
+            var tablaDatos = conexion.Ejecutar("dbo.MAU_SolicitarCambioImagen",parametros);
+
+            return true;
+        }
     }
 }

@@ -9,6 +9,7 @@
     <script type="text/javascript" src="../BarraMenu/BarraMenu.js"></script>
     <script type="text/javascript" src="../BarraMenu/BotonDesplegable.js"></script>
     <script type="text/javascript" src="../Scripts/ControlesImagenes/VistaThumbnail.js"></script>
+    <script type="text/javascript" src="../Scripts/ControlesImagenes/SubidorDeImagenes.js"></script>
     <%= Referencias.Javascript("../")%>
 </head>
 <div id="barra_menu_contenedor" class="no-print">

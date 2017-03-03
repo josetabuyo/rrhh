@@ -12,6 +12,12 @@
                 _this.alEliminar();
             });
         }
+        
+        if (_this.alClickear) {
+            _this.img_thumbnail.click(function () {
+                _this.alClickear();
+            });
+        }
 
         _this.img_thumbnail.hide();
         _this.img_estatica.show();

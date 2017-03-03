@@ -2616,6 +2616,13 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public bool SolicitarCambioDeImagen(int id_imagen, Usuario usuario)
+    {
+        return RepositorioDeUsuarios().SolicitarCambioImagen(id_imagen, usuario.Id);
+    }
+
+
+    [WebMethod]
     public string CambiarPassword(Usuario usuario, string PasswordActual, string PasswordNuevo)
     {
         var repoUsuarios = RepositorioDeUsuarios();
