@@ -80,7 +80,11 @@ namespace General.Repositorios
                             Rta4 = row.GetString("Rpta4", "Sin información"),
                             Rta5 = row.GetString("Rpta5", "Sin información"),
                             Concepto = row.GetString("concepto", "Sin información"),
-                            OpcionElegida = row.GetSmallintAsInt("opcion_elegida", 0)
+                            OpcionElegida = row.GetSmallintAsInt("opcion_elegida", 0),
+                            Deficiente = row.GetSmallintAsInt("deficiente",0),
+                            Regular = row.GetSmallintAsInt("deficiente", 0),
+                            Bueno = row.GetSmallintAsInt("deficiente", 0),
+                            Destacado = row.GetSmallintAsInt("deficiente", 0),
 
                         });
                     });
