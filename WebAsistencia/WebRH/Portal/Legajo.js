@@ -241,8 +241,8 @@ var Legajo = {
                             if (str_fecha == "0001-01-01T00:00:00") {
                                 return "";
                             }
-                            var fh = new Date(str_fecha);
-                            fh.setDate(fh.getDate());
+                            var fh = new Date(str_fecha + '-03:00');
+                            //fh.setDate(fh.getDate());
                             var mes = fh.getMonth() + 1;
                             var anio = fh.getFullYear();
                             if (mes > 12) {
@@ -908,6 +908,85 @@ var Legajo = {
 
                     });
     },
+    GetNotificaciones: function () {
+        var _this_original = this;
+        Backend.GetNotificacionesDePortal()
+                    .onSuccess(function (notificacionesJSON) {
+                        var notificaciones = [];
+                        if (notificacionesJSON != "") {
+                            notificaciones = JSON.parse(notificacionesJSON);
+                        }
+                        var contador = 0;
+                        for (var i = 0; i < notificaciones.length; i++) {
+                            if (!notificaciones[i].leido) {
+                                contador = contador + 1;
+                            }
+                        }
+                        $("#boton_notificaciones").text("Notificaciones (" + contador + ")");
+                        //POP UP
+                        $("#boton_notificaciones").click(function () {
+                            vex.defaultOptions.className = 'vex-theme-os';
+                            vex.open({
+                                afterOpen: function ($vexContent) {
+                                    var ui = $("#pantalla_notificaciones").clone();
+                                    $vexContent.append(ui);
+                                    ui.show();
+                                    var _this = this;
+                                    ui.find("#table_notificaciones").empty();
+                                    var divGrilla = ui.find("#table_notificaciones");
+                                    var columnas = [];
+
+                                    columnas.push(new Columna("#", { generar: function (una_notificacion) { return una_notificacion.Id } }));
+                                    columnas.push(new Columna("Fecha Creación", { generar: function (una_notificacion) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_notificacion.fechaCreacion) } }));
+                                    columnas.push(new Columna("Título", { generar: function (una_notificacion) { return una_notificacion.titulo } }));
+                                    columnas.push(new Columna("Estado", { generar: function (una_notificacion) { if (una_notificacion.leido) { return "LEIDA" } return "NUEVA" } }));
+                                    columnas.push(new Columna('Detalle', {
+                                        generar: function (una_notificacion) {
+                                            var btn_accion = $('<a>');
+                                            var img = $('<img>');
+                                            img.attr('src', '../Imagenes/detalle.png');
+                                            img.attr('width', '15px');
+                                            img.attr('height', '15px');
+                                            btn_accion.append(img);
+                                            btn_accion.click(function () {
+                                                _this_original.MostrarDetalleDeNotificacion(una_notificacion);
+                                            });
+                                            return btn_accion;
+                                        }
+                                    }));
+
+                                    _this.divGrilla = new Grilla(columnas);
+                                    _this.divGrilla.CambiarEstiloCabecera("estilo_tabla_portal");
+                                    _this.divGrilla.SetOnRowClickEventHandler(function (una_notificacion) { });
+                                    _this.divGrilla.CargarObjetos(notificaciones);
+                                    _this.divGrilla.DibujarEn(divGrilla);
+
+                                    $('.table-hover').removeClass("table-hover");
+                                    return ui;
+                                },
+                                css: {
+                                    'padding-top': "4%",
+                                    'padding-bottom': "0%"
+                                },
+                                contentCSS: {
+                                    width: "80%",
+                                    height: "60%"
+                                }
+                            });
+
+                        });
+
+                    })
+                    .onError(function (e) {
+
+                    });
+    },
+    MostrarDetalleDeNotificacion: function (notificacion) {
+        Backend.MarcarNotificacionComoLeida(notificacion.Id).onSuccess(function () { }).onError(function (e) { });
+        this.GetNotificaciones();
+        localStorage.setItem("notificacion_html", notificacion.texto);
+        window.open('VistaPrevia.htm', '_blank');
+    },
     ConvertirCalificacion: function (nota) {
         if (nota == 0) {
             return "";
@@ -1090,6 +1169,8 @@ var Legajo = {
 
     getConsultasParaGestion: function () {
         var _this = this;
+        $('#consultas').show();
+        $('#notificaciones').hide();
         $('#btn_volver_consulta').click(function () {
             _this.VolverAConsulta();
         });
@@ -1098,19 +1179,87 @@ var Legajo = {
         });
         $('#btn_consultas_pendientes').click(function () {
             $('#div_detalle_consulta').hide();
+            $('#consultas').show();
+            $('#notificaciones').hide();
             $('#tablaConsultas').show();
             $('#legend_gestion').html("CONSULTAS PENDIENTES");
             _this.getConsultasTodas(6);
         });
         $('#btn_consultas_historicas').click(function () {
             $('#div_detalle_consulta').hide();
+            $('#consultas').show();
+            $('#notificaciones').hide();
             $('#tablaConsultas').show();
             $('#legend_gestion').html("CONSULTAS HISTÓRICAS");
             _this.getConsultasTodas(0);
         });
+        $('#btn_notificaciones_creacion').click(function () {
+            if (CKEDITOR.instances['editor1']) {
+                delete CKEDITOR.instances['editor1']
+            };
+            CKEDITOR.replace('editor1');
+            Editor.Inicializar();
+            $('#consultas').hide();
+            $('#notificaciones').show();
+            $('#div_notificaciones_enviadas').hide();
+            $('#div_crear_nofificacion').show();
+            $('#legend_gestion').html("CREAR NOTIFICACIÓN");
+        });
+        $('#btn_notificaciones_historicas').click(function () {
+            $('#consultas').hide();
+            $('#div_notificaciones_enviadas').show();
+            $('#div_crear_nofificacion').hide();
+            _this.GetNotificacionesTodas();
+        });
+
         $('#btn_consultas_pendientes').click();
     },
+    GetNotificacionesTodas: function () {
+        var _this_original = this;
+        Backend.GetNotificacionesTodasDePortal()
+                    .onSuccess(function (notificacionesJSON) {
+                        var notificaciones = [];
+                        if (notificacionesJSON != "") {
+                            notificaciones = JSON.parse(notificacionesJSON);
+                        }
+                        var _this = this;
+                        $("#tableNotificaciones").empty();
+                        var divGrilla = $("#tableNotificaciones");
+                        var columnas = [];
 
+                        columnas.push(new Columna("#", { generar: function (una_notificacion) { return una_notificacion.Id } }));
+                        columnas.push(new Columna("Fecha Creación", { generar: function (una_notificacion) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_notificacion.fechaCreacion) } }));
+                        columnas.push(new Columna("Título", { generar: function (una_notificacion) { return una_notificacion.titulo } }));
+                        columnas.push(new Columna("Responsable", { generar: function (una_notificacion) { return una_notificacion.responsable.Nombre + una_notificacion.responsable.Apellido } }));
+                        columnas.push(new Columna('Detalle', {
+                            generar: function (una_notificacion) {
+                                var btn_accion = $('<a>');
+                                var img = $('<img>');
+                                img.attr('src', '../Imagenes/detalle.png');
+                                img.attr('width', '15px');
+                                img.attr('height', '15px');
+                                btn_accion.append(img);
+                                btn_accion.click(function () {
+                                    _this_original.MostrarDestinatariosDeLaNotificacion(una_notificacion);
+                                });
+                                return btn_accion;
+                            }
+                        }));
+
+                        _this.divGrilla = new Grilla(columnas);
+                        _this.divGrilla.CambiarEstiloCabecera("estilo_tabla_portal");
+                        _this.divGrilla.SetOnRowClickEventHandler(function (una_notificacion) { });
+                        _this.divGrilla.CargarObjetos(notificaciones);
+                        _this.divGrilla.DibujarEn(divGrilla);
+                        $('.table-hover').removeClass("table-hover");
+                    })
+                    .onError(function (e) {
+                    });
+
+    },
+    MostrarDestinatariosDeLaNotificacion: function () {
+        //aaaaaaaaaaaaaaaaaaaaa
+    },
     getConsultasTodas: function (estado) {
         var _this_original = this;
 
