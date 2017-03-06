@@ -67,7 +67,18 @@
             })
 
             if (usuario.Owner.IdImagen >= 0) {
-                var img = new VistaThumbnail({ id: usuario.Owner.IdImagen, contenedor: $("#foto_usuario_menu") });
+                var img = new VistaThumbnail({
+                    id: usuario.Owner.IdImagen,
+                    contenedor: $("#foto_usuario_menu"),
+                    alClickear: function () {
+                        var subidor = new SubidorDeImagenes();
+                        subidor.subirImagen(function (id_imagen) {
+                            Backend.SolicitarCambioDeImagen(id_imagen).onSuccess(function () {
+                                alertify.success("solicitud de cambio de imagen realizada con éxito");
+                            });
+                        });
+                    }
+                });
                 var img2 = new VistaThumbnail({ id: usuario.Owner.IdImagen, contenedor: $("#foto_usuario_icono") });
                 $("#foto_usuario_menu").show();
                 $("#foto_usuario_generica").hide();
