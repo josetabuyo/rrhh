@@ -70,8 +70,11 @@
         </div>
         <!--mensajes-->
         <div id="contenedor_imagen_mensajes">
+          <div id="notificacion_punto_verde">
+          <img id="check" src="../Imagenes/BarraMenu/check.png"></img>
+                </div>
             <div id="notificacion_punto_rojo">
-                3</div>
+                </div>
             <img src="<%= UrlImagenes %>mensajes-icono.png" id="menu_mensajes" alt="fotousuariomenu" />
         </div>
         <div id="contenedor_menu_mensajes" class="menu_usuario sombrita-iconos" style="display: none;">

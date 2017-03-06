@@ -13,10 +13,19 @@
             var consultas = JSON.parse(consultasJSON);
             _.forEach(consultas, function (consulta) {
                 var ui_consulta = $("#plantillas .ui_mensaje_alerta").clone();
-                ui_consulta.find(".titulo_mensaje_alerta").text(consulta.tipo_consulta + " / " + consulta.estado);
+                ui_consulta.find(".titulo_mensaje_alerta").text("Título: " + consulta.tipo_consulta + " - Estado: " + consulta.estado);
                 ui_consulta.find(".contenido_mensaje_alerta").text(consulta.resumen);
                 $(".contenedor_de_alertas_y_mensajes").append(ui_consulta);
             });
+            
+                var resultado = $.grep(consultas, function (consulta) { return consulta.leida; });
+                $('#notificacion_punto_rojo').text(resultado.length);
+                $('#notificacion_punto_verde').hide;
+            if (resultado.length = "0") {
+                $('#notificacion_punto_rojo').hide;
+                $('#notificacion_punto_verde').show;
+            }
+
         });
 
         Backend.GetMenuPara('PRINCIPAL').onSuccess(function (modulos) {
