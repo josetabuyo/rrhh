@@ -138,7 +138,8 @@ text-align: right;
   background-image: none;
   background-repeat: no-repeat;
   filter: none;
-      margin-top: 24px;
+  margin-top: 45px;
+  margin-bottom: 10px;
 }
 
 .navbar .nav > li > a {

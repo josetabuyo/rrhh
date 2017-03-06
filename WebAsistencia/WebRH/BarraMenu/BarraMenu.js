@@ -4,11 +4,20 @@
         var boton_aplicaciones = new BotonDesplegable("menu_cuadrados", "contenedor_menu_cuadrados");
         var boton_mensajes = new BotonDesplegable("menu_mensajes", "contenedor_menu_mensajes");
 
-
         $('#boton_home').click(function () {
             window.location.href = '../Portal/Portal.aspx';
         });
 
+        $(".contenedor_de_alertas_y_mensajes").empty()
+        Backend.GetConsultasDePortal().onSuccess(function (consultasJSON) {
+            var consultas = JSON.parse(consultasJSON);
+            _.forEach(consultas, function (consulta) {
+                var ui_consulta = $("#plantillas .ui_mensaje_alerta").clone();
+                ui_consulta.find(".titulo_mensaje_alerta").text(consulta.tipo_consulta + " / " + consulta.estado);
+                ui_consulta.find(".contenido_mensaje_alerta").text(consulta.resumen);
+                $(".contenedor_de_alertas_y_mensajes").append(ui_consulta);
+            });
+        });
 
         Backend.GetMenuPara('PRINCIPAL').onSuccess(function (modulos) {
 
@@ -127,8 +136,8 @@
                             alertify.prompt().close();
                         });
                         }
-                    else {
-                        alertify.error("Los datos ingresados no corresponden a un mail válido. Inténtelo nuevamente");
+                        else {
+                            alertify.error("Los datos ingresados no corresponden a un mail válido. Inténtelo nuevamente");
                         }
                     }
 
