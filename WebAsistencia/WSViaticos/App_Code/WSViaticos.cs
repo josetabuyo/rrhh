@@ -4393,31 +4393,33 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string InsertarEvaluacion(int idEvaluado, int idEvaluador, int idFormulario, int periodo, string pregYRtas, Usuario usuario)
+    public string InsertarEvaluacion(int idEvaluado, int idFormulario, int periodo,int idEval, string pregYRtas, Usuario usuario)
     {
         RepositorioEvaluacionDesempenio repositorio = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
-        var preguntasYRespuestas = JsonConvert.DeserializeObject(pregYRtas);
+        //var preguntasYRespuestas = JsonConvert.DeserializeObject(pregYRtas);
 
         var criterio_deserializado = (JArray)JsonConvert.DeserializeObject(pregYRtas);
-        //var idPregunta = (int)criterio_deserializado[0].First.First;
-        //var idRespuesta = (int)criterio_deserializado[0].Last.Last;
-        //int mesdesde = (int)((JValue)criterio_deserializado["mesdesde"]);
 
-        var item1 = preguntasYRespuestas;
-        var idEvaluacion = repositorio.insertarEvaluacion(idEvaluado, idEvaluador, idFormulario, periodo);
-
-        //var idPregunta = (int)criterio_deserializado[0].First.First;
-        //var idRespuesta = (int)criterio_deserializado[0].Last.Last;
+        //FC:si viene un idEvaluacion entonces llamo a update, si viene 0 llamo a insert
+        if (idEval != 0)
+        {
+            repositorio.deleteEvaluacionDetalle(idEval);
+        }
+        else {
+            //FC:Inserto la cabecera de la evaluacion
+            idEval = repositorio.insertarEvaluacion(idEvaluado, usuario.Owner.Id, idFormulario, periodo);
+        }
+            
+            //var item1 = preguntasYRespuestas;
+           
 
         foreach (var item in criterio_deserializado)
         {
             int idPregunta = (int)item.First.First;
             int idRespuesta = (int)item.Last.Last;
 
-            repositorio.insertarEvaluacionDetalle(idEvaluacion, idPregunta, idRespuesta);
-
+            repositorio.insertarEvaluacionDetalle(idEval, idPregunta, idRespuesta);
         }
-        
 
         return "ok";
     }

@@ -1,6 +1,11 @@
 ﻿var spinner;
 var idUsuario;
 
+function calificacion(coleccion_opciones_elegidas, deficiente, regular, bueno, destacado) {
+    //terminar devolviendo la calificacion en la que queda segun la sumatoria de coleccion_opciones_elegidas
+        return "Regular";
+    };
+
 var ListadoAgentes = {
     init: function () {
 
@@ -22,7 +27,11 @@ var ListadoAgentes = {
             columnas.push(new Columna("Dni", { generar: function (un_agente) { return un_agente.nro_documento } }));
             columnas.push(new Columna("Apellido", { generar: function (un_agente) { return un_agente.apellido } }));
             columnas.push(new Columna("Nombre", { generar: function (un_agente) { return un_agente.nombre } }));
-            columnas.push(new Columna("Evaluacion", { generar: function (un_agente) { return "A Evaluar" } }));
+            columnas.push(new Columna("Evaluacion", { generar: function (un_agente) {
+                var coleccion_respuestas = []; //obtener estas opciones_elegidas desde un_agente.
+                return calificacion(coleccion_respuestas, un_agente.deficiente, un_agente.regular, un_agente.bueno, un_agente.destacado);
+            }
+            }));
             columnas.push(new Columna('Accion', {
                 generar: function (un_agente) {
                     var btn_accion = $('<a>');
@@ -40,7 +49,10 @@ var ListadoAgentes = {
                         localStorage.setItem("apellido", un_agente.apellido);
                         localStorage.setItem("descripcionPeriodo", un_agente.descripcion_periodo);
                         localStorage.setItem("descripcionNivel", un_agente.descripcion_nivel);
-
+                        localStorage.setItem("deficiente", un_agente.deficiente);
+                        localStorage.setItem("regular", un_agente.regular);
+                        localStorage.setItem("bueno", un_agente.bueno);
+                        localStorage.setItem("destacado", un_agente.destacado);
                         /*si nunca fue evaluado, no sabemos que nivel tiene, 
                         hay que pedir al usuario que lo ingrese*/
                         if (un_agente.id_nivel == "0") {
@@ -85,6 +97,12 @@ var ListadoAgentes = {
         var spinner = new Spinner({ scale: 2 });
         spinner.spin($("html")[0]);
 
+        var nombre = localStorage.getItem("apellido") + ', ' + localStorage.getItem("nombre");
+        var descripcionNivel = localStorage.getItem("descripcionNivel");
+
+        $('#nivel').html(descripcionNivel);
+        $('#nombre_evaluado').html(nombre);
+
         Backend.GetFormularioDeEvaluacion(idNivel, idEvaluacion, idEvaluado)
         .onSuccess(function (formularioJSON) {
             spinner.stop();
@@ -108,8 +126,9 @@ var ListadoAgentes = {
 
 
                 if (value.OpcionElegida != 0) {
-                    var element = plantilla.find('data-opcion=' + value.OpcionElegida);
-                    console.log(element);
+                    //chequear los radios elegidos
+                    //var radios = plantilla.find('.input_form').data('opcion')
+                    plantilla.find('[data-opcion=' + value.OpcionElegida + ']').attr('checked', true);
                 }
 
                 $('#contenedor').append(plantilla);
@@ -120,6 +139,7 @@ var ListadoAgentes = {
                 var periodo = localStorage.getItem("idPeriodo");
                 var evaluado = localStorage.getItem("idEvaluado");
                 var evaluacion = localStorage.getItem("idEvaluacion");
+
 
                 // var plantillas = $('.plantilla');
                 var radioButtonsChecked = $('.input_form:checked');
@@ -148,9 +168,10 @@ var ListadoAgentes = {
 
                 var jsonPregYRtas = JSON.stringify(pregYRtas);
                 //cambiar el 2do idEvaluado por idEvaluador
-                Backend.InsertarEvaluacion(idEvaluado, idEvaluado, idNivel, periodo, jsonPregYRtas)
+                Backend.InsertarEvaluacion(idEvaluado, idNivel, periodo, evaluacion, jsonPregYRtas)
                     .onSuccess(function (rto) {
                         spinner.stop();
+                        alert('Se ha guardado con exito!');
                         //var form = JSON.parse(formularioJSON);
                     })
                 .onError(function (e) {
