@@ -177,9 +177,9 @@ function calificacion(coleccion_opciones_elegidas, deficiente, regular, bueno, d
             });
 
             $('.btnGuardar').click(function () {
-                var nivel = localStorage.getItem("idNivel");
+                var idNivel = localStorage.getItem("idNivel");
                 var periodo = localStorage.getItem("idPeriodo");
-                var evaluado = localStorage.getItem("idEvaluado");
+                var idEvaluado = localStorage.getItem("idEvaluado");
                 var evaluacion = localStorage.getItem("idEvaluacion");
                 var estado = $(this).data("estado");
 

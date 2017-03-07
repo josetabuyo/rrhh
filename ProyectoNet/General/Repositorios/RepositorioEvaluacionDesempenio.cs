@@ -131,7 +131,8 @@ namespace General.Repositorios
                     {
                         primer_row = false;
                         id_evaluacion_anterior = row.GetSmallintAsInt("id_evaluacion", 0);
-                        evaluador = newEvaluadoFromRow(row, detalle_preguntas, id_evaluacion_anterior);
+                        var id_evaluado = row.GetSmallintAsInt("id_evaluado", 0);
+                        evaluador = newEvaluadoFromRow(row, detalle_preguntas, id_evaluado);
                     }
 
                     if (row.GetSmallintAsInt("id_evaluacion", 0) != id_evaluacion_anterior || id_evaluacion_anterior == 0)
@@ -139,7 +140,8 @@ namespace General.Repositorios
                         tipos_consultas.Add(evaluador);
                         id_evaluacion_anterior = row.GetSmallintAsInt("id_evaluacion", 0);
                         detalle_preguntas = new List<object>();
-                        evaluador = newEvaluadoFromRow(row, detalle_preguntas, id_evaluacion_anterior);
+                        var id_evaluado = row.GetSmallintAsInt("id_evaluado", 0);
+                        evaluador = newEvaluadoFromRow(row, detalle_preguntas, id_evaluado);
                         AddDetallePreguntasA(detalle_preguntas, row);
                         
                     }
@@ -205,6 +207,23 @@ namespace General.Repositorios
 
 
             return (int)_conexion.EjecutarEscalar("dbo.EVAL_INS_Evaluacion", parametros);
+
+        }
+
+        public void updateEvaluacion(int idEvaluado, int idEvaluador, int idFormulario, int periodo, int estado)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_evaluacion", 0);
+            parametros.Add("@id_evaluador", idEvaluador);
+            parametros.Add("@id_evaluado", idEvaluado);
+            parametros.Add("@id_formulario", idFormulario);
+            parametros.Add("@id_periodo", periodo);
+            parametros.Add("@estado", estado);
+            parametros.Add("@baja", 0);
+            //parametros.Add("@fecha", DateTime());
+
+
+            _conexion.Ejecutar("dbo.EVAL_UPD_Evaluacion", parametros);
 
         }
 
