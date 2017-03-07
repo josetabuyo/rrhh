@@ -3,7 +3,7 @@ var idUsuario;
 
 function calificacion(coleccion_opciones_elegidas, deficiente, regular, bueno, destacado, completando_formulario) {
     
-    coleccion_opciones_elegidas = [2, 1, 3];
+    //coleccion_opciones_elegidas = [2, 1, 3];
     var puntaje = 0;
     var alguna_incompleta = false;
     var alguna_respondida = false;
