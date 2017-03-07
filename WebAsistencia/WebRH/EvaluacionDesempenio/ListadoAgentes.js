@@ -43,15 +43,15 @@ function calificacion(coleccion_opciones_elegidas, deficiente, regular, bueno, d
     return "Deficiente";
 };
 
-    var ListadoAgentes = {
-        init: function () {
+var ListadoAgentes = {
+    init: function () {
 
-        },
-        getEstudios: function () {
-            var spinner = new Spinner({ scale: 2 });
-            spinner.spin($("html")[0]);
+    },
+    getEstudios: function () {
+        var spinner = new Spinner({ scale: 2 });
+        spinner.spin($("html")[0]);
 
-            Backend.EvalGetAgentesEvaluables()
+        Backend.EvalGetAgentesEvaluables()
         .onSuccess(function (agentesJSON) {
             spinner.stop();
             var agentes = JSON.parse(agentesJSON);
@@ -134,18 +134,18 @@ function calificacion(coleccion_opciones_elegidas, deficiente, regular, bueno, d
         .onError(function (e) {
             spinner.stop();
         });
-        },
-        getFormularioDeEvaluacion: function (idNivel, idEvaluacion, idEvaluado) {
-            var spinner = new Spinner({ scale: 2 });
-            spinner.spin($("html")[0]);
+    },
+    getFormularioDeEvaluacion: function (idNivel, idEvaluacion, idEvaluado) {
+        var spinner = new Spinner({ scale: 2 });
+        spinner.spin($("html")[0]);
 
-            var nombre = localStorage.getItem("apellido") + ', ' + localStorage.getItem("nombre");
-            var descripcionNivel = localStorage.getItem("descripcionNivel");
+        var nombre = localStorage.getItem("apellido") + ', ' + localStorage.getItem("nombre");
+        var descripcionNivel = localStorage.getItem("descripcionNivel");
 
-            $('#nivel').html(descripcionNivel);
-            $('#nombre_evaluado').html(nombre);
+        $('#nivel').html(descripcionNivel);
+        $('#nombre_evaluado').html(nombre);
 
-            Backend.GetFormularioDeEvaluacion(idNivel, idEvaluacion, idEvaluado)
+        Backend.GetFormularioDeEvaluacion(idNivel, idEvaluacion, idEvaluado)
         .onSuccess(function (formularioJSON) {
             spinner.stop();
             var form = JSON.parse(formularioJSON);
@@ -166,6 +166,7 @@ function calificacion(coleccion_opciones_elegidas, deficiente, regular, bueno, d
 
                 plantilla.find(".input_form").attr('name', value.idPregunta);
 
+                plantilla.find("input[type='radio']").attr('checked', false);
 
                 if (value.OpcionElegida != 0) {
                     //chequear los radios elegidos
@@ -214,5 +215,5 @@ function calificacion(coleccion_opciones_elegidas, deficiente, regular, bueno, d
         .onError(function (e) {
             spinner.stop();
         });
-        }
     }
+}
