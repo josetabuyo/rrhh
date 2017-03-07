@@ -121,7 +121,7 @@ namespace General.Repositorios
                         evaluador = newEvaluadoFromRow(row, detalle_preguntas, id_evaluacion_anterior);
                     }
 
-                    if (row.GetSmallintAsInt("id_evaluacion", 0) != id_evaluacion_anterior)
+                    if (row.GetSmallintAsInt("id_evaluacion", 0) != id_evaluacion_anterior || id_evaluacion_anterior == 0)
                     {
                         tipos_consultas.Add(evaluador);
                         id_evaluacion_anterior = row.GetSmallintAsInt("id_evaluacion", 0);

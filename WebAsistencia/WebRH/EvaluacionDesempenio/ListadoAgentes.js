@@ -1,10 +1,47 @@
 ﻿var spinner;
 var idUsuario;
 
-function calificacion(coleccion_opciones_elegidas, deficiente, regular, bueno, destacado) {
-    //terminar devolviendo la calificacion en la que queda segun la sumatoria de coleccion_opciones_elegidas
+function calificacion(coleccion_opciones_elegidas, deficiente, regular, bueno, destacado, completando_formulario) {
+    
+    coleccion_opciones_elegidas = [2, 1, 3];
+    var puntaje = 0;
+    var alguna_incompleta = false;
+    var alguna_respondida = false;
+    
+    for (i = 0; i < coleccion_opciones_elegidas.length; i++) {
+        puntaje += coleccion_opciones_elegidas[i];
+        if (coleccion_opciones_elegidas[i] == 0) {
+            alguna_incompleta = true;
+        } else {
+            alguna_respondida = true;
+        }
+    }
+
+    if (!completando_formulario) {
+        if (alguna_incompleta && alguna_respondida) {
+            return "Evaluacion Incompleta";
+        }
+
+        if (alguna_incompleta) {
+            return "A Evaluar";
+        }
+    }
+
+    if (puntaje > destacado) {
+        return "Muy Destacado";
+    }
+    if (puntaje > bueno) {
+        return "Destacado";
+    }
+    if (puntaje > regular) {
+        return "Bueno";
+    }
+    if (puntaje > deficiente) {
         return "Regular";
-    };
+    }
+
+    return "Deficiente";
+};
 
 var ListadoAgentes = {
     init: function () {
@@ -28,8 +65,13 @@ var ListadoAgentes = {
             columnas.push(new Columna("Apellido", { generar: function (un_agente) { return un_agente.apellido } }));
             columnas.push(new Columna("Nombre", { generar: function (un_agente) { return un_agente.nombre } }));
             columnas.push(new Columna("Evaluacion", { generar: function (un_agente) {
+
                 var coleccion_respuestas = []; //obtener estas opciones_elegidas desde un_agente.
-                return calificacion(coleccion_respuestas, un_agente.deficiente, un_agente.regular, un_agente.bueno, un_agente.destacado);
+                for (i = 0; i < un_agente.detalle_preguntas.length; i++) {
+                    coleccion_respuestas.push(un_agente.detalle_preguntas[i].respuesta_elegida);
+                }
+
+                return calificacion(coleccion_respuestas, un_agente.deficiente, un_agente.regular, un_agente.bueno, un_agente.destacado, false);
             }
             }));
             columnas.push(new Columna('Accion', {
