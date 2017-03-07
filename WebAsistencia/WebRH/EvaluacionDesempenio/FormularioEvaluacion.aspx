@@ -50,7 +50,8 @@
                 <div id="contenedor">
                 
                 </div>
-                    <input id="btnGuardarFormulario" type="button" value="Guardar" class="btn btn-primary" />
+                    <input  data-estado="0" type="button" value="Guardar Borrador" class="btn btn-primary btnGuardar" />
+                    <input  data-estado="1" type="button" value="Guardar Definitivo" class="btn btn-primary btnGuardar" />
                     
                     <div id="plantilla" class="plantilla_form" style="display:none; " >
                         <p class="pregunta"></p>
