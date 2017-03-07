@@ -113,6 +113,7 @@
     <Compile Include="Portal\Legajo.cs" />
     <Compile Include="Portal\Respuesta.cs" />
     <Compile Include="Repositorios\EstadoContrato.cs" />
+    <Compile Include="Repositorios\FormEvaluacion.cs" />
     <Compile Include="Repositorios\RepositorioDeContratos.cs" />
     <Compile Include="Repositorios\RepositorioEvaluacionDesempenio.cs" />
     <Compile Include="Repositorios\RepositorioLegajo.cs" />

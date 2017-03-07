@@ -43,15 +43,15 @@ function calificacion(coleccion_opciones_elegidas, deficiente, regular, bueno, d
     return "Deficiente";
 };
 
-var ListadoAgentes = {
-    init: function () {
+    var ListadoAgentes = {
+        init: function () {
 
-    },
-    getEstudios: function () {
-        var spinner = new Spinner({ scale: 2 });
-        spinner.spin($("html")[0]);
+        },
+        getEstudios: function () {
+            var spinner = new Spinner({ scale: 2 });
+            spinner.spin($("html")[0]);
 
-        Backend.EvalGetAgentesEvaluables()
+            Backend.EvalGetAgentesEvaluables()
         .onSuccess(function (agentesJSON) {
             spinner.stop();
             var agentes = JSON.parse(agentesJSON);
@@ -134,18 +134,18 @@ var ListadoAgentes = {
         .onError(function (e) {
             spinner.stop();
         });
-    },
-    getFormularioDeEvaluacion: function (idNivel, idEvaluacion, idEvaluado) {
-        var spinner = new Spinner({ scale: 2 });
-        spinner.spin($("html")[0]);
+        },
+        getFormularioDeEvaluacion: function (idNivel, idEvaluacion, idEvaluado) {
+            var spinner = new Spinner({ scale: 2 });
+            spinner.spin($("html")[0]);
 
-        var nombre = localStorage.getItem("apellido") + ', ' + localStorage.getItem("nombre");
-        var descripcionNivel = localStorage.getItem("descripcionNivel");
+            var nombre = localStorage.getItem("apellido") + ', ' + localStorage.getItem("nombre");
+            var descripcionNivel = localStorage.getItem("descripcionNivel");
 
-        $('#nivel').html(descripcionNivel);
-        $('#nombre_evaluado').html(nombre);
+            $('#nivel').html(descripcionNivel);
+            $('#nombre_evaluado').html(nombre);
 
-        Backend.GetFormularioDeEvaluacion(idNivel, idEvaluacion, idEvaluado)
+            Backend.GetFormularioDeEvaluacion(idNivel, idEvaluacion, idEvaluado)
         .onSuccess(function (formularioJSON) {
             spinner.stop();
             var form = JSON.parse(formularioJSON);
@@ -176,12 +176,12 @@ var ListadoAgentes = {
                 $('#contenedor').append(plantilla);
             });
 
-            $('#btnGuardarFormulario').click(function () {
+            $('.btnGuardar').click(function () {
                 var nivel = localStorage.getItem("idNivel");
                 var periodo = localStorage.getItem("idPeriodo");
                 var evaluado = localStorage.getItem("idEvaluado");
                 var evaluacion = localStorage.getItem("idEvaluacion");
-
+                var estado = $(this).data("estado");
 
                 // var plantillas = $('.plantilla');
                 var radioButtonsChecked = $('.input_form:checked');
@@ -196,21 +196,10 @@ var ListadoAgentes = {
                             );
                 });
 
-                console.log(pregYRtas);
-                /*
-                var pregYRtas = [
-                { idPregunta: 1, idRespuesta: 1 },
-                { idPregunta: 2, idRespuesta: 3 },
-                { idPregunta: 3, idRespuesta: 5 },
-                { idPregunta: 4, idRespuesta: 5 }
-                ];
-                */
-
-
-
                 var jsonPregYRtas = JSON.stringify(pregYRtas);
+
                 //cambiar el 2do idEvaluado por idEvaluador
-                Backend.InsertarEvaluacion(idEvaluado, idNivel, periodo, evaluacion, jsonPregYRtas)
+                Backend.InsertarEvaluacion(idEvaluado, idNivel, periodo, evaluacion, jsonPregYRtas, estado)
                     .onSuccess(function (rto) {
                         spinner.stop();
                         alert('Se ha guardado con exito!');
@@ -221,10 +210,9 @@ var ListadoAgentes = {
                 });
             });
 
-
         })
         .onError(function (e) {
             spinner.stop();
         });
+        }
     }
-}
