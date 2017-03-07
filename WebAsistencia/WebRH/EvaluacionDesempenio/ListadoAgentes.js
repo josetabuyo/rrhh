@@ -139,6 +139,12 @@ var ListadoAgentes = {
         var spinner = new Spinner({ scale: 2 });
         spinner.spin($("html")[0]);
 
+        var nombre = localStorage.getItem("apellido") + ', ' + localStorage.getItem("nombre");
+        var descripcionNivel = localStorage.getItem("descripcionNivel");
+
+        $('#nivel').html(descripcionNivel);
+        $('#nombre_evaluado').html(nombre);
+
         Backend.GetFormularioDeEvaluacion(idNivel, idEvaluacion, idEvaluado)
         .onSuccess(function (formularioJSON) {
             spinner.stop();
@@ -162,7 +168,9 @@ var ListadoAgentes = {
 
 
                 if (value.OpcionElegida != 0) {
-                    plantilla.find('data-opcion=' + value.OpcionElegida).checked = true;
+                    //chequear los radios elegidos
+                    //var radios = plantilla.find('.input_form').data('opcion')
+                    plantilla.find('[data-opcion=' + value.OpcionElegida + ']').attr('checked', true);
                 }
 
                 $('#contenedor').append(plantilla);
@@ -173,6 +181,7 @@ var ListadoAgentes = {
                 var periodo = localStorage.getItem("idPeriodo");
                 var evaluado = localStorage.getItem("idEvaluado");
                 var evaluacion = localStorage.getItem("idEvaluacion");
+
 
                 // var plantillas = $('.plantilla');
                 var radioButtonsChecked = $('.input_form:checked');
@@ -201,9 +210,10 @@ var ListadoAgentes = {
 
                 var jsonPregYRtas = JSON.stringify(pregYRtas);
                 //cambiar el 2do idEvaluado por idEvaluador
-                Backend.InsertarEvaluacion(idEvaluado, idEvaluado, idNivel, periodo, jsonPregYRtas)
+                Backend.InsertarEvaluacion(idEvaluado, idNivel, periodo, evaluacion, jsonPregYRtas)
                     .onSuccess(function (rto) {
                         spinner.stop();
+                        alert('Se ha guardado con exito!');
                         //var form = JSON.parse(formularioJSON);
                     })
                 .onError(function (e) {
