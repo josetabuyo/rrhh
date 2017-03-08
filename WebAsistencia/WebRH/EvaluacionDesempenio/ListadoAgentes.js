@@ -43,15 +43,21 @@ function calificacion(coleccion_opciones_elegidas, deficiente, regular, bueno, d
     return "Deficiente";
 };
 
-    var ListadoAgentes = {
-        init: function () {
 
-        },
-        getEstudios: function () {
-            var spinner = new Spinner({ scale: 2 });
-            spinner.spin($("html")[0]);
+function calcularCalificacion() {
+    var respuestas = [1, 2, 3];
+    var puntaje = calificacion(respuestas, localStorage.getItem("deficiente"), localStorage.getItem("regular"), localStorage.getItem("bueno"), localStorage.getItem("destacado"), completando_formulario);
+}
 
-            Backend.EvalGetAgentesEvaluables()
+var ListadoAgentes = {
+    init: function () {
+
+    },
+    getEvaluaciones: function () {
+        var spinner = new Spinner({ scale: 2 });
+        spinner.spin($("html")[0]);
+
+        Backend.EvalGetAgentesEvaluables()
         .onSuccess(function (agentesJSON) {
             spinner.stop();
             var agentes = JSON.parse(agentesJSON);
@@ -134,18 +140,18 @@ function calificacion(coleccion_opciones_elegidas, deficiente, regular, bueno, d
         .onError(function (e) {
             spinner.stop();
         });
-        },
-        getFormularioDeEvaluacion: function (idNivel, idEvaluacion, idEvaluado) {
-            var spinner = new Spinner({ scale: 2 });
-            spinner.spin($("html")[0]);
+    },
+    getFormularioDeEvaluacion: function (idNivel, idEvaluacion, idEvaluado) {
+        var spinner = new Spinner({ scale: 2 });
+        spinner.spin($("html")[0]);
 
-            var nombre = localStorage.getItem("apellido") + ', ' + localStorage.getItem("nombre");
-            var descripcionNivel = localStorage.getItem("descripcionNivel");
+        var nombre = localStorage.getItem("apellido") + ', ' + localStorage.getItem("nombre");
+        var descripcionNivel = localStorage.getItem("descripcionNivel");
 
-            $('#nivel').html(descripcionNivel);
-            $('#nombre_evaluado').html(nombre);
+        $('#nivel').html(descripcionNivel);
+        $('#nombre_evaluado').html(nombre);
 
-            Backend.GetFormularioDeEvaluacion(idNivel, idEvaluacion, idEvaluado)
+        Backend.GetFormularioDeEvaluacion(idNivel, idEvaluacion, idEvaluado)
         .onSuccess(function (formularioJSON) {
             spinner.stop();
             var form = JSON.parse(formularioJSON);
@@ -170,7 +176,9 @@ function calificacion(coleccion_opciones_elegidas, deficiente, regular, bueno, d
                 if (value.OpcionElegida != 0) {
                     //chequear los radios elegidos
                     //var radios = plantilla.find('.input_form').data('opcion')
-                    plantilla.find('[data-opcion=' + value.OpcionElegida + ']').attr('checked', true);
+                    var radio = plantilla.find('[data-opcion=' + value.OpcionElegida + ']').
+                    radio.attr('checked', true);
+                    radio.click(calcularCalificacion);
                 }
 
                 $('#contenedor').append(plantilla);
@@ -214,5 +222,5 @@ function calificacion(coleccion_opciones_elegidas, deficiente, regular, bueno, d
         .onError(function (e) {
             spinner.stop();
         });
-        }
     }
+}
