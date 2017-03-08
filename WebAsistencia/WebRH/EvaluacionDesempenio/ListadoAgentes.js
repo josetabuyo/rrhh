@@ -172,6 +172,7 @@ var ListadoAgentes = {
 
                 plantilla.find(".input_form").attr('name', value.idPregunta);
 
+                plantilla.find("input[type='radio']").attr('checked', false);
 
                 if (value.OpcionElegida != 0) {
                     //chequear los radios elegidos
