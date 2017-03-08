@@ -180,7 +180,7 @@ namespace General.Repositorios
                             nombre = row.GetString("nombre"),
                             nro_documento = row.GetInt("NroDocumento"),
                             id_evaluacion = row.GetInt("id_evaluacion", 0),
-                            estado = row.GetInt("estado_evaluacion", 0),
+                            estado = row.GetSmallintAsInt("estado_evaluacion", 0),
                             id_periodo = row.GetInt("id_periodo", 0),
                             descripcion_periodo = row.GetString("descripcion_periodo", ""),
                             id_nivel = row.GetSmallintAsInt("id_nivel", 0),
@@ -210,10 +210,10 @@ namespace General.Repositorios
 
         }
 
-        public void updateEvaluacion(int idEvaluado, int idEvaluador, int idFormulario, int periodo, int estado)
+        public void updateEvaluacion(int idEval, int idEvaluado, int idEvaluador, int idFormulario, int periodo, int estado)
         {
             var parametros = new Dictionary<string, object>();
-            parametros.Add("@id_evaluacion", 0);
+            parametros.Add("@id_evaluacion", idEval);
             parametros.Add("@id_evaluador", idEvaluador);
             parametros.Add("@id_evaluado", idEvaluado);
             parametros.Add("@id_formulario", idFormulario);
@@ -221,7 +221,6 @@ namespace General.Repositorios
             parametros.Add("@estado", estado);
             parametros.Add("@baja", 0);
             parametros.Add("@fecha", DateTime.Today);
-
 
             _conexion.Ejecutar("dbo.EVAL_UPD_Evaluacion", parametros);
 

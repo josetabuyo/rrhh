@@ -4404,7 +4404,7 @@ public class WSViaticos : System.Web.Services.WebService
         if (idEval != 0)
         {
             repositorio.deleteEvaluacionDetalle(idEval);
-            repositorio.updateEvaluacion(idEvaluado,usuario.Owner.Id,idFormulario,periodo,estado);
+            repositorio.updateEvaluacion(idEval, idEvaluado, usuario.Owner.Id, idFormulario, periodo, estado);
         }
         else {
             //FC:Inserto la cabecera de la evaluacion

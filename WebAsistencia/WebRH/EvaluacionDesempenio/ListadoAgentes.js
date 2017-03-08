@@ -1,61 +1,20 @@
 ﻿var spinner;
 var idUsuario;
 
-function calificacion(coleccion_opciones_elegidas, deficiente, regular, bueno, destacado, completando_formulario) {
-    
-    //coleccion_opciones_elegidas = [2, 1, 3];
-    var puntaje = 0;
-    var alguna_incompleta = false;
-    var alguna_respondida = false;
-    
-    for (i = 0; i < coleccion_opciones_elegidas.length; i++) {
-        puntaje += coleccion_opciones_elegidas[i];
-        if (coleccion_opciones_elegidas[i] == 0) {
-            alguna_incompleta = true;
-        } else {
-            alguna_respondida = true;
-        }
-    }
-
-    if (!completando_formulario) {
-        if (alguna_incompleta && alguna_respondida) {
-            return "Evaluacion Incompleta";
-        }
-
-        if (alguna_incompleta) {
-            return "A Evaluar";
-        }
-    }
-
-    if (puntaje > destacado) {
-        return "Muy Destacado";
-    }
-    if (puntaje > bueno) {
-        return "Destacado";
-    }
-    if (puntaje > regular) {
-        return "Bueno";
-    }
-    if (puntaje > deficiente) {
-        return "Regular";
-    }
-
-    return "Deficiente";
-};
-
 var ListadoAgentes = {
     init: function () {
 
     },
-    getEstudios: function () {
+    getEvaluaciones: function () {
         var spinner = new Spinner({ scale: 2 });
         spinner.spin($("html")[0]);
+        var _this = this;
 
         Backend.EvalGetAgentesEvaluables()
         .onSuccess(function (agentesJSON) {
             spinner.stop();
             var agentes = JSON.parse(agentesJSON);
-            var _this = this;
+
             $("#tablaAgentes").empty();
             var divGrilla = $("#tablaAgentes");
 
@@ -71,7 +30,7 @@ var ListadoAgentes = {
                     coleccion_respuestas.push(un_agente.detalle_preguntas[i].respuesta_elegida);
                 }
 
-                return calificacion(coleccion_respuestas, un_agente.deficiente, un_agente.regular, un_agente.bueno, un_agente.destacado, false);
+                return _this.calificacion(coleccion_respuestas, un_agente.deficiente, un_agente.regular, un_agente.bueno, un_agente.destacado, false);
             }
             }));
             columnas.push(new Columna('Accion', {
@@ -139,6 +98,8 @@ var ListadoAgentes = {
         var spinner = new Spinner({ scale: 2 });
         spinner.spin($("html")[0]);
 
+        var _this = this;
+
         var nombre = localStorage.getItem("apellido") + ', ' + localStorage.getItem("nombre");
         var descripcionNivel = localStorage.getItem("descripcionNivel");
 
@@ -149,6 +110,7 @@ var ListadoAgentes = {
         .onSuccess(function (formularioJSON) {
             spinner.stop();
             var form = JSON.parse(formularioJSON);
+
 
             $.each(form, function (key, value) {
                 //alert(key + ": " + value);
@@ -167,11 +129,16 @@ var ListadoAgentes = {
                 plantilla.find(".input_form").attr('name', value.idPregunta);
 
                 plantilla.find("input[type='radio']").attr('checked', false);
+                plantilla.find("input[type='radio']").click(function () {
+                    _this.calcularCalificacion();
+                });
 
                 if (value.OpcionElegida != 0) {
                     //chequear los radios elegidos
                     //var radios = plantilla.find('.input_form').data('opcion')
-                    plantilla.find('[data-opcion=' + value.OpcionElegida + ']').attr('checked', true);
+                    var radio = plantilla.find('[data-opcion=' + value.OpcionElegida + ']');
+                    radio.attr('checked', true);
+                    
                 }
 
                 $('#contenedor').append(plantilla);
@@ -215,5 +182,61 @@ var ListadoAgentes = {
         .onError(function (e) {
             spinner.stop();
         });
+    },
+    calificacion: function (coleccion_opciones_elegidas, deficiente, regular, bueno, destacado, completando_formulario) {
+        //coleccion_opciones_elegidas = [2, 1, 3];
+        var puntaje = 0;
+        var alguna_incompleta = false;
+        var alguna_respondida = false;
+
+        for (i = 0; i < coleccion_opciones_elegidas.length; i++) {
+            puntaje += coleccion_opciones_elegidas[i];
+            if (coleccion_opciones_elegidas[i] == 0) {
+                alguna_incompleta = true;
+            } else {
+                alguna_respondida = true;
+            }
+        }
+
+        if (!completando_formulario) {
+            if (alguna_incompleta && alguna_respondida) {
+                return "Evaluacion Incompleta";
+            }
+
+            if (alguna_incompleta) {
+                return "A Evaluar";
+            }
+        }
+
+        if (puntaje > destacado) {
+            return "Muy Destacado";
+        }
+        if (puntaje > bueno) {
+            return "Destacado";
+        }
+        if (puntaje > regular) {
+            return "Bueno";
+        }
+        if (puntaje > deficiente) {
+            return "Regular";
+        }
+
+        return "Deficiente";
+
+    },
+    calcularCalificacion: function () {
+        var radioButtonsChecked = $('.input_form:checked');
+        var respuestas = [];
+        var _this = this;
+
+        $.each(radioButtonsChecked, function (key, value) {
+
+            respuestas.push(parseInt(value.dataset.opcion));
+        });
+
+        //var respuestas = [1, 2, 3];
+        var puntaje = _this.calificacion(respuestas, localStorage.getItem("deficiente"), localStorage.getItem("regular"), localStorage.getItem("bueno"), localStorage.getItem("destacado"), true);
+
+        $('#puntaje').html(puntaje);
     }
 }
