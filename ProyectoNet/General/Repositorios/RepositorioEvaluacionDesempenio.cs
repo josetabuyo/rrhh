@@ -220,7 +220,7 @@ namespace General.Repositorios
             parametros.Add("@id_periodo", periodo);
             parametros.Add("@estado", estado);
             parametros.Add("@baja", 0);
-            //parametros.Add("@fecha", DateTime());
+            parametros.Add("@fecha", DateTime.Today);
 
 
             _conexion.Ejecutar("dbo.EVAL_UPD_Evaluacion", parametros);
