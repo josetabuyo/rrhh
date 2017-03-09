@@ -9,7 +9,7 @@ var ListadoAgentes = {
         var spinner = new Spinner({ scale: 2 });
         spinner.spin($("html")[0]);
         var _this = this;
-
+        var calificacion;
         Backend.EvalGetAgentesEvaluables()
         .onSuccess(function (agentesJSON) {
             spinner.stop();
@@ -24,61 +24,18 @@ var ListadoAgentes = {
             columnas.push(new Columna("Apellido", { generar: function (un_agente) { return un_agente.apellido } }));
             columnas.push(new Columna("Nombre", { generar: function (un_agente) { return un_agente.nombre } }));
             columnas.push(new Columna("Evaluacion", { generar: function (un_agente) {
-
-                var coleccion_respuestas = []; //obtener estas opciones_elegidas desde un_agente.
-                for (i = 0; i < un_agente.detalle_preguntas.length; i++) {
-                    coleccion_respuestas.push(un_agente.detalle_preguntas[i].respuesta_elegida);
-                }
-
+                var coleccion_respuestas = _this.getRespuestasDelForm(un_agente);
                 return _this.calificacion(coleccion_respuestas, un_agente.deficiente, un_agente.regular, un_agente.bueno, un_agente.destacado, false);
             }
             }));
             columnas.push(new Columna('Accion', {
                 generar: function (un_agente) {
-                    var btn_accion = $('<a>');
-                    var img = $('<img>');
-                    img.attr('src', '../Imagenes/detalle.png');
-                    img.attr('width', '15px');
-                    img.attr('height', '15px');
-                    btn_accion.append(img);
-                    btn_accion.click(function () {
-                        localStorage.setItem("idPeriodo", un_agente.id_periodo);
-                        localStorage.setItem("idEvaluado", un_agente.id_evaluado);
-                        localStorage.setItem("idEvaluacion", un_agente.id_evaluacion);
-                        localStorage.setItem("apellido", un_agente.apellido);
-                        localStorage.setItem("nombre", un_agente.nombre);
-                        localStorage.setItem("apellido", un_agente.apellido);
-                        localStorage.setItem("descripcionPeriodo", un_agente.descripcion_periodo);
-                        localStorage.setItem("descripcionNivel", un_agente.descripcion_nivel);
-                        localStorage.setItem("deficiente", un_agente.deficiente);
-                        localStorage.setItem("regular", un_agente.regular);
-                        localStorage.setItem("bueno", un_agente.bueno);
-                        localStorage.setItem("destacado", un_agente.destacado);
-                        /*si nunca fue evaluado, no sabemos que nivel tiene, 
-                        hay que pedir al usuario que lo ingrese*/
-                        if (un_agente.id_nivel == "0") {
-                            vex.defaultOptions.className = 'vex-theme-os';
-                            vex.open({
-                                afterOpen: function ($vexContent) {
-                                    var ui = $("#div_niveles").clone();
-                                    $vexContent.append(ui);
-                                    ui.find("#btn_nivel").click(function () {
-                                        localStorage.setItem("idNivel", ui.find("#select_niveles").val());
-                                        window.location.href = 'FormularioEvaluacion.aspx';
-                                    });
-                                    ui.show();
-                                    return ui;
-                                },
-                                css: {
-                                    'padding-top': "4%",
-                                    'padding-bottom': "0%"
-                                }
-                            });
-                        } else {
-                            window.location.href = 'FormularioEvaluacion.aspx';
-                        }
-                    });
-                    return btn_accion;
+                    var coleccion_respuestas = _this.getRespuestasDelForm(un_agente);
+                    var calificacion = _this.calificacion(coleccion_respuestas, un_agente.deficiente, un_agente.regular, un_agente.bueno, un_agente.destacado, false);
+                    if (calificacion == 'A Evaluar' || calificacion == 'Evaluacion Incompleta') {
+                        return _this.getBotonIrAFormulario(un_agente);
+                    }
+                    return _this.getBotonImprimir(un_agente);
                 }
             }));
 
@@ -94,6 +51,107 @@ var ListadoAgentes = {
             spinner.stop();
         });
     },
+    getRespuestasDelForm: function (un_agente) {
+        var coleccion_respuestas = []; //obtener estas opciones_elegidas desde un_agente.
+        for (i = 0; i < un_agente.detalle_preguntas.length; i++) {
+            coleccion_respuestas.push(un_agente.detalle_preguntas[i].respuesta_elegida);
+        }
+        return coleccion_respuestas;
+    },
+    getBotonImprimir: function (un_agente) {
+        var btn_accion = $('<a>');
+        var img = $('<img>');
+        img.attr('src', '../Imagenes/iconos/icono-imprimir.png');
+        img.attr('width', '25px');
+        img.attr('height', '25px');
+        btn_accion.append(img);
+        btn_accion.click(function () {
+            localStorage.setItem("idPeriodo", un_agente.id_periodo);
+            localStorage.setItem("idEvaluado", un_agente.id_evaluado);
+            localStorage.setItem("idEvaluacion", un_agente.id_evaluacion);
+            localStorage.setItem("apellido", un_agente.apellido);
+            localStorage.setItem("nombre", un_agente.nombre);
+            localStorage.setItem("apellido", un_agente.apellido);
+            localStorage.setItem("descripcionPeriodo", un_agente.descripcion_periodo);
+            localStorage.setItem("descripcionNivel", un_agente.descripcion_nivel);
+            localStorage.setItem("deficiente", un_agente.deficiente);
+            localStorage.setItem("regular", un_agente.regular);
+            localStorage.setItem("bueno", un_agente.bueno);
+            localStorage.setItem("destacado", un_agente.destacado);
+            /*si nunca fue evaluado, no sabemos que nivel tiene, 
+            hay que pedir al usuario que lo ingrese*/
+            if (un_agente.id_nivel == "0") {
+                vex.defaultOptions.className = 'vex-theme-os';
+                vex.open({
+                    afterOpen: function ($vexContent) {
+                        var ui = $("#div_niveles").clone();
+                        $vexContent.append(ui);
+                        ui.find("#btn_nivel").click(function () {
+                            localStorage.setItem("idNivel", ui.find("#select_niveles").val());
+                            window.location.href = 'FormularioEvaluacion.aspx';
+                        });
+                        ui.show();
+                        return ui;
+                    },
+                    css: {
+                        'padding-top': "4%",
+                        'padding-bottom': "0%"
+                    }
+                });
+            } else {
+                window.location.href = 'FormularioEvaluacion.aspx';
+            }
+        });
+        return btn_accion;
+    },
+    getBotonIrAFormulario: function (un_agente) {
+        
+        var btn_accion = $('<a>');
+        var img = $('<img>');
+        img.attr('src', '../Imagenes/portal/estudios.png');
+        img.attr('width', '25px');
+        img.attr('height', '25px');
+        btn_accion.append(img);
+        btn_accion.click(function () {
+            localStorage.setItem("idPeriodo", un_agente.id_periodo);
+            localStorage.setItem("idEvaluado", un_agente.id_evaluado);
+            localStorage.setItem("idEvaluacion", un_agente.id_evaluacion);
+            localStorage.setItem("apellido", un_agente.apellido);
+            localStorage.setItem("nombre", un_agente.nombre);
+            localStorage.setItem("apellido", un_agente.apellido);
+            localStorage.setItem("descripcionPeriodo", un_agente.descripcion_periodo);
+            localStorage.setItem("descripcionNivel", un_agente.descripcion_nivel);
+            localStorage.setItem("deficiente", un_agente.deficiente);
+            localStorage.setItem("regular", un_agente.regular);
+            localStorage.setItem("bueno", un_agente.bueno);
+            localStorage.setItem("destacado", un_agente.destacado);
+            /*si nunca fue evaluado, no sabemos que nivel tiene, 
+            hay que pedir al usuario que lo ingrese*/
+            if (un_agente.id_nivel == "0") {
+                vex.defaultOptions.className = 'vex-theme-os';
+                vex.open({
+                    afterOpen: function ($vexContent) {
+                        var ui = $("#div_niveles").clone();
+                        $vexContent.append(ui);
+                        ui.find("#btn_nivel").click(function () {
+                            localStorage.setItem("idNivel", ui.find("#select_niveles").val());
+                            window.location.href = 'FormularioEvaluacion.aspx';
+                        });
+                        ui.show();
+                        return ui;
+                    },
+                    css: {
+                        'padding-top': "4%",
+                        'padding-bottom': "0%"
+                    }
+                });
+            } else {
+                window.location.href = 'FormularioEvaluacion.aspx';
+            }
+        });
+        return btn_accion;
+    },
+
     getFormularioDeEvaluacion: function (idNivel, idEvaluacion, idEvaluado) {
         var spinner = new Spinner({ scale: 2 });
         spinner.spin($("html")[0]);
@@ -138,7 +196,7 @@ var ListadoAgentes = {
                     //var radios = plantilla.find('.input_form').data('opcion')
                     var radio = plantilla.find('[data-opcion=' + value.OpcionElegida + ']');
                     radio.attr('checked', true);
-                    
+
                 }
 
                 $('#contenedor').append(plantilla);
