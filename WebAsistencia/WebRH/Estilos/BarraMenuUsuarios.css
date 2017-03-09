@@ -68,6 +68,12 @@
 
 .foto_menu_estilo
 {
+    height:100%;
+    width:100%;
+}
+
+#contenedor_foto_usuario
+{
     position: absolute;
     width: 150px;
     cursor: pointer;
@@ -81,6 +87,25 @@
     box-shadow: 11px 8px 27px rgba(0,0,0,0.7) !important;
     -webkit-box-shadow: 11px 8px 27px rgba(0,0,0,0.7);
     -moz-box-shadow: 11px 8px 27px rgba(0,0,0,0.7);
+}
+
+#barrita_cambio_imagen
+{
+    position: absolute;
+    bottom: 0px;
+    background-color: black;
+    color: white;
+    height: 0%;
+    left: 0px;
+    right: 0px;
+    text-align: center;
+    transition: height 0.2s;
+}
+
+
+#contenedor_foto_usuario:hover > #barrita_cambio_imagen
+{
+   height: 30%;
 }
 
 .datos_usuario

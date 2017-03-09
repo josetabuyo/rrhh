@@ -320,5 +320,43 @@ namespace General.MAU
 
             return true;
         }
+
+
+        public List<SolicitudDeCambioDeImagen> GetSolicitudesDeCambioDeImagenPendientesPara(int id_usuario)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_usuario", id_usuario);
+            var tablaDatos = conexion.Ejecutar("dbo.MAU_GetSolicitudesDeCambioDeImagenPendientesPara", parametros);
+
+            var solicitudes = new List<SolicitudDeCambioDeImagen>();
+            tablaDatos.Rows.ForEach((row) =>
+            {
+                var solicitud = new SolicitudDeCambioDeImagen();
+                solicitud.idImagenAnterior = row.GetInt("id_imagen_anterior", -1);
+                solicitud.idImagenNueva = row.GetInt("id_imagen_nueva", -1);
+                solicitudes.Add(solicitud);
+            });
+
+            return solicitudes;
+        }
+
+
+        public bool AceptarCambioDeImagen(int id_usuario)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_usuario", id_usuario);
+            var tablaDatos = conexion.Ejecutar("dbo.MAU_AceptarCambioDeImagen", parametros);
+
+            return true;
+        }
+
+        public bool RechazarCambioDeImagen(int id_usuario)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_usuario", id_usuario);
+            var tablaDatos = conexion.Ejecutar("dbo.MAU_RechazarCambioDeImagen", parametros);
+
+            return true;
+        }
     }
 }

@@ -147,6 +147,73 @@
     overflow: hidden;
 }
 
+#cambio_imagen_pendiente
+{
+    display: none;
+    cursor: pointer;  
+    height:30px;
+    width: 30px;
+    margin-top: -9px;
+}
+
+#cambio_imagen_pendiente img
+{
+    width:100%;
+}
+
+#pantalla_actualizacion_imagen
+{
+    
+}
+
+#pantalla_actualizacion_imagen #panel_imagenes
+{
+    position: absolute;
+    top: 40px;
+    bottom: 40px;
+    left: 0px;
+    right: 0px;
+}
+
+#pantalla_actualizacion_imagen #imagen_anterior
+{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    right: 50%;
+}
+
+#pantalla_actualizacion_imagen #imagen_nueva
+{
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    left: 50%;
+}
+
+#pantalla_actualizacion_imagen #btn_aceptar_cambio_imagen
+{
+    position: absolute;
+    bottom: 2px;
+    right: 10px;
+}
+
+#pantalla_actualizacion_imagen #btn_rechazar_cambio_imagen 
+{
+    position: absolute;
+    bottom: 2px;
+    right: 100px;
+}
+
+#pantalla_actualizacion_imagen #titulo_actualizacion_imagen 
+{
+    position: absolute;
+    font-size: 28px;
+    top: 8px;
+}
+
 #txt_nombre_usuario
 {
     width:100px;

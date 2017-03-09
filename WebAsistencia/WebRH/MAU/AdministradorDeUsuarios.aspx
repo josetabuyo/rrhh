@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="Permisos.css" type="text/css"/>    
     <link rel="stylesheet" href="../estilos/SelectorDePersonas.css" type="text/css"/>    
     <link rel="stylesheet" href="../estilos/SelectorDeAreas.css" type="text/css"/>    
+    <link href="../scripts/vex-2.1.1/css/vex.css" rel="stylesheet">
+    <link href="../scripts/vex-2.1.1/css/vex-theme-os.css" rel="stylesheet">
     <link href="ui.dynatree.css" rel="stylesheet" type="text/css"/>
     <link href="../scripts/select2-3.4.4/select2.css" rel="stylesheet" type="text/css"/>
 </head>
@@ -29,7 +31,9 @@
                     <div id="foto_usuario">                        
                     </div>
                     <img id="foto_usuario_generica" src=usuario.png/>
-
+                    <div id="cambio_imagen_pendiente">
+                        <img src="camera.png"/>
+                    </div>
                     <div id="panel_datos_personales">
                         <div class="linea dato_personal">
                             <div id="nombre"></div>
@@ -133,6 +137,15 @@
             <div id="nombre_area">Secretaría de Coordinación y Monitoreo Institucional</div>
             <input id="btn_quitar_area" type=button class="btn btn-primary" value="-"/>
         </div>
+        <div id="pantalla_actualizacion_imagen">
+            <div id="titulo_actualizacion_imagen">Solicitud de cambio de imágen</div>
+            <div id="panel_imagenes">
+                <div id="imagen_anterior"></div>
+                <div id="imagen_nueva"></div>            
+            </div>
+            <input type="button" id="btn_rechazar_cambio_imagen" class="btn btn-danger" value="Rechazar"/>
+            <input type="button" id="btn_aceptar_cambio_imagen" class="btn btn-success" value="Aceptar"/>
+        </div>
     </div>
    
 </body>
@@ -156,6 +169,7 @@
 <script type="text/javascript" src="../Scripts/Area.js"></script>
 <script type="text/javascript" src="../Scripts/alertify.js"></script>
 <script type="text/javascript" src="../Scripts/ControlesImagenes/VistaThumbnail.js"></script>
+<script type="text/javascript" src="../scripts/vex-2.1.1/js/vex.combined.min.js"></script>
 
 <script type="text/javascript" src="../Scripts/select2-3.4.4/Select2.min.js"></script>
 <script type="text/javascript" src="../Scripts/select2-3.4.4/select2_locale_es.js"></script>
