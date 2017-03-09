@@ -4310,6 +4310,13 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public string GetConsultasDePortalNoLeidas(Usuario usuario)
+    {
+        return RepoLegajo().GetConsultasDePortalNoLeidas(usuario.Owner.Id);
+    }
+    
+
+    [WebMethod]
     public string GetDesignacionActual(Usuario usuario)
     {
 

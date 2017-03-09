@@ -664,6 +664,18 @@ namespace General.Repositorios
         }
 
 
+        public string GetConsultasDePortalNoLeidas(int id_usuario)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@Id_usuario", id_usuario);
+            parametros.Add("@Leido", 1);
+            List<Consulta> consultas = new List<Consulta>();
+            getConsultasPorCriterio(parametros, consultas);
+
+            return JsonConvert.SerializeObject(consultas);
+
+        }
+
         protected override List<Legajo> ObtenerDesdeLaBase()
         {
             throw new NotImplementedException();
