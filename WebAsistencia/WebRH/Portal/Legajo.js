@@ -525,6 +525,9 @@ var Legajo = {
                         if (carreraJSON != "") {
                             carreras = JSON.parse(carreraJSON);
                         }
+                           
+                        carreras = _.sortBy((_.sortBy(carreras, 'FechaDesde')), 'Folio');
+
                         var _this = this;
                         $("#tablaCarreraAdministrativa").empty();
                         var divGrilla = $("#tablaCarreraAdministrativa");
