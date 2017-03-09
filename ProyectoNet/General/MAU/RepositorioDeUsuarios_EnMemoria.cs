@@ -101,5 +101,22 @@ namespace AdministracionDeUsuarios
         {
             throw new NotImplementedException();
         }
+
+
+        public List<SolicitudDeCambioDeImagen> GetSolicitudesDeCambioDeImagenPendientesPara(int id_usuario)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public bool AceptarCambioDeImagen(int id_usuario)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool RechazarCambioDeImagen(int id_usuario)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

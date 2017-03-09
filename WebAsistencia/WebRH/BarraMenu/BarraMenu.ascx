@@ -34,8 +34,16 @@
         <div id="contenedor_menu_usuarios" class="menu_usuario sombrita" style="display: none;">
             <div class="flechita">
             </div>
-            <div id="foto_usuario_menu" class="foto_menu_estilo">
+            <div id="contenedor_foto_usuario">
+                <div id="foto_usuario_menu" class="foto_menu_estilo">
+                
+                </div>
+                <div id="barrita_cambio_imagen">
+                    <div>Cambiar</div>
+                    <div>Imágen</div>                  
+                </div>
             </div>
+            
             <img id="foto_usuario_generica" src="<%= UrlImagenes %>portal/portal_empleado.png"
                 alt="fotousuariogenerica" class="foto_menu_estilo" />
             <div id="nombre_user" class="cabecera_menu_usuario">

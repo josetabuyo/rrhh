@@ -21,5 +21,10 @@ namespace General.MAU
         List<Usuario> GetUsuariosPorArea(string nombre_area);
         bool ModificarMailRegistro(int id_usuario, string mail);
         bool SolicitarCambioImagen(int id_usuario, int id_imagen);
+        List<SolicitudDeCambioDeImagen> GetSolicitudesDeCambioDeImagenPendientesPara(int id_usuario);
+
+        bool AceptarCambioDeImagen(int id_usuario);
+
+        bool RechazarCambioDeImagen(int id_usuario);
     }
 }
