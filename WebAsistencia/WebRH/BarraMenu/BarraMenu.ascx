@@ -76,83 +76,22 @@
             <div class="flechita">
             </div>
         </div>
-        <div id="contenedor_imagen_mensajes" >
-            <div id="notificacion_punto_rojo">3</div>
+        <!--mensajes-->
+        <div id="contenedor_imagen_mensajes">
+          <div id="notificacion_punto_verde">
+          <img id="check" src="../Imagenes/BarraMenu/check.png"></img>
+                </div>
+            <div id="notificacion_punto_rojo">
+                </div>
             <img src="<%= UrlImagenes %>mensajes-icono.png" id="menu_mensajes" alt="fotousuariomenu" />
         </div>
         <div id="contenedor_menu_mensajes" class="menu_usuario sombrita-iconos" style="display: none;">
             <div class="flechita">
             </div>
             <div class="contenedor_de_alertas_y_mensajes">
-                <div class="mensaje_alerta sombra-mensaje">
-                    <p class="titulo_mensaje_alerta">
-                        Mensaje 1</p>
-                    <p class="contenido_mensaje_alerta">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam mi nunc, euismod
-                        eget est nec, consequat porttitor est. Maecenas ante elit, bibendum in volutpat
-                        sit amet, imperdiet ac neque. Quisque dapibus eros sit amet mauris venenatis molestie.
-                        Integer feugiat felis dolor, pellentesque tincidunt nulla efficitur quis. Pellentesque
-                        pretium velit id neque accumsan, vitae aliquam augue mollis. Fusce ut diam malesuada,
-                        placerat tortor et, efficitur massa. Praesent sagittis tortor et enim accumsan laoreet.
-                        Praesent ut sapien ac leo porta finibus eget vitae lacus. Aliquam at arcu felis.
-                        Morbi sit amet consectetur ex. Maecenas in nisi turpis.</p>
-                </div>
-                <div class="mensaje_alerta sombra-mensaje">
-                    <p class="titulo_mensaje_alerta">
-                        Mensaje 2</p>
-                    <p class="contenido_mensaje_alerta">
-                        ELorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam mi nunc, euismod
-                        eget est nec, consequat porttitor est. Maecenas ante elit, bibendum in volutpat
-                        sit amet, imperdiet ac neque. Quisque dapibus eros sit amet mauris venenatis molestie.
-                        Integer feugiat felis dolor, pellentesque tincidunt nulla efficitur quis. Pellentesque
-                        pretium velit id neque accumsan, vitae aliquam augue mollis. Fusce ut diam malesuada,
-                        placerat tortor et, efficitur massa. Praesent sagittis tortor et enim accumsan laoreet.
-                        Praesent ut sapien ac leo porta finibus eget vitae lacus. Aliquam at arcu felis.
-                        Morbi sit amet consectetur ex. Maecenas in nisi turpis.</p>
-                </div>
-                <div class="mensaje_alerta sombra-mensaje">
-                    <p class="titulo_mensaje_alerta">
-                        Mensaje 3</p>
-                    <p class="contenido_mensaje_alerta">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam mi nunc, euismod
-                        eget est nec, consequat porttitor est. Maecenas ante elit, bibendum in volutpat
-                        sit amet, imperdiet ac neque. Quisque dapibus eros sit amet mauris venenatis molestie.
-                        Integer feugiat felis dolor, pellentesque tincidunt nulla efficitur quis. Pellentesque
-                        pretium velit id neque accumsan, vitae aliquam augue mollis. Fusce ut diam malesuada,
-                        placerat tortor et, efficitur massa. Praesent sagittis tortor et enim accumsan laoreet.
-                        Praesent ut sapien ac leo porta finibus eget vitae lacus. Aliquam at arcu felis.
-                        Morbi sit amet consectetur ex. Maecenas in nisi turpis.</p>
-                </div>
-                <div class="mensaje_alerta sombra-mensaje">
-                    <p class="titulo_mensaje_alerta">
-                        Notificación 1</p>
-                    <p class="contenido_mensaje_alerta">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam mi nunc, euismod
-                        eget est nec, consequat porttitor est. Maecenas ante elit, bibendum in volutpat
-                        sit amet, imperdiet ac neque. Quisque dapibus eros sit amet mauris venenatis molestie.
-                        Integer feugiat felis dolor, pellentesque tincidunt nulla efficitur quis. Pellentesque
-                        pretium velit id neque accumsan, vitae aliquam augue mollis. Fusce ut diam malesuada,
-                        placerat tortor et, efficitur massa. Praesent sagittis tortor et enim accumsan laoreet.
-                        Praesent ut sapien ac leo porta finibus eget vitae lacus. Aliquam at arcu felis.
-                        Morbi sit amet consectetur ex. Maecenas in nisi turpis.</p>
-                </div>
-                <div class="mensaje_alerta sombra-mensaje">
-                    <p class="titulo_mensaje_alerta">
-                        Notificación 2</p>
-                    <p class="contenido_mensaje_alerta">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam mi nunc, euismod
-                        eget est nec, consequat porttitor est. Maecenas ante elit, bibendum in volutpat
-                        sit amet, imperdiet ac neque. Quisque dapibus eros sit amet mauris venenatis molestie.
-                        Integer feugiat felis dolor, pellentesque tincidunt nulla efficitur quis. Pellentesque
-                        pretium velit id neque accumsan, vitae aliquam augue mollis. Fusce ut diam malesuada,
-                        placerat tortor et, efficitur massa. Praesent sagittis tortor et enim accumsan laoreet.
-                        Praesent ut sapien ac leo porta finibus eget vitae lacus. Aliquam at arcu felis.
-                        Morbi sit amet consectetur ex. Maecenas in nisi turpis.</p>
-                </div>
             </div>
         </div>
-    </div>
-    <%--<div id="contenedor_barraInferior">
+        <%--<div id="contenedor_barraInferior">
         <div id="barra_menu_inferior">
             <div id="barra_menu_inferior_usuario">
                 <div id="barra_menu_label_usuario">
@@ -172,4 +111,19 @@
             <uc5:FormPassword ID="FormPassword" runat="server" />
         </div>
     </div>--%>
-</div>
+        <div id="plantillas" style="display: none">
+            <div class="ui_mensaje_alerta mensaje_alerta sombra-mensaje">
+                <p class="titulo_mensaje_alerta">
+                    Mensaje 1</p>
+                <p class="contenido_mensaje_alerta">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam mi nunc, euismod
+                    eget est nec, consequat porttitor est. Maecenas ante elit, bibendum in volutpat
+                    sit amet, imperdiet ac neque. Quisque dapibus eros sit amet mauris venenatis molestie.
+                    Integer feugiat felis dolor, pellentesque tincidunt nulla efficitur quis. Pellentesque
+                    pretium velit id neque accumsan, vitae aliquam augue mollis. Fusce ut diam malesuada,
+                    placerat tortor et, efficitur massa. Praesent sagittis tortor et enim accumsan laoreet.
+                    Praesent ut sapien ac leo porta finibus eget vitae lacus. Aliquam at arcu felis.
+                    Morbi sit amet consectetur ex. Maecenas in nisi turpis.</p>
+            </div>
+        </div>
+    </div>

@@ -280,6 +280,7 @@
 {
     margin-bottom: 5px;
     font-size: 1.3em;
+    margin: 0 !important;
 }
 
 .contenido_mensaje_alerta
@@ -323,6 +324,29 @@
     -webkit-box-shadow: 20px 20px 25px rgba(0,0,0,0.7);
     -moz-box-shadow: 20px 20px 25px rgba(0,0,0,0.7);
 }
+
+#notificacion_punto_verde {
+ /* background: green;*/
+  border-radius: 0.8em;
+  -moz-border-radius: 0.8em;
+  -webkit-border-radius: 0.8em;
+  /*color: #ffffff;*/
+  /* display: inline-block; */
+ /* font-weight: bold;*/
+  /*line-height: 1.2em;*/
+  /* margin-right: -6px; */
+  /*text-align: center;*/
+  width: 1.2em;
+  z-index: 99999;
+  position: absolute;
+  right: 5px;
+  top: 6px;
+}
+#check
+{
+    width: 100%;
+    height: 100%;
+    }
 
 #notificacion_punto_rojo {
   background: red;

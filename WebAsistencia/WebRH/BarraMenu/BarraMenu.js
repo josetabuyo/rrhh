@@ -4,11 +4,29 @@
         var boton_aplicaciones = new BotonDesplegable("menu_cuadrados", "contenedor_menu_cuadrados");
         var boton_mensajes = new BotonDesplegable("menu_mensajes", "contenedor_menu_mensajes");
 
-
         $('#boton_home').click(function () {
             window.location.href = '../Portal/Portal.aspx';
         });
 
+        $(".contenedor_de_alertas_y_mensajes").empty()
+        Backend.GetConsultasDePortal().onSuccess(function (consultasJSON) {
+            var consultas = JSON.parse(consultasJSON);
+            _.forEach(consultas, function (consulta) {
+                var ui_consulta = $("#plantillas .ui_mensaje_alerta").clone();
+                ui_consulta.find(".titulo_mensaje_alerta").text("Título: " + consulta.tipo_consulta + " - Estado: " + consulta.estado);
+                ui_consulta.find(".contenido_mensaje_alerta").text(consulta.resumen);
+                $(".contenedor_de_alertas_y_mensajes").append(ui_consulta);
+            });
+            
+                var resultado = $.grep(consultas, function (consulta) { return consulta.leida; });
+                $('#notificacion_punto_rojo').text(resultado.length);
+                $('#notificacion_punto_verde').hide;
+            if (resultado.length = "0") {
+                $('#notificacion_punto_rojo').hide;
+                $('#notificacion_punto_verde').show;
+            }
+
+        });
 
         Backend.GetMenuPara('PRINCIPAL').onSuccess(function (modulos) {
 
