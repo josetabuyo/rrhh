@@ -30,6 +30,9 @@
         </div>
         <div id="contenedor_imagen_usuario">
             <img src="<%= UrlImagenes %>portal/portal_empleado.png" id="foto_usuario_icono" alt="fotouser" />
+            <div id="imagen">
+                
+            </div>
         </div>
         <div id="contenedor_menu_usuarios" class="menu_usuario sombrita" style="display: none;">
             <div class="flechita">
