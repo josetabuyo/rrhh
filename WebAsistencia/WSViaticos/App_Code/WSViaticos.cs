@@ -4393,7 +4393,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string InsertarEvaluacion(int idEvaluado, int idFormulario, int periodo,int idEval, string pregYRtas, Usuario usuario)
+    public string InsertarEvaluacion(int idEvaluado, int idFormulario, int periodo,int idEval, string pregYRtas, int estado, Usuario usuario)
     {
         RepositorioEvaluacionDesempenio repositorio = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
         //var preguntasYRespuestas = JsonConvert.DeserializeObject(pregYRtas);
@@ -4404,10 +4404,11 @@ public class WSViaticos : System.Web.Services.WebService
         if (idEval != 0)
         {
             repositorio.deleteEvaluacionDetalle(idEval);
+            repositorio.updateEvaluacion(idEval, idEvaluado, usuario.Owner.Id, idFormulario, periodo, estado);
         }
         else {
             //FC:Inserto la cabecera de la evaluacion
-            idEval = repositorio.insertarEvaluacion(idEvaluado, usuario.Owner.Id, idFormulario, periodo);
+            idEval = repositorio.insertarEvaluacion(idEvaluado, usuario.Owner.Id, idFormulario, periodo, estado);
         }
             
             //var item1 = preguntasYRespuestas;

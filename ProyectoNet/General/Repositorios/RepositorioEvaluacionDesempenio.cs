@@ -27,7 +27,7 @@ namespace General.Repositorios
         public string getFormularioDeEvaluacion(int nivel, int evaluado, int evaluacion)
         {
             var parametros = new Dictionary<string, object>();
-            var list_de_pregYRtas = new List<Object> { };
+            var list_de_pregYRtas = new List<FormEvaluacion> { };
             var list_de_pregYRtasRespondidas = new List<Object> { };
             var tablaDatos = new TablaDeDatos();
 
@@ -66,26 +66,26 @@ namespace General.Repositorios
                 {
                     tablaDatos.Rows.ForEach(row =>
                     {
-                        
-                        list_de_pregYRtas.Add(new
-                        {
-                            Orden = row.GetSmallintAsInt("Orden", 0),
-                            idPregunta = row.GetSmallintAsInt("id_pregunta", 0),
-                            idConcepto = row.GetSmallintAsInt("id_concepto", 0),
-                            Enunciado = row.GetString("Enunciado", "Sin enunciado"),
-                            Factor = row.GetString("Factor", "0"),
-                            idNivel = row.GetSmallintAsInt("id_nivel", 0),
-                            DescripcionNivel = row.GetString("descripcion_nivel", "Sin información"),
-                            DetalleNivel = row.GetString("detalle_nivel", "Sin información"),
-                            Rta1 = row.GetString("Rpta1", "Sin información"),
-                            Rta2 = row.GetString("Rpta2", "Sin información"),
-                            Rta3 = row.GetString("Rpta3", "Sin información"),
-                            Rta4 = row.GetString("Rpta4", "Sin información"),
-                            Rta5 = row.GetString("Rpta5", "Sin información"),
-                            Concepto = row.GetString("concepto", "Sin información"),
-                            OpcionElegida = 0
+                        FormEvaluacion form = new FormEvaluacion();
+                        form.Orden = row.GetSmallintAsInt("Orden", 0);
+                        form.idPregunta = row.GetSmallintAsInt("id_pregunta", 0);
+                        form.idConcepto = row.GetSmallintAsInt("id_concepto", 0);
+                        form.Enunciado = row.GetString("Enunciado", "Sin enunciado");
+                        form.Factor = row.GetString("Factor", "0");
+                        form.idNivel = row.GetSmallintAsInt("id_nivel", 0);
+                        form.DescripcionNivel = row.GetString("descripcion_nivel", "Sin información");
+                        form.DetalleNivel = row.GetString("detalle_nivel", "Sin información");
+                        form.Rta1 = row.GetString("Rpta1", "Sin información");
+                        form.Rta2 = row.GetString("Rpta2", "Sin información");
+                        form.Rta3 = row.GetString("Rpta3", "Sin información");
+                        form.Rta4 = row.GetString("Rpta4", "Sin información");
+                        form.Rta5 = row.GetString("Rpta5", "Sin información");
+                        form.Concepto = row.GetString("concepto", "Sin información");
+                        form.OpcionElegida = 0;
 
-                        });
+
+                        list_de_pregYRtas.Add(form);
+                        
                     });
 
                 }
@@ -94,14 +94,13 @@ namespace General.Repositorios
             foreach (var item in list_de_pregYRtasRespondidas)
             {
                 var idPreguntaDeLaEvaluacion = (int)item.GetType().GetProperty("idPregunta").GetValue(item, null);
-                var opcionElegida = (Int32)item.GetType().GetProperty("OpcionElegida").GetValue(item, null);
-                foreach (var subItem in list_de_pregYRtas)
+                var opcionElegida = (int)item.GetType().GetProperty("OpcionElegida").GetValue(item, null);
+                foreach (var subForm in list_de_pregYRtas)
 	            {
-                    var idPreguntaDelFormVacio = (int)subItem.GetType().GetProperty("idPregunta").GetValue(subItem, null);
-                    if (idPreguntaDelFormVacio == idPreguntaDeLaEvaluacion)
+                    
+                    if (subForm.idPregunta == idPreguntaDeLaEvaluacion)
                     {
-                        //PropertyInfo propertyInfo = subItem.GetType().GetProperty("OpcionElegida");
-                        //propertyInfo.SetValue(subItem, opcionElegida, null);
+                        subForm.OpcionElegida = opcionElegida;
                     }
                     
 	            }
@@ -132,15 +131,17 @@ namespace General.Repositorios
                     {
                         primer_row = false;
                         id_evaluacion_anterior = row.GetSmallintAsInt("id_evaluacion", 0);
-                        evaluador = newEvaluadoFromRow(row, detalle_preguntas, id_evaluacion_anterior);
+                        var id_evaluado = row.GetSmallintAsInt("id_evaluado", 0);
+                        evaluador = newEvaluadoFromRow(row, detalle_preguntas, id_evaluado);
                     }
 
-                    if (row.GetSmallintAsInt("id_evaluacion", 0) != id_evaluacion_anterior)
+                    if (row.GetSmallintAsInt("id_evaluacion", 0) != id_evaluacion_anterior || id_evaluacion_anterior == 0)
                     {
                         tipos_consultas.Add(evaluador);
                         id_evaluacion_anterior = row.GetSmallintAsInt("id_evaluacion", 0);
                         detalle_preguntas = new List<object>();
-                        evaluador = newEvaluadoFromRow(row, detalle_preguntas, id_evaluacion_anterior);
+                        var id_evaluado = row.GetSmallintAsInt("id_evaluado", 0);
+                        evaluador = newEvaluadoFromRow(row, detalle_preguntas, id_evaluado);
                         AddDetallePreguntasA(detalle_preguntas, row);
                         
                     }
@@ -179,7 +180,7 @@ namespace General.Repositorios
                             nombre = row.GetString("nombre"),
                             nro_documento = row.GetInt("NroDocumento"),
                             id_evaluacion = row.GetInt("id_evaluacion", 0),
-                            estado = row.GetInt("estado_evaluacion", 0),
+                            estado = row.GetSmallintAsInt("estado_evaluacion", 0),
                             id_periodo = row.GetInt("id_periodo", 0),
                             descripcion_periodo = row.GetString("descripcion_periodo", ""),
                             id_nivel = row.GetSmallintAsInt("id_nivel", 0),
@@ -192,7 +193,7 @@ namespace General.Repositorios
                         };
         }
 
-        public int insertarEvaluacion(int idEvaluado, int idEvaluador, int idFormulario, int periodo)
+        public int insertarEvaluacion(int idEvaluado, int idEvaluador, int idFormulario, int periodo, int estado)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_evaluacion", 0);
@@ -200,12 +201,28 @@ namespace General.Repositorios
             parametros.Add("@id_evaluado", idEvaluado);
             parametros.Add("@id_formulario", idFormulario);
             parametros.Add("@id_periodo", periodo);
-            parametros.Add("@estado", 0);
+            parametros.Add("@estado", estado);
             parametros.Add("@baja", 0);
             //parametros.Add("@fecha", DateTime());
 
 
             return (int)_conexion.EjecutarEscalar("dbo.EVAL_INS_Evaluacion", parametros);
+
+        }
+
+        public void updateEvaluacion(int idEval, int idEvaluado, int idEvaluador, int idFormulario, int periodo, int estado)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_evaluacion", idEval);
+            parametros.Add("@id_evaluador", idEvaluador);
+            parametros.Add("@id_evaluado", idEvaluado);
+            parametros.Add("@id_formulario", idFormulario);
+            parametros.Add("@id_periodo", periodo);
+            parametros.Add("@estado", estado);
+            parametros.Add("@baja", 0);
+            parametros.Add("@fecha", DateTime.Today);
+
+            _conexion.Ejecutar("dbo.EVAL_UPD_Evaluacion", parametros);
 
         }
 

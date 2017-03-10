@@ -45,7 +45,7 @@
 
     $(document).ready(function ($) {
         Backend.start(function () {
-            ListadoAgentes.getEstudios();
+            ListadoAgentes.getEvaluaciones();
         });
     });
 </script>
