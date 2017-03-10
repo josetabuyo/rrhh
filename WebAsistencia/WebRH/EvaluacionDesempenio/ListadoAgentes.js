@@ -88,7 +88,8 @@ var ListadoAgentes = {
                         $vexContent.append(ui);
                         ui.find("#btn_nivel").click(function () {
                             localStorage.setItem("idNivel", ui.find("#select_niveles").val());
-                            window.location.href = 'FormularioEvaluacion.aspx';
+                            window.open('ImpresionEvaluacion.html', '_blank');
+
                         });
                         ui.show();
                         return ui;
@@ -99,13 +100,13 @@ var ListadoAgentes = {
                     }
                 });
             } else {
-                window.location.href = 'FormularioEvaluacion.aspx';
+                window.open('ImpresionEvaluacion.html', '_blank');
             }
         });
         return btn_accion;
     },
     getBotonIrAFormulario: function (un_agente) {
-        
+
         var btn_accion = $('<a>');
         var img = $('<img>');
         img.attr('src', '../Imagenes/portal/estudios.png');
@@ -150,6 +151,50 @@ var ListadoAgentes = {
             }
         });
         return btn_accion;
+    },
+
+    imprimirFormularioEvaluacion: function (idNivel, idEvaluacion, idEvaluado) {
+
+        //repetido
+        var _this = this;
+        var nombre = localStorage.getItem("apellido") + ', ' + localStorage.getItem("nombre");
+        var descripcionNivel = localStorage.getItem("descripcionNivel");
+        $('#nivel').html(descripcionNivel);
+        $('#nombre_evaluado').html(nombre);
+
+        Backend.GetFormularioDeEvaluacion(idNivel, idEvaluacion, idEvaluado)
+        .onSuccess(function (formularioJSON) {
+            var form = JSON.parse(formularioJSON);
+
+            $.each(form, function (key, value) {
+                var respuesta = "";
+                switch (value.OpcionElegida) {
+                    case 1:
+                        respuesta = value.Rta1;
+                    case 2:
+                        respuesta = value.Rta2;
+                    case 3:
+                        respuesta = value.Rta3;
+                    case 4:
+                        respuesta = value.Rta4;
+                    case 5:
+                        respuesta = value.Rta5;
+                }
+
+                $('#div_contenido_impresion').append('<h3>' + value.Enunciado + '</h3><p>' + respuesta + '</p>');
+
+            });
+            var divToPrint = document.getElementById('div_contenido_impresion');
+            var newWin = window.open('', 'Print-Window');
+            newWin.document.write('<html><head></head><body onload="window.print()">' + divToPrint.innerHTML + '</body></html>');
+            newWin.document.close();
+
+        })
+        .onError(function (e) {
+            spinner.stop();
+        });
+
+
     },
 
     getFormularioDeEvaluacion: function (idNivel, idEvaluacion, idEvaluado) {
