@@ -24,13 +24,15 @@
                 if (consultas.length == 0) {
                     $('#notificacion_punto_rojo').hide();
                     $('#notificacion_punto_verde').show();
+                    contenedor_de_alertas_y_mensajes
+
                 } else {
                     $('#notificacion_punto_rojo').show();
                     $('#notificacion_punto_verde').hide();
                 }
 
             });
-        }, 5000);
+        }, 30000);
 
         Backend.GetMenuPara('PRINCIPAL').onSuccess(function (modulos) {
 
