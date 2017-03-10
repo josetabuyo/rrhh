@@ -241,8 +241,8 @@ var Legajo = {
                             if (str_fecha == "0001-01-01T00:00:00") {
                                 return "";
                             }
-                            var fh = new Date(str_fecha);
-                            fh.setDate(fh.getDate());
+                            var fh = new Date(str_fecha + '-03:00');
+                            //fh.setDate(fh.getDate());
                             var mes = fh.getMonth() + 1;
                             var anio = fh.getFullYear();
                             if (mes > 12) {
@@ -525,6 +525,9 @@ var Legajo = {
                         if (carreraJSON != "") {
                             carreras = JSON.parse(carreraJSON);
                         }
+                           
+                        carreras = _.sortBy((_.sortBy(carreras, 'FechaDesde')), 'Folio');
+
                         var _this = this;
                         $("#tablaCarreraAdministrativa").empty();
                         var divGrilla = $("#tablaCarreraAdministrativa");

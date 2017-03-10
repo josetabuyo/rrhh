@@ -379,6 +379,8 @@ namespace General.Repositorios
             var tablaDatos = conexion.Ejecutar("dbo.LEG_GET_Carreras_Admistrativas", parametros);
             var carrera_adm = new List<Object> { };
 
+            
+
             if (tablaDatos.Rows.Count > 0)
             {
                 tablaDatos.Rows.ForEach(row =>
@@ -392,7 +394,8 @@ namespace General.Repositorios
                         Grado = row.GetString("Grado", "Sin información"),
                         Cargo = row.GetString("CARGO", "Sin información"),
                         FechaDesde = row.GetDateTime("Fecha_Desde"),
-                        FechaHasta = row.GetDateTime("Fecha_Hasta", DateTime.Today),
+                        FechaHasta = row.GetDateTime("Fecha_Hasta", DateTime.MinValue),
+                       // FechaHasta = row.g.GetDateTime("Fecha_Hasta", DateTime.Today),
                         DescCausa = row.GetString("DescCausa", "Sin información"),
                         Folio = row.GetString("Folio", "Sin información")
 
