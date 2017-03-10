@@ -1207,6 +1207,7 @@ var Legajo = {
         });
         $('#btn_notificaciones_historicas').click(function () {
             $('#consultas').hide();
+            $('#notificaciones').show();
             $('#div_notificaciones_enviadas').show();
             $('#div_crear_nofificacion').hide();
             _this.GetNotificacionesTodas();
@@ -1230,7 +1231,7 @@ var Legajo = {
                         columnas.push(new Columna("#", { generar: function (una_notificacion) { return una_notificacion.Id } }));
                         columnas.push(new Columna("Fecha Creación", { generar: function (una_notificacion) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_notificacion.fechaCreacion) } }));
                         columnas.push(new Columna("Título", { generar: function (una_notificacion) { return una_notificacion.titulo } }));
-                        columnas.push(new Columna("Responsable", { generar: function (una_notificacion) { return una_notificacion.responsable.Nombre + una_notificacion.responsable.Apellido } }));
+                        // columnas.push(new Columna("Responsable", { generar: function (una_notificacion) { return una_notificacion.responsable.Nombre + una_notificacion.responsable.Apellido } }));
                         columnas.push(new Columna('Detalle', {
                             generar: function (una_notificacion) {
                                 var btn_accion = $('<a>');
@@ -1257,8 +1258,45 @@ var Legajo = {
                     });
 
     },
-    MostrarDestinatariosDeLaNotificacion: function () {
-        //aaaaaaaaaaaaaaaaaaaaa
+    MostrarDestinatariosDeLaNotificacion: function (notificacion) {
+        var _this_original = this;
+        Backend.MostrarDestinatariosDeLaNotificacion(notificacion.Id)
+                    .onSuccess(function (notificacionesJSON) {
+                        var notificaciones = [];
+                        if (notificacionesJSON != "") {
+                            notificaciones = JSON.parse(notificacionesJSON);
+                        }
+                        var _this = this;
+                        $("#tableNotificacionesUsuarios").empty();
+                        var divGrilla = $("#tableNotificacionesUsuarios");
+                        var columnas = [];
+
+                        columnas.push(new Columna("DNI", { generar: function (una_notificacion) { return una_notificacion.persona.Documento } }));
+                        columnas.push(new Columna("Apellido y Nombre", { generar: function (una_notificacion) { return una_notificacion.persona.Apellido + ", " + una_notificacion.persona.Nombre } }));
+                        columnas.push(new Columna("Leído", { generar: function (una_notificacion) { return _this_original.TransformarFlagLeido(una_notificacion.leido) } }));
+                        columnas.push(new Columna("Fecha Lectura", { generar: function (una_notificacion) { return _this_original.TransformarFechaLectura(ConversorDeFechas.deIsoAFechaEnCriollo(una_notificacion.fechaLectura)) } }));
+
+                        _this.divGrilla = new Grilla(columnas);
+                        _this.divGrilla.CambiarEstiloCabecera("estilo_tabla_portal");
+                        _this.divGrilla.SetOnRowClickEventHandler(function (una_notificacion) { });
+                        _this.divGrilla.CargarObjetos(notificaciones);
+                        _this.divGrilla.DibujarEn(divGrilla);
+                        $('.table-hover').removeClass("table-hover");
+                    })
+                    .onError(function (e) {
+                    });
+    },
+    TransformarFechaLectura: function (fecha) {
+        if (fecha == "1/1/1900") {
+            return "";
+        }
+        return fecha;
+    },
+    TransformarFlagLeido: function (flag) {
+        if (flag) {
+            return "SI";
+        }
+        return "NO";
     },
     getConsultasTodas: function (estado) {
         var _this_original = this;

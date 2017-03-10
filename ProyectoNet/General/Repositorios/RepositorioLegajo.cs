@@ -450,8 +450,8 @@ namespace General.Repositorios
 
         public string GetNotificacionesTodasDePortal()
         {
-            //aaaaaaaaaaaaaaaaaa hacer un corte o ver si buscar por notificación luego
-            List<Notificacion> consultas = new List<Notificacion>();
+
+            List<Notificacion> notificaciones = new List<Notificacion>();
             var tablaDatos = conexion.Ejecutar("dbo.LEG_GETNotificacionesTodas");
             var area = new Area();
             if (tablaDatos.Rows.Count > 0)
@@ -460,24 +460,38 @@ namespace General.Repositorios
                 {
                     Persona creador = new Persona(row.GetInt("id_usuario_creador"), 0, "", "", area);
                     List<Destinatario> destinatarios = new List<Destinatario>();
-                    Notificacion notificaciones = new Notificacion(
+                    Notificacion notificacion = new Notificacion(
                         row.GetInt("Id"),
                         creador,
                         row.GetDateTime("fecha_creacion"),
                         row.GetString("titulo"),
                         row.GetString("texto"),
                         destinatarios,
-                        row.GetBoolean("leido"));
-
-                    consultas.Add(notificaciones);
-
+                        false);
+                    notificaciones.Add(notificacion);
                 });
-
             }
+            return JsonConvert.SerializeObject(notificaciones);
+        }
 
-            return JsonConvert.SerializeObject(consultas);
+        public string MostrarDestinatariosDeLaNotificacion(int id_notificacion)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@IdNotificacion", id_notificacion);
 
-
+            var tablaDatos = conexion.Ejecutar("dbo.LEG_GETDestinatariosDeLaNotificacion", parametros);
+            List<Destinatario> destinatarios = new List<Destinatario>();
+            var area = new Area();
+            if (tablaDatos.Rows.Count > 0)
+            {
+                tablaDatos.Rows.ForEach(row =>
+                {
+                    Persona creador = new Persona(0, row.GetInt("documento"), row.GetString("nombre"), row.GetString("apellido"), area);
+                    Destinatario destinatario = new Destinatario(id_notificacion, creador, row.GetDateTime("fecha_lectura", new DateTime(1900, 1, 1)), row.GetBoolean("leido"));
+                    destinatarios.Add(destinatario);
+                });
+            }
+            return JsonConvert.SerializeObject(destinatarios);
         }
 
         public string GetConsultasTodasDePortal(int estado)
