@@ -152,7 +152,6 @@ var ListadoAgentes = {
         });
         return btn_accion;
     },
-
     imprimirFormularioEvaluacion: function (idNivel, idEvaluacion, idEvaluado) {
 
         //repetido
@@ -171,14 +170,21 @@ var ListadoAgentes = {
                 switch (value.OpcionElegida) {
                     case 1:
                         respuesta = value.Rta1;
+                        break;
                     case 2:
                         respuesta = value.Rta2;
+                        break;
                     case 3:
                         respuesta = value.Rta3;
+                        break;
                     case 4:
                         respuesta = value.Rta4;
+                        break;
                     case 5:
                         respuesta = value.Rta5;
+                        break;
+                    default:
+                        respuesta = 'No se ha podido encontrar la respuesta correspondiente.';
                 }
 
                 $('#div_contenido_impresion').append('<h3>' + value.Enunciado + '</h3><p>' + respuesta + '</p>');
@@ -234,6 +240,8 @@ var ListadoAgentes = {
                 plantilla.find("input[type='radio']").attr('checked', false);
                 plantilla.find("input[type='radio']").click(function () {
                     _this.calcularCalificacion();
+                    plantilla.find("input[type='radio']").parent().removeClass('radioSeleccionado');
+                    $(this).parent().addClass('radioSeleccionado');
                 });
 
                 if (value.OpcionElegida != 0) {
@@ -241,6 +249,7 @@ var ListadoAgentes = {
                     //var radios = plantilla.find('.input_form').data('opcion')
                     var radio = plantilla.find('[data-opcion=' + value.OpcionElegida + ']');
                     radio.attr('checked', true);
+                    radio.parent().addClass('radioSeleccionado');
 
                 }
 

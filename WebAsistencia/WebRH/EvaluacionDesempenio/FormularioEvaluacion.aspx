@@ -24,6 +24,7 @@
 {
     font-size: large;
     font-weight: bolder;
+    margin-bottom: 20px;
 }
 
 #foto_usuario {
@@ -51,6 +52,12 @@
     overflow: hidden;
 }
 
+.radioSeleccionado 
+{
+    color: #132a80;
+    font-size: medium;
+}
+
     
     </style>
 </head>
@@ -65,8 +72,8 @@
         <div id="izq" style="width:60%; float:left; position: absolute;">
             <div id="foto_usuario" class="foto_usuario" class="bloque_foto" > </div>
             <img id="foto_usuario_generica" class="foto_usuario" src="../Imagenes/silueta.gif" style="margin-top: 25px;"/>
-            <h1 style="margin: 10px;">Nivel:<span id="nivel">1. GERENCIAL</span> </h1>
-            <h3 style="margin: 10px;">Nombre Evaluado: <span id="nombre_evaluado">Fernando</span></h3>
+            <p style="margin: 10px; margin-left: 150px; margin-top:50px;">Nivel:<span id="nivel">1. GERENCIAL</span> </p>
+            <p style="margin: 10px; margin-left: 150px;"><span id="nombre_evaluado">Fernando</span></p>
         </div>
         <div id="der" style="width:30%; float:right; border:1px solid; text-align:center; margin: 30px;">
             <h1>Puntaje</h1>
