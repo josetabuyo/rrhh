@@ -287,6 +287,21 @@ var ListadoAgentes = {
                 var radioButtonsChecked = $('.input_form:checked');
                 var pregYRtas = [];
 
+                /*var cajas = $(".plantilla_form");//
+                //if (estado != 0) {
+                    $.each(cajas, function (key, value) {
+                        var radios = value.find(".input_form:checked");
+                        if (radios.length > 0) {
+                            alert('tildado');
+                            return;
+                        }
+                        else {
+                            alert('no se tildaron todos');
+                            return; ;
+                        }
+                     });*/
+                // }
+
                 $.each(radioButtonsChecked, function (key, value) {
 
                     pregYRtas.push(
@@ -298,7 +313,6 @@ var ListadoAgentes = {
 
                 var jsonPregYRtas = JSON.stringify(pregYRtas);
 
-                //cambiar el 2do idEvaluado por idEvaluador
                 Backend.InsertarEvaluacion(idEvaluado, idNivel, periodo, evaluacion, jsonPregYRtas, estado)
                     .onSuccess(function (rto) {
                         spinner.stop();
