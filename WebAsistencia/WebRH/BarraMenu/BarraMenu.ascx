@@ -6,10 +6,13 @@
     <link id="link1" rel="stylesheet" href="<%= UrlEstilos %>EstilosBarraMenu.css" type="text/css" />
     <link id="link2" rel="stylesheet" href="<%= UrlEstilos %>BarraMenuUsuarios.css" type="text/css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="../scripts/vex-2.1.1/css/vex.css" rel="stylesheet">
+    <link href="../scripts/vex-2.1.1/css/vex-theme-os.css" rel="stylesheet">
     <script type="text/javascript" src="../BarraMenu/BarraMenu.js"></script>
     <script type="text/javascript" src="../BarraMenu/BotonDesplegable.js"></script>
     <script type="text/javascript" src="../Scripts/ControlesImagenes/VistaThumbnail.js"></script>
     <script type="text/javascript" src="../Scripts/ControlesImagenes/SubidorDeImagenes.js"></script>
+    <script type="text/javascript" src="../scripts/vex-2.1.1/js/vex.combined.min.js"></script>
     <%= Referencias.Javascript("../")%>
 </head>
 <div id="barra_menu_contenedor" class="no-print">
@@ -31,7 +34,6 @@
         <div id="contenedor_imagen_usuario">
             <img src="<%= UrlImagenes %>portal/portal_empleado.png" id="foto_usuario_icono" alt="fotouser" />
             <div id="imagen">
-                
             </div>
         </div>
         <div id="contenedor_menu_usuarios" class="menu_usuario sombrita" style="display: none;">
@@ -39,14 +41,14 @@
             </div>
             <div id="contenedor_foto_usuario">
                 <div id="foto_usuario_menu" class="foto_menu_estilo">
-                
                 </div>
                 <div id="barrita_cambio_imagen">
-                    <div>Cambiar</div>
-                    <div>Imágen</div>                  
+                    <div>
+                        Cambiar</div>
+                    <div>
+                        Imágen</div>
                 </div>
             </div>
-            
             <img id="foto_usuario_generica" src="<%= UrlImagenes %>portal/portal_empleado.png"
                 alt="fotousuariogenerica" class="foto_menu_estilo" />
             <div id="nombre_user" class="cabecera_menu_usuario">
@@ -81,11 +83,11 @@
         </div>
         <!--mensajes-->
         <div id="contenedor_imagen_mensajes">
-          <div id="notificacion_punto_verde">
-          <img id="check" src="../Imagenes/BarraMenu/check.png"></img>
-                </div>
+            <div id="notificacion_punto_verde">
+                <img id="check" src="../Imagenes/BarraMenu/check.png"></img>
+            </div>
             <div id="notificacion_punto_rojo">
-                </div>
+            </div>
             <img src="<%= UrlImagenes %>mensajes-icono.png" id="menu_mensajes" alt="fotousuariomenu" />
         </div>
         <div id="contenedor_menu_mensajes" class="menu_usuario sombrita-iconos" style="display: none;">
@@ -114,6 +116,7 @@
             <uc5:FormPassword ID="FormPassword" runat="server" />
         </div>
     </div>--%>
+        <!-- Plantillas para armar los mensajes dentro de las alertas-->
         <div id="plantillas" style="display: none">
             <div class="ui_mensaje_alerta mensaje_alerta sombra-mensaje">
                 <p class="titulo_mensaje_alerta">
@@ -128,5 +131,17 @@
                     Praesent ut sapien ac leo porta finibus eget vitae lacus. Aliquam at arcu felis.
                     Morbi sit amet consectetur ex. Maecenas in nisi turpis.</p>
             </div>
+            <div id="contenedor_chat_mensajes">
+                <div id="titulo_chat">
+                </div>
+                <div id="cuerpo_chat">
+                    <div id="plantilla_mensaje">
+                    </div>
+                </div>
+                <input id="btn_enviar" type="button" class="btn btn-primary" value="Enviar" />
+                <input id="btn_cerrar" type="button" class="btn btn-primary" value="Cerrar" />
+                <input id="bnt_finalizar" type="button" class="btn btn-primary" value="Finalizar" />
+            </div>
         </div>
+        <!-- Pop-up Chat para mensajes-->
     </div>

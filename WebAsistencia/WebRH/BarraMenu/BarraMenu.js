@@ -17,6 +17,23 @@
                     ui_consulta.find(".titulo_mensaje_alerta").text("Título: " + consulta.tipo_consulta + " - Estado: " + consulta.estado);
                     ui_consulta.find(".contenido_mensaje_alerta").text(consulta.resumen);
                     $(".contenedor_de_alertas_y_mensajes").append(ui_consulta);
+
+                    ui_consulta.click(function () {
+
+                        vex.defaultOptions.className = 'vex-theme-os';
+                        vex.open({
+                            afterOpen: function ($vexContent) {
+                                var ui = $("#contenedor_chat_mensajes");
+                                $vexContent.append(ui);
+                                $('contenedor_de_alertas_y_mensajes').hide();
+                            }, 
+                            contentCSS: {
+                                width: "70%",
+                                height: "80%"
+                            }
+
+                        });
+                    });
                 });
 
                 //var resultado = $.grep(consultas, function (consulta) { return consulta.leida; });
