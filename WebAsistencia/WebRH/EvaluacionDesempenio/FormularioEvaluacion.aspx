@@ -8,6 +8,7 @@
     <title>Evaluación de Desempeño</title>
     <%= Referencias.Css("../")%>
     <%= Referencias.Javascript("../")%>
+
     <style>
 .input_form 
 {
@@ -24,6 +25,32 @@
     font-size: large;
     font-weight: bolder;
 }
+
+#foto_usuario {
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 20px;
+    display: block;
+}
+
+.bloque_foto 
+{
+    display: inline-block;  
+    vertical-align: top;  
+}
+
+.foto_usuario {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    height: 128px;
+    width: 128px;
+    margin-left: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
     
     </style>
 </head>
@@ -33,9 +60,12 @@
         UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" UrlPassword="../" />
 
     <div class="container-fluid">
+
     <div id="encabezado">
-        <div id="izq" style="width:60%; float:left;">
-            <h1 style="margin: 10px;">Formulario de Evaluación de Desempeño. Nivel:<span id="nivel">1. GERENCIAL</span> </h1>
+        <div id="izq" style="width:60%; float:left; position: absolute;">
+            <div id="foto_usuario" class="foto_usuario" class="bloque_foto" > </div>
+            <img id="foto_usuario_generica" class="foto_usuario" src="../Imagenes/silueta.gif" style="margin-top: 25px;"/>
+            <h1 style="margin: 10px;">Nivel:<span id="nivel">1. GERENCIAL</span> </h1>
             <h3 style="margin: 10px;">Nombre Evaluado: <span id="nombre_evaluado">Fernando</span></h3>
         </div>
         <div id="der" style="width:30%; float:right; border:1px solid; text-align:center; margin: 30px;">
@@ -68,6 +98,7 @@
         </div>
     </form>
 </body>
+<script type="text/javascript" src="../Scripts/ControlesImagenes/VistaThumbnail.js"></script>
 <script type="text/javascript" src="ListadoAgentes.js"></script>
 <script type="text/javascript" src="../Scripts/Spin.js"></script>
 <script type="text/javascript" >

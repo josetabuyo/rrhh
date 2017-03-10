@@ -144,6 +144,26 @@ var ListadoAgentes = {
                 $('#contenedor').append(plantilla);
             });
 
+            var idPersona = localStorage.getItem("idEvaluado");
+
+            Backend.GetUsuarioPorIdPersona(idPersona)
+                    .onSuccess(function (usuario) {
+                        if (usuario.Id != 0) {
+                            if (usuario.Owner.IdImagen >= 0) {
+                                var img = new VistaThumbnail({ id: usuario.Owner.IdImagen, contenedor: $("#foto_usuario") });
+                                $("#foto_usuario").show();
+                                $("#foto_usuario_generica").hide();
+                            }
+                            else {
+                                $("#foto_usuario").hide();
+                                $("#foto_usuario_generica").show();
+                            }
+                        } else {
+                            $("#foto_usuario").hide();
+                            $("#foto_usuario_generica").show();
+                        }
+                    });
+
             $('.btnGuardar').click(function () {
                 var idNivel = localStorage.getItem("idNivel");
                 var periodo = localStorage.getItem("idPeriodo");
