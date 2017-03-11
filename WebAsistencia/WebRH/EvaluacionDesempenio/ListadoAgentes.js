@@ -214,11 +214,13 @@ var ListadoAgentes = {
             spinner.stop();
             var form = JSON.parse(formularioJSON);
 
-
             $.each(form, function (key, value) {
                 //alert(key + ": " + value);
 
                 var plantilla = $('#plantilla').clone();
+                var radioButtons = plantilla.find(".input_form");
+                var idPregunta = value.idPregunta;
+
                 plantilla.show();
 
                 plantilla.find(".pregunta").text(value.Enunciado);
@@ -230,6 +232,14 @@ var ListadoAgentes = {
                 plantilla.find(".rta5").text(value.Rta5);
 
                 plantilla.find(".input_form").attr('name', value.idPregunta);
+
+                // Genera dinámicamente un id para cada radio button y su respectiva label
+                $.each(radioButtons, function (key, value) {
+                    var input = $(value);
+                    var inputId = idPregunta + '_' + key;
+                    input.attr('id', inputId);
+                    input.next('label').attr('for', inputId);
+                });
 
                 plantilla.find("input[type='radio']").attr('checked', false);
                 plantilla.find("input[type='radio']").click(function () {

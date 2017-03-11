@@ -56,11 +56,11 @@
                     <div id="plantilla" class="plantilla_form" style="display:none; " >
                         <p class="pregunta"></p>
                         <div>
-                            <p><input type="radio"  data-opcion="1" class="input_form" /><span class="rta1"></span></p>
-                            <p><input type="radio"  data-opcion="2" class="input_form" /><span class="rta2"></span></p>
-                            <p><input type="radio"  data-opcion="3" class="input_form" /><span class="rta3"></span></p>
-                            <p><input type="radio"  data-opcion="4" class="input_form" /><span class="rta4"></span></p>
-                            <p><input type="radio"  data-opcion="5" class="input_form" /><span class="rta5"></span></p>
+                            <p><input type="radio"  data-opcion="1" class="input_form" /><label><span class="rta1"></span></label></p>
+                            <p><input type="radio"  data-opcion="2" class="input_form" /><label><span class="rta2"></span></label></p>
+                            <p><input type="radio"  data-opcion="3" class="input_form" /><label><span class="rta3"></span></label></p>
+                            <p><input type="radio"  data-opcion="4" class="input_form" /><label><span class="rta4"></span></label></p>
+                            <p><input type="radio"  data-opcion="5" class="input_form" /><label><span class="rta5"></span></label></p>
                         </div>
                     </div>
                 </div>
