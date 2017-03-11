@@ -14,21 +14,25 @@
 {
     margin: 5px !important;
 }
-        
+       
 .plantilla_form 
 {
     margin: 20px;
     border: 1px dotted; 
     padding: 10px;
 }
-
 .pregunta 
 {
     font-size: large;
     font-weight: bolder;
     margin-bottom: 20px;
 }
-
+.pregunta-pendiente::after 
+{
+    content: " (*) ";
+    color: Red;
+    font-weight: bold;
+} 
 #foto_usuario {
     display: inline-block;
     vertical-align: top;
@@ -119,7 +123,7 @@
                     </div>
                     <div id="plantilla" class="plantilla_form" style="display:none; " >
                        
-                        <p class="pregunta"></p>
+                        <p class="pregunta pregunta-pendiente"></p>
                         <div>
                             <p><input type="radio"  data-opcion="1" class="input_form" /><label><span class="rta1"></span></label></p>
                             <p><input type="radio"  data-opcion="2" class="input_form" /><label><span class="rta2"></span></label></p>

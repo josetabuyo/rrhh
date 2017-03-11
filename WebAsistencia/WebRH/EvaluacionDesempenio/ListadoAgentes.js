@@ -269,7 +269,6 @@ var ListadoAgentes = {
                     var radio = plantilla.find('[data-opcion=' + value.OpcionElegida + ']');
                     radio.attr('checked', true);
                     radio.parent().addClass('radioSeleccionado');
-
                 }
 
                 $('#contenedor').append(plantilla);
@@ -308,17 +307,17 @@ var ListadoAgentes = {
 
                 /*var cajas = $(".plantilla_form");//
                 //if (estado != 0) {
-                    $.each(cajas, function (key, value) {
-                        var radios = value.find(".input_form:checked");
-                        if (radios.length > 0) {
-                            alert('tildado');
-                            return;
-                        }
-                        else {
-                            alert('no se tildaron todos');
-                            return; ;
-                        }
-                     });*/
+                $.each(cajas, function (key, value) {
+                var radios = value.find(".input_form:checked");
+                if (radios.length > 0) {
+                alert('tildado');
+                return;
+                }
+                else {
+                alert('no se tildaron todos');
+                return; ;
+                }
+                });*/
                 // }
 
                 $.each(radioButtonsChecked, function (key, value) {
