@@ -9,6 +9,8 @@
     <link href="../scripts/vex-2.1.1/css/vex-theme-os.css" rel="stylesheet">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="../scripts/vex-2.1.1/css/vex.css" rel="stylesheet">
+    <link href="../scripts/vex-2.1.1/css/vex-theme-os.css" rel="stylesheet">
     <script type="text/javascript" src="../BarraMenu/BarraMenu.js"></script>
     <script type="text/javascript" src="../BarraMenu/BotonDesplegable.js"></script>
     <script type="text/javascript" src="../Scripts/ControlesImagenes/VistaThumbnail.js"></script>
@@ -35,7 +37,6 @@
         <div id="contenedor_imagen_usuario">
             <img src="<%= UrlImagenes %>portal/portal_empleado.png" id="foto_usuario_icono" alt="fotouser" />
             <div id="imagen">
-                
             </div>
         </div>
         <div id="contenedor_menu_usuarios" class="menu_usuario sombrita" style="display: none;">
@@ -43,14 +44,14 @@
             </div>
             <div id="contenedor_foto_usuario">
                 <div id="foto_usuario_menu" class="foto_menu_estilo">
-                
                 </div>
                 <div id="barrita_cambio_imagen">
-                    <div>Cambiar</div>
-                    <div>Imágen</div>                  
+                    <div>
+                        Cambiar</div>
+                    <div>
+                        Imágen</div>
                 </div>
             </div>
-            
             <img id="foto_usuario_generica" src="<%= UrlImagenes %>portal/portal_empleado.png"
                 alt="fotousuariogenerica" class="foto_menu_estilo" />
             <div id="nombre_user" class="cabecera_menu_usuario">
@@ -85,11 +86,11 @@
         </div>
         <!--mensajes-->
         <div id="contenedor_imagen_mensajes">
-          <div id="notificacion_punto_verde">
-          <img id="check" src="../Imagenes/BarraMenu/check.png"></img>
-                </div>
+            <div id="notificacion_punto_verde">
+                <img id="check" src="../Imagenes/BarraMenu/check.png"></img>
+            </div>
             <div id="notificacion_punto_rojo">
-                </div>
+            </div>
             <img src="<%= UrlImagenes %>mensajes-icono.png" id="menu_mensajes" alt="fotousuariomenu" />
         </div>
         <div id="contenedor_menu_mensajes" class="menu_usuario sombrita-iconos" style="display: none;">
@@ -118,20 +119,30 @@
             <uc5:FormPassword ID="FormPassword" runat="server" />
         </div>
     </div>--%>
-        
     </div>
     <div id="plantillas" style="display: none">
-            <div class="ui_mensaje_alerta mensaje_alerta sombra-mensaje">
-                <p class="titulo_mensaje_alerta">
-                    Mensaje 1</p>
-                <p class="contenido_mensaje_alerta">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam mi nunc, euismod
-                    eget est nec, consequat porttitor est. Maecenas ante elit, bibendum in volutpat
-                    sit amet, imperdiet ac neque. Quisque dapibus eros sit amet mauris venenatis molestie.
-                    Integer feugiat felis dolor, pellentesque tincidunt nulla efficitur quis. Pellentesque
-                    pretium velit id neque accumsan, vitae aliquam augue mollis. Fusce ut diam malesuada,
-                    placerat tortor et, efficitur massa. Praesent sagittis tortor et enim accumsan laoreet.
-                    Praesent ut sapien ac leo porta finibus eget vitae lacus. Aliquam at arcu felis.
-                    Morbi sit amet consectetur ex. Maecenas in nisi turpis.</p>
-            </div>
+        <div class="ui_mensaje_alerta mensaje_alerta sombra-mensaje">
+            <p class="titulo_mensaje_alerta">
+                Mensaje 1</p>
+            <p class="contenido_mensaje_alerta">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam mi nunc, euismod
+                eget est nec, consequat porttitor est. Maecenas ante elit, bibendum in volutpat
+                sit amet, imperdiet ac neque. Quisque dapibus eros sit amet mauris venenatis molestie.
+                Integer feugiat felis dolor, pellentesque tincidunt nulla efficitur quis. Pellentesque
+                pretium velit id neque accumsan, vitae aliquam augue mollis. Fusce ut diam malesuada,
+                placerat tortor et, efficitur massa. Praesent sagittis tortor et enim accumsan laoreet.
+                Praesent ut sapien ac leo porta finibus eget vitae lacus. Aliquam at arcu felis.
+                Morbi sit amet consectetur ex. Maecenas in nisi turpis.</p>
         </div>
+        <div id="contenedor_chat_mensajes">
+            <div id="titulo_chat">
+            </div>
+            <div id="cuerpo_chat">
+                <div id="plantilla_mensaje">
+                </div>
+            </div>
+            <input id="btn_enviar" type="button" class="btn btn-primary" value="Enviar" />
+            <input id="btn_cerrar" type="button" class="btn btn-primary" value="Cerrar" />
+            <input id="bnt_finalizar" type="button" class="btn btn-primary" value="Finalizar" />
+        </div>
+    </div>

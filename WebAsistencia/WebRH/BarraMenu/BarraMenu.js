@@ -17,6 +17,23 @@
                     ui_consulta.find(".titulo_mensaje_alerta").text("Título: " + consulta.tipo_consulta + " - Estado: " + consulta.estado);
                     ui_consulta.find(".contenido_mensaje_alerta").text(consulta.resumen);
                     $(".contenedor_de_alertas_y_mensajes").append(ui_consulta);
+
+                    ui_consulta.click(function () {
+
+                        vex.defaultOptions.className = 'vex-theme-os';
+                        vex.open({
+                            afterOpen: function ($vexContent) {
+                                var ui = $("#contenedor_chat_mensajes");
+                                $vexContent.append(ui);
+                                $('contenedor_de_alertas_y_mensajes').hide();
+                            }, 
+                            contentCSS: {
+                                width: "70%",
+                                height: "80%"
+                            }
+
+                        });
+                    });
                 });
 
                 //var resultado = $.grep(consultas, function (consulta) { return consulta.leida; });
@@ -24,13 +41,14 @@
                 if (consultas.length == 0) {
                     $('#notificacion_punto_rojo').hide();
                     $('#notificacion_punto_verde').show();
+                    contenedor_de_alertas_y_mensajes
+
                 } else {
                     $('#notificacion_punto_rojo').show();
                     $('#notificacion_punto_verde').hide();
                 }
 
             });
-
             Backend.GetSolicitudesDeCambioDeImagenPendientes().onSuccess(function (solicitudes) {
                 _.forEach(solicitudes, function (solicitud) {
                     var ui_consulta = $("#plantillas .ui_mensaje_alerta").clone();

@@ -382,3 +382,15 @@
   top: 6px;
 }
 
+
+
+/*Chat mensajes*/
+#contenedor_chat_mensajes
+{
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    background: white;
+    margin-top: 50px;
+    margin-left: 25%;
+    }
