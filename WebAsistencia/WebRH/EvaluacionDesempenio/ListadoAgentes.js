@@ -30,12 +30,16 @@ var ListadoAgentes = {
             }));
             columnas.push(new Columna('Accion', {
                 generar: function (un_agente) {
+
                     var coleccion_respuestas = _this.getRespuestasDelForm(un_agente);
                     var calificacion = _this.calificacion(coleccion_respuestas, un_agente.deficiente, un_agente.regular, un_agente.bueno, un_agente.destacado, false);
                     if (calificacion == 'A Evaluar' || calificacion == 'Evaluacion Incompleta') {
                         return _this.getBotonIrAFormulario(un_agente);
                     }
-                    return _this.getBotonImprimir(un_agente);
+                    if (un_agente.estado == 1) {
+                        return _this.getBotonImprimir(un_agente);
+                    }
+                    return _this.getDosBotones(un_agente);
                 }
             }));
 
@@ -106,7 +110,6 @@ var ListadoAgentes = {
         return btn_accion;
     },
     getBotonIrAFormulario: function (un_agente) {
-
         var btn_accion = $('<a>');
         var img = $('<img>');
         img.attr('src', '../Imagenes/portal/estudios.png');
@@ -152,7 +155,15 @@ var ListadoAgentes = {
         });
         return btn_accion;
     },
-    imprimirFormularioEvaluacion: function (idNivel, idEvaluacion, idEvaluado) {
+    getDosBotones: function (un_agente) {
+        var boton_imprimir = this.getBotonImprimir(un_agente);
+        var boton_ir_a_form = this.getBotonIrAFormulario(un_agente);
+        var div = $('<div>');
+        div.append(boton_ir_a_form);
+        div.append(boton_imprimir);
+        return div;
+    },
+imprimirFormularioEvaluacion: function (idNivel, idEvaluacion, idEvaluado) {
         var _this = this;
         var nombre = localStorage.getItem("apellido") + ', ' + localStorage.getItem("nombre");
         var descripcionNivel = localStorage.getItem("descripcionNivel");
