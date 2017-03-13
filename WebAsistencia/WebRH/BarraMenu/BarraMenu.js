@@ -8,7 +8,7 @@
             window.location.href = '../Portal/Portal.aspx';
         });
 
-        setInterval(function () {
+        var cargar_alertas = function () {
             $(".contenedor_de_alertas_y_mensajes").empty()
             Backend.GetConsultasDePortalNoLeidas().onSuccess(function (consultasJSON) {
                 var consultas = JSON.parse(consultasJSON);
@@ -30,7 +30,25 @@
                 }
 
             });
-        }, 5000);
+
+            Backend.GetSolicitudesDeCambioDeImagenPendientes().onSuccess(function (solicitudes) {
+                _.forEach(solicitudes, function (solicitud) {
+                    var ui_consulta = $("#plantillas .ui_mensaje_alerta").clone();
+                    ui_consulta.find(".titulo_mensaje_alerta").text("Solicitud de cambio de imagen pendiente");
+
+                    ui_consulta.click(function(){
+                        $("#plantillas").append($("<div>").load("../Componentes/AdministradorSolicitudCambioImagen.htm", function(){
+                            var admin = new AdministradorSolicitudCambioImagen(solicitud);
+                        
+                        }));
+                    });
+                    $(".contenedor_de_alertas_y_mensajes").append(ui_consulta);
+                });
+            });
+        };
+
+        cargar_alertas();
+        setInterval(cargar_alertas, 20000);
 
         Backend.GetMenuPara('PRINCIPAL').onSuccess(function (modulos) {
 
@@ -71,26 +89,27 @@
                             alertify.alert("Se ha modificado la contraseña.", "La nueva contraseña para el usuario: "
                                                 + usuario.Alias + " es: " + nueva_clave);
                         });
-                }
+                    }
+                    , function () {
+                        alertify.alert("Modificación cancelada.");
+                    }
+                ); 
+            });
 
-        , function () {
-            alertify.alert("Modificación cancelada.");
-        }
-        );
-            })
+
+            $("#contenedor_foto_usuario").click(function () {
+                var subidor = new SubidorDeImagenes();
+                subidor.subirImagen(function (id_imagen) {
+                    Backend.SolicitarCambioDeImagen(id_imagen).onSuccess(function () {
+                        alertify.success("solicitud de cambio de imagen realizada con éxito");
+                    });
+                });
+            });
 
             if (usuario.Owner.IdImagen >= 0) {
                 var img = new VistaThumbnail({
                     id: usuario.Owner.IdImagen,
-                    contenedor: $("#foto_usuario_menu"),
-                    alClickear: function () {
-                        var subidor = new SubidorDeImagenes();
-                        subidor.subirImagen(function (id_imagen) {
-                            Backend.SolicitarCambioDeImagen(id_imagen).onSuccess(function () {
-                                alertify.success("solicitud de cambio de imagen realizada con éxito");
-                            });
-                        });
-                    }
+                    contenedor: $("#foto_usuario_menu"),                    
                 });
                 var img2 = new VistaThumbnail({ id: usuario.Owner.IdImagen, contenedor: $("#contenedor_imagen_usuario #imagen") });
                 $("#foto_usuario_menu").show();

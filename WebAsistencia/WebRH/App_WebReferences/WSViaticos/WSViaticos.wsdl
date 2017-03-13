@@ -212,6 +212,36 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="ObtenerFolios">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="nro_inscripcion" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="dni_postulante" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="fecha_postulacion" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerFoliosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerFoliosResult" type="tns:Folios" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Folios">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="codigo" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="fecha" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="ficha_inscripcion" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="foto_carnet" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="fotocopia_dni" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="fotocopia_titulo" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Curri" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Docum_respaldo" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="dni" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="en_base" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="GuardarCambiosEnAdmitidos">
         <s:complexType>
           <s:sequence>
@@ -2110,6 +2140,20 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetPersonaUsuarioLogueado">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPersonaUsuarioLogueadoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPersonaUsuarioLogueadoResult" type="tns:Persona" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="ElUsuarioPuedeAccederALaURL">
         <s:complexType>
           <s:sequence>
@@ -3655,36 +3699,6 @@
       <s:element name="GuardarFoliosResponse">
         <s:complexType />
       </s:element>
-      <s:element name="ObtenerFolios">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="nro_inscripcion" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="dni_postulante" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="fecha_postulacion" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ObtenerFoliosResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ObtenerFoliosResult" type="tns:Folios" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:complexType name="Folios">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="codigo" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="fecha" type="s:dateTime" />
-          <s:element minOccurs="1" maxOccurs="1" name="ficha_inscripcion" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="foto_carnet" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="fotocopia_dni" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="fotocopia_titulo" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="Curri" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="Docum_respaldo" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="dni" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="en_base" type="s:boolean" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="TransicionarDocumento">
         <s:complexType>
           <s:sequence>
@@ -4853,6 +4867,20 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetSolicitudesDeCambioDeImagenPendientes">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSolicitudesDeCambioDeImagenPendientesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSolicitudesDeCambioDeImagenPendientesResult" type="tns:ArrayOfSolicitudDeCambioDeImagen" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="CambiarPassword">
         <s:complexType>
           <s:sequence>
@@ -4991,20 +5019,6 @@
           </s:extension>
         </s:complexContent>
       </s:complexType>
-      <s:element name="GetPersonaUsuarioLogueado">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetPersonaUsuarioLogueadoResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetPersonaUsuarioLogueadoResult" type="tns:Persona" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
       <s:element name="GetUsuarios">
         <s:complexType>
           <s:sequence>
@@ -6622,6 +6636,12 @@
   <wsdl:message name="ConsultaExcelDDJJ104_AreaSoapOut">
     <wsdl:part name="parameters" element="tns:ConsultaExcelDDJJ104_AreaResponse" />
   </wsdl:message>
+  <wsdl:message name="ObtenerFoliosSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerFolios" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerFoliosSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerFoliosResponse" />
+  </wsdl:message>
   <wsdl:message name="GuardarCambiosEnAdmitidosSoapIn">
     <wsdl:part name="parameters" element="tns:GuardarCambiosEnAdmitidos" />
   </wsdl:message>
@@ -7126,6 +7146,12 @@
   <wsdl:message name="ExcelPlanificacionDotacionesSoapOut">
     <wsdl:part name="parameters" element="tns:ExcelPlanificacionDotacionesResponse" />
   </wsdl:message>
+  <wsdl:message name="GetPersonaUsuarioLogueadoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPersonaUsuarioLogueado" />
+  </wsdl:message>
+  <wsdl:message name="GetPersonaUsuarioLogueadoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPersonaUsuarioLogueadoResponse" />
+  </wsdl:message>
   <wsdl:message name="ElUsuarioPuedeAccederALaURLSoapIn">
     <wsdl:part name="parameters" element="tns:ElUsuarioPuedeAccederALaURL" />
   </wsdl:message>
@@ -7624,12 +7650,6 @@
   <wsdl:message name="GuardarFoliosSoapOut">
     <wsdl:part name="parameters" element="tns:GuardarFoliosResponse" />
   </wsdl:message>
-  <wsdl:message name="ObtenerFoliosSoapIn">
-    <wsdl:part name="parameters" element="tns:ObtenerFolios" />
-  </wsdl:message>
-  <wsdl:message name="ObtenerFoliosSoapOut">
-    <wsdl:part name="parameters" element="tns:ObtenerFoliosResponse" />
-  </wsdl:message>
   <wsdl:message name="TransicionarDocumentoSoapIn">
     <wsdl:part name="parameters" element="tns:TransicionarDocumento" />
   </wsdl:message>
@@ -8008,6 +8028,12 @@
   <wsdl:message name="GetSolicitudesDeCambioDeImagenPendientesParaSoapOut">
     <wsdl:part name="parameters" element="tns:GetSolicitudesDeCambioDeImagenPendientesParaResponse" />
   </wsdl:message>
+  <wsdl:message name="GetSolicitudesDeCambioDeImagenPendientesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSolicitudesDeCambioDeImagenPendientes" />
+  </wsdl:message>
+  <wsdl:message name="GetSolicitudesDeCambioDeImagenPendientesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSolicitudesDeCambioDeImagenPendientesResponse" />
+  </wsdl:message>
   <wsdl:message name="CambiarPasswordSoapIn">
     <wsdl:part name="parameters" element="tns:CambiarPassword" />
   </wsdl:message>
@@ -8061,12 +8087,6 @@
   </wsdl:message>
   <wsdl:message name="GetUsuarioNuloSoapOut">
     <wsdl:part name="parameters" element="tns:GetUsuarioNuloResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetPersonaUsuarioLogueadoSoapIn">
-    <wsdl:part name="parameters" element="tns:GetPersonaUsuarioLogueado" />
-  </wsdl:message>
-  <wsdl:message name="GetPersonaUsuarioLogueadoSoapOut">
-    <wsdl:part name="parameters" element="tns:GetPersonaUsuarioLogueadoResponse" />
   </wsdl:message>
   <wsdl:message name="GetUsuariosSoapIn">
     <wsdl:part name="parameters" element="tns:GetUsuarios" />
@@ -8557,6 +8577,10 @@
       <wsdl:input message="tns:ConsultaExcelDDJJ104_AreaSoapIn" />
       <wsdl:output message="tns:ConsultaExcelDDJJ104_AreaSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="ObtenerFolios">
+      <wsdl:input message="tns:ObtenerFoliosSoapIn" />
+      <wsdl:output message="tns:ObtenerFoliosSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GuardarCambiosEnAdmitidos">
       <wsdl:input message="tns:GuardarCambiosEnAdmitidosSoapIn" />
       <wsdl:output message="tns:GuardarCambiosEnAdmitidosSoapOut" />
@@ -8893,6 +8917,10 @@
       <wsdl:input message="tns:ExcelPlanificacionDotacionesSoapIn" />
       <wsdl:output message="tns:ExcelPlanificacionDotacionesSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetPersonaUsuarioLogueado">
+      <wsdl:input message="tns:GetPersonaUsuarioLogueadoSoapIn" />
+      <wsdl:output message="tns:GetPersonaUsuarioLogueadoSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="ElUsuarioPuedeAccederALaURL">
       <wsdl:input message="tns:ElUsuarioPuedeAccederALaURLSoapIn" />
       <wsdl:output message="tns:ElUsuarioPuedeAccederALaURLSoapOut" />
@@ -9225,10 +9253,6 @@
       <wsdl:input message="tns:GuardarFoliosSoapIn" />
       <wsdl:output message="tns:GuardarFoliosSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="ObtenerFolios">
-      <wsdl:input message="tns:ObtenerFoliosSoapIn" />
-      <wsdl:output message="tns:ObtenerFoliosSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="TransicionarDocumento">
       <wsdl:input message="tns:TransicionarDocumentoSoapIn" />
       <wsdl:output message="tns:TransicionarDocumentoSoapOut" />
@@ -9481,6 +9505,10 @@
       <wsdl:input message="tns:GetSolicitudesDeCambioDeImagenPendientesParaSoapIn" />
       <wsdl:output message="tns:GetSolicitudesDeCambioDeImagenPendientesParaSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetSolicitudesDeCambioDeImagenPendientes">
+      <wsdl:input message="tns:GetSolicitudesDeCambioDeImagenPendientesSoapIn" />
+      <wsdl:output message="tns:GetSolicitudesDeCambioDeImagenPendientesSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="CambiarPassword">
       <wsdl:input message="tns:CambiarPasswordSoapIn" />
       <wsdl:output message="tns:CambiarPasswordSoapOut" />
@@ -9516,10 +9544,6 @@
     <wsdl:operation name="GetUsuarioNulo">
       <wsdl:input message="tns:GetUsuarioNuloSoapIn" />
       <wsdl:output message="tns:GetUsuarioNuloSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetPersonaUsuarioLogueado">
-      <wsdl:input message="tns:GetPersonaUsuarioLogueadoSoapIn" />
-      <wsdl:output message="tns:GetPersonaUsuarioLogueadoSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetUsuarios">
       <wsdl:input message="tns:GetUsuariosSoapIn" />
@@ -9855,6 +9879,15 @@
     </wsdl:operation>
     <wsdl:operation name="ConsultaExcelDDJJ104_Area">
       <soap:operation soapAction="http://wsviaticos.gov.ar/ConsultaExcelDDJJ104_Area" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerFolios">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ObtenerFolios" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -10618,6 +10651,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetPersonaUsuarioLogueado">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetPersonaUsuarioLogueado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ElUsuarioPuedeAccederALaURL">
       <soap:operation soapAction="http://wsviaticos.gov.ar/ElUsuarioPuedeAccederALaURL" style="document" />
       <wsdl:input>
@@ -11365,15 +11407,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ObtenerFolios">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/ObtenerFolios" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="TransicionarDocumento">
       <soap:operation soapAction="http://wsviaticos.gov.ar/TransicionarDocumento" style="document" />
       <wsdl:input>
@@ -11941,6 +11974,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetSolicitudesDeCambioDeImagenPendientes">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetSolicitudesDeCambioDeImagenPendientes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="CambiarPassword">
       <soap:operation soapAction="http://wsviaticos.gov.ar/CambiarPassword" style="document" />
       <wsdl:input>
@@ -12015,15 +12057,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetUsuarioNulo">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetUsuarioNulo" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetPersonaUsuarioLogueado">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetPersonaUsuarioLogueado" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -12765,6 +12798,15 @@
     </wsdl:operation>
     <wsdl:operation name="ConsultaExcelDDJJ104_Area">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/ConsultaExcelDDJJ104_Area" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerFolios">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ObtenerFolios" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -13528,6 +13570,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetPersonaUsuarioLogueado">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetPersonaUsuarioLogueado" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ElUsuarioPuedeAccederALaURL">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/ElUsuarioPuedeAccederALaURL" style="document" />
       <wsdl:input>
@@ -14275,15 +14326,6 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ObtenerFolios">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/ObtenerFolios" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="TransicionarDocumento">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/TransicionarDocumento" style="document" />
       <wsdl:input>
@@ -14851,6 +14893,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetSolicitudesDeCambioDeImagenPendientes">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetSolicitudesDeCambioDeImagenPendientes" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="CambiarPassword">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/CambiarPassword" style="document" />
       <wsdl:input>
@@ -14925,15 +14976,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetUsuarioNulo">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetUsuarioNulo" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetPersonaUsuarioLogueado">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetPersonaUsuarioLogueado" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

@@ -118,5 +118,10 @@ namespace AdministracionDeUsuarios
         {
             throw new NotImplementedException();
         }
+
+        List<SolicitudDeCambioDeImagen> IRepositorioDeUsuarios.GetSolicitudesDeCambioDeImagenPendientes()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

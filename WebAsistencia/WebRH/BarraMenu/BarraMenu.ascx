@@ -5,11 +5,15 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link id="link1" rel="stylesheet" href="<%= UrlEstilos %>EstilosBarraMenu.css" type="text/css" />
     <link id="link2" rel="stylesheet" href="<%= UrlEstilos %>BarraMenuUsuarios.css" type="text/css" />
+    <link href="../scripts/vex-2.1.1/css/vex.css" rel="stylesheet">
+    <link href="../scripts/vex-2.1.1/css/vex-theme-os.css" rel="stylesheet">
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script type="text/javascript" src="../BarraMenu/BarraMenu.js"></script>
     <script type="text/javascript" src="../BarraMenu/BotonDesplegable.js"></script>
     <script type="text/javascript" src="../Scripts/ControlesImagenes/VistaThumbnail.js"></script>
     <script type="text/javascript" src="../Scripts/ControlesImagenes/SubidorDeImagenes.js"></script>
+    <script type="text/javascript" src="../scripts/vex-2.1.1/js/vex.combined.min.js"></script>
     <%= Referencias.Javascript("../")%>
 </head>
 <div id="barra_menu_contenedor" class="no-print">
@@ -114,7 +118,9 @@
             <uc5:FormPassword ID="FormPassword" runat="server" />
         </div>
     </div>--%>
-        <div id="plantillas" style="display: none">
+        
+    </div>
+    <div id="plantillas" style="display: none">
             <div class="ui_mensaje_alerta mensaje_alerta sombra-mensaje">
                 <p class="titulo_mensaje_alerta">
                     Mensaje 1</p>
@@ -129,4 +135,3 @@
                     Morbi sit amet consectetur ex. Maecenas in nisi turpis.</p>
             </div>
         </div>
-    </div>

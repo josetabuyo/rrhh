@@ -210,18 +210,20 @@ AdministradorDeUsuarios.prototype.cargarUsuario = function (usuario) {
                         ui.find("#btn_aceptar_cambio_imagen")
                             .off("click")
                             .click(function () {
-                                Backend.AceptarCambioDeImagen(usuario.Id).onSuccess(function(){
+                                Backend.AceptarCambioDeImagen(usuario.Id).onSuccess(function () {
                                     alertify.success('solicitud de cambio de imagen aceptada');
+                                    vex.close();
                                 });
                             });
                         ui.find("#btn_rechazar_cambio_imagen")
                             .off("click")
-                            .click(function(){
-                                Backend.RechazarCambioDeImagen(usuario.Id).onSuccess(function(){
+                            .click(function () {
+                                Backend.RechazarCambioDeImagen(usuario.Id).onSuccess(function () {
                                     alertify.success('solicitud de cambio de imagen rechazada');
+                                    vex.close();
                                 });
                             });
-                            
+
                         $vexContent.append(ui);
                         ui.show();
 

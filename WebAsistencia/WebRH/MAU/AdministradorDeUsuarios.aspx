@@ -31,7 +31,7 @@
                     <div id="foto_usuario">                        
                     </div>
                     <img id="foto_usuario_generica" src=usuario.png/>
-                    <div id="cambio_imagen_pendiente">
+                    <div id="cambio_imagen_pendiente" RequiereFuncionalidad = "50">
                         <img src="camera.png"/>
                     </div>
                     <div id="panel_datos_personales">
