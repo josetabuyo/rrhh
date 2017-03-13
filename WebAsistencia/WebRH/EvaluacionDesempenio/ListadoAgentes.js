@@ -39,7 +39,7 @@ var ListadoAgentes = {
                     if (un_agente.estado == 1) {
                         return _this.getBotonImprimir(un_agente);
                     }
-                    return _this.getDosBotones();
+                    return _this.getDosBotones(un_agente);
                 }
             }));
 
@@ -92,7 +92,8 @@ var ListadoAgentes = {
                         $vexContent.append(ui);
                         ui.find("#btn_nivel").click(function () {
                             localStorage.setItem("idNivel", ui.find("#select_niveles").val());
-                            window.location.href = 'FormularioEvaluacion.aspx';
+                            window.open('ImpresionEvaluacion.html', '_blank');
+
                         });
                         ui.show();
                         return ui;
@@ -103,7 +104,7 @@ var ListadoAgentes = {
                     }
                 });
             } else {
-                window.location.href = 'FormularioEvaluacion.aspx';
+                window.open('ImpresionEvaluacion.html', '_blank');
             }
         });
         return btn_accion;
@@ -155,13 +156,73 @@ var ListadoAgentes = {
         return btn_accion;
     },
     getDosBotones: function (un_agente) {
-        var boton_imprimir = this.getBotonImprimir();
-        var boton_ir_a_form = this.getBotonIrAFormulario();
+        var boton_imprimir = this.getBotonImprimir(un_agente);
+        var boton_ir_a_form = this.getBotonIrAFormulario(un_agente);
         var div = $('<div>');
         div.append(boton_ir_a_form);
         div.append(boton_imprimir);
         return div;
     },
+imprimirFormularioEvaluacion: function (idNivel, idEvaluacion, idEvaluado) {
+        var _this = this;
+        var nombre = localStorage.getItem("apellido") + ', ' + localStorage.getItem("nombre");
+        var descripcionNivel = localStorage.getItem("descripcionNivel");
+        var leyenda = "";
+        $('#div_contenido_impresion').append('<img src="../../Imagenes/EscudoMDS.png" width="150px" height="60px" alt="">');
+        var d = new Date();
+        Backend.GetLeyendaAnio(d.getFullYear())
+        .onSuccess(function (respuesta) {
+            leyenda = respuesta;
+        })
+        .onError(function (error, as, asd) {
+            alertify.alert("", "error al obtener leyenda del año");
+        });
+
+        Backend.GetFormularioDeEvaluacion(idNivel, idEvaluacion, idEvaluado)
+        .onSuccess(function (formularioJSON) {
+            var form = JSON.parse(formularioJSON);
+            //HTML CABECERA
+            $('#div_contenido_impresion').append('<p style="float:right;font-size: x-small;font-family:ShelleyAllegro BT">' + leyenda + '</p> <p style="margin: 10px; margin-left: 150px;margin-top:50px;"><span>Agente: ' + nombre + '</span></p> <p style="margin: 10px; margin-left: 150px;">Nivel: <span>' + descripcionNivel + '</span> </p>')
+
+            $.each(form, function (key, value) {
+                var respuesta = "";
+                switch (value.OpcionElegida) {
+                    case 1:
+                        respuesta = value.Rta1;
+                        break;
+                    case 2:
+                        respuesta = value.Rta2;
+                        break;
+                    case 3:
+                        respuesta = value.Rta3;
+                        break;
+                    case 4:
+                        respuesta = value.Rta4;
+                        break;
+                    case 5:
+                        respuesta = value.Rta5;
+                        break;
+                    default:
+                        respuesta = 'No se ha podido encontrar la respuesta correspondiente.';
+                }
+
+                //HTML DETALLE
+                $('#div_contenido_impresion').append('<h3>' + value.Enunciado + '</h3><p style="margin-left:15px;">' + respuesta + '</p>');
+
+            });
+            var divToPrint = document.getElementById('div_contenido_impresion');
+            var newWin = window.open('', 'Print-Window');
+            newWin.document.write('<html><head></head><body onload="window.print()">' + divToPrint.innerHTML + '</body></html>');
+            newWin.document.close();
+
+        })
+        .onError(function (e) {
+            spinner.stop();
+        });
+
+
+    },
+
     getFormularioDeEvaluacion: function (idNivel, idEvaluacion, idEvaluado) {
         var spinner = new Spinner({ scale: 2 });
         spinner.spin($("html")[0]);
@@ -179,11 +240,13 @@ var ListadoAgentes = {
             spinner.stop();
             var form = JSON.parse(formularioJSON);
 
-
             $.each(form, function (key, value) {
                 //alert(key + ": " + value);
 
                 var plantilla = $('#plantilla').clone();
+                var radioButtons = plantilla.find(".input_form");
+                var idPregunta = value.idPregunta;
+
                 plantilla.show();
 
                 plantilla.find(".pregunta").text(value.Enunciado);
@@ -196,9 +259,19 @@ var ListadoAgentes = {
 
                 plantilla.find(".input_form").attr('name', value.idPregunta);
 
+                // Genera dinámicamente un id para cada radio button y su respectiva label
+                $.each(radioButtons, function (key, value) {
+                    var input = $(value);
+                    var inputId = idPregunta + '_' + key;
+                    input.attr('id', inputId);
+                    input.next('label').attr('for', inputId);
+                });
+
                 plantilla.find("input[type='radio']").attr('checked', false);
                 plantilla.find("input[type='radio']").click(function () {
                     _this.calcularCalificacion();
+                    plantilla.find("input[type='radio']").parent().removeClass('radioSeleccionado');
+                    $(this).parent().addClass('radioSeleccionado');
                 });
 
                 if (value.OpcionElegida != 0) {
@@ -206,11 +279,31 @@ var ListadoAgentes = {
                     //var radios = plantilla.find('.input_form').data('opcion')
                     var radio = plantilla.find('[data-opcion=' + value.OpcionElegida + ']');
                     radio.attr('checked', true);
-
+                    radio.parent().addClass('radioSeleccionado');
                 }
 
                 $('#contenedor').append(plantilla);
             });
+
+            var idPersona = localStorage.getItem("idEvaluado");
+
+            Backend.GetUsuarioPorIdPersona(idPersona)
+                    .onSuccess(function (usuario) {
+                        if (usuario.Id != 0) {
+                            if (usuario.Owner.IdImagen >= 0) {
+                                var img = new VistaThumbnail({ id: usuario.Owner.IdImagen, contenedor: $("#foto_usuario") });
+                                $("#foto_usuario").show();
+                                $("#foto_usuario_generica").hide();
+                            }
+                            else {
+                                $("#foto_usuario").hide();
+                                $("#foto_usuario_generica").show();
+                            }
+                        } else {
+                            $("#foto_usuario").hide();
+                            $("#foto_usuario_generica").show();
+                        }
+                    });
 
             $('.btnGuardar').click(function () {
                 var idNivel = localStorage.getItem("idNivel");
@@ -223,6 +316,21 @@ var ListadoAgentes = {
                 var radioButtonsChecked = $('.input_form:checked');
                 var pregYRtas = [];
 
+                /*var cajas = $(".plantilla_form");//
+                //if (estado != 0) {
+                $.each(cajas, function (key, value) {
+                var radios = value.find(".input_form:checked");
+                if (radios.length > 0) {
+                alert('tildado');
+                return;
+                }
+                else {
+                alert('no se tildaron todos');
+                return; ;
+                }
+                });*/
+                // }
+
                 $.each(radioButtonsChecked, function (key, value) {
 
                     pregYRtas.push(
@@ -234,7 +342,6 @@ var ListadoAgentes = {
 
                 var jsonPregYRtas = JSON.stringify(pregYRtas);
 
-                //cambiar el 2do idEvaluado por idEvaluador
                 Backend.InsertarEvaluacion(idEvaluado, idNivel, periodo, evaluacion, jsonPregYRtas, estado)
                     .onSuccess(function (rto) {
                         spinner.stop();
