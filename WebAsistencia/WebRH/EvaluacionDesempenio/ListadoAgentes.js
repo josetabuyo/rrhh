@@ -1,7 +1,6 @@
 ﻿var spinner;
 var idUsuario;
 var todas_las_evaluaciones;
-
 var ListadoAgentes = {
     init: function () {
 
@@ -26,6 +25,15 @@ var ListadoAgentes = {
         })
         .onError(function (e) {
             spinner.stop();
+        });
+
+        var d = new Date();
+        Backend.GetLeyendaAnio(d.getFullYear())
+        .onSuccess(function (respuesta) {
+            localStorage.setItem("leyenda", respuesta);
+        })
+        .onError(function (error, as, asd) {
+            localStorage.setItem("leyenda", "");
         });
     },
     DibujarTabla: function (agentes) {
@@ -235,24 +243,18 @@ var ListadoAgentes = {
     },
     imprimirFormularioEvaluacion: function (idNivel, idEvaluacion, idEvaluado) {
         var _this = this;
+        var leyenda = localStorage.getItem("leyenda")
         var nombre = localStorage.getItem("apellido") + ', ' + localStorage.getItem("nombre");
         var descripcionNivel = localStorage.getItem("descripcionNivel");
-        var leyenda = "";
+       
         $('#div_contenido_impresion').append('<img src="../../Imagenes/EscudoMDS.png" width="150px" height="60px" alt="">');
-        var d = new Date();
-        Backend.GetLeyendaAnio(d.getFullYear())
-        .onSuccess(function (respuesta) {
-            leyenda = respuesta;
-        })
-        .onError(function (error, as, asd) {
-            alertify.alert("", "error al obtener leyenda del año");
-        });
-
         Backend.GetFormularioDeEvaluacion(idNivel, idEvaluacion, idEvaluado)
         .onSuccess(function (formularioJSON) {
             var form = JSON.parse(formularioJSON);
             //HTML CABECERA
             $('#div_contenido_impresion').append('<p style="float:right;font-size: x-small;font-family:ShelleyAllegro BT">' + leyenda + '</p> <p style="margin: 10px; margin-left: 150px;margin-top:50px;"><span>Agente: ' + nombre + '</span></p> <p style="margin: 10px; margin-left: 150px;">Nivel: <span>' + descripcionNivel + '</span> </p>')
+            $('#div_contenido_impresion').append('<div id="der" class="" style="width:20%; float:right; border:1px solid; text-align:center; margin-top: -125px;;"><h2>Puntaje</h2><h2 id="puntaje">Muy Alto</h2></div>');
+            //_this.calcularCalificacion();
 
             $.each(form, function (key, value) {
                 var respuesta = "";
@@ -382,7 +384,7 @@ var ListadoAgentes = {
                         }
                     });
 
-            
+
 
             $('.btnGuardar').click(function () {
                 var idNivel = localStorage.getItem("idNivel");

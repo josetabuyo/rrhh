@@ -56,9 +56,8 @@
 <script type="text/javascript" src="../Scripts/Spin.js"></script>
 <script type="text/javascript" src="../scripts/vex-2.1.1/js/vex.combined.min.js"></script>
 <script type="text/javascript">
-
     $(document).ready(function ($) {
-        Backend.start(function () {
+        Backend.start(function () {    
             ListadoAgentes.getEvaluaciones();
         });
     });
