@@ -10,7 +10,7 @@
         #pantalla_actualizacion_imagen #panel_imagenes
         {
             position: absolute;
-            top: 40px;
+            top: 60px;
             bottom: 40px;
             left: 0px;
             right: 0px;
@@ -58,9 +58,8 @@
         #pantalla_actualizacion_imagen #datos_usuario_solicitante
         {
             position: absolute;
-            top: 40px;
-            bottom: 40px;
-            left: 0px;
+            top: 34px;
+            left: 16px;
             right: 0px;
         }
         
@@ -70,7 +69,7 @@
     <div id="titulo_actualizacion_imagen">
         Solicitud de cambio de imágen</div>
     <div id="datos_usuario_solicitante">
-        <h2>Solicitante:</h2>
+        <span>Solicitante:</span>
         <span id="usuario_solicitante"> </span>
     </div>
     <div id="panel_imagenes">
@@ -106,7 +105,7 @@
                     });
                 });
 
-                ui.find("#usuario_solicitante").text("(" + solicitud.usuario.Alias + ") " + solicitud.usuario.Owner.Apellido + ", " + solicitud.usuario.Owner.Nombre + " DNI:" + solicitud.usuario.Owner.Documento);
+                ui.find("#usuario_solicitante").text("(" + solicitud.usuario.Alias.replace(' ', '') + ") " + solicitud.usuario.Owner.Apellido + ", " + solicitud.usuario.Owner.Nombre + " DNI:" + solicitud.usuario.Owner.Documento);
                 $vexContent.append(ui);
                 ui.show();
 
