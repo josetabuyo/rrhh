@@ -88,6 +88,13 @@
     background: url('../Imagenes/Botones/boton-subir1.png') no-repeat center center;
 }
 
+.puntaje_fixed {
+    background: rgba(245, 245, 245, 0.71);
+    position: fixed;
+    top: 80px;
+    right:50px;
+}
+
     
     </style>
 </head>
@@ -105,7 +112,7 @@
             <p style="margin: 10px; margin-left: 150px; margin-top:50px;">Nivel:<span id="nivel">1. GERENCIAL</span> </p>
             <p style="margin: 10px; margin-left: 150px;"><span id="nombre_evaluado">Fernando</span></p>
         </div>
-        <div id="der" style="width:30%; float:right; border:1px solid; text-align:center; margin: 30px;">
+        <div id="der" class="" style="width:30%; float:right; border:1px solid; text-align:center; margin: 30px;">
             <h1>Puntaje</h1>
             <h1 id="puntaje">Muy Alto</h1>
         </div>
