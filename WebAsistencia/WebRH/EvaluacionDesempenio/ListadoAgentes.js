@@ -1,56 +1,116 @@
 ﻿var spinner;
 var idUsuario;
+var todas_las_evaluaciones;
 
 var ListadoAgentes = {
     init: function () {
 
     },
     getEvaluaciones: function () {
+        var _this = this;
+        $("#id_estado").change(function () {
+            _this.FiltrarPorEstado(parseInt($(this).val()));
+        });
+
         var spinner = new Spinner({ scale: 2 });
         spinner.spin($("html")[0]);
-        var _this = this;
+
         var calificacion;
         Backend.EvalGetAgentesEvaluables()
         .onSuccess(function (agentesJSON) {
             spinner.stop();
             var agentes = JSON.parse(agentesJSON);
-
-            $("#tablaAgentes").empty();
-            var divGrilla = $("#tablaAgentes");
-
-            var columnas = [];
-
-            columnas.push(new Columna("Dni", { generar: function (un_agente) { return un_agente.nro_documento } }));
-            columnas.push(new Columna("Apellido", { generar: function (un_agente) { return un_agente.apellido } }));
-            columnas.push(new Columna("Nombre", { generar: function (un_agente) { return un_agente.nombre } }));
-            columnas.push(new Columna("Evaluacion", { generar: function (un_agente) {
-                var coleccion_respuestas = _this.getRespuestasDelForm(un_agente);
-                return _this.calificacion(coleccion_respuestas, un_agente.deficiente, un_agente.regular, un_agente.bueno, un_agente.destacado, false);
-            }
-            }));
-            columnas.push(new Columna('Accion', {
-                generar: function (un_agente) {
-                    var coleccion_respuestas = _this.getRespuestasDelForm(un_agente);
-                    var calificacion = _this.calificacion(coleccion_respuestas, un_agente.deficiente, un_agente.regular, un_agente.bueno, un_agente.destacado, false);
-                    if (calificacion == 'A Evaluar' || calificacion == 'Evaluacion Incompleta') {
-                        return _this.getBotonIrAFormulario(un_agente);
-                    }
-                    return _this.getBotonImprimir(un_agente);
-                }
-            }));
-
-            _this.Grilla = new Grilla(columnas);
-            _this.Grilla.SetOnRowClickEventHandler(function (un_agente) { });
-            _this.Grilla.CambiarEstiloCabecera("estilo_tabla_portal");
-            _this.Grilla.CargarObjetos(agentes);
-            _this.Grilla.DibujarEn(divGrilla);
-            $('.table-hover').removeClass("table-hover");
+            todas_las_evaluaciones = agentes;
+            _this.DibujarTabla(agentes);
 
         })
         .onError(function (e) {
             spinner.stop();
         });
     },
+    DibujarTabla: function (agentes) {
+        var _this = this;
+        $("#tablaAgentes").empty();
+        var divGrilla = $("#tablaAgentes");
+        var columnas = [];
+        columnas.push(new Columna("Dni", { generar: function (un_agente) { return un_agente.nro_documento } }));
+        columnas.push(new Columna("Apellido", { generar: function (un_agente) { return un_agente.apellido } }));
+        columnas.push(new Columna("Nombre", { generar: function (un_agente) { return un_agente.nombre } }));
+        columnas.push(new Columna("Evaluacion", { generar: function (un_agente) {
+            var coleccion_respuestas = _this.getRespuestasDelForm(un_agente);
+            return _this.calificacion(coleccion_respuestas, un_agente.deficiente, un_agente.regular, un_agente.bueno, un_agente.destacado, false);
+        }
+        }));
+        columnas.push(new Columna('Accion', {
+            generar: function (un_agente) {
+                var coleccion_respuestas = _this.getRespuestasDelForm(un_agente);
+                var calificacion = _this.calificacion(coleccion_respuestas, un_agente.deficiente, un_agente.regular, un_agente.bueno, un_agente.destacado, false);
+                if (calificacion == 'A Evaluar' || calificacion == 'Evaluacion Incompleta') {
+                    return _this.getBotonIrAFormulario(un_agente);
+                }
+                return _this.getBotonImprimir(un_agente);
+            }
+        }));
+
+        _this.Grilla = new Grilla(columnas);
+        _this.Grilla.SetOnRowClickEventHandler(function (un_agente) { });
+        _this.Grilla.CambiarEstiloCabecera("estilo_tabla_portal");
+        _this.Grilla.CargarObjetos(agentes);
+        _this.Grilla.DibujarEn(divGrilla);
+        $('.table-hover').removeClass("table-hover");
+        _this.BuscadorDeTabla();
+    },
+    BuscadorDeTabla: function () {
+        var options = {
+            valueNames: ['Dni', 'Apellido', 'Nombre']
+        };
+
+        var featureList = new List('contenedorTabla', options);
+    },
+    FiltrarPorEstado: function (estado) {
+        var _this = this;
+        var clave = "";
+        _this.DibujarTabla(todas_las_evaluaciones);
+        switch (estado) {
+            case 0:
+                clave = ""
+                break;
+            case 1:
+                clave = "Evaluacion Incompleta"
+                break;
+            case 2:
+                clave = "A Evaluar"
+                break;
+            case 3:
+                clave = "Muy Destacado"
+                break;
+            case 4:
+                clave = "Destacado"
+                break;
+            case 5:
+                clave = "Bueno"
+                break;
+            case 6:
+                clave = "Regular"
+                break;
+            case 7:
+                clave = "Deficiente"
+                break;
+        }
+        if (clave != "") {
+            _this.FiltrarRegistros($("#tablaAgentes tbody tr"), clave);
+        }
+
+    },
+
+    FiltrarRegistros: function (registro, clave) {
+        registro.find("td[class=Evaluacion]").each(function () {
+            if ($(this).text() != clave) {
+                $(this).parent().remove();
+            };
+        })
+    },
+
     getRespuestasDelForm: function (un_agente) {
         var coleccion_respuestas = []; //obtener estas opciones_elegidas desde un_agente.
         for (i = 0; i < un_agente.detalle_preguntas.length; i++) {
