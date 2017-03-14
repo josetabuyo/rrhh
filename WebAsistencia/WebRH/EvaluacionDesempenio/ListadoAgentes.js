@@ -297,6 +297,7 @@ var ListadoAgentes = {
             });
 
             var idPersona = localStorage.getItem("idEvaluado");
+            _this.habilitarBotonGuardarDefinitivo();
 
             Backend.GetUsuarioPorIdPersona(idPersona)
                     .onSuccess(function (usuario) {
@@ -316,6 +317,8 @@ var ListadoAgentes = {
                         }
                     });
 
+            
+
             $('.btnGuardar').click(function () {
                 var idNivel = localStorage.getItem("idNivel");
                 var periodo = localStorage.getItem("idPeriodo");
@@ -327,20 +330,6 @@ var ListadoAgentes = {
                 var radioButtonsChecked = $('.input_form:checked');
                 var pregYRtas = [];
 
-                /*var cajas = $(".plantilla_form");//
-                //if (estado != 0) {
-                $.each(cajas, function (key, value) {
-                var radios = value.find(".input_form:checked");
-                if (radios.length > 0) {
-                alert('tildado');
-                return;
-                }
-                else {
-                alert('no se tildaron todos');
-                return; ;
-                }
-                });*/
-                // }
 
                 $.each(radioButtonsChecked, function (key, value) {
 
@@ -357,6 +346,7 @@ var ListadoAgentes = {
                     .onSuccess(function (rto) {
                         spinner.stop();
                         alert('Se ha guardado con exito!');
+                        window.location.href = "ListadoAgentes.aspx";
                         //var form = JSON.parse(formularioJSON);
                     })
                 .onError(function (e) {
@@ -424,5 +414,21 @@ var ListadoAgentes = {
         var puntaje = _this.calificacion(respuestas, localStorage.getItem("deficiente"), localStorage.getItem("regular"), localStorage.getItem("bueno"), localStorage.getItem("destacado"), true);
 
         $('#puntaje').html(puntaje);
+    },
+    habilitarBotonGuardarDefinitivo: function () {
+
+        var preguntas = $('.pregunta');
+        $.each(preguntas, function (key, value) {
+
+            if (value.classList.contains('pregunta-pendiente')) {
+                $('#btnGuardarDefinitivo').prop('disabled', true);
+                return false;
+            } else {
+                $('#btnGuardarDefinitivo').prop('disabled', false);
+            }
+
+
+        });
+
     }
 }
