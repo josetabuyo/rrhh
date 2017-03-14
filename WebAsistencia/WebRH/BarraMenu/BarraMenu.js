@@ -19,7 +19,7 @@
                     $(".contenedor_de_alertas_y_mensajes").append(ui_consulta);
 
                     ui_consulta.click(function () {
-
+                        $("#contenedor_menu_mensajes").hide();
                         vex.defaultOptions.className = 'vex-theme-os';
                         vex.open({
                             afterOpen: function ($vexContent) {
@@ -53,8 +53,10 @@
                 _.forEach(solicitudes, function (solicitud) {
                     var ui_consulta = $("#plantillas .ui_mensaje_alerta").clone();
                     ui_consulta.find(".titulo_mensaje_alerta").text("Solicitud de cambio de imagen pendiente");
+                    ui_consulta.find(".titulo_mensaje_alerta").text("Solicitud de cambio de imagen pendiente");
 
                     ui_consulta.click(function(){
+                        $("#contenedor_menu_mensajes").hide();
                         $("#plantillas").append($("<div>").load("../Componentes/AdministradorSolicitudCambioImagen.htm", function(){
                             var admin = new AdministradorSolicitudCambioImagen(solicitud);
                         
@@ -66,7 +68,7 @@
         };
 
         cargar_alertas();
-        setInterval(cargar_alertas, 20000);
+        //setInterval(cargar_alertas, 20000);
 
         Backend.GetMenuPara('PRINCIPAL').onSuccess(function (modulos) {
 

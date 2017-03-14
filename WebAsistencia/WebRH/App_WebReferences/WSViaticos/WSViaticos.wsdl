@@ -2,10 +2,9 @@
 <wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://wsviaticos.gov.ar/">
-      <s:element name="ConsultaExcelDDJJ104_Persona">
+      <s:element name="ExcelPlanificacionDotaciones">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
@@ -190,6 +189,21 @@
           <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
         </s:sequence>
       </s:complexType>
+      <s:element name="ExcelPlanificacionDotacionesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ExcelPlanificacionDotacionesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaExcelDDJJ104_Persona">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="ConsultaExcelDDJJ104_PersonaResponse">
         <s:complexType>
           <s:sequence>
@@ -1860,6 +1874,21 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="MostrarDestinatariosDeLaNotificacion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_notificacion" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MostrarDestinatariosDeLaNotificacionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="MostrarDestinatariosDeLaNotificacionResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetConsultasDePortalParaUnUsuario">
         <s:complexType>
           <s:sequence>
@@ -2123,20 +2152,6 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="ExcelMapaDelEstadoResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ExcelPlanificacionDotaciones">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ExcelPlanificacionDotacionesResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ExcelPlanificacionDotacionesResult" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -4851,6 +4866,7 @@
       </s:element>
       <s:complexType name="SolicitudDeCambioDeImagen">
         <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           <s:element minOccurs="1" maxOccurs="1" name="idImagenAnterior" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="idImagenNueva" type="s:int" />
         </s:sequence>
@@ -6624,6 +6640,12 @@
       </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="ExcelPlanificacionDotacionesSoapIn">
+    <wsdl:part name="parameters" element="tns:ExcelPlanificacionDotaciones" />
+  </wsdl:message>
+  <wsdl:message name="ExcelPlanificacionDotacionesSoapOut">
+    <wsdl:part name="parameters" element="tns:ExcelPlanificacionDotacionesResponse" />
+  </wsdl:message>
   <wsdl:message name="ConsultaExcelDDJJ104_PersonaSoapIn">
     <wsdl:part name="parameters" element="tns:ConsultaExcelDDJJ104_Persona" />
   </wsdl:message>
@@ -7032,6 +7054,12 @@
   <wsdl:message name="GetNotificacionesTodasDePortalSoapOut">
     <wsdl:part name="parameters" element="tns:GetNotificacionesTodasDePortalResponse" />
   </wsdl:message>
+  <wsdl:message name="MostrarDestinatariosDeLaNotificacionSoapIn">
+    <wsdl:part name="parameters" element="tns:MostrarDestinatariosDeLaNotificacion" />
+  </wsdl:message>
+  <wsdl:message name="MostrarDestinatariosDeLaNotificacionSoapOut">
+    <wsdl:part name="parameters" element="tns:MostrarDestinatariosDeLaNotificacionResponse" />
+  </wsdl:message>
   <wsdl:message name="GetConsultasDePortalParaUnUsuarioSoapIn">
     <wsdl:part name="parameters" element="tns:GetConsultasDePortalParaUnUsuario" />
   </wsdl:message>
@@ -7139,12 +7167,6 @@
   </wsdl:message>
   <wsdl:message name="ExcelMapaDelEstadoSoapOut">
     <wsdl:part name="parameters" element="tns:ExcelMapaDelEstadoResponse" />
-  </wsdl:message>
-  <wsdl:message name="ExcelPlanificacionDotacionesSoapIn">
-    <wsdl:part name="parameters" element="tns:ExcelPlanificacionDotaciones" />
-  </wsdl:message>
-  <wsdl:message name="ExcelPlanificacionDotacionesSoapOut">
-    <wsdl:part name="parameters" element="tns:ExcelPlanificacionDotacionesResponse" />
   </wsdl:message>
   <wsdl:message name="GetPersonaUsuarioLogueadoSoapIn">
     <wsdl:part name="parameters" element="tns:GetPersonaUsuarioLogueado" />
@@ -8569,6 +8591,10 @@
     <wsdl:part name="parameters" element="tns:EstadoServicioDeAlertasResponse" />
   </wsdl:message>
   <wsdl:portType name="WSViaticosSoap">
+    <wsdl:operation name="ExcelPlanificacionDotaciones">
+      <wsdl:input message="tns:ExcelPlanificacionDotacionesSoapIn" />
+      <wsdl:output message="tns:ExcelPlanificacionDotacionesSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="ConsultaExcelDDJJ104_Persona">
       <wsdl:input message="tns:ConsultaExcelDDJJ104_PersonaSoapIn" />
       <wsdl:output message="tns:ConsultaExcelDDJJ104_PersonaSoapOut" />
@@ -8841,6 +8867,10 @@
       <wsdl:input message="tns:GetNotificacionesTodasDePortalSoapIn" />
       <wsdl:output message="tns:GetNotificacionesTodasDePortalSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="MostrarDestinatariosDeLaNotificacion">
+      <wsdl:input message="tns:MostrarDestinatariosDeLaNotificacionSoapIn" />
+      <wsdl:output message="tns:MostrarDestinatariosDeLaNotificacionSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetConsultasDePortalParaUnUsuario">
       <wsdl:input message="tns:GetConsultasDePortalParaUnUsuarioSoapIn" />
       <wsdl:output message="tns:GetConsultasDePortalParaUnUsuarioSoapOut" />
@@ -8912,10 +8942,6 @@
     <wsdl:operation name="ExcelMapaDelEstado">
       <wsdl:input message="tns:ExcelMapaDelEstadoSoapIn" />
       <wsdl:output message="tns:ExcelMapaDelEstadoSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="ExcelPlanificacionDotaciones">
-      <wsdl:input message="tns:ExcelPlanificacionDotacionesSoapIn" />
-      <wsdl:output message="tns:ExcelPlanificacionDotacionesSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetPersonaUsuarioLogueado">
       <wsdl:input message="tns:GetPersonaUsuarioLogueadoSoapIn" />
@@ -9868,6 +9894,15 @@
   </wsdl:portType>
   <wsdl:binding name="WSViaticosSoap" type="tns:WSViaticosSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ExcelPlanificacionDotaciones">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ExcelPlanificacionDotaciones" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ConsultaExcelDDJJ104_Persona">
       <soap:operation soapAction="http://wsviaticos.gov.ar/ConsultaExcelDDJJ104_Persona" style="document" />
       <wsdl:input>
@@ -10480,6 +10515,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="MostrarDestinatariosDeLaNotificacion">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/MostrarDestinatariosDeLaNotificacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetConsultasDePortalParaUnUsuario">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetConsultasDePortalParaUnUsuario" style="document" />
       <wsdl:input>
@@ -10635,15 +10679,6 @@
     </wsdl:operation>
     <wsdl:operation name="ExcelMapaDelEstado">
       <soap:operation soapAction="http://wsviaticos.gov.ar/ExcelMapaDelEstado" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ExcelPlanificacionDotaciones">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/ExcelPlanificacionDotaciones" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -12787,6 +12822,15 @@
   </wsdl:binding>
   <wsdl:binding name="WSViaticosSoap12" type="tns:WSViaticosSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ExcelPlanificacionDotaciones">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ExcelPlanificacionDotaciones" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ConsultaExcelDDJJ104_Persona">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/ConsultaExcelDDJJ104_Persona" style="document" />
       <wsdl:input>
@@ -13399,6 +13443,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="MostrarDestinatariosDeLaNotificacion">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/MostrarDestinatariosDeLaNotificacion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetConsultasDePortalParaUnUsuario">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetConsultasDePortalParaUnUsuario" style="document" />
       <wsdl:input>
@@ -13554,15 +13607,6 @@
     </wsdl:operation>
     <wsdl:operation name="ExcelMapaDelEstado">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/ExcelMapaDelEstado" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ExcelPlanificacionDotaciones">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/ExcelPlanificacionDotaciones" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

@@ -11,6 +11,7 @@ namespace General.MAU
         {
 
         }
+        public Usuario usuario;
         public int idImagenAnterior;
         public int idImagenNueva;
     }

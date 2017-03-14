@@ -43,6 +43,8 @@
             <div class="flechita">
             </div>
             <div id="contenedor_foto_usuario">
+                <img id="foto_usuario_generica" src="<%= UrlImagenes %>portal/portal_empleado.png"
+                    alt="fotousuariogenerica" class="foto_menu_estilo" />
                 <div id="foto_usuario_menu" class="foto_menu_estilo">
                 </div>
                 <div id="barrita_cambio_imagen">
@@ -52,8 +54,7 @@
                         Imágen</div>
                 </div>
             </div>
-            <img id="foto_usuario_generica" src="<%= UrlImagenes %>portal/portal_empleado.png"
-                alt="fotousuariogenerica" class="foto_menu_estilo" />
+            
             <div id="nombre_user" class="cabecera_menu_usuario">
             </div>
             <div id="apellido_user" class="cabecera_menu_usuario">
@@ -134,6 +135,21 @@
                 Praesent ut sapien ac leo porta finibus eget vitae lacus. Aliquam at arcu felis.
                 Morbi sit amet consectetur ex. Maecenas in nisi turpis.</p>
         </div>
+
+        <div class="ui_mensaje_alerta mensaje_alerta sombra-mensaje">
+            <p class="titulo_mensaje_alerta">
+                Mensaje 1</p>
+            <p class="contenido_mensaje_alerta">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam mi nunc, euismod
+                eget est nec, consequat porttitor est. Maecenas ante elit, bibendum in volutpat
+                sit amet, imperdiet ac neque. Quisque dapibus eros sit amet mauris venenatis molestie.
+                Integer feugiat felis dolor, pellentesque tincidunt nulla efficitur quis. Pellentesque
+                pretium velit id neque accumsan, vitae aliquam augue mollis. Fusce ut diam malesuada,
+                placerat tortor et, efficitur massa. Praesent sagittis tortor et enim accumsan laoreet.
+                Praesent ut sapien ac leo porta finibus eget vitae lacus. Aliquam at arcu felis.
+                Morbi sit amet consectetur ex. Maecenas in nisi turpis.</p>
+        </div>
+
         <div id="contenedor_chat_mensajes">
             <div id="titulo_chat">
             </div>

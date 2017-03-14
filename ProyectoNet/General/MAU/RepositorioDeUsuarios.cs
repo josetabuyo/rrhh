@@ -334,6 +334,7 @@ namespace General.MAU
                 var solicitud = new SolicitudDeCambioDeImagen();
                 solicitud.idImagenAnterior = row.GetInt("id_imagen_anterior", -1);
                 solicitud.idImagenNueva = row.GetInt("id_imagen_nueva", -1);
+                solicitud.usuario = GetUsuarioPorId(row.GetInt("id_usuario"));
                 solicitudes.Add(solicitud);
             });
 
@@ -350,6 +351,7 @@ namespace General.MAU
                 var solicitud = new SolicitudDeCambioDeImagen();
                 solicitud.idImagenAnterior = row.GetInt("id_imagen_anterior", -1);
                 solicitud.idImagenNueva = row.GetInt("id_imagen_nueva", -1);
+                solicitud.usuario = GetUsuarioPorId(row.GetInt("id_usuario"));
                 solicitudes.Add(solicitud);
             });
 
