@@ -230,23 +230,23 @@ var ListadoAgentes = {
             var form = JSON.parse(formularioJSON);
 
             $.each(form, function (key, value) {
-                //alert(key + ": " + value);
-
                 var plantilla = $('#plantilla').clone();
                 var radioButtons = plantilla.find(".input_form");
                 var idPregunta = value.idPregunta;
+                var pregunta = plantilla.find(".pregunta");
+                var radioButton = plantilla.find("input[type='radio']");
 
                 plantilla.show();
 
-                plantilla.find(".pregunta").text(value.Enunciado);
-                plantilla.find(".pregunta").attr('data-identificador', value.idPregunta);
+                pregunta.text(value.Enunciado);
+                pregunta.attr('data-identificador', value.idPregunta);
                 plantilla.find(".rta1").text(value.Rta1);
                 plantilla.find(".rta2").text(value.Rta2);
                 plantilla.find(".rta3").text(value.Rta3);
                 plantilla.find(".rta4").text(value.Rta4);
                 plantilla.find(".rta5").text(value.Rta5);
 
-                plantilla.find(".input_form").attr('name', value.idPregunta);
+                radioButtons.attr('name', value.idPregunta);
 
                 // Genera dinámicamente un id para cada radio button y su respectiva label
                 $.each(radioButtons, function (key, value) {
@@ -254,25 +254,31 @@ var ListadoAgentes = {
                     var inputId = idPregunta + '_' + key;
                     input.attr('id', inputId);
                     input.next('label').attr('for', inputId);
+
+                    input.on('click', _this.verificarPreguntaPendiente);
                 });
 
-                plantilla.find("input[type='radio']").attr('checked', false);
-                plantilla.find("input[type='radio']").click(function () {
+                radioButton.attr('checked', false);
+                radioButton.click(function () {
                     _this.calcularCalificacion();
-                    plantilla.find("input[type='radio']").parent().removeClass('radioSeleccionado');
+                    radioButton.parent().removeClass('radioSeleccionado');
                     $(this).parent().addClass('radioSeleccionado');
                 });
 
                 if (value.OpcionElegida != 0) {
                     //chequear los radios elegidos
-                    //var radios = plantilla.find('.input_form').data('opcion')
                     var radio = plantilla.find('[data-opcion=' + value.OpcionElegida + ']');
                     radio.attr('checked', true);
                     radio.parent().addClass('radioSeleccionado');
+                    // Pregunta respondida, elimina marca '(*)' de pendiente
+                    _this.verificarPreguntaPendiente.call(radio);
                 }
+
+
 
                 $('#contenedor').append(plantilla);
             });
+
 
             var idPersona = localStorage.getItem("idEvaluado");
 
@@ -402,5 +408,11 @@ var ListadoAgentes = {
         var puntaje = _this.calificacion(respuestas, localStorage.getItem("deficiente"), localStorage.getItem("regular"), localStorage.getItem("bueno"), localStorage.getItem("destacado"), true);
 
         $('#puntaje').html(puntaje);
+    },
+    verificarPreguntaPendiente: function () {
+        var pregunta = $(this).parents('#plantilla').find('.pregunta');
+        if (pregunta.hasClass('pregunta-pendiente')) {
+            pregunta.removeClass('pregunta-pendiente');
+        }
     }
 }

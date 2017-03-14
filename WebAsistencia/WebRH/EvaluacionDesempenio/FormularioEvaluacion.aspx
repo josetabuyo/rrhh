@@ -27,6 +27,16 @@
     font-weight: bolder;
     margin-bottom: 20px;
 }
+.pregunta-pendiente-leyenda
+{
+    margin-left: 20px;    
+}
+.pregunta-pendiente-leyenda:before
+{
+   content: " (*) ";
+   color: Red;
+   font-weight: bold;     
+}
 .pregunta-pendiente::after 
 {
     content: " (*) ";
@@ -114,6 +124,7 @@
         <div style="margin: 0 auto;" class="row">
             <div class="">
                 <legend style="margin-top: 20px; text-align: center;">FORMULARIO EVALUACIÓN</legend>
+                <p class="pregunta-pendiente-leyenda">Preguntas aún sin responder</p>
                 <div id="contenedor">
                 
                 </div>
