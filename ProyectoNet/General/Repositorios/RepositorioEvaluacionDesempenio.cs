@@ -109,6 +109,23 @@ namespace General.Repositorios
 
             return JsonConvert.SerializeObject(list_de_pregYRtas);
         }
+        
+        public string GetNivelesFormulario(string id_nivel)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_nivel", int.Parse(id_nivel));
+            var tablaDatos = _conexion.Ejecutar("dbo.EVAL_GET_CATEGORIAS_NIVEL", parametros);
+            object respuesta;
+
+            respuesta = new { id_nivel = tablaDatos.Rows[0].GetSmallintAsInt("id_nivel"),
+                              deficiente = tablaDatos.Rows[0].GetSmallintAsInt("deficiente"),
+                              regular = tablaDatos.Rows[0].GetSmallintAsInt("regular"),
+                              bueno = tablaDatos.Rows[0].GetSmallintAsInt("bueno"),
+                              destacado = tablaDatos.Rows[0].GetSmallintAsInt("destacado"),
+                              descripcion_nivel = tablaDatos.Rows[0].GetString("descripcion")
+            };
+            return JsonConvert.SerializeObject(respuesta);
+        }
 
         public string GetAgentesEvaluablesPor(Usuario usuario)
         {

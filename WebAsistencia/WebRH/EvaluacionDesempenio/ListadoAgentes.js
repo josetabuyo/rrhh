@@ -1,56 +1,119 @@
 ﻿var spinner;
 var idUsuario;
+var todas_las_evaluaciones;
 
 var ListadoAgentes = {
     init: function () {
 
     },
     getEvaluaciones: function () {
+        var _this = this;
+        $("#id_estado").change(function () {
+            _this.FiltrarPorEstado(parseInt($(this).val()));
+        });
+
         var spinner = new Spinner({ scale: 2 });
         spinner.spin($("html")[0]);
-        var _this = this;
+
         var calificacion;
         Backend.EvalGetAgentesEvaluables()
         .onSuccess(function (agentesJSON) {
             spinner.stop();
             var agentes = JSON.parse(agentesJSON);
-
-            $("#tablaAgentes").empty();
-            var divGrilla = $("#tablaAgentes");
-
-            var columnas = [];
-
-            columnas.push(new Columna("Dni", { generar: function (un_agente) { return un_agente.nro_documento } }));
-            columnas.push(new Columna("Apellido", { generar: function (un_agente) { return un_agente.apellido } }));
-            columnas.push(new Columna("Nombre", { generar: function (un_agente) { return un_agente.nombre } }));
-            columnas.push(new Columna("Evaluacion", { generar: function (un_agente) {
-                var coleccion_respuestas = _this.getRespuestasDelForm(un_agente);
-                return _this.calificacion(coleccion_respuestas, un_agente.deficiente, un_agente.regular, un_agente.bueno, un_agente.destacado, false);
-            }
-            }));
-            columnas.push(new Columna('Accion', {
-                generar: function (un_agente) {
-                    var coleccion_respuestas = _this.getRespuestasDelForm(un_agente);
-                    var calificacion = _this.calificacion(coleccion_respuestas, un_agente.deficiente, un_agente.regular, un_agente.bueno, un_agente.destacado, false);
-                    if (calificacion == 'A Evaluar' || calificacion == 'Evaluacion Incompleta') {
-                        return _this.getBotonIrAFormulario(un_agente);
-                    }
-                    return _this.getBotonImprimir(un_agente);
-                }
-            }));
-
-            _this.Grilla = new Grilla(columnas);
-            _this.Grilla.SetOnRowClickEventHandler(function (un_agente) { });
-            _this.Grilla.CambiarEstiloCabecera("estilo_tabla_portal");
-            _this.Grilla.CargarObjetos(agentes);
-            _this.Grilla.DibujarEn(divGrilla);
-            $('.table-hover').removeClass("table-hover");
+            todas_las_evaluaciones = agentes;
+            _this.DibujarTabla(agentes);
 
         })
         .onError(function (e) {
             spinner.stop();
         });
     },
+    DibujarTabla: function (agentes) {
+        var _this = this;
+        $("#tablaAgentes").empty();
+        var divGrilla = $("#tablaAgentes");
+        var columnas = [];
+        columnas.push(new Columna("Dni", { generar: function (un_agente) { return un_agente.nro_documento } }));
+        columnas.push(new Columna("Apellido", { generar: function (un_agente) { return un_agente.apellido } }));
+        columnas.push(new Columna("Nombre", { generar: function (un_agente) { return un_agente.nombre } }));
+        columnas.push(new Columna("Evaluacion", { generar: function (un_agente) {
+            var coleccion_respuestas = _this.getRespuestasDelForm(un_agente);
+            return _this.calificacion(coleccion_respuestas, un_agente.deficiente, un_agente.regular, un_agente.bueno, un_agente.destacado, false);
+        }
+        }));
+        columnas.push(new Columna('Accion', {
+            generar: function (un_agente) {
+                var coleccion_respuestas = _this.getRespuestasDelForm(un_agente);
+                var calificacion = _this.calificacion(coleccion_respuestas, un_agente.deficiente, un_agente.regular, un_agente.bueno, un_agente.destacado, false);
+                if (calificacion == 'A Evaluar' || calificacion == 'Evaluacion Incompleta') {
+                    return _this.getBotonIrAFormulario(un_agente);
+                }
+                if (un_agente.estado == 1) {
+                    return _this.getBotonImprimir(un_agente);
+                }
+                return _this.getDosBotones(un_agente);
+            }
+        }));
+
+        _this.Grilla = new Grilla(columnas);
+        _this.Grilla.SetOnRowClickEventHandler(function (un_agente) { });
+        _this.Grilla.CambiarEstiloCabecera("estilo_tabla_portal");
+        _this.Grilla.CargarObjetos(agentes);
+        _this.Grilla.DibujarEn(divGrilla);
+        $('.table-hover').removeClass("table-hover");
+        _this.BuscadorDeTabla();
+    },
+    BuscadorDeTabla: function () {
+        var options = {
+            valueNames: ['Dni', 'Apellido', 'Nombre']
+        };
+
+        var featureList = new List('contenedorTabla', options);
+    },
+    FiltrarPorEstado: function (estado) {
+        var _this = this;
+        var clave = "";
+        _this.DibujarTabla(todas_las_evaluaciones);
+        switch (estado) {
+            case 0:
+                clave = ""
+                break;
+            case 1:
+                clave = "Evaluacion Incompleta"
+                break;
+            case 2:
+                clave = "A Evaluar"
+                break;
+            case 3:
+                clave = "Muy Destacado"
+                break;
+            case 4:
+                clave = "Destacado"
+                break;
+            case 5:
+                clave = "Bueno"
+                break;
+            case 6:
+                clave = "Regular"
+                break;
+            case 7:
+                clave = "Deficiente"
+                break;
+        }
+        if (clave != "") {
+            _this.FiltrarRegistros($("#tablaAgentes tbody tr"), clave);
+        }
+
+    },
+
+    FiltrarRegistros: function (registro, clave) {
+        registro.find("td[class=Evaluacion]").each(function () {
+            if ($(this).text() != clave) {
+                $(this).parent().remove();
+            };
+        })
+    },
+
     getRespuestasDelForm: function (un_agente) {
         var coleccion_respuestas = []; //obtener estas opciones_elegidas desde un_agente.
         for (i = 0; i < un_agente.detalle_preguntas.length; i++) {
@@ -106,7 +169,6 @@ var ListadoAgentes = {
         return btn_accion;
     },
     getBotonIrAFormulario: function (un_agente) {
-
         var btn_accion = $('<a>');
         var img = $('<img>');
         img.attr('src', '../Imagenes/portal/estudios.png');
@@ -135,8 +197,19 @@ var ListadoAgentes = {
                         var ui = $("#div_niveles").clone();
                         $vexContent.append(ui);
                         ui.find("#btn_nivel").click(function () {
-                            localStorage.setItem("idNivel", ui.find("#select_niveles").val());
-                            window.location.href = 'FormularioEvaluacion.aspx';
+                            var nivel = ui.find("#select_niveles").val()
+                            localStorage.setItem("idNivel", nivel);
+                            Backend.EvalGetNivelesFormulario(nivel)
+                            .onSuccess(function (rpta) {
+                                var respuesta = JSON.parse(rpta);
+                                localStorage.setItem("idNivel", nivel);
+                                localStorage.setItem("descripcionNivel", respuesta.descripcion_nivel);
+                                localStorage.setItem("deficiente", respuesta.deficiente);
+                                localStorage.setItem("regular", respuesta.regular);
+                                localStorage.setItem("bueno", respuesta.bueno);
+                                localStorage.setItem("destacado", respuesta.destacado);
+                                window.location.href = 'FormularioEvaluacion.aspx';
+                            });
                         });
                         ui.show();
                         return ui;
@@ -151,6 +224,14 @@ var ListadoAgentes = {
             }
         });
         return btn_accion;
+    },
+    getDosBotones: function (un_agente) {
+        var boton_imprimir = this.getBotonImprimir(un_agente);
+        var boton_ir_a_form = this.getBotonIrAFormulario(un_agente);
+        var div = $('<div>');
+        div.append(boton_ir_a_form);
+        div.append(boton_imprimir);
+        return div;
     },
     imprimirFormularioEvaluacion: function (idNivel, idEvaluacion, idEvaluado) {
         var _this = this;
@@ -281,6 +362,7 @@ var ListadoAgentes = {
 
 
             var idPersona = localStorage.getItem("idEvaluado");
+            _this.habilitarBotonGuardarDefinitivo();
 
             Backend.GetUsuarioPorIdPersona(idPersona)
                     .onSuccess(function (usuario) {
@@ -300,6 +382,8 @@ var ListadoAgentes = {
                         }
                     });
 
+            
+
             $('.btnGuardar').click(function () {
                 var idNivel = localStorage.getItem("idNivel");
                 var periodo = localStorage.getItem("idPeriodo");
@@ -311,20 +395,6 @@ var ListadoAgentes = {
                 var radioButtonsChecked = $('.input_form:checked');
                 var pregYRtas = [];
 
-                /*var cajas = $(".plantilla_form");//
-                //if (estado != 0) {
-                $.each(cajas, function (key, value) {
-                var radios = value.find(".input_form:checked");
-                if (radios.length > 0) {
-                alert('tildado');
-                return;
-                }
-                else {
-                alert('no se tildaron todos');
-                return; ;
-                }
-                });*/
-                // }
 
                 $.each(radioButtonsChecked, function (key, value) {
 
@@ -341,6 +411,7 @@ var ListadoAgentes = {
                     .onSuccess(function (rto) {
                         spinner.stop();
                         alert('Se ha guardado con exito!');
+                        window.location.href = "ListadoAgentes.aspx";
                         //var form = JSON.parse(formularioJSON);
                     })
                 .onError(function (e) {
@@ -414,5 +485,20 @@ var ListadoAgentes = {
         if (pregunta.hasClass('pregunta-pendiente')) {
             pregunta.removeClass('pregunta-pendiente');
         }
+    },
+    habilitarBotonGuardarDefinitivo: function () {
+
+        var preguntas = $('.pregunta');
+        $.each(preguntas, function (key, value) {
+
+            if (value.classList.contains('pregunta-pendiente')) {
+                $('#btnGuardarDefinitivo').prop('disabled', true);
+                return false;
+            } else {
+                $('#btnGuardarDefinitivo').prop('disabled', false);
+            }
+
+
+        });
     }
 }

@@ -20,21 +20,35 @@
         <div style="margin: 0 auto;" class="row">
             <div class="caja_der papel">
                 <legend style="margin-top: 20px;">AGENTES EVALUABLES</legend>
-                <div id="tablaAgentes" class="table table-striped table-bordered table-condensed">
+                <div id="contenedorTabla">
+                    <input type="text" id="Text1" class="search" class="buscador" placeholder="Buscar por DNI, Nombre o Apellido" />
+                    <label style="margin-left:20px;">  ó por ESTADO</label>
+                    <select id="id_estado" style="margin-left: 10px; width: 170px;">
+                        <option value="0">Todos</option>
+                        <option value="1">Evaluacion Incompleta</option>
+                        <option value="2">A Evaluar</option>
+                        <option value="3">Muy Destacado</option>
+                        <option value="4">Destacado</option>
+                        <option value="5">Bueno</option>
+                        <option value="6">Regular</option>
+                        <option value="7">Deficiente</option>
+                    </select>
+                    <div id="tablaAgentes" class="table table-striped table-bordered table-condensed">
+                    </div>
                 </div>
             </div>
-        </div>
+    </div>
     </div>
     <div style="display: none" id="div_niveles">
         <select id="select_niveles">
-            <option value="1" >GERENCIAL</option>
-            <option value="2" >MEDIO PROFESIONAL O TECNICO CON PERSONAL A CARGO	</option>
-            <option value="3" >MEDIO CON PERSONAL A CARGO</option>
-            <option value="4" >MEDIO SIN PERSONAL A CARGO</option>
-            <option value="5" >OPERATIVO CON PERSONAL A CARGO</option>
-            <option value="6" >OPERATIVO SIN PERSONAL A CARGO</option>
+            <option value="1">GERENCIAL</option>
+            <option value="2">MEDIO PROFESIONAL O TECNICO CON PERSONAL A CARGO </option>
+            <option value="3">MEDIO CON PERSONAL A CARGO</option>
+            <option value="4">MEDIO SIN PERSONAL A CARGO</option>
+            <option value="5">OPERATIVO CON PERSONAL A CARGO</option>
+            <option value="6">OPERATIVO SIN PERSONAL A CARGO</option>
         </select>
-        <input type="button" id="btn_nivel" value="Aceptar" >
+        <input type="button" id="btn_nivel" value="Aceptar">
     </div>
     </form>
 </body>
