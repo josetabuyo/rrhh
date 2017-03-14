@@ -138,8 +138,19 @@ var ListadoAgentes = {
                         var ui = $("#div_niveles").clone();
                         $vexContent.append(ui);
                         ui.find("#btn_nivel").click(function () {
-                            localStorage.setItem("idNivel", ui.find("#select_niveles").val());
-                            window.location.href = 'FormularioEvaluacion.aspx';
+                            var nivel = ui.find("#select_niveles").val()
+                            localStorage.setItem("idNivel", nivel);
+                            Backend.EvalGetNivelesFormulario(nivel)
+                            .onSuccess(function (rpta) {
+                                var respuesta = JSON.parse(rpta);
+                                localStorage.setItem("idNivel", nivel);
+                                localStorage.setItem("descripcionNivel", respuesta.descripcion_nivel);
+                                localStorage.setItem("deficiente", respuesta.deficiente);
+                                localStorage.setItem("regular", respuesta.regular);
+                                localStorage.setItem("bueno", respuesta.bueno);
+                                localStorage.setItem("destacado", respuesta.destacado);
+                                window.location.href = 'FormularioEvaluacion.aspx';
+                            });
                         });
                         ui.show();
                         return ui;
@@ -163,7 +174,7 @@ var ListadoAgentes = {
         div.append(boton_imprimir);
         return div;
     },
-imprimirFormularioEvaluacion: function (idNivel, idEvaluacion, idEvaluado) {
+    imprimirFormularioEvaluacion: function (idNivel, idEvaluacion, idEvaluado) {
         var _this = this;
         var nombre = localStorage.getItem("apellido") + ', ' + localStorage.getItem("nombre");
         var descripcionNivel = localStorage.getItem("descripcionNivel");

@@ -59,6 +59,12 @@ public class WSViaticos : System.Web.Services.WebService
         return repo.GetAgentesEvaluablesPor(usuario);
     }
 
+    [WebMethod]
+    public string EvalGetNivelesFormulario(string id_nivel)
+    {
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        return repo.GetNivelesFormulario(id_nivel);
+    }
 
     #region asistencia
 
