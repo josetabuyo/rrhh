@@ -51,7 +51,7 @@ var ListadoAgentes = {
                 if (un_agente.estado == 1) {
                     return _this.getBotonImprimir(un_agente);
                 }
-                return _this.getBotonImprimir(un_agente);
+                return _this.getDosBotones(un_agente);
             }
         }));
 
