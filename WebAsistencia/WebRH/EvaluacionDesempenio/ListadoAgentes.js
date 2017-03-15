@@ -123,9 +123,12 @@ var ListadoAgentes = {
     },
 
     getRespuestasDelForm: function (un_agente) {
+        return coleccion_respuestas = this.getRespuestasDesdeLasPreguntas(un_agente.detalle_preguntas);
+    },
+    getRespuestasDesdeLasPreguntas: function (preguntas) {
         var coleccion_respuestas = []; //obtener estas opciones_elegidas desde un_agente.
-        for (i = 0; i < un_agente.detalle_preguntas.length; i++) {
-            coleccion_respuestas.push(un_agente.detalle_preguntas[i].respuesta_elegida);
+        for (i = 0; i < preguntas.length; i++) {
+            coleccion_respuestas.push(preguntas[i].OpcionElegida);
         }
         return coleccion_respuestas;
     },
@@ -246,14 +249,17 @@ var ListadoAgentes = {
         var leyenda = localStorage.getItem("leyenda")
         var nombre = localStorage.getItem("apellido") + ', ' + localStorage.getItem("nombre");
         var descripcionNivel = localStorage.getItem("descripcionNivel");
-       
+
         $('#div_contenido_impresion').append('<img src="../../Imagenes/EscudoMDS.png" width="150px" height="60px" alt="">');
         Backend.GetFormularioDeEvaluacion(idNivel, idEvaluacion, idEvaluado)
         .onSuccess(function (formularioJSON) {
             var form = JSON.parse(formularioJSON);
             //HTML CABECERA
+            var respuestas = _this.getRespuestasDesdeLasPreguntas(form);
+            var calificacion = _this.calificacion(respuestas, localStorage.getItem("deficiente"), localStorage.getItem("regular"), localStorage.getItem("bueno"), localStorage.getItem("destacado"), false);
+
             $('#div_contenido_impresion').append('<p style="float:right;font-size: x-small;font-family:ShelleyAllegro BT">' + leyenda + '</p> <p style="margin: 10px; margin-left: 150px;margin-top:50px;"><span>Agente: ' + nombre + '</span></p> <p style="margin: 10px; margin-left: 150px;">Nivel: <span>' + descripcionNivel + '</span> </p>')
-            $('#div_contenido_impresion').append('<div id="der" class="" style="width:20%; float:right; border:1px solid; text-align:center; margin-top: -125px;;"><h2>Puntaje</h2><h2 id="puntaje">Muy Alto</h2></div>');
+            $('#div_contenido_impresion').append('<div id="der" class="" style="width:20%; float:right; border:1px solid; text-align:center; margin-top: -125px;;"><h2>Puntaje</h2><h2 id="puntaje">' + calificacion + '</h2></div>');
             //_this.calcularCalificacion();
 
             $.each(form, function (key, value) {

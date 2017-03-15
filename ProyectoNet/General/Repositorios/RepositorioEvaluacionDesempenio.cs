@@ -178,7 +178,7 @@ namespace General.Repositorios
             {
                 id_pregunta = row.GetSmallintAsInt("id_pregunta", 0),
                 orden_pregunta = row.GetSmallintAsInt("orden_pregunta", 0),
-                respuesta_elegida = row.GetSmallintAsInt("opcion_elegida", 0),
+                OpcionElegida = row.GetSmallintAsInt("opcion_elegida", 0),
                 enunciado = row.GetString("enunciado", ""),
                 rpta1 = row.GetString("rpta1", ""),
                 rpta2 = row.GetString("rpta2", ""),

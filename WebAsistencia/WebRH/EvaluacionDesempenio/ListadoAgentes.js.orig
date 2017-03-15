@@ -117,7 +117,7 @@ var ListadoAgentes = {
     getRespuestasDelForm: function (un_agente) {
         var coleccion_respuestas = []; //obtener estas opciones_elegidas desde un_agente.
         for (i = 0; i < un_agente.detalle_preguntas.length; i++) {
-            coleccion_respuestas.push(un_agente.detalle_preguntas[i].respuesta_elegida);
+            coleccion_respuestas.push(un_agente.detalle_preguntas[i].OpcionElegida);
         }
         return coleccion_respuestas;
     },
