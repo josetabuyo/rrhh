@@ -43,6 +43,10 @@
     color: Red;
     font-weight: bold;
 } 
+.total-preguntas-pendiente 
+{
+    
+}
 #foto_usuario {
     display: inline-block;
     vertical-align: top;
@@ -131,7 +135,7 @@
         <div style="margin: 0 auto;" class="row">
             <div class="">
                 <legend style="margin-top: 20px; text-align: center;">FORMULARIO EVALUACIÓN</legend>
-                <p class="pregunta-pendiente-leyenda">Preguntas aún sin responder</p>
+                <p class="pregunta-pendiente-leyenda">Preguntas aún sin responder<span class="total-preguntas-pendiente"></span></p>
                 <div id="contenedor">
                 
                 </div>
@@ -141,7 +145,7 @@
                     </div>
                     <div id="plantilla" class="plantilla_form" style="display:none; " >
                        
-                        <p class="pregunta pregunta-pendiente"></p>
+                        <p class="pregunta"></p>
                         <div>
                             <p><input type="radio"  data-opcion="1" class="input_form" /><label><span class="rta1"></span></label></p>
                             <p><input type="radio"  data-opcion="2" class="input_form" /><label><span class="rta2"></span></label></p>

@@ -321,6 +321,7 @@ var ListadoAgentes = {
 
                 pregunta.text(value.Enunciado);
                 pregunta.attr('data-identificador', value.idPregunta);
+                pregunta.addClass('pregunta-pendiente');
                 plantilla.find(".rta1").text(value.Rta1);
                 plantilla.find(".rta2").text(value.Rta2);
                 plantilla.find(".rta3").text(value.Rta3);
@@ -337,6 +338,7 @@ var ListadoAgentes = {
                     input.next('label').attr('for', inputId);
 
                     input.on('click', _this.verificarPreguntaPendiente);
+                    input.on('click', _this.habilitarBotonGuardarDefinitivo);
                 });
 
                 radioButton.attr('checked', false);
@@ -382,7 +384,7 @@ var ListadoAgentes = {
                         }
                     });
 
-            
+
 
             $('.btnGuardar').click(function () {
                 var idNivel = localStorage.getItem("idNivel");
@@ -487,18 +489,25 @@ var ListadoAgentes = {
         }
     },
     habilitarBotonGuardarDefinitivo: function () {
-
         var preguntas = $('.pregunta');
+        var totalPreguntasPendientes = 0;
+        var totalPreguntas = preguntas.length - 1; // Se resta 1 porque hay una plantilla oculta con la clase pregunta
+        var btnGuardarDefinitivo = $('#btnGuardarDefinitivo');
+        var elementoTotalPreguntasPendientes = $('.total-preguntas-pendiente');
+
         $.each(preguntas, function (key, value) {
-
-            if (value.classList.contains('pregunta-pendiente')) {
-                $('#btnGuardarDefinitivo').prop('disabled', true);
-                return false;
-            } else {
-                $('#btnGuardarDefinitivo').prop('disabled', false);
+            var $value = $(value);
+            if ($value.hasClass('pregunta-pendiente')) {
+                totalPreguntasPendientes++;
             }
-
-
         });
+
+        elementoTotalPreguntasPendientes.text(" (" + totalPreguntasPendientes + " de " + totalPreguntas + ") ");
+
+        if (totalPreguntasPendientes === 0) {
+            btnGuardarDefinitivo.prop('disabled', false);
+        } else {
+            btnGuardarDefinitivo.prop('disabled', true);
+        }
     }
 }
