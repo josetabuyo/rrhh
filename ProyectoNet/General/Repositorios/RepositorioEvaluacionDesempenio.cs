@@ -57,7 +57,7 @@ namespace General.Repositorios
 
                 }
             }
-
+            /*
                 parametros = new Dictionary<string, object>();
                 parametros.Add("@id_formulario", nivel);
                 tablaDatos = _conexion.Ejecutar("dbo.EVAL_GET_Formulario", parametros);
@@ -106,8 +106,8 @@ namespace General.Repositorios
 	            }
             }
             
-
-            return JsonConvert.SerializeObject(list_de_pregYRtas);
+            */
+            return JsonConvert.SerializeObject(list_de_pregYRtasRespondidas);
         }
         
         public string GetNivelesFormulario(string id_nivel)
