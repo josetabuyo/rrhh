@@ -34,29 +34,15 @@ namespace General.Repositorios
             if (evaluacion != 0)
             {
                 parametros.Add("@id_evaluacion", evaluacion);
-                tablaDatos = _conexion.Ejecutar("dbo.EVAL_GET_Evaluacion", parametros);
-                
-
-                if (tablaDatos.Rows.Count > 0)
-                {
-                    tablaDatos.Rows.ForEach(row =>
-                    {
-                        list_de_pregYRtasRespondidas.Add(new
-                        {
-                            idPregunta = row.GetSmallintAsInt("id_pregunta", 0),
-                            Enunciado = row.GetString("Enunciado", "Sin enunciado"),
-                            Rta1 = row.GetString("Rpta1", "Sin información"),
-                            Rta2 = row.GetString("Rpta2", "Sin información"),
-                            Rta3 = row.GetString("Rpta3", "Sin información"),
-                            Rta4 = row.GetString("Rpta4", "Sin información"),
-                            Rta5 = row.GetString("Rpta5", "Sin información"),
-                            OpcionElegida = row.GetSmallintAsInt("opcion_elegida", 0)
-
-                        });
-                    });
-
-                }
             }
+            
+            parametros.Add("@id_nivel", nivel);
+            tablaDatos = _conexion.Ejecutar("dbo.EVAL_GET_Evaluacion", parametros);
+            FormularioFromTabla(list_de_pregYRtasRespondidas, tablaDatos);
+            
+
+
+
             /*
                 parametros = new Dictionary<string, object>();
                 parametros.Add("@id_formulario", nivel);
@@ -109,7 +95,26 @@ namespace General.Repositorios
             */
             return JsonConvert.SerializeObject(list_de_pregYRtasRespondidas);
         }
-        
+
+        private static void FormularioFromTabla(List<object> list_de_pregYRtasRespondidas, TablaDeDatos tablaDatos)
+        {
+            tablaDatos.Rows.ForEach(row =>
+            {
+                list_de_pregYRtasRespondidas.Add(new
+                {
+                    idPregunta = row.GetSmallintAsInt("id_pregunta", 0),
+                    Enunciado = row.GetString("Enunciado", "Sin enunciado"),
+                    Rta1 = row.GetString("Rpta1", "Sin información"),
+                    Rta2 = row.GetString("Rpta2", "Sin información"),
+                    Rta3 = row.GetString("Rpta3", "Sin información"),
+                    Rta4 = row.GetString("Rpta4", "Sin información"),
+                    Rta5 = row.GetString("Rpta5", "Sin información"),
+                    OpcionElegida = row.GetSmallintAsInt("opcion_elegida", 0)
+
+                });
+            });
+        }
+
         public string GetNivelesFormulario(string id_nivel)
         {
             var parametros = new Dictionary<string, object>();
@@ -117,12 +122,14 @@ namespace General.Repositorios
             var tablaDatos = _conexion.Ejecutar("dbo.EVAL_GET_CATEGORIAS_NIVEL", parametros);
             object respuesta;
 
-            respuesta = new { id_nivel = tablaDatos.Rows[0].GetSmallintAsInt("id_nivel"),
-                              deficiente = tablaDatos.Rows[0].GetSmallintAsInt("deficiente"),
-                              regular = tablaDatos.Rows[0].GetSmallintAsInt("regular"),
-                              bueno = tablaDatos.Rows[0].GetSmallintAsInt("bueno"),
-                              destacado = tablaDatos.Rows[0].GetSmallintAsInt("destacado"),
-                              descripcion_nivel = tablaDatos.Rows[0].GetString("descripcion")
+            respuesta = new
+            {
+                id_nivel = tablaDatos.Rows[0].GetSmallintAsInt("id_nivel"),
+                deficiente = tablaDatos.Rows[0].GetSmallintAsInt("deficiente"),
+                regular = tablaDatos.Rows[0].GetSmallintAsInt("regular"),
+                bueno = tablaDatos.Rows[0].GetSmallintAsInt("bueno"),
+                destacado = tablaDatos.Rows[0].GetSmallintAsInt("destacado"),
+                descripcion_nivel = tablaDatos.Rows[0].GetString("descripcion")
             };
             return JsonConvert.SerializeObject(respuesta);
         }
@@ -160,7 +167,7 @@ namespace General.Repositorios
                         var id_evaluado = row.GetSmallintAsInt("id_evaluado", 0);
                         evaluador = newEvaluadoFromRow(row, detalle_preguntas, id_evaluado);
                         AddDetallePreguntasA(detalle_preguntas, row);
-                        
+
                     }
                     else
                     {
