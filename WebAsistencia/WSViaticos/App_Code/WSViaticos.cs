@@ -4226,6 +4226,14 @@ public class WSViaticos : System.Web.Services.WebService
         return repo.GetNotificacionesTodasDePortal();
 
     }
+    [WebMethod]
+    public string MostrarDestinatariosDeLaNotificacion( int id_notificacion, Usuario usuario)
+    {
+        RepositorioLegajo repo = RepoLegajo();
+
+        return repo.MostrarDestinatariosDeLaNotificacion(id_notificacion);
+
+    }
 
     [WebMethod]
     public string GetConsultasDePortalParaUnUsuario(int idUsuarioAConsultar)
