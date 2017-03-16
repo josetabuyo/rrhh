@@ -318,7 +318,7 @@ var ListadoAgentes = {
             spinner.stop();
             var form = JSON.parse(formularioJSON);
             var respuestas = _this.getRespuestasDesdeLasPreguntas(form);
-            var calificacion = _this.calificacion(respuestas, localStorage.getItem("deficiente"), localStorage.getItem("regular"), localStorage.getItem("bueno"), localStorage.getItem("destacado"), false);
+            var calificacion = _this.calificacion(respuestas, localStorage.getItem("deficiente"), localStorage.getItem("regular"), localStorage.getItem("bueno"), localStorage.getItem("destacado"), true);
             $("#puntaje").text(calificacion);
             $.each(form, function (key, value) {
                 var plantilla = $('#plantilla').clone();
