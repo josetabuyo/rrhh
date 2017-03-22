@@ -29,13 +29,14 @@
 }
 .pregunta-pendiente-leyenda
 {
-    margin-left: 20px;    
+    margin-left: 20px;
+    font-style: italic;     
 }
 .pregunta-pendiente-leyenda:before
 {
    content: " (*) ";
    color: Red;
-   font-weight: bold;     
+   font-weight: bold;    
 }
 .pregunta-pendiente::after 
 {
@@ -43,10 +44,6 @@
     color: Red;
     font-weight: bold;
 } 
-.total-preguntas-pendiente 
-{
-    
-}
 #foto_usuario {
     display: inline-block;
     vertical-align: top;
@@ -72,10 +69,10 @@
     overflow: hidden;
 }
 
-.radioSeleccionado 
+.radioSeleccionado [class*='rta']
 {
-    color: #132a80;
-    font-size: medium;
+    color: #0036ff;
+    font-weight: bold;
 }
 
 .div_fixed {

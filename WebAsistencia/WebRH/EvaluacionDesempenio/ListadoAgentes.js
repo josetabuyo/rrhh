@@ -352,23 +352,26 @@ var ListadoAgentes = {
                     input.on('click', _this.habilitarBotonGuardarDefinitivo);
                 });
 
-                radioButton.attr('checked', false);
+                radioButton.prop('checked', false);
+
+                if (radioButton.parent().hasClass('radioSeleccionado')) {
+                    radioButton.parent().removeClass('radioSeleccionado');
+                }
+
                 radioButton.click(function () {
                     _this.calcularCalificacion();
                     radioButton.parent().removeClass('radioSeleccionado');
                     $(this).parent().addClass('radioSeleccionado');
                 });
 
-                if (value.OpcionElegida != 0) {
+                if (value.OpcionElegida !== 0) {
                     //chequear los radios elegidos
                     var radio = plantilla.find('[data-opcion=' + value.OpcionElegida + ']');
-                    radio.attr('checked', true);
+                    radio.prop('checked', true);
                     radio.parent().addClass('radioSeleccionado');
                     // Pregunta respondida, elimina marca '(*)' de pendiente
                     _this.verificarPreguntaPendiente.call(radio);
                 }
-
-
 
                 $('#contenedor').append(plantilla);
             });
