@@ -18,38 +18,33 @@
 {
     background-color: #00001c;
     position: absolute;
-    left: 50%;
+    left: 0px;
     min-height: 30px;
-    width: 1024px;
-    margin-left: -512px;
+    right: 0px;
 }
 
 #img_logo_sistema
 {
     position: absolute;
-    top: 50%;
-    right: 97%;
-    height: 175%;
-    /*float:left;*/
+    top: 16px;
+    left: 30px;
+    height: 50px;
 }
 
 #img_logo_minis
 {
     position: absolute;
-    top: 74%;
-    right: 8%;
-    /* height: 101%; */
-    /* float: right; */
+    top: 16px;
+    right: 30px;
+    height: 35px;
 }
 
 #img_logo_direccion
 {
-    /*z-index: 2000;*/
     position: absolute;
-    height: 100%;
-    top: 80%;
-    left: 99%;
-    /* float: right; */
+    top: 20px;
+    right: 235px;
+    height: 40px;
 }
 
 
