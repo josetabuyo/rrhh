@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es" class="no-js">
+<script type="text/javascript" src="ListadoAgentes.js"></script>
+<script type="text/javascript" src="../Scripts/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="../Scripts/Backend.js"></script>
+<script type="text/javascript" src="../Scripts/ProveedorAjax.js"></script>
+<script type="text/javascript" src="../Scripts/Promesa.js"></script>
+
+<head>
+    <meta charset="UTF-8" />
+</head>
+<body>
+    <div id="div_contenido_impresion">
+    </div>
+</body>
+<script type="text/javascript">
+
+    $(document).ready(function ($) {
+        // Retrieve
+        var nivel = localStorage.getItem("idNivel");
+        var periodo = localStorage.getItem("idPeriodo");
+        var evaluado = localStorage.getItem("idEvaluado");
+        var evaluacion = localStorage.getItem("idEvaluacion");
+
+        Backend.start(function () {
+            ListadoAgentes.imprimirFormularioEvaluacion(nivel, evaluacion, evaluado);
+        });
+    });
+</script>
+</html>

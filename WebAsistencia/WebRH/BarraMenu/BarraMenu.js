@@ -49,22 +49,29 @@
                 }
 
             });
-            Backend.GetSolicitudesDeCambioDeImagenPendientes().onSuccess(function (solicitudes) {
-                _.forEach(solicitudes, function (solicitud) {
-                    var ui_consulta = $("#plantillas .ui_mensaje_alerta").clone();
-                    ui_consulta.find(".titulo_mensaje_alerta").text("Solicitud de cambio de imagen pendiente");
-                    ui_consulta.find(".contenido_mensaje_alerta").text("Solicitante:" + "(" + solicitud.usuario.Alias.replace(' ', '') + ") " + solicitud.usuario.Owner.Apellido + ", " + solicitud.usuario.Owner.Nombre + " DNI:" + solicitud.usuario.Owner.Documento);
 
-                    ui_consulta.click(function(){
-                        boton_mensajes.contraer();
-                        $("#plantillas").append($("<div>").load("../Componentes/AdministradorSolicitudCambioImagen.htm", function(){
-                            var admin = new AdministradorSolicitudCambioImagen(solicitud);
+            
+            Backend.ElUsuarioLogueadoTienePermisosPara(50).onSuccess(function (tiene_permisos) {
+                if (tiene_permisos) {
+                    Backend.GetSolicitudesDeCambioDeImagenPendientes().onSuccess(function (solicitudes) {
+                        _.forEach(solicitudes, function (solicitud) {
+                            var ui_consulta = $("#plantillas .ui_mensaje_alerta").clone();
+                            ui_consulta.find(".titulo_mensaje_alerta").text("Solicitud de cambio de imagen pendiente");
+                            ui_consulta.find(".contenido_mensaje_alerta").text("Solicitante:" + "(" + solicitud.usuario.Alias.replace(' ', '') + ") " + solicitud.usuario.Owner.Apellido + ", " + solicitud.usuario.Owner.Nombre + " DNI:" + solicitud.usuario.Owner.Documento);
+
+                            ui_consulta.click(function(){
+                                boton_mensajes.contraer();
+                                $("#plantillas").append($("<div>").load("../Componentes/AdministradorSolicitudCambioImagen.htm", function(){
+                                    var admin = new AdministradorSolicitudCambioImagen(solicitud);
                         
-                        }));
+                                }));
+                            });
+                            $(".contenedor_de_alertas_y_mensajes").append(ui_consulta);
+                        });
                     });
-                    $(".contenedor_de_alertas_y_mensajes").append(ui_consulta);
-                });
+                }
             });
+           
         };
 
         cargar_alertas();

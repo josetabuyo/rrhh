@@ -52,6 +52,20 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
 
+    [WebMethod]
+    public string EvalGetAgentesEvaluables(Usuario usuario)
+    {
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        return repo.GetAgentesEvaluablesPor(usuario);
+    }
+
+    [WebMethod]
+    public string EvalGetNivelesFormulario(string id_nivel)
+    {
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        return repo.GetNivelesFormulario(id_nivel);
+    }
+
     #region asistencia
 
     //INICIO: DDJJ 104 ---------------
@@ -4425,6 +4439,49 @@ public class WSViaticos : System.Web.Services.WebService
 
     #endregion
 
+    #region EvaluacionesDesempenio
+
+    [WebMethod]
+    public string GetFormularioDeEvaluacion(int idNivel,int idEvaluacion, int idEvaluado, Usuario usuario)
+    {
+        RepositorioEvaluacionDesempenio repositorio = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        return repositorio.getFormularioDeEvaluacion(idNivel, idEvaluado, idEvaluacion );
+    }
+
+    [WebMethod]
+    public string InsertarEvaluacion(int idEvaluado, int idFormulario, int periodo,int idEval, string pregYRtas, int estado, Usuario usuario)
+    {
+        RepositorioEvaluacionDesempenio repositorio = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        //var preguntasYRespuestas = JsonConvert.DeserializeObject(pregYRtas);
+
+        var criterio_deserializado = (JArray)JsonConvert.DeserializeObject(pregYRtas);
+
+        //FC:si viene un idEvaluacion entonces llamo a update, si viene 0 llamo a insert
+        if (idEval != 0)
+        {
+            repositorio.deleteEvaluacionDetalle(idEval);
+            repositorio.updateEvaluacion(idEval, idEvaluado, usuario.Owner.Id, idFormulario, periodo, estado);
+        }
+        else {
+            //FC:Inserto la cabecera de la evaluacion
+            idEval = repositorio.insertarEvaluacion(idEvaluado, usuario.Owner.Id, idFormulario, periodo, estado);
+        }
+            
+            //var item1 = preguntasYRespuestas;
+           
+
+        foreach (var item in criterio_deserializado)
+        {
+            int idPregunta = (int)item.First.First;
+            int idRespuesta = (int)item.Last.Last;
+
+            repositorio.insertarEvaluacionDetalle(idEval, idPregunta, idRespuesta);
+        }
+
+        return "ok";
+    }
+
+    #endregion
 
     private RepositorioLicencias RepoLicencias()
     {
