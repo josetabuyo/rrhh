@@ -10,10 +10,10 @@
     width: 62px;
     position: absolute;
     right: 20px;
-    top: 75px;
+    top: -9px;
     cursor: pointer;
     border-radius: 50%;
-    overflow:hidden;
+    overflow: hidden;
 }
 
 #contenedor_imagen_usuario #imagen
@@ -46,7 +46,7 @@
 .menu_usuario
 {
     position: absolute;
-    top: 155px;
+    top: 71px;
     width: 265px;
     height: 422px;
     background-color: white;
@@ -132,9 +132,11 @@
 .cabecera_menu_usuario
 {
     position: absolute;
-    left: 65px;
+    left: 0px;
+    right: 0px;
     font-weight: bold;
     font-size: 1.5em;
+    text-align: center;
 }
 
 #nombre_user
@@ -144,19 +146,16 @@
 #apellido_user
 {
     top: 195px;
-    left: 48px;
 }
 #dni_user
 {
     top: 222px;
     font-size: 1.2em !important;
-    left: 92px;
 }
 #email_user
 {
     top: 300px;
     font-size: 1em !important;
-    left: 20px;
     font-style: italic;
 }
 
@@ -179,7 +178,7 @@
 #cerrar-sesion_usuario
 {
     position: absolute;
-    top: 370px;
+    top: 366px;
     left: 28px;
     height: 25px;
     width: 102px;
@@ -218,7 +217,7 @@
     width: 30px;
     position: absolute;
     right: 100px;
-    top: 90px;
+    top: 8px;
     cursor: pointer;
 }
 
@@ -249,26 +248,23 @@
     width: 50px;
     position: absolute;
     right: 145px;
-    top: 76px;
+    top: -6px;
     cursor: pointer;
     background-size: 100%;
 }
 
-
-#home_imagen
-{
-    height: 40px;
-    position: absolute;
-    left: 15px;
-    top: 86px;
-}
-
-
-
-
 #boton_home
 {
     cursor: pointer;
+    height: 39px;
+    position: absolute;
+    left: 14px;
+    top: 2px;
+}
+
+#boton_home img
+{
+    height: 100%;        
 }
 
 .contenedor_de_alertas_y_mensajes

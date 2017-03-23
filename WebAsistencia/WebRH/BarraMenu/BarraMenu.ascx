@@ -20,17 +20,13 @@
 </head>
 <div id="barra_menu_contenedor" class="no-print">
     <div id="contenedor_imagen">
-        <div id="barra_menu_contenedor_imagen">
-            <img src="<%= UrlImagenes %>logo_sistema.png" id="img_logo_sistema" alt="logosistema" />
-            <img src="<%= UrlImagenes %>logo_ministerio.png" id="img_logo_minis" alt="logosistema" />
-            <img src="<%= UrlImagenes %>logo_direccion.png" id="img_logo_direccion" alt="logosistema" />
-            <div id="barra_menu_nombre_sistema">
-            </div>
+        <img src="<%= UrlImagenes %>logo_sistema.png" id="img_logo_sistema" alt="logosistema" />
+        <img src="<%= UrlImagenes %>logo_ministerio.png" id="img_logo_minis" alt="logosistema" />
+        <img src="<%= UrlImagenes %>logo_direccion.png" id="img_logo_direccion" alt="logosistema" />
+        <div id="barra_menu_nombre_sistema">
         </div>
     </div>
-    <div id="barra_navegacion">
-        <div id="barra_azul">
-        </div>
+    <div id="barra_navegacion"> 
         <div id="boton_home">
             <img src="<%= UrlImagenes %>Home-icono.png" id="home_imagen" alt="homeicono" />
         </div>
@@ -100,26 +96,6 @@
             <div class="contenedor_de_alertas_y_mensajes">
             </div>
         </div>
-        <%--<div id="contenedor_barraInferior">
-        <div id="barra_menu_inferior">
-            <div id="barra_menu_inferior_usuario">
-                <div id="barra_menu_label_usuario">
-                    USUARIO
-                </div>
-                <asp:Label ID="LabelUsuario" runat="server"></asp:Label>
-            </div>
-
-             <div id="barra_menu_inferior_botones">
-                <asp:Button ID="VolverAInicio" CssClass="barra_menu_botones" runat="server" OnClick="VolverAInicioLinkButton_Click"
-                    Text="Inicio"></asp:Button>
-                <a id="go" rel="leanModal" class="btn barra_menu_botones" name="signup" href="#signup">
-                    Cambiar Contraseña</a>
-                <asp:Button ID="CerrarSessionLinkButton" CssClass="barra_menu_botones" runat="server"
-                    OnClick="CerrarSessionLinkButton_Click" Text="Cerrar Sesión"></asp:Button>
-                </div>
-            <uc5:FormPassword ID="FormPassword" runat="server" />
-        </div>
-    </div>--%>
     </div>
     <div id="plantillas" style="display: none">
         <div class="ui_mensaje_alerta mensaje_alerta sombra-mensaje">
@@ -148,3 +124,4 @@
             <input id="bnt_finalizar" type="button" class="btn btn-primary" value="Finalizar" />
         </div>
     </div>
+</div>

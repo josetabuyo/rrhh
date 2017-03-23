@@ -1,0 +1,34 @@
+23/03/2017 12:04:41 - ---------------------------------------------
+23/03/2017 12:04:41 - System.Web.HttpUnhandledException (0x80004005): Se produjo una excepción de tipo 'System.Web.HttpUnhandledException'. ---> System.ServiceModel.FaultException: System.Web.Services.Protocols.SoapException: El servidor no puede procesar la solicitud. ---> System.Data.SqlClient.SqlException: La transacción (id. de proceso 60) quedó en interbloqueo en bloqueo | búfer de comunicaciones recursos con otro proceso y fue elegida como sujeto del interbloqueo. Ejecute de nuevo la transacción.
+   en General.Repositorios.ConexionBDSQL.Ejecutar(String procedimiento, Dictionary`2 parametros, Int32 segundos_timeout) en C:\Repositorio\Javier\RRHH\ProyectoNet\General\Repositorios\ConexionBDSQL.cs:línea 146
+   en General.RepositorioDeOrganigrama.GetOrganigrama() en C:\Repositorio\Javier\RRHH\ProyectoNet\General\Repositorios\RepositorioDeOrganigrama.cs:línea 66
+   en WSViaticos.GetCursosDto(Usuario usuario) en c:\Repositorio\Javier\RRHH\WebAsistencia\WSViaticos\App_Code\WSViaticos.cs:línea 2077
+   --- Fin del seguimiento de la pila de la excepción interna ---
+
+Server stack trace: 
+   en System.ServiceModel.Channels.ServiceChannel.HandleReply(ProxyOperationRuntime operation, ProxyRpc& rpc)
+   en System.ServiceModel.Channels.ServiceChannel.Call(String action, Boolean oneway, ProxyOperationRuntime operation, Object[] ins, Object[] outs, TimeSpan timeout)
+   en System.ServiceModel.Channels.ServiceChannelProxy.InvokeService(IMethodCallMessage methodCall, ProxyOperationRuntime operation)
+   en System.ServiceModel.Channels.ServiceChannelProxy.Invoke(IMessage message)
+
+Exception rethrown at [0]: 
+   en System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+   en System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)
+   en WSViaticos.WSViaticosSoap.GetCursosDto(Usuario usuario)
+   en WSViaticos.WSViaticosSoapClient.GetCursosDto(Usuario usuario) en c:\Users\clurgo\AppData\Local\Temp\Temporary ASP.NET Files\root\cd6ffb1b\cae4a88b\App_WebReferences.fnii44um.0.cs:línea 17649
+   en SACC_FormAsignarAlumnos.CompletarCombosDeCursos() en c:\Repositorio\Javier\RRHH\WebAsistencia\WebRH\SACC\FormAsignarAlumnos.aspx.cs:línea 56
+   en SACC_FormAsignarAlumnos.Page_Load(Object sender, EventArgs e) en c:\Repositorio\Javier\RRHH\WebAsistencia\WebRH\SACC\FormAsignarAlumnos.aspx.cs:línea 18
+   en System.Web.Util.CalliHelper.EventArgFunctionCaller(IntPtr fp, Object o, Object t, EventArgs e)
+   en System.Web.Util.CalliEventHandlerDelegateProxy.Callback(Object sender, EventArgs e)
+   en System.Web.UI.Control.OnLoad(EventArgs e)
+   en System.Web.UI.Control.LoadRecursive()
+   en System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+   en System.Web.UI.Page.HandleError(Exception e)
+   en System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+   en System.Web.UI.Page.ProcessRequest(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+   en System.Web.UI.Page.ProcessRequest()
+   en System.Web.UI.Page.ProcessRequestWithNoAssert(HttpContext context)
+   en System.Web.UI.Page.ProcessRequest(HttpContext context)
+   en ASP.sacc_formasignaralumnos_aspx.ProcessRequest(HttpContext context) en c:\Users\clurgo\AppData\Local\Temp\Temporary ASP.NET Files\root\cd6ffb1b\cae4a88b\App_Web_p1yatwoi.2.cs:línea 0
+   en System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   en System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
