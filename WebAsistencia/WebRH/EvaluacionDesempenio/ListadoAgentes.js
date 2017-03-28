@@ -137,6 +137,8 @@ var ListadoAgentes = {
         var img = $('<img>');
         img.attr('src', '../Imagenes/iconos/icono-imprimir.png');
         img.attr('width', '25px');
+        img.attr('data-toggle', 'tooltip');
+        img.attr('title', 'Impresora');
         img.attr('height', '25px');
         btn_accion.append(img);
         btn_accion.click(function () {
@@ -184,6 +186,8 @@ var ListadoAgentes = {
         var img = $('<img>');
         img.attr('src', '../Imagenes/portal/estudios.png');
         img.attr('width', '25px');
+        img.attr('data-toggle', 'tooltip');
+        img.attr('title', 'Impresora');s
         img.attr('height', '25px');
         btn_accion.append(img);
         btn_accion.click(function () {

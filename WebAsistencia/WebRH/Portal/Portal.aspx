@@ -31,6 +31,99 @@
 					           <%-- <img src="../Imagenes/portal/portal_empleado.png" alt="" class=""/>--%>
 				            </div>	
 			            </div>
+                        <div id="btnDatosPersonales" class="ch-item ch-img-1 item datosPersonales test">				
+		                    <div class="ch-info-wrap">
+			                    <div class="ch-info">
+				                    <div class="ch-info-front ch-img-1"></div>
+				                    <div  class="ch-info-back">
+					                    <h3 style="margin-top: 30px; line-height: 14px;">Datos Personales</h3>
+				                    </div>	
+			                    </div>
+		                    </div>
+                            <a href="#" class="icon "  ></a>
+	                    </div>
+                        <div id="btnEstudios" class="ch-item ch-img-1 item estudios test">				
+		                    <div class="ch-info-wrap">
+			                    <div class="ch-info">
+				                    <div class="ch-info-front ch-img-1"></div>
+				                    <div class="ch-info-back">
+					                    <h3 style="font-size: 0.35em;">DOCUMENTOS</h3>
+				                    </div>	
+			                    </div>
+		                    </div>
+                            <a href="Documentos.aspx" class="icon "  ></a>
+	                    </div>
+                        <div id="btnLicencias" class="ch-item ch-img-1 item licencias test">				
+		                    <div class="ch-info-wrap">
+			                    <div class="ch-info">
+				                    <div class="ch-info-front ch-img-1"></div>
+				                    <div class="ch-info-back">
+					                    <h3>LICENCIAS</h3>
+				                    </div>	
+			                    </div>
+		                    </div>
+                            <a href="Licencias.aspx" class="icon "  ></a>
+	                    </div>
+
+                        <div id="btnNotificaciones" class="ch-item ch-img-1 item capacitaciones test">				
+		                    <div class="ch-info-wrap">
+			                    <div class="ch-info">
+				                    <div class="ch-info-front ch-img-1"></div>
+				                    <div class="ch-info-back">
+					                    <h3 style="font-size: 0.35em;">APLICACIONES</h3>
+				                    </div>	
+			                    </div>
+		                    </div>
+                            <a href="#" class="icon "  ></a>
+	                    </div>
+
+                        <div id="btnCapacitaciones" class="ch-item ch-img-1 item notificaciones test">				
+		                    <div class="ch-info-wrap">
+			                    <div class="ch-info">
+				                    <div class="ch-info-front ch-img-1"></div>
+				                    <div class="ch-info-back">
+					                    <h3 style="font-size: 0.35em;">CAPACITACIONES</h3>
+				                    </div>	
+			                    </div>
+		                    </div>
+                            <a href="#" class="icon "  ></a>
+	                    </div>
+
+                        <div id="btnBeneficios" class="ch-item ch-img-1 item beneficios test">				
+		                    <div class="ch-info-wrap">
+			                    <div class="ch-info">
+				                    <div class="ch-info-front ch-img-1"></div>
+				                    <div class="ch-info-back">
+					                    <h3>BENEFICIOS</h3>
+				                    </div>	
+			                    </div>
+		                    </div>
+                            <a href="Recibo.aspx" class="icon "  ></a>
+	                    </div>
+
+                        <div id="btnOrganigrama" class="ch-item ch-img-1 item viaticos test">				
+		                    <div class="ch-info-wrap">
+			                    <div class="ch-info">
+				                    <div class="ch-info-front ch-img-1"></div>
+				                    <div class="ch-info-back">
+					                    <h3 style="font-size: 0.35em;">ORGANIGRAMA</h3>
+				                    </div>	
+			                    </div>
+		                    </div>
+                            <a href="#" class="icon "  ></a>
+	                    </div>
+                        <div id="btnPerfil" style="box-shadow:none;" class="ch-item ch-img-1 item perfil test">				
+		                    <div class="ch-info-wrap">
+			                    <div class="ch-info">
+				                    <div class="ch-info-front ch-img-1"></div>
+				                    <div class="ch-info-back">
+					                    <h3>CARRERA</h3>
+				                    </div>	
+			                    </div>
+		                    </div>
+                            <a href="#" class="icon "  ></a>
+	                    </div>
+
 		            </div>
 	            </div>
                
@@ -38,90 +131,30 @@
                 
                 <%--<div class="item datosPersonales test ch-item ch-img-3" data-toggle="tooltip" data-placement="right" title="DATOS PERSONALES">--%>
                    <%-- <img src="../Imagenes/portal/bg_user.png" alt="" width="100" height="100" class="circle"/>--%>
-                   <div id="btnDatosPersonales" class="ch-item ch-img-1 item datosPersonales test">				
-		                <div class="ch-info-wrap">
-			                <div class="ch-info">
-				                <div class="ch-info-front ch-img-1"></div>
-				                <div  class="ch-info-back">
-					                <h3 style="margin-top: 30px; line-height: 14px;">Datos Personales</h3>
-				                </div>	
-			                </div>
-		                </div>
-                        <a href="#" class="icon "  ></a>
-	                </div>
+                   
                     
                <%-- </div>--%>
-               <div id="btnEstudios" class="ch-item ch-img-1 item estudios test">				
-		            <div class="ch-info-wrap">
-			            <div class="ch-info">
-				            <div class="ch-info-front ch-img-1"></div>
-				            <div class="ch-info-back">
-					            <h3 style="font-size: 0.35em;">DOCUMENTOS</h3>
-				            </div>	
-			            </div>
-		            </div>
-                    <a href="Documentos.aspx" class="icon "  ></a>
-	            </div>
+               
                 <%--<div class="item estudios test" data-toggle="tooltip" data-placement="right" title="ESTUDIOS">
                     <%--<img src="../Imagenes/portal/bg_home.png" alt="" width="199" height="199" class="circle"/>
                     <a href="#" class="icon"></a>
                 </div>--%>
-                <div id="btnLicencias" class="ch-item ch-img-1 item licencias test">				
-		            <div class="ch-info-wrap">
-			            <div class="ch-info">
-				            <div class="ch-info-front ch-img-1"></div>
-				            <div class="ch-info-back">
-					            <h3>LICENCIAS</h3>
-				            </div>	
-			            </div>
-		            </div>
-                    <a href="Licencias.aspx" class="icon "  ></a>
-	            </div>
+                
                 <%--<div class="item licencias" data-toggle="tooltip" data-placement="right" title="LICENCIAS">
                     <%--<img src="../Imagenes/portal/bg_shop.png" alt="" width="199" height="199" class="circle"/>
                     <a href="#" class="icon"></a>
                 </div>--%>
-                <div id="btnNotificaciones" class="ch-item ch-img-1 item capacitaciones test">				
-		            <div class="ch-info-wrap">
-			            <div class="ch-info">
-				            <div class="ch-info-front ch-img-1"></div>
-				            <div class="ch-info-back">
-					            <h3 style="font-size: 0.35em;">APLICACIONES</h3>
-				            </div>	
-			            </div>
-		            </div>
-                    <a href="#" class="icon "  ></a>
-	            </div>
+                
                 <%--<div class="item notificaciones" data-toggle="tooltip" data-placement="right" title="NOTIFICACIONES">
                     <%--<img src="../Imagenes/portal/bg_camera.png" alt="" width="199" height="199" class="circle"/>
                     <a href="#" class="icon"></a>
                 </div>--%>
-                <div id="btnCapacitaciones" class="ch-item ch-img-1 item notificaciones test">				
-		            <div class="ch-info-wrap">
-			            <div class="ch-info">
-				            <div class="ch-info-front ch-img-1"></div>
-				            <div class="ch-info-back">
-					            <h3 style="font-size: 0.35em;">CAPACITACIONES</h3>
-				            </div>	
-			            </div>
-		            </div>
-                    <a href="#" class="icon "  ></a>
-	            </div>
+                
                 <%--<div class="item capacitaciones" data-toggle="tooltip" data-placement="right" title="CAPACITACIONES">
                    <%-- <img src="../Imagenes/portal/bg_fav.png" alt="" width="199" height="199" class="circle"/>
                     <a href="#" class="icon"></a>
                 </div>--%>
-                <div id="btnBeneficios" class="ch-item ch-img-1 item beneficios test">				
-		            <div class="ch-info-wrap">
-			            <div class="ch-info">
-				            <div class="ch-info-front ch-img-1"></div>
-				            <div class="ch-info-back">
-					            <h3>BENEFICIOS</h3>
-				            </div>	
-			            </div>
-		            </div>
-                    <a href="Recibo.aspx" class="icon "  ></a>
-	            </div>
+                
                <%-- <div class="item beneficios" data-toggle="tooltip" data-placement="right" title="BENEFICIOS">
                     <%--<img src="../Imagenes/portal/bg_fav.png" alt="" width="199" height="199" class="circle"/>
                     <a href="#" class="icon"></a>
@@ -131,28 +164,7 @@
                    <%-- <img src="../Imagenes/portal/bg_fav.png" alt="" width="199" height="199" class="circle"/>
                     <a href="#" class="icon"></a>
                 </div>--%>
-                <div id="btnOrganigrama" class="ch-item ch-img-1 item viaticos test">				
-		            <div class="ch-info-wrap">
-			            <div class="ch-info">
-				            <div class="ch-info-front ch-img-1"></div>
-				            <div class="ch-info-back">
-					            <h3 style="font-size: 0.35em;">ORGANIGRAMA</h3>
-				            </div>	
-			            </div>
-		            </div>
-                    <a href="#" class="icon "  ></a>
-	            </div>
-                <div id="btnPerfil" style="box-shadow:none;" class="ch-item ch-img-1 item perfil test">				
-		            <div class="ch-info-wrap">
-			            <div class="ch-info">
-				            <div class="ch-info-front ch-img-1"></div>
-				            <div class="ch-info-back">
-					            <h3>CARRERA</h3>
-				            </div>	
-			            </div>
-		            </div>
-                    <a href="#" class="icon "  ></a>
-	            </div>
+                
                <%-- <div class="item perfil" data-toggle="tooltip" data-placement="right" title="PERFIL">
                     <%--<img src="../Imagenes/portal/bg_fav.png" alt="" width="199" height="199" class="circle"/>
                     <a href="#" class="icon"></a>
