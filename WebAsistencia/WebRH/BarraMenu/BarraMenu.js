@@ -5,7 +5,10 @@
         var boton_mensajes = new BotonDesplegable("menu_mensajes", "contenedor_menu_mensajes");
 
         $('#boton_home').click(function () {
-            window.location.href = '../Portal/Portal.aspx';
+            Backend.ElUsuarioLogueadoTienePermisosPara(51).onSuccess(function (tiene_permisos) {   
+                if(tiene_permisos) window.location.href = '../Portal/Portal.aspx';
+                else window.location.href = '../MenuPrincipal/Menu.aspx';
+            });
         });
 
         var cargar_alertas = function () {
@@ -19,20 +22,22 @@
                     $(".contenedor_de_alertas_y_mensajes").append(ui_consulta);
 
                     ui_consulta.click(function () {
-                        boton_mensajes.contraer();
-                        vex.defaultOptions.className = 'vex-theme-os';
-                        vex.open({
-                            afterOpen: function ($vexContent) {
-                                var ui = $("#contenedor_chat_mensajes");
-                                $vexContent.append(ui);
-                                $('contenedor_de_alertas_y_mensajes').hide();
-                            }, 
-                            contentCSS: {
-                                width: "70%",
-                                height: "80%"
-                            }
+                        window.location.href = "../Portal/Consultas.aspx";
 
-                        });
+//                        boton_mensajes.contraer();
+//                        vex.defaultOptions.className = 'vex-theme-os';
+//                        vex.open({
+//                            afterOpen: function ($vexContent) {
+//                                var ui = $("#contenedor_chat_mensajes");
+//                                $vexContent.append(ui);
+//                                $('contenedor_de_alertas_y_mensajes').hide();
+//                            }, 
+//                            contentCSS: {
+//                                width: "70%",
+//                                height: "80%"
+//                            }
+
+//                        });
                     });
                 });
 
@@ -41,8 +46,7 @@
                 if (consultas.length == 0) {
                     $('#notificacion_punto_rojo').hide();
                     $('#notificacion_punto_verde').show();
-                    contenedor_de_alertas_y_mensajes
-
+                    
                 } else {
                     $('#notificacion_punto_rojo').show();
                     $('#notificacion_punto_verde').hide();

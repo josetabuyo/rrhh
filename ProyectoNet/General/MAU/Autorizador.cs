@@ -241,6 +241,10 @@ namespace General.MAU
             parametros.Add("@id_usuario", id_usuario);
             parametros.Add("@id_usuario_verificador", usuario.Id);
             this.conexion.EjecutarSinResultado("MAU_Verificar_usuario", parametros);
+
+            //le doy permiso para acceder al portal
+            this.repositorio_funcionalidades_usuarios.ConcederFuncionalidadA(id_usuario, 51); //Postular
+
             return true;
         }
     }
