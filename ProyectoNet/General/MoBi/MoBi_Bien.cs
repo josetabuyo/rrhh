@@ -78,7 +78,7 @@ namespace General
         }
 
 
-        public MoBi_Bien(int id, int id_tipobien, string descripcion_bien, string estado, int id_estado, DateTime fecha_movimiento) 
+        public MoBi_Bien(int id, int id_tipobien, string descripcion_bien, string estado, int id_estado, DateTime fecha_movimiento, string asignacion) 
         {
             _Id = id;
             _IdTipoBien = id_tipobien;
@@ -86,6 +86,7 @@ namespace General
             _Estado = estado;
             Id_Estado = id_estado;
             _UltMov = fecha_movimiento;
+            _Asignacion = asignacion;
         }
 
 

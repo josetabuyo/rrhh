@@ -31,7 +31,8 @@ namespace General
                        row.GetString("Descrip_Bien", "Sin Dato"),
                        row.GetString("Estado", "Sin Dato"),
                        row.GetInt("Id_Estado", 0),
-                       row.GetDateTime("Fecha_Desde", DateTime.MinValue)
+                       row.GetDateTime("Fecha_Desde", DateTime.MinValue),
+                       row.GetString("Descrip_Area_Asig", "")
                        );
         }
 
