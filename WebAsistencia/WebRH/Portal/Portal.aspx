@@ -9,6 +9,7 @@
         <meta name="viewport" content="width=device-width">
         <link rel="stylesheet" href="estilosPortal.css" type="text/css" media="screen"/>
         <!-- CSS media query on a link element -->
+
         <link rel="stylesheet" href="estilosPortalSecciones.css" />
          <%= Referencias.Css("../")%>
 
@@ -185,27 +186,28 @@
         <script type="text/javascript">
             $(document).ready(function () {
                 //DESCOMENTAR CUANDO SE TERMINE SINO HINCHABA LAS PELOTAS
-                /*Backend.start(function () {
-                    Backend.GetUsuarioLogueado().onSuccess(function (usuario) {
-                        var levantar_prompt = function () {
-                            alertify.prompt("Ingrese su mail", "Para continuar debe ingresar una dirección de correo válida", "", function (ev, mail) {
-                                Backend.ModificarMiMail(mail).onSuccess(function (ok) {
-                                    if (ok) {
-                                        alertify.success("Mail modificado correctamente");
-                                    }
-                                    else alertify.error("Error al modificar el mail");
-                                }).onError(function () {
-                                    alertify.error("Error al modificar el mail");
-                                });
-                            }, function () {
-                                setTimeout(function () { levantar_prompt(); }, 100);
-                            });
+                Backend.start(function () {
+                   /* Backend.GetUsuarioLogueado().onSuccess(function (usuario) {
+                        
+                        /*var levantar_prompt = function () {
+                        alertify.prompt("Ingrese su mail", "Para continuar debe ingresar una dirección de correo válida", "", function (ev, mail) {
+                        Backend.ModificarMiMail(mail).onSuccess(function (ok) {
+                        if (ok) {
+                        alertify.success("Mail modificado correctamente");
+                        }
+                        else alertify.error("Error al modificar el mail");
+                        }).onError(function () {
+                        alertify.error("Error al modificar el mail");
+                        });
+                        }, function () {
+                        setTimeout(function () { levantar_prompt(); }, 100);
+                        });
                         };
                         if (usuario.MailRegistro == '') {
-                            levantar_prompt();
+                        levantar_prompt();
                         }
-                    });
-                });           */     
+                    });*/
+                });
 
                 $('[data-toggle="tooltip"]').tooltip();
 

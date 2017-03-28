@@ -117,18 +117,18 @@
 							<div id="contenido_form">
 				              <div class="txt-fld">
 				                <label for="">Contrase&ntilde;a actual</label>
-                                <input id="pass_actual" type="password" />
+                                <input id="pass_actual" type="password" class="posicionamiento_input_cambio_pass"/>
                                <%-- <asp:TextBox ID="passActual" runat="server" />--%>
 				              </div>
 				              <div class="txt-fld">
 				                <label for="">Nueva Contrase&ntilde;a</label>
-                                 <input id="pass_nueva" type="password" />
+                                 <input id="pass_nueva" type="password" class="posicionamiento_input_cambio_pass" />
                                <%-- <asp:TextBox ID="passNueva" runat="server" />--%>
 				               
 				              </div>
 				              <div class="txt-fld">
 				                <label for="">Repetir Contrase&ntilde;a</label>
-                                <input id="pass_nueva_repetida" type="password" />
+                                <input id="pass_nueva_repetida" type="password" class="posicionamiento_input_cambio_pass" />
                                <%-- <asp:TextBox ID="passNuevaRepetida" runat="server" />--%>
 				              </div>
 				              <div class="btn-fld">

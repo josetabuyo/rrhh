@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://wsviaticos.gov.ar/">
-      <s:element name="ConsultaExcelDDJJ104_Persona">
+      <s:element name="EjecutarConsultaOPD">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="idConsulta" type="s:int" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
@@ -190,6 +190,86 @@
           <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
         </s:sequence>
       </s:complexType>
+      <s:element name="EjecutarConsultaOPDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EjecutarConsultaOPDResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExcelMapaDelEstado">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExcelMapaDelEstadoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ExcelMapaDelEstadoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExcelPlanificacionDotaciones">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExcelPlanificacionDotacionesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ExcelPlanificacionDotacionesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFormularioDeEvaluacion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idNivel" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="idEvaluacion" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="idEvaluado" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFormularioDeEvaluacionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetFormularioDeEvaluacionResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertarEvaluacion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idEvaluado" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="idFormulario" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="periodo" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="idEval" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="pregYRtas" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="estado" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertarEvaluacionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="InsertarEvaluacionResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaExcelDDJJ104_Persona">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="ConsultaExcelDDJJ104_PersonaResponse">
         <s:complexType>
           <s:sequence>
@@ -212,62 +292,25 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GuardarEtapaAPostulaciones">
+      <s:element name="BuscarPostulacionesDeInscriptos">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="idpostulaciones" type="tns:ArrayOfInt" />
-            <s:element minOccurs="1" maxOccurs="1" name="id_etapa_postulacion" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_comite" type="s:int" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="ArrayOfInt">
+      <s:element name="BuscarPostulacionesDeInscriptosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BuscarPostulacionesDeInscriptosResult" type="tns:ArrayOfPostulacion" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfPostulacion">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="int" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Postulacion" nillable="true" type="tns:Postulacion" />
         </s:sequence>
       </s:complexType>
-      <s:element name="GuardarEtapaAPostulacionesResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="GuardarEtapaAPostulacionesResult" type="s:boolean" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetTableroDeControlDePostulaciones">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id_usuario" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetTableroDeControlDePostulacionesResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetTableroDeControlDePostulacionesResult" type="tns:ArrayOfResumenDePostulaciones" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:complexType name="ArrayOfResumenDePostulaciones">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="ResumenDePostulaciones" nillable="true" type="tns:ResumenDePostulaciones" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="ResumenDePostulaciones">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="IdPerfil" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="DescripcionPerfil" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="NumeroComite" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="Postulados" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="Inscriptos" type="s:int" />
-        </s:sequence>
-      </s:complexType>
-      <s:element name="GetPantallaRecepcionDocumentacion">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="postulacion" type="tns:Postulacion" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
       <s:complexType name="Postulacion">
         <s:sequence>
           <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
@@ -548,6 +591,134 @@
           </s:extension>
         </s:complexContent>
       </s:complexType>
+      <s:element name="GuardarFolios">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="nro_inscripcion" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="nro_ficha_inscripcion" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="nro_foto" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="nro_foto_dni" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="nro_foto_titulo" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="nro_cv" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="nro_doc_respaldo" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarFoliosResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="ObtenerFolios">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="nro_inscripcion" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="dni_postulante" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="fecha_postulacion" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerFoliosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerFoliosResult" type="tns:Folios" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Folios">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="codigo" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="fecha" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="ficha_inscripcion" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="foto_carnet" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="fotocopia_dni" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="fotocopia_titulo" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Curri" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Docum_respaldo" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="dni" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="en_base" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GuardarCambiosEnAdmitidos">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="postulaciones" type="tns:ArrayOfPostulacion" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarCambiosEnAdmitidosResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="BuscarPostulacionesDePreInscriptos">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_comite" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuscarPostulacionesDePreInscriptosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BuscarPostulacionesDePreInscriptosResult" type="tns:ArrayOfPostulacion" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarEtapaAPostulaciones">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="idpostulaciones" type="tns:ArrayOfInt" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_etapa_postulacion" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfInt">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="int" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GuardarEtapaAPostulacionesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GuardarEtapaAPostulacionesResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTableroDeControlDePostulaciones">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_usuario" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTableroDeControlDePostulacionesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTableroDeControlDePostulacionesResult" type="tns:ArrayOfResumenDePostulaciones" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfResumenDePostulaciones">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ResumenDePostulaciones" nillable="true" type="tns:ResumenDePostulaciones" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ResumenDePostulaciones">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="IdPerfil" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="DescripcionPerfil" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="NumeroComite" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Postulados" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Inscriptos" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetPantallaRecepcionDocumentacion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="postulacion" type="tns:Postulacion" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetPantallaRecepcionDocumentacionResponse">
         <s:complexType>
           <s:sequence>
@@ -1940,6 +2111,20 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetConsultasDePortalNoLeidas">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetConsultasDePortalNoLeidasResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetConsultasDePortalNoLeidasResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetDesignacionActual">
         <s:complexType>
           <s:sequence>
@@ -2038,83 +2223,76 @@
           <s:element minOccurs="0" maxOccurs="1" name="Tipo" type="s:string" />
         </s:sequence>
       </s:complexType>
-      <s:element name="EjecutarConsultaOPD">
+      <s:element name="CrearUsuarioPara">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="idConsulta" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_persona" type="s:int" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="EjecutarConsultaOPDResponse">
+      <s:element name="CrearUsuarioParaResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="EjecutarConsultaOPDResult" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CrearUsuarioParaResult" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="ExcelMapaDelEstado">
+      <s:element name="GetUsuarioNulo">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetUsuarioNuloResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUsuarioNuloResult" type="tns:UsuarioNulo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="UsuarioNulo">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Usuario">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="EsNulo" type="s:boolean" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="GetPersonaUsuarioLogueado">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="ExcelMapaDelEstadoResponse">
+      <s:element name="GetPersonaUsuarioLogueadoResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ExcelMapaDelEstadoResult" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GetPersonaUsuarioLogueadoResult" type="tns:Persona" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="ExcelPlanificacionDotaciones">
+      <s:element name="ElUsuarioPuedeAccederALaURL">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+            <s:element minOccurs="0" maxOccurs="1" name="url" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="ExcelPlanificacionDotacionesResponse">
+      <s:element name="ElUsuarioPuedeAccederALaURLResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ExcelPlanificacionDotacionesResult" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ElUsuarioPuedeAccederALaURLResult" type="s:boolean" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetFormularioDeEvaluacion">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="idNivel" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="idEvaluacion" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="idEvaluado" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
+      <s:element name="TodasLasFuncionalidades">
+        <s:complexType />
       </s:element>
-      <s:element name="GetFormularioDeEvaluacionResponse">
+      <s:element name="TodasLasFuncionalidadesResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetFormularioDeEvaluacionResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="InsertarEvaluacion">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="idEvaluado" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="idFormulario" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="periodo" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="idEval" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="pregYRtas" type="s:string" />
-            <s:element minOccurs="1" maxOccurs="1" name="estado" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="InsertarEvaluacionResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="InsertarEvaluacionResult" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TodasLasFuncionalidadesResult" type="tns:ArrayOfFuncionalidad" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -2884,11 +3062,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="ArrayOfPostulacion">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Postulacion" nillable="true" type="tns:Postulacion" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="GetPostulacionesPorCodigo">
         <s:complexType>
           <s:sequence>
@@ -3609,92 +3782,6 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="GetPostulacionByIdResult" type="tns:Postulacion" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="BuscarPostulacionesDeInscriptos">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id_comite" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="BuscarPostulacionesDeInscriptosResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="BuscarPostulacionesDeInscriptosResult" type="tns:ArrayOfPostulacion" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GuardarFolios">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="nro_inscripcion" type="s:string" />
-            <s:element minOccurs="1" maxOccurs="1" name="nro_ficha_inscripcion" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="nro_foto" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="nro_foto_dni" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="nro_foto_titulo" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="nro_cv" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="nro_doc_respaldo" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GuardarFoliosResponse">
-        <s:complexType />
-      </s:element>
-      <s:element name="ObtenerFolios">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="nro_inscripcion" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="dni_postulante" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="fecha_postulacion" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ObtenerFoliosResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ObtenerFoliosResult" type="tns:Folios" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:complexType name="Folios">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="codigo" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="fecha" type="s:dateTime" />
-          <s:element minOccurs="1" maxOccurs="1" name="ficha_inscripcion" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="foto_carnet" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="fotocopia_dni" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="fotocopia_titulo" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="Curri" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="Docum_respaldo" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="dni" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="en_base" type="s:boolean" />
-        </s:sequence>
-      </s:complexType>
-      <s:element name="GuardarCambiosEnAdmitidos">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="postulaciones" type="tns:ArrayOfPostulacion" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GuardarCambiosEnAdmitidosResponse">
-        <s:complexType />
-      </s:element>
-      <s:element name="BuscarPostulacionesDePreInscriptos">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id_comite" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="BuscarPostulacionesDePreInscriptosResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="BuscarPostulacionesDePreInscriptosResult" type="tns:ArrayOfPostulacion" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -4805,6 +4892,92 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="SolicitarCambioDeImagen">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_imagen" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SolicitarCambioDeImagenResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SolicitarCambioDeImagenResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AceptarCambioDeImagen">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_usuario" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AceptarCambioDeImagenResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AceptarCambioDeImagenResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RechazarCambioDeImagen">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_usuario" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RechazarCambioDeImagenResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="RechazarCambioDeImagenResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSolicitudesDeCambioDeImagenPendientesPara">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_usuario" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SolicitudDeCambioDeImagen">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          <s:element minOccurs="1" maxOccurs="1" name="idImagenAnterior" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="idImagenNueva" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfSolicitudDeCambioDeImagen">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SolicitudDeCambioDeImagen" nillable="true" type="tns:SolicitudDeCambioDeImagen" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetSolicitudesDeCambioDeImagenPendientesParaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSolicitudesDeCambioDeImagenPendientesParaResult" type="tns:ArrayOfSolicitudDeCambioDeImagen" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSolicitudesDeCambioDeImagenPendientes">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSolicitudesDeCambioDeImagenPendientesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSolicitudesDeCambioDeImagenPendientesResult" type="tns:ArrayOfSolicitudDeCambioDeImagen" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="CambiarPassword">
         <s:complexType>
           <s:sequence>
@@ -4906,79 +5079,6 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="GetUsuarioPorIdPersonaResult" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="CrearUsuarioPara">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id_persona" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="CrearUsuarioParaResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="CrearUsuarioParaResult" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetUsuarioNulo">
-        <s:complexType />
-      </s:element>
-      <s:element name="GetUsuarioNuloResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetUsuarioNuloResult" type="tns:UsuarioNulo" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:complexType name="UsuarioNulo">
-        <s:complexContent mixed="false">
-          <s:extension base="tns:Usuario">
-            <s:sequence>
-              <s:element minOccurs="1" maxOccurs="1" name="EsNulo" type="s:boolean" />
-            </s:sequence>
-          </s:extension>
-        </s:complexContent>
-      </s:complexType>
-      <s:element name="GetPersonaUsuarioLogueado">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetPersonaUsuarioLogueadoResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetPersonaUsuarioLogueadoResult" type="tns:Persona" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ElUsuarioPuedeAccederALaURL">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-            <s:element minOccurs="0" maxOccurs="1" name="url" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ElUsuarioPuedeAccederALaURLResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="ElUsuarioPuedeAccederALaURLResult" type="s:boolean" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="TodasLasFuncionalidades">
-        <s:complexType />
-      </s:element>
-      <s:element name="TodasLasFuncionalidadesResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="TodasLasFuncionalidadesResult" type="tns:ArrayOfFuncionalidad" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -6605,6 +6705,36 @@
       </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="EjecutarConsultaOPDSoapIn">
+    <wsdl:part name="parameters" element="tns:EjecutarConsultaOPD" />
+  </wsdl:message>
+  <wsdl:message name="EjecutarConsultaOPDSoapOut">
+    <wsdl:part name="parameters" element="tns:EjecutarConsultaOPDResponse" />
+  </wsdl:message>
+  <wsdl:message name="ExcelMapaDelEstadoSoapIn">
+    <wsdl:part name="parameters" element="tns:ExcelMapaDelEstado" />
+  </wsdl:message>
+  <wsdl:message name="ExcelMapaDelEstadoSoapOut">
+    <wsdl:part name="parameters" element="tns:ExcelMapaDelEstadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ExcelPlanificacionDotacionesSoapIn">
+    <wsdl:part name="parameters" element="tns:ExcelPlanificacionDotaciones" />
+  </wsdl:message>
+  <wsdl:message name="ExcelPlanificacionDotacionesSoapOut">
+    <wsdl:part name="parameters" element="tns:ExcelPlanificacionDotacionesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFormularioDeEvaluacionSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFormularioDeEvaluacion" />
+  </wsdl:message>
+  <wsdl:message name="GetFormularioDeEvaluacionSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFormularioDeEvaluacionResponse" />
+  </wsdl:message>
+  <wsdl:message name="InsertarEvaluacionSoapIn">
+    <wsdl:part name="parameters" element="tns:InsertarEvaluacion" />
+  </wsdl:message>
+  <wsdl:message name="InsertarEvaluacionSoapOut">
+    <wsdl:part name="parameters" element="tns:InsertarEvaluacionResponse" />
+  </wsdl:message>
   <wsdl:message name="ConsultaExcelDDJJ104_PersonaSoapIn">
     <wsdl:part name="parameters" element="tns:ConsultaExcelDDJJ104_Persona" />
   </wsdl:message>
@@ -6616,6 +6746,36 @@
   </wsdl:message>
   <wsdl:message name="ConsultaExcelDDJJ104_AreaSoapOut">
     <wsdl:part name="parameters" element="tns:ConsultaExcelDDJJ104_AreaResponse" />
+  </wsdl:message>
+  <wsdl:message name="BuscarPostulacionesDeInscriptosSoapIn">
+    <wsdl:part name="parameters" element="tns:BuscarPostulacionesDeInscriptos" />
+  </wsdl:message>
+  <wsdl:message name="BuscarPostulacionesDeInscriptosSoapOut">
+    <wsdl:part name="parameters" element="tns:BuscarPostulacionesDeInscriptosResponse" />
+  </wsdl:message>
+  <wsdl:message name="GuardarFoliosSoapIn">
+    <wsdl:part name="parameters" element="tns:GuardarFolios" />
+  </wsdl:message>
+  <wsdl:message name="GuardarFoliosSoapOut">
+    <wsdl:part name="parameters" element="tns:GuardarFoliosResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerFoliosSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerFolios" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerFoliosSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerFoliosResponse" />
+  </wsdl:message>
+  <wsdl:message name="GuardarCambiosEnAdmitidosSoapIn">
+    <wsdl:part name="parameters" element="tns:GuardarCambiosEnAdmitidos" />
+  </wsdl:message>
+  <wsdl:message name="GuardarCambiosEnAdmitidosSoapOut">
+    <wsdl:part name="parameters" element="tns:GuardarCambiosEnAdmitidosResponse" />
+  </wsdl:message>
+  <wsdl:message name="BuscarPostulacionesDePreInscriptosSoapIn">
+    <wsdl:part name="parameters" element="tns:BuscarPostulacionesDePreInscriptos" />
+  </wsdl:message>
+  <wsdl:message name="BuscarPostulacionesDePreInscriptosSoapOut">
+    <wsdl:part name="parameters" element="tns:BuscarPostulacionesDePreInscriptosResponse" />
   </wsdl:message>
   <wsdl:message name="GuardarEtapaAPostulacionesSoapIn">
     <wsdl:part name="parameters" element="tns:GuardarEtapaAPostulaciones" />
@@ -7061,6 +7221,12 @@
   <wsdl:message name="GetConsultasNoLeidasSoapOut">
     <wsdl:part name="parameters" element="tns:GetConsultasNoLeidasResponse" />
   </wsdl:message>
+  <wsdl:message name="GetConsultasDePortalNoLeidasSoapIn">
+    <wsdl:part name="parameters" element="tns:GetConsultasDePortalNoLeidas" />
+  </wsdl:message>
+  <wsdl:message name="GetConsultasDePortalNoLeidasSoapOut">
+    <wsdl:part name="parameters" element="tns:GetConsultasDePortalNoLeidasResponse" />
+  </wsdl:message>
   <wsdl:message name="GetDesignacionActualSoapIn">
     <wsdl:part name="parameters" element="tns:GetDesignacionActual" />
   </wsdl:message>
@@ -7091,35 +7257,35 @@
   <wsdl:message name="GetConsultasOPDSoapOut">
     <wsdl:part name="parameters" element="tns:GetConsultasOPDResponse" />
   </wsdl:message>
-  <wsdl:message name="EjecutarConsultaOPDSoapIn">
-    <wsdl:part name="parameters" element="tns:EjecutarConsultaOPD" />
+  <wsdl:message name="CrearUsuarioParaSoapIn">
+    <wsdl:part name="parameters" element="tns:CrearUsuarioPara" />
   </wsdl:message>
-  <wsdl:message name="EjecutarConsultaOPDSoapOut">
-    <wsdl:part name="parameters" element="tns:EjecutarConsultaOPDResponse" />
+  <wsdl:message name="CrearUsuarioParaSoapOut">
+    <wsdl:part name="parameters" element="tns:CrearUsuarioParaResponse" />
   </wsdl:message>
-  <wsdl:message name="ExcelMapaDelEstadoSoapIn">
-    <wsdl:part name="parameters" element="tns:ExcelMapaDelEstado" />
+  <wsdl:message name="GetUsuarioNuloSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUsuarioNulo" />
   </wsdl:message>
-  <wsdl:message name="ExcelMapaDelEstadoSoapOut">
-    <wsdl:part name="parameters" element="tns:ExcelMapaDelEstadoResponse" />
+  <wsdl:message name="GetUsuarioNuloSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUsuarioNuloResponse" />
   </wsdl:message>
-  <wsdl:message name="ExcelPlanificacionDotacionesSoapIn">
-    <wsdl:part name="parameters" element="tns:ExcelPlanificacionDotaciones" />
+  <wsdl:message name="GetPersonaUsuarioLogueadoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPersonaUsuarioLogueado" />
   </wsdl:message>
-  <wsdl:message name="ExcelPlanificacionDotacionesSoapOut">
-    <wsdl:part name="parameters" element="tns:ExcelPlanificacionDotacionesResponse" />
+  <wsdl:message name="GetPersonaUsuarioLogueadoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPersonaUsuarioLogueadoResponse" />
   </wsdl:message>
-  <wsdl:message name="GetFormularioDeEvaluacionSoapIn">
-    <wsdl:part name="parameters" element="tns:GetFormularioDeEvaluacion" />
+  <wsdl:message name="ElUsuarioPuedeAccederALaURLSoapIn">
+    <wsdl:part name="parameters" element="tns:ElUsuarioPuedeAccederALaURL" />
   </wsdl:message>
-  <wsdl:message name="GetFormularioDeEvaluacionSoapOut">
-    <wsdl:part name="parameters" element="tns:GetFormularioDeEvaluacionResponse" />
+  <wsdl:message name="ElUsuarioPuedeAccederALaURLSoapOut">
+    <wsdl:part name="parameters" element="tns:ElUsuarioPuedeAccederALaURLResponse" />
   </wsdl:message>
-  <wsdl:message name="InsertarEvaluacionSoapIn">
-    <wsdl:part name="parameters" element="tns:InsertarEvaluacion" />
+  <wsdl:message name="TodasLasFuncionalidadesSoapIn">
+    <wsdl:part name="parameters" element="tns:TodasLasFuncionalidades" />
   </wsdl:message>
-  <wsdl:message name="InsertarEvaluacionSoapOut">
-    <wsdl:part name="parameters" element="tns:InsertarEvaluacionResponse" />
+  <wsdl:message name="TodasLasFuncionalidadesSoapOut">
+    <wsdl:part name="parameters" element="tns:TodasLasFuncionalidadesResponse" />
   </wsdl:message>
   <wsdl:message name="ElUsuarioTienePermisosParaSoapIn">
     <wsdl:part name="parameters" element="tns:ElUsuarioTienePermisosPara" />
@@ -7595,36 +7761,6 @@
   <wsdl:message name="GetPostulacionByIdSoapOut">
     <wsdl:part name="parameters" element="tns:GetPostulacionByIdResponse" />
   </wsdl:message>
-  <wsdl:message name="BuscarPostulacionesDeInscriptosSoapIn">
-    <wsdl:part name="parameters" element="tns:BuscarPostulacionesDeInscriptos" />
-  </wsdl:message>
-  <wsdl:message name="BuscarPostulacionesDeInscriptosSoapOut">
-    <wsdl:part name="parameters" element="tns:BuscarPostulacionesDeInscriptosResponse" />
-  </wsdl:message>
-  <wsdl:message name="GuardarFoliosSoapIn">
-    <wsdl:part name="parameters" element="tns:GuardarFolios" />
-  </wsdl:message>
-  <wsdl:message name="GuardarFoliosSoapOut">
-    <wsdl:part name="parameters" element="tns:GuardarFoliosResponse" />
-  </wsdl:message>
-  <wsdl:message name="ObtenerFoliosSoapIn">
-    <wsdl:part name="parameters" element="tns:ObtenerFolios" />
-  </wsdl:message>
-  <wsdl:message name="ObtenerFoliosSoapOut">
-    <wsdl:part name="parameters" element="tns:ObtenerFoliosResponse" />
-  </wsdl:message>
-  <wsdl:message name="GuardarCambiosEnAdmitidosSoapIn">
-    <wsdl:part name="parameters" element="tns:GuardarCambiosEnAdmitidos" />
-  </wsdl:message>
-  <wsdl:message name="GuardarCambiosEnAdmitidosSoapOut">
-    <wsdl:part name="parameters" element="tns:GuardarCambiosEnAdmitidosResponse" />
-  </wsdl:message>
-  <wsdl:message name="BuscarPostulacionesDePreInscriptosSoapIn">
-    <wsdl:part name="parameters" element="tns:BuscarPostulacionesDePreInscriptos" />
-  </wsdl:message>
-  <wsdl:message name="BuscarPostulacionesDePreInscriptosSoapOut">
-    <wsdl:part name="parameters" element="tns:BuscarPostulacionesDePreInscriptosResponse" />
-  </wsdl:message>
   <wsdl:message name="EstadoServicioDeAlertasSoapIn">
     <wsdl:part name="parameters" element="tns:EstadoServicioDeAlertas" />
   </wsdl:message>
@@ -7985,6 +8121,36 @@
   <wsdl:message name="LoginSoapOut">
     <wsdl:part name="parameters" element="tns:LoginResponse" />
   </wsdl:message>
+  <wsdl:message name="SolicitarCambioDeImagenSoapIn">
+    <wsdl:part name="parameters" element="tns:SolicitarCambioDeImagen" />
+  </wsdl:message>
+  <wsdl:message name="SolicitarCambioDeImagenSoapOut">
+    <wsdl:part name="parameters" element="tns:SolicitarCambioDeImagenResponse" />
+  </wsdl:message>
+  <wsdl:message name="AceptarCambioDeImagenSoapIn">
+    <wsdl:part name="parameters" element="tns:AceptarCambioDeImagen" />
+  </wsdl:message>
+  <wsdl:message name="AceptarCambioDeImagenSoapOut">
+    <wsdl:part name="parameters" element="tns:AceptarCambioDeImagenResponse" />
+  </wsdl:message>
+  <wsdl:message name="RechazarCambioDeImagenSoapIn">
+    <wsdl:part name="parameters" element="tns:RechazarCambioDeImagen" />
+  </wsdl:message>
+  <wsdl:message name="RechazarCambioDeImagenSoapOut">
+    <wsdl:part name="parameters" element="tns:RechazarCambioDeImagenResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSolicitudesDeCambioDeImagenPendientesParaSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSolicitudesDeCambioDeImagenPendientesPara" />
+  </wsdl:message>
+  <wsdl:message name="GetSolicitudesDeCambioDeImagenPendientesParaSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSolicitudesDeCambioDeImagenPendientesParaResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSolicitudesDeCambioDeImagenPendientesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSolicitudesDeCambioDeImagenPendientes" />
+  </wsdl:message>
+  <wsdl:message name="GetSolicitudesDeCambioDeImagenPendientesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSolicitudesDeCambioDeImagenPendientesResponse" />
+  </wsdl:message>
   <wsdl:message name="CambiarPasswordSoapIn">
     <wsdl:part name="parameters" element="tns:CambiarPassword" />
   </wsdl:message>
@@ -8026,36 +8192,6 @@
   </wsdl:message>
   <wsdl:message name="GetUsuarioPorIdPersonaSoapOut">
     <wsdl:part name="parameters" element="tns:GetUsuarioPorIdPersonaResponse" />
-  </wsdl:message>
-  <wsdl:message name="CrearUsuarioParaSoapIn">
-    <wsdl:part name="parameters" element="tns:CrearUsuarioPara" />
-  </wsdl:message>
-  <wsdl:message name="CrearUsuarioParaSoapOut">
-    <wsdl:part name="parameters" element="tns:CrearUsuarioParaResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetUsuarioNuloSoapIn">
-    <wsdl:part name="parameters" element="tns:GetUsuarioNulo" />
-  </wsdl:message>
-  <wsdl:message name="GetUsuarioNuloSoapOut">
-    <wsdl:part name="parameters" element="tns:GetUsuarioNuloResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetPersonaUsuarioLogueadoSoapIn">
-    <wsdl:part name="parameters" element="tns:GetPersonaUsuarioLogueado" />
-  </wsdl:message>
-  <wsdl:message name="GetPersonaUsuarioLogueadoSoapOut">
-    <wsdl:part name="parameters" element="tns:GetPersonaUsuarioLogueadoResponse" />
-  </wsdl:message>
-  <wsdl:message name="ElUsuarioPuedeAccederALaURLSoapIn">
-    <wsdl:part name="parameters" element="tns:ElUsuarioPuedeAccederALaURL" />
-  </wsdl:message>
-  <wsdl:message name="ElUsuarioPuedeAccederALaURLSoapOut">
-    <wsdl:part name="parameters" element="tns:ElUsuarioPuedeAccederALaURLResponse" />
-  </wsdl:message>
-  <wsdl:message name="TodasLasFuncionalidadesSoapIn">
-    <wsdl:part name="parameters" element="tns:TodasLasFuncionalidades" />
-  </wsdl:message>
-  <wsdl:message name="TodasLasFuncionalidadesSoapOut">
-    <wsdl:part name="parameters" element="tns:TodasLasFuncionalidadesResponse" />
   </wsdl:message>
   <wsdl:message name="GetUsuariosSoapIn">
     <wsdl:part name="parameters" element="tns:GetUsuarios" />
@@ -8544,6 +8680,26 @@
     <wsdl:part name="parameters" element="tns:DetenerServicioDeAlertasResponse" />
   </wsdl:message>
   <wsdl:portType name="WSViaticosSoap">
+    <wsdl:operation name="EjecutarConsultaOPD">
+      <wsdl:input message="tns:EjecutarConsultaOPDSoapIn" />
+      <wsdl:output message="tns:EjecutarConsultaOPDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ExcelMapaDelEstado">
+      <wsdl:input message="tns:ExcelMapaDelEstadoSoapIn" />
+      <wsdl:output message="tns:ExcelMapaDelEstadoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ExcelPlanificacionDotaciones">
+      <wsdl:input message="tns:ExcelPlanificacionDotacionesSoapIn" />
+      <wsdl:output message="tns:ExcelPlanificacionDotacionesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFormularioDeEvaluacion">
+      <wsdl:input message="tns:GetFormularioDeEvaluacionSoapIn" />
+      <wsdl:output message="tns:GetFormularioDeEvaluacionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertarEvaluacion">
+      <wsdl:input message="tns:InsertarEvaluacionSoapIn" />
+      <wsdl:output message="tns:InsertarEvaluacionSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="ConsultaExcelDDJJ104_Persona">
       <wsdl:input message="tns:ConsultaExcelDDJJ104_PersonaSoapIn" />
       <wsdl:output message="tns:ConsultaExcelDDJJ104_PersonaSoapOut" />
@@ -8551,6 +8707,26 @@
     <wsdl:operation name="ConsultaExcelDDJJ104_Area">
       <wsdl:input message="tns:ConsultaExcelDDJJ104_AreaSoapIn" />
       <wsdl:output message="tns:ConsultaExcelDDJJ104_AreaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BuscarPostulacionesDeInscriptos">
+      <wsdl:input message="tns:BuscarPostulacionesDeInscriptosSoapIn" />
+      <wsdl:output message="tns:BuscarPostulacionesDeInscriptosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GuardarFolios">
+      <wsdl:input message="tns:GuardarFoliosSoapIn" />
+      <wsdl:output message="tns:GuardarFoliosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerFolios">
+      <wsdl:input message="tns:ObtenerFoliosSoapIn" />
+      <wsdl:output message="tns:ObtenerFoliosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GuardarCambiosEnAdmitidos">
+      <wsdl:input message="tns:GuardarCambiosEnAdmitidosSoapIn" />
+      <wsdl:output message="tns:GuardarCambiosEnAdmitidosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BuscarPostulacionesDePreInscriptos">
+      <wsdl:input message="tns:BuscarPostulacionesDePreInscriptosSoapIn" />
+      <wsdl:output message="tns:BuscarPostulacionesDePreInscriptosSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GuardarEtapaAPostulaciones">
       <wsdl:input message="tns:GuardarEtapaAPostulacionesSoapIn" />
@@ -8848,6 +9024,10 @@
       <wsdl:input message="tns:GetConsultasNoLeidasSoapIn" />
       <wsdl:output message="tns:GetConsultasNoLeidasSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetConsultasDePortalNoLeidas">
+      <wsdl:input message="tns:GetConsultasDePortalNoLeidasSoapIn" />
+      <wsdl:output message="tns:GetConsultasDePortalNoLeidasSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetDesignacionActual">
       <wsdl:input message="tns:GetDesignacionActualSoapIn" />
       <wsdl:output message="tns:GetDesignacionActualSoapOut" />
@@ -8868,25 +9048,25 @@
       <wsdl:input message="tns:GetConsultasOPDSoapIn" />
       <wsdl:output message="tns:GetConsultasOPDSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="EjecutarConsultaOPD">
-      <wsdl:input message="tns:EjecutarConsultaOPDSoapIn" />
-      <wsdl:output message="tns:EjecutarConsultaOPDSoapOut" />
+    <wsdl:operation name="CrearUsuarioPara">
+      <wsdl:input message="tns:CrearUsuarioParaSoapIn" />
+      <wsdl:output message="tns:CrearUsuarioParaSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="ExcelMapaDelEstado">
-      <wsdl:input message="tns:ExcelMapaDelEstadoSoapIn" />
-      <wsdl:output message="tns:ExcelMapaDelEstadoSoapOut" />
+    <wsdl:operation name="GetUsuarioNulo">
+      <wsdl:input message="tns:GetUsuarioNuloSoapIn" />
+      <wsdl:output message="tns:GetUsuarioNuloSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="ExcelPlanificacionDotaciones">
-      <wsdl:input message="tns:ExcelPlanificacionDotacionesSoapIn" />
-      <wsdl:output message="tns:ExcelPlanificacionDotacionesSoapOut" />
+    <wsdl:operation name="GetPersonaUsuarioLogueado">
+      <wsdl:input message="tns:GetPersonaUsuarioLogueadoSoapIn" />
+      <wsdl:output message="tns:GetPersonaUsuarioLogueadoSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="GetFormularioDeEvaluacion">
-      <wsdl:input message="tns:GetFormularioDeEvaluacionSoapIn" />
-      <wsdl:output message="tns:GetFormularioDeEvaluacionSoapOut" />
+    <wsdl:operation name="ElUsuarioPuedeAccederALaURL">
+      <wsdl:input message="tns:ElUsuarioPuedeAccederALaURLSoapIn" />
+      <wsdl:output message="tns:ElUsuarioPuedeAccederALaURLSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="InsertarEvaluacion">
-      <wsdl:input message="tns:InsertarEvaluacionSoapIn" />
-      <wsdl:output message="tns:InsertarEvaluacionSoapOut" />
+    <wsdl:operation name="TodasLasFuncionalidades">
+      <wsdl:input message="tns:TodasLasFuncionalidadesSoapIn" />
+      <wsdl:output message="tns:TodasLasFuncionalidadesSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="ElUsuarioTienePermisosPara">
       <wsdl:input message="tns:ElUsuarioTienePermisosParaSoapIn" />
@@ -9204,26 +9384,6 @@
       <wsdl:input message="tns:GetPostulacionByIdSoapIn" />
       <wsdl:output message="tns:GetPostulacionByIdSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="BuscarPostulacionesDeInscriptos">
-      <wsdl:input message="tns:BuscarPostulacionesDeInscriptosSoapIn" />
-      <wsdl:output message="tns:BuscarPostulacionesDeInscriptosSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GuardarFolios">
-      <wsdl:input message="tns:GuardarFoliosSoapIn" />
-      <wsdl:output message="tns:GuardarFoliosSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerFolios">
-      <wsdl:input message="tns:ObtenerFoliosSoapIn" />
-      <wsdl:output message="tns:ObtenerFoliosSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GuardarCambiosEnAdmitidos">
-      <wsdl:input message="tns:GuardarCambiosEnAdmitidosSoapIn" />
-      <wsdl:output message="tns:GuardarCambiosEnAdmitidosSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="BuscarPostulacionesDePreInscriptos">
-      <wsdl:input message="tns:BuscarPostulacionesDePreInscriptosSoapIn" />
-      <wsdl:output message="tns:BuscarPostulacionesDePreInscriptosSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="EstadoServicioDeAlertas">
       <wsdl:input message="tns:EstadoServicioDeAlertasSoapIn" />
       <wsdl:output message="tns:EstadoServicioDeAlertasSoapOut" />
@@ -9464,6 +9624,26 @@
       <wsdl:input message="tns:LoginSoapIn" />
       <wsdl:output message="tns:LoginSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="SolicitarCambioDeImagen">
+      <wsdl:input message="tns:SolicitarCambioDeImagenSoapIn" />
+      <wsdl:output message="tns:SolicitarCambioDeImagenSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AceptarCambioDeImagen">
+      <wsdl:input message="tns:AceptarCambioDeImagenSoapIn" />
+      <wsdl:output message="tns:AceptarCambioDeImagenSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RechazarCambioDeImagen">
+      <wsdl:input message="tns:RechazarCambioDeImagenSoapIn" />
+      <wsdl:output message="tns:RechazarCambioDeImagenSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSolicitudesDeCambioDeImagenPendientesPara">
+      <wsdl:input message="tns:GetSolicitudesDeCambioDeImagenPendientesParaSoapIn" />
+      <wsdl:output message="tns:GetSolicitudesDeCambioDeImagenPendientesParaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSolicitudesDeCambioDeImagenPendientes">
+      <wsdl:input message="tns:GetSolicitudesDeCambioDeImagenPendientesSoapIn" />
+      <wsdl:output message="tns:GetSolicitudesDeCambioDeImagenPendientesSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="CambiarPassword">
       <wsdl:input message="tns:CambiarPasswordSoapIn" />
       <wsdl:output message="tns:CambiarPasswordSoapOut" />
@@ -9491,26 +9671,6 @@
     <wsdl:operation name="GetUsuarioPorIdPersona">
       <wsdl:input message="tns:GetUsuarioPorIdPersonaSoapIn" />
       <wsdl:output message="tns:GetUsuarioPorIdPersonaSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="CrearUsuarioPara">
-      <wsdl:input message="tns:CrearUsuarioParaSoapIn" />
-      <wsdl:output message="tns:CrearUsuarioParaSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetUsuarioNulo">
-      <wsdl:input message="tns:GetUsuarioNuloSoapIn" />
-      <wsdl:output message="tns:GetUsuarioNuloSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetPersonaUsuarioLogueado">
-      <wsdl:input message="tns:GetPersonaUsuarioLogueadoSoapIn" />
-      <wsdl:output message="tns:GetPersonaUsuarioLogueadoSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="ElUsuarioPuedeAccederALaURL">
-      <wsdl:input message="tns:ElUsuarioPuedeAccederALaURLSoapIn" />
-      <wsdl:output message="tns:ElUsuarioPuedeAccederALaURLSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="TodasLasFuncionalidades">
-      <wsdl:input message="tns:TodasLasFuncionalidadesSoapIn" />
-      <wsdl:output message="tns:TodasLasFuncionalidadesSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetUsuarios">
       <wsdl:input message="tns:GetUsuariosSoapIn" />
@@ -9839,6 +9999,51 @@
   </wsdl:portType>
   <wsdl:binding name="WSViaticosSoap" type="tns:WSViaticosSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="EjecutarConsultaOPD">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/EjecutarConsultaOPD" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExcelMapaDelEstado">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ExcelMapaDelEstado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExcelPlanificacionDotaciones">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ExcelPlanificacionDotaciones" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFormularioDeEvaluacion">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetFormularioDeEvaluacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertarEvaluacion">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/InsertarEvaluacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ConsultaExcelDDJJ104_Persona">
       <soap:operation soapAction="http://wsviaticos.gov.ar/ConsultaExcelDDJJ104_Persona" style="document" />
       <wsdl:input>
@@ -9850,6 +10055,51 @@
     </wsdl:operation>
     <wsdl:operation name="ConsultaExcelDDJJ104_Area">
       <soap:operation soapAction="http://wsviaticos.gov.ar/ConsultaExcelDDJJ104_Area" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarPostulacionesDeInscriptos">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarPostulacionesDeInscriptos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarFolios">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarFolios" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerFolios">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ObtenerFolios" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarCambiosEnAdmitidos">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarCambiosEnAdmitidos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarPostulacionesDePreInscriptos">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarPostulacionesDePreInscriptos" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -10523,6 +10773,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetConsultasDePortalNoLeidas">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetConsultasDePortalNoLeidas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetDesignacionActual">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetDesignacionActual" style="document" />
       <wsdl:input>
@@ -10568,8 +10827,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="EjecutarConsultaOPD">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/EjecutarConsultaOPD" style="document" />
+    <wsdl:operation name="CrearUsuarioPara">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/CrearUsuarioPara" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -10577,8 +10836,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ExcelMapaDelEstado">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/ExcelMapaDelEstado" style="document" />
+    <wsdl:operation name="GetUsuarioNulo">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetUsuarioNulo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -10586,8 +10845,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ExcelPlanificacionDotaciones">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/ExcelPlanificacionDotaciones" style="document" />
+    <wsdl:operation name="GetPersonaUsuarioLogueado">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetPersonaUsuarioLogueado" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -10595,8 +10854,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetFormularioDeEvaluacion">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetFormularioDeEvaluacion" style="document" />
+    <wsdl:operation name="ElUsuarioPuedeAccederALaURL">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ElUsuarioPuedeAccederALaURL" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -10604,8 +10863,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="InsertarEvaluacion">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/InsertarEvaluacion" style="document" />
+    <wsdl:operation name="TodasLasFuncionalidades">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/TodasLasFuncionalidades" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -11324,51 +11583,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="BuscarPostulacionesDeInscriptos">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarPostulacionesDeInscriptos" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GuardarFolios">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarFolios" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerFolios">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/ObtenerFolios" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GuardarCambiosEnAdmitidos">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarCambiosEnAdmitidos" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="BuscarPostulacionesDePreInscriptos">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarPostulacionesDePreInscriptos" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="EstadoServicioDeAlertas">
       <soap:operation soapAction="http://wsviaticos.gov.ar/EstadoServicioDeAlertas" style="document" />
       <wsdl:input>
@@ -11909,6 +12123,51 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="SolicitarCambioDeImagen">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/SolicitarCambioDeImagen" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AceptarCambioDeImagen">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/AceptarCambioDeImagen" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RechazarCambioDeImagen">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/RechazarCambioDeImagen" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSolicitudesDeCambioDeImagenPendientesPara">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetSolicitudesDeCambioDeImagenPendientesPara" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSolicitudesDeCambioDeImagenPendientes">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetSolicitudesDeCambioDeImagenPendientes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="CambiarPassword">
       <soap:operation soapAction="http://wsviaticos.gov.ar/CambiarPassword" style="document" />
       <wsdl:input>
@@ -11965,51 +12224,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetUsuarioPorIdPersona">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetUsuarioPorIdPersona" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="CrearUsuarioPara">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/CrearUsuarioPara" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetUsuarioNulo">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetUsuarioNulo" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetPersonaUsuarioLogueado">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetPersonaUsuarioLogueado" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ElUsuarioPuedeAccederALaURL">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/ElUsuarioPuedeAccederALaURL" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="TodasLasFuncionalidades">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/TodasLasFuncionalidades" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -12749,6 +12963,51 @@
   </wsdl:binding>
   <wsdl:binding name="WSViaticosSoap12" type="tns:WSViaticosSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="EjecutarConsultaOPD">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/EjecutarConsultaOPD" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExcelMapaDelEstado">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ExcelMapaDelEstado" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExcelPlanificacionDotaciones">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ExcelPlanificacionDotaciones" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFormularioDeEvaluacion">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetFormularioDeEvaluacion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertarEvaluacion">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/InsertarEvaluacion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ConsultaExcelDDJJ104_Persona">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/ConsultaExcelDDJJ104_Persona" style="document" />
       <wsdl:input>
@@ -12760,6 +13019,51 @@
     </wsdl:operation>
     <wsdl:operation name="ConsultaExcelDDJJ104_Area">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/ConsultaExcelDDJJ104_Area" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarPostulacionesDeInscriptos">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarPostulacionesDeInscriptos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarFolios">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarFolios" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerFolios">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ObtenerFolios" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarCambiosEnAdmitidos">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarCambiosEnAdmitidos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarPostulacionesDePreInscriptos">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarPostulacionesDePreInscriptos" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -13433,6 +13737,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetConsultasDePortalNoLeidas">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetConsultasDePortalNoLeidas" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetDesignacionActual">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetDesignacionActual" style="document" />
       <wsdl:input>
@@ -13478,8 +13791,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="EjecutarConsultaOPD">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/EjecutarConsultaOPD" style="document" />
+    <wsdl:operation name="CrearUsuarioPara">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/CrearUsuarioPara" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -13487,8 +13800,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ExcelMapaDelEstado">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/ExcelMapaDelEstado" style="document" />
+    <wsdl:operation name="GetUsuarioNulo">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetUsuarioNulo" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -13496,8 +13809,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ExcelPlanificacionDotaciones">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/ExcelPlanificacionDotaciones" style="document" />
+    <wsdl:operation name="GetPersonaUsuarioLogueado">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetPersonaUsuarioLogueado" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -13505,8 +13818,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetFormularioDeEvaluacion">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetFormularioDeEvaluacion" style="document" />
+    <wsdl:operation name="ElUsuarioPuedeAccederALaURL">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ElUsuarioPuedeAccederALaURL" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -13514,8 +13827,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="InsertarEvaluacion">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/InsertarEvaluacion" style="document" />
+    <wsdl:operation name="TodasLasFuncionalidades">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/TodasLasFuncionalidades" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -14234,51 +14547,6 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="BuscarPostulacionesDeInscriptos">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarPostulacionesDeInscriptos" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GuardarFolios">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarFolios" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerFolios">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/ObtenerFolios" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GuardarCambiosEnAdmitidos">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarCambiosEnAdmitidos" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="BuscarPostulacionesDePreInscriptos">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarPostulacionesDePreInscriptos" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="EstadoServicioDeAlertas">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/EstadoServicioDeAlertas" style="document" />
       <wsdl:input>
@@ -14819,6 +15087,51 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="SolicitarCambioDeImagen">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/SolicitarCambioDeImagen" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AceptarCambioDeImagen">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/AceptarCambioDeImagen" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RechazarCambioDeImagen">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/RechazarCambioDeImagen" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSolicitudesDeCambioDeImagenPendientesPara">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetSolicitudesDeCambioDeImagenPendientesPara" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSolicitudesDeCambioDeImagenPendientes">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetSolicitudesDeCambioDeImagenPendientes" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="CambiarPassword">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/CambiarPassword" style="document" />
       <wsdl:input>
@@ -14875,51 +15188,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetUsuarioPorIdPersona">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetUsuarioPorIdPersona" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="CrearUsuarioPara">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/CrearUsuarioPara" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetUsuarioNulo">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetUsuarioNulo" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetPersonaUsuarioLogueado">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetPersonaUsuarioLogueado" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ElUsuarioPuedeAccederALaURL">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/ElUsuarioPuedeAccederALaURL" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="TodasLasFuncionalidades">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/TodasLasFuncionalidades" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

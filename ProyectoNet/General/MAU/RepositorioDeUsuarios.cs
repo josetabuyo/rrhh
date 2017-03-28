@@ -309,5 +309,74 @@ namespace General.MAU
 
             return lista_de_usuarios;
         }
+
+
+        public bool SolicitarCambioImagen(int id_usuario, int id_imagen)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_usuario", id_usuario);
+            parametros.Add("@id_imagen", id_imagen);
+            var tablaDatos = conexion.Ejecutar("dbo.MAU_SolicitarCambioImagen",parametros);
+
+            return true;
+        }
+
+
+        public List<SolicitudDeCambioDeImagen> GetSolicitudesDeCambioDeImagenPendientesPara(int id_usuario)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_usuario", id_usuario);
+            var tablaDatos = conexion.Ejecutar("dbo.MAU_GetSolicitudesDeCambioDeImagenPendientes", parametros);
+
+            var solicitudes = new List<SolicitudDeCambioDeImagen>();
+            tablaDatos.Rows.ForEach((row) =>
+            {
+                var solicitud = new SolicitudDeCambioDeImagen();
+                solicitud.idImagenAnterior = row.GetInt("id_imagen_anterior", -1);
+                solicitud.idImagenNueva = row.GetInt("id_imagen_nueva", -1);
+                solicitud.usuario = GetUsuarioPorId(row.GetInt("id_usuario"));
+                solicitudes.Add(solicitud);
+            });
+
+            return solicitudes;
+        }
+
+        public List<SolicitudDeCambioDeImagen> GetSolicitudesDeCambioDeImagenPendientes()
+        {
+            var tablaDatos = conexion.Ejecutar("dbo.MAU_GetSolicitudesDeCambioDeImagenPendientes");
+
+            var solicitudes = new List<SolicitudDeCambioDeImagen>();
+            tablaDatos.Rows.ForEach((row) =>
+            {
+                var solicitud = new SolicitudDeCambioDeImagen();
+                solicitud.idImagenAnterior = row.GetInt("id_imagen_anterior", -1);
+                solicitud.idImagenNueva = row.GetInt("id_imagen_nueva", -1);
+                solicitud.usuario = GetUsuarioPorId(row.GetInt("id_usuario"));
+                solicitudes.Add(solicitud);
+            });
+
+            return solicitudes;
+        }
+
+        public bool AceptarCambioDeImagen(int id_usuario)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_usuario", id_usuario);
+            var tablaDatos = conexion.Ejecutar("dbo.MAU_AceptarCambioDeImagen", parametros);
+
+            return true;
+        }
+
+        public bool RechazarCambioDeImagen(int id_usuario)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_usuario", id_usuario);
+            var tablaDatos = conexion.Ejecutar("dbo.MAU_RechazarCambioDeImagen", parametros);
+
+            return true;
+        }
+
+
+
     }
 }

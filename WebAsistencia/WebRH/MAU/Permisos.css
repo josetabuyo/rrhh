@@ -31,7 +31,7 @@
 #administrador_usuarios
 {
     position: absolute;
-    top: 95px;
+        top: 134px;
     left: 0px;
     right: 0px;
     bottom: 0px;
@@ -60,9 +60,9 @@
 {
     position: absolute;
     left:10px;
-    top:10px;
-    height:195px;
-    width:539px;
+    top: 35px;
+    width: 564px;
+    height: 235px;
 }
 
 #panel_inferior_izquierdo
@@ -70,19 +70,18 @@
     position: absolute;
     left:10px;
     bottom:10px;
-    top:236px;
-    width:539px;
-    height:initial;
+    top: 281px;
+    width: 565px;
+    height: 303px;
 }
 
 #panel_derecho
 {
     position: absolute;
     left:580px;
-    top:10px;
+    top: 35px;
     bottom:10px;
     right:10px;
-    height:initial;
 }
 
 #panel_datos_personales
@@ -98,7 +97,8 @@
 {
     background-color: lavender;
     padding-top: 7px;
-    height: 70px;
+    top: 160px;
+    height: 80px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     transition: all .3s ease-in-out;
@@ -147,6 +147,73 @@
     overflow: hidden;
 }
 
+#cambio_imagen_pendiente
+{
+    display: none;
+    cursor: pointer;  
+    height:30px;
+    width: 30px;
+    margin-top: -9px;
+}
+
+#cambio_imagen_pendiente img
+{
+    width:100%;
+}
+
+#pantalla_actualizacion_imagen
+{
+    
+}
+
+#pantalla_actualizacion_imagen #panel_imagenes
+{
+    position: absolute;
+    top: 40px;
+    bottom: 40px;
+    left: 0px;
+    right: 0px;
+}
+
+#pantalla_actualizacion_imagen #imagen_anterior
+{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    right: 50%;
+}
+
+#pantalla_actualizacion_imagen #imagen_nueva
+{
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    left: 50%;
+}
+
+#pantalla_actualizacion_imagen #btn_aceptar_cambio_imagen
+{
+    position: absolute;
+    bottom: 2px;
+    right: 10px;
+}
+
+#pantalla_actualizacion_imagen #btn_rechazar_cambio_imagen 
+{
+    position: absolute;
+    bottom: 2px;
+    right: 100px;
+}
+
+#pantalla_actualizacion_imagen #titulo_actualizacion_imagen 
+{
+    position: absolute;
+    font-size: 28px;
+    top: 8px;
+}
+
 #txt_nombre_usuario
 {
     width:100px;
@@ -172,6 +239,7 @@
     left:0px;
     right:0px;
     overflow-y:auto;
+    height: 203px;
 }
 
 #selector_area_administrada
@@ -189,7 +257,7 @@
 
 .area_administrada
 {
-    height: 30px;
+    height: 45px;
     border-radius:6px;
     padding:5px;
     background-color:lavender;
@@ -215,11 +283,12 @@
 
 .selector_areas
 {
-    margin:5px;
+    margin: 2px;
     position:absolute;
     bottom:5px;
     left: 5px;
     right: 5px;
+    /* margin-top: 0px; */
 }
 
 .selector_areas #buscador

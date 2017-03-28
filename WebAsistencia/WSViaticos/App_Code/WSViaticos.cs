@@ -2630,6 +2630,41 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public bool SolicitarCambioDeImagen(int id_imagen, Usuario usuario)
+    {
+        return RepositorioDeUsuarios().SolicitarCambioImagen(usuario.Id, id_imagen);
+    }
+
+    [WebMethod]
+    public bool AceptarCambioDeImagen(int id_usuario, Usuario usuario)
+    {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 50)) throw (new Exception("El usuario no tiene permisos para administrar cambios de imagen"));
+        return RepositorioDeUsuarios().AceptarCambioDeImagen(id_usuario);
+    }
+
+    [WebMethod]
+    public bool RechazarCambioDeImagen(int id_usuario, Usuario usuario)
+    {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 50)) throw (new Exception("El usuario no tiene permisos para administrar cambios de imagen"));
+        return RepositorioDeUsuarios().RechazarCambioDeImagen(id_usuario);
+    }
+
+    [WebMethod]
+    public SolicitudDeCambioDeImagen[] GetSolicitudesDeCambioDeImagenPendientesPara(int id_usuario, Usuario usuario)
+    {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 50)) throw (new Exception("El usuario no tiene permisos para administrar cambios de imagen"));
+        return RepositorioDeUsuarios().GetSolicitudesDeCambioDeImagenPendientesPara(id_usuario).ToArray();
+    }
+
+    [WebMethod]
+    public SolicitudDeCambioDeImagen[] GetSolicitudesDeCambioDeImagenPendientes(Usuario usuario)
+    {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 50)) throw (new Exception("El usuario no tiene permisos para administrar cambios de imagen"));
+        return RepositorioDeUsuarios().GetSolicitudesDeCambioDeImagenPendientes().ToArray();
+    }
+
+
+    [WebMethod]
     public string CambiarPassword(Usuario usuario, string PasswordActual, string PasswordNuevo)
     {
         var repoUsuarios = RepositorioDeUsuarios();
@@ -4305,6 +4340,13 @@ public class WSViaticos : System.Web.Services.WebService
     {
         return RepoLegajo().GetConsultasNoLeidas(usuario.Owner.Id);
     }
+
+    [WebMethod]
+    public string GetConsultasDePortalNoLeidas(Usuario usuario)
+    {
+        return RepoLegajo().GetConsultasDePortalNoLeidas(usuario.Owner.Id);
+    }
+    
 
     [WebMethod]
     public string GetDesignacionActual(Usuario usuario)

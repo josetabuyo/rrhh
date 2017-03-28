@@ -15,7 +15,7 @@
 
     <%= Referencias.Javascript("../")%>
 </head>
-<body>
+<body style="padding: 0px !important;">
     <form id="form1" runat="server">
     <uc2:BarraMenu ID="BarraMenu1" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'></span>"
         UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
@@ -23,7 +23,7 @@
         <legend>Consultas DDJJ 104/2001</legend>
     </fieldset>--%>
 
-    <div style="" align="center">
+    <div style="margin-top: 40px" align="center">
     
 
     <div style="display:block;
@@ -82,8 +82,8 @@
     </div>
    
     <div style="width: 100%">
-        <div id="DivBotonConsultar" runat="server" style="display: block; float: left;" ></div>  
-        <div id="DivBotonExcel" runat="server" style="display: block; float: right;"></div>  
+        <div id="DivBotonConsultar" runat="server" style="display: block; float: left;margin-left: 5px;" ></div>  
+        <div id="DivBotonExcel" runat="server" style="display: block; float: right; margin-right: 5px;"></div>  
     </div>
 
     <div id="ContenedorGrilla" runat="server" style="width: 100%" align="center">

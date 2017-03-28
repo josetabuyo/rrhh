@@ -5,11 +5,8 @@
 
 #contenedor_principal_modi
 {
-    position: absolute;
-    top: 96px;
-    left: 0px;
-    right: 0px;
-    bottom: 0px;
+    height:500px;
+    margin-top: 18px;
 }
 
 #ui_buscador_de_legajos
@@ -105,14 +102,9 @@
 }
 
 #ui_vista_de_resultados_de_legajos
-{  
+{
+    margin:10px;   
     transition: all .5s;
-    margin: 10px;
-    position: absolute;
-    top: 0px;
-    bottom: 0px;
-    right: 0px;
-    left: 0px;
 }
 
 #lbl_titulo_imagenes_no_asignadas
@@ -139,12 +131,8 @@
 
 #panel_documentos
 {
+    max-height: 400px;
     overflow-y: auto;
-    position: absolute;
-    top: 161px;
-    left: 0px;
-    right: 0px;
-    bottom: 0px;
 }
 
 .placeholder_sortable
@@ -323,7 +311,7 @@
     border-radius: 5px;
     border-style: solid;
     border-width: 2px;
-    max-height: 28px;
+    max-height: 40px;
 }
 
 .visualizador_imagen #panel_folio label
@@ -339,7 +327,7 @@
 
 .visualizador_imagen #panel_folio #btn_guardar
 {
-    margin-top: -8px;
+    margin-top: -6px;
 }
 
 .panel_con_estatica
