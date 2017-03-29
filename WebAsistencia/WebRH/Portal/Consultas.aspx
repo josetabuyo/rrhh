@@ -1,9 +1,10 @@
-﻿
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Consultas.aspx.cs" Inherits="Portal_Consultas" %>
+
+<%@ Register Src="~/BarraMenu/BarraMenu.ascx" TagName="BarraMenu" TagPrefix="uc2" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<%@ Register Src="~/BarraMenu/BarraMenu.ascx" TagName="BarraMenu" TagPrefix="uc2" %>
 <head id="Head1">
-    <title>  Portal RRHH </title>
+    <title>Portal RRHH </title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <!-- CSS media query on a link element -->
@@ -15,12 +16,12 @@
     <link href="../scripts/vex-2.1.1/css/vex-theme-os.css" rel="stylesheet" />
     <link rel="stylesheet" href="estilosPortalSecciones.css" />
     <link rel="stylesheet" href="chat.css" />
-    <link rel="stylesheet"  href="estilosPortalSecciones.css" />
+    <link rel="stylesheet" href="estilosPortalSecciones.css" />
 </head>
 <body>
-    <form id="form1" runat=server >
-    <%--<uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:18px; font-weight: bold; padding-top:25px;'>Datos<br/>Personales</span> <br/> " UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />--%>
-      
+    <form id="form1" runat="server">
+    <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:18px; font-weight: bold; padding-top:25px;'>Datos<br/>Personales</span> <br/> "
+        UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <div class="container-fluid">
         <h1 style="text-align: center; margin: 30px;">
         </h1>
@@ -52,8 +53,8 @@
                 <div style="margin-top: 20px;">
                     <input id="btn_nueva_consulta" type="button" style="position: absolute; left: 25px;"
                         class="btn btn-primary boton_destellante" value="Realizar nueva consulta" />
-                    <a id="boton_notificaciones" class="btn btn-primary" style="margin-left: 20px;
-                        float: right;">Notificaciones</a> <a id="Button1" href="GestionConsultas.aspx" requierefuncionalidad="49"
+                    <a id="boton_notificaciones" class="btn btn-primary" style="margin-left: 20px; float: right;">
+                        Notificaciones</a> <a id="Button1" href="GestionConsultas.aspx" requierefuncionalidad="49"
                             class="btn btn-primary" style="float: right;">Gestión de consultas </a>
                 </div>
             </div>
@@ -108,23 +109,18 @@
                         </div>
                     </div>
                 </div>
-                
-                
-                
             </div>
             <div id="div_detalle_consulta" style="display: none; margin-bottom: 10px;">
                 <label style="font-size: initial;">
                     <strong>Motivo:</strong></label>
                 <p id="ta_motivo" style="display: inline; font-style: italic;">
                 </p>
-                
                 <br />
                 <br />
                 <label style="font-size: initial;">
                     <strong>Respuesta:</strong></label>
                 <p id="ta_respuesta" style="display: inline; font-style: italic;">
                 </p>
-                
             </div>
         </div>
     </form>
