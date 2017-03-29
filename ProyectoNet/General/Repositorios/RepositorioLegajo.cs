@@ -161,10 +161,32 @@ namespace General.Repositorios
             return JsonConvert.SerializeObject(list_de_examenes);
 
         }
+        public void EnviarNotificacion(string notificacion, List<int> documentos, string titulo, int usuario)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@notificacion", notificacion);
+            parametros.Add("@titulo", titulo);
+            parametros.Add("@id_creador", usuario);
+            var id_notificacion = conexion.EjecutarEscalar("dbo.LEG_INSNotificacionTexto", parametros);
 
+            documentos.ForEach(d =>
+            {
+                parametros.Clear();
+                parametros.Add("@documento", d);
+                parametros.Add("@id_notificacion", id_notificacion);
+                conexion.EjecutarSinResultado("dbo.LEG_INSNotificacionUsuario", parametros);
+            });
+        }
 
         public string GetLiquidaciones(int anio, int mes, string cuil)
         {
+
+            if (mes == 0)
+            {
+                mes = 12;
+                anio = anio - 1;
+            }
+
             var parametros = new Dictionary<string, object>();
             parametros.Add("@anio", anio);
             parametros.Add("@mes", mes);
@@ -357,6 +379,8 @@ namespace General.Repositorios
             var tablaDatos = conexion.Ejecutar("dbo.LEG_GET_Carreras_Admistrativas", parametros);
             var carrera_adm = new List<Object> { };
 
+            
+
             if (tablaDatos.Rows.Count > 0)
             {
                 tablaDatos.Rows.ForEach(row =>
@@ -370,7 +394,8 @@ namespace General.Repositorios
                         Grado = row.GetString("Grado", "Sin información"),
                         Cargo = row.GetString("CARGO", "Sin información"),
                         FechaDesde = row.GetDateTime("Fecha_Desde"),
-                        FechaHasta = row.GetDateTime("Fecha_Hasta", DateTime.Today),
+                        FechaHasta = row.GetDateTime("Fecha_Hasta", DateTime.MinValue),
+                       // FechaHasta = row.g.GetDateTime("Fecha_Hasta", DateTime.Today),
                         DescCausa = row.GetString("DescCausa", "Sin información"),
                         Folio = row.GetString("Folio", "Sin información")
 
@@ -383,38 +408,95 @@ namespace General.Repositorios
 
         }
 
-        public string GetConsultasDePortal(int id_usuario)
+        public string GetNotificacionesDePortal(int id_usuario)
         {
             var parametros = new Dictionary<string, object>();
-            parametros.Add("@Id_usuario", id_usuario);
-            List<Consulta> consultas = new List<Consulta>();
-            Area area = new Area();
-            var tablaDatos = conexion.Ejecutar("dbo.LEG_GETConsultasDePortal", parametros);
-
+            parametros.Add("@documento", id_usuario);
+            List<Notificacion> consultas = new List<Notificacion>();
+            var tablaDatos = conexion.Ejecutar("dbo.LEG_GETNotificaciones", parametros);
+            var area = new Area();
             if (tablaDatos.Rows.Count > 0)
             {
                 tablaDatos.Rows.ForEach(row =>
                 {
-                    Persona creador = new Persona(row.GetInt("id_usuario_creador"), 0,row.GetString("nombre_creador"), row.GetString("apellido_creador"), area);
-                    Persona responsable = new Persona(row.GetInt("is_usuario_responsable", 0), 0, row.GetString("nombre_responsable", ""), row.GetString("apellido_responsable", ""), area);
-                    Consulta consulta = new Consulta(
+                    Persona creador = new Persona(row.GetInt("id_usuario_creador"), 0, "", "", area);
+                    List<Destinatario> destinatarios = new List<Destinatario>();
+                    Notificacion notificaciones = new Notificacion(
                         row.GetInt("Id"),
                         creador,
                         row.GetDateTime("fecha_creacion"),
-                        row.GetString("tipo_consulta"),
-                        row.GetString("motivo"),
-                        row.GetSmallintAsInt("id_estado"),
-                        row.GetString("estado"),
-                        responsable,
-                        row.GetDateTime("fecha_contestacion", new DateTime()),
-                        row.GetString("respuesta", ""));
-                    consultas.Add(consulta);
+                        row.GetString("titulo"),
+                        row.GetString("texto"),
+                        destinatarios,
+                        row.GetBoolean("leido"));
+
+                    consultas.Add(notificaciones);
+
                 });
+
             }
 
             return JsonConvert.SerializeObject(consultas);
 
         }
+
+        public string GetConsultasDePortal(int id_usuario)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@Id_usuario", id_usuario);
+            List<Consulta> consultas = new List<Consulta>();
+            getConsultasPorCriterio(parametros, consultas);
+
+            return JsonConvert.SerializeObject(consultas);
+
+        }
+
+        public string GetNotificacionesTodasDePortal()
+        {
+
+            List<Notificacion> notificaciones = new List<Notificacion>();
+            var tablaDatos = conexion.Ejecutar("dbo.LEG_GETNotificacionesTodas");
+            var area = new Area();
+            if (tablaDatos.Rows.Count > 0)
+            {
+                tablaDatos.Rows.ForEach(row =>
+                {
+                    Persona creador = new Persona(row.GetInt("id_usuario_creador"), 0, "", "", area);
+                    List<Destinatario> destinatarios = new List<Destinatario>();
+                    Notificacion notificacion = new Notificacion(
+                        row.GetInt("Id"),
+                        creador,
+                        row.GetDateTime("fecha_creacion"),
+                        row.GetString("titulo"),
+                        row.GetString("texto"),
+                        destinatarios,
+                        false);
+                    notificaciones.Add(notificacion);
+                });
+            }
+            return JsonConvert.SerializeObject(notificaciones);
+        }
+
+        public string MostrarDestinatariosDeLaNotificacion(int id_notificacion)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@IdNotificacion", id_notificacion);
+
+            var tablaDatos = conexion.Ejecutar("dbo.LEG_GETDestinatariosDeLaNotificacion", parametros);
+            List<Destinatario> destinatarios = new List<Destinatario>();
+            var area = new Area();
+            if (tablaDatos.Rows.Count > 0)
+            {
+                tablaDatos.Rows.ForEach(row =>
+                {
+                    Persona creador = new Persona(0, row.GetInt("documento"), row.GetString("nombre"), row.GetString("apellido"), area);
+                    Destinatario destinatario = new Destinatario(id_notificacion, creador, row.GetDateTime("fecha_lectura", new DateTime(1900, 1, 1)), row.GetBoolean("leido"));
+                    destinatarios.Add(destinatario);
+                });
+            }
+            return JsonConvert.SerializeObject(destinatarios);
+        }
+
         public string GetConsultasTodasDePortal(int estado)
         {
             var parametros = new Dictionary<string, object>();
@@ -422,50 +504,134 @@ namespace General.Repositorios
             {
                 parametros.Add("@Estado", estado);
             }
-            
+
             List<Consulta> consultas = new List<Consulta>();
-            Area area = new Area();
-            var tablaDatos = conexion.Ejecutar("dbo.LEG_GETConsultasDePortal", parametros);
-
-            if (tablaDatos.Rows.Count > 0)
-            {
-                tablaDatos.Rows.ForEach(row =>
-                {
-                    Persona creador = new Persona(row.GetInt("id_usuario_creador"), 0, row.GetString("nombre_creador"), row.GetString("apellido_creador"), area);
-                    Persona responsable = new Persona(row.GetInt("is_usuario_responsable", 0), 0, row.GetString("nombre_responsable", ""), row.GetString("apellido_responsable", ""), area);
-                    
-                    Consulta consulta = new Consulta(
-                        row.GetInt("Id"),
-                        creador,
-                        row.GetDateTime("fecha_creacion"),
-                        row.GetString("tipo_consulta"),
-                        row.GetString("motivo"),
-                        row.GetSmallintAsInt("id_estado"),
-                        row.GetString("estado"),
-                        responsable,
-                        row.GetDateTime("fecha_contestacion", new DateTime()),
-                        row.GetString("respuesta", ""));
-                    consultas.Add(consulta);
-
-                });
-
-            }
+            getConsultasPorCriterio(parametros, consultas);
 
             return JsonConvert.SerializeObject(consultas);
 
         }
 
+        private void getConsultasPorCriterio(Dictionary<string, object> parametros, List<Consulta> consultas)
+        {
+            Area area = new Area();
+            var tablaDatos = conexion.Ejecutar("dbo.LEG_GETConsultasDePortal2", parametros);
+
+            if (tablaDatos.Rows.Count > 0)
+            {
+                tablaDatos.Rows.ForEach(row =>
+                {
+                    Persona creador = new Persona(row.GetInt("id_usuario"), row.GetInt("NroDocumento"), row.GetString("nombre"), row.GetString("apellido"), area);
+                    Persona responsable = new Persona(row.GetInt("id_responsable", 0), row.GetInt("NroDocumentoResponsable", 0), row.GetString("nombreResponsable", ""), row.GetString("apellidoResponsable", ""), area);
+                    List<Respuesta> respuestas = new List<Respuesta>();
+                    Consulta consulta = new Consulta(
+                        row.GetLong("Id"),
+                        creador,
+                        row.GetDateTime("fecha_creacion"),
+                        row.GetDateTime(("fecha_respuesta"), new DateTime(9999, 12, 31)),
+                        responsable,
+                        row.GetSmallintAsInt("id_tipo_consulta"),
+                        row.GetString("tipo_consulta"),
+                        row.GetString("resumen"),
+                        row.GetSmallintAsInt("id_estado"),
+                        row.GetString("estado"),
+                        row.GetSmallintAsInt(("calificacion"), 0),
+                        row.GetBoolean("leido", false),
+                        respuestas);
+
+                    consultas.Add(consulta);
+
+                });
+
+            }
+        }
+
         public void ResponderConsulta(int id, string respuesta, int id_usuario)
+        {
+            var resumen = respuesta;
+            if (respuesta.Length > 100) resumen = respuesta.Substring(0, 100);
+            var id_estado = 7;
+            var leido = true;
+            var calificacion = 0;
+            UpdateConsulta(id, respuesta, id_usuario, resumen, id_estado, leido, calificacion);
+        }
+        public void RepreguntarConsulta(int id, string respuesta, int id_usuario)
+        {
+            var resumen = respuesta;
+            if (respuesta.Length > 100) resumen = respuesta.Substring(0, 100);
+            var id_estado = 6;
+            var leido = false;
+            var calificacion = 0;
+            UpdateConsulta(id, respuesta, id_usuario, resumen, id_estado, leido, calificacion);
+        }
+        public void CerrarConsulta(int id, int calificacion, int id_usuario)
+        {
+            var respuesta = "";
+            var resumen = "CONSULTA CERRADA";
+            var id_estado = 9;
+            var leido = false;
+            UpdateConsulta(id, respuesta, id_usuario, resumen, id_estado, leido, calificacion);
+        }
+        public void EliminarConsulta(int id, int id_usuario)
+        {
+            var resumen = "";
+            var respuesta = "";
+            var id_estado = 8;
+            var leido = false;
+            var calificacion = 0;
+            UpdateConsulta(id, respuesta, id_usuario, resumen, id_estado, leido, calificacion);
+        }
+
+        private void UpdateConsulta(int id, string respuesta, int id_usuario, string resumen, int id_estado, bool leido, int calificacion)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@Id", id);
             parametros.Add("@Respuesta", respuesta);
             parametros.Add("@Id_Usuario", id_usuario);
-
-            conexion.EjecutarSinResultado("dbo.LEG_UPDConsultasDePortal", parametros);
+            parametros.Add("@resumen", resumen);
+            parametros.Add("@id_estado", id_estado);
+            parametros.Add("@leido", leido);
+            parametros.Add("@calificacion", calificacion);
+            conexion.EjecutarSinResultado("dbo.LEG_UPDConsultasDePortal2", parametros);
         }
 
-        
+        public void MarcarConsultaComoLeida(int id_consulta)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@Id_consulta", id_consulta);
+            conexion.EjecutarSinResultado("dbo.LEG_UPDConsultaLeida2", parametros);
+        }
+        public void MarcarNotificacionComoLeida(int id, int documento)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id", id);
+            parametros.Add("@documento", documento);
+            conexion.EjecutarSinResultado("dbo.LEG_UPDNotificacionLeida", parametros);
+        }
+
+        public string GetDetalleDeConsulta(int id_consulta)
+        {
+            List<Respuesta> respuestas = new List<Respuesta>();
+            Area area = new Area();
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@Id_consulta", id_consulta);
+            var tablaDatos = conexion.Ejecutar("dbo.LEG_GetDetalleDeConsultaDePortal", parametros);
+            if (tablaDatos.Rows.Count > 0)
+            {
+                tablaDatos.Rows.ForEach(row =>
+                {
+                    Persona persona = new Persona(row.GetInt("id_usuario"), row.GetInt("NroDocumento"), row.GetString("nombre"), row.GetString("apellido"), area);
+                    Respuesta respuesta = new Respuesta(
+                        row.GetInt("id_orden"),
+                        persona,
+                        row.GetDateTime("fecha_creacion"),
+                        row.GetString("texto"));
+                    respuestas.Add(respuesta);
+                });
+            }
+            return JsonConvert.SerializeObject(respuestas);
+        }
+
 
         public string GetTiposDeConsultaDePortal()
         {
@@ -491,17 +657,41 @@ namespace General.Repositorios
 
         }
 
-        public int NuevaConsultaDePortal(int id_usuario, Consulta consulta)
+        public int NuevaConsultaDePortal(int id_usuario, int id_tipo_consulta, string motivo)
+        {
+            var parametros = new Dictionary<string, object>();
+            var resumen = motivo;
+            if (motivo.Length > 100) resumen = motivo.Substring(0, 100);
+            parametros.Add("@id_usuario_creador", id_usuario);
+            parametros.Add("@id_tipo_consulta", id_tipo_consulta);
+            parametros.Add("@motivo", motivo);
+            parametros.Add("@resumen", resumen);
+
+            var resultado = conexion.EjecutarEscalar("dbo.LEG_NuevaConsultaDePortal2", parametros);
+            return (int)(long)resultado;
+        }
+
+        public int GetConsultasNoLeidas(int id_usuario)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_usuario_creador", id_usuario);
-            parametros.Add("@id_tipo_consulta", consulta.id_tipo_consulta);
-            parametros.Add("@motivo", consulta.motivo);
 
-            var resultado = conexion.EjecutarEscalar("dbo.LEG_NuevaConsultaDePortal", parametros);
-            return (int)(decimal)resultado;
+            var resultado = conexion.EjecutarEscalar("dbo.LEG_GetConsultasPortalNoLeidas2", parametros);
+            return (int)resultado;
         }
 
+
+        public string GetConsultasDePortalNoLeidas(int id_usuario)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@Id_usuario", id_usuario);
+            parametros.Add("@Leido", 1);
+            List<Consulta> consultas = new List<Consulta>();
+            getConsultasPorCriterio(parametros, consultas);
+
+            return JsonConvert.SerializeObject(consultas);
+
+        }
 
         protected override List<Legajo> ObtenerDesdeLaBase()
         {

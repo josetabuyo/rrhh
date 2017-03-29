@@ -10,7 +10,7 @@
 #panel_izquierdo {
     position: absolute;
     height: auto;
-    width: 600px;
+    width: 700px;
 }
 /*
 #panel_derecho {
@@ -23,6 +23,7 @@
 #panel_datos_personales {
     display: inline-block;
     width: 78%;
+    margin-left: 128px;
 }
 .dato_personal {
     margin: 12px;
@@ -111,13 +112,14 @@
 #contenedor_arbol_organigrama
 {
     display: inline-block;
-    width: 600px; 
+    width: 600px;
     float: left;
-    margin-left: 45px;
+    margin-left: 40px;
     background-color: #FCFCFC;
     border-radius: 0 5px 5px 5px;
     border-right: 1px solid #D5D5D5;
-    padding-top: 20px;
+    padding-top: 0px;
+    margin-top: 0px;
 }
     
 
@@ -125,24 +127,25 @@
 .btn_organigrama 
  {
     position: absolute;
-    /*left: 645px;*/
+    left: 645px;
     height: 70px;
-    top: 10px;
+    top: -10px;
     background-color: #F8F8F8;
     border: 1px solid #D5D5D5;
-    padding: 10px;
+    /* padding: 10px; */
     border-radius: 0 5px 5px 0;
     font-variant: small-caps;
     font-size: initial;
     width: 135px !important;
     letter-spacing: 1px;
+    margin-top: 0px;
 }
 
 .btn_consulta_individual 
 {
     position: absolute;
     display: block;
-    top: 170px;
+    top: 151px;
     height: 70px;
     display: inline-block;
     background-color: #F8F8F8;
@@ -189,16 +192,14 @@
 #menu_grafico 
 {
     position: absolute;
-    top: 90px;
+    top: 66px;
     width: 135px;
     left: 645px;
     background-color: #F8F8F8;
     border-radius: 0 5px 5px 0;
     border: 1px solid #D5D5D5;
-    cursor:pointer;
+    cursor: pointer;
     z-index: 9;
-   
-    
 }
 
 #menu_grafico h2 
@@ -317,6 +318,17 @@
 	left: 3px;
 	color: #99a1a7;
 }
-    
+
+.foto_usuario {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    height: 128px;
+    width: 128px;
+    margin-left: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+}
     
 

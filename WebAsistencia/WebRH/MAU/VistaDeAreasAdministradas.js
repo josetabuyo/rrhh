@@ -32,6 +32,8 @@ VistaDeAreasAdministradas.prototype.setUsuario = function (un_usuario) {
     var _this = this;
     this.usuario = un_usuario;
     this.div_lista_areas.html('');
+    var spinner = new Spinner({ scale: 3 });
+    spinner.spin(this.div_lista_areas[0]);
     this.autorizador.areasAdministradasPor(un_usuario.Id, function (areas_del_usuario) {
         for (var i = 0; i < areas_del_usuario.length; i++) {
             var vista_area = new VistaDeAreaAdministrada({ area: areas_del_usuario[i],
@@ -40,7 +42,9 @@ VistaDeAreasAdministradas.prototype.setUsuario = function (un_usuario) {
             });
             vista_area.dibujarEn(_this.div_lista_areas);
         }
+        spinner.stop();
     }, function () {
-        alertify.alert("", "error al obtener las areas administradas por el usuario")
+        alertify.alert("", "error al obtener las areas administradas por el usuario");
+        spinner.stop();
     });
 };

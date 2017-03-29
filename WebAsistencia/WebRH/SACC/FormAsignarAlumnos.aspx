@@ -67,11 +67,12 @@
 
 
     <div id="panelAlumnosAsignados" class="div_derecho_inscripcion">
-    <div class="estilo_formulario" style="width:95%; overflow:auto;  margin-left:1%;">
+    <div class="estilo_formulario" style="width:90%; overflow:auto;  margin-left:50px;">
     <fieldset>
         <legend class="subtitulos">Listado de Alumnos Asignados al Curso de <span id="nombreDeCurso"></span></legend> 
-        <div class="tablas_alumnos" style="width:100%;" id="grillaAlumnosAsignados" runat="server"></div>      
+        <div class="tablas_alumnos" style="width:85% !important; margin-left: 9% !important; overflow: auto;" id="grillaAlumnosAsignados" runat="server"></div>      
     </fieldset>
+
     </div>
     </div>
 

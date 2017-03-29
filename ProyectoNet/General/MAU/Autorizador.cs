@@ -183,8 +183,8 @@ namespace General.MAU
             
 
             var usuario = repositorio_usuarios.CrearUsuarioPara(persona.Id);
-            var clave =  repositorio_usuarios.ResetearPassword(usuario.Id);
             repositorio_usuarios.AsociarUsuarioConMail(usuario, aspirante.Email);
+            var clave =  repositorio_usuarios.ResetearPassword(usuario.Id);
             //mandarla por mail
             var titulo = "Bienvenido al SIGIRH";
             var cuerpo = "Nombre de Usuario: " + usuario.Alias + Environment.NewLine + "Contraseña: " + clave;
@@ -241,6 +241,10 @@ namespace General.MAU
             parametros.Add("@id_usuario", id_usuario);
             parametros.Add("@id_usuario_verificador", usuario.Id);
             this.conexion.EjecutarSinResultado("MAU_Verificar_usuario", parametros);
+
+            //le doy permiso para acceder al portal
+            this.repositorio_funcionalidades_usuarios.ConcederFuncionalidadA(id_usuario, 51); //Postular
+
             return true;
         }
     }

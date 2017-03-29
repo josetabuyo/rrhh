@@ -96,14 +96,14 @@
     });
 
     this.btn_modificar_mail.click(function () {
-        alertify.prompt(' ', 'Ingrese el mail del usuario', _this.usuario.MailRegistro
+        alertify.prompt(' ', 'Ingrese el mail del usuario', ''
                , function (evt, value) {
                    Backend.ModificarMailRegistro(_this.usuario.Id, value).onSuccess(function () {
                        alertify.success("Se ha modificado correctamente su mail");
                        alertify.prompt().close();
                        _this.lbl_email.text(value);
-                   }).onerror(function () {
-                       alertify.success("Error al modificar el mail");
+                   }).onError(function () {
+                       alertify.error("Error al modificar el mail");
                        alertify.prompt().close();
                    });
                }
@@ -150,8 +150,7 @@
             urlObj[x[0]] = decodeURIComponent(x[1])
         }
         return urlObj;
-    }
-
+    } 
 };
 
 AdministradorDeUsuarios.prototype.cargarUsuario = function (usuario) {
@@ -195,9 +194,62 @@ AdministradorDeUsuarios.prototype.cargarUsuario = function (usuario) {
     }
     this.txt_nombre_usuario.text(usuario.Alias);
 
+    $("#cambio_imagen_pendiente").hide();
+    Backend.ElUsuarioLogueadoTienePermisosPara(50).onSuccess(function (tiene_permisos) {
+        if (tiene_permisos) {
+            Backend.GetSolicitudesDeCambioDeImagenPendientesPara(usuario.Id).onSuccess(function (solicitudes) {
+                if (solicitudes.length > 0) {
+                    $("#cambio_imagen_pendiente").off("click");
+
+                    $("#cambio_imagen_pendiente").click(function () {
+
+                        vex.defaultOptions.className = 'vex-theme-os';
+                        vex.open({
+                            afterOpen: function ($vexContent) {
+                                var ui = $("#plantillas #pantalla_actualizacion_imagen").clone();
+                                var ultima_solicitud = solicitudes[solicitudes.length - 1];
+
+                                ui.find("#btn_aceptar_cambio_imagen")
+                                    .off("click")
+                                    .click(function () {
+                                        Backend.AceptarCambioDeImagen(usuario.Id).onSuccess(function () {
+                                            alertify.success('solicitud de cambio de imagen aceptada');
+                                            vex.close();
+                                        });
+                                    });
+                                ui.find("#btn_rechazar_cambio_imagen")
+                                    .off("click")
+                                    .click(function () {
+                                        Backend.RechazarCambioDeImagen(usuario.Id).onSuccess(function () {
+                                            alertify.success('solicitud de cambio de imagen rechazada');
+                                            vex.close();
+                                        });
+                                    });
+
+                                $vexContent.append(ui);
+                                ui.show();
+
+                                var vista_imagen_anterior = new VistaThumbnail({ id: ultima_solicitud.idImagenAnterior, contenedor: ui.find("#imagen_anterior") })
+                                var vista_imagen_nueva = new VistaThumbnail({ id: ultima_solicitud.idImagenNueva, contenedor: ui.find("#imagen_nueva") })
+                                return ui;
+                            },
+                            css: {
+                                'padding-top': "4%",
+                                'padding-bottom': "0%"
+                            },
+                            contentCSS: {
+                                width: "70%",
+                                height: "80%"
+                            }
+                        });
+                    });
+
+                    $("#cambio_imagen_pendiente").show();
+                }
+            });
+        }
+    });
 };
-
-
 AdministradorDeUsuarios.prototype.BuscadorUsuariosPorArea = function (contexto) {
     this.div_lista_areas = $("#lista_areas_para_consultar");
 

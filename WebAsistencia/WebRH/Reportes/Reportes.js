@@ -58,6 +58,27 @@ var Reportes = {
         Backend.GetConsultaRapida(documento).onSuccess(function (datos) {
             var data = $.parseJSON(datos);
             if (!$.isEmptyObject(data)) {
+
+                Backend.GetUsuarioPorIdPersona(data.IdPersona)
+                    .onSuccess(function (usuario) {
+                        if (usuario.Id != 0) {
+                            if (usuario.Owner.IdImagen >= 0) {
+                                var img = new VistaThumbnail({ id: usuario.Owner.IdImagen, contenedor: $("#foto_usuario") });
+                                $("#foto_usuario").show();
+                                $("#foto_usuario_generica").hide();
+                            }
+                            else {
+                                $("#foto_usuario").hide();
+                                $("#foto_usuario_generica").show();
+                            }
+                        } else {
+                            $("#foto_usuario").hide();
+                            $("#foto_usuario_generica").show();
+                        }
+                    });
+
+
+
                 $("#panel_izquierdo").delay(300).animate({ "opacity": "1" }, 300);
                 $('#mensaje').html("");
                 $('#nombre_consulta').html(data.Apellido);
@@ -76,18 +97,47 @@ var Reportes = {
                 $('#cargo').html(data.Cargo);
                 $('#agrupamiento').html(data.Agrupamiento);
                 $('#ing_min').html(data.IngresoMinisterio);
+
+                if (data.FechaBaja != "") {
+                    $('#baja').html("BAJA a partir del " + data.FechaBaja);
+                } else {
+                    $('#baja').html("Activo");
+                }
+
+                if (data.FechaBloqueo != "01/01/1900") {
+                    $('#bloqueo').html(data.FechaBloqueo);
+                    $('#bloqueo').parent().show();
+                } else {
+                    $('#bloqueo').parent().hide();
+                }
+
+                if (data.CargoGremial != "") {
+                    $('#cargo_gremial').html(data.CargoGremial);
+                    $('#cargo_gremial').parent().show();
+                } else {
+                    $('#cargo_gremial').parent().hide();
+                }
+
+                if (data.ActoAlta != "") {
+                    $('#acto_alta').html(data.ActoAlta);
+                    $('#acto_alta').parent().show();
+                } else {
+                    $('#acto_alta').parent().hide();
+                }
+
+
                 //$('#ant_min').html(data.AntMinisterio);
                 //$('#estado').html(data.AntEstado);
                 //$('#privada').html(data.AntPrivada);
                 //$('#resta').html(data.RestaAnt);
                 //$('#total').html(data.ANTTotalTotal);
                 //$('#nombre').html(data.ANTTotalTotal);
-                $('#btn_timeline').click(function () {
-                    Backend.GetCarreraAdministrativa(documento).onSuccess(function (datos) {
-                        $('#contenedor_timeLine').empty();
-                        _this.armarTimeline(datos);
-                    });
-                })
+                /*$('#btn_timeline').click(function () {
+                Backend.GetCarreraAdministrativa(documento).onSuccess(function (datos) {
+                $('#contenedor_timeLine').empty();
+                _this.armarTimeline(datos);
+                });
+                })*/
             } else {
                 $('#panel_izquierdo').hide();
                 $('#mensaje').html("No se encontraron datos para la persona con documento " + documento);

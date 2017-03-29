@@ -17,7 +17,7 @@
            }
         }
     </style>
-    <script type="text/javascript" src="../Scripts/jquery-ui-1.10.2.custom/js/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="../Scripts/deshabilitarImpresion.js"></script>
     <%--para que no se pueda imprimir por fuera del sistema--%>
 

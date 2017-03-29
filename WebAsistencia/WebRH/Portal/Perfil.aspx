@@ -20,7 +20,6 @@
     <div class="container-fluid">
         <h1 style="text-align:center; margin:30px; "></h1>
         <div style="margin: 0 auto;" class="row">
-        <div style="text-align:right; margin-right:20%"><a href="Consultas.aspx">Realizar/Visualizar Consultas</a></div>
             <div style="text-align:center;" class="caja_izq"></div>
             <div class="caja_der papel">
             <legend style="margin-top: 20px;">PERFIL PROFESIONAL</legend>

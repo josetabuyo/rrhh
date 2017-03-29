@@ -127,8 +127,9 @@ text-align: right;
 	.navbar 
 	{
 	 /* Fix for IE7's bad z-indexing so dropdowns don't appear below content that follows the navbar*/
-       position: relative;
-       z-index: 99999999;
+	 position: relative;
+	 z-index: 99999999;
+	 margin-top: -34px;
 	 }
 
 .navbar-inner {
@@ -137,6 +138,8 @@ text-align: right;
   background-image: none;
   background-repeat: no-repeat;
   filter: none;
+  margin-top: 45px;
+  margin-bottom: 10px;
 }
 
 .navbar .nav > li > a {
@@ -197,6 +200,7 @@ text-align: right;
     
      .estilo_formulario 
     {
+        
         height:550px;
         /*margin-left: 10px;*/
         margin-bottom:10px; 

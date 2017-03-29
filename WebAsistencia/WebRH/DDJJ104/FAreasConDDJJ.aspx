@@ -13,9 +13,9 @@
 
 <body>
     <form id="form1" runat="server">
-    <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'></span>" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
+    <uc2:BarraMenu ID="BarraMenu1" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'></span>" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
 
-    <fieldset style="text-align: center">
+    <fieldset style="text-align: center; margin-top: 40px" >
         <legend>Certificación de Servicios según Decisión Administrativa N° 104/2001</legend>
     </fieldset>
 

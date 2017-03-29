@@ -16,6 +16,7 @@
 	width: 1024px;
 	margin-left: -512px;	
 	background-color: #FFF;
+	margin-top: 35px;
 }
 
 .tabla_protocolo
@@ -180,7 +181,7 @@
 .detalle_viatico_titulo_tabla_detalle 
 {
 	font-family: "Humnst777 BT" !important;	
-	font-size: 11px !important;	
+	font-size: 15px !important;	
 	background-color: #003 !important;	
 	color:#FFF !important;	
 	text-align:center !important;

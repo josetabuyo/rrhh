@@ -48,7 +48,7 @@
             </div>
 
             <div id="div_filtros_graficos_y_tablas" style="position: absolute; left: 650px; width: 100%;">
-                <div style=" position: absolute;left: 150px; margin-top: 10px;">
+                <div style="position: absolute; left: 156px; margin-top: -13px;">
                     <h2 style="font-size: 1.1em;">Área Seleccionada: 
                         <span id="titulo_area">Seleccionar Área</span>
                         <input id="chk_incluir_dependencias" style="display:none; margin: 0px 5px 0px 5px;" class="regular-checkbox" type="checkbox"/><label id="lbl_incluir_dependencias" style="display:none" for="chk_incluir_dependencias">Incluir dependencias</label>
