@@ -102,10 +102,19 @@
             csv += a.nombre().replace(/"/g, '""') + colDelim;
             csv += a.telefonos().replace(/"/g, '""') + colDelim;
             csv += a.mails().replace(/"/g, '""') + colDelim;
-            csv += a._area.DireccionSeparada.Calle.replace(/"/g, '""') + colDelim;
-            csv += a._area.DireccionSeparada.CP.replace(/"/g, '""') + colDelim;
-            csv += a._area.DireccionSeparada.Localidad.replace(/"/g, '""') + colDelim;
-            csv += a._area.DireccionSeparada.Provincia.replace(/"/g, '""') + rowDelim;
+
+            if (a._area.DireccionSeparada != null && a._area.DireccionSeparada != "") {
+                csv += a._area.DireccionSeparada.Calle.replace(/"/g, '""') + colDelim;
+                csv += a._area.DireccionSeparada.CP.replace(/"/g, '""') + colDelim;
+                csv += a._area.DireccionSeparada.Localidad.replace(/"/g, '""') + colDelim;
+                csv += a._area.DireccionSeparada.Provincia.replace(/"/g, '""') + rowDelim;
+            } else {
+                csv += "";
+                csv += "";
+                csv += "";
+                csv += "";
+            }
+            csv += '"\r\n"';
         });
 
         csv += '"';
