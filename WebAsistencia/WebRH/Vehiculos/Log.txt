@@ -95,3 +95,27 @@ Exception rethrown at [0]:
    en ASP.global_asax.Application_AcquireRequestState(Object sender, EventArgs e) en c:\Users\msaenz\Desktop\Proyecto RRHH\rrhh\WebAsistencia\WebRH\Global.asax:línea 16
    en System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
    en System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+29/03/2017 01:17:21 p.m. - ---------------------------------------------
+29/03/2017 01:17:21 p.m. - System.ServiceModel.FaultException: System.Web.Services.Protocols.SoapException: El servidor no puede procesar la solicitud. ---> System.InvalidOperationException: ExecuteReader requiere una Connection abierta y disponible. El estado actual de la conexión es conectando.
+   en General.Repositorios.ConexionBDSQL.Ejecutar(String procedimiento, Int32 command_timeout) en C:\Users\msaenz\Desktop\Proyecto RRHH\rrhh\ProyectoNet\General\Repositorios\ConexionBDSQL.cs:línea 180
+   en General.MAU.RepositorioDeAccesosAURL.ObtenerDesdeLaBase() en C:\Users\msaenz\Desktop\Proyecto RRHH\rrhh\ProyectoNet\General\MAU\RepositorioDeAccesosAURL.cs:línea 51
+   en General.Repositorios.RepositorioLazySingleton`1.Obtener() en C:\Users\msaenz\Desktop\Proyecto RRHH\rrhh\ProyectoNet\General\Repositorios\RepositorioLazySingleton.cs:línea 38
+   en General.MAU.RepositorioDeAccesosAURL.TodosLosAccesos() en C:\Users\msaenz\Desktop\Proyecto RRHH\rrhh\ProyectoNet\General\MAU\RepositorioDeAccesosAURL.cs:línea 46
+   en General.MAU.Autorizador.ElUsuarioPuedeAccederALaURL(Usuario usuario, String url) en C:\Users\msaenz\Desktop\Proyecto RRHH\rrhh\ProyectoNet\General\MAU\Autorizador.cs:línea 137
+   en WSViaticos.ElUsuarioPuedeAccederALaURL(Usuario usuario, String url) en c:\Users\msaenz\Desktop\Proyecto RRHH\rrhh\WebAsistencia\WSViaticos\App_Code\WSViaticos.cs:línea 2749
+   --- Fin del seguimiento de la pila de la excepción interna ---
+
+Server stack trace: 
+   en System.ServiceModel.Channels.ServiceChannel.HandleReply(ProxyOperationRuntime operation, ProxyRpc& rpc)
+   en System.ServiceModel.Channels.ServiceChannel.Call(String action, Boolean oneway, ProxyOperationRuntime operation, Object[] ins, Object[] outs, TimeSpan timeout)
+   en System.ServiceModel.Channels.ServiceChannelProxy.InvokeService(IMethodCallMessage methodCall, ProxyOperationRuntime operation)
+   en System.ServiceModel.Channels.ServiceChannelProxy.Invoke(IMessage message)
+
+Exception rethrown at [0]: 
+   en System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+   en System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)
+   en WSViaticos.WSViaticosSoap.ElUsuarioPuedeAccederALaURL(Usuario usuario, String url)
+   en WSViaticos.WSViaticosSoapClient.ElUsuarioPuedeAccederALaURL(Usuario usuario, String url) en c:\Users\msaenz\AppData\Local\Temp\Temporary ASP.NET Files\root\f400b723\b79fa0a0\App_WebReferences.t8_r1imy.0.cs:línea 17269
+   en ASP.global_asax.Application_AcquireRequestState(Object sender, EventArgs e) en c:\Users\msaenz\Desktop\Proyecto RRHH\rrhh\WebAsistencia\WebRH\Global.asax:línea 16
+   en System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   en System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)

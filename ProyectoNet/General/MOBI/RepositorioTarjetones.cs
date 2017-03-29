@@ -15,6 +15,7 @@ namespace General.Repositorios
     {
         public string id_Verificacion;
         public int id_Bien;
+        public string codigo_Holograma;
         public Tarjeton() { }
     }
 
@@ -27,8 +28,17 @@ namespace General.Repositorios
             this.conexion_bd = conexion;
         }
 
+        public Tarjeton BajaTarjetonVencido(string id_verificacion)
+        {
+            var parametros = new Dictionary<string, object>();
 
-        public Tarjeton NuevoTarjeton(int id_Bien)
+            parametros.Add("@Id_Verificacion", id_verificacion);
+
+            var tablaDatos = this.conexion_bd.Ejecutar("dbo.MOBI_Baja_Tarjeton_vencido", parametros);
+        }
+
+    
+        public Tarjeton NuevoTarjeton(int id_Bien, string codigo_Holograma )
         {
             System.Random rnd = new Random(DateTime.Now.Millisecond);
 
@@ -51,16 +61,17 @@ namespace General.Repositorios
 
                 var parametros = new Dictionary<string, object>();
 
+                parametros.Add("@Id_Verificacion", strAlfanumericos.ToUpper());
+                parametros.Add("@codigo_Holograma", codigo_Holograma);
                 parametros.Add("@Id_Bien", id_Bien);
 
-                parametros.Add("@Id_Verificacion", strAlfanumericos.ToUpper());
-
-                todo_bien_vieja = (bool)conexion_bd.EjecutarEscalar("dbo.MOBI_NuevoIDVerificacion", parametros);
+                todo_bien_vieja = (bool)conexion_bd.EjecutarEscalar("dbo.MOBI_Crear_Tarjeton", parametros);
             }
 
             var UnNuevoTarjeton = new Tarjeton();
             UnNuevoTarjeton.id_Bien = id_Bien;
             UnNuevoTarjeton.id_Verificacion = strAlfanumericos.ToUpper();
+            UnNuevoTarjeton.codigo_Holograma = codigo_Holograma;
 
             return UnNuevoTarjeton;
         }

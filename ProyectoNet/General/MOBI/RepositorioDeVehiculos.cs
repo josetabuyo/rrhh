@@ -71,46 +71,29 @@ namespace General.Repositorios
 
 
 
-            var tablaDatos = this.conexion_bd.Ejecutar("dbo.MOBI_GetVehiculosPorIdVerificacion", parametros);
+            var tablaDatos = this.conexion_bd.Ejecutar("dbo.MOBI_GetVehiculosPorIdTarjeton2", parametros);
 
             var unVehiculo = new Vehiculo();
-            if (tablaDatos.Rows.Count > 0)
-            {
-                var row = tablaDatos.Rows[0];
 
-                /*var NumeroVehiculo = row.GetString("NumeroVehiculo", "Prueba NroVehiculo");
-                var Dominio = row.GetString("Dominio", "Prueba Dominio");
-                var Segmento = row.GetString("Segmento", "Prueba Segmento");
-                var Marca = row.GetString("Marca", "Prueba Marca");
-                var Modelo = row.GetString("Modelo", "Prueba Modelo");
-                var Motor = row.GetString("Motor", "Prueba Motor");
-                var Chasis = row.GetString("Chasis", "Prueba Chasis");
-                var Anio = row.GetString("Anio", "Prueba Anio");
-                var Observacion = row.GetString("Observacion", "Prueba Observacion");
-                var Area = row.GetString("Area", "Prueba Area");
-                var Apellido = row.GetString("Apellido", "Sin asignación");
-                var Nombre = row.GetString("Nombre", "Sin asignación");*/
+            tablaDatos.Rows.ForEach(r => {
 
-
-                unVehiculo.NumeroVehiculo = row.GetString("NumeroVehiculo");
-                unVehiculo.Dominio = row.GetString("Dominio");
-                unVehiculo.Segmento = row.GetString("Segmento");
-                unVehiculo.Marca = row.GetString("Marca");
-                unVehiculo.Modelo = row.GetString("Modelo");
-                unVehiculo.Motor = row.GetString("Motor");
-                unVehiculo.Chasis = row.GetString("Chasis");
-                unVehiculo.Anio = row.GetString("Anio");
-                unVehiculo.Observacion = row.GetString("Observacion");
-                unVehiculo.Area = row.GetString("Area");
-                unVehiculo.Apellido = row.GetString("Apellido");
-                unVehiculo.Nombre = row.GetString("Nombre");
-
-
-                tablaDatos.Rows.ForEach(r => {
-                    if(r.GetObject("id_imagen") is DBNull) return;
-                    unVehiculo.imagenes.Add(r.GetInt("id_imagen"));
-                });
-            };
+                switch (r.GetString("Atributo"))
+                {
+                    case "NumeroVehiculo": unVehiculo.NumeroVehiculo = r.GetString("ValorAtributo", ""); break;
+                    case "Dominio": unVehiculo.Dominio = r.GetString("ValorAtributo", ""); break;
+                    case "Segmento": unVehiculo.Segmento = r.GetString("ValorAtributo", ""); break;
+                    case "Marca": unVehiculo.Marca = r.GetString("ValorAtributo", ""); break;
+                    case "Modelo": unVehiculo.Modelo = r.GetString("ValorAtributo", ""); break;
+                    case "Motor": unVehiculo.Motor = r.GetString("ValorAtributo", ""); break;
+                    case "Chasis": unVehiculo.Chasis = r.GetString("ValorAtributo", ""); break;
+                    case "Año": unVehiculo.Anio = r.GetString("ValorAtributo", ""); break;
+                    case "Observacion": unVehiculo.Observacion = r.GetString("ValorAtributo", ""); break;
+                    case "Id Imagen": unVehiculo.imagenes.Add(r.GetInt("ValorAtributo"));  break;
+                }
+                    unVehiculo.Area = r.GetString("Area", "");
+                    unVehiculo.Apellido = r.GetString("Apellido", "");
+                    unVehiculo.Nombre = r.GetString("Nombre", "");
+            });
 
             return unVehiculo;
         }
