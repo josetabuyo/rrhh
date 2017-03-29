@@ -16,7 +16,7 @@
             Backend.GetConsultasDePortalNoLeidas().onSuccess(function (consultasJSON) {
                 var consultas = JSON.parse(consultasJSON);
                 _.forEach(consultas, function (consulta) {
-                    var ui_consulta = $("#plantillas .ui_mensaje_alerta").clone();
+                    var ui_consulta = $("#plantillas_barra_menu .ui_mensaje_alerta").clone();
                     ui_consulta.find(".titulo_mensaje_alerta").text("Título: " + consulta.tipo_consulta + " - Estado: " + consulta.estado);
                     ui_consulta.find(".contenido_mensaje_alerta").text(consulta.resumen);
                     $(".contenedor_de_alertas_y_mensajes").append(ui_consulta);
@@ -59,13 +59,13 @@
                 if (tiene_permisos) {
                     Backend.GetSolicitudesDeCambioDeImagenPendientes().onSuccess(function (solicitudes) {
                         _.forEach(solicitudes, function (solicitud) {
-                            var ui_consulta = $("#plantillas .ui_mensaje_alerta").clone();
+                            var ui_consulta = $("#plantillas_barra_menu .ui_mensaje_alerta").clone();
                             ui_consulta.find(".titulo_mensaje_alerta").text("Solicitud de cambio de imagen pendiente");
                             ui_consulta.find(".contenido_mensaje_alerta").text("Solicitante:" + "(" + solicitud.usuario.Alias.replace(' ', '') + ") " + solicitud.usuario.Owner.Apellido + ", " + solicitud.usuario.Owner.Nombre + " DNI:" + solicitud.usuario.Owner.Documento);
 
                             ui_consulta.click(function(){
                                 boton_mensajes.contraer();
-                                $("#plantillas").append($("<div>").load("../Componentes/AdministradorSolicitudCambioImagen.htm", function(){
+                                $("#plantillas_barra_menu").append($("<div>").load("../Componentes/AdministradorSolicitudCambioImagen.htm", function(){
                                     var admin = new AdministradorSolicitudCambioImagen(solicitud);
                         
                                 }));

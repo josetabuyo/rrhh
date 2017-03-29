@@ -16,7 +16,6 @@
     <script type="text/javascript" src="../Scripts/ControlesImagenes/VistaThumbnail.js"></script>
     <script type="text/javascript" src="../Scripts/ControlesImagenes/SubidorDeImagenes.js"></script>
     <script type="text/javascript" src="../scripts/vex-2.1.1/js/vex.combined.min.js"></script>
-    <%= Referencias.Javascript("../")%>
 </head>
 <div id="barra_menu_contenedor" class="no-print">
     <div id="contenedor_imagen">
@@ -97,7 +96,7 @@
             </div>
         </div>
     </div>
-    <div id="plantillas" style="display: none">
+    <div id="plantillas_barra_menu" style="display: none">
         <div class="ui_mensaje_alerta mensaje_alerta sombra-mensaje">
             <p class="titulo_mensaje_alerta">
                 Mensaje 1</p>
