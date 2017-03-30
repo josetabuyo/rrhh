@@ -394,7 +394,15 @@ var GraficoContratos = {
 
         columnas.push(new Columna("Asignacion", { generar: function (un_registro) { return un_registro.Asignacion } }));
         columnas.push(new Columna("Descripcion", { generar: function (un_registro) { return un_registro.Descripcion } }));
-        columnas.push(new Columna("Ultimo Mov.", { generar: function (un_registro) { return un_registro.UltMov} }));
+        //columnas.push(new Columna("Ultimo Mov.", { generar: function (un_registro) { return un_registro.UltMov } }));
+        columnas.push(new Columna("Ultimo Mov.", { generar: function (un_registro) {
+            var fecha_sin_hora = un_registro.UltMov.split("T");
+            var fecha = fecha_sin_hora[0].split("-");
+            return fecha[2] + "/" + fecha[1] + "/" + fecha[0];
+        }
+    }));
+
+
 //        columnas.push(new Columna("Apellido_Nombre", { generar: function (un_registro) { return (un_registro.Apellido + ", " + un_registro.Nombre) } }));
 //        columnas.push(new Columna('Detalle', {
 //            generar: function (un_registro) {
@@ -462,14 +470,32 @@ var GraficoContratos = {
 //                return div;
 //            }
 //        }));
-//        columnas.push(new Columna('Informe', {
-//            generar: function (un_registro) {
-//                var div = $('<div>');
-//                div.html(un_registro.Informe);
+        columnas.push(new Columna('Informe', 
+            {
+                generar: function (un_registro) 
+                {
+                    var div = $('<div>');
 
-//                return div;
-//            }
-//        }));
+                    var btn_accion = $('<a>');
+                    var img = $('<img>');
+                    img.attr('src', '../Imagenes/detalle.png');
+                    img.attr('width', '15px');
+                    img.attr('height', '15px');
+                    btn_accion.attr('style', 'display:inline-block; border-bottom: none;');
+                    btn_accion.append(img);
+                    btn_accion.click(function () {
+                        checks_activos = ["GraficoPorInforme"];
+                        //_this.FiltrarPersonasParaTablaDetalle(un_registro.Informe, tabla_detalle);
+                    });
+
+                    div.append(btn_accion);
+                    return div;
+                
+                //var div = $('<div>');
+                //div.html(un_registro.Informe);
+                //return div;
+                }
+            }));
 
         _this.GrillaResumen = new Grilla(columnas);
         _this.GrillaResumen.SetOnRowClickEventHandler(function (un_registro) { });
