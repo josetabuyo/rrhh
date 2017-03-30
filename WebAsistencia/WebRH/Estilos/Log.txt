@@ -47,3 +47,14 @@
    en System.Web.DefaultHttpHandler.BeginProcessRequest(HttpContext context, AsyncCallback callback, Object state)
    en System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
    en System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+29/03/2017 07:55:46 p.m. - ---------------------------------------------
+29/03/2017 07:55:46 p.m. - System.ArgumentException: Símbolo (token) no válido para la suplantación: no se puede duplicar.
+   en System.Security.Principal.WindowsIdentity.CreateFromToken(IntPtr userToken)
+   en System.Security.Principal.WindowsIdentity..ctor(SerializationInfo info)
+   en Microsoft.VisualStudio.WebHost.Server.GetProcessToken()
+   en Microsoft.VisualStudio.WebHost.Host.GetProcessToken()
+   en Microsoft.VisualStudio.WebHost.Request.GetUserToken()
+   en System.Web.Security.FileAuthorizationModule.IsUserAllowedToFile(HttpContext context, String fileName)
+   en System.Web.Security.FileAuthorizationModule.OnEnter(Object source, EventArgs eventArgs)
+   en System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   en System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
