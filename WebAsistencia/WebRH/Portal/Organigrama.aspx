@@ -43,7 +43,7 @@
                 <div style="margin-top: 20px;" id="search_box">
                     <input type="text" id="search" class="search" placeholder="Buscar" />
                     <a href="#" id="exportar">
-                        <img src="../Protocolo/excel_icon.png" /></a>
+                        <img id="descargar_a_excel_organigrama" src="../Protocolo/excel_icon.png" /></a>
                 </div>
                 <div id="ContenedorPlanilla" runat="server">
                 </div>
@@ -131,12 +131,14 @@
                     $('#ContenedorPlanilla').empty();
                     var admin = new AdministradorDeLugaresDeTrabajo();
                     $('#search_box').show();
+                    $('#descargar_a_excel_organigrama').show();
                 });
 
                 $('#btnAutoridades').click(function () {
                     $('#ContenedorPlanilla').empty();
                     var admin = new AdministradorDeAreas();
                     $('#search_box').show();
+                    $('#descargar_a_excel_organigrama').hide();
                 });
 
             });
