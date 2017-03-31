@@ -13,7 +13,7 @@ namespace General.Repositorios
 {
     public class Tarjeton
     {
-        public string id_Verificacion;
+        public string codigo_Web;
         public int id_Bien;
         public string codigo_Holograma;
         public Tarjeton() { }
@@ -28,13 +28,18 @@ namespace General.Repositorios
             this.conexion_bd = conexion;
         }
 
-        public Tarjeton BajaTarjetonVencido(string id_verificacion)
+       
+        public bool BajaTarjeton(string codigo_Web, int id_tipoevento)
         {
+           
+
             var parametros = new Dictionary<string, object>();
 
-            parametros.Add("@Id_Verificacion", id_verificacion);
+            parametros.Add("@Codigo_Web", codigo_Web);
 
-            var tablaDatos = this.conexion_bd.Ejecutar("dbo.MOBI_Baja_Tarjeton_vencido", parametros);
+            var tablaDatos = this.conexion_bd.Ejecutar("dbo.MOBI_Baja_Tarjeton", parametros);
+
+            return true;
         }
 
     
@@ -46,8 +51,6 @@ namespace General.Repositorios
                     'A','B','C','D','E','F','G','H','I','J','K','L','M','N', 
                     'O','P','Q','R','S','T','U','V','W','X','Y','Z'};
             string strAlfanumericos = "";
-
-
 
             bool todo_bien_vieja = true;
             while (todo_bien_vieja)
@@ -61,7 +64,7 @@ namespace General.Repositorios
 
                 var parametros = new Dictionary<string, object>();
 
-                parametros.Add("@Id_Verificacion", strAlfanumericos.ToUpper());
+                parametros.Add("@Codigo_Web", strAlfanumericos.ToUpper());
                 parametros.Add("@codigo_Holograma", codigo_Holograma);
                 parametros.Add("@Id_Bien", id_Bien);
 
@@ -70,7 +73,7 @@ namespace General.Repositorios
 
             var UnNuevoTarjeton = new Tarjeton();
             UnNuevoTarjeton.id_Bien = id_Bien;
-            UnNuevoTarjeton.id_Verificacion = strAlfanumericos.ToUpper();
+            UnNuevoTarjeton.codigo_Web = strAlfanumericos.ToUpper();
             UnNuevoTarjeton.codigo_Holograma = codigo_Holograma;
 
             return UnNuevoTarjeton;

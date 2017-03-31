@@ -45,9 +45,9 @@ $(function () {
 
 
         //------------DATOS DEL VEHICULO-----------------------
-        var idVerificador = localStorage.getItem("verificacion");
+        var codigo_Web = localStorage.getItem("verificacion");
 
-        Backend.ObtenerVehiculoPorIDVerificacion(idVerificador).onSuccess(function (respuesta_vehiculo) {
+        Backend.ObtenerVehiculoPorIDdeTarjeton(codigo_Web).onSuccess(function (respuesta_vehiculo) {
 
             if (respuesta_vehiculo.Respuesta == 0) {
                 return;

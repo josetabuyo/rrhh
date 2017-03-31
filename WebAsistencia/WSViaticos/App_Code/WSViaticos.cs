@@ -3998,17 +3998,24 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public RespuestaVehiculo ObtenerVehiculoPorIDVerificacion(string id_verificacion)
+    public bool BajaTarjeton(string codigo_Web, int id_tipoevento)
+    {
+        var repo = new RepositorioTarjetones(Conexion());
+        return true;
+    }
+
+    [WebMethod]
+    public RespuestaVehiculo ObtenerVehiculoPorIDdeTarjeton(string codigo_Web)
     {
         var repo = new RepositorioDeVehiculos(Conexion());
         var una_respuesta = new RespuestaVehiculo();
         una_respuesta.Respuesta = 1;
-        if (String.IsNullOrEmpty(id_verificacion))
+        if (String.IsNullOrEmpty(codigo_Web))
         {
             una_respuesta.Respuesta = 0;
             return una_respuesta;
         }
-        una_respuesta.vehiculo = repo.ObtenerVehiculoPorIDVerificacion(id_verificacion);
+        una_respuesta.vehiculo = repo.ObtenerVehiculoPorIDdeTarjeton(codigo_Web);
         if (string.IsNullOrEmpty(una_respuesta.vehiculo.Dominio))
         {
             una_respuesta.Respuesta = 0;

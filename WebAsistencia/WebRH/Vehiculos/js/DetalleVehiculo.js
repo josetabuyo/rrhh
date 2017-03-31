@@ -2,7 +2,7 @@
     Backend.start(function () {
         var param = document.URL.split('?')[1];
 
-        Backend.ObtenerVehiculoPorIDVerificacion(param).onSuccess(function (respuesta_vehiculo) {
+        Backend.ObtenerVehiculoPorIDdeTarjeton(param).onSuccess(function (respuesta_vehiculo) {
             $("#volver").addClass("animated slideInLeft");
             $("#boton-imagenes").addClass("animated slideInLeft");       
 

@@ -58,20 +58,20 @@ namespace General.Repositorios
             return unVehiculo;
         }
 
-        public Vehiculo ObtenerVehiculoPorIDVerificacion(string id_verificacion)
+        public Vehiculo ObtenerVehiculoPorIDdeTarjeton(string codigo_Web)
         {
-            if (id_verificacion == null)
+            if (codigo_Web == null)
             {
-                id_verificacion = "1";
+                codigo_Web = "1";
             }
             var parametros = new Dictionary<string, object>();
 
+             
+            parametros.Add("@Id_Tarjeton", codigo_Web);
 
-            parametros.Add("@Id_Verificacion", id_verificacion);
 
 
-
-            var tablaDatos = this.conexion_bd.Ejecutar("dbo.MOBI_GetVehiculosPorIdTarjeton2", parametros);
+            var tablaDatos = this.conexion_bd.Ejecutar("dbo.MOBI_GetVehiculosPorIdTarjeton", parametros);
 
             var unVehiculo = new Vehiculo();
 
