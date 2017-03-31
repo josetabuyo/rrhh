@@ -85,8 +85,27 @@ VistaDePermisosDeUnUsuario.prototype.setUsuario = function (un_usuario) {
             spinner.stop();
         },
         function (error) { //on error
-            alertify.alert("", 'error');
+            alertify.alert("error al cargar funcionalidades del usuario", 'error');
             spinner.stop();
         }
     );
+    this.repositorioDeFuncionalidades.todasLasFuncionalidades(
+        function (funcionalidades) { //on success
+            _.forEach(funcionalidades, function(f){
+                var nodo = _this.arbol.getNodeByKey(funcionalidades[i].Id.toString());
+                if (f.SoloParaVerificados && !un_usuario.Verificado) {
+                    nodo.deactivate();
+                    return; 
+                }
+            if (f.SoloParaEmpleados && !un_usuario.Owner.Legajo) {
+                    nodo.deactivate();
+                    return; 
+                }  
+                nodo.activate();            
+            });
+        },
+        function (error) { //on error
+            alertify.alert("error al cargar funcionalidades", 'error');
+            spinner.stop();
+        })
 };

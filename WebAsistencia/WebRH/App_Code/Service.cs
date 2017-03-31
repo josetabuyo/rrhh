@@ -366,7 +366,7 @@ public class AjaxWS : System.Web.Services.WebService
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public string CambiarPassword(string pass_actual, string pass_nueva)
     {
-        return backEndService.CambiarPassword(this.usuarioLogueado, pass_actual, pass_nueva);
+        return backEndService.CambiarPassword( pass_actual, pass_nueva, this.usuarioLogueado);
 
     }
 

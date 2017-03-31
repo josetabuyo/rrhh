@@ -52,18 +52,33 @@ namespace General.MAU
 
         public bool ElUsuarioTienePermisosPara(Usuario usuario, Funcionalidad funcionalidad)
         {
-            return this.repositorio_funcionalidades_usuarios.FuncionalidadesPara(usuario).Exists(f => f.Equals(funcionalidad));
+            return this.repositorio_funcionalidades_usuarios.FuncionalidadesPara(usuario).Exists(f => {
+                if (f.SoloParaEmpleados && usuario.Owner.Legajo == null) return false;
+                if (f.SoloParaVerificados && !usuario.Verificado) return false;
+                return f.Equals(funcionalidad);
+            });
         }
 
         public bool ElUsuarioTienePermisosPara(Usuario usuario, string nombre_funcionalidad)
         {
-            return this.repositorio_funcionalidades_usuarios.FuncionalidadesPara(usuario).Exists(f => f.Nombre == nombre_funcionalidad);
+            return this.repositorio_funcionalidades_usuarios.FuncionalidadesPara(usuario).Exists(f =>
+            {
+                if (f.SoloParaEmpleados && usuario.Owner.Legajo == null) return false;
+                if (f.SoloParaVerificados && !usuario.Verificado) return false;
+                return f.Nombre == nombre_funcionalidad;
+            });
         }
 
 
         public bool ElUsuarioTienePermisosPara(int id_usuario, int id_funcionalidad)
         {
-            return this.repositorio_funcionalidades_usuarios.FuncionalidadesPara(id_usuario).Exists(f => f.Id==id_funcionalidad);
+            var usuario = repositorio_usuarios.GetUsuarioPorId(id_usuario);
+            return this.repositorio_funcionalidades_usuarios.FuncionalidadesPara(id_usuario).Exists(f =>
+            {
+                if (f.SoloParaEmpleados && usuario.Owner.Legajo == null) return false;
+                if (f.SoloParaVerificados && !usuario.Verificado) return false;
+                return f.Id == id_funcionalidad;
+            });
         }
 
 
@@ -133,10 +148,13 @@ namespace General.MAU
 
         public Boolean ElUsuarioPuedeAccederALaURL(Usuario usuario, string url)
         {
-            //return true;
             var funcionalidades_que_permiten_acceder_a_la_url = this.repositorio_accesos_a_url.TodosLosAccesos().FindAll(a => a.Url.ToUpper() == url.ToUpper()).Select(a => a.Funcionalidad);
             if (funcionalidades_que_permiten_acceder_a_la_url.Count() == 0) return true;
-            return this.repositorio_funcionalidades_usuarios.FuncionalidadesPara(usuario).Any(f => funcionalidades_que_permiten_acceder_a_la_url.Contains(f));
+            return this.repositorio_funcionalidades_usuarios.FuncionalidadesPara(usuario).Any(f => {
+                if (f.SoloParaEmpleados && usuario.Owner.Legajo == null) return false;
+                if (f.SoloParaVerificados && !usuario.Verificado) return false;
+                return funcionalidades_que_permiten_acceder_a_la_url.Contains(f);
+            });
         }
 
         public void AsignarAreaAUnUsuario(int id_usuario, int id_area)
@@ -242,9 +260,7 @@ namespace General.MAU
             parametros.Add("@id_usuario_verificador", usuario.Id);
             this.conexion.EjecutarSinResultado("MAU_Verificar_usuario", parametros);
 
-            //le doy permiso para acceder al portal
-            this.repositorio_funcionalidades_usuarios.ConcederFuncionalidadA(id_usuario, 51); //Postular
-
+            this.repositorio_funcionalidades_usuarios.ConcederBasicas(repositorio_usuarios.GetUsuarioPorId(id_usuario));
             return true;
         }
     }

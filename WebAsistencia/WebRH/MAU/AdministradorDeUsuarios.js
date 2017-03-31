@@ -118,6 +118,8 @@
                 $("#usuario_no_verificado").hide();
                 $("#usuario_verificado").show();
                 $("#btn_verificar_usuario").hide();
+                if (_this.vista_permisos)
+                    _this.vista_permisos.setUsuario(_this.usuario);
             }
         });
     });
@@ -150,7 +152,7 @@
             urlObj[x[0]] = decodeURIComponent(x[1])
         }
         return urlObj;
-    } 
+    }
 };
 
 AdministradorDeUsuarios.prototype.cargarUsuario = function (usuario) {

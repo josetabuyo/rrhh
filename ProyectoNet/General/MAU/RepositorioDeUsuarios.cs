@@ -103,11 +103,10 @@ namespace General.MAU
 
             var repo_funcionalidades_usuarios = RepositorioDeFuncionalidadesDeUsuarios.NuevoRepositorioDeFuncionalidadesDeUsuarios(this.conexion, RepositorioDeFuncionalidades.NuevoRepositorioDeFuncionalidades(this.conexion));
 
-            //Permisos básicos
-            repo_funcionalidades_usuarios.ConcederFuncionalidadA(id_usuario, 3); //Menu principal
-            repo_funcionalidades_usuarios.ConcederFuncionalidadA(id_usuario, 13); //Postular
+            var usuario = new Usuario(id_usuario, alias, clave_encriptada, persona, true);
+            repo_funcionalidades_usuarios.ConcederBasicas(usuario);
 
-            return new Usuario(id_usuario, alias, clave_encriptada, persona, true);
+            return usuario;
         }
 
         public void AsociarUsuarioConMail(Usuario usuario, string mail) {
@@ -255,12 +254,24 @@ namespace General.MAU
                 {
                     un_usuario = GetUsuarioDeRow(row);
                     usuarios.Add(un_usuario);
-                    un_usuario.AgregarFuncionalidad(new Funcionalidad(row.GetInt("idFuncionalidad",0), row.GetString("NombreFuncionalidad",""), ""));
+                    un_usuario.AgregarFuncionalidad(new Funcionalidad(
+                        row.GetInt("idFuncionalidad", 0), 
+                        row.GetString("NombreFuncionalidad", ""), 
+                        row.GetString("GrupoFuncionalidad", ""), 
+                        row.GetBoolean("FuncSoloParaVerificados", false),
+                        row.GetBoolean("FuncSoloParaEmpleados", false),
+                        row.GetBoolean("FuncBasica", false)));
                     idUsuario_original = row.GetInt("Id_Persona");
                 }
                 else
                 {
-                    un_usuario.AgregarFuncionalidad(new Funcionalidad(row.GetInt("idFuncionalidad",0), row.GetString("NombreFuncionalidad",""),""));
+                    un_usuario.AgregarFuncionalidad(new Funcionalidad(
+                        row.GetInt("idFuncionalidad", 0),
+                        row.GetString("NombreFuncionalidad", ""),
+                        row.GetString("GrupoFuncionalidad", ""),
+                        row.GetBoolean("FuncSoloParaVerificados", false),
+                        row.GetBoolean("FuncSoloParaEmpleados", false),
+                        row.GetBoolean("FuncBasica", false)));
                 }
             });
 

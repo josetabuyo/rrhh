@@ -13,5 +13,6 @@ namespace General.MAU
         void ConcederFuncionalidadA(int id_usuario, int id_funcionalidad);
         void DenegarFuncionalidadA(int id_usuario, int id_funcionalidad);
         void Refresh();
+        void ConcederBasicas(Usuario usuario);
     }
 }
