@@ -74,15 +74,38 @@ VistaDePermisosDeUnUsuario.prototype.setUsuario = function (un_usuario) {
     }, true);
     this.usuario = un_usuario;
     var _this = this;
+    var spinner = new Spinner({ scale: 3 });
+    spinner.spin(this.ui[0]);
     this.repositorioDeFuncionalidades.funcionalidadesPara(un_usuario,
         function (funcionalidades) { //on success
             for (var i = 0; i < funcionalidades.length; i++) {
                 var nodo = _this.arbol.getNodeByKey(funcionalidades[i].Id.toString());
                 nodo.select(true);
             }
+            spinner.stop();
         },
         function (error) { //on error
-            alertify.alert("", 'error');
+            alertify.alert("error al cargar funcionalidades del usuario", 'error');
+            spinner.stop();
         }
     );
+    this.repositorioDeFuncionalidades.todasLasFuncionalidades(
+        function (funcionalidades) { //on success
+            _.forEach(funcionalidades, function(f){
+                var nodo = _this.arbol.getNodeByKey(funcionalidades[i].Id.toString());
+                if (f.SoloParaVerificados && !un_usuario.Verificado) {
+                    nodo.deactivate();
+                    return; 
+                }
+            if (f.SoloParaEmpleados && !un_usuario.Owner.Legajo) {
+                    nodo.deactivate();
+                    return; 
+                }  
+                nodo.activate();            
+            });
+        },
+        function (error) { //on error
+            alertify.alert("error al cargar funcionalidades", 'error');
+            spinner.stop();
+        })
 };

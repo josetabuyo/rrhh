@@ -2665,7 +2665,7 @@ public class WSViaticos : System.Web.Services.WebService
 
 
     [WebMethod]
-    public string CambiarPassword(Usuario usuario, string PasswordActual, string PasswordNuevo)
+    public string CambiarPassword( string PasswordActual, string PasswordNuevo, Usuario usuario)
     {
         var repoUsuarios = RepositorioDeUsuarios();
 

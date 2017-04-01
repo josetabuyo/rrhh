@@ -36,10 +36,10 @@
                 </div>
 
                 <div style="margin-top: 20px;" id="search_box">
-                    <input type="text" id="search" class="search" placeholder="Buscar"/>     
+                    <input type="text" id="search" style="height:35px;" class="search" placeholder="Buscar"/>     
                     <a href="#" id="exportar"><img src="../Protocolo/excel_icon.png"/></a>      
                 </div>    
-                <div id="ContenedorPlanilla" runat="server">
+                <div id="ContenedorPlanilla" style="font-size: smaller;" runat="server">
  
                 </div>
                 <asp:HiddenField ID="texto_mensaje_exito" runat="server" />

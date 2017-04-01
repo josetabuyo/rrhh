@@ -35,19 +35,19 @@
             <p style="margin: 25px; font-size: 2.1em; color: #fff;">
                 Menú</p>
             <input id="btn_consultas_pendientes" type="button" class="btn_gestion_consulta" style="margin: 10px;
-                width: 150px; font-size: smaller;" value="CONSULTAS PENDIENTES" />
+                width: 170px; font-size: smaller;color:#000" value="CONSULTAS PENDIENTES" />
             <input id="btn_consultas_historicas" type="button" class="btn_gestion_consulta" style="margin: 10px;
-                width: 150px; font-size: smaller;" value="CONSULTAS HISTORICAS" />
+                width: 170px; font-size: smaller;color:#000" value="CONSULTAS HISTORICAS" />
             <input id="btn_notificaciones_creacion" type="button" class="btn_gestion_consulta"
-                style="margin: 10px; width: 150px; font-size: smaller;" value="CREAR NOTIFICACIONES" />
+                style="margin: 10px; width: 170px; font-size: smaller;color:#000" value="CREAR NOTIFICACIONES" />
             <input id="btn_notificaciones_historicas" type="button" class="btn_gestion_consulta"
-                style="margin: 10px; width: 150px; font-size: smaller;" value="NOTIFICACIONES ENVIADAS" />
+                style="margin: 10px; width: 170px; font-size: smaller;color:#000" value="NOTIFICACIONES ENVIADAS" />
             <%-- <input id="Button3" type="button" class="btn_gestion_consulta" style="margin: 10px; width: 150px; font-size: smaller;"
                 value="PARAMETRIA" />
             <input id="Button4" type="button" class="btn_gestion_consulta" style="margin: 10px; width: 150px; font-size: smaller;"
                 value="REPORTES" />--%>
             <input id="Button1" type="button" onclick="javascript:location.href='Consultas.aspx'"
-                class="btn_gestion_consulta" style="margin: 10px; width: 150px; font-size: smaller;"
+                class="btn_gestion_consulta" style="margin: 10px; width: 170px; font-size: smaller;color:#000"
                 value="PORTAL" />
         </div>
         <div class="caja_der papel">
