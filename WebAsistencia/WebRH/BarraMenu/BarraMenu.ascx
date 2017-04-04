@@ -82,9 +82,9 @@
         </div>
         <!--mensajes-->
         <div id="contenedor_imagen_mensajes">
-            <div id="notificacion_punto_verde">
+            <%--<div id="notificacion_punto_verde">
                 <img id="check" src="../Imagenes/BarraMenu/check.png"></img>
-            </div>
+            </div>--%>
             <div id="notificacion_punto_rojo">
             </div>
             <img src="<%= UrlImagenes %>mensajes-icono.png" id="menu_mensajes" alt="fotousuariomenu" />

@@ -128,17 +128,33 @@
                 });
 
                 $('#btnLugares').click(function () {
+                    var spinner = new Spinner({ scale: 2 });
+                    spinner.spin($("html")[0]);
+
                     $('#ContenedorPlanilla').empty();
                     var admin = new AdministradorDeLugaresDeTrabajo();
                     $('#search_box').show();
                     $('#descargar_a_excel_organigrama').show();
+
+                    spinner.stop();
                 });
 
                 $('#btnAutoridades').click(function () {
+                    var spinner = new Spinner({ scale: 2 });
+                    spinner.spin($("html")[0]);
+
                     $('#ContenedorPlanilla').empty();
                     var admin = new AdministradorDeAreas();
                     $('#search_box').show();
                     $('#descargar_a_excel_organigrama').hide();
+
+                    spinner.stop();
+                });
+
+                $("#search").keypress(function (e) {
+                    if (e.which == 13) {
+                        e.preventDefault();
+                    }
                 });
 
             });
