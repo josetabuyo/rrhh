@@ -219,7 +219,7 @@
 
                , function () {
 
-               });
+               }).set('labels', {ok:'Aceptar', cancel:'Cancelar'});
 
             });
 
