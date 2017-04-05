@@ -21,7 +21,7 @@
             <div class="caja_der papel">
                 <legend style="margin-top: 20px;">AGENTES EVALUABLES</legend>
                 <div id="contenedorTabla">
-                    <input type="text" id="Text1" class="search" class="buscador" placeholder="Buscar por DNI, Nombre o Apellido" />
+                    <input type="text" id="Text1" class="search buscador" style="height: 35px;" placeholder="Buscar por DNI, Nombre o Apellido" />
                     <label style="margin-left:20px;">  ó por ESTADO</label>
                     <select id="id_estado" style="margin-left: 10px; width: 170px;">
                         <option value="0">Todos</option>

@@ -19,8 +19,8 @@
             <div id="ContenedorPrincipal" class="contenedor_principal contenedor_principal_consulta_protocolo">            
                 <legend>
                     Listado de Lugares de Trabajo del Ministerio de Desarrollo Social de Nación  
-                    <div id=search_box>
-                        <input type="text" id="search" class="search" placeholder="Buscar"/>     
+                    <div id="search_box" style="margin-top: 50px;">
+                        <input type="text" id="search" style="height:35px;" class="search" placeholder="Buscar"/>     
                         <a href="#" id="exportar"><img src="excel_icon.png"/></a>      
                     </div>     
                 </legend>  
