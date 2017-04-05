@@ -119,9 +119,9 @@
     <div id="encabezado">
         <div id="izq" style="width:60%; float:left; position: absolute;">
             <div id="foto_usuario" class="foto_usuario" class="bloque_foto" > </div>
-            <img id="foto_usuario_generica" class="foto_usuario" src="../Imagenes/silueta.gif" style="margin-top: 25px;"/>
-            <p style="margin: 10px; margin-left: 150px; margin-top:50px;">Nivel:<span id="nivel">1. GERENCIAL</span> </p>
-            <p style="margin: 10px; margin-left: 150px;"><span id="nombre_evaluado">Fernando</span></p>
+           <%-- <img id="img_estatica" class="foto_usuario" src="../Imagenes/silueta.gif" style="margin-top: 25px;"/>--%>
+            <p style="margin: 10px; margin-left: 150px; margin-top:50px;">Nivel:<span id="nivel"></span> </p>
+            <p style="margin: 10px; margin-left: 150px;"><span id="nombre_evaluado"></span></p>
         </div>
         <div id="der" class="" style="width:30%; float:right; border:1px solid; text-align:center; margin: 30px;">
             <h1>Puntaje</h1>
