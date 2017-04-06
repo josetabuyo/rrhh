@@ -64,6 +64,8 @@
                <%--<div class="separador">
                 </div>--%>
             </div>
+            <div id="mensaje_vehiculo"></div>
+            <div id="mensaje_tarjeton"></div>
             <table id="datos-vehiculo" class="tabla-principal">
                 <tr>
                     <td colspan="2" class="celda">
