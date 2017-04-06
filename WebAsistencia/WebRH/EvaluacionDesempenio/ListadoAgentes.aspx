@@ -21,9 +21,10 @@
             <div class="caja_der papel">
                 <legend style="margin-top: 20px;">AGENTES EVALUABLES</legend>
                 <div id="contenedorTabla">
-                    <input type="text" id="Text1" class="search buscador" style="height: 35px;" placeholder="Buscar por DNI, Nombre o Apellido" />
+                    <label for="Text1">Filtrar planilla por: </label>
+                    <input type="text" id="Text1" class="search buscador" style="height: 35px;" disabled placeholder="DNI, Nombre o Apellido" />
                     <label style="margin-left:20px;">  ó por ESTADO</label>
-                    <select id="id_estado" style="margin-left: 10px; width: 170px;">
+                    <select id="id_estado" style="margin-left: 10px; width: 170px;" disabled>
                         <option value="0">Todos</option>
                         <option value="1">Evaluacion Incompleta</option>
                         <option value="2">A Evaluar</option>

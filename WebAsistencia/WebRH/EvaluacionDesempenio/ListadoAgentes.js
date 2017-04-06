@@ -22,6 +22,18 @@ var ListadoAgentes = {
             todas_las_evaluaciones = agentes;
             _this.DibujarTabla(agentes);
 
+            // Habilita filtros si hay uno o más agentes
+            if (agentes.length) { // 0 == false
+                var $barraBuscador = $("#Text1");
+                $barraBuscador.attr("disabled", false);
+                $("#id_estado").attr("disabled", false);
+
+                $barraBuscador.keypress(function (e) {
+                    if (e.which == 13) {
+                        e.preventDefault();
+                    }
+                });
+            }
         })
         .onError(function (e) {
             spinner.stop();
