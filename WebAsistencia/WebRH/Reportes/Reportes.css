@@ -32,12 +32,19 @@
     -webkit-border-radius: 10px;
 }
 
-#foto_usuario {
-    display: inline-block;
-    vertical-align: top;
-    margin-top: 20px;
-    display: block;
+.foto_usuario {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    height: 128px;
+    width: 128px;
+    margin-left: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 142px;
 }
+    
 
 .bloque_foto 
 {
@@ -319,16 +326,5 @@
 	color: #99a1a7 important!;
 }
 
-.foto_usuario {
-    position: absolute important!;
-    top: 0px important!;
-    bottom: 0px important!;
-    left: 0px important!;
-    height: 128px important!;
-    width: 128px important!;
-    margin-left: 10px important!;
-    border-radius: 10px important!;
-    overflow: hidden important!;
-}
-    
+
 

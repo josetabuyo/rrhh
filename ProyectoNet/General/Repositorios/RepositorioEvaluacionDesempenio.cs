@@ -157,6 +157,7 @@ namespace General.Repositorios
                         id_evaluacion_anterior = row.GetSmallintAsInt("id_evaluacion", 0);
                         var id_evaluado = row.GetSmallintAsInt("id_evaluado", 0);
                         evaluador = newEvaluadoFromRow(row, detalle_preguntas, id_evaluado);
+                        tipos_consultas.Add(evaluador);
                     }
 
                     if (row.GetSmallintAsInt("id_evaluacion", 0) != id_evaluacion_anterior || id_evaluacion_anterior == 0)
