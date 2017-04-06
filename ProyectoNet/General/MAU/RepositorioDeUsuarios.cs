@@ -157,7 +157,7 @@ namespace General.MAU
             var usuario = this.GetUsuarioPorId(id_usuario);
             var titulo = "Bienvenido al SIGIRH";
             var cuerpo = "Nombre de Usuario: " + usuario.Alias + Environment.NewLine + "Contraseña: " + clave_nueva;
-            EnviadorDeMails.EnviarMail(usuario.MailRegistro, titulo, cuerpo);
+           // EnviadorDeMails.EnviarMail(usuario.MailRegistro, titulo, cuerpo);
             return clave_nueva;
         }
 
