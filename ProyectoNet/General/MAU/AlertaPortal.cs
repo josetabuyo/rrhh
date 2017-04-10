@@ -9,5 +9,9 @@ namespace General.MAU
     {
         public int Id { get; set; }
         public TipoAlertaPortal Tipo { get; set; }
+
+        public string Titulo { get; set; }
+
+        public string Descripcion { get; set; }
     }
 }
