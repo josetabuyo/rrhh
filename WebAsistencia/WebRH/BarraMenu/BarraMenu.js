@@ -3,6 +3,7 @@
         var boton_usuario = new BotonDesplegable("contenedor_imagen_usuario", "contenedor_menu_usuarios");
         var boton_aplicaciones = new BotonDesplegable("menu_cuadrados", "contenedor_menu_cuadrados");
         var boton_mensajes = new BotonDesplegable("menu_mensajes", "contenedor_menu_mensajes");
+        var boton_tareas = new BotonDesplegable("menu_tareas", "contenedor_menu_tareas");
 
         $('#boton_home').click(function () {
             Backend.ElUsuarioLogueadoTienePermisosPara(51).onSuccess(function (tiene_permisos) {   
@@ -11,50 +12,41 @@
             });
         });
 
+//        var cargar_alertas = function () {
+//            $("#contenedor_alertas").empty()
+//            Backend.GetConsultasDePortalNoLeidas().onSuccess(function (consultasJSON) {
+//                var consultas = JSON.parse(consultasJSON);
+//                _.forEach(consultas, function (consulta) {
+//                    var ui_consulta = $("#plantillas_barra_menu .ui_mensaje_alerta").clone();
+//                    ui_consulta.find(".titulo_mensaje_alerta").text("Título: " + consulta.tipo_consulta + " - Estado: " + consulta.estado);
+//                    ui_consulta.find(".contenido_mensaje_alerta").text(consulta.resumen);
+//                    $("#contenedor_alertas").append(ui_consulta);
+
+//                    ui_consulta.click(function () {
+//                        window.location.href = "../Portal/Consultas.aspx";
+//                    });
+//                });
+//            });  
+//        };
+
         var cargar_alertas = function () {
-            $(".contenedor_de_alertas_y_mensajes").empty()
-            Backend.GetConsultasDePortalNoLeidas().onSuccess(function (consultasJSON) {
-                var consultas = JSON.parse(consultasJSON);
-                _.forEach(consultas, function (consulta) {
+            $("#contenedor_alertas").empty()
+            Backend.GetAlertas().onSuccess(function (alertas) {                
+                _.forEach(alertas, function (alerta) {
                     var ui_consulta = $("#plantillas_barra_menu .ui_mensaje_alerta").clone();
-                    ui_consulta.find(".titulo_mensaje_alerta").text("Título: " + consulta.tipo_consulta + " - Estado: " + consulta.estado);
-                    ui_consulta.find(".contenido_mensaje_alerta").text(consulta.resumen);
-                    $(".contenedor_de_alertas_y_mensajes").append(ui_consulta);
+                    ui_consulta.find(".titulo_mensaje_alerta").text("Título: " + alerta.Titulo);
+                    ui_consulta.find(".contenido_mensaje_alerta").text(alerta.Descripcion);
+                    $("#contenedor_alertas").append(ui_consulta);
 
                     ui_consulta.click(function () {
                         window.location.href = "../Portal/Consultas.aspx";
-
-//                        boton_mensajes.contraer();
-//                        vex.defaultOptions.className = 'vex-theme-os';
-//                        vex.open({
-//                            afterOpen: function ($vexContent) {
-//                                var ui = $("#contenedor_chat_mensajes");
-//                                $vexContent.append(ui);
-//                                $('contenedor_de_alertas_y_mensajes').hide();
-//                            }, 
-//                            contentCSS: {
-//                                width: "70%",
-//                                height: "80%"
-//                            }
-
-//                        });
                     });
                 });
+            });  
+        };
 
-                //var resultado = $.grep(consultas, function (consulta) { return consulta.leida; });
-                $('#notificacion_punto_rojo').text(consultas.length);
-                if (consultas.length == 0) {
-                    $('#notificacion_punto_rojo').hide();
-                    $('#notificacion_punto_verde').show();
-                    
-                } else {
-                    $('#notificacion_punto_rojo').show();
-                    $('#notificacion_punto_verde').hide();
-                }
-
-            });
-
-            
+        var cargar_tareas = function () {
+            $("#contenedor_tareas").empty()
             Backend.ElUsuarioLogueadoTienePermisosPara(50).onSuccess(function (tiene_permisos) {
                 if (tiene_permisos) {
                     Backend.GetSolicitudesDeCambioDeImagenPendientes().onSuccess(function (solicitudes) {
@@ -70,7 +62,7 @@
                         
                                 }));
                             });
-                            $(".contenedor_de_alertas_y_mensajes").append(ui_consulta);
+                            $("#contenedor_tareas").append(ui_consulta);
                         });
                     });
                 }
@@ -79,6 +71,7 @@
         };
 
         cargar_alertas();
+        cargar_tareas();
         //setInterval(cargar_alertas, 20000);
 
         Backend.GetMenuPara('PRINCIPAL').onSuccess(function (modulos) {

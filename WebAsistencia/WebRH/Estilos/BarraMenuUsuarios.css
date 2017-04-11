@@ -257,6 +257,37 @@
     background-size: 100%;
 }
 
+#contenedor_imagen_tareas {
+    height: 48px;
+    width: 50px;
+    position: absolute;
+    right: 200px;
+    top: -3px;
+    cursor: pointer;
+    background-size: 100%;
+}
+
+#menu_tareas
+{
+    position: absolute;
+    left: 0px;
+    height: 100%;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    cursor: pointer; /* background-size: 100%; */
+}
+
+#contenedor_menu_tareas
+{
+    right: 200px;
+    width: 35%;
+    height: auto;
+    z-index: 9999;
+    border-radius: 4%;
+}
+
+
 #boton_home
 {
     cursor: pointer;

@@ -91,7 +91,17 @@
         <div id="contenedor_menu_mensajes" class="menu_usuario sombrita-iconos" style="display: none;">
             <div class="flechita">
             </div>
-            <div class="contenedor_de_alertas_y_mensajes">
+            <div id="contenedor_alertas" class="contenedor_de_alertas_y_mensajes">
+            </div>
+        </div>
+
+         <div id="contenedor_imagen_tareas">
+            <img src="<%= UrlImagenes %>tareas-icono.png" id="menu_tareas" alt="fotousuariomenu" />
+        </div>
+        <div id="contenedor_menu_tareas" class="menu_usuario sombrita-iconos" style="display: none;">
+            <div class="flechita">
+            </div>
+            <div id="contenedor_tareas" class="contenedor_de_alertas_y_mensajes">
             </div>
         </div>
     </div>
