@@ -215,6 +215,7 @@ var ListadoAgentes = {
             localStorage.setItem("regular", un_agente.regular);
             localStorage.setItem("bueno", un_agente.bueno);
             localStorage.setItem("destacado", un_agente.destacado);
+            localStorage.setItem("documento", un_agente.nro_documento);
             /*si nunca fue evaluado, no sabemos que nivel tiene, 
             hay que pedir al usuario que lo ingrese*/
             if (un_agente.id_nivel == "0") {
@@ -394,6 +395,7 @@ var ListadoAgentes = {
 
 
             var idPersona = localStorage.getItem("idEvaluado");
+            var documento = localStorage.getItem("documento");
             _this.habilitarBotonGuardarDefinitivo();
 
             Backend.GetUsuarioPorIdPersona(idPersona)
@@ -408,9 +410,30 @@ var ListadoAgentes = {
                                 $("#foto_usuario").hide();
                                 $("#foto_usuario_generica").show();
                             }
+
                         } else {
                             $("#foto_usuario").hide();
                             $("#foto_usuario_generica").show();
+                        }
+                    });
+
+                    Backend.GetConsultaRapida(documento).onSuccess(function (datos) {
+                        var data = $.parseJSON(datos);
+                        if (!$.isEmptyObject(data)) {
+
+                            if (data.FechaBaja != "") {
+                                $('#baja').html("BAJA a partir del " + data.FechaBaja);
+                            } else {
+                                $('#baja').html("Activo");
+                            }
+
+
+                            if (data.CargoGremial != "") {
+                                $('#cargo_gremial').html(data.CargoGremial);
+                                $('#cargo_gremial').parent().show();
+                            } else {
+                                $('#cargo_gremial').parent().hide();
+                            }
                         }
                     });
 

@@ -151,6 +151,7 @@ namespace General.Repositorios
                 tablaDatos.Rows.ForEach(row =>
                 {
 
+
                     if (primer_row == true)
                     {
                         primer_row = false;
@@ -173,9 +174,12 @@ namespace General.Repositorios
                     else
                     {
                         AddDetallePreguntasA(detalle_preguntas, row);
+
                     }
+
                 });
             }
+            tipos_consultas.Add(evaluador);
 
             return JsonConvert.SerializeObject(tipos_consultas);
         }
