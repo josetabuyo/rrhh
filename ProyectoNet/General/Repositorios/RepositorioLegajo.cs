@@ -35,8 +35,8 @@ namespace General.Repositorios
             {
                 tablaDatos.Rows.ForEach(row =>
                 {
-                    int idUniversidad = traerMasDatosDelEstudio(row.GetInt("id"));
-                    string nombre_universidad = traerNombre(idUniversidad);
+                    Dictionary<string, int> dicUniInst = traerMasDatosDelEstudio(row.GetInt("id"));
+                    string nombre_universidad = traerNombre(dicUniInst);
 
                     lista_estudios.Add(new Estudio
                     {
@@ -55,39 +55,47 @@ namespace General.Repositorios
 
         }
 
-        private int traerMasDatosDelEstudio(int idEstudio)
+        private Dictionary<string,int> traerMasDatosDelEstudio(int idEstudio)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@IdEstudio", idEstudio);
             parametros.Add("@Tipo", 1);
             var tablaDatos = conexion.Ejecutar("dbo.LEG_GET_Estudio_Realizado_ID", parametros);
-            int idUniversidad = 0;
+            Dictionary<string, int> univNivel = new Dictionary<string, int>();
+            
 
             if (tablaDatos.Rows.Count > 0)
             {
                 tablaDatos.Rows.ForEach(row =>
                 {
-                    idUniversidad = row.GetSmallintAsInt("Id_Universidad", 0);
+                    univNivel.Add("Nivel",row.GetSmallintAsInt("Id_Nivel"));
+                    univNivel.Add("IdInstitucion",row.GetSmallintAsInt("Id_Institucion"));
+                    univNivel.Add("IdUniversidad",row.GetSmallintAsInt("Id_Universidad"));
 
                 });
 
             }
 
-            return idUniversidad;
+            return univNivel;
         }
 
-        private string traerNombre(int idUniversidad)
+        private string traerNombre(Dictionary<string, int> dicUniIns)
         {
-            string nombreUniversidad = "Sin datos";
+            string nombre = "Sin datos";
+
+
+            if (dicUniIns["Nivel"] == 5)
+            {
+
             var tablaDatos = conexion.Ejecutar("dbo.LEG_GET_Universidades");
 
             if (tablaDatos.Rows.Count > 0)
             {
                 tablaDatos.Rows.ForEach(row =>
                 {
-                    if (idUniversidad == row.GetSmallintAsInt("id", 0))
+                    if (dicUniIns["IdUniversidad"] == row.GetSmallintAsInt("id", 0))
                     {
-                        nombreUniversidad = row.GetString("Universidad", "Sin datos");
+                        nombre = row.GetString("Universidad", "Sin datos");
                     }
 
 
@@ -95,9 +103,28 @@ namespace General.Repositorios
 
             }
 
-            return nombreUniversidad;
-        }
+             } else {
+                 var parametros = new Dictionary<string, object>();
+                 parametros.Add("@Nivel", dicUniIns["Nivel"]);
+                 var tablaDatos = conexion.Ejecutar("dbo.LEG_GET_Instituciones_X_Nivel", parametros);
 
+                 if (tablaDatos.Rows.Count > 0)
+                 {
+                     tablaDatos.Rows.ForEach(row =>
+                     {
+                         if (dicUniIns["IdInstitucion"] == row.GetSmallintAsInt("id", 0))
+                         {
+                             nombre = row.GetString("Nombre", "Sin datos");
+                         }
+
+
+                     });
+
+                 }
+            }
+
+            return nombre;
+        }
 
         public string getFamiliares(int doc)
         {
