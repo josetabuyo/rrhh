@@ -18,6 +18,34 @@ namespace General.Repositorios
 
         }
 
+        public string getAreaDeLaPersona(int documento)
+        {
+            var area = new Area();
+            var datos_adicionales = new List<Area>();
+            var parametros = new Dictionary<string, object>();
+
+            parametros.Add("@Documento", documento);
+            var tablaDatos = conexion.Ejecutar("dbo.LEG_GetAreaDeLaPersona", parametros);
+
+            if (tablaDatos.Rows.Count > 0)
+            {
+                var linea = tablaDatos.Rows.First();
+                area.Id = linea.GetInt("IdArea", 0);
+                area.Nombre = linea.GetString("Descripcion", "");
+            }
+            if (area.Id > 0)
+            {
+                parametros.Clear();
+                parametros.Add("@id_area", area.Id);
+                var tablaDatos2 = conexion.Ejecutar("dbo.VIA_GetAreasCompletas", parametros);
+
+                datos_adicionales = RepositorioDeAreas.GetAreasDeTablaDeDatos(tablaDatos2);   
+            }
+
+            return JsonConvert.SerializeObject(datos_adicionales.First());
+
+        }
+
         public static RepositorioLegajo NuevoRepositorioDeLegajos(IConexionBD conexion)
         {
             if (!(_instancia != null && !_instancia.ExpiroTiempoDelRepositorio())) _instancia = new RepositorioLegajo(conexion);
@@ -55,22 +83,22 @@ namespace General.Repositorios
 
         }
 
-        private Dictionary<string,int> traerMasDatosDelEstudio(int idEstudio)
+        private Dictionary<string, int> traerMasDatosDelEstudio(int idEstudio)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@IdEstudio", idEstudio);
             parametros.Add("@Tipo", 1);
             var tablaDatos = conexion.Ejecutar("dbo.LEG_GET_Estudio_Realizado_ID", parametros);
             Dictionary<string, int> univNivel = new Dictionary<string, int>();
-            
+
 
             if (tablaDatos.Rows.Count > 0)
             {
                 tablaDatos.Rows.ForEach(row =>
                 {
-                    univNivel.Add("Nivel",row.GetSmallintAsInt("Id_Nivel"));
-                    univNivel.Add("IdInstitucion",row.GetSmallintAsInt("Id_Institucion"));
-                    univNivel.Add("IdUniversidad",row.GetSmallintAsInt("Id_Universidad"));
+                    univNivel.Add("Nivel", row.GetSmallintAsInt("Id_Nivel"));
+                    univNivel.Add("IdInstitucion", row.GetSmallintAsInt("Id_Institucion"));
+                    univNivel.Add("IdUniversidad", row.GetSmallintAsInt("Id_Universidad"));
 
                 });
 
@@ -87,40 +115,42 @@ namespace General.Repositorios
             if (dicUniIns["Nivel"] == 5)
             {
 
-            var tablaDatos = conexion.Ejecutar("dbo.LEG_GET_Universidades");
+                var tablaDatos = conexion.Ejecutar("dbo.LEG_GET_Universidades");
 
-            if (tablaDatos.Rows.Count > 0)
-            {
-                tablaDatos.Rows.ForEach(row =>
+                if (tablaDatos.Rows.Count > 0)
                 {
-                    if (dicUniIns["IdUniversidad"] == row.GetSmallintAsInt("id", 0))
+                    tablaDatos.Rows.ForEach(row =>
                     {
-                        nombre = row.GetString("Universidad", "Sin datos");
-                    }
+                        if (dicUniIns["IdUniversidad"] == row.GetSmallintAsInt("id", 0))
+                        {
+                            nombre = row.GetString("Universidad", "Sin datos");
+                        }
 
 
-                });
+                    });
+
+                }
 
             }
+            else
+            {
+                var parametros = new Dictionary<string, object>();
+                parametros.Add("@Nivel", dicUniIns["Nivel"]);
+                var tablaDatos = conexion.Ejecutar("dbo.LEG_GET_Instituciones_X_Nivel", parametros);
 
-             } else {
-                 var parametros = new Dictionary<string, object>();
-                 parametros.Add("@Nivel", dicUniIns["Nivel"]);
-                 var tablaDatos = conexion.Ejecutar("dbo.LEG_GET_Instituciones_X_Nivel", parametros);
-
-                 if (tablaDatos.Rows.Count > 0)
-                 {
-                     tablaDatos.Rows.ForEach(row =>
-                     {
-                         if (dicUniIns["IdInstitucion"] == row.GetSmallintAsInt("id", 0))
-                         {
-                             nombre = row.GetString("Nombre", "Sin datos");
-                         }
+                if (tablaDatos.Rows.Count > 0)
+                {
+                    tablaDatos.Rows.ForEach(row =>
+                    {
+                        if (dicUniIns["IdInstitucion"] == row.GetSmallintAsInt("id", 0))
+                        {
+                            nombre = row.GetString("Nombre", "Sin datos");
+                        }
 
 
-                     });
+                    });
 
-                 }
+                }
             }
 
             return nombre;
@@ -406,7 +436,7 @@ namespace General.Repositorios
             var tablaDatos = conexion.Ejecutar("dbo.LEG_GET_Carreras_Admistrativas", parametros);
             var carrera_adm = new List<Object> { };
 
-            
+
 
             if (tablaDatos.Rows.Count > 0)
             {
@@ -422,7 +452,7 @@ namespace General.Repositorios
                         Cargo = row.GetString("CARGO", "Sin información"),
                         FechaDesde = row.GetDateTime("Fecha_Desde"),
                         FechaHasta = row.GetDateTime("Fecha_Hasta", DateTime.MinValue),
-                       // FechaHasta = row.g.GetDateTime("Fecha_Hasta", DateTime.Today),
+                        // FechaHasta = row.g.GetDateTime("Fecha_Hasta", DateTime.Today),
                         DescCausa = row.GetString("DescCausa", "Sin información"),
                         Folio = row.GetString("Folio", "Sin información")
 
