@@ -1,9 +1,9 @@
 ﻿$(document).ready(function () {
     Backend.start(function () {
-        var boton_usuario = new BotonDesplegable("contenedor_imagen_usuario", "contenedor_menu_usuarios");
-        var boton_aplicaciones = new BotonDesplegable("menu_cuadrados", "contenedor_menu_cuadrados");
-        var boton_mensajes = new BotonDesplegable("menu_mensajes", "contenedor_menu_mensajes");
-        var boton_tareas = new BotonDesplegable("menu_tareas", "contenedor_menu_tareas");
+        menu_usuario = new MenuDesplegable("contenedor_imagen_usuario", "contenedor_menu_usuarios", true);
+        menu_aplicaciones = new MenuDesplegable("menu_cuadrados", "contenedor_menu_cuadrados");
+        menu_alertas = new MenuDesplegable("menu_mensajes", "contenedor_menu_mensajes");
+        menu_tareas = new MenuDesplegable("menu_tareas", "contenedor_menu_tareas");
 
         $('#boton_home').click(function () {
             Backend.ElUsuarioLogueadoTienePermisosPara(51).onSuccess(function (tiene_permisos) {   
@@ -31,16 +31,10 @@
 
         var cargar_alertas = function () {
             $("#contenedor_alertas").empty()
-            Backend.GetAlertas().onSuccess(function (alertas) {                
+            Backend.GetMisAlertasPendientes().onSuccess(function (alertas) {                
                 _.forEach(alertas, function (alerta) {
-                    var ui_consulta = $("#plantillas_barra_menu .ui_mensaje_alerta").clone();
-                    ui_consulta.find(".titulo_mensaje_alerta").text("Título: " + alerta.Titulo);
-                    ui_consulta.find(".contenido_mensaje_alerta").text(alerta.Descripcion);
-                    $("#contenedor_alertas").append(ui_consulta);
-
-                    ui_consulta.click(function () {
-                        window.location.href = "../Portal/Consultas.aspx";
-                    });
+                    var vista = new VistaAlerta(alerta);
+                    menu_alertas.agregar(vista);                    
                 });
             });  
         };
@@ -51,18 +45,20 @@
                 if (tiene_permisos) {
                     Backend.GetSolicitudesDeCambioDeImagenPendientes().onSuccess(function (solicitudes) {
                         _.forEach(solicitudes, function (solicitud) {
-                            var ui_consulta = $("#plantillas_barra_menu .ui_mensaje_alerta").clone();
-                            ui_consulta.find(".titulo_mensaje_alerta").text("Solicitud de cambio de imagen pendiente");
-                            ui_consulta.find(".contenido_mensaje_alerta").text("Solicitante:" + "(" + solicitud.usuario.Alias.replace(' ', '') + ") " + solicitud.usuario.Owner.Apellido + ", " + solicitud.usuario.Owner.Nombre + " DNI:" + solicitud.usuario.Owner.Documento);
+                            var vista = new VistaSolicitudDeCambioImagen(solicitud);
+                            menu_tareas.agregar(vista);           
+//                            var ui_consulta = $("#plantillas_barra_menu .ui_mensaje_alerta").clone();
+//                            ui_consulta.find(".titulo_mensaje_alerta").text("Solicitud de cambio de imagen pendiente");
+//                            ui_consulta.find(".contenido_mensaje_alerta").text("Solicitante:" + "(" + solicitud.usuario.Alias.replace(' ', '') + ") " + solicitud.usuario.Owner.Apellido + ", " + solicitud.usuario.Owner.Nombre + " DNI:" + solicitud.usuario.Owner.Documento);
 
-                            ui_consulta.click(function(){
-                                boton_mensajes.contraer();
-                                $("#plantillas_barra_menu").append($("<div>").load("../Componentes/AdministradorSolicitudCambioImagen.htm", function(){
-                                    var admin = new AdministradorSolicitudCambioImagen(solicitud);
-                        
-                                }));
-                            });
-                            $("#contenedor_tareas").append(ui_consulta);
+//                            ui_consulta.click(function(){
+//                                menu_tareas.contraer();
+//                                $("#plantillas_barra_menu").append($("<div>").load("../Componentes/AdministradorSolicitudCambioImagen.htm", function(){
+//                                    var admin = new AdministradorSolicitudCambioImagen(solicitud);
+//                        
+//                                }));
+//                            });
+//                            $("#contenedor_tareas").append(ui_consulta);
                         });
                     });
                 }
@@ -75,28 +71,11 @@
         //setInterval(cargar_alertas, 20000);
 
         Backend.GetMenuPara('PRINCIPAL').onSuccess(function (modulos) {
-
-            for (var i = 0; i < modulos.Items.length; i++) {
-
-                var item = modulos.Items[i];
-                var modulito = $('<a>')
-                modulito.attr('href', item.Acceso.Url);
-                //                modulito.text(item.NombreItem);
-                var imagen = $('<img>');
-                imagen.attr('src', '../MenuPrincipal/' + item.NombreItem.replace(/ /g, '_') + '.png');
-                imagen.attr('class', 'redondeo-modulos');
-                imagen.attr('style', 'margin: 5px;');
-                modulito.append(imagen);
-                $('#contenedor_menu_cuadrados').append(modulito);
-
-                //                item.Orden = ;
-
-            }
-
+            _.forEach(modulos.Items, function(item){
+                var vista = new VistaItemMenu(item);
+                menu_aplicaciones.agregar(vista);             
+            });
         });
-
-
-
 
         Backend.GetUsuarioLogueado().onSuccess(function (usuario) {
 

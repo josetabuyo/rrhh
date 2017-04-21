@@ -309,6 +309,7 @@
     border-color: Blue;
     justify-content: flex-start;
     height: 100%;
+
 }
 
 .mensaje_alerta
@@ -321,6 +322,7 @@
     margin: 2%;
     border-style: dotted;
     border-width: 2px;
+        position: relative
 }
 
 .titulo_mensaje_alerta
@@ -334,6 +336,14 @@
 {
     margin-bottom: 2%;
     overflow: hidden;
+}
+
+.mensaje_alerta #btn_ok
+{
+    position: absolute;
+    right: 10px;
+    width: 35px;
+    bottom: 10px;
 }
 
 .sombra-mensaje

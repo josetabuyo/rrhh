@@ -11,7 +11,9 @@
     <link href="../scripts/vex-2.1.1/css/vex.css" rel="stylesheet">
     <link href="../scripts/vex-2.1.1/css/vex-theme-os.css" rel="stylesheet">
     <script type="text/javascript" src="../BarraMenu/BarraMenu.js"></script>
-    <script type="text/javascript" src="../BarraMenu/BotonDesplegable.js"></script>
+    <script type="text/javascript" src="../BarraMenu/MenuDesplegable.js"></script>
+    <script type="text/javascript" src="../BarraMenu/VistaAlerta.js"></script>
+    <script type="text/javascript" src="../BarraMenu/VistaItemMenu.js"></script>
     <script type="text/javascript" src="../Scripts/ControlesImagenes/VistaThumbnail.js"></script>
     <script type="text/javascript" src="../Scripts/ControlesImagenes/SubidorDeImagenes.js"></script>
     <script type="text/javascript" src="../scripts/vex-2.1.1/js/vex.combined.min.js"></script>
@@ -106,18 +108,23 @@
         </div>
     </div>
     <div id="plantillas_barra_menu" style="display: none">
+        <a class="ui_vista_item_menu">
+            <img class='redondeo-modulos' style='margin: 5px;'/>
+        </a>
+
         <div class="ui_mensaje_alerta mensaje_alerta sombra-mensaje">
             <p class="titulo_mensaje_alerta">
                 Mensaje 1</p>
             <p class="contenido_mensaje_alerta">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam mi nunc, euismod
-                eget est nec, consequat porttitor est. Maecenas ante elit, bibendum in volutpat
-                sit amet, imperdiet ac neque. Quisque dapibus eros sit amet mauris venenatis molestie.
-                Integer feugiat felis dolor, pellentesque tincidunt nulla efficitur quis. Pellentesque
-                pretium velit id neque accumsan, vitae aliquam augue mollis. Fusce ut diam malesuada,
-                placerat tortor et, efficitur massa. Praesent sagittis tortor et enim accumsan laoreet.
-                Praesent ut sapien ac leo porta finibus eget vitae lacus. Aliquam at arcu felis.
-                Morbi sit amet consectetur ex. Maecenas in nisi turpis.</p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <image id="btn_ok" src="<%= UrlImagenes %>botones/ok.png"/>
+        </div>
+
+        <div class="ui_solicitud_cambio_imagen">
+            <p class="titulo">
+                bla</p>
+            <p class="descripcion">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
         </div>
 
         <div id="contenedor_chat_mensajes">

@@ -2665,6 +2665,18 @@ public class WSViaticos : System.Web.Services.WebService
 
 
     [WebMethod]
+    public AlertaPortal[] GetMisAlertasPendientes(Usuario usuario)
+    {
+        return new RepositorioDeAlertasPortal(Conexion()).GetAlertasPendientesPara(usuario.Id).ToArray();
+    }
+
+    [WebMethod]
+    public void MarcarAlertaComoLeida(int id_alerta, Usuario usuario)
+    {
+        new RepositorioDeAlertasPortal(Conexion()).MarcarAlertaComoLeida(id_alerta, usuario.Id);
+    }
+
+    [WebMethod]
     public string CambiarPassword( string PasswordActual, string PasswordNuevo, Usuario usuario)
     {
         var repoUsuarios = RepositorioDeUsuarios();
