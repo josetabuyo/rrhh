@@ -36,8 +36,53 @@
                  </div>
                  <div class="cajitas">
                     <p class=""><label class="item_cajita">CUIL: </label><span id="cuil"></span></p>
-                    <p class=""><label class="item_cajita">Domicilio: </label><span id="domicilio"></span></p>
+                    <p class=""><label class="item_cajita">Domicilio: </label><span id="domicilio"></span>
+                    <input id="btnMostrarDomicilio" value="Cambiar Domicilio" class="btn btn-primary" type="button" />
+                    </p>
                  </div>
+
+                 <div id="cajaCambiarDomicilio" style="display:none;" class="">
+                 <div class="">
+                                <label class="etiqueta_campo" for="txt_calle">
+                                    Calle <em>*</em></label>
+                                <input type="text" id="txt_calle" name="txt_calle" style="width: 350px;" />
+                            </div>
+                            <div class="">
+                                <label class="etiqueta_campo" for="txt_numero">
+                                    Número <em>*</em></label>
+                                <input type="text" id="txt_numero" name="txt_numero" style="width: 50px" />
+                            </div>
+                            <div class="">
+                                <label class="etiqueta_campo" for="txt_piso">
+                                    Piso</label>
+                                <input type="text" id="txt_piso" name="txt_piso" style="width: 30px" />
+                            </div>
+                            <div class="">
+                                <label class="etiqueta_campo" for="txt_dto">
+                                    Dpto</label>
+                                <input type="text" id="txt_dto" name="txt_dto" style="width: 30px" />
+                            </div>
+                            <div class="">
+                                <label class="etiqueta_campo_small" for="txt_cp">
+                                    Código Postal <em>*</em></label>
+                                <input type="text" id="txt_cp" name="txt_cp" style="width: 80px" />
+                            </div>
+                            <div class="">
+                                <label class="etiqueta_campo" for="cmb_provincia">
+                                    Provincia <em>*</em></label>
+                                <select id="cmb_provincia" style="width: 320px;">
+                                
+                                </select>
+                            </div>
+                            <div class="">
+                                <label class="etiqueta_campo_small" for="cmb_localidad">
+                                    Localidad <em>*</em></label>
+                                <select id="cmb_localidad" style="width: 320px;">
+                                </select>
+                            </div>
+                            <input id="btnCambiarDomicilio" value="Cambiar" class="btn btn-primary" type="button" />
+                            </div>
+
                 <legend style="margin-top: 20px;">DATOS FAMILIARES</legend>
                     <div id="tabla_familiar">
     

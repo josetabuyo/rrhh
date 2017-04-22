@@ -86,6 +86,46 @@ var Legajo = {
 
                 spinner.stop();
 
+                $('#btnMostrarDomicilio').click(function() {
+
+                    Backend.BuscarProvincias({  })
+                        .onSuccess(function (provincias) {
+
+                        var options = $("#cmb_provincia");
+                        $.each(provincias, function() {
+                            options.append($("<option />").val(this.Id).text(this.Nombre));
+                        });
+                    })
+                    .onError(function (e) {
+                        
+                    });
+
+                    $('#cmb_provincia').change(function() {
+                    $("#cmb_localidad").empty();
+                    var idProvincia = parseInt($( "#cmb_provincia option:selected").val());
+                        Backend.BuscarLocalidades({IdProvincia:idProvincia  })
+                            .onSuccess(function (localidades) {
+
+                            var options = $("#cmb_localidad");
+                            $.each(localidades, function() {
+                                options.append($("<option />").val(this.Id).text(this.Nombre));
+                            });
+                        })
+                        .onError(function (e) {
+                        
+                        });
+                    });
+                    
+
+                    $('#cajaCambiarDomicilio').show();
+                });
+
+                $('#btnCambiarDomicilio').click(function() {
+                    
+                });
+
+                
+
             })
             .onError(function (e) {
                 spinner.stop();
@@ -1453,6 +1493,7 @@ var Legajo = {
                 ui.find('#mensaje').html("No se encontraron datos para la persona con documento " + documento);
             }
         });
-    }
+    },
+    
 
 }
