@@ -17,10 +17,11 @@ namespace General.MAU
             this.repositorio_de_personas = repo_personas;
         }
 
-        public Usuario GetUsuarioPorAlias(string alias)
+        public Usuario GetUsuarioPorAlias(string alias, bool incluir_bajas=false)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@alias", alias);
+            if(incluir_bajas) parametros.Add("@incluir_bajas", 1);
             var tablaDatos = conexion.Ejecutar("dbo.Web_GetUsuario", parametros);
             if (tablaDatos.Rows.Count > 1) throw new Exception("hay mas de un usuario con el mismo alias: " + alias);
 
@@ -87,7 +88,7 @@ namespace General.MAU
             var persona = repositorio_de_personas.GetPersonaPorId(id_persona);
             var alias = (persona.Nombre.First() + persona.Apellido).Replace(" ", "");
             var contador = 1;
-            while (!GetUsuarioPorAlias(alias).Equals(new UsuarioNulo()))
+            while (!GetUsuarioPorAlias(alias, true).Equals(new UsuarioNulo()))
             {
                 alias = (persona.Nombre.First() + persona.Apellido + contador.ToString()).Replace(" ", "");
                 contador++;

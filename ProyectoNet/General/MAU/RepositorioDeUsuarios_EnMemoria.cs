@@ -123,5 +123,10 @@ namespace AdministracionDeUsuarios
         {
             throw new NotImplementedException();
         }
+
+        public Usuario GetUsuarioPorAlias(string alias, bool incluir_bajas)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
