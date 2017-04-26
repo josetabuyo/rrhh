@@ -18,7 +18,9 @@ var ListadoAgentes = {
         Backend.EvalGetAgentesEvaluables()
         .onSuccess(function (agentesJSON) {
             spinner.stop();
+
             var agentes = JSON.parse(agentesJSON);
+            if (!agentes[0].hasOwnProperty('nombre')) return;
             todas_las_evaluaciones = agentes;
             _this.DibujarTabla(agentes);
 
@@ -210,6 +212,7 @@ var ListadoAgentes = {
             localStorage.setItem("apellido", un_agente.apellido);
             localStorage.setItem("nombre", un_agente.nombre);
             localStorage.setItem("apellido", un_agente.apellido);
+            localStorage.setItem("idNivel", un_agente.id_nivel);
             localStorage.setItem("descripcionPeriodo", un_agente.descripcion_periodo);
             localStorage.setItem("descripcionNivel", un_agente.descripcion_nivel);
             localStorage.setItem("deficiente", un_agente.deficiente);

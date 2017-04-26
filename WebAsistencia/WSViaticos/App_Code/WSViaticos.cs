@@ -49,7 +49,6 @@ public class WSViaticos : System.Web.Services.WebService
             retuUsuarios[i] = usuarios[i];
         }
         return retuUsuarios;
-
     }
 
     [WebMethod]
