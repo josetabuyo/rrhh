@@ -87,8 +87,8 @@ namespace General.Repositorios
 
         public List<object> GetAgentesEvaluablesPorRaw(Usuario usuario) {
              var parametros = new Dictionary<string, object>();
-            //parametros.Add("@id_evaluador", usuario.Owner.Id);
-            parametros.Add("@id_evaluador", 3988);
+            parametros.Add("@id_evaluador", usuario.Owner.Id);
+            //parametros.Add("@id_evaluador", 3988);
             var tablaDatos = _conexion.Ejecutar("dbo.EVAL_GET_Evaluados_Evaluador", parametros);
 
             var tipos_consultas = new List<Object> { };
@@ -186,10 +186,7 @@ namespace General.Repositorios
             parametros.Add("@estado", estado);
             parametros.Add("@baja", 0);
             //parametros.Add("@fecha", DateTime());
-
-
             return (int)_conexion.EjecutarEscalar("dbo.EVAL_INS_Evaluacion", parametros);
-
         }
 
         public void updateEvaluacion(int idEval, int idEvaluado, int idEvaluador, int idFormulario, int periodo, int estado)

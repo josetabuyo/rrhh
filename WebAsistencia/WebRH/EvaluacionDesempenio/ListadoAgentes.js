@@ -161,6 +161,7 @@ var ListadoAgentes = {
             localStorage.setItem("nombre", un_agente.nombre);
             localStorage.setItem("apellido", un_agente.apellido);
             localStorage.setItem("descripcionPeriodo", un_agente.descripcion_periodo);
+            localStorage.setItem("idNivel", un_agente.id_nivel);
             localStorage.setItem("descripcionNivel", un_agente.descripcion_nivel);
             localStorage.setItem("deficiente", un_agente.deficiente);
             localStorage.setItem("regular", un_agente.regular);
