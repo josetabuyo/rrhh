@@ -610,6 +610,7 @@
     background: #F7F7F7; 
     font-family: "Helvetica Neue"; 
     outline: none; 
+    height: 35px;
     border-top: 1px solid #CCC; 
     border-left: 1px solid #CCC; 
     border-right: 1px solid #E7E6E6; 
