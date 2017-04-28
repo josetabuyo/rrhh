@@ -120,12 +120,14 @@
         <div id="izq" style="width:60%; float:left; position: absolute;">
             <div id="foto_usuario" class="foto_usuario" class="bloque_foto" > </div>
            <%-- <img id="img_estatica" class="foto_usuario" src="../Imagenes/silueta.gif" style="margin-top: 25px;"/>--%>
-            <p style="margin: 10px; margin-left: 150px; margin-top:50px;">Nivel:<span id="nivel"></span> </p>
-            <p style="margin: 10px; margin-left: 150px;"><span id="nombre_evaluado"></span></p>
+            <p style="margin: 10px; margin-left: 150px; margin-top:50px;"><label>Nivel: </label> <span id="nivel"></span> </p>
+            <p style="margin: 10px; margin-left: 150px;"><label>Nombre: </label> <span id="nombre_evaluado"></span></p>
+            <p style="margin: 10px; margin-left: 150px;"><label>Estado: </label> <span id="baja"></span></p>
+            <p style="margin: 10px; margin-left: 150px; display:none;" ><label>Gremio: </label> <span id="cargo_gremial" ></span></p>
         </div>
         <div id="der" class="" style="width:30%; float:right; border:1px solid; text-align:center; margin: 30px;">
             <h1>Puntaje</h1>
-            <h1 id="puntaje">Muy Alto</h1>
+            <h1 id="puntaje"></h1>
         </div>
     </div>
         
