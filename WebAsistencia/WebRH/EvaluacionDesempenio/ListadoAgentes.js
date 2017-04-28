@@ -146,29 +146,37 @@ var ListadoAgentes = {
         }
         return coleccion_respuestas;
     },
-    getBotonImprimir: function (un_agente) {
+    setAgenteValuesToLocalStorage: function (un_agente) {
+        localStorage.setItem("idPeriodo", un_agente.id_periodo);
+        localStorage.setItem("idEvaluado", un_agente.id_evaluado);
+        localStorage.setItem("idEvaluacion", un_agente.id_evaluacion);
+        localStorage.setItem("apellido", un_agente.apellido);
+        localStorage.setItem("nombre", un_agente.nombre);
+        localStorage.setItem("apellido", un_agente.apellido);
+        localStorage.setItem("descripcionPeriodo", un_agente.descripcion_periodo);
+        localStorage.setItem("idNivel", un_agente.id_nivel);
+        localStorage.setItem("descripcionNivel", un_agente.descripcion_nivel);
+        localStorage.setItem("deficiente", un_agente.deficiente);
+        localStorage.setItem("regular", un_agente.regular);
+        localStorage.setItem("bueno", un_agente.bueno);
+        localStorage.setItem("destacado", un_agente.destacado);
+    },
+    getImgIcono:function(nombre_img, title) {
         var btn_accion = $('<a>');
         var img = $('<img>');
-        img.attr('src', '../Imagenes/iconos/icono-imprimir.png');
+        var _this = this;
+        img.attr('src', '../Imagenes/iconos/' + nombre_img);
         img.attr('width', '25px');
         img.attr('data-toggle', 'tooltip');
-        img.attr('title', 'Impresora');
+        img.attr('title', title);
         img.attr('height', '25px');
         btn_accion.append(img);
+        return btn_accion;
+    },
+    getBotonImprimir: function (un_agente) {
+        var btn_accion = this.getImgIcono('icono-imprimir.png','Impresora');
         btn_accion.click(function () {
-            localStorage.setItem("idPeriodo", un_agente.id_periodo);
-            localStorage.setItem("idEvaluado", un_agente.id_evaluado);
-            localStorage.setItem("idEvaluacion", un_agente.id_evaluacion);
-            localStorage.setItem("apellido", un_agente.apellido);
-            localStorage.setItem("nombre", un_agente.nombre);
-            localStorage.setItem("apellido", un_agente.apellido);
-            localStorage.setItem("descripcionPeriodo", un_agente.descripcion_periodo);
-            localStorage.setItem("idNivel", un_agente.id_nivel);
-            localStorage.setItem("descripcionNivel", un_agente.descripcion_nivel);
-            localStorage.setItem("deficiente", un_agente.deficiente);
-            localStorage.setItem("regular", un_agente.regular);
-            localStorage.setItem("bueno", un_agente.bueno);
-            localStorage.setItem("destacado", un_agente.destacado);
+            _this.setAgenteValuesToLocalStorage(un_agente);
             /*si nunca fue evaluado, no sabemos que nivel tiene, 
             hay que pedir al usuario que lo ingrese*/
             if (un_agente.id_nivel == "0") {
@@ -197,29 +205,9 @@ var ListadoAgentes = {
         return btn_accion;
     },
     getBotonIrAFormulario: function (un_agente) {
-        var btn_accion = $('<a>');
-        var img = $('<img>');
-        img.attr('src', '../Imagenes/portal/estudios.png');
-        img.attr('width', '25px');
-        img.attr('data-toggle', 'tooltip');
-        img.attr('title', 'Impresora');
-        img.attr('height', '25px');
-        btn_accion.append(img);
+        var btn_accion = this.getImgIcono('estudios.png','Estudios');
         btn_accion.click(function () {
-            localStorage.setItem("idPeriodo", un_agente.id_periodo);
-            localStorage.setItem("idEvaluado", un_agente.id_evaluado);
-            localStorage.setItem("idEvaluacion", un_agente.id_evaluacion);
-            localStorage.setItem("apellido", un_agente.apellido);
-            localStorage.setItem("nombre", un_agente.nombre);
-            localStorage.setItem("apellido", un_agente.apellido);
-            localStorage.setItem("idNivel", un_agente.id_nivel);
-            localStorage.setItem("descripcionPeriodo", un_agente.descripcion_periodo);
-            localStorage.setItem("descripcionNivel", un_agente.descripcion_nivel);
-            localStorage.setItem("deficiente", un_agente.deficiente);
-            localStorage.setItem("regular", un_agente.regular);
-            localStorage.setItem("bueno", un_agente.bueno);
-            localStorage.setItem("destacado", un_agente.destacado);
-            localStorage.setItem("documento", un_agente.nro_documento);
+            _this.setAgenteValuesToLocalStorage(un_agente);
             /*si nunca fue evaluado, no sabemos que nivel tiene, 
             hay que pedir al usuario que lo ingrese*/
             if (un_agente.id_nivel == "0") {
@@ -421,25 +409,25 @@ var ListadoAgentes = {
                         }
                     });
 
-                    Backend.GetConsultaRapida(documento).onSuccess(function (datos) {
-                        var data = $.parseJSON(datos);
-                        if (!$.isEmptyObject(data)) {
+            Backend.GetConsultaRapida(documento).onSuccess(function (datos) {
+                var data = $.parseJSON(datos);
+                if (!$.isEmptyObject(data)) {
 
-                            if (data.FechaBaja != "") {
-                                $('#baja').html("BAJA a partir del " + data.FechaBaja);
-                            } else {
-                                $('#baja').html("Activo");
-                            }
+                    if (data.FechaBaja != "") {
+                        $('#baja').html("BAJA a partir del " + data.FechaBaja);
+                    } else {
+                        $('#baja').html("Activo");
+                    }
 
 
-                            if (data.CargoGremial != "") {
-                                $('#cargo_gremial').html(data.CargoGremial);
-                                $('#cargo_gremial').parent().show();
-                            } else {
-                                $('#cargo_gremial').parent().hide();
-                            }
-                        }
-                    });
+                    if (data.CargoGremial != "") {
+                        $('#cargo_gremial').html(data.CargoGremial);
+                        $('#cargo_gremial').parent().show();
+                    } else {
+                        $('#cargo_gremial').parent().hide();
+                    }
+                }
+            });
 
 
 
