@@ -227,7 +227,8 @@ var GraficoContratos = {
                             }
                         } break;
                     case "GraficoPorInforme":
-                        titulo = "Personas del Informe " + criterio;
+                        //titulo = "Personas del Informe " + criterio;
+                        titulo = "Detalle de Bienes " + criterio;
                         for (var i = 0; i < tabla.length; i++) {
                             if (tabla[i].Informe == criterio) {
                                 tabla_final.push(tabla[i]);
@@ -392,8 +393,8 @@ var GraficoContratos = {
         $("#btn_exportarExcelDetalle").show();
         $("#btn_generarInforme").show();
 
-        columnas.push(new Columna("Asignacion", { generar: function (un_registro) { return un_registro.Asignacion } }));
-        columnas.push(new Columna("Descripcion", { generar: function (un_registro) { return un_registro.Descripcion } }));
+        columnas.push(new Columna("Asignación", { generar: function (un_registro) { return un_registro.Asignacion } }));
+        columnas.push(new Columna("Descripción", { generar: function (un_registro) { return un_registro.Descripcion } }));
         //columnas.push(new Columna("Ultimo Mov.", { generar: function (un_registro) { return un_registro.UltMov } }));
         columnas.push(new Columna("Ultimo Mov.", { generar: function (un_registro) {
             var fecha_sin_hora = un_registro.UltMov.split("T");
@@ -470,7 +471,7 @@ var GraficoContratos = {
 //                return div;
 //            }
 //        }));
-        columnas.push(new Columna('Informe', 
+        columnas.push(new Columna('Operaciones', 
             {
                 generar: function (un_registro) 
                 {
@@ -568,7 +569,7 @@ var GraficoContratos = {
     },
     BuscadorDeTablaDetalle: function () {
         var options = {
-            valueNames: ['Area', 'NroDocumento', 'Apellido_Nombre']
+            valueNames: ['Asignación', 'Descripción', 'Ultimo Mov.']
         };
         var featureList = new List('div_tabla_detalle', options);
     },

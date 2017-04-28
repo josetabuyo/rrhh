@@ -1,4 +1,4 @@
-﻿<%--<%@ Page Language="C#" AutoEventWireup="true" CodeFile="SeleccionDeContratos.aspx.cs" Inherits="Contratos_SeleccionDeContratos" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="SeleccionDeContratos.aspx.cs" Inherits="Contratos_SeleccionDeContratos" %>
 
 <%@ Register Src="~/BarraMenu/BarraMenu.ascx" TagName="BarraMenu" TagPrefix="uc2" %>
 
@@ -193,4 +193,3 @@
     </script>
 </body>
 </html>
---%>

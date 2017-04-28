@@ -27,12 +27,12 @@ namespace General
         {
             return new MoBi_Bien(
                        row.GetInt("Id_Bien", 0),
-                       row.GetInt("Id_TipoBien", 0),
-                       row.GetString("Descrip_Bien", "Sin Dato"),
-                       row.GetString("Estado", "Sin Dato"),
-                       row.GetInt("Id_Estado", 0),
-                       row.GetDateTime("Fecha_Desde", DateTime.MinValue),
-                       row.GetString("Descrip_Area_Asig", "")
+                       row.GetSmallintAsInt("Id_TipoBien", 0),
+                       row.GetString("Descripcion", "Sin Dato"),
+                       row.GetString("Tipo_Evento", "Sin Dato"),
+                       row.GetInt("Id_TipoEvento", 0),
+                       row.GetDateTime("Fecha", DateTime.MinValue),
+                       row.GetString("Descripcion_Receptor", "")
                        );
         }
 
