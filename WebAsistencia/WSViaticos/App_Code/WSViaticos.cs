@@ -4797,5 +4797,15 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
 
+    [WebMethod]
+    public string PrintPdfEvaluacionDesempenio(int idEvaluacion)
+    {
+        var client = new PdfPrinterService.PdfPrinterClient();
+        var doc = new PdfPrinterService.Document();
+        doc.PathSubmodulo = "EvaluacionDesempenio";
+        var str = "";
+        var respuesta = client.Print(doc, out str);
+        return str;
+    }
 
 }

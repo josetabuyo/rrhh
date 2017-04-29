@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://Schemas/PdfPrinter/WebServices" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="PdfPrinterService" targetNamespace="http://Schemas/PdfPrinter/WebServices" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://Schemas/PdfPrinter/WebServices/Imports">
+      <xsd:import schemaLocation="http://localhost:1563/PdfPrinterService.svc?xsd=xsd0" namespace="http://Schemas/PdfPrinter/WebServices" />
+      <xsd:import schemaLocation="http://localhost:1563/PdfPrinterService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:1563/PdfPrinterService.svc?xsd=xsd2" namespace="http://Schemas/PdfPrinter/Common" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="PdfPrinterRequest">
+    <wsdl:part name="parameters" element="tns:PdfPrinterRequest" />
+  </wsdl:message>
+  <wsdl:message name="PdfPrinterResponse">
+    <wsdl:part name="parameters" element="tns:PdfPrinterResponse" />
+  </wsdl:message>
+  <wsdl:message name="PdfPrinterResponse_Headers">
+    <wsdl:part name="Info" element="tns:Info" />
+  </wsdl:message>
+  <wsdl:portType name="IPdfPrinter">
+    <wsdl:operation name="Print">
+      <wsdl:input wsaw:Action="http://Schemas/PdfPrinter/WebServices/IPdfPrinter/Print" name="PdfPrinterRequest" message="tns:PdfPrinterRequest" />
+      <wsdl:output wsaw:Action="http://Schemas/PdfPrinter/WebServices/IPdfPrinter/PrintResponse" name="PdfPrinterResponse" message="tns:PdfPrinterResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IPdfPrinter" type="tns:IPdfPrinter">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Print">
+      <soap:operation soapAction="http://Schemas/PdfPrinter/WebServices/IPdfPrinter/Print" style="document" />
+      <wsdl:input name="PdfPrinterRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="PdfPrinterResponse">
+        <soap:header message="tns:PdfPrinterResponse_Headers" part="Info" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PdfPrinterService">
+    <wsdl:port name="BasicHttpBinding_IPdfPrinter" binding="tns:BasicHttpBinding_IPdfPrinter">
+      <soap:address location="http://localhost:1563/PdfPrinterService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

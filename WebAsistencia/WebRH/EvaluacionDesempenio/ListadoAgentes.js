@@ -161,7 +161,7 @@ var ListadoAgentes = {
         localStorage.setItem("bueno", un_agente.bueno);
         localStorage.setItem("destacado", un_agente.destacado);
     },
-    getImgIcono:function(nombre_img, title) {
+    getImgIcono: function (nombre_img, title) {
         var btn_accion = $('<a>');
         var img = $('<img>');
         var _this = this;
@@ -174,38 +174,21 @@ var ListadoAgentes = {
         return btn_accion;
     },
     getBotonImprimir: function (un_agente) {
-        var btn_accion = this.getImgIcono('icono-imprimir.png','Impresora');
+        var btn_accion = this.getImgIcono('icono-imprimir.png', 'Imprimir');
+        var _this = this;
         btn_accion.click(function () {
-            _this.setAgenteValuesToLocalStorage(un_agente);
-            /*si nunca fue evaluado, no sabemos que nivel tiene, 
-            hay que pedir al usuario que lo ingrese*/
-            if (un_agente.id_nivel == "0") {
-                vex.defaultOptions.className = 'vex-theme-os';
-                vex.open({
-                    afterOpen: function ($vexContent) {
-                        var ui = $("#div_niveles").clone();
-                        $vexContent.append(ui);
-                        ui.find("#btn_nivel").click(function () {
-                            localStorage.setItem("idNivel", ui.find("#select_niveles").val());
-                            window.open('ImpresionEvaluacion.html', '_blank');
-
-                        });
-                        ui.show();
-                        return ui;
-                    },
-                    css: {
-                        'padding-top': "4%",
-                        'padding-bottom': "0%"
-                    }
-                });
-            } else {
-                window.open('ImpresionEvaluacion.html', '_blank');
-            }
+            //_this.setAgenteValuesToLocalStorage(un_agente);
+            Backend.PrintPdfEvaluacionDesempenio(un_agente.id_evaluacion)
+            .onSuccess(function (rpta) {
+                window.open(rpta, '_blank');
+                //window.open('/Generateddocuments/20170428212540.pdf', '_blank');
+            });
+            
         });
         return btn_accion;
     },
     getBotonIrAFormulario: function (un_agente) {
-        var btn_accion = this.getImgIcono('estudios.png','Estudios');
+        var btn_accion = this.getImgIcono('estudios.png', 'Estudios');
         btn_accion.click(function () {
             _this.setAgenteValuesToLocalStorage(un_agente);
             /*si nunca fue evaluado, no sabemos que nivel tiene, 

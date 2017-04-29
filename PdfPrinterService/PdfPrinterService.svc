@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="PdfPrinter.WebServices.Common.PdfPrinterService, PdfPrinter.WebServices" %>

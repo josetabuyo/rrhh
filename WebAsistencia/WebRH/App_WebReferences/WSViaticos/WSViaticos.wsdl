@@ -296,6 +296,20 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="PrintPdfEvaluacionDesempenio">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idEvaluacion" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PrintPdfEvaluacionDesempenioResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PrintPdfEvaluacionDesempenioResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="BuscarPostulacionesDeInscriptos">
         <s:complexType>
           <s:sequence>
@@ -6753,6 +6767,12 @@
   <wsdl:message name="ConsultaExcelDDJJ104_AreaSoapOut">
     <wsdl:part name="parameters" element="tns:ConsultaExcelDDJJ104_AreaResponse" />
   </wsdl:message>
+  <wsdl:message name="PrintPdfEvaluacionDesempenioSoapIn">
+    <wsdl:part name="parameters" element="tns:PrintPdfEvaluacionDesempenio" />
+  </wsdl:message>
+  <wsdl:message name="PrintPdfEvaluacionDesempenioSoapOut">
+    <wsdl:part name="parameters" element="tns:PrintPdfEvaluacionDesempenioResponse" />
+  </wsdl:message>
   <wsdl:message name="BuscarPostulacionesDeInscriptosSoapIn">
     <wsdl:part name="parameters" element="tns:BuscarPostulacionesDeInscriptos" />
   </wsdl:message>
@@ -8714,6 +8734,10 @@
       <wsdl:input message="tns:ConsultaExcelDDJJ104_AreaSoapIn" />
       <wsdl:output message="tns:ConsultaExcelDDJJ104_AreaSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="PrintPdfEvaluacionDesempenio">
+      <wsdl:input message="tns:PrintPdfEvaluacionDesempenioSoapIn" />
+      <wsdl:output message="tns:PrintPdfEvaluacionDesempenioSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="BuscarPostulacionesDeInscriptos">
       <wsdl:input message="tns:BuscarPostulacionesDeInscriptosSoapIn" />
       <wsdl:output message="tns:BuscarPostulacionesDeInscriptosSoapOut" />
@@ -10061,6 +10085,15 @@
     </wsdl:operation>
     <wsdl:operation name="ConsultaExcelDDJJ104_Area">
       <soap:operation soapAction="http://wsviaticos.gov.ar/ConsultaExcelDDJJ104_Area" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PrintPdfEvaluacionDesempenio">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/PrintPdfEvaluacionDesempenio" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -13025,6 +13058,15 @@
     </wsdl:operation>
     <wsdl:operation name="ConsultaExcelDDJJ104_Area">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/ConsultaExcelDDJJ104_Area" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PrintPdfEvaluacionDesempenio">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/PrintPdfEvaluacionDesempenio" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
