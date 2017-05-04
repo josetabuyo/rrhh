@@ -54,8 +54,7 @@ namespace General.MAU
         {
             return this.repositorio_funcionalidades_usuarios.FuncionalidadesPara(usuario).Exists(f =>
             {
-                if (f.SoloParaEmpleados && usuario.Owner.Legajo == null) return false;
-                if (f.SoloParaVerificados && !usuario.Verificado) return false;
+                if (f.NoPodriaUsarlaElUsuario(usuario)) return false;
                 return f.Equals(funcionalidad);
             });
         }
@@ -64,8 +63,7 @@ namespace General.MAU
         {
             return this.repositorio_funcionalidades_usuarios.FuncionalidadesPara(usuario).Exists(f =>
             {
-                if (f.SoloParaEmpleados && usuario.Owner.Legajo == null) return false;
-                if (f.SoloParaVerificados && !usuario.Verificado) return false;
+                if (f.NoPodriaUsarlaElUsuario(usuario)) return false;
                 return f.Nombre == nombre_funcionalidad;
             });
         }
@@ -76,8 +74,7 @@ namespace General.MAU
             var usuario = repositorio_usuarios.GetUsuarioPorId(id_usuario);
             return this.repositorio_funcionalidades_usuarios.FuncionalidadesPara(id_usuario).Exists(f =>
             {
-                if (f.SoloParaEmpleados && usuario.Owner.Legajo == null) return false;
-                if (f.SoloParaVerificados && !usuario.Verificado) return false;
+                if (f.NoPodriaUsarlaElUsuario(usuario)) return false;
                 return f.Id == id_funcionalidad;
             });
         }
@@ -153,8 +150,8 @@ namespace General.MAU
             if (funcionalidades_que_permiten_acceder_a_la_url.Count() == 0) return true;
             return this.repositorio_funcionalidades_usuarios.FuncionalidadesPara(usuario).Any(f =>
             {
-                if (f.SoloParaEmpleados && usuario.Owner.Legajo == null) return false;
-                if (f.SoloParaVerificados && !usuario.Verificado) return false;
+                if (f.NoPodriaUsarlaElUsuario(usuario)) 
+                    return false;
                 return funcionalidades_que_permiten_acceder_a_la_url.Contains(f);
             });
         }
