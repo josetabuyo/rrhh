@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using General;
 using Newtonsoft.Json;
+using General.MAU;
 
 namespace General.Repositorios
 {
@@ -39,11 +40,32 @@ namespace General.Repositorios
                 parametros.Add("@id_area", area.Id);
                 var tablaDatos2 = conexion.Ejecutar("dbo.VIA_GetAreasCompletas", parametros);
 
-                datos_adicionales = RepositorioDeAreas.GetAreasDeTablaDeDatos(tablaDatos2);   
+                datos_adicionales = RepositorioDeAreas.GetAreasDeTablaDeDatos(tablaDatos2);
+                area = datos_adicionales.First();
             }
+            var repo_permisos = RepositorioDePermisosSobreAreas.NuevoRepositorioDePermisosSobreAreas(conexion, RepositorioDeAreas.NuevoRepositorioDeAreas(conexion));
+            var repo_usuario = new RepositorioDeUsuarios(conexion, RepositorioDePersonas.NuevoRepositorioDePersonas(conexion));
+            var usuarios = repo_usuario.GetUsuariosQueAdministranLaFuncionalidadDelArea(4, area);
+            if (area.Asistentes != null)
+            {
+                area.Asistentes.Clear();
+            }
+            else {
+                area.Asistentes = new List<Asistente>();
+            }
+            
+            List<Asistente> asistentes_confuncionalidades = new List<Asistente>();
+            usuarios.ForEach(u =>
+            {
+                if (u.Owner != null)
+                {
+                    var asistente_nuevo = new Asistente(u.Owner.Nombre, u.Owner.Apellido, "", 0, "", "", "");
+                    area.Asistentes.Add(asistente_nuevo);
+                }
+               
+            });
 
-            return JsonConvert.SerializeObject(datos_adicionales.First());
-
+            return JsonConvert.SerializeObject(area);
         }
 
         public static RepositorioLegajo NuevoRepositorioDeLegajos(IConexionBD conexion)
