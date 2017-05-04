@@ -29,8 +29,8 @@ namespace General
                        row.GetInt("Id_Bien", 0),
                        row.GetSmallintAsInt("Id_TipoBien", 0),
                        row.GetString("Descripcion", "Sin Dato"),
-                       row.GetString("Tipo_Evento", "Sin Dato"),
-                       row.GetInt("Id_TipoEvento", 0),
+                       row.GetString("Estado_Propiedad", "Sin Dato"),
+                       row.GetInt("Id_Estado_Propiedad", 0),
                        row.GetDateTime("Fecha", DateTime.MinValue),
                        row.GetString("Descripcion_Receptor", "")
                        );
@@ -62,9 +62,8 @@ namespace General
             {
                 if (registro.MoBi_Bien.Count > 0)
                 {
-                tabla.Add(GenerarRegistroResumen(registro.Descripcion, registro.DescripcionGrafico, registro.MoBi_Bien.Count, total, registro.Orden, registro.Id));    
+                    tabla.Add(GenerarRegistroResumen(registro.Descripcion, registro.DescripcionGrafico, registro.MoBi_Bien.Count, total, registro.Orden, registro.Id));        
                 }
-                
             });
 
             this.tabla_resumen = tabla.ToList();

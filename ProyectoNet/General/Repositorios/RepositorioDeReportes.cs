@@ -159,15 +159,15 @@ namespace General.Repositorios
             //var tablaDatos = conexion_bd.Ejecutar("dbo.MOBI_GET_Ultimo_Movimiento", parametros);
             //var tablaDatosEstados = conexion_bd.Ejecutar("dbo.MOBI_GET_Tipo_Estado");
             var tablaDatos = conexion_bd.Ejecutar("dbo.MOBI_GET_Bienes_x_Area", parametros);
-            var tablaDatosEstados = conexion_bd.Ejecutar("dbo.MOBI_GET_Tipo_Evento");
+            var tablaDatosEstados = conexion_bd.Ejecutar("dbo.MOBI_GET_Estados");
 
             grafico.Estados = new List<EstadoMoBi>();
 
             tablaDatosEstados.Rows.ForEach(row =>
             {
                 var estado = new EstadoMoBi();
-                estado.Id = row.GetSmallintAsInt("Id_Tipo_Evento");
-                estado.Nombre = row.GetString("Descripcion");
+                estado.Id = row.GetSmallintAsInt("Id_Estado");
+                estado.Nombre = row.GetString("Descripcion_Estado");
                 //estado.Codigo = row.GetString("Cod_Estado");
                 grafico.Estados.Add(estado);
             });
