@@ -147,20 +147,15 @@ html, body, form
 }
 
 .container {
-	background-color: #031427;
-	height: 500px;
-	width:100%;
-	margin-top: 40px !important;
-	
+    background-color: #1c2431;
+    height: 500px;
+    width: 100%;
 }
 
 #menu_principal
 {
     margin-left: 150px;
-    margin-right: 150px;
-    margin-top:42px; 
-      
-       
+    margin-right: 150px;    
 }
 /* Effect 8 */
 .hi-icon-effect-8 .hi-icon {

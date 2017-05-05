@@ -1,9 +1,12 @@
 ﻿$(document).ready(function () {
+    
     Backend.start(function () {
         menu_usuario = new MenuDesplegable("contenedor_imagen_usuario", "contenedor_menu_usuarios", true);
         menu_aplicaciones = new MenuDesplegable("menu_cuadrados", "contenedor_menu_cuadrados");
         menu_alertas = new MenuDesplegable("menu_mensajes", "contenedor_menu_mensajes");
         menu_tareas = new MenuDesplegable("menu_tareas", "contenedor_menu_tareas");
+
+        
 
         $('#boton_home').click(function () {
             Backend.ElUsuarioLogueadoTienePermisosPara(51).onSuccess(function (tiene_permisos) {   
@@ -43,24 +46,16 @@
             $("#contenedor_tareas").empty()
             Backend.ElUsuarioLogueadoTienePermisosPara(50).onSuccess(function (tiene_permisos) {
                 if (tiene_permisos) {
+                    $("#menu_tareas").show();
                     Backend.GetSolicitudesDeCambioDeImagenPendientes().onSuccess(function (solicitudes) {
                         _.forEach(solicitudes, function (solicitud) {
-                            var vista = new VistaSolicitudDeCambioImagen(solicitud);
+                            var vista = new VistaSolicitudDeCambioDeImagen(solicitud);
                             menu_tareas.agregar(vista);           
-//                            var ui_consulta = $("#plantillas_barra_menu .ui_mensaje_alerta").clone();
-//                            ui_consulta.find(".titulo_mensaje_alerta").text("Solicitud de cambio de imagen pendiente");
-//                            ui_consulta.find(".contenido_mensaje_alerta").text("Solicitante:" + "(" + solicitud.usuario.Alias.replace(' ', '') + ") " + solicitud.usuario.Owner.Apellido + ", " + solicitud.usuario.Owner.Nombre + " DNI:" + solicitud.usuario.Owner.Documento);
-
-//                            ui_consulta.click(function(){
-//                                menu_tareas.contraer();
-//                                $("#plantillas_barra_menu").append($("<div>").load("../Componentes/AdministradorSolicitudCambioImagen.htm", function(){
-//                                    var admin = new AdministradorSolicitudCambioImagen(solicitud);
-//                        
-//                                }));
-//                            });
-//                            $("#contenedor_tareas").append(ui_consulta);
                         });
                     });
+                    
+                }else{
+                    
                 }
             });
            

@@ -13,6 +13,7 @@
     <script type="text/javascript" src="../BarraMenu/BarraMenu.js"></script>
     <script type="text/javascript" src="../BarraMenu/MenuDesplegable.js"></script>
     <script type="text/javascript" src="../BarraMenu/VistaAlerta.js"></script>
+    <script type="text/javascript" src="../BarraMenu/VistaSolicitudDeCambioDeImagen.js"></script>
     <script type="text/javascript" src="../BarraMenu/VistaItemMenu.js"></script>
     <script type="text/javascript" src="../Scripts/ControlesImagenes/VistaThumbnail.js"></script>
     <script type="text/javascript" src="../Scripts/ControlesImagenes/SubidorDeImagenes.js"></script>
@@ -88,7 +89,7 @@
             </div>--%>
             <div id="notificacion_punto_rojo">
             </div>
-            <img src="<%= UrlImagenes %>mensajes-icono.png" id="menu_mensajes" alt="fotousuariomenu" />
+            <img src="<%= UrlImagenes %>alertas-icono.png" id="menu_mensajes" alt="fotousuariomenu" />
         </div>
         <div id="contenedor_menu_mensajes" class="menu_usuario sombrita-iconos" style="display: none;">
             <div class="flechita">
@@ -107,6 +108,7 @@
             </div>
         </div>
     </div>
+    <div id="sub_barrita_negra"></div>
     <div id="plantillas_barra_menu" style="display: none">
         <a class="ui_vista_item_menu">
             <img class='redondeo-modulos' style='margin: 5px;'/>

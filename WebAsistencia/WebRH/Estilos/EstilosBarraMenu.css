@@ -1,7 +1,6 @@
 ﻿#barra_menu_contenedor
 {
     height: auto;
-    margin-bottom: 18px;
 }
 
 #barra_menu_contenedor_imagen
@@ -24,17 +23,17 @@
 #img_logo_minis
 {
     position: absolute;
-    top: 13px;
-    right: 23px;
-    height: 35px;
+    top: 7px;
+    right: 184px;
+    height: 47px;
 }
 
 #img_logo_direccion
 {
     position: absolute;
-    top: 14px;
-    right: 235px;
-    height: 36px;
+    top: 16px;
+    right: 23px;
+    height: 28px;
 }
 
 
@@ -51,8 +50,8 @@
 #contenedor_imagen
 {
     width: 100%;
-    background-color: #00001c;
-    height: 66px;
+    background-color: #1c2431;
+    height: 83px;
 }
 
 #contenedor_barraInferior
@@ -144,7 +143,7 @@
 
 #barra_navegacion
 {
-    height: 48px;
+    height: 28px;
     width: 100%;
     background-color: rgb(25, 75, 180);
     border-top: solid white;
