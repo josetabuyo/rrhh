@@ -31,7 +31,7 @@
             <div id="menu_grafico">
                <h2 class="">Gráficos</h2>
                  <ul class="lista" >
-                   <li><a href="#" id="btn_grafico_dotacion" class="link_listado">Dotación</a>
+                   <li requierefuncionalidad="38"><a href="#" id="btn_grafico_dotacion" class="link_listado">Dotación</a>
                        <ul>
                            <li class="Rango Etáreo"><a href="#" id="btn_genero" class="link_listado">Género</a></li>
                            <li class="Rango Etáreo"><a href="#" id="btn_nivel" class="link_listado">Nivel</a></li>
@@ -42,13 +42,13 @@
                            <li class="Rango Etáreo"><a href="#" id="btn_subsecretarias" class="link_listado">SubSecretarías</a></li>
                        </ul>
                    </li>
-                   <li class="Dotacion"><a href="#" id="btn_grafico_sueldo" class="link_listado">Sueldo</a></li>
-                   <li class="Dotacion"><a href="#" id="btn_grafico_rangoEtario" class="link_listado">Rango Etário</a></li>
+                   <li class="Dotacion" requierefuncionalidad="39"><a href="#" id="btn_grafico_sueldo" class="link_listado">Sueldo</a></li>
+                   <li class="Dotacion" requierefuncionalidad="38"><a href="#" id="btn_grafico_rangoEtario" class="link_listado">Rango Etário</a></li>
                </ul>
             </div>
 
             <div id="div_filtros_graficos_y_tablas" style="position: absolute; left: 650px; width: 100%;">
-                <div style=" position: absolute;left: 150px; margin-top: 10px;">
+                <div style="position: absolute; left: 156px; margin-top: -13px;">
                     <h2 style="font-size: 1.1em;">Área Seleccionada: 
                         <span id="titulo_area">Seleccionar Área</span>
                         <input id="chk_incluir_dependencias" style="display:none; margin: 0px 5px 0px 5px;" class="regular-checkbox" type="checkbox"/><label id="lbl_incluir_dependencias" style="display:none" for="chk_incluir_dependencias">Incluir dependencias</label>

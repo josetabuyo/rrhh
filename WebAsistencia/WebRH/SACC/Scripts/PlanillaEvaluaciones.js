@@ -15,7 +15,7 @@ var TextboxNota = function (id) {
         {
         //expresion_regular_calificaciones.test(this.html.val());
         //if ($.inArray(this.html.val(), calificaciones_validas) < 0) {
-            return true; // alertify.alert("La calificaci&oacute;n ingresada no es v&aacute;lida");
+            return true; // alertify.alert("", "La calificaci&oacute;n ingresada no es v&aacute;lida");
         } else {
             return false;
         }

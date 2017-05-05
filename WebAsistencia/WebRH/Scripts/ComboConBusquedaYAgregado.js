@@ -20,12 +20,12 @@ var ComboConBusquedaYAgregado = function (opt) {
         opciones_select2.formatNoMatches = function (str_ingresado) {
             if (!_this.nombre_funcion_global_agregado) _this.nombre_funcion_global_agregado = _this.nombreFuncionRandom();
             window[_this.nombre_funcion_global_agregado] = function () {
-                alertify.confirm("¿Está seguro que desea agregar el elemento: " + str_ingresado + "?",
-                    function (respuesta) {
-                        if (!respuesta) {
-                            _this.select.select2("close");
-                            return;
-                        }
+                alertify.confirm("", "¿Está seguro que desea agregar el elemento: " + str_ingresado + "?",
+                    function () {
+//                        if (!respuesta) {
+//                            _this.select.select2("close");
+//                            return;
+//                        }
                         if (_this.filtro) {
                             var parametros = [str_ingresado];
                             for (var key in _this.filtro) {

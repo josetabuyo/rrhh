@@ -43,7 +43,7 @@
                         window.location.href = 'Comites.aspx?id=' + un_perfil.Comite.Numero;
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        alertify.alert("Error");
+                        alertify.alert("", "Error");
                     }
                 });
             });
@@ -93,7 +93,7 @@
                                         window.location.href = 'PreInscripcion.aspx?id=' + un_perfil.Id;
                                     },
                                     error: function (XMLHttpRequest, textStatus, errorThrown) {
-                                        alertify.alert("Error");
+                                        alertify.alert("", "Error");
                                     }
                                 }); //termina el ajax
                             }); //termina el click

@@ -45,8 +45,8 @@
             contenedorBtnAcciones.append(botonEliminar);
             botonEliminar.click(function () {
                 var mensaje = "¿Está seguro que desea eliminar el Pase de " + una_persona.nombre() + " desde el Área: " + una_persona.areaOrigen() + " hacía el Área: " + una_persona.areaDestino() + "?";
-                alertify.confirm(mensaje, function (e) {
-                    if (e) {
+                alertify.confirm("", mensaje, 
+                    function () {
                         // user clicked "ok"
                         var data_post = JSON.stringify({
                             id_pase: JSON.stringify(una_persona.idPase()),
@@ -62,13 +62,14 @@
                                 PlanillaPersonas.EliminarObjeto(una_persona);
                             },
                             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                                alertify.alert(errorThrown);
+                                alertify.alert("", errorThrown);
                             }
                         });
-                    } else {
+                    }, 
+                    function() {
                         alertify.error("No se ha eliminado el Pase");
                     }
-                });
+                );
 
                 
             });

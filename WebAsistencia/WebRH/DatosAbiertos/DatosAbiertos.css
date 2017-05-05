@@ -1,0 +1,33 @@
+﻿#plantillas
+{
+    display: none;
+}
+
+.btn_xls
+{
+    
+}
+.btn_xls div
+{
+
+}
+
+.titulo
+{
+    font-size: 30px;
+    margin-bottom: 12px;
+}
+
+
+.presentacion
+{
+    font-size: 17px;
+    margin-bottom: 10px;
+}
+
+#pagina
+{
+    margin-left: 14%;
+    margin-right: 14%;
+    margin-top: 24px;
+}

@@ -10,6 +10,13 @@ img
 {
     border:none;    
 }
+
+.acomodar_botones_del_menu
+{
+    margin-top: 2px;
+    }
+        
+
         
 .botoncitos
 {
@@ -108,6 +115,43 @@ img
     margin-right:4px;
 }
 
+#btn_consultar_trabajo
+{
+    float:right;
+    margin-top: 4px;
+    margin-right: 4px;
+}
+
+#btn_consultar_mis_areas
+{
+    float: right;
+    margin-top:4px;
+    margin-right:4px;    
+}
+
+#btn_consultar_areas_ddjj
+{
+    float: right;
+    margin-top:4px;
+        
+}
+
+
+#btn_consultar_mis_inasistencias
+{
+    float: left;
+  /*  margin-top:4px;
+    margin-right:4px;*/
+  margin: 6px 5px 0px 0px !important
+}
+
+#btn_consultar_consulta_ddjj {
+    display: block;
+    float: right;
+    margin-top: 4px;
+    margin-left: 4px;
+}
+
 .contenedor_principal_seleccion_areas
 {
     top:100px;
@@ -131,9 +175,9 @@ tbody tr:odd
     width: 100%;
     padding: 0;
     margin-bottom: 27px;
-    font-size: 19.5px;
+    font-size: 30px;
     line-height: 36px;
     color: #333333;
     border: 0;
-    border-bottom: 1px solid #e5e5e5;
+    /*border-bottom: 1px solid #e5e5e5;*/
 }

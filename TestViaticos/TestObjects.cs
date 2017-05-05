@@ -375,6 +375,7 @@ namespace General
 
         private static IRepositorioDeAsistencias repo_asistencias_mockeados;
 
+
         public static IRepositorioDeAsistencias RepoAsistenciasMockeado()
         {
             if (repo_asistencias_mockeados == null)
@@ -386,7 +387,10 @@ namespace General
         }
 
         private static IRepositorioLicencia repo_licencias_mockeados;
-
+        public static void ResetInstanceRepoLicencia()
+        {
+            repo_licencias_mockeados = null;
+        }
         public static IRepositorioLicencia RepoLicenciaMockeado()
         {
             if (repo_licencias_mockeados == null)

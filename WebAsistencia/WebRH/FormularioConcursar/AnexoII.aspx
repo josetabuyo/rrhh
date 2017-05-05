@@ -45,8 +45,8 @@
         ser efectuadas en las direcciones domiciliarias y electrónicas así como del teléfono y/o fax que he comunicado en la presente
         solicitud.</p>
         <br />
-        <p>Dirección electrónica: concursos@desarrollosocial.gov.ar</p>
-        <p>Ubicación de la cartelera: www.desarrollosocial.gov.ar/concursos</p>
+        <p>Dirección electrónica: concursos@desarrollosocial.gob.ar</p>
+        <p>Ubicación de la cartelera: www.desarrollosocial.gob.ar/concursos</p>
 
 
         <div class="div-pie-tabla">

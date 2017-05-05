@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Services;
 using System.Web.Script.Services;
 using Newtonsoft.Json;
+using System.Configuration;
 
 /// <summary>
 /// Descripción breve de AjaxWS
@@ -215,8 +216,34 @@ public class AjaxWS : System.Web.Services.WebService
     public string GetMenu(string nombre_menu)
     {
         var respuesta = backEndService.GetMenuPara(nombre_menu, usuarioLogueado);
+
+        //     respuesta = AplicarConfiguracionDeEntorno(respuesta);
+
         var respuestaSerializada = Newtonsoft.Json.JsonConvert.SerializeObject(respuesta);
+
         return respuestaSerializada;
+    }
+
+    protected WSViaticos.MenuDelSistema AplicarConfiguracionDeEntorno(WSViaticos.MenuDelSistema respuesta)
+    {
+        if (EstoyEnEntornoDeDesarrollo())
+        {
+            AgregarWebRHAUrls(respuesta);
+        }
+        return respuesta;
+    }
+
+    protected void AgregarWebRHAUrls(WSViaticos.MenuDelSistema respuesta)
+    {
+        respuesta.Items.ToList().ForEach(item =>
+        {
+            item.Acceso.Url = "/WebRH" + item.Acceso.Url;
+        });
+    }
+
+    protected bool EstoyEnEntornoDeDesarrollo()
+    {
+        return ConfigurationManager.AppSettings["developmentMode"].Equals("afkr73p21");
     }
 
     [WebMethod(EnableSession = true)]
@@ -267,7 +294,7 @@ public class AjaxWS : System.Web.Services.WebService
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public string CrearUsuarioPara(int id_persona)
     {
-        var respuesta = backEndService.CrearUsuarioPara(id_persona);
+        var respuesta = backEndService.CrearUsuarioPara(id_persona, usuarioLogueado);
         var respuestaSerializada = Newtonsoft.Json.JsonConvert.SerializeObject(respuesta);
         return respuestaSerializada;
     }
@@ -308,8 +335,8 @@ public class AjaxWS : System.Web.Services.WebService
     {
         backEndService.EliminarLicenciaPendienteAprobacion(id);
     }
-    
-    
+
+
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public void EliminarPasePendienteAprobacion(int id_pase)
@@ -339,7 +366,7 @@ public class AjaxWS : System.Web.Services.WebService
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public string CambiarPassword(string pass_actual, string pass_nueva)
     {
-        return backEndService.CambiarPassword(this.usuarioLogueado, pass_actual, pass_nueva);
+        return backEndService.CambiarPassword( pass_actual, pass_nueva, this.usuarioLogueado);
 
     }
 
@@ -841,7 +868,8 @@ public class AjaxWS : System.Web.Services.WebService
 
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public string GetComite(int idComite){
+    public string GetComite(int idComite)
+    {
         var comite = backEndService.GetComite(idComite);
         return JsonConvert.SerializeObject(comite);
     }
@@ -878,7 +906,7 @@ public class AjaxWS : System.Web.Services.WebService
     public string EjecutarEnBackend(string nombre_metodo, String[] argumentos_json)
     {
         System.Reflection.MethodInfo metodo = backEndService.GetType().GetMethods().ToList().Find(m => m.Name == nombre_metodo);
-        if(metodo==null) throw new Exception("Error: No se encontró el método " + nombre_metodo + " en el WEB SERVICE" );
+        if (metodo == null) throw new Exception("Error: No se encontró el método " + nombre_metodo + " en el WEB SERVICE");
 
         var argumentos_esperados = metodo.GetParameters();
 
@@ -894,10 +922,29 @@ public class AjaxWS : System.Web.Services.WebService
 
         if (argumentos_esperados.Any(a => a.Name == "usuario"))
         {
-            if (usuarioLogueado.GetType().Name == "UsuarioNulo") throw new Exception("Error: Debe estar logueado para acceder a esta funcionalidad");
-            argumentos_a_enviar.Add(usuarioLogueado);
+            try
+            {
+                if (usuarioLogueado.GetType().Name == "UsuarioNulo") throw new Exception("Error: Debe estar logueado para acceder a esta funcionalidad");
+                argumentos_a_enviar.Add(usuarioLogueado);
+
+            }
+            catch (Exception)
+            {
+                return Newtonsoft.Json.JsonConvert.SerializeObject("");
+            }
+               
+
+            
+
         }
         var respuesta = metodo.Invoke(backEndService, argumentos_a_enviar.ToArray());
+
+        if ((nombre_metodo == "ModificarMiMail") || (nombre_metodo == "ModificarMailRegistro"))
+        {
+            this.usuarioLogueado = backEndService.GetUsuarioPorId(this.usuarioLogueado.Id);
+            Session[ConstantesDeSesion.USUARIO] = this.usuarioLogueado;
+        }
+
         return Newtonsoft.Json.JsonConvert.SerializeObject(respuesta);
     }
 

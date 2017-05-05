@@ -85,10 +85,10 @@ var GraficoSueldos = {
             Backend.ExcelGeneradoSueldos({ tipo: check_seleccionado, fecha: fecha, id_area: parseInt(id_area), incluir_dependencias: $("#chk_incluir_dependencias").is(":checked") })
              .onSuccess(function (resultado) {
                  if (resultado.length > 0) {
-                     var nombre_del_documento = "DETALLE_SUELDOS_" + fecha + "_.xlsx";
+                     var nombre_del_documento = "DETALLE_SUELDOS_" + fecha;
                      var a = window.document.createElement('a');
                      a.href = "data:application/vnd.ms-excel;base64," + resultado;
-                     a.download = nombre_del_documento + fecha + "_.xlsx";
+                     a.download = nombre_del_documento + "_.xlsx";
                      document.body.appendChild(a);
                      a.click();
                      document.body.removeChild(a);
@@ -162,8 +162,9 @@ var GraficoSueldos = {
         var columnas = [];
 
         columnas.push(new Columna("Area", { generar: function (un_registro) { return un_registro.Area } }));
-        columnas.push(new Columna("Documento", { generar: function (un_registro) { return GraficoHerramientas.ConvertirANumeroConPuntos(un_registro.NroDocumento); } }));
+        columnas.push(new Columna("CUIL", { generar: function (un_registro) { return un_registro.CUIL } }));
         columnas.push(new Columna("Apellido_Nombre", { generar: function (un_registro) { return (un_registro.Apellido + ", " + un_registro.Nombre) } }));
+        columnas.push(new Columna("FechaIngreso", { generar: function (un_registro) { return GraficoHerramientas.ConvertirFecha(un_registro.FechaIngreso) } }));
         columnas.push(new Columna("SueldoBruto", { generar: function (un_registro) { return GraficoHerramientas.ConvertirAMonedaLocal(un_registro.SueldoBruto); } }));
         columnas.push(new Columna("SueldoNeto", { generar: function (un_registro) { return GraficoHerramientas.ConvertirAMonedaLocal(un_registro.SueldoNeto); } }));
         columnas.push(new Columna("ExtrasBruto", { generar: function (un_registro) { return GraficoHerramientas.ConvertirAMonedaLocal(un_registro.ExtrasBruto); } }));

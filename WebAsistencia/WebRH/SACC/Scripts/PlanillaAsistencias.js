@@ -40,7 +40,7 @@
                 _this.mostrar_botones();
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alertify.alert(errorThrown);
+                alertify.alert("", errorThrown);
             }
         });
     }
@@ -99,10 +99,10 @@
             contentType: "application/json; charset=utf-8",
             success: function (respuestaJson) {
                 var respuesta = JSON.parse(respuestaJson.d);
-                alertify.alert("Los cambios se guardaron satisfactoriamente");
+                alertify.alert("", "Los cambios se guardaron satisfactoriamente");
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alertify.alert(errorThrown);
+                alertify.alert("", errorThrown);
             }
         });
     }

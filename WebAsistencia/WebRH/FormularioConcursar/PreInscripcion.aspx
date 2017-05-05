@@ -243,8 +243,8 @@
     });
 
     function Siguiente() {
-        alertify.confirm("¿Está seguro que desea pasar al siguiente paso?", function (e) {
-            if (e) {
+        alertify.confirm("", "¿Está seguro que desea pasar al siguiente paso?", 
+            function () {
                 // user clicked "ok"
                 if ($("#contenedor_datosPersonales").esValido()) {
                     $("#btn_guardar_datosPersonales").click();
@@ -252,12 +252,9 @@
                 } else { 
                 
                 }
-            } else {
-                // user clicked "cancel"
-                //alertify.error("");
-            }
-        });
-
+            },
+            function(){}
+        );
     }
 
     function Anterior() {

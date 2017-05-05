@@ -66,8 +66,8 @@
     eliminar: function (una_capacidad) {
         var _this = this;
         // confirm dialog
-        alertify.confirm("¿Está seguro que desea eliminar la capacidad?", function (e) {
-            if (e) {
+        alertify.confirm("", "¿Está seguro que desea eliminar la capacidad?", 
+            function () {
                 Backend.EliminarCvOtraCapacidad(una_capacidad)
                     .onSuccess(function (respuesta) {
                         alertify.success("Capacidad eliminada correctamente");
@@ -78,7 +78,8 @@
                     .onError(function (error, as, asd) {
                         alertify.error("No se pudo eliminar la capacidad");
                     });
-            }
-        });
+            },
+            function(){}
+        );
     }
 }

@@ -29,7 +29,7 @@
                             }
                         },
                         function (errorThrown) {
-                            alertify.alert(errorThrown);
+                            alertify.alert("", errorThrown);
                         }
         );
     }
@@ -48,11 +48,11 @@
                         function (respuesta) {
                             if (respuesta != null) _this.CompletarDatos(respuesta);
                             else {
-                                alertify.alert("Código no encontrado");
+                                alertify.alert("", "Código no encontrado");
                             }
                         },
                         function (errorThrown) {
-                            alertify.alert(errorThrown);
+                            alertify.alert("", errorThrown);
                         }
         );
     }
@@ -64,10 +64,10 @@
         Backend.ejecutar("InsEtapaPostulacion",
             [postulacion.Id, id_etapa],
             function (respuesta) {
-                alertify.alert("Etapa Guardada");
+                alertify.alert("", "Etapa Guardada");
             },
             function (XMLHttpRequest, textStatus, errorThrown) {
-                alertify.alert("Error.");
+                alertify.alert("", "Error.");
             }
         );
     }

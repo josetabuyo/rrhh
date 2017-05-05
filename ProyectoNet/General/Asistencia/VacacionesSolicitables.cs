@@ -9,11 +9,27 @@ namespace General
     {
         protected int _perido;
         protected int _dias;
-        
-        public VacacionesSolicitables(int periodo, int dias) 
+        public VacacionesSolicitables()
+        {
+        }
+        public VacacionesSolicitables(int periodo, int dias)
         {
             this._perido = periodo;
             this._dias = dias;
+        }
+
+
+
+        public int Period
+        {
+            get { return _perido; }
+            set { }
+        }
+
+        public int Dias
+        {
+            get { return _dias; }
+            set { }
         }
 
         public int Periodo()

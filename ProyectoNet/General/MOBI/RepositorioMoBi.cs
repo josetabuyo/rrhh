@@ -9,8 +9,11 @@ namespace General.Repositorios
 {
     public class RepositorioMoBi
     {
-        public RepositorioMoBi()
+        private IConexionBD conexion_bd;
+
+        public RepositorioMoBi(IConexionBD conexion)
         {
+            this.conexion_bd = conexion;
         }
 
         public MoBi_Area[] GetAreasUsuario(int IdUsuario)
@@ -56,6 +59,29 @@ namespace General.Repositorios
             return lau.ToArray();
         }
 
+        public MoBi_Area[] GetAreasDelUsuarioBienesDisponibles(int IdUsuario, int IdTipoBien, bool Incluir_Dependencias, bool Mostrar_Todas_Areas)
+        {
+            List<MoBi_Area> lau = new List<MoBi_Area>();
+            MoBi_Area area;
+            SqlDataReader dr;
+            ConexionDB cn = new ConexionDB("dbo.MOBI_GetAreasDelUsuarioBienesDisponibles");
+            cn.AsignarParametro("@IdUsuario", IdUsuario);
+            cn.AsignarParametro("@Id_TipoBien", IdTipoBien);
+            cn.AsignarParametro("@Incluir_Dependencias", Incluir_Dependencias);
+            cn.AsignarParametro("@Mostrar_Todas_Areas", Mostrar_Todas_Areas);
+            dr = cn.EjecutarConsulta();
+            while (dr.Read())
+            {
+                area = new MoBi_Area();
+                area.Id = dr.GetInt32(dr.GetOrdinal("id"));
+                area.Nombre = dr.GetString(dr.GetOrdinal("nombre"));
+                lau.Add(area);
+            }
+            dr.Close(); dr.Dispose(); dr = null;
+            cn.Desconestar();
+            return lau.ToArray();
+        }
+
 
         public MoBi_TipoBien[] GetTipoDeBienes()
         {
@@ -97,6 +123,32 @@ namespace General.Repositorios
                 bien.Asignacion= dr.GetString(dr.GetOrdinal("asignacion"));
                 lb.Add(bien);
             }
+            cn.Desconestar();
+            return lb.ToArray();
+        }
+
+        public MoBi_Bien[] GetBienesDisponibles(int IdArea, int IdTipoBien, int IdUsuario)
+        {
+            List<MoBi_Bien> lb = new List<MoBi_Bien>();
+            MoBi_Bien bien;
+            SqlDataReader dr;
+            ConexionDB cn = new ConexionDB("dbo.MOBI_GetBienesDisponibles");
+            cn.AsignarParametro("@IdArea", IdArea);
+            cn.AsignarParametro("@IdTipoBien", IdTipoBien);
+            cn.AsignarParametro("@IdUsuario", IdUsuario);
+
+            dr = cn.EjecutarConsulta();
+            while (dr.Read())
+            {
+                bien = new MoBi_Bien();
+                bien.Id = dr.GetInt32(dr.GetOrdinal("id"));
+                bien.Descripcion = dr.GetString(dr.GetOrdinal("descripcion"));
+                bien.Ubicacion = dr.GetString(dr.GetOrdinal("ubicacion"));
+                bien.Verificacion = dr.GetString(dr.GetOrdinal("verificacion"));
+                bien.Estado = dr.GetString(dr.GetOrdinal("estado"));
+                lb.Add(bien);
+            }
+            dr.Close(); dr.Dispose(); dr = null;
             cn.Desconestar();
             return lb.ToArray();
         }
@@ -218,6 +270,52 @@ namespace General.Repositorios
         }
 
 
+        public MoBi_Bien GetBienPorId(int id_bien)
+        {
+
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@IdBien", id_bien);
+
+            var tablaDatos = this.conexion_bd.Ejecutar("dbo.MOBI_GetBienPorId", parametros);
+
+
+            var bien = new MoBi_Bien();
+            if (tablaDatos.Rows.Count > 0)
+            {
+                var row = tablaDatos.Rows[0];
+
+                bien.Id = row.GetInt("Id");
+                bien.Descripcion = row.GetString("descripcion");                
+
+                tablaDatos.Rows.ForEach(r =>
+                {
+                    if (r.GetObject("id_imagen") is DBNull) return;
+                    bien.Imagenes.Add(r.GetInt("id_imagen"));
+                });
+            };
+
+            return bien;
+        }
+
+
+        public bool AsignarImagenABien(int id_bien, int id_imagen)
+        {
+            var parametros_asignar_imagen = new Dictionary<string, object>();
+            parametros_asignar_imagen.Add("@idBien", id_bien);
+            parametros_asignar_imagen.Add("@idImagen", id_imagen);
+            this.conexion_bd.Ejecutar("dbo.MOBI_AsignarImagenABien", parametros_asignar_imagen);
+            return true;
+        }
+
+
+        public bool DesAsignarImagenABien(int id_bien, int id_imagen)
+        {
+            var parametros_desasignar_imagen = new Dictionary<string, object>();
+            parametros_desasignar_imagen.Add("@idBien", id_bien);
+            parametros_desasignar_imagen.Add("@idImagen", id_imagen);
+            this.conexion_bd.Ejecutar("dbo.MOBI_DesAsignarImagenABien", parametros_desasignar_imagen);
+            return true;
+        }
     }
 
 }

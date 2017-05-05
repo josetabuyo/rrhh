@@ -76,7 +76,7 @@
         //                    },
         //                    success: function (personas) {
         //                        if (personas.length > 0) {
-        //                            alertify.alert("El documento ingresado ya está registrado, inicie sesión con el usuario asignado. Si no los recuerda, utilice la opción: '¿Olvidó sus datos?' o comuníquese con <br/> Recursos Humanos.");
+        //                            alertify.alert("", "El documento ingresado ya está registrado, inicie sesión con el usuario asignado. Si no los recuerda, utilice la opción: '¿Olvidó sus datos?' o comuníquese con <br/> Recursos Humanos.");
         //                            return;
         //                        }
         //                        _this.paso2();
@@ -122,12 +122,12 @@
                         }
                     },
                     success: function () {
-                        alertify.alert("Se le ha enviado un mail con su nombre de usuario y contraseña", function () {
+                        alertify.alert("", "Se le ha enviado un mail con su nombre de usuario y contraseña", function () {
                             vex.closeAll();
                         });
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        alertify.alert("El mail con el que intenta registrarse ya existe. Si no recuerda sus datos, utilice la opción '¿Olvidó sus datos?' o comuníquese con <br/> Recursos Humanos.");
+                        alertify.alert("", "El mail con el que intenta registrarse ya existe. Si no recuerda sus datos, utilice la opción '¿Olvidó sus datos?' o comuníquese con <br/> Recursos Humanos.");
                     }
                 });
             }
@@ -163,10 +163,10 @@
         //                    },
         //                    success: function (ejeucion_ok) {
         //                        if (!ejeucion_ok) {
-        //                            alertify.alert("No es posible recuperar sus datos. Contáctese con Recursos Humanos");
+        //                            alertify.alert("", "No es posible recuperar sus datos. Contáctese con Recursos Humanos");
         //                            return;
         //                        }
-        //                        alertify.alert("Se ha enviado un mail a dicho correo, para que pueda recuperar sus datos de acceso.");
+        //                        alertify.alert("", "Se ha enviado un mail a dicho correo, para que pueda recuperar sus datos de acceso.");
         //                        vex.closeAll();
         //                    },
         //                    error: function (XMLHttpRequest, textStatus, errorThrown) {

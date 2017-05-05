@@ -76,8 +76,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Asistencia\Combo.cs" />
+    <Compile Include="Asistencia\AnalisisDeLicenciaOrdinaria.cs" />
     <Compile Include="Asistencia\ConceptoLicenciaAnualOrdinaria.cs" />
     <Compile Include="Asistencia\ConceptoLicenciaGeneral.cs" />
+    <Compile Include="Asistencia\LogCalculoVacaciones.cs" />
     <Compile Include="Asistencia\ResponsableDDJJ.cs" />
     <Compile Include="Asistencia\SolicitudesDeVacaciones.cs" />
     <Compile Include="Asistencia\TipoDePlantaGeneral.cs" />
@@ -100,6 +102,24 @@
     <Compile Include="Asistencia\VacacionesSolicitables.cs" />
     <Compile Include="Calendario\CalculadorDeDias.cs" />
     <Compile Include="Calendario\Periodo.cs" />
+    <Compile Include="DatosAbiertos\ConsultaOPD.cs" />
+    <Compile Include="DatosAbiertos\ParametroConsultaOPD.cs" />
+    <Compile Include="DatosAbiertos\RepositorioDeDatosAbiertos.cs" />
+    <Compile Include="MAU\SolicitudDeCambioDeImagen.cs" />
+    <Compile Include="Organigrama\GraficoContratos.cs" />
+    <Compile Include="Organigrama\PersonaContrato.cs" />
+    <Compile Include="Portal\Consulta.cs" />
+    <Compile Include="Portal\Destinatario.cs" />
+    <Compile Include="Portal\Notificacion.cs" />
+    <Compile Include="Portal\Estudio.cs" />
+    <Compile Include="Portal\Legajo.cs" />
+    <Compile Include="Portal\Respuesta.cs" />
+    <Compile Include="Repositorios\EstadoContrato.cs" />
+    <Compile Include="Repositorios\FormEvaluacion.cs" />
+    <Compile Include="Repositorios\RepositorioDeContratos.cs" />
+    <Compile Include="Repositorios\RepositorioEvaluacionDesempenio.cs" />
+    <Compile Include="Repositorios\RepositorioLegajo.cs" />
+    <Compile Include="DDJJ104\DDJJ104_Consulta.cs" />
     <Compile Include="MOBI\ExcepcionDeVehiculoInexistente.cs" />
     <Compile Include="MOBI\RespuestaVehiculo.cs" />
     <Compile Include="MOBI\RepositorioTarjetones.cs" />
@@ -142,6 +162,10 @@
     <Compile Include="MAU\RepositorioDeFuncionalidadesDeUsuarios_EnMemoria.cs" />
     <Compile Include="Campo.cs" />
     <Compile Include="Formulario.cs" />
+    <Compile Include="Repositorios\ErrorLogException.cs" />
+    <Compile Include="Repositorios\IConPersona.cs" />
+    <Compile Include="Repositorios\Imagen.cs" />
+    <Compile Include="Repositorios\RepositorioDeImagenes.cs" />
     <Compile Include="Repositorios\RepositorioDeArchivos.cs" />
     <Compile Include="Repositorios\RepositorioDeReportes.cs" />
     <Compile Include="Repositorios\RepositorioDeFormularios.cs" />

@@ -13,12 +13,16 @@
 
 <body>
     <form id="form1" runat="server">
-    <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'></span>" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
+    <uc2:BarraMenu ID="BarraMenu1" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'></span>" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
 
-    <fieldset style="text-align: center">
+    <fieldset style="text-align: center; margin-top: 40px" >
         <legend>Certificación de Servicios según Decisión Administrativa N° 104/2001</legend>
     </fieldset>
 
+    <%--<div style="text-align: right">
+        <a style="font-size: 1.6em;display: block;margin-bottom: 10px;" href="ConsultaIndividualDDJJ.aspx">Consulta Individual de DDJJ104</a>
+    </div>--%>
+    
     <div>    
         <select runat="server" title="Seleccione un mes" id="cmbMeses" name="Meses" enableviewstate="false"
             style="text-transform: capitalize;">

@@ -30,67 +30,88 @@
                 }
 
                 if (pass_nueva != pass_nueva_repetida) {
-                    alertify.alert("Las contrase&ntilde;as no coinciden");
+                    alertify.alert("", "Las contrase&ntilde;as no coinciden");
                     return;
                 }
                 //FC: agregar estas validaciones cuando salgamos a produccion
                 if (pass_nueva.length < 8) {
-                    alertify.alert("La contrase&ntilde;a debe ser tener al menos 8 d&iacute;gitos ");
+                    alertify.alert("", "La contrase&ntilde;a debe ser tener al menos 8 d&iacute;gitos ");
                     return;
                 }
 
                 if (pass_nueva == pass_actual) {
-                    alertify.alert("La contrase&ntilde;a debe ser distinta de la actual");
+                    alertify.alert("", "La contrase&ntilde;a debe ser distinta de la actual");
                     return;
                 }
 
                 var matches = pass_nueva.match(/\d+/g);
                 if (matches == null) {
-                    alertify.alert('La contrase&ntilde;a debe tener algun n&uacute;mero');
+                    alertify.alert('', 'La contrase&ntilde;a debe tener algun n&uacute;mero');
                     return false;
                 }
 
-                var data_post = JSON.stringify({
-                    pass_actual: pass_actual,
-                    pass_nueva: pass_nueva
-                });
+                //                var data_post = JSON.stringify({
+                //                    pass_actual: pass_actual,
+                //                    pass_nueva: pass_nueva
+                //                });
                 _this = this;
 
-                $.ajax({
-                    url: $('#BarraMenu_FormPassword_urlAjax').val().concat("AjaxWS.asmx/CambiarPassword"),
-                    type: "POST",
-                    data: data_post,
-                    dataType: "json",
-                    contentType: "application/json; charset=utf-8",
-                    success: function (respuestaJson) {
-                        var respuesta = JSON.parse(respuestaJson.d);
-                        if (respuesta.tipoDeRespuesta == "cambioPassword.ok") {
-
-                            alertify.alert("Se cambio la contrase&ntilde;a correctamente");
-                            $(".modal_close").click();
-                            $('#pass_actual').val("");
-                            $('#pass_nueva').val("");
-                            $('#pass_nueva_repetida').val("");
-                            return;
-                        }
-
-                        if (respuesta.tipoDeRespuesta == "cambioPassword.error") {
-                            alertify.alert("La contrase&ntilde;a actual no es correcta");
-                            $(".modal_close").click();
-                            return;
-                        }
-
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        alertify.alert(errorThrown);
+                Backend.CambiarPassword(pass_actual, pass_nueva)
+                .onSuccess(function (resp_string) {
+                    var respuesta = JSON.parse(resp_string);
+                    if (respuesta.tipoDeRespuesta == "cambioPassword.ok") {
+                        alertify.alert("", "Se cambio la contrase&ntilde;a correctamente");
+                        $(".modal_close").click();
+                        $('#pass_actual').val("");
+                        $('#pass_nueva').val("");
+                        $('#pass_nueva_repetida').val("");
+                        return;
                     }
+
+                    if (respuesta.tipoDeRespuesta == "cambioPassword.error") {
+                        alertify.alert("", "La contrase&ntilde;a actual no es correcta");
+                        $(".modal_close").click();
+                        return;
+                    }
+                })
+                .onError(function (XMLHttpRequest, textStatus, errorThrown) {
+                    alertify.alert(errorThrown);
                 });
+                //                $.ajax({
+                //                    url: $('#BarraMenu_FormPassword_urlAjax').val().concat("AjaxWS.asmx/CambiarPassword"),
+                //                    type: "POST",
+                //                    data: data_post,
+                //                    dataType: "json",
+                //                    contentType: "application/json; charset=utf-8",
+                //                    success: function (respuestaJson) {
+                //                        var respuesta = JSON.parse(respuestaJson.d);
+                //                        if (respuesta.tipoDeRespuesta == "cambioPassword.ok") {
+
+                //                            alertify.alert("", "Se cambio la contrase&ntilde;a correctamente");
+                //                            $(".modal_close").click();
+                //                            $('#pass_actual').val("");
+                //                            $('#pass_nueva').val("");
+                //                            $('#pass_nueva_repetida').val("");
+                //                            return;
+                //                        }
+
+                //                        if (respuesta.tipoDeRespuesta == "cambioPassword.error") {
+                //                            alertify.alert("", "La contrase&ntilde;a actual no es correcta");
+                //                            $(".modal_close").click();
+                //                            return;
+                //                        }
+
+                //                    },
+                //                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                //                        alertify.alert(errorThrown);
+                //                    }
+                //                });
             });
         });
 
         var ValidarCamposVacios = function (pass_actual, pass_nueva, pass_nueva_repetida) {
             if (pass_actual == "" || pass_nueva == "" || pass_nueva_repetida == "") {
-                alertify.alert("Complete todos los campos");
+                alertify.alert("", "Complete todos los campos");
                 return false;
             }
             return true;
@@ -117,18 +138,18 @@
 							<div id="contenido_form">
 				              <div class="txt-fld">
 				                <label for="">Contrase&ntilde;a actual</label>
-                                <input id="pass_actual" type="password" />
+                                <input id="pass_actual" type="password" class="posicionamiento_input_cambio_pass"/>
                                <%-- <asp:TextBox ID="passActual" runat="server" />--%>
 				              </div>
 				              <div class="txt-fld">
 				                <label for="">Nueva Contrase&ntilde;a</label>
-                                 <input id="pass_nueva" type="password" />
+                                 <input id="pass_nueva" type="password" class="posicionamiento_input_cambio_pass" />
                                <%-- <asp:TextBox ID="passNueva" runat="server" />--%>
 				               
 				              </div>
 				              <div class="txt-fld">
 				                <label for="">Repetir Contrase&ntilde;a</label>
-                                <input id="pass_nueva_repetida" type="password" />
+                                <input id="pass_nueva_repetida" type="password" class="posicionamiento_input_cambio_pass" />
                                <%-- <asp:TextBox ID="passNuevaRepetida" runat="server" />--%>
 				              </div>
 				              <div class="btn-fld">

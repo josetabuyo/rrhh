@@ -96,4 +96,9 @@
     </div>
     <!--/span-->
     </div>
+    <div id=plantillas style="display:none">
+        <div id="pantalla_edicion_bien">
+            
+        </div>
+    </div>
 </asp:Content>

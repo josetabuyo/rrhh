@@ -101,7 +101,7 @@ BuscarPorAlumnos = function () {
         },
 
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alertify.alert(errorThrown);
+            alertify.alert("", errorThrown);
         }
     });
 };

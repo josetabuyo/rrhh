@@ -28,13 +28,13 @@ var PanelDetalleGenerico = function (opciones) {
                 _this.btn_guardar[0].disabled = true;
                 Backend.ejecutar(opciones.metodoDeGuardado, [modelo],
                     function (respuesta) {
-                        alertify.alert(opciones.mensajeDeGuardadoExitoso);
+                        alertify.alert("", opciones.mensajeDeGuardadoExitoso);
                         $.extend(opciones.modelo, respuesta);
                         alModificar(respuesta);
                         $(".modal_close_concursar").click();
                     },
                     function (error, as, asd) {
-                        alertify.alert(opciones.mensajeDeGuardadoErroneo);
+                        alertify.alert("", opciones.mensajeDeGuardadoErroneo);
                     });
             } else {
             }

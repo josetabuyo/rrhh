@@ -53,9 +53,9 @@ public partial class MoBi_BienesDisponibles : System.Web.UI.Page
     protected void GridViewBienes_RowCommand(object sender, GridViewCommandEventArgs e)
     {
         Session.Add("MOBI_IdBien", GridViewBienes.DataKeys[Convert.ToInt32(e.CommandArgument)].Value);
-        Session.Add("MOBI_AreaOrigen", Server.HtmlDecode(GridViewBienes.Rows[Convert.ToInt32(e.CommandArgument)].Cells[3].Text));
+        Session.Add("MOBI_AreaOrigen", Server.HtmlDecode(GridViewBienes.Rows[Convert.ToInt32(e.CommandArgument)].Cells[4].Text));
         Session.Add("MOBI_TipoBien", Server.HtmlDecode(DropDownListTipoDeBien.SelectedItem.Text));
-        Session.Add("MOBI_Item", Server.HtmlDecode(GridViewBienes.Rows[Convert.ToInt32(e.CommandArgument)].Cells[0].Text));
+        Session.Add("MOBI_Item", Server.HtmlDecode(GridViewBienes.Rows[Convert.ToInt32(e.CommandArgument)].Cells[1].Text));
         if (e.CommandName == "MOV")
             Server.Transfer("MovimentosBien.aspx");
         if (e.CommandName == "ASIG")

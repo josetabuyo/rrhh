@@ -81,13 +81,13 @@
     //Muestra los Mensajes de Error mediante PopUp y los de Éxito por mensaje
     var mostrador_de_mensajes = {
         mostrar: function (mensaje) {
-            alertify.alert(mensaje);
+            alertify.alert("", mensaje);
         }
     };
     var administradorDeErrores = new AdministradorDeMensajes(
         {
             mostrar: function (mensaje) {
-                alertify.alert(mensaje);
+                alertify.alert("", mensaje);
             }
         },
         $("#texto_mensaje_error").val());

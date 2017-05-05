@@ -25,12 +25,14 @@
 
         <div id="titulo_areas_a_administrar" style="text-shadow: 2px 2px 5px rgba(150, 150, 150, 1);">
             Áreas a Administrar                 
-            <a id="btn_consultar_areas_ddjj" RequiereFuncionalidad="22" class="btn btn-primary btn_menu_herramientas" href="DDJJ104/FAreasConDDJJ.aspx">DDJJ 104/2001</a>
-            <a id="btn_consultar_areas" class="btn btn-primary btn_menu_herramientas" href="Protocolo/ConsultaProtocolo.aspx">Autoridades</a>
-            <a id="btn_consultar_trabajo" class="btn btn-primary btn_menu_herramientas" href="Protocolo/ConsultaLugaresDeTrabajo.aspx">Lugares de Trabajo</a>
-            <a id="btn_consultar_mis_areas" class="btn btn-primary btn_menu_herramientas"  href="Protocolo/ConsultaListadoPersonasACargo.aspx">Personas a Cargo</a>
-            <a id="btn_consultar_mis_inasistencias" class="btn btn-primary btn_menu_herramientas" href="Protocolo/ConsultaListadoLicencias.aspx">Licencias y Pases E/T</a>
-            <a id="btn_aprobar_modificaciones" RequiereFuncionalidad="35" class="btn btn-primary btn_menu_herramientas" href="Protocolo/AprobacionDeSolicitudes.aspx">Solicitudes de Modificación</a>
+            <a id="btn_consultar_consulta_ddjj" RequiereFuncionalidad="23" class="acomodar_botones_del_menu btn btn-primary" href="DDJJ104/ConsultaIndividualDDJJ.aspx">Consultas DDJJ 104/2001</a>
+            <a id="btn_consultar_areas_ddjj" RequiereFuncionalidad="22" class="acomodar_botones_del_menu btn btn-primary" href="DDJJ104/FAreasConDDJJ.aspx">DDJJ 104/2001</a>
+            <a id="btn_consultar_areas" class="acomodar_botones_del_menu btn btn-primary" href="Protocolo/ConsultaProtocolo.aspx">Autoridades</a>
+            <a id="btn_consultar_trabajo" class="btn btn-primary acomodar_botones_del_menu" href="Protocolo/ConsultaLugaresDeTrabajo.aspx">Lugares de Trabajo</a>
+            <a id="btn_consultar_mis_areas" class="btn acomodar_botones_del_menu btn-primary"  href="Protocolo/ConsultaListadoPersonasACargo.aspx">Personas a Cargo</a>
+            <a id="btn_consultar_mis_inasistencias" class="btn btn-primary acomodar_botones_del_menu" href="Protocolo/ConsultaListadoLicencias.aspx">Licencias y Pases E/T</a>
+            <a id="btn_analisis_licencia" RequiereFuncionalidad="35" class="acomodar_botones_del_menu btn btn-primary" href="FormulariosDeLicencia/CalculoDeLicenciaOrdinaria.aspx">Analisis Licencias</a>
+            <a id="btn_seleccion_contratos" RequiereFuncionalidad="43" class="acomodar_botones_del_menu btn btn-primary" href="Contratos/SeleccionDeContratos.aspx">Selección de Contratos</a>
         </div>
         
         <div id="contenedor_areas_usuario">          
@@ -88,9 +90,9 @@
 
    function Modal() {
 
-       alertify.alert(
+       alertify.alert("", 
          "<p>Para solicitar la modificación de los datos del Área, enviar un correo electrónico a</p>"
-       + "<p><b>rhcomunica@desarrollosocial.gov.ar</b></p>"
+       + "<p><b>rhcomunica@desarrollosocial.gob.ar</b></p>"
        + "</br>"
 
        );

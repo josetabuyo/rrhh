@@ -1,0 +1,36 @@
+  
+alter PROCEDURE[dbo].[Web_getusuario] @id         INT = NULL,  
+                                      @id_persona INT = NULL,  
+                                      @alias      VARCHAR(15) = NULL  
+AS  
+    DECLARE @NombreSp VARCHAR(60)  
+  
+    SET @NombreSp = (SELECT Object_name(@@PROCID))  
+  
+    EXEC dbo.Audit  
+      @NombreSp  
+  
+    SELECT top 1 us.id         Id,  
+           us.nombre     Alias,  
+           wp.password   Clave_Encriptada,  
+           us.IdPersona  Id_Persona,  
+           us.baja       Baja,  
+           us.Verificado Verificado,  
+           g_mail.Email  MailRegistro  
+    FROM   dbo.RH_usuarios us  
+           INNER JOIN dbo.web_passwords wp  
+                   ON wp.idUsuario = us.id  
+           LEFT JOIN dbo.CV_Usuarios_EmailRegistro mail  
+                  ON mail.Id_Usuario = us.Id  
+           LEFT JOIN dbo.GEN_Emails g_mail  
+                  ON g_mail.Id_Contacto = mail.Id_Contacto  
+    WHERE  ( g_mail.Tipo_Contacto IS NULL  
+              OR g_mail.Tipo_Contacto IN ( 3, 5, 6 ) )  
+           AND --- ojo agregue el 3 para que funcione por ahora FAML 02_12_2016 OJO QUE LE PUSE EL TOP 1  
+           ( us.id = @id  
+              OR @id IS NULL )  
+           AND ( us.Nombre = @alias  
+                  OR @alias IS NULL )  
+           AND ( us.IdPersona = @id_persona  
+                  OR @id_persona IS NULL )  
+           AND ( us.Baja = 0 )   

@@ -10,7 +10,7 @@
 #panel_izquierdo {
     position: absolute;
     height: auto;
-    width: 600px;
+    width: 700px;
 }
 /*
 #panel_derecho {
@@ -23,6 +23,7 @@
 #panel_datos_personales {
     display: inline-block;
     width: 78%;
+    margin-left: 128px;
 }
 .dato_personal {
     margin: 12px;
@@ -31,12 +32,19 @@
     -webkit-border-radius: 10px;
 }
 
-#foto_usuario {
-    display: inline-block;
-    vertical-align: top;
-    margin-top: 20px;
-    display: block;
+.foto_usuario {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    height: 128px;
+    width: 128px;
+    margin-left: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 142px;
 }
+    
 
 .bloque_foto 
 {
@@ -111,13 +119,14 @@
 #contenedor_arbol_organigrama
 {
     display: inline-block;
-    width: 600px; 
+    width: 600px;
     float: left;
-    margin-left: 45px;
+    margin-left: 40px;
     background-color: #FCFCFC;
     border-radius: 0 5px 5px 5px;
     border-right: 1px solid #D5D5D5;
-    padding-top: 20px;
+    padding-top: 0px;
+    margin-top: 0px;
 }
     
 
@@ -125,24 +134,25 @@
 .btn_organigrama 
  {
     position: absolute;
-    /*left: 645px;*/
+    left: 645px;
     height: 70px;
-    top: 10px;
+    top: -10px;
     background-color: #F8F8F8;
     border: 1px solid #D5D5D5;
-    padding: 10px;
+    /* padding: 10px; */
     border-radius: 0 5px 5px 0;
     font-variant: small-caps;
     font-size: initial;
     width: 135px !important;
     letter-spacing: 1px;
+    margin-top: 0px;
 }
 
 .btn_consulta_individual 
 {
     position: absolute;
     display: block;
-    top: 170px;
+    top: 151px;
     height: 70px;
     display: inline-block;
     background-color: #F8F8F8;
@@ -189,16 +199,14 @@
 #menu_grafico 
 {
     position: absolute;
-    top: 90px;
+    top: 66px;
     width: 135px;
     left: 645px;
     background-color: #F8F8F8;
     border-radius: 0 5px 5px 0;
     border: 1px solid #D5D5D5;
-    cursor:pointer;
+    cursor: pointer;
     z-index: 9;
-   
-    
 }
 
 #menu_grafico h2 
@@ -288,35 +296,35 @@
 
 /*--------estilos para los checkbox de los filtros--------*/
 .regular-checkbox {
-	-webkit-appearance: none;
-	background-color: #fafafa;
-	border: 1px solid #cacece;
-	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
-	padding: 9px;
-	border-radius: 3px;
-	display: inline-block;
-	position: relative;
+	-webkit-appearance: none important!;
+	background-color: #fafafa important!;
+	border: 1px solid #cacece important!;
+	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05) important!;
+	padding: 9px important!;
+	border-radius: 3px important!;
+	display: inline-block important!;
+	position: relative important!;
 }
 
 .regular-checkbox:active, .regular-checkbox:checked:active {
-	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
+	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1) important!;
 }
 
 .regular-checkbox:checked {
-	background-color: #e9ecee;
-	border: 1px solid #adb8c0;
-	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1);
-	color: #99a1a7;
+	background-color: #e9ecee important!;
+	border: 1px solid #adb8c0 important!;
+	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1) important!;
+	color: #99a1a7 important!;
 }
 
 .regular-checkbox:checked:after {
-	content: '\2714';
-	font-size: 14px;
-	position: absolute;
-	top: 0px;
-	left: 3px;
-	color: #99a1a7;
+	content: '\2714' important!;
+	font-size: 14px important!;
+	position: absolute important!;
+	top: 0px important!;
+	left: 3px important!;
+	color: #99a1a7 important!;
 }
-    
-    
+
+
 

@@ -3,21 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using General;
+using General.Repositorios;
 
 namespace General
 {
-    public class VacacionesPermitidas
+    public class VacacionesPermitidas: IConPersona
     {
         protected Persona _persona;
         protected int _dias;
         protected int _anio;
         protected int _concepto;
         protected int _prorroga;
+        
 
         public Persona Persona { get { return _persona; } }
         public int Periodo { get { return _anio; } }
         public int Concepto { get { return _concepto; } }
         public int Prorroga { get { return _prorroga; } }
+
+        public string Observacion { get; set; }
+        public DateTime Desde()
+        {
+            return new DateTime(Periodo, 01, 01);
+        }
 
         public VacacionesPermitidas(Persona persona, int periodo, int dias, int concepto, int prorroga) 
         {

@@ -71,8 +71,8 @@
     eliminar: function (una_institucion_academica) {
         var _this = this;
         // confirm dialog
-        alertify.confirm("¿Está seguro que desea eliminar la institución?", function (e) {
-            if (e) {
+        alertify.confirm("", "¿Está seguro que desea eliminar la institución?",
+            function () {
                 Backend.EliminarCvInstitucionAcademica(una_institucion_academica)
                     .onSuccess(function (respuesta) {
                         alertify.success("Institución eliminada correctamente");
@@ -82,8 +82,9 @@
                     })
                     .onError(function (error, as, asd) {
                         alertify.error("No se pudo eliminar la institución");
-                    });   
-            }
-        });
+                    });
+            },
+            function () { }
+        );
     }
 }

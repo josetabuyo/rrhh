@@ -80,5 +80,18 @@ namespace General.MAU
         {
             objetos = ObtenerDesdeLaBase();
         }
+
+
+        public void ConcederBasicas(Usuario usuario)
+        {
+            this.repositorioDeFuncionalidades.TodasLasFuncionalidades().ForEach(f =>
+            {
+                if (!f.basica) return;
+                if (f.SoloParaEmpleados && usuario.Owner.Legajo == null) return;
+                if (f.SoloParaVerificados && !usuario.Verificado) return;
+
+                this.ConcederFuncionalidadA(usuario.Id, f.Id);
+            });
+        }
     }
 }

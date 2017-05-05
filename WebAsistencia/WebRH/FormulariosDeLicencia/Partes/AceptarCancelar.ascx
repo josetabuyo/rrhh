@@ -7,7 +7,7 @@
                 onclick="BCancelar_Click" CssClass="btn" />
         </td>
         <td>
-            <asp:Button ID="BAceptar" runat="server" Text="Enviar e Imprimir" OnClick="BAceptar_Click" OnClientClick="javascript: window.print()" CssClass="btn" />
+            <asp:Button ID="BAceptar" runat="server" Text="Enviar e Imprimir" OnClick="BAceptar_Click" OnClientClick="javascript: ImprimirPantalla()" CssClass="btn" />
         </td>
     </tr>
 </table>

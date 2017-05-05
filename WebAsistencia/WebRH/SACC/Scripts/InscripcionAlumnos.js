@@ -209,7 +209,7 @@ PaginaInscripcionAlumnos.prototype.FiltrarCursos = function () {
                 var respuesta = JSON.parse(respuestaJson.d);
                 if (respuesta.tipoDeRespuesta == "inscripcionAlumno.ok") {
                     _this.GetCursosDTO();
-                    alertify.alert("Se inscribieron los alumnos correctamente");
+                    alertify.alert("", "Se inscribieron los alumnos correctamente");
                 }
                 if (respuesta.tipoDeRespuesta == "inscripcionAlumno.parcial") {
                     var mensaje = "No se pudo desinscribir a los siguientes alumnos por tener asistencias cargadas en el curso:";
@@ -218,16 +218,16 @@ PaginaInscripcionAlumnos.prototype.FiltrarCursos = function () {
                     }
                     _this.GetCursosDTO();
                     _this.o.cmbCursos.change();
-                    alertify.alert(mensaje);
+                    alertify.alert("", mensaje);
                 }
                 if (respuesta.tipoDeRespuesta == "inscripcionAlumno.error") {
-                    alertify.alert("Error al inscribir alumnos: " + respuesta.error);
+                    alertify.alert("", "Error al inscribir alumnos: " + respuesta.error);
                 }
 
 
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alertify.alert(errorThrown);
+                alertify.alert("", errorThrown);
             }
         });
     };

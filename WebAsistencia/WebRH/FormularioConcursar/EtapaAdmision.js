@@ -19,7 +19,7 @@
         Backend.BuscarPostulacionesDeInscriptos(id_comite)
         .onSuccess(function (postulaciones) {
             if (postulaciones.length == 0) {
-                alertify.alert('No se encontraron resultados');
+                alertify.alert("", 'No se encontraron resultados');
                 $("#contenedorTabla").hide();
                 $("#detalle_de_comite").hide();
             } else {
@@ -38,7 +38,7 @@
         Backend.GuardarCambiosEnAdmitidos(this.postulaciones)
         .onSuccess(function () {
 
-            alertify.alert('Datos Guardados Correctamente');
+            alertify.alert("", 'Datos Guardados Correctamente');
 
         });
     },
