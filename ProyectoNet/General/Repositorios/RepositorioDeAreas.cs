@@ -438,7 +438,7 @@ namespace General.Repositorios
             var tablaDatos = conexion.Ejecutar("dbo.ESTR_GET_Edificios_Por_Localidad", parametros);
             tablaDatos.Rows.ForEach(row =>
             {
-                Combo opcion = new Combo(row.GetSmallintAsInt("id"), row.GetString("descripcion"));
+                Combo opcion = new Combo(row.GetSmallintAsInt("id_Edificio"), row.GetString("Edificio"));
                 combo.Add(opcion);
             });
             parametros.Add("@id_usuario", usuario.Id);

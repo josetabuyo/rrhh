@@ -19,6 +19,7 @@ using General.Sacc.Seguridad;
 using General.MAU;
 using General.Postular;
 using System.Web;
+
 using System.Data;
 using System.IO;
 using ClosedXML.Excel;
@@ -165,9 +166,6 @@ public class WSViaticos : System.Web.Services.WebService
 
         return analisis;
     }
-     #endregion
-
-     #region DDJJ
 
     [WebMethod]
     public AreaParaDDJJ104[] GetAreasParaDDJJ104(int mes, int anio, int id_area, Usuario usuario)
@@ -204,7 +202,7 @@ public class WSViaticos : System.Web.Services.WebService
 
         return cabe;
     }
-     #endregion
+
     [WebMethod]
     public string GetLeyendaAnio(int anio)
     {
@@ -948,7 +946,7 @@ public class WSViaticos : System.Web.Services.WebService
 
         return repositorio.GetPasesEntreFechasPara(personas.ToList(), desde, hasta).ToArray();
     }
-#region
+
     #endregion
 
     #region viaticos
@@ -2620,282 +2618,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     #endregion
-
-    #region mau
-
-
-    [WebMethod]
-    public bool Login(string alias, string clave)
-    {
-        return Autorizador().Login(alias, clave);
-    }
-
-    [WebMethod]
-    public bool SolicitarCambioDeImagen(int id_imagen, Usuario usuario)
-    {
-        return RepositorioDeUsuarios().SolicitarCambioImagen(usuario.Id, id_imagen);
-    }
-
-    [WebMethod]
-    public bool AceptarCambioDeImagen(int id_usuario, Usuario usuario)
-    {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 50)) throw (new Exception("El usuario no tiene permisos para administrar cambios de imagen"));
-        return RepositorioDeUsuarios().AceptarCambioDeImagen(id_usuario);
-    }
-
-    [WebMethod]
-    public bool RechazarCambioDeImagen(int id_usuario, Usuario usuario)
-    {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 50)) throw (new Exception("El usuario no tiene permisos para administrar cambios de imagen"));
-        return RepositorioDeUsuarios().RechazarCambioDeImagen(id_usuario);
-    }
-
-    [WebMethod]
-    public SolicitudDeCambioDeImagen[] GetSolicitudesDeCambioDeImagenPendientesPara(int id_usuario, Usuario usuario)
-    {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 50)) throw (new Exception("El usuario no tiene permisos para administrar cambios de imagen"));
-        return RepositorioDeUsuarios().GetSolicitudesDeCambioDeImagenPendientesPara(id_usuario).ToArray();
-    }
-
-    [WebMethod]
-    public SolicitudDeCambioDeImagen[] GetSolicitudesDeCambioDeImagenPendientes(Usuario usuario)
-    {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 50)) throw (new Exception("El usuario no tiene permisos para administrar cambios de imagen"));
-        return RepositorioDeUsuarios().GetSolicitudesDeCambioDeImagenPendientes().ToArray();
-    }
-
-
-    [WebMethod]
-    public string CambiarPassword( string PasswordActual, string PasswordNuevo, Usuario usuario)
-    {
-        var repoUsuarios = RepositorioDeUsuarios();
-
-        if (repoUsuarios.CambiarPassword(usuario.Id, PasswordActual, PasswordNuevo))
-        {
-            return JsonConvert.SerializeObject(new
-            {
-                tipoDeRespuesta = "cambioPassword.ok"
-            });
-        }
-        else
-        {
-            return JsonConvert.SerializeObject(new
-            {
-                tipoDeRespuesta = "cambioPassword.error"
-                //error = e.Message
-            });
-        }
-    }
-
-    [WebMethod]
-    public string ResetearPassword(int id_usuario, Usuario usuario)
-    {
-        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 25)) return RepositorioDeUsuarios().ResetearPassword(id_usuario);
-        else throw new Exception("El usuario no tiene permisos para resetear contraseñas");
-    }
-
-    [WebMethod]
-    public bool ModificarMailRegistro(int id_usuario, string mail, Usuario usuario)
-    {
-        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 45)) return RepositorioDeUsuarios().ModificarMailRegistro(id_usuario, mail);
-        else throw new Exception("El usuario no tiene permisos para modificar mails");
-    }
-
-    [WebMethod]
-    public bool ModificarMiMail(string mail, Usuario usuario)
-    {
-        return RepositorioDeUsuarios().ModificarMailRegistro(usuario.Id, mail);
-    }
-
-    [WebMethod]
-    public Usuario GetUsuarioPorAlias(string alias)
-    {
-        return RepositorioDeUsuarios().GetUsuarioPorAlias(alias);
-    }
-
-    [WebMethod]
-    public Usuario GetUsuarioPorId(int id_usuario)
-    {
-        return RepositorioDeUsuarios().GetUsuarioPorId(id_usuario);
-    }
-
-    [WebMethod]
-    public Usuario GetUsuarioPorIdPersona(int id_persona)
-    {
-        return RepositorioDeUsuarios().GetUsuarioPorIdPersona(id_persona);
-    }
-
-    [WebMethod]
-    public Usuario CrearUsuarioPara(int id_persona, Usuario usuario)
-    {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 26)) throw (new Exception("El usuario no tiene permisos para crear usuarios"));
-        return RepositorioDeUsuarios().CrearUsuarioPara(id_persona);
-    }
-
-    [WebMethod]
-    public UsuarioNulo GetUsuarioNulo()
-    {
-        return new UsuarioNulo();
-    }
-
-    [WebMethod]
-    public Persona GetPersonaUsuarioLogueado(Usuario usuario)
-    {
-        return RepositorioDeUsuarios().GetPersonaPorIdUsuario(usuario.Id);
-    }
-
-    [WebMethod]
-    public bool ElUsuarioPuedeAccederALaURL(Usuario usuario, string url)
-    {
-        return Autorizador().ElUsuarioPuedeAccederALaURL(usuario, url);
-    }
-
-    [WebMethod]
-    public Funcionalidad[] TodasLasFuncionalidades()
-    {
-        var funcionalidades = RepositorioDeFuncionalidades().TodasLasFuncionalidades().ToArray();
-        return funcionalidades;
-    }
-
-
-    [WebMethod]
-    public bool ElUsuarioTienePermisosPara(int id_usuario, int id_funcionalidad)
-    {
-        return Autorizador().ElUsuarioTienePermisosPara(id_usuario, id_funcionalidad);
-
-    }
-
-    [WebMethod]
-    public bool ElUsuarioLogueadoTienePermisosPara(int id_funcionalidad, Usuario usuario)
-    {
-        return Autorizador().ElUsuarioTienePermisosPara(usuario.Id, id_funcionalidad);
-
-    }
-
-    [WebMethod]
-    public Funcionalidad[] FuncionalidadesPara(int id_usuario)
-    {
-        var funcionalidades = RepositorioDeFuncionalidadesDeUsuarios().FuncionalidadesPara(id_usuario).ToArray();
-        return funcionalidades;
-    }
-
-    [WebMethod]
-    public Persona[] BuscarPersonas(string criterio)
-    {
-        var personas = RepositorioDePersonas().BuscarPersonas(criterio).ToArray();
-        return personas;
-    }
-
-    [WebMethod]
-    public Area[] BuscarAreas(string criterio)
-    {
-        var areas = RepositorioDeAreas().BuscarAreas(criterio).ToArray();
-        return areas;
-    }
-
-    [WebMethod]
-    public Persona[] BuscarPersonasConLegajo(string criterio)
-    {
-        var personas = RepositorioDePersonas().BuscarPersonasConLegajo(criterio).ToArray();
-        return personas;
-    }
-
-    [WebMethod]
-    public Usuario[] BuscarPersonaDeBajaConPermisos()
-    {
-        var usuarios = RepositorioDeUsuarios().GetUsuariosConPersonasDeBaja().ToArray();
-        return usuarios;
-    }
-
-    [WebMethod]
-    public Usuario[] BuscarUsuariosPorArea(string nombre_area)
-    {
-        var usuarios = RepositorioDeUsuarios().GetUsuariosPorArea(nombre_area).ToArray();
-        return usuarios;
-    }
-
-
-    [WebMethod]
-    public Area AreaCompleta(int id_area)
-    {
-        return RepositorioDeAreas().GetAreaCompletaPorId(id_area);
-    }
-
-    [WebMethod]
-    public Area[] AreasAdministradasPor(Usuario usuario)
-    {
-        //GRANI 20151228: Se cambia por un error de referencia circular.
-        //return Autorizador().AreasAdministradasPor(usuario).ToArray();
-
-        JsonSerializerSettings settings = new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects };
-
-        var listaDeAreas = Autorizador().AreasAdministradasPor(usuario).ToArray();
-        var stringDeAreas = JsonConvert.SerializeObject(listaDeAreas, Formatting.Indented, new JsonSerializerSettings() { ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore });
-
-        Area[] areas = JsonConvert.DeserializeObject<Area[]>(stringDeAreas);
-        return areas;
-    }
-
-    //[WebMethod]
-    //public string AreasAdministradasPor2(Usuario usuario)
-    //{
-    //    //return JsonConvert.SerializeObject(blah,settings);
-    //    JsonSerializerSettings settings = new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects };
-    //    var blah = Autorizador().AreasAdministradasPor(usuario).ToArray();
-    //    return JsonConvert.SerializeObject(blah, Formatting.Indented, new JsonSerializerSettings() { ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore });
-    //}
-
-    [WebMethod]
-    public Area[] AreasAdministradasPorIdUsuario(int id_usuario)
-    {
-        return Autorizador().AreasAdministradasPor(id_usuario).ToArray();
-    }
-
-    [WebMethod]
-    public void AsignarAreaAUnUsuario(int id_usuario, int id_area, Usuario usuario)
-    {
-        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 24)) Autorizador().AsignarAreaAUnUsuario(id_usuario, id_area);
-        else throw new Exception("No está habilitado para modificar permisos");
-    }
-
-    [WebMethod]
-    public void DesAsignarAreaAUnUsuario(int id_usuario, int id_area, Usuario usuario)
-    {
-        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 24)) Autorizador().DesAsignarAreaAUnUsuario(id_usuario, id_area);
-        else throw new Exception("No está habilitado para modificar permisos");
-    }
-
-    // [WebMethod]
-    //public bool ElUsuarioTienePermisosPara(Usuario usuario, string nombre_funcionalidad)
-    //{
-    //    return Autorizador().ElUsuarioTienePermisosPara(usuario, nombre_funcionalidad);
-    //}
-
-    [WebMethod]
-    public void ConcederFuncionalidadA(int id_usuario, int id_funcionalidad, Usuario usuario)
-    {
-        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 24)) Autorizador().ConcederFuncionalidadA(id_usuario, id_funcionalidad);
-        else throw new Exception("No está habilitado para modificar permisos");
-    }
-
-    [WebMethod]
-    public void DenegarFuncionalidadA(int id_usuario, int id_funcionalidad, Usuario usuario)
-    {
-        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 24)) Autorizador().DenegarFuncionalidadA(id_usuario, id_funcionalidad);
-        else throw new Exception("No está habilitado para modificar permisos");
-    }
-
-    [WebMethod]
-    public MenuDelSistema GetMenuPara(string nombre_menu, Usuario usuario)
-    {
-        MenuDelSistema menu = Autorizador().GetMenuPara(nombre_menu, usuario);
-        return menu;
-    }
-
-    #endregion
-
-    #region protocolo
-
+    #region MODIFICACIÓN DE DATOS DEL ÁREA
     [WebMethod]
     public Combo[] ObtenerCargosFunciones()
     {
@@ -2930,8 +2653,6 @@ public class WSViaticos : System.Web.Services.WebService
         string hola = "";
     }
 
-#endregion
-    #region MODIFICACIÓN DE DATOS DEL ÁREA
     [WebMethod]
     public Area BuscarDatosDelAreaSinAprobacion(Area area, Usuario usuario)
     {
@@ -3117,6 +2838,278 @@ public class WSViaticos : System.Web.Services.WebService
 
     #endregion
 
+    #region mau
+
+
+    [WebMethod]
+    public bool Login(string alias, string clave)
+    {
+        return Autorizador().Login(alias, clave);
+    }
+
+    [WebMethod]
+    public bool SolicitarCambioDeImagen(int id_imagen, Usuario usuario)
+    {
+        return RepositorioDeUsuarios().SolicitarCambioImagen(usuario.Id, id_imagen);
+    }
+
+    [WebMethod]
+    public bool AceptarCambioDeImagen(int id_usuario, Usuario usuario)
+    {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 50)) throw (new Exception("El usuario no tiene permisos para administrar cambios de imagen"));
+        return RepositorioDeUsuarios().AceptarCambioDeImagen(id_usuario);
+    }
+
+    [WebMethod]
+    public bool RechazarCambioDeImagen(int id_usuario, Usuario usuario)
+    {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 50)) throw (new Exception("El usuario no tiene permisos para administrar cambios de imagen"));
+        return RepositorioDeUsuarios().RechazarCambioDeImagen(id_usuario);
+    }
+
+    [WebMethod]
+    public SolicitudDeCambioDeImagen[] GetSolicitudesDeCambioDeImagenPendientesPara(int id_usuario, Usuario usuario)
+    {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 50)) throw (new Exception("El usuario no tiene permisos para administrar cambios de imagen"));
+        return RepositorioDeUsuarios().GetSolicitudesDeCambioDeImagenPendientesPara(id_usuario).ToArray();
+    }
+
+    [WebMethod]
+    public SolicitudDeCambioDeImagen[] GetSolicitudesDeCambioDeImagenPendientes(Usuario usuario)
+    {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 50)) throw (new Exception("El usuario no tiene permisos para administrar cambios de imagen"));
+        return RepositorioDeUsuarios().GetSolicitudesDeCambioDeImagenPendientes().ToArray();
+    }
+
+
+    [WebMethod]
+    public string CambiarPassword(string PasswordActual, string PasswordNuevo, Usuario usuario)
+    {
+        var repoUsuarios = RepositorioDeUsuarios();
+
+        if (repoUsuarios.CambiarPassword(usuario.Id, PasswordActual, PasswordNuevo))
+        {
+            return JsonConvert.SerializeObject(new
+            {
+                tipoDeRespuesta = "cambioPassword.ok"
+            });
+        }
+        else
+        {
+            return JsonConvert.SerializeObject(new
+            {
+                tipoDeRespuesta = "cambioPassword.error"
+                //error = e.Message
+            });
+        }
+    }
+
+    [WebMethod]
+    public string ResetearPassword(int id_usuario, Usuario usuario)
+    {
+        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 25)) return RepositorioDeUsuarios().ResetearPassword(id_usuario);
+        else throw new Exception("El usuario no tiene permisos para resetear contraseñas");
+    }
+
+    [WebMethod]
+    public bool ModificarMailRegistro(int id_usuario, string mail, Usuario usuario)
+    {
+        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 45)) return RepositorioDeUsuarios().ModificarMailRegistro(id_usuario, mail);
+        else throw new Exception("El usuario no tiene permisos para modificar mails");
+    }
+
+    [WebMethod]
+    public bool ModificarMiMail(string mail, Usuario usuario)
+    {
+        return RepositorioDeUsuarios().ModificarMailRegistro(usuario.Id, mail);
+    }
+
+    [WebMethod]
+    public Usuario GetUsuarioPorAlias(string alias)
+    {
+        return RepositorioDeUsuarios().GetUsuarioPorAlias(alias);
+    }
+
+    [WebMethod]
+    public Usuario GetUsuarioPorId(int id_usuario)
+    {
+        return RepositorioDeUsuarios().GetUsuarioPorId(id_usuario);
+    }
+
+    [WebMethod]
+    public Usuario GetUsuarioPorIdPersona(int id_persona)
+    {
+        return RepositorioDeUsuarios().GetUsuarioPorIdPersona(id_persona);
+    }
+
+    [WebMethod]
+    public Usuario CrearUsuarioPara(int id_persona, Usuario usuario)
+    {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 26)) throw (new Exception("El usuario no tiene permisos para crear usuarios"));
+        return RepositorioDeUsuarios().CrearUsuarioPara(id_persona);
+    }
+
+    [WebMethod]
+    public UsuarioNulo GetUsuarioNulo()
+    {
+        return new UsuarioNulo();
+    }
+
+    [WebMethod]
+    public Persona GetPersonaUsuarioLogueado(Usuario usuario)
+    {
+        return RepositorioDeUsuarios().GetPersonaPorIdUsuario(usuario.Id);
+    }
+
+    [WebMethod]
+    public bool ElUsuarioPuedeAccederALaURL(Usuario usuario, string url)
+    {
+        return Autorizador().ElUsuarioPuedeAccederALaURL(usuario, url);
+    }
+
+    [WebMethod]
+    public Funcionalidad[] TodasLasFuncionalidades()
+    {
+        var funcionalidades = RepositorioDeFuncionalidades().TodasLasFuncionalidades().ToArray();
+        return funcionalidades;
+    }
+
+
+    [WebMethod]
+    public bool ElUsuarioTienePermisosPara(int id_usuario, int id_funcionalidad)
+    {
+        return Autorizador().ElUsuarioTienePermisosPara(id_usuario, id_funcionalidad);
+
+    }
+
+    [WebMethod]
+    public bool ElUsuarioLogueadoTienePermisosPara(int id_funcionalidad, Usuario usuario)
+    {
+        return Autorizador().ElUsuarioTienePermisosPara(usuario.Id, id_funcionalidad);
+
+    }
+
+    [WebMethod]
+    public Funcionalidad[] FuncionalidadesPara(int id_usuario)
+    {
+        var funcionalidades = RepositorioDeFuncionalidadesDeUsuarios().FuncionalidadesPara(id_usuario).ToArray();
+        return funcionalidades;
+    }
+
+    [WebMethod]
+    public Persona[] BuscarPersonas(string criterio)
+    {
+        var personas = RepositorioDePersonas().BuscarPersonas(criterio).ToArray();
+        return personas;
+    }
+
+    [WebMethod]
+    public Area[] BuscarAreas(string criterio)
+    {
+        var areas = RepositorioDeAreas().BuscarAreas(criterio).ToArray();
+        return areas;
+    }
+
+    [WebMethod]
+    public Area AreaCompleta(int id_area)
+    {
+        return RepositorioDeAreas().GetAreaCompletaPorId(id_area);
+    }
+
+    [WebMethod]
+    public Persona[] BuscarPersonasConLegajo(string criterio)
+    {
+        var personas = RepositorioDePersonas().BuscarPersonasConLegajo(criterio).ToArray();
+        return personas;
+    }
+
+    [WebMethod]
+    public Usuario[] BuscarPersonaDeBajaConPermisos()
+    {
+        var usuarios = RepositorioDeUsuarios().GetUsuariosConPersonasDeBaja().ToArray();
+        return usuarios;
+    }
+
+    [WebMethod]
+    public Usuario[] BuscarUsuariosPorArea(string nombre_area)
+    {
+        var usuarios = RepositorioDeUsuarios().GetUsuariosPorArea(nombre_area).ToArray();
+        return usuarios;
+    }
+
+
+    [WebMethod]
+    public Area[] AreasAdministradasPor(Usuario usuario)
+    {
+        //GRANI 20151228: Se cambia por un error de referencia circular.
+        //return Autorizador().AreasAdministradasPor(usuario).ToArray();
+
+        JsonSerializerSettings settings = new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects };
+
+        var listaDeAreas = Autorizador().AreasAdministradasPor(usuario).ToArray();
+        var stringDeAreas = JsonConvert.SerializeObject(listaDeAreas, Formatting.Indented, new JsonSerializerSettings() { ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore });
+
+        Area[] areas = JsonConvert.DeserializeObject<Area[]>(stringDeAreas);
+        return areas;
+    }
+
+    //[WebMethod]
+    //public string AreasAdministradasPor2(Usuario usuario)
+    //{
+    //    //return JsonConvert.SerializeObject(blah,settings);
+    //    JsonSerializerSettings settings = new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects };
+    //    var blah = Autorizador().AreasAdministradasPor(usuario).ToArray();
+    //    return JsonConvert.SerializeObject(blah, Formatting.Indented, new JsonSerializerSettings() { ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore });
+    //}
+
+    [WebMethod]
+    public Area[] AreasAdministradasPorIdUsuario(int id_usuario)
+    {
+        return Autorizador().AreasAdministradasPor(id_usuario).ToArray();
+    }
+
+    [WebMethod]
+    public void AsignarAreaAUnUsuario(int id_usuario, int id_area, Usuario usuario)
+    {
+        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 24)) Autorizador().AsignarAreaAUnUsuario(id_usuario, id_area);
+        else throw new Exception("No está habilitado para modificar permisos");
+    }
+
+    [WebMethod]
+    public void DesAsignarAreaAUnUsuario(int id_usuario, int id_area, Usuario usuario)
+    {
+        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 24)) Autorizador().DesAsignarAreaAUnUsuario(id_usuario, id_area);
+        else throw new Exception("No está habilitado para modificar permisos");
+    }
+
+    // [WebMethod]
+    //public bool ElUsuarioTienePermisosPara(Usuario usuario, string nombre_funcionalidad)
+    //{
+    //    return Autorizador().ElUsuarioTienePermisosPara(usuario, nombre_funcionalidad);
+    //}
+
+    [WebMethod]
+    public void ConcederFuncionalidadA(int id_usuario, int id_funcionalidad, Usuario usuario)
+    {
+        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 24)) Autorizador().ConcederFuncionalidadA(id_usuario, id_funcionalidad);
+        else throw new Exception("No está habilitado para modificar permisos");
+    }
+
+    [WebMethod]
+    public void DenegarFuncionalidadA(int id_usuario, int id_funcionalidad, Usuario usuario)
+    {
+        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 24)) Autorizador().DenegarFuncionalidadA(id_usuario, id_funcionalidad);
+        else throw new Exception("No está habilitado para modificar permisos");
+    }
+
+    [WebMethod]
+    public MenuDelSistema GetMenuPara(string nombre_menu, Usuario usuario)
+    {
+        MenuDelSistema menu = Autorizador().GetMenuPara(nombre_menu, usuario);
+        return menu;
+    }
+
+    #endregion
 
     [WebMethod]
     public bool RefrescarCacheMAU(Usuario usuario)
@@ -3591,7 +3584,7 @@ public class WSViaticos : System.Web.Services.WebService
     {
         RepoPostulaciones().InsEtapaPostulacion(id_postulacion, id_etapa_postulacion, usuario.Id);
     }
-#endregion
+
     #region CVAntecedentesAcademicos
     [WebMethod]
     public CvEstudios GuardarCvAntecedenteAcademico(CvEstudios antecedentesAcademicos_nuevo, Usuario usuario)
@@ -4164,6 +4157,7 @@ public class WSViaticos : System.Web.Services.WebService
         return RepositorioDeLocalidades.Nuevo(Conexion()).Find(criterio).ToArray();
     }
 
+    #endregion
 
     #region Formularios
     [WebMethod]
@@ -4341,14 +4335,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
     #endregion
 
-    #region Reportes
-    [WebMethod]
-    public string GetConsultaRapida(int documento, Usuario usuario)
-    {
 
-        return RepositorioDePersonas().GetConsultaRapida(documento);
-    }
-#endregion
     #region archivos
 
     [WebMethod]
@@ -4368,6 +4355,7 @@ public class WSViaticos : System.Web.Services.WebService
     {
         return new RepositorioDeImagenes(Conexion()).SubirImagen(bytes_imagen);
     }
+
 
     #endregion
     #region Portal
@@ -4412,7 +4400,6 @@ public class WSViaticos : System.Web.Services.WebService
         return "";
 
     }
-
     [WebMethod]
     public string GetLicenciasOrdinariasDisponibles(Usuario usuario)
     {
@@ -4499,7 +4486,7 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
     [WebMethod]
-    public string MostrarDestinatariosDeLaNotificacion( int id_notificacion, Usuario usuario)
+    public string MostrarDestinatariosDeLaNotificacion(int id_notificacion, Usuario usuario)
     {
         RepositorioLegajo repo = RepoLegajo();
 
@@ -4552,7 +4539,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string GetDetalleDeConsulta(int id_consulta)
     {
-       return RepoLegajo().GetDetalleDeConsulta(id_consulta);
+        return RepoLegajo().GetDetalleDeConsulta(id_consulta);
     }
 
     [WebMethod]
@@ -4561,12 +4548,12 @@ public class WSViaticos : System.Web.Services.WebService
         return RepoLegajo().NuevaConsultaDePortal(usuario.Owner.Id, id_tipo_consulta, motivo);
 
     }
-     [WebMethod]
+    [WebMethod]
     public void RepreguntarConsulta(int id_consulta, string motivo, Usuario usuario)
     {
         RepoLegajo().RepreguntarConsulta(id_consulta, motivo, usuario.Owner.Id);
     }
-      [WebMethod]
+    [WebMethod]
     public void CerrarConsulta(int id_consulta, int calificacion, Usuario usuario)
     {
         RepoLegajo().CerrarConsulta(id_consulta, calificacion, usuario.Owner.Id);
@@ -4583,7 +4570,7 @@ public class WSViaticos : System.Web.Services.WebService
     {
         return RepoLegajo().GetConsultasDePortalNoLeidas(usuario.Owner.Id);
     }
-    
+
 
     [WebMethod]
     public string GetDesignacionActual(Usuario usuario)
@@ -4625,7 +4612,7 @@ public class WSViaticos : System.Web.Services.WebService
     {
         RepositorioDeDatosAbiertos repositorio = new RepositorioDeDatosAbiertos(Conexion());
 
-        return repositorio.getConsultas().FindAll(c => Autorizador().ElUsuarioTienePermisosPara(usuario.Id, c.Funcionalidad)).ToArray();        
+        return repositorio.getConsultas().FindAll(c => Autorizador().ElUsuarioTienePermisosPara(usuario.Id, c.Funcionalidad)).ToArray();
     }
 
     [WebMethod]
@@ -4650,20 +4637,7 @@ public class WSViaticos : System.Web.Services.WebService
         {
             throw ex;
         }
-    }
 
-    [WebMethod]
-    public MoBi_Area[] Mobi_GetAreasUsuarioCBO(int IdUsuario, int IdTipoBien, bool MostrarSoloAreasConBienes)
-    {
-        RepositorioMoBi rMoBi = new RepositorioMoBi();
-        return rMoBi.GetAreasUsuarioCBO(IdUsuario, IdTipoBien, MostrarSoloAreasConBienes);
-    }
-
-    [WebMethod]
-    public MoBi_TipoBien[] Mobi_GetTipoBien()
-    {
-        RepositorioMoBi rMoBi = new RepositorioMoBi();
-        return rMoBi.GetTipoDeBienes();
     }
 
 
@@ -4677,24 +4651,10 @@ public class WSViaticos : System.Web.Services.WebService
 
             return repositorio.ExcelPlanificacionDotaciones();
         }
-    }
-    [WebMethod]
-    public MoBi_Bien[] Mobi_GetBienesDelArea(int IdArea, int IdTipoBien)
-    {
-        RepositorioMoBi rMoBi = new RepositorioMoBi();
-        return rMoBi.GetBienesDelArea(IdArea, IdTipoBien);
-    }
         catch (Exception ex)
         {
             throw ex;
         }
-
-    [WebMethod]
-    public MoBi_Bien[] Mobi_GetBienesDelAreaRecepcion(int IdArea, int IdTipoBien)
-    {
-        RepositorioMoBi rMoBi = new RepositorioMoBi();
-        return rMoBi.GetBienesDelAreaRecepcion(IdArea, IdTipoBien);
-    }
 
     }
 
@@ -4706,14 +4666,14 @@ public class WSViaticos : System.Web.Services.WebService
     #region EvaluacionesDesempenio
 
     [WebMethod]
-    public string GetFormularioDeEvaluacion(int idNivel,int idEvaluacion, int idEvaluado, Usuario usuario)
+    public string GetFormularioDeEvaluacion(int idNivel, int idEvaluacion, int idEvaluado, Usuario usuario)
     {
         RepositorioEvaluacionDesempenio repositorio = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
-        return repositorio.getFormularioDeEvaluacion(idNivel, idEvaluado, idEvaluacion );
+        return repositorio.getFormularioDeEvaluacion(idNivel, idEvaluado, idEvaluacion);
     }
 
     [WebMethod]
-    public string InsertarEvaluacion(int idEvaluado, int idFormulario, int periodo,int idEval, string pregYRtas, int estado, Usuario usuario)
+    public string InsertarEvaluacion(int idEvaluado, int idFormulario, int periodo, int idEval, string pregYRtas, int estado, Usuario usuario)
     {
         RepositorioEvaluacionDesempenio repositorio = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
         //var preguntasYRespuestas = JsonConvert.DeserializeObject(pregYRtas);
@@ -4726,39 +4686,22 @@ public class WSViaticos : System.Web.Services.WebService
             repositorio.deleteEvaluacionDetalle(idEval);
             repositorio.updateEvaluacion(idEval, idEvaluado, usuario.Owner.Id, idFormulario, periodo, estado);
         }
-    [WebMethod]
-    public MoBi_Evento[] Mobi_GetEventosBien(int IdBien)
-    {
-        RepositorioMoBi rMoBi = new RepositorioMoBi();
-        return rMoBi.GetEventosBien(IdBien);
-    }
-        else {
+        else
+        {
             //FC:Inserto la cabecera de la evaluacion
             idEval = repositorio.insertarEvaluacion(idEvaluado, usuario.Owner.Id, idFormulario, periodo, estado);
         }
-            
-            //var item1 = preguntasYRespuestas;
-           
+
+        //var item1 = preguntasYRespuestas;
+
 
         foreach (var item in criterio_deserializado)
         {
             int idPregunta = (int)item.First.First;
             int idRespuesta = (int)item.Last.Last;
-    [WebMethod]
-    public MoBi_Agente[] Mobi_GetAgentesArea(int IdArea)
-    {
-        RepositorioMoBi rMoBi = new RepositorioMoBi();
-        return rMoBi.GetAgentes(IdArea);
-    }
 
             repositorio.insertarEvaluacionDetalle(idEval, idPregunta, idRespuesta);
         }
-    [WebMethod]
-    public bool Mobi_GuardarEventoBien(MoBi_Evento.enumTipoEvento tipoEvento, int IdBien, int IdArea, int IdPersona, string Observaciones, int IdUser)
-    {
-        RepositorioMoBi rMoBi = new RepositorioMoBi();
-        return rMoBi.GuardarNuevoEventoBien(tipoEvento, IdBien, IdArea, IdPersona, Observaciones, IdUser);
-    }
 
         return "ok";
     }
