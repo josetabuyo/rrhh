@@ -242,10 +242,28 @@
       <s:element name="GetFormularioDeEvaluacionResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetFormularioDeEvaluacionResult" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GetFormularioDeEvaluacionResult" type="tns:ArrayOfDetallePreguntas" />
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:complexType name="ArrayOfDetallePreguntas">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DetallePreguntas" nillable="true" type="tns:DetallePreguntas" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DetallePreguntas">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="id_pregunta" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="orden_pregunta" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="opcion_elegida" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="enunciado" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="rpta1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="rpta2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="rpta3" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="rpta4" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="rpta5" type="s:string" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="InsertarEvaluacion">
         <s:complexType>
           <s:sequence>
@@ -300,6 +318,7 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="idEvaluacion" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -5123,10 +5142,34 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:complexType name="EvaluacionDesempenio">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="id_evaluado" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="apellido" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="nombre" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="nro_documento" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="id_evaluacion" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="estado_evaluacion" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="id_periodo" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="descripcion_periodo" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="id_nivel" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="descripcion_nivel" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="deficiente" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="regular" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="bueno" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="destacado" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="detalle_preguntas" type="tns:ArrayOfDetallePreguntas" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfEvaluacionDesempenio">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="EvaluacionDesempenio" nillable="true" type="tns:EvaluacionDesempenio" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="EvalGetAgentesEvaluablesResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="EvalGetAgentesEvaluablesResult" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EvalGetAgentesEvaluablesResult" type="tns:ArrayOfEvaluacionDesempenio" />
           </s:sequence>
         </s:complexType>
       </s:element>

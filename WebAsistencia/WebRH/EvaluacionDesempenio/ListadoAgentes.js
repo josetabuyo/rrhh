@@ -16,10 +16,10 @@ var ListadoAgentes = {
 
         var calificacion;
         Backend.EvalGetAgentesEvaluables()
-        .onSuccess(function (agentesJSON) {
+        .onSuccess(function (agentes) {
             spinner.stop();
 
-            var agentes = JSON.parse(agentesJSON);
+
             if (!agentes[0].hasOwnProperty('nombre')) return;
             todas_las_evaluaciones = agentes;
             _this.DibujarTabla(agentes);
@@ -142,7 +142,7 @@ var ListadoAgentes = {
     getRespuestasDesdeLasPreguntas: function (preguntas) {
         var coleccion_respuestas = []; //obtener estas opciones_elegidas desde un_agente.
         for (i = 0; i < preguntas.length; i++) {
-            coleccion_respuestas.push(preguntas[i].OpcionElegida);
+            coleccion_respuestas.push(preguntas[i].opcion_elegida);
         }
         return coleccion_respuestas;
     },
@@ -180,15 +180,17 @@ var ListadoAgentes = {
             //_this.setAgenteValuesToLocalStorage(un_agente);
             Backend.PrintPdfEvaluacionDesempenio(un_agente.id_evaluacion)
             .onSuccess(function (rpta) {
+                //window.open('ImpresionEvaluacion.html', '_blank');
                 window.open(rpta, '_blank');
                 //window.open('/Generateddocuments/20170428212540.pdf', '_blank');
             });
-            
+
         });
         return btn_accion;
     },
     getBotonIrAFormulario: function (un_agente) {
         var btn_accion = this.getImgIcono('estudios.png', 'Estudios');
+        var _this = this;
         btn_accion.click(function () {
             _this.setAgenteValuesToLocalStorage(un_agente);
             /*si nunca fue evaluado, no sabemos que nivel tiene, 
@@ -244,8 +246,8 @@ var ListadoAgentes = {
 
         $('#div_contenido_impresion').append('<img src="../../Imagenes/EscudoMDS.png" width="150px" height="60px" alt="">');
         Backend.GetFormularioDeEvaluacion(idNivel, idEvaluacion, idEvaluado)
-        .onSuccess(function (formularioJSON) {
-            var form = JSON.parse(formularioJSON);
+        .onSuccess(function (form) {
+            
             //HTML CABECERA
             var respuestas = _this.getRespuestasDesdeLasPreguntas(form);
             var calificacion = _this.calificacion(respuestas, localStorage.getItem("deficiente"), localStorage.getItem("regular"), localStorage.getItem("bueno"), localStorage.getItem("destacado"), false);
@@ -256,28 +258,28 @@ var ListadoAgentes = {
 
             $.each(form, function (key, value) {
                 var respuesta = "";
-                switch (value.OpcionElegida) {
+                switch (value.opcion_elegida) {
                     case 1:
-                        respuesta = value.Rta1;
+                        respuesta = value.rpta1;
                         break;
                     case 2:
-                        respuesta = value.Rta2;
+                        respuesta = value.rpta2;
                         break;
                     case 3:
-                        respuesta = value.Rta3;
+                        respuesta = value.rpta3;
                         break;
                     case 4:
-                        respuesta = value.Rta4;
+                        respuesta = value.rpta4;
                         break;
                     case 5:
-                        respuesta = value.Rta5;
+                        respuesta = value.rpta5;
                         break;
                     default:
                         respuesta = 'No se ha podido encontrar la respuesta correspondiente.';
                 }
 
                 //HTML DETALLE
-                $('#div_contenido_impresion').append('<h3>' + value.Enunciado + '</h3><p style="margin-left:15px;">' + respuesta + '</p>');
+                $('#div_contenido_impresion').append('<h3>' + value.enunciado + '</h3><p style="margin-left:15px;">' + respuesta + '</p>');
 
             });
             $('#div_contenido_impresion').append('<div><div style="border: 1px solid #000;"><h3 style="text-align: center; border: 1px dotted #000;">SUPERIOR DIRECTO</h3><p>Certifico que el agente evaluado si/no (tachar lo que nocorresponda) ha tenido sanciones disciplinarias durante el período evaluado</p><p>Observaciones: .....................................................................................................................................................................................................................................</p><p>Fecha: ...../...../..........</p><br /><br /><p style="text-align: right; margin-right: 15px;">FIRMA ACLARACIÓN</p></div><div style="border: 1px solid #000;"><h3 style="text-align: center; border: 1px dotted #000;">APROBACIÓN DEL COMITÉ DE EVALUACIÓN</h3><p>Fecha: ...../...../..........</p><p style="text-align: right; margin-right: 15px;">FIRMA ACLARACIÓN de los integrantes</p><p>.....................................................................................................................................................................................................................................</p><p>.....................................................................................................................................................................................................................................</p><p>.....................................................................................................................................................................................................................................</p></div><div style="border: 1px solid #000;"><h3 style="text-align: center; border: 1px dotted #000;">NOTIFICACIÓN DEL AGENTE</h3><p>En el día de la fecha me notifico de mi calificación final por el desempeño durante el período correspondiente.</p><p>Fecha: ...../...../..........</p><p style="text-align: right; margin-right: 150px;">FIRMA</p><p style="font-size: 13px;">Contra la calificación notificada en este acto, podrá interponerse recurso de reconsideración dentro del término de DIES (10) días hábiles a resolver por la misma autoridad evaluadora (Artículo 84 y siguientes del Reglamento de Procedimientos Administrativos aprobado por el Decreto N° 1759/72 (t.o 1991), o bien interponer directamente recurso jerárquico a resolver según el Artículo 902 del citado Reglamento, dentro del término de QUINCE (15) días hábiles de esta notificación</p><br /><br /></div> </div>');
@@ -307,9 +309,9 @@ var ListadoAgentes = {
         $('#nombre_evaluado').html(nombre);
 
         Backend.GetFormularioDeEvaluacion(idNivel, idEvaluacion, idEvaluado)
-        .onSuccess(function (formularioJSON) {
+        .onSuccess(function (form) {
             spinner.stop();
-            var form = JSON.parse(formularioJSON);
+            
             var respuestas = _this.getRespuestasDesdeLasPreguntas(form);
             var calificacion = _this.calificacion(respuestas, localStorage.getItem("deficiente"), localStorage.getItem("regular"), localStorage.getItem("bueno"), localStorage.getItem("destacado"), true);
             $("#puntaje").text(calificacion);
@@ -322,16 +324,16 @@ var ListadoAgentes = {
 
                 plantilla.show();
 
-                pregunta.text(value.Enunciado);
-                pregunta.attr('data-identificador', value.idPregunta);
+                pregunta.text(value.enunciado);
+                pregunta.attr('data-identificador', value.id_pregunta);
                 pregunta.addClass('pregunta-pendiente');
-                plantilla.find(".rta1").text(value.Rta1);
-                plantilla.find(".rta2").text(value.Rta2);
-                plantilla.find(".rta3").text(value.Rta3);
-                plantilla.find(".rta4").text(value.Rta4);
-                plantilla.find(".rta5").text(value.Rta5);
+                plantilla.find(".rta1").text(value.rpta1);
+                plantilla.find(".rta2").text(value.rpta2);
+                plantilla.find(".rta3").text(value.rpta3);
+                plantilla.find(".rta4").text(value.rpta4);
+                plantilla.find(".rta5").text(value.rpta5);
 
-                radioButtons.attr('name', value.idPregunta);
+                radioButtons.attr('name', value.id_pregunta);
 
                 // Genera dinámicamente un id para cada radio button y su respectiva label
                 $.each(radioButtons, function (key, value) {
@@ -356,9 +358,9 @@ var ListadoAgentes = {
                     $(this).parent().addClass('radioSeleccionado');
                 });
 
-                if (value.OpcionElegida !== 0) {
+                if (value.opcion_elegida !== 0) {
                     //chequear los radios elegidos
-                    var radio = plantilla.find('[data-opcion=' + value.OpcionElegida + ']');
+                    var radio = plantilla.find('[data-opcion=' + value.opcion_elegida + ']');
                     radio.prop('checked', true);
                     radio.parent().addClass('radioSeleccionado');
                     // Pregunta respondida, elimina marca '(*)' de pendiente

@@ -5,6 +5,7 @@ using System.Text;
 using Newtonsoft.Json;
 using General.MAU;
 using System.Reflection;
+using General.MED;
 
 namespace General.Repositorios
 {
@@ -28,11 +29,11 @@ namespace General.Repositorios
             return _instancia;
         }
 
-        public string getFormularioDeEvaluacion(int nivel, int evaluado, int evaluacion)
+        public List<DetallePreguntas> getFormularioDeEvaluacion(int nivel, int evaluado, int evaluacion)
         {
             var parametros = new Dictionary<string, object>();
             var list_de_pregYRtas = new List<FormEvaluacion> { };
-            var list_de_pregYRtasRespondidas = new List<Object> { };
+            var list_de_pregYRtasRespondidas = new List<DetallePreguntas> { };
             var tablaDatos = new TablaDeDatos();
 
             if (evaluacion != 0)
@@ -44,25 +45,22 @@ namespace General.Repositorios
             tablaDatos = _conexion.Ejecutar("dbo.EVAL_GET_Evaluacion", parametros);
             FormularioFromTabla(list_de_pregYRtasRespondidas, tablaDatos);
  
-            return JsonConvert.SerializeObject(list_de_pregYRtasRespondidas);
+            return list_de_pregYRtasRespondidas;
         }
 
-        private static void FormularioFromTabla(List<object> list_de_pregYRtasRespondidas, TablaDeDatos tablaDatos)
+        private static void FormularioFromTabla(List<DetallePreguntas> list_de_pregYRtasRespondidas, TablaDeDatos tablaDatos)
         {
             tablaDatos.Rows.ForEach(row =>
             {
-                list_de_pregYRtasRespondidas.Add(new
-                {
-                    idPregunta = row.GetSmallintAsInt("id_pregunta", 0),
-                    Enunciado = row.GetString("Enunciado", "Sin enunciado"),
-                    Rta1 = row.GetString("Rpta1", "Sin información"),
-                    Rta2 = row.GetString("Rpta2", "Sin información"),
-                    Rta3 = row.GetString("Rpta3", "Sin información"),
-                    Rta4 = row.GetString("Rpta4", "Sin información"),
-                    Rta5 = row.GetString("Rpta5", "Sin información"),
-                    OpcionElegida = row.GetSmallintAsInt("opcion_elegida", 0)
-
-                });
+                list_de_pregYRtasRespondidas.Add(new DetallePreguntas(
+                    row.GetSmallintAsInt("id_pregunta", 0), 0,
+                    row.GetSmallintAsInt("opcion_elegida", 0),
+                    row.GetString("Enunciado", "Sin enunciado"),
+                    row.GetString("Rpta1", "Sin información"),
+                    row.GetString("Rpta2", "Sin información"),
+                    row.GetString("Rpta3", "Sin información"),
+                    row.GetString("Rpta4", "Sin información"),
+                    row.GetString("Rpta5", "Sin información")));
             });
         }
 
@@ -85,16 +83,15 @@ namespace General.Repositorios
             return JsonConvert.SerializeObject(respuesta);
         }
 
-        public List<object> GetAgentesEvaluablesPorRaw(Usuario usuario) {
+        public List<EvaluacionDesempenio> GetAgentesEvaluablesPor(Usuario usuario) {
              var parametros = new Dictionary<string, object>();
             parametros.Add("@id_evaluador", usuario.Owner.Id);
-            //parametros.Add("@id_evaluador", 3988);
             var tablaDatos = _conexion.Ejecutar("dbo.EVAL_GET_Evaluados_Evaluador", parametros);
 
-            var tipos_consultas = new List<Object> { };
-            var detalle_preguntas = new List<Object> { };
+            var evaluaciones = new List<EvaluacionDesempenio> { };
+            var detalle_preguntas = new List<DetallePreguntas> { };
             var primer_row = true;
-            object evaluador = new { };
+            EvaluacionDesempenio evaluacion = new EvaluacionDesempenio();
 
             if (tablaDatos.Rows.Count > 0)
             {
@@ -106,73 +103,43 @@ namespace General.Repositorios
                         primer_row = false;
                         id_evaluacion_anterior = row.GetSmallintAsInt("id_evaluacion", 0);
                         var id_evaluado = row.GetSmallintAsInt("id_evaluado", 0);
-                        evaluador = newEvaluadoFromRow(row, detalle_preguntas, id_evaluado);
-                        //tipos_consultas.Add(evaluador);
+                        evaluacion = newEvaluadoFromRow(row, detalle_preguntas, id_evaluado);
                     }
 
                     if (row.GetSmallintAsInt("id_evaluacion", 0) != id_evaluacion_anterior || id_evaluacion_anterior == 0)
                     {
-                        tipos_consultas.Add(evaluador);
+                        evaluaciones.Add(evaluacion);
                         id_evaluacion_anterior = row.GetSmallintAsInt("id_evaluacion", 0);
-                        detalle_preguntas = new List<object>();
+                        detalle_preguntas = new List<DetallePreguntas>();
                         var id_evaluado = row.GetSmallintAsInt("id_evaluado", 0);
-                        evaluador = newEvaluadoFromRow(row, detalle_preguntas, id_evaluado);
+                        evaluacion = newEvaluadoFromRow(row, detalle_preguntas, id_evaluado);
                         AddDetallePreguntasA(detalle_preguntas, row);
                     }
                     else
                     {
                         AddDetallePreguntasA(detalle_preguntas, row);
                     }
-
                 });
             }
-            tipos_consultas.Add(evaluador);
-            return tipos_consultas;
+            evaluaciones.Add(evaluacion);
+            return evaluaciones;
         }
 
-        public string GetAgentesEvaluablesPor(Usuario usuario)
+        protected void AddDetallePreguntasA(List<DetallePreguntas> detalle_preguntas, RowDeDatos row)
         {
-            return JsonConvert.SerializeObject(GetAgentesEvaluablesPorRaw(usuario));
+            detalle_preguntas.Add(new DetallePreguntas(row.GetSmallintAsInt("id_pregunta", 0), row.GetSmallintAsInt("orden_pregunta", 0),
+                row.GetSmallintAsInt("opcion_elegida", 0), row.GetString("enunciado", ""),
+                row.GetString("rpta1", ""), row.GetString("rpta2", ""), row.GetString("rpta3", ""),
+                row.GetString("rpta4", ""),row.GetString("rpta5", "")));
         }
 
-  
-
-        protected void AddDetallePreguntasA(List<object> detalle_preguntas, RowDeDatos row)
+        protected EvaluacionDesempenio newEvaluadoFromRow(RowDeDatos row, List<DetallePreguntas> detalle_preguntas, int id_evaluado)
         {
-            detalle_preguntas.Add(new
-            {
-                id_pregunta = row.GetSmallintAsInt("id_pregunta", 0),
-                orden_pregunta = row.GetSmallintAsInt("orden_pregunta", 0),
-                OpcionElegida = row.GetSmallintAsInt("opcion_elegida", 0),
-                enunciado = row.GetString("enunciado", ""),
-                rpta1 = row.GetString("rpta1", ""),
-                rpta2 = row.GetString("rpta2", ""),
-                rpta3 = row.GetString("rpta3", ""),
-                rpta4 = row.GetString("rpta4", ""),
-                rpta5 = row.GetString("rpta5", ""),
-            });
-        }
-
-        protected object newEvaluadoFromRow(RowDeDatos row, List<object> detalle_preguntas, int id_evaluado)
-        {
-            return new
-                        {
-                            id_evaluado = id_evaluado,
-                            apellido = row.GetString("apellido"),
-                            nombre = row.GetString("nombre"),
-                            nro_documento = row.GetInt("NroDocumento"),
-                            id_evaluacion = row.GetInt("id_evaluacion", 0),
-                            estado = row.GetSmallintAsInt("estado_evaluacion", 0),
-                            id_periodo = row.GetInt("id_periodo", 0),
-                            descripcion_periodo = row.GetString("descripcion_periodo", ""),
-                            id_nivel = row.GetSmallintAsInt("id_nivel", 0),
-                            descripcion_nivel = row.GetString("descripcion_nivel", ""),
-                            deficiente = row.GetSmallintAsInt("deficiente", 0),
-                            regular = row.GetSmallintAsInt("regular", 0),
-                            bueno = row.GetSmallintAsInt("bueno", 0),
-                            destacado = row.GetSmallintAsInt("destacado", 0),
-                            detalle_preguntas = detalle_preguntas
-                        };
+            return new EvaluacionDesempenio(id_evaluado, row.GetString("apellido"), row.GetString("nombre"), row.GetInt("NroDocumento"),
+                            row.GetInt("id_evaluacion", 0), row.GetSmallintAsInt("estado_evaluacion", 0), row.GetInt("id_periodo", 0),
+                            row.GetString("descripcion_periodo", ""), row.GetSmallintAsInt("id_nivel", 0), row.GetString("descripcion_nivel", ""),
+                            row.GetSmallintAsInt("deficiente", 0), row.GetSmallintAsInt("regular", 0), row.GetSmallintAsInt("bueno", 0),
+                            row.GetSmallintAsInt("destacado", 0), detalle_preguntas);
         }
 
         public int insertarEvaluacion(int idEvaluado, int idEvaluador, int idFormulario, int periodo, int estado)

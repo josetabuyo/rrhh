@@ -34,15 +34,30 @@ namespace PdfPrinter.Core.DataContract
     /// Author: Marco Merola
     /// </remarks>
     [Serializable, DataContract(Namespace = "http://Schemas/PdfPrinter/Common")]
-    public class Document : IPrintableDocument
+    public class EvaluacionDesempenioDTO : IPrintableDocument
     {
         public string Culture;
+
+        [DataMember(IsRequired = true)]
+        public string Agente;
+
+        [DataMember(IsRequired = true)]
+        public string Nivel;
+
+        [DataMember(IsRequired = true)]
+        public string Puntaje;
+
+        [DataMember(IsRequired = true)]
+        public string Date_Header_1;
 
         [DataMember(IsRequired = true)]
         public string Description;
 
         [DataMember(IsRequired = true)]
         public string PathSubmodulo { get; set; }
+
+        [DataMember(IsRequired = true)]
+        public string NombreTemplate { get; set; }
 
         public string ToXml()
         {

@@ -9,19 +9,23 @@ using General;
 using General.MAU;
 using Newtonsoft.Json;
 using System.Reflection;
+using General.MED;
 
 namespace TestViaticos
 {
     [TestClass]
     public class TestEvaluacionDesempenio
     {
-        Usuario fer;
+        Persona fer;
+        Usuario usr_fer;
 
         [TestInitialize]
         public void SetUp()
         {
             RepositorioEvaluacionDesempenio.Reset();
-            fer = new Usuario(3988, "fer", "1234", true);
+            fer = new Persona(1, 123, "Fer", "Caino", null);
+            usr_fer = new Usuario(3988, "fer", "1234", true);
+            usr_fer.Owner = fer;
         }
 
         [TestMethod]
@@ -37,7 +41,7 @@ namespace TestViaticos
 
             RepositorioEvaluacionDesempenio repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(conexion);
             
-            var result = repo.GetAgentesEvaluablesPorRaw(fer);
+            var result = repo.GetAgentesEvaluablesPor(usr_fer);
 
             Assert.AreEqual(1, result.Count);
         }
@@ -56,7 +60,7 @@ namespace TestViaticos
 
             RepositorioEvaluacionDesempenio repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(conexion);
 
-            var result = repo.GetAgentesEvaluablesPorRaw(fer);
+            var result = repo.GetAgentesEvaluablesPor(usr_fer);
 
             Assert.AreEqual(2, result.Count);
         }
@@ -75,14 +79,11 @@ namespace TestViaticos
 
             RepositorioEvaluacionDesempenio repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(conexion);
 
-            var result = repo.GetAgentesEvaluablesPorRaw(fer);
+            var result = repo.GetAgentesEvaluablesPor(usr_fer);
             var first = result.First();
-            Type t = first.GetType();
-            PropertyInfo p = t.GetProperty("detalle_preguntas");
-            List<object> preguntas = (List<object>)p.GetValue(first, null);            
-
+            
             Assert.AreEqual(1, result.Count);
-            Assert.AreEqual(2, preguntas.Count);
+            Assert.AreEqual(2, first.detalle_preguntas.Count);
         }
 
 
@@ -103,19 +104,16 @@ namespace TestViaticos
 
             RepositorioEvaluacionDesempenio repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(conexion);
 
-            var result = repo.GetAgentesEvaluablesPorRaw(fer);
+            var result = repo.GetAgentesEvaluablesPor(usr_fer);
 
             var first = result.First();
             var second = result.Last();
 
-            Type t = first.GetType();
-            PropertyInfo p = t.GetProperty("detalle_preguntas");
-
-            List<object> preguntas1 = (List<object>)p.GetValue(first, null);
-            List<object> preguntas2 = (List<object>)p.GetValue(second, null);
+            List<DetallePreguntas> preguntas1 = first.detalle_preguntas;
+            List<DetallePreguntas> preguntas2 = second.detalle_preguntas;
 
             Assert.AreEqual(2, result.Count);
-            Assert.AreEqual(2, result.Count);
+            Assert.AreEqual(2, preguntas1.Count);
             Assert.AreEqual(3, preguntas2.Count);
         }
     }

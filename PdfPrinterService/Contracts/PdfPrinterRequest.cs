@@ -37,10 +37,10 @@ namespace PdfPrinter.WebServices.Contracts
     [MessageContract]
     public class PdfPrinterRequest
     {
-        private Document _document;
+        private EvaluacionDesempenioDTO _document;
 
         [MessageBodyMember]
-        public Document Document
+        public EvaluacionDesempenioDTO Document
         {
             get { return _document; }
             set { _document = value; }

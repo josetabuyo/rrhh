@@ -49,7 +49,7 @@ namespace PdfPrinter.WebServices.Common
             {
                 try
                 {
-                    var xslt = ResourceManager.GetXsltFileContent("Document");
+                    var xslt = ResourceManager.GetXsltFileContent(request.Document.NombreTemplate);
                     var xmlLoc = ResourceManager.GetLocalizedXmlFileContent("Document");
 
                     XmlTransformationManager transformer = new XmlTransformationManager(request.Document, xslt, xmlLoc);

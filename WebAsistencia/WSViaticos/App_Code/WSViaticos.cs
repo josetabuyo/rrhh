@@ -24,6 +24,7 @@ using System.Data;
 using System.IO;
 using ClosedXML.Excel;
 using General.DatosAbiertos;
+using General.MED;
 
 
 [WebService(Namespace = "http://wsviaticos.gov.ar/")]
@@ -52,7 +53,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string EvalGetAgentesEvaluables(Usuario usuario)
+    public List<EvaluacionDesempenio> EvalGetAgentesEvaluables(Usuario usuario)
     {
         var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
         return repo.GetAgentesEvaluablesPor(usuario);
@@ -4441,7 +4442,7 @@ public class WSViaticos : System.Web.Services.WebService
     #region EvaluacionesDesempenio
 
     [WebMethod]
-    public string GetFormularioDeEvaluacion(int idNivel,int idEvaluacion, int idEvaluado, Usuario usuario)
+    public List<DetallePreguntas> GetFormularioDeEvaluacion(int idNivel,int idEvaluacion, int idEvaluado, Usuario usuario)
     {
         RepositorioEvaluacionDesempenio repositorio = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
         return repositorio.getFormularioDeEvaluacion(idNivel, idEvaluado, idEvaluacion );
@@ -4798,11 +4799,18 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string PrintPdfEvaluacionDesempenio(int idEvaluacion)
+    public string PrintPdfEvaluacionDesempenio(int idEvaluacion, Usuario usuario)
     {
+        var evaluaciones = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(this.Conexion()).GetAgentesEvaluablesPor(usuario);
+        evaluaciones.Find(e => e.Es(idEvaluacion));
+
         var client = new PdfPrinterService.PdfPrinterClient();
-        var doc = new PdfPrinterService.Document();
+        var doc = new PdfPrinterService.EvaluacionDesempenioDTO();
         doc.PathSubmodulo = "EvaluacionDesempenio";
+        doc.NombreTemplate = "EvaluacionDesempenio";
+        doc.Date_Header_1 = "header ";
+        doc.Description = "blahhh";
+        //doc.Description = "Blah";
         var str = "";
         var respuesta = client.Print(doc, out str);
         return str;

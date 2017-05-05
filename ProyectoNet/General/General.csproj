@@ -105,6 +105,7 @@
     <Compile Include="DatosAbiertos\ParametroConsultaOPD.cs" />
     <Compile Include="DatosAbiertos\RepositorioDeDatosAbiertos.cs" />
     <Compile Include="MAU\SolicitudDeCambioDeImagen.cs" />
+    <Compile Include="MED\DetallePreguntas.cs" />
     <Compile Include="Organigrama\GraficoContratos.cs" />
     <Compile Include="Organigrama\PersonaContrato.cs" />
     <Compile Include="Portal\Consulta.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="Portal\Legajo.cs" />
     <Compile Include="Portal\Respuesta.cs" />
     <Compile Include="Repositorios\EstadoContrato.cs" />
+    <Compile Include="MED\EvaluacionDesempenio.cs" />
     <Compile Include="Repositorios\FormEvaluacion.cs" />
     <Compile Include="Repositorios\RepositorioDeContratos.cs" />
     <Compile Include="Repositorios\RepositorioEvaluacionDesempenio.cs" />
