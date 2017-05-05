@@ -360,7 +360,7 @@ a.icon{
 	perspective: 800px;
 	transition: all 0.4s ease-in-out;
 	margin:0 auto;
-	margin-top:200px;
+	margin-top:65px; /*el de Fer era 200*/
     /*top: 180px;
     left: 600px;*/
     z-index:9;
@@ -413,6 +413,16 @@ a.icon{
 	-ms-transform: scale(1.1);
 	transform: scale(1.1);*/
 		/*background-image: url(../Imagenes/portal/portal_empleado.png);*/
+}
+.datos_del_area
+{
+    font-size: 13px;
+    background-color: rgba(25, 75, 180, 0.48);
+    border: 3px double rgba(0, 0, 28, 0.61);
+    border-radius: 5px;
+    color: white;
+    padding: 5px;
+    width: 450px;
 }
 
 /*.ch-item_3d:hover .ch-info_3d {

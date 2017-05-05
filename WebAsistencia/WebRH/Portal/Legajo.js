@@ -525,7 +525,7 @@ var Legajo = {
                         if (carreraJSON != "") {
                             carreras = JSON.parse(carreraJSON);
                         }
-                           
+
                         carreras = _.sortBy((_.sortBy(carreras, 'FechaDesde')), 'Folio');
 
                         var _this = this;
@@ -1412,6 +1412,28 @@ var Legajo = {
                     .onError(function (e) {
                         spinner.stop();
                     });
+    },
+    getAreaDeLaPersona: function () {
+        var _this = this;
+        Backend.getAreaDeLaPersona().onSuccess(function (datos) {
+            var data = $.parseJSON(datos);
+            var resumen = data.Nombre + "<br/>"; // Responsable: " + data.datos_del_responsable.Apellido + ", " + data.datos_del_responsable.Nombre + "<br/>";
+            var contactos = data.DatosDeContacto;
+            var asistentes = data.Asistentes;
+            for (var i = 0; i < contactos.length; i++) {
+                if (contactos[i].Descripcion != "" && contactos[i].Dato != "") {
+                    resumen = resumen + contactos[i].Descripcion + ": " + contactos[i].Dato + "<br/>";
+                }
+            };
+            resumen = resumen + '<br/><div style="text-align: center;">RESPONSABLES DE CARGA DE LICENCIAS </div>';
+            for (var i = 0; i < asistentes.length; i++) {
+                resumen = resumen + asistentes[i].Apellido + ", " + asistentes[i].Nombre + "<br/>";
+            }
+
+
+            $('#resumen_contacto').html(data.contacto);
+            $('#resumen_area').html(resumen);
+        });
     },
     getConsultaIndividual: function (documento, ui) {
         var _this = this;

@@ -69,5 +69,11 @@ namespace General.MAU
         {
             throw new NotImplementedException();
         }
+
+
+        public List<Usuario> UsuariosConLaFuncionalidad(int id_funcionalidad)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
