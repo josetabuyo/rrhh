@@ -91,7 +91,6 @@
   <ItemGroup>
     <Compile Include="Common\CacheUtility.cs" />
     <Compile Include="Common\IPrintableDocument.cs" />
-    <Compile Include="DataContract\EvaluacionDesempenioDTO.cs" />
     <Compile Include="Common\LoggingHelper.cs" />
     <Compile Include="Common\ObjectXmlSerializer.cs" />
     <Compile Include="Common\PdfPrinterDriver.cs" />
@@ -100,8 +99,10 @@
     <Compile Include="Common\XsltExtensionService.cs" />
     <Compile Include="Configuration\PdfPrinterConfiguration.cs" />
     <Compile Include="Configuration\PdfPrinterSettingsElement.cs" />
+    <Compile Include="DataContract\EvaluacionDesempenioPdfTo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

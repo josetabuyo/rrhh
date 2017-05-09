@@ -177,12 +177,9 @@ var ListadoAgentes = {
         var btn_accion = this.getImgIcono('icono-imprimir.png', 'Imprimir');
         var _this = this;
         btn_accion.click(function () {
-            //_this.setAgenteValuesToLocalStorage(un_agente);
-            Backend.PrintPdfEvaluacionDesempenio(un_agente.id_evaluacion)
+            Backend.PrintPdfEvaluacionDesempenio(un_agente)
             .onSuccess(function (rpta) {
-                //window.open('ImpresionEvaluacion.html', '_blank');
-                window.open(rpta, '_blank');
-                //window.open('/Generateddocuments/20170428212540.pdf', '_blank');
+                window.open("data:application/pdf;base64," + rpta, '_blank');
             });
 
         });

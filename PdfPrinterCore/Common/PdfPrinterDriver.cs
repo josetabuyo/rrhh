@@ -100,7 +100,7 @@ namespace PdfPrinter.Core.Common
         /// </summary>   
         private static void OnInfo(object driver, FonetEventArgs e)
         {
-            LoggingHelper.Info("PdfPrinter: {0}", e.GetMessage());
+            //LoggingHelper.Info("PdfPrinter: {0}", e.GetMessage());
         }
 
         /// <summary>
@@ -108,7 +108,7 @@ namespace PdfPrinter.Core.Common
         /// </summary>  
         private static void OnWarning(object driver, FonetEventArgs e)
         {
-            LoggingHelper.Warn("PdfPrinter: {0}", e.GetMessage());
+            //LoggingHelper.Warn("PdfPrinter: {0}", e.GetMessage());
         }
     }
 }

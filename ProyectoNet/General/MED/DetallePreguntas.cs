@@ -7,15 +7,15 @@ namespace General.MED
 {
     public class DetallePreguntas
     {
-        public int id_pregunta { get; protected set; }
-        public int orden_pregunta { get; protected set; }
-        public int opcion_elegida { get; protected set; }
-        public string enunciado { get; protected set; }
-        public string rpta1 { get; protected set; }
-        public string rpta2 { get; protected set; }
-        public string rpta3 { get; protected set; }
-        public string rpta4 { get; protected set; }
-        public string rpta5 { get; protected set; }
+        public int id_pregunta { get; set; }
+        public int orden_pregunta { get; set; }
+        public int opcion_elegida { get; set; }
+        public string enunciado { get; set; }
+        public string rpta1 { get; set; }
+        public string rpta2 { get; set; }
+        public string rpta3 { get; set; }
+        public string rpta4 { get; set; }
+        public string rpta5 { get; set; }
 
         public DetallePreguntas()
         {

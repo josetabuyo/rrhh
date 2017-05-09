@@ -34,7 +34,7 @@ namespace PdfPrinter.Core.DataContract
     /// Author: Marco Merola
     /// </remarks>
     [Serializable, DataContract(Namespace = "http://Schemas/PdfPrinter/Common")]
-    public class EvaluacionDesempenioDTO : IPrintableDocument
+    public class EvaluacionDesempenioPdfTO : IPrintableDocument
     {
         public string Culture;
 
@@ -63,5 +63,6 @@ namespace PdfPrinter.Core.DataContract
         {
             return ObjectXmlSerializer.SerializeObjectToXmlFormattedString(this);
         }
+
     }
 }

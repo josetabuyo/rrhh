@@ -932,10 +932,6 @@ public class AjaxWS : System.Web.Services.WebService
             {
                 return Newtonsoft.Json.JsonConvert.SerializeObject("");
             }
-               
-
-            
-
         }
         var respuesta = metodo.Invoke(backEndService, argumentos_a_enviar.ToArray());
 
