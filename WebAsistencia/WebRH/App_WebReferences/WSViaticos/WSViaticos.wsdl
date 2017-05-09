@@ -2,10 +2,9 @@
 <wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://wsviaticos.gov.ar/">
-      <s:element name="EjecutarConsultaOPD">
+      <s:element name="GetUsuarioLogueado">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="idConsulta" type="s:int" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
@@ -193,6 +192,63 @@
           <s:element minOccurs="1" maxOccurs="1" name="basica" type="s:boolean" />
         </s:sequence>
       </s:complexType>
+      <s:element name="GetUsuarioLogueadoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUsuarioLogueadoResult" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetConsultasOPD">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetConsultasOPDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetConsultasOPDResult" type="tns:ArrayOfConsultaOPD" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfConsultaOPD">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ConsultaOPD" nillable="true" type="tns:ConsultaOPD" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ConsultaOPD">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SP" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Funcionalidad" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Parametros" type="tns:ArrayOfParametroConsultaOPD" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfParametroConsultaOPD">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ParametroConsultaOPD" nillable="true" type="tns:ParametroConsultaOPD" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ParametroConsultaOPD">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Valor" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Tipo" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="EjecutarConsultaOPD">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idConsulta" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="EjecutarConsultaOPDResponse">
         <s:complexType>
           <s:sequence>
@@ -1976,6 +2032,47 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetDomicilioPendiente">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDomicilioPendienteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDomicilioPendienteResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarDomicilioPendiente">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="domicilio" type="tns:CvDomicilio" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="CvDomicilio">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Calle" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Numero" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Piso" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Depto" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Localidad" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cp" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Provincia" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GuardarDomicilioPendienteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GuardarDomicilioPendienteResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="MostrarDestinatariosDeLaNotificacion">
         <s:complexType>
           <s:sequence>
@@ -2172,62 +2269,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetUsuarioLogueado">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetUsuarioLogueadoResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetUsuarioLogueadoResult" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetConsultasOPD">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetConsultasOPDResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetConsultasOPDResult" type="tns:ArrayOfConsultaOPD" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:complexType name="ArrayOfConsultaOPD">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="ConsultaOPD" nillable="true" type="tns:ConsultaOPD" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="ConsultaOPD">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="SP" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="Funcionalidad" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Parametros" type="tns:ArrayOfParametroConsultaOPD" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="ArrayOfParametroConsultaOPD">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="ParametroConsultaOPD" nillable="true" type="tns:ParametroConsultaOPD" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="ParametroConsultaOPD">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Valor" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Tipo" type="s:string" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="CrearUsuarioPara">
         <s:complexType>
           <s:sequence>
@@ -2914,18 +2955,6 @@
           <s:element minOccurs="0" maxOccurs="1" name="DomicilioLegal" type="tns:CvDomicilio" />
           <s:element minOccurs="0" maxOccurs="1" name="TieneLegajo" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="DatosDeContacto" type="tns:DatosDeContacto" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="CvDomicilio">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Calle" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="Numero" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Piso" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Depto" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="Localidad" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="Cp" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="Provincia" type="s:int" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="DatosDeContacto">
@@ -6710,6 +6739,18 @@
       </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="GetUsuarioLogueadoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUsuarioLogueado" />
+  </wsdl:message>
+  <wsdl:message name="GetUsuarioLogueadoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUsuarioLogueadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetConsultasOPDSoapIn">
+    <wsdl:part name="parameters" element="tns:GetConsultasOPD" />
+  </wsdl:message>
+  <wsdl:message name="GetConsultasOPDSoapOut">
+    <wsdl:part name="parameters" element="tns:GetConsultasOPDResponse" />
+  </wsdl:message>
   <wsdl:message name="EjecutarConsultaOPDSoapIn">
     <wsdl:part name="parameters" element="tns:EjecutarConsultaOPD" />
   </wsdl:message>
@@ -7160,6 +7201,18 @@
   <wsdl:message name="GetNotificacionesTodasDePortalSoapOut">
     <wsdl:part name="parameters" element="tns:GetNotificacionesTodasDePortalResponse" />
   </wsdl:message>
+  <wsdl:message name="GetDomicilioPendienteSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDomicilioPendiente" />
+  </wsdl:message>
+  <wsdl:message name="GetDomicilioPendienteSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDomicilioPendienteResponse" />
+  </wsdl:message>
+  <wsdl:message name="GuardarDomicilioPendienteSoapIn">
+    <wsdl:part name="parameters" element="tns:GuardarDomicilioPendiente" />
+  </wsdl:message>
+  <wsdl:message name="GuardarDomicilioPendienteSoapOut">
+    <wsdl:part name="parameters" element="tns:GuardarDomicilioPendienteResponse" />
+  </wsdl:message>
   <wsdl:message name="MostrarDestinatariosDeLaNotificacionSoapIn">
     <wsdl:part name="parameters" element="tns:MostrarDestinatariosDeLaNotificacion" />
   </wsdl:message>
@@ -7249,18 +7302,6 @@
   </wsdl:message>
   <wsdl:message name="GetDocumentosDelLegajoSoapOut">
     <wsdl:part name="parameters" element="tns:GetDocumentosDelLegajoResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetUsuarioLogueadoSoapIn">
-    <wsdl:part name="parameters" element="tns:GetUsuarioLogueado" />
-  </wsdl:message>
-  <wsdl:message name="GetUsuarioLogueadoSoapOut">
-    <wsdl:part name="parameters" element="tns:GetUsuarioLogueadoResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetConsultasOPDSoapIn">
-    <wsdl:part name="parameters" element="tns:GetConsultasOPD" />
-  </wsdl:message>
-  <wsdl:message name="GetConsultasOPDSoapOut">
-    <wsdl:part name="parameters" element="tns:GetConsultasOPDResponse" />
   </wsdl:message>
   <wsdl:message name="CrearUsuarioParaSoapIn">
     <wsdl:part name="parameters" element="tns:CrearUsuarioPara" />
@@ -8685,6 +8726,14 @@
     <wsdl:part name="parameters" element="tns:DetenerServicioDeAlertasResponse" />
   </wsdl:message>
   <wsdl:portType name="WSViaticosSoap">
+    <wsdl:operation name="GetUsuarioLogueado">
+      <wsdl:input message="tns:GetUsuarioLogueadoSoapIn" />
+      <wsdl:output message="tns:GetUsuarioLogueadoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultasOPD">
+      <wsdl:input message="tns:GetConsultasOPDSoapIn" />
+      <wsdl:output message="tns:GetConsultasOPDSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="EjecutarConsultaOPD">
       <wsdl:input message="tns:EjecutarConsultaOPDSoapIn" />
       <wsdl:output message="tns:EjecutarConsultaOPDSoapOut" />
@@ -8985,6 +9034,14 @@
       <wsdl:input message="tns:GetNotificacionesTodasDePortalSoapIn" />
       <wsdl:output message="tns:GetNotificacionesTodasDePortalSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetDomicilioPendiente">
+      <wsdl:input message="tns:GetDomicilioPendienteSoapIn" />
+      <wsdl:output message="tns:GetDomicilioPendienteSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GuardarDomicilioPendiente">
+      <wsdl:input message="tns:GuardarDomicilioPendienteSoapIn" />
+      <wsdl:output message="tns:GuardarDomicilioPendienteSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="MostrarDestinatariosDeLaNotificacion">
       <wsdl:input message="tns:MostrarDestinatariosDeLaNotificacionSoapIn" />
       <wsdl:output message="tns:MostrarDestinatariosDeLaNotificacionSoapOut" />
@@ -9044,14 +9101,6 @@
     <wsdl:operation name="GetDocumentosDelLegajo">
       <wsdl:input message="tns:GetDocumentosDelLegajoSoapIn" />
       <wsdl:output message="tns:GetDocumentosDelLegajoSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetUsuarioLogueado">
-      <wsdl:input message="tns:GetUsuarioLogueadoSoapIn" />
-      <wsdl:output message="tns:GetUsuarioLogueadoSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetConsultasOPD">
-      <wsdl:input message="tns:GetConsultasOPDSoapIn" />
-      <wsdl:output message="tns:GetConsultasOPDSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="CrearUsuarioPara">
       <wsdl:input message="tns:CrearUsuarioParaSoapIn" />
@@ -10004,6 +10053,24 @@
   </wsdl:portType>
   <wsdl:binding name="WSViaticosSoap" type="tns:WSViaticosSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetUsuarioLogueado">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetUsuarioLogueado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultasOPD">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetConsultasOPD" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="EjecutarConsultaOPD">
       <soap:operation soapAction="http://wsviaticos.gov.ar/EjecutarConsultaOPD" style="document" />
       <wsdl:input>
@@ -10679,6 +10746,24 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetDomicilioPendiente">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetDomicilioPendiente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarDomicilioPendiente">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarDomicilioPendiente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="MostrarDestinatariosDeLaNotificacion">
       <soap:operation soapAction="http://wsviaticos.gov.ar/MostrarDestinatariosDeLaNotificacion" style="document" />
       <wsdl:input>
@@ -10807,24 +10892,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetDocumentosDelLegajo">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetDocumentosDelLegajo" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetUsuarioLogueado">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetUsuarioLogueado" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetConsultasOPD">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetConsultasOPD" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -12968,6 +13035,24 @@
   </wsdl:binding>
   <wsdl:binding name="WSViaticosSoap12" type="tns:WSViaticosSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetUsuarioLogueado">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetUsuarioLogueado" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultasOPD">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetConsultasOPD" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="EjecutarConsultaOPD">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/EjecutarConsultaOPD" style="document" />
       <wsdl:input>
@@ -13643,6 +13728,24 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetDomicilioPendiente">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetDomicilioPendiente" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarDomicilioPendiente">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarDomicilioPendiente" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="MostrarDestinatariosDeLaNotificacion">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/MostrarDestinatariosDeLaNotificacion" style="document" />
       <wsdl:input>
@@ -13771,24 +13874,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetDocumentosDelLegajo">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetDocumentosDelLegajo" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetUsuarioLogueado">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetUsuarioLogueado" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetConsultasOPD">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetConsultasOPD" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

@@ -3339,3 +3339,63 @@ Exception rethrown at [0]:
    en System.Web.DefaultHttpHandler.BeginProcessRequest(HttpContext context, AsyncCallback callback, Object state)
    en System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
    en System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+03/05/2017 09:33:58 p.m. - ---------------------------------------------
+03/05/2017 09:33:58 p.m. - System.Web.HttpException (0x80004005): El archivo no existe.
+   en System.Web.StaticFileHandler.GetFileInfo(String virtualPathWithPathInfo, String physicalPath, HttpResponse response)
+   en System.Web.StaticFileHandler.ProcessRequestInternal(HttpContext context, String overrideVirtualPath)
+   en System.Web.DefaultHttpHandler.BeginProcessRequest(HttpContext context, AsyncCallback callback, Object state)
+   en System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   en System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+03/05/2017 09:34:21 p.m. - ---------------------------------------------
+03/05/2017 09:34:21 p.m. - System.Web.HttpException (0x80004005): El archivo no existe.
+   en System.Web.StaticFileHandler.GetFileInfo(String virtualPathWithPathInfo, String physicalPath, HttpResponse response)
+   en System.Web.StaticFileHandler.ProcessRequestInternal(HttpContext context, String overrideVirtualPath)
+   en System.Web.DefaultHttpHandler.BeginProcessRequest(HttpContext context, AsyncCallback callback, Object state)
+   en System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   en System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+03/05/2017 09:34:37 p.m. - ---------------------------------------------
+03/05/2017 09:34:37 p.m. - System.Web.HttpException (0x80004005): El archivo no existe.
+   en System.Web.StaticFileHandler.GetFileInfo(String virtualPathWithPathInfo, String physicalPath, HttpResponse response)
+   en System.Web.StaticFileHandler.ProcessRequestInternal(HttpContext context, String overrideVirtualPath)
+   en System.Web.DefaultHttpHandler.BeginProcessRequest(HttpContext context, AsyncCallback callback, Object state)
+   en System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   en System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+05/05/2017 07:25:29 p.m. - ---------------------------------------------
+05/05/2017 07:25:29 p.m. - System.TimeoutException: El canal de solicitud agotó el tiempo de espera mientras esperaba una respuesta después de 00:00:59.9950000. Aumente el valor de tiempo de espera pasado a la llamada a Request, o bien aumente el valor de SendTimeout en el enlace. El tiempo asignado a esta operación puede haber sido una parte de un tiempo de espera mayor. ---> System.TimeoutException: La solicitud HTTP a 'http://localhost:43412/WSViaticos/WSViaticos.asmx' superó el tiempo de espera asignado de 00:01:00. El tiempo asignado a esta operación puede haber sido una parte de un tiempo de espera mayor. ---> System.Net.WebException: Se excedió el tiempo de espera de la operación
+   en System.Net.HttpWebRequest.GetResponse()
+   en System.ServiceModel.Channels.HttpChannelFactory.HttpRequestChannel.HttpChannelRequest.WaitForReply(TimeSpan timeout)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en System.ServiceModel.Channels.HttpChannelUtilities.ProcessGetResponseWebException(WebException webException, HttpWebRequest request, HttpAbortReason abortReason)
+   en System.ServiceModel.Channels.HttpChannelFactory.HttpRequestChannel.HttpChannelRequest.WaitForReply(TimeSpan timeout)
+   en System.ServiceModel.Channels.RequestChannel.Request(Message message, TimeSpan timeout)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+
+Server stack trace: 
+   en System.ServiceModel.Channels.RequestChannel.Request(Message message, TimeSpan timeout)
+   en System.ServiceModel.Dispatcher.RequestChannelBinder.Request(Message message, TimeSpan timeout)
+   en System.ServiceModel.Channels.ServiceChannel.Call(String action, Boolean oneway, ProxyOperationRuntime operation, Object[] ins, Object[] outs, TimeSpan timeout)
+   en System.ServiceModel.Channels.ServiceChannelProxy.InvokeService(IMethodCallMessage methodCall, ProxyOperationRuntime operation)
+   en System.ServiceModel.Channels.ServiceChannelProxy.Invoke(IMessage message)
+
+Exception rethrown at [0]: 
+   en System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+   en System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)
+   en WSViaticos.WSViaticosSoap.ElUsuarioPuedeAccederALaURL(Usuario usuario, String url)
+   en WSViaticos.WSViaticosSoapClient.ElUsuarioPuedeAccederALaURL(Usuario usuario, String url) en c:\Windows\Microsoft.NET\Framework\v4.0.30319\Temporary ASP.NET Files\root\e2a7e090\5ff691d7\App_WebReferences.r-spoozy.0.cs:línea 17359
+   en ASP.global_asax.Application_AcquireRequestState(Object sender, EventArgs e) en c:\Repositorios\FernandoAssembla\Git_SistemaWeb\rrhh2\rrhh\WebAsistencia\WebRH\Global.asax:línea 16
+   en System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   en System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+05/05/2017 08:16:27 p.m. - ---------------------------------------------
+05/05/2017 08:16:27 p.m. - System.Web.HttpException (0x80004005): El archivo no existe.
+   en System.Web.StaticFileHandler.GetFileInfo(String virtualPathWithPathInfo, String physicalPath, HttpResponse response)
+   en System.Web.StaticFileHandler.ProcessRequestInternal(HttpContext context, String overrideVirtualPath)
+   en System.Web.DefaultHttpHandler.BeginProcessRequest(HttpContext context, AsyncCallback callback, Object state)
+   en System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   en System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+05/05/2017 08:17:01 p.m. - ---------------------------------------------
+05/05/2017 08:17:01 p.m. - System.Web.HttpException (0x80004005): El archivo no existe.
+   en System.Web.StaticFileHandler.GetFileInfo(String virtualPathWithPathInfo, String physicalPath, HttpResponse response)
+   en System.Web.StaticFileHandler.ProcessRequestInternal(HttpContext context, String overrideVirtualPath)
+   en System.Web.DefaultHttpHandler.BeginProcessRequest(HttpContext context, AsyncCallback callback, Object state)
+   en System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   en System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)

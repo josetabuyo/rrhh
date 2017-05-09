@@ -720,6 +720,61 @@ namespace General.Repositorios
 
         }
 
+        public string VerificarCambioDomicilio(int idDomicilio, int usuarioVerificador)
+        {
+            var parametros = new Dictionary<string, object>();
+
+            parametros.Add("@idDomicilio", idDomicilio);
+            parametros.Add("@idUsuarioVerificador", usuarioVerificador);
+
+            var tablaDatos = conexion.Ejecutar("dbo.LEG_UpdateCambioDomicilioPendiente", parametros);
+
+            return JsonConvert.SerializeObject(idDomicilio);
+
+        }
+
+        public string GetDomicilioPendiente(int idPersona)
+        {
+            var parametros = new Dictionary<string, object>();
+
+            parametros.Add("@idPersona", idPersona);
+
+            List<CvDomicilio> listaDomicilios = new List<CvDomicilio>();
+            var tablaDatos = conexion.Ejecutar("dbo.LEG_GetDomicilioPendiente", parametros);
+
+            if (tablaDatos.Rows.Count > 0)
+            {
+                tablaDatos.Rows.ForEach(row =>
+
+                    listaDomicilios.Add(new CvDomicilio(row.GetInt("id"), row.GetString("calle", ""), row.GetSmallintAsInt("nro", 0), row.GetString("piso", ""), row.GetString("dpto", ""), row.GetInt("localidad", 0), row.GetInt("cp", 0), row.GetInt("provincia", 0)))
+                );
+            }
+
+            return JsonConvert.SerializeObject(listaDomicilios);
+
+        }
+
+        public bool GuardarDomicilioPendiente(CvDomicilio domicilio, int idUsuario)
+        {
+
+            var parametros = new Dictionary<string, object>();
+
+            parametros.Add("@calle", domicilio.Calle);
+            parametros.Add("@numero", domicilio.Numero);
+            parametros.Add("@piso", domicilio.Piso);
+            parametros.Add("@depto", domicilio.Depto);
+            parametros.Add("@cp", domicilio.Cp);
+            parametros.Add("@localidad", domicilio.Localidad);
+            parametros.Add("@provincia", domicilio.Provincia);
+            parametros.Add("@idPersona", idUsuario);
+
+
+            conexion.Ejecutar("dbo.LEG_Ins_Domicilios_Pendientes", parametros);
+
+            return true;
+
+        }
+
         protected override List<Legajo> ObtenerDesdeLaBase()
         {
             throw new NotImplementedException();
@@ -734,5 +789,7 @@ namespace General.Repositorios
         {
             throw new NotImplementedException();
         }
+
+
     }
 }

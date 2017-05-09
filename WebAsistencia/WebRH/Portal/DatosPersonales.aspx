@@ -23,65 +23,67 @@
             <div class="caja_der papel">
             <legend style="margin-top: 20px;">MIS DATOS</legend>
                 <div class="cajitas">
-                   <p class=""><label class="item_cajita">Legajo: </label><span id="legajo"></span></p>
-                    <p class=""><label class="item_cajita">Documento: </label><span id="dni"></span></p>
+                   <p class=""><label class="item_cajita">Legajo: </label> <span id="legajo"></span></p>
+                    <p class=""><label class="item_cajita">Documento: </label> <span id="dni"></span></p>
                 </div>
                  <div class="cajitas">
-                    <p><label  class="item_cajita">Edad: </label><span id="edad">31</span></p>
-                    <p class=""><label class="item_cajita">F. Nacimiento: </label><span id="fechaNac"></span></p>
+                    <p><label  class="item_cajita">Edad: </label> <span id="edad"></span></p>
+                    <p class=""><label class="item_cajita">F. Nacimiento: </label> <span id="fechaNac"></span></p>
                 </div>
                 <div class="cajitas">
-                    <p class=""><label class="item_cajita">Sexo: </label><span id="sexo"></span></p>
-                    <p class=""><label class="item_cajita">Estado Civil: </label><span id="estadoCivil"></span></p>
+                    <p class=""><label class="item_cajita">Sexo: </label> <span id="sexo"></span></p>
+                    <p class=""><label class="item_cajita">Estado Civil: </label> <span id="estadoCivil"></span></p>
                  </div>
                  <div class="cajitas">
-                    <p class=""><label class="item_cajita">CUIL: </label><span id="cuil"></span></p>
-                    <p class=""><label class="item_cajita">Domicilio: </label><span id="domicilio"></span>
-                    <input id="btnMostrarDomicilio" value="Cambiar Domicilio" class="btn btn-primary" type="button" />
+                    <p class=""><label class="item_cajita">CUIL: </label> <span id="cuil"></span></p>
+                    <p class=""><label class="item_cajita">Domicilio: </label> <span id="domicilio"></span>
+                    <img id="btnMostrarDomicilio" style="cursor:pointer;" title="Cambiar Domicilio" src="../Imagenes/edit.png" width="30px" height="30px" />
+                    <%--<input id="btnMostrarDomicilio" value="Cambiar Domicilio" class="btn btn-primary" type="button" />--%>
+                    <div style="display:none; color:Red;" id="mensajeCambioDomicilioPendiente">
+                        <span>Solicitud Pendiente de Aprobación</span>
+                        <input id="btnGenerarPDF" value="Generar PDF" class="btn btn-primary" type="button" />
+                    </div>
+                    
                     </p>
                  </div>
 
                  <div id="cajaCambiarDomicilio" style="display:none;" class="">
-                 <div class="">
-                                <label class="etiqueta_campo" for="txt_calle">
-                                    Calle <em>*</em></label>
-                                <input type="text" id="txt_calle" name="txt_calle" style="width: 350px;" />
-                            </div>
+                 <h3 style="text-align: center;">Solicitud de actualización de domicilio</h3>
+                    <br />
+                        <div class="">
+                            <label class="etiqueta_campo" for="txt_calle">
+                                Calle <em>*</em></label>
+                            <input type="text" id="txt_calle" name="txt_calle" style="width: 250px; height: 30px;" />
+                            <label class="etiqueta_campo" for="txt_numero">
+                                Número <em>*</em></label>
+                            <input type="text" id="txt_numero" name="txt_numero" style="width: 50px; height: 30px;" />
+                        </div>
+
                             <div class="">
-                                <label class="etiqueta_campo" for="txt_numero">
-                                    Número <em>*</em></label>
-                                <input type="text" id="txt_numero" name="txt_numero" style="width: 50px" />
+                                <label class="etiqueta_campo" for="txt_piso">Piso</label>
+                                <input type="text" id="txt_piso" name="txt_piso" style="width: 30px; height: 30px;" />
+
+                                <label class="etiqueta_campo" for="txt_dto">Dpto</label>
+                                <input type="text" id="txt_dto" name="txt_dto" style="width: 30px; height: 30px;" />
+
+                                 <label class="etiqueta_campo_small" for="txt_cp">Código Postal <em>*</em></label>
+                                <input type="text" id="txt_cp" name="txt_cp" style="width: 80px; height: 30px;" />
                             </div>
-                            <div class="">
-                                <label class="etiqueta_campo" for="txt_piso">
-                                    Piso</label>
-                                <input type="text" id="txt_piso" name="txt_piso" style="width: 30px" />
-                            </div>
-                            <div class="">
-                                <label class="etiqueta_campo" for="txt_dto">
-                                    Dpto</label>
-                                <input type="text" id="txt_dto" name="txt_dto" style="width: 30px" />
-                            </div>
-                            <div class="">
-                                <label class="etiqueta_campo_small" for="txt_cp">
-                                    Código Postal <em>*</em></label>
-                                <input type="text" id="txt_cp" name="txt_cp" style="width: 80px" />
-                            </div>
+
                             <div class="">
                                 <label class="etiqueta_campo" for="cmb_provincia">
                                     Provincia <em>*</em></label>
-                                <select id="cmb_provincia" style="width: 320px;">
-                                
-                                </select>
+                                <select id="cmb_provincia" style="width: 200px;"></select>
+
+                                <label class="etiqueta_campo_small" for="cmb_localidad">Localidad <em>*</em></label>
+                                <select id="cmb_localidad" style="width: 250px;"></select>
                             </div>
-                            <div class="">
-                                <label class="etiqueta_campo_small" for="cmb_localidad">
-                                    Localidad <em>*</em></label>
-                                <select id="cmb_localidad" style="width: 320px;">
-                                </select>
+                            <br />
+                            <div style="text-align:center;">
+                                <input  id="btnCambiarDomicilio" value="Solicitar Cambio" class="btn btn-primary" type="button" />
                             </div>
-                            <input id="btnCambiarDomicilio" value="Cambiar" class="btn btn-primary" type="button" />
-                            </div>
+                            
+                        </div>
 
                 <legend style="margin-top: 20px;">DATOS FAMILIARES</legend>
                     <div id="tabla_familiar">
@@ -117,6 +119,7 @@
 <script type="text/javascript" src="Legajo.js"></script>
 <script type="text/javascript" src="../Scripts/Spin.js"></script>
 <script type="text/javascript" src="../Scripts/ControlesImagenes/VistaThumbnail.js"></script>
+<script type="text/javascript" src="../scripts/vex-2.1.1/js/vex.combined.min.js"></script>
 <script type="text/javascript" >
 
     $(document).ready(function ($) {

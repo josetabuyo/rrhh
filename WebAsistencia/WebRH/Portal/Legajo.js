@@ -62,6 +62,7 @@ var Legajo = {
     getDatosPersonales: function () {
         var spinner = new Spinner({ scale: 2 });
         spinner.spin($("html")[0]);
+        var _this = this;
 
         Backend.GetDatosPersonales()
             .onSuccess(function (datos) {
@@ -81,50 +82,116 @@ var Legajo = {
                     $('#dni').html(data.Documento);
                     $('#domicilio').html(data.Domicilio);
                     $('#cargo').html(data.Cargo);
-
                 }
 
-                spinner.stop();
+                //FC: me fijo si tiene pedido de domicilio pendiente
+                Backend.GetDomicilioPendiente()
+                        .onSuccess(function (jsonDomicilios) {
 
-                $('#btnMostrarDomicilio').click(function() {
-
-                    Backend.BuscarProvincias({  })
-                        .onSuccess(function (provincias) {
-
-                        var options = $("#cmb_provincia");
-                        $.each(provincias, function() {
-                            options.append($("<option />").val(this.Id).text(this.Nombre));
-                        });
+                        var domicilios = $.parseJSON(jsonDomicilios);
+                        if(domicilios.length > 0) {
+                            $('#mensajeCambioDomicilioPendiente').show();
+                            $('#btnMostrarDomicilio').hide();
+                        }
+                        
                     })
                     .onError(function (e) {
                         
                     });
 
-                    $('#cmb_provincia').change(function() {
-                    $("#cmb_localidad").empty();
-                    var idProvincia = parseInt($( "#cmb_provincia option:selected").val());
-                        Backend.BuscarLocalidades({IdProvincia:idProvincia  })
-                            .onSuccess(function (localidades) {
+                spinner.stop();
 
-                            var options = $("#cmb_localidad");
-                            $.each(localidades, function() {
-                                options.append($("<option />").val(this.Id).text(this.Nombre));
-                            });
-                        })
-                        .onError(function (e) {
+                $('#btnMostrarDomicilio').click(function() {
+
+                   
+                    //var ui = $("#cajaCambiarDomicilio");
+
+                        vex.defaultOptions.className = 'vex-theme-os';
+                        vex.open({
+                            afterOpen: function ($vexContent) {
+                                var ui = $("#cajaCambiarDomicilio").clone();
+                                $vexContent.append(ui);
+                                ui.show();
+
+                                 Backend.BuscarProvincias({  })
+                                    .onSuccess(function (provincias) {
+
+                                    var options = ui.find("#cmb_provincia");
+                                    $.each(provincias, function() {
+                                        options.append($("<option />").val(this.Id).text(this.Nombre));
+                                    });
+                                })
+                                .onError(function (e) {
                         
-                        });
-                    });
-                    
+                                });
 
-                    $('#cajaCambiarDomicilio').show();
+                                ui.find('#cmb_provincia').change(function() {
+                                ui.find("#cmb_localidad").empty();
+                                var idProvincia = parseInt(ui.find( "#cmb_provincia option:selected").val());
+                                    Backend.BuscarLocalidades({IdProvincia:idProvincia  })
+                                        .onSuccess(function (localidades) {
+
+                                        var options = ui.find("#cmb_localidad");
+                                        $.each(localidades, function() {
+                                            options.append($("<option />").val(this.Id).text(this.Nombre));
+                                        });
+                                    })
+                                    .onError(function (e) {
+                        
+                                    });
+                                });
+
+                                return ui;
+                            },
+                            css: {
+                                'padding-top': "4%",
+                                'padding-bottom': "0%"
+                            },
+                            contentCSS: {
+                                width: "50%",
+                                height: "330px"
+                            }
+                        });
+                    //$('#cajaCambiarDomicilio').show();
                 });
 
                 $('#btnCambiarDomicilio').click(function() {
-                    
-                });
+                var domicilio = {};
+                domicilio.Calle = $('#txt_calle').val();
+                domicilio.Numero = $('#txt_numero').val();
+                domicilio.Piso = $('#txt_piso').val();
+                domicilio.Depto = $('#txt_dto').val();
+                domicilio.Cp = $('#txt_cp').val();
+                domicilio.Localidad = $('#cmb_localidad').val();
+                domicilio.Provincia = $('#cmb_provincia').val();
+                     Backend.GuardarDomicilioPendiente(domicilio)
+                        .onSuccess(function (respuesta) {
+                        vex.dialog.alert({
+                            message: 'Solicitud de cambio de domicilio generada. Imprima el formulario y entregueselo a RRHH para finalizar el trámite.',
+                            input: [
+                                '<style>',
+                                    '.vex-custom-field-wrapper {',
+                                        'margin: 1em 0;',
+                                    '}',
+                                    '.vex-custom-field-wrapper > label {',
+                                        'display: inline-block;',
+                                        'margin-bottom: .2em;',
+                                    '}',
+                                '</style>',
+                                '<div style="text-align:center;"><input type="button" value="GenerarPDF"  /></div>',
+                            ].join('')
+                            });
 
+                            //vex.dialog.alert('Solicitud de cambio de domicilio generada. Presente el formulario impreso a RRHH');
+                            _this.getDatosPersonales();
                 
+
+
+                        })
+                        .onError(function (e) {
+
+                        });
+                });
 
             })
             .onError(function (e) {

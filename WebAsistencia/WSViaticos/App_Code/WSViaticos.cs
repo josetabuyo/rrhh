@@ -4261,6 +4261,25 @@ public class WSViaticos : System.Web.Services.WebService
         return repo.GetNotificacionesTodasDePortal();
 
     }
+
+    [WebMethod]
+    public string GetDomicilioPendiente(Usuario usuario)
+    {
+        RepositorioLegajo repo = RepoLegajo();
+
+        return repo.GetDomicilioPendiente(usuario.Owner.Id);
+
+    }
+
+    [WebMethod]
+    public bool GuardarDomicilioPendiente(CvDomicilio domicilio, Usuario usuario)
+    {
+        RepositorioLegajo repo = RepoLegajo();
+
+        return repo.GuardarDomicilioPendiente(domicilio, usuario.Owner.Id);
+
+    }
+
     [WebMethod]
     public string MostrarDestinatariosDeLaNotificacion( int id_notificacion, Usuario usuario)
     {
