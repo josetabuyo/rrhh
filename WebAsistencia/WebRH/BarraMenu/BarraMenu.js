@@ -96,12 +96,25 @@
 
 
             $("#contenedor_foto_usuario").click(function () {
-                var subidor = new SubidorDeImagenes();
-                subidor.subirImagen(function (id_imagen) {
-                    Backend.SolicitarCambioDeImagen(id_imagen).onSuccess(function () {
-                        alertify.success("solicitud de cambio de imagen realizada con éxito");
-                    });
-                });
+                vex.defaultOptions.className = 'vex-theme-os';
+                vex.open({
+                    afterOpen: function ($vexContent) {
+                        var ui = $("#plantillas_barra_menu #indicaciones_al_subir_imagen").clone();
+                        ui.find("#btn_ok").click(function(){
+                            vex.close();
+                            var subidor = new SubidorDeImagenes();
+                            subidor.subirImagen(function (id_imagen) {
+                                Backend.SolicitarCambioDeImagen(id_imagen).onSuccess(function () {
+                                    alertify.success("solicitud de cambio de imagen realizada con éxito");
+                                });
+                            });
+                        });
+                        $vexContent.append(ui);
+                        ui.show();
+                        return ui;
+                    }
+                })             
+                
             });
 
             if (usuario.Owner.IdImagen >= 0) {
