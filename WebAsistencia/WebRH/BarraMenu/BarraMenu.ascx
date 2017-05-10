@@ -122,10 +122,10 @@
             <image id="btn_ok" src="<%= UrlImagenes %>botones/ok.png"/>
         </div>
 
-        <div class="ui_solicitud_cambio_imagen">
-            <p class="titulo">
+        <div class="ui_tarea sombra-mensaje">
+            <p class="titulo_tarea">
                 bla</p>
-            <p class="descripcion">
+            <p class="descripcion_tarea">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
         </div>
 
