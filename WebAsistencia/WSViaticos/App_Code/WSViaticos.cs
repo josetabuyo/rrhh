@@ -2647,10 +2647,10 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public bool RechazarCambioDeImagen(int id_usuario, Usuario usuario)
+    public bool RechazarCambioDeImagen(int id_usuario, string razon_de_rechazo, Usuario usuario)
     {
         if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 50)) throw (new Exception("El usuario no tiene permisos para administrar cambios de imagen"));
-        return RepositorioDeUsuarios().RechazarCambioDeImagen(id_usuario);
+        return RepositorioDeUsuarios().RechazarCambioDeImagen(id_usuario, razon_de_rechazo);
     }
 
     [WebMethod]
@@ -2669,7 +2669,19 @@ public class WSViaticos : System.Web.Services.WebService
 
 
     [WebMethod]
-    public string CambiarPassword(string PasswordActual, string PasswordNuevo, Usuario usuario)
+    public AlertaPortal[] GetMisAlertasPendientes(Usuario usuario)
+    {
+        return new RepositorioDeAlertasPortal(Conexion()).GetAlertasPendientesPara(usuario.Id).ToArray();
+    }
+
+    [WebMethod]
+    public void MarcarAlertaComoLeida(int id_alerta, Usuario usuario)
+    {
+        new RepositorioDeAlertasPortal(Conexion()).MarcarAlertaComoLeida(id_alerta, usuario.Id);
+    }
+
+    [WebMethod]
+    public string CambiarPassword( string PasswordActual, string PasswordNuevo, Usuario usuario)
     {
         var repoUsuarios = RepositorioDeUsuarios();
 

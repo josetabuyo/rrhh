@@ -1,8 +1,12 @@
 ﻿$(document).ready(function () {
+    
     Backend.start(function () {
-        var boton_usuario = new BotonDesplegable("contenedor_imagen_usuario", "contenedor_menu_usuarios");
-        var boton_aplicaciones = new BotonDesplegable("menu_cuadrados", "contenedor_menu_cuadrados");
-        var boton_mensajes = new BotonDesplegable("menu_mensajes", "contenedor_menu_mensajes");
+        menu_usuario = new MenuDesplegable("contenedor_imagen_usuario", "contenedor_menu_usuarios", true);
+        menu_aplicaciones = new MenuDesplegable("menu_cuadrados", "contenedor_menu_cuadrados");
+        menu_alertas = new MenuDesplegable("menu_mensajes", "contenedor_menu_mensajes");
+        menu_tareas = new MenuDesplegable("menu_tareas", "contenedor_menu_tareas");
+
+        
 
         $('#boton_home').click(function () {
             Backend.ElUsuarioLogueadoTienePermisosPara(51).onSuccess(function (tiene_permisos) {   
@@ -11,99 +15,62 @@
             });
         });
 
+//        var cargar_alertas = function () {
+//            $("#contenedor_alertas").empty()
+//            Backend.GetConsultasDePortalNoLeidas().onSuccess(function (consultasJSON) {
+//                var consultas = JSON.parse(consultasJSON);
+//                _.forEach(consultas, function (consulta) {
+//                    var ui_consulta = $("#plantillas_barra_menu .ui_mensaje_alerta").clone();
+//                    ui_consulta.find(".titulo_mensaje_alerta").text("Título: " + consulta.tipo_consulta + " - Estado: " + consulta.estado);
+//                    ui_consulta.find(".contenido_mensaje_alerta").text(consulta.resumen);
+//                    $("#contenedor_alertas").append(ui_consulta);
+
+//                    ui_consulta.click(function () {
+//                        window.location.href = "../Portal/Consultas.aspx";
+//                    });
+//                });
+//            });  
+//        };
+
         var cargar_alertas = function () {
-            $(".contenedor_de_alertas_y_mensajes").empty()
-            Backend.GetConsultasDePortalNoLeidas().onSuccess(function (consultasJSON) {
-                var consultas = JSON.parse(consultasJSON);
-                _.forEach(consultas, function (consulta) {
-                    var ui_consulta = $("#plantillas_barra_menu .ui_mensaje_alerta").clone();
-                    ui_consulta.find(".titulo_mensaje_alerta").text("Título: " + consulta.tipo_consulta + " - Estado: " + consulta.estado);
-                    ui_consulta.find(".contenido_mensaje_alerta").text(consulta.resumen);
-                    $(".contenedor_de_alertas_y_mensajes").append(ui_consulta);
-
-                    ui_consulta.click(function () {
-                        window.location.href = "../Portal/Consultas.aspx";
-
-//                        boton_mensajes.contraer();
-//                        vex.defaultOptions.className = 'vex-theme-os';
-//                        vex.open({
-//                            afterOpen: function ($vexContent) {
-//                                var ui = $("#contenedor_chat_mensajes");
-//                                $vexContent.append(ui);
-//                                $('contenedor_de_alertas_y_mensajes').hide();
-//                            }, 
-//                            contentCSS: {
-//                                width: "70%",
-//                                height: "80%"
-//                            }
-
-//                        });
-                    });
+            $("#contenedor_alertas").empty()
+            Backend.GetMisAlertasPendientes().onSuccess(function (alertas) {                
+                _.forEach(alertas, function (alerta) {
+                    var vista = new VistaAlerta(alerta);
+                    menu_alertas.agregar(vista);                    
                 });
+            });  
+        };
 
-                //var resultado = $.grep(consultas, function (consulta) { return consulta.leida; });
-                $('#notificacion_punto_rojo').text(consultas.length);
-                if (consultas.length == 0) {
-                    $('#notificacion_punto_rojo').hide();
-                    $('#notificacion_punto_verde').show();
-                    
-                } else {
-                    $('#notificacion_punto_rojo').show();
-                    $('#notificacion_punto_verde').hide();
-                }
-
-            });
-
-            
+        var cargar_tareas = function () {
+            $("#contenedor_tareas").empty()
             Backend.ElUsuarioLogueadoTienePermisosPara(50).onSuccess(function (tiene_permisos) {
                 if (tiene_permisos) {
+                    $("#menu_tareas").show();
                     Backend.GetSolicitudesDeCambioDeImagenPendientes().onSuccess(function (solicitudes) {
                         _.forEach(solicitudes, function (solicitud) {
-                            var ui_consulta = $("#plantillas_barra_menu .ui_mensaje_alerta").clone();
-                            ui_consulta.find(".titulo_mensaje_alerta").text("Solicitud de cambio de imagen pendiente");
-                            ui_consulta.find(".contenido_mensaje_alerta").text("Solicitante:" + "(" + solicitud.usuario.Alias.replace(' ', '') + ") " + solicitud.usuario.Owner.Apellido + ", " + solicitud.usuario.Owner.Nombre + " DNI:" + solicitud.usuario.Owner.Documento);
-
-                            ui_consulta.click(function(){
-                                boton_mensajes.contraer();
-                                $("#plantillas_barra_menu").append($("<div>").load("../Componentes/AdministradorSolicitudCambioImagen.htm", function(){
-                                    var admin = new AdministradorSolicitudCambioImagen(solicitud);
-                        
-                                }));
-                            });
-                            $(".contenedor_de_alertas_y_mensajes").append(ui_consulta);
+                            var vista = new VistaSolicitudDeCambioDeImagen(solicitud);
+                            menu_tareas.agregar(vista);           
                         });
                     });
+                    
+                }else{
+                    
                 }
             });
            
         };
 
         cargar_alertas();
+        cargar_tareas();
         //setInterval(cargar_alertas, 20000);
 
         Backend.GetMenuPara('PRINCIPAL').onSuccess(function (modulos) {
-
-            for (var i = 0; i < modulos.Items.length; i++) {
-
-                var item = modulos.Items[i];
-                var modulito = $('<a>')
-                modulito.attr('href', item.Acceso.Url);
-                //                modulito.text(item.NombreItem);
-                var imagen = $('<img>');
-                imagen.attr('src', '../MenuPrincipal/' + item.NombreItem.replace(/ /g, '_') + '.png');
-                imagen.attr('class', 'redondeo-modulos');
-                imagen.attr('style', 'margin: 5px;');
-                modulito.append(imagen);
-                $('#contenedor_menu_cuadrados').append(modulito);
-
-                //                item.Orden = ;
-
-            }
-
+            _.forEach(modulos.Items, function(item){
+                var vista = new VistaItemMenu(item);
+                menu_aplicaciones.agregar(vista);             
+            });
         });
-
-
-
 
         Backend.GetUsuarioLogueado().onSuccess(function (usuario) {
 
@@ -129,12 +96,25 @@
 
 
             $("#contenedor_foto_usuario").click(function () {
-                var subidor = new SubidorDeImagenes();
-                subidor.subirImagen(function (id_imagen) {
-                    Backend.SolicitarCambioDeImagen(id_imagen).onSuccess(function () {
-                        alertify.success("solicitud de cambio de imagen realizada con éxito");
-                    });
-                });
+                vex.defaultOptions.className = 'vex-theme-os';
+                vex.open({
+                    afterOpen: function ($vexContent) {
+                        var ui = $("#plantillas_barra_menu #indicaciones_al_subir_imagen").clone();
+                        ui.find("#btn_ok").click(function(){
+                            vex.close();
+                            var subidor = new SubidorDeImagenes();
+                            subidor.subirImagen(function (id_imagen) {
+                                Backend.SolicitarCambioDeImagen(id_imagen).onSuccess(function () {
+                                    alertify.success("solicitud de cambio de imagen realizada con éxito");
+                                });
+                            });
+                        });
+                        $vexContent.append(ui);
+                        ui.show();
+                        return ui;
+                    }
+                })             
+                
             });
 
             if (usuario.Owner.IdImagen >= 0) {

@@ -346,23 +346,9 @@
                     </fo:table-row>
                   </fo:table-body>
                 </fo:table>
-
-                <!-- 
-                <fo:block text-align="left" font-size="16pt">
-                  <fo:inline font-weight="bold">
-                    <xsl:value-of select="/PdfPrinter/EvaluacionDesempenioPdfTO/agente_y_periodo_en_cabecera"/>
-                  </fo:inline>
-                </fo:block>
-                <fo:block text-align="left" padding-top="2pt" font-size="16pt">
-                  <xsl:value-of select="/PdfPrinter/EvaluacionDesempenioPdfTO/nivel_negrita"/>
-                </fo:block>
-                
-                -->
               </fo:block>
             </fo:block>
-
           </fo:block>
-
           <fo:block id="last-page"/>
         </fo:flow>
       </fo:page-sequence>
