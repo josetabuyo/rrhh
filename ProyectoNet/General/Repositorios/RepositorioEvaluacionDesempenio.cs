@@ -19,7 +19,8 @@ namespace General.Repositorios
             _conexion = conexion;
         }
 
-        public static void Reset() {
+        public static void Reset()
+        {
             _instancia = null;
         }
 
@@ -40,11 +41,11 @@ namespace General.Repositorios
             {
                 parametros.Add("@id_evaluacion", evaluacion);
             }
-            
+
             parametros.Add("@id_nivel", nivel);
             tablaDatos = _conexion.Ejecutar("dbo.EVAL_GET_Evaluacion", parametros);
             FormularioFromTabla(list_de_pregYRtasRespondidas, tablaDatos);
- 
+
             return list_de_pregYRtasRespondidas;
         }
 
@@ -83,8 +84,9 @@ namespace General.Repositorios
             return JsonConvert.SerializeObject(respuesta);
         }
 
-        public List<EvaluacionDesempenio> GetAgentesEvaluablesPor(Usuario usuario) {
-             var parametros = new Dictionary<string, object>();
+        public List<EvaluacionDesempenio> GetAgentesEvaluablesPor(Usuario usuario)
+        {
+            var parametros = new Dictionary<string, object>();
             parametros.Add("@id_evaluador", usuario.Owner.Id);
             var tablaDatos = _conexion.Ejecutar("dbo.EVAL_GET_Evaluados_Evaluador", parametros);
 
@@ -130,16 +132,23 @@ namespace General.Repositorios
             detalle_preguntas.Add(new DetallePreguntas(row.GetSmallintAsInt("id_pregunta", 0), row.GetSmallintAsInt("orden_pregunta", 0),
                 row.GetSmallintAsInt("opcion_elegida", 0), row.GetString("enunciado", ""),
                 row.GetString("rpta1", ""), row.GetString("rpta2", ""), row.GetString("rpta3", ""),
-                row.GetString("rpta4", ""),row.GetString("rpta5", "")));
+                row.GetString("rpta4", ""), row.GetString("rpta5", "")));
         }
 
         protected EvaluacionDesempenio newEvaluadoFromRow(RowDeDatos row, List<DetallePreguntas> detalle_preguntas, int id_evaluado)
         {
-            return new EvaluacionDesempenio(id_evaluado, row.GetString("apellido"), row.GetString("nombre"), row.GetInt("NroDocumento"),
-                            row.GetInt("id_evaluacion", 0), row.GetSmallintAsInt("estado_evaluacion", 0), row.GetInt("id_periodo", 0),
-                            row.GetString("descripcion_periodo", ""), row.GetSmallintAsInt("id_nivel", 0), row.GetString("descripcion_nivel", ""),
-                            row.GetSmallintAsInt("deficiente", 0), row.GetSmallintAsInt("regular", 0), row.GetSmallintAsInt("bueno", 0),
-                            row.GetSmallintAsInt("destacado", 0), detalle_preguntas);
+            //metodo hardcodeado, cambiar
+            return new EvaluacionDesempenio(new AgenteEvaluacionDesempenio(id_evaluado, row.GetString("apellido"), row.GetString("nombre"),
+                            row.GetInt("NroDocumento"), String.Empty, "B", "4", "General", String.Empty, "Primario"),
+                            
+                            new AgenteEvaluacionDesempenio(id_evaluado, row.GetString("apellido"), row.GetString("nombre"),
+                            row.GetInt("NroDocumento"), "SINAPA-Res48", "B", "4", "General", "Director de Comunicaciones", String.Empty),
+
+                            row.GetInt("id_evaluacion", 0), row.GetSmallintAsInt("estado_evaluacion", 0), new PeriodoEvaluacion(row.GetInt("id_periodo", 0),
+                            row.GetString("descripcion_periodo", ""), DateTime.Now, DateTime.Now), new NivelEvaluacionDesempenio(row.GetSmallintAsInt("id_nivel", 0), 
+                            row.GetString("descripcion_nivel", ""), "", row.GetSmallintAsInt("deficiente", 0), row.GetSmallintAsInt("regular", 0), 
+                            row.GetSmallintAsInt("bueno", 0), row.GetSmallintAsInt("destacado", 0)), detalle_preguntas, 
+                            new DescripcionAreaEvaluacion("Ministerio de Desarrollo Social", "Secretaría de Coordinación y Monitoreo Institucional", "", "Dirección Nacional de Administración", "Coordinación Administrativa"), 13, "Bueno");
         }
 
         public int insertarEvaluacion(int idEvaluado, int idEvaluador, int idFormulario, int periodo, int estado)

@@ -105,7 +105,11 @@
     <Compile Include="DatosAbiertos\ParametroConsultaOPD.cs" />
     <Compile Include="DatosAbiertos\RepositorioDeDatosAbiertos.cs" />
     <Compile Include="MAU\SolicitudDeCambioDeImagen.cs" />
+    <Compile Include="MED\AgenteEvaluacionDesempenio.cs" />
+    <Compile Include="MED\DescripcionAreaEvaluacion.cs" />
     <Compile Include="MED\DetallePreguntas.cs" />
+    <Compile Include="MED\NivelEvaluacionDesempenio.cs" />
+    <Compile Include="MED\PeriodoEvaluacion.cs" />
     <Compile Include="Organigrama\GraficoContratos.cs" />
     <Compile Include="Organigrama\PersonaContrato.cs" />
     <Compile Include="Portal\Consulta.cs" />

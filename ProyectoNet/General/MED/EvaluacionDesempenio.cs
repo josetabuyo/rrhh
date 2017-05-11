@@ -7,39 +7,32 @@ namespace General.MED
 {
     public class EvaluacionDesempenio
     {
-        public int id_evaluado { get; set; }
-        public string apellido { get; set; }
-        public string nombre { get; set; }
-        public int nro_documento { get; set; }
+        public NivelEvaluacionDesempenio nivel { get; set; }
+        public AgenteEvaluacionDesempenio agente_evaluado { get; set; }
+        public AgenteEvaluacionDesempenio agente_evaluador { get; set; }
+
+        public PeriodoEvaluacion periodo { get; set; }
+
         public int id_evaluacion { get; set; }
         public int estado_evaluacion { get; set; }
-        public int id_periodo { get; set; }
-        public string descripcion_periodo { get; set; }
-        public int id_nivel { get; set; }
-        public string descripcion_nivel { get; set; }
-        public int deficiente { get; set; }
-        public int regular { get; set; }
-        public int bueno { get; set; }
-        public int destacado { get; set; }
+        public int puntaje { get; set; }
+        public string calificacion { get; set; }
+
+        public DescripcionAreaEvaluacion area { get; set; }
+
         public List<DetallePreguntas> detalle_preguntas { get; set; }
 
-        public EvaluacionDesempenio(int id_evaluado, string apellido, string nombre, int nro_documento, int id_evaluacion, int estado_evaluacion, 
-            int id_periodo, string descripcion_periodo, int id_nivel, string descripcion_nivel, int deficiente, int regular, int bueno, int destacado, List<DetallePreguntas> detalle_preguntas)
+        public EvaluacionDesempenio(AgenteEvaluacionDesempenio agente_evaluado, AgenteEvaluacionDesempenio agente_evaluador, int id_evaluacion, int estado_evaluacion, 
+            PeriodoEvaluacion periodo, NivelEvaluacionDesempenio nivel, List<DetallePreguntas> detalle_preguntas, DescripcionAreaEvaluacion area, int puntaje, string calificacion)
         {
-            this.id_evaluado = id_evaluado;
-            this.apellido = apellido;
-            this.nombre = nombre;
-            this.nro_documento = nro_documento;
+            this.agente_evaluado = agente_evaluado;
+            this.agente_evaluador = agente_evaluador;
             this.id_evaluacion = id_evaluacion;
             this.estado_evaluacion = estado_evaluacion;
-            this.id_periodo = id_periodo;
-            this.descripcion_periodo = descripcion_periodo;
-            this.id_nivel = id_nivel;
-            this.descripcion_nivel = descripcion_nivel;
-            this.deficiente = deficiente;
-            this.regular = regular;
-            this.bueno = bueno;
-            this.destacado = destacado;
+            this.periodo = periodo;
+            this.area = area;
+            
+            this.nivel = nivel; 
             this.detalle_preguntas = detalle_preguntas;
         }
 

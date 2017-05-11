@@ -4807,15 +4807,48 @@ public class WSViaticos : System.Web.Services.WebService
     public string PrintPdfEvaluacionDesempenio(EvaluacionDesempenio evaluacion, Usuario usuario)
     {
 
-        var evaluaciones = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(this.Conexion()).GetAgentesEvaluablesPor(usuario);
-        evaluaciones.Find(e => e.Es(evaluacion.id_evaluacion));
-
-        var creador = new CreadorDePdfs<EvaluacionDesempenioPdfTO>();
+        var creador_pdfs = new CreadorDePdfs<EvaluacionDesempenioPdfTO>();
         var doc = new EvaluacionDesempenioPdfTO();
 
-        doc.Agente = evaluacion.apellido + ", " + evaluacion.nombre + "(" + evaluacion.nro_documento + ")";
-        doc.Nivel = evaluacion.descripcion_nivel;
+        //cabecera
+        doc.agente_y_periodo_en_cabecera = evaluacion.agente_evaluado.apellido + ", " + evaluacion.agente_evaluado.nombre + " (" + 
+            evaluacion.agente_evaluado.nro_documento + ") " + evaluacion.periodo.descripcion_periodo;
+        
+        //cuadro_nivel
+        doc.nivel_negrita = evaluacion.nivel.id_nivel + " " + evaluacion.nivel.descripcion_corta;
+        doc.nivel_descripcion_larga = evaluacion.nivel.descripcion_larga_nivel;
 
-        return creador.Crear("EvaluacionDesempenio", doc);
-  }  
+        //cuadro agentes evaluador y evaluado
+        doc.apellido_y_nombre_evaluador = evaluacion.agente_evaluador.apellido + ", " + evaluacion.agente_evaluador.nombre;
+        doc.documento_evaluado = evaluacion.agente_evaluador.nro_documento.ToString();
+        
+        doc.apellido_y_nombre_evaluado = evaluacion.agente_evaluado.apellido + ", " + evaluacion.agente_evaluado.nombre;
+        doc.documento_evaluado = evaluacion.agente_evaluado.nro_documento.ToString();
+
+
+        //hardcodeos de prueba
+        
+        doc.nivel_descripcion_larga = "Seran evaluados en este nivel los agentes no incluidos en los niveles anteriores. El personal con atencion al publico sera evaluado teniendo en cuenta esta circunstancia.";
+        doc.jurisdiccion = "Ministerio de Desarrollo Social";
+        doc.secretaria = "Secretaria de Coordinacion y Monitoreo Institucional";
+        doc.sub_secretaria = "";
+        doc.direccion = "Direccion Nacional de Administracion";
+        doc.unidad = "Coordinacion Administrativa";
+        doc.unidad_evaluacion = "Coordinacion Administrativa";
+        doc.codigo_unidad_evaluacion = "123";
+        doc.periodo_evaluado = "01/01/2007 al 31/12/2007";
+        doc.nivel_evaluador = "B";
+        doc.grado_evaluador = "4";
+        doc.agrupamiento_evaluador = "General";
+        doc.puesto_evaluador = "Director de Comunicaciones";
+        doc.legajo_evaluado = "23";
+        doc.nivel_evaluado = "C";
+        doc.grado_evaluado = "5";
+        doc.agrupamiento_evaluado = "General2";
+        doc.nivel_educativo_evaluado = "Primario";
+        doc.situacion_escalafonaria_evaluador = "SINAPA-Res48";
+        
+
+        return creador_pdfs.Crear("EvaluacionDesempenio", doc);
+    }
 }

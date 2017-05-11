@@ -1,24 +1,4 @@
-﻿/*
- * Pdf Printer Service
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
- * 
- * Marco Merola, March 2013 
- * 
- */
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,38 +7,48 @@ using PdfPrinter.Core.Common;
 
 namespace PdfPrinter.Core.DataContract
 {
-    /// <summary>
-    /// Simple <see cref="IPrintableDocument"/> data contract.
-    /// </summary>
-    /// <remarks>
-    /// Author: Marco Merola
-    /// </remarks>
     [Serializable, DataContract(Namespace = "http://Schemas/PdfPrinter/Common")]
     public class EvaluacionDesempenioPdfTO : IPrintableDocument
     {
-        public string Culture;
+        //cabecera
+        public string agente_y_periodo_en_cabecera;
 
-        [DataMember(IsRequired = true)]
-        public string Agente;
+        //cuadro_nivel
+        public string nivel_negrita;
+        public string nivel_descripcion_larga;
 
-        [DataMember(IsRequired = true)]
-        public string Nivel;
+        //cuadro_organismo
+        public string jurisdiccion;
+        public string secretaria;
+        public string sub_secretaria;
+        public string direccion;
+        public string unidad;
+        public string unidad_evaluacion;//a la derecha
+        public string codigo_unidad_evaluacion;
+        public string periodo_evaluado;
 
-        [DataMember(IsRequired = true)]
-        public string Puntaje;
+        //cuadro evaluado/agente
+        public string nombre_evaluador;
+        public string documento_evaluador;
+        public string situacion_escalafonaria_evaluador;
+        public string nivel_evaluador;
+        public string grado_evaluador;
+        public string agrupamiento_evaluador;
+        public string puesto_evaluador;
+        public string apellido_evaluado; //a la derecha
+        public string documento_evaluado;
+        public string legajo_evaluado;
+        public string nivel_evaluado;
+        public string grado_evaluado;
+        public string agrupamiento_evaluado;
+        public string nivel_educativo_evaluado;
+        public string apellido_y_nombre_evaluador;
+        public string apellido_y_nombre_evaluado;
 
-        [DataMember(IsRequired = true)]
-        public string Date_Header_1;
-
-        [DataMember(IsRequired = true)]
-        public string Description;
-
-        [DataMember(IsRequired = true)]
-        public string PathSubmodulo { get; set; }
-
-        [DataMember(IsRequired = true)]
-        public string NombreTemplate { get; set; }
-
+        //cuadro final
+        public string puntaje;
+        public string calificacion;
+            
         public string ToXml()
         {
             return ObjectXmlSerializer.SerializeObjectToXmlFormattedString(this);
