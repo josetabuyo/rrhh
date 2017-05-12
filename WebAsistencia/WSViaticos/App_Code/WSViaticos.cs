@@ -4254,6 +4254,15 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public string GetTareas(Usuario usuario)
+    {
+        //RepositorioDeAlertas repo = RepositorioDeAlertasPortal;
+
+        return "";
+
+    }
+
+    [WebMethod]
     public string GetNotificacionesTodasDePortal()
     {
         RepositorioLegajo repo = RepoLegajo();

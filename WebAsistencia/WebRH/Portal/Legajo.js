@@ -113,32 +113,14 @@ var Legajo = {
                                 $vexContent.append(ui);
                                 ui.show();
 
-                                 Backend.BuscarProvincias({  })
-                                    .onSuccess(function (provincias) {
-
-                                    var options = ui.find("#cmb_provincia");
-                                    $.each(provincias, function() {
-                                        options.append($("<option />").val(this.Id).text(this.Nombre));
-                                    });
-                                })
-                                .onError(function (e) {
-                        
-                                });
+                                 _this.getProvincias(ui);
+                                 //primero CABA x default
+                                 _this.getLocalidades(ui, 0);
 
                                 ui.find('#cmb_provincia').change(function() {
                                 ui.find("#cmb_localidad").empty();
                                 var idProvincia = parseInt(ui.find( "#cmb_provincia option:selected").val());
-                                    Backend.BuscarLocalidades({IdProvincia:idProvincia  })
-                                        .onSuccess(function (localidades) {
-
-                                        var options = ui.find("#cmb_localidad");
-                                        $.each(localidades, function() {
-                                            options.append($("<option />").val(this.Id).text(this.Nombre));
-                                        });
-                                    })
-                                    .onError(function (e) {
-                        
-                                    });
+                                    _this.getLocalidades(ui, idProvincia);
                                 });
 
                                 return ui;
@@ -198,6 +180,32 @@ var Legajo = {
                 spinner.stop();
             });
 
+    },
+    getProvincias: function(ui) {
+            Backend.BuscarProvincias({  })
+                .onSuccess(function (provincias) {
+
+                var options = ui.find("#cmb_provincia");
+                $.each(provincias, function() {
+                    options.append($("<option />").val(this.Id).text(this.Nombre));
+                });
+            })
+            .onError(function (e) {
+                        
+            });
+    },
+    getLocalidades: function(ui, idProvincia) {
+        Backend.BuscarLocalidades({IdProvincia:idProvincia  })
+            .onSuccess(function (localidades) {
+
+            var options = ui.find("#cmb_localidad");
+            $.each(localidades, function() {
+                options.append($("<option />").val(this.Id).text(this.Nombre));
+            });
+        })
+        .onError(function (e) {
+                        
+        });
     },
     getDatosFamiliares: function () {
 
@@ -1561,6 +1569,52 @@ var Legajo = {
             }
         });
     },
-    
+    getTareasParaGestion: function () {
+        var _this_original = this;
+        Backend.GetTareas()
+                    .onSuccess(function (consultasJSON) {
+                        var consultas = [];
+                        if (consultasJSON != "") {
+                            consultas = JSON.parse(consultasJSON);
+                        }
+                        var _this = this;
+
+                        $("#tablaTareas").empty();
+
+                        var divGrilla_tareas = $("#tablaTareas");
+
+                        var columnas_pendientes = [];
+
+                        columnas_tareas.push(new Columna("#", { generar: function (una_tarea) { return una_tarea.id } }));
+                        columnas_tareas.push(new Columna("Fecha Creación", { generar: function (una_tarea) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_tarea.fechaCreacion) } }));
+                        columnas_tareas.push(new Columna("Tipo de Tarea", { generar: function (una_tarea) { return una_tarea.tipo_consulta } }));
+                        columnas_tareas.push(new Columna("Estado", { generar: function (una_tarea) { return una_tarea.estado } }));
+                        columnas_tareas.push(new Columna('Detalle', {
+                            generar: function (una_consulta) {
+                                var btn_accion = $('<a>');
+                                var img = $('<img>');
+                                img.attr('src', '../Imagenes/detalle.png');
+                                img.attr('width', '15px');
+                                img.attr('height', '15px');
+                                btn_accion.append(img);
+                                btn_accion.click(function () {
+                                    _this.MostrarDetalleDeTarea(una_tarea);
+                                });
+                                return btn_accion;
+                            }
+                        }));
+
+                        _this.divGrilla_tareas = new Grilla(columnas_tareas);
+                        _this.divGrilla_tareas.CambiarEstiloCabecera("estilo_tabla_portal");
+                        _this.divGrilla_tareas.SetOnRowClickEventHandler(function (una_tarea) { });
+                        _this.divGrilla_tareas.CargarObjetos(tareas);
+                        _this.divGrilla_tareas.DibujarEn(divGrilla_tareas);
+
+                        $('.table-hover').removeClass("table-hover");
+                    })
+                    .onError(function (e) {
+
+                    });
+    }
 
 }
