@@ -189,7 +189,6 @@
 
             //DESCOMENTAR CUANDO SE TERMINE SINO HINCHABA LAS PELOTAS
             Backend.start(function () {
-                Legajo.getAreaDeLaPersona();
                 /* Backend.GetUsuarioLogueado().onSuccess(function (usuario) {
                         
                 /*var levantar_prompt = function () {

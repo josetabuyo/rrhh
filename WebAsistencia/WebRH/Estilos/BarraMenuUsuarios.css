@@ -170,11 +170,19 @@
     /*height: 34px !important;
     width: 159px !important;*/
 }
+#link_area
+{
+    position: absolute;
+    top: 235px;
+    left: 24px;
+    /*height: 34px !important;
+    width: 159px !important;*/
+}
 
 #go
 {
     position: absolute;
-    top: 235px;
+    top: 212px;
     left: -15px;
 }
 

@@ -27,7 +27,7 @@
         <div id="barra_menu_nombre_sistema">
         </div>
     </div>
-    <div id="barra_navegacion"> 
+    <div id="barra_navegacion">
         <div id="boton_home">
             <img src="<%= UrlImagenes %>Home-icono.png" id="home_imagen" alt="homeicono" />
         </div>
@@ -51,7 +51,6 @@
                         Imágen</div>
                 </div>
             </div>
-            
             <div id="nombre_user" class="cabecera_menu_usuario">
             </div>
             <div id="apellido_user" class="cabecera_menu_usuario">
@@ -61,17 +60,17 @@
             <div id="email_user" class="cabecera_menu_usuario">
             </div>
             <div id="info_usuario">
-                <a id="cambiar-email_usuario" class="" name="signup" >Modificar correo</a>
+                <a id="cambiar-email_usuario" class="" name="signup">Modificar correo</a>
                 <%--<button id="cambiar-email_usuario" type="button" class="btn barra_menu_botones sombrita-iconos">
                     Modificar correo</button>
                 <button id="cambiar-constrasena_usuario" type="button" class="btn btn-info datos_usuario">
                         Modificar contraseña </button> btn barra_menu_botones sombrita-iconos --%>
+                <a id="link_area" rel="leanModal" class="" name="signup" href="#mi_area">Mi área</a>
                 <a id="go" rel="leanModal" class="" name="signup" href="#signup">Cambiar Contraseña</a>
                 <uc5:FormPassword ID="FormPassword" runat="server" />
                 <div id="cerrar-sesion_usuario">
-                    <asp:Button ID="CerrarSessionLinkButton" CssClass="btn btn-primary"
-                        runat="server" OnClick="CerrarSessionLinkButton_Click" Text="Cerrar Sesión">
-                    </asp:Button>
+                    <asp:Button ID="CerrarSessionLinkButton" CssClass="btn btn-primary" runat="server"
+                        OnClick="CerrarSessionLinkButton_Click" Text="Cerrar Sesión"></asp:Button>
                 </div>
             </div>
         </div>
@@ -97,8 +96,7 @@
             <div id="contenedor_alertas" class="contenedor_de_alertas_y_mensajes">
             </div>
         </div>
-
-         <div id="contenedor_imagen_tareas">
+        <div id="contenedor_imagen_tareas">
             <img src="<%= UrlImagenes %>tareas-icono.png" id="menu_tareas" alt="fotousuariomenu" />
         </div>
         <div id="contenedor_menu_tareas" class="menu_usuario sombrita-iconos" style="display: none;">
@@ -108,27 +106,25 @@
             </div>
         </div>
     </div>
-    <div id="sub_barrita_negra"></div>
+    <div id="sub_barrita_negra">
+    </div>
     <div id="plantillas_barra_menu" style="display: none">
         <a class="ui_vista_item_menu">
-            <img class='redondeo-modulos' style='margin: 5px;'/>
+            <img class='redondeo-modulos' style='margin: 5px;' />
         </a>
-
         <div class="ui_mensaje_alerta mensaje_alerta sombra-mensaje">
             <p class="titulo_mensaje_alerta">
                 Mensaje 1</p>
             <p class="contenido_mensaje_alerta">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            <image id="btn_ok" src="<%= UrlImagenes %>botones/ok.png"/>
+            <image id="btn_ok" src="<%= UrlImagenes %>botones/ok.png" />
         </div>
-
         <div class="ui_solicitud_cambio_imagen">
             <p class="titulo">
                 bla</p>
             <p class="descripcion">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
         </div>
-
         <div id="contenedor_chat_mensajes">
             <div id="titulo_chat">
             </div>

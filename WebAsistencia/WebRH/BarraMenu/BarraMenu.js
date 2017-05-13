@@ -190,6 +190,19 @@
 
             });
 
+            $('#link_area').click(function () {
+                alertify.prompt(' ',
+                'Datos de mi Área',
+                 '',
+                    function (evt, value) {
+                        Legajo.getAreaDeLaPersona();     
+                    }
+               , function () {
+
+               });
+
+            });
+
 
         });
     });
