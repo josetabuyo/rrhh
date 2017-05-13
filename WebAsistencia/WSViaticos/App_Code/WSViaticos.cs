@@ -2681,7 +2681,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string CambiarPassword( string PasswordActual, string PasswordNuevo, Usuario usuario)
+    public string CambiarPassword(string PasswordActual, string PasswordNuevo, Usuario usuario)
     {
         var repoUsuarios = RepositorioDeUsuarios();
 
@@ -4823,9 +4823,9 @@ public class WSViaticos : System.Web.Services.WebService
         var doc = new EvaluacionDesempenioPdfTO();
 
         //cabecera
-        doc.agente_y_periodo_en_cabecera = evaluacion.agente_evaluado.apellido + ", " + evaluacion.agente_evaluado.nombre + " (" + 
+        doc.agente_y_periodo_en_cabecera = evaluacion.agente_evaluado.apellido + ", " + evaluacion.agente_evaluado.nombre + " (" +
             evaluacion.agente_evaluado.nro_documento + ") " + evaluacion.periodo.descripcion_periodo;
-        
+
         //cuadro_nivel
         doc.nivel_negrita = evaluacion.nivel.id_nivel + " " + evaluacion.nivel.descripcion_corta;
         doc.nivel_descripcion_larga = evaluacion.nivel.descripcion_larga_nivel;
@@ -4833,13 +4833,30 @@ public class WSViaticos : System.Web.Services.WebService
         //cuadro agentes evaluador y evaluado
         doc.apellido_y_nombre_evaluador = evaluacion.agente_evaluador.apellido + ", " + evaluacion.agente_evaluador.nombre;
         doc.documento_evaluado = evaluacion.agente_evaluador.nro_documento.ToString();
-        
+
         doc.apellido_y_nombre_evaluado = evaluacion.agente_evaluado.apellido + ", " + evaluacion.agente_evaluado.nombre;
         doc.documento_evaluado = evaluacion.agente_evaluado.nro_documento.ToString();
 
+        doc.preguntas = evaluacion.detalle_preguntas.Select(p => p.orden_pregunta + ". " + p.enunciado).ToArray();
+        doc.respuestas = evaluacion.detalle_preguntas.Select(p =>
+        {
+            switch (p.opcion_elegida)
+            {
+                case 1: return p.rpta1;
+                case 2: return p.rpta2;
+                case 3: return p.rpta3;
+                case 4: return p.rpta4;
+                case 5: return p.rpta5;
+                default:
+                    return "";
+            }
+        }).ToArray();
+
+        doc.puntajes = evaluacion.detalle_preguntas.Select(p => p.opcion_elegida.ToString()).ToArray();
+
 
         //hardcodeos de prueba
-        
+
         doc.nivel_descripcion_larga = "Seran evaluados en este nivel los agentes no incluidos en los niveles anteriores. El personal con atencion al publico sera evaluado teniendo en cuenta esta circunstancia.";
         doc.jurisdiccion = "Ministerio de Desarrollo Social";
         doc.secretaria = "Secretaria de Coordinacion y Monitoreo Institucional";
@@ -4859,7 +4876,7 @@ public class WSViaticos : System.Web.Services.WebService
         doc.agrupamiento_evaluado = "General2";
         doc.nivel_educativo_evaluado = "Primario";
         doc.situacion_escalafonaria_evaluador = "SINAPA-Res48";
-        
+
 
         return creador_pdfs.Crear("EvaluacionDesempenio", doc);
     }
