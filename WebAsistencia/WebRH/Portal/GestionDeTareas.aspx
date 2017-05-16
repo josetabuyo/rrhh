@@ -1,5 +1,8 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="GestionDeTareas.aspx.cs" Inherits="Portal_GestionDeTareas" %>
 
+<%@ Register Src="~/BarraMenu/BarraMenu.ascx" TagName="BarraMenu" TagPrefix="uc2" %>
+<%@ Register Src="~/ConsultaIndividual.ascx" TagName="Consulta" TagPrefix="uc3" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
@@ -32,13 +35,13 @@
             <p style="margin: 25px; font-size: 2.1em; color: #fff;">
                 Menú</p>
             <input id="btn_consultas_pendientes" type="button" class="btn_gestion_consulta" style="margin: 10px;
-                width: 170px; font-size: smaller;color:#000" value="CONSULTAS PENDIENTES" />
+                width: 170px; font-size: smaller;color:#000" value="TAREAS PENDIENTES" />
 
         </div>
         <div class="caja_der papel">
             <%--DIV 1--%>
             <div id="consultas">
-                <legend id="legend_gestion" style="margin-top: 10px;">CONSULTAS PENDIENTES</legend>
+                <legend id="legend_gestion" style="margin-top: 10px;">TAREAS PENDIENTES</legend>
                 <input type="text" id="search" class="search buscador" placeholder="Buscar"
                     style="display: none; height:35px;" />
                 <div id="tablaTareas" class="table table-striped table-bordered table-condensed">
@@ -49,6 +52,10 @@
     </div>
     </form>
     
+    <div id="pantalla_detalle_alerta" style="display: none;">
+       
+           
+    </div>
     <div id="pantalla_consulta_individual" style="display: none">
         <p style="font-size: xx-large; text-align: center; margin-top: 10px;">
             Consulta Individual</p>

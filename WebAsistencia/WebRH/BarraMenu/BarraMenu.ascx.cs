@@ -15,8 +15,21 @@ public partial class FormularioDeViaticos_BarraMenu : System.Web.UI.UserControl
     public String UrlPassword { get; set; }  
     public String Feature { get; set; }
 
-    //protected void Page_Load(object sender, EventArgs e)
-    //{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        try
+        {
+            Usuario usuario = ((Usuario)Session["usuario"]);
+            if (usuario.Id == 0 )
+            {
+              Response.Redirect("~\\Login.aspx");  
+            }
+        }
+        catch (Exception)
+        {
+            Response.Redirect("~\\Login.aspx");
+        } 
+    }
     //    this.FormPassword.UrlAjax = UrlPassword;
 
     //    try

@@ -33,5 +33,14 @@ namespace General.MAU
             if (obj.GetType() != this.GetType()) return false;
             return this.Id == ((Funcionalidad)obj).Id;
         }
+
+        public bool NoPodriaUsarlaElUsuario(Usuario usuario)
+        {
+            if (this.SoloParaEmpleados && (usuario.Owner.Legajo == null || usuario.Owner.BajaLegajo)) 
+                return true;
+            if (this.SoloParaVerificados && !usuario.Verificado) 
+                return true;
+            return false;
+        }
     }
 }

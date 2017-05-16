@@ -88,69 +88,69 @@ var Legajo = {
                 Backend.GetDomicilioPendiente()
                         .onSuccess(function (jsonDomicilios) {
 
-                        var domicilios = $.parseJSON(jsonDomicilios);
-                        if(domicilios.length > 0) {
-                            $('#mensajeCambioDomicilioPendiente').show();
-                            $('#btnMostrarDomicilio').hide();
-                        }
-                        
-                    })
+                            var domicilios = $.parseJSON(jsonDomicilios);
+                            if (domicilios.length > 0) {
+                                $('#mensajeCambioDomicilioPendiente').show();
+                                $('#btnMostrarDomicilio').hide();
+                            }
+
+                        })
                     .onError(function (e) {
-                        
+
                     });
 
                 spinner.stop();
 
-                $('#btnMostrarDomicilio').click(function() {
+                $('#btnMostrarDomicilio').click(function () {
 
-                   
+
                     //var ui = $("#cajaCambiarDomicilio");
 
-                        vex.defaultOptions.className = 'vex-theme-os';
-                        vex.open({
-                            afterOpen: function ($vexContent) {
-                                var ui = $("#cajaCambiarDomicilio").clone();
-                                $vexContent.append(ui);
-                                ui.show();
+                    vex.defaultOptions.className = 'vex-theme-os';
+                    vex.open({
+                        afterOpen: function ($vexContent) {
+                            var ui = $("#cajaCambiarDomicilio").clone();
+                            $vexContent.append(ui);
+                            ui.show();
 
-                                 _this.getProvincias(ui);
-                                 //primero CABA x default
-                                 _this.getLocalidades(ui, 0);
+                            _this.getProvincias(ui);
+                            //primero CABA x default
+                            _this.getLocalidades(ui, 0);
 
-                                ui.find('#cmb_provincia').change(function() {
+                            ui.find('#cmb_provincia').change(function () {
                                 ui.find("#cmb_localidad").empty();
-                                var idProvincia = parseInt(ui.find( "#cmb_provincia option:selected").val());
-                                    _this.getLocalidades(ui, idProvincia);
-                                });
+                                var idProvincia = parseInt(ui.find("#cmb_provincia option:selected").val());
+                                _this.getLocalidades(ui, idProvincia);
+                            });
 
-                                return ui;
-                            },
-                            css: {
-                                'padding-top': "4%",
-                                'padding-bottom': "0%"
-                            },
-                            contentCSS: {
-                                width: "50%",
-                                height: "330px"
-                            }
-                        });
+                            return ui;
+                        },
+                        css: {
+                            'padding-top': "4%",
+                            'padding-bottom': "0%"
+                        },
+                        contentCSS: {
+                            width: "50%",
+                            height: "330px"
+                        }
+                    });
                     //$('#cajaCambiarDomicilio').show();
                 });
 
-                $('#btnCambiarDomicilio').click(function() {
-                var domicilio = {};
-                domicilio.Calle = $('#txt_calle').val();
-                domicilio.Numero = $('#txt_numero').val();
-                domicilio.Piso = $('#txt_piso').val();
-                domicilio.Depto = $('#txt_dto').val();
-                domicilio.Cp = $('#txt_cp').val();
-                domicilio.Localidad = $('#cmb_localidad').val();
-                domicilio.Provincia = $('#cmb_provincia').val();
-                     Backend.GuardarDomicilioPendiente(domicilio)
+                $('#btnCambiarDomicilio').click(function () {
+                    var domicilio = {};
+                    domicilio.Calle = $('#txt_calle').val();
+                    domicilio.Numero = $('#txt_numero').val();
+                    domicilio.Piso = $('#txt_piso').val();
+                    domicilio.Depto = $('#txt_dto').val();
+                    domicilio.Cp = $('#txt_cp').val();
+                    domicilio.Localidad = $('#cmb_localidad').val();
+                    domicilio.Provincia = $('#cmb_provincia').val();
+                    Backend.GuardarDomicilioPendiente(domicilio)
                         .onSuccess(function (respuesta) {
-                        vex.dialog.alert({
-                            message: 'Solicitud de cambio de domicilio generada. Imprima el formulario y entregueselo a RRHH para finalizar el trámite.',
-                            input: [
+                            vex.dialog.alert({
+                                message: 'Solicitud de cambio de domicilio generada. Imprima el formulario y entregueselo a RRHH para finalizar el trámite.',
+                                input: [
                                 '<style>',
                                     '.vex-custom-field-wrapper {',
                                         'margin: 1em 0;',
@@ -166,7 +166,7 @@ var Legajo = {
 
                             //vex.dialog.alert('Solicitud de cambio de domicilio generada. Presente el formulario impreso a RRHH');
                             _this.getDatosPersonales();
-                
+
 
 
                         })
@@ -181,30 +181,30 @@ var Legajo = {
             });
 
     },
-    getProvincias: function(ui) {
-            Backend.BuscarProvincias({  })
+    getProvincias: function (ui) {
+        Backend.BuscarProvincias({})
                 .onSuccess(function (provincias) {
 
-                var options = ui.find("#cmb_provincia");
-                $.each(provincias, function() {
+                    var options = ui.find("#cmb_provincia");
+                    $.each(provincias, function () {
+                        options.append($("<option />").val(this.Id).text(this.Nombre));
+                    });
+                })
+            .onError(function (e) {
+
+            });
+    },
+    getLocalidades: function (ui, idProvincia) {
+        Backend.BuscarLocalidades({ IdProvincia: idProvincia })
+            .onSuccess(function (localidades) {
+
+                var options = ui.find("#cmb_localidad");
+                $.each(localidades, function () {
                     options.append($("<option />").val(this.Id).text(this.Nombre));
                 });
             })
-            .onError(function (e) {
-                        
-            });
-    },
-    getLocalidades: function(ui, idProvincia) {
-        Backend.BuscarLocalidades({IdProvincia:idProvincia  })
-            .onSuccess(function (localidades) {
-
-            var options = ui.find("#cmb_localidad");
-            $.each(localidades, function() {
-                options.append($("<option />").val(this.Id).text(this.Nombre));
-            });
-        })
         .onError(function (e) {
-                        
+
         });
     },
     getDatosFamiliares: function () {
@@ -640,7 +640,7 @@ var Legajo = {
                         if (carreraJSON != "") {
                             carreras = JSON.parse(carreraJSON);
                         }
-                           
+
                         carreras = _.sortBy((_.sortBy(carreras, 'FechaDesde')), 'Folio');
 
                         var _this = this;
@@ -1571,26 +1571,25 @@ var Legajo = {
     },
     getTareasParaGestion: function () {
         var _this_original = this;
-        Backend.GetTareas()
-                    .onSuccess(function (consultasJSON) {
-                        var consultas = [];
-                        if (consultasJSON != "") {
-                            consultas = JSON.parse(consultasJSON);
-                        }
+        Backend.getAlertasPorFuncionalidad()
+                    .onSuccess(function (tareas) {
+
                         var _this = this;
 
                         $("#tablaTareas").empty();
 
                         var divGrilla_tareas = $("#tablaTareas");
 
-                        var columnas_pendientes = [];
+                        var columnas_tareas = [];
 
                         columnas_tareas.push(new Columna("#", { generar: function (una_tarea) { return una_tarea.id } }));
                         columnas_tareas.push(new Columna("Fecha Creación", { generar: function (una_tarea) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_tarea.fechaCreacion) } }));
-                        columnas_tareas.push(new Columna("Tipo de Tarea", { generar: function (una_tarea) { return una_tarea.tipo_consulta } }));
+                        columnas_tareas.push(new Columna("Titulo", { generar: function (una_tarea) { return una_tarea.titulo } }));
+                        columnas_tareas.push(new Columna("Descripcion", { generar: function (una_tarea) { return una_tarea.descripcion } }));
+                        columnas_tareas.push(new Columna("Tipo de Tarea", { generar: function (una_tarea) { return una_tarea.tipoAlerta.descripcion } }));
                         columnas_tareas.push(new Columna("Estado", { generar: function (una_tarea) { return una_tarea.estado } }));
                         columnas_tareas.push(new Columna('Detalle', {
-                            generar: function (una_consulta) {
+                            generar: function (una_tarea) {
                                 var btn_accion = $('<a>');
                                 var img = $('<img>');
                                 img.attr('src', '../Imagenes/detalle.png');
@@ -1598,7 +1597,7 @@ var Legajo = {
                                 img.attr('height', '15px');
                                 btn_accion.append(img);
                                 btn_accion.click(function () {
-                                    _this.MostrarDetalleDeTarea(una_tarea);
+                                    _this_original.MostrarDetalleDeTarea(una_tarea);
                                 });
                                 return btn_accion;
                             }
@@ -1615,6 +1614,45 @@ var Legajo = {
                     .onError(function (e) {
 
                     });
+    },
+    MostrarDetalleDeTarea: function (tarea) {
+        var _this = this;
+
+        /* var respuestas = [];
+        if (respuestasJSON != "") {
+        respuestas = JSON.parse(respuestasJSON);
+        }*/
+         $("#pantalla_detalle_alerta").load(tarea.tipoAlerta.urlComponente, function () { 
+        vex.defaultOptions.className = 'vex-theme-os';
+        vex.open({
+            afterOpen: function ($vexContent) {
+               
+                
+                
+                
+               
+
+                var ui = $("#pantalla_detalle_alerta").clone();
+                $vexContent.append(ui);
+                ui.show();
+
+
+                return ui;
+            },
+            css: {
+                'padding-top': "4%",
+                'padding-bottom': "0%",
+                'background-color': "rgb(249, 248, 248)"
+            },
+            contentCSS: {
+                width: "80%",
+                height: "80%"
+            }
+        });
+
+
+    });
+
     }
 
 }

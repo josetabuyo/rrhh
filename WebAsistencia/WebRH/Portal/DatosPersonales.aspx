@@ -17,7 +17,7 @@
     <form id="form1" runat="server">
     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:18px; font-weight: bold; padding-top:25px;'>Datos<br/>Personales</span> <br/> " UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <div class="container-fluid">
-        <h1 style="text-align:center; margin:30px; "></h1>
+        <h1 style="text-align:center; margin:17px; "></h1>
         <div style="margin: 0 auto;" class="row">
             <div style="text-align:center;" class="caja_izq"></div>
             <div class="caja_der papel">
