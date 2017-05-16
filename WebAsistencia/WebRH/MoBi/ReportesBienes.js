@@ -393,7 +393,8 @@ var GraficoContratos = {
         $("#btn_exportarExcelDetalle").show();
         $("#btn_generarInforme").show();
 
-        columnas.push(new Columna("Asignación", { generar: function (un_registro) { return un_registro.Asignacion } }));
+        columnas.push(new Columna("Estado", { generar: function (un_registro) { return un_registro.Estado } }));
+        columnas.push(new Columna("Area", { generar: function (un_registro) { return un_registro.Asignacion } }));
         columnas.push(new Columna("Descripción", { generar: function (un_registro) { return un_registro.Descripcion } }));
         //columnas.push(new Columna("Ultimo Mov.", { generar: function (un_registro) { return un_registro.UltMov } }));
         columnas.push(new Columna("Ultimo Mov.", { generar: function (un_registro) {
@@ -487,6 +488,13 @@ var GraficoContratos = {
                     btn_accion.click(function () {
                         checks_activos = ["GraficoPorInforme"];
                         //_this.FiltrarPersonasParaTablaDetalle(un_registro.Informe, tabla_detalle);
+
+                        //PANTALLA DE BIENES DETALLE
+                        //alert(un_registro.Id);
+                        //localStorage.setItem("idBien", ui.find("#select_niveles").val());
+                        localStorage.setItem("idBien", un_registro.Id);
+                        //localStorage.setItem("descripcion", 'IFC231 - RENAULT - KANGOO AUTHENTIQUE PLUS 1.6 DA A');
+                        window.open('BienesDetalle.aspx', '_blank');
                     });
 
                     div.append(btn_accion);
@@ -560,7 +568,7 @@ var GraficoContratos = {
         }
     },
 
-    //BUSCADORES DE LAS TALBAS
+    //BUSCADORES DE LAS TABLAS
     BuscadorDeTabla: function () {
         var options = {
             valueNames: ['Información', 'Cantidad', 'Porcentaje']
