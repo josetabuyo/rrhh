@@ -47,7 +47,8 @@ public partial class MoBi_BienesModificacion : System.Web.UI.Page
 
     private void Cargar_Bienes(WSViaticosSoapClient ws, int IdArea, int IdTipoBien)
     {
-        WSViaticos.MoBi_Bien[] Bienes = ws.Mobi_GetBienesDisponibles(IdArea, IdTipoBien);
+        Usuario usuario = ((Usuario)Session["usuario"]);
+        WSViaticos.MoBi_Bien[] Bienes = ws.Mobi_GetBienesDisponibles(IdArea, IdTipoBien, usuario.Id);
         GridViewBienes.DataSource = Bienes.OfType<MoBi_Bien>().ToList();
         GridViewBienes.DataBind();
     }

@@ -52,8 +52,8 @@
                 if (eliminacionok) {
 
                     var mensaje = "¿Está seguro que desea eliminar Licencia de " + una_persona.nombre() + " solicitada desde: " + una_persona.desde() + " hasta: " + una_persona.hasta() + "?";
-                        alertify.confirm(mensaje, function (e) {
-                            if (e) {
+                    alertify.confirm("", mensaje, 
+                        function () {
                                 // user clicked "ok"
                                 var data_post = JSON.stringify({
                                     id: JSON.stringify(una_persona.idInasistencias())
@@ -68,17 +68,18 @@
                                         PlanillaPersonas.EliminarObjeto(una_persona);
                                     },
                                     error: function (XMLHttpRequest, textStatus, errorThrown) {
-                                        alertify.alert(errorThrown);
+                                        alertify.alert("", errorThrown);
                                     }
                                 });
-                            } else {
+                            },
+                            function(){
                                 alertify.error("No se ha eliminado la Licencia");
                             }
-                        });
+                        );
                     
                 }
                 else {
-                    alertify.alert("Esta Licencia se encuentra en proceso. Para eliminarla, por favor, contáctese con Recursos Humanos");
+                    alertify.alert("", "Esta Licencia se encuentra en proceso. Para eliminarla, por favor, contáctese con Recursos Humanos");
                 }
             });
             return contenedorBtnAcciones;

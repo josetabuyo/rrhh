@@ -44,7 +44,7 @@
 
             Backend.GuardarDocumentacionRecibida(postulacion[0].value, lista_documentacion_recibida)
              .onSuccess(function (resultado) {
-                 alertify.alert('Se han guardado los folios con exito');
+                 alertify.alert("", 'Se han guardado los folios con exito');
                  location.reload();
              });
 
@@ -70,11 +70,11 @@
             function (respuesta) {
                 if (respuesta != null) _this.CompletarDatos(respuesta);
                 else {
-                    alertify.alert("Código no encontrado");
+                    alertify.alert("", "Código no encontrado");
                 }
             },
             function (errorThrown) {
-                alertify.alert(errorThrown);
+                alertify.alert("", errorThrown);
             }
         );
 

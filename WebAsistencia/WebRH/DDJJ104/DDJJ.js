@@ -47,7 +47,7 @@ var completarComboMeses = function () {
         
     })
     .onError(function (error, as, asd) {
-        alertify.alert(error);
+        alertify.alert("", error);
     });
 }
 
@@ -60,7 +60,7 @@ var getAreasDDJJ = function (callback) {
         //completarComboMeses();
     })
     .onError(function (error, as, asd) {
-        alertify.alert(error);
+        alertify.alert("", error);
     });
 }
 
@@ -214,8 +214,8 @@ var DibujarFormularioDDJJ104 = function (un_area) {
         var mesddjj = w.document.getElementById("MesDDJJ104");
         var anioddjj = w.document.getElementById("AnioDDJJ104");
         var areaddjj = w.document.getElementById("AreaDDJJ104");
-        var areadireccionddjj = w.document.getElementById("AreaDireccionDDJJ104");
-        var areadependenciaddjj = w.document.getElementById("AreaDependenciaDDJJ104");
+        //var areadireccionddjj = w.document.getElementById("AreaDireccionDDJJ104");
+        //var areadependenciaddjj = w.document.getElementById("AreaDependenciaDDJJ104");
         var leyendaporanioddjj = w.document.getElementById("LeyendaPorAnioDDJJ104");
         var nroDDJJ104 = w.document.getElementById("NroDDJJ104");
         var nroidDDJJ = w.document.getElementById("IdDDJJ104");
@@ -225,15 +225,14 @@ var DibujarFormularioDDJJ104 = function (un_area) {
             $(leyendaporanioddjj).html(respuesta);
         })
         .onError(function (error, as, asd) {
-            alertify.alert("error al obtener leyenda del año");
+            alertify.alert("", "error al obtener leyenda del año");
         });
 
         $(areaddjj).html(un_area.Nombre);
         $(mesddjj).html(NombreMes(mesSeleccionado));
         $(anioddjj).html(anioSeleccionado);
-        $(areadireccionddjj).html(un_area.Direccion);
+        //$(areadireccionddjj).html(un_area.Direccion);
         //$(areadependenciaddjj).html(un_area.AreaSuperior.Nombre);
-        $(areadireccionddjj).html(un_area.Direccion);
         var ddjj = un_area.DDJJ; //_.findWhere(un_area.DDJJ, { Anio: anioSeleccionado, Mes: mesSeleccionado });
         // pantalla_impresion.find("#nroddjj104").html("DDJJ Nro " + ddjj.Id);
         //pantalla_impresion.find("#nroddjj104").JsBarcode(ddjj.Id, { width: 1, height: 25 });
@@ -279,7 +278,7 @@ var ConsultarDDJJ = function (idArea) {
         spinner.stop();
     })
     .onError(function (error, as, asd) {
-        alertify.alert(error);
+        alertify.alert("", error);
     });
 
     
@@ -290,13 +289,13 @@ var ConsultarDDJJ = function (idArea) {
 //    Backend.GenerarDDJJ104(idArea, mesSeleccionado, anioSeleccionado)
 //    .onSuccess(function (respuesta) {
 //        if (respuesta) {
-//            alertify.alert("Se genero correctamente");
+//            alertify.alert("", "Se genero correctamente");
 //            ContenedorGrilla.html("");
 //            getAreasDDJJ();
 //        }
 //    })
 //    .onError(function (error, as, asd) {
-//        alertify.alert(error);
+//        alertify.alert("", error);
 //    });
 //};
 
@@ -326,11 +325,11 @@ var Generar_e_ImprimirDDJJ = function (idArea) {
             }
         })
         .onError(function (error, as, asd) {
-        alertify.alert(error);
+            alertify.alert("", error);
         });
     //})
     //.onError(function (error, as, asd) {
-    //    alertify.alert(error);
+        //    alertify.alert("", error);
     //});
 };
 
@@ -341,7 +340,7 @@ var ImprimirDDJJ = function (idArea) {
         DibujarFormularioDDJJ104(respuesta[0]);
     })
     .onError(function (error, as, asd) {
-        alertify.alert(error);
+        alertify.alert("", error);
     });
 };
 

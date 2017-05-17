@@ -186,15 +186,20 @@
         </div>
 <%--        <asp:HiddenField ID="IdDDJJ104" runat="server" />
         <br />--%>
+        <br />
+        <br />
         <div align="center" style="font-size: x-small"><b>FORMULARIO DE DECLARACION JURADA</b></div>
         <div align="center" style="font-size: x-small">CERTIFICACION DE SERVICIOS</div>
         <br />
         <div align="center" style="font-size: x-small"><b>DECISION ADMINISTRATIVA Nº 104/2001</b></div>
         <div align="center" style="font-size: x-small">(Resolución SME 34/01)<br/></div>
         <br />
-        
-        <div runat="server" align="center">
+        <br />
+        <%--<div runat="server" align="center">
             <div style="width: 90%; font-size: small; text-align: justify;">Por el presente, certifico con carácter de Declaración Jurada, en mi condición de titular de la <b><a id="AreaDDJJ104"></a></b> dependiente de <b><a id="AreaDependenciaDDJJ104"></a></b> ubicada en <b><a id="AreaDireccionDDJJ104"></a></b>, que las personas citadas en el listado adjuntos han cumplimentado la prestación de servicios correspondiente al mes de <b><a id="MesDDJJ104"></a></b> del año <b><a id="AnioDDJJ104"></a></b>.</div>
+        </div>--%>
+        <div runat="server" align="center">
+            <div style="width: 90%; font-size: small; text-align: justify;">Por el presente, certifico con carácter de Declaración Jurada, en mi condición de titular de la <b><a id="AreaDDJJ104"></a></b>, que las personas citadas en el listado adjuntos han cumplimentado la prestación de servicios correspondiente al mes de <b><a id="MesDDJJ104"></a></b> del año <b><a id="AnioDDJJ104"></a></b>.</div>
         </div>
 
         <br />
@@ -226,7 +231,7 @@
 //                }
 //                })
 //                .onError(function (error, as, asd) {
-//                    alertify.alert(error);
+                //                    alertify.alert("", error);
 //                });
             });
         });

@@ -5,6 +5,7 @@ using System.Web;
 using System.Data;
 using System.Drawing;
 using System.IO;
+using System.Text;
 
 namespace General.Repositorios
 {
@@ -54,6 +55,15 @@ namespace General.Repositorios
             return (string)dataRow[campo];
         }
 
+        public string GetTodoComoString(String campo, String default_if_null)
+        {
+            if (this.GetObject(campo) is DBNull) return default_if_null;
+            StringBuilder output = new StringBuilder();
+            output.AppendFormat("{0} ", dataRow[campo]);
+            output.AppendLine();
+            return output.ToString().Trim();
+        }
+
         public DateTime GetDateTime(String campo)
         {
             return (DateTime)dataRow[campo];
@@ -91,6 +101,29 @@ namespace General.Repositorios
         {
             if (this.GetObject(campo) is DBNull) return default_if_null;
             return this.GetFloat(campo);
+        }
+
+        public long GetLong(string campo)
+        {
+            var valor_long = (long)dataRow[campo];
+            return (long)valor_long;
+        }
+        public long GetLong(string campo, long default_if_null)
+        {
+            if (this.GetObject(campo) is DBNull) return default_if_null;
+            return this.GetLong(campo);
+        }
+
+        public decimal GetDecimal(string campo)
+        {
+            var valor_decimal = (decimal)dataRow[campo];
+            return (decimal)valor_decimal;
+        }
+
+        public decimal GetDecimal(string campo, decimal default_if_null)
+        {
+            if (this.GetObject(campo) is DBNull) return default_if_null;
+            return this.GetDecimal(campo);
         }
 
         public Image GetImage(string campo)

@@ -52,18 +52,31 @@ namespace General.MAU
 
         public bool ElUsuarioTienePermisosPara(Usuario usuario, Funcionalidad funcionalidad)
         {
-            return this.repositorio_funcionalidades_usuarios.FuncionalidadesPara(usuario).Exists(f => f.Equals(funcionalidad));
+            return this.repositorio_funcionalidades_usuarios.FuncionalidadesPara(usuario).Exists(f =>
+            {
+                if (f.NoPodriaUsarlaElUsuario(usuario)) return false;
+                return f.Equals(funcionalidad);
+            });
         }
 
         public bool ElUsuarioTienePermisosPara(Usuario usuario, string nombre_funcionalidad)
         {
-            return this.repositorio_funcionalidades_usuarios.FuncionalidadesPara(usuario).Exists(f => f.Nombre == nombre_funcionalidad);
+            return this.repositorio_funcionalidades_usuarios.FuncionalidadesPara(usuario).Exists(f =>
+            {
+                if (f.NoPodriaUsarlaElUsuario(usuario)) return false;
+                return f.Nombre == nombre_funcionalidad;
+            });
         }
 
 
         public bool ElUsuarioTienePermisosPara(int id_usuario, int id_funcionalidad)
         {
-            return this.repositorio_funcionalidades_usuarios.FuncionalidadesPara(id_usuario).Exists(f => f.Id==id_funcionalidad);
+            var usuario = repositorio_usuarios.GetUsuarioPorId(id_usuario);
+            return this.repositorio_funcionalidades_usuarios.FuncionalidadesPara(id_usuario).Exists(f =>
+            {
+                if (f.NoPodriaUsarlaElUsuario(usuario)) return false;
+                return f.Id == id_funcionalidad;
+            });
         }
 
 
@@ -117,13 +130,13 @@ namespace General.MAU
         }
 
 
-       
+
 
         private void loguearIngresoDe(Usuario usuario)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_usuario", usuario.Id);
-            this.conexion.EjecutarSinResultado("MAU_Loguear_Ingreso", parametros); 
+            this.conexion.EjecutarSinResultado("MAU_Loguear_Ingreso", parametros);
         }
 
         public MenuDelSistema GetMenuPara(string nombre_menu, Usuario usuario)
@@ -133,10 +146,14 @@ namespace General.MAU
 
         public Boolean ElUsuarioPuedeAccederALaURL(Usuario usuario, string url)
         {
-            //return true;
             var funcionalidades_que_permiten_acceder_a_la_url = this.repositorio_accesos_a_url.TodosLosAccesos().FindAll(a => a.Url.ToUpper() == url.ToUpper()).Select(a => a.Funcionalidad);
             if (funcionalidades_que_permiten_acceder_a_la_url.Count() == 0) return true;
-            return this.repositorio_funcionalidades_usuarios.FuncionalidadesPara(usuario).Any(f => funcionalidades_que_permiten_acceder_a_la_url.Contains(f));
+            return this.repositorio_funcionalidades_usuarios.FuncionalidadesPara(usuario).Any(f =>
+            {
+                if (f.NoPodriaUsarlaElUsuario(usuario)) 
+                    return false;
+                return funcionalidades_que_permiten_acceder_a_la_url.Contains(f);
+            });
         }
 
         public void AsignarAreaAUnUsuario(int id_usuario, int id_area)
@@ -150,7 +167,7 @@ namespace General.MAU
         }
 
         public bool RegistrarNuevoUsuario(AspiranteAUsuario aspirante)
-        {            
+        {
             var repo_personas = RepositorioDePersonas.NuevoRepositorioDePersonas(this.conexion);
             var repo_usuarios = new RepositorioDeUsuarios(this.conexion, repo_personas);
             //if (repo_personas.BuscarPersonas(JsonConvert.SerializeObject(new { Documento=aspirante.Documento, ConLegajo=true})).Count > 0)
@@ -170,9 +187,9 @@ namespace General.MAU
             {
                 return false;
             }
- 
-            if(aspirante.Nombre.Trim() == "") throw new Exception("El nombre no puede ser vacío.");
-            if(aspirante.Apellido.Trim() == "") throw new Exception("El apellido no puede ser vacío.");
+
+            if (aspirante.Nombre.Trim() == "") throw new Exception("El nombre no puede ser vacío.");
+            if (aspirante.Apellido.Trim() == "") throw new Exception("El apellido no puede ser vacío.");
 
             var persona = new Persona();
             persona.Documento = aspirante.Documento;
@@ -180,16 +197,34 @@ namespace General.MAU
             persona.Apellido = aspirante.Apellido;
 
             repo_personas.GuardarPersona(persona);
-            
+
 
             var usuario = repositorio_usuarios.CrearUsuarioPara(persona.Id);
-            var clave =  repositorio_usuarios.ResetearPassword(usuario.Id);
             repositorio_usuarios.AsociarUsuarioConMail(usuario, aspirante.Email);
+            var clave = repositorio_usuarios.ResetearPassword(usuario.Id);
             //mandarla por mail
             var titulo = "Bienvenido al SIGIRH";
-            var cuerpo = "Nombre de Usuario: " + usuario.Alias + Environment.NewLine + "Contraseña: " + clave;
+            var cuerpo = "Usted ha registrado en la página https://rrhh.desarrollosocial.gob.ar/" +
+             "<br/>" +
+             "Los datos para poder acceder a la misma son los siguientes:" +
+             "<br/>" +
+             "<br/>" +
+             "Nombre de Usuario: " + usuario.Alias +
+             "<br/>" +
+             "Contraseña: " + clave +
+             "<br/>" +
+             "<br/>" +
+             "Este es un mensaje automático enviado desde el Sistema SIGIRH, por favor no responda al mismo." +
+             "<br/>" +
+             "Cualquier inquietud comuníquese con la Dirección de Diseño y Desarrollo Organizacional para la Gestión de Personas." +
+             "del Ministerio de Desarrollo Social de la Nación Argentina." +
+             "<br/>" +
+             "<br/>" +
+             "Muchas gracias";
 
-            EnviarMail(aspirante.Email, titulo, cuerpo);
+
+
+            EnviadorDeMails.EnviarMail(aspirante.Email, titulo, cuerpo);
             return true;
         }
 
@@ -203,47 +238,51 @@ namespace General.MAU
             var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
             if (criterio_deserializado["Mail"] != null)
             {
-                string mail = (string)((JValue)criterio_deserializado["Mail"]);  
+                string mail = (string)((JValue)criterio_deserializado["Mail"]);
                 Usuario usuario_a_recuperar = repo_usuarios.RecuperarUsuario(mail);
                 if (usuario_a_recuperar.Id == 0)
-                    return false; 
-                    
+                    return false;
+
                 EnviarMailDeRecupero(usuario_a_recuperar, mail);
-                return true; 
+                return true;
             }
             return false;
         }
-           
-     
+
+
+
         private void EnviarMailDeRecupero(Usuario usuario, string mail)
         {
             if (usuario.Habilitado)
             {
                 var clave_nueva = repositorio_usuarios.ResetearPassword(usuario.Id);
-                var  titulo = "Recupero de Datos de SIGIRH";
-                var cuerpo = "Nombre de Usuario: " + usuario.Alias +
-                              "<br/>" + 
-                              "Contraseña: " + clave_nueva + 
-                              "<br/>" + 
-                              "Luego de ingresar al sistema con la nueva clave, podrá cambiarla desde " +
-                              "la opción 'Cambiar Contraseña en el menú superior derecho";
+                var titulo = "Recupero de Datos de SIGIRH";
+                var cuerpo = "Usted ha solicitado el cambio de su contraseña desde la página https://rrhh.desarrollosocial.gob.ar/" +
+                             "<br/>" +
+                             "Los datos para poder acceder nuevamente al sistema son los siguientes:" +
+                             "<br/>" +
+                             "<br/>" +
+                             "Nombre de Usuario: " + usuario.Alias +
+                             "<br/>" +
+                             "Contraseña: " + clave_nueva +
+                             "<br/>" +
+                             "<br/>" +
+                             "Luego de ingresar al sistema con esta nueva clave, recuerde cambiar la misma desde la opción " +
+                             "'Cambiar Contraseña' en el menú superior derecho." +
+                             "<br/>" +
+                             "<br/>" +
+                             "Este es un mensaje automático enviado desde el Sistema SIGIRH, por favor no responda al mismo." +
+                             "<br/>" +
+                             "Cualquier inquietud comuníquese con la Dirección de Diseño y Desarrollo Organizacional para la Gestión de Personas." +
+                             "del Ministerio de Desarrollo Social de la Nación Argentina." +
+                             "<br/>" +
+                             "<br/>" +
+                             "Muchas gracias";
 
-                EnviarMail(mail, titulo, cuerpo);  
+                EnviadorDeMails.EnviarMail(mail, titulo, cuerpo);
             }
         }
 
-        private void EnviarMail(string mail, string titulo, string cuerpo)
-        {
-            var enviador = new EnviadorDeMails();
-            MailAddress mail_re_recupero = new MailAddress(mail);
-            enviador.EnviarMail(new NetworkCredential("no-reply@desarrollosocial.gov.ar", "1234"),
-                    mail,
-                   titulo,
-                    cuerpo,
-                    () => { },
-                    () => { throw new Exception("No se pudo enviar un mail con la clave"); }
-                );
-        }
 
         public bool VerificarUsuario(int id_usuario, Usuario usuario)
         {
@@ -252,6 +291,8 @@ namespace General.MAU
             parametros.Add("@id_usuario", id_usuario);
             parametros.Add("@id_usuario_verificador", usuario.Id);
             this.conexion.EjecutarSinResultado("MAU_Verificar_usuario", parametros);
+
+            this.repositorio_funcionalidades_usuarios.ConcederBasicas(repositorio_usuarios.GetUsuarioPorId(id_usuario));
             return true;
         }
     }

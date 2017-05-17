@@ -125,27 +125,27 @@ namespace AdministracionDeUsuarios
 
         public static Funcionalidad FuncionalidadIngresoSacc()
         {
-            return new Funcionalidad(1, "ingreso_a_sacc","");
+            return new Funcionalidad(1, "ingreso_a_sacc", "", false, false, false);
         }
 
         public static Funcionalidad FuncionalidadIngresoModi()
         {
-            return new Funcionalidad(2, "ingreso_a_modi","");
+            return new Funcionalidad(2, "ingreso_a_modi", "", false, false, false);
         }
 
         public static Funcionalidad FuncionalidadIngresoMenuPrincipal()
         {
-            return new Funcionalidad(3, "ingreso_a_menu_principal","");
+            return new Funcionalidad(3, "ingreso_a_menu_principal", "", false, false, false);
         }
 
         public static Funcionalidad FuncionalidadIngresoAdministracionDeAreas()
         {
-            return new Funcionalidad(4, "ingreso_a_administracion_de_areas","");
+            return new Funcionalidad(4, "ingreso_a_administracion_de_areas", "", false, false, false);
         }
 
         public static Funcionalidad FuncionalidadIngresoPantallaLogin()
         {
-            return new Funcionalidad(5, "ingreso_a_pantalla_login","");
+            return new Funcionalidad(5, "ingreso_a_pantalla_login", "", false, false, false);
         }
 
         public static Area AreaDeLegajos()

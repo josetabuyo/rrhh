@@ -54,6 +54,30 @@ body
     margin-left: 100px !important;
 }
 
+#mensaje_vehiculo
+{
+    display:none;
+    background-color: orangered;
+    height: 40px;
+    border-radius: 6px;
+    text-align: center;
+    margin: 5px;
+    width: 60%;
+    margin-left: 20%;
+}
+
+#mensaje_tarjeton
+{
+    display:none;
+    background-color: red;
+    height: 40px;
+    border-radius: 6px;
+    text-align: center;
+    margin: 5px;
+    width: 60%;
+    margin-left: 20%;
+}
+
 #barra_menu_contenedor_imagen
 {
     background-color: #00001c;

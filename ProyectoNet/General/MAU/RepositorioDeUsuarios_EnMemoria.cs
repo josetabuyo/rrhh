@@ -89,5 +89,50 @@ namespace AdministracionDeUsuarios
         {
             throw new NotImplementedException();
         }
+
+
+        public bool ModificarMailRegistro(int id_usuario, string mail)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public bool SolicitarCambioImagen(int id_usuario, int id_imagen)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public List<SolicitudDeCambioDeImagen> GetSolicitudesDeCambioDeImagenPendientesPara(int id_usuario)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public bool AceptarCambioDeImagen(int id_usuario)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool RechazarCambioDeImagen(int id_usuario)
+        {
+            throw new NotImplementedException();
+        }
+
+        List<SolicitudDeCambioDeImagen> IRepositorioDeUsuarios.GetSolicitudesDeCambioDeImagenPendientes()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Usuario GetUsuarioPorAlias(string alias, bool incluir_bajas)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public bool RechazarCambioDeImagen(int id_usuario, string razon_rechazo)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

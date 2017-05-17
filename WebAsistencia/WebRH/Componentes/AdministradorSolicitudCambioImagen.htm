@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <style type="text/css">
+        #pantalla_actualizacion_imagen
+        {
+        }
+        
+        #pantalla_actualizacion_imagen #panel_imagenes
+        {
+            position: absolute;
+            top: 60px;
+            bottom: 40px;
+            left: 0px;
+            right: 0px;
+        }
+        
+        #pantalla_actualizacion_imagen #imagen_anterior
+        {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            bottom: 0px;
+            right: 50%;
+        }
+        
+        #pantalla_actualizacion_imagen #imagen_nueva
+        {
+            position: absolute;
+            right: 0px;
+            top: 0px;
+            bottom: 0px;
+            left: 50%;
+        }
+        
+        #pantalla_actualizacion_imagen #btn_aceptar_cambio_imagen
+        {
+            position: absolute;
+            bottom: 2px;
+            right: 10px;
+        }
+        
+        #pantalla_actualizacion_imagen #btn_rechazar_cambio_imagen
+        {
+            position: absolute;
+            bottom: 2px;
+            right: 100px;
+        }
+        
+        #pantalla_actualizacion_imagen #titulo_actualizacion_imagen
+        {
+            position: absolute;
+            font-size: 28px;
+            top: 8px;
+        }
+        
+        #pantalla_actualizacion_imagen #datos_usuario_solicitante
+        {
+            position: absolute;
+            top: 34px;
+            left: 16px;
+            right: 0px;
+        }
+        
+    </style>
+</head>
+<div id="pantalla_actualizacion_imagen">
+    <div id="titulo_actualizacion_imagen">
+        Solicitud de cambio de imágen</div>
+    <div id="datos_usuario_solicitante">
+        <span>Solicitante:</span>
+        <span id="usuario_solicitante"> </span>
+    </div>
+    <div id="panel_imagenes">
+        <div id="imagen_anterior">
+        </div>
+        <div id="imagen_nueva">
+        </div>
+    </div>
+    <input type="button" id="btn_rechazar_cambio_imagen" class="btn btn-danger" value="Rechazar" />
+    <input type="button" id="btn_aceptar_cambio_imagen" class="btn btn-success" value="Aceptar" />
+</div>
+<script type="text/javascript">
+    var AdministradorSolicitudCambioImagen = function (solicitud) {
+        var _this = this;
+        vex.defaultOptions.className = 'vex-theme-os';
+        vex.open({
+            afterOpen: function ($vexContent) {
+                var ui = $("#pantalla_actualizacion_imagen");
+
+                ui.find("#btn_aceptar_cambio_imagen")
+                .off("click")
+                .click(function () {
+                    Backend.AceptarCambioDeImagen(solicitud.usuario.Id).onSuccess(function () {
+                        alertify.success('solicitud de cambio de imagen aceptada');
+                        vex.close();
+                        _this.alResolver();
+                    });
+                });
+                ui.find("#btn_rechazar_cambio_imagen")
+                .off("click")
+                .click(function () {
+                    vex.dialog.prompt({
+                        message: 'Indique razón de rechazo',
+                        placeholder: '',
+                        callback: function (value) {
+                            if (value) {
+                                Backend.RechazarCambioDeImagen(solicitud.usuario.Id, value).onSuccess(function () {
+                                    alertify.success('solicitud de cambio de imagen rechazada');
+                                    vex.close();
+                                    _this.alResolver();
+                                });
+                            }
+                        }
+                    })
+
+                });
+
+                ui.find("#usuario_solicitante").text("(" + solicitud.usuario.Alias.replace(' ', '') + ") " + solicitud.usuario.Owner.Apellido + ", " + solicitud.usuario.Owner.Nombre + " DNI:" + solicitud.usuario.Owner.Documento);
+                $vexContent.append(ui);
+                ui.show();
+
+                var vista_imagen_anterior = new VistaThumbnail({ id: solicitud.idImagenAnterior, contenedor: ui.find("#imagen_anterior") })
+                var vista_imagen_nueva = new VistaThumbnail({ id: solicitud.idImagenNueva, contenedor: ui.find("#imagen_nueva") })
+                return ui;
+            },
+            css: {
+                'padding-top': "4%",
+                'padding-bottom': "0%"
+            },
+            contentCSS: {
+                width: "70%",
+                height: "80%"
+            }
+        });
+    };
+</script>

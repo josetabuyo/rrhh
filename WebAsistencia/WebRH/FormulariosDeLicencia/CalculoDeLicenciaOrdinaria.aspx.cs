@@ -25,8 +25,8 @@ public partial class FormulariosDeLicencia_CalculoDeLicenciaOrdinaria : System.W
         var persona = (Persona)Session["persona"];
         persona = new Persona();
 
-        persona.Documento = int.Parse(this.textbox_dni.Text);
-        var analisis = s.GetAnalisisLicenciaOrdinaria(persona);
+        //persona.Documento = int.Parse(this.textbox_dni.Text);
+        var analisis = s.GetAnalisisLicenciaOrdinaria(this.textbox_dni.Text, this.ChkPersistirResultados.Checked);
 
         var t = this.tabla_analsis;
         t.Rows.Add(Header());
@@ -34,32 +34,66 @@ public partial class FormulariosDeLicencia_CalculoDeLicenciaOrdinaria : System.W
         {
             t.Rows.Add(RowFrom(linea));
         });
+
+        t = this.tabla_saldo;
+        t.Rows.Add(SaldoHeader());
+        analisis.Saldo.ToList().ForEach(saldo =>
+            {
+                t.Rows.Add(RowSaldoFrom(saldo));
+            });
+    }
+
+    protected TableRow RowSaldoFrom(VacacionesSolicitables saldo)
+    {
+        var row = new TableRow();
+        var cell = new TableCell();
+        cell.Text = saldo.Period.ToString();
+        row.Cells.Add(cell);
+        cell = new TableCell();
+        cell.Text = saldo.Dias.ToString();
+        row.Cells.Add(cell);
+        
+        return row;
+    }
+
+    private TableRow SaldoHeader()
+    {
+        TableHeaderRow row = new TableHeaderRow();
+        TableHeaderCell cell = new TableHeaderCell();
+        cell.Text = "Periodo";
+        row.Cells.Add(cell);
+
+        cell = new TableHeaderCell();
+        cell.Text = "Disponible";
+        row.Cells.Add(cell);
+
+        return row;
     }
 
     protected TableRow Header()
     {
-        var row = new TableRow();
+        var row = new TableHeaderRow();
 
-        var cell = new TableCell();
-        cell.Text = "Desde";
-        row.Cells.Add(cell);
-
-        cell = new TableCell();
-        cell.Text = "Hasta";
-        row.Cells.Add(cell);
-        
-        cell = new TableCell();
-        cell.Text = "Descontados";
-        row.Cells.Add(cell);
-        
-        cell = new TableCell();
+        var cell = new TableHeaderCell();
         cell.Text = "Periodo";
         row.Cells.Add(cell);
 
-        cell = new TableCell();
+        cell = new TableHeaderCell();
         cell.Text = "Autorizados";
         row.Cells.Add(cell);
 
+        cell = new TableHeaderCell();
+        cell.Text = "Utilizados";
+        row.Cells.Add(cell);
+
+        cell = new TableHeaderCell();
+        cell.Text = "Desde";
+        row.Cells.Add(cell);
+
+        cell = new TableHeaderCell();
+        cell.Text = "Hasta";
+        row.Cells.Add(cell);
+        
         return row;
     }
 
@@ -67,24 +101,43 @@ public partial class FormulariosDeLicencia_CalculoDeLicenciaOrdinaria : System.W
     {
         var row = new TableRow();
 
+        AddInfoPeriodo(row, log);
+
         var css_class = ClassInfoLicenciaFor(log);
 
         var cell = new TableCell();
         cell.CssClass = css_class;
-        AddFecha(cell, log.LicenciaDesde);
-        row.Cells.Add(cell);
-
-        cell = new TableCell();
-        cell.CssClass = css_class;
-        AddFecha(cell, log.LicenciaHasta);
-        row.Cells.Add(cell);
-
-        cell = new TableCell();
-        cell.CssClass = css_class;
         cell.Text = log.CantidadDiasDescontados.ToString();
         row.Cells.Add(cell);
 
-        AddInfoPeriodo(row, log);
+        if (log.PerdidaPorVencimiento)
+        {
+            cell = new TableCell();
+            cell.CssClass = css_class;
+            cell.ColumnSpan = 2;
+            cell.Text = "Vencidas";
+            row.Cells.Add(cell);
+        }
+        else if (log.PerdidaExplicitamente)
+        {
+            cell = new TableCell();
+            cell.CssClass = css_class;
+            cell.ColumnSpan = 2;
+            cell.Text = log.Observacion;
+            row.Cells.Add(cell);
+        } else
+        {
+            cell = new TableCell();
+            cell.CssClass = css_class;
+            AddFecha(cell, log.LicenciaDesde);
+            row.Cells.Add(cell);
+
+            cell = new TableCell();
+            cell.CssClass = css_class;
+            AddFecha(cell, log.LicenciaHasta);
+            row.Cells.Add(cell);
+        }
+        
         return row;
     }
 

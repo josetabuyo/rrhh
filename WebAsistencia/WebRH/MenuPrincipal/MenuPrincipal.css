@@ -116,8 +116,8 @@ html, body, form
 {
     height: 120px;
     width: 120px;
-    left: -13px;
-    top: -13px;
+    left: -14px;
+    top: -14px;
 }
 
 .circulo3
@@ -135,8 +135,8 @@ html, body, form
 .hi-icon:hover .circulo2{
     height: 130px;
     width: 130px;
-    left: -18px;
-    top: -18px;
+    left: -19px;
+    top: -19px;
 }
 
 .hi-icon:hover .circulo3{
@@ -147,19 +147,15 @@ html, body, form
 }
 
 .container {
-	background-color: #031427;
-	height: 500px;
-	width:100%;
-	
+    background-color: #1c2431;
+    height: 500px;
+    width: 100%;
 }
 
 #menu_principal
 {
     margin-left: 150px;
-    margin-right: 150px;
-    margin-top:42px; 
-      
-       
+    margin-right: 150px;    
 }
 /* Effect 8 */
 .hi-icon-effect-8 .hi-icon {

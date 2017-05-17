@@ -18,10 +18,10 @@
         
     void Application_Error(object sender, EventArgs e) 
     {
-        Exception ex = Server.GetLastError();
+        //Exception ex = Server.GetLastError();
         // Código que se ejecuta al producirse un error no controlado
-        General.Logger.EscribirLog("---------------------------------------------");
-        General.Logger.EscribirLog(ex.ToString());
+        //General.Logger.EscribirLog("---------------------------------------------");
+        //General.Logger.EscribirLog(ex.ToString());
        
     }
 

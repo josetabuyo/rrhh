@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using General.Repositorios;
+using System.Net.Mail;
 
 namespace General.MAU
 {
@@ -16,10 +17,11 @@ namespace General.MAU
             this.repositorio_de_personas = repo_personas;
         }
 
-        public Usuario GetUsuarioPorAlias(string alias)
+        public Usuario GetUsuarioPorAlias(string alias, bool incluir_bajas=false)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@alias", alias);
+            if(incluir_bajas) parametros.Add("@incluir_bajas", 1);
             var tablaDatos = conexion.Ejecutar("dbo.Web_GetUsuario", parametros);
             if (tablaDatos.Rows.Count > 1) throw new Exception("hay mas de un usuario con el mismo alias: " + alias);
 
@@ -58,7 +60,8 @@ namespace General.MAU
         {
             if (tablaDatos.Rows.Count == 0) return new UsuarioNulo();
             var row = tablaDatos.Rows.First();
-            Usuario usuario = new Usuario(row.GetSmallintAsInt("Id"), row.GetString("Alias"), row.GetString("Clave_Encriptada"), !row.GetBoolean("Baja")); 
+            Usuario usuario = new Usuario(row.GetSmallintAsInt("Id"), row.GetString("Alias"), row.GetString("Clave_Encriptada"), !row.GetBoolean("Baja"));
+            usuario.MailRegistro = row.GetString("MailRegistro", "");
             if (!(row.GetObject("Id_Persona") is DBNull))
             {
                 usuario.Owner = repositorio_de_personas.GetPersonaPorId(row.GetInt("Id_Persona"));
@@ -85,7 +88,7 @@ namespace General.MAU
             var persona = repositorio_de_personas.GetPersonaPorId(id_persona);
             var alias = (persona.Nombre.First() + persona.Apellido).Replace(" ", "");
             var contador = 1;
-            while (!GetUsuarioPorAlias(alias).Equals(new UsuarioNulo()))
+            while (!GetUsuarioPorAlias(alias, true).Equals(new UsuarioNulo()))
             {
                 alias = (persona.Nombre.First() + persona.Apellido + contador.ToString()).Replace(" ", "");
                 contador++;
@@ -101,11 +104,10 @@ namespace General.MAU
 
             var repo_funcionalidades_usuarios = RepositorioDeFuncionalidadesDeUsuarios.NuevoRepositorioDeFuncionalidadesDeUsuarios(this.conexion, RepositorioDeFuncionalidades.NuevoRepositorioDeFuncionalidades(this.conexion));
 
-            //Permisos básicos
-            repo_funcionalidades_usuarios.ConcederFuncionalidadA(id_usuario, 3); //Menu principal
-            repo_funcionalidades_usuarios.ConcederFuncionalidadA(id_usuario, 13); //Postular
+            var usuario = new Usuario(id_usuario, alias, clave_encriptada, persona, true);
+            repo_funcionalidades_usuarios.ConcederBasicas(usuario);
 
-            return new Usuario(id_usuario, alias, clave_encriptada, persona, true);
+            return usuario;
         }
 
         public void AsociarUsuarioConMail(Usuario usuario, string mail) {
@@ -134,6 +136,16 @@ namespace General.MAU
             return true;
         }
 
+        public bool ModificarMailRegistro(int id_usuario, string mail)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@Id_Usuario", id_usuario);
+            parametros.Add("@NuevoMail", mail);
+
+            conexion.Ejecutar("dbo.GEN_Modificar_email_registro", parametros);
+            return true;
+        }
+
         public string ResetearPassword(int id_usuario)
         {
             var clave_nueva = ClaveRandom();
@@ -142,8 +154,14 @@ namespace General.MAU
             parametros.Add("@clave_encriptada", Encriptador.EncriptarSHA1(clave_nueva));
 
             conexion.Ejecutar("dbo.MAU_GuardarUsuario", parametros);
+            //Enviar Mail de reseteo
+            var usuario = this.GetUsuarioPorId(id_usuario);
+            var titulo = "Bienvenido al SIGIRH";
+            var cuerpo = "Nombre de Usuario: " + usuario.Alias + Environment.NewLine + "Contraseña: " + clave_nueva;
+           // EnviadorDeMails.EnviarMail(usuario.MailRegistro, titulo, cuerpo);
             return clave_nueva;
         }
+
 
         private static string ClaveRandom()
         {
@@ -237,12 +255,24 @@ namespace General.MAU
                 {
                     un_usuario = GetUsuarioDeRow(row);
                     usuarios.Add(un_usuario);
-                    un_usuario.AgregarFuncionalidad(new Funcionalidad(row.GetInt("idFuncionalidad",0), row.GetString("NombreFuncionalidad",""), ""));
+                    un_usuario.AgregarFuncionalidad(new Funcionalidad(
+                        row.GetInt("idFuncionalidad", 0), 
+                        row.GetString("NombreFuncionalidad", ""), 
+                        row.GetString("GrupoFuncionalidad", ""), 
+                        row.GetBoolean("FuncSoloParaVerificados", false),
+                        row.GetBoolean("FuncSoloParaEmpleados", false),
+                        row.GetBoolean("FuncBasica", false)));
                     idUsuario_original = row.GetInt("Id_Persona");
                 }
                 else
                 {
-                    un_usuario.AgregarFuncionalidad(new Funcionalidad(row.GetInt("idFuncionalidad",0), row.GetString("NombreFuncionalidad",""),""));
+                    un_usuario.AgregarFuncionalidad(new Funcionalidad(
+                        row.GetInt("idFuncionalidad", 0),
+                        row.GetString("NombreFuncionalidad", ""),
+                        row.GetString("GrupoFuncionalidad", ""),
+                        row.GetBoolean("FuncSoloParaVerificados", false),
+                        row.GetBoolean("FuncSoloParaEmpleados", false),
+                        row.GetBoolean("FuncBasica", false)));
                 }
             });
 
@@ -291,5 +321,75 @@ namespace General.MAU
 
             return lista_de_usuarios;
         }
+
+
+        public bool SolicitarCambioImagen(int id_usuario, int id_imagen)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_usuario", id_usuario);
+            parametros.Add("@id_imagen", id_imagen);
+            var tablaDatos = conexion.Ejecutar("dbo.MAU_SolicitarCambioImagen",parametros);
+
+            return true;
+        }
+
+
+        public List<SolicitudDeCambioDeImagen> GetSolicitudesDeCambioDeImagenPendientesPara(int id_usuario)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_usuario", id_usuario);
+            var tablaDatos = conexion.Ejecutar("dbo.MAU_GetSolicitudesDeCambioDeImagenPendientes", parametros);
+
+            var solicitudes = new List<SolicitudDeCambioDeImagen>();
+            tablaDatos.Rows.ForEach((row) =>
+            {
+                var solicitud = new SolicitudDeCambioDeImagen();
+                solicitud.idImagenAnterior = row.GetInt("id_imagen_anterior", -1);
+                solicitud.idImagenNueva = row.GetInt("id_imagen_nueva", -1);
+                solicitud.usuario = GetUsuarioPorId(row.GetInt("id_usuario"));
+                solicitudes.Add(solicitud);
+            });
+
+            return solicitudes;
+        }
+
+        public List<SolicitudDeCambioDeImagen> GetSolicitudesDeCambioDeImagenPendientes()
+        {
+            var tablaDatos = conexion.Ejecutar("dbo.MAU_GetSolicitudesDeCambioDeImagenPendientes");
+
+            var solicitudes = new List<SolicitudDeCambioDeImagen>();
+            tablaDatos.Rows.ForEach((row) =>
+            {
+                var solicitud = new SolicitudDeCambioDeImagen();
+                solicitud.idImagenAnterior = row.GetInt("id_imagen_anterior", -1);
+                solicitud.idImagenNueva = row.GetInt("id_imagen_nueva", -1);
+                solicitud.usuario = GetUsuarioPorId(row.GetInt("id_usuario"));
+                solicitudes.Add(solicitud);
+            });
+
+            return solicitudes;
+        }
+
+        public bool AceptarCambioDeImagen(int id_usuario)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_usuario", id_usuario);
+            var tablaDatos = conexion.Ejecutar("dbo.MAU_AceptarCambioDeImagen", parametros);
+
+            return true;
+        }
+
+        public bool RechazarCambioDeImagen(int id_usuario, string razon_de_rechazo)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_usuario", id_usuario);
+            parametros.Add("@razon_rechazo", razon_de_rechazo);
+            var tablaDatos = conexion.Ejecutar("dbo.MAU_RechazarCambioDeImagen", parametros);
+
+            return true;
+        }
+
+
+
     }
 }

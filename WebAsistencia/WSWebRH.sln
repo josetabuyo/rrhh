@@ -51,6 +51,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WebRH", "WebRH\", "{A75712E
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "43414"
+		VWDVirtualPath = "/"
 	EndProjectSection
 	ProjectSection(ProjectDependencies) = postProject
 		{D1CFEFAB-1202-4294-A2C0-D8D7C6D91094} = {D1CFEFAB-1202-4294-A2C0-D8D7C6D91094}

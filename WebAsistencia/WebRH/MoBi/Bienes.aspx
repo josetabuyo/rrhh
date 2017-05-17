@@ -51,7 +51,7 @@
             text-align: center;
             margin-top: 5px;
             margin-left: -140px;
-            margin-bottom: 25px;            
+            margin-bottom: 25px;
             font-family: Calibri,Verdana,Arial;
         }
         
@@ -77,11 +77,10 @@
             font-size: x-small;
         }
         
-        legend input 
+        legend input
         {
             margin-left: 10px;
         }
-        
     </style>
     <script type="text/javascript">
 
@@ -134,9 +133,6 @@
 
 
         function Show_Detalle_Bien(id_bien, verificacion, tipobien, descripcion) {
-
-        var descrip_bien = 
-
             localStorage.setItem("idBien", id_bien);
             localStorage.setItem("verificacion", verificacion);
             localStorage.setItem("tipobien", tipobien);
@@ -149,13 +145,9 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-
-    <legend class="contenedor" style="margin-left: -30px; text-shadow: 2px 2px 5px rgba(150, 150, 150, 1);" >
-            Bienes:
-        <input type="text" id="searchInput" class="search" placeholder="Buscar">
-    </legend>
-
     <div class="contenedor">
+        <legend class="contenedor" style="margin-left: -30px; text-shadow: 2px 2px 5px rgba(150, 150, 150, 1);">
+            Bienes: </legend>
         <table>
             <tbody>
                 <tr>
@@ -168,13 +160,6 @@
                         </asp:DropDownList>
                     </td>
                     <td class="td_leyenda">
-                        Incluir dependencias:
-                    </td>
-                    <td class="td_item">
-                        <asp:CheckBox ID="chkIncluirDependencias" runat="server" AutoPostBack="True" Checked="True"
-                            OnCheckedChanged="chkIncluirDependencias_CheckedChanged" />
-                    </td>
-                    <td class="td_leyenda">
                         Areas:
                     </td>
                     <td class="td_item">
@@ -182,17 +167,27 @@
                             AutoPostBack="True" OnSelectedIndexChanged="DropDownAreasUsuario_SelectedIndexChanged">
                         </asp:DropDownList>
                     </td>
+                    <td class="td_leyenda">
+                        Incluir dependencias:
+                    </td>
+                    <td class="td_item">
+                        <asp:CheckBox ID="chkIncluirDependencias" runat="server" AutoPostBack="True" Checked="True"
+                            OnCheckedChanged="chkIncluirDependencias_CheckedChanged" />
+                    </td>
                 </tr>
             </tbody>
         </table>
     </div>
     <div class="contenedor">
+        <input type="text" id="searchInput" class="search" placeholder="Buscar"
+            style="width: 300px; margin-top: -10px; margin-bottom: 15px;">
         <asp:GridView ID="GridViewBienes" runat="server" AutoGenerateColumns="False" Width="80%"
             DataKeyNames="id,verificacion" CssClass="table table-striped table-bordered table-condensed table-hover"
             OnRowDataBound="GridViewBienes_RowDataBound">
             <Columns>
+                <asp:BoundField DataField="ubicacion" HeaderText="Lugar"></asp:BoundField>
                 <asp:BoundField DataField="descripcion" HeaderText="Bien"></asp:BoundField>
-                <asp:BoundField DataField="ubicacion" HeaderText="Ubicación" />
+                <asp:BoundField DataField="estado" HeaderText="Estado" />
                 <asp:TemplateField HeaderText="" />
             </Columns>
         </asp:GridView>

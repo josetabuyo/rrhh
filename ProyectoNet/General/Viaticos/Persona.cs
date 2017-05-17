@@ -52,7 +52,9 @@ namespace General
         public string Legajo { get { return _Legajo; } set { _Legajo = value;  } }
         public string Categoria { get { return _categoria; } set { _categoria = value; } }
         public int Esta_Cargada { get; set; } //si ya existe en una DDJJ104
-        
+        public int IdImagen { get; set; }
+        public bool BajaLegajo { get; set; }
+   
         public Persona() { }
 
         public Persona(int id, int documento, string nombre, string apellido, Area area) 
@@ -99,6 +101,8 @@ namespace General
         public override int GetHashCode()
         {
             return this.Documento.GetHashCode();
-        }        
+        }
+
+
     }
 }

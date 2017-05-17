@@ -33,10 +33,13 @@
         
         <span id="mensaje"></span>
         <div id="panel_izquierdo" class="estilo_formulario" style="opacity:0;">
-            <div class="bloque_foto">
-                <img id="foto_usuario" src="../Imagenes/silueta.gif" alt="Usuario" width="128" height="128">
+            <div id="foto_usuario" class="foto_usuario" class="bloque_foto">
+                
+                
+                <%--<img id="foto_usuario" src="../Imagenes/silueta.gif" alt="Usuario" width="128" height="128">--%>
                 <!--<input id="btn_timeline" type="button" value="Carrera" class="btn btn-primary" />-->
             </div>
+            <img id="foto_usuario_generica" class="foto_usuario" src="../Imagenes/silueta.gif" style="margin-top: 25px;"/>
                 <div id="panel_datos_personales">
                     <div class="linea dato_personal">
                             <fieldset>
@@ -62,6 +65,12 @@
                             </div>
                             <div>
                                 <p class="bloque_consulta_full"><label>Estudio: </label><span id="estudio"></span></p>
+                            </div>
+                            <div>
+                                <p class="bloque_consulta_full"><label>Estado: </label><span id="baja"></span></p>
+                                <p class="bloque_consulta_full" style="display:none;"><label>Bloqueo Sueldo: </label><span id="bloqueo" ></span></p>
+                                <p class="bloque_consulta_full" style="display:none;"><label>Gremio: </label><span id="cargo_gremial" ></span></p>
+                                <p class="bloque_consulta_full" style="display:none;"><label>Acta: </label><span id="acto_alta" ></span></p>
                             </div>
                         </fieldset>
                     </div>
@@ -147,11 +156,14 @@
     <script type="text/javascript" src="../Scripts/select2-3.4.4/Select2.min.js"></script>
     <script type="text/javascript" src="../Scripts/select2-3.4.4/select2_locale_es.js"></script>
     <script type="text/javascript" src="../Scripts/RepositorioDePersonas.js"></script>
+    <script type="text/javascript" src="../Scripts/RepositorioDeAreas.js"></script>
     <script type="text/javascript" src="../Scripts/Persona.js"></script>
     <script type="text/javascript" src="../Scripts/SelectorDePersonas.js"></script>
+    <script type="text/javascript" src="../Scripts/SelectorDeAreas.js"></script>
     <script type="text/javascript" src="../Scripts/jquery.leanModal.min.js"></script>
     <script type="text/javascript" src="../Scripts/ArbolOrganigrama/ArbolOrganigrama.js"></script>
     <script type="text/javascript" src="Reportes.js"></script>
+    <script type="text/javascript" src="../Scripts/ControlesImagenes/VistaThumbnail.js"></script>
 <script type="text/javascript" >
   
     $("#btn_timeline").leanModal({ top: 200, overlay: 1, closeButton: ".modal_close" });

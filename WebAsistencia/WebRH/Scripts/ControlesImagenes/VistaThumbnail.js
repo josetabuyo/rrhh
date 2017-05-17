@@ -12,6 +12,12 @@
                 _this.alEliminar();
             });
         }
+        
+        if (_this.alClickear) {
+            _this.img_thumbnail.click(function () {
+                _this.alClickear();
+            });
+        }
 
         _this.img_thumbnail.hide();
         _this.img_estatica.show();
@@ -22,7 +28,7 @@
 
 VistaThumbnail.prototype.getImagen = function () {
     var _this = this;
-    Backend.GetThumbnail(this.id, this.contenedor.height(), this.contenedor.width()).onSuccess(function (imagen) {
+    Backend.GetThumbnail(this.id, Math.round(this.contenedor.height()), Math.round(this.contenedor.width())).onSuccess(function (imagen) {
         if (imagen.reintentar) {
             setTimeout(function () { _this.getImagen(); }, 500);
             return;

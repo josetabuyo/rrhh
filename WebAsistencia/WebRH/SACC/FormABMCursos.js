@@ -223,7 +223,7 @@ var MostrarBoton = function (control) {
 var ValidarCampoObligatorio = function (control) {
 
     if (control.val() == "") {
-        alertify.alert(control.attr("data-name") + " es obligatorio");
+        alertify.alert("", control.attr("data-name") + " es obligatorio");
         control.focus();
         return false;
     }
@@ -281,7 +281,7 @@ var completarCombosDeHorasCatedra = function () {
             }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alertify.alert(errorThrown);
+            alertify.alert("", errorThrown);
         }
     });
     horasCatedra.val(0);
@@ -348,7 +348,7 @@ var ValidarSuperposicion = function () {
             }
         }
 });
-if (!res) alertify.alert("El horario que intenta agregar se superpone con otros horarios de la lista");
+if (!res) alertify.alert("", "El horario que intenta agregar se superpone con otros horarios de la lista");
     return res;
 }
 
@@ -356,7 +356,7 @@ var ValidarRangoDeHoras = function (hora_inicio, hora_fin) {
     var regExp = /(\d{1,2})\:(\d{1,2})/;
     if (parseInt(hora_inicio.replace(regExp, "$1$2"), 10) < parseInt(hora_fin.replace(regExp, "$1$2"), 10)) return true;
     else {
-        alertify.alert("El horario de inicio no debe ser mayor o igual al horario de final");
+        alertify.alert("", "El horario de inicio no debe ser mayor o igual al horario de final");
         return false;
     }
 }
@@ -368,7 +368,7 @@ var ValidarHora = function (hora) {
         return true;
     }
     else {
-        alertify.alert("Valor de hora incorrecto");
+        alertify.alert("", "Valor de hora incorrecto");
     }
     hora.focus();
     return false;

@@ -24,7 +24,7 @@
                 </div>
                 
            
-                <input type="text" id="usuario" class="span3" nullValue="usuario" runat="server"/><br />
+                <input type="text" id="usuario" class="span3" nullValue="usuario" autofocus runat="server"/><br />
                 <input type="password" id="password" class="span3" nullValue="contraseña" runat="server"/><br />
                 <div style="position: relative; display: inline-block; width: 260px;">
                     <a id="lnk_registrarse" style="margin-left: 25px; margin-right: 20px;">Registrarse </a>
@@ -52,11 +52,13 @@
     vex.defaultOptions.className = 'vex-theme-os';
     var lnk_recuperar = $("#lnk_recuperar");
     var lnk_registrarse = $("#lnk_registrarse");
+
     lnk_registrarse.click(function () { 
         PantallaRegistro.abrir();
     });
     lnk_recuperar.click(function () {
         PantallaRegistro.recuperar();
     });
+    
 </script>
 </html>

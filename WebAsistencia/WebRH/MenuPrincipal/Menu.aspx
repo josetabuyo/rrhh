@@ -13,7 +13,7 @@
 
     <link rel="stylesheet" type="text/css" href="MenuPrincipal.css" />
 
-    <body style="background-color:#031427">
+    <body style="background-color:#1c2431 ">
         <form runat="server">
             <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:18px; font-weight: bold;'></span> <br/> <span style='font-size:18px;font-weight: bold;'> Menú Principal </span>" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" UrlPassword="../" />        
             <div id="set-8" class="container">
@@ -55,9 +55,12 @@
         <script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-tooltip.js"></script>
 
         <script type="text/javascript">
-            $(document).ready(function () {
-                var menu = new MenuPrincipal({ ui: $("#menu_principal"), autorizador: new Autorizador(new ProveedorAjax("../")) });
+            Backend.start(function () {
+                $(document).ready(function () {
+                    var menu = new MenuPrincipal({ ui: $("#menu_principal"), autorizador: new Autorizador(new ProveedorAjax("../")) });
+                });
             });
+           
         </script> 
 	
     </body>    

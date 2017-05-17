@@ -54,7 +54,7 @@ namespace TestViaticos
             var repo_licencia = new RepositorioLicencias(conexion);
             // ServicioDeLicencias servicio_de_licencias = new ServicioDeLicencias(new RepositorioLicencias(conexion));
 
-            Assert.AreEqual(4, repo_licencia.GetVacacionPermitidaDescontandoPerdidasPara(persona, TestObjects.ConceptoLicenciaOrdinaria()).Count());
+            Assert.AreEqual(4, repo_licencia.GetVacacionPermitidaDescontandoPerdidasPara(persona, TestObjects.ConceptoLicenciaOrdinaria(), new List<VacacionesPermitidas>()).Count());
         }
 
         [TestMethod]

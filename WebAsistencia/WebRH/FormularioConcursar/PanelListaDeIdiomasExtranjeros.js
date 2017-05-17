@@ -85,8 +85,8 @@
     eliminar: function (un_idioma_extranjero) {
         var _this = this;
         // confirm dialog
-        alertify.confirm("¿Está seguro que desea eliminar el idioma?", function (e) {
-            if (e) {
+        alertify.confirm("", "¿Está seguro que desea eliminar el idioma?", 
+            function () {
                 Backend.EliminarCvIdiomaExtranjero(un_idioma_extranjero)
                     .onSuccess(function (respuesta) {
                         alertify.success("Idioma eliminado correctamente");
@@ -97,7 +97,8 @@
                     .onError(function (error, as, asd) {
                         alertify.error("No se pudo eliminar el idioma");
                     });   
-            }
-        });
+            },
+            function(){}
+        );
     }
 }

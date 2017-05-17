@@ -14,12 +14,13 @@
 #contenedor_principal_sicoi
 {
     position: absolute;
-	left: 50%;
-	width: 1024px;
-	margin-left: -512px;	
-	background-color: #FFF;
-	height:81%;
-	overflow:hidden;
+    left: 50%;
+    width: 1024px;
+    margin-left: -512px;
+    background-color: #FFF;
+    height:81%;
+    overflow:hidden;
+    margin-top: 30px;
 }
 
 #contenedor_maestro_detalle
@@ -56,7 +57,7 @@
 
 .boton_que_abre_panel_desplegable
 {
-    height:18px;    
+    height: 36px;
     display:inline-block;
     -webkit-border-radius: 5px 5px 5px 5px;
     border-radius: 5px 5px 5px 5px;

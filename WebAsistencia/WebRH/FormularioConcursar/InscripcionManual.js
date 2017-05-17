@@ -104,7 +104,7 @@
                     alertify.error(nroPostulacion);
                 } else {
                     $('#numero_postulacion').html(nroPostulacion);
-                    alertify.alert('Se ha inscripto correctamente. El número de postulación es: ' + nroPostulacion);
+                    alertify.alert("", 'Se ha inscripto correctamente. El número de postulación es: ' + nroPostulacion);
                     PrintElem();
                 }
 
