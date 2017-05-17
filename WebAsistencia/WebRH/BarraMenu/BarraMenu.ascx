@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="BarraMenu.ascx.cs" Inherits="FormularioDeViaticos_BarraMenu" %>
 <%@ Register Src="FormPassword.ascx" TagName="FormPassword" TagPrefix="uc5" %>
+<%@ Register Src="FormMiArea.ascx" TagName="FormMiArea" TagPrefix="uc6" %>
 <head>
     <title></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -66,6 +67,7 @@
                 <button id="cambiar-constrasena_usuario" type="button" class="btn btn-info datos_usuario">
                         Modificar contraseña </button> btn barra_menu_botones sombrita-iconos --%>
                 <a id="link_area" rel="leanModal" class="" name="signup" href="#mi_area">Mi área</a>
+                 <uc6:FormMiArea ID="FormMiArea" runat="server" />
                 <a id="go" rel="leanModal" class="" name="signup" href="#signup">Cambiar Contraseña</a>
                 <uc5:FormPassword ID="FormPassword" runat="server" />
                 <div id="cerrar-sesion_usuario">

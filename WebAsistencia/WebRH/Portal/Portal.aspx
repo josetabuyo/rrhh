@@ -19,11 +19,6 @@
         UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <div id="content">
         <div class="navigation ch-grid" id="nav">
-            <div class="datos_del_area">
-                <div style="text-align:center;margin-bottom:-10px;">INFORMACIÓN DE MI ÁREA</div><br />
-                <label style="font-size: 11px;" id="resumen_area">
-                </label>
-            </div>
             <div class="ch-item_3d ch-img-1_3d">
                 <div class="ch-info-wrap_3d">
                     <div class="ch-info_3d">
