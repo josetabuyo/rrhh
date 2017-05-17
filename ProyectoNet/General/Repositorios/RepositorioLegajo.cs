@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using General;
 using Newtonsoft.Json;
+using General.MAU;
 
 namespace General.Repositorios
 {
@@ -733,7 +734,7 @@ namespace General.Repositorios
 
         }
 
-        public string GetDomicilioPendiente(int idPersona)
+        public string GetDomicilioPendientePorPersona(int idPersona)
         {
             var parametros = new Dictionary<string, object>();
 
@@ -754,8 +755,16 @@ namespace General.Repositorios
 
         }
 
-        public bool GuardarDomicilioPendiente(CvDomicilio domicilio, int idUsuario)
+        public bool GuardarDomicilioPendiente(CvDomicilio domicilio, Usuario usuario)
         {
+
+            try {
+               
+            RepositorioDeAlertasPortal repo = new RepositorioDeAlertasPortal(this.conexion);
+            TipoAlertaPortal tipo = new TipoAlertaPortal(1004,"","",0);
+            AlertaPortal alerta = new AlertaPortal(0,"Solicitud de Cambio de Domicilio","Cambio Domicilio",tipo, new DateTime(),usuario,"");
+
+            var idAlerta = repo.crearAlerta(alerta, usuario);
 
             var parametros = new Dictionary<string, object>();
 
@@ -766,13 +775,39 @@ namespace General.Repositorios
             parametros.Add("@cp", domicilio.Cp);
             parametros.Add("@localidad", domicilio.Localidad);
             parametros.Add("@provincia", domicilio.Provincia);
-            parametros.Add("@idPersona", idUsuario);
+            parametros.Add("@idPersona", usuario.Owner.Id);
+            parametros.Add("@idAlerta", idAlerta);
 
 
             conexion.Ejecutar("dbo.LEG_Ins_Domicilios_Pendientes", parametros);
 
             return true;
 
+            } catch (Exception e) {
+                 throw new Exception(e.Message);
+             }
+
+        }
+
+        public string GetDomicilioPendientePorAlerta(int idAlerta)
+        {
+            var parametros = new Dictionary<string, object>();
+
+            parametros.Add("@idAlerta", idAlerta);
+
+            //List<CvDomicilio> listaDomicilios = new List<CvDomicilio>();
+            var tablaDatos = conexion.Ejecutar("dbo.LEG_GET_DomicilioPendientePorAlerta", parametros);
+
+            CvDomicilio dom = new CvDomicilio();
+            if (tablaDatos.Rows.Count > 0)
+            {
+                tablaDatos.Rows.ForEach(row =>
+
+                    dom = new CvDomicilio(row.GetInt("id"), row.GetString("calle", ""), row.GetSmallintAsInt("nro", 0), row.GetString("piso", ""), row.GetString("dpto", ""), row.GetInt("localidad", 0), row.GetInt("cp", 0), row.GetInt("provincia", 0))
+                );
+            }
+
+            return JsonConvert.SerializeObject(dom);
         }
 
         protected override List<Legajo> ObtenerDesdeLaBase()
@@ -791,5 +826,7 @@ namespace General.Repositorios
         }
 
 
+
+        
     }
 }

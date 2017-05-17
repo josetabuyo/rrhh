@@ -4274,6 +4274,21 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public string getDetalleDeAlerta(AlertaPortal alerta, Usuario usuario)
+    {
+        switch (alerta.tipoAlerta.id) {
+            case 1004:
+                RepositorioLegajo repo = RepoLegajo();
+                return repo.GetDomicilioPendientePorAlerta(alerta.id);
+            default:
+                return "";
+        
+        }
+        
+
+    }
+
+    [WebMethod]
     public string GetNotificacionesTodasDePortal()
     {
         RepositorioLegajo repo = RepoLegajo();
@@ -4287,7 +4302,7 @@ public class WSViaticos : System.Web.Services.WebService
     {
         RepositorioLegajo repo = RepoLegajo();
 
-        return repo.GetDomicilioPendiente(usuario.Owner.Id);
+        return repo.GetDomicilioPendientePorPersona(usuario.Owner.Id);
 
     }
 
@@ -4296,7 +4311,7 @@ public class WSViaticos : System.Web.Services.WebService
     {
         RepositorioLegajo repo = RepoLegajo();
 
-        return repo.GuardarDomicilioPendiente(domicilio, usuario.Owner.Id);
+        return repo.GuardarDomicilioPendiente(domicilio, usuario);
 
     }
 

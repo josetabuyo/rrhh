@@ -123,6 +123,44 @@ var Legajo = {
                                 _this.getLocalidades(ui, idProvincia);
                             });
 
+                            ui.find('#btnCambiarDomicilio').click(function () {
+                                var domicilio = {};
+                                domicilio.Calle = ui.find('#txt_calle').val();
+                                domicilio.Numero = ui.find('#txt_numero').val();
+                                domicilio.Piso = ui.find('#txt_piso').val();
+                                domicilio.Depto = ui.find('#txt_dto').val();
+                                domicilio.Cp = ui.find('#txt_cp').val();
+                                domicilio.Localidad = ui.find('#cmb_localidad').val();
+                                domicilio.Provincia = ui.find('#cmb_provincia').val();
+                                Backend.GuardarDomicilioPendiente(domicilio)
+                                    .onSuccess(function (respuesta) {
+                                        vex.dialog.alert({
+                                            message: 'Solicitud de cambio de domicilio generada. Imprima el formulario y entregueselo a RRHH para finalizar el trámite.',
+                                            input: [
+                                            '<style>',
+                                                '.vex-custom-field-wrapper {',
+                                                    'margin: 1em 0;',
+                                                '}',
+                                                '.vex-custom-field-wrapper > label {',
+                                                    'display: inline-block;',
+                                                    'margin-bottom: .2em;',
+                                                '}',
+                                            '</style>',
+                                            '<div style="text-align:center;"><input type="button" value="GenerarPDF"  /></div>',
+                                        ].join('')
+                                        });
+
+                                        //vex.dialog.alert('Solicitud de cambio de domicilio generada. Presente el formulario impreso a RRHH');
+                                        _this.getDatosPersonales();
+
+
+
+                                    })
+                                    .onError(function (e) {
+
+                                    });
+                            });
+
                             return ui;
                         },
                         css: {
@@ -137,43 +175,7 @@ var Legajo = {
                     //$('#cajaCambiarDomicilio').show();
                 });
 
-                $('#btnCambiarDomicilio').click(function () {
-                    var domicilio = {};
-                    domicilio.Calle = $('#txt_calle').val();
-                    domicilio.Numero = $('#txt_numero').val();
-                    domicilio.Piso = $('#txt_piso').val();
-                    domicilio.Depto = $('#txt_dto').val();
-                    domicilio.Cp = $('#txt_cp').val();
-                    domicilio.Localidad = $('#cmb_localidad').val();
-                    domicilio.Provincia = $('#cmb_provincia').val();
-                    Backend.GuardarDomicilioPendiente(domicilio)
-                        .onSuccess(function (respuesta) {
-                            vex.dialog.alert({
-                                message: 'Solicitud de cambio de domicilio generada. Imprima el formulario y entregueselo a RRHH para finalizar el trámite.',
-                                input: [
-                                '<style>',
-                                    '.vex-custom-field-wrapper {',
-                                        'margin: 1em 0;',
-                                    '}',
-                                    '.vex-custom-field-wrapper > label {',
-                                        'display: inline-block;',
-                                        'margin-bottom: .2em;',
-                                    '}',
-                                '</style>',
-                                '<div style="text-align:center;"><input type="button" value="GenerarPDF"  /></div>',
-                            ].join('')
-                            });
-
-                            //vex.dialog.alert('Solicitud de cambio de domicilio generada. Presente el formulario impreso a RRHH');
-                            _this.getDatosPersonales();
-
-
-
-                        })
-                        .onError(function (e) {
-
-                        });
-                });
+                
 
             })
             .onError(function (e) {
@@ -1618,41 +1620,35 @@ var Legajo = {
     MostrarDetalleDeTarea: function (tarea) {
         var _this = this;
 
-        /* var respuestas = [];
-        if (respuestasJSON != "") {
-        respuestas = JSON.parse(respuestasJSON);
-        }*/
-         $("#pantalla_detalle_alerta").load(tarea.tipoAlerta.urlComponente, function () { 
-        vex.defaultOptions.className = 'vex-theme-os';
-        vex.open({
-            afterOpen: function ($vexContent) {
-               
-                
-                
-                
-               
-
-                var ui = $("#pantalla_detalle_alerta").clone();
-                $vexContent.append(ui);
-                ui.show();
+        Backend.getDetalleDeAlerta(tarea)
+                    .onSuccess(function (detalleTareaJSON) {
+                        var detalleTarea = $.parseJSON(detalleTareaJSON);
+                        $("#pantalla_detalle_alerta").load(tarea.tipoAlerta.urlComponente, { detalle: detalleTarea }, function () { 
+                            vex.defaultOptions.className = 'vex-theme-os';
+                            vex.open({
+                                afterOpen: function ($vexContent) {
+                                    var ui = $("#pantalla_detalle_alerta").clone();
+                                    $vexContent.append(ui);
+                                    ui.show();
 
 
-                return ui;
-            },
-            css: {
-                'padding-top': "4%",
-                'padding-bottom': "0%",
-                'background-color': "rgb(249, 248, 248)"
-            },
-            contentCSS: {
-                width: "80%",
-                height: "80%"
-            }
-        });
+                                    return ui;
+                                },
+                                css: {
+                                    'padding-top': "4%",
+                                    'padding-bottom': "0%",
+                                    'background-color': "rgb(249, 248, 248)"
+                                },
+                                contentCSS: {
+                                    width: "80%",
+                                    height: "80%"
+                                }
+                            });
 
 
-    });
-
+                         });
+                });
     }
+   
 
 }
