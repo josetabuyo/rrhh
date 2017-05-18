@@ -8,48 +8,81 @@ namespace General
 {
     public class MoBi_Bien
     {
-        private int _Id;
-        private int _IdTipoBien;
-        private string _Descripcion;
-        private string _Estado;
-        private DateTime _UltMov;
-        private string _Remitente;
-        private string _Asignacion;
+        public int Id { get; set; }
+        public int IdTipoBien { get; set; }
+        public string Descripcion { get; set; }
+        public int Id_Estado { get; set; }
+        public string Estado { get; set; }
+        public DateTime FechaUltMov { get; set; }
+        public int IdReceptor { get; set; }
+        public string Receptor { get; set; }
+        public int IdPropietario { get; set; }
+        public string Propietario { get; set; }
 
-        public int Id_Estado;
+        //private string Remitente { get; set; }
+        //private string Asignacion { get; set; }
+
+        public List<int> Imagenes { get; set; }
 
         public string Ubicacion { get; set; }
         public string Verificacion { get; set; }
 
+        public MoBi_Bien()
+        {
+            this.Imagenes = new List<int>();
+        }
 
 
+        public MoBi_Bien(int id, 
+                        int id_tipobien, 
+                        string descripcion_bien,
+                        int id_estado,             
+                        string estado,
+                        DateTime fecha_movimiento, 
+                        int id_receptor,
+                        string receptor,
+                        int id_area_propietaria,
+                        string area_propietaria)
+        {
+            Id = id;
+            IdTipoBien = id_tipobien;
+            Descripcion = descripcion_bien;
+            Estado = estado;
+            Id_Estado = id_estado;
+            FechaUltMov = fecha_movimiento;
+            IdReceptor = id_receptor;
+            Receptor = receptor;
+            IdPropietario = id_area_propietaria;
+            Propietario = area_propietaria;
+            //Asignacion = asignacion;
+        }
+
+
+
+        /*
         public string Asignacion
         {
             get { return _Asignacion; }
             set { _Asignacion = value; }
         }
-        
 
         public string Remitente
         {
             get { return _Remitente; }
             set { _Remitente = value; }
         }
-        
 
         public DateTime UltMov
         {
             get { return _UltMov; }
             set { _UltMov = value; }
         }
-        
 
         public string Estado
         {
             get { return _Estado; }
             set { _Estado = value; }
         }
-
 
         public string Descripcion
         {
@@ -62,32 +95,13 @@ namespace General
             get { return _IdTipoBien; }
             set { _IdTipoBien = value; }
         }
-        
 
         public int Id
         {
             get { return _Id; }
             set { _Id = value; }
         }
-
-        public List<int> Imagenes;
-
-        public MoBi_Bien()
-        {
-            this.Imagenes = new List<int>();
-        }
-
-
-        public MoBi_Bien(int id, int id_tipobien, string descripcion_bien, string estado, int id_estado, DateTime fecha_movimiento, string asignacion) 
-        {
-            _Id = id;
-            _IdTipoBien = id_tipobien;
-            _Descripcion = descripcion_bien;
-            _Estado = estado;
-            Id_Estado = id_estado;
-            _UltMov = fecha_movimiento;
-            _Asignacion = asignacion;
-        }
+        */
 
 
     }

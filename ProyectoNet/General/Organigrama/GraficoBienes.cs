@@ -29,10 +29,13 @@ namespace General
                        row.GetInt("Id_Bien", 0),
                        row.GetSmallintAsInt("Id_TipoBien", 0),
                        row.GetString("Descripcion", "Sin Dato"),
-                       row.GetString("Estado_Propiedad", "Sin Dato"),
                        row.GetInt("Id_Estado_Propiedad", 0),
+                       row.GetString("Estado_Propiedad", "Sin Dato"),
                        row.GetDateTime("Fecha", DateTime.MinValue),
-                       row.GetString("Descripcion_Receptor", "")
+                       row.GetInt("id_Receptor", 0),
+                       row.GetString("Descripcion_Receptor", ""),
+                       row.GetInt("Id_Area_Propietaria", 0),
+                       row.GetString("Area_Propietaria", "")
                        );
         }
 

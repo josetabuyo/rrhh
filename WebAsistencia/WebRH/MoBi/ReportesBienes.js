@@ -394,11 +394,11 @@ var GraficoContratos = {
         $("#btn_generarInforme").show();
 
         columnas.push(new Columna("Estado", { generar: function (un_registro) { return un_registro.Estado } }));
-        columnas.push(new Columna("Area", { generar: function (un_registro) { return un_registro.Asignacion } }));
+        columnas.push(new Columna("Area", { generar: function (un_registro) { return un_registro.Receptor } }));
         columnas.push(new Columna("Descripción", { generar: function (un_registro) { return un_registro.Descripcion } }));
         //columnas.push(new Columna("Ultimo Mov.", { generar: function (un_registro) { return un_registro.UltMov } }));
         columnas.push(new Columna("Ultimo Mov.", { generar: function (un_registro) {
-            var fecha_sin_hora = un_registro.UltMov.split("T");
+            var fecha_sin_hora = un_registro.FechaUltMov.split("T");
             var fecha = fecha_sin_hora[0].split("-");
             return fecha[2] + "/" + fecha[1] + "/" + fecha[0];
         }
@@ -487,22 +487,23 @@ var GraficoContratos = {
                     btn_accion.append(img);
                     btn_accion.click(function () {
                         checks_activos = ["GraficoPorInforme"];
-                        //_this.FiltrarPersonasParaTablaDetalle(un_registro.Informe, tabla_detalle);
-
-                        //PANTALLA DE BIENES DETALLE
+                        
+                        //--------------- PANTALLA DE BIENES DETALLE ---------------
                         //alert(un_registro.Id);
-                        //localStorage.setItem("idBien", ui.find("#select_niveles").val());
+                        var id_area = localStorage.getItem("idArea");
+
                         localStorage.setItem("idBien", un_registro.Id);
-                        //localStorage.setItem("descripcion", 'IFC231 - RENAULT - KANGOO AUTHENTIQUE PLUS 1.6 DA A');
+                        localStorage.setItem("idEstado", un_registro.Id_Estado);
+                        localStorage.setItem("idAreaSeleccionada", id_area);
+                        
                         window.open('BienesDetalle.aspx', '_blank');
+
+                        //--------------- PANTALLA DE BIENES DETALLE ---------------
+
                     });
 
                     div.append(btn_accion);
                     return div;
-                
-                //var div = $('<div>');
-                //div.html(un_registro.Informe);
-                //return div;
                 }
             }));
 

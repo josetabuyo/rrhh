@@ -4033,6 +4033,27 @@ public class WSViaticos : System.Web.Services.WebService
         return una_respuesta;
     }
 
+
+    [WebMethod]
+    public RespuestaVehiculo ObtenerVehiculoPorID(int id_bien)
+    {
+        var repo = new RepositorioDeVehiculos(Conexion());
+        var una_respuesta = new RespuestaVehiculo();
+        una_respuesta.Respuesta = 1;
+        if (id_bien == null)
+        {
+            una_respuesta.Respuesta = 0;
+            return una_respuesta;
+        }
+        una_respuesta.vehiculo = repo.ObtenerVehiculoPorID(id_bien);
+        if (string.IsNullOrEmpty(una_respuesta.vehiculo.Dominio))
+        {
+            una_respuesta.Respuesta = 0;
+        }
+        return una_respuesta;
+    }
+
+
     [WebMethod]
     public MoBi_Area[] Mobi_GetAreasUsuario(int IdUsuario)
     {
@@ -4063,10 +4084,11 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public MoBi_Bien Mobi_GetBienPorId(int id_bien)
+    public MoBi_Bien Mobi_GetImagenesBienPorId(int id_bien)
     {
-        RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
-        return rMoBi.GetBienPorId(id_bien);
+        //RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
+        //return rMoBi.GetImagenesBienPorIdGetBienPorId(id_bien);
+        return null;
     }
 
     [WebMethod]

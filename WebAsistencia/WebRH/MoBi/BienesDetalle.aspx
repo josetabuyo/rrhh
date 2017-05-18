@@ -18,12 +18,9 @@
     <%--<asp:HiddenField ID="descrip_bien" runat="server" />--%>
     <%--<asp:HiddenField ID="tipo_bien" runat="server" />--%>
     <input type ="hidden" id = "hid" runat="server" />
-
-   <%-- 
-    <asp:HiddenField ID="hidden_descripBien" runat="server" />
-    <input type ="hidden" id = "hdescripBien" runat="server" />--%>
-
-
+    <input type ="hidden" id = "hidEstado" runat="server" />
+    <input type ="hidden" id = "hidAreaSeleccionada" runat="server" />
+    
     <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="True">
     </asp:ScriptManager>
     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'></span>"
@@ -147,6 +144,12 @@
     $(document).ready(function () {    
         var id_bien = localStorage.getItem("idBien"); 
         $("#hid").val(id_bien);
+
+        var id_estado = localStorage.getItem("idEstado");
+        $("#hidEstado").val(id_estado);
+
+        var id_Area_Seleccionada = localStorage.getItem("idAreaSeleccionada");
+        $("#hidAreaSeleccionada").val(id_Area_Seleccionada);
 
     });   
 

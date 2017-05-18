@@ -2,17 +2,18 @@
 $(function () {
     Backend.start(function () {
         var id_bien = localStorage.getItem("idBien");
+        var id_estado = localStorage.getItem("idEstado");
+        var id_Area_Seleccionada = localStorage.getItem("idAreaSeleccionada");
+
         $("#hid").val(id_bien);
+        $("#hidEstado").val(id_estado);
+        $("#hidAreaSeleccionada").val(id_Area_Seleccionada);
 
-        //var descripcion = localStorage.getItem("descripcion");
-        //var tipo_bien = localStorage.getItem("tipobien");
-        //$("#hdescripBien").val(descripcion);
-        //$("#tipo_bien").val(tipo_bien);
 
-        Backend.ElUsuarioLogueadoTienePermisosPara(37).onSuccess(function (tiene_permisos_de_edicion) {
-            Backend.Mobi_GetBienPorId(id_bien).onSuccess(function (bien) {
+        //Backend.ElUsuarioLogueadoTienePermisosPara(37).onSuccess(function (tiene_permisos_de_edicion) {
+        Backend.Mobi_GetImagenesBienPorId(id_bien).onSuccess(function (bien) {
 
-                //                $("#ed_descripcion_bien").text(bien.Descripcion);
+                //$("#ed_descripcion_bien").text(bien.Descripcion);
                 //$("#hdescripBien").text(bien.Descripcion); //GER20160926
                 //                localStorage.setItem("descripBien", bien.Descripcion); //GER20160926    
                 //                $("#ed_contenedor_imagenes").empty();
@@ -40,13 +41,13 @@ $(function () {
                 //                });
 
             });
-        });
+        //});
 
 
         //------------DATOS DEL VEHICULO-----------------------
         //var idVerificador = localStorage.getItem("verificacion");
 
-        Backend.ObtenerVehiculoPorIDVerificacion(id_bien).onSuccess(function (respuesta_vehiculo) {
+        Backend.ObtenerVehiculoPorID(id_bien).onSuccess(function (respuesta_vehiculo) {
 
             if (respuesta_vehiculo.Respuesta == 0) {
                 return;
@@ -67,7 +68,6 @@ $(function () {
                 $("#responsable").text(respuesta_vehiculo.vehiculo.Apellido + ', ' + respuesta_vehiculo.vehiculo.Nombre);
             }
 
-            GeneradorBotones();
         });
 
         //------------------------------------

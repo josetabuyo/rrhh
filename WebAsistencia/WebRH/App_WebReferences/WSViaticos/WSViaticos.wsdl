@@ -2,7 +2,7 @@
 <wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://wsviaticos.gov.ar/">
-      <s:element name="GetConsultasOPD">
+      <s:element name="GetUsuarioLogueado">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
@@ -189,6 +189,20 @@
           <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
         </s:sequence>
       </s:complexType>
+      <s:element name="GetUsuarioLogueadoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUsuarioLogueadoResult" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetConsultasOPD">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetConsultasOPDResponse">
         <s:complexType>
           <s:sequence>
@@ -1501,6 +1515,20 @@
           <s:element minOccurs="0" maxOccurs="1" name="imagenes" type="tns:ArrayOfInt" />
         </s:sequence>
       </s:complexType>
+      <s:element name="ObtenerVehiculoPorID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_bien" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerVehiculoPorIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerVehiculoPorIDResult" type="tns:RespuestaVehiculo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="Mobi_GetAreasUsuario">
         <s:complexType>
           <s:sequence>
@@ -1581,33 +1609,35 @@
           <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
         </s:sequence>
       </s:complexType>
-      <s:element name="Mobi_GetBienPorId">
+      <s:element name="Mobi_GetImagenesBienPorId">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="id_bien" type="s:int" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="Mobi_GetBienPorIdResponse">
+      <s:element name="Mobi_GetImagenesBienPorIdResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Mobi_GetBienPorIdResult" type="tns:MoBi_Bien" />
+            <s:element minOccurs="0" maxOccurs="1" name="Mobi_GetImagenesBienPorIdResult" type="tns:MoBi_Bien" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:complexType name="MoBi_Bien">
         <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdTipoBien" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="Id_Estado" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Estado" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaUltMov" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdReceptor" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Receptor" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdPropietario" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Propietario" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Imagenes" type="tns:ArrayOfInt" />
           <s:element minOccurs="0" maxOccurs="1" name="Ubicacion" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Verificacion" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Asignacion" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Remitente" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="UltMov" type="s:dateTime" />
-          <s:element minOccurs="0" maxOccurs="1" name="Estado" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="IdTipoBien" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
         </s:sequence>
       </s:complexType>
       <s:element name="Mobi_GetBienesDelArea">
@@ -2222,20 +2252,6 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="GetDocumentosDelLegajoResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetUsuarioLogueado">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetUsuarioLogueadoResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetUsuarioLogueadoResult" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -6743,6 +6759,12 @@
       </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="GetUsuarioLogueadoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUsuarioLogueado" />
+  </wsdl:message>
+  <wsdl:message name="GetUsuarioLogueadoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUsuarioLogueadoResponse" />
+  </wsdl:message>
   <wsdl:message name="GetConsultasOPDSoapIn">
     <wsdl:part name="parameters" element="tns:GetConsultasOPD" />
   </wsdl:message>
@@ -7025,6 +7047,12 @@
   <wsdl:message name="ObtenerVehiculoPorIDVerificacionSoapOut">
     <wsdl:part name="parameters" element="tns:ObtenerVehiculoPorIDVerificacionResponse" />
   </wsdl:message>
+  <wsdl:message name="ObtenerVehiculoPorIDSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerVehiculoPorID" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerVehiculoPorIDSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerVehiculoPorIDResponse" />
+  </wsdl:message>
   <wsdl:message name="Mobi_GetAreasUsuarioSoapIn">
     <wsdl:part name="parameters" element="tns:Mobi_GetAreasUsuario" />
   </wsdl:message>
@@ -7049,11 +7077,11 @@
   <wsdl:message name="Mobi_GetTipoBienSoapOut">
     <wsdl:part name="parameters" element="tns:Mobi_GetTipoBienResponse" />
   </wsdl:message>
-  <wsdl:message name="Mobi_GetBienPorIdSoapIn">
-    <wsdl:part name="parameters" element="tns:Mobi_GetBienPorId" />
+  <wsdl:message name="Mobi_GetImagenesBienPorIdSoapIn">
+    <wsdl:part name="parameters" element="tns:Mobi_GetImagenesBienPorId" />
   </wsdl:message>
-  <wsdl:message name="Mobi_GetBienPorIdSoapOut">
-    <wsdl:part name="parameters" element="tns:Mobi_GetBienPorIdResponse" />
+  <wsdl:message name="Mobi_GetImagenesBienPorIdSoapOut">
+    <wsdl:part name="parameters" element="tns:Mobi_GetImagenesBienPorIdResponse" />
   </wsdl:message>
   <wsdl:message name="Mobi_GetBienesDelAreaSoapIn">
     <wsdl:part name="parameters" element="tns:Mobi_GetBienesDelArea" />
@@ -7294,12 +7322,6 @@
   </wsdl:message>
   <wsdl:message name="GetDocumentosDelLegajoSoapOut">
     <wsdl:part name="parameters" element="tns:GetDocumentosDelLegajoResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetUsuarioLogueadoSoapIn">
-    <wsdl:part name="parameters" element="tns:GetUsuarioLogueado" />
-  </wsdl:message>
-  <wsdl:message name="GetUsuarioLogueadoSoapOut">
-    <wsdl:part name="parameters" element="tns:GetUsuarioLogueadoResponse" />
   </wsdl:message>
   <wsdl:message name="GetUsuarioPorIdPersonaSoapIn">
     <wsdl:part name="parameters" element="tns:GetUsuarioPorIdPersona" />
@@ -8724,6 +8746,10 @@
     <wsdl:part name="parameters" element="tns:IniciarServicioDeAlertasResponse" />
   </wsdl:message>
   <wsdl:portType name="WSViaticosSoap">
+    <wsdl:operation name="GetUsuarioLogueado">
+      <wsdl:input message="tns:GetUsuarioLogueadoSoapIn" />
+      <wsdl:output message="tns:GetUsuarioLogueadoSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetConsultasOPD">
       <wsdl:input message="tns:GetConsultasOPDSoapIn" />
       <wsdl:output message="tns:GetConsultasOPDSoapOut" />
@@ -8912,6 +8938,10 @@
       <wsdl:input message="tns:ObtenerVehiculoPorIDVerificacionSoapIn" />
       <wsdl:output message="tns:ObtenerVehiculoPorIDVerificacionSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="ObtenerVehiculoPorID">
+      <wsdl:input message="tns:ObtenerVehiculoPorIDSoapIn" />
+      <wsdl:output message="tns:ObtenerVehiculoPorIDSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="Mobi_GetAreasUsuario">
       <wsdl:input message="tns:Mobi_GetAreasUsuarioSoapIn" />
       <wsdl:output message="tns:Mobi_GetAreasUsuarioSoapOut" />
@@ -8928,9 +8958,9 @@
       <wsdl:input message="tns:Mobi_GetTipoBienSoapIn" />
       <wsdl:output message="tns:Mobi_GetTipoBienSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="Mobi_GetBienPorId">
-      <wsdl:input message="tns:Mobi_GetBienPorIdSoapIn" />
-      <wsdl:output message="tns:Mobi_GetBienPorIdSoapOut" />
+    <wsdl:operation name="Mobi_GetImagenesBienPorId">
+      <wsdl:input message="tns:Mobi_GetImagenesBienPorIdSoapIn" />
+      <wsdl:output message="tns:Mobi_GetImagenesBienPorIdSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="Mobi_GetBienesDelArea">
       <wsdl:input message="tns:Mobi_GetBienesDelAreaSoapIn" />
@@ -9091,10 +9121,6 @@
     <wsdl:operation name="GetDocumentosDelLegajo">
       <wsdl:input message="tns:GetDocumentosDelLegajoSoapIn" />
       <wsdl:output message="tns:GetDocumentosDelLegajoSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetUsuarioLogueado">
-      <wsdl:input message="tns:GetUsuarioLogueadoSoapIn" />
-      <wsdl:output message="tns:GetUsuarioLogueadoSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetUsuarioPorIdPersona">
       <wsdl:input message="tns:GetUsuarioPorIdPersonaSoapIn" />
@@ -10047,6 +10073,15 @@
   </wsdl:portType>
   <wsdl:binding name="WSViaticosSoap" type="tns:WSViaticosSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetUsuarioLogueado">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetUsuarioLogueado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetConsultasOPD">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetConsultasOPD" style="document" />
       <wsdl:input>
@@ -10470,6 +10505,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ObtenerVehiculoPorID">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ObtenerVehiculoPorID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="Mobi_GetAreasUsuario">
       <soap:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetAreasUsuario" style="document" />
       <wsdl:input>
@@ -10506,8 +10550,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="Mobi_GetBienPorId">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetBienPorId" style="document" />
+    <wsdl:operation name="Mobi_GetImagenesBienPorId">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetImagenesBienPorId" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -10868,15 +10912,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetDocumentosDelLegajo">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetDocumentosDelLegajo" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetUsuarioLogueado">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetUsuarioLogueado" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -13020,6 +13055,15 @@
   </wsdl:binding>
   <wsdl:binding name="WSViaticosSoap12" type="tns:WSViaticosSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetUsuarioLogueado">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetUsuarioLogueado" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetConsultasOPD">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetConsultasOPD" style="document" />
       <wsdl:input>
@@ -13443,6 +13487,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ObtenerVehiculoPorID">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ObtenerVehiculoPorID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="Mobi_GetAreasUsuario">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetAreasUsuario" style="document" />
       <wsdl:input>
@@ -13479,8 +13532,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="Mobi_GetBienPorId">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetBienPorId" style="document" />
+    <wsdl:operation name="Mobi_GetImagenesBienPorId">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetImagenesBienPorId" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -13841,15 +13894,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetDocumentosDelLegajo">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetDocumentosDelLegajo" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetUsuarioLogueado">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetUsuarioLogueado" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
