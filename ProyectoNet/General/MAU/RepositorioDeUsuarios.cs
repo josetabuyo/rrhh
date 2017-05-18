@@ -389,7 +389,14 @@ namespace General.MAU
             return true;
         }
 
+        public bool AceptarCambioImagenConImagenRecortada(int id_usuario, int id_imagen_recortada)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_usuario", id_usuario);
+            parametros.Add("@id_imagen_recortada", id_imagen_recortada);
+            var tablaDatos = conexion.Ejecutar("dbo.MAU_AceptarCambioDeImagenConImagenRecortada", parametros);
 
-
+            return true;
+        }
     }
 }
