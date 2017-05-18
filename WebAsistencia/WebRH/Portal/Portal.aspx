@@ -18,6 +18,7 @@
     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:18px; font-weight: bold; padding-top:25px;'>Portal<br/> del Empleado</span> <br/> "
         UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <div id="content">
+    <div class="resumen_area"></div>
         <div class="navigation ch-grid" id="nav">
             <div class="ch-item_3d ch-img-1_3d">
                 <div class="ch-info-wrap_3d">
@@ -184,6 +185,7 @@
 
             //DESCOMENTAR CUANDO SE TERMINE SINO HINCHABA LAS PELOTAS
             Backend.start(function () {
+                Legajo.getAreaDeLaPersona();
                 /* Backend.GetUsuarioLogueado().onSuccess(function (usuario) {
                         
                 /*var levantar_prompt = function () {

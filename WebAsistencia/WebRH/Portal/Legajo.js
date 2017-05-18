@@ -1417,7 +1417,7 @@ var Legajo = {
         var _this = this;
         Backend.getAreaDeLaPersona().onSuccess(function (datos) {
             var data = $.parseJSON(datos);
-            var resumen = "<div style='text-align:center;'><b>" + data.Nombre + "</b></div><br/>";
+            var resumen = "<div style='text-align:center;'><b>DATOS DE MI ÁREA <br />" + data.Nombre + "</b></div><br/>";
             if (data.datos_del_responsable.Apellido != "") {
                 resumen = resumen + "RESPONSABLE: " + data.datos_del_responsable.Apellido + ", " + data.datos_del_responsable.Nombre + "<br/>";
             }
