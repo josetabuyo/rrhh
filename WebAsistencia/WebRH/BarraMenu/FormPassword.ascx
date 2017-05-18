@@ -50,41 +50,62 @@
                     return false;
                 }
 
-                var data_post = JSON.stringify({
-                    pass_actual: pass_actual,
-                    pass_nueva: pass_nueva
-                });
+                //                var data_post = JSON.stringify({
+                //                    pass_actual: pass_actual,
+                //                    pass_nueva: pass_nueva
+                //                });
                 _this = this;
 
-                $.ajax({
-                    url: $('#BarraMenu_FormPassword_urlAjax').val().concat("AjaxWS.asmx/CambiarPassword"),
-                    type: "POST",
-                    data: data_post,
-                    dataType: "json",
-                    contentType: "application/json; charset=utf-8",
-                    success: function (respuestaJson) {
-                        var respuesta = JSON.parse(respuestaJson.d);
-                        if (respuesta.tipoDeRespuesta == "cambioPassword.ok") {
-
-                            alertify.alert("", "Se cambio la contrase&ntilde;a correctamente");
-                            $(".modal_close").click();
-                            $('#pass_actual').val("");
-                            $('#pass_nueva').val("");
-                            $('#pass_nueva_repetida').val("");
-                            return;
-                        }
-
-                        if (respuesta.tipoDeRespuesta == "cambioPassword.error") {
-                            alertify.alert("", "La contrase&ntilde;a actual no es correcta");
-                            $(".modal_close").click();
-                            return;
-                        }
-
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        alertify.alert(errorThrown);
+                Backend.CambiarPassword(pass_actual, pass_nueva)
+                .onSuccess(function (resp_string) {
+                    var respuesta = JSON.parse(resp_string);
+                    if (respuesta.tipoDeRespuesta == "cambioPassword.ok") {
+                        alertify.alert("", "Se cambio la contrase&ntilde;a correctamente");
+                        $(".modal_close").click();
+                        $('#pass_actual').val("");
+                        $('#pass_nueva').val("");
+                        $('#pass_nueva_repetida').val("");
+                        return;
                     }
+
+                    if (respuesta.tipoDeRespuesta == "cambioPassword.error") {
+                        alertify.alert("", "La contrase&ntilde;a actual no es correcta");
+                        $(".modal_close").click();
+                        return;
+                    }
+                })
+                .onError(function (XMLHttpRequest, textStatus, errorThrown) {
+                    alertify.alert(errorThrown);
                 });
+                //                $.ajax({
+                //                    url: $('#BarraMenu_FormPassword_urlAjax').val().concat("AjaxWS.asmx/CambiarPassword"),
+                //                    type: "POST",
+                //                    data: data_post,
+                //                    dataType: "json",
+                //                    contentType: "application/json; charset=utf-8",
+                //                    success: function (respuestaJson) {
+                //                        var respuesta = JSON.parse(respuestaJson.d);
+                //                        if (respuesta.tipoDeRespuesta == "cambioPassword.ok") {
+
+                //                            alertify.alert("", "Se cambio la contrase&ntilde;a correctamente");
+                //                            $(".modal_close").click();
+                //                            $('#pass_actual').val("");
+                //                            $('#pass_nueva').val("");
+                //                            $('#pass_nueva_repetida').val("");
+                //                            return;
+                //                        }
+
+                //                        if (respuesta.tipoDeRespuesta == "cambioPassword.error") {
+                //                            alertify.alert("", "La contrase&ntilde;a actual no es correcta");
+                //                            $(".modal_close").click();
+                //                            return;
+                //                        }
+
+                //                    },
+                //                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                //                        alertify.alert(errorThrown);
+                //                    }
+                //                });
             });
         });
 

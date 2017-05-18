@@ -57,5 +57,23 @@ namespace General.MAU
         {
 
         }
+
+
+        public void ConcederBasicas(int id_usuario)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public void ConcederBasicas(Usuario usuario)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public List<Usuario> UsuariosConLaFuncionalidad(int id_funcionalidad)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

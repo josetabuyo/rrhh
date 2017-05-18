@@ -65,15 +65,15 @@ var Reportes = {
                             if (usuario.Owner.IdImagen >= 0) {
                                 var img = new VistaThumbnail({ id: usuario.Owner.IdImagen, contenedor: $("#foto_usuario") });
                                 $("#foto_usuario").show();
-                                $("#foto_usuario_generica").hide();
+                                $("#foto_usuario_generica.foto_usuario").hide();
                             }
                             else {
                                 $("#foto_usuario").hide();
-                                $("#foto_usuario_generica").show();
+                                $("#foto_usuario_generica.foto_usuario").show();
                             }
                         } else {
                             $("#foto_usuario").hide();
-                            $("#foto_usuario_generica").show();
+                            $("#foto_usuario_generica.foto_usuario").show();
                         }
                     });
 

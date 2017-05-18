@@ -7,12 +7,14 @@
     <link id="link2" rel="stylesheet" href="<%= UrlEstilos %>BarraMenuUsuarios.css" type="text/css" />
     <link href="../scripts/vex-2.1.1/css/vex.css" rel="stylesheet">
     <link href="../scripts/vex-2.1.1/css/vex-theme-os.css" rel="stylesheet">
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../Estilos/bootstrap.min.css">
     <link href="../scripts/vex-2.1.1/css/vex.css" rel="stylesheet">
     <link href="../scripts/vex-2.1.1/css/vex-theme-os.css" rel="stylesheet">
     <script type="text/javascript" src="../BarraMenu/BarraMenu.js"></script>
-    <script type="text/javascript" src="../BarraMenu/BotonDesplegable.js"></script>
+    <script type="text/javascript" src="../BarraMenu/MenuDesplegable.js"></script>
+    <script type="text/javascript" src="../BarraMenu/VistaAlerta.js"></script>
+    <script type="text/javascript" src="../BarraMenu/VistaSolicitudDeCambioDeImagen.js"></script>
+    <script type="text/javascript" src="../BarraMenu/VistaItemMenu.js"></script>
     <script type="text/javascript" src="../Scripts/ControlesImagenes/VistaThumbnail.js"></script>
     <script type="text/javascript" src="../Scripts/ControlesImagenes/SubidorDeImagenes.js"></script>
     <script type="text/javascript" src="../scripts/vex-2.1.1/js/vex.combined.min.js"></script>
@@ -59,15 +61,16 @@
             <div id="email_user" class="cabecera_menu_usuario">
             </div>
             <div id="info_usuario">
-                <button id="cambiar-email_usuario" type="button" class="btn barra_menu_botones sombrita-iconos">
+            <a id="link_area" style="display:none;">Mi Área</a>
+                <a id="cambiar-email_usuario" class="" name="signup" >Modificar correo</a>
+                <%--<button id="cambiar-email_usuario" type="button" class="btn barra_menu_botones sombrita-iconos">
                     Modificar correo</button>
-                <%--<button id="cambiar-constrasena_usuario" type="button" class="btn btn-info datos_usuario">
-                        Modificar contraseña </button>--%>
-                <a id="go" rel="leanModal" class="btn barra_menu_botones sombrita-iconos" name="signup"
-                    href="#signup">Cambiar Contraseña</a>
+                <button id="cambiar-constrasena_usuario" type="button" class="btn btn-info datos_usuario">
+                        Modificar contraseña </button> btn barra_menu_botones sombrita-iconos --%>
+                <a id="go" rel="leanModal" class="" name="signup" href="#signup">Cambiar Contraseña</a>
                 <uc5:FormPassword ID="FormPassword" runat="server" />
                 <div id="cerrar-sesion_usuario">
-                    <asp:Button ID="CerrarSessionLinkButton" CssClass="barra_menu_botones sombrita-iconos"
+                    <asp:Button ID="CerrarSessionLinkButton" CssClass="btn btn-primary"
                         runat="server" OnClick="CerrarSessionLinkButton_Click" Text="Cerrar Sesión">
                     </asp:Button>
                 </div>
@@ -82,33 +85,70 @@
         </div>
         <!--mensajes-->
         <div id="contenedor_imagen_mensajes">
-            <div id="notificacion_punto_verde">
+            <%--<div id="notificacion_punto_verde">
                 <img id="check" src="../Imagenes/BarraMenu/check.png"></img>
-            </div>
+            </div>--%>
             <div id="notificacion_punto_rojo">
             </div>
-            <img src="<%= UrlImagenes %>mensajes-icono.png" id="menu_mensajes" alt="fotousuariomenu" />
+            <img src="<%= UrlImagenes %>alertas-icono.png" id="menu_mensajes" alt="fotousuariomenu" />
         </div>
         <div id="contenedor_menu_mensajes" class="menu_usuario sombrita-iconos" style="display: none;">
             <div class="flechita">
             </div>
-            <div class="contenedor_de_alertas_y_mensajes">
+            <div id="contenedor_alertas" class="contenedor_de_alertas_y_mensajes">
+            </div>
+        </div>
+
+         <div id="contenedor_imagen_tareas">
+            <img src="<%= UrlImagenes %>tareas-icono.png" id="menu_tareas" alt="fotousuariomenu" />
+        </div>
+        <div id="contenedor_menu_tareas" class="menu_usuario sombrita-iconos" style="display: none;">
+            <div class="flechita">
+            </div>
+            <div id="contenedor_tareas" class="contenedor_de_alertas_y_mensajes">
             </div>
         </div>
     </div>
+    <div id="sub_barrita_negra"></div>
     <div id="plantillas_barra_menu" style="display: none">
+        <div id="indicaciones_al_subir_imagen">
+            <div id="titulo_indicaciones">
+                Al elegir la foto para subir, por favor, tené en cuenta lo siguiente:
+            </div>
+            <div class=indicacion>
+                1-Esta foto es la que te identificará en tu legajo y otros documentos del Ministerio (como la credencial).
+            </div>
+            <div class=indicacion>  
+                2-Procurá que se vea tu cara sobre un fondo claro.                
+            </div>
+            <div class=indicacion>  
+                3-La imagen debe contener la cara completa desde los hombros hasta arriba del pelo.              
+            </div>
+            <div class=indicacion>  
+                4-Evitar ojos cerrados, anteojos y sombreros.              
+            </div>
+            <div class=indicacion>     
+                5-Tu cara debe ser la única que aparezca en la imagen           
+            </div>
+            <image id="btn_ok" src="<%= UrlImagenes %>botones/ok.png"/>
+        </div>
+        <a class="ui_vista_item_menu">
+            <img class='redondeo-modulos' style='margin: 5px;'/>
+        </a>
+
         <div class="ui_mensaje_alerta mensaje_alerta sombra-mensaje">
             <p class="titulo_mensaje_alerta">
                 Mensaje 1</p>
             <p class="contenido_mensaje_alerta">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam mi nunc, euismod
-                eget est nec, consequat porttitor est. Maecenas ante elit, bibendum in volutpat
-                sit amet, imperdiet ac neque. Quisque dapibus eros sit amet mauris venenatis molestie.
-                Integer feugiat felis dolor, pellentesque tincidunt nulla efficitur quis. Pellentesque
-                pretium velit id neque accumsan, vitae aliquam augue mollis. Fusce ut diam malesuada,
-                placerat tortor et, efficitur massa. Praesent sagittis tortor et enim accumsan laoreet.
-                Praesent ut sapien ac leo porta finibus eget vitae lacus. Aliquam at arcu felis.
-                Morbi sit amet consectetur ex. Maecenas in nisi turpis.</p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <image id="btn_ok" src="<%= UrlImagenes %>botones/ok.png"/>
+        </div>
+
+        <div class="ui_tarea sombra-mensaje">
+            <p class="titulo_tarea">
+                bla</p>
+            <p class="descripcion_tarea">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
         </div>
 
         <div id="contenedor_chat_mensajes">
@@ -123,4 +163,9 @@
             <input id="bnt_finalizar" type="button" class="btn btn-primary" value="Finalizar" />
         </div>
     </div>
+     <div id="div_mi_area" style="display: none">
+     <div class="load_imagen" style="text-align:center;">CARGANDO ... <br /><img src="../Imagenes/load.gif" alt="cargando" height="142" width="142"/></div>
+     <div class="resumen_area"></div>
+     </div>
+
 </div>

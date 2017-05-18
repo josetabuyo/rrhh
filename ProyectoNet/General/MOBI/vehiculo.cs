@@ -20,8 +20,14 @@ namespace General
         public string Apellido;
         public string Nombre;
         public List<int> imagenes;
+        public string MensajeTarjeton;
+        public string Mensaje;
+
+
         public Vehiculo() {
             imagenes = new List<int>();
         }
+
+
     }
 }

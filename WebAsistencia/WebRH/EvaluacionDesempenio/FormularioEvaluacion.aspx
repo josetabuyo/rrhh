@@ -29,13 +29,14 @@
 }
 .pregunta-pendiente-leyenda
 {
-    margin-left: 20px;    
+    margin-left: 20px;
+    font-style: italic;     
 }
 .pregunta-pendiente-leyenda:before
 {
    content: " (*) ";
    color: Red;
-   font-weight: bold;     
+   font-weight: bold;    
 }
 .pregunta-pendiente::after 
 {
@@ -43,10 +44,6 @@
     color: Red;
     font-weight: bold;
 } 
-.total-preguntas-pendiente 
-{
-    
-}
 #foto_usuario {
     display: inline-block;
     vertical-align: top;
@@ -72,10 +69,10 @@
     overflow: hidden;
 }
 
-.radioSeleccionado 
+.radioSeleccionado [class*='rta']
 {
-    color: #132a80;
-    font-size: medium;
+    color: #0036ff;
+    font-weight: bold;
 }
 
 .div_fixed {
@@ -122,13 +119,15 @@
     <div id="encabezado">
         <div id="izq" style="width:60%; float:left; position: absolute;">
             <div id="foto_usuario" class="foto_usuario" class="bloque_foto" > </div>
-            <img id="foto_usuario_generica" class="foto_usuario" src="../Imagenes/silueta.gif" style="margin-top: 25px;"/>
-            <p style="margin: 10px; margin-left: 150px; margin-top:50px;">Nivel:<span id="nivel">1. GERENCIAL</span> </p>
-            <p style="margin: 10px; margin-left: 150px;"><span id="nombre_evaluado">Fernando</span></p>
+           <%-- <img id="img_estatica" class="foto_usuario" src="../Imagenes/silueta.gif" style="margin-top: 25px;"/>--%>
+            <p style="margin: 10px; margin-left: 150px; margin-top:50px;"><label>Nivel: </label> <span id="nivel"></span> </p>
+            <p style="margin: 10px; margin-left: 150px;"><label>Nombre: </label> <span id="nombre_evaluado"></span></p>
+            <p style="margin: 10px; margin-left: 150px;"><label>Estado: </label> <span id="baja"></span></p>
+            <p style="margin: 10px; margin-left: 150px; display:none;" ><label>Gremio: </label> <span id="cargo_gremial" ></span></p>
         </div>
         <div id="der" class="" style="width:30%; float:right; border:1px solid; text-align:center; margin: 30px;">
             <h1>Puntaje</h1>
-            <h1 id="puntaje">Muy Alto</h1>
+            <h1 id="puntaje"></h1>
         </div>
     </div>
         
@@ -147,11 +146,11 @@
                        
                         <p class="pregunta"></p>
                         <div>
-                            <p><input type="radio"  data-opcion="1" class="input_form" /><label><span class="rta1"></span></label></p>
-                            <p><input type="radio"  data-opcion="2" class="input_form" /><label><span class="rta2"></span></label></p>
+                            <p><input type="radio"  data-opcion="5" class="input_form" /><label><span class="rta1"></span></label></p>
+                            <p><input type="radio"  data-opcion="4" class="input_form" /><label><span class="rta2"></span></label></p>
                             <p><input type="radio"  data-opcion="3" class="input_form" /><label><span class="rta3"></span></label></p>
-                            <p><input type="radio"  data-opcion="4" class="input_form" /><label><span class="rta4"></span></label></p>
-                            <p><input type="radio"  data-opcion="5" class="input_form" /><label><span class="rta5"></span></label></p>
+                            <p><input type="radio"  data-opcion="2" class="input_form" /><label><span class="rta4"></span></label></p>
+                            <p><input type="radio"  data-opcion="1" class="input_form" /><label><span class="rta5"></span></label></p>
                         </div>
                        
                     </div>

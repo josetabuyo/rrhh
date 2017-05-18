@@ -366,7 +366,7 @@ public class AjaxWS : System.Web.Services.WebService
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public string CambiarPassword(string pass_actual, string pass_nueva)
     {
-        return backEndService.CambiarPassword(this.usuarioLogueado, pass_actual, pass_nueva);
+        return backEndService.CambiarPassword( pass_actual, pass_nueva, this.usuarioLogueado);
 
     }
 
@@ -922,8 +922,20 @@ public class AjaxWS : System.Web.Services.WebService
 
         if (argumentos_esperados.Any(a => a.Name == "usuario"))
         {
-            if (usuarioLogueado.GetType().Name == "UsuarioNulo") throw new Exception("Error: Debe estar logueado para acceder a esta funcionalidad");
-            argumentos_a_enviar.Add(usuarioLogueado);
+            try
+            {
+                if (usuarioLogueado.GetType().Name == "UsuarioNulo") throw new Exception("Error: Debe estar logueado para acceder a esta funcionalidad");
+                argumentos_a_enviar.Add(usuarioLogueado);
+
+            }
+            catch (Exception)
+            {
+                return Newtonsoft.Json.JsonConvert.SerializeObject("");
+            }
+               
+
+            
+
         }
         var respuesta = metodo.Invoke(backEndService, argumentos_a_enviar.ToArray());
 

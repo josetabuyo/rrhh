@@ -73,33 +73,20 @@ namespace General.Repositorios
             {
                 var row = tablaDatos.Rows[0];
 
-                /*var NumeroVehiculo = row.GetString("NumeroVehiculo", "Prueba NroVehiculo");
-                var Dominio = row.GetString("Dominio", "Prueba Dominio");
-                var Segmento = row.GetString("Segmento", "Prueba Segmento");
-                var Marca = row.GetString("Marca", "Prueba Marca");
-                var Modelo = row.GetString("Modelo", "Prueba Modelo");
-                var Motor = row.GetString("Motor", "Prueba Motor");
-                var Chasis = row.GetString("Chasis", "Prueba Chasis");
-                var Anio = row.GetString("Anio", "Prueba Anio");
-                var Observacion = row.GetString("Observacion", "Prueba Observacion");
-                var Area = row.GetString("Area", "Prueba Area");
-                var Apellido = row.GetString("Apellido", "Sin asignación");
-                var Nombre = row.GetString("Nombre", "Sin asignación");*/
-
-
-                unVehiculo.NumeroVehiculo = row.GetString("NumeroVehiculo");
-                unVehiculo.Dominio = row.GetString("Dominio");
-                unVehiculo.Segmento = row.GetString("Segmento");
-                unVehiculo.Marca = row.GetString("Marca");
-                unVehiculo.Modelo = row.GetString("Modelo");
-                unVehiculo.Motor = row.GetString("Motor");
-                unVehiculo.Chasis = row.GetString("Chasis");
-                unVehiculo.Anio = row.GetString("Anio");
-                unVehiculo.Observacion = row.GetString("Observacion");
-                unVehiculo.Area = row.GetString("Area");
-                unVehiculo.Apellido = row.GetString("Apellido");
-                unVehiculo.Nombre = row.GetString("Nombre");
-
+                unVehiculo.NumeroVehiculo = row.GetString("NumeroVehiculo", "");
+                unVehiculo.Dominio = row.GetString("Dominio", "-");
+                unVehiculo.Segmento = row.GetString("Segmento", "");
+                unVehiculo.Marca = row.GetString("Marca", "");
+                unVehiculo.Modelo = row.GetString("Modelo", "");
+                unVehiculo.Motor = row.GetString("Motor", "");
+                unVehiculo.Chasis = row.GetString("Chasis", "");
+                unVehiculo.Anio = row.GetString("Anio", "");
+                unVehiculo.Observacion = row.GetString("Observacion", "");
+                unVehiculo.Area = row.GetString("Area", "");
+                unVehiculo.Apellido = row.GetString("Apellido", "");
+                unVehiculo.Nombre = row.GetString("Nombre", "");
+                unVehiculo.MensajeTarjeton = row.GetString("MensajeTarjeton", null);
+                unVehiculo.Mensaje = row.GetString("MensajeVehiculo", null);
 
                 tablaDatos.Rows.ForEach(r => {
                     if(r.GetObject("id_imagen") is DBNull) return;

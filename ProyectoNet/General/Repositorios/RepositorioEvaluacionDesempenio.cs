@@ -18,6 +18,10 @@ namespace General.Repositorios
             _conexion = conexion;
         }
 
+        public static void Reset() {
+            _instancia = null;
+        }
+
         public static RepositorioEvaluacionDesempenio NuevoRepositorioEvaluacion(IConexionBD conexion)
         {
             if (!(_instancia != null)) _instancia = new RepositorioEvaluacionDesempenio(conexion);
@@ -34,82 +38,34 @@ namespace General.Repositorios
             if (evaluacion != 0)
             {
                 parametros.Add("@id_evaluacion", evaluacion);
-                tablaDatos = _conexion.Ejecutar("dbo.EVAL_GET_Evaluacion", parametros);
-                
-
-                if (tablaDatos.Rows.Count > 0)
-                {
-                    tablaDatos.Rows.ForEach(row =>
-                    {
-                        list_de_pregYRtasRespondidas.Add(new
-                        {
-                            idPregunta = row.GetSmallintAsInt("id_pregunta", 0),
-                            Enunciado = row.GetString("Enunciado", "Sin enunciado"),
-                            Rta1 = row.GetString("Rpta1", "Sin información"),
-                            Rta2 = row.GetString("Rpta2", "Sin información"),
-                            Rta3 = row.GetString("Rpta3", "Sin información"),
-                            Rta4 = row.GetString("Rpta4", "Sin información"),
-                            Rta5 = row.GetString("Rpta5", "Sin información"),
-                            OpcionElegida = row.GetSmallintAsInt("opcion_elegida", 0)
-
-                        });
-                    });
-
-                }
-            }
-            /*
-                parametros = new Dictionary<string, object>();
-                parametros.Add("@id_formulario", nivel);
-                tablaDatos = _conexion.Ejecutar("dbo.EVAL_GET_Formulario", parametros);
-
-                if (tablaDatos.Rows.Count > 0)
-                {
-                    tablaDatos.Rows.ForEach(row =>
-                    {
-                        FormEvaluacion form = new FormEvaluacion();
-                        form.Orden = row.GetSmallintAsInt("Orden", 0);
-                        form.idPregunta = row.GetSmallintAsInt("id_pregunta", 0);
-                        form.idConcepto = row.GetSmallintAsInt("id_concepto", 0);
-                        form.Enunciado = row.GetString("Enunciado", "Sin enunciado");
-                        form.Factor = row.GetString("Factor", "0");
-                        form.idNivel = row.GetSmallintAsInt("id_nivel", 0);
-                        form.DescripcionNivel = row.GetString("descripcion_nivel", "Sin información");
-                        form.DetalleNivel = row.GetString("detalle_nivel", "Sin información");
-                        form.Rta1 = row.GetString("Rpta1", "Sin información");
-                        form.Rta2 = row.GetString("Rpta2", "Sin información");
-                        form.Rta3 = row.GetString("Rpta3", "Sin información");
-                        form.Rta4 = row.GetString("Rpta4", "Sin información");
-                        form.Rta5 = row.GetString("Rpta5", "Sin información");
-                        form.Concepto = row.GetString("concepto", "Sin información");
-                        form.OpcionElegida = 0;
-
-
-                        list_de_pregYRtas.Add(form);
-                        
-                    });
-
-                }
-            
-
-            foreach (var item in list_de_pregYRtasRespondidas)
-            {
-                var idPreguntaDeLaEvaluacion = (int)item.GetType().GetProperty("idPregunta").GetValue(item, null);
-                var opcionElegida = (int)item.GetType().GetProperty("OpcionElegida").GetValue(item, null);
-                foreach (var subForm in list_de_pregYRtas)
-	            {
-                    
-                    if (subForm.idPregunta == idPreguntaDeLaEvaluacion)
-                    {
-                        subForm.OpcionElegida = opcionElegida;
-                    }
-                    
-	            }
             }
             
-            */
+            parametros.Add("@id_nivel", nivel);
+            tablaDatos = _conexion.Ejecutar("dbo.EVAL_GET_Evaluacion", parametros);
+            FormularioFromTabla(list_de_pregYRtasRespondidas, tablaDatos);
+ 
             return JsonConvert.SerializeObject(list_de_pregYRtasRespondidas);
         }
-        
+
+        private static void FormularioFromTabla(List<object> list_de_pregYRtasRespondidas, TablaDeDatos tablaDatos)
+        {
+            tablaDatos.Rows.ForEach(row =>
+            {
+                list_de_pregYRtasRespondidas.Add(new
+                {
+                    idPregunta = row.GetSmallintAsInt("id_pregunta", 0),
+                    Enunciado = row.GetString("Enunciado", "Sin enunciado"),
+                    Rta1 = row.GetString("Rpta1", "Sin información"),
+                    Rta2 = row.GetString("Rpta2", "Sin información"),
+                    Rta3 = row.GetString("Rpta3", "Sin información"),
+                    Rta4 = row.GetString("Rpta4", "Sin información"),
+                    Rta5 = row.GetString("Rpta5", "Sin información"),
+                    OpcionElegida = row.GetSmallintAsInt("opcion_elegida", 0)
+
+                });
+            });
+        }
+
         public string GetNivelesFormulario(string id_nivel)
         {
             var parametros = new Dictionary<string, object>();
@@ -117,20 +73,22 @@ namespace General.Repositorios
             var tablaDatos = _conexion.Ejecutar("dbo.EVAL_GET_CATEGORIAS_NIVEL", parametros);
             object respuesta;
 
-            respuesta = new { id_nivel = tablaDatos.Rows[0].GetSmallintAsInt("id_nivel"),
-                              deficiente = tablaDatos.Rows[0].GetSmallintAsInt("deficiente"),
-                              regular = tablaDatos.Rows[0].GetSmallintAsInt("regular"),
-                              bueno = tablaDatos.Rows[0].GetSmallintAsInt("bueno"),
-                              destacado = tablaDatos.Rows[0].GetSmallintAsInt("destacado"),
-                              descripcion_nivel = tablaDatos.Rows[0].GetString("descripcion")
+            respuesta = new
+            {
+                id_nivel = tablaDatos.Rows[0].GetSmallintAsInt("id_nivel"),
+                deficiente = tablaDatos.Rows[0].GetSmallintAsInt("deficiente"),
+                regular = tablaDatos.Rows[0].GetSmallintAsInt("regular"),
+                bueno = tablaDatos.Rows[0].GetSmallintAsInt("bueno"),
+                destacado = tablaDatos.Rows[0].GetSmallintAsInt("destacado"),
+                descripcion_nivel = tablaDatos.Rows[0].GetString("descripcion")
             };
             return JsonConvert.SerializeObject(respuesta);
         }
 
-        public string GetAgentesEvaluablesPor(Usuario usuario)
-        {
-            var parametros = new Dictionary<string, object>();
+        public List<object> GetAgentesEvaluablesPorRaw(Usuario usuario) {
+             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_evaluador", usuario.Owner.Id);
+            //parametros.Add("@id_evaluador", 3988);
             var tablaDatos = _conexion.Ejecutar("dbo.EVAL_GET_Evaluados_Evaluador", parametros);
 
             var tipos_consultas = new List<Object> { };
@@ -143,13 +101,13 @@ namespace General.Repositorios
                 var id_evaluacion_anterior = 0;
                 tablaDatos.Rows.ForEach(row =>
                 {
-
                     if (primer_row == true)
                     {
                         primer_row = false;
                         id_evaluacion_anterior = row.GetSmallintAsInt("id_evaluacion", 0);
                         var id_evaluado = row.GetSmallintAsInt("id_evaluado", 0);
                         evaluador = newEvaluadoFromRow(row, detalle_preguntas, id_evaluado);
+                        //tipos_consultas.Add(evaluador);
                     }
 
                     if (row.GetSmallintAsInt("id_evaluacion", 0) != id_evaluacion_anterior || id_evaluacion_anterior == 0)
@@ -160,17 +118,24 @@ namespace General.Repositorios
                         var id_evaluado = row.GetSmallintAsInt("id_evaluado", 0);
                         evaluador = newEvaluadoFromRow(row, detalle_preguntas, id_evaluado);
                         AddDetallePreguntasA(detalle_preguntas, row);
-                        
                     }
                     else
                     {
                         AddDetallePreguntasA(detalle_preguntas, row);
                     }
+
                 });
             }
-
-            return JsonConvert.SerializeObject(tipos_consultas);
+            tipos_consultas.Add(evaluador);
+            return tipos_consultas;
         }
+
+        public string GetAgentesEvaluablesPor(Usuario usuario)
+        {
+            return JsonConvert.SerializeObject(GetAgentesEvaluablesPorRaw(usuario));
+        }
+
+  
 
         protected void AddDetallePreguntasA(List<object> detalle_preguntas, RowDeDatos row)
         {
@@ -221,10 +186,7 @@ namespace General.Repositorios
             parametros.Add("@estado", estado);
             parametros.Add("@baja", 0);
             //parametros.Add("@fecha", DateTime());
-
-
             return (int)_conexion.EjecutarEscalar("dbo.EVAL_INS_Evaluacion", parametros);
-
         }
 
         public void updateEvaluacion(int idEval, int idEvaluado, int idEvaluador, int idFormulario, int periodo, int estado)

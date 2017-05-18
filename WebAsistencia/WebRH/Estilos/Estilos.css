@@ -16,7 +16,7 @@
 	width: 1024px;
 	margin-left: -512px;	
 	background-color: #FFF;
-	margin-top: 35px;
+	margin-top: 45px;
 }
 
 .tabla_protocolo
@@ -580,7 +580,7 @@
 {
     position: relative; 
     /*width: 464px; */
-    padding: 14px 20px; 
+    padding: 20px 20px; 
     border-bottom: 1px solid #EEE; 
     text-align: right; 
 }
@@ -610,6 +610,7 @@
     background: #F7F7F7; 
     font-family: "Helvetica Neue"; 
     outline: none; 
+    height: 35px;
     border-top: 1px solid #CCC; 
     border-left: 1px solid #CCC; 
     border-right: 1px solid #E7E6E6; 
