@@ -61,7 +61,7 @@
             <div id="email_user" class="cabecera_menu_usuario">
             </div>
             <div id="info_usuario">
-            <a id="link_area">Mi Área</a>
+            <a id="link_area" style="display:none;">Mi Área</a>
                 <a id="cambiar-email_usuario" class="" name="signup" >Modificar correo</a>
                 <%--<button id="cambiar-email_usuario" type="button" class="btn barra_menu_botones sombrita-iconos">
                     Modificar correo</button>
