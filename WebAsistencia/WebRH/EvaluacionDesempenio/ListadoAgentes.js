@@ -454,7 +454,11 @@ var ListadoAgentes = {
         });
     },
     calificacion: function (coleccion_opciones_elegidas, deficiente, regular, bueno, destacado, completando_formulario) {
-        //coleccion_opciones_elegidas = [2, 1, 3];
+
+        //por cuestiones de diseño, esta lógica se encuentra duplicada, 
+        //del lado del backend , en la clase NivelEvaluacionDesempeño
+        //si se modifica, debe ser cambiada también ahí.
+        
         var puntaje = 0;
         var alguna_incompleta = false;
         var alguna_respondida = false;

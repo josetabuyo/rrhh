@@ -47,7 +47,7 @@
                   </fo:table-cell>
                   <fo:table-cell border-width="0.5pt" border-style="solid" text-align="center" padding="2pt">
                     <fo:block font-size="18pt">
-                      |||||||||||||
+                      <!--||||||||||||| codigo de barras-->
                     </fo:block>
                   </fo:table-cell>
                 </fo:table-row>
@@ -103,7 +103,7 @@
                             <xsl:value-of select="/PdfPrinter/EvaluacionDesempenioPdfTO/nivel_negrita"/>:
                           </fo:inline>
                           <fo:inline text-align="left" font-size="7pt">
-                            <xsl:value-of select="/PdfPrinter/EvaluacionDesempenioPdfTO/nivel_descripcion_larga"/>
+                            <xsl:value-of select="/PdfPrinter/EvaluacionDesempenioPdfTO/descripcion_larga_nivel"/>
                           </fo:inline>
                         </fo:block>
                       </fo:table-cell>
@@ -704,16 +704,18 @@
                       <fo:table-cell border-width="0.5pt" border-style="solid" text-align="center" padding="3pt">
                         <fo:block font-size="9pt">
                           <fo:inline>A) Puntaje Final Obtenido:</fo:inline>
-                          <fo:inline font-weight="bold">13 puntos</fo:inline>
+                          <fo:inline font-weight="bold">
+                            <xsl:value-of select="/PdfPrinter/EvaluacionDesempenioPdfTO/puntaje"/>
+                          </fo:inline>
                         </fo:block>
                       </fo:table-cell>
                       <fo:table-cell border-width="0.5pt" border-style="solid" text-align="center" padding="3pt" number-columns-spanned="2">
                         <fo:block font-size="9pt">
-                          <fo:inline>
+                          <fo:inline font-size="9pt">
                             B) Calificacion Final:
                           </fo:inline>
                           <fo:inline font-weight="bold">
-                            Bueno
+                            <xsl:value-of select="/PdfPrinter/EvaluacionDesempenioPdfTO/calificacion"/>
                           </fo:inline>
                         </fo:block>
                       </fo:table-cell>
@@ -741,11 +743,11 @@
                       <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt" text-align="left">
                         <fo:block>
                           <fo:block >
-                            <fo:inline text-align="left" font-size="7pt">
+                            <fo:inline text-align="left" font-size="9pt">
                               A) Puntaje Final obtenido:
                             </fo:inline>
                             <fo:inline text-align="left" font-size="9pt" font-weight="bold">
-                              13 puntos
+                              <xsl:value-of select="/PdfPrinter/EvaluacionDesempenioPdfTO/puntaje"/>
                             </fo:inline>
                           </fo:block>
                           <fo:block text-align="center">
@@ -774,202 +776,263 @@
                                                 </fo:block>
                                               </fo:table-cell>
                                             </fo:table-row>
-                                            <fo:table-row >
-                                              <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt">
-                                                <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
-                                                  01.1
-                                                </fo:block>
-                                              </fo:table-cell>
-                                              <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt" >
-                                                <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
-                                                  3
-                                                </fo:block>
-                                              </fo:table-cell>
-                                            </fo:table-row>
-                                            <fo:table-row >
-                                              <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt">
-                                                <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
-                                                  01.2
-                                                </fo:block>
-                                              </fo:table-cell>
-                                              <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt" >
-                                                <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
-                                                  2
-                                                </fo:block>
-                                              </fo:table-cell>
-                                            </fo:table-row>
-                                            <fo:table-row >
-                                              <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt">
-                                                <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
-                                                  01.3
-                                                </fo:block>
-                                              </fo:table-cell>
-                                              <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt" >
-                                                <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
-                                                  3
-                                                </fo:block>
-                                              </fo:table-cell>
-                                            </fo:table-row>
-                                            <fo:table-row >
-                                              <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt">
-                                                <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
-                                                  02.0
-                                                </fo:block>
-                                              </fo:table-cell>
-                                              <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt" >
-                                                <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
-                                                  2
-                                                </fo:block>
-                                              </fo:table-cell>
-                                            </fo:table-row>
-                                            <fo:table-row >
-                                              <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt">
-                                                <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
-                                                  03.0
-                                                </fo:block>
-                                              </fo:table-cell>
-                                              <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt" >
-                                                <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
-                                                  1
-                                                </fo:block>
-                                              </fo:table-cell>
-                                            </fo:table-row>
-                                            <fo:table-row >
-                                              <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt">
-                                                <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
-                                                  04.0
-                                                </fo:block>
-                                              </fo:table-cell>
-                                              <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt" >
-                                                <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
-                                                  2
-                                                </fo:block>
-                                              </fo:table-cell>
-                                            </fo:table-row>
-                                            <fo:table-row >
-                                              <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt">
-                                                <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
-                                                  Factor
-                                                </fo:block>
-                                              </fo:table-cell>
-                                              <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt" >
-                                                <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
-                                                  Valor
-                                                </fo:block>
-                                              </fo:table-cell>
-                                            </fo:table-row>
+                                            <xsl:choose>
+                                              <xsl:when test="/PdfPrinter/EvaluacionDesempenioPdfTO/pregunta_1 != ''">
+                                                <fo:table-row >
+                                                  <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt">
+                                                    <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
+                                                      01
+                                                    </fo:block>
+                                                  </fo:table-cell>
+                                                  <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt" >
+                                                    <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
+                                                      <xsl:value-of select="/PdfPrinter/EvaluacionDesempenioPdfTO/puntaje_1"/>
+                                                    </fo:block>
+                                                  </fo:table-cell>
+                                                </fo:table-row>
+                                              </xsl:when>
+                                            </xsl:choose>
+                                            <xsl:choose>
+                                              <xsl:when test="/PdfPrinter/EvaluacionDesempenioPdfTO/pregunta_2 != ''">
+                                                <fo:table-row >
+                                                  <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt">
+                                                    <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
+                                                      02
+                                                    </fo:block>
+                                                  </fo:table-cell>
+                                                  <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt" >
+                                                    <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
+                                                      <xsl:value-of select="/PdfPrinter/EvaluacionDesempenioPdfTO/puntaje_2"/>
+                                                    </fo:block>
+                                                  </fo:table-cell>
+                                                </fo:table-row>
+                                              </xsl:when>
+                                            </xsl:choose>
+                                            <xsl:choose>
+                                              <xsl:when test="/PdfPrinter/EvaluacionDesempenioPdfTO/pregunta_3 != ''">
+                                                <fo:table-row >
+                                                  <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt">
+                                                    <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
+                                                      03
+                                                    </fo:block>
+                                                  </fo:table-cell>
+                                                  <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt" >
+                                                    <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
+                                                      <xsl:value-of select="/PdfPrinter/EvaluacionDesempenioPdfTO/puntaje_3"/>
+                                                    </fo:block>
+                                                  </fo:table-cell>
+                                                </fo:table-row>
+                                              </xsl:when>
+                                            </xsl:choose>
+                                            <xsl:choose>
+                                              <xsl:when test="/PdfPrinter/EvaluacionDesempenioPdfTO/pregunta_4 != ''">
+
+                                                <fo:table-row >
+                                                  <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt">
+                                                    <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
+                                                      04
+                                                    </fo:block>
+                                                  </fo:table-cell>
+                                                  <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt" >
+                                                    <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
+                                                      <xsl:value-of select="/PdfPrinter/EvaluacionDesempenioPdfTO/puntaje_4"/>
+                                                    </fo:block>
+                                                  </fo:table-cell>
+                                                </fo:table-row>
+                                              </xsl:when>
+                                            </xsl:choose>
+                                            <xsl:choose>
+                                              <xsl:when test="/PdfPrinter/EvaluacionDesempenioPdfTO/pregunta_5 != ''">
+                                                <fo:table-row >
+                                                  <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt">
+                                                    <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
+                                                      05
+                                                    </fo:block>
+                                                  </fo:table-cell>
+                                                  <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt" >
+                                                    <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
+                                                      <xsl:value-of select="/PdfPrinter/EvaluacionDesempenioPdfTO/puntaje_5"/>
+                                                    </fo:block>
+                                                  </fo:table-cell>
+                                                </fo:table-row>
+                                              </xsl:when>
+                                            </xsl:choose>
+                                            <xsl:choose>
+                                              <xsl:when test="/PdfPrinter/EvaluacionDesempenioPdfTO/pregunta_6 != ''">
+                                                <fo:table-row >
+                                                  <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt">
+                                                    <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
+                                                      06
+                                                    </fo:block>
+                                                  </fo:table-cell>
+                                                  <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt" >
+                                                    <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
+                                                      <xsl:value-of select="/PdfPrinter/EvaluacionDesempenioPdfTO/puntaje_6"/>
+                                                    </fo:block>
+                                                  </fo:table-cell>
+                                                </fo:table-row>
+                                              </xsl:when>
+                                            </xsl:choose>
+                                            <xsl:choose>
+                                              <xsl:when test="/PdfPrinter/EvaluacionDesempenioPdfTO/pregunta_7 != ''">
+                                                <fo:table-row >
+                                                  <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt">
+                                                    <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
+                                                      07
+                                                    </fo:block>
+                                                  </fo:table-cell>
+                                                  <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt" >
+                                                    <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
+                                                      <xsl:value-of select="/PdfPrinter/EvaluacionDesempenioPdfTO/puntaje_7"/>
+                                                    </fo:block>
+                                                  </fo:table-cell>
+                                                </fo:table-row>
+                                              </xsl:when>
+                                            </xsl:choose>
                                           </fo:table-body>
                                         </fo:table>
                                         <!--fin tabla agente resultado evaluacion-->
                                       </fo:block>
                                     </fo:table-cell>
-                                    <fo:table-cell padding="2pt">
-                                      <!--tabla agente resultado evaluacion 2-->
-                                      <fo:table>
-                                        <fo:table-column column-width="1.25cm" column-number="1"/>
-                                        <fo:table-column column-width="1.25cm" column-number="2"/>
-                                        <fo:table-body>
-                                          <fo:table-row >
-                                            <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt">
-                                              <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
-                                                Factor
-                                              </fo:block>
-                                            </fo:table-cell>
-                                            <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt" >
-                                              <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
-                                                Valor
-                                              </fo:block>
-                                            </fo:table-cell>
-                                          </fo:table-row>
-                                          <fo:table-row >
-                                            <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt">
-                                              <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
-                                                -
-                                              </fo:block>
-                                            </fo:table-cell>
-                                            <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt" >
-                                              <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
-                                                -
-                                              </fo:block>
-                                            </fo:table-cell>
-                                          </fo:table-row>
+                                    <xsl:choose>
+                                      <xsl:when test="/PdfPrinter/EvaluacionDesempenioPdfTO/pregunta_8 != ''">
+                                        <fo:table-cell padding="2pt">
+                                          <!--tabla agente resultado evaluacion 2-->
+                                          <fo:table>
+                                            <fo:table-column column-width="1.25cm" column-number="1"/>
+                                            <fo:table-column column-width="1.25cm" column-number="2"/>
+                                            <fo:table-body>
+                                              <fo:table-row >
+                                                <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt">
+                                                  <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
+                                                    Factor
+                                                  </fo:block>
+                                                </fo:table-cell>
+                                                <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt" >
+                                                  <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
+                                                    Valor
+                                                  </fo:block>
+                                                </fo:table-cell>
+                                              </fo:table-row>
+                                              <xsl:choose>
+                                                <xsl:when test="/PdfPrinter/EvaluacionDesempenioPdfTO/pregunta_8 != ''">
+                                                  <fo:table-row >
+                                                    <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt">
+                                                      <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
+                                                        08
+                                                      </fo:block>
+                                                    </fo:table-cell>
+                                                    <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt" >
+                                                      <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
+                                                        <xsl:value-of select="/PdfPrinter/EvaluacionDesempenioPdfTO/puntaje_8"/>
+                                                      </fo:block>
+                                                    </fo:table-cell>
+                                                  </fo:table-row>
+                                                </xsl:when>
+                                              </xsl:choose>
+                                              <xsl:choose>
+                                                <xsl:when test="/PdfPrinter/EvaluacionDesempenioPdfTO/pregunta_9 != ''">
 
-                                          <fo:table-row >
-                                            <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt">
-                                              <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
-                                                -
-                                              </fo:block>
-                                            </fo:table-cell>
-                                            <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt" >
-                                              <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
-                                                -
-                                              </fo:block>
-                                            </fo:table-cell>
-                                          </fo:table-row>
-                                          <fo:table-row >
-                                            <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt">
-                                              <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
-                                                -
-                                              </fo:block>
-                                            </fo:table-cell>
-                                            <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt" >
-                                              <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
-                                                -
-                                              </fo:block>
-                                            </fo:table-cell>
-                                          </fo:table-row>
-                                          <fo:table-row >
-                                            <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt">
-                                              <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
-                                                -
-                                              </fo:block>
-                                            </fo:table-cell>
-                                            <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt" >
-                                              <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
-                                                -
-                                              </fo:block>
-                                            </fo:table-cell>
-                                          </fo:table-row>
-                                          <fo:table-row >
-                                            <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt">
-                                              <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
-                                                -
-                                              </fo:block>
-                                            </fo:table-cell>
-                                            <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt" >
-                                              <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
-                                                -
-                                              </fo:block>
-                                            </fo:table-cell>
-                                          </fo:table-row>
-                                          <fo:table-row >
-                                            <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt">
-                                              <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
-                                                -
-                                              </fo:block>
-                                            </fo:table-cell>
-                                            <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt" >
-                                              <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
-                                                -
-                                              </fo:block>
-                                            </fo:table-cell>
-                                          </fo:table-row>
-                                          <fo:table-row >
-                                            <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt">
-                                              <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
-                                                -
-                                              </fo:block>
-                                            </fo:table-cell>
-                                            <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt" >
-                                              <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
-                                                -
-                                              </fo:block>
-                                            </fo:table-cell>
-                                          </fo:table-row>
-                                        </fo:table-body>
-                                      </fo:table>
-                                      <!--fin tabla agente resultado evaluacion 2-->
-                                    </fo:table-cell>
+                                                  <fo:table-row >
+                                                    <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt">
+                                                      <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
+                                                        09
+                                                      </fo:block>
+                                                    </fo:table-cell>
+                                                    <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt" >
+                                                      <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
+                                                        <xsl:value-of select="/PdfPrinter/EvaluacionDesempenioPdfTO/puntaje_9"/>
+                                                      </fo:block>
+                                                    </fo:table-cell>
+                                                  </fo:table-row>
+                                                </xsl:when>
+                                              </xsl:choose>
+                                              <xsl:choose>
+                                                <xsl:when test="/PdfPrinter/EvaluacionDesempenioPdfTO/pregunta_10 != ''">
+                                                  <fo:table-row >
+                                                    <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt">
+                                                      <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
+                                                        10
+                                                      </fo:block>
+                                                    </fo:table-cell>
+                                                    <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt" >
+                                                      <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
+                                                        <xsl:value-of select="/PdfPrinter/EvaluacionDesempenioPdfTO/puntaje_10"/>
+                                                      </fo:block>
+                                                    </fo:table-cell>
+                                                  </fo:table-row>
+                                                </xsl:when>
+                                              </xsl:choose>
+                                              <xsl:choose>
+                                                <xsl:when test="/PdfPrinter/EvaluacionDesempenioPdfTO/pregunta_11 != ''">
+                                                  <fo:table-row >
+                                                    <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt">
+                                                      <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
+                                                        11
+                                                      </fo:block>
+                                                    </fo:table-cell>
+                                                    <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt" >
+                                                      <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
+                                                        <xsl:value-of select="/PdfPrinter/EvaluacionDesempenioPdfTO/puntaje_11"/>
+                                                      </fo:block>
+                                                    </fo:table-cell>
+                                                  </fo:table-row>
+                                                </xsl:when>
+                                              </xsl:choose>
+                                              <xsl:choose>
+                                                <xsl:when test="/PdfPrinter/EvaluacionDesempenioPdfTO/pregunta_12 != ''">
+                                                  <fo:table-row >
+                                                    <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt">
+                                                      <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
+                                                        12
+                                                      </fo:block>
+                                                    </fo:table-cell>
+                                                    <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt" >
+                                                      <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
+                                                        <xsl:value-of select="/PdfPrinter/EvaluacionDesempenioPdfTO/puntaje_12"/>
+                                                      </fo:block>
+                                                    </fo:table-cell>
+                                                  </fo:table-row>
+                                                </xsl:when>
+                                              </xsl:choose>
+                                              <xsl:choose>
+                                                <xsl:when test="/PdfPrinter/EvaluacionDesempenioPdfTO/pregunta_13 != ''">
+                                                  <fo:table-row >
+                                                    <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt">
+                                                      <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
+                                                        13
+                                                      </fo:block>
+                                                    </fo:table-cell>
+                                                    <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt" >
+                                                      <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
+                                                        <xsl:value-of select="/PdfPrinter/EvaluacionDesempenioPdfTO/puntaje_13"/>
+                                                      </fo:block>
+                                                    </fo:table-cell>
+                                                  </fo:table-row>
+                                                </xsl:when>
+                                              </xsl:choose>
+                                              <xsl:choose>
+                                                <xsl:when test="/PdfPrinter/EvaluacionDesempenioPdfTO/pregunta_14 != ''">
+                                                  <fo:table-row >
+                                                    <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt">
+                                                      <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
+                                                        14
+                                                      </fo:block>
+                                                    </fo:table-cell>
+                                                    <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt" >
+                                                      <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >
+                                                        <xsl:value-of select="/PdfPrinter/EvaluacionDesempenioPdfTO/puntaje_14"/>
+                                                      </fo:block>
+                                                    </fo:table-cell>
+                                                  </fo:table-row>
+                                                </xsl:when>
+                                              </xsl:choose>
+                                            </fo:table-body>
+                                          </fo:table>
+                                          <!--fin tabla agente resultado evaluacion 2-->
+                                        </fo:table-cell>
+                                      </xsl:when>
+                                    </xsl:choose>
                                   </fo:table-row>
                                 </fo:table-body>
                               </fo:table>
@@ -980,41 +1043,12 @@
                       <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt" text-align="left">
                         <fo:block>
                           <fo:block>
-                            <fo:block text-align="left" font-size="9pt">
-                              B) Calificacion final:
-                            </fo:block>
-                            <fo:block text-align="left" font-size="7pt" font-weight="bold">
-                              <fo:table>
-                                <fo:table-column column-width="1.25cm" column-number="1"/>
-                                <fo:table-column column-width="1.25cm" column-number="2"/>
-                                <fo:table-body>
-                                  <fo:table-row>
-                                    <fo:table-cell>Factor</fo:table-cell>
-                                    <fo:table-cell>Valor</fo:table-cell>
-                                  </fo:table-row>
-                                  <fo:table-row>
-                                    <fo:table-cell>01.1</fo:table-cell>
-                                    <fo:table-cell>3</fo:table-cell>
-                                  </fo:table-row>
-                                  <fo:table-row>
-                                    <fo:table-cell>01.1</fo:table-cell>
-                                    <fo:table-cell>3</fo:table-cell>
-                                  </fo:table-row>
-                                  <fo:table-row>
-                                    <fo:table-cell>01.1</fo:table-cell>
-                                    <fo:table-cell>3</fo:table-cell>
-                                  </fo:table-row>
-                                  <fo:table-row>
-                                    <fo:table-cell>01.1</fo:table-cell>
-                                    <fo:table-cell>3</fo:table-cell>
-                                  </fo:table-row>
-                                  <fo:table-row>
-                                    <fo:table-cell>01.1</fo:table-cell>
-                                    <fo:table-cell>3</fo:table-cell>
-                                  </fo:table-row>
-                                </fo:table-body>
-                              </fo:table>
-                            </fo:block>
+                            <fo:inline text-align="left" font-size="9pt">
+                              B) Calificacion Final:
+                            </fo:inline>
+                            <fo:inline font-weight="bold">
+                              <xsl:value-of select="/PdfPrinter/EvaluacionDesempenioPdfTO/calificacion"/>
+                            </fo:inline>
                           </fo:block>
                           <fo:block>
                             <fo:table>
@@ -1026,13 +1060,14 @@
                                       (1) En caso de que el agente haya calificado "Regular o "Deficiente" se deberá adjuntar el Formulario "B" con el programa de Recuperación.&#x0A;
                                       <xsl:value-of select="'&#x2028;'"/><xsl:value-of select="'&#x2028;'"/>
                                       (2) Los agentes que hayan tenido sanciones disciplinaias en el período evaluado no pueden calificar "Destacado" o "Muy Destacado"
-                                  </fo:block>
+                                    </fo:block>
                                   </fo:table-cell>
                                 </fo:table-row>
                               </fo:table-body>
                             </fo:table>
                           </fo:block>
                         </fo:block>
+
                       </fo:table-cell>
                       <!--  fin resultado evaluacion -->
                     </fo:table-row>

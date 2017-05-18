@@ -27,6 +27,32 @@ namespace General.MED
             this.destacado = destacado;
         }
 
+        public string CalificacionPara(int puntaje)
+        {
+            //por cuestiones de diseño, esta lógica se encuentra duplicada, 
+            //del lado del frontend , en ListadoAgentes.js
+            //si se modifica, debe ser cambiada también ahí.
+
+            if (puntaje > destacado)
+            {
+                return "Muy Destacado";
+            }
+            if (puntaje > bueno)
+            {
+                return "Destacado";
+            }
+            if (puntaje > regular)
+            {
+                return "Bueno";
+            }
+            if (puntaje > deficiente)
+            {
+                return "Regular";
+            }
+
+            return "Deficiente";
+        }
+
         public NivelEvaluacionDesempenio()
         {
         }

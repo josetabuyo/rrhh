@@ -15,15 +15,22 @@ namespace General.MED
 
         public int id_evaluacion { get; set; }
         public int estado_evaluacion { get; set; }
-        public int puntaje { get; set; }
-        public string calificacion { get; set; }
+        public int puntaje { 
+            get { 
+                return this.detalle_preguntas.Sum(p => p.opcion_elegida); 
+            } 
+            set { 
+                 
+            } 
+        }
+        public string calificacion { get { return this.nivel.CalificacionPara(this.puntaje); } set { return; } }
 
         public DescripcionAreaEvaluacion area { get; set; }
 
         public List<DetallePreguntas> detalle_preguntas { get; set; }
 
-        public EvaluacionDesempenio(AgenteEvaluacionDesempenio agente_evaluado, AgenteEvaluacionDesempenio agente_evaluador, int id_evaluacion, int estado_evaluacion, 
-            PeriodoEvaluacion periodo, NivelEvaluacionDesempenio nivel, List<DetallePreguntas> detalle_preguntas, DescripcionAreaEvaluacion area, int puntaje, string calificacion)
+        public EvaluacionDesempenio(AgenteEvaluacionDesempenio agente_evaluado, AgenteEvaluacionDesempenio agente_evaluador, int id_evaluacion, int estado_evaluacion,
+            PeriodoEvaluacion periodo, NivelEvaluacionDesempenio nivel, List<DetallePreguntas> detalle_preguntas, DescripcionAreaEvaluacion area)
         {
             this.agente_evaluado = agente_evaluado;
             this.agente_evaluador = agente_evaluador;
@@ -31,9 +38,18 @@ namespace General.MED
             this.estado_evaluacion = estado_evaluacion;
             this.periodo = periodo;
             this.area = area;
-            
-            this.nivel = nivel; 
+            this.nivel = nivel;
             this.detalle_preguntas = detalle_preguntas;
+        }
+        public int test
+        {
+            get
+            {
+                return 2;
+            }
+            set
+            {
+            }
         }
 
         public EvaluacionDesempenio()
@@ -45,7 +61,5 @@ namespace General.MED
         {
             return idEvaluacion.Equals(this.id_evaluacion);
         }
-
-
     }
 }
