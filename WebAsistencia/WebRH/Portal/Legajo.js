@@ -1429,7 +1429,7 @@ var Legajo = {
                     resumen = resumen + contactos[i].Descripcion + ": " + contactos[i].Dato + "<br/>";
                 }
             };
-            resumen = resumen + '<br/><div style="text-align: center;"><b>GESTORES DE CARGA DE LICENCIAS </b></div>';
+            resumen = resumen + '<br/><div style="text-align: center;"><b>ASISTENTES PARA CARGA DE LICENCIAS </b></div>';
             for (var i = 0; i < asistentes.length; i++) {
                 resumen = resumen + asistentes[i].Apellido + ", " + asistentes[i].Nombre + "<br/>";
             }
