@@ -53,7 +53,6 @@ namespace General.Repositorios
             {
                 area.Asistentes = new List<Asistente>();
             }
-            parametros.Clear();
             parametros.Add("@FechaVigencia", DateTime.Today);
             parametros.Add("@Muestra_Depto", true);
             parametros.Add("@Muestra_Lugares_de_Trabajo", true);
@@ -64,12 +63,7 @@ namespace General.Repositorios
             {
                 tablaDatos3.Rows.ForEach(row =>
                 {
-                    if (row.GetInt("Id_Area") == area.Id)
-                    {
                         area.Asistentes.Add(new Asistente(row.GetString("Nombre", ""), row.GetString("Apellido", ""), "", 0, "", "", ""));  
-                    }
-                    
-
                 });
 
             }
