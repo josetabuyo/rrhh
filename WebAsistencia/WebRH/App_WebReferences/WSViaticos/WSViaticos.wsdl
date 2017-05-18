@@ -2,7 +2,7 @@
 <wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://wsviaticos.gov.ar/">
-      <s:element name="GetDocumentosDelLegajo">
+      <s:element name="GetCarreraAdministrativaPortal">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
@@ -193,6 +193,20 @@
           <s:element minOccurs="1" maxOccurs="1" name="basica" type="s:boolean" />
         </s:sequence>
       </s:complexType>
+      <s:element name="GetCarreraAdministrativaPortalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCarreraAdministrativaPortalResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDocumentosDelLegajo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetDocumentosDelLegajoResponse">
         <s:complexType>
           <s:sequence>
@@ -1898,6 +1912,20 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="getAreaDeLaPersona">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getAreaDeLaPersonaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getAreaDeLaPersonaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetEstudios">
         <s:complexType>
           <s:sequence>
@@ -2257,20 +2285,6 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="GetDesignacionActualResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetCarreraAdministrativaPortal">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetCarreraAdministrativaPortalResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetCarreraAdministrativaPortalResult" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -6772,6 +6786,12 @@
       </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="GetCarreraAdministrativaPortalSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCarreraAdministrativaPortal" />
+  </wsdl:message>
+  <wsdl:message name="GetCarreraAdministrativaPortalSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCarreraAdministrativaPortalResponse" />
+  </wsdl:message>
   <wsdl:message name="GetDocumentosDelLegajoSoapIn">
     <wsdl:part name="parameters" element="tns:GetDocumentosDelLegajo" />
   </wsdl:message>
@@ -7174,6 +7194,12 @@
   <wsdl:message name="SubirImagenSoapOut">
     <wsdl:part name="parameters" element="tns:SubirImagenResponse" />
   </wsdl:message>
+  <wsdl:message name="getAreaDeLaPersonaSoapIn">
+    <wsdl:part name="parameters" element="tns:getAreaDeLaPersona" />
+  </wsdl:message>
+  <wsdl:message name="getAreaDeLaPersonaSoapOut">
+    <wsdl:part name="parameters" element="tns:getAreaDeLaPersonaResponse" />
+  </wsdl:message>
   <wsdl:message name="GetEstudiosSoapIn">
     <wsdl:part name="parameters" element="tns:GetEstudios" />
   </wsdl:message>
@@ -7335,12 +7361,6 @@
   </wsdl:message>
   <wsdl:message name="GetDesignacionActualSoapOut">
     <wsdl:part name="parameters" element="tns:GetDesignacionActualResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetCarreraAdministrativaPortalSoapIn">
-    <wsdl:part name="parameters" element="tns:GetCarreraAdministrativaPortal" />
-  </wsdl:message>
-  <wsdl:message name="GetCarreraAdministrativaPortalSoapOut">
-    <wsdl:part name="parameters" element="tns:GetCarreraAdministrativaPortalResponse" />
   </wsdl:message>
   <wsdl:message name="GetUsuarioPorAliasSoapIn">
     <wsdl:part name="parameters" element="tns:GetUsuarioPorAlias" />
@@ -8765,6 +8785,10 @@
     <wsdl:part name="parameters" element="tns:DetenerServicioDeAlertasResponse" />
   </wsdl:message>
   <wsdl:portType name="WSViaticosSoap">
+    <wsdl:operation name="GetCarreraAdministrativaPortal">
+      <wsdl:input message="tns:GetCarreraAdministrativaPortalSoapIn" />
+      <wsdl:output message="tns:GetCarreraAdministrativaPortalSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetDocumentosDelLegajo">
       <wsdl:input message="tns:GetDocumentosDelLegajoSoapIn" />
       <wsdl:output message="tns:GetDocumentosDelLegajoSoapOut" />
@@ -9033,6 +9057,10 @@
       <wsdl:input message="tns:SubirImagenSoapIn" />
       <wsdl:output message="tns:SubirImagenSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="getAreaDeLaPersona">
+      <wsdl:input message="tns:getAreaDeLaPersonaSoapIn" />
+      <wsdl:output message="tns:getAreaDeLaPersonaSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetEstudios">
       <wsdl:input message="tns:GetEstudiosSoapIn" />
       <wsdl:output message="tns:GetEstudiosSoapOut" />
@@ -9140,10 +9168,6 @@
     <wsdl:operation name="GetDesignacionActual">
       <wsdl:input message="tns:GetDesignacionActualSoapIn" />
       <wsdl:output message="tns:GetDesignacionActualSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetCarreraAdministrativaPortal">
-      <wsdl:input message="tns:GetCarreraAdministrativaPortalSoapIn" />
-      <wsdl:output message="tns:GetCarreraAdministrativaPortalSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetUsuarioPorAlias">
       <wsdl:input message="tns:GetUsuarioPorAliasSoapIn" />
@@ -10096,6 +10120,15 @@
   </wsdl:portType>
   <wsdl:binding name="WSViaticosSoap" type="tns:WSViaticosSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetCarreraAdministrativaPortal">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetCarreraAdministrativaPortal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetDocumentosDelLegajo">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetDocumentosDelLegajo" style="document" />
       <wsdl:input>
@@ -10699,6 +10732,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="getAreaDeLaPersona">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/getAreaDeLaPersona" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetEstudios">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetEstudios" style="document" />
       <wsdl:input>
@@ -10935,15 +10977,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetDesignacionActual">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetDesignacionActual" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetCarreraAdministrativaPortal">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetCarreraAdministrativaPortal" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -13087,6 +13120,15 @@
   </wsdl:binding>
   <wsdl:binding name="WSViaticosSoap12" type="tns:WSViaticosSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetCarreraAdministrativaPortal">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetCarreraAdministrativaPortal" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetDocumentosDelLegajo">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetDocumentosDelLegajo" style="document" />
       <wsdl:input>
@@ -13690,6 +13732,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="getAreaDeLaPersona">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/getAreaDeLaPersona" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetEstudios">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetEstudios" style="document" />
       <wsdl:input>
@@ -13926,15 +13977,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetDesignacionActual">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetDesignacionActual" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetCarreraAdministrativaPortal">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetCarreraAdministrativaPortal" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

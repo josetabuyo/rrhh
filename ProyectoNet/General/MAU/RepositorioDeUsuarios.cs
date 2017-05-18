@@ -14,7 +14,7 @@ namespace General.MAU
         public RepositorioDeUsuarios(IConexionBD conexion, IRepositorioDePersonas repo_personas)
         {
             this.conexion = conexion;
-            this.repositorio_de_personas = repo_personas;
+            this.repositorio_de_personas = repo_personas; 
         }
 
         public Usuario GetUsuarioPorAlias(string alias, bool incluir_bajas=false)
@@ -26,6 +26,12 @@ namespace General.MAU
             if (tablaDatos.Rows.Count > 1) throw new Exception("hay mas de un usuario con el mismo alias: " + alias);
 
             return GetUsuarioDeTablaDeDatos(tablaDatos);                                 
+        }
+        public List<Usuario> GetUsuariosQueAdministranLaFuncionalidadDelArea(int id_funcionalidad, Area area) {
+
+            var usuarios_1 = RepositorioDePermisosSobreAreas.NuevoRepositorioDePermisosSobreAreas(conexion, RepositorioDeAreas.NuevoRepositorioDeAreas(conexion)).UsuariosQueAdministranElArea(area.Id);
+            var usuarios_2 = RepositorioDeFuncionalidadesDeUsuarios.NuevoRepositorioDeFuncionalidadesDeUsuarios(conexion, RepositorioDeFuncionalidades.NuevoRepositorioDeFuncionalidades(conexion)).UsuariosConLaFuncionalidad(id_funcionalidad);
+            return usuarios_1.Intersect(usuarios_2).ToList();
         }
 
         public Usuario GetUsuarioPorId(int id)

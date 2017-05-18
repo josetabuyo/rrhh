@@ -525,7 +525,7 @@ var Legajo = {
                         if (carreraJSON != "") {
                             carreras = JSON.parse(carreraJSON);
                         }
-                           
+
                         carreras = _.sortBy((_.sortBy(carreras, 'FechaDesde')), 'Folio');
 
                         var _this = this;
@@ -1412,6 +1412,32 @@ var Legajo = {
                     .onError(function (e) {
                         spinner.stop();
                     });
+    },
+    getAreaDeLaPersona: function () {
+        var _this = this;
+        Backend.getAreaDeLaPersona().onSuccess(function (datos) {
+            var data = $.parseJSON(datos);
+            var resumen = "<div style='text-align:center;'><b>DATOS DE MI ÁREA <br />" + data.Nombre + "</b></div><br/>";
+            if (data.datos_del_responsable.Apellido != "") {
+                resumen = resumen + "RESPONSABLE: " + data.datos_del_responsable.Apellido + ", " + data.datos_del_responsable.Nombre + "<br/>";
+            }
+             
+            var contactos = data.DatosDeContacto;
+            var asistentes = data.Asistentes;
+            for (var i = 0; i < contactos.length; i++) {
+                if (contactos[i].Descripcion != "" && contactos[i].Dato != "") {
+                    resumen = resumen + contactos[i].Descripcion + ": " + contactos[i].Dato + "<br/>";
+                }
+            };
+            resumen = resumen + '<br/><div style="text-align: center;"><b>ASISTENTES PARA CARGA DE LICENCIAS </b></div>';
+            for (var i = 0; i < asistentes.length; i++) {
+                resumen = resumen + asistentes[i].Apellido + ", " + asistentes[i].Nombre + "<br/>";
+            }
+
+            $('.load_imagen').hide();
+            $('.resumen_contacto').html(data.contacto); //Ver contacto
+            $('.resumen_area').html(resumen);
+        });
     },
     getConsultaIndividual: function (documento, ui) {
         var _this = this;

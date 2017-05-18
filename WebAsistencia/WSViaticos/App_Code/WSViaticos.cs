@@ -3993,6 +3993,7 @@ public class WSViaticos : System.Web.Services.WebService
         return RepositorioDePersonas().GetConsultaRapida(documento);
 
     }
+    
 
     [WebMethod]
     public string GetCarreraAdministrativa(int documento, Usuario usuario)
@@ -4153,6 +4154,12 @@ public class WSViaticos : System.Web.Services.WebService
 
     #endregion
     #region Portal
+    [WebMethod]
+    public string getAreaDeLaPersona(Usuario usuario)
+    {
+        //aaaaaaaaaaaaaaaaaaaaaaaa
+        return RepoLegajo().getAreaDeLaPersona(usuario.Owner.Documento);
+    }
 
     [WebMethod]
     public string GetEstudios(Usuario usuario)
