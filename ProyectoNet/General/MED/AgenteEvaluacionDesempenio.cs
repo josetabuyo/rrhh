@@ -18,6 +18,7 @@ namespace General.MED
         public string puesto_o_cargo;
         public string nivel_educativo;
 
+
         public AgenteEvaluacionDesempenio(int id, string apellido, string nombre, int nro_documento, string situacion_escalafonaria,
             string nivel, string grado, string agrupamiento, string puesto_o_cargo, string nivel_educativo)
         {
@@ -37,5 +38,7 @@ namespace General.MED
         public AgenteEvaluacionDesempenio()
         {
         }
+
+        
     }
 }

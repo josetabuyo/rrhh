@@ -4854,30 +4854,32 @@ public class WSViaticos : System.Web.Services.WebService
 
         doc.puntajes = evaluacion.detalle_preguntas.Select(p => p.opcion_elegida.ToString()).ToArray();
 
+        doc.nivel_descripcion_larga = evaluacion.nivel.descripcion_larga_nivel;// "Seran evaluados en este nivel los agentes no incluidos en los niveles anteriores. El personal con atencion al publico sera evaluado teniendo en cuenta esta circunstancia.";
+        doc.jurisdiccion = evaluacion.area.jurisdiccion;// "Ministerio de Desarrollo Social";
+        doc.secretaria = evaluacion.area.secretaria;// "Secretaria de Coordinacion y Monitoreo Institucional";
+        doc.sub_secretaria = evaluacion.area.sub_secretaria; // ""
+        doc.direccion = evaluacion.area.direccion;// "Direccion Nacional de Administracion";
+        doc.unidad = evaluacion.area.unidad; // "Coordinacion Administrativa";
+        doc.unidad_evaluacion = evaluacion.area.unidad; // "Coordinacion Administrativa";
+
+        //evaluador
+        doc.periodo_evaluado = evaluacion.periodo.desde.ToString("dd/MM/yyyy") + " al " + evaluacion.periodo.hasta.ToString("dd/MM/yyyy");
+        doc.nivel_evaluador = evaluacion.agente_evaluador.nivel;
+        doc.grado_evaluador = evaluacion.agente_evaluador.grado;
+        doc.agrupamiento_evaluador = evaluacion.agente_evaluador.agrupamiento;
+        doc.puesto_evaluador = evaluacion.agente_evaluador.puesto_o_cargo;
+
+        //evaluado 
+        doc.legajo_evaluado = evaluacion.agente_evaluado.nro_documento.ToString();
+        doc.nivel_evaluado = evaluacion.agente_evaluado.nivel;
+        doc.grado_evaluado = evaluacion.agente_evaluado.grado;
+        doc.nivel_educativo_evaluado = evaluacion.agente_evaluado.nivel_educativo;
+        
+        doc.situacion_escalafonaria_evaluador = "SINEP";
 
         //hardcodeos de prueba
-
-        doc.nivel_descripcion_larga = "Seran evaluados en este nivel los agentes no incluidos en los niveles anteriores. El personal con atencion al publico sera evaluado teniendo en cuenta esta circunstancia.";
-        doc.jurisdiccion = "Ministerio de Desarrollo Social";
-        doc.secretaria = "Secretaria de Coordinacion y Monitoreo Institucional";
-        doc.sub_secretaria = "";
-        doc.direccion = "Direccion Nacional de Administracion";
-        doc.unidad = "Coordinacion Administrativa";
-        doc.unidad_evaluacion = "Coordinacion Administrativa";
-        doc.codigo_unidad_evaluacion = "123";
-        doc.periodo_evaluado = "01/01/2007 al 31/12/2007";
-        doc.nivel_evaluador = "B";
-        doc.grado_evaluador = "4";
-        doc.agrupamiento_evaluador = "General";
-        doc.puesto_evaluador = "Director de Comunicaciones";
-        doc.legajo_evaluado = "23";
-        doc.nivel_evaluado = "C";
-        doc.grado_evaluado = "5";
         doc.agrupamiento_evaluado = "General2";
-        doc.nivel_educativo_evaluado = "Primario";
-        doc.situacion_escalafonaria_evaluador = "SINAPA-Res48";
-
-
+        //doc.codigo_unidad_evaluacion = "123";
         return creador_pdfs.Crear("EvaluacionDesempenio", doc);
     }
 }
