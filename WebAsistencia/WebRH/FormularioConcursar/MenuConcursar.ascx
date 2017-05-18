@@ -36,7 +36,7 @@ color:#fff !important;
 
 </style>
 
-<div class="navbar" style="font-size: 15px; z-index:0">
+<div class="navbar" style="font-size: 15px; z-index:0 ">
 
             <div class="navbar-inner" >
                 <div class="container">

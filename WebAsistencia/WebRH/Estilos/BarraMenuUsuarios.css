@@ -79,9 +79,9 @@
 
 #contenedor_menu_usuarios
 {
-    right: 20px !important;
     z-index: 99999;
     border-radius: 30px;
+    right: 41px;
 }
 
 
@@ -167,14 +167,16 @@
     position: absolute;
     top: 260px;
     left: 0px;
+    cursor: pointer;
     /*height: 34px !important;
     width: 159px !important;*/
 }
 #link_area
 {
     position: absolute;
-    top: 235px;
+    top: 240px;
     left: 24px;
+    cursor: pointer;
     /*height: 34px !important;
     width: 159px !important;*/
 }
@@ -182,7 +184,7 @@
 #go
 {
     position: absolute;
-    top: 212px;
+    top: 222px;
     left: -15px;
 }
 
@@ -215,6 +217,8 @@
     z-index: 9999;
     border-radius: 40px;
     border: 1px solid #ccc;
+    position: absolute;
+    top: 53px;
 }
 
 #menu_cuadrados
@@ -290,7 +294,7 @@
 
 #sub_barrita_negra
 {
-    height: 38px;
+    height: 30px;
     background-color: #1c2431;
 }
 
@@ -376,7 +380,7 @@
     -moz-box-shadow: 3px 13px 10px rgba(0,0,0,0.7);
 }
 
-.ui_solicitud_cambio_imagen
+.ui_tarea
 {
     height: 82px;
     width: 96%;
@@ -388,6 +392,20 @@
     border-width: 2px;
     position: relative
 }
+
+.titulo_tarea
+{
+    margin-bottom: 5px;
+    font-size: 1.3em;
+    margin: 0 !important;
+}
+
+.contenido_tarea
+{
+    margin-bottom: 2%;
+    overflow: hidden;
+}
+
 
 .flechita
 {

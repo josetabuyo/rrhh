@@ -36,6 +36,29 @@
     height: 28px;
 }
 
+#indicaciones_al_subir_imagen
+{
+}
+
+#indicaciones_al_subir_imagen #titulo_indicaciones
+{
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+#indicaciones_al_subir_imagen .indicacion
+{
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+#indicaciones_al_subir_imagen #btn_ok
+{
+    height: 40px;
+    cursor: pointer;
+    margin-left: 380px;
+    margin-top: 10px;
+}
 
 #barra_menu
 {

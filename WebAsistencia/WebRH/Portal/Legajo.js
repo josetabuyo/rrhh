@@ -1417,7 +1417,11 @@ var Legajo = {
         var _this = this;
         Backend.getAreaDeLaPersona().onSuccess(function (datos) {
             var data = $.parseJSON(datos);
-            var resumen = data.Nombre + "<br/>"; // Responsable: " + data.datos_del_responsable.Apellido + ", " + data.datos_del_responsable.Nombre + "<br/>";
+            var resumen = "<div style='text-align:center;'><b>" + data.Nombre + "</b></div><br/>";
+            if (data.datos_del_responsable.Apellido != "") {
+                resumen = resumen + "RESPONSABLE: " + data.datos_del_responsable.Apellido + ", " + data.datos_del_responsable.Nombre + "<br/>";
+            }
+             
             var contactos = data.DatosDeContacto;
             var asistentes = data.Asistentes;
             for (var i = 0; i < contactos.length; i++) {
@@ -1425,14 +1429,14 @@ var Legajo = {
                     resumen = resumen + contactos[i].Descripcion + ": " + contactos[i].Dato + "<br/>";
                 }
             };
-            resumen = resumen + '<br/><div style="text-align: center;">RESPONSABLES DE CARGA DE LICENCIAS </div>';
+            resumen = resumen + '<br/><div style="text-align: center;"><b>GESTORES DE CARGA DE LICENCIAS </b></div>';
             for (var i = 0; i < asistentes.length; i++) {
                 resumen = resumen + asistentes[i].Apellido + ", " + asistentes[i].Nombre + "<br/>";
             }
 
-
-            $('#resumen_contacto').html(data.contacto);
-            $('#resumen_area').html(resumen);
+            $('.load_imagen').hide();
+            $('.resumen_contacto').html(data.contacto); //Ver contacto
+            $('.resumen_area').html(resumen);
         });
     },
     getConsultaIndividual: function (documento, ui) {

@@ -385,10 +385,11 @@ namespace General.MAU
             return true;
         }
 
-        public bool RechazarCambioDeImagen(int id_usuario)
+        public bool RechazarCambioDeImagen(int id_usuario, string razon_de_rechazo)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_usuario", id_usuario);
+            parametros.Add("@razon_rechazo", razon_de_rechazo);
             var tablaDatos = conexion.Ejecutar("dbo.MAU_RechazarCambioDeImagen", parametros);
 
             return true;

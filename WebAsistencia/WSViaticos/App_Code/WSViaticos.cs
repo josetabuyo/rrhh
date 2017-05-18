@@ -2642,10 +2642,10 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public bool RechazarCambioDeImagen(int id_usuario, Usuario usuario)
+    public bool RechazarCambioDeImagen(int id_usuario, string razon_de_rechazo, Usuario usuario)
     {
         if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 50)) throw (new Exception("El usuario no tiene permisos para administrar cambios de imagen"));
-        return RepositorioDeUsuarios().RechazarCambioDeImagen(id_usuario);
+        return RepositorioDeUsuarios().RechazarCambioDeImagen(id_usuario, razon_de_rechazo);
     }
 
     [WebMethod]
