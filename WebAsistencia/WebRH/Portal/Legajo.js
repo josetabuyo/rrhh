@@ -175,7 +175,7 @@ var Legajo = {
                     //$('#cajaCambiarDomicilio').show();
                 });
 
-                
+
 
             })
             .onError(function (e) {
@@ -1619,36 +1619,32 @@ var Legajo = {
     },
     MostrarDetalleDeTarea: function (tarea) {
         var _this = this;
+        localStorage.setItem("idAlerta", tarea.id);
+                        
+                        // $("#pantalla_detalle_alerta").load(tarea.tipoAlerta.urlComponente, { detalle: detalleTarea }, function () {
 
-        Backend.getDetalleDeAlerta(tarea)
-                    .onSuccess(function (detalleTareaJSON) {
-                        var detalleTarea = $.parseJSON(detalleTareaJSON);
-                        $("#pantalla_detalle_alerta").load(tarea.tipoAlerta.urlComponente, { detalle: detalleTarea }, function () { 
-                            vex.defaultOptions.className = 'vex-theme-os';
-                            vex.open({
-                                afterOpen: function ($vexContent) {
-                                    var ui = $("#pantalla_detalle_alerta").clone();
-                                    $vexContent.append(ui);
-                                    ui.show();
-
-
-                                    return ui;
-                                },
-                                css: {
-                                    'padding-top': "4%",
-                                    'padding-bottom': "0%",
-                                    'background-color': "rgb(249, 248, 248)"
-                                },
-                                contentCSS: {
-                                    width: "80%",
-                                    height: "80%"
-                                }
-                            });
+                vex.defaultOptions.className = 'vex-theme-os';
+                vex.open({
+                    afterOpen: function ($vexContent) {
+                        //var ui = $("#pantalla_detalle_alerta");
+                        $vexContent.load(tarea.tipoAlerta.urlComponente);
+                        // ui.show();
 
 
-                         });
+                        return $vexContent; //ui;
+                    },
+                    css: {
+                        'padding-top': "4%",
+                        'padding-bottom': "0%",
+                        'background-color': "rgb(249, 248, 248)"
+                    },
+                    contentCSS: {
+                        width: "80%",
+                        height: "80%"
+                    }
                 });
+
     }
-   
+
 
 }

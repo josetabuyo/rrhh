@@ -4274,18 +4274,10 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string getDetalleDeAlerta(AlertaPortal alerta, Usuario usuario)
+    public string GetDomicilioPendientePorAlerta(int idAlerta, Usuario usuario)
     {
-        switch (alerta.tipoAlerta.id) {
-            case 1004:
-                RepositorioLegajo repo = RepoLegajo();
-                return repo.GetDomicilioPendientePorAlerta(alerta.id);
-            default:
-                return "";
-        
-        }
-        
-
+        RepositorioLegajo repo = RepoLegajo();
+        return repo.GetDomicilioPendientePorAlerta(idAlerta);  
     }
 
     [WebMethod]
