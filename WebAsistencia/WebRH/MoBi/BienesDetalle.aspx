@@ -49,13 +49,14 @@
         </div>
     </div>--%>
     
-    <%--<label class="lbl_nombre_atributo">Descripcion:</label>
+   <%-- <label class="lbl_nombre_atributo">Descripcion:</label>
     <div id="ed_descripcion_bien" runat="server" contenteditable="true">
     </div>--%>
 
 
-    <%--<div id="ed_contenedor_imagenes"></div>--%>
-    <%--<div id="btn_add_imagen">+</div>--%>
+    <div id="ed_contenedor_imagenes"></div>
+    <%--<div id="btn_add_imagen" runat="server">+</div>--%>
+    
     <div id="Contenido">
         <table id="datos-vehiculo" class="tabla-principal" style="border-width: thin; border-style: solid; border-color: #808080">
             <tr>
@@ -123,6 +124,7 @@
             </tr>
         </table>
 
+        <div id="btn_add_imagen" runat="server">ver fotos</div>
          <div id="DivBotones" runat="server" style="width: 100%"></div>
         
 

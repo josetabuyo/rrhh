@@ -15,30 +15,31 @@ $(function () {
 
                 //$("#ed_descripcion_bien").text(bien.Descripcion);
                 //$("#hdescripBien").text(bien.Descripcion); //GER20160926
-                //                localStorage.setItem("descripBien", bien.Descripcion); //GER20160926    
-                //                $("#ed_contenedor_imagenes").empty();
-                //                _.forEach(bien.Imagenes, function (id_imagen) {
-                //                    var cont_imagen = $('<div class="imagen_bien"></div>');
-                //                    var opt_vista = {
-                //                        id: id_imagen,
-                //                        contenedor: cont_imagen
-                //                    };
-                //                    if (tiene_permisos_de_edicion)
-                //                        opt_vista.alEliminar = function () {
-                //                            vex.dialog.confirm({
-                //                                message: 'Está seguro que desea eliminar esta imágen?',
-                //                                callback: function (value) {
-                //                                    if (value) {
-                //                                        Backend.Mobi_DesAsignarImagenABien(id_bien, id_imagen).onSuccess(function () {
-                //                                            img.contenedor.remove();
-                //                                        });
-                //                                    }
-                //                                }
-                //                            });
-                //                        };
-                //                    var img = new VistaThumbnail(opt_vista);
-                //                    $("#ed_contenedor_imagenes").append(cont_imagen);
-                //                });
+                //localStorage.setItem("descripBien", bien.Descripcion); //GER20160926    
+                $("#ed_contenedor_imagenes").empty();
+                _.forEach(bien.Imagenes, function (id_imagen) {
+                    var cont_imagen = $('<div class="imagen_bien"></div>');
+                    var opt_vista = {
+                        id: id_imagen,
+                        contenedor: cont_imagen
+                    };
+
+//                    if (tiene_permisos_de_edicion)
+//                        opt_vista.alEliminar = function () {
+//                            vex.dialog.confirm({
+//                                message: 'Está seguro que desea eliminar esta imágen?',
+//                                callback: function (value) {
+//                                    if (value) {
+//                                        Backend.Mobi_DesAsignarImagenABien(id_bien, id_imagen).onSuccess(function () {
+//                                            img.contenedor.remove();
+//                                        });
+//                                    }
+//                                }
+//                            });
+//                        };
+                    var img = new VistaThumbnail(opt_vista);
+                    $("#ed_contenedor_imagenes").append(cont_imagen);
+                });
 
             });
         //});

@@ -4023,7 +4023,7 @@ public class WSViaticos : System.Web.Services.WebService
     {
         if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 33)) throw (new Exception("El usuario no tiene permisos para el modulo de bienes"));
         var repo = new RepositorioTarjetones(Conexion());
-        return repo.NuevoTarjeton(id_Bien);
+        return null; //repo.NuevoTarjeton(id_Bien);
     }
 
     [WebMethod]
@@ -4098,9 +4098,8 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public MoBi_Bien Mobi_GetImagenesBienPorId(int id_bien)
     {
-        //RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
-        //return rMoBi.GetImagenesBienPorIdGetBienPorId(id_bien);
-        return null;
+        RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
+        return rMoBi.GetImagenesBienPorId(id_bien);
     }
 
     [WebMethod]
