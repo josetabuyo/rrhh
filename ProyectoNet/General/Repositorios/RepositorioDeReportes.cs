@@ -23,6 +23,7 @@ namespace General.Repositorios
         private static GraficoDotacion GRAFICODOTACION;
         private static GraficoRangoEtario GRAFICORANGOETARIO;
         private static GraficoContratos GRAFICO_CONTRATO;
+        private static GraficoBienes GRAFICO_BIENES;
         private static bool incluir_dependencias_anterior;
         private static bool detalle_sueldo;
 
@@ -129,6 +130,65 @@ namespace General.Repositorios
             return grafico;
 
         }
+
+
+        public GraficoBienes GetGraficoBienes(string tipo, DateTime fecha, int id_area, bool incluir_dependencias)
+        {
+            GraficoBienes grafico = new GraficoBienes();
+
+            /*if (incluir_dependencias == incluir_dependencias_anterior)
+            {
+                if (GRAFICO_CONTRATO != null)
+                {
+                    if (GRAFICO_CONTRATO.ContienePersonasAContratar())
+                    {
+                        CrearResumen(GRAFICO_CONTRATO, tipo, fecha);
+                    }
+
+                    return GRAFICO_CONTRATO;
+                }
+            }*/
+
+            //id_area_anterior = id_area;
+            incluir_dependencias_anterior = incluir_dependencias;
+            var parametros = new Dictionary<string, object>();
+
+            parametros.Add("@id_Area", id_area);
+            parametros.Add("@incluir_dependencias", incluir_dependencias);
+
+            //var tablaDatos = conexion_bd.Ejecutar("dbo.MOBI_GET_Ultimo_Movimiento", parametros);
+            //var tablaDatosEstados = conexion_bd.Ejecutar("dbo.MOBI_GET_Tipo_Estado");
+            var tablaDatos = conexion_bd.Ejecutar("dbo.MOBI_GET_Bienes_x_Area", parametros);
+            var tablaDatosEstados = conexion_bd.Ejecutar("dbo.MOBI_GET_Estados");
+
+            grafico.Estados = new List<EstadoMoBi>();
+
+            tablaDatosEstados.Rows.ForEach(row =>
+            {
+                var estado = new EstadoMoBi();
+                estado.Id = row.GetSmallintAsInt("Id_Estado");
+                estado.Nombre = row.GetString("Descripcion_Estado");
+                //estado.Codigo = row.GetString("Cod_Estado");
+                grafico.Estados.Add(estado);
+            });
+
+            if (tablaDatos.Rows.Count > 0)
+            {
+                grafico.CrearDatos(tablaDatos.Rows);
+                CrearResumen(grafico, tipo, fecha);
+            }
+            //if (grafico.ContienePersonasAContratar())
+            //{
+                
+            //}
+
+            GRAFICO_BIENES = grafico;
+
+            return grafico;
+
+        }
+
+
 
         private void CrearResumen(Grafico grafico, string tipo, DateTime fecha)
         {

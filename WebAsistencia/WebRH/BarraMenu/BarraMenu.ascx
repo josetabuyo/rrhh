@@ -61,6 +61,7 @@
             <div id="email_user" class="cabecera_menu_usuario">
             </div>
             <div id="info_usuario">
+            <a id="link_area" style="display:none;">Mi Área</a>
                 <a id="cambiar-email_usuario" class="" name="signup" >Modificar correo</a>
                 <%--<button id="cambiar-email_usuario" type="button" class="btn barra_menu_botones sombrita-iconos">
                     Modificar correo</button>
@@ -162,4 +163,9 @@
             <input id="bnt_finalizar" type="button" class="btn btn-primary" value="Finalizar" />
         </div>
     </div>
+     <div id="div_mi_area" style="display: none">
+     <div class="load_imagen" style="text-align:center;">CARGANDO ... <br /><img src="../Imagenes/load.gif" alt="cargando" height="142" width="142"/></div>
+     <div class="resumen_area"></div>
+     </div>
+
 </div>

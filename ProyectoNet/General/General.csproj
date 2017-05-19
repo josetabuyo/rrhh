@@ -107,6 +107,7 @@
     <Compile Include="MAU\AlertaPortal.cs" />
     <Compile Include="MAU\RepositorioDeAlertasPortal.cs" />
     <Compile Include="MAU\SolicitudDeCambioDeImagen.cs" />
+    <Compile Include="Organigrama\GraficoBienes.cs" />
     <Compile Include="MAU\TipoAlertaPortal.cs" />
     <Compile Include="MED\AgenteEvaluacionDesempenio.cs" />
     <Compile Include="MED\DescripcionAreaEvaluacion.cs" />
@@ -121,6 +122,7 @@
     <Compile Include="Portal\Estudio.cs" />
     <Compile Include="Portal\Legajo.cs" />
     <Compile Include="Portal\Respuesta.cs" />
+    <Compile Include="Repositorios\EstadoMoBi.cs" />
     <Compile Include="Repositorios\EstadoContrato.cs" />
     <Compile Include="MED\EvaluacionDesempenio.cs" />
     <Compile Include="Repositorios\FormEvaluacion.cs" />
