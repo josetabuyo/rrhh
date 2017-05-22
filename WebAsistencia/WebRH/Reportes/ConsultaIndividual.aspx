@@ -156,8 +156,10 @@
     <script type="text/javascript" src="../Scripts/select2-3.4.4/Select2.min.js"></script>
     <script type="text/javascript" src="../Scripts/select2-3.4.4/select2_locale_es.js"></script>
     <script type="text/javascript" src="../Scripts/RepositorioDePersonas.js"></script>
+    <script type="text/javascript" src="../Scripts/RepositorioDeAreas.js"></script>
     <script type="text/javascript" src="../Scripts/Persona.js"></script>
     <script type="text/javascript" src="../Scripts/SelectorDePersonas.js"></script>
+    <script type="text/javascript" src="../Scripts/SelectorDeAreas.js"></script>
     <script type="text/javascript" src="../Scripts/jquery.leanModal.min.js"></script>
     <script type="text/javascript" src="../Scripts/ArbolOrganigrama/ArbolOrganigrama.js"></script>
     <script type="text/javascript" src="Reportes.js"></script>

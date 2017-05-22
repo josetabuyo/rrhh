@@ -83,6 +83,7 @@
 </div>
 <script type="text/javascript">
     var AdministradorSolicitudCambioImagen = function (solicitud) {
+        var _this = this;
         vex.defaultOptions.className = 'vex-theme-os';
         vex.open({
             afterOpen: function ($vexContent) {
@@ -94,15 +95,26 @@
                     Backend.AceptarCambioDeImagen(solicitud.usuario.Id).onSuccess(function () {
                         alertify.success('solicitud de cambio de imagen aceptada');
                         vex.close();
+                        _this.alResolver();
                     });
                 });
                 ui.find("#btn_rechazar_cambio_imagen")
                 .off("click")
                 .click(function () {
-                    Backend.RechazarCambioDeImagen(solicitud.usuario.Id).onSuccess(function () {
-                        alertify.success('solicitud de cambio de imagen rechazada');
-                        vex.close();
-                    });
+                    vex.dialog.prompt({
+                        message: 'Indique razón de rechazo',
+                        placeholder: '',
+                        callback: function (value) {
+                            if (value) {
+                                Backend.RechazarCambioDeImagen(solicitud.usuario.Id, value).onSuccess(function () {
+                                    alertify.success('solicitud de cambio de imagen rechazada');
+                                    vex.close();
+                                    _this.alResolver();
+                                });
+                            }
+                        }
+                    })
+
                 });
 
                 ui.find("#usuario_solicitante").text("(" + solicitud.usuario.Alias.replace(' ', '') + ") " + solicitud.usuario.Owner.Apellido + ", " + solicitud.usuario.Owner.Nombre + " DNI:" + solicitud.usuario.Owner.Documento);

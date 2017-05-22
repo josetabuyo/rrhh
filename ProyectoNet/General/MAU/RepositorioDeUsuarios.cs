@@ -14,17 +14,24 @@ namespace General.MAU
         public RepositorioDeUsuarios(IConexionBD conexion, IRepositorioDePersonas repo_personas)
         {
             this.conexion = conexion;
-            this.repositorio_de_personas = repo_personas;
+            this.repositorio_de_personas = repo_personas; 
         }
 
-        public Usuario GetUsuarioPorAlias(string alias)
+        public Usuario GetUsuarioPorAlias(string alias, bool incluir_bajas=false)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@alias", alias);
+            if(incluir_bajas) parametros.Add("@incluir_bajas", 1);
             var tablaDatos = conexion.Ejecutar("dbo.Web_GetUsuario", parametros);
             if (tablaDatos.Rows.Count > 1) throw new Exception("hay mas de un usuario con el mismo alias: " + alias);
 
             return GetUsuarioDeTablaDeDatos(tablaDatos);                                 
+        }
+        public List<Usuario> GetUsuariosQueAdministranLaFuncionalidadDelArea(int id_funcionalidad, Area area) {
+
+            var usuarios_1 = RepositorioDePermisosSobreAreas.NuevoRepositorioDePermisosSobreAreas(conexion, RepositorioDeAreas.NuevoRepositorioDeAreas(conexion)).UsuariosQueAdministranElArea(area.Id);
+            var usuarios_2 = RepositorioDeFuncionalidadesDeUsuarios.NuevoRepositorioDeFuncionalidadesDeUsuarios(conexion, RepositorioDeFuncionalidades.NuevoRepositorioDeFuncionalidades(conexion)).UsuariosConLaFuncionalidad(id_funcionalidad);
+            return usuarios_1.Intersect(usuarios_2).ToList();
         }
 
         public Usuario GetUsuarioPorId(int id)
@@ -87,7 +94,7 @@ namespace General.MAU
             var persona = repositorio_de_personas.GetPersonaPorId(id_persona);
             var alias = (persona.Nombre.First() + persona.Apellido).Replace(" ", "");
             var contador = 1;
-            while (!GetUsuarioPorAlias(alias).Equals(new UsuarioNulo()))
+            while (!GetUsuarioPorAlias(alias, true).Equals(new UsuarioNulo()))
             {
                 alias = (persona.Nombre.First() + persona.Apellido + contador.ToString()).Replace(" ", "");
                 contador++;
@@ -103,11 +110,10 @@ namespace General.MAU
 
             var repo_funcionalidades_usuarios = RepositorioDeFuncionalidadesDeUsuarios.NuevoRepositorioDeFuncionalidadesDeUsuarios(this.conexion, RepositorioDeFuncionalidades.NuevoRepositorioDeFuncionalidades(this.conexion));
 
-            //Permisos básicos
-            repo_funcionalidades_usuarios.ConcederFuncionalidadA(id_usuario, 3); //Menu principal
-            repo_funcionalidades_usuarios.ConcederFuncionalidadA(id_usuario, 13); //Postular
+            var usuario = new Usuario(id_usuario, alias, clave_encriptada, persona, true);
+            repo_funcionalidades_usuarios.ConcederBasicas(usuario);
 
-            return new Usuario(id_usuario, alias, clave_encriptada, persona, true);
+            return usuario;
         }
 
         public void AsociarUsuarioConMail(Usuario usuario, string mail) {
@@ -158,7 +164,7 @@ namespace General.MAU
             var usuario = this.GetUsuarioPorId(id_usuario);
             var titulo = "Bienvenido al SIGIRH";
             var cuerpo = "Nombre de Usuario: " + usuario.Alias + Environment.NewLine + "Contraseña: " + clave_nueva;
-            EnviadorDeMails.EnviarMail(usuario.MailRegistro, titulo, cuerpo);
+           // EnviadorDeMails.EnviarMail(usuario.MailRegistro, titulo, cuerpo);
             return clave_nueva;
         }
 
@@ -255,12 +261,24 @@ namespace General.MAU
                 {
                     un_usuario = GetUsuarioDeRow(row);
                     usuarios.Add(un_usuario);
-                    un_usuario.AgregarFuncionalidad(new Funcionalidad(row.GetInt("idFuncionalidad",0), row.GetString("NombreFuncionalidad",""), ""));
+                    un_usuario.AgregarFuncionalidad(new Funcionalidad(
+                        row.GetInt("idFuncionalidad", 0), 
+                        row.GetString("NombreFuncionalidad", ""), 
+                        row.GetString("GrupoFuncionalidad", ""), 
+                        row.GetBoolean("FuncSoloParaVerificados", false),
+                        row.GetBoolean("FuncSoloParaEmpleados", false),
+                        row.GetBoolean("FuncBasica", false)));
                     idUsuario_original = row.GetInt("Id_Persona");
                 }
                 else
                 {
-                    un_usuario.AgregarFuncionalidad(new Funcionalidad(row.GetInt("idFuncionalidad",0), row.GetString("NombreFuncionalidad",""),""));
+                    un_usuario.AgregarFuncionalidad(new Funcionalidad(
+                        row.GetInt("idFuncionalidad", 0),
+                        row.GetString("NombreFuncionalidad", ""),
+                        row.GetString("GrupoFuncionalidad", ""),
+                        row.GetBoolean("FuncSoloParaVerificados", false),
+                        row.GetBoolean("FuncSoloParaEmpleados", false),
+                        row.GetBoolean("FuncBasica", false)));
                 }
             });
 
@@ -367,10 +385,11 @@ namespace General.MAU
             return true;
         }
 
-        public bool RechazarCambioDeImagen(int id_usuario)
+        public bool RechazarCambioDeImagen(int id_usuario, string razon_de_rechazo)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_usuario", id_usuario);
+            parametros.Add("@razon_rechazo", razon_de_rechazo);
             var tablaDatos = conexion.Ejecutar("dbo.MAU_RechazarCambioDeImagen", parametros);
 
             return true;

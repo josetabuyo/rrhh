@@ -31,7 +31,7 @@ VistaDePermisosDeUnUsuario.prototype.start = function () {
                 children: nodos_funcionalidades,
                 debugLevel: 0,
                 onClick: function (node, event) {
-                   
+                    if(node.data.unselectable) return;
                     if (node.getEventTargetType(event) == 'checkbox') {
                         if (node.isSelected()) {
                             _this.autorizador.denegarFuncionalidadA(
@@ -85,8 +85,27 @@ VistaDePermisosDeUnUsuario.prototype.setUsuario = function (un_usuario) {
             spinner.stop();
         },
         function (error) { //on error
-            alertify.alert("", 'error');
+            alertify.alert("error al cargar funcionalidades del usuario", 'error');
             spinner.stop();
         }
     );
+    this.repositorioDeFuncionalidades.todasLasFuncionalidades(
+        function (funcionalidades) { //on success
+            _.forEach(funcionalidades, function (f) {
+                var nodo = _this.arbol.getNodeByKey(f.Id.toString());
+                if (f.SoloParaVerificados && !un_usuario.Verificado) {
+                    nodo.data.unselectable = true;
+                    return;
+                }
+                if (f.SoloParaEmpleados && !un_usuario.Owner.Legajo) {
+                    nodo.data.unselectable = true;
+                    return;
+                }
+                nodo.data.unselectable = false;
+            });
+        },
+        function (error) { //on error
+            alertify.alert("error al cargar funcionalidades", 'error');
+            spinner.stop();
+        })
 };

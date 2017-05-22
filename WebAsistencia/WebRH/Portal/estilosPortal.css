@@ -11,7 +11,7 @@ body{
 
 #barra_menu_contenedor_imagen 
 {
-    /*margin-top:5px;*/
+    margin-top:5px;
     }
 .title{
     width:548px;
@@ -30,6 +30,17 @@ a.back{
     bottom:0px;
     left:0px;
 }
+.resumen_area
+{
+    width: 279px;
+    position: absolute;
+    background-color: rgba(0, 108, 116, 0.74);
+    border: 3px solid #006b74;
+    color: #FFF;
+    margin-top: -60px;
+    padding: 2px;
+    font-size: 12px;
+}
 #content{
     margin:0 auto;
 }
@@ -41,9 +52,9 @@ a.back{
     font-style: normal;
     font-weight: bold;
     letter-spacing: 1.4px;
-    position:relative;
+    /*position:relative;
     top: 30px;
-    left:-4%;
+    left:60px;*/
     
 }
 .navigation .item{
@@ -81,36 +92,40 @@ a.back{
     
  
 .datosPersonales{
-    top: 60px;
-    left: 660px;
+    top: -120px;
+    left: 60px;
 }
 .estudios{
-    top: 110px;
-    left: 790px;
+    top: -70px;
+    left: 190px;
 }
 .licencias{
-    top: 240px;
-    left: 840px;
+    top: 55px;
+    left: 240px;
 }
-.notificaciones{
-    top: 370px;
-    left: 788px;
+.notificaciones
+{
+    top: 185px;
+    left: 190px;  
 }
 .capacitaciones{
-    top: 420px;
-    left: 658px;
+    top: 240px;
+    left: 60px;
 }
 .beneficios{
-    top: 367px;
-    left: 533px;
+   top: 185px;
+    left: -70px;
 }
-.viaticos{
-    top: 240px;
-    left: 480px;
+.viaticos
+{
+     top: 55px;
+    left: -115px;
+
+    
 }
 .perfil{
-    top: 110px;
-    left: 530px;
+top: -70px;
+    left: -70px;
 }
 
 
@@ -153,7 +168,7 @@ a.icon{
     /*background-position:0px -52px;*/
 }
 
-@media screen and (max-width: 519px) and (min-width: 240px) {
+/*@media screen and (max-width: 519px) and (min-width: 240px) {
    .navigation{
         top: 30px;
         left: -510px;
@@ -184,7 +199,7 @@ a.icon{
         top: 30px;
         left: -70px;
     }
-}
+}*/
 
 
 
@@ -349,16 +364,18 @@ a.icon{
 /*3D PANTALLA INCIIAL */
 
 .ch-info-wrap_3d{
-	position: absolute;
+	position: relative;
 	width: 250px;
 	height: 250px;
 	border-radius: 50%;
 	perspective: 800px;
 	transition: all 0.4s ease-in-out;
-    top: 180px;
-    left: 600px;
+	margin:0 auto;
+	margin-top:100px; /*el de Fer era 200*/
+    /*top: 180px;
+    left: 600px;*/
     z-index:9;
-	background: #f9f9f9 url(../Imagenes/portal/portal_empleado.png);
+	/*background: #f9f9f9 url(../Imagenes/portal/portal_empleado.png);*/
 	box-shadow: 
 		0 0 0 0 rgba(255,255,255,0.8), 
 		inset 0 0 3px rgba(115,114, 23, 0.8);
@@ -369,9 +386,11 @@ a.icon{
 	position: absolute;
     width: 250px;
     height: 250px;
+    z-index: 99;
 	border-radius: 50%;
 	transition: all 0.4s ease-in-out;
 	transform-style: preserve-3d;
+	background: #f9f9f9 url(../Imagenes/portal/portal_empleado.png);
 }
 
 .ch-info_3d > div {
@@ -405,6 +424,16 @@ a.icon{
 	-ms-transform: scale(1.1);
 	transform: scale(1.1);*/
 		/*background-image: url(../Imagenes/portal/portal_empleado.png);*/
+}
+.datos_del_area
+{
+    font-size: 13px;
+    background-color: rgba(25, 75, 180, 0.48);
+    border: 3px double rgba(0, 0, 28, 0.61);
+    border-radius: 5px;
+    color: white;
+    padding: 5px;
+    width: 450px;
 }
 
 /*.ch-item_3d:hover .ch-info_3d {

@@ -18,10 +18,24 @@ var ListadoAgentes = {
         Backend.EvalGetAgentesEvaluables()
         .onSuccess(function (agentesJSON) {
             spinner.stop();
+
             var agentes = JSON.parse(agentesJSON);
+            if (!agentes[0].hasOwnProperty('nombre')) return;
             todas_las_evaluaciones = agentes;
             _this.DibujarTabla(agentes);
 
+            // Habilita filtros si hay uno o más agentes
+            if (agentes.length) { // 0 == false
+                var $barraBuscador = $("#Text1");
+                $barraBuscador.attr("disabled", false);
+                $("#id_estado").attr("disabled", false);
+
+                $barraBuscador.keypress(function (e) {
+                    if (e.which == 13) {
+                        e.preventDefault();
+                    }
+                });
+            }
         })
         .onError(function (e) {
             spinner.stop();
@@ -137,6 +151,8 @@ var ListadoAgentes = {
         var img = $('<img>');
         img.attr('src', '../Imagenes/iconos/icono-imprimir.png');
         img.attr('width', '25px');
+        img.attr('data-toggle', 'tooltip');
+        img.attr('title', 'Impresora');
         img.attr('height', '25px');
         btn_accion.append(img);
         btn_accion.click(function () {
@@ -147,6 +163,7 @@ var ListadoAgentes = {
             localStorage.setItem("nombre", un_agente.nombre);
             localStorage.setItem("apellido", un_agente.apellido);
             localStorage.setItem("descripcionPeriodo", un_agente.descripcion_periodo);
+            localStorage.setItem("idNivel", un_agente.id_nivel);
             localStorage.setItem("descripcionNivel", un_agente.descripcion_nivel);
             localStorage.setItem("deficiente", un_agente.deficiente);
             localStorage.setItem("regular", un_agente.regular);
@@ -184,6 +201,8 @@ var ListadoAgentes = {
         var img = $('<img>');
         img.attr('src', '../Imagenes/portal/estudios.png');
         img.attr('width', '25px');
+        img.attr('data-toggle', 'tooltip');
+        img.attr('title', 'Impresora');
         img.attr('height', '25px');
         btn_accion.append(img);
         btn_accion.click(function () {
@@ -193,12 +212,14 @@ var ListadoAgentes = {
             localStorage.setItem("apellido", un_agente.apellido);
             localStorage.setItem("nombre", un_agente.nombre);
             localStorage.setItem("apellido", un_agente.apellido);
+            localStorage.setItem("idNivel", un_agente.id_nivel);
             localStorage.setItem("descripcionPeriodo", un_agente.descripcion_periodo);
             localStorage.setItem("descripcionNivel", un_agente.descripcion_nivel);
             localStorage.setItem("deficiente", un_agente.deficiente);
             localStorage.setItem("regular", un_agente.regular);
             localStorage.setItem("bueno", un_agente.bueno);
             localStorage.setItem("destacado", un_agente.destacado);
+            localStorage.setItem("documento", un_agente.nro_documento);
             /*si nunca fue evaluado, no sabemos que nivel tiene, 
             hay que pedir al usuario que lo ingrese*/
             if (un_agente.id_nivel == "0") {
@@ -288,6 +309,7 @@ var ListadoAgentes = {
                 $('#div_contenido_impresion').append('<h3>' + value.Enunciado + '</h3><p style="margin-left:15px;">' + respuesta + '</p>');
 
             });
+            $('#div_contenido_impresion').append('<div><div style="border: 1px solid #000;"><h3 style="text-align: center; border: 1px dotted #000;">SUPERIOR DIRECTO</h3><p>Certifico que el agente evaluado si/no (tachar lo que nocorresponda) ha tenido sanciones disciplinarias durante el período evaluado</p><p>Observaciones: .....................................................................................................................................................................................................................................</p><p>Fecha: ...../...../..........</p><br /><br /><p style="text-align: right; margin-right: 15px;">FIRMA ACLARACIÓN</p></div><div style="border: 1px solid #000;"><h3 style="text-align: center; border: 1px dotted #000;">APROBACIÓN DEL COMITÉ DE EVALUACIÓN</h3><p>Fecha: ...../...../..........</p><p style="text-align: right; margin-right: 15px;">FIRMA ACLARACIÓN de los integrantes</p><p>.....................................................................................................................................................................................................................................</p><p>.....................................................................................................................................................................................................................................</p><p>.....................................................................................................................................................................................................................................</p></div><div style="border: 1px solid #000;"><h3 style="text-align: center; border: 1px dotted #000;">NOTIFICACIÓN DEL AGENTE</h3><p>En el día de la fecha me notifico de mi calificación final por el desempeño durante el período correspondiente.</p><p>Fecha: ...../...../..........</p><p style="text-align: right; margin-right: 150px;">FIRMA</p><p style="font-size: 13px;">Contra la calificación notificada en este acto, podrá interponerse recurso de reconsideración dentro del término de DIES (10) días hábiles a resolver por la misma autoridad evaluadora (Artículo 84 y siguientes del Reglamento de Procedimientos Administrativos aprobado por el Decreto N° 1759/72 (t.o 1991), o bien interponer directamente recurso jerárquico a resolver según el Artículo 902 del citado Reglamento, dentro del término de QUINCE (15) días hábiles de esta notificación</p><br /><br /></div> </div>');
             var divToPrint = document.getElementById('div_contenido_impresion');
             var newWin = window.open('', 'Print-Window');
             newWin.document.write('<html><head></head><body onload="window.print()">' + divToPrint.innerHTML + '</body></html>');
@@ -318,7 +340,7 @@ var ListadoAgentes = {
             spinner.stop();
             var form = JSON.parse(formularioJSON);
             var respuestas = _this.getRespuestasDesdeLasPreguntas(form);
-            var calificacion = _this.calificacion(respuestas, localStorage.getItem("deficiente"), localStorage.getItem("regular"), localStorage.getItem("bueno"), localStorage.getItem("destacado"), false);
+            var calificacion = _this.calificacion(respuestas, localStorage.getItem("deficiente"), localStorage.getItem("regular"), localStorage.getItem("bueno"), localStorage.getItem("destacado"), true);
             $("#puntaje").text(calificacion);
             $.each(form, function (key, value) {
                 var plantilla = $('#plantilla').clone();
@@ -351,29 +373,33 @@ var ListadoAgentes = {
                     input.on('click', _this.habilitarBotonGuardarDefinitivo);
                 });
 
-                radioButton.attr('checked', false);
+                radioButton.prop('checked', false);
+
+                if (radioButton.parent().hasClass('radioSeleccionado')) {
+                    radioButton.parent().removeClass('radioSeleccionado');
+                }
+
                 radioButton.click(function () {
                     _this.calcularCalificacion();
                     radioButton.parent().removeClass('radioSeleccionado');
                     $(this).parent().addClass('radioSeleccionado');
                 });
 
-                if (value.OpcionElegida != 0) {
+                if (value.OpcionElegida !== 0) {
                     //chequear los radios elegidos
                     var radio = plantilla.find('[data-opcion=' + value.OpcionElegida + ']');
-                    radio.attr('checked', true);
+                    radio.prop('checked', true);
                     radio.parent().addClass('radioSeleccionado');
                     // Pregunta respondida, elimina marca '(*)' de pendiente
                     _this.verificarPreguntaPendiente.call(radio);
                 }
-
-
 
                 $('#contenedor').append(plantilla);
             });
 
 
             var idPersona = localStorage.getItem("idEvaluado");
+            var documento = localStorage.getItem("documento");
             _this.habilitarBotonGuardarDefinitivo();
 
             Backend.GetUsuarioPorIdPersona(idPersona)
@@ -388,9 +414,30 @@ var ListadoAgentes = {
                                 $("#foto_usuario").hide();
                                 $("#foto_usuario_generica").show();
                             }
+
                         } else {
                             $("#foto_usuario").hide();
                             $("#foto_usuario_generica").show();
+                        }
+                    });
+
+                    Backend.GetConsultaRapida(documento).onSuccess(function (datos) {
+                        var data = $.parseJSON(datos);
+                        if (!$.isEmptyObject(data)) {
+
+                            if (data.FechaBaja != "") {
+                                $('#baja').html("BAJA a partir del " + data.FechaBaja);
+                            } else {
+                                $('#baja').html("Activo");
+                            }
+
+
+                            if (data.CargoGremial != "") {
+                                $('#cargo_gremial').html(data.CargoGremial);
+                                $('#cargo_gremial').parent().show();
+                            } else {
+                                $('#cargo_gremial').parent().hide();
+                            }
                         }
                     });
 

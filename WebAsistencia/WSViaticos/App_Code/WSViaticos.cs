@@ -49,7 +49,6 @@ public class WSViaticos : System.Web.Services.WebService
             retuUsuarios[i] = usuarios[i];
         }
         return retuUsuarios;
-
     }
 
     [WebMethod]
@@ -2660,10 +2659,10 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public bool RechazarCambioDeImagen(int id_usuario, Usuario usuario)
+    public bool RechazarCambioDeImagen(int id_usuario, string razon_de_rechazo, Usuario usuario)
     {
         if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 50)) throw (new Exception("El usuario no tiene permisos para administrar cambios de imagen"));
-        return RepositorioDeUsuarios().RechazarCambioDeImagen(id_usuario);
+        return RepositorioDeUsuarios().RechazarCambioDeImagen(id_usuario, razon_de_rechazo);
     }
 
     [WebMethod]
@@ -2682,7 +2681,19 @@ public class WSViaticos : System.Web.Services.WebService
 
 
     [WebMethod]
-    public string CambiarPassword(Usuario usuario, string PasswordActual, string PasswordNuevo)
+    public AlertaPortal[] GetMisAlertasPendientes(Usuario usuario)
+    {
+        return new RepositorioDeAlertasPortal(Conexion()).GetAlertasPendientesPara(usuario.Id).ToArray();
+    }
+
+    [WebMethod]
+    public void MarcarAlertaComoLeida(int id_alerta, Usuario usuario)
+    {
+        new RepositorioDeAlertasPortal(Conexion()).MarcarAlertaComoLeida(id_alerta, usuario.Id);
+    }
+
+    [WebMethod]
+    public string CambiarPassword( string PasswordActual, string PasswordNuevo, Usuario usuario)
     {
         var repoUsuarios = RepositorioDeUsuarios();
 
@@ -3992,6 +4003,7 @@ public class WSViaticos : System.Web.Services.WebService
         return RepositorioDePersonas().GetConsultaRapida(documento);
 
     }
+    
 
     [WebMethod]
     public string GetCarreraAdministrativa(int documento, Usuario usuario)
@@ -4011,7 +4023,7 @@ public class WSViaticos : System.Web.Services.WebService
     {
         if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 33)) throw (new Exception("El usuario no tiene permisos para el modulo de bienes"));
         var repo = new RepositorioTarjetones(Conexion());
-        return repo.NuevoTarjeton(id_Bien);
+        return null; //repo.NuevoTarjeton(id_Bien);
     }
 
     [WebMethod]
@@ -4032,6 +4044,27 @@ public class WSViaticos : System.Web.Services.WebService
         }
         return una_respuesta;
     }
+
+
+    [WebMethod]
+    public RespuestaVehiculo ObtenerVehiculoPorID(int id_bien)
+    {
+        var repo = new RepositorioDeVehiculos(Conexion());
+        var una_respuesta = new RespuestaVehiculo();
+        una_respuesta.Respuesta = 1;
+        if (id_bien == null)
+        {
+            una_respuesta.Respuesta = 0;
+            return una_respuesta;
+        }
+        una_respuesta.vehiculo = repo.ObtenerVehiculoPorID(id_bien);
+        if (string.IsNullOrEmpty(una_respuesta.vehiculo.Dominio))
+        {
+            una_respuesta.Respuesta = 0;
+        }
+        return una_respuesta;
+    }
+
 
     [WebMethod]
     public MoBi_Area[] Mobi_GetAreasUsuario(int IdUsuario)
@@ -4063,10 +4096,10 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public MoBi_Bien Mobi_GetBienPorId(int id_bien)
+    public MoBi_Bien Mobi_GetImagenesBienPorId(int id_bien)
     {
         RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
-        return rMoBi.GetBienPorId(id_bien);
+        return rMoBi.GetImagenesBienPorId(id_bien);
     }
 
     [WebMethod]
@@ -4152,6 +4185,12 @@ public class WSViaticos : System.Web.Services.WebService
 
     #endregion
     #region Portal
+    [WebMethod]
+    public string getAreaDeLaPersona(Usuario usuario)
+    {
+        //aaaaaaaaaaaaaaaaaaaaaaaa
+        return RepoLegajo().getAreaDeLaPersona(usuario.Owner.Documento);
+    }
 
     [WebMethod]
     public string GetEstudios(Usuario usuario)

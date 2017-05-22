@@ -11,11 +11,13 @@ namespace General.MAU
         protected IRepositorioDeFuncionalidades repositorioDeFuncionalidades;
 
         private static RepositorioDeFuncionalidadesDeUsuarios _instancia;
+       
 
         private RepositorioDeFuncionalidadesDeUsuarios(IConexionBD conexion, IRepositorioDeFuncionalidades repo_funcionalidades)
             :base(conexion, 10)
         {
             repositorioDeFuncionalidades = repo_funcionalidades;
+
         }
 
         public static RepositorioDeFuncionalidadesDeUsuarios NuevoRepositorioDeFuncionalidadesDeUsuarios(IConexionBD conexion, IRepositorioDeFuncionalidades repo_funcionalidades)
@@ -28,6 +30,13 @@ namespace General.MAU
         {
             return this.FuncionalidadesPara(usuario.Id);
         }
+
+        public List<Usuario> UsuariosConLaFuncionalidad(int id_funcionalidad) {
+            
+            RepositorioDeUsuarios repositorioDeUsuarios = new RepositorioDeUsuarios(conexion, RepositorioDePersonas.NuevoRepositorioDePersonas(conexion));
+            return this.Obtener().FindAll(p => p.Value == id_funcionalidad).Select(p => repositorioDeUsuarios.GetUsuarioPorId(p.Key)).ToList(); 
+        }
+
 
         public List<Funcionalidad> FuncionalidadesPara(int id_usuario)
         {
@@ -79,6 +88,19 @@ namespace General.MAU
         public void Refresh()
         {
             objetos = ObtenerDesdeLaBase();
+        }
+
+
+        public void ConcederBasicas(Usuario usuario)
+        {
+            this.repositorioDeFuncionalidades.TodasLasFuncionalidades().ForEach(f =>
+            {
+                if (!f.basica) return;
+                if (f.SoloParaEmpleados && usuario.Owner.Legajo == null) return;
+                if (f.SoloParaVerificados && !usuario.Verificado) return;
+
+                this.ConcederFuncionalidadA(usuario.Id, f.Id);
+            });
         }
     }
 }

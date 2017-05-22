@@ -175,10 +175,11 @@ namespace General.Repositorios
             if (tablaDatos.Rows.Count > 0)
             {
                 grafico.CrearDatos(tablaDatos.Rows);
+                CrearResumen(grafico, tipo, fecha);
             }
             //if (grafico.ContienePersonasAContratar())
             //{
-                CrearResumen(grafico, tipo, fecha);
+                
             //}
 
             GRAFICO_BIENES = grafico;

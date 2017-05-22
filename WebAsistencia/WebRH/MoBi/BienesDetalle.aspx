@@ -13,24 +13,20 @@
 </head>
 <body>
 
-
-
     <form id="form1" runat="server">
-    <asp:HiddenField ID="hidden_idBien" runat="server" />
+    <%--<asp:HiddenField ID="hidden_idBien" runat="server" />--%>
     <%--<asp:HiddenField ID="descrip_bien" runat="server" />--%>
-    <asp:HiddenField ID="tipo_bien" runat="server" />
+    <%--<asp:HiddenField ID="tipo_bien" runat="server" />--%>
     <input type ="hidden" id = "hid" runat="server" />
-
-    <%--//GER20160926--%>
-    <asp:HiddenField ID="hidden_descripBien" runat="server" />
-    <input type ="hidden" id = "hdescripBien" runat="server" />
-
-
+    <input type ="hidden" id = "hidEstado" runat="server" />
+    <input type ="hidden" id = "hidAreaSeleccionada" runat="server" />
+    
     <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="True">
     </asp:ScriptManager>
     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'></span>"
         UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
-    <div style="" align="center">
+    
+    <%--<div style="" align="center">
         <div style="display: block; width: 50%; padding: 0; margin-bottom: 27px; font-size: 19.5px;
             line-height: 36px; color: #333333; border: 0; border-bottom: 1px solid #e5e5e5;
             text-shadow: 2px 2px 5px rgba(150, 150, 150, 1); text-align: left;">
@@ -41,12 +37,11 @@
                     Text="Consultar movimientos" UseSubmitBehavior="True" 
                     onclick="btnMovimientos_Click1"  /> 
            
-               
-           
             </div>
             
         </div>
-    </div>
+    </div>--%>
+
     <%--<div class="contenedor_principal contenedor_principal_seleccion_areas">
         <div id="titulo_areas_a_administrar" style="text-shadow: 2px 2px 5px rgba(150, 150, 150, 1);">
             Vehiculo                 
@@ -54,79 +49,85 @@
         </div>
     </div>--%>
     
-    <%--<label class="lbl_nombre_atributo">Descripcion:</label>
+   <%-- <label class="lbl_nombre_atributo">Descripcion:</label>
     <div id="ed_descripcion_bien" runat="server" contenteditable="true">
     </div>--%>
 
 
     <div id="ed_contenedor_imagenes"></div>
-    <div id="btn_add_imagen">+</div>
+    <%--<div id="btn_add_imagen" runat="server">+</div>--%>
+    
     <div id="Contenido">
         <table id="datos-vehiculo" class="tabla-principal" style="border-width: thin; border-style: solid; border-color: #808080">
             <tr>
-                <td colspan="2" class="celda">
+                <td colspan="2" class="celda_atributo">
                     Marca:
                 </td>
-                <td id="marca" colspan="2" class="celda2">
+                <td id="marca" colspan="2" class="celda_descripcion">
                 </td>
             </tr>
             <tr>
-                <td colspan="2" class="celda">
+                <td colspan="2" class="celda_atributo">
                     Modelo:
                 </td>
-                <td id="Modelo" colspan="2" class="celda2">
+                <td id="Modelo" colspan="2" class="celda_descripcion">
                 </td>
             </tr>
             <tr>
-                <td colspan="2" class="celda">
+                <td colspan="2" class="celda_atributo">
                     Segmento:
                 </td>
-                <td id="segmento" colspan="2" class="celda2">
+                <td id="segmento" colspan="2" class="celda_descripcion">
                 </td>
             </tr>
             <tr>
-                <td colspan="2" class="celda">
+                <td colspan="2" class="celda_atributo">
                     Dominio:
                 </td>
-                <td id="dominio" colspan="2" class="celda2">
+                <td id="dominio" colspan="2" class="celda_descripcion">
                 </td>
             </tr>
             <tr>
-                <td colspan="2" class="celda">
+                <td colspan="2" class="celda_atributo">
                     Año:
                 </td>
-                <td id="año" colspan="2" class="celda2">
+                <td id="año" colspan="2" class="celda_descripcion">
                 </td>
             </tr>
             <tr>
-                <td colspan="2" class="celda">
+                <td colspan="2" class="celda_atributo">
                     Motor:
                 </td>
-                <td id="Motor" colspan="2" class="celda2">
+                <td id="Motor" colspan="2" class="celda_descripcion">
                 </td>
             </tr>
             <tr>
-                <td colspan="2" class="celda">
+                <td colspan="2" class="celda_atributo">
                     Chasis:
                 </td>
-                <td id="chasis" colspan="2" class="celda2">
+                <td id="chasis" colspan="2" class="celda_descripcion">
                 </td>
             </tr>
             <tr>
-                <td colspan="2" class="celda">
+                <td colspan="2" class="celda_atributo">
                     Asignado al sector:
                 </td>
-                <td id="area" colspan="2" class="celda2">
+                <td id="area" colspan="2" class="celda_descripcion">
                 </td>
             </tr>
             <tr>
-                <td colspan="2" class="celda">
+                <td colspan="2" class="celda_atributo">
                     Conductor:
                 </td>
-                <td id="responsable" colspan="2" class="celda2">
+                <td id="responsable" colspan="2" class="celda_descripcion">
                 </td>
             </tr>
         </table>
+
+        <div id="btn_add_imagen" runat="server">ver fotos</div>
+         <div id="DivBotones" runat="server" style="width: 100%"></div>
+        
+
     </div>
     </form>
 </body>
@@ -146,9 +147,11 @@
         var id_bien = localStorage.getItem("idBien"); 
         $("#hid").val(id_bien);
 
-        //GER20160926
-        var descrip_bien = localStorage.getItem("descripcion");
-        $("#hdescripBien").val(descrip_bien);   
+        var id_estado = localStorage.getItem("idEstado");
+        $("#hidEstado").val(id_estado);
+
+        var id_Area_Seleccionada = localStorage.getItem("idAreaSeleccionada");
+        $("#hidAreaSeleccionada").val(id_Area_Seleccionada);
 
     });   
 

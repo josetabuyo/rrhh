@@ -144,7 +144,8 @@ namespace General.Repositorios
                         Apellido = row.GetString("Apellido"),
                         Legajo = legajo,
                         Documento = row.GetInt("Nro_Documento"),
-                        IdImagen = row.GetInt("IdImagen", -1)
+                        IdImagen = row.GetInt("IdImagen", -1),
+                        BajaLegajo = row.GetSmallintAsInt("Motivo_Baja", -1)>=0
                     });
                 });
             }

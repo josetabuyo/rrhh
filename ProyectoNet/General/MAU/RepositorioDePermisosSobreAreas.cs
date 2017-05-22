@@ -27,6 +27,17 @@ namespace General.MAU
         {
             return AreasAdministradasPor(usuario.Id);
         }
+        List<Usuario> IRepositorioDePermisosSobreAreas.UsuariosQueAdministranElArea(Area area)
+        {
+            return UsuariosQueAdministranElArea(area.Id);
+        }
+
+        public List<Usuario> UsuariosQueAdministranElArea(int id_area) {
+            var repo_usuarios = new RepositorioDeUsuarios(conexion, RepositorioDePersonas.NuevoRepositorioDePersonas(conexion)); ;
+            var permisos = this.Obtener();
+            return permisos.FindAll(p => p.Value == id_area).Select(p => repo_usuarios.GetUsuarioPorId(p.Key)).ToList(); ;
+        }
+
 
         public List<Area> AreasAdministradasPor(int id_usuario)
         {

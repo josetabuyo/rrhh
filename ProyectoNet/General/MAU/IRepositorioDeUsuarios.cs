@@ -8,7 +8,7 @@ namespace General.MAU
 {
     public interface IRepositorioDeUsuarios
     {
-        Usuario GetUsuarioPorAlias(string alias);
+        Usuario GetUsuarioPorAlias(string alias, bool incluir_bajas=false);
         Usuario GetUsuarioPorIdPersona(int id_persona);
         Usuario CrearUsuarioPara(int id_persona);
         bool CambiarPassword(int id_usuario, string pass_actual, string pass_nueva);
@@ -25,7 +25,7 @@ namespace General.MAU
 
         bool AceptarCambioDeImagen(int id_usuario);
 
-        bool RechazarCambioDeImagen(int id_usuario);
+        bool RechazarCambioDeImagen(int id_usuario, string razon_rechazo);
 
         List<SolicitudDeCambioDeImagen> GetSolicitudesDeCambioDeImagenPendientes();
     }
