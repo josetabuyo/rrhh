@@ -118,9 +118,9 @@ namespace General.Repositorios
                 bien.Id = dr.GetInt32(dr.GetOrdinal("id"));
                 bien.Descripcion = dr.GetString(dr.GetOrdinal("descripcion"));
                 bien.Estado = dr.GetString(dr.GetOrdinal("estado"));
-                bien.UltMov = dr.GetDateTime(dr.GetOrdinal("ultMovimiento"));
-                bien.Remitente= dr.GetString(dr.GetOrdinal("remitente"));
-                bien.Asignacion= dr.GetString(dr.GetOrdinal("asignacion"));
+                bien.FechaUltMov = dr.GetDateTime(dr.GetOrdinal("ultMovimiento"));
+                //bien.Remitente = dr.GetString(dr.GetOrdinal("remitente"));
+                //bien.Asignacion = dr.GetString(dr.GetOrdinal("asignacion"));
                 lb.Add(bien);
             }
             cn.Desconestar();
@@ -170,9 +170,9 @@ namespace General.Repositorios
                 bien.Id = dr.GetInt32(dr.GetOrdinal("id"));
                 bien.Descripcion = dr.GetString(dr.GetOrdinal("descripcion"));
                 bien.Estado = dr.GetString(dr.GetOrdinal("estado"));
-                bien.UltMov = dr.GetDateTime(dr.GetOrdinal("ultMovimiento"));
-                bien.Remitente = dr.GetString(dr.GetOrdinal("remitente"));
-                bien.Asignacion = dr.GetString(dr.GetOrdinal("asignacion"));
+                bien.FechaUltMov = dr.GetDateTime(dr.GetOrdinal("ultMovimiento"));
+                //bien.Remitente = dr.GetString(dr.GetOrdinal("remitente"));
+                //bien.Asignacion = dr.GetString(dr.GetOrdinal("asignacion"));
                 lb.Add(bien);
             }
             cn.Desconestar();
@@ -270,13 +270,13 @@ namespace General.Repositorios
         }
 
 
-        public MoBi_Bien GetBienPorId(int id_bien)
+        public MoBi_Bien GetImagenesBienPorId(int id_bien)
         {
 
             var parametros = new Dictionary<string, object>();
             parametros.Add("@IdBien", id_bien);
 
-            var tablaDatos = this.conexion_bd.Ejecutar("dbo.MOBI_GetBienPorId", parametros);
+            var tablaDatos = this.conexion_bd.Ejecutar("dbo.MOBI_GET_Imagenes_Bien_Por_Id", parametros);
 
 
             var bien = new MoBi_Bien();
