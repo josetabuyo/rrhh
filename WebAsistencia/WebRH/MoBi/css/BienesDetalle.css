@@ -9,7 +9,7 @@
 }
 
 #ed_contenedor_imagenes
-{
+{   /*
     position: absolute;
     bottom: 0px;
     left: 0px;
@@ -17,6 +17,7 @@
     height: 150px;
     background-color: lightgrey;
     text-align:center;
+    */
 }
 
 .imagen_bien
@@ -70,6 +71,8 @@
 
 #Contenido
 {
+    margin-top: 1%;
+    
     /*top: 130px;
     line-height: 18px;
     color: white;

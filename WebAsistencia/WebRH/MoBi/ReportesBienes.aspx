@@ -29,7 +29,7 @@
     <form id="form1" runat="server">
     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold; padding-top:20px;'>Contratos</span> <br/> "
         UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
-    <div>
+    <div style="margin-top: 1%">
      <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" style="position: relative;
             top: 0; width: 100%;" id="cbp-spmenu-s1">
             <div id="contenedor_arbol_organigrama"> 

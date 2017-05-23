@@ -12,42 +12,51 @@ $(function () {
 
         //Backend.ElUsuarioLogueadoTienePermisosPara(37).onSuccess(function (tiene_permisos_de_edicion) {
         Backend.Mobi_GetImagenesBienPorId(id_bien).onSuccess(function (bien) {
+  
+            $("#ed_contenedor_imagenes").empty();
+            _.forEach(bien.Imagenes, function (id_imagen) {
+                var cont_imagen = $('<div class="imagen_bien"></div>');
+                var opt_vista = {
+                    id: id_imagen,
+                    contenedor: cont_imagen
+                };
 
-                //$("#ed_descripcion_bien").text(bien.Descripcion);
-                //$("#hdescripBien").text(bien.Descripcion); //GER20160926
-                //localStorage.setItem("descripBien", bien.Descripcion); //GER20160926    
-                $("#ed_contenedor_imagenes").empty();
-                _.forEach(bien.Imagenes, function (id_imagen) {
-                    var cont_imagen = $('<div class="imagen_bien"></div>');
-                    var opt_vista = {
-                        id: id_imagen,
-                        contenedor: cont_imagen
-                    };
-
-//                    if (tiene_permisos_de_edicion)
-//                        opt_vista.alEliminar = function () {
-//                            vex.dialog.confirm({
-//                                message: 'Está seguro que desea eliminar esta imágen?',
-//                                callback: function (value) {
-//                                    if (value) {
-//                                        Backend.Mobi_DesAsignarImagenABien(id_bien, id_imagen).onSuccess(function () {
-//                                            img.contenedor.remove();
-//                                        });
-//                                    }
-//                                }
-//                            });
-//                        };
-                    var img = new VistaThumbnail(opt_vista);
-                    $("#ed_contenedor_imagenes").append(cont_imagen);
-                });
+                //                    if (tiene_permisos_de_edicion)
+                //                        opt_vista.alEliminar = function () {
+                //                            vex.dialog.confirm({
+                //                                message: 'Está seguro que desea eliminar esta imágen?',
+                //                                callback: function (value) {
+                //                                    if (value) {
+                //                                        Backend.Mobi_DesAsignarImagenABien(id_bien, id_imagen).onSuccess(function () {
+                //                                            img.contenedor.remove();
+                //                                        });
+                //                                    }
+                //                                }
+                //                            });
+                //                        };
+                var img = new VistaThumbnail(opt_vista);
+                $("#ed_contenedor_imagenes").append(cont_imagen);
 
             });
+
+        });
         //});
 
+        //AGREGO EL BOTON PARA VER LA IMAGEN
+        $("#btn_ver_imagen").click(function () {
+            vex.defaultOptions.className = 'vex-theme-os';
+            vex.open({
+                afterOpen: function ($vexContent) {
+                    var ui = $("#ed_contenedor_imagenes").clone();
+                    $vexContent.append(ui);
+                    ui.show();
+                    return ui;
+                }
+            })
+        });
+        
 
         //------------DATOS DEL VEHICULO-----------------------
-        //var idVerificador = localStorage.getItem("verificacion");
-
         Backend.ObtenerVehiculoPorID(id_bien).onSuccess(function (respuesta_vehiculo) {
 
             if (respuesta_vehiculo.Respuesta == 0) {
@@ -77,9 +86,9 @@ $(function () {
 
 
     var GeneradorBotones = function () {
-        
+
         var estado = 0;
-        
+
         var ContenedorBotones = $("#DivBotones");
         var boton;
 

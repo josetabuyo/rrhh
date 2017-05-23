@@ -6,6 +6,8 @@
 <head id="Head1" runat="server">
     <title>Detalle de Vehiculo</title>
     <%= Referencias.Css("../")%>
+    <link href="../scripts/vex-2.1.1/css/vex.css" rel="stylesheet">
+    <link href="../scripts/vex-2.1.1/css/vex-theme-os.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../Formularios/EstilosFormularios.css" />
     <link rel="stylesheet" href="../estilos/estilos.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="css/BienesDetalle.css" />
@@ -53,9 +55,8 @@
     <div id="ed_descripcion_bien" runat="server" contenteditable="true">
     </div>--%>
 
-
-    <div id="ed_contenedor_imagenes"></div>
-    <%--<div id="btn_add_imagen" runat="server">+</div>--%>
+    <div/>
+    
     
     <div id="Contenido">
         <table id="datos-vehiculo" class="tabla-principal" style="border-width: thin; border-style: solid; border-color: #808080">
@@ -124,8 +125,16 @@
             </tr>
         </table>
 
-        <div id="btn_add_imagen" runat="server">ver fotos</div>
-         <div id="DivBotones" runat="server" style="width: 100%"></div>
+        <div id="ed_contenedor_imagenes" style="display:none"></div>
+    
+        <div id="btn_ver_imagen" runat="server">
+            <a style="display:inline-block">
+                <img src="../Imagenes/camara.png" alt="" width="50px" height="50px" />
+            </a>
+        </div>
+
+        <%--<div id="btn_add_imagen" runat="server">+</div>--%>
+        <div id="DivBotones" runat="server" style="width: 100%"></div>
         
 
     </div>
