@@ -15,6 +15,7 @@ namespace General.MED
 
         public int id_evaluacion { get; set; }
         public int estado_evaluacion { get; set; }
+        public string codigo_gde { get; set; }
         public int puntaje { 
             get { 
                 return this.detalle_preguntas.Sum(p => p.opcion_elegida); 
@@ -30,7 +31,7 @@ namespace General.MED
         public List<DetallePreguntas> detalle_preguntas { get; set; }
 
         public EvaluacionDesempenio(AgenteEvaluacionDesempenio agente_evaluado, AgenteEvaluacionDesempenio agente_evaluador, int id_evaluacion, int estado_evaluacion,
-            PeriodoEvaluacion periodo, NivelEvaluacionDesempenio nivel, List<DetallePreguntas> detalle_preguntas, DescripcionAreaEvaluacion area)
+            PeriodoEvaluacion periodo, NivelEvaluacionDesempenio nivel, List<DetallePreguntas> detalle_preguntas, DescripcionAreaEvaluacion area, string codigo_gde)
         {
             this.agente_evaluado = agente_evaluado;
             this.agente_evaluador = agente_evaluador;
@@ -40,6 +41,7 @@ namespace General.MED
             this.area = area;
             this.nivel = nivel;
             this.detalle_preguntas = detalle_preguntas;
+            this.codigo_gde = codigo_gde;
         }
         public int test
         {

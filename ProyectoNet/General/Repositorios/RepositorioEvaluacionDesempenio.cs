@@ -194,7 +194,7 @@ namespace General.Repositorios
                             row.GetString("descripcion_periodo", ""), row.GetDateTime("periodo_desde"), row.GetDateTime("periodo_hasta")), new NivelEvaluacionDesempenio(row.GetSmallintAsInt("id_nivel", 0),
                             row.GetString("descripcion_nivel", ""), row.GetString("detalle_nivel", ""), row.GetSmallintAsInt("deficiente", 0), row.GetSmallintAsInt("regular", 0), 
                             row.GetSmallintAsInt("bueno", 0), row.GetSmallintAsInt("destacado", 0)), detalle_preguntas,
-                            area);
+                            area, row.GetString("codigo_gde",""));
         }
 
         public int insertarEvaluacion(int idEvaluado, int idEvaluador, int idFormulario, int periodo, int estado)
