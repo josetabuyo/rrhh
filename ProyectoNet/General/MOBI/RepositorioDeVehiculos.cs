@@ -55,7 +55,7 @@ namespace General.Repositorios
             return unVehiculo;
         }
 
-        public Vehiculo ObtenerVehiculoPorIDVerificacion(string id_verificacion)
+        public Vehiculo ObtenerVehiculoPorCodigoWeb(string id_verificacion)
         {
 
             if (id_verificacion == null)
@@ -64,11 +64,12 @@ namespace General.Repositorios
             }
             var parametros = new Dictionary<string, object>();
 
-            parametros.Add("@IdBien", id_verificacion);
+            parametros.Add("@Cod_Web", id_verificacion);
 
-            var tablaDatos = this.conexion_bd.Ejecutar("dbo.MOBI_PRUEBA_GERMAN", parametros);
+            var tablaDatos = this.conexion_bd.Ejecutar("dbo.MOBI_GetVehiculosPorCodigoWeb", parametros);
             
             var unVehiculo = new Vehiculo();
+            
             if (tablaDatos.Rows.Count > 0)
             {
                 var row = tablaDatos.Rows[0];
@@ -83,14 +84,22 @@ namespace General.Repositorios
                 unVehiculo.Anio = row.GetString("Anio", "");
                 unVehiculo.Observacion = row.GetString("Observacion", "");
                 unVehiculo.Area = row.GetString("Area", "");
-                unVehiculo.Apellido = row.GetString("Apellido", "");
-                unVehiculo.Nombre = row.GetString("Nombre", "");
-                unVehiculo.MensajeTarjeton = row.GetString("MensajeTarjeton", null);
-                unVehiculo.Mensaje = row.GetString("MensajeVehiculo", null);
-
-                tablaDatos.Rows.ForEach(r => {
-                    if(r.GetObject("id_imagen") is DBNull) return;
+                //Imagenes del vehiculo
+                tablaDatos.Rows.ForEach(r =>
+                {
+                    if (r.GetObject("id_imagen") is DBNull) return;
                     unVehiculo.imagenes.Add(r.GetInt("id_imagen"));
+                unVehiculo.Conductor.Id = row.GetInt("Persona");
+                
+                //Si no tiene conductor asignado.
+                if (unVehiculo.Conductor.Id != -1)
+                {
+                    unVehiculo.Conductor.Apellido = row.GetString("Apellido", "Sin Asignación");
+                    unVehiculo.Conductor.Nombre = row.GetString("Nombre", "Sin Asignación");
+                    unVehiculo.Conductor.Documento = row.GetInt("NroDocumento");
+                    unVehiculo.Conductor.IdImagen = row.GetInt("Id_Imagen_Conductor");
+                };
+
                 });
             };
 
