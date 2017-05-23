@@ -7,26 +7,28 @@
 <div>
 <h1>Cambio Domicilio</h1>
 
-<p>Domicilio para Cambiar</p>
-
-<p>Calle  <span id="calle"></span></p>
-<p>Numero  <span id="numero"></span></p>
-<p>Piso <span id="piso"></span></p>
-<p>Depto <span id="depto"></span> </p>
-<p>Localidad <span id="localidad"></span></p>
-<p>Provincia  <span id="provincia"></span></p>
+<p>Domicilio Solicitado para cambiar:  <span id="calle"></span> N°<span id="numero"></span>. Piso: <span id="piso"></span> Depto:<span id="depto"></span> Localidad: <span id="localidad"></span> <span id="provincia"></span>
+<span id="manzana"></span> <span id="casa"></span> <span id="barrio"></span> <span id="torre"></span> <span id="uf"></span> 
+</p>
 
 
-<input type="button" id="btnConfirmarDomicilio" value="Confirmar" />
-<input type="button" id="btnCancelarDomicilio" value="Cancelar" />
-<input type="button" id="btnDelegarDomicilio" value="Delegar" />
+<div style="margin-top: 170px; text-align:center;">
+    <input type="button" class="btn btn-primary" id="btnConfirmarDomicilio" value="Confirmar" />
+    <input type="button" class="btn btn-primary" id="btnCancelarDomicilio" value="Cancelar" />
+    <input type="button" class="btn btn-primary" id="btnDelegarDomicilio" value="Delegar" />
+</div>
 </div>
 
 <script type="text/javascript">
     var idAlerta = localStorage.getItem("idAlerta");
-    
+    var documento = localStorage.getItem("documento");
+
     $('#btnConfirmarDomicilio').click(function () {
-        alert('a');
+        Backend.VerificarDomicilioPendiente(idAlerta, documento)
+        .onSuccess(function (resultado) {
+            alert(resultado);
+
+        });
     });
 
     $('#btnCancelarDomicilio').click(function () {
@@ -38,16 +40,23 @@
     });
 
     Backend.GetDomicilioPendientePorAlerta(idAlerta)
-        .onSuccess(function (detalleTareaJSON) {
+        .onSuccess(function (domicilioJSON) {
 
-            var detalleTarea = $.parseJSON(detalleTareaJSON);
+            var domicilio = $.parseJSON(domicilioJSON);
             //alert(detalleTareaJSON);
-            $('#calle').html(detalleTarea.Calle);
-            $('#numero').html(detalleTarea.Numero);
-            $('#piso').html(detalleTarea.Piso);
-            $('#depto').html(detalleTarea.Depto);
-            $('#localidad').html(detalleTarea.Localidad);
-            $('#provincia').html(detalleTarea.Provincia);
+            $('#calle').html(domicilio.Calle);
+            $('#numero').html(domicilio.Numero);
+            $('#piso').html(domicilio.Piso);
+            $('#depto').html(domicilio.Depto);
+            $('#localidad').html(domicilio.Localidad);
+            $('#provincia').html(domicilio.Provincia);
+
+            $('#manzana').html(domicilio.Manzana);
+            $('#casa').html(domicilio.Casa);
+            $('#torre').html(domicilio.Torre);
+            $('#barrio').html(domicilio.Barrio);
+            $('#uf').html(domicilio.Uf);
+
 
     });
    

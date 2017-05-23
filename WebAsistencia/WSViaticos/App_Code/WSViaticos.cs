@@ -4308,6 +4308,15 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public string VerificarDomicilioPendiente(int idAlerta, int documento, Usuario usuario)
+    {
+        RepositorioLegajo repo = RepoLegajo();
+
+        return repo.VerificarCambioDomicilio(idAlerta, documento, usuario.Id);
+
+    }
+
+    [WebMethod]
     public string MostrarDestinatariosDeLaNotificacion( int id_notificacion, Usuario usuario)
     {
         RepositorioLegajo repo = RepoLegajo();

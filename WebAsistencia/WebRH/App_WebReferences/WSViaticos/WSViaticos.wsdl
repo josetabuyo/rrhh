@@ -2,7 +2,7 @@
 <wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://wsviaticos.gov.ar/">
-      <s:element name="GetConsultasDePortalNoLeidas">
+      <s:element name="GetConsultasNoLeidas">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
@@ -193,6 +193,20 @@
           <s:element minOccurs="1" maxOccurs="1" name="basica" type="s:boolean" />
         </s:sequence>
       </s:complexType>
+      <s:element name="GetConsultasNoLeidasResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetConsultasNoLeidasResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetConsultasDePortalNoLeidas">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetConsultasDePortalNoLeidasResponse">
         <s:complexType>
           <s:sequence>
@@ -2204,12 +2218,34 @@
           <s:element minOccurs="1" maxOccurs="1" name="Localidad" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="Cp" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="Provincia" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Manzana" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Barrio" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Casa" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Torre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Uf" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Partido" type="s:int" />
         </s:sequence>
       </s:complexType>
       <s:element name="GuardarDomicilioPendienteResponse">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="GuardarDomicilioPendienteResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="VerificarDomicilioPendiente">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idAlerta" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="documento" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="VerificarDomicilioPendienteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="VerificarDomicilioPendienteResult" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -2338,20 +2374,6 @@
       </s:element>
       <s:element name="CerrarConsultaResponse">
         <s:complexType />
-      </s:element>
-      <s:element name="GetConsultasNoLeidas">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetConsultasNoLeidasResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="GetConsultasNoLeidasResult" type="s:int" />
-          </s:sequence>
-        </s:complexType>
       </s:element>
       <s:element name="GetUsuarioPorId">
         <s:complexType>
@@ -6819,6 +6841,12 @@
       </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="GetConsultasNoLeidasSoapIn">
+    <wsdl:part name="parameters" element="tns:GetConsultasNoLeidas" />
+  </wsdl:message>
+  <wsdl:message name="GetConsultasNoLeidasSoapOut">
+    <wsdl:part name="parameters" element="tns:GetConsultasNoLeidasResponse" />
+  </wsdl:message>
   <wsdl:message name="GetConsultasDePortalNoLeidasSoapIn">
     <wsdl:part name="parameters" element="tns:GetConsultasDePortalNoLeidas" />
   </wsdl:message>
@@ -7341,6 +7369,12 @@
   <wsdl:message name="GuardarDomicilioPendienteSoapOut">
     <wsdl:part name="parameters" element="tns:GuardarDomicilioPendienteResponse" />
   </wsdl:message>
+  <wsdl:message name="VerificarDomicilioPendienteSoapIn">
+    <wsdl:part name="parameters" element="tns:VerificarDomicilioPendiente" />
+  </wsdl:message>
+  <wsdl:message name="VerificarDomicilioPendienteSoapOut">
+    <wsdl:part name="parameters" element="tns:VerificarDomicilioPendienteResponse" />
+  </wsdl:message>
   <wsdl:message name="MostrarDestinatariosDeLaNotificacionSoapIn">
     <wsdl:part name="parameters" element="tns:MostrarDestinatariosDeLaNotificacion" />
   </wsdl:message>
@@ -7400,12 +7434,6 @@
   </wsdl:message>
   <wsdl:message name="CerrarConsultaSoapOut">
     <wsdl:part name="parameters" element="tns:CerrarConsultaResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetConsultasNoLeidasSoapIn">
-    <wsdl:part name="parameters" element="tns:GetConsultasNoLeidas" />
-  </wsdl:message>
-  <wsdl:message name="GetConsultasNoLeidasSoapOut">
-    <wsdl:part name="parameters" element="tns:GetConsultasNoLeidasResponse" />
   </wsdl:message>
   <wsdl:message name="GetUsuarioPorIdSoapIn">
     <wsdl:part name="parameters" element="tns:GetUsuarioPorId" />
@@ -8830,6 +8858,10 @@
     <wsdl:part name="parameters" element="tns:DetenerServicioDeAlertasResponse" />
   </wsdl:message>
   <wsdl:portType name="WSViaticosSoap">
+    <wsdl:operation name="GetConsultasNoLeidas">
+      <wsdl:input message="tns:GetConsultasNoLeidasSoapIn" />
+      <wsdl:output message="tns:GetConsultasNoLeidasSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetConsultasDePortalNoLeidas">
       <wsdl:input message="tns:GetConsultasDePortalNoLeidasSoapIn" />
       <wsdl:output message="tns:GetConsultasDePortalNoLeidasSoapOut" />
@@ -9178,6 +9210,10 @@
       <wsdl:input message="tns:GuardarDomicilioPendienteSoapIn" />
       <wsdl:output message="tns:GuardarDomicilioPendienteSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="VerificarDomicilioPendiente">
+      <wsdl:input message="tns:VerificarDomicilioPendienteSoapIn" />
+      <wsdl:output message="tns:VerificarDomicilioPendienteSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="MostrarDestinatariosDeLaNotificacion">
       <wsdl:input message="tns:MostrarDestinatariosDeLaNotificacionSoapIn" />
       <wsdl:output message="tns:MostrarDestinatariosDeLaNotificacionSoapOut" />
@@ -9217,10 +9253,6 @@
     <wsdl:operation name="CerrarConsulta">
       <wsdl:input message="tns:CerrarConsultaSoapIn" />
       <wsdl:output message="tns:CerrarConsultaSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetConsultasNoLeidas">
-      <wsdl:input message="tns:GetConsultasNoLeidasSoapIn" />
-      <wsdl:output message="tns:GetConsultasNoLeidasSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetUsuarioPorId">
       <wsdl:input message="tns:GetUsuarioPorIdSoapIn" />
@@ -10173,6 +10205,15 @@
   </wsdl:portType>
   <wsdl:binding name="WSViaticosSoap" type="tns:WSViaticosSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetConsultasNoLeidas">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetConsultasNoLeidas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetConsultasDePortalNoLeidas">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetConsultasDePortalNoLeidas" style="document" />
       <wsdl:input>
@@ -10956,6 +10997,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="VerificarDomicilioPendiente">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/VerificarDomicilioPendiente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="MostrarDestinatariosDeLaNotificacion">
       <soap:operation soapAction="http://wsviaticos.gov.ar/MostrarDestinatariosDeLaNotificacion" style="document" />
       <wsdl:input>
@@ -11039,15 +11089,6 @@
     </wsdl:operation>
     <wsdl:operation name="CerrarConsulta">
       <soap:operation soapAction="http://wsviaticos.gov.ar/CerrarConsulta" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetConsultasNoLeidas">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetConsultasNoLeidas" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -13191,6 +13232,15 @@
   </wsdl:binding>
   <wsdl:binding name="WSViaticosSoap12" type="tns:WSViaticosSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetConsultasNoLeidas">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetConsultasNoLeidas" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetConsultasDePortalNoLeidas">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetConsultasDePortalNoLeidas" style="document" />
       <wsdl:input>
@@ -13974,6 +14024,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="VerificarDomicilioPendiente">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/VerificarDomicilioPendiente" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="MostrarDestinatariosDeLaNotificacion">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/MostrarDestinatariosDeLaNotificacion" style="document" />
       <wsdl:input>
@@ -14057,15 +14116,6 @@
     </wsdl:operation>
     <wsdl:operation name="CerrarConsulta">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/CerrarConsulta" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetConsultasNoLeidas">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetConsultasNoLeidas" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

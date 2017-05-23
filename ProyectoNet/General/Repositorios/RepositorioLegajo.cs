@@ -721,17 +721,68 @@ namespace General.Repositorios
 
         }
 
-        public string VerificarCambioDomicilio(int idDomicilio, int usuarioVerificador)
+        public string VerificarCambioDomicilio(int idAlerta, int documento, int idUsuarioVerificador)
+        {
+            try
+            {
+                var parametros = new Dictionary<string, object>();
+
+                //parametros.Add("@idDomicilio", idDomicilio);
+                CvDomicilio domicilio = JsonConvert.DeserializeObject<CvDomicilio>(this.GetDomicilioPendientePorAlerta(idAlerta));
+
+                parametros.Add("@idAlerta", idAlerta);
+                parametros.Add("@idUsuarioVerificador", idUsuarioVerificador);
+
+                var tablaDatos = conexion.Ejecutar("dbo.LEG_UPD_DomicilioPendiente", parametros);
+
+                parametros = new Dictionary<string, object>();
+                parametros.Add("@Fecha_Comunicacion", DateTime.Today);
+                parametros.Add("@Calle", domicilio.Calle);
+                parametros.Add("@Número", domicilio.Numero);
+                parametros.Add("@Piso", domicilio.Piso);
+                parametros.Add("@Dpto", domicilio.Depto);
+                parametros.Add("@Casa", "");
+                parametros.Add("@Manzana", "");
+                parametros.Add("@Barrio", "");
+                parametros.Add("@Torre", "");
+                parametros.Add("@UF", "");
+                parametros.Add("@Localidad", domicilio.Localidad);
+                parametros.Add("@Codigo_Postal", domicilio.Cp);
+                parametros.Add("@Partido_Dpto", domicilio.Partido);
+                parametros.Add("@Provincia", domicilio.Provincia);
+                parametros.Add("@Folio", "");
+                parametros.Add("@Id_Interna", "");
+                parametros.Add("@Nro_Doc", documento);
+                parametros.Add("@Baja", false);
+                parametros.Add("@usuario", idUsuarioVerificador);
+                parametros.Add("@Telefono", "");
+                parametros.Add("@Correo_Electronico", "");
+
+                
+
+                tablaDatos = conexion.Ejecutar("dbo.Alta_DomicilioPersonal", parametros);
+
+                //this.borrarDomicilioPendiente(idAlerta);
+
+                return JsonConvert.SerializeObject("Se ha cambiado el domicilio con exito.");
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+           
+
+        }
+
+        public bool borrarDomicilioPendiente(int idAlerta)
         {
             var parametros = new Dictionary<string, object>();
+            parametros.Add("@idAlerta", idAlerta);
 
-            parametros.Add("@idDomicilio", idDomicilio);
-            parametros.Add("@idUsuarioVerificador", usuarioVerificador);
+            var tablaDatos = conexion.Ejecutar("dbo.LEG_DEL_DomicilioPendiente", parametros);
 
-            var tablaDatos = conexion.Ejecutar("dbo.LEG_UpdateCambioDomicilioPendiente", parametros);
-
-            return JsonConvert.SerializeObject(idDomicilio);
-
+            return true;
         }
 
         public string GetDomicilioPendientePorPersona(int idPersona)
@@ -740,18 +791,21 @@ namespace General.Repositorios
 
             parametros.Add("@idPersona", idPersona);
 
-            List<CvDomicilio> listaDomicilios = new List<CvDomicilio>();
+            //List<CvDomicilio> listaDomicilios = new List<CvDomicilio>();
+            CvDomicilio unDomicilio = new CvDomicilio();
             var tablaDatos = conexion.Ejecutar("dbo.LEG_GetDomicilioPendiente", parametros);
 
             if (tablaDatos.Rows.Count > 0)
             {
                 tablaDatos.Rows.ForEach(row =>
 
-                    listaDomicilios.Add(new CvDomicilio(row.GetInt("id"), row.GetString("calle", ""), row.GetSmallintAsInt("nro", 0), row.GetString("piso", ""), row.GetString("dpto", ""), row.GetInt("localidad", 0), row.GetInt("cp", 0), row.GetInt("provincia", 0)))
-                );
+                    //listaDomicilios.Add(new CvDomicilio(row.GetInt("id"), row.GetString("calle", ""), row.GetSmallintAsInt("nro", 0), row.GetString("piso", ""), row.GetString("dpto", ""), row.GetInt("localidad", 0), row.GetInt("cp", 0), row.GetInt("provincia", 0)))
+                    unDomicilio = new CvDomicilio(row.GetInt("id"), row.GetString("calle", ""), row.GetSmallintAsInt("nro", 0), row.GetString("piso", ""), row.GetString("dpto", ""), row.GetInt("localidad", 0), row.GetInt("cp", 0), row.GetInt("provincia", 0), row.GetString("manzana", ""), row.GetString("casa", ""), row.GetString("barrio", ""), row.GetString("torre", ""), row.GetString("uf", ""))
+                
+                    );
             }
 
-            return JsonConvert.SerializeObject(listaDomicilios);
+            return JsonConvert.SerializeObject(unDomicilio);
 
         }
 
@@ -775,6 +829,11 @@ namespace General.Repositorios
             parametros.Add("@cp", domicilio.Cp);
             parametros.Add("@localidad", domicilio.Localidad);
             parametros.Add("@provincia", domicilio.Provincia);
+            parametros.Add("@torre", domicilio.Torre);
+            parametros.Add("@manzana", domicilio.Manzana);
+            parametros.Add("@barrio", domicilio.Barrio);
+            parametros.Add("@uf", domicilio.Uf);
+            parametros.Add("@casa", domicilio.Casa);
             parametros.Add("@idPersona", usuario.Owner.Id);
             parametros.Add("@idAlerta", idAlerta);
 

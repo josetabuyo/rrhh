@@ -41,10 +41,11 @@
         </div>
         <div class="caja_der papel">
             <%--DIV 1--%>
+           
             <div id="consultas">
                 <legend id="legend_gestion" style="margin-top: 10px;">TAREAS PENDIENTES</legend>
                 <input type="text" id="search" class="search buscador" placeholder="Buscar"
-                    style="display: none; height:35px;" />
+                    style="height:35px;" />
                 <div id="tablaTareas" class="table table-striped table-bordered table-condensed">
                 </div>
                 

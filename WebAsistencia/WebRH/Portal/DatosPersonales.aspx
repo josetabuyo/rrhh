@@ -57,9 +57,7 @@
                             <label class="etiqueta_campo" for="txt_numero">
                                 Número <em>*</em></label>
                             <input type="text" id="txt_numero" name="txt_numero" style="width: 50px; height: 30px;" />
-                        </div>
 
-                            <div class="">
                                 <label class="etiqueta_campo" for="txt_piso">Piso</label>
                                 <input type="text" id="txt_piso" name="txt_piso" style="width: 30px; height: 30px;" />
 
@@ -67,7 +65,23 @@
                                 <input type="text" id="txt_dto" name="txt_dto" style="width: 30px; height: 30px;" />
 
                                  <label class="etiqueta_campo_small" for="txt_cp">Código Postal <em>*</em></label>
-                                <input type="text" id="txt_cp" name="txt_cp" style="width: 80px; height: 30px;" />
+                                <input type="text" id="txt_cp" name="txt_cp" style="width: 30px; height: 30px;" />
+                            </div>
+
+                            <div class="">
+                                <label class="etiqueta_campo" for="txt_calle">Manzana</label>
+                                <input type="text" id="txt_manzana" name="txt_calle" style="width: 30px; height: 30px;" />
+                                <label class="etiqueta_campo" for="txt_numero">Barrio </label>
+                                <input type="text" id="txt_barrio" name="txt_numero" style="width: 30px; height: 30px;" />
+
+                                <label class="etiqueta_campo" for="txt_piso">Torre</label>
+                                <input type="text" id="txt_torre" name="txt_piso" style="width: 30px; height: 30px;" />
+
+                                <label class="etiqueta_campo" for="txt_dto">Uf</label>
+                                <input type="text" id="txt_uf" name="txt_dto" style="width: 30px; height: 30px;" />
+
+                                 <label class="etiqueta_campo_small" for="txt_cp">Casa</label>
+                                <input type="text" id="txt_casa" name="txt_cp" style="width: 30px; height: 30px;" />
                             </div>
 
                             <div class="">

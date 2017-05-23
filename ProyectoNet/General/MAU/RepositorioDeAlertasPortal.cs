@@ -57,11 +57,12 @@ namespace General.MAU
             var tabla_resultado = this.conexion.Ejecutar("dbo.MAU_GetAlertasPorFuncionalidad", parametros);
 
             List<AlertaPortal> alertas = new List<AlertaPortal>();
-
+            Area area = new Area();
             tabla_resultado.Rows.ForEach(row =>
             {
+                Persona creador = new Persona(row.GetInt("Id"), row.GetInt("NroDocumento"), row.GetString("nombre"), row.GetString("apellido"), area);
                 TipoAlertaPortal tipoTarea = new TipoAlertaPortal(row.GetInt("idtipo", 0), row.GetString("descripcionTipo", ""), row.GetString("url", ""), row.GetInt("idFuncionalidad", 0));
-                Usuario usuarioCreador = new Usuario(row.GetSmallintAsInt("idUsuario", 0), row.GetString("nombreUsuario", ""), "", true);
+                Usuario usuarioCreador = new Usuario(row.GetSmallintAsInt("idUsuario", 0), row.GetString("nombreUsuario", ""), "",creador, true);
                 AlertaPortal alerta = new AlertaPortal(row.GetInt("id", 0), row.GetString("titulo", ""), row.GetString("descripcion", ""), tipoTarea, row.GetDateTime("fechaCreacion"), usuarioCreador, "Un Estado");
 
 

@@ -86,10 +86,10 @@ var Legajo = {
 
                 //FC: me fijo si tiene pedido de domicilio pendiente
                 Backend.GetDomicilioPendiente()
-                        .onSuccess(function (jsonDomicilios) {
+                        .onSuccess(function (jsonDomicilio) {
 
-                            var domicilios = $.parseJSON(jsonDomicilios);
-                            if (domicilios.length > 0) {
+                            var domicilio = $.parseJSON(jsonDomicilio);
+                            if (domicilio.Id != 0) {
                                 $('#mensajeCambioDomicilioPendiente').show();
                                 $('#btnMostrarDomicilio').hide();
                             }
@@ -132,6 +132,11 @@ var Legajo = {
                                 domicilio.Cp = ui.find('#txt_cp').val();
                                 domicilio.Localidad = ui.find('#cmb_localidad').val();
                                 domicilio.Provincia = ui.find('#cmb_provincia').val();
+                                domicilio.Manzana = ui.find('#txt_manzana').val();
+                                domicilio.Casa = ui.find('#txt_casa').val();
+                                domicilio.Barrio = ui.find('#cmb_barrio').val();
+                                domicilio.Torre = ui.find('#cmb_torre').val();
+                                domicilio.Uf = ui.find('#cmb_uf').val();
                                 Backend.GuardarDomicilioPendiente(domicilio)
                                     .onSuccess(function (respuesta) {
                                         vex.dialog.alert({
@@ -1588,6 +1593,7 @@ var Legajo = {
                         columnas_tareas.push(new Columna("Fecha Creación", { generar: function (una_tarea) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_tarea.fechaCreacion) } }));
                         columnas_tareas.push(new Columna("Titulo", { generar: function (una_tarea) { return una_tarea.titulo } }));
                         columnas_tareas.push(new Columna("Descripcion", { generar: function (una_tarea) { return una_tarea.descripcion } }));
+                        columnas_tareas.push(new Columna("Creador", { generar: function (una_tarea) { return una_tarea.usuarioCreador.Owner.Apellido + ', ' + una_tarea.usuarioCreador.Owner.Nombre } }));
                         columnas_tareas.push(new Columna("Tipo de Tarea", { generar: function (una_tarea) { return una_tarea.tipoAlerta.descripcion } }));
                         columnas_tareas.push(new Columna("Estado", { generar: function (una_tarea) { return una_tarea.estado } }));
                         columnas_tareas.push(new Columna('Detalle', {
@@ -1620,6 +1626,8 @@ var Legajo = {
     MostrarDetalleDeTarea: function (tarea) {
         var _this = this;
         localStorage.setItem("idAlerta", tarea.id);
+        localStorage.setItem("documento", tarea.usuarioCreador.Owner.Documento);
+        
                         
                         // $("#pantalla_detalle_alerta").load(tarea.tipoAlerta.urlComponente, { detalle: detalleTarea }, function () {
 
