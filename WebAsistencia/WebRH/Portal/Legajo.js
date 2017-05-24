@@ -1418,9 +1418,9 @@ var Legajo = {
         Backend.getAreaDeLaPersona().onSuccess(function (datos) {
             var data = $.parseJSON(datos);
             var resumen = "<div style='text-align:center;'><b>DATOS DE MI ÁREA <br />" + data.Nombre + "</b></div><br/>";
-            if (data.datos_del_responsable.Apellido != "") {
-                resumen = resumen + "RESPONSABLE: " + data.datos_del_responsable.Apellido + ", " + data.datos_del_responsable.Nombre + "<br/>";
-            }
+//            if (data.datos_del_responsable.Apellido != "") {
+//                resumen = resumen + "RESPONSABLE: " + data.datos_del_responsable.Apellido + ", " + data.datos_del_responsable.Nombre + "<br/>";
+//            }
              
             var contactos = data.DatosDeContacto;
             var asistentes = data.Asistentes;

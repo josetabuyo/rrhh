@@ -4023,7 +4023,7 @@ public class WSViaticos : System.Web.Services.WebService
     {
         if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 33)) throw (new Exception("El usuario no tiene permisos para el modulo de bienes"));
         var repo = new RepositorioTarjetones(Conexion());
-        return repo.NuevoTarjeton(id_Bien);
+        return new Tarjeton();//repo.NuevoTarjeton(id_Bien);
     }
 
     [WebMethod]
