@@ -16,7 +16,7 @@ namespace General
 
         public List<Dotacion> Personas { get; set; }
         public List<PersonaContrato> PersonasContrato { get; set; }
-        
+        public List<MoBi_Bien> MoBi_Bien { get; set; }
        
         public Contador() { }
 
@@ -39,7 +39,17 @@ namespace General
         {
             this.Id = id;
             this.Descripcion = descripcion;
-            this.PersonasContrato = new List<PersonaContrato>();
+
+            if (algo == "C")
+            {
+                this.PersonasContrato = new List<PersonaContrato>();    
+            }
+
+            if (algo == "B")
+            {
+                this.MoBi_Bien = new List<MoBi_Bien>();
+            }
+            
             this.Orden = orden;
             this.DescripcionGrafico = descripcionGrafico;
         }

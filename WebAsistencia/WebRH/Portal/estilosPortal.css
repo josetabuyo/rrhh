@@ -30,6 +30,17 @@ a.back{
     bottom:0px;
     left:0px;
 }
+.resumen_area
+{
+    width: 279px;
+    position: absolute;
+    background-color: rgba(0, 108, 116, 0.74);
+    border: 3px solid #006b74;
+    color: #FFF;
+    margin-top: -60px;
+    padding: 2px;
+    font-size: 12px;
+}
 #content{
     margin:0 auto;
 }
@@ -360,7 +371,7 @@ a.icon{
 	perspective: 800px;
 	transition: all 0.4s ease-in-out;
 	margin:0 auto;
-	margin-top:65px; /*el de Fer era 200*/
+	margin-top:100px; /*el de Fer era 200*/
     /*top: 180px;
     left: 600px;*/
     z-index:9;

@@ -18,12 +18,8 @@
     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:18px; font-weight: bold; padding-top:25px;'>Portal<br/> del Empleado</span> <br/> "
         UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <div id="content">
+    <div class="resumen_area"></div>
         <div class="navigation ch-grid" id="nav">
-            <div class="datos_del_area">
-                <div style="text-align:center;margin-bottom:-10px;">INFORMACIÓN DE MI ÁREA</div><br />
-                <label style="font-size: 11px;" id="resumen_area">
-                </label>
-            </div>
             <div class="ch-item_3d ch-img-1_3d">
                 <div class="ch-info-wrap_3d">
                     <div class="ch-info_3d">
@@ -181,7 +177,7 @@
     </div>
     </form>
     <!-- The JavaScript -->
-    <script type="text/javascript" src="Legajo.js"></script>
+    <script type="text/javascript" src="Legajo.js?version=01"></script>
     <script type="text/javascript" src="../Scripts/jquery.easing.1.3.js"></script>
     <script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-tooltip.js"></script>
     <script type="text/javascript">

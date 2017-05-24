@@ -128,5 +128,11 @@ namespace AdministracionDeUsuarios
         {
             throw new NotImplementedException();
         }
+
+
+        public bool RechazarCambioDeImagen(int id_usuario, string razon_rechazo)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

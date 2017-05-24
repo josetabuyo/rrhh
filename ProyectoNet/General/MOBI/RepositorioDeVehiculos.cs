@@ -20,20 +20,17 @@ namespace General.Repositorios
             this.conexion_bd = conexion;
         }
 
-        public Vehiculo ObtenerVehiculoPorID(string id_vehiculo)
+        public Vehiculo ObtenerVehiculoPorID(int id_vehiculo)
         {
             if (id_vehiculo == null)
             {
-                id_vehiculo = "1";
+                id_vehiculo = 0;
             }
             var parametros = new Dictionary<string, object>();
             
-            
-            parametros.Add("@Id_Bien", id_vehiculo);
+            parametros.Add("@IdBien", id_vehiculo);
 
-
-
-            var tablaDatos = this.conexion_bd.Ejecutar("dbo.MOBI_GetVehiculosPorIdBien", parametros);
+            var tablaDatos = this.conexion_bd.Ejecutar("dbo.MOBI_GET_Vehiculos_Por_IdBien", parametros);
 
             var unVehiculo = new Vehiculo();
             if (tablaDatos.Rows.Count > 0)
@@ -60,36 +57,34 @@ namespace General.Repositorios
 
         public Vehiculo ObtenerVehiculoPorIDVerificacion(string id_verificacion)
         {
+
             if (id_verificacion == null)
             {
-                id_verificacion = "1";
+                id_verificacion = "0";
             }
             var parametros = new Dictionary<string, object>();
 
+            parametros.Add("@IdBien", id_verificacion);
 
-            parametros.Add("@Id_Verificacion", id_verificacion);
-
-
-
-            var tablaDatos = this.conexion_bd.Ejecutar("dbo.MOBI_GetVehiculosPorIdVerificacion", parametros);
-
+            var tablaDatos = this.conexion_bd.Ejecutar("dbo.MOBI_PRUEBA_GERMAN", parametros);
+            
             var unVehiculo = new Vehiculo();
             if (tablaDatos.Rows.Count > 0)
             {
                 var row = tablaDatos.Rows[0];
 
-                unVehiculo.NumeroVehiculo = row.GetString("NumeroVehiculo");
-                unVehiculo.Dominio = row.GetString("Dominio");
-                unVehiculo.Segmento = row.GetString("Segmento");
-                unVehiculo.Marca = row.GetString("Marca");
-                unVehiculo.Modelo = row.GetString("Modelo");
-                unVehiculo.Motor = row.GetString("Motor");
-                unVehiculo.Chasis = row.GetString("Chasis");
-                unVehiculo.Anio = row.GetString("Anio");
-                unVehiculo.Observacion = row.GetString("Observacion");
-                unVehiculo.Area = row.GetString("Area");
-                unVehiculo.Apellido = row.GetString("Apellido");
-                unVehiculo.Nombre = row.GetString("Nombre");
+                unVehiculo.NumeroVehiculo = row.GetString("NumeroVehiculo", "");
+                unVehiculo.Dominio = row.GetString("Dominio", "-");
+                unVehiculo.Segmento = row.GetString("Segmento", "");
+                unVehiculo.Marca = row.GetString("Marca", "");
+                unVehiculo.Modelo = row.GetString("Modelo", "");
+                unVehiculo.Motor = row.GetString("Motor", "");
+                unVehiculo.Chasis = row.GetString("Chasis", "");
+                unVehiculo.Anio = row.GetString("Anio", "");
+                unVehiculo.Observacion = row.GetString("Observacion", "");
+                unVehiculo.Area = row.GetString("Area", "");
+                unVehiculo.Apellido = row.GetString("Apellido", "");
+                unVehiculo.Nombre = row.GetString("Nombre", "");
                 unVehiculo.MensajeTarjeton = row.GetString("MensajeTarjeton", null);
                 unVehiculo.Mensaje = row.GetString("MensajeVehiculo", null);
 

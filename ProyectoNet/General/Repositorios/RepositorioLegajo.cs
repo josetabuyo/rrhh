@@ -37,33 +37,57 @@ namespace General.Repositorios
             if (area.Id > 0)
             {
                 parametros.Clear();
+                
                 parametros.Add("@id_area", area.Id);
                 var tablaDatos2 = conexion.Ejecutar("dbo.VIA_GetAreasCompletas", parametros);
-
                 datos_adicionales = RepositorioDeAreas.GetAreasDeTablaDeDatos(tablaDatos2);
                 area = datos_adicionales.First();
             }
-            var repo_permisos = RepositorioDePermisosSobreAreas.NuevoRepositorioDePermisosSobreAreas(conexion, RepositorioDeAreas.NuevoRepositorioDeAreas(conexion));
-            var repo_usuario = new RepositorioDeUsuarios(conexion, RepositorioDePersonas.NuevoRepositorioDePersonas(conexion));
-            var usuarios = repo_usuario.GetUsuariosQueAdministranLaFuncionalidadDelArea(4, area);
+            
+            //PERMISOS PARA GESTIONAR LICENCIAS
             if (area.Asistentes != null)
             {
                 area.Asistentes.Clear();
             }
-            else {
+            else
+            {
                 area.Asistentes = new List<Asistente>();
             }
-            
-            List<Asistente> asistentes_confuncionalidades = new List<Asistente>();
-            usuarios.ForEach(u =>
+            parametros.Add("@FechaVigencia", DateTime.Today);
+            parametros.Add("@Muestra_Depto", true);
+            parametros.Add("@Muestra_Lugares_de_Trabajo", true);
+            parametros.Add("@Muestra_Lugares_Sin_Trabajadores", true);
+
+            var tablaDatos3 = conexion.Ejecutar("dbo.VIA_Get_Areas_y_RespAsist", parametros);
+            if (tablaDatos3.Rows.Count > 0)
             {
-                if (u.Owner != null)
+                tablaDatos3.Rows.ForEach(row =>
                 {
-                    var asistente_nuevo = new Asistente(u.Owner.Nombre, u.Owner.Apellido, "", 0, "", "", "");
-                    area.Asistentes.Add(asistente_nuevo);
-                }
+                        area.Asistentes.Add(new Asistente(row.GetString("Nombre", ""), row.GetString("Apellido", ""), "", 0, "", "", ""));  
+                });
+
+            }
+            //var repo_permisos = RepositorioDePermisosSobreAreas.NuevoRepositorioDePermisosSobreAreas(conexion, RepositorioDeAreas.NuevoRepositorioDeAreas(conexion));
+            //var repo_usuario = new RepositorioDeUsuarios(conexion, RepositorioDePersonas.NuevoRepositorioDePersonas(conexion));
+            //var usuarios = repo_usuario.GetUsuariosQueAdministranLaFuncionalidadDelArea(4, area);
+            //if (area.Asistentes != null)
+            //{
+            //    area.Asistentes.Clear();
+            //}
+            //else {
+            //    area.Asistentes = new List<Asistente>();
+            //}
+            
+            //List<Asistente> asistentes_confuncionalidades = new List<Asistente>();
+            //usuarios.ForEach(u =>
+            //{
+            //    if (u.Owner != null)
+            //    {
+            //        var asistente_nuevo = new Asistente(u.Owner.Nombre, u.Owner.Apellido, "", 0, "", "", "");
+            //        area.Asistentes.Add(asistente_nuevo);
+            //    }
                
-            });
+            //});
 
             return JsonConvert.SerializeObject(area);
         }
