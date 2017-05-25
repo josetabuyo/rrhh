@@ -32,14 +32,14 @@
     <div class="container-fluid">
         <h1 style="text-align: center; margin: 30px;">
         </h1>
-        <div style="text-align: center;" class="caja_izq no-print">
+        <%--<div style="text-align: center;" class="caja_izq no-print">
             <p style="margin: 25px; font-size: 2.1em; color: #fff;">
                 Menú</p>
             <input id="btn_consultas_pendientes" type="button" class="btn_gestion_consulta" style="margin: 10px;
                 width: 170px; font-size: smaller;color:#000" value="TAREAS PENDIENTES" />
 
-        </div>
-        <div class="caja_der papel">
+        </div>--%>
+        <div class=" papel">
             <%--DIV 1--%>
            
             <div id="consultas">
@@ -65,13 +65,14 @@
         <uc3:Consulta ID="Consulta1" runat="server" />
     </div>
 </body>
-<script type="text/javascript" src="Legajo.js"></script>
+
+<script type="text/javascript" src="../Componentes/GestionDeTareas.js"></script>
 <script type="text/javascript" src="../Scripts/Spin.js"></script>
 <script type="text/javascript" src="../scripts/vex-2.1.1/js/vex.combined.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function ($) {
         Backend.start(function () {
-            Legajo.getTareasParaGestion();
+            GestionDeTareas.getTareasParaGestion();
         });
 
         

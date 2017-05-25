@@ -89,7 +89,21 @@ namespace General.MAU
                 throw new Exception(e.Message);
             }
             
-        } 
+        }
+
+        public void MAU_MarcarEstadoAlerta(int id_alerta, int id_usuario)
+        {
+            try
+            {
+                var parametros = new Dictionary<string, object>();
+                parametros.Add("@id_alerta", id_alerta);
+                this.conexion.EjecutarSinResultado("dbo.MAU_MarcarEstadoAlerta", parametros);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
 
        
     }

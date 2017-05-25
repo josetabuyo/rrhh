@@ -157,7 +157,7 @@ var Legajo = {
 
                                         //vex.dialog.alert('Solicitud de cambio de domicilio generada. Presente el formulario impreso a RRHH');
                                         _this.getDatosPersonales();
-
+                                        vex.close();
 
 
                                     })
@@ -1575,84 +1575,6 @@ var Legajo = {
                 ui.find('#mensaje').html("No se encontraron datos para la persona con documento " + documento);
             }
         });
-    },
-    getTareasParaGestion: function () {
-        var _this_original = this;
-        Backend.getAlertasPorFuncionalidad()
-                    .onSuccess(function (tareas) {
-
-                        var _this = this;
-
-                        $("#tablaTareas").empty();
-
-                        var divGrilla_tareas = $("#tablaTareas");
-
-                        var columnas_tareas = [];
-
-                        columnas_tareas.push(new Columna("#", { generar: function (una_tarea) { return una_tarea.id } }));
-                        columnas_tareas.push(new Columna("Fecha Creación", { generar: function (una_tarea) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_tarea.fechaCreacion) } }));
-                        columnas_tareas.push(new Columna("Titulo", { generar: function (una_tarea) { return una_tarea.titulo } }));
-                        columnas_tareas.push(new Columna("Descripcion", { generar: function (una_tarea) { return una_tarea.descripcion } }));
-                        columnas_tareas.push(new Columna("Creador", { generar: function (una_tarea) { return una_tarea.usuarioCreador.Owner.Apellido + ', ' + una_tarea.usuarioCreador.Owner.Nombre } }));
-                        columnas_tareas.push(new Columna("Tipo de Tarea", { generar: function (una_tarea) { return una_tarea.tipoAlerta.descripcion } }));
-                        columnas_tareas.push(new Columna("Estado", { generar: function (una_tarea) { return una_tarea.estado } }));
-                        columnas_tareas.push(new Columna('Detalle', {
-                            generar: function (una_tarea) {
-                                var btn_accion = $('<a>');
-                                var img = $('<img>');
-                                img.attr('src', '../Imagenes/detalle.png');
-                                img.attr('width', '15px');
-                                img.attr('height', '15px');
-                                btn_accion.append(img);
-                                btn_accion.click(function () {
-                                    _this_original.MostrarDetalleDeTarea(una_tarea);
-                                });
-                                return btn_accion;
-                            }
-                        }));
-
-                        _this.divGrilla_tareas = new Grilla(columnas_tareas);
-                        _this.divGrilla_tareas.CambiarEstiloCabecera("estilo_tabla_portal");
-                        _this.divGrilla_tareas.SetOnRowClickEventHandler(function (una_tarea) { });
-                        _this.divGrilla_tareas.CargarObjetos(tareas);
-                        _this.divGrilla_tareas.DibujarEn(divGrilla_tareas);
-
-                        $('.table-hover').removeClass("table-hover");
-                    })
-                    .onError(function (e) {
-
-                    });
-    },
-    MostrarDetalleDeTarea: function (tarea) {
-        var _this = this;
-        localStorage.setItem("idAlerta", tarea.id);
-        localStorage.setItem("documento", tarea.usuarioCreador.Owner.Documento);
-        
-                        
-                        // $("#pantalla_detalle_alerta").load(tarea.tipoAlerta.urlComponente, { detalle: detalleTarea }, function () {
-
-                vex.defaultOptions.className = 'vex-theme-os';
-                vex.open({
-                    afterOpen: function ($vexContent) {
-                        //var ui = $("#pantalla_detalle_alerta");
-                        $vexContent.load(tarea.tipoAlerta.urlComponente);
-                        // ui.show();
-
-
-                        return $vexContent; //ui;
-                    },
-                    css: {
-                        'padding-top': "4%",
-                        'padding-bottom': "0%",
-                        'background-color': "rgb(249, 248, 248)"
-                    },
-                    contentCSS: {
-                        width: "80%",
-                        height: "80%"
-                    }
-                });
-
     }
-
 
 }

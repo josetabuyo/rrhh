@@ -1,0 +1,77 @@
+﻿<style type="text/css">
+      
+        
+    </style>
+
+<div>
+<h1>Cambio Domicilio</h1>
+
+<h3>Solicitado por: <span id="nombreUsuario"></span> el día <span id="fechaCreacion"></span> </h3>
+
+<fieldset>
+<legend>Domicilio Solicitado</legend>
+<p>Dirección:  <span id="calle"></span> N°<span id="numero"></span></p>
+<p>Piso: <span id="piso"></span> Depto:<span id="depto"></span></p>
+ <p>Localidad: <span id="localidad"></span></p>
+ <p>Provincia: <span id="provincia"></span></p>
+ <p><span id="manzana"></span> <span id="casa"></span> <span id="barrio"></span> <span id="torre"></span> <span id="uf"></span> </p>
+</fieldset>
+
+
+
+
+<div style="text-align:center;">
+    <input type="button" class="btn btn-primary" id="btnConfirmarDomicilio" value="Confirmar" />
+    <input type="button" class="btn btn-primary" id="btnCancelarDomicilio" value="Cancelar" />
+    <input type="button" class="btn btn-primary" id="btnDelegarDomicilio" value="Delegar" />
+</div>
+</div>
+
+<script type="text/javascript">
+    var idAlerta = localStorage.getItem("idAlerta");
+    var documento = localStorage.getItem("documento");
+
+   
+
+    $('#btnConfirmarDomicilio').click(function () {
+        Backend.VerificarDomicilioPendiente(idAlerta, documento)
+        .onSuccess(function (resultado) {
+            alert(resultado);
+
+        });
+    });
+
+    $('#btnCancelarDomicilio').click(function () {
+        alert('a');
+    });
+
+    $('#btnDelegarDomicilio').click(function () {
+        alert('a');
+    });
+
+    Backend.GetDomicilioPendientePorAlerta(idAlerta)
+        .onSuccess(function (domicilioJSON) {
+
+            $('#nombreUsuario').html(localStorage.getItem("apellido") + ', ' + localStorage.getItem("nombre"));
+            $('#fechaCreacion').html(localStorage.getItem("fecha"));
+
+            var domicilio = $.parseJSON(domicilioJSON);
+            //alert(detalleTareaJSON);
+            $('#calle').html(domicilio.Calle);
+            $('#numero').html(domicilio.Numero);
+            $('#piso').html(domicilio.Piso);
+            $('#depto').html(domicilio.Depto);
+            $('#localidad').html(domicilio.NombreLocalidad);
+            $('#provincia').html(domicilio.NombreProvincia);
+
+            $('#manzana').html(domicilio.Manzana);
+            $('#casa').html(domicilio.Casa);
+            $('#torre').html(domicilio.Torre);
+            $('#barrio').html(domicilio.Barrio);
+            $('#uf').html(domicilio.Uf);
+
+
+        });
+   
+
+</script>

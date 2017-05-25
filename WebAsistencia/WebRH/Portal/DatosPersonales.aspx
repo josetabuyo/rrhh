@@ -51,42 +51,39 @@
                  <h3 style="text-align: center;">Solicitud de actualización de domicilio</h3>
                     <br />
                         <div class="">
-                            <label class="etiqueta_campo" for="txt_calle">
-                                Calle <em>*</em></label>
-                            <input type="text" id="txt_calle" name="txt_calle" style="width: 250px; height: 30px;" />
-                            <label class="etiqueta_campo" for="txt_numero">
-                                Número <em>*</em></label>
-                            <input type="text" id="txt_numero" name="txt_numero" style="width: 50px; height: 30px;" />
+                            <label class="etiqueta_campo" for="txt_calle">Calle <em>*</em></label>
+                            <input type="text" value="" id="txt_calle" name="txt_calle" style="width: 250px; height: 30px;" />
+                            <label class="etiqueta_campo" for="txt_numero">Número <em>*</em></label>
+                            <input type="text" value="" id="txt_numero" name="txt_numero" style="width: 50px; height: 30px;" />
 
                                 <label class="etiqueta_campo" for="txt_piso">Piso</label>
-                                <input type="text" id="txt_piso" name="txt_piso" style="width: 30px; height: 30px;" />
+                                <input type="text" value="" id="txt_piso" name="txt_piso" style="width: 30px; height: 30px;" />
 
                                 <label class="etiqueta_campo" for="txt_dto">Dpto</label>
-                                <input type="text" id="txt_dto" name="txt_dto" style="width: 30px; height: 30px;" />
+                                <input type="text" value="" id="txt_dto" name="txt_dto" style="width: 30px; height: 30px;" />
 
                                  <label class="etiqueta_campo_small" for="txt_cp">Código Postal <em>*</em></label>
-                                <input type="text" id="txt_cp" name="txt_cp" style="width: 30px; height: 30px;" />
+                                <input type="text" value="" id="txt_cp" name="txt_cp" style="width: 50px; height: 30px;" />
                             </div>
 
                             <div class="">
                                 <label class="etiqueta_campo" for="txt_calle">Manzana</label>
-                                <input type="text" id="txt_manzana" name="txt_calle" style="width: 30px; height: 30px;" />
+                                <input type="text" value="" id="txt_manzana" name="txt_calle" style="width: 30px; height: 30px;" />
                                 <label class="etiqueta_campo" for="txt_numero">Barrio </label>
-                                <input type="text" id="txt_barrio" name="txt_numero" style="width: 30px; height: 30px;" />
+                                <input type="text" value="" id="txt_barrio" name="txt_numero" style="width: 30px; height: 30px;" />
 
                                 <label class="etiqueta_campo" for="txt_piso">Torre</label>
-                                <input type="text" id="txt_torre" name="txt_piso" style="width: 30px; height: 30px;" />
+                                <input type="text" value="" id="txt_torre" name="txt_piso" style="width: 30px; height: 30px;" />
 
                                 <label class="etiqueta_campo" for="txt_dto">Uf</label>
-                                <input type="text" id="txt_uf" name="txt_dto" style="width: 30px; height: 30px;" />
+                                <input type="text" value="" id="txt_uf" name="txt_dto" style="width: 30px; height: 30px;" />
 
                                  <label class="etiqueta_campo_small" for="txt_cp">Casa</label>
-                                <input type="text" id="txt_casa" name="txt_cp" style="width: 30px; height: 30px;" />
+                                <input type="text" value="" id="txt_casa" name="txt_cp" style="width: 30px; height: 30px;" />
                             </div>
 
                             <div class="">
-                                <label class="etiqueta_campo" for="cmb_provincia">
-                                    Provincia <em>*</em></label>
+                                <label class="etiqueta_campo" for="cmb_provincia">Provincia <em>*</em></label>
                                 <select id="cmb_provincia" style="width: 200px;"></select>
 
                                 <label class="etiqueta_campo_small" for="cmb_localidad">Localidad <em>*</em></label>
