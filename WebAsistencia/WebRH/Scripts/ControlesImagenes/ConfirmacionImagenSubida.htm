@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link id="link1" rel="stylesheet" href="../Scripts/imgareaselect/imgareaselect-animated.css" type="text/css" />
+    <style type="text/css">
+       
+    </style>
+</head>
+<div id="pantalla_confirmacion_imagen">
+    <div id="titulo_recorte">
+        Recorte de imagen</div>
+    <div id="panel_imagenes">
+        <div id="imagen_anterior">
+        </div>
+        <div id="imagen_nueva">            
+        </div>
+    </div>
+    <input type="button" id="btn_rechazar_cambio_imagen" class="btn btn-danger" value="Rechazar" />
+    <input type="button" id="btn_aceptar_cambio_imagen" class="btn btn-success" value="Aceptar" />
+</div>
+<div id="plantillas_adm_cambio_imagen">
+    <div class="confirmacion_recorte_imagen">
+        <img id="imagen_recortada"/>
+        <input type="button" id="btn_cancelar_recorte" class="btn btn-danger" value="Cancelar" />
+        <input type="button" id="btn_aceptar_recorte" class="btn btn-success" value="Aceptar" />
+    </div>
+</div>
+<script type="text/javascript" src="../Scripts/imgareaselect/jquery.imgareaselect.min.js" />
+
+<script type="text/javascript">
+    var AdministradorSolicitudCambioImagen = function (solicitud) {
+        var _this = this;
+        vex.defaultOptions.className = 'vex-theme-os';
+        vex.open({
+            afterOpen: function ($vexContent) {
+                var ui = $("#pantalla_actualizacion_imagen");
+
+                ui.find("#btn_aceptar_cambio_imagen")
+                .off("click")
+                .click(function () {
+                    Backend.AceptarCambioDeImagen(solicitud.usuario.Id).onSuccess(function () {
+                        alertify.success('solicitud de cambio de imagen aceptada');
+                        vex.close();
+                        _this.alResolver();
+                    });
+                });
+                ui.find("#btn_rechazar_cambio_imagen")
+                .off("click")
+                .click(function () {
+                    vex.dialog.prompt({
+                        message: 'Indique razón de rechazo',
+                        placeholder: '',
+                        callback: function (value) {
+                            if (value) {
+                                Backend.RechazarCambioDeImagen(solicitud.usuario.Id, value).onSuccess(function () {
+                                    alertify.success('solicitud de cambio de imagen rechazada');
+                                    vex.close();
+                                    _this.alResolver();
+                                });
+                            }
+                        }
+                    })
+
+                });
+
+                ui.find("#usuario_solicitante").text("(" + solicitud.usuario.Alias.replace(' ', '') + ") " + solicitud.usuario.Owner.Apellido + ", " + solicitud.usuario.Owner.Nombre + " DNI:" + solicitud.usuario.Owner.Documento);
+                $vexContent.append(ui);
+                ui.show();
+
+                var vista_imagen_anterior = new VistaThumbnail({ id: solicitud.idImagenAnterior, contenedor: ui.find("#imagen_anterior") });
+                var vista_imagen_nueva = new VistaThumbnail({
+                    id: solicitud.idImagenNueva,
+                    contenedor: ui.find("#imagen_nueva"),
+                    alRecortar: function (bytes_imagen_recortada) {
+                        vex.defaultOptions.className = 'vex-theme-os';
+                        vex.open({
+                            afterOpen: function ($vexContent) {
+                                var ui = $("#plantillas_adm_cambio_imagen .confirmacion_recorte_imagen").clone();
+                                ui.find("#imagen_recortada").attr("src", "data:image/png;base64," + bytes_imagen_recortada);
+                                ui.find("#btn_aceptar_recorte").click(function () {
+                                    Backend.SubirImagen(bytes_imagen_recortada).onSuccess(function (id_imagen_recortada) {
+                                        Backend.AceptarCambioImagenConImagenRecortada(solicitud.usuario.Id, id_imagen_recortada).onSuccess(function (id_imagen_recortada) {
+                                            alertify.success('solicitud de cambio de imagen aceptada');
+                                            vex.close();
+                                            vex.close();
+                                            _this.alResolver();
+                                        });
+                                    });
+                                });
+                                ui.find("#btn_cancelar_recorte").click(function () {
+                                    vex.close();
+                                });
+                                $vexContent.append(ui);
+                                ui.show();
+                                return ui;
+                            }
+                        })
+                    }
+                });
+
+                return ui;
+            },
+            css: {
+                'padding-top': "4%",
+                'padding-bottom': "0%"
+            },
+            contentCSS: {
+                width: "70%",
+                height: "80%"
+            }
+        });
+    };
+</script>
