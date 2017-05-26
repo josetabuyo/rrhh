@@ -48,7 +48,13 @@
         _this.img_thumbnail.hide();
         _this.img_estatica.show();
 
-        _this.getImagen();
+        if (_this.bytes_imagen) {
+            _this.img_thumbnail.show();
+            _this.img_estatica.hide();
+            _this.img_thumbnail.attr("src", "data:image/png;base64," + _this.bytes_imagen)
+        } else {
+            _this.getImagen();
+        }
     });
 };
 

@@ -42,31 +42,38 @@ SubidorDeImagenes.prototype.subirProximaImagen = function (onImagenLista, recort
         var bytes_imagen = canvas.toDataURL('image/jpg');
         bytes_imagen = bytes_imagen.replace(/^data:image\/(png|jpg);base64,/, "");
 
+
 //        if (recortar) {
 //            vex.defaultOptions.className = 'vex-theme-os';
 //            vex.open({
 //                afterOpen: function ($vexContent) {
-//                    var ui = $("#plantillas_adm_cambio_imagen .confirmacion_recorte_imagen").clone();
-//                    ui.find("#imagen_recortada").attr("src", "data:image/png;base64," + bytes_imagen_recortada);
-//                    ui.find("#btn_aceptar_recorte").click(function () {
-//                        Backend.SubirImagen(bytes_imagen_recortada).onSuccess(function (id_imagen_recortada) {
-//                            Backend.AceptarCambioImagenConImagenRecortada(solicitud.usuario.Id, id_imagen_recortada).onSuccess(function (id_imagen_recortada) {
-//                                alertify.success('solicitud de cambio de imagen aceptada');
-//                                vex.close();
-//                                vex.close();
-//                                _this.alResolver();
+//                    var vista_imagen = new VistaThumbnail({
+//                        bytes_imagen: bytes_imagen,
+//                        contenedor: $vexContent,
+//                        alRecortar: function (bytes_imagen_recortada) {
+//                            Backend.SubirImagen(bytes_imagen_recortada).onSuccess(function (id_imagen) {
+//                                _this.indiceFileSubiendo += 1;
+
+//                                onImagenLista(id_imagen, bytes_imagen_recortada);
+
+//                                if (_this.indiceFileSubiendo >= _this.colaDeSubida.length) return;
+//                                _this.subirProximaImagen(onImagenLista);
 //                            });
-//                        });
+//                        }
 //                    });
-//                    ui.find("#btn_cancelar_recorte").click(function () {
-//                        vex.close();
-//                    });
-//                    $vexContent.append(ui);
-//                    ui.show();
-//                    return ui;
+
+//                    return $vexContent;
+//                },
+//                css: {
+//                    'padding-top': "4%",
+//                    'padding-bottom': "0%"
+//                },
+//                contentCSS: {
+//                    width: "80%",
+//                    height: "80%"
 //                }
-//            })
-//        }
+//            });
+//        } else {
 
         Backend.SubirImagen(bytes_imagen).onSuccess(function (id_imagen) {
             _this.indiceFileSubiendo += 1;
@@ -76,5 +83,7 @@ SubidorDeImagenes.prototype.subirProximaImagen = function (onImagenLista, recort
             if (_this.indiceFileSubiendo >= _this.colaDeSubida.length) return;
             _this.subirProximaImagen(onImagenLista);
         });
+
+//        }
     };
 };

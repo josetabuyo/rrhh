@@ -2659,13 +2659,6 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public bool AceptarCambioImagenConImagenRecortada(int id_usuario, int id_imagen_recortada, Usuario usuario)
-    {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 50)) throw (new Exception("El usuario no tiene permisos para administrar cambios de imagen"));
-        return RepositorioDeUsuarios().AceptarCambioImagenConImagenRecortada(id_usuario, id_imagen_recortada);
-    }
-
-    [WebMethod]
     public bool RechazarCambioDeImagen(int id_usuario, string razon_de_rechazo, Usuario usuario)
     {
         if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 50)) throw (new Exception("El usuario no tiene permisos para administrar cambios de imagen"));
@@ -4030,8 +4023,7 @@ public class WSViaticos : System.Web.Services.WebService
     {
         if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 33)) throw (new Exception("El usuario no tiene permisos para el modulo de bienes"));
         var repo = new RepositorioTarjetones(Conexion());
-        //return repo.NuevoTarjeton(id_Bien);
-        return new Tarjeton();
+        return new Tarjeton();//repo.NuevoTarjeton(id_Bien);
     }
 
     [WebMethod]
