@@ -11,9 +11,23 @@
     <link id="link1" rel="stylesheet" href="ConsultaProtocolo.css" type="text/css" runat="server" />
     <link id="link5" rel="stylesheet" href="VistaDeArea.css" type="text/css" runat="server" />
     <link href="../FormularioConcursar/EstilosPostular.css" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" href="../scripts/select2-3.4.4/select2.css" type="text/css" />
-        <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
+    <link rel="stylesheet" href="../scripts/select2-3.4.4/select2.css" type="text/css" />
+    <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
     <%--<script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>--%>
+    <style>
+        input
+        {
+            height: 30px !important;
+        }
+        .btn
+        {
+            padding-bottom: 27px !important;
+        }
+        a.btn
+        {
+            padding-bottom: 9px !important;
+        }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -34,7 +48,8 @@
                     <p>
                         <div class="btn-fld" style="float: right;">
                             <input type="button" class="btn btn-primary" id="btn_buscarSinAprobacion" value="Visualizar Datos Enviados para Aprobación" />
-                            <input type="button" class="btn btn-primary" id="btn_buscarDatosOriginales" value="Volver a los Datos Actuales" style="display:none" />
+                            <input type="button" class="btn btn-primary" id="btn_buscarDatosOriginales" value="Volver a los Datos Actuales"
+                                style="display: none" />
                         </div>
                     </p>
                 </div>
@@ -162,7 +177,6 @@
             </div>
         </div>
         <asp:HiddenField ID="AreaSeleccionada" runat="server" />
-        
     </div>
     </form>
 </body>
@@ -180,7 +194,6 @@
 <script type="text/javascript" src="../Scripts/select2-3.4.4/select2_locale_es.js"></script>
 <script type="text/javascript" src="../Scripts/ObjectObserver.js"> </script>
 <script type="text/javascript" src="../Scripts/String.js"> </script>
-
 <script type="text/javascript">
     $(document).ready(function () {
         area = JSON.parse($('#AreaSeleccionada').val());

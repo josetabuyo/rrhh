@@ -83,7 +83,9 @@ var ModificarAreas_Direccion = {
         var resultado = Backend.ejecutarSincronico("BuscarCambiosEnDireccion", [{ IdArea: area.Id}]);
 
         if (resultado != "" && contador_guardado < 1) {
-            alertify.alert(resultado);
+            $('#txt_resultado').text(resultado)
+            $('#txt_resultado').css("color", "Red");
+            //alertify.alert(resultado); //@TODO: cambiar por un texto en la misma pantalla
             contador_guardado = contador_guardado + 1;
         } else {
             var resultado = Backend.ejecutarSincronico("GuardarCambiosEnDireccion", [{

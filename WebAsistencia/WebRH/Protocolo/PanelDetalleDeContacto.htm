@@ -41,8 +41,9 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
-
-        ModificarAreas_Contacto.Iniciar();
+        Backend.start(function () {
+            ModificarAreas_Contacto.Iniciar();
+        });
     });
    
 </script>
