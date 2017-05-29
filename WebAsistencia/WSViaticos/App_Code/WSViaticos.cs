@@ -4017,17 +4017,16 @@ public class WSViaticos : System.Web.Services.WebService
 
     #region mobi
 
-
     [WebMethod]
-    public Tarjeton NuevoTarjeton(int id_Bien, Usuario usuario)
+    public Tarjeton NuevoTarjeton(int id_Bien,string codigo_Holograma, Usuario usuario)
     {
         if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 33)) throw (new Exception("El usuario no tiene permisos para el modulo de bienes"));
         var repo = new RepositorioTarjetones(Conexion());
-        return null; //repo.NuevoTarjeton(id_Bien);
+        return null; // repo.NuevoTarjeton();
     }
 
     [WebMethod]
-    public RespuestaVehiculo ObtenerVehiculoPorIDVerificacion(string id_verificacion)
+    public RespuestaVehiculo ObtenerVehiculoPorCodigoWeb(string id_verificacion)
     {
         var repo = new RepositorioDeVehiculos(Conexion());
         var una_respuesta = new RespuestaVehiculo();
@@ -4037,7 +4036,7 @@ public class WSViaticos : System.Web.Services.WebService
             una_respuesta.Respuesta = 0;
             return una_respuesta;
         }
-        una_respuesta.vehiculo = repo.ObtenerVehiculoPorIDVerificacion(id_verificacion);
+        una_respuesta.vehiculo = repo.ObtenerVehiculoPorCodigoWeb(id_verificacion);
         if (string.IsNullOrEmpty(una_respuesta.vehiculo.Dominio))
         {
             una_respuesta.Respuesta = 0;

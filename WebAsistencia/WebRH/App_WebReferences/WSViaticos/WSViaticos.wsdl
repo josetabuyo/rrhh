@@ -1536,6 +1536,7 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="id_Bien" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="codigo_Holograma" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
@@ -1556,17 +1557,17 @@
           <s:element minOccurs="1" maxOccurs="1" name="id_Bien_Tarjeton" type="s:int" />
         </s:sequence>
       </s:complexType>
-      <s:element name="ObtenerVehiculoPorIDVerificacion">
+      <s:element name="ObtenerVehiculoPorCodigoWeb">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="id_verificacion" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="ObtenerVehiculoPorIDVerificacionResponse">
+      <s:element name="ObtenerVehiculoPorCodigoWebResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ObtenerVehiculoPorIDVerificacionResult" type="tns:RespuestaVehiculo" />
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerVehiculoPorCodigoWebResult" type="tns:RespuestaVehiculo" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -1592,8 +1593,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="Apellido" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="imagenes" type="tns:ArrayOfInt" />
-          <s:element minOccurs="0" maxOccurs="1" name="MensajeTarjeton" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Mensaje" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Conductor" type="tns:Persona" />
         </s:sequence>
       </s:complexType>
       <s:element name="ObtenerVehiculoPorID">
@@ -7139,11 +7139,11 @@
   <wsdl:message name="NuevoTarjetonSoapOut">
     <wsdl:part name="parameters" element="tns:NuevoTarjetonResponse" />
   </wsdl:message>
-  <wsdl:message name="ObtenerVehiculoPorIDVerificacionSoapIn">
-    <wsdl:part name="parameters" element="tns:ObtenerVehiculoPorIDVerificacion" />
+  <wsdl:message name="ObtenerVehiculoPorCodigoWebSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerVehiculoPorCodigoWeb" />
   </wsdl:message>
-  <wsdl:message name="ObtenerVehiculoPorIDVerificacionSoapOut">
-    <wsdl:part name="parameters" element="tns:ObtenerVehiculoPorIDVerificacionResponse" />
+  <wsdl:message name="ObtenerVehiculoPorCodigoWebSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerVehiculoPorCodigoWebResponse" />
   </wsdl:message>
   <wsdl:message name="ObtenerVehiculoPorIDSoapIn">
     <wsdl:part name="parameters" element="tns:ObtenerVehiculoPorID" />
@@ -9040,9 +9040,9 @@
       <wsdl:input message="tns:NuevoTarjetonSoapIn" />
       <wsdl:output message="tns:NuevoTarjetonSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="ObtenerVehiculoPorIDVerificacion">
-      <wsdl:input message="tns:ObtenerVehiculoPorIDVerificacionSoapIn" />
-      <wsdl:output message="tns:ObtenerVehiculoPorIDVerificacionSoapOut" />
+    <wsdl:operation name="ObtenerVehiculoPorCodigoWeb">
+      <wsdl:input message="tns:ObtenerVehiculoPorCodigoWebSoapIn" />
+      <wsdl:output message="tns:ObtenerVehiculoPorCodigoWebSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="ObtenerVehiculoPorID">
       <wsdl:input message="tns:ObtenerVehiculoPorIDSoapIn" />
@@ -10639,8 +10639,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ObtenerVehiculoPorIDVerificacion">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/ObtenerVehiculoPorIDVerificacion" style="document" />
+    <wsdl:operation name="ObtenerVehiculoPorCodigoWeb">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ObtenerVehiculoPorCodigoWeb" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -13648,8 +13648,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ObtenerVehiculoPorIDVerificacion">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/ObtenerVehiculoPorIDVerificacion" style="document" />
+    <wsdl:operation name="ObtenerVehiculoPorCodigoWeb">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ObtenerVehiculoPorCodigoWeb" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
