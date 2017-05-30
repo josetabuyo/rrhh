@@ -55,6 +55,7 @@
         localStorage.setItem("documento", tarea.usuarioCreador.Owner.Documento);
         localStorage.setItem("nombre", tarea.usuarioCreador.Owner.Nombre);
         localStorage.setItem("apellido", tarea.usuarioCreador.Owner.Apellido);
+        localStorage.setItem("idUsuarioCreador", tarea.usuarioCreador.Id);
         localStorage.setItem("fecha", tarea.fechaCreacion);
 
         // $("#pantalla_detalle_alerta").load(tarea.tipoAlerta.urlComponente, { detalle: detalleTarea }, function () {

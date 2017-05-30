@@ -6,8 +6,20 @@
         menu_alertas = new MenuDesplegable("menu_mensajes", "contenedor_menu_mensajes");
         menu_tareas = new MenuDesplegable("menu_tareas", "contenedor_menu_tareas");
 
+        $("#link_area").click(function () {
+                vex.defaultOptions.className = 'vex-theme-os';
+                vex.open({
+                    afterOpen: function ($vexContent) {
+                        var ui = $("#div_mi_area").clone();
+                        Legajo.getAreaDeLaPersona();
+                        $vexContent.append(ui);
+                        ui.show();
+                        return ui;
+                    }
+                })             
+                
+            });
         
-
         $('#boton_home').click(function () {
             Backend.ElUsuarioLogueadoTienePermisosPara(51).onSuccess(function (tiene_permisos) {   
                 if(tiene_permisos) window.location.href = '../Portal/Portal.aspx';
@@ -202,8 +214,6 @@
                }).set('labels', {ok:'Aceptar', cancel:'Cancelar'});
 
             });
-
-
         });
     });
 });

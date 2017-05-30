@@ -72,12 +72,12 @@ namespace General.MAU
             return alertas;
         }
 
-        public int crearAlerta(AlertaPortal alerta, Usuario usuario)
+        public int crearAlerta(AlertaPortal alerta, int idUsuarioDestinatario, Usuario usuario)
         {
             try
             {
                 var parametros = new Dictionary<string, object>();
-                parametros.Add("@id_usuario_destinatario", 0);
+                parametros.Add("@id_usuario_destinatario", idUsuarioDestinatario);
                 parametros.Add("@id_usuario_creador", usuario.Id);
                 parametros.Add("@id_tipo", alerta.tipoAlerta.id);
                 parametros.Add("@titulo", alerta.titulo);

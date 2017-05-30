@@ -124,6 +124,12 @@ var Legajo = {
                             });
 
                             ui.find('#btnCambiarDomicilio').click(function () {
+
+                                if (ui.find('#txt_calle').val() == '' || ui.find('#txt_numero').val() == '' || ui.find('#txt_cp').val() == '') {
+                                    alert('Debe completar los campos obligatorios');
+                                    return;
+                                }
+
                                 var domicilio = {};
                                 domicilio.Calle = ui.find('#txt_calle').val();
                                 domicilio.Numero = ui.find('#txt_numero').val();
@@ -139,21 +145,21 @@ var Legajo = {
                                 domicilio.Uf = ui.find('#cmb_uf').val();
                                 Backend.GuardarDomicilioPendiente(domicilio)
                                     .onSuccess(function (respuesta) {
-                                        vex.dialog.alert({
-                                            message: 'Solicitud de cambio de domicilio generada. Imprima el formulario y entregueselo a RRHH para finalizar el trámite.',
-                                            input: [
-                                            '<style>',
-                                                '.vex-custom-field-wrapper {',
-                                                    'margin: 1em 0;',
-                                                '}',
-                                                '.vex-custom-field-wrapper > label {',
-                                                    'display: inline-block;',
-                                                    'margin-bottom: .2em;',
-                                                '}',
-                                            '</style>',
-                                            '<div style="text-align:center;"><input type="button" value="GenerarPDF"  /></div>',
-                                        ].join('')
-                                        });
+                                        //                                        vex.dialog.alert({
+                                        //                                            message: 'Solicitud de cambio de domicilio generada. Imprima el formulario y entregueselo a RRHH para finalizar el trámite.',
+                                        //                                            input: [
+                                        //                                            '<style>',
+                                        //                                                '.vex-custom-field-wrapper {',
+                                        //                                                    'margin: 1em 0;',
+                                        //                                                '}',
+                                        //                                                '.vex-custom-field-wrapper > label {',
+                                        //                                                    'display: inline-block;',
+                                        //                                                    'margin-bottom: .2em;',
+                                        //                                                '}',
+                                        //                                            '</style>',
+                                        //                                            '<div style="text-align:center;"><input type="button" value="GenerarPDF"  /></div>',
+                                        //                                        ].join('')
+                                        //                                        });
 
                                         //vex.dialog.alert('Solicitud de cambio de domicilio generada. Presente el formulario impreso a RRHH');
                                         _this.getDatosPersonales();
@@ -1534,6 +1540,32 @@ var Legajo = {
                     .onError(function (e) {
                         spinner.stop();
                     });
+    },
+    getAreaDeLaPersona: function () {
+        var _this = this;
+        Backend.getAreaDeLaPersona().onSuccess(function (datos) {
+            var data = $.parseJSON(datos);
+            var resumen = "<div style='text-align:center;'><b>DATOS DE MI ÁREA <br />" + data.Nombre + "</b></div><br/>";
+            //            if (data.datos_del_responsable.Apellido != "") {
+            //                resumen = resumen + "RESPONSABLE: " + data.datos_del_responsable.Apellido + ", " + data.datos_del_responsable.Nombre + "<br/>";
+            //            }
+
+            var contactos = data.DatosDeContacto;
+            var asistentes = data.Asistentes;
+            for (var i = 0; i < contactos.length; i++) {
+                if (contactos[i].Descripcion != "" && contactos[i].Dato != "") {
+                    resumen = resumen + contactos[i].Descripcion + ": " + contactos[i].Dato + "<br/>";
+                }
+            };
+            resumen = resumen + '<br/><div style="text-align: center;"><b>ASISTENTES PARA CARGA DE LICENCIAS </b></div>';
+            for (var i = 0; i < asistentes.length; i++) {
+                resumen = resumen + asistentes[i].Apellido + ", " + asistentes[i].Nombre + "<br/>";
+            }
+
+            $('.load_imagen').hide();
+            $('.resumen_contacto').html(data.contacto); //Ver contacto
+            $('.resumen_area').html(resumen);
+        });
     },
     getConsultaIndividual: function (documento, ui) {
         var _this = this;

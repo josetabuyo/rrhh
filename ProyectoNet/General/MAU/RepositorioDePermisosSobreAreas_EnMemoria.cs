@@ -53,5 +53,11 @@ namespace General.MAU
         {
             throw new NotImplementedException();
         }
+
+
+        public List<Usuario> UsuariosQueAdministranElArea(Area area)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

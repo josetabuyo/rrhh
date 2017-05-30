@@ -167,6 +167,16 @@
     position: absolute;
     top: 260px;
     left: 0px;
+    cursor: pointer;
+    /*height: 34px !important;
+    width: 159px !important;*/
+}
+#link_area
+{
+    position: absolute;
+    top: 240px;
+    left: 24px;
+    cursor: pointer;
     /*height: 34px !important;
     width: 159px !important;*/
 }
@@ -174,7 +184,7 @@
 #go
 {
     position: absolute;
-    top: 235px;
+    top: 222px;
     left: -15px;
 }
 

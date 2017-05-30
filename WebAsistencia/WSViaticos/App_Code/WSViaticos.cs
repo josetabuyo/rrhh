@@ -480,6 +480,23 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
 
+
+    [WebMethod]
+    public GraficoBienes GetGraficoBienes(string criterio, Usuario usuario)
+    {
+        //if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 43)) throw (new Exception("El usuario no tiene permisos para el modulo de contratos"));
+        var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
+        string tipo = ((JValue)criterio_deserializado["tipo"]).ToString();
+
+        bool incluir_dependencias = (bool)((JValue)criterio_deserializado["incluir_dependencias"]);
+        DateTime fecha = DateTime.Today;
+        int id_area = (int)((JValue)criterio_deserializado["id_area"]);
+        RepositorioDeReportes repositorio = new RepositorioDeReportes(Conexion());
+        return repositorio.GetGraficoBienes(tipo, fecha, id_area, incluir_dependencias);
+
+    }
+
+
     /*Excel contratos*/
 
     [WebMethod]
@@ -3986,6 +4003,7 @@ public class WSViaticos : System.Web.Services.WebService
         return RepositorioDePersonas().GetConsultaRapida(documento);
 
     }
+    
 
     [WebMethod]
     public string GetCarreraAdministrativa(int documento, Usuario usuario)
@@ -4005,7 +4023,7 @@ public class WSViaticos : System.Web.Services.WebService
     {
         if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 33)) throw (new Exception("El usuario no tiene permisos para el modulo de bienes"));
         var repo = new RepositorioTarjetones(Conexion());
-        return repo.NuevoTarjeton(id_Bien);
+        return new Tarjeton();//repo.NuevoTarjeton(id_Bien);
     }
 
     [WebMethod]
@@ -4026,6 +4044,27 @@ public class WSViaticos : System.Web.Services.WebService
         }
         return una_respuesta;
     }
+
+
+    [WebMethod]
+    public RespuestaVehiculo ObtenerVehiculoPorID(int id_bien)
+    {
+        var repo = new RepositorioDeVehiculos(Conexion());
+        var una_respuesta = new RespuestaVehiculo();
+        una_respuesta.Respuesta = 1;
+        if (id_bien == null)
+        {
+            una_respuesta.Respuesta = 0;
+            return una_respuesta;
+        }
+        una_respuesta.vehiculo = repo.ObtenerVehiculoPorID(id_bien);
+        if (string.IsNullOrEmpty(una_respuesta.vehiculo.Dominio))
+        {
+            una_respuesta.Respuesta = 0;
+        }
+        return una_respuesta;
+    }
+
 
     [WebMethod]
     public MoBi_Area[] Mobi_GetAreasUsuario(int IdUsuario)
@@ -4057,10 +4096,11 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public MoBi_Bien Mobi_GetBienPorId(int id_bien)
+    public MoBi_Bien Mobi_GetImagenesBienPorId(int id_bien)
     {
-        RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
-        return rMoBi.GetBienPorId(id_bien);
+        //RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
+        //return rMoBi.GetImagenesBienPorIdGetBienPorId(id_bien);
+        return null;
     }
 
     [WebMethod]
@@ -4146,6 +4186,12 @@ public class WSViaticos : System.Web.Services.WebService
 
     #endregion
     #region Portal
+    [WebMethod]
+    public string getAreaDeLaPersona(Usuario usuario)
+    {
+        //aaaaaaaaaaaaaaaaaaaaaaaa
+        return RepoLegajo().getAreaDeLaPersona(usuario.Owner.Documento);
+    }
 
     [WebMethod]
     public string GetEstudios(Usuario usuario)
@@ -4308,11 +4354,11 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string VerificarDomicilioPendiente(int idAlerta, int documento, Usuario usuario)
+    public string VerificarDomicilioPendiente(int idAlerta, int documento, int idUsuarioCreador, Usuario usuario)
     {
         RepositorioLegajo repo = RepoLegajo();
 
-        return repo.VerificarCambioDomicilio(idAlerta, documento, usuario.Id);
+        return repo.VerificarCambioDomicilio(idAlerta, documento, idUsuarioCreador, usuario.Id);
 
     }
 
