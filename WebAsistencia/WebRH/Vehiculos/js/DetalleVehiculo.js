@@ -13,8 +13,9 @@
                 return;
             }
 
-            if (respuesta_vehiculo.vehiculo.Conductor.Apellido == "Sin Asignación") {
-                $("#responsable").text(respuesta_vehiculo.vehiculo.Conductor.Apellido);
+
+            if (respuesta_vehiculo.vehiculo.Conductor.Apellido == null || respuesta_vehiculo.vehiculo.Conductor.Apellido == "") {
+                $("#responsable").text("Sin Asignación");
             }
             else {
                 $("#responsable").text(respuesta_vehiculo.vehiculo.Conductor.Apellido + ', ' + respuesta_vehiculo.vehiculo.Conductor.Nombre);
