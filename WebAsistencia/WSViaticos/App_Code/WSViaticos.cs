@@ -4028,7 +4028,8 @@ public class WSViaticos : System.Web.Services.WebService
     {
         if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 33)) throw (new Exception("El usuario no tiene permisos para el modulo de bienes"));
         var repo = new RepositorioTarjetones(Conexion());
-        return repo.NuevoTarjeton(id_Bien);
+        //return repo.NuevoTarjeton(id_Bien);
+        return null; //pongo esto temporalmente porque la linea anterior no me compila.
     }
 
     [WebMethod]
@@ -4859,6 +4860,14 @@ public class WSViaticos : System.Web.Services.WebService
             throw ex;
         }
 
+    }
+
+    [WebMethod]
+    public string EvalGuardarCodigoGDE(int id, string codigo_gde)
+    {
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        repo.EvalGuardarCodigoGDE(id, codigo_gde);
+        return codigo_gde;
     }
 
     [WebMethod]

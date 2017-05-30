@@ -19,7 +19,6 @@ var ListadoAgentes = {
         .onSuccess(function (agentes) {
             spinner.stop();
 
-
             if (!agentes[0].hasOwnProperty('agente_evaluado')) return;
             todas_las_evaluaciones = agentes;
             _this.DibujarTabla(agentes);
@@ -65,9 +64,7 @@ var ListadoAgentes = {
         }));
         columnas.push(new Columna('Accion', {
             generar: function (evaluacion) {
-                var coleccion_respuestas = _this.getRespuestasDelForm(evaluacion);
-                var calificacion = _this.calificacion(coleccion_respuestas, evaluacion.nivel.deficiente, evaluacion.nivel.regular, evaluacion.nivel.bueno, evaluacion.nivel.destacado, false);
-                if (calificacion == 'A Evaluar' || calificacion == 'Evaluacion Incompleta') {
+                if (!_this.PuedeImprimir(evaluacion)) {
                     return _this.getBotonIrAFormulario(evaluacion);
                 }
                 if (evaluacion.estado == 1) {
@@ -76,7 +73,13 @@ var ListadoAgentes = {
                 return _this.getDosBotones(evaluacion);
             }
         }));
-
+        columnas.push(new Columna("GDE", { generar: function (evaluacion) {
+            if (evaluacion.codigo_gde == '' && _this.PuedeImprimir(evaluacion)) {
+                return _this.getLinkCargarGDE(evaluacion.id_evaluacion);
+            }
+            return evaluacion.codigo_gde;
+        }
+        }));
         _this.Grilla = new Grilla(columnas);
         _this.Grilla.SetOnRowClickEventHandler(function (evaluacion) { });
         _this.Grilla.CambiarEstiloCabecera("estilo_tabla_portal");
@@ -84,6 +87,11 @@ var ListadoAgentes = {
         _this.Grilla.DibujarEn(divGrilla);
         $('.table-hover').removeClass("table-hover");
         _this.BuscadorDeTabla();
+    },
+    PuedeImprimir: function (evaluacion) {
+        var coleccion_respuestas = this.getRespuestasDelForm(evaluacion);
+        var calificacion = this.calificacion(coleccion_respuestas, evaluacion.nivel.deficiente, evaluacion.nivel.regular, evaluacion.nivel.bueno, evaluacion.nivel.destacado, false);
+        return !(calificacion == 'A Evaluar' || calificacion == 'Evaluacion Incompleta');
     },
     BuscadorDeTabla: function () {
         var options = {
@@ -161,6 +169,24 @@ var ListadoAgentes = {
         localStorage.setItem("bueno", evaluacion.nivel.bueno);
         localStorage.setItem("destacado", evaluacion.nivel.destacado);
     },
+    getLinkCargarGDE: function (id_evaluacion) {
+        var _this = this;
+        var btn_accion = $('<a>');
+        btn_accion.html("Ingresar Codigo GDE");
+        btn_accion.attr('id_eval', id_evaluacion);
+        btn_accion.click(function () {
+            _this.abrirPopUp('#div_codigo_gde', "#btn_codigo_gde", _this.guardarCodigoGde, "#lnk_cancelar");
+            var id_eval = this["attributes"]["id_eval"].value;
+            $("#hid_doc").val(id_eval);
+        });
+        return btn_accion;
+    },
+    guardarCodigoGde: function (ui) {
+        //alert('testttt');
+        var doc = $("#hid_doc").val();
+        var codigo = ui.find('#codigo_gde').val();
+        Backend.EvalGuardarCodigoGDE(doc, codigo);
+    },
     getImgIcono: function (nombre_img, title) {
         var btn_accion = $('<a>');
         var img = $('<img>');
@@ -185,6 +211,30 @@ var ListadoAgentes = {
         });
         return btn_accion;
     },
+    abrirPopUp: function (nombre_div_formulario, nombre_boton_accion, accion, nombre_boton_cancel) {
+        var _this = this;
+        vex.defaultOptions.className = 'vex-theme-os';
+        vex.open({
+            afterOpen: function ($vexContent) {
+                var ui = $(nombre_div_formulario).clone();
+                $vexContent.append(ui);
+                ui.find(nombre_boton_accion).click(function () { accion(ui); });
+                var cancel = ui.find(nombre_boton_cancel)
+                if (cancel) {
+                    cancel.click(_this.cancelPopup);
+                }
+                ui.show();
+                return ui;
+            },
+            css: {
+                'padding-top': "4%",
+                'padding-bottom': "0%"
+            }
+        });
+    },
+    cancelPopup: function () {
+        vex.closeAll();
+    },
     getBotonIrAFormulario: function (evaluacion) {
         var btn_accion = this.getImgIcono('estudios.png', 'Estudios');
         var _this = this;
@@ -192,7 +242,7 @@ var ListadoAgentes = {
             _this.setAgenteValuesToLocalStorage(evaluacion);
             /*si nunca fue evaluado, no sabemos que nivel tiene, 
             hay que pedir al usuario que lo ingrese*/
-            if (un_agente.id_nivel == "0") {
+            if (evaluacion.id_nivel == "0") {
                 vex.defaultOptions.className = 'vex-theme-os';
                 vex.open({
                     afterOpen: function ($vexContent) {
@@ -244,7 +294,7 @@ var ListadoAgentes = {
         $('#div_contenido_impresion').append('<img src="../../Imagenes/EscudoMDS.png" width="150px" height="60px" alt="">');
         Backend.GetFormularioDeEvaluacion(idNivel, idEvaluacion, idEvaluado)
         .onSuccess(function (form) {
-            
+
             //HTML CABECERA
             var respuestas = _this.getRespuestasDesdeLasPreguntas(form);
             var calificacion = _this.calificacion(respuestas, localStorage.getItem("deficiente"), localStorage.getItem("regular"), localStorage.getItem("bueno"), localStorage.getItem("destacado"), false);
@@ -289,10 +339,7 @@ var ListadoAgentes = {
         .onError(function (e) {
             spinner.stop();
         });
-
-
     },
-
     getFormularioDeEvaluacion: function (idNivel, idEvaluacion, idEvaluado) {
         var spinner = new Spinner({ scale: 2 });
         spinner.spin($("html")[0]);
@@ -308,7 +355,7 @@ var ListadoAgentes = {
         Backend.GetFormularioDeEvaluacion(idNivel, idEvaluacion, idEvaluado)
         .onSuccess(function (form) {
             spinner.stop();
-            
+
             var respuestas = _this.getRespuestasDesdeLasPreguntas(form);
             var calificacion = _this.calificacion(respuestas, localStorage.getItem("deficiente"), localStorage.getItem("regular"), localStorage.getItem("bueno"), localStorage.getItem("destacado"), true);
             $("#puntaje").text(calificacion);
@@ -458,7 +505,7 @@ var ListadoAgentes = {
         //por cuestiones de diseño, esta lógica se encuentra duplicada, 
         //del lado del backend , en la clase NivelEvaluacionDesempeño
         //si se modifica, debe ser cambiada también ahí.
-        
+
         var puntaje = 0;
         var alguna_incompleta = false;
         var alguna_respondida = false;

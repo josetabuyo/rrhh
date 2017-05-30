@@ -245,6 +245,15 @@ namespace General.Repositorios
 
             _conexion.Ejecutar("dbo.EVAL_DEL_Evaluacion_Detalle", parametros);
         }
+
+        public void EvalGuardarCodigoGDE(int id, string codigo_gde)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_evaluacion", id);
+            parametros.Add("@codigo_gde", codigo_gde);
+
+            _conexion.Ejecutar("dbo.EVAL_UPD_CodigoGdeEvaluacion", parametros);
+        }
     }
 
 }
