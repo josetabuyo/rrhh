@@ -12,7 +12,6 @@ $(function () {
 
         //Backend.ElUsuarioLogueadoTienePermisosPara(37).onSuccess(function (tiene_permisos_de_edicion) {
         Backend.Mobi_GetImagenesBienPorId(id_bien).onSuccess(function (bien) {
-  
             $("#ed_contenedor_imagenes").empty();
             _.forEach(bien.Imagenes, function (id_imagen) {
                 var cont_imagen = $('<div class="imagen_bien"></div>');
@@ -41,6 +40,14 @@ $(function () {
 
         });
         //});
+
+
+//        Backend.Mobi_GetAcciones(id_bien, id_estado, id_Area_Seleccionada).onSuccess(function (acciones) {
+//            _.forEach(acciones.IdAccion, function (acciones) {
+//                GeneradorBotones(acciones);
+//                };
+//        });
+
 
         //AGREGO EL BOTON PARA VER LA IMAGEN
         $("#btn_ver_imagen").click(function () {

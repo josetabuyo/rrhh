@@ -117,6 +117,7 @@
     <Compile Include="Portal\Estudio.cs" />
     <Compile Include="Portal\Legajo.cs" />
     <Compile Include="Portal\Respuesta.cs" />
+    <Compile Include="Repositorios\AccionesMobi.cs" />
     <Compile Include="Repositorios\EstadoMoBi.cs" />
     <Compile Include="Repositorios\EstadoContrato.cs" />
     <Compile Include="Repositorios\FormEvaluacion.cs" />

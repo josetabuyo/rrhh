@@ -316,6 +316,33 @@ namespace General.Repositorios
             this.conexion_bd.Ejecutar("dbo.MOBI_DesAsignarImagenABien", parametros_desasignar_imagen);
             return true;
         }
+
+
+        public AccionesMobi[] GetAcciones(int id_bien, int id_estado_propiedad, int id_area)
+        {
+            
+            List<AccionesMobi> listaAcciones = new List<AccionesMobi>();
+            SqlDataReader dr;
+            ConexionDB cn = new ConexionDB("dbo.MOBI_GET_Acciones");
+            cn.AsignarParametro("@id_bien", id_bien);
+            cn.AsignarParametro("@id_estado_propiedad", id_estado_propiedad);
+            cn.AsignarParametro("@id_area_seleccionada", id_area);
+
+            dr = cn.EjecutarConsulta();
+            AccionesMobi acciones;
+            while (dr.Read())
+            {
+                acciones = new AccionesMobi();
+                acciones.IdAccion = dr.GetInt32(dr.GetOrdinal("Acciones"));
+                acciones.Descripcion = dr.GetString(dr.GetOrdinal("Descripcion"));
+                listaAcciones.Add(acciones);
+            }
+            cn.Desconestar();
+            return listaAcciones.ToArray();
+
+        }
+
+
     }
 
 }
