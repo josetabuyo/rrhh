@@ -145,22 +145,8 @@ var Legajo = {
                                 domicilio.Uf = ui.find('#cmb_uf').val();
                                 Backend.GuardarDomicilioPendiente(domicilio)
                                     .onSuccess(function (respuesta) {
-                                        //                                        vex.dialog.alert({
-                                        //                                            message: 'Solicitud de cambio de domicilio generada. Imprima el formulario y entregueselo a RRHH para finalizar el trámite.',
-                                        //                                            input: [
-                                        //                                            '<style>',
-                                        //                                                '.vex-custom-field-wrapper {',
-                                        //                                                    'margin: 1em 0;',
-                                        //                                                '}',
-                                        //                                                '.vex-custom-field-wrapper > label {',
-                                        //                                                    'display: inline-block;',
-                                        //                                                    'margin-bottom: .2em;',
-                                        //                                                '}',
-                                        //                                            '</style>',
-                                        //                                            '<div style="text-align:center;"><input type="button" value="GenerarPDF"  /></div>',
-                                        //                                        ].join('')
-                                        //                                        });
 
+                                        alertify.success("Solicitud creada.");
                                         //vex.dialog.alert('Solicitud de cambio de domicilio generada. Presente el formulario impreso a RRHH');
                                         _this.getDatosPersonales();
                                         vex.close();

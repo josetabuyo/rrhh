@@ -21,7 +21,7 @@
                         columnas_tareas.push(new Columna("Descripcion", { generar: function (una_tarea) { return una_tarea.descripcion } }));
                         columnas_tareas.push(new Columna("Creador", { generar: function (una_tarea) { return una_tarea.usuarioCreador.Owner.Apellido + ', ' + una_tarea.usuarioCreador.Owner.Nombre } }));
                         columnas_tareas.push(new Columna("Tipo de Tarea", { generar: function (una_tarea) { return una_tarea.tipoAlerta.descripcion } }));
-                        columnas_tareas.push(new Columna("Estado", { generar: function (una_tarea) { return una_tarea.estado } }));
+                        //columnas_tareas.push(new Columna("Estado", { generar: function (una_tarea) { return una_tarea.estado } }));
                         columnas_tareas.push(new Columna('Detalle', {
                             generar: function (una_tarea) {
                                 var btn_accion = $('<a>');
@@ -44,6 +44,12 @@
                         _this.divGrilla_tareas.DibujarEn(divGrilla_tareas);
 
                         $('.table-hover').removeClass("table-hover");
+
+                        var options = {
+                            valueNames: ['Titulo', 'Descripcion', 'Creador']
+                        };
+
+                        var featureList = new List('tareas', options);
                     })
                     .onError(function (e) {
 

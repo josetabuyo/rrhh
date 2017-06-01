@@ -42,7 +42,7 @@
         <div class=" papel">
             <%--DIV 1--%>
            
-            <div id="consultas">
+            <div id="tareas">
                 <legend id="legend_gestion" style="margin-top: 10px;">TAREAS PENDIENTES</legend>
                 <input type="text" id="search" class="search buscador" placeholder="Buscar"
                     style="height:35px;" />

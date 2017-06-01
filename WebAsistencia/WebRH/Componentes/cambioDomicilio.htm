@@ -4,6 +4,13 @@
       {
           padding-left: 15px;
       }
+      
+      .fieldsetCambioDomicilio 
+      {
+            background-color: rgba(218, 218, 218, 0.31);
+            border-radius: 15px;
+            padding: 10px;
+      }
         
     </style>
 
@@ -12,18 +19,18 @@
 <br />
 <h4>Solicitado por: <span id="nombreUsuario"></span> el día <span id="fechaCreacion"></span> </h4>
 
-<fieldset>
+<fieldset class="fieldsetCambioDomicilio">
 
-<p class="componenteCambioDomicilio">Dirección:  <span id="calle"></span> N°<span id="numero"></span></p>
-<p class="componenteCambioDomicilio">Piso: <span id="piso"></span> Depto:<span id="depto"></span></p>
- <p class="componenteCambioDomicilio">Localidad: <span id="localidad"></span></p>
- <p class="componenteCambioDomicilio">Provincia: <span id="provincia"></span></p>
- <p class="componenteCambioDomicilio"><span id="manzana"></span> <span id="casa"></span> <span id="barrio"></span> <span id="torre"></span> <span id="uf"></span> </p>
+<p class="componenteCambioDomicilio">Dirección:  <strong id="calle"></strong> N°<strong id="numero"></strong></p>
+<p class="componenteCambioDomicilio">Piso: <strong id="piso"></strong> Depto:<strong id="depto"></strong></p>
+ <p class="componenteCambioDomicilio">Localidad: <strong id="localidad"></strong></p>
+ <p class="componenteCambioDomicilio">Provincia: <strong id="provincia"></strong></p>
+ <p class="componenteCambioDomicilio"><strong id="manzana"></strong> <strong id="casa"></strong> <strong id="barrio"></strong> <strong id="torre"></strong> <strong id="uf"></strong> </p>
 
  <div style="text-align:center;">
     <input type="button" class="btn btn-primary" id="btnConfirmarDomicilio" value="Confirmar" />
     <input type="button" class="btn btn-primary" id="btnCancelarDomicilio" value="Cancelar" />
-    <input type="button" class="btn btn-primary" id="btnDelegarDomicilio" value="Delegar" />
+<!--    <input type="button" class="btn btn-primary" id="btnDelegarDomicilio" value="Delegar" />-->
 </div>
 
 </fieldset>
@@ -43,9 +50,11 @@
     $('#btnConfirmarDomicilio').click(function () {
         Backend.VerificarDomicilioPendiente(idAlerta, documento, idUsuarioCreador)
         .onSuccess(function (resultado) {
-            alert(resultado);
+            alertify.success(resultado);
             vex.close();
 
+        }).onError(function () {
+            alertify.error("Ha ocurrido un error. Por favor comuniquese con RRHH")
         });
     });
 

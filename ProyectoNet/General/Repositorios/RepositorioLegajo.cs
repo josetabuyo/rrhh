@@ -798,82 +798,88 @@ namespace General.Repositorios
 
         public string VerificarCambioDomicilio(int idAlerta, int documento, int idUsuarioDestinatario, int idUsuarioVerificador)
         {
-            try
-            {
-                var parametros = new Dictionary<string, object>();
 
-                //parametros.Add("@idDomicilio", idDomicilio);
-                CvDomicilio domicilio = JsonConvert.DeserializeObject<CvDomicilio>(this.GetDomicilioPendientePorAlerta(idAlerta));
+                using (var tran = conexion.BeginTransaction())
+                {
+                    try
+                    {
+                         var parametros = new Dictionary<string, object>();
 
-                parametros.Add("@idAlerta", idAlerta);
-                //parametros.Add("@idUsuarioVerificador", idUsuarioVerificador);
+                        //parametros.Add("@idDomicilio", idDomicilio);
+                        CvDomicilio domicilio = JsonConvert.DeserializeObject<CvDomicilio>(this.GetDomicilioPendientePorAlerta(idAlerta));
+
+                        parametros.Add("@idAlerta", idAlerta);
+                        //parametros.Add("@idUsuarioVerificador", idUsuarioVerificador);
                
-                //var tablaDatos = conexion.Ejecutar("dbo.LEG_UPD_DomicilioPendiente", parametros);
-                //var tablaDatos = conexion.Ejecutar("dbo.LEG_DEL_DomicilioPendiente", parametros);
+                        //var tablaDatos = conexion.Ejecutar("dbo.LEG_UPD_DomicilioPendiente", parametros);
+                        //var tablaDatos = conexion.Ejecutar("dbo.LEG_DEL_DomicilioPendiente", parametros);
 
-                parametros = new Dictionary<string, object>();
-                parametros.Add("@Fecha_Comunicacion", DateTime.Today);
-                parametros.Add("@Calle", domicilio.Calle);
-                parametros.Add("@Número", domicilio.Numero);
-                parametros.Add("@Piso", domicilio.Piso);
-                parametros.Add("@Dpto", domicilio.Depto);
-                parametros.Add("@Casa", domicilio.Casa);
-                parametros.Add("@Manzana", domicilio.Manzana);
-                parametros.Add("@Barrio", domicilio.Barrio);
-                parametros.Add("@Torre", domicilio.Torre);
-                parametros.Add("@UF", domicilio.Uf);
-                parametros.Add("@Localidad", domicilio.Localidad);
-                parametros.Add("@Codigo_Postal", domicilio.Cp);
-                parametros.Add("@Partido_Dpto", domicilio.Partido);
-                parametros.Add("@Provincia", domicilio.Provincia);
-                parametros.Add("@Folio", "");
-                parametros.Add("@Id_Interna", "");
-                parametros.Add("@Nro_Doc", documento);
-                parametros.Add("@Baja", false);
-                parametros.Add("@usuario", idUsuarioVerificador);
-                parametros.Add("@Telefono", "");
-                parametros.Add("@Correo_Electronico", "");
+                        parametros = new Dictionary<string, object>();
+                        parametros.Add("@Fecha_Comunicacion", DateTime.Today);
+                        parametros.Add("@Calle", domicilio.Calle);
+                        parametros.Add("@Número", domicilio.Numero);
+                        parametros.Add("@Piso", domicilio.Piso);
+                        parametros.Add("@Dpto", domicilio.Depto);
+                        parametros.Add("@Casa", domicilio.Casa);
+                        parametros.Add("@Manzana", domicilio.Manzana);
+                        parametros.Add("@Barrio", domicilio.Barrio);
+                        parametros.Add("@Torre", domicilio.Torre);
+                        parametros.Add("@UF", domicilio.Uf);
+                        parametros.Add("@Localidad", domicilio.Localidad);
+                        parametros.Add("@Codigo_Postal", domicilio.Cp);
+                        parametros.Add("@Partido_Dpto", domicilio.Partido);
+                        parametros.Add("@Provincia", domicilio.Provincia);
+                        parametros.Add("@Folio", "");
+                        parametros.Add("@Id_Interna", "");
+                        parametros.Add("@Nro_Doc", documento);
+                        parametros.Add("@Baja", false);
+                        parametros.Add("@usuario", idUsuarioVerificador);
+                        parametros.Add("@Telefono", "");
+                        parametros.Add("@Correo_Electronico", "");
+
+                        var tablaDatos = conexion.Ejecutar("dbo.Alta_DomicilioPersonal", parametros);
+
+                        this.borrarDomicilioPendiente(idAlerta);
+
+                        RepositorioDeAlertasPortal repo = new RepositorioDeAlertasPortal(this.conexion);
+                        repo.MAU_MarcarEstadoAlerta(idAlerta, idUsuarioVerificador);
+                        Usuario usuarioVerificador = new Usuario(idUsuarioVerificador, "", "", true);
+
+                        TipoAlertaPortal tipo = new TipoAlertaPortal(1004, "", "", 0);
+                        AlertaPortal alerta = new AlertaPortal(0, "Confirmación de cambio de Domicilio", "Su domicilio ha sido modificado.", tipo, new DateTime(), usuarioVerificador, "");
+                        repo.crearAlerta(alerta, idUsuarioDestinatario, usuarioVerificador);
+
+                        tran.Commit();
+                        return JsonConvert.SerializeObject("Se ha cambiado el domicilio con exito.");
+                       
+                    }
+                    catch (Exception e)
+                    {
+                        tran.Rollback();
+                        throw new Exception(e.Message);
+                    }
+                }
 
                 
-
-                var tablaDatos = conexion.Ejecutar("dbo.Alta_DomicilioPersonal", parametros);
-
-                this.borrarDomicilioPendiente(idAlerta);
-
-                RepositorioDeAlertasPortal repo = new RepositorioDeAlertasPortal(this.conexion);
-                repo.MAU_MarcarEstadoAlerta(idAlerta, idUsuarioVerificador);
-                Usuario usuarioVerificador = new Usuario(idUsuarioVerificador, "", "", true);
-
-                TipoAlertaPortal tipo = new TipoAlertaPortal(1004,"","",0);
-                AlertaPortal alerta = new AlertaPortal(0, "Confirmación de cambio de Domicilio", "Su domicilio ha sido modificado.", tipo, new DateTime(), usuarioVerificador, "");
-                repo.crearAlerta(alerta, idUsuarioDestinatario, usuarioVerificador);
-
-                return JsonConvert.SerializeObject("Se ha cambiado el domicilio con exito.");
-            }
-            catch (Exception e)
-            {
-                
-                throw new Exception(e.Message);
-            }
-           
+            
 
         }
 
         public bool borrarDomicilioPendiente(int idAlerta)
         {
-            try
-            {
+            //try
+           // {
                 var parametros = new Dictionary<string, object>();
                 parametros.Add("@idAlerta", idAlerta);
 
                 var tablaDatos = conexion.Ejecutar("dbo.LEG_DEL_DomicilioPendiente", parametros);
 
                 return true;
-            }
-            catch (Exception e)
-            {
-                throw new Exception(e.Message);
-            }
+           // }
+           // catch (Exception e)
+          //  {
+          //      throw new Exception(e.Message);
+          //  }
            
         }
 
