@@ -456,7 +456,7 @@
     height: 100%;
     }
 
-#notificacion_punto_rojo {
+#contador_rojo {
   background: red;
   border-radius: 0.8em;
   -moz-border-radius: 0.8em;
@@ -468,10 +468,12 @@
   /* margin-right: -6px; */
   text-align: center;
   width: 1.2em;
-  z-index: 99999;
+  height: 1.2em;
+  z-index: 1;
   position: absolute;
   right: 5px;
-  top: 6px;
+  top: -5px;
+  display:none;
 }
 
 

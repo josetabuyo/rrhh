@@ -42,11 +42,12 @@ $(function () {
         //});
 
 
-//        Backend.Mobi_GetAcciones(id_bien, id_estado, id_Area_Seleccionada).onSuccess(function (acciones) {
-//            _.forEach(acciones.IdAccion, function (acciones) {
-//                GeneradorBotones(acciones);
-//                };
-//        });
+        Backend.Mobi_GetAcciones(id_bien, id_estado, id_Area_Seleccionada).onSuccess(function (acciones) {
+            console.log("HOLA");
+            _.forEach(acciones, function (accion) {
+                GeneradorBotones(accion);
+            });
+        });
 
 
         //AGREGO EL BOTON PARA VER LA IMAGEN
@@ -61,7 +62,7 @@ $(function () {
                 }
             })
         });
-        
+
 
         //------------DATOS DEL VEHICULO-----------------------
         Backend.ObtenerVehiculoPorID(id_bien).onSuccess(function (respuesta_vehiculo) {
@@ -91,36 +92,59 @@ $(function () {
 
     });
 
+    var acciones = {
+        //Asignar
+        1:function(){
+            alert("Asignar");
+        },
+        
+        //Dar en préstamo
+        2:function(){
+            alert("Dar en préstamo");
+        },
 
-    var GeneradorBotones = function () {
+        //Mandar a reparar
+        3: function () {
+            alert("Mandar a reparar");
+        },
 
-        var estado = 0;
+        //Rehabilitar
+        4: function () {
+            alert("Rehabilitar");
+        },
+
+        //Dar de baja
+        5: function () {
+            alert("Dar de baja");
+        },
+
+        //Devolver a origen
+        6: function () {
+            alert("Devolver a origen");
+        },
+
+        //Tomar
+        7: function () {
+            alert("Tomar");
+        }        
+     };
+
+    var GeneradorBotones = function (accion) {
 
         var ContenedorBotones = $("#DivBotones");
         var boton;
 
-        switch (estado) {
-            case '0':
-                boton = $("<input type='button'>");
-                boton.val("Estado 1");
-                //boton.click(function () {
-                //Generar_e_ImprimirDDJJ(un_area.Id);
-                //});
-                break;
-            case 1:
-                boton = $("<input type='button'>");
-                boton.val("Estado 2");
-                //boton.click(function () {
-                //ImprimirDDJJ(un_area.Id);
-                //});
-                break;
-        }
-        //}
+        boton = $("<input type='button'>");
+        boton.val(accion.Descripcion);
 
+        boton.click(function () {
+            acciones[accion.IdAccion]();
+        });
+        
         ContenedorBotones.append(boton);
 
         return ContenedorBotones;
-        //};
+        
     };
 
 

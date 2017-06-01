@@ -134,5 +134,11 @@ namespace AdministracionDeUsuarios
         {
             throw new NotImplementedException();
         }
+
+
+        public bool AceptarCambioImagenConImagenRecortada(int id_usuario, int id_imagen_recortada)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

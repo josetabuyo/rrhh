@@ -4022,7 +4022,7 @@ public class WSViaticos : System.Web.Services.WebService
     {
         if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 33)) throw (new Exception("El usuario no tiene permisos para el modulo de bienes"));
         var repo = new RepositorioTarjetones(Conexion());
-        return null; // repo.NuevoTarjeton();
+        return new Tarjeton();//repo.NuevoTarjeton(id_Bien);
     }
 
     [WebMethod]
@@ -4158,6 +4158,15 @@ public class WSViaticos : System.Web.Services.WebService
         RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
         return rMoBi.DesAsignarImagenABien(id_bien, id_imagen);
     }
+
+
+    [WebMethod]
+    public AccionesMobi[] Mobi_GetAcciones(int id_bien, int id_estado, int id_Area_Seleccionada)
+    {
+        RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
+        return rMoBi.GetAcciones(id_bien, id_estado, id_Area_Seleccionada);
+    }
+
     #endregion
 
 

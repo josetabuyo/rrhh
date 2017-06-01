@@ -333,7 +333,7 @@ namespace General.Repositorios
             while (dr.Read())
             {
                 acciones = new AccionesMobi();
-                acciones.IdAccion = dr.GetInt32(dr.GetOrdinal("Acciones"));
+                acciones.IdAccion = dr.GetString(dr.GetOrdinal("Acciones"));
                 acciones.Descripcion = dr.GetString(dr.GetOrdinal("Descripcion"));
                 listaAcciones.Add(acciones);
             }

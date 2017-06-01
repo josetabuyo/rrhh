@@ -11,7 +11,7 @@ namespace General.Repositorios
         {
         }
 
-        public int IdAccion { get; set; }
+        public string IdAccion { get; set; }
         public string Descripcion { get; set; }
 
     }

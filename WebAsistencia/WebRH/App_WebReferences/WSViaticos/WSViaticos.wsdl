@@ -2,7 +2,7 @@
 <wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://wsviaticos.gov.ar/">
-      <s:element name="GetDesignacionActual">
+      <s:element name="GetConsultasDePortalNoLeidas">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
@@ -193,6 +193,20 @@
           <s:element minOccurs="1" maxOccurs="1" name="basica" type="s:boolean" />
         </s:sequence>
       </s:complexType>
+      <s:element name="GetConsultasDePortalNoLeidasResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetConsultasDePortalNoLeidasResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDesignacionActual">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetDesignacionActualResponse">
         <s:complexType>
           <s:sequence>
@@ -1895,6 +1909,33 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="Mobi_GetAcciones">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_bien" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_estado" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_Area_Seleccionada" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Mobi_GetAccionesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Mobi_GetAccionesResult" type="tns:ArrayOfAccionesMobi" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfAccionesMobi">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AccionesMobi" nillable="true" type="tns:AccionesMobi" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AccionesMobi">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="IdAccion" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="GetThumbnail">
         <s:complexType>
           <s:sequence>
@@ -2291,20 +2332,6 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="GetConsultasNoLeidasResult" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetConsultasDePortalNoLeidas">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetConsultasDePortalNoLeidasResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetConsultasDePortalNoLeidasResult" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -5076,16 +5103,21 @@
       </s:element>
       <s:complexType name="AlertaPortal">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Tipo" type="tns:TipoAlertaPortal" />
-          <s:element minOccurs="0" maxOccurs="1" name="Titulo" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="descripcion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="titulo" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="fechaCreacion" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="usuarioCreador" type="tns:Usuario" />
+          <s:element minOccurs="0" maxOccurs="1" name="tipoAlerta" type="tns:TipoAlertaPortal" />
+          <s:element minOccurs="0" maxOccurs="1" name="estado" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="TipoAlertaPortal">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="descripcion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="urlComponente" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="idFuncionalidad" type="s:int" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfAlertaPortal">
@@ -6827,6 +6859,12 @@
       </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="GetConsultasDePortalNoLeidasSoapIn">
+    <wsdl:part name="parameters" element="tns:GetConsultasDePortalNoLeidas" />
+  </wsdl:message>
+  <wsdl:message name="GetConsultasDePortalNoLeidasSoapOut">
+    <wsdl:part name="parameters" element="tns:GetConsultasDePortalNoLeidasResponse" />
+  </wsdl:message>
   <wsdl:message name="GetDesignacionActualSoapIn">
     <wsdl:part name="parameters" element="tns:GetDesignacionActual" />
   </wsdl:message>
@@ -7229,6 +7267,12 @@
   <wsdl:message name="Mobi_DesAsignarImagenABienSoapOut">
     <wsdl:part name="parameters" element="tns:Mobi_DesAsignarImagenABienResponse" />
   </wsdl:message>
+  <wsdl:message name="Mobi_GetAccionesSoapIn">
+    <wsdl:part name="parameters" element="tns:Mobi_GetAcciones" />
+  </wsdl:message>
+  <wsdl:message name="Mobi_GetAccionesSoapOut">
+    <wsdl:part name="parameters" element="tns:Mobi_GetAccionesResponse" />
+  </wsdl:message>
   <wsdl:message name="GetThumbnailSoapIn">
     <wsdl:part name="parameters" element="tns:GetThumbnail" />
   </wsdl:message>
@@ -7402,12 +7446,6 @@
   </wsdl:message>
   <wsdl:message name="GetConsultasNoLeidasSoapOut">
     <wsdl:part name="parameters" element="tns:GetConsultasNoLeidasResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetConsultasDePortalNoLeidasSoapIn">
-    <wsdl:part name="parameters" element="tns:GetConsultasDePortalNoLeidas" />
-  </wsdl:message>
-  <wsdl:message name="GetConsultasDePortalNoLeidasSoapOut">
-    <wsdl:part name="parameters" element="tns:GetConsultasDePortalNoLeidasResponse" />
   </wsdl:message>
   <wsdl:message name="GetUsuarioPorAliasSoapIn">
     <wsdl:part name="parameters" element="tns:GetUsuarioPorAlias" />
@@ -8832,6 +8870,10 @@
     <wsdl:part name="parameters" element="tns:IniciarServicioDeAlertasResponse" />
   </wsdl:message>
   <wsdl:portType name="WSViaticosSoap">
+    <wsdl:operation name="GetConsultasDePortalNoLeidas">
+      <wsdl:input message="tns:GetConsultasDePortalNoLeidasSoapIn" />
+      <wsdl:output message="tns:GetConsultasDePortalNoLeidasSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetDesignacionActual">
       <wsdl:input message="tns:GetDesignacionActualSoapIn" />
       <wsdl:output message="tns:GetDesignacionActualSoapOut" />
@@ -9100,6 +9142,10 @@
       <wsdl:input message="tns:Mobi_DesAsignarImagenABienSoapIn" />
       <wsdl:output message="tns:Mobi_DesAsignarImagenABienSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="Mobi_GetAcciones">
+      <wsdl:input message="tns:Mobi_GetAccionesSoapIn" />
+      <wsdl:output message="tns:Mobi_GetAccionesSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetThumbnail">
       <wsdl:input message="tns:GetThumbnailSoapIn" />
       <wsdl:output message="tns:GetThumbnailSoapOut" />
@@ -9215,10 +9261,6 @@
     <wsdl:operation name="GetConsultasNoLeidas">
       <wsdl:input message="tns:GetConsultasNoLeidasSoapIn" />
       <wsdl:output message="tns:GetConsultasNoLeidasSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetConsultasDePortalNoLeidas">
-      <wsdl:input message="tns:GetConsultasDePortalNoLeidasSoapIn" />
-      <wsdl:output message="tns:GetConsultasDePortalNoLeidasSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetUsuarioPorAlias">
       <wsdl:input message="tns:GetUsuarioPorAliasSoapIn" />
@@ -10171,6 +10213,15 @@
   </wsdl:portType>
   <wsdl:binding name="WSViaticosSoap" type="tns:WSViaticosSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetConsultasDePortalNoLeidas">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetConsultasDePortalNoLeidas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetDesignacionActual">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetDesignacionActual" style="document" />
       <wsdl:input>
@@ -10774,6 +10825,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="Mobi_GetAcciones">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetAcciones" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetThumbnail">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetThumbnail" style="document" />
       <wsdl:input>
@@ -11028,15 +11088,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetConsultasNoLeidas">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetConsultasNoLeidas" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetConsultasDePortalNoLeidas">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetConsultasDePortalNoLeidas" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -13180,6 +13231,15 @@
   </wsdl:binding>
   <wsdl:binding name="WSViaticosSoap12" type="tns:WSViaticosSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetConsultasDePortalNoLeidas">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetConsultasDePortalNoLeidas" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetDesignacionActual">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetDesignacionActual" style="document" />
       <wsdl:input>
@@ -13783,6 +13843,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="Mobi_GetAcciones">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetAcciones" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetThumbnail">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetThumbnail" style="document" />
       <wsdl:input>
@@ -14037,15 +14106,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetConsultasNoLeidas">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetConsultasNoLeidas" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetConsultasDePortalNoLeidas">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetConsultasDePortalNoLeidas" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

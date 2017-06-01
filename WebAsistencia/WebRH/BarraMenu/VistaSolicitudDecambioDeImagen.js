@@ -10,6 +10,7 @@
             var admin = new AdministradorSolicitudCambioImagen(solicitud);
             admin.alResolver = function () {
                 _this.ui.remove();
+                _this.alQuitar();
             };
         }));
     });

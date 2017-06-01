@@ -28,5 +28,7 @@ namespace General.MAU
         bool RechazarCambioDeImagen(int id_usuario, string razon_rechazo);
 
         List<SolicitudDeCambioDeImagen> GetSolicitudesDeCambioDeImagenPendientes();
+
+        bool AceptarCambioImagenConImagenRecortada(int id_usuario, int id_imagen_recortada);
     }
 }
