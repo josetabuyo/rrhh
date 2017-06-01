@@ -29,6 +29,11 @@ namespace General.MED
         public DescripcionAreaEvaluacion()
         {
         }
+
+        public static DescripcionAreaEvaluacion Nula()
+        {
+            return new DescripcionAreaEvaluacion("No Especificado", "No Especificado", "No Especificado", "No Especificado", "No Especificado", "No Especificado");
+        }
     }
 }
 

@@ -56,5 +56,10 @@ namespace General.MED
         public NivelEvaluacionDesempenio()
         {
         }
+
+        public static NivelEvaluacionDesempenio Nulo()
+        {
+            return new NivelEvaluacionDesempenio(0, "No Especificado", "No Especificado", 0, 0, 0, 0);
+        }
     }
 }

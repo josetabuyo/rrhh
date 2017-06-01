@@ -16,15 +16,15 @@ var ListadoAgentes = {
 
         var calificacion;
         Backend.EvalGetAgentesEvaluables()
-        .onSuccess(function (agentes) {
+        .onSuccess(function (asignacion_evaluado_a_evaluador) {
             spinner.stop();
 
-            if (!agentes[0].hasOwnProperty('agente_evaluado')) return;
-            todas_las_evaluaciones = agentes;
-            _this.DibujarTabla(agentes);
+            if (!asignacion_evaluado_a_evaluador[0].hasOwnProperty('agente_evaluado')) return;
+            todas_las_evaluaciones = asignacion_evaluado_a_evaluador;
+            _this.DibujarTabla(asignacion_evaluado_a_evaluador);
 
             // Habilita filtros si hay uno o más agentes
-            if (agentes.length) { // 0 == false
+            if (asignacion_evaluado_a_evaluador.length) { // 0 == false
                 var $barraBuscador = $("#Text1");
                 $barraBuscador.attr("disabled", false);
                 $("#id_estado").attr("disabled", false);
@@ -49,48 +49,48 @@ var ListadoAgentes = {
             localStorage.setItem("leyenda", "");
         });
     },
-    DibujarTabla: function (evaluacion) {
+    DibujarTabla: function (asignacion_evaluado_a_evaluador) {
         var _this = this;
         $("#tablaAgentes").empty();
         var divGrilla = $("#tablaAgentes");
         var columnas = [];
-        columnas.push(new Columna("Dni", { generar: function (evaluacion) { return evaluacion.agente_evaluado.nro_documento } }));
-        columnas.push(new Columna("Apellido", { generar: function (evaluacion) { return evaluacion.agente_evaluado.apellido } }));
-        columnas.push(new Columna("Nombre", { generar: function (evaluacion) { return evaluacion.agente_evaluado.nombre } }));
-        columnas.push(new Columna("Evaluacion", { generar: function (evaluacion) {
-            var coleccion_respuestas = _this.getRespuestasDelForm(evaluacion);
-            return _this.calificacion(coleccion_respuestas, evaluacion.nivel.deficiente, evaluacion.nivel.regular, evaluacion.nivel.bueno, evaluacion.nivel.destacado, false);
+        columnas.push(new Columna("Dni", { generar: function (asignacion_evaluado_a_evaluador) { return asignacion_evaluado_a_evaluador.agente_evaluado.nro_documento } }));
+        columnas.push(new Columna("Apellido", { generar: function (asignacion_evaluado_a_evaluador) { return asignacion_evaluado_a_evaluador.agente_evaluado.apellido } }));
+        columnas.push(new Columna("Nombre", { generar: function (asignacion_evaluado_a_evaluador) { return asignacion_evaluado_a_evaluador.agente_evaluado.nombre } }));
+        columnas.push(new Columna("Evaluacion", { generar: function (asignacion_evaluado_a_evaluador) {
+            var coleccion_respuestas = _this.getRespuestasDelForm(asignacion_evaluado_a_evaluador);
+            return _this.calificacion(coleccion_respuestas, asignacion_evaluado_a_evaluador.nivel.deficiente, asignacion_evaluado_a_evaluador.nivel.regular, asignacion_evaluado_a_evaluador.nivel.bueno, asignacion_evaluado_a_evaluador.nivel.destacado, false);
         }
         }));
         columnas.push(new Columna('Accion', {
-            generar: function (evaluacion) {
-                if (!_this.PuedeImprimir(evaluacion)) {
-                    return _this.getBotonIrAFormulario(evaluacion);
+            generar: function (asignacion_evaluado_a_evaluador) {
+                if (!_this.PuedeImprimir(asignacion_evaluado_a_evaluador)) {
+                    return _this.getBotonIrAFormulario(asignacion_evaluado_a_evaluador);
                 }
-                if (evaluacion.estado == 1) {
-                    return _this.getBotonImprimir(evaluacion);
+                if (asignacion_evaluado_a_evaluador.estado == 1) {
+                    return _this.getBotonImprimir(asignacion_evaluado_a_evaluador);
                 }
-                return _this.getDosBotones(evaluacion);
+                return _this.getDosBotones(asignacion_evaluado_a_evaluador);
             }
         }));
-        columnas.push(new Columna("GDE", { generar: function (evaluacion) {
-            if (evaluacion.codigo_gde == '' && _this.PuedeImprimir(evaluacion)) {
-                return _this.getLinkCargarGDE(evaluacion.id_evaluacion);
+        columnas.push(new Columna("GDE", { generar: function (asignacion_evaluado_a_evaluador) {
+            if (asignacion_evaluado_a_evaluador.codigo_gde == '' && _this.PuedeImprimir(asignacion_evaluado_a_evaluador)) {
+                return _this.getLinkCargarGDE(asignacion_evaluado_a_evaluador.id_evaluacion);
             }
-            return evaluacion.codigo_gde;
+            return asignacion_evaluado_a_evaluador.codigo_gde;
         }
         }));
         _this.Grilla = new Grilla(columnas);
-        _this.Grilla.SetOnRowClickEventHandler(function (evaluacion) { });
+        _this.Grilla.SetOnRowClickEventHandler(function (asignacion_evaluado_a_evaluador) { });
         _this.Grilla.CambiarEstiloCabecera("estilo_tabla_portal");
-        _this.Grilla.CargarObjetos(evaluacion);
+        _this.Grilla.CargarObjetos(asignacion_evaluado_a_evaluador);
         _this.Grilla.DibujarEn(divGrilla);
         $('.table-hover').removeClass("table-hover");
         _this.BuscadorDeTabla();
     },
-    PuedeImprimir: function (evaluacion) {
-        var coleccion_respuestas = this.getRespuestasDelForm(evaluacion);
-        var calificacion = this.calificacion(coleccion_respuestas, evaluacion.nivel.deficiente, evaluacion.nivel.regular, evaluacion.nivel.bueno, evaluacion.nivel.destacado, false);
+    PuedeImprimir: function (asignacion_evaluado_a_evaluador) {
+        var coleccion_respuestas = this.getRespuestasDelForm(asignacion_evaluado_a_evaluador);
+        var calificacion = this.calificacion(coleccion_respuestas, asignacion_evaluado_a_evaluador.nivel.deficiente, asignacion_evaluado_a_evaluador.nivel.regular, asignacion_evaluado_a_evaluador.nivel.bueno, asignacion_evaluado_a_evaluador.nivel.destacado, false);
         return !(calificacion == 'A Evaluar' || calificacion == 'Evaluacion Incompleta');
     },
     BuscadorDeTabla: function () {
@@ -154,20 +154,19 @@ var ListadoAgentes = {
         }
         return coleccion_respuestas;
     },
-    setAgenteValuesToLocalStorage: function (evaluacion) {
-        localStorage.setItem("idPeriodo", evaluacion.periodo.id_periodo);
-        localStorage.setItem("idEvaluado", evaluacion.agente_evaluado.id_evaluado);
-        localStorage.setItem("idEvaluacion", evaluacion.id_evaluacion);
-        localStorage.setItem("apellido", evaluacion.agente_evaluado.apellido);
-        localStorage.setItem("nombre", evaluacion.agente_evaluado.nombre);
-        localStorage.setItem("apellido", evaluacion.agente_evaluado.apellido);
-        localStorage.setItem("descripcionPeriodo", evaluacion.periodo.descripcion_periodo);
-        localStorage.setItem("idNivel", evaluacion.nivel.id_nivel);
-        localStorage.setItem("descripcionNivel", evaluacion.nivel.descripcion_corta);
-        localStorage.setItem("deficiente", evaluacion.nivel.deficiente);
-        localStorage.setItem("regular", evaluacion.nivel.regular);
-        localStorage.setItem("bueno", evaluacion.nivel.bueno);
-        localStorage.setItem("destacado", evaluacion.nivel.destacado);
+    setAgenteValuesToLocalStorage: function (asignacion_evaluado_a_evaluador) {
+        localStorage.setItem("idPeriodo", asignacion_evaluado_a_evaluador.id_periodo);
+        localStorage.setItem("idEvaluado", asignacion_evaluado_a_evaluador.id_evaluado);
+        localStorage.setItem("idEvaluacion", asignacion_evaluado_a_evaluador.id_evaluacion);
+        localStorage.setItem("apellido", asignacion_evaluado_a_evaluador.apellido_evaluado);
+        localStorage.setItem("nombre", asignacion_evaluado_a_evaluador.nombre_evaluado);
+        localStorage.setItem("descripcionPeriodo", asignacion_evaluado_a_evaluador.descripcion_periodo);
+        localStorage.setItem("idNivel", asignacion_evaluado_a_evaluador.id_nivel);
+        localStorage.setItem("descripcionNivel", asignacion_evaluado_a_evaluador.descripcion_corta_nivel);
+        localStorage.setItem("deficiente", asignacion_evaluado_a_evaluador.nivel.deficiente);
+        localStorage.setItem("regular", asignacion_evaluado_a_evaluador.nivel.regular);
+        localStorage.setItem("bueno", asignacion_evaluado_a_evaluador.nivel.bueno);
+        localStorage.setItem("destacado", asignacion_evaluado_a_evaluador.nivel.destacado);
     },
     getLinkCargarGDE: function (id_evaluacion) {
         var _this = this;
@@ -199,11 +198,11 @@ var ListadoAgentes = {
         btn_accion.append(img);
         return btn_accion;
     },
-    getBotonImprimir: function (evaluacion) {
+    getBotonImprimir: function (asignacion_evaluado_a_evaluador) {
         var btn_accion = this.getImgIcono('icono-imprimir.png', 'Imprimir');
         var _this = this;
         btn_accion.click(function () {
-            Backend.PrintPdfEvaluacionDesempenio(evaluacion)
+            Backend.PrintPdfEvaluacionDesempenio(asignacion_evaluado_a_evaluador)
             .onSuccess(function (rpta) {
                 window.open("data:application/pdf;base64," + rpta, '_blank');
             });
@@ -235,14 +234,14 @@ var ListadoAgentes = {
     cancelPopup: function () {
         vex.closeAll();
     },
-    getBotonIrAFormulario: function (evaluacion) {
+    getBotonIrAFormulario: function (asignacion_evaluado_a_evaluador) {
         var btn_accion = this.getImgIcono('estudios.png', 'Estudios');
         var _this = this;
         btn_accion.click(function () {
-            _this.setAgenteValuesToLocalStorage(evaluacion);
+            _this.setAgenteValuesToLocalStorage(asignacion_evaluado_a_evaluador);
             /*si nunca fue evaluado, no sabemos que nivel tiene, 
             hay que pedir al usuario que lo ingrese*/
-            if (evaluacion.id_nivel == "0") {
+            if (asignacion_evaluado_a_evaluador.id_nivel == "0") {
                 vex.defaultOptions.className = 'vex-theme-os';
                 vex.open({
                     afterOpen: function ($vexContent) {
@@ -277,9 +276,9 @@ var ListadoAgentes = {
         });
         return btn_accion;
     },
-    getDosBotones: function (evaluacion) {
-        var boton_imprimir = this.getBotonImprimir(evaluacion);
-        var boton_ir_a_form = this.getBotonIrAFormulario(evaluacion);
+    getDosBotones: function (asignacion_evaluado_a_evaluador) {
+        var boton_imprimir = this.getBotonImprimir(asignacion_evaluado_a_evaluador);
+        var boton_ir_a_form = this.getBotonIrAFormulario(asignacion_evaluado_a_evaluador);
         var div = $('<div>');
         div.append(boton_ir_a_form);
         div.append(boton_imprimir);

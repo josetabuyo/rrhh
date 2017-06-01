@@ -1,10 +1,10 @@
 ﻿$(document).ready(function () {
     
     Backend.start(function () {
-        menu_usuario = new MenuDesplegable("contenedor_imagen_usuario", "contenedor_menu_usuarios", true);
-        menu_aplicaciones = new MenuDesplegable("menu_cuadrados", "contenedor_menu_cuadrados");
-        menu_alertas = new MenuDesplegable("menu_mensajes", "contenedor_menu_mensajes");
-        menu_tareas = new MenuDesplegable("menu_tareas", "contenedor_menu_tareas");
+        menu_usuario = new MenuDesplegable("contenedor_imagen_usuario", "contenedor_menu_usuarios","", true);
+        menu_aplicaciones = new MenuDesplegable("menu_cuadrados", "contenedor_menu_cuadrados","Módulos", true);
+        menu_alertas = new MenuDesplegable("contenedor_imagen_mensajes", "contenedor_menu_mensajes","Alertas", false, true);
+        menu_tareas = new MenuDesplegable("contenedor_imagen_tareas", "contenedor_menu_tareas", "Tareas", false, true);
 
         $("#link_area").click(function () {
                 vex.defaultOptions.className = 'vex-theme-os';
@@ -44,10 +44,10 @@
 //        };
 
         var cargar_alertas = function () {
-            $("#contenedor_alertas").empty()
-            Backend.GetMisAlertasPendientes().onSuccess(function (alertas) {                
+            $("#contenedor_alertas").empty();            
+            Backend.GetMisAlertasPendientes().onSuccess(function (alertas) {                 
                 _.forEach(alertas, function (alerta) {
-                    var vista = new VistaAlerta(alerta);
+                    var vista = new VistaAlerta(alerta);                    
                     menu_alertas.agregar(vista);                    
                 });
             });  
@@ -118,7 +118,7 @@
                                 Backend.SolicitarCambioDeImagen(id_imagen).onSuccess(function () {
                                     alertify.success("solicitud de cambio de imagen realizada con éxito");
                                 });
-                            });
+                            }, true);
                         });
                         $vexContent.append(ui);
                         ui.show();

@@ -57,7 +57,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public List<EvaluacionDesempenio> EvalGetAgentesEvaluables(Usuario usuario)
+    public List<AsignacionEvaluadoAEvaluador> EvalGetAgentesEvaluables(Usuario usuario)
     {
         var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
         return repo.GetAgentesEvaluablesPor(usuario);
@@ -4028,8 +4028,7 @@ public class WSViaticos : System.Web.Services.WebService
     {
         if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 33)) throw (new Exception("El usuario no tiene permisos para el modulo de bienes"));
         var repo = new RepositorioTarjetones(Conexion());
-        //return repo.NuevoTarjeton(id_Bien);
-        return null; //pongo esto temporalmente porque la linea anterior no me compila.
+        return new Tarjeton();//repo.NuevoTarjeton(id_Bien);
     }
 
     [WebMethod]
@@ -4871,29 +4870,29 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string PrintPdfEvaluacionDesempenio(EvaluacionDesempenio evaluacion, Usuario usuario)
+    public string PrintPdfEvaluacionDesempenio(AsignacionEvaluadoAEvaluador asignacion, Usuario usuario)
     {
 
         var creador_pdfs = new CreadorDePdfs<EvaluacionDesempenioPdfTO>();
         var doc = new EvaluacionDesempenioPdfTO();
 
         //cabecera
-        doc.agente_y_periodo_en_cabecera = evaluacion.agente_evaluado.apellido + ", " + evaluacion.agente_evaluado.nombre + " (" +
-            evaluacion.agente_evaluado.nro_documento + ") " + evaluacion.periodo.descripcion_periodo;
+        doc.agente_y_periodo_en_cabecera = asignacion.agente_evaluado.apellido + ", " + asignacion.agente_evaluado.nombre + " (" +
+            asignacion.agente_evaluado.nro_documento + ") " + asignacion.periodo.descripcion_periodo;
 
         //cuadro_nivel
-        doc.nivel_negrita = evaluacion.nivel.id_nivel + " " + evaluacion.nivel.descripcion_corta;
-        doc.nivel_descripcion_larga = evaluacion.nivel.descripcion_larga_nivel;
+        doc.nivel_negrita = asignacion.nivel.id_nivel + " " + asignacion.nivel.descripcion_corta;
+        doc.nivel_descripcion_larga = asignacion.nivel.descripcion_larga_nivel;
 
         //cuadro agentes evaluador y evaluado
-        doc.apellido_y_nombre_evaluador = evaluacion.agente_evaluador.apellido + ", " + evaluacion.agente_evaluador.nombre;
-        doc.documento_evaluado = evaluacion.agente_evaluador.nro_documento.ToString();
+        doc.apellido_y_nombre_evaluador = asignacion.agente_evaluador.apellido + ", " + asignacion.agente_evaluador.nombre;
+        doc.documento_evaluado = asignacion.agente_evaluador.nro_documento.ToString();
 
-        doc.apellido_y_nombre_evaluado = evaluacion.agente_evaluado.apellido + ", " + evaluacion.agente_evaluado.nombre;
-        doc.documento_evaluado = evaluacion.agente_evaluado.nro_documento.ToString();
+        doc.apellido_y_nombre_evaluado = asignacion.agente_evaluado.apellido + ", " + asignacion.agente_evaluado.nombre;
+        doc.documento_evaluado = asignacion.agente_evaluado.nro_documento.ToString();
 
-        doc.preguntas = evaluacion.detalle_preguntas.Select(p => p.orden_pregunta + ". " + p.enunciado).ToArray();
-        doc.respuestas = evaluacion.detalle_preguntas.Select(p =>
+        doc.preguntas = asignacion.evaluacion.detalle_preguntas.Select(p => p.orden_pregunta + ". " + p.enunciado).ToArray();
+        doc.respuestas = asignacion.evaluacion.detalle_preguntas.Select(p =>
         {
             switch (p.opcion_elegida)
             {
@@ -4907,32 +4906,32 @@ public class WSViaticos : System.Web.Services.WebService
             }
         }).ToArray();
 
-        doc.puntajes = evaluacion.detalle_preguntas.Select(p => p.opcion_elegida.ToString()).ToArray();
+        doc.puntajes = asignacion.evaluacion.detalle_preguntas.Select(p => p.opcion_elegida.ToString()).ToArray();
 
-        doc.nivel_descripcion_larga = evaluacion.nivel.descripcion_larga_nivel;// "Seran evaluados en este nivel los agentes no incluidos en los niveles anteriores. El personal con atencion al publico sera evaluado teniendo en cuenta esta circunstancia.";
-        doc.jurisdiccion = evaluacion.area.jurisdiccion;// "Ministerio de Desarrollo Social";
-        doc.secretaria = evaluacion.area.secretaria;// "Secretaria de Coordinacion y Monitoreo Institucional";
-        doc.sub_secretaria = evaluacion.area.sub_secretaria; // ""
-        doc.direccion = evaluacion.area.direccion;// "Direccion Nacional de Administracion";
-        doc.unidad = evaluacion.area.unidad; // "Coordinacion Administrativa";
-        doc.unidad_evaluacion = evaluacion.area.unidad; // "Coordinacion Administrativa";
+        doc.nivel_descripcion_larga = asignacion.nivel.descripcion_larga_nivel;// "Seran evaluados en este nivel los agentes no incluidos en los niveles anteriores. El personal con atencion al publico sera evaluado teniendo en cuenta esta circunstancia.";
+        doc.jurisdiccion = asignacion.agente_evaluado.area.jurisdiccion;// "Ministerio de Desarrollo Social";
+        doc.secretaria = asignacion.agente_evaluado.area.secretaria;// "Secretaria de Coordinacion y Monitoreo Institucional";
+        doc.sub_secretaria = asignacion.agente_evaluado.area.sub_secretaria; // ""
+        doc.direccion = asignacion.agente_evaluado.area.direccion;// "Direccion Nacional de Administracion";
+        doc.unidad = asignacion.agente_evaluado.area.unidad; // "Coordinacion Administrativa";
+        doc.unidad_evaluacion = asignacion.agente_evaluado.area.unidad; // "Coordinacion Administrativa";
 
         //evaluador
-        doc.periodo_evaluado = evaluacion.periodo.desde.ToString("dd/MM/yyyy") + " al " + evaluacion.periodo.hasta.ToString("dd/MM/yyyy");
-        doc.nivel_evaluador = evaluacion.agente_evaluador.nivel;
-        doc.grado_evaluador = evaluacion.agente_evaluador.grado;
-        doc.agrupamiento_evaluador = evaluacion.agente_evaluador.agrupamiento;
-        doc.puesto_evaluador = evaluacion.agente_evaluador.puesto_o_cargo;
+        doc.periodo_evaluado = asignacion.periodo.desde.ToString("dd/MM/yyyy") + " al " + asignacion.periodo.hasta.ToString("dd/MM/yyyy");
+        doc.nivel_evaluador = asignacion.agente_evaluador.nivel;
+        doc.grado_evaluador = asignacion.agente_evaluador.grado;
+        doc.agrupamiento_evaluador = asignacion.agente_evaluador.agrupamiento;
+        doc.puesto_evaluador = asignacion.agente_evaluador.puesto_o_cargo;
 
         //evaluado 
-        doc.legajo_evaluado = evaluacion.agente_evaluado.nro_documento.ToString();
-        doc.nivel_evaluado = evaluacion.agente_evaluado.nivel;
-        doc.grado_evaluado = evaluacion.agente_evaluado.grado;
-        doc.nivel_educativo_evaluado = evaluacion.agente_evaluado.nivel_educativo;
+        doc.legajo_evaluado = asignacion.agente_evaluado.nro_documento.ToString();
+        doc.nivel_evaluado = asignacion.agente_evaluado.nivel;
+        doc.grado_evaluado = asignacion.agente_evaluado.grado;
+        doc.nivel_educativo_evaluado = asignacion.agente_evaluado.nivel_educativo;
         
         doc.situacion_escalafonaria_evaluador = "SINEP";
-        doc.puntaje = evaluacion.detalle_preguntas.Sum(p => p.opcion_elegida).ToString();
-        doc.calificacion = evaluacion.calificacion;
+        doc.puntaje = asignacion.evaluacion.detalle_preguntas.Sum(p => p.opcion_elegida).ToString();
+        doc.calificacion = asignacion.evaluacion.calificacion;
 
         //hardcodeos de prueba
         doc.agrupamiento_evaluado = "--";

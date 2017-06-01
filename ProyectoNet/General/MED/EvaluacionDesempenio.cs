@@ -8,60 +8,40 @@ namespace General.MED
     public class EvaluacionDesempenio
     {
         public NivelEvaluacionDesempenio nivel { get; set; }
-        public AgenteEvaluacionDesempenio agente_evaluado { get; set; }
-        public AgenteEvaluacionDesempenio agente_evaluador { get; set; }
-
-        public PeriodoEvaluacion periodo { get; set; }
-
         public int id_evaluacion { get; set; }
         public int estado_evaluacion { get; set; }
         public string codigo_gde { get; set; }
-        public int puntaje { 
-            get { 
-                return this.detalle_preguntas.Sum(p => p.opcion_elegida); 
-            } 
-            set { 
-                 
-            } 
-        }
-        public string calificacion { get { return this.nivel.CalificacionPara(this.puntaje); } set { return; } }
-
-        public DescripcionAreaEvaluacion area { get; set; }
-
-        public List<DetallePreguntas> detalle_preguntas { get; set; }
-
-        public EvaluacionDesempenio(AgenteEvaluacionDesempenio agente_evaluado, AgenteEvaluacionDesempenio agente_evaluador, int id_evaluacion, int estado_evaluacion,
-            PeriodoEvaluacion periodo, NivelEvaluacionDesempenio nivel, List<DetallePreguntas> detalle_preguntas, DescripcionAreaEvaluacion area, string codigo_gde)
-        {
-            this.agente_evaluado = agente_evaluado;
-            this.agente_evaluador = agente_evaluador;
-            this.id_evaluacion = id_evaluacion;
-            this.estado_evaluacion = estado_evaluacion;
-            this.periodo = periodo;
-            this.area = area;
-            this.nivel = nivel;
-            this.detalle_preguntas = detalle_preguntas;
-            this.codigo_gde = codigo_gde;
-        }
-        public int test
+        public int puntaje
         {
             get
             {
-                return 2;
+                return this.detalle_preguntas.Sum(p => p.opcion_elegida);
             }
             set
             {
+
             }
         }
+        public string calificacion { get { return this.nivel.CalificacionPara(this.puntaje); } set { return; } }
 
-        public EvaluacionDesempenio()
+        public List<DetallePreguntas> detalle_preguntas { get; set; }
+
+        public EvaluacionDesempenio(int id_evaluacion, int estado_evaluacion, NivelEvaluacionDesempenio nivel, List<DetallePreguntas> detalle_preguntas, string codigo_gde)
         {
-            // TODO: Complete member initialization
+            this.id_evaluacion = id_evaluacion;
+            this.estado_evaluacion = estado_evaluacion;
+            this.codigo_gde = codigo_gde;
+            this.detalle_preguntas = detalle_preguntas;
+            this.nivel = nivel;
         }
 
-        public bool Es(int idEvaluacion)
+        public EvaluacionDesempenio() { }
+
+
+
+        public static EvaluacionDesempenio Nula()
         {
-            return idEvaluacion.Equals(this.id_evaluacion);
+            return new EvaluacionDesempenio(0, 0, NivelEvaluacionDesempenio.Nulo(), new List<DetallePreguntas>(), String.Empty);
         }
     }
 }
