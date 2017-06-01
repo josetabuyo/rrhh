@@ -8,12 +8,18 @@
     <title>Áreas</title>
     <script type="text/javascript" src="../Scripts/FuncionesDreamWeaver.js"></script>
     <%= Referencias.Css("../")%>
+
     <link id="link1" rel="stylesheet" href="ConsultaProtocolo.css" type="text/css" runat="server" />
     <link id="link5" rel="stylesheet" href="VistaDeArea.css" type="text/css" runat="server" />
     <link href="../FormularioConcursar/EstilosPostular.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="../scripts/select2-3.4.4/select2.css" type="text/css" />
     <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
-    <%--<script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>--%>
+    <script src="../Scripts/jquery-3.1.1.min.js" type="text/javascript"></script>
+    <script src="jquery.ui.core.min.js" type="text/javascript"></script>
+    <script src="jquery.ui.widget.min.js" type="text/javascript"></script>
+    <script src="jquery.ui.accordion.min.js" type="text/javascript"></script>
+
+   
     <style>
         input
         {
@@ -39,21 +45,22 @@
         <div id="ModificarArea">
             <div id="ModificarArea-ct">
                 <div id="ModificarArea-header" class="form_concursar_header">
-                    <label for="ModificarArea" style="color: green; font-size: small;">
+                    <%-- <label for="ModificarArea" style="color: green; font-size: small;">
                         * Recuerde realizar las modificaciones pertinentes y luego enviarlas para que el
                         cambio sea aprobado
-                    </label>
-                    <h2>
-                        Modificación de Datos del Área</h2>
+                    </label>--%>
+                    <h2 style="margin-top: -12px;">
+                        Datos del Área</h2>
                     <p>
                         <div class="btn-fld" style="float: right;">
-                            <input type="button" class="btn btn-primary" id="btn_buscarSinAprobacion" value="Visualizar Datos Enviados para Aprobación" />
+                            <input type="button" class="btn btn-primary" id="btn_buscarSinAprobacion" value="Visualizar Datos Enviados para Aprobación"
+                                style="display: none" />
                             <input type="button" class="btn btn-primary" id="btn_buscarDatosOriginales" value="Volver a los Datos Actuales"
                                 style="display: none" />
                         </div>
                     </p>
                 </div>
-                <div id="contenido_form_ModificarArea" class="fondo_form">
+                <div id="contenido_form_ModificarArea" class="fondo_form" style="margin-top: 10px;">
                     <fieldset style="width: 95%; padding-left: 3%;">
                         <legend style="margin-bottom: 20px;">Responsable</legend>
                         <div class="grupo_campos">
@@ -62,8 +69,10 @@
                             </label>
                             <input id="txt_nombre_apellido" type="text" style="width: 285px;" rh-control-type="textbox"
                                 data-validar="esNoBlanco" disabled />
+                            <span style="color: #183e98;">Para Modificar lo datos del Responsable, comuníquese con
+                                RR.HHx </span>
                         </div>
-                        <div class="grupo_campos nueva_linea">
+                        <%--<div class="grupo_campos nueva_linea">
                             <label for="NroDocumento" style="margin-left: 15px;">
                                 Nro Documento:
                             </label>
@@ -76,11 +85,11 @@
                             </label>
                             <input id="txt_IdInterna" type="text" style="width: 96px;" rh-control-type="textbox"
                                 data-validar="esNoBlanco" disabled />
-                        </div>
-                        <div class="btn-fld">
+                        </div>--%>
+                        <%-- <div class="btn-fld">
                             <input type="button" class="btn btn-primary" style="margin: 4px 143px;" id="btn_modificar_responsable"
                                 value="Visualizar" />
-                        </div>
+                        </div>--%>
                         <legend style="margin-bottom: 20px;">Dirección</legend>
                         <div class="grupo_campos nueva_linea">
                             <label for="Calle" style="margin-left: 38px;">
@@ -105,7 +114,7 @@
                             <label for="Oficina" style="margin-left: 27px;">
                                 Oficina:
                             </label>
-                            <input id="txt_Oficina" type="text" style="width: 285px;" disabled />
+                            <input id="txt_Oficina" type="text" style="width: 282px;" disabled />
                         </div>
                         <div class="grupo_campos">
                             <label for="UF" style="margin-left: 5px;">
@@ -117,12 +126,12 @@
                             <label for="Localidad" style="margin-left: 14px;">
                                 Localidad:
                             </label>
-                            <input id="txt_Localidad" type="text" style="width: 285px;" disabled />
+                            <input id="txt_Localidad" type="text" style="width: 277px;" disabled />
                         </div>
                         <div class="grupo_campos">
                             <label for="CodigoPostal">
                                 Código Postal:</label>
-                            <input id="txt_CodigoPostal" type="text" style="width: 75px;" disabled />
+                            <input id="txt_CodigoPostal" type="text" style="width: 60px;" disabled />
                         </div>
                         <div class="grupo_campos nueva_linea">
                             <label for="Partido" style="margin-left: 2px;">
@@ -133,10 +142,10 @@
                         <div class="grupo_campos">
                             <label for="Provincia">
                                 Provincia:</label>
-                            <input id="txt_Provincia" type="text" style="width: 192px;" disabled />
+                            <input id="txt_Provincia" type="text" style="width: 181px;" disabled />
                         </div>
                         <div class="btn-fld">
-                            <input type="button" class="btn btn-primary" style="margin-top: 4px;" id="btn_modificar_direccion"
+                            <input type="button" class="btn btn-primary" style="margin-left: 25px;" id="btn_modificar_direccion"
                                 value="Modificar" />
                         </div>
                         <legend style="margin-bottom: 20px;">Información de Contacto</legend>
@@ -170,7 +179,7 @@
                 <img id="btn_eliminar" src="../Imagenes/icono_eliminar2.png" />
             </div>
         </div>
-        <div id="un_div_modal" style="width: 65%; height: 500px; overflow: scroll;" class="form_concursar">
+        <div id="un_div_modal" style="width: 65%; height: 550px; overflow: scroll;" class="form_concursar">
             <div class="modal_close_concursar">
             </div>
             <div id="contenido_modal">

@@ -2675,6 +2675,11 @@ public class WSViaticos : System.Web.Services.WebService
     {
         return RepositorioDeAreas().BuscarDatosDelAreaSinAprobacion(area);
     }
+    [WebMethod]
+    public bool HayDatosDelAreaPendientesDeAprobacion(Area area, Usuario usuario)
+    {
+        return RepositorioDeAreas().HayDatosDelAreaPendientesDeAprobacion(area);
+    }
 
     [WebMethod]
     public Combo[] ObtenerTiposDeContacto()

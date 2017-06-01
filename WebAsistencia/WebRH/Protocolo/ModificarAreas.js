@@ -1,4 +1,51 @@
 ﻿var ModificarAreas = {
+    
+    Inicio: function () {
+        var _this = this;
+        this.SettearEventos();
+        if (this.HayDatosPendientesDeAprobacion()) {
+            $("#btn_buscarSinAprobacion").show();  
+        }
+    },
+    //Configuracion Inicial
+    SettearEventos: function () {
+        var _this = this;
+        $('#btn_buscarSinAprobacion').click(function () {
+            _this.BuscarDatosSinAprobacion();
+        });
+        $('#btn_buscarDatosOriginales').click(function () {
+            $('#btn_buscarDatosOriginales').hide();
+            $('#btn_buscarSinAprobacion').show();
+            _this.CompletarDatosArea(area_dinamica);
+            _this.armarGrillaContacto(area_dinamica);
+        });
+        $("#btn_modificar_responsable").click(function () {
+            var panel_detalle = new PanelDetalleGenerico({
+                path_html: "PanelDetalleDeResponsable.htm",
+                metodoDeGuardado: "ModificarResponsable",
+                modelo: area,
+                mensajeDeGuardadoExitoso: "Para modificar los datos del Repsonsable, por favor comuníquese con Recursos Humanos",
+                mensajeDeGuardadoErroneo: "Para modificar los datos del Repsonsable, por favor comuníquese con Recursos Humanos"
+            });
+        });
+        $("#btn_modificar_direccion").click(function () {
+            var panel_detalle = new PanelDetalleGenerico({
+                path_html: "PanelDetalleDeDireccion.htm"
+
+            });
+        });
+    },
+    HayDatosPendientesDeAprobacion: function () {
+        return Backend.ejecutarSincronico("HayDatosDelAreaPendientesDeAprobacion", [area]);
+    },
+    BuscarDatosSinAprobacion: function () {
+        var nueva_area = Backend.ejecutarSincronico("BuscarDatosDelAreaSinAprobacion", [area]);
+        $('#btn_buscarDatosOriginales').show();
+        $('#btn_buscarSinAprobacion').hide();
+        this.CompletarDatosArea(nueva_area);
+        this.armarGrillaContacto(nueva_area.DatosDeContacto)
+    },
+
     //TABLA PARA LOS CONTACTOS
     armarGrillaContacto: function (contactos) {
         var _this = this;
@@ -48,6 +95,7 @@
             }
         });
     },
+
     //TABLA PARA LOS ASISTENTES
     armarGrillaAsistente: function (asistentes) {
         var _this = this;
@@ -133,20 +181,7 @@
             }
         });
     },
-    //Configuracion Inicial
-    SettearEventos: function () {
-        var _this = this;
-        $('#btn_buscarSinAprobacion').click(function () {
-            _this.BuscarDatosSinAprobacion();
-        });
-        $('#btn_buscarDatosOriginales').click(function () {
-            $('#btn_buscarDatosOriginales').hide();
-            $('#btn_buscarSinAprobacion').show();
-            _this.CompletarDatosArea(area_dinamica);
-            _this.armarGrillaContacto(area_dinamica);
-        });
 
-    },
 
     CompletarDatosArea: function (area) {
         $("#txt_nombre_apellido").val(area.Responsable.NombreApellido);
@@ -164,38 +199,10 @@
             $("#txt_Partido").val(area.DireccionCompleta.Localidad.NombrePartido);
             $("#txt_Provincia").val(area.DireccionCompleta.Localidad.NombreProvincia);
         }
-    },
-
-    BuscarDatosSinAprobacion: function () {
-        var nueva_area = Backend.ejecutarSincronico("BuscarDatosDelAreaSinAprobacion", [area]);
-        $('#btn_buscarDatosOriginales').show();
-        $('#btn_buscarSinAprobacion').hide();
-        this.CompletarDatosArea(nueva_area);
-        this.armarGrillaContacto(nueva_area.DatosDeContacto)
-    },
-
-    Inicio: function () {
-        var _this = this;
-        _this.SettearEventos();
-        _this.btn_modificar_responsable = $("#btn_modificar_responsable");
-        _this.btn_modificar_direccion = $("#btn_modificar_direccion");
-
-
-        _this.btn_modificar_responsable.click(function () {
-            var panel_detalle = new PanelDetalleGenerico({
-                path_html: "PanelDetalleDeResponsable.htm",
-                metodoDeGuardado: "ModificarResponsable",
-                modelo: area,
-                mensajeDeGuardadoExitoso: "Para modificar los datos del Repsonsable, por favor comuníquese con Recursos Humanos",
-                mensajeDeGuardadoErroneo: "Para modificar los datos del Repsonsable, por favor comuníquese con Recursos Humanos"
-            });
-        });
-        _this.btn_modificar_direccion.click(function () {
-            var panel_detalle = new PanelDetalleGenerico({
-                path_html: "PanelDetalleDeDireccion.htm"
-
-            });
-        });
     }
+
+
+
+
 
 }

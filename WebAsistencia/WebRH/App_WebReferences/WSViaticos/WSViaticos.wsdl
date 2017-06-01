@@ -2,7 +2,7 @@
 <wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://wsviaticos.gov.ar/">
-      <s:element name="GetPsicofisicos">
+      <s:element name="GetLicenciasOrdinariasDisponibles">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
@@ -247,6 +247,20 @@
           <s:element minOccurs="1" maxOccurs="1" name="basica" type="s:boolean" />
         </s:sequence>
       </s:complexType>
+      <s:element name="GetLicenciasOrdinariasDisponiblesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetLicenciasOrdinariasDisponiblesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPsicofisicos">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetPsicofisicosResponse">
         <s:complexType>
           <s:sequence>
@@ -731,6 +745,33 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="BuscarTitulosAntecedentesAcademicos">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuscarTitulosAntecedentesAcademicosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BuscarTitulosAntecedentesAcademicosResult" type="tns:ArrayOfCVTitulosAntecedentesAcademicos" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfCVTitulosAntecedentesAcademicos">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CVTitulosAntecedentesAcademicos" nillable="true" type="tns:CVTitulosAntecedentesAcademicos" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CVTitulosAntecedentesAcademicos">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="SoloVisiblePara" type="s:int" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="AgregarTitulosAntecedentesAcademicos">
         <s:complexType>
           <s:sequence>
@@ -746,13 +787,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="CVTitulosAntecedentesAcademicos">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="SoloVisiblePara" type="s:int" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="GuardarCvPublicacionesTrabajos">
         <s:complexType>
           <s:sequence>
@@ -2663,20 +2697,26 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetLicenciasOrdinariasDisponibles">
+      <s:element name="ObtenerOficinaPorEdificio">
         <s:complexType>
           <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetLicenciasOrdinariasDisponiblesResponse">
+      <s:element name="ObtenerOficinaPorEdificioResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetLicenciasOrdinariasDisponiblesResult" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerOficinaPorEdificioResult" type="tns:ArrayOfCombo" />
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:complexType name="ArrayOfCombo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Combo" nillable="true" type="tns:Combo" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="GuardarEdificioPendienteDeAptobacion">
         <s:complexType>
           <s:sequence>
@@ -2913,16 +2953,21 @@
       </s:complexType>
       <s:complexType name="AlertaPortal">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Tipo" type="tns:TipoAlertaPortal" />
-          <s:element minOccurs="0" maxOccurs="1" name="Titulo" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="descripcion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="titulo" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="fechaCreacion" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="usuarioCreador" type="tns:Usuario" />
+          <s:element minOccurs="0" maxOccurs="1" name="tipoAlerta" type="tns:TipoAlertaPortal" />
+          <s:element minOccurs="0" maxOccurs="1" name="estado" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="TipoAlertaPortal">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="descripcion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="urlComponente" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="idFuncionalidad" type="s:int" />
         </s:sequence>
       </s:complexType>
       <s:element name="MarcarAlertaComoLeida">
@@ -4229,26 +4274,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="BuscarTitulosAntecedentesAcademicos">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="BuscarTitulosAntecedentesAcademicosResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="BuscarTitulosAntecedentesAcademicosResult" type="tns:ArrayOfCVTitulosAntecedentesAcademicos" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:complexType name="ArrayOfCVTitulosAntecedentesAcademicos">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="CVTitulosAntecedentesAcademicos" nillable="true" type="tns:CVTitulosAntecedentesAcademicos" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="DetenerServicioDeAlertas">
         <s:complexType />
       </s:element>
@@ -5353,11 +5378,6 @@
       <s:element name="ObtenerCargosFunciones">
         <s:complexType />
       </s:element>
-      <s:complexType name="ArrayOfCombo">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Combo" nillable="true" type="tns:Combo" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="ObtenerCargosFuncionesResponse">
         <s:complexType>
           <s:sequence>
@@ -5419,6 +5439,21 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="BuscarDatosDelAreaSinAprobacionResult" type="tns:Area" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="HayDatosDelAreaPendientesDeAprobacion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="area" type="tns:Area" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="HayDatosDelAreaPendientesDeAprobacionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="HayDatosDelAreaPendientesDeAprobacionResult" type="s:boolean" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -5496,21 +5531,6 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="ObtenerOficinaPorIdResult" type="tns:Oficina" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ObtenerOficinaPorEdificio">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ObtenerOficinaPorEdificioResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ObtenerOficinaPorEdificioResult" type="tns:ArrayOfCombo" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -7168,6 +7188,12 @@
       </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="GetLicenciasOrdinariasDisponiblesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetLicenciasOrdinariasDisponibles" />
+  </wsdl:message>
+  <wsdl:message name="GetLicenciasOrdinariasDisponiblesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetLicenciasOrdinariasDisponiblesResponse" />
+  </wsdl:message>
   <wsdl:message name="GetPsicofisicosSoapIn">
     <wsdl:part name="parameters" element="tns:GetPsicofisicos" />
   </wsdl:message>
@@ -7365,6 +7391,12 @@
   </wsdl:message>
   <wsdl:message name="ConsultaExcelDDJJ104_AreaSoapOut">
     <wsdl:part name="parameters" element="tns:ConsultaExcelDDJJ104_AreaResponse" />
+  </wsdl:message>
+  <wsdl:message name="BuscarTitulosAntecedentesAcademicosSoapIn">
+    <wsdl:part name="parameters" element="tns:BuscarTitulosAntecedentesAcademicos" />
+  </wsdl:message>
+  <wsdl:message name="BuscarTitulosAntecedentesAcademicosSoapOut">
+    <wsdl:part name="parameters" element="tns:BuscarTitulosAntecedentesAcademicosResponse" />
   </wsdl:message>
   <wsdl:message name="AgregarTitulosAntecedentesAcademicosSoapIn">
     <wsdl:part name="parameters" element="tns:AgregarTitulosAntecedentesAcademicos" />
@@ -7870,11 +7902,11 @@
   <wsdl:message name="GetLicenciasEnTramiteSoapOut">
     <wsdl:part name="parameters" element="tns:GetLicenciasEnTramiteResponse" />
   </wsdl:message>
-  <wsdl:message name="GetLicenciasOrdinariasDisponiblesSoapIn">
-    <wsdl:part name="parameters" element="tns:GetLicenciasOrdinariasDisponibles" />
+  <wsdl:message name="ObtenerOficinaPorEdificioSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerOficinaPorEdificio" />
   </wsdl:message>
-  <wsdl:message name="GetLicenciasOrdinariasDisponiblesSoapOut">
-    <wsdl:part name="parameters" element="tns:GetLicenciasOrdinariasDisponiblesResponse" />
+  <wsdl:message name="ObtenerOficinaPorEdificioSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerOficinaPorEdificioResponse" />
   </wsdl:message>
   <wsdl:message name="GuardarEdificioPendienteDeAptobacionSoapIn">
     <wsdl:part name="parameters" element="tns:GuardarEdificioPendienteDeAptobacion" />
@@ -8374,12 +8406,6 @@
   <wsdl:message name="AgregarInstitucionesEventoSoapOut">
     <wsdl:part name="parameters" element="tns:AgregarInstitucionesEventoResponse" />
   </wsdl:message>
-  <wsdl:message name="BuscarTitulosAntecedentesAcademicosSoapIn">
-    <wsdl:part name="parameters" element="tns:BuscarTitulosAntecedentesAcademicos" />
-  </wsdl:message>
-  <wsdl:message name="BuscarTitulosAntecedentesAcademicosSoapOut">
-    <wsdl:part name="parameters" element="tns:BuscarTitulosAntecedentesAcademicosResponse" />
-  </wsdl:message>
   <wsdl:message name="DetenerServicioDeAlertasSoapIn">
     <wsdl:part name="parameters" element="tns:DetenerServicioDeAlertas" />
   </wsdl:message>
@@ -8776,6 +8802,12 @@
   <wsdl:message name="BuscarDatosDelAreaSinAprobacionSoapOut">
     <wsdl:part name="parameters" element="tns:BuscarDatosDelAreaSinAprobacionResponse" />
   </wsdl:message>
+  <wsdl:message name="HayDatosDelAreaPendientesDeAprobacionSoapIn">
+    <wsdl:part name="parameters" element="tns:HayDatosDelAreaPendientesDeAprobacion" />
+  </wsdl:message>
+  <wsdl:message name="HayDatosDelAreaPendientesDeAprobacionSoapOut">
+    <wsdl:part name="parameters" element="tns:HayDatosDelAreaPendientesDeAprobacionResponse" />
+  </wsdl:message>
   <wsdl:message name="ObtenerTiposDeContactoSoapIn">
     <wsdl:part name="parameters" element="tns:ObtenerTiposDeContacto" />
   </wsdl:message>
@@ -8805,12 +8837,6 @@
   </wsdl:message>
   <wsdl:message name="ObtenerOficinaPorIdSoapOut">
     <wsdl:part name="parameters" element="tns:ObtenerOficinaPorIdResponse" />
-  </wsdl:message>
-  <wsdl:message name="ObtenerOficinaPorEdificioSoapIn">
-    <wsdl:part name="parameters" element="tns:ObtenerOficinaPorEdificio" />
-  </wsdl:message>
-  <wsdl:message name="ObtenerOficinaPorEdificioSoapOut">
-    <wsdl:part name="parameters" element="tns:ObtenerOficinaPorEdificioResponse" />
   </wsdl:message>
   <wsdl:message name="GetUsuariosSoapIn">
     <wsdl:part name="parameters" element="tns:GetUsuarios" />
@@ -9299,6 +9325,10 @@
     <wsdl:part name="parameters" element="tns:IniciarServicioDeAlertasResponse" />
   </wsdl:message>
   <wsdl:portType name="WSViaticosSoap">
+    <wsdl:operation name="GetLicenciasOrdinariasDisponibles">
+      <wsdl:input message="tns:GetLicenciasOrdinariasDisponiblesSoapIn" />
+      <wsdl:output message="tns:GetLicenciasOrdinariasDisponiblesSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetPsicofisicos">
       <wsdl:input message="tns:GetPsicofisicosSoapIn" />
       <wsdl:output message="tns:GetPsicofisicosSoapOut" />
@@ -9430,6 +9460,10 @@
     <wsdl:operation name="ConsultaExcelDDJJ104_Area">
       <wsdl:input message="tns:ConsultaExcelDDJJ104_AreaSoapIn" />
       <wsdl:output message="tns:ConsultaExcelDDJJ104_AreaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BuscarTitulosAntecedentesAcademicos">
+      <wsdl:input message="tns:BuscarTitulosAntecedentesAcademicosSoapIn" />
+      <wsdl:output message="tns:BuscarTitulosAntecedentesAcademicosSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="AgregarTitulosAntecedentesAcademicos">
       <wsdl:input message="tns:AgregarTitulosAntecedentesAcademicosSoapIn" />
@@ -9767,9 +9801,9 @@
       <wsdl:input message="tns:GetLicenciasEnTramiteSoapIn" />
       <wsdl:output message="tns:GetLicenciasEnTramiteSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="GetLicenciasOrdinariasDisponibles">
-      <wsdl:input message="tns:GetLicenciasOrdinariasDisponiblesSoapIn" />
-      <wsdl:output message="tns:GetLicenciasOrdinariasDisponiblesSoapOut" />
+    <wsdl:operation name="ObtenerOficinaPorEdificio">
+      <wsdl:input message="tns:ObtenerOficinaPorEdificioSoapIn" />
+      <wsdl:output message="tns:ObtenerOficinaPorEdificioSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GuardarEdificioPendienteDeAptobacion">
       <wsdl:input message="tns:GuardarEdificioPendienteDeAptobacionSoapIn" />
@@ -10103,10 +10137,6 @@
       <wsdl:input message="tns:AgregarInstitucionesEventoSoapIn" />
       <wsdl:output message="tns:AgregarInstitucionesEventoSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="BuscarTitulosAntecedentesAcademicos">
-      <wsdl:input message="tns:BuscarTitulosAntecedentesAcademicosSoapIn" />
-      <wsdl:output message="tns:BuscarTitulosAntecedentesAcademicosSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="DetenerServicioDeAlertas">
       <wsdl:input message="tns:DetenerServicioDeAlertasSoapIn" />
       <wsdl:output message="tns:DetenerServicioDeAlertasSoapOut" />
@@ -10371,6 +10401,10 @@
       <wsdl:input message="tns:BuscarDatosDelAreaSinAprobacionSoapIn" />
       <wsdl:output message="tns:BuscarDatosDelAreaSinAprobacionSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="HayDatosDelAreaPendientesDeAprobacion">
+      <wsdl:input message="tns:HayDatosDelAreaPendientesDeAprobacionSoapIn" />
+      <wsdl:output message="tns:HayDatosDelAreaPendientesDeAprobacionSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="ObtenerTiposDeContacto">
       <wsdl:input message="tns:ObtenerTiposDeContactoSoapIn" />
       <wsdl:output message="tns:ObtenerTiposDeContactoSoapOut" />
@@ -10390,10 +10424,6 @@
     <wsdl:operation name="ObtenerOficinaPorId">
       <wsdl:input message="tns:ObtenerOficinaPorIdSoapIn" />
       <wsdl:output message="tns:ObtenerOficinaPorIdSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerOficinaPorEdificio">
-      <wsdl:input message="tns:ObtenerOficinaPorEdificioSoapIn" />
-      <wsdl:output message="tns:ObtenerOficinaPorEdificioSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetUsuarios">
       <wsdl:input message="tns:GetUsuariosSoapIn" />
@@ -10722,6 +10752,15 @@
   </wsdl:portType>
   <wsdl:binding name="WSViaticosSoap" type="tns:WSViaticosSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetLicenciasOrdinariasDisponibles">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetLicenciasOrdinariasDisponibles" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetPsicofisicos">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetPsicofisicos" style="document" />
       <wsdl:input>
@@ -11012,6 +11051,15 @@
     </wsdl:operation>
     <wsdl:operation name="ConsultaExcelDDJJ104_Area">
       <soap:operation soapAction="http://wsviaticos.gov.ar/ConsultaExcelDDJJ104_Area" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarTitulosAntecedentesAcademicos">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarTitulosAntecedentesAcademicos" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -11775,8 +11823,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetLicenciasOrdinariasDisponibles">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetLicenciasOrdinariasDisponibles" style="document" />
+    <wsdl:operation name="ObtenerOficinaPorEdificio">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ObtenerOficinaPorEdificio" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -12531,15 +12579,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="BuscarTitulosAntecedentesAcademicos">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarTitulosAntecedentesAcademicos" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="DetenerServicioDeAlertas">
       <soap:operation soapAction="http://wsviaticos.gov.ar/DetenerServicioDeAlertas" style="document" />
       <wsdl:input>
@@ -13134,6 +13173,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="HayDatosDelAreaPendientesDeAprobacion">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/HayDatosDelAreaPendientesDeAprobacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ObtenerTiposDeContacto">
       <soap:operation soapAction="http://wsviaticos.gov.ar/ObtenerTiposDeContacto" style="document" />
       <wsdl:input>
@@ -13172,15 +13220,6 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerOficinaPorId">
       <soap:operation soapAction="http://wsviaticos.gov.ar/ObtenerOficinaPorId" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerOficinaPorEdificio">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/ObtenerOficinaPorEdificio" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -13920,6 +13959,15 @@
   </wsdl:binding>
   <wsdl:binding name="WSViaticosSoap12" type="tns:WSViaticosSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetLicenciasOrdinariasDisponibles">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetLicenciasOrdinariasDisponibles" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetPsicofisicos">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetPsicofisicos" style="document" />
       <wsdl:input>
@@ -14210,6 +14258,15 @@
     </wsdl:operation>
     <wsdl:operation name="ConsultaExcelDDJJ104_Area">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/ConsultaExcelDDJJ104_Area" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarTitulosAntecedentesAcademicos">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarTitulosAntecedentesAcademicos" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -14973,8 +15030,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetLicenciasOrdinariasDisponibles">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetLicenciasOrdinariasDisponibles" style="document" />
+    <wsdl:operation name="ObtenerOficinaPorEdificio">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ObtenerOficinaPorEdificio" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -15729,15 +15786,6 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="BuscarTitulosAntecedentesAcademicos">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarTitulosAntecedentesAcademicos" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="DetenerServicioDeAlertas">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/DetenerServicioDeAlertas" style="document" />
       <wsdl:input>
@@ -16332,6 +16380,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="HayDatosDelAreaPendientesDeAprobacion">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/HayDatosDelAreaPendientesDeAprobacion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ObtenerTiposDeContacto">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/ObtenerTiposDeContacto" style="document" />
       <wsdl:input>
@@ -16370,15 +16427,6 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerOficinaPorId">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/ObtenerOficinaPorId" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerOficinaPorEdificio">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/ObtenerOficinaPorEdificio" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

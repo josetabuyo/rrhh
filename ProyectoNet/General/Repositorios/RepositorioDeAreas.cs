@@ -764,7 +764,18 @@ namespace General.Repositorios
             return "";
         }
 
+        public bool HayDatosDelAreaPendientesDeAprobacion(Area area)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_area", area.Id);
+            var tablaDatos = conexion.Ejecutar("dbo.ESTR_Get_ExistenDatosPendientesDeAprobacion", parametros);
 
+            if (tablaDatos.Rows.Count > 0)
+            {
+                return true; 
+            }
+            return false;
+        }
         public Area BuscarDatosDelAreaSinAprobacion(Area area)
         {
             var parametros = new Dictionary<string, object>();
@@ -774,7 +785,7 @@ namespace General.Repositorios
             if (tablaDatos.Rows.Count > 0)
             {
                 var registro = tablaDatos.Rows.First();
-
+                
                 area.DireccionCompleta.Localidad.Id = registro.GetInt("Id_Localidad");
                 area.DireccionCompleta.Localidad.IdPartido = registro.GetInt("Id_Partido");
                 area.DireccionCompleta.Localidad.IdProvincia = registro.GetInt("Id_Provincia");
