@@ -71,22 +71,6 @@
           </fo:block>
           <!--fin tabla cabecera-->
         </fo:static-content>
-        <!--
-        <fo:static-content flow-name="xsl-region-after" >
-          <fo:block border-bottom-width="2pt" border-bottom-style="solid" border-bottom-color="rgb(0, 0, 0)"></fo:block>
-          <fo:block padding-top="0.2cm" text-align="center">
-            <fo:block font-size="9pt">
-              <xsl:value-of select="/PdfPrinter/culture/label[@id='Footer']/@text"/>
-            </fo:block>
-          </fo:block>
-          <fo:block text-align="right" font-size="8pt" padding-top="0.5cm">
-            <xsl:value-of select="/PdfPrinter/culture/label[@id='Page']/@text"/>
-            <fo:page-number/>
-            <xsl:value-of select="/PdfPrinter/culture/label[@id='Of']/@text"/>
-            <fo:page-number-citation ref-id="last-page"/>
-          </fo:block>
-        </fo:static-content>
--->
         <fo:flow flow-name="xsl-region-body" font-family="Helvetica" font-size="11pt">
           <fo:block>
             <fo:block padding-top="2pt">
@@ -826,7 +810,6 @@
                                             </xsl:choose>
                                             <xsl:choose>
                                               <xsl:when test="/PdfPrinter/EvaluacionDesempenioPdfTO/pregunta_4 != ''">
-
                                                 <fo:table-row >
                                                   <fo:table-cell border-width="0.5pt" border-style="solid" padding="2pt">
                                                     <fo:block  text-align="left" font-size="7pt" font-weight="bold"  >

@@ -83,7 +83,7 @@ namespace TestViaticos
             var first = result.First();
             
             Assert.AreEqual(1, result.Count);
-            Assert.AreEqual(2, first.detalle_preguntas.Count);
+            Assert.AreEqual(2, first.evaluacion.detalle_preguntas.Count);
         }
 
 
@@ -109,8 +109,8 @@ namespace TestViaticos
             var first = result.First();
             var second = result.Last();
 
-            List<DetallePreguntas> preguntas1 = first.detalle_preguntas;
-            List<DetallePreguntas> preguntas2 = second.detalle_preguntas;
+            List<DetallePreguntas> preguntas1 = first.evaluacion.detalle_preguntas;
+            List<DetallePreguntas> preguntas2 = second.evaluacion.detalle_preguntas;
 
             Assert.AreEqual(2, result.Count);
             Assert.AreEqual(2, preguntas1.Count);

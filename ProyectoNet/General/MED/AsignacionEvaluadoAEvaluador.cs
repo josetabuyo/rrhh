@@ -25,7 +25,7 @@ namespace General.MED
         public int id_nivel { get { return this.nivel.id_nivel; } set { } }
         public string descripcion_corta_nivel { get { return this.nivel.descripcion_corta; } set { } }
 
-        public List<DetallePreguntas> detalle_preguntas  { get { return evaluacion.detalle_preguntas; } set { } }
+        //public List<DetallePreguntas> detalle_preguntas  { get { return evaluacion.detalle_preguntas; } set { } }
 
         public AsignacionEvaluadoAEvaluador(AgenteEvaluacionDesempenio agente_evaluado, AgenteEvaluacionDesempenio agente_evaluador, EvaluacionDesempenio evaluacion, PeriodoEvaluacion periodo, NivelEvaluacionDesempenio nivel)
         {

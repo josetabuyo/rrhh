@@ -25,14 +25,14 @@ public class CreadorDePdfs<T> where T:IPrintableDocument
         XmlTransformationManager transformer = new XmlTransformationManager(data, xslt, xmlLoc);
         var xslFo = transformer.Transform();
 
-        string outputFileName = Path.Combine(PdfPrinterConfiguration.GetCurrentSection().Settings.PdfOutputFolder, DateTime.Now.ToString("yyyyMMddHHmmss") + ".pdf");
-        string absoluteOutputFilePath = HostingEnvironment.MapPath(outputFileName).Replace("PdfPrinterService", "WebAsistencia\\WebRH\\" + "EvaluacionDesempenio");
+        //string outputFileName = Path.Combine(PdfPrinterConfiguration.GetCurrentSection().Settings.PdfOutputFolder, DateTime.Now.ToString("yyyyMMddHHmmss") + ".pdf");
+        //string absoluteOutputFilePath = HostingEnvironment.MapPath(outputFileName).Replace("PdfPrinterService", "WebAsistencia\\WebRH\\" + "EvaluacionDesempenio");
 
-        PdfPrinterDriver.MakePdf(xslFo, absoluteOutputFilePath);
+        var bytes = PdfPrinterDriver.MakePdf(xslFo);
 
-        System.IO.FileStream dd = System.IO.File.OpenRead(absoluteOutputFilePath);
+/*        System.IO.FileStream dd = System.IO.File.OpenRead(absoluteOutputFilePath);
         byte[] Bytes = new byte[dd.Length];
-        dd.Read(Bytes, 0, Bytes.Length);
-        return Convert.ToBase64String(Bytes);
+        dd.Read(Bytes, 0, Bytes.Length);*/
+        return Convert.ToBase64String(bytes);
     }
 }

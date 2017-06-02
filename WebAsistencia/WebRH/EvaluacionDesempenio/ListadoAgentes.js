@@ -145,7 +145,7 @@ var ListadoAgentes = {
     },
 
     getRespuestasDelForm: function (evaluacion) {
-        return coleccion_respuestas = this.getRespuestasDesdeLasPreguntas(evaluacion.detalle_preguntas);
+        return coleccion_respuestas = this.getRespuestasDesdeLasPreguntas(evaluacion.evaluacion.detalle_preguntas);
     },
     getRespuestasDesdeLasPreguntas: function (preguntas) {
         var coleccion_respuestas = []; //obtener estas opciones_elegidas desde un_agente.

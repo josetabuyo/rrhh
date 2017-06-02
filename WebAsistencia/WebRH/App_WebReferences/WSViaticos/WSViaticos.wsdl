@@ -450,7 +450,6 @@
           <s:element minOccurs="0" maxOccurs="1" name="nombre_evaluado" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="id_nivel" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="descripcion_corta_nivel" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="detalle_preguntas" type="tns:ArrayOfDetallePreguntas" />
           <s:element minOccurs="1" maxOccurs="1" name="test" type="s:int" />
         </s:sequence>
       </s:complexType>
