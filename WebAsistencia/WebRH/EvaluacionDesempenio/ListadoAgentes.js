@@ -58,7 +58,7 @@ var ListadoAgentes = {
         columnas.push(new Columna("Apellido", { generar: function (asignacion_evaluado_a_evaluador) { return asignacion_evaluado_a_evaluador.agente_evaluado.apellido } }));
         columnas.push(new Columna("Nombre", { generar: function (asignacion_evaluado_a_evaluador) { return asignacion_evaluado_a_evaluador.agente_evaluado.nombre } }));
         columnas.push(new Columna("Evaluacion", { generar: function (asignacion_evaluado_a_evaluador) {
-            var coleccion_respuestas = _this.getRespuestasDelForm(asignacion_evaluado_a_evaluador);
+            var coleccion_respuestas = _this.getRespuestasDelForm(asignacion_evaluado_a_evaluador.evaluacion);
             return _this.calificacion(coleccion_respuestas, asignacion_evaluado_a_evaluador.nivel.deficiente, asignacion_evaluado_a_evaluador.nivel.regular, asignacion_evaluado_a_evaluador.nivel.bueno, asignacion_evaluado_a_evaluador.nivel.destacado, false);
         }
         }));
@@ -74,8 +74,11 @@ var ListadoAgentes = {
             }
         }));
         columnas.push(new Columna("GDE", { generar: function (asignacion_evaluado_a_evaluador) {
-            if (asignacion_evaluado_a_evaluador.codigo_gde == '' && _this.PuedeImprimir(asignacion_evaluado_a_evaluador)) {
+            if (asignacion_evaluado_a_evaluador.evaluacion.codigo_gde == '' && _this.PuedeImprimir(asignacion_evaluado_a_evaluador)) {
                 return _this.getLinkCargarGDE(asignacion_evaluado_a_evaluador.id_evaluacion);
+            }
+            if (asignacion_evaluado_a_evaluador.evaluacion.codigo_gde != '') {
+                return asignacion_evaluado_a_evaluador.evaluacion.codigo_gde;
             }
             return asignacion_evaluado_a_evaluador.codigo_gde;
         }
@@ -89,7 +92,8 @@ var ListadoAgentes = {
         _this.BuscadorDeTabla();
     },
     PuedeImprimir: function (asignacion_evaluado_a_evaluador) {
-        var coleccion_respuestas = this.getRespuestasDelForm(asignacion_evaluado_a_evaluador);
+        if (asignacion_evaluado_a_evaluador.id_evaluacion == 0) return false;
+        var coleccion_respuestas = this.getRespuestasDelForm(asignacion_evaluado_a_evaluador.evaluacion);
         var calificacion = this.calificacion(coleccion_respuestas, asignacion_evaluado_a_evaluador.nivel.deficiente, asignacion_evaluado_a_evaluador.nivel.regular, asignacion_evaluado_a_evaluador.nivel.bueno, asignacion_evaluado_a_evaluador.nivel.destacado, false);
         return !(calificacion == 'A Evaluar' || calificacion == 'Evaluacion Incompleta');
     },
@@ -145,7 +149,7 @@ var ListadoAgentes = {
     },
 
     getRespuestasDelForm: function (evaluacion) {
-        return coleccion_respuestas = this.getRespuestasDesdeLasPreguntas(evaluacion.evaluacion.detalle_preguntas);
+        return coleccion_respuestas = this.getRespuestasDesdeLasPreguntas(evaluacion.detalle_preguntas);
     },
     getRespuestasDesdeLasPreguntas: function (preguntas) {
         var coleccion_respuestas = []; //obtener estas opciones_elegidas desde un_agente.
@@ -185,6 +189,7 @@ var ListadoAgentes = {
         var doc = $("#hid_doc").val();
         var codigo = ui.find('#codigo_gde').val();
         Backend.EvalGuardarCodigoGDE(doc, codigo);
+        vex.closeAll();
     },
     getImgIcono: function (nombre_img, title) {
         var btn_accion = $('<a>');
@@ -413,7 +418,6 @@ var ListadoAgentes = {
                 $('#contenedor').append(plantilla);
             });
 
-
             var idPersona = localStorage.getItem("idEvaluado");
             var documento = localStorage.getItem("documento");
             _this.habilitarBotonGuardarDefinitivo();
@@ -446,8 +450,6 @@ var ListadoAgentes = {
                     } else {
                         $('#baja').html("Activo");
                     }
-
-
                     if (data.CargoGremial != "") {
                         $('#cargo_gremial').html(data.CargoGremial);
                         $('#cargo_gremial').parent().show();
@@ -456,8 +458,6 @@ var ListadoAgentes = {
                     }
                 }
             });
-
-
 
             $('.btnGuardar').click(function () {
                 var idNivel = localStorage.getItem("idNivel");
@@ -469,7 +469,6 @@ var ListadoAgentes = {
                 // var plantillas = $('.plantilla');
                 var radioButtonsChecked = $('.input_form:checked');
                 var pregYRtas = [];
-
 
                 $.each(radioButtonsChecked, function (key, value) {
 
