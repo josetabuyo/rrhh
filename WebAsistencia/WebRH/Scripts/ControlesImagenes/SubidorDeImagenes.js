@@ -43,47 +43,50 @@ SubidorDeImagenes.prototype.subirProximaImagen = function (onImagenLista, recort
         bytes_imagen = bytes_imagen.replace(/^data:image\/(png|jpg);base64,/, "");
 
 
-//        if (recortar) {
-//            vex.defaultOptions.className = 'vex-theme-os';
-//            vex.open({
-//                afterOpen: function ($vexContent) {
-//                    var vista_imagen = new VistaThumbnail({
-//                        bytes_imagen: bytes_imagen,
-//                        contenedor: $vexContent,
-//                        alRecortar: function (bytes_imagen_recortada) {
-//                            Backend.SubirImagen(bytes_imagen_recortada).onSuccess(function (id_imagen) {
-//                                _this.indiceFileSubiendo += 1;
+        if (recortar) {
+            vex.defaultOptions.className = 'vex-theme-os';
+            vex.open({
+                afterOpen: function ($vexContent) {
+                    var cont = $("<div style=' position: absolute; top: 36px; left: 15px; right: 15px; bottom: 10px;'>");
 
-//                                onImagenLista(id_imagen, bytes_imagen_recortada);
+                    var vista_imagen = new VistaThumbnail({
+                        bytes_imagen: bytes_imagen,
+                        contenedor: cont,
+                        alRecortar: function (bytes_imagen_recortada) {
+                            Backend.SubirImagen(bytes_imagen_recortada).onSuccess(function (id_imagen) {
+                                _this.indiceFileSubiendo += 1;
 
-//                                if (_this.indiceFileSubiendo >= _this.colaDeSubida.length) return;
-//                                _this.subirProximaImagen(onImagenLista);
-//                            });
-//                        }
-//                    });
+                                onImagenLista(id_imagen, bytes_imagen_recortada);
 
-//                    return $vexContent;
-//                },
-//                css: {
-//                    'padding-top': "4%",
-//                    'padding-bottom': "0%"
-//                },
-//                contentCSS: {
-//                    width: "80%",
-//                    height: "80%"
-//                }
-//            });
-//        } else {
+                                if (_this.indiceFileSubiendo >= _this.colaDeSubida.length) return;
+                                _this.subirProximaImagen(onImagenLista);
+                            });
+                        }
+                    });
 
-        Backend.SubirImagen(bytes_imagen).onSuccess(function (id_imagen) {
-            _this.indiceFileSubiendo += 1;
+                    $vexContent.append(cont);
+                    //return $vexContent;
+                },
+                css: {
+                    'padding-top': "4%",
+                    'padding-bottom': "0%"
+                },
+                contentCSS: {
+                    width: "50%",
+                    height: "80%"
+                }
+            });
+        } else {
 
-            onImagenLista(id_imagen, bytes_imagen);
+            Backend.SubirImagen(bytes_imagen).onSuccess(function (id_imagen) {
+                _this.indiceFileSubiendo += 1;
 
-            if (_this.indiceFileSubiendo >= _this.colaDeSubida.length) return;
-            _this.subirProximaImagen(onImagenLista);
-        });
+                onImagenLista(id_imagen, bytes_imagen);
 
-//        }
+                if (_this.indiceFileSubiendo >= _this.colaDeSubida.length) return;
+                _this.subirProximaImagen(onImagenLista);
+            });
+
+        }
     };
 };
