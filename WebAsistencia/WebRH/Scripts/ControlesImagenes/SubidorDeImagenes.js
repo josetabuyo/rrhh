@@ -68,7 +68,7 @@ SubidorDeImagenes.prototype.subirProximaImagen = function (onImagenLista, recort
                     //return $vexContent;
                 },
                 css: {
-                    'padding-top': "4%",
+                    'padding-top': "1%",
                     'padding-bottom': "0%"
                 },
                 contentCSS: {

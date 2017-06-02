@@ -20,70 +20,18 @@
         vex.defaultOptions.className = 'vex-theme-os';
         vex.open({
             afterOpen: function ($vexContent) {
-                var ui = $("#pantalla_actualizacion_imagen");
+                var ui = $("#control_subida_de_imagen");
 
-                ui.find("#btn_aceptar_cambio_imagen")
-                .off("click")
+                ui.find("#btn_aceptar")
                 .click(function () {
-                    Backend.AceptarCambioDeImagen(solicitud.usuario.Id).onSuccess(function () {
-                        alertify.success('solicitud de cambio de imagen aceptada');
-                        vex.close();
-                        _this.alResolver();
-                    });
-                });
-                ui.find("#btn_rechazar_cambio_imagen")
-                .off("click")
-                .click(function () {
-                    vex.dialog.prompt({
-                        message: 'Indique razón de rechazo',
-                        placeholder: '',
-                        callback: function (value) {
-                            if (value) {
-                                Backend.RechazarCambioDeImagen(solicitud.usuario.Id, value).onSuccess(function () {
-                                    alertify.success('solicitud de cambio de imagen rechazada');
-                                    vex.close();
-                                    _this.alResolver();
-                                });
-                            }
-                        }
-                    })
 
                 });
+                ui.find("#btn_cancelar")
+                .click(function () {
 
-                ui.find("#usuario_solicitante").text("(" + solicitud.usuario.Alias.replace(' ', '') + ") " + solicitud.usuario.Owner.Apellido + ", " + solicitud.usuario.Owner.Nombre + " DNI:" + solicitud.usuario.Owner.Documento);
+                });
+                              
                 $vexContent.append(ui);
-                ui.show();
-
-                var vista_imagen_anterior = new VistaThumbnail({ id: solicitud.idImagenAnterior, contenedor: ui.find("#imagen_anterior") });
-                var vista_imagen_nueva = new VistaThumbnail({
-                    id: solicitud.idImagenNueva,
-                    contenedor: ui.find("#imagen_nueva"),
-                    alRecortar: function (bytes_imagen_recortada) {
-                        vex.defaultOptions.className = 'vex-theme-os';
-                        vex.open({
-                            afterOpen: function ($vexContent) {
-                                var ui = $("#plantillas_adm_cambio_imagen .confirmacion_recorte_imagen").clone();
-                                ui.find("#imagen_recortada").attr("src", "data:image/png;base64," + bytes_imagen_recortada);
-                                ui.find("#btn_aceptar_recorte").click(function () {
-                                    Backend.SubirImagen(bytes_imagen_recortada).onSuccess(function (id_imagen_recortada) {
-                                        Backend.AceptarCambioImagenConImagenRecortada(solicitud.usuario.Id, id_imagen_recortada).onSuccess(function (id_imagen_recortada) {
-                                            alertify.success('solicitud de cambio de imagen aceptada');
-                                            vex.close();
-                                            vex.close();
-                                            _this.alResolver();
-                                        });
-                                    });
-                                });
-                                ui.find("#btn_cancelar_recorte").click(function () {
-                                    vex.close();
-                                });
-                                $vexContent.append(ui);
-                                ui.show();
-                                return ui;
-                            }
-                        })
-                    }
-                });
 
                 return ui;
             },
