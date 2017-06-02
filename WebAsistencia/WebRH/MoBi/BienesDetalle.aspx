@@ -85,8 +85,19 @@
                 <td colspan="2" class="celda_atributo">
                     Dominio:
                 </td>
-                <td id="dominio" colspan="2" class="celda_descripcion">
+                <td id="dominio" colspan="1" width="20%">
                 </td>
+                <td id="foto" colspan="1">
+                    <div id="btn_ver_imagen" runat="server">
+                        <a style="display:inline-block">
+                            <img src="../Imagenes/camara.png" alt="" width="20px" height="20px" />
+                        </a>
+                        <div id="descrip_hay_imagen_cargadas" runat="server" 
+                            style="display:inline-block; padding-left: 2%; font-family: Arial, Helvetica, sans-serif; font-size: small; color: #FF0000;" 
+                            width="100%"></div>
+                    </div>
+                </td>
+                
             </tr>
             <tr>
                 <td colspan="2" class="celda_atributo">
@@ -127,14 +138,15 @@
 
         <div id="ed_contenedor_imagenes" style="display:none"></div>
     
-        <div id="btn_ver_imagen" runat="server">
-            <a style="display:inline-block">
-                <img src="../Imagenes/camara.png" alt="" width="50px" height="50px" />
-            </a>
-        </div>
+        
 
         <%--<div id="btn_add_imagen" runat="server">+</div>--%>
-        <div id="DivBotones" runat="server" style="width: 100%"></div>
+        <div id="DivBotones" runat="server" style="width: 100%; text-align: center;">
+        
+            <%--<input type='button' value="BOTON" />
+            <input type='button' value="BOTON" />
+            <input type='button' value="BOTON" />--%>
+        </div>
         
 
     </div>

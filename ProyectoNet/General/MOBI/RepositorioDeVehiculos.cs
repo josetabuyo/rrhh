@@ -37,7 +37,6 @@ namespace General.Repositorios
             {
                 var row = tablaDatos.Rows[0];
 
-
                 unVehiculo.NumeroVehiculo = row.GetString("NumeroVehiculo");
                 unVehiculo.Dominio = row.GetString("Dominio");
                 unVehiculo.Segmento = row.GetString("Segmento");
@@ -48,8 +47,21 @@ namespace General.Repositorios
                 unVehiculo.Anio = row.GetString("Anio");
                 unVehiculo.Observacion = row.GetString("Observacion");
                 unVehiculo.Area = row.GetString("Area");
-                unVehiculo.Apellido = row.GetString("Apellido");
-                unVehiculo.Nombre = row.GetString("Nombre"); 
+
+                unVehiculo.Conductor = new Persona();
+                if (row.GetString("Nombre", String.Empty) == String.Empty)
+                {
+                    unVehiculo.Conductor.Nombre = "";
+                    unVehiculo.Conductor.Apellido = "";
+                    unVehiculo.Conductor.Documento = 0;
+                }
+                else
+                {
+                    unVehiculo.Conductor.Nombre = row.GetString("Nombre");
+                    unVehiculo.Conductor.Apellido = row.GetString("Apellido");
+                    unVehiculo.Conductor.Documento = row.GetInt("NroDocumento");
+                }
+                
             };
 
             return unVehiculo;
