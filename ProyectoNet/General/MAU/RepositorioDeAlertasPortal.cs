@@ -136,7 +136,7 @@ namespace General.MAU
             {
                 var parametros = new Dictionary<string, object>();
                 parametros.Add("@idTarea", id_alerta);
-                this.conexion.EjecutarSinResultado("dbo.MAU_MarcarEstadoAlerta", parametros);
+                this.conexion.EjecutarSinResultado("dbo.MAU_MarcarEstadoTarea", parametros);
             }
             catch (Exception e)
             {

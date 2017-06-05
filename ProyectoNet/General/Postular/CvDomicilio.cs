@@ -47,15 +47,17 @@ namespace General
 
         }
 
-        public CvDomicilio(int id, string calle, int numero, string piso, string depto, string localidad, int cp, string provincia, string manzana, string casa, string barrio, string torre, string uf)
+        public CvDomicilio(int id, string calle, int numero, string piso, string depto, Localidad localidad, int cp, Provincia provincia, string manzana, string casa, string barrio, string torre, string uf)
         {
             this._calle = calle;
             this._numero = numero;
             this._piso = piso;
             this._depto = depto;
-            this.NombreLocalidad = localidad;
+            this.NombreLocalidad = localidad.Nombre;
+            this.Localidad = localidad.Id;
             this._cp = cp;
-            this.NombreProvincia = provincia;
+            this.NombreProvincia = provincia.Nombre;
+            this.Provincia = provincia.Id;
             this.Id = id;
 
             this.Manzana = manzana;

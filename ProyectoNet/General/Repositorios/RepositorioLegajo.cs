@@ -899,7 +899,7 @@ namespace General.Repositorios
                 tablaDatos.Rows.ForEach(row =>
 
                     //listaDomicilios.Add(new CvDomicilio(row.GetInt("id"), row.GetString("calle", ""), row.GetSmallintAsInt("nro", 0), row.GetString("piso", ""), row.GetString("dpto", ""), row.GetInt("localidad", 0), row.GetInt("cp", 0), row.GetInt("provincia", 0)))
-                    unDomicilio = new CvDomicilio(row.GetInt("id"), row.GetString("calle", ""), row.GetSmallintAsInt("nro", 0), row.GetString("piso", ""), row.GetString("dpto", ""), row.GetString("nombrelocalidad", ""), row.GetInt("cp", 0), row.GetString("nombreProvincia", ""), row.GetString("manzana", ""), row.GetString("casa", ""), row.GetString("barrio", ""), row.GetString("torre", ""), row.GetString("uf", ""))
+                    unDomicilio = new CvDomicilio(row.GetInt("id"), row.GetString("calle", ""), row.GetSmallintAsInt("nro", 0), row.GetString("piso", ""), row.GetString("dpto", ""), new Localidad(row.GetInt("idLocalidad"), row.GetString("nombreLocalidad")), row.GetInt("cp", 0), new Provincia(row.GetInt("idProvincia", 0), row.GetString("nombreProvincia", "")), row.GetString("manzana", ""), row.GetString("casa", ""), row.GetString("barrio", ""), row.GetString("torre", ""), row.GetString("uf", ""))
                 
                     );
             }
@@ -914,7 +914,7 @@ namespace General.Repositorios
             try {
                
             RepositorioDeAlertasPortal repo = new RepositorioDeAlertasPortal(this.conexion);
-            TipoAlertaPortal tipo = new TipoAlertaPortal(1004,"","",0);
+            TipoAlertaPortal tipo = new TipoAlertaPortal(5,"","",0);
             AlertaPortal alerta = new AlertaPortal(0,"Solicitud de Cambio de Domicilio","Cambio Domicilio",tipo, new DateTime(),usuario,"");
 
             var idTarea = repo.crearTarea(alerta, usuario);
@@ -957,10 +957,12 @@ namespace General.Repositorios
             var tablaDatos = conexion.Ejecutar("dbo.LEG_GET_DomicilioPendientePorAlerta", parametros);
 
             CvDomicilio dom = new CvDomicilio();
+          
             if (tablaDatos.Rows.Count > 0)
             {
                 tablaDatos.Rows.ForEach(row =>
-                    dom = new CvDomicilio(row.GetInt("id"), row.GetString("calle", ""), row.GetSmallintAsInt("nro", 0), row.GetString("piso", ""), row.GetString("dpto", ""), row.GetString("nombrelocalidad", ""), row.GetInt("cp", 0), row.GetString("nombreProvincia", ""), row.GetString("manzana", ""), row.GetString("casa", ""), row.GetString("barrio", ""), row.GetString("torre", ""), row.GetString("uf", ""))
+
+                    dom = new CvDomicilio(row.GetInt("id"), row.GetString("calle", ""), row.GetSmallintAsInt("nro", 0), row.GetString("piso", ""), row.GetString("dpto", ""), new Localidad(row.GetInt("idLocalidad"), row.GetString("nombreLocalidad")), row.GetInt("cp", 0), new Provincia(row.GetInt("idProvincia",0), row.GetString("nombreProvincia","")), row.GetString("manzana", ""), row.GetString("casa", ""), row.GetString("barrio", ""), row.GetString("torre", ""), row.GetString("uf", ""))
                     //dom = new CvDomicilio(row.GetInt("id"), row.GetString("calle", ""), row.GetSmallintAsInt("nro", 0), row.GetString("piso", ""), row.GetString("dpto", ""), row.GetInt("localidad", 0), row.GetInt("cp", 0), row.GetInt("provincia", 0))
                 );
             }
