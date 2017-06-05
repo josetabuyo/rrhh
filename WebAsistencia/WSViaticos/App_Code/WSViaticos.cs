@@ -4311,11 +4311,11 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public General.MAU.AlertaPortal[] getAlertasPorFuncionalidad(Usuario usuario)
+    public General.MAU.AlertaPortal[] getTareasPorFuncionalidad(Usuario usuario)
     {
         RepositorioDeAlertasPortal repo = new RepositorioDeAlertasPortal(Conexion());
 
-        return repo.getAlertasPorFuncionalidad(usuario).ToArray();
+        return repo.GetTareasPorFuncionalidad(usuario.Id).ToArray();
 
     }
 

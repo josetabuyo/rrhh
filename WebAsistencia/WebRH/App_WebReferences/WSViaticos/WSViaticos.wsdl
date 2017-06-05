@@ -2212,17 +2212,17 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="getAlertasPorFuncionalidad">
+      <s:element name="getTareasPorFuncionalidad">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="getAlertasPorFuncionalidadResponse">
+      <s:element name="getTareasPorFuncionalidadResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="getAlertasPorFuncionalidadResult" type="tns:ArrayOfAlertaPortal" />
+            <s:element minOccurs="0" maxOccurs="1" name="getTareasPorFuncionalidadResult" type="tns:ArrayOfAlertaPortal" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -7449,11 +7449,11 @@
   <wsdl:message name="GetConsultasTodasDePortalSoapOut">
     <wsdl:part name="parameters" element="tns:GetConsultasTodasDePortalResponse" />
   </wsdl:message>
-  <wsdl:message name="getAlertasPorFuncionalidadSoapIn">
-    <wsdl:part name="parameters" element="tns:getAlertasPorFuncionalidad" />
+  <wsdl:message name="getTareasPorFuncionalidadSoapIn">
+    <wsdl:part name="parameters" element="tns:getTareasPorFuncionalidad" />
   </wsdl:message>
-  <wsdl:message name="getAlertasPorFuncionalidadSoapOut">
-    <wsdl:part name="parameters" element="tns:getAlertasPorFuncionalidadResponse" />
+  <wsdl:message name="getTareasPorFuncionalidadSoapOut">
+    <wsdl:part name="parameters" element="tns:getTareasPorFuncionalidadResponse" />
   </wsdl:message>
   <wsdl:message name="GetDomicilioPendientePorAlertaSoapIn">
     <wsdl:part name="parameters" element="tns:GetDomicilioPendientePorAlerta" />
@@ -9306,9 +9306,9 @@
       <wsdl:input message="tns:GetConsultasTodasDePortalSoapIn" />
       <wsdl:output message="tns:GetConsultasTodasDePortalSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="getAlertasPorFuncionalidad">
-      <wsdl:input message="tns:getAlertasPorFuncionalidadSoapIn" />
-      <wsdl:output message="tns:getAlertasPorFuncionalidadSoapOut" />
+    <wsdl:operation name="getTareasPorFuncionalidad">
+      <wsdl:input message="tns:getTareasPorFuncionalidadSoapIn" />
+      <wsdl:output message="tns:getTareasPorFuncionalidadSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetDomicilioPendientePorAlerta">
       <wsdl:input message="tns:GetDomicilioPendientePorAlertaSoapIn" />
@@ -11110,8 +11110,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="getAlertasPorFuncionalidad">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/getAlertasPorFuncionalidad" style="document" />
+    <wsdl:operation name="getTareasPorFuncionalidad">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/getTareasPorFuncionalidad" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -14164,8 +14164,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="getAlertasPorFuncionalidad">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/getAlertasPorFuncionalidad" style="document" />
+    <wsdl:operation name="getTareasPorFuncionalidad">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/getTareasPorFuncionalidad" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

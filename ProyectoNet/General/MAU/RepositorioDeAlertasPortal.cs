@@ -12,7 +12,7 @@ namespace General.MAU
 
         public RepositorioDeAlertasPortal(IConexionBD una_conexion)
         {
-            this.conexion = una_conexion; 
+            this.conexion = una_conexion;
         }
 
         public List<AlertaPortal> GetAlertasPendientesPara(int id_usuario)
@@ -28,13 +28,13 @@ namespace General.MAU
                 TipoAlertaPortal tipoTarea = new TipoAlertaPortal(row.GetInt("idtipo", 0), row.GetString("descripcionTipo", ""), row.GetString("url", ""), row.GetInt("idFuncionalidad", 0));
                 Usuario usuarioCreador = new Usuario(row.GetSmallintAsInt("idUsuario", 0), row.GetString("nombreUsuario", ""), "", true);
                 AlertaPortal alerta = new AlertaPortal(row.GetInt("id", 0), row.GetString("titulo", ""), row.GetString("descripcion", ""), tipoTarea, row.GetDateTime("fechaCreacion"), usuarioCreador, "Un Estado");
-               /* var alerta = new AlertaPortal();
-                alerta.Id = row.GetInt("id");
-                alerta.Tipo = new TipoAlertaPortal();
-                alerta.Tipo.Id = row.GetInt("idtipo");
-                alerta.Tipo.Nombre = row.GetString("tipo");
-                alerta.Titulo = row.GetString("titulo");
-                alerta.Descripcion = row.GetString("descripcion");*/
+                /* var alerta = new AlertaPortal();
+                 alerta.Id = row.GetInt("id");
+                 alerta.Tipo = new TipoAlertaPortal();
+                 alerta.Tipo.Id = row.GetInt("idtipo");
+                 alerta.Tipo.Nombre = row.GetString("tipo");
+                 alerta.Titulo = row.GetString("titulo");
+                 alerta.Descripcion = row.GetString("descripcion");*/
 
                 alertas.Add(alerta);
             });
@@ -62,7 +62,7 @@ namespace General.MAU
             {
                 Persona creador = new Persona(row.GetInt("Id"), row.GetInt("NroDocumento"), row.GetString("nombre"), row.GetString("apellido"), area);
                 TipoAlertaPortal tipoTarea = new TipoAlertaPortal(row.GetInt("idtipo", 0), row.GetString("descripcionTipo", ""), row.GetString("url", ""), row.GetInt("idFuncionalidad", 0));
-                Usuario usuarioCreador = new Usuario(row.GetSmallintAsInt("idUsuario", 0), row.GetString("nombreUsuario", ""), "",creador, true);
+                Usuario usuarioCreador = new Usuario(row.GetSmallintAsInt("idUsuario", 0), row.GetString("nombreUsuario", ""), "", creador, true);
                 AlertaPortal alerta = new AlertaPortal(row.GetInt("id", 0), row.GetString("titulo", ""), row.GetString("descripcion", ""), tipoTarea, row.GetDateTime("fechaCreacion"), usuarioCreador, "Un Estado");
 
 
@@ -74,8 +74,8 @@ namespace General.MAU
 
         public int crearAlerta(AlertaPortal alerta, int idUsuarioDestinatario, Usuario usuario)
         {
-            //try
-           // {
+            try
+            {
                 var parametros = new Dictionary<string, object>();
                 parametros.Add("@id_usuario_destinatario", idUsuarioDestinatario);
                 parametros.Add("@id_usuario_creador", usuario.Id);
@@ -84,27 +84,66 @@ namespace General.MAU
                 parametros.Add("@descripcion", alerta.descripcion);
 
                 return Int32.Parse((this.conexion.EjecutarEscalar("dbo.MAU_CrearAlerta", parametros).ToString()));
-          //  }
-          //  catch (Exception e) {
-           //     throw new Exception(e.Message);
-          //  }
-            
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+
+        }
+
+        public List<AlertaPortal> GetTareasPorFuncionalidad(int idUsuario)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@idUsuario", idUsuario);
+            var tabla_resultado = this.conexion.Ejecutar("dbo.MAU_GET_TareasPorFuncionalidad", parametros);
+
+            var alertas = new List<AlertaPortal>();
+            Area area = new Area();
+
+            tabla_resultado.Rows.ForEach(row =>
+            {
+                Persona creador = new Persona(row.GetInt("Id"), row.GetInt("NroDocumento"), row.GetString("nombre"), row.GetString("apellido"), area);
+                TipoAlertaPortal tipoTarea = new TipoAlertaPortal(row.GetInt("idtipo", 0), row.GetString("descripcionTipo", ""), row.GetString("url", ""), row.GetInt("idFuncionalidad", 0));
+                Usuario usuarioCreador = new Usuario(row.GetSmallintAsInt("idUsuario", 0), row.GetString("nombreUsuario", ""), "", creador, true);
+                AlertaPortal alerta = new AlertaPortal(row.GetInt("id", 0), tipoTarea, row.GetDateTime("fechaCreacion"), usuarioCreador, row.GetBoolean("estado"));
+
+                alertas.Add(alerta);
+            });
+            return alertas;
+        }
+
+        public int crearTarea(AlertaPortal alerta, Usuario usuario)
+        {
+            try
+            {
+                var parametros = new Dictionary<string, object>();
+                parametros.Add("@idUsuarioCreador", usuario.Id);
+                parametros.Add("@idTipo", alerta.tipoAlerta.id);
+
+                return Int32.Parse((this.conexion.EjecutarEscalar("dbo.MAU_INS_Tarea", parametros).ToString()));
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+
         }
 
         public void MAU_MarcarEstadoAlerta(int id_alerta, int id_usuario)
         {
-           // try
-          //  {
+            try
+            {
                 var parametros = new Dictionary<string, object>();
-                parametros.Add("@id_alerta", id_alerta);
+                parametros.Add("@idTarea", id_alerta);
                 this.conexion.EjecutarSinResultado("dbo.MAU_MarcarEstadoAlerta", parametros);
-          //  }
-          //  catch (Exception e)
-          //  {
-           //     throw new Exception(e.Message);
-          //  }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
 
-       
+
     }
 }

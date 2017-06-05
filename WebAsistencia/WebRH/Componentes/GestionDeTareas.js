@@ -4,7 +4,7 @@
     },
     getTareasParaGestion: function () {
         var _this_original = this;
-        Backend.getAlertasPorFuncionalidad()
+        Backend.getTareasPorFuncionalidad()
                     .onSuccess(function (tareas) {
 
                         var _this = this;
@@ -17,8 +17,8 @@
 
                         columnas_tareas.push(new Columna("#", { generar: function (una_tarea) { return una_tarea.id } }));
                         columnas_tareas.push(new Columna("Fecha Creación", { generar: function (una_tarea) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_tarea.fechaCreacion) } }));
-                        columnas_tareas.push(new Columna("Titulo", { generar: function (una_tarea) { return una_tarea.titulo } }));
-                        columnas_tareas.push(new Columna("Descripcion", { generar: function (una_tarea) { return una_tarea.descripcion } }));
+                        //columnas_tareas.push(new Columna("Titulo", { generar: function (una_tarea) { return una_tarea.tipoAlerta.titulo } }));
+                        columnas_tareas.push(new Columna("Descripcion", { generar: function (una_tarea) { return una_tarea.tipoAlerta.descripcion } }));
                         columnas_tareas.push(new Columna("Creador", { generar: function (una_tarea) { return una_tarea.usuarioCreador.Owner.Apellido + ', ' + una_tarea.usuarioCreador.Owner.Nombre } }));
                         columnas_tareas.push(new Columna("Tipo de Tarea", { generar: function (una_tarea) { return una_tarea.tipoAlerta.descripcion } }));
                         //columnas_tareas.push(new Columna("Estado", { generar: function (una_tarea) { return una_tarea.estado } }));

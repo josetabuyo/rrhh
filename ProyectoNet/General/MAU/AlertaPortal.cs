@@ -31,5 +31,14 @@ namespace General.MAU
             this.usuarioCreador = usuarioCreador;
             this.estado = estado;
         }
+
+        public AlertaPortal(int id, TipoAlertaPortal tipoAlerta, DateTime fechaCreacion, Usuario usuarioCreador, bool estado)
+        {
+            this.id = id;
+            this.tipoAlerta = tipoAlerta;
+            this.fechaCreacion = fechaCreacion;
+            this.usuarioCreador = usuarioCreador;
+            this.estado = estado.ToString();
+        }
     }
 }

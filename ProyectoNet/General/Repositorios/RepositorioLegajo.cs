@@ -839,7 +839,7 @@ namespace General.Repositorios
 
                         var tablaDatos = conexion.Ejecutar("dbo.Alta_DomicilioPersonal", parametros);
 
-                        this.borrarDomicilioPendiente(idAlerta);
+                        this.borrarDomicilioPendiente(idAlerta, idUsuarioVerificador);
 
                         RepositorioDeAlertasPortal repo = new RepositorioDeAlertasPortal(this.conexion);
                         repo.MAU_MarcarEstadoAlerta(idAlerta, idUsuarioVerificador);
@@ -865,14 +865,15 @@ namespace General.Repositorios
 
         }
 
-        public bool borrarDomicilioPendiente(int idAlerta)
+        public bool borrarDomicilioPendiente(int idAlerta, int idUsuario)
         {
             //try
            // {
                 var parametros = new Dictionary<string, object>();
                 parametros.Add("@idAlerta", idAlerta);
+                parametros.Add("@idUsuarioVerificador", idUsuario);
 
-                var tablaDatos = conexion.Ejecutar("dbo.LEG_DEL_DomicilioPendiente", parametros);
+                var tablaDatos = conexion.Ejecutar("dbo.LEG_UPD_DomicilioPendiente", parametros);
 
                 return true;
            // }
@@ -916,7 +917,7 @@ namespace General.Repositorios
             TipoAlertaPortal tipo = new TipoAlertaPortal(1004,"","",0);
             AlertaPortal alerta = new AlertaPortal(0,"Solicitud de Cambio de Domicilio","Cambio Domicilio",tipo, new DateTime(),usuario,"");
 
-            var idAlerta = repo.crearAlerta(alerta, 0, usuario);
+            var idTarea = repo.crearTarea(alerta, usuario);
 
             var parametros = new Dictionary<string, object>();
 
@@ -933,7 +934,7 @@ namespace General.Repositorios
             parametros.Add("@uf", domicilio.Uf);
             parametros.Add("@casa", domicilio.Casa);
             parametros.Add("@idPersona", usuario.Owner.Id);
-            parametros.Add("@idAlerta", idAlerta);
+            parametros.Add("@idAlerta", idTarea);
 
 
             conexion.Ejecutar("dbo.LEG_Ins_Domicilios_Pendientes", parametros);
