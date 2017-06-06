@@ -25,9 +25,9 @@ namespace General.MAU
 
             tabla_resultado.Rows.ForEach(row =>
             {
-                TipoAlertaPortal tipoTarea = new TipoAlertaPortal(row.GetInt("idtipo", 0), row.GetString("descripcionTipo", ""), row.GetString("url", ""), row.GetInt("idFuncionalidad", 0));
+                TipoAlertaPortal tipoAlerta = new TipoAlertaPortal(row.GetInt("idtipo", 0), row.GetString("descripcionTipo", ""), row.GetString("url", ""), row.GetInt("idFuncionalidad", 0));
                 Usuario usuarioCreador = new Usuario(row.GetSmallintAsInt("idUsuario", 0), row.GetString("nombreUsuario", ""), "", true);
-                AlertaPortal alerta = new AlertaPortal(row.GetInt("id", 0), row.GetString("titulo", ""), row.GetString("descripcion", ""), tipoTarea, row.GetDateTime("fechaCreacion"), usuarioCreador, "Un Estado");
+                AlertaPortal alerta = new AlertaPortal(row.GetInt("id", 0), row.GetString("titulo", ""), row.GetString("descripcion", ""), tipoAlerta, row.GetDateTime("fechaCreacion"), usuarioCreador, "Un Estado");
                 /* var alerta = new AlertaPortal();
                  alerta.Id = row.GetInt("id");
                  alerta.Tipo = new TipoAlertaPortal();
@@ -50,28 +50,6 @@ namespace General.MAU
             this.conexion.EjecutarSinResultado("dbo.MAU_MarcarAlertaComoLeida", parametros);
         }
 
-        public List<AlertaPortal> getAlertasPorFuncionalidad(Usuario usuario)
-        {
-            var parametros = new Dictionary<string, object>();
-            parametros.Add("@idUsuario", usuario.Id);
-            var tabla_resultado = this.conexion.Ejecutar("dbo.MAU_GetAlertasPorFuncionalidad", parametros);
-
-            List<AlertaPortal> alertas = new List<AlertaPortal>();
-            Area area = new Area();
-            tabla_resultado.Rows.ForEach(row =>
-            {
-                Persona creador = new Persona(row.GetInt("Id"), row.GetInt("NroDocumento"), row.GetString("nombre"), row.GetString("apellido"), area);
-                TipoAlertaPortal tipoTarea = new TipoAlertaPortal(row.GetInt("idtipo", 0), row.GetString("descripcionTipo", ""), row.GetString("url", ""), row.GetInt("idFuncionalidad", 0));
-                Usuario usuarioCreador = new Usuario(row.GetSmallintAsInt("idUsuario", 0), row.GetString("nombreUsuario", ""), "", creador, true);
-                AlertaPortal alerta = new AlertaPortal(row.GetInt("id", 0), row.GetString("titulo", ""), row.GetString("descripcion", ""), tipoTarea, row.GetDateTime("fechaCreacion"), usuarioCreador, "Un Estado");
-
-
-                alertas.Add(alerta);
-            });
-
-            return alertas;
-        }
-
         public int crearAlerta(AlertaPortal alerta, int idUsuarioDestinatario, Usuario usuario)
         {
             try
@@ -91,59 +69,5 @@ namespace General.MAU
             }
 
         }
-
-        public List<AlertaPortal> GetTareasPorFuncionalidad(int idUsuario)
-        {
-            var parametros = new Dictionary<string, object>();
-            parametros.Add("@idUsuario", idUsuario);
-            var tabla_resultado = this.conexion.Ejecutar("dbo.MAU_GET_TareasPorFuncionalidad", parametros);
-
-            var alertas = new List<AlertaPortal>();
-            Area area = new Area();
-
-            tabla_resultado.Rows.ForEach(row =>
-            {
-                Persona creador = new Persona(row.GetInt("Id"), row.GetInt("NroDocumento"), row.GetString("nombre"), row.GetString("apellido"), area);
-                TipoAlertaPortal tipoTarea = new TipoAlertaPortal(row.GetInt("idtipo", 0), row.GetString("descripcionTipo", ""), row.GetString("url", ""), row.GetInt("idFuncionalidad", 0));
-                Usuario usuarioCreador = new Usuario(row.GetSmallintAsInt("idUsuario", 0), row.GetString("nombreUsuario", ""), "", creador, true);
-                AlertaPortal alerta = new AlertaPortal(row.GetInt("id", 0), tipoTarea, row.GetDateTime("fechaCreacion"), usuarioCreador, row.GetBoolean("estado"));
-
-                alertas.Add(alerta);
-            });
-            return alertas;
-        }
-
-        public int crearTarea(AlertaPortal alerta, Usuario usuario)
-        {
-            try
-            {
-                var parametros = new Dictionary<string, object>();
-                parametros.Add("@idUsuarioCreador", usuario.Id);
-                parametros.Add("@idTipo", alerta.tipoAlerta.id);
-
-                return Int32.Parse((this.conexion.EjecutarEscalar("dbo.MAU_INS_Tarea", parametros).ToString()));
-            }
-            catch (Exception e)
-            {
-                throw new Exception(e.Message);
-            }
-
-        }
-
-        public void MAU_MarcarEstadoAlerta(int id_alerta, int id_usuario)
-        {
-            try
-            {
-                var parametros = new Dictionary<string, object>();
-                parametros.Add("@idTarea", id_alerta);
-                this.conexion.EjecutarSinResultado("dbo.MAU_MarcarEstadoTarea", parametros);
-            }
-            catch (Exception e)
-            {
-                throw new Exception(e.Message);
-            }
-        }
-
-
     }
 }

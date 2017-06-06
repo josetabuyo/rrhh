@@ -4311,9 +4311,9 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public General.MAU.AlertaPortal[] getTareasPorFuncionalidad(Usuario usuario)
+    public General.MAU.TareaPortal[] getTareasPorFuncionalidad(Usuario usuario)
     {
-        RepositorioDeAlertasPortal repo = new RepositorioDeAlertasPortal(Conexion());
+        RepositorioDeTareasPortal repo = new RepositorioDeTareasPortal(Conexion());
 
         return repo.GetTareasPorFuncionalidad(usuario.Id).ToArray();
 

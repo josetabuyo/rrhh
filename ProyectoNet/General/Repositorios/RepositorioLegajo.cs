@@ -796,7 +796,7 @@ namespace General.Repositorios
 
         }
 
-        public string VerificarCambioDomicilio(int idAlerta, int documento, int idUsuarioDestinatario, int idUsuarioVerificador)
+        public string VerificarCambioDomicilio(int idTarea, int documento, int idUsuarioDestinatario, int idUsuarioVerificador)
         {
 
                 using (var tran = conexion.BeginTransaction())
@@ -806,9 +806,9 @@ namespace General.Repositorios
                          var parametros = new Dictionary<string, object>();
 
                         //parametros.Add("@idDomicilio", idDomicilio);
-                        CvDomicilio domicilio = JsonConvert.DeserializeObject<CvDomicilio>(this.GetDomicilioPendientePorAlerta(idAlerta));
+                        CvDomicilio domicilio = JsonConvert.DeserializeObject<CvDomicilio>(this.GetDomicilioPendientePorAlerta(idTarea));
 
-                        parametros.Add("@idAlerta", idAlerta);
+                        parametros.Add("@idAlerta", idTarea);
                         //parametros.Add("@idUsuarioVerificador", idUsuarioVerificador);
                
                         //var tablaDatos = conexion.Ejecutar("dbo.LEG_UPD_DomicilioPendiente", parametros);
@@ -839,15 +839,16 @@ namespace General.Repositorios
 
                         var tablaDatos = conexion.Ejecutar("dbo.Alta_DomicilioPersonal", parametros);
 
-                        this.borrarDomicilioPendiente(idAlerta, idUsuarioVerificador);
+                        this.borrarDomicilioPendiente(idTarea, idUsuarioVerificador);
 
-                        RepositorioDeAlertasPortal repo = new RepositorioDeAlertasPortal(this.conexion);
-                        repo.MAU_MarcarEstadoAlerta(idAlerta, idUsuarioVerificador);
+                        RepositorioDeTareasPortal repo = new RepositorioDeTareasPortal(this.conexion);
+                        repo.MarcarEstadoTarea(idTarea, idUsuarioVerificador);
                         Usuario usuarioVerificador = new Usuario(idUsuarioVerificador, "", "", true);
 
+                        RepositorioDeAlertasPortal repoAlerta = new RepositorioDeAlertasPortal(this.conexion);
                         TipoAlertaPortal tipo = new TipoAlertaPortal(1004, "", "", 0);
                         AlertaPortal alerta = new AlertaPortal(0, "Confirmación de cambio de Domicilio", "Su domicilio ha sido modificado.", tipo, new DateTime(), usuarioVerificador, "");
-                        repo.crearAlerta(alerta, idUsuarioDestinatario, usuarioVerificador);
+                        repoAlerta.crearAlerta(alerta, idUsuarioDestinatario, usuarioVerificador);
 
                         tran.Commit();
                         return JsonConvert.SerializeObject("Se ha cambiado el domicilio con exito.");
@@ -865,12 +866,12 @@ namespace General.Repositorios
 
         }
 
-        public bool borrarDomicilioPendiente(int idAlerta, int idUsuario)
+        public bool borrarDomicilioPendiente(int idTarea, int idUsuario)
         {
             //try
            // {
                 var parametros = new Dictionary<string, object>();
-                parametros.Add("@idAlerta", idAlerta);
+                parametros.Add("@idAlerta", idTarea);
                 parametros.Add("@idUsuarioVerificador", idUsuario);
 
                 var tablaDatos = conexion.Ejecutar("dbo.LEG_UPD_DomicilioPendiente", parametros);
@@ -899,7 +900,7 @@ namespace General.Repositorios
                 tablaDatos.Rows.ForEach(row =>
 
                     //listaDomicilios.Add(new CvDomicilio(row.GetInt("id"), row.GetString("calle", ""), row.GetSmallintAsInt("nro", 0), row.GetString("piso", ""), row.GetString("dpto", ""), row.GetInt("localidad", 0), row.GetInt("cp", 0), row.GetInt("provincia", 0)))
-                    unDomicilio = new CvDomicilio(row.GetInt("id"), row.GetString("calle", ""), row.GetSmallintAsInt("nro", 0), row.GetString("piso", ""), row.GetString("dpto", ""), new Localidad(row.GetInt("idLocalidad"), row.GetString("nombreLocalidad")), row.GetInt("cp", 0), new Provincia(row.GetInt("idProvincia", 0), row.GetString("nombreProvincia", "")), row.GetString("manzana", ""), row.GetString("casa", ""), row.GetString("barrio", ""), row.GetString("torre", ""), row.GetString("uf", ""))
+                    unDomicilio = new CvDomicilio(row.GetInt("id"), row.GetString("calle", ""), row.GetSmallintAsInt("nro", 0), row.GetString("piso", ""), row.GetString("dpto", ""), new Localidad(row.GetInt("idLocalidad"), row.GetString("nombreLocalidad")), row.GetInt("cp", 0), new Provincia(row.GetSmallintAsInt("idProvincia", 0), row.GetString("nombreProvincia", "")), row.GetString("manzana", ""), row.GetString("casa", ""), row.GetString("barrio", ""), row.GetString("torre", ""), row.GetString("uf", ""))
                 
                     );
             }
@@ -912,12 +913,12 @@ namespace General.Repositorios
         {
 
             try {
-               
-            RepositorioDeAlertasPortal repo = new RepositorioDeAlertasPortal(this.conexion);
-            TipoAlertaPortal tipo = new TipoAlertaPortal(5,"","",0);
-            AlertaPortal alerta = new AlertaPortal(0,"Solicitud de Cambio de Domicilio","Cambio Domicilio",tipo, new DateTime(),usuario,"");
 
-            var idTarea = repo.crearTarea(alerta, usuario);
+            RepositorioDeTareasPortal repo = new RepositorioDeTareasPortal(this.conexion);
+            TipoTareaPortal tipo = new TipoTareaPortal(5,"","",0);
+            TareaPortal tarea = new TareaPortal(0,"Solicitud de Cambio de Domicilio","Cambio Domicilio",tipo, new DateTime(),usuario,"");
+
+            var idTarea = repo.crearTarea(tarea, usuario);
 
             var parametros = new Dictionary<string, object>();
 
@@ -962,7 +963,7 @@ namespace General.Repositorios
             {
                 tablaDatos.Rows.ForEach(row =>
 
-                    dom = new CvDomicilio(row.GetInt("id"), row.GetString("calle", ""), row.GetSmallintAsInt("nro", 0), row.GetString("piso", ""), row.GetString("dpto", ""), new Localidad(row.GetInt("idLocalidad"), row.GetString("nombreLocalidad")), row.GetInt("cp", 0), new Provincia(row.GetInt("idProvincia",0), row.GetString("nombreProvincia","")), row.GetString("manzana", ""), row.GetString("casa", ""), row.GetString("barrio", ""), row.GetString("torre", ""), row.GetString("uf", ""))
+                    dom = new CvDomicilio(row.GetInt("id"), row.GetString("calle", ""), row.GetSmallintAsInt("nro", 0), row.GetString("piso", ""), row.GetString("dpto", ""), new Localidad(row.GetInt("idLocalidad"), row.GetString("nombreLocalidad")), row.GetInt("cp", 0), new Provincia(row.GetSmallintAsInt("idProvincia", 0), row.GetString("nombreProvincia", "")), row.GetString("manzana", ""), row.GetString("casa", ""), row.GetString("barrio", ""), row.GetString("torre", ""), row.GetString("uf", ""))
                     //dom = new CvDomicilio(row.GetInt("id"), row.GetString("calle", ""), row.GetSmallintAsInt("nro", 0), row.GetString("piso", ""), row.GetString("dpto", ""), row.GetInt("localidad", 0), row.GetInt("cp", 0), row.GetInt("provincia", 0))
                 );
             }

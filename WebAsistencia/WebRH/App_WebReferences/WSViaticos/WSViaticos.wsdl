@@ -2222,27 +2222,27 @@
       <s:element name="getTareasPorFuncionalidadResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="getTareasPorFuncionalidadResult" type="tns:ArrayOfAlertaPortal" />
+            <s:element minOccurs="0" maxOccurs="1" name="getTareasPorFuncionalidadResult" type="tns:ArrayOfTareaPortal" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="ArrayOfAlertaPortal">
+      <s:complexType name="ArrayOfTareaPortal">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="AlertaPortal" nillable="true" type="tns:AlertaPortal" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TareaPortal" nillable="true" type="tns:TareaPortal" />
         </s:sequence>
       </s:complexType>
-      <s:complexType name="AlertaPortal">
+      <s:complexType name="TareaPortal">
         <s:sequence>
           <s:element minOccurs="0" maxOccurs="1" name="descripcion" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="titulo" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="fechaCreacion" type="s:dateTime" />
           <s:element minOccurs="0" maxOccurs="1" name="usuarioCreador" type="tns:Usuario" />
-          <s:element minOccurs="0" maxOccurs="1" name="tipoAlerta" type="tns:TipoAlertaPortal" />
+          <s:element minOccurs="0" maxOccurs="1" name="tipoTarea" type="tns:TipoTareaPortal" />
           <s:element minOccurs="0" maxOccurs="1" name="estado" type="s:string" />
         </s:sequence>
       </s:complexType>
-      <s:complexType name="TipoAlertaPortal">
+      <s:complexType name="TipoTareaPortal">
         <s:sequence>
           <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="descripcion" type="s:string" />
@@ -5181,6 +5181,30 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:complexType name="AlertaPortal">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="descripcion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="titulo" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="fechaCreacion" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="usuarioCreador" type="tns:Usuario" />
+          <s:element minOccurs="0" maxOccurs="1" name="tipoAlerta" type="tns:TipoAlertaPortal" />
+          <s:element minOccurs="0" maxOccurs="1" name="estado" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TipoAlertaPortal">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="descripcion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="urlComponente" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="idFuncionalidad" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfAlertaPortal">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AlertaPortal" nillable="true" type="tns:AlertaPortal" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="GetMisAlertasPendientesResponse">
         <s:complexType>
           <s:sequence>
