@@ -57,7 +57,7 @@
     },
     MostrarDetalleDeTarea: function (tarea) {
         var _this = this;
-        localStorage.setItem("idAlerta", tarea.id);
+        localStorage.setItem("idTarea", tarea.id);
         localStorage.setItem("documento", tarea.usuarioCreador.Owner.Documento);
         localStorage.setItem("nombre", tarea.usuarioCreador.Owner.Nombre);
         localStorage.setItem("apellido", tarea.usuarioCreador.Owner.Apellido);

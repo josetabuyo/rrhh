@@ -796,7 +796,7 @@ namespace General.Repositorios
 
         }
 
-        public string VerificarCambioDomicilio(int idTarea, int documento, int idUsuarioDestinatario, int idUsuarioVerificador)
+        public string VerificarCambioDomicilio(int idTarea, int documento, string folio, int idUsuarioDestinatario, int idUsuarioVerificador)
         {
 
                 using (var tran = conexion.BeginTransaction())
@@ -829,7 +829,7 @@ namespace General.Repositorios
                         parametros.Add("@Codigo_Postal", domicilio.Cp);
                         parametros.Add("@Partido_Dpto", domicilio.Partido);
                         parametros.Add("@Provincia", domicilio.Provincia);
-                        parametros.Add("@Folio", "");
+                        parametros.Add("@Folio", folio);
                         parametros.Add("@Id_Interna", "");
                         parametros.Add("@Nro_Doc", documento);
                         parametros.Add("@Baja", false);
