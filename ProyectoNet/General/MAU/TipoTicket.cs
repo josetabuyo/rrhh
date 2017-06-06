@@ -5,7 +5,7 @@ using System.Text;
 
 namespace General.MAU
 {
-    public class TipoTareaPortal
+    public class TipoTicket
     {
         //public int Id { get; set; }
         //public string Nombre { get; set; }
@@ -15,10 +15,10 @@ namespace General.MAU
         public string urlComponente { get; set; }
         public int idFuncionalidad { get; set; }
 
-        public TipoTareaPortal()
+        public TipoTicket()
         { }
 
-        public TipoTareaPortal(int id, string descripcion, string url, int idFuncionalidad)
+        public TipoTicket(int id, string descripcion, string url, int idFuncionalidad)
         {
             this.descripcion = descripcion;
             this.id = id;

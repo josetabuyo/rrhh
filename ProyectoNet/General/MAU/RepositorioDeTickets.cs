@@ -6,43 +6,43 @@ using General.Repositorios;
 
 namespace General.MAU
 {
-    public class RepositorioDeTareasPortal
+    public class RepositorioDeTickets
     {
         IConexionBD conexion;
 
-        public RepositorioDeTareasPortal(IConexionBD una_conexion)
+        public RepositorioDeTickets(IConexionBD una_conexion)
         {
             this.conexion = una_conexion;
         }
        
-        public List<TareaPortal> GetTareasPorFuncionalidad(int idUsuario)
+        public List<Ticket> GetTareasPorFuncionalidad(int idUsuario)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@idUsuario", idUsuario);
-            var tabla_resultado = this.conexion.Ejecutar("dbo.MAU_GET_TareasPorFuncionalidad", parametros);
+            var tabla_resultado = this.conexion.Ejecutar("dbo.MAU_GET_TicketsPorFuncionalidad", parametros);
 
-            var tareas = new List<TareaPortal>();
+            var tareas = new List<Ticket>();
             Area area = new Area();
 
             tabla_resultado.Rows.ForEach(row =>
             {
                 Persona creador = new Persona(row.GetInt("Id"), row.GetInt("NroDocumento"), row.GetString("nombre"), row.GetString("apellido"), area);
-                var tipoTarea = new TipoTareaPortal(row.GetInt("idtipo", 0), row.GetString("descripcionTipo", ""), row.GetString("url", ""), row.GetInt("idFuncionalidad", 0));
+                var tipoTarea = new TipoTicket(row.GetInt("idtipo", 0), row.GetString("descripcionTipo", ""), row.GetString("url", ""), row.GetInt("idFuncionalidad", 0));
                 Usuario usuarioCreador = new Usuario(row.GetSmallintAsInt("idUsuario", 0), row.GetString("nombreUsuario", ""), "", creador, true);
-                TareaPortal tarea = new TareaPortal(row.GetInt("id", 0), tipoTarea, row.GetDateTime("fechaCreacion"), usuarioCreador, row.GetBoolean("estado"));
+                Ticket ticket = new Ticket(row.GetInt("id", 0), tipoTarea, row.GetDateTime("fechaCreacion"), usuarioCreador, row.GetBoolean("estado"));
 
-                tareas.Add(tarea);
+                tareas.Add(ticket);
             });
             return tareas;
         }
 
-        public int crearTarea(TareaPortal alerta, Usuario usuario)
+        public int crearTicket(Ticket ticket, Usuario usuario)
         {
             try
             {
                 var parametros = new Dictionary<string, object>();
                 parametros.Add("@idUsuarioCreador", usuario.Id);
-                parametros.Add("@idTipo", alerta.tipoTarea.id);
+                parametros.Add("@idTipo", ticket.tipoTicket.id);
 
                 return Int32.Parse((this.conexion.EjecutarEscalar("dbo.MAU_INS_Tarea", parametros).ToString()));
             }
@@ -53,13 +53,13 @@ namespace General.MAU
 
         }
 
-        public void MarcarEstadoTarea(int id_tarea, int id_usuario)
+        public void MarcarEstadoTicket(int id_ticket, int id_usuario)
         {
             try
             {
                 var parametros = new Dictionary<string, object>();
-                parametros.Add("@idTarea", id_tarea);
-                this.conexion.EjecutarSinResultado("dbo.MAU_MarcarEstadoTarea", parametros);
+                parametros.Add("@idTicket", id_ticket);
+                this.conexion.EjecutarSinResultado("dbo.MAU_MarcarEstadoTicket", parametros);
             }
             catch (Exception e)
             {

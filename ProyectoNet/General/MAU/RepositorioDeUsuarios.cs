@@ -346,6 +346,8 @@ namespace General.MAU
             parametros.Add("@id_usuario", id_usuario);
             var tablaDatos = conexion.Ejecutar("dbo.MAU_GetSolicitudesDeCambioDeImagenPendientes", parametros);
 
+            var repo = new RepositorioDeTickets(this.conexion);
+
             var solicitudes = new List<SolicitudDeCambioDeImagen>();
             tablaDatos.Rows.ForEach((row) =>
             {
@@ -353,6 +355,7 @@ namespace General.MAU
                 solicitud.idImagenAnterior = row.GetInt("id_imagen_anterior", -1);
                 solicitud.idImagenNueva = row.GetInt("id_imagen_nueva", -1);
                 solicitud.usuario = GetUsuarioPorId(row.GetInt("id_usuario"));
+
                 solicitudes.Add(solicitud);
             });
 

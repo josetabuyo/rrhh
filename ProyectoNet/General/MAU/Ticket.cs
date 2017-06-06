@@ -5,7 +5,7 @@ using System.Text;
 
 namespace General.MAU
 {
-    public class TareaPortal
+    public class Ticket
     {
         //public int Id { get; set; }
         //public TipoAlertaPortal Tipo { get; set; }
@@ -15,27 +15,27 @@ namespace General.MAU
         public int id { get; set; }
         public DateTime fechaCreacion { get; set; }
         public Usuario usuarioCreador { get; set; }
-        public TipoTareaPortal tipoTarea { get; set; }
+        public TipoTicket tipoTicket { get; set; }
         public string estado { get; set; }
 
-        public TareaPortal()
+        public Ticket()
         { }
 
-        public TareaPortal(int id, string titulo, string descripcion, TipoTareaPortal tipoTarea, DateTime fechaCreacion, Usuario usuarioCreador, string estado)
+        public Ticket(int id, string titulo, string descripcion, TipoTicket tipoTicket, DateTime fechaCreacion, Usuario usuarioCreador, string estado)
         {
             this.descripcion = descripcion;
             this.titulo = titulo;
             this.id = id;
-            this.tipoTarea = tipoTarea;
+            this.tipoTicket = tipoTicket;
             this.fechaCreacion = fechaCreacion;
             this.usuarioCreador = usuarioCreador;
             this.estado = estado;
         }
 
-        public TareaPortal(int id, TipoTareaPortal tipoTarea, DateTime fechaCreacion, Usuario usuarioCreador, bool estado)
+        public Ticket(int id, TipoTicket tipoTicket, DateTime fechaCreacion, Usuario usuarioCreador, bool estado)
         {
             this.id = id;
-            this.tipoTarea = tipoTarea;
+            this.tipoTicket = tipoTicket;
             this.fechaCreacion = fechaCreacion;
             this.usuarioCreador = usuarioCreador;
             this.estado = estado.ToString();

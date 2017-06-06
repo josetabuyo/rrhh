@@ -841,7 +841,7 @@ namespace General.Repositorios
 
                         this.borrarDomicilioPendiente(idTarea, idUsuarioVerificador);
 
-                        RepositorioDeTareasPortal repo = new RepositorioDeTareasPortal(this.conexion);
+                        RepositorioDeTickets repo = new RepositorioDeTickets(this.conexion);
                         repo.MarcarEstadoTarea(idTarea, idUsuarioVerificador);
                         Usuario usuarioVerificador = new Usuario(idUsuarioVerificador, "", "", true);
 
@@ -914,9 +914,9 @@ namespace General.Repositorios
 
             try {
 
-            RepositorioDeTareasPortal repo = new RepositorioDeTareasPortal(this.conexion);
-            TipoTareaPortal tipo = new TipoTareaPortal(5,"","",0);
-            TareaPortal tarea = new TareaPortal(0,"Solicitud de Cambio de Domicilio","Cambio Domicilio",tipo, new DateTime(),usuario,"");
+            RepositorioDeTickets repo = new RepositorioDeTickets(this.conexion);
+            TipoTicket tipo = new TipoTicket(5,"","",0);
+            Ticket tarea = new Ticket(0,"Solicitud de Cambio de Domicilio","Cambio Domicilio",tipo, new DateTime(),usuario,"");
 
             var idTarea = repo.crearTarea(tarea, usuario);
 

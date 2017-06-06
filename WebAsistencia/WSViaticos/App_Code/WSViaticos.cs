@@ -4311,9 +4311,9 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public General.MAU.TareaPortal[] getTareasPorFuncionalidad(Usuario usuario)
+    public General.MAU.Ticket[] getTareasPorFuncionalidad(Usuario usuario)
     {
-        RepositorioDeTareasPortal repo = new RepositorioDeTareasPortal(Conexion());
+        RepositorioDeTickets repo = new RepositorioDeTickets(Conexion());
 
         return repo.GetTareasPorFuncionalidad(usuario.Id).ToArray();
 
