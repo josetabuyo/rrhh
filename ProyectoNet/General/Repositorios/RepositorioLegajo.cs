@@ -842,7 +842,7 @@ namespace General.Repositorios
                         this.borrarDomicilioPendiente(idTarea, idUsuarioVerificador);
 
                         RepositorioDeTickets repo = new RepositorioDeTickets(this.conexion);
-                        repo.MarcarEstadoTarea(idTarea, idUsuarioVerificador);
+                        repo.MarcarEstadoTicket(idTarea, idUsuarioVerificador);
                         Usuario usuarioVerificador = new Usuario(idUsuarioVerificador, "", "", true);
 
                         RepositorioDeAlertasPortal repoAlerta = new RepositorioDeAlertasPortal(this.conexion);
@@ -918,7 +918,7 @@ namespace General.Repositorios
             TipoTicket tipo = new TipoTicket(5,"","",0);
             Ticket tarea = new Ticket(0,"Solicitud de Cambio de Domicilio","Cambio Domicilio",tipo, new DateTime(),usuario,"");
 
-            var idTarea = repo.crearTarea(tarea, usuario);
+            var idTarea = repo.crearTicket(tarea, usuario);
 
             var parametros = new Dictionary<string, object>();
 

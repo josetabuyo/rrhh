@@ -15,7 +15,7 @@ namespace General.MAU
             this.conexion = una_conexion;
         }
        
-        public List<Ticket> GetTareasPorFuncionalidad(int idUsuario)
+        public List<Ticket> GetTicketsPorFuncionalidad(int idUsuario)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@idUsuario", idUsuario);

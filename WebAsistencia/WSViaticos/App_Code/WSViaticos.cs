@@ -4311,11 +4311,11 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public General.MAU.Ticket[] getTareasPorFuncionalidad(Usuario usuario)
+    public General.MAU.Ticket[] getTicketsPorFuncionalidad(Usuario usuario)
     {
         RepositorioDeTickets repo = new RepositorioDeTickets(Conexion());
 
-        return repo.GetTareasPorFuncionalidad(usuario.Id).ToArray();
+        return repo.GetTicketsPorFuncionalidad(usuario.Id).ToArray();
 
     }
 

@@ -2212,37 +2212,37 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="getTareasPorFuncionalidad">
+      <s:element name="getTicketsPorFuncionalidad">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="getTareasPorFuncionalidadResponse">
+      <s:element name="getTicketsPorFuncionalidadResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="getTareasPorFuncionalidadResult" type="tns:ArrayOfTareaPortal" />
+            <s:element minOccurs="0" maxOccurs="1" name="getTicketsPorFuncionalidadResult" type="tns:ArrayOfTicket" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="ArrayOfTareaPortal">
+      <s:complexType name="ArrayOfTicket">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="TareaPortal" nillable="true" type="tns:TareaPortal" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Ticket" nillable="true" type="tns:Ticket" />
         </s:sequence>
       </s:complexType>
-      <s:complexType name="TareaPortal">
+      <s:complexType name="Ticket">
         <s:sequence>
           <s:element minOccurs="0" maxOccurs="1" name="descripcion" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="titulo" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="fechaCreacion" type="s:dateTime" />
           <s:element minOccurs="0" maxOccurs="1" name="usuarioCreador" type="tns:Usuario" />
-          <s:element minOccurs="0" maxOccurs="1" name="tipoTarea" type="tns:TipoTareaPortal" />
+          <s:element minOccurs="0" maxOccurs="1" name="tipoTicket" type="tns:TipoTicket" />
           <s:element minOccurs="0" maxOccurs="1" name="estado" type="s:string" />
         </s:sequence>
       </s:complexType>
-      <s:complexType name="TipoTareaPortal">
+      <s:complexType name="TipoTicket">
         <s:sequence>
           <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="descripcion" type="s:string" />
@@ -2329,6 +2329,7 @@
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="idAlerta" type="s:int" />
             <s:element minOccurs="1" maxOccurs="1" name="documento" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="folio" type="s:string" />
             <s:element minOccurs="1" maxOccurs="1" name="idUsuarioCreador" type="s:int" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
@@ -7473,11 +7474,11 @@
   <wsdl:message name="GetConsultasTodasDePortalSoapOut">
     <wsdl:part name="parameters" element="tns:GetConsultasTodasDePortalResponse" />
   </wsdl:message>
-  <wsdl:message name="getTareasPorFuncionalidadSoapIn">
-    <wsdl:part name="parameters" element="tns:getTareasPorFuncionalidad" />
+  <wsdl:message name="getTicketsPorFuncionalidadSoapIn">
+    <wsdl:part name="parameters" element="tns:getTicketsPorFuncionalidad" />
   </wsdl:message>
-  <wsdl:message name="getTareasPorFuncionalidadSoapOut">
-    <wsdl:part name="parameters" element="tns:getTareasPorFuncionalidadResponse" />
+  <wsdl:message name="getTicketsPorFuncionalidadSoapOut">
+    <wsdl:part name="parameters" element="tns:getTicketsPorFuncionalidadResponse" />
   </wsdl:message>
   <wsdl:message name="GetDomicilioPendientePorAlertaSoapIn">
     <wsdl:part name="parameters" element="tns:GetDomicilioPendientePorAlerta" />
@@ -9330,9 +9331,9 @@
       <wsdl:input message="tns:GetConsultasTodasDePortalSoapIn" />
       <wsdl:output message="tns:GetConsultasTodasDePortalSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="getTareasPorFuncionalidad">
-      <wsdl:input message="tns:getTareasPorFuncionalidadSoapIn" />
-      <wsdl:output message="tns:getTareasPorFuncionalidadSoapOut" />
+    <wsdl:operation name="getTicketsPorFuncionalidad">
+      <wsdl:input message="tns:getTicketsPorFuncionalidadSoapIn" />
+      <wsdl:output message="tns:getTicketsPorFuncionalidadSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetDomicilioPendientePorAlerta">
       <wsdl:input message="tns:GetDomicilioPendientePorAlertaSoapIn" />
@@ -11134,8 +11135,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="getTareasPorFuncionalidad">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/getTareasPorFuncionalidad" style="document" />
+    <wsdl:operation name="getTicketsPorFuncionalidad">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/getTicketsPorFuncionalidad" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -14188,8 +14189,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="getTareasPorFuncionalidad">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/getTareasPorFuncionalidad" style="document" />
+    <wsdl:operation name="getTicketsPorFuncionalidad">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/getTicketsPorFuncionalidad" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

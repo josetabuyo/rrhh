@@ -105,10 +105,10 @@
     <Compile Include="DatosAbiertos\ParametroConsultaOPD.cs" />
     <Compile Include="DatosAbiertos\RepositorioDeDatosAbiertos.cs" />
     <Compile Include="MAU\AlertaPortal.cs" />
-    <Compile Include="MAU\TipoTareaPortal.cs" />
-    <Compile Include="MAU\TareaPortal.cs" />
+    <Compile Include="MAU\TipoTicket.cs" />
+    <Compile Include="MAU\Ticket.cs" />
     <Compile Include="MAU\RepositorioDeAlertasPortal.cs" />
-    <Compile Include="MAU\RepositorioDeTareasPortal.cs" />
+    <Compile Include="MAU\RepositorioDeTickets.cs" />
     <Compile Include="MAU\SolicitudDeCambioDeImagen.cs" />
     <Compile Include="Organigrama\GraficoBienes.cs" />
     <Compile Include="MAU\TipoAlertaPortal.cs" />
@@ -411,7 +411,7 @@
     <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeModalidades.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeAlumnos.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeCursos.cs" />
-    <Compile Include="Repositorios\RepositorioDeTickets.cs" />
+    <Compile Include="Repositorios\GeneradorDeEtiquetas.cs" />
     <Compile Include="Repositorios\RepositorioMensajeria.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeDocentes.cs" />
     <Compile Include="Repositorios\RepositoriosSACC\RepositorioDeEspaciosFisicos.cs" />
