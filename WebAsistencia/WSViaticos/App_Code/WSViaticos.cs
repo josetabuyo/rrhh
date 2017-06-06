@@ -4354,11 +4354,11 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string VerificarDomicilioPendiente(int idAlerta, int documento, int idUsuarioCreador, Usuario usuario)
+    public string VerificarDomicilioPendiente(int idAlerta, int documento, string folio, int idUsuarioCreador, Usuario usuario)
     {
         RepositorioLegajo repo = RepoLegajo();
 
-        return repo.VerificarCambioDomicilio(idAlerta, documento, idUsuarioCreador, usuario.Id);
+        return repo.VerificarCambioDomicilio(idAlerta, documento, folio, idUsuarioCreador, usuario.Id);
 
     }
 
