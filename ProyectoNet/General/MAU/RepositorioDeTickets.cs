@@ -44,7 +44,7 @@ namespace General.MAU
                 parametros.Add("@idUsuarioCreador", usuario.Id);
                 parametros.Add("@idTipo", ticket.tipoTicket.id);
 
-                return Int32.Parse((this.conexion.EjecutarEscalar("dbo.MAU_INS_Tarea", parametros).ToString()));
+                return Int32.Parse((this.conexion.EjecutarEscalar("dbo.MAU_INS_Ticket", parametros).ToString()));
             }
             catch (Exception e)
             {
