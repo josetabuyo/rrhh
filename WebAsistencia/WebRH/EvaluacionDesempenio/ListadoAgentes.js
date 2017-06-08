@@ -503,22 +503,35 @@ var ListadoAgentes = {
             spinner.stop();
         });
     },
+    puntajeActual: function (coleccion_opciones_elegidas) {
+        var puntaje = 0;
+        for (i = 0; i < coleccion_opciones_elegidas.length; i++) {
+            puntaje += coleccion_opciones_elegidas[i];
+        }
+        return puntaje;
+    },
     calificacion: function (coleccion_opciones_elegidas, deficiente, regular, bueno, destacado, completando_formulario) {
 
         //por cuestiones de diseño, esta lógica se encuentra duplicada, 
         //del lado del backend , en la clase NivelEvaluacionDesempeño
         //si se modifica, debe ser cambiada también ahí.
 
-        var puntaje = 0;
+
         var alguna_incompleta = false;
         var alguna_respondida = false;
 
-        for (i = 0; i < coleccion_opciones_elegidas.length; i++) {
-            puntaje += coleccion_opciones_elegidas[i];
-            if (coleccion_opciones_elegidas[i] == 0) {
-                alguna_incompleta = true;
-            } else {
-                alguna_respondida = true;
+        var puntaje = this.puntajeActual(coleccion_opciones_elegidas);
+
+        if (coleccion_opciones_elegidas.length == 0) {
+            alguna_incompleta = true;
+            alguna_respondida = false;
+        } else {
+            for (i = 0; i < coleccion_opciones_elegidas.length; i++) {
+                if (coleccion_opciones_elegidas[i] == 0) {
+                    alguna_incompleta = true;
+                } else {
+                    alguna_respondida = true;
+                }
             }
         }
 
@@ -575,6 +588,7 @@ var ListadoAgentes = {
         var totalPreguntas = preguntas.length - 1; // Se resta 1 porque hay una plantilla oculta con la clase pregunta
         var btnGuardarDefinitivo = $('#btnGuardarDefinitivo');
         var elementoTotalPreguntasPendientes = $('.total-preguntas-pendiente');
+        var elementoTotalPuntaje = $('.puntaje-actual');
 
         $.each(preguntas, function (key, value) {
             var $value = $(value);
@@ -584,6 +598,12 @@ var ListadoAgentes = {
         });
 
         elementoTotalPreguntasPendientes.text(" (" + totalPreguntasPendientes + " de " + totalPreguntas + ") ");
+
+        //var coleccion_respuestas = this.getRespuestasDelForm(asignacion_evaluado_a_evaluador.evaluacion);
+        //return _this.calificacion(coleccion_respuestas, asignacion_evaluado_a_evaluador.nivel.deficiente, asignacion_evaluado_a_evaluador.nivel.regular, asignacion_evaluado_a_evaluador.nivel.bueno, asignacion_evaluado_a_evaluador.nivel.destacado, false);
+
+        //elementoTotalPuntaje.text(this.puntajeActual(this.getRespuestasDelForm(preguntas)));
+
 
         if (totalPreguntasPendientes === 0) {
             btnGuardarDefinitivo.prop('disabled', false);
