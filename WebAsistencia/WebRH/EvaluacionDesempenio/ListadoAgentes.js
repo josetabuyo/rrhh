@@ -64,17 +64,19 @@ var ListadoAgentes = {
         }));
         columnas.push(new Columna('Accion', {
             generar: function (asignacion_evaluado_a_evaluador) {
-                if (!_this.PuedeImprimir(asignacion_evaluado_a_evaluador)) {
+                if (!(asignacion_evaluado_a_evaluador.evaluacion.estado_evaluacion == 1)) {
                     return _this.getBotonIrAFormulario(asignacion_evaluado_a_evaluador);
                 }
-                if (asignacion_evaluado_a_evaluador.estado == 1) {
+                if (_this.EvaluacionCompleta(asignacion_evaluado_a_evaluador)) {
                     return _this.getBotonImprimir(asignacion_evaluado_a_evaluador);
+                } else {
+                    //deberia ser imposible que este como definitiva una evaluacion incompleta
+                    return _this.getBotonIrAFormulario(asignacion_evaluado_a_evaluador);
                 }
-                return _this.getDosBotones(asignacion_evaluado_a_evaluador);
             }
         }));
         columnas.push(new Columna("GDE", { generar: function (asignacion_evaluado_a_evaluador) {
-            if (asignacion_evaluado_a_evaluador.evaluacion.codigo_gde == '' && _this.PuedeImprimir(asignacion_evaluado_a_evaluador)) {
+            if (asignacion_evaluado_a_evaluador.evaluacion.codigo_gde == '' && asignacion_evaluado_a_evaluador.evaluacion.estado_evaluacion == 1) {
                 return _this.getLinkCargarGDE(asignacion_evaluado_a_evaluador.id_evaluacion);
             }
             if (asignacion_evaluado_a_evaluador.evaluacion.codigo_gde != '') {
@@ -91,7 +93,7 @@ var ListadoAgentes = {
         $('.table-hover').removeClass("table-hover");
         _this.BuscadorDeTabla();
     },
-    PuedeImprimir: function (asignacion_evaluado_a_evaluador) {
+    EvaluacionCompleta: function (asignacion_evaluado_a_evaluador) {
         if (asignacion_evaluado_a_evaluador.id_evaluacion == 0) return false;
         var coleccion_respuestas = this.getRespuestasDelForm(asignacion_evaluado_a_evaluador.evaluacion);
         var calificacion = this.calificacion(coleccion_respuestas, asignacion_evaluado_a_evaluador.nivel.deficiente, asignacion_evaluado_a_evaluador.nivel.regular, asignacion_evaluado_a_evaluador.nivel.bueno, asignacion_evaluado_a_evaluador.nivel.destacado, false);
@@ -190,6 +192,9 @@ var ListadoAgentes = {
         var codigo = ui.find('#codigo_gde').val();
         Backend.EvalGuardarCodigoGDE(doc, codigo);
         vex.closeAll();
+        var td = $("a[id_eval*='" + doc + "']").parent();
+        td.empty();
+        td.html(codigo);
     },
     getImgIcono: function (nombre_img, title) {
         var btn_accion = $('<a>');

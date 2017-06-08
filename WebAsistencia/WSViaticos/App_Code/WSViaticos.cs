@@ -4514,6 +4514,11 @@ public class WSViaticos : System.Web.Services.WebService
     public string InsertarEvaluacion(int idEvaluado, int idFormulario, int periodo, int idEval, string pregYRtas, int estado, Usuario usuario)
     {
         RepositorioEvaluacionDesempenio repositorio = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        if (periodo == 0)
+        {
+            PeriodoEvaluacion periodo_actual = repositorio.GetUltimoPeriodoEvaluacion();
+            periodo = periodo_actual.id_periodo;
+        }
         //var preguntasYRespuestas = JsonConvert.DeserializeObject(pregYRtas);
 
         var criterio_deserializado = (JArray)JsonConvert.DeserializeObject(pregYRtas);

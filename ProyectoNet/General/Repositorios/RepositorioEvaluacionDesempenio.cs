@@ -201,8 +201,7 @@ namespace General.Repositorios
                                                         row.GetSmallintAsInt("bueno", 0),
                                                         row.GetSmallintAsInt("destacado", 0));
 
-            var periodo = new PeriodoEvaluacion(row.GetInt("id_periodo", 0),
-                            row.GetString("descripcion_periodo", ""), row.GetDateTime("periodo_desde"), row.GetDateTime("periodo_hasta"));
+            var periodo = this.PeridoFrom(row);
 
             var evaluacion = EvaluacionDesempenio.Nula();
 
@@ -280,6 +279,22 @@ namespace General.Repositorios
             parametros.Add("@codigo_gde", codigo_gde);
 
             _conexion.Ejecutar("dbo.EVAL_UPD_CodigoGdeEvaluacion", parametros);
+        }
+
+        public PeriodoEvaluacion GetUltimoPeriodoEvaluacion()
+        {
+            var tabla = _conexion.Ejecutar("dbo.EVAL_GET_UltimoPeriodoEvaluacion");
+            if (tabla.Rows.Count != 1)
+            {
+                throw new Exception("No se pudo determinar un periodo actual de evaluacion");
+            }
+            return PeridoFrom(tabla.Rows[0]);
+        }
+
+        protected PeriodoEvaluacion PeridoFrom(RowDeDatos row)
+        {
+            return new PeriodoEvaluacion(row.GetInt("id_periodo", 0),
+                            row.GetString("descripcion_periodo", ""), row.GetDateTime("periodo_desde"), row.GetDateTime("periodo_hasta"));
         }
     }
 
