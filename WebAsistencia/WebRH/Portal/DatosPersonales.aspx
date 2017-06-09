@@ -55,7 +55,7 @@
                             <label class="etiqueta_campo" style="margin-right: 28px;" for="txt_calle">Calle: <em style="color:Red;">*</em></label>
                             <input type="text" value="" id="txt_calle" name="txt_calle" style="width: 250px; height: 30px;" />
                             <label class="etiqueta_campo" style="margin: 0 10px;" for="txt_numero">N°: <em style="color:Red;">*</em></label>
-                            <input type="text" value="" id="txt_numero" name="txt_numero" style="width: 50px; height: 30px;" />
+                            <input type="number" value="" id="txt_numero" name="txt_numero" style="width: 50px; height: 30px;" />
 
                                 <label class="etiqueta_campo" style="margin: 0 10px;" for="txt_piso">Piso: </label>
                                 <input type="text" value="" id="txt_piso" name="txt_piso" style="width: 30px; height: 30px;" />
