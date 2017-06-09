@@ -47,6 +47,44 @@ namespace TestViaticos
         }
 
         [TestMethod]
+        public void deberia_traer_dos_evaluaciones_aunque_el_primero_no_este_evaluado()
+        {
+            string source = @"  |id_evaluado|Apellido |Nombre   |NroDocumento |id_evaluacion |estado_evaluacion |id_periodo |descripcion_periodo |id_nivel |descripcion_nivel |id_pregunta |orden_pregunta |Enunciado |Rpta1 |Rpta2 |Rpta3 |Rpta4 |Rpta5 |opcion_elegida |deficiente |regular|bueno |destacado| escalafon   | nivel | grado | agrupamiento  | puesto | id_area_evaluado | codigo_unidad_eval | Organismo    | Secretaria    | Subsecretaria | DireccionNacional | Area_Coordinacion | detalle_nivel | periodo_desde         | periodo_hasta         | nivel_estudios    | codigo_gde
+                                |1234       |Caino    |fer      |11111        |null          |null              |     1     | p1                 |1        |niv 1             |1           |1              | en1      |pr1   |pr2   |pr3   |pr4   |pr5   |1              |6          |16     |26    |36       | 1a          |   1a  | a     |  d            | b      | 1                | a                  | Mds          | s             | ss            | dn                | ac                | niv           | 2014-11-24 00:00:00   | 2014-11-24 00:00:00   | primaria          | null
+                                |1235       |Perez    |juan     |21111        |2             |0                 |     1     | p1                 |1        |niv 1             |1           |1              | en1      |pr1   |pr2   |pr3   |pr4   |pr5   |1              |6          |16     |26    |36       | 1a          |   1a  | a     |  d            | b      | 1                | a                  | Mds          | s             | ss            | dn                | ac                | niv           | 2014-11-24 00:00:00   | 2014-11-24 00:00:00   | primaria          | gde_1";
+
+            IConexionBD conexion = TestObjects.ConexionMockeada();
+            var resultado_sp = TablaDeDatos.From(source);// CrearResultadoSP();
+
+            Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
+
+            RepositorioEvaluacionDesempenio repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(conexion);
+
+            var result = repo.GetAgentesEvaluablesPor(usr_fer);
+
+            Assert.AreEqual(2, result.Count);
+        }
+
+        [TestMethod]
+        public void deberia_traer_dos_evaluaciones_aunque_el_ultimo_no_este_evaluado()
+        {
+            string source = @"  |id_evaluado|Apellido |Nombre   |NroDocumento |id_evaluacion |estado_evaluacion |id_periodo |descripcion_periodo |id_nivel |descripcion_nivel |id_pregunta |orden_pregunta |Enunciado |Rpta1 |Rpta2 |Rpta3 |Rpta4 |Rpta5 |opcion_elegida |deficiente |regular|bueno |destacado| escalafon   | nivel | grado | agrupamiento  | puesto | id_area_evaluado | codigo_unidad_eval | Organismo    | Secretaria    | Subsecretaria | DireccionNacional | Area_Coordinacion | detalle_nivel | periodo_desde         | periodo_hasta         | nivel_estudios    | codigo_gde
+                                |1235       |Perez    |juan     |21111        |2             |0                 |     1     | p1                 |1        |niv 1             |1           |1              | en1      |pr1   |pr2   |pr3   |pr4   |pr5   |1              |6          |16     |26    |36       | 1a          |   1a  | a     |  d            | b      | 1                | a                  | Mds          | s             | ss            | dn                | ac                | niv           | 2014-11-24 00:00:00   | 2014-11-24 00:00:00   | primaria          | gde_1
+                                |1234       |Caino    |fer      |11111        |null          |null              |     1     | p1                 |1        |niv 1             |1           |1              | en1      |pr1   |pr2   |pr3   |pr4   |pr5   |1              |6          |16     |26    |36       | 1a          |   1a  | a     |  d            | b      | 1                | a                  | Mds          | s             | ss            | dn                | ac                | niv           | 2014-11-24 00:00:00   | 2014-11-24 00:00:00   | primaria          | null";
+
+            IConexionBD conexion = TestObjects.ConexionMockeada();
+            var resultado_sp = TablaDeDatos.From(source);// CrearResultadoSP();
+
+            Expect.AtLeastOnce.On(conexion).Method("Ejecutar").WithAnyArguments().Will(Return.Value(resultado_sp));
+
+            RepositorioEvaluacionDesempenio repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(conexion);
+
+            var result = repo.GetAgentesEvaluablesPor(usr_fer);
+
+            Assert.AreEqual(2, result.Count);
+        }
+
+        [TestMethod]
         public void deberia_traer_dos_evaluaciones_con_una_pregunta()
         {
             string source = @"  |id_evaluado|Apellido |Nombre   |NroDocumento |id_evaluacion |estado_evaluacion |id_periodo |descripcion_periodo |id_nivel |descripcion_nivel |id_pregunta |orden_pregunta |Enunciado |Rpta1 |Rpta2 |Rpta3 |Rpta4 |Rpta5 |opcion_elegida |deficiente |regular|bueno |destacado| escalafon   | nivel | grado | agrupamiento  | puesto | id_area_evaluado | codigo_unidad_eval | Organismo    | Secretaria    | Subsecretaria | DireccionNacional | Area_Coordinacion | detalle_nivel | periodo_desde         | periodo_hasta         | nivel_estudios    | codigo_gde

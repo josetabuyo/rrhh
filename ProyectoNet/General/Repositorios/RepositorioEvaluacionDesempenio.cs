@@ -130,7 +130,7 @@ namespace General.Repositorios
                         asignacion_evaluado_a_evaluador = newAsignacionEvaluadoAEvaluadorFromRow(row, detalle_preguntas, id_evaluado, cache_areas, evaluador);
                     }
 
-                    if (row.GetSmallintAsInt("id_evaluacion", 0) != id_evaluacion_anterior || id_evaluacion_anterior == 0)
+                    if (row.GetSmallintAsInt("id_evaluacion", 0) != id_evaluacion_anterior)
                     {
                         asignaciones.Add(asignacion_evaluado_a_evaluador);
                         id_evaluacion_anterior = row.GetSmallintAsInt("id_evaluacion", 0);
