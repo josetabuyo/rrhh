@@ -135,7 +135,7 @@
             <div class="">
                 <legend style="margin-top: 20px; text-align: center;">FORMULARIO EVALUACIÓN</legend>
                 <p class="pregunta-pendiente-leyenda">Preguntas aún sin responder<span class="total-preguntas-pendiente"></span></p>
-                <p class="pregunta-pendiente-leyenda">Puntaje actual<span class="puntaje-actual"></span></p>
+                <p>Puntaje actual<span class="puntaje-actual"></span></p>
                 <div id="contenedor">
                 
                 </div>
@@ -153,7 +153,6 @@
                             <p><input type="radio"  data-opcion="2" class="input_form" /><label><span class="rta4"></span></label></p>
                             <p><input type="radio"  data-opcion="1" class="input_form" /><label><span class="rta5"></span></label></p>
                         </div>
-                       
                     </div>
                 </div>
             </div>
