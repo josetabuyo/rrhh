@@ -59,12 +59,19 @@
             Backend.ElUsuarioLogueadoTienePermisosPara(50).onSuccess(function (tiene_permisos) {
                 if (tiene_permisos) {
                     $("#menu_tareas").show();
-                    Backend.GetSolicitudesDeCambioDeImagenPendientes().onSuccess(function (solicitudes) {
-                        _.forEach(solicitudes, function (solicitud) {
-                            var vista = new VistaSolicitudDeCambioDeImagen(solicitud);
+                    Backend.getTicketsPorFuncionalidad().onSuccess(function (tickets) {
+                        _.forEach(tickets, function (ticket) {
+                            var vista = new VistaTicket(ticket);
                             menu_tareas.agregar(vista);           
                         });
                     });
+
+//                    Backend.GetSolicitudesDeCambioDeImagenPendientes().onSuccess(function (solicitudes) {
+//                        _.forEach(solicitudes, function (solicitud) {
+//                            var vista = new VistaSolicitudDeCambioDeImagen(solicitud);
+//                            menu_tareas.agregar(vista);           
+//                        });
+//                    });
                     
                 }else{
                     

@@ -13,7 +13,7 @@
     <script type="text/javascript" src="../BarraMenu/BarraMenu.js"></script>
     <script type="text/javascript" src="../BarraMenu/MenuDesplegable.js"></script>
     <script type="text/javascript" src="../BarraMenu/VistaAlerta.js"></script>
-    <script type="text/javascript" src="../BarraMenu/VistaSolicitudDeCambioDeImagen.js"></script>
+    <script type="text/javascript" src="../BarraMenu/VistaTicket.js"></script>
     <script type="text/javascript" src="../BarraMenu/VistaItemMenu.js"></script>
     <script type="text/javascript" src="../Scripts/ControlesImagenes/VistaThumbnail.js"></script>
     <script type="text/javascript" src="../Scripts/ControlesImagenes/SubidorDeImagenes.js"></script>
