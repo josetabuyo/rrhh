@@ -25,9 +25,9 @@ using System.IO;
 using ClosedXML.Excel;
 using General.DatosAbiertos;
 using General.MED;
-using PdfPrinter.Core.DataContract;
-using PdfPrinter.Core.Common;
-using PdfPrinter.Core.Configuration;
+//using PdfPrinter.Core.DataContract;
+//using PdfPrinter.Core.Common;
+//using PdfPrinter.Core.Configuration;
 using System.Web.Hosting;
 
 
@@ -4877,7 +4877,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string PrintPdfEvaluacionDesempenio(AsignacionEvaluadoAEvaluador asignacion, Usuario usuario)
     {
-
+        /*
         var creador_pdfs = new CreadorDePdfs<EvaluacionDesempenioPdfTO>();
         var doc = new EvaluacionDesempenioPdfTO();
 
@@ -4941,6 +4941,7 @@ public class WSViaticos : System.Web.Services.WebService
         //hardcodeos de prueba
         doc.agrupamiento_evaluado = "--";
         
-        return creador_pdfs.Crear("EvaluacionDesempenio", doc);
+        return creador_pdfs.Crear("EvaluacionDesempenio", doc);*/
+        return "";
     }
 }

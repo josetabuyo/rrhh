@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using PdfPrinter.Core.Common;
+//using PdfPrinter.Core.Common;
 using System.Web.Hosting;
-using PdfPrinter.Core.Configuration;
+//using PdfPrinter.Core.Configuration;
 using System.IO;
 
 
 /// <summary>
 /// Descripción breve de CreadorDePdfs
 /// </summary>
-public class CreadorDePdfs<T> where T:IPrintableDocument
+public class CreadorDePdfs<T> //where T:IPrintableDocument
 {
 	public CreadorDePdfs()
 	{
@@ -19,6 +19,7 @@ public class CreadorDePdfs<T> where T:IPrintableDocument
 
     public string Crear(string nombre_template, T data)
     {
+        /*
         var xslt = ResourceManager.GetXsltFileContent(nombre_template);
         var xmlLoc = ResourceManager.GetLocalizedXmlFileContent("Document");
 
@@ -33,6 +34,7 @@ public class CreadorDePdfs<T> where T:IPrintableDocument
 /*        System.IO.FileStream dd = System.IO.File.OpenRead(absoluteOutputFilePath);
         byte[] Bytes = new byte[dd.Length];
         dd.Read(Bytes, 0, Bytes.Length);*/
-        return Convert.ToBase64String(bytes);
+        //return Convert.ToBase64String(bytes);
+        return "";
     }
 }
