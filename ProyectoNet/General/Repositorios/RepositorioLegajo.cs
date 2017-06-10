@@ -473,6 +473,51 @@ namespace General.Repositorios
 
         }
 
+
+        public string getExperienciaPublica(int id_persona, int id_usuario)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@IdPersona", id_persona);
+            parametros.Add("@IdUsuario", id_usuario);
+            var tablaUltCert = conexion.Ejecutar("dbo.CERT_Get_Ult_Cert_Ant", parametros);
+            var id_certificado = tablaUltCert.Rows[0].GetLong("Id_Certificado");
+
+            parametros.Clear();
+            parametros.Add("@IdCertificado", id_certificado);
+            var tablaDatos = conexion.Ejecutar("dbo.CERT_GET_Cert_Ant", parametros);
+            var list_experiencia_publica = new List<Object> { };
+            if (tablaDatos.Rows.Count > 0)
+            {
+                tablaDatos.Rows.ForEach(row =>
+                {
+                    list_experiencia_publica.Add(new
+                    {
+                        Id = row.GetInt("Id", 0),
+                        Id_Certificado = row.GetInt("Id_Certificado", 0),
+                        Nro_Documento = row.GetLong("Nro_Documento", 0),
+                        Corresponde = row.GetString("Corresponde", "-"),
+                        Folio = row.GetString("Folio", "-"),
+                        Cargo = row.GetString("Cargo", "-"),
+                        Id_Area = row.GetInt("Id_Area", 0),
+                        Descripcion_Area = row.GetString("Descripcion_Area", "-"),
+                        fecha_desde = row.GetDateTime("fecha_desde"),
+                        fecha_hasta = row.GetString("fecha_hasta"),
+                        Antiguedad = row.GetInt("Antiguedad", 0),
+                        DesdeOriginal = row.GetString("DesdeOriginal", "-"),
+                        HastaOriginal = row.GetString("HastaOriginal", "-"),
+                        AntiguedadAReconocer = row.GetInt("AntiguedadAReconocer", 0),
+                        FechaMinisterio = row.GetString("FechaMinisterio", "-"),
+                        AntiguedadMinisterio = row.GetInt("AntiguedadMinisterio", 0),
+                        IdServicio = row.GetInt("IdServicio", 0),
+                        Organismo = row.GetString("Organismo", "-"),
+
+                    });
+                });
+            }
+            return JsonConvert.SerializeObject(list_experiencia_publica);
+        }
+
+
         public string getCarreraAdminstrativa(int doc)
         {
             var parametros = new Dictionary<string, object>();
