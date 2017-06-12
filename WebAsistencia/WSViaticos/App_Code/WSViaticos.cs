@@ -4875,8 +4875,15 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string PrintPdfEvaluacionDesempenio(AsignacionEvaluadoAEvaluador asignacion, Usuario usuario)
+    public HttpResponse PrintPdfEvaluacionDesempenio(AsignacionEvaluadoAEvaluador asignacion, Usuario usuario)
     {
+        
+        var modelo_para_pdf = new List<object>() { asignacion };
+        var converter = new EvaluacionDeDesempenioToPdfConverter();
+        var mapa_para_pdf = converter.CrearMapa(modelo_para_pdf);
+        var creador_pdf = new CreadorDePdfs();
+        creador_pdf.FillPDF(TemplatePath("Formulario Evaluacion Nivel 2.pdf"), "Evaluacion de Desempeño", mapa_para_pdf, System.Web.HttpContext.Current.Response);
+        //return System.Web.HttpContext.Current.Response.b
         /*
         var creador_pdfs = new CreadorDePdfs<EvaluacionDesempenioPdfTO>();
         var doc = new EvaluacionDesempenioPdfTO();
@@ -4943,5 +4950,10 @@ public class WSViaticos : System.Web.Services.WebService
         
         return creador_pdfs.Crear("EvaluacionDesempenio", doc);*/
         return "";
+    }
+
+    protected string TemplatePath(string fileName)
+    {
+        return Server.MapPath("~") + "\\PdfTemplates\\" + fileName;
     }
 }
