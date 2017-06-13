@@ -1,12 +1,31 @@
 ﻿
 $(function () {
     Backend.start(function () {
+
         var id_bien = localStorage.getItem("idBien");
         var id_estado = localStorage.getItem("idEstado");
         var id_Area_Seleccionada = localStorage.getItem("idAreaSeleccionada");
-        $("#hid").val(id_bien);
-        $("#hidEstado").val(id_estado);
-        $("#hidAreaSeleccionada").val(id_Area_Seleccionada);
+        //$("#hid").val(id_bien);
+        //$("#hidEstado").val(id_estado);
+        //$("#hidAreaSeleccionada").val(id_Area_Seleccionada);
+
+        $('#Controles_Persona_Area').hide(); //Buscador Area
+
+        //$('#divBuscadorArea').hide(); //Buscador Area
+        //$('#divBuscadorPersona').hide(); //Buscador Persona
+        //$("#btn_Aceptar").hide();
+
+        /*
+        var documento = $('#documento').text().trim();
+        if (documento == "") {
+        documento = 0;
+        }
+
+        var idarea = $('#hfIdArea').val();
+        if (idarea == "") {
+        idarea = 0;
+        }
+        */
 
         //DATOS DEL VEHICULO
         Backend.ObtenerVehiculoPorID(id_bien).onSuccess(function (respuesta_vehiculo) {
@@ -35,6 +54,7 @@ $(function () {
         Backend.Mobi_GetImagenesBienPorId(id_bien).onSuccess(function (bien) {
             if (bien.Imagenes.length > 0) {
                 $("#descrip_hay_imagen_cargadas").empty();
+                $("#btn_ver_imagen").show();
             } else {
                 $("#descrip_hay_imagen_cargadas").text("No hay imagenes cargadas");
             }
@@ -86,6 +106,7 @@ $(function () {
             _.forEach(acciones, function (accion) {
                 GeneradorBotones(accion);
             });
+
         });
 
         var GeneradorBotones = function (accion) {
@@ -104,9 +125,19 @@ $(function () {
         };
 
         var acciones = {
+            //Movimientos
+            0: function () {
+                alert("Movimientos");
+            },
+
             //Asignar
             1: function () {
-                alert("Asignar");
+                //alert("Asignar");
+                
+                //$('#divBuscadorArea').show();
+                //$('#divBuscadorPersona').show();
+                $('#Controles_Persona_Area').show();
+                $("#btn_Aceptar").show();
             },
 
             //Dar en préstamo
@@ -138,16 +169,44 @@ $(function () {
             7: function () {
                 alert("Tomar");
             }
+
         };
+
+
+        //AGREGO EL BOTON ACEPTAR
+        $("#btn_Aceptar").click(function () {
+
+            var idarea = $('#hfIdArea').val();
+            if (idarea == "") {
+                alertify.alert("Asignación de Area","Debe ingresar el Area en la cual desea asignar el vehiculo.");
+                return;
+            }
+
+            var documento = $('#documento').text().trim();
+            if (documento == "") {
+                alertify.confirm("Asignación de Responsable", "¿Desea asignar el vehiculo sin una persona responsable?", function () {
+                    //ACEPTO SIN RESPONSABLE
+                    Backend.Mobi_Alta_Vehiculo_Asignacion(id_bien, idarea, 0).onSuccess(function () {
+                        alertify.success("Asignación Correcta");
+                    });
+
+
+                    }, function () {
+                        alertify.success("Asignación cancelada");
+                }).setting('labels', { 'ok': 'Accept', 'cancel': 'Decline' });
+            }
+                else {
+                    //ACEPTO CON RESPONSABLE
+                Backend.Mobi_Alta_Vehiculo_Asignacion(id_bien, idarea, documento).onSuccess(function () {
+                    alertify.success("Asignación Correcta");
+                });
+            }
+
+
+        });
+
+
         //--------------------------------------------------
 
-
-
-
-
-
-
-
-        //----------
     });
 });

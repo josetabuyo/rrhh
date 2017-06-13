@@ -343,6 +343,21 @@ namespace General.Repositorios
         }
 
 
+        public bool Mobi_Alta_Vehiculo_Asignacion(int id_bien, int id_area, int id_responsable, int IdUser)
+        {
+            ConexionDB cn = new ConexionDB("dbo.MOBI_ADD_Vehiculo_Asignacion");
+            cn.AsignarParametro("@id_bien", id_bien);
+            cn.AsignarParametro("@id_usuario", IdUser);
+            cn.AsignarParametro("@id_receptor_area", id_area);
+            cn.AsignarParametro("@id_receptor_responsable", id_responsable);
+
+            cn.EjecutarSinResultado();
+            cn.Desconestar();
+            return true;
+
+        }
+
+
     }
 
 }

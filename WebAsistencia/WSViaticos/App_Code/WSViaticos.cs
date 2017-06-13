@@ -4167,6 +4167,15 @@ public class WSViaticos : System.Web.Services.WebService
         return rMoBi.GetAcciones(id_bien, id_estado, id_Area_Seleccionada);
     }
 
+
+    [WebMethod]
+    public bool Mobi_Alta_Vehiculo_Asignacion(int id_bien, int id_area, int id_responsable, Usuario usuario)
+    {
+        RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
+        return rMoBi.Mobi_Alta_Vehiculo_Asignacion(id_bien, id_area, id_responsable, usuario.Id);
+    }
+
+
     #endregion
 
 
