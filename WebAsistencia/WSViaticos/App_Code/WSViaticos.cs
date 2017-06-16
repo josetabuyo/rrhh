@@ -4285,10 +4285,10 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string GetExperienciaPublica( int persona_id, Usuario usuario)
+    public string GetExperienciaPublica(Usuario usuario)
     {
         RepositorioLegajo repo = RepoLegajo();
-        return repo.getExperienciaPublica( persona_id,  usuario.Id);
+        return repo.getExperienciaPublica(usuario.Owner.Id);
     }
 
 

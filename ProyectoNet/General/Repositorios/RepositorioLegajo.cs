@@ -815,17 +815,16 @@ namespace General.Repositorios
 
         #region Certificaciones
 
-        public string getExperienciaPublica(int id_persona, int id_usuario)
+        public string getExperienciaPublica(int id_usuario)
         {
             var parametros = new Dictionary<string, object>();
-            parametros.Add("@IdPersona", id_persona);
+            parametros.Add("@IdPersona", id_usuario);
             parametros.Add("@IdUsuario", id_usuario);
-            var tablaUltCert = conexion.Ejecutar("dbo.CERT_Get_Ult_Cert_Ant", parametros);
-            var id_certificado = tablaUltCert.Rows[0].GetLong("Id_Certificado");
+            conexion.Ejecutar("dbo.CERT_Verificar_Existencia_Cert_Ant", parametros);
 
             parametros.Clear();
-            parametros.Add("@IdCertificado", id_certificado);
-            var tablaDatos = conexion.Ejecutar("dbo.CERT_GET_Cert_Ant", parametros);
+            parametros.Add("@IdPersona", id_usuario);
+            var tablaDatos = conexion.Ejecutar("dbo.CERT_GET_Ult_Cert_Ant", parametros);
             var list_experiencia_publica = new List<Object> { };
             if (tablaDatos.Rows.Count > 0)
             {

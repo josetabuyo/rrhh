@@ -47,7 +47,7 @@
 
     </form>
 </body>
-<script type="text/javascript" src="Legajo.js"></script>
+<script type="text/javascript" src="Certificado.js"></script>
 <script type="text/javascript" src="../Scripts/Spin.js"></script>
 <script type="text/javascript" src="../Scripts/ControlesImagenes/VistaThumbnail.js"></script>
 <script type="text/javascript" >
@@ -59,7 +59,8 @@
             Backend.start(function () {
                 Legajo.getNombre();
                 Legajo.GetDatosDesignaciones();
-                Legajo.GetCarreraAdministrativa();
+                //Legajo.GetCarreraAdministrativa();
+                Certificado.GetCarreraAdministrativa();
             });
         });
 
