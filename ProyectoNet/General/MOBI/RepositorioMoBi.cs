@@ -44,7 +44,7 @@ namespace General.Repositorios
             SqlDataReader dr;
             ConexionDB cn = new ConexionDB("dbo.MOBI_GetAreasDelUsuarioCBO");
             cn.AsignarParametro("@IdUsuario", IdUsuario);
-            cn.AsignarParametro("@Id_TipoBien", IdTipoBien);	 
+            cn.AsignarParametro("@Id_TipoBien", IdTipoBien);
             cn.AsignarParametro("@MostrarSoloAreasConBienes", MostrarSoloAreasConBienes);
             dr = cn.EjecutarConsulta();
 
@@ -102,7 +102,7 @@ namespace General.Repositorios
             return ltb.ToArray();
         }
 
-        public MoBi_Bien[] GetBienesDelArea( int IdArea, int IdTipoBien)
+        public MoBi_Bien[] GetBienesDelArea(int IdArea, int IdTipoBien)
         {
             List<MoBi_Bien> lb = new List<MoBi_Bien>();
             MoBi_Bien bien;
@@ -228,9 +228,9 @@ namespace General.Repositorios
         }
 
 
-        public bool GuardarNuevoEventoBien( MoBi_Evento.enumTipoEvento tipoEvento, int IdBien, int IdArea, int IdPersona, string Observaciones, int IdUser)
+        public bool GuardarNuevoEventoBien(MoBi_Evento.enumTipoEvento tipoEvento, int IdBien, int IdArea, int IdPersona, string Observaciones, int IdUser)
         {
-            string spEvento= string.Empty;
+            string spEvento = string.Empty;
             switch (tipoEvento)
             {
                 case MoBi_Evento.enumTipoEvento.ALTA_PROVISORIA:
@@ -285,7 +285,7 @@ namespace General.Repositorios
                 var row = tablaDatos.Rows[0];
 
                 bien.Id = row.GetInt("Id");
-                bien.Descripcion = row.GetString("descripcion");                
+                bien.Descripcion = row.GetString("descripcion");
 
                 tablaDatos.Rows.ForEach(r =>
                 {
@@ -320,7 +320,7 @@ namespace General.Repositorios
 
         public AccionesMobi[] GetAcciones(int id_bien, int id_estado_propiedad, int id_area)
         {
-            
+
             List<AccionesMobi> listaAcciones = new List<AccionesMobi>();
             SqlDataReader dr;
             ConexionDB cn = new ConexionDB("dbo.MOBI_GET_Acciones");
@@ -343,20 +343,69 @@ namespace General.Repositorios
         }
 
 
-        public bool Mobi_Alta_Vehiculo_Asignacion(int id_bien, int id_area, int id_responsable, int IdUser)
+        public bool Mobi_Alta_Vehiculo_Evento_Asignacion_Prestamo(int id_bien, int id_tipoevento, string observaciones, int id_user, int id_receptor_area, int id_receptor_Persona)
         {
-            ConexionDB cn = new ConexionDB("dbo.MOBI_ADD_Vehiculo_Asignacion");
-            cn.AsignarParametro("@id_bien", id_bien);
-            cn.AsignarParametro("@id_usuario", IdUser);
-            cn.AsignarParametro("@id_receptor_area", id_area);
-            cn.AsignarParametro("@id_receptor_responsable", id_responsable);
+            ConexionDB cn = new ConexionDB("dbo.MOBI_ADD_NuevoEventoBien");
+            cn.AsignarParametro("@Id_Bien", id_bien);
+            cn.AsignarParametro("@Id_TipoEvento", id_tipoevento);
+            cn.AsignarParametro("@Observaciones", observaciones);
+            cn.AsignarParametro("@IdUser", id_user);
+            cn.AsignarParametro("@Id_Receptor", id_receptor_area);
 
-            cn.EjecutarSinResultado();
+            cn.BeginTransaction();
+
+            try
+            {
+                //GUARDO EL AREA
+                cn.EjecutarSinResultado();
+
+                cn.CrearComandoConTransaccionIniciada("dbo.MOBI_ADD_NuevoEventoBien");
+                cn.AsignarParametro("@Id_Bien", id_bien);
+                cn.AsignarParametro("@Id_TipoEvento", 3);
+                cn.AsignarParametro("@Observaciones", observaciones);
+                cn.AsignarParametro("@IdUser", id_user);
+                cn.AsignarParametro("@Id_Receptor", id_receptor_Persona);
+
+                //GUARDO LA PERSONA
+                cn.EjecutarSinResultado();
+            }
+            catch (Exception)
+            {
+                cn.RollbackTransaction();
+                throw;
+            }
+
+            cn.CommitTransaction();
             cn.Desconestar();
             return true;
 
         }
 
+
+        public MoBi_Evento[] Mobi_GetMovimientos(int id_bien)
+        {
+
+            List<MoBi_Evento> listaAcciones = new List<MoBi_Evento>();
+            SqlDataReader dr;
+            ConexionDB cn = new ConexionDB("dbo.MOBI_GET_Eventos_por_IdBien");
+            cn.AsignarParametro("@id_bien", id_bien);
+
+            dr = cn.EjecutarConsulta();
+            MoBi_Evento evento;
+            while (dr.Read())
+            {
+                evento = new MoBi_Evento();
+                evento.Id = dr.GetInt32(dr.GetOrdinal("Id_Evento"));
+                evento.TipoEvento = dr.GetString(dr.GetOrdinal("Tipo_Evento"));
+                evento.Observaciones = dr.GetString(dr.GetOrdinal("Observaciones"));
+                evento.Receptor = dr.GetString(dr.GetOrdinal("Descripcion_Receptor"));
+                evento.Fecha = dr.GetDateTime(dr.GetOrdinal("Fecha"));
+                listaAcciones.Add(evento);
+            }
+            cn.Desconestar();
+            return listaAcciones.ToArray();
+
+        }
 
     }
 

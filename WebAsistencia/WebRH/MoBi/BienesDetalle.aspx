@@ -132,7 +132,6 @@
                 </td>
             </tr>
         </table>
-
     </div>
 
     <div id="DivBotones" runat="server" style="width: 100%; text-align: center;">
@@ -140,9 +139,8 @@
         
     <div id="ed_contenedor_imagenes" style="display:none"></div>
 
-    <%-- ------------------------------------------------------------------------------ --%>
+    
     <%-- --------------- BUSCADOR DE PERSONA Y AREA SACADO DE DDJJ 104 ---------------- --%>
-        
         <div runat="server" id="Controles_Persona_Area" style="margin-top:5px; display:none">
             <div id="divBuscadorArea">
                 <uc3:BuscadorDeAreas ID="buscador1" runat="server"  style="display: inline-block; margin:auto;" />
@@ -151,15 +149,24 @@
             <div id="divBuscadorPersona">
                 <uc3:BuscadorDePersonas ID="buscadorPersonas1" runat="server"  style="display: inline-block; margin:auto;" />
             </div>
+
+            <div id="btn_guardar" runat="server" style="width:85px">
+                <a style="display:inline-block" >
+                    <img src="../Imagenes/guardar.jpg" alt="" width="80px" height="36px" />
+                </a>
+            </div>
         </div>
-        
     <%-- ------------------------------------------------------------------------------ --%>
 
-    <div id="btn_Aceptar" runat="server" style="display:none; width:120px">
-        <a style="display:inline-block" >
-            <img src="../Imagenes/Botones/agregar3.png" alt="" width="100px" height="30px" />
-        </a>
+
+    <%-- ---------------GRILLA DE MOVIMIENTOS------------------------------------------ --%>
+     <div id="ContenedorGrilla" runat="server" style="width: 100%" align="center">
+        <div id="ContenedorPersona" runat="server" style="width: 90%"></div>
     </div>
+    <%-- ------------------------------------------------------------------------------ --%>
+
+
+
 
     </form>
 </body>

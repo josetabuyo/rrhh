@@ -2,9 +2,11 @@
 <wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://wsviaticos.gov.ar/">
-      <s:element name="GetConsultasNoLeidas">
+      <s:element name="CerrarConsulta">
         <s:complexType>
           <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_consulta" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="calificacion" type="s:int" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
@@ -193,6 +195,16 @@
           <s:element minOccurs="1" maxOccurs="1" name="basica" type="s:boolean" />
         </s:sequence>
       </s:complexType>
+      <s:element name="CerrarConsultaResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetConsultasNoLeidas">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetConsultasNoLeidasResponse">
         <s:complexType>
           <s:sequence>
@@ -1821,6 +1833,7 @@
       </s:complexType>
       <s:complexType name="MoBi_Evento">
         <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Receptor" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Operador" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Responsable" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Area" type="s:string" />
@@ -1950,20 +1963,36 @@
           <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
         </s:sequence>
       </s:complexType>
-      <s:element name="Mobi_Alta_Vehiculo_Asignacion">
+      <s:element name="Mobi_Alta_Vehiculo_Evento_Asignacion_Prestamo">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="id_bien" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="id_area" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="id_responsable" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_tipoevento" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="observaciones" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_receptor_area" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_receptor_persona" type="s:int" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="Mobi_Alta_Vehiculo_AsignacionResponse">
+      <s:element name="Mobi_Alta_Vehiculo_Evento_Asignacion_PrestamoResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="Mobi_Alta_Vehiculo_AsignacionResult" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="Mobi_Alta_Vehiculo_Evento_Asignacion_PrestamoResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Mobi_GetMovimientos">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_bien" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Mobi_GetMovimientosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Mobi_GetMovimientosResult" type="tns:ArrayOfMoBi_Evento" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -2338,18 +2367,6 @@
         </s:complexType>
       </s:element>
       <s:element name="RepreguntarConsultaResponse">
-        <s:complexType />
-      </s:element>
-      <s:element name="CerrarConsulta">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id_consulta" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="calificacion" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="CerrarConsultaResponse">
         <s:complexType />
       </s:element>
       <s:element name="GetUsuarioPorAlias">
@@ -6876,6 +6893,12 @@
       </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="CerrarConsultaSoapIn">
+    <wsdl:part name="parameters" element="tns:CerrarConsulta" />
+  </wsdl:message>
+  <wsdl:message name="CerrarConsultaSoapOut">
+    <wsdl:part name="parameters" element="tns:CerrarConsultaResponse" />
+  </wsdl:message>
   <wsdl:message name="GetConsultasNoLeidasSoapIn">
     <wsdl:part name="parameters" element="tns:GetConsultasNoLeidas" />
   </wsdl:message>
@@ -7296,11 +7319,17 @@
   <wsdl:message name="Mobi_GetAccionesSoapOut">
     <wsdl:part name="parameters" element="tns:Mobi_GetAccionesResponse" />
   </wsdl:message>
-  <wsdl:message name="Mobi_Alta_Vehiculo_AsignacionSoapIn">
-    <wsdl:part name="parameters" element="tns:Mobi_Alta_Vehiculo_Asignacion" />
+  <wsdl:message name="Mobi_Alta_Vehiculo_Evento_Asignacion_PrestamoSoapIn">
+    <wsdl:part name="parameters" element="tns:Mobi_Alta_Vehiculo_Evento_Asignacion_Prestamo" />
   </wsdl:message>
-  <wsdl:message name="Mobi_Alta_Vehiculo_AsignacionSoapOut">
-    <wsdl:part name="parameters" element="tns:Mobi_Alta_Vehiculo_AsignacionResponse" />
+  <wsdl:message name="Mobi_Alta_Vehiculo_Evento_Asignacion_PrestamoSoapOut">
+    <wsdl:part name="parameters" element="tns:Mobi_Alta_Vehiculo_Evento_Asignacion_PrestamoResponse" />
+  </wsdl:message>
+  <wsdl:message name="Mobi_GetMovimientosSoapIn">
+    <wsdl:part name="parameters" element="tns:Mobi_GetMovimientos" />
+  </wsdl:message>
+  <wsdl:message name="Mobi_GetMovimientosSoapOut">
+    <wsdl:part name="parameters" element="tns:Mobi_GetMovimientosResponse" />
   </wsdl:message>
   <wsdl:message name="GetThumbnailSoapIn">
     <wsdl:part name="parameters" element="tns:GetThumbnail" />
@@ -7463,12 +7492,6 @@
   </wsdl:message>
   <wsdl:message name="RepreguntarConsultaSoapOut">
     <wsdl:part name="parameters" element="tns:RepreguntarConsultaResponse" />
-  </wsdl:message>
-  <wsdl:message name="CerrarConsultaSoapIn">
-    <wsdl:part name="parameters" element="tns:CerrarConsulta" />
-  </wsdl:message>
-  <wsdl:message name="CerrarConsultaSoapOut">
-    <wsdl:part name="parameters" element="tns:CerrarConsultaResponse" />
   </wsdl:message>
   <wsdl:message name="GetUsuarioPorAliasSoapIn">
     <wsdl:part name="parameters" element="tns:GetUsuarioPorAlias" />
@@ -8893,6 +8916,10 @@
     <wsdl:part name="parameters" element="tns:IniciarServicioDeAlertasResponse" />
   </wsdl:message>
   <wsdl:portType name="WSViaticosSoap">
+    <wsdl:operation name="CerrarConsulta">
+      <wsdl:input message="tns:CerrarConsultaSoapIn" />
+      <wsdl:output message="tns:CerrarConsultaSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetConsultasNoLeidas">
       <wsdl:input message="tns:GetConsultasNoLeidasSoapIn" />
       <wsdl:output message="tns:GetConsultasNoLeidasSoapOut" />
@@ -9173,9 +9200,13 @@
       <wsdl:input message="tns:Mobi_GetAccionesSoapIn" />
       <wsdl:output message="tns:Mobi_GetAccionesSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="Mobi_Alta_Vehiculo_Asignacion">
-      <wsdl:input message="tns:Mobi_Alta_Vehiculo_AsignacionSoapIn" />
-      <wsdl:output message="tns:Mobi_Alta_Vehiculo_AsignacionSoapOut" />
+    <wsdl:operation name="Mobi_Alta_Vehiculo_Evento_Asignacion_Prestamo">
+      <wsdl:input message="tns:Mobi_Alta_Vehiculo_Evento_Asignacion_PrestamoSoapIn" />
+      <wsdl:output message="tns:Mobi_Alta_Vehiculo_Evento_Asignacion_PrestamoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_GetMovimientos">
+      <wsdl:input message="tns:Mobi_GetMovimientosSoapIn" />
+      <wsdl:output message="tns:Mobi_GetMovimientosSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetThumbnail">
       <wsdl:input message="tns:GetThumbnailSoapIn" />
@@ -9284,10 +9315,6 @@
     <wsdl:operation name="RepreguntarConsulta">
       <wsdl:input message="tns:RepreguntarConsultaSoapIn" />
       <wsdl:output message="tns:RepreguntarConsultaSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="CerrarConsulta">
-      <wsdl:input message="tns:CerrarConsultaSoapIn" />
-      <wsdl:output message="tns:CerrarConsultaSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetUsuarioPorAlias">
       <wsdl:input message="tns:GetUsuarioPorAliasSoapIn" />
@@ -10240,6 +10267,15 @@
   </wsdl:portType>
   <wsdl:binding name="WSViaticosSoap" type="tns:WSViaticosSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CerrarConsulta">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/CerrarConsulta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetConsultasNoLeidas">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetConsultasNoLeidas" style="document" />
       <wsdl:input>
@@ -10870,8 +10906,17 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="Mobi_Alta_Vehiculo_Asignacion">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/Mobi_Alta_Vehiculo_Asignacion" style="document" />
+    <wsdl:operation name="Mobi_Alta_Vehiculo_Evento_Asignacion_Prestamo">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/Mobi_Alta_Vehiculo_Evento_Asignacion_Prestamo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_GetMovimientos">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetMovimientos" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -11115,15 +11160,6 @@
     </wsdl:operation>
     <wsdl:operation name="RepreguntarConsulta">
       <soap:operation soapAction="http://wsviaticos.gov.ar/RepreguntarConsulta" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="CerrarConsulta">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/CerrarConsulta" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -13267,6 +13303,15 @@
   </wsdl:binding>
   <wsdl:binding name="WSViaticosSoap12" type="tns:WSViaticosSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CerrarConsulta">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/CerrarConsulta" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetConsultasNoLeidas">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetConsultasNoLeidas" style="document" />
       <wsdl:input>
@@ -13897,8 +13942,17 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="Mobi_Alta_Vehiculo_Asignacion">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/Mobi_Alta_Vehiculo_Asignacion" style="document" />
+    <wsdl:operation name="Mobi_Alta_Vehiculo_Evento_Asignacion_Prestamo">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/Mobi_Alta_Vehiculo_Evento_Asignacion_Prestamo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_GetMovimientos">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetMovimientos" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -14142,15 +14196,6 @@
     </wsdl:operation>
     <wsdl:operation name="RepreguntarConsulta">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/RepreguntarConsulta" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="CerrarConsulta">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/CerrarConsulta" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
