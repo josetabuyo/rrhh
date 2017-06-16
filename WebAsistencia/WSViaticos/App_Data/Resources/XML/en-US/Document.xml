@@ -1,0 +1,21 @@
+﻿<culture language="en-US">
+
+  <label id="Footer" text="This documents has been auto-generated with Pdf Printer Service" />
+  <label id="Page" text="Page " />
+  <label id="Of" text=" of " />
+
+  <label id="Message" text="You sent the following message:" />
+  <label id="EmptyMessage" text="- Empty message -" />
+
+  <label id="Date_Header_1" text="Date" />
+  <label id="LongWord_Header_2" text="Very Long Word" />
+  <label id="Decimal_Header_3" text="Decimal" />
+  <label id="Integer_Header_4" text="Integer" />
+  <label id="Total" text="Total" />
+
+  <label id="Date_Field_1" text="11/02/1984" />
+  <label id="LongWord_Field_2" text="ThisIsAVeryVeryLongBreakedWord" />
+  <label id="Decimal_Field_3" text="1234.5678" />
+  <label id="Integer_Field_4" text="3" />  
+  
+</culture>

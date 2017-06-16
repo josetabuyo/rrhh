@@ -17,7 +17,6 @@
                         return ui;
                     }
                 })             
-                
             });
         
         $('#boton_home').click(function () {

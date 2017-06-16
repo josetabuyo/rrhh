@@ -380,10 +380,28 @@
       <s:element name="GetFormularioDeEvaluacionResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetFormularioDeEvaluacionResult" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GetFormularioDeEvaluacionResult" type="tns:ArrayOfDetallePreguntas" />
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:complexType name="ArrayOfDetallePreguntas">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DetallePreguntas" nillable="true" type="tns:DetallePreguntas" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DetallePreguntas">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="id_pregunta" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="orden_pregunta" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="opcion_elegida" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="enunciado" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="rpta1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="rpta2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="rpta3" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="rpta4" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="rpta5" type="s:string" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="InsertarEvaluacion">
         <s:complexType>
           <s:sequence>
@@ -431,6 +449,109 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="ConsultaExcelDDJJ104_AreaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EvalGuardarCodigoGDE">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="codigo_gde" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EvalGuardarCodigoGDEResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EvalGuardarCodigoGDEResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PrintPdfEvaluacionDesempenio">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="asignacion" type="tns:AsignacionEvaluadoAEvaluador" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="AsignacionEvaluadoAEvaluador">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="nivel" type="tns:NivelEvaluacionDesempenio" />
+          <s:element minOccurs="0" maxOccurs="1" name="agente_evaluado" type="tns:AgenteEvaluacionDesempenio" />
+          <s:element minOccurs="0" maxOccurs="1" name="agente_evaluador" type="tns:AgenteEvaluacionDesempenio" />
+          <s:element minOccurs="0" maxOccurs="1" name="periodo" type="tns:PeriodoEvaluacion" />
+          <s:element minOccurs="0" maxOccurs="1" name="evaluacion" type="tns:EvaluacionDesempenio" />
+          <s:element minOccurs="1" maxOccurs="1" name="id_periodo" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="descripcion_periodo" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="id_evaluacion" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="id_evaluado" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="apellido_evaluado" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="nombre_evaluado" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="id_nivel" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="descripcion_corta_nivel" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="test" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="NivelEvaluacionDesempenio">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="id_nivel" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="descripcion_corta" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="descripcion_larga_nivel" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="deficiente" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="regular" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="bueno" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="destacado" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AgenteEvaluacionDesempenio">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="apellido" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="nombre" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="nro_documento" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="situacion_escalafonaria" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="nivel" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="grado" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="agrupamiento" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="puesto_o_cargo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="nivel_educativo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="area" type="tns:DescripcionAreaEvaluacion" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DescripcionAreaEvaluacion">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="jurisdiccion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="secretaria" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="sub_secretaria" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="direccion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="unidad" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="codigo_unidad_evaluacion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PeriodoEvaluacion">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="id_periodo" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="descripcion_periodo" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="desde" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="hasta" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="EvaluacionDesempenio">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="nivel" type="tns:NivelEvaluacionDesempenio" />
+          <s:element minOccurs="1" maxOccurs="1" name="id_evaluacion" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="estado_evaluacion" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="codigo_gde" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="puntaje" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="calificacion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="detalle_preguntas" type="tns:ArrayOfDetallePreguntas" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="PrintPdfEvaluacionDesempenioResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PrintPdfEvaluacionDesempenioResult" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -5260,10 +5381,15 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:complexType name="ArrayOfAsignacionEvaluadoAEvaluador">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AsignacionEvaluadoAEvaluador" nillable="true" type="tns:AsignacionEvaluadoAEvaluador" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="EvalGetAgentesEvaluablesResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="EvalGetAgentesEvaluablesResult" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EvalGetAgentesEvaluablesResult" type="tns:ArrayOfAsignacionEvaluadoAEvaluador" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -6982,6 +7108,18 @@
   </wsdl:message>
   <wsdl:message name="ConsultaExcelDDJJ104_AreaSoapOut">
     <wsdl:part name="parameters" element="tns:ConsultaExcelDDJJ104_AreaResponse" />
+  </wsdl:message>
+  <wsdl:message name="EvalGuardarCodigoGDESoapIn">
+    <wsdl:part name="parameters" element="tns:EvalGuardarCodigoGDE" />
+  </wsdl:message>
+  <wsdl:message name="EvalGuardarCodigoGDESoapOut">
+    <wsdl:part name="parameters" element="tns:EvalGuardarCodigoGDEResponse" />
+  </wsdl:message>
+  <wsdl:message name="PrintPdfEvaluacionDesempenioSoapIn">
+    <wsdl:part name="parameters" element="tns:PrintPdfEvaluacionDesempenio" />
+  </wsdl:message>
+  <wsdl:message name="PrintPdfEvaluacionDesempenioSoapOut">
+    <wsdl:part name="parameters" element="tns:PrintPdfEvaluacionDesempenioResponse" />
   </wsdl:message>
   <wsdl:message name="EliminarCvOtraCapacidadSoapIn">
     <wsdl:part name="parameters" element="tns:EliminarCvOtraCapacidad" />
@@ -8976,6 +9114,14 @@
       <wsdl:input message="tns:ConsultaExcelDDJJ104_AreaSoapIn" />
       <wsdl:output message="tns:ConsultaExcelDDJJ104_AreaSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="EvalGuardarCodigoGDE">
+      <wsdl:input message="tns:EvalGuardarCodigoGDESoapIn" />
+      <wsdl:output message="tns:EvalGuardarCodigoGDESoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PrintPdfEvaluacionDesempenio">
+      <wsdl:input message="tns:PrintPdfEvaluacionDesempenioSoapIn" />
+      <wsdl:output message="tns:PrintPdfEvaluacionDesempenioSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="EliminarCvOtraCapacidad">
       <wsdl:input message="tns:EliminarCvOtraCapacidadSoapIn" />
       <wsdl:output message="tns:EliminarCvOtraCapacidadSoapOut" />
@@ -10395,6 +10541,24 @@
     </wsdl:operation>
     <wsdl:operation name="ConsultaExcelDDJJ104_Area">
       <soap:operation soapAction="http://wsviaticos.gov.ar/ConsultaExcelDDJJ104_Area" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EvalGuardarCodigoGDE">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/EvalGuardarCodigoGDE" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PrintPdfEvaluacionDesempenio">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/PrintPdfEvaluacionDesempenio" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -13431,6 +13595,24 @@
     </wsdl:operation>
     <wsdl:operation name="ConsultaExcelDDJJ104_Area">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/ConsultaExcelDDJJ104_Area" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EvalGuardarCodigoGDE">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/EvalGuardarCodigoGDE" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PrintPdfEvaluacionDesempenio">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/PrintPdfEvaluacionDesempenio" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

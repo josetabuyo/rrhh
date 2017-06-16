@@ -24,6 +24,11 @@ using System.Data;
 using System.IO;
 using ClosedXML.Excel;
 using General.DatosAbiertos;
+using General.MED;
+using PdfPrinter.Core.DataContract;
+using PdfPrinter.Core.Common;
+using PdfPrinter.Core.Configuration;
+using System.Web.Hosting;
 
 
 [WebService(Namespace = "http://wsviaticos.gov.ar/")]
@@ -52,7 +57,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string EvalGetAgentesEvaluables(Usuario usuario)
+    public List<AsignacionEvaluadoAEvaluador> EvalGetAgentesEvaluables(Usuario usuario)
     {
         var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
         return repo.GetAgentesEvaluablesPor(usuario);
@@ -2693,7 +2698,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string CambiarPassword( string PasswordActual, string PasswordNuevo, Usuario usuario)
+    public string CambiarPassword(string PasswordActual, string PasswordNuevo, Usuario usuario)
     {
         var repoUsuarios = RepositorioDeUsuarios();
 
@@ -4343,7 +4348,7 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
     [WebMethod]
-    public string MostrarDestinatariosDeLaNotificacion( int id_notificacion, Usuario usuario)
+    public string MostrarDestinatariosDeLaNotificacion(int id_notificacion, Usuario usuario)
     {
         RepositorioLegajo repo = RepoLegajo();
 
@@ -4396,7 +4401,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string GetDetalleDeConsulta(int id_consulta)
     {
-       return RepoLegajo().GetDetalleDeConsulta(id_consulta);
+        return RepoLegajo().GetDetalleDeConsulta(id_consulta);
     }
 
     [WebMethod]
@@ -4405,12 +4410,12 @@ public class WSViaticos : System.Web.Services.WebService
         return RepoLegajo().NuevaConsultaDePortal(usuario.Owner.Id, id_tipo_consulta, motivo);
 
     }
-     [WebMethod]
+    [WebMethod]
     public void RepreguntarConsulta(int id_consulta, string motivo, Usuario usuario)
     {
         RepoLegajo().RepreguntarConsulta(id_consulta, motivo, usuario.Owner.Id);
     }
-      [WebMethod]
+    [WebMethod]
     public void CerrarConsulta(int id_consulta, int calificacion, Usuario usuario)
     {
         RepoLegajo().CerrarConsulta(id_consulta, calificacion, usuario.Owner.Id);
@@ -4427,7 +4432,7 @@ public class WSViaticos : System.Web.Services.WebService
     {
         return RepoLegajo().GetConsultasDePortalNoLeidas(usuario.Owner.Id);
     }
-    
+
 
     [WebMethod]
     public string GetDesignacionActual(Usuario usuario)
@@ -4469,7 +4474,7 @@ public class WSViaticos : System.Web.Services.WebService
     {
         RepositorioDeDatosAbiertos repositorio = new RepositorioDeDatosAbiertos(Conexion());
 
-        return repositorio.getConsultas().FindAll(c => Autorizador().ElUsuarioTienePermisosPara(usuario.Id, c.Funcionalidad)).ToArray();        
+        return repositorio.getConsultas().FindAll(c => Autorizador().ElUsuarioTienePermisosPara(usuario.Id, c.Funcionalidad)).ToArray();
     }
 
     [WebMethod]
@@ -4523,16 +4528,21 @@ public class WSViaticos : System.Web.Services.WebService
     #region EvaluacionesDesempenio
 
     [WebMethod]
-    public string GetFormularioDeEvaluacion(int idNivel,int idEvaluacion, int idEvaluado, Usuario usuario)
+    public List<DetallePreguntas> GetFormularioDeEvaluacion(int idNivel, int idEvaluacion, int idEvaluado, Usuario usuario)
     {
         RepositorioEvaluacionDesempenio repositorio = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
-        return repositorio.getFormularioDeEvaluacion(idNivel, idEvaluado, idEvaluacion );
+        return repositorio.getFormularioDeEvaluacion(idNivel, idEvaluado, idEvaluacion);
     }
 
     [WebMethod]
-    public string InsertarEvaluacion(int idEvaluado, int idFormulario, int periodo,int idEval, string pregYRtas, int estado, Usuario usuario)
+    public string InsertarEvaluacion(int idEvaluado, int idFormulario, int periodo, int idEval, string pregYRtas, int estado, Usuario usuario)
     {
         RepositorioEvaluacionDesempenio repositorio = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        if (periodo == 0)
+        {
+            PeriodoEvaluacion periodo_actual = repositorio.GetUltimoPeriodoEvaluacion();
+            periodo = periodo_actual.id_periodo;
+        }
         //var preguntasYRespuestas = JsonConvert.DeserializeObject(pregYRtas);
 
         var criterio_deserializado = (JArray)JsonConvert.DeserializeObject(pregYRtas);
@@ -4543,13 +4553,14 @@ public class WSViaticos : System.Web.Services.WebService
             repositorio.deleteEvaluacionDetalle(idEval);
             repositorio.updateEvaluacion(idEval, idEvaluado, usuario.Owner.Id, idFormulario, periodo, estado);
         }
-        else {
+        else
+        {
             //FC:Inserto la cabecera de la evaluacion
             idEval = repositorio.insertarEvaluacion(idEvaluado, usuario.Owner.Id, idFormulario, periodo, estado);
         }
-            
-            //var item1 = preguntasYRespuestas;
-           
+
+        //var item1 = preguntasYRespuestas;
+
 
         foreach (var item in criterio_deserializado)
         {
@@ -4879,5 +4890,81 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
 
+    [WebMethod]
+    public string EvalGuardarCodigoGDE(int id, string codigo_gde)
+    {
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        repo.EvalGuardarCodigoGDE(id, codigo_gde);
+        return codigo_gde;
+    }
 
+    [WebMethod]
+    public string PrintPdfEvaluacionDesempenio(AsignacionEvaluadoAEvaluador asignacion, Usuario usuario)
+    {
+
+        var creador_pdfs = new CreadorDePdfs<EvaluacionDesempenioPdfTO>();
+        var doc = new EvaluacionDesempenioPdfTO();
+
+        //cabecera
+        doc.agente_y_periodo_en_cabecera = asignacion.agente_evaluado.apellido + ", " + asignacion.agente_evaluado.nombre + " (" +
+            asignacion.agente_evaluado.nro_documento + ") " + asignacion.periodo.descripcion_periodo;
+
+        //cuadro_nivel
+        doc.nivel_negrita = asignacion.nivel.id_nivel + " " + asignacion.nivel.descripcion_corta;
+        doc.nivel_descripcion_larga = asignacion.nivel.descripcion_larga_nivel;
+
+        //cuadro agentes evaluador y evaluado
+        doc.apellido_y_nombre_evaluador = asignacion.agente_evaluador.apellido + ", " + asignacion.agente_evaluador.nombre;
+        doc.documento_evaluado = asignacion.agente_evaluador.nro_documento.ToString();
+
+        doc.apellido_y_nombre_evaluado = asignacion.agente_evaluado.apellido + ", " + asignacion.agente_evaluado.nombre;
+        doc.documento_evaluado = asignacion.agente_evaluado.nro_documento.ToString();
+
+        doc.preguntas = asignacion.evaluacion.detalle_preguntas.Select(p => p.orden_pregunta + ". " + p.enunciado).ToArray();
+        doc.respuestas = asignacion.evaluacion.detalle_preguntas.Select(p =>
+        {
+            switch (p.opcion_elegida)
+            {
+                case 1: return p.rpta1;
+                case 2: return p.rpta2;
+                case 3: return p.rpta3;
+                case 4: return p.rpta4;
+                case 5: return p.rpta5;
+                default:
+                    return "";
+            }
+        }).ToArray();
+
+        doc.puntajes = asignacion.evaluacion.detalle_preguntas.Select(p => p.opcion_elegida.ToString()).ToArray();
+
+        doc.nivel_descripcion_larga = asignacion.nivel.descripcion_larga_nivel;// "Seran evaluados en este nivel los agentes no incluidos en los niveles anteriores. El personal con atencion al publico sera evaluado teniendo en cuenta esta circunstancia.";
+        doc.jurisdiccion = asignacion.agente_evaluado.area.jurisdiccion;// "Ministerio de Desarrollo Social";
+        doc.secretaria = asignacion.agente_evaluado.area.secretaria;// "Secretaria de Coordinacion y Monitoreo Institucional";
+        doc.sub_secretaria = asignacion.agente_evaluado.area.sub_secretaria; // ""
+        doc.direccion = asignacion.agente_evaluado.area.direccion;// "Direccion Nacional de Administracion";
+        doc.unidad = asignacion.agente_evaluado.area.unidad; // "Coordinacion Administrativa";
+        doc.unidad_evaluacion = asignacion.agente_evaluado.area.unidad; // "Coordinacion Administrativa";
+
+        //evaluador
+        doc.periodo_evaluado = asignacion.periodo.desde.ToString("dd/MM/yyyy") + " al " + asignacion.periodo.hasta.ToString("dd/MM/yyyy");
+        doc.nivel_evaluador = asignacion.agente_evaluador.nivel;
+        doc.grado_evaluador = asignacion.agente_evaluador.grado;
+        doc.agrupamiento_evaluador = asignacion.agente_evaluador.agrupamiento;
+        doc.puesto_evaluador = asignacion.agente_evaluador.puesto_o_cargo;
+
+        //evaluado 
+        doc.legajo_evaluado = asignacion.agente_evaluado.nro_documento.ToString();
+        doc.nivel_evaluado = asignacion.agente_evaluado.nivel;
+        doc.grado_evaluado = asignacion.agente_evaluado.grado;
+        doc.nivel_educativo_evaluado = asignacion.agente_evaluado.nivel_educativo;
+        
+        doc.situacion_escalafonaria_evaluador = "SINEP";
+        doc.puntaje = asignacion.evaluacion.detalle_preguntas.Sum(p => p.opcion_elegida).ToString();
+        doc.calificacion = asignacion.evaluacion.calificacion;
+
+        //hardcodeos de prueba
+        doc.agrupamiento_evaluado = "--";
+        
+        return creador_pdfs.Crear("EvaluacionDesempenio", doc);
+    }
 }
