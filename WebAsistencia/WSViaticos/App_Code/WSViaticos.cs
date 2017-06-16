@@ -4279,14 +4279,16 @@ public class WSViaticos : System.Web.Services.WebService
     public string GetDesignaciones(Usuario usuario)
     {
         RepositorioLegajo repo = RepoLegajo();
-        return repo.getExperienciaPublica(usuario.Owner.Documento);
+
+        return repo.getDesignaciones(usuario.Owner.Documento);
+
     }
 
     [WebMethod]
-    public string GetExperienciaPublica(Usuario usuario)
+    public string GetExperienciaPublica( int persona_id, Usuario usuario)
     {
         RepositorioLegajo repo = RepoLegajo();
-        return repo.getExperienciaPublica(usuario.Owner.Documento);
+        return repo.getExperienciaPublica( persona_id,  usuario.Id);
     }
 
 
