@@ -616,7 +616,7 @@ nav
 }
 
 .panel-heading {
-    /*padding: 10px 15px;*/
+    padding: 0 15px !important;
     border-bottom: 1px solid transparent;
     border-top-right-radius: 3px;
     border-top-left-radius: 3px;
@@ -1306,5 +1306,8 @@ vertical-align: bottom;
     text-align:center;
     }
 
+.panel-de-control-texto {
+    text-align: justify;
+}
 
 
