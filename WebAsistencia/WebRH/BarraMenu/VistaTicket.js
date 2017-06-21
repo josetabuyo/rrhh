@@ -6,13 +6,14 @@
 
     this.ui.click(function () {
         menu_tareas.contraer();
-//        $("#plantillas_barra_menu").append($("<div>").load("../Componentes/AdministradorSolicitudCambioImagen.htm", function () {
-//            var admin = new AdministradorSolicitudCambioImagen(solicitud);
-//            admin.alResolver = function () {
-//                _this.ui.remove();
-//                _this.alQuitar();
-//            };
-//        }));
+        //        $("#plantillas_barra_menu").append($("<div>").load("../Componentes/AdministradorSolicitudCambioImagen.htm", function () {
+        //            var admin = new AdministradorSolicitudCambioImagen(solicitud);
+        //            admin.alResolver = function () {
+        //                _this.ui.remove();
+        //                _this.alQuitar();
+        //            };
+        //        }));
+        window.location.href = window.location.origin + "/Portal/GestionDeTareas.aspx";
     });
 };
 

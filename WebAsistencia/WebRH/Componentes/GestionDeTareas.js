@@ -70,7 +70,7 @@
         vex.open({
             afterOpen: function ($vexContent) {
                 //var ui = $("#pantalla_detalle_alerta");
-                $vexContent.load(tarea.tipoTicket.urlComponente);
+                $vexContent.load(window.location.origin + '/' + tarea.tipoTicket.urlComponente);
                 // ui.show();
 
 
