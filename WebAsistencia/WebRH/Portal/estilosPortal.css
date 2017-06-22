@@ -41,6 +41,21 @@ a.back{
     padding: 2px;
     font-size: 12px;
 }
+
+.resumen_postular
+{
+    width: 350px;
+    position: absolute;
+    right:0;
+    background-color: rgba(0, 108, 116, 0.74);
+    border: 3px solid #006b74;
+    color: #FFF;
+    margin-top: -60px;
+    padding: 2px;
+    font-size: 12px;
+}
+
+
 #content{
     margin:0 auto;
 }

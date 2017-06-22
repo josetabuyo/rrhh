@@ -174,7 +174,36 @@
         //                });
         //            }
         //        });
+    },
+     mostrarInformacionAcerca: function () {
+        vex.dialog.open({
+            message: "Acerca del Sistema",
+            input:"<img src='Imagenes/SIGIRH_Acerca.jpg' width='100%' height='650px' />",
+            css: {
+                'padding-top': "2%",
+                'padding-bottom': "0%"
+            },
+            contentCSS: {
+                width: "70%"
+            }
+           
+        });
+       
+    },
+     mostrarInformacionAcceso: function () {
+        vex.dialog.open({
+            message: "Información de Acceso",
+            input: "<img src='Imagenes/SIGIRH_Registro.jpg' width='100%' height='700px' />",
+            css: {
+                'padding-top': "2%",
+                'padding-bottom': "0%"
+            },
+            contentCSS: {
+                width: "70%"
+            }
+           
+        });
+       
     }
-
 };
 

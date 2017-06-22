@@ -19,6 +19,11 @@
         UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <div id="content">
     <div class="resumen_area"></div>
+     <div class="resumen_postular">
+     <p style="display:inline-block; text-align: center; width: 150px; margin: 5px;"><span style="margin-bottom: 10px; display: inline-block;">Concurso PLANTA PERMANENTE (Convocatoria Interna) </span><a href="../Imagenes/001afiche.promo.lanzamiento.2017.jpg" target="_blank"><img src="../Imagenes/001afiche.promo.lanzamiento.2017.jpg" width="150px" height="200px" /></a><i style="display: inline-block; font-size: 0.85em;">Click en la imágen para ampliar</i></p>
+     <p style="display:inline-block; text-align: center; width: 150px; margin: 5px;"><span style="margin-bottom: 10px; display: inline-block;">¿Como participar? </span><a href="../Imagenes/002panfleto.promo.concurso.jpg" target="_blank"><img src="../Imagenes/002panfleto.promo.concurso.jpg" width="150px" height="200px" /></a><i style="display: inline-block; font-size: 0.85em;">Click en la imágen para ampliar</i></p>
+     <p style="text-align: center; margin: 5px;"><span style="margin: 20px; display: block;">Para ingresar al POSTULAR haga click en el circulo</span><a href="../FormularioConcursar/PanelDeControl.aspx" ><img src="../MenuPrincipal/Postular.png" width="100px" height="100px" /></a></p>
+     </div>
         <div class="navigation ch-grid" id="nav">
             <div class="ch-item_3d ch-img-1_3d">
                 <div class="ch-info-wrap_3d">
