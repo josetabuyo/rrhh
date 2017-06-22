@@ -21,8 +21,6 @@ public class EvaluacionDeDesempenioToPdfConverter : ModeloToPdfConverter
         AsignacionEvaluadoAEvaluador asignacion = (AsignacionEvaluadoAEvaluador)modelo.First();
         Usuario usr = (Usuario)modelo[1];
 
-
-
         mapa.Add("Nivel_Form", asignacion.nivel.descripcion_corta);
         mapa.Add("Jurisdiccion", asignacion.agente_evaluado.area.jurisdiccion);
         mapa.Add("Secretaria", asignacion.agente_evaluado.area.secretaria);
@@ -49,16 +47,8 @@ public class EvaluacionDeDesempenioToPdfConverter : ModeloToPdfConverter
         mapa.Add("Evaluado_grado", asignacion.agente_evaluado.grado);
         mapa.Add("Evaluado_agrupamiento", asignacion.agente_evaluado.agrupamiento);
 
-        /*
-        mapa.Add("Evaluado_primario", "X");
-        mapa.Add("Evaluado_secundario", "X");
-        mapa.Add("Evaluado_terciario", "X");
-        mapa.Add("Evaluado_universitario", "X");
-        mapa.Add("Evaluado_posgrado", "X");*/
-
         mapa.Add("Evaluado_nivel_educativo", asignacion.agente_evaluado.nivel_educativo);
         mapa.Add("Cod_unidad_eval.0", "No Especificado");
-
 
         int i = 1;
         var subtotal_1a6 = 0;
@@ -68,23 +58,22 @@ public class EvaluacionDeDesempenioToPdfConverter : ModeloToPdfConverter
             throw new Exception("El formulario seleccionado no soporta mas de 12 preguntas");
         }
 
-
         foreach (var pregunta in asignacion.evaluacion.detalle_preguntas)
         {
             mapa.Add("Factor_" + i.ToString("00"), pregunta.factor + ' ' + pregunta.enunciado);
             mapa.Add("Cualidad_" + i.ToString("00"), pregunta.RespuestaElegida());
-            mapa.Add("Puntos_" + i.ToString("00"), pregunta.opcion_elegida.ToString());
+            mapa.Add("Puntos_" + i.ToString("00"), (pregunta.opcion_elegida - 1).ToString());
 
             mapa.Add("Factor_" + i.ToString("00") + "_num", pregunta.factor);
-            mapa.Add("Valor_" + i.ToString("00") + "_num", pregunta.opcion_elegida.ToString());
+            mapa.Add("Valor_" + i.ToString("00") + "_num", (pregunta.opcion_elegida - 1).ToString());
 
             if (i < 7)
             {
-                subtotal_1a6 += pregunta.opcion_elegida;
+                subtotal_1a6 += pregunta.opcion_elegida - 1;
             }
             else
             {
-                subtotal_7a12 += pregunta.opcion_elegida;
+                subtotal_7a12 += pregunta.opcion_elegida - 1;
             }
             i++;
         }
@@ -112,12 +101,10 @@ public class EvaluacionDeDesempenioToPdfConverter : ModeloToPdfConverter
 
         mapa["Total_" + asignacion.nivel.CalificacionPara(total).ToLower()] = total.ToString();
 
-
         mapa.Add("Nombre_usu", usr.Owner.Apellido + ", " + usr.Owner.Nombre + " (" + usr.Owner.Documento.ToString() + ")");
         mapa.Add("Fecha_hora", DateTime.Now.ToString("dd/MM/yyyy hh:mm"));
         mapa.Add("Identif_Formulario", "---");
 
         return mapa;
     }
-
 }

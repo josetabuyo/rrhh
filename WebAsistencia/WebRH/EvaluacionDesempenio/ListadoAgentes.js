@@ -506,7 +506,7 @@ var ListadoAgentes = {
     puntajeActual: function (coleccion_opciones_elegidas) {
         var puntaje = 0;
         for (i = 0; i < coleccion_opciones_elegidas.length; i++) {
-            puntaje += coleccion_opciones_elegidas[i];
+            puntaje += coleccion_opciones_elegidas[i] - 1;
         }
         return puntaje;
     },
