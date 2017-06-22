@@ -4875,14 +4875,22 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public HttpResponse PrintPdfEvaluacionDesempenio(AsignacionEvaluadoAEvaluador asignacion, Usuario usuario)
+    public string PrintPdfEvaluacionDesempenio(AsignacionEvaluadoAEvaluador asignacion, Usuario usuario)
     {
         
-        var modelo_para_pdf = new List<object>() { asignacion };
+        var modelo_para_pdf = new List<object>() { asignacion, usuario };
         var converter = new EvaluacionDeDesempenioToPdfConverter();
         var mapa_para_pdf = converter.CrearMapa(modelo_para_pdf);
+    
         var creador_pdf = new CreadorDePdfs();
-        creador_pdf.FillPDF(TemplatePath("Formulario Evaluacion Nivel 2.pdf"), "Evaluacion de Desempeño", mapa_para_pdf, System.Web.HttpContext.Current.Response);
+
+        byte[] bytes = creador_pdf.FillPDF(TemplatePath("Formulario Evaluacion.pdf"), "Evaluacion de Desempeño", mapa_para_pdf);
+        //byte[] bytes = creador_pdf.FillPDF(TemplatePath("Inasistencia por Donacion de Sangre.pdf"), "Evaluacion de Desempeño", mapa_para_pdf);
+        
+        return Convert.ToBase64String(bytes);
+        
+        
+        
         //return System.Web.HttpContext.Current.Response.b
         /*
         var creador_pdfs = new CreadorDePdfs<EvaluacionDesempenioPdfTO>();
@@ -4898,7 +4906,7 @@ public class WSViaticos : System.Web.Services.WebService
 
         //cuadro agentes evaluador y evaluado
         doc.apellido_y_nombre_evaluador = asignacion.agente_evaluador.apellido + ", " + asignacion.agente_evaluador.nombre;
-        doc.documento_evaluado = asignacion.agente_evaluador.nro_documento.ToString();
+        doc.documento_evaluador = asignacion.agente_evaluador.nro_documento.ToString();
 
         doc.apellido_y_nombre_evaluado = asignacion.agente_evaluado.apellido + ", " + asignacion.agente_evaluado.nombre;
         doc.documento_evaluado = asignacion.agente_evaluado.nro_documento.ToString();
@@ -4949,7 +4957,11 @@ public class WSViaticos : System.Web.Services.WebService
         doc.agrupamiento_evaluado = "--";
         
         return creador_pdfs.Crear("EvaluacionDesempenio", doc);*/
-        return "";
+        //byte[] bytes = new byte[](
+        //= System.Web.HttpContext.Current.Response.OutputStream.Read(
+        //var str = System.Web.HttpContext.Current.Response.OutputStream.Read(
+        //return null;//Convert.ToBase64String();
+
     }
 
     protected string TemplatePath(string fileName)

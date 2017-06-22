@@ -49,19 +49,11 @@ namespace General.Repositorios
             return list_de_pregYRtasRespondidas;
         }
 
-        private static void FormularioFromTabla(List<DetallePreguntas> list_de_pregYRtasRespondidas, TablaDeDatos tablaDatos)
+        protected void FormularioFromTabla(List<DetallePreguntas> list_de_pregYRtasRespondidas, TablaDeDatos tablaDatos)
         {
             tablaDatos.Rows.ForEach(row =>
             {
-                list_de_pregYRtasRespondidas.Add(new DetallePreguntas(
-                    row.GetSmallintAsInt("id_pregunta", 0), 0,
-                    row.GetSmallintAsInt("opcion_elegida", 0),
-                    row.GetString("Enunciado", "Sin enunciado"),
-                    row.GetString("Rpta1", "Sin información"),
-                    row.GetString("Rpta2", "Sin información"),
-                    row.GetString("Rpta3", "Sin información"),
-                    row.GetString("Rpta4", "Sin información"),
-                    row.GetString("Rpta5", "Sin información")));
+                AddDetallePreguntasA(list_de_pregYRtasRespondidas, row);
             });
         }
 
@@ -92,11 +84,13 @@ namespace General.Repositorios
                 parametros.Add("@idArea", idArea);
                 var tablaDatos = _conexion.Ejecutar("[dbo].[EVAL_GET_DATA_ESTR_pc_dotaciones]", parametros);
 
-                tablaDatos.Rows.ForEach(row => {
-                                if (!cache.ContainsKey(idArea)) {
-                                    cache.Add(idArea, new DescripcionAreaEvaluacion(row.GetString("Organismo", ""), row.GetString("Secretaria", ""), row.GetString("Subsecretaria", ""), row.GetString("DireccionNacional", ""), row.GetString("Area_Coordinacion", ""), codigo));
-                                }
-                        }
+                tablaDatos.Rows.ForEach(row =>
+                {
+                    if (!cache.ContainsKey(idArea))
+                    {
+                        cache.Add(idArea, new DescripcionAreaEvaluacion(row.GetString("Organismo", ""), row.GetString("Secretaria", ""), row.GetString("Subsecretaria", ""), row.GetString("DireccionNacional", ""), row.GetString("Area_Coordinacion", ""), codigo));
+                    }
+                }
                 );
             }
 
@@ -159,7 +153,7 @@ namespace General.Repositorios
             {
                 var row = tablaDatos.Rows[0];
                 evaluador = new AgenteEvaluacionDesempenio(id_evaluador, row.GetString("apellido"), row.GetString("nombre"),
-                                                    row.GetInt("NroDocumento"), row.GetString("escalafon"), row.GetString("nivel"), row.GetString("grado"), row.GetString("agrupamiento"), row.GetString("puesto"), string.Empty, DescripcionAreaEvaluacion.Nula());
+                                                    row.GetInt("NroDocumento"), row.GetString("escalafon"), row.GetString("nivel"), row.GetString("grado"), row.GetString("agrupamiento"), row.GetString("puesto"), string.Empty, DescripcionAreaEvaluacion.Nula(), row.GetInt("NroDocumento"));
             }
             return evaluador;
 
@@ -175,7 +169,7 @@ namespace General.Repositorios
             {
                 var row = tablaDatos.Rows[0];
                 evaluador = new AgenteEvaluacionDesempenio(id_evaluador, row.GetString("apellido"), row.GetString("nombre"),
-                                                    row.GetInt("NroDocumento"), "SINEP", row.GetString("nivel"), row.GetString("grado"), "agrupamiento-hard", string.Empty, row.GetString("Nivel_Estudios", ""), area);
+                                                    row.GetInt("NroDocumento"), "SINEP", row.GetString("nivel"), row.GetString("grado"), row.GetString("agrupamiento_evaluado", "No Especificado"), string.Empty, row.GetString("Nivel_Estudios", ""), area, row.GetInt("legajo"));
             }
             return evaluador;
         }
@@ -185,7 +179,7 @@ namespace General.Repositorios
             detalle_preguntas.Add(new DetallePreguntas(row.GetSmallintAsInt("id_pregunta", 0), row.GetSmallintAsInt("orden_pregunta", 0),
                 row.GetSmallintAsInt("opcion_elegida", 0), row.GetString("enunciado", ""),
                 row.GetString("rpta1", ""), row.GetString("rpta2", ""), row.GetString("rpta3", ""),
-                row.GetString("rpta4", ""), row.GetString("rpta5", "")));
+                row.GetString("rpta4", ""), row.GetString("rpta5", ""), row.GetString("factor", "")));
         }
 
         protected AsignacionEvaluadoAEvaluador newAsignacionEvaluadoAEvaluadorFromRow(RowDeDatos row, List<DetallePreguntas> detalle_preguntas, int id_evaluado, Dictionary<int, DescripcionAreaEvaluacion> cache_areas, AgenteEvaluacionDesempenio evaluador)
@@ -209,7 +203,7 @@ namespace General.Repositorios
             {
                 evaluacion = new EvaluacionDesempenio(row.GetInt("id_evaluacion", 0),
                                             row.GetSmallintAsInt("estado_evaluacion", 0),
-                                            nivel,                                            
+                                            nivel,
                                             detalle_preguntas,
                                             row.GetString("codigo_gde", ""));
             }
@@ -217,8 +211,8 @@ namespace General.Repositorios
             return new AsignacionEvaluadoAEvaluador(
                 GetAgenteEvaluadoEvaluacionDesempenio(id_evaluado, area_evaluado),
                 evaluador,
-                evaluacion, 
-                periodo, 
+                evaluacion,
+                periodo,
                 nivel);
 
         }

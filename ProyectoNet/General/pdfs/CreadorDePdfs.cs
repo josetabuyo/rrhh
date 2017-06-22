@@ -11,9 +11,9 @@ using iTextSharp.text.pdf;
 /// </summary>
 public class CreadorDePdfs //where T:IPrintableDocument
 {
-	public CreadorDePdfs()
-	{
-	}
+    public CreadorDePdfs()
+    {
+    }
 
     /*public string Crear(string nombre_template, T data)
     {
@@ -38,16 +38,75 @@ public class CreadorDePdfs //where T:IPrintableDocument
 
 
     //Recibe el pdf template a rellenar, la lista de nombrecampo-dato y el stream de salida donde escribir los datos
-    public void FillPDF(string pathPdfTemplate, string nombrePdf, Dictionary<string, string> dic, System.Web.HttpResponse respuestaHTTP)
+    public byte[] FillPDF(string pathPdfTemplate, string nombrePdf, Dictionary<string, string> dic)
     {
-        respuestaHTTP.Clear();
-        respuestaHTTP.ContentType = "application/pdf";//esto obliga a descargar Response.ContentType = "application/octet-stream";
-        respuestaHTTP.Cache.SetCacheability(HttpCacheability.NoCache);
-        respuestaHTTP.AddHeader("content-disposition", "attachment;filename=" + nombrePdf);
+        //respuestaHTTP.Clear();
+        //respuestaHTTP.ContentType = "application/pdf";//esto obliga a descargar Response.ContentType = "application/octet-stream";
+        //respuestaHTTP.Cache.SetCacheability(HttpCacheability.NoCache);
+        //respuestaHTTP.AddHeader("content-disposition", "attachment;filename=" + nombrePdf);
 
         //Stream file = new FileStream(pathPdfTemplate, FileMode.Open);
+
         PdfReader reader = new PdfReader(pathPdfTemplate);
-        PdfStamper stamp = new PdfStamper(reader, respuestaHTTP.OutputStream);
+        /*byte[] Bytes;
+        PdfStamper stamp;
+        MemoryStream ms = new MemoryStream((int)reader.FileLength + 50000);*/
+
+
+        using (MemoryStream ms = new MemoryStream())
+        {
+            PdfStamper stamp = new PdfStamper(reader, ms);
+            List<string> keys_not_found = new List<string>();
+            KeyNotFoundException ex = new KeyNotFoundException();
+            foreach (string name in stamp.AcroFields.Fields.Keys)
+            {
+                try
+                {
+                    stamp.AcroFields.SetField(name, dic[name]);//agregar try cath por si la clave no esta en el dic
+                }
+                catch (KeyNotFoundException e)
+                {
+                    ex = e;
+                    keys_not_found.Add(name);
+                }
+            }
+
+
+            if (keys_not_found.Count != 0)
+            {
+              //  throw ex;
+            }
+
+            /*foreach (string name in stamp.AcroFields.Fields.Keys)
+            {
+                stamp.AcroFields.SetField(name, "test");//agregar try cath por si la clave no esta en el dic
+            }*/
+            stamp.FormFlattening = true;
+            stamp.Close(); //cierro el pdf
+            reader.Close();
+            ms.Close();
+
+            byte[] Bytes = ms.ToArray();
+
+
+
+            return Bytes;
+
+        }
+
+
+
+
+
+        /* aca se recorre por los valores del dic, este es mas flexible porque no se esta requeriendo llenar si o si todos los campos del formulario
+ * foreach (string name in dic.Keys)
+{
+    stamp.AcroFields.SetField(name, dic[name]);
+}*/
+
+        //stamp.FormFlattening = true; //para que no se pueda editar el pdf generado
+
+
         //Console.WriteLine(stamp.AcroFields.Fields.Keys.Count); //cantidad de campos a rellenar ,los grupos se cuentan como uno independientemente de la cantidad de opciones que tenga
 
         /*notas:
@@ -68,23 +127,20 @@ public class CreadorDePdfs //where T:IPrintableDocument
 
         //recorro todos los campos del formulario y los relleno con los valores del diccionario
         //que contiene de clave el nombre del campo del formulario y de valor el dato a rellenar
-        
+
         /*
         foreach (string name in stamp.AcroFields.Fields.Keys)
         {
             stamp.AcroFields.SetField(name, dic[name]);//agregar try cath por si la clave no esta en el dic
         }*/
-        
-        
+
+
         /* aca se recorre por los valores del dic, este es mas flexible porque no se esta requeriendo llenar si o si todos los campos del formulario
          * foreach (string name in dic.Keys)
         {
             stamp.AcroFields.SetField(name, dic[name]);
         }*/
 
-        stamp.FormFlattening = true; //para que no se pueda editar el pdf generado
-        stamp.Close(); //cierro el pdf
-        reader.Close();
 
     }
 }

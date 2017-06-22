@@ -355,6 +355,7 @@
           <s:element minOccurs="1" maxOccurs="1" name="orden_pregunta" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="opcion_elegida" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="enunciado" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="factor" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="rpta1" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="rpta2" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="rpta3" type="s:string" />
@@ -476,6 +477,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="agrupamiento" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="puesto_o_cargo" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="nivel_educativo" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="legajo" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="area" type="tns:DescripcionAreaEvaluacion" />
         </s:sequence>
       </s:complexType>
