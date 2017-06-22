@@ -8,31 +8,15 @@ $(function () {
         var id_bien = localStorage.getItem("idBien");
         var id_estado = localStorage.getItem("idEstado");
         var id_Area_Seleccionada = localStorage.getItem("idAreaSeleccionada");
-        //$("#hid").val(id_bien);
-        //$("#hidEstado").val(id_estado);
-        //$("#hidAreaSeleccionada").val(id_Area_Seleccionada);
-
+        var id_Area_Receptora = localStorage.getItem("idAreaReceptora");
+        var id_Area_Propietaria = localStorage.getItem("idAreaPropietaria");
+        
         $('#Controles_Persona_Area').hide(); //Buscador Area y Persona
 
-        //$('#divBuscadorArea').hide(); //Buscador Area
-        //$('#divBuscadorPersona').hide(); //Buscador Persona
-        //$("#btn_Aceptar").hide();
-
-        /*
-        var documento = $('#documento').text().trim();
-        if (documento == "") {
-        documento = 0;
-        }
-
-        var idarea = $('#hfIdArea').val();
-        if (idarea == "") {
-        idarea = 0;
-        }
-        */
-
+        
         //DATOS DEL VEHICULO
         Backend.ObtenerVehiculoPorID(id_bien).onSuccess(function (respuesta_vehiculo) {
-            console.log("hola");
+            console.log("Vehiculo");
             if (respuesta_vehiculo.Respuesta == 0) {
                 return;
             }
@@ -105,11 +89,10 @@ $(function () {
         //---------------------------------------------
 
         // ----- CARGO LOS BOTONES DE ACCIONES ------------
-        Backend.Mobi_GetAcciones(id_bien, id_estado, id_Area_Seleccionada).onSuccess(function (acciones) {
+        Backend.Mobi_GetAcciones(id_bien, id_estado, id_Area_Seleccionada, id_Area_Receptora, id_Area_Propietaria).onSuccess(function (acciones) {
             _.forEach(acciones, function (accion) {
                 GeneradorBotones(accion);
             });
-
         });
 
         var GeneradorBotones = function (accion) {
@@ -166,14 +149,30 @@ $(function () {
 
             //Devolver a origen
             6: function () {
-                id_Tipo_Evento_Presionado = 5;
+                id_Tipo_Evento_Presionado = 2;
                 observaciones = "Devolución del bien"
-                //$('#Controles_Persona_Area').show();
+
+                Backend.Mobi_Alta_Vehiculo_Evento_Asignacion_Prestamo(id_bien, id_Tipo_Evento_Presionado, observaciones, id_Area_Propietaria, -1).onSuccess(function () {
+                    alertify.success("Devolución Correcta");
+                        $('#Controles_Persona_Area').hide();
+                    })
+                    .onError(function () {
+                        alertify.error("Se produjo un error");
+                    });
             },
 
             //Tomar
             7: function () {
-                //alert("FALTA Tomar");
+                id_Tipo_Evento_Presionado = 2;
+                observaciones = "Toma del bien"
+
+                Backend.Mobi_Alta_Vehiculo_Evento_Asignacion_Prestamo(id_bien, id_Tipo_Evento_Presionado, observaciones, id_Area_Propietaria, -1).onSuccess(function () {
+                    alertify.success("Se tomó Correctamente");
+                    $('#Controles_Persona_Area').hide();
+                })
+                    .onError(function () {
+                        alertify.error("Se produjo un error");
+                    });
             }
 
         };
@@ -197,7 +196,7 @@ $(function () {
                     //ACEPTO SIN RESPONSABLE
                     Backend.Mobi_Alta_Vehiculo_Evento_Asignacion_Prestamo(id_bien, id_Tipo_Evento_Presionado, observaciones, idarea, -1).onSuccess(function () {
                         alertify.success("Asignación Correcta");
-                        $('#Controles_Persona_Area').show();
+                        $('#Controles_Persona_Area').hide();
                     })
                     .onError(function () {
                         alertify.error("Se produjo un error");
@@ -211,7 +210,7 @@ $(function () {
                 //ACEPTO CON RESPONSABLE
                 Backend.Mobi_Alta_Vehiculo_Evento_Asignacion_Prestamo(id_bien, id_Tipo_Evento_Presionado, observaciones, idarea, documento).onSuccess(function () {
                     alertify.success("Asignación Correcta");
-                    $('#Controles_Persona_Area').show();
+                    $('#Controles_Persona_Area').hide();
                 })
                 .onError(function(){
                     alertify.error("Se produjo un error");

@@ -495,6 +495,8 @@ var GraficoContratos = {
                         localStorage.setItem("idBien", un_registro.Id);
                         localStorage.setItem("idEstado", un_registro.Id_Estado);
                         localStorage.setItem("idAreaSeleccionada", id_area);
+                        localStorage.setItem("idAreaReceptora", un_registro.IdReceptor);
+                        localStorage.setItem("idAreaPropietaria", un_registro.IdPropietario);
                         
                         window.open('BienesDetalle.aspx', '_blank');
 

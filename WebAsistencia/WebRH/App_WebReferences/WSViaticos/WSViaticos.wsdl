@@ -2062,7 +2062,9 @@
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="id_bien" type="s:int" />
             <s:element minOccurs="1" maxOccurs="1" name="id_estado" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="id_Area_Seleccionada" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_area_seleccionada" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_area_receptora" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_area_propietaria" type="s:int" />
           </s:sequence>
         </s:complexType>
       </s:element>
