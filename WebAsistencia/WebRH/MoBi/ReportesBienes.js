@@ -394,7 +394,7 @@ var GraficoContratos = {
         $("#btn_generarInforme").show();
 
         columnas.push(new Columna("Estado", { generar: function (un_registro) { return un_registro.Estado } }));
-        columnas.push(new Columna("Area", { generar: function (un_registro) { return un_registro.Receptor } }));
+        columnas.push(new Columna("Area", { generar: function (un_registro) { return un_registro.Propietario } }));
         columnas.push(new Columna("Descripción", { generar: function (un_registro) { return un_registro.Descripcion } }));
         //columnas.push(new Columna("Ultimo Mov.", { generar: function (un_registro) { return un_registro.UltMov } }));
         columnas.push(new Columna("Ultimo Mov.", { generar: function (un_registro) {

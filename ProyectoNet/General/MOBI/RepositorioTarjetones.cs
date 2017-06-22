@@ -7,6 +7,7 @@ using System.Linq;
 using Extensiones;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using General.MAU;
 
 
 namespace General.Repositorios
@@ -29,9 +30,9 @@ namespace General.Repositorios
         {
             this.conexion_bd = conexion;
         }
+        
 
-
-        public Tarjeton NuevoTarjeton(int id_Bien_Tarjeton, string codigo_Holograma, int IdUser)
+        public Tarjeton NuevoTarjeton(int id_Bien_Tarjeton, string codigo_Holograma, Usuario usuario)
         {
             System.Random rnd = new Random(DateTime.Now.Millisecond);
 
@@ -39,8 +40,6 @@ namespace General.Repositorios
                     'A','B','C','D','E','F','G','H','I','J','K','L','M','N', 
                     'O','P','Q','R','S','T','U','V','W','X','Y','Z'};
             string strAlfanumericos = "";
-
-
 
             bool todo_bien_vieja = true;
             while (todo_bien_vieja)
@@ -54,21 +53,22 @@ namespace General.Repositorios
 
                 var parametros = new Dictionary<string, object>();
 
-                parametros.Add("@Vehiculo_Id_Bien", id_Bien_Tarjeton);
-                parametros.Add("@Codigo_Holograma", codigo_Holograma);
-                parametros.Add("@IdUser", IdUser);
                 parametros.Add("@Cod_Web", strAlfanumericos.ToUpper());
-                
-
-                
+                parametros.Add("@Codigo_Holograma", codigo_Holograma);
+                parametros.Add("@Vehiculo_Id_Bien", id_Bien_Tarjeton);
+                parametros.Add("@IdUser", usuario.Id);
+                   
                 //MOBI_ADD_Tarjeton
-                todo_bien_vieja = (bool)conexion_bd.EjecutarEscalar("dbo.MOBI_NuevoIDVerificacion", parametros);
+                todo_bien_vieja = (bool)conexion_bd.EjecutarEscalar("dbo.MOBI_ADD_Tarjeton", parametros);
             }
+            
 
             var UnNuevoTarjeton = new Tarjeton();
             UnNuevoTarjeton.id_Bien_Tarjeton = id_Bien_Tarjeton;
             UnNuevoTarjeton.codigo_Holograma = codigo_Holograma;
             UnNuevoTarjeton.id_Verificacion = strAlfanumericos.ToUpper();
+             
+           
 
             return UnNuevoTarjeton;
         }

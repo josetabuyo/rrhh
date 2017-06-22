@@ -14,6 +14,7 @@ namespace General
         private string _Area;
         private string _Responsable;
         private string _Operador;
+        public string Receptor { get; set; }
 
         public enum enumTipoEvento
         {
@@ -66,6 +67,8 @@ namespace General
             get { return _Id; }
             set { _Id = value; }
         }
+
         
+
     }
 }

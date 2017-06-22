@@ -16,7 +16,7 @@
         columnas.push(new Columna("Convocatoria", { generar: function (un_perfil) { return un_perfil.Tipo } }));
         columnas.push(new Columna('Bases del Puesto', { generar: function (un_perfil) {
             var linkPDF = $('<a>');
-            linkPDF.attr('href', 'http://www.plataformapersonas.com.ar/bases022015/Conv02_2015_Perfil_' + un_perfil.Numero + '.pdf');
+            linkPDF.attr('href', 'bases/Conv03_2017_Perfil_' + un_perfil.Numero + '.pdf');
             linkPDF.attr('target', '_blank');
             var img = $('<img>');
             img.attr('src', '../Imagenes/archivo.png');

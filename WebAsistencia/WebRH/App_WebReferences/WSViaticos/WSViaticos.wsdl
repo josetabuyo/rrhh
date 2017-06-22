@@ -2,9 +2,11 @@
 <wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://wsviaticos.gov.ar/">
-      <s:element name="GetDesignacionActual">
+      <s:element name="RepreguntarConsulta">
         <s:complexType>
           <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_consulta" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="motivo" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
@@ -193,6 +195,56 @@
           <s:element minOccurs="1" maxOccurs="1" name="basica" type="s:boolean" />
         </s:sequence>
       </s:complexType>
+      <s:element name="RepreguntarConsultaResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="CerrarConsulta">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_consulta" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="calificacion" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CerrarConsultaResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetConsultasNoLeidas">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetConsultasNoLeidasResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetConsultasNoLeidasResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetConsultasDePortalNoLeidas">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetConsultasDePortalNoLeidasResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetConsultasDePortalNoLeidasResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDesignacionActual">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetDesignacionActualResponse">
         <s:complexType>
           <s:sequence>
@@ -517,10 +569,10 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="EliminarCvOtraCapacidad">
+      <s:element name="ActualizarCvOtraCapacidad">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="id_capacidad" type="tns:CvCapacidadPersonal" />
+            <s:element minOccurs="0" maxOccurs="1" name="capacidad_personal" type="tns:CvCapacidadPersonal" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
@@ -716,6 +768,21 @@
           </s:extension>
         </s:complexContent>
       </s:complexType>
+      <s:element name="ActualizarCvOtraCapacidadResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ActualizarCvOtraCapacidadResult" type="tns:CvCapacidadPersonal" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EliminarCvOtraCapacidad">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="id_capacidad" type="tns:CvCapacidadPersonal" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="EliminarCvOtraCapacidadResponse">
         <s:complexType>
           <s:sequence>
@@ -1659,6 +1726,7 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="id_Bien" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="codigo_Holograma" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
@@ -1679,17 +1747,17 @@
           <s:element minOccurs="1" maxOccurs="1" name="id_Bien_Tarjeton" type="s:int" />
         </s:sequence>
       </s:complexType>
-      <s:element name="ObtenerVehiculoPorIDVerificacion">
+      <s:element name="ObtenerVehiculoPorCodigoWeb">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="id_verificacion" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="ObtenerVehiculoPorIDVerificacionResponse">
+      <s:element name="ObtenerVehiculoPorCodigoWebResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ObtenerVehiculoPorIDVerificacionResult" type="tns:RespuestaVehiculo" />
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerVehiculoPorCodigoWebResult" type="tns:RespuestaVehiculo" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -1715,8 +1783,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="Apellido" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="imagenes" type="tns:ArrayOfInt" />
-          <s:element minOccurs="0" maxOccurs="1" name="MensajeTarjeton" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Mensaje" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Conductor" type="tns:Persona" />
         </s:sequence>
       </s:complexType>
       <s:element name="ObtenerVehiculoPorID">
@@ -1916,6 +1983,7 @@
       </s:complexType>
       <s:complexType name="MoBi_Evento">
         <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Receptor" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Operador" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Responsable" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Area" type="s:string" />
@@ -2015,6 +2083,66 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="Mobi_DesAsignarImagenABienResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Mobi_GetAcciones">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_bien" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_estado" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_Area_Seleccionada" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Mobi_GetAccionesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Mobi_GetAccionesResult" type="tns:ArrayOfAccionesMobi" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfAccionesMobi">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AccionesMobi" nillable="true" type="tns:AccionesMobi" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AccionesMobi">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="IdAccion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Mobi_Alta_Vehiculo_Evento_Asignacion_Prestamo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_bien" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_tipoevento" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="observaciones" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_receptor_area" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_receptor_persona" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Mobi_Alta_Vehiculo_Evento_Asignacion_PrestamoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Mobi_Alta_Vehiculo_Evento_Asignacion_PrestamoResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Mobi_GetMovimientos">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_bien" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Mobi_GetMovimientosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Mobi_GetMovimientosResult" type="tns:ArrayOfMoBi_Evento" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -2379,55 +2507,18 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="RepreguntarConsulta">
+      <s:element name="ModificarMiMail">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id_consulta" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="motivo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mail" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="RepreguntarConsultaResponse">
-        <s:complexType />
-      </s:element>
-      <s:element name="CerrarConsulta">
+      <s:element name="ModificarMiMailResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id_consulta" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="calificacion" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="CerrarConsultaResponse">
-        <s:complexType />
-      </s:element>
-      <s:element name="GetConsultasNoLeidas">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetConsultasNoLeidasResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="GetConsultasNoLeidasResult" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetConsultasDePortalNoLeidas">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetConsultasDePortalNoLeidasResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetConsultasDePortalNoLeidasResult" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModificarMiMailResult" type="s:boolean" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -3975,21 +4066,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="ActualizarCvOtraCapacidad">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="capacidad_personal" type="tns:CvCapacidadPersonal" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ActualizarCvOtraCapacidadResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ActualizarCvOtraCapacidadResult" type="tns:CvCapacidadPersonal" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
       <s:element name="DetenerServicioDeAlertas">
         <s:complexType />
       </s:element>
@@ -5133,6 +5209,22 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="AceptarCambioImagenConImagenRecortada">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_usuario" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_imagen" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AceptarCambioImagenConImagenRecortadaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AceptarCambioImagenConImagenRecortadaResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="RechazarCambioDeImagen">
         <s:complexType>
           <s:sequence>
@@ -5283,21 +5375,6 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="ModificarMailRegistroResult" type="s:boolean" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ModificarMiMail">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="mail" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ModificarMiMailResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="ModificarMiMailResult" type="s:boolean" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -6960,6 +7037,30 @@
       </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="RepreguntarConsultaSoapIn">
+    <wsdl:part name="parameters" element="tns:RepreguntarConsulta" />
+  </wsdl:message>
+  <wsdl:message name="RepreguntarConsultaSoapOut">
+    <wsdl:part name="parameters" element="tns:RepreguntarConsultaResponse" />
+  </wsdl:message>
+  <wsdl:message name="CerrarConsultaSoapIn">
+    <wsdl:part name="parameters" element="tns:CerrarConsulta" />
+  </wsdl:message>
+  <wsdl:message name="CerrarConsultaSoapOut">
+    <wsdl:part name="parameters" element="tns:CerrarConsultaResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetConsultasNoLeidasSoapIn">
+    <wsdl:part name="parameters" element="tns:GetConsultasNoLeidas" />
+  </wsdl:message>
+  <wsdl:message name="GetConsultasNoLeidasSoapOut">
+    <wsdl:part name="parameters" element="tns:GetConsultasNoLeidasResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetConsultasDePortalNoLeidasSoapIn">
+    <wsdl:part name="parameters" element="tns:GetConsultasDePortalNoLeidas" />
+  </wsdl:message>
+  <wsdl:message name="GetConsultasDePortalNoLeidasSoapOut">
+    <wsdl:part name="parameters" element="tns:GetConsultasDePortalNoLeidasResponse" />
+  </wsdl:message>
   <wsdl:message name="GetDesignacionActualSoapIn">
     <wsdl:part name="parameters" element="tns:GetDesignacionActual" />
   </wsdl:message>
@@ -7043,6 +7144,12 @@
   </wsdl:message>
   <wsdl:message name="PrintPdfEvaluacionDesempenioSoapOut">
     <wsdl:part name="parameters" element="tns:PrintPdfEvaluacionDesempenioResponse" />
+  </wsdl:message>
+  <wsdl:message name="ActualizarCvOtraCapacidadSoapIn">
+    <wsdl:part name="parameters" element="tns:ActualizarCvOtraCapacidad" />
+  </wsdl:message>
+  <wsdl:message name="ActualizarCvOtraCapacidadSoapOut">
+    <wsdl:part name="parameters" element="tns:ActualizarCvOtraCapacidadResponse" />
   </wsdl:message>
   <wsdl:message name="EliminarCvOtraCapacidadSoapIn">
     <wsdl:part name="parameters" element="tns:EliminarCvOtraCapacidad" />
@@ -7284,11 +7391,11 @@
   <wsdl:message name="NuevoTarjetonSoapOut">
     <wsdl:part name="parameters" element="tns:NuevoTarjetonResponse" />
   </wsdl:message>
-  <wsdl:message name="ObtenerVehiculoPorIDVerificacionSoapIn">
-    <wsdl:part name="parameters" element="tns:ObtenerVehiculoPorIDVerificacion" />
+  <wsdl:message name="ObtenerVehiculoPorCodigoWebSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerVehiculoPorCodigoWeb" />
   </wsdl:message>
-  <wsdl:message name="ObtenerVehiculoPorIDVerificacionSoapOut">
-    <wsdl:part name="parameters" element="tns:ObtenerVehiculoPorIDVerificacionResponse" />
+  <wsdl:message name="ObtenerVehiculoPorCodigoWebSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerVehiculoPorCodigoWebResponse" />
   </wsdl:message>
   <wsdl:message name="ObtenerVehiculoPorIDSoapIn">
     <wsdl:part name="parameters" element="tns:ObtenerVehiculoPorID" />
@@ -7373,6 +7480,24 @@
   </wsdl:message>
   <wsdl:message name="Mobi_DesAsignarImagenABienSoapOut">
     <wsdl:part name="parameters" element="tns:Mobi_DesAsignarImagenABienResponse" />
+  </wsdl:message>
+  <wsdl:message name="Mobi_GetAccionesSoapIn">
+    <wsdl:part name="parameters" element="tns:Mobi_GetAcciones" />
+  </wsdl:message>
+  <wsdl:message name="Mobi_GetAccionesSoapOut">
+    <wsdl:part name="parameters" element="tns:Mobi_GetAccionesResponse" />
+  </wsdl:message>
+  <wsdl:message name="Mobi_Alta_Vehiculo_Evento_Asignacion_PrestamoSoapIn">
+    <wsdl:part name="parameters" element="tns:Mobi_Alta_Vehiculo_Evento_Asignacion_Prestamo" />
+  </wsdl:message>
+  <wsdl:message name="Mobi_Alta_Vehiculo_Evento_Asignacion_PrestamoSoapOut">
+    <wsdl:part name="parameters" element="tns:Mobi_Alta_Vehiculo_Evento_Asignacion_PrestamoResponse" />
+  </wsdl:message>
+  <wsdl:message name="Mobi_GetMovimientosSoapIn">
+    <wsdl:part name="parameters" element="tns:Mobi_GetMovimientos" />
+  </wsdl:message>
+  <wsdl:message name="Mobi_GetMovimientosSoapOut">
+    <wsdl:part name="parameters" element="tns:Mobi_GetMovimientosResponse" />
   </wsdl:message>
   <wsdl:message name="GetThumbnailSoapIn">
     <wsdl:part name="parameters" element="tns:GetThumbnail" />
@@ -7530,29 +7655,11 @@
   <wsdl:message name="NuevaConsultaDePortalSoapOut">
     <wsdl:part name="parameters" element="tns:NuevaConsultaDePortalResponse" />
   </wsdl:message>
-  <wsdl:message name="RepreguntarConsultaSoapIn">
-    <wsdl:part name="parameters" element="tns:RepreguntarConsulta" />
+  <wsdl:message name="ModificarMiMailSoapIn">
+    <wsdl:part name="parameters" element="tns:ModificarMiMail" />
   </wsdl:message>
-  <wsdl:message name="RepreguntarConsultaSoapOut">
-    <wsdl:part name="parameters" element="tns:RepreguntarConsultaResponse" />
-  </wsdl:message>
-  <wsdl:message name="CerrarConsultaSoapIn">
-    <wsdl:part name="parameters" element="tns:CerrarConsulta" />
-  </wsdl:message>
-  <wsdl:message name="CerrarConsultaSoapOut">
-    <wsdl:part name="parameters" element="tns:CerrarConsultaResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetConsultasNoLeidasSoapIn">
-    <wsdl:part name="parameters" element="tns:GetConsultasNoLeidas" />
-  </wsdl:message>
-  <wsdl:message name="GetConsultasNoLeidasSoapOut">
-    <wsdl:part name="parameters" element="tns:GetConsultasNoLeidasResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetConsultasDePortalNoLeidasSoapIn">
-    <wsdl:part name="parameters" element="tns:GetConsultasDePortalNoLeidas" />
-  </wsdl:message>
-  <wsdl:message name="GetConsultasDePortalNoLeidasSoapOut">
-    <wsdl:part name="parameters" element="tns:GetConsultasDePortalNoLeidasResponse" />
+  <wsdl:message name="ModificarMiMailSoapOut">
+    <wsdl:part name="parameters" element="tns:ModificarMiMailResponse" />
   </wsdl:message>
   <wsdl:message name="GetUsuarioPorAliasSoapIn">
     <wsdl:part name="parameters" element="tns:GetUsuarioPorAlias" />
@@ -8052,12 +8159,6 @@
   <wsdl:message name="GuardarCvOtraCapacidadSoapOut">
     <wsdl:part name="parameters" element="tns:GuardarCvOtraCapacidadResponse" />
   </wsdl:message>
-  <wsdl:message name="ActualizarCvOtraCapacidadSoapIn">
-    <wsdl:part name="parameters" element="tns:ActualizarCvOtraCapacidad" />
-  </wsdl:message>
-  <wsdl:message name="ActualizarCvOtraCapacidadSoapOut">
-    <wsdl:part name="parameters" element="tns:ActualizarCvOtraCapacidadResponse" />
-  </wsdl:message>
   <wsdl:message name="DetenerServicioDeAlertasSoapIn">
     <wsdl:part name="parameters" element="tns:DetenerServicioDeAlertas" />
   </wsdl:message>
@@ -8436,6 +8537,12 @@
   <wsdl:message name="AceptarCambioDeImagenSoapOut">
     <wsdl:part name="parameters" element="tns:AceptarCambioDeImagenResponse" />
   </wsdl:message>
+  <wsdl:message name="AceptarCambioImagenConImagenRecortadaSoapIn">
+    <wsdl:part name="parameters" element="tns:AceptarCambioImagenConImagenRecortada" />
+  </wsdl:message>
+  <wsdl:message name="AceptarCambioImagenConImagenRecortadaSoapOut">
+    <wsdl:part name="parameters" element="tns:AceptarCambioImagenConImagenRecortadaResponse" />
+  </wsdl:message>
   <wsdl:message name="RechazarCambioDeImagenSoapIn">
     <wsdl:part name="parameters" element="tns:RechazarCambioDeImagen" />
   </wsdl:message>
@@ -8483,12 +8590,6 @@
   </wsdl:message>
   <wsdl:message name="ModificarMailRegistroSoapOut">
     <wsdl:part name="parameters" element="tns:ModificarMailRegistroResponse" />
-  </wsdl:message>
-  <wsdl:message name="ModificarMiMailSoapIn">
-    <wsdl:part name="parameters" element="tns:ModificarMiMail" />
-  </wsdl:message>
-  <wsdl:message name="ModificarMiMailSoapOut">
-    <wsdl:part name="parameters" element="tns:ModificarMiMailResponse" />
   </wsdl:message>
   <wsdl:message name="GetUsuariosSoapIn">
     <wsdl:part name="parameters" element="tns:GetUsuarios" />
@@ -8977,6 +9078,22 @@
     <wsdl:part name="parameters" element="tns:IniciarServicioDeAlertasResponse" />
   </wsdl:message>
   <wsdl:portType name="WSViaticosSoap">
+    <wsdl:operation name="RepreguntarConsulta">
+      <wsdl:input message="tns:RepreguntarConsultaSoapIn" />
+      <wsdl:output message="tns:RepreguntarConsultaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CerrarConsulta">
+      <wsdl:input message="tns:CerrarConsultaSoapIn" />
+      <wsdl:output message="tns:CerrarConsultaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultasNoLeidas">
+      <wsdl:input message="tns:GetConsultasNoLeidasSoapIn" />
+      <wsdl:output message="tns:GetConsultasNoLeidasSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultasDePortalNoLeidas">
+      <wsdl:input message="tns:GetConsultasDePortalNoLeidasSoapIn" />
+      <wsdl:output message="tns:GetConsultasDePortalNoLeidasSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetDesignacionActual">
       <wsdl:input message="tns:GetDesignacionActualSoapIn" />
       <wsdl:output message="tns:GetDesignacionActualSoapOut" />
@@ -9032,6 +9149,10 @@
     <wsdl:operation name="PrintPdfEvaluacionDesempenio">
       <wsdl:input message="tns:PrintPdfEvaluacionDesempenioSoapIn" />
       <wsdl:output message="tns:PrintPdfEvaluacionDesempenioSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarCvOtraCapacidad">
+      <wsdl:input message="tns:ActualizarCvOtraCapacidadSoapIn" />
+      <wsdl:output message="tns:ActualizarCvOtraCapacidadSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="EliminarCvOtraCapacidad">
       <wsdl:input message="tns:EliminarCvOtraCapacidadSoapIn" />
@@ -9193,9 +9314,9 @@
       <wsdl:input message="tns:NuevoTarjetonSoapIn" />
       <wsdl:output message="tns:NuevoTarjetonSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="ObtenerVehiculoPorIDVerificacion">
-      <wsdl:input message="tns:ObtenerVehiculoPorIDVerificacionSoapIn" />
-      <wsdl:output message="tns:ObtenerVehiculoPorIDVerificacionSoapOut" />
+    <wsdl:operation name="ObtenerVehiculoPorCodigoWeb">
+      <wsdl:input message="tns:ObtenerVehiculoPorCodigoWebSoapIn" />
+      <wsdl:output message="tns:ObtenerVehiculoPorCodigoWebSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="ObtenerVehiculoPorID">
       <wsdl:input message="tns:ObtenerVehiculoPorIDSoapIn" />
@@ -9252,6 +9373,18 @@
     <wsdl:operation name="Mobi_DesAsignarImagenABien">
       <wsdl:input message="tns:Mobi_DesAsignarImagenABienSoapIn" />
       <wsdl:output message="tns:Mobi_DesAsignarImagenABienSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_GetAcciones">
+      <wsdl:input message="tns:Mobi_GetAccionesSoapIn" />
+      <wsdl:output message="tns:Mobi_GetAccionesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_Alta_Vehiculo_Evento_Asignacion_Prestamo">
+      <wsdl:input message="tns:Mobi_Alta_Vehiculo_Evento_Asignacion_PrestamoSoapIn" />
+      <wsdl:output message="tns:Mobi_Alta_Vehiculo_Evento_Asignacion_PrestamoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_GetMovimientos">
+      <wsdl:input message="tns:Mobi_GetMovimientosSoapIn" />
+      <wsdl:output message="tns:Mobi_GetMovimientosSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetThumbnail">
       <wsdl:input message="tns:GetThumbnailSoapIn" />
@@ -9357,21 +9490,9 @@
       <wsdl:input message="tns:NuevaConsultaDePortalSoapIn" />
       <wsdl:output message="tns:NuevaConsultaDePortalSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="RepreguntarConsulta">
-      <wsdl:input message="tns:RepreguntarConsultaSoapIn" />
-      <wsdl:output message="tns:RepreguntarConsultaSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="CerrarConsulta">
-      <wsdl:input message="tns:CerrarConsultaSoapIn" />
-      <wsdl:output message="tns:CerrarConsultaSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetConsultasNoLeidas">
-      <wsdl:input message="tns:GetConsultasNoLeidasSoapIn" />
-      <wsdl:output message="tns:GetConsultasNoLeidasSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetConsultasDePortalNoLeidas">
-      <wsdl:input message="tns:GetConsultasDePortalNoLeidasSoapIn" />
-      <wsdl:output message="tns:GetConsultasDePortalNoLeidasSoapOut" />
+    <wsdl:operation name="ModificarMiMail">
+      <wsdl:input message="tns:ModificarMiMailSoapIn" />
+      <wsdl:output message="tns:ModificarMiMailSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetUsuarioPorAlias">
       <wsdl:input message="tns:GetUsuarioPorAliasSoapIn" />
@@ -9705,10 +9826,6 @@
       <wsdl:input message="tns:GuardarCvOtraCapacidadSoapIn" />
       <wsdl:output message="tns:GuardarCvOtraCapacidadSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="ActualizarCvOtraCapacidad">
-      <wsdl:input message="tns:ActualizarCvOtraCapacidadSoapIn" />
-      <wsdl:output message="tns:ActualizarCvOtraCapacidadSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="DetenerServicioDeAlertas">
       <wsdl:input message="tns:DetenerServicioDeAlertasSoapIn" />
       <wsdl:output message="tns:DetenerServicioDeAlertasSoapOut" />
@@ -9961,6 +10078,10 @@
       <wsdl:input message="tns:AceptarCambioDeImagenSoapIn" />
       <wsdl:output message="tns:AceptarCambioDeImagenSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="AceptarCambioImagenConImagenRecortada">
+      <wsdl:input message="tns:AceptarCambioImagenConImagenRecortadaSoapIn" />
+      <wsdl:output message="tns:AceptarCambioImagenConImagenRecortadaSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="RechazarCambioDeImagen">
       <wsdl:input message="tns:RechazarCambioDeImagenSoapIn" />
       <wsdl:output message="tns:RechazarCambioDeImagenSoapOut" />
@@ -9992,10 +10113,6 @@
     <wsdl:operation name="ModificarMailRegistro">
       <wsdl:input message="tns:ModificarMailRegistroSoapIn" />
       <wsdl:output message="tns:ModificarMailRegistroSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="ModificarMiMail">
-      <wsdl:input message="tns:ModificarMiMailSoapIn" />
-      <wsdl:output message="tns:ModificarMiMailSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetUsuarios">
       <wsdl:input message="tns:GetUsuariosSoapIn" />
@@ -10324,6 +10441,42 @@
   </wsdl:portType>
   <wsdl:binding name="WSViaticosSoap" type="tns:WSViaticosSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="RepreguntarConsulta">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/RepreguntarConsulta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CerrarConsulta">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/CerrarConsulta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultasNoLeidas">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetConsultasNoLeidas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultasDePortalNoLeidas">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetConsultasDePortalNoLeidas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetDesignacionActual">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetDesignacionActual" style="document" />
       <wsdl:input>
@@ -10443,6 +10596,15 @@
     </wsdl:operation>
     <wsdl:operation name="PrintPdfEvaluacionDesempenio">
       <soap:operation soapAction="http://wsviaticos.gov.ar/PrintPdfEvaluacionDesempenio" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarCvOtraCapacidad">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ActualizarCvOtraCapacidad" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -10810,8 +10972,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ObtenerVehiculoPorIDVerificacion">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/ObtenerVehiculoPorIDVerificacion" style="document" />
+    <wsdl:operation name="ObtenerVehiculoPorCodigoWeb">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ObtenerVehiculoPorCodigoWeb" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -10938,6 +11100,33 @@
     </wsdl:operation>
     <wsdl:operation name="Mobi_DesAsignarImagenABien">
       <soap:operation soapAction="http://wsviaticos.gov.ar/Mobi_DesAsignarImagenABien" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_GetAcciones">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetAcciones" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_Alta_Vehiculo_Evento_Asignacion_Prestamo">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/Mobi_Alta_Vehiculo_Evento_Asignacion_Prestamo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_GetMovimientos">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetMovimientos" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -11179,35 +11368,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="RepreguntarConsulta">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/RepreguntarConsulta" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="CerrarConsulta">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/CerrarConsulta" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetConsultasNoLeidas">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetConsultasNoLeidas" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetConsultasDePortalNoLeidas">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetConsultasDePortalNoLeidas" style="document" />
+    <wsdl:operation name="ModificarMiMail">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ModificarMiMail" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -11962,15 +12124,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ActualizarCvOtraCapacidad">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/ActualizarCvOtraCapacidad" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="DetenerServicioDeAlertas">
       <soap:operation soapAction="http://wsviaticos.gov.ar/DetenerServicioDeAlertas" style="document" />
       <wsdl:input>
@@ -12538,6 +12691,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="AceptarCambioImagenConImagenRecortada">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/AceptarCambioImagenConImagenRecortada" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="RechazarCambioDeImagen">
       <soap:operation soapAction="http://wsviaticos.gov.ar/RechazarCambioDeImagen" style="document" />
       <wsdl:input>
@@ -12603,15 +12765,6 @@
     </wsdl:operation>
     <wsdl:operation name="ModificarMailRegistro">
       <soap:operation soapAction="http://wsviaticos.gov.ar/ModificarMailRegistro" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ModificarMiMail">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/ModificarMiMail" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -13351,6 +13504,42 @@
   </wsdl:binding>
   <wsdl:binding name="WSViaticosSoap12" type="tns:WSViaticosSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="RepreguntarConsulta">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/RepreguntarConsulta" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CerrarConsulta">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/CerrarConsulta" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultasNoLeidas">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetConsultasNoLeidas" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultasDePortalNoLeidas">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetConsultasDePortalNoLeidas" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetDesignacionActual">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetDesignacionActual" style="document" />
       <wsdl:input>
@@ -13470,6 +13659,15 @@
     </wsdl:operation>
     <wsdl:operation name="PrintPdfEvaluacionDesempenio">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/PrintPdfEvaluacionDesempenio" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarCvOtraCapacidad">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ActualizarCvOtraCapacidad" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -13837,8 +14035,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ObtenerVehiculoPorIDVerificacion">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/ObtenerVehiculoPorIDVerificacion" style="document" />
+    <wsdl:operation name="ObtenerVehiculoPorCodigoWeb">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ObtenerVehiculoPorCodigoWeb" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -13965,6 +14163,33 @@
     </wsdl:operation>
     <wsdl:operation name="Mobi_DesAsignarImagenABien">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/Mobi_DesAsignarImagenABien" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_GetAcciones">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetAcciones" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_Alta_Vehiculo_Evento_Asignacion_Prestamo">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/Mobi_Alta_Vehiculo_Evento_Asignacion_Prestamo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_GetMovimientos">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetMovimientos" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -14206,35 +14431,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="RepreguntarConsulta">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/RepreguntarConsulta" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="CerrarConsulta">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/CerrarConsulta" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetConsultasNoLeidas">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetConsultasNoLeidas" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetConsultasDePortalNoLeidas">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetConsultasDePortalNoLeidas" style="document" />
+    <wsdl:operation name="ModificarMiMail">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ModificarMiMail" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -14989,15 +15187,6 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ActualizarCvOtraCapacidad">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/ActualizarCvOtraCapacidad" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="DetenerServicioDeAlertas">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/DetenerServicioDeAlertas" style="document" />
       <wsdl:input>
@@ -15565,6 +15754,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="AceptarCambioImagenConImagenRecortada">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/AceptarCambioImagenConImagenRecortada" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="RechazarCambioDeImagen">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/RechazarCambioDeImagen" style="document" />
       <wsdl:input>
@@ -15630,15 +15828,6 @@
     </wsdl:operation>
     <wsdl:operation name="ModificarMailRegistro">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/ModificarMailRegistro" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ModificarMiMail">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/ModificarMiMail" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

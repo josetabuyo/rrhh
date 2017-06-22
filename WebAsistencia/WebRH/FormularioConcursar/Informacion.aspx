@@ -68,24 +68,24 @@
                 <br />
                 <b>3) <span style="text-decoration: underline;">Listado Admitidos y No Admitidos</span>:</b><br />
                  Una vez culminada la Etapa de Inscripción Documental, cada Comité se abocará a analizar la documentación presentada y evaluar el cumplimiento de los requisitos excluyentes especificados en cada perfil convocado.<b></b></p>
-                 <p>Como resultado de este trabajo se elaborarán las Actas de Admitidos y No admitidos al Concurso, las cuales serán publicadas en este sitio y en <a target="_blank"  href="http://www.desarrollosocial.gob.ar/concursos">www.desarrollosocial.gob.ar/concursos</a></p>
+                 <p>Como resultado de este trabajo se elaborarán las Actas de Admitidos y No admitidos al Concurso, las cuales serán publicadas en este sitio.</p>
               
                 <br />
                 <div id="texto-central-titulo" class="sub_etapas">Proceso de evaluación:</div>
                 <p><img alt="2" src="../Imagenes/iconos/004.jpg" />
                 <b>4.1)</b> <b>Evaluación de Antecedentes Curriculares y Laborales:</b><br /> El Comité de selección evaluará los antecedentes de los postulantes de acuerdo a la información y documentación que hayan presentado en la etapa de inscripción, ponderándolos equitativamente en función de instrumentos previamente elaborados.</p>
-                <p>Como resultado de esta ponderación se elaborarán las Actas de Ponderación de Antecedentes, las cuales serán publicadas en este sitio y en <a target="_blank"  href="http://www.desarrollosocial.gob.ar/concursos">www.desarrollosocial.gob.ar/concursos</a></p>
+                <p>Como resultado de esta ponderación se elaborarán las Actas de Ponderación de Antecedentes, las cuales serán publicadas en este sitio.</p>
                 <p><img alt="2" src="../Imagenes/iconos/005.jpg" />
                 <b>4.2) Evaluación Técnica:</b><br /> De carácter presencial. Se evaluarán los conocimientos y capacidades del postulante según los 
                 requerimientos típicos del puesto de trabajo en cuestión.</p>
-                <p>Al igual que en las etapas anteriores las Actas con los resultados de esta etapa serán publicadas en este sitio y en <a target="_blank"  href="http://www.desarrollosocial.gob.ar/concursos">www.desarrollosocial.gob.ar/concursos</a></p>
+                <p>Al igual que en las etapas anteriores las Actas con los resultados de esta etapa serán publicadas en este sitio.</p>
                 <p><img alt="2" src="../Imagenes/iconos/006.jpg" />
                 <b>4.3) Evaluación Mediante Entrevista Laboral: </b><br />Se realizará al menos un encuentro del postulante con el Comité para evaluar su 
                 adecuación a los requerimientos del puesto.</p>
-                <p>Al igual que en las etapas anteriores las Actas con los resultados de esta etapa serán publicadas en este sitio y en <a target="_blank"  href="http://www.desarrollosocial.gob.ar/concursos">www.desarrollosocial.gob.ar/concursos</a></p>
+                <p>Al igual que en las etapas anteriores las Actas con los resultados de esta etapa serán publicadas en este sitio.</p>
                 <p><img alt="2" src="../Imagenes/iconos/007.jpg" />
                 <b>4.4) Evaluación del Perfil Psicológico: </b><br />Será realizada por profesional matriculado para ponderar la adecuación de las características de personalidad vinculadas con el desempeño laboral efectivo de acuerdo al puesto al cual concursa.</p>
-                <p>Al igual que en las etapas anteriores las Actas con los resultados de esta etapa serán publicadas en este sitio y en <a target="_blank"  href="http://www.desarrollosocial.gob.ar/concursos">www.desarrollosocial.gob.ar/concursos</a></p>
+                <p>Al igual que en las etapas anteriores las Actas con los resultados de esta etapa serán publicadas en este sitio.</p>
 
                 <br />
                 <div id="Div1" class="sub_etapas">Etapa Final:</div>
@@ -96,7 +96,7 @@
                 <b>6) Elaboración y Publicación del Orden de Mérito:</b></p>
                 <p>Las nóminas de candidatos que alcanzaron satisfactoriamente la última etapa del Concurso, se ordenan decrecientemente de acuerdo al puntaje ponderado alcanzado en la Calificación Final, conformando ello el Orden de Mérito para ese perfil.</p>
                 <p>El Orden de Mérito así elaborado se incluye en la correspondiente Acta de Comité y se eleva para aprobación de la máxima autoridad del Organismo.</p>
-                <p>Tanto el Acta como la posterior Resolución Ministerial también serán publicadas en este sitio y en <a target="_blank"  href="http://www.desarrollosocial.gob.ar/concursos">www.desarrollosocial.gob.ar/concursos</a></p>
+                <p>Tanto el Acta como la posterior Resolución Ministerial también serán publicadas en este sitio.</p>
                 <p><img alt="2" src="../Imagenes/iconos/010.jpg" />
                 <b>7) Designación</b></p>
                 <p>Oportunamente, se inicia el proceso de designación del cargo en Planta Permanente, mediante acto administrativo, conforme al Orden de Mérito y en función de la elección que manifestarán en caso de haber ganado más de un puesto.</p>
