@@ -379,6 +379,27 @@ namespace General.MAU
             return solicitudes;
         }
 
+        public SolicitudDeCambioDeImagen GetCambioImagenPorIdTicket(int id_ticket)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_ticket", id_ticket);
+            var tablaDatos = conexion.Ejecutar("dbo.MAU_GetCambioImagenPorIdTicket", parametros);
+
+            var repo = new RepositorioDeTickets(this.conexion);
+
+            var solicitudes = new List<SolicitudDeCambioDeImagen>();
+            var row = tablaDatos.Rows[0];
+
+            var solicitud = new SolicitudDeCambioDeImagen();
+            solicitud.idImagenAnterior = row.GetInt("id_imagen_anterior", -1);
+            solicitud.idImagenNueva = row.GetInt("id_imagen_nueva", -1);
+            solicitud.usuario = GetUsuarioPorId(row.GetInt("id_usuario"));
+
+            solicitudes.Add(solicitud);
+
+            return solicitud;
+        }
+
         public bool AceptarCambioDeImagen(int id_usuario)
         {
             var parametros = new Dictionary<string, object>();

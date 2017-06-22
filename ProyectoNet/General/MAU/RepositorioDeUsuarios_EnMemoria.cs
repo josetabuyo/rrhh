@@ -140,5 +140,11 @@ namespace AdministracionDeUsuarios
         {
             throw new NotImplementedException();
         }
+
+
+        public SolicitudDeCambioDeImagen GetCambioImagenPorIdTicket(int id_ticket)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

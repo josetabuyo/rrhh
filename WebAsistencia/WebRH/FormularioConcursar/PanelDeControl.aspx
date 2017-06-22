@@ -44,15 +44,16 @@
                 </div>
                 </div>
             </div>-->
-            <legend><q>Bienvenid@</q></legend>
-            <p>El Ministerio de Desarrollo Social de la Naci&oacute;n tiene el gran placer de darte la bienvenida a este sitio web donde esperamos poder brindarte una &aacute;gil y c&oacute;moda experiencia para la gesti&oacute;n de tu informaci&oacute;n personal en forma de un Curr&iacute;culum Vitae electr&oacute;nico.</p>
-            <p>En este sitio podr&aacute;s ingresar tus datos personales, tu historial acad&eacute;mico y laboral, as&iacute; como toda otra informaci&oacute;n que pudiera resultar de inter&eacute;s para las b&uacute;squedas laborales que oportunamente ponga en vigencia el Ministerio.</p>
-            <p>Una vez que hayas ingresado tu informaci&oacute;n, podr&aacute;s volver y actualizarla cuanta veces lo desees, siempre teniendo en cuenta que los datos aqu&iacute; consignados deber&aacute;n ser factibles de verificaci&oacute;n documental, es decir deber&aacute;s contar con los comprobantes respectivos de toda la informaci&oacute;n volcada en tu Curr&iacute;culum Vitae.</p>
-            <p>Asimismo, desde esta p&aacute;gina, te ser&aacute; posible realizar tus postulaciones a las convocatorias que el Ministerio de Desarrollo Social habilite oportunamente, realizando la preinscripci&oacute;n electr&oacute;nica que implica adjuntar este Curr&iacute;culum Vitae digital al perfil que selecciones.</p>
-            <p>Para ello, encontrar&aacute;s publicadas las bases y condiciones de cada Perfil de Puesto de Trabajo que integre las distintas convocatorias, las cuales deber&aacute;s leer con atenci&oacute;n a fin de encontrar aquellas que resulten m&aacute;s adecuadas a tu historial, potencialidades y aspiraciones personales y laborales.</p>
-            <p>Tambi&eacute;n podr&aacute;s encontrar en esta p&aacute;gina toda la informaci&oacute;n relativa al desarrollo y evoluci&oacute;n de tus postulaciones en los distintos llamados en los que participes, pudiendo consultar las Actas de los Comit&eacute;s y toda otra informaci&oacute;n que pudiera resultar de inter&eacute;s.</p>
-            <p>Esperamos transformar este lugar en un instrumento din&aacute;mico de comunicaci&oacute;n, el cual ir&aacute; creciendo y evolucionando de acuerdo a la experiencia mutua de quienes integramos el Ministerio y, principalmente de quienes, como vos, nos aporten nuevas ideas y nos acerquen sus necesidades informativas para mejorar cada d&iacute;a en este gran desaf&iacute;o de gestionar personas y crear nuevas capacidades para un Estado moderno, inteligente y comprometido con la realidad actual.</p>
-            <p>Por &uacute;ltimo, en el siguiente link podr&aacute;n encontrar el manual de introducci&oacute;n al sistema POSTULAR. En el encontrar&aacute;n toda la informaci&oacute;n necesaria para aprender a usar el m&oacute;dulo con todas sus opciones. <a href="http://www.plataformapersonas.com.ar/archivos/instructivo.pdf" target="_blank">Abrir Gu&iacute;a</a></p>
+            <h3>Concursos Planta Permanente</h3>
+            <h4>Convocatoria Interna 2017</h4>
+            <div class = "panel-de-control-texto">
+                <p>El Ministerio de Desarrollo Social de la Nación inicia el proceso de concursos para ingresar a la Planta Permanente de la Administración Pública Nacional (APN).</p> 
+                <p>A través de la Resolución 5-E/2017 se identificaron y asignaron los cargos a concursar por esta jurisdicción; como consecuencia, se pondrá en marcha una Convocatoria Interna a Concursos que prevé la cobertura de 726 cargos.</p>
+                <p>En esta página vas a encontrar toda la información relevante sobre la Convocatoria Interna: la normativa vigente sobre los concursos, las Bases del Concurso de cada perfil con sus respectivos requisitos, y las Actas que se publicarán a medida que avance el Proceso de Selección.</p>
+                <p>Por dudas o consultas, podés comunicarte con la Secretaría Técnica de Concursos de  la Dirección General de Recursos Humanos y Organización al (011) 4380-2500 o acercarte a las MESAS DE AYUDA. Éstas últimas estarán disponibles de 10.00hs. a 16.00hs., en los pisos 15, 19 y 22 de la sede central del Ministerio de Desarrollo Social de la Nación ubicada en Avenida 9 de Julio 1925 de la Ciudad Autónoma de Buenos Aires.</p>
+            </div>
+            <br />
+            <br />
         
             <%--<img src="../Imagenes/underConstruccion.jpg" alt="actualizacion" width="400" height="400" />
             <h1>El Sitio se encuentra en mantenimiento <br /> Estamos trabajando para usted <br />Disculpes las molestias ocasionadas </h1>--%>

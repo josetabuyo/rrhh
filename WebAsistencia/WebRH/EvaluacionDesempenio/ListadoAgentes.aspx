@@ -51,6 +51,14 @@
         </select>
         <input type="button" id="btn_nivel" value="Aceptar">
     </div>
+    <div style="display:none" id="div_codigo_gde">
+        Ingrese el Codigo GDE<br />
+        <input type="text" id="codigo_gde"></input><br />
+        <input type="hidden" id="hid_doc" />
+        
+        <a href="#" id="lnk_cancelar">Cancelar</a>
+        <input type="button" id="btn_codigo_gde" value="Aceptar">
+    </div>
     </form>
 </body>
 <script type="text/javascript" src="ListadoAgentes.js"></script>

@@ -97,14 +97,16 @@
 <script type="text/javascript" src="../Scripts/imgareaselect/jquery.imgareaselect.min.js" />
 
 <script type="text/javascript">
-    var AdministradorSolicitudCambioImagen = function (solicitud) {
-        var _this = this;
-        vex.defaultOptions.className = 'vex-theme-os';
-        vex.open({
-            afterOpen: function ($vexContent) {
-                var ui = $("#pantalla_actualizacion_imagen");
+    var idTicket = localStorage.getItem("idTarea");
+    var documento = localStorage.getItem("documento");
+    var idUsuarioCreador = localStorage.getItem("idUsuarioCreador");
 
-                ui.find("#btn_aceptar_cambio_imagen")
+    console.log("aca")
+    Backend.GetCambioImagenPorIdTicket(idTicket)
+        .onSuccess(function (solicitud) {
+            var ui = $("#pantalla_actualizacion_imagen");
+
+            ui.find("#btn_aceptar_cambio_imagen")
                 .off("click")
                 .click(function () {
                     Backend.AceptarCambioDeImagen(solicitud.usuario.Id).onSuccess(function () {
@@ -113,7 +115,7 @@
                         _this.alResolver();
                     });
                 });
-                ui.find("#btn_rechazar_cambio_imagen")
+            ui.find("#btn_rechazar_cambio_imagen")
                 .off("click")
                 .click(function () {
                     vex.dialog.prompt({
@@ -132,51 +134,121 @@
 
                 });
 
-                ui.find("#usuario_solicitante").text("(" + solicitud.usuario.Alias.replace(' ', '') + ") " + solicitud.usuario.Owner.Apellido + ", " + solicitud.usuario.Owner.Nombre + " DNI:" + solicitud.usuario.Owner.Documento);
-                $vexContent.append(ui);
-                ui.show();
+            ui.find("#usuario_solicitante").text("(" + solicitud.usuario.Alias.replace(' ', '') + ") " + solicitud.usuario.Owner.Apellido + ", " + solicitud.usuario.Owner.Nombre + " DNI:" + solicitud.usuario.Owner.Documento);
 
-                var vista_imagen_anterior = new VistaThumbnail({ id: solicitud.idImagenAnterior, contenedor: ui.find("#imagen_anterior") });
-                var vista_imagen_nueva = new VistaThumbnail({
-                    id: solicitud.idImagenNueva,
-                    contenedor: ui.find("#imagen_nueva"),
-                    alRecortar: function (bytes_imagen_recortada) {
-                        vex.defaultOptions.className = 'vex-theme-os';
-                        vex.open({
-                            afterOpen: function ($vexContent) {
-                                var ui = $("#plantillas_adm_cambio_imagen .confirmacion_recorte_imagen").clone();
-                                ui.find("#imagen_recortada").attr("src", "data:image/png;base64," + bytes_imagen_recortada);
-                                ui.find("#btn_aceptar_recorte").click(function () {
-                                    Backend.SubirImagen(bytes_imagen_recortada).onSuccess(function (id_imagen_recortada) {
-                                        Backend.AceptarCambioImagenConImagenRecortada(solicitud.usuario.Id, id_imagen_recortada).onSuccess(function (id_imagen_recortada) {
-                                            alertify.success('solicitud de cambio de imagen aceptada');
-                                            vex.close();
-                                            vex.close();
-                                            _this.alResolver();
-                                        });
+            var vista_imagen_anterior = new VistaThumbnail({ id: solicitud.idImagenAnterior, contenedor: ui.find("#imagen_anterior") });
+            var vista_imagen_nueva = new VistaThumbnail({
+                id: solicitud.idImagenNueva,
+                contenedor: ui.find("#imagen_nueva"),
+                alRecortar: function (bytes_imagen_recortada) {
+                    vex.defaultOptions.className = 'vex-theme-os';
+                    vex.open({
+                        afterOpen: function ($vexContent) {
+                            var ui = $("#plantillas_adm_cambio_imagen .confirmacion_recorte_imagen").clone();
+                            ui.find("#imagen_recortada").attr("src", "data:image/png;base64," + bytes_imagen_recortada);
+                            ui.find("#btn_aceptar_recorte").click(function () {
+                                Backend.SubirImagen(bytes_imagen_recortada).onSuccess(function (id_imagen_recortada) {
+                                    Backend.AceptarCambioImagenConImagenRecortada(solicitud.usuario.Id, id_imagen_recortada).onSuccess(function (id_imagen_recortada) {
+                                        alertify.success('solicitud de cambio de imagen aceptada');
+                                        vex.close();
+                                        vex.close();
+                                        _this.alResolver();
                                     });
                                 });
-                                ui.find("#btn_cancelar_recorte").click(function () {
-                                    vex.close();
-                                });
-                                $vexContent.append(ui);
-                                ui.show();
-                                return ui;
-                            }
-                        })
-                    }
-                });
-
-                return ui;
-            },
-            css: {
-                'padding-top': "4%",
-                'padding-bottom': "0%"
-            },
-            contentCSS: {
-                width: "70%",
-                height: "80%"
-            }
+                            });
+                            ui.find("#btn_cancelar_recorte").click(function () {
+                                vex.close();
+                            });
+                            $vexContent.append(ui);
+                            ui.show();
+                            return ui;
+                        }
+                    })
+                }
+            });
         });
-    };
+   
+
+//    var AdministradorSolicitudCambioImagen = function (solicitud) {
+//        var _this = this;
+//        vex.defaultOptions.className = 'vex-theme-os';
+//        vex.open({
+//            afterOpen: function ($vexContent) {
+//                var ui = $("#pantalla_actualizacion_imagen");
+
+//                ui.find("#btn_aceptar_cambio_imagen")
+//                .off("click")
+//                .click(function () {
+//                    Backend.AceptarCambioDeImagen(solicitud.usuario.Id).onSuccess(function () {
+//                        alertify.success('solicitud de cambio de imagen aceptada');
+//                        vex.close();
+//                        _this.alResolver();
+//                    });
+//                });
+//                ui.find("#btn_rechazar_cambio_imagen")
+//                .off("click")
+//                .click(function () {
+//                    vex.dialog.prompt({
+//                        message: 'Indique razón de rechazo',
+//                        placeholder: '',
+//                        callback: function (value) {
+//                            if (value) {
+//                                Backend.RechazarCambioDeImagen(solicitud.usuario.Id, value).onSuccess(function () {
+//                                    alertify.success('solicitud de cambio de imagen rechazada');
+//                                    vex.close();
+//                                    _this.alResolver();
+//                                });
+//                            }
+//                        }
+//                    })
+
+//                });
+
+//                ui.find("#usuario_solicitante").text("(" + solicitud.usuario.Alias.replace(' ', '') + ") " + solicitud.usuario.Owner.Apellido + ", " + solicitud.usuario.Owner.Nombre + " DNI:" + solicitud.usuario.Owner.Documento);
+//                $vexContent.append(ui);
+//                ui.show();
+
+//                var vista_imagen_anterior = new VistaThumbnail({ id: solicitud.idImagenAnterior, contenedor: ui.find("#imagen_anterior") });
+//                var vista_imagen_nueva = new VistaThumbnail({
+//                    id: solicitud.idImagenNueva,
+//                    contenedor: ui.find("#imagen_nueva"),
+//                    alRecortar: function (bytes_imagen_recortada) {
+//                        vex.defaultOptions.className = 'vex-theme-os';
+//                        vex.open({
+//                            afterOpen: function ($vexContent) {
+//                                var ui = $("#plantillas_adm_cambio_imagen .confirmacion_recorte_imagen").clone();
+//                                ui.find("#imagen_recortada").attr("src", "data:image/png;base64," + bytes_imagen_recortada);
+//                                ui.find("#btn_aceptar_recorte").click(function () {
+//                                    Backend.SubirImagen(bytes_imagen_recortada).onSuccess(function (id_imagen_recortada) {
+//                                        Backend.AceptarCambioImagenConImagenRecortada(solicitud.usuario.Id, id_imagen_recortada).onSuccess(function (id_imagen_recortada) {
+//                                            alertify.success('solicitud de cambio de imagen aceptada');
+//                                            vex.close();
+//                                            vex.close();
+//                                            _this.alResolver();
+//                                        });
+//                                    });
+//                                });
+//                                ui.find("#btn_cancelar_recorte").click(function () {
+//                                    vex.close();
+//                                });
+//                                $vexContent.append(ui);
+//                                ui.show();
+//                                return ui;
+//                            }
+//                        })
+//                    }
+//                });
+
+//                return ui;
+//            },
+//            css: {
+//                'padding-top': "4%",
+//                'padding-bottom': "0%"
+//            },
+//            contentCSS: {
+//                width: "70%",
+//                height: "80%"
+//            }
+//        });
+//    };
 </script>
