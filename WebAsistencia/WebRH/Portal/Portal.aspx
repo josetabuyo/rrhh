@@ -20,9 +20,12 @@
     <div id="content">
     <div class="resumen_area"></div>
      <div class="resumen_postular">
-     <p style="display:inline-block; text-align: center; width: 150px; margin: 5px;"><span style="margin-bottom: 10px; display: inline-block;">Concurso PLANTA PERMANENTE (Convocatoria Interna) </span><a href="../Imagenes/001afiche.promo.lanzamiento.2017.jpg" target="_blank"><img src="../Imagenes/001afiche.promo.lanzamiento.2017.jpg" width="150px" height="200px" /></a><i style="display: inline-block; font-size: 0.85em;">Click en la imágen para ampliar</i></p>
-     <p style="display:inline-block; text-align: center; width: 150px; margin: 5px;"><span style="margin-bottom: 10px; display: inline-block;">¿Como participar? </span><a href="../Imagenes/002panfleto.promo.concurso.jpg" target="_blank"><img src="../Imagenes/002panfleto.promo.concurso.jpg" width="150px" height="200px" /></a><i style="display: inline-block; font-size: 0.85em;">Click en la imágen para ampliar</i></p>
-     <p style="text-align: center; margin: 5px;"><span style="margin: 20px; display: block;">Para ingresar al POSTULAR haga click en el circulo</span><a href="../FormularioConcursar/PanelDeControl.aspx" ><img src="../MenuPrincipal/Postular.png" width="100px" height="100px" /></a></p>
+     <p style="text-align: center; margin: 5px;"><span style="margin: 20px; display: block;">Para INSCRIBIRTE al Concurso de PLANTA PERMANENTE (Convocatoria Interna) hacé click en el circulo de abajo</span><a href="../FormularioConcursar/PanelDeControl.aspx" ><img src="../MenuPrincipal/Postular.png" width="80px" height="80px" /></a></p>
+     <div style="text-align: center; margin-top:20px;">
+     <p>Para mas información click en las imágenes</p>
+     <p style="display:inline-block; text-align: center; width: 100px; margin: 0 auto; margin-bottom:15px;"><span style="margin-bottom: 10px; display: inline-block;"></span><a href="../Imagenes/001afiche.promo.lanzamiento.2017.jpg" target="_blank"><img src="../Imagenes/001afiche.promo.lanzamiento.2017.jpg" width="100px" height="150px" /></a></p>
+     <p style="display:inline-block; text-align: center; width: 100px; margin: 0 auto;"><span style="margin-bottom: 10px; display: inline-block;"></span><a href="../Imagenes/002panfleto.promo.concurso.jpg" target="_blank"><img src="../Imagenes/002panfleto.promo.concurso.jpg" width="100px" height="120px" /></a></p>
+     </div>
      </div>
         <div class="navigation ch-grid" id="nav">
             <div class="ch-item_3d ch-img-1_3d">
