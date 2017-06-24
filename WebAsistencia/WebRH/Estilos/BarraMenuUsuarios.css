@@ -337,9 +337,9 @@
 
 .ui_mensaje_alerta
 {
-    height: 82px;
+    /*height: 82px;*/
     width: 96%;
-    overflow: hidden;
+    overflow: scroll;
     cursor: pointer;
     padding: 1%;
     margin: 2%;
