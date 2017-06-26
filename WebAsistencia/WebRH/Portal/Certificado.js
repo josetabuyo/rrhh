@@ -22,23 +22,15 @@ var Certificado = {
                         $("#tablaCarreraAdministrativa").empty();
                         var divGrilla = $("#tablaCarreraAdministrativa");
                         var columnas = [];
+
+                        //columnas.push(new Columna("Id", { generar: function (una_carrera) { return una_carrera.Id } }));
+                        //columnas.push(new Columna("Id_Certificado", { generar: function (una_carrera) { return una_carrera.Id_Certificado } }));
+                        columnas.push(new Columna("Desde", { generar: function (una_carrera) { return una_carrera.Desde } }));
+                        columnas.push(new Columna("Hasta", { generar: function (una_carrera) { return una_carrera.Hasta_Original } }));
+                        columnas.push(new Columna("Marco", { generar: function (una_carrera) { return una_carrera.Descri_Tipo_Contrato } }));
+                        columnas.push(new Columna("Acto Aprobatorio", { generar: function (una_carrera) { return una_carrera.CadenaActo } }));
+                        columnas.push(new Columna("Área", { generar: function (una_carrera) { return una_carrera.Area } }));
 						
-						columnas.push(new Columna("Area", { generar: function (una_carrera) { return una_carrera.Descripcion_Area} }));
-						columnas.push(new Columna("Desde", { generar: function (una_carrera) { return una_carrera.fecha_desde } }));
-						columnas.push(new Columna("Hasta", { generar: function (una_carrera) { return una_carrera.fecha_hasta } }));
-						
-						/*
-                        columnas.push(new Columna("Organismo", { generar: function (una_carrera) { return una_carrera.Organismo } }));
-                        columnas.push(new Columna("Regimen", { generar: function (una_carrera) { return una_carrera.Regimen } }));
-                        columnas.push(new Columna("Agrupamiento", { generar: function (una_carrera) { return una_carrera.Agrupamiento } }));
-                        columnas.push(new Columna("Nivel", { generar: function (una_carrera) { return una_carrera.Nivel } }));
-                        columnas.push(new Columna("Grado", { generar: function (una_carrera) { return una_carrera.Grado } }));
-                        columnas.push(new Columna("Cargo", { generar: function (una_carrera) { return una_carrera.Cargo } }));
-                        columnas.push(new Columna("FechaDesde", { generar: function (una_carrera) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_carrera.FechaDesde) } }));
-                        columnas.push(new Columna("FechaHasta", { generar: function (una_carrera) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_carrera.FechaHasta) } }));
-                        columnas.push(new Columna("DescCausa", { generar: function (una_carrera) { return una_carrera.DescCausa } }));
-                        columnas.push(new Columna("Folio", { generar: function (una_carrera) { return una_carrera.Folio } }));
-						*/
                         _this.Grilla = new Grilla(columnas);
                         _this.Grilla.CambiarEstiloCabecera("estilo_tabla_portal");
                         _this.Grilla.CargarObjetos(experiencia);
