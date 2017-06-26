@@ -351,7 +351,7 @@ namespace General.Repositorios
         }
 
 
-        public bool Mobi_Alta_Vehiculo_Evento_Asignacion_Prestamo(int id_bien, int id_tipoevento, string observaciones, int id_user, int id_receptor_area, int id_receptor_Persona)
+        public bool Mobi_Alta_Vehiculo_Evento(int id_bien, int id_tipoevento, string observaciones, int id_user, int id_receptor_area, int id_receptor_Persona)
         {
             ConexionDB cn = new ConexionDB("dbo.MOBI_ADD_NuevoEventoBien");
             cn.AsignarParametro("@Id_Bien", id_bien);
@@ -367,15 +367,20 @@ namespace General.Repositorios
                 //GUARDO EL AREA
                 cn.EjecutarSinResultado();
 
-                cn.CrearComandoConTransaccionIniciada("dbo.MOBI_ADD_NuevoEventoBien");
-                cn.AsignarParametro("@Id_Bien", id_bien);
-                cn.AsignarParametro("@Id_TipoEvento", 3);
-                cn.AsignarParametro("@Observaciones", observaciones);
-                cn.AsignarParametro("@IdUser", id_user);
-                cn.AsignarParametro("@Id_Receptor", id_receptor_Persona);
+                //Si mando 0 es porque no se agrega el evento de la persona
+                if (id_receptor_Persona != 0)
+                {
+                    cn.CrearComandoConTransaccionIniciada("dbo.MOBI_ADD_NuevoEventoBien");
+                    cn.AsignarParametro("@Id_Bien", id_bien);
+                    cn.AsignarParametro("@Id_TipoEvento", 3);
+                    cn.AsignarParametro("@Observaciones", observaciones);
+                    cn.AsignarParametro("@IdUser", id_user);
+                    cn.AsignarParametro("@Id_Receptor", id_receptor_Persona);
 
-                //GUARDO LA PERSONA
-                cn.EjecutarSinResultado();
+                    //GUARDO LA PERSONA
+                    cn.EjecutarSinResultado();
+                }
+                
             }
             catch (Exception)
             {

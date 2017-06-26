@@ -10,10 +10,9 @@ $(function () {
         var id_Area_Seleccionada = localStorage.getItem("idAreaSeleccionada");
         var id_Area_Receptora = localStorage.getItem("idAreaReceptora");
         var id_Area_Propietaria = localStorage.getItem("idAreaPropietaria");
-        
+
         $('#Controles_Persona_Area').hide(); //Buscador Area y Persona
 
-        
         //DATOS DEL VEHICULO
         Backend.ObtenerVehiculoPorID(id_bien).onSuccess(function (respuesta_vehiculo) {
             console.log("Vehiculo");
@@ -132,14 +131,30 @@ $(function () {
 
             //Mandar a reparar
             3: function () {
-                //id_Tipo_Evento_Presionado = 8;
-                //observaciones = "Reparación"
-                //$('#Controles_Persona_Area').show();
+                id_Tipo_Evento_Presionado = 8;
+                observaciones = "Reparación del bien"
+
+                Backend.Mobi_Alta_Vehiculo_Evento(id_bien, id_Tipo_Evento_Presionado, observaciones, id_Area_Propietaria, 0).onSuccess(function () {
+                    alertify.success("Vehiculo enviado a reparación");
+                    $('#Controles_Persona_Area').hide();
+                })
+                    .onError(function () {
+                        alertify.error("Se produjo un error");
+                    });
             },
 
             //Rehabilitar
             4: function () {
-                //alert("FALTA Rehabilitar");
+                id_Tipo_Evento_Presionado = 2;
+                observaciones = "Rehabilitación del bien"
+
+                Backend.Mobi_Alta_Vehiculo_Evento(id_bien, id_Tipo_Evento_Presionado, observaciones, id_Area_Propietaria, 0).onSuccess(function () {
+                    alertify.success("Vehiculo rehabilitado con exito");
+                    $('#Controles_Persona_Area').hide();
+                })
+                    .onError(function () {
+                        alertify.error("Se produjo un error");
+                    });
             },
 
             //Dar de baja
@@ -152,10 +167,10 @@ $(function () {
                 id_Tipo_Evento_Presionado = 2;
                 observaciones = "Devolución del bien"
 
-                Backend.Mobi_Alta_Vehiculo_Evento_Asignacion_Prestamo(id_bien, id_Tipo_Evento_Presionado, observaciones, id_Area_Propietaria, -1).onSuccess(function () {
+                Backend.Mobi_Alta_Vehiculo_Evento(id_bien, id_Tipo_Evento_Presionado, observaciones, id_Area_Propietaria, -1).onSuccess(function () {
                     alertify.success("Devolución Correcta");
-                        $('#Controles_Persona_Area').hide();
-                    })
+                    $('#Controles_Persona_Area').hide();
+                })
                     .onError(function () {
                         alertify.error("Se produjo un error");
                     });
@@ -166,7 +181,7 @@ $(function () {
                 id_Tipo_Evento_Presionado = 2;
                 observaciones = "Toma del bien"
 
-                Backend.Mobi_Alta_Vehiculo_Evento_Asignacion_Prestamo(id_bien, id_Tipo_Evento_Presionado, observaciones, id_Area_Propietaria, -1).onSuccess(function () {
+                Backend.Mobi_Alta_Vehiculo_Evento(id_bien, id_Tipo_Evento_Presionado, observaciones, id_Area_Propietaria, -1).onSuccess(function () {
                     alertify.success("Se tomó Correctamente");
                     $('#Controles_Persona_Area').hide();
                 })
@@ -194,7 +209,7 @@ $(function () {
             if (documento == "") {
                 alertify.confirm("Asignación de Responsable", "¿Desea enviar el vehiculo sin una persona responsable?", function () {
                     //ACEPTO SIN RESPONSABLE
-                    Backend.Mobi_Alta_Vehiculo_Evento_Asignacion_Prestamo(id_bien, id_Tipo_Evento_Presionado, observaciones, idarea, -1).onSuccess(function () {
+                    Backend.Mobi_Alta_Vehiculo_Evento(id_bien, id_Tipo_Evento_Presionado, observaciones, idarea, -1).onSuccess(function () {
                         alertify.success("Asignación Correcta");
                         $('#Controles_Persona_Area').hide();
                     })
@@ -208,14 +223,14 @@ $(function () {
             }
             else {
                 //ACEPTO CON RESPONSABLE
-                Backend.Mobi_Alta_Vehiculo_Evento_Asignacion_Prestamo(id_bien, id_Tipo_Evento_Presionado, observaciones, idarea, documento).onSuccess(function () {
+                Backend.Mobi_Alta_Vehiculo_Evento(id_bien, id_Tipo_Evento_Presionado, observaciones, idarea, documento).onSuccess(function () {
                     alertify.success("Asignación Correcta");
                     $('#Controles_Persona_Area').hide();
                 })
-                .onError(function(){
+                .onError(function () {
                     alertify.error("Se produjo un error");
                 });
-                
+
             }
 
 
