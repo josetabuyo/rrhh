@@ -44,61 +44,110 @@
 
                 <div style="text-align:center;" ><img alt="etapas" src="../Imagenes/etapasPostular.jpg" width="550" height="500px" /></div>
 
+                <br />
+                <div id="Div3" class="titulo_postulaciones">¿QUÉ ES UNA CONVOCATORIA INTERNA?</div>
+                <br />
+                <p>El artículo 135 del Decreto N° 2098/2008 establece "con carácter excepcional y transitorio, hasta el 31 de diciembre de 2018, como otro Tipo de 
+                convocatoria, la Convocatoria Interna. En la misma podrá participar el personal que revista como personal permanente y no permanente, según los 
+                artículos 8° y 9° de la Ley N° 25.164 de la jurisdicción u organismo al que pertenezca la vacante a cubrir."</p>
+                <p>Esto implica que en esta Convocatoria Interna pueden participar los/las agentes que revistan como personal permanente y no permanente del 
+                Ministerio de Desarrollo Social de la Nación, según los artículos 8° y 9° de la Ley N° 25.164. Dicha convocatoria tendrá carácter excepcional y 
+                transitorio hasta el 31 de diciembre del 2018.</p>
+
+                <br />
+                <div id="Div4" class="titulo_postulaciones">¿QUIÉNES PUEDEN POSTULARSE?</div>
+                <br />
+                <p>Para postularte, tenés que cumplir con los siguientes requisitos excluyentes:</p>
+                <ul>
+                    <li style="margin-bottom:5px;">Acreditar experiencia laboral de 10 años o más en la administración pública. Este requisito no será aplicable a las personas con discapacidad que se postulen al cargo que se encuentra bajo el régimen de reserva del artículo 8 de la Ley N° 22.431.</li>
+                    <li style="margin-bottom:5px;">Prestar servicios en la jurisdicción al momento de la inscripción bajo los Arts. 8° y 9° de la Ley N° 25.164.</li>
+                    <li style="margin-bottom:5px;">Acreditar título de nivel secundario completo.</li>
+                    <li>Acreditar certificado único de discapacidad (CUD), emitido por una autoridad competente, Este requisito sólo será aplicable a las personas que se postulen al cargo que se encuentra bajo el régimen de reserva del artículo 8 de la Ley N° 22.431.</li>
+                </ul>
+
+                <br />
+                <div id="Div5" class="titulo_postulaciones">¿QUIÉNES INTEGRAN LOS COMITES DE SELECCIÓN?</div>
+                <br />
+
+                <p>Los integrantes de cada Comité de Selección podés consultarlos haciendo click sobre el número identificatorio de cada Comité que se puede observar en la tabla de Cargos Disponibles.</p>
+                <br />
                 <div id="texto-central-titulo"><strong style="font-size:2.2em;" class="titulo_postulaciones">Etapas </strong></div>
                 <br />
-                <div id="texto-central-titulo" class="sub_etapas">Inscripción</div>
-                <p><img alt="2" src="../Imagenes/iconos/001.jpg" />
-                <b>1) <span style="text-decoration: underline;">Pre inscripción electrónica</span>:</b><br />
-                Comienza con la carga (o actualización) de tu Currículum Vitae (historial personal, académico, laboral y profesional) que puedes realizar en esta misma página.</p>
-                <p>Se completa con la postulación que realices en uno o más Puestos de un Llamado datos a través del Sistema Concursar. De esa carga se crearán una serie de formularios que necesitarás tener para completar la inscripción documental.</p>
-                <p><img alt="2" src="../Imagenes/iconos/002.jpg" />
-                
-                <b>2) <span style="text-decoration: underline;">Inscripción documental</span>:</b><br />
-                Deberás acercarte para presentar los formularios impresos obtenidos en la pre-inscripción electrónica y el Currículum Vitae actualizado junto a TODA la documentación de respaldo para certificar los datos consignados en dichos formularios. Los formularios, que se imprimen cuando realices cada postulación son:<b></b></p>
-                <ul>
-                    <li>FORMULARIO DE SOLICITUD Y FICHA DE INSCRIPCIÓN (Anexo I)</li>
-                    <li>DECLARACIÓN JURADA Y CONSTANCIA DE RECEPCIÓN Y ACEPTACIÓN DEL REGLAMENTO Y BASES DEL CONCURSO (Anexo II)</li>
-                    <li>CONSTANCIA DE RECEPCIÓN DE LA SOLICITUD, FICHA DE INSCRIPCIÓN Y DE LA DOCUMENTACIÓN PRESENTADA (Anexo III)</li>
-                </ul>
-                <p>Con respecto al resto de la documentación, se debe recordar que se solicitarán copias y originales, para validar las primeras.</p>
-
-                <p><img alt="2" src="../Imagenes/iconos/003.jpg" />
-                
-                <div id="Div2" class="sub_etapas">Admisión</div>
                 <br />
-                <b>3) <span style="text-decoration: underline;">Listado Admitidos y No Admitidos</span>:</b><br />
-                 Una vez culminada la Etapa de Inscripción Documental, cada Comité se abocará a analizar la documentación presentada y evaluar el cumplimiento de los requisitos excluyentes especificados en cada perfil convocado.<b></b></p>
-                 <p>Como resultado de este trabajo se elaborarán las Actas de Admitidos y No admitidos al Concurso, las cuales serán publicadas en este sitio y en <a target="_blank"  href="http://www.desarrollosocial.gob.ar/concursos">www.desarrollosocial.gob.ar/concursos</a></p>
+                <div id="texto-central-titulo" class="sub_etapas">Inscripción</div>
+                <br />
+                
+                <%--<img alt="2" src="../Imagenes/iconos/001.jpg" />--%>
+                <p><b>1) <span style="text-decoration: underline;">Pre inscripción electrónica</span>:</b></p><br />
+                <p>Comienza con la carga (o actualización) de tu Currículum Vitae (historial personal, académico, laboral y profesional) que puedes realizar en esta misma página.</p>
+                <p>Luego, debés realizar la postulación en el cargo o en los cargos en que estés interesado/a.</p>
+                <br />
+                <%--<img alt="2" src="../Imagenes/iconos/002.jpg" />--%>
+                <p><b>2) <span style="text-decoration: underline;">Inscripción documental</span>:</b></p>
+                <br />
+                <p>Para la Inscripción Documental deberás tener un usuario y contraseña en el Sistema de Gestión Documental Electrónica (GDE). Para consultar por la generación de usuarios, podés escribir a ayuda.gde@desarrollosocial.gob.ar o comunicarte al (011) 4379-3902 / 3903.</p>
+                <p>En caso de que no hayas realizado la actividad de capacitación acerca del Sistema GDE podés solicitar una vacante completando el siguiente <a href="https://docs.google.com/forms/d/e/1FAIpQLSdOIfc7xEYJCCUmxhL-Vop0y3iOQp92WN7XSFZXDmiGlfT48w/viewform" target="_blank">Formulario de Pre – Inscripción</a></p>
+                <p>La carga de tu documentación al sistema GDE y su envío a la Secretaría Técnica del Concurso comprende:</p>
+                <ol>
+                    <li style="margin-bottom:5px;">Imprimir y firmar en todas las páginas el Curriculum Vitae que confeccionaste en este mismo Módulo POSTULAR.</li>
+                    <li style="margin-bottom:5px;">Escanear el Curriculum Vitae debidamente firmado conjuntamente con toda la documentación de respaldo para certificar los datos consignados.</li>
+                    <li style="margin-bottom:5px;">Todos los documentos escaneados deben ser agrupados en un archivo de tipo PDF (es un formato de documento digital – de uso muy común - que comúnmente se abre con el software conocido como Adobe Acrobat Reader ®).</li>
+                    <li style="margin-bottom:5px;">El archivo PDF es el que se carga en el sistema GDE confeccionando un “Informe Gráfico” dentro del Módulo GEDO del citado sistema GDE.</li>
+                    <li >Al firmar digitalmente con tu usuario el “Informe Gráfico” generado en el punto anterior, el GDE te otorgará un número de informe similar al siguiente “IF-2017-9999999-APN-xxx#MDS” este número deberás copiarlo y pegarlo en el espacio que para ello se incluye en la pantalla de POSTULARME de esta misma página.</li>
+                </ol>
+
+                <p>Una vez generado completada la postulación, tenés que acercarte con TODA la documentación ORIGINAL de respaldo al edificio de la calle Alsina 1886 de esta Ciudad Autónoma de Buenos Aires de 10.00hs. a 16.00hs. en los días que se establezcan para la Inscripción Documental, oportunidad en la que los agentes de registro certificarán su validez con respecto a los originales presentados.</p>
+
+                
+                <%--<img alt="2" src="../Imagenes/iconos/003.jpg" />--%>
+                <br />
+                <div id="Div6" class="sub_etapas">Nómina de Inscriptos</div>
+                <br />
+                <p>Una vez finalizada la etapa de Inscripción Documental, cada Comité elabora una Nómina con los/as agentes que realizaron con éxito la inscripción.</p>
+                <p>A partir de esta instancia, y en cada una de las etapas siguientes, se elaboran las Actas donde vas a encontrar los resultados de cada etapa del Proceso de Selección.</p>
+                <br />
+                <p><b>3) <span style="text-decoration: underline;">Nómina de Admitidos y No Admitidos</span>:</b></p><br />
+                 
+                 <p>Una vez culminada la Etapa de Inscripción Documental, cada Comité se abocará a analizar la documentación presentada y evaluar el cumplimiento de los requisitos excluyentes especificados en cada perfil convocado.</p>
+                 <p>Como resultado de este trabajo se elaborarán las Actas de Admitidos y No admitidos al Concurso, las cuales serán publicadas en este sitio.</p>
               
                 <br />
-                <div id="texto-central-titulo" class="sub_etapas">Proceso de evaluación:</div>
-                <p><img alt="2" src="../Imagenes/iconos/004.jpg" />
-                <b>4.1)</b> <b>Evaluación de Antecedentes Curriculares y Laborales:</b><br /> El Comité de selección evaluará los antecedentes de los postulantes de acuerdo a la información y documentación que hayan presentado en la etapa de inscripción, ponderándolos equitativamente en función de instrumentos previamente elaborados.</p>
-                <p>Como resultado de esta ponderación se elaborarán las Actas de Ponderación de Antecedentes, las cuales serán publicadas en este sitio y en <a target="_blank"  href="http://www.desarrollosocial.gob.ar/concursos">www.desarrollosocial.gob.ar/concursos</a></p>
-                <p><img alt="2" src="../Imagenes/iconos/005.jpg" />
-                <b>4.2) Evaluación Técnica:</b><br /> De carácter presencial. Se evaluarán los conocimientos y capacidades del postulante según los 
-                requerimientos típicos del puesto de trabajo en cuestión.</p>
-                <p>Al igual que en las etapas anteriores las Actas con los resultados de esta etapa serán publicadas en este sitio y en <a target="_blank"  href="http://www.desarrollosocial.gob.ar/concursos">www.desarrollosocial.gob.ar/concursos</a></p>
-                <p><img alt="2" src="../Imagenes/iconos/006.jpg" />
-                <b>4.3) Evaluación Mediante Entrevista Laboral: </b><br />Se realizará al menos un encuentro del postulante con el Comité para evaluar su 
-                adecuación a los requerimientos del puesto.</p>
-                <p>Al igual que en las etapas anteriores las Actas con los resultados de esta etapa serán publicadas en este sitio y en <a target="_blank"  href="http://www.desarrollosocial.gob.ar/concursos">www.desarrollosocial.gob.ar/concursos</a></p>
-                <p><img alt="2" src="../Imagenes/iconos/007.jpg" />
-                <b>4.4) Evaluación del Perfil Psicológico: </b><br />Será realizada por profesional matriculado para ponderar la adecuación de las características de personalidad vinculadas con el desempeño laboral efectivo de acuerdo al puesto al cual concursa.</p>
-                <p>Al igual que en las etapas anteriores las Actas con los resultados de esta etapa serán publicadas en este sitio y en <a target="_blank"  href="http://www.desarrollosocial.gob.ar/concursos">www.desarrollosocial.gob.ar/concursos</a></p>
+                <div id="texto-central-titulo" class="sub_etapas">4) Proceso de evaluación</div>
+                <br />
+                <%--<img alt="2" src="../Imagenes/iconos/004.jpg" />--%>
+                <p><b>4.1) Evaluación de Antecedentes Curriculares y Laborales:</b></p><br /> 
+                <p>El Comité de selección evaluará los antecedentes de los postulantes de acuerdo a la información y documentación que hayan presentado en la etapa de inscripción, ponderándolos equitativamente en función de instrumentos previamente elaborados.</p>
+                <p>Como resultado de esta ponderación se elaborarán las Actas de Ponderación de Antecedentes, las cuales serán publicadas en este sitio.</p>
+                <br />
+                <%--<img alt="2" src="../Imagenes/iconos/005.jpg" />--%>
+                <p><b>4.2) Evaluación Técnica:</b></p><br /> 
+                <p>La misma es de carácter presencial y se evaluarán los conocimientos y capacidades de los/as postulantes según los requerimientos del puesto de trabajo. En la evaluación, se te podrá preguntar o proponer ejercicios que guarden relación con cualquiera de los ítems mencionados en las Bases del Concurso, tanto en lo referente a los Requisitos y Competencias expresamente enunciados, como a lo descripto en “Responsabilidad del Puesto” o en “Principales Actividades” de dicho perfil.</p>
+                
+                <br />
+                <%--<img alt="2" src="../Imagenes/iconos/006.jpg" />--%>
+                <p><b>4.3) Evaluación Mediante Entrevista Laboral: </b></p><br />
+                <p>Se realizará al menos un encuentro del/ de la postulante con el Comité para evaluar su adecuación a los requerimientos del puesto.</p>
+                <br />
+                <%--<img alt="2" src="../Imagenes/iconos/007.jpg" />--%>
+                <p><b>4.4) Evaluación del Perfil Psicológico: </b></p><br />
+                <p>En los perfiles de Agrupamiento Profesional esta etapa es realizada por profesional matriculado para ponderar la adecuación de las características de personalidad vinculadas con el desempeño laboral efectivo de acuerdo al puesto al cual concursa.</p>
 
                 <br />
                 <div id="Div1" class="sub_etapas">Etapa Final:</div>
-                <p><img alt="2" src="../Imagenes/iconos/008.jpg" />
-                <b>5) Calificacion final: </b><br />Los puntajes obtenidos por cada participante en todas y cada una de las etapas, serán ponderados en función de la relevancia porcentual respectiva asignada en las Bases del Concursos.</p>
+                <br />
+                <%--<img alt="2" src="../Imagenes/iconos/008.jpg" />--%>
+                <p><b>5) Calificacion final: </b></p><br />
+                <p>Los puntajes obtenidos por cada participante en todas y cada una de las etapas, serán ponderados en función de la relevancia porcentual respectiva asignada en las Bases del Concursos.</p>
                 <p>De esta manera se obtendrá la Puntuación final del candidato para cada uno de los perfiles a los que se haya postulado.</p>
-                <p><img alt="2" src="../Imagenes/iconos/009.jpg" />
-                <b>6) Elaboración y Publicación del Orden de Mérito:</b></p>
+                 <br />
+                <%--<img alt="2" src="../Imagenes/iconos/009.jpg" />--%>
+                <p><b>6) Elaboración y Publicación del Orden de Mérito:</b></p><br />
                 <p>Las nóminas de candidatos que alcanzaron satisfactoriamente la última etapa del Concurso, se ordenan decrecientemente de acuerdo al puntaje ponderado alcanzado en la Calificación Final, conformando ello el Orden de Mérito para ese perfil.</p>
                 <p>El Orden de Mérito así elaborado se incluye en la correspondiente Acta de Comité y se eleva para aprobación de la máxima autoridad del Organismo.</p>
-                <p>Tanto el Acta como la posterior Resolución Ministerial también serán publicadas en este sitio y en <a target="_blank"  href="http://www.desarrollosocial.gob.ar/concursos">www.desarrollosocial.gob.ar/concursos</a></p>
-                <p><img alt="2" src="../Imagenes/iconos/010.jpg" />
-                <b>7) Designación</b></p>
+               
+                <br />
+                <%--<img alt="2" src="../Imagenes/iconos/010.jpg" />--%>
+                <p><b>7) Designación</b></p>
                 <p>Oportunamente, se inicia el proceso de designación del cargo en Planta Permanente, mediante acto administrativo, conforme al Orden de Mérito y en función de la elección que manifestarán en caso de haber ganado más de un puesto.</p>
             </div>
 		</div><!-- .entry-content -->
