@@ -4184,9 +4184,7 @@ public class WSViaticos : System.Web.Services.WebService
     public bool Mobi_Alta_Vehiculo_Evento(int id_bien, int id_tipoevento, string observaciones, int id_receptor_area, int id_receptor_persona, Usuario usuario)
     {
         RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
-
         return rMoBi.Mobi_Alta_Vehiculo_Evento(id_bien, id_tipoevento, observaciones, usuario.Id, id_receptor_area, id_receptor_persona);
-
     }
 
     [WebMethod]

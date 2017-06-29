@@ -398,7 +398,7 @@ namespace General.Repositorios
         public MoBi_Evento[] Mobi_GetMovimientos(int id_bien)
         {
 
-            List<MoBi_Evento> listaAcciones = new List<MoBi_Evento>();
+            List<MoBi_Evento> listaEventos = new List<MoBi_Evento>();
             SqlDataReader dr;
             ConexionDB cn = new ConexionDB("dbo.MOBI_GET_Eventos_por_IdBien");
             cn.AsignarParametro("@id_bien", id_bien);
@@ -413,10 +413,10 @@ namespace General.Repositorios
                 evento.Observaciones = dr.GetString(dr.GetOrdinal("Observaciones"));
                 evento.Receptor = dr.GetString(dr.GetOrdinal("Descripcion_Receptor"));
                 evento.Fecha = dr.GetDateTime(dr.GetOrdinal("Fecha"));
-                listaAcciones.Add(evento);
+                listaEventos.Add(evento);
             }
             cn.Desconestar();
-            return listaAcciones.ToArray();
+            return listaEventos.ToArray();
 
         }
 

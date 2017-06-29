@@ -1,4 +1,8 @@
-﻿
+﻿var ContenedorGrilla;
+ContenedorGrilla = $("#ContenedorGrilla");
+$("#ContenedorMovimientos").empty();
+
+
 $(function () {
     Backend.start(function () {
 
@@ -113,6 +117,7 @@ $(function () {
             //Movimientos
             0: function () {
                 //id_Tipo_Evento_Presionado = 0;
+                Consultar();
             },
 
             //Asignar
@@ -181,7 +186,7 @@ $(function () {
                 id_Tipo_Evento_Presionado = 2;
                 observaciones = "Toma del bien"
 
-                Backend.Mobi_Alta_Vehiculo_Evento(id_bien, id_Tipo_Evento_Presionado, observaciones, id_Area_Propietaria, -1).onSuccess(function () {
+                Backend.Mobi_Alta_Vehiculo_Evento(id_bien, id_Tipo_Evento_Presionado, observaciones, id_Area_Propietaria, 0).onSuccess(function () {
                     alertify.success("Se tomó Correctamente");
                     $('#Controles_Persona_Area').hide();
                 })
@@ -237,76 +242,66 @@ $(function () {
         });
 
 
-        //------------------ MOVIMIENTOS -------------------------
-        /*
+        //---------- MOVIMIENTOS INICIO ------------------
+
         var Consultar = function () {
-        ContenedorGrilla.html("");
-        $("#ContenedorPersona").empty();
+            ContenedorGrilla.html("");
+            $("#ContenedorMovimientos").empty();
 
-        spinner = new Spinner({ scale: 2 }).spin($("body")[0]);
+            spinner = new Spinner({ scale: 2 }).spin($("body")[0]);
 
-        getConsulta(function () {
-        DibujarGrillaDDJJ();
-        spinner.stop();
-        });
+            getConsulta(function () {
+                DibujarGrillaMovEventos();
+                spinner.stop();
+            });
 
-        //$('#DivBotonExcel').show();
+            //$('#DivBotonExcel').show();
         }
 
         var getConsulta = function (callback) {
-        Backend.Mobi_GetMovimientos(id_bien)
+            Backend.Mobi_GetMovimientos(id_bien)
         .onSuccess(function (respuesta) {
-        lista_areas_del_usuario = respuesta;
-        callback();
+            lista_areas_del_usuario = respuesta;
+            callback();
         })
         .onError(function (error, as, asd) {
-        alertify.alert("", error);
+            alertify.alert("", error);
         });
         }
 
-        var DibujarGrillaDDJJ = function () {
-        var grilla;
+        var DibujarGrillaMovEventos = function () {
+            var grilla;
 
-        $("#ContenedorPersona").empty();
+            $("#ContenedorMovimientos").empty();
 
-        if (consultaSeleccionada == "PERSONA") {
-        grilla = new Grilla(
+            grilla = new Grilla(
         [
-        new Columna("Mes", { generar: function (consulta) { return consulta.mes; } }),
-        new Columna("Año", { generar: function (consulta) { return consulta.anio; } }),
-        new Columna("Area", { generar: function (consulta) { return consulta.area_generacion.Nombre; } }),
-        new Columna("Apellido", { generar: function (consulta) { return consulta.persona.Apellido; } }),
-        new Columna("Nombre", { generar: function (consulta) { return consulta.persona.Nombre; } }),
-        new Columna("Fecha Generación", { generar: function (consulta) { return consulta.fecha_generacion; } }),
-        new Columna("Usuario Generación", { generar: function (consulta) { return consulta.usuario_generacion; } }),
-        new Columna("Fecha Recibido", { generar: function (consulta) { return consulta.fecha_recibido; } }),
-        new Columna("Usuario Recibido", { generar: function (consulta) { return consulta.usuario_recibido; } }),
-        new Columna("Firmante", { generar: function (consulta) { return consulta.firmante; } }),
-        new Columna("Categoria", { generar: function (consulta) { return consulta.persona.Categoria; } }),
-        new Columna("Mod Contratación", { generar: function (consulta) { return consulta.mod_contratacion; } }),
-        new Columna("Estado", { generar: function (consulta) { return consulta.estado_descrip; } })
+        new Columna("Id_Evento", { generar: function (consulta) { return consulta.Id; } }),
+        new Columna("Tipo_Evento", { generar: function (consulta) { return consulta.TipoEvento; } }),
+        new Columna("Observaciones", { generar: function (consulta) { return consulta.Observaciones; } }),
+        new Columna("Descripcion_Receptor", { generar: function (consulta) { return consulta.Receptor; } }),
+        new Columna("Fecha", { generar: function (consulta) { return consulta.Fecha; } }),
         ]);
+            
+            grilla.CargarObjetos(lista_areas_del_usuario);
+            grilla.DibujarEn(ContenedorGrilla);
+
+            //            $("#DivBotonExcel").empty();
+            //            var divBtnExportarExcel = $("#DivBotonExcel")
+            //            botonExcel = $("<input type='button'>");
+            //            botonExcel.val("Exportar a Excel");
+            //            botonExcel.click(function () {
+            //                BuscarExcel();
+            //            });
+            //            botonExcel.addClass("btn btn-primary");
+            //            divBtnExportarExcel.append(botonExcel);
+
+            grilla.SetOnRowClickEventHandler(function () {
+                return true;
+            });
         }
 
-        grilla.CargarObjetos(lista_areas_del_usuario);
-        grilla.DibujarEn(ContenedorGrilla);
-
-        //            $("#DivBotonExcel").empty();
-        //            var divBtnExportarExcel = $("#DivBotonExcel")
-        //            botonExcel = $("<input type='button'>");
-        //            botonExcel.val("Exportar a Excel");
-        //            botonExcel.click(function () {
-        //                BuscarExcel();
-        //            });
-        //            botonExcel.addClass("btn btn-primary");
-        //            divBtnExportarExcel.append(botonExcel);
-
-        grilla.SetOnRowClickEventHandler(function () {
-        return true;
-        });
-        }
-        */
-        //-------------------------------------------------------
+        //---------- MOVIMIENTOS FINAL ------------------
 
 
 

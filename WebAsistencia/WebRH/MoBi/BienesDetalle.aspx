@@ -161,7 +161,7 @@
 
     <%-- ---------------GRILLA DE MOVIMIENTOS------------------------------------------ --%>
      <div id="ContenedorGrilla" runat="server" style="width: 100%" align="center">
-        <div id="ContenedorPersona" runat="server" style="width: 90%"></div>
+        <div id="ContenedorMovimientos" runat="server" style="width: 90%"></div>
     </div>
     <%-- ------------------------------------------------------------------------------ --%>
 
