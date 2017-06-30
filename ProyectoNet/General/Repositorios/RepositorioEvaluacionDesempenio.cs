@@ -100,15 +100,15 @@ namespace General.Repositorios
         public List<AsignacionEvaluadoAEvaluador> GetAgentesEvaluablesPor(Usuario usuario)
         {
             var parametros = new Dictionary<string, object>();
-            var id_evaluador = usuario.Owner.Id;
-            parametros.Add("@id_evaluador", id_evaluador);
+            var id_persona_evaluadora = usuario.Owner.Id;
+            parametros.Add("@id_persona_evaluadora", id_persona_evaluadora);
             var tablaDatos = _conexion.Ejecutar("dbo.EVAL_GET_Evaluados_Evaluador", parametros);
 
             var asignaciones = new List<AsignacionEvaluadoAEvaluador> { };
             var detalle_preguntas = new List<DetallePreguntas> { };
             var cache_areas = new Dictionary<int, DescripcionAreaEvaluacion>();
             var primer_row = true;
-            var evaluador = GetAgenteEvaluadorEvaluacionDesempenio(id_evaluador);
+            var evaluador = GetAgenteEvaluadorEvaluacionDesempenio(id_persona_evaluadora);
             AsignacionEvaluadoAEvaluador asignacion_evaluado_a_evaluador = new AsignacionEvaluadoAEvaluador();
 
             if (tablaDatos.Rows.Count > 0)
