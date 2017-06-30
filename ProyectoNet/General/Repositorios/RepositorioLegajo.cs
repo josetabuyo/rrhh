@@ -868,6 +868,13 @@ namespace General.Repositorios
             return JsonConvert.SerializeObject(list_experiencia_publica);
         }
 
+        public void SolicitarCertificado(int id_usuario)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@IdPersona", id_usuario);
+            conexion.EjecutarSinResultado("dbo.CERT_UPD_Solicitar_Certificado", parametros);
+        }
+
 
         #endregion
 

@@ -40,7 +40,7 @@
                 </h4>
                 <input id="btn_solic_cert" type="button" class="btn btn-primary" style="margin: auto;
                     display: block; height: 30px; margin-top: 10px; padding-bottom: 25px;"
-                    value="Confirmar Solicitud" />
+                    value="Confirmar Solicitud" /> <br />
             </div>
         </div>
     </div>
@@ -52,12 +52,10 @@
 <script type="text/javascript">
 
     $(document).ready(function ($) {
-
         //para cargar el menu izquierdo 
         $(".caja_izq").load("SeccionIzquierda.htm", function () {
             Backend.start(function () {
-                //Legajo.getNombre();
-                //Legajo.GetDatosDesignaciones();
+                Certificado.SetearEventos();
                 Certificado.GetCarreraAdministrativa();
             });
         });
