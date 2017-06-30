@@ -86,8 +86,8 @@
         <div id="DivBotonExcel" runat="server" style="display: block; float: right; margin-right: 5px;"></div>  
     </div>
 
-    <div id="ContenedorGrilla" runat="server" style="width: 100%;" align="center">
-        <div id="ContenedorPersona" runat="server" style="width: 90%; margin-top="10px""></div>
+    <div id="ContenedorGrilla" runat="server" style="width: 100%" align="center">
+        <div id="ContenedorPersona" runat="server" style="width: 90%"></div>
     </div>
 
 
