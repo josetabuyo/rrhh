@@ -62,18 +62,18 @@ public class EvaluacionDeDesempenioToPdfConverter : ModeloToPdfConverter
         {
             mapa.Add("Factor_" + i.ToString("00"), pregunta.factor + ' ' + pregunta.enunciado);
             mapa.Add("Cualidad_" + i.ToString("00"), pregunta.RespuestaElegida());
-            mapa.Add("Puntos_" + i.ToString("00"), (pregunta.opcion_elegida - 1).ToString());
+            mapa.Add("Puntos_" + i.ToString("00"), (5 - pregunta.opcion_elegida).ToString());
 
             mapa.Add("Factor_" + i.ToString("00") + "_num", pregunta.factor);
-            mapa.Add("Valor_" + i.ToString("00") + "_num", (pregunta.opcion_elegida - 1).ToString());
+            mapa.Add("Valor_" + i.ToString("00") + "_num", (5 - pregunta.opcion_elegida).ToString());
 
             if (i < 7)
             {
-                subtotal_1a6 += pregunta.opcion_elegida - 1;
+                subtotal_1a6 += (5 - pregunta.opcion_elegida);
             }
             else
             {
-                subtotal_7a12 += pregunta.opcion_elegida - 1;
+                subtotal_7a12 += (5 - pregunta.opcion_elegida);
             }
             i++;
         }
