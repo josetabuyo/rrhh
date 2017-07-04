@@ -116,12 +116,14 @@ $(function () {
         var acciones = {
             //Movimientos
             0: function () {
-                //id_Tipo_Evento_Presionado = 0;
                 Consultar();
             },
 
             //Asignar
             1: function () {
+                ContenedorGrilla.html("");
+                $("#ContenedorMovimientos").empty();
+
                 id_Tipo_Evento_Presionado = 2;
                 observaciones = "Asignación del bien"
                 $('#Controles_Persona_Area').show();
@@ -129,6 +131,9 @@ $(function () {
 
             //Dar en préstamo
             2: function () {
+                ContenedorGrilla.html("");
+                $("#ContenedorMovimientos").empty();
+
                 id_Tipo_Evento_Presionado = 4;
                 observaciones = "Prestamo del bien"
                 $('#Controles_Persona_Area').show();
@@ -136,6 +141,9 @@ $(function () {
 
             //Mandar a reparar
             3: function () {
+                ContenedorGrilla.html("");
+                $("#ContenedorMovimientos").empty();
+
                 id_Tipo_Evento_Presionado = 8;
                 observaciones = "Reparación del bien"
 
@@ -150,6 +158,9 @@ $(function () {
 
             //Rehabilitar
             4: function () {
+                ContenedorGrilla.html("");
+                $("#ContenedorMovimientos").empty();
+
                 id_Tipo_Evento_Presionado = 2;
                 observaciones = "Rehabilitación del bien"
 
@@ -169,6 +180,9 @@ $(function () {
 
             //Devolver a origen
             6: function () {
+                ContenedorGrilla.html("");
+                $("#ContenedorMovimientos").empty();
+
                 id_Tipo_Evento_Presionado = 2;
                 observaciones = "Devolución del bien"
 
@@ -183,6 +197,9 @@ $(function () {
 
             //Tomar
             7: function () {
+                ContenedorGrilla.html("");
+                $("#ContenedorMovimientos").empty();
+
                 id_Tipo_Evento_Presionado = 2;
                 observaciones = "Toma del bien"
 
@@ -245,6 +262,7 @@ $(function () {
         //---------- MOVIMIENTOS INICIO ------------------
 
         var Consultar = function () {
+            $('#Controles_Persona_Area').hide();
             ContenedorGrilla.html("");
             $("#ContenedorMovimientos").empty();
 
@@ -280,7 +298,12 @@ $(function () {
         new Columna("Tipo_Evento", { generar: function (consulta) { return consulta.TipoEvento; } }),
         new Columna("Observaciones", { generar: function (consulta) { return consulta.Observaciones; } }),
         new Columna("Descripcion_Receptor", { generar: function (consulta) { return consulta.Receptor; } }),
-        new Columna("Fecha", { generar: function (consulta) { return consulta.Fecha; } }),
+        //new Columna("Fecha", { generar: function (consulta) { return consulta.Fecha; } }),
+        new Columna("Fecha", { generar: function (consulta) {
+            var fecha_sin_hora = consulta.Fecha.split("T");
+            var fecha = fecha_sin_hora[0].split("-");
+            return fecha[2] + "/" + fecha[1] + "/" + fecha[0];
+        }}),
         ]);
             
             grilla.CargarObjetos(lista_areas_del_usuario);

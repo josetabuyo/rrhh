@@ -927,7 +927,7 @@ public class AjaxWS : System.Web.Services.WebService
                 if (usuarioLogueado.GetType().Name == "UsuarioNulo") throw new Exception("Error: Debe estar logueado para acceder a esta funcionalidad");
                 argumentos_a_enviar.Add(usuarioLogueado);
 
-            }MOBI_GET_Eventos_por_IdBien
+            }
             catch (Exception)
             {
                 return Newtonsoft.Json.JsonConvert.SerializeObject("");
