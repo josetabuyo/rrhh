@@ -61,7 +61,7 @@
       <HintPath>..\..\SharedLibs\DocumentFormat.OpenXml.dll</HintPath>
     </Reference>
     <Reference Include="itextsharp">
-      <HintPath>..\..\SharedLibraries\itextsharp.dll</HintPath>
+      <HintPath>..\..\SharedLibs\itextsharp.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\SharedLibs\Newtonsoft.Json.dll</HintPath>
