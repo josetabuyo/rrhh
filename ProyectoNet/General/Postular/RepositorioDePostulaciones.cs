@@ -24,23 +24,59 @@ namespace General
         public Postulacion PostularseA(Postulacion postulacion, Usuario usuario)
         {
 
-            var parametros = new Dictionary<string, object>();
-            parametros.Add("@idPuesto", postulacion.Perfil.Id);
-            parametros.Add("@idPersona", usuario.Owner.Id);
-            parametros.Add("@Motivo", postulacion.Motivo);
-            parametros.Add("@Observacion", postulacion.Observaciones);
-            parametros.Add("@Usuario", usuario.Id);
-            RepositorioDeTickets repoTicket = new RepositorioDeTickets(conexion_bd);
-            postulacion.Numero = repoTicket.GenerarTicket("POSTULAR");
-            parametros.Add("@Numero", postulacion.Numero);
+            try
+            {
+                var parametros = new Dictionary<string, object>();
+                parametros.Add("@idPuesto", postulacion.Perfil.Id);
+                parametros.Add("@idPersona", usuario.Owner.Id);
+                parametros.Add("@Motivo", postulacion.Motivo);
+                parametros.Add("@Observacion", postulacion.Observaciones);
+                parametros.Add("@Usuario", usuario.Id);
+                RepositorioDeTickets repoTicket = new RepositorioDeTickets(conexion_bd);
+                postulacion.Numero = repoTicket.GenerarTicket("POSTULAR");
+                parametros.Add("@Numero", postulacion.Numero);
 
-            var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_Postulaciones", parametros);
-            postulacion.Id = Convert.ToInt32(id);
-            postulacion.Postulante = usuario.Owner;
-            postulacion.FechaPostulacion = DateTime.Now;
+                var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_Postulaciones", parametros);
+                postulacion.Id = Convert.ToInt32(id);
+                postulacion.Postulante = usuario.Owner;
+                postulacion.FechaPostulacion = DateTime.Now;
+
+                if (!GuardarNumerosGDE(postulacion))
+                {
+                    throw new Exception("Fallo el insertado de los numeros de GDE");
+                }
+            }
+            catch (Exception e)
+            {
+                //return e.Message;
+            }
 
             return postulacion;
         }
+
+        public bool GuardarNumerosGDE(Postulacion postulacion)
+        {
+
+            try
+            {
+                foreach (string numeroDeInforme in postulacion.NumerosDeInformeGDE)
+                {
+                    var parametros = new Dictionary<string, object>();
+                    parametros.Add("@idPostulacion", postulacion.Id);
+                    parametros.Add("@numeroInformeGDE", numeroDeInforme);
+
+                    conexion_bd.Ejecutar("dbo.CV_Ins_InformeGDEPostulacion", parametros);
+                }
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
+        }
+       
 
         public List<Postulacion> GetPostulacionesDe(int idpersona)
         {
@@ -183,7 +219,9 @@ namespace General
             Dictionary<string, object> parametros = new Dictionary<string, object>();
             parametros.Add("@IdPostulacion", idpostulacion);
             parametros.Add("@IdPersona", idpersona);
-            return this.GetPostulaciones(parametros).First();
+            Postulacion postulacion = this.GetPostulaciones(parametros).First();
+            postulacion.NumerosDeInformeGDE = this.GetNumerosDeInformeGDE(postulacion.Id);
+            return postulacion;
 
         }
 
@@ -193,16 +231,31 @@ namespace General
             parametros.Add("@NumeroPostulacion", codigo);
             try
             {
-                return this.GetPostulaciones(parametros).First();
+                Postulacion postulacion = this.GetPostulaciones(parametros).First();
+                postulacion.NumerosDeInformeGDE = this.GetNumerosDeInformeGDE(postulacion.Id);
+                return postulacion;
             }
             catch (Exception e)
             {
-
                 return null;
                 //throw e;
             }
+        }
 
-            //return this.GetPostulaciones(parametros).First();
+        private List<string> GetNumerosDeInformeGDE(int idPostulacion)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@idPostulacion", idPostulacion);
+
+            var tabla = conexion_bd.Ejecutar("dbo.CV_Get_NumerosDeInformeGDE", parametros);
+
+            var informes = new List<string>();
+
+            tabla.Rows.ForEach(row =>
+                informes.Add(row.GetString("NumeroInforme"))
+            );
+
+            return informes;
         }
 
 

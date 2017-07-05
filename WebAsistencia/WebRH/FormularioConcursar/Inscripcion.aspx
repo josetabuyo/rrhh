@@ -13,6 +13,21 @@
      <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
      <link rel="stylesheet" type="text/css" href="EstilosPostular.css" />
 
+     <style type="text/css">
+        label 
+        {
+            font-weight:normal !important;
+            margin-left: 10px;
+        }
+        
+        table tr 
+        {
+            width: 200px;
+            height: 60px;
+        }
+     
+     </style>
+
 </head>
 <body>
     <form id="form1" runat="server" class="cmxform">
@@ -30,85 +45,81 @@
             <div id="puesto_cuadro" class = "cont_detalles_cargo">
             <table border="0" cellpadding="1" cellspacing="1">
                 <tr style="border-right-style: none">
-                    <td width="20%"   id="td-border" style="border-top-style: solid; border-left-style: solid;border-width: 1px;" >        
+<%--                    <td width="20%"   id="td-border" style="border-top-style: solid; border-left-style: solid;border-width: 1px;" >        
                         <label class ="titulo_cargo">N° Central de Oferta de empleo:</label>   
-                        </td>
-                        <td style="border-top-style: solid; border-right-style: solid;border-width: 1px;">
-                            <label id="puesto_numero" class = "detalle_cargo"></label>
-                        </td>  
+                    </td>
+                    <td style="border-top-style: solid; border-right-style: solid;border-width: 1px;">
+                        <b id="puesto_numero" class = "detalle_cargo"></b>
+                    </td> --%> 
                     
                     <td width="18%" style="border-top-style: solid; border-left-style: solid;border-width: 1px;">
                         <label class="titulo_cargo">Entidad Convocante:</label>   
-                         </td>     
-                        <td style="border-top-style: solid; border-right-style: solid;border-width: 1px;">
-                            <label id="puesto_convocante" class = "detalle_cargo"></label>
-                      
+                    </td>     
+                    <td style="border-top-style: solid; border-right-style: solid;border-width: 1px;">
+                        <b id="puesto_convocante" class = "detalle_cargo"></b>
+                    </td>
+                     <td style="border-top-style: solid; border-left-style: solid;border-width: 1px;">
+                        <label class="titulo_cargo">Secretar&iacute;a/SubSecretar&iacute;a:</label> 
+                    </td>
+                    <td style="border-top-style: solid; border-right-style: solid;border-width: 1px;">    
+                        <b id="puesto_secretaria" class="detalle_cargo"> </b>
                     </td>
                 </tr>
                 <tr style="border-right-style: none">
                   <td style="border-top-style: solid; border-left-style: solid;border-width: 1px;">
                         <label class = "titulo_cargo"> Denominaci&oacute;n <br /> del puesto: </label>   
-                            </td>   
-                        <td style="border-top-style: solid; border-right-style: solid;border-width: 1px;">
-                            <label id="puesto_denominacion" class="detalle_cargo"></label>
-                        </td>
-                        <td style="border-top-style: solid; border-left-style: solid;border-width: 1px;">
-                            <label class="titulo_cargo">Secretar&iacute;a/SubSecretar&iacute;a:</label> 
-                             </td>
-                             <td style="border-top-style: solid; border-right-style: solid;border-width: 1px;">    
-                            <label id="puesto_secretaria" class="detalle_cargo"> </label>
-                              </td>
+                    </td>   
+                <td style="border-top-style: solid; border-right-style: solid;border-width: 1px;">
+                    <b id="puesto_denominacion" class="detalle_cargo"></b>
+                </td>
+                  <td style="border-top-style: solid; border-left-style: solid;border-width: 1px;">
+                    <label class ="titulo_cargo">Agrupamiento:</label> 
+                    </td>
+                    <td style="border-top-style: solid; border-right-style: solid;border-width: 1px;">
+                        <b id="puesto_agrupamiento" class="detalle_cargo"></b>
+                    </td>      
                          
-                 
                 </tr>
                 <tr style="border-right-style: none">
-                    <td style="border-top-style: solid; border-left-style: solid;border-width: 1px;">
-                        <label class ="titulo_cargo">Agrupamiento:</label> 
-                        </td>
-                        <td style="border-top-style: solid; border-right-style: solid;border-width: 1px;">
-                            <label id="puesto_agrupamiento" class="detalle_cargo"></label>
-                        </td>
-                    
                     <td style="border-top-style: solid; border-left-style: solid;border-width: 1px;">                      
                         <label class="titulo_cargo">Direcci&oacute;n Nacional/General o Equivalente:</label>  
                         </td>
                         <td style="border-top-style: solid; border-right-style: solid;border-width: 1px;">
-                            <label id="puesto_cargo" class="detalle_cargo"></label>   
-                       
+                            <b id="puesto_cargo" class="detalle_cargo"></b>   
                     </td>
-                </tr>
-                <tr  style="border-right-style: none">
                     <td style="border-top-style: solid; border-left-style: solid;border-width: 1px;">
                         <label class="titulo_cargo">Tipo de convocatoria:</label> 
                         </td>
                         <td style="border-top-style: solid; border-right-style: solid;border-width: 1px;">
-                            <label id="puesto_convocatoria" class="detalle_cargo"></label>
+                            <b id="puesto_convocatoria" class="detalle_cargo"></b>
                         </td>
-                   
-                    <td style="border-top-style: solid; border-left-style: solid;border-width: 1px;border-width: 1px;">
+
+                </tr>
+                <tr  style="border-top-style: solid; border-left-style: solid;border-width: 1px;">
+                    <td style="border-top-style: solid; border-left-style: solid;border-bottom-style: solid;border-width: 1px;">
                         <label class = "titulo_cargo">Unidad Destino:</label>   
                          </td> 
-                        <td style="border-top-style: solid; border-right-style: solid;border-width: 1px;border-width: 1px;">  
-                            <label id="puesto_destino" class="detalle_cargo"></label>       
+                        <td style="border-top-style: solid; border-right-style: solid;border-bottom-style: solid;border-width: 1px;">  
+                            <b id="puesto_destino" class="detalle_cargo"></b>       
                         </td>
-                  
-                </tr>
-                <tr style="border-right-style: none">
-                    <td style="border-top-style: solid; border-left-style: solid;border-bottom-style: solid;border-width: 1px;">  
+                         <td style="border-top-style: solid; border-left-style: solid;border-bottom-style: solid;border-width: 1px;">  
                         <label class = "titulo_cargo">Nivel escalafonario:</label>  
                         </td>
                         <td style="border-top-style: solid; border-right-style: solid;border-bottom-style: solid;border-width: 1px;">
-                            <label id="puesto_nivel" class="detalle_cargo"></label>
+                            <b id="puesto_nivel" class="detalle_cargo"></b>
                         </td>
+                  
+                </tr>
+               <%-- <tr style="border-right-style: none">
 
                          <td style="border-top-style: solid; border-left-style: solid;border-bottom-style: solid;border-width: 1px;">  
                         <label class = "titulo_cargo"></label>  
                         </td>
                         <td style="border-top-style: solid; border-right-style: solid;border-bottom-style: solid;border-width: 1px;">
-                            <label id="Label1" class="detalle_cargo"></label>
+                            <b id="Label1" class="detalle_cargo"></b>
                         </td>
 
-              </tr>
+              </tr>--%>
             </table>
             </div>
 
@@ -129,11 +140,17 @@
             -->
             <br />
             <div>
-                <p class="subtitulo_incripcion" >Documentaci&oacute;n a presentar: Verifique que la misma est&eacute; completa, podr&aacute; imprimirla una vez confirmada la postulaci&oacute;n:</p>
+                <p class="subtitulo_incripcion">Ingresar el/los números de "INFORMES GRÁFICOS" generados en el sistema GDE</p>
+                <div id="cajaDeInformesGraficos">
+                    <p><b>N° de INFORME GRÁFICO DEL SISTEMA GDE: </b><input class="informesGraficos" type="text" id="informeGrafico_00" /></p>
+                </div>
+                <input type=button class="btn btn-primary" onclick="agregarInforme()" value="Agregar otro INFORME" />
+                
+                <%--<p class="subtitulo_incripcion" >Documentaci&oacute;n a presentar: Verifique que la misma est&eacute; completa, podr&aacute; imprimirla una vez confirmada la postulaci&oacute;n:</p>--%>
             </div>
             <hr />
             <div id="cont_aclaraciones">
-                <p class="aclaraciones">
+               <%-- <p class="aclaraciones">
                         1) "Formulario de Solicitud y Ficha de Inscripci&oacute;n"-ANEXO I- debidamente completado, los datos all&iacute; volcados presentan car&aacute;cter de declaraci&oacute;n jurada. El formulario debe ser firmado en todas sus hojas. <a href="../Imagenes/AnexoI.pdf" target="_blank" class="vista_preliminar">[vista preliminar]</a><br/>
                         2) Se deber&aacute; adjuntar un curr&iacute;culum vitae actualizado, firmado en todas sus hojas. <br/>
                         3) "Constancia de Recepción y Aceptación del Reglamento y Bases del Concurso". Declaración Jurada que obra como ANEXO II - <a href="../Imagenes/AnexoII.pdf" target="_blank" class="vista_preliminar">[vista preliminar]</a><br/>
@@ -142,7 +159,9 @@
                         6) DOS (2) fotografías recientes tipo carné, tamaño 4x4 cm. <br/>
                         7) Fotocopia de las DOS (2) primeras hojas del DNI y de la hoja donde figure el domicilio actualizado. <br/>
                 </p>
-                <br />
+                <br />--%>
+
+
                 <p class="subtitulo_incripcion" >Declaro bajo juramento que:</p>
                 <p class="aclaraciones">
                     a) los datos consignados en la presente Solicitud y Ficha de Inscripción son completos, verdaderos y atinentes al perfil del puesto de trabajo o función a concursar; <br /> <br />
@@ -173,6 +192,7 @@
 
   <script type="text/javascript">
       Backend.start();
+      var nextinput = 0;
 
       $(document).ready(function () {
           var perfil =JSON.parse($('#perfil').val());
@@ -183,7 +203,7 @@
           $("#paso_3").attr('class', 'link_activado');
 
           $("#siguiente").attr('style', 'display: none;');
-
+          
 
       });
 
@@ -192,7 +212,14 @@
       }
 
       function Siguiente() {
-         
+
+      }
+
+      
+      function agregarInforme() {
+          nextinput++;
+          campo = '<p><b>N° de INFORME GRÁFICO DEL SISTEMA GDE: </b><input class="informesGraficos" type="text" id="informeGrafico_0' + nextinput + '" /></p>';
+          $("#cajaDeInformesGraficos").append(campo);
       }
 
 

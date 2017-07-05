@@ -30,11 +30,12 @@
                     <p style="font-size:smaller;">(respete may&uacute;sculas y min&uacute;sculas del c&oacute;digo)</p>
                 </div>
                 <div style="display:inline-block; margin-left:10px; max-width: 35%; vertical-align:middle;">
-                    <div>Empleado:&nbsp;<span id="span_empleado"></span>. DNI: <span id="span_dni_postulante"></span></div>
-                    <div>Código:&nbsp;<span id="span_codigo"></span></div>
-                    <div>Fecha de Postulación:&nbsp;<span id="span_fecha"></span></div>
-                    <div>Perfil:&nbsp;<span id="span_perfil"></span></div>
-                    <div>Estado:&nbsp;<span id="span_etapa"></span></div>
+                    <div><b>Empleado:&nbsp;</b><span id="span_empleado"></span><span id="span_dni_postulante"></span></div>
+                    <div><b>Código:&nbsp;</b><span id="span_codigo"></span></div>
+                    <div><b>Números de Informes GDE:&nbsp;</b><span id="span_gde"></span></div>
+                    <div><b>Fecha de Postulación:&nbsp;</b><span id="span_fecha"></span></div>
+                    <div><b>Perfil:&nbsp;</b><span id="span_perfil"></span></div>
+                    <div><b>Estado:&nbsp;</b><span id="span_etapa"></span></div>
                 </div>
             </div>
        
@@ -104,9 +105,7 @@
 
     function ImprimirAnexo3Modificado() {
 
-        alertify.confirm("",
-            "¿Está seguro que desea imprimir el anexo de documentación?", 
-            function () {
+        alertify.confirm("","¿Está seguro que desea imprimir el anexo de documentación?", function () {
                 /*localStorage.setItem("empleado", $("#span_empleado").text());
                 localStorage.setItem("dni", $("#span_dni_postulante").text());
                 localStorage.setItem("idPostulante", $("#idPostulante").val());
@@ -114,7 +113,7 @@
                 window.showModalDialog("PanelDetalleDeFoliosAnexo.htm", "", "dialogHeight: " + 150 + "px;");*/
           //      window.location.href = 'AnexoIIICantHojas.aspx';
 
-            }, function {
+            }, function() {
 
             }
         );
@@ -124,9 +123,7 @@
 
 
     function ImprimirCaratula() {
-        alertify.confirm("",
-            "¿Está seguro que desea imprimir la carátula?", 
-            function () {              
+        alertify.confirm("", "¿Está seguro que desea imprimir la carátula?", function () {              
                 localStorage.setItem("empleado", $("#span_empleado").text());
                 localStorage.setItem("perfil", $("#span_perfil").text());
                 localStorage.setItem("codigo_postu", $("#span_codigo").text());

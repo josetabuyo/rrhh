@@ -22,21 +22,21 @@
        <uc3:BarraMenuConcursar ID="BarraMenuConcursar1" runat="server" />
 
         <div class="fondo_form" style="padding: 10px;">
-            <div id = "cont_titulo">
+            <%--<div id = "cont_titulo">
                 <p>Para completar su pre-inscripción debe imprimir los Anexos I, II y III </p>
-            </div>
+            </div>--%>
             <hr />
             <div id="puesto_cuadro" class = "cont_detalles_cargo">
             <table>
                 <tr>
                     <td>        
-                        <label class ="titulo_cargo">N° Central de Oferta de empleo:</label>   
+                        <label style="font-weight: 100;" class ="titulo_cargo">N° Central de Oferta de empleo:</label>   
                         <td>
                             <label id="puesto_numero" class = "detalle_cargo"></label>
                         </td>  
                     </td>
                     <td>
-                        <label class="titulo_cargo">Entidad Convocante:</label>        
+                        <label style="font-weight: 100; padding-left: 10px;" class="titulo_cargo">Entidad Convocante:</label>        
                         <td>
                             <label id="puesto_convocante" class = "detalle_cargo"></label>
                         </td>
@@ -44,25 +44,25 @@
                 </tr>
                 <tr>
                   <td>
-                        <label class = "titulo_cargo">Denominaci&oacute;n del puesto:</label>          
+                        <label style="font-weight: 100;" class = "titulo_cargo">Denominaci&oacute;n del puesto:</label>          
                         <td>
                             <label id="puesto_denominacion" class="detalle_cargo"></label>
                         </td>
                         <td>
-                            <label class="titulo_cargo">Secretar&iacute;a/SubSecretar&iacute;a:</label>     
-                            <label id="puesto_secretaria" class="detalle_cargo"> </label>
+                            <label style="font-weight: 100; display: inline; padding-left: 10px;" class="titulo_cargo">Secretar&iacute;a/SubSecretar&iacute;a:</label>     
+                            <label style="display: inline;" id="puesto_secretaria" class="detalle_cargo"> </label>
                          </td>
                   </td>
                 </tr>
                 <tr>
                     <td>
-                        <label class ="titulo_cargo">Agrupamiento:</label> 
+                        <label style="font-weight: 100;" class ="titulo_cargo">Agrupamiento:</label> 
                         <td>
                             <label id="puesto_agrupamiento" class="detalle_cargo"></label>
                         </td>
                     </td>
                     <td>                      
-                        <label class="titulo_cargo">Direcci&oacute;n Nacional/General o Equivalente:</label>  
+                        <label style="font-weight: 100; padding-left: 10px;" class="titulo_cargo">Direcci&oacute;n Nacional/General o Equivalente:</label>  
                         <td>
                             <label id="puesto_cargo" class="detalle_cargo"></label>   
                         </td>
@@ -70,13 +70,13 @@
                 </tr>
                 <tr>
                     <td>
-                        <label class="titulo_cargo">Tipo de convocatoria:</label> 
+                        <label style="font-weight: 100;" class="titulo_cargo">Tipo de convocatoria:</label> 
                         <td>
                             <label id="puesto_convocatoria" class="detalle_cargo"></label>
                         </td>
                     </td>
                     <td>
-                        <label class = "titulo_cargo">Unidad Destino:</label>    
+                        <label style="font-weight: 100; padding-left: 10px;" class = "titulo_cargo">Unidad Destino:</label>    
                         <td>  
                             <label id="puesto_destino" class="detalle_cargo"></label>       
                         </td>
@@ -84,7 +84,7 @@
                 </tr>
                 <tr>
                     <td>  
-                        <label class = "titulo_cargo">Nivel escalafonario:</label>  
+                        <label style="font-weight: 100;" class = "titulo_cargo">Nivel escalafonario:</label>  
                         <td>
                             <label id="puesto_nivel" class="detalle_cargo"></label>
                         </td>
@@ -92,12 +92,16 @@
               </tr>
             </table>
             </div>
-            <div id = "cont_titulo_completar_informacion">
-                <p>Documentación a presentar</p>
-            </div>
+           
             <hr />
+             <div id = "cont_titulo_completar_informacion">
+                <p><b>Documentación a presentar</b></p>
+            </div>
             <div id="cont_aclaraciones">
-                <p class="aclaraciones">
+            <p class="aclaraciones">Una vez completada la postulación, tenés que acercarte con TODA la documentación ORIGINAL de respaldo al edificio de la calle Alsina 1886 de esta Ciudad Autónoma de Buenos Aires de 10.00hs. a 16.00hs. en los días que se establezcan para la Inscripción Documental, oportunidad en la que los agentes de registro certificarán su validez con respecto a los originales presentados.</p>
+             
+             
+              <%--  <p class="aclaraciones">
                         1) "Formulario de Solicitud y Ficha de Inscripci&oacute;n"-ANEXO I- debidamente completado, los datos all&iacute; 
                         volcados presentan car&aacute;cter de declaraci&oacute;n jurada. El formulario debe ser firmado en todas sus 
                         hojas. <input style="width: 60px; display:block; float:right;" id="anexo_1" class="btn btn-primary" value="Anexo I" /><br/><br/>
@@ -107,7 +111,7 @@
                         4) "Constancia de Recepción de la Solicitud, Ficha de Inscripción y de la Documentación presentada.", que obra como 
                         ANEXO III<input style="width: 60px; display:block; float:right;" id="anexo_3" class="btn btn-primary" value="Anexo III" /> <br/>
                        
-                </p>
+                </p>--%>
                 <br />
                 <input type="button" class="btn" id="home" value="Volver a Inicio" />
             </div>

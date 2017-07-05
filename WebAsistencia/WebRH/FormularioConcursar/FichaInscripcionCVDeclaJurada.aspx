@@ -24,16 +24,20 @@
 <div class="principal">
 <p class="p-imprimir">
     <button class="btn btn-primary" onclick="ImprimirCVPostulado()">Imprimir Curriculum</button>
-    <input style="width: 50px;" class="anexo_1 btn btn-primary" value="Anexo 1" />
+   <%-- <input style="width: 50px;" class="anexo_1 btn btn-primary" value="Anexo 1" />
     <input style="width: 50px;" class="anexo_2 btn btn-primary"  value="Anexo 2" />
     <input style="width: 50px;" class="anexo_3 btn btn-primary" value="Anexo 3" />
-</p>
+</p>--%>
 <div id="imprimir">
 <p class="encabezado">FICHA DE INSCRIPCIÓN<br />PRESENTACIÓN CURRICULUM VITAE<br>DECLARACIÓN JURADA</p>
 
 
 
-<p class="general oferta-empleo"><span class="atributos">Postulación Nº: </span><span id="num_postulacion"></span></p>
+<p class="general oferta-empleo">
+    <span class="atributos">Postulación Nº: </span><span id="num_postulacion"></span>
+    <br />
+    <span class="atributos">Informes de GDE: </span><span id="num_informes"></span>
+    </p>
 
 <div class="tabla sombra_y_redondeado">
     <table class="tabla-inscripcion">
