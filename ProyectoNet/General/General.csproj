@@ -60,6 +60,9 @@
     <Reference Include="DocumentFormat.OpenXml">
       <HintPath>..\..\SharedLibs\DocumentFormat.OpenXml.dll</HintPath>
     </Reference>
+    <Reference Include="itextsharp">
+      <HintPath>..\..\SharedLibs\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\SharedLibs\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -117,6 +120,9 @@
     <Compile Include="MED\PeriodoEvaluacion.cs" />
     <Compile Include="Organigrama\GraficoContratos.cs" />
     <Compile Include="Organigrama\PersonaContrato.cs" />
+    <Compile Include="pdfs\CreadorDePdfs.cs" />
+    <Compile Include="pdfs\EvaluacionDeDesempenioToPdfConverter.cs" />
+    <Compile Include="pdfs\ModeloToPdfConverter.cs" />
     <Compile Include="Portal\Consulta.cs" />
     <Compile Include="Portal\Destinatario.cs" />
     <Compile Include="Portal\Notificacion.cs" />
