@@ -14,9 +14,10 @@
         columnas.push(new Columna("Agrupamiento", { generar: function (un_perfil) { return un_perfil.Agrupamiento } }));
         columnas.push(new Columna("Vacantes", { generar: function (un_perfil) { return un_perfil.Vacantes } }));
         columnas.push(new Columna("Convocatoria", { generar: function (un_perfil) { return un_perfil.Tipo } }));
-        columnas.push(new Columna('Bases del Puesto', { generar: function (un_perfil) {
+        columnas.push(new Columna('Bases del Puesto', { generar: function (un_perfil) { return "Próximamente"
+            /*DESCOMENTAR CUANDO ESTEN LAS BASES POSTA
             var linkPDF = $('<a>');
-            linkPDF.attr('href', 'http://www.plataformapersonas.com.ar/bases022015/Conv02_2015_Perfil_' + un_perfil.Numero + '.pdf');
+            linkPDF.attr('href', 'bases/Conv03_2017_Perfil_' + un_perfil.Numero + '.pdf');
             linkPDF.attr('target', '_blank');
             var img = $('<img>');
             img.attr('src', '../Imagenes/archivo.png');
@@ -24,7 +25,7 @@
             img.attr('height', '35px');
             linkPDF.append(img);
 
-            return linkPDF;
+            return linkPDF;*/
         }
         }));
         columnas.push(new Columna("Comité&nbsp;", { generar: function (un_perfil) {
@@ -105,7 +106,7 @@
 
                 } else if (hoy < un_perfil.FechaDesde) {
                     linkPostularse = $('<div>');
-                    linkPostularse.text("Aun no se abrieron las inscripciones");
+                    linkPostularse.text("Aún no se abrieron las inscripciones");
                     //alert("Aun no se abrieron las inscripciones");
                 } else if (hoy > un_perfil.FechaHasta) {
                     linkPostularse = $('<div>');

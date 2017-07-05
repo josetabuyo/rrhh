@@ -18,8 +18,11 @@
     	<div class="contenedor_concursar" >
             <uc3:BarraMenuConcursar ID="BarraMenuConcursar1" runat="server" />
             <h2>COMITE TITULAR</h2>
+            <br />
             <div id="comite_titular"></div>
+             <br />
             <h2>COMITE SUPLENTE</h2>
+             <br />
             <div id="comite_suplente"></div>
 
         </div>

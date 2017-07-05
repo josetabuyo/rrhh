@@ -10,7 +10,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WSViaticos", "WSViaticos\",
 		SccLocalPath = ""
 		SccProvider = ""
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
-		ProjectReferences = "{D6802AD2-A6E1-4612-8F01-811E926A1D2E}|General.dll;{9945400E-322D-4151-9ADD-3A7477559E21}|PdfPrinter.Core.dll;"
+		ProjectReferences = "{D6802AD2-A6E1-4612-8F01-811E926A1D2E}|General.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/WSViaticos"
 		Debug.AspNetCompiler.PhysicalPath = "WSViaticos\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\WSViaticos\"
@@ -67,8 +67,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebRhUI", "WebRhUI\WebRhUI.csproj", "{F7B7D1D3-A6AE-4C4E-AC5E-D62BEDE90643}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PdfPrinter.Core", "..\PdfPrinterCore\PdfPrinter.Core.csproj", "{9945400E-322D-4151-9ADD-3A7477559E21}"
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
@@ -145,18 +143,6 @@ Global
 		{F7B7D1D3-A6AE-4C4E-AC5E-D62BEDE90643}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{F7B7D1D3-A6AE-4C4E-AC5E-D62BEDE90643}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{F7B7D1D3-A6AE-4C4E-AC5E-D62BEDE90643}.Release|x86.ActiveCfg = Release|Any CPU
-		{9945400E-322D-4151-9ADD-3A7477559E21}.Debug|.NET.ActiveCfg = Debug|Any CPU
-		{9945400E-322D-4151-9ADD-3A7477559E21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9945400E-322D-4151-9ADD-3A7477559E21}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9945400E-322D-4151-9ADD-3A7477559E21}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{9945400E-322D-4151-9ADD-3A7477559E21}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{9945400E-322D-4151-9ADD-3A7477559E21}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{9945400E-322D-4151-9ADD-3A7477559E21}.Release|.NET.ActiveCfg = Release|Any CPU
-		{9945400E-322D-4151-9ADD-3A7477559E21}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9945400E-322D-4151-9ADD-3A7477559E21}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9945400E-322D-4151-9ADD-3A7477559E21}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{9945400E-322D-4151-9ADD-3A7477559E21}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{9945400E-322D-4151-9ADD-3A7477559E21}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

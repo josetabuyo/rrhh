@@ -23,7 +23,7 @@
     
     <div class="panel panel-heading">
         <div class="panel_izquierdo" style="height:auto; width:50%" >
-           
+           <a href="PresentaciónMóduloPostular.pdf" target="_blank" ><span>Instructivo de carga</span></a>                 
             <!--<div class="panel panel-default">
                 <div class=" estilo_paneles  ">
                 
@@ -62,7 +62,6 @@
         <div style="float:right; " class="panel_derecho">
            <%-- <a href="#" ><span><img alt="imprimir" width="22px" height="22px" src="../Imagenes/Botones/impresora.png" />&nbsp;Imprimir CV</span></a>    --%>
             <a href="VistaPreliminar.aspx" target="_blank" ><span><img alt="descargar" width="22px" height="22px" src="../Imagenes/Botones/guardar.png" />&nbsp;Descargar CV</span></a>                 
-           
           <!--  <div class="panel panel-default">-->
               <div style="height: 435px;"   ">
                <h3 class="panel-title" >Mis Postulaciones</h3>
