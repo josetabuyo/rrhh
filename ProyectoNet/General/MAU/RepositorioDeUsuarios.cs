@@ -416,6 +416,14 @@ namespace General.MAU
             parametros.Add("@razon_rechazo", razon_de_rechazo);
             var tablaDatos = conexion.Ejecutar("dbo.MAU_RechazarCambioDeImagen", parametros);
 
+            var repo_alertas = new RepositorioDeAlertasPortal(this.conexion);
+            var alerta = new AlertaPortal(-1, new TipoAlertaPortal(3,"", "", -1);)
+            repo_alertas.crearAlerta(new AlertaPortal());
+
+            	INSERT INTO dbo.[MAU_Alertas](idtipo, titulo, descripcion, idUsuarioDestinatario, leida, idUsuarioCreador, fechaCreacion)  
+	VALUES (3, 'Solicitud de Cambio de Imágen', 'Tu solicitud ha sido rechazada por: ' + @razon_rechazo, @id_usuario, 0, @id_usuario, getdate())   
+  
+
             return true;
         }
 

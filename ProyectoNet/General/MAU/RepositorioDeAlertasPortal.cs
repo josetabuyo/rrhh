@@ -49,6 +49,17 @@ namespace General.MAU
             parametros.Add("@id_alerta", id_alerta);
             this.conexion.EjecutarSinResultado("dbo.MAU_MarcarAlertaComoLeida", parametros);
         }
+        public int crearAlerta(int id_tipo, string titulo, string descripcion, int id_usuario_destinatario, int id_usuario_creador)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_usuario_destinatario", id_usuario_destinatario);
+            parametros.Add("@id_usuario_creador", id_usuario_creador);
+            parametros.Add("@id_tipo", id_tipo);
+            parametros.Add("@titulo", titulo);
+            parametros.Add("@descripcion", descripcion);
+
+            return Int32.Parse((this.conexion.EjecutarEscalar("dbo.MAU_CrearAlerta", parametros).ToString()));
+        }
 
         public int crearAlerta(AlertaPortal alerta, int idUsuarioDestinatario, Usuario usuario)
         {
