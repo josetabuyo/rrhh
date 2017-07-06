@@ -33,7 +33,7 @@
 
 
 
-<p class="general oferta-empleo">
+<p style="text-align: center !important; width:100%; clear:both;" class="general oferta-empleo">
     <span class="atributos">Postulación Nº: </span><span id="num_postulacion"></span>
     <br />
     <span class="atributos">Informes de GDE: </span><span id="num_informes"></span>
@@ -205,9 +205,9 @@
 <div>
 <p class="p-imprimir">
     <button class="btn btn-primary" onclick="ImprimirCVPostulado()">Imprimir Curriculum</button>
-    <input style="width: 50px;" id="anexo_1" class="anexo_1 btn btn-primary" value="Anexo 1" />
+   <%-- <input style="width: 50px;" id="anexo_1" class="anexo_1 btn btn-primary" value="Anexo 1" />
     <input style="width: 50px;" id="anexo_2" class="anexo_2 btn btn-primary"  value="Anexo 2" />
-    <input style="width: 50px;" id="anexo_3" class="anexo_3 btn btn-primary" value="Anexo 3" />
+    <input style="width: 50px;" id="anexo_3" class="anexo_3 btn btn-primary" value="Anexo 3" />--%>
 </p>
 </div>	
 

@@ -81,7 +81,7 @@
                                 objeto: JSON.stringify(postulacion)
                             },
                             success: function (respuesta) {
-                                window.location.href = "PostInscripcion.aspx?id=" + postulacion.Id + "&fh=" + postulacion.FechaPostulacion;
+                                window.location.href = "PostInscripcion.aspx?id=" + postulacion.Id + "&fh=" + postulacion.FechaPostulacion + "&num=" + postulacion.Numero + "&gde=" + textoConcatenado;
                             },
                             error: function (XMLHttpRequest, textStatus, errorThrown) {
                                 alertify.alert("", "Error");
