@@ -49,6 +49,7 @@ namespace General.MAU
             parametros.Add("@id_alerta", id_alerta);
             this.conexion.EjecutarSinResultado("dbo.MAU_MarcarAlertaComoLeida", parametros);
         }
+
         public int crearAlerta(int id_tipo, string titulo, string descripcion, int id_usuario_destinatario, int id_usuario_creador)
         {
             var parametros = new Dictionary<string, object>();
