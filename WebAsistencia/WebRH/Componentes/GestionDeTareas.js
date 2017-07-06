@@ -69,12 +69,11 @@
         vex.defaultOptions.className = 'vex-theme-os';
         vex.open({
             afterOpen: function ($vexContent) {
-                //var ui = $("#pantalla_detalle_alerta");
-                $vexContent.load(window.location.origin + '/' + tarea.tipoTicket.urlComponente);
-                // ui.show();
-                Componente.start(tarea.id);
+                $vexContent.load(window.location.origin + '/' + tarea.tipoTicket.urlComponente, function () {
+                    Componente.start(tarea.id, $vexContent);
+                });
 
-                return $vexContent; //ui;
+                return $vexContent;
             },
             css: {
                 'padding-top': "4%",

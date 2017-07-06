@@ -108,12 +108,6 @@ namespace AdministracionDeUsuarios
             throw new NotImplementedException();
         }
 
-
-        public bool AceptarCambioDeImagen(int id_usuario)
-        {
-            throw new NotImplementedException();
-        }
-
         public bool RechazarCambioDeImagen(int id_usuario)
         {
             throw new NotImplementedException();
@@ -129,20 +123,23 @@ namespace AdministracionDeUsuarios
             throw new NotImplementedException();
         }
 
-
-        public bool RechazarCambioDeImagen(int id_usuario, string razon_rechazo)
-        {
-            throw new NotImplementedException();
-        }
-
-
-        public bool AceptarCambioImagenConImagenRecortada(int id_usuario, int id_imagen_recortada)
-        {
-            throw new NotImplementedException();
-        }
-
-
         public SolicitudDeCambioDeImagen GetCambioImagenPorIdTicket(int id_ticket)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public bool AceptarCambioDeImagen(int id_usuario_solicitante, int id_administrador)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool RechazarCambioDeImagen(string razon_de_rechazo, int id_usuario_solicitante, int id_administrador)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool AceptarCambioImagenConImagenRecortada(int id_imagen_recortada, int id_usuario_solicitante, int id_administrador)
         {
             throw new NotImplementedException();
         }

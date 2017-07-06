@@ -23,12 +23,12 @@ namespace General.MAU
         bool SolicitarCambioImagen(int id_usuario, int id_imagen);
         List<SolicitudDeCambioDeImagen> GetSolicitudesDeCambioDeImagenPendientesPara(int id_usuario);
 
-        bool AceptarCambioDeImagen(int id_usuario);
+        bool AceptarCambioDeImagen(int id_usuario_solicitante, int id_administrador);
 
-        bool RechazarCambioDeImagen(int id_usuario, string razon_rechazo);
+        bool RechazarCambioDeImagen(string razon_de_rechazo, int id_usuario_solicitante, int id_administrador);
 
         List<SolicitudDeCambioDeImagen> GetSolicitudesDeCambioDeImagenPendientes();
         SolicitudDeCambioDeImagen GetCambioImagenPorIdTicket(int id_ticket);
-        bool AceptarCambioImagenConImagenRecortada(int id_usuario, int id_imagen_recortada);
+        bool AceptarCambioImagenConImagenRecortada(int id_imagen_recortada, int id_usuario_solicitante, int id_administrador);
     }
 }

@@ -2660,21 +2660,21 @@ public class WSViaticos : System.Web.Services.WebService
     public bool AceptarCambioDeImagen(int id_usuario, Usuario usuario)
     {
         if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 50)) throw (new Exception("El usuario no tiene permisos para administrar cambios de imagen"));
-        return RepositorioDeUsuarios().AceptarCambioDeImagen(id_usuario);
+        return RepositorioDeUsuarios().AceptarCambioDeImagen(id_usuario, usuario.Id);
     }
 
     [WebMethod]
     public bool AceptarCambioImagenConImagenRecortada(int id_usuario, int id_imagen_recortada, Usuario usuario)
     {
         if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 50)) throw (new Exception("El usuario no tiene permisos para administrar cambios de imagen"));
-        return RepositorioDeUsuarios().AceptarCambioImagenConImagenRecortada(id_usuario, id_imagen_recortada);
+        return RepositorioDeUsuarios().AceptarCambioImagenConImagenRecortada(id_imagen_recortada, id_usuario, usuario.Id);
     }
 
     [WebMethod]
     public bool RechazarCambioDeImagen(int id_usuario, string razon_de_rechazo, Usuario usuario)
     {
         if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 50)) throw (new Exception("El usuario no tiene permisos para administrar cambios de imagen"));
-        return RepositorioDeUsuarios().RechazarCambioDeImagen(id_usuario, razon_de_rechazo);
+        return RepositorioDeUsuarios().RechazarCambioDeImagen(razon_de_rechazo, id_usuario, usuario.Id);
     }
 
     [WebMethod]

@@ -43,17 +43,20 @@
 </div>
 
 <script type="text/javascript">
-    var idAlerta = localStorage.getItem("idTarea");
-    var documento = localStorage.getItem("documento");
-    var idUsuarioCreador = localStorage.getItem("idUsuarioCreador");
+    var Componente = {
+        start: function (idTicket, ui) {
+
+            //    var idTicket = localStorage.getItem("idTarea");
+            //    var documento = localStorage.getItem("documento");
+            //    var idUsuarioCreador = localStorage.getItem("idUsuarioCreador");
 
 
-    $('#btnConfirmarDomicilio').click(function () {
-        if ($('#folio').val() == 0) {
-            alert('Debe ingresar un N° Folio');
-            return;
-        }
-        Backend.VerificarDomicilioPendiente(idAlerta, documento, folio, idUsuarioCreador)
+            $('#btnConfirmarDomicilio').click(function () {
+                if ($('#folio').val() == 0) {
+                    alert('Debe ingresar un N° Folio');
+                    return;
+                }
+                Backend.VerificarDomicilioPendiente(idTicket, documento, folio, idUsuarioCreador)
         .onSuccess(function (resultado) {
             alertify.success(resultado);
             vex.close();
@@ -61,17 +64,17 @@
         }).onError(function () {
             alertify.error("Ha ocurrido un error. Por favor comuniquese con RRHH")
         });
-    });
+            });
 
-    $('#btnCancelarDomicilio').click(function () {
-        vex.close();
-    });
+            $('#btnCancelarDomicilio').click(function () {
+                vex.close();
+            });
 
-    $('#btnDelegarDomicilio').click(function () {
-        alert('Ha desarrollar');
-    });
+            $('#btnDelegarDomicilio').click(function () {
+                alert('Ha desarrollar');
+            });
 
-    Backend.GetDomicilioPendientePorAlerta(idAlerta)
+            Backend.GetDomicilioPendientePorAlerta(idTicket)
         .onSuccess(function (domicilioJSON) {
 
             $('#nombreUsuario').html(localStorage.getItem("apellido") + ', ' + localStorage.getItem("nombre"));
@@ -94,6 +97,7 @@
 
 
         });
-   
+        }
+    };
 
 </script>

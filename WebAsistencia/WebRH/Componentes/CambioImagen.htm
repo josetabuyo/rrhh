@@ -98,15 +98,9 @@
 
 <script type="text/javascript">
     var Componente = {
-        start: function (idTicket, idUsuarioCreador) {
-//            var idTicket = localStorage.getItem("idTarea");
-//            var documento = localStorage.getItem("documento");
-//            var idUsuarioCreador = localStorage.getItem("idUsuarioCreador");
-
+        start: function (idTicket, ui) {
             Backend.GetCambioImagenPorIdTicket(idTicket)
                 .onSuccess(function (solicitud) {
-                    var ui = $("#pantalla_actualizacion_imagen");
-
                     ui.find("#btn_aceptar_cambio_imagen")
                         .off("click")
                         .click(function () {
