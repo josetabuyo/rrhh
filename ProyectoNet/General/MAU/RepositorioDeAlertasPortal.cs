@@ -51,7 +51,7 @@ namespace General.MAU
         }
 
         public int crearAlerta(int id_tipo, string titulo, string descripcion, int id_usuario_destinatario, int id_usuario_creador)
-        {
+        {   
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_usuario_destinatario", id_usuario_destinatario);
             parametros.Add("@id_usuario_creador", id_usuario_creador);
@@ -60,26 +60,12 @@ namespace General.MAU
             parametros.Add("@descripcion", descripcion);
 
             return Int32.Parse((this.conexion.EjecutarEscalar("dbo.MAU_CrearAlerta", parametros).ToString()));
+
         }
 
         public int crearAlerta(AlertaPortal alerta, int idUsuarioDestinatario, Usuario usuario)
         {
-            try
-            {
-                var parametros = new Dictionary<string, object>();
-                parametros.Add("@id_usuario_destinatario", idUsuarioDestinatario);
-                parametros.Add("@id_usuario_creador", usuario.Id);
-                parametros.Add("@id_tipo", alerta.tipoAlerta.id);
-                parametros.Add("@titulo", alerta.titulo);
-                parametros.Add("@descripcion", alerta.descripcion);
-
-                return Int32.Parse((this.conexion.EjecutarEscalar("dbo.MAU_CrearAlerta", parametros).ToString()));
-            }
-            catch (Exception e)
-            {
-                throw new Exception(e.Message);
-            }
-
+            return this.crearAlerta(alerta.tipoAlerta.id, alerta.titulo, alerta.descripcion, idUsuarioDestinatario, usuario.Id);
         }
     }
 }
