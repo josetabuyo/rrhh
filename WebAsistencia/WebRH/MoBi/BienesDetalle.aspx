@@ -141,7 +141,7 @@
 
     
     <%-- --------------- BUSCADOR DE PERSONA Y AREA SACADO DE DDJJ 104 ---------------- --%>
-        <div runat="server" id="Controles_Persona_Area" style="margin-top:5px; display:none">
+        <div runat="server" id="Controles_Persona_Area" style="margin-top:20px; display:none">
             <div id="divBuscadorArea">
                 <uc3:BuscadorDeAreas ID="buscador1" runat="server"  style="display: inline-block; margin:auto;" />
             </div>
@@ -160,8 +160,8 @@
 
 
     <%-- ---------------GRILLA DE MOVIMIENTOS------------------------------------------ --%>
-     <div id="ContenedorGrilla" runat="server" style="width: 100%" align="center">
-        <div id="ContenedorPersona" runat="server" style="width: 90%"></div>
+     <div id="ContenedorGrilla" runat="server" style="margin-top:20px; width: 100%" align="center">
+        <div id="ContenedorMovimientos" runat="server" style=" width: 90%"></div>
     </div>
     <%-- ------------------------------------------------------------------------------ --%>
 

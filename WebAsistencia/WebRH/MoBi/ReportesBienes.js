@@ -214,7 +214,7 @@ var GraficoContratos = {
         //$('#div_detalle_informe').show();aaaaaaaaaa
 
         if (tabla.length > 0) {
-            var titulo = "Tabla de Toda la Dotación del Área";
+            var titulo = "Tabla de todos los bienes del Área";
             if (criterio == "Total") {
                 tabla_final = tabla;
             } else {
@@ -495,6 +495,8 @@ var GraficoContratos = {
                         localStorage.setItem("idBien", un_registro.Id);
                         localStorage.setItem("idEstado", un_registro.Id_Estado);
                         localStorage.setItem("idAreaSeleccionada", id_area);
+                        localStorage.setItem("idAreaReceptora", un_registro.IdReceptor);
+                        localStorage.setItem("idAreaPropietaria", un_registro.IdPropietario);
                         
                         window.open('BienesDetalle.aspx', '_blank');
 
@@ -578,7 +580,7 @@ var GraficoContratos = {
     },
     BuscadorDeTablaDetalle: function () {
         var options = {
-            valueNames: ['Asignación', 'Descripción', 'Ultimo Mov.']
+            valueNames: ['Estado', 'Area', 'Descripción', 'Ultimo Mov.']
         };
         var featureList = new List('div_tabla_detalle', options);
     },

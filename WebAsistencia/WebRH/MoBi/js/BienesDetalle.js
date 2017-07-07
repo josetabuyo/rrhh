@@ -1,4 +1,8 @@
-﻿
+﻿var ContenedorGrilla;
+ContenedorGrilla = $("#ContenedorGrilla");
+$("#ContenedorMovimientos").empty();
+
+
 $(function () {
     Backend.start(function () {
 
@@ -8,31 +12,14 @@ $(function () {
         var id_bien = localStorage.getItem("idBien");
         var id_estado = localStorage.getItem("idEstado");
         var id_Area_Seleccionada = localStorage.getItem("idAreaSeleccionada");
-        //$("#hid").val(id_bien);
-        //$("#hidEstado").val(id_estado);
-        //$("#hidAreaSeleccionada").val(id_Area_Seleccionada);
+        var id_Area_Receptora = localStorage.getItem("idAreaReceptora");
+        var id_Area_Propietaria = localStorage.getItem("idAreaPropietaria");
 
         $('#Controles_Persona_Area').hide(); //Buscador Area y Persona
 
-        //$('#divBuscadorArea').hide(); //Buscador Area
-        //$('#divBuscadorPersona').hide(); //Buscador Persona
-        //$("#btn_Aceptar").hide();
-
-        /*
-        var documento = $('#documento').text().trim();
-        if (documento == "") {
-        documento = 0;
-        }
-
-        var idarea = $('#hfIdArea').val();
-        if (idarea == "") {
-        idarea = 0;
-        }
-        */
-
         //DATOS DEL VEHICULO
         Backend.ObtenerVehiculoPorID(id_bien).onSuccess(function (respuesta_vehiculo) {
-            console.log("hola");
+            console.log("Vehiculo");
             if (respuesta_vehiculo.Respuesta == 0) {
                 return;
             }
@@ -105,11 +92,10 @@ $(function () {
         //---------------------------------------------
 
         // ----- CARGO LOS BOTONES DE ACCIONES ------------
-        Backend.Mobi_GetAcciones(id_bien, id_estado, id_Area_Seleccionada).onSuccess(function (acciones) {
+        Backend.Mobi_GetAcciones(id_bien, id_estado, id_Area_Seleccionada, id_Area_Receptora, id_Area_Propietaria).onSuccess(function (acciones) {
             _.forEach(acciones, function (accion) {
                 GeneradorBotones(accion);
             });
-
         });
 
         var GeneradorBotones = function (accion) {
@@ -130,11 +116,14 @@ $(function () {
         var acciones = {
             //Movimientos
             0: function () {
-                //id_Tipo_Evento_Presionado = 0;
+                Consultar();
             },
 
             //Asignar
             1: function () {
+                ContenedorGrilla.html("");
+                $("#ContenedorMovimientos").empty();
+
                 id_Tipo_Evento_Presionado = 2;
                 observaciones = "Asignación del bien"
                 $('#Controles_Persona_Area').show();
@@ -142,6 +131,9 @@ $(function () {
 
             //Dar en préstamo
             2: function () {
+                ContenedorGrilla.html("");
+                $("#ContenedorMovimientos").empty();
+
                 id_Tipo_Evento_Presionado = 4;
                 observaciones = "Prestamo del bien"
                 $('#Controles_Persona_Area').show();
@@ -149,14 +141,36 @@ $(function () {
 
             //Mandar a reparar
             3: function () {
-                //id_Tipo_Evento_Presionado = 8;
-                //observaciones = "Reparación"
-                //$('#Controles_Persona_Area').show();
+                ContenedorGrilla.html("");
+                $("#ContenedorMovimientos").empty();
+
+                id_Tipo_Evento_Presionado = 8;
+                observaciones = "Reparación del bien"
+
+                Backend.Mobi_Alta_Vehiculo_Evento(id_bien, id_Tipo_Evento_Presionado, observaciones, id_Area_Seleccionada, 0).onSuccess(function () {
+                    alertify.success("Vehiculo enviado a reparación");
+                    $('#Controles_Persona_Area').hide();
+                })
+                    .onError(function () {
+                        alertify.error("Se produjo un error");
+                    });
             },
 
             //Rehabilitar
             4: function () {
-                //alert("FALTA Rehabilitar");
+                ContenedorGrilla.html("");
+                $("#ContenedorMovimientos").empty();
+
+                id_Tipo_Evento_Presionado = 2;
+                observaciones = "Rehabilitación del bien"
+
+                Backend.Mobi_Alta_Vehiculo_Evento(id_bien, id_Tipo_Evento_Presionado, observaciones, id_Area_Propietaria, 0).onSuccess(function () {
+                    alertify.success("Vehiculo rehabilitado con exito");
+                    $('#Controles_Persona_Area').hide();
+                })
+                    .onError(function () {
+                        alertify.error("Se produjo un error");
+                    });
             },
 
             //Dar de baja
@@ -166,14 +180,36 @@ $(function () {
 
             //Devolver a origen
             6: function () {
+                ContenedorGrilla.html("");
+                $("#ContenedorMovimientos").empty();
+
                 id_Tipo_Evento_Presionado = 5;
                 observaciones = "Devolución del bien"
-                //$('#Controles_Persona_Area').show();
+
+                Backend.Mobi_Alta_Vehiculo_Evento(id_bien, id_Tipo_Evento_Presionado, observaciones, id_Area_Propietaria, -1).onSuccess(function () {
+                    alertify.success("Devolución Correcta");
+                    $('#Controles_Persona_Area').hide();
+                })
+                    .onError(function () {
+                        alertify.error("Se produjo un error");
+                    });
             },
 
             //Tomar
             7: function () {
-                //alert("FALTA Tomar");
+                ContenedorGrilla.html("");
+                $("#ContenedorMovimientos").empty();
+
+                id_Tipo_Evento_Presionado = 2;
+                observaciones = "Toma del bien"
+
+                Backend.Mobi_Alta_Vehiculo_Evento(id_bien, id_Tipo_Evento_Presionado, observaciones, id_Area_Propietaria, 0).onSuccess(function () {
+                    alertify.success("Se tomó Correctamente");
+                    $('#Controles_Persona_Area').hide();
+                })
+                    .onError(function () {
+                        alertify.error("Se produjo un error");
+                    });
             }
 
         };
@@ -195,9 +231,9 @@ $(function () {
             if (documento == "") {
                 alertify.confirm("Asignación de Responsable", "¿Desea enviar el vehiculo sin una persona responsable?", function () {
                     //ACEPTO SIN RESPONSABLE
-                    Backend.Mobi_Alta_Vehiculo_Evento_Asignacion_Prestamo(id_bien, id_Tipo_Evento_Presionado, observaciones, idarea, -1).onSuccess(function () {
+                    Backend.Mobi_Alta_Vehiculo_Evento(id_bien, id_Tipo_Evento_Presionado, observaciones, idarea, -1).onSuccess(function () {
                         alertify.success("Asignación Correcta");
-                        $('#Controles_Persona_Area').show();
+                        $('#Controles_Persona_Area').hide();
                     })
                     .onError(function () {
                         alertify.error("Se produjo un error");
@@ -209,90 +245,86 @@ $(function () {
             }
             else {
                 //ACEPTO CON RESPONSABLE
-                Backend.Mobi_Alta_Vehiculo_Evento_Asignacion_Prestamo(id_bien, id_Tipo_Evento_Presionado, observaciones, idarea, documento).onSuccess(function () {
+                Backend.Mobi_Alta_Vehiculo_Evento(id_bien, id_Tipo_Evento_Presionado, observaciones, idarea, documento).onSuccess(function () {
                     alertify.success("Asignación Correcta");
-                    $('#Controles_Persona_Area').show();
+                    $('#Controles_Persona_Area').hide();
                 })
-                .onError(function(){
+                .onError(function () {
                     alertify.error("Se produjo un error");
                 });
-                
+
             }
 
 
         });
 
 
-        //------------------ MOVIMIENTOS -------------------------
-        /*
+        //---------- MOVIMIENTOS INICIO ------------------
+
         var Consultar = function () {
-        ContenedorGrilla.html("");
-        $("#ContenedorPersona").empty();
+            $('#Controles_Persona_Area').hide();
+            ContenedorGrilla.html("");
+            $("#ContenedorMovimientos").empty();
 
-        spinner = new Spinner({ scale: 2 }).spin($("body")[0]);
+            spinner = new Spinner({ scale: 2 }).spin($("body")[0]);
 
-        getConsulta(function () {
-        DibujarGrillaDDJJ();
-        spinner.stop();
-        });
+            getConsulta(function () {
+                DibujarGrillaMovEventos();
+                spinner.stop();
+            });
 
-        //$('#DivBotonExcel').show();
+            //$('#DivBotonExcel').show();
         }
 
         var getConsulta = function (callback) {
-        Backend.Mobi_GetMovimientos(id_bien)
+            Backend.Mobi_GetMovimientos(id_bien)
         .onSuccess(function (respuesta) {
-        lista_areas_del_usuario = respuesta;
-        callback();
+            lista_areas_del_usuario = respuesta;
+            callback();
         })
         .onError(function (error, as, asd) {
-        alertify.alert("", error);
+            alertify.alert("", error);
         });
         }
 
-        var DibujarGrillaDDJJ = function () {
-        var grilla;
+        var DibujarGrillaMovEventos = function () {
+            var grilla;
 
-        $("#ContenedorPersona").empty();
+            $("#ContenedorMovimientos").empty();
 
-        if (consultaSeleccionada == "PERSONA") {
-        grilla = new Grilla(
+            grilla = new Grilla(
         [
-        new Columna("Mes", { generar: function (consulta) { return consulta.mes; } }),
-        new Columna("Año", { generar: function (consulta) { return consulta.anio; } }),
-        new Columna("Area", { generar: function (consulta) { return consulta.area_generacion.Nombre; } }),
-        new Columna("Apellido", { generar: function (consulta) { return consulta.persona.Apellido; } }),
-        new Columna("Nombre", { generar: function (consulta) { return consulta.persona.Nombre; } }),
-        new Columna("Fecha Generación", { generar: function (consulta) { return consulta.fecha_generacion; } }),
-        new Columna("Usuario Generación", { generar: function (consulta) { return consulta.usuario_generacion; } }),
-        new Columna("Fecha Recibido", { generar: function (consulta) { return consulta.fecha_recibido; } }),
-        new Columna("Usuario Recibido", { generar: function (consulta) { return consulta.usuario_recibido; } }),
-        new Columna("Firmante", { generar: function (consulta) { return consulta.firmante; } }),
-        new Columna("Categoria", { generar: function (consulta) { return consulta.persona.Categoria; } }),
-        new Columna("Mod Contratación", { generar: function (consulta) { return consulta.mod_contratacion; } }),
-        new Columna("Estado", { generar: function (consulta) { return consulta.estado_descrip; } })
+        new Columna("Id_Evento", { generar: function (consulta) { return consulta.Id; } }),
+        new Columna("Tipo_Evento", { generar: function (consulta) { return consulta.TipoEvento; } }),
+        new Columna("Observaciones", { generar: function (consulta) { return consulta.Observaciones; } }),
+        new Columna("Descripcion_Receptor", { generar: function (consulta) { return consulta.Receptor; } }),
+        //new Columna("Fecha", { generar: function (consulta) { return consulta.Fecha; } }),
+        new Columna("Fecha", { generar: function (consulta) {
+            var fecha_sin_hora = consulta.Fecha.split("T");
+            var fecha = fecha_sin_hora[0].split("-");
+            return fecha[2] + "/" + fecha[1] + "/" + fecha[0];
+        }}),
         ]);
+            
+            grilla.CargarObjetos(lista_areas_del_usuario);
+            grilla.DibujarEn(ContenedorGrilla);
+
+            //            $("#DivBotonExcel").empty();
+            //            var divBtnExportarExcel = $("#DivBotonExcel")
+            //            botonExcel = $("<input type='button'>");
+            //            botonExcel.val("Exportar a Excel");
+            //            botonExcel.click(function () {
+            //                BuscarExcel();
+            //            });
+            //            botonExcel.addClass("btn btn-primary");
+            //            divBtnExportarExcel.append(botonExcel);
+
+            grilla.SetOnRowClickEventHandler(function () {
+                return true;
+            });
         }
 
-        grilla.CargarObjetos(lista_areas_del_usuario);
-        grilla.DibujarEn(ContenedorGrilla);
-
-        //            $("#DivBotonExcel").empty();
-        //            var divBtnExportarExcel = $("#DivBotonExcel")
-        //            botonExcel = $("<input type='button'>");
-        //            botonExcel.val("Exportar a Excel");
-        //            botonExcel.click(function () {
-        //                BuscarExcel();
-        //            });
-        //            botonExcel.addClass("btn btn-primary");
-        //            divBtnExportarExcel.append(botonExcel);
-
-        grilla.SetOnRowClickEventHandler(function () {
-        return true;
-        });
-        }
-        */
-        //-------------------------------------------------------
+        //---------- MOVIMIENTOS FINAL ------------------
 
 
 
