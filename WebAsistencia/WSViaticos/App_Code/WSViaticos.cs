@@ -4173,20 +4173,18 @@ public class WSViaticos : System.Web.Services.WebService
 
 
     [WebMethod]
-    public AccionesMobi[] Mobi_GetAcciones(int id_bien, int id_estado, int id_Area_Seleccionada)
+    public AccionesMobi[] Mobi_GetAcciones(int id_bien, int id_estado, int id_area_seleccionada, int id_area_receptora, int id_area_propietaria)
     {
         RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
-        return rMoBi.GetAcciones(id_bien, id_estado, id_Area_Seleccionada);
+        return rMoBi.GetAcciones(id_bien, id_estado, id_area_seleccionada, id_area_receptora, id_area_propietaria);
     }
 
 
     [WebMethod]
-    public bool Mobi_Alta_Vehiculo_Evento_Asignacion_Prestamo(int id_bien, int id_tipoevento, string observaciones, int id_receptor_area, int id_receptor_persona, Usuario usuario)
+    public bool Mobi_Alta_Vehiculo_Evento(int id_bien, int id_tipoevento, string observaciones, int id_receptor_area, int id_receptor_persona, Usuario usuario)
     {
         RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
-
-        return rMoBi.Mobi_Alta_Vehiculo_Evento_Asignacion_Prestamo(id_bien, id_tipoevento, observaciones, usuario.Id, id_receptor_area, id_receptor_persona);
-
+        return rMoBi.Mobi_Alta_Vehiculo_Evento(id_bien, id_tipoevento, observaciones, usuario.Id, id_receptor_area, id_receptor_persona);
     }
 
     [WebMethod]

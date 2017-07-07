@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://wsviaticos.gov.ar/">
       <s:element name="RepreguntarConsulta">
@@ -2091,7 +2091,9 @@
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="id_bien" type="s:int" />
             <s:element minOccurs="1" maxOccurs="1" name="id_estado" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="id_Area_Seleccionada" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_area_seleccionada" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_area_receptora" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_area_propietaria" type="s:int" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -2113,7 +2115,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
         </s:sequence>
       </s:complexType>
-      <s:element name="Mobi_Alta_Vehiculo_Evento_Asignacion_Prestamo">
+      <s:element name="Mobi_Alta_Vehiculo_Evento">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="id_bien" type="s:int" />
@@ -2125,10 +2127,10 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="Mobi_Alta_Vehiculo_Evento_Asignacion_PrestamoResponse">
+      <s:element name="Mobi_Alta_Vehiculo_EventoResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="Mobi_Alta_Vehiculo_Evento_Asignacion_PrestamoResult" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="Mobi_Alta_Vehiculo_EventoResult" type="s:boolean" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -7487,11 +7489,11 @@
   <wsdl:message name="Mobi_GetAccionesSoapOut">
     <wsdl:part name="parameters" element="tns:Mobi_GetAccionesResponse" />
   </wsdl:message>
-  <wsdl:message name="Mobi_Alta_Vehiculo_Evento_Asignacion_PrestamoSoapIn">
-    <wsdl:part name="parameters" element="tns:Mobi_Alta_Vehiculo_Evento_Asignacion_Prestamo" />
+  <wsdl:message name="Mobi_Alta_Vehiculo_EventoSoapIn">
+    <wsdl:part name="parameters" element="tns:Mobi_Alta_Vehiculo_Evento" />
   </wsdl:message>
-  <wsdl:message name="Mobi_Alta_Vehiculo_Evento_Asignacion_PrestamoSoapOut">
-    <wsdl:part name="parameters" element="tns:Mobi_Alta_Vehiculo_Evento_Asignacion_PrestamoResponse" />
+  <wsdl:message name="Mobi_Alta_Vehiculo_EventoSoapOut">
+    <wsdl:part name="parameters" element="tns:Mobi_Alta_Vehiculo_EventoResponse" />
   </wsdl:message>
   <wsdl:message name="Mobi_GetMovimientosSoapIn">
     <wsdl:part name="parameters" element="tns:Mobi_GetMovimientos" />
@@ -9378,9 +9380,9 @@
       <wsdl:input message="tns:Mobi_GetAccionesSoapIn" />
       <wsdl:output message="tns:Mobi_GetAccionesSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="Mobi_Alta_Vehiculo_Evento_Asignacion_Prestamo">
-      <wsdl:input message="tns:Mobi_Alta_Vehiculo_Evento_Asignacion_PrestamoSoapIn" />
-      <wsdl:output message="tns:Mobi_Alta_Vehiculo_Evento_Asignacion_PrestamoSoapOut" />
+    <wsdl:operation name="Mobi_Alta_Vehiculo_Evento">
+      <wsdl:input message="tns:Mobi_Alta_Vehiculo_EventoSoapIn" />
+      <wsdl:output message="tns:Mobi_Alta_Vehiculo_EventoSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="Mobi_GetMovimientos">
       <wsdl:input message="tns:Mobi_GetMovimientosSoapIn" />
@@ -11116,8 +11118,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="Mobi_Alta_Vehiculo_Evento_Asignacion_Prestamo">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/Mobi_Alta_Vehiculo_Evento_Asignacion_Prestamo" style="document" />
+    <wsdl:operation name="Mobi_Alta_Vehiculo_Evento">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/Mobi_Alta_Vehiculo_Evento" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -14179,8 +14181,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="Mobi_Alta_Vehiculo_Evento_Asignacion_Prestamo">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/Mobi_Alta_Vehiculo_Evento_Asignacion_Prestamo" style="document" />
+    <wsdl:operation name="Mobi_Alta_Vehiculo_Evento">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/Mobi_Alta_Vehiculo_Evento" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
