@@ -147,7 +147,7 @@ $(function () {
                 id_Tipo_Evento_Presionado = 8;
                 observaciones = "Reparación del bien"
 
-                Backend.Mobi_Alta_Vehiculo_Evento(id_bien, id_Tipo_Evento_Presionado, observaciones, id_Area_Propietaria, 0).onSuccess(function () {
+                Backend.Mobi_Alta_Vehiculo_Evento(id_bien, id_Tipo_Evento_Presionado, observaciones, id_Area_Seleccionada, 0).onSuccess(function () {
                     alertify.success("Vehiculo enviado a reparación");
                     $('#Controles_Persona_Area').hide();
                 })
@@ -183,7 +183,7 @@ $(function () {
                 ContenedorGrilla.html("");
                 $("#ContenedorMovimientos").empty();
 
-                id_Tipo_Evento_Presionado = 2;
+                id_Tipo_Evento_Presionado = 5;
                 observaciones = "Devolución del bien"
 
                 Backend.Mobi_Alta_Vehiculo_Evento(id_bien, id_Tipo_Evento_Presionado, observaciones, id_Area_Propietaria, -1).onSuccess(function () {
