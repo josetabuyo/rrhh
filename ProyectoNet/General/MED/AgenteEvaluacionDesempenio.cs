@@ -17,11 +17,12 @@ namespace General.MED
         public string agrupamiento;
         public string puesto_o_cargo;
         public string nivel_educativo;
+        public int legajo;
         public DescripcionAreaEvaluacion area;
         
 
         public AgenteEvaluacionDesempenio(int id, string apellido, string nombre, int nro_documento, string situacion_escalafonaria,
-            string nivel, string grado, string agrupamiento, string puesto_o_cargo, string nivel_educativo, DescripcionAreaEvaluacion area)
+            string nivel, string grado, string agrupamiento, string puesto_o_cargo, string nivel_educativo, DescripcionAreaEvaluacion area, int legajo)
         {
             // TODO: Complete member initialization
             this.id = id;
@@ -35,6 +36,7 @@ namespace General.MED
             this.puesto_o_cargo = puesto_o_cargo;
             this.nivel_educativo = nivel_educativo;
             this.area = area;
+            this.legajo = legajo;
         }
 
         public AgenteEvaluacionDesempenio()
@@ -43,7 +45,7 @@ namespace General.MED
 
         public static AgenteEvaluacionDesempenio Nulo()
         {
-            return new AgenteEvaluacionDesempenio(0, "No Especificado", "No Especificado", 0, "No Especificado", "No Especificado", "No Especificado", "No Especificado", "No Especificado", "No Especificado", DescripcionAreaEvaluacion.Nula());
+            return new AgenteEvaluacionDesempenio(0, "No Especificado", "No Especificado", 0, "No Especificado", "No Especificado", "No Especificado", "No Especificado", "No Especificado", "No Especificado", DescripcionAreaEvaluacion.Nula(), 0);
         }
     }
 }

@@ -28,7 +28,7 @@
                         <option value="0">Todos</option>
                         <option value="1">Evaluacion Incompleta</option>
                         <option value="2">A Evaluar</option>
-                        <option value="3">Muy Destacado</option>
+                        <!--<option value="3">Muy Destacado</option>-->
                         <option value="4">Destacado</option>
                         <option value="5">Bueno</option>
                         <option value="6">Regular</option>
@@ -42,7 +42,7 @@
     </div>
     <div style="display: none" id="div_niveles">
         <select id="select_niveles">
-            <option value="1">GERENCIAL</option>
+            <!--<option value="1">GERENCIAL</option>-->
             <option value="2">MEDIO PROFESIONAL O TECNICO CON PERSONAL A CARGO </option>
             <option value="3">MEDIO CON PERSONAL A CARGO</option>
             <option value="4">MEDIO SIN PERSONAL A CARGO</option>

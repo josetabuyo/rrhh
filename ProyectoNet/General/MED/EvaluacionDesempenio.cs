@@ -15,7 +15,7 @@ namespace General.MED
         {
             get
             {
-                return this.detalle_preguntas.Sum(p => p.opcion_elegida);
+                return this.detalle_preguntas.Sum(p => 5 - p.opcion_elegida);
             }
             set
             {
