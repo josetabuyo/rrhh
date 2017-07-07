@@ -139,7 +139,10 @@ namespace General.Repositorios
                     }
                 });
             }
-            asignaciones.Add(asignacion_evaluado_a_evaluador);
+            if (tablaDatos.Rows.Count > 0)
+            {
+                asignaciones.Add(asignacion_evaluado_a_evaluador);
+            }
             return asignaciones;
         }
 
@@ -255,8 +258,36 @@ namespace General.Repositorios
             parametros.Add("@opcion_elegida", opcion);
 
             _conexion.Ejecutar("dbo.EVAL_INS_Evaluacion_Detalle", parametros);
-
         }
+
+        public int GetIdEvaluadorDelUsuario(Usuario usuario)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_persona_responsable", usuario.Owner.Id);
+
+            var tablaDatos = _conexion.Ejecutar("dbo.EVAL_GET_IdEvaluadorResponsableUnidadEval", parametros);
+
+            if (tablaDatos.Rows.Count > 0)
+            {
+                return tablaDatos.Rows[0].GetSmallintAsInt("id");
+            }
+            else
+            {
+                parametros = new Dictionary<string, object>();
+                parametros.Add("@id_persona", usuario.Owner.Id);
+
+                tablaDatos = _conexion.Ejecutar("dbo.EVAL_GET_IdEvaluador_Persona", parametros);
+                if (tablaDatos.Rows.Count > 0)
+                {
+                    return tablaDatos.Rows[0].GetSmallintAsInt("id");
+                }
+                else
+                {
+                    throw new Exception("No existe un id de evaluador para la persona solicitada");
+                }
+            }
+        }
+
 
         public void deleteEvaluacionDetalle(int idEval)
         {
@@ -290,6 +321,7 @@ namespace General.Repositorios
             return new PeriodoEvaluacion(row.GetInt("id_periodo", 0),
                             row.GetString("descripcion_periodo", ""), row.GetDateTime("periodo_desde"), row.GetDateTime("periodo_hasta"));
         }
+
     }
 
 }
