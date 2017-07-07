@@ -109,8 +109,8 @@
         <ol>
             <li>Desde esta misma pantalla, debes hacer click en la columna "Acciones" en la tabla de arriba en el texto "Postularme" del cargo correspondiente</li>
             <li>En la pantalla siguiente se te pedirá de validar que tus datos personales estén actualizados.</li>
-            <li>En caso de haber continuado el punto anterior, en el paso 3 verás las caracteristicas del cargo al que te estás postulando y los espacios reservados para guardar los números de los INFORMES GRÁFICOS generados en el GDE. Deberás ingresarlos en dichas casillas, aceptar las bases y condiciones del concurso y continuar.</li>
-            <li>xxxxx</li>
+            <li>En caso de haber continuado verás las caracteristicas del cargo al que te estás postulando y los espacios reservados para guardar los números de los INFORMES GRÁFICOS generados en el GDE. Deberás ingresar los mismos en dichas casillas, luego aceptar las bases y condiciones del concurso y continuar.</li>
+            <li>Por último verás la finalización del proceso con el número de Postulación, de Informes y el resumen del Cargo.</li>
         </ol>
         <br />
         <h3>Otras consideraciones</h3>

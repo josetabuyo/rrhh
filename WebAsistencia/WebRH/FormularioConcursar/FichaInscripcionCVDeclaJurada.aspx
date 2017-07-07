@@ -169,16 +169,22 @@
 	</div>
 
 <div class="posicion" >
-		<div class="decla-jurada"><p style="text-align:center; font-size:12px; font-weight:bold;"><span style="font-size: 13px">DECLARACIÓN JURADA Y CONSTANCIA DE RECEPCIÓN Y ACEPTACIÓN DEL REGLAMENTO Y BASES DEL CONCURSO</span></p>
+		<div class="decla-jurada">
+            <p style="text-align:center; font-size:12px; font-weight:bold;"><span style="font-size: 13px">DECLARACIÓN JURADA Y CONSTANCIA DE RECEPCIÓN Y ACEPTACIÓN DEL REGLAMENTO Y BASES DEL CONCURSO</span></p>
 		    Declaro bajo juramento que:<br/>
-		    <span class="letra-bold">a)</span> Los datos consignados en la siguiente Solicitud y Ficha de Inscripción son completos, verdaderos y atinentes al perfil del puesto de trabajo o función a concursar;<br>
-		    <span class="letra-bold">b)</span> Que los certificados, fotocopias y demás documentación entregada es auténtica o copia fiel de sus respectivos originales;<br> 
-		    <span class="letra-bold">c)</span> Reúno los requisitos previstos en los Artículos 4º y 5º del Anexo de la Ley Nº 25.164, y su Decreto reglamentario Nº1.421/2002, y artículos concordantes del Convenio Colectivo de Trabajo General de la Administración Pública Nacional (Decreto Nº214/06), a los que acepto conocer y aceptar;<br>
-		    <span class="letra-bold">d)</span> Reúno los requisitos para acceder al Agrupamiento y Nivel Escalafonario del cargo a concursar, previstos por el Sistema Nacional de Empleo Público (Decreto Nº2.098/08);<br>
-		    <span class="letra-bold">e)</span> Conozco y acepto los términos de la presente Resolución de la SECRETARIA DE GESTIÓN PÚBLICA de la JEFATURA DE GABINETE DE MINISTROS que aprueba este Formulario de Solicitud y Ficha de Inscripción;<br>
-		    <span class="letra-bold">f)</span> Conozco y acepto las Bases del Concurso en el que solicito inscribirme, cuya copia he recibido en este acto de inscripción; tomando conocimiento del cronograma y metodologías de las etapas del proceso, de las materias o temáticas a aboradar en la(s) prueba(s) y entrevista(s) fijadas o de las asignaturas del Curso de Selección si fuera aplicable, de los puntajes a asignar a las diversas características a considerar, con los cambios que pudiera resolver el Comité de Selección a los efectos de mejor proveer, y que serán comunicados con la antelación suficiente;<br>
-		    <span class="letra-bold">g)</span> He sido notificado de la ubicación de la cartelera y de la dirección de la página WEB en la que se notificarán las diversas incidencias y resultados del presente proceso de selección;<br>
-		    <span class="letra-bold">h)</span> Acepto que las notificaciones a que del lugar el desarrollo del proceso en el que solicito ser inscripto puedan ser efectuados en las direcciones domiciliarias y electrónicas así como del teléfono y/o fax que he comunicado en la presente solicitud.<br>
+		     <p style="font-size:1em;" class="aclaraciones">
+                    a) los datos consignados en la presente Solicitud y Ficha de Inscripción son completos, verdaderos y atinentes al perfil del puesto de trabajo o función a concursar; <br /> <br />
+                    b) que los certificados, fotocopias y demás documentación incluida en el/los Informe/s del GDE es autentica o copia fiel de sus respectivos originales; <br /> <br />
+                    c) reúno los requisitos previstos en los Artículos 4º y 5º del Anexo de la Ley Nº 25.164, y su Decreto reglamentado Nº 1.421/2002, y artículos concordantes del Convenio Colectivo de Trabajo General de la Administración Pública Nacional (Decreto Nº 214/06), a los que acepto conocer y aceptar; <br /> <br />
+                    d) reúno los requisitos para acceder al Agrupamiento y Nivel Escalafonario del cargo a concursar, previstos por el Sistema Nacional de Empleo Público (2.098/08); <br /> <br />
+                    e) conozco y acepto las Bases del Concurso en el que solicito inscribirme, cuya copia he consultado en este Sitio Web, tomando conocimiento del 
+                       cronograma y metodología de las etapas del proceso, de las materias o temáticas a abordar en la(s) prueba(s) y entrevista(s) fijadas o de 
+                       las asignaturas del Curso de Selección si fuera aplicable, de los puntajes a asignar a las diversas características a considerar, con los 
+                       cambios que pudiera resolver el Comité de Selección a los efectos de mejor preveer, y que serán comunicados con la antelación suficiente;  <br /> <br />
+                    f) he sido notificado que en esta ubicación web se notificarán las diversas incidencias y resultados del presente proceso de selección; <br /> <br />
+                    g) acepto que las notificaciones a que dé lugar el desarrollo del proceso en el que solicito ser inscripto puedan ser efectuadas en las direcciones domiciliarias y electrónicas así como del teléfono y/o fax que he comunicado en la presente
+                       solicitud. <br /> <br />
+                </p>
 		</div>
 		
 	</div>
