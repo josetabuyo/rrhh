@@ -44,59 +44,58 @@
 
 <script type="text/javascript">
     var Componente = {
-        start: function (idTicket, ui) {
+        start: function (ticket, ui) {
 
-            //    var idTicket = localStorage.getItem("idTarea");
-            //    var documento = localStorage.getItem("documento");
-            //    var idUsuarioCreador = localStorage.getItem("idUsuarioCreador");
+            var idTicket = ticket.id;
+            var documento = ticket.usuarioCreador.Owner.Documento;
+            var idUsuarioCreador = ticket.usuarioCreador.Id;
 
 
-            $('#btnConfirmarDomicilio').click(function () {
-                if ($('#folio').val() == 0) {
+            ui.find('#btnConfirmarDomicilio').click(function () {
+                if (ui.find('#folio').val() == 0) {
                     alert('Debe ingresar un N° Folio');
                     return;
                 }
                 Backend.VerificarDomicilioPendiente(idTicket, documento, folio, idUsuarioCreador)
-        .onSuccess(function (resultado) {
-            alertify.success(resultado);
-            vex.close();
+                .onSuccess(function (resultado) {
+                    alertify.success(resultado);
+                    vex.close();
 
-        }).onError(function () {
-            alertify.error("Ha ocurrido un error. Por favor comuniquese con RRHH")
-        });
+                }).onError(function () {
+                    alertify.error("Ha ocurrido un error. Por favor comuniquese con RRHH")
+                });
             });
 
-            $('#btnCancelarDomicilio').click(function () {
+            ui.find('#btnCancelarDomicilio').click(function () {
                 vex.close();
             });
 
-            $('#btnDelegarDomicilio').click(function () {
+            ui.find('#btnDelegarDomicilio').click(function () {
                 alert('Ha desarrollar');
             });
 
             Backend.GetDomicilioPendientePorAlerta(idTicket)
-        .onSuccess(function (domicilioJSON) {
+                .onSuccess(function (domicilioJSON) {
 
-            $('#nombreUsuario').html(localStorage.getItem("apellido") + ', ' + localStorage.getItem("nombre"));
-            $('#fechaCreacion').html(ConversorDeFechas.deIsoAFechaEnCriollo(localStorage.getItem("fecha")));
+                    ui.find('#nombreUsuario').html(ticket.usuarioCreador.Owner.Apellido + ', ' + ticket.usuarioCreador.Owner.Nombre);
+                    ui.find('#fechaCreacion').html(ConversorDeFechas.deIsoAFechaEnCriollo(ticket.fechaCreacion));
 
-            var domicilio = $.parseJSON(domicilioJSON);
-            //alert(detalleTareaJSON);
-            $('#calle').html(domicilio.Calle);
-            $('#numero').html(domicilio.Numero);
-            $('#piso').html(domicilio.Piso);
-            $('#depto').html(domicilio.Depto);
-            $('#localidad').html(domicilio.NombreLocalidad);
-            $('#provincia').html(domicilio.NombreProvincia);
+                    var domicilio = $.parseJSON(domicilioJSON);
+                    //alert(detalleTareaJSON);
+                    ui.find('#calle').html(domicilio.Calle);
+                    ui.find('#numero').html(domicilio.Numero);
+                    ui.find('#piso').html(domicilio.Piso);
+                    ui.find('#depto').html(domicilio.Depto);
+                    ui.find('#localidad').html(domicilio.NombreLocalidad);
+                    ui.find('#provincia').html(domicilio.NombreProvincia);
 
-            $('#manzana').html(domicilio.Manzana);
-            $('#casa').html(domicilio.Casa);
-            $('#torre').html(domicilio.Torre);
-            $('#barrio').html(domicilio.Barrio);
-            $('#uf').html(domicilio.Uf);
+                    ui.find('#manzana').html(domicilio.Manzana);
+                    ui.find('#casa').html(domicilio.Casa);
+                    ui.find('#torre').html(domicilio.Torre);
+                    ui.find('#barrio').html(domicilio.Barrio);
+                    ui.find('#uf').html(domicilio.Uf);
 
-
-        });
+                });
         }
     };
 
