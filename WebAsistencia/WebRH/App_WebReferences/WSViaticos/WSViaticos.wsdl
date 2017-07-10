@@ -872,6 +872,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="Etapas" type="tns:ArrayOfEtapaPostulacion" />
           <s:element minOccurs="0" maxOccurs="1" name="DocumentacionRecibida" type="tns:ArrayOfDocumentacionRecibida" />
           <s:element minOccurs="0" maxOccurs="1" name="DocumentacionARecibir" type="tns:ArrayOfDocumentacionRecibida" />
+          <s:element minOccurs="0" maxOccurs="1" name="NumerosDeInformeGDE" type="tns:ArrayOfString" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfEtapaPostulacion">
@@ -907,6 +908,11 @@
           <s:element minOccurs="0" maxOccurs="1" name="FolioPersistido" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="IdItemCV" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="IdTabla" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="BuscarPostulacionesDeInscriptos">
@@ -1087,11 +1093,6 @@
       <s:complexType name="ArrayOfItemCv">
         <s:sequence>
           <s:element minOccurs="0" maxOccurs="unbounded" name="ItemCv" nillable="true" type="tns:ItemCv" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="ArrayOfString">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="GuardarDocumentacionRecibida">

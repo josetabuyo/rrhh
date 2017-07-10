@@ -45,7 +45,7 @@
 
         _this.btn_guardar.click(function () {
 
-            alertify.confirm("", "¿Está seguro que desea imprimir el anexo de documentación?", 
+            alertify.confirm("", "¿Está seguro que desea imprimir el anexo de documentación?",
                 function () {
                     var lista_foliables = $(".foliables");
                     var lista_documentacion_recibida = [];
@@ -65,8 +65,8 @@
                        .onError(function (error) {
                            alertify.error(error.statusText);
                        });
-                }, 
-                function(){
+                },
+                function () {
                     alertify.error("Se ha cancelado la operación");
                 }
             );
@@ -149,6 +149,7 @@
         var postulacion = $("#postulacion");
         var idPostulacion = $("#idPostulacion");
         var idPostulante = $("#idPostulante");
+        var numerosDeInformeGDE = $("#span_gde");
         var usuarios = [];
 
         for (var i = 0; i < datos_postulacion.Etapas.length; i++) {
@@ -159,13 +160,17 @@
             if (!agregado) usuarios.push(Backend.ejecutarSincronico("GetUsuarioPorId", [datos_postulacion.Etapas[i].IdUsuario]));
         }
 
+        for (var i = 0; i < datos_postulacion.NumerosDeInformeGDE.length; i++) {
+            $("#span_gde").append(datos_postulacion.NumerosDeInformeGDE[i] + ', ');
+        }
+
         postulacion.val(JSON.stringify(datos_postulacion.Id));
         var criterio = {}
         criterio.Id = datos_postulacion.Postulante.Id;
         var persona = Backend.ejecutarSincronico("BuscarPersonas", [JSON.stringify(criterio)]);
 
         span_empleado.html(datos_postulacion.Postulante.Apellido + ", " + datos_postulacion.Postulante.Nombre); // new BuscarUsuario().generar(datos_postulacion.Etapas[0]));
-        span_dni_postulante.html(persona[0].Documento);
+        span_dni_postulante.html('. DNI: '+ persona[0].Documento);
         idPostulante.val(datos_postulacion.Postulante.Id);
         span_codigo.html(datos_postulacion.Numero);
         span_fecha.html(ConversorDeFechas.deIsoAFechaEnCriollo(datos_postulacion.FechaPostulacion));

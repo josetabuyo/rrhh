@@ -3336,6 +3336,7 @@ public class WSViaticos : System.Web.Services.WebService
     public Postulacion PostularseA(Postulacion postulacion, Usuario usuario)
     {
         // var postulaciones = new Postulacion();
+        //throw new Exception("a");
         return RepoPostulaciones().PostularseA(postulacion, usuario);
     }
 

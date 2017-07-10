@@ -19,6 +19,7 @@ namespace General
         protected List<EtapaPostulacion> _etapas;
         protected List<DocumentacionRecibida> _docRecibida;
         protected List<DocumentacionRecibida> _docARecibir;
+        protected List<string> _numerosDeInformeGDE;
 
         public virtual int Id { get { return _id; } set { _id = value; } }
         //public virtual Puesto Puesto { get { return _perfil; } set { _perfil = value; } }
@@ -31,6 +32,7 @@ namespace General
         public virtual List<EtapaPostulacion> Etapas { get { return _etapas; } set { _etapas = value;} }
         public virtual List<DocumentacionRecibida> DocumentacionRecibida { get { return _docRecibida; } set { _docRecibida = value; } }
         public virtual List<DocumentacionRecibida> DocumentacionARecibir { get { return _docARecibir; } set { _docARecibir = value; } }
+        public virtual List<string> NumerosDeInformeGDE { get { return _numerosDeInformeGDE; } set { _numerosDeInformeGDE = value; } }
 
 
         public Postulacion(int id, Perfil perfil, DateTime fecha, string motivo, string observaciones, string numero, List<EtapaPostulacion> etapas)
