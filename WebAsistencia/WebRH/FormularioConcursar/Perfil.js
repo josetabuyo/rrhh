@@ -157,7 +157,7 @@
 
         for (i = 0; i < perfiles.length; i++) {
             $('#combo_perfiles').append('<option value=' + perfiles[i].Id + ' data-agrupamiento=' + perfiles[i].Agrupamiento + ' data-nivel=' + perfiles[i].Nivel +
-            'data-tipo=' + perfiles[i].Tipo + '>' + perfiles[i].Denominacion + '</option>');
+            ' data-tipo=' + perfiles[i].Tipo + '>' + perfiles[i].Denominacion + '</option>');
         }
 
         $('#combo_perfiles').change(function () {

@@ -497,6 +497,8 @@ namespace General
             var folio_deserializada = (JObject)JsonConvert.DeserializeObject(folio);
 
             var idPerfil = postulacion_deserializada["postulacion"]["Perfil"].ToString();
+            var numerosGDE = postulacion_deserializada["postulacion"]["NumerosDeInformeGDE"].ToArray();
+
             var fechaInscripcion = postulacion_deserializada["postulacion"]["FechaInscripcion"].ToString();
             string[] fechas = fechaInscripcion.Split('/');
             DateTime fechaFormateada = new DateTime(int.Parse(fechas[2]), int.Parse(fechas[1]), int.Parse(fechas[0])); 
@@ -582,7 +584,7 @@ namespace General
              GuardarDomicilioInscripcionManual(int.Parse(dni), domicilio_legal_calle, domicilio_legal_nro, domicilio_legal_piso, domicilio_legal_depto, domicilio_legal_cp, domicilio_legal_prov, domicilio_legal_localidad, telefono, mail, 2, usuarioInscriptor.Id);
 
              //creo la postulacion
-             var numeroPostulacion = CrearPostulacionManual(int.Parse(idPerfil), personaAInscribir.Id, usuarioAInscribir.Id);
+             var numeroPostulacion = CrearPostulacionManual(int.Parse(idPerfil), personaAInscribir.Id, usuarioAInscribir.Id, numerosGDE);
 
             //guardo los folios de la postulacion
             //OJO CAMBIAR LA FECHA
@@ -673,23 +675,59 @@ namespace General
           
         }
 
-        public string CrearPostulacionManual(int idPerfil, int idPersona, int idUsuario) {
+        public string CrearPostulacionManual(int idPerfil, int idPersona, int idUsuario, Array numerosGDE)
+        {
+            try
+            {
+                var parametros = new Dictionary<string, object>();
+                parametros.Add("@idPuesto", idPerfil);
+                parametros.Add("@idPersona", idPersona);
+                parametros.Add("@Motivo", "");
+                parametros.Add("@Observacion", "");
+                parametros.Add("@Usuario", idUsuario);
+                RepositorioDeTickets repoTicket = new RepositorioDeTickets(conexion_bd);
+                var numeroPostulacion = repoTicket.GenerarTicket("POSTULAR");
+                parametros.Add("@Numero", numeroPostulacion);
 
-            var parametros = new Dictionary<string, object>();
-            parametros.Add("@idPuesto", idPerfil);
-            parametros.Add("@idPersona", idPersona);
-            parametros.Add("@Motivo", "");
-            parametros.Add("@Observacion", "");
-            parametros.Add("@Usuario", idUsuario);
-            RepositorioDeTickets repoTicket = new RepositorioDeTickets(conexion_bd);
-            var numeroPostulacion = repoTicket.GenerarTicket("POSTULAR");
-            parametros.Add("@Numero", numeroPostulacion);
+                var id = (int)conexion_bd.EjecutarEscalar("dbo.CV_Ins_Postulaciones", parametros);
 
-            var id = conexion_bd.EjecutarEscalar("dbo.CV_Ins_Postulaciones", parametros);
+                if (!GuardarNumerosGDEPorInscripcionManual(id, numerosGDE))
+                {
+                    throw new Exception("Fallo el insertado de los numeros de GDE");
+                }
 
-            //var datosPostulacion = new { numero = numeroPostulacion, idPostulacion = "Hello" };
+                //var datosPostulacion = new { numero = numeroPostulacion, idPostulacion = "Hello" };
 
-            return numeroPostulacion;
+                return numeroPostulacion;
+
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+        }
+
+        public bool GuardarNumerosGDEPorInscripcionManual(int idPostulacion, Array numeroGDE)
+        {
+
+            try
+            {
+                foreach (Newtonsoft.Json.Linq.JValue numeroDeInforme in numeroGDE)
+                {
+                    var parametros = new Dictionary<string, object>();
+                    parametros.Add("@idPostulacion", idPostulacion);
+                    parametros.Add("@numeroInformeGDE", numeroDeInforme.ToString());
+
+                    conexion_bd.Ejecutar("dbo.CV_Ins_InformeGDEPostulacion", parametros);
+                }
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
         }
 
         public List<ModalidadDeInscripcion> BuscarModalidadesDeInscripcion()

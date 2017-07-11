@@ -51,10 +51,10 @@
             </div>
 
         <table class="tabla_anexo_1">
-            <tr >
+           <%-- <tr >
                 <td colspan="2" class="celda">N° DEL REGISTRO CENTRAL DE OFERTAS DE EMPLEO</td>
                 <td id="numero_de_oferta" colspan="2" class="celda"></td>
-            </tr>
+            </tr>--%>
             <tr>
                 <td colspan="2" class="celda">DENOMINACION DEL CARGO A CUBRIR</td>
                 <td id="puesto_denominacion" colspan="2" class="celda"></td>
@@ -162,7 +162,17 @@
                 <td colspan="3" class="celda">DOCUMENTACIÓN DE RESPALDO</td>
                 <td colspan="1" class="celda"><input id="text_folio_respaldo" type="number" placeholder="Folio Respaldo" maxlength="3" class="validarNumero" /></td>
             </tr>
+            <tr>
+                <td colspan="3" class="celda">N° de INFORME GRÁFICO DEL SISTEMA GDE</td>
+                <td colspan="1" class="celda">
+                    <span id="cajaDeInformesGraficos">
+                        <input class="informesGraficos" type="text" placeholder="N° Informe" id="informeGrafico_00" />
+                    </span>
+                    <input type=button class="btn btn-primary" onclick="agregarInforme()" value="Agregar otro INFORME" />
+                </td>
+            </tr>
         </table>
+
 
         <div class="div-pie-tabla">
             <table border="border-collapse: collapse" style="border-collapse: collapse; height:50px; margin-top:10px;" class="pie-tabla" >
@@ -229,6 +239,7 @@
           mywindow.document.getElementById('text_folio_titulo').value = $('#text_folio_titulo').val();
           mywindow.document.getElementById('text_folio_cv').value = $('#text_folio_cv').val();
           mywindow.document.getElementById('text_folio_respaldo').value = $('#text_folio_respaldo').val();
+          mywindow.document.getElementById('informeGrafico_00').value = $('#informeGrafico_00').val();
 
           mywindow.document.write('</body></html>');
 
@@ -243,17 +254,21 @@
 
 
       $(document).ready(function () {
+         
+
           Backend.start(function () {
 
               InscripcionManual.iniciar();
 
           });
-
-
-
-
       });
 
+      var nextinput = 0;
+      function agregarInforme() {
+          nextinput++;
+          campo = '<input class="informesGraficos" type="text" id="informeGrafico_0' + nextinput + '" />';
+          $("#cajaDeInformesGraficos").append(campo);
+      }
     
   </script>
 

@@ -94,6 +94,7 @@
         $("#requisitos_perfil").html("");
         $("#detalle_perfil").html("");
         $("#detalle_documentos").html("");
+        $("#span_gde").html("");
         $("#titulo_doc_oblig").remove();
         $("#titulo_doc_curric").remove();
 
@@ -162,7 +163,11 @@
 
         for (var i = 0; i < datos_postulacion.NumerosDeInformeGDE.length; i++) {
             $("#span_gde").append(datos_postulacion.NumerosDeInformeGDE[i] + ', ');
+            $("#cuerpoTablaInformes").append("<tr><td>" + datos_postulacion.NumerosDeInformeGDE[i] + "</td><td><input class='checksInformesAceptados' name='fooby[1][" + i + "]' type='checkbox' value='" + datos_postulacion.NumerosDeInformeGDE[i] + "' /></td><td><input class='checksInformesRechazados' name='fooby[1][" + i + "]' type='checkbox' value='" + datos_postulacion.NumerosDeInformeGDE[i] + "' /></td>");
+
         }
+
+        $('#contenedorInformesGDE').show();
 
         postulacion.val(JSON.stringify(datos_postulacion.Id));
         var criterio = {}
@@ -170,7 +175,7 @@
         var persona = Backend.ejecutarSincronico("BuscarPersonas", [JSON.stringify(criterio)]);
 
         span_empleado.html(datos_postulacion.Postulante.Apellido + ", " + datos_postulacion.Postulante.Nombre); // new BuscarUsuario().generar(datos_postulacion.Etapas[0]));
-        span_dni_postulante.html('. DNI: '+ persona[0].Documento);
+        span_dni_postulante.html('. DNI: ' + persona[0].Documento);
         idPostulante.val(datos_postulacion.Postulante.Id);
         span_codigo.html(datos_postulacion.Numero);
         span_fecha.html(ConversorDeFechas.deIsoAFechaEnCriollo(datos_postulacion.FechaPostulacion));
@@ -192,7 +197,26 @@
         var fieldset_titulo_documentos = $("#cuadro_documentos");
         var legend_documentos = $("<legend>");
         legend_documentos.attr("id", "titulo_doc_curric");
-        $("#btn_caratula").attr("style", "display:inline");
+        //$("#btn_caratula").attr("style", "display:inline");
+
+        //FC: para los check
+        // the selector will match all input controls of type :checkbox
+        // and attach a click event handler 
+        $("input:checkbox").on('click', function () {
+            // in the handler, 'this' refers to the box clicked on
+            var $box = $(this);
+            if ($box.is(":checked")) {
+                // the name of the box is retrieved using the .attr() method
+                // as it is assumed and expected to be immutable
+                var group = "input:checkbox[name='" + $box.attr("name") + "']";
+                // the checked state of the group/box on the other hand will change
+                // and the current value is retrieved using .prop() method
+                $(group).prop("checked", false);
+                $box.prop("checked", true);
+            } else {
+                $box.prop("checked", false);
+            }
+        });
 
     },
 
