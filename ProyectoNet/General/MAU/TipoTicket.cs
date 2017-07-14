@@ -7,9 +7,6 @@ namespace General.MAU
 {
     public class TipoTicket
     {
-        //public int Id { get; set; }
-        //public string Nombre { get; set; }
-
         public int id { get; set; }
         public string descripcion { get; set; }
         public string urlComponente { get; set; }

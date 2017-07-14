@@ -24,17 +24,9 @@ namespace General.MAU
             var alertas = new List<AlertaPortal>();
 
             tabla_resultado.Rows.ForEach(row =>
-            {
-                TipoAlertaPortal tipoAlerta = new TipoAlertaPortal(row.GetInt("idtipo", 0), row.GetString("descripcionTipo", ""), row.GetString("url", ""), row.GetInt("idFuncionalidad", 0));
+            {               
                 Usuario usuarioCreador = new Usuario(row.GetSmallintAsInt("idUsuario", 0), row.GetString("nombreUsuario", ""), "", true);
-                AlertaPortal alerta = new AlertaPortal(row.GetInt("id", 0), row.GetString("titulo", ""), row.GetString("descripcion", ""), tipoAlerta, row.GetDateTime("fechaCreacion"), usuarioCreador, "Un Estado");
-                /* var alerta = new AlertaPortal();
-                 alerta.Id = row.GetInt("id");
-                 alerta.Tipo = new TipoAlertaPortal();
-                 alerta.Tipo.Id = row.GetInt("idtipo");
-                 alerta.Tipo.Nombre = row.GetString("tipo");
-                 alerta.Titulo = row.GetString("titulo");
-                 alerta.Descripcion = row.GetString("descripcion");*/
+                AlertaPortal alerta = new AlertaPortal(row.GetInt("id", 0), row.GetString("titulo", ""), row.GetString("descripcion", ""), row.GetDateTime("fechaCreacion"), usuarioCreador, "Un Estado");
 
                 alertas.Add(alerta);
             });
@@ -50,12 +42,11 @@ namespace General.MAU
             this.conexion.EjecutarSinResultado("dbo.MAU_MarcarAlertaComoLeida", parametros);
         }
 
-        public int crearAlerta(int id_tipo, string titulo, string descripcion, int id_usuario_destinatario, int id_usuario_creador)
+        public int crearAlerta(string titulo, string descripcion, int id_usuario_destinatario, int id_usuario_creador)
         {   
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_usuario_destinatario", id_usuario_destinatario);
             parametros.Add("@id_usuario_creador", id_usuario_creador);
-            parametros.Add("@id_tipo", id_tipo);
             parametros.Add("@titulo", titulo);
             parametros.Add("@descripcion", descripcion);
 
@@ -65,7 +56,7 @@ namespace General.MAU
 
         public int crearAlerta(AlertaPortal alerta, int idUsuarioDestinatario, Usuario usuario)
         {
-            return this.crearAlerta(alerta.tipoAlerta.id, alerta.titulo, alerta.descripcion, idUsuarioDestinatario, usuario.Id);
+            return this.crearAlerta(alerta.titulo, alerta.descripcion, idUsuarioDestinatario, usuario.Id);
         }
     }
 }
