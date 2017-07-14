@@ -10,7 +10,7 @@
                         <a id="paso_2" class="link_desactivado"><span class="number">2. </span>Confirmación de Datos de notificación</a>
                     </li>
                     <li  class="" >
-                        <a id="paso_3" class="link_desactivado"><span class="number">3. </span>(II) Pre-Inscripción</a>
+                        <a id="paso_3" class="link_desactivado"><span class="number">3. </span>Pre-Inscripción</a>
                     </li>
                 </ul>
             </div>

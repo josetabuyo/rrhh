@@ -3343,6 +3343,7 @@ public class WSViaticos : System.Web.Services.WebService
     public Postulacion PostularseA(Postulacion postulacion, Usuario usuario)
     {
         // var postulaciones = new Postulacion();
+        //throw new Exception("a");
         return RepoPostulaciones().PostularseA(postulacion, usuario);
     }
 
@@ -3353,6 +3354,13 @@ public class WSViaticos : System.Web.Services.WebService
 
         // var postulaciones = new Postulacion();
         return RepoPostulaciones().InscripcionManual(postulacion, datosPersonales, folio, usuario);
+    }
+
+    [WebMethod]
+    public bool ActualizarInformesGDEDeUnaPostulacion(string numeroPostulacion, string setDeInformes, Usuario usuario)
+    {
+        var informesArray = (JArray)JsonConvert.DeserializeObject(setDeInformes);
+        return RepoPostulaciones().ActualizarInformesGDE(numeroPostulacion, informesArray, usuario.Owner.Id);
     }
 
 
@@ -4180,20 +4188,18 @@ public class WSViaticos : System.Web.Services.WebService
 
 
     [WebMethod]
-    public AccionesMobi[] Mobi_GetAcciones(int id_bien, int id_estado, int id_Area_Seleccionada)
+    public AccionesMobi[] Mobi_GetAcciones(int id_bien, int id_estado, int id_area_seleccionada, int id_area_receptora, int id_area_propietaria)
     {
         RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
-        return rMoBi.GetAcciones(id_bien, id_estado, id_Area_Seleccionada);
+        return rMoBi.GetAcciones(id_bien, id_estado, id_area_seleccionada, id_area_receptora, id_area_propietaria);
     }
 
 
     [WebMethod]
-    public bool Mobi_Alta_Vehiculo_Evento_Asignacion_Prestamo(int id_bien, int id_tipoevento, string observaciones, int id_receptor_area, int id_receptor_persona, Usuario usuario)
+    public bool Mobi_Alta_Vehiculo_Evento(int id_bien, int id_tipoevento, string observaciones, int id_receptor_area, int id_receptor_persona, Usuario usuario)
     {
         RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
-
-        return rMoBi.Mobi_Alta_Vehiculo_Evento_Asignacion_Prestamo(id_bien, id_tipoevento, observaciones, usuario.Id, id_receptor_area, id_receptor_persona);
-
+        return rMoBi.Mobi_Alta_Vehiculo_Evento(id_bien, id_tipoevento, observaciones, usuario.Id, id_receptor_area, id_receptor_persona);
     }
 
     [WebMethod]
@@ -4605,16 +4611,18 @@ public class WSViaticos : System.Web.Services.WebService
 
         var criterio_deserializado = (JArray)JsonConvert.DeserializeObject(pregYRtas);
 
+        var id_evaluador = repositorio.GetIdEvaluadorDelUsuario(usuario);
+
         //FC:si viene un idEvaluacion entonces llamo a update, si viene 0 llamo a insert
         if (idEval != 0)
         {
             repositorio.deleteEvaluacionDetalle(idEval);
-            repositorio.updateEvaluacion(idEval, idEvaluado, usuario.Owner.Id, idFormulario, periodo, estado);
+            repositorio.updateEvaluacion(idEval, idEvaluado, id_evaluador, idFormulario, periodo, estado);
         }
         else
         {
             //FC:Inserto la cabecera de la evaluacion
-            idEval = repositorio.insertarEvaluacion(idEvaluado, usuario.Owner.Id, idFormulario, periodo, estado);
+            idEval = repositorio.insertarEvaluacion(idEvaluado, id_evaluador, idFormulario, periodo, estado);
         }
 
         //var item1 = preguntasYRespuestas;
