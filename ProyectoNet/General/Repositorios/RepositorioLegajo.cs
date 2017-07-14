@@ -696,6 +696,13 @@ namespace General.Repositorios
             parametros.Add("@leido", leido);
             parametros.Add("@calificacion", calificacion);
             conexion.EjecutarSinResultado("dbo.LEG_UPDConsultasDePortal2", parametros);
+            parametros.Clear();
+            parametros.Add("@Id", id);
+            var creador = conexion.EjecutarEscalar("dbo.LEG_GETConsultasCreador", parametros);
+            RepositorioDeAlertasPortal repoAlerta = new RepositorioDeAlertasPortal(this.conexion);
+
+            repoAlerta.crearAlerta(4, "Respuesta a su consulta", resumen, id_usuario, id_usuario);
+            //El primer usuario tiene que ser el creador
         }
 
         public void MarcarConsultaComoLeida(int id_consulta)
