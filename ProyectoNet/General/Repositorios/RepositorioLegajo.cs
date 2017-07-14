@@ -850,12 +850,9 @@ namespace General.Repositorios
 
                         RepositorioDeTickets repo = new RepositorioDeTickets(this.conexion);
                         repo.MarcarEstadoTicket(idTarea, idUsuarioVerificador);
-                        Usuario usuarioVerificador = new Usuario(idUsuarioVerificador, "", "", true);
 
                         RepositorioDeAlertasPortal repoAlerta = new RepositorioDeAlertasPortal(this.conexion);
-                        TipoAlertaPortal tipo = new TipoAlertaPortal(1004, "", "", 0);
-                        AlertaPortal alerta = new AlertaPortal(0, "Confirmación de cambio de Domicilio", "Su domicilio ha sido modificado.", tipo, new DateTime(), usuarioVerificador, "");
-                        repoAlerta.crearAlerta(alerta, idUsuarioDestinatario, usuarioVerificador);
+                        repoAlerta.crearAlerta("Confirmación de cambio de Domicilio", "Su domicilio ha sido modificado.",idUsuarioDestinatario, idUsuarioVerificador);
 
                         tran.Commit();
                         return JsonConvert.SerializeObject("Se ha cambiado el domicilio con exito.");

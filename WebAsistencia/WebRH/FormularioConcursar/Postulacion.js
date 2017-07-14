@@ -36,6 +36,13 @@
                 alertify.alert("", 'Debe aceptar los términos y bases del concurso');
                 return;
             }
+
+            if ($('#informeGrafico_00').val() == '') {
+                alertify.alert("", 'Debe ingresar al menos 1 número de INFORME GRÁFICO');
+                return;
+            }
+
+
             var postulacion = {};
             postulacion.Perfil = _this.perfil; // parseInt(_this.Puesto.id);
             //postulacion.IdPersona = _this.txt_competencias_informaticas_establecimiento.val();
@@ -43,10 +50,23 @@
             postulacion.Motivo = _this.txt_motivo.val();
             postulacion.Observaciones = _this.txt_observaciones.val();
 
+            var inputs = $('.informesGraficos');
+            var informes = [];
+            var textoConcatenado = "";
+
+            $.each(inputs, function (key, value) {
+                if (value.value != '') {
+                    informes.push(value.value);
+                    textoConcatenado += value.value + ', ';
+                }
+            });
+
+            postulacion.NumerosDeInformeGDE = informes;
+
+
+            //return;
+            //CAMBIAR A PARTE NUEVA?
             var proveedor_ajax = new ProveedorAjax();
-
-
-
 
 
             proveedor_ajax.postearAUrl({ url: "PostularseA",
@@ -54,14 +74,14 @@
                     una_postulacion: postulacion
                 },
                 success: function (postulacion) {
-                    alertify.alert("", "Usted se postuló correctamente. <br> Número de postulación: " + postulacion.Numero, function () {
+                    alertify.alert("", "Usted se postuló correctamente al perfil " + postulacion.Perfil.Denominacion + ". <br> Número de postulación: " + postulacion.Numero + "<br> Números de Informe GDE: " + textoConcatenado, function () {
                         proveedor_ajax.postearAUrl({ url: "SetObjetoEnSesion",
                             data: {
                                 nombre: 'Postulacion', //postulacion
                                 objeto: JSON.stringify(postulacion)
                             },
                             success: function (respuesta) {
-                                window.location.href = "PostInscripcion.aspx?id=" + postulacion.Id + "&fh=" + postulacion.FechaPostulacion;
+                                window.location.href = "PostInscripcion.aspx?id=" + postulacion.Id + "&fh=" + postulacion.FechaPostulacion + "&num=" + postulacion.Numero + "&gde=" + textoConcatenado;
                             },
                             error: function (XMLHttpRequest, textStatus, errorThrown) {
                                 alertify.alert("", "Error");

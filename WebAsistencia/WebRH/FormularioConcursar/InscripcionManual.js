@@ -48,6 +48,11 @@
                     return false;
                 }
 
+                if ($('#informeGrafico_00').val() == '') {
+                    alertify.alert("", 'Debe ingresar al menos 1 número de INFORME GRÁFICO');
+                    return;
+                }
+
 
                 //var anonimoPerfil = {};
                 //anonimoPerfil.Id = $('#combo_perfiles').val();
@@ -57,6 +62,19 @@
                 postulacionManual.FechaInscripcion = $('#text_fecha_inscripcion').val();
                 postulacionManual.DNIInscriptor = $('#text_dni_inscriptor').val();
                 postulacionManual.Modalidad = $('#combo_modalidad').val();
+
+                var inputs = $('.informesGraficos');
+                var informes = [];
+                var textoConcatenado = "";
+
+                $.each(inputs, function (key, value) {
+                    if (value.value != '') {
+                        informes.push(value.value);
+                        textoConcatenado += value.value + ', ';
+                    }
+                });
+
+                postulacionManual.NumerosDeInformeGDE = informes;
 
 
                 var datosPersonales = {};
@@ -100,16 +118,10 @@
                 var folioJSON = JSON.stringify(folio);
 
                 var nroPostulacion = Backend.sync.GuardarPostulacionManual({ postulacion: postulacionManual }, { datosPersonales: datosPersonales }, { folio: folio });
-                if (isNaN(nroPostulacion)) {
-                    alertify.error(nroPostulacion);
-                } else {
                     $('#numero_postulacion').html(nroPostulacion);
                     alertify.alert("", 'Se ha inscripto correctamente. El número de postulación es: ' + nroPostulacion);
-                    PrintElem();
+                    PrintElem();  
                 }
-
-
-            }
         });
 
         function validar() {

@@ -16,6 +16,7 @@
         UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" UrlPassword="../" />
     <div class="container-fluid">
         <h1 style="text-align: center; margin: 30px;">
+            <!--<a id="btn_asignacion_usuario" href="EvaluadosUsuario.aspx">Evaluados por Usuario</a>-->
         </h1>
         <div style="margin: 0 auto;" class="row">
             <div class="caja_der papel">

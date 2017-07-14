@@ -98,7 +98,8 @@
 
 <script type="text/javascript">
     var Componente = {
-        start: function (idTicket, ui) {
+        start: function (ticket, ui) {
+            var idTicket = ticket.id;
             Backend.GetCambioImagenPorIdTicket(idTicket)
                 .onSuccess(function (solicitud) {
                     ui.find("#btn_aceptar_cambio_imagen")

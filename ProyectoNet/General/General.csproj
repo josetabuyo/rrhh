@@ -115,7 +115,6 @@
     <Compile Include="MAU\SolicitudDeCambioDeImagen.cs" />
     <Compile Include="MED\EvaluacionDesempenio.cs" />
     <Compile Include="Organigrama\GraficoBienes.cs" />
-    <Compile Include="MAU\TipoAlertaPortal.cs" />
     <Compile Include="MED\AgenteEvaluacionDesempenio.cs" />
     <Compile Include="MED\DescripcionAreaEvaluacion.cs" />
     <Compile Include="MED\DetallePreguntas.cs" />
