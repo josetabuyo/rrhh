@@ -2,10 +2,10 @@
 <wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://wsviaticos.gov.ar/">
-      <s:element name="RepreguntarConsulta">
+      <s:element name="NuevaConsultaDePortal">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id_consulta" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_tipo_consulta" type="s:int" />
             <s:element minOccurs="0" maxOccurs="1" name="motivo" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
@@ -195,6 +195,22 @@
           <s:element minOccurs="1" maxOccurs="1" name="basica" type="s:boolean" />
         </s:sequence>
       </s:complexType>
+      <s:element name="NuevaConsultaDePortalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="NuevaConsultaDePortalResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RepreguntarConsulta">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_consulta" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="motivo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="RepreguntarConsultaResponse">
         <s:complexType />
       </s:element>
@@ -2134,6 +2150,24 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="Mobi_Alta_Vehiculo_Evento_Persona">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_bien" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_tipoevento" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="observaciones" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_receptor_persona" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Mobi_Alta_Vehiculo_Evento_PersonaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Mobi_Alta_Vehiculo_Evento_PersonaResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="Mobi_GetMovimientos">
         <s:complexType>
           <s:sequence>
@@ -2490,22 +2524,6 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="GetDetalleDeConsultaResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="NuevaConsultaDePortal">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id_tipo_consulta" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="motivo" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="NuevaConsultaDePortalResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="NuevaConsultaDePortalResult" type="s:int" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -7039,6 +7057,12 @@
       </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="NuevaConsultaDePortalSoapIn">
+    <wsdl:part name="parameters" element="tns:NuevaConsultaDePortal" />
+  </wsdl:message>
+  <wsdl:message name="NuevaConsultaDePortalSoapOut">
+    <wsdl:part name="parameters" element="tns:NuevaConsultaDePortalResponse" />
+  </wsdl:message>
   <wsdl:message name="RepreguntarConsultaSoapIn">
     <wsdl:part name="parameters" element="tns:RepreguntarConsulta" />
   </wsdl:message>
@@ -7495,6 +7519,12 @@
   <wsdl:message name="Mobi_Alta_Vehiculo_EventoSoapOut">
     <wsdl:part name="parameters" element="tns:Mobi_Alta_Vehiculo_EventoResponse" />
   </wsdl:message>
+  <wsdl:message name="Mobi_Alta_Vehiculo_Evento_PersonaSoapIn">
+    <wsdl:part name="parameters" element="tns:Mobi_Alta_Vehiculo_Evento_Persona" />
+  </wsdl:message>
+  <wsdl:message name="Mobi_Alta_Vehiculo_Evento_PersonaSoapOut">
+    <wsdl:part name="parameters" element="tns:Mobi_Alta_Vehiculo_Evento_PersonaResponse" />
+  </wsdl:message>
   <wsdl:message name="Mobi_GetMovimientosSoapIn">
     <wsdl:part name="parameters" element="tns:Mobi_GetMovimientos" />
   </wsdl:message>
@@ -7650,12 +7680,6 @@
   </wsdl:message>
   <wsdl:message name="GetDetalleDeConsultaSoapOut">
     <wsdl:part name="parameters" element="tns:GetDetalleDeConsultaResponse" />
-  </wsdl:message>
-  <wsdl:message name="NuevaConsultaDePortalSoapIn">
-    <wsdl:part name="parameters" element="tns:NuevaConsultaDePortal" />
-  </wsdl:message>
-  <wsdl:message name="NuevaConsultaDePortalSoapOut">
-    <wsdl:part name="parameters" element="tns:NuevaConsultaDePortalResponse" />
   </wsdl:message>
   <wsdl:message name="ModificarMiMailSoapIn">
     <wsdl:part name="parameters" element="tns:ModificarMiMail" />
@@ -9080,6 +9104,10 @@
     <wsdl:part name="parameters" element="tns:IniciarServicioDeAlertasResponse" />
   </wsdl:message>
   <wsdl:portType name="WSViaticosSoap">
+    <wsdl:operation name="NuevaConsultaDePortal">
+      <wsdl:input message="tns:NuevaConsultaDePortalSoapIn" />
+      <wsdl:output message="tns:NuevaConsultaDePortalSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="RepreguntarConsulta">
       <wsdl:input message="tns:RepreguntarConsultaSoapIn" />
       <wsdl:output message="tns:RepreguntarConsultaSoapOut" />
@@ -9384,6 +9412,10 @@
       <wsdl:input message="tns:Mobi_Alta_Vehiculo_EventoSoapIn" />
       <wsdl:output message="tns:Mobi_Alta_Vehiculo_EventoSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="Mobi_Alta_Vehiculo_Evento_Persona">
+      <wsdl:input message="tns:Mobi_Alta_Vehiculo_Evento_PersonaSoapIn" />
+      <wsdl:output message="tns:Mobi_Alta_Vehiculo_Evento_PersonaSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="Mobi_GetMovimientos">
       <wsdl:input message="tns:Mobi_GetMovimientosSoapIn" />
       <wsdl:output message="tns:Mobi_GetMovimientosSoapOut" />
@@ -9487,10 +9519,6 @@
     <wsdl:operation name="GetDetalleDeConsulta">
       <wsdl:input message="tns:GetDetalleDeConsultaSoapIn" />
       <wsdl:output message="tns:GetDetalleDeConsultaSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="NuevaConsultaDePortal">
-      <wsdl:input message="tns:NuevaConsultaDePortalSoapIn" />
-      <wsdl:output message="tns:NuevaConsultaDePortalSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="ModificarMiMail">
       <wsdl:input message="tns:ModificarMiMailSoapIn" />
@@ -10443,6 +10471,15 @@
   </wsdl:portType>
   <wsdl:binding name="WSViaticosSoap" type="tns:WSViaticosSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="NuevaConsultaDePortal">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/NuevaConsultaDePortal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="RepreguntarConsulta">
       <soap:operation soapAction="http://wsviaticos.gov.ar/RepreguntarConsulta" style="document" />
       <wsdl:input>
@@ -11127,6 +11164,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="Mobi_Alta_Vehiculo_Evento_Persona">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/Mobi_Alta_Vehiculo_Evento_Persona" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="Mobi_GetMovimientos">
       <soap:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetMovimientos" style="document" />
       <wsdl:input>
@@ -11354,15 +11400,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetDetalleDeConsulta">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetDetalleDeConsulta" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="NuevaConsultaDePortal">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/NuevaConsultaDePortal" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -13506,6 +13543,15 @@
   </wsdl:binding>
   <wsdl:binding name="WSViaticosSoap12" type="tns:WSViaticosSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="NuevaConsultaDePortal">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/NuevaConsultaDePortal" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="RepreguntarConsulta">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/RepreguntarConsulta" style="document" />
       <wsdl:input>
@@ -14190,6 +14236,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="Mobi_Alta_Vehiculo_Evento_Persona">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/Mobi_Alta_Vehiculo_Evento_Persona" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="Mobi_GetMovimientos">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetMovimientos" style="document" />
       <wsdl:input>
@@ -14417,15 +14472,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetDetalleDeConsulta">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetDetalleDeConsulta" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="NuevaConsultaDePortal">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/NuevaConsultaDePortal" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
