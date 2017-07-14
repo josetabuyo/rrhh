@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://wsviaticos.gov.ar/">
-      <s:element name="RepreguntarConsulta">
+      <s:element name="NuevaConsultaDePortal">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id_consulta" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_tipo_consulta" type="s:int" />
             <s:element minOccurs="0" maxOccurs="1" name="motivo" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
@@ -195,6 +195,22 @@
           <s:element minOccurs="1" maxOccurs="1" name="basica" type="s:boolean" />
         </s:sequence>
       </s:complexType>
+      <s:element name="NuevaConsultaDePortalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="NuevaConsultaDePortalResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RepreguntarConsulta">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_consulta" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="motivo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="RepreguntarConsultaResponse">
         <s:complexType />
       </s:element>
@@ -569,7 +585,7 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="ActualizarCvOtraCapacidad">
+      <s:element name="GuardarCvOtraCapacidad">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="capacidad_personal" type="tns:CvCapacidadPersonal" />
@@ -768,6 +784,21 @@
           </s:extension>
         </s:complexContent>
       </s:complexType>
+      <s:element name="GuardarCvOtraCapacidadResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GuardarCvOtraCapacidadResult" type="tns:CvCapacidadPersonal" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ActualizarCvOtraCapacidad">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="capacidad_personal" type="tns:CvCapacidadPersonal" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="ActualizarCvOtraCapacidadResponse">
         <s:complexType>
           <s:sequence>
@@ -2494,22 +2525,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="NuevaConsultaDePortal">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id_tipo_consulta" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="motivo" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="NuevaConsultaDePortalResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="NuevaConsultaDePortalResult" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
       <s:element name="ModificarMiMail">
         <s:complexType>
           <s:sequence>
@@ -3392,6 +3407,22 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="ActualizarInformesGDEDeUnaPostulacion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="numeroPostulacion" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="setDeInformes" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ActualizarInformesGDEDeUnaPostulacionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ActualizarInformesGDEDeUnaPostulacionResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetPostulaciones">
         <s:complexType>
           <s:sequence>
@@ -4051,21 +4082,6 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="EliminarCvCompetenciaInformaticaResult" type="s:boolean" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GuardarCvOtraCapacidad">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="capacidad_personal" type="tns:CvCapacidadPersonal" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GuardarCvOtraCapacidadResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GuardarCvOtraCapacidadResult" type="tns:CvCapacidadPersonal" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -7040,6 +7056,12 @@
       </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="NuevaConsultaDePortalSoapIn">
+    <wsdl:part name="parameters" element="tns:NuevaConsultaDePortal" />
+  </wsdl:message>
+  <wsdl:message name="NuevaConsultaDePortalSoapOut">
+    <wsdl:part name="parameters" element="tns:NuevaConsultaDePortalResponse" />
+  </wsdl:message>
   <wsdl:message name="RepreguntarConsultaSoapIn">
     <wsdl:part name="parameters" element="tns:RepreguntarConsulta" />
   </wsdl:message>
@@ -7147,6 +7169,12 @@
   </wsdl:message>
   <wsdl:message name="PrintPdfEvaluacionDesempenioSoapOut">
     <wsdl:part name="parameters" element="tns:PrintPdfEvaluacionDesempenioResponse" />
+  </wsdl:message>
+  <wsdl:message name="GuardarCvOtraCapacidadSoapIn">
+    <wsdl:part name="parameters" element="tns:GuardarCvOtraCapacidad" />
+  </wsdl:message>
+  <wsdl:message name="GuardarCvOtraCapacidadSoapOut">
+    <wsdl:part name="parameters" element="tns:GuardarCvOtraCapacidadResponse" />
   </wsdl:message>
   <wsdl:message name="ActualizarCvOtraCapacidadSoapIn">
     <wsdl:part name="parameters" element="tns:ActualizarCvOtraCapacidad" />
@@ -7652,12 +7680,6 @@
   <wsdl:message name="GetDetalleDeConsultaSoapOut">
     <wsdl:part name="parameters" element="tns:GetDetalleDeConsultaResponse" />
   </wsdl:message>
-  <wsdl:message name="NuevaConsultaDePortalSoapIn">
-    <wsdl:part name="parameters" element="tns:NuevaConsultaDePortal" />
-  </wsdl:message>
-  <wsdl:message name="NuevaConsultaDePortalSoapOut">
-    <wsdl:part name="parameters" element="tns:NuevaConsultaDePortalResponse" />
-  </wsdl:message>
   <wsdl:message name="ModificarMiMailSoapIn">
     <wsdl:part name="parameters" element="tns:ModificarMiMail" />
   </wsdl:message>
@@ -7903,6 +7925,12 @@
   </wsdl:message>
   <wsdl:message name="GuardarPostulacionManualSoapOut">
     <wsdl:part name="parameters" element="tns:GuardarPostulacionManualResponse" />
+  </wsdl:message>
+  <wsdl:message name="ActualizarInformesGDEDeUnaPostulacionSoapIn">
+    <wsdl:part name="parameters" element="tns:ActualizarInformesGDEDeUnaPostulacion" />
+  </wsdl:message>
+  <wsdl:message name="ActualizarInformesGDEDeUnaPostulacionSoapOut">
+    <wsdl:part name="parameters" element="tns:ActualizarInformesGDEDeUnaPostulacionResponse" />
   </wsdl:message>
   <wsdl:message name="GetPostulacionesSoapIn">
     <wsdl:part name="parameters" element="tns:GetPostulaciones" />
@@ -8155,12 +8183,6 @@
   </wsdl:message>
   <wsdl:message name="EliminarCvCompetenciaInformaticaSoapOut">
     <wsdl:part name="parameters" element="tns:EliminarCvCompetenciaInformaticaResponse" />
-  </wsdl:message>
-  <wsdl:message name="GuardarCvOtraCapacidadSoapIn">
-    <wsdl:part name="parameters" element="tns:GuardarCvOtraCapacidad" />
-  </wsdl:message>
-  <wsdl:message name="GuardarCvOtraCapacidadSoapOut">
-    <wsdl:part name="parameters" element="tns:GuardarCvOtraCapacidadResponse" />
   </wsdl:message>
   <wsdl:message name="DetenerServicioDeAlertasSoapIn">
     <wsdl:part name="parameters" element="tns:DetenerServicioDeAlertas" />
@@ -9081,6 +9103,10 @@
     <wsdl:part name="parameters" element="tns:IniciarServicioDeAlertasResponse" />
   </wsdl:message>
   <wsdl:portType name="WSViaticosSoap">
+    <wsdl:operation name="NuevaConsultaDePortal">
+      <wsdl:input message="tns:NuevaConsultaDePortalSoapIn" />
+      <wsdl:output message="tns:NuevaConsultaDePortalSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="RepreguntarConsulta">
       <wsdl:input message="tns:RepreguntarConsultaSoapIn" />
       <wsdl:output message="tns:RepreguntarConsultaSoapOut" />
@@ -9152,6 +9178,10 @@
     <wsdl:operation name="PrintPdfEvaluacionDesempenio">
       <wsdl:input message="tns:PrintPdfEvaluacionDesempenioSoapIn" />
       <wsdl:output message="tns:PrintPdfEvaluacionDesempenioSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GuardarCvOtraCapacidad">
+      <wsdl:input message="tns:GuardarCvOtraCapacidadSoapIn" />
+      <wsdl:output message="tns:GuardarCvOtraCapacidadSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="ActualizarCvOtraCapacidad">
       <wsdl:input message="tns:ActualizarCvOtraCapacidadSoapIn" />
@@ -9489,10 +9519,6 @@
       <wsdl:input message="tns:GetDetalleDeConsultaSoapIn" />
       <wsdl:output message="tns:GetDetalleDeConsultaSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="NuevaConsultaDePortal">
-      <wsdl:input message="tns:NuevaConsultaDePortalSoapIn" />
-      <wsdl:output message="tns:NuevaConsultaDePortalSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="ModificarMiMail">
       <wsdl:input message="tns:ModificarMiMailSoapIn" />
       <wsdl:output message="tns:ModificarMiMailSoapOut" />
@@ -9656,6 +9682,10 @@
     <wsdl:operation name="GuardarPostulacionManual">
       <wsdl:input message="tns:GuardarPostulacionManualSoapIn" />
       <wsdl:output message="tns:GuardarPostulacionManualSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarInformesGDEDeUnaPostulacion">
+      <wsdl:input message="tns:ActualizarInformesGDEDeUnaPostulacionSoapIn" />
+      <wsdl:output message="tns:ActualizarInformesGDEDeUnaPostulacionSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetPostulaciones">
       <wsdl:input message="tns:GetPostulacionesSoapIn" />
@@ -9824,10 +9854,6 @@
     <wsdl:operation name="EliminarCvCompetenciaInformatica">
       <wsdl:input message="tns:EliminarCvCompetenciaInformaticaSoapIn" />
       <wsdl:output message="tns:EliminarCvCompetenciaInformaticaSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GuardarCvOtraCapacidad">
-      <wsdl:input message="tns:GuardarCvOtraCapacidadSoapIn" />
-      <wsdl:output message="tns:GuardarCvOtraCapacidadSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="DetenerServicioDeAlertas">
       <wsdl:input message="tns:DetenerServicioDeAlertasSoapIn" />
@@ -10444,6 +10470,15 @@
   </wsdl:portType>
   <wsdl:binding name="WSViaticosSoap" type="tns:WSViaticosSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="NuevaConsultaDePortal">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/NuevaConsultaDePortal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="RepreguntarConsulta">
       <soap:operation soapAction="http://wsviaticos.gov.ar/RepreguntarConsulta" style="document" />
       <wsdl:input>
@@ -10599,6 +10634,15 @@
     </wsdl:operation>
     <wsdl:operation name="PrintPdfEvaluacionDesempenio">
       <soap:operation soapAction="http://wsviaticos.gov.ar/PrintPdfEvaluacionDesempenio" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarCvOtraCapacidad">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarCvOtraCapacidad" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -11362,15 +11406,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="NuevaConsultaDePortal">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/NuevaConsultaDePortal" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="ModificarMiMail">
       <soap:operation soapAction="http://wsviaticos.gov.ar/ModificarMiMail" style="document" />
       <wsdl:input>
@@ -11733,6 +11768,15 @@
     </wsdl:operation>
     <wsdl:operation name="GuardarPostulacionManual">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarPostulacionManual" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarInformesGDEDeUnaPostulacion">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ActualizarInformesGDEDeUnaPostulacion" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -12111,15 +12155,6 @@
     </wsdl:operation>
     <wsdl:operation name="EliminarCvCompetenciaInformatica">
       <soap:operation soapAction="http://wsviaticos.gov.ar/EliminarCvCompetenciaInformatica" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GuardarCvOtraCapacidad">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarCvOtraCapacidad" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -13507,6 +13542,15 @@
   </wsdl:binding>
   <wsdl:binding name="WSViaticosSoap12" type="tns:WSViaticosSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="NuevaConsultaDePortal">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/NuevaConsultaDePortal" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="RepreguntarConsulta">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/RepreguntarConsulta" style="document" />
       <wsdl:input>
@@ -13662,6 +13706,15 @@
     </wsdl:operation>
     <wsdl:operation name="PrintPdfEvaluacionDesempenio">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/PrintPdfEvaluacionDesempenio" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarCvOtraCapacidad">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarCvOtraCapacidad" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -14425,15 +14478,6 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="NuevaConsultaDePortal">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/NuevaConsultaDePortal" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="ModificarMiMail">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/ModificarMiMail" style="document" />
       <wsdl:input>
@@ -14796,6 +14840,15 @@
     </wsdl:operation>
     <wsdl:operation name="GuardarPostulacionManual">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarPostulacionManual" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarInformesGDEDeUnaPostulacion">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ActualizarInformesGDEDeUnaPostulacion" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -15174,15 +15227,6 @@
     </wsdl:operation>
     <wsdl:operation name="EliminarCvCompetenciaInformatica">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/EliminarCvCompetenciaInformatica" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GuardarCvOtraCapacidad">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarCvOtraCapacidad" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

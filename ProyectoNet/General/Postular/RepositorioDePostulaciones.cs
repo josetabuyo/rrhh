@@ -744,5 +744,51 @@ namespace General
             return modalidades;
 
         }
+
+        public bool ActualizarInformesGDE(string numero, JArray setDeInformes, int idUsuario)
+        {
+            try
+            {
+                foreach (Newtonsoft.Json.Linq.JValue informesAceptados in setDeInformes[0])
+                {
+                    var parametros = new Dictionary<string, object>();
+                    parametros.Add("@numeroPostulacion", numero);
+                    parametros.Add("@numeroInformeGDE", informesAceptados.ToString());
+                    parametros.Add("@estado", 1);
+                    parametros.Add("@idUsuario", idUsuario);
+
+                    conexion_bd.Ejecutar("dbo.CV_UPD_InformeGDEPostulacion", parametros);
+                }
+
+                foreach (Newtonsoft.Json.Linq.JValue informesRechazados in setDeInformes[1])
+                {
+                    var parametros = new Dictionary<string, object>();
+                    parametros.Add("@numeroPostulacion", numero);
+                    parametros.Add("@numeroInformeGDE", informesRechazados.ToString());
+                    parametros.Add("@estado", 9);
+                    parametros.Add("@idUsuario", idUsuario);
+
+                    conexion_bd.Ejecutar("dbo.CV_UPD_InformeGDEPostulacion", parametros);
+                }
+
+                foreach (Newtonsoft.Json.Linq.JValue informesNuevos in setDeInformes[2])
+                {
+                    var parametros = new Dictionary<string, object>();
+                    parametros.Add("@numeroPostulacion", numero);
+                    parametros.Add("@numeroInformeGDE", informesNuevos.ToString());
+                    parametros.Add("@estado", 0);
+                    parametros.Add("@idUsuario", idUsuario);
+
+                    conexion_bd.Ejecutar("dbo.CV_UPD_InformeGDEPostulacion", parametros);
+                }
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            
+        }
     }
 }

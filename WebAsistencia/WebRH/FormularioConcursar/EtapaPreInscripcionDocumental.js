@@ -4,6 +4,7 @@
         _this.btn_guardar = $("#btn_guardar");
         _this.btn_buscar_postulacion = $("#btn_buscar_postulacion");
         _this.btn_comprobantes = $("#btn_comprobantes");
+        _this.btn_ActualizarInformes = $("#btnActualizarInformes");
 
         var pantalla;
 
@@ -73,6 +74,65 @@
 
         });
 
+
+        _this.btn_ActualizarInformes.click(function () {
+
+            alertify.confirm("Actualizar Informes", "¿Está seguro que desea actualizar los INFORMES GDE?",
+                function () {
+                    var inputsInformesAceptados = $('.checksInformesAceptados:checked');
+                    var inputsInformesRechazados = $('.checksInformesRechazados:checked');
+                    var inputsInformesNuevos = $('.informesGraficos');
+                    var codigo = $("#txt_codigo_postulacion").val();
+
+                    var informesNuevos = [];
+                    var informesAceptados = [];
+                    var informesRechazados = [];
+
+                    $.each(inputsInformesAceptados, function (key, value) {
+                        if (value.value != '') {
+                            informesAceptados.push(value.value);
+                        }
+                    });
+
+                    $.each(inputsInformesRechazados, function (key, value) {
+                        if (value.value != '') {
+                            informesRechazados.push(value.value);
+                        }
+                    });
+
+                    $.each(inputsInformesNuevos, function (key, value) {
+                        if (value.value != '') {
+                            informesNuevos.push(value.value);
+                        }
+                    });
+
+                    var setDeInformes = [];
+                    setDeInformes[0] = informesAceptados;
+                    setDeInformes[1] = informesRechazados;
+                    setDeInformes[2] = informesNuevos;
+
+                    var jsonSetDeInformes = JSON.stringify(setDeInformes);
+
+                    Backend.ActualizarInformesGDEDeUnaPostulacion(codigo, jsonSetDeInformes)
+                        .onSuccess(function (resultado) {
+                            if (resultado == true) {
+                                alertify.success("Exito", 'Se han actualizado correctamente los INFORMES GDE');
+                            } else {
+                                alertify.alert("", 'Ha sucedido un error en la actualización de los Informes');
+                            }
+                        })
+                       .onError(function (error) {
+                           alertify.error(error.statusText);
+                       });
+                },
+                function () {
+                    alertify.error("Se ha cancelado la operación");
+                }
+            );
+
+
+        });
+
     },
 
     AbrirPopUpFolios: function () {
@@ -95,6 +155,7 @@
         $("#detalle_perfil").html("");
         $("#detalle_documentos").html("");
         $("#span_gde").html("");
+        $("#cuerpoTablaInformes").empty();
         $("#titulo_doc_oblig").remove();
         $("#titulo_doc_curric").remove();
 

@@ -59,7 +59,8 @@
                 <div id="cajaDeInformesGraficos" style="display: inline;">
                     <input class="informesGraficos" placeholder="N° Informe" type="text" id="informeGrafico_00" />
                 </div>
-                <input type=button class="btn" onclick="agregarInforme()" value="Agregar otro INFORME" />
+                <input type="button" class="btn" onclick="agregarInforme()" value="Agregar otro INFORME" />
+                <input type="button" class="btn" id="btnActualizarInformes" value="Actualizar Informes" />
             </div>
         </div>
         <input type="button" style="display:none;" class="btn btn-primary" id="btn_guardar" value="INSCRIBIR" />

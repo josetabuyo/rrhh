@@ -3349,6 +3349,13 @@ public class WSViaticos : System.Web.Services.WebService
         return RepoPostulaciones().InscripcionManual(postulacion, datosPersonales, folio, usuario);
     }
 
+    [WebMethod]
+    public bool ActualizarInformesGDEDeUnaPostulacion(string numeroPostulacion, string setDeInformes, Usuario usuario)
+    {
+        var informesArray = (JArray)JsonConvert.DeserializeObject(setDeInformes);
+        return RepoPostulaciones().ActualizarInformesGDE(numeroPostulacion, informesArray, usuario.Owner.Id);
+    }
+
 
 
     [WebMethod]
