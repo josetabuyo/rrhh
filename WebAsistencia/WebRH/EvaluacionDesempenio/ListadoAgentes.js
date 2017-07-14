@@ -57,6 +57,7 @@ var ListadoAgentes = {
         columnas.push(new Columna("Dni", { generar: function (asignacion_evaluado_a_evaluador) { return asignacion_evaluado_a_evaluador.agente_evaluado.nro_documento } }));
         columnas.push(new Columna("Apellido", { generar: function (asignacion_evaluado_a_evaluador) { return asignacion_evaluado_a_evaluador.agente_evaluado.apellido } }));
         columnas.push(new Columna("Nombre", { generar: function (asignacion_evaluado_a_evaluador) { return asignacion_evaluado_a_evaluador.agente_evaluado.nombre } }));
+        columnas.push(new Columna("Unidad Evaluacion", { generar: function (asignacion_evaluado_a_evaluador) { return asignacion_evaluado_a_evaluador.codigo_unidad_eval } }));
         columnas.push(new Columna("Evaluacion", { generar: function (asignacion_evaluado_a_evaluador) {
             var coleccion_respuestas = _this.getRespuestasDelForm(asignacion_evaluado_a_evaluador.evaluacion);
             return _this.calificacion(coleccion_respuestas, asignacion_evaluado_a_evaluador.nivel.deficiente, asignacion_evaluado_a_evaluador.nivel.regular, asignacion_evaluado_a_evaluador.nivel.bueno, asignacion_evaluado_a_evaluador.nivel.destacado, false);

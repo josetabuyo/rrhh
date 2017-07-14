@@ -214,12 +214,19 @@ namespace General.Repositorios
                                             row.GetString("codigo_gde", ""));
             }
 
+            var unidad_evaluacion = UnidadDeEvaluacion.Nulio();
+            if (row.GetInt("id_unidad_eval", 0) != 0)
+            {
+                unidad_evaluacion = new UnidadDeEvaluacion(row.GetInt("id_unidad_eval"), row.GetString("codigo_unidad_eval"));
+            }
+
             return new AsignacionEvaluadoAEvaluador(
                 GetAgenteEvaluadoEvaluacionDesempenio(id_evaluado, area_evaluado),
                 evaluador,
                 evaluacion,
                 periodo,
-                nivel);
+                nivel,
+                unidad_evaluacion);
 
         }
 
