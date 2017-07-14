@@ -45,9 +45,27 @@
            
             <div id="detalle_documentos"></div>
         </fieldset>
+
+        <div id="contenedorInformesGDE" style="display:none;">
+            <table style="text-align: center;">
+                <thead>
+                    <tr><th style="padding: 0 10px;">N° Informe</th><th style="padding: 0 10px;">Aceptar</th><th style="padding: 0 10px;">Rechazar</th></tr>
+                </thead>
+                <tbody id="cuerpoTablaInformes">
+                </tbody>
+            </table>
+            <div style="margin-top: 50px;">
+                <p class="subtitulo_incripcion">Agregar nuevos INFORMES GRÁFICOS</p>
+                <div id="cajaDeInformesGraficos" style="display: inline;">
+                    <input class="informesGraficos" placeholder="N° Informe" type="text" id="informeGrafico_00" />
+                </div>
+                <input type="button" class="btn" onclick="agregarInforme()" value="Agregar otro INFORME" />
+                <input type="button" class="btn" id="btnActualizarInformes" value="Actualizar Informes" />
+            </div>
+        </div>
         <input type="button" style="display:none;" class="btn btn-primary" id="btn_guardar" value="INSCRIBIR" />
        <input type="button" style="display:none;" class="btn btn-primary" id="btn_comprobantes" visible="false" value="IMPRIMIR ANEXO III" />
-        <input type="button" style="display:none;" class="btn btn-primary" id="btn_caratula" onclick = "ImprimirCaratula()" value="Imprimir carátula" />
+        <%--<input type="button" style="display:none;" class="btn btn-primary" id="btn_caratula" onclick = "ImprimirCaratula()" value="Imprimir carátula" />--%>
        </div>
     </div>
     <asp:HiddenField ID="postulacion" runat="server" />
@@ -137,7 +155,14 @@
             }
         );
 
-    }
+        }
+
+        var nextinput = 0;
+        function agregarInforme() {
+            nextinput++;
+            campo = '<input class="informesGraficos" placeholder="N° Informe" type="text" id="informeGrafico_0' + nextinput + '" />';
+            $("#cajaDeInformesGraficos").append(campo);
+        }
 
 </script>
 

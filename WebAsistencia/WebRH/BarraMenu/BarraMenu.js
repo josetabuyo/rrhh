@@ -45,7 +45,7 @@
 
         var cargar_alertas = function () {
             $("#contenedor_alertas").empty();            
-            Backend.GetMisAlertasPendientes().onSuccess(function (alertas) {                 
+            Backend.GetMisAlertasPendientes().onSuccess(function (alertas) {                   
                 _.forEach(alertas, function (alerta) {
                     var vista = new VistaAlerta(alerta);                    
                     menu_alertas.agregar(vista);                    
@@ -55,21 +55,15 @@
 
         var cargar_tareas = function () {
             $("#contenedor_tareas").empty()
-            Backend.ElUsuarioLogueadoTienePermisosPara(50).onSuccess(function (tiene_permisos) {
-                if (tiene_permisos) {
-                    $("#menu_tareas").show();
-                    Backend.GetSolicitudesDeCambioDeImagenPendientes().onSuccess(function (solicitudes) {
-                        _.forEach(solicitudes, function (solicitud) {
-                            var vista = new VistaSolicitudDeCambioDeImagen(solicitud);
-                            menu_tareas.agregar(vista);           
-                        });
-                    });
-                    
-                }else{
-                    
-                }
-            });
-           
+            $("#menu_tareas").show();
+            Backend.getTicketsPorFuncionalidad().onSuccess(function (tickets) {
+                var tipos = _.groupBy(tickets, function(t){ return t.tipoTicket.descripcion;});
+                                      
+                _.forEach(tipos, function (tickets, descripcion) {
+                    var vista = new VistaTipoTicket(descripcion, tickets.length);
+                    menu_tareas.agregar(vista, tickets.length);           
+                });
+            });        
         };
 
         cargar_alertas();

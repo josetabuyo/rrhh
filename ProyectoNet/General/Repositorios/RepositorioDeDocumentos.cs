@@ -86,7 +86,7 @@ namespace General.Repositorios
         {
             var parametros = new Dictionary<string, object>();
 
-            RepositorioDeTickets repoTicket = new RepositorioDeTickets(conexion_bd);
+            GeneradorDeEtiquetas repoTicket = new GeneradorDeEtiquetas(conexion_bd);
 
             Validador().EsValidoComoId(un_documento.categoriaDeDocumento.Id, "para la categoría de un documento");
             Validador().EsValidoComoId(un_documento.tipoDeDocumento.Id, "para el tipo de un documento");

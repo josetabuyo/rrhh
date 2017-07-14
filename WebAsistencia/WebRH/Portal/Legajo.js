@@ -62,6 +62,7 @@ var Legajo = {
     getDatosPersonales: function () {
         var spinner = new Spinner({ scale: 2 });
         spinner.spin($("html")[0]);
+        var _this = this;
 
         Backend.GetDatosPersonales()
             .onSuccess(function (datos) {
@@ -81,16 +82,129 @@ var Legajo = {
                     $('#dni').html(data.Documento);
                     $('#domicilio').html(data.Domicilio);
                     $('#cargo').html(data.Cargo);
-
                 }
 
+                //FC: me fijo si tiene pedido de domicilio pendiente
+                Backend.GetDomicilioPendiente()
+                        .onSuccess(function (jsonDomicilio) {
+
+                            var domicilio = $.parseJSON(jsonDomicilio);
+                            if (domicilio.Id != 0) {
+                                $('#mensajeCambioDomicilioPendiente').show();
+                                $('#btnMostrarDomicilio').hide();
+                            }
+
+                        })
+                    .onError(function (e) {
+
+                    });
+
                 spinner.stop();
+
+                $('#btnMostrarDomicilio').click(function () {
+
+
+                    //var ui = $("#cajaCambiarDomicilio");
+
+                    vex.defaultOptions.className = 'vex-theme-os';
+                    vex.open({
+                        afterOpen: function ($vexContent) {
+                            var ui = $("#cajaCambiarDomicilio").clone();
+                            $vexContent.append(ui);
+                            ui.show();
+
+                            _this.getProvincias(ui);
+                            //primero CABA x default
+                            _this.getLocalidades(ui, 0);
+
+                            ui.find('#cmb_provincia').change(function () {
+                                ui.find("#cmb_localidad").empty();
+                                var idProvincia = parseInt(ui.find("#cmb_provincia option:selected").val());
+                                _this.getLocalidades(ui, idProvincia);
+                            });
+
+                            ui.find('#btnCambiarDomicilio').click(function () {
+
+                                if (ui.find('#txt_calle').val() == '' || ui.find('#txt_numero').val() == '' || ui.find('#txt_cp').val() == '') {
+                                    alert('Debe completar los campos obligatorios');
+                                    return;
+                                }
+
+                                var domicilio = {};
+                                domicilio.Calle = ui.find('#txt_calle').val();
+                                domicilio.Numero = ui.find('#txt_numero').val();
+                                domicilio.Piso = ui.find('#txt_piso').val();
+                                domicilio.Depto = ui.find('#txt_dto').val();
+                                domicilio.Cp = ui.find('#txt_cp').val();
+                                domicilio.Localidad = ui.find('#cmb_localidad').val();
+                                domicilio.Provincia = ui.find('#cmb_provincia').val();
+                                domicilio.Manzana = ui.find('#txt_manzana').val();
+                                domicilio.Casa = ui.find('#txt_casa').val();
+                                domicilio.Barrio = ui.find('#cmb_barrio').val();
+                                domicilio.Torre = ui.find('#cmb_torre').val();
+                                domicilio.Uf = ui.find('#cmb_uf').val();
+                                Backend.GuardarDomicilioPendiente(domicilio)
+                                    .onSuccess(function (respuesta) {
+
+                                        alertify.success("Solicitud creada.");
+                                        //vex.dialog.alert('Solicitud de cambio de domicilio generada. Presente el formulario impreso a RRHH');
+                                        _this.getDatosPersonales();
+                                        vex.close();
+
+
+                                    })
+                                    .onError(function (e) {
+
+                                    });
+                            });
+
+                            return ui;
+                        },
+                        css: {
+                            'padding-top': "4%",
+                            'padding-bottom': "0%"
+                        },
+                        contentCSS: {
+                            width: "50%",
+                            height: "330px"
+                        }
+                    });
+                    //$('#cajaCambiarDomicilio').show();
+                });
+
+
 
             })
             .onError(function (e) {
                 spinner.stop();
             });
 
+    },
+    getProvincias: function (ui) {
+        Backend.BuscarProvincias({})
+                .onSuccess(function (provincias) {
+
+                    var options = ui.find("#cmb_provincia");
+                    $.each(provincias, function () {
+                        options.append($("<option />").val(this.Id).text(this.Nombre));
+                    });
+                })
+            .onError(function (e) {
+
+            });
+    },
+    getLocalidades: function (ui, idProvincia) {
+        Backend.BuscarLocalidades({ IdProvincia: idProvincia })
+            .onSuccess(function (localidades) {
+
+                var options = ui.find("#cmb_localidad");
+                $.each(localidades, function () {
+                    options.append($("<option />").val(this.Id).text(this.Nombre));
+                });
+            })
+        .onError(function (e) {
+
+        });
     },
     getDatosFamiliares: function () {
 
@@ -1418,10 +1532,10 @@ var Legajo = {
         Backend.getAreaDeLaPersona().onSuccess(function (datos) {
             var data = $.parseJSON(datos);
             var resumen = "<div style='text-align:center;'><b>DATOS DE MI ÁREA <br />" + data.Nombre + "</b></div><br/>";
-//            if (data.datos_del_responsable.Apellido != "") {
-//                resumen = resumen + "RESPONSABLE: " + data.datos_del_responsable.Apellido + ", " + data.datos_del_responsable.Nombre + "<br/>";
-//            }
-             
+            //            if (data.datos_del_responsable.Apellido != "") {
+            //                resumen = resumen + "RESPONSABLE: " + data.datos_del_responsable.Apellido + ", " + data.datos_del_responsable.Nombre + "<br/>";
+            //            }
+
             var contactos = data.DatosDeContacto;
             var asistentes = data.Asistentes;
             for (var i = 0; i < contactos.length; i++) {

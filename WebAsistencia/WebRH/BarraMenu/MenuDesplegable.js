@@ -35,9 +35,9 @@ MenuDesplegable.prototype.contraer = function () {
     this.elemento_desplegable.hide();
 };
 
-MenuDesplegable.prototype.agregar = function (elemento_dibujable) {
+MenuDesplegable.prototype.agregar = function (elemento_dibujable, cantidad_que_suma) {
     var _this = this;
-    this.cant_elementos_dibujados += 1;
+    this.cant_elementos_dibujados += cantidad_que_suma||1;
 
     if (this.cant_elementos_dibujados > 0 && this.mostrar_cantidad) this.contador.show();
     this.contador.html(this.cant_elementos_dibujados);              

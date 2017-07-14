@@ -2660,21 +2660,28 @@ public class WSViaticos : System.Web.Services.WebService
     public bool AceptarCambioDeImagen(int id_usuario, Usuario usuario)
     {
         if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 50)) throw (new Exception("El usuario no tiene permisos para administrar cambios de imagen"));
-        return RepositorioDeUsuarios().AceptarCambioDeImagen(id_usuario);
+        return RepositorioDeUsuarios().AceptarCambioDeImagen(id_usuario, usuario.Id);
     }
 
     [WebMethod]
-    public bool AceptarCambioImagenConImagenRecortada(int id_usuario, int id_imagen, Usuario usuario)
+    public bool AceptarCambioImagenConImagenRecortada(int id_usuario, int id_imagen_recortada, Usuario usuario)
     {
         if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 50)) throw (new Exception("El usuario no tiene permisos para administrar cambios de imagen"));
-        return RepositorioDeUsuarios().AceptarCambioImagenConImagenRecortada(id_usuario, id_imagen);
+        return RepositorioDeUsuarios().AceptarCambioImagenConImagenRecortada(id_imagen_recortada, id_usuario, usuario.Id);
     }
 
     [WebMethod]
     public bool RechazarCambioDeImagen(int id_usuario, string razon_de_rechazo, Usuario usuario)
     {
         if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 50)) throw (new Exception("El usuario no tiene permisos para administrar cambios de imagen"));
-        return RepositorioDeUsuarios().RechazarCambioDeImagen(id_usuario, razon_de_rechazo);
+        return RepositorioDeUsuarios().RechazarCambioDeImagen(razon_de_rechazo, id_usuario, usuario.Id);
+    }
+
+    [WebMethod]
+    public SolicitudDeCambioDeImagen GetCambioImagenPorIdTicket(int id_ticket, Usuario usuario)
+    {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 50)) throw (new Exception("El usuario no tiene permisos para administrar cambios de imagen"));
+        return RepositorioDeUsuarios().GetCambioImagenPorIdTicket(id_ticket);
     }
 
     [WebMethod]
@@ -3347,6 +3354,13 @@ public class WSViaticos : System.Web.Services.WebService
 
         // var postulaciones = new Postulacion();
         return RepoPostulaciones().InscripcionManual(postulacion, datosPersonales, folio, usuario);
+    }
+
+    [WebMethod]
+    public bool ActualizarInformesGDEDeUnaPostulacion(string numeroPostulacion, string setDeInformes, Usuario usuario)
+    {
+        var informesArray = (JArray)JsonConvert.DeserializeObject(setDeInformes);
+        return RepoPostulaciones().ActualizarInformesGDE(numeroPostulacion, informesArray, usuario.Owner.Id);
     }
 
 
@@ -4346,6 +4360,22 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public General.MAU.Ticket[] getTicketsPorFuncionalidad(Usuario usuario)
+    {
+        RepositorioDeTickets repo = new RepositorioDeTickets(Conexion());
+
+        return repo.GetTicketsPorFuncionalidad(usuario.Id).ToArray();
+
+    }
+
+    [WebMethod]
+    public string GetDomicilioPendientePorAlerta(int idAlerta, Usuario usuario)
+    {
+        RepositorioLegajo repo = RepoLegajo();
+        return repo.GetDomicilioPendientePorAlerta(idAlerta);  
+    }
+
+    [WebMethod]
     public string GetNotificacionesTodasDePortal()
     {
         RepositorioLegajo repo = RepoLegajo();
@@ -4353,6 +4383,34 @@ public class WSViaticos : System.Web.Services.WebService
         return repo.GetNotificacionesTodasDePortal();
 
     }
+
+    [WebMethod]
+    public string GetDomicilioPendiente(Usuario usuario)
+    {
+        RepositorioLegajo repo = RepoLegajo();
+
+        return repo.GetDomicilioPendientePorPersona(usuario.Owner.Id);
+
+    }
+
+    [WebMethod]
+    public bool GuardarDomicilioPendiente(CvDomicilio domicilio, Usuario usuario)
+    {
+        RepositorioLegajo repo = RepoLegajo();
+
+        return repo.GuardarDomicilioPendiente(domicilio, usuario);
+
+    }
+
+    [WebMethod]
+    public string VerificarDomicilioPendiente(int idAlerta, int documento, string folio, int idUsuarioCreador, Usuario usuario)
+    {
+        RepositorioLegajo repo = RepoLegajo();
+
+        return repo.VerificarCambioDomicilio(idAlerta, documento, folio, idUsuarioCreador, usuario.Id);
+
+    }
+
     [WebMethod]
     public string MostrarDestinatariosDeLaNotificacion(int id_notificacion, Usuario usuario)
     {

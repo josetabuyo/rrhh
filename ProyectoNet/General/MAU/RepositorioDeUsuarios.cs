@@ -346,6 +346,8 @@ namespace General.MAU
             parametros.Add("@id_usuario", id_usuario);
             var tablaDatos = conexion.Ejecutar("dbo.MAU_GetSolicitudesDeCambioDeImagenPendientes", parametros);
 
+            var repo = new RepositorioDeTickets(this.conexion);
+
             var solicitudes = new List<SolicitudDeCambioDeImagen>();
             tablaDatos.Rows.ForEach((row) =>
             {
@@ -353,6 +355,7 @@ namespace General.MAU
                 solicitud.idImagenAnterior = row.GetInt("id_imagen_anterior", -1);
                 solicitud.idImagenNueva = row.GetInt("id_imagen_nueva", -1);
                 solicitud.usuario = GetUsuarioPorId(row.GetInt("id_usuario"));
+
                 solicitudes.Add(solicitud);
             });
 
@@ -376,32 +379,71 @@ namespace General.MAU
             return solicitudes;
         }
 
-        public bool AceptarCambioDeImagen(int id_usuario)
+        public SolicitudDeCambioDeImagen GetCambioImagenPorIdTicket(int id_ticket)
         {
             var parametros = new Dictionary<string, object>();
-            parametros.Add("@id_usuario", id_usuario);
-            var tablaDatos = conexion.Ejecutar("dbo.MAU_AceptarCambioDeImagen", parametros);
+            parametros.Add("@id_ticket", id_ticket);
+            var tablaDatos = conexion.Ejecutar("dbo.MAU_GetCambioImagenPorIdTicket", parametros);
 
+            var repo = new RepositorioDeTickets(this.conexion);
+
+            var solicitudes = new List<SolicitudDeCambioDeImagen>();
+            var row = tablaDatos.Rows[0];
+
+            var solicitud = new SolicitudDeCambioDeImagen();
+            solicitud.idImagenAnterior = row.GetInt("id_imagen_anterior", -1);
+            solicitud.idImagenNueva = row.GetInt("id_imagen_nueva", -1);
+            solicitud.usuario = GetUsuarioPorId(row.GetInt("id_usuario"));
+
+            solicitudes.Add(solicitud);
+
+            return solicitud;
+        }
+
+        public bool AceptarCambioDeImagen(int id_usuario_solicitante, int id_administrador)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_usuario", id_usuario_solicitante);
+            conexion.Ejecutar("dbo.MAU_AceptarCambioDeImagen", parametros);
+            
+            new RepositorioDeAlertasPortal(this.conexion)
+               .crearAlerta("Solicitud de Cambio de Imágen", "Tu solicitud ha sido aprobada", id_usuario_solicitante, id_administrador);
+
+                //INSERT INTO dbo.[MAU_Alertas](idtipo, titulo, descripcion, idUsuarioDestinatario, leida, idUsuarioCreador, fechaCreacion)  
+                //VALUES (2, 'Solicitud de Cambio de Imágen', 'Tu solicitud ha sido aprobada', @id_usuario, 0, @id_usuario, getdate())   
+  
             return true;
         }
 
-        public bool RechazarCambioDeImagen(int id_usuario, string razon_de_rechazo)
+        public bool RechazarCambioDeImagen(string razon_de_rechazo, int id_usuario_solicitante, int id_administrador)
         {
             var parametros = new Dictionary<string, object>();
-            parametros.Add("@id_usuario", id_usuario);
+            parametros.Add("@id_usuario", id_usuario_solicitante);
             parametros.Add("@razon_rechazo", razon_de_rechazo);
-            var tablaDatos = conexion.Ejecutar("dbo.MAU_RechazarCambioDeImagen", parametros);
+            conexion.Ejecutar("dbo.MAU_RechazarCambioDeImagen", parametros);
+
+            new RepositorioDeAlertasPortal(this.conexion)
+                .crearAlerta("Solicitud de Cambio de Imágen", "Tu solicitud ha sido rechazada por:" + razon_de_rechazo, id_usuario_solicitante, id_administrador);
+
+                //INSERT INTO dbo.[MAU_Alertas](idtipo, titulo, descripcion, idUsuarioDestinatario, leida, idUsuarioCreador, fechaCreacion)  
+                //VALUES (3, 'Solicitud de Cambio de Imágen', 'Tu solicitud ha sido rechazada por: ' + @razon_rechazo, id_usuario_solicitante, 0, id_usuario_solicitante, getdate())   
+  
 
             return true;
         }
 
-        public bool AceptarCambioImagenConImagenRecortada(int id_usuario, int id_imagen_recortada)
+        public bool AceptarCambioImagenConImagenRecortada(int id_imagen_recortada, int id_usuario_solicitante, int id_administrador)
         {
             var parametros = new Dictionary<string, object>();
-            parametros.Add("@id_usuario", id_usuario);
+            parametros.Add("@id_usuario", id_usuario_solicitante);
             parametros.Add("@id_imagen_recortada", id_imagen_recortada);
-            var tablaDatos = conexion.Ejecutar("dbo.MAU_AceptarCambioDeImagenConImagenRecortada", parametros);
+            conexion.Ejecutar("dbo.MAU_AceptarCambioDeImagenConImagenRecortada", parametros);
+            
+            new RepositorioDeAlertasPortal(this.conexion)
+               .crearAlerta("Solicitud de Cambio de Imágen", "Tu solicitud ha sido aprobada con retoques a la imagen original", id_usuario_solicitante, id_administrador);
 
+                //INSERT INTO dbo.[MAU_Alertas](idtipo, titulo, descripcion, idUsuarioDestinatario, leida, idUsuarioCreador, fechaCreacion)  
+	            //VALUES (2, 'Solicitud de Cambio de Imágen', 'Tu solicitud ha sido aprobada con retoques a la imagen original', @id_usuario, 0, @id_usuario, getdate())   
             return true;
         }
     }
