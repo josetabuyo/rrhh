@@ -30,7 +30,7 @@
                     <p style="font-size:smaller;">(respete may&uacute;sculas y min&uacute;sculas del c&oacute;digo)</p>
                 </div>
                 <div style="display:inline-block; margin-left:10px; max-width: 35%; vertical-align:middle;">
-                    <div><b>Empleado:&nbsp;</b><span id="span_empleado"></span><span id="span_dni_postulante"></span></div>
+                    <div><b>Empleado:&nbsp;</b><span id="span_empleado"></span>. DNI: <span id="span_dni_postulante"></span></div>
                     <div><b>Código:&nbsp;</b><span id="span_codigo"></span></div>
                     <div><b>Números de Informes GDE:&nbsp;</b><span id="span_gde"></span></div>
                     <div><b>Fecha de Postulación:&nbsp;</b><span id="span_fecha"></span></div>
@@ -59,9 +59,11 @@
                 <div id="cajaDeInformesGraficos" style="display: inline;">
                     <input class="informesGraficos" placeholder="N° Informe" type="text" id="informeGrafico_00" />
                 </div>
-                <input type="button" class="btn" onclick="agregarInforme()" value="Agregar otro INFORME" />
-                <input type="button" class="btn" id="btnActualizarInformes" value="Actualizar Informes" />
+                <span style="cursor:pointer; color:#337ab7;" id="btnActualizarInformes" >Agregar</span>
+                <%--<input type="button" class="btn" onclick="agregarInforme()" value="Agregar otro INFORME" />--%>
+                <%--<input type="button" class="btn btn-primary" id="btnActualizarInformes" value="Actualizar Informes" />--%>
             </div>
+            <input type="checkbox" id="checkValidacionInformes" /> He validado todo los informes
         </div>
         <input type="button" style="display:none;" class="btn btn-primary" id="btn_guardar" value="INSCRIBIR" />
        <input type="button" style="display:none;" class="btn btn-primary" id="btn_comprobantes" visible="false" value="IMPRIMIR ANEXO III" />
@@ -157,12 +159,12 @@
 
         }
 
-        var nextinput = 0;
-        function agregarInforme() {
-            nextinput++;
-            campo = '<input class="informesGraficos" placeholder="N° Informe" type="text" id="informeGrafico_0' + nextinput + '" />';
-            $("#cajaDeInformesGraficos").append(campo);
-        }
+//        var nextinput = 0;
+//        function agregarInforme() {
+//            nextinput++;
+//            campo = '<input class="informesGraficos" placeholder="N° Informe" type="text" id="informeGrafico_0' + nextinput + '" />';
+//            $("#cajaDeInformesGraficos").append(campo);
+//        }
 
 </script>
 
