@@ -912,10 +912,7 @@ namespace General.Repositorios
             try {
 
             RepositorioDeTickets repo = new RepositorioDeTickets(this.conexion);
-            TipoTicket tipo = new TipoTicket(5,"","",0);
-            Ticket tarea = new Ticket(0,"Solicitud de Cambio de Domicilio","Cambio Domicilio",tipo, new DateTime(),usuario,"");
-
-            var idTarea = repo.crearTicket(tarea, usuario);
+            var id_ticket = repo.crearTicket("cambio_domicilio", usuario.Id);
 
             var parametros = new Dictionary<string, object>();
 
@@ -932,7 +929,7 @@ namespace General.Repositorios
             parametros.Add("@uf", domicilio.Uf);
             parametros.Add("@casa", domicilio.Casa);
             parametros.Add("@idPersona", usuario.Owner.Id);
-            parametros.Add("@idAlerta", idTarea);
+            parametros.Add("@idAlerta", id_ticket);
 
 
             conexion.Ejecutar("dbo.LEG_Ins_Domicilios_Pendientes", parametros);
