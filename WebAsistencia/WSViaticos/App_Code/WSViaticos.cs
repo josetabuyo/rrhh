@@ -4467,6 +4467,11 @@ public class WSViaticos : System.Web.Services.WebService
     {
         return RepoLegajo().GetDetalleDeConsulta(id_consulta);
     }
+    [WebMethod]
+    public Consulta GetConsultaPorIdTicket(int id_ticket)
+    {
+        return RepoLegajo().GetConsultaPorIdTicket(id_ticket);
+    }
 
     [WebMethod]
     public int NuevaConsultaDePortal(int id_tipo_consulta, string motivo, Usuario usuario)

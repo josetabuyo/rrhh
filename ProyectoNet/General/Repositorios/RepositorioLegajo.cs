@@ -696,6 +696,12 @@ namespace General.Repositorios
             parametros.Add("@leido", leido);
             parametros.Add("@calificacion", calificacion);
             conexion.EjecutarSinResultado("dbo.LEG_UPDConsultasDePortal2", parametros);
+            parametros.Clear();
+            parametros.Add("@Id", id);
+            var creador = conexion.EjecutarEscalar("dbo.LEG_GETConsultasCreador", parametros);
+            RepositorioDeAlertasPortal repoAlerta = new RepositorioDeAlertasPortal(this.conexion);
+            repoAlerta.crearAlerta("Respuesta a su consulta", resumen, (int)creador, id_usuario);
+            //El primer usuario tiene que ser el creador
         }
 
         public void MarcarConsultaComoLeida(int id_consulta)
@@ -733,6 +739,62 @@ namespace General.Repositorios
                 });
             }
             return JsonConvert.SerializeObject(respuestas);
+        }
+
+        public Consulta GetConsultaPorIdTicket(int id_ticket)
+        {
+            Consulta consulta = new Consulta();
+             List<Respuesta> respuestas = new List<Respuesta>();
+            Area area = new Area();
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@Id_ticket", id_ticket);
+
+            var tablaDatos_Cabecera = conexion.Ejecutar("dbo.LEG_GetConsultaPorIdTicket", parametros);
+
+            if (tablaDatos_Cabecera.Rows.Count > 0)
+            {
+                tablaDatos_Cabecera.Rows.ForEach(row =>
+                {
+                    Persona creador = new Persona(row.GetInt("id_usuario"), row.GetInt("NroDocumento"), row.GetString("nombre"), row.GetString("apellido"), area);
+                    Persona responsable = new Persona(row.GetInt("id_responsable", 0), row.GetInt("NroDocumentoResponsable", 0), row.GetString("nombreResponsable", ""), row.GetString("apellidoResponsable", ""), area);
+                    List<Respuesta> respuestas_vacias = new List<Respuesta>();
+                    consulta = new Consulta(
+                        row.GetLong("Id"),
+                        creador,
+                        row.GetDateTime("fecha_creacion"),
+                        row.GetDateTime(("fecha_respuesta"), new DateTime(9999, 12, 31)),
+                        responsable,
+                        row.GetSmallintAsInt("id_tipo_consulta"),
+                        row.GetString("tipo_consulta"),
+                        row.GetString("resumen"),
+                        row.GetSmallintAsInt("id_estado"),
+                        row.GetString("estado"),
+                        row.GetSmallintAsInt(("calificacion"), 0),
+                        row.GetBoolean("leido", false),
+                        respuestas_vacias);
+                });
+
+            }
+            parametros.Clear();
+            parametros.Add("@Id_consulta", consulta.Id);
+            var tablaDatos_Detalle = conexion.Ejecutar("dbo.LEG_GetDetalleDeConsultaDePortal", parametros);
+            if (tablaDatos_Detalle.Rows.Count > 0)
+            {
+                tablaDatos_Detalle.Rows.ForEach(row =>
+                {
+                    Persona persona = new Persona(row.GetInt("id_usuario"), row.GetInt("NroDocumento"), row.GetString("nombre"), row.GetString("apellido"), area);
+                    Respuesta respuesta = new Respuesta(
+                        row.GetInt("id_orden"),
+                        persona,
+                        row.GetDateTime("fecha_creacion"),
+                        row.GetString("texto"));
+                   respuestas.Add(respuesta);
+                });
+            }
+
+            consulta.respuestas = respuestas;
+            return consulta;
+            
         }
 
 
