@@ -1284,8 +1284,14 @@ var Legajo = {
     //                    });
     //    },
 
+    ObtenerSubclasificacionDeConsultas: function () {
+    },
+    ObtenerPersonasParaAsignacion: function () {
+    },
     getConsultasParaGestion: function () {
         var _this = this;
+        _this.ObtenerSubclasificacionDeConsultas();
+        _this.ObtenerPersonasParaAsignacion();
         $('#consultas').show();
         $('#notificaciones').hide();
         $('#btn_volver_consulta').click(function () {
