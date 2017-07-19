@@ -23,8 +23,8 @@
     <link rel="stylesheet" href="chat.css" />
     <link rel="stylesheet" href="font-awesome.min.css" />
     <link rel="stylesheet" href="lato.css" />
-    <script type="text/javascript" src="../Scripts/select2.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="../Scripts/select2.min.css" />
+    <script src="../Scripts/select2-3.4.4/select2.min.js" type="text/javascript"></script>
+    <link href="../Scripts/select2-3.4.4/select2.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <form id="form1" runat="server">
@@ -115,15 +115,15 @@
     </form>
     <div id="pantalla_consulta_ticket" style="display: none;">
         <div>
-            Clasificar:
+            <%--Clasificar:
             <select id="selector_clasificar">
             </select>
             Asignar:
-            <select class="js-example-basic-single" style="width: 500px;">
+            <select id="selector_asignar" class="js-example-basic-single" style="width: 500px;">
                 <option value="AL"></option>
                 <option value="AL">Belén Cevey</option>
                 <option value="WY">Lautaro Villar</option>
-            </select>
+            </select>--%>
             <div style="display: flex; margin-left: 35%;">
                 <h3 id="titulo_consulta" style="text-align: center;">
                     CONSULTA NÚMERO.</h3>
@@ -173,7 +173,6 @@
 <script type="text/javascript" src="../scripts/vex-2.1.1/js/vex.combined.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function ($) {
-        $(".js-example-basic-single").select2();
         Backend.start(function () {
             Legajo.getConsultasParaGestion();
         });

@@ -4437,7 +4437,7 @@ public class WSViaticos : System.Web.Services.WebService
     {
         RepositorioLegajo repo = RepoLegajo();
 
-        repo.ResponderConsulta(id, respuesta, usuario.Owner.Id);
+        repo.ResponderConsulta(id, respuesta, usuario);
 
     }
 
@@ -4476,18 +4476,18 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public int NuevaConsultaDePortal(int id_tipo_consulta, string motivo, Usuario usuario)
     {
-        return RepoLegajo().NuevaConsultaDePortal(usuario.Owner.Id, id_tipo_consulta, motivo);
+        return RepoLegajo().NuevaConsultaDePortal(usuario, id_tipo_consulta, motivo);
 
     }
     [WebMethod]
     public void RepreguntarConsulta(int id_consulta, string motivo, Usuario usuario)
     {
-        RepoLegajo().RepreguntarConsulta(id_consulta, motivo, usuario.Owner.Id);
+        RepoLegajo().RepreguntarConsulta(id_consulta, motivo, usuario);
     }
     [WebMethod]
     public void CerrarConsulta(int id_consulta, int calificacion, Usuario usuario)
     {
-        RepoLegajo().CerrarConsulta(id_consulta, calificacion, usuario.Owner.Id);
+        RepoLegajo().CerrarConsulta(id_consulta, calificacion, usuario);
     }
 
     [WebMethod]
