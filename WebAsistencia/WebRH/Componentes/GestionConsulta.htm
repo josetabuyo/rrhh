@@ -12,7 +12,7 @@
     }
 </style>
 <div>
-    <div id="pantalla_consulta_ticket" style="display: none;">
+    <div id="pantalla_consulta_ticket">
         <div style="display: flex; margin-left: 35%;">
             <h3 id="titulo_consulta" style="text-align: center;">
                 CONSULTA NÚMERO.</h3>
@@ -101,24 +101,8 @@
                         vex.close();
                         _this.getConsultas();
                     });
-                    return ui;
-                },
-                css: {
-                    'padding-top': "4%",
-                    'padding-bottom': "0%",
-                    'background-color': "rgb(249, 248, 248)"
-                },
-                contentCSS: {
-                    width: "80%",
-                    height: "80%"
-                }
-            });
-
-            Backend.MarcarConsultaComoLeida(consulta.Id).onSuccess(function () { }).onError(function (e) { });
-            _this.GetConsultasNoLeidas();
-            })
-            .onError(function (e) {
-          });
+                    Backend.MarcarConsultaComoLeida(consulta.Id).onSuccess(function () { }).onError(function (e) { });
+            });          
         },
         ArmarChat: function (ui, consulta) {
             var _this = this;
@@ -200,7 +184,7 @@
                 });
             }
 
-        },
+        }
     };
 
 </script>
