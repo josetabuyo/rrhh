@@ -257,6 +257,50 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetConsultaPorIdTicket">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_ticket" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetConsultaPorIdTicketResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetConsultaPorIdTicketResult" type="tns:Consulta" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Consulta">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="creador" type="tns:Persona" />
+          <s:element minOccurs="1" maxOccurs="1" name="fechaCreacion" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="fechaRespuesta" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="responsable" type="tns:Persona" />
+          <s:element minOccurs="1" maxOccurs="1" name="id_tipo_consulta" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="tipo_consulta" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="resumen" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="id_estado" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="estado" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="calificacion" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="leida" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="respuestas" type="tns:ArrayOfRespuesta" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfRespuesta">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Respuesta" nillable="true" type="tns:Respuesta" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Respuesta">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="id_orden" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="persona" type="tns:Persona" />
+          <s:element minOccurs="1" maxOccurs="1" name="fecha" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="texto" type="s:string" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="NuevaConsultaDePortal">
         <s:complexType>
           <s:sequence>
@@ -2548,6 +2592,7 @@
       <s:complexType name="TipoTicket">
         <s:sequence>
           <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="codigo" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="descripcion" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="urlComponente" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="idFuncionalidad" type="s:int" />
@@ -7206,6 +7251,12 @@
   <wsdl:message name="GetDetalleDeConsultaSoapOut">
     <wsdl:part name="parameters" element="tns:GetDetalleDeConsultaResponse" />
   </wsdl:message>
+  <wsdl:message name="GetConsultaPorIdTicketSoapIn">
+    <wsdl:part name="parameters" element="tns:GetConsultaPorIdTicket" />
+  </wsdl:message>
+  <wsdl:message name="GetConsultaPorIdTicketSoapOut">
+    <wsdl:part name="parameters" element="tns:GetConsultaPorIdTicketResponse" />
+  </wsdl:message>
   <wsdl:message name="NuevaConsultaDePortalSoapIn">
     <wsdl:part name="parameters" element="tns:NuevaConsultaDePortal" />
   </wsdl:message>
@@ -9277,6 +9328,10 @@
       <wsdl:input message="tns:GetDetalleDeConsultaSoapIn" />
       <wsdl:output message="tns:GetDetalleDeConsultaSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetConsultaPorIdTicket">
+      <wsdl:input message="tns:GetConsultaPorIdTicketSoapIn" />
+      <wsdl:output message="tns:GetConsultaPorIdTicketSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="NuevaConsultaDePortal">
       <wsdl:input message="tns:NuevaConsultaDePortalSoapIn" />
       <wsdl:output message="tns:NuevaConsultaDePortalSoapOut" />
@@ -10691,6 +10746,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetDetalleDeConsulta">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetDetalleDeConsulta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultaPorIdTicket">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetConsultaPorIdTicket" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -13817,6 +13881,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetDetalleDeConsulta">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetDetalleDeConsulta" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultaPorIdTicket">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetConsultaPorIdTicket" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
