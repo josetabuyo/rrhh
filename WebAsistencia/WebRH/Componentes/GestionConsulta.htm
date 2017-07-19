@@ -58,7 +58,7 @@
 
             var _this = this;
             Backend.GetConsultaPorIdTicket(ticket.id)
-                .onSuccess(function (consulta) {                    
+                .onSuccess(function (consulta) {
                     ui.find("#titulo_consulta").text("CONSULTA NÚMERO " + consulta.Id);
                     _this.ArmarChat(ui, consulta);
                     if (consulta.id_estado == "9") {
@@ -102,7 +102,7 @@
                         _this.getConsultas();
                     });
                     Backend.MarcarConsultaComoLeida(consulta.Id).onSuccess(function () { }).onError(function (e) { });
-            });          
+                });
         },
         ArmarChat: function (ui, consulta) {
             var _this = this;
@@ -142,26 +142,28 @@
             if (repregunta == "") {
                 alertify.error("Escriba un texto");
             } else {
+                Backend.GetUsuarioLogueado()
+                .onSuccess(function (usuario) {
+                    if (consulta.creador.Id != usuario.Id) {
+                        Backend.ResponderConsulta(consulta.Id, repregunta)
+                        .onSuccess(function () {
+                            vex.close();
+                            _this.getConsultasTodas(6);
+                            alertify.success("Se ha actualizado correctamente");
 
-                if (consulta.creador.Id != idUsuario) {
-                    Backend.ResponderConsulta(consulta.Id, repregunta)
-                                        .onSuccess(function () {
-                                            vex.close();
-                                            _this.getConsultasTodas(6);
-                                            alertify.success("Se ha actualizado correctamente");
-
-                                        })
-                                        .onError(function (e) {
-                                            alertify.error("Error al conectarse con el sistema backend");
-                                        });
-                } else {
-                    Backend.RepreguntarConsulta(parseInt(consulta.Id), repregunta).onSuccess(function () {
-                        alertify.success("Pregunta enviada correctamente.");
-                    }).onError(function (e) {
-                        alertify.error("Error al intentar enviar la pregunta");
-                    });
-                }
-
+                        })
+                        .onError(function (e) {
+                            alertify.error("Error al conectarse con el sistema backend");
+                        });
+                    } else {
+                        Backend.RepreguntarConsulta(parseInt(consulta.Id), repregunta)
+                        .onSuccess(function () {
+                            alertify.success("Pregunta enviada correctamente.");
+                        }).onError(function (e) {
+                            alertify.error("Error al intentar enviar la pregunta");
+                        });
+                    }
+                });
             }
 
         },
