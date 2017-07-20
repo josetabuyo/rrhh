@@ -2,25 +2,10 @@
 <wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://wsviaticos.gov.ar/">
-      <s:element name="GetConsultasDePortalParaUnUsuario">
+      <s:element name="MostrarDestinatariosDeLaNotificacion">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="idUsuarioAConsultar" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetConsultasDePortalParaUnUsuarioResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetConsultasDePortalParaUnUsuarioResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ResponderConsulta">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="respuesta" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_notificacion" type="s:int" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
@@ -209,6 +194,36 @@
           <s:element minOccurs="1" maxOccurs="1" name="basica" type="s:boolean" />
         </s:sequence>
       </s:complexType>
+      <s:element name="MostrarDestinatariosDeLaNotificacionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="MostrarDestinatariosDeLaNotificacionResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetConsultasDePortalParaUnUsuario">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idUsuarioAConsultar" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetConsultasDePortalParaUnUsuarioResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetConsultasDePortalParaUnUsuarioResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ResponderConsulta">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="respuesta" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="ResponderConsultaResponse">
         <s:complexType />
       </s:element>
@@ -2296,6 +2311,24 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="Mobi_Alta_Vehiculo_Evento_Persona">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_bien" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_tipoevento" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="observaciones" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_receptor_persona" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Mobi_Alta_Vehiculo_Evento_PersonaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Mobi_Alta_Vehiculo_Evento_PersonaResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="Mobi_GetMovimientos">
         <s:complexType>
           <s:sequence>
@@ -2687,21 +2720,6 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="VerificarDomicilioPendienteResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="MostrarDestinatariosDeLaNotificacion">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id_notificacion" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="MostrarDestinatariosDeLaNotificacionResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="MostrarDestinatariosDeLaNotificacionResult" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -7215,6 +7233,12 @@
       </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="MostrarDestinatariosDeLaNotificacionSoapIn">
+    <wsdl:part name="parameters" element="tns:MostrarDestinatariosDeLaNotificacion" />
+  </wsdl:message>
+  <wsdl:message name="MostrarDestinatariosDeLaNotificacionSoapOut">
+    <wsdl:part name="parameters" element="tns:MostrarDestinatariosDeLaNotificacionResponse" />
+  </wsdl:message>
   <wsdl:message name="GetConsultasDePortalParaUnUsuarioSoapIn">
     <wsdl:part name="parameters" element="tns:GetConsultasDePortalParaUnUsuario" />
   </wsdl:message>
@@ -7731,6 +7755,12 @@
   <wsdl:message name="Mobi_Alta_Vehiculo_EventoSoapOut">
     <wsdl:part name="parameters" element="tns:Mobi_Alta_Vehiculo_EventoResponse" />
   </wsdl:message>
+  <wsdl:message name="Mobi_Alta_Vehiculo_Evento_PersonaSoapIn">
+    <wsdl:part name="parameters" element="tns:Mobi_Alta_Vehiculo_Evento_Persona" />
+  </wsdl:message>
+  <wsdl:message name="Mobi_Alta_Vehiculo_Evento_PersonaSoapOut">
+    <wsdl:part name="parameters" element="tns:Mobi_Alta_Vehiculo_Evento_PersonaResponse" />
+  </wsdl:message>
   <wsdl:message name="Mobi_GetMovimientosSoapIn">
     <wsdl:part name="parameters" element="tns:Mobi_GetMovimientos" />
   </wsdl:message>
@@ -7874,12 +7904,6 @@
   </wsdl:message>
   <wsdl:message name="VerificarDomicilioPendienteSoapOut">
     <wsdl:part name="parameters" element="tns:VerificarDomicilioPendienteResponse" />
-  </wsdl:message>
-  <wsdl:message name="MostrarDestinatariosDeLaNotificacionSoapIn">
-    <wsdl:part name="parameters" element="tns:MostrarDestinatariosDeLaNotificacion" />
-  </wsdl:message>
-  <wsdl:message name="MostrarDestinatariosDeLaNotificacionSoapOut">
-    <wsdl:part name="parameters" element="tns:MostrarDestinatariosDeLaNotificacionResponse" />
   </wsdl:message>
   <wsdl:message name="ModificarMailRegistroSoapIn">
     <wsdl:part name="parameters" element="tns:ModificarMailRegistro" />
@@ -9304,6 +9328,10 @@
     <wsdl:part name="parameters" element="tns:IniciarServicioDeAlertasResponse" />
   </wsdl:message>
   <wsdl:portType name="WSViaticosSoap">
+    <wsdl:operation name="MostrarDestinatariosDeLaNotificacion">
+      <wsdl:input message="tns:MostrarDestinatariosDeLaNotificacionSoapIn" />
+      <wsdl:output message="tns:MostrarDestinatariosDeLaNotificacionSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetConsultasDePortalParaUnUsuario">
       <wsdl:input message="tns:GetConsultasDePortalParaUnUsuarioSoapIn" />
       <wsdl:output message="tns:GetConsultasDePortalParaUnUsuarioSoapOut" />
@@ -9648,6 +9676,10 @@
       <wsdl:input message="tns:Mobi_Alta_Vehiculo_EventoSoapIn" />
       <wsdl:output message="tns:Mobi_Alta_Vehiculo_EventoSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="Mobi_Alta_Vehiculo_Evento_Persona">
+      <wsdl:input message="tns:Mobi_Alta_Vehiculo_Evento_PersonaSoapIn" />
+      <wsdl:output message="tns:Mobi_Alta_Vehiculo_Evento_PersonaSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="Mobi_GetMovimientos">
       <wsdl:input message="tns:Mobi_GetMovimientosSoapIn" />
       <wsdl:output message="tns:Mobi_GetMovimientosSoapOut" />
@@ -9743,10 +9775,6 @@
     <wsdl:operation name="VerificarDomicilioPendiente">
       <wsdl:input message="tns:VerificarDomicilioPendienteSoapIn" />
       <wsdl:output message="tns:VerificarDomicilioPendienteSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="MostrarDestinatariosDeLaNotificacion">
-      <wsdl:input message="tns:MostrarDestinatariosDeLaNotificacionSoapIn" />
-      <wsdl:output message="tns:MostrarDestinatariosDeLaNotificacionSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="ModificarMailRegistro">
       <wsdl:input message="tns:ModificarMailRegistroSoapIn" />
@@ -10699,6 +10727,15 @@
   </wsdl:portType>
   <wsdl:binding name="WSViaticosSoap" type="tns:WSViaticosSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="MostrarDestinatariosDeLaNotificacion">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/MostrarDestinatariosDeLaNotificacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetConsultasDePortalParaUnUsuario">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetConsultasDePortalParaUnUsuario" style="document" />
       <wsdl:input>
@@ -11473,6 +11510,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="Mobi_Alta_Vehiculo_Evento_Persona">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/Mobi_Alta_Vehiculo_Evento_Persona" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="Mobi_GetMovimientos">
       <soap:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetMovimientos" style="document" />
       <wsdl:input>
@@ -11682,15 +11728,6 @@
     </wsdl:operation>
     <wsdl:operation name="VerificarDomicilioPendiente">
       <soap:operation soapAction="http://wsviaticos.gov.ar/VerificarDomicilioPendiente" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="MostrarDestinatariosDeLaNotificacion">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/MostrarDestinatariosDeLaNotificacion" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -13834,6 +13871,15 @@
   </wsdl:binding>
   <wsdl:binding name="WSViaticosSoap12" type="tns:WSViaticosSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="MostrarDestinatariosDeLaNotificacion">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/MostrarDestinatariosDeLaNotificacion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetConsultasDePortalParaUnUsuario">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetConsultasDePortalParaUnUsuario" style="document" />
       <wsdl:input>
@@ -14608,6 +14654,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="Mobi_Alta_Vehiculo_Evento_Persona">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/Mobi_Alta_Vehiculo_Evento_Persona" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="Mobi_GetMovimientos">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetMovimientos" style="document" />
       <wsdl:input>
@@ -14817,15 +14872,6 @@
     </wsdl:operation>
     <wsdl:operation name="VerificarDomicilioPendiente">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/VerificarDomicilioPendiente" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="MostrarDestinatariosDeLaNotificacion">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/MostrarDestinatariosDeLaNotificacion" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
