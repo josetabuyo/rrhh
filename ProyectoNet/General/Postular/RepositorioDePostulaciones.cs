@@ -32,7 +32,7 @@ namespace General
                 parametros.Add("@Motivo", postulacion.Motivo);
                 parametros.Add("@Observacion", postulacion.Observaciones);
                 parametros.Add("@Usuario", usuario.Id);
-                RepositorioDeTickets repoTicket = new RepositorioDeTickets(conexion_bd);
+                GeneradorDeEtiquetas repoTicket = new GeneradorDeEtiquetas(conexion_bd);
                 postulacion.Numero = repoTicket.GenerarTicket("POSTULAR");
                 parametros.Add("@Numero", postulacion.Numero);
 
@@ -685,7 +685,7 @@ namespace General
                 parametros.Add("@Motivo", "");
                 parametros.Add("@Observacion", "");
                 parametros.Add("@Usuario", idUsuario);
-                RepositorioDeTickets repoTicket = new RepositorioDeTickets(conexion_bd);
+                GeneradorDeEtiquetas repoTicket = new GeneradorDeEtiquetas(conexion_bd);
                 var numeroPostulacion = repoTicket.GenerarTicket("POSTULAR");
                 parametros.Add("@Numero", numeroPostulacion);
 
@@ -696,10 +696,10 @@ namespace General
                     throw new Exception("Fallo el insertado de los numeros de GDE");
                 }
 
+
                 //var datosPostulacion = new { numero = numeroPostulacion, idPostulacion = "Hello" };
 
                 return numeroPostulacion;
-
             }
             catch (Exception e)
             {

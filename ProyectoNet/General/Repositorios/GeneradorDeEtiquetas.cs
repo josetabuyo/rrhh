@@ -4,11 +4,11 @@ using System.Collections.Generic;
 
 namespace General.Repositorios
 {
-    public class RepositorioDeTickets
+    public class GeneradorDeEtiquetas
     {
         private IConexionBD conexion_bd { get; set; }
 
-        public RepositorioDeTickets(IConexionBD conexion)
+        public GeneradorDeEtiquetas(IConexionBD conexion)
         {
             this.conexion_bd = conexion;
         }

@@ -261,6 +261,28 @@ namespace General.Repositorios
 
             analisis.Clear();
         }
+
+        public IDbTransaction BeginTransaction()
+        {
+            conexion = new SqlConnection(this.cadenaDeConexion);
+            conexion.Open();
+            return conexion.BeginTransaction();
+            //_Transaccion = conexion.BeginTransaction();
+            //var comando = CrearComando(
+           // _Comando.Transaction = _Transaccion;
+        }
+
+        //public void RollbackTransaction()
+        //{
+        //    _Transaccion.Rollback();
+        //    CerrarBD();
+        //}
+
+        //public void CommitTransaction()
+        //{
+        //    _Transaccion.Commit();
+        //    CerrarBD();
+        //}
     }
 
 }
