@@ -691,7 +691,10 @@ namespace General.Repositorios
             if (ticket)
             {
                 RepositorioDeTickets repo = new RepositorioDeTickets(this.conexion);
-                 id_ticket = repo.crearTicket("consulta", usuario.Id);
+                id_ticket = repo.crearTicket("consulta", usuario.Id);
+            }
+            else { 
+            
             }
             
             var parametros = new Dictionary<string, object>();

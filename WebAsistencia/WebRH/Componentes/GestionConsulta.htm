@@ -148,8 +148,8 @@
                         Backend.ResponderConsulta(consulta.Id, repregunta)
                         .onSuccess(function () {
                             vex.close();
-                            _this.getConsultasTodas(6);
-                            alertify.success("Se ha actualizado correctamente");
+                            alertify.success("Consulta respondida y enviada correctamente");
+                            GestionDeTareas.getTareasParaGestion();
 
                         })
                         .onError(function (e) {
