@@ -13,7 +13,7 @@
     <script type="text/javascript" src="../BarraMenu/BarraMenu.js"></script>
     <script type="text/javascript" src="../BarraMenu/MenuDesplegable.js"></script>
     <script type="text/javascript" src="../BarraMenu/VistaAlerta.js"></script>
-    <script type="text/javascript" src="../BarraMenu/VistaSolicitudDeCambioDeImagen.js"></script>
+    <script type="text/javascript" src="../BarraMenu/VistaTipoTicket.js"></script>
     <script type="text/javascript" src="../BarraMenu/VistaItemMenu.js"></script>
     <script type="text/javascript" src="../Scripts/ControlesImagenes/VistaThumbnail.js"></script>
     <script type="text/javascript" src="../Scripts/ControlesImagenes/SubidorDeImagenes.js"></script>
@@ -143,11 +143,11 @@
             <image id="btn_ok" src="<%= UrlImagenes %>botones/ok.png"/>
         </div>
 
-        <div class="ui_tarea sombra-mensaje">
-            <p class="titulo_tarea">
-                bla</p>
-            <p class="descripcion_tarea">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <div class="ui_tipo_ticket sombra-mensaje">
+            <p class="nombre_tipo_ticket">
+            </p>
+            <p class="cantidad_tickets">
+            </p>
         </div>
 
         <div id="contenedor_chat_mensajes">

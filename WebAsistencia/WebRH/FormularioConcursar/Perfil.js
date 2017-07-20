@@ -14,8 +14,8 @@
         columnas.push(new Columna("Agrupamiento", { generar: function (un_perfil) { return un_perfil.Agrupamiento } }));
         columnas.push(new Columna("Vacantes", { generar: function (un_perfil) { return un_perfil.Vacantes } }));
         columnas.push(new Columna("Convocatoria", { generar: function (un_perfil) { return un_perfil.Tipo } }));
-        columnas.push(new Columna('Bases del Puesto', { generar: function (un_perfil) { return "Próximamente"
-            /*DESCOMENTAR CUANDO ESTEN LAS BASES POSTA
+        columnas.push(new Columna('Bases del Puesto', { generar: function (un_perfil) { 
+           
             var linkPDF = $('<a>');
             linkPDF.attr('href', 'bases/Conv03_2017_Perfil_' + un_perfil.Numero + '.pdf');
             linkPDF.attr('target', '_blank');
@@ -25,7 +25,7 @@
             img.attr('height', '35px');
             linkPDF.append(img);
 
-            return linkPDF;*/
+            return linkPDF;
         }
         }));
         columnas.push(new Columna("Comité&nbsp;", { generar: function (un_perfil) {
@@ -157,7 +157,7 @@
 
         for (i = 0; i < perfiles.length; i++) {
             $('#combo_perfiles').append('<option value=' + perfiles[i].Id + ' data-agrupamiento=' + perfiles[i].Agrupamiento + ' data-nivel=' + perfiles[i].Nivel +
-            'data-tipo=' + perfiles[i].Tipo + '>' + perfiles[i].Denominacion + '</option>');
+            ' data-tipo=' + perfiles[i].Tipo + '>' + perfiles[i].Denominacion + '</option>');
         }
 
         $('#combo_perfiles').change(function () {

@@ -15,6 +15,7 @@ namespace General
         protected int _cp;
         protected int _provincia;
 
+
         public int Id { get; set; }
         public string Calle { get { return _calle; } set { _calle = value; } }
         public int Numero { get { return _numero; } set { _numero = value; } }
@@ -23,6 +24,14 @@ namespace General
         public int Localidad { get { return _localidad; } set { _localidad = value; } }
         public int Cp { get { return _cp; } set { _cp = value; } }
         public int Provincia { get { return _provincia; } set { _provincia = value; } }
+        public string Manzana { get; set; }
+        public string Barrio { get; set; }
+        public string Casa { get; set; }
+        public string Torre { get; set; }
+        public string Uf { get; set; }
+        public int Partido { get; set; }
+        public string NombreLocalidad { get; set; }
+        public string NombreProvincia { get; set; }
 
 
         public CvDomicilio(int id, string calle, int numero, string piso, string depto, int localidad, int cp, int provincia)
@@ -35,6 +44,27 @@ namespace General
             this._cp = cp;
             this._provincia = provincia;
             this.Id = id;
+
+        }
+
+        public CvDomicilio(int id, string calle, int numero, string piso, string depto, Localidad localidad, int cp, Provincia provincia, string manzana, string casa, string barrio, string torre, string uf)
+        {
+            this._calle = calle;
+            this._numero = numero;
+            this._piso = piso;
+            this._depto = depto;
+            this.NombreLocalidad = localidad.Nombre;
+            this.Localidad = localidad.Id;
+            this._cp = cp;
+            this.NombreProvincia = provincia.Nombre;
+            this.Provincia = provincia.Id;
+            this.Id = id;
+
+            this.Manzana = manzana;
+            this.Torre = torre;
+            this.Uf = uf;
+            this.Casa = casa;
+            this.Barrio = barrio;
 
         }
 

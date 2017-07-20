@@ -18,7 +18,7 @@ var ListadoAgentes = {
         Backend.EvalGetAgentesEvaluables()
         .onSuccess(function (asignacion_evaluado_a_evaluador) {
             spinner.stop();
-
+            if (asignacion_evaluado_a_evaluador.length == 0) return;
             if (!asignacion_evaluado_a_evaluador[0].hasOwnProperty('agente_evaluado')) return;
             todas_las_evaluaciones = asignacion_evaluado_a_evaluador;
             _this.DibujarTabla(asignacion_evaluado_a_evaluador);
@@ -506,7 +506,7 @@ var ListadoAgentes = {
     puntajeActual: function (coleccion_opciones_elegidas) {
         var puntaje = 0;
         for (i = 0; i < coleccion_opciones_elegidas.length; i++) {
-            puntaje += 5- (coleccion_opciones_elegidas[i]);
+            puntaje += 5 - (coleccion_opciones_elegidas[i]);
         }
         return puntaje;
     },
@@ -589,7 +589,7 @@ var ListadoAgentes = {
         var elementoTotalPuntaje = $('.puntaje-actual');
         var coleccion_opciones_elegidas = this.respuestasDelForm(); // this.getRespuestasDelForm(asignacion_evaluado_a_evaluador.evaluacion);
         var puntaje = this.puntajeActual(coleccion_opciones_elegidas);
-        elementoTotalPuntaje.text(' ' +puntaje);
+        elementoTotalPuntaje.text(' ' + puntaje);
     },
     habilitarBotonGuardarDefinitivo: function (_this) {
         var preguntas = $('.pregunta');

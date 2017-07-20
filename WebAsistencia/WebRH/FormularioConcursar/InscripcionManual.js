@@ -41,12 +41,26 @@
 
         $('#btn_inscripcion_manual').click(function () {
 
+
+
             if (validar()) {
+
+                if ($('#combo_perfiles').val() == 0) {
+                    alertify.alert("", 'Debe seleccionar un Perfil');
+                    return;
+                }
 
                 if (!validateEmail($('#text_mail').val())) {
                     alertify.error('Formato del mail invalido.');
                     return false;
                 }
+
+                if ($('#informeGrafico_00').val() == '') {
+                    alertify.alert("", 'Debe ingresar al menos 1 número de INFORME GRÁFICO');
+                    return;
+                }
+
+
 
 
                 //var anonimoPerfil = {};
@@ -57,6 +71,19 @@
                 postulacionManual.FechaInscripcion = $('#text_fecha_inscripcion').val();
                 postulacionManual.DNIInscriptor = $('#text_dni_inscriptor').val();
                 postulacionManual.Modalidad = $('#combo_modalidad').val();
+
+                var inputs = $('.informesGraficos');
+                var informes = [];
+                var textoConcatenado = "";
+
+                $.each(inputs, function (key, value) {
+                    if (value.value != '') {
+                        informes.push(value.value);
+                        textoConcatenado += value.value + ', ';
+                    }
+                });
+
+                postulacionManual.NumerosDeInformeGDE = informes;
 
 
                 var datosPersonales = {};
@@ -100,15 +127,12 @@
                 var folioJSON = JSON.stringify(folio);
 
                 var nroPostulacion = Backend.sync.GuardarPostulacionManual({ postulacion: postulacionManual }, { datosPersonales: datosPersonales }, { folio: folio });
-                if (isNaN(nroPostulacion)) {
-                    alertify.error(nroPostulacion);
-                } else {
-                    $('#numero_postulacion').html(nroPostulacion);
-                    alertify.alert("", 'Se ha inscripto correctamente. El número de postulación es: ' + nroPostulacion);
-                    PrintElem();
-                }
-
-
+                $('#numero_postulacion').html(nroPostulacion);
+                $('#btn_imprimir').show();
+                $('#btn_inscripcion_manual').hide();
+                
+                alertify.alert("", 'Se ha inscripto correctamente. El número de postulación es: ' + nroPostulacion);
+                PrintElem();
             }
         });
 
@@ -149,7 +173,7 @@
             var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             return re.test(email);
         }
-       
+
     }
 }
 

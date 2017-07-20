@@ -23,6 +23,8 @@
     <link rel="stylesheet" href="chat.css" />
     <link rel="stylesheet" href="font-awesome.min.css" />
     <link rel="stylesheet" href="lato.css" />
+    <script src="../Scripts/select2-3.4.4/select2.min.js" type="text/javascript"></script>
+    <link href="../Scripts/select2-3.4.4/select2.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <form id="form1" runat="server">
@@ -35,27 +37,27 @@
             <p style="margin: 25px; font-size: 2.1em; color: #fff;">
                 Menú</p>
             <input id="btn_consultas_pendientes" type="button" class="btn_gestion_consulta" style="margin: 10px;
-                width: 170px; font-size: smaller;color:#000" value="CONSULTAS PENDIENTES" />
+                width: 170px; font-size: smaller; color: #000" value="CONSULTAS PENDIENTES" />
             <input id="btn_consultas_historicas" type="button" class="btn_gestion_consulta" style="margin: 10px;
-                width: 170px; font-size: smaller;color:#000" value="CONSULTAS HISTORICAS" />
+                width: 170px; font-size: smaller; color: #000" value="CONSULTAS HISTORICAS" />
             <input id="btn_notificaciones_creacion" type="button" class="btn_gestion_consulta"
-                style="margin: 10px; width: 170px; font-size: smaller;color:#000" value="CREAR NOTIFICACIONES" />
+                style="margin: 10px; width: 170px; font-size: smaller; color: #000" value="CREAR NOTIFICACIONES" />
             <input id="btn_notificaciones_historicas" type="button" class="btn_gestion_consulta"
-                style="margin: 10px; width: 170px; font-size: smaller;color:#000" value="NOTIFICACIONES ENVIADAS" />
+                style="margin: 10px; width: 170px; font-size: smaller; color: #000" value="NOTIFICACIONES ENVIADAS" />
             <%-- <input id="Button3" type="button" class="btn_gestion_consulta" style="margin: 10px; width: 150px; font-size: smaller;"
                 value="PARAMETRIA" />
             <input id="Button4" type="button" class="btn_gestion_consulta" style="margin: 10px; width: 150px; font-size: smaller;"
                 value="REPORTES" />--%>
             <input id="Button1" type="button" onclick="javascript:location.href='Consultas.aspx'"
-                class="btn_gestion_consulta" style="margin: 10px; width: 170px; font-size: smaller;color:#000"
-                value="PORTAL" />
+                class="btn_gestion_consulta" style="margin: 10px; width: 170px; font-size: smaller;
+                color: #000" value="PORTAL" />
         </div>
         <div class="caja_der papel">
             <%--DIV 1--%>
             <div id="consultas">
                 <legend id="legend_gestion" style="margin-top: 10px;">CONSULTAS PENDIENTES</legend>
-                <input type="text" id="search" class="search buscador" placeholder="Buscar"
-                    style="display: none; height:35px;" />
+                <input type="text" id="search" class="search buscador" placeholder="Buscar" style="display: none;
+                    height: 35px;" />
                 <div id="tablaConsultas" class="table table-striped table-bordered table-condensed">
                 </div>
                 <div id="div_detalle_consulta" style="display: none;">
@@ -112,50 +114,59 @@
     </div>
     </form>
     <div id="pantalla_consulta_ticket" style="display: none;">
-        <div style="display: flex; margin-left: 35%;">
-            <h3 id="titulo_consulta" style="text-align: center;">
-                CONSULTA NÚMERO.</h3>
-            <img id="btn_info_usuario" src="../Imagenes/detalle.png" style="width: 20px; height: 20px;
-                margin-left: 15px; cursor: pointer;" draggable="false"></div>
-        <div id="div_chat" style="height: 310px; margin-top: -10px; overflow: scroll; overflow-x: hidden;">
-            <div id="div_repreguntar" style="text-align: center; display: none;">
-                <textarea id="ta_repreguntar" placeholder="Ingrese su consulta aquí" maxlength="1000"
-                    style="width: 100%; margin-top: 30px;" rows="5"></textarea>
-                <input id="btn_enviar_pepregunta" type="button" class="btn btn-primary" style="margin-top: 5px;
-                    margin-bottom: -30px;" value="Enviar" />
-            </div>
-            <ol class="chat" id="listado_chat">
-                <li id="other" class="other" style="display: none;">
-                    <div class="avatar">
-                        <img src="../Imagenes/Portal/icono_rrhh.png" draggable="false">
-                    </div>
-                    <div class="msg">
-                        <time class="time">20:17</time>
-                    </div>
-                </li>
-                <br />
-                <li id="self" class="self" style="display: none;">
-                    <div class="avatar">
-                        <div class="imagen" style="width: 40px; height: 40px; margin-left: 0px; margin-top: 0px;">
+        <div>
+            <%--Clasificar:
+            <select id="selector_clasificar">
+            </select>
+            Asignar:
+            <select id="selector_asignar" class="js-example-basic-single" style="width: 500px;">
+                <option value="AL"></option>
+                <option value="AL">Belén Cevey</option>
+                <option value="WY">Lautaro Villar</option>
+            </select>--%>
+            <div style="display: flex; margin-left: 35%;">
+                <h3 id="titulo_consulta" style="text-align: center;">
+                    CONSULTA NÚMERO.</h3>
+                <img id="btn_info_usuario" src="../Imagenes/detalle.png" style="width: 20px; height: 20px;
+                    margin-left: 15px; cursor: pointer;" draggable="false"></div>
+            <div id="div_chat" style="height: 310px; margin-top: -10px; overflow: scroll; overflow-x: hidden;">
+                <div id="div_repreguntar" style="text-align: center; display: none;">
+                    <textarea id="ta_repreguntar" placeholder="Ingrese su consulta aquí" maxlength="1000"
+                        style="width: 100%; margin-top: 30px;" rows="5"></textarea>
+                    <input id="btn_enviar_pepregunta" type="button" class="btn btn-primary" style="margin-top: 5px;
+                        margin-bottom: -30px;" value="Enviar" />
+                </div>
+                <ol class="chat" id="listado_chat">
+                    <li id="other" class="other" style="display: none;">
+                        <div class="avatar">
+                            <img src="../Imagenes/Portal/icono_rrhh.png" draggable="false">
                         </div>
-                    </div>
-                    <div class="msg">
-                        <time class="time">20:18</time>
-                    </div>
-                </li>
-            </ol>
+                        <div class="msg">
+                            <time class="time">20:17</time>
+                        </div>
+                    </li>
+                    <br />
+                    <li id="self" class="self" style="display: none;">
+                        <div class="avatar">
+                            <div class="imagen" style="width: 40px; height: 40px; margin-left: 0px; margin-top: 0px;">
+                            </div>
+                        </div>
+                        <div class="msg">
+                            <time class="time">20:18</time>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+            <div style="text-align: center;">
+                <input id="btn_pepreguntar" type="button" class="btn btn-primary" value="Responder" />
+            </div>
         </div>
-        <br />
-        <div style="text-align: center;">
-            <input id="btn_pepreguntar" type="button" class="btn btn-primary" value="Responder" />
+        <div id="pantalla_consulta_individual" style="display: none">
+            <p style="font-size: xx-large; text-align: center; margin-top: 10px;">
+                Consulta Individual</p>
+            <br />
+            <uc3:Consulta ID="Consulta1" runat="server" />
         </div>
-    </div>
-    <div id="pantalla_consulta_individual" style="display: none">
-        <p style="font-size: xx-large; text-align: center; margin-top: 10px;">
-            Consulta Individual</p>
-        <br />
-        <uc3:Consulta ID="Consulta1" runat="server" />
-    </div>
 </body>
 <script type="text/javascript" src="Legajo.js"></script>
 <script type="text/javascript" src="../Scripts/Spin.js"></script>

@@ -339,7 +339,6 @@
 {
     /*height: 82px;*/
     width: 96%;
-    overflow: scroll;
     cursor: pointer;
     padding: 1%;
     margin: 2%;
@@ -380,9 +379,9 @@
     -moz-box-shadow: 3px 13px 10px rgba(0,0,0,0.7);
 }
 
-.ui_tarea
+.ui_tipo_ticket
 {
-    height: 82px;
+    height: 54px;
     width: 96%;
     overflow: hidden;
     cursor: pointer;
@@ -393,17 +392,28 @@
     position: relative
 }
 
-.titulo_tarea
+.nombre_tipo_ticket
 {
-    margin-bottom: 5px;
-    font-size: 1.3em;
-    margin: 0 !important;
+    font-size: 1.4em;
+    position: absolute;
+    left: 14px;
+    top: 11px;
 }
 
-.contenido_tarea
+.cantidad_tickets
 {
-    margin-bottom: 2%;
-    overflow: hidden;
+    background-color: red;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    padding-top: 4px;
+    padding-left: 10px;
+    font-size: 17px;
+    font-weight: bolder;
+    color: white;
+    position: absolute;
+    right: 11px;
+    top: 10px;
 }
 
 
