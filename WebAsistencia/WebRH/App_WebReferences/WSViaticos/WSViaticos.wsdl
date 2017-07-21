@@ -5539,6 +5539,12 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:complexType name="RespuestaGetAgentesEvaluablesPor">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="asignaciones" type="tns:ArrayOfAsignacionEvaluadoAEvaluador" />
+          <s:element minOccurs="1" maxOccurs="1" name="EsAgenteVerificador" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
       <s:complexType name="ArrayOfAsignacionEvaluadoAEvaluador">
         <s:sequence>
           <s:element minOccurs="0" maxOccurs="unbounded" name="AsignacionEvaluadoAEvaluador" nillable="true" type="tns:AsignacionEvaluadoAEvaluador" />
@@ -5547,7 +5553,7 @@
       <s:element name="EvalGetAgentesEvaluablesResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="EvalGetAgentesEvaluablesResult" type="tns:ArrayOfAsignacionEvaluadoAEvaluador" />
+            <s:element minOccurs="0" maxOccurs="1" name="EvalGetAgentesEvaluablesResult" type="tns:RespuestaGetAgentesEvaluablesPor" />
           </s:sequence>
         </s:complexType>
       </s:element>

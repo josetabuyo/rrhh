@@ -57,7 +57,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public List<AsignacionEvaluadoAEvaluador> EvalGetAgentesEvaluables(Usuario usuario)
+    public RespuestaGetAgentesEvaluablesPor EvalGetAgentesEvaluables(Usuario usuario)
     {
         var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
         return repo.GetAgentesEvaluablesPor(usuario);
@@ -4364,7 +4364,7 @@ public class WSViaticos : System.Web.Services.WebService
     {
         RepositorioDeTickets repo = new RepositorioDeTickets(Conexion());
 
-        return repo.GetTicketsPorFuncionalidad(usuario.Id).ToArray();
+        return new General.MAU.Ticket[] {};// repo.GetTicketsPorFuncionalidad(usuario.Id).ToArray();
 
     }
 
