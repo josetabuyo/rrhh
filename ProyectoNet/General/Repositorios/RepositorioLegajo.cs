@@ -580,6 +580,22 @@ namespace General.Repositorios
             return JsonConvert.SerializeObject(notificaciones);
         }
 
+
+        public  List<Selector> GetSubclasificacionesDeConsultas()
+        {
+            List<Selector> selectores = new List<Selector>();
+            var tablaDatos = conexion.Ejecutar("dbo.LEG_GetSubTiposDeConsultaDePortal");
+            if (tablaDatos.Rows.Count > 0)
+            {
+                tablaDatos.Rows.ForEach(row =>
+                {
+                   Selector subtipo = new Selector(row.GetInt("Id"),  row.GetString("descripcion"));
+                    selectores.Add(subtipo);
+                });
+            }
+            return selectores;
+        }
+
         public string MostrarDestinatariosDeLaNotificacion(int id_notificacion)
         {
             var parametros = new Dictionary<string, object>();
@@ -693,10 +709,11 @@ namespace General.Repositorios
                 RepositorioDeTickets repo = new RepositorioDeTickets(this.conexion);
                 id_ticket = repo.crearTicket("consulta", usuario.Id);
             }
-            else { 
-            
+            else
+            {
+
             }
-            
+
             var parametros = new Dictionary<string, object>();
             parametros.Add("@Id", id);
             parametros.Add("@Respuesta", respuesta);
@@ -711,7 +728,8 @@ namespace General.Repositorios
             parametros.Add("@Id", id);
             var creador = conexion.EjecutarEscalar("dbo.LEG_GETConsultasCreador", parametros);
 
-            if (!ticket) {
+            if (!ticket)
+            {
                 RepositorioDeAlertasPortal repoAlerta = new RepositorioDeAlertasPortal(this.conexion);
                 repoAlerta.crearAlerta("Respuesta a su consulta", resumen, (int)(short)creador, usuario.Id);
             }
@@ -839,7 +857,7 @@ namespace General.Repositorios
         {
             RepositorioDeTickets repo = new RepositorioDeTickets(this.conexion);
             var id_ticket = repo.crearTicket("consulta", usuario.Id);
-           
+
             var parametros = new Dictionary<string, object>();
             var resumen = motivo;
             if (motivo.Length > 100) resumen = motivo.Substring(0, 100);

@@ -1285,14 +1285,34 @@ var Legajo = {
     //    },
 
     ObtenerSubclasificacionDeConsultas: function () {
+        var data = [{ id: 0, text: 'enhancement' }, { id: 1, text: 'bug' }, { id: 2, text: 'duplicate' }, { id: 3, text: 'invalid' }, { id: 4, text: 'wontfix'}];
+
+        $("#cmb_clasificar").select2({
+            placeholder: "Select a State",
+            allowClear: true
+        });
+        $(".js-example-data-array").select2({
+            data: data
+        })
+
+        $(".js-example-data-array-selected").select2({
+            data: data
+        })
+
+        $("#cmb_asignar").select2({
+            data: data
+        });
+        Backend.GetSubclasificacionesDeConsultas()
+                    .onSuccess(function (subclasificacion) {
+
+                    })
+                    .onError(function (e) {
+                    });
     },
     ObtenerPersonasParaAsignacion: function () {
-        $(".js-example-basic-single").select2();
     },
     getConsultasParaGestion: function () {
         var _this = this;
-        _this.ObtenerSubclasificacionDeConsultas();
-        _this.ObtenerPersonasParaAsignacion();
         $('#consultas').show();
         $('#notificaciones').hide();
         $('#btn_volver_consulta').click(function () {
@@ -1338,6 +1358,8 @@ var Legajo = {
         });
 
         $('#btn_consultas_pendientes').click();
+        _this.ObtenerSubclasificacionDeConsultas();
+        _this.ObtenerPersonasParaAsignacion();
     },
     GetNotificacionesTodas: function () {
         var _this_original = this;

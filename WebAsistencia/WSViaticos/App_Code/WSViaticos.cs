@@ -3359,7 +3359,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string TraerReporteDePostulaciones(Usuario usuario)
     {
-        
+
         return JsonConvert.SerializeObject(RepoPostulaciones().traerReportesDePostulaciones()).ToString();
     }
 
@@ -4037,7 +4037,7 @@ public class WSViaticos : System.Web.Services.WebService
         return RepositorioDePersonas().GetConsultaRapida(documento);
 
     }
-    
+
 
     [WebMethod]
     public string GetCarreraAdministrativa(int documento, Usuario usuario)
@@ -4052,7 +4052,7 @@ public class WSViaticos : System.Web.Services.WebService
     #region mobi
 
     [WebMethod]
-    public Tarjeton NuevoTarjeton(int id_Bien,string codigo_Holograma, Usuario usuario)
+    public Tarjeton NuevoTarjeton(int id_Bien, string codigo_Holograma, Usuario usuario)
     {
         if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 33)) throw (new Exception("El usuario no tiene permisos para el modulo de bienes"));
         var repo = new RepositorioTarjetones(Conexion());
@@ -4387,7 +4387,7 @@ public class WSViaticos : System.Web.Services.WebService
     public string GetDomicilioPendientePorAlerta(int idAlerta, Usuario usuario)
     {
         RepositorioLegajo repo = RepoLegajo();
-        return repo.GetDomicilioPendientePorAlerta(idAlerta);  
+        return repo.GetDomicilioPendientePorAlerta(idAlerta);
     }
 
     [WebMethod]
@@ -4396,6 +4396,16 @@ public class WSViaticos : System.Web.Services.WebService
         RepositorioLegajo repo = RepoLegajo();
 
         return repo.GetNotificacionesTodasDePortal();
+
+    }
+
+
+    [WebMethod]
+    public Selector[] GetSubclasificacionesDeConsultas()
+    {
+        RepositorioLegajo repo = RepoLegajo();
+
+        return repo.GetSubclasificacionesDeConsultas().ToArray();
 
     }
 
@@ -4990,7 +5000,7 @@ public class WSViaticos : System.Web.Services.WebService
         var modelo_para_pdf = new List<object>() { asignacion, usuario };
         var converter = new EvaluacionDeDesempenioToPdfConverter();
         var mapa_para_pdf = converter.CrearMapa(modelo_para_pdf);
-    
+
         var creador_pdf = new CreadorDePdfs();
 
         byte[] bytes = creador_pdf.FillPDF(TemplatePath("Formulario Evaluacion.pdf"), "Evaluacion de Desempeño", mapa_para_pdf);

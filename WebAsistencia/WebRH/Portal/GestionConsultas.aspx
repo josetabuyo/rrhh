@@ -23,8 +23,11 @@
     <link rel="stylesheet" href="chat.css" />
     <link rel="stylesheet" href="font-awesome.min.css" />
     <link rel="stylesheet" href="lato.css" />
+    <link rel="stylesheet" href="../Scripts/select2-3.4.4/select2.css" />
+    <script type="text/javascript" src="../Scripts/select2-3.4.4/select2.js">  </script>
     <script src="../Scripts/select2-3.4.4/select2.min.js" type="text/javascript"></script>
-    <link href="../Scripts/select2-3.4.4/select2.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="../Scripts/select2-3.4.4/select2_locale_es.js">  </script>
+
 </head>
 <body>
     <form id="form1" runat="server">
@@ -115,20 +118,24 @@
     </form>
     <div id="pantalla_consulta_ticket" style="display: none;">
         <div>
-            <%--Clasificar:
-            <select id="selector_clasificar">
-            </select>
-            Asignar:
-            <select id="selector_asignar" class="js-example-basic-single" style="width: 500px;">
+            Clasificar:
+            <select id="cmb_clasificar" class="js-example-basic-single">
                 <option value="AL"></option>
                 <option value="AL">Belén Cevey</option>
                 <option value="WY">Lautaro Villar</option>
-            </select>--%>
+            </select>
+            <select class="js-example-data-array">
+            </select>
+            <select class="js-example-data-array-selected">
+                <option value="2" selected="selected">duplicate</option>
+            </select>
+            Asignar:
+            <input type="text" id="cmb_asignar" class="js-example-data-array" style="width: 500px;" />
             <div style="display: flex; margin-left: 35%;">
                 <h3 id="titulo_consulta" style="text-align: center;">
                     CONSULTA NÚMERO.</h3>
                 <img id="btn_info_usuario" src="../Imagenes/detalle.png" style="width: 20px; height: 20px;
-                    margin-left: 15px; cursor: pointer;" draggable="false"></div>
+                    margin-left: 15px; margin-top: 23px; cursor: pointer;" draggable="false"></div>
             <div id="div_chat" style="height: 310px; margin-top: -10px; overflow: scroll; overflow-x: hidden;">
                 <div id="div_repreguntar" style="text-align: center; display: none;">
                     <textarea id="ta_repreguntar" placeholder="Ingrese su consulta aquí" maxlength="1000"
@@ -167,6 +174,7 @@
             <br />
             <uc3:Consulta ID="Consulta1" runat="server" />
         </div>
+    </div>
 </body>
 <script type="text/javascript" src="Legajo.js"></script>
 <script type="text/javascript" src="../Scripts/Spin.js"></script>

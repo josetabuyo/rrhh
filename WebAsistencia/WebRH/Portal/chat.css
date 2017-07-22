@@ -220,8 +220,8 @@ a{
 }
 
 .msg time {
-    font-size: 0.7rem;
-    color: #ccc;
+    font-size: 1rem;
+    color: #6f6c6c;
     margin-top: 3px;
     float: right;
     cursor: default;

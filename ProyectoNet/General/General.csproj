@@ -126,6 +126,7 @@
     <Compile Include="pdfs\EvaluacionDeDesempenioToPdfConverter.cs" />
     <Compile Include="pdfs\ModeloToPdfConverter.cs" />
     <Compile Include="Portal\Consulta.cs" />
+    <Compile Include="Portal\Selector.cs" />
     <Compile Include="Portal\Destinatario.cs" />
     <Compile Include="Portal\Notificacion.cs" />
     <Compile Include="Portal\Estudio.cs" />
