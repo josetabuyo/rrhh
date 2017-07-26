@@ -37,13 +37,13 @@ namespace General.Repositorios
             if (area.Id > 0)
             {
                 parametros.Clear();
-                
+
                 parametros.Add("@id_area", area.Id);
                 var tablaDatos2 = conexion.Ejecutar("dbo.VIA_GetAreasCompletas", parametros);
                 datos_adicionales = RepositorioDeAreas.GetAreasDeTablaDeDatos(tablaDatos2);
                 area = datos_adicionales.First();
             }
-            
+
             //PERMISOS PARA GESTIONAR LICENCIAS
             if (area.Asistentes != null)
             {
@@ -63,7 +63,7 @@ namespace General.Repositorios
             {
                 tablaDatos3.Rows.ForEach(row =>
                 {
-                        area.Asistentes.Add(new Asistente(row.GetString("Nombre", ""), row.GetString("Apellido", ""), "", 0, "", "", ""));  
+                    area.Asistentes.Add(new Asistente(row.GetString("Nombre", ""), row.GetString("Apellido", ""), "", 0, "", "", ""));
                 });
 
             }
@@ -77,7 +77,7 @@ namespace General.Repositorios
             //else {
             //    area.Asistentes = new List<Asistente>();
             //}
-            
+
             //List<Asistente> asistentes_confuncionalidades = new List<Asistente>();
             //usuarios.ForEach(u =>
             //{
@@ -86,7 +86,7 @@ namespace General.Repositorios
             //        var asistente_nuevo = new Asistente(u.Owner.Nombre, u.Owner.Apellido, "", 0, "", "", "");
             //        area.Asistentes.Add(asistente_nuevo);
             //    }
-               
+
             //});
 
             return JsonConvert.SerializeObject(area);
@@ -649,53 +649,72 @@ namespace General.Repositorios
             }
         }
 
-        public void ResponderConsulta(int id, string respuesta, int id_usuario)
+        public void ResponderConsulta(int id, string respuesta, Usuario usuario)
         {
             var resumen = respuesta;
             if (respuesta.Length > 100) resumen = respuesta.Substring(0, 100);
             var id_estado = 7;
             var leido = true;
             var calificacion = 0;
-            UpdateConsulta(id, respuesta, id_usuario, resumen, id_estado, leido, calificacion);
+            UpdateConsulta(id, respuesta, usuario, resumen, id_estado, leido, calificacion, false);
         }
-        public void RepreguntarConsulta(int id, string respuesta, int id_usuario)
+        public void RepreguntarConsulta(int id, string respuesta, Usuario usuario)
         {
             var resumen = respuesta;
             if (respuesta.Length > 100) resumen = respuesta.Substring(0, 100);
             var id_estado = 6;
             var leido = false;
             var calificacion = 0;
-            UpdateConsulta(id, respuesta, id_usuario, resumen, id_estado, leido, calificacion);
+            UpdateConsulta(id, respuesta, usuario, resumen, id_estado, leido, calificacion, true);
         }
-        public void CerrarConsulta(int id, int calificacion, int id_usuario)
+        public void CerrarConsulta(int id, int calificacion, Usuario usuario)
         {
             var respuesta = "";
             var resumen = "CONSULTA CERRADA";
             var id_estado = 9;
             var leido = false;
-            UpdateConsulta(id, respuesta, id_usuario, resumen, id_estado, leido, calificacion);
+            UpdateConsulta(id, respuesta, usuario, resumen, id_estado, leido, calificacion, false);
         }
-        public void EliminarConsulta(int id, int id_usuario)
+        public void EliminarConsulta(int id, Usuario usuario)
         {
             var resumen = "";
             var respuesta = "";
             var id_estado = 8;
             var leido = false;
             var calificacion = 0;
-            UpdateConsulta(id, respuesta, id_usuario, resumen, id_estado, leido, calificacion);
+            UpdateConsulta(id, respuesta, usuario, resumen, id_estado, leido, calificacion, false);
         }
 
-        private void UpdateConsulta(int id, string respuesta, int id_usuario, string resumen, int id_estado, bool leido, int calificacion)
+        private void UpdateConsulta(int id, string respuesta, Usuario usuario, string resumen, int id_estado, bool leido, int calificacion, bool ticket)
         {
+            var id_ticket = 0;
+            if (ticket)
+            {
+                RepositorioDeTickets repo = new RepositorioDeTickets(this.conexion);
+                id_ticket = repo.crearTicket("consulta", usuario.Id);
+            }
+            else { 
+            
+            }
+            
             var parametros = new Dictionary<string, object>();
             parametros.Add("@Id", id);
             parametros.Add("@Respuesta", respuesta);
-            parametros.Add("@Id_Usuario", id_usuario);
+            parametros.Add("@Id_Usuario", usuario.Owner.Id);
             parametros.Add("@resumen", resumen);
             parametros.Add("@id_estado", id_estado);
             parametros.Add("@leido", leido);
             parametros.Add("@calificacion", calificacion);
+            parametros.Add("@idTicket", id_ticket);
             conexion.EjecutarSinResultado("dbo.LEG_UPDConsultasDePortal2", parametros);
+            parametros.Clear();
+            parametros.Add("@Id", id);
+            var creador = conexion.EjecutarEscalar("dbo.LEG_GETConsultasCreador", parametros);
+
+            if (!ticket) {
+                RepositorioDeAlertasPortal repoAlerta = new RepositorioDeAlertasPortal(this.conexion);
+                repoAlerta.crearAlerta("Respuesta a su consulta", resumen, (int)(short)creador, usuario.Id);
+            }
         }
 
         public void MarcarConsultaComoLeida(int id_consulta)
@@ -735,6 +754,62 @@ namespace General.Repositorios
             return JsonConvert.SerializeObject(respuestas);
         }
 
+        public Consulta GetConsultaPorIdTicket(int id_ticket)
+        {
+            Consulta consulta = new Consulta();
+            List<Respuesta> respuestas = new List<Respuesta>();
+            Area area = new Area();
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@Id_ticket", id_ticket);
+
+            var tablaDatos_Cabecera = conexion.Ejecutar("dbo.LEG_GetConsultaPorIdTicket", parametros);
+
+            if (tablaDatos_Cabecera.Rows.Count > 0)
+            {
+                tablaDatos_Cabecera.Rows.ForEach(row =>
+                {
+                    Persona creador = new Persona(row.GetInt("id_usuario"), row.GetInt("NroDocumento"), row.GetString("nombre"), row.GetString("apellido"), area);
+                    Persona responsable = new Persona(row.GetInt("id_responsable", 0), row.GetInt("NroDocumentoResponsable", 0), row.GetString("nombreResponsable", ""), row.GetString("apellidoResponsable", ""), area);
+                    List<Respuesta> respuestas_vacias = new List<Respuesta>();
+                    consulta = new Consulta(
+                        row.GetLong("Id"),
+                        creador,
+                        row.GetDateTime("fecha_creacion"),
+                        row.GetDateTime(("fecha_respuesta"), new DateTime(9999, 12, 31)),
+                        responsable,
+                        row.GetSmallintAsInt("id_tipo_consulta"),
+                        row.GetString("tipo_consulta"),
+                        row.GetString("resumen"),
+                        row.GetSmallintAsInt("id_estado"),
+                        row.GetString("estado"),
+                        row.GetSmallintAsInt(("calificacion"), 0),
+                        row.GetBoolean("leido", false),
+                        respuestas_vacias);
+                });
+
+            }
+            parametros.Clear();
+            parametros.Add("@Id_consulta", consulta.Id);
+            var tablaDatos_Detalle = conexion.Ejecutar("dbo.LEG_GetDetalleDeConsultaDePortal", parametros);
+            if (tablaDatos_Detalle.Rows.Count > 0)
+            {
+                tablaDatos_Detalle.Rows.ForEach(row =>
+                {
+                    Persona persona = new Persona(row.GetInt("id_usuario"), row.GetInt("NroDocumento"), row.GetString("nombre"), row.GetString("apellido"), area);
+                    Respuesta respuesta = new Respuesta(
+                        row.GetInt("id_orden"),
+                        persona,
+                        row.GetDateTime("fecha_creacion"),
+                        row.GetString("texto"));
+                    respuestas.Add(respuesta);
+                });
+            }
+
+            consulta.respuestas = respuestas;
+            return consulta;
+
+        }
+
 
         public string GetTiposDeConsultaDePortal()
         {
@@ -760,15 +835,19 @@ namespace General.Repositorios
 
         }
 
-        public int NuevaConsultaDePortal(int id_usuario, int id_tipo_consulta, string motivo)
+        public int NuevaConsultaDePortal(Usuario usuario, int id_tipo_consulta, string motivo)
         {
+            RepositorioDeTickets repo = new RepositorioDeTickets(this.conexion);
+            var id_ticket = repo.crearTicket("consulta", usuario.Id);
+           
             var parametros = new Dictionary<string, object>();
             var resumen = motivo;
             if (motivo.Length > 100) resumen = motivo.Substring(0, 100);
-            parametros.Add("@id_usuario_creador", id_usuario);
+            parametros.Add("@id_usuario_creador", usuario.Owner.Id);
             parametros.Add("@id_tipo_consulta", id_tipo_consulta);
             parametros.Add("@motivo", motivo);
             parametros.Add("@resumen", resumen);
+            parametros.Add("@idTicket", id_ticket);
 
             var resultado = conexion.EjecutarEscalar("dbo.LEG_NuevaConsultaDePortal2", parametros);
             return (int)(long)resultado;
@@ -799,87 +878,87 @@ namespace General.Repositorios
         public string VerificarCambioDomicilio(int idTarea, int documento, string folio, int idUsuarioDestinatario, int idUsuarioVerificador)
         {
 
-                using (var tran = conexion.BeginTransaction())
+            using (var tran = conexion.BeginTransaction())
+            {
+                try
                 {
-                    try
-                    {
-                         var parametros = new Dictionary<string, object>();
+                    var parametros = new Dictionary<string, object>();
 
-                        //parametros.Add("@idDomicilio", idDomicilio);
-                        CvDomicilio domicilio = JsonConvert.DeserializeObject<CvDomicilio>(this.GetDomicilioPendientePorAlerta(idTarea));
+                    //parametros.Add("@idDomicilio", idDomicilio);
+                    CvDomicilio domicilio = JsonConvert.DeserializeObject<CvDomicilio>(this.GetDomicilioPendientePorAlerta(idTarea));
 
-                        parametros.Add("@idAlerta", idTarea);
-                        //parametros.Add("@idUsuarioVerificador", idUsuarioVerificador);
-               
-                        //var tablaDatos = conexion.Ejecutar("dbo.LEG_UPD_DomicilioPendiente", parametros);
-                        //var tablaDatos = conexion.Ejecutar("dbo.LEG_DEL_DomicilioPendiente", parametros);
+                    parametros.Add("@idAlerta", idTarea);
+                    //parametros.Add("@idUsuarioVerificador", idUsuarioVerificador);
 
-                        parametros = new Dictionary<string, object>();
-                        parametros.Add("@Fecha_Comunicacion", DateTime.Today);
-                        parametros.Add("@Calle", domicilio.Calle);
-                        parametros.Add("@Número", domicilio.Numero);
-                        parametros.Add("@Piso", domicilio.Piso);
-                        parametros.Add("@Dpto", domicilio.Depto);
-                        parametros.Add("@Casa", domicilio.Casa);
-                        parametros.Add("@Manzana", domicilio.Manzana);
-                        parametros.Add("@Barrio", domicilio.Barrio);
-                        parametros.Add("@Torre", domicilio.Torre);
-                        parametros.Add("@UF", domicilio.Uf);
-                        parametros.Add("@Localidad", domicilio.Localidad);
-                        parametros.Add("@Codigo_Postal", domicilio.Cp);
-                        parametros.Add("@Partido_Dpto", domicilio.Partido);
-                        parametros.Add("@Provincia", domicilio.Provincia);
-                        parametros.Add("@Folio", folio);
-                        parametros.Add("@Id_Interna", "");
-                        parametros.Add("@Nro_Doc", documento);
-                        parametros.Add("@Baja", false);
-                        parametros.Add("@usuario", idUsuarioVerificador);
-                        parametros.Add("@Telefono", "");
-                        parametros.Add("@Correo_Electronico", "");
+                    //var tablaDatos = conexion.Ejecutar("dbo.LEG_UPD_DomicilioPendiente", parametros);
+                    //var tablaDatos = conexion.Ejecutar("dbo.LEG_DEL_DomicilioPendiente", parametros);
 
-                        var tablaDatos = conexion.Ejecutar("dbo.Alta_DomicilioPersonal", parametros);
+                    parametros = new Dictionary<string, object>();
+                    parametros.Add("@Fecha_Comunicacion", DateTime.Today);
+                    parametros.Add("@Calle", domicilio.Calle);
+                    parametros.Add("@Número", domicilio.Numero);
+                    parametros.Add("@Piso", domicilio.Piso);
+                    parametros.Add("@Dpto", domicilio.Depto);
+                    parametros.Add("@Casa", domicilio.Casa);
+                    parametros.Add("@Manzana", domicilio.Manzana);
+                    parametros.Add("@Barrio", domicilio.Barrio);
+                    parametros.Add("@Torre", domicilio.Torre);
+                    parametros.Add("@UF", domicilio.Uf);
+                    parametros.Add("@Localidad", domicilio.Localidad);
+                    parametros.Add("@Codigo_Postal", domicilio.Cp);
+                    parametros.Add("@Partido_Dpto", domicilio.Partido);
+                    parametros.Add("@Provincia", domicilio.Provincia);
+                    parametros.Add("@Folio", folio);
+                    parametros.Add("@Id_Interna", "");
+                    parametros.Add("@Nro_Doc", documento);
+                    parametros.Add("@Baja", false);
+                    parametros.Add("@usuario", idUsuarioVerificador);
+                    parametros.Add("@Telefono", "");
+                    parametros.Add("@Correo_Electronico", "");
 
-                        this.borrarDomicilioPendiente(idTarea, idUsuarioVerificador);
+                    var tablaDatos = conexion.Ejecutar("dbo.Alta_DomicilioPersonal", parametros);
 
-                        RepositorioDeTickets repo = new RepositorioDeTickets(this.conexion);
-                        repo.MarcarEstadoTicket(idTarea, idUsuarioVerificador);
+                    this.borrarDomicilioPendiente(idTarea, idUsuarioVerificador);
 
-                        RepositorioDeAlertasPortal repoAlerta = new RepositorioDeAlertasPortal(this.conexion);
-                        repoAlerta.crearAlerta("Confirmación de cambio de Domicilio", "Su domicilio ha sido modificado.",idUsuarioDestinatario, idUsuarioVerificador);
+                    RepositorioDeTickets repo = new RepositorioDeTickets(this.conexion);
+                    repo.MarcarEstadoTicket(idTarea, idUsuarioVerificador);
 
-                        tran.Commit();
-                        return JsonConvert.SerializeObject("Se ha cambiado el domicilio con exito.");
-                       
-                    }
-                    catch (Exception e)
-                    {
-                        tran.Rollback();
-                        throw new Exception(e.Message);
-                    }
+                    RepositorioDeAlertasPortal repoAlerta = new RepositorioDeAlertasPortal(this.conexion);
+                    repoAlerta.crearAlerta("Confirmación de cambio de Domicilio", "Su domicilio ha sido modificado.", idUsuarioDestinatario, idUsuarioVerificador);
+
+                    tran.Commit();
+                    return JsonConvert.SerializeObject("Se ha cambiado el domicilio con exito.");
+
                 }
+                catch (Exception e)
+                {
+                    tran.Rollback();
+                    throw new Exception(e.Message);
+                }
+            }
 
-                
-            
+
+
 
         }
 
         public bool borrarDomicilioPendiente(int idTarea, int idUsuario)
         {
             //try
-           // {
-                var parametros = new Dictionary<string, object>();
-                parametros.Add("@idAlerta", idTarea);
-                parametros.Add("@idUsuarioVerificador", idUsuario);
+            // {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@idAlerta", idTarea);
+            parametros.Add("@idUsuarioVerificador", idUsuario);
 
-                var tablaDatos = conexion.Ejecutar("dbo.LEG_UPD_DomicilioPendiente", parametros);
+            var tablaDatos = conexion.Ejecutar("dbo.LEG_UPD_DomicilioPendiente", parametros);
 
-                return true;
-           // }
-           // catch (Exception e)
-          //  {
-          //      throw new Exception(e.Message);
-          //  }
-           
+            return true;
+            // }
+            // catch (Exception e)
+            //  {
+            //      throw new Exception(e.Message);
+            //  }
+
         }
 
         public string GetDomicilioPendientePorPersona(int idPersona)
@@ -898,7 +977,7 @@ namespace General.Repositorios
 
                     //listaDomicilios.Add(new CvDomicilio(row.GetInt("id"), row.GetString("calle", ""), row.GetSmallintAsInt("nro", 0), row.GetString("piso", ""), row.GetString("dpto", ""), row.GetInt("localidad", 0), row.GetInt("cp", 0), row.GetInt("provincia", 0)))
                     unDomicilio = new CvDomicilio(row.GetInt("id"), row.GetString("calle", ""), row.GetSmallintAsInt("nro", 0), row.GetString("piso", ""), row.GetString("dpto", ""), new Localidad(row.GetInt("idLocalidad"), row.GetString("nombreLocalidad")), row.GetInt("cp", 0), new Provincia(row.GetSmallintAsInt("idProvincia", 0), row.GetString("nombreProvincia", "")), row.GetString("manzana", ""), row.GetString("casa", ""), row.GetString("barrio", ""), row.GetString("torre", ""), row.GetString("uf", ""))
-                
+
                     );
             }
 
@@ -909,39 +988,39 @@ namespace General.Repositorios
         public bool GuardarDomicilioPendiente(CvDomicilio domicilio, Usuario usuario)
         {
 
-            try {
+            try
+            {
 
-            RepositorioDeTickets repo = new RepositorioDeTickets(this.conexion);
-            TipoTicket tipo = new TipoTicket(5,"","",0);
-            Ticket tarea = new Ticket(0,"Solicitud de Cambio de Domicilio","Cambio Domicilio",tipo, new DateTime(),usuario,"");
+                RepositorioDeTickets repo = new RepositorioDeTickets(this.conexion);
+                var id_ticket = repo.crearTicket("cambio_domicilio", usuario.Id);
 
-            var idTarea = repo.crearTicket(tarea, usuario);
+                var parametros = new Dictionary<string, object>();
 
-            var parametros = new Dictionary<string, object>();
-
-            parametros.Add("@calle", domicilio.Calle);
-            parametros.Add("@numero", domicilio.Numero);
-            parametros.Add("@piso", domicilio.Piso);
-            parametros.Add("@depto", domicilio.Depto);
-            parametros.Add("@cp", domicilio.Cp);
-            parametros.Add("@localidad", domicilio.Localidad);
-            parametros.Add("@provincia", domicilio.Provincia);
-            parametros.Add("@torre", domicilio.Torre);
-            parametros.Add("@manzana", domicilio.Manzana);
-            parametros.Add("@barrio", domicilio.Barrio);
-            parametros.Add("@uf", domicilio.Uf);
-            parametros.Add("@casa", domicilio.Casa);
-            parametros.Add("@idPersona", usuario.Owner.Id);
-            parametros.Add("@idAlerta", idTarea);
+                parametros.Add("@calle", domicilio.Calle);
+                parametros.Add("@numero", domicilio.Numero);
+                parametros.Add("@piso", domicilio.Piso);
+                parametros.Add("@depto", domicilio.Depto);
+                parametros.Add("@cp", domicilio.Cp);
+                parametros.Add("@localidad", domicilio.Localidad);
+                parametros.Add("@provincia", domicilio.Provincia);
+                parametros.Add("@torre", domicilio.Torre);
+                parametros.Add("@manzana", domicilio.Manzana);
+                parametros.Add("@barrio", domicilio.Barrio);
+                parametros.Add("@uf", domicilio.Uf);
+                parametros.Add("@casa", domicilio.Casa);
+                parametros.Add("@idPersona", usuario.Owner.Id);
+                parametros.Add("@idAlerta", id_ticket);
 
 
-            conexion.Ejecutar("dbo.LEG_Ins_Domicilios_Pendientes", parametros);
+                conexion.Ejecutar("dbo.LEG_Ins_Domicilios_Pendientes", parametros);
 
-            return true;
+                return true;
 
-            } catch (Exception e) {
-                 throw new Exception(e.Message);
-             }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
 
         }
 
@@ -955,7 +1034,7 @@ namespace General.Repositorios
             var tablaDatos = conexion.Ejecutar("dbo.LEG_GET_DomicilioPendientePorAlerta", parametros);
 
             CvDomicilio dom = new CvDomicilio();
-          
+
             if (tablaDatos.Rows.Count > 0)
             {
                 tablaDatos.Rows.ForEach(row =>
@@ -985,6 +1064,6 @@ namespace General.Repositorios
 
 
 
-        
+
     }
 }

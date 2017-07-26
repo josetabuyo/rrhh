@@ -21,7 +21,7 @@
             <br />
             <iframe id="txtArea1" style="display:none"></iframe>
             <div id="contenedorTabla">
-             <input type="text" id="filtrar_comite" class="buscador" style="width:100px;" placeholder="Filtrar Comité"/>
+             <%--<input type="text" id="filtrar_comite" class="buscador" style="width:100px;" placeholder="Filtrar Comité"/>--%>
              <input type="text" id="search" class="search" class="buscador" placeholder="Buscar"/>
              <button class="btn btn-primary" id="btnExport" style="float:right"> Exportar a Excel </button>
              <table id="tabla_postulaciones" style="width:100%;"></table>
@@ -49,12 +49,13 @@
                 }
             });
 
-            var tablero = JSON.parse($('#tablero').val());
-            PantallaEtapaDeTableroControl.InicializarPantalla(tablero);
+            //var tablero = JSON.parse($('#tablero').val());
+            //PantallaEtapaDeTableroControl.InicializarPantalla(tablero);
+            PantallaEtapaDeTableroControl.traerPostulaciones();
 
-            $('#filtrar_comite').change(function () {
-                PantallaEtapaDeTableroControl.FiltrarPorComite();
-            });
+//            $('#filtrar_comite').change(function () {
+//                PantallaEtapaDeTableroControl.FiltrarPorComite();
+//            });
             $('#btnExport').click(function () {
                 ExportarAExcel.fnExcelReport(document.getElementById('tabla_postulaciones'));
             });

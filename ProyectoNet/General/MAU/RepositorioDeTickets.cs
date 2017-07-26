@@ -27,7 +27,7 @@ namespace General.MAU
             tabla_resultado.Rows.ForEach(row =>
             {
                 Persona creador = new Persona(row.GetInt("Id"), row.GetInt("NroDocumento"), row.GetString("nombre"), row.GetString("apellido"), area);
-                var tipoTarea = new TipoTicket(row.GetInt("idtipo", 0), row.GetString("descripcionTipo", ""), row.GetString("url", ""), row.GetInt("idFuncionalidad", 0));
+                var tipoTarea = new TipoTicket(row.GetInt("idtipo", 0), row.GetString("codigo", ""), row.GetString("descripcionTipo", ""), row.GetString("url", ""), row.GetInt("idFuncionalidad", 0));
                 Usuario usuarioCreador = new Usuario(row.GetSmallintAsInt("idUsuario", 0), row.GetString("nombreUsuario", ""), "", creador, true);
                 Ticket ticket = new Ticket(row.GetInt("id", 0), tipoTarea, row.GetDateTime("fechaCreacion"), usuarioCreador, row.GetBoolean("estado"));
 
@@ -38,11 +38,16 @@ namespace General.MAU
 
         public int crearTicket(Ticket ticket, Usuario usuario)
         {
+            return this.crearTicket(ticket.tipoTicket.codigo, usuario.Id);
+        }
+
+        public int crearTicket(string codigoTipo, int idUsuarioCreador)
+        {
             try
             {
                 var parametros = new Dictionary<string, object>();
-                parametros.Add("@idUsuarioCreador", usuario.Id);
-                parametros.Add("@idTipo", ticket.tipoTicket.id);
+                parametros.Add("@idUsuarioCreador", idUsuarioCreador);
+                parametros.Add("@codigoTipo", codigoTipo);
 
                 return Int32.Parse((this.conexion.EjecutarEscalar("dbo.MAU_INS_Ticket", parametros).ToString()));
             }
@@ -50,7 +55,6 @@ namespace General.MAU
             {
                 throw new Exception(e.Message);
             }
-
         }
 
         public void MarcarEstadoTicket(int id_ticket, int id_usuario)

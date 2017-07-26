@@ -331,9 +331,14 @@ namespace General.MAU
 
         public bool SolicitarCambioImagen(int id_usuario, int id_imagen)
         {
+            RepositorioDeTickets repo = new RepositorioDeTickets(this.conexion);
+            var id_ticket = repo.crearTicket("cambio_imagen", id_usuario);
+
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_usuario", id_usuario);
             parametros.Add("@id_imagen", id_imagen);
+            parametros.Add("@id_ticket", id_ticket);
+
             var tablaDatos = conexion.Ejecutar("dbo.MAU_SolicitarCambioImagen",parametros);
 
             return true;
@@ -408,10 +413,6 @@ namespace General.MAU
             
             new RepositorioDeAlertasPortal(this.conexion)
                .crearAlerta("Solicitud de Cambio de Imágen", "Tu solicitud ha sido aprobada", id_usuario_solicitante, id_administrador);
-
-                //INSERT INTO dbo.[MAU_Alertas](idtipo, titulo, descripcion, idUsuarioDestinatario, leida, idUsuarioCreador, fechaCreacion)  
-                //VALUES (2, 'Solicitud de Cambio de Imágen', 'Tu solicitud ha sido aprobada', @id_usuario, 0, @id_usuario, getdate())   
-  
             return true;
         }
 
@@ -424,11 +425,6 @@ namespace General.MAU
 
             new RepositorioDeAlertasPortal(this.conexion)
                 .crearAlerta("Solicitud de Cambio de Imágen", "Tu solicitud ha sido rechazada por:" + razon_de_rechazo, id_usuario_solicitante, id_administrador);
-
-                //INSERT INTO dbo.[MAU_Alertas](idtipo, titulo, descripcion, idUsuarioDestinatario, leida, idUsuarioCreador, fechaCreacion)  
-                //VALUES (3, 'Solicitud de Cambio de Imágen', 'Tu solicitud ha sido rechazada por: ' + @razon_rechazo, id_usuario_solicitante, 0, id_usuario_solicitante, getdate())   
-  
-
             return true;
         }
 
@@ -441,9 +437,6 @@ namespace General.MAU
             
             new RepositorioDeAlertasPortal(this.conexion)
                .crearAlerta("Solicitud de Cambio de Imágen", "Tu solicitud ha sido aprobada con retoques a la imagen original", id_usuario_solicitante, id_administrador);
-
-                //INSERT INTO dbo.[MAU_Alertas](idtipo, titulo, descripcion, idUsuarioDestinatario, leida, idUsuarioCreador, fechaCreacion)  
-	            //VALUES (2, 'Solicitud de Cambio de Imágen', 'Tu solicitud ha sido aprobada con retoques a la imagen original', @id_usuario, 0, @id_usuario, getdate())   
             return true;
         }
     }
