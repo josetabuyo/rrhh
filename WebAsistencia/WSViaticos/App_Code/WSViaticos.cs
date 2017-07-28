@@ -3357,6 +3357,13 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public string TraerReporteDePostulaciones(Usuario usuario)
+    {
+        
+        return JsonConvert.SerializeObject(RepoPostulaciones().traerReportesDePostulaciones()).ToString();
+    }
+
+    [WebMethod]
     public bool ActualizarInformesGDEDeUnaPostulacion(string numeroPostulacion, string setDeInformes, Usuario usuario)
     {
         var informesArray = (JArray)JsonConvert.DeserializeObject(setDeInformes);
