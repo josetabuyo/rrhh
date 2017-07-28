@@ -395,6 +395,33 @@ namespace General.Repositorios
         }
 
 
+        public bool Mobi_Alta_Vehiculo_Evento_Persona(int id_bien, int id_tipoevento, string observaciones, int id_user, int id_receptor_Persona)
+        {
+
+            ConexionDB cn = new ConexionDB("dbo.MOBI_ADD_NuevoEventoBien");
+            cn.AsignarParametro("@Id_Bien", id_bien);
+            cn.AsignarParametro("@Id_TipoEvento", id_tipoevento);
+            cn.AsignarParametro("@Observaciones", observaciones);
+            cn.AsignarParametro("@IdUser", id_user);
+            cn.AsignarParametro("@Id_Receptor", id_receptor_Persona);
+
+            try
+            {
+            
+                cn.EjecutarSinResultado();
+                
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            
+            cn.Desconestar();
+            return true;
+
+        }
+
         public MoBi_Evento[] Mobi_GetMovimientos(int id_bien)
         {
 

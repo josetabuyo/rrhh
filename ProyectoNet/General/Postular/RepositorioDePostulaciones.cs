@@ -790,5 +790,32 @@ namespace General
             }
             
         }
+
+        public List<ReporteDePostulaciones> traerReportesDePostulaciones()
+        {
+            var tablaPostulaciones = conexion_bd.Ejecutar("dbo.CV_Get_ReporteDePostulaciones");
+
+            List<ReporteDePostulaciones> reportes = new List<ReporteDePostulaciones>();
+            ReporteDePostulaciones reporte = new ReporteDePostulaciones();
+            string numero = "";
+            //string nombrePerfil, string numero, DateTime fechaInscripcion, int documento, string nombre, string apellido, List<string> informes
+            tablaPostulaciones.Rows.ForEach(row =>
+            {
+
+                if (numero != row.GetString("Numero"))
+                {
+                    reporte = new ReporteDePostulaciones(row.GetString("Denominacion", ""), row.GetString("Numero", ""), row.GetDateTime("FechaInscripcion"), row.GetInt("NRODOCUMENTO"), row.GetString("NOMBRE"), row.GetString("Apellido"), new List<string>());
+                    numero = row.GetString("Numero");
+                    reportes.Add(reporte);
+                }
+
+                reporte.informes.Add(row.GetString("NumeroInforme"));
+
+            });
+
+
+            return reportes;
+
+        }
     }
 }

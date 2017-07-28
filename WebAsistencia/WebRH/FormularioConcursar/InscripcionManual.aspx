@@ -41,12 +41,12 @@
         <div id="contenedor_inscripcion_manual" style="width:80%; margin-left:10%;" class="">
             <div style="width: 100%; text-align:left;" class="">
                 <p style="float:left;">Número Postulación: <span id="numero_postulacion"></span></p>
-                <p style="float:right;"><input id="btn_imprimir" class="btn_concursar btn-primary" type="button" value="Imprimir" onclick="PrintElem()" /></p>
+               
                 <div style="clear:both;"></div>
                 <%--<p class="encabezado" style="font-size:20px; margin-bottom:1%">SISTEMA NACIONAL DE EMPLEO PUBLICO (Decreto N° 2098/08)</p>--%>
                 <%--<p class="encabezado"style="font-size:20px; margin-bottom:1%">FORMULARIO DE INSCRIPCION MANUAL</p>--%>
                 <%--<p class="">Quien suscribe la presente, solicita ser inscripto para concursar el cargo cuyos datos figuran en el presente Formulario</p>--%>
-                <p>Seleccione el perfil a inscribirse: <select id="combo_perfiles" style="width:100%; font-size:0.8em;"></select></p>
+                <p>Seleccione el perfil a inscribirse: <select id="combo_perfiles" style="width:100%; font-size:0.8em;"><option value="0">Seleccione un Perfil</option></select></p>
                 <p>Elija la Modalidad de Inscripción: <br /> <select id="combo_modalidad"></select></p>
             </div>
 
@@ -184,6 +184,7 @@
         </div>	
         <div style="text-align:center; margin-top:10px;">
             <input type="button" value="Inscribir" id="btn_inscripcion_manual" class="btn btn-primary" />
+            <input id="btn_imprimir" class="btn btn-primary" type="button" value="Imprimir" onclick="PrintElem()" style="display:none;" />
         </div>
     </div>
     </div>

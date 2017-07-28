@@ -8,6 +8,8 @@ $(function () {
 
         var id_Tipo_Evento_Presionado;
         var observaciones;
+        var titulo;
+        var mensaje;
 
         var id_bien = localStorage.getItem("idBien");
         var id_estado = localStorage.getItem("idEstado");
@@ -116,155 +118,206 @@ $(function () {
         var acciones = {
             //Movimientos
             0: function () {
+                LimpiarPantalla();
                 Consultar();
             },
 
             //Asignar
             1: function () {
-                ContenedorGrilla.html("");
-                $("#ContenedorMovimientos").empty();
-
+                LimpiarPantalla();
                 id_Tipo_Evento_Presionado = 2;
                 observaciones = "Asignación del bien"
                 $('#Controles_Persona_Area').show();
             },
 
-            //Dar en préstamo
+            //Préstamo
             2: function () {
-                ContenedorGrilla.html("");
-                $("#ContenedorMovimientos").empty();
-
+                LimpiarPantalla();
                 id_Tipo_Evento_Presionado = 4;
                 observaciones = "Prestamo del bien"
                 $('#Controles_Persona_Area').show();
             },
 
-            //Mandar a reparar
+            //Reparar
             3: function () {
-                ContenedorGrilla.html("");
-                $("#ContenedorMovimientos").empty();
-
+                titulo = "Reparar vehiculo";
                 id_Tipo_Evento_Presionado = 8;
-                observaciones = "Reparación del bien"
+                observaciones = "Reparación del bien";
+                mensaje = "Desea mandar a reparar el vehiculo?";
 
-                Backend.Mobi_Alta_Vehiculo_Evento(id_bien, id_Tipo_Evento_Presionado, observaciones, id_Area_Seleccionada, 0).onSuccess(function () {
-                    alertify.success("Vehiculo enviado a reparación");
-                    $('#Controles_Persona_Area').hide();
-                })
-                    .onError(function () {
-                        alertify.error("Se produjo un error");
-                    });
+                RealizarAccion(id_bien, id_Tipo_Evento_Presionado, observaciones, id_Area_Seleccionada, 0);
             },
 
             //Rehabilitar
             4: function () {
-                ContenedorGrilla.html("");
-                $("#ContenedorMovimientos").empty();
-
+                titulo = "Rehabilitar vehiculo";
                 id_Tipo_Evento_Presionado = 2;
-                observaciones = "Rehabilitación del bien"
+                observaciones = "Rehabilitación del bien";
+                mensaje = "Desea rehabilitar el vehiculo?";
 
-                Backend.Mobi_Alta_Vehiculo_Evento(id_bien, id_Tipo_Evento_Presionado, observaciones, id_Area_Propietaria, 0).onSuccess(function () {
-                    alertify.success("Vehiculo rehabilitado con exito");
-                    $('#Controles_Persona_Area').hide();
-                })
-                    .onError(function () {
-                        alertify.error("Se produjo un error");
-                    });
+                RealizarAccion(id_bien, id_Tipo_Evento_Presionado, observaciones, id_Area_Propietaria, 0);
             },
 
-            //Dar de baja
+            //Baja
             5: function () {
                 //alert("FALTA Dar de baja");
             },
 
+
             //Devolver a origen
             6: function () {
-                ContenedorGrilla.html("");
-                $("#ContenedorMovimientos").empty();
-
+                titulo = "Devolver vehiculo";
                 id_Tipo_Evento_Presionado = 5;
-                observaciones = "Devolución del bien"
+                observaciones = "Devolución del bien";
+                mensaje = "Desea devolver el vehiculo al area de origen?";
 
-                Backend.Mobi_Alta_Vehiculo_Evento(id_bien, id_Tipo_Evento_Presionado, observaciones, id_Area_Propietaria, -1).onSuccess(function () {
-                    alertify.success("Devolución Correcta");
-                    $('#Controles_Persona_Area').hide();
-                })
-                    .onError(function () {
-                        alertify.error("Se produjo un error");
-                    });
+                RealizarAccion(id_bien, id_Tipo_Evento_Presionado, observaciones, id_Area_Propietaria, -1);
             },
 
             //Tomar
             7: function () {
-                ContenedorGrilla.html("");
-                $("#ContenedorMovimientos").empty();
-
+                titulo = "Tomar vehiculo";
                 id_Tipo_Evento_Presionado = 2;
-                observaciones = "Toma del bien"
+                observaciones = "Tomar vehiculo";
+                mensaje = "Desea tomar el vehiculo?";
 
-                Backend.Mobi_Alta_Vehiculo_Evento(id_bien, id_Tipo_Evento_Presionado, observaciones, id_Area_Propietaria, 0).onSuccess(function () {
-                    alertify.success("Se tomó Correctamente");
-                    $('#Controles_Persona_Area').hide();
-                })
-                    .onError(function () {
-                        alertify.error("Se produjo un error");
-                    });
+                RealizarAccion(id_bien, id_Tipo_Evento_Presionado, observaciones, id_Area_Propietaria, 0);
+            },
+
+
+            //Asignar/Cambiar Chofer
+            8: function () {
+                //                titulo = "Asignar chofer";
+                //                id_Tipo_Evento_Presionado = 2;
+                //                observaciones = "Asignar/Cambiar chofer";
+                //                mensaje = "Desea asignar el chofer al vehiculo?";
+
+                LimpiarPantalla();
+                id_Tipo_Evento_Presionado = 3;
+                observaciones = "Asignar responsable al bien"
+
+                $('#Controles_Persona_Area').show();
+                $('#divBuscadorArea').hide();
+
+
             }
-
         };
 
 
         //AGREGO EL BOTON ACEPTAR
         $("#btn_guardar").click(function () {
 
-            //VALIDO QUE INGRESE EL AREA
-            var idarea = $('#hfIdArea').val();
-            if (idarea == "") {
-                alertify.alert("Asignación de Area", "Debe ingresar el Area en la cual desea asignar el vehiculo.");
-                return;
-            }
+            if ($('#divBuscadorArea').is(":visible")) {
 
-            //VALIDO SI INGRESO EL RESPONSABLE
-            //int id_bien, int id_tipoevento, string observaciones, int id_receptor
-            var documento = $('#documento').text().trim();
-            if (documento == "") {
-                alertify.confirm("Asignación de Responsable", "¿Desea enviar el vehiculo sin una persona responsable?", function () {
-                    //ACEPTO SIN RESPONSABLE
-                    Backend.Mobi_Alta_Vehiculo_Evento(id_bien, id_Tipo_Evento_Presionado, observaciones, idarea, -1).onSuccess(function () {
-                        alertify.success("Asignación Correcta");
-                        $('#Controles_Persona_Area').hide();
-                    })
+                //VALIDO QUE INGRESE EL AREA
+                var idarea = $('#hfIdArea').val();
+                if (idarea == "") {
+                    alertify.alert("Asignación de Area", "Debe ingresar el Area en la cual desea asignar el vehiculo.");
+                    return;
+                }
+
+                //VALIDO SI INGRESO EL RESPONSABLE
+                //int id_bien, int id_tipoevento, string observaciones, int id_receptor
+                var documento = $('#documento').text().trim();
+                if (documento == "") {
+                    alertify.confirm("Asignación de Responsable", "¿Desea enviar el vehiculo sin una persona responsable?", function () {
+                        //ACEPTO SIN RESPONSABLE
+                        Backend.Mobi_Alta_Vehiculo_Evento(id_bien, id_Tipo_Evento_Presionado, observaciones, idarea, -1).onSuccess(function () {
+                            //alertify.success("Asignación Correcta");
+                            //$('#Controles_Persona_Area').hide();
+                            Mostrar_Mensaje_OK_y_CERRAR("Asignación");
+                        })
                     .onError(function () {
                         alertify.error("Se produjo un error");
                     });
 
-                }, function () {
-                    alertify.success("Asignación cancelada");
-                }).setting('labels', { 'ok': 'Aceptar', 'cancel': 'Cancelar' });
+                    }, function () {
+                        alertify.success("Asignación cancelada");
+                    }).setting('labels', { 'ok': 'Aceptar', 'cancel': 'Cancelar' });
+                }
+                else {
+                    //ACEPTO CON RESPONSABLE
+                    Backend.Mobi_Alta_Vehiculo_Evento(id_bien, id_Tipo_Evento_Presionado, observaciones, idarea, documento).onSuccess(function () {
+                        //alertify.success("Asignación Correcta");
+                        //$('#Controles_Persona_Area').hide();
+                        Mostrar_Mensaje_OK_y_CERRAR("Asignación");
+                    })
+                .onError(function () {
+                    alertify.error("Se produjo un error");
+                });
+                }
+
             }
             else {
+            
                 //ACEPTO CON RESPONSABLE
-                Backend.Mobi_Alta_Vehiculo_Evento(id_bien, id_Tipo_Evento_Presionado, observaciones, idarea, documento).onSuccess(function () {
-                    alertify.success("Asignación Correcta");
-                    $('#Controles_Persona_Area').hide();
+                var documento = $('#documento').text().trim();
+                if (documento == "") {
+                    alertify.alert("Asignación de Responsable", "Debe ingresar el responsable para asignarlo al vehiculo.");
+                    return;
+                }
+
+                Backend.Mobi_Alta_Vehiculo_Evento_Persona(id_bien, id_Tipo_Evento_Presionado, observaciones, documento).onSuccess(function () {
+                    Mostrar_Mensaje_OK_y_CERRAR("Asignación de Responsable");
+                })
+                    .onError(function () {
+                        alertify.error("Se produjo un error");
+                    });
+            }
+
+        });
+
+
+
+        var LimpiarPantalla = function () {
+            ContenedorGrilla.html("");
+            $('#Controles_Persona_Area').hide();
+            $("#ContenedorMovimientos").empty();
+
+            $('#divBuscadorArea').show();
+            $('#divBuscadorPersona').show();
+        };
+
+        var Mostrar_Mensaje_OK_y_CERRAR = function (titulo) {
+            window.showAlert = function () {
+                alertify.alert(titulo, 'Se realizo la operación correctamente', function () {
+                    window.close();
+                });
+            }
+            alertify.alert().setting('modal', true);
+            window.showAlert();
+        }
+
+
+
+        //---------- ACCIONES INICIO ------------------
+
+        var RealizarAccion = function (idbien, idtipoevento, observacion, idarea, responsable) {
+
+            LimpiarPantalla();
+
+            alertify.confirm(titulo, mensaje, function () {
+                Backend.Mobi_Alta_Vehiculo_Evento(idbien, idtipoevento, observacion, idarea, responsable).onSuccess(function () {
+                    Mostrar_Mensaje_OK_y_CERRAR(titulo);
                 })
                 .onError(function () {
                     alertify.error("Se produjo un error");
                 });
-
             }
+                , function () {
+                    alertify.success("Se cancelo la operación");
+                }).setting('labels', { 'ok': 'Aceptar', 'cancel': 'Cancelar' });
+
+        };
+
+        //---------- ACCIONES FINAL ------------------
 
 
-        });
 
 
         //---------- MOVIMIENTOS INICIO ------------------
 
         var Consultar = function () {
-            $('#Controles_Persona_Area').hide();
-            ContenedorGrilla.html("");
-            $("#ContenedorMovimientos").empty();
 
             spinner = new Spinner({ scale: 2 }).spin($("body")[0]);
 
@@ -290,7 +343,7 @@ $(function () {
         var DibujarGrillaMovEventos = function () {
             var grilla;
 
-            $("#ContenedorMovimientos").empty();
+            //$("#ContenedorMovimientos").empty();
 
             grilla = new Grilla(
         [
@@ -298,14 +351,15 @@ $(function () {
         new Columna("Tipo_Evento", { generar: function (consulta) { return consulta.TipoEvento; } }),
         new Columna("Observaciones", { generar: function (consulta) { return consulta.Observaciones; } }),
         new Columna("Descripcion_Receptor", { generar: function (consulta) { return consulta.Receptor; } }),
-        //new Columna("Fecha", { generar: function (consulta) { return consulta.Fecha; } }),
+            //new Columna("Fecha", { generar: function (consulta) { return consulta.Fecha; } }),
         new Columna("Fecha", { generar: function (consulta) {
             var fecha_sin_hora = consulta.Fecha.split("T");
             var fecha = fecha_sin_hora[0].split("-");
             return fecha[2] + "/" + fecha[1] + "/" + fecha[0];
-        }}),
+        }
+        }),
         ]);
-            
+
             grilla.CargarObjetos(lista_areas_del_usuario);
             grilla.DibujarEn(ContenedorGrilla);
 
@@ -334,3 +388,86 @@ $(function () {
 
     });
 });
+
+
+
+//-------------------------------------------------------------------------------------------------------
+//                id_Tipo_Evento_Presionado = 2;
+//                observaciones = "Toma del bien"
+//                Backend.Mobi_Alta_Vehiculo_Evento(id_bien, id_Tipo_Evento_Presionado, observaciones, id_Area_Propietaria, 0).onSuccess(function () {
+//                    alertify.success("Se tomó Correctamente");
+//                    $('#Controles_Persona_Area').hide();
+//                })
+//                    .onError(function () {
+//                        alertify.error("Se produjo un error");
+//                    });
+//            }
+//-------------------------------------------------------------------------------------------------------
+//                titulo = "Reparar bien";
+//                alertify.confirm(titulo, 'Desea mandar a reparar el vehiculo?', function () {
+//                    LimpiarPantalla();
+//                    id_Tipo_Evento_Presionado = 8;
+//                    observaciones = "Reparación del bien"
+//                    Backend.Mobi_Alta_Vehiculo_Evento(
+//id_bien, 
+//id_Tipo_Evento_Presionado, 
+//observaciones, 
+//id_Area_Seleccionada, 
+//0).onSuccess(function () {
+//                        //alertify.success("Vehiculo enviado a reparación");
+//                        //$('#Controles_Persona_Area').hide();
+//                        Mostrar_Mensaje_OK_y_CERRAR(titulo);
+//                    })
+//                    .onError(function () {
+//                        alertify.error("Se produjo un error");
+//                    });
+//                }
+//                , function () {
+//                    alertify.success("Se cancelo la operación");
+//                }).setting('labels', { 'ok': 'Aceptar', 'cancel': 'Cancelar' });
+//-------------------------------------------------------------------------------------------------------
+//                titulo = "Rehabilitar bien";
+//                alertify.confirm(titulo, 'Desea rehabilitar el vehiculo?', function () {
+//                    LimpiarPantalla();
+//                    id_Tipo_Evento_Presionado = 2;
+//                    observaciones = "Rehabilitación del bien"
+//                    Backend.Mobi_Alta_Vehiculo_Evento(
+//id_bien, 
+//id_Tipo_Evento_Presionado, 
+//observaciones, 
+//id_Area_Propietaria, 
+//0).onSuccess(function () {
+//                        //alertify.success("Vehiculo rehabilitado con exito");
+//                        //$('#Controles_Persona_Area').hide();
+//                        Mostrar_Mensaje_OK_y_CERRAR(titulo);
+//                    })
+//                    .onError(function () {
+//                        alertify.error("Se produjo un error");
+//                    });
+//                }
+//                , function () {
+//                    alertify.success("Se cancelo la operación");
+//                }).setting('labels', { 'ok': 'Aceptar', 'cancel': 'Cancelar' });
+//-------------------------------------------------------------------------------------------------------
+//                titulo = "Devolver bien";
+//                alertify.confirm(titulo, 'Desea devolver el bien al area de origen?', function () {
+//                    LimpiarPantalla();
+//                    id_Tipo_Evento_Presionado = 5;
+//                    observaciones = "Devolución del bien"
+//                    Backend.Mobi_Alta_Vehiculo_Evento(
+//                        id_bien, 
+//                        id_Tipo_Evento_Presionado, 
+//                        observaciones, 
+//                        id_Area_Propietaria, 
+//                        -1).onSuccess(function () {
+//                        //alertify.success("Devolución Correcta");
+//                        //$('#Controles_Persona_Area').hide();
+//                        Mostrar_Mensaje_OK_y_CERRAR(titulo);
+//                    })
+//                    .onError(function () {
+//                        alertify.error("Se produjo un error");
+//                    });
+//                }
+//                , function () {
+//                    alertify.error("Se cancelo la operación");
+//                }).setting('labels', { 'ok': 'Aceptar', 'cancel': 'Cancelar' });

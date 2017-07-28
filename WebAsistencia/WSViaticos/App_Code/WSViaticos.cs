@@ -3357,6 +3357,13 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public string TraerReporteDePostulaciones(Usuario usuario)
+    {
+        
+        return JsonConvert.SerializeObject(RepoPostulaciones().traerReportesDePostulaciones()).ToString();
+    }
+
+    [WebMethod]
     public bool ActualizarInformesGDEDeUnaPostulacion(string numeroPostulacion, string setDeInformes, Usuario usuario)
     {
         var informesArray = (JArray)JsonConvert.DeserializeObject(setDeInformes);
@@ -4201,6 +4208,14 @@ public class WSViaticos : System.Web.Services.WebService
         RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
         return rMoBi.Mobi_Alta_Vehiculo_Evento(id_bien, id_tipoevento, observaciones, usuario.Id, id_receptor_area, id_receptor_persona);
     }
+
+    [WebMethod]
+    public bool Mobi_Alta_Vehiculo_Evento_Persona(int id_bien, int id_tipoevento, string observaciones, int id_receptor_persona, Usuario usuario)
+    {
+        RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
+        return rMoBi.Mobi_Alta_Vehiculo_Evento_Persona(id_bien, id_tipoevento, observaciones, usuario.Id, id_receptor_persona);
+    }
+
 
     [WebMethod]
     public MoBi_Evento[] Mobi_GetMovimientos(int id_bien)

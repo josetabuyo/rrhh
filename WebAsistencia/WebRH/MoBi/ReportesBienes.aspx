@@ -48,7 +48,7 @@
                     </h2>                   
                 </div>
                 <input type="button" style="position: absolute; right: 107px; top: 22px;" class="btn btn-info" value= "refrescar" id="btn_refrescar" />
- <%--GRAFICO DE DOTACIÓN--%>
+                <%--GRAFICO DE DOTACIÓN--%>
                 <div id="div_grafico_de_dotacion" style="display:none">
                    <%-- <div id="div_filtros" style="display: flex;position: absolute; display:none; top: 80px;left: 135px;">
                         <div style="margin-left:20px;">
