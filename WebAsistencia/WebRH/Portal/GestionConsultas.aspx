@@ -23,8 +23,8 @@
     <link rel="stylesheet" href="chat.css" />
     <link rel="stylesheet" href="font-awesome.min.css" />
     <link rel="stylesheet" href="lato.css" />
-    <script src="../Scripts/select2-3.4.4/select2.min.js" type="text/javascript"></script>
-    <link href="../Scripts/select2-3.4.4/select2.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="../estilos/SelectorDePersonas.css" type="text/css" />
+    <link href="../scripts/select2-3.4.4/select2.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <form id="form1" runat="server">
@@ -115,15 +115,13 @@
     </form>
     <div id="pantalla_consulta_ticket" style="display: none;">
         <div>
-            <%--Clasificar:
+            Clasificar:
             <select id="selector_clasificar">
             </select>
             Asignar:
-            <select id="selector_asignar" class="js-example-basic-single" style="width: 500px;">
-                <option value="AL"></option>
-                <option value="AL">Belén Cevey</option>
-                <option value="WY">Lautaro Villar</option>
-            </select>--%>
+            <div id="selector_usuario" class="selector_personas">
+                <input id="buscador" type="hidden" class="buscarPersona" />
+            </div>
             <div style="display: flex; margin-left: 35%;">
                 <h3 id="titulo_consulta" style="text-align: center;">
                     CONSULTA NÚMERO.</h3>
@@ -161,13 +159,39 @@
                 <input id="btn_pepreguntar" type="button" class="btn btn-primary" value="Responder" />
             </div>
         </div>
-        <div id="pantalla_consulta_individual" style="display: none">
-            <p style="font-size: xx-large; text-align: center; margin-top: 10px;">
-                Consulta Individual</p>
-            <br />
-            <uc3:Consulta ID="Consulta1" runat="server" />
+    </div>
+    <div id="pantalla_consulta_individual" style="display: none">
+        <p style="font-size: xx-large; text-align: center; margin-top: 10px;">
+            Consulta Individual</p>
+        <br />
+        <uc3:Consulta ID="Consulta1" runat="server" />
+    </div>
+    <div id="plantillas">
+        <div class="vista_persona_en_selector">
+<%--            <div id="contenedor_legajo" class="label label-warning">
+                <div id="titulo_legajo">
+                    Leg:</div>
+                <div id="legajo">
+                </div>
+            </div>--%>
+            <div id="nombre" style="color:#000; font-size:12px;">
+            </div>
+            <div id="apellido" style="color:#000; font-size:12px;">
+            </div>
+            <%--<div id="contenedor_doc" class="label label-default">
+                <div id="titulo_doc">
+                    Doc:</div>
+                <div id="documento">
+                </div>
+            </div>--%>
         </div>
+    </div>
 </body>
+<script type="text/javascript" src="../Scripts/select2-3.4.4/Select2.min.js"></script>
+<script type="text/javascript" src="../Scripts/select2-3.4.4/select2_locale_es.js"></script>
+<script type="text/javascript" src="../Scripts/RepositorioDePersonas.js"></script>
+<script type="text/javascript" src="../Scripts/Persona.js"></script>
+<script type="text/javascript" src="../Scripts/SelectorDePersonas.js"></script>
 <script type="text/javascript" src="Legajo.js"></script>
 <script type="text/javascript" src="../Scripts/Spin.js"></script>
 <script type="text/javascript" src="../scripts/vex-2.1.1/js/vex.combined.min.js"></script>
@@ -178,7 +202,6 @@
         });
 
         $("#btnConsultaIndividual").click(function () {
-
             vex.defaultOptions.className = 'vex-theme-os';
             vex.open({
                 afterOpen: function ($vexContent) {

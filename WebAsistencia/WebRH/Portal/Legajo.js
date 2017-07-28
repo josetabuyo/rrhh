@@ -741,6 +741,7 @@ var Legajo = {
 
     MostrarDetalleDeConsulta: function (consulta) {
         var _this = this;
+
         Backend.GetDetalleDeConsulta(consulta.Id)
         .onSuccess(function (respuestasJSON) {
             var respuestas = [];
@@ -753,6 +754,16 @@ var Legajo = {
                     var ui = $("#pantalla_consulta_ticket").clone();
                     $vexContent.append(ui);
                     ui.show();
+
+                    var selector_personas = new SelectorDePersonas({
+                        ui: ui.find('#selector_usuario'),
+                        repositorioDePersonas: new RepositorioDePersonas(new ProveedorAjax("../")),
+                        placeholder: "nombre y apellido"
+                    });
+                    selector_personas.alSeleccionarUnaPersona = function (la_persona_seleccionada) {
+                        alert("aa");
+                        //_this.mostrarPersona(la_persona_seleccionada.id);
+                    };
 
                     ui.find("#titulo_consulta").text("CONSULTA NÚMERO " + consulta.Id);
                     _this.ArmarChat(ui, consulta, respuestas);
@@ -1286,13 +1297,11 @@ var Legajo = {
 
     ObtenerSubclasificacionDeConsultas: function () {
     },
-    ObtenerPersonasParaAsignacion: function () {
-        $(".js-example-basic-single").select2();
-    },
+
     getConsultasParaGestion: function () {
         var _this = this;
         _this.ObtenerSubclasificacionDeConsultas();
-        _this.ObtenerPersonasParaAsignacion();
+
         $('#consultas').show();
         $('#notificaciones').hide();
         $('#btn_volver_consulta').click(function () {
