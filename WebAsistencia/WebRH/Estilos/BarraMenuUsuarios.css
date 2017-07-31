@@ -39,21 +39,20 @@
 #info_usuario
 {
     position: absolute;
-    width: 150px;
-    left: 55px;
+    width: 180px;
+    left: 148px;
     top: 10px;
-    text-align: center;
+    text-align: left;
+    height: 144px;
 }
 
 .menu_usuario
 {
     position: absolute;
-    top: 71px;
+    top: 64px;
     width: 215px;
-    /*width: 265px;*/
     height: 342px;
     background-color: #f5f5f5;
-    /*border: solid rgb(25, 75, 180) !important;*/
 }
 
 
@@ -61,7 +60,7 @@
 
 .sombrita
 {
-    border-radius: 20px !important;
+    border-radius: 12px !important;
     border-color: Black;
     -webkit-border-radius: 500px;
     box-shadow: 15px 20px 25px rgba(0,0,0,0.7) !important;
@@ -82,8 +81,21 @@
     z-index: 99999;
     border-radius: 30px;
     right: 41px;
+    width: 346px;
+    height: 199px;
 }
 
+#barrita_acciones_usuario
+{
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    height: 40px;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    border-top: 1px black dashed;
+}
 
 .foto_menu_estilo
 {
@@ -96,8 +108,8 @@
     position: absolute;
     width: 120px;
     cursor: pointer;
-    left: 45px;
-    top: 10px;
+    left: 17px;
+    top: 17px;
     height: 120px;
     overflow: hidden;
     border-radius: 80px !important;
@@ -139,25 +151,29 @@
     right: 0px;
     font-weight: bold;
     font-size: 1.3em;
-    text-align: center;
+    text-align: left;
 }
 
 #nombre_user
 {
-    top: 140px;
+    top: 11px;
+    left: -9px;
 }
 #apellido_user
 {
-    top: 165px;
+    top: 34px;
+    left: 9px;
 }
 #dni_user
 {
-    top: 192px;
+    top: 64px;
+    left: 12px;
     font-size: 1.2em !important;
 }
 #email_user
 {
-    top: 220px;
+    top: 93px;
+    left: 7px;
     font-size: 0.9em !important;
     font-style: italic;
 }
@@ -165,11 +181,9 @@
 #cambiar-email_usuario
 {
     position: absolute;
-    top: 260px;
-    left: 0px;
+    top: 116px;
+    left: 1px;
     cursor: pointer;
-    /*height: 34px !important;
-    width: 159px !important;*/
 }
 #link_area
 {
@@ -181,22 +195,22 @@
     width: 159px !important;*/
 }
 
-#go
+#cambiar_contrasenia
 {
     position: absolute;
-    top: 222px;
-    left: -15px;
+    left: 15px;
+    bottom: 11px;
 }
-
-#cerrar-sesion_usuario
+#BarraMenu_CerrarSessionLinkButton
 {
+    border-radius: 0px;
+    border-bottom-right-radius: 12px;
+    height: 40px;
+    width: 50%;
     position: absolute;
-    top: 290px;
-    /*left: 10px;
-    height: 25px;
-    width: 102px;*/
     padding: 0 !important;
-    border-radius: 5px;
+    right: 0px;
+    bottom: 0px;
 }
 
 #usuario
@@ -407,7 +421,7 @@
     height: 30px;
     border-radius: 50%;
     padding-top: 4px;
-    padding-left: 10px;
+    padding-left: 11px;
     font-size: 17px;
     font-weight: bolder;
     color: white;
@@ -419,14 +433,10 @@
 
 .flechita
 {
-    width: 0;
-    height: 0;
     border-left: 15px solid transparent;
     border-right: 15px solid transparent;
     border-bottom: 15px solid white;
-    font-size: 0px;
-    line-height: 0px;
-    top: -18px;
+    top: -9px;
     right: 12px;
     position: absolute;
     z-index: 99999;
