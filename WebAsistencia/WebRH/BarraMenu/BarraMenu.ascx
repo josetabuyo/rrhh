@@ -109,24 +109,7 @@
     <div id="sub_barrita_negra"></div>
     <div id="plantillas_barra_menu" style="display: none">
         <div id="indicaciones_al_subir_imagen">
-            <div id="titulo_indicaciones">
-                Al elegir la foto para subir, por favor, tené en cuenta lo siguiente:
-            </div>
-            <div class=indicacion>
-                1-Esta foto es la que te identificará en tu legajo y otros documentos del Ministerio (como la credencial).
-            </div>
-            <div class=indicacion>  
-                2-Procurá que se vea tu cara sobre un fondo claro.                
-            </div>
-            <div class=indicacion>  
-                3-La imagen debe contener la cara completa desde los hombros hasta arriba del pelo.              
-            </div>
-            <div class=indicacion>  
-                4-Evitar ojos cerrados, anteojos y sombreros.              
-            </div>
-            <div class=indicacion>     
-                5-Tu cara debe ser la única que aparezca en la imagen           
-            </div>
+            <image id="imagen_recomendaciones" src="<%= UrlImagenes %>barramenu/recomendacion.foto.legajo.png"/>
             <image id="btn_ok" src="<%= UrlImagenes %>botones/ok.png"/>
         </div>
         <a class="ui_vista_item_menu">
