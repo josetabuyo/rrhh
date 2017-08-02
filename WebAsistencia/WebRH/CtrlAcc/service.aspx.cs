@@ -5,9 +5,16 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using WSViaticos;
+using Newtonsoft.Json;
 
 public partial class CtrlAcc_service : System.Web.UI.Page
 {
+    private string _User = string.Empty;
+    private string _Pass = string.Empty;
+    private string _Method = string.Empty;
+    private string _Param = string.Empty;
+    private string _JsonResp = string.Empty;
+
     private enum eMethod
     {
         mUnknown,
@@ -18,34 +25,60 @@ public partial class CtrlAcc_service : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        Process_Event();
+        if (!Save_Params())
+        {
+            ServiceResponse.Write(ServiceResponse.eStatus.eErrorParams, string.Empty, Response);
+            return;
+        }
+        if (!Process_Event())
+        {
+            ServiceResponse.Write(ServiceResponse.eStatus.eErrorProcess, string.Empty, Response);
+            return;
+        }
+        else
+        {
+            ServiceResponse.Write(ServiceResponse.eStatus.eResponseOK, _JsonResp, Response);
+            return;            
+        }
+    }
+
+    private bool Save_Params()
+    {
+        try {
+            _User = Request["user"].ToString();;
+            _Pass = Request["pass"].ToString();;
+            _Method = Request["metodo"].ToString();
+            _Param = Request["json"].ToString();
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
     }
 
 
-    private void Process_Event()
+    private bool Process_Event()
     {
-        var sMethod = Request["metodo"].ToString();
-        var sParam = Request["json"].ToString();
-        var sResp = string.Empty;
-        var method = Get_Method(sMethod);
-
+        var method = this.Get_Method(_Method);
         switch (method)
         {
             case eMethod.mDotacion:
-                sResp = mDotacion(sParam);
+                _JsonResp = mDotacion(_Param);
                 break;
 
             case eMethod.mInformarLote:
-                sResp = mInformarLote(sParam);
+                _JsonResp = mInformarLote(_Param);
                 break;                
 
             case eMethod.mUnknown: default:
-                sResp = "";
-                break;
+                return false;
         }
-        CCryptorEngine cryp = new CCryptorEngine();
-        Response.Write(cryp.Encriptar(sResp));
+        if (_JsonResp == string.Empty) return false;
+
+        return true;
     }
+
 
     private eMethod Get_Method(string sMethod)
     {
@@ -76,6 +109,55 @@ public partial class CtrlAcc_service : System.Web.UI.Page
     private string mInformarLote(string sParam)
     {
         return string.Empty;
+    }
+
+
+    private class ServiceResponse
+    {
+        public enum eStatus
+        { 
+            eResponseOK = 0,
+            eErrorUnknow = 1,
+            eErrorParams = 2,
+            eErrorAuthentication = 3,
+            eErrorProcess = 4
+        }
+
+        public eStatus _Status = eStatus.eErrorUnknow;
+        public string _StatusDesc = string.Empty;
+        public string _Json = string.Empty;
+
+        private ServiceResponse() {}
+
+        public static void Write(eStatus status, string json, HttpResponse Response)
+        {
+            var sResp = new ServiceResponse();
+            sResp._Status = status;
+            
+            switch (sResp._Status)
+            {
+                case eStatus.eResponseOK:
+                    sResp._StatusDesc = "Ok";
+                    break;
+                case eStatus.eErrorUnknow:
+                    sResp._StatusDesc = "Error desconocido.";
+                    break;
+                case eStatus.eErrorParams:
+                    sResp._StatusDesc = "Error al procesar los parametros enviados.";
+                    break;
+                case eStatus.eErrorAuthentication:
+                    sResp._StatusDesc = "Error al autenticar las credenciales del usuario.";
+                    break;
+                case eStatus.eErrorProcess:
+                    sResp._StatusDesc = "Error al procesar la solicitud.";
+                    break;
+            }
+            CCryptorEngine cryp = new CCryptorEngine();
+            sResp._Json = cryp.Encriptar(json);
+            var output = JsonConvert.SerializeObject(sResp);
+            Response.Write(output);
+        }
+
     }
 
 }
