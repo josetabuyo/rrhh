@@ -45,35 +45,30 @@
                 <div id="foto_usuario_menu" class="foto_menu_estilo">
                 </div>
                 <div id="barrita_cambio_imagen">
-                    <div>
-                        Cambiar</div>
-                    <div>
-                        Imágen</div>
+                    <div>Cambiar</div>
                 </div>
             </div>
-            
-            <div id="nombre_user" class="cabecera_menu_usuario">
-            </div>
-            <div id="apellido_user" class="cabecera_menu_usuario">
-            </div>
-            <div id="dni_user" class="cabecera_menu_usuario">
-            </div>
-            <div id="email_user" class="cabecera_menu_usuario">
-            </div>
+                        
             <div id="info_usuario">
-            <a id="link_area" style="display:none;">Mi Área</a>
-                <a id="cambiar-email_usuario" class="" name="signup" >Modificar correo</a>
-                <%--<button id="cambiar-email_usuario" type="button" class="btn barra_menu_botones sombrita-iconos">
-                    Modificar correo</button>
-                <button id="cambiar-constrasena_usuario" type="button" class="btn btn-info datos_usuario">
-                        Modificar contraseña </button> btn barra_menu_botones sombrita-iconos --%>
-                <a id="go" rel="leanModal" class="" name="signup" href="#signup">Cambiar Contraseña</a>
-                <uc5:FormPassword ID="FormPassword" runat="server" />
-                <div id="cerrar-sesion_usuario">
-                    <asp:Button ID="CerrarSessionLinkButton" CssClass="btn btn-primary"
-                        runat="server" OnClick="CerrarSessionLinkButton_Click" Text="Cerrar Sesión">
-                    </asp:Button>
+                <div id="nombre_user" class="cabecera_menu_usuario">
                 </div>
+                <div id="apellido_user" class="cabecera_menu_usuario">
+                </div>
+                <div id="dni_user" class="cabecera_menu_usuario">
+                </div>
+                <div id="email_user" class="cabecera_menu_usuario">
+                </div>
+                <a id="link_area" style="display:none;">Mi Área</a>
+                <a id="cambiar-email_usuario" class="" name="signup" >Modificar correo</a>                     
+                
+            </div>
+
+            <div id=barrita_acciones_usuario>
+                <a id="cambiar_contrasenia" rel="leanModal" class="" name="signup" href="#signup">Cambiar Contraseña</a>
+                <uc5:FormPassword ID="FormPassword" runat="server" />
+                <asp:Button ID="CerrarSessionLinkButton" CssClass="btn btn-primary"
+                    runat="server" OnClick="CerrarSessionLinkButton_Click" Text="Cerrar Sesión">
+                </asp:Button>
             </div>
         </div>
         <div id="contenedor_imagen_cuadrados" class="sombrita-iconos">
@@ -111,24 +106,7 @@
     <div id="sub_barrita_negra"></div>
     <div id="plantillas_barra_menu" style="display: none">
         <div id="indicaciones_al_subir_imagen">
-            <div id="titulo_indicaciones">
-                Al elegir la foto para subir, por favor, tené en cuenta lo siguiente:
-            </div>
-            <div class=indicacion>
-                1-Esta foto es la que te identificará en tu legajo y otros documentos del Ministerio (como la credencial).
-            </div>
-            <div class=indicacion>  
-                2-Procurá que se vea tu cara sobre un fondo claro.                
-            </div>
-            <div class=indicacion>  
-                3-La imagen debe contener la cara completa desde los hombros hasta arriba del pelo.              
-            </div>
-            <div class=indicacion>  
-                4-Evitar ojos cerrados, anteojos y sombreros.              
-            </div>
-            <div class=indicacion>     
-                5-Tu cara debe ser la única que aparezca en la imagen           
-            </div>
+            <image id="imagen_recomendaciones" src="<%= UrlImagenes %>barramenu/recomendacion.foto.legajo.png"/>
             <image id="btn_ok" src="<%= UrlImagenes %>botones/ok.png"/>
         </div>
         <a class="ui_vista_item_menu">

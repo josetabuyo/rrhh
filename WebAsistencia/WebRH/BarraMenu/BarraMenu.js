@@ -117,6 +117,10 @@
                         $vexContent.append(ui);
                         ui.show();
                         return ui;
+                    },
+                    css: {
+                        'padding-top': "4%",
+                        'padding-bottom': "0%"
                     }
                 })             
                 

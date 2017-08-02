@@ -42,6 +42,5 @@
         // Código que se ejecuta al producirse un error no controlado
         Logger.EscribirLog("---------------------------------------------");
         Logger.EscribirLog(ex.ToString());
-
     } 
 </script>
