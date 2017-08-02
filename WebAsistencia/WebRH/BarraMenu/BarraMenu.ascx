@@ -45,10 +45,7 @@
                 <div id="foto_usuario_menu" class="foto_menu_estilo">
                 </div>
                 <div id="barrita_cambio_imagen">
-                    <div>
-                        Cambiar</div>
-                    <div>
-                        Imágen</div>
+                    <div>Cambiar</div>
                 </div>
             </div>
                         

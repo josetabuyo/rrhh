@@ -126,17 +126,14 @@
     bottom: 0px;
     background-color: black;
     color: white;
-    height: 0%;
+    height: 20%;
     left: 0px;
     right: 0px;
     text-align: center;
     transition: height 0.2s;
-}
-
-
-#contenedor_foto_usuario:hover > #barrita_cambio_imagen
-{
-   height: 40%;
+    font-size: 12px;
+    opacity: 0.6;
+    padding-top: 3px;
 }
 
 .datos_usuario
