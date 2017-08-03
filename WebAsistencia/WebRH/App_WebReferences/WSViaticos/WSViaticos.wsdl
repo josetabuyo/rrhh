@@ -659,6 +659,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="agente_evaluador" type="tns:AgenteEvaluacionDesempenio" />
           <s:element minOccurs="0" maxOccurs="1" name="periodo" type="tns:PeriodoEvaluacion" />
           <s:element minOccurs="0" maxOccurs="1" name="evaluacion" type="tns:EvaluacionDesempenio" />
+          <s:element minOccurs="0" maxOccurs="1" name="unidad_de_evaluacion" type="tns:UnidadDeEvaluacion" />
           <s:element minOccurs="1" maxOccurs="1" name="id_periodo" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="descripcion_periodo" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="id_evaluacion" type="s:int" />
@@ -667,7 +668,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="nombre_evaluado" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="id_nivel" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="descripcion_corta_nivel" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="test" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="codigo_unidad_eval" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="NivelEvaluacionDesempenio">
@@ -724,6 +725,12 @@
           <s:element minOccurs="1" maxOccurs="1" name="puntaje" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="calificacion" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="detalle_preguntas" type="tns:ArrayOfDetallePreguntas" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="UnidadDeEvaluacion">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Codigo" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="PrintPdfEvaluacionDesempenioResponse">
@@ -5610,6 +5617,12 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:complexType name="RespuestaGetAgentesEvaluablesPor">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="asignaciones" type="tns:ArrayOfAsignacionEvaluadoAEvaluador" />
+          <s:element minOccurs="1" maxOccurs="1" name="EsAgenteVerificador" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
       <s:complexType name="ArrayOfAsignacionEvaluadoAEvaluador">
         <s:sequence>
           <s:element minOccurs="0" maxOccurs="unbounded" name="AsignacionEvaluadoAEvaluador" nillable="true" type="tns:AsignacionEvaluadoAEvaluador" />
@@ -5618,7 +5631,7 @@
       <s:element name="EvalGetAgentesEvaluablesResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="EvalGetAgentesEvaluablesResult" type="tns:ArrayOfAsignacionEvaluadoAEvaluador" />
+            <s:element minOccurs="0" maxOccurs="1" name="EvalGetAgentesEvaluablesResult" type="tns:RespuestaGetAgentesEvaluablesPor" />
           </s:sequence>
         </s:complexType>
       </s:element>
