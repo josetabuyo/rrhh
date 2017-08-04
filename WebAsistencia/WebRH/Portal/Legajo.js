@@ -1343,6 +1343,9 @@ var Legajo = {
 
     getCredencialesUsuario: function () {
         var _this = this;
+
+        _this.getCredencialesTodas();
+
         _this.ObtenerSubclasificacionDeConsultas();
         _this.ObtenerPersonasParaAsignacion();
         $('#consultas').show();
@@ -1391,7 +1394,7 @@ var Legajo = {
 
         $('#btn_consultas_pendientes').click();
     },
-   
+
     GetNotificacionesTodas: function () {
         var _this_original = this;
         Backend.GetNotificacionesTodasDePortal()
@@ -1477,13 +1480,13 @@ var Legajo = {
     },
 
 
-    getCredencialesTodas: function (estado) {
+    getCredencialesUsuario: function (estado) {
         var _this_original = this;
 
         var spinner = new Spinner({ scale: 2 });
         spinner.spin($("html")[0]);
 
-        Backend.GetConsultasTodasDePortal(estado)
+        Backend.GetCredencialesTodasDePortal(estado)
                     .onSuccess(function (consultasJSON) {
                         var consultas = [];
                         if (consultasJSON != "") {
