@@ -12,6 +12,11 @@ ul li:before {
 	/*content: "\00BB \0020";*/
 }
 
+.fondo_verde
+{   
+    color: Green !important;
+}
+
  .caja_izq 
 {
     color:#f4efe9; 

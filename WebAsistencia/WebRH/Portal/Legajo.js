@@ -755,15 +755,15 @@ var Legajo = {
                     $vexContent.append(ui);
                     ui.show();
 
-                    var selector_personas = new SelectorDePersonas({
-                        ui: ui.find('#selector_usuario'),
-                        repositorioDePersonas: new RepositorioDePersonas(new ProveedorAjax("../")),
-                        placeholder: "nombre y apellido"
-                    });
-                    selector_personas.alSeleccionarUnaPersona = function (la_persona_seleccionada) {
-                        alert("aa");
-                        //_this.mostrarPersona(la_persona_seleccionada.id);
-                    };
+//                    var selector_personas = new SelectorDePersonas({
+//                        ui: ui.find('#selector_usuario'),
+//                        repositorioDePersonas: new RepositorioDePersonas(new ProveedorAjax("../")),
+//                        placeholder: "nombre y apellido"
+//                    });
+//                    selector_personas.alSeleccionarUnaPersona = function (la_persona_seleccionada) {
+//                        alert("aa");
+//                        //_this.mostrarPersona(la_persona_seleccionada.id);
+//                    };
 
                     ui.find("#titulo_consulta").text("CONSULTA NÚMERO " + consulta.Id);
                     _this.ArmarChat(ui, consulta, respuestas);
