@@ -642,7 +642,7 @@ namespace General.Repositorios
             {
                 tablaDatos.Rows.ForEach(row =>
                 {
-                    credenciales.Add(new Credencial(row.GetLong("IdCredencial"), row.GetInt("IdTipo"), row.GetDateTime("FechaAlta"), row.GetString("UsuarioAlta"), row.GetInt("IdOrganismo"), row.GetInt("IdFoto"), row.GetInt("CodigoMagnetico"), row.GetInt("idBaja")));
+                    credenciales.Add(new Credencial(row.GetInt("IdCredencial"), row.GetInt("IdTipo",0), row.GetDateTime("FechaAlta"), row.GetString("UsuarioAlta"), row.GetInt("IdOrganismo"), row.GetInt("IdFoto",0), row.GetInt("CodigoMagnetico"), row.GetInt("idBaja",0)));
                                 
 
                 });

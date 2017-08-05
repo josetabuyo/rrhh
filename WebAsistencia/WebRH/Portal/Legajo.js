@@ -1486,7 +1486,7 @@ var Legajo = {
         var spinner = new Spinner({ scale: 2 });
         spinner.spin($("html")[0]);
 
-        Backend.GetCredencialesTodasDePortal(estado)
+        Backend.GetCredencialesTodasDePortal()
                     .onSuccess(function (consultasJSON) {
                         var consultas = [];
                         if (consultasJSON != "") {
