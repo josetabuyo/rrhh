@@ -2934,6 +2934,20 @@ public class WSViaticos : System.Web.Services.WebService
 
     #endregion
 
+    #region Credenciales
+
+
+    [WebMethod]
+    public Credencial[] GetCredencialesTodasDePortal(Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+
+        return repositorio.GetCredencialesTodasDePortal(usuario.Owner.Id).ToArray();
+    }
+
+    #endregion
+
+
     [WebMethod]
     public bool RefrescarCacheMAU(Usuario usuario)
     {

@@ -616,54 +616,40 @@ namespace General.Repositorios
         }
 
 
-        public string GetCredencialesTodasDePortal(int documento)
+        public List<Credencial> GetCredencialesTodasDePortal(int idPersona)
         {
             var parametros = new Dictionary<string, object>();
-            if (documento != 0)
+            if (idPersona != 0)
             {
-                parametros.Add("@Documento", documento);
+                parametros.Add("@IdPersona", idPersona);
             }
 
-            List<Consulta> consultas = new List<Consulta>();
-            getCredencialesPorCriterio(parametros, consultas);
+            List<Credencial> credenciales = new List<Credencial>();
+            getCredencialesPorCriterio(parametros, credenciales);
 
-            return JsonConvert.SerializeObject(consultas);
+            return credenciales;
 
         }
 
-
-        private void getCredencialesPorCriterio(Dictionary<string, object> parametros, List<Consulta> consultas)
+        private List<Credencial> getCredencialesPorCriterio(Dictionary<string, object> parametros, List<Credencial> credenciales)
         {
             Area area = new Area();
-            var tablaDatos = conexion.Ejecutar("dbo.LEG_GETConsultasDePortal2", parametros);
+            var tablaDatos = conexion.Ejecutar("dbo.LEG_GETCredencialesDePortal", parametros);
 
+          
+           
             if (tablaDatos.Rows.Count > 0)
             {
                 tablaDatos.Rows.ForEach(row =>
                 {
-                    Persona creador = new Persona(row.GetInt("id_usuario"), row.GetInt("NroDocumento"), row.GetString("nombre"), row.GetString("apellido"), area);
-                    Persona responsable = new Persona(row.GetInt("id_responsable", 0), row.GetInt("NroDocumentoResponsable", 0), row.GetString("nombreResponsable", ""), row.GetString("apellidoResponsable", ""), area);
-                    List<Respuesta> respuestas = new List<Respuesta>();
-                    Consulta consulta = new Consulta(
-                        row.GetLong("Id"),
-                        creador,
-                        row.GetDateTime("fecha_creacion"),
-                        row.GetDateTime(("fecha_respuesta"), new DateTime(9999, 12, 31)),
-                        responsable,
-                        row.GetSmallintAsInt("id_tipo_consulta"),
-                        row.GetString("tipo_consulta"),
-                        row.GetString("resumen"),
-                        row.GetSmallintAsInt("id_estado"),
-                        row.GetString("estado"),
-                        row.GetSmallintAsInt(("calificacion"), 0),
-                        row.GetBoolean("leido", false),
-                        respuestas);
-
-                    consultas.Add(consulta);
+                    credenciales.Add(new Credencial(row.GetInt("IdCredencial"), row.GetInt("IdTipo",0), row.GetDateTime("FechaAlta"), row.GetString("UsuarioAlta"), row.GetInt("IdOrganismo"), row.GetInt("IdFoto",0), row.GetInt("CodigoMagnetico"), row.GetInt("idBaja",0)));
+                                
 
                 });
+               
 
             }
+            return credenciales;
         }
 
 
