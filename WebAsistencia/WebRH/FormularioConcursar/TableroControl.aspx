@@ -24,6 +24,10 @@
              <%--<input type="text" id="filtrar_comite" class="buscador" style="width:100px;" placeholder="Filtrar Comité"/>--%>
              <input type="text" id="search" class="search" class="buscador" placeholder="Buscar"/>
              <button class="btn btn-primary" id="btnExport" style="float:right"> Exportar a Excel </button>
+             <input class="" id="btnInscripciones"  type="button" style="float:right; margin:0 5px;" value="Inscripciones" /> 
+             <input class="" id="btnPreinscripciones" type="button" style="float:right; margin:0 5px;" value="Pre Inscripciones" />
+            
+             
              <table id="tabla_postulaciones" style="width:100%;"></table>
             </div>
              <asp:HiddenField ID="tablero" runat="server" />
@@ -51,7 +55,15 @@
 
             //var tablero = JSON.parse($('#tablero').val());
             //PantallaEtapaDeTableroControl.InicializarPantalla(tablero);
-            PantallaEtapaDeTableroControl.traerPostulaciones();
+            PantallaEtapaDeTableroControl.traerPostulaciones(1);
+
+            $('#btnPreinscripciones').click(function () {
+                PantallaEtapaDeTableroControl.traerPostulaciones(1);
+            });
+
+            $('#btnInscripciones').click(function () {
+                PantallaEtapaDeTableroControl.traerPostulaciones(2);
+            });
 
 //            $('#filtrar_comite').change(function () {
 //                PantallaEtapaDeTableroControl.FiltrarPorComite();
