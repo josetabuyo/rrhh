@@ -2,17 +2,34 @@
 <wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://wsviaticos.gov.ar/">
-      <s:element name="VerificarDomicilioPendiente">
+      <s:element name="GuardarDomicilioPendiente">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="idAlerta" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="documento" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="folio" type="s:string" />
-            <s:element minOccurs="1" maxOccurs="1" name="idUsuarioCreador" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="domicilio" type="tns:CvDomicilio" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:complexType name="CvDomicilio">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Calle" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Numero" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Piso" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Depto" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Localidad" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cp" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Provincia" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Manzana" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Barrio" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Casa" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Torre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Uf" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Partido" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="NombreLocalidad" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NombreProvincia" type="s:string" />
+        </s:sequence>
+      </s:complexType>
       <s:complexType name="Usuario">
         <s:sequence>
           <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
@@ -197,6 +214,24 @@
           <s:element minOccurs="1" maxOccurs="1" name="basica" type="s:boolean" />
         </s:sequence>
       </s:complexType>
+      <s:element name="GuardarDomicilioPendienteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GuardarDomicilioPendienteResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="VerificarDomicilioPendiente">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idAlerta" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="documento" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="folio" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="idUsuarioCreador" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="VerificarDomicilioPendienteResponse">
         <s:complexType>
           <s:sequence>
@@ -733,7 +768,7 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="ActualizarCvCompetenciaInformatica">
+      <s:element name="GuardarCvCompetenciaInformatica">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="competencia_informatica" type="tns:CvCompetenciasInformaticas" />
@@ -932,6 +967,21 @@
           </s:extension>
         </s:complexContent>
       </s:complexType>
+      <s:element name="GuardarCvCompetenciaInformaticaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GuardarCvCompetenciaInformaticaResult" type="tns:CvCompetenciasInformaticas" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ActualizarCvCompetenciaInformatica">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="competencia_informatica" type="tns:CvCompetenciasInformaticas" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="ActualizarCvCompetenciaInformaticaResponse">
         <s:complexType>
           <s:sequence>
@@ -2703,41 +2753,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GuardarDomicilioPendiente">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="domicilio" type="tns:CvDomicilio" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:complexType name="CvDomicilio">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Calle" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="Numero" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Piso" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Depto" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="Localidad" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="Cp" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="Provincia" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Manzana" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Barrio" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Casa" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Torre" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Uf" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="Partido" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="NombreLocalidad" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="NombreProvincia" type="s:string" />
-        </s:sequence>
-      </s:complexType>
-      <s:element name="GuardarDomicilioPendienteResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="GuardarDomicilioPendienteResult" type="s:boolean" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
       <s:element name="ModificarMailRegistro">
         <s:complexType>
           <s:sequence>
@@ -3116,6 +3131,37 @@
           <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="Url" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Funcionalidad" type="tns:Funcionalidad" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetCredencialesTodasDePortal">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCredencialesTodasDePortalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCredencialesTodasDePortalResult" type="tns:ArrayOfCredencial" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfCredencial">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Credencial" nillable="true" type="tns:Credencial" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Credencial">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdTipo" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaAlta" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="UsuarioAlta" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdOrganismo" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdFoto" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CodigoMagnetico" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdBaja" type="s:int" />
         </s:sequence>
       </s:complexType>
       <s:element name="RefrescarCacheMAU">
@@ -4269,21 +4315,6 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="EliminarCvIdiomaExtranjeroResult" type="s:boolean" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GuardarCvCompetenciaInformatica">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="competencia_informatica" type="tns:CvCompetenciasInformaticas" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GuardarCvCompetenciaInformaticaResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GuardarCvCompetenciaInformaticaResult" type="tns:CvCompetenciasInformaticas" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -7248,6 +7279,12 @@
       </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="GuardarDomicilioPendienteSoapIn">
+    <wsdl:part name="parameters" element="tns:GuardarDomicilioPendiente" />
+  </wsdl:message>
+  <wsdl:message name="GuardarDomicilioPendienteSoapOut">
+    <wsdl:part name="parameters" element="tns:GuardarDomicilioPendienteResponse" />
+  </wsdl:message>
   <wsdl:message name="VerificarDomicilioPendienteSoapIn">
     <wsdl:part name="parameters" element="tns:VerificarDomicilioPendiente" />
   </wsdl:message>
@@ -7415,6 +7452,12 @@
   </wsdl:message>
   <wsdl:message name="PrintPdfEvaluacionDesempenioSoapOut">
     <wsdl:part name="parameters" element="tns:PrintPdfEvaluacionDesempenioResponse" />
+  </wsdl:message>
+  <wsdl:message name="GuardarCvCompetenciaInformaticaSoapIn">
+    <wsdl:part name="parameters" element="tns:GuardarCvCompetenciaInformatica" />
+  </wsdl:message>
+  <wsdl:message name="GuardarCvCompetenciaInformaticaSoapOut">
+    <wsdl:part name="parameters" element="tns:GuardarCvCompetenciaInformaticaResponse" />
   </wsdl:message>
   <wsdl:message name="ActualizarCvCompetenciaInformaticaSoapIn">
     <wsdl:part name="parameters" element="tns:ActualizarCvCompetenciaInformatica" />
@@ -7920,12 +7963,6 @@
   <wsdl:message name="GetDomicilioPendienteSoapOut">
     <wsdl:part name="parameters" element="tns:GetDomicilioPendienteResponse" />
   </wsdl:message>
-  <wsdl:message name="GuardarDomicilioPendienteSoapIn">
-    <wsdl:part name="parameters" element="tns:GuardarDomicilioPendiente" />
-  </wsdl:message>
-  <wsdl:message name="GuardarDomicilioPendienteSoapOut">
-    <wsdl:part name="parameters" element="tns:GuardarDomicilioPendienteResponse" />
-  </wsdl:message>
   <wsdl:message name="ModificarMailRegistroSoapIn">
     <wsdl:part name="parameters" element="tns:ModificarMailRegistro" />
   </wsdl:message>
@@ -8075,6 +8112,12 @@
   </wsdl:message>
   <wsdl:message name="GetMenuParaSoapOut">
     <wsdl:part name="parameters" element="tns:GetMenuParaResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCredencialesTodasDePortalSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCredencialesTodasDePortal" />
+  </wsdl:message>
+  <wsdl:message name="GetCredencialesTodasDePortalSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCredencialesTodasDePortalResponse" />
   </wsdl:message>
   <wsdl:message name="RefrescarCacheMAUSoapIn">
     <wsdl:part name="parameters" element="tns:RefrescarCacheMAU" />
@@ -8423,12 +8466,6 @@
   </wsdl:message>
   <wsdl:message name="EliminarCvIdiomaExtranjeroSoapOut">
     <wsdl:part name="parameters" element="tns:EliminarCvIdiomaExtranjeroResponse" />
-  </wsdl:message>
-  <wsdl:message name="GuardarCvCompetenciaInformaticaSoapIn">
-    <wsdl:part name="parameters" element="tns:GuardarCvCompetenciaInformatica" />
-  </wsdl:message>
-  <wsdl:message name="GuardarCvCompetenciaInformaticaSoapOut">
-    <wsdl:part name="parameters" element="tns:GuardarCvCompetenciaInformaticaResponse" />
   </wsdl:message>
   <wsdl:message name="DetenerServicioDeAlertasSoapIn">
     <wsdl:part name="parameters" element="tns:DetenerServicioDeAlertas" />
@@ -9349,6 +9386,10 @@
     <wsdl:part name="parameters" element="tns:IniciarServicioDeAlertasResponse" />
   </wsdl:message>
   <wsdl:portType name="WSViaticosSoap">
+    <wsdl:operation name="GuardarDomicilioPendiente">
+      <wsdl:input message="tns:GuardarDomicilioPendienteSoapIn" />
+      <wsdl:output message="tns:GuardarDomicilioPendienteSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="VerificarDomicilioPendiente">
       <wsdl:input message="tns:VerificarDomicilioPendienteSoapIn" />
       <wsdl:output message="tns:VerificarDomicilioPendienteSoapOut" />
@@ -9460,6 +9501,10 @@
     <wsdl:operation name="PrintPdfEvaluacionDesempenio">
       <wsdl:input message="tns:PrintPdfEvaluacionDesempenioSoapIn" />
       <wsdl:output message="tns:PrintPdfEvaluacionDesempenioSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GuardarCvCompetenciaInformatica">
+      <wsdl:input message="tns:GuardarCvCompetenciaInformaticaSoapIn" />
+      <wsdl:output message="tns:GuardarCvCompetenciaInformaticaSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="ActualizarCvCompetenciaInformatica">
       <wsdl:input message="tns:ActualizarCvCompetenciaInformaticaSoapIn" />
@@ -9797,10 +9842,6 @@
       <wsdl:input message="tns:GetDomicilioPendienteSoapIn" />
       <wsdl:output message="tns:GetDomicilioPendienteSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="GuardarDomicilioPendiente">
-      <wsdl:input message="tns:GuardarDomicilioPendienteSoapIn" />
-      <wsdl:output message="tns:GuardarDomicilioPendienteSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="ModificarMailRegistro">
       <wsdl:input message="tns:ModificarMailRegistroSoapIn" />
       <wsdl:output message="tns:ModificarMailRegistroSoapOut" />
@@ -9900,6 +9941,10 @@
     <wsdl:operation name="GetMenuPara">
       <wsdl:input message="tns:GetMenuParaSoapIn" />
       <wsdl:output message="tns:GetMenuParaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCredencialesTodasDePortal">
+      <wsdl:input message="tns:GetCredencialesTodasDePortalSoapIn" />
+      <wsdl:output message="tns:GetCredencialesTodasDePortalSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="RefrescarCacheMAU">
       <wsdl:input message="tns:RefrescarCacheMAUSoapIn" />
@@ -10132,10 +10177,6 @@
     <wsdl:operation name="EliminarCvIdiomaExtranjero">
       <wsdl:input message="tns:EliminarCvIdiomaExtranjeroSoapIn" />
       <wsdl:output message="tns:EliminarCvIdiomaExtranjeroSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GuardarCvCompetenciaInformatica">
-      <wsdl:input message="tns:GuardarCvCompetenciaInformaticaSoapIn" />
-      <wsdl:output message="tns:GuardarCvCompetenciaInformaticaSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="DetenerServicioDeAlertas">
       <wsdl:input message="tns:DetenerServicioDeAlertasSoapIn" />
@@ -10752,6 +10793,15 @@
   </wsdl:portType>
   <wsdl:binding name="WSViaticosSoap" type="tns:WSViaticosSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GuardarDomicilioPendiente">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarDomicilioPendiente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="VerificarDomicilioPendiente">
       <soap:operation soapAction="http://wsviaticos.gov.ar/VerificarDomicilioPendiente" style="document" />
       <wsdl:input>
@@ -10997,6 +11047,15 @@
     </wsdl:operation>
     <wsdl:operation name="PrintPdfEvaluacionDesempenio">
       <soap:operation soapAction="http://wsviaticos.gov.ar/PrintPdfEvaluacionDesempenio" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarCvCompetenciaInformatica">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarCvCompetenciaInformatica" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -11760,15 +11819,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GuardarDomicilioPendiente">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarDomicilioPendiente" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="ModificarMailRegistro">
       <soap:operation soapAction="http://wsviaticos.gov.ar/ModificarMailRegistro" style="document" />
       <wsdl:input>
@@ -11987,6 +12037,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetMenuPara">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetMenuPara" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCredencialesTodasDePortal">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetCredencialesTodasDePortal" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -12509,15 +12568,6 @@
     </wsdl:operation>
     <wsdl:operation name="EliminarCvIdiomaExtranjero">
       <soap:operation soapAction="http://wsviaticos.gov.ar/EliminarCvIdiomaExtranjero" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GuardarCvCompetenciaInformatica">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarCvCompetenciaInformatica" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -13905,6 +13955,15 @@
   </wsdl:binding>
   <wsdl:binding name="WSViaticosSoap12" type="tns:WSViaticosSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GuardarDomicilioPendiente">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarDomicilioPendiente" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="VerificarDomicilioPendiente">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/VerificarDomicilioPendiente" style="document" />
       <wsdl:input>
@@ -14150,6 +14209,15 @@
     </wsdl:operation>
     <wsdl:operation name="PrintPdfEvaluacionDesempenio">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/PrintPdfEvaluacionDesempenio" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarCvCompetenciaInformatica">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarCvCompetenciaInformatica" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -14913,15 +14981,6 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GuardarDomicilioPendiente">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarDomicilioPendiente" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="ModificarMailRegistro">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/ModificarMailRegistro" style="document" />
       <wsdl:input>
@@ -15140,6 +15199,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetMenuPara">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetMenuPara" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCredencialesTodasDePortal">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetCredencialesTodasDePortal" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -15662,15 +15730,6 @@
     </wsdl:operation>
     <wsdl:operation name="EliminarCvIdiomaExtranjero">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/EliminarCvIdiomaExtranjero" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GuardarCvCompetenciaInformatica">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarCvCompetenciaInformatica" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
