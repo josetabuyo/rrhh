@@ -1,20 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using WSViaticos;
 using Newtonsoft.Json;
+using WSViaticos;
+
+
 
 public partial class CtrlAcc_service : System.Web.UI.Page
 {
-    private string _User = string.Empty;
-    private string _Pass = string.Empty;
-    private string _Method = string.Empty;
-    private string _Param = string.Empty;
-    private string _JsonResp = string.Empty;
-
     private enum eMethod
     {
         mUnknown,
@@ -22,17 +16,24 @@ public partial class CtrlAcc_service : System.Web.UI.Page
         mInformarLote
     }
 
+    private string _User = string.Empty;
+    private string _Pass = string.Empty;
+    private string _Method = string.Empty;
+    private string _Param = string.Empty;
+    private string _JsonResp = string.Empty;
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!Save_Params())
+        string error_message = string.Empty;
+
+        if (!Save_Params(ref error_message))
         {
-            ServiceResponse.Write(ServiceResponse.eStatus.eErrorParams, string.Empty, Response);
+            ServiceResponse.Write(ServiceResponse.eStatus.eErrorParams, error_message, Response);
             return;
         }
-        if (!Process_Event())
+        if (!Process_Event(ref error_message))
         {
-            ServiceResponse.Write(ServiceResponse.eStatus.eErrorProcess, string.Empty, Response);
+            ServiceResponse.Write(ServiceResponse.eStatus.eErrorProcess, error_message, Response);
             return;
         }
         else
@@ -42,41 +43,50 @@ public partial class CtrlAcc_service : System.Web.UI.Page
         }
     }
 
-    private bool Save_Params()
+    private bool Save_Params(ref string error_message)
     {
         try {
-            _User = Request["user"].ToString();;
-            _Pass = Request["pass"].ToString();;
+            _User = Request["user"].ToString();
+            _Pass = Request["pass"].ToString();
             _Method = Request["metodo"].ToString();
             _Param = Request["json"].ToString();
             return true;
         }
-        catch
+        catch( Exception ex )
         {
+            error_message = ex.Message;
             return false;
         }
     }
 
 
-    private bool Process_Event()
+    private bool Process_Event(ref string error_message)
     {
-        var method = this.Get_Method(_Method);
-        switch (method)
+        try
         {
-            case eMethod.mDotacion:
-                _JsonResp = mDotacion(_Param);
-                break;
+            var method = this.Get_Method(_Method);
+            switch (method)
+            {
+                case eMethod.mDotacion:
+                    _JsonResp = mDotacion(_Param);
+                    break;
 
-            case eMethod.mInformarLote:
-                _JsonResp = mInformarLote(_Param);
-                break;                
+                case eMethod.mInformarLote:
+                    _JsonResp = mInformarLote(_Param);
+                    break;
 
-            case eMethod.mUnknown: default:
-                return false;
+                default:
+                    throw new Exception("Error: La petición solicitada no pudo ser identíficada.");
+            }
+            if (_JsonResp == string.Empty)
+                throw new Exception("Error: La petición solicitada no pudo ser identíficada.");
+            return true;
         }
-        if (_JsonResp == string.Empty) return false;
-
-        return true;
+        catch (Exception ex)
+        {
+            error_message = ex.Message;
+            return false;
+        }
     }
 
 
@@ -108,9 +118,125 @@ public partial class CtrlAcc_service : System.Web.UI.Page
 
     private string mInformarLote(string sParam)
     {
-        return string.Empty;
+        return "{ 'Reg_Proc' : 5, 'Correctos' : 4, 'Incorrectos': 1, 'Det_Err': [ { 'Reg_Id': 3, 'Error_Desc' : 'La persona no existe' } ] }";
     }
 
+
+
+    public class CCryptorEngine
+    {
+        private string key;
+        //constructor
+        public CCryptorEngine()
+        {
+            /* Establecer una clave. La misma clave
+               debe ser utilizada para descifrar
+               los datos guardados en la BD. */
+            key = "_RRHHyOrg_MDS_2017_";
+        }
+
+        public string Encriptar(string texto)
+        {
+            //arreglo de bytes donde guardaremos la llave
+            byte[] keyArray;
+            //arreglo de bytes donde guardaremos el texto
+            //que vamos a encriptar
+            byte[] Arreglo_a_Cifrar =
+            UTF8Encoding.UTF8.GetBytes(texto);
+
+            //se utilizan las clases de encriptación
+            //provistas por el Framework
+            //Algoritmo MD5
+            MD5CryptoServiceProvider hashmd5 =
+            new MD5CryptoServiceProvider();
+            //se guarda la llave para que se le realice
+            //hashing
+            keyArray = hashmd5.ComputeHash(
+            UTF8Encoding.UTF8.GetBytes(key));
+
+            hashmd5.Clear();
+
+            //Algoritmo 3DAS
+            TripleDESCryptoServiceProvider tdes =
+            new TripleDESCryptoServiceProvider();
+
+            tdes.Key = keyArray;
+            tdes.Mode = CipherMode.ECB;
+            tdes.Padding = PaddingMode.PKCS7;
+
+            //se empieza con la transformación de la cadena
+            ICryptoTransform cTransform =
+            tdes.CreateEncryptor();
+
+            //arreglo de bytes donde se guarda la
+            //cadena cifrada
+            byte[] ArrayResultado =
+            cTransform.TransformFinalBlock(Arreglo_a_Cifrar,
+            0, Arreglo_a_Cifrar.Length);
+
+            tdes.Clear();
+
+            //se regresa el resultado en forma de una cadena
+            return Convert.ToBase64String(ArrayResultado,
+                   0, ArrayResultado.Length);
+        }
+
+
+        public string Desencriptar(string textoEncriptado)
+        {
+            byte[] keyArray;
+            //convierte el texto en una secuencia de bytes
+            byte[] Array_a_Descifrar =
+            Convert.FromBase64String(textoEncriptado);
+
+            //se llama a las clases que tienen los algoritmos
+            //de encriptación se le aplica hashing
+            //algoritmo MD5
+            MD5CryptoServiceProvider hashmd5 =
+            new MD5CryptoServiceProvider();
+
+            keyArray = hashmd5.ComputeHash(
+            UTF8Encoding.UTF8.GetBytes(key));
+
+            hashmd5.Clear();
+
+            TripleDESCryptoServiceProvider tdes =
+            new TripleDESCryptoServiceProvider();
+
+            tdes.Key = keyArray;
+            tdes.Mode = CipherMode.ECB;
+            tdes.Padding = PaddingMode.PKCS7;
+
+            ICryptoTransform cTransform =
+             tdes.CreateDecryptor();
+
+            byte[] resultArray =
+            cTransform.TransformFinalBlock(Array_a_Descifrar,
+            0, Array_a_Descifrar.Length);
+
+            tdes.Clear();
+            //se regresa en forma de cadena
+            return UTF8Encoding.UTF8.GetString(resultArray);
+        }
+
+        public string EncodeMD5(string texto)
+        {
+            //Declarations
+            Byte[] originalBytes;
+            Byte[] encodedBytes;
+            MD5 md5;
+
+            //Instantiate MD5CryptoServiceProvider, get bytes for original 
+            // password and compute hash (encoded password)
+            md5 = new MD5CryptoServiceProvider();
+            originalBytes = ASCIIEncoding.Default.GetBytes(texto);
+            encodedBytes = md5.ComputeHash(originalBytes);
+
+            //Convert encoded bytes back to a 'readable' string
+            return BitConverter.ToString(encodedBytes).Replace("-", string.Empty);
+        }
+
+    }
 
     private class ServiceResponse
     {
@@ -127,13 +253,10 @@ public partial class CtrlAcc_service : System.Web.UI.Page
         public string _StatusDesc = string.Empty;
         public string _Json = string.Empty;
 
-        private ServiceResponse() {}
-
         public static void Write(eStatus status, string json, HttpResponse Response)
         {
             var sResp = new ServiceResponse();
-            sResp._Status = status;
-            
+            sResp._Status = status;            
             switch (sResp._Status)
             {
                 case eStatus.eResponseOK:
@@ -154,8 +277,7 @@ public partial class CtrlAcc_service : System.Web.UI.Page
             }
             CCryptorEngine cryp = new CCryptorEngine();
             sResp._Json = cryp.Encriptar(json);
-            var output = JsonConvert.SerializeObject(sResp);
-            Response.Write(output);
+            Response.Write(JsonConvert.SerializeObject(sResp));
         }
 
     }
