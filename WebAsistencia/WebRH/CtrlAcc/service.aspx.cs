@@ -118,7 +118,13 @@ public partial class CtrlAcc_service : System.Web.UI.Page
 
     private string mInformarLote(string sParam)
     {
-        return "{ 'Reg_Proc' : 5, 'Correctos' : 4, 'Incorrectos': 1, 'Det_Err': [ { 'Reg_Id': 3, 'Error_Desc' : 'La persona no existe' } ] }";
+
+        var json = "{ 'Lista_Ok': [ 1, 2, 4 ], 'Lista_Error': [ { 'Reg_Id': 3, 'Error_Desc' : 'La persona no existe' } ] }";
+
+        //return "{ 'Reg_Proc' : 5, 'Correctos' : 4, 'Incorrectos': 1, 'Det_Err': [ { 'Reg_Id': 3, 'Error_Desc' : 'La persona no existe' } ] }";
+
+        return json;
+
     }
 
 
