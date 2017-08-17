@@ -2,6 +2,26 @@
     init: function () {
 
     },
+
+    ObtenerTareasSeleccionadas: function () {
+        var id_tareas = [];
+        var tareas_seleccionadas = $($("#tablaTareas").find(".fondo_verde"));
+        for (var i = 0; i < tareas_seleccionadas.length; i++) {
+            id_tareas.push(parseInt($($(tareas_seleccionadas[i]).find("td")[1]).text()));
+        }
+        return id_tareas;
+    },
+    DerivarTareas: function (persona) {
+        var _this_original = this;
+        var id_tareas = this.ObtenerTareasSeleccionadas();
+        Backend.DerivarTareas(persona, id_tareas)
+                    .onSuccess(function (tareas) {
+                        _this_original.getTareasParaGestion();
+                    })
+                    .onError(function (e) {
+                        alert("No se pudo derivar las tareas")
+                    });
+    },
     getTareasParaGestion: function () {
         var _this_original = this;
         var selector_personas = new SelectorDePersonas({
@@ -10,7 +30,8 @@
             placeholder: "nombre y apellido"
         });
         selector_personas.alSeleccionarUnaPersona = function (la_persona_seleccionada) {
-            alert("aa");
+            _this_original.DerivarTareas(la_persona_seleccionada);
+            //alert("aa");
             //_this.mostrarPersona(la_persona_seleccionada.id);
         };
 

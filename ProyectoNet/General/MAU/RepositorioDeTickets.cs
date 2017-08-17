@@ -14,7 +14,20 @@ namespace General.MAU
         {
             this.conexion = una_conexion;
         }
-       
+        public void DerivarTareas(Persona persona, int[] tareas, int id_usuario)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@documento_persona", persona.Documento);
+            parametros.Add("@id_usuario", id_usuario);
+
+            tareas.ToList().ForEach(tarea => { 
+                parametros.Add("@id_tarea", tarea);
+                this.conexion.EjecutarSinResultado("dbo.MAU_UPD_TicketPorDerivacion", parametros);
+                parametros.Remove("@id_tarea");
+            });
+
+        }
+
         public List<Ticket> GetTicketsPorFuncionalidad(int idUsuario)
         {
             var parametros = new Dictionary<string, object>();
