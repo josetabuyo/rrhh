@@ -26,6 +26,9 @@
             });
         });
 
+        $('#btn_credenciales').click(function () {
+             window.location.href = '../Portal/PedidoCredencial.aspx';
+        });
 //        var cargar_alertas = function () {
 //            $("#contenedor_alertas").empty()
 //            Backend.GetConsultasDePortalNoLeidas().onSuccess(function (consultasJSON) {
