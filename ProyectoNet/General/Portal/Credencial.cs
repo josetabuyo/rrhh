@@ -14,12 +14,12 @@ namespace General
       public string Organismo;
       public int IdFoto;
       public int CodigoMagnetico;
-      public int IdBaja;
+      public string Estado;
        
       public Credencial() { }
 
 
-      public Credencial(long id, string tipo, DateTime fechaAlta, string usuarioAlta, string organismo, int idfoto, int codigoMagnetico, int idBaja)
+      public Credencial(long id, string tipo, DateTime fechaAlta, string usuarioAlta, string organismo, int idfoto, int codigoMagnetico, string estado)
       {
           this.Id = id;
           this.Tipo = tipo;
@@ -27,8 +27,9 @@ namespace General
           this.UsuarioAlta = usuarioAlta;
           this.Organismo = organismo;
           this.IdFoto = idfoto;
-          this.CodigoMagnetico = codigoMagnetico;
-          this.IdBaja = idBaja;
+          this.CodigoMagnetico = codigoMagnetico;       
+
+          this.Estado = estado;
       }
 
 

@@ -1494,32 +1494,25 @@ var Legajo = {
                         var divGrilla = $("#tablaConsultas");
                         var columnas = [];
                         columnas.push(new Columna("#", { generar: function (una_consulta) { return una_consulta.Id } }));
-                        columnas.push(new Columna("Fecha", { generar: function (una_consulta) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_consulta.fechaCreacion) } }));
-                        columnas.push(new Columna("Organismo", { generar: function (una_consulta) { return una_consulta.tipo_consulta } }));
-                        columnas.push(new Columna("Creador", { generar: function (una_consulta) { return una_consulta.creador.Apellido + ", " + una_consulta.creador.Nombre } }));
-                        columnas.push(new Columna("Estado", { generar: function (una_consulta) { return una_consulta.estado } }));
-                        if (estado != 6) {
-                            columnas.push(new Columna("Responsable", { generar: function (una_consulta) {
-                                if (una_consulta.responsable.Apellido != "") {
-                                    return una_consulta.responsable.Apellido + ', ' + una_consulta.responsable.Nombre
-                                } else {
-                                    return "<span style='color:red;'>PENDIENTE</span>";
-                                }
-                            }
-                            }));
-                        }
-                        /*columnas.push(new Columna("Creador", { generar: function (una_consulta) {
+                        columnas.push(new Columna("Desde", { generar: function (una_consulta) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_consulta.FechaAlta) } }));
+                        columnas.push(new Columna("Organismo", { generar: function (una_consulta) { return una_consulta.Organismo } }));
+                        columnas.push(new Columna("Tipo", { generar: function (una_consulta) { return una_consulta.Tipo } }));
+                        columnas.push(new Columna("Estado", { generar: function (una_consulta) { return una_consulta.Estado } }));
 
-                        var btn_accion = $('<a>');
-                        btn_accion.html(una_consulta.creador.Apellido + ", " + una_consulta.creador.Nombre);
-                        btn_accion.click(function () {
-                        _this_original.getConsultasHistoricasDeUnUsuario(una_consulta.creador.Id);
-                        });
 
-                        return btn_accion;
+                      
 
-                        }
-                        }));*/
+//                        if (estado != 6) {
+//                            columnas.push(new Columna("Responsable", { generar: function (una_consulta) {
+//                                if (una_consulta.responsable.Apellido != "") {
+//                                    return una_consulta.responsable.Apellido + ', ' + una_consulta.responsable.Nombre
+//                                } else {
+//                                    return "<span style='color:red;'>PENDIENTE</span>";
+//                                }
+//                            }
+//                            }));
+//                        }
+                      
                         columnas.push(new Columna('Acciones', {
                             generar: function (una_consulta) {
                                 var caja = $('<div>');
