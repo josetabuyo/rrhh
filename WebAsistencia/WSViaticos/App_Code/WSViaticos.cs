@@ -3371,11 +3371,11 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string TraerReporteDePostulaciones(Usuario usuario)
+    public string TraerReporteDePostulaciones(int idEtapa, Usuario usuario)
     {
-        
-        return JsonConvert.SerializeObject(RepoPostulaciones().traerReportesDePostulaciones()).ToString();
+        return JsonConvert.SerializeObject(RepoPostulaciones().traerReportesDePostulaciones(idEtapa)).ToString();
     }
+
 
     [WebMethod]
     public bool ActualizarInformesGDEDeUnaPostulacion(string numeroPostulacion, string setDeInformes, Usuario usuario)

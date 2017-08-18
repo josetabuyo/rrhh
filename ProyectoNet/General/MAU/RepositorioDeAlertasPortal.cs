@@ -50,7 +50,18 @@ namespace General.MAU
             parametros.Add("@titulo", titulo);
             parametros.Add("@descripcion", descripcion);
 
-            return Int32.Parse((this.conexion.EjecutarEscalar("dbo.MAU_CrearAlerta", parametros).ToString()));
+            var id_alerta = Int32.Parse((this.conexion.EjecutarEscalar("dbo.MAU_CrearAlerta", parametros).ToString()));
+            var repo_personas = RepositorioDePersonas.NuevoRepositorioDePersonas(this.conexion);
+            var repo_usuarios = new RepositorioDeUsuarios(this.conexion, repo_personas);
+
+            var usuario = repo_usuarios.GetUsuarioPorId(id_usuario_destinatario);
+
+            var titulo_mail = titulo;
+            var cuerpo = descripcion;
+
+            EnviadorDeMails.EnviarMail(usuario.MailRegistro, titulo_mail, cuerpo);
+
+            return id_alerta;
 
         }
 

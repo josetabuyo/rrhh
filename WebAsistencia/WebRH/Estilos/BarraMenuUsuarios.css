@@ -126,17 +126,14 @@
     bottom: 0px;
     background-color: black;
     color: white;
-    height: 0%;
+    height: 20%;
     left: 0px;
     right: 0px;
     text-align: center;
     transition: height 0.2s;
-}
-
-
-#contenedor_foto_usuario:hover > #barrita_cambio_imagen
-{
-   height: 40%;
+    font-size: 12px;
+    opacity: 0.6;
+    padding-top: 3px;
 }
 
 .datos_usuario
@@ -152,6 +149,26 @@
     font-weight: bold;
     font-size: 1.3em;
     text-align: left;
+}
+
+#btn_credenciales
+{
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    right: -9px;
+    top: 13px;
+    cursor: pointer;
+    border: 2px solid black;
+    border-radius: 50%;
+    background-color: #cdcdcd;
+}
+
+#btn_credenciales img
+{
+    height: 100%;
+    width: 100%;
+    margin-top: -2px;
 }
 
 #nombre_user
@@ -421,7 +438,7 @@
     height: 30px;
     border-radius: 50%;
     padding-top: 4px;
-    padding-left: 0px;
+    padding-left: 11px;
     font-size: 17px;
     font-weight: bolder;
     color: white;

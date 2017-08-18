@@ -34,7 +34,14 @@ namespace General
 
                 linea = new LogCalculoVacaciones();
 
-                this.lineas.Insert(index_of_primer_linea_proximo_periodo, linea);
+                if (index_of_primer_linea_proximo_periodo > this.lineas.Count)
+                {
+                    this.lineas.Add(linea);
+                }
+                else
+                {
+                    this.lineas.Insert(index_of_primer_linea_proximo_periodo, linea);
+                }
             }
 
             linea.CantidadDiasDescontados = aprobadas.CantidadDeDias();
@@ -52,17 +59,18 @@ namespace General
             return linea.LicenciaDesde.Equals(DateTime.MinValue) && linea.CantidadDiasDescontados != 0;
         }
 
-        private int IndexOfPrimerLineaProximoPeriodo(int periodo)
+        protected int IndexOfPrimerLineaProximoPeriodo(int periodo)
         {
-            var lineas_de_periodos_posteriores = lineas.FindAll(l => l.PeriodoAutorizado >= periodo + 1);
             var proximo_periodo = periodo + 1;
-            if (lineas_de_periodos_posteriores.Count > 0) {
+            var lineas_de_periodos_posteriores = lineas.FindAll(l => l.PeriodoAutorizado >= proximo_periodo);
+
+            //si no hay una linea para el periodo inmediato siguiente, traigo la linea para el primero periodo que sea posterior
+            if (lineas_de_periodos_posteriores.Count > 0)
+            {
                 proximo_periodo = lineas_de_periodos_posteriores.OrderBy(l => l.PeriodoAutorizado).First().PeriodoAutorizado;
             }
-            //var proximo_periodo = periodo + 1;
 
             var primer_linea_proximo_periodo = lineas.Find(l => l.PeriodoAutorizado.Equals(proximo_periodo));
-
 
             int index_of_primer_linea_proximo_periodo;
             if (primer_linea_proximo_periodo != null)
@@ -77,9 +85,15 @@ namespace General
                 }
                 else
                 {
-                    index_of_primer_linea_proximo_periodo = this.lineas.Count() - 1;
+                    if (LineaCompleta(this.lineas.Last()))
+                    {
+                        index_of_primer_linea_proximo_periodo = this.lineas.Count();
+                    }
+                    else
+                    {
+                        index_of_primer_linea_proximo_periodo = this.lineas.Count() - 1;
+                    }
                 }
-
             }
             return index_of_primer_linea_proximo_periodo;
         }
@@ -243,10 +257,13 @@ namespace General
             {
                 return sld;
             }
-            set {
+            set
+            {
                 sld = new List<VacacionesSolicitables>();
-                value.ForEach(s => {
-                    if (s.Dias != 0) {
+                value.ForEach(s =>
+                {
+                    if (s.Dias != 0)
+                    {
                         sld.Add(s);
                     }
                 });

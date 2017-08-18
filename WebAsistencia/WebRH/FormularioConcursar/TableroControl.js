@@ -33,7 +33,7 @@
 
     BuscadorDeTabla: function () {
         var options = {
-            valueNames: ['Perfil', 'Postulacion', 'DNI', 'Nombre', 'Apellido']
+            valueNames: ['Perfil', 'Fecha', 'Postulacion', 'DNI', 'Nombre', 'Apellido']
         };
 
         var featureList = new List('contenedorTabla', options);
@@ -56,13 +56,13 @@
         };
         this.DibujarTabla(tablero_filtrado);
     },
-    traerPostulaciones: function () {
+    traerPostulaciones: function (idEtapa) {
         var _this = this;
-        Backend.TraerReporteDePostulaciones()
+        Backend.TraerReporteDePostulaciones(idEtapa)
                 .onSuccess(function (postulacionesArray) {
 
                     var postulaciones = JSON.parse(postulacionesArray);
-                    
+
                     $("#tabla_postulaciones").empty();
                     var divGrilla = $('#tabla_postulaciones');
 
@@ -77,7 +77,7 @@
                     columnas.push(new Columna("Informes GDE", { generar: function (un_tablero) {
                         var informesConcatenados = '';
                         for (var i = 0; i < un_tablero.informes.length; i++) {
-                            informesConcatenados += '<b>Informe ' + (i+1) + ':</b> ' + un_tablero.informes[i] + '. ';
+                            informesConcatenados += '<b>Informe ' + (i + 1) + ':</b> ' + un_tablero.informes[i] + '. ';
                         }
                         return informesConcatenados
 
@@ -99,7 +99,6 @@
             .onError(function (e) {
 
             });
-
     }
 }
 

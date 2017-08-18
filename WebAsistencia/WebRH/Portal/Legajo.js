@@ -1487,12 +1487,9 @@ var Legajo = {
         spinner.spin($("html")[0]);
 
         Backend.GetCredencialesTodasDePortal()
-                    .onSuccess(function (consultasJSON) {
-                        var consultas = [];
-                        if (consultasJSON != "") {
-                            consultas = JSON.parse(consultasJSON);
-                        }
+                    .onSuccess(function (consultas) {
                         var _this = this;
+                        console.log(consultas);
                         $("#tablaConsultas").empty();
                         var divGrilla = $("#tablaConsultas");
                         var columnas = [];
