@@ -50,10 +50,13 @@
                 class="btn_gestion_consulta" style="margin: 10px; width: 170px; font-size: smaller;
                 color: #000" value="PORTAL" />--%>
         </div>
+
+
+
         <div class="caja_der papel">
             <%--DIV 1--%>
             <div id="consultas">
-                <legend id="legend_credencial_vigente" style="margin-top: 10px;">CREDENCIAL VIGENTE</legend>
+                <legend id="legend_credencial_vigente" style="margin-top: 10px;">CREDENCIAL DE ACCESO</legend>
              
               <%--  <input type="text" id="search" class="search buscador" placeholder="Buscar" style="display: none;
                     height: 35px;" />--%>
@@ -62,6 +65,20 @@
 
                 <div id="tablaConsultas" class="table table-striped table-bordered table-condensed">
                 </div>
+
+             <%--   <div id="tablaSinCredencial" class="table table-striped table-bordered table-condensed">
+                </div>--%>
+
+                <div id="tablaSinCredencial1" class="table table-striped table-bordered table-condensed" style="display:none">
+                <table class="table table-striped table-bordered table-condensed" style="cursor: pointer;">
+                <thead class="estilo_tabla_portal">
+                <tr><th class="sort desc " style ="TEXT-ALIGN: center;font-size:medium" data-sort="#">USTED NO TIENE CREDENCIAL VIGENTE</th>
+                </tr>
+                </thead>
+                </table></div>
+
+
+
                 <div id="div_detalle_consulta" style="display: none;">
                     <label style="margin-right: 20px;">
                         ID:</label><input type="text" id="txt_nro_consulta" readonly style="width: 50px;" />

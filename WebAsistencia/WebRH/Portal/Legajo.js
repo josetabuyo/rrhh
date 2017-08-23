@@ -1490,29 +1490,26 @@ var Legajo = {
                     .onSuccess(function (consultas) {
                         var _this = this;
                         console.log(consultas);
-                        $("#tablaConsultas").empty();
-                        var divGrilla = $("#tablaConsultas");
+
                         var columnas = [];
-                        columnas.push(new Columna("#", { generar: function (una_consulta) { return una_consulta.Id } }));
-                        columnas.push(new Columna("Desde", { generar: function (una_consulta) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_consulta.FechaAlta) } }));
-                        columnas.push(new Columna("Organismo", { generar: function (una_consulta) { return una_consulta.Organismo } }));
-                        columnas.push(new Columna("Tipo", { generar: function (una_consulta) { return una_consulta.Tipo } }));
-                        columnas.push(new Columna("Estado", { generar: function (una_consulta) { return una_consulta.Estado } }));
+                        if (consultas[0].Estado != "VIGENTE") {
+                            $("#tablaConsultas").hide();
+                            $("#tablaSinCredencial1").show();
+                            spinner.stop();
+                        }
 
+                        else
+                         {
+                            $("#tablaConsultas").empty();
+                            var divGrilla = $("#tablaConsultas");
+                            var columnas = [];
+                            columnas.push(new Columna("#", { generar: function (una_consulta) { return una_consulta.Id } }));
+                            columnas.push(new Columna("Desde", { generar: function (una_consulta) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_consulta.FechaAlta) } }));
+                            columnas.push(new Columna("Organismo", { generar: function (una_consulta) { return una_consulta.Organismo } }));
+                            columnas.push(new Columna("Tipo", { generar: function (una_consulta) { return una_consulta.Tipo } }));
+                            columnas.push(new Columna("Estado", { generar: function (una_consulta) { return una_consulta.Estado } }));
+                                                                                          
 
-                      
-
-//                        if (estado != 6) {
-//                            columnas.push(new Columna("Responsable", { generar: function (una_consulta) {
-//                                if (una_consulta.responsable.Apellido != "") {
-//                                    return una_consulta.responsable.Apellido + ', ' + una_consulta.responsable.Nombre
-//                                } else {
-//                                    return "<span style='color:red;'>PENDIENTE</span>";
-//                                }
-//                            }
-//                            }));
-//                        }
-                      
                         columnas.push(new Columna('Acciones', {
                             generar: function (una_consulta) {
                                 var caja = $('<div>');
@@ -1534,38 +1531,41 @@ var Legajo = {
                                 } else {
                                     img.attr('src', '../Imagenes/icons-lupa-finish.jpg');
                                     img.attr('data-toggle', 'tooltip');
-                                    img.attr('title', 'Consultar');
+                                    img.attr('title', 'Historial');
                                     btn_accion.click(function () {
                                         _this_original.MostrarDetalleDeConsulta(una_consulta);
                                         //_this_original.VisualizarConsulta(una_consulta.Id, una_consulta.creador, una_consulta.tipo_consulta, "falta", una_consulta.resumen); //TRANSITORIO HASTA HACER LA PANTALLA DE CHAT
                                     });
                                 }
 
-                                var btn_accion_historico = $('<a>');
-                                var img2 = $('<img>');
-                                img2.attr('width', '15px');
-                                img2.attr('height', '15px');
-                                img2.attr('style', 'margin-left:15px');
-                                img2.attr('src', '../Imagenes/historial_usuario.png');
-                                img2.attr('data-toggle', 'tooltip');
-                                img2.attr('title', 'Histórico de consultas del usuario');
-                                btn_accion_historico.click(function () {
-                                    _this_original.getConsultasHistoricasDeUnUsuario(una_consulta.creador.Id);
-                                });
+//                                var btn_accion_historico = $('<a>');
+//                                var img2 = $('<img>');
+//                                img2.attr('width', '15px');
+//                                img2.attr('height', '15px');
+//                                img2.attr('style', 'margin-left:15px');
+//                                img2.attr('src', '../Imagenes/historial_usuario.png');
+//                                img2.attr('data-toggle', 'tooltip');
+//                                img2.attr('title', 'Histórico de consultas del usuario');
+//                                btn_accion_historico.click(function () {
+//                                    _this_original.getConsultasHistoricasDeUnUsuario(una_consulta.creador.Id);
+//                                });
 
                                 btn_accion.append(img);
                                 caja.append(btn_accion);
-                                btn_accion_historico.append(img2);
-                                caja.append(btn_accion_historico);
+                              //  btn_accion_historico.append(img2);
+                              //  caja.append(btn_accion_historico);
                                 return caja;
                             }
                         }));
 
+                   
                         _this.Grilla = new Grilla(columnas);
                         _this.Grilla.CambiarEstiloCabecera("estilo_tabla_portal");
                         _this.Grilla.SetOnRowClickEventHandler(function (una_consulta) { });
                         _this.Grilla.CargarObjetos(consultas);
                         _this.Grilla.DibujarEn(divGrilla);
+
+                   
 
                         $('#search').show();
                         var options = {
@@ -1577,10 +1577,15 @@ var Legajo = {
                         $('.table-hover').removeClass("table-hover");
 
                         spinner.stop();
+
+                    }
+
                     })
                     .onError(function (e) {
                         spinner.stop();
                     });
+
+
     },
 
     getConsultasTodas: function (estado) {
