@@ -84,6 +84,16 @@
 
                     }
                     }));
+                    columnas.push(new Columna("Estado", { generar: function (un_tablero) {
+                        switch (idEtapa) {
+                            case 1:
+                                return 'PreIncripción';
+                            case 2:
+                                return 'Inscripción';
+                        };
+
+                    }
+                    }));
 
                     this.GrillaDePostulaciones = new Grilla(columnas);
                     this.GrillaDePostulaciones.AgregarEstilo("cuerpo_tabla_perfil tr td");
