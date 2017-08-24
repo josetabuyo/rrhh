@@ -26,9 +26,6 @@
             });
         });
 
-        $('#btn_credenciales').click(function () {
-             window.location.href = '../Portal/PedidoCredencial.aspx';
-        });
 //        var cargar_alertas = function () {
 //            $("#contenedor_alertas").empty()
 //            Backend.GetConsultasDePortalNoLeidas().onSuccess(function (consultasJSON) {
@@ -86,6 +83,10 @@
             document.getElementById('apellido_user').innerHTML = usuario.Owner.Apellido;
             document.getElementById('dni_user').innerHTML = usuario.Owner.Documento;
             document.getElementById('email_user').innerHTML = usuario.MailRegistro;
+
+            $('#btn_credenciales').click(function () {
+                $("#plantillas").load("../BarraMenu/CredencialVigente.htm");
+            });
 
             $('#cambiar-constrasena_usuario').click(function () {
 

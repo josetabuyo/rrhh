@@ -18,6 +18,7 @@
     <script type="text/javascript" src="../Scripts/ControlesImagenes/VistaThumbnail.js"></script>
     <script type="text/javascript" src="../Scripts/ControlesImagenes/SubidorDeImagenes.js"></script>
     <script type="text/javascript" src="../scripts/vex-2.1.1/js/vex.combined.min.js"></script>
+    
 </head>
 <div id="barra_menu_contenedor" class="no-print">
     <div id="contenedor_imagen">

@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<head>
+    <style type="text/css">
+        #pantalla_credencial_vigente
+        {
+             width: 250px;
+        }        
+        
+        #pantalla_credencial_vigente #imagen_credencial
+        {
+            width: 250px;
+        }        
+        
+        #pantalla_credencial_vigente #foto_usuario
+        {
+            position: absolute;
+            top: 81px;
+            left: 37px;
+            height: 112px;
+            width: 112px;
+        }    
+        
+        #pantalla_credencial_vigente #apellido
+        {
+            position: absolute;
+            top: 207px;
+            left: 32px;
+            font-size: 20px;
+            color: white;
+        }    
+        
+        #pantalla_credencial_vigente #nombres
+        {
+            position: absolute;
+            top: 235px;
+            left: 32px;
+            font-size: 20px;
+            color: white;
+        }    
+    </style>
+</head>
+<div id=pantalla_credencial_vigente>
+    <div id="credencial">
+        <img id="imagen_credencial" src="../BarraMenu/credencial.png"/>
+        <div id="foto_usuario"></div>
+        <div id="apellido"></div>    
+        <div id="nombres"></div>    
+    </div>
+</div>
+<script type="text/javascript">
+    vex.defaultOptions.className = 'vex-theme-os';
+    vex.open({
+        afterOpen: function ($vexContent) {
+            var ui = $("#plantillas #pantalla_credencial_vigente").clone();
+
+            Backend.GetUsuarioLogueado().onSuccess(function (usuario) {
+                ui.find("#apellido").text(usuario.Owner.Apellido);
+                ui.find("#nombres").text(usuario.Owner.Nombre);
+
+                var img = new VistaThumbnail({
+                    id: usuario.Owner.IdImagen,
+                    contenedor: ui.find("#foto_usuario")
+                });
+                $vexContent.css("width", "300px");
+                $vexContent.append(ui);
+                ui.show();
+            });
+            return ui;
+        },
+        css: {
+            'padding-top': "4%",
+            'padding-bottom': "0%"
+        }
+    });
+</script>
