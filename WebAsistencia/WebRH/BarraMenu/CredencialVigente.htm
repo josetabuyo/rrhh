@@ -38,6 +38,18 @@
             font-size: 20px;
             color: white;
         }    
+        #pantalla_credencial_vigente #btn_solicitar_credencial
+        {
+            margin-top: 10px;
+            display: inline-block;
+        }
+        
+        #pantalla_credencial_vigente #btn_solicitar_credencial label
+        {
+            text-align: center;
+            width: 100%;
+            cursor: pointer;
+        }    
     </style>
 </head>
 <div id=pantalla_credencial_vigente>
@@ -47,17 +59,26 @@
         <div id="apellido"></div>    
         <div id="nombres"></div>    
     </div>
+    <a id="btn_solicitar_credencial">
+        <label>¿Pérdida, robo o deterioro?</label>
+        <label>Solicitá una nueva credencial</label>
+    </a>
 </div>
 <script type="text/javascript">
+    console.log("credencial vigente cargada");
     vex.defaultOptions.className = 'vex-theme-os';
+    vex.close();
     vex.open({
         afterOpen: function ($vexContent) {
-            var ui = $("#plantillas #pantalla_credencial_vigente").clone();
+
+            var ui = $("#plantillas_barra_menu #pantalla_credencial_vigente").clone();
 
             Backend.GetUsuarioLogueado().onSuccess(function (usuario) {
                 ui.find("#apellido").text(usuario.Owner.Apellido);
                 ui.find("#nombres").text(usuario.Owner.Nombre);
-
+                ui.find("#btn_solicitar_credencial").click(function () {
+                    window.location.href = window.location.origin + '/Portal/PedidoCredencial.aspx'
+                });
                 var img = new VistaThumbnail({
                     id: usuario.Owner.IdImagen,
                     contenedor: ui.find("#foto_usuario")

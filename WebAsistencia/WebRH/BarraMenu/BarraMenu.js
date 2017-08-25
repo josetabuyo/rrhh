@@ -85,7 +85,7 @@
             document.getElementById('email_user').innerHTML = usuario.MailRegistro;
 
             $('#btn_credenciales').click(function () {
-                $("#plantillas").load("../BarraMenu/CredencialVigente.htm");
+                $("#plantillas_barra_menu").load(window.location.origin + '/BarraMenu/CredencialVigente.htm');
             });
 
             $('#cambiar-constrasena_usuario').click(function () {
