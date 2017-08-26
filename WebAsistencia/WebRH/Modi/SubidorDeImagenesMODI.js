@@ -1,7 +1,7 @@
-﻿var SubidorDeImagenes = function () {
+﻿var SubidorDeImagenesMODI = function () {
 };
 
-SubidorDeImagenes.prototype.subirImagenes = function (onImagenLista) {
+SubidorDeImagenesMODI.prototype.subirImagenes = function (onImagenLista) {
     var _this = this;
     var fileInputImagenes = $('<input type="file" multiple />')[0];
     fileInputImagenes.addEventListener("change", function () {
@@ -12,7 +12,7 @@ SubidorDeImagenes.prototype.subirImagenes = function (onImagenLista) {
     $(fileInputImagenes).click();
 };
 
-SubidorDeImagenes.prototype.subirImagen = function (onImagenLista) {
+SubidorDeImagenesMODI.prototype.subirImagen = function (onImagenLista) {
     var _this = this;
     var fileInputImagenes = $('<input type="file" />')[0];
     fileInputImagenes.addEventListener("change", function () {
@@ -23,7 +23,7 @@ SubidorDeImagenes.prototype.subirImagen = function (onImagenLista) {
     $(fileInputImagenes).click();
 };
 
-SubidorDeImagenes.prototype.subirProximaImagen = function (onImagenLista) {
+SubidorDeImagenesMODI.prototype.subirProximaImagen = function (onImagenLista) {
     var _this = this;
 
     var file = _this.colaDeSubida[_this.indiceFileSubiendo];
