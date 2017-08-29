@@ -47,6 +47,11 @@
                     </p>
                  </div>
 
+
+                <legend style="margin-top: 20px;">MIS CREDENCIALES</legend>
+                <div><a id="btn_credencial_vigente">Ver credencial vigente</a></div>
+                <div><a>solicitar nueva credencial</a></div>
+
                  <div id="cajaCambiarDomicilio" style="display:none;" class="">
                  <h3 style="text-align: center;">Solicitud de actualización de domicilio</h3>
                     <br />
@@ -136,8 +141,11 @@
 
     $(document).ready(function ($) {
         //para cargar el menu izquierdo 
-        $(".caja_izq").load("SeccionIzquierda.htm", function() {
+        $(".caja_izq").load("SeccionIzquierda.htm", function () {
             Backend.start(function () {
+                $("#btn_credencial_vigente").click(function () {
+                    $("#plantillas_barra_menu").load(window.location.origin + '/BarraMenu/CredencialVigente.htm');
+                });
                 Legajo.getNombre();
                 Legajo.getDatosPersonales();
                 Legajo.getDatosFamiliares();
@@ -146,7 +154,7 @@
             });
         });
 
-        
+
 
     });
 

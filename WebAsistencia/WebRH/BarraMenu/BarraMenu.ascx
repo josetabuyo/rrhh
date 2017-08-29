@@ -61,7 +61,7 @@
                 </div>
                 <a id="link_area" style="display:none;">Mi Área</a>
                 <a id="cambiar-email_usuario" class="" name="signup" >Modificar correo</a>                     
-                <a id="btn_credenciales"><img src="<%= UrlImagenes %>icono_credencial.png"/></a>
+                <%--<a id="btn_credenciales"><img src="<%= UrlImagenes %>icono_credencial.png"/></a>--%>
             </div>
 
             <div id=barrita_acciones_usuario>
