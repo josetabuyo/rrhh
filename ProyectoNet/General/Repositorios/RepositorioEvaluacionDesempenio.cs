@@ -82,7 +82,7 @@ namespace General.Repositorios
             {
                 var parametros = new Dictionary<string, object>();
                 parametros.Add("@idArea", idArea);
-                var tablaDatos = _conexion.Ejecutar("[dbo].[EVAL_GET_DATA_ESTR_pc_dotaciones]", parametros);
+                var tablaDatos = _conexion.Ejecutar("[dbo].[EVAL_GET_DATA_ESTR_pc_dotaciones_con_bajas]", parametros);
 
                 tablaDatos.Rows.ForEach(row =>
                 {
