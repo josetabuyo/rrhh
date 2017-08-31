@@ -49,8 +49,9 @@
 
 
                 <legend style="margin-top: 20px;">MIS CREDENCIALES</legend>
-                <div><a id="btn_credencial_vigente">Ver credencial vigente</a></div>
-                <div><a>solicitar nueva credencial</a></div>
+
+                    <div><a id="btn_credencial_vigente">Ver credencial vigente</a></div>
+                    <div><a id="btn_solicitar_credencial">Solicitar nueva credencial</a></div>
 
                  <div id="cajaCambiarDomicilio" style="display:none;" class="">
                  <h3 style="text-align: center;">Solicitud de actualización de domicilio</h3>
@@ -131,6 +132,9 @@
             </div>
         </div>
 
+        <div class="plantillas" style="display: none">
+           
+        </div>
     </form>
 </body>
 <script type="text/javascript" src="Legajo.js"></script>
@@ -144,7 +148,10 @@
         $(".caja_izq").load("SeccionIzquierda.htm", function () {
             Backend.start(function () {
                 $("#btn_credencial_vigente").click(function () {
-                    $("#plantillas_barra_menu").load(window.location.origin + '/BarraMenu/CredencialVigente.htm');
+                    var div = $("<div>");
+                    div.load(window.location.origin + '/Componentes/CredencialVigente.htm', function () {
+                        Componente.start(false, div);
+                    });
                 });
                 Legajo.getNombre();
                 Legajo.getDatosPersonales();
@@ -153,9 +160,6 @@
                 Legajo.getEstudios();
             });
         });
-
-
-
     });
 
 </script> 
