@@ -615,6 +615,19 @@ namespace General.Repositorios
 
         }
 
+        public bool SolicitarRenovacionCredencial(int id_usuario, string motivo)
+        {
+            RepositorioDeTickets repo = new RepositorioDeTickets(this.conexion);
+            var id_ticket = repo.crearTicket("solicitud_credencial", id_usuario);
+
+            //var parametros = new Dictionary<string, object>();
+            //parametros.Add("@id_usuario", id_usuario);
+            //parametros.Add("@id_credencial", id_credencial);
+
+            //var tablaDatos = conexion.Ejecutar("dbo.MAU_SolicitarCambioImagen", parametros);
+
+            return true;
+        }
 
         public List<Credencial> GetCredencialesTodasDePortal(int idPersona)
         {
