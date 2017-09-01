@@ -50,7 +50,12 @@
 
                 <legend style="margin-top: 20px;">MIS CREDENCIALES</legend>
                 <div><a id="btn_credencial_vigente">Ver credencial vigente</a></div>
-                <div><a>solicitar nueva credencial</a></div>
+                <div><a>Solicitar nueva credencial</a></div>
+                <div><a>Historial de credenciales</a></div>
+
+
+                <div id="TablaHistoriaCredencial" class="table table-striped table-bordered table-condensed" >
+                </div>
 
                  <div id="cajaCambiarDomicilio" style="display:none;" class="">
                  <h3 style="text-align: center;">Solicitud de actualización de domicilio</h3>
@@ -151,6 +156,7 @@
                 Legajo.getDatosFamiliares();
                 Legajo.getPsicofisicos();
                 Legajo.getEstudios();
+                Legajo.getCredencialesUsuario();
             });
         });
 

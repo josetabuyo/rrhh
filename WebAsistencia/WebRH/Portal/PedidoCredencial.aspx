@@ -78,6 +78,9 @@
                 </table></div>
 
 
+                 <div id="TablaHistoriaCredencial" class="table table-striped table-bordered table-condensed" style="display:none">
+                 </div>
+
 
                 <div id="div_detalle_consulta" style="display: none;">
                     <label style="margin-right: 20px;">

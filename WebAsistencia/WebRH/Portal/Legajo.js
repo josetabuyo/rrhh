@@ -1498,87 +1498,135 @@ var Legajo = {
                             spinner.stop();
                         }
 
-                        else
-                         {
+                        else {
+                            $("#TablaHistoriaCredencial").show();
+                            var divGrillaHisto = $("#TablaHistoriaCredencial");
+                            var columnasHisto = [];
+
+                            $.each(consultas, function (i, val) {
+
+                                if (consultas[i].Estado == "VIGENTE") {
+                                 
+                                 
+                                    columnasHisto.push(new Columna("Desde", { generar: function (una_consulta) { return ConversorDeFechas.deIsoAFechaEnCriollo(consultas[i].FechaAlta) } }));
+                                    columnasHisto.push(new Columna("Organismo", { generar: function (una_consulta) { return consultas[i].Organismo } }));
+                                    columnasHisto.push(new Columna("Tipo", { generar: function (una_consulta) { return consultas[i].Tipo } }));
+                                    columnasHisto.push(new Columna("Estado", { generar: function (una_consulta) { return consultas[i].Estado } }));
+                                    
+
+                                
+                                }
+
+
+
+                                alert(consultas[i].Estado);
+                            });
+
+                            _this.Grilla = new Grilla(columnasHisto);
+                            _this.Grilla.DibujarEn(divGrillaHisto);
+
+
+                            for (var cred in consultas) {
+                                if (consultas[0].Estado != "VIGENTE") {
+
+                                    $("#TablaHistoriaCredencial").show();
+                                    var divGrillaHisto = $("#TablaHistoriaCredencial");
+                                    var columnasHisto = [];
+                                    columnasHisto.push(new Columna("Desde", { generar: function (una_consulta) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_consulta.FechaAlta) } }));
+                                    columnasHisto.push(new Columna("Organismo", { generar: function (una_consulta) { return una_consulta.Organismo } }));
+                                    columnasHisto.push(new Columna("Tipo", { generar: function (una_consulta) { return una_consulta.Tipo } }));
+                                    columnasHisto.push(new Columna("Estado", { generar: function (una_consulta) { return una_consulta.Estado } }));
+                                    //   console.log(k, consultas[k]);
+
+                                }
+                            }
+
+
+
+
+
                             $("#tablaConsultas").empty();
                             var divGrilla = $("#tablaConsultas");
                             var columnas = [];
-                            columnas.push(new Columna("#", { generar: function (una_consulta) { return una_consulta.Id } }));
+                            // columnas.push(new Columna("#", { generar: function (una_consulta) { return una_consulta.Id } }));
                             columnas.push(new Columna("Desde", { generar: function (una_consulta) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_consulta.FechaAlta) } }));
                             columnas.push(new Columna("Organismo", { generar: function (una_consulta) { return una_consulta.Organismo } }));
                             columnas.push(new Columna("Tipo", { generar: function (una_consulta) { return una_consulta.Tipo } }));
                             columnas.push(new Columna("Estado", { generar: function (una_consulta) { return una_consulta.Estado } }));
-                                                                                          
 
-                        columnas.push(new Columna('Acciones', {
-                            generar: function (una_consulta) {
-                                var caja = $('<div>');
-                                var btn_accion = $('<a>');
-                                var img = $('<img>');
-                                img.attr('width', '15px');
-                                img.attr('height', '15px');
-                                if (una_consulta.id_estado == 6) {
 
-                                    img.attr('src', '../Imagenes/edit.png');
-                                    img.attr('data-toggle', 'tooltip');
-                                    img.attr('title', 'Responder');
+                            columnas.push(new Columna('Acciones', {
+                                generar: function (una_consulta) {
+                                    var caja = $('<div>');
+                                    var btn_accion = $('<a>');
+                                    var img = $('<img>');
+                                    img.attr('width', '15px');
+                                    img.attr('height', '15px');
+                                    if (una_consulta.id_estado == 6) {
 
-                                    btn_accion.click(function () {
-                                        _this_original.MostrarDetalleDeConsulta(una_consulta);
-                                        //_this_original.TratarConsulta(una_consulta.Id, una_consulta.creador, una_consulta.tipo_consulta, una_consulta.resumen); //TRANSITORIO HASTA HACER LA PANTALLA DE CHAT
-                                    });
+                                        img.attr('src', '../Imagenes/edit.png');
+                                        img.attr('data-toggle', 'tooltip');
+                                        img.attr('title', 'Responder');
 
-                                } else {
-                                    img.attr('src', '../Imagenes/icons-lupa-finish.jpg');
-                                    img.attr('data-toggle', 'tooltip');
-                                    img.attr('title', 'Historial');
-                                    btn_accion.click(function () {
-                                        _this_original.MostrarDetalleDeConsulta(una_consulta);
-                                        //_this_original.VisualizarConsulta(una_consulta.Id, una_consulta.creador, una_consulta.tipo_consulta, "falta", una_consulta.resumen); //TRANSITORIO HASTA HACER LA PANTALLA DE CHAT
-                                    });
+                                        btn_accion.click(function () {
+                                            _this_original.MostrarDetalleDeConsulta(una_consulta);
+                                            //_this_original.TratarConsulta(una_consulta.Id, una_consulta.creador, una_consulta.tipo_consulta, una_consulta.resumen); //TRANSITORIO HASTA HACER LA PANTALLA DE CHAT
+                                        });
+
+                                    } else {
+                                        img.attr('src', '../Imagenes/icons-lupa-finish.jpg');
+                                        img.attr('data-toggle', 'tooltip');
+                                        img.attr('title', 'Historial');
+                                        btn_accion.click(function () {
+                                            _this_original.MostrarDetalleDeConsulta(una_consulta);
+                                            //_this_original.VisualizarConsulta(una_consulta.Id, una_consulta.creador, una_consulta.tipo_consulta, "falta", una_consulta.resumen); //TRANSITORIO HASTA HACER LA PANTALLA DE CHAT
+                                        });
+                                    }
+
+                                    //                                var btn_accion_historico = $('<a>');
+                                    //                                var img2 = $('<img>');
+                                    //                                img2.attr('width', '15px');
+                                    //                                img2.attr('height', '15px');
+                                    //                                img2.attr('style', 'margin-left:15px');
+                                    //                                img2.attr('src', '../Imagenes/historial_usuario.png');
+                                    //                                img2.attr('data-toggle', 'tooltip');
+                                    //                                img2.attr('title', 'Histórico de consultas del usuario');
+                                    //                                btn_accion_historico.click(function () {
+                                    //                                    _this_original.getConsultasHistoricasDeUnUsuario(una_consulta.creador.Id);
+                                    //                                });
+
+                                    btn_accion.append(img);
+                                    caja.append(btn_accion);
+                                    //  btn_accion_historico.append(img2);
+                                    //  caja.append(btn_accion_historico);
+                                    return caja;
                                 }
+                            }));
 
-//                                var btn_accion_historico = $('<a>');
-//                                var img2 = $('<img>');
-//                                img2.attr('width', '15px');
-//                                img2.attr('height', '15px');
-//                                img2.attr('style', 'margin-left:15px');
-//                                img2.attr('src', '../Imagenes/historial_usuario.png');
-//                                img2.attr('data-toggle', 'tooltip');
-//                                img2.attr('title', 'Histórico de consultas del usuario');
-//                                btn_accion_historico.click(function () {
-//                                    _this_original.getConsultasHistoricasDeUnUsuario(una_consulta.creador.Id);
-//                                });
 
-                                btn_accion.append(img);
-                                caja.append(btn_accion);
-                              //  btn_accion_historico.append(img2);
-                              //  caja.append(btn_accion_historico);
-                                return caja;
-                            }
-                        }));
+                         
 
-                   
-                        _this.Grilla = new Grilla(columnas);
-                        _this.Grilla.CambiarEstiloCabecera("estilo_tabla_portal");
-                        _this.Grilla.SetOnRowClickEventHandler(function (una_consulta) { });
-                        _this.Grilla.CargarObjetos(consultas);
-                        _this.Grilla.DibujarEn(divGrilla);
 
-                   
+                            _this.Grilla = new Grilla(columnas);
+                            _this.Grilla.CambiarEstiloCabecera("estilo_tabla_portal");
+                            _this.Grilla.SetOnRowClickEventHandler(function (una_consulta) { });
+                            _this.Grilla.CargarObjetos(consultas);
+                            _this.Grilla.DibujarEn(divGrilla);
 
-                        $('#search').show();
-                        var options = {
-                            valueNames: ['TipoDeConsulta', 'Creador', 'Responsable', 'Desde', 'Hasta']
-                        };
 
-                        var featureList = new List('consultas', options);
 
-                        $('.table-hover').removeClass("table-hover");
+                            $('#search').show();
+                            var options = {
+                                valueNames: ['TipoDeConsulta', 'Creador', 'Responsable', 'Desde', 'Hasta']
+                            };
 
-                        spinner.stop();
+                            var featureList = new List('consultas', options);
 
-                    }
+                            $('.table-hover').removeClass("table-hover");
+
+                            spinner.stop();
+
+                        }
 
                     })
                     .onError(function (e) {

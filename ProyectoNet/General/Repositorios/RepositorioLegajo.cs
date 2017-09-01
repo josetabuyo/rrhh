@@ -635,20 +635,23 @@ namespace General.Repositorios
         {
             Area area = new Area();
             var tablaDatos = conexion.Ejecutar("dbo.LEG_GETCredencialesDePortal", parametros);
-
-          
-           
+                                
             if (tablaDatos.Rows.Count > 0)
             {
                 tablaDatos.Rows.ForEach(row =>
                 {
-                    credenciales.Add(new Credencial(row.GetInt("IdCredencial"), row.GetString("TipoCredencial"), row.GetDateTime("FechaAlta"), row.GetString("UsuarioAlta"), row.GetString("Organismo"), row.GetInt("IdFoto", 0), row.GetInt("CodigoMagnetico"), row.GetString("Estado")));
-                                
+                    credenciales.Add(new Credencial(row.GetInt("IdCredencial"), row.GetString("TipoCredencial"), row.GetDateTime("FechaAlta"), row.GetString("UsuarioAlta"), row.GetString("Organismo"), row.GetInt("IdFoto", 0), row.GetInt("CodigoMagnetico"), row.GetString("Estado")));                                
 
-                });
-               
+                });              
 
             }
+
+            else
+            {
+                credenciales.Add(new Credencial(0, "", DateTime.MinValue, " ", " ", 0, 0, "INACTIVA")); 
+            }
+
+
             return credenciales;
         }
 
