@@ -334,7 +334,7 @@ namespace General.Repositorios
             {
                 cn.AsignarParametro("@id_area_propietaria", id_area_propietaria);
             }
-            
+
 
             dr = cn.EjecutarConsulta();
             AccionesMobi acciones;
@@ -380,7 +380,7 @@ namespace General.Repositorios
                     //GUARDO LA PERSONA
                     cn.EjecutarSinResultado();
                 }
-                
+
             }
             catch (Exception)
             {
@@ -407,16 +407,16 @@ namespace General.Repositorios
 
             try
             {
-            
+
                 cn.EjecutarSinResultado();
-                
+
             }
             catch (Exception)
             {
                 throw;
             }
 
-            
+
             cn.Desconestar();
             return true;
 
@@ -446,6 +446,94 @@ namespace General.Repositorios
             return listaEventos.ToArray();
 
         }
+
+
+
+        public bool ImportarArchivoExcel(string nombreArchivo, string detalleExcel, int id_user)
+        {
+            Char delimiter;
+            var i = 0;
+
+            delimiter = '*';
+            String[] sFila = detalleExcel.Split(delimiter);
+
+
+            ConexionDB cn = new ConexionDB("dbo.MOBI_ADD_TransaccionesYPF_Cabecera");
+            cn.AsignarParametro("@NombreArchivo", nombreArchivo);
+            cn.AsignarParametro("@Usuario", id_user);
+
+
+            cn.BeginTransaction();
+
+            try
+            {
+                //GUARDO EL AREA
+                var idtransaccion = cn.EjecutarEscalar();
+                
+                foreach (var unaFila in sFila)
+                {
+                    if (i > 2)
+                    {
+                        delimiter = '|';
+                        String[] sCampos = unaFila.Split(delimiter);
+
+                        cn.CrearComandoConTransaccionIniciada("dbo.MOBI_ADD_TransaccionesYPF_Detalle");
+                        cn.AsignarParametro("@Id_Cabecera", Convert.ToInt32(idtransaccion));
+                        //cn.AsignarParametro("@Contrato", sCampos[0].ToString());
+                        //cn.AsignarParametro("@Centro_Costo", sCampos[1].ToString());
+                        cn.AsignarParametro("@Tarjeta", sCampos[2].ToString());
+                        cn.AsignarParametro("@Patente", sCampos[3].ToString());
+
+                        String[] Conductor = sCampos[4].ToString().Split(';');
+                        cn.AsignarParametro("@Apellido", Conductor[0].ToString());
+                        cn.AsignarParametro("@Nombre", Conductor[1].ToString());
+                        cn.AsignarParametro("@NroDocumento", Conductor[2].ToString());
+
+                        cn.AsignarParametro("@Fecha_Transacción", sCampos[5].ToString());
+                        cn.AsignarParametro("@Numero_Establecimiento", Convert.ToInt32(sCampos[6].ToString()));
+                        cn.AsignarParametro("@Establecimiento", sCampos[7].ToString());
+                        cn.AsignarParametro("@Direccion", sCampos[8].ToString());
+                        cn.AsignarParametro("@Localidad", sCampos[9].ToString());
+                        cn.AsignarParametro("@Provincia", sCampos[10].ToString());
+                        cn.AsignarParametro("@Producto", sCampos[11].ToString());
+                        cn.AsignarParametro("@Centro_Emisor", Convert.ToInt32(sCampos[12].ToString()));
+                        cn.AsignarParametro("@Remito", Convert.ToInt32(sCampos[13].ToString()));
+                        cn.AsignarParametro("@Cantidad_Lts", Convert.ToDecimal(sCampos[14].ToString()));
+                        cn.AsignarParametro("@KM", Convert.ToInt32(sCampos[15].ToString()));
+                        cn.AsignarParametro("@Precio_Aplicado", Convert.ToDecimal(sCampos[16].ToString()));
+                        cn.AsignarParametro("@IVA", Convert.ToDecimal(sCampos[17].ToString()));
+                        cn.AsignarParametro("@ITC", Convert.ToDecimal(sCampos[18].ToString()));
+                        cn.AsignarParametro("@Tasa_Hidrica", Convert.ToDecimal(sCampos[19].ToString()));
+                        cn.AsignarParametro("@TGO", Convert.ToDecimal(sCampos[20].ToString()));
+                        cn.AsignarParametro("@Nro_Extracto", sCampos[21].ToString());
+                        cn.AsignarParametro("@Importe", Convert.ToDecimal(sCampos[22].ToString()));
+                        cn.AsignarParametro("@Moneda", sCampos[23].ToString());
+                        cn.AsignarParametro("@Nro_Factura", sCampos[24].ToString());
+
+
+                        cn.EjecutarSinResultado();
+                    }
+
+                    i++;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                cn.RollbackTransaction();
+                string err = "Error al Exportar el archivo, Fila "+ i ;
+                throw ex;
+            }
+
+            cn.CommitTransaction();
+            cn.Desconestar();
+
+            return true;
+
+        }
+
+
+
 
     }
 

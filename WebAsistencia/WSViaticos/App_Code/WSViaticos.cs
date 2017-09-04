@@ -4217,6 +4217,15 @@ public class WSViaticos : System.Web.Services.WebService
         return rMoBi.Mobi_GetMovimientos(id_bien);
     }
 
+
+    [WebMethod]
+    public bool ImportarArchivoExcel(string nombreArchivo, string detalleExcel, Usuario usuario)
+    {
+        RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
+        return rMoBi.ImportarArchivoExcel(nombreArchivo, detalleExcel, usuario.Id);
+    }
+
+
     #endregion
 
 
