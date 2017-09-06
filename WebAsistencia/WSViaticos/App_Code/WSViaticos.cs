@@ -4387,7 +4387,7 @@ public class WSViaticos : System.Web.Services.WebService
     {
         RepositorioDeTickets repo = new RepositorioDeTickets(Conexion());
 
-        return new General.MAU.Ticket[] {};// repo.GetTicketsPorFuncionalidad(usuario.Id).ToArray();
+        return repo.GetTicketsPorFuncionalidad(usuario.Id).ToArray();
 
     }
 
