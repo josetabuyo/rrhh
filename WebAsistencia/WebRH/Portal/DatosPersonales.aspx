@@ -37,7 +37,7 @@
                  <div class="cajitas">
                     <p class=""><label class="item_cajita">CUIL: </label> <span id="cuil"></span></p>
                     <p class=""><label class="item_cajita">Domicilio: </label> <span id="domicilio"></span>
-                    <img id="btnMostrarDomicilio" style="cursor:pointer; display:none;" title="Cambiar Domicilio" src="../Imagenes/edit.png" width="30px" height="30px" />
+                    <img id="btnMostrarDomicilio" style="cursor:pointer; " title="Cambiar Domicilio" src="../Imagenes/edit.png" width="30px" height="30px" />
                     <%--<input id="btnMostrarDomicilio" value="Cambiar Domicilio" class="btn btn-primary" type="button" />--%>
                     <div style="display:none; color:Red;" id="mensajeCambioDomicilioPendiente">
                         <span>Solicitud Pendiente de Aprobación</span>
