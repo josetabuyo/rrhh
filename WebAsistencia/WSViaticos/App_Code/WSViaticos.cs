@@ -4409,6 +4409,25 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public string GenerarPDFCambioDomicilio(Usuario usuario)
+    {
+        RepositorioLegajo repo = RepoLegajo();
+
+        return repo.GetDomicilioPendientePorPersona(usuario.Owner.Id);
+
+
+       /* var modelo_para_pdf = new List<object>() { asignacion, usuario };
+        var converter = new EvaluacionDeDesempenioToPdfConverter();
+        var mapa_para_pdf = converter.CrearMapa(modelo_para_pdf);
+
+        var creador_pdf = new CreadorDePdfs();
+
+        byte[] bytes = creador_pdf.FillPDF(TemplatePath("Formulario Evaluacion.pdf"), "Evaluacion de Desempeño", mapa_para_pdf);
+        return Convert.ToBase64String(bytes);*/
+
+    }
+
+    [WebMethod]
     public bool GuardarDomicilioPendiente(CvDomicilio domicilio, Usuario usuario)
     {
         RepositorioLegajo repo = RepoLegajo();

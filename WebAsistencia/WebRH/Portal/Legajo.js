@@ -174,6 +174,22 @@ var Legajo = {
 
 
 
+                $('#btnGenerarPDF').click(function () {
+
+                    alertify.success("Solicitud creada.");
+
+                    Backend.GenerarPDFCambioDomicilio()
+                            .onSuccess(function (rpta) {
+                                alertify.success("PDF creado");
+                                //window.open("data:application/pdf;base64," + rpta, '_blank');
+
+                            })
+                            .onError(function (e) {
+
+                            });
+
+                });
+
             })
             .onError(function (e) {
                 spinner.stop();
@@ -1391,7 +1407,7 @@ var Legajo = {
 
         $('#btn_consultas_pendientes').click();
     },
-   
+
     GetNotificacionesTodas: function () {
         var _this_original = this;
         Backend.GetNotificacionesTodasDePortal()
