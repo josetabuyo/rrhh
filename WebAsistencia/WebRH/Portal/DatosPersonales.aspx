@@ -50,10 +50,16 @@
 
                 <legend style="margin-top: 20px;">MIS CREDENCIALES</legend>
                 
-                <div><a id="btn_credencial_vigente">Ver credencial vigente</a></div>
-                <div><a>Solicitar nueva credencial</a></div>
-                <div><a>Historial de credenciales</a></div>
+              <%--  <div><a id="btn_credencial_vigente">Ver credencial vigente</a></div>--%>
+              <div style = "width:100%;text-align: center;">
 
+                <div  style="display: inline-block;" > <button type="button" id="btn_credencial_vigente" class="btn btn-primary">Ver credencial vigente</button></div>
+
+                <div  style="display: inline-block;" > <button type="button" id="btn_renovar_credencial" class="btn btn-primary">Solicitar nueva credencial</button></div>
+                <div  style="display: inline-block;" > <button type="button" id="Button2" class="btn btn-primary">Historial de credenciales</button></div>
+                
+                </div>
+                <br />
 
                 <div id="TablaHistoriaCredencial" class="table table-striped table-bordered table-condensed" >
                 </div>

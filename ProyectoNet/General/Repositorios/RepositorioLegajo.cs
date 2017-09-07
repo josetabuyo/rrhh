@@ -620,11 +620,17 @@ namespace General.Repositorios
             RepositorioDeTickets repo = new RepositorioDeTickets(this.conexion);
             var id_ticket = repo.crearTicket("solicitud_credencial", id_usuario);
 
-            //var parametros = new Dictionary<string, object>();
-            //parametros.Add("@id_usuario", id_usuario);
-            //parametros.Add("@id_credencial", id_credencial);
 
-            //var tablaDatos = conexion.Ejecutar("dbo.MAU_SolicitarCambioImagen", parametros);
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@IdPersona", id_usuario);
+            parametros.Add("@IdTipoCredencial", 1);
+            parametros.Add("@IdOrganismo", 1);
+            parametros.Add("@IdMotivo", 1);
+            parametros.Add("@IdUsuario", id_usuario);
+            parametros.Add("@IdEstado", 1);
+            parametros.Add("@IdTicket", 1);
+            
+            var tablaDatos = conexion.Ejecutar("dbo.Acre_InsSolicitudCredencial", parametros);
 
             return true;
         }

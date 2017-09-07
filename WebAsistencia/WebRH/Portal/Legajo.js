@@ -1486,10 +1486,22 @@ var Legajo = {
         var spinner = new Spinner({ scale: 2 });
         spinner.spin($("html")[0]);
 
+
+        $("#btn_renovar_credencial").click(function () {
+            var div = $("<div>");
+            div.load(window.location.origin + '/Componentes/SolicitarRenovacionCredencial.htm', function () {
+                Componente.start({ credencial: credencial_vigente }, div);
+            });
+        });
+
         Backend.GetCredencialesTodasDePortal()
                     .onSuccess(function (consultas) {
                         var _this = this;
                         console.log(consultas);
+
+
+
+
 
                         var columnas = [];
                         if (consultas[0].Estado != "VIGENTE") {
@@ -1505,26 +1517,20 @@ var Legajo = {
 
                             $.each(consultas, function (i, val) {
 
-                                if (consultas[i].Estado == "VIGENTE") {
-                                 
+                                if (consultas[i].Estado == "VIGENTE") {                                 
                                  
                                     columnasHisto.push(new Columna("Desde", { generar: function (una_consulta) { return ConversorDeFechas.deIsoAFechaEnCriollo(consultas[i].FechaAlta) } }));
                                     columnasHisto.push(new Columna("Organismo", { generar: function (una_consulta) { return consultas[i].Organismo } }));
                                     columnasHisto.push(new Columna("Tipo", { generar: function (una_consulta) { return consultas[i].Tipo } }));
                                     columnasHisto.push(new Columna("Estado", { generar: function (una_consulta) { return consultas[i].Estado } }));
-                                    
-
-                                
+                                                                    
                                 }
 
-
-
-                                alert(consultas[i].Estado);
+                               // alert(consultas[i].Estado);
                             });
 
-                            _this.Grilla = new Grilla(columnasHisto);
-                            _this.Grilla.DibujarEn(divGrillaHisto);
-
+//                            _this.Grilla = new Grilla(columnasHisto);
+//                            _this.Grilla.DibujarEn(divGrillaHisto);
 
                             for (var cred in consultas) {
                                 if (consultas[0].Estado != "VIGENTE") {
@@ -1540,10 +1546,7 @@ var Legajo = {
 
                                 }
                             }
-
-
-
-
+                            
 
                             $("#tablaConsultas").empty();
                             var divGrilla = $("#tablaConsultas");
