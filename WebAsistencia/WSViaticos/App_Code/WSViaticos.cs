@@ -2949,7 +2949,7 @@ public class WSViaticos : System.Web.Services.WebService
     public bool SolicitarRenovacionCredencial(string motivo, Usuario usuario)
     {
         RepositorioLegajo repositorio = RepoLegajo();
-
+        
         return repositorio.SolicitarRenovacionCredencial(usuario.Id, motivo);
     }
 

@@ -615,17 +615,22 @@ namespace General.Repositorios
 
         }
 
-        public bool SolicitarRenovacionCredencial(int id_usuario, string motivo)
+        public bool SolicitarRenovacionCredencial(int id_usuario, string motivo/*, string organismo*/)
         {
             RepositorioDeTickets repo = new RepositorioDeTickets(this.conexion);
             var id_ticket = repo.crearTicket("solicitud_credencial", id_usuario);
+
+            var id_motivo = GetMotivosBajaCredencial().Find(x => x.Descripcion.Trim().ToUpper() == motivo.Trim().ToUpper()).Id;
+            List<MotivoBaja> motivos = GetMotivosBajaCredencial();
+
+            
 
 
             var parametros = new Dictionary<string, object>();
             parametros.Add("@IdPersona", id_usuario);
             parametros.Add("@IdTipoCredencial", 1);
             parametros.Add("@IdOrganismo", 1);
-            parametros.Add("@IdMotivo", 1);
+            parametros.Add("@IdMotivo", id_motivo);
             parametros.Add("@IdUsuario", id_usuario);
             parametros.Add("@IdEstado", 1);
             parametros.Add("@IdTicket", 1);
@@ -634,6 +639,41 @@ namespace General.Repositorios
 
             return true;
         }
+
+
+
+        public List<MotivoBaja> GetMotivosBajaCredencial()
+        {
+           
+            List<MotivoBaja> motivosbaja = new List<MotivoBaja>();
+            getMotivosBajaCredencial(motivosbaja);
+
+            return motivosbaja;
+        }
+
+        private List<MotivoBaja> getMotivosBajaCredencial(List<MotivoBaja> motivosbaja)
+        {
+            MotivoBaja motivo = new MotivoBaja();
+            var tablaDatos = conexion.Ejecutar("dbo.Acre_GetMotivosBajaCredencial");
+
+            if (tablaDatos.Rows.Count > 0)
+            {
+                tablaDatos.Rows.ForEach(row =>
+                {
+                    motivosbaja.Add(new MotivoBaja(row.GetInt("Id"), row.GetString("Descripcion")));
+
+                });
+            }
+            else
+            {
+                motivosbaja.Add(new MotivoBaja(0, "-"));
+            }
+
+            return motivosbaja;
+        }
+
+
+
 
         public List<Credencial> GetCredencialesTodasDePortal(int idPersona)
         {
@@ -647,7 +687,6 @@ namespace General.Repositorios
             getCredencialesPorCriterio(parametros, credenciales);
 
             return credenciales;
-
         }
 
         private List<Credencial> getCredencialesPorCriterio(Dictionary<string, object> parametros, List<Credencial> credenciales)
