@@ -89,31 +89,21 @@
                         Backend.GetCredencialesTodasDePortal().onSuccess(function (credenciales) {
                             console.log(ui);
                             var credencial_vigente = _.find(credenciales, function (c) { return c.Estado == "VIGENTE" });
-                            if (credencial_vigente) {
-                                ui.find("#credencial_vigente").show();
-                                ui.find("#apellido").text(usuario.Owner.Apellido);
-                                ui.find("#nombres").text(usuario.Owner.Nombre);
+                            ui.find("#credencial_vigente").show();
+                            ui.find("#apellido").text(usuario.Owner.Apellido);
+                            ui.find("#nombres").text(usuario.Owner.Nombre);
 
-                                ui.find("#btn_renovar_credencial").click(function () {
-                                    var div = $("<div>");
-                                    div.load(window.location.origin + '/Componentes/SolicitarRenovacionCredencial.htm', function () {
-                                        Componente.start({credencial:credencial_vigente}, div);
-                                    });
+                            ui.find("#btn_renovar_credencial").click(function () {
+                                var div = $("<div>");
+                                div.load(window.location.origin + '/Componentes/SolicitarRenovacionCredencial.htm', function () {
+                                    Componente.start({credencial:credencial_vigente}, div);
                                 });
+                            });
 
-                                var img = new VistaThumbnail({
-                                    id: credencial_vigente.IdFoto,
-                                    contenedor: ui.find("#foto_usuario")
-                                });
-                            } else {
-                                ui.find("#sin_credencial_vigente").show();
-                                ui.find("#btn_solicitar_nueva_credencial").click(function () {
-                                    Backend.SolicitarRenovacionCredencial("Nueva").onSuccess(function () {
-                                        alertify.success("Solicitud creada con éxito");
-                                        vex.close();
-                                    });
-                                });
-                            }
+                            var img = new VistaThumbnail({
+                                id: credencial_vigente.IdFoto,
+                                contenedor: ui.find("#foto_usuario")
+                            });
                             $vexContent.css("width", "280px");
                             $vexContent.append(ui);
                             ui.show();

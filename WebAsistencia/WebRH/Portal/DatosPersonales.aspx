@@ -54,9 +54,8 @@
               <div style = "width:100%;text-align: center;">
 
                 <div  style="display: inline-block;" > <button type="button" id="btn_credencial_vigente" class="btn btn-primary">Ver credencial vigente</button></div>
-
                 <div  style="display: inline-block;" > <button type="button" id="btn_renovar_credencial" class="btn btn-primary">Solicitar nueva credencial</button></div>
-                <div  style="display: inline-block;" > <button type="button" id="Button2" class="btn btn-primary">Historial de credenciales</button></div>
+                <div  style="display: inline-block;" > <button type="button" id="btn_historial_credenciales" class="btn btn-primary">Historial de credenciales</button></div>
                 
                 </div>
                 <br />
@@ -153,23 +152,46 @@
 <script type="text/javascript" src="../Scripts/ControlesImagenes/VistaThumbnail.js"></script>
 <script type="text/javascript" src="../scripts/vex-2.1.1/js/vex.combined.min.js"></script>
 <script type="text/javascript" >
-
+    $("#btn_credencial_vigente").hide();
     $(document).ready(function ($) {
-        //para cargar el menu izquierdo 
-        $(".caja_izq").load("SeccionIzquierda.htm", function () {
-            Backend.start(function () {
-                $("#btn_credencial_vigente").click(function () {
-                    var div = $("<div>");
-                    div.load(window.location.origin + '/Componentes/CredencialVigente.htm', function () {
-                        Componente.start(false, div);
-                    });
-                });
+        Backend.start(function () {
+            //para cargar el menu izquierdo 
+            $(".caja_izq").load("SeccionIzquierda.htm", function () {
+
                 Legajo.getNombre();
                 Legajo.getDatosPersonales();
                 Legajo.getDatosFamiliares();
                 Legajo.getPsicofisicos();
                 Legajo.getEstudios();
                 Legajo.getCredencialesUsuario();
+
+            });
+
+            Backend.GetCredencialesTodasDePortal().onSuccess(function (credenciales) {
+                var credencial_vigente = _.find(credenciales, function (c) { return c.Estado == "VIGENTE" });
+                if (credencial_vigente) {
+                    $("#btn_credencial_vigente").show();
+                    $("#btn_credencial_vigente").click(function () {
+                        var div = $("<div>");
+                        div.load(window.location.origin + '/Componentes/CredencialVigente.htm', function () {
+                            Componente.start(false, div);
+                        });
+                    });
+
+                    $("#btn_renovar_credencial").click(function () {
+                        var div = $("<div>");
+                        div.load(window.location.origin + '/Componentes/SolicitarRenovacionCredencial.htm', function () {
+                            Componente.start(false, div);
+                        });
+                    });
+                } else {
+                    $("#btn_renovar_credencial").click(function () {
+                        var div = $("<div>");
+                        div.load(window.location.origin + '/Componentes/SolicitarPrimerCredencial.htm', function () {
+                            Componente.start(false, div);
+                        });
+                    });
+                }
             });
         });
     });
