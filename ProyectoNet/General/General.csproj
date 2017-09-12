@@ -276,7 +276,7 @@
     <Compile Include="Repositorios\RepositorioLazySingleton.cs" />
     <Compile Include="Postular\Sexo.cs" />
     <Compile Include="Postular\TipoDeDocumento.cs" />
-    <Compile Include="Repositorios\SolicitudRenovacionCredencial.cs" />
+    <Compile Include="Repositorios\SolicitudCredencial.cs" />
     <Compile Include="Repositorios\SueldoPersona.cs" />
     <Compile Include="Viaticos\PersonaNula.cs" />
     <Compile Include="Repositorios\IRepositorioDePersonas.cs" />

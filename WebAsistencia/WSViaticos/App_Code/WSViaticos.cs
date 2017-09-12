@@ -2953,6 +2953,14 @@ public class WSViaticos : System.Web.Services.WebService
         return repositorio.SolicitarRenovacionCredencial(usuario.Id, motivo);
     }
 
+    [WebMethod]
+    public SolicitudCredencial GetSolicitudDeCredencialPorIdTicket(int id_ticket, Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+        return repositorio.GetSolicitudDeCredencialPorIdTicket(id_ticket);
+    }
+
+    
     #endregion
 
 

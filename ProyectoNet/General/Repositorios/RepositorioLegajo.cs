@@ -674,7 +674,23 @@ namespace General.Repositorios
             return credenciales;
         }
 
+        public SolicitudCredencial GetSolicitudDeCredencialPorIdTicket(int id_ticket)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_ticket", id_ticket);
 
+            var tablaDatos = conexion.Ejecutar("dbo.Acre_GetSolicitudDeCredencialPorIdTicket", parametros);
+
+            if (tablaDatos.Rows.Count == 0) throw new Exception("No existe una solicitud con ese nro de ticket");
+            if (tablaDatos.Rows.Count > 1) throw new Exception("Hay mas de una solicitud con ese nro de ticket");
+
+            var row = tablaDatos.Rows[0];
+            var solicitud = new SolicitudCredencial();
+            solicitud.Id = row.GetInt("Id");
+            solicitud.IdPersona = row.GetInt("IdPersona");
+            solicitud.IdMotivo = row.GetInt("IdMotivo");
+            return solicitud;             
+        }
 
         private void getConsultasPorCriterio(Dictionary<string, object> parametros, List<Consulta> consultas)
         {
@@ -709,6 +725,8 @@ namespace General.Repositorios
 
             }
         }
+
+
 
         public void ResponderConsulta(int id, string respuesta, Usuario usuario)
         {
@@ -1122,9 +1140,5 @@ namespace General.Repositorios
         {
             throw new NotImplementedException();
         }
-
-
-
-
     }
 }
