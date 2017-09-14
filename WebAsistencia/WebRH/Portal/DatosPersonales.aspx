@@ -86,8 +86,8 @@
                             <div class="">
 
                              <label class="etiqueta_campo_small" for="cmb_localidad">Indique el Motivo del pedido:</label>
-                                <select id="Select2" style="width: 150px;">
-                                
+                                <select id="select_motivo" style="width: 150px;">
+                                 <option value="0">--</option>
                                 <option value="1">Deterioro</option>
                                 <option value="2">Pérdida</option>
                                 <option value="3">Robo</option></select>
@@ -119,9 +119,18 @@
                             </div>
                             <br />
 
-                              <div style="text-align:center;">
-                                <label class="etiqueta_campo" style="color:Red;" for="cmb_provincia">Para el caso de pérdida/robo debe presentar la denuncia policial al momento de retirar la nueva credencial </label>
+                              <div style="text-align:center;" id = "texto_robo">
+                                <label class="etiqueta_campo" style="color:Red; " for="cmb_provincia">*Para el caso de pérdida/robo debe presentar la denuncia policial al momento de retirar la nueva credencial </label>
                             </div>
+                             <div style="text-align:center;" id = "texto_deterioro">
+                                <label class="etiqueta_campo" style="color:Red;" for="cmb_provincia">*Para el caso de credencial deteriorada, la misma debe devolverse al momento de retirar la nueva. </label>
+                            </div>
+
+
+                             <div style="text-align:center;" id = "texto_seleccione_motivo">
+                                <label class="etiqueta_campo" style="color:Red;" for="cmb_provincia">*Seleccione un motivo </label>
+                            </div>
+
                              <br />
                             <div style="text-align:center;">
                                 <input  id="Button1" value="Solicitar nueva credencial" class="btn btn-primary" type="button" />
@@ -221,6 +230,15 @@
 <script type="text/javascript" >
     $("#btn_credencial_vigente").hide();
     $(document).ready(function ($) {
+
+
+
+        $("#texto_deterioro").hide();
+        $("#texto_robo").hide();
+        $("#texto_seleccione_motivo").hide();
+    
+
+
         Backend.start(function () {
             //para cargar el menu izquierdo 
             $(".caja_izq").load("SeccionIzquierda.htm", function () {
@@ -258,7 +276,45 @@
                             afterOpen: function ($vexContent) {
                                 var ui = $("#cajaSolicitudCredencial").clone();
                                 $vexContent.append(ui);
+
+                        
+
+
+                                ui.find("#select_motivo").change(function () {
+                                    var val = ui.find("#select_motivo").val();
+                                    debugger;
+
+
+                                    if (val == 0) {
+                                        ui.find("#texto_seleccione_motivo").show();
+                                        ui.find("#texto_deterioro").hide();
+                                        ui.find("#texto_robo").hide();
+                                    }
+
+                                    if (val == 1) {
+                                        ui.find("#texto_deterioro").show();
+                                        ui.find("#texto_robo").hide();
+                                        ui.find("#texto_seleccione_motivo").hide();
+                                    }
+
+                                    if (val >= 2) {
+                                        ui.find("#texto_deterioro").hide();
+                                        ui.find("#texto_robo").show();
+                                        ui.find("#texto_seleccione_motivo").hide();
+                                    }
+
+
+                                  
+
+                                });
+
+
+
+
                                 ui.show();
+                                                             
+
+
 
                                 _this.getProvincias(ui);
                                 //primero CABA x default
@@ -323,12 +379,12 @@
 
                     //
 
-//                    $("#btn_renovar_credencial").click(function () {
-//                        var div = $("<div>");
-//                        div.load(window.location.origin + '/Componentes/SolicitarRenovacionCredencial.htm', function () {
-//                            Componente.start(false, div);
-//                        });
-//                    });
+                    //                    $("#btn_renovar_credencial").click(function () {
+                    //                        var div = $("<div>");
+                    //                        div.load(window.location.origin + '/Componentes/SolicitarRenovacionCredencial.htm', function () {
+                    //                            Componente.start(false, div);
+                    //                        });
+                    //                    });
                 } else {
 
 

@@ -1487,12 +1487,12 @@ var Legajo = {
         spinner.spin($("html")[0]);
 
 
-        $("#btn_renovar_credencial").click(function () {
-            var div = $("<div>");
-            div.load(window.location.origin + '/Componentes/SolicitarRenovacionCredencial.htm', function () {
-                Componente.start({ credencial: credencial_vigente }, div);
-            });
-        });
+//        $("#btn_renovar_credencial").click(function () {
+//            var div = $("<div>");
+//            div.load(window.location.origin + '/Componentes/SolicitarRenovacionCredencial.htm', function () {
+//                Componente.start({ credencial: credencial_vigente }, div);
+//            });
+//        });
 
         Backend.GetCredencialesTodasDePortal()
                     .onSuccess(function (consultas) {
