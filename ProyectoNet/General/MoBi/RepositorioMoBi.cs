@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Data.SqlClient;
 using General.Repositorios;
+using System.IO;
+using Microsoft.Office.Interop.Excel;
 
 namespace General.Repositorios
 {
@@ -448,11 +450,68 @@ namespace General.Repositorios
         }
 
 
-
-        public bool ImportarArchivoExcel(string nombreArchivo, string detalleExcel, int id_user)
+        public string ImportarArchivoExcel(string nombreArchivo, string detalleExcel, int id_user)
         {
+            try
+            {
+
+                byte[] bytes = Convert.FromBase64String(detalleExcel);
+
+                string path = System.Web.HttpContext.Current.Server.MapPath("") + "\\" + nombreArchivo;
+
+                File.WriteAllBytes(path, bytes);
+
+                _Application exlApp;
+                Workbook exlWbook;
+                Worksheet exlWsheet;
+
+                exlApp = new Microsoft.Office.Interop.Excel.Application();
+
+                //Asignamos el libro que sera abierot
+                exlWbook = exlApp.Workbooks.Open(path, 0, true, 5, "", "", true, Microsoft.Office.Interop.Excel.XlPlatform.xlWindows, "\t", false, false, 0, true, 1, 0);
+                exlWsheet = exlWbook.Worksheets.get_Item(1);
+
+                Range exlRange;
+                string sValor;
+                string sDetalle = "";
+
+                //Definimos el rango de celdas que seran leidas
+                exlRange = exlWsheet.UsedRange;
+
+                //Recorremos el archivo excel como si fuera una matriz
+                for (int i = 1; i <= exlRange.Rows.Count; i++)
+                {
+                    sValor = "";
+                    for (int j = 1; j <= exlRange.Columns.Count; j++)
+                    {
+                        sValor += " " + (exlRange.Cells[i, j] as Range).Value + "|";
+                    }
+                    sDetalle = sDetalle + "*" + sValor;
+                }
+
+                //cerramos el libro y la aplicacion
+                exlWbook.Close();
+                exlApp.Quit();
+
+                File.Delete(path);
+
+
+                return GuardarArchivoExcel(nombreArchivo, sDetalle, id_user);
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+
+        public string GuardarArchivoExcel(string nombreArchivo, string detalleExcel, int id_user)
+        {
+
             Char delimiter;
-            var i = 0;
+            var iContador = 0;
 
             delimiter = '*';
             String[] sFila = detalleExcel.Split(delimiter);
@@ -469,10 +528,17 @@ namespace General.Repositorios
             {
                 //GUARDO EL AREA
                 var idtransaccion = cn.EjecutarEscalar();
-                
+
+                //VALIDO QUE EL ARCHIVO EXISTA.
+                if (Convert.ToInt32(idtransaccion) == 0)
+                {
+                    cn.RollbackTransaction();
+                    return "El archivo " + nombreArchivo + " ya fue importado";
+                }
+
                 foreach (var unaFila in sFila)
                 {
-                    if (i > 2)
+                    if (iContador > 2)
                     {
                         delimiter = '|';
                         String[] sCampos = unaFila.Split(delimiter);
@@ -514,22 +580,19 @@ namespace General.Repositorios
                         cn.EjecutarSinResultado();
                     }
 
-                    i++;
+                    iContador++;
                 }
 
             }
             catch (Exception ex)
             {
                 cn.RollbackTransaction();
-                string err = "Error al Exportar el archivo, Fila "+ i ;
-                throw ex;
+                return "Error al Exportar el archivo, Fila " + iContador;
             }
 
             cn.CommitTransaction();
             cn.Desconestar();
-
-            return true;
-
+            return "Datos importados correctamente";
         }
 
 

@@ -14,8 +14,9 @@
     <link rel="stylesheet" type="text/css" href="../scripts/select2-3.4.4/select2.css" />
     <%= Referencias.Javascript("../")%>
     <script type="text/javascript" src="../Scripts/underscore-min.js"></script>
-
     <script type="text/javascript" src="../Scripts/ArbolOrganigrama/ArbolOrganigrama.js"></script>
+    <script src="../Scripts/ImportarArchivo.js" type="text/javascript"></script>
+
 </head>
 <body>
     <form id="form1" runat="server">
@@ -25,42 +26,46 @@
         UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <div style="margin-top: 1%">
             
-            <asp:FileUpload ID="FileUpload1" runat="server" Width="800px" />
-            <asp:Button ID="btnLeerArchivo" runat="server" onclick="btnLeerArchivo_Click" Text="Leer archivo excel" />
-
-            <input type="button" id="btnImportarArchivo" value="Importar"  onclick="return btnImportarArchivo_onclick()" />
-            
+            <input type="button" id="btnImportarArchivo" value="Importar" />
+           
     </div>
-    
-    <div>
-        <asp:ListBox ID="ListBox1" runat="server" Width="6000px" Height="400px" 
-            Font-Size="Smaller"></asp:ListBox>
-    </div>
-
     </form>
 
-    <script src="../Scripts/ImportarArchivo.js" type="text/javascript"></script>
 
     <script type="text/javascript">
         Backend.start(function () {
             $(document).ready(function () {
-                btnImportarArchivo = document.getElementById('btnImportarArchivo'),
 
-                btnImportarArchivo.onclick = function () {
-                    ImportarArchivoABaseDeDatos.Importar(hNombreArchivo.value, hDetalleExcel.value);
-                };
+                $("#btnImportarArchivo").click(function () {
+                    var fileInput = $('<input type="file" />')[0];
+                    fileInput.addEventListener("change", function () {
+                        var file = fileInput.files[0];
+                        var reader = new FileReader();
+                        reader.readAsDataURL(file);
+
+                        reader.onload = function () {
+                            //console.log(reader.result);
+                            var bytes = reader.result.replace(/^data:application\/vnd.ms-excel;base64/, "");
+                            bytes = bytes.substring(1);
+                            //console.log("---------------------------------------------------------------------------------------");
+                            //console.log(bytes);
+                            ImportarArchivoABaseDeDatos.Importar(file.name, bytes);
+                        };
+
+                        reader.onerror = function (error) {
+                            console.log('Error: ', error);
+                        };
+                    });
+                    $(fileInput).click();
+                });
+
                 
-
             });
         });
 
-
+        
     </script>
 
-
-    <input type ="hidden" id = "hNombreArchivo" runat="server" />
-    <input type ="hidden" id = "hDetalleExcel" runat="server" />
     
-
 </body>
 </html>

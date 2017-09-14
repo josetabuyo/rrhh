@@ -29,6 +29,7 @@ using General.MED;
 //using PdfPrinter.Core.Common;
 //using PdfPrinter.Core.Configuration;
 using System.Web.Hosting;
+using System.Runtime.Serialization.Formatters.Binary;
 
 
 [WebService(Namespace = "http://wsviaticos.gov.ar/")]
@@ -4219,10 +4220,11 @@ public class WSViaticos : System.Web.Services.WebService
 
 
     [WebMethod]
-    public bool ImportarArchivoExcel(string nombreArchivo, string detalleExcel, Usuario usuario)
+    public string ImportarArchivoExcel(string nombreArchivo, string detalleExcel, Usuario usuario)
     {
         RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
-        return rMoBi.ImportarArchivoExcel(nombreArchivo, detalleExcel, usuario.Id);
+        var bla =  rMoBi.ImportarArchivoExcel(nombreArchivo, detalleExcel, usuario.Id);
+        return bla;
     }
 
 
