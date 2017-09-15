@@ -4223,8 +4223,8 @@ public class WSViaticos : System.Web.Services.WebService
     public string ImportarArchivoExcel(string nombreArchivo, string detalleExcel, Usuario usuario)
     {
         RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
-        var bla =  rMoBi.ImportarArchivoExcel(nombreArchivo, detalleExcel, usuario.Id);
-        return bla;
+        var respuesta =  rMoBi.ImportarArchivoExcel(nombreArchivo, detalleExcel, usuario.Id);
+        return respuesta;
     }
 
 

@@ -4,11 +4,12 @@
 
         alertify.confirm("Importación de Archivo", "¿Desea importar el archivo?", function () {
             Backend.ImportarArchivoExcel(nombreArchivo, detalleExcel).onSuccess(function (mensaje) {
-                alertify.success(mensaje);
+                //alertify.success(mensaje);
+                EscribirMensaje(mensaje);
             })
                     .onError(function (error) {
-                        //alertify.error("Se produjo un error");
-                        alertify.error(error);
+                        //alertify.error(error);
+                        EscribirMensaje(error);
                     });
 
         }, function () {
@@ -21,16 +22,15 @@
 }
 
 
+function EscribirMensaje(mensaje) {
+    var valData = mensaje;
+    var valNew = valData.split('|');
 
+    $('li').remove();
 
-//function myFunction() {
-//    var path = document.getElementById("FileUpload").value;
-//    //document.getElementById("pathArchivo").innerHTML = path;
-//    $('#<%=pathArchivo.ClientID%>').text(path);
-//    setfilename(path);
-//}
-//function setfilename(val) {
-//    filename = val.split('\\').pop().split('/').pop();
-//    //document.getElementById("nombreArchivo").innerHTML = filename;
-//    $('#<%=nombreArchivo.ClientID%>').text(filename);
-//}
+    for(var i=0;i<valNew.length;i++){
+
+        $("ol").append("<li>" + valNew[i] +"</li>");
+
+   }
+}

@@ -26,8 +26,13 @@
         UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <div style="margin-top: 1%">
             
+            <h2 style="text-align: center">Importación de Transacciones de YPF</h2>
+            <br/>
             <input type="button" id="btnImportarArchivo" value="Importar" />
-           
+            <br />
+            <%--Escribo el mensaje que devuelve al importar el archivo.--%>
+           <ol></ol>
+
     </div>
     </form>
 
