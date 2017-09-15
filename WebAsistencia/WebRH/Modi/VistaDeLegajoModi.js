@@ -35,7 +35,7 @@ VistaDeLegajoModi.prototype.start = function () {
     });
 
     this.btn_subir_imagenes.click(function () {
-        var subidor = new SubidorDeImagenes();
+        var subidor = new SubidorDeImagenesMODI();
         subidor.subirImagenes(function (bytes_imagen) {
             _this.o.servicioDeLegajos.agregarImagenSinAsignarAUnLegajo(_this.legajo.idInterna,
                 "un_nombre",

@@ -41,7 +41,7 @@ namespace TestViaticos
 
             RepositorioEvaluacionDesempenio repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(conexion);
             
-            var result = repo.GetAgentesEvaluablesPor(usr_fer);
+            var result = repo.GetAgentesEvaluablesPor(usr_fer).asignaciones;
 
             Assert.AreEqual(1, result.Count);
         }
@@ -60,7 +60,7 @@ namespace TestViaticos
 
             RepositorioEvaluacionDesempenio repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(conexion);
 
-            var result = repo.GetAgentesEvaluablesPor(usr_fer);
+            var result = repo.GetAgentesEvaluablesPor(usr_fer).asignaciones;
 
             Assert.AreEqual(2, result.Count);
         }
@@ -79,7 +79,7 @@ namespace TestViaticos
 
             RepositorioEvaluacionDesempenio repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(conexion);
 
-            var result = repo.GetAgentesEvaluablesPor(usr_fer);
+            var result = repo.GetAgentesEvaluablesPor(usr_fer).asignaciones;
 
             Assert.AreEqual(2, result.Count);
         }
@@ -98,7 +98,7 @@ namespace TestViaticos
 
             RepositorioEvaluacionDesempenio repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(conexion);
 
-            var result = repo.GetAgentesEvaluablesPor(usr_fer);
+            var result = repo.GetAgentesEvaluablesPor(usr_fer).asignaciones;
 
             Assert.AreEqual(2, result.Count);
         }
@@ -117,7 +117,7 @@ namespace TestViaticos
 
             RepositorioEvaluacionDesempenio repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(conexion);
 
-            var result = repo.GetAgentesEvaluablesPor(usr_fer);
+            var result = repo.GetAgentesEvaluablesPor(usr_fer).asignaciones;
             var first = result.First();
             
             Assert.AreEqual(1, result.Count);
@@ -142,7 +142,7 @@ namespace TestViaticos
 
             RepositorioEvaluacionDesempenio repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(conexion);
 
-            var result = repo.GetAgentesEvaluablesPor(usr_fer);
+            var result = repo.GetAgentesEvaluablesPor(usr_fer).asignaciones;
 
             var first = result.First();
             var second = result.Last();

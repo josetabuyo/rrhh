@@ -691,7 +691,7 @@ namespace General
 
                 var id = (int)conexion_bd.EjecutarEscalar("dbo.CV_Ins_Postulaciones", parametros);
 
-                if (!GuardarNumerosGDEPorInscripcionManual(id, numerosGDE))
+                if (!GuardarNumerosGDEPorInscripcionManual(id, numerosGDE, idUsuario))
                 {
                     throw new Exception("Fallo el insertado de los numeros de GDE");
                 }
@@ -707,7 +707,7 @@ namespace General
             }
         }
 
-        public bool GuardarNumerosGDEPorInscripcionManual(int idPostulacion, Array numeroGDE)
+        public bool GuardarNumerosGDEPorInscripcionManual(int idPostulacion, Array numeroGDE, int idUsuario)
         {
 
             try
@@ -717,6 +717,10 @@ namespace General
                     var parametros = new Dictionary<string, object>();
                     parametros.Add("@idPostulacion", idPostulacion);
                     parametros.Add("@numeroInformeGDE", numeroDeInforme.ToString());
+                    parametros.Add("@idUsuario", idUsuario);
+                    parametros.Add("@estado", 1);
+                    parametros.Add("@fecha", DateTime.Now);
+                    parametros.Add("@modoInscripcion", 1);
 
                     conexion_bd.Ejecutar("dbo.CV_Ins_InformeGDEPostulacion", parametros);
                 }
@@ -791,9 +795,12 @@ namespace General
             
         }
 
-        public List<ReporteDePostulaciones> traerReportesDePostulaciones()
+        public List<ReporteDePostulaciones> traerReportesDePostulaciones(int idEtapa)
         {
-            var tablaPostulaciones = conexion_bd.Ejecutar("dbo.CV_Get_ReporteDePostulaciones");
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@idEtapa", idEtapa);
+
+            var tablaPostulaciones = conexion_bd.Ejecutar("dbo.CV_Get_ReporteDePostulaciones", parametros);
 
             List<ReporteDePostulaciones> reportes = new List<ReporteDePostulaciones>();
             ReporteDePostulaciones reporte = new ReporteDePostulaciones();
@@ -817,5 +824,7 @@ namespace General
             return reportes;
 
         }
+
+        
     }
 }

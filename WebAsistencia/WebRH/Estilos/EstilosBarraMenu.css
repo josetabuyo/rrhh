@@ -35,6 +35,11 @@
     right: 23px;
     height: 28px;
 }
+#imagen_recomendaciones
+{
+   height: 100%;
+   width:100%; 
+}
 
 #indicaciones_al_subir_imagen
 {
