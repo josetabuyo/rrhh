@@ -486,6 +486,23 @@ namespace General.Repositorios
                     {
                         sValor += " " + (exlRange.Cells[i, j] as Range).Value + "|";
                     }
+
+                    //Controlo que el campo de Apellido, Nombre y DNI
+                    String[] sCampos = sValor.Split('|');
+                    String[] Conductor = sCampos[4].ToString().Split(';');
+
+                    if (Conductor.Count() > 3 && Conductor[3].ToString() != "")
+                    {
+                        string sErrorApellidoNombre;
+                        sErrorApellidoNombre =  "Hay un error en la fila " + i + " del archivo en el campo Conductor |";
+                        sErrorApellidoNombre += "No cumple con el formato aducuado. APELLIDO;NOMBRE;DNI |";
+                        sErrorApellidoNombre += "Campo= " + sCampos[4].ToString();
+
+                        exlWbook.Close();
+                        exlApp.Quit();
+                        return sErrorApellidoNombre;
+                    }
+
                     sDetalle = sDetalle + "*" + sValor;
                 }
 
