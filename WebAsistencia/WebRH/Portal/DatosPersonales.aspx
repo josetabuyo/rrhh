@@ -109,7 +109,7 @@
                                <br />
                             <div class="">
                                 <label class="etiqueta_campo" for="cmb_provincia">Indique a que Organismo pertenece:</label>
-                                <select id="Select1" style="width: 240px;">
+                                <select id="select_organismo" style="width: 240px;">
                                 
                                 <option value="1">Ministerio de Desarrollo Social</option>
                                 <option value="2">Ministerio de Salud</option>
@@ -133,7 +133,7 @@
 
                              <br />
                             <div style="text-align:center;">
-                                <input  id="Button1" value="Solicitar nueva credencial" class="btn btn-primary" type="button" />
+                                <input  id="btn_realizar_solicitud" value="Solicitar nueva credencial" class="btn btn-primary" type="button" />
                             </div>
                             
                         </div>
@@ -236,7 +236,7 @@
         $("#texto_deterioro").hide();
         $("#texto_robo").hide();
         $("#texto_seleccione_motivo").hide();
-    
+
 
 
         Backend.start(function () {
@@ -262,33 +262,28 @@
                             Componente.start(false, div);
                         });
                     });
-
-
-
                     //
                     $('#btn_renovar_credencial').click(function () {
-
 
                         //var ui = $("#cajaCambiarDomicilio");
 
                         vex.defaultOptions.className = 'vex-theme-os';
                         vex.open({
                             afterOpen: function ($vexContent) {
+
+
                                 var ui = $("#cajaSolicitudCredencial").clone();
                                 $vexContent.append(ui);
-
-                        
-
 
                                 ui.find("#select_motivo").change(function () {
                                     var val = ui.find("#select_motivo").val();
                                     debugger;
 
-
                                     if (val == 0) {
                                         ui.find("#texto_seleccione_motivo").show();
                                         ui.find("#texto_deterioro").hide();
                                         ui.find("#texto_robo").hide();
+
                                     }
 
                                     if (val == 1) {
@@ -304,64 +299,67 @@
                                     }
 
 
-                                  
+
+                                    ui.find("#btn_realizar_solicitud").click(function () {
+
+
+                                        if (ui.find("#select_motivo").val() == 0) {
+                                            return;
+                                        }
+
+                                        Backend.SolicitarRenovacionCredencial(ui.find("#select_motivo").val(), ui.find("#select_organismo").val()).onSuccess(function () {
+                                            alertify.success("Solicitud creada con éxito");
+                                            vex.close();
+                                        });
+                                    });
+
+
 
                                 });
-
-
-
 
                                 ui.show();
-                                                             
 
 
-
-                                _this.getProvincias(ui);
-                                //primero CABA x default
-                                _this.getLocalidades(ui, 0);
-
-                                ui.find('#cmb_provincia').change(function () {
-                                    ui.find("#cmb_localidad").empty();
-                                    var idProvincia = parseInt(ui.find("#cmb_provincia option:selected").val());
-                                    _this.getLocalidades(ui, idProvincia);
-                                });
-
+                                /*
                                 ui.find('#btnCambiarDomicilio').click(function () {
 
-                                    if (ui.find('#txt_calle').val() == '' || ui.find('#txt_numero').val() == '' || ui.find('#txt_cp').val() == '') {
-                                        alert('Debe completar los campos obligatorios');
-                                        return;
-                                    }
+                                if (ui.find('#txt_calle').val() == '' || ui.find('#txt_numero').val() == '' || ui.find('#txt_cp').val() == '') {
+                                alert('Debe completar los campos obligatorios');
+                                return;
+                                }
 
-                                    var domicilio = {};
-                                    domicilio.Calle = ui.find('#txt_calle').val();
-                                    domicilio.Numero = ui.find('#txt_numero').val();
-                                    domicilio.Piso = ui.find('#txt_piso').val();
-                                    domicilio.Depto = ui.find('#txt_dto').val();
-                                    domicilio.Cp = ui.find('#txt_cp').val();
-                                    domicilio.Localidad = ui.find('#cmb_localidad').val();
-                                    domicilio.Provincia = ui.find('#cmb_provincia').val();
-                                    domicilio.Manzana = ui.find('#txt_manzana').val();
-                                    domicilio.Casa = ui.find('#txt_casa').val();
-                                    domicilio.Barrio = ui.find('#cmb_barrio').val();
-                                    domicilio.Torre = ui.find('#cmb_torre').val();
-                                    domicilio.Uf = ui.find('#cmb_uf').val();
-                                    Backend.GuardarDomicilioPendiente(domicilio)
-                                    .onSuccess(function (respuesta) {
+                                var domicilio = {};
+                                domicilio.Calle = ui.find('#txt_calle').val();
+                                domicilio.Numero = ui.find('#txt_numero').val();
+                                domicilio.Piso = ui.find('#txt_piso').val();
+                                domicilio.Depto = ui.find('#txt_dto').val();
+                                domicilio.Cp = ui.find('#txt_cp').val();
+                                domicilio.Localidad = ui.find('#cmb_localidad').val();
+                                domicilio.Provincia = ui.find('#cmb_provincia').val();
+                                domicilio.Manzana = ui.find('#txt_manzana').val();
+                                domicilio.Casa = ui.find('#txt_casa').val();
+                                domicilio.Barrio = ui.find('#cmb_barrio').val();
+                                domicilio.Torre = ui.find('#cmb_torre').val();
+                                domicilio.Uf = ui.find('#cmb_uf').val();
+                                Backend.GuardarDomicilioPendiente(domicilio)
+                                .onSuccess(function (respuesta) {
 
-                                        alertify.success("Solicitud creada.");
-                                        //vex.dialog.alert('Solicitud de cambio de domicilio generada. Presente el formulario impreso a RRHH');
-                                        _this.getDatosPersonales();
-                                        vex.close();
+                                alertify.success("Solicitud creada.");
+                                //vex.dialog.alert('Solicitud de cambio de domicilio generada. Presente el formulario impreso a RRHH');
+                                _this.getDatosPersonales();
+                                vex.close();
 
 
-                                    })
-                                    .onError(function (e) {
+                                })
+                                .onError(function (e) {
 
-                                    });
                                 });
-
+                                });
                                 return ui;
+                                */
+
+
+
                             },
                             css: {
                                 'padding-top': "4%",
@@ -386,8 +384,6 @@
                     //                        });
                     //                    });
                 } else {
-
-
 
 
                     $("#btn_renovar_credencial").click(function () {

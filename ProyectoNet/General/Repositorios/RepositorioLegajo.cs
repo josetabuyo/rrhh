@@ -615,25 +615,20 @@ namespace General.Repositorios
 
         }
 
-        public bool SolicitarRenovacionCredencial(int id_usuario, string motivo/*, string organismo*/)
+        public bool SolicitarRenovacionCredencial(int id_usuario, string id_motivo, string id_organismo)
         {
             RepositorioDeTickets repo = new RepositorioDeTickets(this.conexion);
             var id_ticket = repo.crearTicket("solicitud_credencial", id_usuario);
 
-            var id_motivo = GetMotivosBajaCredencial().Find(x => x.Descripcion.Trim().ToUpper() == motivo.Trim().ToUpper()).Id;
-            List<MotivoBaja> motivos = GetMotivosBajaCredencial();
-
-            
-
-
+         //   var id_motivo = GetMotivosBajaCredencial().Find(x => x.Descripcion.Trim().ToUpper() == motivo.Trim().ToUpper()).Id;
+          //  List<MotivoBaja> motivos = GetMotivosBajaCredencial();
+                                 
             var parametros = new Dictionary<string, object>();
             parametros.Add("@IdPersona", id_usuario);
-            parametros.Add("@IdTipoCredencial", 1);
-            parametros.Add("@IdOrganismo", 1);
-            parametros.Add("@IdMotivo", id_motivo);
-            parametros.Add("@IdUsuario", id_usuario);
-            parametros.Add("@IdEstado", 1);
-            parametros.Add("@IdTicket", 1);
+            parametros.Add("@IdTipoCredencial", 2); //2 Definitiva - 1 provisoria
+            parametros.Add("@IdOrganismo", int.Parse(id_organismo));
+            parametros.Add("@IdMotivo", int.Parse(id_motivo));
+            parametros.Add("@IdTicket", id_ticket);
             
             var tablaDatos = conexion.Ejecutar("dbo.Acre_InsSolicitudCredencial", parametros);
 

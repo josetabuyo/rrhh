@@ -2946,11 +2946,11 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public bool SolicitarRenovacionCredencial(string motivo, Usuario usuario)
+    public bool SolicitarRenovacionCredencial(string motivo, string organismo,Usuario usuario)
     {
         RepositorioLegajo repositorio = RepoLegajo();
-        
-        return repositorio.SolicitarRenovacionCredencial(usuario.Id, motivo);
+
+        return repositorio.SolicitarRenovacionCredencial(usuario.Id, motivo, organismo);
     }
 
     [WebMethod]
