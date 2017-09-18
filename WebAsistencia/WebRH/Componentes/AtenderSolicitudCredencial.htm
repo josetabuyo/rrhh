@@ -10,13 +10,18 @@
     </style>
 </head>
 <div id="pantalla_atender_solicitud_credencial">
-    
+    <label>Solicitud de credencial de acceso</label>
+    <div id="nombre_solicitante"></div>
+    <div id="apellido_solicitante"></div>
+    <div id="dni_solicitante"></div>
+    <div id="organismo_solicitud"></div>
+    <div id="motivo_solicitud"></div>
 </div>
 <script type="text/javascript">
     var Componente = {
         start: function (ticket, ui) {
             Backend.GetSolicitudDeCredencialPorIdTicket(ticket.id).onSuccess(function (solicitud) {
-                Console.log(solicitud);
+                console.log(solicitud);
             });
         }
     };
