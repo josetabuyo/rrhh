@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="PanelDeControl.aspx.cs" Inherits="FormularioConcursar_PanelDeControl" %>
+﻿<%@ page language="C#" autoeventwireup="true" inherits="FormularioConcursar_PanelDeControl, App_Web_ndxkf1wi" %>
 <%@ Register Src="~/BarraMenu/BarraMenu.ascx" TagName="BarraMenu" TagPrefix="uc2" %>
 <%@ Register Src="~/FormularioConcursar/MenuConcursar.ascx" TagName="BarraMenuConcursar" TagPrefix="uc3" %>
 <%@ Register Src="~/FormularioConcursar/Pasos.ascx" TagName="Pasos" TagPrefix="uc4" %>
@@ -104,6 +104,8 @@
                     <h5 style="margin-top:20px;" ><b>Comité 3: Asistente Administrativo - Reserva Art.8 Ley Nº 22.431 (D - General)</b></h5>
                     <hr class="lineas-subraya"/>
                     <p>
+                        <a href="bases/Conv03_2017_Perfil_17383_Acta_04_Comite_03.pdf" target="_blank" >Acta 4</a> -
+                        <a href="bases/Conv03_2017_Perfil_17383_Acta_03_Comite_03.pdf" target="_blank" >Acta 3</a> -
                         <a href="bases/Conv03_2017_Perfil_17383_Acta_02_Comite_03.pdf" target="_blank" >Acta 2</a> -
                         <a href="bases/Conv03_2017_Perfil_17383_Acta_01.pdf" target="_blank" >Acta 1</a> - 
                         <a href="bases/Conv03_2017_Perfil_17383.pdf" target="_blank" >Bases</a>  
