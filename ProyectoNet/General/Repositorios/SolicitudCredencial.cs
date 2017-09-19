@@ -9,11 +9,13 @@ namespace General.Repositorios
     {
         public int Id { get; set; }
         public int IdPersona { get; set; }
-        public int IdMotivo { get; set; }
-
+        public string Motivo { get; set; }
+        public string Organismo { get; set; }
+        
         public SolicitudCredencial()
         {
                 
         }
+
     }
 }

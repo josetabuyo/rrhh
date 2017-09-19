@@ -635,7 +635,36 @@ namespace General.Repositorios
             return true;
         }
 
+        public bool AprobarSolicitudCredencial(SolicitudCredencial solicitud, Usuario usuario)
+        {
+            //RepositorioDeTickets repo = new RepositorioDeTickets(this.conexion);
+            //var id_ticket = repo.crearTicket("impresion_credencial", usuario.Owner.Id);
 
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@IdPersona", usuario.Owner.Id);
+            parametros.Add("@IdSolicitud ", solicitud.Id); 
+
+            var tablaDatos = conexion.Ejecutar("dbo.Acre_AprobarSolicitudCredencial", parametros);
+
+            return true;
+        }
+
+        public bool RechazarSolicitudCredencial(SolicitudCredencial solicitud, string motivo, Usuario usuario)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@IdPersona", usuario.Owner.Id);
+            parametros.Add("@IdSolicitud ", solicitud.Id);
+            parametros.Add("@Motivo ", motivo);
+
+            var tablaDatos = conexion.Ejecutar("dbo.Acre_RechazarSolicitudCredencial", parametros);
+
+            var repo_usuarios = new RepositorioDeUsuarios(this.conexion, RepositorioDePersonas.NuevoRepositorioDePersonas(this.conexion));
+
+            var usuario_solicitante = repo_usuarios.GetUsuarioPorIdPersona(solicitud.IdPersona);
+            new RepositorioDeAlertasPortal(this.conexion)
+                .crearAlerta("Solicitud de Credencial", "Tu solicitud ha sido rechazada por:" + motivo, usuario_solicitante.Id, usuario.Id);
+            return true;
+        }
 
         public List<MotivoBaja> GetMotivosBajaCredencial()
         {
@@ -722,7 +751,8 @@ namespace General.Repositorios
             var solicitud = new SolicitudCredencial();
             solicitud.Id = row.GetInt("Id");
             solicitud.IdPersona = row.GetInt("IdPersona");
-            solicitud.IdMotivo = row.GetInt("IdMotivo");
+            solicitud.Motivo = row.GetString("Motivo");
+            solicitud.Organismo = row.GetString("Organismo");
             return solicitud;             
         }
 

@@ -16,12 +16,43 @@
     <div id="dni_solicitante"></div>
     <div id="organismo_solicitud"></div>
     <div id="motivo_solicitud"></div>
+    <input id="btn_aprobar_solicitud" type="button" class="btn btn-primary" value="Aprobar"/>
+    <input id="btn_rechazar_solicitud" type="button" class="btn btn-primary" value="Rechazar"/>
 </div>
 <script type="text/javascript">
     var Componente = {
         start: function (ticket, ui) {
             Backend.GetSolicitudDeCredencialPorIdTicket(ticket.id).onSuccess(function (solicitud) {
-                console.log(solicitud);
+                Backend.GetUsuarioPorIdPersona(solicitud.IdPersona).onSuccess(function (usuario) {
+                    ui.find("#nombre_solicitante").text(usuario.Owner.Nombre);
+                    ui.find("#apellido_solicitante").text(usuario.Owner.Apellido);
+                    ui.find("#dni_solicitante").text(usuario.Owner.Documento);
+                    ui.find("#organismo_solicitud").text(solicitud.Organismo);
+                    ui.find("#motivo_solicitud").text(solicitud.Motivo);
+                });
+                ui.find("#btn_aprobar_solicitud").click(function () {
+                    Backend.AprobarSolicitudCredencial(solicitud).onSuccess(function () {
+                        alertify.success("Solicitud aprobada con éxito");
+                        vex.close();
+                        GestionDeTareas.getTareasParaGestion();
+                    });
+                });
+                ui.find("#btn_rechazar_solicitud").click(function () {
+                    vex.dialog.prompt({
+                        message: 'Indique razón de rechazo',
+                        placeholder: '',
+                        callback: function (value) {
+                            if (value) {
+                                Backend.RechazarSolicitudCredencial(solicitud, value).onSuccess(function () {
+                                    alertify.success("Solicitud rechazada con éxito");
+                                    vex.close();
+                                    GestionDeTareas.getTareasParaGestion();
+                                });
+                            }
+                        }
+                    })
+                    
+                });
             });
         }
     };

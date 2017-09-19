@@ -2961,6 +2961,19 @@ public class WSViaticos : System.Web.Services.WebService
         return repositorio.GetSolicitudDeCredencialPorIdTicket(id_ticket);
     }
 
+    [WebMethod]
+    public bool AprobarSolicitudCredencial(SolicitudCredencial solicitud, Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+        return repositorio.AprobarSolicitudCredencial(solicitud, usuario);
+    }
+
+    [WebMethod]
+    public bool RechazarSolicitudCredencial(SolicitudCredencial solicitud, string motivo, Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+        return repositorio.RechazarSolicitudCredencial(solicitud, motivo, usuario);
+    }
     
     #endregion
 
