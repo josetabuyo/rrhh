@@ -7,14 +7,14 @@
 <head runat="server">
     <title></title>
     <%= Referencias.Css("../")%>
-    <link rel="stylesheet" type="text/css" href="../Reportes/Reportes.css" />
-    <link rel="stylesheet" type="text/css" href="../Scripts/ArbolOrganigrama/ArbolOrganigrama.css" />
+    <%--<link rel="stylesheet" type="text/css" href="../Reportes/Reportes.css" />--%>
+    <%--<link rel="stylesheet" type="text/css" href="../Scripts/ArbolOrganigrama/ArbolOrganigrama.css" />--%>
     <link rel="stylesheet" type="text/css" href="../Estilos/component.css" />
     <link rel="stylesheet" type="text/css" href="../estilos/SelectorDeAreas.css" />
     <link rel="stylesheet" type="text/css" href="../scripts/select2-3.4.4/select2.css" />
     <%= Referencias.Javascript("../")%>
     <script type="text/javascript" src="../Scripts/underscore-min.js"></script>
-    <script type="text/javascript" src="../Scripts/ArbolOrganigrama/ArbolOrganigrama.js"></script>
+    <%--<script type="text/javascript" src="../Scripts/ArbolOrganigrama/ArbolOrganigrama.js"></script>--%>
     <script src="../Scripts/ImportarArchivo.js" type="text/javascript"></script>
 
 </head>
@@ -26,7 +26,7 @@
         UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <div style="margin-top: 1%">
             
-            <h2 style="text-align: center">Importación de Transacciones de YPF</h2>
+            <h2 style="text-align: center">Importación de Transacciones YPF</h2>
             <br/>
             <input type="button" id="btnImportarArchivo" value="Importar" />
             <br />

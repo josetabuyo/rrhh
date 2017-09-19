@@ -452,18 +452,20 @@ namespace General.Repositorios
 
         public string ImportarArchivoExcel(string nombreArchivo, string detalleExcel, int id_user)
         {
+            _Application exlApp;
+            Workbook exlWbook;
+            Worksheet exlWsheet;
+            string path = "";
+            string sErrorApellidoNombre = "";
+
             try
             {
 
                 byte[] bytes = Convert.FromBase64String(detalleExcel);
 
-                string path = System.Web.HttpContext.Current.Server.MapPath("") + "\\" + nombreArchivo;
+                path = System.Web.HttpContext.Current.Server.MapPath("") + "\\" + nombreArchivo;
 
                 File.WriteAllBytes(path, bytes);
-
-                _Application exlApp;
-                Workbook exlWbook;
-                Worksheet exlWsheet;
 
                 exlApp = new Microsoft.Office.Interop.Excel.Application();
 
@@ -493,13 +495,14 @@ namespace General.Repositorios
 
                     if (Conductor.Count() > 3 && Conductor[3].ToString() != "")
                     {
-                        string sErrorApellidoNombre;
-                        sErrorApellidoNombre =  "Hay un error en la fila " + i + " del archivo en el campo Conductor |";
+                        sErrorApellidoNombre = "Hay un error en la fila " + i + " del archivo en el campo Conductor |";
                         sErrorApellidoNombre += "No cumple con el formato aducuado. APELLIDO;NOMBRE;DNI |";
                         sErrorApellidoNombre += "Campo= " + sCampos[4].ToString();
 
                         exlWbook.Close();
                         exlApp.Quit();
+                        File.Delete(path);
+
                         return sErrorApellidoNombre;
                     }
 
@@ -509,7 +512,6 @@ namespace General.Repositorios
                 //cerramos el libro y la aplicacion
                 exlWbook.Close();
                 exlApp.Quit();
-
                 File.Delete(path);
 
 
@@ -518,9 +520,15 @@ namespace General.Repositorios
             }
             catch (Exception)
             {
+                sErrorApellidoNombre = "Hubo un error al querer importar el archivo |";
+                sErrorApellidoNombre += "Pruebe en abrir el archivo y guardarlo como 'Libro Excel 97-2003 (*.xls)' e intente nuevamente.";
 
-                throw;
+                File.Delete(path);
+
+                return sErrorApellidoNombre;
             }
+            
+
         }
 
 
