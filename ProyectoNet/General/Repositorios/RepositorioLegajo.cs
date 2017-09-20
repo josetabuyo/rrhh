@@ -1029,7 +1029,7 @@ namespace General.Repositorios
                 tablaDatos.Rows.ForEach(row =>
 
                     //listaDomicilios.Add(new CvDomicilio(row.GetInt("id"), row.GetString("calle", ""), row.GetSmallintAsInt("nro", 0), row.GetString("piso", ""), row.GetString("dpto", ""), row.GetInt("localidad", 0), row.GetInt("cp", 0), row.GetInt("provincia", 0)))
-                    unDomicilio = new CvDomicilio(row.GetInt("id"), row.GetString("calle", ""), row.GetSmallintAsInt("nro", 0), row.GetString("piso", ""), row.GetString("dpto", ""), new Localidad(row.GetInt("idLocalidad"), row.GetString("nombreLocalidad")), row.GetInt("cp", 0), new Provincia(row.GetSmallintAsInt("idProvincia", 0), row.GetString("nombreProvincia", "")), row.GetString("manzana", ""), row.GetString("casa", ""), row.GetString("barrio", ""), row.GetString("torre", ""), row.GetString("uf", ""))
+                    unDomicilio = new CvDomicilio(row.GetInt("id"), row.GetString("calle", ""), row.GetSmallintAsInt("nro", 0), row.GetString("piso", ""), row.GetString("dpto", ""), new Localidad(row.GetInt("idLocalidad"), row.GetString("nombreLocalidad")), row.GetInt("cp", 0), new Provincia(row.GetSmallintAsInt("idProvincia", 0), row.GetString("nombreProvincia", "")), row.GetString("manzana", ""), row.GetString("casa", ""), row.GetString("barrio", ""), row.GetString("torre", ""), row.GetString("uf", ""), row.GetInt("idDocumentoGDE"))
 
                     );
             }
@@ -1047,6 +1047,9 @@ namespace General.Repositorios
                 RepositorioDeTickets repo = new RepositorioDeTickets(this.conexion);
                 var id_ticket = repo.crearTicket("cambio_domicilio", usuario.Id);
 
+                RepositorioGDE repoGDE = RepositorioGDE.NuevoRepositorioGDE(this.conexion);
+                int idDocumentoGDE = repoGDE.insertarDocumentoGDE("",2,false);
+
                 var parametros = new Dictionary<string, object>();
 
                 parametros.Add("@calle", domicilio.Calle);
@@ -1063,10 +1066,11 @@ namespace General.Repositorios
                 parametros.Add("@casa", domicilio.Casa);
                 parametros.Add("@idPersona", usuario.Owner.Id);
                 parametros.Add("@idAlerta", id_ticket);
-
+                parametros.Add("@idDocumentoGDE", idDocumentoGDE);
 
                 conexion.Ejecutar("dbo.LEG_Ins_Domicilios_Pendientes", parametros);
 
+                
                 return true;
 
             }
@@ -1092,7 +1096,7 @@ namespace General.Repositorios
             {
                 tablaDatos.Rows.ForEach(row =>
 
-                    dom = new CvDomicilio(row.GetInt("id"), row.GetString("calle", ""), row.GetSmallintAsInt("nro", 0), row.GetString("piso", ""), row.GetString("dpto", ""), new Localidad(row.GetInt("idLocalidad"), row.GetString("nombreLocalidad")), row.GetInt("cp", 0), new Provincia(row.GetSmallintAsInt("idProvincia", 0), row.GetString("nombreProvincia", "")), row.GetString("manzana", ""), row.GetString("casa", ""), row.GetString("barrio", ""), row.GetString("torre", ""), row.GetString("uf", ""))
+                    dom = new CvDomicilio(row.GetInt("id"), row.GetString("calle", ""), row.GetSmallintAsInt("nro", 0), row.GetString("piso", ""), row.GetString("dpto", ""), new Localidad(row.GetInt("idLocalidad"), row.GetString("nombreLocalidad")), row.GetInt("cp", 0), new Provincia(row.GetSmallintAsInt("idProvincia", 0), row.GetString("nombreProvincia", "")), row.GetString("manzana", ""), row.GetString("casa", ""), row.GetString("barrio", ""), row.GetString("torre", ""), row.GetString("uf", ""), row.GetInt("idDocumentoGDE"))
                     //dom = new CvDomicilio(row.GetInt("id"), row.GetString("calle", ""), row.GetSmallintAsInt("nro", 0), row.GetString("piso", ""), row.GetString("dpto", ""), row.GetInt("localidad", 0), row.GetInt("cp", 0), row.GetInt("provincia", 0))
                 );
             }
