@@ -41,6 +41,7 @@
                     <%--<input id="btnMostrarDomicilio" value="Cambiar Domicilio" class="btn btn-primary" type="button" />--%>
                     <div style="display:none; color:Red;" id="mensajeCambioDomicilioPendiente">
                         <span>Solicitud Pendiente de Aprobación</span>
+                        Actualizar N° GDE del Form.<input id="numeroGDE" placeholder="IF-2017-xxxxx" style="width: 50px; height: 30px;"  type="text" />
                         <input id="btnGenerarPDF" value="Generar PDF" class="btn btn-primary" type="button" />
                     </div>
                     

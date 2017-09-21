@@ -27,6 +27,7 @@
  <p class="componenteCambioDomicilio">Provincia: <strong id="provincia"></strong></p>
  <p class="componenteCambioDomicilio"><strong id="manzana"></strong> <strong id="casa"></strong> <strong id="barrio"></strong> <strong id="torre"></strong> <strong id="uf"></strong> </p>
  <p class="componenteCambioDomicilio">Folio: <input style="height: 30px; width: 120px;" type="text" placeholder="N° Folio" value="0" id="folio" /></p>
+ <p class="componenteCambioDomicilio">Id. Doc. Electronico: <input style="height: 30px; width: 120px;" type="text" placeholder="N° Folio" value="0" id="idDocumentoGDE" /></p>
 
  <div style="text-align:center;">
     <input type="button" class="btn btn-primary" id="btnConfirmarDomicilio" value="Confirmar" />
@@ -94,6 +95,7 @@
                     ui.find('#torre').html(domicilio.Torre);
                     ui.find('#barrio').html(domicilio.Barrio);
                     ui.find('#uf').html(domicilio.Uf);
+                    ui.find('#idDocumentoGDE').html(domicilio.IdDocumentoGDE); 
 
                 });
         }
