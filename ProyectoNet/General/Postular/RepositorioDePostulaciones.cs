@@ -691,7 +691,7 @@ namespace General
 
                 var id = (int)conexion_bd.EjecutarEscalar("dbo.CV_Ins_Postulaciones", parametros);
 
-                if (!GuardarNumerosGDEPorInscripcionManual(id, numerosGDE))
+                if (!GuardarNumerosGDEPorInscripcionManual(id, numerosGDE, idUsuario))
                 {
                     throw new Exception("Fallo el insertado de los numeros de GDE");
                 }
@@ -707,7 +707,7 @@ namespace General
             }
         }
 
-        public bool GuardarNumerosGDEPorInscripcionManual(int idPostulacion, Array numeroGDE)
+        public bool GuardarNumerosGDEPorInscripcionManual(int idPostulacion, Array numeroGDE, int idUsuario)
         {
 
             try
@@ -717,6 +717,10 @@ namespace General
                     var parametros = new Dictionary<string, object>();
                     parametros.Add("@idPostulacion", idPostulacion);
                     parametros.Add("@numeroInformeGDE", numeroDeInforme.ToString());
+                    parametros.Add("@idUsuario", idUsuario);
+                    parametros.Add("@estado", 1);
+                    parametros.Add("@fecha", DateTime.Now);
+                    parametros.Add("@modoInscripcion", 1);
 
                     conexion_bd.Ejecutar("dbo.CV_Ins_InformeGDEPostulacion", parametros);
                 }
@@ -790,5 +794,37 @@ namespace General
             }
             
         }
+
+        public List<ReporteDePostulaciones> traerReportesDePostulaciones(int idEtapa)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@idEtapa", idEtapa);
+
+            var tablaPostulaciones = conexion_bd.Ejecutar("dbo.CV_Get_ReporteDePostulaciones", parametros);
+
+            List<ReporteDePostulaciones> reportes = new List<ReporteDePostulaciones>();
+            ReporteDePostulaciones reporte = new ReporteDePostulaciones();
+            string numero = "";
+            //string nombrePerfil, string numero, DateTime fechaInscripcion, int documento, string nombre, string apellido, List<string> informes
+            tablaPostulaciones.Rows.ForEach(row =>
+            {
+
+                if (numero != row.GetString("Numero"))
+                {
+                    reporte = new ReporteDePostulaciones(row.GetString("Denominacion", ""), row.GetString("Numero", ""), row.GetDateTime("FechaInscripcion"), row.GetInt("NRODOCUMENTO"), row.GetString("NOMBRE"), row.GetString("Apellido"), new List<string>());
+                    numero = row.GetString("Numero");
+                    reportes.Add(reporte);
+                }
+
+                reporte.informes.Add(row.GetString("NumeroInforme"));
+
+            });
+
+
+            return reportes;
+
+        }
+
+        
     }
 }

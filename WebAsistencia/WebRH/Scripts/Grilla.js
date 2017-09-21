@@ -4,6 +4,28 @@ var Grilla = function (columnas) {
     this.start();
 };
 
+var GrillaV2 = function (id_componente, definicion_columnas, modelo) {
+    id_componente = "#" + "tablaAgentes";
+
+    //var _this = this;
+    var divGrilla = $(id_componente);
+    divGrilla.empty();
+
+    var columnas = [];
+    $.each(definicion_columnas, function (index, col_def) {
+        columnas.push(new Columna(col_def.nombre_columna, { generar: col_def.value_getter }));
+    });
+
+    var grilla = new Grilla(columnas);
+    grilla.SetOnRowClickEventHandler(function (modelo) { });
+    grilla.CambiarEstiloCabecera("estilo_tabla_portal");
+    grilla.CargarObjetos(modelo);
+    grilla.DibujarEn(divGrilla);
+    $('.table-hover').removeClass("table-hover");
+    //_this.BuscadorDeTabla();
+    return grilla;
+}
+
 Grilla.prototype = {
     start: function () {
         this.tabla = $('<table>');

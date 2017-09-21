@@ -211,6 +211,8 @@ namespace TestViaticos
         {
             var permitidas_para_juan = new List<VacacionesPermitidas>() { VacacionesPermitidas(2012, 12) };
             var aprobadas_para_juan = new List<SolicitudesDeVacaciones>() { new VacacionesAprobadas(juan, primero_de_enero_2013(), cinco_de_enero_2013()), new VacacionesAprobadas(juan, primero_de_febrero_2013(), cinco_de_febrero_2013()) };
+
+            TestObjects.ResetInstanceRepoLicencia();
             Expect.Once.On((TestObjects.RepoLicenciaMockeado())).Method("GetVacasPermitidasPara").Will(Return.Value(permitidas_para_juan));
 
             var listado_solicitables = calculador().DiasSolicitables(permitidas_para_juan, aprobadas_para_juan, fecha_de_hoy(), TestObjects.UnaPersona(), analisis, perdidas);
@@ -365,16 +367,15 @@ namespace TestViaticos
             var permitidas_para_juan = new List<VacacionesPermitidas>() { VacacionesPermitidas(2010, 35), VacacionesPermitidas(2011, 35), VacacionesPermitidas(2012, 35) };
             var aprobadas_para_juan = new List<SolicitudesDeVacaciones>() { new VacacionesAprobadas(juan, F("06/01/2014"), F("17/01/2014")) };
             var fecha_hoy = new DateTime(2016, 01, 01);
+            TestObjects.ResetInstanceRepoLicencia();
             Expect.Once.On((TestObjects.RepoLicenciaMockeado())).Method("GetVacasPermitidasPara").Will(Return.Value(permitidas_para_juan));
 
             calculador().DiasSolicitables(permitidas_para_juan, aprobadas_para_juan, fecha_hoy, TestObjects.UnaPersona(), analisis, perdidas);
 
             Assert.AreEqual(analisis.Count(), 3);
             AssertAnalisis(analisis.First(), 2010, DateTime.MinValue, DateTime.MinValue, 35, 35);
-            //AssertAnalisis(analisis.At(1), 0, DateTime.MinValue, DateTime.MinValue, 35, 0);
             AssertAnalisis(analisis.At(1), 2011, DateTime.MinValue, DateTime.MinValue, 35, 35);
             AssertAnalisis(analisis.Last(), 2012, F("06/01/2014"), F("17/01/2014"), 12, 35);
-            //AssertAnalisis(analisis.Last(), 2012, F("06/01/2014"), F("17/01/2014"), 12, 35);
         }
 
         [TestMethod]
@@ -406,6 +407,7 @@ namespace TestViaticos
                                                                             new VacacionesAprobadas(juan, F("01/01/2015"), F("02/01/2015"))
                                                                             };
             juan = new Persona();
+            TestObjects.ResetInstanceRepoLicencia();
             var repo = TestObjects.RepoLicenciaMockeado();
             juan.TipoDePlanta = new TipoDePlantaGeneral(1, "General", repo);
 
@@ -493,6 +495,32 @@ namespace TestViaticos
         }
 
         [TestMethod]
+        public void fix_caso_dni_12961660_insert_fallido_ultima_linea()
+        {
+            var permitidas_para_juan = new List<VacacionesPermitidas>() { VacacionesPermitidas(2012, 17), VacacionesPermitidas(2013, 20), VacacionesPermitidas(2014, 20), VacacionesPermitidas(2015, 20), VacacionesPermitidas(2016, 20) };
+            var aprobadas_para_juan = new List<SolicitudesDeVacaciones>() { new VacacionesAprobadas(juan, new DateTime(2013, 01, 07), new DateTime(2013, 01, 23)),
+                                                                            new VacacionesAprobadas(juan, new DateTime(2014, 01, 27), new DateTime(2014, 02, 07)),
+                                                                            new VacacionesAprobadas(juan, new DateTime(2014, 02, 18), new DateTime(2014, 02, 25)),
+                                                                            new VacacionesAprobadas(juan, new DateTime(2015, 02, 18), new DateTime(2015, 02, 27)),
+                                                                            new VacacionesAprobadas(juan, new DateTime(2015, 04, 27), new DateTime(2015, 05, 06)),
+                                                                            new VacacionesAprobadas(juan, new DateTime(2016, 01, 04), new DateTime(2016, 01, 15)),
+                                                                            new VacacionesAprobadas(juan, new DateTime(2016, 02, 24), new DateTime(2016, 03, 02)),
+                                                                            new VacacionesAprobadas(juan, new DateTime(2017, 03, 29), new DateTime(2017, 03, 31)),
+                                                                            new VacacionesAprobadas(juan, new DateTime(2017, 01, 02), new DateTime(2017, 01, 13))
+            };
+            TestObjects.ResetInstanceRepoLicencia();
+            var r = TestObjects.RepoLicenciaMockeado();
+            Expect.AtLeastOnce.On(r).Method("GetVacasPermitidasPara").WithAnyArguments().Will(Return.Value(permitidas_para_juan));
+
+            var fecha_hoy = new DateTime(2017, 07, 27);
+
+            var listado_solicitables = calculador().DiasSolicitables(permitidas_para_juan, aprobadas_para_juan, fecha_de_hoy(), TestObjects.UnaPersona(), analisis, perdidas);
+            
+            AssertAnalisis(analisis.At(analisis.Count() - 2), 2016, new DateTime(2017, 03, 29), new DateTime(2017, 03, 31), 3, 20);
+
+        }
+
+        [TestMethod]
         public void cuando_no_hay_periodos_autorizados_consecutivos_debe_compoartarse_correctamente()
         {
             var permitidas_para_juan = new List<VacacionesPermitidas>() { VacacionesPermitidas(2000, 30), VacacionesPermitidas(2003, 30), VacacionesPermitidas(2004, 30) };
@@ -516,7 +544,6 @@ namespace TestViaticos
             AssertAnalisis(analisis.At(1), 0, new DateTime(2005, 05, 02), new DateTime(2005, 05, 11), 9, 0);
             AssertAnalisis(analisis.At(2), 2003, DateTime.MinValue, DateTime.MinValue, 1, 30);
             AssertAnalisis(analisis.Last(), 2004, DateTime.MinValue, DateTime.MinValue, 0, 30);
-            //Assert.AreEqual(3, analisis.Count());
         }
 
         //analizada

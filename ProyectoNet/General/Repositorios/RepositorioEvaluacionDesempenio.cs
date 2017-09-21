@@ -82,13 +82,13 @@ namespace General.Repositorios
             {
                 var parametros = new Dictionary<string, object>();
                 parametros.Add("@idArea", idArea);
-                var tablaDatos = _conexion.Ejecutar("[dbo].[EVAL_GET_DATA_ESTR_pc_dotaciones]", parametros);
+                var tablaDatos = _conexion.Ejecutar("[dbo].[EVAL_GET_DATA_ESTR_pc_dotaciones_con_bajas]", parametros);
 
                 tablaDatos.Rows.ForEach(row =>
                 {
                     if (!cache.ContainsKey(idArea))
                     {
-                        cache.Add(idArea, new DescripcionAreaEvaluacion(row.GetString("Organismo", ""), row.GetString("Secretaria", ""), row.GetString("Subsecretaria", ""), row.GetString("DireccionNacional", ""), row.GetString("Area_Coordinacion", ""), codigo));
+                        cache.Add(idArea, new DescripcionAreaEvaluacion(row.GetString("Organismo", ""), row.GetString("Secretaria", ""), row.GetString("Subsecretaria", ""), row.GetString("DireccionNacional", ""), row.GetString("Area_Coordinacion", ""), row.GetString("Nombre_Area", ""), codigo));
                     }
                 }
                 );
@@ -97,11 +97,28 @@ namespace General.Repositorios
             return cache[idArea];
         }
 
-        public List<AsignacionEvaluadoAEvaluador> GetAgentesEvaluablesPor(Usuario usuario)
+        public bool EsAgenteVerificador(Usuario usuario)
         {
             var parametros = new Dictionary<string, object>();
             var id_persona_evaluadora = usuario.Owner.Id;
-            parametros.Add("@id_persona_evaluadora", id_persona_evaluadora);
+            parametros.Add("@id_persona", id_persona_evaluadora);
+
+            var tablaDatos = _conexion.Ejecutar("dbo.EVAL_GET_Verificador_Evaluacion", parametros);
+
+            return tablaDatos.Rows.Count > 0;
+        }
+
+        public RespuestaGetAgentesEvaluablesPor GetAgentesEvaluablesPor(Usuario usuario)
+        {
+            var parametros = new Dictionary<string, object>();
+            var id_persona_evaluadora = usuario.Owner.Id;
+            var es_agente_verificador = true;
+            if (!EsAgenteVerificador(usuario))
+            {
+                parametros.Add("@id_persona_evaluadora", id_persona_evaluadora);
+                es_agente_verificador = false;
+            }
+            
             var tablaDatos = _conexion.Ejecutar("dbo.EVAL_GET_Evaluados_Evaluador", parametros);
 
             var asignaciones = new List<AsignacionEvaluadoAEvaluador> { };
@@ -113,10 +130,13 @@ namespace General.Repositorios
 
             if (tablaDatos.Rows.Count > 0)
             {
+
                 var id_evaluacion_anterior = 0;
                 var id_evaluado_anterior = 0;
                 tablaDatos.Rows.ForEach(row =>
                 {
+                    evaluador.area = GetDescripcionAreaEvaluacion(row.GetInt("id_area_ue", 0), cache_areas, row.GetString("codigo_unidad_eval", ""));
+
                     if (primer_row == true)
                     {
                         primer_row = false;
@@ -146,7 +166,8 @@ namespace General.Repositorios
             {
                 asignaciones.Add(asignacion_evaluado_a_evaluador);
             }
-            return asignaciones;
+            return new RespuestaGetAgentesEvaluablesPor(asignaciones, es_agente_verificador);
+            
         }
 
         protected AgenteEvaluacionDesempenio GetAgenteEvaluadorEvaluacionDesempenio(int id_evaluador)
@@ -214,12 +235,19 @@ namespace General.Repositorios
                                             row.GetString("codigo_gde", ""));
             }
 
+            var unidad_evaluacion = UnidadDeEvaluacion.Nulio();
+            if (row.GetInt("id_unidad_eval", 0) != 0)
+            {
+                unidad_evaluacion = new UnidadDeEvaluacion(row.GetInt("id_unidad_eval"), row.GetString("codigo_unidad_eval"));
+            }
+
             return new AsignacionEvaluadoAEvaluador(
                 GetAgenteEvaluadoEvaluacionDesempenio(id_evaluado, area_evaluado),
                 evaluador,
                 evaluacion,
                 periodo,
-                nivel);
+                nivel,
+                unidad_evaluacion);
 
         }
 
