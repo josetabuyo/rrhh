@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Microsoft.Office.Interop.Excel;
+
 
 
 public partial class MoBi_ImportacionDeTransacciones : System.Web.UI.Page
