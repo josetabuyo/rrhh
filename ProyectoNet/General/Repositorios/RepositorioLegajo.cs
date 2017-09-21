@@ -631,6 +631,59 @@ namespace General.Repositorios
 
         }
 
+
+        public string GetCredencialesTodasDePortal(int documento)
+        {
+            var parametros = new Dictionary<string, object>();
+            if (documento != 0)
+            {
+                parametros.Add("@Documento", documento);
+            }
+
+            List<Consulta> consultas = new List<Consulta>();
+            getCredencialesPorCriterio(parametros, consultas);
+
+            return JsonConvert.SerializeObject(consultas);
+
+        }
+
+
+        private void getCredencialesPorCriterio(Dictionary<string, object> parametros, List<Consulta> consultas)
+        {
+            Area area = new Area();
+            var tablaDatos = conexion.Ejecutar("dbo.LEG_GETConsultasDePortal2", parametros);
+
+            if (tablaDatos.Rows.Count > 0)
+            {
+                tablaDatos.Rows.ForEach(row =>
+                {
+                    Persona creador = new Persona(row.GetInt("id_usuario"), row.GetInt("NroDocumento"), row.GetString("nombre"), row.GetString("apellido"), area);
+                    Persona responsable = new Persona(row.GetInt("id_responsable", 0), row.GetInt("NroDocumentoResponsable", 0), row.GetString("nombreResponsable", ""), row.GetString("apellidoResponsable", ""), area);
+                    List<Respuesta> respuestas = new List<Respuesta>();
+                    Consulta consulta = new Consulta(
+                        row.GetLong("Id"),
+                        creador,
+                        row.GetDateTime("fecha_creacion"),
+                        row.GetDateTime(("fecha_respuesta"), new DateTime(9999, 12, 31)),
+                        responsable,
+                        row.GetSmallintAsInt("id_tipo_consulta"),
+                        row.GetString("tipo_consulta"),
+                        row.GetString("resumen"),
+                        row.GetSmallintAsInt("id_estado"),
+                        row.GetString("estado"),
+                        row.GetSmallintAsInt(("calificacion"), 0),
+                        row.GetBoolean("leido", false),
+                        respuestas);
+
+                    consultas.Add(consulta);
+
+                });
+
+            }
+        }
+
+
+
         private void getConsultasPorCriterio(Dictionary<string, object> parametros, List<Consulta> consultas)
         {
             Area area = new Area();

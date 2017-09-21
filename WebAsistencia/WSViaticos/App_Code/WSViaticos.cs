@@ -3357,11 +3357,11 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string TraerReporteDePostulaciones(Usuario usuario)
+    public string TraerReporteDePostulaciones(int idEtapa, Usuario usuario)
     {
-
-        return JsonConvert.SerializeObject(RepoPostulaciones().traerReportesDePostulaciones()).ToString();
+        return JsonConvert.SerializeObject(RepoPostulaciones().traerReportesDePostulaciones(idEtapa)).ToString();
     }
+
 
     [WebMethod]
     public bool ActualizarInformesGDEDeUnaPostulacion(string numeroPostulacion, string setDeInformes, Usuario usuario)
@@ -4373,6 +4373,14 @@ public class WSViaticos : System.Web.Services.WebService
         return repo.GetConsultasTodasDePortal(estado);
 
     }
+    [WebMethod]
+    public void DerivarTareas(Persona persona, int[] tareas,  Usuario usuario)
+    {
+        RepositorioDeTickets repo = new RepositorioDeTickets(Conexion());
+
+         repo.DerivarTareas(persona, tareas, usuario.Id);
+
+    }
 
     [WebMethod]
     public General.MAU.Ticket[] getTicketsPorFuncionalidad(Usuario usuario)
@@ -4382,6 +4390,7 @@ public class WSViaticos : System.Web.Services.WebService
         return repo.GetTicketsPorFuncionalidad(usuario.Id).ToArray();
 
     }
+
 
     [WebMethod]
     public string GetDomicilioPendientePorAlerta(int idAlerta, Usuario usuario)

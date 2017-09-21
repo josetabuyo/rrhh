@@ -1,5 +1,5 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="GestionConsultas.aspx.cs"
-    Inherits="Portal_GestionConsultas" ValidateRequest="false" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="PedidoCredencial.aspx.cs"
+    Inherits="Portal_PedidoCredencial" ValidateRequest="false" %>
 
 <%@ Register Src="~/BarraMenu/BarraMenu.ascx" TagName="BarraMenu" TagPrefix="uc2" %>
 <%@ Register Src="~/ConsultaIndividual.ascx" TagName="Consulta" TagPrefix="uc3" %>
@@ -23,8 +23,8 @@
     <link rel="stylesheet" href="chat.css" />
     <link rel="stylesheet" href="font-awesome.min.css" />
     <link rel="stylesheet" href="lato.css" />
-    <link rel="stylesheet" href="../estilos/SelectorDePersonas.css" type="text/css" />
-    <link href="../scripts/select2-3.4.4/select2.css" rel="stylesheet" type="text/css" />
+    <script src="../Scripts/select2-3.4.4/select2.min.js" type="text/javascript"></script>
+    <link href="../Scripts/select2-3.4.4/select2.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <form id="form1" runat="server">
@@ -37,27 +37,29 @@
             <p style="margin: 25px; font-size: 2.1em; color: #fff;">
                 Menú</p>
             <input id="btn_consultas_pendientes" type="button" class="btn_gestion_consulta" style="margin: 10px;
-                width: 170px; font-size: smaller; color: #000" value="CONSULTAS PENDIENTES" />
-            <input id="btn_consultas_historicas" type="button" class="btn_gestion_consulta" style="margin: 10px;
+                width: 170px; font-size: smaller; color: #000" value="Solicitar Nueva Credencial" />
+
+         <%--   <input id="btn_consultas_historicas" type="button" class="btn_gestion_consulta" style="margin: 10px;
                 width: 170px; font-size: smaller; color: #000" value="CONSULTAS HISTORICAS" />
             <input id="btn_notificaciones_creacion" type="button" class="btn_gestion_consulta"
                 style="margin: 10px; width: 170px; font-size: smaller; color: #000" value="CREAR NOTIFICACIONES" />
             <input id="btn_notificaciones_historicas" type="button" class="btn_gestion_consulta"
                 style="margin: 10px; width: 170px; font-size: smaller; color: #000" value="NOTIFICACIONES ENVIADAS" />
-            <%-- <input id="Button3" type="button" class="btn_gestion_consulta" style="margin: 10px; width: 150px; font-size: smaller;"
-                value="PARAMETRIA" />
-            <input id="Button4" type="button" class="btn_gestion_consulta" style="margin: 10px; width: 150px; font-size: smaller;"
-                value="REPORTES" />--%>
+           
             <input id="Button1" type="button" onclick="javascript:location.href='Consultas.aspx'"
                 class="btn_gestion_consulta" style="margin: 10px; width: 170px; font-size: smaller;
-                color: #000" value="PORTAL" />
+                color: #000" value="PORTAL" />--%>
         </div>
         <div class="caja_der papel">
             <%--DIV 1--%>
             <div id="consultas">
-                <legend id="legend_gestion" style="margin-top: 10px;">CONSULTAS PENDIENTES</legend>
-                <input type="text" id="search" class="search buscador" placeholder="Buscar" style="display: none;
-                    height: 35px;" />
+                <legend id="legend_credencial_vigente" style="margin-top: 10px;">CREDENCIAL VIGENTE</legend>
+             
+              <%--  <input type="text" id="search" class="search buscador" placeholder="Buscar" style="display: none;
+                    height: 35px;" />--%>
+
+
+
                 <div id="tablaConsultas" class="table table-striped table-bordered table-condensed">
                 </div>
                 <div id="div_detalle_consulta" style="display: none;">
@@ -87,7 +89,7 @@
                     </div>
                 </div>
             </div>
-            <div id="notificaciones">
+     <%--       <div id="notificaciones">
                 <div id="div_crear_nofificacion">
                     <label>
                         Documentos separados por ";"</label>
@@ -109,24 +111,26 @@
                     <div id="tableNotificacionesUsuarios" class="table table-striped table-bordered table-condensed">
                     </div>
                 </div>
-            </div>
+            </div>--%>
         </div>
     </div>
     </form>
     <div id="pantalla_consulta_ticket" style="display: none;">
         <div>
-            Clasificar:
+            <%--Clasificar:
             <select id="selector_clasificar">
             </select>
             Asignar:
-            <div id="selector_usuario" class="selector_personas">
-                <input id="buscador" type="hidden" class="buscarPersona" />
-            </div>
+            <select id="selector_asignar" class="js-example-basic-single" style="width: 500px;">
+                <option value="AL"></option>
+                <option value="AL">Belén Cevey</option>
+                <option value="WY">Lautaro Villar</option>
+            </select>--%>
             <div style="display: flex; margin-left: 35%;">
                 <h3 id="titulo_consulta" style="text-align: center;">
                     CONSULTA NÚMERO.</h3>
                 <img id="btn_info_usuario" src="../Imagenes/detalle.png" style="width: 20px; height: 20px;
-                    margin-left: 15px; margin-top: 23px; cursor: pointer;" draggable="false"></div>
+                    margin-left: 15px; cursor: pointer;" draggable="false"></div>
             <div id="div_chat" style="height: 310px; margin-top: -10px; overflow: scroll; overflow-x: hidden;">
                 <div id="div_repreguntar" style="text-align: center; display: none;">
                     <textarea id="ta_repreguntar" placeholder="Ingrese su consulta aquí" maxlength="1000"
@@ -159,49 +163,24 @@
                 <input id="btn_pepreguntar" type="button" class="btn btn-primary" value="Responder" />
             </div>
         </div>
-    </div>
-    <div id="pantalla_consulta_individual" style="display: none">
-        <p style="font-size: xx-large; text-align: center; margin-top: 10px;">
-            Consulta Individual</p>
-        <br />
-        <uc3:Consulta ID="Consulta1" runat="server" />
-    </div>
-    <div id="plantillas">
-        <div class="vista_persona_en_selector">
-<%--            <div id="contenedor_legajo" class="label label-warning">
-                <div id="titulo_legajo">
-                    Leg:</div>
-                <div id="legajo">
-                </div>
-            </div>--%>
-            <div id="nombre" style="color:#000; font-size:12px;">
-            </div>
-            <div id="apellido" style="color:#000; font-size:12px;">
-            </div>
-            <%--<div id="contenedor_doc" class="label label-default">
-                <div id="titulo_doc">
-                    Doc:</div>
-                <div id="documento">
-                </div>
-            </div>--%>
+        <div id="pantalla_consulta_individual" style="display: none">
+            <p style="font-size: xx-large; text-align: center; margin-top: 10px;">
+                Consulta Individual</p>
+            <br />
+            <uc3:Consulta ID="Consulta1" runat="server" />
         </div>
-    </div>
 </body>
-<script type="text/javascript" src="../Scripts/select2-3.4.4/Select2.min.js"></script>
-<script type="text/javascript" src="../Scripts/select2-3.4.4/select2_locale_es.js"></script>
-<script type="text/javascript" src="../Scripts/RepositorioDePersonas.js"></script>
-<script type="text/javascript" src="../Scripts/Persona.js"></script>
-<script type="text/javascript" src="../Scripts/SelectorDePersonas.js"></script>
 <script type="text/javascript" src="Legajo.js"></script>
 <script type="text/javascript" src="../Scripts/Spin.js"></script>
 <script type="text/javascript" src="../scripts/vex-2.1.1/js/vex.combined.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function ($) {
         Backend.start(function () {
-            Legajo.getConsultasParaGestion();
+            Legajo.getCredencialesUsuario();
         });
 
         $("#btnConsultaIndividual").click(function () {
+
             vex.defaultOptions.className = 'vex-theme-os';
             vex.open({
                 afterOpen: function ($vexContent) {

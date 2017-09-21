@@ -22,7 +22,11 @@
         // Código que se ejecuta al producirse un error no controlado
         //General.Logger.EscribirLog("---------------------------------------------");
         //General.Logger.EscribirLog(ex.ToString());
-       
+        
+        var titulo = "Error en SIGIRH";
+        var cuerpo = Server.GetLastError().StackTrace;
+        
+        General.EnviadorDeMails.EnviarMail("jlurgo@gmail.com", titulo, cuerpo);
     }
 
     void Session_Start(object sender, EventArgs e) 

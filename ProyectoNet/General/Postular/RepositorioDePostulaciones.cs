@@ -791,9 +791,12 @@ namespace General
             
         }
 
-        public List<ReporteDePostulaciones> traerReportesDePostulaciones()
+        public List<ReporteDePostulaciones> traerReportesDePostulaciones(int idEtapa)
         {
-            var tablaPostulaciones = conexion_bd.Ejecutar("dbo.CV_Get_ReporteDePostulaciones");
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@idEtapa", idEtapa);
+
+            var tablaPostulaciones = conexion_bd.Ejecutar("dbo.CV_Get_ReporteDePostulaciones", parametros);
 
             List<ReporteDePostulaciones> reportes = new List<ReporteDePostulaciones>();
             ReporteDePostulaciones reporte = new ReporteDePostulaciones();
@@ -817,5 +820,7 @@ namespace General
             return reportes;
 
         }
+
+        
     }
 }
