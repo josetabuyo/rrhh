@@ -2951,7 +2951,7 @@ public class WSViaticos : System.Web.Services.WebService
         RepositorioLegajo repositorio = RepoLegajo();
 
 
-        return repositorio.SolicitarRenovacionCredencial(usuario.Owner.Id, motivo, organismo);
+        return repositorio.SolicitarRenovacionCredencial(usuario, motivo, organismo);
     }
 
     [WebMethod]
