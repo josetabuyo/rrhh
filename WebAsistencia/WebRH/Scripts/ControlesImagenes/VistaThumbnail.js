@@ -53,7 +53,10 @@
             _this.img_estatica.hide();
             _this.img_thumbnail.attr("src", "data:image/png;base64," + _this.bytes_imagen)
         } else {
-            _this.getImagen();
+            if (_this.id > 0) _this.getImagen();
+            else {
+                _this.img_estatica.hide();
+            }
         }
     });
 };

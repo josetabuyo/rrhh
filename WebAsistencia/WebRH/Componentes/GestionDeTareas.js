@@ -7,6 +7,7 @@
         Backend.getTicketsPorFuncionalidad()
                     .onSuccess(function (tareas) {
 
+                        tareas = _.sortBy(tareas, 'id').reverse();
                         var _this = this;
 
                         $("#tablaTareas").empty();

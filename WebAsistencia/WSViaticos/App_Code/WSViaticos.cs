@@ -58,7 +58,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public List<AsignacionEvaluadoAEvaluador> EvalGetAgentesEvaluables(Usuario usuario)
+    public RespuestaGetAgentesEvaluablesPor EvalGetAgentesEvaluables(Usuario usuario)
     {
         var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
         return repo.GetAgentesEvaluablesPor(usuario);
@@ -3356,6 +3356,13 @@ public class WSViaticos : System.Web.Services.WebService
         // var postulaciones = new Postulacion();
         return RepoPostulaciones().InscripcionManual(postulacion, datosPersonales, folio, usuario);
     }
+
+    [WebMethod]
+    public string TraerReporteDePostulaciones(int idEtapa, Usuario usuario)
+    {
+        return JsonConvert.SerializeObject(RepoPostulaciones().traerReportesDePostulaciones(idEtapa)).ToString();
+    }
+
 
     [WebMethod]
     public bool ActualizarInformesGDEDeUnaPostulacion(string numeroPostulacion, string setDeInformes, Usuario usuario)

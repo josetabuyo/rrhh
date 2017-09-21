@@ -108,7 +108,7 @@
                             Backend.AceptarCambioDeImagen(solicitud.usuario.Id).onSuccess(function () {
                                 alertify.success('solicitud de cambio de imagen aceptada');
                                 vex.close();
-                                _this.alResolver();
+                                GestionDeTareas.getTareasParaGestion();
                             });
                         });
                     ui.find("#btn_rechazar_cambio_imagen")
@@ -122,7 +122,7 @@
                                         Backend.RechazarCambioDeImagen(solicitud.usuario.Id, value).onSuccess(function () {
                                             alertify.success('solicitud de cambio de imagen rechazada');
                                             vex.close();
-                                            _this.alResolver();
+                                            GestionDeTareas.getTareasParaGestion();
                                         });
                                     }
                                 }
@@ -148,7 +148,7 @@
                                                 alertify.success('solicitud de cambio de imagen aceptada');
                                                 vex.close();
                                                 vex.close();
-                                                _this.alResolver();
+                                                GestionDeTareas.getTareasParaGestion();
                                             });
                                         });
                                     });

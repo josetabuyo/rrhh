@@ -33,10 +33,7 @@
             {
                 return;
             }
-
-
         }
-
     }
 
     void Application_Error(object sender, EventArgs e)
@@ -45,6 +42,5 @@
         // Código que se ejecuta al producirse un error no controlado
         Logger.EscribirLog("---------------------------------------------");
         Logger.EscribirLog(ex.ToString());
-
     } 
 </script>
