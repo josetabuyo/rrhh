@@ -13,7 +13,7 @@
 </style>
 <div>
     <div id="pantalla_consulta_ticket">
-        <div style="display: flex; margin-left: 35%;">
+        <div style="display: flex; margin-left: 26%;">
             <h3 id="titulo_consulta" style="text-align: center;">
                 CONSULTA NÚMERO.</h3>
             <img id="btn_info_usuario" src="../Imagenes/detalle.png" style="width: 20px; height: 20px;
@@ -59,7 +59,7 @@
             var _this = this;
             Backend.GetConsultaPorIdTicket(ticket.id)
                 .onSuccess(function (consulta) {
-                    ui.find("#titulo_consulta").text("CONSULTA NÚMERO " + consulta.Id);
+                    ui.find("#titulo_consulta").text("TIKET #" + ticket.id + " (CONSULTA NÚMERO " + consulta.Id + ")");
                     _this.ArmarChat(ui, consulta);
                     if (consulta.id_estado == "9") {
                         ui.find("#btn_pepreguntar").hide();

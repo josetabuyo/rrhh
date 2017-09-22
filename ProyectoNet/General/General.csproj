@@ -63,6 +63,10 @@
     <Reference Include="itextsharp">
       <HintPath>..\..\SharedLibs\itextsharp.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\SharedLibs\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -114,6 +118,8 @@
     <Compile Include="MAU\RepositorioDeTickets.cs" />
     <Compile Include="MAU\SolicitudDeCambioDeImagen.cs" />
     <Compile Include="MED\EvaluacionDesempenio.cs" />
+    <Compile Include="MED\RespuestaGetAgentesEvaluablesPor.cs" />
+    <Compile Include="MED\UnidadDeEvaluacion.cs" />
     <Compile Include="Organigrama\GraficoBienes.cs" />
     <Compile Include="MED\AgenteEvaluacionDesempenio.cs" />
     <Compile Include="MED\DescripcionAreaEvaluacion.cs" />
