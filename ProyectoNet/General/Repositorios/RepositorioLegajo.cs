@@ -624,6 +624,7 @@ namespace General.Repositorios
           //  List<MotivoBaja> motivos = GetMotivosBajaCredencial();
                                  
             var parametros = new Dictionary<string, object>();
+
             parametros.Add("@IdPersona", usuario_solicitante.Owner.Id);
             parametros.Add("@IdTipoCredencial", 2); //2 Definitiva - 1 provisoria
             parametros.Add("@IdOrganismo", int.Parse(id_organismo));
