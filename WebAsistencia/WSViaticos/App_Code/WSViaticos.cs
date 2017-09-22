@@ -849,6 +849,19 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public int GetSegmentosUtilizados()
+    {
+
+        int anio = DateTime.Today.Year;
+
+        ServicioDeLicencias servicioLicencias = new ServicioDeLicencias(RepoLicencias());
+
+        return servicioLicencias.GetSegmentosUtilizados(anio);
+
+        
+    }
+
+    [WebMethod]
     public SaldoLicencia GetSaldoLicencia14FoH(Persona unaPersona, ConceptoDeLicencia concepto, DateTime fecha)
     {
 

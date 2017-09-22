@@ -48,5 +48,8 @@ namespace General
 
             return concepto.RealizarCalculoDeSaldo(this._repositorio_licencia, repo_personas, unaPersona, fecha_de_consulta);
         }
+        public int GetSegmentosUtilizados(int anio){
+           return this._repositorio_licencia.GetSegmentosUtilizados(anio);
+        }
     }
 }

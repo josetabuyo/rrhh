@@ -38,11 +38,7 @@ public partial class FormulariosDeLicencia_Partes_SaldoOrdinaria : System.Web.UI
     {
         if (!IsPostBack)
         {
-
             WSViaticosSoapClient s = new WSViaticosSoapClient();
-            //WSViaticos.WSViaticos s = new WSViaticos.WSViaticos();
-
-            //WSAsistencia s = new WSAsistencia();  
             SaldoLicencia saldo;
             saldo = s.GetSaldoLicencia((Persona)Session["persona"], this.Concepto);
             Session["saldoLicencia"] = saldo;
@@ -50,6 +46,10 @@ public partial class FormulariosDeLicencia_Partes_SaldoOrdinaria : System.Web.UI
             {
                 InsertarDetalleDeSaldo(d);
             }
+
+            int segmento = s.GetSegmentosUtilizados();
+            this.LSDisponibles.Text = segmento.ToString() ;
+            this.LSDUtilizados.Text = (segmento + 1).ToString();
         }
         else
         {

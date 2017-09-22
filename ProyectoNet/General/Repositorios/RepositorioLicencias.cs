@@ -1169,5 +1169,9 @@ namespace General.Repositorios
         {
             this.conexion.Bulk(analisis, "LIC_LogSaldosCalculoLicencia");
         }
+
+        public int GetSegmentosUtilizados(int anio) {
+            return 1;
+        }
     }
 }
