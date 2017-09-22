@@ -615,37 +615,43 @@ namespace General.Repositorios
 
         }
 
-        public bool SolicitarRenovacionCredencial(int id_persona, string id_motivo, string id_organismo)
+        public bool SolicitarRenovacionCredencial(Usuario usuario_solicitante, string id_motivo, string id_organismo)
         {
             RepositorioDeTickets repo = new RepositorioDeTickets(this.conexion);
-            var id_ticket = repo.crearTicket("solicitud_credencial", id_persona);
+            var id_ticket = repo.crearTicket("solicitud_credencial", usuario_solicitante.Id);
 
          //   var id_motivo = GetMotivosBajaCredencial().Find(x => x.Descripcion.Trim().ToUpper() == motivo.Trim().ToUpper()).Id;
           //  List<MotivoBaja> motivos = GetMotivosBajaCredencial();
                                  
             var parametros = new Dictionary<string, object>();
-            parametros.Add("@IdPersona", id_persona);
+            parametros.Add("@IdPersona", usuario_solicitante.Owner.Id);
             parametros.Add("@IdTipoCredencial", 2); //2 Definitiva - 1 provisoria
             parametros.Add("@IdOrganismo", int.Parse(id_organismo));
             parametros.Add("@IdMotivo", int.Parse(id_motivo));
-            parametros.Add("@IdTicket", id_ticket);
+            parametros.Add("@IdTicketAprobacion", id_ticket);
             
             var tablaDatos = conexion.Ejecutar("dbo.Acre_InsSolicitudCredencial", parametros);
 
             return true;
         }
 
-        public bool AprobarSolicitudCredencial(SolicitudCredencial solicitud, Usuario usuario)
+        public bool AprobarSolicitudCredencial(SolicitudCredencial solicitud, Usuario usuario_aprobador)
         {
-            //RepositorioDeTickets repo = new RepositorioDeTickets(this.conexion);
-            //var id_ticket = repo.crearTicket("impresion_credencial", usuario.Owner.Id);
+            RepositorioDeTickets repo = new RepositorioDeTickets(this.conexion);
+            var id_ticket_impresion = repo.crearTicket("impresion_credencial", usuario_aprobador.Id);
 
             var parametros = new Dictionary<string, object>();
-            parametros.Add("@IdPersona", usuario.Owner.Id);
-            parametros.Add("@IdSolicitud ", solicitud.Id); 
+            parametros.Add("@IdPersona", usuario_aprobador.Owner.Id);
+            parametros.Add("@IdSolicitud ", solicitud.Id);
+            parametros.Add("@IdTicketImpresion ", id_ticket_impresion); 
 
             var tablaDatos = conexion.Ejecutar("dbo.Acre_AprobarSolicitudCredencial", parametros);
 
+            var repo_usuarios = new RepositorioDeUsuarios(this.conexion, RepositorioDePersonas.NuevoRepositorioDePersonas(this.conexion));
+
+            var usuario_solicitante = repo_usuarios.GetUsuarioPorIdPersona(solicitud.IdPersona);
+            new RepositorioDeAlertasPortal(this.conexion)
+                .crearAlerta("Solicitud de Credencial", "Tu solicitud ha sido aprobada, se le avisará cuando esté impresa", usuario_solicitante.Id, usuario_aprobador.Id);
             return true;
         }
 
