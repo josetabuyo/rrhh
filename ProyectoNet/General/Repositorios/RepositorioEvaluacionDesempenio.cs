@@ -88,7 +88,7 @@ namespace General.Repositorios
                 {
                     if (!cache.ContainsKey(idArea))
                     {
-                        cache.Add(idArea, new DescripcionAreaEvaluacion(row.GetString("Organismo", ""), row.GetString("Secretaria", ""), row.GetString("Subsecretaria", ""), row.GetString("DireccionNacional", ""), row.GetString("Area_Coordinacion", ""), codigo));
+                        cache.Add(idArea, new DescripcionAreaEvaluacion(row.GetString("Organismo", ""), row.GetString("Secretaria", ""), row.GetString("Subsecretaria", ""), row.GetString("DireccionNacional", ""), row.GetString("Area_Coordinacion", ""), row.GetString("Nombre_Area", ""), codigo));
                     }
                 }
                 );
@@ -130,10 +130,13 @@ namespace General.Repositorios
 
             if (tablaDatos.Rows.Count > 0)
             {
+
                 var id_evaluacion_anterior = 0;
                 var id_evaluado_anterior = 0;
                 tablaDatos.Rows.ForEach(row =>
                 {
+                    evaluador.area = GetDescripcionAreaEvaluacion(row.GetInt("id_area_ue", 0), cache_areas, row.GetString("codigo_unidad_eval", ""));
+
                     if (primer_row == true)
                     {
                         primer_row = false;

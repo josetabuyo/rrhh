@@ -32,11 +32,12 @@ namespace General
         public int Partido { get; set; }
         public string NombreLocalidad { get; set; }
         public string NombreProvincia { get; set; }
+          
+        public int IdDocumentoGDE { get; set; }
 
         public string NombrePartido { get; set; }
-        public string telefono { get; set; }
-        public string mailParticular { get; set; }
-
+        public string Telefono { get; set; }
+        public string MailParticular { get; set; }
 
         public CvDomicilio(int id, string calle, int numero, string piso, string depto, int localidad, int cp, int provincia)
         {
@@ -51,7 +52,7 @@ namespace General
 
         }
 
-        public CvDomicilio(int id, string calle, int numero, string piso, string depto, Localidad localidad, int cp, Provincia provincia, string manzana, string casa, string barrio, string torre, string uf)
+        public CvDomicilio(int id, string calle, int numero, string piso, string depto, Localidad localidad, int cp, Provincia provincia, string manzana, string casa, string barrio, string torre, string uf, int idDocumentoGDE)
         {
             this._calle = calle;
             this._numero = numero;
@@ -69,10 +70,11 @@ namespace General
             this.Uf = uf;
             this.Casa = casa;
             this.Barrio = barrio;
+            this.IdDocumentoGDE = idDocumentoGDE;
 
         }
 
-        public CvDomicilio(int id, string calle, int numero, string piso, string depto, Localidad localidad, int cp, Provincia provincia, string manzana, string casa, string barrio, string torre, string uf,string nombrePartido,string telefono,string mailParticular)
+        public CvDomicilio(int id, string calle, int numero, string piso, string depto, Localidad localidad, int cp, Provincia provincia, string manzana, string casa, string barrio, string torre, string uf, int idDocumentoGDE, string nombrePartido, string telefono, string mailParticular)
         {
             this._calle = calle;
             this._numero = numero;
@@ -90,10 +92,11 @@ namespace General
             this.Uf = uf;
             this.Casa = casa;
             this.Barrio = barrio;
+            this.IdDocumentoGDE = idDocumentoGDE;
 
             this.NombrePartido = nombrePartido;
-            this.telefono = telefono;
-            this.mailParticular = mailParticular;
+            this.Telefono = telefono;
+            this.MailParticular = mailParticular;
 
         }
 
