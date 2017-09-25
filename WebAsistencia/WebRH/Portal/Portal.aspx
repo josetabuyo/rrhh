@@ -245,6 +245,23 @@
             $('#btnOrganigrama').click(function () {
                 window.location.href = 'Organigrama.aspx';
             });
+            ///////////////agrego funcion inicial de generacion
+ /*           $('#btnGenerarPDF').click(function () {
+
+                alertify.success("Solicitud creada.");
+
+                Backend.GenerarPDFCambioDomicilio()
+                            .onSuccess(function (rpta) {
+                                alertify.success("PDF creado");
+                                /////////abre una ventana y descarga el formulario
+                                window.open("data:application/pdf;base64," + rpta, '_blank');
+
+                            })
+                            .onError(function (e) {
+
+                            });
+
+            });*/
 
         });
 
@@ -280,5 +297,9 @@
         );
         });*/
     </script>
+ <!--   <div style="display:nonexxx; color:Red;" id="mensajeCambioDomicilioPendiente">
+                        <span>Solicitud Pendiente de Aprobación</span>
+                        <input id="btnGenerarPDF" value="Generar PDF" class="btn btn-primary" type="button" />
+                    </div>-->
 </body>
 </html>

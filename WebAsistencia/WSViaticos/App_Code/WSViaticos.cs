@@ -29,6 +29,7 @@ using General.MED;
 //using PdfPrinter.Core.Common;
 //using PdfPrinter.Core.Configuration;
 using System.Web.Hosting;
+using System.Drawing;
 
 
 [WebService(Namespace = "http://wsviaticos.gov.ar/")]
@@ -4247,6 +4248,11 @@ public class WSViaticos : System.Web.Services.WebService
         return new RepositorioDeImagenes(Conexion()).SubirImagen(bytes_imagen);
     }
 
+    [WebMethod]
+    public byte[] GetThumbnailPDF(int id_imagen, int alto, int ancho)
+    {
+        return new RepositorioDeImagenes(Conexion()).GetThumbnailPDF(id_imagen, alto, ancho);
+    }
 
     #endregion
     #region Portal
@@ -4412,18 +4418,36 @@ public class WSViaticos : System.Web.Services.WebService
     public string GenerarPDFCambioDomicilio(Usuario usuario)
     {
         RepositorioLegajo repo = RepoLegajo();
+        Persona p = GetPersonaUsuarioLogueado(usuario);
 
-        return repo.GetDomicilioPendientePorPersona(usuario.Owner.Id);
+        //datos del nuevo domicilio
+        CvDomicilio domicilioNuevo = JsonConvert.DeserializeObject<CvDomicilio>(repo.GetDomicilioPendientePorPersona(usuario.Owner.Id));
 
+        //imagen de la persona
+       // Imagen img = GetImagen(p.IdImagen);
+        //redimensiono la imagen a 4x4
+        
+        //obtengo la imagen de la persona ya escalada a 78x77
+        byte[] bytes_img = GetThumbnailPDF(p.IdImagen, 80, 80);
 
-       /* var modelo_para_pdf = new List<object>() { asignacion, usuario };
-        var converter = new EvaluacionDeDesempenioToPdfConverter();
+        //convierto el string que representa a la imagen en un arreglo de bytes
+//        ImageConverter _imageConverter = new ImageConverter();
+//        byte[] xByte = (byte[])_imageConverter.ConvertTo(img.bytes, typeof(byte[]));
+        
+        Area area = JsonConvert.DeserializeObject<Area>(getAreaDeLaPersona(usuario));
+        
+        Area sup = GetAreaSuperiorA(area);
+
+        var modelo_para_pdf = new List<object>() { usuario, p, domicilioNuevo, area, sup };
+        var converter = new ActualizacionDomicilioToPdfConverter();
         var mapa_para_pdf = converter.CrearMapa(modelo_para_pdf);
-
         var creador_pdf = new CreadorDePdfs();
 
-        byte[] bytes = creador_pdf.FillPDF(TemplatePath("Formulario Evaluacion.pdf"), "Evaluacion de Desempeño", mapa_para_pdf);
-        return Convert.ToBase64String(bytes);*/
+        byte[] bytes = creador_pdf.FillPDF(TemplatePath("CambioDomicilio.pdf"), "Actualizacion de Domicilio", mapa_para_pdf);
+        byte[] bytes2 = creador_pdf.AgregarImagenAPDF(bytes, bytes_img);
+        
+        return Convert.ToBase64String(bytes2);
+
 
     }
 

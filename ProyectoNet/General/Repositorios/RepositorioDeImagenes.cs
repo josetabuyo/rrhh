@@ -116,6 +116,25 @@ namespace General.Repositorios
             return bmPhoto;
         }
 
+        //crea una imagen escalada y retorna los bytes que representan a la imagen
+        public byte[] GetThumbnailPDF(int id_imagen, int alto, int ancho)
+        {
+            var imagen_original = GetImagen(id_imagen);  
+
+            byte[] imageBytes = Convert.FromBase64String(imagen_original.bytes);
+            MemoryStream ms = new MemoryStream(imageBytes, 0, imageBytes.Length);
+
+            ms.Write(imageBytes, 0, imageBytes.Length);
+            Image imagen = Image.FromStream(ms, true);
+
+            var imagen_resizeada = FixedSize(imagen, ancho, alto);
+
+            var ms_thumb = new MemoryStream();
+            imagen_resizeada.Save(ms_thumb, System.Drawing.Imaging.ImageFormat.Jpeg);
+            imageBytes = ms_thumb.ToArray();
+           // Image returnImage = Image.FromStream(ms_thumb);
+            return imageBytes;
+        }
 
     }
 }

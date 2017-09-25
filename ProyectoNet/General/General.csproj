@@ -124,6 +124,7 @@
     <Compile Include="MED\PeriodoEvaluacion.cs" />
     <Compile Include="Organigrama\GraficoContratos.cs" />
     <Compile Include="Organigrama\PersonaContrato.cs" />
+    <Compile Include="pdfs\ActualizacionDomicilioToPdfConverter.cs" />
     <Compile Include="pdfs\CreadorDePdfs.cs" />
     <Compile Include="pdfs\EvaluacionDeDesempenioToPdfConverter.cs" />
     <Compile Include="pdfs\ModeloToPdfConverter.cs" />

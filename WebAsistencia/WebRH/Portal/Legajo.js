@@ -181,7 +181,8 @@ var Legajo = {
                     Backend.GenerarPDFCambioDomicilio()
                             .onSuccess(function (rpta) {
                                 alertify.success("PDF creado");
-                                //window.open("data:application/pdf;base64," + rpta, '_blank');
+                                /////////abre una ventana y descarga el formulario
+                                window.open("data:application/pdf;base64," + rpta, '_blank');
 
                             })
                             .onError(function (e) {
