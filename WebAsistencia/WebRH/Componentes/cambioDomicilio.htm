@@ -15,30 +15,34 @@
     </style>
 
 <div>
-<h2 style="text-align:center">Cambio Domicilio</h2>
-<br />
-<h4>Solicitado por: <span id="nombreUsuario"></span> el día <span id="fechaCreacion"></span> </h4>
+    <h2 style="text-align:center">Cambio Domicilio</h2>
+    <br />
+    <h4>Solicitado por: <span id="nombreUsuario"></span> el día <span id="fechaCreacion"></span> </h4>
 
-<fieldset class="fieldsetCambioDomicilio">
+    <fieldset class="fieldsetCambioDomicilio">
 
-<p class="componenteCambioDomicilio">Dirección:  <strong id="calle"></strong> N°<strong id="numero"></strong></p>
-<p class="componenteCambioDomicilio">Piso: <strong id="piso"></strong> Depto:<strong id="depto"></strong></p>
- <p class="componenteCambioDomicilio">Localidad: <strong id="localidad"></strong></p>
- <p class="componenteCambioDomicilio">Provincia: <strong id="provincia"></strong></p>
- <p class="componenteCambioDomicilio"><strong id="manzana"></strong> <strong id="casa"></strong> <strong id="barrio"></strong> <strong id="torre"></strong> <strong id="uf"></strong> </p>
- <p class="componenteCambioDomicilio">Folio: <input style="height: 30px; width: 120px;" type="text" placeholder="N° Folio" value="0" id="folio" /></p>
- <p class="componenteCambioDomicilio">Id. Doc. Electronico: <input style="height: 30px; width: 120px;" type="text" placeholder="N° Folio" value="0" id="idDocumentoGDE" /></p>
-
- <div style="text-align:center;">
-    <input type="button" class="btn btn-primary" id="btnConfirmarDomicilio" value="Confirmar" />
-    <input type="button" class="btn btn-primary" id="btnCancelarDomicilio" value="Cancelar" />
-<!--    <input type="button" class="btn btn-primary" id="btnDelegarDomicilio" value="Delegar" />-->
-</div>
-
-</fieldset>
+    <p class="componenteCambioDomicilio">Dirección:  <strong id="calle"></strong>. N° <strong id="numero"></strong>. Piso: <strong id="piso"></strong> Depto:<strong id="depto"></strong></p>
+    <!--<p class="componenteCambioDomicilio">Piso: <strong id="piso"></strong> Depto:<strong id="depto"></strong></p>-->
+     <p class="componenteCambioDomicilio">Localidad: <strong id="localidad"></strong> - Provincia: <strong id="provincia"></strong></p>
+     <!--<p class="componenteCambioDomicilio">Provincia: <strong id="provincia"></strong></p>-->
+     <p class="componenteCambioDomicilio"><strong id="manzana"></strong> <strong id="casa"></strong> <strong id="barrio"></strong> <strong id="torre"></strong> <strong id="uf"></strong> </p>
+     <!--<p class="componenteCambioDomicilio">Folio: <input style="height: 30px; width: 120px;" type="text" placeholder="N° Folio" value="0" id="folio" /></p>-->
+     <p class="componenteCambioDomicilio">Id. Doc. Electronico: <strong style="height: 30px; width: 120px;" id="idDocumentoGDE"></strong>. 
+                                            N° Informe GDE: <input style="height: 30px; width: 120px;" type="text" placeholder="N° Informe" value="0" id="numeroGDE" />
+     </p>
 
 
 
+    </fieldset>
+
+
+     <div style="position: absolute; bottom: 5px; right: 10px;">
+        <input type="button" class="btn btn-primary" id="btnConfirmarDomicilio" value="Confirmar" />
+        <input type="button" class="btn btn-primary" id="btnActualizarNumeroGDE" value="Actualizar N° GDE" />
+        <input type="button" class="btn btn-error" id="btnRechazarCambioDomicilio" value="Rechazar" />
+        <input type="button" class="btn" id="btnCancelarDomicilio" value="Volver" />
+    <!--    <input type="button" class="btn btn-primary" id="btnDelegarDomicilio" value="Delegar" />-->
+    </div>
 
 
 </div>
@@ -65,6 +69,59 @@
                 }).onError(function () {
                     alertify.error("Ha ocurrido un error. Por favor comuniquese con RRHH")
                 });
+            });
+
+            ui.find('#btnActualizarNumeroGDE').click(function () {
+                if (ui.find('#numeroGDE').val() == '') {
+                    alert('Debe ingresar un N° de INFORME');
+                    return;
+                }
+
+
+                var numeroGDE = ui.find('#numeroGDE').val();
+                var idDocumentoGDE = ui.find('#idDocumentoGDE').html();
+
+                Backend.ActualizarNumeroGDEDomicilioPendiente(numeroGDE, idDocumentoGDE)
+                    .onSuccess(function (respuesta) {
+
+                    alertify.success("Numero Informe GDE Actualizado.");
+                    //vex.dialog.alert('Solicitud de cambio de domicilio generada. Presente el formulario impreso a RRHH');
+                    _this.getDatosPersonales();
+                    vex.close();
+
+
+                })
+                .onError(function (e) {
+
+                });
+            });
+
+            ui.find('#btnRechazarCambioDomicilio').click(function () {
+                alertify.prompt('INGRESAR MOTIVO RECHAZO', 'Ingrese un motivo de rechazo', 'Por ',
+                        function (evt, value) {
+                            if (value == '') {
+                                alert('Debe completar un motivo');
+                                return;
+                            }
+
+
+                            var motivo = value;
+                           
+                            Backend.RechazarCambioDomicilio(idTicket, motivo, idUsuarioCreador)
+                                .onSuccess(function (resultado) {
+                                    alertify.success(resultado);
+                                    vex.close();
+
+                                }).onError(function () {
+                                    alertify.error("Ha ocurrido un error. Por favor comuniquese con RRHH")
+                                });
+                        },
+                        function () {
+                            alertify.error('Cancelado')
+                        });
+
+
+               
             });
 
             ui.find('#btnCancelarDomicilio').click(function () {
@@ -95,7 +152,8 @@
                     ui.find('#torre').html(domicilio.Torre);
                     ui.find('#barrio').html(domicilio.Barrio);
                     ui.find('#uf').html(domicilio.Uf);
-                    ui.find('#idDocumentoGDE').html(domicilio.IdDocumentoGDE); 
+                    ui.find('#idDocumentoGDE').html(domicilio.DocumentoGDE.idDocumentoGDE);
+                    ui.find('#numeroGDE').val(domicilio.DocumentoGDE.numero); 
 
                 });
         }

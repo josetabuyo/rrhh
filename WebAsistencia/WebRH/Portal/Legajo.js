@@ -92,6 +92,15 @@ var Legajo = {
                             if (domicilio.Id != 0) {
                                 $('#mensajeCambioDomicilioPendiente').show();
                                 $('#btnMostrarDomicilio').hide();
+                                if (domicilio.DocumentoGDE.numero != '') {
+                                    $('#numeroGDECambioDomicilio').html(domicilio.DocumentoGDE.numero);
+                                } else {
+                                    $('#numeroGDECambioDomicilio').html('Pendiente');
+                                }
+
+
+                                $('#numeroGDE').val(domicilio.DocumentoGDE.numero);
+                                $('#idDocumentoGDE').val(domicilio.DocumentoGDE.idDocumentoGDE);
                             }
 
                         })
@@ -172,7 +181,85 @@ var Legajo = {
                     //$('#cajaCambiarDomicilio').show();
                 });
 
+                $('#btnMostrarDialogoActualizarGDE').click(function () {
 
+                    alertify.prompt('INGRESAR NUMERO GDE', 'Ingrese un N° de INFORME GDE', 'IF-2017-xxx',
+                        function (evt, value) {
+                            if (value == '') {
+                                alert('Debe completar el numero de GDE');
+                                return;
+                            }
+
+
+                            var numeroGDE = value;
+                            var idDocumentoGDE = $('#idDocumentoGDE').val();
+
+                            Backend.ActualizarNumeroGDEDomicilioPendiente(numeroGDE, idDocumentoGDE)
+                                    .onSuccess(function (respuesta) {
+
+                                        alertify.success("Numero Informe GDE Actualizado.");
+                                        //vex.dialog.alert('Solicitud de cambio de domicilio generada. Presente el formulario impreso a RRHH');
+                                        _this.getDatosPersonales();
+                                        vex.close();
+
+
+                                    })
+                                    .onError(function (e) {
+
+                                    });
+                        },
+                        function () {
+                            alertify.error('Cancelado') 
+                        });
+
+
+//                    vex.defaultOptions.className = 'vex-theme-os';
+//                    vex.open({
+//                        afterOpen: function ($vexContent) {
+//                            var ui = $("#cajaActualizarGDE").clone();
+//                            $vexContent.append(ui);
+//                            ui.show();
+
+//                            ui.find('#btnCambiarDomicilio').click(function () {
+
+//                                if (ui.find('#numeroGDE').val() == '') {
+//                                    alert('Debe completar el numero de GDE');
+//                                    return;
+//                                }
+
+
+//                                var numeroGDE = ui.find('#numeroGDE').val();
+//                                var idDocumentoGDE = ui.find('#idDocumentoGDE').val();
+
+//                                Backend.ActualizarNumeroGDEDomicilioPendiente(numeroGDE, idDocumentoGDE)
+//                                    .onSuccess(function (respuesta) {
+
+//                                        alertify.success("Numero Informe GDE Actualizado.");
+//                                        //vex.dialog.alert('Solicitud de cambio de domicilio generada. Presente el formulario impreso a RRHH');
+//                                        _this.getDatosPersonales();
+//                                        vex.close();
+
+
+//                                    })
+//                                    .onError(function (e) {
+
+//                                    });
+//                            });
+
+//                            return ui;
+//                        },
+//                        css: {
+//                            'padding-top': "4%",
+//                            'padding-bottom': "0%"
+//                        },
+//                        contentCSS: {
+//                            width: "50%",
+//                            height: "330px"
+//                        }
+//                    });
+
+
+                });
 
                 $('#btnGenerarPDF').click(function () {
 

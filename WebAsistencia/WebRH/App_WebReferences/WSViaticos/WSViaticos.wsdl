@@ -1,35 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://wsviaticos.gov.ar/">
-      <s:element name="GuardarDomicilioPendiente">
+      <s:element name="ActualizarNumeroGDEDomicilioPendiente">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="domicilio" type="tns:CvDomicilio" />
+            <s:element minOccurs="0" maxOccurs="1" name="numeroGDE" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="CvDomicilio">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Calle" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="Numero" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Piso" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Depto" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="Localidad" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="Cp" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="Provincia" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Manzana" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Barrio" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Casa" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Torre" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Uf" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="Partido" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="NombreLocalidad" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="NombreProvincia" type="s:string" />
-        </s:sequence>
-      </s:complexType>
       <s:complexType name="Usuario">
         <s:sequence>
           <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
@@ -212,6 +193,68 @@
           <s:element minOccurs="1" maxOccurs="1" name="SoloParaVerificados" type="s:boolean" />
           <s:element minOccurs="1" maxOccurs="1" name="SoloParaEmpleados" type="s:boolean" />
           <s:element minOccurs="1" maxOccurs="1" name="basica" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ActualizarNumeroGDEDomicilioPendienteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ActualizarNumeroGDEDomicilioPendienteResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RechazarCambioDomicilio">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idAlerta" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="motivo" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="idUsuarioCreador" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RechazarCambioDomicilioResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RechazarCambioDomicilioResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarDomicilioPendiente">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="domicilio" type="tns:CvDomicilio" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="CvDomicilio">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Calle" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Numero" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Piso" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Depto" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Localidad" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cp" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Provincia" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Manzana" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Barrio" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Casa" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Torre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Uf" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Partido" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="NombreLocalidad" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NombreProvincia" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdDocumentoGDE" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="DocumentoGDE" type="tns:DocumentoGDE" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DocumentoGDE">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="numero" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="idDocumentoGDE" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="verificado" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
         </s:sequence>
       </s:complexType>
       <s:element name="GuardarDomicilioPendienteResponse">
@@ -7276,6 +7319,18 @@
       </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="ActualizarNumeroGDEDomicilioPendienteSoapIn">
+    <wsdl:part name="parameters" element="tns:ActualizarNumeroGDEDomicilioPendiente" />
+  </wsdl:message>
+  <wsdl:message name="ActualizarNumeroGDEDomicilioPendienteSoapOut">
+    <wsdl:part name="parameters" element="tns:ActualizarNumeroGDEDomicilioPendienteResponse" />
+  </wsdl:message>
+  <wsdl:message name="RechazarCambioDomicilioSoapIn">
+    <wsdl:part name="parameters" element="tns:RechazarCambioDomicilio" />
+  </wsdl:message>
+  <wsdl:message name="RechazarCambioDomicilioSoapOut">
+    <wsdl:part name="parameters" element="tns:RechazarCambioDomicilioResponse" />
+  </wsdl:message>
   <wsdl:message name="GuardarDomicilioPendienteSoapIn">
     <wsdl:part name="parameters" element="tns:GuardarDomicilioPendiente" />
   </wsdl:message>
@@ -9383,6 +9438,14 @@
     <wsdl:part name="parameters" element="tns:IniciarServicioDeAlertasResponse" />
   </wsdl:message>
   <wsdl:portType name="WSViaticosSoap">
+    <wsdl:operation name="ActualizarNumeroGDEDomicilioPendiente">
+      <wsdl:input message="tns:ActualizarNumeroGDEDomicilioPendienteSoapIn" />
+      <wsdl:output message="tns:ActualizarNumeroGDEDomicilioPendienteSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RechazarCambioDomicilio">
+      <wsdl:input message="tns:RechazarCambioDomicilioSoapIn" />
+      <wsdl:output message="tns:RechazarCambioDomicilioSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GuardarDomicilioPendiente">
       <wsdl:input message="tns:GuardarDomicilioPendienteSoapIn" />
       <wsdl:output message="tns:GuardarDomicilioPendienteSoapOut" />
@@ -10790,6 +10853,24 @@
   </wsdl:portType>
   <wsdl:binding name="WSViaticosSoap" type="tns:WSViaticosSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ActualizarNumeroGDEDomicilioPendiente">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ActualizarNumeroGDEDomicilioPendiente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RechazarCambioDomicilio">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/RechazarCambioDomicilio" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GuardarDomicilioPendiente">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarDomicilioPendiente" style="document" />
       <wsdl:input>
@@ -13952,6 +14033,24 @@
   </wsdl:binding>
   <wsdl:binding name="WSViaticosSoap12" type="tns:WSViaticosSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ActualizarNumeroGDEDomicilioPendiente">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ActualizarNumeroGDEDomicilioPendiente" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RechazarCambioDomicilio">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/RechazarCambioDomicilio" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GuardarDomicilioPendiente">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarDomicilioPendiente" style="document" />
       <wsdl:input>

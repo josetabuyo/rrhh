@@ -48,8 +48,41 @@ namespace General.Repositorios
         }
 
 
+        public bool GDE_UPD_DocumentoGDE (string numeroGDE, int id,  Usuario usuario) {
+            try
+            {
+                var parametros = new Dictionary<string, object>();
+                //parametros.Add("@idDocumento", idDocumento);
+                parametros.Add("@codigo_gde", numeroGDE);
+                parametros.Add("@id", id);
+                //parametros.Add("@verificado", verificado);
+
+                _conexion.Ejecutar("dbo.GDE_UPD_DocumentoGDE", parametros);
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        
+        }
 
 
 
+        protected override List<DocumentoGDE> ObtenerDesdeLaBase()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void GuardarEnLaBase(DocumentoGDE objeto)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void QuitarDeLaBase(DocumentoGDE objeto)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
