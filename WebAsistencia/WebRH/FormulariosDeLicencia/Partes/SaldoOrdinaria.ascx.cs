@@ -86,6 +86,8 @@ public partial class FormulariosDeLicencia_Partes_SaldoOrdinaria : System.Web.UI
         {
             segmento = 2;
         }
+        this.SegmentosDisponibles = (2 - segmento);
+        this.SegmentosUtilizados = segmento;
         this.LSDUtilizados.Text = segmento.ToString();
         this.LSDisponibles.Text = (2 - segmento).ToString();
     }
