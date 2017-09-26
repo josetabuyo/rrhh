@@ -1170,8 +1170,22 @@ namespace General.Repositorios
             this.conexion.Bulk(analisis, "LIC_LogSaldosCalculoLicencia");
         }
 
-        public int GetSegmentosUtilizados(int anio) {
-            return 1;
+        public int GetSegmentosUtilizados(int documento, int anio) {
+            
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@Nro_Documento", documento);
+            parametros.Add("@PeriodoAnual", anio);
+
+            var tablaDatos = this.conexion.Ejecutar("ASIS_GET_PeriodosLic_DelAnio", parametros);
+
+            if (tablaDatos.Rows.Count > 0)
+            {
+                return tablaDatos.Rows.First().GetInt("Periodos");
+            }
+            else {
+                return 0;
+            }
+
         }
     }
 }

@@ -31,6 +31,6 @@ namespace General.Repositorios
 
         void LoguearDetalleCalculoLicencia(SolicitudesDeVacaciones aprobadas, int anio, Persona persona, DateTime fecha_calculo, bool ya_imputados, bool error);
 
-        int GetSegmentosUtilizados(int anio);
+        int GetSegmentosUtilizados(int documento, int anio);
     }
 }

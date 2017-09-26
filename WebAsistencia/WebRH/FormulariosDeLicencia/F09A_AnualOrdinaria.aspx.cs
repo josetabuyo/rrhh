@@ -100,6 +100,9 @@ ESTA SOLICITUD DEBE SER RECIBIDA EN LA DIRECCION DE ADMINISTRACIÓN DE PERSONAL 
     {
         this.ValidarDatos();
         this.SaldoOrdinaria1.DiasSolicitados = this.DesdeHasta1.DiasEntreFechas();
+        this.SaldoOrdinaria1.BuscarSegmentos( this.DesdeHasta1.Desde);
+
+        
     }
 
     protected void RBOtorgada_CheckedChanged(object sender, EventArgs e)

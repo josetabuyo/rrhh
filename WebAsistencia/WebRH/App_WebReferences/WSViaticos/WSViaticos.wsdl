@@ -6572,7 +6572,12 @@
         </s:complexType>
       </s:element>
       <s:element name="GetSegmentosUtilizados">
-        <s:complexType />
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="unaPersona" type="tns:Persona" />
+            <s:element minOccurs="1" maxOccurs="1" name="desde" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
       </s:element>
       <s:element name="GetSegmentosUtilizadosResponse">
         <s:complexType>
