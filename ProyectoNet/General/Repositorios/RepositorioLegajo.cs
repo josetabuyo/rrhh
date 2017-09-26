@@ -629,7 +629,7 @@ namespace General.Repositorios
             parametros.Add("@IdTipoCredencial", 2); //2 Definitiva - 1 provisoria
             parametros.Add("@IdOrganismo", int.Parse(id_organismo));
             parametros.Add("@IdMotivo", int.Parse(id_motivo));
-            parametros.Add("@IdTicketAprobacion", id_ticket);
+            parametros.Add("@IdTicket", id_ticket);
             
             var tablaDatos = conexion.Ejecutar("dbo.Acre_InsSolicitudCredencial", parametros);
 
@@ -743,6 +743,32 @@ namespace General.Repositorios
 
             return credenciales;
         }
+
+
+        public List<SolicitudCredencial> GetSolicitudesDeCredencialPorPersona(int id_persona)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@IdPersona", id_persona);
+
+            var tablaDatos = conexion.Ejecutar("dbo.Acre_GetSolicitudesCredencialPorIdPersona", parametros);
+
+            List<SolicitudCredencial> solicitudes = new List<SolicitudCredencial>();
+
+            if (tablaDatos.Rows.Count > 0)
+            {
+                tablaDatos.Rows.ForEach(row =>
+                {
+                    solicitudes.Add(new SolicitudCredencial(row.GetInt("Id"), row.GetInt("IdPersona"), row.GetInt("IdTipoCredencial"), row.GetString("IdMotivo"), row.GetString("IdOrganismo"), row.GetString("Estado"), row.GetInt("IdTicketAprobacion", 0), row.GetInt("IdTicketimpresion", 0), row.GetDateTime("Fecha")));
+
+                });
+            }
+            else
+            {
+                solicitudes.Add(new SolicitudCredencial(0, 0,0,"","","",0,0 ,DateTime.MinValue));
+            }
+            return solicitudes;
+        }
+
 
         public SolicitudCredencial GetSolicitudDeCredencialPorIdTicket(int id_ticket)
         {
@@ -1211,5 +1237,7 @@ namespace General.Repositorios
         {
             throw new NotImplementedException();
         }
+
+      
     }
 }

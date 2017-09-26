@@ -52,8 +52,9 @@
                 
               <%--  <div><a id="btn_credencial_vigente">Ver credencial vigente</a></div>--%>
               <div style = "width:100%;text-align: center;">
-
+                
                 <div  style="display: inline-block;" > <button type="button" id="btn_credencial_vigente" class="btn btn-primary">Ver credencial vigente</button></div>
+                <div  style="display: inline-block;" > <button type="button" id="btn_aviso_solicitud" class="btn btn-danger">Tiene una solicitud pendiente de aprobación</button></div>
                 <div  style="display: inline-block;" > <button type="button" id="btn_renovar_credencial" class="btn btn-primary">Solicitar nueva credencial</button></div>
                 <div  style="display: inline-block;" > <button type="button" id="btn_historial_credenciales" class="btn btn-primary">Historial de credenciales</button></div>
                 
@@ -236,7 +237,8 @@
         $("#texto_deterioro").hide();
         $("#texto_robo").hide();
         $("#texto_seleccione_motivo").hide();
-
+        $("#btn_aviso_solicitud").hide();
+        $("#btn_renovar_credencial").hide();
 
 
         Backend.start(function () {
@@ -251,6 +253,26 @@
                 Legajo.getCredencialesUsuario();
 
             });
+
+
+            Backend.GetSolicitudesDeCredencialPorPersona().onSuccess(function (solicitudes) {
+
+                $.each(solicitudes, function (i, val) {
+
+                    if (solicitudes[i].Estado != "PENDIENTE") {
+                        $("#btn_aviso_solicitud").hide();
+                        $("#btn_renovar_credencial").show();                       
+                    }
+
+                    // alert(consultas[i].Estado);
+                });
+
+
+
+
+            });
+
+
 
             Backend.GetCredencialesTodasDePortal().onSuccess(function (credenciales) {
                 var credencial_vigente = _.find(credenciales, function (c) { return c.Estado == "VIGENTE" });
