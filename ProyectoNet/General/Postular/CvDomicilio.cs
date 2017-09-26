@@ -32,7 +32,9 @@ namespace General
         public int Partido { get; set; }
         public string NombreLocalidad { get; set; }
         public string NombreProvincia { get; set; }
-        public int IdDocumentoGDE { get; set; }
+        public string Telefono { get; set; }
+        public string Celular { get; set; }
+        public string Mail { get; set; }
         public DocumentoGDE DocumentoGDE { get; set; }
 
         public CvDomicilio(int id, string calle, int numero, string piso, string depto, int localidad, int cp, int provincia)
