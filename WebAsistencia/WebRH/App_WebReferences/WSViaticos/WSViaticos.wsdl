@@ -1,18 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://wsviaticos.gov.ar/">
-<<<<<<< HEAD
       <s:element name="GenerarPDFCambioDomicilio">
         <s:complexType>
           <s:sequence>
-=======
-      <s:element name="ActualizarNumeroGDEDomicilioPendiente">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="numeroGDE" type="s:string" />
-            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
->>>>>>> 84288385e7f067a0cd5f138c47c9a0ccb687990d
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
@@ -201,12 +193,22 @@
           <s:element minOccurs="1" maxOccurs="1" name="basica" type="s:boolean" />
         </s:sequence>
       </s:complexType>
-<<<<<<< HEAD
       <s:element name="GenerarPDFCambioDomicilioResponse">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="GenerarPDFCambioDomicilioResult" type="s:string" />
-=======
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ActualizarNumeroGDEDomicilioPendiente">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="numeroGDE" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="ActualizarNumeroGDEDomicilioPendienteResponse">
         <s:complexType>
           <s:sequence>
@@ -228,7 +230,6 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="RechazarCambioDomicilioResult" type="s:string" />
->>>>>>> 84288385e7f067a0cd5f138c47c9a0ccb687990d
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -258,13 +259,9 @@
           <s:element minOccurs="1" maxOccurs="1" name="Partido" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="NombreLocalidad" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="NombreProvincia" type="s:string" />
-<<<<<<< HEAD
-          <s:element minOccurs="0" maxOccurs="1" name="NombrePartido" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="telefono" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="mailParticular" type="s:string" />
-=======
-          <s:element minOccurs="1" maxOccurs="1" name="IdDocumentoGDE" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="DocumentoGDE" type="tns:DocumentoGDE" />
+          <s:element minOccurs="0" maxOccurs="1" name="Telefono" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Telefono2" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="DocumentoGDE">
@@ -273,7 +270,6 @@
           <s:element minOccurs="1" maxOccurs="1" name="idDocumentoGDE" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="verificado" type="s:boolean" />
           <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
->>>>>>> 84288385e7f067a0cd5f138c47c9a0ccb687990d
         </s:sequence>
       </s:complexType>
       <s:element name="GuardarDomicilioPendienteResponse">
@@ -7340,13 +7336,12 @@
       </s:element>
     </s:schema>
   </wsdl:types>
-<<<<<<< HEAD
   <wsdl:message name="GenerarPDFCambioDomicilioSoapIn">
     <wsdl:part name="parameters" element="tns:GenerarPDFCambioDomicilio" />
   </wsdl:message>
   <wsdl:message name="GenerarPDFCambioDomicilioSoapOut">
     <wsdl:part name="parameters" element="tns:GenerarPDFCambioDomicilioResponse" />
-=======
+  </wsdl:message>
   <wsdl:message name="ActualizarNumeroGDEDomicilioPendienteSoapIn">
     <wsdl:part name="parameters" element="tns:ActualizarNumeroGDEDomicilioPendiente" />
   </wsdl:message>
@@ -7358,7 +7353,6 @@
   </wsdl:message>
   <wsdl:message name="RechazarCambioDomicilioSoapOut">
     <wsdl:part name="parameters" element="tns:RechazarCambioDomicilioResponse" />
->>>>>>> 84288385e7f067a0cd5f138c47c9a0ccb687990d
   </wsdl:message>
   <wsdl:message name="GuardarDomicilioPendienteSoapIn">
     <wsdl:part name="parameters" element="tns:GuardarDomicilioPendiente" />
@@ -9467,11 +9461,10 @@
     <wsdl:part name="parameters" element="tns:IniciarServicioDeAlertasResponse" />
   </wsdl:message>
   <wsdl:portType name="WSViaticosSoap">
-<<<<<<< HEAD
     <wsdl:operation name="GenerarPDFCambioDomicilio">
       <wsdl:input message="tns:GenerarPDFCambioDomicilioSoapIn" />
       <wsdl:output message="tns:GenerarPDFCambioDomicilioSoapOut" />
-=======
+    </wsdl:operation>
     <wsdl:operation name="ActualizarNumeroGDEDomicilioPendiente">
       <wsdl:input message="tns:ActualizarNumeroGDEDomicilioPendienteSoapIn" />
       <wsdl:output message="tns:ActualizarNumeroGDEDomicilioPendienteSoapOut" />
@@ -9479,7 +9472,6 @@
     <wsdl:operation name="RechazarCambioDomicilio">
       <wsdl:input message="tns:RechazarCambioDomicilioSoapIn" />
       <wsdl:output message="tns:RechazarCambioDomicilioSoapOut" />
->>>>>>> 84288385e7f067a0cd5f138c47c9a0ccb687990d
     </wsdl:operation>
     <wsdl:operation name="GuardarDomicilioPendiente">
       <wsdl:input message="tns:GuardarDomicilioPendienteSoapIn" />
@@ -10888,10 +10880,15 @@
   </wsdl:portType>
   <wsdl:binding name="WSViaticosSoap" type="tns:WSViaticosSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-<<<<<<< HEAD
     <wsdl:operation name="GenerarPDFCambioDomicilio">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GenerarPDFCambioDomicilio" style="document" />
-=======
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ActualizarNumeroGDEDomicilioPendiente">
       <soap:operation soapAction="http://wsviaticos.gov.ar/ActualizarNumeroGDEDomicilioPendiente" style="document" />
       <wsdl:input>
@@ -10903,7 +10900,6 @@
     </wsdl:operation>
     <wsdl:operation name="RechazarCambioDomicilio">
       <soap:operation soapAction="http://wsviaticos.gov.ar/RechazarCambioDomicilio" style="document" />
->>>>>>> 84288385e7f067a0cd5f138c47c9a0ccb687990d
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -14073,10 +14069,15 @@
   </wsdl:binding>
   <wsdl:binding name="WSViaticosSoap12" type="tns:WSViaticosSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
-<<<<<<< HEAD
     <wsdl:operation name="GenerarPDFCambioDomicilio">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GenerarPDFCambioDomicilio" style="document" />
-=======
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ActualizarNumeroGDEDomicilioPendiente">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/ActualizarNumeroGDEDomicilioPendiente" style="document" />
       <wsdl:input>
@@ -14088,7 +14089,6 @@
     </wsdl:operation>
     <wsdl:operation name="RechazarCambioDomicilio">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/RechazarCambioDomicilio" style="document" />
->>>>>>> 84288385e7f067a0cd5f138c47c9a0ccb687990d
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

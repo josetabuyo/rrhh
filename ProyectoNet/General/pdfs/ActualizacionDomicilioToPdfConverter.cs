@@ -57,7 +57,17 @@ public class ActualizacionDomicilioToPdfConverter : ModeloToPdfConverter
 
         mapa.Add("Nombre_usu", usr.Owner.Apellido + ", " + usr.Owner.Nombre + " (" + usr.Owner.Documento.ToString() + ")");
         mapa.Add("Fecha_hora", DateTime.Now.ToString("dd/MM/yyyy hh:mm"));
-        mapa.Add("Identif_Formulario", domicilioNuevo.DocumentoGDE.ToString());
+
+        if (domicilioNuevo.DocumentoGDE != null)
+        {
+            mapa.Add("Identif_Formulario", domicilioNuevo.DocumentoGDE.numero);//en realidad es el campo numero el que va???
+        }
+        else
+        { //siempre va a haber un numero de gde?
+            mapa.Add("Identif_Formulario", "----");
+        }
+
+        
 
         return mapa;
     }
