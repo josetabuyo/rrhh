@@ -63,7 +63,7 @@ public class ActualizacionDomicilioToPdfConverter : ModeloToPdfConverter
             mapa.Add("Identif_Formulario", domicilioNuevo.DocumentoGDE.idDocumentoGDE.ToString());
         }
         else
-        { //siempre va a haber un numero de gde?
+        { //siempre va a haber un numero de gde, pero lo dejo porque puede cambiar al atributo numero interno de gde
             mapa.Add("Identif_Formulario", "----");
         }
 
