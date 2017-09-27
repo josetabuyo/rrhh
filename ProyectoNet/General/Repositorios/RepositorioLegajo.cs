@@ -971,7 +971,7 @@ namespace General.Repositorios
 
                     var tablaDatos = conexion.Ejecutar("dbo.Alta_DomicilioPersonal", parametros);
 
-                    this.borrarDomicilioPendiente(idTarea, idUsuarioVerificador);
+                    this.actualizarEstadoDomicilioPendiente(idTarea, idUsuarioVerificador, 1);
 
                     RepositorioDeTickets repo = new RepositorioDeTickets(this.conexion);
                     repo.MarcarEstadoTicket(idTarea, idUsuarioVerificador);
@@ -989,19 +989,46 @@ namespace General.Repositorios
                     throw new Exception(e.Message);
                 }
             }
-
-
-
-
         }
 
-        public bool borrarDomicilioPendiente(int idTarea, int idUsuario)
+        public string rechazarCambioDomicilio(int idTarea, string motivo, int idUsuarioDestinatario, int idUsuarioVerificador)
+        {
+
+            using (var tran = conexion.BeginTransaction())
+            {
+                try
+                {
+                    var parametros = new Dictionary<string, object>();
+                    parametros.Add("@idAlerta", idTarea);
+                   
+                    this.actualizarEstadoDomicilioPendiente(idTarea, idUsuarioVerificador, 0);
+
+                    RepositorioDeTickets repo = new RepositorioDeTickets(this.conexion);
+                    repo.MarcarEstadoTicket(idTarea, idUsuarioVerificador);
+
+                    RepositorioDeAlertasPortal repoAlerta = new RepositorioDeAlertasPortal(this.conexion);
+                    repoAlerta.crearAlerta("Rechazo de cambio de Domicilio", "Su solicitud de cambio de domicilio ha sido rechazado. Motivo: " + motivo, idUsuarioDestinatario, idUsuarioVerificador);
+
+                    tran.Commit();
+                    return JsonConvert.SerializeObject("Se ha rechazado el domicilio.");
+
+                }
+                catch (Exception e)
+                {
+                    tran.Rollback();
+                    throw new Exception(e.Message);
+                }
+            }
+        }
+
+        public bool actualizarEstadoDomicilioPendiente(int idTarea, int idUsuario, int estado)
         {
             //try
             // {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@idAlerta", idTarea);
             parametros.Add("@idUsuarioVerificador", idUsuario);
+            parametros.Add("@estado", estado);
 
             var tablaDatos = conexion.Ejecutar("dbo.LEG_UPD_DomicilioPendiente", parametros);
 
@@ -1030,8 +1057,7 @@ namespace General.Repositorios
 
                     //listaDomicilios.Add(new CvDomicilio(row.GetInt("id"), row.GetString("calle", ""), row.GetSmallintAsInt("nro", 0), row.GetString("piso", ""), row.GetString("dpto", ""), row.GetInt("localidad", 0), row.GetInt("cp", 0), row.GetInt("provincia", 0)))
 
-                    unDomicilio = new CvDomicilio(row.GetInt("id"), row.GetString("calle", ""), row.GetSmallintAsInt("nro", 0), row.GetString("piso", ""), row.GetString("dpto", ""), new Localidad(row.GetInt("idLocalidad"), row.GetString("nombreLocalidad")), row.GetInt("cp", 0), new Provincia(row.GetSmallintAsInt("idProvincia", 0), row.GetString("nombreProvincia", "")), row.GetString("manzana", ""), row.GetString("casa", ""), row.GetString("barrio", ""), row.GetString("torre", ""), row.GetString("uf", ""), row.GetInt("idDocumentoGDE"), row.GetString("Descripcion", ""), row.GetString("telefono", ""), row.GetString("Correo_Electronico", ""))
-
+                    unDomicilio = new CvDomicilio(row.GetInt("id"), row.GetString("calle", ""), row.GetSmallintAsInt("nro", 0), row.GetString("piso", ""), row.GetString("dpto", ""), new Localidad(row.GetInt("idLocalidad"), row.GetString("nombreLocalidad")), row.GetInt("cp", 0), new Provincia(row.GetSmallintAsInt("idProvincia", 0), row.GetString("nombreProvincia", "")), row.GetString("manzana", ""), row.GetString("casa", ""), row.GetString("barrio", ""), row.GetString("torre", ""), row.GetString("uf", ""), new DocumentoGDE(row.GetInt("idDocumentoGDE"),row.GetString("codigo"), row.GetBoolean("verificado")), row.GetString("Telefono", ""), row.GetString("Telefono2", ""))
 
                     );
             }
@@ -1098,7 +1124,7 @@ namespace General.Repositorios
             {
                 tablaDatos.Rows.ForEach(row =>
 
-                    dom = new CvDomicilio(row.GetInt("id"), row.GetString("calle", ""), row.GetSmallintAsInt("nro", 0), row.GetString("piso", ""), row.GetString("dpto", ""), new Localidad(row.GetInt("idLocalidad"), row.GetString("nombreLocalidad")), row.GetInt("cp", 0), new Provincia(row.GetSmallintAsInt("idProvincia", 0), row.GetString("nombreProvincia", "")), row.GetString("manzana", ""), row.GetString("casa", ""), row.GetString("barrio", ""), row.GetString("torre", ""), row.GetString("uf", ""), row.GetInt("idDocumentoGDE"))
+                    dom = new CvDomicilio(row.GetInt("id"), row.GetString("calle", ""), row.GetSmallintAsInt("nro", 0), row.GetString("piso", ""), row.GetString("dpto", ""), new Localidad(row.GetInt("idLocalidad"), row.GetString("nombreLocalidad")), row.GetInt("cp", 0), new Provincia(row.GetSmallintAsInt("idProvincia", 0), row.GetString("nombreProvincia", "")), row.GetString("manzana", ""), row.GetString("casa", ""), row.GetString("barrio", ""), row.GetString("torre", ""), row.GetString("uf", ""), new DocumentoGDE(row.GetInt("idDocumentoGDE"),row.GetString("codigo"), row.GetBoolean("verificado")))
                     //dom = new CvDomicilio(row.GetInt("id"), row.GetString("calle", ""), row.GetSmallintAsInt("nro", 0), row.GetString("piso", ""), row.GetString("dpto", ""), row.GetInt("localidad", 0), row.GetInt("cp", 0), row.GetInt("provincia", 0))
                 );
             }

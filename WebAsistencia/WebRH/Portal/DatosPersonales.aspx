@@ -40,9 +40,10 @@
                     <img id="btnMostrarDomicilio" style="cursor:pointer; " title="Cambiar Domicilio" src="../Imagenes/edit.png" width="30px" height="30px" />
                     <%--<input id="btnMostrarDomicilio" value="Cambiar Domicilio" class="btn btn-primary" type="button" />--%>
                     <div style="display:none; color:Red;" id="mensajeCambioDomicilioPendiente">
-                        <span>Solicitud Pendiente de Aprobación</span>
-                        Actualizar N° GDE del Form.<input id="numeroGDE" placeholder="IF-2017-xxxxx" style="width: 50px; height: 30px;"  type="text" />
-                        <input id="btnGenerarPDF" value="Generar PDF" class="btn btn-primary" type="button" />
+                        <p>Solicitud Pendiente de Aprobación. N° GDE: <span id="numeroGDECambioDomicilio"></span></p>
+                        <input id="idDocumentoGDE" type="hidden" />
+                        <span id="btnMostrarDialogoActualizarGDE" style="color: #337ab7; cursor: pointer;" >Actualizar N° GDE</span> - 
+                        <span id="btnGenerarPDF" style="color: #337ab7; cursor: pointer;" >Generar PDF</span>
                     </div>
                     
                     </p>
@@ -98,8 +99,19 @@
                             <div style="text-align:center;">
                                 <input  id="btnCambiarDomicilio" value="Solicitar Cambio" class="btn btn-primary" type="button" />
                             </div>
-                            
                         </div>
+
+                      <%--  <div id="cajaActualizarGDE" style="display:none;" class="">
+                            <h3 style="text-align: center;">Solicitud de actualización de domicilio</h3>
+                            <br />
+                            <label class="etiqueta_campo" style="margin-right: 28px;" for="txt_calle">Numero de GDE: <em style="color:Red;">*</em></label>
+                            <input id="numeroGDE" placeholder="IF-2017-xxxxx" style="width: 50px; height: 30px;"  type="text" />
+                            
+                             <br />
+                            <div style="text-align:center;">
+                                <input  id="btnActualizarGDE" value="Actualizar" class="btn btn-primary" type="button" />
+                            </div>
+                        </div>--%>
 
                 <legend style="margin-top: 20px;">DATOS FAMILIARES</legend>
                     <div id="tabla_familiar">

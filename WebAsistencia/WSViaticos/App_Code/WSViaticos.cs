@@ -4450,6 +4450,25 @@ public class WSViaticos : System.Web.Services.WebService
 
 
     }
+    
+    [WebMethod]
+    public bool ActualizarNumeroGDEDomicilioPendiente(string numeroGDE, int id, Usuario usuario)
+    {
+        RepositorioGDE repo = RepoGDE();
+
+        return repo.GDE_UPD_DocumentoGDE(numeroGDE, id, usuario);
+
+    }
+    
+    [WebMethod]
+    public string RechazarCambioDomicilio(int idAlerta, string motivo, int idUsuarioCreador, Usuario usuario)
+    {
+        RepositorioLegajo repo = RepoLegajo();
+
+        return repo.rechazarCambioDomicilio(idAlerta, motivo,  idUsuarioCreador, usuario.Id);
+
+    }
+    
 
     [WebMethod]
     public bool GuardarDomicilioPendiente(CvDomicilio domicilio, Usuario usuario)
@@ -4821,6 +4840,11 @@ public class WSViaticos : System.Web.Services.WebService
     private RepositorioDeComites RepoComites()
     {
         return RepositorioDeComites.Nuevo(Conexion());
+    }
+
+    private RepositorioGDE RepoGDE()
+    {
+        return General.Repositorios.RepositorioGDE.NuevoRepositorioGDE(Conexion()); 
     }
 
 

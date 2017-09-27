@@ -32,9 +32,9 @@ namespace General
         public int Partido { get; set; }
         public string NombreLocalidad { get; set; }
         public string NombreProvincia { get; set; }
-          
-        public int IdDocumentoGDE { get; set; }
-
+        
+        public DocumentoGDE DocumentoGDE { get; set; }
+        
         //public string NombrePartido { get; set; }
         public string Telefono { get; set; }
         public string Telefono2 { get; set; } //es el celular
@@ -52,7 +52,7 @@ namespace General
 
         }
 
-        public CvDomicilio(int id, string calle, int numero, string piso, string depto, Localidad localidad, int cp, Provincia provincia, string manzana, string casa, string barrio, string torre, string uf, int idDocumentoGDE)
+        public CvDomicilio(int id, string calle, int numero, string piso, string depto, Localidad localidad, int cp, Provincia provincia, string manzana, string casa, string barrio, string torre, string uf, DocumentoGDE documentoGDE)
         {
             this._calle = calle;
             this._numero = numero;
@@ -70,11 +70,11 @@ namespace General
             this.Uf = uf;
             this.Casa = casa;
             this.Barrio = barrio;
-            this.IdDocumentoGDE = idDocumentoGDE;
+            this.DocumentoGDE = documentoGDE;
 
         }
 
-        public CvDomicilio(int id, string calle, int numero, string piso, string depto, Localidad localidad, int cp, Provincia provincia, string manzana, string casa, string barrio, string torre, string uf, int idDocumentoGDE, string telefono, string telefono2)
+        public CvDomicilio(int id, string calle, int numero, string piso, string depto, Localidad localidad, int cp, Provincia provincia, string manzana, string casa, string barrio, string torre, string uf, DocumentoGDE documentoGDE, string telefono, string telefono2)
         {
             this._calle = calle;
             this._numero = numero;
@@ -92,7 +92,7 @@ namespace General
             this.Uf = uf;
             this.Casa = casa;
             this.Barrio = barrio;
-            this.IdDocumentoGDE = idDocumentoGDE;
+            this.DocumentoGDE = documentoGDE;
                         
             this.Telefono = telefono;
             this.Telefono2 = telefono2 ;

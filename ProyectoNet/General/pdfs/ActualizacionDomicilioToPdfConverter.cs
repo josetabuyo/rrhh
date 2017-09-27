@@ -57,7 +57,7 @@ public class ActualizacionDomicilioToPdfConverter : ModeloToPdfConverter
 
         mapa.Add("Nombre_usu", usr.Owner.Apellido + ", " + usr.Owner.Nombre + " (" + usr.Owner.Documento.ToString() + ")");
         mapa.Add("Fecha_hora", DateTime.Now.ToString("dd/MM/yyyy hh:mm"));
-        mapa.Add("Identif_Formulario", domicilioNuevo.IdDocumentoGDE.ToString());
+        mapa.Add("Identif_Formulario", domicilioNuevo.DocumentoGDE.ToString());
 
         return mapa;
     }
