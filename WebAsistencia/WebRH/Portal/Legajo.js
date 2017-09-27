@@ -143,6 +143,10 @@ var Legajo = {
                                 domicilio.Barrio = ui.find('#cmb_barrio').val();
                                 domicilio.Torre = ui.find('#cmb_torre').val();
                                 domicilio.Uf = ui.find('#cmb_uf').val();
+                                ////ver como se crea este objeto domicilio y cambiar nombre partido por obj partido
+                                domicilio.Telefono = ui.find('#txt_tel').val();
+                                domicilio.Telefono2 = ui.find('#txt_cel').val();
+
                                 Backend.GuardarDomicilioPendiente(domicilio)
                                     .onSuccess(function (respuesta) {
 

@@ -246,7 +246,7 @@
                 window.location.href = 'Organigrama.aspx';
             });
             ///////////////agrego funcion inicial de generacion
- /*           $('#btnGenerarPDF').click(function () {
+            $('#btnGenerarPDF').click(function () {
 
                 alertify.success("Solicitud creada.");
 
@@ -261,7 +261,8 @@
 
                             });
 
-            });*/
+                        });
+
 
         });
 
@@ -297,9 +298,13 @@
         );
         });*/
     </script>
- <!--   <div style="display:nonexxx; color:Red;" id="mensajeCambioDomicilioPendiente">
+ <!--   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx   para abajo borrar    -->
+
+ <div style="display:nonexxx; color:Red;" id="mensajeCambioDomicilioPendiente">
                         <span>Solicitud Pendiente de Aprobación</span>
                         <input id="btnGenerarPDF" value="Generar PDF" class="btn btn-primary" type="button" />
-                    </div>-->
+                    </div>
+                  
+
 </body>
 </html>
