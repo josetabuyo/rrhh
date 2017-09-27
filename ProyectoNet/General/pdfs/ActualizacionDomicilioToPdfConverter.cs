@@ -60,7 +60,7 @@ public class ActualizacionDomicilioToPdfConverter : ModeloToPdfConverter
 
         if (domicilioNuevo.DocumentoGDE != null)
         {
-            mapa.Add("Identif_Formulario", domicilioNuevo.DocumentoGDE.numero);//en realidad es el campo numero el que va???
+            mapa.Add("Identif_Formulario", domicilioNuevo.DocumentoGDE.idDocumentoGDE.ToString());
         }
         else
         { //siempre va a haber un numero de gde?
