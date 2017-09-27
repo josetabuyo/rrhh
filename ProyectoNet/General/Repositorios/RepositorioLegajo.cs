@@ -629,7 +629,7 @@ namespace General.Repositorios
             parametros.Add("@IdTipoCredencial", 2); //2 Definitiva - 1 provisoria
             parametros.Add("@IdOrganismo", int.Parse(id_organismo));
             parametros.Add("@IdMotivo", int.Parse(id_motivo));
-            parametros.Add("@IdTicket", id_ticket);
+            parametros.Add("@IdTicketAprobacion", id_ticket);
             
             var tablaDatos = conexion.Ejecutar("dbo.Acre_InsSolicitudCredencial", parametros);
 
