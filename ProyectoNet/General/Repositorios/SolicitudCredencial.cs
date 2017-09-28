@@ -9,7 +9,7 @@ namespace General.Repositorios
     {
         public int Id { get; set; }
         public int IdPersona { get; set; }
-        public int IdTipoCredencial { get; set; }
+        public string TipoCredencial { get; set; }
         public string Motivo { get; set; }
         public string Organismo { get; set; }
         public string Estado { get; set; }
@@ -23,11 +23,11 @@ namespace General.Repositorios
                 
         }
 
-        public SolicitudCredencial(int id, int idpersona, int tipo, string motivo, string organismo, string estado, int ticket_aprobacion, int ticket_impresion, DateTime fecha)
+        public SolicitudCredencial(int id, int idpersona, string tipo, string motivo, string organismo, string estado, int ticket_aprobacion, int ticket_impresion, DateTime fecha)
         {
             this.Id = id;
             this.IdPersona = idpersona;
-            this.IdTipoCredencial = tipo;
+            this.TipoCredencial = tipo;
             this.Motivo = motivo;
             this.Organismo = organismo;
             this.Estado = estado;
