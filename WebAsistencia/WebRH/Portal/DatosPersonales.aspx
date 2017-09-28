@@ -51,9 +51,9 @@
                 <legend style="margin-top: 20px;">MIS CREDENCIALES</legend>
                 
               <%--  <div><a id="btn_credencial_vigente">Ver credencial vigente</a></div>--%>
-              <div style = "width:100%;text-align: center;">
-                
-                <div  style="display: inline-block;" > <button type="button" id="btn_credencial_vigente" class="btn btn-primary">Ver credencial vigente</button></div>
+              <div style = "width:100%;text-align: center;display:none" id="botonera_credenciales">
+                <%--<div  style="display: inline-block;" > <button type="button" id="Button1" class="btn btn-primary">Ver credencial vigente</button></div>--%>
+                <div  style="display: inline-block;" > <button type="button" id="btn_credencial_vigente" class="btn btn-primary">Ver última credencial vigente</button></div>
                 <div  style="display: inline-block;" > <button type="button" id="btn_aviso_solicitud" class="btn btn-danger">Tiene una solicitud pendiente de aprobación</button></div>
                 <div  style="display: inline-block;" > <button type="button" id="btn_renovar_credencial" class="btn btn-primary">Solicitar nueva credencial</button></div>
                 <div  style="display: inline-block;" > <button type="button" id="btn_historial_credenciales" class="btn btn-primary">Historial de credenciales</button></div>
@@ -233,14 +233,13 @@
     $(document).ready(function ($) {
 
 
-
         $("#texto_deterioro").hide();
         $("#texto_robo").hide();
         $("#texto_seleccione_motivo").hide();
         $("#btn_aviso_solicitud").hide();
         $("#btn_renovar_credencial").hide();
-
-
+        $("#btn_historial_credenciales").hide();
+        $("#botonera_credenciales").hide();
         Backend.start(function () {
             //para cargar el menu izquierdo 
             $(".caja_izq").load("SeccionIzquierda.htm", function () {
@@ -251,25 +250,26 @@
                 Legajo.getPsicofisicos();
                 Legajo.getEstudios();
                 Legajo.getCredencialesUsuario();
-
             });
 
 
-            Backend.GetSolicitudesDeCredencialPorPersona().onSuccess(function (solicitudes) {
-
+            Backend.GetSolicitudesDeCredencialPorPersona().onSuccess(function (solicitudes) {               
+          
+                $("#botonera_credenciales").show();
                 $.each(solicitudes, function (i, val) {
 
-                    if (solicitudes[i].Estado != "PENDIENTE") {
-                        $("#btn_aviso_solicitud").hide();
-                        $("#btn_renovar_credencial").show();                       
+                    if (solicitudes[i].Estado == "PENDIENTE") {
+                    
+                        $("#btn_aviso_solicitud").show();
+                        $("#btn_renovar_credencial").hide();
                     }
-
-                    // alert(consultas[i].Estado);
+                    else {
+                        $("#btn_aviso_solicitud").hide();
+                        $("#btn_renovar_credencial").show();
+                    }
+                
                 });
-
-
-
-
+                $("#btn_historial_credenciales").show();
             });
 
 

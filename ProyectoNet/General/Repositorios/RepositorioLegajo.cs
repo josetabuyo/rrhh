@@ -758,13 +758,13 @@ namespace General.Repositorios
             {
                 tablaDatos.Rows.ForEach(row =>
                 {
-                    solicitudes.Add(new SolicitudCredencial(row.GetInt("Id"), row.GetInt("IdPersona"), row.GetInt("IdTipoCredencial"), row.GetString("IdMotivo"), row.GetString("IdOrganismo"), row.GetString("Estado"), row.GetInt("IdTicketAprobacion", 0), row.GetInt("IdTicketimpresion", 0), row.GetDateTime("Fecha")));
+                    solicitudes.Add(new SolicitudCredencial(row.GetInt("Id"), row.GetInt("IdPersona"), row.GetString("TipoCredencial"), row.GetString("Motivo"), row.GetString("Organismo"), row.GetString("Estado"), row.GetInt("IdTicketAprobacion", 0), row.GetInt("IdTicketimpresion", 0), row.GetDateTime("Fecha")));
 
                 });
             }
             else
             {
-                solicitudes.Add(new SolicitudCredencial(0, 0,0,"","","",0,0 ,DateTime.MinValue));
+                solicitudes.Add(new SolicitudCredencial(0,0,"","","","",0,0 ,DateTime.MinValue));
             }
             return solicitudes;
         }
