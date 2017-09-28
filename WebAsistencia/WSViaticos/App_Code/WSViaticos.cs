@@ -2965,10 +2965,17 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public SolicitudCredencial GetSolicitudDeCredencialPorIdTicket(int id_ticket, Usuario usuario)
+    public SolicitudCredencial GetSolicitudDeCredencialPorIdTicketAprobacion(int id_ticket, Usuario usuario)
     {
         RepositorioLegajo repositorio = RepoLegajo();
-        return repositorio.GetSolicitudDeCredencialPorIdTicket(id_ticket);
+        return repositorio.GetSolicitudDeCredencialPorIdTicketAprobacion(id_ticket);
+    }
+
+    [WebMethod]
+    public SolicitudCredencial GetSolicitudDeCredencialPorIdTicketImpresion(int id_ticket, Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+        return repositorio.GetSolicitudDeCredencialPorIdTicketImpresion(id_ticket);
     }
 
     [WebMethod]

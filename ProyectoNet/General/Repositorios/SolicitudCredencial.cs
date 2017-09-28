@@ -16,7 +16,8 @@ namespace General.Repositorios
         public DateTime Fecha { get; set; }
         public int IdTicketAprobacion { get; set; }
         public int IdTicketImpresion { get; set; }
-        
+        public Credencial Credencial { get; set; }
+       
         public SolicitudCredencial()
         {
                 
@@ -34,6 +35,8 @@ namespace General.Repositorios
             this.IdTicketImpresion = ticket_impresion;
             this.Fecha = fecha;
         }
+
+
 
 
     }

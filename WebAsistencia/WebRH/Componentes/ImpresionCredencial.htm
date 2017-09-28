@@ -4,25 +4,30 @@
     <title></title>
     <link id="link1" rel="stylesheet" href="../Scripts/imgareaselect/imgareaselect-animated.css" type="text/css" />
     <style type="text/css">
-        #pantalla_atender_solicitud_credencial
+        #pantalla_impresion_credencial
         {
         }      
     </style>
 </head>
-<div id="pantalla_atender_solicitud_credencial">
-    <label>Solicitud de credencial de acceso</label>
-    <div id="nombre_solicitante"></div>
-    <div id="apellido_solicitante"></div>
-    <div id="dni_solicitante"></div>
+<div id="pantalla_impresion_credencial">
+    <label>Credencial de acceso</label>
+
+    <div id="vista_previa_credencial">
+        <img id="imagen_credencial" src="../BarraMenu/credencial.png"/>
+        <div id="foto_usuario"></div>
+        <div id="apellido"></div>    
+        <div id="nombres"></div>    
+    </div>
+
     <div id="organismo_solicitud"></div>
     <div id="motivo_solicitud"></div>
-    <input id="btn_aprobar_solicitud" type="button" class="btn btn-primary" value="Aprobar"/>
-    <input id="btn_rechazar_solicitud" type="button" class="btn btn-primary" value="Rechazar"/>
+
+    <input id="btn_imprimir_credencial" type="button" class="btn btn-primary" value="Aprobar"/>
 </div>
 <script type="text/javascript">
     var Componente = {
         start: function (ticket, ui) {
-            Backend.GetSolicitudDeCredencialPorIdTicketAprobacion(ticket.id).onSuccess(function (solicitud) {
+            Backend.GetSolicitudDeCredencialPorIdTicketImpresion(ticket.id).onSuccess(function (solicitud) {
                 Backend.GetUsuarioPorIdPersona(solicitud.IdPersona).onSuccess(function (usuario) {
                     ui.find("#nombre_solicitante").text(usuario.Owner.Nombre);
                     ui.find("#apellido_solicitante").text(usuario.Owner.Apellido);

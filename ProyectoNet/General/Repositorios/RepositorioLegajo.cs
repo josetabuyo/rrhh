@@ -770,12 +770,12 @@ namespace General.Repositorios
         }
 
 
-        public SolicitudCredencial GetSolicitudDeCredencialPorIdTicket(int id_ticket)
+        public SolicitudCredencial GetSolicitudDeCredencialPorIdTicketAprobacion(int id_ticket)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_ticket", id_ticket);
-
-            var tablaDatos = conexion.Ejecutar("dbo.Acre_GetSolicitudDeCredencialPorIdTicket", parametros);
+            
+            var tablaDatos = conexion.Ejecutar("dbo.Acre_GetSolicitudDeCredencialPorIdTicketAprobacion", parametros);
 
             if (tablaDatos.Rows.Count == 0) throw new Exception("No existe una solicitud con ese nro de ticket");
             if (tablaDatos.Rows.Count > 1) throw new Exception("Hay mas de una solicitud con ese nro de ticket");
@@ -787,6 +787,28 @@ namespace General.Repositorios
             solicitud.Motivo = row.GetString("Motivo");
             solicitud.Organismo = row.GetString("Organismo");
             return solicitud;             
+        }
+
+        public SolicitudCredencial GetSolicitudDeCredencialPorIdTicketImpresion(int id_ticket)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_ticket", id_ticket);
+
+            var tablaDatos = conexion.Ejecutar("dbo.Acre_GetCredencialPorIdTicketImpresion", parametros);
+
+            if (tablaDatos.Rows.Count == 0) throw new Exception("No existe una solicitud con ese nro de ticket");
+            if (tablaDatos.Rows.Count > 1) throw new Exception("Hay mas de una solicitud con ese nro de ticket");
+
+            var row = tablaDatos.Rows[0];
+            var solicitud = new SolicitudCredencial();
+            solicitud.Id = row.GetInt("Id");
+            solicitud.IdPersona = row.GetInt("IdPersona");
+            solicitud.Motivo = row.GetString("Motivo");
+            solicitud.Organismo = row.GetString("Organismo");
+            solicitud.Credencial = new Credencial();
+            solicitud.Credencial.Id = row.GetInt("idCredencial");
+            solicitud.Credencial.IdFoto = row.GetInt("idFoto");
+            return solicitud;
         }
 
         private void getConsultasPorCriterio(Dictionary<string, object> parametros, List<Consulta> consultas)
