@@ -120,6 +120,10 @@
                             </div>
                             <br />
 
+                               <div style="text-align:center;" id = "Div1">
+                                <label class="etiqueta_campo" style="color:Red; ">*Al hacer la solicitud, su credencial vigente será dada de baja.</label>
+                            </div>
+
                               <div style="text-align:center;" id = "texto_robo">
                                 <label class="etiqueta_campo" style="color:Red; " for="cmb_provincia">*Para el caso de pérdida/robo debe presentar la denuncia policial al momento de retirar la nueva credencial </label>
                             </div>
