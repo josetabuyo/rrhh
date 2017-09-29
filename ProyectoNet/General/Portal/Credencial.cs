@@ -15,7 +15,8 @@ namespace General
       public int IdFoto;
       public int CodigoMagnetico;
       public string Estado;
-       
+      public bool Impresa;
+
       public Credencial() { }
 
 
@@ -31,6 +32,7 @@ namespace General
 
           this.Estado = estado;
       }
+
 
 
     }

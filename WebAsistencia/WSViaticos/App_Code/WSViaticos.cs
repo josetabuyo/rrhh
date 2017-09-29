@@ -2991,7 +2991,14 @@ public class WSViaticos : System.Web.Services.WebService
         RepositorioLegajo repositorio = RepoLegajo();
         return repositorio.RechazarSolicitudCredencial(solicitud, motivo, usuario);
     }
-    
+
+    [WebMethod]
+    public bool MarcarCredencialComoImpresa(int idCredencial, Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+        return repositorio.MarcarCredencialComoImpresa(idCredencial, usuario);
+    }
+
     #endregion
 
 

@@ -794,7 +794,7 @@ namespace General.Repositorios
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_ticket", id_ticket);
 
-            var tablaDatos = conexion.Ejecutar("dbo.Acre_GetCredencialPorIdTicketImpresion", parametros);
+            var tablaDatos = conexion.Ejecutar("dbo.Acre_GetSolicitudDeCredencialPorIdTicketImpresion", parametros);
 
             if (tablaDatos.Rows.Count == 0) throw new Exception("No existe una solicitud con ese nro de ticket");
             if (tablaDatos.Rows.Count > 1) throw new Exception("Hay mas de una solicitud con ese nro de ticket");
@@ -808,7 +808,17 @@ namespace General.Repositorios
             solicitud.Credencial = new Credencial();
             solicitud.Credencial.Id = row.GetInt("idCredencial");
             solicitud.Credencial.IdFoto = row.GetInt("idFoto");
+            solicitud.Credencial.Impresa = row.GetBoolean("impresa");
             return solicitud;
+        }
+
+        public bool MarcarCredencialComoImpresa(int idCredencial, Usuario usuario)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_credencial", idCredencial);
+
+            var tablaDatos = conexion.Ejecutar("dbo.Acre_MarcarCredencialComoImpresa", parametros);
+            return true;
         }
 
         private void getConsultasPorCriterio(Dictionary<string, object> parametros, List<Consulta> consultas)
@@ -1260,6 +1270,8 @@ namespace General.Repositorios
             throw new NotImplementedException();
         }
 
-      
+
+
+
     }
 }

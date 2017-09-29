@@ -7,56 +7,160 @@
         #pantalla_impresion_credencial
         {
         }      
+         #pantalla_impresion_credencial #vista_previa_credencial
+        {
+            position: relative;
+        }
+        
+         #pantalla_impresion_credencial #panel_derecho
+        {
+            position: absolute;
+            right: 10px;
+            left: 300px;
+            top: 60px;
+        }
+        
+        #pantalla_impresion_credencial #imagen_credencial
+        {
+            width: 250px;
+        }        
+        
+        #pantalla_impresion_credencial #foto_usuario
+        {
+            position: absolute;
+            top: 64px;
+            left: 21px;
+            height: 112px;
+            width: 112px;
+        }    
+        
+        #pantalla_impresion_credencial #apellido
+        {
+            position: absolute;
+            top: 196px;
+            left: 19px;
+            font-size: 20px;
+            color: white;
+        }    
+        
+        #pantalla_impresion_credencial #nombres
+        {
+            position: absolute;
+            top: 224px;
+            left: 18px;
+            font-size: 20px;
+            color: white;
+        }    
+        
+        #pantalla_impresion_credencial #btn_imprimir_credencial
+        {
+
+        }
+        
+        #pantalla_impresion_credencial #titulo_vista_previa
+        {
+            margin-top:0px;
+        }
+        
+        #pantalla_impresion_credencial  #chk_credencial_impresa
+        {
+            /* Double-sized Checkboxes */
+              -ms-transform: scale(2); /* IE */
+              -moz-transform: scale(2); /* FF */
+              -webkit-transform: scale(2); /* Safari and Chrome */
+              -o-transform: scale(2); /* Opera */
+                padding: 10px;
+                margin-left: 27px;
+                margin-right: 10px;
+        }
+        
+        #pantalla_impresion_credencial  .checkboxtext
+        {
+            font-size: 110%;
+            display: inline;
+            vertical-align: middle;
+        }
+        
+        #pantalla_impresion_credencial  #txt_codigo_magnetico
+        {
+            height: 30px;
+            vertical-align: initial;
+        }
+        
+        @media print {
+          body * {
+            visibility: hidden;
+          }
+          #pantalla_impresion_credencial #vista_previa_credencial, 
+          #pantalla_impresion_credencial #vista_previa_credencial * {
+            visibility: visible;
+          }
+          #pantalla_impresion_credencial #vista_previa_credencial {
+            position: absolute;
+            left: 0;
+            top: 0;
+          }
+        }
     </style>
 </head>
 <div id="pantalla_impresion_credencial">
-    <label>Credencial de acceso</label>
-
+    <h4 id="titulo_vista_previa">Vista Previa Credencial</h4>
     <div id="vista_previa_credencial">
         <img id="imagen_credencial" src="../BarraMenu/credencial.png"/>
         <div id="foto_usuario"></div>
         <div id="apellido"></div>    
         <div id="nombres"></div>    
     </div>
-
-    <div id="organismo_solicitud"></div>
-    <div id="motivo_solicitud"></div>
-
-    <input id="btn_imprimir_credencial" type="button" class="btn btn-primary" value="Aprobar"/>
+    <div id=panel_derecho>
+        <input id="btn_imprimir_credencial" type="button" class="btn btn-info" value="Imprimir"/>        
+        <input id="chk_credencial_impresa" type=checkbox />
+        <span class="checkboxtext">
+          Impresa
+        </span>
+        <div style="margin-top:30px;">
+            <label>Código Magnético:</label>
+            <input type=text id=txt_codigo_magnetico />
+            <input id="btn_asociar_codigo_magnetico" type="button" class="btn btn-info" value="Asociar Código"/>     
+        </div>
+    </div>
 </div>
+
 <script type="text/javascript">
     var Componente = {
         start: function (ticket, ui) {
             Backend.GetSolicitudDeCredencialPorIdTicketImpresion(ticket.id).onSuccess(function (solicitud) {
                 Backend.GetUsuarioPorIdPersona(solicitud.IdPersona).onSuccess(function (usuario) {
-                    ui.find("#nombre_solicitante").text(usuario.Owner.Nombre);
-                    ui.find("#apellido_solicitante").text(usuario.Owner.Apellido);
-                    ui.find("#dni_solicitante").text(usuario.Owner.Documento);
-                    ui.find("#organismo_solicitud").text(solicitud.Organismo);
-                    ui.find("#motivo_solicitud").text(solicitud.Motivo);
-                });
-                ui.find("#btn_aprobar_solicitud").click(function () {
-                    Backend.AprobarSolicitudCredencial(solicitud).onSuccess(function () {
-                        alertify.success("Solicitud aprobada con éxito");
-                        vex.close();
-                        GestionDeTareas.getTareasParaGestion();
+                    ui.find("#apellido").text(usuario.Owner.Apellido);
+                    ui.find("#nombres").text(usuario.Owner.Nombre);
+                    ui.find("#dni").text(usuario.Owner.Documento);
+
+                    var img = new VistaThumbnail({
+                        id: solicitud.Credencial.IdFoto,
+                        contenedor: ui.find("#foto_usuario")
                     });
-                });
-                ui.find("#btn_rechazar_solicitud").click(function () {
-                    vex.dialog.prompt({
-                        message: 'Indique razón de rechazo',
-                        placeholder: '',
-                        callback: function (value) {
-                            if (value) {
-                                Backend.RechazarSolicitudCredencial(solicitud, value).onSuccess(function () {
-                                    alertify.success("Solicitud rechazada con éxito");
-                                    vex.close();
-                                    GestionDeTareas.getTareasParaGestion();
-                                });
-                            }
-                        }
-                    })
-                    
+
+                    var btn_imprimir = ui.find("#btn_imprimir_credencial");
+                    btn_imprimir.click(function () {
+                        window.print();
+                    });
+
+                    var chk_impresa = ui.find("#chk_credencial_impresa");
+                    if (solicitud.Credencial.Impresa) {
+                        btn_imprimir.val("ReImprimir");
+                        chk_impresa.attr("checked", true);
+                        chk_impresa.attr("disabled", true);
+                    }
+                    chk_impresa.click(function () {
+                        btn_imprimir.val("ReImprimir");
+                        chk_impresa.attr("disabled", true);
+                        Backend.MarcarCredencialComoImpresa(solicitud.Credencial.Id)
+                            .onSuccess(function () {
+                                alertify.success("La credencial se marcó como impresa");
+                            })
+                            .onError(function () {
+                                alertify.error("Error");
+                            });
+                    });
                 });
             });
         }

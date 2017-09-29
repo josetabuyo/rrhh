@@ -344,48 +344,6 @@
                                 });
 
                                 ui.show();
-
-
-                                /*
-                                ui.find('#btnCambiarDomicilio').click(function () {
-
-                                if (ui.find('#txt_calle').val() == '' || ui.find('#txt_numero').val() == '' || ui.find('#txt_cp').val() == '') {
-                                alert('Debe completar los campos obligatorios');
-                                return;
-                                }
-
-                                var domicilio = {};
-                                domicilio.Calle = ui.find('#txt_calle').val();
-                                domicilio.Numero = ui.find('#txt_numero').val();
-                                domicilio.Piso = ui.find('#txt_piso').val();
-                                domicilio.Depto = ui.find('#txt_dto').val();
-                                domicilio.Cp = ui.find('#txt_cp').val();
-                                domicilio.Localidad = ui.find('#cmb_localidad').val();
-                                domicilio.Provincia = ui.find('#cmb_provincia').val();
-                                domicilio.Manzana = ui.find('#txt_manzana').val();
-                                domicilio.Casa = ui.find('#txt_casa').val();
-                                domicilio.Barrio = ui.find('#cmb_barrio').val();
-                                domicilio.Torre = ui.find('#cmb_torre').val();
-                                domicilio.Uf = ui.find('#cmb_uf').val();
-                                Backend.GuardarDomicilioPendiente(domicilio)
-                                .onSuccess(function (respuesta) {
-
-                                alertify.success("Solicitud creada.");
-                                //vex.dialog.alert('Solicitud de cambio de domicilio generada. Presente el formulario impreso a RRHH');
-                                _this.getDatosPersonales();
-                                vex.close();
-
-
-                                })
-                                .onError(function (e) {
-
-                                });
-                                });
-                                return ui;
-                                */
-
-
-
                             },
                             css: {
                                 'padding-top': "4%",
@@ -398,17 +356,6 @@
                         });
                         //$('#cajaCambiarDomicilio').show();
                     });
-
-
-
-                    //
-
-                    //                    $("#btn_renovar_credencial").click(function () {
-                    //                        var div = $("<div>");
-                    //                        div.load(window.location.origin + '/Componentes/SolicitarRenovacionCredencial.htm', function () {
-                    //                            Componente.start(false, div);
-                    //                        });
-                    //                    });
                 } else {
 
 
