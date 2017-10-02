@@ -40,9 +40,8 @@
                     <img id="btnMostrarDomicilio" style="cursor:pointer; " title="Cambiar Domicilio" src="../Imagenes/edit.png" width="30px" height="30px" />
                     <%--<input id="btnMostrarDomicilio" value="Cambiar Domicilio" class="btn btn-primary" type="button" />--%>
                     <div style="display:none; color:Red;" id="mensajeCambioDomicilioPendiente">
-                        <p>Solicitud Pendiente de Aprobación. N° GDE: <span id="numeroGDECambioDomicilio"></span></p>
+                        <p>Solicitud Pendiente de Aprobación. N° GDE: <span id="numeroGDECambioDomicilio"></span>. <span id="btnMostrarDialogoActualizarGDE" style="color: #337ab7; cursor: pointer;" >Actualizar N° GDE</span></p>
                         <input id="idDocumentoGDE" type="hidden" />
-                        <span id="btnMostrarDialogoActualizarGDE" style="color: #337ab7; cursor: pointer;" >Actualizar N° GDE</span> - 
                         <span id="btnGenerarPDF" style="color: #337ab7; cursor: pointer;" >Generar PDF</span>
                     </div>
                     
