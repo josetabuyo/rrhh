@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Hosting;
 using System.IO;
 using iTextSharp.text.pdf;
+using General.Repositorios;
+using iTextSharp.text;
 
 /// <summary>
 /// Descripción breve de CreadorDePdfs
@@ -140,6 +142,117 @@ public class CreadorDePdfs //where T:IPrintableDocument
         {
             stamp.AcroFields.SetField(name, dic[name]);
         }*/
+
+
+    }
+
+    public byte[] AgregarImagenAPDF(byte[] bytes, byte[] bytes_img)
+    {
+        PdfReader reader = null;
+        FileStream fs = null;
+        MemoryStream ms = null;
+        PdfStamper stamper = null;
+
+        try
+        {
+            // agrego la imagen en una capa separada
+            //creo el objeto reader para leer el documento pdf
+            reader = new PdfReader(bytes);
+            ms = new MemoryStream();
+            //creo el objeto stamper para escribir datos desde el objeto pdfreader al objeto memorystream/filestream
+            stamper = new PdfStamper(reader, ms);
+                       
+
+            // creo una nueva capa
+            PdfLayer layer = new PdfLayer("Foto", stamper.Writer);
+        
+            // Getting the Page Size
+            //Rectangle rect = reader.GetPageSize(i);
+
+            // obtengo el objeto ContentByte de la pagina i
+            int i = 1;
+            //PdfContentByte cb = stamper.GetOverContent(i);//;GetUnderContent(i);
+            PdfContentByte cb = stamper.GetOverContent(i);
+
+            //Le indico al cb que los proximos comandos  seran ligados a esta nueva capa
+            cb.BeginLayer(layer);
+//           cb.SetFontAndSize(BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED), 50);
+
+            /* esto es para que aparezca ser una marca de agua 
+             */
+            /* PdfGState gState = new PdfGState();
+             gState.FillOpacity = 0.25f;
+             cb.SetGState(gState);*/
+
+            // cb.SetColorFill(BaseColor.BLACK);
+            /* cb.BeginText();
+             cb.ShowTextAligned(PdfContentByte.ALIGN_CENTER, watermarkText, rect.Width / 2, rect.Height / 2, 45f);
+             cb.EndText();*/
+
+            // Creamos la imagen y le ajustamos el tamaño
+            //iTextSharp.text.Image imagen = iTextSharp.text.Image.GetInstance(rutaFoto);
+            iTextSharp.text.Image imagen = iTextSharp.text.Image.GetInstance(bytes_img);
+
+            imagen.BorderWidth = 0;
+            imagen.Alignment = Element.ALIGN_TOP;
+            float percentage = 0.0f;
+            percentage = 150 / imagen.Width;
+            imagen.ScaleAbsolute(1.0f, 1.0f);//mismo tamaño
+            //imagen.ScalePercent(percentage * 100); 
+            imagen.ScalePercent(100.0f); // 100.0f == same size
+            imagen.SetAbsolutePosition(483, 706);
+            
+            cb.AddImage(imagen);
+            ///aggrego la capa que hace la imagen redonda
+            //                   iTextSharp.text.Image imagen2 = iTextSharp.text.Image.GetInstance("c:/oie_trans_redim.gif");
+            //iTextSharp.text.Image imagen2 = iTextSharp.text.Image.GetInstance("c:/oie_trans2.gif");
+            //                   imagen2.BorderWidth = 0;
+            //                   imagen2.Alignment = Element.ALIGN_TOP;
+            //                   float percentage2 = 0.0f;
+            //                   percentage2 = 150 / imagen2.Width;
+            //                   imagen2.ScaleAbsolute(1.0f, 1.0f);//mismo tamaño
+            //imagen.ScalePercent(percentage2 * 100); 
+            //                   imagen2.ScalePercent(100.0f); // 100.0f == same size
+            //                   imagen2.SetAbsolutePosition(483, 708);
+
+            // cb.AddImage(imagen2);
+
+            // Close the layer
+            cb.EndLayer();
+            //               }
+
+            int length = Convert.ToInt32(ms.Length);
+            byte[] data = new byte[length];
+            ms.Read(data, 0, length);
+  
+            stamper.FormFlattening = true;//para que no se pueda editar el pdf generado
+            stamper.Close(); //cierro el pdf
+            reader.Close();
+            ms.Close();
+
+            byte[] Bytes = ms.ToArray();
+
+            return Bytes;
+
+        }
+        finally
+        {
+
+            // Garantizamos que aunque falle se cierran los objetos
+
+            // alternativa:usar using
+
+            reader.Close();
+
+            if (stamper != null) stamper.Close();
+
+            if (fs != null) fs.Close();
+
+            /* if (document != null) document.Close();*/
+
+        }
+
+
 
 
     }

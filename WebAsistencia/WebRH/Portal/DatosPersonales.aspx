@@ -91,6 +91,9 @@
                                 <label class="etiqueta_campo_small" for="cmb_localidad">Localidad: <em style="color:Red;">*</em></label>
                                 <select id="cmb_localidad" style="width: 250px;"></select>
                             </div>
+
+                            <label class="etiqueta_campo" style="margin-right: 13px;" for="txt_tel">Tel.: </label> <input id="txt_tel" style="width: 100px; height: 30px;" name="txt_tel" type="text" value="" /><label class="etiqueta_campo" style="margin: 0 10px;" for="txt_email">Cel: </label> <input id="txt_cel" style="width: 100px; height: 30px;" name="txt_cel" type="text" value="" />
+
                             <br />
                             <div style="text-align:center;">
                                 <input  id="btnCambiarDomicilio" value="Solicitar Cambio" class="btn btn-primary" type="button" />

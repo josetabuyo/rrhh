@@ -32,10 +32,12 @@ namespace General
         public int Partido { get; set; }
         public string NombreLocalidad { get; set; }
         public string NombreProvincia { get; set; }
-        public string Telefono { get; set; }
-        public string Celular { get; set; }
-        public string Mail { get; set; }
+        
         public DocumentoGDE DocumentoGDE { get; set; }
+        
+        //public string NombrePartido { get; set; }
+        public string Telefono { get; set; }
+        public string Telefono2 { get; set; } //es el celular
 
         public CvDomicilio(int id, string calle, int numero, string piso, string depto, int localidad, int cp, int provincia)
         {
@@ -71,6 +73,32 @@ namespace General
             this.DocumentoGDE = documentoGDE;
 
         }
+
+        public CvDomicilio(int id, string calle, int numero, string piso, string depto, Localidad localidad, int cp, Provincia provincia, string manzana, string casa, string barrio, string torre, string uf, DocumentoGDE documentoGDE, string telefono, string telefono2)
+        {
+            this._calle = calle;
+            this._numero = numero;
+            this._piso = piso;
+            this._depto = depto;
+            this.NombreLocalidad = localidad.Nombre;
+            this.Localidad = localidad.Id;
+            this._cp = cp;
+            this.NombreProvincia = provincia.Nombre;
+            this.Provincia = provincia.Id;
+            this.Id = id;
+
+            this.Manzana = manzana;
+            this.Torre = torre;
+            this.Uf = uf;
+            this.Casa = casa;
+            this.Barrio = barrio;
+            this.DocumentoGDE = documentoGDE;
+                        
+            this.Telefono = telefono;
+            this.Telefono2 = telefono2 ;
+
+        }
+
 
         public CvDomicilio()
         {

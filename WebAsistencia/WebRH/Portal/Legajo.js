@@ -152,6 +152,10 @@ var Legajo = {
                                 domicilio.Barrio = ui.find('#cmb_barrio').val();
                                 domicilio.Torre = ui.find('#cmb_torre').val();
                                 domicilio.Uf = ui.find('#cmb_uf').val();
+                                ////ver como se crea este objeto domicilio y cambiar nombre partido por obj partido
+                                domicilio.Telefono = ui.find('#txt_tel').val();
+                                domicilio.Telefono2 = ui.find('#txt_cel').val();
+
                                 Backend.GuardarDomicilioPendiente(domicilio)
                                     .onSuccess(function (respuesta) {
 
@@ -268,7 +272,8 @@ var Legajo = {
                     Backend.GenerarPDFCambioDomicilio()
                             .onSuccess(function (rpta) {
                                 alertify.success("PDF creado");
-                                //window.open("data:application/pdf;base64," + rpta, '_blank');
+                                /////////abre una ventana y descarga el formulario
+                                window.open("data:application/pdf;base64," + rpta, '_blank');
 
                             })
                             .onError(function (e) {
