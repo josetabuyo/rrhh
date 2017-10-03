@@ -186,18 +186,18 @@ namespace General.Repositorios
 
         }
 
-        protected AgenteEvaluacionDesempenio GetAgenteEvaluadoEvaluacionDesempenio(int id_evaluado, DescripcionAreaEvaluacion area)
+        protected AgenteEvaluacionDesempenio GetAgenteEvaluadoEvaluacionDesempenio(int id_evaluado, DescripcionAreaEvaluacion area, RowDeDatos row)
         {
-            var parametros = new Dictionary<string, object>();
-            parametros.Add("@Id_evaluado", id_evaluado);
-            var tablaDatos = _conexion.Ejecutar("[dbo].[EVAL_GET_DATOS_Evaluado]", parametros);
+            //var parametros = new Dictionary<string, object>();
+            //parametros.Add("@Id_evaluado", id_evaluado);
+            //var tablaDatos = _conexion.Ejecutar("[dbo].[EVAL_GET_DATOS_Evaluado]", parametros);
             var evaluador = new AgenteEvaluacionDesempenio();
-            if (tablaDatos.Rows.Count > 0)
-            {
-                var row = tablaDatos.Rows[0];
+            //if (tablaDatos.Rows.Count > 0)
+            //{
+            //    var row = tablaDatos.Rows[0];
                 evaluador = new AgenteEvaluacionDesempenio(id_evaluado, row.GetString("apellido"), row.GetString("nombre"),
-                                                    row.GetInt("NroDocumento"), "SINEP", row.GetString("nivel"), row.GetString("grado"), row.GetString("agrupamiento_evaluado", "No Especificado"), string.Empty, row.GetString("Nivel_Estudios", ""), area, row.GetInt("legajo"));
-            }
+                                                    row.GetInt("NroDocumento"), "SINEP", row.GetString("nivel_evaluado"), row.GetString("grado_evaluado"), row.GetString("agrupamiento_evaluado", "No Especificado"), string.Empty, row.GetString("Nivel_Estudios", ""), area, row.GetInt("legajo"));
+            //}
             return evaluador;
         }
 
@@ -242,7 +242,7 @@ namespace General.Repositorios
             }
 
             return new AsignacionEvaluadoAEvaluador(
-                GetAgenteEvaluadoEvaluacionDesempenio(id_evaluado, area_evaluado),
+                GetAgenteEvaluadoEvaluacionDesempenio(id_evaluado, area_evaluado, row),
                 evaluador,
                 evaluacion,
                 periodo,
