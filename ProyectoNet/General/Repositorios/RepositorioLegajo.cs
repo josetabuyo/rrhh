@@ -821,6 +821,30 @@ namespace General.Repositorios
             return true;
         }
 
+        public bool AsociarCodigoMagneticoACredencial(int idCredencial, string codigo_magnetico, Usuario usuario)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_credencial", idCredencial);
+            parametros.Add("@codigo_magnetico", codigo_magnetico);
+
+            var tablaDatos = conexion.Ejecutar("dbo.Acre_AsociarCodigoMagneticoACredencial", parametros);
+            return true;
+        }
+
+        public bool CerrarTicketImpresion(SolicitudCredencial solicitud, string instrucciones_de_retiro, Usuario usuario)
+        {
+            var repo_usuarios = new RepositorioDeUsuarios(this.conexion, RepositorioDePersonas.NuevoRepositorioDePersonas(this.conexion));
+
+            var usuario_solicitante = repo_usuarios.GetUsuarioPorIdPersona(solicitud.IdPersona);
+            new RepositorioDeTickets(this.conexion)
+                .MarcarEstadoTicket(solicitud.IdTicketImpresion, usuario.Id);
+            new RepositorioDeAlertasPortal(this.conexion)
+                .crearAlerta("Solicitud de Credencial", "Su credencial está impresa. Para retirarla: " + instrucciones_de_retiro, usuario_solicitante.Id, usuario.Id);
+            return true;
+        }
+
+
+
         private void getConsultasPorCriterio(Dictionary<string, object> parametros, List<Consulta> consultas)
         {
             Area area = new Area();
@@ -1269,6 +1293,8 @@ namespace General.Repositorios
         {
             throw new NotImplementedException();
         }
+
+
 
 
 

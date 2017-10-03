@@ -87,6 +87,13 @@
             vertical-align: initial;
         }
         
+        #pantalla_impresion_credencial #panel_dar_aviso
+        {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+        }
+        
         @media print {
           body * {
             visibility: hidden;
@@ -117,10 +124,15 @@
         <span class="checkboxtext">
           Impresa
         </span>
-        <div style="margin-top:30px;">
+        <div id="panel_codigo_magnetico" style="margin-top:30px;">
             <label>Código Magnético:</label>
             <input type=text id=txt_codigo_magnetico />
             <input id="btn_asociar_codigo_magnetico" type="button" class="btn btn-info" value="Asociar Código"/>     
+        </div>
+        <div id="panel_dar_aviso">
+            <label>Instrucciones para retirar Credencial</label>
+            <input type=text id=txt_instrucciones_retiro />
+            <input id="btn_dar_aviso_y_cerrar" type="button" class="btn btn-primary" value="Dar aviso y cerrar"/>     
         </div>
     </div>
 </div>
@@ -128,6 +140,8 @@
 <script type="text/javascript">
     var Componente = {
         start: function (ticket, ui) {
+            ui.find("#panel_codigo_magnetico").hide();
+            ui.find("#panel_dar_aviso").show();
             Backend.GetSolicitudDeCredencialPorIdTicketImpresion(ticket.id).onSuccess(function (solicitud) {
                 Backend.GetUsuarioPorIdPersona(solicitud.IdPersona).onSuccess(function (usuario) {
                     ui.find("#apellido").text(usuario.Owner.Apellido);
@@ -149,13 +163,34 @@
                         btn_imprimir.val("ReImprimir");
                         chk_impresa.attr("checked", true);
                         chk_impresa.attr("disabled", true);
+                        ui.find("#panel_codigo_magnetico").show();
                     }
                     chk_impresa.click(function () {
-                        btn_imprimir.val("ReImprimir");
-                        chk_impresa.attr("disabled", true);
                         Backend.MarcarCredencialComoImpresa(solicitud.Credencial.Id)
                             .onSuccess(function () {
                                 alertify.success("La credencial se marcó como impresa");
+                                btn_imprimir.val("ReImprimir");
+                                chk_impresa.attr("disabled", true);
+                                ui.find("#panel_codigo_magnetico").show();
+                                var btn_asociar_codigo_magnetico = ui.find("#btn_imprimir_credencial");
+                                btn_asociar_codigo_magnetico.click(function () {
+                                    var codigo =  ui.find("#txt_codigo_magnetico").val();
+                                    //Backend.AsociarCodigoMagneticoACredencial(solicitud.Credencial.Id, codigo)
+                                    //    .onSuccess(function () {
+                                            alertify.success("el código magnético se asoció correctamente");
+                                            ui.find("#panel_dar_aviso").show();
+                                            var btn_dar_aviso = ui.find("#btn_dar_aviso_y_cerrar");
+                                            btn_dar_aviso.click(function () {
+                                                var instrucciones = ui.find("#txt_instrucciones_retiro").val();
+                                                //Backend.CerrarTicketImpresion(solicitud.Credencial.Id, instrucciones)
+                                                //    .onSuccess(function () {
+                                                    alertify.success("Se envió un mensaje al usuario para que retire su credencial");                                                    
+                                                    vex.close();
+                                                    GestionDeTareas.getTareasParaGestion();
+                                                //    });
+                                            });
+                                    //    });
+                                });
                             })
                             .onError(function () {
                                 alertify.error("Error");

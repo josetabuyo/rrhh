@@ -2999,6 +2999,20 @@ public class WSViaticos : System.Web.Services.WebService
         return repositorio.MarcarCredencialComoImpresa(idCredencial, usuario);
     }
 
+    [WebMethod]
+    public bool AsociarCodigoMagneticoACredencial(int idCredencial,string codigo_magnetico, Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+        return repositorio.AsociarCodigoMagneticoACredencial(idCredencial, codigo_magnetico, usuario);
+    }
+
+    [WebMethod]
+    public bool CerrarTicketImpresion(int idCredencial, string instrucciones_de_retiro, Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+        return repositorio.CerrarTicketImpresion(idCredencial,instrucciones_de_retiro, usuario);
+    }
+
     #endregion
 
 
