@@ -175,21 +175,22 @@
                                 var btn_asociar_codigo_magnetico = ui.find("#btn_imprimir_credencial");
                                 btn_asociar_codigo_magnetico.click(function () {
                                     var codigo =  ui.find("#txt_codigo_magnetico").val();
-                                    //Backend.AsociarCodigoMagneticoACredencial(solicitud.Credencial.Id, codigo)
-                                    //    .onSuccess(function () {
+                                    Backend.AsociarCodigoMagneticoACredencial(solicitud.Credencial.Id, codigo)
+                                        .onSuccess(function () {
                                             alertify.success("el código magnético se asoció correctamente");
                                             ui.find("#panel_dar_aviso").show();
                                             var btn_dar_aviso = ui.find("#btn_dar_aviso_y_cerrar");
                                             btn_dar_aviso.click(function () {
                                                 var instrucciones = ui.find("#txt_instrucciones_retiro").val();
-                                                //Backend.CerrarTicketImpresion(solicitud.Credencial.Id, instrucciones)
-                                                //    .onSuccess(function () {
-                                                    alertify.success("Se envió un mensaje al usuario para que retire su credencial");                                                    
-                                                    vex.close();
-                                                    GestionDeTareas.getTareasParaGestion();
-                                                //    });
+                                                Backend.CerrarTicketImpresion(solicitud.Credencial.Id, instrucciones)
+                                                    .onSuccess(function () {
+                                                        alertify.success("Se envió un mensaje al usuario para que retire su credencial");                                                    
+                                                        vex.close();
+                                                        GestionDeTareas.getTareasParaGestion();
+                                                    });
+                                                });
                                             });
-                                    //    });
+                                    });
                                 });
                             })
                             .onError(function () {

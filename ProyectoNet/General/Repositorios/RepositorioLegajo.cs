@@ -809,6 +809,7 @@ namespace General.Repositorios
             solicitud.Credencial.Id = row.GetInt("idCredencial");
             solicitud.Credencial.IdFoto = row.GetInt("idFoto");
             solicitud.Credencial.Impresa = row.GetBoolean("impresa");
+            solicitud.CodigoMagnetico = row.GetString("CodigoMagnetico", "");
             return solicitud;
         }
 
