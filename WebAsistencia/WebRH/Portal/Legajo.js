@@ -149,10 +149,9 @@ var Legajo = {
                                 domicilio.Provincia = ui.find('#cmb_provincia').val();
                                 domicilio.Manzana = ui.find('#txt_manzana').val();
                                 domicilio.Casa = ui.find('#txt_casa').val();
-                                domicilio.Barrio = ui.find('#cmb_barrio').val();
-                                domicilio.Torre = ui.find('#cmb_torre').val();
-                                domicilio.Uf = ui.find('#cmb_uf').val();
-                                ////ver como se crea este objeto domicilio y cambiar nombre partido por obj partido
+                                domicilio.Barrio = ui.find('#txt_barrio').val();
+                                domicilio.Torre = ui.find('#txt_torre').val();
+                                domicilio.Uf = ui.find('#txt_uf').val();
                                 domicilio.Telefono = ui.find('#txt_tel').val();
                                 domicilio.Telefono2 = ui.find('#txt_cel').val();
 

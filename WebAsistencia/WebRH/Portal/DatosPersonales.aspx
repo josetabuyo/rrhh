@@ -70,12 +70,12 @@
 
                             <div class="">
                                 <label class="etiqueta_campo" style="margin-right: 13px;" for="txt_calle">Manzana:</label>
-                                <input type="text" value="" id="txt_manzana" name="txt_calle" style="width: 30px; height: 30px;" />
+                                <input type="text" value="" id="txt_manzana" size="5" name="txt_calle" style="width: 30px; height: 30px;" />
                                 <label class="etiqueta_campo" style="margin: 0 10px;" for="txt_numero">Barrio:</label>
-                                <input type="text" value="" id="txt_barrio" name="txt_numero" style="width: 30px; height: 30px;" />
+                                <input type="text" value="" id="txt_barrio" size="5" name="txt_numero" style="width: 30px; height: 30px;" />
 
                                 <label class="etiqueta_campo" style="margin: 0 10px;" for="txt_piso">Torre:</label>
-                                <input type="text" value="" id="txt_torre" name="txt_piso" style="width: 30px; height: 30px;" />
+                                <input type="text" value="" id="txt_torre" size="5" name="txt_piso" style="width: 30px; height: 30px;" />
 
                                 <label class="etiqueta_campo" style="margin: 0 10px;" for="txt_dto">Uf:</label>
                                 <input type="text" value="" id="txt_uf" name="txt_dto" style="width: 30px; height: 30px;" />
@@ -84,7 +84,7 @@
                                 <input type="text" value="" id="txt_casa" name="txt_cp" style="width: 30px; height: 30px;" />
                             </div>
 
-                            <div class="">
+                            <div style="margin-bottom: 10px;" class="">
                                 <label class="etiqueta_campo" for="cmb_provincia">Provincia: <em style="color:Red;">*</em></label>
                                 <select id="cmb_provincia" style="width: 200px;"></select>
 
@@ -92,8 +92,10 @@
                                 <select id="cmb_localidad" style="width: 250px;"></select>
                             </div>
 
-                            <label class="etiqueta_campo" style="margin-right: 13px;" for="txt_tel">Tel.: </label> <input id="txt_tel" style="width: 100px; height: 30px;" name="txt_tel" type="text" value="" /><label class="etiqueta_campo" style="margin: 0 10px;" for="txt_email">Cel: </label> <input id="txt_cel" style="width: 100px; height: 30px;" name="txt_cel" type="text" value="" />
-
+                            <div class="">
+                                <label class="etiqueta_campo" style="margin-right: 45px;" for="txt_tel">Tel.: </label> <input id="txt_tel" style="width: 100px; height: 30px;" name="txt_tel" type="text" value="" />
+                                <label class="etiqueta_campo" style="margin: 0 10px;" for="txt_email">Cel: </label> <input id="txt_cel" style="width: 100px; height: 30px;" name="txt_cel" type="text" value="" />
+                             </div>
                             <br />
                             <div style="text-align:center;">
                                 <input  id="btnCambiarDomicilio" value="Solicitar Cambio" class="btn btn-primary" type="button" />

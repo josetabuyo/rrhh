@@ -145,7 +145,8 @@ namespace General.Repositorios
                         Legajo = legajo,
                         Documento = row.GetInt("Nro_Documento"),
                         IdImagen = row.GetInt("IdImagen", -1),
-                        BajaLegajo = row.GetSmallintAsInt("Motivo_Baja", -1)>=0
+                        BajaLegajo = row.GetSmallintAsInt("Motivo_Baja", -1)>=0,
+                        Cuit = row.GetString("CUIL","")
                     });
                 });
             }

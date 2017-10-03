@@ -1095,6 +1095,8 @@ namespace General.Repositorios
                 parametros.Add("@idPersona", usuario.Owner.Id);
                 parametros.Add("@idAlerta", id_ticket);
                 parametros.Add("@idDocumentoGDE", idDocumentoGDE);
+                parametros.Add("@telefono", domicilio.Telefono);
+                parametros.Add("@telefono2", domicilio.Telefono2);
 
                 conexion.Ejecutar("dbo.LEG_Ins_Domicilios_Pendientes", parametros);
 
