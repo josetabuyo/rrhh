@@ -100,9 +100,9 @@ ESTA SOLICITUD DEBE SER RECIBIDA EN LA DIRECCION DE ADMINISTRACIÓN DE PERSONAL 
     {
         this.ValidarDatos();
         this.SaldoOrdinaria1.DiasSolicitados = this.DesdeHasta1.DiasEntreFechas();
-        this.SaldoOrdinaria1.BuscarSegmentos( this.DesdeHasta1.Desde);
+        this.SaldoOrdinaria1.BuscarSegmentos(this.DesdeHasta1.Desde);
 
-        
+
     }
 
     protected void RBOtorgada_CheckedChanged(object sender, EventArgs e)
@@ -129,6 +129,13 @@ ESTA SOLICITUD DEBE SER RECIBIDA EN LA DIRECCION DE ADMINISTRACIÓN DE PERSONAL 
         this.SaldoOrdinaria1.BuscarSegmentos(this.DesdeHasta1.Desde);
         if (this.SaldoOrdinaria1.SegmentosDisponibles == 0)
             DatosValidos = false;
+
+        WSViaticosSoapClient s = new WSViaticosSoapClient();
+        var usuario = (Usuario)Session["usuario"];
+        if (this.DesdeHasta1.Desde < DateTime.Today && !s.ElUsuarioTienePermisosPara(usuario.Id, 54))
+        {
+            DatosValidos = false;
+        }
 
         this.AceptarCancelar1.PuedeAceptar = DatosValidos;
     }
