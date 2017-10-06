@@ -5,14 +5,16 @@ var ContenedorGrilla;
 var mesSeleccionado;
 var anioSeleccionado;
 var spinner;
+var lista_personas;
 
 Backend.start(function () {
     $(document).ready(function () {
         $('#cmbMeses').hide();
-       // spinner = new Spinner({ scale: 2 }).spin($("body")[0]);
+        // spinner = new Spinner({ scale: 2 }).spin($("body")[0]);
         ContenedorGrilla = $("#ContenedorGrilla");
         completarComboMeses();
         //getAreasDDJJ();
+
     });
 });
 
@@ -346,6 +348,9 @@ var ImprimirDDJJ = function (idArea) {
 
 
 var DibujarGrillaPersonas = function (un_area, contenedor_grilla, es_impresion) {
+
+    lista_personas = [];
+
     //Maximo por hoja solo con el 1er encabezado entran 56 personas.
     //Si hay otra area entran 52 personas porque el encabezado cuenta 4 personas mas.
     var personas_pagina_1 = 43; //40;
@@ -358,7 +363,7 @@ var DibujarGrillaPersonas = function (un_area, contenedor_grilla, es_impresion) 
 
     var cantidad_total_de_personas = contarPersonasDelArea(un_area);
     var cantidad_restantes_de_personas = cantidad_total_de_personas - cantidad_de_persona_por_hoja;
-    var cantidad_total_de_hojas = Math.ceil(cantidad_restantes_de_personas / personas_calculo_por_hoja) +1;
+    var cantidad_total_de_hojas = Math.ceil(cantidad_restantes_de_personas / personas_calculo_por_hoja) + 1;
 
 
     //IMPRIMIR AREAS FORMALES
@@ -373,10 +378,35 @@ var DibujarGrillaPersonas = function (un_area, contenedor_grilla, es_impresion) 
 
     grilla = new Grilla(
         [
+            new Columna("CERTIFICA", { generar: function (una_persona) {
+                var check = $("<input type='checkbox' />");
+                if (una_persona.EstaCertificadoEnLaDDJJ) check.attr("checked", true);
+                check.click(function () {
+                    if (una_persona.EstaCertificadoEnLaDDJJ) {
+                        check.attr("checked", false);
+                        una_persona.EstaCertificadoEnLaDDJJ = false;
+                        lista_personas = _.reject(lista_personas, function (p) { return p.idPersona == una_persona.Id; });
+                    }
+                    else {
+                        check.attr("checked", true);
+                        una_persona.EstaCertificadoEnLaDDJJ = true;
+                        lista_personas.push({
+                            idPersona: una_persona.Id,
+                            desde: una_persona.CertificaHoraDesdeDDJJ,
+                            hasta: una_persona.CertificaHoraHastaDDJJ
+                        });
+                    }
+
+                });
+                return check
+            }
+            }),
             new Columna("APELLIDO Y NOMBRE", { generar: function (una_persona) { return una_persona.Apellido + ", " + una_persona.Nombre; } }),
 			new Columna("CUIL/CUIT", { generar: function (una_persona) { return una_persona.Cuit; } }),
             new Columna("ESCALAFON O MODALIDAD DE CONTRATACION", { generar: function (una_persona) { return una_persona.Categoria.split("#")[1]; } }),
             new Columna("NIVEL O CATEGORIA", { generar: function (una_persona) { return una_persona.Categoria.split("#")[0]; } }),
+            new Columna("HORA DESDE", { generar: function (una_persona) { return "<input type='time' value='" + una_persona.CertificaHoraDesdeDDJJ + "'/>" } }),
+            new Columna("HORA HASTA", { generar: function (una_persona) { return "<input type='time' value='" + una_persona.CertificaHoraHastaDDJJ + "'/>" } }),
 		]);
 
     if (es_impresion) {
@@ -398,10 +428,13 @@ var DibujarGrillaPersonas = function (un_area, contenedor_grilla, es_impresion) 
                     contenedor_grilla.append($("<div class='nombre_area_informal'><b>" + un_area.Nombre + " (continuación)" + "<b/>" + "(Pag: " + contador_de_paginas + "/" + cantidad_total_de_hojas + ")</div>"));
                     grilla = new Grilla(
                 [
+                    new Columna("CERTIFICA", { generar: function (una_persona) { return "<input type='checkbox' " + (una_persona.EstaCertificadoEnLaDDJJ ? 'checked' : '') + "/>" } }),
                     new Columna("APELLIDO Y NOMBRE", { generar: function (una_persona) { return una_persona.Apellido + ", " + una_persona.Nombre; } }),
 			        new Columna("CUIL/CUIT", { generar: function (una_persona) { return una_persona.Cuit; } }),
                     new Columna("ESCALAFON O MODALIDAD DE CONTRATACION", { generar: function (una_persona) { return una_persona.Categoria.split("#")[1]; } }),
                     new Columna("NIVEL O CATEGORIA", { generar: function (una_persona) { return una_persona.Categoria.split("#")[0]; } }),
+                    new Columna("HORA DESDE", { generar: function (una_persona) { return "<input type='time' value='" + una_persona.CertificaHoraDesdeDDJJ + "'/>" } }),
+                    new Columna("HORA HASTA", { generar: function (una_persona) { return "<input type='time' value='" + una_persona.CertificaHoraHastaDDJJ + "'/>" } }),
 		        ]);
                     contador_de_registros_por_pagina = cantidad_de_filas_por_cabecera;
                 }
@@ -410,11 +443,22 @@ var DibujarGrillaPersonas = function (un_area, contenedor_grilla, es_impresion) 
                 var obj = un_area.Personas[i];
                 grilla.CargarObjeto(obj);
                 contador_de_registros_por_pagina = contador_de_registros_por_pagina + 1;
+
             }
         }
     }
     else {
         grilla.CargarObjetos(un_area.Personas);
+
+        for (i = 0; i < un_area.Personas.length; i++) {
+            if (un_area.Personas[i].EstaCertificadoEnLaDDJJ) {
+                lista_personas.push({
+                    idPersona: un_area.Personas[i].Id,
+                    desde: un_area.Personas[i].CertificaHoraDesdeDDJJ,
+                    hasta: un_area.Personas[i].CertificaHoraHastaDDJJ
+                });
+            }
+        }
     }
 
     grilla.DibujarEn(contenedor_grilla);
@@ -433,13 +477,39 @@ var DibujarGrillaPersonas = function (un_area, contenedor_grilla, es_impresion) 
         else {
             contenedor_grilla.append($("<br/>"));
             contenedor_grilla.append($("<div class='nombre_area_informal'><b>" + area_informal.Nombre + "<b/></div>"));
+
+
             var grilla_area_informal = new Grilla(
             [
+                new Columna("CERTIFICA", { generar: function (una_persona) {
+                    var check = $("<input type='checkbox' />");
+                    if (una_persona.EstaCertificadoEnLaDDJJ) check.attr("checked", true);
+                    check.click(function () {
+                        if (una_persona.EstaCertificadoEnLaDDJJ) {
+                            check.attr("checked", false);
+                            una_persona.EstaCertificadoEnLaDDJJ = false;
+                            lista_personas = _.reject(lista_personas, function (p) { return p.idPersona == una_persona.Id; });
+                        }
+                        else {
+                            check.attr("checked", true);
+                            una_persona.EstaCertificadoEnLaDDJJ = true;
+                            lista_personas.push({
+                                idPersona: una_persona.Id,
+                                desde: una_persona.CertificaHoraDesdeDDJJ,
+                                hasta: una_persona.CertificaHoraHastaDDJJ
+                            });
+                        }
+                    });
+                    return check
+                }
+                }),
                 new Columna("APELLIDO Y NOMBRE", { generar: function (una_persona) { return una_persona.Apellido + ", " + una_persona.Nombre; } }),
 			    new Columna("CUIL/CUIT", { generar: function (una_persona) { return una_persona.Cuit; } }),
                 new Columna("ESCALAFON O MODALIDAD DE CONTRATACION", { generar: function (una_persona) { return una_persona.Categoria.split("#")[1]; } }),
                 new Columna("NIVEL O CATEGORIA", { generar: function (una_persona) { return una_persona.Categoria.split("#")[0]; } }),
-		    ]);
+                new Columna("HORA DESDE", { generar: function (una_persona) { return "<input type='time' value='" + una_persona.CertificaHoraDesdeDDJJ + "'/>" } }),
+                new Columna("HORA HASTA", { generar: function (una_persona) { return "<input type='time' value='" + una_persona.CertificaHoraHastaDDJJ + "'/>" } }),
+             ]);
         }
 
         if (es_impresion) {
@@ -464,10 +534,13 @@ var DibujarGrillaPersonas = function (un_area, contenedor_grilla, es_impresion) 
                         contenedor_grilla.append($("<div class='nombre_area_informal'><b>" + area_informal.Nombre + " (continuación)" + "<b/>" + "(Pag: " + contador_de_paginas + "/" + cantidad_total_de_hojas + ")</div>"));
                         grilla_area_informal = new Grilla(
                     [
+                        new Columna("CERTIFICA", { generar: function (una_persona) { return "<input type='checkbox' " + (una_persona.EstaCertificadoEnLaDDJJ ? 'checked' : '') + "/>" } }),
                         new Columna("APELLIDO Y NOMBRE", { generar: function (una_persona) { return una_persona.Apellido + ", " + una_persona.Nombre; } }),
 			            new Columna("CUIL/CUIT", { generar: function (una_persona) { return una_persona.Cuit; } }),
                         new Columna("ESCALAFON O MODALIDAD DE CONTRATACION", { generar: function (una_persona) { return una_persona.Categoria.split("#")[1]; } }),
                         new Columna("NIVEL O CATEGORIA", { generar: function (una_persona) { return una_persona.Categoria.split("#")[0]; } }),
+                        new Columna("HORA DESDE", { generar: function (una_persona) { return "<input type='time' value='" + una_persona.CertificaHoraDesdeDDJJ + "'/>" } }),
+                        new Columna("HORA HASTA", { generar: function (una_persona) { return "<input type='time' value='" + una_persona.CertificaHoraHastaDDJJ + "'/>" } }),
 		            ]);
                         contador_de_registros_por_pagina = cantidad_de_filas_por_cabecera;
                     }
@@ -482,6 +555,17 @@ var DibujarGrillaPersonas = function (un_area, contenedor_grilla, es_impresion) 
 
         else {
             grilla_area_informal.CargarObjetos(area_informal.Personas);
+
+            for (i = 0; i < area_informal.Personas.length; i++) {
+            if (area_informal.Personas[i].EstaCertificadoEnLaDDJJ) {
+                lista_personas.push({
+                    idPersona: area_informal.Personas[i].Id,
+                    desde: area_informal.Personas[i].CertificaHoraDesdeDDJJ,
+                    hasta: area_informal.Personas[i].CertificaHoraHastaDDJJ
+                });
+                }
+            }
+
         }
         grilla_area_informal.DibujarEn(contenedor_grilla);
         grilla_area_informal.SetOnRowClickEventHandler(function () {
@@ -551,3 +635,6 @@ function NombreMes(num) {
         }
         //   _this.GraficoYTabla(tipo, fecha, id_area, "Dotación por Nivel del Área aaa", "container_grafico_torta_totales", "div_tabla_resultado_totales", "tabla_resultado_totales");
     }
+
+
+
