@@ -13,14 +13,14 @@ namespace General
       public string UsuarioAlta;
       public string Organismo;
       public int IdFoto;
-      public int CodigoMagnetico;
+      public string CodigoMagnetico { get; set; }
       public string Estado;
       public bool Impresa;
 
       public Credencial() { }
 
 
-      public Credencial(long id, string tipo, DateTime fechaAlta, string usuarioAlta, string organismo, int idfoto, int codigoMagnetico, string estado)
+      public Credencial(long id, string tipo, DateTime fechaAlta, string usuarioAlta, string organismo, int idfoto, string codigoMagnetico, string estado)
       {
           this.Id = id;
           this.Tipo = tipo;

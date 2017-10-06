@@ -729,7 +729,7 @@ namespace General.Repositorios
             {
                 tablaDatos.Rows.ForEach(row =>
                 {
-                    credenciales.Add(new Credencial(row.GetInt("IdCredencial"), row.GetString("TipoCredencial"), row.GetDateTime("FechaAlta"), row.GetString("UsuarioAlta"), row.GetString("Organismo"), row.GetInt("IdFoto", 0), row.GetInt("CodigoMagnetico"), row.GetString("Estado")));                                
+                    credenciales.Add(new Credencial(row.GetInt("IdCredencial"), row.GetString("TipoCredencial"), row.GetDateTime("FechaAlta"), row.GetString("UsuarioAlta"), row.GetString("Organismo"), row.GetInt("IdFoto", 0), row.GetString("CodigoMagnetico"), row.GetString("Estado")));                                
 
                 });              
 
@@ -737,7 +737,7 @@ namespace General.Repositorios
 
             else
             {
-                credenciales.Add(new Credencial(0, "", DateTime.MinValue, " ", " ", 0, 0, "INACTIVA")); 
+                credenciales.Add(new Credencial(0, "", DateTime.MinValue, " ", " ", 0, "", "INACTIVA")); 
             }
 
 
@@ -809,7 +809,7 @@ namespace General.Repositorios
             solicitud.Credencial.Id = row.GetInt("idCredencial");
             solicitud.Credencial.IdFoto = row.GetInt("idFoto");
             solicitud.Credencial.Impresa = row.GetBoolean("impresa");
-            solicitud.CodigoMagnetico = row.GetString("CodigoMagnetico", "");
+            solicitud.Credencial.CodigoMagnetico = row.GetString("CodigoMagnetico", "");
             return solicitud;
         }
 
