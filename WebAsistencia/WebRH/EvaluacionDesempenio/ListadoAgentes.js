@@ -85,7 +85,7 @@ var ListadoAgentes = {
         if (!(asignacion_evaluado_a_evaluador.evaluacion.estado_evaluacion == 1)) {
             return this.getBotonIrAFormulario(asignacion_evaluado_a_evaluador);
         }
-        if (_this.EvaluacionCompleta(asignacion_evaluado_a_evaluador)) {
+        if (this.EvaluacionCompleta(asignacion_evaluado_a_evaluador)) {
             return this.getBotonImprimir(asignacion_evaluado_a_evaluador);
         } else {
             //deberia ser imposible que este como definitiva una evaluacion incompleta
@@ -94,7 +94,7 @@ var ListadoAgentes = {
     },
     GetterGDE: function (asignacion_evaluado_a_evaluador) {
         if (asignacion_evaluado_a_evaluador.evaluacion.codigo_gde == '' && asignacion_evaluado_a_evaluador.evaluacion.estado_evaluacion == 1) {
-            return _this.getLinkCargarGDE(asignacion_evaluado_a_evaluador.id_evaluacion);
+            return this.getLinkCargarGDE(asignacion_evaluado_a_evaluador.id_evaluacion);
         }
         if (asignacion_evaluado_a_evaluador.evaluacion.codigo_gde != '') {
             return asignacion_evaluado_a_evaluador.evaluacion.codigo_gde;
