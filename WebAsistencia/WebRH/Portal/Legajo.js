@@ -93,9 +93,9 @@ var Legajo = {
                                 $('#mensajeCambioDomicilioPendiente').show();
                                 $('#btnMostrarDomicilio').hide();
                                 if (domicilio.DocumentoGDE.numero != '') {
-                                    $('#numeroGDECambioDomicilio').html(domicilio.DocumentoGDE.numero);
+                                    $('#numeroGDECambioDomicilio').html('N° GDE: ' + domicilio.DocumentoGDE.numero);
                                 } else {
-                                    $('#numeroGDECambioDomicilio').html('Pendiente');
+                                    $('#numeroGDECambioDomicilio').html('Próximo paso ->');
                                 }
 
 
@@ -178,7 +178,7 @@ var Legajo = {
                         },
                         contentCSS: {
                             width: "50%",
-                            height: "330px"
+                            height: "390px"
                         }
                     });
                     //$('#cajaCambiarDomicilio').show();
@@ -265,18 +265,20 @@ var Legajo = {
                 });
 
                 $('#btnGenerarPDF').click(function () {
-
-                    alertify.success("Solicitud creada.");
+                    var spinner = new Spinner({ scale: 2 });
+                    spinner.spin($("html")[0]);
+                    //alertify.success("Solicitud creada.");
 
                     Backend.GenerarPDFCambioDomicilio()
                             .onSuccess(function (rpta) {
+                                spinner.stop();
                                 alertify.success("PDF creado");
                                 /////////abre una ventana y descarga el formulario
                                 window.open("data:application/pdf;base64," + rpta, '_blank');
 
                             })
                             .onError(function (e) {
-
+                                spinner.stop();
                             });
 
                 });

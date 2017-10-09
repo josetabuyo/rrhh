@@ -139,6 +139,7 @@ hr
     {
         width: 40%;
         display: inline-block;
+        vertical-align: top;
     }
             
     .item_cajita 

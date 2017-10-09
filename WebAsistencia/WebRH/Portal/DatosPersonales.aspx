@@ -36,16 +36,19 @@
                  </div>
                  <div class="cajitas">
                     <p class=""><label class="item_cajita">CUIL: </label> <span id="cuil"></span></p>
-                    <p class=""><label class="item_cajita">Domicilio: </label> <span id="domicilio"></span>
+                    <p class=""><label class="item_cajita">Domicilio: </label> <span id="domicilio"></span> - <a href="InstructivoInformeGDE.aspx" target="_blank" >Instructivo Cambio Domicilio</a></p>
+                    
                     <img id="btnMostrarDomicilio" style="cursor:pointer; " title="Cambiar Domicilio" src="../Imagenes/edit.png" width="30px" height="30px" />
                     <%--<input id="btnMostrarDomicilio" value="Cambiar Domicilio" class="btn btn-primary" type="button" />--%>
-                    <div style="display:none; color:Red;" id="mensajeCambioDomicilioPendiente">
-                        <p>Solicitud Pendiente de Aprobación. N° GDE: <span id="numeroGDECambioDomicilio"></span>. <span id="btnMostrarDialogoActualizarGDE" style="color: #337ab7; cursor: pointer;" >Actualizar N° GDE</span></p>
+                    <div style="display:none;  border: 1px solid #ccc; padding: 5px; background: rgba(204, 204, 204, 0.13);" id="mensajeCambioDomicilioPendiente">
+                        <p style="color:Red;">Solicitud Pendiente de Aprobación.</p>
+                        <p>Próximo paso: <span id="btnGenerarPDF" style="color: #337ab7; cursor: pointer;" >Generar PDF y Cargar en el GDE</span></p>
+                        <p><span id="numeroGDECambioDomicilio"></span> <span id="btnMostrarDialogoActualizarGDE" style="color: #337ab7; cursor: pointer;" >Actualizar N° GDE</span></p>
                         <input id="idDocumentoGDE" type="hidden" />
-                        <span id="btnGenerarPDF" style="color: #337ab7; cursor: pointer;" >Generar PDF</span>
+                       
                     </div>
                     
-                    </p>
+                  
                  </div>
 
                  <div id="cajaCambiarDomicilio" style="display:none;" class="">
