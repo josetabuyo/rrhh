@@ -295,7 +295,17 @@ var ListadoAgentes = {
         btn_accion.click(function () {
             Backend.PrintPdfEvaluacionDesempenio(asignacion_evaluado_a_evaluador)
             .onSuccess(function (rpta) {
-                window.open("data:application/pdf;base64," + rpta, '_blank');
+
+                //window.open("data:application/pdf;base64," + rpta, '_blank');
+               
+                var string = 'data:application/pdf;base64,' + rpta; 
+                 var iframe = "<iframe width='100%' height='100%' src='" + string + "'></iframe>"
+                var x = window.open();
+                x.document.open();
+                x.document.write(iframe);
+                x.document.close();
+                
+
             });
 
         });
