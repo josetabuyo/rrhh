@@ -73,18 +73,18 @@
 
                             <div class="">
                                 <label class="etiqueta_campo" style="margin-right: 13px;" for="txt_calle">Manzana:</label>
-                                <input type="text" value="" id="txt_manzana" size="5" name="txt_calle" style="width: 30px; height: 30px;" />
+                                <input type="text" value="" maxlength="5" id="txt_manzana" size="5" name="txt_calle" style="width: 30px; height: 30px;" />
                                 <label class="etiqueta_campo" style="margin: 0 10px;" for="txt_numero">Barrio:</label>
-                                <input type="text" value="" id="txt_barrio" size="5" name="txt_numero" style="width: 30px; height: 30px;" />
+                                <input type="text" value=""  maxlength="5" id="txt_barrio" size="5" name="txt_numero" style="width: 30px; height: 30px;" />
 
                                 <label class="etiqueta_campo" style="margin: 0 10px;" for="txt_piso">Torre:</label>
-                                <input type="text" value="" id="txt_torre" size="5" name="txt_piso" style="width: 30px; height: 30px;" />
+                                <input type="text" value=""  maxlength="5" id="txt_torre" size="5" name="txt_piso" style="width: 30px; height: 30px;" />
 
                                 <label class="etiqueta_campo" style="margin: 0 10px;" for="txt_dto">Uf:</label>
-                                <input type="text" value="" id="txt_uf" name="txt_dto" style="width: 30px; height: 30px;" />
+                                <input type="text" value=""  maxlength="5" id="txt_uf" name="txt_dto" style="width: 30px; height: 30px;" />
 
                                  <label class="etiqueta_campo_small" style="margin: 0 10px;" for="txt_cp">Casa:</label>
-                                <input type="text" value="" id="txt_casa" name="txt_cp" style="width: 30px; height: 30px;" />
+                                <input type="text" value=""  maxlength="5" id="txt_casa" name="txt_cp" style="width: 30px; height: 30px;" />
                             </div>
 
                             <div style="margin-bottom: 10px;" class="">
