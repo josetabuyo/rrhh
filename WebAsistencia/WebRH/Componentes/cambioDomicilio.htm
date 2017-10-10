@@ -26,7 +26,7 @@
      <p class="componenteCambioDomicilio">Localidad: <strong id="localidad"></strong> - Provincia: <strong id="provincia"></strong></p>
      <!--<p class="componenteCambioDomicilio">Provincia: <strong id="provincia"></strong></p>-->
      <p class="componenteCambioDomicilio">Manzana: <strong id="manzana"></strong>. Casa: <strong id="casa"></strong>. Barrio: <strong id="barrio"></strong>. Torre: <strong id="torre"></strong>. UF: <strong id="uf"></strong> </p>
-     <!--<p class="componenteCambioDomicilio">Folio: <input style="height: 30px; width: 120px;" type="text" placeholder="N° Folio" value="0" id="folio" /></p>-->
+     <p style="display:none;" class="componenteCambioDomicilio">Folio: <input style="height: 30px; width: 120px; " type="text" placeholder="N° Folio" value="0" id="folio" /></p>
      <p class="componenteCambioDomicilio">Id. Doc. Electronico: <strong style="height: 30px; width: 120px;" id="idDocumentoGDE"></strong>. 
                                             N° Informe GDE: <input style="height: 30px; width: 250px;" type="text" placeholder="N° Informe" value="0" id="numeroGDE" />
      </p>
@@ -54,13 +54,13 @@
             var idTicket = ticket.id;
             var documento = ticket.usuarioCreador.Owner.Documento;
             var idUsuarioCreador = ticket.usuarioCreador.Id;
-
+            var folio = ui.find('#folio').val();
 
             ui.find('#btnConfirmarDomicilio').click(function () {
-                if (ui.find('#folio').val() == 0) {
+                /*if (folio == 0) {
                     alert('Debe ingresar un N° Folio');
                     return;
-                }
+                }*/
                 Backend.VerificarDomicilioPendiente(idTicket, documento, folio, idUsuarioCreador)
                 .onSuccess(function (resultado) {
                     alertify.success(resultado);

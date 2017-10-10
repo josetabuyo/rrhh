@@ -24,7 +24,7 @@
         });
 
         $('#cmb_provincia_personal').change(function () {
-            var localidades = Backend.sync.BuscarLocalidades('{IdProvincia: ' + this.selectedIndex + '}');
+            var localidades = Backend.sync.BuscarLocalidades('{IdProvincia: ' + this.value + '}');
             $('#cmb_localidad_personal').empty();
             $.each(localidades, function () {
                 $('#cmb_localidad_personal').append('<option value=' + this.Id + '>' + this.Nombre + '</option>');
@@ -32,7 +32,7 @@
         });
 
         $('#cmb_provincia_legal').change(function () {
-            var localidades = Backend.sync.BuscarLocalidades('{IdProvincia: ' + this.selectedIndex + '}');
+            var localidades = Backend.sync.BuscarLocalidades('{IdProvincia: ' + this.value + '}');
             $('#cmb_localidad_legal').empty();
             $.each(localidades, function () {
                 $('#cmb_localidad_legal').append('<option value=' + this.Id + '>' + this.Nombre + '</option>');

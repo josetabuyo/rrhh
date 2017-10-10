@@ -187,19 +187,12 @@ $(function () {
 
             //Asignar/Cambiar Chofer
             8: function () {
-                //                titulo = "Asignar chofer";
-                //                id_Tipo_Evento_Presionado = 2;
-                //                observaciones = "Asignar/Cambiar chofer";
-                //                mensaje = "Desea asignar el chofer al vehiculo?";
-
                 LimpiarPantalla();
                 id_Tipo_Evento_Presionado = 3;
                 observaciones = "Asignar responsable al bien"
 
                 $('#Controles_Persona_Area').show();
                 $('#divBuscadorArea').hide();
-
-
             }
         };
 
