@@ -45,12 +45,28 @@
                     </div>
                     
                     </p>
-                 </div>
+                </div>
 
 
                 <legend style="margin-top: 20px;">MIS CREDENCIALES</legend>
                 
               <%--  <div><a id="btn_credencial_vigente">Ver credencial vigente</a></div>--%>
+
+              
+
+                <div id="cajaAgregarFotoPerfil" style="width:100%;text-align: center;display:none;" class="">
+                <div class="">
+                
+                <label class="etiqueta_campo">Para solicitar una credencial, debe tener una foto de Perfil</label>
+
+                </div>  
+                
+                <%--  <div style = "width:100%;text-align: center;display:none" id="botonera_cargar_foto">      --%>        
+                <div  style="display: inline-block;" > <button type="button" id="btn_cargar_foto" class="btn btn-primary" >Cargar foto de perfil</button></div>     
+              <%--  </div>      --%>
+                
+                </div>
+
               <div style = "width:100%;text-align: center;display:none" id="botonera_credenciales">
                 <%--<div  style="display: inline-block;" > <button type="button" id="Button1" class="btn btn-primary">Ver credencial vigente</button></div>--%>
                 <div  style="display: inline-block;" > <button type="button" id="btn_credencial_vigente" class="btn btn-primary">Ver última credencial vigente</button></div>
@@ -63,6 +79,9 @@
 
                 <div id="TablaHistoriaCredencial" class="table table-striped table-bordered table-condensed" >
                 </div>
+
+
+              
 
                     <div id="cajaSolicitudCredencial" style="display:none;" class="">
                  <h3 style="text-align: center;">Solicitud de Credencial</h3>
@@ -106,6 +125,7 @@
 
                                  <label class="etiqueta_campo_small" style="margin: 0 10px;" for="txt_cp">Casa:</label>
                                 <input type="text" value="" id="Text9" name="txt_cp" style="width: 30px; height: 30px;" />--%>
+
                             </div>
                                <br />
                             <div class="">
@@ -120,8 +140,10 @@
                             </div>
                             <br />
 
-                               <div style="text-align:center;" id = "Div1">
-                                <label class="etiqueta_campo" style="color:Red; ">*Al hacer la solicitud, su credencial vigente será dada de baja.</label>
+                               <div style="text-align:center;border: 1px solid black;" id = "Div1">
+                                <br />
+                                <label class="etiqueta_campo" style="color:Red; ">Al hacer la solicitud, su credencial vigente será dada de baja.</label>
+                                 <br />
                             </div>
 
                               <div style="text-align:center;" id = "texto_robo">
@@ -256,25 +278,44 @@
                 Legajo.getCredencialesUsuario();
             });
 
+            debugger;
+            Backend.GetUsuarioLogueado().onSuccess(function (usuario) {
 
-            Backend.GetSolicitudesDeCredencialPorPersona().onSuccess(function (solicitudes) {               
-          
-                $("#botonera_credenciales").show();
-                $.each(solicitudes, function (i, val) {
+                if (usuario.Owner.IdImagen == -1) {
 
-                    if (solicitudes[i].Estado == "PENDIENTE") {
-                    
-                        $("#btn_aviso_solicitud").show();
-                        $("#btn_renovar_credencial").hide();
-                    }
-                    else {
-                        $("#btn_aviso_solicitud").hide();
-                        $("#btn_renovar_credencial").show();
-                    }
-                
-                });
-                $("#btn_historial_credenciales").show();
+
+                    $("#cajaAgregarFotoPerfil").show();
+                    $("#botonera_credenciales").hide();
+                    $("#btn_cargar_foto").click(function () { $("#contenedor_foto_usuario").click(); });
+
+                }
+                else {
+
+                    Backend.GetSolicitudesDeCredencialPorPersona().onSuccess(function (solicitudes) {
+
+                        $("#botonera_credenciales").show();
+                        $.each(solicitudes, function (i, val) {
+
+                            if (solicitudes[i].Estado == "PENDIENTE") {
+
+                                $("#btn_aviso_solicitud").show();
+                                $("#btn_renovar_credencial").hide();
+                            }
+                            else {
+                                $("#btn_aviso_solicitud").hide();
+                                $("#btn_renovar_credencial").show();
+                            }
+
+                        });
+                        $("#btn_historial_credenciales").show();
+                    });
+
+                }
+
             });
+
+
+
 
 
 
@@ -351,7 +392,7 @@
                             },
                             contentCSS: {
                                 width: "50%",
-                                height: "330px"
+                                height: "380px"
                             }
                         });
                         //$('#cajaCambiarDomicilio').show();
