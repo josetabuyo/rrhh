@@ -179,7 +179,7 @@
                         chk_impresa.attr("disabled", true);
                         ui.find("#panel_codigo_magnetico").show();
                     }
-                    
+
                     chk_impresa.click(function () {
                         Backend.MarcarCredencialComoImpresa(solicitud.Credencial.Id)
                             .onSuccess(function () {
@@ -187,15 +187,16 @@
                                 btn_imprimir.val("ReImprimir");
                                 chk_impresa.attr("disabled", true);
                                 ui.find("#panel_codigo_magnetico").show();
-                                
+
                             })
                             .onError(function () {
                                 alertify.error("Error");
                             });
                     });
 
-                    var btn_asociar_codigo_magnetico = ui.find("#btn_asociar_codigo_magnetico");                    
+                    var btn_asociar_codigo_magnetico = ui.find("#btn_asociar_codigo_magnetico");
                     if (solicitud.Credencial.CodigoMagnetico != "") {
+                        ui.find("#txt_codigo_magnetico").val(solicitud.Credencial.CodigoMagnetico)
                         btn_asociar_codigo_magnetico.val("ReAsociar");
                         ui.find("#panel_dar_aviso").show();
                     }
@@ -205,14 +206,15 @@
                             .onSuccess(function () {
                                 alertify.success("el código magnético se asoció correctamente");
                                 ui.find("#panel_dar_aviso").show();
-                                
+
                             });
-                        });
-                
+                    });
+
                     var btn_dar_aviso = ui.find("#btn_dar_aviso_y_cerrar");
                     btn_dar_aviso.click(function () {
                         var instrucciones = ui.find("#txt_instrucciones_retiro").val();
-                        Backend.CerrarTicketImpresion(solicitud.Credencial.Id, instrucciones)
+                        solicitud.IdTicketImpresion = ticket.id;
+                        Backend.CerrarTicketImpresion(solicitud, instrucciones)
                             .onSuccess(function () {
                                 alertify.success("Se envió un mensaje al usuario para que retire su credencial");
                                 vex.close();
