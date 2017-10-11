@@ -16,24 +16,28 @@ var ListadoAgentes = {
 
         var calificacion;
         Backend.EvalGetAgentesEvaluables()
-        .onSuccess(function (asignacion_evaluado_a_evaluador) {
+        .onSuccess(function (respuesta) {
+            var asignacion_evaluado_a_evaluador = respuesta.asignaciones;
             spinner.stop();
             if (asignacion_evaluado_a_evaluador.length == 0) return;
             if (!asignacion_evaluado_a_evaluador[0].hasOwnProperty('agente_evaluado')) return;
             todas_las_evaluaciones = asignacion_evaluado_a_evaluador;
-            _this.DibujarTabla(asignacion_evaluado_a_evaluador);
+            if (respuesta.EsAgenteVerificador) {
+                _this.DibujarTablaVerificaciones(asignacion_evaluado_a_evaluador);
+            } else {
+                _this.DibujarTablaEvaluaciones(asignacion_evaluado_a_evaluador);
+                // Habilita filtros si hay uno o más agentes
+                if (asignacion_evaluado_a_evaluador.length) { // 0 == false
+                    var $barraBuscador = $("#Text1");
+                    $barraBuscador.attr("disabled", false);
+                    $("#id_estado").attr("disabled", false);
 
-            // Habilita filtros si hay uno o más agentes
-            if (asignacion_evaluado_a_evaluador.length) { // 0 == false
-                var $barraBuscador = $("#Text1");
-                $barraBuscador.attr("disabled", false);
-                $("#id_estado").attr("disabled", false);
-
-                $barraBuscador.keypress(function (e) {
-                    if (e.which == 13) {
-                        e.preventDefault();
-                    }
-                });
+                    $barraBuscador.keypress(function (e) {
+                        if (e.which == 13) {
+                            e.preventDefault();
+                        }
+                    });
+                }
             }
         })
         .onError(function (e) {
@@ -49,40 +53,116 @@ var ListadoAgentes = {
             localStorage.setItem("leyenda", "");
         });
     },
-    DibujarTabla: function (asignacion_evaluado_a_evaluador) {
+    DibujarTabla: function (id_componente, definicion_columnas, modelo) {
+        id_componente = "#" + "tablaAgentes";
+
         var _this = this;
+        var divGrilla = $(id_componente);
+        divGrilla.empty();
+
+        var columnas = [];
+        $.each(definicion_columnas, function (index, col_def) {
+            columnas.push(new Columna(col_def.nombre_columna, { generar: col_def.value_getter }));
+        });
+
+        _this.Grilla = new Grilla(columnas);
+        _this.Grilla.SetOnRowClickEventHandler(function (asignacion_evaluado_a_evaluador) { });
+        _this.Grilla.CambiarEstiloCabecera("estilo_tabla_portal");
+        _this.Grilla.CargarObjetos(modelo);
+        _this.Grilla.DibujarEn(divGrilla);
+        $('.table-hover').removeClass("table-hover");
+        _this.BuscadorDeTabla();
+    },
+    GetterDocEvaluado: function (asignacion_evaluado_a_evaluador) { return asignacion_evaluado_a_evaluador.agente_evaluado.nro_documento; },
+    GetterApellidoEvaluado: function (asignacion_evaluado_a_evaluador) { return asignacion_evaluado_a_evaluador.agente_evaluado.apellido },
+    GetterNombreEvaluado: function (asignacion_evaluado_a_evaluador) { return asignacion_evaluado_a_evaluador.agente_evaluado.nombre },
+    GetterArea: function (asignacion_evaluado_a_evaluador) { return asignacion_evaluado_a_evaluador.agente_evaluado.area.nombre_area /*return asignacion_evaluado_a_evaluador.codigo_unidad_eval */},
+    GetterEvaluacion: function (asignacion_evaluado_a_evaluador) {
+        var coleccion_respuestas = this.getRespuestasDelForm(asignacion_evaluado_a_evaluador.evaluacion);
+        return this.calificacion(coleccion_respuestas, asignacion_evaluado_a_evaluador.nivel.deficiente, asignacion_evaluado_a_evaluador.nivel.regular, asignacion_evaluado_a_evaluador.nivel.bueno, asignacion_evaluado_a_evaluador.nivel.destacado, false);
+    },
+    GetterAccionesEvaluado: function (asignacion_evaluado_a_evaluador) {
+        if (!(asignacion_evaluado_a_evaluador.evaluacion.estado_evaluacion == 1)) {
+            return this.getBotonIrAFormulario(asignacion_evaluado_a_evaluador);
+        }
+        if (this.EvaluacionCompleta(asignacion_evaluado_a_evaluador)) {
+            return this.getBotonImprimir(asignacion_evaluado_a_evaluador);
+        } else {
+            //deberia ser imposible que este como definitiva una evaluacion incompleta
+            return this.getBotonIrAFormulario(asignacion_evaluado_a_evaluador);
+        }
+    },
+    GetterGDE: function (asignacion_evaluado_a_evaluador) {
+        if (asignacion_evaluado_a_evaluador.evaluacion.codigo_gde == '' && asignacion_evaluado_a_evaluador.evaluacion.estado_evaluacion == 1) {
+            return this.getLinkCargarGDE(asignacion_evaluado_a_evaluador.id_evaluacion);
+        }
+        if (asignacion_evaluado_a_evaluador.evaluacion.codigo_gde != '') {
+            return asignacion_evaluado_a_evaluador.evaluacion.codigo_gde;
+        }
+        return asignacion_evaluado_a_evaluador.codigo_gde;
+    },
+    ColumnasEvaluado: function (columnas) {
+        var _this = this;
+        if (columnas == undefined) {
+            columnas = [];
+        }
+        var columnas_evaluado = [
+                { nombre_columna: "Dni", value_getter: this.GetterDocEvaluado },
+                { nombre_columna: "Apellido", value_getter: this.GetterApellidoEvaluado },
+                { nombre_columna: "Nombre", value_getter: this.GetterNombreEvaluado },
+                { nombre_columna: "Area", value_getter: this.GetterArea },
+                { nombre_columna: "Evaluacion", value_getter: function (x) { return _this.GetterEvaluacion.call(_this, x); } }
+            ];
+        return columnas.concat(columnas_evaluado);
+    },
+    DibujarTablaVerificaciones: function (asignacion_evaluado_a_evaluador) {
+        var _this = this;
+        var definicion_columnas = this.ColumnasEvaluado();
+        var grilla = new GrillaV2("tablaAgentes", definicion_columnas, asignacion_evaluado_a_evaluador);
+    },
+    DibujarTablaEvaluaciones: function (asignacion_evaluado_a_evaluador) {
+        var _this = this;
+        var definicion_columnas = this.ColumnasEvaluado().concat([
+            { nombre_columna: "Accion", value_getter: function (x) { return _this.GetterAccionesEvaluado.call(_this, x); } },
+            { nombre_columna: "GDE", value_getter: function (x) { return _this.GetterGDE.call(_this, x); } }
+        ]);
+
+        var grilla = new GrillaV2("tablaAgentes", definicion_columnas, asignacion_evaluado_a_evaluador);
+        /*
+
         $("#tablaAgentes").empty();
         var divGrilla = $("#tablaAgentes");
         var columnas = [];
         columnas.push(new Columna("Dni", { generar: function (asignacion_evaluado_a_evaluador) { return asignacion_evaluado_a_evaluador.agente_evaluado.nro_documento } }));
         columnas.push(new Columna("Apellido", { generar: function (asignacion_evaluado_a_evaluador) { return asignacion_evaluado_a_evaluador.agente_evaluado.apellido } }));
         columnas.push(new Columna("Nombre", { generar: function (asignacion_evaluado_a_evaluador) { return asignacion_evaluado_a_evaluador.agente_evaluado.nombre } }));
+        columnas.push(new Columna("Unidad Evaluacion", { generar: function (asignacion_evaluado_a_evaluador) { return asignacion_evaluado_a_evaluador.codigo_unidad_eval } }));
         columnas.push(new Columna("Evaluacion", { generar: function (asignacion_evaluado_a_evaluador) {
-            var coleccion_respuestas = _this.getRespuestasDelForm(asignacion_evaluado_a_evaluador.evaluacion);
-            return _this.calificacion(coleccion_respuestas, asignacion_evaluado_a_evaluador.nivel.deficiente, asignacion_evaluado_a_evaluador.nivel.regular, asignacion_evaluado_a_evaluador.nivel.bueno, asignacion_evaluado_a_evaluador.nivel.destacado, false);
+        var coleccion_respuestas = this.getRespuestasDelForm(asignacion_evaluado_a_evaluador.evaluacion);
+        return _this.calificacion(coleccion_respuestas, asignacion_evaluado_a_evaluador.nivel.deficiente, asignacion_evaluado_a_evaluador.nivel.regular, asignacion_evaluado_a_evaluador.nivel.bueno, asignacion_evaluado_a_evaluador.nivel.destacado, false);
         }
         }));
         columnas.push(new Columna('Accion', {
-            generar: function (asignacion_evaluado_a_evaluador) {
-                if (!(asignacion_evaluado_a_evaluador.evaluacion.estado_evaluacion == 1)) {
-                    return _this.getBotonIrAFormulario(asignacion_evaluado_a_evaluador);
-                }
-                if (_this.EvaluacionCompleta(asignacion_evaluado_a_evaluador)) {
-                    return _this.getBotonImprimir(asignacion_evaluado_a_evaluador);
-                } else {
-                    //deberia ser imposible que este como definitiva una evaluacion incompleta
-                    return _this.getBotonIrAFormulario(asignacion_evaluado_a_evaluador);
-                }
-            }
+        generar: function (asignacion_evaluado_a_evaluador) {
+        if (!(asignacion_evaluado_a_evaluador.evaluacion.estado_evaluacion == 1)) {
+        return _this.getBotonIrAFormulario(asignacion_evaluado_a_evaluador);
+        }
+        if (_this.EvaluacionCompleta(asignacion_evaluado_a_evaluador)) {
+        return _this.getBotonImprimir(asignacion_evaluado_a_evaluador);
+        } else {
+        //deberia ser imposible que este como definitiva una evaluacion incompleta
+        return _this.getBotonIrAFormulario(asignacion_evaluado_a_evaluador);
+        }
+        }
         }));
         columnas.push(new Columna("GDE", { generar: function (asignacion_evaluado_a_evaluador) {
-            if (asignacion_evaluado_a_evaluador.evaluacion.codigo_gde == '' && asignacion_evaluado_a_evaluador.evaluacion.estado_evaluacion == 1) {
-                return _this.getLinkCargarGDE(asignacion_evaluado_a_evaluador.id_evaluacion);
-            }
-            if (asignacion_evaluado_a_evaluador.evaluacion.codigo_gde != '') {
-                return asignacion_evaluado_a_evaluador.evaluacion.codigo_gde;
-            }
-            return asignacion_evaluado_a_evaluador.codigo_gde;
+        if (asignacion_evaluado_a_evaluador.evaluacion.codigo_gde == '' && asignacion_evaluado_a_evaluador.evaluacion.estado_evaluacion == 1) {
+        return _this.getLinkCargarGDE(asignacion_evaluado_a_evaluador.id_evaluacion);
+        }
+        if (asignacion_evaluado_a_evaluador.evaluacion.codigo_gde != '') {
+        return asignacion_evaluado_a_evaluador.evaluacion.codigo_gde;
+        }
+        return asignacion_evaluado_a_evaluador.codigo_gde;
         }
         }));
         _this.Grilla = new Grilla(columnas);
@@ -92,6 +172,7 @@ var ListadoAgentes = {
         _this.Grilla.DibujarEn(divGrilla);
         $('.table-hover').removeClass("table-hover");
         _this.BuscadorDeTabla();
+        */
     },
     EvaluacionCompleta: function (asignacion_evaluado_a_evaluador) {
         if (asignacion_evaluado_a_evaluador.id_evaluacion == 0) return false;
@@ -109,7 +190,7 @@ var ListadoAgentes = {
     FiltrarPorEstado: function (estado) {
         var _this = this;
         var clave = "";
-        _this.DibujarTabla(todas_las_evaluaciones);
+        _this.DibujarTablaEvaluaciones(todas_las_evaluaciones);
         switch (estado) {
             case 0:
                 clave = ""
@@ -214,7 +295,17 @@ var ListadoAgentes = {
         btn_accion.click(function () {
             Backend.PrintPdfEvaluacionDesempenio(asignacion_evaluado_a_evaluador)
             .onSuccess(function (rpta) {
-                window.open("data:application/pdf;base64," + rpta, '_blank');
+
+                //window.open("data:application/pdf;base64," + rpta, '_blank');
+               
+                var string = 'data:application/pdf;base64,' + rpta; 
+                 var iframe = "<iframe width='100%' height='100%' src='" + string + "'></iframe>"
+                var x = window.open();
+                x.document.open();
+                x.document.write(iframe);
+                x.document.close();
+                
+
             });
 
         });

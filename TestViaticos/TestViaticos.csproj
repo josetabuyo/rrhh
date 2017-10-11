@@ -135,6 +135,11 @@
     <Compile Include="ViaticosDataSet.cs">
       <DependentUpon>ViaticosDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="ViaticosDataSet.Designer.cs">
+      <DependentUpon>ViaticosDataSet.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

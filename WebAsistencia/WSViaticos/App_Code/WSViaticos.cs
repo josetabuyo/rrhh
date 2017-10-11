@@ -29,6 +29,7 @@ using General.MED;
 //using PdfPrinter.Core.Common;
 //using PdfPrinter.Core.Configuration;
 using System.Web.Hosting;
+using System.Runtime.Serialization.Formatters.Binary;
 
 
 [WebService(Namespace = "http://wsviaticos.gov.ar/")]
@@ -57,7 +58,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public List<AsignacionEvaluadoAEvaluador> EvalGetAgentesEvaluables(Usuario usuario)
+    public RespuestaGetAgentesEvaluablesPor EvalGetAgentesEvaluables(Usuario usuario)
     {
         var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
         return repo.GetAgentesEvaluablesPor(usuario);
@@ -845,6 +846,23 @@ public class WSViaticos : System.Web.Services.WebService
         SaldoLicencia saldo = servicioLicencias.GetSaldoLicencia(unaPersona, concepto_subclasificado, fecha_de_consulta, RepositorioDePersonas());
 
         return saldo;
+    }
+
+    [WebMethod]
+    public int GetSegmentosUtilizados(Persona unaPersona, DateTime desde)
+    {
+
+        int anio = desde.Year;
+        if (desde.Month == 12)
+        {
+            anio = anio + 1; //Porque cambia el período de licencias desde el 1ero de diciembre
+        }
+
+        ServicioDeLicencias servicioLicencias = new ServicioDeLicencias(RepoLicencias());
+
+        return servicioLicencias.GetSegmentosUtilizados(unaPersona.Documento, anio);
+
+        
     }
 
     [WebMethod]
@@ -4305,6 +4323,16 @@ public class WSViaticos : System.Web.Services.WebService
         RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
         return rMoBi.Mobi_GetMovimientos(id_bien);
     }
+
+
+    [WebMethod]
+    public string ImportarArchivoExcel(string nombreArchivo, string detalleExcel, Usuario usuario)
+    {
+        RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
+        var respuesta =  rMoBi.ImportarArchivoExcel(nombreArchivo, detalleExcel, usuario.Id);
+        return respuesta;
+    }
+
 
     #endregion
 
