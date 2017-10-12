@@ -5797,6 +5797,7 @@
             <s:element minOccurs="1" maxOccurs="1" name="id_area" type="s:int" />
             <s:element minOccurs="1" maxOccurs="1" name="mes" type="s:int" />
             <s:element minOccurs="1" maxOccurs="1" name="anio" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="lista_persona" type="tns:ArrayOfPersona" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>

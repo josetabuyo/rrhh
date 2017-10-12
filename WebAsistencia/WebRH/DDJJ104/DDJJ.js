@@ -133,22 +133,22 @@ var GeneradorBotones = function () {
 
             var botonConsultar;
             botonConsultar = $("<input type='button'>");
-            botonConsultar.val("Consultar");
-            botonConsultar.click(function () { ConsultarDDJJ(un_area.Id, $("#ContenedorPersona")) });
+            botonConsultar.val("Certificar");
+            botonConsultar.click(function () { ConsultarDDJJ(un_area.Id, estado, $("#ContenedorPersona")) });
 
             ContenedorBotones.append(botonConsultar);
 
             switch (estado) {
                 case 0:
-                    boton = $("<input type='button'>");
-                    boton.val("Generar e Imprimir");
-                    boton.click(function () {
-                        Generar_e_ImprimirDDJJ(un_area.Id);
-                    });
+//                    boton = $("<input type='button'>");
+//                    boton.val("Generar e Imprimir");
+//                    boton.click(function () {
+//                        Generar_e_ImprimirDDJJ(un_area.Id);
+//                    });
                     break;
                 case 1:
                     boton = $("<input type='button'>");
-                    boton.val("Imprimir");
+                    boton.val("Imprimir/Reimprimir");
                     boton.click(function () {
                         ImprimirDDJJ(un_area.Id);
                     });
@@ -166,7 +166,7 @@ var GeneradorBotones = function () {
 var GetDescripcionEstado = function (estado) {
     switch (estado) {
         case 0:
-            return 'Sin Generar'
+            return 'Sin Certificar'
             break;
         case 1:
             return 'Impresa no recepcionada'
@@ -182,7 +182,7 @@ var DibujarFormularioDDJJ104 = function (un_area) {
 
     var vista_ddjj_imprimir = $("<div style='page-break-before: always;'>");
 
-    DibujarGrillaPersonas(un_area, vista_ddjj_imprimir, true);
+    DibujarGrillaPersonas(un_area, estado, vista_ddjj_imprimir, true);
 
     //    var area;
     //    var mes;
@@ -269,14 +269,14 @@ var DibujarFormularioDDJJ104 = function (un_area) {
 //    return output;
 //}
 
-var ConsultarDDJJ = function (idArea) {
+var ConsultarDDJJ = function (idArea, estado) {
 
     $("#ContenedorPersona").empty();
     spinner = new Spinner({ scale: 2 }).spin($("body")[0]);
 
     Backend.GetAreasParaDDJJ104(mesSeleccionado, anioSeleccionado, idArea)
     .onSuccess(function (respuesta) {
-        DibujarGrillaPersonas(respuesta[0], $("#ContenedorPersona", false));
+        DibujarGrillaPersonas(respuesta[0], estado, $("#ContenedorPersona", false));
         spinner.stop();
     })
     .onError(function (error, as, asd) {
@@ -301,20 +301,23 @@ var ConsultarDDJJ = function (idArea) {
 //    });
 //};
 
-var Generar_e_ImprimirDDJJ = function (idArea) {
+var Generar_e_ImprimirDDJJ = function (idArea, imprimir) {
 
     spinner = new Spinner({ scale: 2 }).spin($("body")[0]);
 
     //Backend.GetAreasParaDDJJ104(mesSeleccionado, anioSeleccionado, idArea)
     //.onSuccess(function (respuesta) {
 
-    Backend.GenerarDDJJ104(idArea, mesSeleccionado, anioSeleccionado)
+    Backend.GenerarDDJJ104(idArea, mesSeleccionado, anioSeleccionado, lista_personas)
         .onSuccess(function (ddjj) {
             if (ddjj) {
                 //un_area.DDJJ.push(ddjj);
                 //respuesta[0].DDJJ = ddjj;
-                ImprimirDDJJ(idArea);
 
+                if (imprimir) {
+                    ImprimirDDJJ(idArea);
+                }
+                
                 ContenedorGrilla.html("");
                 $("#ContenedorPersona").empty();
 
@@ -347,7 +350,7 @@ var ImprimirDDJJ = function (idArea) {
 };
 
 
-var DibujarGrillaPersonas = function (un_area, contenedor_grilla, es_impresion) {
+var DibujarGrillaPersonas = function (un_area, estado, contenedor_grilla, es_impresion) {
 
     lista_personas = [];
 
@@ -385,16 +388,12 @@ var DibujarGrillaPersonas = function (un_area, contenedor_grilla, es_impresion) 
                     if (una_persona.EstaCertificadoEnLaDDJJ) {
                         check.attr("checked", false);
                         una_persona.EstaCertificadoEnLaDDJJ = false;
-                        lista_personas = _.reject(lista_personas, function (p) { return p.idPersona == una_persona.Id; });
+                        //lista_personas = _.reject(lista_personas, function (p) { return p.Id == una_persona.Id; });
                     }
                     else {
                         check.attr("checked", true);
                         una_persona.EstaCertificadoEnLaDDJJ = true;
-                        lista_personas.push({
-                            idPersona: una_persona.Id,
-                            desde: una_persona.CertificaHoraDesdeDDJJ,
-                            hasta: una_persona.CertificaHoraHastaDDJJ
-                        });
+                        //lista_personas.push(una_persona);
                     }
 
                 });
@@ -405,8 +404,24 @@ var DibujarGrillaPersonas = function (un_area, contenedor_grilla, es_impresion) 
 			new Columna("CUIL/CUIT", { generar: function (una_persona) { return una_persona.Cuit; } }),
             new Columna("ESCALAFON O MODALIDAD DE CONTRATACION", { generar: function (una_persona) { return una_persona.Categoria.split("#")[1]; } }),
             new Columna("NIVEL O CATEGORIA", { generar: function (una_persona) { return una_persona.Categoria.split("#")[0]; } }),
-            new Columna("HORA DESDE", { generar: function (una_persona) { return "<input type='time' value='" + una_persona.CertificaHoraDesdeDDJJ + "'/>" } }),
-            new Columna("HORA HASTA", { generar: function (una_persona) { return "<input type='time' value='" + una_persona.CertificaHoraHastaDDJJ + "'/>" } }),
+            new Columna("HORA DESDE", { generar: function (una_persona) {
+                var desde = $("<input type='time' />");
+                desde.val(una_persona.CertificaHoraDesdeDDJJ);
+                desde.change(function () {
+                    una_persona.CertificaHoraDesdeDDJJ = desde.val();
+                });
+                return desde;
+            }
+            }),
+            new Columna("HORA HASTA", { generar: function (una_persona) {
+                var hasta = $("<input type='time' />");
+                hasta.val(una_persona.CertificaHoraHastaDDJJ);
+                hasta.change(function () {
+                    una_persona.CertificaHoraHastaDDJJ = hasta.val(); ;
+                });
+                return hasta;
+            }
+            }),
 		]);
 
     if (es_impresion) {
@@ -433,8 +448,24 @@ var DibujarGrillaPersonas = function (un_area, contenedor_grilla, es_impresion) 
 			        new Columna("CUIL/CUIT", { generar: function (una_persona) { return una_persona.Cuit; } }),
                     new Columna("ESCALAFON O MODALIDAD DE CONTRATACION", { generar: function (una_persona) { return una_persona.Categoria.split("#")[1]; } }),
                     new Columna("NIVEL O CATEGORIA", { generar: function (una_persona) { return una_persona.Categoria.split("#")[0]; } }),
-                    new Columna("HORA DESDE", { generar: function (una_persona) { return "<input type='time' value='" + una_persona.CertificaHoraDesdeDDJJ + "'/>" } }),
-                    new Columna("HORA HASTA", { generar: function (una_persona) { return "<input type='time' value='" + una_persona.CertificaHoraHastaDDJJ + "'/>" } }),
+                   new Columna("HORA DESDE", { generar: function (una_persona) {
+                       var desde = $("<input type='time' />");
+                       desde.val(una_persona.CertificaHoraDesdeDDJJ);
+                       desde.change(function () {
+                           una_persona.CertificaHoraDesdeDDJJ = desde.val();
+                       });
+                       return desde;
+                   }
+                   }),
+            new Columna("HORA HASTA", { generar: function (una_persona) {
+                var hasta = $("<input type='time' />");
+                hasta.val(una_persona.CertificaHoraHastaDDJJ);
+                hasta.change(function () {
+                    una_persona.CertificaHoraHastaDDJJ = hasta.val(); ;
+                });
+                return hasta;
+            }
+            }),
 		        ]);
                     contador_de_registros_por_pagina = cantidad_de_filas_por_cabecera;
                 }
@@ -452,11 +483,7 @@ var DibujarGrillaPersonas = function (un_area, contenedor_grilla, es_impresion) 
 
         for (i = 0; i < un_area.Personas.length; i++) {
             if (un_area.Personas[i].EstaCertificadoEnLaDDJJ) {
-                lista_personas.push({
-                    idPersona: un_area.Personas[i].Id,
-                    desde: un_area.Personas[i].CertificaHoraDesdeDDJJ,
-                    hasta: un_area.Personas[i].CertificaHoraHastaDDJJ
-                });
+                lista_personas.push(un_area.Personas[i]);
             }
         }
     }
@@ -488,16 +515,13 @@ var DibujarGrillaPersonas = function (un_area, contenedor_grilla, es_impresion) 
                         if (una_persona.EstaCertificadoEnLaDDJJ) {
                             check.attr("checked", false);
                             una_persona.EstaCertificadoEnLaDDJJ = false;
-                            lista_personas = _.reject(lista_personas, function (p) { return p.idPersona == una_persona.Id; });
+                            //lista_personas = _.reject(lista_personas, function (p) { return p.Id == una_persona.Id; });
                         }
                         else {
                             check.attr("checked", true);
                             una_persona.EstaCertificadoEnLaDDJJ = true;
-                            lista_personas.push({
-                                idPersona: una_persona.Id,
-                                desde: una_persona.CertificaHoraDesdeDDJJ,
-                                hasta: una_persona.CertificaHoraHastaDDJJ
-                            });
+                            //lista_personas.push(una_persona);
+
                         }
                     });
                     return check
@@ -557,12 +581,8 @@ var DibujarGrillaPersonas = function (un_area, contenedor_grilla, es_impresion) 
             grilla_area_informal.CargarObjetos(area_informal.Personas);
 
             for (i = 0; i < area_informal.Personas.length; i++) {
-            if (area_informal.Personas[i].EstaCertificadoEnLaDDJJ) {
-                lista_personas.push({
-                    idPersona: area_informal.Personas[i].Id,
-                    desde: area_informal.Personas[i].CertificaHoraDesdeDDJJ,
-                    hasta: area_informal.Personas[i].CertificaHoraHastaDDJJ
-                });
+                if (area_informal.Personas[i].EstaCertificadoEnLaDDJJ) {
+                    lista_personas.push(area_informal.Personas[i]);
                 }
             }
 
@@ -572,6 +592,24 @@ var DibujarGrillaPersonas = function (un_area, contenedor_grilla, es_impresion) 
             return true;
         });
     });
+
+
+    if (estado == 0) {
+        boton = $("<input type='button'>");
+        boton.val("Guardar DDJJ");
+        boton.click(function () {
+            Generar_e_ImprimirDDJJ(un_area.Id, false);
+        });
+        contenedor_grilla.append(boton);
+
+        boton2 = $("<input type='button'>");
+        boton2.val("Guardar e Imprimir DDJJ");
+        boton2.click(function () {
+            Generar_e_ImprimirDDJJ(un_area.Id, true);
+        });
+        contenedor_grilla.append(boton2);
+    }
+
 }
 
 
