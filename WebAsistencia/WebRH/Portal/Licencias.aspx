@@ -24,6 +24,11 @@
             <div style="text-align: center;" class="caja_izq">
             </div>
             <div class="caja_der papel">
+            <legend style="margin-top: 20px;">PREMIO POR PRESENTISMO</legend><a href="#" id="btn_excel_presentimo"
+                    class="btn_exportar">Exportar Datos</a>
+                <div id="tablaPremioPresentismo" class="table table-striped table-bordered table-condensed">
+                </div>
+
                 <legend style="margin-top: 20px;">LICENCIAS EN TRÁMITE</legend><a href="#" id="btn_excel_tramite"
                     class="btn_exportar">Exportar Datos</a>
                 <div id="tablaLicenciasEnTramite" class="table table-striped table-bordered table-condensed">

@@ -283,6 +283,37 @@ var Legajo = {
         var spinner = new Spinner({ scale: 2 });
         spinner.spin($("html")[0]);
 
+        Backend.GetPremioPorPresentismo()
+                    .onSuccess(function (presentismoJSON) {
+                        var presentismo = [];
+                        if (presentismoJSON != "") {
+                            presentismo = JSON.parse(presentismoJSON);
+                        }
+
+                        var _this = this;
+                        $("#tablaPremioPresentismo").empty();
+                        var divGrilla = $("#tablaPremioPresentismo");
+                        var columnas = [];
+                        columnas.push(new Columna("Mes", { generar: function (una_licencia) { return una_licencia.Descripcion } }));
+                        columnas.push(new Columna("PLanta", { generar: function (una_licencia) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_licencia.Desde) } }));
+                        columnas.push(new Columna("Injustificadas", { generar: function (una_licencia) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_licencia.Hasta) } }));
+                        columnas.push(new Columna("Justificadas", { generar: function (una_licencia) { return una_licencia.Estado } }));
+                        columnas.push(new Columna("No afectan al presentismo", { generar: function (una_licencia) { return una_licencia.Estado } }));
+                        columnas.push(new Columna("% de presentismo a cobrar", { generar: function (una_licencia) { return una_licencia.Estado } }));
+                        //falta detalle
+                        _this.Grilla = new Grilla(columnas);
+                        _this.Grilla.CambiarEstiloCabecera("estilo_tabla_portal");
+                        _this.Grilla.CargarObjetos(licencias);
+                        _this.Grilla.DibujarEn(divGrilla);
+                        $('.table-hover').removeClass("table-hover");
+
+
+                    })
+                    .onError(function (e) {
+
+                    });
+
+
         Backend.GetLicenciasEnTramite()
                     .onSuccess(function (licenciasJSON) {
                         var licencias = [];
