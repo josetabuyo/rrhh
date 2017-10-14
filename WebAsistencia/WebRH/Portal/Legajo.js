@@ -283,7 +283,7 @@ var Legajo = {
         var spinner = new Spinner({ scale: 2 });
         spinner.spin($("html")[0]);
 
-        Backend.GetPremioPorPresentismo()
+        Backend.GetPremioPorPresentismo(6, 2017) //Por ahora pidió Faby que lo hardcodeara
                     .onSuccess(function (presentismoJSON) {
                         var presentismo = [];
                         if (presentismoJSON != "") {
@@ -294,7 +294,7 @@ var Legajo = {
                         $("#tablaPremioPresentismo").empty();
                         var divGrilla = $("#tablaPremioPresentismo");
                         var columnas = [];
-                        columnas.push(new Columna("Mes", { generar: function (una_licencia) { return una_licencia.Descripcion } }));
+                        columnas.push(new Columna("Mes", { generar: function (una_licencia) { return presentismo.Descripcion } }));
                         columnas.push(new Columna("PLanta", { generar: function (una_licencia) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_licencia.Desde) } }));
                         columnas.push(new Columna("Injustificadas", { generar: function (una_licencia) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_licencia.Hasta) } }));
                         columnas.push(new Columna("Justificadas", { generar: function (una_licencia) { return una_licencia.Estado } }));

@@ -699,7 +699,7 @@ namespace General.Repositorios
                     row.GetInt("A_Jus_01"),
                     row.GetInt("A_Inj_01"),
                     row.GetInt("A_NoPres_01"),
-                    row.GetInt("Pago_Mes_01")
+                    int.Parse(row.GetString("Pago_Mes_01"))
                     ));
                 presentismo.Add(new Presentismo(
                     persona,
@@ -707,7 +707,7 @@ namespace General.Repositorios
                     row.GetInt("A_Jus_02"),
                     row.GetInt("A_Inj_02"),
                     row.GetInt("A_NoPres_02"),
-                    row.GetInt("Pago_Mes_02")
+                    int.Parse(row.GetString("Pago_Mes_02"))
                     ));
                 presentismo.Add(new Presentismo(
                     persona,
@@ -715,7 +715,7 @@ namespace General.Repositorios
                     row.GetInt("A_Jus_03"),
                     row.GetInt("A_Inj_03"),
                     row.GetInt("A_NoPres_03"),
-                    row.GetInt("Pago_Mes_03")
+                    int.Parse(row.GetString("Pago_Mes_03"))
                     ));
                 presentismo.Add(new Presentismo(
                     persona,
@@ -723,7 +723,7 @@ namespace General.Repositorios
                     row.GetInt("A_Jus_04"),
                     row.GetInt("A_Inj_04"),
                     row.GetInt("A_NoPres_04"),
-                    row.GetInt("Pago_Mes_04")
+                     int.Parse(row.GetString("Pago_Mes_04"))
                     ));
             
             });  

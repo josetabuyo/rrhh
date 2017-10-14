@@ -4311,7 +4311,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string GetPremioPorPresentismo(Usuario usuario, int mes, int anio)
+    public string GetPremioPorPresentismo(int mes, int anio, Usuario usuario)
     {
         RepositorioLicencias repositorio = new RepositorioLicencias(Conexion());
         return JsonConvert.SerializeObject(repositorio.GetPremioPorPresentismo(usuario.Owner, mes, anio) );
