@@ -10,8 +10,8 @@
     <!-- CSS media query on a link element -->
     <%= Referencias.Css("../")%>
     <%= Referencias.Javascript("../")%>
-    <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
-    <link rel="stylesheet"  href="estilosPortalSecciones.css" />
+    <script type="text/javascript" src="../Scripts/ConversorDeFechas.js"></script>
+    <link rel="stylesheet" href="estilosPortalSecciones.css" />
 </head>
 <body>
     <form id="form1" runat="server">
@@ -24,11 +24,28 @@
             <div style="text-align: center;" class="caja_izq">
             </div>
             <div class="caja_der papel">
-            <legend style="margin-top: 20px;">PREMIO POR PRESENTISMO</legend><a href="#" id="btn_excel_presentimo"
-                    class="btn_exportar">Exportar Datos</a>
+                <legend style="margin-top: 20px;">PREMIO POR PRESENTISMO</legend>
+                <label>
+                    Selecciona el Período Cuatrimestral</label>
+                <select>
+                    <option>01/06/2017 - 30/09/2017</option>
+                </select>
+                <br />
+                <label style="margin-right: 48px;">
+                    Ausencias del Cuatrimestre:
+                </label>
+                <label>Injustificadas:</label>
+                  <label style="margin-right: 15px;" id="lb_injustificadas">
+                </label>
+                <label>
+                    Justificadas:
+                </label>
+                <label id="lb_justificadas">
+                </label>
+                <br />
+                <a href="#" id="btn_excel_presentimo" class="btn_exportar">Exportar Datos</a>
                 <div id="tablaPremioPresentismo" class="table table-striped table-bordered table-condensed">
                 </div>
-
                 <legend style="margin-top: 20px;">LICENCIAS EN TRÁMITE</legend><a href="#" id="btn_excel_tramite"
                     class="btn_exportar">Exportar Datos</a>
                 <div id="tablaLicenciasEnTramite" class="table table-striped table-bordered table-condensed">
@@ -37,7 +54,6 @@
                 <a href="#" id="btn_excel_pendientes" class="btn_exportar">Exportar Datos</a>
                 <div id="tablaLicenciasOrdinariasDisponibles" class="table table-striped table-bordered table-condensed">
                 </div>
-
                 <legend style="margin-top: 50px; margin-bottom: 50px;">HISTORICO DE LICENCIAS ORDINARIAS</legend>
                 <a href="#" id="A1" class="btn_exportar">Exportar Datos</a>
                 <div id="tablaHistoricoLicenciasOrdinarias" class="table table-striped table-bordered table-condensed">
@@ -48,7 +64,8 @@
     </form>
 </body>
 <script type="text/javascript" src="Legajo.js"></script>
-<script type="text/javascript" src="../Scripts/Spin.js"></script>s
+<script type="text/javascript" src="../Scripts/Spin.js"></script>
+s
 <script type="text/javascript" src="../Scripts/ControlesImagenes/VistaThumbnail.js"></script>
 <script type="text/javascript">
 

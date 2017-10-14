@@ -682,6 +682,55 @@ namespace General.Repositorios
             return ConstruirVacacionesPendientes(tablaDatos);
         }
 
+        public List<Presentismo> GetPremioPorPresentismo(Persona persona, int mes, int anio)
+        {
+            List<Presentismo> presentismo = new List<Presentismo>();
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@año", anio);
+            parametros.Add("@mes", mes);
+            parametros.Add("@dni", persona.Documento);
+
+            var tablaDatos = this.conexion.Ejecutar("dbo.ASIS_GET_Presentismo_individual_x_Periodo", parametros);
+            tablaDatos.Rows.ForEach(row =>
+            {
+                presentismo.Add(new Presentismo(
+                    persona, 
+                    new TipoDePlantaGeneral(row.GetInt("id_planta_01"), row.GetString("Planta_01"), this),  
+                    row.GetInt("A_Jus_01"),
+                    row.GetInt("A_Inj_01"),
+                    row.GetInt("A_NoPres_01"),
+                    row.GetInt("Pago_Mes_01")
+                    ));
+                presentismo.Add(new Presentismo(
+                    persona,
+                    new TipoDePlantaGeneral(row.GetInt("id_planta_02"), row.GetString("Planta_02"), this),
+                    row.GetInt("A_Jus_02"),
+                    row.GetInt("A_Inj_02"),
+                    row.GetInt("A_NoPres_02"),
+                    row.GetInt("Pago_Mes_02")
+                    ));
+                presentismo.Add(new Presentismo(
+                    persona,
+                    new TipoDePlantaGeneral(row.GetInt("id_planta_03"), row.GetString("Planta_03"), this),
+                    row.GetInt("A_Jus_03"),
+                    row.GetInt("A_Inj_03"),
+                    row.GetInt("A_NoPres_03"),
+                    row.GetInt("Pago_Mes_03")
+                    ));
+                presentismo.Add(new Presentismo(
+                    persona,
+                    new TipoDePlantaGeneral(row.GetInt("id_planta_04"), row.GetString("Planta_04"), this),
+                    row.GetInt("A_Jus_04"),
+                    row.GetInt("A_Inj_04"),
+                    row.GetInt("A_NoPres_04"),
+                    row.GetInt("Pago_Mes_04")
+                    ));
+            
+            });  
+
+            return presentismo; 
+        }
+
         public List<Persona> GetAusentesEntreFechasPara(List<Persona> personas, DateTime fecha_desde, DateTime fecha_hasta)
         {
             List<Inasistencia> inasistencias = new List<Inasistencia>();
