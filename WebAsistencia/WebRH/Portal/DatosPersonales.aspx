@@ -133,21 +133,21 @@
                                 <select id="select_organismo" style="width: 240px;">
                                 
                                 <option value="1">Ministerio de Desarrollo Social</option>
-                                <option value="2">Ministerio de Salud</option>
-                                <option value="3">Externo</option>     
+                             <%--   <option value="2">Ministerio de Salud</option>
+                                <option value="3">Externo</option>     --%>
                                 </select>                    
 
                             </div>
                             <br />
 
-                               <div style="text-align:center;border: 1px solid black;" id = "Div1">
+                               <div style="text-align:center" id = "Div1">
                                 <br />
                                 <label class="etiqueta_campo" style="color:Red; ">Al hacer la solicitud, su credencial vigente será dada de baja.</label>
                                  <br />
                             </div>
 
                               <div style="text-align:center;" id = "texto_robo">
-                                <label class="etiqueta_campo" style="color:Red; " for="cmb_provincia">*Para el caso de pérdida/robo debe presentar la denuncia policial al momento de retirar la nueva credencial </label>
+                                <label class="etiqueta_campo" style="color:Red; " for="cmb_provincia">*Para el caso de pérdida/robo debe presentar la denuncia policial, o Declaración Jurada firmada por el superior directo (Rango de Director o Superior), al momento de retirar la nueva credencial </label>
                             </div>
                              <div style="text-align:center;" id = "texto_deterioro">
                                 <label class="etiqueta_campo" style="color:Red;" for="cmb_provincia">*Para el caso de credencial deteriorada, la misma debe devolverse al momento de retirar la nueva. </label>
