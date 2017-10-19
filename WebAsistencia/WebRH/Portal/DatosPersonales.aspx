@@ -12,6 +12,43 @@
         <%= Referencias.Javascript("../")%>
         <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
         <link rel="stylesheet"  href="estilosPortalSecciones.css" />
+        <style>
+            #btn_realizar_solicitud
+            {
+                position: absolute;
+                right: 10px;
+                bottom: 10px;
+            }
+            
+            #panel_derecho_credencial
+            {
+                position: absolute;
+                right: 10px;
+                width: 60%;
+                bottom: 10px;
+                top: 100px;
+            }
+            
+            .label_combo
+            {
+                width: 250px;
+                text-align: right;
+                margin-right: 10px;
+            }
+            
+            .combo
+            {
+                width: 350px;
+            }
+            
+            .etiqueta_campo
+            {
+                color: Red;
+                text-align: right;
+                float: right;
+                margin-right: 34px;
+            }
+        </style>
     </head>
 <body>
     <form id="form1" runat="server">
@@ -83,87 +120,49 @@
 
               
 
-                    <div id="cajaSolicitudCredencial" style="display:none;" class="">
-                 <h3 style="text-align: center;">Solicitud de Credencial</h3>
+            <div id="cajaSolicitudCredencial" style="display:none;" class="">
+                <h3 style="text-align: center;">Solicitud de Credencial</h3>
+                <br />
+                <div id="panel_derecho_credencial">
+                    <div class="">
+                        <label class="label_combo" for="select_motivo">Indique el Motivo del pedido:</label>
+                        <select class="combo" id="select_motivo">
+                            <option value="0">--</option>
+                            <option value="1">Deterioro</option>
+                            <option value="2">Pérdida</option>
+                            <option value="3">Robo</option>
+                        </select>                       
+                    </div>
                     <br />
-                        <div class="">
-                           <%-- <p><em style="color:Red;">*</em> Campos Obligatorios</p>
-                            <label class="etiqueta_campo" style="margin-right: 28px;" for="txt_calle">Calle: <em style="color:Red;">*</em></label>
-                            <input type="text" value="" id="Text1" name="txt_calle" style="width: 250px; height: 30px;" />
-                            <label class="etiqueta_campo" style="margin: 0 10px;" for="txt_numero">N°: <em style="color:Red;">*</em></label>
-                            <input type="number" value="" id="Number1" name="txt_numero" style="width: 50px; height: 30px;" />
-
-                                <label class="etiqueta_campo" style="margin: 0 10px;" for="txt_piso">Piso: </label>
-                                <input type="text" value="" id="Text2" name="txt_piso" style="width: 30px; height: 30px;" />
-
-                                <label class="etiqueta_campo" style="margin: 0 10px;" for="txt_dto">Dpto: </label>
-                                <input type="text" value="" id="Text3" name="txt_dto" style="width: 30px; height: 30px;" />
-
-                                 <label class="etiqueta_campo_small" style="margin: 0 10px;" for="txt_cp">C.P.: <em style="color:Red;">*</em></label>
-                                <input type="text" value="" id="Text4" name="txt_cp" style="width: 50px; height: 30px;" />--%>
-                            </div>
-                             
-                            <div class="">
-
-                             <label class="etiqueta_campo_small" for="cmb_localidad">Indique el Motivo del pedido:</label>
-                                <select id="select_motivo" style="width: 150px;">
-                                 <option value="0">--</option>
-                                <option value="1">Deterioro</option>
-                                <option value="2">Pérdida</option>
-                                <option value="3">Robo</option></select>
-
-                             <%--   <label class="etiqueta_campo" style="margin-right: 13px;" for="txt_calle">Manzana:</label>
-                                <input type="text" value="" id="Text5" name="txt_calle" style="width: 30px; height: 30px;" />
-                                <label class="etiqueta_campo" style="margin: 0 10px;" for="txt_numero">Barrio:</label>
-                                <input type="text" value="" id="Text6" name="txt_numero" style="width: 30px; height: 30px;" />
-
-                                <label class="etiqueta_campo" style="margin: 0 10px;" for="txt_piso">Torre:</label>
-                                <input type="text" value="" id="Text7" name="txt_piso" style="width: 30px; height: 30px;" />
-
-                                <label class="etiqueta_campo" style="margin: 0 10px;" for="txt_dto">Uf:</label>
-                                <input type="text" value="" id="Text8" name="txt_dto" style="width: 30px; height: 30px;" />
-
-                                 <label class="etiqueta_campo_small" style="margin: 0 10px;" for="txt_cp">Casa:</label>
-                                <input type="text" value="" id="Text9" name="txt_cp" style="width: 30px; height: 30px;" />--%>
-
-                            </div>
-                               <br />
-                            <div class="">
-                                <label class="etiqueta_campo" for="cmb_provincia">Indique a que Organismo pertenece:</label>
-                                <select id="select_organismo" style="width: 240px;">
+                    <div class="">
+                        <label class="label_combo" for="select_organismo">Indique a que Organismo pertenece:</label>
+                        <select class="combo" id="select_organismo">
                                 
-                                <option value="1">Ministerio de Desarrollo Social</option>
-                             <%--   <option value="2">Ministerio de Salud</option>
-                                <option value="3">Externo</option>     --%>
-                                </select>                    
+                        <option value="1">Ministerio de Desarrollo Social</option>
+                        <%--   <option value="2">Ministerio de Salud</option>
+                        <option value="3">Externo</option>     --%>
+                        </select>                    
 
-                            </div>
-                            <br />
+                    </div>
+                    <br />
+                    <div class="">
+                        <label class="label_combo" for="cmb_lugar_de_entrega">Seleccione lugar de entrega:</label>
+                        <select class="combo" id="cmb_lugar_de_entrega">                                
+                            <option value="1">Recepcion 9 de julio</option>
+                        </select>                    
 
-                               <div style="text-align:center" id = "Div1">
-                                <br />
-                                <label class="etiqueta_campo" style="color:Red; ">Al hacer la solicitud, su credencial vigente será dada de baja.</label>
-                                 <br />
-                            </div>
+                    </div>
+                    <br />
 
-                              <div style="text-align:center;" id = "texto_robo">
-                                <label class="etiqueta_campo" style="color:Red; " for="cmb_provincia">*Para el caso de pérdida/robo debe presentar la denuncia policial, o Declaración Jurada firmada por el superior directo (Rango de Director o Superior), al momento de retirar la nueva credencial </label>
-                            </div>
-                             <div style="text-align:center;" id = "texto_deterioro">
-                                <label class="etiqueta_campo" style="color:Red;" for="cmb_provincia">*Para el caso de credencial deteriorada, la misma debe devolverse al momento de retirar la nueva. </label>
-                            </div>
-
-
-                             <div style="text-align:center;" id = "texto_seleccione_motivo">
-                                <label class="etiqueta_campo" style="color:Red;" for="cmb_provincia">*Seleccione un motivo </label>
-                            </div>
-
-                             <br />
-                            <div style="text-align:center;">
-                                <input  id="btn_realizar_solicitud" value="Solicitar nueva credencial" class="btn btn-primary" type="button" />
-                            </div>
-                            
-                        </div>
+                    <label class="etiqueta_campo">Al hacer la solicitud, su credencial vigente será dada de baja.</label>
+                    <br />
+                    <label id = "texto_robo" class="etiqueta_campo" " for="cmb_provincia">*Para el caso de pérdida/robo debe presentar la denuncia policial, o Declaración Jurada firmada por el superior directo (Rango de Director o Superior), al momento de retirar la nueva credencial </label>
+                    <label id = "texto_deterioro" class="etiqueta_campo" for="cmb_provincia">*Para el caso de credencial deteriorada, la misma debe devolverse al momento de retirar la nueva. </label>
+                    <label id = "texto_seleccione_motivo" class="etiqueta_campo" for="cmb_provincia">*Seleccione un motivo </label>
+                    <br />
+                    <input  id="btn_realizar_solicitud" value="Solicitar nueva credencial" class="btn btn-primary" type="button" />
+                </div>          
+            </div>
 
 
                  <div id="cajaCambiarDomicilio" style="display:none;" class="">
@@ -315,10 +314,6 @@
             });
 
 
-
-
-
-
             Backend.GetCredencialesTodasDePortal().onSuccess(function (credenciales) {
                 var credencial_vigente = _.find(credenciales, function (c) { return c.Estado == "VIGENTE" });
                 if (credencial_vigente) {
@@ -337,20 +332,16 @@
                         vex.defaultOptions.className = 'vex-theme-os';
                         vex.open({
                             afterOpen: function ($vexContent) {
-
-
                                 var ui = $("#cajaSolicitudCredencial").clone();
                                 $vexContent.append(ui);
 
                                 ui.find("#select_motivo").change(function () {
                                     var val = ui.find("#select_motivo").val();
-                                    debugger;
 
                                     if (val == 0) {
                                         ui.find("#texto_seleccione_motivo").show();
                                         ui.find("#texto_deterioro").hide();
                                         ui.find("#texto_robo").hide();
-
                                     }
 
                                     if (val == 1) {
@@ -363,26 +354,20 @@
                                         ui.find("#texto_deterioro").hide();
                                         ui.find("#texto_robo").show();
                                         ui.find("#texto_seleccione_motivo").hide();
+                                    }                          
+                                });
+
+                                ui.find("#btn_realizar_solicitud").click(function () {
+                                    if (ui.find("#select_motivo").val() == 0) {
+                                        return;
                                     }
 
-
-
-                                    ui.find("#btn_realizar_solicitud").click(function () {
-
-
-                                        if (ui.find("#select_motivo").val() == 0) {
-                                            return;
-                                        }
-
-                                        Backend.SolicitarRenovacionCredencial(ui.find("#select_motivo").val(), ui.find("#select_organismo").val()).onSuccess(function () {
-                                            alertify.success("Solicitud creada con éxito");
-                                            vex.close();
-                                        });
+                                    Backend.SolicitarRenovacionCredencial(ui.find("#select_motivo").val(), ui.find("#select_organismo").val()).onSuccess(function () {
+                                        alertify.success("Solicitud creada con éxito");
+                                        vex.close();
                                     });
-
-
-
                                 });
+
 
                                 ui.show();
                             },
@@ -391,8 +376,8 @@
                                 'padding-bottom': "0%"
                             },
                             contentCSS: {
-                                width: "50%",
-                                height: "380px"
+                                width: "80%",
+                                height: "500px"
                             }
                         });
                         //$('#cajaCambiarDomicilio').show();
