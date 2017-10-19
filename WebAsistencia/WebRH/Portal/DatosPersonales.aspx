@@ -453,7 +453,7 @@
                                         return;
                                     }
 
-                                    Backend.SolicitarRenovacionCredencial(ui.find("#select_motivo").val(), ui.find("#select_organismo").val()).onSuccess(function () {
+                                    Backend.SolicitarRenovacionCredencial(ui.find("#select_motivo").val(), ui.find("#select_organismo").val(), ui.find("#cmb_lugar_de_entrega").val()).onSuccess(function () {
                                         alertify.success("Solicitud creada con éxito");
                                         vex.close();
                                     });

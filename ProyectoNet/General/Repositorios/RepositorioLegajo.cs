@@ -615,7 +615,7 @@ namespace General.Repositorios
 
         }
 
-        public bool SolicitarRenovacionCredencial(Usuario usuario_solicitante, string id_motivo, string id_organismo)
+        public bool SolicitarRenovacionCredencial(Usuario usuario_solicitante, string id_motivo, string id_organismo, int id_lugar_entrega)
         {
             RepositorioDeTickets repo = new RepositorioDeTickets(this.conexion);
             var id_ticket = repo.crearTicket("solicitud_credencial", usuario_solicitante.Id);
@@ -629,6 +629,7 @@ namespace General.Repositorios
             parametros.Add("@IdTipoCredencial", 2); //2 Definitiva - 1 provisoria
             parametros.Add("@IdOrganismo", int.Parse(id_organismo));
             parametros.Add("@IdMotivo", int.Parse(id_motivo));
+            parametros.Add("@IdLugarEntrega", id_lugar_entrega);
             parametros.Add("@IdTicketAprobacion", id_ticket);
             
             var tablaDatos = conexion.Ejecutar("dbo.Acre_InsSolicitudCredencial", parametros);

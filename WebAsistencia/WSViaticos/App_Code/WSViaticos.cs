@@ -2983,12 +2983,12 @@ public class WSViaticos : System.Web.Services.WebService
 
 
     [WebMethod]
-    public bool SolicitarRenovacionCredencial(string motivo, string organismo,Usuario usuario)
+    public bool SolicitarRenovacionCredencial(string motivo, string organismo, int id_lugar_entrega, Usuario usuario)
     {
         RepositorioLegajo repositorio = RepoLegajo();
 
 
-        return repositorio.SolicitarRenovacionCredencial(usuario, motivo, organismo);
+        return repositorio.SolicitarRenovacionCredencial(usuario, motivo, organismo, id_lugar_entrega);
     }
 
     [WebMethod]
