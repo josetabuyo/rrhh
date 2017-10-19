@@ -26,8 +26,8 @@ public class EvaluacionDeDesempenioToPdfConverter : ModeloToPdfConverter
         mapa.Add("Secretaria", asignacion.agente_evaluado.area.secretaria);
         mapa.Add("Subsecretaria", asignacion.agente_evaluado.area.sub_secretaria);
         mapa.Add("Dir_nac_gral", asignacion.agente_evaluado.area.direccion);
-        mapa.Add("Unidad_eval", asignacion.agente_evaluado.area.unidad);
-        mapa.Add("Cod_unidad_eval", "NO ESPECIFICADO");
+        mapa.Add("Unidad_eval", asignacion.unidad_de_evaluacion.NombreArea);
+        mapa.Add("Cod_unidad_eval", asignacion.unidad_de_evaluacion.Codigo);
 
         mapa.Add("Periodo_desde", asignacion.periodo.desde.ToString("dd/MM/yyyy"));
         mapa.Add("Periodo_hasta", asignacion.periodo.hasta.ToString("dd/MM/yyyy"));
@@ -48,7 +48,7 @@ public class EvaluacionDeDesempenioToPdfConverter : ModeloToPdfConverter
         mapa.Add("Evaluado_agrupamiento", asignacion.agente_evaluado.agrupamiento);
 
         mapa.Add("Evaluado_nivel_educativo", asignacion.agente_evaluado.nivel_educativo);
-        mapa.Add("Cod_unidad_eval.0", "No Especificado");
+        mapa.Add("Cod_unidad_eval.0", asignacion.unidad_de_evaluacion.Codigo);
 
         int i = 1;
         var subtotal_1a6 = 0;

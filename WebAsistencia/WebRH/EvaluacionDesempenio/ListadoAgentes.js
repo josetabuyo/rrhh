@@ -85,7 +85,7 @@ var ListadoAgentes = {
         if (!(asignacion_evaluado_a_evaluador.evaluacion.estado_evaluacion == 1)) {
             return this.getBotonIrAFormulario(asignacion_evaluado_a_evaluador);
         }
-        if (_this.EvaluacionCompleta(asignacion_evaluado_a_evaluador)) {
+        if (this.EvaluacionCompleta(asignacion_evaluado_a_evaluador)) {
             return this.getBotonImprimir(asignacion_evaluado_a_evaluador);
         } else {
             //deberia ser imposible que este como definitiva una evaluacion incompleta
@@ -94,7 +94,7 @@ var ListadoAgentes = {
     },
     GetterGDE: function (asignacion_evaluado_a_evaluador) {
         if (asignacion_evaluado_a_evaluador.evaluacion.codigo_gde == '' && asignacion_evaluado_a_evaluador.evaluacion.estado_evaluacion == 1) {
-            return _this.getLinkCargarGDE(asignacion_evaluado_a_evaluador.id_evaluacion);
+            return this.getLinkCargarGDE(asignacion_evaluado_a_evaluador.id_evaluacion);
         }
         if (asignacion_evaluado_a_evaluador.evaluacion.codigo_gde != '') {
             return asignacion_evaluado_a_evaluador.evaluacion.codigo_gde;
@@ -295,7 +295,17 @@ var ListadoAgentes = {
         btn_accion.click(function () {
             Backend.PrintPdfEvaluacionDesempenio(asignacion_evaluado_a_evaluador)
             .onSuccess(function (rpta) {
-                window.open("data:application/pdf;base64," + rpta, '_blank');
+
+                //window.open("data:application/pdf;base64," + rpta, '_blank');
+               
+                var string = 'data:application/pdf;base64,' + rpta; 
+                 var iframe = "<iframe width='100%' height='100%' src='" + string + "'></iframe>"
+                var x = window.open();
+                x.document.open();
+                x.document.write(iframe);
+                x.document.close();
+                
+
             });
 
         });

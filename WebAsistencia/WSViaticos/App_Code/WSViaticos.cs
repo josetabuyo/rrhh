@@ -849,6 +849,23 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public int GetSegmentosUtilizados(Persona unaPersona, DateTime desde)
+    {
+
+        int anio = desde.Year;
+        if (desde.Month == 12)
+        {
+            anio = anio + 1; //Porque cambia el período de licencias desde el 1ero de diciembre
+        }
+
+        ServicioDeLicencias servicioLicencias = new ServicioDeLicencias(RepoLicencias());
+
+        return servicioLicencias.GetSegmentosUtilizados(unaPersona.Documento, anio);
+
+        
+    }
+
+    [WebMethod]
     public SaldoLicencia GetSaldoLicencia14FoH(Persona unaPersona, ConceptoDeLicencia concepto, DateTime fecha)
     {
 
