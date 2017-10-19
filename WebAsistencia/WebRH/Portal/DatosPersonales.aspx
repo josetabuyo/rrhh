@@ -8,7 +8,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <meta name="viewport" content="width=device-width">
         <!-- CSS media query on a link element -->
-         <%= Referencias.Css("../")%>
+        <%= Referencias.Css("../")%>
         <%= Referencias.Javascript("../")%>
         <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
         <link rel="stylesheet"  href="estilosPortalSecciones.css" />
@@ -28,6 +28,70 @@
                 bottom: 10px;
                 top: 100px;
             }
+            
+            #titulo_vista_previa
+            {
+                position: absolute;
+                left: 70px;
+                top: 39px;
+            }
+            
+            #vista_previa_credencial
+            {
+                position: absolute;
+                left: 40px;
+                top: 73px;
+            }
+        
+            #vista_previa_credencial #imagen_credencial
+            {
+                width: 250px;
+            }        
+        
+            #vista_previa_credencial #foto_usuario
+            {
+                position: absolute;
+                top: 64px;
+                left: 21px;
+                height: 112px;
+                width: 112px;
+            }    
+        
+            #vista_previa_credencial #apellido
+            {
+                position: absolute;
+                top: 196px;
+                left: 19px;
+                font-size: 20px;
+                color: white;
+            }    
+        
+            #vista_previa_credencial #nombres
+            {
+                position: absolute;
+                top: 224px;
+                left: 18px;
+                font-size: 20px;
+                color: white;
+            }    
+        
+            #vista_previa_credencial #documento
+            {
+                position: absolute;
+                top: 252px;
+                left: 66px;
+                font-size: 20px;
+                color: white;
+            }    
+            
+            #vista_previa_credencial #titulo_documento
+            {
+                position: absolute;
+                top: 252px;
+                left: 18px;
+                font-size: 20px;
+                color: white;
+            } 
             
             .label_combo
             {
@@ -123,6 +187,15 @@
             <div id="cajaSolicitudCredencial" style="display:none;" class="">
                 <h3 style="text-align: center;">Solicitud de Credencial</h3>
                 <br />
+                <h4 id="titulo_vista_previa">Vista Previa Credencial</h4>
+                <div id="vista_previa_credencial">
+                    <img id="imagen_credencial" src="../BarraMenu/credencial.png"/>
+                    <div id="foto_usuario"></div>
+                    <div id="apellido"></div>    
+                    <div id="nombres"></div>    
+                    <div id="titulo_documento">DNI:</div>    
+                    <div id="documento"></div>    
+                </div>
                 <div id="panel_derecho_credencial">
                     <div class="">
                         <label class="label_combo" for="select_motivo">Indique el Motivo del pedido:</label>
@@ -333,6 +406,16 @@
                             afterOpen: function ($vexContent) {
                                 var ui = $("#cajaSolicitudCredencial").clone();
                                 $vexContent.append(ui);
+                                Backend.GetUsuarioLogueado().onSuccess(function (usuario) {
+                                    ui.find("#apellido").text(usuario.Owner.Apellido);
+                                    ui.find("#nombres").text(usuario.Owner.Nombre);
+                                    ui.find("#documento").text(usuario.Owner.Documento);
+
+                                    var img = new VistaThumbnail({
+                                        id: usuario.Owner.IdImagen,
+                                        contenedor: ui.find("#foto_usuario")
+                                    });
+                                });
 
                                 Backend.GetLugaresEntregaCredencial()
                                     .onSuccess(function (lugares) {
@@ -385,7 +468,7 @@
                             },
                             contentCSS: {
                                 width: "80%",
-                                height: "500px"
+                                height: "90%"
                             }
                         });
                         //$('#cajaCambiarDomicilio').show();
