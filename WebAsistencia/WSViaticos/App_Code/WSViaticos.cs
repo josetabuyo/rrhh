@@ -2956,6 +2956,15 @@ public class WSViaticos : System.Web.Services.WebService
 
 
     [WebMethod]
+    public LugarEntrega[] GetLugaresEntregaCredencial(Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+
+        return repositorio.GetLugaresEntregaCredencial().ToArray();
+    }
+
+
+    [WebMethod]
     public bool SolicitarRenovacionCredencial(string motivo, string organismo,Usuario usuario)
     {
         RepositorioLegajo repositorio = RepoLegajo();
