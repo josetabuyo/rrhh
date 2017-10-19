@@ -465,6 +465,7 @@
                                         alertify.success("Solicitud creada con éxito");
 
                                         vex.close();
+                                        location.reload();
                                     });
                                 });
 
