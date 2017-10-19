@@ -24,7 +24,7 @@
             {
                 position: absolute;
                 right: 10px;
-                width: 60%;
+                width: 70%;
                 bottom: 10px;
                 top: 100px;
             }
@@ -38,7 +38,7 @@
             
             .combo
             {
-                width: 350px;
+                width: 470px;;
             }
             
             .etiqueta_campo
@@ -148,7 +148,6 @@
                     <div class="">
                         <label class="label_combo" for="cmb_lugar_de_entrega">Seleccione lugar de entrega:</label>
                         <select class="combo" id="cmb_lugar_de_entrega">                                
-                            <option value="1">Recepcion 9 de julio</option>
                         </select>                    
 
                     </div>
@@ -335,6 +334,15 @@
                                 var ui = $("#cajaSolicitudCredencial").clone();
                                 $vexContent.append(ui);
 
+                                Backend.GetLugaresEntregaCredencial()
+                                    .onSuccess(function (lugares) {
+                                        _.forEach(lugares, function (lugar) {
+                                            var opt = $("<option>");
+                                            opt.text(lugar.Descripcion);
+                                            opt.attr("value", lugar.IdLugar);
+                                            ui.find("#cmb_lugar_de_entrega").append(opt);
+                                        });
+                                    });
                                 ui.find("#select_motivo").change(function () {
                                     var val = ui.find("#select_motivo").val();
 
@@ -354,7 +362,7 @@
                                         ui.find("#texto_deterioro").hide();
                                         ui.find("#texto_robo").show();
                                         ui.find("#texto_seleccione_motivo").hide();
-                                    }                          
+                                    }
                                 });
 
                                 ui.find("#btn_realizar_solicitud").click(function () {
