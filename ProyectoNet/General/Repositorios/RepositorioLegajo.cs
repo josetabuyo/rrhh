@@ -783,7 +783,7 @@ namespace General.Repositorios
             {
                 tablaDatos.Rows.ForEach(row =>
                 {
-                    lugares_entrega.Add(new LugarEntrega(row.GetInt("Id"), row.GetInt("Id_Lugar"), row.GetDateTime("Desde"), row.GetBoolean("Baja"), row.GetString("Descripcion")));
+                    lugares_entrega.Add(new LugarEntrega(row.GetInt("Id"), row.GetInt("Id_Lugar"), row.GetDateTime("Desde"), false, row.GetString("Descripcion")));
 
                 });
             }

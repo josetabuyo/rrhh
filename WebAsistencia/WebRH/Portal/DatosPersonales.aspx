@@ -204,6 +204,7 @@
                             <option value="1">Deterioro</option>
                             <option value="2">Pérdida</option>
                             <option value="3">Robo</option>
+                            <option value="4">Nunca tuve</option>
                         </select>                       
                     </div>
                     <br />
@@ -441,11 +442,18 @@
                                         ui.find("#texto_seleccione_motivo").hide();
                                     }
 
-                                    if (val >= 2) {
+                                    if (val == 2) {
                                         ui.find("#texto_deterioro").hide();
                                         ui.find("#texto_robo").show();
                                         ui.find("#texto_seleccione_motivo").hide();
                                     }
+
+                                    if (val > 2) {
+                                        ui.find("#texto_deterioro").hide();
+                                        ui.find("#texto_robo").hide();
+                                        ui.find("#texto_seleccione_motivo").hide();
+                                    }
+
                                 });
 
                                 ui.find("#btn_realizar_solicitud").click(function () {
@@ -455,6 +463,7 @@
 
                                     Backend.SolicitarRenovacionCredencial(ui.find("#select_motivo").val(), ui.find("#select_organismo").val()).onSuccess(function () {
                                         alertify.success("Solicitud creada con éxito");
+
                                         vex.close();
                                     });
                                 });
