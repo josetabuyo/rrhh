@@ -731,10 +731,9 @@ namespace General.Repositorios
                 {
                     credenciales.Add(new Credencial(row.GetInt("IdCredencial"), row.GetString("TipoCredencial"), row.GetDateTime("FechaAlta"), row.GetString("UsuarioAlta"), row.GetString("Organismo"), row.GetInt("IdFoto", 0), row.GetString("CodigoMagnetico"), row.GetString("Estado")));                                
 
-                });              
+                });    
 
             }
-
             else
             {
                 credenciales.Add(new Credencial(0, "", DateTime.MinValue, " ", " ", 0, "", "INACTIVA")); 
@@ -768,6 +767,34 @@ namespace General.Repositorios
             }
             return solicitudes;
         }
+
+
+
+        public List<LugarEntrega> GetLugaresEntregaCredencial()
+        {
+           // var parametros = new Dictionary<string, object>();
+           // parametros.Add("@IdPersona", id_persona);
+
+            var tablaDatos = conexion.Ejecutar("dbo.Acre_GetLugaresEntregaCredencial");
+
+            List<LugarEntrega> lugares_entrega = new List<LugarEntrega>();
+
+            if (tablaDatos.Rows.Count > 0)
+            {
+                tablaDatos.Rows.ForEach(row =>
+                {
+                    lugares_entrega.Add(new LugarEntrega(row.GetInt("Id"), row.GetInt("Id_Lugar"), row.GetDateTime("Desde"), row.GetBoolean("Baja"), row.GetString("Descripcion")));
+
+                });
+            }
+            else
+            {
+                lugares_entrega.Add(new LugarEntrega(0, 0, DateTime.MinValue, false, "-"));
+            }
+            return lugares_entrega;
+        }
+
+
 
 
         public SolicitudCredencial GetSolicitudDeCredencialPorIdTicketAprobacion(int id_ticket)
