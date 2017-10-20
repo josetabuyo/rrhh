@@ -1134,6 +1134,30 @@ namespace General.Repositorios
             return JsonConvert.SerializeObject(dom);
         }
 
+        public string traerNombreInstructivoDeAyuda(string url) {
+
+            var parametros = new Dictionary<string, object>();
+
+            parametros.Add("@nombrePantalla", url);
+
+            //List<CvDomicilio> listaDomicilios = new List<CvDomicilio>();
+            var tablaDatos = conexion.Ejecutar("dbo.WEB_GET_Instructivo", parametros);
+
+            var ruta = "";
+
+            if (tablaDatos.Rows.Count > 0)
+            {
+                tablaDatos.Rows.ForEach(row =>
+
+                    ruta = row.GetString("url", "")
+                    //dom = new CvDomicilio(row.GetInt("id"), row.GetString("calle", ""), row.GetSmallintAsInt("nro", 0), row.GetString("piso", ""), row.GetString("dpto", ""), row.GetInt("localidad", 0), row.GetInt("cp", 0), row.GetInt("provincia", 0))
+                );
+            }
+
+            return ruta;
+        
+        }
+
         protected override List<Legajo> ObtenerDesdeLaBase()
         {
             throw new NotImplementedException();

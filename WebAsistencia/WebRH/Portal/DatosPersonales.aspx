@@ -36,13 +36,13 @@
                  </div>
                  <div class="cajitas">
                     <p class=""><label class="item_cajita">CUIL: </label> <span id="cuil"></span></p>
-                    <p class=""><label class="item_cajita">Domicilio: </label> <span id="domicilio"></span> - <a href="InstructivoInformeGDE.aspx" target="_blank" >Instructivo Cambio Domicilio</a></p>
+                    <p class=""><label class="item_cajita">Domicilio: </label> <span id="domicilio"></span> - <a href="../Instructivos/InstructivoDatosPersonales.aspx" id="linkAyuda" >Instructivo Cambio Domicilio</a></p>
                     
                     <img id="btnMostrarDomicilio" style="cursor:pointer; " title="Cambiar Domicilio" src="../Imagenes/edit.png" width="30px" height="30px" />
-                    <%--<input id="btnMostrarDomicilio" value="Cambiar Domicilio" class="btn btn-primary" type="button" />--%>
+                    <%--<input id="btnMostrarDomicilio" value="Cambiar Domicilio" class="btn btn-primary" type="button" />   onclick="window.open(this.href, 'mywin','left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;"--%>
                     <div style="display:none;  border: 1px solid #ccc; padding: 5px; background: rgba(204, 204, 204, 0.13);" id="mensajeCambioDomicilioPendiente">
                         <p style="color:Red;">Solicitud Pendiente de Aprobación.</p>
-                        <p>Próximo paso: <span id="btnGenerarPDF" style="color: #337ab7; cursor: pointer;" >Generar PDF y Cargar en el GDE</span></p>
+                        <p>Próximo paso: <span id="btnGenerarPDF" style="color: #337ab7; cursor: pointer;" >Generar PDF</span></p>
                         <p><span id="numeroGDECambioDomicilio"></span> <span id="btnMostrarDialogoActualizarGDE" style="color: #337ab7; cursor: pointer;" >Actualizar N° GDE</span></p>
                         <input id="idDocumentoGDE" type="hidden" />
                        
@@ -149,6 +149,7 @@
     </form>
 </body>
 <script type="text/javascript" src="Legajo.js"></script>
+<script type="text/javascript" src="../Scripts/Instructivos.js"></script>
 <script type="text/javascript" src="../Scripts/Spin.js"></script>
 <script type="text/javascript" src="../Scripts/ControlesImagenes/VistaThumbnail.js"></script>
 <script type="text/javascript" src="../scripts/vex-2.1.1/js/vex.combined.min.js"></script>
@@ -156,7 +157,7 @@
 
     $(document).ready(function ($) {
         //para cargar el menu izquierdo 
-        $(".caja_izq").load("SeccionIzquierda.htm", function() {
+        $(".caja_izq").load("SeccionIzquierda.htm", function () {
             Backend.start(function () {
                 Legajo.getNombre();
                 Legajo.getDatosPersonales();
@@ -166,7 +167,9 @@
             });
         });
 
-        
+        $("#linkAyuda").click(function () {
+            Instructivo.abrirInstructivo();
+        });
 
     });
 

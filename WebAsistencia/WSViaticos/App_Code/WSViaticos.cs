@@ -4517,6 +4517,16 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public string GetInstructivo(string url, Usuario usuario)
+    {
+        RepositorioLegajo repo = RepoLegajo();
+
+        return repo.traerNombreInstructivoDeAyuda(url);
+
+    }
+    
+
+    [WebMethod]
     public string MostrarDestinatariosDeLaNotificacion(int id_notificacion, Usuario usuario)
     {
         RepositorioLegajo repo = RepoLegajo();
