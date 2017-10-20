@@ -18,6 +18,7 @@
     <script type="text/javascript" src="../Scripts/ControlesImagenes/VistaThumbnail.js"></script>
     <script type="text/javascript" src="../Scripts/ControlesImagenes/SubidorDeImagenes.js"></script>
     <script type="text/javascript" src="../scripts/vex-2.1.1/js/vex.combined.min.js"></script>
+    
 </head>
 <div id="barra_menu_contenedor" class="no-print">
     <div id="contenedor_imagen">
@@ -60,7 +61,7 @@
                 </div>
                 <a id="link_area" style="display:none;">Mi Área</a>
                 <a id="cambiar-email_usuario" class="" name="signup" >Modificar correo</a>                     
-                
+                <%--<a id="btn_credenciales"><img src="<%= UrlImagenes %>icono_credencial.png"/></a>--%>
             </div>
 
             <div id=barrita_acciones_usuario>
