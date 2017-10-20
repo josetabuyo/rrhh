@@ -193,7 +193,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public DDJJ104_2001 GenerarDDJJ104(int id_area, int mes, int anio, Usuario usuario)
+    public DDJJ104_2001 GenerarDDJJ104(int id_area, int mes, int anio, Persona[] lista_persona, Usuario usuario)
     {
         //RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
         //return ddjj.GenerarDDJJ104(usuario, area, mes, anio);
@@ -203,7 +203,7 @@ public class WSViaticos : System.Web.Services.WebService
         RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
 
         DDJJ104_2001 cabe = new DDJJ104_2001();
-        cabe = ddjj.GenerarDDJJ104(usuario, UnArea[0], mes, anio);
+        cabe = ddjj.GenerarDDJJ104(usuario, UnArea[0], mes, anio, lista_persona);
 
 
         return cabe;
@@ -4656,42 +4656,57 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string InsertarEvaluacion(int idEvaluado, int idFormulario, int periodo, int idEval, string pregYRtas, int estado, Usuario usuario)
     {
-        RepositorioEvaluacionDesempenio repositorio = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
-        if (periodo == 0)
+        try
         {
-            PeriodoEvaluacion periodo_actual = repositorio.GetUltimoPeriodoEvaluacion();
-            periodo = periodo_actual.id_periodo;
+            RepositorioEvaluacionDesempenio repositorio = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+            if (periodo == 0)
+            {
+                PeriodoEvaluacion periodo_actual = repositorio.GetUltimoPeriodoEvaluacion();
+                periodo = periodo_actual.id_periodo;
+            }
+            //var preguntasYRespuestas = JsonConvert.DeserializeObject(pregYRtas);
+
+            var criterio_deserializado = (JArray)JsonConvert.DeserializeObject(pregYRtas);
+
+            var id_evaluador = repositorio.GetIdEvaluadorDelUsuario(usuario);
+
+            //FC:si viene un idEvaluacion entonces llamo a update, si viene 0 llamo a insert
+            if (idEval != 0)
+            {
+                repositorio.deleteEvaluacionDetalle(idEval);
+                repositorio.updateEvaluacion(idEval, idEvaluado, id_evaluador, idFormulario, periodo, estado);
+            }
+            else
+            {
+                //FC:Inserto la cabecera de la evaluacion
+                idEval = repositorio.insertarEvaluacion(idEvaluado, id_evaluador, idFormulario, periodo, estado);
+            }
+
+            //var item1 = preguntasYRespuestas;
+
+
+            foreach (var item in criterio_deserializado)
+            {
+                int idPregunta = (int)item.First.First;
+                int idRespuesta = (int)item.Last.Last;
+
+                repositorio.insertarEvaluacionDetalle(idEval, idPregunta, idRespuesta);
+            }
+
+            return "ok";
         }
-        //var preguntasYRespuestas = JsonConvert.DeserializeObject(pregYRtas);
-
-        var criterio_deserializado = (JArray)JsonConvert.DeserializeObject(pregYRtas);
-
-        var id_evaluador = repositorio.GetIdEvaluadorDelUsuario(usuario);
-
-        //FC:si viene un idEvaluacion entonces llamo a update, si viene 0 llamo a insert
-        if (idEval != 0)
+        catch (Exception e)
         {
-            repositorio.deleteEvaluacionDetalle(idEval);
-            repositorio.updateEvaluacion(idEval, idEvaluado, id_evaluador, idFormulario, periodo, estado);
-        }
-        else
-        {
-            //FC:Inserto la cabecera de la evaluacion
-            idEval = repositorio.insertarEvaluacion(idEvaluado, id_evaluador, idFormulario, periodo, estado);
-        }
 
-        //var item1 = preguntasYRespuestas;
+            var error = "Server error message='" + e.Message + "' stacktrace='" + e.StackTrace.ToString() + "'";
+            if (e.InnerException != null)
+            {
+                error += "innerException message= '" + e.InnerException.Message + "' innerException stacktrace='" + e.InnerException.StackTrace.ToString() + "'";
+            }
+            return error;
 
-
-        foreach (var item in criterio_deserializado)
-        {
-            int idPregunta = (int)item.First.First;
-            int idRespuesta = (int)item.Last.Last;
-
-            repositorio.insertarEvaluacionDetalle(idEval, idPregunta, idRespuesta);
         }
 
-        return "ok";
     }
 
     #endregion
