@@ -615,55 +615,261 @@ namespace General.Repositorios
 
         }
 
-
-        public string GetCredencialesTodasDePortal(int documento)
+        public bool SolicitarRenovacionCredencial(Usuario usuario_solicitante, string id_motivo, string id_organismo, int id_lugar_entrega)
         {
+            RepositorioDeTickets repo = new RepositorioDeTickets(this.conexion);
+            var id_ticket = repo.crearTicket("solicitud_credencial", usuario_solicitante.Id);
+
+         //   var id_motivo = GetMotivosBajaCredencial().Find(x => x.Descripcion.Trim().ToUpper() == motivo.Trim().ToUpper()).Id;
+          //  List<MotivoBaja> motivos = GetMotivosBajaCredencial();
+                                 
             var parametros = new Dictionary<string, object>();
-            if (documento != 0)
-            {
-                parametros.Add("@Documento", documento);
-            }
 
-            List<Consulta> consultas = new List<Consulta>();
-            getCredencialesPorCriterio(parametros, consultas);
+            parametros.Add("@IdPersona", usuario_solicitante.Owner.Id);
+            parametros.Add("@IdTipoCredencial", 2); //2 Definitiva - 1 provisoria
+            parametros.Add("@IdOrganismo", int.Parse(id_organismo));
+            parametros.Add("@IdMotivo", int.Parse(id_motivo));
+            parametros.Add("@IdLugarEntrega", id_lugar_entrega);
+            parametros.Add("@IdTicketAprobacion", id_ticket);
+            
+            var tablaDatos = conexion.Ejecutar("dbo.Acre_InsSolicitudCredencial", parametros);
 
-            return JsonConvert.SerializeObject(consultas);
-
+            return true;
         }
 
-
-        private void getCredencialesPorCriterio(Dictionary<string, object> parametros, List<Consulta> consultas)
+        public bool AprobarSolicitudCredencial(SolicitudCredencial solicitud, Usuario usuario_aprobador)
         {
-            Area area = new Area();
-            var tablaDatos = conexion.Ejecutar("dbo.LEG_GETConsultasDePortal2", parametros);
+            RepositorioDeTickets repo = new RepositorioDeTickets(this.conexion);
+            var id_ticket_impresion = repo.crearTicket("impresion_credencial", usuario_aprobador.Id);
+
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@IdPersona", usuario_aprobador.Owner.Id);
+            parametros.Add("@IdSolicitud ", solicitud.Id);
+            parametros.Add("@IdTicketImpresion ", id_ticket_impresion); 
+
+            var tablaDatos = conexion.Ejecutar("dbo.Acre_AprobarSolicitudCredencial", parametros);
+
+            var repo_usuarios = new RepositorioDeUsuarios(this.conexion, RepositorioDePersonas.NuevoRepositorioDePersonas(this.conexion));
+
+            var usuario_solicitante = repo_usuarios.GetUsuarioPorIdPersona(solicitud.IdPersona);
+            new RepositorioDeAlertasPortal(this.conexion)
+                .crearAlerta("Solicitud de Credencial", "Tu solicitud ha sido aprobada, se le avisará cuando esté impresa", usuario_solicitante.Id, usuario_aprobador.Id);
+            return true;
+        }
+
+        public bool RechazarSolicitudCredencial(SolicitudCredencial solicitud, string motivo, Usuario usuario)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@IdPersona", usuario.Owner.Id);
+            parametros.Add("@IdSolicitud ", solicitud.Id);
+            parametros.Add("@Motivo ", motivo);
+
+            var tablaDatos = conexion.Ejecutar("dbo.Acre_RechazarSolicitudCredencial", parametros);
+
+            var repo_usuarios = new RepositorioDeUsuarios(this.conexion, RepositorioDePersonas.NuevoRepositorioDePersonas(this.conexion));
+
+            var usuario_solicitante = repo_usuarios.GetUsuarioPorIdPersona(solicitud.IdPersona);
+            new RepositorioDeAlertasPortal(this.conexion)
+                .crearAlerta("Solicitud de Credencial", "Tu solicitud ha sido rechazada por:" + motivo, usuario_solicitante.Id, usuario.Id);
+            return true;
+        }
+
+        public List<MotivoBaja> GetMotivosBajaCredencial()
+        {
+           
+            List<MotivoBaja> motivosbaja = new List<MotivoBaja>();
+            getMotivosBajaCredencial(motivosbaja);
+
+            return motivosbaja;
+        }
+
+        private List<MotivoBaja> getMotivosBajaCredencial(List<MotivoBaja> motivosbaja)
+        {
+            MotivoBaja motivo = new MotivoBaja();
+            var tablaDatos = conexion.Ejecutar("dbo.Acre_GetMotivosBajaCredencial");
 
             if (tablaDatos.Rows.Count > 0)
             {
                 tablaDatos.Rows.ForEach(row =>
                 {
-                    Persona creador = new Persona(row.GetInt("id_usuario"), row.GetInt("NroDocumento"), row.GetString("nombre"), row.GetString("apellido"), area);
-                    Persona responsable = new Persona(row.GetInt("id_responsable", 0), row.GetInt("NroDocumentoResponsable", 0), row.GetString("nombreResponsable", ""), row.GetString("apellidoResponsable", ""), area);
-                    List<Respuesta> respuestas = new List<Respuesta>();
-                    Consulta consulta = new Consulta(
-                        row.GetLong("Id"),
-                        creador,
-                        row.GetDateTime("fecha_creacion"),
-                        row.GetDateTime(("fecha_respuesta"), new DateTime(9999, 12, 31)),
-                        responsable,
-                        row.GetSmallintAsInt("id_tipo_consulta"),
-                        row.GetString("tipo_consulta"),
-                        row.GetString("resumen"),
-                        row.GetSmallintAsInt("id_estado"),
-                        row.GetString("estado"),
-                        row.GetSmallintAsInt(("calificacion"), 0),
-                        row.GetBoolean("leido", false),
-                        respuestas);
-
-                    consultas.Add(consulta);
+                    motivosbaja.Add(new MotivoBaja(row.GetInt("Id"), row.GetString("Descripcion")));
 
                 });
+            }
+            else
+            {
+                motivosbaja.Add(new MotivoBaja(0, "-"));
+            }
+
+            return motivosbaja;
+        }
+
+
+
+
+        public List<Credencial> GetCredencialesTodasDePortal(int idPersona)
+        {
+            var parametros = new Dictionary<string, object>();
+            if (idPersona != 0)
+            {
+                parametros.Add("@IdPersona", idPersona);
+            }
+
+            List<Credencial> credenciales = new List<Credencial>();
+            getCredencialesPorCriterio(parametros, credenciales);
+
+            return credenciales;
+        }
+
+        private List<Credencial> getCredencialesPorCriterio(Dictionary<string, object> parametros, List<Credencial> credenciales)
+        {
+            Area area = new Area();
+            var tablaDatos = conexion.Ejecutar("dbo.LEG_GETCredencialesDePortal", parametros);
+                                
+            if (tablaDatos.Rows.Count > 0)
+            {
+                tablaDatos.Rows.ForEach(row =>
+                {
+                    credenciales.Add(new Credencial(row.GetInt("IdCredencial"), row.GetString("TipoCredencial"), row.GetDateTime("FechaAlta"), row.GetString("UsuarioAlta"), row.GetString("Organismo"), row.GetInt("IdFoto", 0), row.GetString("CodigoMagnetico"), row.GetString("Estado")));                                
+
+                });    
 
             }
+            else
+            {
+                credenciales.Add(new Credencial(0, "", DateTime.MinValue, " ", " ", 0, "", "INACTIVA")); 
+            }
+
+
+            return credenciales;
+        }
+
+
+        public List<SolicitudCredencial> GetSolicitudesDeCredencialPorPersona(int id_persona)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@IdPersona", id_persona);
+
+            var tablaDatos = conexion.Ejecutar("dbo.Acre_GetSolicitudesCredencialPorIdPersona", parametros);
+
+            List<SolicitudCredencial> solicitudes = new List<SolicitudCredencial>();
+
+            if (tablaDatos.Rows.Count > 0)
+            {
+                tablaDatos.Rows.ForEach(row =>
+                {
+                    solicitudes.Add(new SolicitudCredencial(row.GetInt("Id"), row.GetInt("IdPersona"), row.GetString("TipoCredencial"), row.GetString("Motivo"), row.GetString("Organismo"), row.GetString("Estado"), row.GetInt("IdTicketAprobacion", 0), row.GetInt("IdTicketimpresion", 0), row.GetDateTime("Fecha")));
+
+                });
+            }
+            else
+            {
+                solicitudes.Add(new SolicitudCredencial(0,0,"","","","",0,0 ,DateTime.MinValue));
+            }
+            return solicitudes;
+        }
+
+
+
+        public List<LugarEntrega> GetLugaresEntregaCredencial()
+        {
+           // var parametros = new Dictionary<string, object>();
+           // parametros.Add("@IdPersona", id_persona);
+
+            var tablaDatos = conexion.Ejecutar("dbo.Acre_GetLugaresEntregaCredencial");
+
+            List<LugarEntrega> lugares_entrega = new List<LugarEntrega>();
+
+            if (tablaDatos.Rows.Count > 0)
+            {
+                tablaDatos.Rows.ForEach(row =>
+                {
+                    lugares_entrega.Add(new LugarEntrega(row.GetInt("Id"), row.GetInt("Id_Lugar"), row.GetDateTime("Desde"), false, row.GetString("Descripcion")));
+
+                });
+            }
+            else
+            {
+                lugares_entrega.Add(new LugarEntrega(0, 0, DateTime.MinValue, false, "-"));
+            }
+            return lugares_entrega;
+        }
+
+
+
+
+        public SolicitudCredencial GetSolicitudDeCredencialPorIdTicketAprobacion(int id_ticket)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_ticket", id_ticket);
+            
+            var tablaDatos = conexion.Ejecutar("dbo.Acre_GetSolicitudDeCredencialPorIdTicketAprobacion", parametros);
+
+            if (tablaDatos.Rows.Count == 0) throw new Exception("No existe una solicitud con ese nro de ticket");
+            if (tablaDatos.Rows.Count > 1) throw new Exception("Hay mas de una solicitud con ese nro de ticket");
+
+            var row = tablaDatos.Rows[0];
+            var solicitud = new SolicitudCredencial();
+            solicitud.Id = row.GetInt("Id");
+            solicitud.IdPersona = row.GetInt("IdPersona");
+            solicitud.Motivo = row.GetString("Motivo");
+            solicitud.Organismo = row.GetString("Organismo");
+            return solicitud;             
+        }
+
+        public SolicitudCredencial GetSolicitudDeCredencialPorIdTicketImpresion(int id_ticket)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_ticket", id_ticket);
+
+            var tablaDatos = conexion.Ejecutar("dbo.Acre_GetSolicitudDeCredencialPorIdTicketImpresion", parametros);
+
+            if (tablaDatos.Rows.Count == 0) throw new Exception("No existe una solicitud con ese nro de ticket");
+            if (tablaDatos.Rows.Count > 1) throw new Exception("Hay mas de una solicitud con ese nro de ticket");
+
+            var row = tablaDatos.Rows[0];
+            var solicitud = new SolicitudCredencial();
+            solicitud.Id = row.GetInt("Id");
+            solicitud.IdPersona = row.GetInt("IdPersona");
+            solicitud.Motivo = row.GetString("Motivo");
+            solicitud.Organismo = row.GetString("Organismo");
+            solicitud.Credencial = new Credencial();
+            solicitud.Credencial.Id = row.GetInt("idCredencial");
+            solicitud.Credencial.IdFoto = row.GetInt("idFoto");
+            solicitud.Credencial.Impresa = row.GetBoolean("impresa");
+            solicitud.Credencial.CodigoMagnetico = row.GetString("CodigoMagnetico", "");
+            return solicitud;
+        }
+
+        public bool MarcarCredencialComoImpresa(int idCredencial, Usuario usuario)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_credencial", idCredencial);
+
+            var tablaDatos = conexion.Ejecutar("dbo.Acre_MarcarCredencialComoImpresa", parametros);
+            return true;
+        }
+
+        public bool AsociarCodigoMagneticoACredencial(int idCredencial, string codigo_magnetico, Usuario usuario)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_credencial", idCredencial);
+            parametros.Add("@codigo_magnetico", codigo_magnetico);
+
+            var tablaDatos = conexion.Ejecutar("dbo.Acre_AsociarCodigoMagneticoACredencial", parametros);
+            return true;
+        }
+
+        public bool CerrarTicketImpresion(SolicitudCredencial solicitud, string instrucciones_de_retiro, Usuario usuario)
+        {
+            var repo_usuarios = new RepositorioDeUsuarios(this.conexion, RepositorioDePersonas.NuevoRepositorioDePersonas(this.conexion));
+
+            var usuario_solicitante = repo_usuarios.GetUsuarioPorIdPersona(solicitud.IdPersona);
+            new RepositorioDeTickets(this.conexion)
+                .MarcarEstadoTicket(solicitud.IdTicketImpresion, usuario.Id);
+            new RepositorioDeAlertasPortal(this.conexion)
+                .crearAlerta("Solicitud de Credencial", "Su credencial está impresa. Para retirarla: " + instrucciones_de_retiro, usuario_solicitante.Id, usuario.Id);
+            return true;
         }
 
 
@@ -701,6 +907,8 @@ namespace General.Repositorios
 
             }
         }
+
+
 
         public void ResponderConsulta(int id, string respuesta, Usuario usuario)
         {
@@ -1114,6 +1322,8 @@ namespace General.Repositorios
         {
             throw new NotImplementedException();
         }
+
+
 
 
 
