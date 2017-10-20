@@ -696,6 +696,7 @@ namespace General.Repositorios
                 presentismo.Add(new Presentismo(
                     persona, 
                     new TipoDePlantaGeneral(row.GetInt("id_planta_01"), row.GetString("Planta_01"), this),  
+                    "Junio",
                     row.GetInt("A_Jus_01"),
                     row.GetInt("A_Inj_01"),
                     row.GetInt("A_NoPres_01"),
@@ -704,6 +705,7 @@ namespace General.Repositorios
                 presentismo.Add(new Presentismo(
                     persona,
                     new TipoDePlantaGeneral(row.GetInt("id_planta_02"), row.GetString("Planta_02"), this),
+                    "Julio",
                     row.GetInt("A_Jus_02"),
                     row.GetInt("A_Inj_02"),
                     row.GetInt("A_NoPres_02"),
@@ -712,6 +714,7 @@ namespace General.Repositorios
                 presentismo.Add(new Presentismo(
                     persona,
                     new TipoDePlantaGeneral(row.GetInt("id_planta_03"), row.GetString("Planta_03"), this),
+                    "Agosto",
                     row.GetInt("A_Jus_03"),
                     row.GetInt("A_Inj_03"),
                     row.GetInt("A_NoPres_03"),
@@ -720,6 +723,7 @@ namespace General.Repositorios
                 presentismo.Add(new Presentismo(
                     persona,
                     new TipoDePlantaGeneral(row.GetInt("id_planta_04"), row.GetString("Planta_04"), this),
+                    "Septiembre",
                     row.GetInt("A_Jus_04"),
                     row.GetInt("A_Inj_04"),
                     row.GetInt("A_NoPres_04"),

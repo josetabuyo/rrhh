@@ -12,8 +12,8 @@ namespace General
         private Persona _persona;
         public Persona Persona { get { return _persona; } set { _persona = value; } }
 
-        private int _mes;
-        public int Mes { get { return _mes; } set { _mes = value; } }
+        private string _mes;
+        public string Mes { get { return _mes; } set { _mes = value; } }
 
         private TipoDePlantaGeneral _planta;
         public TipoDePlantaGeneral Planta { get { return _planta; } set { _planta = value; } }
@@ -34,10 +34,11 @@ namespace General
         {
             
         }
-        public Presentismo(Persona persona, TipoDePlantaGeneral planta, int justificadas, int injustificadas, int no_afecta, int porcentaje_cobro)
+        public Presentismo(Persona persona, TipoDePlantaGeneral planta, string mes, int justificadas, int injustificadas, int no_afecta, int porcentaje_cobro)
         {
             this.Persona = persona;
             this.Planta = planta;
+            this.Mes = mes;
             this.Justificadas = justificadas;
             this.Injustificadas = injustificadas;
             this.NoAfecta = no_afecta;

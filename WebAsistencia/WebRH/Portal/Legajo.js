@@ -289,21 +289,29 @@ var Legajo = {
                         if (presentismoJSON != "") {
                             presentismo = JSON.parse(presentismoJSON);
                         }
+                        var total_justificadas = 0;
+                        var total_injustificadas = 0
+                        for (var i = 0; i < presentismo.length; i++) {
+                            total_justificadas = total_justificadas + presentismo[i].Justificadas;
+                            total_injustificadas = total_injustificadas + presentismo[i].Injustificadas;
+                        }
+                        $("#lb_injustificadas").text(total_injustificadas);
+                        $("#lb_justificadas").text(total_justificadas);
 
                         var _this = this;
                         $("#tablaPremioPresentismo").empty();
                         var divGrilla = $("#tablaPremioPresentismo");
                         var columnas = [];
-                        columnas.push(new Columna("Mes", { generar: function (una_licencia) { return presentismo.Descripcion } }));
-                        columnas.push(new Columna("PLanta", { generar: function (una_licencia) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_licencia.Desde) } }));
-                        columnas.push(new Columna("Injustificadas", { generar: function (una_licencia) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_licencia.Hasta) } }));
-                        columnas.push(new Columna("Justificadas", { generar: function (una_licencia) { return una_licencia.Estado } }));
-                        columnas.push(new Columna("No afectan al presentismo", { generar: function (una_licencia) { return una_licencia.Estado } }));
-                        columnas.push(new Columna("% de presentismo a cobrar", { generar: function (una_licencia) { return una_licencia.Estado } }));
+                        columnas.push(new Columna("Mes", { generar: function (un_presentismo) { return un_presentismo.Mes } }));
+                        columnas.push(new Columna("Planta", { generar: function (un_presentismo) { return un_presentismo.Planta.Descripcion } }));
+                        columnas.push(new Columna("Injustificadas", { generar: function (un_presentismo) { return un_presentismo.Injustificadas } }));
+                        columnas.push(new Columna("Justificadas", { generar: function (un_presentismo) { return un_presentismo.Justificadas } }));
+                        columnas.push(new Columna("No afectan al presentismo", { generar: function (un_presentismo) { return un_presentismo.NoAfecta } }));
+                        columnas.push(new Columna("% de presentismo a cobrar", { generar: function (un_presentismo) { return un_presentismo.PorcentajeCobro + "%" } }));
                         //falta detalle
                         _this.Grilla = new Grilla(columnas);
                         _this.Grilla.CambiarEstiloCabecera("estilo_tabla_portal");
-                        _this.Grilla.CargarObjetos(licencias);
+                        _this.Grilla.CargarObjetos(presentismo);
                         _this.Grilla.DibujarEn(divGrilla);
                         $('.table-hover').removeClass("table-hover");
 
@@ -1422,7 +1430,7 @@ var Legajo = {
 
         $('#btn_consultas_pendientes').click();
     },
-   
+
     GetNotificacionesTodas: function () {
         var _this_original = this;
         Backend.GetNotificacionesTodasDePortal()
