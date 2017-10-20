@@ -4740,6 +4740,12 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string InsertarEvaluacion(int idEvaluado, int idFormulario, int periodo, int idEval, string pregYRtas, int estado, Usuario usuario)
     {
+        idEvaluado = 2386;
+        idFormulario = 6;
+        periodo = 0;
+        idEval = 0;
+        pregYRtas = "[{\"idPregunta\":57,\"idRespuesta\":1}]";
+        estado = 0;
         try
         {
             RepositorioEvaluacionDesempenio repositorio = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
