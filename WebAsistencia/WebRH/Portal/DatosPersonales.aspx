@@ -366,19 +366,18 @@
                     Backend.GetSolicitudesDeCredencialPorPersona().onSuccess(function (solicitudes) {
 
                         $("#botonera_credenciales").show();
-                        $.each(solicitudes, function (i, val) {
-
-                            if (solicitudes[i].Estado == "PENDIENTE") {
-
-                                $("#btn_aviso_solicitud").show();
-                                $("#btn_renovar_credencial").hide();
-                            }
-                            else {
-                                $("#btn_aviso_solicitud").hide();
-                                $("#btn_renovar_credencial").show();
-                            }
-
-                        });
+                        if (_.some(solicitudes, function (sol) {
+                            if (sol.Estado == "PENDIENTE") return true;
+                            if (sol.Credencial) return !sol.Credencial.Entregada;
+                            return false;
+                        })) {
+                            $("#btn_aviso_solicitud").show();
+                            $("#btn_renovar_credencial").hide();
+                        }
+                        else {
+                            $("#btn_aviso_solicitud").hide();
+                            $("#btn_renovar_credencial").show();
+                        }
                         $("#btn_historial_credenciales").show();
                     });
 
@@ -465,7 +464,7 @@
                                         alertify.success("Solicitud creada con éxito");
 
                                         vex.close();
-                                        location.reload();
+                                        setTimeout(function () { location.reload(); }, 1000);
                                     });
                                 });
 
