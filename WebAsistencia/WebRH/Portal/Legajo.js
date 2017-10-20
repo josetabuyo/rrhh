@@ -282,7 +282,7 @@ var Legajo = {
     getDatosLicencias: function () {
         var spinner = new Spinner({ scale: 2 });
         spinner.spin($("html")[0]);
-
+        var _this_original = this;
         Backend.GetPremioPorPresentismo(6, 2017) //Por ahora pidió Faby que lo hardcodeara
                     .onSuccess(function (presentismoJSON) {
                         var presentismo = [];
@@ -308,7 +308,22 @@ var Legajo = {
                         columnas.push(new Columna("Justificadas", { generar: function (un_presentismo) { return un_presentismo.Justificadas } }));
                         columnas.push(new Columna("No afectan al presentismo", { generar: function (un_presentismo) { return un_presentismo.NoAfecta } }));
                         columnas.push(new Columna("% de presentismo a cobrar", { generar: function (un_presentismo) { return un_presentismo.PorcentajeCobro + "%" } }));
-                        //falta detalle
+                        //falta detalle aaaaaaaaaa
+                        columnas.push(new Columna('Detalle', {
+                            generar: function (un_presentismo) {
+                                var btn_accion = $('<a>');
+                                var img = $('<img>');
+                                img.attr('src', '../Imagenes/detalle.png');
+                                img.attr('width', '15px');
+                                img.attr('height', '15px');
+                                btn_accion.append(img);
+                                btn_accion.click(function () {
+                                    _this_original.MostrarDetalleDePresentismo(un_presentismo);
+                                });
+                                return btn_accion;
+                            }
+                        }));
+
                         _this.Grilla = new Grilla(columnas);
                         _this.Grilla.CambiarEstiloCabecera("estilo_tabla_portal");
                         _this.Grilla.CargarObjetos(presentismo);
@@ -438,6 +453,84 @@ var Legajo = {
 
 
     },
+
+                MostrarDetalleDePresentismo: function (presentismo) {
+                    var _this = this;
+                    Backend.GetDetalleDePresentismo(presentismo.Id)
+        .onSuccess(function (respuestasJSON) {
+            var respuestas = [];
+            if (respuestasJSON != "") {
+                respuestas = JSON.parse(respuestasJSON);
+            }
+            vex.defaultOptions.className = 'vex-theme-os';
+            vex.open({
+                afterOpen: function ($vexContent) {
+                    var ui = $("#pantalla_consulta_ticket").clone();
+                    $vexContent.append(ui);
+                    ui.show();
+
+                    ui.find("#titulo_consulta").text("CONSULTA NÚMERO " + consulta.Id);
+                    _this.ArmarChat(ui, consulta, respuestas);
+                    if (consulta.id_estado == "9") {
+                        ui.find("#btn_pepreguntar").hide();
+                        ui.find("#btn_cerrar").hide();
+                        ui.find("#txt_mensaje_calificacion").text("Consulta cerrada y calificada con: " + _this.CalificacionToString(consulta.calificacion));
+                        ui.find("#txt_mensaje_calificacion").show();
+                    } else {
+                        ui.find("#btn_pepreguntar").show();
+                        ui.find("#btn_cerrar").show();
+                        ui.find("#txt_mensaje_calificacion").hide();
+                    }
+
+                    ui.find("#btn_cerrar").click(function () {
+                        ui.find('#contenedor_estrellas').append('<div id="div_calificar" style="margin-top: 100px; margin-bottom:120px;"></div>');
+                        ui.find('#div_chat').hide();
+                        ui.find('#btn_pepreguntar').hide();
+                        ui.find('#btn_cerrar').hide();
+                        ui.find('#btn_calificar').show();
+
+                        _this.Calificar(ui, consulta);
+                    });
+                    ui.find("#btn_pepreguntar").click(function () {
+                        ui.find('#div_repreguntar').show();
+
+                    });
+                    ui.find("#btn_info_usuario").click(function () {
+
+                        localStorage.setItem("documento", consulta.creador.Documento);
+                        window.open('../Reportes/ConsultaIndividual.aspx', '_blank');
+
+                    });
+
+                    ui.find("#btn_enviar_pepregunta").click(function () {
+                        _this.Repreguntar(ui, consulta);
+                        vex.close();
+                    });
+                    ui.find("#btn_calificar").click(function () {
+                        _this.EnviarCalificacion(consulta);
+                        vex.close();
+                        _this.getConsultas();
+                    });
+                    return ui;
+                },
+                css: {
+                    'padding-top': "4%",
+                    'padding-bottom': "0%",
+                    'background-color': "rgb(249, 248, 248)"
+                },
+                contentCSS: {
+                    width: "80%",
+                    height: "80%"
+                }
+            });
+
+            Backend.MarcarConsultaComoLeida(consulta.Id).onSuccess(function () { }).onError(function (e) { });
+            _this.GetConsultasNoLeidas();
+        })
+        .onError(function (e) {
+        });
+
+                },//bbbbbbbbbbbbbbbbbbbbbbb
     ConvertirAMonedaOVacio: function (numero) {
         var _this = this;
         if (numero == null) {
