@@ -34,8 +34,9 @@
                 <label style="margin-right: 48px;">
                     Ausencias del Cuatrimestre:
                 </label>
-                <label>Injustificadas:</label>
-                  <label style="margin-right: 15px;" id="lb_injustificadas">
+                <label>
+                    Injustificadas:</label>
+                <label style="margin-right: 15px;" id="lb_injustificadas">
                 </label>
                 <label>
                     Justificadas:
@@ -60,6 +61,10 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div id="pantalla_consulta_detalle_presentismo" style="display: none;width: 100%;">
+    <div id="tablaPremioPresentismoDetalle" class="table table-striped table-bordered table-condensed" style="width: 100%; margin-top: 30px;">
+                </div>
     </div>
     </form>
 </body>

@@ -9,6 +9,9 @@ namespace General
 {
     public class Presentismo
     {
+        private int _id;
+        public int Id { get { return _id; } set { _id = value; } }
+
         private Persona _persona;
         public Persona Persona { get { return _persona; } set { _persona = value; } }
 
@@ -34,8 +37,9 @@ namespace General
         {
             
         }
-        public Presentismo(Persona persona, TipoDePlantaGeneral planta, string mes, int justificadas, int injustificadas, int no_afecta, int porcentaje_cobro)
+        public Presentismo(int id, Persona persona, TipoDePlantaGeneral planta, string mes, int justificadas, int injustificadas, int no_afecta, int porcentaje_cobro)
         {
+            this.Id = id;
             this.Persona = persona;
             this.Planta = planta;
             this.Mes = mes;

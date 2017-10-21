@@ -4316,6 +4316,12 @@ public class WSViaticos : System.Web.Services.WebService
         RepositorioLicencias repositorio = new RepositorioLicencias(Conexion());
         return JsonConvert.SerializeObject(repositorio.GetPremioPorPresentismo(usuario.Owner, mes, anio) );
     }
+    [WebMethod]
+    public string GetDetalleDePresentismo(int id, Usuario usuario)
+    {
+        RepositorioLicencias repositorio = new RepositorioLicencias(Conexion());
+        return JsonConvert.SerializeObject(repositorio.GetDetalleDePresentismo(int.Parse(usuario.Owner.Legajo), id));
+    }
 
     [WebMethod]
     public string GetLicenciasEnTramite(Usuario usuario)

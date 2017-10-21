@@ -319,7 +319,7 @@ namespace General.Repositorios
 
         public void Cachear<T>(string nros_documento, string sp, Dictionary<string, object> parametros, Dictionary<int, List<T>> cache, Func<RowDeDatos, IConPersona> constructor) where T : IConPersona
         {
-            
+
             var tablaDatos = this.conexion.Ejecutar(sp, parametros, 3000);
 
             List<T> items = new List<T>();
@@ -348,9 +348,10 @@ namespace General.Repositorios
             parametros.Add("@nros_documento", nros_documento);
             parametros.Add("@id_concepto_licencia", 1);
             this.CacheVacacionesPendientesAprobacion = new Dictionary<int, List<VacacionesPendientesDeAprobacion>>();
-            this.Cachear<VacacionesPendientesDeAprobacion>(nros_documento, "dbo.LIC_GEN_GetDiasPendientesDeAprobacionVarios", 
-                parametros, this.CacheVacacionesPendientesAprobacion, 
-                (RowDeDatos row) => {
+            this.Cachear<VacacionesPendientesDeAprobacion>(nros_documento, "dbo.LIC_GEN_GetDiasPendientesDeAprobacionVarios",
+                parametros, this.CacheVacacionesPendientesAprobacion,
+                (RowDeDatos row) =>
+                {
                     Persona persona = new Persona();
                     persona.Documento = row.GetInt("NroDocumento");
                     persona.Apellido = row.GetString("Apellido");
@@ -369,7 +370,8 @@ namespace General.Repositorios
             parametros.Add("@id_concepto_licencia", concepto.Id);
             this.CacheDiasPermitidos = new Dictionary<int, List<VacacionesPermitidas>>();
             Cachear<VacacionesPermitidas>(nros_documento, "dbo.LIC_GEN_GetDiasPermitidosVarios", parametros, this.CacheDiasPermitidos,
-                (RowDeDatos row) => {
+                (RowDeDatos row) =>
+                {
                     Persona persona = new Persona();
                     persona.Documento = row.GetInt("NroDocumento");
                     persona.Apellido = row.GetString("Apellido");
@@ -411,7 +413,8 @@ namespace General.Repositorios
             parametros.Add("@nros_documento", nros_documento);
             this.CacheDiasPerdidos = new Dictionary<int, List<VacacionesPermitidas>>();
             Cachear<VacacionesPermitidas>(nros_documento, "dbo.LIC_GEN_GetDiasPerdidosVarios", parametros, this.CacheDiasPerdidos,
-                (RowDeDatos row) => {
+                (RowDeDatos row) =>
+                {
                     Persona persona = new Persona();
                     persona.Documento = row.GetInt("NroDocumento");
                     persona.Apellido = row.GetString("Apellido");
@@ -571,7 +574,8 @@ namespace General.Repositorios
         Dictionary<int, List<VacacionesPermitidas>> CacheDiasPermitidos;
         public List<VacacionesPermitidas> VacacionesPerdidasDe(int dni_persona)
         {
-            if (EstaCacheado<VacacionesPermitidas>(this.CacheDiasPermitidos, dni_persona)) {
+            if (EstaCacheado<VacacionesPermitidas>(this.CacheDiasPermitidos, dni_persona))
+            {
                 return CacheDePerdidasDe(dni_persona);
             }
             var parametros = new Dictionary<string, object>();
@@ -583,7 +587,8 @@ namespace General.Repositorios
 
         protected List<VacacionesPermitidas> CacheDePerdidasDe(int dni_persona)
         {
-            if (!CacheDiasPerdidos.ContainsKey(dni_persona)) {
+            if (!CacheDiasPerdidos.ContainsKey(dni_persona))
+            {
                 return new List<VacacionesPermitidas>();
             }
             return CacheDiasPerdidos[dni_persona];
@@ -694,8 +699,9 @@ namespace General.Repositorios
             tablaDatos.Rows.ForEach(row =>
             {
                 presentismo.Add(new Presentismo(
-                    persona, 
-                    new TipoDePlantaGeneral(row.GetInt("id_planta_01"), row.GetString("Planta_01"), this),  
+                    row.GetInt("Id_Calculo01"),
+                    persona,
+                    new TipoDePlantaGeneral(row.GetInt("id_planta_01"), row.GetString("Planta_01"), this),
                     "Junio",
                     row.GetInt("A_Jus_01"),
                     row.GetInt("A_Inj_01"),
@@ -703,6 +709,7 @@ namespace General.Repositorios
                     int.Parse(row.GetString("Pago_Mes_01"))
                     ));
                 presentismo.Add(new Presentismo(
+                    row.GetInt("Id_Calculo02"),
                     persona,
                     new TipoDePlantaGeneral(row.GetInt("id_planta_02"), row.GetString("Planta_02"), this),
                     "Julio",
@@ -712,6 +719,7 @@ namespace General.Repositorios
                     int.Parse(row.GetString("Pago_Mes_02"))
                     ));
                 presentismo.Add(new Presentismo(
+                    row.GetInt("Id_Calculo03"),
                     persona,
                     new TipoDePlantaGeneral(row.GetInt("id_planta_03"), row.GetString("Planta_03"), this),
                     "Agosto",
@@ -721,6 +729,7 @@ namespace General.Repositorios
                     int.Parse(row.GetString("Pago_Mes_03"))
                     ));
                 presentismo.Add(new Presentismo(
+                    row.GetInt("Id_Calculo04"),
                     persona,
                     new TipoDePlantaGeneral(row.GetInt("id_planta_04"), row.GetString("Planta_04"), this),
                     "Septiembre",
@@ -729,10 +738,31 @@ namespace General.Repositorios
                     row.GetInt("A_NoPres_04"),
                      int.Parse(row.GetString("Pago_Mes_04"))
                     ));
-            
-            });  
 
-            return presentismo; 
+            });
+
+            return presentismo;
+        }
+
+
+        public List<PresentismoConcepto> GetDetalleDePresentismo(int id_interna, int id_calculo)
+        {
+            List<PresentismoConcepto> concepto = new List<PresentismoConcepto>();
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_interna", id_interna);
+            parametros.Add("@id_calculo", id_calculo);
+
+            var tablaDatos = this.conexion.Ejecutar("dbo.ASIS_GET_Presentismo_individual_Concepto", parametros);
+            tablaDatos.Rows.ForEach(row =>
+            {
+                concepto.Add(new PresentismoConcepto(
+                    row.GetString("Descripcion"),
+                    row.GetDateTime("desde"),
+                    row.GetDateTime("hasta")
+                    ));
+            });
+
+            return concepto;
         }
 
         public List<Persona> GetAusentesEntreFechasPara(List<Persona> personas, DateTime fecha_desde, DateTime fecha_hasta)
@@ -953,7 +983,7 @@ namespace General.Repositorios
             return false;
         }
 
-        
+
 
         protected List<VacacionesPendientesDeAprobacion> ConstruirVacacionesPendientes(TablaDeDatos tablaDatos)
         {
@@ -1043,7 +1073,7 @@ namespace General.Repositorios
             {
                 throw new ErrorLogException("Error al intentar loguear error de calculo de licencias", sql);
             }
-            
+
         }
 
         public int GetProrrogaPlantaGeneral(int anio)
@@ -1223,8 +1253,9 @@ namespace General.Repositorios
             this.conexion.Bulk(analisis, "LIC_LogSaldosCalculoLicencia");
         }
 
-        public int GetSegmentosUtilizados(int documento, int anio) {
-            
+        public int GetSegmentosUtilizados(int documento, int anio)
+        {
+
             var parametros = new Dictionary<string, object>();
             parametros.Add("@Nro_Documento", documento);
             parametros.Add("@PeriodoAnual", anio);
@@ -1235,7 +1266,8 @@ namespace General.Repositorios
             {
                 return tablaDatos.Rows.First().GetInt("Periodos");
             }
-            else {
+            else
+            {
                 return 0;
             }
 
