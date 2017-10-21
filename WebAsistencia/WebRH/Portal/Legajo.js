@@ -471,7 +471,7 @@ var Legajo = {
                     ui.find("#tablaPremioPresentismoDetalle").empty();
                     var divGrilla = ui.find("#tablaPremioPresentismoDetalle");
                     var columnas = [];
-                    columnas.push(new Columna("Concepto", { generar: function (un_presentismo) { return un_presentismo.Concepto } }));
+                    columnas.push(new Columna("Concepto", { generar: function (un_presentismo) { return un_presentismo.Concepto.substring(0, un_presentismo.Concepto.indexOf('(')) } }));
                     columnas.push(new Columna("Desde", { generar: function (un_presentismo) { return ConversorDeFechas.deIsoAFechaEnCriollo(un_presentismo.Desde) } }));
                     columnas.push(new Columna("Hasta", { generar: function (un_presentismo) { return ConversorDeFechas.deIsoAFechaEnCriollo(un_presentismo.Hasta) } }));
                     _this_interno.Grilla = new Grilla(columnas);
