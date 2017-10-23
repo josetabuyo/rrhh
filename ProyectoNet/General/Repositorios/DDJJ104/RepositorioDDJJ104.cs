@@ -63,7 +63,7 @@ namespace General
         //}
 
 
-        public DDJJ104_2001 GenerarDDJJ104(Usuario usuario, AreaParaDDJJ104 area, int mes, int anio)
+        public DDJJ104_2001 GenerarDDJJ104(Usuario usuario, AreaParaDDJJ104 area, int mes, int anio, Persona[] lista_persona)
         {
             ConexionDB cn = new ConexionDB("dbo.PLA_ADD_DDJJ104_Cabecera");
             cn.AsignarParametro("@Id_Area", area.Id);
@@ -86,6 +86,7 @@ namespace General
                     foreach (var personas in area.Personas)
                     {
                         string[] Cat_Mod = personas.Categoria.ToString().Split('#');
+                        Persona persona_lista = lista_persona.FirstOrDefault(x => x.Id == personas.Id);
 
                         cn.CrearComandoConTransaccionIniciada("dbo.PLA_ADD_DDJJ104_Detalle");
                         cn.AsignarParametro("@Id_DDJJ", id_ddjj_nuevo);
@@ -94,6 +95,12 @@ namespace General
                         cn.AsignarParametro("@Id_Area_Persona", personas.Area.Id);
                         cn.AsignarParametro("@Mod_Contratacion", Cat_Mod[1].Trim());
                         cn.AsignarParametro("@Categoria", Cat_Mod[0].Trim());
+
+                        cn.AsignarParametro("@Certificado", (persona_lista.EstaCertificadoEnLaDDJJ == true ? "S" : "N"));
+                        cn.AsignarParametro("@Hora_Desde", persona_lista.CertificaHoraDesdeDDJJ);
+                        cn.AsignarParametro("@Hora_Hasta", persona_lista.CertificaHoraHastaDDJJ);
+                        cn.AsignarParametro("@Usuario_Generacion", usuario.Id);
+                        cn.AsignarParametro("@Tipo_DDJJ", 1);
 
                         cn.EjecutarSinResultado();
 
@@ -106,6 +113,7 @@ namespace General
                         foreach (var personas in areasDependiente.Personas)
                         {
                             string[] Cat_Mod = personas.Categoria.ToString().Split('#');
+                            Persona persona_lista = lista_persona.FirstOrDefault(x => x.Id == personas.Id);
 
                             cn.CrearComandoConTransaccionIniciada("dbo.PLA_ADD_DDJJ104_Detalle");
                             cn.AsignarParametro("@Id_DDJJ", id_ddjj_nuevo);
@@ -114,6 +122,12 @@ namespace General
                             cn.AsignarParametro("@Id_Area_Persona", personas.Area.Id);
                             cn.AsignarParametro("@Mod_Contratacion", Cat_Mod[1].Trim());
                             cn.AsignarParametro("@Categoria", Cat_Mod[0].Trim());
+
+                            cn.AsignarParametro("@Certificado", (persona_lista.EstaCertificadoEnLaDDJJ == true ? "S" : "N"));
+                            cn.AsignarParametro("@Hora_Desde", persona_lista.CertificaHoraDesdeDDJJ);
+                            cn.AsignarParametro("@Hora_Hasta", persona_lista.CertificaHoraHastaDDJJ);
+                            cn.AsignarParametro("@Usuario_Generacion", usuario.Id);
+                            cn.AsignarParametro("@Tipo_DDJJ", 1);
 
                             cn.EjecutarSinResultado();
 

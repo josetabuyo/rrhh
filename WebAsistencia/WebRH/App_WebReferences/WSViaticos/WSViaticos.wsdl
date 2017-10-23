@@ -46,6 +46,9 @@
           <s:element minOccurs="1" maxOccurs="1" name="Esta_Cargada" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="IdImagen" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="BajaLegajo" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="EstaCertificadoEnLaDDJJ" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="CertificaHoraDesdeDDJJ" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CertificaHoraHastaDDJJ" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="Area">
@@ -964,6 +967,7 @@
         <s:sequence>
           <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="Codigo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NombreArea" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="PrintPdfEvaluacionDesempenioResponse">
@@ -3366,6 +3370,7 @@
           <s:element minOccurs="1" maxOccurs="1" name="IdFoto" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="Estado" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="Impresa" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Entregada" type="s:boolean" />
           <s:element minOccurs="0" maxOccurs="1" name="CodigoMagnetico" type="s:string" />
         </s:sequence>
       </s:complexType>
@@ -6023,6 +6028,7 @@
             <s:element minOccurs="1" maxOccurs="1" name="id_area" type="s:int" />
             <s:element minOccurs="1" maxOccurs="1" name="mes" type="s:int" />
             <s:element minOccurs="1" maxOccurs="1" name="anio" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="lista_persona" type="tns:ArrayOfPersona" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>

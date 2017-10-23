@@ -140,10 +140,10 @@
                     <p class=""><label class="item_cajita">Domicilio: </label> <span id="domicilio"></span>
                     <img id="btnMostrarDomicilio" style="cursor:pointer; display:none;" title="Cambiar Domicilio" src="../Imagenes/edit.png" width="30px" height="30px" />
                     <%--<input id="btnMostrarDomicilio" value="Cambiar Domicilio" class="btn btn-primary" type="button" />--%>
-                    <div style="display:none; color:Red;" id="mensajeCambioDomicilioPendiente">
+                    <!--<div style="display:none; color:Red;" id="mensajeCambioDomicilioPendiente">
                         <span>Solicitud Pendiente de Aprobación</span>
                         <input id="btnGenerarPDF" value="Generar PDF" class="btn btn-primary" type="button" />
-                    </div>
+                    </div>-->
                     
                     </p>
                 </div>
@@ -367,19 +367,18 @@
                     Backend.GetSolicitudesDeCredencialPorPersona().onSuccess(function (solicitudes) {
 
                         $("#botonera_credenciales").show();
-                        $.each(solicitudes, function (i, val) {
-
-                            if (solicitudes[i].Estado == "PENDIENTE") {
-
-                                $("#btn_aviso_solicitud").show();
-                                $("#btn_renovar_credencial").hide();
-                            }
-                            else {
-                                $("#btn_aviso_solicitud").hide();
-                                $("#btn_renovar_credencial").show();
-                            }
-
-                        });
+                        if (_.some(solicitudes, function (sol) {
+                            if (sol.Estado == "PENDIENTE") return true;
+                            if (sol.Credencial) return !sol.Credencial.Entregada;
+                            return false;
+                        })) {
+                            $("#btn_aviso_solicitud").show();
+                            $("#btn_renovar_credencial").hide();
+                        }
+                        else {
+                            $("#btn_aviso_solicitud").hide();
+                            $("#btn_renovar_credencial").show();
+                        }
                         $("#btn_historial_credenciales").show();
                     });
 
@@ -449,7 +448,13 @@
                                         ui.find("#texto_seleccione_motivo").hide();
                                     }
 
-                                    if (val > 2) {
+                                    if (val == 3) {
+                                        ui.find("#texto_deterioro").hide();
+                                        ui.find("#texto_robo").show();
+                                        ui.find("#texto_seleccione_motivo").hide();
+                                    }
+
+                                    if (val == 4) {
                                         ui.find("#texto_deterioro").hide();
                                         ui.find("#texto_robo").hide();
                                         ui.find("#texto_seleccione_motivo").hide();
@@ -466,7 +471,7 @@
                                         alertify.success("Solicitud creada con éxito");
 
                                         vex.close();
-                                        location.reload();
+                                        setTimeout(function () { location.reload(); }, 1000);
                                     });
                                 });
 

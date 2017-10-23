@@ -16,6 +16,7 @@ namespace General
       public string CodigoMagnetico { get; set; }
       public string Estado;
       public bool Impresa;
+      public bool Entregada;
 
       public Credencial() { }
 
