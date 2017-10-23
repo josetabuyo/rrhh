@@ -180,7 +180,8 @@ var GetDescripcionEstado = function (estado) {
 
 var DibujarFormularioDDJJ104 = function (un_area, estado) {
 
-    var vista_ddjj_imprimir = $("<div style='page-break-before: always;'>");
+    //var vista_ddjj_imprimir = $("<div style='page-break-before: always;'>");
+    var vista_ddjj_imprimir = $("<div>");
 
     DibujarGrillaPersonas(un_area, estado, vista_ddjj_imprimir, true);
 
