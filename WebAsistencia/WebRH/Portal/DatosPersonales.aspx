@@ -447,7 +447,13 @@
                                         ui.find("#texto_seleccione_motivo").hide();
                                     }
 
-                                    if (val > 2) {
+                                    if (val == 3) {
+                                        ui.find("#texto_deterioro").hide();
+                                        ui.find("#texto_robo").show();
+                                        ui.find("#texto_seleccione_motivo").hide();
+                                    }
+
+                                    if (val == 4) {
                                         ui.find("#texto_deterioro").hide();
                                         ui.find("#texto_robo").hide();
                                         ui.find("#texto_seleccione_motivo").hide();
