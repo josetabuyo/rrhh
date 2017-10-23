@@ -84,6 +84,10 @@
             document.getElementById('dni_user').innerHTML = usuario.Owner.Documento;
             document.getElementById('email_user').innerHTML = usuario.MailRegistro;
 
+//            $('#btn_credenciales').click(function () {
+//                $("#plantillas_barra_menu").load(window.location.origin + '/BarraMenu/CredencialVigente.htm');
+//            });
+
             $('#cambiar-constrasena_usuario').click(function () {
 
                 alertify.confirm('Modificar contraseña', '¿Está seguro de querer reinciar la contraseña', function () {

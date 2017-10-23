@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://wsviaticos.gov.ar/">
-      <s:element name="GetDomicilioPendiente">
+      <s:element name="GetPsicofisicos">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
@@ -196,6 +196,189 @@
           <s:element minOccurs="1" maxOccurs="1" name="basica" type="s:boolean" />
         </s:sequence>
       </s:complexType>
+      <s:element name="GetPsicofisicosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPsicofisicosResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRecibo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="liquidacion" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReciboResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetReciboResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLiquidaciones">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="anio" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="mes" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLiquidacionesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetLiquidacionesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EnviarNotificacion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="notificacion" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="documentos" type="tns:ArrayOfInt" />
+            <s:element minOccurs="0" maxOccurs="1" name="titulo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfInt">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="int" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="EnviarNotificacionResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetDesignaciones">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDesignacionesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDesignacionesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetConsultasDePortal">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetConsultasDePortalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetConsultasDePortalResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetNotificacionesDePortal">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetNotificacionesDePortalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetNotificacionesDePortalResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetConsultasTodasDePortal">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="estado" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetConsultasTodasDePortalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetConsultasTodasDePortalResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getTicketsPorFuncionalidad">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getTicketsPorFuncionalidadResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getTicketsPorFuncionalidadResult" type="tns:ArrayOfTicket" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfTicket">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Ticket" nillable="true" type="tns:Ticket" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Ticket">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="descripcion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="titulo" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="fechaCreacion" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="usuarioCreador" type="tns:Usuario" />
+          <s:element minOccurs="0" maxOccurs="1" name="tipoTicket" type="tns:TipoTicket" />
+          <s:element minOccurs="0" maxOccurs="1" name="estado" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TipoTicket">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="codigo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="descripcion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="urlComponente" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="idFuncionalidad" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetDomicilioPendientePorAlerta">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idAlerta" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDomicilioPendientePorAlertaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDomicilioPendientePorAlertaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetNotificacionesTodasDePortal">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetNotificacionesTodasDePortalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetNotificacionesTodasDePortalResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDomicilioPendiente">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetDomicilioPendienteResponse">
         <s:complexType>
           <s:sequence>
@@ -794,27 +977,22 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GuardarCvCompetenciaInformatica">
+      <s:element name="ActualizarCvMatricula">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="competencia_informatica" type="tns:CvCompetenciasInformaticas" />
+            <s:element minOccurs="0" maxOccurs="1" name="matricula" type="tns:CvMatricula" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="CvCompetenciasInformaticas">
+      <s:complexType name="CvMatricula">
         <s:complexContent mixed="false">
           <s:extension base="tns:ItemCv">
             <s:sequence>
-              <s:element minOccurs="0" maxOccurs="1" name="Diploma" type="s:string" />
-              <s:element minOccurs="0" maxOccurs="1" name="Establecimiento" type="s:string" />
-              <s:element minOccurs="1" maxOccurs="1" name="TipoInformatica" type="s:int" />
-              <s:element minOccurs="1" maxOccurs="1" name="Conocimiento" type="s:int" />
-              <s:element minOccurs="1" maxOccurs="1" name="Nivel" type="s:int" />
-              <s:element minOccurs="0" maxOccurs="1" name="Localidad" type="s:string" />
-              <s:element minOccurs="1" maxOccurs="1" name="Pais" type="s:int" />
-              <s:element minOccurs="1" maxOccurs="1" name="FechaObtencion" type="s:dateTime" />
-              <s:element minOccurs="0" maxOccurs="1" name="Detalle" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Numero" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ExpedidaPor" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="SituacionActual" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="FechaInscripcion" type="s:dateTime" />
             </s:sequence>
           </s:extension>
         </s:complexContent>
@@ -853,6 +1031,23 @@
           </s:extension>
         </s:complexContent>
       </s:complexType>
+      <s:complexType name="CvCompetenciasInformaticas">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ItemCv">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Diploma" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Establecimiento" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="TipoInformatica" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="Conocimiento" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="Nivel" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="Localidad" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Pais" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="FechaObtencion" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="Detalle" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
       <s:complexType name="CvDocencia">
         <s:complexContent mixed="false">
           <s:extension base="tns:ItemCv">
@@ -883,18 +1078,6 @@
               <s:element minOccurs="1" maxOccurs="1" name="DisponeCopia" type="s:int" />
               <s:element minOccurs="1" maxOccurs="1" name="DisponeAdjunto" type="s:int" />
               <s:element minOccurs="1" maxOccurs="1" name="FechaPublicacion" type="s:dateTime" />
-            </s:sequence>
-          </s:extension>
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="CvMatricula">
-        <s:complexContent mixed="false">
-          <s:extension base="tns:ItemCv">
-            <s:sequence>
-              <s:element minOccurs="0" maxOccurs="1" name="Numero" type="s:string" />
-              <s:element minOccurs="0" maxOccurs="1" name="ExpedidaPor" type="s:string" />
-              <s:element minOccurs="0" maxOccurs="1" name="SituacionActual" type="s:string" />
-              <s:element minOccurs="1" maxOccurs="1" name="FechaInscripcion" type="s:dateTime" />
             </s:sequence>
           </s:extension>
         </s:complexContent>
@@ -993,6 +1176,171 @@
           </s:extension>
         </s:complexContent>
       </s:complexType>
+      <s:element name="ActualizarCvMatriculaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ActualizarCvMatriculaResult" type="tns:CvMatricula" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EliminarCvMatricula">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="id_matricula" type="tns:CvMatricula" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EliminarCvMatriculaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="EliminarCvMatriculaResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarCvInstitucionAcademica">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="competencia_informatica" type="tns:CvInstitucionesAcademicas" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarCvInstitucionAcademicaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GuardarCvInstitucionAcademicaResult" type="tns:CvInstitucionesAcademicas" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ActualizarCvInstitucionAcademica">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="competencia_informatica" type="tns:CvInstitucionesAcademicas" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ActualizarCvInstitucionAcademicaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ActualizarCvInstitucionAcademicaResult" type="tns:CvInstitucionesAcademicas" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EliminarCvInstitucionAcademica">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="id_competencia" type="tns:CvInstitucionesAcademicas" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EliminarCvInstitucionAcademicaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="EliminarCvInstitucionAcademicaResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarCvExperienciaLaboral">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="experiencia" type="tns:CvExperienciaLaboral" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarCvExperienciaLaboralResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GuardarCvExperienciaLaboralResult" type="tns:CvExperienciaLaboral" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ActualizarCvExperienciaLaboral">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="experiencia" type="tns:CvExperienciaLaboral" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ActualizarCvExperienciaLaboralResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ActualizarCvExperienciaLaboralResult" type="tns:CvExperienciaLaboral" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EliminarCvExperienciaLaboral">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="id_experiencia" type="tns:CvExperienciaLaboral" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EliminarCvExperienciaLaboralResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="EliminarCvExperienciaLaboralResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarCvIdiomaExtranjero">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="idioma_extranjero" type="tns:CvIdiomas" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarCvIdiomaExtranjeroResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GuardarCvIdiomaExtranjeroResult" type="tns:CvIdiomas" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ActualizarCvIdiomaExtranjero">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="idioma_extranjero" type="tns:CvIdiomas" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ActualizarCvIdiomaExtranjeroResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ActualizarCvIdiomaExtranjeroResult" type="tns:CvIdiomas" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EliminarCvIdiomaExtranjero">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="id_capacidad" type="tns:CvIdiomas" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EliminarCvIdiomaExtranjeroResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="EliminarCvIdiomaExtranjeroResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarCvCompetenciaInformatica">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="competencia_informatica" type="tns:CvCompetenciasInformaticas" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GuardarCvCompetenciaInformaticaResponse">
         <s:complexType>
           <s:sequence>
@@ -1300,11 +1648,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="ArrayOfInt">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="int" type="s:int" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="GuardarEtapaAPostulacionesResponse">
         <s:complexType>
           <s:sequence>
@@ -2603,184 +2946,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetPsicofisicos">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetPsicofisicosResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetPsicofisicosResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetRecibo">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="liquidacion" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetReciboResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetReciboResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetLiquidaciones">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="anio" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="mes" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetLiquidacionesResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetLiquidacionesResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="EnviarNotificacion">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="notificacion" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="documentos" type="tns:ArrayOfInt" />
-            <s:element minOccurs="0" maxOccurs="1" name="titulo" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="EnviarNotificacionResponse">
-        <s:complexType />
-      </s:element>
-      <s:element name="GetDesignaciones">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetDesignacionesResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetDesignacionesResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetConsultasDePortal">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetConsultasDePortalResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetConsultasDePortalResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetNotificacionesDePortal">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetNotificacionesDePortalResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetNotificacionesDePortalResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetConsultasTodasDePortal">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="estado" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetConsultasTodasDePortalResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetConsultasTodasDePortalResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="getTicketsPorFuncionalidad">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="getTicketsPorFuncionalidadResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="getTicketsPorFuncionalidadResult" type="tns:ArrayOfTicket" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:complexType name="ArrayOfTicket">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Ticket" nillable="true" type="tns:Ticket" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="Ticket">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="descripcion" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="titulo" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="fechaCreacion" type="s:dateTime" />
-          <s:element minOccurs="0" maxOccurs="1" name="usuarioCreador" type="tns:Usuario" />
-          <s:element minOccurs="0" maxOccurs="1" name="tipoTicket" type="tns:TipoTicket" />
-          <s:element minOccurs="0" maxOccurs="1" name="estado" type="s:string" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="TipoTicket">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="codigo" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="descripcion" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="urlComponente" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="idFuncionalidad" type="s:int" />
-        </s:sequence>
-      </s:complexType>
-      <s:element name="GetDomicilioPendientePorAlerta">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="idAlerta" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetDomicilioPendientePorAlertaResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetDomicilioPendientePorAlertaResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetNotificacionesTodasDePortal">
-        <s:complexType />
-      </s:element>
-      <s:element name="GetNotificacionesTodasDePortalResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetNotificacionesTodasDePortalResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
       <s:element name="ResetearPassword">
         <s:complexType>
           <s:sequence>
@@ -3176,6 +3341,224 @@
           <s:element minOccurs="0" maxOccurs="1" name="Funcionalidad" type="tns:Funcionalidad" />
         </s:sequence>
       </s:complexType>
+      <s:element name="GetCredencialesTodasDePortal">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCredencialesTodasDePortalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCredencialesTodasDePortalResult" type="tns:ArrayOfCredencial" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfCredencial">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Credencial" nillable="true" type="tns:Credencial" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Credencial">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="Tipo" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaAlta" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="UsuarioAlta" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Organismo" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdFoto" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Estado" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Impresa" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoMagnetico" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetSolicitudesDeCredencialPorPersona">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSolicitudesDeCredencialPorPersonaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSolicitudesDeCredencialPorPersonaResult" type="tns:ArrayOfSolicitudCredencial" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfSolicitudCredencial">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SolicitudCredencial" nillable="true" type="tns:SolicitudCredencial" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SolicitudCredencial">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdPersona" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="TipoCredencial" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Motivo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Organismo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Estado" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Fecha" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdTicketAprobacion" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdTicketImpresion" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Credencial" type="tns:Credencial" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetLugaresEntregaCredencial">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLugaresEntregaCredencialResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetLugaresEntregaCredencialResult" type="tns:ArrayOfLugarEntrega" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfLugarEntrega">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="LugarEntrega" nillable="true" type="tns:LugarEntrega" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="LugarEntrega">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdLugar" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Desde" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Baja" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SolicitarRenovacionCredencial">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="motivo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="organismo" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_lugar_entrega" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SolicitarRenovacionCredencialResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SolicitarRenovacionCredencialResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSolicitudDeCredencialPorIdTicketAprobacion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_ticket" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSolicitudDeCredencialPorIdTicketAprobacionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSolicitudDeCredencialPorIdTicketAprobacionResult" type="tns:SolicitudCredencial" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSolicitudDeCredencialPorIdTicketImpresion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_ticket" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSolicitudDeCredencialPorIdTicketImpresionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSolicitudDeCredencialPorIdTicketImpresionResult" type="tns:SolicitudCredencial" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AprobarSolicitudCredencial">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="solicitud" type="tns:SolicitudCredencial" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AprobarSolicitudCredencialResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AprobarSolicitudCredencialResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RechazarSolicitudCredencial">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="solicitud" type="tns:SolicitudCredencial" />
+            <s:element minOccurs="0" maxOccurs="1" name="motivo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RechazarSolicitudCredencialResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="RechazarSolicitudCredencialResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MarcarCredencialComoImpresa">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idCredencial" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MarcarCredencialComoImpresaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="MarcarCredencialComoImpresaResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AsociarCodigoMagneticoACredencial">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idCredencial" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="codigo_magnetico" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AsociarCodigoMagneticoACredencialResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AsociarCodigoMagneticoACredencialResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CerrarTicketImpresion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="solicitud" type="tns:SolicitudCredencial" />
+            <s:element minOccurs="0" maxOccurs="1" name="instrucciones_de_retiro" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CerrarTicketImpresionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CerrarTicketImpresionResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="RefrescarCacheMAU">
         <s:complexType>
           <s:sequence>
@@ -4162,171 +4545,6 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="GuardarCvMatriculaResult" type="tns:CvMatricula" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ActualizarCvMatricula">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="matricula" type="tns:CvMatricula" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ActualizarCvMatriculaResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ActualizarCvMatriculaResult" type="tns:CvMatricula" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="EliminarCvMatricula">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="id_matricula" type="tns:CvMatricula" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="EliminarCvMatriculaResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="EliminarCvMatriculaResult" type="s:boolean" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GuardarCvInstitucionAcademica">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="competencia_informatica" type="tns:CvInstitucionesAcademicas" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GuardarCvInstitucionAcademicaResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GuardarCvInstitucionAcademicaResult" type="tns:CvInstitucionesAcademicas" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ActualizarCvInstitucionAcademica">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="competencia_informatica" type="tns:CvInstitucionesAcademicas" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ActualizarCvInstitucionAcademicaResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ActualizarCvInstitucionAcademicaResult" type="tns:CvInstitucionesAcademicas" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="EliminarCvInstitucionAcademica">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="id_competencia" type="tns:CvInstitucionesAcademicas" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="EliminarCvInstitucionAcademicaResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="EliminarCvInstitucionAcademicaResult" type="s:boolean" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GuardarCvExperienciaLaboral">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="experiencia" type="tns:CvExperienciaLaboral" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GuardarCvExperienciaLaboralResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GuardarCvExperienciaLaboralResult" type="tns:CvExperienciaLaboral" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ActualizarCvExperienciaLaboral">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="experiencia" type="tns:CvExperienciaLaboral" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ActualizarCvExperienciaLaboralResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ActualizarCvExperienciaLaboralResult" type="tns:CvExperienciaLaboral" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="EliminarCvExperienciaLaboral">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="id_experiencia" type="tns:CvExperienciaLaboral" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="EliminarCvExperienciaLaboralResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="EliminarCvExperienciaLaboralResult" type="s:boolean" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GuardarCvIdiomaExtranjero">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="idioma_extranjero" type="tns:CvIdiomas" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GuardarCvIdiomaExtranjeroResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GuardarCvIdiomaExtranjeroResult" type="tns:CvIdiomas" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ActualizarCvIdiomaExtranjero">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="idioma_extranjero" type="tns:CvIdiomas" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ActualizarCvIdiomaExtranjeroResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ActualizarCvIdiomaExtranjeroResult" type="tns:CvIdiomas" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="EliminarCvIdiomaExtranjero">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="id_capacidad" type="tns:CvIdiomas" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="EliminarCvIdiomaExtranjeroResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="EliminarCvIdiomaExtranjeroResult" type="s:boolean" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -7298,6 +7516,72 @@
       </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="GetPsicofisicosSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPsicofisicos" />
+  </wsdl:message>
+  <wsdl:message name="GetPsicofisicosSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPsicofisicosResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetReciboSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRecibo" />
+  </wsdl:message>
+  <wsdl:message name="GetReciboSoapOut">
+    <wsdl:part name="parameters" element="tns:GetReciboResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetLiquidacionesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetLiquidaciones" />
+  </wsdl:message>
+  <wsdl:message name="GetLiquidacionesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetLiquidacionesResponse" />
+  </wsdl:message>
+  <wsdl:message name="EnviarNotificacionSoapIn">
+    <wsdl:part name="parameters" element="tns:EnviarNotificacion" />
+  </wsdl:message>
+  <wsdl:message name="EnviarNotificacionSoapOut">
+    <wsdl:part name="parameters" element="tns:EnviarNotificacionResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDesignacionesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDesignaciones" />
+  </wsdl:message>
+  <wsdl:message name="GetDesignacionesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDesignacionesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetConsultasDePortalSoapIn">
+    <wsdl:part name="parameters" element="tns:GetConsultasDePortal" />
+  </wsdl:message>
+  <wsdl:message name="GetConsultasDePortalSoapOut">
+    <wsdl:part name="parameters" element="tns:GetConsultasDePortalResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetNotificacionesDePortalSoapIn">
+    <wsdl:part name="parameters" element="tns:GetNotificacionesDePortal" />
+  </wsdl:message>
+  <wsdl:message name="GetNotificacionesDePortalSoapOut">
+    <wsdl:part name="parameters" element="tns:GetNotificacionesDePortalResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetConsultasTodasDePortalSoapIn">
+    <wsdl:part name="parameters" element="tns:GetConsultasTodasDePortal" />
+  </wsdl:message>
+  <wsdl:message name="GetConsultasTodasDePortalSoapOut">
+    <wsdl:part name="parameters" element="tns:GetConsultasTodasDePortalResponse" />
+  </wsdl:message>
+  <wsdl:message name="getTicketsPorFuncionalidadSoapIn">
+    <wsdl:part name="parameters" element="tns:getTicketsPorFuncionalidad" />
+  </wsdl:message>
+  <wsdl:message name="getTicketsPorFuncionalidadSoapOut">
+    <wsdl:part name="parameters" element="tns:getTicketsPorFuncionalidadResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDomicilioPendientePorAlertaSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDomicilioPendientePorAlerta" />
+  </wsdl:message>
+  <wsdl:message name="GetDomicilioPendientePorAlertaSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDomicilioPendientePorAlertaResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetNotificacionesTodasDePortalSoapIn">
+    <wsdl:part name="parameters" element="tns:GetNotificacionesTodasDePortal" />
+  </wsdl:message>
+  <wsdl:message name="GetNotificacionesTodasDePortalSoapOut">
+    <wsdl:part name="parameters" element="tns:GetNotificacionesTodasDePortalResponse" />
+  </wsdl:message>
   <wsdl:message name="GetDomicilioPendienteSoapIn">
     <wsdl:part name="parameters" element="tns:GetDomicilioPendiente" />
   </wsdl:message>
@@ -7477,6 +7761,72 @@
   </wsdl:message>
   <wsdl:message name="PrintPdfEvaluacionDesempenioSoapOut">
     <wsdl:part name="parameters" element="tns:PrintPdfEvaluacionDesempenioResponse" />
+  </wsdl:message>
+  <wsdl:message name="ActualizarCvMatriculaSoapIn">
+    <wsdl:part name="parameters" element="tns:ActualizarCvMatricula" />
+  </wsdl:message>
+  <wsdl:message name="ActualizarCvMatriculaSoapOut">
+    <wsdl:part name="parameters" element="tns:ActualizarCvMatriculaResponse" />
+  </wsdl:message>
+  <wsdl:message name="EliminarCvMatriculaSoapIn">
+    <wsdl:part name="parameters" element="tns:EliminarCvMatricula" />
+  </wsdl:message>
+  <wsdl:message name="EliminarCvMatriculaSoapOut">
+    <wsdl:part name="parameters" element="tns:EliminarCvMatriculaResponse" />
+  </wsdl:message>
+  <wsdl:message name="GuardarCvInstitucionAcademicaSoapIn">
+    <wsdl:part name="parameters" element="tns:GuardarCvInstitucionAcademica" />
+  </wsdl:message>
+  <wsdl:message name="GuardarCvInstitucionAcademicaSoapOut">
+    <wsdl:part name="parameters" element="tns:GuardarCvInstitucionAcademicaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ActualizarCvInstitucionAcademicaSoapIn">
+    <wsdl:part name="parameters" element="tns:ActualizarCvInstitucionAcademica" />
+  </wsdl:message>
+  <wsdl:message name="ActualizarCvInstitucionAcademicaSoapOut">
+    <wsdl:part name="parameters" element="tns:ActualizarCvInstitucionAcademicaResponse" />
+  </wsdl:message>
+  <wsdl:message name="EliminarCvInstitucionAcademicaSoapIn">
+    <wsdl:part name="parameters" element="tns:EliminarCvInstitucionAcademica" />
+  </wsdl:message>
+  <wsdl:message name="EliminarCvInstitucionAcademicaSoapOut">
+    <wsdl:part name="parameters" element="tns:EliminarCvInstitucionAcademicaResponse" />
+  </wsdl:message>
+  <wsdl:message name="GuardarCvExperienciaLaboralSoapIn">
+    <wsdl:part name="parameters" element="tns:GuardarCvExperienciaLaboral" />
+  </wsdl:message>
+  <wsdl:message name="GuardarCvExperienciaLaboralSoapOut">
+    <wsdl:part name="parameters" element="tns:GuardarCvExperienciaLaboralResponse" />
+  </wsdl:message>
+  <wsdl:message name="ActualizarCvExperienciaLaboralSoapIn">
+    <wsdl:part name="parameters" element="tns:ActualizarCvExperienciaLaboral" />
+  </wsdl:message>
+  <wsdl:message name="ActualizarCvExperienciaLaboralSoapOut">
+    <wsdl:part name="parameters" element="tns:ActualizarCvExperienciaLaboralResponse" />
+  </wsdl:message>
+  <wsdl:message name="EliminarCvExperienciaLaboralSoapIn">
+    <wsdl:part name="parameters" element="tns:EliminarCvExperienciaLaboral" />
+  </wsdl:message>
+  <wsdl:message name="EliminarCvExperienciaLaboralSoapOut">
+    <wsdl:part name="parameters" element="tns:EliminarCvExperienciaLaboralResponse" />
+  </wsdl:message>
+  <wsdl:message name="GuardarCvIdiomaExtranjeroSoapIn">
+    <wsdl:part name="parameters" element="tns:GuardarCvIdiomaExtranjero" />
+  </wsdl:message>
+  <wsdl:message name="GuardarCvIdiomaExtranjeroSoapOut">
+    <wsdl:part name="parameters" element="tns:GuardarCvIdiomaExtranjeroResponse" />
+  </wsdl:message>
+  <wsdl:message name="ActualizarCvIdiomaExtranjeroSoapIn">
+    <wsdl:part name="parameters" element="tns:ActualizarCvIdiomaExtranjero" />
+  </wsdl:message>
+  <wsdl:message name="ActualizarCvIdiomaExtranjeroSoapOut">
+    <wsdl:part name="parameters" element="tns:ActualizarCvIdiomaExtranjeroResponse" />
+  </wsdl:message>
+  <wsdl:message name="EliminarCvIdiomaExtranjeroSoapIn">
+    <wsdl:part name="parameters" element="tns:EliminarCvIdiomaExtranjero" />
+  </wsdl:message>
+  <wsdl:message name="EliminarCvIdiomaExtranjeroSoapOut">
+    <wsdl:part name="parameters" element="tns:EliminarCvIdiomaExtranjeroResponse" />
   </wsdl:message>
   <wsdl:message name="GuardarCvCompetenciaInformaticaSoapIn">
     <wsdl:part name="parameters" element="tns:GuardarCvCompetenciaInformatica" />
@@ -7922,72 +8272,6 @@
   <wsdl:message name="GetLicenciasOrdinariasDisponiblesSoapOut">
     <wsdl:part name="parameters" element="tns:GetLicenciasOrdinariasDisponiblesResponse" />
   </wsdl:message>
-  <wsdl:message name="GetPsicofisicosSoapIn">
-    <wsdl:part name="parameters" element="tns:GetPsicofisicos" />
-  </wsdl:message>
-  <wsdl:message name="GetPsicofisicosSoapOut">
-    <wsdl:part name="parameters" element="tns:GetPsicofisicosResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetReciboSoapIn">
-    <wsdl:part name="parameters" element="tns:GetRecibo" />
-  </wsdl:message>
-  <wsdl:message name="GetReciboSoapOut">
-    <wsdl:part name="parameters" element="tns:GetReciboResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetLiquidacionesSoapIn">
-    <wsdl:part name="parameters" element="tns:GetLiquidaciones" />
-  </wsdl:message>
-  <wsdl:message name="GetLiquidacionesSoapOut">
-    <wsdl:part name="parameters" element="tns:GetLiquidacionesResponse" />
-  </wsdl:message>
-  <wsdl:message name="EnviarNotificacionSoapIn">
-    <wsdl:part name="parameters" element="tns:EnviarNotificacion" />
-  </wsdl:message>
-  <wsdl:message name="EnviarNotificacionSoapOut">
-    <wsdl:part name="parameters" element="tns:EnviarNotificacionResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetDesignacionesSoapIn">
-    <wsdl:part name="parameters" element="tns:GetDesignaciones" />
-  </wsdl:message>
-  <wsdl:message name="GetDesignacionesSoapOut">
-    <wsdl:part name="parameters" element="tns:GetDesignacionesResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetConsultasDePortalSoapIn">
-    <wsdl:part name="parameters" element="tns:GetConsultasDePortal" />
-  </wsdl:message>
-  <wsdl:message name="GetConsultasDePortalSoapOut">
-    <wsdl:part name="parameters" element="tns:GetConsultasDePortalResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetNotificacionesDePortalSoapIn">
-    <wsdl:part name="parameters" element="tns:GetNotificacionesDePortal" />
-  </wsdl:message>
-  <wsdl:message name="GetNotificacionesDePortalSoapOut">
-    <wsdl:part name="parameters" element="tns:GetNotificacionesDePortalResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetConsultasTodasDePortalSoapIn">
-    <wsdl:part name="parameters" element="tns:GetConsultasTodasDePortal" />
-  </wsdl:message>
-  <wsdl:message name="GetConsultasTodasDePortalSoapOut">
-    <wsdl:part name="parameters" element="tns:GetConsultasTodasDePortalResponse" />
-  </wsdl:message>
-  <wsdl:message name="getTicketsPorFuncionalidadSoapIn">
-    <wsdl:part name="parameters" element="tns:getTicketsPorFuncionalidad" />
-  </wsdl:message>
-  <wsdl:message name="getTicketsPorFuncionalidadSoapOut">
-    <wsdl:part name="parameters" element="tns:getTicketsPorFuncionalidadResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetDomicilioPendientePorAlertaSoapIn">
-    <wsdl:part name="parameters" element="tns:GetDomicilioPendientePorAlerta" />
-  </wsdl:message>
-  <wsdl:message name="GetDomicilioPendientePorAlertaSoapOut">
-    <wsdl:part name="parameters" element="tns:GetDomicilioPendientePorAlertaResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetNotificacionesTodasDePortalSoapIn">
-    <wsdl:part name="parameters" element="tns:GetNotificacionesTodasDePortal" />
-  </wsdl:message>
-  <wsdl:message name="GetNotificacionesTodasDePortalSoapOut">
-    <wsdl:part name="parameters" element="tns:GetNotificacionesTodasDePortalResponse" />
-  </wsdl:message>
   <wsdl:message name="ResetearPasswordSoapIn">
     <wsdl:part name="parameters" element="tns:ResetearPassword" />
   </wsdl:message>
@@ -8143,6 +8427,72 @@
   </wsdl:message>
   <wsdl:message name="GetMenuParaSoapOut">
     <wsdl:part name="parameters" element="tns:GetMenuParaResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCredencialesTodasDePortalSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCredencialesTodasDePortal" />
+  </wsdl:message>
+  <wsdl:message name="GetCredencialesTodasDePortalSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCredencialesTodasDePortalResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSolicitudesDeCredencialPorPersonaSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSolicitudesDeCredencialPorPersona" />
+  </wsdl:message>
+  <wsdl:message name="GetSolicitudesDeCredencialPorPersonaSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSolicitudesDeCredencialPorPersonaResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetLugaresEntregaCredencialSoapIn">
+    <wsdl:part name="parameters" element="tns:GetLugaresEntregaCredencial" />
+  </wsdl:message>
+  <wsdl:message name="GetLugaresEntregaCredencialSoapOut">
+    <wsdl:part name="parameters" element="tns:GetLugaresEntregaCredencialResponse" />
+  </wsdl:message>
+  <wsdl:message name="SolicitarRenovacionCredencialSoapIn">
+    <wsdl:part name="parameters" element="tns:SolicitarRenovacionCredencial" />
+  </wsdl:message>
+  <wsdl:message name="SolicitarRenovacionCredencialSoapOut">
+    <wsdl:part name="parameters" element="tns:SolicitarRenovacionCredencialResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSolicitudDeCredencialPorIdTicketAprobacionSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSolicitudDeCredencialPorIdTicketAprobacion" />
+  </wsdl:message>
+  <wsdl:message name="GetSolicitudDeCredencialPorIdTicketAprobacionSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSolicitudDeCredencialPorIdTicketAprobacionResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSolicitudDeCredencialPorIdTicketImpresionSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSolicitudDeCredencialPorIdTicketImpresion" />
+  </wsdl:message>
+  <wsdl:message name="GetSolicitudDeCredencialPorIdTicketImpresionSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSolicitudDeCredencialPorIdTicketImpresionResponse" />
+  </wsdl:message>
+  <wsdl:message name="AprobarSolicitudCredencialSoapIn">
+    <wsdl:part name="parameters" element="tns:AprobarSolicitudCredencial" />
+  </wsdl:message>
+  <wsdl:message name="AprobarSolicitudCredencialSoapOut">
+    <wsdl:part name="parameters" element="tns:AprobarSolicitudCredencialResponse" />
+  </wsdl:message>
+  <wsdl:message name="RechazarSolicitudCredencialSoapIn">
+    <wsdl:part name="parameters" element="tns:RechazarSolicitudCredencial" />
+  </wsdl:message>
+  <wsdl:message name="RechazarSolicitudCredencialSoapOut">
+    <wsdl:part name="parameters" element="tns:RechazarSolicitudCredencialResponse" />
+  </wsdl:message>
+  <wsdl:message name="MarcarCredencialComoImpresaSoapIn">
+    <wsdl:part name="parameters" element="tns:MarcarCredencialComoImpresa" />
+  </wsdl:message>
+  <wsdl:message name="MarcarCredencialComoImpresaSoapOut">
+    <wsdl:part name="parameters" element="tns:MarcarCredencialComoImpresaResponse" />
+  </wsdl:message>
+  <wsdl:message name="AsociarCodigoMagneticoACredencialSoapIn">
+    <wsdl:part name="parameters" element="tns:AsociarCodigoMagneticoACredencial" />
+  </wsdl:message>
+  <wsdl:message name="AsociarCodigoMagneticoACredencialSoapOut">
+    <wsdl:part name="parameters" element="tns:AsociarCodigoMagneticoACredencialResponse" />
+  </wsdl:message>
+  <wsdl:message name="CerrarTicketImpresionSoapIn">
+    <wsdl:part name="parameters" element="tns:CerrarTicketImpresion" />
+  </wsdl:message>
+  <wsdl:message name="CerrarTicketImpresionSoapOut">
+    <wsdl:part name="parameters" element="tns:CerrarTicketImpresionResponse" />
   </wsdl:message>
   <wsdl:message name="RefrescarCacheMAUSoapIn">
     <wsdl:part name="parameters" element="tns:RefrescarCacheMAU" />
@@ -8425,72 +8775,6 @@
   </wsdl:message>
   <wsdl:message name="GuardarCvMatriculaSoapOut">
     <wsdl:part name="parameters" element="tns:GuardarCvMatriculaResponse" />
-  </wsdl:message>
-  <wsdl:message name="ActualizarCvMatriculaSoapIn">
-    <wsdl:part name="parameters" element="tns:ActualizarCvMatricula" />
-  </wsdl:message>
-  <wsdl:message name="ActualizarCvMatriculaSoapOut">
-    <wsdl:part name="parameters" element="tns:ActualizarCvMatriculaResponse" />
-  </wsdl:message>
-  <wsdl:message name="EliminarCvMatriculaSoapIn">
-    <wsdl:part name="parameters" element="tns:EliminarCvMatricula" />
-  </wsdl:message>
-  <wsdl:message name="EliminarCvMatriculaSoapOut">
-    <wsdl:part name="parameters" element="tns:EliminarCvMatriculaResponse" />
-  </wsdl:message>
-  <wsdl:message name="GuardarCvInstitucionAcademicaSoapIn">
-    <wsdl:part name="parameters" element="tns:GuardarCvInstitucionAcademica" />
-  </wsdl:message>
-  <wsdl:message name="GuardarCvInstitucionAcademicaSoapOut">
-    <wsdl:part name="parameters" element="tns:GuardarCvInstitucionAcademicaResponse" />
-  </wsdl:message>
-  <wsdl:message name="ActualizarCvInstitucionAcademicaSoapIn">
-    <wsdl:part name="parameters" element="tns:ActualizarCvInstitucionAcademica" />
-  </wsdl:message>
-  <wsdl:message name="ActualizarCvInstitucionAcademicaSoapOut">
-    <wsdl:part name="parameters" element="tns:ActualizarCvInstitucionAcademicaResponse" />
-  </wsdl:message>
-  <wsdl:message name="EliminarCvInstitucionAcademicaSoapIn">
-    <wsdl:part name="parameters" element="tns:EliminarCvInstitucionAcademica" />
-  </wsdl:message>
-  <wsdl:message name="EliminarCvInstitucionAcademicaSoapOut">
-    <wsdl:part name="parameters" element="tns:EliminarCvInstitucionAcademicaResponse" />
-  </wsdl:message>
-  <wsdl:message name="GuardarCvExperienciaLaboralSoapIn">
-    <wsdl:part name="parameters" element="tns:GuardarCvExperienciaLaboral" />
-  </wsdl:message>
-  <wsdl:message name="GuardarCvExperienciaLaboralSoapOut">
-    <wsdl:part name="parameters" element="tns:GuardarCvExperienciaLaboralResponse" />
-  </wsdl:message>
-  <wsdl:message name="ActualizarCvExperienciaLaboralSoapIn">
-    <wsdl:part name="parameters" element="tns:ActualizarCvExperienciaLaboral" />
-  </wsdl:message>
-  <wsdl:message name="ActualizarCvExperienciaLaboralSoapOut">
-    <wsdl:part name="parameters" element="tns:ActualizarCvExperienciaLaboralResponse" />
-  </wsdl:message>
-  <wsdl:message name="EliminarCvExperienciaLaboralSoapIn">
-    <wsdl:part name="parameters" element="tns:EliminarCvExperienciaLaboral" />
-  </wsdl:message>
-  <wsdl:message name="EliminarCvExperienciaLaboralSoapOut">
-    <wsdl:part name="parameters" element="tns:EliminarCvExperienciaLaboralResponse" />
-  </wsdl:message>
-  <wsdl:message name="GuardarCvIdiomaExtranjeroSoapIn">
-    <wsdl:part name="parameters" element="tns:GuardarCvIdiomaExtranjero" />
-  </wsdl:message>
-  <wsdl:message name="GuardarCvIdiomaExtranjeroSoapOut">
-    <wsdl:part name="parameters" element="tns:GuardarCvIdiomaExtranjeroResponse" />
-  </wsdl:message>
-  <wsdl:message name="ActualizarCvIdiomaExtranjeroSoapIn">
-    <wsdl:part name="parameters" element="tns:ActualizarCvIdiomaExtranjero" />
-  </wsdl:message>
-  <wsdl:message name="ActualizarCvIdiomaExtranjeroSoapOut">
-    <wsdl:part name="parameters" element="tns:ActualizarCvIdiomaExtranjeroResponse" />
-  </wsdl:message>
-  <wsdl:message name="EliminarCvIdiomaExtranjeroSoapIn">
-    <wsdl:part name="parameters" element="tns:EliminarCvIdiomaExtranjero" />
-  </wsdl:message>
-  <wsdl:message name="EliminarCvIdiomaExtranjeroSoapOut">
-    <wsdl:part name="parameters" element="tns:EliminarCvIdiomaExtranjeroResponse" />
   </wsdl:message>
   <wsdl:message name="IniciarServicioDeAlertasSoapIn">
     <wsdl:part name="parameters" element="tns:IniciarServicioDeAlertas" />
@@ -9411,6 +9695,50 @@
     <wsdl:part name="parameters" element="tns:HayDocumentosEnAlertaResponse" />
   </wsdl:message>
   <wsdl:portType name="WSViaticosSoap">
+    <wsdl:operation name="GetPsicofisicos">
+      <wsdl:input message="tns:GetPsicofisicosSoapIn" />
+      <wsdl:output message="tns:GetPsicofisicosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRecibo">
+      <wsdl:input message="tns:GetReciboSoapIn" />
+      <wsdl:output message="tns:GetReciboSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLiquidaciones">
+      <wsdl:input message="tns:GetLiquidacionesSoapIn" />
+      <wsdl:output message="tns:GetLiquidacionesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EnviarNotificacion">
+      <wsdl:input message="tns:EnviarNotificacionSoapIn" />
+      <wsdl:output message="tns:EnviarNotificacionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDesignaciones">
+      <wsdl:input message="tns:GetDesignacionesSoapIn" />
+      <wsdl:output message="tns:GetDesignacionesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultasDePortal">
+      <wsdl:input message="tns:GetConsultasDePortalSoapIn" />
+      <wsdl:output message="tns:GetConsultasDePortalSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNotificacionesDePortal">
+      <wsdl:input message="tns:GetNotificacionesDePortalSoapIn" />
+      <wsdl:output message="tns:GetNotificacionesDePortalSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultasTodasDePortal">
+      <wsdl:input message="tns:GetConsultasTodasDePortalSoapIn" />
+      <wsdl:output message="tns:GetConsultasTodasDePortalSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getTicketsPorFuncionalidad">
+      <wsdl:input message="tns:getTicketsPorFuncionalidadSoapIn" />
+      <wsdl:output message="tns:getTicketsPorFuncionalidadSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDomicilioPendientePorAlerta">
+      <wsdl:input message="tns:GetDomicilioPendientePorAlertaSoapIn" />
+      <wsdl:output message="tns:GetDomicilioPendientePorAlertaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNotificacionesTodasDePortal">
+      <wsdl:input message="tns:GetNotificacionesTodasDePortalSoapIn" />
+      <wsdl:output message="tns:GetNotificacionesTodasDePortalSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetDomicilioPendiente">
       <wsdl:input message="tns:GetDomicilioPendienteSoapIn" />
       <wsdl:output message="tns:GetDomicilioPendienteSoapOut" />
@@ -9530,6 +9858,50 @@
     <wsdl:operation name="PrintPdfEvaluacionDesempenio">
       <wsdl:input message="tns:PrintPdfEvaluacionDesempenioSoapIn" />
       <wsdl:output message="tns:PrintPdfEvaluacionDesempenioSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarCvMatricula">
+      <wsdl:input message="tns:ActualizarCvMatriculaSoapIn" />
+      <wsdl:output message="tns:ActualizarCvMatriculaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EliminarCvMatricula">
+      <wsdl:input message="tns:EliminarCvMatriculaSoapIn" />
+      <wsdl:output message="tns:EliminarCvMatriculaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GuardarCvInstitucionAcademica">
+      <wsdl:input message="tns:GuardarCvInstitucionAcademicaSoapIn" />
+      <wsdl:output message="tns:GuardarCvInstitucionAcademicaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarCvInstitucionAcademica">
+      <wsdl:input message="tns:ActualizarCvInstitucionAcademicaSoapIn" />
+      <wsdl:output message="tns:ActualizarCvInstitucionAcademicaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EliminarCvInstitucionAcademica">
+      <wsdl:input message="tns:EliminarCvInstitucionAcademicaSoapIn" />
+      <wsdl:output message="tns:EliminarCvInstitucionAcademicaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GuardarCvExperienciaLaboral">
+      <wsdl:input message="tns:GuardarCvExperienciaLaboralSoapIn" />
+      <wsdl:output message="tns:GuardarCvExperienciaLaboralSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarCvExperienciaLaboral">
+      <wsdl:input message="tns:ActualizarCvExperienciaLaboralSoapIn" />
+      <wsdl:output message="tns:ActualizarCvExperienciaLaboralSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EliminarCvExperienciaLaboral">
+      <wsdl:input message="tns:EliminarCvExperienciaLaboralSoapIn" />
+      <wsdl:output message="tns:EliminarCvExperienciaLaboralSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GuardarCvIdiomaExtranjero">
+      <wsdl:input message="tns:GuardarCvIdiomaExtranjeroSoapIn" />
+      <wsdl:output message="tns:GuardarCvIdiomaExtranjeroSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarCvIdiomaExtranjero">
+      <wsdl:input message="tns:ActualizarCvIdiomaExtranjeroSoapIn" />
+      <wsdl:output message="tns:ActualizarCvIdiomaExtranjeroSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EliminarCvIdiomaExtranjero">
+      <wsdl:input message="tns:EliminarCvIdiomaExtranjeroSoapIn" />
+      <wsdl:output message="tns:EliminarCvIdiomaExtranjeroSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GuardarCvCompetenciaInformatica">
       <wsdl:input message="tns:GuardarCvCompetenciaInformaticaSoapIn" />
@@ -9827,50 +10199,6 @@
       <wsdl:input message="tns:GetLicenciasOrdinariasDisponiblesSoapIn" />
       <wsdl:output message="tns:GetLicenciasOrdinariasDisponiblesSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="GetPsicofisicos">
-      <wsdl:input message="tns:GetPsicofisicosSoapIn" />
-      <wsdl:output message="tns:GetPsicofisicosSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetRecibo">
-      <wsdl:input message="tns:GetReciboSoapIn" />
-      <wsdl:output message="tns:GetReciboSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetLiquidaciones">
-      <wsdl:input message="tns:GetLiquidacionesSoapIn" />
-      <wsdl:output message="tns:GetLiquidacionesSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="EnviarNotificacion">
-      <wsdl:input message="tns:EnviarNotificacionSoapIn" />
-      <wsdl:output message="tns:EnviarNotificacionSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetDesignaciones">
-      <wsdl:input message="tns:GetDesignacionesSoapIn" />
-      <wsdl:output message="tns:GetDesignacionesSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetConsultasDePortal">
-      <wsdl:input message="tns:GetConsultasDePortalSoapIn" />
-      <wsdl:output message="tns:GetConsultasDePortalSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetNotificacionesDePortal">
-      <wsdl:input message="tns:GetNotificacionesDePortalSoapIn" />
-      <wsdl:output message="tns:GetNotificacionesDePortalSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetConsultasTodasDePortal">
-      <wsdl:input message="tns:GetConsultasTodasDePortalSoapIn" />
-      <wsdl:output message="tns:GetConsultasTodasDePortalSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="getTicketsPorFuncionalidad">
-      <wsdl:input message="tns:getTicketsPorFuncionalidadSoapIn" />
-      <wsdl:output message="tns:getTicketsPorFuncionalidadSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetDomicilioPendientePorAlerta">
-      <wsdl:input message="tns:GetDomicilioPendientePorAlertaSoapIn" />
-      <wsdl:output message="tns:GetDomicilioPendientePorAlertaSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetNotificacionesTodasDePortal">
-      <wsdl:input message="tns:GetNotificacionesTodasDePortalSoapIn" />
-      <wsdl:output message="tns:GetNotificacionesTodasDePortalSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="ResetearPassword">
       <wsdl:input message="tns:ResetearPasswordSoapIn" />
       <wsdl:output message="tns:ResetearPasswordSoapOut" />
@@ -9974,6 +10302,50 @@
     <wsdl:operation name="GetMenuPara">
       <wsdl:input message="tns:GetMenuParaSoapIn" />
       <wsdl:output message="tns:GetMenuParaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCredencialesTodasDePortal">
+      <wsdl:input message="tns:GetCredencialesTodasDePortalSoapIn" />
+      <wsdl:output message="tns:GetCredencialesTodasDePortalSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSolicitudesDeCredencialPorPersona">
+      <wsdl:input message="tns:GetSolicitudesDeCredencialPorPersonaSoapIn" />
+      <wsdl:output message="tns:GetSolicitudesDeCredencialPorPersonaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLugaresEntregaCredencial">
+      <wsdl:input message="tns:GetLugaresEntregaCredencialSoapIn" />
+      <wsdl:output message="tns:GetLugaresEntregaCredencialSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SolicitarRenovacionCredencial">
+      <wsdl:input message="tns:SolicitarRenovacionCredencialSoapIn" />
+      <wsdl:output message="tns:SolicitarRenovacionCredencialSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSolicitudDeCredencialPorIdTicketAprobacion">
+      <wsdl:input message="tns:GetSolicitudDeCredencialPorIdTicketAprobacionSoapIn" />
+      <wsdl:output message="tns:GetSolicitudDeCredencialPorIdTicketAprobacionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSolicitudDeCredencialPorIdTicketImpresion">
+      <wsdl:input message="tns:GetSolicitudDeCredencialPorIdTicketImpresionSoapIn" />
+      <wsdl:output message="tns:GetSolicitudDeCredencialPorIdTicketImpresionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AprobarSolicitudCredencial">
+      <wsdl:input message="tns:AprobarSolicitudCredencialSoapIn" />
+      <wsdl:output message="tns:AprobarSolicitudCredencialSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RechazarSolicitudCredencial">
+      <wsdl:input message="tns:RechazarSolicitudCredencialSoapIn" />
+      <wsdl:output message="tns:RechazarSolicitudCredencialSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="MarcarCredencialComoImpresa">
+      <wsdl:input message="tns:MarcarCredencialComoImpresaSoapIn" />
+      <wsdl:output message="tns:MarcarCredencialComoImpresaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AsociarCodigoMagneticoACredencial">
+      <wsdl:input message="tns:AsociarCodigoMagneticoACredencialSoapIn" />
+      <wsdl:output message="tns:AsociarCodigoMagneticoACredencialSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CerrarTicketImpresion">
+      <wsdl:input message="tns:CerrarTicketImpresionSoapIn" />
+      <wsdl:output message="tns:CerrarTicketImpresionSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="RefrescarCacheMAU">
       <wsdl:input message="tns:RefrescarCacheMAUSoapIn" />
@@ -10162,50 +10534,6 @@
     <wsdl:operation name="GuardarCvMatricula">
       <wsdl:input message="tns:GuardarCvMatriculaSoapIn" />
       <wsdl:output message="tns:GuardarCvMatriculaSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="ActualizarCvMatricula">
-      <wsdl:input message="tns:ActualizarCvMatriculaSoapIn" />
-      <wsdl:output message="tns:ActualizarCvMatriculaSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="EliminarCvMatricula">
-      <wsdl:input message="tns:EliminarCvMatriculaSoapIn" />
-      <wsdl:output message="tns:EliminarCvMatriculaSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GuardarCvInstitucionAcademica">
-      <wsdl:input message="tns:GuardarCvInstitucionAcademicaSoapIn" />
-      <wsdl:output message="tns:GuardarCvInstitucionAcademicaSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="ActualizarCvInstitucionAcademica">
-      <wsdl:input message="tns:ActualizarCvInstitucionAcademicaSoapIn" />
-      <wsdl:output message="tns:ActualizarCvInstitucionAcademicaSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="EliminarCvInstitucionAcademica">
-      <wsdl:input message="tns:EliminarCvInstitucionAcademicaSoapIn" />
-      <wsdl:output message="tns:EliminarCvInstitucionAcademicaSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GuardarCvExperienciaLaboral">
-      <wsdl:input message="tns:GuardarCvExperienciaLaboralSoapIn" />
-      <wsdl:output message="tns:GuardarCvExperienciaLaboralSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="ActualizarCvExperienciaLaboral">
-      <wsdl:input message="tns:ActualizarCvExperienciaLaboralSoapIn" />
-      <wsdl:output message="tns:ActualizarCvExperienciaLaboralSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="EliminarCvExperienciaLaboral">
-      <wsdl:input message="tns:EliminarCvExperienciaLaboralSoapIn" />
-      <wsdl:output message="tns:EliminarCvExperienciaLaboralSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GuardarCvIdiomaExtranjero">
-      <wsdl:input message="tns:GuardarCvIdiomaExtranjeroSoapIn" />
-      <wsdl:output message="tns:GuardarCvIdiomaExtranjeroSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="ActualizarCvIdiomaExtranjero">
-      <wsdl:input message="tns:ActualizarCvIdiomaExtranjeroSoapIn" />
-      <wsdl:output message="tns:ActualizarCvIdiomaExtranjeroSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="EliminarCvIdiomaExtranjero">
-      <wsdl:input message="tns:EliminarCvIdiomaExtranjeroSoapIn" />
-      <wsdl:output message="tns:EliminarCvIdiomaExtranjeroSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="IniciarServicioDeAlertas">
       <wsdl:input message="tns:IniciarServicioDeAlertasSoapIn" />
@@ -10822,6 +11150,105 @@
   </wsdl:portType>
   <wsdl:binding name="WSViaticosSoap" type="tns:WSViaticosSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetPsicofisicos">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetPsicofisicos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRecibo">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetRecibo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLiquidaciones">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetLiquidaciones" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarNotificacion">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/EnviarNotificacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDesignaciones">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetDesignaciones" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultasDePortal">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetConsultasDePortal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNotificacionesDePortal">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetNotificacionesDePortal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultasTodasDePortal">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetConsultasTodasDePortal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTicketsPorFuncionalidad">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/getTicketsPorFuncionalidad" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDomicilioPendientePorAlerta">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetDomicilioPendientePorAlerta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNotificacionesTodasDePortal">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetNotificacionesTodasDePortal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetDomicilioPendiente">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetDomicilioPendiente" style="document" />
       <wsdl:input>
@@ -11085,6 +11512,105 @@
     </wsdl:operation>
     <wsdl:operation name="PrintPdfEvaluacionDesempenio">
       <soap:operation soapAction="http://wsviaticos.gov.ar/PrintPdfEvaluacionDesempenio" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarCvMatricula">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ActualizarCvMatricula" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EliminarCvMatricula">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/EliminarCvMatricula" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarCvInstitucionAcademica">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarCvInstitucionAcademica" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarCvInstitucionAcademica">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ActualizarCvInstitucionAcademica" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EliminarCvInstitucionAcademica">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/EliminarCvInstitucionAcademica" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarCvExperienciaLaboral">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarCvExperienciaLaboral" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarCvExperienciaLaboral">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ActualizarCvExperienciaLaboral" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EliminarCvExperienciaLaboral">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/EliminarCvExperienciaLaboral" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarCvIdiomaExtranjero">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarCvIdiomaExtranjero" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarCvIdiomaExtranjero">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ActualizarCvIdiomaExtranjero" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EliminarCvIdiomaExtranjero">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/EliminarCvIdiomaExtranjero" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -11758,105 +12284,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetPsicofisicos">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetPsicofisicos" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetRecibo">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetRecibo" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetLiquidaciones">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetLiquidaciones" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="EnviarNotificacion">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/EnviarNotificacion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetDesignaciones">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetDesignaciones" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetConsultasDePortal">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetConsultasDePortal" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetNotificacionesDePortal">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetNotificacionesDePortal" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetConsultasTodasDePortal">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetConsultasTodasDePortal" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="getTicketsPorFuncionalidad">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/getTicketsPorFuncionalidad" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetDomicilioPendientePorAlerta">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetDomicilioPendientePorAlerta" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetNotificacionesTodasDePortal">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetNotificacionesTodasDePortal" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="ResetearPassword">
       <soap:operation soapAction="http://wsviaticos.gov.ar/ResetearPassword" style="document" />
       <wsdl:input>
@@ -12084,6 +12511,105 @@
     </wsdl:operation>
     <wsdl:operation name="GetMenuPara">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetMenuPara" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCredencialesTodasDePortal">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetCredencialesTodasDePortal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSolicitudesDeCredencialPorPersona">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetSolicitudesDeCredencialPorPersona" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLugaresEntregaCredencial">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetLugaresEntregaCredencial" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SolicitarRenovacionCredencial">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/SolicitarRenovacionCredencial" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSolicitudDeCredencialPorIdTicketAprobacion">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetSolicitudDeCredencialPorIdTicketAprobacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSolicitudDeCredencialPorIdTicketImpresion">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetSolicitudDeCredencialPorIdTicketImpresion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AprobarSolicitudCredencial">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/AprobarSolicitudCredencial" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RechazarSolicitudCredencial">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/RechazarSolicitudCredencial" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MarcarCredencialComoImpresa">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/MarcarCredencialComoImpresa" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AsociarCodigoMagneticoACredencial">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/AsociarCodigoMagneticoACredencial" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CerrarTicketImpresion">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/CerrarTicketImpresion" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -12507,105 +13033,6 @@
     </wsdl:operation>
     <wsdl:operation name="GuardarCvMatricula">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarCvMatricula" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ActualizarCvMatricula">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/ActualizarCvMatricula" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="EliminarCvMatricula">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/EliminarCvMatricula" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GuardarCvInstitucionAcademica">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarCvInstitucionAcademica" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ActualizarCvInstitucionAcademica">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/ActualizarCvInstitucionAcademica" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="EliminarCvInstitucionAcademica">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/EliminarCvInstitucionAcademica" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GuardarCvExperienciaLaboral">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarCvExperienciaLaboral" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ActualizarCvExperienciaLaboral">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/ActualizarCvExperienciaLaboral" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="EliminarCvExperienciaLaboral">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/EliminarCvExperienciaLaboral" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GuardarCvIdiomaExtranjero">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarCvIdiomaExtranjero" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ActualizarCvIdiomaExtranjero">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/ActualizarCvIdiomaExtranjero" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="EliminarCvIdiomaExtranjero">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/EliminarCvIdiomaExtranjero" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -13993,6 +14420,105 @@
   </wsdl:binding>
   <wsdl:binding name="WSViaticosSoap12" type="tns:WSViaticosSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetPsicofisicos">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetPsicofisicos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRecibo">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetRecibo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLiquidaciones">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetLiquidaciones" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarNotificacion">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/EnviarNotificacion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDesignaciones">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetDesignaciones" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultasDePortal">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetConsultasDePortal" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNotificacionesDePortal">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetNotificacionesDePortal" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultasTodasDePortal">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetConsultasTodasDePortal" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTicketsPorFuncionalidad">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/getTicketsPorFuncionalidad" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDomicilioPendientePorAlerta">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetDomicilioPendientePorAlerta" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNotificacionesTodasDePortal">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetNotificacionesTodasDePortal" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetDomicilioPendiente">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetDomicilioPendiente" style="document" />
       <wsdl:input>
@@ -14256,6 +14782,105 @@
     </wsdl:operation>
     <wsdl:operation name="PrintPdfEvaluacionDesempenio">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/PrintPdfEvaluacionDesempenio" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarCvMatricula">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ActualizarCvMatricula" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EliminarCvMatricula">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/EliminarCvMatricula" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarCvInstitucionAcademica">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarCvInstitucionAcademica" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarCvInstitucionAcademica">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ActualizarCvInstitucionAcademica" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EliminarCvInstitucionAcademica">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/EliminarCvInstitucionAcademica" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarCvExperienciaLaboral">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarCvExperienciaLaboral" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarCvExperienciaLaboral">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ActualizarCvExperienciaLaboral" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EliminarCvExperienciaLaboral">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/EliminarCvExperienciaLaboral" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarCvIdiomaExtranjero">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarCvIdiomaExtranjero" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarCvIdiomaExtranjero">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ActualizarCvIdiomaExtranjero" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EliminarCvIdiomaExtranjero">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/EliminarCvIdiomaExtranjero" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -14929,105 +15554,6 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetPsicofisicos">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetPsicofisicos" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetRecibo">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetRecibo" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetLiquidaciones">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetLiquidaciones" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="EnviarNotificacion">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/EnviarNotificacion" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetDesignaciones">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetDesignaciones" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetConsultasDePortal">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetConsultasDePortal" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetNotificacionesDePortal">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetNotificacionesDePortal" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetConsultasTodasDePortal">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetConsultasTodasDePortal" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="getTicketsPorFuncionalidad">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/getTicketsPorFuncionalidad" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetDomicilioPendientePorAlerta">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetDomicilioPendientePorAlerta" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetNotificacionesTodasDePortal">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetNotificacionesTodasDePortal" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="ResetearPassword">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/ResetearPassword" style="document" />
       <wsdl:input>
@@ -15255,6 +15781,105 @@
     </wsdl:operation>
     <wsdl:operation name="GetMenuPara">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetMenuPara" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCredencialesTodasDePortal">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetCredencialesTodasDePortal" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSolicitudesDeCredencialPorPersona">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetSolicitudesDeCredencialPorPersona" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLugaresEntregaCredencial">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetLugaresEntregaCredencial" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SolicitarRenovacionCredencial">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/SolicitarRenovacionCredencial" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSolicitudDeCredencialPorIdTicketAprobacion">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetSolicitudDeCredencialPorIdTicketAprobacion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSolicitudDeCredencialPorIdTicketImpresion">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetSolicitudDeCredencialPorIdTicketImpresion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AprobarSolicitudCredencial">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/AprobarSolicitudCredencial" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RechazarSolicitudCredencial">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/RechazarSolicitudCredencial" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MarcarCredencialComoImpresa">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/MarcarCredencialComoImpresa" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AsociarCodigoMagneticoACredencial">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/AsociarCodigoMagneticoACredencial" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CerrarTicketImpresion">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/CerrarTicketImpresion" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -15678,105 +16303,6 @@
     </wsdl:operation>
     <wsdl:operation name="GuardarCvMatricula">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarCvMatricula" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ActualizarCvMatricula">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/ActualizarCvMatricula" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="EliminarCvMatricula">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/EliminarCvMatricula" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GuardarCvInstitucionAcademica">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarCvInstitucionAcademica" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ActualizarCvInstitucionAcademica">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/ActualizarCvInstitucionAcademica" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="EliminarCvInstitucionAcademica">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/EliminarCvInstitucionAcademica" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GuardarCvExperienciaLaboral">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarCvExperienciaLaboral" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ActualizarCvExperienciaLaboral">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/ActualizarCvExperienciaLaboral" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="EliminarCvExperienciaLaboral">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/EliminarCvExperienciaLaboral" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GuardarCvIdiomaExtranjero">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarCvIdiomaExtranjero" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ActualizarCvIdiomaExtranjero">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/ActualizarCvIdiomaExtranjero" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="EliminarCvIdiomaExtranjero">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/EliminarCvIdiomaExtranjero" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

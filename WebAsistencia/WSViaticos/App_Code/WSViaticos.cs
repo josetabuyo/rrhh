@@ -2953,6 +2953,97 @@ public class WSViaticos : System.Web.Services.WebService
 
     #endregion
 
+    #region Credenciales
+
+
+    [WebMethod]
+    public Credencial[] GetCredencialesTodasDePortal(Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+
+        return repositorio.GetCredencialesTodasDePortal(usuario.Owner.Id).ToArray();
+    }
+
+
+    [WebMethod]
+    public SolicitudCredencial[] GetSolicitudesDeCredencialPorPersona(Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+
+        return repositorio.GetSolicitudesDeCredencialPorPersona(usuario.Owner.Id).ToArray();
+    }
+
+
+    [WebMethod]
+    public LugarEntrega[] GetLugaresEntregaCredencial(Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+
+        return repositorio.GetLugaresEntregaCredencial().ToArray();
+    }
+
+
+    [WebMethod]
+    public bool SolicitarRenovacionCredencial(string motivo, string organismo, int id_lugar_entrega, Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+
+
+        return repositorio.SolicitarRenovacionCredencial(usuario, motivo, organismo, id_lugar_entrega);
+    }
+
+    [WebMethod]
+    public SolicitudCredencial GetSolicitudDeCredencialPorIdTicketAprobacion(int id_ticket, Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+        return repositorio.GetSolicitudDeCredencialPorIdTicketAprobacion(id_ticket);
+    }
+
+    [WebMethod]
+    public SolicitudCredencial GetSolicitudDeCredencialPorIdTicketImpresion(int id_ticket, Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+        return repositorio.GetSolicitudDeCredencialPorIdTicketImpresion(id_ticket);
+    }
+
+    [WebMethod]
+    public bool AprobarSolicitudCredencial(SolicitudCredencial solicitud, Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+        return repositorio.AprobarSolicitudCredencial(solicitud, usuario);
+    }
+
+    [WebMethod]
+    public bool RechazarSolicitudCredencial(SolicitudCredencial solicitud, string motivo, Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+        return repositorio.RechazarSolicitudCredencial(solicitud, motivo, usuario);
+    }
+
+    [WebMethod]
+    public bool MarcarCredencialComoImpresa(int idCredencial, Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+        return repositorio.MarcarCredencialComoImpresa(idCredencial, usuario);
+    }
+
+    [WebMethod]
+    public bool AsociarCodigoMagneticoACredencial(int idCredencial,string codigo_magnetico, Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+        return repositorio.AsociarCodigoMagneticoACredencial(idCredencial, codigo_magnetico, usuario);
+    }
+
+    [WebMethod]
+    public bool CerrarTicketImpresion(SolicitudCredencial solicitud, string instrucciones_de_retiro, Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+        return repositorio.CerrarTicketImpresion(solicitud, instrucciones_de_retiro, usuario);
+    }
+
+    #endregion
+
+
     [WebMethod]
     public bool RefrescarCacheMAU(Usuario usuario)
     {
@@ -4650,42 +4741,57 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string InsertarEvaluacion(int idEvaluado, int idFormulario, int periodo, int idEval, string pregYRtas, int estado, Usuario usuario)
     {
-        RepositorioEvaluacionDesempenio repositorio = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
-        if (periodo == 0)
+        try
         {
-            PeriodoEvaluacion periodo_actual = repositorio.GetUltimoPeriodoEvaluacion();
-            periodo = periodo_actual.id_periodo;
+            RepositorioEvaluacionDesempenio repositorio = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+            if (periodo == 0)
+            {
+                PeriodoEvaluacion periodo_actual = repositorio.GetUltimoPeriodoEvaluacion();
+                periodo = periodo_actual.id_periodo;
+            }
+            //var preguntasYRespuestas = JsonConvert.DeserializeObject(pregYRtas);
+
+            var criterio_deserializado = (JArray)JsonConvert.DeserializeObject(pregYRtas);
+
+            var id_evaluador = repositorio.GetIdEvaluadorDelUsuario(usuario);
+
+            //FC:si viene un idEvaluacion entonces llamo a update, si viene 0 llamo a insert
+            if (idEval != 0)
+            {
+                repositorio.deleteEvaluacionDetalle(idEval);
+                repositorio.updateEvaluacion(idEval, idEvaluado, id_evaluador, idFormulario, periodo, estado);
+            }
+            else
+            {
+                //FC:Inserto la cabecera de la evaluacion
+                idEval = repositorio.insertarEvaluacion(idEvaluado, id_evaluador, idFormulario, periodo, estado);
+            }
+
+            //var item1 = preguntasYRespuestas;
+
+
+            foreach (var item in criterio_deserializado)
+            {
+                int idPregunta = (int)item.First.First;
+                int idRespuesta = (int)item.Last.Last;
+
+                repositorio.insertarEvaluacionDetalle(idEval, idPregunta, idRespuesta);
+            }
+
+            return "ok";
         }
-        //var preguntasYRespuestas = JsonConvert.DeserializeObject(pregYRtas);
-
-        var criterio_deserializado = (JArray)JsonConvert.DeserializeObject(pregYRtas);
-
-        var id_evaluador = repositorio.GetIdEvaluadorDelUsuario(usuario);
-
-        //FC:si viene un idEvaluacion entonces llamo a update, si viene 0 llamo a insert
-        if (idEval != 0)
+        catch (Exception e)
         {
-            repositorio.deleteEvaluacionDetalle(idEval);
-            repositorio.updateEvaluacion(idEval, idEvaluado, id_evaluador, idFormulario, periodo, estado);
-        }
-        else
-        {
-            //FC:Inserto la cabecera de la evaluacion
-            idEval = repositorio.insertarEvaluacion(idEvaluado, id_evaluador, idFormulario, periodo, estado);
-        }
 
-        //var item1 = preguntasYRespuestas;
+            var error = "Server error message='" + e.Message + "' stacktrace='" + e.StackTrace.ToString() + "'";
+            if (e.InnerException != null)
+            {
+                error += "innerException message= '" + e.InnerException.Message + "' innerException stacktrace='" + e.InnerException.StackTrace.ToString() + "'";
+            }
+            return error;
 
-
-        foreach (var item in criterio_deserializado)
-        {
-            int idPregunta = (int)item.First.First;
-            int idRespuesta = (int)item.Last.Last;
-
-            repositorio.insertarEvaluacionDetalle(idEval, idPregunta, idRespuesta);
         }
 
-        return "ok";
     }
 
     #endregion

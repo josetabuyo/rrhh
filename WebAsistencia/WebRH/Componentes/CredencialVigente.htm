@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<head>
+    <style type="text/css">
+        #pantalla_credencial_vigente
+        {
+             width: 250px;
+             margin-top: 15px;
+        }       
+        #pantalla_credencial_vigente #credencial_vigente
+        {
+            position: relative;
+        }
+        
+        #pantalla_credencial_vigente #imagen_credencial
+        {
+            width: 250px;
+        }        
+        
+        #pantalla_credencial_vigente #foto_usuario
+        {
+            position: absolute;
+            top: 64px;
+            left: 21px;
+            height: 112px;
+            width: 112px;
+        }    
+        
+        #pantalla_credencial_vigente #apellido
+        {
+            position: absolute;
+            top: 196px;
+            left: 19px;
+            font-size: 20px;
+            color: white;
+        }    
+        
+        #pantalla_credencial_vigente #nombres
+        {
+            position: absolute;
+            top: 224px;
+            left: 18px;
+            font-size: 20px;
+            color: white;
+        }    
+        
+        #pantalla_credencial_vigente #documento
+        {
+            position: absolute;
+            top: 252px;
+            left: 66px;
+            font-size: 20px;
+            color: white;
+        }    
+            
+        #pantalla_credencial_vigente #titulo_documento
+        {
+            position: absolute;
+            top: 252px;
+            left: 18px;
+            font-size: 20px;
+            color: white;
+        }    
+        
+        #pantalla_credencial_vigente #btn_renovar_credencial
+        {
+            margin-top: 10px;
+            display: inline-block;
+        }
+        
+        #pantalla_credencial_vigente #btn_renovar_credencial label
+        {
+            text-align: center;
+            width: 100%;
+            cursor: pointer;
+        }    
+    </style>
+</head>
+<div id=pantalla_credencial_vigente>
+    <div id="credencial_vigente">
+        <img id="imagen_credencial" src="../BarraMenu/credencial.png"/>
+        <div id="foto_usuario"></div>
+        <div id="apellido"></div>    
+        <div id="nombres"></div>    
+        <div id="titulo_documento">DNI:</div>    
+        <div id="documento"></div>    
+    </div>
+</div>
+<script type="text/javascript">
+    var Componente = {
+        start: function (credencial, ui) {
+            ui.find("#credencial_vigente").hide();
+            ui.find("#sin_credencial_vigente").hide();
+
+            vex.defaultOptions.className = 'vex-theme-os';
+            vex.close();
+            vex.open({
+                afterOpen: function ($vexContent) {
+                    //var ui = $("#plantillas_barra_menu #pantalla_credencial_vigente").clone();
+
+                    Backend.GetUsuarioLogueado().onSuccess(function (usuario) {
+                        Backend.GetCredencialesTodasDePortal().onSuccess(function (credenciales) {
+                            console.log(ui);
+                            var credencial_vigente = _.find(credenciales, function (c) { return c.Estado == "VIGENTE" });
+                            ui.find("#credencial_vigente").show();
+                            ui.find("#apellido").text(usuario.Owner.Apellido);
+                            ui.find("#nombres").text(usuario.Owner.Nombre);
+                            ui.find("#documento").text(usuario.Owner.Documento);
+
+//                            ui.find("#btn_renovar_credencial").click(function () {
+//                                var div = $("<div>");
+//                                div.load(window.location.origin + '/Componentes/SolicitarRenovacionCredencial.htm', function () {
+//                                    Componente.start({credencial:credencial_vigente}, div);
+//                                });
+//                            });
+
+                            var img = new VistaThumbnail({
+                                id: credencial_vigente.IdFoto,
+                                contenedor: ui.find("#foto_usuario")
+                            });
+                            $vexContent.css("width", "280px");
+                            $vexContent.append(ui);
+                            ui.show();
+                        });
+                    });
+                    return ui;
+                },
+                css: {
+                    'padding-top': "4%",
+                    'padding-bottom': "0%"
+                }
+            });
+        }
+    };
+</script>
