@@ -230,7 +230,7 @@
                     <label class="etiqueta_campo">Al hacer la solicitud, su credencial vigente será dada de baja.</label>
                     <br />
                     <label id = "texto_robo" class="etiqueta_campo" " for="cmb_provincia">*Para el caso de pérdida/robo debe presentar la denuncia policial, o Declaración Jurada firmada por el superior directo (Rango de Director o Superior), al momento de retirar la nueva credencial. <br /> 
-                              <a href="Files/DDJJCredencialPerdidaoRobo.pdf">Descargue modelo de DDJJ</a></label>
+                              <a target="_blank" href="Files/DDJJCredencialPerdidaoRobo.pdf">Descargar modelo de DDJJ</a></label>
                     <label id = "texto_deterioro" class="etiqueta_campo" for="cmb_provincia">*Para el caso de credencial deteriorada, la misma debe devolverse al momento de retirar la nueva. </label>
                     <label id = "texto_seleccione_motivo" class="etiqueta_campo" for="cmb_provincia">*Seleccione un motivo </label>
                     <br />
