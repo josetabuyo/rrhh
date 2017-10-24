@@ -112,6 +112,13 @@
                 float: right;
                 margin-right: 34px;
             }
+            
+            #btn_cambiar_foto
+            {
+                position: absolute;
+                bottom: 10px;
+                left: 48px;
+            }
         </style>
     </head>
 <body>
@@ -196,6 +203,7 @@
                     <div id="titulo_documento">DNI:</div>    
                     <div id="documento"></div>    
                 </div>
+                <a id="btn_cambiar_foto" > Cambiar foto de perfil y credencial </a>
                 <div id="panel_derecho_credencial">
                     <div class="">
                         <label class="label_combo" for="select_motivo">Indique el Motivo del pedido:</label>
@@ -228,8 +236,11 @@
                     <br />
 
                     <label class="etiqueta_campo">Al hacer la solicitud, su credencial vigente será dada de baja.</label>
-                    <br />
-                    <label id = "texto_robo" class="etiqueta_campo" " for="cmb_provincia">*Para el caso de pérdida/robo debe presentar la denuncia policial, o Declaración Jurada firmada por el superior directo (Rango de Director o Superior), al momento de retirar la nueva credencial </label>
+                  
+                    <br/>
+                    <label id = "texto_robo" class="etiqueta_campo" " for="cmb_provincia">*Para el caso de pérdida/robo debe presentar la denuncia policial, o Declaración Jurada firmada por el superior directo (Rango de Director o Superior), al momento de retirar la nueva credencial 
+                        <a target="_blank" href="Files/DDJJCredencialPerdidaoRobo.pdf">Descargar modelo de DDJJ</a>
+                    </label>
                     <label id = "texto_deterioro" class="etiqueta_campo" for="cmb_provincia">*Para el caso de credencial deteriorada, la misma debe devolverse al momento de retirar la nueva. </label>
                     <label id = "texto_seleccione_motivo" class="etiqueta_campo" for="cmb_provincia">*Seleccione un motivo </label>
                     <br />
@@ -367,9 +378,10 @@
 
                         $("#botonera_credenciales").show();
                         if (_.some(solicitudes, function (sol) {
-                            if (sol.Estado == "PENDIENTE") return true;
-                            if (sol.Credencial) return !sol.Credencial.Entregada;
-                            return false;
+                            if (sol.Id == 0) return false;
+                            if (sol.Estado == "ENTREGADA") return false;
+                            if (sol.Estado == "RECHAZADO") return false;
+                            return true;
                         })) {
                             $("#btn_aviso_solicitud").show();
                             $("#btn_renovar_credencial").hide();
@@ -385,7 +397,8 @@
 
             });
 
-
+            
+            
             Backend.GetCredencialesTodasDePortal().onSuccess(function (credenciales) {
                 var credencial_vigente = _.find(credenciales, function (c) { return c.Estado == "VIGENTE" });
                 if (credencial_vigente) {
@@ -419,6 +432,8 @@
                                     contenedor: ui.find("#foto_usuario")
                                 });
                             });
+
+                            ui.find("#btn_cambiar_foto").click(function () { $("#contenedor_foto_usuario").click(); });
 
                             Backend.GetLugaresEntregaCredencial()
                                     .onSuccess(function (lugares) {
