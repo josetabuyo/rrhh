@@ -229,8 +229,7 @@
 
                     <label class="etiqueta_campo">Al hacer la solicitud, su credencial vigente será dada de baja.</label>
                     <br />
-                    <label id = "texto_robo" class="etiqueta_campo" " for="cmb_provincia">*Para el caso de pérdida/robo debe presentar la denuncia policial, o Declaración Jurada firmada por el superior directo (Rango de Director o Superior), al momento de retirar la nueva credencial. <br /> 
-                              <a target="_blank" href="Files/DDJJCredencialPerdidaoRobo.pdf">Descargar modelo de DDJJ</a></label>
+                    <label id = "texto_robo" class="etiqueta_campo" " for="cmb_provincia">*Para el caso de pérdida/robo debe presentar la denuncia policial, o Declaración Jurada firmada por el superior directo (Rango de Director o Superior), al momento de retirar la nueva credencial </label>
                     <label id = "texto_deterioro" class="etiqueta_campo" for="cmb_provincia">*Para el caso de credencial deteriorada, la misma debe devolverse al momento de retirar la nueva. </label>
                     <label id = "texto_seleccione_motivo" class="etiqueta_campo" for="cmb_provincia">*Seleccione un motivo </label>
                     <br />
@@ -398,27 +397,30 @@
                         });
                     });
                     //
-                    $('#btn_renovar_credencial').click(function () {
-                      
-                        //var ui = $("#cajaCambiarDomicilio");
 
-                        vex.defaultOptions.className = 'vex-theme-os';
-                        vex.open({
-                            afterOpen: function ($vexContent) {
-                                var ui = $("#cajaSolicitudCredencial").clone();
-                                $vexContent.append(ui);
-                                Backend.GetUsuarioLogueado().onSuccess(function (usuario) {
-                                    ui.find("#apellido").text(usuario.Owner.Apellido);
-                                    ui.find("#nombres").text(usuario.Owner.Nombre);
-                                    ui.find("#documento").text(usuario.Owner.Documento);
+                }
 
-                                    var img = new VistaThumbnail({
-                                        id: usuario.Owner.IdImagen,
-                                        contenedor: ui.find("#foto_usuario")
-                                    });
+                $('#btn_renovar_credencial').click(function () {
+
+                    //var ui = $("#cajaCambiarDomicilio");
+
+                    vex.defaultOptions.className = 'vex-theme-os';
+                    vex.open({
+                        afterOpen: function ($vexContent) {
+                            var ui = $("#cajaSolicitudCredencial").clone();
+                            $vexContent.append(ui);
+                            Backend.GetUsuarioLogueado().onSuccess(function (usuario) {
+                                ui.find("#apellido").text(usuario.Owner.Apellido);
+                                ui.find("#nombres").text(usuario.Owner.Nombre);
+                                ui.find("#documento").text(usuario.Owner.Documento);
+
+                                var img = new VistaThumbnail({
+                                    id: usuario.Owner.IdImagen,
+                                    contenedor: ui.find("#foto_usuario")
                                 });
+                            });
 
-                                Backend.GetLugaresEntregaCredencial()
+                            Backend.GetLugaresEntregaCredencial()
                                     .onSuccess(function (lugares) {
                                         _.forEach(lugares, function (lugar) {
                                             var opt = $("<option>");
@@ -427,78 +429,68 @@
                                             ui.find("#cmb_lugar_de_entrega").append(opt);
                                         });
                                     });
-                                ui.find("#select_motivo").change(function () {
-                                    var val = ui.find("#select_motivo").val();
+                            ui.find("#select_motivo").change(function () {
+                                var val = ui.find("#select_motivo").val();
 
-                                    if (val == 0) {
-                                        ui.find("#texto_seleccione_motivo").show();
-                                        ui.find("#texto_deterioro").hide();
-                                        ui.find("#texto_robo").hide();
-                                    }
+                                if (val == 0) {
+                                    ui.find("#texto_seleccione_motivo").show();
+                                    ui.find("#texto_deterioro").hide();
+                                    ui.find("#texto_robo").hide();
+                                }
 
-                                    if (val == 1) {
-                                        ui.find("#texto_deterioro").show();
-                                        ui.find("#texto_robo").hide();
-                                        ui.find("#texto_seleccione_motivo").hide();
-                                    }
+                                if (val == 1) {
+                                    ui.find("#texto_deterioro").show();
+                                    ui.find("#texto_robo").hide();
+                                    ui.find("#texto_seleccione_motivo").hide();
+                                }
 
-                                    if (val == 2) {
-                                        ui.find("#texto_deterioro").hide();
-                                        ui.find("#texto_robo").show();
-                                        ui.find("#texto_seleccione_motivo").hide();
-                                    }
+                                if (val == 2) {
+                                    ui.find("#texto_deterioro").hide();
+                                    ui.find("#texto_robo").show();
+                                    ui.find("#texto_seleccione_motivo").hide();
+                                }
 
-                                    if (val == 3) {
-                                        ui.find("#texto_deterioro").hide();
-                                        ui.find("#texto_robo").show();
-                                        ui.find("#texto_seleccione_motivo").hide();
-                                    }
+                                if (val == 3) {
+                                    ui.find("#texto_deterioro").hide();
+                                    ui.find("#texto_robo").show();
+                                    ui.find("#texto_seleccione_motivo").hide();
+                                }
 
-                                    if (val == 4) {
-                                        ui.find("#texto_deterioro").hide();
-                                        ui.find("#texto_robo").hide();
-                                        ui.find("#texto_seleccione_motivo").hide();
-                                    }
+                                if (val == 4) {
+                                    ui.find("#texto_deterioro").hide();
+                                    ui.find("#texto_robo").hide();
+                                    ui.find("#texto_seleccione_motivo").hide();
+                                }
 
+                            });
+
+                            ui.find("#btn_realizar_solicitud").click(function () {
+                                if (ui.find("#select_motivo").val() == 0) {
+                                    return;
+                                }
+
+                                Backend.SolicitarRenovacionCredencial(ui.find("#select_motivo").val(), ui.find("#select_organismo").val(), ui.find("#cmb_lugar_de_entrega").val()).onSuccess(function () {
+                                    alertify.success("Solicitud creada con éxito");
+
+                                    vex.close();
+                                    setTimeout(function () { location.reload(); }, 1000);
                                 });
-
-                                ui.find("#btn_realizar_solicitud").click(function () {
-                                    if (ui.find("#select_motivo").val() == 0) {
-                                        return;
-                                    }
-
-                                    Backend.SolicitarRenovacionCredencial(ui.find("#select_motivo").val(), ui.find("#select_organismo").val(), ui.find("#cmb_lugar_de_entrega").val()).onSuccess(function () {
-                                        alertify.success("Solicitud creada con éxito");
-
-                                        vex.close();
-                                        setTimeout(function () { location.reload(); }, 1000);
-                                    });
-                                });
+                            });
 
 
-                                ui.show();
-                            },
-                            css: {
-                                'padding-top': "4%",
-                                'padding-bottom': "0%"
-                            },
-                            contentCSS: {
-                                width: "80%",
-                                height: "90%"
-                            }
-                        });
-                        //$('#cajaCambiarDomicilio').show();
+                            ui.show();
+                        },
+                        css: {
+                            'padding-top': "4%",
+                            'padding-bottom': "0%"
+                        },
+                        contentCSS: {
+                            width: "80%",
+                            height: "90%"
+                        }
                     });
-                } else {
-
-
-                    $("#btn_renovar_credencial").click(function () {
-                        var div = $("<div>");
-                        div.load(window.location.origin + '/Componentes/SolicitarPrimerCredencial.htm', function () {
-                            Componente.start(false, div);
-                        });
-                    });
-                }
+                    //$('#cajaCambiarDomicilio').show();
+                });
             });
         });
     });
