@@ -3370,6 +3370,7 @@
           <s:element minOccurs="1" maxOccurs="1" name="IdFoto" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="Estado" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="Impresa" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Entregada" type="s:boolean" />
           <s:element minOccurs="0" maxOccurs="1" name="CodigoMagnetico" type="s:string" />
         </s:sequence>
       </s:complexType>

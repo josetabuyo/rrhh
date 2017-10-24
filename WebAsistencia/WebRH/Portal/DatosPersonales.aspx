@@ -138,7 +138,7 @@
                  <div class="cajitas">
                     <p class=""><label class="item_cajita">CUIL: </label> <span id="cuil"></span></p>
                     <p class=""><label class="item_cajita">Domicilio: </label> <span id="domicilio"></span>
-                    <!--<img id="btnMostrarDomicilio" style="cursor:pointer; display:none;" title="Cambiar Domicilio" src="../Imagenes/edit.png" width="30px" height="30px" />-->
+                    <img id="btnMostrarDomicilio" style="cursor:pointer; display:none;" title="Cambiar Domicilio" src="../Imagenes/edit.png" width="30px" height="30px" />
                     <%--<input id="btnMostrarDomicilio" value="Cambiar Domicilio" class="btn btn-primary" type="button" />--%>
                     <!--<div style="display:none; color:Red;" id="mensajeCambioDomicilioPendiente">
                         <span>Solicitud Pendiente de Aprobación</span>
@@ -366,19 +366,18 @@
                     Backend.GetSolicitudesDeCredencialPorPersona().onSuccess(function (solicitudes) {
 
                         $("#botonera_credenciales").show();
-                        $.each(solicitudes, function (i, val) {
-
-                            if (solicitudes[i].Estado == "PENDIENTE") {
-
-                                $("#btn_aviso_solicitud").show();
-                                $("#btn_renovar_credencial").hide();
-                            }
-                            else {
-                                $("#btn_aviso_solicitud").hide();
-                                $("#btn_renovar_credencial").show();
-                            }
-
-                        });
+                        if (_.some(solicitudes, function (sol) {
+                            if (sol.Estado == "PENDIENTE") return true;
+                            if (sol.Credencial) return !sol.Credencial.Entregada;
+                            return false;
+                        })) {
+                            $("#btn_aviso_solicitud").show();
+                            $("#btn_renovar_credencial").hide();
+                        }
+                        else {
+                            $("#btn_aviso_solicitud").hide();
+                            $("#btn_renovar_credencial").show();
+                        }
                         $("#btn_historial_credenciales").show();
                     });
 
@@ -471,7 +470,7 @@
                                         alertify.success("Solicitud creada con éxito");
 
                                         vex.close();
-                                        location.reload();
+                                        setTimeout(function () { location.reload(); }, 1000);
                                     });
                                 });
 
