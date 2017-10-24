@@ -4,7 +4,7 @@
 <table style="text-align: center;">
     <tr>
         <td colspan="3">
-            <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/Imagenes/membrete-web-2015.gif"
+            <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/Imagenes/membrete-web-2017.jpg"
                 Width="610px" Height="99px" /></td>
     </tr>
     <tr>
