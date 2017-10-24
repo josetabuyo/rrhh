@@ -19,7 +19,7 @@
            
             <fieldset>
                 <!--CABECERA-->
-                <table border="0" style="width: 100%; text-align: center;">
+                <table border="0" style="width: 100%; text-align: center; border-collapse: collapse;">
                     <tr>
                         <td style="text-align:left;">
                             <asp:Label ID="Label1" runat="server" Text="Agente: "></asp:Label>
@@ -27,7 +27,7 @@
                         <td>
                         </td>
                         <td style="text-align:left;">
-                            <asp:Label ID="Label2" runat="server" Text="Nro. Documento: "></asp:Label>
+                            <asp:Label ID="Label2" runat="server" Text="DNI: "></asp:Label>
                             <asp:Label ID="LDocumento" runat="server" Text="Label"></asp:Label></td>
                         <td>
                         </td>
@@ -77,23 +77,29 @@
     </tr>
     <tr>
         <td>
-            <table style="width: 100%; height: 629; text-align: center;" border='1'>
+            <table style="width: 100%; height: 629; text-align: center; border-collapse: collapse;" border='1'>
                 <tr style="height: 20;">
-                    <td style="width: 16.6%; height: 20;">
-                        <asp:Label ID="Label5" runat="server" Text="Día"></asp:Label></td>
-                    <td style="width: 16.6%;">
-                        <asp:Label ID="Label9" runat="server" Text="Entrada"></asp:Label></td>
-                    <td style="width: 16.6%;">
-                        <asp:Label ID="Label7" runat="server" Text="Salida"></asp:Label></td>
-                    <td style="width: 16.6%;">
-                        <asp:Label ID="Label8" runat="server" Text="Día"></asp:Label></td>
-                    <td style="width: 16.6%;">
-                        <asp:Label ID="Label6" runat="server" Text="Entrada"></asp:Label></td>
-                    <td style="width: 16.6%;">
-                        <asp:Label ID="Label10" runat="server" Text="Salida"></asp:Label></td>
+                    <td style="width: 6%; height: 20;"><asp:Label ID="Label5" runat="server" Text="Día"></asp:Label></td>
+                    <td style="width: 21.5%;" colspan="2"><asp:Label ID="Label9" runat="server" Text="Entrada"></asp:Label></td>
+                    <td style="width: 21.5%;" colspan="2"><asp:Label ID="Label7" runat="server" Text="Salida"></asp:Label></td>
+                    <td style="width: 6%;"><asp:Label ID="Label8" runat="server" Text="Día"></asp:Label></td>
+                    <td style="width: 21.5%;" colspan="2"><asp:Label ID="Label6" runat="server" Text="Entrada"></asp:Label></td>
+                    <td style="width: 21.5%;" colspan="2"><asp:Label ID="Label10" runat="server" Text="Salida"></asp:Label></td>
+                </tr>
+                <tr style="height: 20;">
+                    <td style="width: 6%; height: 20;"></td>
+                    <td style="width: 7%;"><asp:Label ID="Label16" runat="server" Text="Hora"></asp:Label></td>
+                    <td style="width: 14.5%;"><asp:Label ID="Label17" runat="server" Text="Firma"></asp:Label></td>
+                    <td style="width: 8%;"><asp:Label ID="Label19" runat="server" Text="Hora"></asp:Label></td>
+                    <td style="width: 14.5%;"><asp:Label ID="Label20" runat="server" Text="Firma"></asp:Label></td>
+                    <td style="width: 6%;"></td>
+                    <td style="width: 7%;"><asp:Label ID="Label15" runat="server" Text="Hora"></asp:Label></td>
+                    <td style="width: 14.5%;"><asp:Label ID="Label18" runat="server" Text="Firma"></asp:Label></td>
+                    <td style="width: 8%;"><asp:Label ID="Label21" runat="server" Text="Hora"></asp:Label></td>
+                    <td style="width: 14.5%;"><asp:Label ID="Label22" runat="server" Text="Firma"></asp:Label></td>
                 </tr>
                 <tr>
-                    <td colspan="6">
+                    <td colspan="10" style="font-size: 13px;">
                         <asp:Table ID="Table1" runat="server" Width="100%">
                         </asp:Table>
                     </td>
