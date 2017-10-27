@@ -32,11 +32,16 @@
         #pantalla_impresion_credencial #foto_usuario
         {
             position: absolute;
-            top: 16%;
-            left: 8.4%;
-            height: 29%;
-            width: 45.5%;
+            top: 14.6%;
+            left: 6%;
+            height: 32%;
+            width: 49.4%;
         }    
+        
+        #pantalla_impresion_credencial #foto_usuario #img_thumbnail
+        {
+            border-radius: 14px;
+        }
         
         #pantalla_impresion_credencial #apellido
         {
@@ -44,7 +49,7 @@
             top: 50%;
             left: 7.4%;
             font-size: 20px;
-            color: white;
+            color: white !important;
         }    
         
         #pantalla_impresion_credencial #nombres
@@ -53,7 +58,7 @@
             top: 57%;
             left: 7.4%;
             font-size: 20px;
-            color: white;
+            color: white !important;
         }    
         
         #pantalla_impresion_credencial #documento
@@ -62,7 +67,7 @@
             top: 64%;
             left: 26%;
             font-size: 20px;
-            color: white;
+            color: white !important;
         }    
             
         #pantalla_impresion_credencial #titulo_documento
@@ -71,7 +76,7 @@
             top: 64%;
             left: 7.4%;
             font-size: 20px;
-            color: white;
+            color: white !important;
         } 
             
         #pantalla_impresion_credencial #btn_imprimir_credencial
@@ -130,37 +135,44 @@
         }
         
         @media print {
-          body *      
-          {
-            visibility:hidden;       
-          }
-          #pantalla_impresion_credencial
-          {
-              position:absolute;
-            left:-29px;
-            top:-32px;
-            right:-32px;
-            bottom:-35px;
-          }
-          #pantalla_impresion_credencial #vista_previa_credencial, 
-          #pantalla_impresion_credencial #vista_previa_credencial * {
-            visibility: visible;
-          }
-          #pantalla_impresion_credencial #vista_previa_credencial 
-          {
-            position:absolute;
-            left:0px;
-            top:5px;
-            width: 99%;
-
-          }
+            body *      
+            {
+                visibility:hidden;       
+            }
+            #pantalla_impresion_credencial #vista_previa_credencial, 
+            #pantalla_impresion_credencial #vista_previa_credencial * {
+                visibility: visible;
+            }
+            #pantalla_impresion_credencial 
+            {
+                position: absolute;
+                left: 0px;
+                right: 0px;
+                top: 0px;
+                bottom: 0px;
+              
+            }
+            #pantalla_impresion_credencial #vista_previa_credencial 
+            {
+                position: fixed;
+                left: -2px;
+                top: 0px;
+                width: 101.5%;
+                color: White !important;
+            }
+          
+            #pantalla_impresion_credencial #nombres,
+            
+            {
+                color: White !important;
+            }    
         }
     </style>
 </head>
 <div id="pantalla_impresion_credencial">
     <h4 id="titulo_vista_previa">Vista Previa Credencial</h4>
-    <div id="vista_previa_credencial">
-        <img id="imagen_credencial" src="../BarraMenu/credencial.png"/>
+    <div id="vista_previa_credencial">        
+        <img id="imagen_credencial" src="../BarraMenu/credencial.png"/>        
         <div id="foto_usuario"></div>
         <div id="apellido"></div>    
         <div id="nombres"></div>    
