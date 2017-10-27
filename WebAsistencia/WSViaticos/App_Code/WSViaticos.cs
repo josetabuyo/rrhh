@@ -194,7 +194,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public DDJJ104_2001 GenerarDDJJ104(int id_area, int mes, int anio, Persona[] lista_persona, Usuario usuario)
+    public DDJJ104_2001 GenerarDDJJ104(int id_area, int mes, int anio, Persona[] lista_persona, int estado_guardado, Usuario usuario)
     {
         //RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
         //return ddjj.GenerarDDJJ104(usuario, area, mes, anio);
@@ -204,7 +204,7 @@ public class WSViaticos : System.Web.Services.WebService
         RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
 
         DDJJ104_2001 cabe = new DDJJ104_2001();
-        cabe = ddjj.GenerarDDJJ104(usuario, UnArea[0], mes, anio, lista_persona);
+        cabe = ddjj.GenerarDDJJ104(usuario, UnArea[0], mes, anio, lista_persona, estado_guardado);
 
 
         return cabe;
@@ -316,6 +316,22 @@ public class WSViaticos : System.Web.Services.WebService
 
         return meses.ToArray();
     }
+
+
+
+   
+    [WebMethod]
+    public DDJJ104_Consulta[] GetPersonasSinCertificar(int mes, int anio)
+    {
+        var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas(), Autorizador());
+        var a = new DDJJ104_Consulta[1];
+
+        a = responsableDDJJ.GetPersonasSinCertificar(mes, anio).ToArray();
+
+        return a;
+    }
+
+
 
 
     //FIN: DDJJ 104 ---------------

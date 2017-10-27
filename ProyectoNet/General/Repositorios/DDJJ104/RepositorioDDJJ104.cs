@@ -63,13 +63,14 @@ namespace General
         //}
 
 
-        public DDJJ104_2001 GenerarDDJJ104(Usuario usuario, AreaParaDDJJ104 area, int mes, int anio, Persona[] lista_persona)
+        public DDJJ104_2001 GenerarDDJJ104(Usuario usuario, AreaParaDDJJ104 area, int mes, int anio, Persona[] lista_persona, int estado_guardado)
         {
             ConexionDB cn = new ConexionDB("dbo.PLA_ADD_DDJJ104_Cabecera");
             cn.AsignarParametro("@Id_Area", area.Id);
             cn.AsignarParametro("@Mes", mes);
             cn.AsignarParametro("@Año", anio);
             cn.AsignarParametro("@Usuario_Generacion", usuario.Id);
+            cn.AsignarParametro("@Estado", estado_guardado);
 
             //INICIO TRANSACCION
             cn.BeginTransaction();
@@ -348,6 +349,42 @@ namespace General
         }
 
 
+
+        public List<DDJJ104_Consulta> GetPersonasSinCertificar(int mes, int anio)
+        {
+            SqlDataReader dr;
+            ConexionDB cn = new ConexionDB("dbo.PLA_GET_Persona_No_Certificadas");
+            cn.AsignarParametro("@mes", mes);
+            cn.AsignarParametro("@año", anio);
+
+            dr = cn.EjecutarConsulta();
+
+            DDJJ104_Consulta ddjj104;
+            List<DDJJ104_Consulta> lista = new List<DDJJ104_Consulta>();
+
+            while (dr.Read())
+            {
+                ddjj104 = new DDJJ104_Consulta();
+                ddjj104.mes = dr.GetInt16(dr.GetOrdinal("Mes"));
+                ddjj104.anio = dr.GetInt16(dr.GetOrdinal("Año"));
+                
+                ddjj104.persona = new Persona();
+                ddjj104.persona.Id = dr.GetInt32(dr.GetOrdinal("Id_Persona"));
+                ddjj104.persona.Documento = dr.GetInt32(dr.GetOrdinal("NroDocumento"));
+                ddjj104.persona.Apellido = dr.GetString(dr.GetOrdinal("Apellido")).ToString();
+                ddjj104.persona.Nombre = dr.GetString(dr.GetOrdinal("Nombre")).ToString();
+                ddjj104.area_generacion = new Area();
+                ddjj104.area_generacion.Id = dr.GetInt32(dr.GetOrdinal("id"));
+                ddjj104.area_generacion.Nombre = dr.GetString(dr.GetOrdinal("descripcion")).ToString();
+
+                lista.Add(ddjj104);
+            }
+
+            cn.Desconestar();
+
+            return lista;
+
+        }
 
 
     }
