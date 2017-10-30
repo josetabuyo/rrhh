@@ -27,36 +27,25 @@ namespace General.Repositorios
             return this.Obtener();
         }
 
-        public List<Partido> GetProvinciasDeLaZona(Zona zona)
+        public List<Partido> GetPartidosDeLaProvincia(int idProvincia)
         {
-            SqlDataReader dr;
-            ConexionDB cn = new ConexionDB("dbo.VIA_GetProvinciasDeLaZona");
-            cn.AsignarParametro("@idZona", zona.Id);
 
-            dr = cn.EjecutarConsulta();
-            Partido unaProvincia;
-            List<Partido> provincias = new List<Partido>();
-            RepositorioDeLocalidades repositorio = RepositorioDeLocalidades.Nuevo(this.conexion);
+            List<Partido> partidos = this.ObtenerDesdeLaBase();
+            List<Partido> partidosDeLaProvincia = partidos.FindAll(p => p.IdProvincia == idProvincia);
 
-            while (dr.Read())
-            {
-                unaProvincia = new Partido { Id = dr.GetInt16(0), Nombre = dr.GetString(1), IdProvincia = dr.GetInt16(0) };
-                provincias.Add(unaProvincia);
-               
-            }
-            return provincias;
+            return partidosDeLaProvincia;
         }
 
         protected override List<Partido> ObtenerDesdeLaBase()
         {
-            var provincias = new List<Partido>();
+            var partidos = new List<Partido>();
 
-            var tablaDatos = conexion.Ejecutar("dbo.WEB_GetProvincias");
+            var tablaDatos = conexion.Ejecutar("dbo.WEB_GetPartidos");
             if (tablaDatos.Rows.Count > 0)
             {
                 tablaDatos.Rows.ForEach(row =>
                 {
-                    provincias.Add(new Partido(row.GetSmallintAsInt("id"), row.GetString("nombre"),1));
+                    partidos.Add(new Partido(row.GetSmallintAsInt("id"), row.GetString("Descripcion"), row.GetSmallintAsInt("idProvincia")));
                 });
             }
 
@@ -65,7 +54,7 @@ namespace General.Repositorios
             //provincias.Add(new Provincia(5, "Santa Fe"));
             //provincias.Add(new Provincia(8, "Mendoza"));
 
-            return provincias;
+            return partidos;
         }
 
         protected override void GuardarEnLaBase(Partido objeto)

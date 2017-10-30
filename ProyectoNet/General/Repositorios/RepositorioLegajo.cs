@@ -1086,6 +1086,7 @@ namespace General.Repositorios
                 parametros.Add("@depto", domicilio.Depto);
                 parametros.Add("@cp", domicilio.Cp);
                 parametros.Add("@localidad", domicilio.Localidad);
+                parametros.Add("@partido_dpto", domicilio.NombrePartido);
                 parametros.Add("@provincia", domicilio.Provincia);
                 parametros.Add("@torre", domicilio.Torre);
                 parametros.Add("@manzana", domicilio.Manzana);
@@ -1097,6 +1098,7 @@ namespace General.Repositorios
                 parametros.Add("@idDocumentoGDE", idDocumentoGDE);
                 parametros.Add("@telefono", domicilio.Telefono);
                 parametros.Add("@telefono2", domicilio.Telefono2);
+                
 
                 conexion.Ejecutar("dbo.LEG_Ins_Domicilios_Pendientes", parametros);
 
@@ -1126,7 +1128,7 @@ namespace General.Repositorios
             {
                 tablaDatos.Rows.ForEach(row =>
 
-                    dom = new CvDomicilio(row.GetInt("id"), row.GetString("calle", ""), row.GetSmallintAsInt("nro", 0), row.GetString("piso", ""), row.GetString("dpto", ""), new Localidad(row.GetInt("idLocalidad"), row.GetString("nombreLocalidad")), row.GetInt("cp", 0), new Provincia(row.GetSmallintAsInt("idProvincia", 0), row.GetString("nombreProvincia", "")), row.GetString("manzana", ""), row.GetString("casa", ""), row.GetString("barrio", ""), row.GetString("torre", ""), row.GetString("uf", ""), new DocumentoGDE(row.GetInt("idDocumentoGDE"),row.GetString("codigo"), row.GetBoolean("verificado")))
+                    dom = new CvDomicilio(row.GetInt("id"), row.GetString("calle", ""), row.GetSmallintAsInt("nro", 0), row.GetString("piso", ""), row.GetString("dpto", ""), new Localidad(row.GetInt("idLocalidad"), row.GetString("nombreLocalidad")), row.GetInt("cp", 0), new Provincia(row.GetSmallintAsInt("idProvincia", 0), row.GetString("nombreProvincia", "")), row.GetString("partido_dpto"), row.GetString("manzana", ""), row.GetString("casa", ""), row.GetString("barrio", ""), row.GetString("torre", ""), row.GetString("uf", ""), new DocumentoGDE(row.GetInt("idDocumentoGDE"), row.GetString("codigo"), row.GetBoolean("verificado")))
                     //dom = new CvDomicilio(row.GetInt("id"), row.GetString("calle", ""), row.GetSmallintAsInt("nro", 0), row.GetString("piso", ""), row.GetString("dpto", ""), row.GetInt("localidad", 0), row.GetInt("cp", 0), row.GetInt("provincia", 0))
                 );
             }

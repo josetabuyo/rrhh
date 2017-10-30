@@ -89,10 +89,13 @@
 
                             <div style="margin-bottom: 10px;" class="">
                                 <label class="etiqueta_campo" for="cmb_provincia">Provincia: <em style="color:Red;">*</em></label>
-                                <select id="cmb_provincia" style="width: 200px;"></select>
+                                <select id="cmb_provincia" style="width: 150px;"></select>
+
+                                <label class="etiqueta_campo" for="cmb_provincia">Partido: <em style="color:Red;">*</em></label>
+                                <select id="cmb_partido" style="width: 150px;"></select>
 
                                 <label class="etiqueta_campo_small" for="cmb_localidad">Localidad: <em style="color:Red;">*</em></label>
-                                <select id="cmb_localidad" style="width: 250px;"></select>
+                                <select id="cmb_localidad" style="width: 150px;"></select>
                             </div>
 
                             <div class="">

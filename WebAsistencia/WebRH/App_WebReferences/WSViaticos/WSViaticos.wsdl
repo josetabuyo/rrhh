@@ -2,19 +2,10 @@
 <wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://wsviaticos.gov.ar/">
-      <s:element name="GetNotificacionesTodasDePortal">
-        <s:complexType />
-      </s:element>
-      <s:element name="GetNotificacionesTodasDePortalResponse">
+      <s:element name="GetDomicilioPendientePorAlerta">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetNotificacionesTodasDePortalResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetDomicilioPendiente">
-        <s:complexType>
-          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idAlerta" type="s:int" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
@@ -206,6 +197,30 @@
           <s:element minOccurs="1" maxOccurs="1" name="basica" type="s:boolean" />
         </s:sequence>
       </s:complexType>
+      <s:element name="GetDomicilioPendientePorAlertaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDomicilioPendientePorAlertaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetNotificacionesTodasDePortal">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetNotificacionesTodasDePortalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetNotificacionesTodasDePortalResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDomicilioPendiente">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetDomicilioPendienteResponse">
         <s:complexType>
           <s:sequence>
@@ -1569,9 +1584,10 @@
       </s:complexType>
       <s:complexType name="Localidad">
         <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="IdProvincia" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdPartido" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="IdProvincia" type="s:int" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="Zona">
@@ -1990,6 +2006,32 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="BuscarPartidos">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idProvincia" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuscarPartidosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BuscarPartidosResult" type="tns:ArrayOfPartido" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfPartido">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Partido" nillable="true" type="tns:Partido" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Partido">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdProvincia" type="s:int" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="GetFormulario">
         <s:complexType>
           <s:sequence>
@@ -2855,21 +2897,6 @@
           <s:element minOccurs="1" maxOccurs="1" name="idFuncionalidad" type="s:int" />
         </s:sequence>
       </s:complexType>
-      <s:element name="GetDomicilioPendientePorAlerta">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="idAlerta" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetDomicilioPendientePorAlertaResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetDomicilioPendientePorAlertaResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
       <s:element name="ResetearPassword">
         <s:complexType>
           <s:sequence>
@@ -7387,6 +7414,12 @@
       </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="GetDomicilioPendientePorAlertaSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDomicilioPendientePorAlerta" />
+  </wsdl:message>
+  <wsdl:message name="GetDomicilioPendientePorAlertaSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDomicilioPendientePorAlertaResponse" />
+  </wsdl:message>
   <wsdl:message name="GetNotificacionesTodasDePortalSoapIn">
     <wsdl:part name="parameters" element="tns:GetNotificacionesTodasDePortal" />
   </wsdl:message>
@@ -7825,6 +7858,12 @@
   <wsdl:message name="BuscarLocalidadesSoapOut">
     <wsdl:part name="parameters" element="tns:BuscarLocalidadesResponse" />
   </wsdl:message>
+  <wsdl:message name="BuscarPartidosSoapIn">
+    <wsdl:part name="parameters" element="tns:BuscarPartidos" />
+  </wsdl:message>
+  <wsdl:message name="BuscarPartidosSoapOut">
+    <wsdl:part name="parameters" element="tns:BuscarPartidosResponse" />
+  </wsdl:message>
   <wsdl:message name="GetFormularioSoapIn">
     <wsdl:part name="parameters" element="tns:GetFormulario" />
   </wsdl:message>
@@ -8100,12 +8139,6 @@
   </wsdl:message>
   <wsdl:message name="getTicketsPorFuncionalidadSoapOut">
     <wsdl:part name="parameters" element="tns:getTicketsPorFuncionalidadResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetDomicilioPendientePorAlertaSoapIn">
-    <wsdl:part name="parameters" element="tns:GetDomicilioPendientePorAlerta" />
-  </wsdl:message>
-  <wsdl:message name="GetDomicilioPendientePorAlertaSoapOut">
-    <wsdl:part name="parameters" element="tns:GetDomicilioPendientePorAlertaResponse" />
   </wsdl:message>
   <wsdl:message name="ResetearPasswordSoapIn">
     <wsdl:part name="parameters" element="tns:ResetearPassword" />
@@ -9530,6 +9563,10 @@
     <wsdl:part name="parameters" element="tns:HayDocumentosEnAlertaResponse" />
   </wsdl:message>
   <wsdl:portType name="WSViaticosSoap">
+    <wsdl:operation name="GetDomicilioPendientePorAlerta">
+      <wsdl:input message="tns:GetDomicilioPendientePorAlertaSoapIn" />
+      <wsdl:output message="tns:GetDomicilioPendientePorAlertaSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetNotificacionesTodasDePortal">
       <wsdl:input message="tns:GetNotificacionesTodasDePortalSoapIn" />
       <wsdl:output message="tns:GetNotificacionesTodasDePortalSoapOut" />
@@ -9822,6 +9859,10 @@
       <wsdl:input message="tns:BuscarLocalidadesSoapIn" />
       <wsdl:output message="tns:BuscarLocalidadesSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="BuscarPartidos">
+      <wsdl:input message="tns:BuscarPartidosSoapIn" />
+      <wsdl:output message="tns:BuscarPartidosSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetFormulario">
       <wsdl:input message="tns:GetFormularioSoapIn" />
       <wsdl:output message="tns:GetFormularioSoapOut" />
@@ -10005,10 +10046,6 @@
     <wsdl:operation name="getTicketsPorFuncionalidad">
       <wsdl:input message="tns:getTicketsPorFuncionalidadSoapIn" />
       <wsdl:output message="tns:getTicketsPorFuncionalidadSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetDomicilioPendientePorAlerta">
-      <wsdl:input message="tns:GetDomicilioPendientePorAlertaSoapIn" />
-      <wsdl:output message="tns:GetDomicilioPendientePorAlertaSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="ResetearPassword">
       <wsdl:input message="tns:ResetearPasswordSoapIn" />
@@ -10961,6 +10998,15 @@
   </wsdl:portType>
   <wsdl:binding name="WSViaticosSoap" type="tns:WSViaticosSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetDomicilioPendientePorAlerta">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetDomicilioPendientePorAlerta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetNotificacionesTodasDePortal">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetNotificacionesTodasDePortal" style="document" />
       <wsdl:input>
@@ -11618,6 +11664,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="BuscarPartidos">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarPartidos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetFormulario">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetFormulario" style="document" />
       <wsdl:input>
@@ -12025,15 +12080,6 @@
     </wsdl:operation>
     <wsdl:operation name="getTicketsPorFuncionalidad">
       <soap:operation soapAction="http://wsviaticos.gov.ar/getTicketsPorFuncionalidad" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetDomicilioPendientePorAlerta">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetDomicilioPendientePorAlerta" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -14177,6 +14223,15 @@
   </wsdl:binding>
   <wsdl:binding name="WSViaticosSoap12" type="tns:WSViaticosSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetDomicilioPendientePorAlerta">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetDomicilioPendientePorAlerta" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetNotificacionesTodasDePortal">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetNotificacionesTodasDePortal" style="document" />
       <wsdl:input>
@@ -14834,6 +14889,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="BuscarPartidos">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarPartidos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetFormulario">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetFormulario" style="document" />
       <wsdl:input>
@@ -15241,15 +15305,6 @@
     </wsdl:operation>
     <wsdl:operation name="getTicketsPorFuncionalidad">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/getTicketsPorFuncionalidad" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetDomicilioPendientePorAlerta">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetDomicilioPendientePorAlerta" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

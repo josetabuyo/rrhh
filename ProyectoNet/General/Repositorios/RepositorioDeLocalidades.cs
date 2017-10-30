@@ -38,7 +38,7 @@ namespace General.Repositorios
             {
                 tablaDatos.Rows.ForEach(row =>
                 {
-                    localidades.Add(new Localidad(row.GetSmallintAsInt("Id"), row.GetString("Descripcion"), row.GetSmallintAsInt("IdProvincia")));
+                    localidades.Add(new Localidad(row.GetSmallintAsInt("Id"), row.GetString("Descripcion"), row.GetSmallintAsInt("IdProvincia"), row.GetSmallintAsInt("IdPartido")));
                 });
             }
 
@@ -57,19 +57,39 @@ namespace General.Repositorios
 
         public List<Localidad> Find(string criterio)
         {
-            var localidades = base.Find(criterio);
+            var localidades = this.ObtenerDesdeLaBase();
 
-            //atada con alambre para cuando la localidad es CABA
+            
             var criterio_deserializado = (JObject) JsonConvert.DeserializeObject(criterio);
-            if (criterio_deserializado["IdProvincia"] == null) return localidades;
 
-            int id_provincia = (int)((JValue)criterio_deserializado["IdProvincia"]);            
-            if (id_provincia == 0)
+            if (criterio_deserializado["IdProvincia"] != null)
             {
-                Localidad caba = new Localidad();
-                caba = localidades.Find(localidad => localidad.IdProvincia == 0);
+
+                int id_provincia = (int)((JValue)criterio_deserializado["IdProvincia"]);
+                //atada con alambre para cuando la localidad es CABA
+                if (id_provincia == 0)
+                {
+                    Localidad caba = new Localidad();
+                    caba = localidades.Find(localidad => localidad.IdProvincia == 0);
+                    localidades.Clear();
+                    localidades.Add(caba);
+                }
+            }
+            else if (criterio_deserializado["IdPartido"] != null)
+            {
+                int id_partido = (int)((JValue)criterio_deserializado["IdPartido"]);
+
+                List<Localidad> locs = localidades.FindAll(localidad => localidad.IdPartido == id_partido);
                 localidades.Clear();
-                localidades.Add(caba);
+                //si es partido CABA, como me trae muchas localidades de CABA, fuerzo que sea una
+                if (id_partido == 1)
+                {
+                    localidades.Add(locs.Find(l => l.IdProvincia == 0));
+                } else {
+                    localidades = locs;
+                }
+                
+
             }
             return localidades;
         }

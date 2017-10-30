@@ -31,6 +31,7 @@ namespace General
         public string Uf { get; set; }
         public int Partido { get; set; }
         public string NombreLocalidad { get; set; }
+        public string NombrePartido { get; set; }
         public string NombreProvincia { get; set; }
         
         public DocumentoGDE DocumentoGDE { get; set; }
@@ -52,7 +53,7 @@ namespace General
 
         }
 
-        public CvDomicilio(int id, string calle, int numero, string piso, string depto, Localidad localidad, int cp, Provincia provincia, string manzana, string casa, string barrio, string torre, string uf, DocumentoGDE documentoGDE)
+        public CvDomicilio(int id, string calle, int numero, string piso, string depto, Localidad localidad, int cp, Provincia provincia, string partido, string manzana, string casa, string barrio, string torre, string uf, DocumentoGDE documentoGDE)
         {
             this._calle = calle;
             this._numero = numero;
@@ -62,6 +63,7 @@ namespace General
             this.Localidad = localidad.Id;
             this._cp = cp;
             this.NombreProvincia = provincia.Nombre;
+            this.NombrePartido = partido;
             this.Provincia = provincia.Id;
             this.Id = id;
 

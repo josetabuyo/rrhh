@@ -123,13 +123,20 @@ var Legajo = {
                             ui.show();
 
                             _this.getProvincias(ui);
+                            _this.getPartidos(ui, 0);
                             //primero CABA x default
-                            _this.getLocalidades(ui, 0);
+                            _this.getLocalidades(ui, 1);
 
                             ui.find('#cmb_provincia').change(function () {
-                                ui.find("#cmb_localidad").empty();
+                                ui.find("#cmb_partido").empty();
                                 var idProvincia = parseInt(ui.find("#cmb_provincia option:selected").val());
-                                _this.getLocalidades(ui, idProvincia);
+                                _this.getPartidos(ui, idProvincia);
+                            });
+
+                            ui.find('#cmb_partido').change(function () {
+                                ui.find("#cmb_localidad").empty();
+                                var idPartido = parseInt(ui.find("#cmb_partido option:selected").val());
+                                _this.getLocalidades(ui, idPartido);
                             });
 
                             ui.find('#btnCambiarDomicilio').click(function () {
@@ -147,6 +154,7 @@ var Legajo = {
                                 domicilio.Cp = ui.find('#txt_cp').val();
                                 domicilio.Localidad = ui.find('#cmb_localidad').val();
                                 domicilio.Provincia = ui.find('#cmb_provincia').val();
+                                domicilio.NombrePartido = ui.find('#cmb_partido option:selected').text();
                                 domicilio.Manzana = ui.find('#txt_manzana').val();
                                 domicilio.Casa = ui.find('#txt_casa').val();
                                 domicilio.Barrio = ui.find('#txt_barrio').val();
@@ -212,54 +220,9 @@ var Legajo = {
                                     });
                         },
                         function () {
-                            alertify.error('Cancelado') 
+                            alertify.error('Cancelado')
                         });
 
-
-//                    vex.defaultOptions.className = 'vex-theme-os';
-//                    vex.open({
-//                        afterOpen: function ($vexContent) {
-//                            var ui = $("#cajaActualizarGDE").clone();
-//                            $vexContent.append(ui);
-//                            ui.show();
-
-//                            ui.find('#btnCambiarDomicilio').click(function () {
-
-//                                if (ui.find('#numeroGDE').val() == '') {
-//                                    alert('Debe completar el numero de GDE');
-//                                    return;
-//                                }
-
-
-//                                var numeroGDE = ui.find('#numeroGDE').val();
-//                                var idDocumentoGDE = ui.find('#idDocumentoGDE').val();
-
-//                                Backend.ActualizarNumeroGDEDomicilioPendiente(numeroGDE, idDocumentoGDE)
-//                                    .onSuccess(function (respuesta) {
-
-//                                        alertify.success("Numero Informe GDE Actualizado.");
-//                                        //vex.dialog.alert('Solicitud de cambio de domicilio generada. Presente el formulario impreso a RRHH');
-//                                        _this.getDatosPersonales();
-//                                        vex.close();
-
-
-//                                    })
-//                                    .onError(function (e) {
-
-//                                    });
-//                            });
-
-//                            return ui;
-//                        },
-//                        css: {
-//                            'padding-top': "4%",
-//                            'padding-bottom': "0%"
-//                        },
-//                        contentCSS: {
-//                            width: "50%",
-//                            height: "330px"
-//                        }
-//                    });
 
 
                 });
@@ -297,19 +260,35 @@ var Legajo = {
                     $.each(provincias, function () {
                         options.append($("<option />").val(this.Id).text(this.Nombre));
                     });
+                    
                 })
             .onError(function (e) {
 
             });
     },
-    getLocalidades: function (ui, idProvincia) {
-        Backend.BuscarLocalidades({ IdProvincia: idProvincia })
+    getLocalidades: function (ui, idPartido) {
+        Backend.BuscarLocalidades({ IdPartido: idPartido })
             .onSuccess(function (localidades) {
 
                 var options = ui.find("#cmb_localidad");
                 $.each(localidades, function () {
                     options.append($("<option />").val(this.Id).text(this.Nombre));
                 });
+            })
+        .onError(function (e) {
+
+        });
+    },
+    getPartidos: function (ui, idProvincia) {
+        Backend.BuscarPartidos(idProvincia)
+            .onSuccess(function (partidos) {
+
+                var options = ui.find("#cmb_partido");
+                $.each(partidos, function () {
+                    options.append($("<option />").val(this.Id).text(this.Nombre));
+                });
+                ui.find("#cmb_localidad").empty();
+                ui.find("#cmb_partido").change();
             })
         .onError(function (e) {
 

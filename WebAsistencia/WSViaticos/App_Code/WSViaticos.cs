@@ -4014,6 +4014,12 @@ public class WSViaticos : System.Web.Services.WebService
         return RepositorioDeLocalidades.Nuevo(Conexion()).Find(criterio).ToArray();
     }
 
+    [WebMethod]
+    public Partido[] BuscarPartidos(int idProvincia)
+    {
+        return RepositorioDePartidos.Nuevo(Conexion()).GetPartidosDeLaProvincia(idProvincia).ToArray();
+    }
+
     #endregion
 
     #region Formularios

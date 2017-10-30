@@ -23,7 +23,7 @@
 
     <p class="componenteCambioDomicilio">Dirección:  <strong id="calle"></strong>. N° <strong id="numero"></strong>. Piso: <strong id="piso"></strong> Depto:<strong id="depto"></strong></p>
     <!--<p class="componenteCambioDomicilio">Piso: <strong id="piso"></strong> Depto:<strong id="depto"></strong></p>-->
-     <p class="componenteCambioDomicilio">Localidad: <strong id="localidad"></strong> - Provincia: <strong id="provincia"></strong></p>
+     <p class="componenteCambioDomicilio">Localidad: <strong id="localidad"></strong> - Partido: <strong id="partido"></strong></p> - Provincia: <strong id="provincia"></strong></p>
      <!--<p class="componenteCambioDomicilio">Provincia: <strong id="provincia"></strong></p>-->
      <p class="componenteCambioDomicilio">Manzana: <strong id="manzana"></strong>. Casa: <strong id="casa"></strong>. Barrio: <strong id="barrio"></strong>. Torre: <strong id="torre"></strong>. UF: <strong id="uf"></strong> </p>
      <p style="display:none;" class="componenteCambioDomicilio">Folio: <input style="height: 30px; width: 120px; " type="text" placeholder="N° Folio" value="0" id="folio" /></p>
@@ -146,6 +146,7 @@
                     ui.find('#depto').html(domicilio.Depto);
                     ui.find('#localidad').html(domicilio.NombreLocalidad);
                     ui.find('#provincia').html(domicilio.NombreProvincia);
+                    ui.find('#partido').html(domicilio.NombrePartido);
 
                     ui.find('#manzana').html(domicilio.Manzana);
                     ui.find('#casa').html(domicilio.Casa);
