@@ -32,20 +32,25 @@
         #pantalla_impresion_credencial #foto_usuario
         {
             position: absolute;
-            top: 14.6%;
-            left: 6%;
-            height: 32%;
-            width: 49.4%;
+            top: 14.5%;
+            left: 5.5%;
+            height: 33%;
+            width: 51.4%;
+            border: 1px solid black;
+            border-radius: 14px;
         }    
         
         #pantalla_impresion_credencial #codigo_barras
         {
             position: absolute;
-            right: -4%;
-            top: 25%;
-            -ms-transform: rotate(90deg); /* IE 9 */
-            -webkit-transform: rotate(90deg); /* Safari */
-            transform: rotate(90deg); /* Standard syntax */
+            right: -8%;
+            top: 28%;
+            -ms-transform: rotate(90deg);
+            -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
+            background-color: White !important;
+            height: 30px !important;
+            overflow: hidden !important;
         }   
         
         #pantalla_impresion_credencial #foto_usuario #img_thumbnail
@@ -59,7 +64,7 @@
             top: 50%;
             left: 7.4%;
             font-size: 20px;
-            color: white !important;
+            color: white ;
         }    
         
         #pantalla_impresion_credencial #nombres
@@ -68,7 +73,7 @@
             top: 57%;
             left: 7.4%;
             font-size: 20px;
-            color: white !important;
+            color: white;
         }    
         
         #pantalla_impresion_credencial #documento
@@ -77,7 +82,7 @@
             top: 64%;
             left: 26%;
             font-size: 20px;
-            color: white !important;
+            color: white ;
         }    
             
         #pantalla_impresion_credencial #titulo_documento
@@ -86,7 +91,7 @@
             top: 64%;
             left: 7.4%;
             font-size: 20px;
-            color: white !important;
+            color: white ;
         } 
             
         #pantalla_impresion_credencial #btn_imprimir_credencial
@@ -102,13 +107,13 @@
         #pantalla_impresion_credencial  #chk_credencial_impresa
         {
             /* Double-sized Checkboxes */
-              -ms-transform: scale(2); /* IE */
-              -moz-transform: scale(2); /* FF */
-              -webkit-transform: scale(2); /* Safari and Chrome */
-              -o-transform: scale(2); /* Opera */
-                padding: 10px;
-                margin-left: 27px;
-                margin-right: 10px;
+            -ms-transform: scale(2); /* IE */
+            -moz-transform: scale(2); /* FF */
+            -webkit-transform: scale(2); /* Safari and Chrome */
+            -o-transform: scale(2); /* Opera */
+            padding: 10px;
+            margin-left: 27px;
+            margin-right: 10px;
         }
         
         #pantalla_impresion_credencial  .checkboxtext
@@ -145,14 +150,15 @@
         }
         
         @media print {
-            body *      
+            form      
             {
-                visibility:hidden;       
+                display:none;    
             }
             #pantalla_impresion_credencial #vista_previa_credencial, 
             #pantalla_impresion_credencial #vista_previa_credencial * {
                 visibility: visible;
             }
+            
             #pantalla_impresion_credencial 
             {
                 position: absolute;
@@ -166,16 +172,24 @@
             {
                 position: fixed;
                 left: -2px;
-                top: 0px;
-                width: 101.5%;
-                color: White !important;
-            }
-          
-            #pantalla_impresion_credencial #nombres,
+                top: -1px;
+                width: 102%;                
+            }         
             
+            #pantalla_impresion_credencial #apellido,
+            #pantalla_impresion_credencial #nombres,
+            #pantalla_impresion_credencial #documento,
+            #pantalla_impresion_credencial #titulo_documento
             {
-                color: White !important;
-            }    
+                color: #fefefe !important;
+                font-size: 18px !important;
+            }
+            
+            #pantalla_impresion_credencial #codigo_barras
+            {                
+                right: -10% !important;
+                top: 27% !important;
+            }          
         }
     </style>
 </head>
@@ -228,8 +242,9 @@
 
                     ui.find("#codigo_barras").barcode(usuario.Owner.Documento.toString(), "code128", {
                         showHRI: false,
-                        height: 10,
-                        width: 180
+                        barHeight: 30,
+                        barWidth: 1,
+                        output: 'bmp'
                     });
 
                     var btn_imprimir = ui.find("#btn_imprimir_credencial");
