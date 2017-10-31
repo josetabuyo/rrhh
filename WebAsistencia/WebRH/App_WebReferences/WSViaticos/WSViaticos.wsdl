@@ -837,6 +837,7 @@
             <s:element minOccurs="1" maxOccurs="1" name="idEval" type="s:int" />
             <s:element minOccurs="0" maxOccurs="1" name="pregYRtas" type="s:string" />
             <s:element minOccurs="1" maxOccurs="1" name="estado" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="id_doc_electronico" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
@@ -972,6 +973,7 @@
           <s:element minOccurs="1" maxOccurs="1" name="id_evaluacion" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="estado_evaluacion" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="codigo_gde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="id_doc_electronico" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="puntaje" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="calificacion" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="detalle_preguntas" type="tns:ArrayOfDetallePreguntas" />

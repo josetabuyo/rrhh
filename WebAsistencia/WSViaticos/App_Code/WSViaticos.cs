@@ -4755,7 +4755,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string InsertarEvaluacion(int idEvaluado, int idFormulario, int periodo, int idEval, string pregYRtas, int estado, Usuario usuario)
+    public string InsertarEvaluacion(int idEvaluado, int idFormulario, int periodo, int idEval, string pregYRtas, int estado, string id_doc_electronico, Usuario usuario)
     {
         try
         {
@@ -4771,16 +4771,28 @@ public class WSViaticos : System.Web.Services.WebService
 
             var id_evaluador = repositorio.GetIdEvaluadorDelUsuario(usuario);
 
+
             //FC:si viene un idEvaluacion entonces llamo a update, si viene 0 llamo a insert
             if (idEval != 0)
-            {
+            {  
+                if (estado == 1 && id_doc_electronico == string.Empty)
+                {
+                    GeneradorDeEtiquetas repoTicket = new GeneradorDeEtiquetas(Conexion());
+                    id_doc_electronico = repoTicket.GenerarTicket("EVAL_DES");
+                }
                 repositorio.deleteEvaluacionDetalle(idEval);
-                repositorio.updateEvaluacion(idEval, idEvaluado, id_evaluador, idFormulario, periodo, estado);
+                repositorio.updateEvaluacion(idEval, idEvaluado, id_evaluador, idFormulario, periodo, estado, id_doc_electronico);
             }
             else
             {
+                if (estado == 1)
+                {
+                    GeneradorDeEtiquetas repoTicket = new GeneradorDeEtiquetas(Conexion());
+                    id_doc_electronico = repoTicket.GenerarTicket("EVAL_DES");
+                }
+
                 //FC:Inserto la cabecera de la evaluacion
-                idEval = repositorio.insertarEvaluacion(idEvaluado, id_evaluador, idFormulario, periodo, estado);
+                idEval = repositorio.insertarEvaluacion(idEvaluado, id_evaluador, idFormulario, periodo, estado, id_doc_electronico);
             }
 
             //var item1 = preguntasYRespuestas;
