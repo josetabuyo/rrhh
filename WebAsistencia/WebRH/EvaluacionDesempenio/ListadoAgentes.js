@@ -76,7 +76,7 @@ var ListadoAgentes = {
     GetterDocEvaluado: function (asignacion_evaluado_a_evaluador) { return asignacion_evaluado_a_evaluador.agente_evaluado.nro_documento; },
     GetterApellidoEvaluado: function (asignacion_evaluado_a_evaluador) { return asignacion_evaluado_a_evaluador.agente_evaluado.apellido },
     GetterNombreEvaluado: function (asignacion_evaluado_a_evaluador) { return asignacion_evaluado_a_evaluador.agente_evaluado.nombre },
-    GetterArea: function (asignacion_evaluado_a_evaluador) { return asignacion_evaluado_a_evaluador.agente_evaluado.area.nombre_area /*return asignacion_evaluado_a_evaluador.codigo_unidad_eval */},
+    GetterArea: function (asignacion_evaluado_a_evaluador) { return asignacion_evaluado_a_evaluador.agente_evaluado.area.nombre_area /*return asignacion_evaluado_a_evaluador.codigo_unidad_eval */ },
     GetterEvaluacion: function (asignacion_evaluado_a_evaluador) {
         var coleccion_respuestas = this.getRespuestasDelForm(asignacion_evaluado_a_evaluador.evaluacion);
         return this.calificacion(coleccion_respuestas, asignacion_evaluado_a_evaluador.nivel.deficiente, asignacion_evaluado_a_evaluador.nivel.regular, asignacion_evaluado_a_evaluador.nivel.bueno, asignacion_evaluado_a_evaluador.nivel.destacado, false);
@@ -254,6 +254,7 @@ var ListadoAgentes = {
         localStorage.setItem("regular", asignacion_evaluado_a_evaluador.nivel.regular);
         localStorage.setItem("bueno", asignacion_evaluado_a_evaluador.nivel.bueno);
         localStorage.setItem("destacado", asignacion_evaluado_a_evaluador.nivel.destacado);
+        localStorage.setItem("id_doc_electronico", asignacion_evaluado_a_evaluador.evaluacion.id_doc_electronico);
     },
     getLinkCargarGDE: function (id_evaluacion) {
         var _this = this;
@@ -297,14 +298,14 @@ var ListadoAgentes = {
             .onSuccess(function (rpta) {
 
                 //window.open("data:application/pdf;base64," + rpta, '_blank');
-               
-                var string = 'data:application/pdf;base64,' + rpta; 
-                 var iframe = "<iframe width='100%' height='100%' src='" + string + "'></iframe>"
+
+                var string = 'data:application/pdf;base64,' + rpta;
+                var iframe = "<iframe width='100%' height='100%' src='" + string + "'></iframe>"
                 var x = window.open();
                 x.document.open();
                 x.document.write(iframe);
                 x.document.close();
-                
+
 
             });
 
@@ -560,6 +561,8 @@ var ListadoAgentes = {
                 var periodo = localStorage.getItem("idPeriodo");
                 var idEvaluado = localStorage.getItem("idEvaluado");
                 var evaluacion = localStorage.getItem("idEvaluacion");
+                var id_doc_electronico = localStorage.getItem("id_doc_electronico");
+                if (id_doc_electronico == null) { id_doc_electronico = "" };
                 var estado = $(this).data("estado");
 
                 // var plantillas = $('.plantilla');
@@ -577,7 +580,7 @@ var ListadoAgentes = {
 
                 var jsonPregYRtas = JSON.stringify(pregYRtas);
 
-                Backend.InsertarEvaluacion(idEvaluado, idNivel, periodo, evaluacion, jsonPregYRtas, estado)
+                Backend.InsertarEvaluacion(idEvaluado, idNivel, periodo, evaluacion, jsonPregYRtas, estado, id_doc_electronico)
                     .onSuccess(function (rto) {
                         spinner.stop();
                         alert('Se ha guardado con exito!');

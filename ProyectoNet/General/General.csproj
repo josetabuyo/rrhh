@@ -134,7 +134,10 @@
     <Compile Include="pdfs\EvaluacionDeDesempenioToPdfConverter.cs" />
     <Compile Include="pdfs\ModeloToPdfConverter.cs" />
     <Compile Include="Portal\Consulta.cs" />
+    <Compile Include="Portal\Credencial.cs" />
     <Compile Include="Portal\Destinatario.cs" />
+    <Compile Include="Portal\LugarEntrega.cs" />
+    <Compile Include="Portal\MotivoBaja.cs" />
     <Compile Include="Portal\Notificacion.cs" />
     <Compile Include="Portal\Estudio.cs" />
     <Compile Include="Portal\Legajo.cs" />
@@ -142,6 +145,7 @@
     <Compile Include="Postular\ReporteDePostulaciones.cs" />
     <Compile Include="Repositorios\AccionesMobi.cs" />
     <Compile Include="Repositorios\RepositorioDePartidos.cs" />
+    <Compile Include="Repositorios\CredencialParaImpresion.cs" />
     <Compile Include="Repositorios\RepositorioGDE.cs" />
     <Compile Include="Repositorios\EstadoMoBi.cs" />
     <Compile Include="Repositorios\EstadoContrato.cs" />
@@ -285,6 +289,7 @@
     <Compile Include="Repositorios\RepositorioLazySingleton.cs" />
     <Compile Include="Postular\Sexo.cs" />
     <Compile Include="Postular\TipoDeDocumento.cs" />
+    <Compile Include="Repositorios\SolicitudCredencial.cs" />
     <Compile Include="Repositorios\SueldoPersona.cs" />
     <Compile Include="Viaticos\Partido.cs" />
     <Compile Include="Viaticos\PersonaNula.cs" />

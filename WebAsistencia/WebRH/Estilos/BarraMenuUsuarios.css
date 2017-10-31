@@ -151,6 +151,26 @@
     text-align: left;
 }
 
+#btn_credenciales
+{
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    right: -9px;
+    top: 13px;
+    cursor: pointer;
+    border: 2px solid black;
+    border-radius: 50%;
+    background-color: #cdcdcd;
+}
+
+#btn_credenciales img
+{
+    height: 100%;
+    width: 100%;
+    margin-top: -2px;
+}
+
 #nombre_user
 {
     top: 11px;
