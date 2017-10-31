@@ -54,6 +54,16 @@
             left: 6%;
             height: 32%;
             width: 49.4%;
+        }            
+         
+        #pantalla_atender_solicitud_credencial #codigo_barras
+        {
+            position: absolute;
+            right: -4%;
+            top: 25%;
+            -ms-transform: rotate(90deg); /* IE 9 */
+            -webkit-transform: rotate(90deg); /* Safari */
+            transform: rotate(90deg); /* Standard syntax */
         }    
         
         #pantalla_atender_solicitud_credencial #foto_usuario #img_thumbnail
@@ -123,7 +133,7 @@
     <div class='campo'><label>DNI:</label> <div id="dni_solicitante"></div></div>
     <div class='campo'><label>Organismo:</label> <div id="organismo_solicitud"></div></div>
     <div class='campo'><label>Motivo de la solicitud:</label> <div id="motivo_solicitud"></div></div>
-
+    
     <div id=panel_derecho>
         <h4 id="titulo_vista_previa">Vista Previa Credencial</h4>
         <div id="vista_previa_credencial">        
@@ -132,7 +142,8 @@
             <div id="apellido"></div>    
             <div id="nombres"></div>    
             <div id="titulo_documento">DNI:</div>    
-            <div id="documento"></div>    
+            <div id="documento"></div>  
+            <div id="codigo_barras"> </div>
         </div>
     </div>
 
@@ -141,6 +152,7 @@
         <input id="btn_rechazar_solicitud" type="button" class="btn btn-primary" value="Rechazar"/>
     </div>
 </div>
+<script type="text/javascript" src="../Scripts/jquery-barcode.js"/>
 <script type="text/javascript">
     var Componente = {
         start: function (ticket, ui) {
@@ -157,6 +169,12 @@
                     var img = new VistaThumbnail({
                         id: usuario.Owner.IdImagen,
                         contenedor: ui.find("#foto_usuario")
+                    });
+
+                    ui.find("#codigo_barras").barcode(usuario.Owner.Documento.toString(), "code128", {
+                        showHRI: false,
+                        height: 10,
+                        width: 180
                     });
                 });
 

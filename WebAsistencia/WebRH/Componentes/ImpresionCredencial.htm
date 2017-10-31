@@ -38,6 +38,16 @@
             width: 49.4%;
         }    
         
+        #pantalla_impresion_credencial #codigo_barras
+        {
+            position: absolute;
+            right: -4%;
+            top: 25%;
+            -ms-transform: rotate(90deg); /* IE 9 */
+            -webkit-transform: rotate(90deg); /* Safari */
+            transform: rotate(90deg); /* Standard syntax */
+        }   
+        
         #pantalla_impresion_credencial #foto_usuario #img_thumbnail
         {
             border-radius: 14px;
@@ -170,14 +180,15 @@
     </style>
 </head>
 <div id="pantalla_impresion_credencial">
-    <h4 id="titulo_vista_previa">Vista Previa Credencial</h4>
+    <h4 id="titulo_vista_previa">Credencial</h4>
     <div id="vista_previa_credencial">        
         <img id="imagen_credencial" src="../BarraMenu/credencial.png"/>        
         <div id="foto_usuario"></div>
         <div id="apellido"></div>    
         <div id="nombres"></div>    
         <div id="titulo_documento">DNI:</div>    
-        <div id="documento"></div>    
+        <div id="documento"></div>
+        <div id="codigo_barras"> </div>    
     </div>
     <div id=panel_derecho>
         <input id="btn_imprimir_credencial" type="button" class="btn btn-info" value="Imprimir"/>        
@@ -198,6 +209,7 @@
     </div>
 </div>
 
+<script type="text/javascript" src="../Scripts/jquery-barcode.js"/>
 <script type="text/javascript">
     var Componente = {
         start: function (ticket, ui) {
@@ -212,6 +224,12 @@
                     var img = new VistaThumbnail({
                         id: solicitud.Credencial.IdFoto,
                         contenedor: ui.find("#foto_usuario")
+                    });
+
+                    ui.find("#codigo_barras").barcode(usuario.Owner.Documento.toString(), "code128", {
+                        showHRI: false,
+                        height: 10,
+                        width: 180
                     });
 
                     var btn_imprimir = ui.find("#btn_imprimir_credencial");
