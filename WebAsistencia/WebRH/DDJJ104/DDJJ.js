@@ -435,7 +435,7 @@ var DibujarGrillaPersonas = function (un_area, estado, contenedor_grilla, es_imp
                 var hasta = $("<input type='time' />");
                 hasta.val(una_persona.CertificaHoraHastaDDJJ);
                 hasta.change(function () {
-                    una_persona.CertificaHoraHastaDDJJ = hasta.val(); ;
+                    una_persona.CertificaHoraHastaDDJJ = hasta.val();
                 });
                 return hasta;
             }
@@ -491,9 +491,9 @@ var DibujarGrillaPersonas = function (un_area, estado, contenedor_grilla, es_imp
         grilla.CargarObjetos(un_area.Personas);
 
         for (i = 0; i < un_area.Personas.length; i++) {
-            if (un_area.Personas[i].EstaCertificadoEnLaDDJJ) {
+        //    if (un_area.Personas[i].EstaCertificadoEnLaDDJJ) {
                 lista_personas.push(un_area.Personas[i]);
-            }
+        //    }
         }
     }
 
@@ -565,7 +565,7 @@ var DibujarGrillaPersonas = function (un_area, estado, contenedor_grilla, es_imp
                 var hasta = $("<input type='time' />");
                 hasta.val(una_persona.CertificaHoraHastaDDJJ);
                 hasta.change(function () {
-                    una_persona.CertificaHoraHastaDDJJ = hasta.val(); ;
+                    una_persona.CertificaHoraHastaDDJJ = hasta.val();
                 });
                 return hasta;
             }
@@ -626,9 +626,9 @@ var DibujarGrillaPersonas = function (un_area, estado, contenedor_grilla, es_imp
             grilla_area_informal.CargarObjetos(area_informal.Personas);
 
             for (i = 0; i < area_informal.Personas.length; i++) {
-                if (area_informal.Personas[i].EstaCertificadoEnLaDDJJ) {
+            //    if (area_informal.Personas[i].EstaCertificadoEnLaDDJJ) {
                     lista_personas.push(area_informal.Personas[i]);
-                }
+            //    }
             }
 
         }
