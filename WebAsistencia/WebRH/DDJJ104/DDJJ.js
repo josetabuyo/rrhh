@@ -174,6 +174,9 @@ var GetDescripcionEstado = function (estado) {
         case 2:
             return 'Recepcionada'
             break;
+        case 3:
+            return 'DDJJ Provisoria'
+            break;
     }
 };
 
@@ -302,22 +305,23 @@ var ConsultarDDJJ = function (idArea, estado) {
 //    });
 //};
 
-var Generar_e_ImprimirDDJJ = function (idArea, imprimir) {
+var Generar_Definitivo_o_Provisorio = function (idArea, estado_guardado) {
 
     spinner = new Spinner({ scale: 2 }).spin($("body")[0]);
 
     //Backend.GetAreasParaDDJJ104(mesSeleccionado, anioSeleccionado, idArea)
     //.onSuccess(function (respuesta) {
 
-    Backend.GenerarDDJJ104(idArea, mesSeleccionado, anioSeleccionado, lista_personas)
+
+    Backend.GenerarDDJJ104(idArea, mesSeleccionado, anioSeleccionado, lista_personas, estado_guardado)
         .onSuccess(function (ddjj) {
             if (ddjj) {
                 //un_area.DDJJ.push(ddjj);
                 //respuesta[0].DDJJ = ddjj;
 
-                if (imprimir) {
-                    ImprimirDDJJ(idArea, 99);
-                }
+//                if (imprimir) {
+//                    ImprimirDDJJ(idArea, 99);
+//                }
 
                 ContenedorGrilla.html("");
                 $("#ContenedorPersona").empty();
@@ -635,18 +639,18 @@ var DibujarGrillaPersonas = function (un_area, estado, contenedor_grilla, es_imp
     });
 
 
-    if (estado == 0) {
+    if (estado == 0 || estado == 3) {
         boton = $("<input type='button'>");
-        boton.val("Guardar DDJJ");
+        boton.val("Guardar DDJJ Provisoria");
         boton.click(function () {
-            Generar_e_ImprimirDDJJ(un_area.Id, false);
+            Generar_Definitivo_o_Provisorio(un_area.Id, 3); //PROVISORIO
         });
         contenedor_grilla.append(boton);
 
         boton2 = $("<input type='button'>");
-        boton2.val("Guardar e Imprimir DDJJ");
+        boton2.val("Guardar DDJJ Definitiva");
         boton2.click(function () {
-            Generar_e_ImprimirDDJJ(un_area.Id, true);
+            Generar_Definitivo_o_Provisorio(un_area.Id, 1); //DEFINITIVO
         });
         contenedor_grilla.append(boton2);
     }
