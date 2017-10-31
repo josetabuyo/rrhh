@@ -959,7 +959,7 @@ namespace General.Repositorios
                     parametros.Add("@UF", domicilio.Uf);
                     parametros.Add("@Localidad", domicilio.Localidad);
                     parametros.Add("@Codigo_Postal", domicilio.Cp);
-                    parametros.Add("@Partido_Dpto", domicilio.Partido);
+                    parametros.Add("@Partido_Dpto", domicilio.NombrePartido);
                     parametros.Add("@Provincia", domicilio.Provincia);
                     parametros.Add("@Folio", folio);
                     parametros.Add("@Id_Interna", "");
@@ -1128,7 +1128,7 @@ namespace General.Repositorios
             {
                 tablaDatos.Rows.ForEach(row =>
 
-                    dom = new CvDomicilio(row.GetInt("id"), row.GetString("calle", ""), row.GetSmallintAsInt("nro", 0), row.GetString("piso", ""), row.GetString("dpto", ""), new Localidad(row.GetInt("idLocalidad"), row.GetString("nombreLocalidad")), row.GetInt("cp", 0), new Provincia(row.GetSmallintAsInt("idProvincia", 0), row.GetString("nombreProvincia", "")), row.GetString("partido_dpto"), row.GetString("manzana", ""), row.GetString("casa", ""), row.GetString("barrio", ""), row.GetString("torre", ""), row.GetString("uf", ""), new DocumentoGDE(row.GetInt("idDocumentoGDE"), row.GetString("codigo"), row.GetBoolean("verificado")))
+                    dom = new CvDomicilio(row.GetInt("id"), row.GetString("calle", ""), row.GetSmallintAsInt("nro", 0), row.GetString("piso", ""), row.GetString("dpto", ""), new Localidad(row.GetInt("idLocalidad"), row.GetString("nombreLocalidad")), row.GetInt("cp", 0), new Provincia(row.GetSmallintAsInt("idProvincia", 0), row.GetString("nombreProvincia", "")), row.GetString("partido_dpto",""), row.GetString("manzana", ""), row.GetString("casa", ""), row.GetString("barrio", ""), row.GetString("torre", ""), row.GetString("uf", ""), new DocumentoGDE(row.GetInt("idDocumentoGDE"), row.GetString("codigo"), row.GetBoolean("verificado")))
                     //dom = new CvDomicilio(row.GetInt("id"), row.GetString("calle", ""), row.GetSmallintAsInt("nro", 0), row.GetString("piso", ""), row.GetString("dpto", ""), row.GetInt("localidad", 0), row.GetInt("cp", 0), row.GetInt("provincia", 0))
                 );
             }
