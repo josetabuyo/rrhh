@@ -101,7 +101,8 @@ public class EvaluacionDeDesempenioToPdfConverter : ModeloToPdfConverter
 
         mapa["Total_" + asignacion.nivel.CalificacionPara(total).ToLower()] = total.ToString();
 
-        mapa.Add("Nombre_usu", usr.Owner.Apellido + ", " + usr.Owner.Nombre + " (" + usr.Owner.Documento.ToString() + ")");
+        //mapa.Add("Nombre_usu", usr.Owner.Apellido + ", " + usr.Owner.Nombre + " (" + usr.Owner.Documento.ToString() + ")");
+        mapa.Add("Nombre_usu", asignacion.agente_evaluador.apellido + ", " + asignacion.agente_evaluador.nombre + " (" + asignacion.agente_evaluador.nro_documento.ToString() + ")");
         mapa.Add("Fecha_hora", DateTime.Now.ToString("dd/MM/yyyy hh:mm"));
         mapa.Add("Identif_Formulario", "---");
 
