@@ -239,7 +239,8 @@ namespace General.Repositorios
                                             row.GetSmallintAsInt("estado_evaluacion", 0),
                                             nivel,
                                             detalle_preguntas,
-                                            row.GetString("codigo_gde", ""));
+                                            row.GetString("codigo_gde", ""),
+                                            row.GetString("codigo_doc_electronico",""));
             }
 
             var unidad_evaluacion = UnidadDeEvaluacion.Nulio();
@@ -258,7 +259,7 @@ namespace General.Repositorios
 
         }
 
-        public int insertarEvaluacion(int idEvaluado, int idEvaluador, int idFormulario, int periodo, int estado)
+        public int insertarEvaluacion(int idEvaluado, int idEvaluador, int idFormulario, int periodo, int estado, string id_doc_electronico)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_evaluacion", 0);
@@ -268,11 +269,12 @@ namespace General.Repositorios
             parametros.Add("@id_periodo", periodo);
             parametros.Add("@estado", estado);
             parametros.Add("@baja", 0);
+            parametros.Add("@id_doc_electronico", id_doc_electronico);
             //parametros.Add("@fecha", DateTime());
             return (int)_conexion.EjecutarEscalar("dbo.EVAL_INS_Evaluacion", parametros);
         }
 
-        public void updateEvaluacion(int idEval, int idEvaluado, int idEvaluador, int idFormulario, int periodo, int estado)
+        public void updateEvaluacion(int idEval, int idEvaluado, int idEvaluador, int idFormulario, int periodo, int estado, string id_doc_electronico)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_evaluacion", idEval);
@@ -283,6 +285,7 @@ namespace General.Repositorios
             parametros.Add("@estado", estado);
             parametros.Add("@baja", 0);
             parametros.Add("@fecha", DateTime.Today);
+            parametros.Add("@id_doc_electronico", id_doc_electronico);
 
             _conexion.Ejecutar("dbo.EVAL_UPD_Evaluacion", parametros);
 
