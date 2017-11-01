@@ -6,10 +6,13 @@
     <style type="text/css">
         #pantalla_impresion_credencial
         {
+            position:relative;
         }      
          #pantalla_impresion_credencial #vista_previa_credencial
         {
             position: relative;
+            width: 250px;
+            display: inline-block;
         }
         
          #pantalla_impresion_credencial #panel_derecho
@@ -23,36 +26,74 @@
         
         #pantalla_impresion_credencial #imagen_credencial
         {
-            width: 250px;
+            width: 100%;
         }        
         
         #pantalla_impresion_credencial #foto_usuario
         {
             position: absolute;
-            top: 64px;
-            left: 21px;
-            height: 112px;
-            width: 112px;
+            top: 14.5%;
+            left: 5.5%;
+            height: 33%;
+            width: 51.4%;
+            border: 1px solid black;
+            border-radius: 14px;
         }    
+        
+        #pantalla_impresion_credencial #codigo_barras
+        {
+            position: absolute;
+            right: -8%;
+            top: 28%;
+            -ms-transform: rotate(90deg);
+            -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
+            background-color: White !important;
+            height: 30px !important;
+            overflow: hidden !important;
+        }   
+        
+        #pantalla_impresion_credencial #foto_usuario #img_thumbnail
+        {
+            border-radius: 14px;
+        }
         
         #pantalla_impresion_credencial #apellido
         {
             position: absolute;
-            top: 196px;
-            left: 19px;
+            top: 50%;
+            left: 7.4%;
             font-size: 20px;
-            color: white;
+            color: white ;
         }    
         
         #pantalla_impresion_credencial #nombres
         {
             position: absolute;
-            top: 224px;
-            left: 18px;
+            top: 57%;
+            left: 7.4%;
             font-size: 20px;
             color: white;
         }    
         
+        #pantalla_impresion_credencial #documento
+        {
+            position: absolute;
+            top: 64%;
+            left: 26%;
+            font-size: 20px;
+            color: white ;
+        }    
+            
+        #pantalla_impresion_credencial #titulo_documento
+        {
+            position: absolute;
+            top: 64%;
+            left: 7.4%;
+            font-size: 20px;
+            color: white ;
+        } 
+            
         #pantalla_impresion_credencial #btn_imprimir_credencial
         {
 
@@ -66,13 +107,13 @@
         #pantalla_impresion_credencial  #chk_credencial_impresa
         {
             /* Double-sized Checkboxes */
-              -ms-transform: scale(2); /* IE */
-              -moz-transform: scale(2); /* FF */
-              -webkit-transform: scale(2); /* Safari and Chrome */
-              -o-transform: scale(2); /* Opera */
-                padding: 10px;
-                margin-left: 27px;
-                margin-right: 10px;
+            -ms-transform: scale(2); /* IE */
+            -moz-transform: scale(2); /* FF */
+            -webkit-transform: scale(2); /* Safari and Chrome */
+            -o-transform: scale(2); /* Opera */
+            padding: 10px;
+            margin-left: 27px;
+            margin-right: 10px;
         }
         
         #pantalla_impresion_credencial  .checkboxtext
@@ -109,30 +150,59 @@
         }
         
         @media print {
-          body * {
-            visibility: hidden;
-          }
-          #pantalla_impresion_credencial #vista_previa_credencial, 
-          #pantalla_impresion_credencial #vista_previa_credencial * {
-            visibility: visible;
-          }
-          #pantalla_impresion_credencial #vista_previa_credencial {
-            position: absolute;
-            left: 0;
-            top: 0;
-          }
+            form      
+            {
+                display:none;    
+            }
+            #pantalla_impresion_credencial #vista_previa_credencial, 
+            #pantalla_impresion_credencial #vista_previa_credencial * {
+                visibility: visible;
+            }
+            
+            #pantalla_impresion_credencial 
+            {
+                position: absolute;
+                left: 0px;
+                right: 0px;
+                top: 0px;
+                bottom: 0px;
+              
+            }
+            #pantalla_impresion_credencial #vista_previa_credencial 
+            {
+                position: fixed;
+                left: -2px;
+                top: -1px;
+                width: 102%;                
+            }         
+            
+            #pantalla_impresion_credencial #apellido,
+            #pantalla_impresion_credencial #nombres,
+            #pantalla_impresion_credencial #documento,
+            #pantalla_impresion_credencial #titulo_documento
+            {
+                color: #fefefe !important;
+                font-size: 18px !important;
+            }
+            
+            #pantalla_impresion_credencial #codigo_barras
+            {                
+                right: -10% !important;
+                top: 27% !important;
+            }          
         }
     </style>
 </head>
 <div id="pantalla_impresion_credencial">
-    <h4 id="titulo_vista_previa">Vista Previa Credencial</h4>
-    <div id="vista_previa_credencial">
-        <img id="imagen_credencial" src="../BarraMenu/credencial.png"/>
+    <h4 id="titulo_vista_previa">Credencial</h4>
+    <div id="vista_previa_credencial">        
+        <img id="imagen_credencial" src="../BarraMenu/credencial.png"/>        
         <div id="foto_usuario"></div>
         <div id="apellido"></div>    
         <div id="nombres"></div>    
         <div id="titulo_documento">DNI:</div>    
-        <div id="documento"></div>    
+        <div id="documento"></div>
+        <div id="codigo_barras"> </div>    
     </div>
     <div id=panel_derecho>
         <input id="btn_imprimir_credencial" type="button" class="btn btn-info" value="Imprimir"/>        
@@ -153,6 +223,7 @@
     </div>
 </div>
 
+<script type="text/javascript" src="../Scripts/jquery-barcode.js"/>
 <script type="text/javascript">
     var Componente = {
         start: function (ticket, ui) {
@@ -162,11 +233,18 @@
                 Backend.GetUsuarioPorIdPersona(solicitud.IdPersona).onSuccess(function (usuario) {
                     ui.find("#apellido").text(usuario.Owner.Apellido);
                     ui.find("#nombres").text(usuario.Owner.Nombre);
-                    ui.find("#dni").text(usuario.Owner.Documento);
+                    ui.find("#documento").text(usuario.Owner.Documento);
 
                     var img = new VistaThumbnail({
                         id: solicitud.Credencial.IdFoto,
                         contenedor: ui.find("#foto_usuario")
+                    });
+
+                    ui.find("#codigo_barras").barcode(usuario.Owner.Documento.toString(), "code128", {
+                        showHRI: false,
+                        barHeight: 30,
+                        barWidth: 1,
+                        output: 'bmp'
                     });
 
                     var btn_imprimir = ui.find("#btn_imprimir_credencial");
