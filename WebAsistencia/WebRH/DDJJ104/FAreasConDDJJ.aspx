@@ -8,9 +8,6 @@
     <title></title>
     <%= Referencias.Css("../")%>
     <%= Referencias.Javascript("../") %>
-
-
-
 </head>
 
 

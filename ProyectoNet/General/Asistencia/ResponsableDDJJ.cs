@@ -227,6 +227,11 @@ namespace General
         }
 
 
+        public List<DDJJ104_Consulta> GetPersonasSinCertificar(int mes, int anio)
+        {
+            var repositorio = new RepositorioDDJJ104();
+            return repositorio.GetPersonasSinCertificar(mes, anio);
+        }
 
 
 

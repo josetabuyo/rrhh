@@ -194,7 +194,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public DDJJ104_2001 GenerarDDJJ104(int id_area, int mes, int anio, Persona[] lista_persona, Usuario usuario)
+    public DDJJ104_2001 GenerarDDJJ104(int id_area, int mes, int anio, Persona[] lista_persona, int estado_guardado, Usuario usuario)
     {
         //RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
         //return ddjj.GenerarDDJJ104(usuario, area, mes, anio);
@@ -204,7 +204,7 @@ public class WSViaticos : System.Web.Services.WebService
         RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
 
         DDJJ104_2001 cabe = new DDJJ104_2001();
-        cabe = ddjj.GenerarDDJJ104(usuario, UnArea[0], mes, anio, lista_persona);
+        cabe = ddjj.GenerarDDJJ104(usuario, UnArea[0], mes, anio, lista_persona, estado_guardado);
 
 
         return cabe;
@@ -316,6 +316,22 @@ public class WSViaticos : System.Web.Services.WebService
 
         return meses.ToArray();
     }
+
+
+
+   
+    [WebMethod]
+    public DDJJ104_Consulta[] GetPersonasSinCertificar(int mes, int anio)
+    {
+        var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas(), Autorizador());
+        var a = new DDJJ104_Consulta[1];
+
+        a = responsableDDJJ.GetPersonasSinCertificar(mes, anio).ToArray();
+
+        return a;
+    }
+
+
 
 
     //FIN: DDJJ 104 ---------------
@@ -4739,7 +4755,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string InsertarEvaluacion(int idEvaluado, int idFormulario, int periodo, int idEval, string pregYRtas, int estado, Usuario usuario)
+    public string InsertarEvaluacion(int idEvaluado, int idFormulario, int periodo, int idEval, string pregYRtas, int estado, string id_doc_electronico, Usuario usuario)
     {
         try
         {
@@ -4755,16 +4771,28 @@ public class WSViaticos : System.Web.Services.WebService
 
             var id_evaluador = repositorio.GetIdEvaluadorDelUsuario(usuario);
 
+
             //FC:si viene un idEvaluacion entonces llamo a update, si viene 0 llamo a insert
             if (idEval != 0)
-            {
+            {  
+                if (estado == 1 && id_doc_electronico == string.Empty)
+                {
+                    GeneradorDeEtiquetas repoTicket = new GeneradorDeEtiquetas(Conexion());
+                    id_doc_electronico = repoTicket.GenerarTicket("EVAL_DES");
+                }
                 repositorio.deleteEvaluacionDetalle(idEval);
-                repositorio.updateEvaluacion(idEval, idEvaluado, id_evaluador, idFormulario, periodo, estado);
+                repositorio.updateEvaluacion(idEval, idEvaluado, id_evaluador, idFormulario, periodo, estado, id_doc_electronico);
             }
             else
             {
+                if (estado == 1)
+                {
+                    GeneradorDeEtiquetas repoTicket = new GeneradorDeEtiquetas(Conexion());
+                    id_doc_electronico = repoTicket.GenerarTicket("EVAL_DES");
+                }
+
                 //FC:Inserto la cabecera de la evaluacion
-                idEval = repositorio.insertarEvaluacion(idEvaluado, id_evaluador, idFormulario, periodo, estado);
+                idEval = repositorio.insertarEvaluacion(idEvaluado, id_evaluador, idFormulario, periodo, estado, id_doc_electronico);
             }
 
             //var item1 = preguntasYRespuestas;
