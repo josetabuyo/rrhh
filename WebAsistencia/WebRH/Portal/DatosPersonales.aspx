@@ -105,7 +105,7 @@
                 width: 470px;;
             }
             
-            .etiqueta_campo
+            .etiqueta_campo_cred
             {
                 color: Red;
                 text-align: right;
@@ -144,9 +144,11 @@
                  </div>
                  <div class="cajitas">
                     <p class=""><label class="item_cajita">CUIL: </label> <span id="cuil"></span></p>
-                    <p class=""><label class="item_cajita">Domicilio: </label> <span id="domicilio"></span> - <a href="../Instructivos/InstructivoDatosPersonales.aspx" id="linkAyuda" >Instructivo Cambio Domicilio</a></p>
+                    <p class=""><label class="item_cajita">Domicilio: </label> <span id="domicilio"></span></p>
+                    <p  style="color: #337ab7; cursor: pointer;"><span id="btnMostrarDomicilio">Actualizar Domicilio</span> <a href="#" id="linkAyuda" ><img id="Img1" alt="cambio domicilio" style="cursor:pointer; " title="Instructivo Cambio Domicilio" src="../Imagenes/ic_information.png" width="20px" height="20px" /></a></p>
                     
-                    <img id="btnMostrarDomicilio" style="cursor:pointer; " title="Cambiar Domicilio" src="../Imagenes/edit.png" width="30px" height="30px" />
+                    
+                    <%--<img id="btnMostrarDomicilio" style="cursor:pointer; " title="Cambiar Domicilio" src="../Imagenes/edit.png" width="30px" height="30px" />--%>
                     <%--<input id="btnMostrarDomicilio" value="Cambiar Domicilio" class="btn btn-primary" type="button" />   onclick="window.open(this.href, 'mywin','left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;"--%>
                     <div style="display:none;  border: 1px solid #ccc; padding: 5px; background: rgba(204, 204, 204, 0.13);" id="mensajeCambioDomicilioPendiente">
                         <p style="color:Red;">Solicitud Pendiente de Aprobación.</p>
@@ -154,7 +156,7 @@
                         <p><span id="numeroGDECambioDomicilio"></span> <span id="btnMostrarDialogoActualizarGDE" style="color: #337ab7; cursor: pointer;" >Actualizar N° GDE</span></p>
                         <input id="idDocumentoGDE" type="hidden" />
                        
-                    </div>-->
+                    </div>
                     
                   
                 </div>
@@ -169,7 +171,7 @@
                 <div id="cajaAgregarFotoPerfil" style="width:100%;text-align: center;display:none;" class="">
                 <div class="">
                 
-                <label class="etiqueta_campo">Para solicitar una credencial, debe tener una foto de Perfil</label>
+                <label class="etiqueta_campo_cred">Para solicitar una credencial, debe tener una foto de Perfil</label>
 
                 </div>  
                 
@@ -239,14 +241,14 @@
                     </div>
                     <br />
 
-                    <label class="etiqueta_campo">Al hacer la solicitud, su credencial vigente será dada de baja.</label>
+                    <label class="etiqueta_campo_cred">Al hacer la solicitud, su credencial vigente será dada de baja.</label>
                   
                     <br/>
-                    <label id = "texto_robo" class="etiqueta_campo" " for="cmb_provincia">*Para el caso de pérdida/robo debe presentar la denuncia policial, o Declaración Jurada firmada por el superior directo (Rango de Director o Superior), al momento de retirar la nueva credencial 
+                    <label id = "texto_robo" class="etiqueta_campo_cred" " for="cmb_provincia">*Para el caso de pérdida/robo debe presentar la denuncia policial, o Declaración Jurada firmada por el superior directo (Rango de Director o Superior), al momento de retirar la nueva credencial 
                         <a target="_blank" href="Files/DDJJCredencialPerdidaoRobo.pdf">Descargar modelo de DDJJ</a>
                     </label>
-                    <label id = "texto_deterioro" class="etiqueta_campo" for="cmb_provincia">*Para el caso de credencial deteriorada, la misma debe devolverse al momento de retirar la nueva. </label>
-                    <label id = "texto_seleccione_motivo" class="etiqueta_campo" for="cmb_provincia">*Seleccione un motivo </label>
+                    <label id = "texto_deterioro" class="etiqueta_campo_cred" for="cmb_provincia">*Para el caso de credencial deteriorada, la misma debe devolverse al momento de retirar la nueva. </label>
+                    <label id = "texto_seleccione_motivo" class="etiqueta_campo_cred" for="cmb_provincia">*Seleccione un motivo </label>
                     <br />
                     <input  id="btn_realizar_solicitud" value="Solicitar nueva credencial" class="btn btn-primary" type="button" />
                 </div>          

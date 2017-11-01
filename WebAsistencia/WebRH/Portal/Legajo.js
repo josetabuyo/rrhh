@@ -95,7 +95,7 @@ var Legajo = {
                                 if (domicilio.DocumentoGDE.numero != '') {
                                     $('#numeroGDECambioDomicilio').html('N° GDE: ' + domicilio.DocumentoGDE.numero);
                                 } else {
-                                    $('#numeroGDECambioDomicilio').html('Próximo paso ->');
+                                    $('#numeroGDECambioDomicilio').html('Próximo paso: ');
                                 }
 
 
