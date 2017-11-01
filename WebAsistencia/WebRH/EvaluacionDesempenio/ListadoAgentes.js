@@ -216,11 +216,16 @@ var ListadoAgentes = {
         //alert('testttt');
         var doc = $("#hid_doc").val();
         var codigo = ui.find('#codigo_gde').val();
-        Backend.EvalGuardarCodigoGDE(doc, codigo);
+        Backend.EvalGuardarCodigoGDE(doc, codigo)
+        .onSuccess(function (rpta) {
+            var td = $("a[id_eval*='" + doc + "']").parent();
+            td.empty();
+            td.html(codigo);
+        }).onError(function (error, as, asd) {
+            alert("Se produjo un error al guardar el código GDE.");
+        });
+        
         vex.closeAll();
-        var td = $("a[id_eval*='" + doc + "']").parent();
-        td.empty();
-        td.html(codigo);
     },
     getImgIcono: function (nombre_img, title) {
         var btn_accion = $('<a>');
