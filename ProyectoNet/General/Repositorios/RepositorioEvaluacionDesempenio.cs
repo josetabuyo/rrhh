@@ -168,6 +168,7 @@ namespace General.Repositorios
             {
                 asignaciones.Add(asignacion_evaluado_a_evaluador);
             }
+            asignaciones = asignaciones.OrderBy(a => a.agente_evaluado.apellido).ThenBy(a => a.agente_evaluado.nombre).ToList();
             return new RespuestaGetAgentesEvaluablesPor(asignaciones, es_agente_verificador);
             
         }
