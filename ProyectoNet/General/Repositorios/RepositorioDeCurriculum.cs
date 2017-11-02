@@ -54,8 +54,8 @@ namespace General.Repositorios
             tablaCVs.Rows.ForEach((row) => {
                 var domi = new CvDomicilio(row.GetInt("DomPers_Id", 0), row.GetString("DomPers_Calle", ""), row.GetInt("DomPers_Numero", 0), row.GetString("DomPers_Piso", ""), row.GetString("DomPers_Depto", ""),
                             row.GetInt("DomPers_Localidad", 0), row.GetSmallintAsInt("DomPers_CodigoPostal", 0), row.GetSmallintAsInt("DomPers_IdProvincia", 0));
-                var domi2 = new CvDomicilio(row.GetInt("DomLab_Id", 0), row.GetString("DomLab_Calle", ""), row.GetInt("DomLab_Numero", 0), row.GetString("DomLab_Piso", ""), row.GetString("DomLab_Depto", ""),
-                            row.GetInt("DomLab_Localidad", 0), row.GetSmallintAsInt("DomLab_CodigoPostal", 0), row.GetSmallintAsInt("DomLab_IdProvincia", 0));
+                //var domi2 = new CvDomicilio(row.GetInt("DomLab_Id", 0), row.GetString("DomLab_Calle", ""), row.GetInt("DomLab_Numero", 0), row.GetString("DomLab_Piso", ""), row.GetString("DomLab_Depto", ""),
+                 //           row.GetInt("DomLab_Localidad", 0), row.GetSmallintAsInt("DomLab_CodigoPostal", 0), row.GetSmallintAsInt("DomLab_IdProvincia", 0));
                 var contacto = new DatosDeContacto(row.GetString("DomPers_Telefono", ""), row.GetString("DomPers_Telefono2", ""), row.GetString("DomPers_Email", ""));
 
                 var cuil = row.GetString("Cuil", "00");
@@ -73,7 +73,7 @@ namespace General.Repositorios
                     new CvDatosPersonales(nro_documento, nombre, apellido, sexo, estado_civil,
                         cuil, lugar_nacimiento, nac, fecha_nac, tipo_doc,
                         domi,
-                        domi2, row.GetString("TieneLegajo", ""),
+                        new CvDomicilio(), row.GetString("TieneLegajo", ""),
                         contacto));
             });
                    
@@ -560,10 +560,11 @@ namespace General.Repositorios
 
                 //
 
+                //FC: 02112017 lo saque porque ni se usaba
                 //insertar en GEN_Domicilios y CV_Domicilio el DomicilioLaboral
-                parametros = CompletarDatosDomicilios(datosPersonales.DomicilioLegal, parametros, 2, usuario, datosPersonales.DatosDeContacto.Telefono, datosPersonales.DatosDeContacto.Telefono2, datosPersonales.DatosDeContacto.Email);
-                parametros.Add("@Dni", datosPersonales.Dni);
-                conexion_bd.Ejecutar("dbo.CV_Ins_Domicilio", parametros); 
+                //parametros = CompletarDatosDomicilios(datosPersonales.DomicilioLegal, parametros, 2, usuario, datosPersonales.DatosDeContacto.Telefono, datosPersonales.DatosDeContacto.Telefono2, datosPersonales.DatosDeContacto.Email);
+                //parametros.Add("@Dni", datosPersonales.Dni);
+                //conexion_bd.Ejecutar("dbo.CV_Ins_Domicilio", parametros); 
 
             }
             else
@@ -592,7 +593,8 @@ namespace General.Repositorios
                     conexion_bd.Ejecutar("dbo.CV_Ins_Domicilio", parametros);
                 }
 
-                if (datosPersonales.DomicilioLegal.Id > 0)
+                //FC: 02112017 lo saque porque ni se usaba
+                /*if (datosPersonales.DomicilioLegal.Id > 0)
                 {
                     //update en GEN_Domicilios del domicilio laboral
                     parametros = CompletarDatosDomicilios(datosPersonales.DomicilioLegal, parametros, 2, usuario, datosPersonales.DatosDeContacto.Telefono, datosPersonales.DatosDeContacto.Telefono2, datosPersonales.DatosDeContacto.Email);
@@ -605,7 +607,7 @@ namespace General.Repositorios
                     parametros = CompletarDatosDomicilios(datosPersonales.DomicilioLegal, parametros, 2, usuario, datosPersonales.DatosDeContacto.Telefono, datosPersonales.DatosDeContacto.Telefono2, datosPersonales.DatosDeContacto.Email);
                     parametros.Add("@Dni", datosPersonales.Dni);
                     conexion_bd.Ejecutar("dbo.CV_Ins_Domicilio", parametros);
-                }
+                }*/
             }
 
             //this._cvDatosPersonales = datosPersonales;

@@ -186,7 +186,7 @@
                                     rh-control-type="textbox" rh-model-property="DatosDeContacto.Email" />
                             </div>
 
-                            <div class="grupo_campos">
+                           <%-- <div class="grupo_campos">
                                 <p class="aclaraciones">
                                     <input id="chk_replicar" type="checkbox" onchange="replicarDireccion()" /> Usar esta
                                     dirección para notificaciones</p>
@@ -241,9 +241,9 @@
                                     rh-filter-value="DomicilioLegal.Provincia" data-validar="haySeleccionEnCombo">
                                 </select>
                             </div>
-                        </fieldset>
+                        </fieldset>--%>
                         <br />
-                        <div style="text-align: center;">
+                        <div  style="text-align: center; clear: left;">
                             <input type="button" class="btn" id="btn_guardar_datosPersonales" value="Guardar" />
                         </div>
                     </div>
