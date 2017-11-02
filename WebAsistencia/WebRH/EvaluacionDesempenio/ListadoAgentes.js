@@ -76,7 +76,7 @@ var ListadoAgentes = {
     GetterDocEvaluado: function (asignacion_evaluado_a_evaluador) { return asignacion_evaluado_a_evaluador.agente_evaluado.nro_documento; },
     GetterApellidoEvaluado: function (asignacion_evaluado_a_evaluador) { return asignacion_evaluado_a_evaluador.agente_evaluado.apellido },
     GetterNombreEvaluado: function (asignacion_evaluado_a_evaluador) { return asignacion_evaluado_a_evaluador.agente_evaluado.nombre },
-    GetterUnidadEvaluacion: function (asignacion_evaluado_a_evaluador) { return asignacion_evaluado_a_evaluador.codigo_unidad_eval },
+    GetterArea: function (asignacion_evaluado_a_evaluador) { return asignacion_evaluado_a_evaluador.agente_evaluado.area.nombre_area /*return asignacion_evaluado_a_evaluador.codigo_unidad_eval */},
     GetterEvaluacion: function (asignacion_evaluado_a_evaluador) {
         var coleccion_respuestas = this.getRespuestasDelForm(asignacion_evaluado_a_evaluador.evaluacion);
         return this.calificacion(coleccion_respuestas, asignacion_evaluado_a_evaluador.nivel.deficiente, asignacion_evaluado_a_evaluador.nivel.regular, asignacion_evaluado_a_evaluador.nivel.bueno, asignacion_evaluado_a_evaluador.nivel.destacado, false);
@@ -110,7 +110,7 @@ var ListadoAgentes = {
                 { nombre_columna: "Dni", value_getter: this.GetterDocEvaluado },
                 { nombre_columna: "Apellido", value_getter: this.GetterApellidoEvaluado },
                 { nombre_columna: "Nombre", value_getter: this.GetterNombreEvaluado },
-                { nombre_columna: "Unidad Evaluacion", value_getter: this.GetterUnidadEvaluacion },
+                { nombre_columna: "Area", value_getter: this.GetterArea },
                 { nombre_columna: "Evaluacion", value_getter: function (x) { return _this.GetterEvaluacion.call(_this, x); } }
             ];
         return columnas.concat(columnas_evaluado);

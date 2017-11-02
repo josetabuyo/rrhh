@@ -126,7 +126,7 @@
                 <h3 id="titulo_consulta" style="text-align: center;">
                     CONSULTA NÚMERO.</h3>
                 <img id="btn_info_usuario" src="../Imagenes/detalle.png" style="width: 20px; height: 20px;
-                    margin-left: 15px; cursor: pointer;" draggable="false"></div>
+                    margin-left: 15px; margin-top: 23px; cursor: pointer;" draggable="false"></div>
             <div id="div_chat" style="height: 310px; margin-top: -10px; overflow: scroll; overflow-x: hidden;">
                 <div id="div_repreguntar" style="text-align: center; display: none;">
                     <textarea id="ta_repreguntar" placeholder="Ingrese su consulta aquí" maxlength="1000"

@@ -14,8 +14,9 @@ namespace General.MED
         public string direccion { get; set; }
         public string unidad { get; set; }
         public string codigo_unidad_evaluacion { get; set; }
+        public string nombre_area { get; set; }
 
-        public DescripcionAreaEvaluacion(string jurisdiccion, string secretaria, string sub_secretaria, string direccion, string unidad, string codigo_unidad_evaluacion)
+        public DescripcionAreaEvaluacion(string jurisdiccion, string secretaria, string sub_secretaria, string direccion, string unidad, string nombre_area, string codigo_unidad_evaluacion)
         {
             this.jurisdiccion = jurisdiccion;
             this.secretaria = secretaria;
@@ -23,6 +24,7 @@ namespace General.MED
             this.direccion = direccion;
             this.unidad = unidad;
             this.codigo_unidad_evaluacion = codigo_unidad_evaluacion;
+            this.nombre_area = nombre_area;
         }
 
 
@@ -32,7 +34,7 @@ namespace General.MED
 
         public static DescripcionAreaEvaluacion Nula()
         {
-            return new DescripcionAreaEvaluacion("No Especificado", "No Especificado", "No Especificado", "No Especificado", "No Especificado", "No Especificado");
+            return new DescripcionAreaEvaluacion("No Especificado", "No Especificado", "No Especificado", "No Especificado", "No Especificado", "No Especificado", "No Especificado");
         }
     }
 }

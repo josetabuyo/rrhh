@@ -26,6 +26,8 @@
     <link rel="stylesheet" href="lato.css" />
     <link rel="stylesheet" href="../estilos/SelectorDePersonas.css" type="text/css" />
     <link href="../scripts/select2-3.4.4/select2.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="tabs.css" />
+	<link rel="stylesheet" type="text/css" href="tabstyles.css" />
 </head>
 <body>
     <form id="form1" runat="server">
@@ -44,6 +46,43 @@
         <div class=" papel">
             <%--DIV 1--%>
             <div id="tareas">
+            		<svg class="hidden">
+			<defs>
+				<path id="tabshape" d="M80,60C34,53.5,64.417,0,0,0v60H80z"/>
+			</defs>
+		</svg>
+				<div class="tabs tabs-style-shape">
+					<nav>
+						<ul>
+							<li>
+								<a href="#section-shape-1">
+									<svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
+									<span>MIS TAREAS</span>
+								</a>
+							</li>
+							<li>
+								<a href="#section-shape-2">
+									<svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
+									<svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
+									<span class="tab_oscuro">TAREAS SIN ASIGNACIÓN</span>
+								</a>
+							</li>
+							<li>
+								<a href="#section-shape-3">
+									<svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
+									<svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
+									<span>TAREAS ASIGNADAS A OTROS</span>
+								</a>
+							</li>
+						</ul>
+					</nav>
+					<div class="content-wrap">
+						<section id="section-shape-1"><p>1</p></section>
+						<section id="section-shape-2"><p>2</p></section>
+						<section id="section-shape-3"><p>3</p></section>
+					</div><!-- /content -->
+
+
                 <legend id="legend_gestion" style="margin-top: 10px;">TAREAS PENDIENTES</legend>
                 <input type="text" id="search" class="search buscador" placeholder="Buscar" style="height: 35px;" />
                 Derivar:
@@ -140,14 +179,19 @@
 <script type="text/javascript" src="../Scripts/RepositorioDePersonas.js"></script>
 <script type="text/javascript" src="../Scripts/Persona.js"></script>
 <script type="text/javascript" src="../Scripts/SelectorDePersonas.js"></script>
+<script type="text/javascript" src="tabs.js"></script>
+<script>
+    (function () {
+        [ ].slice.call(document.querySelectorAll('.tabs')).forEach(function (el) {
+            new CBPFWTabs(el);
+        });
+    })();
+		</script>
 <script type="text/javascript">
     $(document).ready(function ($) {
         Backend.start(function () {
             GestionDeTareas.getTareasParaGestion();
         });
-
-
-
     });
 
 

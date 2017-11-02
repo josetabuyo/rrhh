@@ -63,6 +63,10 @@
     <Reference Include="itextsharp">
       <HintPath>..\..\SharedLibs\itextsharp.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\SharedLibs\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -128,6 +132,7 @@
     <Compile Include="pdfs\EvaluacionDeDesempenioToPdfConverter.cs" />
     <Compile Include="pdfs\ModeloToPdfConverter.cs" />
     <Compile Include="Portal\Consulta.cs" />
+    <Compile Include="Portal\Selector.cs" />
     <Compile Include="Portal\Destinatario.cs" />
     <Compile Include="Portal\Notificacion.cs" />
     <Compile Include="Portal\Estudio.cs" />

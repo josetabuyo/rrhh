@@ -2,34 +2,34 @@
 <wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://wsviaticos.gov.ar/">
-      <s:element name="GuardarDomicilioPendiente">
+      <s:element name="GetSubclasificacionesDeConsultas">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetSubclasificacionesDeConsultasResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="domicilio" type="tns:CvDomicilio" />
+            <s:element minOccurs="0" maxOccurs="1" name="GetSubclasificacionesDeConsultasResult" type="tns:ArrayOfSelector" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfSelector">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Selector" nillable="true" type="tns:Selector" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Selector">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="descripcion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetDomicilioPendiente">
+        <s:complexType>
+          <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="CvDomicilio">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Calle" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="Numero" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Piso" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Depto" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="Localidad" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="Cp" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="Provincia" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Manzana" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Barrio" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Casa" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Torre" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Uf" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="Partido" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="NombreLocalidad" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="NombreProvincia" type="s:string" />
-        </s:sequence>
-      </s:complexType>
       <s:complexType name="Usuario">
         <s:sequence>
           <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
@@ -212,6 +212,41 @@
           <s:element minOccurs="1" maxOccurs="1" name="SoloParaVerificados" type="s:boolean" />
           <s:element minOccurs="1" maxOccurs="1" name="SoloParaEmpleados" type="s:boolean" />
           <s:element minOccurs="1" maxOccurs="1" name="basica" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetDomicilioPendienteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDomicilioPendienteResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarDomicilioPendiente">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="domicilio" type="tns:CvDomicilio" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="CvDomicilio">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Calle" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Numero" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Piso" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Depto" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Localidad" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cp" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Provincia" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Manzana" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Barrio" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Casa" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Torre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Uf" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Partido" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="NombreLocalidad" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NombreProvincia" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="GuardarDomicilioPendienteResponse">
@@ -741,6 +776,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="direccion" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="unidad" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="codigo_unidad_evaluacion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="nombre_area" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="PeriodoEvaluacion">
@@ -2418,6 +2454,22 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="ImportarArchivoExcel">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="nombreArchivo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="detalleExcel" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ImportarArchivoExcelResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ImportarArchivoExcelResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetThumbnail">
         <s:complexType>
           <s:sequence>
@@ -2740,20 +2792,6 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="GetNotificacionesTodasDePortalResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetDomicilioPendiente">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetDomicilioPendienteResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetDomicilioPendienteResult" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -7273,6 +7311,18 @@
       </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="GetSubclasificacionesDeConsultasSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSubclasificacionesDeConsultas" />
+  </wsdl:message>
+  <wsdl:message name="GetSubclasificacionesDeConsultasSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSubclasificacionesDeConsultasResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDomicilioPendienteSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDomicilioPendiente" />
+  </wsdl:message>
+  <wsdl:message name="GetDomicilioPendienteSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDomicilioPendienteResponse" />
+  </wsdl:message>
   <wsdl:message name="GuardarDomicilioPendienteSoapIn">
     <wsdl:part name="parameters" element="tns:GuardarDomicilioPendiente" />
   </wsdl:message>
@@ -7825,6 +7875,12 @@
   <wsdl:message name="Mobi_GetMovimientosSoapOut">
     <wsdl:part name="parameters" element="tns:Mobi_GetMovimientosResponse" />
   </wsdl:message>
+  <wsdl:message name="ImportarArchivoExcelSoapIn">
+    <wsdl:part name="parameters" element="tns:ImportarArchivoExcel" />
+  </wsdl:message>
+  <wsdl:message name="ImportarArchivoExcelSoapOut">
+    <wsdl:part name="parameters" element="tns:ImportarArchivoExcelResponse" />
+  </wsdl:message>
   <wsdl:message name="GetThumbnailSoapIn">
     <wsdl:part name="parameters" element="tns:GetThumbnail" />
   </wsdl:message>
@@ -7950,12 +8006,6 @@
   </wsdl:message>
   <wsdl:message name="GetNotificacionesTodasDePortalSoapOut">
     <wsdl:part name="parameters" element="tns:GetNotificacionesTodasDePortalResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetDomicilioPendienteSoapIn">
-    <wsdl:part name="parameters" element="tns:GetDomicilioPendiente" />
-  </wsdl:message>
-  <wsdl:message name="GetDomicilioPendienteSoapOut">
-    <wsdl:part name="parameters" element="tns:GetDomicilioPendienteResponse" />
   </wsdl:message>
   <wsdl:message name="ModificarMailRegistroSoapIn">
     <wsdl:part name="parameters" element="tns:ModificarMailRegistro" />
@@ -9380,6 +9430,14 @@
     <wsdl:part name="parameters" element="tns:IniciarServicioDeAlertasResponse" />
   </wsdl:message>
   <wsdl:portType name="WSViaticosSoap">
+    <wsdl:operation name="GetSubclasificacionesDeConsultas">
+      <wsdl:input message="tns:GetSubclasificacionesDeConsultasSoapIn" />
+      <wsdl:output message="tns:GetSubclasificacionesDeConsultasSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDomicilioPendiente">
+      <wsdl:input message="tns:GetDomicilioPendienteSoapIn" />
+      <wsdl:output message="tns:GetDomicilioPendienteSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GuardarDomicilioPendiente">
       <wsdl:input message="tns:GuardarDomicilioPendienteSoapIn" />
       <wsdl:output message="tns:GuardarDomicilioPendienteSoapOut" />
@@ -9748,6 +9806,10 @@
       <wsdl:input message="tns:Mobi_GetMovimientosSoapIn" />
       <wsdl:output message="tns:Mobi_GetMovimientosSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="ImportarArchivoExcel">
+      <wsdl:input message="tns:ImportarArchivoExcelSoapIn" />
+      <wsdl:output message="tns:ImportarArchivoExcelSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetThumbnail">
       <wsdl:input message="tns:GetThumbnailSoapIn" />
       <wsdl:output message="tns:GetThumbnailSoapOut" />
@@ -9831,10 +9893,6 @@
     <wsdl:operation name="GetNotificacionesTodasDePortal">
       <wsdl:input message="tns:GetNotificacionesTodasDePortalSoapIn" />
       <wsdl:output message="tns:GetNotificacionesTodasDePortalSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetDomicilioPendiente">
-      <wsdl:input message="tns:GetDomicilioPendienteSoapIn" />
-      <wsdl:output message="tns:GetDomicilioPendienteSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="ModificarMailRegistro">
       <wsdl:input message="tns:ModificarMailRegistroSoapIn" />
@@ -10787,6 +10845,24 @@
   </wsdl:portType>
   <wsdl:binding name="WSViaticosSoap" type="tns:WSViaticosSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetSubclasificacionesDeConsultas">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetSubclasificacionesDeConsultas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDomicilioPendiente">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetDomicilioPendiente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GuardarDomicilioPendiente">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarDomicilioPendiente" style="document" />
       <wsdl:input>
@@ -11615,6 +11691,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ImportarArchivoExcel">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ImportarArchivoExcel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetThumbnail">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetThumbnail" style="document" />
       <wsdl:input>
@@ -11797,15 +11882,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetNotificacionesTodasDePortal">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetNotificacionesTodasDePortal" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetDomicilioPendiente">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetDomicilioPendiente" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -13949,6 +14025,24 @@
   </wsdl:binding>
   <wsdl:binding name="WSViaticosSoap12" type="tns:WSViaticosSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetSubclasificacionesDeConsultas">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetSubclasificacionesDeConsultas" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDomicilioPendiente">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetDomicilioPendiente" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GuardarDomicilioPendiente">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarDomicilioPendiente" style="document" />
       <wsdl:input>
@@ -14777,6 +14871,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ImportarArchivoExcel">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ImportarArchivoExcel" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetThumbnail">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetThumbnail" style="document" />
       <wsdl:input>
@@ -14959,15 +15062,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetNotificacionesTodasDePortal">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetNotificacionesTodasDePortal" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetDomicilioPendiente">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetDomicilioPendiente" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
