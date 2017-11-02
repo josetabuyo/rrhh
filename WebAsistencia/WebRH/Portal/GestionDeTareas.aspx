@@ -193,7 +193,5 @@
             GestionDeTareas.getTareasParaGestion();
         });
     });
-
-
 </script>
 </html>

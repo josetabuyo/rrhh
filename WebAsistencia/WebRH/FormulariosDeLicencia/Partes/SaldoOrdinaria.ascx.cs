@@ -9,6 +9,8 @@ using WSViaticos;
 public partial class FormulariosDeLicencia_Partes_SaldoOrdinaria : System.Web.UI.UserControl
 {
     private int _DiasDisponibles;
+    private int _SegmentosDisponibles;
+    private int _SegmentosUtilizados;
     public int DiasDisponibles
     {
         get { return _DiasDisponibles; }
@@ -22,6 +24,24 @@ public partial class FormulariosDeLicencia_Partes_SaldoOrdinaria : System.Web.UI
         set {
                 _DiasSolicitados = value;
                 this.LSolicitadas.Text = value.ToString() + " Días";    
+        }
+    }
+    public int SegmentosDisponibles
+    {
+        get { return _SegmentosDisponibles; }
+        set
+        {
+            _SegmentosDisponibles = value;
+            this.LSDisponibles.Text = value.ToString();
+        }
+    }
+    public int SegmentosUtilizados
+    {
+        get { return _SegmentosUtilizados; }
+        set
+        {
+            _SegmentosUtilizados = value;
+            this.LSDUtilizados.Text = value.ToString();
         }
     }
 
@@ -38,11 +58,7 @@ public partial class FormulariosDeLicencia_Partes_SaldoOrdinaria : System.Web.UI
     {
         if (!IsPostBack)
         {
-
             WSViaticosSoapClient s = new WSViaticosSoapClient();
-            //WSViaticos.WSViaticos s = new WSViaticos.WSViaticos();
-
-            //WSAsistencia s = new WSAsistencia();  
             SaldoLicencia saldo;
             saldo = s.GetSaldoLicencia((Persona)Session["persona"], this.Concepto);
             Session["saldoLicencia"] = saldo;
@@ -50,6 +66,8 @@ public partial class FormulariosDeLicencia_Partes_SaldoOrdinaria : System.Web.UI
             {
                 InsertarDetalleDeSaldo(d);
             }
+
+            BuscarSegmentos(DateTime.Today);
         }
         else
         {
@@ -59,6 +77,19 @@ public partial class FormulariosDeLicencia_Partes_SaldoOrdinaria : System.Web.UI
                 InsertarDetalleDeSaldo(d);
             }
         }
+    }
+    public void BuscarSegmentos(DateTime desde)
+    {
+        WSViaticosSoapClient s = new WSViaticosSoapClient();
+        int segmento = s.GetSegmentosUtilizados((Persona)Session["persona"], desde);
+        if (segmento > 2)
+        {
+            segmento = 2;
+        }
+        this.SegmentosDisponibles = (2 - segmento);
+        this.SegmentosUtilizados = segmento;
+        this.LSDUtilizados.Text = segmento.ToString();
+        this.LSDisponibles.Text = (2 - segmento).ToString();
     }
 
     private void InsertarDetalleDeSaldo(SaldoLicenciaDetalle detalle)

@@ -188,7 +188,11 @@ namespace General
                     TipoDePlanta = new TipoDePlanta
                     {
                         Descripcion = dr.GetValue(dr.GetOrdinal("planta")).ToString()
-                    }
+                    },
+
+                    EstaCertificadoEnLaDDJJ = (dr.GetValue(dr.GetOrdinal("Certificado")).ToString() == "S" ? true : false),
+                    CertificaHoraDesdeDDJJ = dr.GetValue(dr.GetOrdinal("Hora_Desde")).ToString(),
+                    CertificaHoraHastaDDJJ = dr.GetValue(dr.GetOrdinal("Hora_Hasta")).ToString(),
 
                 };
                 unArea.Personas.Add(persona);

@@ -25,6 +25,8 @@
         
         var titulo = "Error en SIGIRH";
         var cuerpo = Server.GetLastError().StackTrace;
+        cuerpo += Server.GetLastError().Message;
+        cuerpo += Server.GetLastError().InnerException;
         
         General.EnviadorDeMails.EnviarMail("jlurgo@gmail.com", titulo, cuerpo);
     }

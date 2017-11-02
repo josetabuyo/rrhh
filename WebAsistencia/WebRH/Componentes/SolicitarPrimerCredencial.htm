@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<head>
+    <style type="text/css">
+        #pantalla_solicitar_primer_credencial
+        {
+             width: 250px;
+             margin-top: 15px;
+        }       
+       
+    </style>
+</head>
+<div id=pantalla_solicitar_primer_credencial>
+    <label> Usted va a solicitar una credencial de acceso al Ministerio de Desarrollo Social</label>
+    <input type="button" id="btn_realizar_solicitud" value="Solicitar Credencial"/>
+</div>
+<script type="text/javascript">
+    var Componente = {
+        start: function (opt, ui) {
+            vex.defaultOptions.className = 'vex-theme-os';
+            vex.close();
+            vex.open({
+                afterOpen: function ($vexContent) {
+                    ui.find("#btn_realizar_solicitud").click(function () {
+                        Backend.SolicitarRenovacionCredencial("Nueva").onSuccess(function () {
+                            alertify.success("Solicitud creada con éxito");
+                            vex.close();
+                        });
+                    });
+                    $vexContent.css("width", "280px");
+                    $vexContent.append(ui);
+                    ui.show();
+                    return ui;
+                },
+                css: {
+                    'padding-top': "4%",
+                    'padding-bottom': "0%"
+                }
+            });
+        }
+    };
+</script>
