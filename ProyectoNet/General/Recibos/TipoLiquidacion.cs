@@ -16,5 +16,10 @@ namespace General
             this.Descripcion = descripcion;
         }
 
+        public TipoLiquidacion()
+        {
+        }
+
     }
 }
+

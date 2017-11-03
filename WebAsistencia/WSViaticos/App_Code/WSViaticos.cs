@@ -5164,4 +5164,29 @@ public class WSViaticos : System.Web.Services.WebService
     {
         return Server.MapPath("~") + "\\PdfTemplates\\" + fileName;
     }
+
+    /*[WebMethod]
+    public List<TipoLiquidacion> GetTiposLiquidacion()
+    {
+        List<TipoLiquidacion> areas = new List<TipoLiquidacion>();
+        var repositorio = RepositorioDeTipoDeLiquidacion.Nuevo(Conexion());
+        return repositorio.All();
+    }*/
+    [WebMethod]
+    public String GetTiposLiquidacion()
+    {
+        List<TipoLiquidacion> areas = new List<TipoLiquidacion>();
+        var repositorio = RepositorioDeTipoDeLiquidacion.Nuevo(Conexion());
+        return JsonConvert.SerializeObject(repositorio.All());    
+    }
+
+    /*cuando se prueba con soap ui es mejor quitar el objeto usuario asi, es mas directo realizar pruebas*/
+    [WebMethod]
+    public string GetRecibosResumen(int tipoLiquidacion, int anio, int mes, Usuario usuario)
+    {
+        RepositorioLegajo repo = RepoLegajo();
+
+        return repo.GetRecibosResumen(tipoLiquidacion,anio, mes);
+    }
+
 }

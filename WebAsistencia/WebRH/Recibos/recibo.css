@@ -92,11 +92,11 @@ background-position: center;
 .iconOKFirma{ background-color: transparent; background-image: url("../img/iconOK.png"); background-repeat: no-repeat; border: 0 none;  float: left;  font-weight: bold;  height: 34px;  margin-top: 10px; padding-left: 51px; padding-top: 10px; width: 100%;}
 .iconErrorFirma2{ background-color: transparent; background-image: url("../img/msginfo.png"); background-repeat: no-repeat; border: 0 none;  float: left;  font-weight: bold;  height: 34px;  margin-top: 5px; padding-left: 51px; padding-top: 10px; width: 100%;color:green;font-size: 8pt;}
 */
-.iconInfo{margin-right: 15px; vertical-align: middle;float:left; background-image: url("../img/msginfo.png");background-repeat: no-repeat;padding-left: 15pt;color:green;font-size: 8pt; height: 15pt;}
-.iconProcesando{margin-right: 15px; vertical-align: middle;float:left; background-image: url("../img/loads.gif");background-repeat: no-repeat;padding-left: 15pt;color:green;font-size: 8pt; height: 15pt;}
-.iconAlerta{margin-right: 15px; vertical-align: middle;float:left; background-image: url("../img/msgwarn.png");background-repeat: no-repeat;padding-left: 15pt;color:green;font-size: 8pt; height: 15pt;}
-.iconOKFirmados{margin-right: 15px; vertical-align: middle;float:left; background-image: url("../img/pased.png");background-repeat: no-repeat;padding-left: 15pt;color:green;font-size: 8pt; height: 15pt;}
-.iconErrorFirma{ background-color: transparent; background-image: url("../img/msginfo.png"); background-repeat: no-repeat; border: 0 none;  float: left;  font-weight: bold;  height: 34px;  margin-top: 5px; padding-left: 51px; padding-top: 10px; width: 100%;color:green;font-size: 8pt;}
+.iconInfo{margin-right: 15px; vertical-align: middle;float:left; background-image: url("../Imagenes/recibos/msginfo.png");background-repeat: no-repeat;padding-left: 15pt;color:green;font-size: 8pt; height: 15pt;}
+.iconProcesando{margin-right: 15px; vertical-align: middle;float:left; background-image: url("../Imagenes/recibos/loads.gif");background-repeat: no-repeat;padding-left: 15pt;color:green;font-size: 8pt; height: 15pt;}
+.iconAlerta{margin-right: 15px; vertical-align: middle;float:left; background-image: url("../Imagenes/recibos/msgwarn.png");background-repeat: no-repeat;padding-left: 15pt;color:green;font-size: 8pt; height: 15pt;}
+.iconOKFirmados{margin-right: 15px; vertical-align: middle;float:left; background-image: url("../Imagenes/recibos/pased.png");background-repeat: no-repeat;padding-left: 15pt;color:green;font-size: 8pt; height: 15pt;}
+.iconErrorFirma{ background-color: transparent; background-image: url("../Imagenes/recibos/msginfo.png"); background-repeat: no-repeat; border: 0 none;  float: left;  font-weight: bold;  height: 34px;  margin-top: 5px; padding-left: 51px; padding-top: 10px; width: 100%;color:green;font-size: 8pt;}
 
 .Documento{color:black;}
 .DocumentoCeleste{color:#3399FF;}
@@ -107,7 +107,7 @@ background-position: center;
 .Title{ display: table-caption; text-align: center; font-weight: bold; font-size: larger;}  
 .Heading{ display: table-row; font-weight: bold; text-align: center;}  
 .Row{display: table-row;}  
-.Cell{display: table-cell; border: solid; border-width: thin; padding-left: 5px; padding-right: 5px;} 
-.Cell2{background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;}
+.Cell{display: table-cell; background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;width:10pt} 
+.Cell2{text-align: right;}
 
  

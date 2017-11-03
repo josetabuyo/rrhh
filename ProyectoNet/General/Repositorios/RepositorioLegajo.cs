@@ -1323,7 +1323,52 @@ namespace General.Repositorios
             throw new NotImplementedException();
         }
 
+        /*obtiene un resumen de los recibos de sueldo*/
+        public string GetRecibosResumen(int tipoLiquidacion,int anio, int mes)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@mes", mes);
+            parametros.Add("@año", anio);
+            parametros.Add("@tipoLiquidacion", tipoLiquidacion);
+            
 
+            var reciboResumen = new object();
+            var listaRecibosResumidos = new List<object>();            
+
+            var tablaDatos = conexion.Ejecutar("dbo.PLA_GET_Recibos_Resumen", parametros);
+
+            if (tablaDatos.Rows.Count > 0)
+            {                
+                tablaDatos.Rows.ForEach(row =>
+                {/*Tambien se puede crear un objeto contenedor de cada fila, esto me sirve para  retornar una 
+                  * lista en lugar de un objeto string json
+                  * 
+                    Persona persona = new Persona(row.GetInt("id_usuario"), row.GetInt("NroDocumento"), row.GetString("nombre"), row.GetString("apellido"), area);
+                    Respuesta respuesta = new Respuesta(
+                        row.GetInt("id_orden"),
+                        persona,
+                        row.GetDateTime("fecha_creacion"),
+                        row.GetString("texto"));
+                    */
+                    
+                    reciboResumen = new
+                    {
+                        Id_Recibo = row.GetInt("Id_Recibo"),
+                        Legajo = row.GetInt("legajo"),
+                        Cuil = row.GetString("Cuil"),
+                        Nyap = row.GetString("Nyap"),
+                        Nro_Orden = row.GetSmallintAsInt("Nro_Orden"),
+                    };
+
+
+                    listaRecibosResumidos.Add(reciboResumen);
+                });
+
+            }
+
+            return JsonConvert.SerializeObject(listaRecibosResumidos);
+
+        }
 
 
 

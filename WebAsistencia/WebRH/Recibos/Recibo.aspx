@@ -71,11 +71,11 @@
               <!--<div id="caja_controles"> </div>-->
          
          <!-- 	estatus de la operacion realizada --> 
-         <div id ="Div1"> 
+<!--          <div id ="Div1"> 
          <div id ="Div2"></div><div id ="Div3"></div>
          <div id ="Div4"></div><div id ="Div6"></div>
          </div>
-
+-->
         <!--  <div class="Table"> 
             <div class="Title"><p> Esta es la tabla</p> </div>  
             <div class="Heading"> <div class="Cell">
@@ -84,15 +84,25 @@
             <div class="Cell"><p> Segundo Nombre</p></div>  
             <div class="Cell"> <p>  Edad</p> </div>  
          </div>--> 
+<div style="width:100%">
          <div class="Row"> 
             <div class="Cell"> <p>  Operación</p> </div>  
-            <div class="Cell"> <p>  xxx </p>  </div> 
+            <div class="Cell2"><input id="botonFirmasxxx" class="botonFirmaM" type="button" value="Firmar Seleccionados" onclick="javascript:iniciarOperaciones();return false;" /></div> 
          </div>  
          <div class="Row"> 
             <div class="Cell"> <p>  Estatus</p> </div>  
-            <div class="Cell" id="divmensaje"> <p>  ...</p>  </div> 
+            <div class="Cell2" id="divmensajexxx"> <p>...</p>  </div> 
          </div> 
-  
+</div>
+   
+   <div><table class="tablex table-stripedx table-bordered table-condensed" style="width:100%">
+				 <tbody class="list">
+				 <tr><td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;width:10pt" >Operación</td>
+				 <td style="text-align: right;"><input id="botonFirmas" style="text-align: right;cursor: pointer;" class="botonFirmaM" type="button" value="Firmar Seleccionados" onclick="javascript:iniciarOperaciones();return false;" />
+				 </td></tr>
+				 <tr><td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;" >Estatus</td><td><div id="divMensajeSign">&nbsp;</div></td></tr>
+				 </tbody></table></div><br/>
+
     </div>  
 
               
@@ -183,6 +193,31 @@
 <script type="text/javascript" src="Legajo.js"></script>
 <script type="text/javascript" src="../Scripts/Spin.js"></script>
 <script type="text/javascript" src="../Scripts/ControlesImagenes/VistaThumbnail.js"></script>
+
+<!-- js de los servicios propios de la pagina -->
+<script type="text/javascript" >
+    var divMensajeSign = document.getElementById('divMensajeSign');
+    var lista_recibos_resumen;/*variable que mantiene la lista de recibos */
+    function buscarRecibos() {
+
+        //Muestro un mensaje de procesando
+        divMensajeSign.innerHTML = '<div class="iconProcesando">Procesando Solicitud ...</div>';
+
+        //realizo la operacion
+        getRecibos(0, 1, 2016);
+        //si tipo liquidacion es 0 entonces se deben traer TODOS los recibos de un dado año y mes
+
+        //seteo el mensage con el resultado de la operacion
+
+
+        //oculto el panel del resultado
+        document.getElementById('resultFirmaForm').style.display = 'none';
+        //muestro el panel de seleccion de documento firmado 
+        document.getElementById('validarFirmaForm').style.display = 'block';
+
+    }
+</script>
+
 <script type="text/javascript" >
 
     $(document).ready(function ($) {
@@ -191,9 +226,10 @@
         $(".caja_izq").load("SeccionIzquierda.htm", function () {
             Backend.start(function () {
                 // las funciones de inicio se deben ejecutar aqui dentro
+               
                 //cargo las listas seleccionables
                 RECIBOS.getTiposLiquidacion();
-
+                
 
 
                 /*          Legajo.getNombre();

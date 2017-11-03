@@ -37,7 +37,7 @@ var RECIBOS = (function (window, undefined) {
                 option.value = resp[i].Id; //asignamos valores a sus parametros
                 option.text = resp[i].Descripcion;
                 select.add(option); //insertamos el elemento
-                
+
             }
             /*usando jquery no me funciona, fix despues*/
             /*$.each(tiposLiquidacion, function () {
@@ -49,6 +49,40 @@ var RECIBOS = (function (window, undefined) {
         });
 
     }
+    /*VER*/
+    function getRecibos(tipoLiquidacion, mes, anio) {
+        Backend.GetRecibosResumen()
+        .onSuccess(function (recibosResumen) {
+            /*recibosResumen es la respuesta*/
+            
+//            lista_recibos_resumen_div = document.getElementById("cmb_tipo_liquidacion");
+            var i;
+            //**parsear el objeto json y loopear para cargar las opciones*/
+            //recupero la respuesta en forma de objeto json
+            //este contine Id,Descripcion
+
+            var resp = JSON.parse(recibosResumen);
+            var longitud; //tamaño de la lista resumen de recibos
+            longitud = Object.keys(resp).length;
+
+            //genero la lista de recibos
+            for (i = 0; i < longitud; i++) {
+//                var option = document.createElement("option"); //creamos el elemento
+//                option.value = resp[i].Id; //asignamos valores a sus parametros
+//                option.text = resp[i].Descripcion;
+//                select.add(option); //insertamos el elemento
+
+            }
+            /*usando jquery no me funciona, fix despues*/
+            /*$.each(tiposLiquidacion, function () {
+            options.append($("<option />").val(this.Id).text(this.Descripcion));
+            });*/
+        })
+        .onError(function (e) {
+
+        });
+    }
+
 
     /* Metodos que publicamos del objeto RECIBOS */
     return {
