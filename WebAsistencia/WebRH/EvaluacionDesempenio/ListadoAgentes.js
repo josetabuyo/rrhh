@@ -214,7 +214,7 @@ var ListadoAgentes = {
     },
     guardarCodigoGde: function (ui) {
         //alert('testttt');
-        var doc = $("#hid_doc").val();
+        var doc = parseInt($("#hid_doc").val());
         var codigo = ui.find('#codigo_gde').val();
         Backend.EvalGuardarCodigoGDE(doc, codigo)
         .onSuccess(function (rpta) {
