@@ -39,6 +39,11 @@ function replicarDireccion () {
          _this.txt_fechaNac = _this.ui.find("#txt_fechaNac");
          _this.txt_dni = _this.ui.find("#txt_documento");
          _this.cmb_tipoDocumento = _this.ui.find("#cmb_tipoDocumento");
+         //_this.email = _this.ui.find("#txt_email2");
+
+         setTimeout(function () {
+             $("#txt_email2").html($('#email_user').html());
+         }, 5000);
 
          _this.txt_cuil.val(parseInt(datos_personales.Cuil));
          $("#cuil").mask("99-99999999-9");

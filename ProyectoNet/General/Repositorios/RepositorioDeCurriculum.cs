@@ -630,7 +630,7 @@ namespace General.Repositorios
             parametros.Add("@Usuario", usuario.Id);
             parametros.Add("@DomicilioTelefono", telefono);
             parametros.Add("@DomicilioTelefono2", telefono2);
-            parametros.Add("@DomicilioCorreo_Electronico", email);
+            //parametros.Add("@DomicilioCorreo_Electronico", email);
                       
             return parametros;
         }
