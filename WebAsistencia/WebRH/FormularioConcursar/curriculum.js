@@ -37,7 +37,7 @@
                                  provinciaPersonal.Nombre);
 
         /*_this.cv_domLegal = $("#cv_domLegal");
-
+        
         var localidadLegal = Backend.sync.BuscarLocalidades({ Id: curriculum.DatosPersonales.DomicilioLegal.Localidad })[0];
         if (localidadLegal == undefined) {
             localidadLegal = {};
@@ -54,9 +54,6 @@
         _this.cv_telefono.text(curriculum.DatosPersonales.DatosDeContacto.Telefono);
         _this.cv_mail = $("#cv_mail");
         _this.cv_mail.text(curriculum.DatosPersonales.DatosDeContacto.Email);
-        //_this.cv_mail.text(document.getElementById('email_user').innerHTML());
-        
-
 
         //DIBUJAR CUERPO DEL CV
         //CvEstudios
