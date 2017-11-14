@@ -50,6 +50,7 @@ var completarComboMeses = function () {
     })
     .onError(function (error, as, asd) {
         alertify.alert("", error);
+        spinner.stop();
     });
 }
 
@@ -285,6 +286,7 @@ var ConsultarDDJJ = function (idArea, estado) {
     })
     .onError(function (error, as, asd) {
         alertify.alert("", error);
+        spinner.stop();
     });
 
 
@@ -336,6 +338,7 @@ var Generar_Definitivo_o_Provisorio = function (idArea, estado_guardado) {
         })
         .onError(function (error, as, asd) {
             alertify.alert("", error);
+            spinner.stop();
         });
     //})
     //.onError(function (error, as, asd) {

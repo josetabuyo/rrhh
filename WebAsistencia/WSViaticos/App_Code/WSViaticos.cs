@@ -5164,4 +5164,27 @@ public class WSViaticos : System.Web.Services.WebService
     {
         return Server.MapPath("~") + "\\PdfTemplates\\" + fileName;
     }
+
+
+    [WebMethod]
+    public void GenerarMotivoEnPersonasNoCertificadas(int mes, int anio, DDJJ104_Consulta[] lista_DDJJ104, Usuario usuario)
+    {
+        RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
+
+        DDJJ104_2001 cabe = new DDJJ104_2001();
+        ddjj.GenerarMotivoEnPersonasNoCertificadas(mes, anio, lista_DDJJ104, usuario);
+
+    }
+
+
+    [WebMethod]
+    public void AsignaAreaAPersonasNoCertificadas(int mes, int anio, DDJJ104_Consulta[] lista_DDJJ104, int id_area, Usuario usuario)
+    {
+        RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
+
+        DDJJ104_2001 cabe = new DDJJ104_2001();
+        ddjj.AsignaAreaAPersonasNoCertificadas(mes, anio, lista_DDJJ104, id_area, usuario);
+
+    }
+
 }

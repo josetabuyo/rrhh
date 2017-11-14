@@ -49,6 +49,8 @@
           <s:element minOccurs="1" maxOccurs="1" name="EstaCertificadoEnLaDDJJ" type="s:boolean" />
           <s:element minOccurs="0" maxOccurs="1" name="CertificaHoraDesdeDDJJ" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="CertificaHoraHastaDDJJ" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MotivoNoCertificar" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CCONoCertificar" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="Area">
@@ -992,6 +994,56 @@
             <s:element minOccurs="0" maxOccurs="1" name="PrintPdfEvaluacionDesempenioResult" type="s:string" />
           </s:sequence>
         </s:complexType>
+      </s:element>
+      <s:element name="GenerarMotivoEnPersonasNoCertificadas">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="mes" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="anio" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="lista_DDJJ104" type="tns:ArrayOfDDJJ104_Consulta" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfDDJJ104_Consulta">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DDJJ104_Consulta" nillable="true" type="tns:DDJJ104_Consulta" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DDJJ104_Consulta">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="mes" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="anio" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="area_generacion" type="tns:Area" />
+          <s:element minOccurs="0" maxOccurs="1" name="fecha_generacion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="usuario_generacion" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="recepcionada" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="fecha_recibido" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="usuario_recibido" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="firmante" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="persona" type="tns:Persona" />
+          <s:element minOccurs="0" maxOccurs="1" name="mod_contratacion" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="estado" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="estado_descrip" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GenerarMotivoEnPersonasNoCertificadasResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="AsignaAreaAPersonasNoCertificadas">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="mes" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="anio" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="lista_DDJJ104" type="tns:ArrayOfDDJJ104_Consulta" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_area" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AsignaAreaAPersonasNoCertificadasResponse">
+        <s:complexType />
       </s:element>
       <s:element name="GuardarCvMatricula">
         <s:complexType>
@@ -6081,29 +6133,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="DDJJ104_Consulta">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="mes" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="anio" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="area_generacion" type="tns:Area" />
-          <s:element minOccurs="0" maxOccurs="1" name="fecha_generacion" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="usuario_generacion" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="recepcionada" type="s:boolean" />
-          <s:element minOccurs="0" maxOccurs="1" name="fecha_recibido" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="usuario_recibido" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="firmante" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="persona" type="tns:Persona" />
-          <s:element minOccurs="0" maxOccurs="1" name="mod_contratacion" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="estado" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="estado_descrip" type="s:string" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="ArrayOfDDJJ104_Consulta">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="DDJJ104_Consulta" nillable="true" type="tns:DDJJ104_Consulta" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="GetConsultaIndividualPorPersonaResponse">
         <s:complexType>
           <s:sequence>
@@ -7786,6 +7815,18 @@
   </wsdl:message>
   <wsdl:message name="PrintPdfEvaluacionDesempenioSoapOut">
     <wsdl:part name="parameters" element="tns:PrintPdfEvaluacionDesempenioResponse" />
+  </wsdl:message>
+  <wsdl:message name="GenerarMotivoEnPersonasNoCertificadasSoapIn">
+    <wsdl:part name="parameters" element="tns:GenerarMotivoEnPersonasNoCertificadas" />
+  </wsdl:message>
+  <wsdl:message name="GenerarMotivoEnPersonasNoCertificadasSoapOut">
+    <wsdl:part name="parameters" element="tns:GenerarMotivoEnPersonasNoCertificadasResponse" />
+  </wsdl:message>
+  <wsdl:message name="AsignaAreaAPersonasNoCertificadasSoapIn">
+    <wsdl:part name="parameters" element="tns:AsignaAreaAPersonasNoCertificadas" />
+  </wsdl:message>
+  <wsdl:message name="AsignaAreaAPersonasNoCertificadasSoapOut">
+    <wsdl:part name="parameters" element="tns:AsignaAreaAPersonasNoCertificadasResponse" />
   </wsdl:message>
   <wsdl:message name="GuardarCvMatriculaSoapIn">
     <wsdl:part name="parameters" element="tns:GuardarCvMatricula" />
@@ -9888,6 +9929,14 @@
       <wsdl:input message="tns:PrintPdfEvaluacionDesempenioSoapIn" />
       <wsdl:output message="tns:PrintPdfEvaluacionDesempenioSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GenerarMotivoEnPersonasNoCertificadas">
+      <wsdl:input message="tns:GenerarMotivoEnPersonasNoCertificadasSoapIn" />
+      <wsdl:output message="tns:GenerarMotivoEnPersonasNoCertificadasSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AsignaAreaAPersonasNoCertificadas">
+      <wsdl:input message="tns:AsignaAreaAPersonasNoCertificadasSoapIn" />
+      <wsdl:output message="tns:AsignaAreaAPersonasNoCertificadasSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GuardarCvMatricula">
       <wsdl:input message="tns:GuardarCvMatriculaSoapIn" />
       <wsdl:output message="tns:GuardarCvMatriculaSoapOut" />
@@ -11550,6 +11599,24 @@
     </wsdl:operation>
     <wsdl:operation name="PrintPdfEvaluacionDesempenio">
       <soap:operation soapAction="http://wsviaticos.gov.ar/PrintPdfEvaluacionDesempenio" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerarMotivoEnPersonasNoCertificadas">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GenerarMotivoEnPersonasNoCertificadas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AsignaAreaAPersonasNoCertificadas">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/AsignaAreaAPersonasNoCertificadas" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -14829,6 +14896,24 @@
     </wsdl:operation>
     <wsdl:operation name="PrintPdfEvaluacionDesempenio">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/PrintPdfEvaluacionDesempenio" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerarMotivoEnPersonasNoCertificadas">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GenerarMotivoEnPersonasNoCertificadas" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AsignaAreaAPersonasNoCertificadas">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/AsignaAreaAPersonasNoCertificadas" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
