@@ -13,7 +13,8 @@ public partial class CtrlAcc_service : System.Web.UI.Page
     {
         mUnknown,
         mDotacion,
-        mInformarLote
+        mInformarLote,
+        mLoginWeb
     }
 
     private string _User = string.Empty;
@@ -21,6 +22,7 @@ public partial class CtrlAcc_service : System.Web.UI.Page
     private string _Method = string.Empty;
     private string _Param = string.Empty;
     private string _JsonResp = string.Empty;
+
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -75,6 +77,10 @@ public partial class CtrlAcc_service : System.Web.UI.Page
                     _JsonResp = mInformarLote(_Param);
                     break;
 
+                case eMethod.mLoginWeb:
+                    _JsonResp = mLoginWeb();
+                    break;
+
                 default:
                     throw new Exception("Error: La petición solicitada no pudo ser identíficada.");
             }
@@ -106,23 +112,38 @@ public partial class CtrlAcc_service : System.Web.UI.Page
     private string mDotacion(string sParam)
     {
         WSViaticosSoapClient ws = new WSViaticosSoapClient();
-        var areas = ws.GetAreas(); var personas = string.Empty;
-        for (int i = 0; i < 5; i++)
-        {
-            personas += "{ 'Id': '" + areas[i].Id.ToString() + "', 'Ape': 'Area', 'Nom': '" + areas[i].Nombre + "', 'Doc': 0, 'Tar': '0' },";
-        }
-        string resp = "{ 'Personas': [ " + personas + " ] }";
-        return resp;
+        var json = ws.CTL_ACC_Get_Dotacion();
+        return json;
     }
 
 
     private string mInformarLote(string sParam)
     {
+        WSViaticosSoapClient ws = new WSViaticosSoapClient();
+        return ws.CTL_ACC_Grabar_Lote(sParam);
+    }
 
-        var json = "{ 'Lista_Ok': [ 1, 2, 4 ], 'Lista_Error': [ { 'Reg_Id': 3, 'Error_Desc' : 'La persona no existe' } ] }";
 
-        //return "{ 'Reg_Proc' : 5, 'Correctos' : 4, 'Incorrectos': 1, 'Det_Err': [ { 'Reg_Id': 3, 'Error_Desc' : 'La persona no existe' } ] }";
+    private string mLoginWeb()
+    {
+        var json = string.Empty;
+        WSViaticosSoapClient ws = new WSViaticosSoapClient();
+        if (ws.Login(_User, _Pass))
+        {
+            var usu = ws.GetUsuarioPorAlias(_User);
+            var fun = ws.FuncionalidadesPara(usu.Id);
 
+            /////////////////////////////////
+
+
+
+            /////////////////////////////////
+            json = "true";
+        }
+        else
+        {
+            json = "false";
+        }        
         return json;
 
     }
