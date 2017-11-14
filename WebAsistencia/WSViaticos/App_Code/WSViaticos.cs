@@ -4856,4 +4856,30 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
 
+    #region " Control de Acceso "
+
+        [WebMethod]
+        public string CTL_ACC_Grabar_Lote(string json)
+        {
+            var ctlAcc = new General.CtrlAcc.RepositorioCtlAcc();
+            return ctlAcc.Grabar_Lote_Control_Acceso(json);
+        }
+
+        [WebMethod]
+        public string CTL_ACC_Get_Dotacion()
+        {
+            var ctlAcc = new General.CtrlAcc.RepositorioCtlAcc();
+            return ctlAcc.Get_Dotacion_Control_Acceso();
+        }
+
+        [WebMethod]
+        public string CTL_ACC_Login(string user, string pass)
+        {
+            return "";
+        }
+
+    #endregion
+
+
+
 }
