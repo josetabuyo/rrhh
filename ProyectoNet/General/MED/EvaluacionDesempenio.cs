@@ -12,6 +12,7 @@ namespace General.MED
         public int estado_evaluacion { get; set; }
         public string codigo_gde { get; set; }
         public string id_doc_electronico { get; set; }
+        public DateTime fecha { get; set; }
 
         public int puntaje
         {
@@ -28,7 +29,7 @@ namespace General.MED
 
         public List<DetallePreguntas> detalle_preguntas { get; set; }
 
-        public EvaluacionDesempenio(int id_evaluacion, int estado_evaluacion, NivelEvaluacionDesempenio nivel, List<DetallePreguntas> detalle_preguntas, string codigo_gde, string id_doc_electronico)
+        public EvaluacionDesempenio(int id_evaluacion, int estado_evaluacion, NivelEvaluacionDesempenio nivel, List<DetallePreguntas> detalle_preguntas, string codigo_gde, string id_doc_electronico, DateTime fecha)
         {
             this.id_evaluacion = id_evaluacion;
             this.estado_evaluacion = estado_evaluacion;
@@ -36,13 +37,14 @@ namespace General.MED
             this.detalle_preguntas = detalle_preguntas;
             this.nivel = nivel;
             this.id_doc_electronico = id_doc_electronico;
+            this.fecha = fecha;
         }
 
         public EvaluacionDesempenio() { }
 
         public static EvaluacionDesempenio Nula()
         {
-            return new EvaluacionDesempenio(0, 0, NivelEvaluacionDesempenio.Nulo(), new List<DetallePreguntas>(), String.Empty, String.Empty);
+            return new EvaluacionDesempenio(0, 0, NivelEvaluacionDesempenio.Nulo(), new List<DetallePreguntas>(), String.Empty, String.Empty, DateTime.MinValue);
         }
     }
 }
