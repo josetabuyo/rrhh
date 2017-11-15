@@ -241,7 +241,8 @@ namespace General.Repositorios
                                             nivel,
                                             detalle_preguntas,
                                             row.GetString("codigo_gde", ""),
-                                            row.GetString("codigo_doc_electronico",""));
+                                            row.GetString("codigo_doc_electronico",""),
+                                            row.GetDateTime("fecha"));
             }
 
             var unidad_evaluacion = UnidadDeEvaluacion.Nulio();

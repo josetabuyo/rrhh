@@ -655,19 +655,20 @@ namespace General.Repositorios
 
         public bool AprobarSolicitudCredencial(SolicitudCredencial solicitud, Usuario usuario_aprobador)
         {
+            var repo_usuarios = new RepositorioDeUsuarios(this.conexion, RepositorioDePersonas.NuevoRepositorioDePersonas(this.conexion));
+            var usuario_solicitante = repo_usuarios.GetUsuarioPorIdPersona(solicitud.IdPersona);
+
             RepositorioDeTickets repo = new RepositorioDeTickets(this.conexion);
-            var id_ticket_impresion = repo.crearTicket("impresion_credencial", usuario_aprobador.Id);
+            var id_ticket_impresion = repo.crearTicket("impresion_credencial", usuario_solicitante.Id);
 
             var parametros = new Dictionary<string, object>();
             parametros.Add("@IdPersona", usuario_aprobador.Owner.Id);
             parametros.Add("@IdSolicitud ", solicitud.Id);
-            parametros.Add("@IdTicketImpresion ", id_ticket_impresion); 
+            parametros.Add("@IdTicketImpresion ", id_ticket_impresion);
 
             var tablaDatos = conexion.Ejecutar("dbo.Acre_AprobarSolicitudCredencial", parametros);
 
-            var repo_usuarios = new RepositorioDeUsuarios(this.conexion, RepositorioDePersonas.NuevoRepositorioDePersonas(this.conexion));
 
-            var usuario_solicitante = repo_usuarios.GetUsuarioPorIdPersona(solicitud.IdPersona);
             new RepositorioDeAlertasPortal(this.conexion)
                 .crearAlerta("Solicitud de Credencial", "Tu solicitud ha sido aprobada, se le avisará cuando esté impresa", usuario_solicitante.Id, usuario_aprobador.Id);
             return true;

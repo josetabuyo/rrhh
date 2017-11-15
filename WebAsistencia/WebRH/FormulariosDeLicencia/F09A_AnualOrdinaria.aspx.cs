@@ -126,12 +126,15 @@ ESTA SOLICITUD DEBE SER RECIBIDA EN LA DIRECCION DE ADMINISTRACIÓN DE PERSONAL 
 
         if (!this.RBOtorgada.Checked && !this.RBDenegada.Checked)
             DatosValidos = false;
-        this.SaldoOrdinaria1.BuscarSegmentos(this.DesdeHasta1.Desde);
-        if (this.SaldoOrdinaria1.SegmentosDisponibles == 0)
-            DatosValidos = false;
-
+       
         WSViaticosSoapClient s = new WSViaticosSoapClient();
         var usuario = (Usuario)Session["usuario"];
+        this.SaldoOrdinaria1.BuscarSegmentos(this.DesdeHasta1.Desde);
+        if (this.SaldoOrdinaria1.SegmentosDisponibles == 0 && !s.ElUsuarioTienePermisosPara(usuario.Id, 57))
+        {
+            DatosValidos = false;
+        }
+
         if (this.DesdeHasta1.Desde < DateTime.Today && !s.ElUsuarioTienePermisosPara(usuario.Id, 54))
         {
             DatosValidos = false;
