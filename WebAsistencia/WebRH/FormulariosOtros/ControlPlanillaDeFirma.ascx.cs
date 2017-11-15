@@ -27,19 +27,19 @@ public partial class ControlPlanillaDeFirma : System.Web.UI.UserControl
     private string DiaDeLaSemana(string dia)
     {
         if (dia == "Sunday")
-            return "Domingo";
+            return "D";
         if (dia == "Monday")
-            return "Lunes";
+            return "L";
         if (dia == "Tuesday")
-            return "Martes";
+            return "M";
         if (dia == "Wednesday")
-            return "Miercoles";
+            return "M";
         if (dia == "Thursday")
-            return "Jueves";
+            return "J";
         if (dia == "Friday")
-            return "Viernes";
+            return "V";
         if (dia == "Saturday")
-            return "Sabado";
+            return "S";
 
         return dia;
     }
@@ -65,20 +65,22 @@ public partial class ControlPlanillaDeFirma : System.Web.UI.UserControl
             tc = new TableCell();
             tc.BorderWidth = 1;
             tc.Height = 35;
-
+            tc.Style.Add("width", "6%");
 
             tc.Text = DiaDeLaSemana(PrimerDia.AddDays(i).DayOfWeek.ToString()) + " " + PrimerDia.AddDays(i).Day.ToString();
             tc.Style.Add(HtmlTextWriterStyle.TextAlign, "left");
             tr.Cells.Add(tc);
 
             tc = new TableCell();
-            if (DiaDeLaSemana(PrimerDia.AddDays(i).DayOfWeek.ToString()) == "Sabado" || DiaDeLaSemana(PrimerDia.AddDays(i).DayOfWeek.ToString()) == "Domingo")
+            if (DiaDeLaSemana(PrimerDia.AddDays(i).DayOfWeek.ToString()) == "S" || DiaDeLaSemana(PrimerDia.AddDays(i).DayOfWeek.ToString()) == "D")
             {
                 tc.Text = "No laborable";
                 tc.BorderWidth = 1;
+                tc.ColumnSpan = 2;
                 tr.Cells.Add(tc);
                 tc = new TableCell();
                 tc.Text = "No laborable";
+                tc.ColumnSpan = 2;
                 tc.BorderWidth = 1;
                 tr.Cells.Add(tc);
             }
@@ -86,29 +88,45 @@ public partial class ControlPlanillaDeFirma : System.Web.UI.UserControl
             {
                 tc.Text = "&nbsp;";
                 tc.BorderWidth = 1;
+                tc.Style.Add("width", "7%");
+                tr.Cells.Add(tc);
+                tc = new TableCell();
+                tc.Text = "&nbsp;";
+                tc.Style.Add("width", "14.5%");
+                tc.BorderWidth = 1;
                 tr.Cells.Add(tc);
                 tc = new TableCell();
                 tc.Text = "&nbsp;";
                 tc.BorderWidth = 1;
                 tr.Cells.Add(tc);
+                tc.Style.Add("width", "8%");
+                tc = new TableCell();
+                tc.Text = "&nbsp;";
+                tc.BorderWidth = 1;
+                tc.Style.Add("width", "14.5%");
+                tr.Cells.Add(tc);
             }
 
+            /*2 tanda*/
             tc = new TableCell();
             if (PrimerDia.AddDays(i + Filas).Month == PrimerDia.Month)
             {
                 tc.Text = DiaDeLaSemana(PrimerDia.AddDays(i + Filas).DayOfWeek.ToString()) + " " + PrimerDia.AddDays(i + Filas).Day.ToString();
                 tc.Style.Add(HtmlTextWriterStyle.TextAlign, "left");
                 tc.BorderWidth = 1;
+                tc.Style.Add("width", "6%");
                 tr.Cells.Add(tc);
-                if (DiaDeLaSemana(PrimerDia.AddDays(i + Filas).DayOfWeek.ToString()) == "Sabado" || DiaDeLaSemana(PrimerDia.AddDays(i + Filas).DayOfWeek.ToString()) == "Domingo")
+                if (DiaDeLaSemana(PrimerDia.AddDays(i + Filas).DayOfWeek.ToString()) == "S" || DiaDeLaSemana(PrimerDia.AddDays(i + Filas).DayOfWeek.ToString()) == "D")
                 {
                     tc = new TableCell();
                     tc.Text = "No laborable";
                     tc.BorderWidth = 1;
+                    tc.ColumnSpan = 2;
                     tr.Cells.Add(tc);
                     tc = new TableCell();
                     tc.Text = "No laborable";
                     tc.BorderWidth = 1;
+                    tc.ColumnSpan = 2;
                     tr.Cells.Add(tc);
                 }
                 else
@@ -116,10 +134,22 @@ public partial class ControlPlanillaDeFirma : System.Web.UI.UserControl
                     tc = new TableCell();
                     tc.Text = "&nbsp;";
                     tc.BorderWidth = 1;
+                    tc.Style.Add("width", "7%");
                     tr.Cells.Add(tc);
                     tc = new TableCell();
                     tc.Text = "&nbsp;";
                     tc.BorderWidth = 1;
+                    tc.Style.Add("width", "14.5%");
+                    tr.Cells.Add(tc);
+                    tc = new TableCell();
+                    tc.Text = "&nbsp;";
+                    tc.BorderWidth = 1;
+                    tr.Cells.Add(tc);
+                    tc.Style.Add("width", "8%");
+                    tc = new TableCell();
+                    tc.Text = "&nbsp;";
+                    tc.BorderWidth = 1;
+                    tc.Style.Add("width", "14.5%");
                     tr.Cells.Add(tc);
                 }
             }
@@ -136,8 +166,18 @@ public partial class ControlPlanillaDeFirma : System.Web.UI.UserControl
                 tc.Text = "####";
                 tc.BorderWidth = 1;
                 tr.Cells.Add(tc);
+                tc = new TableCell();
+                tc.Text = "####";
+                tc.BorderWidth = 1;
+
+                tr.Cells.Add(tc);
+                tc = new TableCell();
+                tc.Text = "####";
+                tc.BorderWidth = 1;
+                tr.Cells.Add(tc);
             }
             this.Table1.Rows.Add(tr);
+            this.Table1.Style.Add("border-collapse", "collapse");
         }
     }
 

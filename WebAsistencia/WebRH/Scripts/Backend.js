@@ -23,7 +23,7 @@
         var _this = this;
         this[nombre_metodo] = function () {
             var promesa = new Promesa();
-            _this.ejecutar(nombre_metodo, arguments, function (data) { promesa.success(data) }, function (data) { promesa.error(data) });
+            _this.ejecutar(nombre_metodo, arguments, function (data) { promesa.success(data) }, function (XMLHttpRequest, textStatus, errorThrown) { promesa.error(XMLHttpRequest, textStatus, errorThrown) });
             return promesa;
         };
         this.sync[nombre_metodo] = function () {

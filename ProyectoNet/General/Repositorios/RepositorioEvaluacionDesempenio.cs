@@ -111,11 +111,11 @@ namespace General.Repositorios
         public RespuestaGetAgentesEvaluablesPor GetAgentesEvaluablesPor(Usuario usuario)
         {
             var parametros = new Dictionary<string, object>();
-            var id_persona_evaluadora = usuario.Owner.Id;
+            var id_persona_usuario = usuario.Owner.Id;
             var es_agente_verificador = true;
             if (!EsAgenteVerificador(usuario))
             {
-                parametros.Add("@id_persona_evaluadora", id_persona_evaluadora);
+                parametros.Add("@id_persona_evaluadora", id_persona_usuario);
                 es_agente_verificador = false;
             }
             
@@ -124,8 +124,9 @@ namespace General.Repositorios
             var asignaciones = new List<AsignacionEvaluadoAEvaluador> { };
             var detalle_preguntas = new List<DetallePreguntas> { };
             var cache_areas = new Dictionary<int, DescripcionAreaEvaluacion>();
+            var cache_evaluadores = new Dictionary<int, AgenteEvaluacionDesempenio>();
             var primer_row = true;
-            var evaluador = GetAgenteEvaluadorEvaluacionDesempenio(id_persona_evaluadora);
+            var usuario_evaluador = GetAgenteEvaluadorEvaluacionDesempenio(id_persona_usuario, cache_evaluadores);
             AsignacionEvaluadoAEvaluador asignacion_evaluado_a_evaluador = new AsignacionEvaluadoAEvaluador();
 
             if (tablaDatos.Rows.Count > 0)
@@ -135,7 +136,8 @@ namespace General.Repositorios
                 var id_evaluado_anterior = 0;
                 tablaDatos.Rows.ForEach(row =>
                 {
-                    evaluador.area = GetDescripcionAreaEvaluacion(row.GetInt("id_area_ue", 0), cache_areas, row.GetString("codigo_unidad_eval", ""));
+                    var resp_primario_ue = GetAgenteEvaluadorEvaluacionDesempenio(row.GetSmallintAsInt("idResponsablePrimarioUe"), cache_evaluadores);
+                    usuario_evaluador.area = GetDescripcionAreaEvaluacion(row.GetInt("id_area_ue", 0), cache_areas, row.GetString("codigo_unidad_eval", ""));
 
                     if (primer_row == true)
                     {
@@ -143,7 +145,7 @@ namespace General.Repositorios
                         id_evaluacion_anterior = row.GetSmallintAsInt("id_evaluacion", 0);
                         id_evaluado_anterior = row.GetSmallintAsInt("id_evaluado", 0);
                         var id_evaluado = row.GetSmallintAsInt("id_evaluado", 0);
-                        asignacion_evaluado_a_evaluador = newAsignacionEvaluadoAEvaluadorFromRow(row, detalle_preguntas, id_evaluado, cache_areas, evaluador);
+                        asignacion_evaluado_a_evaluador = newAsignacionEvaluadoAEvaluadorFromRow(row, detalle_preguntas, id_evaluado, cache_areas, resp_primario_ue);
                     }
 
                     if (row.GetSmallintAsInt("id_evaluado", 0) != id_evaluado_anterior || row.GetSmallintAsInt("id_evaluacion", 0) != id_evaluacion_anterior)
@@ -153,7 +155,7 @@ namespace General.Repositorios
                         id_evaluado_anterior = row.GetSmallintAsInt("id_evaluado", 0);
                         detalle_preguntas = new List<DetallePreguntas>();
                         var id_evaluado = row.GetSmallintAsInt("id_evaluado", 0);
-                        asignacion_evaluado_a_evaluador = newAsignacionEvaluadoAEvaluadorFromRow(row, detalle_preguntas, id_evaluado, cache_areas, evaluador);
+                        asignacion_evaluado_a_evaluador = newAsignacionEvaluadoAEvaluadorFromRow(row, detalle_preguntas, id_evaluado, cache_areas, resp_primario_ue);
                         AddDetallePreguntasA(detalle_preguntas, row);
                     }
                     else
@@ -166,38 +168,44 @@ namespace General.Repositorios
             {
                 asignaciones.Add(asignacion_evaluado_a_evaluador);
             }
+            asignaciones = asignaciones.OrderBy(a => a.agente_evaluado.apellido).ThenBy(a => a.agente_evaluado.nombre).ToList();
             return new RespuestaGetAgentesEvaluablesPor(asignaciones, es_agente_verificador);
             
         }
 
-        protected AgenteEvaluacionDesempenio GetAgenteEvaluadorEvaluacionDesempenio(int id_evaluador)
+        protected AgenteEvaluacionDesempenio GetAgenteEvaluadorEvaluacionDesempenio(int id_evaluador, Dictionary<int, AgenteEvaluacionDesempenio> cache)
         {
-            var parametros = new Dictionary<string, object>();
-            parametros.Add("@Id_evaluador", id_evaluador);
-            var tablaDatos = _conexion.Ejecutar("[dbo].[EVAL_GET_DATOS_Evaluador]", parametros);
-            var evaluador = new AgenteEvaluacionDesempenio();
-            if (tablaDatos.Rows.Count > 0)
+            if (!cache.ContainsKey(id_evaluador))
             {
-                var row = tablaDatos.Rows[0];
-                evaluador = new AgenteEvaluacionDesempenio(id_evaluador, row.GetString("apellido"), row.GetString("nombre"),
-                                                    row.GetInt("NroDocumento"), row.GetString("escalafon"), row.GetString("nivel"), row.GetString("grado"), row.GetString("agrupamiento"), row.GetString("puesto"), string.Empty, DescripcionAreaEvaluacion.Nula(), row.GetInt("NroDocumento"));
+                var parametros = new Dictionary<string, object>();
+                parametros.Add("@Id_evaluador", id_evaluador);
+                var tablaDatos = _conexion.Ejecutar("[dbo].[EVAL_GET_DATOS_Evaluador]", parametros);
+                var evaluador = new AgenteEvaluacionDesempenio();
+                if (tablaDatos.Rows.Count > 0)
+                {
+                    var row = tablaDatos.Rows[0];
+                    evaluador = new AgenteEvaluacionDesempenio(id_evaluador, row.GetString("apellido"), row.GetString("nombre"),
+                                                        row.GetInt("NroDocumento"), row.GetString("escalafon"), row.GetString("nivel"), row.GetString("grado"), row.GetString("agrupamiento"), row.GetString("puesto"), string.Empty, DescripcionAreaEvaluacion.Nula(), row.GetInt("NroDocumento"));
+                }
+                cache.Add(id_evaluador, evaluador);
             }
-            return evaluador;
+
+            return cache[id_evaluador];
 
         }
 
-        protected AgenteEvaluacionDesempenio GetAgenteEvaluadoEvaluacionDesempenio(int id_evaluador, DescripcionAreaEvaluacion area)
+        protected AgenteEvaluacionDesempenio GetAgenteEvaluadoEvaluacionDesempenio(int id_evaluado, DescripcionAreaEvaluacion area, RowDeDatos row)
         {
-            var parametros = new Dictionary<string, object>();
-            parametros.Add("@Id_evaluado", id_evaluador);
-            var tablaDatos = _conexion.Ejecutar("[dbo].[EVAL_GET_DATOS_Evaluado]", parametros);
+            //var parametros = new Dictionary<string, object>();
+            //parametros.Add("@Id_evaluado", id_evaluado);
+            //var tablaDatos = _conexion.Ejecutar("[dbo].[EVAL_GET_DATOS_Evaluado]", parametros);
             var evaluador = new AgenteEvaluacionDesempenio();
-            if (tablaDatos.Rows.Count > 0)
-            {
-                var row = tablaDatos.Rows[0];
-                evaluador = new AgenteEvaluacionDesempenio(id_evaluador, row.GetString("apellido"), row.GetString("nombre"),
-                                                    row.GetInt("NroDocumento"), "SINEP", row.GetString("nivel"), row.GetString("grado"), row.GetString("agrupamiento_evaluado", "No Especificado"), string.Empty, row.GetString("Nivel_Estudios", ""), area, row.GetInt("legajo"));
-            }
+            //if (tablaDatos.Rows.Count > 0)
+            //{
+            //    var row = tablaDatos.Rows[0];
+                evaluador = new AgenteEvaluacionDesempenio(id_evaluado, row.GetString("apellido"), row.GetString("nombre"),
+                                                    row.GetInt("NroDocumento"), "SINEP", row.GetString("nivel_evaluado"), row.GetString("grado_evaluado"), row.GetString("agrupamiento_evaluado", "No Especificado"), string.Empty, row.GetString("Nivel_Estudios", ""), area, row.GetInt("legajo"));
+            //}
             return evaluador;
         }
 
@@ -212,7 +220,7 @@ namespace General.Repositorios
         protected AsignacionEvaluadoAEvaluador newAsignacionEvaluadoAEvaluadorFromRow(RowDeDatos row, List<DetallePreguntas> detalle_preguntas, int id_evaluado, Dictionary<int, DescripcionAreaEvaluacion> cache_areas, AgenteEvaluacionDesempenio evaluador)
         {
 
-            var area_evaluado = GetDescripcionAreaEvaluacion(row.GetSmallintAsInt("id_area_evaluado", 0), cache_areas, row.GetString("codigo_unidad_eval", ""));
+            var area_evaluado = GetDescripcionAreaEvaluacion(row.GetSmallintAsInt("id_area_ue", 0), cache_areas, row.GetString("codigo_unidad_eval", ""));
 
             var nivel = new NivelEvaluacionDesempenio(row.GetSmallintAsInt("id_nivel", 0),
                                                         row.GetString("descripcion_nivel", ""),
@@ -232,17 +240,18 @@ namespace General.Repositorios
                                             row.GetSmallintAsInt("estado_evaluacion", 0),
                                             nivel,
                                             detalle_preguntas,
-                                            row.GetString("codigo_gde", ""));
+                                            row.GetString("codigo_gde", ""),
+                                            row.GetString("codigo_doc_electronico",""));
             }
 
             var unidad_evaluacion = UnidadDeEvaluacion.Nulio();
             if (row.GetInt("id_unidad_eval", 0) != 0)
             {
-                unidad_evaluacion = new UnidadDeEvaluacion(row.GetInt("id_unidad_eval"), row.GetString("codigo_unidad_eval"));
+                unidad_evaluacion = new UnidadDeEvaluacion(row.GetInt("id_unidad_eval"), row.GetString("codigo_unidad_eval"), row.GetString("nombre_area_ue", ""));
             }
 
             return new AsignacionEvaluadoAEvaluador(
-                GetAgenteEvaluadoEvaluacionDesempenio(id_evaluado, area_evaluado),
+                GetAgenteEvaluadoEvaluacionDesempenio(id_evaluado, area_evaluado, row),
                 evaluador,
                 evaluacion,
                 periodo,
@@ -251,7 +260,7 @@ namespace General.Repositorios
 
         }
 
-        public int insertarEvaluacion(int idEvaluado, int idEvaluador, int idFormulario, int periodo, int estado)
+        public int insertarEvaluacion(int idEvaluado, int idEvaluador, int idFormulario, int periodo, int estado, string id_doc_electronico)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_evaluacion", 0);
@@ -261,11 +270,12 @@ namespace General.Repositorios
             parametros.Add("@id_periodo", periodo);
             parametros.Add("@estado", estado);
             parametros.Add("@baja", 0);
+            parametros.Add("@id_doc_electronico", id_doc_electronico);
             //parametros.Add("@fecha", DateTime());
             return (int)_conexion.EjecutarEscalar("dbo.EVAL_INS_Evaluacion", parametros);
         }
 
-        public void updateEvaluacion(int idEval, int idEvaluado, int idEvaluador, int idFormulario, int periodo, int estado)
+        public void updateEvaluacion(int idEval, int idEvaluado, int idEvaluador, int idFormulario, int periodo, int estado, string id_doc_electronico)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_evaluacion", idEval);
@@ -276,6 +286,7 @@ namespace General.Repositorios
             parametros.Add("@estado", estado);
             parametros.Add("@baja", 0);
             parametros.Add("@fecha", DateTime.Today);
+            parametros.Add("@id_doc_electronico", id_doc_electronico);
 
             _conexion.Ejecutar("dbo.EVAL_UPD_Evaluacion", parametros);
 

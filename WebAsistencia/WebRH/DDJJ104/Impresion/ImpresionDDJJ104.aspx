@@ -9,11 +9,29 @@
 
     <%= Referencias.Javascript("../../") %>
    
+    <%-- 
+    .SaltoDePagina
+        {
+            PAGE-BREAK-AFTER: always;
+        }
+    #PanelImpresion>table tr
+        {
+            page-break-inside:avoid;
+            page-break-after:always;
+            height:15px;
+        }  
+    .celda
+        {
+
+        }
+    --%>
+
+
     <style type="text/css"  >
         
         .SaltoDePagina
         {
-            PAGE-BREAK-AFTER: always;
+           
         }
         
         #PanelImpresion>table
@@ -25,8 +43,6 @@
         
         #PanelImpresion>table tr
         {
-            page-break-inside:avoid;
-            page-break-after:always;
             height:15px;
         }        
         
@@ -37,8 +53,7 @@
            
         .celda
         {
-             page-break-inside:avoid;
-             page-break-after:always;
+            
         }
          
         #fecha
@@ -144,10 +159,8 @@
         
         #PanelImpresion>table tr
         {
-            page-break-inside:avoid;
-            page-break-after:always;
             
-        }        
+        }                
         
         #PanelImpresion>table th, #PanelImpresion>table td
         {
@@ -156,14 +169,26 @@
            
         .celda
         {
-             page-break-inside:avoid;
-             page-break-after:always;
+
         }
             
         }      
         
     </style>
-   <%-- <link href="../bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
+   <%-- 
+        #PanelImpresion>table tr
+        {
+            page-break-inside:avoid;
+            page-break-after:always;
+        }   
+
+        .celda
+        {
+             page-break-inside:avoid;
+             page-break-after:always;
+        }
+
+   <link href="../bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="../bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />--%>
 
 </head>

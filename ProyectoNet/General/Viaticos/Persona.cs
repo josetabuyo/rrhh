@@ -30,6 +30,9 @@ namespace General
         private string _Cuit;
         private string _Legajo;
         private string _categoria;
+        private bool _estaCertificadoEnLaDDJJ;
+        private string _certificaHoraDesdeDDJJ;
+        private string _certificaHoraHastaDDJJ;
 
         public int Id { get { return _id; } set { _id = value; } }
         public int Documento { get { return _Documento; } set { _Documento = value;  } }
@@ -54,7 +57,10 @@ namespace General
         public int Esta_Cargada { get; set; } //si ya existe en una DDJJ104
         public int IdImagen { get; set; }
         public bool BajaLegajo { get; set; }
-   
+        public bool EstaCertificadoEnLaDDJJ { get { return _estaCertificadoEnLaDDJJ; } set { _estaCertificadoEnLaDDJJ = value; } }
+        public string CertificaHoraDesdeDDJJ { get { return _certificaHoraDesdeDDJJ; } set { _certificaHoraDesdeDDJJ = value; } }
+        public string CertificaHoraHastaDDJJ { get { return _certificaHoraHastaDDJJ; } set { _certificaHoraHastaDDJJ = value; } }  
+
         public Persona() { }
 
         public Persona(int id, int documento, string nombre, string apellido, Area area) 
