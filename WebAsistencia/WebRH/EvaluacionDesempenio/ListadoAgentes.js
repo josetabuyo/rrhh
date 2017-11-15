@@ -11,7 +11,7 @@ var ListadoAgentes = {
         _this.FiltrarPorEstado(parseInt($("#id_estado").val()));
         _this.FiltrarPorDNIApellidoONombre($("#srch_agente").val());
     },
-    getEvaluaciones: function () {
+    getEvaluaciones: function (modo) {
         var _this = this;
         $("#id_estado").change(function () {
             _this.FiltrarRegistros();
@@ -20,39 +20,32 @@ var ListadoAgentes = {
         $("#srch_agente").keyup(function () {
             _this.FiltrarRegistros();
         });
-        
+
         var spinner = new Spinner({ scale: 2 });
         spinner.spin($("html")[0]);
+        _this.spinner = spinner;
 
         var calificacion;
-        Backend.EvalGetAgentesEvaluables()
-        .onSuccess(function (respuesta) {
-            var asignacion_evaluado_a_evaluador = respuesta.asignaciones;
-            spinner.stop();
-            if (asignacion_evaluado_a_evaluador.length == 0) return;
-            if (!asignacion_evaluado_a_evaluador[0].hasOwnProperty('agente_evaluado')) return;
-            todas_las_evaluaciones = asignacion_evaluado_a_evaluador;
-            if (respuesta.EsAgenteVerificador) {
-                _this.DibujarTablaVerificaciones(asignacion_evaluado_a_evaluador);
-            } else {
-                _this.DibujarTablaEvaluaciones(asignacion_evaluado_a_evaluador);
-                // Habilita filtros si hay uno o más agentes
-                if (asignacion_evaluado_a_evaluador.length) { // 0 == false
-                    var $barraBuscador = $("#Text1");
-                    $barraBuscador.attr("disabled", false);
-                    $("#id_estado").attr("disabled", false);
 
-                    $barraBuscador.keypress(function (e) {
-                        if (e.which == 13) {
-                            e.preventDefault();
-                        }
-                    });
-                }
-            }
-        })
-        .onError(function (e) {
-            spinner.stop();
-        });
+        if (modo == 'Verificador') {
+            Backend.EvalGetAgentesEvaluables()
+            .onSuccess(function (respuesta) {
+                _this.spinner.stop();
+                _this.GetAgentesSuccess(respuesta);
+            })
+            .onError(function (e) {
+                _this.spinner.stop();
+            });
+        } else {
+            Backend.GetAgentesEvaluablesParaVerificarGDE()
+            .onSuccess(function (respuesta) {
+                _this.spinner.stop();
+                _this.GetAgentesSuccess(respuesta);
+            })
+            .onError(function (e) {
+                _this.spinner.stop();
+            });
+        }
 
         var d = new Date();
         Backend.GetLeyendaAnio(d.getFullYear())
@@ -63,7 +56,30 @@ var ListadoAgentes = {
             localStorage.setItem("leyenda", "");
         });
     },
-    
+    GetAgentesSuccess: function (respuesta) {
+        _this = this;
+        var asignacion_evaluado_a_evaluador = respuesta.asignaciones;
+        if (asignacion_evaluado_a_evaluador.length == 0) return;
+        if (!asignacion_evaluado_a_evaluador[0].hasOwnProperty('agente_evaluado')) return;
+        todas_las_evaluaciones = asignacion_evaluado_a_evaluador;
+        if (respuesta.EsAgenteVerificador) {
+            _this.DibujarTablaVerificaciones(asignacion_evaluado_a_evaluador);
+        } else {
+            _this.DibujarTablaEvaluaciones(asignacion_evaluado_a_evaluador);
+            // Habilita filtros si hay uno o más agentes
+            if (asignacion_evaluado_a_evaluador.length) { // 0 == false
+                var $barraBuscador = $("#Text1");
+                $barraBuscador.attr("disabled", false);
+                $("#id_estado").attr("disabled", false);
+
+                $barraBuscador.keypress(function (e) {
+                    if (e.which == 13) {
+                        e.preventDefault();
+                    }
+                });
+            }
+        }
+    },
     GetterDocEvaluado: function (asignacion_evaluado_a_evaluador) { return asignacion_evaluado_a_evaluador.agente_evaluado.nro_documento; },
     GetterApellidoEvaluado: function (asignacion_evaluado_a_evaluador) { return asignacion_evaluado_a_evaluador.agente_evaluado.apellido },
     GetterNombreEvaluado: function (asignacion_evaluado_a_evaluador) { return asignacion_evaluado_a_evaluador.agente_evaluado.nombre },
@@ -134,7 +150,7 @@ var ListadoAgentes = {
                     $(this).parent().remove();
                 };
             })
-        } 
+        }
     },
     FiltrarPorEstado: function (estado) {
         var _this = this;
@@ -224,7 +240,7 @@ var ListadoAgentes = {
         }).onError(function (error, as, asd) {
             alert("Se produjo un error al guardar el código GDE.");
         });
-        
+
         vex.closeAll();
     },
     getImgIcono: function (nombre_img, title) {

@@ -110,13 +110,27 @@ namespace General.Repositorios
 
         public RespuestaGetAgentesEvaluablesPor GetAgentesEvaluablesPor(Usuario usuario)
         {
+            return GetAgentesEvaluablesPor(usuario, false);
+        }
+
+        public RespuestaGetAgentesEvaluablesPor GetAgentesEvaluablesParaVerificarGDE(Usuario usuario)
+        {
+            return GetAgentesEvaluablesPor(usuario, true);
+        }
+
+        protected RespuestaGetAgentesEvaluablesPor GetAgentesEvaluablesPor(Usuario usuario, bool ModoVerificadorGDE)
+        {
             var parametros = new Dictionary<string, object>();
             var id_persona_usuario = usuario.Owner.Id;
             var es_agente_verificador = true;
-            if (!EsAgenteVerificador(usuario))
+            if (!EsAgenteVerificador(usuario) && ModoVerificadorGDE)
             {
                 parametros.Add("@id_persona_evaluadora", id_persona_usuario);
                 es_agente_verificador = false;
+            }
+            else
+            {
+                parametros.Add("@solo_con_codigo_gde", 1);
             }
             
             var tablaDatos = _conexion.Ejecutar("dbo.EVAL_GET_Evaluados_Evaluador", parametros);

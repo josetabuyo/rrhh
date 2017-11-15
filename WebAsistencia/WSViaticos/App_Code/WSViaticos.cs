@@ -66,6 +66,14 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public RespuestaGetAgentesEvaluablesPor GetAgentesEvaluablesParaVerificarGDE(Usuario usuario)
+    {
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        return repo.GetAgentesEvaluablesParaVerificarGDE(usuario);
+    }
+
+
+    [WebMethod]
     public string EvalGetNivelesFormulario(string id_nivel)
     {
         var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());

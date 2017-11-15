@@ -15,9 +15,6 @@
     <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:18px; font-weight: bold;'></span> <br/> <span style='font-size:18px;font-weight: bold;'> Menú Principal </span>"
         UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" UrlPassword="../" />
     <div class="container-fluid">
-        <h1 style="text-align: center; margin: 30px;">
-            <!--<a id="btn_asignacion_usuario" href="EvaluadosUsuario.aspx">Evaluados por Usuario</a>-->
-        </h1>
         <div style="margin: 0 auto;" class="row">
             <div class="caja_der papel">
                 <legend style="margin-top: 20px;">AGENTES EVALUABLES</legend>
@@ -41,6 +38,8 @@
             </div>
     </div>
     </div>
+    <!--en caso que se quiera cargar una evaluacion de un agente del que su nivel no está en la base
+    se pregunta al usuario cual es ese nivel mediante este popup-->
     <div style="display: none" id="div_niveles">
         <select id="select_niveles">
             <!--<option value="1">GERENCIAL</option>-->
@@ -52,6 +51,8 @@
         </select>
         <input type="button" id="btn_nivel" value="Aceptar">
     </div>
+
+    <!--popup para cargar el codigo gde de la evaluacion de desempenio cargada-->
     <div style="display:none" id="div_codigo_gde">
         Ingrese el Codigo GDE<br />
         <input type="text" id="codigo_gde"></input><br />
