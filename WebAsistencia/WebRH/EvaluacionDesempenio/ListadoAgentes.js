@@ -28,7 +28,7 @@ var ListadoAgentes = {
         var calificacion;
 
         if (modo == 'Verificador') {
-            Backend.EvalGetAgentesEvaluables()
+            Backend.GetAgentesEvaluablesParaVerificarGDE()
             .onSuccess(function (respuesta) {
                 _this.spinner.stop();
                 _this.GetAgentesSuccess(respuesta);
@@ -37,7 +37,7 @@ var ListadoAgentes = {
                 _this.spinner.stop();
             });
         } else {
-            Backend.GetAgentesEvaluablesParaVerificarGDE()
+            Backend.EvalGetAgentesEvaluables()
             .onSuccess(function (respuesta) {
                 _this.spinner.stop();
                 _this.GetAgentesSuccess(respuesta);
