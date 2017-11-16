@@ -24,7 +24,7 @@
         </div>
     
     <div>
-        <label class="label_caratula" >LLAMADO:</label> <span id ="span_llamado">2da Convocatoria 2015</span> 
+        <label class="label_caratula" >LLAMADO:</label> <span id ="span_llamado">Convocatoria 2017</span> 
         <br /><br />
         <label class="label_caratula">PERFIL:</label> <span id ="span_perfil"></span>
          <br /><br />

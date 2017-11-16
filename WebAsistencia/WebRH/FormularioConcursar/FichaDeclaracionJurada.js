@@ -42,6 +42,11 @@
         _this.puesto_secretaria = $("#puesto_jefatura");
         _this.puesto_secretaria.text("Secretaria");
 
+        for (var i = 0; i < postulacion.NumerosDeInformeGDE.length; i++) {
+            $("#num_informes").append(postulacion.NumerosDeInformeGDE[i] + ', ');
+        }
+       
+
         _this.motivo_postulacion = $("#motivo_postulacion");
         _this.motivo_postulacion.text(postulacion.Motivo);
 

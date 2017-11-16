@@ -217,7 +217,56 @@ namespace General
             return areas;
 
         }
-            
+
+
+        public Organigrama GetOrganigramaSegunFechaDesde(DateTime fecha)
+        {
+            if (organigrama == null)
+            {
+                var parametros = new Dictionary<string, object>();
+                parametros.Add("@FechaVigencia", fecha);
+                parametros.Add("@Muestra_Depto", 1);
+                parametros.Add("@Muestra_Lugares_de_Trabajo", 1);
+                var areas = new List<Area>();
+                var dependencias = new List<List<Area>>();
+
+                //TablaDeDatos estructura = conexion_bd.Ejecutar("dbo.VIA_GetOrganigrama", new Dictionary<string, object>());
+                TablaDeDatos estructura = conexion_bd.Ejecutar("dbo.VIA_Get_AreasParaProtocolo", parametros);
+
+                foreach (var row in estructura.Rows)
+                {
+                    var area_repetida = AreaRepetida(row, areas);
+                    if (area_repetida == null)
+                    {
+                        AgregarAreaCreadaDesdeRowSinBaja(row, areas);
+                    }
+                    //else
+                    //    interpretador_de_codigos.PonerleCerosAlFinalDelCodigoDelArea(area_repetida);
+                }
+
+                areas.ForEach(a => AsignarPadreEn(a, dependencias, estructura, areas));
+
+
+                var aliases = ObtenerTodosLosAliasDeAreas();
+                aliases.ForEach((alias) =>
+                {
+                    var area_del_alias = areas.Find(area => area.Id == alias.IdArea);
+                    if (area_del_alias != null) { area_del_alias.SetAlias(alias); }
+                });
+
+                organigrama = new Organigrama(areas, dependencias);
+            }
+            return organigrama;
+        }
+
+        private static void AgregarAreaCreadaDesdeRowSinBaja(RowDeDatos row, List<Area> areas_del_organigrama)
+        {
+                var area = new Area(row.GetInt("Id_Area"), row.GetString("Descripcion"), row.GetBoolean("Presenta_DDJJ"));
+                area.Jerarquia = row.GetInt("Nivel_Jerarquia");
+                area.Orden = row.GetInt("Orden");
+                areas_del_organigrama.Add(area);   
+        }
+
 
     }
 }

@@ -1,9 +1,11 @@
-﻿var EtapaPreInscripcionDocumental = {
+﻿var cantidadDeInformes = 0;
+var EtapaPreInscripcionDocumental = {
     mostrarPostulacion: function () {
         var _this = this;
         _this.btn_guardar = $("#btn_guardar");
         _this.btn_buscar_postulacion = $("#btn_buscar_postulacion");
         _this.btn_comprobantes = $("#btn_comprobantes");
+        _this.btn_AgregarInforme = $("#btnActualizarInformes");
 
         var pantalla;
 
@@ -45,7 +47,17 @@
 
         _this.btn_guardar.click(function () {
 
-            alertify.confirm("", "¿Está seguro que desea imprimir el anexo de documentación?", 
+            if ($('#checkValidacionInformes:checked').length == 0) {
+                alertify.error('Debe validar todos los INFORMES');
+                return;
+            }
+
+            if (!_this.todosLosInformesEstanCheckeados()) {
+                alertify.error('Debe tildar todos los INFORMES');
+                return;
+            }
+
+            alertify.confirm("", "¿Está seguro que desea imprimir el anexo de documentación?",
                 function () {
                     var lista_foliables = $(".foliables");
                     var lista_documentacion_recibida = [];
@@ -54,6 +66,8 @@
                     localStorage.setItem("empleado", $("#span_empleado").text());
                     localStorage.setItem("dni", $("#span_dni_postulante").text());
                     localStorage.setItem("idPostulante", $("#idPostulante").val());
+
+                    _this.actualizarInformes();
 
                     Backend.PasarAEtapaInscripto(postulacion[0].value).onSuccess(function (resultado) {
                         if (resultado == true) {
@@ -65,16 +79,63 @@
                        .onError(function (error) {
                            alertify.error(error.statusText);
                        });
-                }, 
-                function(){
+                },
+                function () {
                     alertify.error("Se ha cancelado la operación");
                 }
             );
 
         });
 
-    },
+        _this.btn_AgregarInforme.click(function () {
+            if ($('#informeGrafico_00').val() == '') {
+                alertify.error('Debe ingresar un N° De Informe GDE');
+                return;
+            }
 
+            var codigo = $("#txt_codigo_postulacion").val();
+            var informesNuevos = [];
+            var inputsInformesNuevos = $('.informesGraficos');
+            $.each(inputsInformesNuevos, function (key, value) {
+                if (value.value != '') {
+                    informesNuevos.push(value.value);
+                }
+            });
+
+            var setDeInformes = [];
+            setDeInformes[0] = [];
+            setDeInformes[1] = [];
+            setDeInformes[2] = informesNuevos;
+
+            var jsonSetDeInformes = JSON.stringify(setDeInformes);
+
+            Backend.ActualizarInformesGDEDeUnaPostulacion(codigo, jsonSetDeInformes)
+                        .onSuccess(function (resultado) {
+                            if (resultado == true) {
+                                alertify.success("Exito", 'Se ha agregado el INFORME GDE');
+                                $('#informeGrafico_00').val('');
+                                _this.BuscarPostulaciones();
+                            } else {
+                                alertify.alert("", 'Ha sucedido un error');
+                            }
+                        })
+                       .onError(function (error) {
+                           alertify.error(error.statusText);
+                       });
+
+        });
+
+    },
+    todosLosInformesEstanCheckeados: function () {
+        var inputsInformesAceptados = $('.checksInformesAceptados:checked');
+        var inputsInformesRechazados = $('.checksInformesRechazados:checked');
+
+        var totalChecks = inputsInformesAceptados.length + inputsInformesRechazados.length;
+
+        if (cantidadDeInformes == totalChecks)
+            return true;
+        return false;
+    },
     AbrirPopUpFolios: function () {
         $("#somediv").load("PanelDetalleDeFoliosAnexo.htm").dialog({ modal: true, resizable: false, title: 'Documentación', width: 360 });
 
@@ -94,6 +155,8 @@
         $("#requisitos_perfil").html("");
         $("#detalle_perfil").html("");
         $("#detalle_documentos").html("");
+        $("#span_gde").html("");
+        $("#cuerpoTablaInformes").empty();
         $("#titulo_doc_oblig").remove();
         $("#titulo_doc_curric").remove();
 
@@ -149,6 +212,7 @@
         var postulacion = $("#postulacion");
         var idPostulacion = $("#idPostulacion");
         var idPostulante = $("#idPostulante");
+        var numerosDeInformeGDE = $("#span_gde");
         var usuarios = [];
 
         for (var i = 0; i < datos_postulacion.Etapas.length; i++) {
@@ -158,6 +222,15 @@
             }
             if (!agregado) usuarios.push(Backend.ejecutarSincronico("GetUsuarioPorId", [datos_postulacion.Etapas[i].IdUsuario]));
         }
+
+        cantidadDeInformes = datos_postulacion.NumerosDeInformeGDE.length;
+        for (var i = 0; i < datos_postulacion.NumerosDeInformeGDE.length; i++) {
+            $("#span_gde").append(datos_postulacion.NumerosDeInformeGDE[i] + ', ');
+            $("#cuerpoTablaInformes").append("<tr><td>" + datos_postulacion.NumerosDeInformeGDE[i] + "</td><td><input class='checksInformesAceptados' name='fooby[1][" + i + "]' type='checkbox' value='" + datos_postulacion.NumerosDeInformeGDE[i] + "' /></td><td><input class='checksInformesRechazados' name='fooby[1][" + i + "]' type='checkbox' value='" + datos_postulacion.NumerosDeInformeGDE[i] + "' /></td>");
+
+        }
+
+        $('#contenedorInformesGDE').show();
 
         postulacion.val(JSON.stringify(datos_postulacion.Id));
         var criterio = {}
@@ -178,19 +251,92 @@
         if (ultima_etapa.Etapa.Id == 1) {
             $('#btn_guardar').show();
             $('#btn_comprobantes').hide();
+
+            $('#contenedorInformesGDE').show();
+            $('#contenedorInformesGDE').show();
         } else {
             $('#btn_guardar').hide();
             $('#btn_comprobantes').show();
+
+            $('#contenedorInformesGDE').hide();
         }
 
         var fieldset_titulo_perfil = $("#cuadro_perfil");
         var fieldset_titulo_documentos = $("#cuadro_documentos");
         var legend_documentos = $("<legend>");
         legend_documentos.attr("id", "titulo_doc_curric");
-        $("#btn_caratula").attr("style", "display:inline");
+        //$("#btn_caratula").attr("style", "display:inline");
+
+        //FC: para los check
+        // the selector will match all input controls of type :checkbox
+        // and attach a click event handler 
+        $("input:checkbox").on('click', function () {
+            // in the handler, 'this' refers to the box clicked on
+            var $box = $(this);
+            if ($box.is(":checked")) {
+                // the name of the box is retrieved using the .attr() method
+                // as it is assumed and expected to be immutable
+                var group = "input:checkbox[name='" + $box.attr("name") + "']";
+                // the checked state of the group/box on the other hand will change
+                // and the current value is retrieved using .prop() method
+                $(group).prop("checked", false);
+                $box.prop("checked", true);
+            } else {
+                $box.prop("checked", false);
+            }
+        });
 
     },
+    actualizarInformes: function () {
 
+        var inputsInformesAceptados = $('.checksInformesAceptados:checked');
+        var inputsInformesRechazados = $('.checksInformesRechazados:checked');
+        var inputsInformesNuevos = $('.informesGraficos');
+        var codigo = $("#txt_codigo_postulacion").val();
+
+        var informesNuevos = [];
+        var informesAceptados = [];
+        var informesRechazados = [];
+
+        $.each(inputsInformesAceptados, function (key, value) {
+            if (value.value != '') {
+                informesAceptados.push(value.value);
+            }
+        });
+
+        $.each(inputsInformesRechazados, function (key, value) {
+            if (value.value != '') {
+                informesRechazados.push(value.value);
+            }
+        });
+
+        $.each(inputsInformesNuevos, function (key, value) {
+            if (value.value != '') {
+                informesNuevos.push(value.value);
+            }
+        });
+
+        var setDeInformes = [];
+        setDeInformes[0] = informesAceptados;
+        setDeInformes[1] = informesRechazados;
+        setDeInformes[2] = informesNuevos;
+
+        var jsonSetDeInformes = JSON.stringify(setDeInformes);
+
+        Backend.ActualizarInformesGDEDeUnaPostulacion(codigo, jsonSetDeInformes)
+            .onSuccess(function (resultado) {
+                if (resultado == true) {
+                    alertify.success("Exito", 'Se han actualizado correctamente los INFORMES GDE');
+                } else {
+                    alertify.alert("", 'Ha sucedido un error en la actualización de los Informes');
+                }
+            })
+            .onError(function (error) {
+                alertify.error(error.statusText);
+            });
+
+
+    },
     armarPantalla: function (elementos, div_caja_foliables) {
 
         if (elementos.length > 0) {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 namespace General.Repositorios
 {
     public interface IConexionBD
@@ -10,6 +11,7 @@ namespace General.Repositorios
         object EjecutarEscalar(string nombreProcedimiento, Dictionary<string, object> parametros);
         bool EjecutarSinResultado(string nombreProcedimiento);
         bool EjecutarSinResultado(string nombreProcedimiento, Dictionary<string, object> parametros);
+        IDbTransaction BeginTransaction();
 
         //void PseudoBulk(AnalisisDeLicenciaOrdinaria analisis);
 

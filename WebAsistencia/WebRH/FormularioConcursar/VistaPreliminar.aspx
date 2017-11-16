@@ -35,12 +35,12 @@
 	
         </div>
 
-        <div class="info-notif-avisos posicion fondo_form">
+       <%-- <div class="info-notif-avisos posicion fondo_form">
 	        <p class="titulos degrade"><span class="letra-bold">II.</span> Información Requerida para Recibir Notificaciones y Avisos</p>
 	        <p class="general_info_personal"><span class="atributos">Domicilio: </span><span id="cv_domLegal"></span></p>
 	        <p class="general_info_personal"><span class="atributos">Teléfonos: </span><span id="cv_telefono"></span></p>
 	        <p class="general_info_personal"><span class="atributos">Correo Electrónico: </span><span id="cv_mail"></span></p>
-	    </div>
+	    </div>--%>
 
         <div id="caja_antecedentes_academicos" style="page-break-before:always"></div>
         <div id="caja_actividades_decentes" style="page-break-before:always" ></div>

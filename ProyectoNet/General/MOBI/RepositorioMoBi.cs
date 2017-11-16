@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Data.SqlClient;
 using General.Repositorios;
+using System.IO;
+using Microsoft.Office.Interop.Excel;
 
 namespace General.Repositorios
 {
@@ -44,7 +46,7 @@ namespace General.Repositorios
             SqlDataReader dr;
             ConexionDB cn = new ConexionDB("dbo.MOBI_GetAreasDelUsuarioCBO");
             cn.AsignarParametro("@IdUsuario", IdUsuario);
-            cn.AsignarParametro("@Id_TipoBien", IdTipoBien);	 
+            cn.AsignarParametro("@Id_TipoBien", IdTipoBien);
             cn.AsignarParametro("@MostrarSoloAreasConBienes", MostrarSoloAreasConBienes);
             dr = cn.EjecutarConsulta();
 
@@ -102,7 +104,7 @@ namespace General.Repositorios
             return ltb.ToArray();
         }
 
-        public MoBi_Bien[] GetBienesDelArea( int IdArea, int IdTipoBien)
+        public MoBi_Bien[] GetBienesDelArea(int IdArea, int IdTipoBien)
         {
             List<MoBi_Bien> lb = new List<MoBi_Bien>();
             MoBi_Bien bien;
@@ -228,9 +230,9 @@ namespace General.Repositorios
         }
 
 
-        public bool GuardarNuevoEventoBien( MoBi_Evento.enumTipoEvento tipoEvento, int IdBien, int IdArea, int IdPersona, string Observaciones, int IdUser)
+        public bool GuardarNuevoEventoBien(MoBi_Evento.enumTipoEvento tipoEvento, int IdBien, int IdArea, int IdPersona, string Observaciones, int IdUser)
         {
-            string spEvento= string.Empty;
+            string spEvento = string.Empty;
             switch (tipoEvento)
             {
                 case MoBi_Evento.enumTipoEvento.ALTA_PROVISORIA:
@@ -285,7 +287,7 @@ namespace General.Repositorios
                 var row = tablaDatos.Rows[0];
 
                 bien.Id = row.GetInt("Id");
-                bien.Descripcion = row.GetString("descripcion");                
+                bien.Descripcion = row.GetString("descripcion");
 
                 tablaDatos.Rows.ForEach(r =>
                 {
@@ -316,6 +318,311 @@ namespace General.Repositorios
             this.conexion_bd.Ejecutar("dbo.MOBI_DesAsignarImagenABien", parametros_desasignar_imagen);
             return true;
         }
+
+
+        public AccionesMobi[] GetAcciones(int id_bien, int id_estado_propiedad, int id_area, int id_area_receptora, int id_area_propietaria)
+        {
+            List<AccionesMobi> listaAcciones = new List<AccionesMobi>();
+            SqlDataReader dr;
+            ConexionDB cn = new ConexionDB("dbo.MOBI_GET_Acciones");
+            cn.AsignarParametro("@id_bien", id_bien);
+            cn.AsignarParametro("@id_estado_propiedad", id_estado_propiedad);
+            cn.AsignarParametro("@id_area_seleccionada", id_area);
+            if (id_estado_propiedad == 3)
+            {
+                cn.AsignarParametro("@id_area_propietaria", id_area_receptora);
+            }
+            else
+            {
+                cn.AsignarParametro("@id_area_propietaria", id_area_propietaria);
+            }
+
+
+            dr = cn.EjecutarConsulta();
+            AccionesMobi acciones;
+            while (dr.Read())
+            {
+                acciones = new AccionesMobi();
+                acciones.IdAccion = dr.GetString(dr.GetOrdinal("Acciones"));
+                acciones.Descripcion = dr.GetString(dr.GetOrdinal("Descripcion"));
+                listaAcciones.Add(acciones);
+            }
+            cn.Desconestar();
+            return listaAcciones.ToArray();
+
+        }
+
+
+        public bool Mobi_Alta_Vehiculo_Evento(int id_bien, int id_tipoevento, string observaciones, int id_user, int id_receptor_area, int id_receptor_Persona)
+        {
+            ConexionDB cn = new ConexionDB("dbo.MOBI_ADD_NuevoEventoBien");
+            cn.AsignarParametro("@Id_Bien", id_bien);
+            cn.AsignarParametro("@Id_TipoEvento", id_tipoevento);
+            cn.AsignarParametro("@Observaciones", observaciones);
+            cn.AsignarParametro("@IdUser", id_user);
+            cn.AsignarParametro("@Id_Receptor", id_receptor_area);
+
+            cn.BeginTransaction();
+
+            try
+            {
+                //GUARDO EL AREA
+                cn.EjecutarSinResultado();
+
+                //Si mando 0 es porque no se agrega el evento de la persona
+                if (id_receptor_Persona != 0)
+                {
+                    cn.CrearComandoConTransaccionIniciada("dbo.MOBI_ADD_NuevoEventoBien");
+                    cn.AsignarParametro("@Id_Bien", id_bien);
+                    cn.AsignarParametro("@Id_TipoEvento", 3);
+                    cn.AsignarParametro("@Observaciones", observaciones);
+                    cn.AsignarParametro("@IdUser", id_user);
+                    cn.AsignarParametro("@Id_Receptor", id_receptor_Persona);
+
+                    //GUARDO LA PERSONA
+                    cn.EjecutarSinResultado();
+                }
+
+            }
+            catch (Exception)
+            {
+                cn.RollbackTransaction();
+                throw;
+            }
+
+            cn.CommitTransaction();
+            cn.Desconestar();
+            return true;
+
+        }
+
+
+        public bool Mobi_Alta_Vehiculo_Evento_Persona(int id_bien, int id_tipoevento, string observaciones, int id_user, int id_receptor_Persona)
+        {
+
+            ConexionDB cn = new ConexionDB("dbo.MOBI_ADD_NuevoEventoBien");
+            cn.AsignarParametro("@Id_Bien", id_bien);
+            cn.AsignarParametro("@Id_TipoEvento", id_tipoevento);
+            cn.AsignarParametro("@Observaciones", observaciones);
+            cn.AsignarParametro("@IdUser", id_user);
+            cn.AsignarParametro("@Id_Receptor", id_receptor_Persona);
+
+            try
+            {
+
+                cn.EjecutarSinResultado();
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+
+            cn.Desconestar();
+            return true;
+
+        }
+
+        public MoBi_Evento[] Mobi_GetMovimientos(int id_bien)
+        {
+
+            List<MoBi_Evento> listaEventos = new List<MoBi_Evento>();
+            SqlDataReader dr;
+            ConexionDB cn = new ConexionDB("dbo.MOBI_GET_Eventos_por_IdBien");
+            cn.AsignarParametro("@id_bien", id_bien);
+
+            dr = cn.EjecutarConsulta();
+            MoBi_Evento evento;
+            while (dr.Read())
+            {
+                evento = new MoBi_Evento();
+                evento.Id = dr.GetInt32(dr.GetOrdinal("Id_Evento"));
+                evento.TipoEvento = dr.GetString(dr.GetOrdinal("Tipo_Evento"));
+                evento.Observaciones = dr.GetString(dr.GetOrdinal("Observaciones"));
+                evento.Receptor = dr.GetString(dr.GetOrdinal("Descripcion_Receptor"));
+                evento.Fecha = dr.GetDateTime(dr.GetOrdinal("Fecha"));
+                listaEventos.Add(evento);
+            }
+            cn.Desconestar();
+            return listaEventos.ToArray();
+
+        }
+
+
+        public string ImportarArchivoExcel(string nombreArchivo, string detalleExcel, int id_user)
+        {
+            _Application exlApp;
+            Workbook exlWbook;
+            Worksheet exlWsheet;
+            string path = "";
+            string sErrorApellidoNombre = "";
+
+            try
+            {
+
+                byte[] bytes = Convert.FromBase64String(detalleExcel);
+
+                path = System.Web.HttpContext.Current.Server.MapPath("") + "\\" + nombreArchivo;
+
+                File.WriteAllBytes(path, bytes);
+
+                exlApp = new Microsoft.Office.Interop.Excel.Application();
+
+                //Asignamos el libro que sera abierot
+                exlWbook = exlApp.Workbooks.Open(path, 0, true, 5, "", "", true, Microsoft.Office.Interop.Excel.XlPlatform.xlWindows, "\t", false, false, 0, true, 1, 0);
+                exlWsheet = exlWbook.Worksheets.get_Item(1);
+
+                Range exlRange;
+                string sValor;
+                string sDetalle = "";
+
+                //Definimos el rango de celdas que seran leidas
+                exlRange = exlWsheet.UsedRange;
+
+                //Recorremos el archivo excel como si fuera una matriz
+                for (int i = 1; i <= exlRange.Rows.Count; i++)
+                {
+                    sValor = "";
+                    for (int j = 1; j <= exlRange.Columns.Count; j++)
+                    {
+                        sValor += " " + (exlRange.Cells[i, j] as Range).Value + "|";
+                    }
+
+                    //Controlo que el campo de Apellido, Nombre y DNI
+                    String[] sCampos = sValor.Split('|');
+                    String[] Conductor = sCampos[4].ToString().Split(';');
+
+                    if (Conductor.Count() > 3 && Conductor[3].ToString() != "")
+                    {
+                        sErrorApellidoNombre = "Hay un error en la fila " + i + " del archivo en el campo Conductor |";
+                        sErrorApellidoNombre += "No cumple con el formato aducuado. APELLIDO;NOMBRE;DNI |";
+                        sErrorApellidoNombre += "Campo= " + sCampos[4].ToString();
+
+                        exlWbook.Close();
+                        exlApp.Quit();
+                        File.Delete(path);
+
+                        return sErrorApellidoNombre;
+                    }
+
+                    sDetalle = sDetalle + "*" + sValor;
+                }
+
+                //cerramos el libro y la aplicacion
+                exlWbook.Close();
+                exlApp.Quit();
+                File.Delete(path);
+
+
+                return GuardarArchivoExcel(nombreArchivo, sDetalle, id_user);
+
+            }
+            catch (Exception)
+            {
+                sErrorApellidoNombre = "Hubo un error al querer importar el archivo |";
+                sErrorApellidoNombre += "Pruebe en abrir el archivo y guardarlo como 'Libro Excel 97-2003 (*.xls)' e intente nuevamente.";
+
+                File.Delete(path);
+
+                return sErrorApellidoNombre;
+            }
+            
+
+        }
+
+
+        public string GuardarArchivoExcel(string nombreArchivo, string detalleExcel, int id_user)
+        {
+
+            Char delimiter;
+            var iContador = 0;
+
+            delimiter = '*';
+            String[] sFila = detalleExcel.Split(delimiter);
+
+
+            ConexionDB cn = new ConexionDB("dbo.MOBI_ADD_TransaccionesYPF_Cabecera");
+            cn.AsignarParametro("@NombreArchivo", nombreArchivo);
+            cn.AsignarParametro("@Usuario", id_user);
+
+
+            cn.BeginTransaction();
+
+            try
+            {
+                //GUARDO EL AREA
+                var idtransaccion = cn.EjecutarEscalar();
+
+                //VALIDO QUE EL ARCHIVO EXISTA.
+                if (Convert.ToInt32(idtransaccion) == 0)
+                {
+                    cn.RollbackTransaction();
+                    return "El archivo " + nombreArchivo + " ya fue importado";
+                }
+
+                foreach (var unaFila in sFila)
+                {
+                    if (iContador > 2)
+                    {
+                        delimiter = '|';
+                        String[] sCampos = unaFila.Split(delimiter);
+
+                        cn.CrearComandoConTransaccionIniciada("dbo.MOBI_ADD_TransaccionesYPF_Detalle");
+                        cn.AsignarParametro("@Id_Cabecera", Convert.ToInt32(idtransaccion));
+                        //cn.AsignarParametro("@Contrato", sCampos[0].ToString());
+                        //cn.AsignarParametro("@Centro_Costo", sCampos[1].ToString());
+                        cn.AsignarParametro("@Tarjeta", sCampos[2].ToString());
+                        cn.AsignarParametro("@Patente", sCampos[3].ToString());
+
+                        String[] Conductor = sCampos[4].ToString().Split(';');
+                        cn.AsignarParametro("@Apellido", Conductor[0].ToString());
+                        cn.AsignarParametro("@Nombre", Conductor[1].ToString());
+                        cn.AsignarParametro("@NroDocumento", Conductor[2].ToString());
+
+                        cn.AsignarParametro("@Fecha_Transacción", sCampos[5].ToString());
+                        cn.AsignarParametro("@Numero_Establecimiento", Convert.ToInt32(sCampos[6].ToString()));
+                        cn.AsignarParametro("@Establecimiento", sCampos[7].ToString());
+                        cn.AsignarParametro("@Direccion", sCampos[8].ToString());
+                        cn.AsignarParametro("@Localidad", sCampos[9].ToString());
+                        cn.AsignarParametro("@Provincia", sCampos[10].ToString());
+                        cn.AsignarParametro("@Producto", sCampos[11].ToString());
+                        cn.AsignarParametro("@Centro_Emisor", Convert.ToInt32(sCampos[12].ToString()));
+                        cn.AsignarParametro("@Remito", Convert.ToInt32(sCampos[13].ToString()));
+                        cn.AsignarParametro("@Cantidad_Lts", Convert.ToDecimal(sCampos[14].ToString()));
+                        cn.AsignarParametro("@KM", Convert.ToInt32(sCampos[15].ToString()));
+                        cn.AsignarParametro("@Precio_Aplicado", Convert.ToDecimal(sCampos[16].ToString()));
+                        cn.AsignarParametro("@IVA", Convert.ToDecimal(sCampos[17].ToString()));
+                        cn.AsignarParametro("@ITC", Convert.ToDecimal(sCampos[18].ToString()));
+                        cn.AsignarParametro("@Tasa_Hidrica", Convert.ToDecimal(sCampos[19].ToString()));
+                        cn.AsignarParametro("@TGO", Convert.ToDecimal(sCampos[20].ToString()));
+                        cn.AsignarParametro("@Nro_Extracto", sCampos[21].ToString());
+                        cn.AsignarParametro("@Importe", Convert.ToDecimal(sCampos[22].ToString()));
+                        cn.AsignarParametro("@Moneda", sCampos[23].ToString());
+                        cn.AsignarParametro("@Nro_Factura", sCampos[24].ToString());
+
+
+                        cn.EjecutarSinResultado();
+                    }
+
+                    iContador++;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                cn.RollbackTransaction();
+                return "Error al Exportar el archivo, Fila " + iContador;
+            }
+
+            cn.CommitTransaction();
+            cn.Desconestar();
+            return "Datos importados correctamente";
+        }
+
+
+
+
     }
 
 }

@@ -24,9 +24,9 @@
     
 #contenedor_controles
 {
-    position: absolute;
-    width: 100%;
-    left: 30%;
+     position: absolute;
+    width: 59%;
+    padding-left: 33%;
     top: 95px;
 }
 

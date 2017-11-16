@@ -16,19 +16,20 @@
         UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" UrlPassword="../" />
     <div class="container-fluid">
         <h1 style="text-align: center; margin: 30px;">
+            <!--<a id="btn_asignacion_usuario" href="EvaluadosUsuario.aspx">Evaluados por Usuario</a>-->
         </h1>
         <div style="margin: 0 auto;" class="row">
             <div class="caja_der papel">
                 <legend style="margin-top: 20px;">AGENTES EVALUABLES</legend>
                 <div id="contenedorTabla">
                     <label for="Text1">Filtrar planilla por: </label>
-                    <input type="text" id="Text1" class="search buscador" style="height: 35px;" disabled placeholder="DNI, Nombre o Apellido" />
+                    <input type="text" id="srch_agente" class="search buscador" style="height: 35px;" placeholder="Apellido" />
                     <label style="margin-left:20px;">  ó por ESTADO</label>
                     <select id="id_estado" style="margin-left: 10px; width: 170px;" disabled>
                         <option value="0">Todos</option>
                         <option value="1">Evaluacion Incompleta</option>
                         <option value="2">A Evaluar</option>
-                        <option value="3">Muy Destacado</option>
+                        <!--<option value="3">Muy Destacado</option>-->
                         <option value="4">Destacado</option>
                         <option value="5">Bueno</option>
                         <option value="6">Regular</option>
@@ -42,7 +43,7 @@
     </div>
     <div style="display: none" id="div_niveles">
         <select id="select_niveles">
-            <option value="1">GERENCIAL</option>
+            <!--<option value="1">GERENCIAL</option>-->
             <option value="2">MEDIO PROFESIONAL O TECNICO CON PERSONAL A CARGO </option>
             <option value="3">MEDIO CON PERSONAL A CARGO</option>
             <option value="4">MEDIO SIN PERSONAL A CARGO</option>
@@ -50,6 +51,14 @@
             <option value="6">OPERATIVO SIN PERSONAL A CARGO</option>
         </select>
         <input type="button" id="btn_nivel" value="Aceptar">
+    </div>
+    <div style="display:none" id="div_codigo_gde">
+        Ingrese el Codigo GDE<br />
+        <input type="text" id="codigo_gde"></input><br />
+        <input type="hidden" id="hid_doc" />
+        
+        <a href="#" id="lnk_cancelar">Cancelar</a>
+        <input type="button" id="btn_codigo_gde" value="Aceptar">
     </div>
     </form>
 </body>

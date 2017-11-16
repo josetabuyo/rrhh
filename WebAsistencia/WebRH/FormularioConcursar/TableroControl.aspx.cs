@@ -15,15 +15,15 @@ public partial class FormularioConcursar_TableroControl : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        var usuario = ((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]);
-        if (!IsPostBack)
-        {
-            var tablero = Servicio().GetTableroDeControlDePostulaciones(usuario.Owner.Id);
+        //var usuario = ((WSViaticos.Usuario)Session[ConstantesDeSesion.USUARIO]);
+        //if (!IsPostBack)
+        //{
+        //    var tablero = Servicio().GetTableroDeControlDePostulaciones(usuario.Owner.Id);
 
-            var tablero_serializado = JsonConvert.SerializeObject(tablero);
+        //    var tablero_serializado = JsonConvert.SerializeObject(tablero);
 
-            this.tablero.Value = tablero_serializado;
-        }     
+        //    this.tablero.Value = tablero_serializado;
+        //}     
     }
 
     private WSViaticosSoapClient Servicio()
