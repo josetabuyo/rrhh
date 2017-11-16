@@ -24,6 +24,12 @@ using System.Data;
 using System.IO;
 using ClosedXML.Excel;
 using General.DatosAbiertos;
+using General.MED;
+//using PdfPrinter.Core.DataContract;
+//using PdfPrinter.Core.Common;
+//using PdfPrinter.Core.Configuration;
+using System.Web.Hosting;
+using System.Runtime.Serialization.Formatters.Binary;
 
 
 [WebService(Namespace = "http://wsviaticos.gov.ar/")]
@@ -52,7 +58,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string EvalGetAgentesEvaluables(Usuario usuario)
+    public RespuestaGetAgentesEvaluablesPor EvalGetAgentesEvaluables(Usuario usuario)
     {
         var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
         return repo.GetAgentesEvaluablesPor(usuario);
@@ -187,7 +193,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public DDJJ104_2001 GenerarDDJJ104(int id_area, int mes, int anio, Usuario usuario)
+    public DDJJ104_2001 GenerarDDJJ104(int id_area, int mes, int anio, Persona[] lista_persona, int estado_guardado, Usuario usuario)
     {
         //RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
         //return ddjj.GenerarDDJJ104(usuario, area, mes, anio);
@@ -197,7 +203,7 @@ public class WSViaticos : System.Web.Services.WebService
         RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
 
         DDJJ104_2001 cabe = new DDJJ104_2001();
-        cabe = ddjj.GenerarDDJJ104(usuario, UnArea[0], mes, anio);
+        cabe = ddjj.GenerarDDJJ104(usuario, UnArea[0], mes, anio, lista_persona, estado_guardado);
 
 
         return cabe;
@@ -309,6 +315,22 @@ public class WSViaticos : System.Web.Services.WebService
 
         return meses.ToArray();
     }
+
+
+
+   
+    [WebMethod]
+    public DDJJ104_Consulta[] GetPersonasSinCertificar(int mes, int anio)
+    {
+        var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas(), Autorizador());
+        var a = new DDJJ104_Consulta[1];
+
+        a = responsableDDJJ.GetPersonasSinCertificar(mes, anio).ToArray();
+
+        return a;
+    }
+
+
 
 
     //FIN: DDJJ 104 ---------------
@@ -840,6 +862,23 @@ public class WSViaticos : System.Web.Services.WebService
         SaldoLicencia saldo = servicioLicencias.GetSaldoLicencia(unaPersona, concepto_subclasificado, fecha_de_consulta, RepositorioDePersonas());
 
         return saldo;
+    }
+
+    [WebMethod]
+    public int GetSegmentosUtilizados(Persona unaPersona, DateTime desde)
+    {
+
+        int anio = desde.Year;
+        if (desde.Month == 12)
+        {
+            anio = anio + 1; //Porque cambia el período de licencias desde el 1ero de diciembre
+        }
+
+        ServicioDeLicencias servicioLicencias = new ServicioDeLicencias(RepoLicencias());
+
+        return servicioLicencias.GetSegmentosUtilizados(unaPersona.Documento, anio);
+
+        
     }
 
     [WebMethod]
@@ -2655,14 +2694,28 @@ public class WSViaticos : System.Web.Services.WebService
     public bool AceptarCambioDeImagen(int id_usuario, Usuario usuario)
     {
         if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 50)) throw (new Exception("El usuario no tiene permisos para administrar cambios de imagen"));
-        return RepositorioDeUsuarios().AceptarCambioDeImagen(id_usuario);
+        return RepositorioDeUsuarios().AceptarCambioDeImagen(id_usuario, usuario.Id);
+    }
+
+    [WebMethod]
+    public bool AceptarCambioImagenConImagenRecortada(int id_usuario, int id_imagen_recortada, Usuario usuario)
+    {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 50)) throw (new Exception("El usuario no tiene permisos para administrar cambios de imagen"));
+        return RepositorioDeUsuarios().AceptarCambioImagenConImagenRecortada(id_imagen_recortada, id_usuario, usuario.Id);
     }
 
     [WebMethod]
     public bool RechazarCambioDeImagen(int id_usuario, string razon_de_rechazo, Usuario usuario)
     {
         if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 50)) throw (new Exception("El usuario no tiene permisos para administrar cambios de imagen"));
-        return RepositorioDeUsuarios().RechazarCambioDeImagen(id_usuario, razon_de_rechazo);
+        return RepositorioDeUsuarios().RechazarCambioDeImagen(razon_de_rechazo, id_usuario, usuario.Id);
+    }
+
+    [WebMethod]
+    public SolicitudDeCambioDeImagen GetCambioImagenPorIdTicket(int id_ticket, Usuario usuario)
+    {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 50)) throw (new Exception("El usuario no tiene permisos para administrar cambios de imagen"));
+        return RepositorioDeUsuarios().GetCambioImagenPorIdTicket(id_ticket);
     }
 
     [WebMethod]
@@ -2693,7 +2746,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string CambiarPassword( string PasswordActual, string PasswordNuevo, Usuario usuario)
+    public string CambiarPassword(string PasswordActual, string PasswordNuevo, Usuario usuario)
     {
         var repoUsuarios = RepositorioDeUsuarios();
 
@@ -2914,6 +2967,97 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     #endregion
+
+    #region Credenciales
+
+
+    [WebMethod]
+    public Credencial[] GetCredencialesTodasDePortal(Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+
+        return repositorio.GetCredencialesTodasDePortal(usuario.Owner.Id).ToArray();
+    }
+
+
+    [WebMethod]
+    public SolicitudCredencial[] GetSolicitudesDeCredencialPorPersona(Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+
+        return repositorio.GetSolicitudesDeCredencialPorPersona(usuario.Owner.Id).ToArray();
+    }
+
+
+    [WebMethod]
+    public LugarEntrega[] GetLugaresEntregaCredencial(Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+
+        return repositorio.GetLugaresEntregaCredencial().ToArray();
+    }
+
+
+    [WebMethod]
+    public bool SolicitarRenovacionCredencial(string motivo, string organismo, int id_lugar_entrega, Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+
+
+        return repositorio.SolicitarRenovacionCredencial(usuario, motivo, organismo, id_lugar_entrega);
+    }
+
+    [WebMethod]
+    public SolicitudCredencial GetSolicitudDeCredencialPorIdTicketAprobacion(int id_ticket, Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+        return repositorio.GetSolicitudDeCredencialPorIdTicketAprobacion(id_ticket);
+    }
+
+    [WebMethod]
+    public SolicitudCredencial GetSolicitudDeCredencialPorIdTicketImpresion(int id_ticket, Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+        return repositorio.GetSolicitudDeCredencialPorIdTicketImpresion(id_ticket);
+    }
+
+    [WebMethod]
+    public bool AprobarSolicitudCredencial(SolicitudCredencial solicitud, Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+        return repositorio.AprobarSolicitudCredencial(solicitud, usuario);
+    }
+
+    [WebMethod]
+    public bool RechazarSolicitudCredencial(SolicitudCredencial solicitud, string motivo, Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+        return repositorio.RechazarSolicitudCredencial(solicitud, motivo, usuario);
+    }
+
+    [WebMethod]
+    public bool MarcarCredencialComoImpresa(int idCredencial, Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+        return repositorio.MarcarCredencialComoImpresa(idCredencial, usuario);
+    }
+
+    [WebMethod]
+    public bool AsociarCodigoMagneticoACredencial(int idCredencial,string codigo_magnetico, Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+        return repositorio.AsociarCodigoMagneticoACredencial(idCredencial, codigo_magnetico, usuario);
+    }
+
+    [WebMethod]
+    public bool CerrarTicketImpresion(SolicitudCredencial solicitud, string instrucciones_de_retiro, Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+        return repositorio.CerrarTicketImpresion(solicitud, instrucciones_de_retiro, usuario);
+    }
+
+    #endregion
+
 
     [WebMethod]
     public bool RefrescarCacheMAU(Usuario usuario)
@@ -3324,6 +3468,7 @@ public class WSViaticos : System.Web.Services.WebService
     public Postulacion PostularseA(Postulacion postulacion, Usuario usuario)
     {
         // var postulaciones = new Postulacion();
+        //throw new Exception("a");
         return RepoPostulaciones().PostularseA(postulacion, usuario);
     }
 
@@ -3334,6 +3479,20 @@ public class WSViaticos : System.Web.Services.WebService
 
         // var postulaciones = new Postulacion();
         return RepoPostulaciones().InscripcionManual(postulacion, datosPersonales, folio, usuario);
+    }
+
+    [WebMethod]
+    public string TraerReporteDePostulaciones(int idEtapa, Usuario usuario)
+    {
+        return JsonConvert.SerializeObject(RepoPostulaciones().traerReportesDePostulaciones(idEtapa)).ToString();
+    }
+
+
+    [WebMethod]
+    public bool ActualizarInformesGDEDeUnaPostulacion(string numeroPostulacion, string setDeInformes, Usuario usuario)
+    {
+        var informesArray = (JArray)JsonConvert.DeserializeObject(setDeInformes);
+        return RepoPostulaciones().ActualizarInformesGDE(numeroPostulacion, informesArray, usuario.Owner.Id);
     }
 
 
@@ -3357,8 +3516,6 @@ public class WSViaticos : System.Web.Services.WebService
                               Descripcion = etapa.Etapa.Descripcion,
                               Fecha = etapa.Fecha
                           }).ToList();
-
-
         var usu = RepositorioDeUsuarios().GetUsuarioPorIdPersona(postulacion.Etapas[0].IdUsuario);
         object datos_postulacion = new
         {
@@ -4017,9 +4174,8 @@ public class WSViaticos : System.Web.Services.WebService
 
     #region mobi
 
-
     [WebMethod]
-    public Tarjeton NuevoTarjeton(int id_Bien, Usuario usuario)
+    public Tarjeton NuevoTarjeton(int id_Bien,string codigo_Holograma, Usuario usuario)
     {
         if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 33)) throw (new Exception("El usuario no tiene permisos para el modulo de bienes"));
         var repo = new RepositorioTarjetones(Conexion());
@@ -4027,7 +4183,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public RespuestaVehiculo ObtenerVehiculoPorIDVerificacion(string id_verificacion)
+    public RespuestaVehiculo ObtenerVehiculoPorCodigoWeb(string id_verificacion)
     {
         var repo = new RepositorioDeVehiculos(Conexion());
         var una_respuesta = new RespuestaVehiculo();
@@ -4037,7 +4193,7 @@ public class WSViaticos : System.Web.Services.WebService
             una_respuesta.Respuesta = 0;
             return una_respuesta;
         }
-        una_respuesta.vehiculo = repo.ObtenerVehiculoPorIDVerificacion(id_verificacion);
+        una_respuesta.vehiculo = repo.ObtenerVehiculoPorCodigoWeb(id_verificacion);
         if (string.IsNullOrEmpty(una_respuesta.vehiculo.Dominio))
         {
             una_respuesta.Respuesta = 0;
@@ -4098,9 +4254,8 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public MoBi_Bien Mobi_GetImagenesBienPorId(int id_bien)
     {
-        //RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
-        //return rMoBi.GetImagenesBienPorIdGetBienPorId(id_bien);
-        return null;
+        RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
+        return rMoBi.GetImagenesBienPorId(id_bien);
     }
 
     [WebMethod]
@@ -4160,6 +4315,48 @@ public class WSViaticos : System.Web.Services.WebService
         RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
         return rMoBi.DesAsignarImagenABien(id_bien, id_imagen);
     }
+
+
+    [WebMethod]
+    public AccionesMobi[] Mobi_GetAcciones(int id_bien, int id_estado, int id_area_seleccionada, int id_area_receptora, int id_area_propietaria)
+    {
+        RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
+        return rMoBi.GetAcciones(id_bien, id_estado, id_area_seleccionada, id_area_receptora, id_area_propietaria);
+    }
+
+
+    [WebMethod]
+    public bool Mobi_Alta_Vehiculo_Evento(int id_bien, int id_tipoevento, string observaciones, int id_receptor_area, int id_receptor_persona, Usuario usuario)
+    {
+        RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
+        return rMoBi.Mobi_Alta_Vehiculo_Evento(id_bien, id_tipoevento, observaciones, usuario.Id, id_receptor_area, id_receptor_persona);
+    }
+
+    [WebMethod]
+    public bool Mobi_Alta_Vehiculo_Evento_Persona(int id_bien, int id_tipoevento, string observaciones, int id_receptor_persona, Usuario usuario)
+    {
+        RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
+        return rMoBi.Mobi_Alta_Vehiculo_Evento_Persona(id_bien, id_tipoevento, observaciones, usuario.Id, id_receptor_persona);
+    }
+
+
+    [WebMethod]
+    public MoBi_Evento[] Mobi_GetMovimientos(int id_bien)
+    {
+        RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
+        return rMoBi.Mobi_GetMovimientos(id_bien);
+    }
+
+
+    [WebMethod]
+    public string ImportarArchivoExcel(string nombreArchivo, string detalleExcel, Usuario usuario)
+    {
+        RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
+        var respuesta =  rMoBi.ImportarArchivoExcel(nombreArchivo, detalleExcel, usuario.Id);
+        return respuesta;
+    }
+
+
     #endregion
 
 
@@ -4311,6 +4508,22 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public General.MAU.Ticket[] getTicketsPorFuncionalidad(Usuario usuario)
+    {
+        RepositorioDeTickets repo = new RepositorioDeTickets(Conexion());
+
+        return repo.GetTicketsPorFuncionalidad(usuario.Id).ToArray();
+
+    }
+
+    [WebMethod]
+    public string GetDomicilioPendientePorAlerta(int idAlerta, Usuario usuario)
+    {
+        RepositorioLegajo repo = RepoLegajo();
+        return repo.GetDomicilioPendientePorAlerta(idAlerta);  
+    }
+
+    [WebMethod]
     public string GetNotificacionesTodasDePortal()
     {
         RepositorioLegajo repo = RepoLegajo();
@@ -4318,8 +4531,36 @@ public class WSViaticos : System.Web.Services.WebService
         return repo.GetNotificacionesTodasDePortal();
 
     }
+
     [WebMethod]
-    public string MostrarDestinatariosDeLaNotificacion( int id_notificacion, Usuario usuario)
+    public string GetDomicilioPendiente(Usuario usuario)
+    {
+        RepositorioLegajo repo = RepoLegajo();
+
+        return repo.GetDomicilioPendientePorPersona(usuario.Owner.Id);
+
+    }
+
+    [WebMethod]
+    public bool GuardarDomicilioPendiente(CvDomicilio domicilio, Usuario usuario)
+    {
+        RepositorioLegajo repo = RepoLegajo();
+
+        return repo.GuardarDomicilioPendiente(domicilio, usuario);
+
+    }
+
+    [WebMethod]
+    public string VerificarDomicilioPendiente(int idAlerta, int documento, string folio, int idUsuarioCreador, Usuario usuario)
+    {
+        RepositorioLegajo repo = RepoLegajo();
+
+        return repo.VerificarCambioDomicilio(idAlerta, documento, folio, idUsuarioCreador, usuario.Id);
+
+    }
+
+    [WebMethod]
+    public string MostrarDestinatariosDeLaNotificacion(int id_notificacion, Usuario usuario)
     {
         RepositorioLegajo repo = RepoLegajo();
 
@@ -4344,7 +4585,7 @@ public class WSViaticos : System.Web.Services.WebService
     {
         RepositorioLegajo repo = RepoLegajo();
 
-        repo.ResponderConsulta(id, respuesta, usuario.Owner.Id);
+        repo.ResponderConsulta(id, respuesta, usuario);
 
     }
 
@@ -4372,24 +4613,29 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string GetDetalleDeConsulta(int id_consulta)
     {
-       return RepoLegajo().GetDetalleDeConsulta(id_consulta);
+        return RepoLegajo().GetDetalleDeConsulta(id_consulta);
+    }
+    [WebMethod]
+    public Consulta GetConsultaPorIdTicket(int id_ticket)
+    {
+        return RepoLegajo().GetConsultaPorIdTicket(id_ticket);
     }
 
     [WebMethod]
     public int NuevaConsultaDePortal(int id_tipo_consulta, string motivo, Usuario usuario)
     {
-        return RepoLegajo().NuevaConsultaDePortal(usuario.Owner.Id, id_tipo_consulta, motivo);
+        return RepoLegajo().NuevaConsultaDePortal(usuario, id_tipo_consulta, motivo);
 
     }
-     [WebMethod]
+    [WebMethod]
     public void RepreguntarConsulta(int id_consulta, string motivo, Usuario usuario)
     {
-        RepoLegajo().RepreguntarConsulta(id_consulta, motivo, usuario.Owner.Id);
+        RepoLegajo().RepreguntarConsulta(id_consulta, motivo, usuario);
     }
-      [WebMethod]
+    [WebMethod]
     public void CerrarConsulta(int id_consulta, int calificacion, Usuario usuario)
     {
-        RepoLegajo().CerrarConsulta(id_consulta, calificacion, usuario.Owner.Id);
+        RepoLegajo().CerrarConsulta(id_consulta, calificacion, usuario);
     }
 
     [WebMethod]
@@ -4403,7 +4649,7 @@ public class WSViaticos : System.Web.Services.WebService
     {
         return RepoLegajo().GetConsultasDePortalNoLeidas(usuario.Owner.Id);
     }
-    
+
 
     [WebMethod]
     public string GetDesignacionActual(Usuario usuario)
@@ -4445,7 +4691,7 @@ public class WSViaticos : System.Web.Services.WebService
     {
         RepositorioDeDatosAbiertos repositorio = new RepositorioDeDatosAbiertos(Conexion());
 
-        return repositorio.getConsultas().FindAll(c => Autorizador().ElUsuarioTienePermisosPara(usuario.Id, c.Funcionalidad)).ToArray();        
+        return repositorio.getConsultas().FindAll(c => Autorizador().ElUsuarioTienePermisosPara(usuario.Id, c.Funcionalidad)).ToArray();
     }
 
     [WebMethod]
@@ -4499,43 +4745,78 @@ public class WSViaticos : System.Web.Services.WebService
     #region EvaluacionesDesempenio
 
     [WebMethod]
-    public string GetFormularioDeEvaluacion(int idNivel,int idEvaluacion, int idEvaluado, Usuario usuario)
+    public List<DetallePreguntas> GetFormularioDeEvaluacion(int idNivel, int idEvaluacion, int idEvaluado, Usuario usuario)
     {
         RepositorioEvaluacionDesempenio repositorio = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
-        return repositorio.getFormularioDeEvaluacion(idNivel, idEvaluado, idEvaluacion );
+        return repositorio.getFormularioDeEvaluacion(idNivel, idEvaluado, idEvaluacion);
     }
 
     [WebMethod]
-    public string InsertarEvaluacion(int idEvaluado, int idFormulario, int periodo,int idEval, string pregYRtas, int estado, Usuario usuario)
+    public string InsertarEvaluacion(int idEvaluado, int idFormulario, int periodo, int idEval, string pregYRtas, int estado, string id_doc_electronico, Usuario usuario)
     {
-        RepositorioEvaluacionDesempenio repositorio = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
-        //var preguntasYRespuestas = JsonConvert.DeserializeObject(pregYRtas);
-
-        var criterio_deserializado = (JArray)JsonConvert.DeserializeObject(pregYRtas);
-
-        //FC:si viene un idEvaluacion entonces llamo a update, si viene 0 llamo a insert
-        if (idEval != 0)
+        try
         {
-            repositorio.deleteEvaluacionDetalle(idEval);
-            repositorio.updateEvaluacion(idEval, idEvaluado, usuario.Owner.Id, idFormulario, periodo, estado);
-        }
-        else {
-            //FC:Inserto la cabecera de la evaluacion
-            idEval = repositorio.insertarEvaluacion(idEvaluado, usuario.Owner.Id, idFormulario, periodo, estado);
-        }
-            
+            RepositorioEvaluacionDesempenio repositorio = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+            if (periodo == 0)
+            {
+                PeriodoEvaluacion periodo_actual = repositorio.GetUltimoPeriodoEvaluacion();
+                periodo = periodo_actual.id_periodo;
+            }
+            //var preguntasYRespuestas = JsonConvert.DeserializeObject(pregYRtas);
+
+            var criterio_deserializado = (JArray)JsonConvert.DeserializeObject(pregYRtas);
+
+            var id_evaluador = repositorio.GetIdEvaluadorDelUsuario(usuario);
+
+
+            //FC:si viene un idEvaluacion entonces llamo a update, si viene 0 llamo a insert
+            if (idEval != 0)
+            {  
+                if (estado == 1 && id_doc_electronico == string.Empty)
+                {
+                    GeneradorDeEtiquetas repoTicket = new GeneradorDeEtiquetas(Conexion());
+                    id_doc_electronico = repoTicket.GenerarTicket("EVAL_DES");
+                }
+                repositorio.deleteEvaluacionDetalle(idEval);
+                repositorio.updateEvaluacion(idEval, idEvaluado, id_evaluador, idFormulario, periodo, estado, id_doc_electronico);
+            }
+            else
+            {
+                if (estado == 1)
+                {
+                    GeneradorDeEtiquetas repoTicket = new GeneradorDeEtiquetas(Conexion());
+                    id_doc_electronico = repoTicket.GenerarTicket("EVAL_DES");
+                }
+
+                //FC:Inserto la cabecera de la evaluacion
+                idEval = repositorio.insertarEvaluacion(idEvaluado, id_evaluador, idFormulario, periodo, estado, id_doc_electronico);
+            }
+
             //var item1 = preguntasYRespuestas;
-           
 
-        foreach (var item in criterio_deserializado)
+
+            foreach (var item in criterio_deserializado)
+            {
+                int idPregunta = (int)item.First.First;
+                int idRespuesta = (int)item.Last.Last;
+
+                repositorio.insertarEvaluacionDetalle(idEval, idPregunta, idRespuesta);
+            }
+
+            return "ok";
+        }
+        catch (Exception e)
         {
-            int idPregunta = (int)item.First.First;
-            int idRespuesta = (int)item.Last.Last;
 
-            repositorio.insertarEvaluacionDetalle(idEval, idPregunta, idRespuesta);
+            var error = "Server error message='" + e.Message + "' stacktrace='" + e.StackTrace.ToString() + "'";
+            if (e.InnerException != null)
+            {
+                error += "innerException message= '" + e.InnerException.Message + "' innerException stacktrace='" + e.InnerException.StackTrace.ToString() + "'";
+            }
+            return error;
+
         }
 
-        return "ok";
     }
 
     #endregion
@@ -4855,7 +5136,32 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
 
+    [WebMethod]
+    public string EvalGuardarCodigoGDE(int id, string codigo_gde)
+    {
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        repo.EvalGuardarCodigoGDE(id, codigo_gde);
+        return codigo_gde;
+    }
 
+    [WebMethod]
+    public string PrintPdfEvaluacionDesempenio(AsignacionEvaluadoAEvaluador asignacion, Usuario usuario)
+    {
+        var modelo_para_pdf = new List<object>() { asignacion, usuario };
+        var converter = new EvaluacionDeDesempenioToPdfConverter();
+        var mapa_para_pdf = converter.CrearMapa(modelo_para_pdf);
+    
+        var creador_pdf = new CreadorDePdfs();
+
+        byte[] bytes = creador_pdf.FillPDF(TemplatePath("Formulario Evaluacion.pdf"), "Evaluacion de Desempeño", mapa_para_pdf);
+        return Convert.ToBase64String(bytes);
+    }
+
+    protected string TemplatePath(string fileName)
+    {
+        return Server.MapPath("~") + "\\PdfTemplates\\" + fileName;
+    }
+	
     #region " Control de Acceso "
 
         [WebMethod]
@@ -4878,8 +5184,6 @@ public class WSViaticos : System.Web.Services.WebService
             return "";
         }
 
-    #endregion
-
-
-
+    #endregion	
+	
 }
