@@ -126,26 +126,16 @@ public partial class CtrlAcc_service : System.Web.UI.Page
 
     private string mLoginWeb()
     {
-        var json = string.Empty;
+        var json = "false";
         WSViaticosSoapClient ws = new WSViaticosSoapClient();
         if (ws.Login(_User, _Pass))
         {
             var usu = ws.GetUsuarioPorAlias(_User);
-            var fun = ws.FuncionalidadesPara(usu.Id);
-
-            /////////////////////////////////
-
-
-
-            /////////////////////////////////
-            json = "true";
-        }
-        else
-        {
-            json = "false";
-        }        
+            var array_fun = ws.FuncionalidadesPara(usu.Id);
+            if (Array.Exists( array_fun, fun => fun.Nombre == "reg_info_aplicativo" ))
+                json = "true";
+        } 
         return json;
-
     }
 
 
