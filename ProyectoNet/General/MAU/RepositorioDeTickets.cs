@@ -26,10 +26,10 @@ namespace General.MAU
 
             tabla_resultado.Rows.ForEach(row =>
             {
-                Persona creador = new Persona(row.GetInt("Id"), row.GetInt("NroDocumento"), row.GetString("nombre"), row.GetString("apellido"), area);
-                var tipoTarea = new TipoTicket(row.GetInt("idtipo", 0), row.GetString("codigo", ""), row.GetString("descripcionTipo", ""), row.GetString("url", ""), row.GetInt("idFuncionalidad", 0));
+                Persona creador = new Persona(row.GetInt("IdPersona"), row.GetInt("NroDocumento"), row.GetString("nombre"), row.GetString("apellido"), area);
+                var tipoTarea = new TipoTicket(row.GetInt("idTipoTicket", 0), row.GetString("codigo", ""), row.GetString("descripcionTipo", ""), row.GetString("url", ""), row.GetInt("idFuncionalidad", 0));
                 Usuario usuarioCreador = new Usuario(row.GetSmallintAsInt("idUsuario", 0), row.GetString("nombreUsuario", ""), "", creador, true);
-                Ticket ticket = new Ticket(row.GetInt("id", 0), tipoTarea, row.GetDateTime("fechaCreacion"), usuarioCreador, row.GetBoolean("estado"));
+                Ticket ticket = new Ticket(row.GetInt("idTicket", 0), tipoTarea, row.GetDateTime("fechaCreacion"), usuarioCreador, row.GetBoolean("estado"));
 
                 tareas.Add(ticket);
             });
