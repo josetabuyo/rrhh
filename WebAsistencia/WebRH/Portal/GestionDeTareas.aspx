@@ -45,12 +45,14 @@
         </div>--%>
         <div class=" papel">
             <div style="float: left;">
-                <label style="float:left">Derivar a:</label>
-                <div style="float:left; margin-top:-5px;" id="selector_usuario" class="selector_personas">
+                <label style="float: left">
+                    Derivar a:</label>
+                <div style="float: left; margin-top: -5px;" id="selector_usuario" class="selector_personas">
                     <input id="buscador" type="hidden" class="buscarPersona" />
                 </div>
             </div>
-            <input type="text" id="search" class="search buscador" placeholder="Buscar" style="height: 35px;float:right" />
+            <input type="text" id="search" class="search buscador" placeholder="Buscar" style="height: 35px;
+                float: right" />
             <div id="tareas">
                 <svg class="hidden">
 			<defs>
@@ -83,13 +85,9 @@
 						</ul>
 					</nav>
                     <div class="content-wrap">
-                        <section id="section-shape-1">
-                        <div id="tablaTareas" class="table table-striped table-bordered table-condensed">
-                                </div></section>
-                        <section id="section-shape-2"><p> <div id="tablaConsultas_pendientes" class="table table-striped table-bordered table-condensed">
-                                    </div></p></section>
-                        <section id="section-shape-3"><p><div id="tablaConsultas_historicas" class="table table-striped table-bordered table-condensed">
-                                    </div></p></section>
+                        <section id="section-shape-1" numero_tab="1"></section>
+                        <section id="section-shape-2" numero_tab="2"></section>
+                        <section id="section-shape-3" numero_tab="3"></section>
                     </div>
                 </div>
             </div>
@@ -133,18 +131,18 @@
 <script type="text/javascript" src="../Scripts/Persona.js"></script>
 <script type="text/javascript" src="../Scripts/SelectorDePersonas.js"></script>
 <script type="text/javascript" src="tabs.js"></script>
-<script>
-    (function () {
-        [ ].slice.call(document.querySelectorAll('.tabs')).forEach(function (el) {
-            new CBPFWTabs(el);
-        });
-    })();
-</script>
 <script type="text/javascript">
     $(document).ready(function ($) {
         Backend.start(function () {
             GestionDeTareas.getTareasParaGestion();
+            //SELECCION DE TABS
+            (function () {
+                [ ].slice.call(document.querySelectorAll('.tabs')).forEach(function (el) {
+                    new CBPFWTabs(el);
+                });
+            })();
         });
     });
 </script>
+
 </html>

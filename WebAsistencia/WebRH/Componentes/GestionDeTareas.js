@@ -1,5 +1,12 @@
-﻿var GestionDeTareas = {
+﻿var tab_actual = 0;
+var tareas_total = [];
+var GestionDeTareas = {
     init: function () {
+        var numero_filtro = $(".content-current").attr("numero_tab")
+        if (tab_actual != numero_filtro) {
+            alert(numero_filtro)
+            tab_actual = numero_filtro;
+        }
 
     },
 
@@ -23,6 +30,7 @@
                     });
     },
     getTareasParaGestion: function () {
+        alert("voy a la base");
         var _this_original = this;
         var selector_personas = new SelectorDePersonas({
             ui: $('#selector_usuario'),
@@ -38,58 +46,8 @@
         Backend.getTicketsPorFuncionalidad()
                     .onSuccess(function (tareas) {
 
-                        tareas = _.sortBy(tareas, 'id').reverse();
-                        var _this = this;
-
-                        $("#tablaTareas").empty();
-
-                        var divGrilla_tareas = $("#tablaTareas");
-
-                        var columnas_tareas = [];
-                        columnas_tareas.push(new Columna('Seleccionar', {
-                            generar: function (una_tarea) {
-                                var btn_accion = $('<a><input type="checkbox" name="selector_tarea" id="sel_' + una_tarea.id + '"></a>');
-                                btn_accion.change(function () {
-                                    _this_original.SeleccionarTarea($(this), una_tarea);
-                                });
-                                return btn_accion;
-                            }
-                        }));
-                        columnas_tareas.push(new Columna("#", { generar: function (una_tarea) { return una_tarea.id } }));
-                        columnas_tareas.push(new Columna("Fecha Creación", { generar: function (una_tarea) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_tarea.fechaCreacion) } }));
-                        //columnas_tareas.push(new Columna("Titulo", { generar: function (una_tarea) { return una_tarea.tipoAlerta.titulo } }));
-                        columnas_tareas.push(new Columna("Descripcion", { generar: function (una_tarea) { return una_tarea.tipoTicket.descripcion } }));
-                        columnas_tareas.push(new Columna("Creador", { generar: function (una_tarea) { return una_tarea.usuarioCreador.Owner.Apellido + ', ' + una_tarea.usuarioCreador.Owner.Nombre } }));
-                        //columnas_tareas.push(new Columna("Tipo de Tarea", { generar: function (una_tarea) { return una_tarea.tipoTarea.descripcion } }));
-                        //columnas_tareas.push(new Columna("Estado", { generar: function (una_tarea) { return una_tarea.estado } }));
-                        columnas_tareas.push(new Columna('Detalle', {
-                            generar: function (una_tarea) {
-                                var btn_accion = $('<a>');
-                                var img = $('<img>');
-                                img.attr('src', '../Imagenes/detalle.png');
-                                img.attr('width', '15px');
-                                img.attr('height', '15px');
-                                btn_accion.append(img);
-                                btn_accion.click(function () {
-                                    _this_original.MostrarDetalleDeTarea(una_tarea);
-                                });
-                                return btn_accion;
-                            }
-                        }));
-
-                        _this.divGrilla_tareas = new Grilla(columnas_tareas);
-                        _this.divGrilla_tareas.CambiarEstiloCabecera("estilo_tabla_portal");
-                        _this.divGrilla_tareas.SetOnRowClickEventHandler(function (una_tarea) { });
-                        _this.divGrilla_tareas.CargarObjetos(tareas);
-                        _this.divGrilla_tareas.DibujarEn(divGrilla_tareas);
-
-                        $('.table-hover').removeClass("table-hover");
-
-                        var options = {
-                            valueNames: ['Titulo', 'Descripcion', 'Creador']
-                        };
-
-                        var featureList = new List('tareas', options);
+                        tareas_total = _.sortBy(tareas, 'id').reverse();
+                        
                     })
                     .onError(function (e) {
 
