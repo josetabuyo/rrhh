@@ -51,7 +51,7 @@
         Se marcará el código <div id="div_codigo_gde_a_verificar"></div>
         como verificado por usted, para la evaluacion de:
         <div id="div_agente_a_verificar"></div>
-        <input type="hidden" id="hid_doc" />
+        <input type="hidden" id="hid_id_eval" />
         ¿Confirma que desea realizar esta acción?<br /><br />
         <a href="#" id="lnk_cancelar_verificacion">Cancelar</a>
         <input type="button" id="btn_verificar_codigo_gde" value="Aceptar">

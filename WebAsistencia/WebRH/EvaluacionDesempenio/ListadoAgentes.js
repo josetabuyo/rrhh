@@ -244,8 +244,8 @@ var ListadoAgentes = {
             var agente = this["attributes"]["agente"].value;
             $("#div_codigo_gde_a_verificar").html(codigo_gde);
             $("#div_agente_a_verificar").html(agente);
-            $("#hid_doc").val(id_eval);
-            _this.abrirPopUp('#btn_verificar_codigo_gde', "#btn_verificar_codigo_gde", _this.guardarCodigoGde, "#lnk_cancelar_verificacion");
+            $("#hid_id_eval").val(id_eval);
+            _this.abrirPopUp('#div_verificar_codigo_gde', "#btn_verificar_codigo_gde", _this.verificarCodigoGde, "#lnk_cancelar_verificacion");
             
         });
         return btn_accion;
@@ -258,16 +258,16 @@ var ListadoAgentes = {
         btn_accion.click(function () {
             _this.abrirPopUp('#div_codigo_gde', "#btn_codigo_gde", _this.guardarCodigoGde, "#lnk_cancelar");
             var id_eval = this["attributes"]["id_eval"].value;
-            $("#hid_doc").val(id_eval);
+            $("#hid_id_eval").val(id_eval);
         });
         return btn_accion;
     },
     verificarCodigoGde: function (ui) {
-        var doc = parseInt($("#hid_doc").val());
-        var codigo = ui.find('#codigo_gde').val();
-        Backend.EvalVerificarCodigoGDE(doc, codigo)
+        var id_eval = parseInt($("#hid_id_eval").val());
+        var codigo_gde = ui.find('#div_codigo_gde_a_verificar').html();
+        Backend.EvalVerificarCodigoGDE(id_eval, codigo_gde)
         .onSuccess(function (rpta) {
-            var td = $("a[id_eval*='" + doc + "']").parent();
+            var td = $("a[id_eval*='" + id_eval + "']").parent();
             td.empty();
             td.html(codigo);
         }).onError(function (error, as, asd) {

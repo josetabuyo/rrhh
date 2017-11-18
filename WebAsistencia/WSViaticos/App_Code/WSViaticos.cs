@@ -5148,7 +5148,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string EvalVerificarCodigoGDE(int id, string codigo_gde)
+    public string EvalVerificarCodigoGDE(int id_evaluacion, string codigo_gde)
     {
         //var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
         //repo.EvalGuardarCodigoGDE(id, codigo_gde);

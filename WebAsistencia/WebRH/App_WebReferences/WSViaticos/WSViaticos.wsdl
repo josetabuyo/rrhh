@@ -896,7 +896,7 @@
       <s:element name="EvalVerificarCodigoGDE">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_evaluacion" type="s:int" />
             <s:element minOccurs="0" maxOccurs="1" name="codigo_gde" type="s:string" />
           </s:sequence>
         </s:complexType>
