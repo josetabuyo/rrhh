@@ -123,7 +123,7 @@ namespace General.Repositorios
             var parametros = new Dictionary<string, object>();
             var id_persona_usuario = usuario.Owner.Id;
             var es_agente_verificador = true;
-            if (!EsAgenteVerificador(usuario) && ModoVerificadorGDE)
+            if (!EsAgenteVerificador(usuario) || !ModoVerificadorGDE)
             {
                 parametros.Add("@id_persona_evaluadora", id_persona_usuario);
                 es_agente_verificador = false;
@@ -256,7 +256,8 @@ namespace General.Repositorios
                                             detalle_preguntas,
                                             row.GetString("codigo_gde", ""),
                                             row.GetString("codigo_doc_electronico",""),
-                                            row.GetDateTime("fecha"));
+                                            row.GetDateTime("fecha"),
+                                            false);
             }
 
             var unidad_evaluacion = UnidadDeEvaluacion.Nulio();
