@@ -130,6 +130,7 @@
     <Compile Include="Organigrama\PersonaContrato.cs" />
     <Compile Include="pdfs\CreadorDePdfs.cs" />
     <Compile Include="pdfs\EvaluacionDeDesempenioToPdfConverter.cs" />
+    <Compile Include="pdfs\GenReciboToPdfConverter.cs" />
     <Compile Include="pdfs\ModeloToPdfConverter.cs" />
     <Compile Include="Portal\Consulta.cs" />
     <Compile Include="Portal\Credencial.cs" />
@@ -141,6 +142,9 @@
     <Compile Include="Portal\Legajo.cs" />
     <Compile Include="Portal\Respuesta.cs" />
     <Compile Include="Postular\ReporteDePostulaciones.cs" />
+    <Compile Include="Recibos\Cabecera.cs" />
+    <Compile Include="Recibos\Detalle.cs" />
+    <Compile Include="Recibos\Recibo.cs" />
     <Compile Include="Recibos\TipoLiquidacion.cs" />
     <Compile Include="Repositorios\AccionesMobi.cs" />
     <Compile Include="Repositorios\RepositorioDeTipoDeLiquidacion.cs" />

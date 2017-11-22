@@ -51,6 +51,7 @@
              </select>
             <!--TODO: cargar dinamicamente los select si no se quieren mostrar meses no vigentes para el año actual-->
              <select style="width:65px;" id="cmb_anio">
+                <option value="2016" selected>2016</option>
                 <option value="2017" selected>2017</option>
              </select>
              <select style="width:105px;" id="cmb_meses">
@@ -67,7 +68,7 @@
                 <option value="11">Noviembre</option>
                 <option value="12">Diciembre</option>
              </select>
-              &nbsp;&nbsp;&nbsp;<input id="Buscar" class="botonFirmaM" type="button" value="Buscar" onclick="javascript:buscarRecibos();return false;" />
+              &nbsp;&nbsp;&nbsp;<input id="btn_Buscar" class="botonFirmaM" type="button" value="Buscar" onclick="javascript:buscarRecibos();return false;" />
               <!--<div id="caja_controles"> </div>-->
          
          <!-- 	estatus de la operacion realizada --> 
@@ -98,9 +99,9 @@
    <div><table class="tablex table-stripedx table-bordered table-condensed" style="width:100%">
 				 <tbody class="list">
 				 <tr><td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;width:10pt" >Operación</td>
-				 <td style="text-align: right;"><input id="botonFirmas" style="text-align: right;cursor: pointer;" class="botonFirmaM" type="button" value="Firmar Seleccionados" onclick="javascript:iniciarOperaciones();return false;" />
+				 <td style="text-align: right;"><input id="btn_firmar" disabled  style="text-align: right;cursor: pointer;" class="botonGrisadoFirmaM" type="button" value="Firmar Seleccionados" onclick="javascript:iniciarOperaciones3();return false;" />
 				 </td></tr>
-				 <tr><td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;" >Estatus</td><td><div id="divMensajeSign">&nbsp;</div></td></tr>
+				 <tr><td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;" >Estatus</td><td><div id="divMensajeStatus" style="margin-top:5px">&nbsp;</div></td></tr>
 				 </tbody></table></div><br/>
 
     </div>  
@@ -185,9 +186,9 @@
 </body>
 
 
-<script type="text/javascript" src="miniapplet.js"></script>
-<script type="text/javascript" src="constantes.js"></script>
-<script type="text/javascript" src="recibo.js"></script>
+<script type="text/javascript" src="js/miniapplet.js"></script>
+<script type="text/javascript" src="js/constantes.js"></script>
+<script type="text/javascript" src="js/recibo.js"></script>
 
 
 <script type="text/javascript" src="Legajo.js"></script>
@@ -196,26 +197,57 @@
 
 <!-- js de los servicios propios de la pagina -->
 <script type="text/javascript" >
-    var divMensajeSign = document.getElementById('divMensajeSign');
+    var divMensajeStatus = document.getElementById('divMensajeStatus');
     var lista_recibos_resumen;/*variable que mantiene la lista de recibos */
     function buscarRecibos() {
+        //NOTA: si tipo liquidacion es 0 entonces se deben traer TODOS los recibos de un dado año y mes
 
         //Muestro un mensaje de procesando
-        divMensajeSign.innerHTML = '<div class="iconProcesando">Procesando Solicitud ...</div>';
+        divMensajeStatus.innerHTML = '<div class="iconProcesando">Procesando Solicitud ...</div>';
 
         //realizo la operacion
-        getRecibos(0, 1, 2016);
-        //si tipo liquidacion es 0 entonces se deben traer TODOS los recibos de un dado año y mes
+        var anio = document.getElementById('cmb_anio').value;
+        var mes = document.getElementById('cmb_meses').value;
+        var tipoLiquidacion = document.getElementById('cmb_tipo_liquidacion').value;
+        RECIBOS.getRecibos(tipoLiquidacion, anio, mes);
+        
 
         //seteo el mensage con el resultado de la operacion
 
 
         //oculto el panel del resultado
-        document.getElementById('resultFirmaForm').style.display = 'none';
+//        document.getElementById('resultFirmaForm').style.display = 'none';
         //muestro el panel de seleccion de documento firmado 
-        document.getElementById('validarFirmaForm').style.display = 'block';
+//        document.getElementById('validarFirmaForm').style.display = 'block';
 
     }
+
+    function firmarRecibos() {
+
+        var i;
+        var longitud; //tamaño de la lista resumen de recibos
+        //deshabilito el boton de buscar
+        btn_Buscar.disabled = true;
+        //Muestro un mensaje de procesando
+        divMensajeStatus.innerHTML = '&nbsp;';
+        divMensajeStatus.innerHTML = '<div class="iconProcesando">Procesando Solicitud ...</div>';
+        //realizo la operacion
+        longitud = Object.keys(lista_recibos_resumen).length;
+        //firmo los recibos ciclicamente
+        for (i = 0; i < longitud; i++) {
+            //                var option = document.createElement("option"); //creamos el elemento
+            //                option.value = resp[i].Id; //asignamos valores a sus parametros
+            //                option.text = resp[i].Descripcion;
+            //                select.add(option); //insertamos el elemento
+
+        }
+        var reciboB64 = RECIBOS.getRecibo(idRecibo);
+        RECIBOS.getReciboANDfirmarRecibo(idRecibo);
+        RECIBOS.firmarRecibo(lista_recibos_resumen);
+
+    }
+
+
 </script>
 
 <script type="text/javascript" >
@@ -253,6 +285,608 @@
 
     
 </script> 
+
+<!-- js de los servicios de firma -->
+<script type="text/javascript" defer="defer">
+//NOTA: por el momento la firma de documentos seleccionados por chechkbox no se va a hacer
+    //var archivo; //variable que almacenara el documento a firmar.
+    //NOTA: ver que tan grande puede ser? en memoria
+    //NOTA2: solo usar estas variables globales si se realiza de a una vez la firma
+    //variables que hacer referencia a objetos de una misma fila
+    var idEstadoF = null;
+    var idCheckBoxF = null;
+    var idDocF = null;
+    //cantidad TOTAL de operaciones de firma realizada
+    var totalFirmas = 0;
+    var totalFirmasRealizadas = 0;
+    var totalOperaciones = 0; //cantidad de operaciones de firmas realizadas ya sea si salieron bien o fallaron
+
+    var indiceListaRecibos = 0; //item actual que se esta procesando de la lista de recibos resumen
+
+    function downloadedErrorCallback(e) {
+        showLog("Error en la descarga de los datos: " + e);
+        totalOperaciones++;
+    }
+    //descargar archivo binario pdf o imagen y firmar
+    /*function firmarFileB64ServerExterno(urlDocumento,idEstado,idBoton) {
+    try {
+    var data = urlDocumento;
+    MiniApplet.downloadRemoteDataB64ServerExterno(
+    data,
+    downloadedFileSuccessCallback,
+    downloadedErrorCallback,idEstado,idBoton);
+			
+    } catch(e) {
+    showLog("Error en la descarga de los datos: " + e);
+    }
+    }*/
+    function downloadedFileSuccessCallback(data) {
+        //document.getElementById("data").value = data;
+        //(data != undefined && data != null && data != "") ? data : document.location
+        var archivoB64 = data;
+        alert("se descargo"+data);
+ //       firmar(archivoB64);
+    }
+
+    function firmar(archivoB64) {
+        var indice, idCheckBox, idEstado, idDoc;
+        var lista = document.getElementsByClassName("chk_listado");
+        //indice checklist seleccionado
+        indice = siguienteSeleccion("chk_listado");
+        //obtengo el id del checkbox que luego sera utilizado para obtener los otros objetos de la misma fila
+        idCheckBox = lista[indice].id;
+        idEstado = "estado_" + idCheckBox;
+        idDoc = "doc_" + idCheckBox;
+
+        var dataB64 = archivoB64;
+        var estado = document.getElementById(idEstado);
+        var checkbox = document.getElementById(idCheckBox);
+
+        idEstadoF = idEstado; //usados de forma global
+        idCheckBoxF = idCheckBox;
+        idDocF = idDoc;
+
+
+        //deshabilitar todos los demas botones para que no intenten 
+        //descargar otros files paralelamente, puede ser motivo de bug 
+        //en caso de firmas de varios megas de archivos
+
+        //divMensaje.innerHTML='&nbsp;';
+
+        var format = "AUTO";
+        var algorithm = "SHA1withRSA";
+        var params = "";
+        params = params + "signaturePositionOnPageLowerLeftX = 60" + "\n";
+        params = params + "signaturePositionOnPageLowerLeftY = 60" + "\n";
+        params = params + "signaturePositionOnPageUpperRightX = 550" + "\n";
+        params = params + "signaturePositionOnPageUpperRightY = 130" + "\n";
+        params = params + "signaturePage = -1" + "\n";
+        //nota: por el momento no se puede enviar texto enriquecido  /n /r /t
+        params = params + "layer2Text = Firmado Digitalmente conforme Ley 25.506 por: $$SUBJECTCN$$ el día $$SIGNDATE=dd/MM/yyyy HH:mm:ss$$ certificado emitido por $$ISSUERCN$$ con serial $$CERTSERIAL$$" + "\n";
+        params = params + "layer2FontFamily = 0" + "\n";
+        params = params + "layer2FontSize = 10" + "\n";
+        params = params + "layer2FontStyle = 0" + "\n";
+        params = params + "layer2FontColor = black" + "\n";
+
+        //atributos de la firma		
+        params = params + "signReason = conforme" + "\n";
+        params = params + "signatureProductionCity = Bs.As." + "\n";
+        params = params + "signerContact = rrhh@desa.gov.ar" + "\n";
+        //Se indica que el tipo de firma es CADES con modo explicito
+        params = params + "signatureSubFilter = ETSI.CAdES.detached" + "\n";
+
+        //FIX:Politica  .Agregar filtros y politica en produccion
+
+        //filtro certificados a solo los del emisor no es case sensitive
+        //filtro los certificados en base al subject (asunto). son mis datos de certificado
+
+        //APLICAR los siguientes filtros en produccion
+        //ejemplo de filtro para solo de onti y no expirados
+        //filters=issuer.rfc2254:(O=Jefatura de Gabinete de Ministros);nonexpired:
+        //indicacion de la politica de firma, cambiar por los valores finales del doc de a politica de firma 
+        //policyIdentifier=2.16.724.1.3.1.1.2.1.8
+        //policyIdentifierHash=V8lVVNGDCPen6VELRD1Ja8HARFk=
+        //policyIdentifierHashAlgorithm=http://www.w3.org/2000/09/xmldsig#sha1
+        //policyQualifier=http://rrhh.gob.ar/politicafirma/politica_firma_v1.0.pdf
+
+        //cuando existe un solo certificado en la lista lo auto selecciono
+        params = params + "headless=true"; //+ "\n";	
+
+        try {
+            //setear estados de la imagen y el checkbox
+            //checkbox.disabled = true;
+            //checkbox.checked = false;
+
+            //NOTA: con disabled ya es suficiente no es necesario cambiar de estilo a gris, porque aun asi hay que deshabilitar el boton
+            //NOTA2: pero si se actualiza la pagina por alguna razon si se dejo el boton deshabilitado va a quedar asi, es como que el navegador reusa el objeto boton del DOM, FIX: hay que hacer enter en la url asi recarga directamente la pagina
+            //NOTA3: en caso de que se cancele el launch desde el inicio los botones no pueden detectar este evento y quedaran en proceso pero sin hacer nada, FIX:?????
+            // btn_firmar.disabled = true; 
+
+            estado.classList.remove('estadoNoFirmado');
+            estado.classList.add('estadoProcesando');
+
+            /*MiniApplet.sign(
+            dataB64,
+            algorithm,
+            format,
+            params,
+            successCallback,
+            errorCallback);*/
+
+            MiniApplet.signAndSaveToFile(
+					"SIGN",
+					dataB64,
+					algorithm,
+					format,
+					params,
+					"archivoFirmado.pdf",
+					successCallback,
+					errorCallback);
+        }
+        catch (e) {
+            //Se muestra el mensaje de error si NO es de cancelación de la operación
+            //por ejemplo mal tipo de algoritmo enviado,etc
+            //el canceled no es por parte del usuario sino por ejemplo por no hallarse
+            //por lo menos un certificado en el almacen seleccionado, igualmente modifique 
+            //este error para que por lo menos me permita seleccionar otro certificado sin
+            //emitir esta excepcion
+            if ((e.message.indexOf("PrivilegedActionException") == -1) &&
+			    (e.message.indexOf("AOCancelledOperationException") == -1) &&
+			    (e.message.indexOf("Error calling method on NPObject") == -1) &&
+				(e.message.indexOf("Operacion cancelada por el usuario") == -1)) {
+                /*divMensaje.innerHTML='<div class="iconErrorFirma">Error al firmar</div><br><div style="width:300pt">&nbsp;' + e.message + '</div>';*/
+            }
+
+            checkbox.disabled = false;
+            estado.classList.remove('estadoProcesando');
+            estado.classList.add('estadoNoFirmado');
+
+            totalOperaciones++;
+
+        }
+
+    }
+
+    //verifico si aun hay firmas por realizar
+    function verificarContinuacionProceso() {
+        var btn_firmar = document.getElementById("botonFirmas");
+
+        //compruebo si se realizaron todas las operaciones
+        if (totalOperaciones != totalFirmas) {
+            //divMensaje.innerHTML='<div class="iconInfo">No se pudieron procesar todos los documentos.</div>';
+            firmarFileB64ServerExternoMasivo();
+        } else {
+            //ya se realizaron todas las operaciones
+            //compruebo si se realizaron todas las operaciones de firma
+            if (totalFirmasRealizadas == totalFirmas) {
+                divMensaje.innerHTML = '<div class="iconOKFirmados">Archivos firmados correctamente.</div>';
+            } else {
+                var archivosNoFirmados = totalOperaciones - totalFirmasRealizadas;
+                divMensaje.innerHTML = '<div class="iconAlerta">No se pudieron procesar ' + archivosNoFirmados + ' documentos.</div>';
+            }
+            //reseteo las variables globales
+            totalOperaciones = 0;
+            totalFirmasRealizadas = 0;
+            totalFirmas = 0;
+
+            //ya no hay elementos a procesar
+            btn_firmar.disabled = false;
+            btn_firmar.classList.remove('botonGrisadoFirmaM');
+            btn_firmar.classList.add('botonFirmaM');
+
+
+        }
+    }
+
+    function successCallback(signatureB64, certificateB64) {
+        ;
+        //en realidad el algoritmo por default es utf-8 pero igualmente no se 
+        //toma en cuenta el segundo parametro, abria que eliminarlo si el algoritmo
+        //es por default utf-8
+        var fichero = signatureB64; //MiniApplet.getTextFromBase64 (signatureB64, "utf-8");
+        var estado = document.getElementById(idEstadoF);
+        var checkbox = document.getElementById(idCheckBoxF);
+        var doc = document.getElementById(idDocF);
+
+        signature = signatureB64;
+
+        /*divMensaje.innerHTML='<br><div class="iconOKFirma">Fichero firmado correctamente</div><br>&nbsp;';*/
+
+        checkbox.checked = false;
+        estado.classList.remove('estadoProcesando');
+        estado.classList.add('estadoFirmado');
+
+        doc.onclick = function () { crearClickDoc(checkbox.value, true); };
+
+        //seteo el enlace al nuevo documento firmado
+
+
+        totalOperaciones++;
+        totalFirmasRealizadas++;
+
+        verificarContinuacionProceso();
+
+    }
+
+    function errorCallback(errorType, errorMessage) {
+        var estado = document.getElementById(idEstadoF);
+        var checkbox = document.getElementById(idCheckBoxF);
+
+        if ((errorMessage) &&
+(errorMessage.indexOf("AOCancelledOperationException") == -1) &&
+(errorMessage.indexOf("Operacion cancelada por el usuario") == -1)) {
+            if (errorMessage.indexOf("El almacen no contenia entradas") != -1) {
+                /*divMensaje.innerHTML='<img class="iconStatus" src="../img/iconFALLO.png">No existen certificados en el almacén de su navegador<br><br>';*/
+            }
+            else {
+                /*divMensaje.innerHTML='<div class="iconErrorFirma">Error al firmar</div><br><div style="width:300pt">' + errorMessage + '</div>';*/
+            }
+        }
+        checkbox.disabled = false;
+        /*NO se puede dejar checked en true porque al hacer las llamadas recursivamente
+        lo va a volver a tomar al objeto y asi hasta que se termine de realizar
+        la cantidad de operaciones seteada en el principio*/
+        checkbox.checked = false;
+        estado.classList.remove('estadoProcesando');
+        estado.classList.add('estadoNoFirmado');
+
+        totalOperaciones++;
+        verificarContinuacionProceso();
+    }
+    //la siguiente funcion se ejecuta desde protocolchec al agragar un iframe para cargar la app jnlp
+    function xxxmostrarPantalla() {
+
+        /*document.getElementById("cargandoApplet").style.display = "none";
+        document.getElementById("pantalla").style.display = "block";
+        if (mobile==true) {
+        document.getElementById("firmaProceso1").style.display = "none";
+        document.getElementById("botones").style.display = "none";
+        document.getElementById("divmensaje").style.display = "none";
+			
+        if (MiniApplet.isAndroid()) {
+        document.getElementById("firmaProcesoAND").style.display = "inline";
+        }
+        else if (MiniApplet.isIOS()) {
+        document.getElementById("firmaProcesoIOS").style.display = "inline";
+        }
+        document.getElementById("firmaMovil").style.display = "inline";
+        document.getElementById("saveFile").style.display = "none";
+        document.getElementById("clienteEscritorio").style.display = "none";
+        document.getElementById("nota").style.display = "none";
+        document.getElementById("nota2").style.display = "inline";
+        }*/
+    }
+
+    //seleccionar o deselecciona todos los checkbox
+    function xxxseleccionarTodos(checkbox) {
+        //obtengo la lista de checkbox con un nombre de clase determinado
+        var lista = document.getElementsByClassName("chk_listado");
+        var i;
+        if (checkbox.checked) {
+
+            for (i = 0; i < lista.length; i++) {
+                if (lista[i].disabled == false) {
+                    lista[i].checked = true;
+                }
+            }
+        } else {
+            for (i = 0; i < lista.length; i++) {
+                if (lista[i].disabled == false) {
+                    lista[i].checked = false;
+                }
+            }
+
+        }
+    }
+
+    //crea el enlace para visualizar el doc
+    //NOTA:doc siempre debe tener xxxxxx.b64 o xxx.html como nombre
+    function xxxcrearClickDoc(doc, firmado) {
+        var url, target, forma_de_la_ventana;
+        var i, temp;
+        //quitar extension del string
+        i = doc.indexOf('.b64');
+        if (i == -1) { i = doc.indexOf('.html'); }
+        temp = doc.substring(0, i);
+
+        if (firmado) {
+            url = temp + '-firmado' + '.pdf';
+        } else {
+            url = temp + '.pdf';
+        }
+
+        target = '_blank';
+        forma_de_la_ventana = 'width=620,height=400,fullscreen=yes,scrollbars=NO';
+
+        window.open(url, target, forma_de_la_ventana);
+
+    }
+
+
+    //retorna el primer elemento seleccionado deuna lista de checkbox con clase id
+    function xxxsiguienteSeleccion(clase) {
+        //obtengo la lista de checkbox con un nombre de clase determinado
+        var lista = document.getElementsByClassName("chk_listado");
+        var pri; //guarda el primer indice seleccionado
+        var ok = true; //para solo guardar un elemento
+
+        //compruebo si minimamente hay un checkbox
+        if (lista.length != 0) {
+
+            //compruebo que haya algo para firmar
+            for (i = 0; i < lista.length; i++) {
+                //si hay algo seleccionado
+                if (lista[i].checked) {
+                    if (ok) { pri = i; ok = false; break; };
+                }
+            }
+            return i;
+        } else {
+            return -1;
+        }
+    }
+
+    //retorna el elemento apuntado por indice y actualiza el indice
+    function siguienteSeleccion3(indice) {
+
+        if (indice < (lista_recibos_resumen.length)) {
+            //actualizo el indice
+            indice++;
+            //retorno el valor
+            return lista_recibos_resumen[indice].Id_Recibo;
+
+        } else {return -1;}
+               
+    }
+
+    //seteo las variables para poder realizar las operaciones recursivamente
+    function xxxiniciarOperaciones() {
+        //obtengo la lista de checkbox con un nombre de clase determinado
+        var lista = document.getElementsByClassName("chk_listado");
+        var btn_firmar = document.getElementById("botonFirmas");
+        var i, checkbox; ;
+
+        //compruebo si minimamente hay un checkbox
+        if (lista.length != 0) {
+
+            //compruebo que haya algo para firmar
+            for (i = 0; i < lista.length; i++) {
+                //si hay algo seleccionado
+                if (lista[i].checked) {
+                    totalFirmas++;
+                    //deshabilito la seleccion asi no se permite que se saltee su firma en caso de una seleccion posterior cuando
+                    //se esta ejecutando el proceso, si se requiere ese comportamiento ver
+                    //que el totalFirmas se calcula al principio para un correcto display de
+                    //mensajes agregar un evento cuando se click en un checkbox y este esta
+                    //seleccionado asi se actualiza el totalFirmas
+                    idCheckBox = lista[i].id;
+                    //deshabilito el checkbox asi no lo modifican
+                    checkbox = document.getElementById(idCheckBox);
+                    checkbox.disabled = true;
+                }
+            }
+            if (totalFirmas > 0) {
+                //deshabilito el boton
+                btn_firmar.disabled = true;
+                btn_firmar.classList.remove('botonFirmaM');
+                btn_firmar.classList.add('botonGrisadoFirmaM');
+
+                //seteo el estatus de la operacion
+                divMensaje.innerHTML = '<div class="iconProcesando">Procesando Documentos ...</div>';
+                firmarFileB64ServerExternoMasivo();
+
+            } else {
+                divMensaje.innerHTML = '<div class="iconInfo">Debe seleccionar al menos un documento.</div>';
+            }
+        }
+
+        /*a medida que se va firmando los archivos se setean las propiedades
+        de los checkbox seteados asi la lista de seleccionados disminuye en 
+        cada iteracion*/
+    }
+
+    //seteo las variables para poder realizar las operaciones recursivamente
+    function iniciarOperaciones3() {
+       // longitud = Object.keys(lista_recibos_resumen).length;
+        //compruebo si minimamente hay elementos en la lista para firmar
+        
+        if (lista_recibos_resumen.length != 0) {
+            totalFirmas = lista_recibos_resumen.length;         
+            if (totalFirmas > 0) {
+                //deshabilito el boton
+                btn_firmar.disabled = true;
+                btn_firmar.classList.remove('botonFirmaM');
+                btn_firmar.classList.add('botonGrisadoFirmaM');
+
+                //seteo el estatus de la operacion
+                divMensajeStatus.innerHTML = '<div class="iconProcesando">Procesando Documentos ...</div>';
+                firmarFileB64ServerExternoMasivo3();
+
+            } else {
+                divMensajeStatus.innerHTML = '<div class="iconInfo">Debe existir al menos un documento para firmar.</div>';
+            }
+        }
+
+        /*a medida que se va firmando los archivos se setean las propiedades
+        de los checkbox seteados asi la lista de seleccionados disminuye en 
+        cada iteracion*/
+    }
+
+
+    //NOTA: los checkbox,idEstado de una misma fila deben llamarse
+    /*para la fila numero x:
+    objeto(checkBox_x).id= f1
+    objeto(idEstado_x).id= estado_f1;
+    objeto(idDoc_x).id= doc_f1;
+    en resumen los demas ids de una misma fila deben derivarse del id del checkbox
+    */
+    //firma iterativamente los archivos seleccionados
+    function firmarFileB64ServerExternoMasivo3() {
+
+        //obtengo el item de la lista de recibos a procesar
+        var idRecibo;
+        var parametros = "";
+
+        //obtengo el recibo a procesar
+        idRecibo = siguienteSeleccion3(indiceListaRecibos);
+        parametros = "id_recibo="+idRecibo;//para agregar mas parametros poner & como separador
+
+        //si hay un elemento seleccionado
+        if (idRecibo != -1) {
+
+            //obtengo el primer elemento y empiezo el bucle en dos niveles,
+            //de esta forma las ejecuciones iteradas son asincronas			
+            //seteo la url del documento a firmar
+            data = http://localhost:43412/WSViaticos/WSViaticos.asmx/GetReciboPDF;
+/////////////////////VER
+            try {
+                RECIBO.downloadRemoteDataB64POST(
+									data,parametros,
+									downloadedFileSuccessCallback,
+									downloadedErrorCallback);
+            } catch (e) {
+                divMensaje.innerHTML = '<div class="iconErrorFirma">Error en la descarga del archivo ' + data + '</div>';
+                totalOperaciones++;
+                //deschequeo el checkbox asi se puede continuar
+                checkbox.checked = false;
+                firmarFileB64ServerExternoMasivo();
+
+            }
+        }
+        else {//se entra por aqui se antes se produjo una excepcion en este mismo metodo
+            //y ademas ya no hay checkbox seleccionados
+            //ya no hay elementos a procesar
+            btn_firmar.disabled = false;
+            btn_firmar.classList.remove('botonGrisadoFirmaM');
+            btn_firmar.classList.add('botonFirmaM');
+
+        }
+
+
+
+    }
+
+
+
+    //NOTA: los checkbox,idEstado de una misma fila deben llamarse
+    /*para la fila numero x:
+    objeto(checkBox_x).id= f1
+    objeto(idEstado_x).id= estado_f1;
+    objeto(idDoc_x).id= doc_f1;
+    en resumen los demas ids de una misma fila deben derivarse del id del checkbox
+    */
+    //firma iterativamente los archivos seleccionados
+    function firmarFileB64ServerExternoMasivo() {
+
+        //obtengo la lista de checkbox con un nombre de clase determinado
+        var lista = document.getElementsByClassName("chk_listado");
+        var btn_firmar = document.getElementById("botonFirmas");
+        var i, data, idCheckBox, idEstado, checkbox;
+        var indice;
+        //indice checklist seleccionado
+        indice = siguienteSeleccion("chk_listado");
+
+        //si hay un elemento seleccionado
+        if (indice != -1) {
+
+
+            //obtengo el primer elemento y empiezo el bucle en dos niveles,
+            //de esta forma las ejecuciones iteradas son asincronas			
+            //seteo la url del documento a firmar
+            data = lista[indice].value;
+            //obtengo el id del checkbox que luego sera utilizado para obtener los otros objetos de la misma fila
+            idCheckBox = lista[indice].id;
+            idEstado = "estado_" + idCheckBox;
+
+            //deshabilito el checkbox asi no lo modifican
+            checkbox = document.getElementById(idCheckBox);
+            checkbox.disabled = true;
+
+            try {
+                MiniApplet.downloadRemoteDataB64(
+									data,
+									downloadedFileSuccessCallback,
+									downloadedErrorCallback);
+            } catch (e) {
+                divMensaje.innerHTML = '<div class="iconErrorFirma">Error en la descarga del archivo ' + data + '</div>';
+                totalOperaciones++;
+                //deschequeo el checkbox asi se puede continuar
+                checkbox.checked = false;
+                firmarFileB64ServerExternoMasivo();
+
+            }
+        }
+        else {//se entra por aqui se antes se produjo una excepcion en este mismo metodo
+            //y ademas ya no hay checkbox seleccionados
+            //ya no hay elementos a procesar
+            btn_firmar.disabled = false;
+            btn_firmar.classList.remove('botonGrisadoFirmaM');
+            btn_firmar.classList.add('botonFirmaM');
+
+        }
+
+
+
+    }
+    function firmarFileB64ServerExternoMasivo2() {
+
+        //obtengo la lista de checkbox con un nombre de clase determinado
+        var lista = document.getElementsByClassName("chk_listado");
+        var i, data, idCheckBox, idEstado, idBoton, checkbox;
+
+        //compruebo que haya algo para firmar
+        for (i = 0; i < lista.length; i++) {
+            //si hay algo seleccionado
+            if (lista[i].checked) {
+                //seteo el estatus de la operacion
+                divMensaje.innerHTML = '<div class="iconProcesando">Procesando Documentos ...</div>';
+
+            }
+        }
+        for (i = 0; i < lista.length; i++) {
+            //si esta seleccionado
+            if (lista[i].checked) {
+                totalFirmas++;
+
+                //seteo la url del documento a firmar
+                data = lista[i].value;
+                //obtengo el id del checkbox que luego sera utilizado para obtener los otros objetos de la misma fila
+                idCheckBox = lista[i].id;
+                idEstado = "estado_" + idCheckBox;
+
+                //deshabilito el checkbox asi no lo modifican
+                checkbox = document.getElementById(idCheckBox);
+                checkbox.disabled = true;
+
+                try {
+                    MiniApplet.downloadRemoteDataB64ServerExterno(
+								data,
+								downloadedFileSuccessCallback,
+								downloadedErrorCallback, idEstado, idCheckBox);
+                } catch (e) {
+                    showLog("Error en la descarga de los datos: " + e);
+                }
+            }
+            //lista[i].style.backgroundColor = "red";
+            //alert(lista[i].value);
+            //alert(lista[i].id);
+        }
+
+    }
+
+    function colorCeleste(o) {
+        var obj = document.getElementById(o.id);
+        obj.classList.remove('Documento');
+        obj.classList.add('DocumentoCeleste');
+    }
+
+    function colorNegro(o) {
+        var obj = document.getElementById(o.id);
+        obj.classList.remove('DocumentoCeleste');
+        obj.classList.add('Documento');
+    }
+	
+  </script>
 
 <!-- js de los servicios de validacion de firma -->
 <script type="text/javascript" defer="defer">
@@ -461,7 +1095,7 @@
     //dominio desde el que se realiza la llamada al servicio
     //MiniApplet.cargarAppAfirma('miniapplet.js');
     //MiniApplet.setForceWSMode(true);
-    MiniApplet.cargarAppAfirma(HOST + 'valide/js/miniapplet.js', MiniApplet.KEYSTORE_WINDOWS);
+    MiniApplet.cargarAppAfirma(HOST + 'Recibos/js/miniapplet.js', MiniApplet.KEYSTORE_WINDOWS);
 
     //////////////////////////////////////////////////////
     //MiniApplet.cargarMiniApplet("https://valide.redsara.es/valide/applet");

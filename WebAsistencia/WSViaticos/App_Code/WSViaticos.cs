@@ -5184,9 +5184,44 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string GetRecibosResumen(int tipoLiquidacion, int anio, int mes, Usuario usuario)
     {
+        //tira error porque puede ser null el tipo liquidacion y los demas, poner un '' o 0 y verificar aca
         RepositorioLegajo repo = RepoLegajo();
 
         return repo.GetRecibosResumen(tipoLiquidacion,anio, mes);
+    }
+
+    /////////////////VER
+    [WebMethod]
+    public string GetReciboPDF(int id_recibo)
+    {
+        RepositorioLegajo repo = RepoLegajo();
+        Recibo recibo;
+
+        //para trabajarlo como objeto es mejor definir un objeto que traiga el recibo, asi se puede acceder a
+        //sus propiedades desde el back(desde el front con js se puede acceder), porque no se puede acceder a campos 
+        //especificos del objecto recibo cuando el casteo es a object.
+        
+        //datos del recibo a rellenar    
+        recibo = repo.GetReciboDeSueldoPorID(id_recibo);
+
+        //
+        var modelo_para_pdf = new List<object>() { recibo };
+        var converter = new GenReciboToPdfConverter();
+        var mapa_para_pdf = converter.CrearMapa(modelo_para_pdf);
+        var creador_pdf = new CreadorDePdfs();
+
+        byte[] bytes = creador_pdf.FillPDF(TemplatePath("CambioDomicilio.pdf"), "Actualizacion de Domicilio", mapa_para_pdf);
+        byte[] bytes2 = creador_pdf.AgregarImagenAPDF(bytes, bytes_img);
+
+        return Convert.ToBase64String(bytes2);
+
+
+        //////////////////////////////////
+        Object x = JsonConvert.DeserializeObject<Object>(datos);
+        //JsonConvert.SerializeObject(x);
+        
+
+        return x.Cabecera ;
     }
 
 }
