@@ -5210,18 +5210,18 @@ public class WSViaticos : System.Web.Services.WebService
         var mapa_para_pdf = converter.CrearMapa(modelo_para_pdf);
         var creador_pdf = new CreadorDePdfs();
 
-        byte[] bytes = creador_pdf.FillPDF(TemplatePath("CambioDomicilio.pdf"), "Actualizacion de Domicilio", mapa_para_pdf);
-        byte[] bytes2 = creador_pdf.AgregarImagenAPDF(bytes, bytes_img);
+        byte[] bytes = creador_pdf.FillPDF(TemplatePath("ReciboEmpleador.pdf"), "Recibo", mapa_para_pdf);
+        //byte[] bytes2 = creador_pdf.AgregarImagenAPDF(bytes, bytes_img);
 
-        return Convert.ToBase64String(bytes2);
-
+        //return Convert.ToBase64String(bytes2);
+        return Convert.ToBase64String(bytes);
 
         //////////////////////////////////
-        Object x = JsonConvert.DeserializeObject<Object>(datos);
-        //JsonConvert.SerializeObject(x);
+  ///      Object x = JsonConvert.DeserializeObject<Object>(datos);
+  ///      //JsonConvert.SerializeObject(x);
         
 
-        return x.Cabecera ;
+  ///      return x.Cabecera ;
     }
 
 }
