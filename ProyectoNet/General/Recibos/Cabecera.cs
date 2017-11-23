@@ -19,6 +19,11 @@ namespace General
         public string Area { get; set; }
         public string Domicilio { get; set; }
         public string FechaLiquidacion { get; set; }
+        public string OpcionJubilatoria { get; set; }
+        public string TipoLiquidacion { get; set; }
+        public string DescripcionTipoLiquidacionYMas { get; set; }
+        public string Nro_Documento { get; set; }
+        public DateTime Fecha_deposito { get; set; }
 
         public Cabecera() { }
 

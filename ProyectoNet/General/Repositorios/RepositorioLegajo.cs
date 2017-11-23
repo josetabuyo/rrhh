@@ -391,7 +391,11 @@ namespace General.Repositorios
                 cabeceraRecibo.Area = tablaDatos.Rows.First().GetString("area", "");
                 cabeceraRecibo.Domicilio = tablaDatos.Rows.First().GetString("Domicilio", "");
                 cabeceraRecibo.FechaLiquidacion = tablaDatos.Rows.First().GetString("F_Liquidacion", "");
-                
+                cabeceraRecibo.OpcionJubilatoria = tablaDatos.Rows.First().GetString("opcionJubilatoria", "");
+                cabeceraRecibo.TipoLiquidacion = tablaDatos.Rows.First().GetString("TipoLiquidacion", "");
+                cabeceraRecibo.DescripcionTipoLiquidacionYMas = tablaDatos.Rows.First().GetString("tipo_liquidacion", "");
+                cabeceraRecibo.Nro_Documento = tablaDatos.Rows.First().GetString("Nro_Documento", "");
+                cabeceraRecibo.Fecha_deposito = tablaDatos.Rows.First().GetDateTime("F_Deposito");
 
             }
 

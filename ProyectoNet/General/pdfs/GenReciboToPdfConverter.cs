@@ -31,45 +31,35 @@ public class GenReciboToPdfConverter : ModeloToPdfConverter
         mapa.Add("texto4", r.cabecera.CUIL);
         mapa.Add("texto5", Convert.ToString(r.cabecera.Oficina));
         mapa.Add("texto6", Convert.ToString(r.cabecera.Orden));
-        mapa.Add("c1", telefono);
-        mapa.Add("des1", domicilioNuevo.Calle);
-        mapa.Add("h1", domicilioNuevo.Numero.ToString());
-        mapa.Add("d1", domicilioNuevo.Depto);
-        mapa.Add("c2", telefono);
-        mapa.Add("des2", domicilioNuevo.Calle);
-        mapa.Add("h2", domicilioNuevo.Numero.ToString());
-        mapa.Add("d2", domicilioNuevo.Depto);
-        mapa.Add("c3", telefono);
-        mapa.Add("des3", domicilioNuevo.Calle);
-        mapa.Add("h3", domicilioNuevo.Numero.ToString());
-        mapa.Add("d3", domicilioNuevo.Depto);
-        mapa.Add("c4", telefono);
-        mapa.Add("des4", domicilioNuevo.Calle);
-        mapa.Add("h4", domicilioNuevo.Numero.ToString());
-        mapa.Add("d4", domicilioNuevo.Depto);
-        mapa.Add("c5", telefono);
-        mapa.Add("des5", domicilioNuevo.Calle);
-        mapa.Add("h5", domicilioNuevo.Numero.ToString());
-        mapa.Add("d5", domicilioNuevo.Depto);
-        mapa.Add("c6", telefono);
-        mapa.Add("des6", domicilioNuevo.Calle);
-        mapa.Add("h6", domicilioNuevo.Numero.ToString());
-        mapa.Add("d6", domicilioNuevo.Depto);
-        
 
-
+        //recorro cada fila de la descripcion
+       /* for (int i = 0; i<r.detalles.Count;i++ )
+        {
+        }*/
+        int i = 0;
+        foreach (Detalle d in r.detalles)
+        {
+            mapa.Add("c"+i, d.Concepto);
+            mapa.Add("des"+i, d.Descripcion);
+            if (d.Aporte != 0) { mapa.Add("h" + i, Convert.ToString(d.Aporte));
+            }else{
+                mapa.Add("d" + i, Convert.ToString(d.Descuento));
+            }
+            
+        }
 
         mapa.Add("totalH", r.cabecera.Bruto );
-        mapa.Add("totalD", domicilioNuevo.Casa);
-        mapa.Add("neto", domicilioNuevo.Manzana);
-        mapa.Add("categoria", domicilioNuevo.Barrio);
-        mapa.Add("opcion", domicilioNuevo.Cp.ToString());
-        mapa.Add("fechaLiquidacion", domicilioNuevo.NombreLocalidad);
-        mapa.Add("tipoLiquidacion", domicilioNuevo.NombreProvincia);
-        mapa.Add("dni", domicilioNuevo.Torre);
-        mapa.Add("domicilio", domicilioNuevo.Uf);
-        mapa.Add("fechaFirmaEmpleado", domicilioNuevo.Telefono2);
-        mapa.Add("descripcionTipoLiquidacion", domicilioNuevo.Telefono);
+        mapa.Add("totalD", r.cabecera.Descuentos);
+        mapa.Add("neto", r.cabecera.Neto);
+        mapa.Add("categoria", r.cabecera.NivelGrado);
+        mapa.Add("opcion", r.cabecera.OpcionJubilatoria);
+        mapa.Add("fechaLiquidacion", r.cabecera.FechaLiquidacion);
+        mapa.Add("tipoLiquidacion", r.cabecera.TipoLiquidacion);
+        mapa.Add("dni", r.cabecera.Nro_Documento);
+        mapa.Add("domicilio", r.cabecera.Domicilio);
+        mapa.Add("fechaFirmaEmpleado", DateTime.Now.ToString("dd/MM/yyyy"));// tomo la fecha actual del server como fecha de firma del empleado
+        mapa.Add("fechaDeposito", r.cabecera.Fecha_deposito.ToString("dd/MM/yyyy"));
+        mapa.Add("descripcionTipoLiquidacionYMas", r.cabecera.DescripcionTipoLiquidacionYMas);
 
 //        mapa.Add("Nombre_usu", usr.Owner.Apellido + ", " + usr.Owner.Nombre + " (" + usr.Owner.Documento.ToString() + ")");
 //        mapa.Add("Fecha_hora", DateTime.Now.ToString("dd/MM/yyyy hh:mm"));
