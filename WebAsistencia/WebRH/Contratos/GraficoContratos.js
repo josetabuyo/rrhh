@@ -669,15 +669,25 @@ var DibujarGrillaInformeImpresion = function (un_registro, tabla) {
         var leyendaPorAnio = w.document.getElementById("LeyendaPorAnio");
         var nroInforme = w.document.getElementById("NroInforme");
         var fecha = w.document.getElementById("Fecha");
+        var periodo = w.document.getElementById("periodoRenovacion");
+        
 
 
         //Completo los campos
-        Backend.GetLeyendaAnio(2016)
+        Backend.GetLeyendaAnio(2017)
             .onSuccess(function (respuesta) {
                 $(leyendaPorAnio).html(respuesta);
             })
             .onError(function (error, as, asd) {
                 alertify.alert("", "Error al obtener leyenda del año");
+            });
+
+            Backend.GetAnioDeContrato()
+            .onSuccess(function (respuesta) {
+                $(periodo).html(respuesta);
+            })
+            .onError(function (error, as, asd) {
+                alertify.alert("", "Error al obtener el periodo de renovacion del contrato");
             });
 
         $(nroInforme).html(un_registro.Informe.toString());
