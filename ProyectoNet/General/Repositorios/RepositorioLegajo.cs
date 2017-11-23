@@ -864,16 +864,23 @@ namespace General.Repositorios
         public bool CerrarTicketImpresion(SolicitudCredencial solicitud, string instrucciones_de_retiro, Usuario usuario)
         {
             var repo_usuarios = new RepositorioDeUsuarios(this.conexion, RepositorioDePersonas.NuevoRepositorioDePersonas(this.conexion));
+            var repo_tickets = new RepositorioDeTickets(this.conexion);
 
             var usuario_solicitante = repo_usuarios.GetUsuarioPorIdPersona(solicitud.IdPersona);
-            new RepositorioDeTickets(this.conexion)
-                .MarcarEstadoTicket(solicitud.IdTicketImpresion, usuario.Id);
+            var id_ticket_entrega = repo_tickets.crearTicket("entrega_credencial", usuario_solicitante.Id);
+
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@idSolicitud", solicitud.Id);
+            parametros.Add("@idTicketEntrega", id_ticket_entrega);
+            var tablaDatos = conexion.Ejecutar("dbo.Acre_CerrarTicketImpresion", parametros);
+
+            repo_tickets.MarcarEstadoTicket(solicitud.IdTicketImpresion, usuario.Id);
+
             new RepositorioDeAlertasPortal(this.conexion)
                 .crearAlerta("Solicitud de Credencial", "Su credencial está impresa. Para retirarla: " + instrucciones_de_retiro, usuario_solicitante.Id, usuario.Id);
+
             return true;
         }
-
-
 
         private void getConsultasPorCriterio(Dictionary<string, object> parametros, List<Consulta> consultas)
         {
