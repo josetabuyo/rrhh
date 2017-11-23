@@ -6,7 +6,8 @@ using System.Text;
 namespace General
 {
     public class Cabecera
-    {        
+    {
+        public int idRecibo { get; set; }
         public int Legajo { get; set; }
         public string Agente { get; set; }
         public string CUIL { get; set; }

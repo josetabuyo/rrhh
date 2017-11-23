@@ -379,6 +379,7 @@ namespace General.Repositorios
 
             if (tablaDatos.Rows.Count > 0)
             {
+                cabeceraRecibo.idRecibo = tablaDatos.Rows.First().GetInt("Id_Recibo", 0);
                 cabeceraRecibo.Legajo = tablaDatos.Rows.First().GetInt("Legajo", 0);
                 cabeceraRecibo.Agente = tablaDatos.Rows.First().GetString("Agente", "");
                 cabeceraRecibo.CUIL = tablaDatos.Rows.First().GetString("CUIL", "");

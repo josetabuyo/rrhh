@@ -325,18 +325,19 @@
         //(data != undefined && data != null && data != "") ? data : document.location
         var archivoB64 = data;
         alert("se descargo"+data);
+        //ahora se debe comprobar la descarga del pdf rellenado,hay que firmar, y luego guardar el pdf firmado
  //       firmar(archivoB64);
     }
 
     function firmar(archivoB64) {
         var indice, idCheckBox, idEstado, idDoc;
-        var lista = document.getElementsByClassName("chk_listado");
+//        var lista = document.getElementsByClassName("chk_listado");
         //indice checklist seleccionado
-        indice = siguienteSeleccion("chk_listado");
+//        indice = siguienteSeleccion("chk_listado");
         //obtengo el id del checkbox que luego sera utilizado para obtener los otros objetos de la misma fila
-        idCheckBox = lista[indice].id;
-        idEstado = "estado_" + idCheckBox;
-        idDoc = "doc_" + idCheckBox;
+//        idCheckBox = lista[indice].id;
+//        idEstado = "estado_" + idCheckBox;
+//        idDoc = "doc_" + idCheckBox;
 
         var dataB64 = archivoB64;
         var estado = document.getElementById(idEstado);
@@ -626,9 +627,11 @@
         }
     }
 
+    ////////////NOTA: A modo de prueba solo se enviaran 10 archivos como maximo a firmar
+    var u=0;/////borrar
     //retorna el elemento apuntado por indice y actualiza el indice
     function siguienteSeleccion3(indice) {
-
+     if(u<10){u++;///////borrar
         if (indice < (lista_recibos_resumen.length)) {
             //actualizo el indice
             indice++;
@@ -636,7 +639,7 @@
             return lista_recibos_resumen[indice].Id_Recibo;
 
         } else {return -1;}
-               
+      }else{u=0;return -1;}     ///////borrar    
     }
 
     //seteo las variables para poder realizar las operaciones recursivamente
@@ -745,11 +748,11 @@
 									downloadedFileSuccessCallback,
 									downloadedErrorCallback);
             } catch (e) {
-                divMensaje.innerHTML = '<div class="iconErrorFirma">Error en la descarga del archivo ' + data + '</div>';
+                divMensaje.innerHTML = '<div class="iconErrorFirma">Error en la descarga del archivo ' + data + ' con id Recibo: '+ idRecibo + '</div>';
                 totalOperaciones++;
-                //deschequeo el checkbox asi se puede continuar
-                checkbox.checked = false;
-                firmarFileB64ServerExternoMasivo();
+ //               //deschequeo el checkbox asi se puede continuar
+ //               checkbox.checked = false;
+                firmarFileB64ServerExternoMasivo3();
 
             }
         }
