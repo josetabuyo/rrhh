@@ -216,6 +216,12 @@ public class WSViaticos : System.Web.Services.WebService
         return new RepositorioDeParametrosGenerales(Conexion()).GetLeyendaAnio(anio);
     }
 
+    [WebMethod]
+    public string GetAnioDeContrato(Usuario usuario)
+    {
+        return new RepositorioDeParametrosGenerales(Conexion()).GetAnioDeContrato();
+    }
+    
 
     //CONSULTA INDIVIDUAL
     [WebMethod]
