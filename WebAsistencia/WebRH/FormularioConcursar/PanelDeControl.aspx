@@ -82,7 +82,10 @@
                     <h3 style="margin-top:20px;" class="panel-title" >Información de la Convocatoria</h3>
                     <hr class="lineas-subraya"/>
                     <p>Resolución N° RESOL-2017-1367-APN-MDS - <a href="bases/RESOL_2017_1367_APN_MDS.pdf" target="_blank" >Aprueba las Bases de la convocatoria</a></p>
-                    
+                    <h3 class="panel-title" >
+<p>Fechas de Exámenes y Nóminas por Turno</p>
+<hr class="lineas-subraya"/> <p><a href="bases/ListadoExamen.pdf" target="_blank" >Acceder al Archivo</a></p>
+                    </h3>
                     <h5 style="margin-top:20px;" ><b>Comité 1: Técnico en Gestión Administrativa (C - General)</b></h5>
                     <hr class="lineas-subraya"/>
                     <p>
