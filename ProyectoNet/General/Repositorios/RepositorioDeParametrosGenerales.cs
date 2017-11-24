@@ -19,5 +19,12 @@ namespace General.Repositorios
             parametros.Add("@Anio", anio);
             return (string)conexion_bd.EjecutarEscalar("dbo.GEN_GetLeyendaAnio", parametros);
         }
+
+        public string GetAnioDeContrato()
+        {
+            //var parametros = new Dictionary<string, object>();
+            //parametros.Add("@Anio", anio);
+            return (string)conexion_bd.EjecutarEscalar("dbo.GEN_GetAnioRenovacionContrato");
+        }
     }
 }
