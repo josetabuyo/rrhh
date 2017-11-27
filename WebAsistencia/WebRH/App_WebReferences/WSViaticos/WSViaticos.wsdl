@@ -2,7 +2,7 @@
 <wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://wsviaticos.gov.ar/">
-      <s:element name="GetLicenciasEnTramite">
+      <s:element name="GetFamiliares">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
@@ -196,6 +196,20 @@
           <s:element minOccurs="1" maxOccurs="1" name="basica" type="s:boolean" />
         </s:sequence>
       </s:complexType>
+      <s:element name="GetFamiliaresResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetFamiliaresResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLicenciasEnTramite">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetLicenciasEnTramiteResponse">
         <s:complexType>
           <s:sequence>
@@ -1008,10 +1022,10 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="EliminarCvPublicacionesTrabajos">
+      <s:element name="ActualizarCvPublicaciones">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="publicaciones_trabajos_a_borrar" type="tns:CvPublicaciones" />
+            <s:element minOccurs="0" maxOccurs="1" name="publicacion_nueva" type="tns:CvPublicaciones" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
@@ -1207,6 +1221,21 @@
           </s:extension>
         </s:complexContent>
       </s:complexType>
+      <s:element name="ActualizarCvPublicacionesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ActualizarCvPublicacionesResult" type="tns:CvPublicaciones" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EliminarCvPublicacionesTrabajos">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="publicaciones_trabajos_a_borrar" type="tns:CvPublicaciones" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="EliminarCvPublicacionesTrabajosResponse">
         <s:complexType>
           <s:sequence>
@@ -2965,20 +2994,35 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetFamiliares">
+      <s:element name="GetMisAlertasPendientes">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetFamiliaresResponse">
+      <s:element name="GetMisAlertasPendientesResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetFamiliaresResult" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GetMisAlertasPendientesResult" type="tns:ArrayOfAlertaPortal" />
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:complexType name="ArrayOfAlertaPortal">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AlertaPortal" nillable="true" type="tns:AlertaPortal" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AlertaPortal">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="descripcion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="titulo" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="fechaCreacion" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="usuarioCreador" type="tns:Usuario" />
+          <s:element minOccurs="0" maxOccurs="1" name="estado" type="s:string" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="MarcarAlertaComoLeida">
         <s:complexType>
           <s:sequence>
@@ -4564,18 +4608,13 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="ActualizarCvPublicaciones">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="publicacion_nueva" type="tns:CvPublicaciones" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
+      <s:element name="GetDocumentosEnAlerta">
+        <s:complexType />
       </s:element>
-      <s:element name="ActualizarCvPublicacionesResponse">
+      <s:element name="GetDocumentosEnAlertaResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ActualizarCvPublicacionesResult" type="tns:CvPublicaciones" />
+            <s:element minOccurs="0" maxOccurs="1" name="GetDocumentosEnAlertaResult" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -5831,35 +5870,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetMisAlertasPendientes">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:complexType name="AlertaPortal">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="descripcion" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="titulo" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="fechaCreacion" type="s:dateTime" />
-          <s:element minOccurs="0" maxOccurs="1" name="usuarioCreador" type="tns:Usuario" />
-          <s:element minOccurs="0" maxOccurs="1" name="estado" type="s:string" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="ArrayOfAlertaPortal">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="AlertaPortal" nillable="true" type="tns:AlertaPortal" />
-        </s:sequence>
-      </s:complexType>
-      <s:element name="GetMisAlertasPendientesResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetMisAlertasPendientesResult" type="tns:ArrayOfAlertaPortal" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
       <s:element name="GetUsuarios">
         <s:complexType>
           <s:sequence>
@@ -6079,6 +6089,21 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="GetAnioDeContratoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFeriados">
+        <s:complexType />
+      </s:element>
+      <s:complexType name="ArrayOfDateTime">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="dateTime" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetFeriadosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetFeriadosResult" type="tns:ArrayOfDateTime" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -7538,18 +7563,14 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetDocumentosEnAlerta">
-        <s:complexType />
-      </s:element>
-      <s:element name="GetDocumentosEnAlertaResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetDocumentosEnAlertaResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="GetFamiliaresSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFamiliares" />
+  </wsdl:message>
+  <wsdl:message name="GetFamiliaresSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFamiliaresResponse" />
+  </wsdl:message>
   <wsdl:message name="GetLicenciasEnTramiteSoapIn">
     <wsdl:part name="parameters" element="tns:GetLicenciasEnTramite" />
   </wsdl:message>
@@ -7807,6 +7828,12 @@
   </wsdl:message>
   <wsdl:message name="PrintPdfEvaluacionDesempenioSoapOut">
     <wsdl:part name="parameters" element="tns:PrintPdfEvaluacionDesempenioResponse" />
+  </wsdl:message>
+  <wsdl:message name="ActualizarCvPublicacionesSoapIn">
+    <wsdl:part name="parameters" element="tns:ActualizarCvPublicaciones" />
+  </wsdl:message>
+  <wsdl:message name="ActualizarCvPublicacionesSoapOut">
+    <wsdl:part name="parameters" element="tns:ActualizarCvPublicacionesResponse" />
   </wsdl:message>
   <wsdl:message name="EliminarCvPublicacionesTrabajosSoapIn">
     <wsdl:part name="parameters" element="tns:EliminarCvPublicacionesTrabajos" />
@@ -8312,11 +8339,11 @@
   <wsdl:message name="GetDatosPersonalesSoapOut">
     <wsdl:part name="parameters" element="tns:GetDatosPersonalesResponse" />
   </wsdl:message>
-  <wsdl:message name="GetFamiliaresSoapIn">
-    <wsdl:part name="parameters" element="tns:GetFamiliares" />
+  <wsdl:message name="GetMisAlertasPendientesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetMisAlertasPendientes" />
   </wsdl:message>
-  <wsdl:message name="GetFamiliaresSoapOut">
-    <wsdl:part name="parameters" element="tns:GetFamiliaresResponse" />
+  <wsdl:message name="GetMisAlertasPendientesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetMisAlertasPendientesResponse" />
   </wsdl:message>
   <wsdl:message name="MarcarAlertaComoLeidaSoapIn">
     <wsdl:part name="parameters" element="tns:MarcarAlertaComoLeida" />
@@ -8816,11 +8843,11 @@
   <wsdl:message name="GuardarCvPublicacionesTrabajosSoapOut">
     <wsdl:part name="parameters" element="tns:GuardarCvPublicacionesTrabajosResponse" />
   </wsdl:message>
-  <wsdl:message name="ActualizarCvPublicacionesSoapIn">
-    <wsdl:part name="parameters" element="tns:ActualizarCvPublicaciones" />
+  <wsdl:message name="GetDocumentosEnAlertaSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDocumentosEnAlerta" />
   </wsdl:message>
-  <wsdl:message name="ActualizarCvPublicacionesSoapOut">
-    <wsdl:part name="parameters" element="tns:ActualizarCvPublicacionesResponse" />
+  <wsdl:message name="GetDocumentosEnAlertaSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDocumentosEnAlertaResponse" />
   </wsdl:message>
   <wsdl:message name="HayDocumentosEnAlertaSoapIn">
     <wsdl:part name="parameters" element="tns:HayDocumentosEnAlerta" />
@@ -9242,12 +9269,6 @@
   <wsdl:message name="GetSolicitudesDeCambioDeImagenPendientesSoapOut">
     <wsdl:part name="parameters" element="tns:GetSolicitudesDeCambioDeImagenPendientesResponse" />
   </wsdl:message>
-  <wsdl:message name="GetMisAlertasPendientesSoapIn">
-    <wsdl:part name="parameters" element="tns:GetMisAlertasPendientes" />
-  </wsdl:message>
-  <wsdl:message name="GetMisAlertasPendientesSoapOut">
-    <wsdl:part name="parameters" element="tns:GetMisAlertasPendientesResponse" />
-  </wsdl:message>
   <wsdl:message name="GetUsuariosSoapIn">
     <wsdl:part name="parameters" element="tns:GetUsuarios" />
   </wsdl:message>
@@ -9307,6 +9328,12 @@
   </wsdl:message>
   <wsdl:message name="GetAnioDeContratoSoapOut">
     <wsdl:part name="parameters" element="tns:GetAnioDeContratoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFeriadosSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFeriados" />
+  </wsdl:message>
+  <wsdl:message name="GetFeriadosSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFeriadosResponse" />
   </wsdl:message>
   <wsdl:message name="GetConsultaIndividualPorPersonaSoapIn">
     <wsdl:part name="parameters" element="tns:GetConsultaIndividualPorPersona" />
@@ -9734,13 +9761,11 @@
   <wsdl:message name="GetDocumentosFiltradosSoapOut">
     <wsdl:part name="parameters" element="tns:GetDocumentosFiltradosResponse" />
   </wsdl:message>
-  <wsdl:message name="GetDocumentosEnAlertaSoapIn">
-    <wsdl:part name="parameters" element="tns:GetDocumentosEnAlerta" />
-  </wsdl:message>
-  <wsdl:message name="GetDocumentosEnAlertaSoapOut">
-    <wsdl:part name="parameters" element="tns:GetDocumentosEnAlertaResponse" />
-  </wsdl:message>
   <wsdl:portType name="WSViaticosSoap">
+    <wsdl:operation name="GetFamiliares">
+      <wsdl:input message="tns:GetFamiliaresSoapIn" />
+      <wsdl:output message="tns:GetFamiliaresSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetLicenciasEnTramite">
       <wsdl:input message="tns:GetLicenciasEnTramiteSoapIn" />
       <wsdl:output message="tns:GetLicenciasEnTramiteSoapOut" />
@@ -9912,6 +9937,10 @@
     <wsdl:operation name="PrintPdfEvaluacionDesempenio">
       <wsdl:input message="tns:PrintPdfEvaluacionDesempenioSoapIn" />
       <wsdl:output message="tns:PrintPdfEvaluacionDesempenioSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarCvPublicaciones">
+      <wsdl:input message="tns:ActualizarCvPublicacionesSoapIn" />
+      <wsdl:output message="tns:ActualizarCvPublicacionesSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="EliminarCvPublicacionesTrabajos">
       <wsdl:input message="tns:EliminarCvPublicacionesTrabajosSoapIn" />
@@ -10249,9 +10278,9 @@
       <wsdl:input message="tns:GetDatosPersonalesSoapIn" />
       <wsdl:output message="tns:GetDatosPersonalesSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="GetFamiliares">
-      <wsdl:input message="tns:GetFamiliaresSoapIn" />
-      <wsdl:output message="tns:GetFamiliaresSoapOut" />
+    <wsdl:operation name="GetMisAlertasPendientes">
+      <wsdl:input message="tns:GetMisAlertasPendientesSoapIn" />
+      <wsdl:output message="tns:GetMisAlertasPendientesSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="MarcarAlertaComoLeida">
       <wsdl:input message="tns:MarcarAlertaComoLeidaSoapIn" />
@@ -10585,9 +10614,9 @@
       <wsdl:input message="tns:GuardarCvPublicacionesTrabajosSoapIn" />
       <wsdl:output message="tns:GuardarCvPublicacionesTrabajosSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="ActualizarCvPublicaciones">
-      <wsdl:input message="tns:ActualizarCvPublicacionesSoapIn" />
-      <wsdl:output message="tns:ActualizarCvPublicacionesSoapOut" />
+    <wsdl:operation name="GetDocumentosEnAlerta">
+      <wsdl:input message="tns:GetDocumentosEnAlertaSoapIn" />
+      <wsdl:output message="tns:GetDocumentosEnAlertaSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="HayDocumentosEnAlerta">
       <wsdl:input message="tns:HayDocumentosEnAlertaSoapIn" />
@@ -10869,10 +10898,6 @@
       <wsdl:input message="tns:GetSolicitudesDeCambioDeImagenPendientesSoapIn" />
       <wsdl:output message="tns:GetSolicitudesDeCambioDeImagenPendientesSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="GetMisAlertasPendientes">
-      <wsdl:input message="tns:GetMisAlertasPendientesSoapIn" />
-      <wsdl:output message="tns:GetMisAlertasPendientesSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="GetUsuarios">
       <wsdl:input message="tns:GetUsuariosSoapIn" />
       <wsdl:output message="tns:GetUsuariosSoapOut" />
@@ -10912,6 +10937,10 @@
     <wsdl:operation name="GetAnioDeContrato">
       <wsdl:input message="tns:GetAnioDeContratoSoapIn" />
       <wsdl:output message="tns:GetAnioDeContratoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFeriados">
+      <wsdl:input message="tns:GetFeriadosSoapIn" />
+      <wsdl:output message="tns:GetFeriadosSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetConsultaIndividualPorPersona">
       <wsdl:input message="tns:GetConsultaIndividualPorPersonaSoapIn" />
@@ -11197,13 +11226,18 @@
       <wsdl:input message="tns:GetDocumentosFiltradosSoapIn" />
       <wsdl:output message="tns:GetDocumentosFiltradosSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="GetDocumentosEnAlerta">
-      <wsdl:input message="tns:GetDocumentosEnAlertaSoapIn" />
-      <wsdl:output message="tns:GetDocumentosEnAlertaSoapOut" />
-    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="WSViaticosSoap" type="tns:WSViaticosSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetFamiliares">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetFamiliares" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetLicenciasEnTramite">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetLicenciasEnTramite" style="document" />
       <wsdl:input>
@@ -11584,6 +11618,15 @@
     </wsdl:operation>
     <wsdl:operation name="PrintPdfEvaluacionDesempenio">
       <soap:operation soapAction="http://wsviaticos.gov.ar/PrintPdfEvaluacionDesempenio" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarCvPublicaciones">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ActualizarCvPublicaciones" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -12347,8 +12390,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetFamiliares">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetFamiliares" style="document" />
+    <wsdl:operation name="GetMisAlertasPendientes">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetMisAlertasPendientes" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -13103,8 +13146,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ActualizarCvPublicaciones">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/ActualizarCvPublicaciones" style="document" />
+    <wsdl:operation name="GetDocumentosEnAlerta">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetDocumentosEnAlerta" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -13742,15 +13785,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetMisAlertasPendientes">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetMisAlertasPendientes" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetUsuarios">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetUsuarios" style="document" />
       <wsdl:input>
@@ -13834,6 +13868,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetAnioDeContrato">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetAnioDeContrato" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFeriados">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetFeriados" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -14480,18 +14523,18 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetDocumentosEnAlerta">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetDocumentosEnAlerta" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="WSViaticosSoap12" type="tns:WSViaticosSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetFamiliares">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetFamiliares" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetLicenciasEnTramite">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetLicenciasEnTramite" style="document" />
       <wsdl:input>
@@ -14872,6 +14915,15 @@
     </wsdl:operation>
     <wsdl:operation name="PrintPdfEvaluacionDesempenio">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/PrintPdfEvaluacionDesempenio" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarCvPublicaciones">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ActualizarCvPublicaciones" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -15635,8 +15687,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetFamiliares">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetFamiliares" style="document" />
+    <wsdl:operation name="GetMisAlertasPendientes">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetMisAlertasPendientes" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -16391,8 +16443,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ActualizarCvPublicaciones">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/ActualizarCvPublicaciones" style="document" />
+    <wsdl:operation name="GetDocumentosEnAlerta">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetDocumentosEnAlerta" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -17030,15 +17082,6 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetMisAlertasPendientes">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetMisAlertasPendientes" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetUsuarios">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetUsuarios" style="document" />
       <wsdl:input>
@@ -17122,6 +17165,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetAnioDeContrato">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetAnioDeContrato" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFeriados">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetFeriados" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -17761,15 +17813,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetDocumentosFiltrados">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetDocumentosFiltrados" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetDocumentosEnAlerta">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetDocumentosEnAlerta" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

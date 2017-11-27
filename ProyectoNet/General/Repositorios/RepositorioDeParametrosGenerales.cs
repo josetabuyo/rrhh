@@ -26,5 +26,21 @@ namespace General.Repositorios
             //parametros.Add("@Anio", anio);
             return (string)conexion_bd.EjecutarEscalar("dbo.GEN_GetAnioRenovacionContrato");
         }
+
+        public List<DateTime> GetFeriados()
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@Anio", DateTime.Now.Year);
+            //parametros.Add("@mes", mes);
+            var tablaDatos = conexion_bd.Ejecutar("dbo.GEN_Get_Feriados", parametros);
+
+            var fechas = new List<DateTime>();
+            tablaDatos.Rows.ForEach(row =>
+            {
+                fechas.Add(row.GetDateTime("Fecha"));
+            });
+
+            return fechas;
+        }
     }
 }

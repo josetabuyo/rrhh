@@ -221,7 +221,12 @@ public class WSViaticos : System.Web.Services.WebService
     {
         return new RepositorioDeParametrosGenerales(Conexion()).GetAnioDeContrato();
     }
-    
+
+    [WebMethod]
+    public DateTime[] GetFeriados()
+    {
+        return new RepositorioDeParametrosGenerales(Conexion()).GetFeriados().ToArray();
+    }
 
     //CONSULTA INDIVIDUAL
     [WebMethod]
