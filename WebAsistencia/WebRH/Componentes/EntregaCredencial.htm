@@ -4,18 +4,18 @@
     <title></title>
     <link id="link1" rel="stylesheet" href="../Scripts/imgareaselect/imgareaselect-animated.css" type="text/css" />
     <style type="text/css">
-        #pantalla_impresion_credencial
+        #pantalla_entrega_credencial
         {
             position:relative;
         }      
-         #pantalla_impresion_credencial #vista_previa_credencial
+         #pantalla_entrega_credencial #vista_previa_credencial
         {
             position: relative;
             width: 250px;
             display: inline-block;
         }
         
-         #pantalla_impresion_credencial #panel_derecho
+         #pantalla_entrega_credencial #panel_derecho
         {
             position: absolute;
             right: 10px;
@@ -24,12 +24,12 @@
             bottom: 10px;
         }
         
-        #pantalla_impresion_credencial #imagen_credencial
+        #pantalla_entrega_credencial #imagen_credencial
         {
             width: 100%;
         }        
         
-        #pantalla_impresion_credencial #foto_usuario
+        #pantalla_entrega_credencial #foto_usuario
         {
             position: absolute;
             top: 14.5%;
@@ -40,7 +40,7 @@
             border-radius: 14px;
         }    
         
-        #pantalla_impresion_credencial #codigo_barras
+        #pantalla_entrega_credencial #codigo_barras
         {
             position: absolute;
             right: -8%;
@@ -53,12 +53,12 @@
             overflow: hidden !important;
         }   
         
-        #pantalla_impresion_credencial #foto_usuario #img_thumbnail
+        #pantalla_entrega_credencial #foto_usuario #img_thumbnail
         {
             border-radius: 14px;
         }
         
-        #pantalla_impresion_credencial #apellido
+        #pantalla_entrega_credencial #apellido
         {
             position: absolute;
             top: 50%;
@@ -67,7 +67,7 @@
             color: white ;
         }    
         
-        #pantalla_impresion_credencial #nombres
+        #pantalla_entrega_credencial #nombres
         {
             position: absolute;
             top: 57%;
@@ -76,7 +76,7 @@
             color: white;
         }    
         
-        #pantalla_impresion_credencial #documento
+        #pantalla_entrega_credencial #documento
         {
             position: absolute;
             top: 64%;
@@ -85,7 +85,7 @@
             color: white ;
         }    
             
-        #pantalla_impresion_credencial #titulo_documento
+        #pantalla_entrega_credencial #titulo_documento
         {
             position: absolute;
             top: 64%;
@@ -94,17 +94,17 @@
             color: white ;
         } 
             
-        #pantalla_impresion_credencial #btn_imprimir_credencial
+        #pantalla_entrega_credencial #btn_imprimir_credencial
         {
 
         }
         
-        #pantalla_impresion_credencial #titulo_vista_previa
+        #pantalla_entrega_credencial #titulo_vista_previa
         {
             margin-top:0px;
         }
         
-        #pantalla_impresion_credencial  #chk_credencial_impresa
+        #pantalla_entrega_credencial  #chk_credencial_impresa
         {
             /* Double-sized Checkboxes */
             -ms-transform: scale(2); /* IE */
@@ -116,27 +116,27 @@
             margin-right: 10px;
         }
         
-        #pantalla_impresion_credencial  .checkboxtext
+        #pantalla_entrega_credencial  .checkboxtext
         {
             font-size: 110%;
             display: inline;
             vertical-align: middle;
         }
         
-        #pantalla_impresion_credencial  #txt_codigo_magnetico
+        #pantalla_entrega_credencial  #txt_codigo_magnetico
         {
             height: 30px;
             vertical-align: initial;
         }
         
-        #pantalla_impresion_credencial #panel_dar_aviso
+        #pantalla_entrega_credencial #panel_dar_aviso
         {
             position: absolute;
             right: 10px;
             bottom: 10px;
             left: 0px;
         }
-        #pantalla_impresion_credencial #txt_instrucciones_retiro
+        #pantalla_entrega_credencial #txt_instrucciones_retiro
         {
             height: 30px;
             vertical-align: initial;            
@@ -144,56 +144,13 @@
             height: 100px;
         }
         
-        #pantalla_impresion_credencial #btn_dar_aviso_y_cerrar
+        #pantalla_entrega_credencial #btn_dar_aviso_y_cerrar
         {
             float: right;
-        }
-        
-        @media print {
-            form      
-            {
-                display:none;    
-            }
-            #pantalla_impresion_credencial #vista_previa_credencial, 
-            #pantalla_impresion_credencial #vista_previa_credencial * {
-                visibility: visible;
-            }
-            
-            #pantalla_impresion_credencial 
-            {
-                position: absolute;
-                left: 0px;
-                right: 0px;
-                top: 0px;
-                bottom: 0px;
-              
-            }
-            #pantalla_impresion_credencial #vista_previa_credencial 
-            {
-                position: fixed;
-                left: -2px;
-                top: -1px;
-                width: 102%;                
-            }         
-            
-            #pantalla_impresion_credencial #apellido,
-            #pantalla_impresion_credencial #nombres,
-            #pantalla_impresion_credencial #documento,
-            #pantalla_impresion_credencial #titulo_documento
-            {
-                color: #fefefe !important;
-                font-size: 18px !important;
-            }
-            
-            #pantalla_impresion_credencial #codigo_barras
-            {                
-                right: -10% !important;
-                top: 27% !important;
-            }          
-        }
+        }       
     </style>
 </head>
-<div id="pantalla_impresion_credencial">
+<div id="pantalla_entrega_credencial">
     <h4 id="titulo_vista_previa">Credencial</h4>
     <div id="vista_previa_credencial">        
         <img id="imagen_credencial" src="../BarraMenu/credencial.png"/>        
@@ -205,21 +162,7 @@
         <div id="codigo_barras"> </div>    
     </div>
     <div id=panel_derecho>
-        <input id="btn_imprimir_credencial" type="button" class="btn btn-info" value="Imprimir"/>        
-        <input id="chk_credencial_impresa" type=checkbox />
-        <span class="checkboxtext">
-          Impresa
-        </span>
-        <div id="panel_codigo_magnetico" style="margin-top:30px;">
-            <label>Código Magnético:</label>
-            <input type=text id=txt_codigo_magnetico />
-            <input id="btn_asociar_codigo_magnetico" type="button" class="btn btn-info" value="Asociar Código"/>     
-        </div>
-        <div id="panel_dar_aviso">
-            <label style= "display: block;">Instrucciones para retirar Credencial</label>
-            <textarea type=text id=txt_instrucciones_retiro></textarea>
-            <input id="btn_dar_aviso_y_cerrar" type="button" class="btn btn-primary" value="Dar aviso y cerrar"/>     
-        </div>
+        <input id="btn_entregada" type="button" class="btn btn-primary" value="Entregada"/>     
     </div>
 </div>
 
@@ -227,9 +170,7 @@
 <script type="text/javascript">
     var Componente = {
         start: function (ticket, ui) {
-            ui.find("#panel_codigo_magnetico").hide();
-            ui.find("#panel_dar_aviso").hide();
-            Backend.GetSolicitudDeCredencialPorIdTicketImpresion(ticket.id).onSuccess(function (solicitud) {
+            Backend.GetSolicitudDeCredencialPorIdTicketEntrega(ticket.id).onSuccess(function (solicitud) {
                 Backend.GetUsuarioPorIdPersona(solicitud.IdPersona).onSuccess(function (usuario) {
                     ui.find("#apellido").text(usuario.Owner.Apellido);
                     ui.find("#nombres").text(usuario.Owner.Nombre);
@@ -247,54 +188,10 @@
                         output: 'bmp'
                     });
 
-                    var btn_imprimir = ui.find("#btn_imprimir_credencial");
-                    btn_imprimir.click(function () {
-                        window.print();
-                    });
-
-                    var chk_impresa = ui.find("#chk_credencial_impresa");
-                    if (solicitud.Credencial.Impresa) {
-                        btn_imprimir.val("ReImprimir");
-                        chk_impresa.attr("checked", true);
-                        chk_impresa.attr("disabled", true);
-                        ui.find("#panel_codigo_magnetico").show();
-                    }
-
-                    chk_impresa.click(function () {
-                        Backend.MarcarCredencialComoImpresa(solicitud.Credencial.Id)
-                            .onSuccess(function () {
-                                alertify.success("La credencial se marcó como impresa");
-                                btn_imprimir.val("ReImprimir");
-                                chk_impresa.attr("disabled", true);
-                                ui.find("#panel_codigo_magnetico").show();
-
-                            })
-                            .onError(function () {
-                                alertify.error("Error");
-                            });
-                    });
-
-                    var btn_asociar_codigo_magnetico = ui.find("#btn_asociar_codigo_magnetico");
-                    if (solicitud.Credencial.CodigoMagnetico != "") {
-                        ui.find("#txt_codigo_magnetico").val(solicitud.Credencial.CodigoMagnetico)
-                        btn_asociar_codigo_magnetico.val("ReAsociar");
-                        ui.find("#panel_dar_aviso").show();
-                    }
-                    btn_asociar_codigo_magnetico.click(function () {
-                        var codigo = ui.find("#txt_codigo_magnetico").val();
-                        Backend.AsociarCodigoMagneticoACredencial(solicitud.Credencial.Id, codigo)
-                            .onSuccess(function () {
-                                alertify.success("el código magnético se asoció correctamente");
-                                ui.find("#panel_dar_aviso").show();
-
-                            });
-                    });
-
-                    var btn_dar_aviso = ui.find("#btn_dar_aviso_y_cerrar");
+                    var btn_dar_aviso = ui.find("#btn_entregada");
                     btn_dar_aviso.click(function () {
                         var instrucciones = ui.find("#txt_instrucciones_retiro").val();
-                        solicitud.IdTicketImpresion = ticket.id;
-                        Backend.CerrarTicketImpresion(solicitud, instrucciones)
+                        Backend.CerrarTicketImpresion(solicitud)
                             .onSuccess(function () {
                                 alertify.success("Se envió un mensaje al usuario para que retire su credencial");
                                 vex.close();
