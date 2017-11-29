@@ -5,12 +5,22 @@ var ListadoAgentes = {
     init: function () {
 
     },
+    FiltrarRegistros: function (obj) {
+        var _this = this;
+        _this.DibujarTablaEvaluaciones(todas_las_evaluaciones);
+        _this.FiltrarPorEstado(parseInt($("#id_estado").val()));
+        _this.FiltrarPorDNIApellidoONombre($("#srch_agente").val());
+    },
     getEvaluaciones: function () {
         var _this = this;
         $("#id_estado").change(function () {
-            _this.FiltrarPorEstado(parseInt($(this).val()));
+            _this.FiltrarRegistros();
         });
 
+        $("#srch_agente").keyup(function () {
+            _this.FiltrarRegistros();
+        });
+        
         var spinner = new Spinner({ scale: 2 });
         spinner.spin($("html")[0]);
 
@@ -53,26 +63,7 @@ var ListadoAgentes = {
             localStorage.setItem("leyenda", "");
         });
     },
-    DibujarTabla: function (id_componente, definicion_columnas, modelo) {
-        id_componente = "#" + "tablaAgentes";
-
-        var _this = this;
-        var divGrilla = $(id_componente);
-        divGrilla.empty();
-
-        var columnas = [];
-        $.each(definicion_columnas, function (index, col_def) {
-            columnas.push(new Columna(col_def.nombre_columna, { generar: col_def.value_getter }));
-        });
-
-        _this.Grilla = new Grilla(columnas);
-        _this.Grilla.SetOnRowClickEventHandler(function (asignacion_evaluado_a_evaluador) { });
-        _this.Grilla.CambiarEstiloCabecera("estilo_tabla_portal");
-        _this.Grilla.CargarObjetos(modelo);
-        _this.Grilla.DibujarEn(divGrilla);
-        $('.table-hover').removeClass("table-hover");
-        _this.BuscadorDeTabla();
-    },
+    
     GetterDocEvaluado: function (asignacion_evaluado_a_evaluador) { return asignacion_evaluado_a_evaluador.agente_evaluado.nro_documento; },
     GetterApellidoEvaluado: function (asignacion_evaluado_a_evaluador) { return asignacion_evaluado_a_evaluador.agente_evaluado.apellido },
     GetterNombreEvaluado: function (asignacion_evaluado_a_evaluador) { return asignacion_evaluado_a_evaluador.agente_evaluado.nombre },
@@ -128,51 +119,6 @@ var ListadoAgentes = {
         ]);
 
         var grilla = new GrillaV2("tablaAgentes", definicion_columnas, asignacion_evaluado_a_evaluador);
-        /*
-
-        $("#tablaAgentes").empty();
-        var divGrilla = $("#tablaAgentes");
-        var columnas = [];
-        columnas.push(new Columna("Dni", { generar: function (asignacion_evaluado_a_evaluador) { return asignacion_evaluado_a_evaluador.agente_evaluado.nro_documento } }));
-        columnas.push(new Columna("Apellido", { generar: function (asignacion_evaluado_a_evaluador) { return asignacion_evaluado_a_evaluador.agente_evaluado.apellido } }));
-        columnas.push(new Columna("Nombre", { generar: function (asignacion_evaluado_a_evaluador) { return asignacion_evaluado_a_evaluador.agente_evaluado.nombre } }));
-        columnas.push(new Columna("Unidad Evaluacion", { generar: function (asignacion_evaluado_a_evaluador) { return asignacion_evaluado_a_evaluador.codigo_unidad_eval } }));
-        columnas.push(new Columna("Evaluacion", { generar: function (asignacion_evaluado_a_evaluador) {
-        var coleccion_respuestas = this.getRespuestasDelForm(asignacion_evaluado_a_evaluador.evaluacion);
-        return _this.calificacion(coleccion_respuestas, asignacion_evaluado_a_evaluador.nivel.deficiente, asignacion_evaluado_a_evaluador.nivel.regular, asignacion_evaluado_a_evaluador.nivel.bueno, asignacion_evaluado_a_evaluador.nivel.destacado, false);
-        }
-        }));
-        columnas.push(new Columna('Accion', {
-        generar: function (asignacion_evaluado_a_evaluador) {
-        if (!(asignacion_evaluado_a_evaluador.evaluacion.estado_evaluacion == 1)) {
-        return _this.getBotonIrAFormulario(asignacion_evaluado_a_evaluador);
-        }
-        if (_this.EvaluacionCompleta(asignacion_evaluado_a_evaluador)) {
-        return _this.getBotonImprimir(asignacion_evaluado_a_evaluador);
-        } else {
-        //deberia ser imposible que este como definitiva una evaluacion incompleta
-        return _this.getBotonIrAFormulario(asignacion_evaluado_a_evaluador);
-        }
-        }
-        }));
-        columnas.push(new Columna("GDE", { generar: function (asignacion_evaluado_a_evaluador) {
-        if (asignacion_evaluado_a_evaluador.evaluacion.codigo_gde == '' && asignacion_evaluado_a_evaluador.evaluacion.estado_evaluacion == 1) {
-        return _this.getLinkCargarGDE(asignacion_evaluado_a_evaluador.id_evaluacion);
-        }
-        if (asignacion_evaluado_a_evaluador.evaluacion.codigo_gde != '') {
-        return asignacion_evaluado_a_evaluador.evaluacion.codigo_gde;
-        }
-        return asignacion_evaluado_a_evaluador.codigo_gde;
-        }
-        }));
-        _this.Grilla = new Grilla(columnas);
-        _this.Grilla.SetOnRowClickEventHandler(function (asignacion_evaluado_a_evaluador) { });
-        _this.Grilla.CambiarEstiloCabecera("estilo_tabla_portal");
-        _this.Grilla.CargarObjetos(asignacion_evaluado_a_evaluador);
-        _this.Grilla.DibujarEn(divGrilla);
-        $('.table-hover').removeClass("table-hover");
-        _this.BuscadorDeTabla();
-        */
     },
     EvaluacionCompleta: function (asignacion_evaluado_a_evaluador) {
         if (asignacion_evaluado_a_evaluador.id_evaluacion == 0) return false;
@@ -180,17 +126,19 @@ var ListadoAgentes = {
         var calificacion = this.calificacion(coleccion_respuestas, asignacion_evaluado_a_evaluador.nivel.deficiente, asignacion_evaluado_a_evaluador.nivel.regular, asignacion_evaluado_a_evaluador.nivel.bueno, asignacion_evaluado_a_evaluador.nivel.destacado, false);
         return !(calificacion == 'A Evaluar' || calificacion == 'Evaluacion Incompleta');
     },
-    BuscadorDeTabla: function () {
-        var options = {
-            valueNames: ['Dni', 'Apellido', 'Nombre']
-        };
-
-        var featureList = new List('contenedorTabla', options);
+    FiltrarPorDNIApellidoONombre: function (txt_busqueda) {
+        var _this = this;
+        if (txt_busqueda != "") {
+            $("#tablaAgentes tbody tr").find("td[class=Apellido]").each(function () {
+                if ($(this).text().toUpperCase().indexOf(txt_busqueda.toUpperCase()) < 0) {
+                    $(this).parent().remove();
+                };
+            })
+        } 
     },
     FiltrarPorEstado: function (estado) {
         var _this = this;
         var clave = "";
-        _this.DibujarTablaEvaluaciones(todas_las_evaluaciones);
         switch (estado) {
             case 0:
                 clave = ""
@@ -218,17 +166,13 @@ var ListadoAgentes = {
                 break;
         }
         if (clave != "") {
-            _this.FiltrarRegistros($("#tablaAgentes tbody tr"), clave);
+
+            $("#tablaAgentes tbody tr").find("td[class=Evaluacion]").each(function () {
+                if ($(this).text() != clave) {
+                    $(this).parent().remove();
+                };
+            })
         }
-
-    },
-
-    FiltrarRegistros: function (registro, clave) {
-        registro.find("td[class=Evaluacion]").each(function () {
-            if ($(this).text() != clave) {
-                $(this).parent().remove();
-            };
-        })
     },
 
     getRespuestasDelForm: function (evaluacion) {
@@ -270,13 +214,18 @@ var ListadoAgentes = {
     },
     guardarCodigoGde: function (ui) {
         //alert('testttt');
-        var doc = $("#hid_doc").val();
+        var doc = parseInt($("#hid_doc").val());
         var codigo = ui.find('#codigo_gde').val();
-        Backend.EvalGuardarCodigoGDE(doc, codigo);
+        Backend.EvalGuardarCodigoGDE(doc, codigo)
+        .onSuccess(function (rpta) {
+            var td = $("a[id_eval*='" + doc + "']").parent();
+            td.empty();
+            td.html(codigo);
+        }).onError(function (error, as, asd) {
+            alert("Se produjo un error al guardar el código GDE.");
+        });
+        
         vex.closeAll();
-        var td = $("a[id_eval*='" + doc + "']").parent();
-        td.empty();
-        td.html(codigo);
     },
     getImgIcono: function (nombre_img, title) {
         var btn_accion = $('<a>');

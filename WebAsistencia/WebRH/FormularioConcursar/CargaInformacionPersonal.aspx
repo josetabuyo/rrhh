@@ -182,11 +182,13 @@
                             <div id="contenedor_mails" class="grupo_campos">
                                 <label class="etiqueta_campo" for="txt_email">
                                     Correo Electrónico<em>*</em></label>
-                                <input type="text" id="txt_email" name="txt_email" style="width: 320px" data-validar="esEmailValido, esNoBlanco"
+                                <input type="text" id="txt_email" name="txt_email" style="width: 320px; display:none;" data-validar="esEmailValido, esNoBlanco"
                                     rh-control-type="textbox" rh-model-property="DatosDeContacto.Email" />
+                                    <p id="txt_email2" style="margin-top: 5px; display: inline-block; font-size: 13px;"></p> <span style="font-size:10px;">(Para modificar su mail haga click en la foto de su usuario)</span>
+                                    <%--<input type="text" id="txt_email2" style="width: 320px" disabled="disabled" />--%>
                             </div>
 
-                            <div class="grupo_campos">
+                           <%-- <div class="grupo_campos">
                                 <p class="aclaraciones">
                                     <input id="chk_replicar" type="checkbox" onchange="replicarDireccion()" /> Usar esta
                                     dirección para notificaciones</p>
@@ -241,9 +243,9 @@
                                     rh-filter-value="DomicilioLegal.Provincia" data-validar="haySeleccionEnCombo">
                                 </select>
                             </div>
-                        </fieldset>
+                        </fieldset>--%>
                         <br />
-                        <div style="text-align: center;">
+                        <div  style="text-align: center; clear: left;">
                             <input type="button" class="btn" id="btn_guardar_datosPersonales" value="Guardar" />
                         </div>
                     </div>
@@ -537,6 +539,7 @@
         PanelListaDeExperienciasLaborales.armarGrilla(curriculum.CvExperienciaLaboral);
         PanelListaDeEventosAcademicos.armarGrilla(curriculum.CvEventosAcademicos);
 
+        
         //Activar leanModal
         $('a[rel*=leanModalConcursar]').click(function () {
             var _this = $(this);

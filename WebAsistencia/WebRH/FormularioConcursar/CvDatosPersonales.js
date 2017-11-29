@@ -4,19 +4,19 @@ function replicarDireccion () {
     this.ui = $("#contenedor_datosPersonales");
       
 
-    if ($('#chk_replicar').prop('checked') == true)     
-    {
-            $('#text_calle2').val($('#txt_calle1').val()).change();
-            $('#txt_numero2').val($('#txt_numero1').val()).change();
-            $('#txt_numero2').val($('#txt_numero1').val()).change();
-            $('#txt_piso2').val($('#txt_piso1').val()).change();
-            $('#txt_dto2').val($('#txt_dto1').val()).change();
-            $('#txt_cp2').val($('#txt_cp1').val()).change();
-            $('#cmb_provincia2').val($('#cmb_provincia1').val()).change();
-            setTimeout(function () {
-                $('#cmb_localidad2').val($('#cmb_localidad1').val()).change();
-            }, 1000);
-    }
+//    if ($('#chk_replicar').prop('checked') == true)     
+//    {
+//            $('#text_calle2').val($('#txt_calle1').val()).change();
+//            $('#txt_numero2').val($('#txt_numero1').val()).change();
+//            $('#txt_numero2').val($('#txt_numero1').val()).change();
+//            $('#txt_piso2').val($('#txt_piso1').val()).change();
+//            $('#txt_dto2').val($('#txt_dto1').val()).change();
+//            $('#txt_cp2').val($('#txt_cp1').val()).change();
+//            $('#cmb_provincia2').val($('#cmb_provincia1').val()).change();
+//            setTimeout(function () {
+//                $('#cmb_localidad2').val($('#cmb_localidad1').val()).change();
+//            }, 1000);
+//    }
  }
 
  var CvDatosPersonales = {
@@ -39,6 +39,11 @@ function replicarDireccion () {
          _this.txt_fechaNac = _this.ui.find("#txt_fechaNac");
          _this.txt_dni = _this.ui.find("#txt_documento");
          _this.cmb_tipoDocumento = _this.ui.find("#cmb_tipoDocumento");
+         //_this.email = _this.ui.find("#txt_email2");
+
+         setTimeout(function () {
+             $("#txt_email2").html($('#email_user').html());
+         }, 5000);
 
          _this.txt_cuil.val(parseInt(datos_personales.Cuil));
          $("#cuil").mask("99-99999999-9");

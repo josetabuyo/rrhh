@@ -179,6 +179,7 @@
                 });
 
                 ui.find("#btn_aprobar_solicitud").click(function () {
+                    ui.find("#btn_aprobar_solicitud").prop("disabled", true);
                     Backend.AprobarSolicitudCredencial(solicitud).onSuccess(function () {
                         alertify.success("Solicitud aprobada con éxito");
                         vex.close();

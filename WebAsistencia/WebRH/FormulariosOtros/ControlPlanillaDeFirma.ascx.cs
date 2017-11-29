@@ -44,6 +44,20 @@ public partial class ControlPlanillaDeFirma : System.Web.UI.UserControl
         return dia;
     }
 
+    private bool esFeriado(DateTime fecha, DateTime[] feriados)
+    {
+        foreach (DateTime feriado in feriados)
+        {
+            if (feriado.Date == fecha)
+            {
+                return true;
+            }
+            
+        }
+
+        return false;
+    }
+
     protected void Page_Load(object sender, EventArgs e)
     {
         this.Label4.Text = ((Area)Session["areaActual"]).Nombre;
@@ -51,6 +65,10 @@ public partial class ControlPlanillaDeFirma : System.Web.UI.UserControl
         this.Table1.Style.Add(HtmlTextWriterStyle.Width, "100%");
         this.LPeriodo.Text = DateTime.Today.Month + "/" + DateTime.Today.Year;
         this.Table1.BorderWidth = 1;
+
+        WSViaticosSoapClient webService = new WSViaticosSoapClient();
+        //WSViaticos.WSViaticos s = new WSViaticos.WSViaticos();
+        DateTime[] feriados = webService.GetFeriados();
 
         int idArea = ((Area) Session["areaActual"]).Id;
         this.ImbBarcode.ImageUrl = "~/FormulariosOtros/GetBarCodes.aspx?codigo=FRH0201," + this.LDocumento.Text + "," + idArea + "," + DateTime.Today.Month.ToString() + "/" + DateTime.Today.Year.ToString();
@@ -83,6 +101,20 @@ public partial class ControlPlanillaDeFirma : System.Web.UI.UserControl
                 tc.ColumnSpan = 2;
                 tc.BorderWidth = 1;
                 tr.Cells.Add(tc);
+            }
+            else if (esFeriado(PrimerDia.AddDays(i).Date, feriados))
+            {
+
+                tc.Text = "Feriado";
+                tc.BorderWidth = 1;
+                tc.ColumnSpan = 2;
+                tr.Cells.Add(tc);
+                tc = new TableCell();
+                tc.Text = "Feriado";
+                tc.ColumnSpan = 2;
+                tc.BorderWidth = 1;
+                tr.Cells.Add(tc);
+
             }
             else
             {
@@ -128,6 +160,20 @@ public partial class ControlPlanillaDeFirma : System.Web.UI.UserControl
                     tc.BorderWidth = 1;
                     tc.ColumnSpan = 2;
                     tr.Cells.Add(tc);
+                }
+                else if (esFeriado(PrimerDia.AddDays(i + Filas).Date, feriados))
+                {
+                    tc = new TableCell();
+                    tc.Text = "Feriado";
+                    tc.BorderWidth = 1;
+                    tc.ColumnSpan = 2;
+                    tr.Cells.Add(tc);
+                    tc = new TableCell();
+                    tc.Text = "Feriado";
+                    tc.ColumnSpan = 2;
+                    tc.BorderWidth = 1;
+                    tr.Cells.Add(tc);
+
                 }
                 else
                 {
