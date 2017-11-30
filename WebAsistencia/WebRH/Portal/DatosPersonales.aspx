@@ -382,7 +382,7 @@
                         $("#botonera_credenciales").show();
                         if (_.some(solicitudes, function (sol) {
                             if (sol.Id == 0) return false;
-                            if (sol.Estado == "ENTREGADA") return false;
+                            if (sol.Estado == "ENTREGADO") return false;
                             if (sol.Estado == "RECHAZADO") return false;
                             return true;
                         })) {

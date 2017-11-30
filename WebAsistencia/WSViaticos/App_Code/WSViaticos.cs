@@ -3034,6 +3034,14 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public SolicitudCredencial GetSolicitudDeCredencialPorIdTicketEntrega(int id_ticket, Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+        return repositorio.GetSolicitudDeCredencialPorIdTicketEntrega(id_ticket);
+    }
+
+
+    [WebMethod]
     public bool AprobarSolicitudCredencial(SolicitudCredencial solicitud, Usuario usuario)
     {
         RepositorioLegajo repositorio = RepoLegajo();
@@ -3066,6 +3074,13 @@ public class WSViaticos : System.Web.Services.WebService
     {
         RepositorioLegajo repositorio = RepoLegajo();
         return repositorio.CerrarTicketImpresion(solicitud, instrucciones_de_retiro, usuario);
+    }
+
+    [WebMethod]
+    public bool CerrarTicketEntrega(SolicitudCredencial solicitud, Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+        return repositorio.CerrarTicketEntrega(solicitud, usuario);
     }
 
     #endregion
