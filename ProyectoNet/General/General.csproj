@@ -183,7 +183,7 @@
     <Compile Include="Postular\ConstantesConcursar.cs" />
     <Compile Include="DictionaryExtension.cs" />
     <Compile Include="MAU\AccesoAURL.cs" />
-    <Compile Include="Extensiones\ExtensionString.cs" />
+    <Compile Include="General.Test\Extensiones\ExtensionString.cs" />
     <Compile Include="MAU\AspiranteAUsuario.cs" />
     <Compile Include="MAU\Autorizador.cs" />
     <Compile Include="MAU\IRepositorioDeFuncionalidadesDeUsuarios.cs" />

@@ -2982,6 +2982,19 @@ public class WSViaticos : System.Web.Services.WebService
 
     #region Credenciales
 
+    [WebMethod]
+    public string GetPDFDDJJRecepcionCredencial(Usuario usuario)
+    {
+        Dictionary<string, string> mapa_para_pdf = new Dictionary<string,string>();
+        mapa_para_pdf.Add("nyap", usuario.Owner.Nombre + " " + usuario.Owner.Apellido);
+        mapa_para_pdf.Add("dni", usuario.Owner.Documento.ToString());
+        var creador_pdf = new CreadorDePdfs();
+
+        byte[] bytes = creador_pdf.FillPDF(TemplatePath("DDJJCredenciales.pdf"), "DDJJEntregaCredencial", mapa_para_pdf);
+        return Convert.ToBase64String(bytes);
+    }
+
+
 
     [WebMethod]
     public Credencial[] GetCredencialesTodasDePortal(Usuario usuario)
