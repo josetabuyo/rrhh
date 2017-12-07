@@ -33,6 +33,9 @@ namespace General
         private bool _estaCertificadoEnLaDDJJ;
         private string _certificaHoraDesdeDDJJ;
         private string _certificaHoraHastaDDJJ;
+        private string _motivo_no_certificar { get; set; }
+        private string _cco_no_certificar { get; set; }
+
 
         public int Id { get { return _id; } set { _id = value; } }
         public int Documento { get { return _Documento; } set { _Documento = value;  } }
@@ -59,7 +62,9 @@ namespace General
         public bool BajaLegajo { get; set; }
         public bool EstaCertificadoEnLaDDJJ { get { return _estaCertificadoEnLaDDJJ; } set { _estaCertificadoEnLaDDJJ = value; } }
         public string CertificaHoraDesdeDDJJ { get { return _certificaHoraDesdeDDJJ; } set { _certificaHoraDesdeDDJJ = value; } }
-        public string CertificaHoraHastaDDJJ { get { return _certificaHoraHastaDDJJ; } set { _certificaHoraHastaDDJJ = value; } }  
+        public string CertificaHoraHastaDDJJ { get { return _certificaHoraHastaDDJJ; } set { _certificaHoraHastaDDJJ = value; } }
+        public string MotivoNoCertificar { get { return _motivo_no_certificar; } set { _motivo_no_certificar = value; } }
+        public string CCONoCertificar { get { return _cco_no_certificar; } set { _cco_no_certificar = value; } }  
 
         public Persona() { }
 

@@ -91,8 +91,8 @@
                 left: 18px;
                 font-size: 20px;
                 color: white;
-            } 
-            
+            }             
+               
             .label_combo
             {
                 width: 250px;
@@ -333,10 +333,13 @@
         </div>
     </form>
 </body>
+
 <script type="text/javascript" src="Legajo.js"></script>
 <script type="text/javascript" src="../Scripts/Spin.js"></script>
 <script type="text/javascript" src="../Scripts/ControlesImagenes/VistaThumbnail.js"></script>
 <script type="text/javascript" src="../scripts/vex-2.1.1/js/vex.combined.min.js"></script>
+
+
 <script type="text/javascript" >
     $("#btn_credencial_vigente").hide();
     $(document).ready(function ($) {
@@ -430,7 +433,7 @@
                                 var img = new VistaThumbnail({
                                     id: usuario.Owner.IdImagen,
                                     contenedor: ui.find("#foto_usuario")
-                                });
+                                });                               
                             });
 
                             ui.find("#btn_cambiar_foto").click(function () { $("#contenedor_foto_usuario").click(); });

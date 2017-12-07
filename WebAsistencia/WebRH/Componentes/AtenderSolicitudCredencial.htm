@@ -7,29 +7,177 @@
         #pantalla_atender_solicitud_credencial
         {
         }      
+           
+        #pantalla_atender_solicitud_credencial #titulo_pantalla
+        {
+            font-size: 20px;
+        }   
+          
+        #pantalla_atender_solicitud_credencial .campo label
+        {
+            display: inline;
+        }      
+         
+        #pantalla_atender_solicitud_credencial .campo div
+        {
+            display: inline;
+        }      
+                    
+        #pantalla_atender_solicitud_credencial #credencial_vigente
+        {
+            position: relative;
+        }
+          
+         #pantalla_atender_solicitud_credencial #vista_previa_credencial
+        {
+            position: relative;
+            width: 250px;
+            display: inline-block;
+        }
+        
+         #pantalla_atender_solicitud_credencial #panel_derecho
+        {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+        }
+        
+        #pantalla_atender_solicitud_credencial #imagen_credencial
+        {
+            width: 100%;
+        }        
+        
+        #pantalla_atender_solicitud_credencial #foto_usuario
+        {
+            position: absolute;
+            top: 14.6%;
+            left: 6%;
+            height: 32%;
+            width: 49.4%;
+        }            
+         
+        #pantalla_atender_solicitud_credencial #codigo_barras
+        {
+            position: absolute;
+            right: -4%;
+            top: 25%;
+            -ms-transform: rotate(90deg); /* IE 9 */
+            -webkit-transform: rotate(90deg); /* Safari */
+            transform: rotate(90deg); /* Standard syntax */
+        }    
+        
+        #pantalla_atender_solicitud_credencial #foto_usuario #img_thumbnail
+        {
+            border-radius: 14px;
+        }
+        
+        #pantalla_atender_solicitud_credencial #apellido
+        {
+            position: absolute;
+            top: 50%;
+            left: 7.4%;
+            font-size: 20px;
+            color: white !important;
+        }    
+        
+        #pantalla_atender_solicitud_credencial #nombres
+        {
+            position: absolute;
+            top: 57%;
+            left: 7.4%;
+            font-size: 20px;
+            color: white !important;
+        }    
+        
+        #pantalla_atender_solicitud_credencial #documento
+        {
+            position: absolute;
+            top: 64%;
+            left: 26%;
+            font-size: 20px;
+            color: white !important;
+        }    
+            
+        #pantalla_atender_solicitud_credencial #titulo_documento
+        {
+            position: absolute;
+            top: 64%;
+            left: 7.4%;
+            font-size: 20px;
+            color: white !important;
+        } 
+            
+        #pantalla_atender_solicitud_credencial #btn_imprimir_credencial
+        {
+
+        }
+        
+        #pantalla_atender_solicitud_credencial #titulo_vista_previa
+        {
+            margin-top:0px;
+        }      
+        
+        #pantalla_atender_solicitud_credencial .botonera
+        {
+            position: absolute;
+            bottom: 30px;
+            right: 300px;
+        }      
+        
     </style>
 </head>
 <div id="pantalla_atender_solicitud_credencial">
-    <label>Solicitud de credencial de acceso</label>
-    <div id="nombre_solicitante"></div>
-    <div id="apellido_solicitante"></div>
-    <div id="dni_solicitante"></div>
-    <div id="organismo_solicitud"></div>
-    <div id="motivo_solicitud"></div>
-    <input id="btn_aprobar_solicitud" type="button" class="btn btn-primary" value="Aprobar"/>
-    <input id="btn_rechazar_solicitud" type="button" class="btn btn-primary" value="Rechazar"/>
+    <label id="titulo_pantalla">Solicitud de credencial de acceso</label>
+    <br/>
+    <div class='campo'><label>Solicitante:</label> <div id="nombre_solicitante"></div></div>
+    <div class='campo'><label>DNI:</label> <div id="dni_solicitante"></div></div>
+    <div class='campo'><label>Organismo:</label> <div id="organismo_solicitud"></div></div>
+    <div class='campo'><label>Motivo de la solicitud:</label> <div id="motivo_solicitud"></div></div>
+    
+    <div id=panel_derecho>
+        <h4 id="titulo_vista_previa">Vista Previa Credencial</h4>
+        <div id="vista_previa_credencial">        
+            <img id="imagen_credencial" src="../BarraMenu/credencial.png"/>        
+            <div id="foto_usuario"></div>
+            <div id="apellido"></div>    
+            <div id="nombres"></div>    
+            <div id="titulo_documento">DNI:</div>    
+            <div id="documento"></div>  
+            <div id="codigo_barras"> </div>
+        </div>
+    </div>
+
+    <div class="botonera">
+        <input id="btn_aprobar_solicitud" type="button" class="btn btn-primary" value="Aprobar"/>
+        <input id="btn_rechazar_solicitud" type="button" class="btn btn-primary" value="Rechazar"/>
+    </div>
 </div>
+<script type="text/javascript" src="../Scripts/jquery-barcode.js"/>
 <script type="text/javascript">
     var Componente = {
         start: function (ticket, ui) {
             Backend.GetSolicitudDeCredencialPorIdTicketAprobacion(ticket.id).onSuccess(function (solicitud) {
                 Backend.GetUsuarioPorIdPersona(solicitud.IdPersona).onSuccess(function (usuario) {
-                    ui.find("#nombre_solicitante").text(usuario.Owner.Nombre);
-                    ui.find("#apellido_solicitante").text(usuario.Owner.Apellido);
+                    ui.find("#nombre_solicitante").text(usuario.Owner.Nombre + ' ' + usuario.Owner.Apellido);
                     ui.find("#dni_solicitante").text(usuario.Owner.Documento);
                     ui.find("#organismo_solicitud").text(solicitud.Organismo);
                     ui.find("#motivo_solicitud").text(solicitud.Motivo);
+
+                    ui.find("#apellido").text(usuario.Owner.Apellido);
+                    ui.find("#nombres").text(usuario.Owner.Nombre);
+                    ui.find("#documento").text(usuario.Owner.Documento);
+                    var img = new VistaThumbnail({
+                        id: usuario.Owner.IdImagen,
+                        contenedor: ui.find("#foto_usuario")
+                    });
+
+                    ui.find("#codigo_barras").barcode(usuario.Owner.Documento.toString(), "code128", {
+                        showHRI: false,
+                        height: 10,
+                        width: 180
+                    });
                 });
+
                 ui.find("#btn_aprobar_solicitud").click(function () {
                     Backend.AprobarSolicitudCredencial(solicitud).onSuccess(function () {
                         alertify.success("Solicitud aprobada con éxito");
@@ -51,7 +199,7 @@
                             }
                         }
                     })
-                    
+
                 });
             });
         }

@@ -976,6 +976,7 @@
           <s:element minOccurs="1" maxOccurs="1" name="estado_evaluacion" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="codigo_gde" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="id_doc_electronico" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="fecha" type="s:dateTime" />
           <s:element minOccurs="1" maxOccurs="1" name="puntaje" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="calificacion" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="detalle_preguntas" type="tns:ArrayOfDetallePreguntas" />
@@ -6049,6 +6050,7 @@
             <s:element minOccurs="1" maxOccurs="1" name="mes" type="s:int" />
             <s:element minOccurs="1" maxOccurs="1" name="anio" type="s:int" />
             <s:element minOccurs="1" maxOccurs="1" name="id_area" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="complementaria" type="s:int" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
@@ -6077,6 +6079,7 @@
           <s:element minOccurs="1" maxOccurs="1" name="Anio" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="Estado" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="FechaGeneracion" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Complementaria" type="s:int" />
         </s:sequence>
       </s:complexType>
       <s:element name="GetAreasParaDDJJ104Response">
@@ -6094,6 +6097,7 @@
             <s:element minOccurs="1" maxOccurs="1" name="anio" type="s:int" />
             <s:element minOccurs="0" maxOccurs="1" name="lista_persona" type="tns:ArrayOfPersona" />
             <s:element minOccurs="1" maxOccurs="1" name="estado_guardado" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="complementaria" type="s:int" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
