@@ -204,7 +204,7 @@ public class WSViaticos : System.Web.Services.WebService
         RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
 
         DDJJ104_2001 cabe = new DDJJ104_2001();
-        cabe = ddjj.GenerarDDJJ104(usuario, UnArea[0], mes, anio, lista_persona, estado_guardado);
+        cabe = ddjj.GenerarDDJJ104(usuario, UnArea[0], mes, anio, lista_persona, estado_guardado, complementaria);
 
 
         return cabe;

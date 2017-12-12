@@ -66,7 +66,7 @@ namespace General
         //}
 
 
-        public DDJJ104_2001 GenerarDDJJ104(Usuario usuario, AreaParaDDJJ104 area, int mes, int anio, Persona[] lista_persona, int estado_guardado)
+        public DDJJ104_2001 GenerarDDJJ104(Usuario usuario, AreaParaDDJJ104 area, int mes, int anio, Persona[] lista_persona, int estado_guardado, int complementaria)
         {
             ConexionDB cn = new ConexionDB("dbo.PLA_ADD_DDJJ104_Cabecera");
             cn.AsignarParametro("@Id_Area", area.Id);
@@ -74,6 +74,8 @@ namespace General
             cn.AsignarParametro("@Año", anio);
             cn.AsignarParametro("@Usuario_Generacion", usuario.Id);
             cn.AsignarParametro("@Estado", estado_guardado);
+            cn.AsignarParametro("@Complementaria", complementaria);
+
 
             //INICIO TRANSACCION
             cn.BeginTransaction();

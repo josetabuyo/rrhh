@@ -191,12 +191,12 @@ var GetDescripcionEstado = function (estado) {
 };
 
 
-var DibujarFormularioDDJJ104 = function (un_area, estado) {
+var DibujarFormularioDDJJ104 = function (un_area, estado, complementaria) {
 
     //var vista_ddjj_imprimir = $("<div style='page-break-before: always;'>");
     var vista_ddjj_imprimir = $("<div>");
 
-    DibujarGrillaPersonas(un_area, estado, vista_ddjj_imprimir, true);
+    DibujarGrillaPersonas(un_area, estado, vista_ddjj_imprimir, true, complementaria);
 
     //    var area;
     //    var mes;
@@ -290,7 +290,7 @@ var ConsultarDDJJ = function (idArea, estado, complementaria) {
 
     Backend.GetAreasParaDDJJ104(mesSeleccionado, anioSeleccionado, idArea, complementaria)
     .onSuccess(function (respuesta) {
-        DibujarGrillaPersonas(respuesta[0], estado, $("#ContenedorPersona"), false);
+        DibujarGrillaPersonas(respuesta[0], estado, $("#ContenedorPersona"), false, complementaria);
         spinner.stop();
     })
     .onError(function (error, as, asd) {
@@ -359,7 +359,7 @@ var Generar_Definitivo_o_Provisorio = function (idArea, estado_guardado, complem
 var ImprimirDDJJ = function (idArea, estado, complementaria) {
     Backend.GetAreasParaDDJJ104(mesSeleccionado, anioSeleccionado, idArea, complementaria) //CORREGIR MANDAR COMPLEMENTARIA
     .onSuccess(function (respuesta) {
-        DibujarFormularioDDJJ104(respuesta[0], estado);
+        DibujarFormularioDDJJ104(respuesta[0], estado, complementaria);
     })
     .onError(function (error, as, asd) {
         alertify.alert("", error);
@@ -367,7 +367,7 @@ var ImprimirDDJJ = function (idArea, estado, complementaria) {
 };
 
 
-var DibujarGrillaPersonas = function (un_area, estado, contenedor_grilla, es_impresion) {
+var DibujarGrillaPersonas = function (un_area, estado, contenedor_grilla, es_impresion, complementaria) {
 
     lista_personas = [];
 
@@ -655,14 +655,14 @@ var DibujarGrillaPersonas = function (un_area, estado, contenedor_grilla, es_imp
         boton = $("<input type='button'>");
         boton.val("Guardar DDJJ Provisoria");
         boton.click(function () {
-            Generar_Definitivo_o_Provisorio(un_area.Id, 3, un_area.DDJJ.Complementaria); //PROVISORIO 
+            Generar_Definitivo_o_Provisorio(un_area.Id, 3, complementaria); //PROVISORIO 
         });
         contenedor_grilla.append(boton);
 
         boton2 = $("<input type='button'>");
         boton2.val("Guardar DDJJ Definitiva");
         boton2.click(function () {
-            Generar_Definitivo_o_Provisorio(un_area.Id, 1, un_area.DDJJ.Complementaria); //DEFINITIVO 
+            Generar_Definitivo_o_Provisorio(un_area.Id, 1, complementaria); //DEFINITIVO 
         });
         contenedor_grilla.append(boton2);
     }
