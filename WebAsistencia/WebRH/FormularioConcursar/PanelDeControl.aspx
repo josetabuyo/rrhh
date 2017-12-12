@@ -114,6 +114,7 @@
                     <h5 style="margin-top:20px;" ><b>Comité 3: Asistente Administrativo - Reserva Art.8 Ley Nº 22.431 (D - General)</b></h5>
                     <hr class="lineas-subraya"/>
                     <p>
+                        <a href="bases/Conv03_2017_Perfil_17383_Acta_13_Comite_03.pdf" target="_blank" >Acta 13</a> -
                         <a href="bases/Conv03_2017_Perfil_17383_Acta_12_Comite_03.pdf" target="_blank" >Acta 12</a> -
                         <a href="bases/Conv03_2017_Perfil_17383_Acta_11_Comite_03.pdf" target="_blank" >Acta 11</a> -
                         <a href="bases/Conv03_2017_Perfil_17383_Acta_10_Comite_03.pdf" target="_blank" >Acta 10</a> -
