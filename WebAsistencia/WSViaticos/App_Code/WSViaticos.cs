@@ -224,6 +224,17 @@ public class WSViaticos : System.Web.Services.WebService
         return new RepositorioDeParametrosGenerales(Conexion()).GetLeyendaAnio(anio);
     }
 
+    [WebMethod]
+    public string GetAnioDeContrato(Usuario usuario)
+    {
+        return new RepositorioDeParametrosGenerales(Conexion()).GetAnioDeContrato();
+    }
+
+    [WebMethod]
+    public DateTime[] GetFeriados()
+    {
+        return new RepositorioDeParametrosGenerales(Conexion()).GetFeriados().ToArray();
+    }
 
     //CONSULTA INDIVIDUAL
     [WebMethod]
@@ -3031,6 +3042,14 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public SolicitudCredencial GetSolicitudDeCredencialPorIdTicketEntrega(int id_ticket, Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+        return repositorio.GetSolicitudDeCredencialPorIdTicketEntrega(id_ticket);
+    }
+
+
+    [WebMethod]
     public bool AprobarSolicitudCredencial(SolicitudCredencial solicitud, Usuario usuario)
     {
         RepositorioLegajo repositorio = RepoLegajo();
@@ -3063,6 +3082,13 @@ public class WSViaticos : System.Web.Services.WebService
     {
         RepositorioLegajo repositorio = RepoLegajo();
         return repositorio.CerrarTicketImpresion(solicitud, instrucciones_de_retiro, usuario);
+    }
+
+    [WebMethod]
+    public bool CerrarTicketEntrega(SolicitudCredencial solicitud, Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+        return repositorio.CerrarTicketEntrega(solicitud, usuario);
     }
 
     #endregion
@@ -5191,4 +5217,29 @@ public class WSViaticos : System.Web.Services.WebService
     {
         return Server.MapPath("~") + "\\PdfTemplates\\" + fileName;
     }
+
+    #region " Control de Acceso "
+
+    [WebMethod]
+    public string CTL_ACC_Grabar_Lote(string json)
+    {
+        var ctlAcc = new General.CtrlAcc.RepositorioCtlAcc();
+        return ctlAcc.Grabar_Lote_Control_Acceso(json);
+    }
+
+    [WebMethod]
+    public string CTL_ACC_Get_Dotacion()
+    {
+        var ctlAcc = new General.CtrlAcc.RepositorioCtlAcc();
+        return ctlAcc.Get_Dotacion_Control_Acceso();
+    }
+
+    [WebMethod]
+    public string CTL_ACC_Login(string user, string pass)
+    {
+        return "";
+    }
+
+    #endregion	
+
 }

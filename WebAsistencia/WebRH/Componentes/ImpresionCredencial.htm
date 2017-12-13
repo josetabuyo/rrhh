@@ -216,7 +216,10 @@
             <input id="btn_asociar_codigo_magnetico" type="button" class="btn btn-info" value="Asociar Código"/>     
         </div>
         <div id="panel_dar_aviso">
-            <label style= "display: block;">Instrucciones para retirar Credencial</label>
+            <label style= "display: inline-block;">Lugar de entrega:</label>
+            <label id = "lugar_de_entrega"style= "display: inline-block;"></label>
+            <br />
+            <label style= "display: block;">Instrucciones adicionales para retirar Credencial</label>
             <textarea type=text id=txt_instrucciones_retiro></textarea>
             <input id="btn_dar_aviso_y_cerrar" type="button" class="btn btn-primary" value="Dar aviso y cerrar"/>     
         </div>
@@ -234,6 +237,7 @@
                     ui.find("#apellido").text(usuario.Owner.Apellido);
                     ui.find("#nombres").text(usuario.Owner.Nombre);
                     ui.find("#documento").text(usuario.Owner.Documento);
+                    ui.find("#lugar_de_entrega").text(solicitud.LugarEntrega.Descripcion);
 
                     var img = new VistaThumbnail({
                         id: solicitud.Credencial.IdFoto,
@@ -292,6 +296,7 @@
 
                     var btn_dar_aviso = ui.find("#btn_dar_aviso_y_cerrar");
                     btn_dar_aviso.click(function () {
+                        btn_dar_aviso.prop("disabled", true);
                         var instrucciones = ui.find("#txt_instrucciones_retiro").val();
                         solicitud.IdTicketImpresion = ticket.id;
                         Backend.CerrarTicketImpresion(solicitud, instrucciones)
