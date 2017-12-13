@@ -5148,10 +5148,12 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string EvalVerificarCodigoGDE(int id_evaluacion, string codigo_gde)
+    public string EvalVerificarCodigoGDE(int id_evaluacion, string codigo_gde, Usuario usuario)
     {
-        //var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
-        //repo.EvalGuardarCodigoGDE(id, codigo_gde);
+        //var repo = RepositorioEvaluacionDesempenio.NuevoReposi
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        repo.VerificarCodigoGDE(id_evaluacion, usuario);
+        
         return codigo_gde;
     }
 
@@ -5160,6 +5162,15 @@ public class WSViaticos : System.Web.Services.WebService
     {
         var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
         repo.EvalGuardarCodigoGDE(id, codigo_gde);
+        return codigo_gde;
+    }
+
+    [WebMethod]
+    public string EvalCorregirCodigoGDE(int id, string codigo_gde, Usuario usuario)
+    {
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        repo.EvalGuardarCodigoGDE(id, codigo_gde);
+        repo.VerificarCodigoGDE(id, usuario);
         return codigo_gde;
     }
 

@@ -257,7 +257,7 @@ namespace General.Repositorios
                                             row.GetString("codigo_gde", ""),
                                             row.GetString("codigo_doc_electronico",""),
                                             row.GetDateTime("fecha"),
-                                            false);
+                                            new VerificacionCodigoGdeDocumento(row.GetDateTime("fechaVerificacionGDE", DateTime.MinValue), VerificacionCodigoGdeDocumento.UsuarioVerifFromDB(row.GetSmallintAsInt("idUsuarioVerificadorGDE", 0))));
             }
 
             var unidad_evaluacion = UnidadDeEvaluacion.Nulio();
@@ -355,13 +355,31 @@ namespace General.Repositorios
             _conexion.Ejecutar("dbo.EVAL_DEL_Evaluacion_Detalle", parametros);
         }
 
-        public void EvalGuardarCodigoGDE(int id, string codigo_gde)
+        public void VerificarCodigoGDE(int id_evaluacion, Usuario usuario)
         {
             var parametros = new Dictionary<string, object>();
-            parametros.Add("@id_evaluacion", id);
+            parametros.Add("@idEvaluacion", id_evaluacion);
+            parametros.Add("@idPersonaVerificadora", usuario.Owner.Id);
+
+            _conexion.Ejecutar("dbo.EVAL_INS_VerificarCodigoGDE", parametros);
+        }
+
+        public void EvalGuardarCodigoGDE(int id_evaluacion, string codigo_gde)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_evaluacion", id_evaluacion);
             parametros.Add("@codigo_gde", codigo_gde);
 
             _conexion.Ejecutar("dbo.EVAL_UPD_CodigoGdeEvaluacion", parametros);
+        }
+
+        public void EvalCorregirCodigoGDE(int id, string codigo)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_evaluacion", id);
+            parametros.Add("@codigo_gde", codigo);
+
+            _conexion.Ejecutar("dbo.EVAL_ActualizarCodigoDocumentoGDE", parametros);
         }
 
         public PeriodoEvaluacion GetUltimoPeriodoEvaluacion()

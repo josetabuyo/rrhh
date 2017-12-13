@@ -11,9 +11,10 @@ namespace General.MED
         public int id_evaluacion { get; set; }
         public int estado_evaluacion { get; set; }
         public string codigo_gde { get; set; }
-        public bool codigo_gde_verificado { get; set; }
+        public bool codigo_gde_verificado { get { return this.verificacion_gde.IsNull(); } }
         public string id_doc_electronico { get; set; }
         public DateTime fecha { get; set; }
+        public VerificacionCodigoGdeDocumento verificacion_gde { get; set; }
 
         public int puntaje
         {
@@ -30,7 +31,7 @@ namespace General.MED
 
         public List<DetallePreguntas> detalle_preguntas { get; set; }
 
-        public EvaluacionDesempenio(int id_evaluacion, int estado_evaluacion, NivelEvaluacionDesempenio nivel, List<DetallePreguntas> detalle_preguntas, string codigo_gde, string id_doc_electronico, DateTime fecha, bool codigo_gde_verificado)
+        public EvaluacionDesempenio(int id_evaluacion, int estado_evaluacion, NivelEvaluacionDesempenio nivel, List<DetallePreguntas> detalle_preguntas, string codigo_gde, string id_doc_electronico, DateTime fecha, VerificacionCodigoGdeDocumento verificacion_codigo_gde)
         {
             this.id_evaluacion = id_evaluacion;
             this.estado_evaluacion = estado_evaluacion;
@@ -39,14 +40,14 @@ namespace General.MED
             this.nivel = nivel;
             this.id_doc_electronico = id_doc_electronico;
             this.fecha = fecha;
-            this.codigo_gde_verificado = codigo_gde_verificado;
+            this.verificacion_gde = verificacion_codigo_gde;
         }
 
         public EvaluacionDesempenio() { }
 
         public static EvaluacionDesempenio Nula()
         {
-            return new EvaluacionDesempenio(0, 0, NivelEvaluacionDesempenio.Nulo(), new List<DetallePreguntas>(), String.Empty, String.Empty, DateTime.MinValue, false);
+            return new EvaluacionDesempenio(0, 0, NivelEvaluacionDesempenio.Nulo(), new List<DetallePreguntas>(), String.Empty, String.Empty, DateTime.MinValue, VerificacionCodigoGdeDocumento.Null());
         }
     }
 }

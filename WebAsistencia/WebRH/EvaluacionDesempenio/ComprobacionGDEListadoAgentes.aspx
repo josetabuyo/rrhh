@@ -51,12 +51,20 @@
         Se marcará el código <div id="div_codigo_gde_a_verificar"></div>
         como verificado por usted, para la evaluacion de:
         <div id="div_agente_a_verificar"></div>
-        <input type="hidden" id="hid_id_eval" />
+        
         ¿Confirma que desea realizar esta acción?<br /><br />
         <a href="#" id="lnk_cancelar_verificacion">Cancelar</a>
         <input type="button" id="btn_verificar_codigo_gde" value="Aceptar">
     </div>
+    <input type="hidden" id="hid_id_eval" />
 
+    <!--popup para cargar el codigo gde de la evaluacion de desempenio cargada-->
+    <div style="display:none" id="div_codigo_gde">
+        Ingrese el Codigo GDE<br />
+        <input type="text" id="codigo_gde"></input><br />
+        <a href="#" id="lnk_cancelar">Cancelar</a>
+        <input type="button" id="btn_codigo_gde" value="Aceptar">
+    </div>
     </form>
 </body>
 <script type="text/javascript" src="ListadoAgentes.js"></script>
