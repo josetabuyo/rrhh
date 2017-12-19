@@ -13,7 +13,6 @@ namespace General
     {
         public static void EnviarMail(string mail, string titulo, string cuerpo)
         {
-            //MailAddress mail_re_recupero = new MailAddress(mail);
             EnviarMail(new NetworkCredential("rhusuarios", "RRhh2016", "sds_domain_1"),
                     mail,
                    titulo,
