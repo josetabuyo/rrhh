@@ -56,7 +56,7 @@
     <div style="display:none" id="div_codigo_gde">
         Ingrese el Codigo GDE<br />
         <input type="text" id="codigo_gde"></input><br />
-        <input type="hidden" id="hid_doc" />
+        <input type="hidden" id="hid_id_eval" />
         
         <a href="#" id="lnk_cancelar">Cancelar</a>
         <input type="button" id="btn_codigo_gde" value="Aceptar">
