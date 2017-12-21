@@ -143,8 +143,18 @@ var GeneradorBotones = function () {
 
         var botonConsultar;
         botonConsultar = $("<input type='button'>");
-        botonConsultar.val("Certificar");
-        botonConsultar.click(function () { ConsultarDDJJ(un_area.Id, estado, un_area.DDJJ.Complementaria, $("#ContenedorPersona")) });
+        if (estado == 1 || estado == 2) {
+            botonConsultar.val("Consultar");
+        } else {
+            botonConsultar.val("Certificar");
+        }
+        
+        if (un_area.DDJJ == null) {
+            botonConsultar.click(function () { ConsultarDDJJ(un_area.Id, estado, 0, $("#ContenedorPersona")) });
+        }
+        else {
+            botonConsultar.click(function () { ConsultarDDJJ(un_area.Id, estado, un_area.DDJJ.Complementaria, $("#ContenedorPersona")) });
+        }
 
         ContenedorBotones.append(botonConsultar);
 
