@@ -1187,5 +1187,31 @@ namespace General.Repositorios
             }
 
         }
+
+
+        public bool guardarInasistencia(Inasistencia inasistencia, int idUsuario)
+        {
+            try
+            {
+                var parametros = new Dictionary<string, object>();
+                parametros.Add("@idPersona", inasistencia.Persona.Id);
+                parametros.Add("@idUsuario", idUsuario);
+                parametros.Add("@desde", inasistencia.Desde);
+                parametros.Add("@hasta", inasistencia.Hasta);
+                parametros.Add("@motivo", inasistencia.Motivo);
+
+                var tablaDatos = this.conexion.Ejecutar("LIC_INS_Ausencia", parametros);
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+           
+
+            
+
+        }
     }
 }

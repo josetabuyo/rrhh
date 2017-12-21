@@ -46,6 +46,7 @@ public partial class Principal : System.Web.UI.Page
         ImageButton ibPase;
         ImageButton ibEliminarInasistencia;
         LinkButton lbAsistencia;
+        LinkButton linkAusencia;
 
         //Columnas de datos
         cell = new TableCell();
@@ -124,7 +125,34 @@ public partial class Principal : System.Web.UI.Page
 
         row.Cells.Add(cell);
 
-        
+        cell = new TableCell();
+        linkAusencia = new LinkButton();
+        if (!unaPersona.Es1184)
+        {
+            linkAusencia.Text = "Ausencia";
+            linkAusencia.Click += new EventHandler(linkAusencia_Click);
+            if (unaPersona.InasistenciaActual != null)
+            {
+                if (unaPersona.InasistenciaActual.Descripcion != null)
+                {
+                    if (!unaPersona.InasistenciaActual.Aprobada)
+                    {
+                        ibEliminarInasistencia = new ImageButton();
+                        ibEliminarInasistencia.CssClass = "eliminar";
+                        ibEliminarInasistencia.ImageUrl = "Imagenes/eliminar.PNG";
+                        ibEliminarInasistencia.Click += new ImageClickEventHandler(ibEliminarAusencia_Click);
+                        ibEliminarInasistencia.Width = 15;
+                        ibEliminarInasistencia.Height = 15;
+                        ibEliminarInasistencia.ToolTip = "Eliminar Inasistencia";
+                        cell.Controls.Add(ibEliminarInasistencia);
+                    }
+
+                    linkAusencia.Text = unaPersona.InasistenciaActual.Descripcion;
+                }
+            }
+        }
+        cell.Controls.Add(linkAusencia);
+        row.Cells.Add(cell);
         ////////Columna Viáticos
         //////cell = new TableCell();
 
@@ -170,6 +198,36 @@ public partial class Principal : System.Web.UI.Page
 
     }
 
+    void ibEliminarAusencia_Click(object sender, ImageClickEventArgs e)
+    {
+
+        string confirmValue = Request.Form["confirm_value"];
+        if (confirmValue == "Yes")
+        {
+            Persona persona = new Persona();
+            TableRow rowClickeada = (TableRow)((TableCell)((ImageButton)sender).Parent).Parent;
+            string[] nombreCompleto = rowClickeada.Cells[2].Text.Split(',');
+
+            persona.Documento = int.Parse(rowClickeada.Cells[1].Text.Replace(".", "").Replace("&nbsp;", ""));
+            persona.Apellido = nombreCompleto[0];
+            persona.Nombre = nombreCompleto[1];
+            persona.Area = (Area)Session["areaActual"];
+
+            WSViaticosSoapClient ws = new WSViaticosSoapClient();
+            //WSViaticos.WSViaticos ws = new WSViaticos.WSViaticos();
+            ws.EliminarInasistenciaActual(persona);
+            Response.Redirect("~\\Principal.aspx");
+            //this.Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('You clicked YES!')", true);
+        }
+        else
+        {
+            //this.Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Ha cancelado la operación')", true);
+        }
+
+        //AgenteE agente = new AgenteE();
+
+    }
+
     void lbAsistencia_Click(object sender, EventArgs e)
     {
         Persona persona = new Persona();
@@ -185,6 +243,20 @@ public partial class Principal : System.Web.UI.Page
         CargarDatosParaViatico(sender);
 
         Response.Redirect("~\\ConceptosLicencia.aspx");
+    }
+
+    void linkAusencia_Click(object sender, EventArgs e)
+    {
+        Persona persona = new Persona();
+        TableRow rowClickeada = (TableRow)((TableCell)((LinkButton)sender).Parent).Parent;
+        string[] nombreCompleto = rowClickeada.Cells[2].Text.Split(',');
+
+        persona.Documento = int.Parse(rowClickeada.Cells[1].Text.Replace(".", "").Replace("&nbsp;", ""));
+        persona.Apellido = nombreCompleto[0];
+        persona.Nombre = nombreCompleto[1];
+        Session["persona"] = persona;
+
+        Response.Redirect("FormulariosDeLicencia/FormularioDeAusencia.aspx");
     }
 
     //GPR: Se movió el Viatico a la pantalla de presente como Grupo 5.

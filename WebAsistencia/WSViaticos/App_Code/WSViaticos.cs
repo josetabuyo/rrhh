@@ -354,6 +354,13 @@ public class WSViaticos : System.Web.Services.WebService
 
 
     //FIN: DDJJ 104 ---------------
+    [WebMethod]
+    public void CargarInasistencia(Inasistencia inasistencia, Usuario usuario)
+    {
+        RepositorioLicencias repositorio = new RepositorioLicencias(Conexion());
+        repositorio.guardarInasistencia(inasistencia, usuario.Id);
+    }
+
 
     [WebMethod]
     public void EliminarInasistenciaActual(Persona unaPersona)
