@@ -28,7 +28,14 @@
 
 
 
-
+    <%-- --------------- BUSCADOR DE AREA ---------------- --%>
+        <div runat="server" id="Controles_Persona_Area" style="margin-top:20px;">
+            <asp:label ID="Label1" runat="server" Text="Seleccione el Area que certica" ></asp:label>
+            <div id="divBuscadorArea">
+                <uc3:BuscadorDeAreas ID="buscador1" runat="server" style="display: inline-block; margin:auto;" />
+            </div>
+        </div>
+    <%-- --------------------------------------------------- --%>
 
 
     <div id="grilla" runat="server" style="width: 100%" align="center">
@@ -42,14 +49,7 @@
 
 
 
-        <%-- --------------- BUSCADOR DE AREA ---------------- --%>
-        <div runat="server" id="Controles_Persona_Area" style="margin-top:20px;">
-            <asp:label ID="Label1" runat="server" Text="Seleccione el Area que certica" ></asp:label>
-            <div id="divBuscadorArea">
-                <uc3:BuscadorDeAreas ID="buscador1" runat="server" style="display: inline-block; margin:auto;" />
-            </div>
-        </div>
-    <%-- --------------------------------------------------- --%>
+
 
 
     </div>
