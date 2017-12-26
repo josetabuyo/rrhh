@@ -14,6 +14,30 @@ var ListadoAgentes = {
         }
         _this.FiltrarPorEstado(parseInt($("#id_estado").val()));
         _this.FiltrarPorDNIApellidoONombre($("#srch_agente").val());
+        _this.FiltrarPorPeriodo($("#select_periodo").val());
+    },
+    completarFiltroPeriodo: function (respuesta) {
+        var select_periodo = $("#select_periodo");
+        select_periodo.empty();
+        select_periodo.append($("<option></option>")
+                             .attr("value", -1)
+                             .text("Todos"));
+
+        $.each(respuesta, function (index, value) {
+            select_periodo.append($("<option></option>")
+                                 .attr("value", value.id_periodo)
+                                 .text(value.descripcion_periodo));
+        });
+    },
+    getPeriodosEvaluacion: function () {
+        var _this = this;
+        Backend.GetPeriodosEvaluacion()
+        .onSuccess(function (respuesta) {
+            _this.completarFiltroPeriodo(respuesta);
+        })
+        .onError(function (respuesta) {
+            alert("se produjo un error al intentar obtener los periodos de evaluación del filtro");
+        });
     },
     getEvaluaciones: function (modo) {
         var _this = this;
@@ -88,6 +112,7 @@ var ListadoAgentes = {
     GetterApellidoEvaluado: function (asignacion_evaluado_a_evaluador) { return asignacion_evaluado_a_evaluador.agente_evaluado.apellido },
     GetterNombreEvaluado: function (asignacion_evaluado_a_evaluador) { return asignacion_evaluado_a_evaluador.agente_evaluado.nombre },
     GetterArea: function (asignacion_evaluado_a_evaluador) { return asignacion_evaluado_a_evaluador.agente_evaluado.area.nombre_area /*return asignacion_evaluado_a_evaluador.codigo_unidad_eval */ },
+    GetterPeriodoEvaluacion: function (asignacion_evaluado_a_evaluador) { return asignacion_evaluado_a_evaluador.periodo.descripcion_periodo },
     GetterEvaluacion: function (asignacion_evaluado_a_evaluador) {
         var coleccion_respuestas = this.getRespuestasDelForm(asignacion_evaluado_a_evaluador.evaluacion);
         return this.calificacion(coleccion_respuestas, asignacion_evaluado_a_evaluador.nivel.deficiente, asignacion_evaluado_a_evaluador.nivel.regular, asignacion_evaluado_a_evaluador.nivel.bueno, asignacion_evaluado_a_evaluador.nivel.destacado, false);
@@ -131,6 +156,7 @@ var ListadoAgentes = {
                 { nombre_columna: "Apellido", value_getter: this.GetterApellidoEvaluado },
                 { nombre_columna: "Nombre", value_getter: this.GetterNombreEvaluado },
                 { nombre_columna: "Area", value_getter: this.GetterArea },
+                { nombre_columna: "Periodo", value_getter: this.GetterPeriodoEvaluacion },
                 { nombre_columna: "Evaluacion", value_getter: function (x) { return _this.GetterEvaluacion.call(_this, x); } }
             ];
         return columnas.concat(columnas_evaluado);
@@ -158,11 +184,26 @@ var ListadoAgentes = {
         var calificacion = this.calificacion(coleccion_respuestas, asignacion_evaluado_a_evaluador.nivel.deficiente, asignacion_evaluado_a_evaluador.nivel.regular, asignacion_evaluado_a_evaluador.nivel.bueno, asignacion_evaluado_a_evaluador.nivel.destacado, false);
         return !(calificacion == 'A Evaluar' || calificacion == 'Evaluacion Incompleta');
     },
+    FiltrarPorPeriodo: function (periodo_busqueda) {
+        var _this = this;
+        if (periodo_busqueda != "") {
+
+        }
+    },
     FiltrarPorDNIApellidoONombre: function (txt_busqueda) {
         var _this = this;
         if (txt_busqueda != "") {
             $("#tablaAgentes tbody tr").find("td[class=Apellido]").each(function () {
                 if ($(this).text().toUpperCase().indexOf(txt_busqueda.toUpperCase()) < 0) {
+                    $(this).parent().remove();
+                };
+            })
+        }
+    },
+    FiltrarPorPeriodo: function (per) {
+        if (per != -1) {
+            $("#tablaAgentes tbody tr").find("td[class=Periodo]").each(function () {
+                if ($(this).text() != clave) {
                     $(this).parent().remove();
                 };
             })
