@@ -13,7 +13,7 @@ namespace General
     public class RepositorioDDJJ104
     {
 
-        public List<DDJJ104_2001> GetDDJJParaElArea(Area area)
+        public List<DDJJ104_2001> GetDDJJParaElArea(Area area, int mes, int anio)
         {
             SqlDataReader dr;
             ConexionDB cn = new ConexionDB("dbo.PLA_GET_DDJJ_AREA");
@@ -31,12 +31,15 @@ namespace General
                 ddjj104.Anio = dr.GetInt16(dr.GetOrdinal("Año"));
                 ddjj104.Estado = dr.GetInt16(dr.GetOrdinal("Estado"));
                 ddjj104.FechaGeneracion = dr.GetDateTime(dr.GetOrdinal("Fecha_Generacion"));
+                ddjj104.Complementaria = dr.GetInt16(dr.GetOrdinal("Complementaria"));
                 listaddjj104.Add(ddjj104);
             }
 
             cn.Desconestar();
 
-            return listaddjj104;
+            var ddjj = listaddjj104.FindAll(x => x.Mes == mes && x.Anio == anio);
+
+            return ddjj;
         }
 
 
@@ -63,7 +66,7 @@ namespace General
         //}
 
 
-        public DDJJ104_2001 GenerarDDJJ104(Usuario usuario, AreaParaDDJJ104 area, int mes, int anio, Persona[] lista_persona, int estado_guardado)
+        public DDJJ104_2001 GenerarDDJJ104(Usuario usuario, AreaParaDDJJ104 area, int mes, int anio, Persona[] lista_persona, int estado_guardado, int complementaria)
         {
             ConexionDB cn = new ConexionDB("dbo.PLA_ADD_DDJJ104_Cabecera");
             cn.AsignarParametro("@Id_Area", area.Id);
@@ -71,10 +74,12 @@ namespace General
             cn.AsignarParametro("@Año", anio);
             cn.AsignarParametro("@Usuario_Generacion", usuario.Id);
             cn.AsignarParametro("@Estado", estado_guardado);
+            cn.AsignarParametro("@Complementaria", complementaria);
+
 
             //INICIO TRANSACCION
             cn.BeginTransaction();
-            
+
             int id_ddjj_nuevo = 0;
             try
             {
@@ -279,7 +284,7 @@ namespace General
                 ddjj104.fecha_generacion = dr.GetString(dr.GetOrdinal("Fecha_Generacion")).ToString();
                 ddjj104.usuario_generacion = dr.GetString(dr.GetOrdinal("Usuario_Generacion")).ToString();
                 ddjj104.recepcionada = dr.GetBoolean(dr.GetOrdinal("Recepcionada"));
-                ddjj104.fecha_recibido = dr.GetString( dr.GetOrdinal("Fecha_Recibido")).ToString();
+                ddjj104.fecha_recibido = dr.GetString(dr.GetOrdinal("Fecha_Recibido")).ToString();
                 ddjj104.usuario_recibido = dr.GetString(dr.GetOrdinal("Usuario_Recibido")).ToString();
                 ddjj104.firmante = dr.GetString(dr.GetOrdinal("Firmante")).ToString();
                 ddjj104.persona = new Persona();
@@ -353,7 +358,7 @@ namespace General
         public List<DDJJ104_Consulta> GetPersonasSinCertificar(int mes, int anio)
         {
             SqlDataReader dr;
-            ConexionDB cn = new ConexionDB("dbo.PLA_GET_Persona_No_Certificadas");
+            ConexionDB cn = new ConexionDB("dbo.PLA_GET_Persona_No_Certificadas_DDJJ104");
             cn.AsignarParametro("@mes", mes);
             cn.AsignarParametro("@año", anio);
 
@@ -367,15 +372,24 @@ namespace General
                 ddjj104 = new DDJJ104_Consulta();
                 ddjj104.mes = dr.GetInt16(dr.GetOrdinal("Mes"));
                 ddjj104.anio = dr.GetInt16(dr.GetOrdinal("Año"));
-                
+
                 ddjj104.persona = new Persona();
                 ddjj104.persona.Id = dr.GetInt32(dr.GetOrdinal("Id_Persona"));
                 ddjj104.persona.Documento = dr.GetInt32(dr.GetOrdinal("NroDocumento"));
                 ddjj104.persona.Apellido = dr.GetString(dr.GetOrdinal("Apellido")).ToString();
                 ddjj104.persona.Nombre = dr.GetString(dr.GetOrdinal("Nombre")).ToString();
+                ddjj104.persona.EstaCertificadoEnLaDDJJ = false;
+
+                //AREA QUE NO CERTIFICO EN LA DDJJ104
                 ddjj104.area_generacion = new Area();
                 ddjj104.area_generacion.Id = dr.GetInt32(dr.GetOrdinal("id"));
                 ddjj104.area_generacion.Nombre = dr.GetString(dr.GetOrdinal("descripcion")).ToString();
+                ddjj104.persona.MotivoNoCertificar = dr.GetString(dr.GetOrdinal("Motivo")).ToString();
+                ddjj104.persona.CCONoCertificar = dr.GetString(dr.GetOrdinal("CCO")).ToString();
+                //AREA QUE CERTIFICA A LOS NO CERTIFICADOS
+                ddjj104.persona.Area = new Area();
+                ddjj104.persona.Area.Id = dr.GetInt32(dr.GetOrdinal("Id_Area_Certifica"));
+                ddjj104.persona.Area.Nombre = dr.GetString(dr.GetOrdinal("Area_Certifica")).ToString();
 
                 lista.Add(ddjj104);
             }
@@ -383,6 +397,81 @@ namespace General
             cn.Desconestar();
 
             return lista;
+
+        }
+
+
+
+        public void GenerarMotivoEnPersonasNoCertificadas(int mes, int anio, DDJJ104_Consulta[] lista_DDJJ104, Usuario usuario)
+        {
+
+            ConexionDB cn = new ConexionDB("dbo.PLA_ADD_DDJJ104_Personas_No_Certificadas");
+
+            //INICIO TRANSACCION
+            cn.BeginTransaction();
+
+            try
+            {
+
+                foreach (var DDJJ104 in lista_DDJJ104)
+                {
+                    if (DDJJ104.persona.MotivoNoCertificar != "" || DDJJ104.persona.CCONoCertificar != "")
+                    {
+                        cn.AsignarParametro("@Id_Persona", DDJJ104.persona.Id);
+                        cn.AsignarParametro("@Mes", mes);
+                        cn.AsignarParametro("@Año", anio);
+                        cn.AsignarParametro("@Motivo", DDJJ104.persona.MotivoNoCertificar);
+                        cn.AsignarParametro("@CCO", DDJJ104.persona.CCONoCertificar);
+                        cn.AsignarParametro("@Usuario_Motivo", usuario.Id);
+
+                        cn.EjecutarSinResultado();
+                    }
+
+                }
+            }
+            catch (Exception e)
+            {
+                cn.RollbackTransaction();
+                throw;
+            }
+
+            cn.CommitTransaction();
+            cn.Desconestar();
+
+        }
+
+
+        public void AsignaAreaAPersonasNoCertificadas(int mes, int anio, DDJJ104_Consulta[] lista_DDJJ104, int id_area, Usuario usuario)
+        {
+
+            ConexionDB cn = new ConexionDB("dbo.PLA_ADD_DDJJ104_Personas_No_Certificadas_Asig_Area");
+
+            //INICIO TRANSACCION
+            cn.BeginTransaction();
+
+            try
+            {
+
+                foreach (var DDJJ104 in lista_DDJJ104)
+                {
+
+                    cn.AsignarParametro("@Id_Persona", DDJJ104.persona.Id);
+                    cn.AsignarParametro("@Mes", mes);
+                    cn.AsignarParametro("@Año", anio);
+                    cn.AsignarParametro("@Id_Area_Certifica", id_area);
+                    cn.AsignarParametro("@Usuario_Certifica", usuario.Id);
+
+                    cn.EjecutarSinResultado();
+                }
+            }
+            catch (Exception e)
+            {
+                cn.RollbackTransaction();
+                throw;
+            }
+
+            cn.CommitTransaction();
+            cn.Desconestar();
 
         }
 

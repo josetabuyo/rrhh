@@ -189,7 +189,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public AreaParaDDJJ104[] GetAreasParaDDJJ104(int mes, int anio, int id_area, Usuario usuario)
+    public AreaParaDDJJ104[] GetAreasParaDDJJ104(int mes, int anio, int id_area, int complementaria, Usuario usuario)
     {
         var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas(), Autorizador());
         var a = new AreaParaDDJJ104[1];
@@ -201,24 +201,24 @@ public class WSViaticos : System.Web.Services.WebService
         }
         else
         {
-            a = responsableDDJJ.GetAreasParaDDJJ104InferioresA(mes, anio, id_area, usuario).ToArray();
+            a = responsableDDJJ.GetAreasParaDDJJ104InferioresA(mes, anio, id_area, complementaria, usuario).ToArray();
         }
 
         return a;
     }
 
     [WebMethod]
-    public DDJJ104_2001 GenerarDDJJ104(int id_area, int mes, int anio, Persona[] lista_persona, int estado_guardado, Usuario usuario)
+    public DDJJ104_2001 GenerarDDJJ104(int id_area, int mes, int anio, Persona[] lista_persona, int estado_guardado, int complementaria, Usuario usuario)
     {
         //RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
         //return ddjj.GenerarDDJJ104(usuario, area, mes, anio);
 
-        var UnArea = GetAreasParaDDJJ104(mes, anio, id_area, usuario);
+        var UnArea = GetAreasParaDDJJ104(mes, anio, id_area, complementaria, usuario);
 
         RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
 
         DDJJ104_2001 cabe = new DDJJ104_2001();
-        cabe = ddjj.GenerarDDJJ104(usuario, UnArea[0], mes, anio, lista_persona, estado_guardado);
+        cabe = ddjj.GenerarDDJJ104(usuario, UnArea[0], mes, anio, lista_persona, estado_guardado, complementaria);
 
 
         return cabe;
@@ -689,7 +689,7 @@ public class WSViaticos : System.Web.Services.WebService
         int id_area = (int)((JValue)criterio_deserializado["id_area"]);
 
 
-        AreaParaDDJJ104[] areas = GetAreasParaDDJJ104(mes, anio, id_area, usuario);
+        AreaParaDDJJ104[] areas = GetAreasParaDDJJ104(mes, anio, id_area, 0, usuario); //COMPLEMENTARIA=0, No filtra por Area.
 
         try
         {
@@ -5247,5 +5247,29 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     #endregion	
+
+
+    [WebMethod]
+    public void GenerarMotivoEnPersonasNoCertificadas(int mes, int anio, DDJJ104_Consulta[] lista_DDJJ104, Usuario usuario)
+    {
+        RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
+
+        DDJJ104_2001 cabe = new DDJJ104_2001();
+        ddjj.GenerarMotivoEnPersonasNoCertificadas(mes, anio, lista_DDJJ104, usuario);
+
+    }
+
+
+    [WebMethod]
+    public void AsignaAreaAPersonasNoCertificadas(int mes, int anio, DDJJ104_Consulta[] lista_DDJJ104, int id_area, Usuario usuario)
+    {
+        RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
+
+        DDJJ104_2001 cabe = new DDJJ104_2001();
+        ddjj.AsignaAreaAPersonasNoCertificadas(mes, anio, lista_DDJJ104, id_area, usuario);
+
+    }
+
+
 
 }
