@@ -2,10 +2,19 @@
 var tareas_total = [];
 var GestionDeTareas = {
     init: function () {
-        var numero_filtro = $(".content-current").attr("numero_tab")
+        var numero_filtro = parseInt($(".content-current").attr("numero_tab"));
         if (tab_actual != numero_filtro) {
-            alert(numero_filtro)
             tab_actual = numero_filtro;
+        }
+        switch (tab_actual) {
+            case 1: //MIS TAREAS
+                break;
+            case 2: //TAREAS SIN ASIGNACIÓN
+                break;
+            case 3: //TAREAS ASIGNADAS A OTROS
+                break;
+            default:
+
         }
 
     },
@@ -30,7 +39,6 @@ var GestionDeTareas = {
                     });
     },
     getTareasParaGestion: function () {
-        alert("voy a la base");
         var _this_original = this;
         var selector_personas = new SelectorDePersonas({
             ui: $('#selector_usuario'),
@@ -47,7 +55,7 @@ var GestionDeTareas = {
                     .onSuccess(function (tareas) {
 
                         tareas_total = _.sortBy(tareas, 'id').reverse();
-                        
+                        GestionDeTareas.init();
                     })
                     .onError(function (e) {
 
