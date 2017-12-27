@@ -66,6 +66,14 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public RespuestaGetAgentesEvaluablesPor GetAgentesEvaluablesParaVerificarGDE(Usuario usuario)
+    {
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        return repo.GetAgentesEvaluablesParaVerificarGDE(usuario);
+    }
+
+
+    [WebMethod]
     public string EvalGetNivelesFormulario(string id_nivel)
     {
         var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
@@ -175,7 +183,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public AreaParaDDJJ104[] GetAreasParaDDJJ104(int mes, int anio, int id_area, Usuario usuario)
+    public AreaParaDDJJ104[] GetAreasParaDDJJ104(int mes, int anio, int id_area, int complementaria, Usuario usuario)
     {
         var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas(), Autorizador());
         var a = new AreaParaDDJJ104[1];
@@ -187,24 +195,24 @@ public class WSViaticos : System.Web.Services.WebService
         }
         else
         {
-            a = responsableDDJJ.GetAreasParaDDJJ104InferioresA(mes, anio, id_area, usuario).ToArray();
+            a = responsableDDJJ.GetAreasParaDDJJ104InferioresA(mes, anio, id_area, complementaria, usuario).ToArray();
         }
 
         return a;
     }
 
     [WebMethod]
-    public DDJJ104_2001 GenerarDDJJ104(int id_area, int mes, int anio, Persona[] lista_persona, int estado_guardado, Usuario usuario)
+    public DDJJ104_2001 GenerarDDJJ104(int id_area, int mes, int anio, Persona[] lista_persona, int estado_guardado, int complementaria, Usuario usuario)
     {
         //RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
         //return ddjj.GenerarDDJJ104(usuario, area, mes, anio);
 
-        var UnArea = GetAreasParaDDJJ104(mes, anio, id_area, usuario);
+        var UnArea = GetAreasParaDDJJ104(mes, anio, id_area, complementaria, usuario);
 
         RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
 
         DDJJ104_2001 cabe = new DDJJ104_2001();
-        cabe = ddjj.GenerarDDJJ104(usuario, UnArea[0], mes, anio, lista_persona, estado_guardado);
+        cabe = ddjj.GenerarDDJJ104(usuario, UnArea[0], mes, anio, lista_persona, estado_guardado, complementaria);
 
 
         return cabe;
@@ -221,7 +229,12 @@ public class WSViaticos : System.Web.Services.WebService
     {
         return new RepositorioDeParametrosGenerales(Conexion()).GetAnioDeContrato();
     }
-    
+
+    [WebMethod]
+    public DateTime[] GetFeriados()
+    {
+        return new RepositorioDeParametrosGenerales(Conexion()).GetFeriados().ToArray();
+    }
 
     //CONSULTA INDIVIDUAL
     [WebMethod]
@@ -670,7 +683,7 @@ public class WSViaticos : System.Web.Services.WebService
         int id_area = (int)((JValue)criterio_deserializado["id_area"]);
 
 
-        AreaParaDDJJ104[] areas = GetAreasParaDDJJ104(mes, anio, id_area, usuario);
+        AreaParaDDJJ104[] areas = GetAreasParaDDJJ104(mes, anio, id_area, 0, usuario); //COMPLEMENTARIA=0, No filtra por Area.
 
         try
         {
@@ -3029,6 +3042,14 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public SolicitudCredencial GetSolicitudDeCredencialPorIdTicketEntrega(int id_ticket, Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+        return repositorio.GetSolicitudDeCredencialPorIdTicketEntrega(id_ticket);
+    }
+
+
+    [WebMethod]
     public bool AprobarSolicitudCredencial(SolicitudCredencial solicitud, Usuario usuario)
     {
         RepositorioLegajo repositorio = RepoLegajo();
@@ -3061,6 +3082,13 @@ public class WSViaticos : System.Web.Services.WebService
     {
         RepositorioLegajo repositorio = RepoLegajo();
         return repositorio.CerrarTicketImpresion(solicitud, instrucciones_de_retiro, usuario);
+    }
+
+    [WebMethod]
+    public bool CerrarTicketEntrega(SolicitudCredencial solicitud, Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+        return repositorio.CerrarTicketEntrega(solicitud, usuario);
     }
 
     #endregion
@@ -5165,10 +5193,29 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public string EvalVerificarCodigoGDE(int id_evaluacion, string codigo_gde, Usuario usuario)
+    {
+        //var repo = RepositorioEvaluacionDesempenio.NuevoReposi
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        repo.VerificarCodigoGDE(id_evaluacion, usuario);
+        
+        return codigo_gde;
+    }
+
+    [WebMethod]
     public string EvalGuardarCodigoGDE(int id, string codigo_gde)
     {
         var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
         repo.EvalGuardarCodigoGDE(id, codigo_gde);
+        return codigo_gde;
+    }
+
+    [WebMethod]
+    public string EvalCorregirCodigoGDE(int id, string codigo_gde, Usuario usuario)
+    {
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        repo.EvalGuardarCodigoGDE(id, codigo_gde);
+        repo.VerificarCodigoGDE(id, usuario);
         return codigo_gde;
     }
 
@@ -5189,4 +5236,53 @@ public class WSViaticos : System.Web.Services.WebService
     {
         return Server.MapPath("~") + "\\PdfTemplates\\" + fileName;
     }
+
+    #region " Control de Acceso "
+
+    [WebMethod]
+    public string CTL_ACC_Grabar_Lote(string json)
+    {
+        var ctlAcc = new General.CtrlAcc.RepositorioCtlAcc();
+        return ctlAcc.Grabar_Lote_Control_Acceso(json);
+    }
+
+    [WebMethod]
+    public string CTL_ACC_Get_Dotacion()
+    {
+        var ctlAcc = new General.CtrlAcc.RepositorioCtlAcc();
+        return ctlAcc.Get_Dotacion_Control_Acceso();
+    }
+
+    [WebMethod]
+    public string CTL_ACC_Login(string user, string pass)
+    {
+        return "";
+    }
+
+    #endregion	
+
+
+    [WebMethod]
+    public void GenerarMotivoEnPersonasNoCertificadas(int mes, int anio, DDJJ104_Consulta[] lista_DDJJ104, Usuario usuario)
+    {
+        RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
+
+        DDJJ104_2001 cabe = new DDJJ104_2001();
+        ddjj.GenerarMotivoEnPersonasNoCertificadas(mes, anio, lista_DDJJ104, usuario);
+
+    }
+
+
+    [WebMethod]
+    public void AsignaAreaAPersonasNoCertificadas(int mes, int anio, DDJJ104_Consulta[] lista_DDJJ104, int id_area, Usuario usuario)
+    {
+        RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
+
+        DDJJ104_2001 cabe = new DDJJ104_2001();
+        ddjj.AsignaAreaAPersonasNoCertificadas(mes, anio, lista_DDJJ104, id_area, usuario);
+
+    }
+
+
+
 }

@@ -813,14 +813,14 @@ namespace General.Repositorios
         }
 
 
-
-
-        public SolicitudCredencial GetSolicitudDeCredencialPorIdTicketAprobacion(int id_ticket)
+        public SolicitudCredencial GetSolicitudDeCredencialPorTicket(int id_ticket_aprobacion = -1, int id_ticket_impresion = -1, int id_ticket_entrega = -1)
         {
             var parametros = new Dictionary<string, object>();
-            parametros.Add("@id_ticket", id_ticket);
-            
-            var tablaDatos = conexion.Ejecutar("dbo.Acre_GetSolicitudDeCredencialPorIdTicketAprobacion", parametros);
+            if (id_ticket_aprobacion > 0) parametros.Add("@id_ticket_aprobacion", id_ticket_aprobacion);
+            if (id_ticket_impresion > 0) parametros.Add("@id_ticket_impresion", id_ticket_impresion);
+            if (id_ticket_entrega > 0) parametros.Add("@id_ticket_entrega", id_ticket_entrega);
+
+            var tablaDatos = conexion.Ejecutar("dbo.Acre_GetSolicitudDeCredencialPorTicket", parametros);
 
             if (tablaDatos.Rows.Count == 0) throw new Exception("No existe una solicitud con ese nro de ticket");
             if (tablaDatos.Rows.Count > 1) throw new Exception("Hay mas de una solicitud con ese nro de ticket");
@@ -831,31 +831,37 @@ namespace General.Repositorios
             solicitud.IdPersona = row.GetInt("IdPersona");
             solicitud.Motivo = row.GetString("Motivo");
             solicitud.Organismo = row.GetString("Organismo");
-            return solicitud;             
+            if (!(row.GetObject("idCredencial") is DBNull))
+            {
+                solicitud.Credencial = new Credencial();
+                solicitud.Credencial.Id = row.GetInt("idCredencial");
+                solicitud.Credencial.IdFoto = row.GetInt("idFoto");
+                solicitud.Credencial.Impresa = row.GetBoolean("impresa");
+                solicitud.Credencial.CodigoMagnetico = row.GetString("CodigoMagnetico", "");
+            }
+            solicitud.LugarEntrega = new LugarEntrega();
+            solicitud.LugarEntrega.Id = row.GetInt("idLugarEntrega");
+            solicitud.LugarEntrega.Descripcion = row.GetString("descripcion_lugar_entrega");
+
+            solicitud.IdTicketAprobacion = row.GetInt("IdTicketAprobacion", -1);
+            solicitud.IdTicketImpresion = row.GetInt("IdTicketImpresion", -1);
+            solicitud.IdTicketEntrega = row.GetInt("IdTicketEntrega", -1);
+            return solicitud;
+        }
+
+        public SolicitudCredencial GetSolicitudDeCredencialPorIdTicketAprobacion(int id_ticket)
+        {
+            return GetSolicitudDeCredencialPorTicket(id_ticket);        
         }
 
         public SolicitudCredencial GetSolicitudDeCredencialPorIdTicketImpresion(int id_ticket)
         {
-            var parametros = new Dictionary<string, object>();
-            parametros.Add("@id_ticket", id_ticket);
+            return GetSolicitudDeCredencialPorTicket(-1, id_ticket);        
+        }
 
-            var tablaDatos = conexion.Ejecutar("dbo.Acre_GetSolicitudDeCredencialPorIdTicketImpresion", parametros);
-
-            if (tablaDatos.Rows.Count == 0) throw new Exception("No existe una solicitud con ese nro de ticket");
-            if (tablaDatos.Rows.Count > 1) throw new Exception("Hay mas de una solicitud con ese nro de ticket");
-
-            var row = tablaDatos.Rows[0];
-            var solicitud = new SolicitudCredencial();
-            solicitud.Id = row.GetInt("Id");
-            solicitud.IdPersona = row.GetInt("IdPersona");
-            solicitud.Motivo = row.GetString("Motivo");
-            solicitud.Organismo = row.GetString("Organismo");
-            solicitud.Credencial = new Credencial();
-            solicitud.Credencial.Id = row.GetInt("idCredencial");
-            solicitud.Credencial.IdFoto = row.GetInt("idFoto");
-            solicitud.Credencial.Impresa = row.GetBoolean("impresa");
-            solicitud.Credencial.CodigoMagnetico = row.GetString("CodigoMagnetico", "");
-            return solicitud;
+        public SolicitudCredencial GetSolicitudDeCredencialPorIdTicketEntrega(int id_ticket)
+        {
+            return GetSolicitudDeCredencialPorTicket(-1, -1, id_ticket);
         }
 
         public bool MarcarCredencialComoImpresa(int idCredencial, Usuario usuario)
@@ -880,16 +886,35 @@ namespace General.Repositorios
         public bool CerrarTicketImpresion(SolicitudCredencial solicitud, string instrucciones_de_retiro, Usuario usuario)
         {
             var repo_usuarios = new RepositorioDeUsuarios(this.conexion, RepositorioDePersonas.NuevoRepositorioDePersonas(this.conexion));
+            var repo_tickets = new RepositorioDeTickets(this.conexion);
 
             var usuario_solicitante = repo_usuarios.GetUsuarioPorIdPersona(solicitud.IdPersona);
-            new RepositorioDeTickets(this.conexion)
-                .MarcarEstadoTicket(solicitud.IdTicketImpresion, usuario.Id);
+
+            repo_tickets.MarcarEstadoTicket(solicitud.IdTicketImpresion, usuario.Id);
+            var id_ticket_entrega = repo_tickets.crearTicket("entrega_credencial", usuario_solicitante.Id);
+
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@IdSolicitud ", solicitud.Id);
+            parametros.Add("@IdTicketEntrega ", id_ticket_entrega);
+
+            var tablaDatos = conexion.Ejecutar("dbo.Acre_CerrarTicketImpresion", parametros);
+
             new RepositorioDeAlertasPortal(this.conexion)
-                .crearAlerta("Solicitud de Credencial", "Su credencial está impresa. Para retirarla: " + instrucciones_de_retiro, usuario_solicitante.Id, usuario.Id);
+                .crearAlerta("Solicitud de Credencial", "Su credencial está impresa. Para retirarla puede dirigirse a: " + solicitud.LugarEntrega.Descripcion + "\n" + instrucciones_de_retiro, usuario_solicitante.Id, usuario.Id);
             return true;
         }
 
+        public bool CerrarTicketEntrega(SolicitudCredencial solicitud, Usuario usuario)
+        {
+            var repo_tickets = new RepositorioDeTickets(this.conexion);
+            repo_tickets.MarcarEstadoTicket(solicitud.IdTicketEntrega, usuario.Id);
 
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@IdSolicitud ", solicitud.Id); 
+            var tablaDatos = conexion.Ejecutar("dbo.Acre_CerrarTicketEntrega", parametros);
+                  
+            return true;
+        }
 
         private void getConsultasPorCriterio(Dictionary<string, object> parametros, List<Consulta> consultas)
         {

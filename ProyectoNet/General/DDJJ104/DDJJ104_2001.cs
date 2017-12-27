@@ -12,5 +12,7 @@ namespace General
         public int Anio { get; set; }
         public int Estado { get; set; }
         public DateTime FechaGeneracion { get; set; }
+        public int Complementaria { get; set; }
+
     }
 }

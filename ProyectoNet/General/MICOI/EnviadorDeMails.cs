@@ -13,7 +13,6 @@ namespace General
     {
         public static void EnviarMail(string mail, string titulo, string cuerpo)
         {
-            MailAddress mail_re_recupero = new MailAddress(mail);
             EnviarMail(new NetworkCredential("rhusuarios", "RRhh2016", "sds_domain_1"),
                     mail,
                    titulo,
@@ -33,8 +32,8 @@ namespace General
                 msg.Subject = asunto;
                 msg.IsBodyHtml = true;
                 msg.Body = cuerpo;
-               
-                SmtpClient client = new SmtpClient("owa.desarrollosocial.gob.ar", 25);
+
+                SmtpClient client = new SmtpClient("10.216.2.65", 25);
                 client.EnableSsl = true;
                 client.UseDefaultCredentials = false;
                 client.Credentials = cred; // Send our account login details to the client.

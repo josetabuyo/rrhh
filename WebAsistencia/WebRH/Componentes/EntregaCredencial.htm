@@ -1,0 +1,207 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link id="link1" rel="stylesheet" href="../Scripts/imgareaselect/imgareaselect-animated.css" type="text/css" />
+    <style type="text/css">
+        #pantalla_entrega_credencial
+        {
+            position:relative;
+        }      
+         #pantalla_entrega_credencial #vista_previa_credencial
+        {
+            position: relative;
+            width: 250px;
+            display: inline-block;
+        }
+        
+         #pantalla_entrega_credencial #panel_derecho
+        {
+            position: absolute;
+            right: 10px;
+            left: 300px;
+            top: 60px;
+            bottom: 10px;
+        }
+        
+        #pantalla_entrega_credencial #imagen_credencial
+        {
+            width: 100%;
+        }        
+        
+        #pantalla_entrega_credencial #foto_usuario
+        {
+            position: absolute;
+            top: 14.5%;
+            left: 5.5%;
+            height: 33%;
+            width: 51.4%;
+            border: 1px solid black;
+            border-radius: 14px;
+        }    
+        
+        #pantalla_entrega_credencial #codigo_barras
+        {
+            position: absolute;
+            right: -8%;
+            top: 28%;
+            -ms-transform: rotate(90deg);
+            -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
+            background-color: White !important;
+            height: 30px !important;
+            overflow: hidden !important;
+        }   
+        
+        #pantalla_entrega_credencial #foto_usuario #img_thumbnail
+        {
+            border-radius: 14px;
+        }
+        
+        #pantalla_entrega_credencial #apellido
+        {
+            position: absolute;
+            top: 50%;
+            left: 7.4%;
+            font-size: 20px;
+            color: white ;
+        }    
+        
+        #pantalla_entrega_credencial #nombres
+        {
+            position: absolute;
+            top: 57%;
+            left: 7.4%;
+            font-size: 20px;
+            color: white;
+        }    
+        
+        #pantalla_entrega_credencial #documento
+        {
+            position: absolute;
+            top: 64%;
+            left: 26%;
+            font-size: 20px;
+            color: white ;
+        }    
+            
+        #pantalla_entrega_credencial #titulo_documento
+        {
+            position: absolute;
+            top: 64%;
+            left: 7.4%;
+            font-size: 20px;
+            color: white ;
+        } 
+            
+        #pantalla_entrega_credencial #btn_imprimir_credencial
+        {
+
+        }
+        
+        #pantalla_entrega_credencial #titulo_vista_previa
+        {
+            margin-top:0px;
+        }
+        
+        #pantalla_entrega_credencial  #chk_credencial_impresa
+        {
+            /* Double-sized Checkboxes */
+            -ms-transform: scale(2); /* IE */
+            -moz-transform: scale(2); /* FF */
+            -webkit-transform: scale(2); /* Safari and Chrome */
+            -o-transform: scale(2); /* Opera */
+            padding: 10px;
+            margin-left: 27px;
+            margin-right: 10px;
+        }
+        
+        #pantalla_entrega_credencial  .checkboxtext
+        {
+            font-size: 110%;
+            display: inline;
+            vertical-align: middle;
+        }
+        
+        #pantalla_entrega_credencial  #txt_codigo_magnetico
+        {
+            height: 30px;
+            vertical-align: initial;
+        }
+        
+        #pantalla_entrega_credencial #panel_dar_aviso
+        {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            left: 0px;
+        }
+        #pantalla_entrega_credencial #txt_instrucciones_retiro
+        {
+            height: 30px;
+            vertical-align: initial;            
+            width: 100%;
+            height: 100px;
+        }
+        
+        #pantalla_entrega_credencial #btn_dar_aviso_y_cerrar
+        {
+            float: right;
+        }       
+    </style>
+</head>
+<div id="pantalla_entrega_credencial">
+    <h4 id="titulo_vista_previa">Credencial</h4>
+    <div id="vista_previa_credencial">        
+        <img id="imagen_credencial" src="../BarraMenu/credencial.png"/>        
+        <div id="foto_usuario"></div>
+        <div id="apellido"></div>    
+        <div id="nombres"></div>    
+        <div id="titulo_documento">DNI:</div>    
+        <div id="documento"></div>
+        <div id="codigo_barras"> </div>    
+    </div>
+    <div id=panel_derecho>
+        <a href="../DDJJ credenciales.pdf" target="_blank">Formulario de entrega</a>
+        <br />
+        <input id="btn_entregada" type="button" class="btn btn-primary" value="Entregada"/>     
+    </div>
+</div>
+
+<script type="text/javascript" src="../Scripts/jquery-barcode.js"/>
+<script type="text/javascript">
+    var Componente = {
+        start: function (ticket, ui) {
+            Backend.GetSolicitudDeCredencialPorIdTicketEntrega(ticket.id).onSuccess(function (solicitud) {
+                Backend.GetUsuarioPorIdPersona(solicitud.IdPersona).onSuccess(function (usuario) {
+                    ui.find("#apellido").text(usuario.Owner.Apellido);
+                    ui.find("#nombres").text(usuario.Owner.Nombre);
+                    ui.find("#documento").text(usuario.Owner.Documento);
+
+                    var img = new VistaThumbnail({
+                        id: solicitud.Credencial.IdFoto,
+                        contenedor: ui.find("#foto_usuario")
+                    });
+
+                    ui.find("#codigo_barras").barcode(usuario.Owner.Documento.toString(), "code128", {
+                        showHRI: false,
+                        barHeight: 30,
+                        barWidth: 1,
+                        output: 'bmp'
+                    });
+
+                    var btn_notificar_entrega = ui.find("#btn_entregada");
+                    btn_notificar_entrega.click(function () {
+                        btn_notificar_entrega.prop("disabled", true);
+                        Backend.CerrarTicketEntrega(solicitud)
+                            .onSuccess(function () {
+                                vex.close();
+                                GestionDeTareas.getTareasParaGestion();
+                            });
+
+                    });
+                });
+            });
+        }
+    };
+</script>

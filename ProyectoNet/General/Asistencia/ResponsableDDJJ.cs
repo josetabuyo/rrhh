@@ -71,7 +71,36 @@ namespace General
                 area.Id = a.Id;
                 area.Nombre = a.Nombre;
                 area.Jerarquia = a.Jerarquia;
-                area.DDJJ = new RepositorioDDJJ104().GetDDJJParaElArea(a).Find(x => x.Mes == mes && x.Anio == anio);
+                //area.DDJJ = new RepositorioDDJJ104().GetDDJJParaElArea(a).Find(x => x.Mes == mes && x.Anio == anio);
+                List<DDJJ104_2001> listaddjj = new RepositorioDDJJ104().GetDDJJParaElArea(a, mes, anio);
+
+                if (listaddjj.Count == 0)
+                {
+                    areas.Add(area);
+                }
+                else
+                {
+                    if (listaddjj.Count == 1)
+                    {
+                        area.DDJJ = listaddjj[0]; //new RepositorioDDJJ104().GetDDJJParaElArea(a).Find(x => x.Mes == mes && x.Anio == anio && x.Complementaria == 0);
+                        areas.Add(area);
+                    }
+                    else
+                    {
+                        int contador = 0;
+                        foreach (var item in listaddjj)
+                        {
+                            area = new AreaParaDDJJ104();
+                            area.Id = a.Id;
+                            area.Nombre = a.Nombre;
+                            area.Jerarquia = a.Jerarquia;
+                            area.DDJJ = listaddjj[contador]; //new RepositorioDDJJ104().GetDDJJParaElArea(a).Find(x => x.Mes == mes && x.Anio == anio && x.Complementaria == contador);
+
+                            contador++;
+                            areas.Add(area);
+                        }
+                    }
+                }
 
                 //CARGO LAS AREAS QUE DEPENDEN Y LAS PERSONAS
                 //if (id_area > 0)
@@ -97,8 +126,7 @@ namespace General
                 //    area.AreaSuperior.Nombre = area_superior.Nombre;
                 //    area.Direccion = a.Direccion;
                 //}
-
-                areas.Add(area);
+                //areas.Add(area);
             });
 
 
@@ -138,7 +166,7 @@ namespace General
 
 
 
-        public List<AreaParaDDJJ104> GetAreasParaDDJJ104InferioresA(int mes, int anio, int id_area, Usuario usuario)
+        public List<AreaParaDDJJ104> GetAreasParaDDJJ104InferioresA(int mes, int anio, int id_area, int complementaria, Usuario usuario)
         {
             RepositorioPersonas repoPersonas = new RepositorioPersonas();
             RepositorioDeOrganigrama repoOrganigrama = new RepositorioDeOrganigrama(Conexion());
@@ -156,7 +184,7 @@ namespace General
                     var area = new AreaParaDDJJ104();
                     area.Id = a.Id;
                     area.Nombre = a.Nombre;
-                    area.Personas.AddRange(repoPersonas.GetPersonasDelAreaParaDDJJ104(mes, anio, a).FindAll(x => x.Area.Id == id_area));
+                    area.Personas.AddRange(repoPersonas.GetPersonasDelAreaParaDDJJ104(mes, anio, a, complementaria).FindAll(x => x.Area.Id == id_area));
 
                     if (area.Personas != null && area.Personas.Count > 0 && area.Personas[0].Esta_Cargada == 1)
                     {
@@ -169,13 +197,13 @@ namespace General
                                 var area_informal = new AreaParaDDJJ104();
                                 area_informal.Id = area_dependiente.Id;
                                 area_informal.Nombre = area_dependiente.Nombre;
-                                area_informal.Personas = repoPersonas.GetPersonasDelAreaParaDDJJ104(mes, anio, a).FindAll(x => x.Area.Id == area_informal.Id);
+                                area_informal.Personas = repoPersonas.GetPersonasDelAreaParaDDJJ104(mes, anio, a, complementaria).FindAll(x => x.Area.Id == area_informal.Id);
 
                                 if (area_informal.Personas.Count > 0)
                                     area.AreasInformalesDependientes.Add(area_informal);
                             }
                         });
-                        area.DDJJ = new RepositorioDDJJ104().GetDDJJParaElArea(a).Find(x => x.Mes == mes && x.Anio == anio);
+                        area.DDJJ = new RepositorioDDJJ104().GetDDJJParaElArea(a, mes, anio).Find(x => x.Mes == mes && x.Anio == anio);
 
                     }
                     else
@@ -189,13 +217,13 @@ namespace General
                                 var area_informal = new AreaParaDDJJ104();
                                 area_informal.Id = area_dependiente.Id;
                                 area_informal.Nombre = area_dependiente.Nombre;
-                                area_informal.Personas = repoPersonas.GetPersonasDelAreaParaDDJJ104(mes, anio, area_dependiente).FindAll(x => x.Area.Id == area_informal.Id);
+                                area_informal.Personas = repoPersonas.GetPersonasDelAreaParaDDJJ104(mes, anio, area_dependiente, complementaria).FindAll(x => x.Area.Id == area_informal.Id);
 
                                 if (area_informal.Personas.Count > 0)
                                     area.AreasInformalesDependientes.Add(area_informal);
                             }
                         });
-                        area.DDJJ = new RepositorioDDJJ104().GetDDJJParaElArea(a).Find(x => x.Mes == mes && x.Anio == anio);
+                        area.DDJJ = new RepositorioDDJJ104().GetDDJJParaElArea(a, mes, anio).Find(x => x.Mes == mes && x.Anio == anio);
                     }
                     //var area_superior = un_Organigrama.AreaSuperiorDe(a);
                     //area.AreaSuperior = new AreaParaDDJJ104();
