@@ -1200,7 +1200,7 @@ namespace General.Repositorios
                 parametros.Add("@hasta", inasistencia.Hasta);
                 parametros.Add("@motivo", inasistencia.Motivo);
 
-                var tablaDatos = this.conexion.Ejecutar("LIC_INS_Ausencia", parametros);
+                var tablaDatos = this.conexion.Ejecutar("LIC_INS_Ausencias", parametros);
 
                 return true;
             }
@@ -1208,10 +1208,20 @@ namespace General.Repositorios
             {
                 return false;
             }
-           
+        }
 
-            
+        public List<MotivoBaja> getMotivosAusencias()
+        {
+            var tablaDatos = this.conexion.Ejecutar("LIC_GET_Motivos_Ausencias");
 
+            List<MotivoBaja> motivos = new List<MotivoBaja>();
+
+            tablaDatos.Rows.ForEach(row =>
+            {
+                motivos.Add(new MotivoBaja(row.GetInt("id",0), row.GetString("descripcion","")));
+            });
+
+            return motivos;
         }
     }
 }

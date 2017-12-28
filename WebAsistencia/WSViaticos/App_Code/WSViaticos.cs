@@ -355,10 +355,21 @@ public class WSViaticos : System.Web.Services.WebService
 
     //FIN: DDJJ 104 ---------------
     [WebMethod]
-    public void CargarInasistencia(Inasistencia inasistencia, Usuario usuario)
+    public bool CargarInasistencia(string desde, string hasta, int documento, string motivo, Usuario usuario)
     {
         RepositorioLicencias repositorio = new RepositorioLicencias(Conexion());
-        repositorio.guardarInasistencia(inasistencia, usuario.Id);
+        Persona persona =  RepositorioDePersonas().GetPersonaPorDocumento(documento);
+        Inasistencia inasistencia = new Inasistencia(0, persona, motivo, DateTime.Parse(desde), DateTime.Parse(hasta), usuario);
+        
+        return repositorio.guardarInasistencia(inasistencia, usuario.Id);
+    }
+
+    [WebMethod]
+    public MotivoBaja[] TraerMotivosAusencias()
+    {
+        RepositorioLicencias repositorio = new RepositorioLicencias(Conexion());
+
+        return repositorio.getMotivosAusencias().ToArray();
     }
 
 

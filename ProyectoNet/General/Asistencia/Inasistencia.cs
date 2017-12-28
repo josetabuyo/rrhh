@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using System.Text;
 using General.MAU;
+using General;
 
 namespace General
 {
@@ -12,24 +13,24 @@ namespace General
         private string _PathFormularioWeb;
         private string _Descripcion;
         private bool _Aprobada;
-        private DateTime _Desde;
-        private DateTime _Hasta;
+
         private string _Estado;
-        private string _Motivo;
-        private Usuario _Usuario;
-        private Persona _Persona;
+
+        public DateTime Desde;
+        public DateTime Hasta;
+        public string Motivo;
+        public Usuario Usuario;
+        public Persona Persona;
+        public int idPersona;
+        public int Documento;
 
         public int Id    {get { return _Id; }set { _Id = value; } }
         public string PathFormularioWeb {get { return _PathFormularioWeb; } set { _PathFormularioWeb = value;  }}
         public string Descripcion {get { return _Descripcion; }set { _Descripcion = value;  }}
         public bool Aprobada {get { return _Aprobada; }set { _Aprobada = value;  }}
-        public DateTime Desde {get { return _Desde; } set { _Desde = value;  } }
-        public DateTime Hasta {get { return _Hasta; } set { _Hasta = value;  }}
         public string Estado {get { return _Estado; }set { _Estado = value; } }
 
-        public string Motivo { get { return _Motivo; } set { _Motivo = value; } }
-        public Usuario Usuario { get { return _Usuario; } set { _Usuario = value; } }
-        public Persona Persona { get { return _Persona; } set { _Persona = value; } }
+
 
         public Inasistencia()
         {
