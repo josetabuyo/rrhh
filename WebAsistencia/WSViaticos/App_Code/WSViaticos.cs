@@ -4544,11 +4544,11 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
     [WebMethod]
-    public void DerivarTareas(Persona persona, int[] tareas,  Usuario usuario)
+    public void DerivarTareas(Usuario usuario_a_derivar, int[] tareas,  Usuario usuario)
     {
         RepositorioDeTickets repo = new RepositorioDeTickets(Conexion());
 
-         repo.DerivarTareas(persona, tareas, usuario.Id);
+         repo.DerivarTareas(usuario.Id, tareas, usuario.Id);
 
     }
 

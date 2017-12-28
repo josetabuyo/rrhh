@@ -40,6 +40,7 @@ namespace General.MAU
             this.tipoTicket = tipoTicket;
             this.fechaCreacion = fechaCreacion;
             this.usuarioCreador = usuarioCreador;
+            this.usuarioAsignado = usuarioAsignado;
             this.estado = estado.ToString();
         }
     }

@@ -14,11 +14,10 @@ namespace General.MAU
         {
             this.conexion = una_conexion;
         }
-        public void DerivarTareas(Persona persona, int[] tareas, int id_usuario)
+        public void DerivarTareas(int id_usuario_a_derivar, int[] tareas, int id_usuario)
         {
             var parametros = new Dictionary<string, object>();
-            parametros.Add("@documento_persona", persona.Documento);
-            parametros.Add("@id_usuario", id_usuario);
+            parametros.Add("@id_usuario_a_derivar", id_usuario_a_derivar);
 
             tareas.ToList().ForEach(tarea => { 
                 parametros.Add("@id_tarea", tarea);
@@ -40,7 +39,7 @@ namespace General.MAU
             tabla_resultado.Rows.ForEach(row =>
             {
                 Persona creador = new Persona(row.GetInt("IdPersona"), row.GetInt("NroDocumento"), row.GetString("nombre"), row.GetString("apellido"), area);
-                Persona asignado = new Persona(row.GetInt("IdPersonaAsignada"), row.GetInt("NroDocumentoPersonaAsignada"), row.GetString("nombreAsignado"), row.GetString("apellidoAsignado"), area);
+                Persona asignado = new Persona(row.GetInt("IdPersonaAsignada", 0), row.GetInt("NroDocumentoPersonaAsignada", 0), row.GetString("nombreAsignado", ""), row.GetString("apellidoAsignado", ""), area);
                 var tipoTarea = new TipoTicket(row.GetInt("idTipoTicket", 0), row.GetString("codigo", ""), row.GetString("descripcionTipo", ""), row.GetString("url", ""), row.GetInt("idFuncionalidad", 0));
                 Usuario usuarioCreador = new Usuario(row.GetSmallintAsInt("idUsuario", 0), row.GetString("nombreUsuario", ""), "", creador, true);
                 Usuario usuarioAsignado = new Usuario(row.GetSmallintAsInt("idUsuarioAsignado", 0), row.GetString("nombreUsuarioAsignado", ""), "", asignado, true);

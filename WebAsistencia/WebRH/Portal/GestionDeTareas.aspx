@@ -50,6 +50,8 @@
                 <div style="float: left; margin-top: -5px;" id="selector_usuario" class="selector_personas">
                     <input id="buscador" type="hidden" class="buscarPersona" />
                 </div>
+                <input id="btn_derivar_tareas" type="button" class="btn_gestion_consulta" style="font-size: smaller;
+                    padding: 6px; margin: 1px; margin-top: -6px; height: 30px;" value="Derivar" />
             </div>
             <input type="text" id="search" class="search buscador" placeholder="Buscar" style="height: 35px;
                 float: right" />
@@ -144,5 +146,4 @@
         });
     });
 </script>
-
 </html>

@@ -1,24 +1,50 @@
 ﻿var tab_actual = 0;
 var tareas_total = [];
+var usuario_logueado = -1;
+var usuario_a_derivar = 0;
 var GestionDeTareas = {
     init: function () {
         var numero_filtro = parseInt($(".content-current").attr("numero_tab"));
         if (tab_actual != numero_filtro) {
             tab_actual = numero_filtro;
         }
+        var _this = this;
+        $("#btn_derivar_tareas").click(function () {
+            _this.DerivarTareas();
+        });
+        this.ObtenerUsuarioLogueado();
+        var tareas_filtradas = [];
+        $("#section-shape-1").html("");
+        $("#section-shape-2").html("");
+        $("#section-shape-3").html("");
+        var mostrar_asignado = false;
         switch (tab_actual) {
             case 1: //MIS TAREAS
+                tareas_filtradas = $.grep(tareas_total, function (tarea) { return tarea.usuarioAsignado.Id == usuario_logueado });
+                $("#section-shape-1").html('<div id="tablaTareas" class="table table-striped table-bordered table-condensed"></div>');
                 break;
             case 2: //TAREAS SIN ASIGNACIÓN
+                tareas_filtradas = $.grep(tareas_total, function (tarea) { return tarea.usuarioAsignado.Id == 0 });
+                $("#section-shape-2").html('<div id="tablaTareas" class="table table-striped table-bordered table-condensed"></div>');
                 break;
             case 3: //TAREAS ASIGNADAS A OTROS
+                mostrar_asignado = true;
+                tareas_filtradas = $.grep(tareas_total, function (tarea) { return tarea.usuarioAsignado.Id != usuario_logueado && tarea.usuarioAsignado.Id != 0 });
+                $("#section-shape-3").html('<div id="tablaTareas" class="table table-striped table-bordered table-condensed"></div>');
                 break;
             default:
-
         }
+        this.DibujarTabla(tareas_filtradas, mostrar_asignado);
 
     },
-
+    ObtenerUsuarioLogueado: function () {
+        Backend.GetUsuarioLogueado()
+        .onSuccess(function (usuario) {
+            usuario_logueado = usuario.Owner.Id;
+        })
+        .onError(function (e) {
+        });
+    },
     ObtenerTareasSeleccionadas: function () {
         var id_tareas = [];
         var tareas_seleccionadas = $($("#tablaTareas").find(".fondo_verde"));
@@ -27,12 +53,73 @@ var GestionDeTareas = {
         }
         return id_tareas;
     },
-    DerivarTareas: function (persona) {
-        var _this_original = this;
+    DibujarTabla: function (tareas, mostrar_asignado) {
+
+        tareas = _.sortBy(tareas, 'id').reverse();
+        var _this = this;
+
+        $("#tablaTareas").empty();
+
+        var divGrilla_tareas = $("#tablaTareas");
+
+        var columnas_tareas = [];
+
+        columnas_tareas.push(new Columna('Derivar', {
+            generar: function (una_tarea) {
+                var btn_accion = $(' <input type="checkbox">');
+                btn_accion.change(function () {
+                    _this.SeleccionarTarea($(this));
+                });
+                return btn_accion;
+            }
+        }));
+        columnas_tareas.push(new Columna("#", { generar: function (una_tarea) { return una_tarea.id } }));
+        columnas_tareas.push(new Columna("Fecha Creación", { generar: function (una_tarea) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_tarea.fechaCreacion) } }));
+        //columnas_tareas.push(new Columna("Titulo", { generar: function (una_tarea) { return una_tarea.tipoAlerta.titulo } }));
+        columnas_tareas.push(new Columna("Descripcion", { generar: function (una_tarea) { return una_tarea.tipoTicket.descripcion } }));
+        columnas_tareas.push(new Columna("Creador", { generar: function (una_tarea) { return una_tarea.usuarioCreador.Owner.Apellido + ', ' + una_tarea.usuarioCreador.Owner.Nombre } }));
+        //columnas_tareas.push(new Columna("Tipo de Tarea", { generar: function (una_tarea) { return una_tarea.tipoTarea.descripcion } }));
+        if (mostrar_asignado) {
+            columnas_tareas.push(new Columna("Asignado a", { generar: function (una_tarea) { return una_tarea.usuarioAsignado.Id } }));
+        }
+        //columnas_tareas.push(new Columna("Estado", { generar: function (una_tarea) { return una_tarea.estado } }));
+        columnas_tareas.push(new Columna('Detalle', {
+            generar: function (una_tarea) {
+                var btn_accion = $('<a>');
+                var img = $('<img>');
+                img.attr('src', '../Imagenes/detalle.png');
+                img.attr('width', '15px');
+                img.attr('height', '15px');
+                btn_accion.append(img);
+                btn_accion.click(function () {
+                    _this.MostrarDetalleDeTarea(una_tarea);
+                });
+                return btn_accion;
+            }
+        }));
+
+        _this.divGrilla_tareas = new Grilla(columnas_tareas);
+        _this.divGrilla_tareas.CambiarEstiloCabecera("estilo_tabla_portal");
+        _this.divGrilla_tareas.SetOnRowClickEventHandler(function (una_tarea) { });
+        _this.divGrilla_tareas.CargarObjetos(tareas);
+        _this.divGrilla_tareas.DibujarEn(divGrilla_tareas);
+
+        $('.table-hover').removeClass("table-hover");
+
+        var options = {
+            valueNames: ['Titulo', 'Descripcion', 'Creador']
+        };
+
+        var featureList = new List('tareas', options);
+
+
+    },
+    DerivarTareas: function () {
+        var _this = this;
         var id_tareas = this.ObtenerTareasSeleccionadas();
-        Backend.DerivarTareas(persona, id_tareas)
+        Backend.DerivarTareas(usuario_a_derivar, id_tareas)
                     .onSuccess(function (tareas) {
-                        _this_original.getTareasParaGestion();
+                        _this.getTareasParaGestion();
                     })
                     .onError(function (e) {
                         alert("No se pudo derivar las tareas")
@@ -46,9 +133,8 @@ var GestionDeTareas = {
             placeholder: "nombre y apellido"
         });
         selector_personas.alSeleccionarUnaPersona = function (la_persona_seleccionada) {
-            _this_original.DerivarTareas(la_persona_seleccionada);
-            //alert("aa");
-            //_this.mostrarPersona(la_persona_seleccionada.id);
+            usuario_a_derivar = la_persona_seleccionada;
+
         };
 
         Backend.getTicketsPorFuncionalidad()
@@ -62,10 +148,10 @@ var GestionDeTareas = {
                     });
     },
     SeleccionarTarea: function (check, tarea) {
-        if ($(check.find("[type=checkbox]")).is(":checked")) {
-            $("#sel_" + tarea.id).parent().parent().parent().addClass("fondo_verde");
+        if (check.is(":checked")) {
+            check.parent().parent().addClass("fondo_verde");
         } else {
-            $("#sel_" + tarea.id).parent().parent().parent().removeClass("fondo_verde");
+            check.parent().parent().removeClass("fondo_verde");
         }
     },
     MostrarDetalleDeTarea: function (tarea) {
