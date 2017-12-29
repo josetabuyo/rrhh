@@ -66,6 +66,11 @@ public partial class CtrlAcc_service : System.Web.UI.Page
     {
         try
         {
+            if (!Validar_Credenciales_Usuario())
+            {
+                error_message = "Las credenciales del usuario son inválidas. Verifique los permisos asignados.";
+                return false;
+            }
             var method = this.Get_Method(_Method);
             switch (method)
             {
@@ -78,14 +83,14 @@ public partial class CtrlAcc_service : System.Web.UI.Page
                     break;
 
                 case eMethod.mLoginWeb:
-                    _JsonResp = mLoginWeb();
+                    _JsonResp = true.ToString(); //mLoginWeb(); La funcion fue ejecutada anteriormente en Validar_Credenciales_Usuario()
                     break;
 
                 default:
                     throw new Exception("Error: La petición solicitada no pudo ser identíficada.");
             }
             if (_JsonResp == string.Empty)
-                throw new Exception("Error: La petición solicitada no pudo ser identíficada.");
+                throw new Exception("Error: La respuesta no pudo ser procesada correctamente.");
             return true;
         }
         catch (Exception ex)
@@ -106,6 +111,14 @@ public partial class CtrlAcc_service : System.Web.UI.Page
         {
             return eMethod.mUnknown;
         }
+    }
+
+    private bool Validar_Credenciales_Usuario()
+    {
+        if (mLoginWeb().ToUpper() == "TRUE")
+            return true;
+        else
+            return false;
     }
 
 
