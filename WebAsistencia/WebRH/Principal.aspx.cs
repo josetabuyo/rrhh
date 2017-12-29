@@ -396,6 +396,15 @@ public partial class Principal : System.Web.UI.Page
         tc.Controls.Add(l);
         tr.Cells.Add(tc);
 
+        tc = new TableCell();
+        l = new Label();
+        l.Text = "Ausencias";
+        l.ForeColor = color;
+        l.Font.Names = fuentes;
+        l.Font.Size = 12;
+        tc.Controls.Add(l);
+        tr.Cells.Add(tc);
+
         //tc = new TableCell();
         //l = new Label();
         //l.Text = "Viático";
