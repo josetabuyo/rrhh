@@ -17,48 +17,41 @@
 
     
     <div style="" align="center">
-        <div style="display: block; width: 100%; padding: 0; margin-bottom: 27px; font-size: 19.5px;
+        <div style="display: block; width: 60%; padding: 0; margin-bottom: 27px; font-size: 19.5px;
             line-height: 36px; color: #333333; border: 0; border-bottom: 1px solid #e5e5e5;
             text-shadow: 2px 2px 5px rgba(150, 150, 150, 1); text-align: left;">
             Men&uacute; de DDJJ 104
             
-            <div id="DivBotonCertificarArea" runat="server" > <%--style="display: block; float:none;
-                margin-top: 4px; margin-left: 4px; border: #0055cc;"--%>
-                <asp:Button runat="server" ID="btnCertificarArea" RequiereFuncionalidad="22" CssClass="btn btn-primary" 
-                    Text="Certificar Areas" UseSubmitBehavior="True"
-                    onclick="btnCertificarArea_Click" /> 
-            </div>
-
-            <br />
-
-             <div id="DivBotonConsultarDDJJ" runat="server" ><%--style="display: block; float:right;
-                margin-top: 4px; margin-left: 4px; border: #0055cc;"--%>
-                <asp:Button runat="server" ID="btnConsultaDDJJ" RequiereFuncionalidad="61" CssClass="btn btn-primary" 
-                    Text="Consultar DDJJ" UseSubmitBehavior="True" 
-                    onclick="btnConsultaDDJJ_Click"/> 
-            </div>
-
-            <br />
-
-            <div id="DivBotonPersonasNoCertificadas" runat="server" > <%--style="display: block; float: right;
-                margin-top: 4px; margin-left: 4px; border: #0055cc;"--%>
-                <asp:Button runat="server" ID="btnPersonasNoCertificadas" 
-                    RequiereFuncionalidad="62" CssClass="btn btn-primary" 
-                    Text="Personas no certificadas" UseSubmitBehavior="True" 
-                    onclick="btnPersonasNoCertificadas_Click" />
-            </div>
-
-            <br />
-
-            <div id="DivBotonCertificarPersonasNoCertificadas" runat="server" > <%--style="display: block; float: right;
-                margin-top: 4px; margin-left: 4px; border: #0055cc;"--%>
+            
+            <div id="DivBotonCertificarPersonasNoCertificadas" runat="server" style="display: block; float:right;
+                margin-top: 4px; margin-left: 4px; border: #0055cc;" >
                 <asp:Button runat="server" ID="btnCertificarPersonasNoCertificadas" 
                     RequiereFuncionalidad="63" CssClass="btn btn-primary" 
                     Text="Certificar personas no certificadas" UseSubmitBehavior="True" 
                     onclick="btnCertificarPersonasNoCertificadas_Click" />
             </div>
             
+            <div id="DivBotonPersonasNoCertificadas" runat="server"   style="display: block; float:right;
+                margin-top: 4px; margin-left: 4px; border: #0055cc;" >
+                <asp:Button runat="server" ID="btnPersonasNoCertificadas" 
+                    RequiereFuncionalidad="62" CssClass="btn btn-primary" 
+                    Text="Personas no certificadas" UseSubmitBehavior="True" 
+                    onclick="btnPersonasNoCertificadas_Click" />
+            </div>
+
+            <div id="DivBotonConsultarDDJJ" runat="server"   style="display: block; float:right;
+                margin-top: 4px; margin-left: 4px; border: #0055cc;" >
+                <asp:Button runat="server" ID="btnConsultaDDJJ" RequiereFuncionalidad="61" CssClass="btn btn-primary" 
+                    Text="Consultar DDJJ" UseSubmitBehavior="True" 
+                    onclick="btnConsultaDDJJ_Click"/> 
+            </div>
             
+            <div id="DivBotonCertificarArea" runat="server"  style="display: block; float:right;
+                margin-top: 4px; margin-left: 4px; border: #0055cc;" >
+                <asp:Button runat="server" ID="btnCertificarArea" RequiereFuncionalidad="22" CssClass="btn btn-primary" 
+                    Text="Certificar Areas" UseSubmitBehavior="True"
+                    onclick="btnCertificarArea_Click" /> 
+            </div>
             
 
         </div>

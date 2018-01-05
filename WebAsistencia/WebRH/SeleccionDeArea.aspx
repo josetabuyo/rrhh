@@ -27,12 +27,16 @@
             Áreas a Administrar                 
             <%--<a id="btn_consultar_consulta_ddjj" RequiereFuncionalidad="23" class="acomodar_botones_del_menu btn btn-primary" href="DDJJ104/ConsultaIndividualDDJJ.aspx">Consultas DDJJ 104/2001</a>
             <a id="btn_consultar_areas_ddjj" RequiereFuncionalidad="22" class="acomodar_botones_del_menu btn btn-primary" href="DDJJ104/FAreasConDDJJ.aspx">DDJJ 104/2001</a>--%>
-            <a id="btn_consultar_areas" class="acomodar_botones_del_menu btn btn-primary" href="Protocolo/ConsultaProtocolo.aspx">Autoridades</a>
-            <a id="btn_consultar_trabajo" class="btn btn-primary acomodar_botones_del_menu" href="Protocolo/ConsultaLugaresDeTrabajo.aspx">Lugares de Trabajo</a>
-            <a id="btn_consultar_mis_areas" class="btn acomodar_botones_del_menu btn-primary"  href="Protocolo/ConsultaListadoPersonasACargo.aspx">Personas a Cargo</a>
-            <a id="btn_consultar_mis_inasistencias" class="btn btn-primary acomodar_botones_del_menu" href="Protocolo/ConsultaListadoLicencias.aspx">Licencias y Pases E/T</a>
-            <a id="btn_analisis_licencia" RequiereFuncionalidad="35" class="acomodar_botones_del_menu btn btn-primary" href="FormulariosDeLicencia/CalculoDeLicenciaOrdinaria.aspx">Analisis Licencias</a>
+
             <a id="btn_seleccion_contratos" RequiereFuncionalidad="43" class="acomodar_botones_del_menu btn btn-primary" href="Contratos/SeleccionDeContratos.aspx">Selección de Contratos</a>
+            <a id="btn_analisis_licencia" RequiereFuncionalidad="35" class="acomodar_botones_del_menu btn btn-primary" href="FormulariosDeLicencia/CalculoDeLicenciaOrdinaria.aspx">Analisis Licencias</a>
+            <a id="btn_consultar_mis_inasistencias" class="acomodar_botones_del_menu btn btn-primary" href="Protocolo/ConsultaListadoLicencias.aspx">Licencias y Pases E/T</a>
+            <a id="btn_consultar_areas" class="acomodar_botones_del_menu btn btn-primary" href="Protocolo/ConsultaProtocolo.aspx">Autoridades</a>
+            <a id="btn_consultar_trabajo" class="acomodar_botones_del_menu btn btn-primary" href="Protocolo/ConsultaLugaresDeTrabajo.aspx">Lugares de Trabajo</a>
+            <a id="btn_consultar_mis_areas" class="acomodar_botones_del_menu btn btn-primary"  href="Protocolo/ConsultaListadoPersonasACargo.aspx">Personas a Cargo</a>
+            
+            
+            
         </div>
         
         <div id="contenedor_areas_usuario">          
