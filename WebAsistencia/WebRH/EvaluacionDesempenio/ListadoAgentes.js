@@ -49,6 +49,10 @@ var ListadoAgentes = {
             _this.FiltrarRegistros(modo);
         });
 
+        $("#select_periodo").change(function () {
+            _this.FiltrarRegistros(modo);
+        });
+
         var spinner = new Spinner({ scale: 2 });
         spinner.spin($("html")[0]);
         _this.spinner = spinner;
@@ -184,12 +188,12 @@ var ListadoAgentes = {
         var calificacion = this.calificacion(coleccion_respuestas, asignacion_evaluado_a_evaluador.nivel.deficiente, asignacion_evaluado_a_evaluador.nivel.regular, asignacion_evaluado_a_evaluador.nivel.bueno, asignacion_evaluado_a_evaluador.nivel.destacado, false);
         return !(calificacion == 'A Evaluar' || calificacion == 'Evaluacion Incompleta');
     },
-    FiltrarPorPeriodo: function (periodo_busqueda) {
+    /*FiltrarPorPeriodo: function (periodo_busqueda) {
         var _this = this;
         if (periodo_busqueda != "") {
-
+            $('#select_periodo option[value="' + clave + '"]').html()
         }
-    },
+    },*/
     FiltrarPorDNIApellidoONombre: function (txt_busqueda) {
         var _this = this;
         if (txt_busqueda != "") {
@@ -200,10 +204,10 @@ var ListadoAgentes = {
             })
         }
     },
-    FiltrarPorPeriodo: function (per) {
-        if (per != -1) {
+    FiltrarPorPeriodo: function (clave) {
+        if (clave != -1) {
             $("#tablaAgentes tbody tr").find("td[class=Periodo]").each(function () {
-                if ($(this).text() != clave) {
+                if ($(this).text() != $('#select_periodo option[value="' + clave +'"]').html()) {
                     $(this).parent().remove();
                 };
             })
