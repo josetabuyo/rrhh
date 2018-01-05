@@ -397,7 +397,7 @@
       <s:element name="DerivarTareas">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="persona" type="tns:Persona" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario_a_derivar" type="tns:Usuario" />
             <s:element minOccurs="0" maxOccurs="1" name="tareas" type="tns:ArrayOfInt" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>

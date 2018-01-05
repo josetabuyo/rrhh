@@ -2,17 +2,18 @@
 var tareas_total = [];
 var usuario_logueado = -1;
 var usuario_a_derivar = 0;
+
 var GestionDeTareas = {
+
     init: function () {
         var numero_filtro = parseInt($(".content-current").attr("numero_tab"));
         if (tab_actual != numero_filtro) {
             tab_actual = numero_filtro;
         }
+
         var _this = this;
-        $("#btn_derivar_tareas").click(function () {
-            _this.DerivarTareas();
-        });
-        this.ObtenerUsuarioLogueado();
+       
+
         var tareas_filtradas = [];
         $("#section-shape-1").html("");
         $("#section-shape-2").html("");
@@ -20,7 +21,7 @@ var GestionDeTareas = {
         var mostrar_asignado = false;
         switch (tab_actual) {
             case 1: //MIS TAREAS
-                tareas_filtradas = $.grep(tareas_total, function (tarea) { return tarea.usuarioAsignado.Id == usuario_logueado });
+                tareas_filtradas = $.grep(tareas_total, function (tarea) { return tarea.usuarioAsignado.Owner.Id == usuario_logueado });
                 $("#section-shape-1").html('<div id="tablaTareas" class="table table-striped table-bordered table-condensed"></div>');
                 break;
             case 2: //TAREAS SIN ASIGNACIÓN
@@ -29,7 +30,7 @@ var GestionDeTareas = {
                 break;
             case 3: //TAREAS ASIGNADAS A OTROS
                 mostrar_asignado = true;
-                tareas_filtradas = $.grep(tareas_total, function (tarea) { return tarea.usuarioAsignado.Id != usuario_logueado && tarea.usuarioAsignado.Id != 0 });
+                tareas_filtradas = $.grep(tareas_total, function (tarea) { return tarea.usuarioAsignado.Owner.Id != usuario_logueado && tarea.usuarioAsignado.Id != 0 });
                 $("#section-shape-3").html('<div id="tablaTareas" class="table table-striped table-bordered table-condensed"></div>');
                 break;
             default:
@@ -37,6 +38,7 @@ var GestionDeTareas = {
         this.DibujarTabla(tareas_filtradas, mostrar_asignado);
 
     },
+
     ObtenerUsuarioLogueado: function () {
         Backend.GetUsuarioLogueado()
         .onSuccess(function (usuario) {
@@ -45,6 +47,7 @@ var GestionDeTareas = {
         .onError(function (e) {
         });
     },
+
     ObtenerTareasSeleccionadas: function () {
         var id_tareas = [];
         var tareas_seleccionadas = $($("#tablaTareas").find(".fondo_verde"));
@@ -53,6 +56,7 @@ var GestionDeTareas = {
         }
         return id_tareas;
     },
+
     DibujarTabla: function (tareas, mostrar_asignado) {
 
         tareas = _.sortBy(tareas, 'id').reverse();
@@ -114,19 +118,21 @@ var GestionDeTareas = {
 
 
     },
+
     DerivarTareas: function () {
         var _this = this;
         var id_tareas = this.ObtenerTareasSeleccionadas();
         Backend.DerivarTareas(usuario_a_derivar, id_tareas)
                     .onSuccess(function (tareas) {
                         _this.getTareasParaGestion();
+                        _this.init();
                     })
                     .onError(function (e) {
                         alert("No se pudo derivar las tareas")
                     });
     },
-    getTareasParaGestion: function () {
-        var _this_original = this;
+
+    buscadorDePersonas: function () {
         var selector_personas = new SelectorDePersonas({
             ui: $('#selector_usuario'),
             repositorioDePersonas: new RepositorioDePersonas(new ProveedorAjax("../")),
@@ -136,7 +142,9 @@ var GestionDeTareas = {
             usuario_a_derivar = la_persona_seleccionada;
 
         };
-
+    },
+    getTareasParaGestion: function () {
+        var _this_original = this;
         Backend.getTicketsPorFuncionalidad()
                     .onSuccess(function (tareas) {
 

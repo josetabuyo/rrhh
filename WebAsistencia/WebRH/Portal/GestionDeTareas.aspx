@@ -136,6 +136,11 @@
 <script type="text/javascript">
     $(document).ready(function ($) {
         Backend.start(function () {
+            $("#btn_derivar_tareas").click(function () {
+                GestionDeTareas.DerivarTareas();
+            });
+            GestionDeTareas.ObtenerUsuarioLogueado();
+            GestionDeTareas.buscadorDePersonas();
             GestionDeTareas.getTareasParaGestion();
             //SELECCION DE TABS
             (function () {

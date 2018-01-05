@@ -17,7 +17,9 @@ namespace General.MAU
         public void DerivarTareas(int id_usuario_a_derivar, int[] tareas, int id_usuario)
         {
             var parametros = new Dictionary<string, object>();
+
             parametros.Add("@id_usuario_a_derivar", id_usuario_a_derivar);
+            parametros.Add("@id_usuario_derivador", id_usuario);
 
             tareas.ToList().ForEach(tarea => { 
                 parametros.Add("@id_tarea", tarea);

@@ -4548,7 +4548,7 @@ public class WSViaticos : System.Web.Services.WebService
     {
         RepositorioDeTickets repo = new RepositorioDeTickets(Conexion());
 
-         repo.DerivarTareas(usuario.Id, tareas, usuario.Id);
+        repo.DerivarTareas(usuario_a_derivar.Id, tareas, usuario.Id);
 
     }
 
