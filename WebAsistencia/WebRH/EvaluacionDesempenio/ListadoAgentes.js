@@ -5,54 +5,79 @@ var ListadoAgentes = {
     init: function () {
 
     },
-    FiltrarRegistros: function (obj) {
+    FiltrarRegistros: function (modo) {
         var _this = this;
-        _this.DibujarTablaEvaluaciones(todas_las_evaluaciones);
+        if (modo == 'Verificador') {
+            _this.DibujarTablaVerificaciones(todas_las_evaluaciones);
+        } else {
+            _this.DibujarTablaEvaluaciones(todas_las_evaluaciones);
+        }
         _this.FiltrarPorEstado(parseInt($("#id_estado").val()));
         _this.FiltrarPorDNIApellidoONombre($("#srch_agente").val());
+        _this.FiltrarPorPeriodo($("#select_periodo").val());
     },
-    getEvaluaciones: function () {
+    completarFiltroPeriodo: function (respuesta) {
+        var select_periodo = $("#select_periodo");
+        select_periodo.empty();
+        select_periodo.append($("<option></option>")
+                             .attr("value", -1)
+                             .text("Todos"));
+
+        $.each(respuesta, function (index, value) {
+            select_periodo.append($("<option></option>")
+                                 .attr("value", value.id_periodo)
+                                 .text(value.descripcion_periodo));
+        });
+    },
+    getPeriodosEvaluacion: function () {
+        var _this = this;
+        Backend.GetPeriodosEvaluacion()
+        .onSuccess(function (respuesta) {
+            _this.completarFiltroPeriodo(respuesta);
+        })
+        .onError(function (respuesta) {
+            alert("se produjo un error al intentar obtener los periodos de evaluación del filtro");
+        });
+    },
+    getEvaluaciones: function (modo) {
         var _this = this;
         $("#id_estado").change(function () {
-            _this.FiltrarRegistros();
+            _this.FiltrarRegistros(modo);
         });
 
         $("#srch_agente").keyup(function () {
-            _this.FiltrarRegistros();
+            _this.FiltrarRegistros(modo);
         });
-        
+
+        $("#select_periodo").change(function () {
+            _this.FiltrarRegistros(modo);
+        });
+
         var spinner = new Spinner({ scale: 2 });
         spinner.spin($("html")[0]);
+        _this.spinner = spinner;
 
         var calificacion;
-        Backend.EvalGetAgentesEvaluables()
-        .onSuccess(function (respuesta) {
-            var asignacion_evaluado_a_evaluador = respuesta.asignaciones;
-            spinner.stop();
-            if (asignacion_evaluado_a_evaluador.length == 0) return;
-            if (!asignacion_evaluado_a_evaluador[0].hasOwnProperty('agente_evaluado')) return;
-            todas_las_evaluaciones = asignacion_evaluado_a_evaluador;
-            if (respuesta.EsAgenteVerificador) {
-                _this.DibujarTablaVerificaciones(asignacion_evaluado_a_evaluador);
-            } else {
-                _this.DibujarTablaEvaluaciones(asignacion_evaluado_a_evaluador);
-                // Habilita filtros si hay uno o más agentes
-                if (asignacion_evaluado_a_evaluador.length) { // 0 == false
-                    var $barraBuscador = $("#Text1");
-                    $barraBuscador.attr("disabled", false);
-                    $("#id_estado").attr("disabled", false);
 
-                    $barraBuscador.keypress(function (e) {
-                        if (e.which == 13) {
-                            e.preventDefault();
-                        }
-                    });
-                }
-            }
-        })
-        .onError(function (e) {
-            spinner.stop();
-        });
+        if (modo == 'Verificador') {
+            Backend.GetAgentesEvaluablesParaVerificarGDE()
+            .onSuccess(function (respuesta) {
+                _this.spinner.stop();
+                _this.GetAgentesSuccess(respuesta);
+            })
+            .onError(function (e) {
+                _this.spinner.stop();
+            });
+        } else {
+            Backend.EvalGetAgentesEvaluables()
+            .onSuccess(function (respuesta) {
+                _this.spinner.stop();
+                _this.GetAgentesSuccess(respuesta);
+            })
+            .onError(function (e) {
+                _this.spinner.stop();
+            });
+        }
 
         var d = new Date();
         Backend.GetLeyendaAnio(d.getFullYear())
@@ -63,11 +88,35 @@ var ListadoAgentes = {
             localStorage.setItem("leyenda", "");
         });
     },
-    
+    GetAgentesSuccess: function (respuesta) {
+        _this = this;
+        var asignacion_evaluado_a_evaluador = respuesta.asignaciones;
+        if (asignacion_evaluado_a_evaluador.length == 0) return;
+        if (!asignacion_evaluado_a_evaluador[0].hasOwnProperty('agente_evaluado')) return;
+        todas_las_evaluaciones = asignacion_evaluado_a_evaluador;
+        if (respuesta.EsAgenteVerificador) {
+            _this.DibujarTablaVerificaciones(asignacion_evaluado_a_evaluador);
+        } else {
+            _this.DibujarTablaEvaluaciones(asignacion_evaluado_a_evaluador);
+            // Habilita filtros si hay uno o más agentes
+            if (asignacion_evaluado_a_evaluador.length) { // 0 == false
+                var $barraBuscador = $("#Text1");
+                $barraBuscador.attr("disabled", false);
+                $("#id_estado").attr("disabled", false);
+
+                $barraBuscador.keypress(function (e) {
+                    if (e.which == 13) {
+                        e.preventDefault();
+                    }
+                });
+            }
+        }
+    },
     GetterDocEvaluado: function (asignacion_evaluado_a_evaluador) { return asignacion_evaluado_a_evaluador.agente_evaluado.nro_documento; },
     GetterApellidoEvaluado: function (asignacion_evaluado_a_evaluador) { return asignacion_evaluado_a_evaluador.agente_evaluado.apellido },
     GetterNombreEvaluado: function (asignacion_evaluado_a_evaluador) { return asignacion_evaluado_a_evaluador.agente_evaluado.nombre },
     GetterArea: function (asignacion_evaluado_a_evaluador) { return asignacion_evaluado_a_evaluador.agente_evaluado.area.nombre_area /*return asignacion_evaluado_a_evaluador.codigo_unidad_eval */ },
+    GetterPeriodoEvaluacion: function (asignacion_evaluado_a_evaluador) { return asignacion_evaluado_a_evaluador.periodo.descripcion_periodo },
     GetterEvaluacion: function (asignacion_evaluado_a_evaluador) {
         var coleccion_respuestas = this.getRespuestasDelForm(asignacion_evaluado_a_evaluador.evaluacion);
         return this.calificacion(coleccion_respuestas, asignacion_evaluado_a_evaluador.nivel.deficiente, asignacion_evaluado_a_evaluador.nivel.regular, asignacion_evaluado_a_evaluador.nivel.bueno, asignacion_evaluado_a_evaluador.nivel.destacado, false);
@@ -83,9 +132,18 @@ var ListadoAgentes = {
             return this.getBotonIrAFormulario(asignacion_evaluado_a_evaluador);
         }
     },
-    GetterGDE: function (asignacion_evaluado_a_evaluador) {
+    GetterGDEVerificador: function (asignacion_evaluado_a_evaluador) {
+        if (asignacion_evaluado_a_evaluador.evaluacion.verificacion_gde.PersonaVerificadora == "") {
+            var btn_gde_verificado = this.getLinkMarcarGDEVerificado(asignacion_evaluado_a_evaluador.id_evaluacion, asignacion_evaluado_a_evaluador.evaluacion.codigo_gde, asignacion_evaluado_a_evaluador.agente_evaluado.apellido + ", " + asignacion_evaluado_a_evaluador.agente_evaluado.nombre);
+            var btn_modificar_gde = this.getLinkCargarGDE(asignacion_evaluado_a_evaluador.id_evaluacion, "Corregir Codigo", _this.corregirCodigoGde);
+            return this.getDosBotones(btn_gde_verificado, btn_modificar_gde);
+        } else {
+            return asignacion_evaluado_a_evaluador.codigo_gde;
+        }
+    },
+    GetterGDEEvaluador: function (asignacion_evaluado_a_evaluador) {
         if (asignacion_evaluado_a_evaluador.evaluacion.codigo_gde == '' && asignacion_evaluado_a_evaluador.evaluacion.estado_evaluacion == 1) {
-            return this.getLinkCargarGDE(asignacion_evaluado_a_evaluador.id_evaluacion);
+            return this.getLinkCargarGDE(asignacion_evaluado_a_evaluador.id_evaluacion, "Ingresar Codigo GDE", _this.guardarCodigoGde);
         }
         if (asignacion_evaluado_a_evaluador.evaluacion.codigo_gde != '') {
             return asignacion_evaluado_a_evaluador.evaluacion.codigo_gde;
@@ -102,20 +160,24 @@ var ListadoAgentes = {
                 { nombre_columna: "Apellido", value_getter: this.GetterApellidoEvaluado },
                 { nombre_columna: "Nombre", value_getter: this.GetterNombreEvaluado },
                 { nombre_columna: "Area", value_getter: this.GetterArea },
+                { nombre_columna: "Periodo", value_getter: this.GetterPeriodoEvaluacion },
                 { nombre_columna: "Evaluacion", value_getter: function (x) { return _this.GetterEvaluacion.call(_this, x); } }
             ];
         return columnas.concat(columnas_evaluado);
     },
     DibujarTablaVerificaciones: function (asignacion_evaluado_a_evaluador) {
         var _this = this;
-        var definicion_columnas = this.ColumnasEvaluado();
+        var definicion_columnas = this.ColumnasEvaluado().concat([
+            { nombre_columna: "GDE", value_getter: function (x) { return x.evaluacion.codigo_gde; } },
+            { nombre_columna: "Accion", value_getter: function (x) { return _this.GetterGDEVerificador.call(_this, x); } }
+        ]);
         var grilla = new GrillaV2("tablaAgentes", definicion_columnas, asignacion_evaluado_a_evaluador);
     },
     DibujarTablaEvaluaciones: function (asignacion_evaluado_a_evaluador) {
         var _this = this;
         var definicion_columnas = this.ColumnasEvaluado().concat([
             { nombre_columna: "Accion", value_getter: function (x) { return _this.GetterAccionesEvaluado.call(_this, x); } },
-            { nombre_columna: "GDE", value_getter: function (x) { return _this.GetterGDE.call(_this, x); } }
+            { nombre_columna: "GDE", value_getter: function (x) { return _this.GetterGDEEvaluador.call(_this, x); } }
         ]);
 
         var grilla = new GrillaV2("tablaAgentes", definicion_columnas, asignacion_evaluado_a_evaluador);
@@ -126,6 +188,12 @@ var ListadoAgentes = {
         var calificacion = this.calificacion(coleccion_respuestas, asignacion_evaluado_a_evaluador.nivel.deficiente, asignacion_evaluado_a_evaluador.nivel.regular, asignacion_evaluado_a_evaluador.nivel.bueno, asignacion_evaluado_a_evaluador.nivel.destacado, false);
         return !(calificacion == 'A Evaluar' || calificacion == 'Evaluacion Incompleta');
     },
+    /*FiltrarPorPeriodo: function (periodo_busqueda) {
+        var _this = this;
+        if (periodo_busqueda != "") {
+            $('#select_periodo option[value="' + clave + '"]').html()
+        }
+    },*/
     FiltrarPorDNIApellidoONombre: function (txt_busqueda) {
         var _this = this;
         if (txt_busqueda != "") {
@@ -134,7 +202,16 @@ var ListadoAgentes = {
                     $(this).parent().remove();
                 };
             })
-        } 
+        }
+    },
+    FiltrarPorPeriodo: function (clave) {
+        if (clave != -1) {
+            $("#tablaAgentes tbody tr").find("td[class=Periodo]").each(function () {
+                if ($(this).text() != $('#select_periodo option[value="' + clave +'"]').html()) {
+                    $(this).parent().remove();
+                };
+            })
+        }
     },
     FiltrarPorEstado: function (estado) {
         var _this = this;
@@ -200,33 +277,90 @@ var ListadoAgentes = {
         localStorage.setItem("destacado", asignacion_evaluado_a_evaluador.nivel.destacado);
         localStorage.setItem("id_doc_electronico", asignacion_evaluado_a_evaluador.evaluacion.id_doc_electronico);
     },
-    getLinkCargarGDE: function (id_evaluacion) {
+    getLinkMarcarGDEVerificado: function (id_evaluacion, codigo_gde, agente) {
         var _this = this;
         var btn_accion = $('<a>');
-        btn_accion.html("Ingresar Codigo GDE");
+        btn_accion.html("Marcar cod. GDE Verificado");
         btn_accion.attr('id_eval', id_evaluacion);
+        btn_accion.attr('codigo_gde', codigo_gde);
+        btn_accion.attr('agente', agente);
         btn_accion.click(function () {
-            _this.abrirPopUp('#div_codigo_gde', "#btn_codigo_gde", _this.guardarCodigoGde, "#lnk_cancelar");
             var id_eval = this["attributes"]["id_eval"].value;
-            $("#hid_doc").val(id_eval);
+            var codigo_gde = this["attributes"]["codigo_gde"].value;
+            var agente = this["attributes"]["agente"].value;
+            $("#div_codigo_gde_a_verificar").html(codigo_gde);
+            $("#div_agente_a_verificar").html(agente);
+            $("#hid_id_eval").val(id_eval);
+            _this.abrirPopUp('#div_verificar_codigo_gde', "#btn_verificar_codigo_gde", _this.verificarCodigoGde, "#lnk_cancelar_verificacion");
         });
         return btn_accion;
     },
-    guardarCodigoGde: function (ui) {
-        //alert('testttt');
-        var doc = parseInt($("#hid_doc").val());
-        var codigo = ui.find('#codigo_gde').val();
-        Backend.EvalGuardarCodigoGDE(doc, codigo)
+    getLinkCargarGDE: function (id_evaluacion, titulo, btn_guardar) {
+        var _this = this;
+        var btn_accion = $('<a>');
+        btn_accion.html(titulo);
+        btn_accion.attr('id_eval', id_evaluacion);
+        btn_accion.click(function () {
+            _this.abrirPopUp('#div_codigo_gde', "#btn_codigo_gde", btn_guardar, "#lnk_cancelar");
+            var id_eval = this["attributes"]["id_eval"].value;
+            $("#hid_id_eval").val(id_eval);
+        });
+        return btn_accion;
+    },
+    verificarCodigoGdeCorregido: function (ui) {
+        var id_eval = parseInt($("#hid_id_eval").val());
+        var codigo_gde = ui.find('#div_codigo_gde_a_verificar').html();
+        Backend.EvalCorregirCodigoGDE(id_eval, codigo_gde)
         .onSuccess(function (rpta) {
-            var td = $("a[id_eval*='" + doc + "']").parent();
+            var td = $("a[id_eval*='" + id_eval + "']").parent();
+            td.empty();
+            td.html(codigo);
+        }).onError(function (error, as, asd) {
+            alert("Se produjo un error al verificar el código GDE.");
+        });
+
+        vex.closeAll();
+    },
+    verificarCodigoGde: function (ui) {
+        var id_eval = parseInt($("#hid_id_eval").val());
+        var codigo_gde = ui.find('#div_codigo_gde_a_verificar').html();
+        Backend.EvalVerificarCodigoGDE(id_eval, codigo_gde)
+        .onSuccess(function (rpta) {
+            var td = $("a[id_eval*='" + id_eval + "']").parent();
+            td.empty();
+            td.html(codigo);
+        }).onError(function (error, as, asd) {
+            alert("Se produjo un error al verificar el código GDE.");
+        });
+
+        vex.closeAll();
+    },
+    corregirCodigoGde: function (ui) {
+        //EvalCorregirCodigoGDE
+        //alert("ok");
+        var id_eval = parseInt($("#hid_id_eval").val());
+        var codigo_gde = ui.find('#codigo_gde').val();
+        var agente = ui.find('#nombre_agente').val();
+
+        $("#div_codigo_gde_a_verificar").html(codigo_gde);
+        $("#div_agente_a_verificar").html(agente);
+        $("#hid_id_eval").val(id_eval);
+        _this.abrirPopUp('#div_verificar_codigo_gde', "#btn_verificar_codigo_gde", _this.verificarCodigoGdeCorregido, "#lnk_cancelar_verificacion");
+    },
+    guardarCodigoGde: function (ui) {
+        var id_eval = parseInt($("#hid_id_eval").val());
+        var codigo = ui.find('#codigo_gde').val();
+        Backend.EvalGuardarCodigoGDE(id_eval, codigo)
+        .onSuccess(function (rpta) {
+            var td = $("a[id_eval*='" + id_eval + "']").parent();
             td.empty();
             td.html(codigo);
         }).onError(function (error, as, asd) {
             alert("Se produjo un error al guardar el código GDE.");
         });
-        
         vex.closeAll();
     },
+
     getImgIcono: function (nombre_img, title) {
         var btn_accion = $('<a>');
         var img = $('<img>');
@@ -247,17 +381,13 @@ var ListadoAgentes = {
             .onSuccess(function (rpta) {
 
                 //window.open("data:application/pdf;base64," + rpta, '_blank');
-
                 var string = 'data:application/pdf;base64,' + rpta;
                 var iframe = "<iframe width='100%' height='100%' src='" + string + "'></iframe>"
                 var x = window.open();
                 x.document.open();
                 x.document.write(iframe);
                 x.document.close();
-
-
             });
-
         });
         return btn_accion;
     },
@@ -327,12 +457,19 @@ var ListadoAgentes = {
         });
         return btn_accion;
     },
-    getDosBotones: function (asignacion_evaluado_a_evaluador) {
-        var boton_imprimir = this.getBotonImprimir(asignacion_evaluado_a_evaluador);
-        var boton_ir_a_form = this.getBotonIrAFormulario(asignacion_evaluado_a_evaluador);
+    getDosBotones: function (boton1, boton2) {
+        //var boton_imprimir = this.getBotonImprimir(asignacion_evaluado_a_evaluador);
+        //var boton_ir_a_form = this.getBotonIrAFormulario(asignacion_evaluado_a_evaluador);
         var div = $('<div>');
-        div.append(boton_ir_a_form);
-        div.append(boton_imprimir);
+        var ul = $('<ul>');
+        var li1 = $('<li>');
+        var li2 = $('<li>');
+        li1.append(boton1);
+        li2.append(boton2);
+        ul.append(li1);
+        ul.append(li2);
+        div.append(ul);
+
         return div;
     },
     imprimirFormularioEvaluacion: function (idNivel, idEvaluacion, idEvaluado) {

@@ -110,13 +110,39 @@ namespace General.Repositorios
 
         public RespuestaGetAgentesEvaluablesPor GetAgentesEvaluablesPor(Usuario usuario)
         {
+            return GetAgentesEvaluablesPor(usuario, false);
+        }
+
+        public RespuestaGetAgentesEvaluablesPor GetAgentesEvaluablesParaVerificarGDE(Usuario usuario)
+        {
+            return GetAgentesEvaluablesPor(usuario, true);
+        }
+
+        public List<PeriodoEvaluacion> GetPeriodosEvaluacion(Usuario usuario)
+        {
+            var parametros = new Dictionary<string, object>();
+            var tablaDatos = _conexion.Ejecutar("dbo.EVAL_GET_PERIODOS_EVALUACION", parametros);
+            var result = new List<PeriodoEvaluacion>();
+            tablaDatos.Rows.ForEach(row =>
+                {
+                    result.Add(new PeriodoEvaluacion(row.GetSmallintAsInt("id"), row.GetString("descripcion"), row.GetDateTime("desde"), row.GetDateTime("hasta")));
+                });
+            return result;
+        }
+
+        protected RespuestaGetAgentesEvaluablesPor GetAgentesEvaluablesPor(Usuario usuario, bool ModoVerificadorGDE)
+        {
             var parametros = new Dictionary<string, object>();
             var id_persona_usuario = usuario.Owner.Id;
             var es_agente_verificador = true;
-            if (!EsAgenteVerificador(usuario))
+            if (!EsAgenteVerificador(usuario) || !ModoVerificadorGDE)
             {
                 parametros.Add("@id_persona_evaluadora", id_persona_usuario);
                 es_agente_verificador = false;
+            }
+            else
+            {
+                parametros.Add("@solo_con_codigo_gde", 1);
             }
             
             var tablaDatos = _conexion.Ejecutar("dbo.EVAL_GET_Evaluados_Evaluador", parametros);
@@ -242,7 +268,8 @@ namespace General.Repositorios
                                             detalle_preguntas,
                                             row.GetString("codigo_gde", ""),
                                             row.GetString("codigo_doc_electronico",""),
-                                            row.GetDateTime("fecha"));
+                                            row.GetDateTime("fecha"),
+                                            new VerificacionCodigoGdeDocumento(row.GetDateTime("fechaVerificacionGDE", DateTime.MinValue), VerificacionCodigoGdeDocumento.UsuarioVerifFromDB(row.GetSmallintAsInt("idUsuarioVerificadorGDE", 0))));
             }
 
             var unidad_evaluacion = UnidadDeEvaluacion.Nulio();
@@ -340,13 +367,31 @@ namespace General.Repositorios
             _conexion.Ejecutar("dbo.EVAL_DEL_Evaluacion_Detalle", parametros);
         }
 
-        public void EvalGuardarCodigoGDE(int id, string codigo_gde)
+        public void VerificarCodigoGDE(int id_evaluacion, Usuario usuario)
         {
             var parametros = new Dictionary<string, object>();
-            parametros.Add("@id_evaluacion", id);
+            parametros.Add("@idEvaluacion", id_evaluacion);
+            parametros.Add("@idPersonaVerificadora", usuario.Owner.Id);
+
+            _conexion.Ejecutar("dbo.EVAL_INS_VerificarCodigoGDE", parametros);
+        }
+
+        public void EvalGuardarCodigoGDE(int id_evaluacion, string codigo_gde)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_evaluacion", id_evaluacion);
             parametros.Add("@codigo_gde", codigo_gde);
 
             _conexion.Ejecutar("dbo.EVAL_UPD_CodigoGdeEvaluacion", parametros);
+        }
+
+        public void EvalCorregirCodigoGDE(int id, string codigo)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_evaluacion", id);
+            parametros.Add("@codigo_gde", codigo);
+
+            _conexion.Ejecutar("dbo.EVAL_ActualizarCodigoDocumentoGDE", parametros);
         }
 
         public PeriodoEvaluacion GetUltimoPeriodoEvaluacion()
