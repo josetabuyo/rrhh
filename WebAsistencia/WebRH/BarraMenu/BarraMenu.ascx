@@ -67,7 +67,7 @@
             <div id=barrita_acciones_usuario>
                 <a id="cambiar_contrasenia" rel="leanModal" class="" name="signup" href="#signup">Cambiar Contraseña</a>
                 <uc5:FormPassword ID="FormPassword" runat="server" />
-                <asp:Button ID="CerrarSessionLinkButton" CssClass="btn btn-primary"
+                <asp:Button ID="CerrarSessionLinkButton" CssClass="btn btn-primary" UseSubmitBehavior=false
                     runat="server" OnClick="CerrarSessionLinkButton_Click" Text="Cerrar Sesión">
                 </asp:Button>
             </div>

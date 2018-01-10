@@ -31,6 +31,8 @@ using General.MED;
 //using PdfPrinter.Core.Configuration;
 using System.Web.Hosting;
 using System.Runtime.Serialization.Formatters.Binary;
+using iTextSharp.text.pdf;
+using iTextSharp.text;
 
 
 [WebService(Namespace = "http://wsviaticos.gov.ar/")]
@@ -2985,13 +2987,75 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string GetPDFDDJJRecepcionCredencial(Usuario usuario)
     {
+        var foto = this.GetThumbnail(usuario.Owner.IdImagen, 100, 100);
+        while (foto.reintentar)
+        {
+            foto = this.GetThumbnail(usuario.Owner.IdImagen, 100, 100);            
+        }
         Dictionary<string, string> mapa_para_pdf = new Dictionary<string,string>();
-        mapa_para_pdf.Add("nyap", usuario.Owner.Nombre + " " + usuario.Owner.Apellido);
-        mapa_para_pdf.Add("dni", usuario.Owner.Documento.ToString());
+        //mapa_para_pdf.Add("CodigoBarras1", usuario.Owner.Documento.ToString());
+        mapa_para_pdf.Add("APELLIDONombre1", usuario.Owner.Apellido + ", " + usuario.Owner.Nombre);
+        mapa_para_pdf.Add("APELLIDONombreDNI1", usuario.Owner.Apellido + ", " + usuario.Owner.Nombre + " (" + usuario.Owner.Documento.ToString("#,##0") + ")");
+        mapa_para_pdf.Add("TipoNroDNI1", usuario.Owner.Documento.ToString("#,##0"));
+        mapa_para_pdf.Add("Fecha1", DateTime.Now.ToShortDateString());
+
+        mapa_para_pdf.Add("APELLIDONombreDNI2", usuario.Owner.Apellido + ", " + usuario.Owner.Nombre + " (" + usuario.Owner.Documento.ToString("#,##0") + ")");
+        mapa_para_pdf.Add("Fecha2", DateTime.Now.ToShortDateString());
+
         var creador_pdf = new CreadorDePdfs();
 
-        byte[] bytes = creador_pdf.FillPDF(TemplatePath("DDJJCredenciales.pdf"), "DDJJEntregaCredencial", mapa_para_pdf);
-        return Convert.ToBase64String(bytes);
+        byte[] bytes = creador_pdf.FillPDF(TemplatePath("DDJJ_entrega_credencial_2018.pdf"), "DDJJEntregaCredencial", mapa_para_pdf);
+
+        Document doc = new Document();
+        byte[] result;
+
+        using (MemoryStream ms = new MemoryStream())
+        {
+            PdfWriter writer = PdfWriter.GetInstance(doc, ms);
+
+            doc.SetPageSize(PageSize.LETTER);
+            doc.Open();
+            PdfContentByte cb = writer.DirectContent;
+            PdfImportedPage page;
+
+
+
+            PdfReader reader;
+            reader = new PdfReader(bytes);
+            int pages = reader.NumberOfPages;
+            // loop over document pages
+
+            doc.SetPageSize(PageSize.A4);
+            doc.NewPage();
+            page = writer.GetImportedPage(reader, 1);
+            cb.AddTemplate(page, 0, 0);
+
+            Barcode39 bc39 = new Barcode39();
+            bc39.Code = usuario.Owner.Documento.ToString();
+            bc39.Font = null;
+            Image image = bc39.CreateImageWithBarcode(cb, null, null);
+
+            image.SetAbsolutePosition(270, 750);
+            image.ScaleAbsolute(200, 50);
+            doc.Add(image);
+
+            Byte[] bytes_foto = Convert.FromBase64String(foto.bytes);
+            var foto_usuario = iTextSharp.text.Image.GetInstance(bytes_foto);
+
+            foto_usuario.SetAbsolutePosition(480, 640);
+            foto_usuario.ScaleAbsolute(100, 100);
+            doc.Add(foto_usuario);
+
+            doc.SetPageSize(PageSize.A4);
+            doc.NewPage();
+            page = writer.GetImportedPage(reader, 1);
+            cb.AddTemplate(page, 0, 0);
+
+            doc.Close();
+            result = ms.ToArray();
+        }
+
+        return Convert.ToBase64String(result);
     }
 
 
