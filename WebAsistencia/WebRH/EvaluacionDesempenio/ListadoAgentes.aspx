@@ -32,6 +32,8 @@
                         <option value="6">Regular</option>
                         <option value="7">Deficiente</option>
                     </select>
+                    <label for="periodo" style="margin-left: 10px; width: 170px;" > Periodo:</label>
+                        <select id="select_periodo"></select>
                     <div id="tablaAgentes" class="table table-striped table-bordered table-condensed">
                     </div>
                 </div>
@@ -68,7 +70,8 @@
 <script type="text/javascript" src="../scripts/vex-2.1.1/js/vex.combined.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function ($) {
-        Backend.start(function () {    
+        Backend.start(function () {
+            ListadoAgentes.getPeriodosEvaluacion();
             ListadoAgentes.getEvaluaciones();
         });
     });

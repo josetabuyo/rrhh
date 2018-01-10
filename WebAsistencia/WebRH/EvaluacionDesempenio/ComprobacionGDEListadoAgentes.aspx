@@ -38,6 +38,9 @@
                             <option value="6">Regular</option>
                             <option value="7">Deficiente</option>
                         </select>
+                        <label for="periodo" style="margin-left: 10px; width: 170px;" > Periodo:</label>
+                        <select id="select_periodo"></select>
+
                         <div id="tablaAgentes" class="table table-striped table-bordered table-condensed">
                         </div>
                     </div>
@@ -73,6 +76,7 @@
 <script type="text/javascript">
     $(document).ready(function ($) {
         Backend.start(function () {
+            ListadoAgentes.getPeriodosEvaluacion();
             ListadoAgentes.getEvaluaciones('Verificador');
         });
     });

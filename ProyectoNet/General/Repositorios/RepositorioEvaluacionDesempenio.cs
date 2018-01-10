@@ -118,6 +118,18 @@ namespace General.Repositorios
             return GetAgentesEvaluablesPor(usuario, true);
         }
 
+        public List<PeriodoEvaluacion> GetPeriodosEvaluacion(Usuario usuario)
+        {
+            var parametros = new Dictionary<string, object>();
+            var tablaDatos = _conexion.Ejecutar("dbo.EVAL_GET_PERIODOS_EVALUACION", parametros);
+            var result = new List<PeriodoEvaluacion>();
+            tablaDatos.Rows.ForEach(row =>
+                {
+                    result.Add(new PeriodoEvaluacion(row.GetSmallintAsInt("id"), row.GetString("descripcion"), row.GetDateTime("desde"), row.GetDateTime("hasta")));
+                });
+            return result;
+        }
+
         protected RespuestaGetAgentesEvaluablesPor GetAgentesEvaluablesPor(Usuario usuario, bool ModoVerificadorGDE)
         {
             var parametros = new Dictionary<string, object>();
