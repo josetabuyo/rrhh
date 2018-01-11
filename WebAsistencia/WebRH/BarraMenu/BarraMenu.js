@@ -84,9 +84,14 @@
             document.getElementById('dni_user').innerHTML = usuario.Owner.Documento;
             document.getElementById('email_user').innerHTML = usuario.MailRegistro;
 
-//            $('#btn_credenciales').click(function () {
-//                $("#plantillas_barra_menu").load(window.location.origin + '/BarraMenu/CredencialVigente.htm');
-//            });
+            $('#btn_credenciales').show();
+            $('#btn_credenciales').click(function () {
+                var div = $("<div>");
+                div.load(window.location.origin + '/Componentes/CredencialVigente.htm', function () {
+                    Componente.start(false, div);
+                });
+            });
+
 
             $('#cambiar-constrasena_usuario').click(function () {
 

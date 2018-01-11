@@ -76,6 +76,7 @@
         {
             margin-top: 10px;
             display: inline-block;
+            margin-left: 52px;
         }
         
         #pantalla_credencial_vigente #btn_renovar_credencial label
@@ -96,6 +97,7 @@
         <div id="documento"></div>    
         <div id="codigo_barras"></div>    
     </div>
+    <input type=button id=btn_renovar_credencial class= "btn btn-primary" value= "Solicitar Credencial"/>
 </div>
 <script type="text/javascript" src="../Scripts/jquery-barcode.js"/>
 <script type="text/javascript">
@@ -125,6 +127,108 @@
 //                                    Componente.start({credencial:credencial_vigente}, div);
 //                                });
 //                            });
+
+                            ui.find('#btn_renovar_credencial').click(function () {
+
+                                //var ui = $("#cajaCambiarDomicilio");
+
+                                vex.defaultOptions.className = 'vex-theme-os';
+                                vex.open({
+                                    afterOpen: function ($vexContent) {
+                                        var ui = $("#cajaSolicitudCredencial").clone();
+                                        $vexContent.append(ui);
+                                        Backend.GetUsuarioLogueado().onSuccess(function (usuario) {
+                                            ui.find("#apellido").text(usuario.Owner.Apellido);
+                                            ui.find("#nombres").text(usuario.Owner.Nombre);
+                                            ui.find("#documento").text(usuario.Owner.Documento);
+
+                                            var img = new VistaThumbnail({
+                                                id: usuario.Owner.IdImagen,
+                                                contenedor: ui.find("#foto_usuario")
+                                            });
+                                        });
+
+                                        ui.find("#btn_cambiar_foto").click(function () { $("#contenedor_foto_usuario").click(); });
+
+                                        Backend.GetLugaresEntregaCredencial()
+                                    .onSuccess(function (lugares) {
+                                        _.forEach(lugares, function (lugar) {
+                                            var opt = $("<option>");
+                                            opt.text(lugar.Descripcion);
+                                            opt.attr("value", lugar.IdLugar);
+                                            ui.find("#cmb_lugar_de_entrega").append(opt);
+                                        });
+                                    });
+                                        ui.find("#select_motivo").change(function () {
+                                            var val = ui.find("#select_motivo").val();
+
+                                            if (val == 0) {
+                                                ui.find("#texto_seleccione_motivo").show();
+                                                ui.find("#texto_deterioro").hide();
+                                                ui.find("#texto_robo").hide();
+                                            }
+
+                                            if (val == 1) {
+                                                ui.find("#texto_deterioro").show();
+                                                ui.find("#texto_robo").hide();
+                                                ui.find("#texto_seleccione_motivo").hide();
+                                            }
+
+                                            if (val == 2) {
+                                                ui.find("#texto_deterioro").hide();
+                                                ui.find("#texto_robo").show();
+                                                ui.find("#texto_seleccione_motivo").hide();
+                                            }
+
+                                            if (val == 3) {
+                                                ui.find("#texto_deterioro").hide();
+                                                ui.find("#texto_robo").show();
+                                                ui.find("#texto_seleccione_motivo").hide();
+                                            }
+
+                                            if (val == 4) {
+                                                ui.find("#texto_deterioro").hide();
+                                                ui.find("#texto_robo").hide();
+                                                ui.find("#texto_seleccione_motivo").hide();
+                                            }
+
+                                        });
+
+                                        ui.find("#btn_realizar_solicitud").click(function () {
+                                            if (ui.find("#select_motivo").val() == 0) {
+                                                return;
+                                            }
+
+                                            Backend.SolicitarRenovacionCredencial(ui.find("#select_motivo").val(), ui.find("#select_organismo").val(), ui.find("#cmb_lugar_de_entrega").val()).onSuccess(function () {
+                                                alertify.success("Solicitud creada con éxito");
+
+                                                vex.close();
+                                                setTimeout(function () { location.reload(); }, 1000);
+                                            });
+                                        });
+
+
+                                        ui.show();
+                                    },
+                                    css: {
+                                        'padding-top': "4%",
+                                        'padding-bottom': "0%"
+                                    },
+                                    contentCSS: {
+                                        width: "80%",
+                                        height: "90%"
+                                    }
+                                });
+                                //$('#cajaCambiarDomicilio').show();
+                            });
+
+
+
+
+
+
+
+
 
                             var img = new VistaThumbnail({
                                 id: credencial_vigente.IdFoto,

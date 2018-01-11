@@ -618,7 +618,15 @@ namespace General.Repositorios
         public bool SolicitarRenovacionCredencial(Usuario usuario_solicitante, string id_motivo, string id_organismo, int id_lugar_entrega)
         {
             RepositorioDeTickets repo = new RepositorioDeTickets(this.conexion);
-            var id_ticket = repo.crearTicket("solicitud_credencial", usuario_solicitante.Id);
+            int id_ticket = 0;
+            if(int.Parse(id_organismo) == 1) 
+            {           
+                id_ticket = repo.crearTicket("solicitud_credencial_mds", usuario_solicitante.Id);
+            }
+            if (int.Parse(id_organismo) == 2)
+            {
+                id_ticket = repo.crearTicket("solicitud_credencial_msal", usuario_solicitante.Id);
+            }
 
          //   var id_motivo = GetMotivosBajaCredencial().Find(x => x.Descripcion.Trim().ToUpper() == motivo.Trim().ToUpper()).Id;
           //  List<MotivoBaja> motivos = GetMotivosBajaCredencial();

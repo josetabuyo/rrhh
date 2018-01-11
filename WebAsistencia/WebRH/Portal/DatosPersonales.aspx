@@ -364,7 +364,6 @@
                 Legajo.getCredencialesUsuario();
             });
 
-            debugger;
             Backend.GetUsuarioLogueado().onSuccess(function (usuario) {
 
                 if (usuario.Owner.IdImagen == -1) {
