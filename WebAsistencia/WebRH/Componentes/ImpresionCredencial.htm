@@ -196,7 +196,7 @@
 <div id="pantalla_impresion_credencial">
     <h4 id="titulo_vista_previa">Credencial</h4>
     <div id="vista_previa_credencial">        
-        <img id="imagen_credencial" src="../BarraMenu/credencial.png"/>        
+        <img id="imagen_credencial" src=""/>        
         <div id="foto_usuario"></div>
         <div id="apellido"></div>    
         <div id="nombres"></div>    
@@ -238,6 +238,11 @@
                     ui.find("#nombres").text(usuario.Owner.Nombre);
                     ui.find("#documento").text(usuario.Owner.Documento);
                     ui.find("#lugar_de_entrega").text(solicitud.LugarEntrega.Descripcion);
+
+                    if (solicitud.Organismo == 'Ministerio de Desarrollo Social')
+                        ui.find("#imagen_credencial").attr('src', '../BarraMenu/credencialMDS.png');
+                    if (solicitud.Organismo == 'Ministerio de Salud')
+                        ui.find("#imagen_credencial").attr('src', '../BarraMenu/credencialMSAL.png');
 
                     var img = new VistaThumbnail({
                         id: solicitud.Credencial.IdFoto,
