@@ -33,6 +33,7 @@ namespace General
         private bool _estaCertificadoEnLaDDJJ;
         private string _certificaHoraDesdeDDJJ;
         private string _certificaHoraHastaDDJJ;
+        private Inasistencia _Ausencia;
 
         public int Id { get { return _id; } set { _id = value; } }
         public int Documento { get { return _Documento; } set { _Documento = value;  } }
@@ -59,7 +60,8 @@ namespace General
         public bool BajaLegajo { get; set; }
         public bool EstaCertificadoEnLaDDJJ { get { return _estaCertificadoEnLaDDJJ; } set { _estaCertificadoEnLaDDJJ = value; } }
         public string CertificaHoraDesdeDDJJ { get { return _certificaHoraDesdeDDJJ; } set { _certificaHoraDesdeDDJJ = value; } }
-        public string CertificaHoraHastaDDJJ { get { return _certificaHoraHastaDDJJ; } set { _certificaHoraHastaDDJJ = value; } }  
+        public string CertificaHoraHastaDDJJ { get { return _certificaHoraHastaDDJJ; } set { _certificaHoraHastaDDJJ = value; } }
+        public Inasistencia Ausencia { get { return _Ausencia; } set { _Ausencia = value; } }
 
         public Persona() { }
 

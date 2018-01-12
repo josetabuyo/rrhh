@@ -131,12 +131,9 @@ public partial class Principal : System.Web.UI.Page
         {
             linkAusencia.Text = "Ausencia";
             linkAusencia.Click += new EventHandler(linkAusencia_Click);
-            if (unaPersona.InasistenciaActual != null)
+            if (unaPersona.Ausencia != null)
             {
-                if (unaPersona.InasistenciaActual.Descripcion != null)
-                {
-                    if (!unaPersona.InasistenciaActual.Aprobada)
-                    {
+               
                         ibEliminarInasistencia = new ImageButton();
                         ibEliminarInasistencia.CssClass = "eliminar";
                         ibEliminarInasistencia.ImageUrl = "Imagenes/eliminar.PNG";
@@ -145,10 +142,9 @@ public partial class Principal : System.Web.UI.Page
                         ibEliminarInasistencia.Height = 15;
                         ibEliminarInasistencia.ToolTip = "Eliminar Inasistencia";
                         cell.Controls.Add(ibEliminarInasistencia);
-                    }
+                   
 
-                    linkAusencia.Text = unaPersona.InasistenciaActual.Descripcion;
-                }
+                    linkAusencia.Text = unaPersona.Ausencia.Motivo;
             }
         }
         cell.Controls.Add(linkAusencia);
@@ -215,7 +211,7 @@ public partial class Principal : System.Web.UI.Page
 
             WSViaticosSoapClient ws = new WSViaticosSoapClient();
             //WSViaticos.WSViaticos ws = new WSViaticos.WSViaticos();
-            ws.EliminarInasistenciaActual(persona);
+            ws.EliminarAusenciaActual(persona);
             Response.Redirect("~\\Principal.aspx");
             //this.Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('You clicked YES!')", true);
         }

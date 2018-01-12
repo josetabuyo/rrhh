@@ -380,13 +380,20 @@ public class WSViaticos : System.Web.Services.WebService
         repoPersonas.EliminarInasistenciaActual(unaPersona);
     }
 
-
+    
     [WebMethod]
     public void EliminarPasePendienteAprobacion(int id_pase)
     {
         PaseDeArea un_pase = new PaseDeArea();
         un_pase.Id = id_pase;
         this.EliminarPase(un_pase);
+    }
+
+    [WebMethod]
+    public void EliminarAusenciaActual(Persona unaPersona)
+    {
+        RepositorioPersonas repoPersonas = new RepositorioPersonas();
+        repoPersonas.EliminarAusenciaActual(unaPersona);
     }
 
     [WebMethod]

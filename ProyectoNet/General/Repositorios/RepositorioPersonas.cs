@@ -19,6 +19,7 @@ namespace General
             SqlDataReader dr;
             Inasistencia InasistenciaActual;
             PaseDeArea PasePendiente;
+            Inasistencia Ausencia;
 
             ConexionDB cn = new ConexionDB("dbo.Web_GetAgentesDelArea");
             cn.AsignarParametro("@idArea", unArea.Id);
@@ -31,6 +32,7 @@ namespace General
             {
                 InasistenciaActual = null;
                 PasePendiente = null;
+                Ausencia = null;
 
                 if (dr.GetValue(dr.GetOrdinal("nro_articulo")) != DBNull.Value)
                 {
@@ -69,6 +71,9 @@ namespace General
                                                          Descripcion = dr.GetValue(dr.GetOrdinal("planta")).ToString()
                                                      }
                               };
+
+
+                persona.Ausencia = this.traerAusenciasDePersona(persona.Id);
                 unArea.Personas.Add(persona);
             }
             cn.Desconestar();
@@ -124,11 +129,32 @@ namespace General
             this.EliminarInasistenciaALaFecha(unaPersona, DateTime.Today);
         }
 
+        
+
         public void EliminarInasistenciaALaFecha(Persona unaPersona, DateTime fecha)
         {
             ConexionDB cn = new ConexionDB("dbo.[Web_EliminarInasistenciaALaFecha]");
             cn.AsignarParametro("@nroDocumento", unaPersona.Documento);
             cn.AsignarParametro("@fecha", fecha.ToShortDateString());
+            cn.EjecutarSinResultado();
+            cn.Desconestar();
+        }
+
+        public void EliminarAusenciaActual(Persona unaPersona)
+        {
+            SqlDataReader dr;
+            ConexionDB cn = new ConexionDB("dbo.[WEB_Get_Personas]");
+            cn.AsignarParametro("@documento", unaPersona.Documento);
+            dr = cn.EjecutarConsulta();
+           
+            while (dr.Read())
+            { 
+                unaPersona.Id = dr.GetInt32(dr.GetOrdinal("ID")); 
+            }
+            
+
+            cn = new ConexionDB("dbo.[LIC_DEL_Ausencia]");
+            cn.AsignarParametro("@id", unaPersona.Id);
             cn.EjecutarSinResultado();
             cn.Desconestar();
         }
@@ -199,6 +225,42 @@ namespace General
             }
             cn.Desconestar();
             return unArea.Personas;
+        }
+
+        public Inasistencia traerAusenciasDePersona(int idPersona)
+        {
+            SqlDataReader dr;
+            //Inasistencia InasistenciaActual;
+            //PaseDeArea PasePendiente;
+
+            ConexionDB cn = new ConexionDB("dbo.LIC_GET_Ausencias");
+            cn.AsignarParametro("@idPersona", idPersona);
+            cn.AsignarParametro("@dia", DateTime.Today);
+            
+            
+            dr = cn.EjecutarConsulta();
+
+            Inasistencia ausencia;
+            ausencia = null;
+            while (dr.Read())
+            {
+
+                ausencia = new Inasistencia
+                {
+                    Id = dr.GetInt32(dr.GetOrdinal("id")),
+                    Persona = null,
+                    Motivo = dr.GetString(dr.GetOrdinal("descripcion")),
+                    Desde = dr.GetDateTime(dr.GetOrdinal("desde")),
+                    Hasta = dr.GetDateTime(dr.GetOrdinal("hasta")),
+                    Usuario = null
+
+                };
+               
+            }
+
+            cn.Desconestar();
+
+            return ausencia;
         }
 
 
