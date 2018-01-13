@@ -196,7 +196,7 @@
                 <br />
                 <h4 id="titulo_vista_previa">Vista Previa Credencial</h4>
                 <div id="vista_previa_credencial">
-                    <img id="imagen_credencial" src="../BarraMenu/credencial.png"/>
+                    <img id="imagen_credencial" src="../BarraMenu/credencialMds.png"/>
                     <div id="foto_usuario"></div>
                     <div id="apellido"></div>    
                     <div id="nombres"></div>    
