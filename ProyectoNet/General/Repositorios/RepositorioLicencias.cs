@@ -6,6 +6,7 @@ using General;
 using General.Repositorios;
 using System.Data.SqlClient;
 using System.Data;
+using General.MAU;
 
 namespace General.Repositorios
 {
@@ -1207,6 +1208,39 @@ namespace General.Repositorios
             catch (Exception e)
             {
                 return false;
+            }
+        }
+
+        public List<Inasistencia> getAusencias()
+        {
+            try
+            {
+                var parametros = new Dictionary<string, object>();
+
+                var tablaDatos = this.conexion.Ejecutar("LIC_GET_Ausencias_Sin_Justificar", parametros);
+
+                List<Inasistencia> inasistencias = new List<Inasistencia>();
+
+                tablaDatos.Rows.ForEach(row =>
+                {
+                    Persona persona = new Persona();
+                    persona.Documento = row.GetInt("NroDocumento");
+                    persona.Apellido = row.GetString("apellido");
+                    persona.Nombre = row.GetString("nombre");
+
+                    General.MAU.Usuario usuario = new General.MAU.Usuario(0, row.GetString("NombreUsu"), "", true);
+
+                    Inasistencia inasistencia = new Inasistencia(row.GetInt("id"), persona, row.GetString("descripcion"), row.GetDateTime("desde"), row.GetDateTime("hasta"), usuario);
+
+                    inasistencias.Add(inasistencia);
+                });
+
+                return inasistencias;
+
+            }
+            catch (Exception e)
+            {
+                return null;
             }
         }
 

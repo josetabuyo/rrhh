@@ -2,60 +2,11 @@
 <wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://wsviaticos.gov.ar/">
-      <s:element name="GetThumbnail">
+      <s:element name="ImportarArchivoExcel">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id_imagen" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="alto" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="ancho" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetThumbnailResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetThumbnailResult" type="tns:Imagen" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:complexType name="Imagen">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="bytes" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="reintentar" type="s:boolean" />
-        </s:sequence>
-      </s:complexType>
-      <s:element name="GetImagen">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id_imagen" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetImagenResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetImagenResult" type="tns:Imagen" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="SubirImagen">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="bytes_imagen" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="SubirImagenResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="SubirImagenResult" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="getAreaDeLaPersona">
-        <s:complexType>
-          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="nombreArchivo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="detalleExcel" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
@@ -253,6 +204,71 @@
           <s:element minOccurs="1" maxOccurs="1" name="basica" type="s:boolean" />
         </s:sequence>
       </s:complexType>
+      <s:element name="ImportarArchivoExcelResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ImportarArchivoExcelResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetThumbnail">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_imagen" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="alto" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ancho" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetThumbnailResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetThumbnailResult" type="tns:Imagen" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Imagen">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="bytes" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="reintentar" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetImagen">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_imagen" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetImagenResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetImagenResult" type="tns:Imagen" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SubirImagen">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="bytes_imagen" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SubirImagenResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SubirImagenResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getAreaDeLaPersona">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="getAreaDeLaPersonaResponse">
         <s:complexType>
           <s:sequence>
@@ -1199,6 +1215,33 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="BuscarCaracterParticipacionEvento">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuscarCaracterParticipacionEventoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BuscarCaracterParticipacionEventoResult" type="tns:ArrayOfCVCaracterDeParticipacionEvento" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfCVCaracterDeParticipacionEvento">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CVCaracterDeParticipacionEvento" nillable="true" type="tns:CVCaracterDeParticipacionEvento" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CVCaracterDeParticipacionEvento">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="SoloVisiblePara" type="s:int" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="AgregarCaracterParticipacionEvento">
         <s:complexType>
           <s:sequence>
@@ -1214,13 +1257,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="CVCaracterDeParticipacionEvento">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="SoloVisiblePara" type="s:int" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="BuscarInstitucionesEvento">
         <s:complexType>
           <s:sequence>
@@ -3171,19 +3207,19 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="ImportarArchivoExcel">
+      <s:element name="AceptarCambioImagenConImagenRecortada">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="nombreArchivo" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="detalleExcel" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_usuario" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_imagen_recortada" type="s:int" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="ImportarArchivoExcelResponse">
+      <s:element name="AceptarCambioImagenConImagenRecortadaResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ImportarArchivoExcelResult" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="AceptarCambioImagenConImagenRecortadaResult" type="s:boolean" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -4776,26 +4812,20 @@
           <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
         </s:sequence>
       </s:complexType>
-      <s:element name="BuscarCaracterParticipacionEvento">
+      <s:element name="AreasInferioresDe">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+            <s:element minOccurs="0" maxOccurs="1" name="area" type="tns:Area" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="BuscarCaracterParticipacionEventoResponse">
+      <s:element name="AreasInferioresDeResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="BuscarCaracterParticipacionEventoResult" type="tns:ArrayOfCVCaracterDeParticipacionEvento" />
+            <s:element minOccurs="0" maxOccurs="1" name="AreasInferioresDeResult" type="tns:ArrayOfArea" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="ArrayOfCVCaracterDeParticipacionEvento">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="CVCaracterDeParticipacionEvento" nillable="true" type="tns:CVCaracterDeParticipacionEvento" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="GetTodosLosDocumentos">
         <s:complexType />
       </s:element>
@@ -6092,22 +6122,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="AceptarCambioImagenConImagenRecortada">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id_usuario" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="id_imagen_recortada" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="AceptarCambioImagenConImagenRecortadaResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="AceptarCambioImagenConImagenRecortadaResult" type="s:boolean" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
       <s:element name="GetUsuarios">
         <s:complexType>
           <s:sequence>
@@ -6542,6 +6556,20 @@
       </s:element>
       <s:element name="EliminarAusenciaActualResponse">
         <s:complexType />
+      </s:element>
+      <s:element name="getAusencias">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getAusenciasResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getAusenciasResult" type="tns:ArrayOfInasistencia" />
+          </s:sequence>
+        </s:complexType>
       </s:element>
       <s:element name="EliminarPase">
         <s:complexType>
@@ -7728,22 +7756,14 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="AreasInferioresDe">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="area" type="tns:Area" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="AreasInferioresDeResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="AreasInferioresDeResult" type="tns:ArrayOfArea" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="ImportarArchivoExcelSoapIn">
+    <wsdl:part name="parameters" element="tns:ImportarArchivoExcel" />
+  </wsdl:message>
+  <wsdl:message name="ImportarArchivoExcelSoapOut">
+    <wsdl:part name="parameters" element="tns:ImportarArchivoExcelResponse" />
+  </wsdl:message>
   <wsdl:message name="GetThumbnailSoapIn">
     <wsdl:part name="parameters" element="tns:GetThumbnail" />
   </wsdl:message>
@@ -8073,6 +8093,12 @@
   </wsdl:message>
   <wsdl:message name="CTL_ACC_LoginSoapOut">
     <wsdl:part name="parameters" element="tns:CTL_ACC_LoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="BuscarCaracterParticipacionEventoSoapIn">
+    <wsdl:part name="parameters" element="tns:BuscarCaracterParticipacionEvento" />
+  </wsdl:message>
+  <wsdl:message name="BuscarCaracterParticipacionEventoSoapOut">
+    <wsdl:part name="parameters" element="tns:BuscarCaracterParticipacionEventoResponse" />
   </wsdl:message>
   <wsdl:message name="AgregarCaracterParticipacionEventoSoapIn">
     <wsdl:part name="parameters" element="tns:AgregarCaracterParticipacionEvento" />
@@ -8578,11 +8604,11 @@
   <wsdl:message name="Mobi_GetMovimientosSoapOut">
     <wsdl:part name="parameters" element="tns:Mobi_GetMovimientosResponse" />
   </wsdl:message>
-  <wsdl:message name="ImportarArchivoExcelSoapIn">
-    <wsdl:part name="parameters" element="tns:ImportarArchivoExcel" />
+  <wsdl:message name="AceptarCambioImagenConImagenRecortadaSoapIn">
+    <wsdl:part name="parameters" element="tns:AceptarCambioImagenConImagenRecortada" />
   </wsdl:message>
-  <wsdl:message name="ImportarArchivoExcelSoapOut">
-    <wsdl:part name="parameters" element="tns:ImportarArchivoExcelResponse" />
+  <wsdl:message name="AceptarCambioImagenConImagenRecortadaSoapOut">
+    <wsdl:part name="parameters" element="tns:AceptarCambioImagenConImagenRecortadaResponse" />
   </wsdl:message>
   <wsdl:message name="RechazarCambioDeImagenSoapIn">
     <wsdl:part name="parameters" element="tns:RechazarCambioDeImagen" />
@@ -9082,11 +9108,11 @@
   <wsdl:message name="BuscarTiposEventosAcademicosSoapOut">
     <wsdl:part name="parameters" element="tns:BuscarTiposEventosAcademicosResponse" />
   </wsdl:message>
-  <wsdl:message name="BuscarCaracterParticipacionEventoSoapIn">
-    <wsdl:part name="parameters" element="tns:BuscarCaracterParticipacionEvento" />
+  <wsdl:message name="AreasInferioresDeSoapIn">
+    <wsdl:part name="parameters" element="tns:AreasInferioresDe" />
   </wsdl:message>
-  <wsdl:message name="BuscarCaracterParticipacionEventoSoapOut">
-    <wsdl:part name="parameters" element="tns:BuscarCaracterParticipacionEventoResponse" />
+  <wsdl:message name="AreasInferioresDeSoapOut">
+    <wsdl:part name="parameters" element="tns:AreasInferioresDeResponse" />
   </wsdl:message>
   <wsdl:message name="GetTodosLosDocumentosSoapIn">
     <wsdl:part name="parameters" element="tns:GetTodosLosDocumentos" />
@@ -9508,12 +9534,6 @@
   <wsdl:message name="AceptarCambioDeImagenSoapOut">
     <wsdl:part name="parameters" element="tns:AceptarCambioDeImagenResponse" />
   </wsdl:message>
-  <wsdl:message name="AceptarCambioImagenConImagenRecortadaSoapIn">
-    <wsdl:part name="parameters" element="tns:AceptarCambioImagenConImagenRecortada" />
-  </wsdl:message>
-  <wsdl:message name="AceptarCambioImagenConImagenRecortadaSoapOut">
-    <wsdl:part name="parameters" element="tns:AceptarCambioImagenConImagenRecortadaResponse" />
-  </wsdl:message>
   <wsdl:message name="GetUsuariosSoapIn">
     <wsdl:part name="parameters" element="tns:GetUsuarios" />
   </wsdl:message>
@@ -9645,6 +9665,12 @@
   </wsdl:message>
   <wsdl:message name="EliminarAusenciaActualSoapOut">
     <wsdl:part name="parameters" element="tns:EliminarAusenciaActualResponse" />
+  </wsdl:message>
+  <wsdl:message name="getAusenciasSoapIn">
+    <wsdl:part name="parameters" element="tns:getAusencias" />
+  </wsdl:message>
+  <wsdl:message name="getAusenciasSoapOut">
+    <wsdl:part name="parameters" element="tns:getAusenciasResponse" />
   </wsdl:message>
   <wsdl:message name="EliminarPaseSoapIn">
     <wsdl:part name="parameters" element="tns:EliminarPase" />
@@ -10000,13 +10026,11 @@
   <wsdl:message name="AreasFormalesConInformales_JSONSoapOut">
     <wsdl:part name="parameters" element="tns:AreasFormalesConInformales_JSONResponse" />
   </wsdl:message>
-  <wsdl:message name="AreasInferioresDeSoapIn">
-    <wsdl:part name="parameters" element="tns:AreasInferioresDe" />
-  </wsdl:message>
-  <wsdl:message name="AreasInferioresDeSoapOut">
-    <wsdl:part name="parameters" element="tns:AreasInferioresDeResponse" />
-  </wsdl:message>
   <wsdl:portType name="WSViaticosSoap">
+    <wsdl:operation name="ImportarArchivoExcel">
+      <wsdl:input message="tns:ImportarArchivoExcelSoapIn" />
+      <wsdl:output message="tns:ImportarArchivoExcelSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetThumbnail">
       <wsdl:input message="tns:GetThumbnailSoapIn" />
       <wsdl:output message="tns:GetThumbnailSoapOut" />
@@ -10226,6 +10250,10 @@
     <wsdl:operation name="CTL_ACC_Login">
       <wsdl:input message="tns:CTL_ACC_LoginSoapIn" />
       <wsdl:output message="tns:CTL_ACC_LoginSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BuscarCaracterParticipacionEvento">
+      <wsdl:input message="tns:BuscarCaracterParticipacionEventoSoapIn" />
+      <wsdl:output message="tns:BuscarCaracterParticipacionEventoSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="AgregarCaracterParticipacionEvento">
       <wsdl:input message="tns:AgregarCaracterParticipacionEventoSoapIn" />
@@ -10563,9 +10591,9 @@
       <wsdl:input message="tns:Mobi_GetMovimientosSoapIn" />
       <wsdl:output message="tns:Mobi_GetMovimientosSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="ImportarArchivoExcel">
-      <wsdl:input message="tns:ImportarArchivoExcelSoapIn" />
-      <wsdl:output message="tns:ImportarArchivoExcelSoapOut" />
+    <wsdl:operation name="AceptarCambioImagenConImagenRecortada">
+      <wsdl:input message="tns:AceptarCambioImagenConImagenRecortadaSoapIn" />
+      <wsdl:output message="tns:AceptarCambioImagenConImagenRecortadaSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="RechazarCambioDeImagen">
       <wsdl:input message="tns:RechazarCambioDeImagenSoapIn" />
@@ -10899,9 +10927,9 @@
       <wsdl:input message="tns:BuscarTiposEventosAcademicosSoapIn" />
       <wsdl:output message="tns:BuscarTiposEventosAcademicosSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="BuscarCaracterParticipacionEvento">
-      <wsdl:input message="tns:BuscarCaracterParticipacionEventoSoapIn" />
-      <wsdl:output message="tns:BuscarCaracterParticipacionEventoSoapOut" />
+    <wsdl:operation name="AreasInferioresDe">
+      <wsdl:input message="tns:AreasInferioresDeSoapIn" />
+      <wsdl:output message="tns:AreasInferioresDeSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetTodosLosDocumentos">
       <wsdl:input message="tns:GetTodosLosDocumentosSoapIn" />
@@ -11183,10 +11211,6 @@
       <wsdl:input message="tns:AceptarCambioDeImagenSoapIn" />
       <wsdl:output message="tns:AceptarCambioDeImagenSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="AceptarCambioImagenConImagenRecortada">
-      <wsdl:input message="tns:AceptarCambioImagenConImagenRecortadaSoapIn" />
-      <wsdl:output message="tns:AceptarCambioImagenConImagenRecortadaSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="GetUsuarios">
       <wsdl:input message="tns:GetUsuariosSoapIn" />
       <wsdl:output message="tns:GetUsuariosSoapOut" />
@@ -11274,6 +11298,10 @@
     <wsdl:operation name="EliminarAusenciaActual">
       <wsdl:input message="tns:EliminarAusenciaActualSoapIn" />
       <wsdl:output message="tns:EliminarAusenciaActualSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getAusencias">
+      <wsdl:input message="tns:getAusenciasSoapIn" />
+      <wsdl:output message="tns:getAusenciasSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="EliminarPase">
       <wsdl:input message="tns:EliminarPaseSoapIn" />
@@ -11511,13 +11539,18 @@
       <wsdl:input message="tns:AreasFormalesConInformales_JSONSoapIn" />
       <wsdl:output message="tns:AreasFormalesConInformales_JSONSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="AreasInferioresDe">
-      <wsdl:input message="tns:AreasInferioresDeSoapIn" />
-      <wsdl:output message="tns:AreasInferioresDeSoapOut" />
-    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="WSViaticosSoap" type="tns:WSViaticosSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ImportarArchivoExcel">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ImportarArchivoExcel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetThumbnail">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetThumbnail" style="document" />
       <wsdl:input>
@@ -12006,6 +12039,15 @@
     </wsdl:operation>
     <wsdl:operation name="CTL_ACC_Login">
       <soap:operation soapAction="http://wsviaticos.gov.ar/CTL_ACC_Login" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarCaracterParticipacionEvento">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarCaracterParticipacionEvento" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -12769,8 +12811,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ImportarArchivoExcel">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/ImportarArchivoExcel" style="document" />
+    <wsdl:operation name="AceptarCambioImagenConImagenRecortada">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/AceptarCambioImagenConImagenRecortada" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -13525,8 +13567,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="BuscarCaracterParticipacionEvento">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarCaracterParticipacionEvento" style="document" />
+    <wsdl:operation name="AreasInferioresDe">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/AreasInferioresDe" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -14164,15 +14206,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="AceptarCambioImagenConImagenRecortada">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/AceptarCambioImagenConImagenRecortada" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetUsuarios">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetUsuarios" style="document" />
       <wsdl:input>
@@ -14364,6 +14397,15 @@
     </wsdl:operation>
     <wsdl:operation name="EliminarAusenciaActual">
       <soap:operation soapAction="http://wsviaticos.gov.ar/EliminarAusenciaActual" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAusencias">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/getAusencias" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -14902,18 +14944,18 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="AreasInferioresDe">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/AreasInferioresDe" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="WSViaticosSoap12" type="tns:WSViaticosSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ImportarArchivoExcel">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ImportarArchivoExcel" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetThumbnail">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetThumbnail" style="document" />
       <wsdl:input>
@@ -15402,6 +15444,15 @@
     </wsdl:operation>
     <wsdl:operation name="CTL_ACC_Login">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/CTL_ACC_Login" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarCaracterParticipacionEvento">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarCaracterParticipacionEvento" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -16165,8 +16216,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ImportarArchivoExcel">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/ImportarArchivoExcel" style="document" />
+    <wsdl:operation name="AceptarCambioImagenConImagenRecortada">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/AceptarCambioImagenConImagenRecortada" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -16921,8 +16972,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="BuscarCaracterParticipacionEvento">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarCaracterParticipacionEvento" style="document" />
+    <wsdl:operation name="AreasInferioresDe">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/AreasInferioresDe" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -17560,15 +17611,6 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="AceptarCambioImagenConImagenRecortada">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/AceptarCambioImagenConImagenRecortada" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetUsuarios">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetUsuarios" style="document" />
       <wsdl:input>
@@ -17760,6 +17802,15 @@
     </wsdl:operation>
     <wsdl:operation name="EliminarAusenciaActual">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/EliminarAusenciaActual" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAusencias">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/getAusencias" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -18291,15 +18342,6 @@
     </wsdl:operation>
     <wsdl:operation name="AreasFormalesConInformales_JSON">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/AreasFormalesConInformales_JSON" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="AreasInferioresDe">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/AreasInferioresDe" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

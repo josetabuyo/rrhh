@@ -397,6 +397,15 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public Inasistencia[] getAusencias(Usuario usuario)
+    {
+        RepositorioLicencias repositorio = new RepositorioLicencias(Conexion());
+
+        return repositorio.getAusencias().ToArray();
+
+    }
+
+    [WebMethod]
     public void EliminarPase(PaseDeArea unPase)
     {
         RepositorioPasesDeArea repositorio = new RepositorioPasesDeArea();
