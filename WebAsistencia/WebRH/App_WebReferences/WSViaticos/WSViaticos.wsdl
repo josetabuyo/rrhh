@@ -3706,10 +3706,49 @@
       <s:element name="GetPDFDDJJRecepcionCredencial">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+            <s:element minOccurs="0" maxOccurs="1" name="solicitud" type="tns:SolicitudCredencial" />
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:complexType name="SolicitudCredencial">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdPersona" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="TipoCredencial" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Motivo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Organismo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Estado" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Fecha" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdTicketAprobacion" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdTicketImpresion" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdTicketEntrega" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Credencial" type="tns:Credencial" />
+          <s:element minOccurs="0" maxOccurs="1" name="LugarEntrega" type="tns:LugarEntrega" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Credencial">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="Tipo" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaAlta" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="UsuarioAlta" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Organismo" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdFoto" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Estado" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Impresa" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Entregada" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodigoMagnetico" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="LugarEntrega">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdLugar" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Desde" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Baja" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="GetPDFDDJJRecepcionCredencialResponse">
         <s:complexType>
           <s:sequence>
@@ -3736,20 +3775,6 @@
           <s:element minOccurs="0" maxOccurs="unbounded" name="Credencial" nillable="true" type="tns:Credencial" />
         </s:sequence>
       </s:complexType>
-      <s:complexType name="Credencial">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:long" />
-          <s:element minOccurs="0" maxOccurs="1" name="Tipo" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="FechaAlta" type="s:dateTime" />
-          <s:element minOccurs="0" maxOccurs="1" name="UsuarioAlta" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Organismo" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="IdFoto" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Estado" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="Impresa" type="s:boolean" />
-          <s:element minOccurs="1" maxOccurs="1" name="Entregada" type="s:boolean" />
-          <s:element minOccurs="0" maxOccurs="1" name="CodigoMagnetico" type="s:string" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="GetSolicitudesDeCredencialPorPersona">
         <s:complexType>
           <s:sequence>
@@ -3767,31 +3792,6 @@
       <s:complexType name="ArrayOfSolicitudCredencial">
         <s:sequence>
           <s:element minOccurs="0" maxOccurs="unbounded" name="SolicitudCredencial" nillable="true" type="tns:SolicitudCredencial" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="SolicitudCredencial">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="IdPersona" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="TipoCredencial" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Motivo" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Organismo" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Estado" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="Fecha" type="s:dateTime" />
-          <s:element minOccurs="1" maxOccurs="1" name="IdTicketAprobacion" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="IdTicketImpresion" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="IdTicketEntrega" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Credencial" type="tns:Credencial" />
-          <s:element minOccurs="0" maxOccurs="1" name="LugarEntrega" type="tns:LugarEntrega" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="LugarEntrega">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="IdLugar" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="Desde" type="s:dateTime" />
-          <s:element minOccurs="1" maxOccurs="1" name="Baja" type="s:boolean" />
-          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="GetLugaresEntregaCredencial">

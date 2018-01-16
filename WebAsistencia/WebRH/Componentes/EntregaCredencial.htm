@@ -141,7 +141,7 @@
                     });
 
                     ui.find("#lnk_formulario").click(function () {
-                        Backend.GetPDFDDJJRecepcionCredencial()
+                        Backend.GetPDFDDJJRecepcionCredencial(solicitud) 
                             .onSuccess(function (base64pdf) {
                                 var lnk = $("<a>blabla<a/>");
                                 lnk.attr("href", "data:application/octet-stream;base64," + base64pdf);

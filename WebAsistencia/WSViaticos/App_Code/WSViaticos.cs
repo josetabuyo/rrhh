@@ -2999,21 +2999,23 @@ public class WSViaticos : System.Web.Services.WebService
     #region Credenciales
 
     [WebMethod]
-    public string GetPDFDDJJRecepcionCredencial(Usuario usuario)
+    public string GetPDFDDJJRecepcionCredencial(SolicitudCredencial solicitud)
     {
-        var foto = this.GetThumbnail(usuario.Owner.IdImagen, 100, 100);
+        var solicitante = RepositorioDePersonas().GetPersonaPorId(solicitud.IdPersona);
+
+        var foto = this.GetThumbnail(solicitante.IdImagen, 100, 100);
         while (foto.reintentar)
         {
-            foto = this.GetThumbnail(usuario.Owner.IdImagen, 100, 100);            
+            foto = this.GetThumbnail(solicitante.IdImagen, 100, 100);            
         }
         Dictionary<string, string> mapa_para_pdf = new Dictionary<string,string>();
         //mapa_para_pdf.Add("CodigoBarras1", usuario.Owner.Documento.ToString());
-        mapa_para_pdf.Add("APELLIDONombre1", usuario.Owner.Apellido + ", " + usuario.Owner.Nombre);
-        mapa_para_pdf.Add("APELLIDONombreDNI1", usuario.Owner.Apellido + ", " + usuario.Owner.Nombre + " (" + usuario.Owner.Documento.ToString("#,##0") + ")");
-        mapa_para_pdf.Add("TipoNroDNI1", usuario.Owner.Documento.ToString("#,##0"));
+        mapa_para_pdf.Add("APELLIDONombre1", solicitante.Apellido + ", " + solicitante.Nombre);
+        mapa_para_pdf.Add("APELLIDONombreDNI1", solicitante.Apellido + ", " + solicitante.Nombre + " (" + solicitante.Documento.ToString("#,##0") + ")");
+        mapa_para_pdf.Add("TipoNroDNI1", solicitante.Documento.ToString("#,##0"));
         mapa_para_pdf.Add("Fecha1", DateTime.Now.ToShortDateString());
 
-        mapa_para_pdf.Add("APELLIDONombreDNI2", usuario.Owner.Apellido + ", " + usuario.Owner.Nombre + " (" + usuario.Owner.Documento.ToString("#,##0") + ")");
+        mapa_para_pdf.Add("APELLIDONombreDNI2", solicitante.Apellido + ", " + solicitante.Nombre + " (" + solicitante.Documento.ToString("#,##0") + ")");
         mapa_para_pdf.Add("Fecha2", DateTime.Now.ToShortDateString());
 
         var creador_pdf = new CreadorDePdfs();
@@ -3045,7 +3047,7 @@ public class WSViaticos : System.Web.Services.WebService
             cb.AddTemplate(page, 0, 0);
 
             Barcode39 bc39 = new Barcode39();
-            bc39.Code = usuario.Owner.Documento.ToString();
+            bc39.Code = solicitante.Documento.ToString();
             bc39.Font = null;
             Image image = bc39.CreateImageWithBarcode(cb, null, null);
 
