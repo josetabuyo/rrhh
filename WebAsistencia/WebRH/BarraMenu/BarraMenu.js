@@ -85,7 +85,7 @@
             document.getElementById('email_user').innerHTML = usuario.MailRegistro;
 
             $('#btn_credenciales').show();
-            $('#btn_credenciales').click(function () {
+            $('#btn_credenciales, #btn_Credencial_vigente').click(function () {
                 var div = $("<div>");
                 div.load(window.location.origin + '/Componentes/CredencialVigente.htm', function () {
                     Componente.start(false, div);

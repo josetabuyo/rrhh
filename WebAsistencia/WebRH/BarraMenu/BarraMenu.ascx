@@ -32,6 +32,10 @@
         <div id="boton_home">
             <img src="<%= UrlImagenes %>Home-icono.png" id="home_imagen" alt="homeicono" />
         </div>
+
+        <input type="button" id="btn_Credencial_vigente" style="position: absolute; right: 280px; top: -6px;" 
+        value="Credencial" class="btn btn-primary"/>
+
         <div id="contenedor_imagen_usuario">
             <img src="<%= UrlImagenes %>portal/portal_empleado.png" id="foto_usuario_icono" alt="fotouser" />
             <div id="imagen">

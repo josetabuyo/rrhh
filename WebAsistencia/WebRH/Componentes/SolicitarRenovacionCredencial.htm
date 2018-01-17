@@ -143,8 +143,8 @@
             <select class="combo" id="select_organismo">
                                 
             <option value="1">Ministerio de Desarrollo Social</option>
-            <%--   <option value="2">Ministerio de Salud</option>
-            <option value="3">Externo</option>     --%>
+            <option value="2">Ministerio de Salud</option>
+            
             </select>                    
 
         </div>
@@ -194,6 +194,13 @@
                     });
 
                     ui.find("#btn_cambiar_foto").click(function () { $("#contenedor_foto_usuario").click(); });
+
+                    ui.find("#select_organismo").change(function () {
+                        if (ui.find("#select_organismo").val() == '1')
+                            ui.find("#imagen_credencial").attr('src', '../BarraMenu/credencialMDS.png');
+                        if (ui.find("#select_organismo").val() == '2')
+                            ui.find("#imagen_credencial").attr('src', '../BarraMenu/credencialMSAL.png');
+                    });
 
                     Backend.GetLugaresEntregaCredencial()
                                     .onSuccess(function (lugares) {
