@@ -4943,6 +4943,10 @@ public class WSViaticos : System.Web.Services.WebService
         return RepositorioDeComites.Nuevo(Conexion());
     }
 
+    private RepositorioDeArchivos RepositorioDeArchivos()
+    {
+        return new RepositorioDeArchivos(Conexion());
+    }
 
     /*Excel Consulta Personas DDJJ104*/
     [WebMethod]
@@ -5186,13 +5190,13 @@ public class WSViaticos : System.Web.Services.WebService
     {
         //tira error porque puede ser null el tipo liquidacion y los demas, poner un '' o 0 y verificar aca
         RepositorioLegajo repo = RepoLegajo();
-
-        return repo.GetRecibosResumen(tipoLiquidacion,anio, mes);
+        //TODO VER:     obtengo los recibos NO firmados
+        return repo.GetRecibosResumen(tipoLiquidacion, anio, mes);
     }
 
     /////////////////VER
     [WebMethod]
-    public string GetReciboPDF(int id_recibo)
+    public string GetReciboPDFEmpleador(int id_recibo)
     {
         RepositorioLegajo repo = RepoLegajo();
         Recibo recibo;
@@ -5209,11 +5213,20 @@ public class WSViaticos : System.Web.Services.WebService
         var converter = new GenReciboToPdfConverter();
         var mapa_para_pdf = converter.CrearMapa(modelo_para_pdf);
         var creador_pdf = new CreadorDePdfs();
+        byte[] bytes;
 
-        //el nombre del pdf va a ser el idRecibo
-        byte[] bytes = creador_pdf.FillPDF(TemplatePath("ReciboEmpleador.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
-        //byte[] bytes2 = creador_pdf.AgregarImagenAPDF(bytes, bytes_img);
-
+        if (mapa_para_pdf["paginasPDF"] == "una")
+        {
+            //el nombre del pdf generado va a ser el idRecibo
+            bytes = creador_pdf.FillPDF(TemplatePath("ReciboEmpleador_v6.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
+            //byte[] bytes2 = creador_pdf.AgregarImagenAPDF(bytes, bytes_img);
+        }
+        else {
+            //el nombre del pdf generado va a ser el idRecibo
+            bytes = creador_pdf.FillPDF(TemplatePath("ReciboEmpleador_v6b.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
+             
+        } 
+       
         //return Convert.ToBase64String(bytes2);
         return Convert.ToBase64String(bytes);
 
@@ -5224,5 +5237,82 @@ public class WSViaticos : System.Web.Services.WebService
 
   ///      return x.Cabecera ;
     }
+
+    [WebMethod]
+    public string GetReciboPDFEmpleado(int id_recibo)
+    {
+        RepositorioLegajo repo = RepoLegajo();
+        Recibo recibo;
+
+        //para trabajarlo como objeto es mejor definir un objeto que traiga el recibo, asi se puede acceder a
+        //sus propiedades desde el back(desde el front con js se puede acceder), porque no se puede acceder a campos 
+        //especificos del objecto recibo cuando el casteo es a object.
+
+        //datos del recibo a rellenar    
+        recibo = repo.GetReciboDeSueldoPorID(id_recibo);
+
+        //
+        var modelo_para_pdf = new List<object>() { recibo };
+        var converter = new GenReciboEmpleadoToPdfConverter();
+        var mapa_para_pdf = converter.CrearMapa(modelo_para_pdf);
+        var creador_pdf = new CreadorDePdfs();
+
+        byte[] bytes;
+
+        if (mapa_para_pdf["paginasPDF"] == "una")
+        {
+            //el nombre del pdf generado va a ser el idRecibo
+            bytes = creador_pdf.FillPDF(TemplatePath("ReciboEmpleado_v2.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
+            //byte[] bytes2 = creador_pdf.AgregarImagenAPDF(bytes, bytes_img);
+        }
+        else
+        {
+            //el nombre del pdf generado va a ser el idRecibo
+            bytes = creador_pdf.FillPDF(TemplatePath("ReciboEmpleado_v2b.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
+
+        }
+        return Convert.ToBase64String(bytes);
+
+        //////////////////////////////////
+        ///      Object x = JsonConvert.DeserializeObject<Object>(datos);
+        ///      //JsonConvert.SerializeObject(x);
+
+
+        ///      return x.Cabecera ;
+    }
+
+    [WebMethod]///////VER con JAVI
+    public int SubirReciboPDFFirmado(string bytes_pdf)
+    {
+        int id_archivo=0;
+        try
+        {//COMO el proceso de guardado desde la tabla de la BD al disco es externo, no genero una subclase de archivo
+         //que tendria el path de disco donde guardar el archivo. Se puede agregar una clase con propieda la clase archivo 
+            //subo el archivo firmado y actualiza la tabla que indica que el idRecibo fue firmado
+  //          id_archivo = RepositorioDeArchivosPDF().GuardarArchivoPDF(bytes_pdf);
+
+            return id_archivo;
+        }
+        catch (Exception ex)
+        {   //si se puedo subir el archivo a disco actualizo la tabla de recibo firmado
+            return -1;
+          //  throw ex; si relanzo la exception, en el cliente se lo toma como exception javascript?
+        }
+
+    }
+
+    /*   [WebMethod]
+       public string GetReciboPDFEmpleado(int id_recibo)
+       {
+           return new RepositorioDeImagenes(Conexion()).SubirImagen(bytes_imagen);
+       }
+        * 
+        * 
+        * Numalet.ToCardinal(8,25);
+        * 
+        * 
+        * 
+          }*/
+
 
 }

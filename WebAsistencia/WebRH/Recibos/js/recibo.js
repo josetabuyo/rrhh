@@ -95,12 +95,12 @@ var RECIBOS = (function (window, undefined) {
     }
 
     //descarga archivo ya codificado en base64
-    function downloadRemoteDataB64POST(url, params, successFunction, errorFunction) {
+    function downloadRemoteDataB64POSTXXXXXXXYO(url, params, successFunction, errorFunction) {
 
         downloadSuccessFunction = successFunction;
         downloadErrorFunction = errorFunction;
 
-        var httpRequest = getHttpRequest();
+        var httpRequest = Generales.getHttpRequest();
         httpRequest.open("POST", url, true);
         httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
@@ -129,6 +129,42 @@ var RECIBOS = (function (window, undefined) {
             //				}
         }
         httpRequest.send(params);
+    }
+    //Modo actual
+    function downloadRemoteDataB64POSTEmpleador(url, idRecibo, params, successFunction, errorFunction) {
+
+        downloadSuccessFunction = successFunction;
+        downloadErrorFunction = errorFunction;
+
+        Backend.GetReciboPDFEmpleador(params)
+                .onSuccess(function (res) {
+
+                   //en el caso de los archivos estos ya vienen en b64 porque aun no encontre una funcion de conversion a b64 que codifique correctamente desde javascript
+                   downloadSuccessFunction(res,idRecibo);
+                })
+            .onError(function (e) {
+                   downloadErrorFunction(e);
+            });
+
+        
+    }
+
+    function downloadRemoteDataB64POSTEmpleado(url, idRecibo, params, successFunction, errorFunction) {
+
+        downloadSuccessFunction = successFunction;
+        downloadErrorFunction = errorFunction;
+
+        Backend.GetReciboPDFEmpleado(params)
+                .onSuccess(function (res) {
+
+                    //en el caso de los archivos estos ya vienen en b64 porque aun no encontre una funcion de conversion a b64 que codifique correctamente desde javascript
+                    downloadSuccessFunction(res, idRecibo);
+                })
+            .onError(function (e) {
+                downloadErrorFunction(e);
+            });
+
+
     }
 
     function firmarRecibosxxxx(lista_recibos_resumen) {
@@ -179,7 +215,8 @@ var RECIBOS = (function (window, undefined) {
     return {
         getTiposLiquidacion: getTiposLiquidacion,
         getRecibos: getRecibos,
-        downloadRemoteDataB64POST: downloadRemoteDataB64POST
+        downloadRemoteDataB64POSTEmpleador: downloadRemoteDataB64POSTEmpleador,
+        downloadRemoteDataB64POSTEmpleado: downloadRemoteDataB64POSTEmpleado
     }
 
 })(window, undefined);

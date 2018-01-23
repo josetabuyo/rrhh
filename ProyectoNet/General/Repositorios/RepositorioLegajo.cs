@@ -386,17 +386,21 @@ namespace General.Repositorios
                 cabeceraRecibo.Oficina = tablaDatos.Rows.First().GetSmallintAsInt("Oficina", 0);
                 cabeceraRecibo.Orden = tablaDatos.Rows.First().GetSmallintAsInt("Orden", 0);
                 cabeceraRecibo.Bruto = tablaDatos.Rows.First().GetString("SBruto", "");
-                cabeceraRecibo.Neto = tablaDatos.Rows.First().GetString("SNeto", "");
+                //cabeceraRecibo.Neto = tablaDatos.Rows.First().GetFloat("SNeto").ToString("C2");
+                cabeceraRecibo.Neto = tablaDatos.Rows.First().GetString("SNeto","");
                 cabeceraRecibo.Descuentos = tablaDatos.Rows.First().GetString("SDescuentos", "");
                 cabeceraRecibo.NivelGrado = tablaDatos.Rows.First().GetString("NivelGrado", "");
                 cabeceraRecibo.Area = tablaDatos.Rows.First().GetString("area", "");
                 cabeceraRecibo.Domicilio = tablaDatos.Rows.First().GetString("Domicilio", "");
                 cabeceraRecibo.FechaLiquidacion = tablaDatos.Rows.First().GetString("F_Liquidacion", "");
                 cabeceraRecibo.OpcionJubilatoria = tablaDatos.Rows.First().GetString("opcionJubilatoria", "");
-                cabeceraRecibo.TipoLiquidacion = tablaDatos.Rows.First().GetString("TipoLiquidacion", "");
+                cabeceraRecibo.TipoLiquidacion = tablaDatos.Rows.First().GetInt("TipoLiquidacion", 0);
                 cabeceraRecibo.DescripcionTipoLiquidacionYMas = tablaDatos.Rows.First().GetString("tipo_liquidacion", "");
-                cabeceraRecibo.Nro_Documento = tablaDatos.Rows.First().GetString("Nro_Documento", "");
+                cabeceraRecibo.Nro_Documento = tablaDatos.Rows.First().GetInt("Nro_Documento", 0);
                 cabeceraRecibo.Fecha_deposito = tablaDatos.Rows.First().GetDateTime("F_Deposito");
+
+                cabeceraRecibo.FechaIngreso = tablaDatos.Rows.First().GetDateTime("FechaIngreso");
+                cabeceraRecibo.CuentaBancaria = tablaDatos.Rows.First().GetString("Banco");
 
             }
 
@@ -415,6 +419,7 @@ namespace General.Repositorios
 
             tablaDatos.Rows.ForEach(row =>
             {
+                un_detalle = new Detalle();
                 un_detalle.Concepto = row.GetString("Concepto", "");
                 un_detalle.Aporte = row.GetDecimal("Aporte", 0);
                 un_detalle.Descuento = row.GetDecimal("Descuento", 0);

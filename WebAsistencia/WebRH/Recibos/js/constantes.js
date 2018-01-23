@@ -24,7 +24,7 @@ var Constants = {
 		/*TRABAJO: como no se soporta jnlp hay que trabajar con https
 		 * URL_BASE_JNLP:"https://www.milocal.com:8443/AutofirmaJWS/autofirma.jsp"*/
 		
-		URL_BASE_APP : "https://www.milocal.com:8443/AutofirmaJWS",
+		URL_BASE_APP : "http://localhost:43414/",
 		/*para que en el server se pueda ejecutar jnlp por https hay que configurarlo
 		 * sino el navegador no ejecutara la app por considerar cors de http a https
 		 * la diferencia es que si con el protocolo jnlp se lanza la aplicacion directamente
@@ -34,7 +34,7 @@ var Constants = {
 		 * */
 		//Para facu que soporta jnlp   
 		//URL_BASE_JNLP:"jnlp://www.milocal.com:8080/AutofirmaJWS/autofirma.jsp"
-		URL_BASE_JNLP:"https://www.milocal.com:8443/AutofirmaJWS/autofirma.jsp",		
+		URL_BASE_JNLP:"http://localhost:43414/Recibos/autofirmaJNLP.aspx",		
 		URL_BASE_TRIFASICA:"http://www.milocal.com:8081/afirma-server-triphase-signer/SignatureService",
 	
 		URL_BASE_SERVICES : "https://www.milocal.com:8444/ValidacionWS/services/",

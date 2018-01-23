@@ -7,6 +7,7 @@ namespace General
 {
     public class Cabecera
     {
+        //datos para ambos recibos
         public int idRecibo { get; set; }
         public int Legajo { get; set; }
         public string Agente { get; set; }
@@ -18,13 +19,18 @@ namespace General
         public string Descuentos { get; set; }
         public string NivelGrado { get; set; }
         public string Area { get; set; }
-        public string Domicilio { get; set; }
         public string FechaLiquidacion { get; set; }
         public string OpcionJubilatoria { get; set; }
-        public string TipoLiquidacion { get; set; }
-        public string DescripcionTipoLiquidacionYMas { get; set; }
-        public string Nro_Documento { get; set; }
+        public int TipoLiquidacion { get; set; }
+        public int Nro_Documento { get; set; }
         public DateTime Fecha_deposito { get; set; }
+
+        //datos para el recibo del empleador
+        public string Domicilio { get; set; }
+        public string DescripcionTipoLiquidacionYMas { get; set; }
+        //datos para el recibo del empleado
+        public DateTime FechaIngreso { get; set; }
+        public string CuentaBancaria { get; set; }
 
         public Cabecera() { }
 

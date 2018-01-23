@@ -1619,11 +1619,11 @@ var MiniApplet = ( function ( window, undefined ) {
 					  console.log("Probamos jnlp://");
 					  //alert("No dispone de AutoFirma instalado. Se va a probar la versiÃ³n online");
 					  //setTimeout(window.focus,0);
-					  window.protocolCheck(jnlpServiceAddress+'?cadenaFirma='+encodeURIComponent("afirma://service?ports=" + portsLine + separador + "v=" + PROTOCOL_VERSION + separador + "idsession=" + idSession),null,
+					  window.protocolCheck(jnlpServiceAddress+'?'+ 'host=' + Constants.URL_BASE_APP + '&cadenaFirma='+encodeURIComponent("afirma://service?ports=" + portsLine + separador + "v=" + PROTOCOL_VERSION + separador + "idsession=" + idSession),null,
 					           function () {
 						  		   console.log("Probamos http://");
 						  		   bJNLP = false;
-					               openUrl(jnlpServiceAddress.replace("jnlp","https")+'?cadenaFirma='+encodeURIComponent("afirma://service?ports=" + portsLine + separador + "v=" + PROTOCOL_VERSION + separador+ "idsession=" + idSession));
+						  		   openUrl(jnlpServiceAddress.replace("jnlp", "https") + '?' + 'host=' + Constants.URL_BASE_APP + '&cadenaFirma=' + encodeURIComponent("afirma://service?ports=" + portsLine + separador + "v=" + PROTOCOL_VERSION + separador + "idsession=" + idSession));
 					           });
 				  //});
 				}else{
