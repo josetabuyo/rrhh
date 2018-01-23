@@ -62,8 +62,8 @@
         vex.defaultOptions.className = 'vex-theme-os';
         vex.open({
             afterOpen: function ($vexContent) {
-                $vexContent.load(window.location.origin + '/componentes/justificarAusencia', function () {
-                    Componente.start(ausencia, $vexContent);
+                $vexContent.load(window.location.origin + '/componentes/justificarAusencia.htm', function () {
+                    Componente.start(ausencia, $vexContent)                                                                                                                                                               ;
                 });
 
                 return $vexContent;

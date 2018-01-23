@@ -406,6 +406,17 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public bool guardarJustificacion(Justificacion justificaion, Usuario usuario)
+    {
+        RepositorioLicencias repositorio = new RepositorioLicencias(Conexion());
+
+        return repositorio.guardarJustificacion(justificaion, usuario);
+
+    }
+
+    
+
+    [WebMethod]
     public void EliminarPase(PaseDeArea unPase)
     {
         RepositorioPasesDeArea repositorio = new RepositorioPasesDeArea();

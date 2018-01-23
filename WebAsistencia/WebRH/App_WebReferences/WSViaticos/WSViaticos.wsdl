@@ -2,6 +2,37 @@
 <wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://wsviaticos.gov.ar/">
+      <s:element name="Mobi_GetMovimientos">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_bien" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Mobi_GetMovimientosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Mobi_GetMovimientosResult" type="tns:ArrayOfMoBi_Evento" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfMoBi_Evento">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MoBi_Evento" nillable="true" type="tns:MoBi_Evento" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MoBi_Evento">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Receptor" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Operador" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Responsable" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Area" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Observaciones" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TipoEvento" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Fecha" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="ImportarArchivoExcel">
         <s:complexType>
           <s:sequence>
@@ -1215,6 +1246,31 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="BuscarTiposEventosAcademicos">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuscarTiposEventosAcademicosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BuscarTiposEventosAcademicosResult" type="tns:ArrayOfCVTiposDeEventoAcademico" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfCVTiposDeEventoAcademico">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CVTiposDeEventoAcademico" nillable="true" type="tns:CVTiposDeEventoAcademico" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CVTiposDeEventoAcademico">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="BuscarCaracterParticipacionEvento">
         <s:complexType>
           <s:sequence>
@@ -3017,23 +3073,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="ArrayOfMoBi_Evento">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="MoBi_Evento" nillable="true" type="tns:MoBi_Evento" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="MoBi_Evento">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="Receptor" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Operador" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Responsable" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Area" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Observaciones" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="TipoEvento" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="Fecha" type="s:dateTime" />
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="Mobi_GetAgentesArea">
         <s:complexType>
           <s:sequence>
@@ -3193,17 +3232,18 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="Mobi_GetMovimientos">
+      <s:element name="AceptarCambioDeImagen">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id_bien" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_usuario" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="Mobi_GetMovimientosResponse">
+      <s:element name="AceptarCambioDeImagenResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Mobi_GetMovimientosResult" type="tns:ArrayOfMoBi_Evento" />
+            <s:element minOccurs="1" maxOccurs="1" name="AceptarCambioDeImagenResult" type="s:boolean" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -4787,31 +4827,16 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="BuscarTiposEventosAcademicos">
+      <s:element name="AreasFormalesConInformales_JSON">
+        <s:complexType />
+      </s:element>
+      <s:element name="AreasFormalesConInformales_JSONResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="AreasFormalesConInformales_JSONResult" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="BuscarTiposEventosAcademicosResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="BuscarTiposEventosAcademicosResult" type="tns:ArrayOfCVTiposDeEventoAcademico" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:complexType name="ArrayOfCVTiposDeEventoAcademico">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="CVTiposDeEventoAcademico" nillable="true" type="tns:CVTiposDeEventoAcademico" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="CVTiposDeEventoAcademico">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="AreasInferioresDe">
         <s:complexType>
           <s:sequence>
@@ -6107,21 +6132,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="AceptarCambioDeImagen">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id_usuario" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="AceptarCambioDeImagenResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="AceptarCambioDeImagenResult" type="s:boolean" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
       <s:element name="GetUsuarios">
         <s:complexType>
           <s:sequence>
@@ -6568,6 +6578,33 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="getAusenciasResult" type="tns:ArrayOfInasistencia" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="guardarJustificacion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="justificaion" type="tns:Justificacion" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Justificacion">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Desde" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Hasta" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Motivo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Usuario" type="tns:Usuario" />
+          <s:element minOccurs="0" maxOccurs="1" name="Inasistencia" type="tns:Inasistencia" />
+          <s:element minOccurs="1" maxOccurs="1" name="idAusencia" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaCarga" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="guardarJustificacionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="guardarJustificacionResult" type="s:boolean" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -7746,18 +7783,14 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="AreasFormalesConInformales_JSON">
-        <s:complexType />
-      </s:element>
-      <s:element name="AreasFormalesConInformales_JSONResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="AreasFormalesConInformales_JSONResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="Mobi_GetMovimientosSoapIn">
+    <wsdl:part name="parameters" element="tns:Mobi_GetMovimientos" />
+  </wsdl:message>
+  <wsdl:message name="Mobi_GetMovimientosSoapOut">
+    <wsdl:part name="parameters" element="tns:Mobi_GetMovimientosResponse" />
+  </wsdl:message>
   <wsdl:message name="ImportarArchivoExcelSoapIn">
     <wsdl:part name="parameters" element="tns:ImportarArchivoExcel" />
   </wsdl:message>
@@ -8093,6 +8126,12 @@
   </wsdl:message>
   <wsdl:message name="CTL_ACC_LoginSoapOut">
     <wsdl:part name="parameters" element="tns:CTL_ACC_LoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="BuscarTiposEventosAcademicosSoapIn">
+    <wsdl:part name="parameters" element="tns:BuscarTiposEventosAcademicos" />
+  </wsdl:message>
+  <wsdl:message name="BuscarTiposEventosAcademicosSoapOut">
+    <wsdl:part name="parameters" element="tns:BuscarTiposEventosAcademicosResponse" />
   </wsdl:message>
   <wsdl:message name="BuscarCaracterParticipacionEventoSoapIn">
     <wsdl:part name="parameters" element="tns:BuscarCaracterParticipacionEvento" />
@@ -8598,11 +8637,11 @@
   <wsdl:message name="Mobi_Alta_Vehiculo_Evento_PersonaSoapOut">
     <wsdl:part name="parameters" element="tns:Mobi_Alta_Vehiculo_Evento_PersonaResponse" />
   </wsdl:message>
-  <wsdl:message name="Mobi_GetMovimientosSoapIn">
-    <wsdl:part name="parameters" element="tns:Mobi_GetMovimientos" />
+  <wsdl:message name="AceptarCambioDeImagenSoapIn">
+    <wsdl:part name="parameters" element="tns:AceptarCambioDeImagen" />
   </wsdl:message>
-  <wsdl:message name="Mobi_GetMovimientosSoapOut">
-    <wsdl:part name="parameters" element="tns:Mobi_GetMovimientosResponse" />
+  <wsdl:message name="AceptarCambioDeImagenSoapOut">
+    <wsdl:part name="parameters" element="tns:AceptarCambioDeImagenResponse" />
   </wsdl:message>
   <wsdl:message name="AceptarCambioImagenConImagenRecortadaSoapIn">
     <wsdl:part name="parameters" element="tns:AceptarCambioImagenConImagenRecortada" />
@@ -9102,11 +9141,11 @@
   <wsdl:message name="EliminarCvEventosAcademicosSoapOut">
     <wsdl:part name="parameters" element="tns:EliminarCvEventosAcademicosResponse" />
   </wsdl:message>
-  <wsdl:message name="BuscarTiposEventosAcademicosSoapIn">
-    <wsdl:part name="parameters" element="tns:BuscarTiposEventosAcademicos" />
+  <wsdl:message name="AreasFormalesConInformales_JSONSoapIn">
+    <wsdl:part name="parameters" element="tns:AreasFormalesConInformales_JSON" />
   </wsdl:message>
-  <wsdl:message name="BuscarTiposEventosAcademicosSoapOut">
-    <wsdl:part name="parameters" element="tns:BuscarTiposEventosAcademicosResponse" />
+  <wsdl:message name="AreasFormalesConInformales_JSONSoapOut">
+    <wsdl:part name="parameters" element="tns:AreasFormalesConInformales_JSONResponse" />
   </wsdl:message>
   <wsdl:message name="AreasInferioresDeSoapIn">
     <wsdl:part name="parameters" element="tns:AreasInferioresDe" />
@@ -9528,12 +9567,6 @@
   <wsdl:message name="SolicitarCambioDeImagenSoapOut">
     <wsdl:part name="parameters" element="tns:SolicitarCambioDeImagenResponse" />
   </wsdl:message>
-  <wsdl:message name="AceptarCambioDeImagenSoapIn">
-    <wsdl:part name="parameters" element="tns:AceptarCambioDeImagen" />
-  </wsdl:message>
-  <wsdl:message name="AceptarCambioDeImagenSoapOut">
-    <wsdl:part name="parameters" element="tns:AceptarCambioDeImagenResponse" />
-  </wsdl:message>
   <wsdl:message name="GetUsuariosSoapIn">
     <wsdl:part name="parameters" element="tns:GetUsuarios" />
   </wsdl:message>
@@ -9671,6 +9704,12 @@
   </wsdl:message>
   <wsdl:message name="getAusenciasSoapOut">
     <wsdl:part name="parameters" element="tns:getAusenciasResponse" />
+  </wsdl:message>
+  <wsdl:message name="guardarJustificacionSoapIn">
+    <wsdl:part name="parameters" element="tns:guardarJustificacion" />
+  </wsdl:message>
+  <wsdl:message name="guardarJustificacionSoapOut">
+    <wsdl:part name="parameters" element="tns:guardarJustificacionResponse" />
   </wsdl:message>
   <wsdl:message name="EliminarPaseSoapIn">
     <wsdl:part name="parameters" element="tns:EliminarPase" />
@@ -10020,13 +10059,11 @@
   <wsdl:message name="AreasCompletasSoapOut">
     <wsdl:part name="parameters" element="tns:AreasCompletasResponse" />
   </wsdl:message>
-  <wsdl:message name="AreasFormalesConInformales_JSONSoapIn">
-    <wsdl:part name="parameters" element="tns:AreasFormalesConInformales_JSON" />
-  </wsdl:message>
-  <wsdl:message name="AreasFormalesConInformales_JSONSoapOut">
-    <wsdl:part name="parameters" element="tns:AreasFormalesConInformales_JSONResponse" />
-  </wsdl:message>
   <wsdl:portType name="WSViaticosSoap">
+    <wsdl:operation name="Mobi_GetMovimientos">
+      <wsdl:input message="tns:Mobi_GetMovimientosSoapIn" />
+      <wsdl:output message="tns:Mobi_GetMovimientosSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="ImportarArchivoExcel">
       <wsdl:input message="tns:ImportarArchivoExcelSoapIn" />
       <wsdl:output message="tns:ImportarArchivoExcelSoapOut" />
@@ -10250,6 +10287,10 @@
     <wsdl:operation name="CTL_ACC_Login">
       <wsdl:input message="tns:CTL_ACC_LoginSoapIn" />
       <wsdl:output message="tns:CTL_ACC_LoginSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BuscarTiposEventosAcademicos">
+      <wsdl:input message="tns:BuscarTiposEventosAcademicosSoapIn" />
+      <wsdl:output message="tns:BuscarTiposEventosAcademicosSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="BuscarCaracterParticipacionEvento">
       <wsdl:input message="tns:BuscarCaracterParticipacionEventoSoapIn" />
@@ -10587,9 +10628,9 @@
       <wsdl:input message="tns:Mobi_Alta_Vehiculo_Evento_PersonaSoapIn" />
       <wsdl:output message="tns:Mobi_Alta_Vehiculo_Evento_PersonaSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="Mobi_GetMovimientos">
-      <wsdl:input message="tns:Mobi_GetMovimientosSoapIn" />
-      <wsdl:output message="tns:Mobi_GetMovimientosSoapOut" />
+    <wsdl:operation name="AceptarCambioDeImagen">
+      <wsdl:input message="tns:AceptarCambioDeImagenSoapIn" />
+      <wsdl:output message="tns:AceptarCambioDeImagenSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="AceptarCambioImagenConImagenRecortada">
       <wsdl:input message="tns:AceptarCambioImagenConImagenRecortadaSoapIn" />
@@ -10923,9 +10964,9 @@
       <wsdl:input message="tns:EliminarCvEventosAcademicosSoapIn" />
       <wsdl:output message="tns:EliminarCvEventosAcademicosSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="BuscarTiposEventosAcademicos">
-      <wsdl:input message="tns:BuscarTiposEventosAcademicosSoapIn" />
-      <wsdl:output message="tns:BuscarTiposEventosAcademicosSoapOut" />
+    <wsdl:operation name="AreasFormalesConInformales_JSON">
+      <wsdl:input message="tns:AreasFormalesConInformales_JSONSoapIn" />
+      <wsdl:output message="tns:AreasFormalesConInformales_JSONSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="AreasInferioresDe">
       <wsdl:input message="tns:AreasInferioresDeSoapIn" />
@@ -11207,10 +11248,6 @@
       <wsdl:input message="tns:SolicitarCambioDeImagenSoapIn" />
       <wsdl:output message="tns:SolicitarCambioDeImagenSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="AceptarCambioDeImagen">
-      <wsdl:input message="tns:AceptarCambioDeImagenSoapIn" />
-      <wsdl:output message="tns:AceptarCambioDeImagenSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="GetUsuarios">
       <wsdl:input message="tns:GetUsuariosSoapIn" />
       <wsdl:output message="tns:GetUsuariosSoapOut" />
@@ -11302,6 +11339,10 @@
     <wsdl:operation name="getAusencias">
       <wsdl:input message="tns:getAusenciasSoapIn" />
       <wsdl:output message="tns:getAusenciasSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="guardarJustificacion">
+      <wsdl:input message="tns:guardarJustificacionSoapIn" />
+      <wsdl:output message="tns:guardarJustificacionSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="EliminarPase">
       <wsdl:input message="tns:EliminarPaseSoapIn" />
@@ -11535,13 +11576,18 @@
       <wsdl:input message="tns:AreasCompletasSoapIn" />
       <wsdl:output message="tns:AreasCompletasSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="AreasFormalesConInformales_JSON">
-      <wsdl:input message="tns:AreasFormalesConInformales_JSONSoapIn" />
-      <wsdl:output message="tns:AreasFormalesConInformales_JSONSoapOut" />
-    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="WSViaticosSoap" type="tns:WSViaticosSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Mobi_GetMovimientos">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetMovimientos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ImportarArchivoExcel">
       <soap:operation soapAction="http://wsviaticos.gov.ar/ImportarArchivoExcel" style="document" />
       <wsdl:input>
@@ -12039,6 +12085,15 @@
     </wsdl:operation>
     <wsdl:operation name="CTL_ACC_Login">
       <soap:operation soapAction="http://wsviaticos.gov.ar/CTL_ACC_Login" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarTiposEventosAcademicos">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarTiposEventosAcademicos" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -12802,8 +12857,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="Mobi_GetMovimientos">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetMovimientos" style="document" />
+    <wsdl:operation name="AceptarCambioDeImagen">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/AceptarCambioDeImagen" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -13558,8 +13613,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="BuscarTiposEventosAcademicos">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarTiposEventosAcademicos" style="document" />
+    <wsdl:operation name="AreasFormalesConInformales_JSON">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/AreasFormalesConInformales_JSON" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -14197,15 +14252,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="AceptarCambioDeImagen">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/AceptarCambioDeImagen" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetUsuarios">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetUsuarios" style="document" />
       <wsdl:input>
@@ -14406,6 +14452,15 @@
     </wsdl:operation>
     <wsdl:operation name="getAusencias">
       <soap:operation soapAction="http://wsviaticos.gov.ar/getAusencias" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="guardarJustificacion">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/guardarJustificacion" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -14935,18 +14990,18 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="AreasFormalesConInformales_JSON">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/AreasFormalesConInformales_JSON" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="WSViaticosSoap12" type="tns:WSViaticosSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Mobi_GetMovimientos">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetMovimientos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ImportarArchivoExcel">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/ImportarArchivoExcel" style="document" />
       <wsdl:input>
@@ -15444,6 +15499,15 @@
     </wsdl:operation>
     <wsdl:operation name="CTL_ACC_Login">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/CTL_ACC_Login" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarTiposEventosAcademicos">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarTiposEventosAcademicos" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -16207,8 +16271,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="Mobi_GetMovimientos">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetMovimientos" style="document" />
+    <wsdl:operation name="AceptarCambioDeImagen">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/AceptarCambioDeImagen" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -16963,8 +17027,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="BuscarTiposEventosAcademicos">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarTiposEventosAcademicos" style="document" />
+    <wsdl:operation name="AreasFormalesConInformales_JSON">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/AreasFormalesConInformales_JSON" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -17602,15 +17666,6 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="AceptarCambioDeImagen">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/AceptarCambioDeImagen" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetUsuarios">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetUsuarios" style="document" />
       <wsdl:input>
@@ -17811,6 +17866,15 @@
     </wsdl:operation>
     <wsdl:operation name="getAusencias">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/getAusencias" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="guardarJustificacion">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/guardarJustificacion" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -18333,15 +18397,6 @@
     </wsdl:operation>
     <wsdl:operation name="AreasCompletas">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/AreasCompletas" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="AreasFormalesConInformales_JSON">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/AreasFormalesConInformales_JSON" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

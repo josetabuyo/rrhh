@@ -27,6 +27,7 @@
         </div>
     </form>
 </body>
+<script type="text/javascript" src="../Componentes/justificarAusencia.htm"></script>
 <script type="text/javascript" src="GestionDeAusencias.js"></script>
 <script type="text/javascript" src="../Scripts/Spin.js"></script>
 <script type="text/javascript" src="../scripts/vex-2.1.1/js/vex.combined.min.js"></script>

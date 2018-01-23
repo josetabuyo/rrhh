@@ -1257,5 +1257,27 @@ namespace General.Repositorios
 
             return motivos;
         }
+
+        public bool guardarJustificacion(Justificacion justificacion, Usuario usuario)
+        {
+            try
+            {
+                var parametros = new Dictionary<string, object>();
+                parametros.Add("@idAusencia", justificacion.idAusencia);
+                parametros.Add("@idUsuario", usuario.Id);
+                parametros.Add("@desde", justificacion.Desde);
+                parametros.Add("@hasta", justificacion.Hasta);
+                parametros.Add("@motivo", justificacion.Motivo);
+
+                var tablaDatos = this.conexion.Ejecutar("LIC_INS_Justificacion", parametros);
+
+                return true;
+
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
     }
 }
