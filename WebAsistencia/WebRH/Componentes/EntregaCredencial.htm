@@ -92,68 +92,13 @@
             left: 7.4%;
             font-size: 20px;
             color: white ;
-        } 
-            
-        #pantalla_entrega_credencial #btn_imprimir_credencial
-        {
-
-        }
-        
-        #pantalla_entrega_credencial #titulo_vista_previa
-        {
-            margin-top:0px;
-        }
-        
-        #pantalla_entrega_credencial  #chk_credencial_impresa
-        {
-            /* Double-sized Checkboxes */
-            -ms-transform: scale(2); /* IE */
-            -moz-transform: scale(2); /* FF */
-            -webkit-transform: scale(2); /* Safari and Chrome */
-            -o-transform: scale(2); /* Opera */
-            padding: 10px;
-            margin-left: 27px;
-            margin-right: 10px;
-        }
-        
-        #pantalla_entrega_credencial  .checkboxtext
-        {
-            font-size: 110%;
-            display: inline;
-            vertical-align: middle;
-        }
-        
-        #pantalla_entrega_credencial  #txt_codigo_magnetico
-        {
-            height: 30px;
-            vertical-align: initial;
-        }
-        
-        #pantalla_entrega_credencial #panel_dar_aviso
-        {
-            position: absolute;
-            right: 10px;
-            bottom: 10px;
-            left: 0px;
-        }
-        #pantalla_entrega_credencial #txt_instrucciones_retiro
-        {
-            height: 30px;
-            vertical-align: initial;            
-            width: 100%;
-            height: 100px;
-        }
-        
-        #pantalla_entrega_credencial #btn_dar_aviso_y_cerrar
-        {
-            float: right;
-        }       
+        }        
     </style>
 </head>
 <div id="pantalla_entrega_credencial">
     <h4 id="titulo_vista_previa">Credencial</h4>
     <div id="vista_previa_credencial">        
-        <img id="imagen_credencial" src="../BarraMenu/credencial.png"/>        
+        <img id="imagen_credencial" src=""/>        
         <div id="foto_usuario"></div>
         <div id="apellido"></div>    
         <div id="nombres"></div>    
@@ -162,7 +107,7 @@
         <div id="codigo_barras"> </div>    
     </div>
     <div id=panel_derecho>
-        <a href="../DDJJ credenciales.pdf" target="_blank">Formulario de entrega</a>
+        <a id="lnk_formulario" style="cursor: pointer">Formulario de entrega</a>
         <br />
         <input id="btn_entregada" type="button" class="btn btn-primary" value="Entregada"/>     
     </div>
@@ -178,6 +123,11 @@
                     ui.find("#nombres").text(usuario.Owner.Nombre);
                     ui.find("#documento").text(usuario.Owner.Documento);
 
+                    if (solicitud.Organismo == 'Ministerio de Desarrollo Social')
+                        ui.find("#imagen_credencial").attr('src', '../BarraMenu/credencialMDS.png');
+                    if (solicitud.Organismo == 'Ministerio de Salud')
+                        ui.find("#imagen_credencial").attr('src', '../BarraMenu/credencialMSAL.png');
+
                     var img = new VistaThumbnail({
                         id: solicitud.Credencial.IdFoto,
                         contenedor: ui.find("#foto_usuario")
@@ -190,6 +140,16 @@
                         output: 'bmp'
                     });
 
+                    ui.find("#lnk_formulario").click(function () {
+                        Backend.GetPDFDDJJRecepcionCredencial(solicitud) 
+                            .onSuccess(function (base64pdf) {
+                                var lnk = $("<a>blabla<a/>");
+                                lnk.attr("href", "data:application/octet-stream;base64," + base64pdf);
+                                lnk.attr("download", "DDJJRecepcionCredencial.pdf");
+                                lnk.target = "blank";
+                                lnk.get(0).click();
+                            });
+                    });
                     var btn_notificar_entrega = ui.find("#btn_entregada");
                     btn_notificar_entrega.click(function () {
                         btn_notificar_entrega.prop("disabled", true);

@@ -76,6 +76,7 @@
         {
             margin-top: 10px;
             display: inline-block;
+            margin-left: 52px;
         }
         
         #pantalla_credencial_vigente #btn_renovar_credencial label
@@ -84,11 +85,16 @@
             width: 100%;
             cursor: pointer;
         }    
+        
+        #sin_credencial_vigente
+        {
+            text-align: center;
+        }
     </style>
 </head>
 <div id=pantalla_credencial_vigente>
     <div id="credencial_vigente">
-        <img id="imagen_credencial" src="../BarraMenu/credencial.png"/>
+        <img id="imagen_credencial" src=""/>
         <div id="foto_usuario"></div>
         <div id="apellido"></div>    
         <div id="nombres"></div>    
@@ -96,6 +102,10 @@
         <div id="documento"></div>    
         <div id="codigo_barras"></div>    
     </div>
+    <div id="sin_credencial_vigente">
+        No tiene una credencial vigente
+    </div>
+    <input type=button id=btn_renovar_credencial class= "btn btn-primary" value= "Solicitar Credencial"/>
 </div>
 <script type="text/javascript" src="../Scripts/jquery-barcode.js"/>
 <script type="text/javascript">
@@ -112,29 +122,36 @@
 
                     Backend.GetUsuarioLogueado().onSuccess(function (usuario) {
                         Backend.GetCredencialesTodasDePortal().onSuccess(function (credenciales) {
-                            console.log(ui);
                             var credencial_vigente = _.find(credenciales, function (c) { return c.Estado == "VIGENTE" });
-                            ui.find("#credencial_vigente").show();
-                            ui.find("#apellido").text(usuario.Owner.Apellido);
-                            ui.find("#nombres").text(usuario.Owner.Nombre);
-                            ui.find("#documento").text(usuario.Owner.Documento);
 
-//                            ui.find("#btn_renovar_credencial").click(function () {
-//                                var div = $("<div>");
-//                                div.load(window.location.origin + '/Componentes/SolicitarRenovacionCredencial.htm', function () {
-//                                    Componente.start({credencial:credencial_vigente}, div);
-//                                });
-//                            });
+                            if (credencial_vigente) {
+                                ui.find("#credencial_vigente").show();
+                                ui.find("#apellido").text(usuario.Owner.Apellido);
+                                ui.find("#nombres").text(usuario.Owner.Nombre);
+                                ui.find("#documento").text(usuario.Owner.Documento);
 
-                            var img = new VistaThumbnail({
-                                id: credencial_vigente.IdFoto,
-                                contenedor: ui.find("#foto_usuario")
-                            });
+                                if (credencial_vigente.Organismo == 'Ministerio de Desarrollo Social')
+                                    ui.find("#imagen_credencial").attr('src', '../BarraMenu/credencialMDS.png');
+                                if (credencial_vigente.Organismo == 'Ministerio de Salud')
+                                    ui.find("#imagen_credencial").attr('src', '../BarraMenu/credencialMSAL.png');
+                                var img = new VistaThumbnail({
+                                    id: credencial_vigente.IdFoto,
+                                    contenedor: ui.find("#foto_usuario")
+                                });
 
-                            ui.find("#codigo_barras").barcode(usuario.Owner.Documento.toString(), "code128", {
-                                showHRI: false,
-                                height: 10,
-                                width: 180
+                                ui.find("#codigo_barras").barcode(usuario.Owner.Documento.toString(), "code128", {
+                                    showHRI: false,
+                                    height: 10,
+                                    width: 180
+                                });
+                            } else {
+                                ui.find("#sin_credencial_vigente").show();
+                            }
+                            ui.find("#btn_renovar_credencial").click(function () {
+                                var div = $("<div>");
+                                div.load(window.location.origin + '/Componentes/SolicitarRenovacionCredencial.htm', function () {
+                                    Componente.start({ credencial: credencial_vigente }, div);
+                                });
                             });
 
                             $vexContent.css("width", "280px");

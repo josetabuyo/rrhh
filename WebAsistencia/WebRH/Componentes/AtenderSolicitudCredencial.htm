@@ -137,7 +137,7 @@
     <div id=panel_derecho>
         <h4 id="titulo_vista_previa">Vista Previa Credencial</h4>
         <div id="vista_previa_credencial">        
-            <img id="imagen_credencial" src="../BarraMenu/credencial.png"/>        
+            <img id="imagen_credencial" src=""/>        
             <div id="foto_usuario"></div>
             <div id="apellido"></div>    
             <div id="nombres"></div>    
@@ -158,6 +158,11 @@
         start: function (ticket, ui) {
             Backend.GetSolicitudDeCredencialPorIdTicketAprobacion(ticket.id).onSuccess(function (solicitud) {
                 Backend.GetUsuarioPorIdPersona(solicitud.IdPersona).onSuccess(function (usuario) {
+                    if (solicitud.Organismo == 'Ministerio de Desarrollo Social')
+                        ui.find("#imagen_credencial").attr('src', '../BarraMenu/credencialMDS.png');
+                    if (solicitud.Organismo == 'Ministerio de Salud')
+                        ui.find("#imagen_credencial").attr('src', '../BarraMenu/credencialMSAL.png');
+
                     ui.find("#nombre_solicitante").text(usuario.Owner.Nombre + ' ' + usuario.Owner.Apellido);
                     ui.find("#dni_solicitante").text(usuario.Owner.Documento);
                     ui.find("#organismo_solicitud").text(solicitud.Organismo);
