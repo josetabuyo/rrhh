@@ -2907,6 +2907,12 @@ public class WSViaticos : System.Web.Services.WebService
         var personas = RepositorioDePersonas().BuscarPersonasConLegajo(criterio).ToArray();
         return personas;
     }
+    [WebMethod]
+    public bool PersonaTieneUsuarioWeb(int documento)
+    {
+        return RepositorioDePersonas().EsPersonaConUsuarioWeb(documento);
+
+    }
 
     [WebMethod]
     public Usuario[] BuscarPersonaDeBajaConPermisos()

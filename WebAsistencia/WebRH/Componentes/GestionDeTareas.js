@@ -12,7 +12,7 @@ var GestionDeTareas = {
         }
 
         var _this = this;
-       
+
 
         var tareas_filtradas = [];
         $("#section-shape-1").html("");
@@ -139,7 +139,17 @@ var GestionDeTareas = {
             placeholder: "nombre y apellido"
         });
         selector_personas.alSeleccionarUnaPersona = function (la_persona_seleccionada) {
-            usuario_a_derivar = la_persona_seleccionada;
+            Backend.PersonaTieneUsuarioWeb(la_persona_seleccionada.documento).onSuccess(function (tiene_usuario) {
+                if (tiene_usuario) {
+                    usuario_a_derivar = la_persona_seleccionada;
+                } else {
+                    alert("la persona seleccionada no tiene usuario web")
+                }
+            })
+                    .onError(function (e) {
+                        alert("error al consultar si la persona tiene usuario web")
+                    });
+
 
         };
     },
@@ -148,10 +158,10 @@ var GestionDeTareas = {
         Backend.getTicketsPorFuncionalidad()
                     .onSuccess(function (tareas) {
 
-//<<<<<<< HEAD
+                        //<<<<<<< HEAD
                         tareas_total = _.sortBy(tareas, 'id').reverse();
                         GestionDeTareas.init();
-//=======
+                        //=======
                         tareas = _.sortBy(tareas, 'id').reverse();
                         var _this = this;
 
@@ -199,7 +209,7 @@ var GestionDeTareas = {
 
                         featureList.search(localStorage.getItem('filtroTickets'));
                         $('#search').val(localStorage.getItem('filtroTickets'));
-//>>>>>>> 6d1c9538163359c2d92f93b9471a5a12d724fbaa
+                        //>>>>>>> 6d1c9538163359c2d92f93b9471a5a12d724fbaa
                     })
                     .onError(function (e) {
 

@@ -101,6 +101,11 @@ namespace General.Repositorios
         {
             var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
             int documento = (int)((JValue)criterio_deserializado["Documento"]);
+            return EsPersonaConUsuarioWeb(documento);
+        }
+
+        public bool EsPersonaConUsuarioWeb(int documento)
+        {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@documento", documento);
             var tablaDatos = conexion.Ejecutar("dbo.MAU_GetPersonaConUsuario", parametros);
@@ -115,6 +120,7 @@ namespace General.Repositorios
         {
             return this.BuscarPersonas(criterio).FindAll(p => p.Legajo.Trim() != "");
         }
+       
 
         public Persona GetPersonaPorId(int id_persona)
         {
