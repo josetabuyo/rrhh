@@ -21,7 +21,7 @@ var GestionDeTareas = {
         var mostrar_asignado = false;
         switch (tab_actual) {
             case 1: //MIS TAREAS
-                tareas_filtradas = $.grep(tareas_total, function (tarea) { return tarea.usuarioAsignado.Owner.Id == usuario_logueado });
+                tareas_filtradas = $.grep(tareas_total, function (tarea) { return tarea.usuarioAsignado.Id == usuario_logueado });
                 $("#section-shape-1").html('<div id="tablaTareas" class="table table-striped table-bordered table-condensed"></div>');
                 break;
             case 2: //TAREAS SIN ASIGNACIÓN
@@ -30,7 +30,7 @@ var GestionDeTareas = {
                 break;
             case 3: //TAREAS ASIGNADAS A OTROS
                 mostrar_asignado = true;
-                tareas_filtradas = $.grep(tareas_total, function (tarea) { return tarea.usuarioAsignado.Owner.Id != usuario_logueado && tarea.usuarioAsignado.Id != 0 });
+                tareas_filtradas = $.grep(tareas_total, function (tarea) { return tarea.usuarioAsignado.Id != usuario_logueado && tarea.usuarioAsignado.Id != 0 });
                 $("#section-shape-3").html('<div id="tablaTareas" class="table table-striped table-bordered table-condensed"></div>');
                 break;
             default:
@@ -42,7 +42,7 @@ var GestionDeTareas = {
     ObtenerUsuarioLogueado: function () {
         Backend.GetUsuarioLogueado()
         .onSuccess(function (usuario) {
-            usuario_logueado = usuario.Owner.Id;
+            usuario_logueado = usuario.Id;
         })
         .onError(function (e) {
         });
