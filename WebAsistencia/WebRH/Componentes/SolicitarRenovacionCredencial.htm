@@ -251,12 +251,16 @@
                             return;
                         }
 
-                        Backend.SolicitarRenovacionCredencial(ui.find("#select_motivo").val(), ui.find("#select_organismo").val(), ui.find("#cmb_lugar_de_entrega").val()).onSuccess(function () {
-                            alertify.success("Solicitud creada con éxito");
+                        Backend.SolicitarRenovacionCredencial(ui.find("#select_motivo").val(), ui.find("#select_organismo").val(), ui.find("#cmb_lugar_de_entrega").val())
+                            .onSuccess(function () {
+                                alertify.success("Solicitud creada con éxito");
 
-                            vex.close();
-                            setTimeout(function () { location.reload(); }, 1000);
-                        });
+                                vex.close();
+                                setTimeout(function () { location.reload(); }, 1000);
+                            });
+                            .onError(function () {
+                                alertify.error("Error al solicitar la credencial.");
+                            });
                     });
 
 
