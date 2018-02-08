@@ -250,16 +250,22 @@
                         if (ui.find("#select_motivo").val() == 0) {
                             return;
                         }
-
+                        ui.find("#btn_realizar_solicitud").prop('disabled', true);
                         Backend.SolicitarRenovacionCredencial(ui.find("#select_motivo").val(), ui.find("#select_organismo").val(), ui.find("#cmb_lugar_de_entrega").val())
-                            .onSuccess(function () {
-                                alertify.success("Solicitud creada con éxito");
+                            .onSuccess(function (resultado) {
+                                if (resultado == 'OK') {
+                                    alertify.success("Solicitud creada con éxito");
 
-                                vex.close();
-                                setTimeout(function () { location.reload(); }, 1000);
-                            });
+                                    vex.close();
+                                    setTimeout(function () { location.reload(); }, 1000);
+                                } else {
+                                    alertify.error(resultado);
+                                    ui.find("#btn_realizar_solicitud").prop('disabled', false);
+                                }
+                            })
                             .onError(function () {
                                 alertify.error("Error al solicitar la credencial.");
+                                ui.find("#btn_realizar_solicitud").prop('disabled', false);
                             });
                     });
 

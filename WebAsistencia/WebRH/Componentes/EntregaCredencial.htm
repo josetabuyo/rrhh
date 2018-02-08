@@ -155,8 +155,13 @@
                         btn_notificar_entrega.prop("disabled", true);
                         Backend.CerrarTicketEntrega(solicitud)
                             .onSuccess(function () {
+                                alertify.success("Ticket cerrado con éxito");
                                 vex.close();
                                 GestionDeTareas.getTareasParaGestion();
+                            })
+                            .onError(function () {
+                                alertify.error("Error al cerrar ticket");
+                                btn_notificar_entrega.prop("disabled", false);
                             });
 
                     });
