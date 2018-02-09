@@ -53,9 +53,9 @@
                 <input id="btn_derivar_tareas" type="button" class="btn_gestion_consulta" style="font-size: smaller;
                     padding: 6px; margin: 1px; margin-top: -6px; height: 30px;" value="Derivar" />
             </div>
-            <input type="text" id="search" class="search buscador" placeholder="Buscar" style="height: 35px;
-                float: right" />
             <div id="tareas">
+                <input type="text" id="search" class="search buscador" placeholder="Buscar" style="height: 35px;
+                    float: right" />
                 <svg class="hidden">
 			<defs>
 				<path id="tabshape" d="M80,60C34,53.5,64.417,0,0,0v60H80z"/>
