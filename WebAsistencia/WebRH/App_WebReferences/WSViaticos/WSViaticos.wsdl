@@ -3883,6 +3883,20 @@
           <s:element minOccurs="0" maxOccurs="unbounded" name="LugarEntrega" nillable="true" type="tns:LugarEntrega" />
         </s:sequence>
       </s:complexType>
+      <s:element name="PuedePedirCredencial">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PuedePedirCredencialResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PuedePedirCredencialResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="SolicitarRenovacionCredencial">
         <s:complexType>
           <s:sequence>
@@ -3896,7 +3910,7 @@
       <s:element name="SolicitarRenovacionCredencialResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="SolicitarRenovacionCredencialResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="SolicitarRenovacionCredencialResult" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -8882,6 +8896,12 @@
   <wsdl:message name="GetLugaresEntregaCredencialSoapOut">
     <wsdl:part name="parameters" element="tns:GetLugaresEntregaCredencialResponse" />
   </wsdl:message>
+  <wsdl:message name="PuedePedirCredencialSoapIn">
+    <wsdl:part name="parameters" element="tns:PuedePedirCredencial" />
+  </wsdl:message>
+  <wsdl:message name="PuedePedirCredencialSoapOut">
+    <wsdl:part name="parameters" element="tns:PuedePedirCredencialResponse" />
+  </wsdl:message>
   <wsdl:message name="SolicitarRenovacionCredencialSoapIn">
     <wsdl:part name="parameters" element="tns:SolicitarRenovacionCredencial" />
   </wsdl:message>
@@ -10808,6 +10828,10 @@
     <wsdl:operation name="GetLugaresEntregaCredencial">
       <wsdl:input message="tns:GetLugaresEntregaCredencialSoapIn" />
       <wsdl:output message="tns:GetLugaresEntregaCredencialSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PuedePedirCredencial">
+      <wsdl:input message="tns:PuedePedirCredencialSoapIn" />
+      <wsdl:output message="tns:PuedePedirCredencialSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="SolicitarRenovacionCredencial">
       <wsdl:input message="tns:SolicitarRenovacionCredencialSoapIn" />
@@ -13229,6 +13253,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetLugaresEntregaCredencial">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetLugaresEntregaCredencial" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PuedePedirCredencial">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/PuedePedirCredencial" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -16661,6 +16694,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetLugaresEntregaCredencial">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetLugaresEntregaCredencial" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PuedePedirCredencial">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/PuedePedirCredencial" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

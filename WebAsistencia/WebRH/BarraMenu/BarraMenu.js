@@ -118,9 +118,13 @@
                             vex.close();
                             var subidor = new SubidorDeImagenes();
                             subidor.subirImagen(function (id_imagen) {
-                                Backend.SolicitarCambioDeImagen(id_imagen).onSuccess(function () {
-                                    alertify.success("solicitud de cambio de imagen realizada con éxito");
-                                });
+                                Backend.SolicitarCambioDeImagen(id_imagen)
+                                    .onSuccess(function () {
+                                        alertify.success("solicitud de cambio de imagen realizada con éxito");
+                                    })
+                                    .onError(function () {
+                                        alertify.error("error al solicitar imagen");
+                                    });
                             }, true);
                         });
                         $vexContent.append(ui);

@@ -322,6 +322,10 @@
                                 alertify.success("Se envió un mensaje al usuario para que retire su credencial");
                                 vex.close();
                                 GestionDeTareas.getTareasParaGestion();
+                            })
+                            .onError(function () {
+                                alertify.error("Error al dar aviso");
+                                btn_dar_aviso.prop("disabled", false);
                             });
 
                     });

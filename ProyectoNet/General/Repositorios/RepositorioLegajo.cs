@@ -631,8 +631,18 @@ namespace General.Repositorios
 
         }
 
-        public bool SolicitarRenovacionCredencial(Usuario usuario_solicitante, string id_motivo, string id_organismo, int id_lugar_entrega)
+        public string PuedePedirCredencial(Usuario usuario_solicitante)
         {
+            var parametros_imagen = new Dictionary<string, object>();
+            parametros_imagen.Add("@Id_Persona", usuario_solicitante.Owner.Id);
+            return (string)conexion.EjecutarEscalar("dbo.Acre_VerificarSiPuedePedirCredencial", parametros_imagen);
+        }
+
+        public string SolicitarRenovacionCredencial(Usuario usuario_solicitante, string id_motivo, string id_organismo, int id_lugar_entrega)
+        {
+            var puedepedir = PuedePedirCredencial(usuario_solicitante);
+            if(puedepedir != "OK") return puedepedir;
+
             RepositorioDeTickets repo = new RepositorioDeTickets(this.conexion);
             int id_ticket = 0;
             if(int.Parse(id_organismo) == 1) 
@@ -644,8 +654,8 @@ namespace General.Repositorios
                 id_ticket = repo.crearTicket("solicitud_cred_msal", usuario_solicitante.Id);
             }
 
-         //   var id_motivo = GetMotivosBajaCredencial().Find(x => x.Descripcion.Trim().ToUpper() == motivo.Trim().ToUpper()).Id;
-          //  List<MotivoBaja> motivos = GetMotivosBajaCredencial();
+        //   var id_motivo = GetMotivosBajaCredencial().Find(x => x.Descripcion.Trim().ToUpper() == motivo.Trim().ToUpper()).Id;
+        //  List<MotivoBaja> motivos = GetMotivosBajaCredencial();
                                  
             var parametros = new Dictionary<string, object>();
 
@@ -658,7 +668,7 @@ namespace General.Repositorios
             
             var tablaDatos = conexion.Ejecutar("dbo.Acre_InsSolicitudCredencial", parametros);
 
-            return true;
+            return "OK";
         }
 
         public bool AprobarSolicitudCredencial(SolicitudCredencial solicitud, Usuario usuario_aprobador)
