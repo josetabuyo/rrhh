@@ -9,7 +9,7 @@
         Backend.getAusencias()
                     .onSuccess(function (ausencias) {
 
-                        ausencias = _.sortBy(ausencias, 'id').reverse();
+                        ausencias = _.sortBy(ausencias, 'Id').reverse();
                         var _this = this;
 
                         $("#tablaAusencias").empty();

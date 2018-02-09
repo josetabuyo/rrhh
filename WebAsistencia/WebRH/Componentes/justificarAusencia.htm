@@ -1,13 +1,7 @@
-﻿
-
-    <style type="text/css">
-            
-    </style>
-
-   <div>
+﻿<div>
 <h2 style="text-align:center">JUSTIFICAR AUSENCIA</h2>
 <br />
-<h4>Solicitado por: <span id="nombreUsuario"></span> el día <span id="fechaCreacion"></span> </h4>
+
 
     <fieldset class="fieldsetCambioDomicilio">
 
@@ -19,7 +13,9 @@
         <div class="">
             <label class="etiqueta_campo" for="cmb_provincia">Motivos de Justificacion: <em style="color:Red;">*</em></label>
             <select id="motivosDeJustificacion" style="width: 200px;">
-            <option value="1" selected></option></select>
+                <option value="1" selected>Un motivo</option>
+                 <option value="2" >2do motivo</option>
+             </select>
         </div>
 
         <div style="text-align:center;">
@@ -65,7 +61,8 @@
             });
 
             ui.find("btnCancelar").click(function () {
-                ui.close();
+                //ui.close();
+                vex.close();
             });
 
         }

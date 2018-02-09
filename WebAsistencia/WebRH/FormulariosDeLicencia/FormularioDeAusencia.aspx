@@ -18,19 +18,20 @@
         <div style="margin: 20px;">
         <h2 style="text-align:center;">Formulario de Notificación de Ausencia</h2>
         <div class="margin-top:30px;" >
-            Por medio de la presente se deja constancia que el agente <asp:Label ID="nombrePersona" runat="server"></asp:Label> 
-            con D.N.I. N° <asp:Label ID="documento" runat="server"></asp:Label> no asiste a su lugar de trabajo desde el día 
-            <input id="desde" type="date" style="height: 30px; width: 140px;" /> hasta el día 
-            <input id="hasta" type="date" style="height: 30px; width: 140px;" /> debido al motivo que se detalla a continuación
-            <select id="comboMotivos" style="width: 150px" >
-                
-            </select>  
+            <p>Por medio de la presente se deja constancia que el agente <asp:Label ID="nombrePersona" runat="server"></asp:Label> 
+            con D.N.I. N° <asp:Label ID="documento" runat="server"></asp:Label> no asiste/asistirá a su lugar de trabajo. </p>
+            
+            <p>A continuación debe especificar el periodo y motivo de ausencia.</p>
 
-            </div>
+           
+            <p>Desde: <input id="desde" type="date" style="height: 30px; width: 140px;" /></p>
+            <p>Hasta: <input id="hasta" type="date" style="height: 30px; width: 140px;" /></p>
+            <p>Motivo: <select id="comboMotivos" style="width: 150px" > </select>  </p>
+        </div>
 
-            <div style="margin:30px 0;">
-                Hasta tanto esta notificación no sea justificada por los mecanismos correspondientes, las ausencias sera considerada como sin Justificar
-            </div>
+        <div style="margin:30px 0;">
+            Hasta tanto esta notificación no sea justificada por los mecanismos correspondientes (licencias, justificaciones, presentismo), las ausencias serán considerados como SIN JUSTIFICAR
+        </div>
 
             <div style="text-align:center;">
                 <input class="btn-primary" type="button" id="btnEnviar" value="Enviar" />

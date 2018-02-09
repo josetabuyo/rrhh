@@ -1217,23 +1217,49 @@ namespace General.Repositorios
             {
                 var parametros = new Dictionary<string, object>();
 
+                //traigo ausencias que no estam ya justificadas
                 var tablaDatos = this.conexion.Ejecutar("LIC_GET_Ausencias_Sin_Justificar", parametros);
-
+                
                 List<Inasistencia> inasistencias = new List<Inasistencia>();
+                List<VacacionesAprobadas> licenciasSolicitadas = new List<VacacionesAprobadas>();
 
+                int numeroDocumento = 0;
+                Persona persona = new Persona();
                 tablaDatos.Rows.ForEach(row =>
                 {
-                    Persona persona = new Persona();
-                    persona.Documento = row.GetInt("NroDocumento");
-                    persona.Apellido = row.GetString("apellido");
-                    persona.Nombre = row.GetString("nombre");
 
+                    if (numeroDocumento != row.GetInt("NroDocumento"))
+                    {
+                        persona = new Persona();
+                        persona.Documento = row.GetInt("NroDocumento");
+                        persona.Apellido = row.GetString("apellido");
+                        persona.Nombre = row.GetString("nombre");
+
+                        //traigo licencias de esa persona
+                        licenciasSolicitadas = this.GetVacacionesAprobadasPara(persona);
+
+                        numeroDocumento = row.GetInt("NroDocumento");
+                    }
+                    
                     General.MAU.Usuario usuario = new General.MAU.Usuario(0, row.GetString("NombreUsu"), "", true);
 
                     Inasistencia inasistencia = new Inasistencia(row.GetInt("id"), persona, row.GetString("descripcion"), row.GetDateTime("desde"), row.GetDateTime("hasta"), usuario);
 
-                    inasistencias.Add(inasistencia);
+                    //comparo los periodos de las ausencias con las de la licencias
+                    var rto = true;
+                    licenciasSolicitadas.ForEach(lic =>
+                    {
+                        if ((DateTime.Compare((DateTime)inasistencia.Desde, (DateTime)lic.Desde()) >= 0 && DateTime.Compare((DateTime)inasistencia.Desde, (DateTime)lic.Hasta()) <= 0) || (DateTime.Compare((DateTime)inasistencia.Hasta, (DateTime)lic.Desde()) >= 0 && DateTime.Compare((DateTime)inasistencia.Hasta, (DateTime)lic.Hasta()) <= 0))
+                        {
+                            rto = false;
+                        }
+                    });
+
+                     if (rto) {
+                        inasistencias.Add(inasistencia);
+                     }
                 });
+
 
                 return inasistencias;
 
