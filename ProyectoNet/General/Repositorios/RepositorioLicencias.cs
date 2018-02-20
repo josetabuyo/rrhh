@@ -1194,6 +1194,11 @@ namespace General.Repositorios
         {
             try
             {
+                if (this.verificarQueAusenciaNoSePiseConLicenciasOAusencias(inasistencia))
+                {
+                    return false;
+                }
+
                 var parametros = new Dictionary<string, object>();
                 parametros.Add("@idPersona", inasistencia.Persona.Id);
                 parametros.Add("@idUsuario", idUsuario);
@@ -1209,6 +1214,28 @@ namespace General.Repositorios
             {
                 return false;
             }
+        }
+
+        public bool verificarQueAusenciaNoSePiseConLicenciasOAusencias(Inasistencia inasistencia)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@nro_documento", inasistencia.Persona.Documento);
+            parametros.Add("@desde", inasistencia.Desde);
+            parametros.Add("@hasta", inasistencia.Hasta);
+            
+
+            var tablaDatos = this.conexion.Ejecutar("Web_GetPisaLicencia", parametros);
+            var rto = false;
+            tablaDatos.Rows.ForEach(row =>
+            {
+                if (row.GetString("Aprobada") == "Aprobada" || row.GetString("Aprobada") == "Solicitada" || row.GetString("Aprobada") == "Ausencia")
+                {
+                   rto = true;
+                }
+                 
+            });
+
+            return rto;
         }
 
         public List<Inasistencia> getAusencias()

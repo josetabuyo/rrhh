@@ -82,11 +82,11 @@
                 Backend.CargarInasistencia($("#desde").val(), $("#hasta").val(), documento, motivo)
                     .onSuccess(function (rto) {
 
-                        if (rto) {
+                        if (rto == true) {
                             alert("Se ha cargado la ausencia correctamente");
                             window.location.href = "../../Principal.aspx";
                         } else {
-                            alertify.error("Ha ocurrido un error");
+                            alertify.error("No se ha cargado la ausencia. Verificar que no se pise con otra Ausencia o con Licencias Solicitadas y/o aprobadas");
                         }
 
                     })

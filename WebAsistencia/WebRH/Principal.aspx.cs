@@ -33,7 +33,7 @@ public partial class Principal : System.Web.UI.Page
                 this.InsertarFila(unaPersona);
             }
         }
-        catch (Exception)
+        catch (Exception e)
         {
             Response.Redirect("~\\SeleccionDeArea.aspx");
         }
@@ -85,8 +85,25 @@ public partial class Principal : System.Web.UI.Page
                     }
 
                     lbAsistencia.Text = unaPersona.InasistenciaActual.Descripcion;
+                   
                 }
             }
+
+            if (unaPersona.Ausencia != null)
+            {
+                ibEliminarInasistencia = new ImageButton();
+                ibEliminarInasistencia.CssClass = "eliminar";
+                ibEliminarInasistencia.ImageUrl = "Imagenes/eliminar.PNG";
+                ibEliminarInasistencia.Click += new ImageClickEventHandler(lbAusenciaGestion_Click);
+                ibEliminarInasistencia.Width = 15;
+                ibEliminarInasistencia.Height = 15;
+                ibEliminarInasistencia.ToolTip = "Gestionar Ausencia";
+                cell.Controls.Add(ibEliminarInasistencia);
+                lbAsistencia.Text = "Ausente";
+
+            }
+
+            
         }
 
         cell.Controls.Add(lbAsistencia);
@@ -253,6 +270,12 @@ public partial class Principal : System.Web.UI.Page
         Session["persona"] = persona;
 
         Response.Redirect("FormulariosDeLicencia/FormularioDeAusencia.aspx");
+    }
+
+    void lbAusenciaGestion_Click(object sender, EventArgs e)
+    {
+
+        Response.Redirect("FormulariosDeLicencia/GestionAusencias.aspx");
     }
 
     //GPR: Se movió el Viatico a la pantalla de presente como Grupo 5.
