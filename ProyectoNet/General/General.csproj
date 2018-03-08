@@ -108,6 +108,7 @@
     <Compile Include="Asistencia\VacacionesSolicitables.cs" />
     <Compile Include="Calendario\CalculadorDeDias.cs" />
     <Compile Include="Calendario\Periodo.cs" />
+    <Compile Include="CtrlAcc\RepositorioCtlAcc.cs" />
     <Compile Include="DatosAbiertos\ConsultaOPD.cs" />
     <Compile Include="DatosAbiertos\ParametroConsultaOPD.cs" />
     <Compile Include="DatosAbiertos\RepositorioDeDatosAbiertos.cs" />
@@ -120,6 +121,7 @@
     <Compile Include="MED\EvaluacionDesempenio.cs" />
     <Compile Include="MED\RespuestaGetAgentesEvaluablesPor.cs" />
     <Compile Include="MED\UnidadDeEvaluacion.cs" />
+    <Compile Include="MED\VerificacionCodigoGdeDocumento.cs" />
     <Compile Include="Organigrama\GraficoBienes.cs" />
     <Compile Include="MED\AgenteEvaluacionDesempenio.cs" />
     <Compile Include="MED\DescripcionAreaEvaluacion.cs" />
@@ -147,6 +149,7 @@
     <Compile Include="Recibos\Detalle.cs" />
     <Compile Include="Recibos\Numalet.cs" />
     <Compile Include="Recibos\Recibo.cs" />
+    <Compile Include="Recibos\ReciboFirmado.cs" />
     <Compile Include="Recibos\TipoLiquidacion.cs" />
     <Compile Include="Repositorios\AccionesMobi.cs" />
     <Compile Include="Repositorios\RepositorioDeTipoDeLiquidacion.cs" />
@@ -190,7 +193,7 @@
     <Compile Include="Postular\ConstantesConcursar.cs" />
     <Compile Include="DictionaryExtension.cs" />
     <Compile Include="MAU\AccesoAURL.cs" />
-    <Compile Include="Extensiones\ExtensionString.cs" />
+    <Compile Include="General.Test\Extensiones\ExtensionString.cs" />
     <Compile Include="MAU\AspiranteAUsuario.cs" />
     <Compile Include="MAU\Autorizador.cs" />
     <Compile Include="MAU\IRepositorioDeFuncionalidadesDeUsuarios.cs" />
@@ -293,6 +296,7 @@
     <Compile Include="Repositorios\RepositorioLazySingleton.cs" />
     <Compile Include="Postular\Sexo.cs" />
     <Compile Include="Postular\TipoDeDocumento.cs" />
+    <Compile Include="Repositorios\RepositorioRecibosFirmados.cs" />
     <Compile Include="Repositorios\SolicitudCredencial.cs" />
     <Compile Include="Repositorios\SueldoPersona.cs" />
     <Compile Include="Viaticos\PersonaNula.cs" />
@@ -535,7 +539,6 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>

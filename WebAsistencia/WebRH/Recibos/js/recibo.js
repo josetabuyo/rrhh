@@ -94,6 +94,51 @@ var RECIBOS = (function (window, undefined) {
         });
     }
 
+    function getIdRecibosSinFirmar(tipoLiquidacion, anio, mes) {
+        Backend.GetIdRecibosSinFirmar(tipoLiquidacion, anio, mes)
+        .onSuccess(function (recibosResumen) {
+            /*recibosResumen es la respuesta*/
+
+            //            lista_recibos_resumen_div = document.getElementById("cmb_tipo_liquidacion");
+            var i;
+            //recupero la respuesta en forma de objeto json
+            //este contine Id_Recibo, legajo,Cuil,Nyap,Nro_Orden
+
+            var resp = JSON.parse(recibosResumen);
+            var longitud; //tamaño de la lista resumen de recibos
+            longitud = Object.keys(resp).length;
+
+            //genero la lista de recibos a firmar
+            for (i = 0; i < longitud; i++) {
+                //                var option = document.createElement("option"); //creamos el elemento
+                //                option.value = resp[i].Id; //asignamos valores a sus parametros
+                //                option.text = resp[i].Descripcion;
+                //                select.add(option); //insertamos el elemento
+
+            }
+            //guardo la lista de recibos a firmar:
+            lista_recibos_resumen = resp;
+
+            //actualizo el mensaje de respuesta
+            divMensajeStatus.innerHTML = '&nbsp;';
+            divMensajeStatus.innerHTML = '<div class="iconInfo">Se obtubieron <B>' + longitud + '</B> recibos para firmar. </div>';
+
+            //habilito el boton para poder firmar
+            btn_firmar.disabled = false;
+            btn_firmar.classList.remove('botonGrisadoFirmaM');
+            btn_firmar.classList.add('botonFirmaM');
+
+            /*usando jquery no me funciona, fix despues*/
+            /*$.each(tiposLiquidacion, function () {
+            options.append($("<option />").val(this.Id).text(this.Descripcion));
+            });*/
+        })
+        .onError(function (e) {
+
+        });
+    }
+
+
     //descarga archivo ya codificado en base64
     function downloadRemoteDataB64POSTXXXXXXXYO(url, params, successFunction, errorFunction) {
 
@@ -167,6 +212,24 @@ var RECIBOS = (function (window, undefined) {
 
     }
 
+    function guardarReciboPDFFirmado(idRecibo, signatureB64, successFunction, errorFunction) {
+
+        saveSuccessFunction = successFunction;
+        saveErrorFunction = errorFunction;
+
+        Backend.GuardarReciboPDFFirmado(signatureB64,idRecibo)
+                .onSuccess(function (res) {
+
+                    //en el caso de los archivos estos ya vienen en b64 porque aun no encontre una funcion de conversion a b64 que codifique correctamente desde javascript
+                    saveSuccessFunction(res);
+                })
+            .onError(function (e) {
+                saveErrorFunction(e);
+            });
+
+
+    }
+
     function firmarRecibosxxxx(lista_recibos_resumen) {
         Backend.firmarRecibos(tipoLiquidacion, anio, mes)
         .onSuccess(function (recibosResumen) {
@@ -216,7 +279,9 @@ var RECIBOS = (function (window, undefined) {
         getTiposLiquidacion: getTiposLiquidacion,
         getRecibos: getRecibos,
         downloadRemoteDataB64POSTEmpleador: downloadRemoteDataB64POSTEmpleador,
-        downloadRemoteDataB64POSTEmpleado: downloadRemoteDataB64POSTEmpleado
+        downloadRemoteDataB64POSTEmpleado: downloadRemoteDataB64POSTEmpleado,
+        guardarReciboPDFFirmado: guardarReciboPDFFirmado,
+        getIdRecibosSinFirmar: getIdRecibosSinFirmar
     }
 
 })(window, undefined);

@@ -134,7 +134,7 @@ namespace General
         }
 
 
-        public List<Persona> GetPersonasDelAreaParaDDJJ104(int mes, int anio, Area unArea)
+        public List<Persona> GetPersonasDelAreaParaDDJJ104(int mes, int anio, Area unArea, int complementaria)
         {
             SqlDataReader dr;
             //Inasistencia InasistenciaActual;
@@ -143,7 +143,10 @@ namespace General
             ConexionDB cn = new ConexionDB("dbo.PLA_GET_Personas_Del_Area_Para_DDJJ104");
             cn.AsignarParametro("@idArea", unArea.Id);
             cn.AsignarParametro("@mes", mes);
-            cn.AsignarParametro("@anio", anio); 
+            cn.AsignarParametro("@anio", anio);
+            cn.AsignarParametro("@complementaria", complementaria); 
+            
+
             unArea.Personas = new List<Persona>();
             dr = cn.EjecutarConsulta();
 

@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class EvaluacionDesempenio_EvaluadosUsuario : System.Web.UI.Page
+public partial class EvaluacionDesempenio_ComprobacionGDEListadoAgentes : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {

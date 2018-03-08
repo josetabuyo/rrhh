@@ -86,10 +86,13 @@
                     <h5 style="margin-top:20px;" ><b>Comité 1: Técnico en Gestión Administrativa (C - General)</b></h5>
                     <hr class="lineas-subraya"/>
                     <p>
+                        <a href="bases/Conv03_2017_Perfil_16685_Acta_07_Comite_01.pdf" target="_blank" >Acta 7</a> -
+                        <a href="bases/Conv03_2017_Perfil_16685_Acta_06_Comite_01.pdf" target="_blank" >Acta 6</a> -
+                        <a href="bases/Conv03_2017_Perfil_16685_Acta_05_Comite_01.pdf" target="_blank" >Acta 5</a> -
                         <a href="bases/Conv03_2017_Perfil_16685_Acta_04_Comite_01.pdf" target="_blank" >Acta 4</a> -
                         <a href="bases/Conv03_2017_Perfil_16685_Acta_03_Comite_01.pdf" target="_blank" >Acta 3</a> -
                         <a href="bases/Conv03_2017_Perfil_16685_Acta_02_Comite_01.pdf" target="_blank" >Acta 2</a> -
-                        <a href="bases/Conv03_2017_Perfil_16685_Acta_01.pdf" target="_blank" >Acta 1</a> - 
+                        <a href="bases/Conv03_2017_Perfil_16685_Acta_01_Comite_01.pdf" target="_blank" >Acta 1</a> -
                         <a href="bases/Conv03_2017_Perfil_16685.pdf" target="_blank" >Bases</a> 
                     </p>
 
@@ -97,10 +100,13 @@
                     <h5 style="margin-top:20px;" ><b>Comité 2: Asistente Administrativo (D - General)</b></h5>
                     <hr class="lineas-subraya"/>
                     <p>
+                       <a href="bases/Conv03_2017_Perfil_17180_Acta_07_Comite_02.pdf" target="_blank" >Acta 7</a> -
+                        <a href="bases/Conv03_2017_Perfil_17180_Acta_06_Comite_02.pdf" target="_blank" >Acta 6</a> -
+                        <a href="bases/Conv03_2017_Perfil_17180_Acta_05_Comite_02.pdf" target="_blank" >Acta 5</a> -
                         <a href="bases/Conv03_2017_Perfil_17180_Acta_04_Comite_02.pdf" target="_blank" >Acta 4</a> -
                         <a href="bases/Conv03_2017_Perfil_17180_Acta_03_Comite_02.pdf" target="_blank" >Acta 3</a> -
-                        <a href="bases/Conv03_2017_Perfil_17180_Acta 02_Comite_02.pdf" target="_blank" >Acta 2</a> -
-                        <a href="bases/Conv03_2017_Perfil_17180_Acta_01.pdf" target="_blank" >Acta 1</a> - 
+                        <a href="bases/Conv03_2017_Perfil_17180_Acta_02_Comite_02.pdf" target="_blank" >Acta 2</a> -
+                        <a href="bases/Conv03_2017_Perfil_17180_Acta_01_Comite_02.pdf" target="_blank" >Acta 1</a> -
                         <a href="bases/Conv03_2017_Perfil_17180.pdf" target="_blank" >Bases</a>  
                     </p>
                    
@@ -108,12 +114,19 @@
                     <h5 style="margin-top:20px;" ><b>Comité 3: Asistente Administrativo - Reserva Art.8 Ley Nº 22.431 (D - General)</b></h5>
                     <hr class="lineas-subraya"/>
                     <p>
+                        <a href="bases/Conv03_2017_Perfil_17383_Acta_13_Comite_03.pdf" target="_blank" >Acta 13</a> -
+                        <a href="bases/Conv03_2017_Perfil_17383_Acta_12_Comite_03.pdf" target="_blank" >Acta 12</a> -
+                        <a href="bases/Conv03_2017_Perfil_17383_Acta_11_Comite_03.pdf" target="_blank" >Acta 11</a> -
+                        <a href="bases/Conv03_2017_Perfil_17383_Acta_10_Comite_03.pdf" target="_blank" >Acta 10</a> -
+                        <a href="bases/Conv03_2017_Perfil_17383_Acta_09_Comite_03.pdf" target="_blank" >Acta 9</a> -
+                        <a href="bases/Conv03_2017_Perfil_17383_Acta_08_Comite_03.pdf" target="_blank" >Acta 8</a> -
+                        <a href="bases/Conv03_2017_Perfil_17383_Acta_07_Comite_03.pdf" target="_blank" >Acta 7</a> -
                         <a href="bases/Conv03_2017_Perfil_17383_Acta_06_Comite_03.pdf" target="_blank" >Acta 6</a> -
                         <a href="bases/Conv03_2017_Perfil_17383_Acta_05_Comite_03.pdf" target="_blank" >Acta 5</a> -
                         <a href="bases/Conv03_2017_Perfil_17383_Acta_04_Comite_03.pdf" target="_blank" >Acta 4</a> -
                         <a href="bases/Conv03_2017_Perfil_17383_Acta_03_Comite_03.pdf" target="_blank" >Acta 3</a> -
                         <a href="bases/Conv03_2017_Perfil_17383_Acta_02_Comite_03.pdf" target="_blank" >Acta 2</a> -
-                        <a href="bases/Conv03_2017_Perfil_17383_Acta_01.pdf" target="_blank" >Acta 1</a> - 
+                        <a href="bases/Conv03_2017_Perfil_17383_Acta_01_Comite_03.pdf" target="_blank" >Acta 1</a> -
                         <a href="bases/Conv03_2017_Perfil_17383.pdf" target="_blank" >Bases</a>  
                     </p>
                 </div>

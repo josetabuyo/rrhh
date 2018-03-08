@@ -91,8 +91,8 @@
                 left: 18px;
                 font-size: 20px;
                 color: white;
-            } 
-            
+            }             
+               
             .label_combo
             {
                 width: 250px;
@@ -196,7 +196,7 @@
                 <br />
                 <h4 id="titulo_vista_previa">Vista Previa Credencial</h4>
                 <div id="vista_previa_credencial">
-                    <img id="imagen_credencial" src="../BarraMenu/credencial.png"/>
+                    <img id="imagen_credencial" src="../BarraMenu/credencialMds.png"/>
                     <div id="foto_usuario"></div>
                     <div id="apellido"></div>    
                     <div id="nombres"></div>    
@@ -333,10 +333,13 @@
         </div>
     </form>
 </body>
+
 <script type="text/javascript" src="Legajo.js"></script>
 <script type="text/javascript" src="../Scripts/Spin.js"></script>
 <script type="text/javascript" src="../Scripts/ControlesImagenes/VistaThumbnail.js"></script>
 <script type="text/javascript" src="../scripts/vex-2.1.1/js/vex.combined.min.js"></script>
+
+
 <script type="text/javascript" >
     $("#btn_credencial_vigente").hide();
     $(document).ready(function ($) {
@@ -361,7 +364,6 @@
                 Legajo.getCredencialesUsuario();
             });
 
-            debugger;
             Backend.GetUsuarioLogueado().onSuccess(function (usuario) {
 
                 if (usuario.Owner.IdImagen == -1) {
@@ -379,7 +381,7 @@
                         $("#botonera_credenciales").show();
                         if (_.some(solicitudes, function (sol) {
                             if (sol.Id == 0) return false;
-                            if (sol.Estado == "ENTREGADA") return false;
+                            if (sol.Estado == "ENTREGADO") return false;
                             if (sol.Estado == "RECHAZADO") return false;
                             return true;
                         })) {
@@ -430,7 +432,7 @@
                                 var img = new VistaThumbnail({
                                     id: usuario.Owner.IdImagen,
                                     contenedor: ui.find("#foto_usuario")
-                                });
+                                });                               
                             });
 
                             ui.find("#btn_cambiar_foto").click(function () { $("#contenedor_foto_usuario").click(); });

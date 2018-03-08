@@ -15,15 +15,12 @@
     <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:18px; font-weight: bold;'></span> <br/> <span style='font-size:18px;font-weight: bold;'> Menú Principal </span>"
         UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" UrlPassword="../" />
     <div class="container-fluid">
-        <h1 style="text-align: center; margin: 30px;">
-            <!--<a id="btn_asignacion_usuario" href="EvaluadosUsuario.aspx">Evaluados por Usuario</a>-->
-        </h1>
         <div style="margin: 0 auto;" class="row">
             <div class="caja_der papel">
                 <legend style="margin-top: 20px;">AGENTES EVALUABLES</legend>
                 <div id="contenedorTabla">
                     <label for="Text1">Filtrar planilla por: </label>
-                    <input type="text" id="srch_agente" class="search buscador" style="height: 35px;" disabled placeholder="DNI, Nombre o Apellido" />
+                    <input type="text" id="srch_agente" class="search buscador" style="height: 35px;" placeholder="Apellido" />
                     <label style="margin-left:20px;">  ó por ESTADO</label>
                     <select id="id_estado" style="margin-left: 10px; width: 170px;" disabled>
                         <option value="0">Todos</option>
@@ -35,12 +32,16 @@
                         <option value="6">Regular</option>
                         <option value="7">Deficiente</option>
                     </select>
+                    <label for="periodo" style="margin-left: 10px; width: 170px;" > Periodo:</label>
+                        <select id="select_periodo"></select>
                     <div id="tablaAgentes" class="table table-striped table-bordered table-condensed">
                     </div>
                 </div>
             </div>
     </div>
     </div>
+    <!--en caso que se quiera cargar una evaluacion de un agente del que su nivel no está en la base
+    se pregunta al usuario cual es ese nivel mediante este popup-->
     <div style="display: none" id="div_niveles">
         <select id="select_niveles">
             <!--<option value="1">GERENCIAL</option>-->
@@ -52,10 +53,12 @@
         </select>
         <input type="button" id="btn_nivel" value="Aceptar">
     </div>
+
+    <!--popup para cargar el codigo gde de la evaluacion de desempenio cargada-->
     <div style="display:none" id="div_codigo_gde">
         Ingrese el Codigo GDE<br />
         <input type="text" id="codigo_gde"></input><br />
-        <input type="hidden" id="hid_doc" />
+        <input type="hidden" id="hid_id_eval" />
         
         <a href="#" id="lnk_cancelar">Cancelar</a>
         <input type="button" id="btn_codigo_gde" value="Aceptar">
@@ -67,7 +70,8 @@
 <script type="text/javascript" src="../scripts/vex-2.1.1/js/vex.combined.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function ($) {
-        Backend.start(function () {    
+        Backend.start(function () {
+            ListadoAgentes.getPeriodosEvaluacion();
             ListadoAgentes.getEvaluaciones();
         });
     });

@@ -354,7 +354,6 @@ var GraficoContratos = {
 //                        };
 
 
-
 //                        var spinner = new Spinner({ scale: 3 });
 //                        spinner.spin($("html")[0]);
 //                        //_this.FiltrarInformesParaTabla(un_registro.Id, tabla_detalle);

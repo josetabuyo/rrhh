@@ -52,7 +52,7 @@
             <!--TODO: cargar dinamicamente los select si no se quieren mostrar meses no vigentes para el año actual-->
              <select style="width:65px;" id="cmb_anio">
                 <option value="2016" selected>2016</option>
-                <option value="2017" selected>2017</option>
+                <option value="2017" >2017</option>
              </select>
              <select style="width:105px;" id="cmb_meses">
                 <option value="1" selected>Enero</option>
@@ -85,17 +85,7 @@
             <div class="Cell"><p> Segundo Nombre</p></div>  
             <div class="Cell"> <p>  Edad</p> </div>  
          </div>--> 
-<div style="width:100%">
-         <div class="Row"> 
-            <div class="Cell"> <p>  Operación</p> </div>  
-            <div class="Cell2"><input id="botonFirmasxxx" class="botonFirmaM" type="button" value="Firmar Seleccionados" onclick="javascript:iniciarOperaciones();return false;" /></div> 
-         </div>  
-         <div class="Row"> 
-            <div class="Cell"> <p>  Estatus</p> </div>  
-            <div class="Cell2" id="divmensajexxx"> <p>...</p>  </div> 
-         </div> 
-</div>
-   
+   <BR>  <BR> 
    <div><table class="tablex table-stripedx table-bordered table-condensed" style="width:100%">
 				 <tbody class="list">
 				 <tr><td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;width:10pt" >Operación</td>
@@ -199,6 +189,7 @@
 <!-- js de los servicios propios de la pagina -->
 <script type="text/javascript" >
     var divMensajeStatus = document.getElementById('divMensajeStatus');
+    var btn_firmar = document.getElementById("btn_firmar");
     var lista_recibos_resumen;/*variable que mantiene la lista de recibos */
     function buscarRecibos() {
         //NOTA: si tipo liquidacion es 0 entonces se deben traer TODOS los recibos de un dado año y mes
@@ -210,7 +201,7 @@
         var anio = document.getElementById('cmb_anio').value;
         var mes = document.getElementById('cmb_meses').value;
         var tipoLiquidacion = document.getElementById('cmb_tipo_liquidacion').value;
-        RECIBOS.getRecibos(tipoLiquidacion, anio, mes);
+        RECIBOS.getIdRecibosSinFirmar(tipoLiquidacion, anio, mes);
         
 
         //seteo el mensage con el resultado de la operacion
@@ -416,16 +407,17 @@
 //            estado.classList.remove('estadoNoFirmado');
 //            estado.classList.add('estadoProcesando');
 
-            /*MiniApplet.sign(
+            MiniApplet.sign(
             dataB64,
             algorithm,
             format,
             params,
-            successCallback,
-            errorCallback);*/
+            SignSuccessCallback,
+            SignErrorCallback);
 
             //el nombre del pdf sera idRecibo
-            MiniApplet.signAndSaveToFile(
+            //MiniApplet.signAndSaveToFile(
+            /*MiniApplet.signAndSaveToFile(
 					"SIGN",
 					dataB64,
 					algorithm,
@@ -433,7 +425,7 @@
 					params,
 					idRecibo+".pdf",
 					SignSuccessCallback,
-					SignErrorCallback);
+					SignErrorCallback);*/
         }
         catch (e) {
             //Se muestra el mensaje de error si NO es de cancelación de la operación
@@ -461,37 +453,37 @@
 
     //verifico si aun hay firmas por realizar
     function verificarContinuacionProceso() {
-        var btn_firmar = document.getElementById("botonFirmas");
 
         //compruebo si se realizaron todas las operaciones
         if (totalOperaciones != totalFirmas) {
             //divMensaje.innerHTML='<div class="iconInfo">No se pudieron procesar todos los documentos.</div>';
-            firmarFileB64ServerExternoMasivo();
+            firmarFileB64ServerExternoMasivo3();
         } else {
             //ya se realizaron todas las operaciones
             //compruebo si se realizaron todas las operaciones de firma
             if (totalFirmasRealizadas == totalFirmas) {
-                divMensaje.innerHTML = '<div class="iconOKFirmados">Archivos firmados correctamente.</div>';
+                divMensajeStatus.innerHTML = '<div class="iconOKFirmados">Archivos firmados correctamente.</div>';
             } else {
                 var archivosNoFirmados = totalOperaciones - totalFirmasRealizadas;
-                divMensaje.innerHTML = '<div class="iconAlerta">No se pudieron procesar ' + archivosNoFirmados + ' documentos.</div>';
+                divMensajeStatus.innerHTML = '<div class="iconAlerta">No se pudieron procesar ' + archivosNoFirmados + ' documentos.</div>';
             }
             //reseteo las variables globales
             totalOperaciones = 0;
             totalFirmasRealizadas = 0;
             totalFirmas = 0;
-
+            indiceListaRecibos = 0;
+            //NO rehabilito de nuevo el boton de firmar porque el que lo habilita es las busqueda de recibos a firmar
             //ya no hay elementos a procesar
-            btn_firmar.disabled = false;
-            btn_firmar.classList.remove('botonGrisadoFirmaM');
-            btn_firmar.classList.add('botonFirmaM');
+//            btn_firmar.disabled = false;
+//            btn_firmar.classList.remove('botonGrisadoFirmaM');
+//            btn_firmar.classList.add('botonFirmaM');
 
 
         }
     }
 
     function SignSuccessCallback(signatureB64, certificateB64) {
-        ;
+        
         //en realidad el algoritmo por default es utf-8 pero igualmente no se 
         //toma en cuenta el segundo parametro, abria que eliminarlo si el algoritmo
         //es por default utf-8
@@ -522,22 +514,32 @@
                   verificarContinuacionProceso();
  
         
-        RECIBOS.guardarRecibo(fichero,errorCallback,successCallback);
-    */    
+        RECIBOS.guardarRecibo(fichero,saveSuccessCallback,saveErrorCallback);
+    */
+        RECIBOS.guardarReciboPDFFirmado(lista_recibos_resumen[indiceListaRecibos - 1].Id_Recibo, fichero, successCallback, errorCallback);    
+     
         //seteo el enlace al nuevo documento firmado
+        
+                
+        //SIMULACION BLOQUE GUARDADO OK
+  /*      totalOperaciones++;
+        totalFirmasRealizadas++;
+        verificarContinuacionProceso();*/
+
+
 
 
     }
 
-    function successCallback() {
-        
+    function successCallback(idRecibo) {
+        //alert("guardado ok "+idRecibo);
         totalOperaciones++;
         totalFirmasRealizadas++; 
         verificarContinuacionProceso();       
 
     }
 
-    function errorCallback(errorType, errorMessage) {
+    function errorCallback(e) {
 
 //        if ((errorMessage) &&
 //(errorMessage.indexOf("AOCancelledOperationException") == -1) &&
@@ -549,7 +551,7 @@
                 /*divMensaje.innerHTML='<div class="iconErrorFirma">Error al firmar</div><br><div style="width:300pt">' + errorMessage + '</div>';*/
 //            }
 //        }*/
-
+//        alert("error en el guardado");
         totalOperaciones++;
         verificarContinuacionProceso();
     }
@@ -676,18 +678,18 @@
     }
 
     ////////////NOTA: A modo de prueba solo se enviaran 3 archivos como maximo a firmar
-    var u=0;/////borrar
+    
     //retorna el elemento apuntado por indice y actualiza el indice
     function siguienteSeleccion3(indice) {
-     if(u<3){u++;///////borrar
-        if (indice < (lista_recibos_resumen.length)) {
+
+        if (indice < (3)) {//lista_recibos_resumen.length
             //actualizo el indice
-            indice++;
+            indiceListaRecibos++;
             //retorno el valor
             return lista_recibos_resumen[indice].Id_Recibo;
 
         } else {return -1;}
-      }else{u=0;return -1;}     ///////borrar    
+        
     }
 
     //seteo las variables para poder realizar las operaciones recursivamente
@@ -742,7 +744,7 @@
         //compruebo si minimamente hay elementos en la lista para firmar
         
         if (lista_recibos_resumen.length != 0) {
-            totalFirmas = lista_recibos_resumen.length;         
+            totalFirmas = 3; //*************************lista_recibos_resumen.length;         
             if (totalFirmas > 0) {
                 //deshabilito el boton
                 btn_firmar.disabled = true;
@@ -796,7 +798,7 @@
             data = "http://localhost:43412/WSViaticos/WSViaticos.asmx/GetReciboPDF";
 /////////////////////VER
             try {
-                RECIBOS.downloadRemoteDataB64POSTEmpleado(
+                RECIBOS.downloadRemoteDataB64POSTEmpleador(
 									data,idRecibo,parametros,
 									downloadedFileSuccessCallback,
 									downloadedErrorCallback);
@@ -816,6 +818,7 @@
             btn_firmar.classList.remove('botonGrisadoFirmaM');
             btn_firmar.classList.add('botonFirmaM');
 
+            //ACtualizar el mensaje o ver continuacionproceso, en realidad no deberia entrar, sino por continuacionproceso
         }
 
 

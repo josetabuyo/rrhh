@@ -97,7 +97,7 @@
     <div id="Fecha" align="right" style="width: 95%"></div>
     
     <div align="center" style="font-size: medium">
-        <b>Renovación de contratos 2017</b></div>
+        <b>Renovación de contratos Periódo: <span id="periodoRenovacion"></span></b></div>
     <div align="center" style="font-size: medium">
         Informe de solicitud Nº <b><a id="NroInforme"></a></b>.</div>
     <br />

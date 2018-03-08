@@ -74,11 +74,6 @@
         Backend.start(function () {
             GestionDeTareas.getTareasParaGestion();
         });
-
-        
-
     });
-
-
 </script>
 </html>

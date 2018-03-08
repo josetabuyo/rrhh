@@ -31,6 +31,8 @@ using General.MED;
 //using PdfPrinter.Core.Configuration;
 using System.Web.Hosting;
 using System.Runtime.Serialization.Formatters.Binary;
+using iTextSharp.text.pdf;
+using iTextSharp.text;
 
 
 [WebService(Namespace = "http://wsviaticos.gov.ar/")]
@@ -63,6 +65,20 @@ public class WSViaticos : System.Web.Services.WebService
     {
         var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
         return repo.GetAgentesEvaluablesPor(usuario);
+    }
+
+    [WebMethod]
+    public RespuestaGetAgentesEvaluablesPor GetAgentesEvaluablesParaVerificarGDE(Usuario usuario)
+    {
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        return repo.GetAgentesEvaluablesParaVerificarGDE(usuario);
+    }
+
+    [WebMethod]
+    public List<PeriodoEvaluacion> GetPeriodosEvaluacion(Usuario usuario)
+    {
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        return repo.GetPeriodosEvaluacion(usuario);
     }
 
     [WebMethod]
@@ -175,7 +191,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public AreaParaDDJJ104[] GetAreasParaDDJJ104(int mes, int anio, int id_area, Usuario usuario)
+    public AreaParaDDJJ104[] GetAreasParaDDJJ104(int mes, int anio, int id_area, int complementaria, Usuario usuario)
     {
         var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas(), Autorizador());
         var a = new AreaParaDDJJ104[1];
@@ -187,24 +203,24 @@ public class WSViaticos : System.Web.Services.WebService
         }
         else
         {
-            a = responsableDDJJ.GetAreasParaDDJJ104InferioresA(mes, anio, id_area, usuario).ToArray();
+            a = responsableDDJJ.GetAreasParaDDJJ104InferioresA(mes, anio, id_area, complementaria, usuario).ToArray();
         }
 
         return a;
     }
 
     [WebMethod]
-    public DDJJ104_2001 GenerarDDJJ104(int id_area, int mes, int anio, Persona[] lista_persona, int estado_guardado, Usuario usuario)
+    public DDJJ104_2001 GenerarDDJJ104(int id_area, int mes, int anio, Persona[] lista_persona, int estado_guardado, int complementaria, Usuario usuario)
     {
         //RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
         //return ddjj.GenerarDDJJ104(usuario, area, mes, anio);
 
-        var UnArea = GetAreasParaDDJJ104(mes, anio, id_area, usuario);
+        var UnArea = GetAreasParaDDJJ104(mes, anio, id_area, complementaria, usuario);
 
         RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
 
         DDJJ104_2001 cabe = new DDJJ104_2001();
-        cabe = ddjj.GenerarDDJJ104(usuario, UnArea[0], mes, anio, lista_persona, estado_guardado);
+        cabe = ddjj.GenerarDDJJ104(usuario, UnArea[0], mes, anio, lista_persona, estado_guardado, complementaria);
 
 
         return cabe;
@@ -216,6 +232,17 @@ public class WSViaticos : System.Web.Services.WebService
         return new RepositorioDeParametrosGenerales(Conexion()).GetLeyendaAnio(anio);
     }
 
+    [WebMethod]
+    public string GetAnioDeContrato(Usuario usuario)
+    {
+        return new RepositorioDeParametrosGenerales(Conexion()).GetAnioDeContrato();
+    }
+
+    [WebMethod]
+    public DateTime[] GetFeriados()
+    {
+        return new RepositorioDeParametrosGenerales(Conexion()).GetFeriados().ToArray();
+    }
 
     //CONSULTA INDIVIDUAL
     [WebMethod]
@@ -664,7 +691,7 @@ public class WSViaticos : System.Web.Services.WebService
         int id_area = (int)((JValue)criterio_deserializado["id_area"]);
 
 
-        AreaParaDDJJ104[] areas = GetAreasParaDDJJ104(mes, anio, id_area, usuario);
+        AreaParaDDJJ104[] areas = GetAreasParaDDJJ104(mes, anio, id_area, 0, usuario); //COMPLEMENTARIA=0, No filtra por Area.
 
         try
         {
@@ -2971,6 +2998,83 @@ public class WSViaticos : System.Web.Services.WebService
 
     #region Credenciales
 
+    [WebMethod]
+    public string GetPDFDDJJRecepcionCredencial(SolicitudCredencial solicitud)
+    {
+        var solicitante = RepositorioDePersonas().GetPersonaPorId(solicitud.IdPersona);
+
+        var foto = this.GetThumbnail(solicitante.IdImagen, 100, 100);
+        while (foto.reintentar)
+        {
+            foto = this.GetThumbnail(solicitante.IdImagen, 100, 100);            
+        }
+        Dictionary<string, string> mapa_para_pdf = new Dictionary<string,string>();
+        //mapa_para_pdf.Add("CodigoBarras1", usuario.Owner.Documento.ToString());
+        mapa_para_pdf.Add("APELLIDONombre1", solicitante.Apellido + ", " + solicitante.Nombre);
+        mapa_para_pdf.Add("APELLIDONombreDNI1", solicitante.Apellido + ", " + solicitante.Nombre + " (" + solicitante.Documento.ToString("#,##0") + ")");
+        mapa_para_pdf.Add("TipoNroDNI1", solicitante.Documento.ToString("#,##0"));
+        mapa_para_pdf.Add("Fecha1", DateTime.Now.ToShortDateString());
+
+        mapa_para_pdf.Add("APELLIDONombreDNI2", solicitante.Apellido + ", " + solicitante.Nombre + " (" + solicitante.Documento.ToString("#,##0") + ")");
+        mapa_para_pdf.Add("Fecha2", DateTime.Now.ToShortDateString());
+
+        var creador_pdf = new CreadorDePdfs();
+
+        byte[] bytes = creador_pdf.FillPDF(TemplatePath("DDJJ_entrega_credencial_2018.pdf"), "DDJJEntregaCredencial", mapa_para_pdf);
+
+        Document doc = new Document();
+        byte[] result;
+
+        using (MemoryStream ms = new MemoryStream())
+        {
+            PdfWriter writer = PdfWriter.GetInstance(doc, ms);
+
+            doc.SetPageSize(PageSize.LETTER);
+            doc.Open();
+            PdfContentByte cb = writer.DirectContent;
+            PdfImportedPage page;
+
+
+
+            PdfReader reader;
+            reader = new PdfReader(bytes);
+            int pages = reader.NumberOfPages;
+            // loop over document pages
+
+            doc.SetPageSize(PageSize.A4);
+            doc.NewPage();
+            page = writer.GetImportedPage(reader, 1);
+            cb.AddTemplate(page, 0, 0);
+
+            Barcode39 bc39 = new Barcode39();
+            bc39.Code = solicitante.Documento.ToString();
+            bc39.Font = null;
+            Image image = bc39.CreateImageWithBarcode(cb, null, null);
+
+            image.SetAbsolutePosition(270, 750);
+            image.ScaleAbsolute(200, 50);
+            doc.Add(image);
+
+            Byte[] bytes_foto = Convert.FromBase64String(foto.bytes);
+            var foto_usuario = iTextSharp.text.Image.GetInstance(bytes_foto);
+
+            foto_usuario.SetAbsolutePosition(480, 640);
+            foto_usuario.ScaleAbsolute(100, 100);
+            doc.Add(foto_usuario);
+
+            doc.SetPageSize(PageSize.A4);
+            doc.NewPage();
+            page = writer.GetImportedPage(reader, 1);
+            cb.AddTemplate(page, 0, 0);
+
+            doc.Close();
+            result = ms.ToArray();
+        }
+
+        return Convert.ToBase64String(result);
+    }
+
+
 
     [WebMethod]
     public Credencial[] GetCredencialesTodasDePortal(Usuario usuario)
@@ -3023,6 +3127,14 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public SolicitudCredencial GetSolicitudDeCredencialPorIdTicketEntrega(int id_ticket, Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+        return repositorio.GetSolicitudDeCredencialPorIdTicketEntrega(id_ticket);
+    }
+
+
+    [WebMethod]
     public bool AprobarSolicitudCredencial(SolicitudCredencial solicitud, Usuario usuario)
     {
         RepositorioLegajo repositorio = RepoLegajo();
@@ -3055,6 +3167,13 @@ public class WSViaticos : System.Web.Services.WebService
     {
         RepositorioLegajo repositorio = RepoLegajo();
         return repositorio.CerrarTicketImpresion(solicitud, instrucciones_de_retiro, usuario);
+    }
+
+    [WebMethod]
+    public bool CerrarTicketEntrega(SolicitudCredencial solicitud, Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+        return repositorio.CerrarTicketEntrega(solicitud, usuario);
     }
 
     #endregion
@@ -4869,6 +4988,11 @@ public class WSViaticos : System.Web.Services.WebService
         return General.Repositorios.RepositorioLegajo.NuevoRepositorioDeLegajos(Conexion());
     }
 
+    private RepositorioRecibosFirmados RepoReciboFirmado()
+    {
+        return General.Repositorios.RepositorioRecibosFirmados.NuevoRepositorioRecibosFirmados(Conexion());
+    }
+
     private IRepositorioDeUsuarios RepositorioDeUsuarios()
     {
         return new RepositorioDeUsuarios(Conexion(), RepositorioDePersonas());
@@ -5144,10 +5268,29 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public string EvalVerificarCodigoGDE(int id_evaluacion, string codigo_gde, Usuario usuario)
+    {
+        //var repo = RepositorioEvaluacionDesempenio.NuevoReposi
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        repo.VerificarCodigoGDE(id_evaluacion, usuario);
+        
+        return codigo_gde;
+    }
+
+    [WebMethod]
     public string EvalGuardarCodigoGDE(int id, string codigo_gde)
     {
         var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
         repo.EvalGuardarCodigoGDE(id, codigo_gde);
+        return codigo_gde;
+    }
+
+    [WebMethod]
+    public string EvalCorregirCodigoGDE(int id, string codigo_gde, Usuario usuario)
+    {
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        repo.EvalGuardarCodigoGDE(id, codigo_gde);
+        repo.VerificarCodigoGDE(id, usuario);
         return codigo_gde;
     }
 
@@ -5194,6 +5337,14 @@ public class WSViaticos : System.Web.Services.WebService
         return repo.GetRecibosResumen(tipoLiquidacion, anio, mes);
     }
 
+    [WebMethod]
+    public string GetIdRecibosSinFirmar(int tipoLiquidacion, int anio, int mes, Usuario usuario)
+    {
+        //tira error porque puede ser null el tipo liquidacion y los demas, poner un '' o 0 y verificar aca
+        RepositorioLegajo repo = RepoLegajo();
+        return repo.GetIdRecibosSinFirmar(tipoLiquidacion, anio, mes);
+    }
+
     /////////////////VER
     [WebMethod]
     public string GetReciboPDFEmpleador(int id_recibo)
@@ -5214,21 +5365,22 @@ public class WSViaticos : System.Web.Services.WebService
         var mapa_para_pdf = converter.CrearMapa(modelo_para_pdf);
         var creador_pdf = new CreadorDePdfs();
         byte[] bytes;
+        byte[] bytes2;
 
         if (mapa_para_pdf["paginasPDF"] == "una")
         {
             //el nombre del pdf generado va a ser el idRecibo
             bytes = creador_pdf.FillPDF(TemplatePath("ReciboEmpleador_v6.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
-            //byte[] bytes2 = creador_pdf.AgregarImagenAPDF(bytes, bytes_img);
+            bytes2 = creador_pdf.AgregarImagenAPDF(bytes, "FRH0502," + Convert.ToString(id_recibo));
         }
         else {
             //el nombre del pdf generado va a ser el idRecibo
             bytes = creador_pdf.FillPDF(TemplatePath("ReciboEmpleador_v6b.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
-             
+            bytes2 = creador_pdf.AgregarImagenAPDF(bytes, "FRH0502," + Convert.ToString(id_recibo)); 
         } 
        
         //return Convert.ToBase64String(bytes2);
-        return Convert.ToBase64String(bytes);
+        return Convert.ToBase64String(bytes2);
 
         //////////////////////////////////
   ///      Object x = JsonConvert.DeserializeObject<Object>(datos);
@@ -5258,20 +5410,21 @@ public class WSViaticos : System.Web.Services.WebService
         var creador_pdf = new CreadorDePdfs();
 
         byte[] bytes;
+        byte[] bytes2;
 
         if (mapa_para_pdf["paginasPDF"] == "una")
         {
             //el nombre del pdf generado va a ser el idRecibo
             bytes = creador_pdf.FillPDF(TemplatePath("ReciboEmpleado_v2.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
-            //byte[] bytes2 = creador_pdf.AgregarImagenAPDF(bytes, bytes_img);
+            bytes2 = creador_pdf.AgregarImagenAPDF(bytes, "FRH0502," + Convert.ToString(id_recibo)); 
         }
         else
         {
             //el nombre del pdf generado va a ser el idRecibo
             bytes = creador_pdf.FillPDF(TemplatePath("ReciboEmpleado_v2b.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
-
+            bytes2 = creador_pdf.AgregarImagenAPDF(bytes, "FRH0502," + Convert.ToString(id_recibo)); 
         }
-        return Convert.ToBase64String(bytes);
+        return Convert.ToBase64String(bytes2);
 
         //////////////////////////////////
         ///      Object x = JsonConvert.DeserializeObject<Object>(datos);
@@ -5281,23 +5434,28 @@ public class WSViaticos : System.Web.Services.WebService
         ///      return x.Cabecera ;
     }
 
-    [WebMethod]///////VER con JAVI
-    public int SubirReciboPDFFirmado(string bytes_pdf)
+    [WebMethod]
+    public int GuardarReciboPDFFirmado(string bytes_pdf, int id_recibo)
     {
         int id_archivo=0;
-        try
-        {//COMO el proceso de guardado desde la tabla de la BD al disco es externo, no genero una subclase de archivo
+//        try
+//        {//COMO el proceso de guardado desde la tabla de la BD al disco es externo, no genero una subclase de archivo
          //que tendria el path de disco donde guardar el archivo. Se puede agregar una clase con propieda la clase archivo 
             //subo el archivo firmado y actualiza la tabla que indica que el idRecibo fue firmado
   //          id_archivo = RepositorioDeArchivosPDF().GuardarArchivoPDF(bytes_pdf);
-
+            id_archivo = 20;//RepositorioDeArchivos().GuardarArchivo(bytes_pdf);// id_recibo;//simulo el guardado del archivo
+            //var r = RepositorioDeArchivos().GetArchivo(id_archivo); //19444 es un pdf firmado          
+            //actualizo el recibo firmado por el empleado, 
+            RepoReciboFirmado().actualizarReciboFirmado(id_recibo,id_archivo);
+                                                 //        var s=  Convert.FromBase64String(r);
+        //TODOOOOOO
             return id_archivo;
-        }
-        catch (Exception ex)
-        {   //si se puedo subir el archivo a disco actualizo la tabla de recibo firmado
-            return -1;
+//        }
+//        catch (Exception ex)
+//        {   //si se puedo subir el archivo a disco actualizo la tabla de recibo firmado
+//           return -1;
           //  throw ex; si relanzo la exception, en el cliente se lo toma como exception javascript?
-        }
+//        }
 
     }
 
@@ -5308,11 +5466,57 @@ public class WSViaticos : System.Web.Services.WebService
        }
         * 
         * 
-        * Numalet.ToCardinal(8,25);
-        * 
         * 
         * 
           }*/
+
+    #region " Control de Acceso "
+
+    [WebMethod]
+    public string CTL_ACC_Grabar_Lote(string json)
+    {
+        var ctlAcc = new General.CtrlAcc.RepositorioCtlAcc();
+        return ctlAcc.Grabar_Lote_Control_Acceso(json);
+    }
+
+    [WebMethod]
+    public string CTL_ACC_Get_Dotacion()
+    {
+        var ctlAcc = new General.CtrlAcc.RepositorioCtlAcc();
+        return ctlAcc.Get_Dotacion_Control_Acceso();
+    }
+
+    [WebMethod]
+    public string CTL_ACC_Login(string user, string pass)
+    {
+        return "";
+    }
+
+    #endregion	
+
+
+    [WebMethod]
+    public void GenerarMotivoEnPersonasNoCertificadas(int mes, int anio, DDJJ104_Consulta[] lista_DDJJ104, Usuario usuario)
+    {
+        RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
+
+        DDJJ104_2001 cabe = new DDJJ104_2001();
+        ddjj.GenerarMotivoEnPersonasNoCertificadas(mes, anio, lista_DDJJ104, usuario);
+
+    }
+
+
+    [WebMethod]
+    public void AsignaAreaAPersonasNoCertificadas(int mes, int anio, DDJJ104_Consulta[] lista_DDJJ104, int id_area, Usuario usuario)
+    {
+        RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
+
+        DDJJ104_2001 cabe = new DDJJ104_2001();
+        ddjj.AsignaAreaAPersonasNoCertificadas(mes, anio, lista_DDJJ104, id_area, usuario);
+
+    }
+
+
 
 
 }
