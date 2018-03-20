@@ -397,6 +397,33 @@ var Legajo = {
                         spinner.stop();
                     });
 
+        Backend.getAusenciasDeUsuario()
+            .onSuccess(function (ausencias) {
+                
+                var _this = this;
+                $("#tablaAusencias").empty();
+                var divGrilla = $("#tablaAusencias");
+                var columnas = [];
+
+                columnas.push(new Columna("Desde", { generar: function (una_ausencia) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_ausencia.Desde) } }));
+                columnas.push(new Columna("Hasta", { generar: function (una_ausencia) { return ConversorDeFechas.deIsoAFechaEnCriollo(una_ausencia.Hasta) } }));
+                columnas.push(new Columna("Motivo", { generar: function (una_ausencia) { return una_ausencia.Motivo } }));
+                columnas.push(new Columna("Estado", { generar: function (una_ausencia) { return una_ausencia.Estado } }));
+                columnas.push(new Columna("Usuario", { generar: function (una_ausencia) { return una_ausencia.Usuario.Alias } }));
+                
+
+                _this.Grilla = new Grilla(columnas);
+                _this.Grilla.CambiarEstiloCabecera("estilo_tabla_portal");
+                _this.Grilla.CargarObjetos(ausencias);
+                _this.Grilla.DibujarEn(divGrilla);
+                $('.table-hover').removeClass("table-hover");
+
+                spinner.stop();
+            })
+            .onError(function (e) {
+                spinner.stop();
+            });
+
 
     },
     ConvertirAMonedaOVacio: function (numero) {

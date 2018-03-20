@@ -1297,6 +1297,53 @@ namespace General.Repositorios
             }
         }
 
+        public List<Inasistencia> getAusenciasDelUsuario(Usuario usuario)
+        {
+            try
+            {
+                var parametros = new Dictionary<string, object>();
+                parametros.Add("@idPersona", usuario.Owner.Id);
+
+                //traigo ausencias que no estam ya justificadas
+                var tablaDatos = this.conexion.Ejecutar("LIC_GET_Ausencias", parametros);
+
+                List<Inasistencia> inasistencias = new List<Inasistencia>();
+                
+
+                tablaDatos.Rows.ForEach(row =>
+                {
+
+                    /*if (numeroDocumento != row.GetInt("NroDocumento"))
+                    {
+                        persona = new Persona();
+                        persona.Documento = row.GetInt("NroDocumento");
+                        persona.Apellido = row.GetString("apellido");
+                        persona.Nombre = row.GetString("nombre");
+
+                        //traigo licencias de esa persona
+                        licenciasSolicitadas = this.GetVacacionesAprobadasPara(persona);
+
+                        numeroDocumento = row.GetInt("NroDocumento");
+                    }*/
+
+                    //General.MAU.Usuario usuario = new General.MAU.Usuario(0, row.GetString("NombreUsu"), "", true);
+
+                    Inasistencia inasistencia = new Inasistencia(row.GetInt("id"), null, row.GetString("descripcion"), row.GetDateTime("desde"), row.GetDateTime("hasta"), usuario);
+
+                    inasistencias.Add(inasistencia);
+                    
+                });
+
+
+                return inasistencias;
+
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+
         public List<MotivoBaja> getMotivosAusencias()
         {
             var tablaDatos = this.conexion.Ejecutar("LIC_GET_Motivos_Ausencias");

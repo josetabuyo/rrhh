@@ -406,6 +406,15 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public Inasistencia[] getAusenciasDeUsuario(Usuario usuario)
+    {
+        RepositorioLicencias repositorio = new RepositorioLicencias(Conexion());
+
+        return repositorio.getAusenciasDelUsuario(usuario).ToArray();
+
+    }
+
+    [WebMethod]
     public bool guardarJustificacion(Justificacion justificaion, Usuario usuario)
     {
         RepositorioLicencias repositorio = new RepositorioLicencias(Conexion());

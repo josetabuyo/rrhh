@@ -75,7 +75,7 @@
             },
             contentCSS: {
                 width: "80%",
-                height: "80%"
+                height: "50%"
             }
         });
 

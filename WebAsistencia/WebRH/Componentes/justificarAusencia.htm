@@ -20,6 +20,7 @@
 
         <div style="text-align:center;">
             <input type="button" class="btn btn-primary" id="btnJustificar" value="Justificar" />
+            <input type="button" class="btn btn-primary" id="btnDescontar" value="Descontar" />
             <input type="button" class="btn btn-primary" id="btnCancelar" value="Cancelar" />
         </div>
 
@@ -58,9 +59,13 @@
                     
                 });
 
+                });
+
+            ui.find("#btnDescontar").click(function () {
+                alertify.success('Ha desarrollars');
             });
 
-            ui.find("btnCancelar").click(function () {
+            ui.find("#btnCancelar").click(function () {
                 //ui.close();
                 vex.close();
             });
