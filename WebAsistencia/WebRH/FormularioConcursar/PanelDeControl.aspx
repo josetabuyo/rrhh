@@ -6,7 +6,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
+<head id="Head1" runat="server">
     <title></title>
      <%= Referencias.Css("../")%>    
 
@@ -76,7 +76,7 @@
                   </div>
 
                 <div class="feedPostulacionesAplicadas sombra_y_redondeado">
-                    <h3 class="subtitulo_postulaciones"><a href="#">Adminitrador de Redes RRHH/ CABA </a></h3>
+                    <h3 class="subtitulo_postulaciones"><a href="#">Administrador de Redes RRHH/ CABA </a></h3>
                     <hr class="SubrayadoPostulaciones degrade"/>
                     <p>Se require expertos en Redes para administrar la infraestructura</p>-->
                     <h3 style="margin-top:20px;" class="panel-title" >Información de la Convocatoria</h3>
@@ -86,11 +86,13 @@
                     <h5 style="margin-top:20px;" ><b>Comité 1: Técnico en Gestión Administrativa (C - General)</b></h5>
                     <hr class="lineas-subraya"/>
                     <p>
-                        <a href="bases/Conv03_2017_Perfil_16685_Acta_12_Comite_01.pdf" target="_blank" >Acta 12</a> -
-			            <a href="bases/Conv03_2017_Perfil_16685_Acta_11_Comite_01.pdf" target="_blank" >Acta 11</a> -
-			            <a href="bases/Conv03_2017_Perfil_16685_Acta_10_Comite_01.pdf" target="_blank" >Acta 10</a> -
-			            <a href="bases/Conv03_2017_Perfil_16685_Acta_09_Comite_01.pdf" target="_blank" >Acta 9</a> -
-			            <a href="bases/Conv03_2017_Perfil_16685_Acta_08_Comite_01.pdf" target="_blank" >Acta 8</a> -
+
+			<a href="bases/Conv03_2017_Perfil_16685_Acta_13_Comite_01.pdf" target="_blank" >Acta 13</a> -
+			<a href="bases/Conv03_2017_Perfil_16685_Acta_12_Comite_01.pdf" target="_blank" >Acta 12</a> -
+			<a href="bases/Conv03_2017_Perfil_16685_Acta_11_Comite_01.pdf" target="_blank" >Acta 11</a> -
+			<a href="bases/Conv03_2017_Perfil_16685_Acta_10_Comite_01.pdf" target="_blank" >Acta 10</a> -
+			<a href="bases/Conv03_2017_Perfil_16685_Acta_09_Comite_01.pdf" target="_blank" >Acta 9</a> -
+			<a href="bases/Conv03_2017_Perfil_16685_Acta_08_Comite_01.pdf" target="_blank" >Acta 8</a> -
                         <a href="bases/Conv03_2017_Perfil_16685_Acta_07_Comite_01.pdf" target="_blank" >Acta 7</a> -
                         <a href="bases/Conv03_2017_Perfil_16685_Acta_06_Comite_01.pdf" target="_blank" >Acta 6</a> -
                         <a href="bases/Conv03_2017_Perfil_16685_Acta_05_Comite_01.pdf" target="_blank" >Acta 5</a> -
@@ -105,10 +107,11 @@
                     <h5 style="margin-top:20px;" ><b>Comité 2: Asistente Administrativo (D - General)</b></h5>
                     <hr class="lineas-subraya"/>
                     <p>
-			            <a href="bases/Conv03_2017_Perfil_17180_Acta_10_Comite_02.pdf" target="_blank" >Acta 10</a> -
-			            <a href="bases/Conv03_2017_Perfil_17180_Acta_09_Comite_02.pdf" target="_blank" >Acta 9</a> -
-			            <a href="bases/Conv03_2017_Perfil_17180_Acta_08_Comite_02.pdf" target="_blank" >Acta 8</a> -
-                        <a href="bases/Conv03_2017_Perfil_17180_Acta_07_Comite_02.pdf" target="_blank" >Acta 7</a> -
+			<a href="bases/Conv03_2017_Perfil_17180_Acta_11_Comite_02.pdf" target="_blank" >Acta 11</a> -
+			<a href="bases/Conv03_2017_Perfil_17180_Acta_10_Comite_02.pdf" target="_blank" >Acta 10</a> -
+			<a href="bases/Conv03_2017_Perfil_17180_Acta_09_Comite_02.pdf" target="_blank" >Acta 9</a> -
+			<a href="bases/Conv03_2017_Perfil_17180_Acta_08_Comite_02.pdf" target="_blank" >Acta 8</a> -
+                       	<a href="bases/Conv03_2017_Perfil_17180_Acta_07_Comite_02.pdf" target="_blank" >Acta 7</a> -
                         <a href="bases/Conv03_2017_Perfil_17180_Acta_06_Comite_02.pdf" target="_blank" >Acta 6</a> -
                         <a href="bases/Conv03_2017_Perfil_17180_Acta_05_Comite_02.pdf" target="_blank" >Acta 5</a> -
                         <a href="bases/Conv03_2017_Perfil_17180_Acta_04_Comite_02.pdf" target="_blank" >Acta 4</a> -
@@ -137,6 +140,11 @@
                         <a href="bases/Conv03_2017_Perfil_17383_Acta_01_Comite_03.pdf" target="_blank" >Acta 1</a> -
                         <a href="bases/Conv03_2017_Perfil_17383.pdf" target="_blank" >Bases</a>  
                     </p>
+		 <h3 style="margin-top:20px;" class="panel-title" >Cronograma de Entrevistas Personales</h3>
+                    <hr class="lineas-subraya"/>
+                    <p>En caso de no poder asistir a la Entrevista laboral en la fecha y horario establecidos, mandar un mail a concursos2017@desarrollosocial.gob.ar o comunicarse al 4379-3909/3949 o 4382-0153</p>
+                    <p>Para acceder al cronograma, ordenado alfabéticamente, <a href="bases/Cronograma_de_Entrevistas_2018.pdf" target="_blank" >hacer clic aquí</a></p>
+                   
                 </div>
               </div>
             </div>
@@ -154,15 +162,15 @@
  <script type="text/javascript">
      $('#tab_panel').addClass('active');
 
-    Backend.start();
-    $(document).ready(function () {
-        var postulaciones = JSON.parse($('#postulaciones').val());
+     Backend.start();
+     $(document).ready(function () {
+         var postulaciones = JSON.parse($('#postulaciones').val());
 
-        if ($.browser.msie) {
-            alert("PARA UNA MEJOR EXPERIENCIA LE RECOMENDAMOS QUE POR FAVOR UTILICE NAVEGADORES MODERNOS COMO CHROME O FIREFOX " + $.browser.version);
-        }
+         if ($.browser.msie) {
+             alert("PARA UNA MEJOR EXPERIENCIA LE RECOMENDAMOS QUE POR FAVOR UTILICE NAVEGADORES MODERNOS COMO CHROME O FIREFOX " + $.browser.version);
+         }
 
-        PanelDeControl.armarPostulaciones(postulaciones);
-    });
+         PanelDeControl.armarPostulaciones(postulaciones);
+     });
  </script>
 </html>
