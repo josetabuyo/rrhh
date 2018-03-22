@@ -2,6 +2,21 @@
 <wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://wsviaticos.gov.ar/">
+      <s:element name="CTL_ACC_Login">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="user" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pass" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CTL_ACC_LoginResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CTL_ACC_LoginResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GenerarMotivoEnPersonasNoCertificadas">
         <s:complexType>
           <s:sequence>
@@ -241,6 +256,29 @@
       <s:element name="AsignaAreaAPersonasNoCertificadasResponse">
         <s:complexType />
       </s:element>
+      <s:element name="GetThumbnail">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_imagen" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="alto" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ancho" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetThumbnailResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetThumbnailResult" type="tns:Imagen" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Imagen">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="bytes" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="reintentar" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="GetImagen">
         <s:complexType>
           <s:sequence>
@@ -255,13 +293,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="Imagen">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="bytes" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="reintentar" type="s:boolean" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="SubirImagen">
         <s:complexType>
           <s:sequence>
@@ -1301,21 +1332,28 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="CTL_ACC_Login">
+      <s:element name="AgregarCaracterParticipacionEvento">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="user" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="pass" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="descripcion" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="CTL_ACC_LoginResponse">
+      <s:element name="AgregarCaracterParticipacionEventoResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="CTL_ACC_LoginResult" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="AgregarCaracterParticipacionEventoResult" type="tns:CVCaracterDeParticipacionEvento" />
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:complexType name="CVCaracterDeParticipacionEvento">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="SoloVisiblePara" type="s:int" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="BuscarInstitucionesEvento">
         <s:complexType>
           <s:sequence>
@@ -3282,22 +3320,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetThumbnail">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id_imagen" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="alto" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="ancho" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetThumbnailResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetThumbnailResult" type="tns:Imagen" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
       <s:element name="GetSolicitudesDeCambioDeImagenPendientesPara">
         <s:complexType>
           <s:sequence>
@@ -3900,6 +3922,20 @@
           <s:element minOccurs="0" maxOccurs="unbounded" name="LugarEntrega" nillable="true" type="tns:LugarEntrega" />
         </s:sequence>
       </s:complexType>
+      <s:element name="PuedePedirCredencial">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PuedePedirCredencialResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PuedePedirCredencialResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="SolicitarRenovacionCredencial">
         <s:complexType>
           <s:sequence>
@@ -3913,7 +3949,7 @@
       <s:element name="SolicitarRenovacionCredencialResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="SolicitarRenovacionCredencialResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="SolicitarRenovacionCredencialResult" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -4890,28 +4926,6 @@
           <s:element minOccurs="0" maxOccurs="unbounded" name="CVCaracterDeParticipacionEvento" nillable="true" type="tns:CVCaracterDeParticipacionEvento" />
         </s:sequence>
       </s:complexType>
-      <s:complexType name="CVCaracterDeParticipacionEvento">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="SoloVisiblePara" type="s:int" />
-        </s:sequence>
-      </s:complexType>
-      <s:element name="AgregarCaracterParticipacionEvento">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="descripcion" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="AgregarCaracterParticipacionEventoResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="AgregarCaracterParticipacionEventoResult" type="tns:CVCaracterDeParticipacionEvento" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
       <s:element name="CategoriasDocumentosSICOI">
         <s:complexType />
       </s:element>
@@ -7841,6 +7855,12 @@
       </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="CTL_ACC_LoginSoapIn">
+    <wsdl:part name="parameters" element="tns:CTL_ACC_Login" />
+  </wsdl:message>
+  <wsdl:message name="CTL_ACC_LoginSoapOut">
+    <wsdl:part name="parameters" element="tns:CTL_ACC_LoginResponse" />
+  </wsdl:message>
   <wsdl:message name="GenerarMotivoEnPersonasNoCertificadasSoapIn">
     <wsdl:part name="parameters" element="tns:GenerarMotivoEnPersonasNoCertificadas" />
   </wsdl:message>
@@ -7852,6 +7872,12 @@
   </wsdl:message>
   <wsdl:message name="AsignaAreaAPersonasNoCertificadasSoapOut">
     <wsdl:part name="parameters" element="tns:AsignaAreaAPersonasNoCertificadasResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetThumbnailSoapIn">
+    <wsdl:part name="parameters" element="tns:GetThumbnail" />
+  </wsdl:message>
+  <wsdl:message name="GetThumbnailSoapOut">
+    <wsdl:part name="parameters" element="tns:GetThumbnailResponse" />
   </wsdl:message>
   <wsdl:message name="GetImagenSoapIn">
     <wsdl:part name="parameters" element="tns:GetImagen" />
@@ -8207,11 +8233,11 @@
   <wsdl:message name="CTL_ACC_Get_DotacionSoapOut">
     <wsdl:part name="parameters" element="tns:CTL_ACC_Get_DotacionResponse" />
   </wsdl:message>
-  <wsdl:message name="CTL_ACC_LoginSoapIn">
-    <wsdl:part name="parameters" element="tns:CTL_ACC_Login" />
+  <wsdl:message name="AgregarCaracterParticipacionEventoSoapIn">
+    <wsdl:part name="parameters" element="tns:AgregarCaracterParticipacionEvento" />
   </wsdl:message>
-  <wsdl:message name="CTL_ACC_LoginSoapOut">
-    <wsdl:part name="parameters" element="tns:CTL_ACC_LoginResponse" />
+  <wsdl:message name="AgregarCaracterParticipacionEventoSoapOut">
+    <wsdl:part name="parameters" element="tns:AgregarCaracterParticipacionEventoResponse" />
   </wsdl:message>
   <wsdl:message name="BuscarInstitucionesEventoSoapIn">
     <wsdl:part name="parameters" element="tns:BuscarInstitucionesEvento" />
@@ -8717,12 +8743,6 @@
   <wsdl:message name="ImportarArchivoExcelSoapOut">
     <wsdl:part name="parameters" element="tns:ImportarArchivoExcelResponse" />
   </wsdl:message>
-  <wsdl:message name="GetThumbnailSoapIn">
-    <wsdl:part name="parameters" element="tns:GetThumbnail" />
-  </wsdl:message>
-  <wsdl:message name="GetThumbnailSoapOut">
-    <wsdl:part name="parameters" element="tns:GetThumbnailResponse" />
-  </wsdl:message>
   <wsdl:message name="GetSolicitudesDeCambioDeImagenPendientesParaSoapIn">
     <wsdl:part name="parameters" element="tns:GetSolicitudesDeCambioDeImagenPendientesPara" />
   </wsdl:message>
@@ -8932,6 +8952,12 @@
   </wsdl:message>
   <wsdl:message name="GetLugaresEntregaCredencialSoapOut">
     <wsdl:part name="parameters" element="tns:GetLugaresEntregaCredencialResponse" />
+  </wsdl:message>
+  <wsdl:message name="PuedePedirCredencialSoapIn">
+    <wsdl:part name="parameters" element="tns:PuedePedirCredencial" />
+  </wsdl:message>
+  <wsdl:message name="PuedePedirCredencialSoapOut">
+    <wsdl:part name="parameters" element="tns:PuedePedirCredencialResponse" />
   </wsdl:message>
   <wsdl:message name="SolicitarRenovacionCredencialSoapIn">
     <wsdl:part name="parameters" element="tns:SolicitarRenovacionCredencial" />
@@ -9220,12 +9246,6 @@
   </wsdl:message>
   <wsdl:message name="BuscarCaracterParticipacionEventoSoapOut">
     <wsdl:part name="parameters" element="tns:BuscarCaracterParticipacionEventoResponse" />
-  </wsdl:message>
-  <wsdl:message name="AgregarCaracterParticipacionEventoSoapIn">
-    <wsdl:part name="parameters" element="tns:AgregarCaracterParticipacionEvento" />
-  </wsdl:message>
-  <wsdl:message name="AgregarCaracterParticipacionEventoSoapOut">
-    <wsdl:part name="parameters" element="tns:AgregarCaracterParticipacionEventoResponse" />
   </wsdl:message>
   <wsdl:message name="CategoriasDocumentosSICOISoapIn">
     <wsdl:part name="parameters" element="tns:CategoriasDocumentosSICOI" />
@@ -10146,6 +10166,10 @@
     <wsdl:part name="parameters" element="tns:TiposDeDocumentosSICOIResponse" />
   </wsdl:message>
   <wsdl:portType name="WSViaticosSoap">
+    <wsdl:operation name="CTL_ACC_Login">
+      <wsdl:input message="tns:CTL_ACC_LoginSoapIn" />
+      <wsdl:output message="tns:CTL_ACC_LoginSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GenerarMotivoEnPersonasNoCertificadas">
       <wsdl:input message="tns:GenerarMotivoEnPersonasNoCertificadasSoapIn" />
       <wsdl:output message="tns:GenerarMotivoEnPersonasNoCertificadasSoapOut" />
@@ -10153,6 +10177,10 @@
     <wsdl:operation name="AsignaAreaAPersonasNoCertificadas">
       <wsdl:input message="tns:AsignaAreaAPersonasNoCertificadasSoapIn" />
       <wsdl:output message="tns:AsignaAreaAPersonasNoCertificadasSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetThumbnail">
+      <wsdl:input message="tns:GetThumbnailSoapIn" />
+      <wsdl:output message="tns:GetThumbnailSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetImagen">
       <wsdl:input message="tns:GetImagenSoapIn" />
@@ -10390,9 +10418,9 @@
       <wsdl:input message="tns:CTL_ACC_Get_DotacionSoapIn" />
       <wsdl:output message="tns:CTL_ACC_Get_DotacionSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="CTL_ACC_Login">
-      <wsdl:input message="tns:CTL_ACC_LoginSoapIn" />
-      <wsdl:output message="tns:CTL_ACC_LoginSoapOut" />
+    <wsdl:operation name="AgregarCaracterParticipacionEvento">
+      <wsdl:input message="tns:AgregarCaracterParticipacionEventoSoapIn" />
+      <wsdl:output message="tns:AgregarCaracterParticipacionEventoSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="BuscarInstitucionesEvento">
       <wsdl:input message="tns:BuscarInstitucionesEventoSoapIn" />
@@ -10730,10 +10758,6 @@
       <wsdl:input message="tns:ImportarArchivoExcelSoapIn" />
       <wsdl:output message="tns:ImportarArchivoExcelSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="GetThumbnail">
-      <wsdl:input message="tns:GetThumbnailSoapIn" />
-      <wsdl:output message="tns:GetThumbnailSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="GetSolicitudesDeCambioDeImagenPendientesPara">
       <wsdl:input message="tns:GetSolicitudesDeCambioDeImagenPendientesParaSoapIn" />
       <wsdl:output message="tns:GetSolicitudesDeCambioDeImagenPendientesParaSoapOut" />
@@ -10873,6 +10897,10 @@
     <wsdl:operation name="GetLugaresEntregaCredencial">
       <wsdl:input message="tns:GetLugaresEntregaCredencialSoapIn" />
       <wsdl:output message="tns:GetLugaresEntregaCredencialSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PuedePedirCredencial">
+      <wsdl:input message="tns:PuedePedirCredencialSoapIn" />
+      <wsdl:output message="tns:PuedePedirCredencialSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="SolicitarRenovacionCredencial">
       <wsdl:input message="tns:SolicitarRenovacionCredencialSoapIn" />
@@ -11065,10 +11093,6 @@
     <wsdl:operation name="BuscarCaracterParticipacionEvento">
       <wsdl:input message="tns:BuscarCaracterParticipacionEventoSoapIn" />
       <wsdl:output message="tns:BuscarCaracterParticipacionEventoSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="AgregarCaracterParticipacionEvento">
-      <wsdl:input message="tns:AgregarCaracterParticipacionEventoSoapIn" />
-      <wsdl:output message="tns:AgregarCaracterParticipacionEventoSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="CategoriasDocumentosSICOI">
       <wsdl:input message="tns:CategoriasDocumentosSICOISoapIn" />
@@ -11685,6 +11709,15 @@
   </wsdl:portType>
   <wsdl:binding name="WSViaticosSoap" type="tns:WSViaticosSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CTL_ACC_Login">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/CTL_ACC_Login" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GenerarMotivoEnPersonasNoCertificadas">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GenerarMotivoEnPersonasNoCertificadas" style="document" />
       <wsdl:input>
@@ -11696,6 +11729,15 @@
     </wsdl:operation>
     <wsdl:operation name="AsignaAreaAPersonasNoCertificadas">
       <soap:operation soapAction="http://wsviaticos.gov.ar/AsignaAreaAPersonasNoCertificadas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetThumbnail">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetThumbnail" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -12234,8 +12276,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="CTL_ACC_Login">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/CTL_ACC_Login" style="document" />
+    <wsdl:operation name="AgregarCaracterParticipacionEvento">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/AgregarCaracterParticipacionEvento" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -12999,15 +13041,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetThumbnail">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetThumbnail" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetSolicitudesDeCambioDeImagenPendientesPara">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetSolicitudesDeCambioDeImagenPendientesPara" style="document" />
       <wsdl:input>
@@ -13316,6 +13349,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetLugaresEntregaCredencial">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetLugaresEntregaCredencial" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PuedePedirCredencial">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/PuedePedirCredencial" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -13748,15 +13790,6 @@
     </wsdl:operation>
     <wsdl:operation name="BuscarCaracterParticipacionEvento">
       <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarCaracterParticipacionEvento" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="AgregarCaracterParticipacionEvento">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/AgregarCaracterParticipacionEvento" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -15144,6 +15177,15 @@
   </wsdl:binding>
   <wsdl:binding name="WSViaticosSoap12" type="tns:WSViaticosSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CTL_ACC_Login">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/CTL_ACC_Login" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GenerarMotivoEnPersonasNoCertificadas">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GenerarMotivoEnPersonasNoCertificadas" style="document" />
       <wsdl:input>
@@ -15155,6 +15197,15 @@
     </wsdl:operation>
     <wsdl:operation name="AsignaAreaAPersonasNoCertificadas">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/AsignaAreaAPersonasNoCertificadas" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetThumbnail">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetThumbnail" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -15693,8 +15744,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="CTL_ACC_Login">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/CTL_ACC_Login" style="document" />
+    <wsdl:operation name="AgregarCaracterParticipacionEvento">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/AgregarCaracterParticipacionEvento" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -16458,15 +16509,6 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetThumbnail">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetThumbnail" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetSolicitudesDeCambioDeImagenPendientesPara">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetSolicitudesDeCambioDeImagenPendientesPara" style="document" />
       <wsdl:input>
@@ -16775,6 +16817,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetLugaresEntregaCredencial">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetLugaresEntregaCredencial" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PuedePedirCredencial">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/PuedePedirCredencial" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -17207,15 +17258,6 @@
     </wsdl:operation>
     <wsdl:operation name="BuscarCaracterParticipacionEvento">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarCaracterParticipacionEvento" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="AgregarCaracterParticipacionEvento">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/AgregarCaracterParticipacionEvento" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

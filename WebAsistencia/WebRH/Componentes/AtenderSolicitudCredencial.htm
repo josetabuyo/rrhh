@@ -189,18 +189,25 @@
                         alertify.success("Solicitud aprobada con éxito");
                         vex.close();
                         GestionDeTareas.getTareasParaGestion();
+                    }).onError(function () {
+                        alertify.error("Error al aprobar la solicitud");
+                        ui.find("#btn_aprobar_solicitud").prop("disabled", false);  
                     });
                 });
-                ui.find("#btn_rechazar_solicitud").click(function () {
+                ui.find("#btn_rechazar_solicitud").click(function () {                    
                     vex.dialog.prompt({
                         message: 'Indique razón de rechazo',
                         placeholder: '',
                         callback: function (value) {
                             if (value) {
+                                ui.find("#btn_rechazar_solicitud").prop("disabled", true);
                                 Backend.RechazarSolicitudCredencial(solicitud, value).onSuccess(function () {
                                     alertify.success("Solicitud rechazada con éxito");
                                     vex.close();
                                     GestionDeTareas.getTareasParaGestion();
+                                }).onError(function () {
+                                    alertify.error("Error al rechazar la solicitud");
+                                    ui.find("#btn_rechazar_solicitud").prop("disabled", false);
                                 });
                             }
                         }

@@ -3047,12 +3047,12 @@ public class WSViaticos : System.Web.Services.WebService
             cb.AddTemplate(page, 0, 0);
 
             Barcode39 bc39 = new Barcode39();
-            bc39.Code = solicitante.Documento.ToString();
+            bc39.Code = solicitante.Documento.ToString() + " " + DateTime.Now.ToShortDateString();
             bc39.Font = null;
             Image image = bc39.CreateImageWithBarcode(cb, null, null);
 
             image.SetAbsolutePosition(270, 750);
-            image.ScaleAbsolute(200, 50);
+            image.ScaleAbsolute(250, 50);
             doc.Add(image);
 
             Byte[] bytes_foto = Convert.FromBase64String(foto.bytes);
@@ -3064,7 +3064,7 @@ public class WSViaticos : System.Web.Services.WebService
 
             doc.SetPageSize(PageSize.A4);
             doc.NewPage();
-            page = writer.GetImportedPage(reader, 1);
+            page = writer.GetImportedPage(reader, 2);
             cb.AddTemplate(page, 0, 0);
 
             doc.Close();
@@ -3102,9 +3102,18 @@ public class WSViaticos : System.Web.Services.WebService
         return repositorio.GetLugaresEntregaCredencial().ToArray();
     }
 
+    [WebMethod]
+    public string PuedePedirCredencial(Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+
+
+        return repositorio.PuedePedirCredencial(usuario);
+    }
+
 
     [WebMethod]
-    public bool SolicitarRenovacionCredencial(string motivo, string organismo, int id_lugar_entrega, Usuario usuario)
+    public string SolicitarRenovacionCredencial(string motivo, string organismo, int id_lugar_entrega, Usuario usuario)
     {
         RepositorioLegajo repositorio = RepoLegajo();
 
