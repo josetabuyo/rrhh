@@ -9,13 +9,11 @@
         <meta name="viewport" content="width=device-width"/>
         <!-- CSS media query on a link element -->
          <%= Referencias.Css("../")%>
-
-        <%= Referencias.Javascript("../")%>
+         <%= Referencias.Javascript("../")%>
 
         <link rel="stylesheet" href="estilosPortalSecciones.css" />
 
-
-
+        
 
         <link rel="stylesheet" href="recibo.css" />
 
@@ -30,15 +28,19 @@
     <div class="container-fluid">
         <h1 style="text-align:center; margin:17px; "></h1>
         
-        <div style="text-align:center;" class="caja_izq no-print"></div>
+        <div style="text-align:center;" class="caja_izq no-print">
+        Perfil empleador:<br />Firma Masiva<br />Perfil empleado:<br />Confirmacion Recibo<br />Perfil auditor:<br />
+        Firma de un recibo<br />...
+        </div>
 
         <!--contenido derecho -->
          <div  class="caja_der papel" >
          <fieldset>
-         <legend style="margin-top: 20px;">FIRMA DE RECIBOS</legend>
+         <legend style="margin-top: 20px;">FIRMA DE RECIBOS</legend>         
          </fieldset>
          <div id="div_recibo">            
          <div  style="margin:10px;">
+            <p><B>Descripción:</B>  En esta sección se realiza la firma iterativa de todos los recibos que hayan sido confirmados por los empleados, para un determinado intervalo, y que ademas no hayan sido aun firmados digitalmente.</p>
             <p>Seleccione la lista de recibos a firmar:</p>
          <!--   <select style="width:130px;" id="cmb_filtro">
                 <option value="0">Sin Firmar</option>
