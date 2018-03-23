@@ -484,6 +484,31 @@
           <s:element minOccurs="1" maxOccurs="1" name="idFuncionalidad" type="s:int" />
         </s:sequence>
       </s:complexType>
+      <s:element name="getResumenTicketsPorFuncionalidad">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getResumenTicketsPorFuncionalidadResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getResumenTicketsPorFuncionalidadResult" type="tns:ArrayOfResumenTipoTicket" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfResumenTipoTicket">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ResumenTipoTicket" nillable="true" type="tns:ResumenTipoTicket" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ResumenTipoTicket">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="DescripcionTipo" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CantidadTickets" type="s:int" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="GetDomicilioPendientePorAlerta">
         <s:complexType>
           <s:sequence>
@@ -7876,6 +7901,12 @@
   <wsdl:message name="getTicketsPorFuncionalidadSoapOut">
     <wsdl:part name="parameters" element="tns:getTicketsPorFuncionalidadResponse" />
   </wsdl:message>
+  <wsdl:message name="getResumenTicketsPorFuncionalidadSoapIn">
+    <wsdl:part name="parameters" element="tns:getResumenTicketsPorFuncionalidad" />
+  </wsdl:message>
+  <wsdl:message name="getResumenTicketsPorFuncionalidadSoapOut">
+    <wsdl:part name="parameters" element="tns:getResumenTicketsPorFuncionalidadResponse" />
+  </wsdl:message>
   <wsdl:message name="GetDomicilioPendientePorAlertaSoapIn">
     <wsdl:part name="parameters" element="tns:GetDomicilioPendientePorAlerta" />
   </wsdl:message>
@@ -10115,6 +10146,10 @@
       <wsdl:input message="tns:getTicketsPorFuncionalidadSoapIn" />
       <wsdl:output message="tns:getTicketsPorFuncionalidadSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="getResumenTicketsPorFuncionalidad">
+      <wsdl:input message="tns:getResumenTicketsPorFuncionalidadSoapIn" />
+      <wsdl:output message="tns:getResumenTicketsPorFuncionalidadSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetDomicilioPendientePorAlerta">
       <wsdl:input message="tns:GetDomicilioPendientePorAlertaSoapIn" />
       <wsdl:output message="tns:GetDomicilioPendientePorAlertaSoapOut" />
@@ -11717,6 +11752,15 @@
     </wsdl:operation>
     <wsdl:operation name="getTicketsPorFuncionalidad">
       <soap:operation soapAction="http://wsviaticos.gov.ar/getTicketsPorFuncionalidad" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getResumenTicketsPorFuncionalidad">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/getResumenTicketsPorFuncionalidad" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -15131,6 +15175,15 @@
     </wsdl:operation>
     <wsdl:operation name="getTicketsPorFuncionalidad">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/getTicketsPorFuncionalidad" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getResumenTicketsPorFuncionalidad">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/getResumenTicketsPorFuncionalidad" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

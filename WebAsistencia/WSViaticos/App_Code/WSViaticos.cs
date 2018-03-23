@@ -4648,6 +4648,15 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public General.MAU.ResumenTipoTicket[] getResumenTicketsPorFuncionalidad(Usuario usuario)
+    {
+        RepositorioDeTickets repo = new RepositorioDeTickets(Conexion());
+
+        return repo.GetResumenTicketsPorFuncionalidad(usuario.Id).ToArray();
+    }
+
+
+    [WebMethod]
     public string GetDomicilioPendientePorAlerta(int idAlerta, Usuario usuario)
     {
         RepositorioLegajo repo = RepoLegajo();

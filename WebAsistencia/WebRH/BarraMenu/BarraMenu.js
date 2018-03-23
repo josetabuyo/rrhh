@@ -56,12 +56,10 @@
         var cargar_tareas = function () {
             $("#contenedor_tareas").empty()
             $("#menu_tareas").show();
-            Backend.getTicketsPorFuncionalidad().onSuccess(function (tickets) {
-                var tipos = _.groupBy(tickets, function(t){ return t.tipoTicket.descripcion;});
-                                      
-                _.forEach(tipos, function (tickets, descripcion) {
-                    var vista = new VistaTipoTicket(descripcion, tickets.length);
-                    menu_tareas.agregar(vista, tickets.length);           
+            Backend.getResumenTicketsPorFuncionalidad().onSuccess(function (res_tickets) {
+                _.forEach(res_tickets, function (res_ticket) {
+                    var vista = new VistaTipoTicket(res_ticket.DescripcionTipo, res_ticket.CantidadTickets);
+                    menu_tareas.agregar(vista, res_ticket.CantidadTickets);           
                 });
             });        
         };
