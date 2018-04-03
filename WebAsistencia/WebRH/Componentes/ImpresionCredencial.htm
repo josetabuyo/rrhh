@@ -318,8 +318,9 @@
                         var instrucciones = ui.find("#txt_instrucciones_retiro").val();
                         solicitud.IdTicketImpresion = ticket.id;
                         Backend.CerrarTicketImpresion(solicitud, instrucciones)
-                            .onSuccess(function () {
-                                alertify.success("Se envió un mensaje al usuario para que retire su credencial");
+                            .onSuccess(function (respuesta) {
+                                if (!respuesta) alertify.error("Error al enviar el mail al usuario");
+                                else alertify.success("Se envió un mensaje al usuario para que retire su credencial");
                                 vex.close();
                                 GestionDeTareas.getTareasParaGestion();
                             })
