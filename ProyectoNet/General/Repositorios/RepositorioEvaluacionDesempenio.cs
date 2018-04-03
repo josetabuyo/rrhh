@@ -130,6 +130,38 @@ namespace General.Repositorios
             return result;
         }
 
+        public ComiteEvaluacionDesempenio GuardarComiteEvaluacionDesempenio(ComiteEvaluacionDesempenio comite)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@idPeriodo", comite.Periodo.id_periodo);
+            parametros.Add("@fecha", comite.Fecha);
+            parametros.Add("@lugar", comite.Lugar);
+
+            comite.Id = (int)_conexion.EjecutarEscalar("dbo.EVAL_INS_Comite", parametros);
+
+            comite.Integrantes.ForEach(i => AgregarIntegranteComite(comite.Id, i));
+            comite.UnidadesEvaluacion.ForEach(i => AgregarUnidadEvaluacionComite(comite.Id, i.Id));
+
+            return comite;
+        }
+
+        public void AgregarUnidadEvaluacionComite(int idComite, int idUnidadEvaluacion)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@idComite", idComite);
+            parametros.Add("@idUnidadEvaluacion", idUnidadEvaluacion);
+            _conexion.EjecutarEscalar("dbo.EVAL_INS_UnidadEvaluacionComite", parametros);
+        }
+
+        public void AgregarIntegranteComite(int idComite, IntegranteComiteEvalDesempenio integrante)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@idComite", idComite);
+            parametros.Add("@idPersona", integrante.IdPersona);
+            parametros.Add("@idEnCaracterDe", integrante.IdEnCaracterDe);
+            _conexion.EjecutarEscalar("dbo.EVAL_INS_IntegranteComite", parametros);
+        }
+
         protected RespuestaGetAgentesEvaluablesPor GetAgentesEvaluablesPor(Usuario usuario, bool ModoVerificadorGDE)
         {
             var parametros = new Dictionary<string, object>();

@@ -10,6 +10,9 @@
     <%= Referencias.Javascript("../")%>
     <link href="../scripts/vex-2.1.1/css/vex.css" rel="stylesheet">
     <link href="../scripts/vex-2.1.1/css/vex-theme-os.css" rel="stylesheet">
+    <link rel="stylesheet" href="EstilosPostular.css" />
+    <script type="text/javascript" src="../Scripts/bootstrap/js/jquery.js"> </script>
+
 </head>
 <body>
     <form id="form2" runat="server">
@@ -37,6 +40,19 @@
                         href="ComprobacionGDEListadoAgentes.aspx">Comprobacion GDE</a>
                 </td>
             </tr>
+            <tr>
+                <td>&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a id="A2" class="acomodar_botones_del_menu btn btn-primary"
+                        href="ABMComites.aspx">Comités</a>
+                    <!--<a id="A1" requierefuncionalidad="58" class="acomodar_botones_del_menu btn btn-primary"
+                        href="ComprobacionGDEListadoAgentes.aspx">Comprobacion GDE</a>-->
+                </td>
+            </tr>
+
         </table>
     </div>
     </form>
