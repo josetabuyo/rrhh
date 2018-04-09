@@ -32,6 +32,10 @@
         <div id="boton_home">
             <img src="<%= UrlImagenes %>Home-icono.png" id="home_imagen" alt="homeicono" />
         </div>
+
+        <input type="button" id="btn_Credencial_vigente" style="position: absolute; right: 280px; top: -6px;" 
+        value="Credencial" class="btn btn-primary"/>
+
         <div id="contenedor_imagen_usuario">
             <img src="<%= UrlImagenes %>portal/portal_empleado.png" id="foto_usuario_icono" alt="fotouser" />
             <div id="imagen">
@@ -61,13 +65,13 @@
                 </div>
                 <a id="link_area" style="display:none;">Mi Área</a>
                 <a id="cambiar-email_usuario" class="" name="signup" >Modificar correo</a>                     
-                <%--<a id="btn_credenciales"><img src="<%= UrlImagenes %>icono_credencial.png"/></a>--%>
+                <a id="btn_credenciales"><img src="<%= UrlImagenes %>icono_credencial.png"/></a>
             </div>
 
             <div id=barrita_acciones_usuario>
                 <a id="cambiar_contrasenia" rel="leanModal" class="" name="signup" href="#signup">Cambiar Contraseña</a>
                 <uc5:FormPassword ID="FormPassword" runat="server" />
-                <asp:Button ID="CerrarSessionLinkButton" CssClass="btn btn-primary"
+                <asp:Button ID="CerrarSessionLinkButton" CssClass="btn btn-primary" UseSubmitBehavior=false
                     runat="server" OnClick="CerrarSessionLinkButton_Click" Text="Cerrar Sesión">
                 </asp:Button>
             </div>

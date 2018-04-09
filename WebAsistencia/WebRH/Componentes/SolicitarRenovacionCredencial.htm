@@ -7,41 +7,281 @@
              width: 250px;
              margin-top: 15px;
         }       
-       
+        #btn_realizar_solicitud
+        {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+        }
+        #panel_derecho_credencial
+        {
+            position: absolute;
+            right: 10px;
+            width: 70%;
+            bottom: 10px;
+            top: 100px;
+        }
+            
+        #titulo_vista_previa
+        {
+            position: absolute;
+            left: 70px;
+            top: 39px;
+        }
+            
+        #vista_previa_credencial
+        {
+            position: absolute;
+            left: 40px;
+            top: 73px;
+        }
+        
+        #vista_previa_credencial #imagen_credencial
+        {
+            width: 250px;
+        }        
+        
+        #vista_previa_credencial #foto_usuario
+        {
+            position: absolute;
+            top: 64px;
+            left: 21px;
+            height: 112px;
+            width: 112px;
+        }    
+        
+        #vista_previa_credencial #apellido
+        {
+            position: absolute;
+            top: 196px;
+            left: 19px;
+            font-size: 20px;
+            color: white;
+        }    
+        
+        #vista_previa_credencial #nombres
+        {
+            position: absolute;
+            top: 224px;
+            left: 18px;
+            font-size: 20px;
+            color: white;
+        }    
+        
+        #vista_previa_credencial #documento
+        {
+            position: absolute;
+            top: 252px;
+            left: 66px;
+            font-size: 20px;
+            color: white;
+        }    
+            
+        #vista_previa_credencial #titulo_documento
+        {
+            position: absolute;
+            top: 252px;
+            left: 18px;
+            font-size: 20px;
+            color: white;
+        }             
+               
+        .label_combo
+        {
+            width: 250px;
+            text-align: right;
+            margin-right: 10px;
+        }
+            
+        .combo
+        {
+            width: 470px;;
+        }
+            
+        .etiqueta_campo
+        {
+            color: Red;
+            text-align: right;
+            float: right;
+            margin-right: 34px;
+        }
+            
+        #btn_cambiar_foto
+        {
+            position: absolute;
+            bottom: 10px;
+            left: 48px;
+        }
     </style>
 </head>
-<div id=pantalla_solicitar_renovacion_credencial>
-    <label> Motivo de la solicitud:</label>
-    <select id="motivo_solicitud">
-        <option>Robo</option>
-        <option>Perdida</option>
-        <option>Deterioro</option>
-    </select>
-    <input type="button" id="btn_realizar_solicitud" value="Solicitar Credencial"/>
+<div id="pantalla_solicitar_renovacion_credencial">
+    <h3 style="text-align: center;">Solicitud de Credencial</h3>
+    <br />
+    <div id="vista_previa_credencial">
+        <img id="imagen_credencial" src="../BarraMenu/credencialMds.png"/>
+        <div id="foto_usuario"></div>
+        <div id="apellido"></div>    
+        <div id="nombres"></div>    
+        <div id="titulo_documento">DNI:</div>    
+        <div id="documento"></div>    
+    </div>
+    <a id="btn_cambiar_foto" > Cambiar foto de perfil y credencial </a>
+    <div id="panel_derecho_credencial">
+        <div class="">
+            <label class="label_combo" for="select_motivo">Indique el Motivo del pedido:</label>
+            <select class="combo" id="select_motivo">
+                <option value="0">--</option>
+                <option value="1">Deterioro</option>
+                <option value="2">Pérdida</option>
+                <option value="3">Robo</option>
+                <option value="4">Nunca tuve</option>
+            </select>                       
+        </div>
+        <br />
+        <div class="">
+            <label class="label_combo" for="select_organismo">Indique a que Organismo pertenece:</label>
+            <select class="combo" id="select_organismo">
+                                
+            <option value="1">Ministerio de Desarrollo Social</option>
+            <option value="2">Ministerio de Salud</option>
+            
+            </select>                    
+
+        </div>
+        <br />
+        <div class="">
+            <label class="label_combo" for="cmb_lugar_de_entrega">Seleccione lugar de entrega:</label>
+            <select class="combo" id="cmb_lugar_de_entrega">                                
+            </select>                    
+
+        </div>
+        <br />
+
+        <label class="etiqueta_campo">Al hacer la solicitud, su credencial vigente será dada de baja.</label>
+                  
+        <br/>
+        <label id = "texto_robo" class="etiqueta_campo" " for="cmb_provincia">*Para el caso de pérdida/robo debe presentar la denuncia policial, o Declaración Jurada firmada por el superior directo (Rango de Director o Superior), al momento de retirar la nueva credencial 
+            <a target="_blank" href="/Portal/Files/DDJJCredencialPerdidaoRobo.pdf">Descargar modelo de DDJJ</a>
+        </label>
+        <label id = "texto_deterioro" class="etiqueta_campo" for="cmb_provincia">*Para el caso de credencial deteriorada, la misma debe devolverse al momento de retirar la nueva. </label>
+        <label id = "texto_seleccione_motivo" class="etiqueta_campo" for="cmb_provincia">*Seleccione un motivo </label>
+        <br />
+        <input  id="btn_realizar_solicitud" value="Solicitar nueva credencial" class="btn btn-primary" type="button" />
+    </div>          
 </div>
 <script type="text/javascript">
     var Componente = {
         start: function (opt, ui) {
+            debugger;
             vex.defaultOptions.className = 'vex-theme-os';
             vex.close();
+
+            //var ui = $("#cajaCambiarDomicilio");
+
+            vex.defaultOptions.className = 'vex-theme-os';
             vex.open({
                 afterOpen: function ($vexContent) {
-                    ui.find("#btn_realizar_solicitud").click(function () {
-                        Backend.SolicitarRenovacionCredencial(ui.find("#motivo_solicitud").val()).onSuccess(function () {
-                            alertify.success("Solicitud creada con éxito");
-                            vex.close();
+                    $vexContent.append(ui);
+                    Backend.GetUsuarioLogueado().onSuccess(function (usuario) {
+                        ui.find("#apellido").text(usuario.Owner.Apellido);
+                        ui.find("#nombres").text(usuario.Owner.Nombre);
+                        ui.find("#documento").text(usuario.Owner.Documento);
+
+                        var img = new VistaThumbnail({
+                            id: usuario.Owner.IdImagen,
+                            contenedor: ui.find("#foto_usuario")
                         });
                     });
-                    $vexContent.css("width", "280px");
-                    $vexContent.append(ui);
+
+                    ui.find("#btn_cambiar_foto").click(function () { $("#contenedor_foto_usuario").click(); });
+
+                    ui.find("#select_organismo").change(function () {
+                        if (ui.find("#select_organismo").val() == '1')
+                            ui.find("#imagen_credencial").attr('src', '../BarraMenu/credencialMDS.png');
+                        if (ui.find("#select_organismo").val() == '2')
+                            ui.find("#imagen_credencial").attr('src', '../BarraMenu/credencialMSAL.png');
+                    });
+
+                    Backend.GetLugaresEntregaCredencial()
+                                    .onSuccess(function (lugares) {
+                                        _.forEach(lugares, function (lugar) {
+                                            var opt = $("<option>");
+                                            opt.text(lugar.Descripcion);
+                                            opt.attr("value", lugar.IdLugar);
+                                            ui.find("#cmb_lugar_de_entrega").append(opt);
+                                        });
+                                    });
+                    ui.find("#select_motivo").change(function () {
+                        var val = ui.find("#select_motivo").val();
+
+                        if (val == 0) {
+                            ui.find("#texto_seleccione_motivo").show();
+                            ui.find("#texto_deterioro").hide();
+                            ui.find("#texto_robo").hide();
+                        }
+
+                        if (val == 1) {
+                            ui.find("#texto_deterioro").show();
+                            ui.find("#texto_robo").hide();
+                            ui.find("#texto_seleccione_motivo").hide();
+                        }
+
+                        if (val == 2) {
+                            ui.find("#texto_deterioro").hide();
+                            ui.find("#texto_robo").show();
+                            ui.find("#texto_seleccione_motivo").hide();
+                        }
+
+                        if (val == 3) {
+                            ui.find("#texto_deterioro").hide();
+                            ui.find("#texto_robo").show();
+                            ui.find("#texto_seleccione_motivo").hide();
+                        }
+
+                        if (val == 4) {
+                            ui.find("#texto_deterioro").hide();
+                            ui.find("#texto_robo").hide();
+                            ui.find("#texto_seleccione_motivo").hide();
+                        }
+
+                    });
+
+                    ui.find("#btn_realizar_solicitud").click(function () {
+                        if (ui.find("#select_motivo").val() == 0) {
+                            return;
+                        }
+                        ui.find("#btn_realizar_solicitud").prop('disabled', true);
+                        Backend.SolicitarRenovacionCredencial(ui.find("#select_motivo").val(), ui.find("#select_organismo").val(), ui.find("#cmb_lugar_de_entrega").val())
+                            .onSuccess(function (resultado) {
+                                if (resultado == 'OK') {
+                                    alertify.success("Solicitud creada con éxito");
+
+                                    vex.close();
+                                    setTimeout(function () { location.reload(); }, 1000);
+                                } else {
+                                    alertify.error(resultado);
+                                    ui.find("#btn_realizar_solicitud").prop('disabled', false);
+                                }
+                            })
+                            .onError(function () {
+                                alertify.error("Error al solicitar la credencial.");
+                                ui.find("#btn_realizar_solicitud").prop('disabled', false);
+                            });
+                    });
+
+
                     ui.show();
-                    return ui;
                 },
                 css: {
                     'padding-top': "4%",
                     'padding-bottom': "0%"
+                },
+                contentCSS: {
+                    width: "80%",
+                    height: "90%"
                 }
             });
+            //$('#cajaCambiarDomicilio').show();
         }
     };
 </script>

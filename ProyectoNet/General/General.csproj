@@ -113,6 +113,7 @@
     <Compile Include="DatosAbiertos\ParametroConsultaOPD.cs" />
     <Compile Include="DatosAbiertos\RepositorioDeDatosAbiertos.cs" />
     <Compile Include="MAU\AlertaPortal.cs" />
+    <Compile Include="MAU\ResumenTipoTicket.cs" />
     <Compile Include="MAU\TipoTicket.cs" />
     <Compile Include="MAU\Ticket.cs" />
     <Compile Include="MAU\RepositorioDeAlertasPortal.cs" />
@@ -184,7 +185,7 @@
     <Compile Include="Postular\ConstantesConcursar.cs" />
     <Compile Include="DictionaryExtension.cs" />
     <Compile Include="MAU\AccesoAURL.cs" />
-    <Compile Include="Extensiones\ExtensionString.cs" />
+    <Compile Include="General.Test\Extensiones\ExtensionString.cs" />
     <Compile Include="MAU\AspiranteAUsuario.cs" />
     <Compile Include="MAU\Autorizador.cs" />
     <Compile Include="MAU\IRepositorioDeFuncionalidadesDeUsuarios.cs" />

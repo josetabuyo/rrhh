@@ -5,6 +5,7 @@
     var _this = this;
 
     this.ui.click(function () {
+        localStorage.setItem('filtroTickets', descripcion_ticket);
         menu_tareas.contraer();
         window.location.href = window.location.origin + "/Portal/GestionDeTareas.aspx";
     });

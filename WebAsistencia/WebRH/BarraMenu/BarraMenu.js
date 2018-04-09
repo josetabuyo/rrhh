@@ -56,12 +56,10 @@
         var cargar_tareas = function () {
             $("#contenedor_tareas").empty()
             $("#menu_tareas").show();
-            Backend.getTicketsPorFuncionalidad().onSuccess(function (tickets) {
-                var tipos = _.groupBy(tickets, function(t){ return t.tipoTicket.descripcion;});
-                                      
-                _.forEach(tipos, function (tickets, descripcion) {
-                    var vista = new VistaTipoTicket(descripcion, tickets.length);
-                    menu_tareas.agregar(vista, tickets.length);           
+            Backend.getResumenTicketsPorFuncionalidad().onSuccess(function (res_tickets) {
+                _.forEach(res_tickets, function (res_ticket) {
+                    var vista = new VistaTipoTicket(res_ticket.DescripcionTipo, res_ticket.CantidadTickets);
+                    menu_tareas.agregar(vista, res_ticket.CantidadTickets);           
                 });
             });        
         };
@@ -84,9 +82,14 @@
             document.getElementById('dni_user').innerHTML = usuario.Owner.Documento;
             document.getElementById('email_user').innerHTML = usuario.MailRegistro;
 
-//            $('#btn_credenciales').click(function () {
-//                $("#plantillas_barra_menu").load(window.location.origin + '/BarraMenu/CredencialVigente.htm');
-//            });
+            $('#btn_credenciales').show();
+            $('#btn_credenciales, #btn_Credencial_vigente').click(function () {
+                var div = $("<div>");
+                div.load(window.location.origin + '/Componentes/CredencialVigente.htm', function () {
+                    Componente.start(false, div);
+                });
+            });
+
 
             $('#cambiar-constrasena_usuario').click(function () {
 
@@ -113,9 +116,13 @@
                             vex.close();
                             var subidor = new SubidorDeImagenes();
                             subidor.subirImagen(function (id_imagen) {
-                                Backend.SolicitarCambioDeImagen(id_imagen).onSuccess(function () {
-                                    alertify.success("solicitud de cambio de imagen realizada con éxito");
-                                });
+                                Backend.SolicitarCambioDeImagen(id_imagen)
+                                    .onSuccess(function () {
+                                        alertify.success("solicitud de cambio de imagen realizada con éxito");
+                                    })
+                                    .onError(function () {
+                                        alertify.error("error al solicitar imagen");
+                                    });
                             }, true);
                         });
                         $vexContent.append(ui);
