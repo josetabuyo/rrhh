@@ -80,6 +80,14 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public List<ComiteEvaluacionDesempenio> GetAllComites()
+    {
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        return repo.GetAllComites();
+    }
+
+
+    [WebMethod]
     public string EvalGetNivelesFormulario(string id_nivel)
     {
         var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());

@@ -162,6 +162,70 @@ namespace General.Repositorios
             _conexion.EjecutarEscalar("dbo.EVAL_INS_IntegranteComite", parametros);
         }
 
+        public List<ComiteEvaluacionDesempenio> GetAllComites()
+        {
+            var parametros = new Dictionary<string, object>();
+            var tablaDatos = _conexion.Ejecutar("dbo.EVAL_GET_Comites", parametros);
+            var resultado = new List<ComiteEvaluacionDesempenio>();
+            if (tablaDatos.Rows.Count > 0)
+            {
+                tablaDatos.Rows.ForEach(row =>
+                {
+                    this.CrearOCompletarComite(row, resultado);
+                });
+            }
+            return resultado;
+        }
+
+        private void CrearOCompletarComite(RowDeDatos row, List<ComiteEvaluacionDesempenio> resultado)
+        {
+            if (!resultado.Any(c => c.Id == row.GetInt("id_comite")))
+            {
+                resultado.Add(ConstruirCabeceraComite(row));
+            }
+            else
+            {
+                var new_comite = resultado.Find(c => c.Id == row.GetInt("id_comite"));
+                resultado.Add(new_comite);
+            }
+            var comite = resultado.Find(c => c.Id == row.GetInt("id_comite"));
+            ConstruirIntegranteComite(comite, row);
+            ConstruirUnidadEvaluacionComite(comite, row);
+
+        }
+
+        private void ConstruirUnidadEvaluacionComite(ComiteEvaluacionDesempenio comite, RowDeDatos row)
+        {
+            if(!comite.UnidadesEvaluacion.Any(u => u.Id == row.GetInt("id_ue"))) {
+                var ue = new UnidadDeEvaluacion(row.GetInt("id_ue", 0), row.GetString("codigo_ue", "No Especifica"), row.GetString("nombre_area", "No Especifica"));
+                comite.UnidadesEvaluacion.Add(ue);
+            }
+        }
+
+        private void ConstruirIntegranteComite(ComiteEvaluacionDesempenio comite, RowDeDatos row)
+        {
+            if(!comite.Integrantes.Any(i => i.IdPersona == row.GetInt("id_persona_integrante"))) {
+                var integrante =  new IntegranteComiteEvalDesempenio();
+                integrante.IdPersona = row.GetInt("id_persona_integrante");
+                integrante.Apellido = row.GetString("apellido_integrante");
+                integrante.Nombre = row.GetString("nombre_integrante");
+                integrante.Dni = row.GetInt("documento_integrante");
+                integrante.IdEnCaracterDe = row.GetSmallintAsInt("idEnCaracterDe");
+                comite.Integrantes.Add(integrante);
+            }
+        }
+
+        private ComiteEvaluacionDesempenio ConstruirCabeceraComite(RowDeDatos row)
+        {
+            var comite = new ComiteEvaluacionDesempenio();
+            comite.Id = row.GetInt("id_comite");
+            comite.Fecha = row.GetDateTime("fecha_comite");
+            comite.Lugar = row.GetString("lugar_comite");
+            comite.Integrantes = new List<IntegranteComiteEvalDesempenio>();
+            comite.UnidadesEvaluacion = new List<UnidadDeEvaluacion>();
+            return comite;
+        }
+
         protected RespuestaGetAgentesEvaluablesPor GetAgentesEvaluablesPor(Usuario usuario, bool ModoVerificadorGDE)
         {
             var parametros = new Dictionary<string, object>();
