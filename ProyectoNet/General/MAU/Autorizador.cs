@@ -52,18 +52,16 @@ namespace General.MAU
 
         public bool ElUsuarioTienePermisosPara(Usuario usuario, Funcionalidad funcionalidad)
         {
-            return this.repositorio_funcionalidades_usuarios.FuncionalidadesPara(usuario).Exists(f =>
+            return this.repositorio_funcionalidades_usuarios.FuncionalidadesPara(usuario).Any(f =>
             {
-                if (f.NoPodriaUsarlaElUsuario(usuario)) return false;
-                return f.Equals(funcionalidad);
+                return f.Id == funcionalidad.Id;
             });
         }
 
         public bool ElUsuarioTienePermisosPara(Usuario usuario, string nombre_funcionalidad)
         {
-            return this.repositorio_funcionalidades_usuarios.FuncionalidadesPara(usuario).Exists(f =>
+            return this.repositorio_funcionalidades_usuarios.FuncionalidadesPara(usuario).Any(f =>
             {
-                if (f.NoPodriaUsarlaElUsuario(usuario)) return false;
                 return f.Nombre == nombre_funcionalidad;
             });
         }
@@ -72,9 +70,8 @@ namespace General.MAU
         public bool ElUsuarioTienePermisosPara(int id_usuario, int id_funcionalidad)
         {
             var usuario = repositorio_usuarios.GetUsuarioPorId(id_usuario);
-            return this.repositorio_funcionalidades_usuarios.FuncionalidadesPara(id_usuario).Exists(f =>
+            return this.repositorio_funcionalidades_usuarios.FuncionalidadesPara(usuario).Any(f =>
             {
-                if (f.NoPodriaUsarlaElUsuario(usuario)) return false;
                 return f.Id == id_funcionalidad;
             });
         }
@@ -148,12 +145,7 @@ namespace General.MAU
         {
             var funcionalidades_que_permiten_acceder_a_la_url = this.repositorio_accesos_a_url.TodosLosAccesos().FindAll(a => a.Url.ToUpper() == url.ToUpper()).Select(a => a.Funcionalidad);
             if (funcionalidades_que_permiten_acceder_a_la_url.Count() == 0) return true;
-            return this.repositorio_funcionalidades_usuarios.FuncionalidadesPara(usuario).Any(f =>
-            {
-                if (f.NoPodriaUsarlaElUsuario(usuario)) 
-                    return false;
-                return funcionalidades_que_permiten_acceder_a_la_url.Contains(f);
-            });
+            return this.repositorio_funcionalidades_usuarios.FuncionalidadesPara(usuario).Intersect(funcionalidades_que_permiten_acceder_a_la_url).Count()>0;
         }
 
         public void AsignarAreaAUnUsuario(int id_usuario, int id_area)

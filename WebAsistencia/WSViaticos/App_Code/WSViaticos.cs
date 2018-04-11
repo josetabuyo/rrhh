@@ -2883,10 +2883,19 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public Funcionalidad[] FuncionalidadesPara(int id_usuario)
     {
-        var funcionalidades = RepositorioDeFuncionalidadesDeUsuarios().FuncionalidadesPara(id_usuario).ToArray();
+        var usuario = RepositorioDeUsuarios().GetUsuarioPorId(id_usuario);
+        var funcionalidades = RepositorioDeFuncionalidadesDeUsuarios().FuncionalidadesPara(usuario).ToArray();
         return funcionalidades;
     }
 
+    [WebMethod]
+    public Funcionalidad[] FuncionalidadesOtorgadasA(int id_usuario)   //tira las funcionalidades tildadas en MAU, independientemente de otras verificaciones
+    {
+        var usuario = RepositorioDeUsuarios().GetUsuarioPorId(id_usuario);
+        var funcionalidades = RepositorioDeFuncionalidadesDeUsuarios().FuncionalidadesOtorgadasA(usuario).ToArray();
+        return funcionalidades;
+    }
+    
     [WebMethod]
     public Persona[] BuscarPersonas(string criterio)
     {

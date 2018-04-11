@@ -160,11 +160,12 @@
         <label class="etiqueta_campo">Al hacer la solicitud, su credencial vigente será dada de baja.</label>
                   
         <br/>
-        <label id = "texto_robo" class="etiqueta_campo" " for="cmb_provincia">*Para el caso de pérdida/robo debe presentar la denuncia policial, o Declaración Jurada firmada por el superior directo (Rango de Director o Superior), al momento de retirar la nueva credencial 
-            <a target="_blank" href="/Portal/Files/DDJJCredencialPerdidaoRobo.pdf">Descargar modelo de DDJJ</a>
+        <label id = "texto_robo" class="etiqueta_campo">*Para el caso de pérdida/robo debe presentar la denuncia policial, o Declaración Jurada firmada por el superior directo (Rango de Director o Superior), al momento de retirar la nueva credencial 
+            <a id="ddjj_mds" target="_blank" href="/Portal/Files/DDJJCredencialPerdidaoRobo.pdf">Descargar modelo de DDJJ</a>
+            <a id="ddjj_msal" target="_blank" href="/Portal/Files/DDJJCredencialPerdidaoRoboSalud.pdf">Descargar modelo de DDJJ</a>
         </label>
-        <label id = "texto_deterioro" class="etiqueta_campo" for="cmb_provincia">*Para el caso de credencial deteriorada, la misma debe devolverse al momento de retirar la nueva. </label>
-        <label id = "texto_seleccione_motivo" class="etiqueta_campo" for="cmb_provincia">*Seleccione un motivo </label>
+        <label id = "texto_deterioro" class="etiqueta_campo" >*Para el caso de credencial deteriorada, la misma debe devolverse al momento de retirar la nueva. </label>
+        <label id = "texto_seleccione_motivo" class="etiqueta_campo">*Seleccione un motivo </label>
         <br />
         <input  id="btn_realizar_solicitud" value="Solicitar nueva credencial" class="btn btn-primary" type="button" />
     </div>          
@@ -195,11 +196,20 @@
 
                     ui.find("#btn_cambiar_foto").click(function () { $("#contenedor_foto_usuario").click(); });
 
+                    ui.find("#ddjj_mds").show();
+                    ui.find("#ddjj_msal").hide();
+
                     ui.find("#select_organismo").change(function () {
-                        if (ui.find("#select_organismo").val() == '1')
+                        if (ui.find("#select_organismo").val() == '1') {
                             ui.find("#imagen_credencial").attr('src', '../BarraMenu/credencialMDS.png');
-                        if (ui.find("#select_organismo").val() == '2')
+                            ui.find("#ddjj_mds").show();
+                            ui.find("#ddjj_msal").hide();
+                        }
+                        if (ui.find("#select_organismo").val() == '2') {
                             ui.find("#imagen_credencial").attr('src', '../BarraMenu/credencialMSAL.png');
+                            ui.find("#ddjj_msal").show();
+                            ui.find("#ddjj_mds").hide();
+                        }
                     });
 
                     Backend.GetLugaresEntregaCredencial()
