@@ -14,47 +14,74 @@
     <form id="form2" runat="server">
     <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:18px; font-weight: bold;'></span> <br/> <span style='font-size:18px;font-weight: bold;'> Menú Principal </span>"
         UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" UrlPassword="../" />
-    <div>
+    <div id="contenedor_comites">
         <asp:HiddenField ID="ComitesHiddenField" runat="server" />
         <table>
-            <tr style="height:50px;">
+            <tr style="height: 50px;">
                 <td>
                     Proceso Evaluatorio
                 </td>
                 <td>
+                    <div class="grupo_campos">
+                        <label class="etiqueta_campo" for="cmb_periodo">
+                            Proceso Evaluatorio <em>*</em></label>
+                        <select id="cmb_periodo" style="width: 280px;" rh-control-type="combo" rh-data-provider="PeriodosEvaluacion"
+                            rh-model-property="PeriodoEvaluacion" data-validar="haySeleccionEnCombo">
+                        </select>
+                    </div>
+
+<!--
+
                     <select>
                         <option value="1">2016 - Planta Permamente</option>
-                    </select>
+                    </select>-->
                 </td>
             </tr>
             <tr>
                 <td>
-                    Fecha:
-                </td>
-                <td>
-                    <input type="text" id="txt_fecha" style="width: 110px;" 
-                        class="hasDatepicker" >
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Hora
-                </td>
-                <td>
-                    <input type="text"></input>
+                    <div class="grupo_campos nueva_linea">
+                        <label class="etiqueta_campo" for="txt_fecha">
+                            Fecha <em>*</em></label>
+                        <input type="text" id="txt_fecha" style="width: 110px;" rh-control-type="datepicker"
+                            rh-model-property="Fecha" data-validar="esNoBlanco" />
+                    </div>
                 </td>
             </tr>
             <tr>
                 <td>
-                    Lugar
+                    <div class="grupo_campos nueva_linea">
+                        <label for="hora">
+                            Hora <em>*</em></label>
+                        <input id="hora" type="text" rh-control-type="textbox" rh-model-property="Hora" style="width: 160px;"
+                            data-validar="esNoBlanco" maxlength="100" />
+                    </div>
                 </td>
+            </tr>
+            <tr>
                 <td>
-                    <input type="text"></input>
+                    <div class="grupo_campos nueva_linea">
+                        <label for="lugar">
+                            Lugar <em>*</em></label>
+                        <input id="Text1" type="text" rh-control-type="textbox" rh-model-property="Lugar"
+                            style="width: 160px;" data-validar="esNoBlanco" maxlength="100" />
+                    </div>
                 </td>
             </tr>
         </table>
-        <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
     </div>
     </form>
 </body>
+<script type="text/javascript" src="../Scripts/jquery.maskedinput.min.js"> </script>
+<script type="text/javascript" src="../Scripts/ConversorDeFechas.js"></script>
+<script type="text/javascript" src="../Scripts/ObjectObserver.js"></script>
+<script type="text/javascript" src="../Scripts/FormularioBindeado.js"></script>
+<script type="text/javascript" src="./ABMComites.js"></script>
+<script type="text/javascript">
+    Backend.start();
+
+    $(document).ready(function () {
+        var comites = JSON.parse($('#ComitesHiddenField').val());
+        ABMComites.completarDatos(comites[0]);
+    });
+</script>
 </html>
