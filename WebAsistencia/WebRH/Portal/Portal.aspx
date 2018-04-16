@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Portal.aspx.cs" Inherits="Portal_Portal" %>
+﻿<%@ page language="C#" autoeventwireup="true" inherits="Portal_Portal, App_Web_fswc1puz" %>
 
 <%@ Register Src="~/BarraMenu/BarraMenu.ascx" TagName="BarraMenu" TagPrefix="uc2" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -20,6 +20,15 @@
     <div id="content">
     <div class="resumen_area"></div>
      <div class="resumen_postular">
+     <p style="text-align: center; margin: 5px;"><span style="margin: 20px; display: block;">Para SABER MAS sobre el Proceso de RETIRO VOLUNTARIO hacé click en el circulo de abajo</span><a href="../Imagenes/AficheRetiroV.jpg" target="_blank" ><img src="../MenuPrincipal/RetiroV.png" width="80px" height="80px" /></a></p>
+
+
+
+                    <p style="text-align: center; margin: 5px;"><span style="margin: 20px; display: block;"class="panel-title"><a href="../MenuPrincipal/FormulRetiroV.pdf" target="_blank" >Para DESCARGAR el FORMULARIO del Proceso de RETIRO VOLUNTARIO hacé click acá</a></p>
+
+<hr class="lineas-subraya"/>
+<hr class="lineas-subraya"/>
+
      <p style="text-align: center; margin: 5px;"><span style="margin: 20px; display: block;">Para INSCRIBIRTE al Concurso de PLANTA PERMANENTE (Convocatoria Interna) hacé click en el circulo de abajo</span><a href="../FormularioConcursar/PanelDeControl.aspx" ><img src="../MenuPrincipal/Postular.png" width="80px" height="80px" /></a></p>
      <div style="text-align: center; margin-top:20px;">
      <p>Para mas información click en las imágenes</p>
