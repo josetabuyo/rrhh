@@ -14,16 +14,23 @@ RepositorioDeFuncionalidades.prototype.todasLasFuncionalidades = function (onSuc
     });
 };
 
-RepositorioDeFuncionalidades.prototype.funcionalidadesPara = function (usuario, onSuccess, onError) {
-    this.proveedor_ajax.postearAUrl({ url: "FuncionalidadesPara",
-        data: {
-            id_usuario: usuario.Id
-        },
-        success: function (permisos) {
-            onSuccess(permisos);
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            onerror(errorThrown);
-        }
-    });
+RepositorioDeFuncionalidades.prototype.FuncionalidadesOtorgadasA = function (usuario, onSuccess, onError) {
+    Backend.FuncionalidadesOtorgadasA(usuario.Id)
+        .onSuccess(function (permisos) {
+            onSuccess(permisos);    
+        })
+        .onError(function () {
+            onError();
+        });
+//    this.proveedor_ajax.postearAUrl({ url: "FuncionalidadesOtorgadasA",
+//        data: {
+//            id_usuario: usuario.Id
+//        },
+//        success: function (permisos) {
+//            onSuccess(permisos);
+//        },
+//        error: function (XMLHttpRequest, textStatus, errorThrown) {
+//            onerror(errorThrown);
+//        }
+//    });
 };

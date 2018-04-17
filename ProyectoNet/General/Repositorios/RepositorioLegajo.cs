@@ -615,26 +615,52 @@ namespace General.Repositorios
 
         }
 
-        public bool SolicitarRenovacionCredencial(Usuario usuario_solicitante, string id_motivo, string id_organismo, int id_lugar_entrega)
+        public string PuedePedirCredencial(Usuario usuario_solicitante)
         {
+            var parametros_imagen = new Dictionary<string, object>();
+            parametros_imagen.Add("@Id_Persona", usuario_solicitante.Owner.Id);
+            return (string)conexion.EjecutarEscalar("dbo.Acre_VerificarSiPuedePedirCredencial", parametros_imagen);
+        }
+
+        public string SolicitarRenovacionCredencial(Usuario usuario_solicitante, string id_motivo, string id_organismo, int id_lugar_entrega)
+        {
+            var puedepedir = PuedePedirCredencial(usuario_solicitante);
+            if(puedepedir != "OK") return puedepedir;
+
             RepositorioDeTickets repo = new RepositorioDeTickets(this.conexion);
-            var id_ticket = repo.crearTicket("solicitud_credencial", usuario_solicitante.Id);
+            int id_ticket = 0;
+            if(int.Parse(id_organismo) == 1) 
+            {           
+                id_ticket = repo.crearTicket("solicitud_cred_mds", usuario_solicitante.Id);
+            }
+            if (int.Parse(id_organismo) == 2)
+            {
+                id_ticket = repo.crearTicket("solicitud_cred_msal", usuario_solicitante.Id);
+            }
 
-         //   var id_motivo = GetMotivosBajaCredencial().Find(x => x.Descripcion.Trim().ToUpper() == motivo.Trim().ToUpper()).Id;
-          //  List<MotivoBaja> motivos = GetMotivosBajaCredencial();
-                                 
-            var parametros = new Dictionary<string, object>();
+        //   var id_motivo = GetMotivosBajaCredencial().Find(x => x.Descripcion.Trim().ToUpper() == motivo.Trim().ToUpper()).Id;
+        //  List<MotivoBaja> motivos = GetMotivosBajaCredencial();
+            try
+            {
+                var parametros = new Dictionary<string, object>();
 
-            parametros.Add("@IdPersona", usuario_solicitante.Owner.Id);
-            parametros.Add("@IdTipoCredencial", 2); //2 Definitiva - 1 provisoria
-            parametros.Add("@IdOrganismo", int.Parse(id_organismo));
-            parametros.Add("@IdMotivo", int.Parse(id_motivo));
-            parametros.Add("@IdLugarEntrega", id_lugar_entrega);
-            parametros.Add("@IdTicketAprobacion", id_ticket);
-            
-            var tablaDatos = conexion.Ejecutar("dbo.Acre_InsSolicitudCredencial", parametros);
+                parametros.Add("@IdPersona", usuario_solicitante.Owner.Id);
+                parametros.Add("@IdTipoCredencial", 2); //2 Definitiva - 1 provisoria
+                parametros.Add("@IdOrganismo", int.Parse(id_organismo));
+                parametros.Add("@IdMotivo", int.Parse(id_motivo));
+                parametros.Add("@IdLugarEntrega", id_lugar_entrega);
+                parametros.Add("@IdTicketAprobacion", id_ticket);
 
-            return true;
+                var tablaDatos = conexion.Ejecutar("dbo.Acre_InsSolicitudCredencial", parametros);
+            }
+            catch (Exception error)
+            {
+                repo.MarcarEstadoTicket(id_ticket, usuario_solicitante.Id);
+                throw error;
+            }                
+           
+
+            return "OK";
         }
 
         public bool AprobarSolicitudCredencial(SolicitudCredencial solicitud, Usuario usuario_aprobador)
@@ -645,16 +671,25 @@ namespace General.Repositorios
             RepositorioDeTickets repo = new RepositorioDeTickets(this.conexion);
             var id_ticket_impresion = repo.crearTicket("impresion_credencial", usuario_solicitante.Id);
 
+            
             var parametros = new Dictionary<string, object>();
             parametros.Add("@IdPersona", usuario_aprobador.Owner.Id);
             parametros.Add("@IdSolicitud ", solicitud.Id);
             parametros.Add("@IdTicketImpresion ", id_ticket_impresion);
 
             var tablaDatos = conexion.Ejecutar("dbo.Acre_AprobarSolicitudCredencial", parametros);
-
-
-            new RepositorioDeAlertasPortal(this.conexion)
-                .crearAlerta("Solicitud de Credencial", "Tu solicitud ha sido aprobada, se le avisará cuando esté impresa", usuario_solicitante.Id, usuario_aprobador.Id);
+            if (tablaDatos.Rows.Count > 0) repo.MarcarEstadoTicket(id_ticket_impresion, usuario_aprobador.Id);
+            
+            try
+            {
+                new RepositorioDeAlertasPortal(this.conexion)
+                    .crearAlerta("Solicitud de Credencial", "Tu solicitud ha sido aprobada, se le avisará cuando esté impresa", usuario_solicitante.Id, usuario_aprobador.Id);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            
             return true;
         }
 
@@ -877,14 +912,23 @@ namespace General.Repositorios
             repo_tickets.MarcarEstadoTicket(solicitud.IdTicketImpresion, usuario.Id);
             var id_ticket_entrega = repo_tickets.crearTicket("entrega_credencial", usuario_solicitante.Id);
 
+            
             var parametros = new Dictionary<string, object>();
             parametros.Add("@IdSolicitud ", solicitud.Id);
             parametros.Add("@IdTicketEntrega ", id_ticket_entrega);
 
             var tablaDatos = conexion.Ejecutar("dbo.Acre_CerrarTicketImpresion", parametros);
 
-            new RepositorioDeAlertasPortal(this.conexion)
-                .crearAlerta("Solicitud de Credencial", "Su credencial está impresa. Para retirarla puede dirigirse a: " + solicitud.LugarEntrega.Descripcion + "\n" + instrucciones_de_retiro, usuario_solicitante.Id, usuario.Id);
+            try
+            {
+                new RepositorioDeAlertasPortal(this.conexion)
+                    .crearAlerta("Solicitud de Credencial", "Su credencial está impresa. Para retirarla puede dirigirse a: " + solicitud.LugarEntrega.Descripcion + "\n" + instrucciones_de_retiro, usuario_solicitante.Id, usuario.Id);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+           
             return true;
         }
 

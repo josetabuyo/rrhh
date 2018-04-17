@@ -51,6 +51,9 @@
                         };
 
                         var featureList = new List('tareas', options);
+
+                        featureList.search(localStorage.getItem('filtroTickets'));
+                        $('#search').val(localStorage.getItem('filtroTickets'));
                     })
                     .onError(function (e) {
 

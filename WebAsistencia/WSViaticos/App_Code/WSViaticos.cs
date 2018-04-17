@@ -31,6 +31,8 @@ using General.MED;
 //using PdfPrinter.Core.Configuration;
 using System.Web.Hosting;
 using System.Runtime.Serialization.Formatters.Binary;
+using iTextSharp.text.pdf;
+using iTextSharp.text;
 
 
 [WebService(Namespace = "http://wsviaticos.gov.ar/")]
@@ -2889,10 +2891,19 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public Funcionalidad[] FuncionalidadesPara(int id_usuario)
     {
-        var funcionalidades = RepositorioDeFuncionalidadesDeUsuarios().FuncionalidadesPara(id_usuario).ToArray();
+        var usuario = RepositorioDeUsuarios().GetUsuarioPorId(id_usuario);
+        var funcionalidades = RepositorioDeFuncionalidadesDeUsuarios().FuncionalidadesPara(usuario).ToArray();
         return funcionalidades;
     }
 
+    [WebMethod]
+    public Funcionalidad[] FuncionalidadesOtorgadasA(int id_usuario)   //tira las funcionalidades tildadas en MAU, independientemente de otras verificaciones
+    {
+        var usuario = RepositorioDeUsuarios().GetUsuarioPorId(id_usuario);
+        var funcionalidades = RepositorioDeFuncionalidadesDeUsuarios().FuncionalidadesOtorgadasA(usuario).ToArray();
+        return funcionalidades;
+    }
+    
     [WebMethod]
     public Persona[] BuscarPersonas(string criterio)
     {
@@ -3004,6 +3015,83 @@ public class WSViaticos : System.Web.Services.WebService
 
     #region Credenciales
 
+    [WebMethod]
+    public string GetPDFDDJJRecepcionCredencial(SolicitudCredencial solicitud)
+    {
+        var solicitante = RepositorioDePersonas().GetPersonaPorId(solicitud.IdPersona);
+
+        var foto = this.GetThumbnail(solicitante.IdImagen, 100, 100);
+        while (foto.reintentar)
+        {
+            foto = this.GetThumbnail(solicitante.IdImagen, 100, 100);            
+        }
+        Dictionary<string, string> mapa_para_pdf = new Dictionary<string,string>();
+        //mapa_para_pdf.Add("CodigoBarras1", usuario.Owner.Documento.ToString());
+        mapa_para_pdf.Add("APELLIDONombre1", solicitante.Apellido + ", " + solicitante.Nombre);
+        mapa_para_pdf.Add("APELLIDONombreDNI1", solicitante.Apellido + ", " + solicitante.Nombre + " (" + solicitante.Documento.ToString("#,##0") + ")");
+        mapa_para_pdf.Add("TipoNroDNI1", solicitante.Documento.ToString("#,##0"));
+        mapa_para_pdf.Add("Fecha1", DateTime.Now.ToShortDateString());
+
+        mapa_para_pdf.Add("APELLIDONombreDNI2", solicitante.Apellido + ", " + solicitante.Nombre + " (" + solicitante.Documento.ToString("#,##0") + ")");
+        mapa_para_pdf.Add("Fecha2", DateTime.Now.ToShortDateString());
+
+        var creador_pdf = new CreadorDePdfs();
+
+        byte[] bytes = creador_pdf.FillPDF(TemplatePath("DDJJ_entrega_credencial_2018.pdf"), "DDJJEntregaCredencial", mapa_para_pdf);
+
+        Document doc = new Document();
+        byte[] result;
+
+        using (MemoryStream ms = new MemoryStream())
+        {
+            PdfWriter writer = PdfWriter.GetInstance(doc, ms);
+
+            doc.SetPageSize(PageSize.LETTER);
+            doc.Open();
+            PdfContentByte cb = writer.DirectContent;
+            PdfImportedPage page;
+
+
+
+            PdfReader reader;
+            reader = new PdfReader(bytes);
+            int pages = reader.NumberOfPages;
+            // loop over document pages
+
+            doc.SetPageSize(PageSize.A4);
+            doc.NewPage();
+            page = writer.GetImportedPage(reader, 1);
+            cb.AddTemplate(page, 0, 0);
+
+            Barcode39 bc39 = new Barcode39();
+            bc39.Code = solicitante.Documento.ToString() + " " + DateTime.Now.ToShortDateString();
+            bc39.Font = null;
+            Image image = bc39.CreateImageWithBarcode(cb, null, null);
+
+            image.SetAbsolutePosition(270, 750);
+            image.ScaleAbsolute(250, 50);
+            doc.Add(image);
+
+            Byte[] bytes_foto = Convert.FromBase64String(foto.bytes);
+            var foto_usuario = iTextSharp.text.Image.GetInstance(bytes_foto);
+
+            foto_usuario.SetAbsolutePosition(480, 640);
+            foto_usuario.ScaleAbsolute(100, 100);
+            doc.Add(foto_usuario);
+
+            doc.SetPageSize(PageSize.A4);
+            doc.NewPage();
+            page = writer.GetImportedPage(reader, 2);
+            cb.AddTemplate(page, 0, 0);
+
+            doc.Close();
+            result = ms.ToArray();
+        }
+
+        return Convert.ToBase64String(result);
+    }
+
+
 
     [WebMethod]
     public Credencial[] GetCredencialesTodasDePortal(Usuario usuario)
@@ -3031,9 +3119,18 @@ public class WSViaticos : System.Web.Services.WebService
         return repositorio.GetLugaresEntregaCredencial().ToArray();
     }
 
+    [WebMethod]
+    public string PuedePedirCredencial(Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+
+
+        return repositorio.PuedePedirCredencial(usuario);
+    }
+
 
     [WebMethod]
-    public bool SolicitarRenovacionCredencial(string motivo, string organismo, int id_lugar_entrega, Usuario usuario)
+    public string SolicitarRenovacionCredencial(string motivo, string organismo, int id_lugar_entrega, Usuario usuario)
     {
         RepositorioLegajo repositorio = RepoLegajo();
 
@@ -4566,6 +4663,15 @@ public class WSViaticos : System.Web.Services.WebService
         return repo.GetTicketsPorFuncionalidad(usuario.Id).ToArray();
 
     }
+
+    [WebMethod]
+    public General.MAU.ResumenTipoTicket[] getResumenTicketsPorFuncionalidad(Usuario usuario)
+    {
+        RepositorioDeTickets repo = new RepositorioDeTickets(Conexion());
+
+        return repo.GetResumenTicketsPorFuncionalidad(usuario.Id).ToArray();
+    }
+
 
     [WebMethod]
     public string GetDomicilioPendientePorAlerta(int idAlerta, Usuario usuario)
