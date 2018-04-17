@@ -2881,6 +2881,13 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public bool ElUsuarioLogueadoTienePermisosParaElCodigoDeFuncionalidad(string codigo_funcionalidad, Usuario usuario)
+    {
+        return Autorizador().ElUsuarioTienePermisosPara(usuario, codigo_funcionalidad);
+
+    }
+
+    [WebMethod]
     public Funcionalidad[] FuncionalidadesPara(int id_usuario)
     {
         var usuario = RepositorioDeUsuarios().GetUsuarioPorId(id_usuario);

@@ -165,6 +165,23 @@
     cursor: pointer;
 }
 
+.btn_consulta_legajos_baja 
+{
+    position: absolute;
+    display: block;
+    top: 227px;
+    height: 70px;
+    display: inline-block;
+    background-color: #F8F8F8;
+    border: 1px solid #D5D5D5;
+    border-radius: 0 5px 5px 0 !important;
+    width: 135px !important;
+    left: 645px;
+    font-variant: small-caps;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
 .link_listado 
 {
     color: #000 !important;

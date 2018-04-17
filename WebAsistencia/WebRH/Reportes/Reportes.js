@@ -9,26 +9,29 @@ var Reportes = {
         var _this = this;
         $('#btn_consulta_rapida').click(function () {
             window.location.href = "ConsultaIndividual.aspx";
-        })
+        });
+        $('#btn_consulta_legajos_baja').click(function () {
+            window.location.href = "LegajosDeBaja.aspx";
+        });
         $('#btn_grafico_dotacion').click(function () {
             checks_activos = ["GraficoPorGenero"];
             $('#titulo_grafico').html(this.innerHTML);
             GraficoHerramientas.OcultarTodosLosReportesExcepto("Dotacion");
             GraficoDotacion.Inicializar();
-        })
+        });
         $('#btn_grafico_rangoEtario').click(function () {
             $('#titulo_grafico_rangoEtario').html(this.innerHTML);
             checks_activos = ["GraficoPorArea"];
             GraficoHerramientas.OcultarTodosLosReportesExcepto("RangoEtario");
             GraficoRangoEtario.Inicializar();
-        })
+        });
 
         $('#btn_grafico_sueldo').click(function () {
             $('#titulo_grafico').html(this.innerHTML);
             checks_activos = ["GraficoPorArea"];
             GraficoHerramientas.OcultarTodosLosReportesExcepto("Sueldo");
             GraficoSueldos.Inicializar();
-        })
+        });
 
         this.dibujarArbolOrganigrama();
     },

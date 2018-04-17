@@ -27,6 +27,7 @@
 
             </div>
             <input id="btn_consulta_rapida" type="button" class="btn_consulta_individual" requierefuncionalidad="32" value="Consulta Individual" />
+            <input id="btn_consulta_legajos_baja" type="button" class="btn_consulta_legajos_baja" requierefuncionalidad="reportes_legajos_de_baja" value="Legajos de Baja" />
             <input type="button" class="btn_organigrama" id="showLeftPush" value="Organigrama" />
             <div id="menu_grafico">
                <h2 class="">Gráficos</h2>
