@@ -20,7 +20,7 @@
     <div id="content">
     <div class="resumen_area"></div>
      <div class="resumen_postular">
-     <p style="text-align: center; margin: 5px;"><span style="margin: 20px; display: block;">Para SABER MAS sobre el Proceso de RETIRO VOLUNTARIO hacé click en el circulo de abajo</span><a href="../Imagenes/AficheRetiroV.jpg" target="_blank" ><img src="../MenuPrincipal/RetiroV.png" width="80px" height="80px" /></a></p>
+     <p style="text-align: center; margin: 5px;"><span style="margin: 20px; display: block;">Para SABER MÁS sobre el Proceso de RETIRO VOLUNTARIO hacé click en el círculo de abajo</span><a href="../Imagenes/AficheRetiroV.jpg" target="_blank" ><img src="../MenuPrincipal/RetiroV.png" width="80px" height="80px" /></a></p>
 
 
 
