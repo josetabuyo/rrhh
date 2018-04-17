@@ -22,7 +22,7 @@ var ListadoAgentes = {
         select_periodo.append($("<option></option>")
                              .attr("value", -1)
                              .text("Todos"));
-
+        
         $.each(respuesta, function (index, value) {
             select_periodo.append($("<option></option>")
                                  .attr("value", value.id_periodo)
@@ -88,8 +88,80 @@ var ListadoAgentes = {
             localStorage.setItem("leyenda", "");
         });
     },
+    DictionaryValueFromKey(key, diccionario) {
+        for(var i=0; i<diccionario.length; i++) {
+            if ((index = this.ContieneKey(key, diccionario))!=-1) {
+                return diccionario[index][1];
+            }
+        }
+    },
+    ContieneKey(key, diccionario) {
+        for(var i=0; i<diccionario.length; i++) {
+            if (diccionario[i][0] == key){
+                return i;
+            }
+        }
+        return -1;
+    },
+    AddOrConcat: function (key, diccionario, item) {
+        var index;
+        if ((index = this.ContieneKey(key, diccionario))==-1) {
+            var new_entry = [];
+            new_entry.push(key);
+            new_entry.push([item]);
+            diccionario.push(new_entry);
+        }
+    },
+    KeyCalificacion: function(asignacion) {
+        return asignacion.evaluacion.calificacion;
+    },
+    CrearEstructuraDeDatosParaResumen: function (respuesta) {
+        var resumen = [];
+        var asignaciones = respuesta.asignaciones;
+        for (var i = 0; i < asignaciones.length; i++) {
+            var asignacion = asignaciones[i];
+            var area = asignacion.unidad_de_evaluacion.NombreArea
+            //this.AddOrConcat(area, resumen, asignacion);
+
+            if ((index = this.ContieneKey(area, resumen))==-1) {
+                resumen.push([area,[['A Evaluar',[]],['Evaluacion Incompleta',[]],['Evaluado sin GDE',[]],['Evaluado con GDE sin verificar',[]],['Evaluado con GDE verificado',[]]]]);
+            }
+
+            if (asignacion.evaluacion.calificacion=='A Evaluar') {
+                //resumen[area]['A Evaluar'].push(asignacion);
+                this.DictionaryValueFromKey('A Evaluar',this.DictionaryValueFromKey(area, resumen)).push(asignacion);
+            } else if (asignacion.evaluacion.calificacion=='Evaluacion Incompleta') {
+                //resumen[area]['Evaluacion Incompleta'].push(asignacion);
+                this.DictionaryValueFromKey('Evaluacion Incompleta',this.DictionaryValueFromKey(area, resumen)).push(asignacion);
+            } else if (asignacion.evaluacion.codigo_gde == undefined) {
+                //resumen[area]['Evaluado sin GDE'].push(asignacion);
+                this.DictionaryValueFromKey('Evaluado sin GDE',this.DictionaryValueFromKey(area, resumen)).push(asignacion);
+            } else if (asignacion.evaluacion.verificacion_gde.FechaVerificacion == "0001-01-01T00:00:00") {
+                //resumen[area]['Evaluado con GDE sin verificar'].push(asignacion);
+                this.DictionaryValueFromKey('Evaluado con GDE sin verificar',this.DictionaryValueFromKey(area, resumen)).push(asignacion);
+            } else {
+                this.DictionaryValueFromKey('Evaluado con GDE verificado',this.DictionaryValueFromKey(area, resumen)).push(asignacion);
+            }
+
+            
+            //this.AddOrConcat(this.KeyCalificacion(asignacion), this.DictionaryValueFromKey(asignacion.unidad_de_evaluacion.NombreArea, resumen), asignacion);
+            //this.AddOrConcat(asignacion.evaluacion.calificacion, resumen[asignacion.unidad_de_evaluacion.NombreArea][asignacion.periodo.descripcion_periodo]);
+            //resumen[asignacion.unidad_de_evaluacion.NombreArea][asignacion.periodo.descripcion_periodo][asignacion.evaluacion.calificacion].push(asignacion);
+        }
+        return resumen;
+    },
+    CrearCuadroResumen: function (respuesta) {
+        var resumen = this.CrearEstructuraDeDatosParaResumen(respuesta);
+        $("#contenedorResumen").append('<table id="tablaResumen"><tr><td>Unidad de Evaluacion</td><td>A Evaluar</td><td>Evaluacion Incompleta</td><td>Evaluado sin GDE</td><td>Evaluado con GDE sin verificar</td><td>Evaluado con GDE verificado</td></tr>');
+
+
+        for (var i = 0; i < resumen.length; i++) {
+            $("#tablaResumen").append("<tr><td>" + resumen[i][0] + "</td><td>" + this.DictionaryValueFromKey('A Evaluar',resumen[i][1]).length + "</td><td>" + this.DictionaryValueFromKey('Evaluacion Incompleta',resumen[i][1]).length + "</td><td>" + this.DictionaryValueFromKey('Evaluado sin GDE',resumen[i][1]).length + "</td><td>" + this.DictionaryValueFromKey('Evaluado con GDE sin verificar',resumen[i][1]).length + "</td><td>" + this.DictionaryValueFromKey('Evaluado con GDE verificado',resumen[i][1]).length + "</td></tr>");
+        }
+    },
     GetAgentesSuccess: function (respuesta) {
         _this = this;
+        this.CrearCuadroResumen(respuesta);
         var asignacion_evaluado_a_evaluador = respuesta.asignaciones;
         if (asignacion_evaluado_a_evaluador.length == 0) return;
         if (!asignacion_evaluado_a_evaluador[0].hasOwnProperty('agente_evaluado')) return;
@@ -189,10 +261,10 @@ var ListadoAgentes = {
         return !(calificacion == 'A Evaluar' || calificacion == 'Evaluacion Incompleta');
     },
     /*FiltrarPorPeriodo: function (periodo_busqueda) {
-        var _this = this;
-        if (periodo_busqueda != "") {
-            $('#select_periodo option[value="' + clave + '"]').html()
-        }
+    var _this = this;
+    if (periodo_busqueda != "") {
+    $('#select_periodo option[value="' + clave + '"]').html()
+    }
     },*/
     FiltrarPorDNIApellidoONombre: function (txt_busqueda) {
         var _this = this;
@@ -207,7 +279,7 @@ var ListadoAgentes = {
     FiltrarPorPeriodo: function (clave) {
         if (clave != -1) {
             $("#tablaAgentes tbody tr").find("td[class=Periodo]").each(function () {
-                if ($(this).text() != $('#select_periodo option[value="' + clave +'"]').html()) {
+                if ($(this).text() != $('#select_periodo option[value="' + clave + '"]').html()) {
                     $(this).parent().remove();
                 };
             })
