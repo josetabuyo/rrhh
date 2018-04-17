@@ -2718,6 +2718,14 @@ public class WSViaticos : System.Web.Services.WebService
         return RepositorioDeUsuarios().SolicitarCambioImagen(usuario.Id, id_imagen);
     }
 
+
+    [WebMethod]
+    public bool SolicitarCambioDeImagenPara(int id_imagen, int id_usuario, Usuario usuario)
+    {
+        return RepositorioDeUsuarios().CambiarImagenPerfil(id_usuario, id_imagen, usuario.Id);
+    }
+
+
     [WebMethod]
     public bool AceptarCambioDeImagen(int id_usuario, Usuario usuario)
     {

@@ -143,5 +143,100 @@ namespace AdministracionDeUsuarios
         {
             throw new NotImplementedException();
         }
+
+        Usuario IRepositorioDeUsuarios.GetUsuarioPorAlias(string alias, bool incluir_bajas)
+        {
+            throw new NotImplementedException();
+        }
+
+        Usuario IRepositorioDeUsuarios.GetUsuarioPorIdPersona(int id_persona)
+        {
+            throw new NotImplementedException();
+        }
+
+        Usuario IRepositorioDeUsuarios.CrearUsuarioPara(int id_persona)
+        {
+            throw new NotImplementedException();
+        }
+
+        bool IRepositorioDeUsuarios.CambiarPassword(int id_usuario, string pass_actual, string pass_nueva)
+        {
+            throw new NotImplementedException();
+        }
+
+        string IRepositorioDeUsuarios.ResetearPassword(int id_usuario)
+        {
+            throw new NotImplementedException();
+        }
+
+        int IRepositorioDeUsuarios.GetDniPorAlias(string alias)
+        {
+            throw new NotImplementedException();
+        }
+
+        void IRepositorioDeUsuarios.AsociarUsuarioConMail(Usuario usuario, string mail)
+        {
+            throw new NotImplementedException();
+        }
+
+        Usuario IRepositorioDeUsuarios.GetUsuarioPorId(int id_usuario)
+        {
+            throw new NotImplementedException();
+        }
+
+        Persona IRepositorioDeUsuarios.GetPersonaPorIdUsuario(int id_usuario)
+        {
+            throw new NotImplementedException();
+        }
+
+        List<Usuario> IRepositorioDeUsuarios.GetUsuariosConPersonasDeBaja()
+        {
+            throw new NotImplementedException();
+        }
+
+        List<Usuario> IRepositorioDeUsuarios.GetUsuariosPorArea(string nombre_area)
+        {
+            throw new NotImplementedException();
+        }
+
+        bool IRepositorioDeUsuarios.ModificarMailRegistro(int id_usuario, string mail)
+        {
+            throw new NotImplementedException();
+        }
+
+        bool IRepositorioDeUsuarios.SolicitarCambioImagen(int id_usuario, int id_imagen)
+        {
+            throw new NotImplementedException();
+        }
+
+        List<SolicitudDeCambioDeImagen> IRepositorioDeUsuarios.GetSolicitudesDeCambioDeImagenPendientesPara(int id_usuario)
+        {
+            throw new NotImplementedException();
+        }
+
+        bool IRepositorioDeUsuarios.AceptarCambioDeImagen(int id_usuario_solicitante, int id_administrador)
+        {
+            throw new NotImplementedException();
+        }
+
+        bool IRepositorioDeUsuarios.RechazarCambioDeImagen(string razon_de_rechazo, int id_usuario_solicitante, int id_administrador)
+        {
+            throw new NotImplementedException();
+        }
+
+        SolicitudDeCambioDeImagen IRepositorioDeUsuarios.GetCambioImagenPorIdTicket(int id_ticket)
+        {
+            throw new NotImplementedException();
+        }
+
+        bool IRepositorioDeUsuarios.AceptarCambioImagenConImagenRecortada(int id_imagen_recortada, int id_usuario_solicitante, int id_administrador)
+        {
+            throw new NotImplementedException();
+        }
+
+        bool IRepositorioDeUsuarios.CambiarImagenPerfil(int id_usuario, int id_imagen, int id_administrador)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
