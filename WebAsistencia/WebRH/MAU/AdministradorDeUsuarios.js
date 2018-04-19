@@ -43,12 +43,12 @@
         vex.defaultOptions.className = 'vex-theme-os';
         var subidor = new SubidorDeImagenes();
         subidor.subirImagen(function (id_imagen) {
-            Backend.SolicitarCambioDeImagenPara(_this.usuario.id, id_imagen)
+            Backend.SolicitarCambioDeImagenPara(_this.usuario.Id, id_imagen)
                 .onSuccess(function () {
-                    alertify.success("solicitud de cambio de imagen realizada con éxito");
+                    alertify.success("Cambio de imagen realizado con éxito");
                 })
                 .onError(function () {
-                    alertify.error("error al solicitar imagen");
+                    alertify.error("Error al cambiar imagen");
                 });
         }, true);
     });

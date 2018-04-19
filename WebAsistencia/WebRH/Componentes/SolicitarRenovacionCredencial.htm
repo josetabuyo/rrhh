@@ -219,7 +219,9 @@
                                             opt.text(lugar.Descripcion);
                                             opt.attr("value", lugar.IdLugar);
                                             ui.find("#cmb_lugar_de_entrega").append(opt);
+                                            $('#cmb_lugar_de_entrega option[value=1924]').prop('selected', true);
                                         });
+
                                     });
                     ui.find("#select_motivo").change(function () {
                         var val = ui.find("#select_motivo").val();

@@ -2720,7 +2720,7 @@ public class WSViaticos : System.Web.Services.WebService
 
 
     [WebMethod]
-    public bool SolicitarCambioDeImagenPara(int id_imagen, int id_usuario, Usuario usuario)
+    public bool SolicitarCambioDeImagenPara(int id_usuario, int id_imagen, Usuario usuario)
     {
         return RepositorioDeUsuarios().CambiarImagenPerfil(id_usuario, id_imagen, usuario.Id);
     }
@@ -3037,8 +3037,12 @@ public class WSViaticos : System.Web.Services.WebService
 
         var creador_pdf = new CreadorDePdfs();
 
-        byte[] bytes = creador_pdf.FillPDF(TemplatePath("DDJJ_entrega_credencial_2018.pdf"), "DDJJEntregaCredencial", mapa_para_pdf);
-
+        byte[] bytes;
+        //if (solicitud.Organismo == "Ministerio de Desarrollo Social")
+            bytes = creador_pdf.FillPDF(TemplatePath("DDJJ_entrega_credencial_2018_MDS.pdf"), "DDJJEntregaCredencial", mapa_para_pdf);
+        //else
+        //    bytes = creador_pdf.FillPDF(TemplatePath("DDJJ_entrega_credencial_2018_MSAL.pdf"), "DDJJEntregaCredencial", mapa_para_pdf);
+           
         Document doc = new Document();
         byte[] result;
 
