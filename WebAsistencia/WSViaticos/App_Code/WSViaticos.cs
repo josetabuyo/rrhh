@@ -5364,6 +5364,13 @@ public class WSViaticos : System.Web.Services.WebService
         return "";
     }
 
+    [WebMethod]
+    public string CTL_ACC_Get_Personas_Buscador(string param_busqueda)
+    {
+        var ctlAcc = new General.CtrlAcc.RepositorioCtlAcc();
+        return ctlAcc.Get_Personas_Buscador(param_busqueda);
+    }
+
     #endregion	
 
 
