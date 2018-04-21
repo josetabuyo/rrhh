@@ -1267,6 +1267,20 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="CTL_ACC_Get_Personas_Buscador">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="param_busqueda" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CTL_ACC_Get_Personas_BuscadorResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CTL_ACC_Get_Personas_BuscadorResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GenerarMotivoEnPersonasNoCertificadas">
         <s:complexType>
           <s:sequence>
@@ -6147,8 +6161,8 @@
       <s:element name="SolicitarCambioDeImagenPara">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id_usuario" type="s:int" />
             <s:element minOccurs="1" maxOccurs="1" name="id_imagen" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_usuario" type="s:int" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
@@ -8170,6 +8184,12 @@
   </wsdl:message>
   <wsdl:message name="CTL_ACC_LoginSoapOut">
     <wsdl:part name="parameters" element="tns:CTL_ACC_LoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="CTL_ACC_Get_Personas_BuscadorSoapIn">
+    <wsdl:part name="parameters" element="tns:CTL_ACC_Get_Personas_Buscador" />
+  </wsdl:message>
+  <wsdl:message name="CTL_ACC_Get_Personas_BuscadorSoapOut">
+    <wsdl:part name="parameters" element="tns:CTL_ACC_Get_Personas_BuscadorResponse" />
   </wsdl:message>
   <wsdl:message name="GenerarMotivoEnPersonasNoCertificadasSoapIn">
     <wsdl:part name="parameters" element="tns:GenerarMotivoEnPersonasNoCertificadas" />
@@ -10348,6 +10368,10 @@
       <wsdl:input message="tns:CTL_ACC_LoginSoapIn" />
       <wsdl:output message="tns:CTL_ACC_LoginSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="CTL_ACC_Get_Personas_Buscador">
+      <wsdl:input message="tns:CTL_ACC_Get_Personas_BuscadorSoapIn" />
+      <wsdl:output message="tns:CTL_ACC_Get_Personas_BuscadorSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GenerarMotivoEnPersonasNoCertificadas">
       <wsdl:input message="tns:GenerarMotivoEnPersonasNoCertificadasSoapIn" />
       <wsdl:output message="tns:GenerarMotivoEnPersonasNoCertificadasSoapOut" />
@@ -12162,6 +12186,15 @@
     </wsdl:operation>
     <wsdl:operation name="CTL_ACC_Login">
       <soap:operation soapAction="http://wsviaticos.gov.ar/CTL_ACC_Login" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CTL_ACC_Get_Personas_Buscador">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/CTL_ACC_Get_Personas_Buscador" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -15603,6 +15636,15 @@
     </wsdl:operation>
     <wsdl:operation name="CTL_ACC_Login">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/CTL_ACC_Login" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CTL_ACC_Get_Personas_Buscador">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/CTL_ACC_Get_Personas_Buscador" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
