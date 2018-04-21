@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using System.Linq;
 using System.IO;
+using WSViaticos;
+
 
 public class Data : IHttpHandler {
 
@@ -22,7 +24,7 @@ public class Data : IHttpHandler {
     }
     
     public class jsonReturn {
-        public item[] results;       
+        public item[] results;
     }
 
     public void ProcessRequest(HttpContext context){
@@ -38,7 +40,9 @@ public class Data : IHttpHandler {
     private void processData(HttpContext context)
     {
         context.Response.ContentType = "text/plain";
-        context.Response.Write(JsonConvert.SerializeObject(this._jsonRet));
+        //context.Response.Write(JsonConvert.SerializeObject(this._jsonRet));
+        // var ret =  this.getDataJSON();
+        context.Response.Write(this.getDataJSON());
     }
 
     private void saveParams(HttpContext context)
@@ -49,7 +53,8 @@ public class Data : IHttpHandler {
         
     private item[] getData(){
         List<item> lst = new List<item>();
-        for (int i=1; i <= 20; i++){
+        for (int i = 1; i <= 20; i++)
+        {
             item itm = new item();
             itm.setData(i.ToString(), "Option " + i.ToString());
             lst.Add(itm);
@@ -59,9 +64,15 @@ public class Data : IHttpHandler {
         {
             if (itm.text.Contains(_param))
                 lst_result.Add(itm);
-        }        
+        }
         return lst_result.ToArray();
     }
+
+    private string getDataJSON()
+    {
+        WSViaticosSoapClient ws = new WSViaticosSoapClient();
+        return ws.CTL_ACC_Get_Personas_Buscador(_param);
+    }    
 
 
     
