@@ -1393,10 +1393,64 @@ namespace General.Repositorios
             throw new NotImplementedException();
         }
 
+        public string SolicitarCredencialProvisoria(int dni, string apellido, string nombres, string email, DateTime fecha_nacimiento, string telefono, int id_foto, int id_tipo_credencial, int id_autorizante, int id_vinculo, int id_lugar_de_entrega)
+        {
+            var parametros = new Dictionary<string, object>();
 
+            parametros.Add("@dni", dni);
+            parametros.Add("@apellido", apellido);
+            parametros.Add("@nombres", nombres);
+            parametros.Add("@email", email);
+            parametros.Add("@fecha_nacimiento", fecha_nacimiento);
+            parametros.Add("@telefono", telefono);
+            parametros.Add("@id_foto", id_foto);
+            parametros.Add("@id_tipo_credencial", id_tipo_credencial);
+            parametros.Add("@id_autorizante", id_autorizante);
+            parametros.Add("@id_vinculo", id_vinculo);
+            parametros.Add("@id_lugar_de_entrega", id_lugar_de_entrega);
 
+            var tablaDatos = conexion.Ejecutar("dbo.Acre_SolicitarCredencialProvisoria", parametros);
+            
+            return "ok";
+        }
 
+        public List<TipoCredencial> GetTiposDeCredencial()
+        {
 
+            var tablaDatos = conexion.Ejecutar("dbo.Acre_GetTiposDeCredencial");
 
+            List<TipoCredencial> tipos = new List<TipoCredencial>();
+
+            tablaDatos.Rows.ForEach(row =>  {
+                tipos.Add(new TipoCredencial(row.GetInt("Id"), row.GetString("Descripcion")));
+            });
+            return tipos;
+        }
+
+        public List<VinculoCredencial> GetVinculosCredenciales()
+        {
+            var tablaDatos = conexion.Ejecutar("dbo.Acre_GetVinculosCredenciales");
+
+            List<VinculoCredencial> vinculos = new List<VinculoCredencial>();
+
+            tablaDatos.Rows.ForEach(row =>
+            {
+                vinculos.Add(new VinculoCredencial(row.GetInt("Id"), row.GetString("Descripcion")));
+            });
+            return vinculos;
+        }
+
+        public List<Persona> GetAutorizantesCredenciales()
+        {
+            var tablaDatos = conexion.Ejecutar("dbo.Acre_GetAutorizantesCredenciales");
+
+            List<Persona> autorizantes = new List<Persona>();
+
+            tablaDatos.Rows.ForEach(row =>
+            {
+                autorizantes.Add(new Persona(row.GetInt("Id"), row.GetString("Apellido"), row.GetString("Nombre")));
+            });
+            return autorizantes;
+        }
     }
 }

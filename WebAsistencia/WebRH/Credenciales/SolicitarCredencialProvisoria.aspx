@@ -16,8 +16,9 @@
     <div>
         <h2>Pedido de Credencial</h1>
         <label for="txt_dni">DNI</label> <input id="Text1" type="text" />
-        <label for="txt_apellidoynombre">Apellido y Nombre</label> <input id="txt_apellidoynombre" type="text" />
-        <label for="txt_email">Email</label> <input id="Text2" type="text" />
+        <label for="txt_apellido">Apellido</label> <input id="txt_apellido" type="text" />
+        <label for="txt_nombres">Nombres</label> <input id="txt_nombres" type="text" />
+        <label for="txt_email">Email</label> <input id="txt_email" type="text" />
         <label for="dtp_fechanacimiento">F. Nacimiento</label> <input id="dtp_fechanacimiento" type="text" />
         <label for="txt_telefono">Teléfono</label> <input id="txt_telefono" type="text" />
         <input id="btn_subirfoto" type="button" value = "Subir foto"/>
