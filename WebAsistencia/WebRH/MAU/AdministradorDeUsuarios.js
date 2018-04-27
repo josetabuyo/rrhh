@@ -294,11 +294,12 @@ AdministradorDeUsuarios.prototype.BackendBuscarUsuariosPorArea = function (conte
 AdministradorDeUsuarios.prototype.ArmarTabla = function (tabla, data, contexto_para_row_click) {
 
     var columnas = [];
-
+    //VW_Desglose_Area
     columnas.push(new Columna("Apellido", { generar: function (un_usuario) { if (un_usuario.Owner != null) return un_usuario.Owner.Apellido } }));
     columnas.push(new Columna("Nombre", { generar: function (un_usuario) { if (un_usuario.Owner != null) return un_usuario.Owner.Nombre  } }));
     columnas.push(new Columna("Documento", { generar: function (un_usuario) { if (un_usuario.Owner != null) return un_usuario.Owner.Documento } }));
     columnas.push(new Columna("Usuario", { generar: function (un_usuario) { return un_usuario.Alias } }));
+    columnas.push(new Columna("Área", { generar: function (un_usuario) { return un_usuario.Owner.Area.Nombre } }));
 
     //columnas.push(new Columna("Funcionalidades", { generar: function (un_usuario) { return un_usuario.Fun } }));
 

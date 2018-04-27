@@ -236,14 +236,14 @@ namespace General.MAU
 
             if (tablaDatos.Rows.Count > 1)
             {
-                lista_de_usuarios = corteControl(tablaDatos);
+                lista_de_usuarios = corteControl(tablaDatos, 2);
             }
 
             return ordenarUsuariosAlfabeticamente(lista_de_usuarios);
         }
 
 
-        private List<Usuario> corteControl(TablaDeDatos tablaDatos) { 
+        private List<Usuario> corteControl(TablaDeDatos tablaDatos, int idProceso) { 
         
             List<Usuario> usuarios = new List<Usuario>();
             Usuario un_usuario = new Usuario();
@@ -260,6 +260,10 @@ namespace General.MAU
                 } else if (idUsuario_original != row.GetInt("Id_Persona"))
                 {
                     un_usuario = GetUsuarioDeRow(row);
+                    if (idProceso == 1) {
+                        un_usuario.Owner.Area = new Area(0, row.GetString("descripcionAreaReal","Sin Definir"));
+                    }
+                    
                     usuarios.Add(un_usuario);
                     un_usuario.AgregarFuncionalidad(new Funcionalidad(
                         row.GetInt("idFuncionalidad", 0), 
@@ -305,7 +309,7 @@ namespace General.MAU
 
             if (tablaDatos.Rows.Count > 0)
             {
-                    lista_de_usuarios = corteControl(tablaDatos);
+                    lista_de_usuarios = corteControl(tablaDatos, 1);
             }
 
             return ordenarUsuariosAlfabeticamente(lista_de_usuarios);
