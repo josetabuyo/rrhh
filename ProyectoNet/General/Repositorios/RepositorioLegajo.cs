@@ -710,6 +710,41 @@ namespace General.Repositorios
             return true;
         }
 
+
+
+
+        public bool SolicitarCredencialProvisoria(SolicitudCredencial solicitud, Persona persona, string motivo, Usuario usuario)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@IdPersona", usuario.Owner.Id);
+            parametros.Add("@IdSolicitud ", solicitud.Id);
+            parametros.Add("@Motivo ", motivo);
+
+            /*1 Alta de Persona*/
+
+
+            /*2 Alta de usuario con el IdPersona obtenido*/
+
+
+
+            /*3 Alta de Solicitud de Credencial */
+
+            /*
+            var tablaDatos = conexion.Ejecutar("dbo.Acre___", parametros);
+
+            var repo_usuarios = new RepositorioDeUsuarios(this.conexion, RepositorioDePersonas.NuevoRepositorioDePersonas(this.conexion));
+
+            var usuario_solicitante = repo_usuarios.GetUsuarioPorIdPersona(solicitud.IdPersona);
+            new RepositorioDeAlertasPortal(this.conexion)
+                .crearAlerta("Solicitud de Credencial", "Tu solicitud ha sido rechazada por:" + motivo, usuario_solicitante.Id, usuario.Id);
+             * 
+             */
+            return true;
+        }
+
+
+
+
         public List<MotivoBaja> GetMotivosBajaCredencial()
         {
            

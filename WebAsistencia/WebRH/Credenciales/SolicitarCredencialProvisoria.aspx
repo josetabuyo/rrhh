@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Pedido de Credencial</title>
-    <link rel="stylesheet" type="text/css" href="DatosAbiertos.css" />
+    <link rel="stylesheet" type="text/css" href="../DatosAbiertos/DatosAbiertos.css" />
     <%= Referencias.Css("../")%>
     <%= Referencias.Javascript("../")%>
 </head>
