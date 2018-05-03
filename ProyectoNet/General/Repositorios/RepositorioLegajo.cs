@@ -849,6 +849,7 @@ namespace General.Repositorios
             solicitud.Id = row.GetInt("Id");
             solicitud.IdPersona = row.GetInt("IdPersona");
             solicitud.Motivo = row.GetString("Motivo");
+            solicitud.TipoCredencial = row.GetString("TipoCredencial");
             solicitud.Organismo = row.GetString("Organismo");
             if (!(row.GetObject("idCredencial") is DBNull))
             {

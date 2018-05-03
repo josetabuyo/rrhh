@@ -241,10 +241,18 @@
                     ui.find("#documento").text(usuario.Owner.Documento);
                     ui.find("#lugar_de_entrega").text(solicitud.LugarEntrega.Descripcion);
 
-                    if (solicitud.Organismo == 'Ministerio de Desarrollo Social')
-                        ui.find("#imagen_credencial").attr('src', '../BarraMenu/credencialMDS.png');
-                    if (solicitud.Organismo == 'Ministerio de Salud')
-                        ui.find("#imagen_credencial").attr('src', '../BarraMenu/credencialMSAL.png');
+                    var src = '';
+
+                    if (solicitud.Organismo == 'Ministerio de Desarrollo Social') {
+                        if (solicitud.TipoCredencial == 'Definitiva') var src = '../BarraMenu/credencialMDS.png';
+                        if (solicitud.TipoCredencial == 'Externa') var src = '../BarraMenu/credencialMDS_Externa.png';
+                    }
+                    if (solicitud.Organismo == 'Ministerio de Salud') {
+                        if (solicitud.TipoCredencial == 'Definitiva') var src = '../BarraMenu/credencialMSAL.png';
+                        if (solicitud.TipoCredencial == 'Externa') var src = '../BarraMenu/credencialMSAL_Externa.png';
+                    }
+
+                    ui.find("#imagen_credencial").attr('src', src);
 
                     var img = new VistaThumbnail({
                         id: solicitud.Credencial.IdFoto,
@@ -272,7 +280,7 @@
                                 lnk.target = "blank";
                                 lnk.get(0).click();
                             });
-                        });
+                    });
 
                     var chk_impresa = ui.find("#chk_credencial_impresa");
                     if (solicitud.Credencial.Impresa) {
