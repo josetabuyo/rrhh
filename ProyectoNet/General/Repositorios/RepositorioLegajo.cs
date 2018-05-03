@@ -622,7 +622,7 @@ namespace General.Repositorios
             return (string)conexion.EjecutarEscalar("dbo.Acre_VerificarSiPuedePedirCredencial", parametros_imagen);
         }
 
-        public string SolicitarRenovacionCredencial(Usuario usuario_solicitante, string id_motivo, string id_organismo, int id_lugar_entrega)
+        public string SolicitarRenovacionCredencial(Usuario usuario_solicitante, string id_motivo, string id_organismo, int id_lugar_entrega, int id_tipo_credencial = 2)
         {
             var puedepedir = PuedePedirCredencial(usuario_solicitante);
             if(puedepedir != "OK") return puedepedir;
@@ -645,7 +645,7 @@ namespace General.Repositorios
                 var parametros = new Dictionary<string, object>();
 
                 parametros.Add("@IdPersona", usuario_solicitante.Owner.Id);
-                parametros.Add("@IdTipoCredencial", 2); //2 Definitiva - 1 provisoria
+                parametros.Add("@IdTipoCredencial", id_tipo_credencial); //2 Definitiva - 1 provisoria
                 parametros.Add("@IdOrganismo", int.Parse(id_organismo));
                 parametros.Add("@IdMotivo", int.Parse(id_motivo));
                 parametros.Add("@IdLugarEntrega", id_lugar_entrega);
@@ -1393,14 +1393,27 @@ namespace General.Repositorios
             throw new NotImplementedException();
         }
 
-        public string SolicitarCredencialProvisoria(int dni, string apellido, string nombres, string email, DateTime fecha_nacimiento, string telefono, int id_foto, int id_tipo_credencial, int id_autorizante, int id_vinculo, int id_lugar_de_entrega)
+        public string SolicitarCredencialProvisoria(Autorizador autorizador, RepositorioDeUsuarios repoUsuarios, int dni, string apellido, string nombres, string email, DateTime fecha_nacimiento, string telefono, int id_foto, int id_tipo_credencial, int id_autorizante, int id_vinculo, int id_lugar_de_entrega, Usuario admin)
         {
+            var aspirante = new AspiranteAUsuario();
+            aspirante.Apellido = apellido;
+            aspirante.Nombre = nombres;
+            aspirante.Documento = dni;
+            aspirante.Email = email;
+
+            autorizador.RegistrarNuevoUsuario(aspirante);
+
+            var usuario = repoUsuarios.GetUsuarioPorDNI(dni);
+
+            repoUsuarios.CambiarImagenPerfil(usuario.Id, id_foto, admin.Id);
+
+            SolicitarRenovacionCredencial(usuario, "Nueva", "Ministerio de Desarrollo Social", id_lugar_de_entrega, id_tipo_credencial);
+
+
             var parametros = new Dictionary<string, object>();
 
-            parametros.Add("@dni", dni);
-            parametros.Add("@apellido", apellido);
-            parametros.Add("@nombres", nombres);
-            parametros.Add("@email", email);
+            parametros.Add("@id_usuario", usuario.Id);
+            parametros.Add("@id_persona", usuario.Owner.Id);
             parametros.Add("@fecha_nacimiento", fecha_nacimiento);
             parametros.Add("@telefono", telefono);
             parametros.Add("@id_foto", id_foto);

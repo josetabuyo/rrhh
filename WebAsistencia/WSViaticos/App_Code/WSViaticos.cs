@@ -3172,7 +3172,7 @@ public class WSViaticos : System.Web.Services.WebService
         RepositorioLegajo repositorio = RepoLegajo();
 
 
-        return repositorio.SolicitarCredencialProvisoria(dni, apellido, nombres, email, fecha_nacimiento, telefono, id_foto, id_tipo_credencial, id_autorizante, id_vinculo, id_lugar_de_entrega);
+        return repositorio.SolicitarCredencialProvisoria(Autorizador(), RepositorioDeUsuarios(), dni, apellido, nombres, email, fecha_nacimiento, telefono, id_foto, id_tipo_credencial, id_autorizante, id_vinculo, id_lugar_de_entrega);
     }
 
     [WebMethod]

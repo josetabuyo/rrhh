@@ -57,7 +57,7 @@
                 $("#cmb_lugarentrega").val()
             )
             .onSuccess(function () {
-
+                   
             }
             .onError(function(){
             
