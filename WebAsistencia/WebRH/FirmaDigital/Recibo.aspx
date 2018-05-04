@@ -35,6 +35,7 @@
 
         <!--contenido derecho -->
          <div  class="caja_der papel" >
+           <div id="subcontenidoFirmaMasiva"> 
          <fieldset>
          <legend style="margin-top: 20px;">FIRMA DE RECIBOS</legend>         
          </fieldset>
@@ -52,11 +53,11 @@
                 <option value="0" selected>TODOS</option>
              </select>
             <!--TODO: cargar dinamicamente los select si no se quieren mostrar meses no vigentes para el año actual-->
-             <select style="width:65px;" id="cmb_anio">
+             <select style="width:65px;" id="cmb_anio2">
                 <option value="2016" selected>2016</option>
                 <option value="2017" >2017</option>
              </select>
-             <select style="width:105px;" id="cmb_meses">
+             <select style="width:105px;" id="cmb_meses2">
                 <option value="1" selected>Enero</option>
                 <option value="2">Febrero</option>
                 <option value="3">Marzo</option>
@@ -171,6 +172,12 @@
          </div>--%>
          
          </div>
+           </div>
+           <div id="subcontenidoReciboEmpleado">
+
+
+
+           </div>
          </div>
         <!--FIN contenido derecho -->
     </div>
@@ -200,8 +207,8 @@
         divMensajeStatus.innerHTML = '<div class="iconProcesando">Procesando Solicitud ...</div>';
 
         //realizo la operacion
-        var anio = document.getElementById('cmb_anio').value;
-        var mes = document.getElementById('cmb_meses').value;
+        var anio = document.getElementById('cmb_anio2').value;
+        var mes = document.getElementById('cmb_meses2').value;
         var tipoLiquidacion = document.getElementById('cmb_tipo_liquidacion').value;
         RECIBOS.getIdRecibosSinFirmar(tipoLiquidacion, anio, mes);
         
