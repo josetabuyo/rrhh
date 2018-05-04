@@ -2718,6 +2718,14 @@ public class WSViaticos : System.Web.Services.WebService
         return RepositorioDeUsuarios().SolicitarCambioImagen(usuario.Id, id_imagen);
     }
 
+
+    [WebMethod]
+    public bool SolicitarCambioDeImagenPara(int id_usuario, int id_imagen, Usuario usuario)
+    {
+        return RepositorioDeUsuarios().CambiarImagenPerfil(id_usuario, id_imagen, usuario.Id);
+    }
+
+
     [WebMethod]
     public bool AceptarCambioDeImagen(int id_usuario, Usuario usuario)
     {
@@ -2883,10 +2891,19 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public Funcionalidad[] FuncionalidadesPara(int id_usuario)
     {
-        var funcionalidades = RepositorioDeFuncionalidadesDeUsuarios().FuncionalidadesPara(id_usuario).ToArray();
+        var usuario = RepositorioDeUsuarios().GetUsuarioPorId(id_usuario);
+        var funcionalidades = RepositorioDeFuncionalidadesDeUsuarios().FuncionalidadesPara(usuario).ToArray();
         return funcionalidades;
     }
 
+    [WebMethod]
+    public Funcionalidad[] FuncionalidadesOtorgadasA(int id_usuario)   //tira las funcionalidades tildadas en MAU, independientemente de otras verificaciones
+    {
+        var usuario = RepositorioDeUsuarios().GetUsuarioPorId(id_usuario);
+        var funcionalidades = RepositorioDeFuncionalidadesDeUsuarios().FuncionalidadesOtorgadasA(usuario).ToArray();
+        return funcionalidades;
+    }
+    
     [WebMethod]
     public Persona[] BuscarPersonas(string criterio)
     {
@@ -3020,8 +3037,12 @@ public class WSViaticos : System.Web.Services.WebService
 
         var creador_pdf = new CreadorDePdfs();
 
-        byte[] bytes = creador_pdf.FillPDF(TemplatePath("DDJJ_entrega_credencial_2018.pdf"), "DDJJEntregaCredencial", mapa_para_pdf);
-
+        byte[] bytes;
+        //if (solicitud.Organismo == "Ministerio de Desarrollo Social")
+            bytes = creador_pdf.FillPDF(TemplatePath("DDJJ_entrega_credencial_2018_MDS.pdf"), "DDJJEntregaCredencial", mapa_para_pdf);
+        //else
+        //    bytes = creador_pdf.FillPDF(TemplatePath("DDJJ_entrega_credencial_2018_MSAL.pdf"), "DDJJEntregaCredencial", mapa_para_pdf);
+           
         Document doc = new Document();
         byte[] result;
 
@@ -4648,6 +4669,15 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public General.MAU.ResumenTipoTicket[] getResumenTicketsPorFuncionalidad(Usuario usuario)
+    {
+        RepositorioDeTickets repo = new RepositorioDeTickets(Conexion());
+
+        return repo.GetResumenTicketsPorFuncionalidad(usuario.Id).ToArray();
+    }
+
+
+    [WebMethod]
     public string GetDomicilioPendientePorAlerta(int idAlerta, Usuario usuario)
     {
         RepositorioLegajo repo = RepoLegajo();
@@ -5499,6 +5529,13 @@ public class WSViaticos : System.Web.Services.WebService
     public string CTL_ACC_Login(string user, string pass)
     {
         return "";
+    }
+
+    [WebMethod]
+    public string CTL_ACC_Get_Personas_Buscador(string param_busqueda)
+    {
+        var ctlAcc = new General.CtrlAcc.RepositorioCtlAcc();
+        return ctlAcc.Get_Personas_Buscador(param_busqueda);
     }
 
     #endregion	

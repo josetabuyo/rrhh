@@ -135,16 +135,38 @@
     margin:12px;
 }
 
-#foto_usuario
+#contenedor_foto
 {
     position: absolute;
-    top: 13px;
-    bottom: 0px;
-    left: 13px;
+    top: 15px;
+    left: 12px;
     height: 128px;
     width: 128px;
     border-radius: 10px;
     overflow: hidden;
+    cursor: pointer;
+}
+
+#barrita_cambio_foto
+{
+    position: absolute;
+    bottom: 0px;
+    background-color: black;
+    color: white;
+    height: 20%;
+    left: 0px;
+    right: 0px;
+    text-align: center;
+    transition: height 0.2s;
+    font-size: 12px;
+    opacity: 0.6;
+    padding-top: 3px;
+}
+
+#foto_usuario
+{
+    height: 100%;
+    width: 100%;
 }
 
 #cambio_imagen_pendiente

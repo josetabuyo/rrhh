@@ -405,6 +405,16 @@ namespace General.MAU
             return solicitud;
         }
 
+        public bool CambiarImagenPerfil(int id_usuario, int id_imagen, int id_administrador)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_usuario", id_usuario);
+            parametros.Add("@id_imagen", id_imagen);
+            parametros.Add("@id_administrador", id_administrador);
+            conexion.Ejecutar("dbo.MAU_CambiarImagenPerfil", parametros);
+            return true;
+        }
+
         public bool AceptarCambioDeImagen(int id_usuario_solicitante, int id_administrador)
         {
             var parametros = new Dictionary<string, object>();

@@ -751,23 +751,23 @@ namespace General.Repositorios
             RepositorioDeTickets repo = new RepositorioDeTickets(this.conexion);
             var id_ticket_impresion = repo.crearTicket("impresion_credencial", usuario_solicitante.Id);
 
+            
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@IdPersona", usuario_aprobador.Owner.Id);
+            parametros.Add("@IdSolicitud ", solicitud.Id);
+            parametros.Add("@IdTicketImpresion ", id_ticket_impresion);
+
+            var tablaDatos = conexion.Ejecutar("dbo.Acre_AprobarSolicitudCredencial", parametros);
+            if (tablaDatos.Rows.Count > 0) repo.MarcarEstadoTicket(id_ticket_impresion, usuario_aprobador.Id);
+            
             try
             {
-                var parametros = new Dictionary<string, object>();
-                parametros.Add("@IdPersona", usuario_aprobador.Owner.Id);
-                parametros.Add("@IdSolicitud ", solicitud.Id);
-                parametros.Add("@IdTicketImpresion ", id_ticket_impresion);
-
-                var tablaDatos = conexion.Ejecutar("dbo.Acre_AprobarSolicitudCredencial", parametros);
-
-
                 new RepositorioDeAlertasPortal(this.conexion)
                     .crearAlerta("Solicitud de Credencial", "Tu solicitud ha sido aprobada, se le avisará cuando esté impresa", usuario_solicitante.Id, usuario_aprobador.Id);
             }
             catch (Exception)
             {
-                repo.MarcarEstadoTicket(id_ticket_impresion, usuario_aprobador.Id);
-                throw;
+                return false;
             }
             
             return true;
@@ -992,21 +992,21 @@ namespace General.Repositorios
             repo_tickets.MarcarEstadoTicket(solicitud.IdTicketImpresion, usuario.Id);
             var id_ticket_entrega = repo_tickets.crearTicket("entrega_credencial", usuario_solicitante.Id);
 
+            
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@IdSolicitud ", solicitud.Id);
+            parametros.Add("@IdTicketEntrega ", id_ticket_entrega);
+
+            var tablaDatos = conexion.Ejecutar("dbo.Acre_CerrarTicketImpresion", parametros);
+
             try
             {
-                var parametros = new Dictionary<string, object>();
-                parametros.Add("@IdSolicitud ", solicitud.Id);
-                parametros.Add("@IdTicketEntrega ", id_ticket_entrega);
-
-                var tablaDatos = conexion.Ejecutar("dbo.Acre_CerrarTicketImpresion", parametros);
-
                 new RepositorioDeAlertasPortal(this.conexion)
                     .crearAlerta("Solicitud de Credencial", "Su credencial está impresa. Para retirarla puede dirigirse a: " + solicitud.LugarEntrega.Descripcion + "\n" + instrucciones_de_retiro, usuario_solicitante.Id, usuario.Id);
             }
             catch (Exception)
             {
-                repo_tickets.MarcarEstadoTicket(id_ticket_entrega, usuario.Id);
-                throw;
+                return false;
             }
            
             return true;

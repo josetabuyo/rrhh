@@ -185,8 +185,9 @@
 
                 ui.find("#btn_aprobar_solicitud").click(function () {
                     ui.find("#btn_aprobar_solicitud").prop("disabled", true);
-                    Backend.AprobarSolicitudCredencial(solicitud).onSuccess(function () {
-                        alertify.success("Solicitud aprobada con éxito");
+                    Backend.AprobarSolicitudCredencial(solicitud).onSuccess(function (respuesta) {
+                        if (!respuesta) alertify.error("Error al enviar el mail al usuario");
+                        else alertify.success("Solicitud aprobada con éxito");
                         vex.close();
                         GestionDeTareas.getTareasParaGestion();
                     }).onError(function () {

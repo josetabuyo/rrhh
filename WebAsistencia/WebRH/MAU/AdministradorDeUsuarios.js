@@ -39,6 +39,20 @@
         repositorioDeAreas: this.repositorioDeAreas
     });
 
+    $("#foto_usuario, #foto_usuario_generica").click(function () {
+        vex.defaultOptions.className = 'vex-theme-os';
+        var subidor = new SubidorDeImagenes();
+        subidor.subirImagen(function (id_imagen) {
+            Backend.SolicitarCambioDeImagenPara(_this.usuario.Id, id_imagen)
+                .onSuccess(function () {
+                    alertify.success("Cambio de imagen realizado con éxito");
+                })
+                .onError(function () {
+                    alertify.error("Error al cambiar imagen");
+                });
+        }, true);
+    });
+
     this.selector_usuario.alSeleccionarUnaPersona = function (la_persona_seleccionada) {
         _this.panel_datos_usuario.hide();
         _this.repositorioDeUsuarios.getUsuarioPorIdPersona(
