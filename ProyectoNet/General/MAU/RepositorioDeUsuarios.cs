@@ -62,6 +62,18 @@ namespace General.MAU
             return GetUsuarioDeTablaDeDatos(tablaDatos);
         }
 
+
+        public Usuario GetUsuarioPorDNI(int dni)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@dni", dni);
+            var tablaDatos = conexion.Ejecutar("dbo.Web_GetUsuario", parametros);
+
+            if (tablaDatos.Rows.Count > 1) throw new Exception("hay mas de un usuario con el mismo dni: " + dni);
+            return GetUsuarioDeTablaDeDatos(tablaDatos);
+        }
+
+
         private Usuario GetUsuarioDeTablaDeDatos(TablaDeDatos tablaDatos)
         {
             if (tablaDatos.Rows.Count == 0) return new UsuarioNulo();
