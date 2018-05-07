@@ -304,14 +304,21 @@
                             });
                     });
 
+                    var txt_codigo_magnetico = ui.find("#txt_codigo_magnetico");
+
+                    txt_codigo_magnetico.change(function () {
+                        var valor = parseInt(txt_codigo_magnetico.val());
+                        txt_codigo_magnetico.val(isNaN(valor) ? "" : valor);
+                    });
+
                     var btn_asociar_codigo_magnetico = ui.find("#btn_asociar_codigo_magnetico");
                     if (solicitud.Credencial.CodigoMagnetico != "") {
-                        ui.find("#txt_codigo_magnetico").val(solicitud.Credencial.CodigoMagnetico)
+                        txt_codigo_magnetico.val(solicitud.Credencial.CodigoMagnetico)
                         btn_asociar_codigo_magnetico.val("ReAsociar");
                         ui.find("#panel_dar_aviso").show();
                     }
                     btn_asociar_codigo_magnetico.click(function () {
-                        var codigo = ui.find("#txt_codigo_magnetico").val();
+                        var codigo = txt_codigo_magnetico.val();
                         Backend.AsociarCodigoMagneticoACredencial(solicitud.Credencial.Id, codigo)
                             .onSuccess(function () {
                                 alertify.success("el código magnético se asoció correctamente");
