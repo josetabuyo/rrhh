@@ -1,5 +1,4 @@
 ﻿var ABMComites = {
-
     completarDatos: function (comite) {
         var _this = this;
         this.ui = $("#contenedor_comites");

@@ -33,5 +33,17 @@ form.cmxform
     margin-left: 19%;
 }
 
+.botonera_grilla #btn_eliminar
+{
+    width: 25px;
+    height: 25px;
+}
+
+.botonera_grilla #btn_editar
+{
+    width: 20px;
+    height: 20px;
+}
+
 form.cmxform legend,
 form.cmxform label { color: #333; }

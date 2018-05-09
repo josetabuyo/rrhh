@@ -18,84 +18,23 @@
         UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" UrlPassword="../" />
     <div class="contenedor_comites">
         <hr style="clear: both; background-color: #0088cc;" />
-        <div id="contenedor_concursar">
-            <div id="accordion">
-                <div class="accordion-group">
-                    <div id="ancla3" class="accordion-heading">
-                        <a class="accordion-toggle titulo_acordion" data-toggle="collapse" data-parent="#accordion"
-                            href="#collapseThree">COMITES</a>
-                    </div>
-                    <div id="collapseThree" class="accordion-body collapse">
-                        <div class="accordion-inner fondo_form">
+        <div id="contenedor_comites">
+
                             <fieldset style="width: 100%;">
                                 <legend><a id="btn_agregar_comite" class="link">Nuevo Comite</a></legend>
-                                <h4>
-                                    Comites</h4>
-                                <div id="ContenedorPlanillaActividadesCapacitacion" runat="server">
+                                <h4>Comites</h4>
+                                <div id="ContenedorPlanillaComites" runat="server">
                                     <table id="tabla_comites" class="table table-striped">
                                     </table>
                                 </div>
                             </fieldset>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
         <div id="contenedor_comites">
             <asp:HiddenField ID="ComitesHiddenField" runat="server" />
-            <table>
-                <tr style="height: 50px;">
-                    <td>
-                        Proceso Evaluatorio
-                    </td>
-                    <td>
-                        <div class="grupo_campos">
-                            <label class="etiqueta_campo" for="cmb_periodo">
-                                Proceso Evaluatorio <em>*</em></label>
-                            <select id="cmb_periodo" style="width: 280px;" rh-control-type="combo" rh-data-provider="PeriodosEvaluacion"
-                                rh-propiedad-label="descripcion_periodo" rh-model-property="Periodo.Id" data-validar="haySeleccionEnCombo">
-                            </select>
-                        </div>
-                        <!--<select>
-                        <option value="1">2016 - Planta Permamente</option>
-                    </select>-->
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="grupo_campos nueva_linea">
-                            <label class="etiqueta_campo" for="txt_fecha">
-                                Fecha <em>*</em></label>
-                            <input type="text" id="txt_fecha" style="width: 110px;" rh-control-type="datepicker"
-                                rh-model-property="Fecha" data-validar="esNoBlanco" />
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="grupo_campos nueva_linea">
-                            <label for="hora">
-                                Hora <em>*</em></label>
-                            <input id="hora" type="text" rh-control-type="textbox" rh-model-property="Hora" style="width: 160px;"
-                                data-validar="esNoBlanco" maxlength="100" />
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="grupo_campos nueva_linea">
-                            <label for="lugar">
-                                Lugar <em>*</em></label>
-                            <input id="Text1" type="text" rh-control-type="textbox" rh-model-property="Lugar"
-                                style="width: 160px;" data-validar="esNoBlanco" maxlength="100" />
-                        </div>
-                    </td>
-                </tr>
-            </table>
+            
         </div>
     </div>
-
-     <%----------------- MODAL DE VISTA PRELIMINAR ---------------------%>
+    <%----------------- MODAL DE VISTA PRELIMINAR ---------------------%>
     <input type="text" id="urlAjax" value="" style="display: none;" />
     <div id="plantillas">
         <div class="botonera_grilla">
@@ -103,8 +42,8 @@
             <img id="btn_eliminar" src="../Imagenes/icono_eliminar2.png" />
         </div>
     </div>
-    <div id="un_div_modal" style="width: 65%; height:500px; overflow:scroll;" class="form_concursar">
-        <div class="modal_close_concursar">
+    <div id="un_div_modal" style="width: 65%; height: 500px; overflow: scroll;" class="form_concursar">
+        <div class="modal_close_comites">
         </div>
         <div id="contenido_modal">
         </div>
@@ -130,7 +69,7 @@
 
     $(document).ready(function () {
         var comites = JSON.parse($('#ComitesHiddenField').val());
-        ABMComites.completarDatos(comites[0]);
+        //ABMComites.completarDatos(comites[0]);
 
         PanelListaDeComites.armarGrilla(comites);
 
