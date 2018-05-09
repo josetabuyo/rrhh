@@ -34,7 +34,7 @@ var Constants = {
 		 * */
 		//Para facu que soporta jnlp   
 		//URL_BASE_JNLP:"jnlp://www.milocal.com:8080/AutofirmaJWS/autofirma.jsp"
-		URL_BASE_JNLP:"http://localhost:43414/Recibos/autofirmaJNLP.aspx",		
+		URL_BASE_JNLP:"http://localhost:43414/FirmaDigital/autofirmaJNLP.aspx",		
 		URL_BASE_TRIFASICA:"http://www.milocal.com:8081/afirma-server-triphase-signer/SignatureService",
 	
 		URL_BASE_SERVICES : "https://www.milocal.com:8444/ValidacionWS/services/",

@@ -35,7 +35,7 @@ public partial class SimpleServlet : System.Web.UI.Page
 		Response.Write("<update check='timeout' policy='always'/>");
 		Response.Write("<resources> ");
 		Response.Write("<j2se version='1.6+' />");
-		Response.Write("<jar href='Recibos/simple_afirma_3_4s.jar' size='20005256 '/> ");/*nota:actualizar el tamaÃ±o en bytes cuando este todo bien*/
+		Response.Write("<jar href='FirmaDigital/simple_afirma_3_4s.jar' size='20005256 '/> ");/*nota:actualizar el tamaÃ±o en bytes cuando este todo bien*/
 		Response.Write("<property name='jnlp.packEnabled' value='true'/>");
 		Response.Write("</resources>");
 		Response.Write("<application-desc main-class='es.gob.afirma.standalone.SimpleAfirma'>");
