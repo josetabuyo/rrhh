@@ -1,0 +1,37 @@
+﻿input
+{
+    height: 30px !important;
+}
+
+#accordion .accordion-heading:first-of-type
+{
+    background-color: #0088cc;
+    background-image: linear-gradient(to bottombottom,  #dbdbdb 0%,#f9f9f9 100%); /* FF3.6+ */ /* Chrome,Safari4+ */ /* Chrome10+,Safari5.1+ */ /* Opera 11.10+ */ /* IE10+ */
+}
+
+#accordion .accordion-heading a
+{
+    color: #fff;
+    line-height: 20px; /*display: block;  */
+    font-size: 12pt; /*width: 100%;  */
+    text-indent: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: inherit;
+}
+
+form.cmxform
+{
+    width: 100%;
+    font-size: 15px;
+    color: #333;
+}
+
+.contenedor_comites
+{
+    width: 59%;
+    margin-left: 19%;
+}
+
+form.cmxform legend,
+form.cmxform label { color: #333; }

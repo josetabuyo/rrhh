@@ -118,7 +118,7 @@ namespace General.Repositorios
             return GetAgentesEvaluablesPor(usuario, true);
         }
 
-        public List<PeriodoEvaluacion> GetPeriodosEvaluacion(Usuario usuario)
+        public List<PeriodoEvaluacion> GetPeriodosEvaluacion()
         {
             var parametros = new Dictionary<string, object>();
             var tablaDatos = _conexion.Ejecutar("dbo.EVAL_GET_PERIODOS_EVALUACION", parametros);
@@ -223,6 +223,7 @@ namespace General.Repositorios
             comite.Lugar = row.GetString("lugar_comite");
             comite.Integrantes = new List<IntegranteComiteEvalDesempenio>();
             comite.UnidadesEvaluacion = new List<UnidadDeEvaluacion>();
+            comite.Periodo = GetPeriodosEvaluacion().Find(p => p.id_periodo.Equals(row.GetInt("idPeriodo")));
             return comite;
         }
 

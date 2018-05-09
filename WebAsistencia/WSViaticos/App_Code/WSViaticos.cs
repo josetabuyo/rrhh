@@ -75,10 +75,17 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public List<PeriodoEvaluacion> BuscarPeriodosEvaluacion(Usuario usuario, Usuario usuario2)
+    {
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        return repo.GetPeriodosEvaluacion();
+    }
+
+    [WebMethod]
     public List<PeriodoEvaluacion> GetPeriodosEvaluacion(Usuario usuario)
     {
         var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
-        return repo.GetPeriodosEvaluacion(usuario);
+        return repo.GetPeriodosEvaluacion();
     }
 
     [WebMethod]

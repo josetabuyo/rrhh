@@ -12,7 +12,11 @@ namespace General.MED
         public string descripcion_periodo { get; set; }
         public DateTime desde { get; set; }
         public DateTime hasta { get; set; }
-
+        public int Id
+        {
+            get { return this.id_periodo; }
+            set { this.id_periodo = value; }
+        }
 
         public PeriodoEvaluacion(int id, string descripcion, DateTime desde, DateTime hasta)
         {
