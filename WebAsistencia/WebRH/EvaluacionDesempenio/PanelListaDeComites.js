@@ -24,7 +24,7 @@
         var columnas = [];
         columnas.push(new Columna("Id", { generar: function (comite) { return comite.Id; } }));
         columnas.push(new Columna("Lugar", { generar: function (comite) { return comite.Lugar; } }));
-        columnas.push(new Columna("Fecha", { generar: function (comite) { return comite.Fecha.substring(0,10); } }));
+        columnas.push(new Columna("Fecha", { generar: function (comite) { return comite.Fecha.substring(0, 10); } }));
         columnas.push(new Columna("Periodo", { generar: function (comite) { return comite.Periodo.descripcion_periodo; } }));
         columnas.push(new Columna("UE", { generar: function (comite) {
             var ues = comite.UnidadesEvaluacion;

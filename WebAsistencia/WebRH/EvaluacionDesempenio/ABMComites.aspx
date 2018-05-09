@@ -16,18 +16,25 @@
     <form id="form2" runat="server">
     <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:18px; font-weight: bold;'></span> <br/> <span style='font-size:18px;font-weight: bold;'> Menú Principal </span>"
         UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" UrlPassword="../" />
+
+
+
+<!--
+
+
+
+
     <div class="contenedor_comites">
         <hr style="clear: both; background-color: #0088cc;" />
         <div id="contenedor_comites">
-
-                            <fieldset style="width: 100%;">
-                                <legend><a id="btn_agregar_comite" class="link">Nuevo Comite</a></legend>
-                                <h4>Comites</h4>
-                                <div id="ContenedorPlanillaComites" runat="server">
-                                    <table id="tabla_comites" class="table table-striped">
-                                    </table>
-                                </div>
-                            </fieldset>
+            <fieldset style="width: 100%;">
+                <legend><a id="btn_agregar_comite" class="link">Nuevo Comite</a></legend>
+                <h4>Comites</h4>
+                <div id="ContenedorPlanillaComites" runat="server">
+                    <table id="tabla_comites" class="table table-striped">
+                    </table>
+                </div>
+            </fieldset>
         </div>
         <div id="contenedor_comites">
             <asp:HiddenField ID="ComitesHiddenField" runat="server" />
@@ -47,7 +54,7 @@
         </div>
         <div id="contenido_modal">
         </div>
-    </div>
+    </div>-->
     </form>
 </body>
 <%= Referencias.Javascript("../")%>

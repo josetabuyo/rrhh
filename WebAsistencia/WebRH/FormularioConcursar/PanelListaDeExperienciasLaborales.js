@@ -71,9 +71,9 @@
         this.GrillaExperiencias = new Grilla(columnas);
         this.GrillaExperiencias.AgregarEstilo("cuerpo_tabla_puesto tr td");
         this.GrillaExperiencias.CambiarEstiloCabecera("cabecera_tabla_postular");
-        this.GrillaExperiencias.SetOnRowClickEventHandler(function (una_experiencia) {
+        this.GrillaExperiencias.SetOnRowClickEventHandler(function (columnas) {
         });
-
+ 
         this.GrillaExperiencias.CargarObjetos(experiencias);
         this.GrillaExperiencias.DibujarEn(_this.divGrilla);
 

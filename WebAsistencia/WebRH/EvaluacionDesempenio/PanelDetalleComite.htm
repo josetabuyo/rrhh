@@ -1,8 +1,7 @@
 ﻿<div id="form_antecedentesAcademicos">
     <div id="form_antecedentesAcademicos-ct">
         <div id="form_antecedentesAcademicos-header" class="form_concursar_header">
-            <h2>
-                Comité</h2>
+            <h2>Comité</h2>
             <p>
             </p>
         </div>
@@ -30,6 +29,14 @@
                         Lugar <em>*</em></label>
                     <input id="Text1" type="text" rh-control-type="textbox" rh-model-property="Lugar"
                         style="width: 160px;" data-validar="esNoBlanco" maxlength="100" />
+                </div>
+                <div class="grupo_campos nueva_linea">
+                    <legend><a id="btn_agregar_ue" class="link">Agregar Unidad de Evaluacion</a></legend>
+                    <h4>Unidades de Evaluacion</h4>
+                    <div id="ContenedorPlanillaUnidadesEvaluacion" runat="server">
+                        <table id="tabla_unidades_evaluacion" class="table table-striped">
+                        </table>
+                    </div>
                 </div>
             </fieldset>
             <div class="btn-fld">
