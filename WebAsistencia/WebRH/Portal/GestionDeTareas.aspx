@@ -44,7 +44,7 @@
 
         </div>--%>
         <div class=" papel">
-            <div style="float: left;">
+            <div style="float: left; display: none;" class="gestion_de_derivacion_de_tareas">
                 <label style="float: left">
                     Derivar a:</label>
                 <div style="float: left; margin-top: -5px;" id="selector_usuario" class="selector_personas">
@@ -70,15 +70,15 @@
 									<span>MIS TAREAS</span>
 								</a>
 							</li>
-							<li>
-								<a href="#section-shape-2">
+							<li class="gestion_de_derivacion_de_tareas">
+								<a href="#section-shape-2" class="solapa_derivaciones">
 									<svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
 									<svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
 									<span class="tab_oscuro">TAREAS SIN ASIGNACIÓN</span>
 								</a>
 							</li>
-							<li>
-								<a href="#section-shape-3">
+							<li class="gestion_de_derivacion_de_tareas">
+								<a href="#section-shape-3" class="solapa_derivaciones">
 									<svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
 									<svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
 									<span>TAREAS ASIGNADAS A OTROS</span>
@@ -135,12 +135,16 @@
 <script type="text/javascript" src="tabs.js"></script>
 <script type="text/javascript">
     $(document).ready(function ($) {
+        $(".gestion_de_derivacion_de_tareas").hide();
+        $(".solapa_derivaciones").parent().hide();
         Backend.start(function () {
             $("#btn_derivar_tareas").click(function () {
                 GestionDeTareas.DerivarTareas();
             });
             GestionDeTareas.ObtenerUsuarioLogueado();
-            GestionDeTareas.buscadorDePersonas();
+            if (GestionDeTareas.TienePermisoDeDerivacion()) {
+                GestionDeTareas.buscadorDePersonas();
+            }
             GestionDeTareas.getTareasParaGestion();
             //SELECCION DE TABS
             (function () {

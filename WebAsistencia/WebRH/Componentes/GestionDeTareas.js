@@ -8,14 +8,10 @@ var GestionDeTareas = {
     init: function () {
         var numero_filtro = parseInt($(".content-current").attr("numero_tab"));
         //Agrego filtro por tipo (hecho por Javi)
-
         if (tab_actual != numero_filtro) {
             tab_actual = numero_filtro;
         }
-
         var _this = this;
-
-
         var tareas_filtradas = [];
         $("#section-shape-1").html("");
         $("#section-shape-2").html("");
@@ -131,6 +127,27 @@ var GestionDeTareas = {
                     })
                     .onError(function (e) {
                         alert("No se pudo derivar las tareas")
+                    });
+    },
+    TienePermisoDeDerivacion: function () {
+        var _this = this;
+
+        Backend.TienePermisoDeDerivacionDeTareas()
+                    .onSuccess(function (respuesta) {
+                        if (respuesta) {
+                            $(".gestion_de_derivacion_de_tareas").show();
+                            $(".solapa_derivaciones").parent().show();
+
+                        } else {
+                            $(".gestion_de_derivacion_de_tareas").hide();
+                            $(".solapa_derivaciones").parent().hide();
+                        }
+
+                        return respuesta;
+                    })
+                    .onError(function (e) {
+                        alert("No se pudo determinar los permisos para la derivación de tareas")
+                        return false;
                     });
     },
 

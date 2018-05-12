@@ -112,7 +112,10 @@ hr
     margin-top:20px;
     margin-bottom:15px;
 }
-        
+.gestion_de_derivacion_de_tareas     
+{
+    display:none;
+}
 .papel {
             
     position:relative;

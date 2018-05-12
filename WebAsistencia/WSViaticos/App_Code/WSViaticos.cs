@@ -4523,7 +4523,6 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string getAreaDeLaPersona(Usuario usuario)
     {
-        //aaaaaaaaaaaaaaaaaaaaaaaa
         return RepoLegajo().getAreaDeLaPersona(usuario.Owner.Documento);
     }
 
@@ -4647,8 +4646,18 @@ public class WSViaticos : System.Web.Services.WebService
     public void DerivarTareas(Usuario usuario_a_derivar, int[] tareas,  Usuario usuario)
     {
         RepositorioDeTickets repo = new RepositorioDeTickets(Conexion());
-
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 69))
+        {
+            throw (new Exception("El usuario no tiene permisos para eredivar tareas"));
+        }
         repo.DerivarTareas(usuario_a_derivar.Id, tareas, usuario.Id);
+
+    }
+    [WebMethod]
+    public bool TienePermisoDeDerivacionDeTareas(Usuario usuario_a_derivar, int[] tareas, Usuario usuario)
+    {
+        RepositorioDeTickets repo = new RepositorioDeTickets(Conexion());
+        return Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 69);
 
     }
 
