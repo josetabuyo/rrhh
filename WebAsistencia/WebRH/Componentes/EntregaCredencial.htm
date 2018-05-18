@@ -32,12 +32,13 @@
         #pantalla_entrega_credencial #foto_usuario
         {
             position: absolute;
-            top: 14.5%;
-            left: 5.5%;
-            height: 33%;
-            width: 51.4%;
-            border: 1px solid black;
-            border-radius: 14px;
+            top: 61px;
+            left: 15px;
+            height: 126px;
+            width: 126px;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px white solid;
         }    
         
         #pantalla_entrega_credencial #codigo_barras
@@ -126,12 +127,16 @@
                     var src = '';
 
                     if (solicitud.Organismo == 'Ministerio de Desarrollo Social') {
-                        if (solicitud.TipoCredencial == 'Definitiva') var src = '../BarraMenu/credencialMDS.png';
-                        if (solicitud.TipoCredencial == 'Externa') var src = '../BarraMenu/credencialMDS_Externos.png';
+                        if (solicitud.TipoCredencial == 'Definitiva') src = '../BarraMenu/credencialMDS.jpg';
+                        if (solicitud.TipoCredencial == 'Externa') src = '../BarraMenu/credencialMDS_Externa.jpg';
                     }
                     if (solicitud.Organismo == 'Ministerio de Salud') {
-                        if (solicitud.TipoCredencial == 'Definitiva') var src = '../BarraMenu/credencialMSAL.png';
-                        if (solicitud.TipoCredencial == 'Externa') var src = '../BarraMenu/credencialMSAL_Externos.png';
+                        if (solicitud.TipoCredencial == 'Definitiva') src = '../BarraMenu/credencialMSAL.jpg';
+                        if (solicitud.TipoCredencial == 'Externa') src = '../BarraMenu/credencialMSAL_Externa.jpg';
+                    }
+                    if (solicitud.Organismo == 'Instituto Nacional de las Mujeres') {
+                        if (solicitud.TipoCredencial == 'Definitiva') src = '../BarraMenu/credencialINM.jpg';
+                        if (solicitud.TipoCredencial == 'Externa') src = '../BarraMenu/credencialINM_Externa.jpg';
                     }
 
                     ui.find("#imagen_credencial").attr('src', src);
