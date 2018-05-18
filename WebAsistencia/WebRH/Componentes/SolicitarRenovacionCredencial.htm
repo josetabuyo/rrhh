@@ -44,10 +44,13 @@
         #vista_previa_credencial #foto_usuario
         {
             position: absolute;
-            top: 64px;
-            left: 21px;
-            height: 112px;
-            width: 112px;
+            top: 61px;
+            left: 15px;
+            height: 126px;
+            width: 126px;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px white solid;
         }    
         
         #vista_previa_credencial #apellido
@@ -118,7 +121,7 @@
     <h3 style="text-align: center;">Solicitud de Credencial</h3>
     <br />
     <div id="vista_previa_credencial">
-        <img id="imagen_credencial" src="../BarraMenu/credencialMds.png"/>
+        <img id="imagen_credencial" src="../BarraMenu/credencialMds.jpg"/>
         <div id="foto_usuario"></div>
         <div id="apellido"></div>    
         <div id="nombres"></div>    
@@ -142,9 +145,10 @@
             <label class="label_combo" for="select_organismo">Indique a que Organismo pertenece:</label>
             <select class="combo" id="select_organismo">
                                 
-            <option value="1">Ministerio de Desarrollo Social</option>
-            <option value="2">Ministerio de Salud</option>
-            
+                <option value="1">Ministerio de Desarrollo Social</option>
+                <option value="2">Ministerio de Salud</option>
+                <option value="3">Instituto Nacional de la Mujer</option>
+
             </select>                    
 
         </div>
@@ -201,12 +205,17 @@
 
                     ui.find("#select_organismo").change(function () {
                         if (ui.find("#select_organismo").val() == '1') {
-                            ui.find("#imagen_credencial").attr('src', '../BarraMenu/credencialMDS.png');
+                            ui.find("#imagen_credencial").attr('src', '../BarraMenu/credencialMDS.jpg');
                             ui.find("#ddjj_mds").show();
                             ui.find("#ddjj_msal").hide();
                         }
                         if (ui.find("#select_organismo").val() == '2') {
-                            ui.find("#imagen_credencial").attr('src', '../BarraMenu/credencialMSAL.png');
+                            ui.find("#imagen_credencial").attr('src', '../BarraMenu/credencialMSAL.jpg');
+                            ui.find("#ddjj_msal").show();
+                            ui.find("#ddjj_mds").hide();
+                        }
+                        if (ui.find("#select_organismo").val() == '3') {
+                            ui.find("#imagen_credencial").attr('src', '../BarraMenu/credencialINM.jpg');
                             ui.find("#ddjj_msal").show();
                             ui.find("#ddjj_mds").hide();
                         }
