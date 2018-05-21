@@ -3212,12 +3212,12 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
 
-    [WebMethod]
-    public bool SolicitarCredencialProvisoria(SolicitudCredencial solicitud, Persona persona, string motivo, Usuario usuario)
-    {
-        RepositorioLegajo repositorio = RepoLegajo();
-        return repositorio.SolicitarCredencialProvisoria(solicitud, persona, motivo, usuario);
-    }
+    //[WebMethod]
+    //public bool SolicitarCredencialProvisoria(SolicitudCredencial solicitud, Persona persona, string motivo, Usuario usuario)
+    //{
+    //    RepositorioLegajo repositorio = RepoLegajo();
+    //    return repositorio.SolicitarCredencialProvisoria(solicitud, persona, motivo, usuario);
+    //}
 
     [WebMethod]
     public bool MarcarCredencialComoImpresa(int idCredencial, Usuario usuario)
