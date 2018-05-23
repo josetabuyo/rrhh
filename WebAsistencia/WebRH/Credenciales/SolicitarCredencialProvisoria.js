@@ -33,6 +33,17 @@
                 });
             });
 
+        var proveedor_ajax = new ProveedorAjax("../");
+        var repositorioDePersonas = new RepositorioDePersonas(proveedor_ajax);
+
+        selector_usuario = new SelectorDePersonas({
+            ui: $('#cmb_autorizante'),
+            repositorioDePersonas: repositorioDePersonas,
+            placeholder: "nombre, apellido, documento o legajo"
+        });
+        selector_usuario.alSeleccionarUnaPersona = function (la_persona_seleccionada) {
+
+        };
         //        Backend.GetAutorizantesCredenciales()
         //            .onSuccess(function (autorizantes) {
         //                _.forEach(autorizantes, function (autorizante) {
