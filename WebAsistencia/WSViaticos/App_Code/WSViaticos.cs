@@ -3167,12 +3167,12 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string SolicitarCredencialProvisoria(int dni, string apellido, string nombres, string email, DateTime fecha_nacimiento, string telefono, int id_foto, int id_tipo_credencial, int id_autorizante, int id_vinculo, int id_lugar_de_entrega, Usuario usuario)
+    public string SolicitarCredencialExterna(int dni, string apellido, string nombres, string email, DateTime fecha_nacimiento, string telefono, int id_foto, int id_tipo_credencial, int id_autorizante, int id_vinculo, int id_lugar_de_entrega, Usuario usuario)
     {
         RepositorioLegajo repositorio = RepoLegajo();
 
 
-        return ""; // repositorio.SolicitarCredencialProvisoria(Autorizador(), RepositorioDeUsuarios(), dni, apellido, nombres, email, fecha_nacimiento, telefono, id_foto, id_tipo_credencial, id_autorizante, id_vinculo, id_lugar_de_entrega);
+        return ""; // repositorio.SolicitarCredencialExterna(Autorizador(), RepositorioDeUsuarios(), dni, apellido, nombres, email, fecha_nacimiento, telefono, id_foto, id_tipo_credencial, id_autorizante, id_vinculo, id_lugar_de_entrega);
     }
 
     [WebMethod]

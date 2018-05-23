@@ -637,7 +637,10 @@ namespace General.Repositorios
             {
                 id_ticket = repo.crearTicket("solicitud_cred_msal", usuario_solicitante.Id);
             }
-
+            if (int.Parse(id_organismo) == 3)
+            {
+                id_ticket = repo.crearTicket("solicitud_cred_inm", usuario_solicitante.Id);
+            }
         //   var id_motivo = GetMotivosBajaCredencial().Find(x => x.Descripcion.Trim().ToUpper() == motivo.Trim().ToUpper()).Id;
         //  List<MotivoBaja> motivos = GetMotivosBajaCredencial();
             try
@@ -1429,7 +1432,7 @@ namespace General.Repositorios
             throw new NotImplementedException();
         }
 
-        public string SolicitarCredencialProvisoria(Autorizador autorizador, RepositorioDeUsuarios repoUsuarios, int dni, string apellido, string nombres, string email, DateTime fecha_nacimiento, string telefono, int id_foto, int id_tipo_credencial, int id_autorizante, int id_vinculo, int id_lugar_de_entrega, Usuario admin)
+        public string SolicitarCredencialExterna(Autorizador autorizador, RepositorioDeUsuarios repoUsuarios, int dni, string apellido, string nombres, string email, DateTime fecha_nacimiento, string telefono, int id_foto, int id_tipo_credencial, int id_autorizante, int id_vinculo, int id_lugar_de_entrega, Usuario admin)
         {
             var aspirante = new AspiranteAUsuario();
             aspirante.Apellido = apellido;

@@ -7,8 +7,8 @@ namespace General.Repositorios
 {
     public class TipoCredencial
     {
-        int Id;
-        string Descripcion;
+        public int Id;
+        public string Descripcion;
         public TipoCredencial()
         {
 

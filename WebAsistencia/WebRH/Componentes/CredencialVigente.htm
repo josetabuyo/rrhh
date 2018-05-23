@@ -20,10 +20,13 @@
         #pantalla_credencial_vigente #foto_usuario
         {
             position: absolute;
-            top: 64px;
-            left: 21px;
-            height: 112px;
-            width: 112px;
+            top: 61px;
+            left: 15px;
+            height: 126px;
+            width: 126px;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px white solid;
         }    
         
         #pantalla_credencial_vigente #codigo_barras
@@ -132,10 +135,22 @@
                                 ui.find("#nombres").text(usuario.Owner.Nombre);
                                 ui.find("#documento").text(usuario.Owner.Documento);
 
-                                if (credencial_vigente.Organismo == 'Ministerio de Desarrollo Social')
-                                    ui.find("#imagen_credencial").attr('src', '../BarraMenu/credencialMDS.png');
-                                if (credencial_vigente.Organismo == 'Ministerio de Salud')
-                                    ui.find("#imagen_credencial").attr('src', '../BarraMenu/credencialMSAL.png');
+                                var src = "";
+                                if (credencial_vigente.Organismo == 'Ministerio de Desarrollo Social') {
+                                    if (credencial_vigente.Tipo == 'Definitiva') src = '../BarraMenu/credencialMDS.jpg';
+                                    if (credencial_vigente.Tipo == 'Externa') src = '../BarraMenu/credencialMDS_Externa.jpg';
+                                }
+                                if (credencial_vigente.Organismo == 'Ministerio de Salud') {
+                                    if (credencial_vigente.Tipo == 'Definitiva') src = '../BarraMenu/credencialMSAL.jpg';
+                                    if (credencial_vigente.Tipo == 'Externa') src = '../BarraMenu/credencialMSAL_Externa.jpg';
+                                }
+                                if (credencial_vigente.Organismo == 'Instituto Nacional de las Mujeres') {
+                                    if (credencial_vigente.Tipo == 'Definitiva') src = '../BarraMenu/credencialINM.jpg';
+                                    if (credencial_vigente.Tipo == 'Externa') src = '../BarraMenu/credencialINM_Externa.jpg';
+                                }
+
+                                ui.find("#imagen_credencial").attr('src', src);
+
                                 var img = new VistaThumbnail({
                                     id: credencial_vigente.IdFoto,
                                     contenedor: ui.find("#foto_usuario")
