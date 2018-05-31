@@ -1440,8 +1440,10 @@ namespace General.Repositorios
             aspirante.Documento = dni;
             aspirante.Email = email;
 
-            autorizador.RegistrarNuevoUsuario(aspirante);
+            //Acá abrir transacción
 
+            autorizador.RegistrarNuevoUsuario(aspirante);
+       
             var usuario = repoUsuarios.GetUsuarioPorDNI(dni);
 
             repoUsuarios.CambiarImagenPerfil(usuario.Id, id_foto, admin.Id);
@@ -1463,6 +1465,8 @@ namespace General.Repositorios
 
             var tablaDatos = conexion.Ejecutar("dbo.Acre_SolicitarCredencialProvisoria", parametros);
             
+            //acá cerrar transaccion
+
             return "ok";
         }
 
