@@ -75,40 +75,32 @@ namespace General.DatosAbiertos
         {
             try
             {
-                var consulta = this.getConsultas().Find(c=> c.Id==id_consulta);
-                var parametros = new Dictionary<string, object>();
-                var tablaDatos = conexion_bd.Ejecutar(consulta.SP);
-
-                DataTable tablaExcel = new DataTable();
-                tablaExcel.TableName = consulta.Nombre;
-
-                foreach (DataColumn dc in tablaDatos.Columns)
-                {
-                    tablaExcel.Columns.Add(dc.ColumnName);
-                }
-
-                tablaDatos.Rows.ForEach((row) =>
-                {
-                    var dr = tablaExcel.NewRow();
-                    foreach (DataColumn dc in tablaDatos.Columns)
-                    {
-                        dr[dc.ColumnName] = row.GetTodoComoString(dc.ColumnName, "");
-                    }
-
-                    tablaExcel.Rows.Add(dr);
-                });
-
-
                 var workbook = new XLWorkbook();
+                var consulta = this.getConsultas().Find(c=> c.Id==id_consulta);
+                
+                var tablasDatos = conexion_bd.EjecutarConVariosResultados(consulta.SP, 60);
 
-                var dataTable_detalle = tablaExcel;
-                workbook.Worksheets.Add(dataTable_detalle);
+                var rowcount = 0;
 
+                for (int i = 0; i < tablasDatos.Count; i++)
+                {
+                    var tablaDatos = tablasDatos[i];
+
+                    if (i == 0)
+                    {
+                        tablaDatos.TableName = consulta.Nombre;
+                        workbook.Worksheets.Add(tablaDatos);
+                    }
+                    else
+                    {
+                        workbook.Worksheet(1).Cell(rowcount, 1).InsertTable(tablaDatos);
+                    }
+                    rowcount = rowcount + tablaDatos.Rows.Count + 2;
+                }         
 
                 using (var ms = new MemoryStream())
                 {
                     workbook.SaveAs(ms);
-
                     return Convert.ToBase64String(ms.ToArray());
                 }
 
@@ -118,11 +110,6 @@ namespace General.DatosAbiertos
                 throw ex;
             }
         }
-
-
-
-
-
 
         public string ExcelGeneradoMapaDelEstado()
         {
