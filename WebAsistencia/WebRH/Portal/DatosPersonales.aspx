@@ -158,7 +158,7 @@
 
                 <legend style="margin-top: 20px;">MIS CREDENCIALES</legend>
                 
-              <%--  <div><a id="btn_credencial_vigente">Ver credencial vigente</a></div>--%>
+                <%--  <div><a id="btn_credencial_vigente">Ver credencial vigente</a></div>--%>
 
               
 
@@ -171,7 +171,7 @@
                 
                 <%--  <div style = "width:100%;text-align: center;display:none" id="botonera_cargar_foto">      --%>        
                 <div  style="display: inline-block;" > <button type="button" id="btn_cargar_foto" class="btn btn-primary" >Cargar foto de perfil</button></div>     
-              <%--  </div>      --%>
+                <%--  </div>      --%>
                 
                 </div>
 
