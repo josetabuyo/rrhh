@@ -78,9 +78,9 @@ namespace General.DatosAbiertos
                 var workbook = new XLWorkbook();
                 var consulta = this.getConsultas().Find(c=> c.Id==id_consulta);
                 
-                var tablasDatos = conexion_bd.EjecutarConVariosResultados(consulta.SP, 60);
+                var tablasDatos = conexion_bd.EjecutarConVariosResultados(consulta.SP, 120);
 
-                var rowcount = 0;
+                var rowcount = 1;
 
                 for (int i = 0; i < tablasDatos.Count; i++)
                 {
