@@ -212,12 +212,12 @@ var RECIBOS = (function (window, undefined) {
 
     }
 
-    function guardarReciboPDFFirmado(idRecibo, signatureB64, successFunction, errorFunction) {
+    function guardarReciboPDFFirmado(idRecibo, signatureB64, anio, mes, tipoLiquidacion, successFunction, errorFunction) {
 
         saveSuccessFunction = successFunction;
         saveErrorFunction = errorFunction;
 
-        Backend.GuardarReciboPDFFirmado(signatureB64,idRecibo)
+        Backend.GuardarReciboPDFFirmado(signatureB64,idRecibo,anio,mes,tipoLiquidacion)
                 .onSuccess(function (res) {
 
                     //en el caso de los archivos estos ya vienen en b64 porque aun no encontre una funcion de conversion a b64 que codifique correctamente desde javascript

@@ -5474,7 +5474,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public int GuardarReciboPDFFirmado(string bytes_pdf, int id_recibo)
+    public int GuardarReciboPDFFirmado(string bytes_pdf, int id_recibo, int anio, int mes, int tipoLiquidacion)
     {
         int id_archivo=0;
 //        try
@@ -5482,10 +5482,10 @@ public class WSViaticos : System.Web.Services.WebService
          //que tendria el path de disco donde guardar el archivo. Se puede agregar una clase con propieda la clase archivo 
             //subo el archivo firmado y actualiza la tabla que indica que el idRecibo fue firmado
   //          id_archivo = RepositorioDeArchivosPDF().GuardarArchivoPDF(bytes_pdf);
-//MOD JUAN            id_archivo = 20;//RepositorioDeArchivos().GuardarArchivo(bytes_pdf);// id_recibo;//simulo el guardado del archivo
+            id_archivo = 20;//RepositorioDeArchivos().GuardarArchivo(bytes_pdf);// id_recibo;//simulo el guardado del archivo
             //var r = RepositorioDeArchivos().GetArchivo(id_archivo); //19444 es un pdf firmado          
             //actualizo el recibo firmado por el empleado, 
-//MOD JUAN            RepoReciboFirmado().actualizarReciboFirmado(id_recibo,id_archivo);
+            RepoReciboFirmado().agregarReciboFirmado(id_recibo, id_archivo, anio, mes, tipoLiquidacion);
                                                  //        var s=  Convert.FromBase64String(r);
         //TODOOOOOO
             return id_archivo;

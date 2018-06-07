@@ -41,7 +41,7 @@
          </fieldset>
          <div id="div_recibo">            
          <div  style="margin:10px;">
-            <p><B>Descripción:</B>  En esta sección se realiza la firma iterativa de todos los recibos que hayan sido confirmados por los empleados, para un determinado intervalo, y que ademas no hayan sido aun firmados digitalmente.</p>
+            <p><B>Descripción:</B>  En esta sección se realiza la firma iterativa de todos los recibos<!-- que hayan sido confirmados por los empleados,--> para un determinado intervalo, y que ademas no hayan sido aun firmados digitalmente.</p>
             <p>Seleccione la lista de recibos a firmar:</p>
          <!--   <select style="width:130px;" id="cmb_filtro">
                 <option value="0">Sin Firmar</option>
@@ -199,28 +199,36 @@
 <script type="text/javascript" >
     var divMensajeStatus = document.getElementById('divMensajeStatus');
     var btn_firmar = document.getElementById("btn_firmar");
-    var lista_recibos_resumen;/*variable que mantiene la lista de recibos */
+    var lista_recibos_resumen; /*variable que mantiene la lista de recibos */
+    var anio;
+    var mes;
+    var tipoLiquidacion;
+
     function buscarRecibos() {
-        //NOTA: si tipo liquidacion es 0 entonces se deben traer TODOS los recibos de un dado año y mes
+        //NOTA: si tipo liquidacion es 0 entonces por ahora no se traer TODOS los recibos de un dado año y mes
+        //se limita aqui, pero se puede hacer un bucle aqui e iterar por todos los tipos de liquidacion y obtener todos los recibos y luego firmar, hacer eso por cada tipo de liquidacion
 
-        //Muestro un mensaje de procesando
-        divMensajeStatus.innerHTML = '<div class="iconProcesando">Procesando Solicitud ...</div>';
+        if (document.getElementById('cmb_tipo_liquidacion').value == "0") {
+            divMensajeStatus.innerHTML = '<div class="iconAlerta">Debe seleccionar un Tipo de Liquidacion</div>';
+        } else { 
+            //Muestro un mensaje de procesando
+            divMensajeStatus.innerHTML = '<div class="iconProcesando">Procesando Solicitud ...</div>';
 
-        //realizo la operacion
-        var anio = document.getElementById('cmb_anio2').value;
-        var mes = document.getElementById('cmb_meses2').value;
-        var tipoLiquidacion = document.getElementById('cmb_tipo_liquidacion').value;
-        RECIBOS.getIdRecibosSinFirmar(tipoLiquidacion, anio, mes);
+            //realizo la operacion
+            anio = document.getElementById('cmb_anio2').value;
+            mes = document.getElementById('cmb_meses2').value;
+            tipoLiquidacion = document.getElementById('cmb_tipo_liquidacion').value;
+            RECIBOS.getIdRecibosSinFirmar(tipoLiquidacion, anio, mes);
         
 
-        //seteo el mensage con el resultado de la operacion
+            //seteo el mensage con el resultado de la operacion
 
 
-        //oculto el panel del resultado
+            //oculto el panel del resultado
 //        document.getElementById('resultFirmaForm').style.display = 'none';
-        //muestro el panel de seleccion de documento firmado 
+            //muestro el panel de seleccion de documento firmado 
 //        document.getElementById('validarFirmaForm').style.display = 'block';
-
+        }
     }
 
     function xxxfirmarRecibos() {
@@ -416,17 +424,17 @@
 //            estado.classList.remove('estadoNoFirmado');
 //            estado.classList.add('estadoProcesando');
 
-/*            MiniApplet.sign(
+            MiniApplet.sign(
             dataB64,
             algorithm,
             format,
             params,
             SignSuccessCallback,
             SignErrorCallback);
-*/
+
             //el nombre del pdf sera idRecibo
             //MiniApplet.signAndSaveToFile(
-            MiniApplet.signAndSaveToFile(
+/*            MiniApplet.signAndSaveToFile(
 					"SIGN",
 					dataB64,
 					algorithm,
@@ -434,7 +442,7 @@
 					params,
 					idRecibo+".pdf",
 					SignSuccessCallback,
-					SignErrorCallback);
+					SignErrorCallback);*/
         }
         catch (e) {
             //Se muestra el mensaje de error si NO es de cancelación de la operación
@@ -462,10 +470,12 @@
 
     //verifico si aun hay firmas por realizar
     function verificarContinuacionProceso() {
-
+        //divMensajeStatus.innerHTML = '<div class="iconInfo">procesando...' + totalOperaciones + '-' + totalFirmas + '</div>';
+       
         //compruebo si se realizaron todas las operaciones
         if (totalOperaciones != totalFirmas) {
-            //divMensaje.innerHTML='<div class="iconInfo">No se pudieron procesar todos los documentos.</div>';
+
+            divMensajeStatus.innerHTML = '<div class="iconProcesando">Total de archivos a firmar: <b>' + totalFirmas + '</b>. Archivos firmados correctamente: <b>' + totalFirmasRealizadas + '</b>. No se pudieron procesar: <b>' + (totalOperaciones - totalFirmasRealizadas) + '</b>.</div>';
             firmarFileB64ServerExternoMasivo3();
         } else {
             //ya se realizaron todas las operaciones
@@ -525,7 +535,7 @@
         
         RECIBOS.guardarRecibo(fichero,saveSuccessCallback,saveErrorCallback);
     */
-        RECIBOS.guardarReciboPDFFirmado(lista_recibos_resumen[indiceListaRecibos - 1].Id_Recibo, fichero, successCallback, errorCallback);    
+        RECIBOS.guardarReciboPDFFirmado(lista_recibos_resumen[indiceListaRecibos - 1].Id_Recibo, fichero, anio, mes, tipoLiquidacion,successCallback, errorCallback);    
      
         //seteo el enlace al nuevo documento firmado
         
@@ -538,6 +548,33 @@
 
 
 
+    }
+
+    function SignErrorCallback(errorType, errorMessage) {
+        //        var estado = document.getElementById(idEstadoF);
+        //        var checkbox = document.getElementById(idCheckBoxF);
+        //VER: seria bueno ir enlistando los errores en una lista a mostrar de estatus de la operacion general
+
+        if ((errorMessage) &&
+(errorMessage.indexOf("AOCancelledOperationException") == -1) &&
+(errorMessage.indexOf("Operacion cancelada por el usuario") == -1)) {
+            if (errorMessage.indexOf("El almacen no contenia entradas") != -1) {
+                /*divMensaje.innerHTML='<img class="iconStatus" src="../img/iconFALLO.png">No existen certificados en el almacén de su navegador<br><br>';*/
+            }
+            else {
+                /*divMensaje.innerHTML='<div class="iconErrorFirma">Error al firmar</div><br><div style="width:300pt">' + errorMessage + '</div>';*/
+            }
+        }
+        //        checkbox.disabled = false;
+        /*NO se puede dejar checked en true porque al hacer las llamadas recursivamente
+        lo va a volver a tomar al objeto y asi hasta que se termine de realizar
+        la cantidad de operaciones seteada en el principio*/
+        //        checkbox.checked = false;
+        //        estado.classList.remove('estadoProcesando');
+        //        estado.classList.add('estadoNoFirmado');
+
+        totalOperaciones++;
+        verificarContinuacionProceso();
     }
 
     function successCallback(idRecibo) {
@@ -564,34 +601,7 @@
         totalOperaciones++;
         verificarContinuacionProceso();
     }
-
-
-    function SignErrorCallback(errorType, errorMessage) {
-//        var estado = document.getElementById(idEstadoF);
-//        var checkbox = document.getElementById(idCheckBoxF);
-        //VER: seria bueno ir enlistando los errores en una lista a mostrar de estatus de la operacion general
-
-        if ((errorMessage) &&
-(errorMessage.indexOf("AOCancelledOperationException") == -1) &&
-(errorMessage.indexOf("Operacion cancelada por el usuario") == -1)) {
-            if (errorMessage.indexOf("El almacen no contenia entradas") != -1) {
-                /*divMensaje.innerHTML='<img class="iconStatus" src="../img/iconFALLO.png">No existen certificados en el almacén de su navegador<br><br>';*/
-            }
-            else {
-                /*divMensaje.innerHTML='<div class="iconErrorFirma">Error al firmar</div><br><div style="width:300pt">' + errorMessage + '</div>';*/
-            }
-        }
-//        checkbox.disabled = false;
-        /*NO se puede dejar checked en true porque al hacer las llamadas recursivamente
-        lo va a volver a tomar al objeto y asi hasta que se termine de realizar
-        la cantidad de operaciones seteada en el principio*/
-//        checkbox.checked = false;
-//        estado.classList.remove('estadoProcesando');
-//        estado.classList.add('estadoNoFirmado');
-
-        totalOperaciones++;
-        verificarContinuacionProceso();
-    }
+        
 
     //la siguiente funcion se ejecuta desde protocolchec al agragar un iframe para cargar la app jnlp
     function xxxmostrarPantalla() {
@@ -804,7 +814,7 @@
             //seteo la url del documento a firmar
             //VER: que no se esta utilizando el data porque para enviar la url porque se usa el backend asi se evita el cors desde diferentes puertos de llamada del web server y los servicios
 
-            data = "http://localhost:43412/WSViaticos/WSViaticos.asmx/GetReciboPDF";
+            data = "http://localhost:43412/WSViaticos/WSViaticos.asmx/GetReciboPDF";  //ya no lo uso en la actualidad
 /////////////////////VER
             try {
                 RECIBOS.downloadRemoteDataB64POSTEmpleador(
@@ -844,7 +854,7 @@
     en resumen los demas ids de una misma fila deben derivarse del id del checkbox
     */
     //firma iterativamente los archivos seleccionados
-    function firmarFileB64ServerExternoMasivo() {
+    function xxxfirmarFileB64ServerExternoMasivo() {
 
         //obtengo la lista de checkbox con un nombre de clase determinado
         var lista = document.getElementsByClassName("chk_listado");
@@ -896,7 +906,7 @@
 
 
     }
-    function firmarFileB64ServerExternoMasivo2() {
+    function xxxfirmarFileB64ServerExternoMasivo2() {
 
         //obtengo la lista de checkbox con un nombre de clase determinado
         var lista = document.getElementsByClassName("chk_listado");
