@@ -29,8 +29,8 @@
         <h1 style="text-align:center; margin:17px; "></h1>
         
         <div style="text-align:center;" class="caja_izq no-print">
-        Perfil empleador:<br />Firma Masiva<br />Perfil empleado:<br />Confirmacion Recibo<br />Perfil auditor:<br />
-        Firma de un recibo<br />...
+        Perfil empleador:<br />Firma Iterativa<br />Perfil empleado:<br />Confirmacion Recibo<br />Perfil auditor:<br />
+        Verificacion de una firma<br />...
         </div>
 
         <!--contenido derecho -->
@@ -56,6 +56,7 @@
              <select style="width:65px;" id="cmb_anio2">
                 <option value="2016" selected>2016</option>
                 <option value="2017" >2017</option>
+                <option value="2018" >2018</option>
              </select>
              <select style="width:105px;" id="cmb_meses2">
                 <option value="1" selected>Enero</option>
