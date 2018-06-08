@@ -3124,6 +3124,30 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public TipoCredencial[] GetTiposDeCredencial(Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+
+        return repositorio.GetTiposDeCredencial().ToArray();
+    }
+
+    [WebMethod]
+    public VinculoCredencial[] GetVinculosCredenciales(Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+
+        return repositorio.GetVinculosCredenciales().ToArray();
+    }
+
+    [WebMethod]
+    public Persona[] GetAutorizantesCredenciales(Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+
+        return repositorio.GetAutorizantesCredenciales().ToArray();
+    }
+
+    [WebMethod]
     public string PuedePedirCredencial(Usuario usuario)
     {
         RepositorioLegajo repositorio = RepoLegajo();
@@ -3140,6 +3164,15 @@ public class WSViaticos : System.Web.Services.WebService
 
 
         return repositorio.SolicitarRenovacionCredencial(usuario, motivo, organismo, id_lugar_entrega);
+    }
+
+    [WebMethod]
+    public string SolicitarCredencialExterna(int dni, string apellido, string nombres, string email, DateTime fecha_nacimiento, string telefono, int id_foto, int id_tipo_credencial, int id_autorizante, int id_vinculo, int id_lugar_de_entrega, Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+
+
+        return ""; // repositorio.SolicitarCredencialExterna(Autorizador(), RepositorioDeUsuarios(), dni, apellido, nombres, email, fecha_nacimiento, telefono, id_foto, id_tipo_credencial, id_autorizante, id_vinculo, id_lugar_de_entrega);
     }
 
     [WebMethod]

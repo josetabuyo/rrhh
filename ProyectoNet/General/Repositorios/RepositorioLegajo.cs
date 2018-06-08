@@ -702,7 +702,7 @@ namespace General.Repositorios
             return (string)conexion.EjecutarEscalar("dbo.Acre_VerificarSiPuedePedirCredencial", parametros_imagen);
         }
 
-        public string SolicitarRenovacionCredencial(Usuario usuario_solicitante, string id_motivo, string id_organismo, int id_lugar_entrega)
+        public string SolicitarRenovacionCredencial(Usuario usuario_solicitante, string id_motivo, string id_organismo, int id_lugar_entrega, int id_tipo_credencial = 2)
         {
             var puedepedir = PuedePedirCredencial(usuario_solicitante);
             if(puedepedir != "OK") return puedepedir;
@@ -717,7 +717,10 @@ namespace General.Repositorios
             {
                 id_ticket = repo.crearTicket("solicitud_cred_msal", usuario_solicitante.Id);
             }
-
+            if (int.Parse(id_organismo) == 3)
+            {
+                id_ticket = repo.crearTicket("solicitud_cred_inm", usuario_solicitante.Id);
+            }
         //   var id_motivo = GetMotivosBajaCredencial().Find(x => x.Descripcion.Trim().ToUpper() == motivo.Trim().ToUpper()).Id;
         //  List<MotivoBaja> motivos = GetMotivosBajaCredencial();
             try
@@ -725,7 +728,7 @@ namespace General.Repositorios
                 var parametros = new Dictionary<string, object>();
 
                 parametros.Add("@IdPersona", usuario_solicitante.Owner.Id);
-                parametros.Add("@IdTipoCredencial", 2); //2 Definitiva - 1 provisoria
+                parametros.Add("@IdTipoCredencial", id_tipo_credencial); //2 Definitiva - 1 provisoria
                 parametros.Add("@IdOrganismo", int.Parse(id_organismo));
                 parametros.Add("@IdMotivo", int.Parse(id_motivo));
                 parametros.Add("@IdLugarEntrega", id_lugar_entrega);
@@ -929,6 +932,7 @@ namespace General.Repositorios
             solicitud.Id = row.GetInt("Id");
             solicitud.IdPersona = row.GetInt("IdPersona");
             solicitud.Motivo = row.GetString("Motivo");
+            solicitud.TipoCredencial = row.GetString("TipoCredencial");
             solicitud.Organismo = row.GetString("Organismo");
             if (!(row.GetObject("idCredencial") is DBNull))
             {
@@ -1473,8 +1477,82 @@ namespace General.Repositorios
             throw new NotImplementedException();
         }
 
+        public string SolicitarCredencialExterna(Autorizador autorizador, RepositorioDeUsuarios repoUsuarios, int dni, string apellido, string nombres, string email, DateTime fecha_nacimiento, string telefono, int id_foto, int id_tipo_credencial, int id_autorizante, int id_vinculo, int id_lugar_de_entrega, Usuario admin)
+        {
+            var aspirante = new AspiranteAUsuario();
+            aspirante.Apellido = apellido;
+            aspirante.Nombre = nombres;
+            aspirante.Documento = dni;
+            aspirante.Email = email;
+
+            autorizador.RegistrarNuevoUsuario(aspirante);
+
+            var usuario = repoUsuarios.GetUsuarioPorDNI(dni);
+
+            repoUsuarios.CambiarImagenPerfil(usuario.Id, id_foto, admin.Id);
+
+            SolicitarRenovacionCredencial(usuario, "Nueva", "Ministerio de Desarrollo Social", id_lugar_de_entrega, id_tipo_credencial);
+
+
+            var parametros = new Dictionary<string, object>();
+
+            parametros.Add("@id_usuario", usuario.Id);
+            parametros.Add("@id_persona", usuario.Owner.Id);
+            parametros.Add("@fecha_nacimiento", fecha_nacimiento);
+            parametros.Add("@telefono", telefono);
+            parametros.Add("@id_foto", id_foto);
+            parametros.Add("@id_tipo_credencial", id_tipo_credencial);
+            parametros.Add("@id_autorizante", id_autorizante);
+            parametros.Add("@id_vinculo", id_vinculo);
+            parametros.Add("@id_lugar_de_entrega", id_lugar_de_entrega);
+
+            var tablaDatos = conexion.Ejecutar("dbo.Acre_SolicitarCredencialProvisoria", parametros);
+            
+            return "ok";
+        }
+
+        public List<TipoCredencial> GetTiposDeCredencial()
+        {
+
+            var tablaDatos = conexion.Ejecutar("dbo.Acre_GetTiposDeCredencial");
+
+            List<TipoCredencial> tipos = new List<TipoCredencial>();
+
+            tablaDatos.Rows.ForEach(row =>  {
+                tipos.Add(new TipoCredencial(row.GetInt("Id"), row.GetString("Descripcion")));
+            });
+            return tipos;
+        }
+
+        public List<VinculoCredencial> GetVinculosCredenciales()
+        {
+            var tablaDatos = conexion.Ejecutar("dbo.Acre_GetVinculosCredenciales");
+
+            List<VinculoCredencial> vinculos = new List<VinculoCredencial>();
+
+            tablaDatos.Rows.ForEach(row =>
+            {
+                vinculos.Add(new VinculoCredencial(row.GetInt("Id"), row.GetString("Descripcion")));
+            });
+            return vinculos;
+        }
+
+        public List<Persona> GetAutorizantesCredenciales()
+        {
+            var tablaDatos = conexion.Ejecutar("dbo.Acre_GetAutorizantesCredenciales");
+
+
+            List<Persona> autorizantes = new List<Persona>();
+
+            tablaDatos.Rows.ForEach(row =>
+            {
+                autorizantes.Add(new Persona(row.GetInt("Id"), row.GetString("Apellido"), row.GetString("Nombre")));
+            });
+            return autorizantes;
+        }
+
         /*obtiene un resumen de los recibos de sueldo*/
-        public string GetRecibosResumen(int tipoLiquidacion,int anio, int mes)
+        public string GetRecibosResumen(int tipoLiquidacion, int anio, int mes)
         {
             var parametros = new Dictionary<string, object>();
 
@@ -1482,20 +1560,21 @@ namespace General.Repositorios
             { //entonces se trae todos los tipo de liquidacion
                 parametros.Add("@tipoLiquidacion", null);
             }
-            else {
+            else
+            {
                 parametros.Add("@tipoLiquidacion", tipoLiquidacion);
             }
             parametros.Add("@mes", mes);
-            parametros.Add("@año", anio);            
-            
+            parametros.Add("@año", anio);
+
 
             var reciboResumen = new object();
-            var listaRecibosResumidos = new List<object>();            
+            var listaRecibosResumidos = new List<object>();
 
             var tablaDatos = conexion.Ejecutar("dbo.PLA_GET_Recibos_Resumen", parametros);
 
             if (tablaDatos.Rows.Count > 0)
-            {                
+            {
                 tablaDatos.Rows.ForEach(row =>
                 {/*Tambien se puede crear un objeto contenedor de cada fila, esto me sirve para  retornar una 
                   * lista en lugar de un objeto string json
@@ -1507,7 +1586,7 @@ namespace General.Repositorios
                         row.GetDateTime("fecha_creacion"),
                         row.GetString("texto"));
                     */
-                    
+
                     reciboResumen = new
                     {
                         Id_Recibo = row.GetInt("Id_Recibo"),
@@ -1527,8 +1606,8 @@ namespace General.Repositorios
 
         }
 
-        
-        public string GetIdRecibosSinFirmar(int tipoLiquidacion,int anio, int mes)
+
+        public string GetIdRecibosSinFirmar(int tipoLiquidacion, int anio, int mes)
         {
             var parametros = new Dictionary<string, object>();
 
@@ -1536,12 +1615,13 @@ namespace General.Repositorios
             { //entonces se trae todos los tipo de liquidacion
                 parametros.Add("@tipoLiquidacion", null);
             }
-            else {
+            else
+            {
                 parametros.Add("@tipoLiquidacion", tipoLiquidacion);
             }
             parametros.Add("@mes", mes);
-            parametros.Add("@año", anio);            
-            
+            parametros.Add("@año", anio);
+
 
             var idRecibo = new object();
             var listaIdRecibos = new List<object>();
@@ -1549,7 +1629,7 @@ namespace General.Repositorios
             var tablaDatos = conexion.Ejecutar("dbo.PLA_GET_ID_Recibos_Sin_Firmar", parametros);
 
             if (tablaDatos.Rows.Count > 0)
-            {                
+            {
                 tablaDatos.Rows.ForEach(row =>
                 {/*Tambien se puede crear un objeto contenedor de cada fila, esto me sirve para  retornar una 
                   * lista en lugar de un objeto string json
@@ -1576,7 +1656,5 @@ namespace General.Repositorios
             return JsonConvert.SerializeObject(listaIdRecibos);
 
         }
-
-
     }
 }
