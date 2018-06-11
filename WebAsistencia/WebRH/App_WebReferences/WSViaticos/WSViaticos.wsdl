@@ -2,6 +2,21 @@
 <wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://wsviaticos.gov.ar/">
+      <s:element name="CTL_ACC_Login">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="user" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pass" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CTL_ACC_LoginResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CTL_ACC_LoginResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="CTL_ACC_Get_Personas_Buscador">
         <s:complexType>
           <s:sequence>
@@ -254,6 +269,22 @@
       </s:element>
       <s:element name="AsignaAreaAPersonasNoCertificadasResponse">
         <s:complexType />
+      </s:element>
+      <s:element name="Mobi_AsignarImagenABien">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_bien" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_imagen" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Mobi_AsignarImagenABienResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Mobi_AsignarImagenABienResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
       </s:element>
       <s:element name="Mobi_DesAsignarImagenABien">
         <s:complexType>
@@ -1398,25 +1429,10 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="CTL_ACC_Login">
+      <s:element name="ActualizarCvActividadDocente">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="user" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="pass" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="CTL_ACC_LoginResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="CTL_ACC_LoginResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="EliminarCvActividadDocente">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="actividades_docentes_a_borrar" type="tns:CvDocencia" />
+            <s:element minOccurs="0" maxOccurs="1" name="docencia_nuevo" type="tns:CvDocencia" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
@@ -1612,6 +1628,21 @@
           </s:extension>
         </s:complexContent>
       </s:complexType>
+      <s:element name="ActualizarCvActividadDocenteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ActualizarCvActividadDocenteResult" type="tns:CvDocencia" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EliminarCvActividadDocente">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="actividades_docentes_a_borrar" type="tns:CvDocencia" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="EliminarCvActividadDocenteResponse">
         <s:complexType>
           <s:sequence>
@@ -3361,22 +3392,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="Mobi_AsignarImagenABien">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id_bien" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="id_imagen" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="Mobi_AsignarImagenABienResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="Mobi_AsignarImagenABienResult" type="s:boolean" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
       <s:element name="GetCambioImagenPorIdTicket">
         <s:complexType>
           <s:sequence>
@@ -3970,6 +3985,21 @@
           <s:element minOccurs="0" maxOccurs="unbounded" name="Credencial" nillable="true" type="tns:Credencial" />
         </s:sequence>
       </s:complexType>
+      <s:element name="GetCredencialesDeUnaPersona">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_persona" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCredencialesDeUnaPersonaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCredencialesDeUnaPersonaResult" type="tns:ArrayOfCredencial" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetSolicitudesDeCredencialPorPersona">
         <s:complexType>
           <s:sequence>
@@ -4089,9 +4119,11 @@
       <s:element name="SolicitarRenovacionCredencial">
         <s:complexType>
           <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario_solicitante" type="tns:Usuario" />
             <s:element minOccurs="0" maxOccurs="1" name="motivo" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="organismo" type="s:string" />
             <s:element minOccurs="1" maxOccurs="1" name="id_lugar_entrega" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="personal_externo" type="s:boolean" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
@@ -4978,21 +5010,6 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="GuardarCvActividadDocenteResult" type="tns:CvDocencia" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ActualizarCvActividadDocente">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="docencia_nuevo" type="tns:CvDocencia" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ActualizarCvActividadDocenteResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ActualizarCvActividadDocenteResult" type="tns:CvDocencia" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -7926,6 +7943,12 @@
       </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="CTL_ACC_LoginSoapIn">
+    <wsdl:part name="parameters" element="tns:CTL_ACC_Login" />
+  </wsdl:message>
+  <wsdl:message name="CTL_ACC_LoginSoapOut">
+    <wsdl:part name="parameters" element="tns:CTL_ACC_LoginResponse" />
+  </wsdl:message>
   <wsdl:message name="CTL_ACC_Get_Personas_BuscadorSoapIn">
     <wsdl:part name="parameters" element="tns:CTL_ACC_Get_Personas_Buscador" />
   </wsdl:message>
@@ -7943,6 +7966,12 @@
   </wsdl:message>
   <wsdl:message name="AsignaAreaAPersonasNoCertificadasSoapOut">
     <wsdl:part name="parameters" element="tns:AsignaAreaAPersonasNoCertificadasResponse" />
+  </wsdl:message>
+  <wsdl:message name="Mobi_AsignarImagenABienSoapIn">
+    <wsdl:part name="parameters" element="tns:Mobi_AsignarImagenABien" />
+  </wsdl:message>
+  <wsdl:message name="Mobi_AsignarImagenABienSoapOut">
+    <wsdl:part name="parameters" element="tns:Mobi_AsignarImagenABienResponse" />
   </wsdl:message>
   <wsdl:message name="Mobi_DesAsignarImagenABienSoapIn">
     <wsdl:part name="parameters" element="tns:Mobi_DesAsignarImagenABien" />
@@ -8310,11 +8339,11 @@
   <wsdl:message name="CTL_ACC_Get_DotacionSoapOut">
     <wsdl:part name="parameters" element="tns:CTL_ACC_Get_DotacionResponse" />
   </wsdl:message>
-  <wsdl:message name="CTL_ACC_LoginSoapIn">
-    <wsdl:part name="parameters" element="tns:CTL_ACC_Login" />
+  <wsdl:message name="ActualizarCvActividadDocenteSoapIn">
+    <wsdl:part name="parameters" element="tns:ActualizarCvActividadDocente" />
   </wsdl:message>
-  <wsdl:message name="CTL_ACC_LoginSoapOut">
-    <wsdl:part name="parameters" element="tns:CTL_ACC_LoginResponse" />
+  <wsdl:message name="ActualizarCvActividadDocenteSoapOut">
+    <wsdl:part name="parameters" element="tns:ActualizarCvActividadDocenteResponse" />
   </wsdl:message>
   <wsdl:message name="EliminarCvActividadDocenteSoapIn">
     <wsdl:part name="parameters" element="tns:EliminarCvActividadDocente" />
@@ -8820,12 +8849,6 @@
   <wsdl:message name="Mobi_GuardarEventoBienSoapOut">
     <wsdl:part name="parameters" element="tns:Mobi_GuardarEventoBienResponse" />
   </wsdl:message>
-  <wsdl:message name="Mobi_AsignarImagenABienSoapIn">
-    <wsdl:part name="parameters" element="tns:Mobi_AsignarImagenABien" />
-  </wsdl:message>
-  <wsdl:message name="Mobi_AsignarImagenABienSoapOut">
-    <wsdl:part name="parameters" element="tns:Mobi_AsignarImagenABienResponse" />
-  </wsdl:message>
   <wsdl:message name="GetCambioImagenPorIdTicketSoapIn">
     <wsdl:part name="parameters" element="tns:GetCambioImagenPorIdTicket" />
   </wsdl:message>
@@ -9035,6 +9058,12 @@
   </wsdl:message>
   <wsdl:message name="GetCredencialesTodasDePortalSoapOut">
     <wsdl:part name="parameters" element="tns:GetCredencialesTodasDePortalResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCredencialesDeUnaPersonaSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCredencialesDeUnaPersona" />
+  </wsdl:message>
+  <wsdl:message name="GetCredencialesDeUnaPersonaSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCredencialesDeUnaPersonaResponse" />
   </wsdl:message>
   <wsdl:message name="GetSolicitudesDeCredencialPorPersonaSoapIn">
     <wsdl:part name="parameters" element="tns:GetSolicitudesDeCredencialPorPersona" />
@@ -9323,12 +9352,6 @@
   </wsdl:message>
   <wsdl:message name="GuardarCvActividadDocenteSoapOut">
     <wsdl:part name="parameters" element="tns:GuardarCvActividadDocenteResponse" />
-  </wsdl:message>
-  <wsdl:message name="ActualizarCvActividadDocenteSoapIn">
-    <wsdl:part name="parameters" element="tns:ActualizarCvActividadDocente" />
-  </wsdl:message>
-  <wsdl:message name="ActualizarCvActividadDocenteSoapOut">
-    <wsdl:part name="parameters" element="tns:ActualizarCvActividadDocenteResponse" />
   </wsdl:message>
   <wsdl:message name="CategoriasDocumentosSICOISoapIn">
     <wsdl:part name="parameters" element="tns:CategoriasDocumentosSICOI" />
@@ -10249,6 +10272,10 @@
     <wsdl:part name="parameters" element="tns:TiposDeDocumentosSICOIResponse" />
   </wsdl:message>
   <wsdl:portType name="WSViaticosSoap">
+    <wsdl:operation name="CTL_ACC_Login">
+      <wsdl:input message="tns:CTL_ACC_LoginSoapIn" />
+      <wsdl:output message="tns:CTL_ACC_LoginSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="CTL_ACC_Get_Personas_Buscador">
       <wsdl:input message="tns:CTL_ACC_Get_Personas_BuscadorSoapIn" />
       <wsdl:output message="tns:CTL_ACC_Get_Personas_BuscadorSoapOut" />
@@ -10260,6 +10287,10 @@
     <wsdl:operation name="AsignaAreaAPersonasNoCertificadas">
       <wsdl:input message="tns:AsignaAreaAPersonasNoCertificadasSoapIn" />
       <wsdl:output message="tns:AsignaAreaAPersonasNoCertificadasSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_AsignarImagenABien">
+      <wsdl:input message="tns:Mobi_AsignarImagenABienSoapIn" />
+      <wsdl:output message="tns:Mobi_AsignarImagenABienSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="Mobi_DesAsignarImagenABien">
       <wsdl:input message="tns:Mobi_DesAsignarImagenABienSoapIn" />
@@ -10505,9 +10536,9 @@
       <wsdl:input message="tns:CTL_ACC_Get_DotacionSoapIn" />
       <wsdl:output message="tns:CTL_ACC_Get_DotacionSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="CTL_ACC_Login">
-      <wsdl:input message="tns:CTL_ACC_LoginSoapIn" />
-      <wsdl:output message="tns:CTL_ACC_LoginSoapOut" />
+    <wsdl:operation name="ActualizarCvActividadDocente">
+      <wsdl:input message="tns:ActualizarCvActividadDocenteSoapIn" />
+      <wsdl:output message="tns:ActualizarCvActividadDocenteSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="EliminarCvActividadDocente">
       <wsdl:input message="tns:EliminarCvActividadDocenteSoapIn" />
@@ -10845,10 +10876,6 @@
       <wsdl:input message="tns:Mobi_GuardarEventoBienSoapIn" />
       <wsdl:output message="tns:Mobi_GuardarEventoBienSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="Mobi_AsignarImagenABien">
-      <wsdl:input message="tns:Mobi_AsignarImagenABienSoapIn" />
-      <wsdl:output message="tns:Mobi_AsignarImagenABienSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="GetCambioImagenPorIdTicket">
       <wsdl:input message="tns:GetCambioImagenPorIdTicketSoapIn" />
       <wsdl:output message="tns:GetCambioImagenPorIdTicketSoapOut" />
@@ -10988,6 +11015,10 @@
     <wsdl:operation name="GetCredencialesTodasDePortal">
       <wsdl:input message="tns:GetCredencialesTodasDePortalSoapIn" />
       <wsdl:output message="tns:GetCredencialesTodasDePortalSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCredencialesDeUnaPersona">
+      <wsdl:input message="tns:GetCredencialesDeUnaPersonaSoapIn" />
+      <wsdl:output message="tns:GetCredencialesDeUnaPersonaSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetSolicitudesDeCredencialPorPersona">
       <wsdl:input message="tns:GetSolicitudesDeCredencialPorPersonaSoapIn" />
@@ -11180,10 +11211,6 @@
     <wsdl:operation name="GuardarCvActividadDocente">
       <wsdl:input message="tns:GuardarCvActividadDocenteSoapIn" />
       <wsdl:output message="tns:GuardarCvActividadDocenteSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="ActualizarCvActividadDocente">
-      <wsdl:input message="tns:ActualizarCvActividadDocenteSoapIn" />
-      <wsdl:output message="tns:ActualizarCvActividadDocenteSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="CategoriasDocumentosSICOI">
       <wsdl:input message="tns:CategoriasDocumentosSICOISoapIn" />
@@ -11800,6 +11827,15 @@
   </wsdl:portType>
   <wsdl:binding name="WSViaticosSoap" type="tns:WSViaticosSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CTL_ACC_Login">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/CTL_ACC_Login" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="CTL_ACC_Get_Personas_Buscador">
       <soap:operation soapAction="http://wsviaticos.gov.ar/CTL_ACC_Get_Personas_Buscador" style="document" />
       <wsdl:input>
@@ -11820,6 +11856,15 @@
     </wsdl:operation>
     <wsdl:operation name="AsignaAreaAPersonasNoCertificadas">
       <soap:operation soapAction="http://wsviaticos.gov.ar/AsignaAreaAPersonasNoCertificadas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_AsignarImagenABien">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/Mobi_AsignarImagenABien" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -12376,8 +12421,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="CTL_ACC_Login">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/CTL_ACC_Login" style="document" />
+    <wsdl:operation name="ActualizarCvActividadDocente">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ActualizarCvActividadDocente" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -13141,15 +13186,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="Mobi_AsignarImagenABien">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/Mobi_AsignarImagenABien" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetCambioImagenPorIdTicket">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetCambioImagenPorIdTicket" style="document" />
       <wsdl:input>
@@ -13458,6 +13494,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetCredencialesTodasDePortal">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetCredencialesTodasDePortal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCredencialesDeUnaPersona">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetCredencialesDeUnaPersona" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -13890,15 +13935,6 @@
     </wsdl:operation>
     <wsdl:operation name="GuardarCvActividadDocente">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarCvActividadDocente" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ActualizarCvActividadDocente">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/ActualizarCvActividadDocente" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -15286,6 +15322,15 @@
   </wsdl:binding>
   <wsdl:binding name="WSViaticosSoap12" type="tns:WSViaticosSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CTL_ACC_Login">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/CTL_ACC_Login" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="CTL_ACC_Get_Personas_Buscador">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/CTL_ACC_Get_Personas_Buscador" style="document" />
       <wsdl:input>
@@ -15306,6 +15351,15 @@
     </wsdl:operation>
     <wsdl:operation name="AsignaAreaAPersonasNoCertificadas">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/AsignaAreaAPersonasNoCertificadas" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_AsignarImagenABien">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/Mobi_AsignarImagenABien" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -15862,8 +15916,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="CTL_ACC_Login">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/CTL_ACC_Login" style="document" />
+    <wsdl:operation name="ActualizarCvActividadDocente">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ActualizarCvActividadDocente" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -16627,15 +16681,6 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="Mobi_AsignarImagenABien">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/Mobi_AsignarImagenABien" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetCambioImagenPorIdTicket">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetCambioImagenPorIdTicket" style="document" />
       <wsdl:input>
@@ -16944,6 +16989,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetCredencialesTodasDePortal">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetCredencialesTodasDePortal" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCredencialesDeUnaPersona">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetCredencialesDeUnaPersona" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -17376,15 +17430,6 @@
     </wsdl:operation>
     <wsdl:operation name="GuardarCvActividadDocente">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarCvActividadDocente" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ActualizarCvActividadDocente">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/ActualizarCvActividadDocente" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

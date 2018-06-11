@@ -160,7 +160,11 @@
 
         </div>
         <br />
-
+        <div class="">
+            <label class="label_combo" for="chk_personal_externo">Personal externo:</label>
+            <input class="combo" type=checkbox id="chk_personal_externo"/>
+        </div>
+        <br />
         <label class="etiqueta_campo">Al hacer la solicitud, su credencial vigente será dada de baja.</label>
                   
         <br/>
@@ -187,16 +191,16 @@
             vex.open({
                 afterOpen: function ($vexContent) {
                     $vexContent.append(ui);
-                    Backend.GetUsuarioLogueado().onSuccess(function (usuario) {
-                        ui.find("#apellido").text(usuario.Owner.Apellido);
-                        ui.find("#nombres").text(usuario.Owner.Nombre);
-                        ui.find("#documento").text(usuario.Owner.Documento);
+                    
+                    ui.find("#apellido").text(opt.usuario.Owner.Apellido);
+                    ui.find("#nombres").text(opt.usuario.Owner.Nombre);
+                    ui.find("#documento").text(opt.usuario.Owner.Documento);
 
-                        var img = new VistaThumbnail({
-                            id: usuario.Owner.IdImagen,
-                            contenedor: ui.find("#foto_usuario")
-                        });
+                    var img = new VistaThumbnail({
+                        id: opt.usuario.Owner.IdImagen,
+                        contenedor: ui.find("#foto_usuario")
                     });
+                   
 
                     ui.find("#btn_cambiar_foto").click(function () { $("#contenedor_foto_usuario").click(); });
 
@@ -272,7 +276,7 @@
                             return;
                         }
                         ui.find("#btn_realizar_solicitud").prop('disabled', true);
-                        Backend.SolicitarRenovacionCredencial(ui.find("#select_motivo").val(), ui.find("#select_organismo").val(), ui.find("#cmb_lugar_de_entrega").val())
+                        Backend.SolicitarRenovacionCredencial(opt.usuario, ui.find("#select_motivo").val(), ui.find("#select_organismo").val(), ui.find("#cmb_lugar_de_entrega").val(), ui.find("#chk_personal_externo").is(':checked'))
                             .onSuccess(function (resultado) {
                                 if (resultado == 'OK') {
                                     alertify.success("Solicitud creada con éxito");
