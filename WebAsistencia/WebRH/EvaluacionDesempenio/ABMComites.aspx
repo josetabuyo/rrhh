@@ -92,10 +92,18 @@
     <script type="text/javascript">
         $(document).ready(function () {
             var comites = JSON.parse($('#ComitesHiddenField').val());
+
+
+
             Backend.start(function () {
 
                 var spinner = new Spinner({ scale: 2 });
                 spinner.spin($("html")[0]);
+
+                Backend.GetEstadosEvaluaciones().onSuccess(
+                    function (ues) {
+                        localStorage.setItem("estadosEvaluaciones", JSON.stringify(ues));
+                    });
 
                 Backend.GetPeriodosEvaluacion()
                 .onSuccess(function (periodos) {
@@ -109,14 +117,6 @@
 
                 Backend.GetAllComites().onSuccess(
                 function (comites) {
-                    //var comites = JSON.parse(comites_json);
-                    var detalle_ues;
-                    Backend.GetEstadosEvaluaciones().onSuccess(
-                    function (ues) {
-                        detalle_ues = ues;
-                    });
-
-
                     var _this = this;
                     $("#tabla_comites").empty();
                     var divGrilla = $("#tabla_comites");
@@ -173,14 +173,14 @@
                                         var columnas_ue = [];
 
                                         columnas_ue.push(new Columna("Unidad Eval.", { generar: function (ue) { return ue.NombreArea; } }));
-                                        columnas_ue.push(new Columna("Destacados.", { generar: function (ue) { return 12; } }));
-                                        columnas_ue.push(new Columna("Bueno", { generar: function (ue) { return 15; } }));
-                                        columnas_ue.push(new Columna("Regular", { generar: function (ue) { return 11; } }));
-                                        columnas_ue.push(new Columna("Deficiente", { generar: function (ue) { return 10; } }));
-                                        columnas_ue.push(new Columna("Total Evaluados", { generar: function (ue) { return 48; } }));
-                                        columnas_ue.push(new Columna("Provisoria", { generar: function (ue) { return 1; } }));
-                                        columnas_ue.push(new Columna("Pendiente", { generar: function (ue) { return 5; } }));
-                                        columnas_ue.push(new Columna("Total General", { generar: function (ue) { return 5; } }));
+                                        columnas_ue.push(new Columna("Destacados.", { generar: function (ue) { return ue.DetalleEvaluados.Destacados; } }));
+                                        columnas_ue.push(new Columna("Bueno", { generar: function (ue) { return ue.DetalleEvaluados.Bueno; } }));
+                                        columnas_ue.push(new Columna("Regular", { generar: function (ue) { return ue.DetalleEvaluados.Regular; } }));
+                                        columnas_ue.push(new Columna("Deficiente", { generar: function (ue) { return ue.DetalleEvaluados.Deficiente; } }));
+                                        columnas_ue.push(new Columna("Total Evaluados", { generar: function (ue) { return ue.DetalleEvaluados.Destacados + ue.DetalleEvaluados.Bueno + ue.DetalleEvaluados.Regular + ue.DetalleEvaluados.Deficiente; } }));
+                                        columnas_ue.push(new Columna("Provisoria", { generar: function (ue) { ue.DetalleEvaluados.Provisoria; } }));
+                                        columnas_ue.push(new Columna("Pendiente", { generar: function (ue) { ue.DetalleEvaluados.Pendiente; } }));
+                                        columnas_ue.push(new Columna("Total General", { generar: function (ue) { return ue.DetalleEvaluados.Destacados + ue.DetalleEvaluados.Bueno + ue.DetalleEvaluados.Regular + ue.DetalleEvaluados.Deficiente + ue.DetalleEvaluados.Provisoria + ue.DetalleEvaluados.Pendiente; } }));
                                         columnas_ue.push(new Columna("Acciones", {
                                             generar: function (ue) {
                                                 var buttons_ue = $("#plantillas .botonera_grilla_ues").clone();
@@ -191,10 +191,16 @@
                                                 return buttons_ue;
                                             }
                                         }));
+
+
+                                        var estadosEvaluaciones = JSON.parse(localStorage.getItem("estadosEvaluaciones"));
+
+
                                         _this.grilla_ue = new Grilla(columnas_ue);
                                         _this.grilla_ue.SetOnRowClickEventHandler(function (ues) { });
                                         _this.grilla_ue.CambiarEstiloCabecera("estilo_tabla_portal");
-                                        _this.grilla_ue.CargarObjetos(model.UnidadesEvaluacion);
+                                        //_this.grilla_ue.CargarObjetos(model.UnidadesEvaluacion);
+                                        _this.grilla_ue.CargarObjetos(estadosEvaluaciones);
                                         _this.grilla_ue.DibujarEn(grilla_ue);
 
 
