@@ -110,6 +110,12 @@
                 Backend.GetAllComites().onSuccess(
                 function (comites) {
                     //var comites = JSON.parse(comites_json);
+                    var detalle_ues;
+                    Backend.GetEstadosEvaluaciones().onSuccess(
+                    function (ues) {
+                        detalle_ues = ues;
+                    });
+
 
                     var _this = this;
                     $("#tabla_comites").empty();
@@ -159,13 +165,22 @@
 
                                         /***
                                         GRILLA: Unidades de Evaluacion
-                                        *///
+                                        */
+                                        //
                                         var _this = this;
                                         var grilla_ue = ui.find("#tabla_unidades_evaluacion");
                                         grilla_ue.empty();
                                         var columnas_ue = [];
 
-                                        columnas_ue.push(new Columna("Area", { generar: function (ue) { return ue.NombreArea; } }));
+                                        columnas_ue.push(new Columna("Unidad Eval.", { generar: function (ue) { return ue.NombreArea; } }));
+                                        columnas_ue.push(new Columna("Destacados.", { generar: function (ue) { return 12; } }));
+                                        columnas_ue.push(new Columna("Bueno", { generar: function (ue) { return 15; } }));
+                                        columnas_ue.push(new Columna("Regular", { generar: function (ue) { return 11; } }));
+                                        columnas_ue.push(new Columna("Deficiente", { generar: function (ue) { return 10; } }));
+                                        columnas_ue.push(new Columna("Total Evaluados", { generar: function (ue) { return 48; } }));
+                                        columnas_ue.push(new Columna("Provisoria", { generar: function (ue) { return 1; } }));
+                                        columnas_ue.push(new Columna("Pendiente", { generar: function (ue) { return 5; } }));
+                                        columnas_ue.push(new Columna("Total General", { generar: function (ue) { return 5; } }));
                                         columnas_ue.push(new Columna("Acciones", {
                                             generar: function (ue) {
                                                 var buttons_ue = $("#plantillas .botonera_grilla_ues").clone();
@@ -193,13 +208,13 @@
                                         columnas_integrantes.push(new Columna("DNI", { generar: function (int) { return int.Dni; } }));
                                         columnas_integrantes.push(new Columna("Apellido", { generar: function (int) { return int.Apellido; } }));
                                         columnas_integrantes.push(new Columna("Nombre", { generar: function (int) { return int.Nombre; } }));
-                                        
+
                                         columnas_integrantes.push(new Columna("Acciones", {
                                             generar: function (int) {
                                                 /*var buttons_ue = $("#plantillas .botonera_grilla_ues").clone();
                                                 var btn_eliminar_ue = buttons_ue.find("#btn_eliminar_ue");
                                                 btn_eliminar_ue.click(function () {
-                                                    alert('test');
+                                                alert('test');
                                                 });
                                                 return buttons_ue;*/
                                             }
@@ -214,6 +229,15 @@
 
                                         $vexContent.append(ui);
                                         ui.show();
+                                    },
+                                    css: {
+                                        'padding-top': "4%",
+                                        'padding-bottom': "0%",
+                                        'background-color': "rgb(249, 248, 248)"
+                                    },
+                                    contentCSS: {
+                                        width: "80%",
+                                        height: "80%"
                                     }
                                 });
                             });
