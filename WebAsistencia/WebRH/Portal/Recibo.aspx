@@ -82,7 +82,7 @@
             </tbody>
          </table>
          
-        <p style="font-weight: bold; text-align: center; margin-top: 20px;">SOLO PARA INFORMACIÓN - NO VÁLIDO COMO COMPROBANTE</p>
+        <%--<p style="font-weight: bold; text-align: center; margin-top: 20px;">SOLO PARA INFORMACIÓN - NO VÁLIDO COMO COMPROBANTE</p>--%>
        <div id="bloque_final" style="display:none; margin-top:20px;">
             <p><strong>Área:</strong> <span id="area"></span></p>
             <p><strong>Categ:</strong> <span id="categoria"></span></p>

@@ -87,5 +87,16 @@ namespace General.MAU
             parametros.Add("@id_area", objeto.Value);
             var tablaDatos = conexion.Ejecutar("dbo.MAU_DesAsignarAreaAUsuario", parametros);
         }
+
+
+        public bool eliminarPermisoRCA(int idUsuario, int idArea) {
+
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_usuario", idUsuario);
+            parametros.Add("@id_area", idArea);
+            var tablaDatos = conexion.Ejecutar("dbo.MAU_DesAsignarPerfil", parametros);
+
+            return true;
+        }
     }
 }

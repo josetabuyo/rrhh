@@ -987,6 +987,28 @@ public class WSViaticos : System.Web.Services.WebService
         return returnPersonas;
     }
 
+    [WebMethod]
+    public Area[] GetAreasDelDirectorConPersonasRCA(Usuario usuario)
+    {
+
+        var repositorio = RepositorioDeAreas();
+
+       
+        var areas = repositorio.getAreasDeUnDirectorConPersonasRCA(usuario.Owner.Documento);
+       
+        return areas.ToArray();
+    }
+
+    [WebMethod]
+    public void eliminarPerfilRCA(int idUsuario, int idArea, Usuario usuario)
+    {
+
+        var repositorio = RepoPermisosSobreAreas();
+        //KeyValuePair<int, int> par = new KeyValuePair<int, int>(idUsuario, idArea);
+        repositorio.DesAsignarAreaAUnUsuario(idUsuario, idArea);
+    }
+    
+
 
     [WebMethod]
     public Persona[] GetPersonasACargo(Area unArea)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using System.Text;
 using General;
+using General.MAU;
 using System.Data.SqlClient;
 using General.Repositorios;
 using System.Linq;
@@ -233,6 +234,136 @@ namespace General.Repositorios
             var tablaDatos = conexion.Ejecutar("dbo.VIA_GetAreasCompletas");
             List<Area> areas = GetAreasDeTablaDeDatos(tablaDatos);
             return areas;
+        }
+
+        public List<Area> getAreasDeUnDirectorConPersonasRCA(int documento)
+        {
+
+            
+
+            //traigo las personas del ministerio que tienen permiso de rca (cambiar este)
+            //List<Persona> personas = General.Repositorios.RepositorioDePersonas.NuevoRepositorioDePersonas(this.conexion).TodasLasPersonas();
+            List<Usuario> usuariosConFuncionalidad = RepositorioDeFuncionalidadesDeUsuarios.NuevoRepositorioDeFuncionalidadesDeUsuarios(this.conexion, RepositorioDeFuncionalidades.NuevoRepositorioDeFuncionalidades(conexion)).UsuariosConLaFuncionalidad(4);
+            
+            //traigo los id areas con los documentos de las personas
+            List<Area> listadoIdAreasConDocumentoPersonas = this.traerIdAreasConIdPersonas();
+
+            int idAreaDelUsuario = 0;
+            //foreach (KeyValuePair<int, int> entry in listadoIdAreasConDocumentoPersonas)
+            listadoIdAreasConDocumentoPersonas.ForEach(a =>
+            {
+
+                /*if (documento == entry.Value)
+                    {
+                        idAreaDelUsuario = entry.Key;
+                        break;
+                    }*/
+                if (a.Personas.Exists(p => p.Documento == documento))
+                {
+                    idAreaDelUsuario = a.Id;
+                }
+
+            });
+             
+            
+            //traigo las areas jerarquizadas del usuario
+            List<Area> areas = this.getAreasInferiores(idAreaDelUsuario);
+            
+
+            //foreach(KeyValuePair<int, int> entry in listadoIdAreasConDocumentoPersonas)
+            areas.ForEach(a2 =>
+            {
+                // do something with entry.Value or entry.Key
+                listadoIdAreasConDocumentoPersonas.ForEach(a =>
+                {
+                    if (a2.Id == a.Id)
+                    {
+                        a.Personas.ForEach(p =>
+                        {
+                            Usuario usuario = usuariosConFuncionalidad.Find(p3 =>
+                            {
+                                if (p3.Owner != null)
+                                {
+                                    return p3.Owner.Documento == p.Documento;
+                                }
+                                else
+                                {
+                                    return false;
+                                }
+                            }
+                           );
+                            if (usuario != null)
+                            {
+                                Persona persona = usuario.Owner;
+                                a2.Responsables.Add(persona);
+                            }
+                            
+                        });
+                       
+                    }
+                });
+            });
+
+            return areas;
+        }
+
+        public List<Area> getAreasInferiores(int idArea)
+        {
+
+            //traigo las areas jerarquizadas del usuario
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@Id_area", idArea);
+            var tablaDatos = conexion.Ejecutar("dbo.VIA_GetAreasInferiores", parametros);
+
+
+            List<Area> areas = new List<Area>();
+
+            if (tablaDatos.Rows.Count > 0)
+            {
+                tablaDatos.Rows.ForEach(row =>
+                {
+                    areas.Add(new Area
+                    {
+                        Id = row.GetSmallintAsInt("id"),
+                        Nombre = row.GetString("Descripcion"),
+                        Personas = new List<Persona>(),
+                        Responsables = new List<Persona>()
+                       
+                    });
+                });
+            }
+
+            return areas;
+        }
+
+        public List<Area> traerIdAreasConIdPersonas()
+        {
+            var tablaDatos = conexion.Ejecutar("dbo.VIA_GetIdAreasConIdPersonas");
+
+            List<Area> listadoAreas = new List<Area>();
+            int idArea = -1;
+            if (tablaDatos.Rows.Count > 0)
+            {
+                tablaDatos.Rows.ForEach(row =>
+                {
+                    if (row.GetInt("Id_area", 0) != idArea)
+                    {
+                        //listadoAreas.Add(row.GetInt("Id_area", 0), row.GetInt("documento", 0));
+                        listadoAreas.Add(new Area(row.GetInt("Id_area", 0)));
+                        listadoAreas.Find(a => a.Id == row.GetInt("Id_area", 0)).Personas.Add(new Persona(0, row.GetInt("documento", 0),"","",null));
+                        idArea = row.GetInt("Id_area");
+                    }
+                    else
+                    {
+                        //listado[idArea] = row.GetInt("documento", 0);
+                        listadoAreas.Find(a => a.Id == idArea).Personas.Add(new Persona(0, row.GetInt("documento", 0), "", "", null));
+                        //listadoAreas.Add(idArea, row.GetInt("documento", 0));
+                    }
+                    
+                });
+            }
+
+            return listadoAreas;
         }
 
         protected override void GuardarEnLaBase(Area objeto)

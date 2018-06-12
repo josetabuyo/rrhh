@@ -39,6 +39,7 @@
         {
             this.Id = IdArea;
             this.Dependencias = new List<Area>();
+            this.Personas = new List<Persona>();
             this.SetAlias(new AliasNull());
         }
 
