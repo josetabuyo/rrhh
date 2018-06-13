@@ -62,6 +62,18 @@ namespace General.MAU
             return GetUsuarioDeTablaDeDatos(tablaDatos);
         }
 
+
+        public Usuario GetUsuarioPorDNI(int dni)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@dni", dni);
+            var tablaDatos = conexion.Ejecutar("dbo.Web_GetUsuario", parametros);
+
+            if (tablaDatos.Rows.Count > 1) throw new Exception("hay mas de un usuario con el mismo dni: " + dni);
+            return GetUsuarioDeTablaDeDatos(tablaDatos);
+        }
+
+
         private Usuario GetUsuarioDeTablaDeDatos(TablaDeDatos tablaDatos)
         {
             if (tablaDatos.Rows.Count == 0) return new UsuarioNulo();
@@ -403,6 +415,16 @@ namespace General.MAU
             solicitudes.Add(solicitud);
 
             return solicitud;
+        }
+
+        public bool CambiarImagenPerfil(int id_usuario, int id_imagen, int id_administrador)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_usuario", id_usuario);
+            parametros.Add("@id_imagen", id_imagen);
+            parametros.Add("@id_administrador", id_administrador);
+            conexion.Ejecutar("dbo.MAU_CambiarImagenPerfil", parametros);
+            return true;
         }
 
         public bool AceptarCambioDeImagen(int id_usuario_solicitante, int id_administrador)

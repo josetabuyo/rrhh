@@ -2759,6 +2759,14 @@ public class WSViaticos : System.Web.Services.WebService
         return RepositorioDeUsuarios().SolicitarCambioImagen(usuario.Id, id_imagen);
     }
 
+
+    [WebMethod]
+    public bool SolicitarCambioDeImagenPara(int id_usuario, int id_imagen, Usuario usuario)
+    {
+        return RepositorioDeUsuarios().CambiarImagenPerfil(id_usuario, id_imagen, usuario.Id);
+    }
+
+
     [WebMethod]
     public bool AceptarCambioDeImagen(int id_usuario, Usuario usuario)
     {
@@ -3070,8 +3078,12 @@ public class WSViaticos : System.Web.Services.WebService
 
         var creador_pdf = new CreadorDePdfs();
 
-        byte[] bytes = creador_pdf.FillPDF(TemplatePath("DDJJ_entrega_credencial_2018.pdf"), "DDJJEntregaCredencial", mapa_para_pdf);
-
+        byte[] bytes;
+        //if (solicitud.Organismo == "Ministerio de Desarrollo Social")
+            bytes = creador_pdf.FillPDF(TemplatePath("DDJJ_entrega_credencial_2018_MDS.pdf"), "DDJJEntregaCredencial", mapa_para_pdf);
+        //else
+        //    bytes = creador_pdf.FillPDF(TemplatePath("DDJJ_entrega_credencial_2018_MSAL.pdf"), "DDJJEntregaCredencial", mapa_para_pdf);
+           
         Document doc = new Document();
         byte[] result;
 
@@ -3134,6 +3146,14 @@ public class WSViaticos : System.Web.Services.WebService
         return repositorio.GetCredencialesTodasDePortal(usuario.Owner.Id).ToArray();
     }
 
+    [WebMethod]
+    public Credencial[] GetCredencialesDeUnaPersona(int id_persona, Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+
+        return repositorio.GetCredencialesTodasDePortal(id_persona).ToArray();
+    }
+
 
     [WebMethod]
     public SolicitudCredencial[] GetSolicitudesDeCredencialPorPersona(Usuario usuario)
@@ -3153,6 +3173,30 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public TipoCredencial[] GetTiposDeCredencial(Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+
+        return repositorio.GetTiposDeCredencial().ToArray();
+    }
+
+    [WebMethod]
+    public VinculoCredencial[] GetVinculosCredenciales(Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+
+        return repositorio.GetVinculosCredenciales().ToArray();
+    }
+
+    [WebMethod]
+    public Persona[] GetAutorizantesCredenciales(Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+
+        return repositorio.GetAutorizantesCredenciales().ToArray();
+    }
+
+    [WebMethod]
     public string PuedePedirCredencial(Usuario usuario)
     {
         RepositorioLegajo repositorio = RepoLegajo();
@@ -3163,12 +3207,21 @@ public class WSViaticos : System.Web.Services.WebService
 
 
     [WebMethod]
-    public string SolicitarRenovacionCredencial(string motivo, string organismo, int id_lugar_entrega, Usuario usuario)
+    public string SolicitarRenovacionCredencial(Usuario usuario_solicitante, string motivo, string organismo, int id_lugar_entrega, bool personal_externo, Usuario usuario)
     {
         RepositorioLegajo repositorio = RepoLegajo();
 
 
-        return repositorio.SolicitarRenovacionCredencial(usuario, motivo, organismo, id_lugar_entrega);
+        return repositorio.SolicitarRenovacionCredencial(usuario_solicitante, motivo, organismo, id_lugar_entrega, personal_externo);
+    }
+
+    [WebMethod]
+    public string SolicitarCredencialExterna(int dni, string apellido, string nombres, string email, DateTime fecha_nacimiento, string telefono, int id_foto, int id_tipo_credencial, int id_autorizante, int id_vinculo, int id_lugar_de_entrega, Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+
+
+        return ""; // repositorio.SolicitarCredencialExterna(Autorizador(), RepositorioDeUsuarios(), dni, apellido, nombres, email, fecha_nacimiento, telefono, id_foto, id_tipo_credencial, id_autorizante, id_vinculo, id_lugar_de_entrega);
     }
 
     [WebMethod]
@@ -5391,6 +5444,13 @@ public class WSViaticos : System.Web.Services.WebService
     public string CTL_ACC_Login(string user, string pass)
     {
         return "";
+    }
+
+    [WebMethod]
+    public string CTL_ACC_Get_Personas_Buscador(string param_busqueda)
+    {
+        var ctlAcc = new General.CtrlAcc.RepositorioCtlAcc();
+        return ctlAcc.Get_Personas_Buscador(param_busqueda);
     }
 
     #endregion	

@@ -1,0 +1,16 @@
+﻿#plantillas
+{
+    display: none;
+}
+
+#cmb_autorizante
+{
+    display: inline;
+}
+
+#vista_previa_foto
+{
+    display: inline-block;
+    height:150px;
+    width: 150px;
+}

@@ -10,6 +10,7 @@ namespace General.MAU
     {
         Usuario GetUsuarioPorAlias(string alias, bool incluir_bajas=false);
         Usuario GetUsuarioPorIdPersona(int id_persona);
+        Usuario GetUsuarioPorDNI(int dni);
         Usuario CrearUsuarioPara(int id_persona);
         bool CambiarPassword(int id_usuario, string pass_actual, string pass_nueva);
         string ResetearPassword(int id_usuario);
@@ -30,5 +31,7 @@ namespace General.MAU
         List<SolicitudDeCambioDeImagen> GetSolicitudesDeCambioDeImagenPendientes();
         SolicitudDeCambioDeImagen GetCambioImagenPorIdTicket(int id_ticket);
         bool AceptarCambioImagenConImagenRecortada(int id_imagen_recortada, int id_usuario_solicitante, int id_administrador);
+
+        bool CambiarImagenPerfil(int id_usuario, int id_imagen, int id_administrador);
     }
 }

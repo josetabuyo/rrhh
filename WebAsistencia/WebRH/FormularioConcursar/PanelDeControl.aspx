@@ -87,6 +87,8 @@
                     <hr class="lineas-subraya"/>
                     <p>
 
+			<a href="bases/Conv03_2017_Perfil_16685_Acta_15_Comite_01.pdf" target="_blank" >Acta 15</a> -
+			<a href="bases/Conv03_2017_Perfil_16685_Acta_14_Comite_01.pdf" target="_blank" >Acta 14</a> -
 			<a href="bases/Conv03_2017_Perfil_16685_Acta_13_Comite_01.pdf" target="_blank" >Acta 13</a> -
 			<a href="bases/Conv03_2017_Perfil_16685_Acta_12_Comite_01.pdf" target="_blank" >Acta 12</a> -
 			<a href="bases/Conv03_2017_Perfil_16685_Acta_11_Comite_01.pdf" target="_blank" >Acta 11</a> -
@@ -107,6 +109,8 @@
                     <h5 style="margin-top:20px;" ><b>Comité 2: Asistente Administrativo (D - General)</b></h5>
                     <hr class="lineas-subraya"/>
                     <p>
+			<a href="bases/Conv03_2017_Perfil_17180_Acta_13_Comite_02.pdf" target="_blank" >Acta 13</a> -
+			<a href="bases/Conv03_2017_Perfil_17180_Acta_12_Comite_02.pdf" target="_blank" >Acta 12</a> -
 			<a href="bases/Conv03_2017_Perfil_17180_Acta_11_Comite_02.pdf" target="_blank" >Acta 11</a> -
 			<a href="bases/Conv03_2017_Perfil_17180_Acta_10_Comite_02.pdf" target="_blank" >Acta 10</a> -
 			<a href="bases/Conv03_2017_Perfil_17180_Acta_09_Comite_02.pdf" target="_blank" >Acta 9</a> -

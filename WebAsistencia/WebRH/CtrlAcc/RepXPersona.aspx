@@ -11,6 +11,13 @@
     <link href="css/select2.min.css" rel="stylesheet" type="text/css" />
     <script src="js/select2.min.js" type="text/javascript"></script>
 
+    <style type="text/css">
+        input[type="search"]
+        {
+            height: 30px;
+        }    
+    </style>
+
 </head>
 <body>
     <form id="form1" runat="server">
@@ -19,8 +26,6 @@
         <select id="sel2" style="width: 50%">
         </select>
         <button id="btn" type="button" class="btn btn-info">Mostrar Accesos</button>
-
-
     </div>
     </form>
 </body>
@@ -32,7 +37,7 @@
                     url: 'Data.ashx',
                     dataType: 'json'
                 }
-            });
+            });            
         });
     </script>
 </html>

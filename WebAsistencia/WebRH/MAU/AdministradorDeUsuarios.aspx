@@ -28,9 +28,13 @@
             </div>  
             <div id="panel_datos_usuario" style="display:none">
                 <div id="panel_superior_izquierdo" class="estilo_formulario">
-                    <div id="foto_usuario">                        
+                    <div id="contenedor_foto">
+                        <div id="foto_usuario"> </div>
+                        <img id="foto_usuario_generica" src="usuario.png"/>
+                        <div id="barrita_cambio_foto">
+                            <div>Cambiar</div>
+                        </div>
                     </div>
-                    <img id="foto_usuario_generica" src=usuario.png/>
                     <div id="cambio_imagen_pendiente" RequiereFuncionalidad = "50">
                         <img src="camera.png"/>
                     </div>
@@ -51,7 +55,8 @@
                             <div>Email:</div>
                             <div id="email"></div>   
                             <input id="btn_modificar_mail" type="button" class="btn btn-warning" value="Modificar"  RequiereFuncionalidad = "45"/> 
-                        </div>                 
+                        </div>      
+                        <input id="btn_credencial_usuario" type="button" class="btn btn-warning" value="Credencial" />           
                     </div>
                     <div id="panel_password">
                         <div class="linea linea_nombre_usuario">
