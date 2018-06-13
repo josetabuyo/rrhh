@@ -1497,6 +1497,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="Codigo" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="NombreArea" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="DetalleEvaluados" type="tns:DetalleEvaluadosPorUnidadEvaluacion" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdPeriodo" type="s:int" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="DetalleEvaluadosPorUnidadEvaluacion">

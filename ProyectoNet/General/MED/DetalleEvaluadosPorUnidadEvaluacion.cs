@@ -13,5 +13,19 @@ namespace General.MED
         public int Deficiente { get; set; }
         public int Provisoria { get; set; }
         public int Pendiente { get; set; }
+
+        public DetalleEvaluadosPorUnidadEvaluacion()
+        {
+        }
+
+        public DetalleEvaluadosPorUnidadEvaluacion(int destacados, int bueno, int regular, int deficiente, int provisoria, int pendiente)
+        {
+            this.Destacados = destacados;
+            this.Bueno = bueno;
+            this.Regular = regular;
+            this.Deficiente = deficiente;
+            this.Provisoria = provisoria;
+            this.Pendiente = pendiente;
+        }
     }
 }

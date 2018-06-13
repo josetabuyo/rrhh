@@ -98,28 +98,8 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public List<UnidadDeEvaluacion> GetEstadosEvaluaciones()
     {
-        var lst = new List<UnidadDeEvaluacion>();
-
-        var ue = new UnidadDeEvaluacion(1, "codigo 1", "nombre area 1");
-        lst.Add(ue);
-
-        ue.DetalleEvaluados.Destacados = 15;
-        ue.DetalleEvaluados.Bueno = 12;
-        ue.DetalleEvaluados.Regular = 5;
-        ue.DetalleEvaluados.Deficiente = 3;
-        ue.DetalleEvaluados.Pendiente = 2;
-        ue.DetalleEvaluados.Provisoria = 4;
-
-        ue = new UnidadDeEvaluacion(1, "codigo 2", "nombre area 2");
-        lst.Add(ue);
-
-        ue.DetalleEvaluados.Destacados = 11;
-        ue.DetalleEvaluados.Bueno = 11;
-        ue.DetalleEvaluados.Regular = 11;
-        ue.DetalleEvaluados.Deficiente = 11;
-        ue.DetalleEvaluados.Pendiente = 11;
-        ue.DetalleEvaluados.Provisoria = 11;
-        return lst;
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        return repo.GetEstadosEvaluaciones();
     }
 
     [WebMethod]

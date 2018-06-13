@@ -196,16 +196,18 @@ namespace General.Repositorios
 
         private void ConstruirUnidadEvaluacionComite(ComiteEvaluacionDesempenio comite, RowDeDatos row)
         {
-            if(!comite.UnidadesEvaluacion.Any(u => u.Id == row.GetInt("id_ue"))) {
-                var ue = new UnidadDeEvaluacion(row.GetInt("id_ue", 0), row.GetString("codigo_ue", "No Especifica"), row.GetString("nombre_area", "No Especifica"));
+            if (!comite.UnidadesEvaluacion.Any(u => u.Id == row.GetInt("id_ue")))
+            {
+                var ue = new UnidadDeEvaluacion(row.GetInt("id_ue", 0), row.GetString("codigo_ue", "No Especifica"), row.GetString("nombre_area", "No Especifica"), row.GetSmallintAsInt("idPeriodo"));
                 comite.UnidadesEvaluacion.Add(ue);
             }
         }
 
         private void ConstruirIntegranteComite(ComiteEvaluacionDesempenio comite, RowDeDatos row)
         {
-            if(!comite.Integrantes.Any(i => i.IdPersona == row.GetInt("id_persona_integrante"))) {
-                var integrante =  new IntegranteComiteEvalDesempenio();
+            if (!comite.Integrantes.Any(i => i.IdPersona == row.GetInt("id_persona_integrante")))
+            {
+                var integrante = new IntegranteComiteEvalDesempenio();
                 integrante.IdPersona = row.GetInt("id_persona_integrante");
                 integrante.Apellido = row.GetString("apellido_integrante");
                 integrante.Nombre = row.GetString("nombre_integrante");
@@ -241,7 +243,7 @@ namespace General.Repositorios
             {
                 parametros.Add("@solo_con_codigo_gde", 1);
             }
-            
+
             var tablaDatos = _conexion.Ejecutar("dbo.EVAL_GET_Evaluados_Evaluador", parametros);
 
             var asignaciones = new List<AsignacionEvaluadoAEvaluador> { };
@@ -293,7 +295,7 @@ namespace General.Repositorios
             }
             asignaciones = asignaciones.OrderBy(a => a.agente_evaluado.apellido).ThenBy(a => a.agente_evaluado.nombre).ToList();
             return new RespuestaGetAgentesEvaluablesPor(asignaciones, es_agente_verificador);
-            
+
         }
 
         protected AgenteEvaluacionDesempenio GetAgenteEvaluadorEvaluacionDesempenio(int id_evaluador, int id_periodo, Dictionary<int, AgenteEvaluacionDesempenio> cache)
@@ -327,8 +329,8 @@ namespace General.Repositorios
             //if (tablaDatos.Rows.Count > 0)
             //{
             //    var row = tablaDatos.Rows[0];
-                evaluador = new AgenteEvaluacionDesempenio(id_evaluado, row.GetString("apellido"), row.GetString("nombre"),
-                                                    row.GetInt("NroDocumento"), "SINEP", row.GetString("nivel_evaluado"), row.GetString("grado_evaluado"), row.GetString("agrupamiento_evaluado", "No Especificado"), string.Empty, row.GetString("Nivel_Estudios", ""), area, row.GetInt("legajo"));
+            evaluador = new AgenteEvaluacionDesempenio(id_evaluado, row.GetString("apellido"), row.GetString("nombre"),
+                                                row.GetInt("NroDocumento"), "SINEP", row.GetString("nivel_evaluado"), row.GetString("grado_evaluado"), row.GetString("agrupamiento_evaluado", "No Especificado"), string.Empty, row.GetString("Nivel_Estudios", ""), area, row.GetInt("legajo"));
             //}
             return evaluador;
         }
@@ -365,7 +367,7 @@ namespace General.Repositorios
                                             nivel,
                                             detalle_preguntas,
                                             row.GetString("codigo_gde", ""),
-                                            row.GetString("codigo_doc_electronico",""),
+                                            row.GetString("codigo_doc_electronico", ""),
                                             row.GetDateTime("fecha"),
                                             new VerificacionCodigoGdeDocumento(row.GetDateTime("fechaVerificacionGDE", DateTime.MinValue), VerificacionCodigoGdeDocumento.UsuarioVerifFromDB(row.GetSmallintAsInt("idUsuarioVerificadorGDE", 0))));
             }
@@ -373,7 +375,7 @@ namespace General.Repositorios
             var unidad_evaluacion = UnidadDeEvaluacion.Nulio();
             if (row.GetInt("id_unidad_eval", 0) != 0)
             {
-                unidad_evaluacion = new UnidadDeEvaluacion(row.GetInt("id_unidad_eval"), row.GetString("codigo_unidad_eval"), row.GetString("nombre_area_ue", ""));
+                unidad_evaluacion = new UnidadDeEvaluacion(row.GetInt("id_unidad_eval"), row.GetString("codigo_unidad_eval"), row.GetString("nombre_area_ue", ""), row.GetSmallintAsInt("idPeriodo"));
             }
 
             return new AsignacionEvaluadoAEvaluador(
@@ -508,6 +510,21 @@ namespace General.Repositorios
                             row.GetString("descripcion_periodo", ""), row.GetDateTime("periodo_desde"), row.GetDateTime("periodo_hasta"));
         }
 
+
+        public List<UnidadDeEvaluacion> GetEstadosEvaluaciones()
+        {
+            var result = new List<UnidadDeEvaluacion>();
+            var parametros = new Dictionary<string, object>();
+            var tablaDeDatos = _conexion.Ejecutar("dbo.[EVAL_GET_Estado_Evaluaciones_TdeC]", parametros);
+            tablaDeDatos.Rows.ForEach(row =>
+            {
+                var ue = new UnidadDeEvaluacion(row.GetSmallintAsInt("id_unidad_evaluacion"), row.GetString("codigo_unidad_de_evaluacion"), row.GetString("unidad_de_evaluacion"), row.GetSmallintAsInt("id_periodo"));
+                ue.DetalleEvaluados = new DetalleEvaluadosPorUnidadEvaluacion(row.GetSmallintAsInt("Evaluado_Destacado"), row.GetSmallintAsInt("Evaluado_Bueno"), row.GetSmallintAsInt("Evaluado_Regular"), row.GetSmallintAsInt("Evaluado_Deficiente"), row.GetSmallintAsInt("Provisoria"), row.GetSmallintAsInt("Pendiente"));
+                result.Add(ue);
+            }
+            );
+            return result;
+        }
     }
 
 }

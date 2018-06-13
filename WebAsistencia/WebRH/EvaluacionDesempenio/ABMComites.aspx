@@ -81,7 +81,8 @@
             <input type="hidden" id="hidden_model" />
         </div>
         <div class="botonera_grilla_ues">
-            <img id="btn_eliminar_ue" src="../Imagenes/icono_eliminar2.png" height="25px"  />
+            <!--<img id="btn_eliminar_ue" src="../Imagenes/icono_eliminar2.png" height="25px"  />-->
+            <input type="checkbox" id="chk_selected" />
             <input type="hidden" id="hidden1" />
         </div>
 
@@ -96,6 +97,8 @@
 
 
             Backend.start(function () {
+
+
 
                 var spinner = new Spinner({ scale: 2 });
                 spinner.spin($("html")[0]);
@@ -149,6 +152,7 @@
                                 vex.open({
                                     afterOpen: function ($vexContent) {
                                         var ui = $("#pantallaDetalleComites").clone();
+
                                         var model = JSON.parse(btn_editar.prevObject.find("#hidden_model").val())
                                         //fix del datepicker cuando haces .clone() de la plantilla, quedan dos componentes
                                         //con el mismo id, y jquery datepicker funciona mal.
@@ -163,46 +167,48 @@
                                         ui.find('#txt_lugar').val(model.Lugar);
 
 
-                                        /***
-                                        GRILLA: Unidades de Evaluacion
-                                        */
-                                        //
-                                        var _this = this;
-                                        var grilla_ue = ui.find("#tabla_unidades_evaluacion");
-                                        grilla_ue.empty();
-                                        var columnas_ue = [];
+                                        var cargar_ues = function () {
 
-                                        columnas_ue.push(new Columna("Unidad Eval.", { generar: function (ue) { return ue.NombreArea; } }));
-                                        columnas_ue.push(new Columna("Destacados.", { generar: function (ue) { return ue.DetalleEvaluados.Destacados; } }));
-                                        columnas_ue.push(new Columna("Bueno", { generar: function (ue) { return ue.DetalleEvaluados.Bueno; } }));
-                                        columnas_ue.push(new Columna("Regular", { generar: function (ue) { return ue.DetalleEvaluados.Regular; } }));
-                                        columnas_ue.push(new Columna("Deficiente", { generar: function (ue) { return ue.DetalleEvaluados.Deficiente; } }));
-                                        columnas_ue.push(new Columna("Total Evaluados", { generar: function (ue) { return ue.DetalleEvaluados.Destacados + ue.DetalleEvaluados.Bueno + ue.DetalleEvaluados.Regular + ue.DetalleEvaluados.Deficiente; } }));
-                                        columnas_ue.push(new Columna("Provisoria", { generar: function (ue) { ue.DetalleEvaluados.Provisoria; } }));
-                                        columnas_ue.push(new Columna("Pendiente", { generar: function (ue) { ue.DetalleEvaluados.Pendiente; } }));
-                                        columnas_ue.push(new Columna("Total General", { generar: function (ue) { return ue.DetalleEvaluados.Destacados + ue.DetalleEvaluados.Bueno + ue.DetalleEvaluados.Regular + ue.DetalleEvaluados.Deficiente + ue.DetalleEvaluados.Provisoria + ue.DetalleEvaluados.Pendiente; } }));
-                                        columnas_ue.push(new Columna("Acciones", {
-                                            generar: function (ue) {
-                                                var buttons_ue = $("#plantillas .botonera_grilla_ues").clone();
-                                                var btn_eliminar_ue = buttons_ue.find("#btn_eliminar_ue");
-                                                btn_eliminar_ue.click(function () {
-                                                    alert('test');
-                                                });
-                                                return buttons_ue;
-                                            }
-                                        }));
+                                            /***
+                                            GRILLA: Unidades de Evaluacion
+                                            */
+                                            //
+                                            var _this = this;
+                                            var grilla_ue = ui.find("#tabla_unidades_evaluacion");
+                                            grilla_ue.empty();
 
+                                            var columnas_ue = [];
+                                            columnas_ue.push(new Columna("Codigo", { generar: function (ue) { return ue.Codigo; } }));
+                                            columnas_ue.push(new Columna("Unidad Eval.", { generar: function (ue) { return ue.NombreArea; } }));
+                                            columnas_ue.push(new Columna("Destacados.", { generar: function (ue) { return ue.DetalleEvaluados.Destacados; } }));
+                                            columnas_ue.push(new Columna("Bueno", { generar: function (ue) { return ue.DetalleEvaluados.Bueno; } }));
+                                            columnas_ue.push(new Columna("Regular", { generar: function (ue) { return ue.DetalleEvaluados.Regular; } }));
+                                            columnas_ue.push(new Columna("Deficiente", { generar: function (ue) { return ue.DetalleEvaluados.Deficiente; } }));
+                                            columnas_ue.push(new Columna("Total Evaluados", { generar: function (ue) { return ue.DetalleEvaluados.Destacados + ue.DetalleEvaluados.Bueno + ue.DetalleEvaluados.Regular + ue.DetalleEvaluados.Deficiente; } }));
+                                            columnas_ue.push(new Columna("Provisoria", { generar: function (ue) { ue.DetalleEvaluados.Provisoria; } }));
+                                            columnas_ue.push(new Columna("Pendiente", { generar: function (ue) { ue.DetalleEvaluados.Pendiente; } }));
+                                            columnas_ue.push(new Columna("Total General", { generar: function (ue) { return ue.DetalleEvaluados.Destacados + ue.DetalleEvaluados.Bueno + ue.DetalleEvaluados.Regular + ue.DetalleEvaluados.Deficiente + ue.DetalleEvaluados.Provisoria + ue.DetalleEvaluados.Pendiente; } }));
+                                            columnas_ue.push(new Columna("", {
+                                                generar: function (ue) {
+                                                    var buttons_ue = $("#plantillas .botonera_grilla_ues").clone();
+                                                    return buttons_ue;
+                                                }
+                                            }));
 
-                                        var estadosEvaluaciones = JSON.parse(localStorage.getItem("estadosEvaluaciones"));
+                                            var estadosEvaluaciones = JSON.parse(localStorage.getItem("estadosEvaluaciones"));
+                                            var id_periodo = ui.find("#cmb_periodo").val();
 
+                                            _this.grilla_ue = new Grilla(columnas_ue);
+                                            _this.grilla_ue.SetOnRowClickEventHandler(function (ues) { });
+                                            _this.grilla_ue.CambiarEstiloCabecera("estilo_tabla_portal");
+                                            //_this.grilla_ue.CargarObjetos(model.UnidadesEvaluacion);
+                                            _this.grilla_ue.CargarObjetos(estadosEvaluaciones.filter(function (i) { return i.IdPeriodo == id_periodo; }));
+                                            _this.grilla_ue.DibujarEn(grilla_ue);
+                                        }
 
-                                        _this.grilla_ue = new Grilla(columnas_ue);
-                                        _this.grilla_ue.SetOnRowClickEventHandler(function (ues) { });
-                                        _this.grilla_ue.CambiarEstiloCabecera("estilo_tabla_portal");
-                                        //_this.grilla_ue.CargarObjetos(model.UnidadesEvaluacion);
-                                        _this.grilla_ue.CargarObjetos(estadosEvaluaciones);
-                                        _this.grilla_ue.DibujarEn(grilla_ue);
-
+                                        cargar_ues();
+                                        ui.find("#cmb_periodo").unbind("change");
+                                        ui.find("#cmb_periodo").change(cargar_ues);
 
                                         /***
                                         GRILLA INTEGRANTES COMITE
