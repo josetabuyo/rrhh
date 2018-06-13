@@ -249,7 +249,7 @@ namespace General.Repositorios
             var cache_areas = new Dictionary<int, DescripcionAreaEvaluacion>();
             var cache_evaluadores = new Dictionary<int, AgenteEvaluacionDesempenio>();
             var primer_row = true;
-            var usuario_evaluador = GetAgenteEvaluadorEvaluacionDesempenio(id_persona_usuario, cache_evaluadores);
+            //var usuario_evaluador = GetAgenteEvaluadorEvaluacionDesempenio(id_persona_usuario, cache_evaluadores);
             AsignacionEvaluadoAEvaluador asignacion_evaluado_a_evaluador = new AsignacionEvaluadoAEvaluador();
 
             if (tablaDatos.Rows.Count > 0)
@@ -259,8 +259,8 @@ namespace General.Repositorios
                 var id_evaluado_anterior = 0;
                 tablaDatos.Rows.ForEach(row =>
                 {
-                    var resp_primario_ue = GetAgenteEvaluadorEvaluacionDesempenio(row.GetSmallintAsInt("idResponsablePrimarioUe"), cache_evaluadores);
-                    usuario_evaluador.area = GetDescripcionAreaEvaluacion(row.GetInt("id_area_ue", 0), cache_areas, row.GetString("codigo_unidad_eval", ""));
+                    var resp_primario_ue = GetAgenteEvaluadorEvaluacionDesempenio(row.GetSmallintAsInt("idResponsablePrimarioUe"), row.GetSmallintAsInt("id_Periodo"), cache_evaluadores);
+                    //usuario_evaluador.area = GetDescripcionAreaEvaluacion(row.GetInt("id_area_ue", 0), cache_areas, row.GetString("codigo_unidad_eval", ""));
 
                     if (primer_row == true)
                     {
@@ -296,12 +296,13 @@ namespace General.Repositorios
             
         }
 
-        protected AgenteEvaluacionDesempenio GetAgenteEvaluadorEvaluacionDesempenio(int id_evaluador, Dictionary<int, AgenteEvaluacionDesempenio> cache)
+        protected AgenteEvaluacionDesempenio GetAgenteEvaluadorEvaluacionDesempenio(int id_evaluador, int id_periodo, Dictionary<int, AgenteEvaluacionDesempenio> cache)
         {
             if (!cache.ContainsKey(id_evaluador))
             {
                 var parametros = new Dictionary<string, object>();
                 parametros.Add("@Id_evaluador", id_evaluador);
+                parametros.Add("@Id_periodo", id_periodo);
                 var tablaDatos = _conexion.Ejecutar("[dbo].[EVAL_GET_DATOS_Evaluador]", parametros);
                 var evaluador = new AgenteEvaluacionDesempenio();
                 if (tablaDatos.Rows.Count > 0)
