@@ -702,7 +702,7 @@ namespace General.Repositorios
             return (string)conexion.EjecutarEscalar("dbo.Acre_VerificarSiPuedePedirCredencial", parametros_imagen);
         }
 
-        public string SolicitarRenovacionCredencial(Usuario usuario_solicitante, string id_motivo, string id_organismo, int id_lugar_entrega, int id_tipo_credencial = 2)
+        public string SolicitarRenovacionCredencial(Usuario usuario_solicitante, string id_motivo, string id_organismo, int id_lugar_entrega, bool personal_externo)
         {
             var puedepedir = PuedePedirCredencial(usuario_solicitante);
             if(puedepedir != "OK") return puedepedir;
@@ -723,12 +723,14 @@ namespace General.Repositorios
             }
         //   var id_motivo = GetMotivosBajaCredencial().Find(x => x.Descripcion.Trim().ToUpper() == motivo.Trim().ToUpper()).Id;
         //  List<MotivoBaja> motivos = GetMotivosBajaCredencial();
+            int id_tipo_credencial = 2;
+            if (personal_externo) id_tipo_credencial = 3;
             try
             {
                 var parametros = new Dictionary<string, object>();
 
                 parametros.Add("@IdPersona", usuario_solicitante.Owner.Id);
-                parametros.Add("@IdTipoCredencial", id_tipo_credencial); //2 Definitiva - 1 provisoria
+                parametros.Add("@IdTipoCredencial", id_tipo_credencial); //2 Definitiva - 3 externa
                 parametros.Add("@IdOrganismo", int.Parse(id_organismo));
                 parametros.Add("@IdMotivo", int.Parse(id_motivo));
                 parametros.Add("@IdLugarEntrega", id_lugar_entrega);
@@ -1491,7 +1493,7 @@ namespace General.Repositorios
 
             repoUsuarios.CambiarImagenPerfil(usuario.Id, id_foto, admin.Id);
 
-            SolicitarRenovacionCredencial(usuario, "Nueva", "Ministerio de Desarrollo Social", id_lugar_de_entrega, id_tipo_credencial);
+            SolicitarRenovacionCredencial(usuario, "Nueva", "Ministerio de Desarrollo Social", id_lugar_de_entrega, id_tipo_credencial==3);
 
 
             var parametros = new Dictionary<string, object>();

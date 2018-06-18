@@ -53,6 +53,15 @@
         //                    ui.find("#cmb_autorizante").append(opt);
         //                });
         //            });
+
+        $("#btn_subirfoto").click(function () {
+            var subidor = new SubidorDeImagenes();
+            subidor.subirImagen(function (id) {
+                id_foto = id;
+                var img = new VistaThumbnail({ id: id_foto, contenedor: $("#vista_previa_foto") });
+            }, true);
+        });
+
         $("#btn_guardar").click(function () {
             Backend.SolicitarCredencialExterna(
                 $("#txt_dni").val(),

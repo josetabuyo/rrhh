@@ -3105,6 +3105,14 @@ public class WSViaticos : System.Web.Services.WebService
         return repositorio.GetCredencialesTodasDePortal(usuario.Owner.Id).ToArray();
     }
 
+    [WebMethod]
+    public Credencial[] GetCredencialesDeUnaPersona(int id_persona, Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+
+        return repositorio.GetCredencialesTodasDePortal(id_persona).ToArray();
+    }
+
 
     [WebMethod]
     public SolicitudCredencial[] GetSolicitudesDeCredencialPorPersona(Usuario usuario)
@@ -3158,12 +3166,12 @@ public class WSViaticos : System.Web.Services.WebService
 
 
     [WebMethod]
-    public string SolicitarRenovacionCredencial(string motivo, string organismo, int id_lugar_entrega, Usuario usuario)
+    public string SolicitarRenovacionCredencial(Usuario usuario_solicitante, string motivo, string organismo, int id_lugar_entrega, bool personal_externo, Usuario usuario)
     {
         RepositorioLegajo repositorio = RepoLegajo();
 
 
-        return repositorio.SolicitarRenovacionCredencial(usuario, motivo, organismo, id_lugar_entrega);
+        return repositorio.SolicitarRenovacionCredencial(usuario_solicitante, motivo, organismo, id_lugar_entrega, personal_externo);
     }
 
     [WebMethod]
