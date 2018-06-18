@@ -5144,6 +5144,11 @@ public class WSViaticos : System.Web.Services.WebService
         return new RepositorioDeArchivos(Conexion());
     }
 
+    private RepositorioDeArchivosFirmados RepositorioDeArchivosFirmados()
+    {
+        return new RepositorioDeArchivosFirmados(Conexion());
+    }
+
     /*Excel Consulta Personas DDJJ104*/
     [WebMethod]
     public string ConsultaExcelDDJJ104_Persona(string criterio, Usuario usuario)
@@ -5514,8 +5519,8 @@ public class WSViaticos : System.Web.Services.WebService
 //        {//COMO el proceso de guardado desde la tabla de la BD al disco es externo, no genero una subclase de archivo
          //que tendria el path de disco donde guardar el archivo. Se puede agregar una clase con propieda la clase archivo 
             //subo el archivo firmado y actualiza la tabla que indica que el idRecibo fue firmado
-  //          id_archivo = RepositorioDeArchivosPDF().GuardarArchivoPDF(bytes_pdf);
-            id_archivo = 20;//RepositorioDeArchivos().GuardarArchivo(bytes_pdf);// id_recibo;//simulo el guardado del archivo
+            id_archivo = RepositorioDeArchivosFirmados().GuardarArchivo(bytes_pdf);
+ //           id_archivo = 20;//RepositorioDeArchivos().GuardarArchivo(bytes_pdf);// id_recibo;//simulo el guardado del archivo
             //var r = RepositorioDeArchivos().GetArchivo(id_archivo); //19444 es un pdf firmado          
             //actualizo el recibo firmado por el empleado, 
             RepoReciboFirmado().agregarReciboFirmado(id_recibo, id_archivo, anio, mes, tipoLiquidacion);

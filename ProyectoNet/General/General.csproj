@@ -153,6 +153,7 @@
     <Compile Include="Recibos\ReciboFirmado.cs" />
     <Compile Include="Recibos\TipoLiquidacion.cs" />
     <Compile Include="Repositorios\AccionesMobi.cs" />
+    <Compile Include="Repositorios\RepositorioDeArchivosFirmados.cs" />
     <Compile Include="Repositorios\RepositorioDeTipoDeLiquidacion.cs" />
     <Compile Include="Repositorios\CredencialParaImpresion.cs" />
     <Compile Include="Repositorios\EstadoMoBi.cs" />

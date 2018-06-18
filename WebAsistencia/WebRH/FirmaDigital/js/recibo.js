@@ -123,10 +123,15 @@ var RECIBOS = (function (window, undefined) {
             divMensajeStatus.innerHTML = '&nbsp;';
             divMensajeStatus.innerHTML = '<div class="iconInfo">Se obtubieron <B>' + longitud + '</B> recibos para firmar. </div>';
 
-            //habilito el boton para poder firmar
-            btn_firmar.disabled = false;
-            btn_firmar.classList.remove('botonGrisadoFirmaM');
-            btn_firmar.classList.add('botonFirmaM');
+
+            //habilito el boton para poder firmar si hay mas de un recibo para firmar
+            if (lista_recibos_resumen.length != 0) {
+               // divMensajeStatus.innerHTML = '<div class="iconInfo">Debe existir al menos un documento para firmar.</div>';
+                btn_firmar.disabled = false;
+                btn_firmar.classList.remove('botonGrisadoFirmaM');
+                btn_firmar.classList.add('botonFirmaM');
+            }
+            
 
             /*usando jquery no me funciona, fix despues*/
             /*$.each(tiposLiquidacion, function () {

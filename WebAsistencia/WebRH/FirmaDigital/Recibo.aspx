@@ -30,7 +30,7 @@
         
         <div style="text-align:center;" class="caja_izq no-print">
         Perfil empleador:<br />Firma Iterativa<br />Perfil empleado:<br />Confirmacion Recibo<br />Perfil auditor:<br />
-        Verificacion de una firma<br />...
+        Verificacion de una firma<br />Obtener un recibo firmado<br />...
         </div>
 
         <!--contenido derecho -->
@@ -220,8 +220,7 @@
             mes = document.getElementById('cmb_meses2').value;
             tipoLiquidacion = document.getElementById('cmb_tipo_liquidacion').value;
             RECIBOS.getIdRecibosSinFirmar(tipoLiquidacion, anio, mes);
-        
-
+                        
             //seteo el mensage con el resultado de la operacion
 
 
@@ -409,6 +408,8 @@
         //policyIdentifierHashAlgorithm=http://www.w3.org/2000/09/xmldsig#sha1
         //policyQualifier=http://rrhh.gob.ar/politicafirma/politica_firma_v1.0.pdf
 
+        params = params + "filters=issuer.rfc2254:(O=Jefatura de Gabinete de Ministros);nonexpired:" + "\n";
+//ambiente prueba        params = params + "filters=issuer.rfc2254:(CN = jcvelasquez);nonexpired:" + "\n";
         //cuando existe un solo certificado en la lista lo auto selecciono
         params = params + "headless=true"; //+ "\n";	
 
@@ -482,10 +483,12 @@
             //ya se realizaron todas las operaciones
             //compruebo si se realizaron todas las operaciones de firma
             if (totalFirmasRealizadas == totalFirmas) {
-                divMensajeStatus.innerHTML = '<div class="iconOKFirmados">Archivos firmados correctamente.</div>';
+                /*  divMensajeStatus.innerHTML = '<div class="iconOKFirmados">Archivos firmados correctamente.</div>';*/
+                divMensajeStatus.innerHTML = '<div class="iconOKFirmados">Total de archivos a firmar: <b>' + totalFirmas + '</b>. Archivos firmados correctamente: <b>' + totalFirmasRealizadas + '</b>. No se pudieron procesar: <b>' + (totalOperaciones - totalFirmasRealizadas) + '</b>.</div>';
             } else {
                 var archivosNoFirmados = totalOperaciones - totalFirmasRealizadas;
-                divMensajeStatus.innerHTML = '<div class="iconAlerta">No se pudieron procesar ' + archivosNoFirmados + ' documentos.</div>';
+                /*divMensajeStatus.innerHTML = '<div class="iconAlerta">No se pudieron procesar ' + archivosNoFirmados + ' documentos.</div>';*/
+                divMensajeStatus.innerHTML = '<div class="iconAlerta">Total de archivos a firmar: <b>' + totalFirmas + '</b>. Archivos firmados correctamente: <b>' + totalFirmasRealizadas + '</b>. No se pudieron procesar: <b>' + (totalOperaciones - totalFirmasRealizadas) + '</b>.</div>';
             }
             //reseteo las variables globales
             totalOperaciones = 0;
@@ -702,7 +705,8 @@
     //retorna el elemento apuntado por indice y actualiza el indice
     function siguienteSeleccion3(indice) {
 
-        if (indice < (3)) {//lista_recibos_resumen.length
+//limitacion        if (indice < (3)) {//lista_recibos_resumen.length
+        if (indice < lista_recibos_resumen.length) {//lista_recibos_resumen.length   //para procesar completamente la lista
             //actualizo el indice
             indiceListaRecibos++;
             //retorno el valor
@@ -764,7 +768,8 @@
         //compruebo si minimamente hay elementos en la lista para firmar
         
         if (lista_recibos_resumen.length != 0) {
-            totalFirmas = 3; //*************************lista_recibos_resumen.length;         
+ //           totalFirmas = 3; //**********es la limitacion   
+            totalFirmas = lista_recibos_resumen.length;     
             if (totalFirmas > 0) {
                 //deshabilito el boton
                 btn_firmar.disabled = true;
@@ -777,6 +782,7 @@
 
             } else {
                 divMensajeStatus.innerHTML = '<div class="iconInfo">Debe existir al menos un documento para firmar.</div>';
+                
             }
         }
 
