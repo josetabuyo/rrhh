@@ -25,55 +25,7 @@
             </div>
             <asp:HiddenField ID="ComitesHiddenField" runat="server" />
         </div>
-    </div>
-    <div id="pantallaDetalleComites" style="display: none;" class="">
-        <div id="contenido_form_comite" class="fondo_form">
-            <fieldset>
-                <div>
-                    Fecha:
-                    <input id="fecha_1" campo="fecha_1" type="text" placeholder="dd/mm/aaaa" style="flex-grow: 100;
-                        margin-left: 20px;" />
-                </div>
-                <div class="grupo_campos nueva_linea">
-                    <label for="hora">
-                        Hora <em>*</em></label>
-                    <input id="hora" type="text" style="width: 160px;" maxlength="100" />
-                </div>
-                <div class="grupo_campos nueva_linea">
-                    <label for="lugar">
-                        Lugar <em>*</em></label>
-                    <input id="txt_lugar" type="text" style="width: 160px;" maxlength="100" />
-                </div>
-
-                <div class="grupo_campos nueva_linea">
-                    <!--<legend><a id="btn_agregar_ue" class="link">Agregar Unidad de Evaluacion</a></legend>-->
-                    Integrantes
-                    <div id="ContenedorPlanillaIntegrantes" runat="server">
-                        <table id="tabla_integrantes" class="table table-striped">
-                        </table>
-                    </div>
-                </div>
-                <div class="grupo_campos">
-                    <label for="cmb_periodo">
-                        Proceso Evaluatorio <em>*</em></label>
-                    <select id="cmb_periodo" style="width: 280px;">
-                    </select>
-                </div>
-                <div class="grupo_campos nueva_linea">
-                    <!--<legend><a id="btn_agregar_ue" class="link">Agregar Unidad de Evaluacion</a></legend>-->
-                    Unidades de Evaluacion
-                    <div id="ContenedorPlanillaUnidadesEvaluacion" runat="server">
-                        <table id="tabla_unidades_evaluacion" class="table table-striped">
-                        </table>
-                    </div>
-                </div>
-            </fieldset>
-            <div class="btn-fld">
-                <input type="button" class="btn btn-primary" id="btn_guardar" value="Agregar" />
-            </div>
-            <input type="hidden" id="txt_AntecedenteAcademico_id" />
-        </div>
-    </div>
+    </div>   
     <div id="plantillas">
         <div class="botonera_grilla">
             <img id="btn_editar" src="../Imagenes/edit2.png" height="25px" />
@@ -108,16 +60,6 @@
                         localStorage.setItem("estadosEvaluaciones", JSON.stringify(ues));
                     });
 
-                Backend.GetPeriodosEvaluacion()
-                .onSuccess(function (periodos) {
-                    _.forEach(periodos, function (periodo) {
-                        var opt = $("<option>");
-                        opt.text(periodo.descripcion_periodo);
-                        opt.attr("value", periodo.Id);
-                        $("#pantallaDetalleComites").find("#cmb_periodo").append(opt);
-                    });
-                });
-
                 Backend.GetAllComites().onSuccess(
                 function (comites) {
                     var _this = this;
@@ -151,96 +93,10 @@
                                 vex.defaultOptions.className = 'vex-theme-os';
                                 vex.open({
                                     afterOpen: function ($vexContent) {
-                                        var ui = $("#pantallaDetalleComites").clone();
-
-                                        var model = JSON.parse(btn_editar.prevObject.find("#hidden_model").val())
-                                        //fix del datepicker cuando haces .clone() de la plantilla, quedan dos componentes
-                                        //con el mismo id, y jquery datepicker funciona mal.
-                                        ui.find('#fecha_1').attr("id", "fecha_clone_id");
-                                        ui.find('#fecha_clone_id').datepicker({
-                                            dateFormat: "dd/mm/yy",
-                                            onSelect: function (date) {
-                                                //ui.find('#fecha_clone_id').text('test');
-                                            }
+                                        $vexContent.load('PantallaDetalleComite.htm', function () {
+                                            PantallaDetalleComite.start(model, $vexContent);
                                         });
-                                        ui.find('#fecha_clone_id').datepicker("setDate", new Date(model.Fecha));
-                                        ui.find('#txt_lugar').val(model.Lugar);
-
-
-                                        var cargar_ues = function () {
-
-                                            /***
-                                            GRILLA: Unidades de Evaluacion
-                                            */
-                                            //
-                                            var _this = this;
-                                            var grilla_ue = ui.find("#tabla_unidades_evaluacion");
-                                            grilla_ue.empty();
-
-                                            var columnas_ue = [];
-                                            columnas_ue.push(new Columna("Codigo", { generar: function (ue) { return ue.Codigo; } }));
-                                            columnas_ue.push(new Columna("Unidad Eval.", { generar: function (ue) { return ue.NombreArea; } }));
-                                            columnas_ue.push(new Columna("Destacados.", { generar: function (ue) { return ue.DetalleEvaluados.Destacados; } }));
-                                            columnas_ue.push(new Columna("Bueno", { generar: function (ue) { return ue.DetalleEvaluados.Bueno; } }));
-                                            columnas_ue.push(new Columna("Regular", { generar: function (ue) { return ue.DetalleEvaluados.Regular; } }));
-                                            columnas_ue.push(new Columna("Deficiente", { generar: function (ue) { return ue.DetalleEvaluados.Deficiente; } }));
-                                            columnas_ue.push(new Columna("Total Evaluados", { generar: function (ue) { return ue.DetalleEvaluados.Destacados + ue.DetalleEvaluados.Bueno + ue.DetalleEvaluados.Regular + ue.DetalleEvaluados.Deficiente; } }));
-                                            columnas_ue.push(new Columna("Provisoria", { generar: function (ue) { ue.DetalleEvaluados.Provisoria; } }));
-                                            columnas_ue.push(new Columna("Pendiente", { generar: function (ue) { ue.DetalleEvaluados.Pendiente; } }));
-                                            columnas_ue.push(new Columna("Total General", { generar: function (ue) { return ue.DetalleEvaluados.Destacados + ue.DetalleEvaluados.Bueno + ue.DetalleEvaluados.Regular + ue.DetalleEvaluados.Deficiente + ue.DetalleEvaluados.Provisoria + ue.DetalleEvaluados.Pendiente; } }));
-                                            columnas_ue.push(new Columna("", {
-                                                generar: function (ue) {
-                                                    var buttons_ue = $("#plantillas .botonera_grilla_ues").clone();
-                                                    return buttons_ue;
-                                                }
-                                            }));
-
-                                            var estadosEvaluaciones = JSON.parse(localStorage.getItem("estadosEvaluaciones"));
-                                            var id_periodo = ui.find("#cmb_periodo").val();
-
-                                            _this.grilla_ue = new Grilla(columnas_ue);
-                                            _this.grilla_ue.SetOnRowClickEventHandler(function (ues) { });
-                                            _this.grilla_ue.CambiarEstiloCabecera("estilo_tabla_portal");
-                                            //_this.grilla_ue.CargarObjetos(model.UnidadesEvaluacion);
-                                            _this.grilla_ue.CargarObjetos(estadosEvaluaciones.filter(function (i) { return i.IdPeriodo == id_periodo; }));
-                                            _this.grilla_ue.DibujarEn(grilla_ue);
-                                        }
-
-                                        cargar_ues();
-                                        ui.find("#cmb_periodo").unbind("change");
-                                        ui.find("#cmb_periodo").change(cargar_ues);
-
-                                        /***
-                                        GRILLA INTEGRANTES COMITE
-                                        ******/
-
-                                        var grilla_integrantes = ui.find("#tabla_integrantes");
-                                        grilla_integrantes.empty();
-                                        var columnas_integrantes = [];
-                                        columnas_integrantes.push(new Columna("DNI", { generar: function (int) { return int.Dni; } }));
-                                        columnas_integrantes.push(new Columna("Apellido", { generar: function (int) { return int.Apellido; } }));
-                                        columnas_integrantes.push(new Columna("Nombre", { generar: function (int) { return int.Nombre; } }));
-
-                                        columnas_integrantes.push(new Columna("Acciones", {
-                                            generar: function (int) {
-                                                /*var buttons_ue = $("#plantillas .botonera_grilla_ues").clone();
-                                                var btn_eliminar_ue = buttons_ue.find("#btn_eliminar_ue");
-                                                btn_eliminar_ue.click(function () {
-                                                alert('test');
-                                                });
-                                                return buttons_ue;*/
-                                            }
-                                        }));
-
-
-                                        _this.columnas_integrantes = new Grilla(columnas_integrantes);
-                                        _this.columnas_integrantes.SetOnRowClickEventHandler(function (int) { });
-                                        _this.columnas_integrantes.CambiarEstiloCabecera("estilo_tabla_portal");
-                                        _this.columnas_integrantes.CargarObjetos(model.Integrantes);
-                                        _this.columnas_integrantes.DibujarEn(grilla_integrantes);
-
-                                        $vexContent.append(ui);
-                                        ui.show();
+                                        return $vexContent;
                                     },
                                     css: {
                                         'padding-top': "4%",
