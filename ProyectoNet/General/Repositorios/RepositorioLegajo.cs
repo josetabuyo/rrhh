@@ -1441,16 +1441,11 @@ namespace General.Repositorios
             aspirante.Email = email;
 
             //Acá abrir transacción
-
-            autorizador.RegistrarNuevoUsuario(aspirante);
        
+            autorizador.RegistrarNuevoUsuario(aspirante);       
             var usuario = repoUsuarios.GetUsuarioPorDNI(dni);
-
             repoUsuarios.CambiarImagenPerfil(usuario.Id, id_foto, admin.Id);
-
-            SolicitarRenovacionCredencial(usuario, "Nueva", "Ministerio de Desarrollo Social", id_lugar_de_entrega, id_tipo_credencial);
-
-
+            SolicitarRenovacionCredencial(usuario, "Nueva", "Ministerio de Desarrollo Social", id_lugar_de_entrega, id_tipo_credencial);              
             var parametros = new Dictionary<string, object>();
 
             parametros.Add("@id_usuario", usuario.Id);
@@ -1463,11 +1458,27 @@ namespace General.Repositorios
             parametros.Add("@id_vinculo", id_vinculo);
             parametros.Add("@id_lugar_de_entrega", id_lugar_de_entrega);
 
+            using (var tran = conexion.BeginTransaction())
+            {
+                try
+                {
+
             var tablaDatos = conexion.Ejecutar("dbo.Acre_SolicitarCredencialProvisoria", parametros);
             
             //acá cerrar transaccion
-
+            tran.Commit();
             return "ok";
+
+
+            }
+            catch (Exception e)
+            {
+             tran.Rollback();
+               throw new Exception(e.Message);
+              }
+            }
+
+
         }
 
         public List<TipoCredencial> GetTiposDeCredencial()
