@@ -133,6 +133,8 @@
     <Compile Include="Organigrama\PersonaContrato.cs" />
     <Compile Include="pdfs\CreadorDePdfs.cs" />
     <Compile Include="pdfs\EvaluacionDeDesempenioToPdfConverter.cs" />
+    <Compile Include="pdfs\GenReciboEmpleadoToPdfConverter.cs" />
+    <Compile Include="pdfs\GenReciboToPdfConverter.cs" />
     <Compile Include="pdfs\ModeloToPdfConverter.cs" />
     <Compile Include="Portal\Consulta.cs" />
     <Compile Include="Portal\Credencial.cs" />
@@ -144,7 +146,15 @@
     <Compile Include="Portal\Legajo.cs" />
     <Compile Include="Portal\Respuesta.cs" />
     <Compile Include="Postular\ReporteDePostulaciones.cs" />
+    <Compile Include="Recibos\Cabecera.cs" />
+    <Compile Include="Recibos\Detalle.cs" />
+    <Compile Include="Recibos\Numalet.cs" />
+    <Compile Include="Recibos\Recibo.cs" />
+    <Compile Include="Recibos\ReciboFirmado.cs" />
+    <Compile Include="Recibos\TipoLiquidacion.cs" />
     <Compile Include="Repositorios\AccionesMobi.cs" />
+    <Compile Include="Repositorios\RepositorioDeArchivosFirmados.cs" />
+    <Compile Include="Repositorios\RepositorioDeTipoDeLiquidacion.cs" />
     <Compile Include="Repositorios\CredencialParaImpresion.cs" />
     <Compile Include="Repositorios\EstadoMoBi.cs" />
     <Compile Include="Repositorios\EstadoContrato.cs" />
@@ -288,6 +298,7 @@
     <Compile Include="Repositorios\RepositorioLazySingleton.cs" />
     <Compile Include="Postular\Sexo.cs" />
     <Compile Include="Postular\TipoDeDocumento.cs" />
+    <Compile Include="Repositorios\RepositorioRecibosFirmados.cs" />
     <Compile Include="Repositorios\SolicitudCredencial.cs" />
     <Compile Include="Repositorios\SueldoPersona.cs" />
     <Compile Include="Repositorios\TipoCredencial.cs" />
@@ -532,7 +543,6 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>
