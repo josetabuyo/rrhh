@@ -46,12 +46,7 @@
         $(document).ready(function () {
             var comites = JSON.parse($('#ComitesHiddenField').val());
 
-
-
             Backend.start(function () {
-
-
-
                 var spinner = new Spinner({ scale: 2 });
                 spinner.spin($("html")[0]);
 
@@ -99,13 +94,13 @@
                                         return $vexContent;
                                     },
                                     css: {
-                                        'padding-top': "4%",
+                                        'padding-top': "2%",
                                         'padding-bottom': "0%",
                                         'background-color': "rgb(249, 248, 248)"
                                     },
                                     contentCSS: {
                                         width: "80%",
-                                        height: "80%"
+                                        height: "95%"
                                     }
                                 });
                             });

@@ -10,18 +10,17 @@
             <fieldset>
                 <div>
                     Fecha:
-                    <input id="fecha_1" campo="fecha_1" type="text" placeholder="dd/mm/aaaa" style="flex-grow: 100;
-                        margin-left: 20px;" />
+                    <input id="fecha_1" campo="fecha_1" type="text" placeholder="dd/mm/aaaa" style="flex-grow: 100;margin-left: 20px;height:24px!important;" />
                 </div>
                 <div class="grupo_campos nueva_linea">
                     <label for="hora">
                         Hora <em>*</em></label>
-                    <input id="hora" type="text" style="width: 160px;" maxlength="100" />
+                    <input id="hora" type="text" style="width: 160px;height:24px!important;" maxlength="100" />
                 </div>
                 <div class="grupo_campos nueva_linea">
                     <label for="lugar">
                         Lugar <em>*</em></label>
-                    <input id="txt_lugar" type="text" style="width: 160px;" maxlength="100" />
+                    <input id="txt_lugar" type="text" style="width: 160px;height:24px!important;" maxlength="100" />
                 </div>
 
                 <div class="grupo_campos nueva_linea">
@@ -41,16 +40,16 @@
                 <div class="grupo_campos nueva_linea">
                     <!--<legend><a id="btn_agregar_ue" class="link">Agregar Unidad de Evaluacion</a></legend>-->
                     Unidades de Evaluacion
-                    <div id="ContenedorPlanillaUnidadesEvaluacion" runat="server">
+                    <div id="ContenedorPlanillaUnidadesEvaluacion" runat="server" style="overflow-y: scroll;height:360px;border;">
                         <table id="tabla_unidades_evaluacion" class="table table-striped">
                         </table>
                     </div>
+                </div>            
+                <div class="btn-fld" align="right" style="align:right; width:100%">
+                    <input type="button" class="btn btn-primary" id="btn_guardar" align="right" value="Guardar" />
                 </div>
             </fieldset>
-            <div class="btn-fld">
-                <input type="button" class="btn btn-primary" id="btn_guardar" value="Agregar" />
-            </div>
-            <input type="hidden" id="txt_AntecedenteAcademico_id" />
+
         </div>
     </div>
   </div>
@@ -60,21 +59,16 @@
         start: function (model, ui) {
             var _this = this;
             this.ui = ui;
-            //var ui = $("#pantallaDetalleComites").clone();
-
-
-            //fix del datepicker cuando haces .clone() de la plantilla, quedan dos componentes
-            //con el mismo id, y jquery datepicker funciona mal.
-            //ui.find('#fecha_1').attr("id", "fecha_clone_id");
+            this.model = model;
 
             ui.find('#fecha_1').datepicker({
                 dateFormat: "dd/mm/yy",
                 onSelect: function (date) {
-                    //ui.find('#fecha_clone_id').text('test');
+
                 }
             });
-            ui.find('#fecha_clone_id').datepicker("setDate", new Date(model.Fecha));
-            
+            ui.find('#fecha_1').datepicker("setDate", new Date(model.Fecha));
+
             ui.find('#txt_lugar').val(model.Lugar);
 
 
@@ -101,6 +95,12 @@
                 columnas_ue.push(new Columna("", {
                     generar: function (ue) {
                         var buttons_ue = $("#plantillas .botonera_grilla_ues").clone();
+                        if (model.UnidadesEvaluacion.find(function (u) {
+                            u.Id == ue.Id; 
+                         }) != null) {
+                            buttons_ue.find("#chk_selected").prop('checked', true);
+                        }
+                        //buttons_ue.find("#chk_selected").prop('checked', true);
                         return buttons_ue;
                     }
                 }));
@@ -113,8 +113,13 @@
                 _this.grilla_ue.SetOnRowClickEventHandler(function (ues) { });
                 _this.grilla_ue.CambiarEstiloCabecera("estilo_tabla_portal");
                 //_this.grilla_ue.CargarObjetos(model.UnidadesEvaluacion);
-                _this.grilla_ue.CargarObjetos(estadosEvaluaciones.filter(function (i) { return i.IdPeriodo == id_periodo; }));
+                _this.grilla_ue.CargarObjetos(estadosEvaluaciones.filter(function (i) {
+                    return i.IdPeriodo == id_periodo; 
+                }));
                 _this.grilla_ue.DibujarEn(grilla_ue);
+
+
+
             }
 
             Backend.GetPeriodosEvaluacion()
@@ -162,4 +167,5 @@
 
         }
     };
+    //# sourceURL=PantallaDetalleComite.htm.js
 </script>
