@@ -2,7 +2,19 @@
 
 <head>
     <style type="text/css">
-
+        #pantallaDetalleComites
+        {
+            overflow: auto;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+        }
+        #ContenedorPlanillaUnidadesEvaluacion
+        {
+            overflow: hidden;
+        }
     </style>
 
     <link rel="stylesheet" href="../estilos/SelectorDePersonas.css" type="text/css"/> 
@@ -161,8 +173,8 @@
             GRILLA INTEGRANTES COMITE
             ******/
 
-            var grilla_integrantes = ui.find("#tabla_integrantes");
-            grilla_integrantes.empty();
+            var tabla_grilla_integrantes = ui.find("#tabla_integrantes");
+            tabla_grilla_integrantes.empty();
             var columnas_integrantes = [];
             columnas_integrantes.push(new Columna("DNI", { generar: function (int) { return int.Dni; } }));
             columnas_integrantes.push(new Columna("Apellido", { generar: function (int) { return int.Apellido; } }));
@@ -180,11 +192,11 @@
             }));
 
 
-            _this.columnas_integrantes = new Grilla(columnas_integrantes);
-            _this.columnas_integrantes.SetOnRowClickEventHandler(function (int) { });
-            _this.columnas_integrantes.CambiarEstiloCabecera("estilo_tabla_portal");
-            _this.columnas_integrantes.CargarObjetos(model.Integrantes);
-            _this.columnas_integrantes.DibujarEn(grilla_integrantes);
+            _this.grilla_integrantes = new Grilla(columnas_integrantes);
+            _this.grilla_integrantes.SetOnRowClickEventHandler(function (int) { });
+            _this.grilla_integrantes.CambiarEstiloCabecera("estilo_tabla_portal");
+            _this.grilla_integrantes.CargarObjetos(model.Integrantes);
+            _this.grilla_integrantes.DibujarEn(tabla_grilla_integrantes);
 
 
             var proveedor_ajax = new ProveedorAjax("../");
@@ -195,9 +207,15 @@
                 placeholder: "nombre, apellido, documento o legajo"
             });
             selector_integrantes.alSeleccionarUnaPersona = function (la_persona_seleccionada) {
-                model.Integrantes.push(la_persona_seleccionada);
-                debugger;
-                _this.columnas_integrantes.CargarObjetos(model.Integrantes);
+                var persona = {
+                    Dni: la_persona_seleccionada.documento,
+                    Apellido: la_persona_seleccionada.apellido,
+                    Nombre: la_persona_seleccionada.nombre,
+                    Id: la_persona_seleccionada.id
+                }
+                model.Integrantes.push(persona);
+                _this.grilla_integrantes.BorrarContenido();
+                _this.grilla_integrantes.CargarObjetos(model.Integrantes);
             };
         }
     };
