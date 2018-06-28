@@ -84,7 +84,10 @@
                 <div id="titulo_doc">Doc:</div>
                 <div id="documento"></div>         
             </div>   
-        </div>        
+        </div>   
+        <div class="botonera_grilla_participantes">
+            <input type=button id=btn_eliminar_participante value="eliminar"/>
+        </div>     
     </div>
   </div>
 <script type="text/javascript" src="../Scripts/select2-3.4.4/Select2.min.js"></script>
@@ -175,6 +178,7 @@
 
             var tabla_grilla_integrantes = ui.find("#tabla_integrantes");
             tabla_grilla_integrantes.empty();
+
             var columnas_integrantes = [];
             columnas_integrantes.push(new Columna("DNI", { generar: function (int) { return int.Dni; } }));
             columnas_integrantes.push(new Columna("Apellido", { generar: function (int) { return int.Apellido; } }));
@@ -182,12 +186,13 @@
 
             columnas_integrantes.push(new Columna("Acciones", {
                 generar: function (int) {
-                    /*var buttons_ue = $("#plantillas .botonera_grilla_ues").clone();
-                    var btn_eliminar_ue = buttons_ue.find("#btn_eliminar_ue");
-                    btn_eliminar_ue.click(function () {
-                    alert('test');
+                    //debugger;
+                    var buttons_integrantes = $("#plantillas .botonera_grilla_participantes").clone();
+                    var btn_eliminar_participante = buttons_integrantes.find("#btn_eliminar_participante");
+                    btn_eliminar_participante.click(function () {
+                        _this.grilla_integrantes.EliminarObjeto(int);
                     });
-                    return buttons_ue;*/
+                    return buttons_integrantes;
                 }
             }));
 
