@@ -190,6 +190,9 @@
                     var buttons_integrantes = $("#plantillas .botonera_grilla_participantes").clone();
                     var btn_eliminar_participante = buttons_integrantes.find("#btn_eliminar_participante");
                     btn_eliminar_participante.click(function () {
+                        model.Integrantes = _.reject(model.Integrantes, function (item) {
+                            return item.Id === int.Id; 
+                        });
                         _this.grilla_integrantes.EliminarObjeto(int);
                     });
                     return buttons_integrantes;
