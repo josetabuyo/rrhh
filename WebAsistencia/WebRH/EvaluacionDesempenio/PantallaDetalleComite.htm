@@ -72,6 +72,16 @@
         </div>
     </div>
     <div id="plantillas" syle= "display: hidden">
+        <div class="combo_caracter">
+            <select>
+                <option>Representante Gremial UPCN</option>
+                <option>Representante Gremial ATE</option>
+                <option>Representante Gremial ATE</option>
+                <option>Coordinador del proceso de Selección</option>
+                <option>Evaluador</option>
+            </select>
+        </div>
+
         <div class="vista_persona_en_selector">
             <div id="contenedor_legajo" class="label label-warning">
                 <div id="titulo_legajo">Leg:</div>
@@ -137,8 +147,8 @@
                     generar: function (ue) {
                         var buttons_ue = $("#plantillas .botonera_grilla_ues").clone();
                         if (model.UnidadesEvaluacion.find(function (u) {
-                            u.Id == ue.Id; 
-                         }) != null) {
+                            u.Id == ue.Id;
+                        }) != null) {
                             buttons_ue.find("#chk_selected").prop('checked', true);
                         }
                         //buttons_ue.find("#chk_selected").prop('checked', true);
@@ -155,7 +165,7 @@
                 _this.grilla_ue.CambiarEstiloCabecera("estilo_tabla_portal");
                 //_this.grilla_ue.CargarObjetos(model.UnidadesEvaluacion);
                 _this.grilla_ue.CargarObjetos(estadosEvaluaciones.filter(function (i) {
-                    return i.IdPeriodo == id_periodo; 
+                    return i.IdPeriodo == id_periodo;
                 }));
                 _this.grilla_ue.DibujarEn(grilla_ue);
 
@@ -188,6 +198,10 @@
             columnas_integrantes.push(new Columna("DNI", { generar: function (int) { return int.Dni; } }));
             columnas_integrantes.push(new Columna("Apellido", { generar: function (int) { return int.Apellido; } }));
             columnas_integrantes.push(new Columna("Nombre", { generar: function (int) { return int.Nombre; } }));
+            columnas_integrantes.push(new Columna("En Caracter de", { generar: function () {
+                return $("#plantillas .combo_caracter").clone();
+
+            } }));
 
             columnas_integrantes.push(new Columna("Acciones", {
                 generar: function (int) {
@@ -196,7 +210,7 @@
                     var btn_eliminar_participante = buttons_integrantes.find("#btn_eliminar_participante");
                     btn_eliminar_participante.click(function () {
                         model.Integrantes = _.reject(model.Integrantes, function (item) {
-                            return item.Id === int.Id; 
+                            return item.Id === int.Id;
                         });
                         _this.grilla_integrantes.EliminarObjeto(int);
                     });
