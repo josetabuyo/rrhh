@@ -46,7 +46,12 @@
         $(document).ready(function () {
             var comites = JSON.parse($('#ComitesHiddenField').val());
 
+
+
             Backend.start(function () {
+
+
+
                 var spinner = new Spinner({ scale: 2 });
                 spinner.spin($("html")[0]);
 
@@ -85,24 +90,27 @@
                             hidden_model.attr('value', JSON.stringify(model));
 
                             btn_editar.click(function () {
-                                vex.defaultOptions.className = 'vex-theme-os';
-                                vex.open({
-                                    afterOpen: function ($vexContent) {
-                                        $vexContent.load('PantallaDetalleComite.htm', function () {
-                                            PantallaDetalleComite.start(model, $vexContent);
-                                        });
-                                        return $vexContent;
-                                    },
-                                    css: {
-                                        'padding-top': "2%",
-                                        'padding-bottom': "0%",
-                                        'background-color': "rgb(249, 248, 248)"
-                                    },
-                                    contentCSS: {
-                                        width: "80%",
-                                        height: "95%"
-                                    }
-                                });
+                                localStorage.setItem("detalleComite", JSON.stringify(model));
+                                window.location.replace('PantallaDetalleComite.aspx');
+//                                
+//                                vex.defaultOptions.className = 'vex-theme-os';
+//                                vex.open({
+//                                    afterOpen: function ($vexContent) {
+//                                        $vexContent.load('PantallaDetalleComite.htm', function () {
+//                                            PantallaDetalleComite.start(model, $vexContent);
+//                                        });
+//                                        return $vexContent;
+//                                    },
+//                                    css: {
+//                                        'padding-top': "4%",
+//                                        'padding-bottom': "0%",
+//                                        'background-color': "rgb(249, 248, 248)"
+//                                    },
+//                                    contentCSS: {
+//                                        width: "80%",
+//                                        height: "98%"
+//                                    }
+//                                });
                             });
 
                             btn_eliminar.click(function () {
