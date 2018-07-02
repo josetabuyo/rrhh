@@ -1,13 +1,14 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="PantallaDetalleComite.aspx.cs" Inherits="EvaluacionDesempenio_PantallaDetalleComite" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="PantallaDetalleComite.aspx.cs"
+    Inherits="EvaluacionDesempenio_PantallaDetalleComite" %>
+
 <%@ Register Src="~/BarraMenu/BarraMenu.ascx" TagName="BarraMenu" TagPrefix="uc2" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Detalle comité</title>
     <%= Referencias.Css("../")%>
     <%= Referencias.Javascript("../")%>
-       <style type="text/css">
+    <style type="text/css">
         #pantallaDetalleComite
         {
             padding: 20px;
@@ -16,16 +17,21 @@
         {
             overflow: hidden;
         }
+        footer {
+            background-color: #333;
+            width: 100%;
+            bottom: 0;
+            position: relative;
+        }
     </style>
-
-    <link rel="stylesheet" href="../estilos/SelectorDePersonas.css" type="text/css"/> 
-    <link href="../scripts/select2-3.4.4/select2.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="../estilos/SelectorDePersonas.css" type="text/css" />
+    <link href="../scripts/select2-3.4.4/select2.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <form id="form1" runat="server">
-        <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:18px; font-weight: bold; padding-top:25px;'>Datos<br/>Personales</span> <br/> "
-            UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
-        <div id="pantallaDetalleComite" class="">
+    <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:18px; font-weight: bold; padding-top:25px;'>Datos<br/>Personales</span> <br/> "
+        UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
+    <div id="pantallaDetalleComite" class="">
         <div id="contenido_form_comite" class="fondo_form">
             <fieldset>
                 <div>
@@ -43,11 +49,9 @@
                         Lugar <em>*</em></label>
                     <input id="txt_lugar" type="text" style="width: 160px;" maxlength="100" />
                 </div>
-
                 <div id="cmb_selector_integrantes" class="selector_personas">
-                    <input id="buscador" type=hidden class="buscarPersona" />
+                    <input id="buscador" type="hidden" class="buscarPersona" />
                 </div>
-
                 <div class="grupo_campos nueva_linea">
                     <!--<legend><a id="btn_agregar_ue" class="link">Agregar Unidad de Evaluacion</a></legend>-->
                     Integrantes
@@ -72,39 +76,46 @@
                 </div>
             </fieldset>
             <div class="btn-fld">
-                <input type="button" class="btn btn-primary" id="btn_guardar" value="Agregar" />
+                <input type="button" class="btn btn-primary" id="btn_guardar" value="Siguiente" />
             </div>
             <input type="hidden" id="txt_AntecedenteAcademico_id" />
         </div>
     </div>
-    <div id="plantillas" syle= "display: hidden">
+    <div id="plantillas" syle="display: hidden">
         <div class="vista_persona_en_selector">
             <div id="contenedor_legajo" class="label label-warning">
-                <div id="titulo_legajo">Leg:</div>
-                <div id="legajo"></div>
-            </div> 
-            <div id="nombre"></div>
-            <div id="apellido"></div>
+                <div id="titulo_legajo">
+                    Leg:</div>
+                <div id="legajo">
+                </div>
+            </div>
+            <div id="nombre">
+            </div>
+            <div id="apellido">
+            </div>
             <div id="contenedor_doc" class="label label-default">
-                <div id="titulo_doc">Doc:</div>
-                <div id="documento"></div>         
-            </div>   
-        </div>   
+                <div id="titulo_doc">
+                    Doc:</div>
+                <div id="documento">
+                </div>
+            </div>
+        </div>
         <div class="botonera_grilla_participantes">
-            <input type=button id=btn_eliminar_participante value="eliminar"/>
-        </div>     
+            <input type="button" id="btn_eliminar_participante" value="eliminar" />
+        </div>
         <div class="celda_en_caracter_de_grilla_participantes">
             <select class="enCaracterDe">
                 <option>Representante Gremial UPCN</option>
                 <option>Representante Gremial ATE</option>
                 <option>Coordinador del proceso de Selección</option>
-                <option>Evaluador</option>             
+                <option>Evaluador</option>
             </select>
-        </div> 
+        </div>
     </div>
-    </form>
-</body>
 
+    </form>    
+
+</body>
 <script type="text/javascript" src="../Scripts/select2-3.4.4/Select2.min.js"></script>
 <script type="text/javascript" src="../Scripts/select2-3.4.4/select2_locale_es.js"></script>
 <script type="text/javascript" src="../Scripts/RepositorioDePersonas.js"></script>
@@ -203,7 +214,8 @@
                     columnas_integrantes.push(new Columna("En caracter de", { generar: function (int) {
                         var celda = $("#plantillas .celda_en_caracter_de_grilla_participantes").clone();
                         return celda;
-                    }}));
+                    } 
+                    }));
                     columnas_integrantes.push(new Columna("Acciones", {
                         generar: function (int) {
                             //debugger;
@@ -253,5 +265,4 @@
     });
    
 </script>
-
 </html>

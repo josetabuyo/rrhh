@@ -46,12 +46,7 @@
         $(document).ready(function () {
             var comites = JSON.parse($('#ComitesHiddenField').val());
 
-
-
             Backend.start(function () {
-
-
-
                 var spinner = new Spinner({ scale: 2 });
                 spinner.spin($("html")[0]);
 

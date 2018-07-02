@@ -177,7 +177,7 @@ namespace General.Repositorios
             return resultado;
         }
 
-        private void CrearOCompletarComite(RowDeDatos row, List<ComiteEvaluacionDesempenio> resultado)
+        protected void CrearOCompletarComite(RowDeDatos row, List<ComiteEvaluacionDesempenio> resultado)
         {
             if (!resultado.Any(c => c.Id == row.GetInt("id_comite")))
             {
@@ -190,8 +190,7 @@ namespace General.Repositorios
             }
             var comite = resultado.Find(c => c.Id == row.GetInt("id_comite"));
             ConstruirIntegranteComite(comite, row);
-            ConstruirUnidadEvaluacionComite(comite, row);
-
+            //ConstruirUnidadEvaluacionComite(comite, row);
         }
 
         private void ConstruirUnidadEvaluacionComite(ComiteEvaluacionDesempenio comite, RowDeDatos row)
@@ -226,7 +225,26 @@ namespace General.Repositorios
             comite.Integrantes = new List<IntegranteComiteEvalDesempenio>();
             comite.UnidadesEvaluacion = new List<UnidadDeEvaluacion>();
             comite.Periodo = GetPeriodosEvaluacion().Find(p => p.id_periodo.Equals(row.GetInt("idPeriodo")));
+
+            AgregarUnidadesEvaluacion(comite);
+
             return comite;
+        }
+
+        protected void AgregarUnidadesEvaluacion(ComiteEvaluacionDesempenio comite)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@idComite", comite.Id);
+            var tablaDatos = _conexion.Ejecutar("dbo.EVAL_GET_UES_Comite", parametros);
+            var resultado = new List<ComiteEvaluacionDesempenio>();
+            if (tablaDatos.Rows.Count > 0)
+            {
+                tablaDatos.Rows.ForEach(row =>
+                {
+                    ConstruirUnidadEvaluacionComite(comite, row);
+                });
+            }
+
         }
 
         protected RespuestaGetAgentesEvaluablesPor GetAgentesEvaluablesPor(Usuario usuario, bool ModoVerificadorGDE)
