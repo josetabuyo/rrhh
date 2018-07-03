@@ -186,7 +186,7 @@ namespace General.Repositorios
             else
             {
                 var new_comite = resultado.Find(c => c.Id == row.GetInt("id_comite"));
-                resultado.Add(new_comite);
+                //resultado.Add(new_comite);
             }
             var comite = resultado.Find(c => c.Id == row.GetInt("id_comite"));
             ConstruirIntegranteComite(comite, row);
@@ -233,6 +233,7 @@ namespace General.Repositorios
 
         protected void AgregarUnidadesEvaluacion(ComiteEvaluacionDesempenio comite)
         {
+            if (comite.UnidadesEvaluacion.Count > 0) return;
             var parametros = new Dictionary<string, object>();
             parametros.Add("@idComite", comite.Id);
             var tablaDatos = _conexion.Ejecutar("dbo.EVAL_GET_UES_Comite", parametros);

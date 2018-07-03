@@ -23,7 +23,7 @@ public partial class EvaluacionDesempenio_ABMComites : System.Web.UI.Page
             catch (Exception excepcion)
             {
 
-                throw new Exception("No se pudo traer los moites. Mensaje: " + excepcion.Message);
+                throw new Exception("No se pudo traer los comites. Mensaje: " + excepcion.Message);
             }
 
 
