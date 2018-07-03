@@ -8,22 +8,6 @@
     <title>Detalle comité</title>
     <%= Referencias.Css("../")%>
     <%= Referencias.Javascript("../")%>
-    <style type="text/css">
-        #pantallaDetalleComite
-        {
-            padding: 20px;
-        }
-        #ContenedorPlanillaUnidadesEvaluacion
-        {
-            overflow: hidden;
-        }
-        footer {
-            background-color: #333;
-            width: 100%;
-            bottom: 0;
-            position: relative;
-        }
-    </style>
     <link rel="stylesheet" href="../estilos/SelectorDePersonas.css" type="text/css" />
     <link href="../scripts/select2-3.4.4/select2.css" rel="stylesheet" type="text/css" />
 </head>
