@@ -111,6 +111,9 @@
                 <option>Evaluador</option>
             </select>
         </div>
+        <div class="botonera_grilla_ues">
+            <input class="cb_ue" type="checkbox" />
+        </div>
     </div>
 
     </form>    
@@ -170,12 +173,15 @@
                         columnas_ue.push(new Columna("", {
                             generar: function (ue) {
                                 var buttons_ue = $("#plantillas .botonera_grilla_ues").clone();
+                                var found = JSON.parse(localStorage.getItem("detalleComite")).UnidadesEvaluacion.filter(function (u) { return u.Id == ue.Id })
+                                if (found.length !=0) {
+                                    buttons_ue.find('.cb_ue').attr('checked', 'true');
+                                }
                                 return buttons_ue;
                             }
                         }));
 
                         var estadosEvaluaciones = JSON.parse(localStorage.getItem("estadosEvaluaciones"));
-                        debugger;
                         var id_periodo = ui.find("#cmb_periodo").val();
 
                         _this.grilla_ue = new Grilla(columnas_ue);
@@ -214,7 +220,7 @@
                     columnas_integrantes.push(new Columna("En caracter de", { generar: function (int) {
                         var celda = $("#plantillas .celda_en_caracter_de_grilla_participantes").clone();
                         return celda;
-                    } 
+                    }
                     }));
                     columnas_integrantes.push(new Columna("Acciones", {
                         generar: function (int) {
