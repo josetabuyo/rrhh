@@ -157,10 +157,16 @@
                         columnas_ue.push(new Columna("", {
                             generar: function (ue) {
                                 var buttons_ue = $("#plantillas .botonera_grilla_ues").clone();
+                                var cb = buttons_ue.find('.cb_ue');
                                 var found = JSON.parse(localStorage.getItem("detalleComite")).UnidadesEvaluacion.filter(function (u) { return u.Id == ue.Id })
-                                if (found.length !=0) {
-                                    buttons_ue.find('.cb_ue').attr('checked', 'true');
+                                if (found.length != 0) {
+                                    cb.attr('checked', 'true');
                                 }
+
+                                cb.click(function (e) {
+                                    Backend.EvalAddUnidadEvaluacionAComite(1, 1)    
+                                });
+
                                 return buttons_ue;
                             }
                         }));

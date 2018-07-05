@@ -89,6 +89,20 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public void EvalAddUnidadEvaluacionAComite(int idComite, int idUnidadEvaluacion)
+    {
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        repo.AgregarUnidadEvaluacionComite(idComite, idUnidadEvaluacion);
+    }
+
+    [WebMethod]
+    public void EvalRemoveUnidadEvaluacionAComite(int idComite, int idUnidadEvaluacion)
+    {
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        repo.RemoverUnidadEvaluacionAComite(idComite, idUnidadEvaluacion);
+    }
+
+    [WebMethod]
     public List<ComiteEvaluacionDesempenio> GetAllComites()
     {
         var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());

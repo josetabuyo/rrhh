@@ -153,6 +153,14 @@ namespace General.Repositorios
             _conexion.EjecutarEscalar("dbo.EVAL_INS_UnidadEvaluacionComite", parametros);
         }
 
+        public void RemoverUnidadEvaluacionAComite(int idComite, int idUnidadEvaluacion)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@idComite", idComite);
+            parametros.Add("@idUnidadEvaluacion", idUnidadEvaluacion);
+            _conexion.EjecutarEscalar("dbo.EVAL_DEL_UnidadEvaluacionComite", parametros);
+        }
+
         public void AgregarIntegranteComite(int idComite, IntegranteComiteEvalDesempenio integrante)
         {
             var parametros = new Dictionary<string, object>();
