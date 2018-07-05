@@ -36,44 +36,60 @@ SubidorDeImagenes.prototype.subirProximaImagen = function (onImagenLista, recort
     img.crossOrigin = 'Anonymous';
     img.src = src;
     img.onload = function () {
-        canvas.height = img.height;
-        canvas.width = img.width;
-        ctx.drawImage(img, 0, 0);
+        var max_size = 500;
+        var width = img.width;
+        var height = img.height;
+
+        if (width > height) {
+            if (width > max_size) {
+                height *= max_size / width;
+                width = max_size;
+            }
+        } else {
+            if (height > max_size) {
+                width *= max_size / height;
+                height = max_size;
+            }
+        }
+        canvas.width = width;
+        canvas.height = height;
+
+        ctx.drawImage(img, 0, 0, width, height);
         var bytes_imagen = canvas.toDataURL('image/jpg');
         bytes_imagen = bytes_imagen.replace(/^data:image\/(png|jpg);base64,/, "");
 
 
-//        if (recortar) {
-//            vex.defaultOptions.className = 'vex-theme-os';
-//            vex.open({
-//                afterOpen: function ($vexContent) {
-//                    var vista_imagen = new VistaThumbnail({
-//                        bytes_imagen: bytes_imagen,
-//                        contenedor: $vexContent,
-//                        alRecortar: function (bytes_imagen_recortada) {
-//                            Backend.SubirImagen(bytes_imagen_recortada).onSuccess(function (id_imagen) {
-//                                _this.indiceFileSubiendo += 1;
+        //        if (recortar) {
+        //            vex.defaultOptions.className = 'vex-theme-os';
+        //            vex.open({
+        //                afterOpen: function ($vexContent) {
+        //                    var vista_imagen = new VistaThumbnail({
+        //                        bytes_imagen: bytes_imagen,
+        //                        contenedor: $vexContent,
+        //                        alRecortar: function (bytes_imagen_recortada) {
+        //                            Backend.SubirImagen(bytes_imagen_recortada).onSuccess(function (id_imagen) {
+        //                                _this.indiceFileSubiendo += 1;
 
-//                                onImagenLista(id_imagen, bytes_imagen_recortada);
+        //                                onImagenLista(id_imagen, bytes_imagen_recortada);
 
-//                                if (_this.indiceFileSubiendo >= _this.colaDeSubida.length) return;
-//                                _this.subirProximaImagen(onImagenLista);
-//                            });
-//                        }
-//                    });
+        //                                if (_this.indiceFileSubiendo >= _this.colaDeSubida.length) return;
+        //                                _this.subirProximaImagen(onImagenLista);
+        //                            });
+        //                        }
+        //                    });
 
-//                    return $vexContent;
-//                },
-//                css: {
-//                    'padding-top': "4%",
-//                    'padding-bottom': "0%"
-//                },
-//                contentCSS: {
-//                    width: "80%",
-//                    height: "80%"
-//                }
-//            });
-//        } else {
+        //                    return $vexContent;
+        //                },
+        //                css: {
+        //                    'padding-top': "4%",
+        //                    'padding-bottom': "0%"
+        //                },
+        //                contentCSS: {
+        //                    width: "80%",
+        //                    height: "80%"
+        //                }
+        //            });
+        //        } else {
 
         Backend.SubirImagen(bytes_imagen).onSuccess(function (id_imagen) {
             _this.indiceFileSubiendo += 1;
@@ -84,6 +100,6 @@ SubidorDeImagenes.prototype.subirProximaImagen = function (onImagenLista, recort
             _this.subirProximaImagen(onImagenLista);
         });
 
-//        }
+        //        }
     };
 };
