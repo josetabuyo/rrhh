@@ -33,6 +33,7 @@ using System.Web.Hosting;
 using System.Runtime.Serialization.Formatters.Binary;
 using iTextSharp.text.pdf;
 using iTextSharp.text;
+using System.Data.SqlClient;
 
 
 [WebService(Namespace = "http://wsviaticos.gov.ar/")]
@@ -89,10 +90,20 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public void EvalAddUnidadEvaluacionAComite(int idComite, int idUnidadEvaluacion)
+    public VoidRespuestaWS EvalAddUnidadEvaluacionAComite(int idComite, int idUnidadEvaluacion)
     {
-        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
-        repo.AgregarUnidadEvaluacionComite(idComite, idUnidadEvaluacion);
+        var respuesta = new VoidRespuestaWS();
+        try
+        {
+            var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+            repo.AgregarUnidadEvaluacionComite(idComite, idUnidadEvaluacion);
+        }
+        catch (Exception e)
+        {
+            respuesta.MensajeDeErrorAmigable = "Se produjo un error al intentar agregar la unidad de evaluacion a la unidad de comite";
+            respuesta.setException(e);
+        }
+        return respuesta;
     }
 
     [WebMethod]

@@ -108,6 +108,7 @@
 <script type="text/javascript" src="../Scripts/RepositorioDePersonas.js"></script>
 <script type="text/javascript" src="../Scripts/Persona.js"></script>
 <script type="text/javascript" src="../Scripts/SelectorDePersonas.js"></script>
+<script type="text/javascript" src="../Scripts/Spin.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         Backend.start(function () {
@@ -164,7 +165,19 @@
                                 }
 
                                 cb.click(function (e) {
-                                    Backend.EvalAddUnidadEvaluacionAComite(1, 1)    
+                                    var spinner = new Spinner({ scale: 2 });
+                                    spinner.spin($("html")[0]);
+
+                                    Backend.EvalAddUnidadEvaluacionAComite(1, 1)
+                                    .onSuccess(function (res) {
+                                        if (res.DioError) {
+                                            alert(res.MensajeDeErrorAmigable);
+                                        }
+                                        //spinner.stop();
+                                    }).onError(function (err) {
+                                        alert("se produjo un error en la comunicación");
+                                        spinner.stop();
+                                    });
                                 });
 
                                 return buttons_ue;
