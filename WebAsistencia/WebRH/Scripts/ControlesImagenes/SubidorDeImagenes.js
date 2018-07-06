@@ -1,30 +1,30 @@
 ﻿var SubidorDeImagenes = function () {
 };
 
-SubidorDeImagenes.prototype.subirImagenes = function (onImagenLista, recortar) {
+SubidorDeImagenes.prototype.subirImagenes = function (onImagenLista, recortar, max_size) {
     var _this = this;
     var fileInputImagenes = $('<input type="file" multiple />')[0];
     fileInputImagenes.addEventListener("change", function () {
         _this.colaDeSubida = fileInputImagenes.files;
         _this.indiceFileSubiendo = 0;
-        _this.subirProximaImagen(onImagenLista);
+        _this.subirProximaImagen(onImagenLista, recortar, max_size);
     }, false);
     $(fileInputImagenes).click();
 };
 
-SubidorDeImagenes.prototype.subirImagen = function (onImagenLista, recortar) {
+SubidorDeImagenes.prototype.subirImagen = function (onImagenLista, recortar, max_size) {
     var _this = this;
 
     var fileInputImagenes = $('<input type="file" />')[0];
     fileInputImagenes.addEventListener("change", function () {
         _this.colaDeSubida = fileInputImagenes.files;
         _this.indiceFileSubiendo = 0;
-        _this.subirProximaImagen(onImagenLista, recortar);
+        _this.subirProximaImagen(onImagenLista, recortar, max_size);
     }, false);
     $(fileInputImagenes).click();
 };
 
-SubidorDeImagenes.prototype.subirProximaImagen = function (onImagenLista, recortar) {
+SubidorDeImagenes.prototype.subirProximaImagen = function (onImagenLista, recortar, max_size) {
     var _this = this;
 
     var file = _this.colaDeSubida[_this.indiceFileSubiendo];
@@ -36,21 +36,23 @@ SubidorDeImagenes.prototype.subirProximaImagen = function (onImagenLista, recort
     img.crossOrigin = 'Anonymous';
     img.src = src;
     img.onload = function () {
-        var max_size = 500;
         var width = img.width;
         var height = img.height;
 
-        if (width > height) {
-            if (width > max_size) {
-                height *= max_size / width;
-                width = max_size;
-            }
-        } else {
-            if (height > max_size) {
-                width *= max_size / height;
-                height = max_size;
+        if (max_size) {
+            if (width > height) {
+                if (width > max_size) {
+                    height *= max_size / width;
+                    width = max_size;
+                }
+            } else {
+                if (height > max_size) {
+                    width *= max_size / height;
+                    height = max_size;
+                }
             }
         }
+
         canvas.width = width;
         canvas.height = height;
 
