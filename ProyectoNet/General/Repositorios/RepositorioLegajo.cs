@@ -351,6 +351,86 @@ namespace General.Repositorios
 
         }
 
+        
+        public Recibo GetReciboDeSueldoPorID(int id_recibo)
+        {            
+            var recibo = new Recibo();
+            var listaReciboDetalle = new List<Detalle>();
+            var cabeceraRecibo = new Cabecera();
+
+            cabeceraRecibo = getCabeceraRecibo(id_recibo);
+
+            listaReciboDetalle = getDetalleRecibo(id_recibo);
+
+            recibo.cabecera = cabeceraRecibo;
+            recibo.detalles = listaReciboDetalle;
+
+            return recibo;
+
+        }
+
+        private Cabecera getCabeceraRecibo(int idRecibo)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@Id_recibo", idRecibo);
+            var cabeceraRecibo = new Cabecera();
+
+            var tablaDatos = conexion.Ejecutar("dbo.RPT_PLA_Recibo_Haberes_Header", parametros);
+
+            if (tablaDatos.Rows.Count > 0)
+            {
+                cabeceraRecibo.idRecibo = tablaDatos.Rows.First().GetInt("Id_Recibo", 0);
+                cabeceraRecibo.Legajo = tablaDatos.Rows.First().GetInt("Legajo", 0);
+                cabeceraRecibo.Agente = tablaDatos.Rows.First().GetString("Agente", "");
+                cabeceraRecibo.CUIL = tablaDatos.Rows.First().GetString("CUIL", "");
+                cabeceraRecibo.Oficina = tablaDatos.Rows.First().GetSmallintAsInt("Oficina", 0);
+                cabeceraRecibo.Orden = tablaDatos.Rows.First().GetSmallintAsInt("Orden", 0);
+                cabeceraRecibo.Bruto = tablaDatos.Rows.First().GetString("SBruto", "");
+                //cabeceraRecibo.Neto = tablaDatos.Rows.First().GetFloat("SNeto").ToString("C2");
+                cabeceraRecibo.Neto = tablaDatos.Rows.First().GetString("SNeto","");
+                cabeceraRecibo.Descuentos = tablaDatos.Rows.First().GetString("SDescuentos", "");
+                cabeceraRecibo.NivelGrado = tablaDatos.Rows.First().GetString("NivelGrado", "");
+                cabeceraRecibo.Area = tablaDatos.Rows.First().GetString("area", "");
+                cabeceraRecibo.Domicilio = tablaDatos.Rows.First().GetString("Domicilio", "");
+                cabeceraRecibo.FechaLiquidacion = tablaDatos.Rows.First().GetString("F_Liquidacion", "");
+                cabeceraRecibo.OpcionJubilatoria = tablaDatos.Rows.First().GetString("opcionJubilatoria", "");
+                cabeceraRecibo.TipoLiquidacion = tablaDatos.Rows.First().GetInt("TipoLiquidacion", 0);
+                cabeceraRecibo.DescripcionTipoLiquidacionYMas = tablaDatos.Rows.First().GetString("tipo_liquidacion", "");
+                cabeceraRecibo.Nro_Documento = tablaDatos.Rows.First().GetInt("Nro_Documento", 0);
+                cabeceraRecibo.Fecha_deposito = tablaDatos.Rows.First().GetDateTime("F_Deposito");
+
+                cabeceraRecibo.FechaIngreso = tablaDatos.Rows.First().GetDateTime("FechaIngreso");
+                cabeceraRecibo.CuentaBancaria = tablaDatos.Rows.First().GetString("Banco");
+
+            }
+
+            return cabeceraRecibo;
+        }
+
+        private List<Detalle> getDetalleRecibo(int idRecibo)
+        {
+
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@Id_Recibo", idRecibo);
+            var listaDetalleRecibo = new List<Detalle>();
+            var un_detalle = new Detalle();
+
+            var tablaDatos = conexion.Ejecutar("dbo.RPT_PLA_Recibos_Haberes_Detalle", parametros);
+
+            tablaDatos.Rows.ForEach(row =>
+            {
+                un_detalle = new Detalle();
+                un_detalle.Concepto = row.GetString("Concepto", "");
+                un_detalle.Aporte = row.GetDecimal("Aporte", 0);
+                un_detalle.Descuento = row.GetDecimal("Descuento", 0);
+                un_detalle.Descripcion = row.GetString("Descripcion", "");
+
+                listaDetalleRecibo.Add(un_detalle);
+            });
+
+            return listaDetalleRecibo;
+        }
+
         private List<object> traerDetalleRecibo(int idRecibo)
         {
 
@@ -1463,6 +1543,7 @@ namespace General.Repositorios
         {
             var tablaDatos = conexion.Ejecutar("dbo.Acre_GetAutorizantesCredenciales");
 
+
             List<Persona> autorizantes = new List<Persona>();
 
             tablaDatos.Rows.ForEach(row =>
@@ -1470,6 +1551,112 @@ namespace General.Repositorios
                 autorizantes.Add(new Persona(row.GetInt("Id"), row.GetString("Apellido"), row.GetString("Nombre")));
             });
             return autorizantes;
+        }
+
+        /*obtiene un resumen de los recibos de sueldo*/
+        public string GetRecibosResumen(int tipoLiquidacion, int anio, int mes)
+        {
+            var parametros = new Dictionary<string, object>();
+
+            if (tipoLiquidacion == 0)
+            { //entonces se trae todos los tipo de liquidacion
+                parametros.Add("@tipoLiquidacion", null);
+            }
+            else
+            {
+                parametros.Add("@tipoLiquidacion", tipoLiquidacion);
+            }
+            parametros.Add("@mes", mes);
+            parametros.Add("@año", anio);
+
+
+            var reciboResumen = new object();
+            var listaRecibosResumidos = new List<object>();
+
+            var tablaDatos = conexion.Ejecutar("dbo.PLA_GET_Recibos_Resumen", parametros);
+
+            if (tablaDatos.Rows.Count > 0)
+            {
+                tablaDatos.Rows.ForEach(row =>
+                {/*Tambien se puede crear un objeto contenedor de cada fila, esto me sirve para  retornar una 
+                  * lista en lugar de un objeto string json
+                  * 
+                    Persona persona = new Persona(row.GetInt("id_usuario"), row.GetInt("NroDocumento"), row.GetString("nombre"), row.GetString("apellido"), area);
+                    Respuesta respuesta = new Respuesta(
+                        row.GetInt("id_orden"),
+                        persona,
+                        row.GetDateTime("fecha_creacion"),
+                        row.GetString("texto"));
+                    */
+
+                    reciboResumen = new
+                    {
+                        Id_Recibo = row.GetInt("Id_Recibo"),
+                        Legajo = row.GetInt("legajo"),
+                        Cuil = row.GetString("Cuil"),
+                        Nyap = row.GetString("Nyap"),
+                        Nro_Orden = row.GetSmallintAsInt("Nro_Orden"),
+                    };
+
+
+                    listaRecibosResumidos.Add(reciboResumen);
+                });
+
+            }
+
+            return JsonConvert.SerializeObject(listaRecibosResumidos);
+
+        }
+
+
+        public string GetIdRecibosSinFirmar(int tipoLiquidacion, int anio, int mes)
+        {
+            var parametros = new Dictionary<string, object>();
+
+            if (tipoLiquidacion == 0)
+            { //entonces se trae todos los tipo de liquidacion
+                parametros.Add("@tipoLiquidacion", null);
+            }
+            else
+            {
+                parametros.Add("@tipoLiquidacion", tipoLiquidacion);
+            }
+            parametros.Add("@mes", mes);
+            parametros.Add("@año", anio);
+
+
+            var idRecibo = new object();
+            var listaIdRecibos = new List<object>();
+
+            var tablaDatos = conexion.Ejecutar("dbo.PLA_GET_ID_Recibos_Sin_Firmar", parametros);
+
+            if (tablaDatos.Rows.Count > 0)
+            {
+                tablaDatos.Rows.ForEach(row =>
+                {/*Tambien se puede crear un objeto contenedor de cada fila, esto me sirve para  retornar una 
+                  * lista en lugar de un objeto string json
+                  * 
+                    Persona persona = new Persona(row.GetInt("id_usuario"), row.GetInt("NroDocumento"), row.GetString("nombre"), row.GetString("apellido"), area);
+                    Respuesta respuesta = new Respuesta(
+                        row.GetInt("id_orden"),
+                        persona,
+                        row.GetDateTime("fecha_creacion"),
+                        row.GetString("texto"));
+                    */
+
+                    idRecibo = new
+                    {
+                        Id_Recibo = row.GetInt("Id_Recibo"),
+                    };
+
+
+                    listaIdRecibos.Add(idRecibo);
+                });
+
+            }
+
+            return JsonConvert.SerializeObject(listaIdRecibos);
+
         }
     }
 }

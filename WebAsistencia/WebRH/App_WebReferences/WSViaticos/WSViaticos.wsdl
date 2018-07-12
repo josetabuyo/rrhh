@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://wsviaticos.gov.ar/">
-      <s:element name="EvalCorregirCodigoGDE">
+      <s:element name="ConsultaExcelDDJJ104_Area">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="codigo_gde" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
@@ -200,6 +199,53 @@
           <s:element minOccurs="1" maxOccurs="1" name="basica" type="s:boolean" />
         </s:sequence>
       </s:complexType>
+      <s:element name="ConsultaExcelDDJJ104_AreaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaExcelDDJJ104_AreaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EvalVerificarCodigoGDE">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_evaluacion" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="codigo_gde" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EvalVerificarCodigoGDEResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EvalVerificarCodigoGDEResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EvalGuardarCodigoGDE">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="codigo_gde" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EvalGuardarCodigoGDEResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EvalGuardarCodigoGDEResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EvalCorregirCodigoGDE">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="codigo_gde" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="EvalCorregirCodigoGDEResponse">
         <s:complexType>
           <s:sequence>
@@ -343,6 +389,113 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="PrintPdfEvaluacionDesempenioResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTiposLiquidacion">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetTiposLiquidacionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTiposLiquidacionResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRecibosResumen">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="tipoLiquidacion" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="anio" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="mes" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRecibosResumenResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetRecibosResumenResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetIdRecibosSinFirmar">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="tipoLiquidacion" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="anio" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="mes" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetIdRecibosSinFirmarResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetIdRecibosSinFirmarResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReciboPDFEmpleador">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_recibo" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReciboPDFEmpleadorResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetReciboPDFEmpleadorResult" type="tns:StringRespuestaWS" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="StringRespuestaWS">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:RespuestaWS">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Respuesta" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="RespuestaWS" abstract="true">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="MensajeDeErrorAmigable" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DefaultErrorMessage" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ExceptionStack" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DioError" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetReciboPDFEmpleado">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_recibo" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReciboPDFEmpleadoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetReciboPDFEmpleadoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarReciboPDFFirmado">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="bytes_pdf" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_recibo" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="anio" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="mes" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="tipoLiquidacion" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarReciboPDFFirmadoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GuardarReciboPDFFirmadoResult" type="s:int" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -1521,52 +1674,6 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="ConsultaExcelDDJJ104_PersonaResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ConsultaExcelDDJJ104_Area">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ConsultaExcelDDJJ104_AreaResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ConsultaExcelDDJJ104_AreaResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="EvalVerificarCodigoGDE">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id_evaluacion" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="codigo_gde" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="EvalVerificarCodigoGDEResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="EvalVerificarCodigoGDEResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="EvalGuardarCodigoGDE">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="codigo_gde" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="EvalGuardarCodigoGDEResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="EvalGuardarCodigoGDEResult" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -6499,19 +6606,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="RespuestaWS" abstract="true">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="MensajeDeErrorAmigable" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="DefaultErrorMessage" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="ExceptionStack" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="DioError" type="s:boolean" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="VoidRespuestaWS">
-        <s:complexContent mixed="false">
-          <s:extension base="tns:RespuestaWS" />
-        </s:complexContent>
-      </s:complexType>
       <s:element name="EvalAddUnidadEvaluacionAComiteResponse">
         <s:complexType>
           <s:sequence>
@@ -6519,6 +6613,11 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:complexType name="VoidRespuestaWS">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:RespuestaWS" />
+        </s:complexContent>
+      </s:complexType>
       <s:element name="EvalRemoveUnidadEvaluacionAComite">
         <s:complexType>
           <s:sequence>
@@ -6528,7 +6627,11 @@
         </s:complexType>
       </s:element>
       <s:element name="EvalRemoveUnidadEvaluacionAComiteResponse">
-        <s:complexType />
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EvalRemoveUnidadEvaluacionAComiteResult" type="tns:VoidRespuestaWS" />
+          </s:sequence>
+        </s:complexType>
       </s:element>
       <s:element name="GetAllComites">
         <s:complexType />
@@ -8064,6 +8167,24 @@
       </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="ConsultaExcelDDJJ104_AreaSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaExcelDDJJ104_Area" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaExcelDDJJ104_AreaSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaExcelDDJJ104_AreaResponse" />
+  </wsdl:message>
+  <wsdl:message name="EvalVerificarCodigoGDESoapIn">
+    <wsdl:part name="parameters" element="tns:EvalVerificarCodigoGDE" />
+  </wsdl:message>
+  <wsdl:message name="EvalVerificarCodigoGDESoapOut">
+    <wsdl:part name="parameters" element="tns:EvalVerificarCodigoGDEResponse" />
+  </wsdl:message>
+  <wsdl:message name="EvalGuardarCodigoGDESoapIn">
+    <wsdl:part name="parameters" element="tns:EvalGuardarCodigoGDE" />
+  </wsdl:message>
+  <wsdl:message name="EvalGuardarCodigoGDESoapOut">
+    <wsdl:part name="parameters" element="tns:EvalGuardarCodigoGDEResponse" />
+  </wsdl:message>
   <wsdl:message name="EvalCorregirCodigoGDESoapIn">
     <wsdl:part name="parameters" element="tns:EvalCorregirCodigoGDE" />
   </wsdl:message>
@@ -8075,6 +8196,42 @@
   </wsdl:message>
   <wsdl:message name="PrintPdfEvaluacionDesempenioSoapOut">
     <wsdl:part name="parameters" element="tns:PrintPdfEvaluacionDesempenioResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTiposLiquidacionSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTiposLiquidacion" />
+  </wsdl:message>
+  <wsdl:message name="GetTiposLiquidacionSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTiposLiquidacionResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetRecibosResumenSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRecibosResumen" />
+  </wsdl:message>
+  <wsdl:message name="GetRecibosResumenSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRecibosResumenResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetIdRecibosSinFirmarSoapIn">
+    <wsdl:part name="parameters" element="tns:GetIdRecibosSinFirmar" />
+  </wsdl:message>
+  <wsdl:message name="GetIdRecibosSinFirmarSoapOut">
+    <wsdl:part name="parameters" element="tns:GetIdRecibosSinFirmarResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetReciboPDFEmpleadorSoapIn">
+    <wsdl:part name="parameters" element="tns:GetReciboPDFEmpleador" />
+  </wsdl:message>
+  <wsdl:message name="GetReciboPDFEmpleadorSoapOut">
+    <wsdl:part name="parameters" element="tns:GetReciboPDFEmpleadorResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetReciboPDFEmpleadoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetReciboPDFEmpleado" />
+  </wsdl:message>
+  <wsdl:message name="GetReciboPDFEmpleadoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetReciboPDFEmpleadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GuardarReciboPDFFirmadoSoapIn">
+    <wsdl:part name="parameters" element="tns:GuardarReciboPDFFirmado" />
+  </wsdl:message>
+  <wsdl:message name="GuardarReciboPDFFirmadoSoapOut">
+    <wsdl:part name="parameters" element="tns:GuardarReciboPDFFirmadoResponse" />
   </wsdl:message>
   <wsdl:message name="CTL_ACC_Grabar_LoteSoapIn">
     <wsdl:part name="parameters" element="tns:CTL_ACC_Grabar_Lote" />
@@ -8471,24 +8628,6 @@
   </wsdl:message>
   <wsdl:message name="ConsultaExcelDDJJ104_PersonaSoapOut">
     <wsdl:part name="parameters" element="tns:ConsultaExcelDDJJ104_PersonaResponse" />
-  </wsdl:message>
-  <wsdl:message name="ConsultaExcelDDJJ104_AreaSoapIn">
-    <wsdl:part name="parameters" element="tns:ConsultaExcelDDJJ104_Area" />
-  </wsdl:message>
-  <wsdl:message name="ConsultaExcelDDJJ104_AreaSoapOut">
-    <wsdl:part name="parameters" element="tns:ConsultaExcelDDJJ104_AreaResponse" />
-  </wsdl:message>
-  <wsdl:message name="EvalVerificarCodigoGDESoapIn">
-    <wsdl:part name="parameters" element="tns:EvalVerificarCodigoGDE" />
-  </wsdl:message>
-  <wsdl:message name="EvalVerificarCodigoGDESoapOut">
-    <wsdl:part name="parameters" element="tns:EvalVerificarCodigoGDEResponse" />
-  </wsdl:message>
-  <wsdl:message name="EvalGuardarCodigoGDESoapIn">
-    <wsdl:part name="parameters" element="tns:EvalGuardarCodigoGDE" />
-  </wsdl:message>
-  <wsdl:message name="EvalGuardarCodigoGDESoapOut">
-    <wsdl:part name="parameters" element="tns:EvalGuardarCodigoGDEResponse" />
   </wsdl:message>
   <wsdl:message name="EliminarCvAntecedenteAcademicoSoapIn">
     <wsdl:part name="parameters" element="tns:EliminarCvAntecedenteAcademico" />
@@ -10423,6 +10562,18 @@
     <wsdl:part name="parameters" element="tns:CrearTransicionFuturaParaDocumentoResponse" />
   </wsdl:message>
   <wsdl:portType name="WSViaticosSoap">
+    <wsdl:operation name="ConsultaExcelDDJJ104_Area">
+      <wsdl:input message="tns:ConsultaExcelDDJJ104_AreaSoapIn" />
+      <wsdl:output message="tns:ConsultaExcelDDJJ104_AreaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EvalVerificarCodigoGDE">
+      <wsdl:input message="tns:EvalVerificarCodigoGDESoapIn" />
+      <wsdl:output message="tns:EvalVerificarCodigoGDESoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EvalGuardarCodigoGDE">
+      <wsdl:input message="tns:EvalGuardarCodigoGDESoapIn" />
+      <wsdl:output message="tns:EvalGuardarCodigoGDESoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="EvalCorregirCodigoGDE">
       <wsdl:input message="tns:EvalCorregirCodigoGDESoapIn" />
       <wsdl:output message="tns:EvalCorregirCodigoGDESoapOut" />
@@ -10430,6 +10581,30 @@
     <wsdl:operation name="PrintPdfEvaluacionDesempenio">
       <wsdl:input message="tns:PrintPdfEvaluacionDesempenioSoapIn" />
       <wsdl:output message="tns:PrintPdfEvaluacionDesempenioSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTiposLiquidacion">
+      <wsdl:input message="tns:GetTiposLiquidacionSoapIn" />
+      <wsdl:output message="tns:GetTiposLiquidacionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRecibosResumen">
+      <wsdl:input message="tns:GetRecibosResumenSoapIn" />
+      <wsdl:output message="tns:GetRecibosResumenSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetIdRecibosSinFirmar">
+      <wsdl:input message="tns:GetIdRecibosSinFirmarSoapIn" />
+      <wsdl:output message="tns:GetIdRecibosSinFirmarSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReciboPDFEmpleador">
+      <wsdl:input message="tns:GetReciboPDFEmpleadorSoapIn" />
+      <wsdl:output message="tns:GetReciboPDFEmpleadorSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReciboPDFEmpleado">
+      <wsdl:input message="tns:GetReciboPDFEmpleadoSoapIn" />
+      <wsdl:output message="tns:GetReciboPDFEmpleadoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GuardarReciboPDFFirmado">
+      <wsdl:input message="tns:GuardarReciboPDFFirmadoSoapIn" />
+      <wsdl:output message="tns:GuardarReciboPDFFirmadoSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="CTL_ACC_Grabar_Lote">
       <wsdl:input message="tns:CTL_ACC_Grabar_LoteSoapIn" />
@@ -10694,18 +10869,6 @@
     <wsdl:operation name="ConsultaExcelDDJJ104_Persona">
       <wsdl:input message="tns:ConsultaExcelDDJJ104_PersonaSoapIn" />
       <wsdl:output message="tns:ConsultaExcelDDJJ104_PersonaSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="ConsultaExcelDDJJ104_Area">
-      <wsdl:input message="tns:ConsultaExcelDDJJ104_AreaSoapIn" />
-      <wsdl:output message="tns:ConsultaExcelDDJJ104_AreaSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="EvalVerificarCodigoGDE">
-      <wsdl:input message="tns:EvalVerificarCodigoGDESoapIn" />
-      <wsdl:output message="tns:EvalVerificarCodigoGDESoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="EvalGuardarCodigoGDE">
-      <wsdl:input message="tns:EvalGuardarCodigoGDESoapIn" />
-      <wsdl:output message="tns:EvalGuardarCodigoGDESoapOut" />
     </wsdl:operation>
     <wsdl:operation name="EliminarCvAntecedenteAcademico">
       <wsdl:input message="tns:EliminarCvAntecedenteAcademicoSoapIn" />
@@ -11998,6 +12161,33 @@
   </wsdl:portType>
   <wsdl:binding name="WSViaticosSoap" type="tns:WSViaticosSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ConsultaExcelDDJJ104_Area">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ConsultaExcelDDJJ104_Area" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EvalVerificarCodigoGDE">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/EvalVerificarCodigoGDE" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EvalGuardarCodigoGDE">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/EvalGuardarCodigoGDE" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="EvalCorregirCodigoGDE">
       <soap:operation soapAction="http://wsviaticos.gov.ar/EvalCorregirCodigoGDE" style="document" />
       <wsdl:input>
@@ -12009,6 +12199,60 @@
     </wsdl:operation>
     <wsdl:operation name="PrintPdfEvaluacionDesempenio">
       <soap:operation soapAction="http://wsviaticos.gov.ar/PrintPdfEvaluacionDesempenio" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTiposLiquidacion">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetTiposLiquidacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRecibosResumen">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetRecibosResumen" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIdRecibosSinFirmar">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetIdRecibosSinFirmar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReciboPDFEmpleador">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetReciboPDFEmpleador" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReciboPDFEmpleado">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetReciboPDFEmpleado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarReciboPDFFirmado">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarReciboPDFFirmado" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -12603,33 +12847,6 @@
     </wsdl:operation>
     <wsdl:operation name="ConsultaExcelDDJJ104_Persona">
       <soap:operation soapAction="http://wsviaticos.gov.ar/ConsultaExcelDDJJ104_Persona" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ConsultaExcelDDJJ104_Area">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/ConsultaExcelDDJJ104_Area" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="EvalVerificarCodigoGDE">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/EvalVerificarCodigoGDE" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="EvalGuardarCodigoGDE">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/EvalGuardarCodigoGDE" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -15538,6 +15755,33 @@
   </wsdl:binding>
   <wsdl:binding name="WSViaticosSoap12" type="tns:WSViaticosSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ConsultaExcelDDJJ104_Area">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ConsultaExcelDDJJ104_Area" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EvalVerificarCodigoGDE">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/EvalVerificarCodigoGDE" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EvalGuardarCodigoGDE">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/EvalGuardarCodigoGDE" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="EvalCorregirCodigoGDE">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/EvalCorregirCodigoGDE" style="document" />
       <wsdl:input>
@@ -15549,6 +15793,60 @@
     </wsdl:operation>
     <wsdl:operation name="PrintPdfEvaluacionDesempenio">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/PrintPdfEvaluacionDesempenio" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTiposLiquidacion">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetTiposLiquidacion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRecibosResumen">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetRecibosResumen" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIdRecibosSinFirmar">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetIdRecibosSinFirmar" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReciboPDFEmpleador">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetReciboPDFEmpleador" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReciboPDFEmpleado">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetReciboPDFEmpleado" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarReciboPDFFirmado">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarReciboPDFFirmado" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -16143,33 +16441,6 @@
     </wsdl:operation>
     <wsdl:operation name="ConsultaExcelDDJJ104_Persona">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/ConsultaExcelDDJJ104_Persona" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ConsultaExcelDDJJ104_Area">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/ConsultaExcelDDJJ104_Area" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="EvalVerificarCodigoGDE">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/EvalVerificarCodigoGDE" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="EvalGuardarCodigoGDE">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/EvalGuardarCodigoGDE" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

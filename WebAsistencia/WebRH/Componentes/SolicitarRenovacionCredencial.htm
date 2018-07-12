@@ -161,7 +161,7 @@
         </div>
         <br />
         <div class="">
-            <label class="label_combo" for="chk_personal_externo">Personal externo:</label>
+            <label class="label_combo" for="chk_personal_externo" id="lbl_personal_externo">Personal externo:</label>
             <input class="combo" type=checkbox id="chk_personal_externo"/>
         </div>
         <br />
@@ -187,124 +187,131 @@
 
             //var ui = $("#cajaCambiarDomicilio");
 
-            vex.defaultOptions.className = 'vex-theme-os';
-            vex.open({
-                afterOpen: function ($vexContent) {
-                    $vexContent.append(ui);
-                    
-                    ui.find("#apellido").text(opt.usuario.Owner.Apellido);
-                    ui.find("#nombres").text(opt.usuario.Owner.Nombre);
-                    ui.find("#documento").text(opt.usuario.Owner.Documento);
+            Backend.GetUsuarioLogueado().onSuccess(function (usuario_logueado) {
+                vex.defaultOptions.className = 'vex-theme-os';
+                vex.open({
+                    afterOpen: function ($vexContent) {
+                        $vexContent.append(ui);
 
-                    var img = new VistaThumbnail({
-                        id: opt.usuario.Owner.IdImagen,
-                        contenedor: ui.find("#foto_usuario")
-                    });
-                   
-
-                    ui.find("#btn_cambiar_foto").click(function () { $("#contenedor_foto_usuario").click(); });
-
-                    ui.find("#ddjj_mds").show();
-                    ui.find("#ddjj_msal").hide();
-
-                    ui.find("#select_organismo").change(function () {
-                        if (ui.find("#select_organismo").val() == '1') {
-                            ui.find("#imagen_credencial").attr('src', '../BarraMenu/credencialMDS.jpg');
-                            ui.find("#ddjj_mds").show();
-                            ui.find("#ddjj_msal").hide();
+                        if (usuario_logueado.Id == opt.usuario.Id) {
+                            ui.find("#chk_personal_externo").hide();
+                            ui.find("#lbl_personal_externo").hide();
                         }
-                        if (ui.find("#select_organismo").val() == '2') {
-                            ui.find("#imagen_credencial").attr('src', '../BarraMenu/credencialMSAL.jpg');
-                            ui.find("#ddjj_msal").show();
-                            ui.find("#ddjj_mds").hide();
-                        }
-                        if (ui.find("#select_organismo").val() == '3') {
-                            ui.find("#imagen_credencial").attr('src', '../BarraMenu/credencialINM.jpg');
-                            ui.find("#ddjj_msal").show();
-                            ui.find("#ddjj_mds").hide();
-                        }
-                    });
 
-                    Backend.GetLugaresEntregaCredencial()
-                                    .onSuccess(function (lugares) {
-                                        _.forEach(lugares, function (lugar) {
-                                            var opt = $("<option>");
-                                            opt.text(lugar.Descripcion);
-                                            opt.attr("value", lugar.IdLugar);
-                                            ui.find("#cmb_lugar_de_entrega").append(opt);
-                                            $('#cmb_lugar_de_entrega option[value=1924]').prop('selected', true);
+                        ui.find("#apellido").text(opt.usuario.Owner.Apellido);
+                        ui.find("#nombres").text(opt.usuario.Owner.Nombre);
+                        ui.find("#documento").text(opt.usuario.Owner.Documento);
+
+                        var img = new VistaThumbnail({
+                            id: opt.usuario.Owner.IdImagen,
+                            contenedor: ui.find("#foto_usuario")
+                        });
+
+
+                        ui.find("#btn_cambiar_foto").click(function () { $("#contenedor_foto_usuario").click(); });
+
+                        ui.find("#ddjj_mds").show();
+                        ui.find("#ddjj_msal").hide();
+
+                        ui.find("#select_organismo").change(function () {
+                            if (ui.find("#select_organismo").val() == '1') {
+                                ui.find("#imagen_credencial").attr('src', '../BarraMenu/credencialMDS.jpg');
+                                ui.find("#ddjj_mds").show();
+                                ui.find("#ddjj_msal").hide();
+                            }
+                            if (ui.find("#select_organismo").val() == '2') {
+                                ui.find("#imagen_credencial").attr('src', '../BarraMenu/credencialMSAL.jpg');
+                                ui.find("#ddjj_msal").show();
+                                ui.find("#ddjj_mds").hide();
+                            }
+                            if (ui.find("#select_organismo").val() == '3') {
+                                ui.find("#imagen_credencial").attr('src', '../BarraMenu/credencialINM.jpg');
+                                ui.find("#ddjj_msal").show();
+                                ui.find("#ddjj_mds").hide();
+                            }
+                        });
+
+                        Backend.GetLugaresEntregaCredencial()
+                                        .onSuccess(function (lugares) {
+                                            _.forEach(lugares, function (lugar) {
+                                                var opt = $("<option>");
+                                                opt.text(lugar.Descripcion);
+                                                opt.attr("value", lugar.IdLugar);
+                                                ui.find("#cmb_lugar_de_entrega").append(opt);
+                                                $('#cmb_lugar_de_entrega option[value=1924]').prop('selected', true);
+                                            });
+
                                         });
+                        ui.find("#select_motivo").change(function () {
+                            var val = ui.find("#select_motivo").val();
 
-                                    });
-                    ui.find("#select_motivo").change(function () {
-                        var val = ui.find("#select_motivo").val();
+                            if (val == 0) {
+                                ui.find("#texto_seleccione_motivo").show();
+                                ui.find("#texto_deterioro").hide();
+                                ui.find("#texto_robo").hide();
+                            }
 
-                        if (val == 0) {
-                            ui.find("#texto_seleccione_motivo").show();
-                            ui.find("#texto_deterioro").hide();
-                            ui.find("#texto_robo").hide();
-                        }
+                            if (val == 1) {
+                                ui.find("#texto_deterioro").show();
+                                ui.find("#texto_robo").hide();
+                                ui.find("#texto_seleccione_motivo").hide();
+                            }
 
-                        if (val == 1) {
-                            ui.find("#texto_deterioro").show();
-                            ui.find("#texto_robo").hide();
-                            ui.find("#texto_seleccione_motivo").hide();
-                        }
+                            if (val == 2) {
+                                ui.find("#texto_deterioro").hide();
+                                ui.find("#texto_robo").show();
+                                ui.find("#texto_seleccione_motivo").hide();
+                            }
 
-                        if (val == 2) {
-                            ui.find("#texto_deterioro").hide();
-                            ui.find("#texto_robo").show();
-                            ui.find("#texto_seleccione_motivo").hide();
-                        }
+                            if (val == 3) {
+                                ui.find("#texto_deterioro").hide();
+                                ui.find("#texto_robo").show();
+                                ui.find("#texto_seleccione_motivo").hide();
+                            }
 
-                        if (val == 3) {
-                            ui.find("#texto_deterioro").hide();
-                            ui.find("#texto_robo").show();
-                            ui.find("#texto_seleccione_motivo").hide();
-                        }
+                            if (val == 4) {
+                                ui.find("#texto_deterioro").hide();
+                                ui.find("#texto_robo").hide();
+                                ui.find("#texto_seleccione_motivo").hide();
+                            }
 
-                        if (val == 4) {
-                            ui.find("#texto_deterioro").hide();
-                            ui.find("#texto_robo").hide();
-                            ui.find("#texto_seleccione_motivo").hide();
-                        }
+                        });
 
-                    });
+                        ui.find("#btn_realizar_solicitud").click(function () {
+                            if (ui.find("#select_motivo").val() == 0) {
+                                return;
+                            }
+                            ui.find("#btn_realizar_solicitud").prop('disabled', true);
+                            Backend.SolicitarRenovacionCredencial(opt.usuario, ui.find("#select_motivo").val(), ui.find("#select_organismo").val(), ui.find("#cmb_lugar_de_entrega").val(), ui.find("#chk_personal_externo").is(':checked'))
+                                .onSuccess(function (resultado) {
+                                    if (resultado == 'OK') {
+                                        alertify.success("Solicitud creada con éxito");
 
-                    ui.find("#btn_realizar_solicitud").click(function () {
-                        if (ui.find("#select_motivo").val() == 0) {
-                            return;
-                        }
-                        ui.find("#btn_realizar_solicitud").prop('disabled', true);
-                        Backend.SolicitarRenovacionCredencial(opt.usuario, ui.find("#select_motivo").val(), ui.find("#select_organismo").val(), ui.find("#cmb_lugar_de_entrega").val(), ui.find("#chk_personal_externo").is(':checked'))
-                            .onSuccess(function (resultado) {
-                                if (resultado == 'OK') {
-                                    alertify.success("Solicitud creada con éxito");
-
-                                    vex.close();
-                                    setTimeout(function () { location.reload(); }, 1000);
-                                } else {
-                                    alertify.error(resultado);
+                                        vex.close();
+                                        setTimeout(function () { location.reload(); }, 1000);
+                                    } else {
+                                        alertify.error(resultado);
+                                        ui.find("#btn_realizar_solicitud").prop('disabled', false);
+                                    }
+                                })
+                                .onError(function () {
+                                    alertify.error("Error al solicitar la credencial.");
                                     ui.find("#btn_realizar_solicitud").prop('disabled', false);
-                                }
-                            })
-                            .onError(function () {
-                                alertify.error("Error al solicitar la credencial.");
-                                ui.find("#btn_realizar_solicitud").prop('disabled', false);
-                            });
-                    });
+                                });
+                        });
 
 
-                    ui.show();
-                },
-                css: {
-                    'padding-top': "4%",
-                    'padding-bottom': "0%"
-                },
-                contentCSS: {
-                    width: "80%",
-                    height: "90%"
-                }
+                        ui.show();
+                    },
+                    css: {
+                        'padding-top': "4%",
+                        'padding-bottom': "0%"
+                    },
+                    contentCSS: {
+                        width: "80%",
+                        height: "90%"
+                    }
+                });
             });
             //$('#cajaCambiarDomicilio').show();
         }
