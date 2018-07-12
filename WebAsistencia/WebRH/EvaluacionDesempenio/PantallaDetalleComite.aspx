@@ -156,22 +156,23 @@
                         columnas_ue.push(new Columna("", {
                             generar: function (ue) {
                                 var $buttons_ue = $("#plantillas .botonera_grilla_ues").clone()
-                                var cb = $buttons_ue.find('.cb_ue').get(0)
+                                var $cb = $buttons_ue.find('.cb_ue')
                                 var comite = JSON.parse(localStorage.getItem("detalleComite"))
                                 var id_comite = comite.Id
                                 var found = comite.UnidadesEvaluacion.filter(function (u) { return u.Id == ue.Id })
                                 $buttons_ue.find('.hidden_model').first().val(ue.Id);
 
                                 if (found.length != 0) {
-                                    cb.checked = true;
+                                    $cb.attr('checked', 'true');
                                 }
 
-                                cb.onClick = ('onclick', function (e) {
+                                $cb.click(function (e) {
                                     var spinner = new Spinner({ scale: 0.5, position: 'relative', left: '50%', top: '50%' })
                                     spinner.spin($(e.currentTarget).parent())
                                     var mcb = e.currentTarget
                                     var ue_id = $(e.currentTarget).parent().find(".hidden_model").first().val()
                                     if (mcb.checked) {
+
                                         Backend.EvalAddUnidadEvaluacionAComite(id_comite, ue_id)
                                             .onSuccess(function (res) {
                                                     if (res.DioError) {
@@ -179,14 +180,15 @@
                                                         mcb.checked = !mcb.checked
                                                     }
                                                     spinner.stop()
-                                                }).onError(function (err) {
-                                                    alert("se produjo un error en la comunicación")
-                                                    spinner.stop()
-                                                })
+                                            }).onError(function (err) {
+                                                alert("se produjo un error en la comunicación")
+                                                spinner.stop()
+                                            })
                                     }
                                 })
-                                return $buttons_ue
+                              return $buttons_ue  
                             }
+                            
                         }))
 
                         var estadosEvaluaciones = JSON.parse(localStorage.getItem("estadosEvaluaciones"));
