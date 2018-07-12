@@ -107,10 +107,20 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public void EvalRemoveUnidadEvaluacionAComite(int idComite, int idUnidadEvaluacion)
+    public VoidRespuestaWS EvalRemoveUnidadEvaluacionAComite(int idComite, int idUnidadEvaluacion)
     {
-        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
-        repo.RemoverUnidadEvaluacionAComite(idComite, idUnidadEvaluacion);
+        var respuesta = new VoidRespuestaWS();
+        try
+        {
+            var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+            repo.RemoverUnidadEvaluacionAComite(idComite, idUnidadEvaluacion);
+        }
+        catch (Exception e)
+        {
+            respuesta.MensajeDeErrorAmigable = "Se produjo un error al intentar quitar la unidad de evaluacion a la unidad de comite";
+            respuesta.setException(e);
+        }
+        return respuesta;
     }
 
     [WebMethod]

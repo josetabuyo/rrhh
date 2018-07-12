@@ -171,24 +171,29 @@
                                     spinner.spin($(e.currentTarget).parent())
                                     var mcb = e.currentTarget
                                     var ue_id = $(e.currentTarget).parent().find(".hidden_model").first().val()
+                                    var backend_call = function () { }
                                     if (mcb.checked) {
+                                        backend_call = Backend.EvalAddUnidadEvaluacionAComite
+                                    } else {
+                                        backend_call = Backend.EvalRemoveUnidadEvaluacionAComite
+                                    }
 
-                                        Backend.EvalAddUnidadEvaluacionAComite(id_comite, ue_id)
+                                    backend_call(id_comite, ue_id)
                                             .onSuccess(function (res) {
-                                                    if (res.DioError) {
-                                                        alert(res.MensajeDeErrorAmigable)
-                                                        mcb.checked = !mcb.checked
-                                                    }
-                                                    spinner.stop()
+                                                if (res.DioError) {
+                                                    alert(res.MensajeDeErrorAmigable)
+                                                    mcb.checked = !mcb.checked
+                                                }
+                                                spinner.stop()
                                             }).onError(function (err) {
                                                 alert("se produjo un error en la comunicación")
                                                 spinner.stop()
                                             })
-                                    }
+
                                 })
-                              return $buttons_ue  
+                                return $buttons_ue
                             }
-                            
+
                         }))
 
                         var estadosEvaluaciones = JSON.parse(localStorage.getItem("estadosEvaluaciones"));
