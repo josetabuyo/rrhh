@@ -1194,6 +1194,68 @@
       <s:element name="AsignaAreaAPersonasNoCertificadasResponse">
         <s:complexType />
       </s:element>
+      <s:element name="GetFacturasConSaldo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="documento" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFacturasConSaldoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetFacturasConSaldoResult" type="tns:ArrayOfFactura" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfFactura">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Factura" nillable="true" type="tns:Factura" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Factura">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Mes" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Año" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Monto_Contrato" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="Monto_Otras_Factura" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="Monto_A_Factura" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="Saldo" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="Id_Contrato" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Nro_Documento" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nro_Contrato" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Acto_Tipo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Acto_Nro" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="estaSeleccionado" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetFirmantes">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetFirmantesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetFirmantesResult" type="tns:ArrayOfPersona" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarFactura">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="lista" type="tns:ArrayOfFactura" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarFacturaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GuardarFacturaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="BuscarTitulosAntecedentesAcademicos">
         <s:complexType>
           <s:sequence>
@@ -8045,6 +8107,24 @@
   <wsdl:message name="AsignaAreaAPersonasNoCertificadasSoapOut">
     <wsdl:part name="parameters" element="tns:AsignaAreaAPersonasNoCertificadasResponse" />
   </wsdl:message>
+  <wsdl:message name="GetFacturasConSaldoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFacturasConSaldo" />
+  </wsdl:message>
+  <wsdl:message name="GetFacturasConSaldoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFacturasConSaldoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFirmantesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFirmantes" />
+  </wsdl:message>
+  <wsdl:message name="GetFirmantesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFirmantesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GuardarFacturaSoapIn">
+    <wsdl:part name="parameters" element="tns:GuardarFactura" />
+  </wsdl:message>
+  <wsdl:message name="GuardarFacturaSoapOut">
+    <wsdl:part name="parameters" element="tns:GuardarFacturaResponse" />
+  </wsdl:message>
   <wsdl:message name="BuscarTitulosAntecedentesAcademicosSoapIn">
     <wsdl:part name="parameters" element="tns:BuscarTitulosAntecedentesAcademicos" />
   </wsdl:message>
@@ -10194,6 +10274,18 @@
       <wsdl:input message="tns:AsignaAreaAPersonasNoCertificadasSoapIn" />
       <wsdl:output message="tns:AsignaAreaAPersonasNoCertificadasSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetFacturasConSaldo">
+      <wsdl:input message="tns:GetFacturasConSaldoSoapIn" />
+      <wsdl:output message="tns:GetFacturasConSaldoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFirmantes">
+      <wsdl:input message="tns:GetFirmantesSoapIn" />
+      <wsdl:output message="tns:GetFirmantesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GuardarFactura">
+      <wsdl:input message="tns:GuardarFacturaSoapIn" />
+      <wsdl:output message="tns:GuardarFacturaSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="BuscarTitulosAntecedentesAcademicos">
       <wsdl:input message="tns:BuscarTitulosAntecedentesAcademicosSoapIn" />
       <wsdl:output message="tns:BuscarTitulosAntecedentesAcademicosSoapOut" />
@@ -11964,6 +12056,33 @@
     </wsdl:operation>
     <wsdl:operation name="AsignaAreaAPersonasNoCertificadas">
       <soap:operation soapAction="http://wsviaticos.gov.ar/AsignaAreaAPersonasNoCertificadas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFacturasConSaldo">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetFacturasConSaldo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFirmantes">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetFirmantes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarFactura">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarFactura" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -15351,6 +15470,33 @@
     </wsdl:operation>
     <wsdl:operation name="AsignaAreaAPersonasNoCertificadas">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/AsignaAreaAPersonasNoCertificadas" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFacturasConSaldo">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetFacturasConSaldo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFirmantes">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetFirmantes" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarFactura">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarFactura" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

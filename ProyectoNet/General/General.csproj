@@ -112,6 +112,7 @@
     <Compile Include="DatosAbiertos\ConsultaOPD.cs" />
     <Compile Include="DatosAbiertos\ParametroConsultaOPD.cs" />
     <Compile Include="DatosAbiertos\RepositorioDeDatosAbiertos.cs" />
+    <Compile Include="Facturas\Factura.cs" />
     <Compile Include="MAU\AlertaPortal.cs" />
     <Compile Include="MAU\TipoTicket.cs" />
     <Compile Include="MAU\Ticket.cs" />
@@ -151,6 +152,7 @@
     <Compile Include="Repositorios\FormEvaluacion.cs" />
     <Compile Include="Repositorios\RepositorioDeContratos.cs" />
     <Compile Include="Repositorios\RepositorioEvaluacionDesempenio.cs" />
+    <Compile Include="Repositorios\RepositorioFactura.cs" />
     <Compile Include="Repositorios\RepositorioLegajo.cs" />
     <Compile Include="DDJJ104\DDJJ104_Consulta.cs" />
     <Compile Include="MOBI\ExcepcionDeVehiculoInexistente.cs" />

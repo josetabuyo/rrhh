@@ -31,6 +31,7 @@ using General.MED;
 //using PdfPrinter.Core.Configuration;
 using System.Web.Hosting;
 using System.Runtime.Serialization.Formatters.Binary;
+using General.Facturas;
 
 
 [WebService(Namespace = "http://wsviaticos.gov.ar/")]
@@ -5261,6 +5262,82 @@ public class WSViaticos : System.Web.Services.WebService
 
         DDJJ104_2001 cabe = new DDJJ104_2001();
         ddjj.AsignaAreaAPersonasNoCertificadas(mes, anio, lista_DDJJ104, id_area, usuario);
+
+    }
+
+
+    [WebMethod]
+    public Factura[] GetFacturasConSaldo(int documento, Usuario usuario)
+    {
+        RepositorioFactura Repo = new RepositorioFactura();
+        var a = new Factura[1];
+
+        a = Repo.GetFacturasConSaldo(documento, usuario).ToArray();
+
+        return a;
+
+    }
+
+
+    [WebMethod]
+    public Persona[] GetFirmantes()
+    {
+        RepositorioFactura Repo = new RepositorioFactura();
+
+        List<Persona> ListaFirmantes = Repo.GetFirmantes();
+
+        return ListaFirmantes.ToArray();
+    }
+
+   
+    [WebMethod]
+    //public string GuardarFactura(int documento, DateTime FechaFactura, string NroFactura, decimal MontoFactura, DateTime FechaRecibida, int idarea, int DocumentoFirmanteSeleccionado, Usuario usuario)
+    public string GuardarFactura(string criterio, Factura[] lista,  Usuario usuario)
+    {
+        var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
+        
+        int documento = Int32.Parse((((JValue)criterio_deserializado["doc"]).ToString()));
+        DateTime FechaPase = DateTime.Parse((((JValue)criterio_deserializado["facha_pase"]).ToString()));
+        DateTime FechaFactura = DateTime.Parse((((JValue)criterio_deserializado["fecha_factura"]).ToString()));
+        string NroFactura = ((JValue)criterio_deserializado["nro_factura"]).ToString();
+        decimal MontoAFactura =  Decimal.Parse((((JValue)criterio_deserializado["monto_a_facturar"]).ToString()));
+        DateTime FechaRecibida = DateTime.Parse((((JValue)criterio_deserializado["fecha_recibida"]).ToString()));
+        int idarea = Int32.Parse((((JValue)criterio_deserializado["id_area"]).ToString()));
+        int DocumentoFirmanteSeleccionado = Int32.Parse((((JValue)criterio_deserializado["doc_firm_selecc"]).ToString()));
+
+        
+        RepositorioFactura Repo = new RepositorioFactura();
+        char[] validarfactura = Repo.ValidarFacturaIngresada(documento, NroFactura, usuario).ToArray();
+        if (validarfactura[0].ToString() != "")
+        {
+            return "Ese numero de factura ya fue ingresado. Verifique por favor.";
+        }
+
+        Repo.GuardarFactura(documento, FechaPase, FechaFactura, NroFactura, FechaRecibida, MontoAFactura, idarea, DocumentoFirmanteSeleccionado, lista, usuario);
+        
+
+        
+        //Set Rs = Cn.selec("select * from dbo.VW_maxid_factura")
+        //Cn.Execute ("dbo.CTR_ADD_Facturas " & STR)
+        /*
+        With LstFacturas.ListItems
+        For i = 1 To .Count
+        If .item(i).Checked = True Then
+            STR = Rs!Id_factura & "," & .item(i).SubItems(1) & "," & _
+                .item(i).SubItems(2) & "," & _
+                TxtMonto & "," & _
+                .item(i).SubItems(7)
+            Cn.Execute ("dbo.CTR_ADD_Facturas_Detalle " & STR)
+        End If
+        Next
+        End With
+
+
+        
+        */
+
+
+        return "OK";
 
     }
 

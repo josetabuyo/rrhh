@@ -1,4 +1,5 @@
-﻿var ContenedorGrilla;
+﻿
+var ContenedorGrilla;
 var mesSeleccionadoDesde;
 var anioSeleccionadoDesde;
 var mesSeleccionadoHasta;
