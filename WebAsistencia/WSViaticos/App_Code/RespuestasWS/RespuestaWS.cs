@@ -29,7 +29,7 @@ public abstract class RespuestaWS
     protected Exception Exception;
     public RespuestaWS()
     {
-
+        this.Exception = new Exception("");
     }
 
     public void setException(Exception e)

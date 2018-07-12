@@ -97,6 +97,7 @@
         </div>
         <div class="botonera_grilla_ues">
             <input class="cb_ue" type="checkbox" />
+            <input type="hidden" class="hidden_model" />
         </div>
     </div>
 
@@ -130,10 +131,7 @@
                         }
                     });
                     ui.find('#fecha_clone_id').datepicker("setDate", new Date(model.Fecha));
-
                     ui.find('#txt_lugar').val(model.Lugar);
-
-
 
                     var cargar_ues = function () {
 
@@ -157,29 +155,36 @@
                         columnas_ue.push(new Columna("Total General", { generar: function (ue) { return ue.DetalleEvaluados.Destacados + ue.DetalleEvaluados.Bueno + ue.DetalleEvaluados.Regular + ue.DetalleEvaluados.Deficiente + ue.DetalleEvaluados.Provisoria + ue.DetalleEvaluados.Pendiente; } }));
                         columnas_ue.push(new Columna("", {
                             generar: function (ue) {
-                                var buttons_ue = $("#plantillas .botonera_grilla_ues").clone();
-                                var cb = buttons_ue.find('.cb_ue');
-                                var found = JSON.parse(localStorage.getItem("detalleComite")).UnidadesEvaluacion.filter(function (u) { return u.Id == ue.Id })
+                                var $buttons_ue = $("#plantillas .botonera_grilla_ues").clone();
+                                var $cb = $buttons_ue.find('.cb_ue');
+                                var comite = JSON.parse(localStorage.getItem("detalleComite"));
+                                var id_comite = comite.Id;
+                                var found = comite.UnidadesEvaluacion.filter(function (u) { return u.Id == ue.Id })
+                                $buttons_ue.find('.hidden_model').first().val(ue.Id);
+
                                 if (found.length != 0) {
-                                    cb.attr('checked', 'true');
+                                    $cb.first().attr('checked', 'true');
                                 }
 
-                                cb.click(function (e) {
-                                    var spinner = new Spinner({ scale: 2 });
-                                    spinner.spin($("html")[0]);
-
-                                    Backend.EvalAddUnidadEvaluacionAComite(1, 1)
-                                    .onSuccess(function (res) {
-                                        if (res.DioError) {
-                                            alert(res.MensajeDeErrorAmigable);
-                                        }
-                                        //spinner.stop();
-                                    }).onError(function (err) {
-                                        alert("se produjo un error en la comunicación");
-                                        spinner.stop();
-                                    });
+                                $cb.attr('onclick', function (e) {
+                                    var spinner = new Spinner({ scale: 0.5, position: 'relative', left: '50%', top: '50%' });
+                                    spinner.spin($(e.currentTarget).parent());
+                                    var mcb = e.currentTarget;
+                                    var ue_id = $(e.currentTarget).parent().find(".hidden_model").first().val();
+                                    if (mcb.checked) {
+                                        Backend.EvalAddUnidadEvaluacionAComite(id_comite, ue_id)
+                                        .onSuccess(function (res) {
+                                            if (res.DioError) {
+                                                alert(res.MensajeDeErrorAmigable);
+                                                mcb.checked = !mcb.checked;
+                                            }
+                                            spinner.stop();
+                                        }).onError(function (err) {
+                                            alert("se produjo un error en la comunicación");
+                                            spinner.stop();
+                                        });
+                                    }
                                 });
-
                                 return buttons_ue;
                             }
                         }));
@@ -190,7 +195,6 @@
                         _this.grilla_ue = new Grilla(columnas_ue);
                         _this.grilla_ue.SetOnRowClickEventHandler(function (ues) { });
                         _this.grilla_ue.CambiarEstiloCabecera("estilo_tabla_portal");
-                        //_this.grilla_ue.CargarObjetos(model.UnidadesEvaluacion);
                         _this.grilla_ue.CargarObjetos(estadosEvaluaciones.filter(function (i) { return i.IdPeriodo == id_periodo; }));
                         _this.grilla_ue.DibujarEn(grilla_ue);
                     }
@@ -227,7 +231,6 @@
                     }));
                     columnas_integrantes.push(new Columna("Acciones", {
                         generar: function (int) {
-                            //debugger;
                             var buttons_integrantes = $("#plantillas .botonera_grilla_participantes").clone();
                             var btn_eliminar_participante = buttons_integrantes.find("#btn_eliminar_participante");
                             btn_eliminar_participante.click(function () {
