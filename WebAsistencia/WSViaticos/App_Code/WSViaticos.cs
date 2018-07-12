@@ -5432,47 +5432,62 @@ public class WSViaticos : System.Web.Services.WebService
 
     /////////////////VER
     [WebMethod]
-    public string GetReciboPDFEmpleador(int id_recibo)
+    public StringRespuestaWS GetReciboPDFEmpleador(int id_recibo)
     {
-        RepositorioLegajo repo = RepoLegajo();
-        Recibo recibo;
-
-        //para trabajarlo como objeto es mejor definir un objeto que traiga el recibo, asi se puede acceder a
-        //sus propiedades desde el back(desde el front con js se puede acceder), porque no se puede acceder a campos 
-        //especificos del objecto recibo cuando el casteo es a object.
-        
-        //datos del recibo a rellenar    
-        recibo = repo.GetReciboDeSueldoPorID(id_recibo);
-
-        //
-        var modelo_para_pdf = new List<object>() { recibo };
-        var converter = new GenReciboToPdfConverter();
-        var mapa_para_pdf = converter.CrearMapa(modelo_para_pdf);
-        var creador_pdf = new CreadorDePdfs();
-        byte[] bytes;
-        byte[] bytes2;
-
-        if (mapa_para_pdf["paginasPDF"] == "una")
+        var respuesta = new StringRespuestaWS();
+        try
         {
-            //el nombre del pdf generado va a ser el idRecibo
-            bytes = creador_pdf.FillPDF(TemplatePath("ReciboEmpleador_v6.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
-            bytes2 = creador_pdf.AgregarImagenAPDF(bytes, "FRH0502," + Convert.ToString(id_recibo));
+            RepositorioLegajo repo = RepoLegajo();
+            Recibo recibo;
+
+            //para trabajarlo como objeto es mejor definir un objeto que traiga el recibo, asi se puede acceder a
+            //sus propiedades desde el back(desde el front con js se puede acceder), porque no se puede acceder a campos 
+            //especificos del objecto recibo cuando el casteo es a object.
+
+            //datos del recibo a rellenar    
+            recibo = repo.GetReciboDeSueldoPorID(id_recibo);
+
+            //
+            var modelo_para_pdf = new List<object>() { recibo };
+            var converter = new GenReciboToPdfConverter();
+            var mapa_para_pdf = converter.CrearMapa(modelo_para_pdf);
+            var creador_pdf = new CreadorDePdfs();
+            byte[] bytes;
+            byte[] bytes2;
+
+            if (mapa_para_pdf["paginasPDF"] == "una")
+            {
+                //el nombre del pdf generado va a ser el idRecibo
+                bytes = creador_pdf.FillPDF(TemplatePath("ReciboEmpleador_v6.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
+                bytes2 = creador_pdf.AgregarImagenAPDF(bytes, "FRH0502," + Convert.ToString(id_recibo));
+            }
+            else
+            {
+                //el nombre del pdf generado va a ser el idRecibo
+                bytes = creador_pdf.FillPDF(TemplatePath("ReciboEmpleador_v6b.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
+                bytes2 = creador_pdf.AgregarImagenAPDF(bytes, "FRH0502," + Convert.ToString(id_recibo));
+            }
+
+            //return Convert.ToBase64String(bytes2);
+            //return Convert.ToBase64String(bytes2);
+            respuesta.Respuesta = Convert.ToBase64String(bytes2);
+
+            //////////////////////////////////
+            ///      Object x = JsonConvert.DeserializeObject<Object>(datos);
+            ///      //JsonConvert.SerializeObject(x);
+
+
+            ///      return x.Cabecera ;
         }
-        else {
-            //el nombre del pdf generado va a ser el idRecibo
-            bytes = creador_pdf.FillPDF(TemplatePath("ReciboEmpleador_v6b.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
-            bytes2 = creador_pdf.AgregarImagenAPDF(bytes, "FRH0502," + Convert.ToString(id_recibo)); 
-        } 
-       
-        //return Convert.ToBase64String(bytes2);
-        return Convert.ToBase64String(bytes2);
+        catch (Exception e)
+        {
+            respuesta.MensajeDeErrorAmigable = "Se produjo un error al obtener el PDF del recibo del empleador";
+            respuesta.setException(e);
+            
+        }
 
-        //////////////////////////////////
-  ///      Object x = JsonConvert.DeserializeObject<Object>(datos);
-  ///      //JsonConvert.SerializeObject(x);
-        
 
-  ///      return x.Cabecera ;
+        return respuesta;
     }
 
     [WebMethod]
