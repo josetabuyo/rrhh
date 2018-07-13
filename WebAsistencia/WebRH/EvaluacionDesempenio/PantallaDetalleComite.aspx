@@ -119,7 +119,6 @@
                     this.ui = ui;
                     //var ui = $("#pantallaDetalleComites").clone();
 
-
                     //fix del datepicker cuando haces .clone() de la plantilla, quedan dos componentes
                     //con el mismo id, y jquery datepicker funciona mal.
                     //ui.find('#fecha_1').attr("id", "fecha_clone_id");
@@ -180,30 +179,47 @@
 
                                     backend_call(id_comite, ue_id)
                                             .onSuccess(function (res) {
+                                                spinner.stop()
                                                 if (res.DioError) {
                                                     alert(res.MensajeDeErrorAmigable)
                                                     mcb.checked = !mcb.checked
+                                                    return
+                                                } 
+
+                                                if (res.Accion == "EvalRemoveUnidadEvaluacionAComite") {
+                                                    var detalleComite = JSON.parse(localStorage.getItem("detalleComite"))
+                                                    detalleComite.UnidadesEvaluacion = detalleComite.UnidadesEvaluacion.filter(function (ue) { return ue.Id != res.IdUE });
+                                                    localStorage.setItem("detalleComite", JSON.stringify(detalleComite))
+                                                } else {
+                                                    //res.Accion == "EvalAddUnidadEvaluacionAComite"
+                                                    var detalleComite = JSON.parse(localStorage.getItem("detalleComite"))
+                                                    var ues = JSON.parse(localStorage.getItem("estadosEvaluaciones"))
+                                                    var ue_agregada = _.find(ues, function (ue) {
+                                                        return ue.Id == res.IdUE 
+                                                    })
+                                                    detalleComite.UnidadesEvaluacion.push(ue_agregada)
+                                                    localStorage.setItem("detalleComite", JSON.stringify(detalleComite))
                                                 }
-                                                spinner.stop()
+                                                
+                                                
                                             }).onError(function (err) {
                                                 alert("se produjo un error en la comunicación")
+                                                mcb.checked = !mcb.checked
                                                 spinner.stop()
                                             })
-
                                 })
                                 return $buttons_ue
                             }
-
                         }))
 
                         var estadosEvaluaciones = JSON.parse(localStorage.getItem("estadosEvaluaciones"));
                         var id_periodo = ui.find("#cmb_periodo").val();
 
-                        _this.grilla_ue = new Grilla(columnas_ue);
-                        _this.grilla_ue.SetOnRowClickEventHandler(function (ues) { });
-                        _this.grilla_ue.CambiarEstiloCabecera("estilo_tabla_portal");
-                        _this.grilla_ue.CargarObjetos(estadosEvaluaciones.filter(function (i) { return i.IdPeriodo == id_periodo; }));
-                        _this.grilla_ue.DibujarEn(grilla_ue);
+                        _this.grilla_ue = new Grilla(columnas_ue)
+                        _this.grilla_ue.SetOnRowClickEventHandler(function (ues) { })
+                        _this.grilla_ue.CambiarEstiloCabecera("estilo_tabla_portal")
+                        _this.grilla_ue.CargarObjetos(estadosEvaluaciones.filter(function (i) { return i.IdPeriodo == id_periodo; }))
+                        _this.grilla_ue.DibujarEn(grilla_ue)
                     }
 
                     Backend.GetPeriodosEvaluacion()
@@ -220,7 +236,7 @@
                     ui.find("#cmb_periodo").unbind("change");
                     ui.find("#cmb_periodo").change(cargar_ues);
 
-                    /***
+                    /******
                     GRILLA INTEGRANTES COMITE
                     ******/
 

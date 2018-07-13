@@ -90,9 +90,9 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public VoidRespuestaWS EvalAddUnidadEvaluacionAComite(int idComite, int idUnidadEvaluacion)
+    public AltaBajaUEComiteRespuestaWS EvalAddUnidadEvaluacionAComite(int idComite, int idUnidadEvaluacion)
     {
-        var respuesta = new VoidRespuestaWS();
+        var respuesta = new AltaBajaUEComiteRespuestaWS();
         try
         {
             var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
@@ -103,13 +103,16 @@ public class WSViaticos : System.Web.Services.WebService
             respuesta.MensajeDeErrorAmigable = "Se produjo un error al intentar agregar la unidad de evaluacion a la unidad de comite";
             respuesta.setException(e);
         }
+        respuesta.Accion = "EvalAddUnidadEvaluacionAComite";
+        respuesta.IdComite = idComite;
+        respuesta.IdUE = idUnidadEvaluacion;
         return respuesta;
     }
 
     [WebMethod]
-    public VoidRespuestaWS EvalRemoveUnidadEvaluacionAComite(int idComite, int idUnidadEvaluacion)
+    public AltaBajaUEComiteRespuestaWS EvalRemoveUnidadEvaluacionAComite(int idComite, int idUnidadEvaluacion)
     {
-        var respuesta = new VoidRespuestaWS();
+        var respuesta = new AltaBajaUEComiteRespuestaWS();
         try
         {
             var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
@@ -120,6 +123,9 @@ public class WSViaticos : System.Web.Services.WebService
             respuesta.MensajeDeErrorAmigable = "Se produjo un error al intentar quitar la unidad de evaluacion a la unidad de comite";
             respuesta.setException(e);
         }
+        respuesta.Accion = "EvalRemoveUnidadEvaluacionAComite";
+        respuesta.IdComite = idComite;
+        respuesta.IdUE = idUnidadEvaluacion;
         return respuesta;
     }
 
