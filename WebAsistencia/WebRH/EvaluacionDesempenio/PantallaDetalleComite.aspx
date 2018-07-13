@@ -9,7 +9,9 @@
     <%= Referencias.Css("../")%>
     <%= Referencias.Javascript("../")%>
     <link rel="stylesheet" href="../estilos/SelectorDePersonas.css" type="text/css" />
+    <link rel="stylesheet" href="../FormularioConcursar/EstilosPostular.css" />
     <link href="../scripts/select2-3.4.4/select2.css" rel="stylesheet" type="text/css" />
+
 </head>
 <body>
     <form id="form1" runat="server">
@@ -18,8 +20,10 @@
     <div id="pantallaDetalleComite" class="">
         <div id="contenido_form_comite" class="fondo_form">
             <fieldset>
+            <h4>Datos de la Reunión</h4>
                 <div>
-                    Fecha:
+                     <label for="fecha_1">Fecha<em>*</em>
+                     </label>
                     <input id="fecha_1" campo="fecha_1" type="text" placeholder="dd/mm/aaaa" style="flex-grow: 100;
                         margin-left: 20px;" />
                 </div>
@@ -33,18 +37,20 @@
                         Lugar <em>*</em></label>
                     <input id="txt_lugar" type="text" style="width: 160px;" maxlength="100" />
                 </div>
-                <div id="cmb_selector_integrantes" class="selector_personas">
-                    <input id="buscador" type="hidden" class="buscarPersona" />
-                </div>
                 <div class="grupo_campos nueva_linea">
                     <!--<legend><a id="btn_agregar_ue" class="link">Agregar Unidad de Evaluacion</a></legend>-->
-                    Integrantes
-                    <div id="ContenedorPlanillaIntegrantes" runat="server">
-                        <table id="tabla_integrantes" class="table table-striped">
-                        </table>
-                    </div>
+                    <h4>Integrantes</h4>
+                     <div id="cmb_selector_integrantes" class="selector_personas grupo_campos nueva_linea">
+                     <label for="buscador">Agregar Integrante
+                     </label>
+                    <input id="buscador" type="hidden" class="buscarPersona" />
                 </div>
-                <div class="grupo_campos">
+
+                <div id="ContenedorPlanillaIntegrantes" runat="server" class="grupo_campos nueva_linea">
+                    <table id="tabla_integrantes" class="table table-striped">
+                    </table>
+                </div>
+                <div class="grupo_campos nueva_linea">
                     <label for="cmb_periodo">
                         Proceso Evaluatorio <em>*</em></label>
                     <select id="cmb_periodo" style="width: 280px;">
@@ -52,7 +58,7 @@
                 </div>
                 <div class="grupo_campos nueva_linea">
                     <!--<legend><a id="btn_agregar_ue" class="link">Agregar Unidad de Evaluacion</a></legend>-->
-                    Unidades de Evaluacion
+                    <h4>Unidades de Evaluacion</h4>
                     <div id="ContenedorPlanillaUnidadesEvaluacion" runat="server">
                         <table id="tabla_unidades_evaluacion" class="table table-striped">
                         </table>
@@ -89,6 +95,7 @@
         </div>
         <div class="celda_en_caracter_de_grilla_participantes">
             <select class="enCaracterDe">
+                <option>--Seleccione--</option>
                 <option>Representante Gremial UPCN</option>
                 <option>Representante Gremial ATE</option>
                 <option>Coordinador del proceso de Selección</option>
