@@ -188,9 +188,12 @@ var RECIBOS = (function (window, undefined) {
 
         Backend.GetReciboPDFEmpleador(params)
                 .onSuccess(function (res) {
-
-                   //en el caso de los archivos estos ya vienen en b64 porque aun no encontre una funcion de conversion a b64 que codifique correctamente desde javascript
-                   downloadSuccessFunction(res,idRecibo);
+                    //en esta version siempre retorna exito a menos que sea un error antes del webservice
+                    if (! res.DioError) {
+                        //en el caso de los archivos estos ya vienen en b64 porque aun no encontre una funcion de conversion a b64 que codifique correctamente desde javascript
+                        downloadSuccessFunction(res.Respuesta, idRecibo);                
+                    }
+                   
                 })
             .onError(function (e) {
                    downloadErrorFunction(e);

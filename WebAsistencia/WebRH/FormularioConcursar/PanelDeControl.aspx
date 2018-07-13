@@ -82,7 +82,8 @@
                     <h3 style="margin-top:20px;" class="panel-title" >Información de la Convocatoria</h3>
                     <hr class="lineas-subraya"/>
                     <p>Resolución N° RESOL-2017-1367-APN-MDS - <a href="bases/RESOL_2017_1367_APN_MDS.pdf" target="_blank" >Aprueba las Bases de la convocatoria</a></p>
-                    
+                    <p>Resolución N° RESOL-2018-568-APN-MDS - <a href="bases/RESOL_2018_0568_APN_MDS.pdf" target="_blank" >Aprueba las Ordenes de Merito de la convocatoria</a></p>
+
                     <h5 style="margin-top:20px;" ><b>Comité 1: Técnico en Gestión Administrativa (C - General)</b></h5>
                     <hr class="lineas-subraya"/>
                     <p>

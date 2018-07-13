@@ -50,7 +50,7 @@
                 .onError(function () {
                     alertify.error("Error al cambiar imagen");
                 });
-        }, true);
+        }, true, 500);
     });
 
     $('#btn_credencial_usuario').click(function () {

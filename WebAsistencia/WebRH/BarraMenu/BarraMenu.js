@@ -123,7 +123,7 @@
                                     .onError(function () {
                                         alertify.error("error al solicitar imagen");
                                     });
-                            }, true);
+                            }, true, 500);
                         });
                         $vexContent.append(ui);
                         ui.show();
