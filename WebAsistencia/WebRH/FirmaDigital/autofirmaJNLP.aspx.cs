@@ -15,7 +15,7 @@ public partial class SimpleServlet : System.Web.UI.Page
 		Response.Write("<?xml version='1.0' encoding='utf-8'?>");
 		//TRABAJO: modificar a https://127.0.0.1:8443 para evitar la busqueda por dns para que funcione
         Response.Write("<jnlp spec='1.0+' codebase='" + Request["host"] + "'> "); //request host es https://127.0.0.1:43414
-		
+
 		//facu sea http o https:   out.println("<jnlp spec='1.0+' codebase='http://www.milocal.com:8080/AutofirmaJWS/' > ");
 		//server:    out.println("<jnlp spec='1.0+' codebase='https://clientefirma-pc16.rhcloud.com/AutofirmaJWS/' > ");
 		Response.Write("<information>");

@@ -408,7 +408,7 @@
         //policyIdentifierHashAlgorithm=http://www.w3.org/2000/09/xmldsig#sha1
         //policyQualifier=http://rrhh.gob.ar/politicafirma/politica_firma_v1.0.pdf
 
-        params = params + "filters=issuer.rfc2254:(O=Jefatura de Gabinete de Ministros);nonexpired:" + "\n";
+        params = params + "filters=issuer.rfc2254:(CN = Autoridad Certificante de Firma Digital);nonexpired:" + "\n";
 //ambiente prueba        params = params + "filters=issuer.rfc2254:(CN = jcvelasquez);nonexpired:" + "\n";
         //cuando existe un solo certificado en la lista lo auto selecciono
         params = params + "headless=true"; //+ "\n";	
