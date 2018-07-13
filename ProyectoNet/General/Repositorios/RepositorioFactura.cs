@@ -79,7 +79,7 @@ namespace General.Repositorios
         }
 
 
-        public string ValidarFacturaIngresada(int documento, string nroFactura, Usuario usuario)
+        public bool ValidarFacturaIngresada(int documento, string nroFactura, Usuario usuario)
         {
             SqlDataReader dr;
             ConexionDB cn = new ConexionDB("dbo.CTR_GET_Controla_Factura_Cargado");
@@ -90,71 +90,71 @@ namespace General.Repositorios
 
             while (dr.Read())
             {
-                return "1";
+                cn.Desconestar();
+                return true;
             }
 
-            return "";
+            cn.Desconestar();
+            return false;
         }
 
 
 
-        
-        public void GuardarFactura(int documento, DateTime FechaPase, DateTime FechaFactura, string NroFactura, DateTime FechaRecibida, decimal MontoAFactura, int idarea, int DocumentoFirmanteSeleccionado, Factura[] lista, Usuario usuario)
+
+        public bool GuardarFactura(int documento, DateTime FechaPase, DateTime FechaFactura, string NroFactura, DateTime FechaRecibida, decimal MontoAFactura, int idarea, int DocumentoFirmanteSeleccionado, Factura[] lista, Usuario usuario)
         {
-            SqlDataReader dr;
             ConexionDB cn = new ConexionDB("dbo.CTR_GET_Maxid_Factura");
-            dr = cn.EjecutarConsulta();
-            int Max_IdFactura = 0;
-            while (dr.Read())
-            {
-                Max_IdFactura = dr.GetInt32(dr.GetOrdinal("id_factura"));
-            }
 
-
-           
-            /*
-            //INICIO TRANSACCION
             cn.BeginTransaction();
 
             try
             {
-                cn = new ConexionDB("dbo.CTR_ADD_Facturas");
+                
+                //dr = cn.EjecutarConsulta();
+                //int Max_IdFactura = 0;
+                //while (dr.Read())
+                //{
+                //    Max_IdFactura = dr.GetInt32(dr.GetOrdinal("id_factura"));
+                //}
+
+                int Max_IdFactura = 0;
+                Max_IdFactura = (int)cn.EjecutarEscalar();
+
+                if (Max_IdFactura == 0)
+                {
+                    cn.RollbackTransaction();
+                    return false;
+                }
+
+            
+                //INICIO TRANSACCION
+                cn.CrearComandoConTransaccionIniciada("dbo.CTR_ADD_Facturas");
                 cn.AsignarParametro("@doc", documento);
                 cn.AsignarParametro("@Fecha_factura", FechaFactura);
                 cn.AsignarParametro("@Nro_factura", NroFactura);
                 cn.AsignarParametro("@Fecha_recibida", FechaRecibida);
                 cn.AsignarParametro("@monto", MontoAFactura);
                 cn.AsignarParametro("@area", idarea);
-                cn.AsignarParametro("@firma", DocumentoFirmanteSeleccionado);
+                cn.AsignarParametro("@Docfirmante", DocumentoFirmanteSeleccionado);
                 cn.AsignarParametro("@Fecha_pase", FechaPase);
-                dr = cn.EjecutarConsulta();
+                cn.EjecutarSinResultado();
 
-
-                //// REVISAR CALCULO ///
-                decimal saldo_factura = 0;
-                decimal monto_factura = 0;
-                decimal saldo_a_pagar = 0;
 
                 foreach (var item in lista)
                 {
-                    if (item.Saldo >= MontoFactura)
-                    {
-                        saldo_factura = MontoFactura - item.Saldo;
-                    }
-
-
-                    cn = new ConexionDB("dbo.CTR_ADD_Facturas_Detalle");
-                    cn.AsignarParametro("@Id_Factura_1", Max_IdFactura);
-                    cn.AsignarParametro("@Mes_Factura_2", FechaFactura.Month);
-                    cn.AsignarParametro("@Año_Factura_3", FechaFactura.Year);
-                    cn.AsignarParametro("@Monto_Factura_4", saldo_a_pagar);
-                    cn.AsignarParametro("@Id_Contrato", item.Id_Contrato);
-                    dr = cn.EjecutarConsulta();
+                    if (item.estaSeleccionado)
+	                {
+                        cn.CrearComandoConTransaccionIniciada("dbo.CTR_ADD_Facturas_Detalle");
+                        cn.AsignarParametro("@Id_Factura_1", Max_IdFactura + 1); //la cabecera tiene adentro el +1
+                        cn.AsignarParametro("@Mes_Factura_2", item.Mes);
+                        cn.AsignarParametro("@Año_Factura_3", item.Año);
+                        cn.AsignarParametro("@Monto_Factura_4", item.Monto_A_Factura);
+                        cn.AsignarParametro("@Id_Contrato", item.Id_Contrato);
+                        cn.EjecutarSinResultado();
+	                }
                 }
-                //// REVISAR CALCULO ///
-
             }
-            catch (Exception)
+            catch (Exception exp)
             {
                 cn.RollbackTransaction();
                 throw;
@@ -163,11 +163,7 @@ namespace General.Repositorios
             cn.CommitTransaction();
             cn.Desconestar();
 
-            */
-           
-
-
-
+            return true;
 
         }
     }

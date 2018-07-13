@@ -62,8 +62,17 @@
         
 
         <div id="divBuscadorPersona">
+        <table>
+        <tr>
+        <td>
             <uc3:BuscadorDePersonas ID="buscadorPersonas1" runat="server" style="display: inline-block; margin: auto;" />
+        </td>
+        <td>
             <input type="button" value="Buscar" class="btn btn-primary" id="btn_BuscarFacturas" />
+        </td>
+        </tr>
+        </table>
+        
         </div>
                     <div>
                         <%--<label id="lblcuil">CUIL</label>--%>

@@ -5307,37 +5307,21 @@ public class WSViaticos : System.Web.Services.WebService
 
         
         RepositorioFactura Repo = new RepositorioFactura();
-        char[] validarfactura = Repo.ValidarFacturaIngresada(documento, NroFactura, usuario).ToArray();
-        if (validarfactura[0].ToString() != "")
+        bool validarfactura = Repo.ValidarFacturaIngresada(documento, NroFactura, usuario);
+        if (validarfactura)
         {
             return "Ese numero de factura ya fue ingresado. Verifique por favor.";
         }
 
-        Repo.GuardarFactura(documento, FechaPase, FechaFactura, NroFactura, FechaRecibida, MontoAFactura, idarea, DocumentoFirmanteSeleccionado, lista, usuario);
-        
-
-        
-        //Set Rs = Cn.selec("select * from dbo.VW_maxid_factura")
-        //Cn.Execute ("dbo.CTR_ADD_Facturas " & STR)
-        /*
-        With LstFacturas.ListItems
-        For i = 1 To .Count
-        If .item(i).Checked = True Then
-            STR = Rs!Id_factura & "," & .item(i).SubItems(1) & "," & _
-                .item(i).SubItems(2) & "," & _
-                TxtMonto & "," & _
-                .item(i).SubItems(7)
-            Cn.Execute ("dbo.CTR_ADD_Facturas_Detalle " & STR)
-        End If
-        Next
-        End With
-
-
-        
-        */
-
-
-        return "OK";
+        bool ingresofactura = Repo.GuardarFactura(documento, FechaPase, FechaFactura, NroFactura, FechaRecibida, MontoAFactura, idarea, DocumentoFirmanteSeleccionado, lista, usuario);
+        if (ingresofactura)
+        {
+            return "Se ingreso la factura correctamente";    
+        }
+        else
+        {
+            return "Hubo un error al ingresar la factura";    
+        }
 
     }
 
