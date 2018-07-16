@@ -25,13 +25,12 @@
                     <label for="fecha_1">
                         Fecha <em>*</em>
                     </label>
-                    <input id="fecha_1" campo="fecha_1" type="text" placeholder="dd/mm/aaaa" style="flex-grow: 100;
-                        margin-left: 20px;" />
+                    <input id="fecha_1" campo="fecha_1" type="text" placeholder="dd/mm/aaaa" style="flex-grow: 100;" />
                 </div>
                 <div class="grupo_campos nueva_linea">
                     <label for="hora">
                         Hora <em>*</em></label>
-                    <input id="hora" type="text" style="width: 160px;" maxlength="100" />
+                    <input id="txt_hora" type="text" style="width: 160px;" maxlength="100" />
                 </div>
                 <div class="grupo_campos nueva_linea">
                     <label for="lugar">
@@ -148,11 +147,6 @@
                 start: function (model, ui) {
                     var _this = this;
                     this.ui = ui;
-                    //var ui = $("#pantallaDetalleComites").clone();
-
-                    //fix del datepicker cuando haces .clone() de la plantilla, quedan dos componentes
-                    //con el mismo id, y jquery datepicker funciona mal.
-                    //ui.find('#fecha_1').attr("id", "fecha_clone_id");
 
                     ui.find('#fecha_1').datepicker({
                         dateFormat: "dd/mm/yy",
@@ -160,8 +154,9 @@
                             //ui.find('#fecha_clone_id').text('test');
                         }
                     });
-                    ui.find('#fecha_clone_id').datepicker("setDate", new Date(model.Fecha));
+                    ui.find('#fecha_1').datepicker("setDate", new Date(model.Fecha));
                     ui.find('#txt_lugar').val(model.Lugar);
+                    ui.find('#txt_hora').val(model.Hora);
 
                     var cargar_ues = function () {
 
