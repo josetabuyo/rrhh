@@ -11,6 +11,7 @@ using System.Web;
 public abstract class RespuestaWS
 {
     protected string msg;
+    public string Accion { get; set; }
     public String MensajeDeErrorAmigable
     {
         get

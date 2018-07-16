@@ -9,6 +9,7 @@
     <%= Referencias.Css("../")%>
     <%= Referencias.Javascript("../")%>
     <link rel="stylesheet" href="../estilos/SelectorDePersonas.css" type="text/css" />
+    <link rel="stylesheet" href="../FormularioConcursar/EstilosPostular.css" />
     <link href="../scripts/select2-3.4.4/select2.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -18,8 +19,12 @@
     <div id="pantallaDetalleComite" class="">
         <div id="contenido_form_comite" class="fondo_form">
             <fieldset>
+                <h4>
+                    Datos de la Reunión</h4>
                 <div>
-                    Fecha:
+                    <label for="fecha_1">
+                        Fecha <em>*</em>
+                    </label>
                     <input id="fecha_1" campo="fecha_1" type="text" placeholder="dd/mm/aaaa" style="flex-grow: 100;
                         margin-left: 20px;" />
                 </div>
@@ -33,36 +38,54 @@
                         Lugar <em>*</em></label>
                     <input id="txt_lugar" type="text" style="width: 160px;" maxlength="100" />
                 </div>
-                <div id="cmb_selector_integrantes" class="selector_personas">
-                    <input id="buscador" type="hidden" class="buscarPersona" />
-                </div>
                 <div class="grupo_campos nueva_linea">
                     <!--<legend><a id="btn_agregar_ue" class="link">Agregar Unidad de Evaluacion</a></legend>-->
-                    Integrantes
-                    <div id="ContenedorPlanillaIntegrantes" runat="server">
+                    <h4>
+                        Integrantes</h4>
+                    <div id="cmb_caracter" class="selector_personas grupo_campos nueva_linea">
+                        <label for="lugar">
+                            En Caracter De <em>*</em></label>
+                        <select class="enCaracterDe" id="cmb_caracter">
+                            <option>--Seleccione--</option>
+                            <option value="1">Representante Gremial UPCN</option>
+                            <option value="2">Representante Gremial ATE</option>
+                            <option value="3">Coordinador del proceso de Selección</option>
+                            <option value="4">Evaluador</option>
+                        </select>
+                    </div>
+                    <div id="cmb_selector_integrantes" class="selector_personas grupo_campos nueva_linea">
+                        <label for="buscador">
+                            Integrante
+                        </label>
+                        <input id="buscador" type="hidden" class="buscarPersona" />
+                        <input type="hidden" id="persona_buscada" />
+                    </div>
+                    <div class="selector_personas grupo_campos nueva_linea">
+                        <input type="button" id="btn_agregar_integrante" value="Agregar" onclick="addIntegranteAGrilla()" />
+                    </div>
+                    <div id="ContenedorPlanillaIntegrantes" runat="server" class="grupo_campos nueva_linea">
                         <table id="tabla_integrantes" class="table table-striped">
                         </table>
                     </div>
-                </div>
-                <div class="grupo_campos">
-                    <label for="cmb_periodo">
-                        Proceso Evaluatorio <em>*</em></label>
-                    <select id="cmb_periodo" style="width: 280px;">
-                    </select>
-                </div>
-                <div class="grupo_campos nueva_linea">
-                    <!--<legend><a id="btn_agregar_ue" class="link">Agregar Unidad de Evaluacion</a></legend>-->
-                    Unidades de Evaluacion
-                    <div id="ContenedorPlanillaUnidadesEvaluacion" runat="server">
-                        <table id="tabla_unidades_evaluacion" class="table table-striped">
-                        </table>
+                    <div class="grupo_campos nueva_linea">
+                        <label for="cmb_periodo">
+                            Proceso Evaluatorio <em>*</em></label>
+                        <select id="cmb_periodo" style="width: 280px;">
+                        </select>
                     </div>
-                </div>
+                    <div class="grupo_campos nueva_linea">
+                        <!--<legend><a id="btn_agregar_ue" class="link">Agregar Unidad de Evaluacion</a></legend>-->
+                        <h4>
+                            Unidades de Evaluacion</h4>
+                        <div id="ContenedorPlanillaUnidadesEvaluacion" runat="server">
+                            <table id="tabla_unidades_evaluacion" class="table table-striped">
+                            </table>
+                        </div>
+                    </div>
             </fieldset>
             <div class="btn-fld">
                 <input type="button" class="btn btn-primary" id="btn_guardar" value="Siguiente" />
             </div>
-            <input type="hidden" id="txt_AntecedenteAcademico_id" />
         </div>
     </div>
     <div id="plantillas" syle="display: hidden">
@@ -88,21 +111,20 @@
             <input type="button" id="btn_eliminar_participante" value="eliminar" />
         </div>
         <div class="celda_en_caracter_de_grilla_participantes">
-            <select class="enCaracterDe">
-                <option>Representante Gremial UPCN</option>
-                <option>Representante Gremial ATE</option>
-                <option>Coordinador del proceso de Selección</option>
-                <option>Evaluador</option>
-            </select>
+            <!--<select class="enCaracterDe" id="cmb_caracter">
+                <option>--Seleccione--</option>
+                <option value="1">Representante Gremial UPCN</option>
+                <option value="2">Representante Gremial ATE</option>
+                <option value="3">Coordinador del proceso de Selección</option>
+                <option value="4">Evaluador</option>
+            </select>-->
         </div>
         <div class="botonera_grilla_ues">
             <input class="cb_ue" type="checkbox" />
             <input type="hidden" class="hidden_model" />
         </div>
     </div>
-
-    </form>    
-
+    </form>
 </body>
 <script type="text/javascript" src="../Scripts/select2-3.4.4/Select2.min.js"></script>
 <script type="text/javascript" src="../Scripts/select2-3.4.4/select2_locale_es.js"></script>
@@ -111,6 +133,15 @@
 <script type="text/javascript" src="../Scripts/SelectorDePersonas.js"></script>
 <script type="text/javascript" src="../Scripts/Spin.js"></script>
 <script type="text/javascript">
+
+    function addIntegranteAGrilla() {
+        var persona = JSON.parse($("#persona_buscada").val())
+        model.Integrantes.push(persona);
+        _this.grilla_integrantes.BorrarContenido();
+        _this.grilla_integrantes.CargarObjetos(model.Integrantes);
+        
+    }
+
     $(document).ready(function () {
         Backend.start(function () {
             var PantallaDetalleComite = {
@@ -118,7 +149,6 @@
                     var _this = this;
                     this.ui = ui;
                     //var ui = $("#pantallaDetalleComites").clone();
-
 
                     //fix del datepicker cuando haces .clone() de la plantilla, quedan dos componentes
                     //con el mismo id, y jquery datepicker funciona mal.
@@ -180,30 +210,47 @@
 
                                     backend_call(id_comite, ue_id)
                                             .onSuccess(function (res) {
+                                                spinner.stop()
                                                 if (res.DioError) {
                                                     alert(res.MensajeDeErrorAmigable)
                                                     mcb.checked = !mcb.checked
+                                                    return
                                                 }
-                                                spinner.stop()
+
+                                                if (res.Accion == "EvalRemoveUnidadEvaluacionAComite") {
+                                                    var detalleComite = JSON.parse(localStorage.getItem("detalleComite"))
+                                                    detalleComite.UnidadesEvaluacion = detalleComite.UnidadesEvaluacion.filter(function (ue) { return ue.Id != res.IdUE });
+                                                    localStorage.setItem("detalleComite", JSON.stringify(detalleComite))
+                                                } else {
+                                                    //res.Accion == "EvalAddUnidadEvaluacionAComite"
+                                                    var detalleComite = JSON.parse(localStorage.getItem("detalleComite"))
+                                                    var ues = JSON.parse(localStorage.getItem("estadosEvaluaciones"))
+                                                    var ue_agregada = _.find(ues, function (ue) {
+                                                        return ue.Id == res.IdUE
+                                                    })
+                                                    detalleComite.UnidadesEvaluacion.push(ue_agregada)
+                                                    localStorage.setItem("detalleComite", JSON.stringify(detalleComite))
+                                                }
+
+
                                             }).onError(function (err) {
                                                 alert("se produjo un error en la comunicación")
+                                                mcb.checked = !mcb.checked
                                                 spinner.stop()
                                             })
-
                                 })
                                 return $buttons_ue
                             }
-
                         }))
 
                         var estadosEvaluaciones = JSON.parse(localStorage.getItem("estadosEvaluaciones"));
                         var id_periodo = ui.find("#cmb_periodo").val();
 
-                        _this.grilla_ue = new Grilla(columnas_ue);
-                        _this.grilla_ue.SetOnRowClickEventHandler(function (ues) { });
-                        _this.grilla_ue.CambiarEstiloCabecera("estilo_tabla_portal");
-                        _this.grilla_ue.CargarObjetos(estadosEvaluaciones.filter(function (i) { return i.IdPeriodo == id_periodo; }));
-                        _this.grilla_ue.DibujarEn(grilla_ue);
+                        _this.grilla_ue = new Grilla(columnas_ue)
+                        _this.grilla_ue.SetOnRowClickEventHandler(function (ues) { })
+                        _this.grilla_ue.CambiarEstiloCabecera("estilo_tabla_portal")
+                        _this.grilla_ue.CargarObjetos(estadosEvaluaciones.filter(function (i) { return i.IdPeriodo == id_periodo; }))
+                        _this.grilla_ue.DibujarEn(grilla_ue)
                     }
 
                     Backend.GetPeriodosEvaluacion()
@@ -220,7 +267,7 @@
                     ui.find("#cmb_periodo").unbind("change");
                     ui.find("#cmb_periodo").change(cargar_ues);
 
-                    /***
+                    /******
                     GRILLA INTEGRANTES COMITE
                     ******/
 
@@ -232,8 +279,37 @@
                     columnas_integrantes.push(new Columna("Apellido", { generar: function (int) { return int.Apellido; } }));
                     columnas_integrantes.push(new Columna("Nombre", { generar: function (int) { return int.Nombre; } }));
                     columnas_integrantes.push(new Columna("En caracter de", { generar: function (int) {
-                        var celda = $("#plantillas .celda_en_caracter_de_grilla_participantes").clone();
-                        return celda;
+                        var $celda = $("#plantillas .celda_en_caracter_de_grilla_participantes").clone();
+                        $celda.find("#cmb_caracter").change(function (e) {
+                            var spinner = new Spinner({ scale: 0.5, position: 'relative', left: '50%', top: '50%' })
+                            spinner.spin($(e.currentTarget).parent())
+                            var id_comite = JSON.parse(localStorage.getItem("detalleComite")).Id
+                            var integrante =
+                            {
+                                Apellido: '',
+                                Nombre: '',
+                                IdEnCaracterDe: e.currentTarget.value,
+                                IdPersona: int.IdPersona,
+                                Dni: 0
+                            }
+                            Backend.EvalAddIntegranteComite(id_comite, integrante)
+                            .onSuccess(function (res) {
+                                spinner.stop()
+                                if (res.DioError) {
+                                    alert(res.MensajeDeErrorAmigable)
+                                    mcb.checked = !mcb.checked
+                                    return
+                                }
+                            }).onError(function (err) {
+                                spinner.stop();
+                                alert("se produjo un error en la comunicación")
+                                mcb.checked = !mcb.checked
+                                spinner.stop()
+                            })
+
+                        });
+
+                        return $celda;
                     }
                     }));
                     columnas_integrantes.push(new Columna("Acciones", {
@@ -272,9 +348,8 @@
                             Nombre: la_persona_seleccionada.nombre,
                             Id: la_persona_seleccionada.id
                         }
-                        model.Integrantes.push(persona);
-                        _this.grilla_integrantes.BorrarContenido();
-                        _this.grilla_integrantes.CargarObjetos(model.Integrantes);
+                        $("#persona_buscada").val(JSON.stringify(persona))
+                        
                     };
                 }
             };

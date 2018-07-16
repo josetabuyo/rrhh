@@ -130,7 +130,7 @@ namespace General.Repositorios
             return result;
         }
 
-        public ComiteEvaluacionDesempenio GuardarComiteEvaluacionDesempenio(ComiteEvaluacionDesempenio comite)
+        /*public ComiteEvaluacionDesempenio GuardarComiteEvaluacionDesempenio(ComiteEvaluacionDesempenio comite)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@idPeriodo", comite.Periodo.id_periodo);
@@ -143,7 +143,7 @@ namespace General.Repositorios
             comite.UnidadesEvaluacion.ForEach(i => AgregarUnidadEvaluacionComite(comite.Id, i.Id));
 
             return comite;
-        }
+        }*/
 
         public void AgregarUnidadEvaluacionComite(int idComite, int idUnidadEvaluacion)
         {
