@@ -54,14 +54,14 @@ color:#fff !important;
                         <li id="tab_cv"><a href="CargaInformacionPersonal.aspx" >Cargar/Editar Mi Currículum</a></li>
                         <li id="tab_cargos"><a href="Postulaciones.aspx" >Postularme/Cargos Disponibles</a></li>
                         <li id="tab_info"><a href="Informacion.aspx" >Más Información</a></li>
-                        <li id="tab_adm" RequiereFuncionalidad="15" style="cursor:pointer;" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" runat="server">Administración</a>
+                        <li id="tab_adm" RequiereFuncionalidad="etapa_preinscripcion_documental" style="cursor:pointer;" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" runat="server">Administración</a>
                             <ul id="subMenu_administracion" runat="server" class="dropdown-menu">
-                                <li RequiereFuncionalidad="14" class="dropdown"><a  href="EtapasPostulacion.aspx" runat="server">Cambiar Etapas de Postulaciones</a></li>
-                                <li RequiereFuncionalidad="15" class="dropdown"><a  href="EtapaPreInscripcionDocumental.aspx"  runat="server">Inscripción documental (operador)</a></li>
-                                <li RequiereFuncionalidad="16" class="dropdown"><a  href="EtapaInscripcionDocumental.aspx"  runat="server">Inscripción documental (comité)</a></li>
-                                <li RequiereFuncionalidad="17" class="dropdown"><a  href="EtapaAdmision.aspx" runat="server">Etapa de Admisión</a></li>
-                                <li RequiereFuncionalidad="20" class="dropdown"><a  href="InscripcionManual.aspx" runat="server">Inscripción Manual</a></li>
-                                <li RequiereFuncionalidad="19" class="dropdown"><a  href="TableroControl.aspx" runat="server">Tablero de Control</a></li>
+                                <li RequiereFuncionalidad="etapas_postular" class="dropdown"><a  href="EtapasPostulacion.aspx" runat="server">Cambiar Etapas de Postulaciones</a></li>
+                                <li RequiereFuncionalidad="etapa_preinscripcion_documental" class="dropdown"><a  href="EtapaPreInscripcionDocumental.aspx"  runat="server">Inscripción documental (operador)</a></li>
+                                <li RequiereFuncionalidad="etapa_inscripcion_documental" class="dropdown"><a  href="EtapaInscripcionDocumental.aspx"  runat="server">Inscripción documental (comité)</a></li>
+                                <li RequiereFuncionalidad="etapa_admision" class="dropdown"><a  href="EtapaAdmision.aspx" runat="server">Etapa de Admisión</a></li>
+                                <li RequiereFuncionalidad="postular_inscripcion_manual" class="dropdown"><a  href="InscripcionManual.aspx" runat="server">Inscripción Manual</a></li>
+                                <li RequiereFuncionalidad="panel_de_control" class="dropdown"><a  href="TableroControl.aspx" runat="server">Tablero de Control</a></li>
                             </ul>
                         
                         </li>

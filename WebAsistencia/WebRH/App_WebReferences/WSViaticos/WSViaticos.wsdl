@@ -2,7 +2,7 @@
 <wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://wsviaticos.gov.ar/">
-      <s:element name="ConsultaExcelDDJJ104_Area">
+      <s:element name="ConsultaExcelDDJJ104_Persona">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
@@ -199,6 +199,21 @@
           <s:element minOccurs="1" maxOccurs="1" name="basica" type="s:boolean" />
         </s:sequence>
       </s:complexType>
+      <s:element name="ConsultaExcelDDJJ104_PersonaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaExcelDDJJ104_PersonaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaExcelDDJJ104_Area">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="ConsultaExcelDDJJ104_AreaResponse">
         <s:complexType>
           <s:sequence>
@@ -602,26 +617,20 @@
       <s:element name="AsignaAreaAPersonasNoCertificadasResponse">
         <s:complexType />
       </s:element>
-      <s:element name="Mobi_GetBienesDelAreaRecepcion">
+      <s:element name="Mobi_GetImagenesBienPorId">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="IdArea" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="IdTipoBien" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_bien" type="s:int" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="Mobi_GetBienesDelAreaRecepcionResponse">
+      <s:element name="Mobi_GetImagenesBienPorIdResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Mobi_GetBienesDelAreaRecepcionResult" type="tns:ArrayOfMoBi_Bien" />
+            <s:element minOccurs="0" maxOccurs="1" name="Mobi_GetImagenesBienPorIdResult" type="tns:MoBi_Bien" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="ArrayOfMoBi_Bien">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="MoBi_Bien" nillable="true" type="tns:MoBi_Bien" />
-        </s:sequence>
-      </s:complexType>
       <s:complexType name="MoBi_Bien">
         <s:sequence>
           <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
@@ -644,6 +653,41 @@
           <s:element minOccurs="0" maxOccurs="unbounded" name="int" type="s:int" />
         </s:sequence>
       </s:complexType>
+      <s:element name="Mobi_GetBienesDelArea">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IdArea" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="IdTipoBien" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Mobi_GetBienesDelAreaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Mobi_GetBienesDelAreaResult" type="tns:ArrayOfMoBi_Bien" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfMoBi_Bien">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MoBi_Bien" nillable="true" type="tns:MoBi_Bien" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Mobi_GetBienesDelAreaRecepcion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IdArea" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="IdTipoBien" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Mobi_GetBienesDelAreaRecepcionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Mobi_GetBienesDelAreaRecepcionResult" type="tns:ArrayOfMoBi_Bien" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="Mobi_GetBienesDisponibles">
         <s:complexType>
           <s:sequence>
@@ -1662,25 +1706,10 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="ConsultaExcelDDJJ104_Persona">
+      <s:element name="GuardarCvAntecedenteAcademico">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ConsultaExcelDDJJ104_PersonaResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ConsultaExcelDDJJ104_PersonaResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="EliminarCvAntecedenteAcademico">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="antecedente_a_borrar" type="tns:CvEstudios" />
+            <s:element minOccurs="0" maxOccurs="1" name="antecedentesAcademicos_nuevo" type="tns:CvEstudios" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
@@ -1876,6 +1905,36 @@
           </s:extension>
         </s:complexContent>
       </s:complexType>
+      <s:element name="GuardarCvAntecedenteAcademicoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GuardarCvAntecedenteAcademicoResult" type="tns:CvEstudios" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ActualizarCvAntecedenteAcademico">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="antecedentesAcademicos_nuevo" type="tns:CvEstudios" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ActualizarCvAntecedenteAcademicoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ActualizarCvAntecedenteAcademicoResult" type="tns:CvEstudios" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EliminarCvAntecedenteAcademico">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="antecedente_a_borrar" type="tns:CvEstudios" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="EliminarCvAntecedenteAcademicoResponse">
         <s:complexType>
           <s:sequence>
@@ -3558,35 +3617,6 @@
           <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
         </s:sequence>
       </s:complexType>
-      <s:element name="Mobi_GetImagenesBienPorId">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id_bien" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="Mobi_GetImagenesBienPorIdResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Mobi_GetImagenesBienPorIdResult" type="tns:MoBi_Bien" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="Mobi_GetBienesDelArea">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="IdArea" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="IdTipoBien" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="Mobi_GetBienesDelAreaResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Mobi_GetBienesDelAreaResult" type="tns:ArrayOfMoBi_Bien" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
       <s:element name="SolicitarCambioDeImagen">
         <s:complexType>
           <s:sequence>
@@ -3938,7 +3968,7 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="ElUsuarioTienePermisosPara">
+      <s:element name="ElUsuarioTienePermisosParaFuncionalidadPorId">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="id_usuario" type="s:int" />
@@ -3946,14 +3976,44 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="ElUsuarioTienePermisosParaResponse">
+      <s:element name="ElUsuarioTienePermisosParaFuncionalidadPorIdResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="ElUsuarioTienePermisosParaResult" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="ElUsuarioTienePermisosParaFuncionalidadPorIdResult" type="s:boolean" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="ElUsuarioLogueadoTienePermisosPara">
+      <s:element name="ElUsuarioTienePermisosParaFuncionalidadPorNombre">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_usuario" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="nombre_funcionalidad" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ElUsuarioTienePermisosParaFuncionalidadPorNombreResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ElUsuarioTienePermisosParaFuncionalidadPorNombreResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ElUsuarioLogueadoTienePermisosParaFuncionalidadPorNombre">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="nombre_funcionalidad" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ElUsuarioLogueadoTienePermisosParaFuncionalidadPorNombreResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ElUsuarioLogueadoTienePermisosParaFuncionalidadPorNombreResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ElUsuarioLogueadoTienePermisosParaFuncionalidadPorId">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="id_funcionalidad" type="s:int" />
@@ -3961,10 +4021,10 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="ElUsuarioLogueadoTienePermisosParaResponse">
+      <s:element name="ElUsuarioLogueadoTienePermisosParaFuncionalidadPorIdResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="ElUsuarioLogueadoTienePermisosParaResult" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="ElUsuarioLogueadoTienePermisosParaFuncionalidadPorIdResult" type="s:boolean" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -5180,36 +5240,6 @@
       </s:element>
       <s:element name="InsEtapaPostulacionResponse">
         <s:complexType />
-      </s:element>
-      <s:element name="GuardarCvAntecedenteAcademico">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="antecedentesAcademicos_nuevo" type="tns:CvEstudios" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GuardarCvAntecedenteAcademicoResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GuardarCvAntecedenteAcademicoResult" type="tns:CvEstudios" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ActualizarCvAntecedenteAcademico">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="antecedentesAcademicos_nuevo" type="tns:CvEstudios" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ActualizarCvAntecedenteAcademicoResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ActualizarCvAntecedenteAcademicoResult" type="tns:CvEstudios" />
-          </s:sequence>
-        </s:complexType>
       </s:element>
       <s:element name="AreasCompletas">
         <s:complexType />
@@ -8167,6 +8197,12 @@
       </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="ConsultaExcelDDJJ104_PersonaSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaExcelDDJJ104_Persona" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaExcelDDJJ104_PersonaSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaExcelDDJJ104_PersonaResponse" />
+  </wsdl:message>
   <wsdl:message name="ConsultaExcelDDJJ104_AreaSoapIn">
     <wsdl:part name="parameters" element="tns:ConsultaExcelDDJJ104_Area" />
   </wsdl:message>
@@ -8268,6 +8304,18 @@
   </wsdl:message>
   <wsdl:message name="AsignaAreaAPersonasNoCertificadasSoapOut">
     <wsdl:part name="parameters" element="tns:AsignaAreaAPersonasNoCertificadasResponse" />
+  </wsdl:message>
+  <wsdl:message name="Mobi_GetImagenesBienPorIdSoapIn">
+    <wsdl:part name="parameters" element="tns:Mobi_GetImagenesBienPorId" />
+  </wsdl:message>
+  <wsdl:message name="Mobi_GetImagenesBienPorIdSoapOut">
+    <wsdl:part name="parameters" element="tns:Mobi_GetImagenesBienPorIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="Mobi_GetBienesDelAreaSoapIn">
+    <wsdl:part name="parameters" element="tns:Mobi_GetBienesDelArea" />
+  </wsdl:message>
+  <wsdl:message name="Mobi_GetBienesDelAreaSoapOut">
+    <wsdl:part name="parameters" element="tns:Mobi_GetBienesDelAreaResponse" />
   </wsdl:message>
   <wsdl:message name="Mobi_GetBienesDelAreaRecepcionSoapIn">
     <wsdl:part name="parameters" element="tns:Mobi_GetBienesDelAreaRecepcion" />
@@ -8623,11 +8671,17 @@
   <wsdl:message name="InsertarEvaluacionSoapOut">
     <wsdl:part name="parameters" element="tns:InsertarEvaluacionResponse" />
   </wsdl:message>
-  <wsdl:message name="ConsultaExcelDDJJ104_PersonaSoapIn">
-    <wsdl:part name="parameters" element="tns:ConsultaExcelDDJJ104_Persona" />
+  <wsdl:message name="GuardarCvAntecedenteAcademicoSoapIn">
+    <wsdl:part name="parameters" element="tns:GuardarCvAntecedenteAcademico" />
   </wsdl:message>
-  <wsdl:message name="ConsultaExcelDDJJ104_PersonaSoapOut">
-    <wsdl:part name="parameters" element="tns:ConsultaExcelDDJJ104_PersonaResponse" />
+  <wsdl:message name="GuardarCvAntecedenteAcademicoSoapOut">
+    <wsdl:part name="parameters" element="tns:GuardarCvAntecedenteAcademicoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ActualizarCvAntecedenteAcademicoSoapIn">
+    <wsdl:part name="parameters" element="tns:ActualizarCvAntecedenteAcademico" />
+  </wsdl:message>
+  <wsdl:message name="ActualizarCvAntecedenteAcademicoSoapOut">
+    <wsdl:part name="parameters" element="tns:ActualizarCvAntecedenteAcademicoResponse" />
   </wsdl:message>
   <wsdl:message name="EliminarCvAntecedenteAcademicoSoapIn">
     <wsdl:part name="parameters" element="tns:EliminarCvAntecedenteAcademico" />
@@ -9127,18 +9181,6 @@
   <wsdl:message name="Mobi_GetTipoBienSoapOut">
     <wsdl:part name="parameters" element="tns:Mobi_GetTipoBienResponse" />
   </wsdl:message>
-  <wsdl:message name="Mobi_GetImagenesBienPorIdSoapIn">
-    <wsdl:part name="parameters" element="tns:Mobi_GetImagenesBienPorId" />
-  </wsdl:message>
-  <wsdl:message name="Mobi_GetImagenesBienPorIdSoapOut">
-    <wsdl:part name="parameters" element="tns:Mobi_GetImagenesBienPorIdResponse" />
-  </wsdl:message>
-  <wsdl:message name="Mobi_GetBienesDelAreaSoapIn">
-    <wsdl:part name="parameters" element="tns:Mobi_GetBienesDelArea" />
-  </wsdl:message>
-  <wsdl:message name="Mobi_GetBienesDelAreaSoapOut">
-    <wsdl:part name="parameters" element="tns:Mobi_GetBienesDelAreaResponse" />
-  </wsdl:message>
   <wsdl:message name="SolicitarCambioDeImagenSoapIn">
     <wsdl:part name="parameters" element="tns:SolicitarCambioDeImagen" />
   </wsdl:message>
@@ -9271,17 +9313,29 @@
   <wsdl:message name="TodasLasFuncionalidadesSoapOut">
     <wsdl:part name="parameters" element="tns:TodasLasFuncionalidadesResponse" />
   </wsdl:message>
-  <wsdl:message name="ElUsuarioTienePermisosParaSoapIn">
-    <wsdl:part name="parameters" element="tns:ElUsuarioTienePermisosPara" />
+  <wsdl:message name="ElUsuarioTienePermisosParaFuncionalidadPorIdSoapIn">
+    <wsdl:part name="parameters" element="tns:ElUsuarioTienePermisosParaFuncionalidadPorId" />
   </wsdl:message>
-  <wsdl:message name="ElUsuarioTienePermisosParaSoapOut">
-    <wsdl:part name="parameters" element="tns:ElUsuarioTienePermisosParaResponse" />
+  <wsdl:message name="ElUsuarioTienePermisosParaFuncionalidadPorIdSoapOut">
+    <wsdl:part name="parameters" element="tns:ElUsuarioTienePermisosParaFuncionalidadPorIdResponse" />
   </wsdl:message>
-  <wsdl:message name="ElUsuarioLogueadoTienePermisosParaSoapIn">
-    <wsdl:part name="parameters" element="tns:ElUsuarioLogueadoTienePermisosPara" />
+  <wsdl:message name="ElUsuarioTienePermisosParaFuncionalidadPorNombreSoapIn">
+    <wsdl:part name="parameters" element="tns:ElUsuarioTienePermisosParaFuncionalidadPorNombre" />
   </wsdl:message>
-  <wsdl:message name="ElUsuarioLogueadoTienePermisosParaSoapOut">
-    <wsdl:part name="parameters" element="tns:ElUsuarioLogueadoTienePermisosParaResponse" />
+  <wsdl:message name="ElUsuarioTienePermisosParaFuncionalidadPorNombreSoapOut">
+    <wsdl:part name="parameters" element="tns:ElUsuarioTienePermisosParaFuncionalidadPorNombreResponse" />
+  </wsdl:message>
+  <wsdl:message name="ElUsuarioLogueadoTienePermisosParaFuncionalidadPorNombreSoapIn">
+    <wsdl:part name="parameters" element="tns:ElUsuarioLogueadoTienePermisosParaFuncionalidadPorNombre" />
+  </wsdl:message>
+  <wsdl:message name="ElUsuarioLogueadoTienePermisosParaFuncionalidadPorNombreSoapOut">
+    <wsdl:part name="parameters" element="tns:ElUsuarioLogueadoTienePermisosParaFuncionalidadPorNombreResponse" />
+  </wsdl:message>
+  <wsdl:message name="ElUsuarioLogueadoTienePermisosParaFuncionalidadPorIdSoapIn">
+    <wsdl:part name="parameters" element="tns:ElUsuarioLogueadoTienePermisosParaFuncionalidadPorId" />
+  </wsdl:message>
+  <wsdl:message name="ElUsuarioLogueadoTienePermisosParaFuncionalidadPorIdSoapOut">
+    <wsdl:part name="parameters" element="tns:ElUsuarioLogueadoTienePermisosParaFuncionalidadPorIdResponse" />
   </wsdl:message>
   <wsdl:message name="FuncionalidadesParaSoapIn">
     <wsdl:part name="parameters" element="tns:FuncionalidadesPara" />
@@ -9630,18 +9684,6 @@
   </wsdl:message>
   <wsdl:message name="InsEtapaPostulacionSoapOut">
     <wsdl:part name="parameters" element="tns:InsEtapaPostulacionResponse" />
-  </wsdl:message>
-  <wsdl:message name="GuardarCvAntecedenteAcademicoSoapIn">
-    <wsdl:part name="parameters" element="tns:GuardarCvAntecedenteAcademico" />
-  </wsdl:message>
-  <wsdl:message name="GuardarCvAntecedenteAcademicoSoapOut">
-    <wsdl:part name="parameters" element="tns:GuardarCvAntecedenteAcademicoResponse" />
-  </wsdl:message>
-  <wsdl:message name="ActualizarCvAntecedenteAcademicoSoapIn">
-    <wsdl:part name="parameters" element="tns:ActualizarCvAntecedenteAcademico" />
-  </wsdl:message>
-  <wsdl:message name="ActualizarCvAntecedenteAcademicoSoapOut">
-    <wsdl:part name="parameters" element="tns:ActualizarCvAntecedenteAcademicoResponse" />
   </wsdl:message>
   <wsdl:message name="AreasCompletasSoapIn">
     <wsdl:part name="parameters" element="tns:AreasCompletas" />
@@ -10562,6 +10604,10 @@
     <wsdl:part name="parameters" element="tns:CrearTransicionFuturaParaDocumentoResponse" />
   </wsdl:message>
   <wsdl:portType name="WSViaticosSoap">
+    <wsdl:operation name="ConsultaExcelDDJJ104_Persona">
+      <wsdl:input message="tns:ConsultaExcelDDJJ104_PersonaSoapIn" />
+      <wsdl:output message="tns:ConsultaExcelDDJJ104_PersonaSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="ConsultaExcelDDJJ104_Area">
       <wsdl:input message="tns:ConsultaExcelDDJJ104_AreaSoapIn" />
       <wsdl:output message="tns:ConsultaExcelDDJJ104_AreaSoapOut" />
@@ -10629,6 +10675,14 @@
     <wsdl:operation name="AsignaAreaAPersonasNoCertificadas">
       <wsdl:input message="tns:AsignaAreaAPersonasNoCertificadasSoapIn" />
       <wsdl:output message="tns:AsignaAreaAPersonasNoCertificadasSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_GetImagenesBienPorId">
+      <wsdl:input message="tns:Mobi_GetImagenesBienPorIdSoapIn" />
+      <wsdl:output message="tns:Mobi_GetImagenesBienPorIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_GetBienesDelArea">
+      <wsdl:input message="tns:Mobi_GetBienesDelAreaSoapIn" />
+      <wsdl:output message="tns:Mobi_GetBienesDelAreaSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="Mobi_GetBienesDelAreaRecepcion">
       <wsdl:input message="tns:Mobi_GetBienesDelAreaRecepcionSoapIn" />
@@ -10866,9 +10920,13 @@
       <wsdl:input message="tns:InsertarEvaluacionSoapIn" />
       <wsdl:output message="tns:InsertarEvaluacionSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="ConsultaExcelDDJJ104_Persona">
-      <wsdl:input message="tns:ConsultaExcelDDJJ104_PersonaSoapIn" />
-      <wsdl:output message="tns:ConsultaExcelDDJJ104_PersonaSoapOut" />
+    <wsdl:operation name="GuardarCvAntecedenteAcademico">
+      <wsdl:input message="tns:GuardarCvAntecedenteAcademicoSoapIn" />
+      <wsdl:output message="tns:GuardarCvAntecedenteAcademicoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarCvAntecedenteAcademico">
+      <wsdl:input message="tns:ActualizarCvAntecedenteAcademicoSoapIn" />
+      <wsdl:output message="tns:ActualizarCvAntecedenteAcademicoSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="EliminarCvAntecedenteAcademico">
       <wsdl:input message="tns:EliminarCvAntecedenteAcademicoSoapIn" />
@@ -11202,14 +11260,6 @@
       <wsdl:input message="tns:Mobi_GetTipoBienSoapIn" />
       <wsdl:output message="tns:Mobi_GetTipoBienSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="Mobi_GetImagenesBienPorId">
-      <wsdl:input message="tns:Mobi_GetImagenesBienPorIdSoapIn" />
-      <wsdl:output message="tns:Mobi_GetImagenesBienPorIdSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="Mobi_GetBienesDelArea">
-      <wsdl:input message="tns:Mobi_GetBienesDelAreaSoapIn" />
-      <wsdl:output message="tns:Mobi_GetBienesDelAreaSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="SolicitarCambioDeImagen">
       <wsdl:input message="tns:SolicitarCambioDeImagenSoapIn" />
       <wsdl:output message="tns:SolicitarCambioDeImagenSoapOut" />
@@ -11298,13 +11348,21 @@
       <wsdl:input message="tns:TodasLasFuncionalidadesSoapIn" />
       <wsdl:output message="tns:TodasLasFuncionalidadesSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="ElUsuarioTienePermisosPara">
-      <wsdl:input message="tns:ElUsuarioTienePermisosParaSoapIn" />
-      <wsdl:output message="tns:ElUsuarioTienePermisosParaSoapOut" />
+    <wsdl:operation name="ElUsuarioTienePermisosParaFuncionalidadPorId">
+      <wsdl:input message="tns:ElUsuarioTienePermisosParaFuncionalidadPorIdSoapIn" />
+      <wsdl:output message="tns:ElUsuarioTienePermisosParaFuncionalidadPorIdSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="ElUsuarioLogueadoTienePermisosPara">
-      <wsdl:input message="tns:ElUsuarioLogueadoTienePermisosParaSoapIn" />
-      <wsdl:output message="tns:ElUsuarioLogueadoTienePermisosParaSoapOut" />
+    <wsdl:operation name="ElUsuarioTienePermisosParaFuncionalidadPorNombre">
+      <wsdl:input message="tns:ElUsuarioTienePermisosParaFuncionalidadPorNombreSoapIn" />
+      <wsdl:output message="tns:ElUsuarioTienePermisosParaFuncionalidadPorNombreSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ElUsuarioLogueadoTienePermisosParaFuncionalidadPorNombre">
+      <wsdl:input message="tns:ElUsuarioLogueadoTienePermisosParaFuncionalidadPorNombreSoapIn" />
+      <wsdl:output message="tns:ElUsuarioLogueadoTienePermisosParaFuncionalidadPorNombreSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ElUsuarioLogueadoTienePermisosParaFuncionalidadPorId">
+      <wsdl:input message="tns:ElUsuarioLogueadoTienePermisosParaFuncionalidadPorIdSoapIn" />
+      <wsdl:output message="tns:ElUsuarioLogueadoTienePermisosParaFuncionalidadPorIdSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="FuncionalidadesPara">
       <wsdl:input message="tns:FuncionalidadesParaSoapIn" />
@@ -11537,14 +11595,6 @@
     <wsdl:operation name="InsEtapaPostulacion">
       <wsdl:input message="tns:InsEtapaPostulacionSoapIn" />
       <wsdl:output message="tns:InsEtapaPostulacionSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GuardarCvAntecedenteAcademico">
-      <wsdl:input message="tns:GuardarCvAntecedenteAcademicoSoapIn" />
-      <wsdl:output message="tns:GuardarCvAntecedenteAcademicoSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="ActualizarCvAntecedenteAcademico">
-      <wsdl:input message="tns:ActualizarCvAntecedenteAcademicoSoapIn" />
-      <wsdl:output message="tns:ActualizarCvAntecedenteAcademicoSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="AreasCompletas">
       <wsdl:input message="tns:AreasCompletasSoapIn" />
@@ -12161,6 +12211,15 @@
   </wsdl:portType>
   <wsdl:binding name="WSViaticosSoap" type="tns:WSViaticosSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ConsultaExcelDDJJ104_Persona">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ConsultaExcelDDJJ104_Persona" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ConsultaExcelDDJJ104_Area">
       <soap:operation soapAction="http://wsviaticos.gov.ar/ConsultaExcelDDJJ104_Area" style="document" />
       <wsdl:input>
@@ -12307,6 +12366,24 @@
     </wsdl:operation>
     <wsdl:operation name="AsignaAreaAPersonasNoCertificadas">
       <soap:operation soapAction="http://wsviaticos.gov.ar/AsignaAreaAPersonasNoCertificadas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_GetImagenesBienPorId">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetImagenesBienPorId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_GetBienesDelArea">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetBienesDelArea" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -12845,8 +12922,17 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ConsultaExcelDDJJ104_Persona">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/ConsultaExcelDDJJ104_Persona" style="document" />
+    <wsdl:operation name="GuardarCvAntecedenteAcademico">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarCvAntecedenteAcademico" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarCvAntecedenteAcademico">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ActualizarCvAntecedenteAcademico" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -13601,24 +13687,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="Mobi_GetImagenesBienPorId">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetImagenesBienPorId" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="Mobi_GetBienesDelArea">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetBienesDelArea" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="SolicitarCambioDeImagen">
       <soap:operation soapAction="http://wsviaticos.gov.ar/SolicitarCambioDeImagen" style="document" />
       <wsdl:input>
@@ -13817,8 +13885,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ElUsuarioTienePermisosPara">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/ElUsuarioTienePermisosPara" style="document" />
+    <wsdl:operation name="ElUsuarioTienePermisosParaFuncionalidadPorId">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ElUsuarioTienePermisosParaFuncionalidadPorId" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -13826,8 +13894,26 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ElUsuarioLogueadoTienePermisosPara">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/ElUsuarioLogueadoTienePermisosPara" style="document" />
+    <wsdl:operation name="ElUsuarioTienePermisosParaFuncionalidadPorNombre">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ElUsuarioTienePermisosParaFuncionalidadPorNombre" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ElUsuarioLogueadoTienePermisosParaFuncionalidadPorNombre">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ElUsuarioLogueadoTienePermisosParaFuncionalidadPorNombre" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ElUsuarioLogueadoTienePermisosParaFuncionalidadPorId">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ElUsuarioLogueadoTienePermisosParaFuncionalidadPorId" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -14350,24 +14436,6 @@
     </wsdl:operation>
     <wsdl:operation name="InsEtapaPostulacion">
       <soap:operation soapAction="http://wsviaticos.gov.ar/InsEtapaPostulacion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GuardarCvAntecedenteAcademico">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarCvAntecedenteAcademico" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ActualizarCvAntecedenteAcademico">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/ActualizarCvAntecedenteAcademico" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -15755,6 +15823,15 @@
   </wsdl:binding>
   <wsdl:binding name="WSViaticosSoap12" type="tns:WSViaticosSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ConsultaExcelDDJJ104_Persona">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ConsultaExcelDDJJ104_Persona" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ConsultaExcelDDJJ104_Area">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/ConsultaExcelDDJJ104_Area" style="document" />
       <wsdl:input>
@@ -15901,6 +15978,24 @@
     </wsdl:operation>
     <wsdl:operation name="AsignaAreaAPersonasNoCertificadas">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/AsignaAreaAPersonasNoCertificadas" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_GetImagenesBienPorId">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetImagenesBienPorId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_GetBienesDelArea">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetBienesDelArea" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -16439,8 +16534,17 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ConsultaExcelDDJJ104_Persona">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/ConsultaExcelDDJJ104_Persona" style="document" />
+    <wsdl:operation name="GuardarCvAntecedenteAcademico">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarCvAntecedenteAcademico" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarCvAntecedenteAcademico">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ActualizarCvAntecedenteAcademico" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -17195,24 +17299,6 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="Mobi_GetImagenesBienPorId">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetImagenesBienPorId" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="Mobi_GetBienesDelArea">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetBienesDelArea" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="SolicitarCambioDeImagen">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/SolicitarCambioDeImagen" style="document" />
       <wsdl:input>
@@ -17411,8 +17497,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ElUsuarioTienePermisosPara">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/ElUsuarioTienePermisosPara" style="document" />
+    <wsdl:operation name="ElUsuarioTienePermisosParaFuncionalidadPorId">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ElUsuarioTienePermisosParaFuncionalidadPorId" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -17420,8 +17506,26 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ElUsuarioLogueadoTienePermisosPara">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/ElUsuarioLogueadoTienePermisosPara" style="document" />
+    <wsdl:operation name="ElUsuarioTienePermisosParaFuncionalidadPorNombre">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ElUsuarioTienePermisosParaFuncionalidadPorNombre" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ElUsuarioLogueadoTienePermisosParaFuncionalidadPorNombre">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ElUsuarioLogueadoTienePermisosParaFuncionalidadPorNombre" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ElUsuarioLogueadoTienePermisosParaFuncionalidadPorId">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ElUsuarioLogueadoTienePermisosParaFuncionalidadPorId" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -17944,24 +18048,6 @@
     </wsdl:operation>
     <wsdl:operation name="InsEtapaPostulacion">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/InsEtapaPostulacion" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GuardarCvAntecedenteAcademico">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarCvAntecedenteAcademico" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ActualizarCvAntecedenteAcademico">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/ActualizarCvAntecedenteAcademico" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

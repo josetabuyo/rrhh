@@ -47,7 +47,7 @@ namespace General
             
             List<AreaParaDDJJ104> areas = new List<AreaParaDDJJ104>();
             List<Area> areas_completas;
-            if (autorizador.ElUsuarioTienePermisosPara(usuario.Id, 23))
+            if (autorizador.ElUsuarioTienePermisosPara(usuario.Id, "ddjj104_mostrar_todas_las_areas"))
             {
                 areas_completas = un_Organigrama.ObtenerAreas(false);
             }

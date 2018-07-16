@@ -20,7 +20,7 @@
             });
         
         $('#boton_home').click(function () {
-            Backend.ElUsuarioLogueadoTienePermisosPara(51).onSuccess(function (tiene_permisos) {   
+            Backend.ElUsuarioLogueadoTienePermisosParaFuncionalidadPorNombre("Ingreso_al_portal").onSuccess(function (tiene_permisos) {   
                 if(tiene_permisos) window.location.href = '../Portal/Portal.aspx';
                 else window.location.href = '../MenuPrincipal/Menu.aspx';
             });

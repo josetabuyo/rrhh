@@ -26,7 +26,7 @@
             <div id="DivBotonCertificarPersonasNoCertificadas" runat="server" style="display: block; float:right;
                 margin-top: 4px; margin-left: 4px; border: #0055cc;" >
                 <asp:Button runat="server" ID="btnCertificarPersonasNoCertificadas" 
-                    RequiereFuncionalidad="63" CssClass="btn btn-primary" 
+                    RequiereFuncionalidad="certificar_personas_no_certificadas" CssClass="btn btn-primary" 
                     Text="Certificar personas no certificadas" UseSubmitBehavior="True" 
                     onclick="btnCertificarPersonasNoCertificadas_Click" />
             </div>
@@ -34,21 +34,21 @@
             <div id="DivBotonPersonasNoCertificadas" runat="server"   style="display: block; float:right;
                 margin-top: 4px; margin-left: 4px; border: #0055cc;" >
                 <asp:Button runat="server" ID="btnPersonasNoCertificadas" 
-                    RequiereFuncionalidad="62" CssClass="btn btn-primary" 
+                    RequiereFuncionalidad="personas_no_certificadas" CssClass="btn btn-primary" 
                     Text="Personas no certificadas" UseSubmitBehavior="True" 
                     onclick="btnPersonasNoCertificadas_Click" />
             </div>
 
             <div id="DivBotonConsultarDDJJ" runat="server"   style="display: block; float:right;
                 margin-top: 4px; margin-left: 4px; border: #0055cc;" >
-                <asp:Button runat="server" ID="btnConsultaDDJJ" RequiereFuncionalidad="61" CssClass="btn btn-primary" 
+                <asp:Button runat="server" ID="btnConsultaDDJJ" RequiereFuncionalidad="consultar_ddjj" CssClass="btn btn-primary" 
                     Text="Consultar DDJJ" UseSubmitBehavior="True" 
                     onclick="btnConsultaDDJJ_Click"/> 
             </div>
             
             <div id="DivBotonCertificarArea" runat="server"  style="display: block; float:right;
                 margin-top: 4px; margin-left: 4px; border: #0055cc;" >
-                <asp:Button runat="server" ID="btnCertificarArea" RequiereFuncionalidad="22" CssClass="btn btn-primary" 
+                <asp:Button runat="server" ID="btnCertificarArea" RequiereFuncionalidad="ingreso_a_ddjj104" CssClass="btn btn-primary" 
                     Text="Certificar Areas" UseSubmitBehavior="True"
                     onclick="btnCertificarArea_Click" /> 
             </div>

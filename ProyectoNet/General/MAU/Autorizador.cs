@@ -67,6 +67,16 @@ namespace General.MAU
         }
 
 
+        public bool ElUsuarioTienePermisosPara(int id_usuario, string nombre_funcionalidad)
+        {
+            var usuario = repositorio_usuarios.GetUsuarioPorId(id_usuario);
+            return this.repositorio_funcionalidades_usuarios.FuncionalidadesPara(usuario).Any(f =>
+            {
+                return f.Nombre == nombre_funcionalidad;
+            });
+        }
+
+
         public bool ElUsuarioTienePermisosPara(int id_usuario, int id_funcionalidad)
         {
             var usuario = repositorio_usuarios.GetUsuarioPorId(id_usuario);
@@ -278,7 +288,7 @@ namespace General.MAU
 
         public bool VerificarUsuario(int id_usuario, Usuario usuario)
         {
-            if (!ElUsuarioTienePermisosPara(usuario.Id, 21)) return false;
+            if (!ElUsuarioTienePermisosPara(usuario.Id, "mau_verificar_usuarios")) return false;
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_usuario", id_usuario);
             parametros.Add("@id_usuario_verificador", usuario.Id);

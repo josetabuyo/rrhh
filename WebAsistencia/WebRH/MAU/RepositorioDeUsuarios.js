@@ -47,10 +47,10 @@ RepositorioDeUsuarios.prototype.resetearPassword = function (id_usuario, onSucce
     });
 };
 
-RepositorioDeUsuarios.prototype.ElUsuarioLogueadoTieneLaFuncionalidad = function ( id_funcionalidad, onSuccess, onError) {
-    this.proveedor_ajax.postearAUrl({ url: "ElUsuarioLogueadoTieneLaFuncionalidad",
+RepositorioDeUsuarios.prototype.ElUsuarioLogueadoTienePermisosParaFuncionalidadPorNombre = function (nombre_func, onSuccess, onError) {
+    this.proveedor_ajax.postearAUrl({ url: "ElUsuarioLogueadoTienePermisosParaFuncionalidadPorNombre",
         data: {
-            id_funcionalidad: id_funcionalidad
+            nombre_funcionalidad: nombre_func
         },
         success: function (tiene_funcionalidad) {
             onSuccess(tiene_funcionalidad);

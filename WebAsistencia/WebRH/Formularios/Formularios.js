@@ -148,7 +148,7 @@ var VistaFormulario = {
             });
         });
 
-        Backend.ElUsuarioLogueadoTienePermisosPara(28).onSuccess(function (tiene_funcionalidad) {
+        Backend.ElUsuarioLogueadoTienePermisosParaFuncionalidadPorNombre("formularios_administracion").onSuccess(function (tiene_funcionalidad) {
             if (tiene_funcionalidad) {
                 var selector_personas = new SelectorDePersonas({
                     ui: $('#selector_usuario'),

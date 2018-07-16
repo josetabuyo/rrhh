@@ -42,7 +42,7 @@ $(function () {
         });
 
         //------------ CARGO LAS IMAGENES DEL VEHICULO ---------------
-        //Backend.ElUsuarioLogueadoTienePermisosPara(37).onSuccess(function (tiene_permisos_de_edicion) {
+        //Backend.ElUsuarioLogueadoTienePermisosParaFuncionalidadPorNombre("1.alta_baja_asoc_bien").onSuccess(function (tiene_permisos_de_edicion) {
         Backend.Mobi_GetImagenesBienPorId(id_bien).onSuccess(function (bien) {
             if (bien.Imagenes.length > 0) {
                 $("#descrip_hay_imagen_cargadas").empty();
