@@ -140,6 +140,7 @@
                 start: function (model, ui) {
                     var _this = this;
                     this.ui = ui;
+                    var creador_columnas = new CreadorColumnas();
 
                     ui.find('#fecha_1').datepicker({
                         dateFormat: "dd/mm/yy",
@@ -195,16 +196,10 @@
                         var grilla_ue = ui.find("#tabla_unidades_evaluacion");
                         grilla_ue.empty();
 
-                        var columnas_ue = [];
-                        columnas_ue.push(new Columna("Codigo", { generar: function (ue) { return ue.Codigo; } }));
-                        columnas_ue.push(new Columna("Unidad Eval.", { generar: function (ue) { return ue.NombreArea; } }));
-                        columnas_ue.push(new Columna("Destacados.", { generar: function (ue) { return ue.DetalleEvaluados.Destacados; } }));
-                        columnas_ue.push(new Columna("Bueno", { generar: function (ue) { return ue.DetalleEvaluados.Bueno; } }));
-                        columnas_ue.push(new Columna("Regular", { generar: function (ue) { return ue.DetalleEvaluados.Regular; } }));
-                        columnas_ue.push(new Columna("Deficiente", { generar: function (ue) { return ue.DetalleEvaluados.Deficiente; } }));
-                        columnas_ue.push(new Columna("Total Evaluados", { generar: function (ue) { return ue.DetalleEvaluados.Destacados + ue.DetalleEvaluados.Bueno + ue.DetalleEvaluados.Regular + ue.DetalleEvaluados.Deficiente; } }));
-                        columnas_ue.push(new Columna("Provisoria", { generar: function (ue) { ue.DetalleEvaluados.Provisoria; } }));
-                        columnas_ue.push(new Columna("Pendiente", { generar: function (ue) { ue.DetalleEvaluados.Pendiente; } }));
+                        var columnas_ue = creador_columnas.triviales(["Codigo"]);
+                        columnas_ue.push(creador_columnas.con_alias("UNIDAD EVAL", "NombreArea"))
+                        columnas_ue = columnas_ue.concat(creador_columnas.con_submodelo("DetalleEvaluados",["Destacados", "Bueno", "Regular", "Deficiente", "Provisoria", "Pendiente"]))
+                        columnas_ue.splice(6, 0, new Columna("Total Evaluados", { generar: function (ue) { return ue.DetalleEvaluados.Destacados + ue.DetalleEvaluados.Bueno + ue.DetalleEvaluados.Regular + ue.DetalleEvaluados.Deficiente; } }))
                         columnas_ue.push(new Columna("Total General", { generar: function (ue) { return ue.DetalleEvaluados.Destacados + ue.DetalleEvaluados.Bueno + ue.DetalleEvaluados.Regular + ue.DetalleEvaluados.Deficiente + ue.DetalleEvaluados.Provisoria + ue.DetalleEvaluados.Pendiente; } }));
                         columnas_ue.push(new Columna("", {
                             generar: function (ue) {
@@ -298,10 +293,11 @@
                     var tabla_grilla_integrantes = ui.find("#tabla_integrantes");
                     tabla_grilla_integrantes.empty();
 
-                    var columnas_integrantes = [];
-                    columnas_integrantes.push(new Columna("DNI", { generar: function (int) { return int.Dni; } }));
-                    columnas_integrantes.push(new Columna("Apellido", { generar: function (int) { return int.Apellido; } }));
-                    columnas_integrantes.push(new Columna("Nombre", { generar: function (int) { return int.Nombre; } }));
+
+
+
+                    var columnas_integrantes = creador_columnas.triviales(["Dni", "Apellido", "Nombre"])
+
                     columnas_integrantes.push(new Columna("En caracter de", { generar: function (int) {
                         var $celda = $("#plantillas .celda_en_caracter_de_grilla_participantes").clone();
                         $celda.find("#cmb_caracter").change(function (e) {
