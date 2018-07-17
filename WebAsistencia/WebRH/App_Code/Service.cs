@@ -187,14 +187,14 @@ public class AjaxWS : System.Web.Services.WebService
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public bool ElUsuarioLogueadoTienePermisosParaFuncionalidadPorNombre(string nombre_funcionalidad)
     {
-        return true;// backEndService.ElUsuarioLogueadoTienePermisosParaFuncionalidadPorNombre(nombre_funcionalidad, usuarioLogueado);
+        return backEndService.ElUsuarioLogueadoTienePermisosParaFuncionalidadPorNombre(nombre_funcionalidad, usuarioLogueado);
     }
 
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public bool ElUsuarioLogueadoTienePermisosParaFuncionalidadPorId(int id_funcionalidad)
     {
-        return true;/// backEndService.ElUsuarioLogueadoTienePermisosParaFuncionalidadPorId(id_funcionalidad, usuarioLogueado);
+        return backEndService.ElUsuarioLogueadoTienePermisosParaFuncionalidadPorId(id_funcionalidad, usuarioLogueado);
     }
 
     [WebMethod(EnableSession = true)]
