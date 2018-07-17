@@ -9,6 +9,7 @@ namespace General.MED
     {
         public int Id { get; set; }
         public DateTime Fecha { get; set; }
+        public string Hora { get; set; }
         public PeriodoEvaluacion Periodo{ get; set; }
         public List<IntegranteComiteEvalDesempenio> Integrantes { get; set; }
         public List<UnidadDeEvaluacion> UnidadesEvaluacion { get; set; }

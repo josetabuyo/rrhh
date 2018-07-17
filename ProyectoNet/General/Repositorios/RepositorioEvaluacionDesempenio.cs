@@ -170,6 +170,14 @@ namespace General.Repositorios
             _conexion.EjecutarEscalar("dbo.EVAL_INS_IntegranteComite", parametros);
         }
 
+        public void RemoverIntegranteComite(int idComite, int idPersonaIntegrante)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@idComite", idComite);
+            parametros.Add("@idPersona", idPersonaIntegrante);
+            _conexion.EjecutarEscalar("dbo.EVAL_DEL_IntegranteComite", parametros);
+        }
+
         public List<ComiteEvaluacionDesempenio> GetAllComites()
         {
             var parametros = new Dictionary<string, object>();
@@ -230,6 +238,7 @@ namespace General.Repositorios
             comite.Id = row.GetInt("id_comite");
             comite.Fecha = row.GetDateTime("fecha_comite");
             comite.Lugar = row.GetString("lugar_comite");
+            comite.Hora = row.GetString("hora_comite");
             comite.Integrantes = new List<IntegranteComiteEvalDesempenio>();
             comite.UnidadesEvaluacion = new List<UnidadDeEvaluacion>();
             comite.Periodo = GetPeriodosEvaluacion().Find(p => p.id_periodo.Equals(row.GetInt("idPeriodo")));

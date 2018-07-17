@@ -100,6 +100,7 @@ public class WSViaticos : System.Web.Services.WebService
         }
         catch (Exception e)
         {
+            
             respuesta.MensajeDeErrorAmigable = "Se produjo un error al intentar agregar el responsable";
             respuesta.setException(e);
         }
@@ -107,14 +108,14 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public IntRespuestaWS EvalRemoverIntegranteComite(int idComite, IntegranteComiteEvalDesempenio integrante)
+    public IntRespuestaWS EvalRemoverIntegranteComite(int idComite, int idIntegrante)
     {
         var respuesta = new IntRespuestaWS();
-        respuesta.Respuesta = integrante.IdPersona;
+        respuesta.Respuesta = idIntegrante;
         try
         {
             var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
-            repo.AgregarIntegranteComite(idComite, integrante);
+            repo.RemoverIntegranteComite(idComite, idIntegrante);
         }
         catch (Exception e)
         {

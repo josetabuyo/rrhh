@@ -25,23 +25,21 @@
                     <label for="fecha_1">
                         Fecha <em>*</em>
                     </label>
-                    <input id="fecha_1" campo="fecha_1" type="text" placeholder="dd/mm/aaaa" style="flex-grow: 100;
-                        margin-left: 20px;" />
+                    <input id="fecha_1" campo="fecha_1" type="text" placeholder="dd/mm/aaaa" style="flex-grow: 100;" />
                 </div>
                 <div class="grupo_campos nueva_linea">
                     <label for="hora">
                         Hora <em>*</em></label>
-                    <input id="hora" type="text" style="width: 160px;" maxlength="100" />
+                    <input id="txt_hora" type="text" style="width: 160px;" maxlength="100" />
                 </div>
                 <div class="grupo_campos nueva_linea">
                     <label for="lugar">
                         Lugar <em>*</em></label>
                     <input id="txt_lugar" type="text" style="width: 160px;" maxlength="100" />
                 </div>
-                <div class="grupo_campos nueva_linea">
+                <div id="integrantes" class="grupo_campos nueva_linea">
                     <!--<legend><a id="btn_agregar_ue" class="link">Agregar Unidad de Evaluacion</a></legend>-->
-                    <h4>
-                        Integrantes</h4>
+                    <h4>Integrantes</h4>
                     <div id="cmb_caracter" class="selector_personas grupo_campos nueva_linea">
                         <label for="lugar">
                             En Caracter De <em>*</em></label>
@@ -61,7 +59,7 @@
                         <input type="hidden" id="persona_buscada" />
                     </div>
                     <div class="selector_personas grupo_campos nueva_linea">
-                        <input type="button" id="btn_agregar_integrante" value="Agregar" onclick="addIntegranteAGrilla()" />
+                        <input type="button" id="btn_agregar_integrante" value="Agregar" />
                     </div>
                     <div id="ContenedorPlanillaIntegrantes" runat="server" class="grupo_campos nueva_linea">
                         <table id="tabla_integrantes" class="table table-striped">
@@ -108,7 +106,7 @@
             </div>
         </div>
         <div class="botonera_grilla_participantes">
-            <input type="button" id="btn_eliminar_participante" value="eliminar" />
+            <input type="button" class="btn_del" value="eliminar" />
         </div>
         <div class="celda_en_caracter_de_grilla_participantes">
             <!--<select class="enCaracterDe" id="cmb_caracter">
@@ -134,13 +132,7 @@
 <script type="text/javascript" src="../Scripts/Spin.js"></script>
 <script type="text/javascript">
 
-    function addIntegranteAGrilla() {
-        var persona = JSON.parse($("#persona_buscada").val())
-        model.Integrantes.push(persona);
-        _this.grilla_integrantes.BorrarContenido();
-        _this.grilla_integrantes.CargarObjetos(model.Integrantes);
-        
-    }
+
 
     $(document).ready(function () {
         Backend.start(function () {
@@ -148,11 +140,6 @@
                 start: function (model, ui) {
                     var _this = this;
                     this.ui = ui;
-                    //var ui = $("#pantallaDetalleComites").clone();
-
-                    //fix del datepicker cuando haces .clone() de la plantilla, quedan dos componentes
-                    //con el mismo id, y jquery datepicker funciona mal.
-                    //ui.find('#fecha_1').attr("id", "fecha_clone_id");
 
                     ui.find('#fecha_1').datepicker({
                         dateFormat: "dd/mm/yy",
@@ -160,8 +147,44 @@
                             //ui.find('#fecha_clone_id').text('test');
                         }
                     });
-                    ui.find('#fecha_clone_id').datepicker("setDate", new Date(model.Fecha));
+                    ui.find('#fecha_1').datepicker("setDate", new Date(model.Fecha));
                     ui.find('#txt_lugar').val(model.Lugar);
+                    ui.find('#txt_hora').val(model.Hora);
+
+
+                    var addIntegranteAGrilla = function (e) {
+                        var _this = $(this)
+                        var $panel_integrantes = _this.closest("#integrantes")
+
+                        var spinner = new Spinner({ scale: 2 })
+                        spinner.spin($panel_integrantes[0]);
+
+
+                        var integrante = JSON.parse($panel_integrantes.find("#persona_buscada").val())
+                        integrante.IdEnCaracterDe = $panel_integrantes.find("#cmb_caracter.enCaracterDe").val()
+                        var detalle_comite = JSON.parse(localStorage.getItem("detalleComite"))
+
+                        Backend.EvalAddIntegranteComite(detalle_comite.Id, integrante)
+                                            .onSuccess(function (res) {
+                                                spinner.stop()
+                                                if (res.DioError) {
+                                                    alert(res.MensajeDeErrorAmigable)
+                                                    return
+                                                }
+
+                                                detalle_comite.Integrantes.push(integrante);
+                                                localStorage.setItem("detalleComite", JSON.stringify(detalle_comite))
+
+                                                var grilla_integrantes = e.data
+                                                grilla_integrantes.BorrarContenido()
+                                                grilla_integrantes.CargarObjetos(detalle_comite.Integrantes)
+
+                                            }).onError(function (err) {
+                                                alert("se produjo un error en la comunicación")
+                                                spinner.stop()
+                                            })
+                    }
+
 
                     var cargar_ues = function () {
 
@@ -230,6 +253,7 @@
                                                     })
                                                     detalleComite.UnidadesEvaluacion.push(ue_agregada)
                                                     localStorage.setItem("detalleComite", JSON.stringify(detalleComite))
+
                                                 }
 
 
@@ -306,7 +330,6 @@
                                 mcb.checked = !mcb.checked
                                 spinner.stop()
                             })
-
                         });
 
                         return $celda;
@@ -314,14 +337,34 @@
                     }));
                     columnas_integrantes.push(new Columna("Acciones", {
                         generar: function (int) {
-                            var buttons_integrantes = $("#plantillas .botonera_grilla_participantes").clone();
-                            var btn_eliminar_participante = buttons_integrantes.find("#btn_eliminar_participante");
-                            btn_eliminar_participante.click(function () {
-                                model.Integrantes = _.reject(model.Integrantes, function (item) {
-                                    return item.Id === int.Id;
-                                });
-                                _this.grilla_integrantes.EliminarObjeto(int);
-                            });
+                            var buttons_integrantes = $("#plantillas .botonera_grilla_participantes")
+                                                        .clone()
+                                                        .find(".btn_del")
+                                                        .on('click', { integrante: int, grilla: _this.grilla_integrantes }, function (e) {
+
+                                                            var _this = $(this)
+                                                            var $panel_integrantes = _this.closest("#integrantes")
+                                                            var detalle_comite = JSON.parse(localStorage.getItem("detalleComite"))
+                                                            var integrante_a_borrar = e.data.integrante.IdPersona
+
+                                                            var spinner = new Spinner({ scale: 2 })
+                                                            spinner.spin($panel_integrantes[0]);
+
+                                                            Backend.EvalRemoverIntegranteComite(detalle_comite.Id, integrante_a_borrar)
+                                                                .onSuccess(function (res) {
+                                                                    spinner.stop()
+                                                                    if (res.DioError) {
+                                                                        alert(res.MensajeDeErrorAmigable)
+                                                                        return
+                                                                    }
+                                                                    model.Integrantes = _.reject(model.Integrantes, function (item) { return item.Id == e.data });
+                                                                    e.data.grilla.EliminarObjeto(e.data.integrante)
+                                                                }).onError(function (err) {
+                                                                    alert("se produjo un error en la comunicación")
+                                                                    spinner.stop()
+                                                                })
+                                                        })
+
                             return buttons_integrantes;
                         }
                     }));
@@ -333,6 +376,7 @@
                     _this.grilla_integrantes.CargarObjetos(model.Integrantes);
                     _this.grilla_integrantes.DibujarEn(tabla_grilla_integrantes);
 
+                    ui.find("#btn_agregar_integrante").on('click', _this.grilla_integrantes, addIntegranteAGrilla);
 
                     var proveedor_ajax = new ProveedorAjax("../");
                     var repositorioDePersonas = new RepositorioDePersonas(proveedor_ajax);
@@ -346,14 +390,13 @@
                             Dni: la_persona_seleccionada.documento,
                             Apellido: la_persona_seleccionada.apellido,
                             Nombre: la_persona_seleccionada.nombre,
-                            Id: la_persona_seleccionada.id
+                            IdPersona: la_persona_seleccionada.id
                         }
                         $("#persona_buscada").val(JSON.stringify(persona))
-                        
                     };
                 }
-            };
 
+            }
             PantallaDetalleComite.start(JSON.parse(localStorage.getItem('detalleComite')), $("#pantallaDetalleComite"));
         });
     });
