@@ -6699,7 +6699,7 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="idComite" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="integrante" type="tns:IntegranteComiteEvalDesempenio" />
+            <s:element minOccurs="1" maxOccurs="1" name="idIntegrante" type="s:int" />
           </s:sequence>
         </s:complexType>
       </s:element>

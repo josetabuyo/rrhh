@@ -170,6 +170,14 @@ namespace General.Repositorios
             _conexion.EjecutarEscalar("dbo.EVAL_INS_IntegranteComite", parametros);
         }
 
+        public void RemoverIntegranteComite(int idComite, int idPersonaIntegrante)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@idComite", idComite);
+            parametros.Add("@idPersona", idPersonaIntegrante);
+            _conexion.EjecutarEscalar("dbo.EVAL_DEL_IntegranteComite", parametros);
+        }
+
         public List<ComiteEvaluacionDesempenio> GetAllComites()
         {
             var parametros = new Dictionary<string, object>();
