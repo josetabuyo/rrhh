@@ -42,6 +42,23 @@ namespace General.MAU
             return GetUsuarioDeTablaDeDatos(tablaDatos);
         }
 
+        /*public Usuario GetUsuarioPorIdSinPersona(int id)
+        {
+            //var parametros = new Dictionary<string, object>();
+            //parametros.Add("@id", id);
+            //var tablaDatos = conexion.Ejecutar("dbo.Web_GetUsuario", parametros);
+            List<Usuario> usuarios = GetUsuarios()
+            return GetUsuarioDeTablaDeDatosSinPersona(tablaDatos);
+        }*/
+
+        public List<Usuario> GetUsuarios()
+        {
+            //var parametros = new Dictionary<string, object>();
+            //parametros.Add("@id", id);
+            var tablaDatos = conexion.Ejecutar("dbo.RH_GET_Usuarios");
+            return GetUsuariosDeTablaDeDatosSinPersona(tablaDatos);
+        }
+
         public int GetDniPorAlias(string alias)
         {
             var parametros = new Dictionary<string, object>();
@@ -74,6 +91,37 @@ namespace General.MAU
             }
             usuario.Verificado = row.GetBoolean("Verificado", false);
             return usuario;     
+        }
+
+        private List<Usuario> GetUsuariosDeTablaDeDatosSinPersona(TablaDeDatos tablaDatos)
+        {
+
+            List<Usuario> usuarios = new List<Usuario>();
+
+            tablaDatos.Rows.ForEach((row) =>
+            {
+
+                Usuario un_usuario = new Usuario(row.GetSmallintAsInt("id"), row.GetString("nombre"), "", !row.GetBoolean("baja"));
+                if (un_usuario != null)
+                {
+                    if (!(row.GetObject("IdPersona") is DBNull))
+                    {
+                        un_usuario.Owner = new Persona
+                        {
+                            Id = row.GetInt("IdPersona"),
+                            Documento = row.GetInt("nroDocumento", 0),
+                            Nombre = row.GetString("nombrePersona", row.GetString("Nombre_Real","")),
+                            Apellido = row.GetString("apellidoPersona", row.GetString("Apellido", ""))
+                        };
+
+                        usuarios.Add(un_usuario);
+                    }
+                }
+                
+            });
+
+            return usuarios;
+ 
         }
 
 

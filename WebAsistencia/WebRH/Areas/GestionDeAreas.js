@@ -4,10 +4,19 @@ var GestionDeAreas = {
 
     },
     getAreasDelUsuario: function () {
-        var spinner = new Spinner({ scale: 2 });
-        spinner.spin($("html")[0]);
+
 
         var _this = this;
+        this.traerAreasConRCA();
+
+
+    },
+    traerAreasConRCA: function () {
+        var _this = this;
+        var spinner = new Spinner({ scale: 2 });
+        spinner.spin($("html")[0]);
+        $('#ContenedorPersona').empty();
+
         Backend.GetAreasDelDirectorConPersonasRCA()
             .onSuccess(function (areas) {
 
@@ -15,7 +24,7 @@ var GestionDeAreas = {
 
                 //var areas = JSON.parse(areasJSON);
 
-                
+
 
                 var plantilla = $('.contenedorArea').clone();
                 //var radioButtons = plantilla.find(".input_form");
@@ -25,15 +34,29 @@ var GestionDeAreas = {
 
                 plantilla.show();
 
+
+
+                var selector_personas = new SelectorDePersonas({
+                    ui: plantilla.find('#selector_usuario'),
+                    repositorioDePersonas: new RepositorioDePersonas(new ProveedorAjax("../")),
+                    placeholder: "nombre, apellido, documento o legajo"
+                });
+                selector_personas.alSeleccionarUnaPersona = function (la_persona_seleccionada) {
+                    _this.mostrarPersona(la_persona_seleccionada.id);
+                };
+
+
+
                 $.each(areas, function (key, valores) {
                     //pregunta.text(value.enunciado);
                     //pregunta.attr('data-identificador', value.id_pregunta);
                     //pregunta.addClass('pregunta-pendiente');
                     plantilla.find(".nombreArea").text(valores.Alias);
-                    
+
                     $.each(valores.Responsables, function (key, value) {
-                       
+
                         var fila = plantilla.find('.filaAgente').clone();
+                        fila.show();
                         fila.attr('class', 'filaAgregado');
                         fila.find(".nombreAgente").text(value.Apellido + ', ' + value.Nombre);
                         fila.find(".documento").text(value.Documento);
@@ -85,56 +108,71 @@ var GestionDeAreas = {
             .onError(function (e) {
                 spinner.stop();
             });
-
-
     },
     getRCADelArea: function () {
         var spinner = new Spinner({ scale: 2 });
         spinner.spin($("html")[0]);
 
-        Backend.GetEstudios()
-            .onSuccess(function (estudiosJSON) {
+        /*Backend.GetEstudios()
+        .onSuccess(function (estudiosJSON) {
 
-                spinner.stop();
+        spinner.stop();
 
-                var estudios = JSON.parse(estudiosJSON);
+        var estudios = JSON.parse(estudiosJSON);
 
-                var _this = this;
-                $("#ContenedorGrillaAreas").empty();
-                var divGrilla = $("#ContenedorGrillaAreas");
-                //var tabla = resultado;
-                var columnas = [];
+        var _this = this;
+        $("#ContenedorGrillaAreas").empty();
+        var divGrilla = $("#ContenedorGrillaAreas");
+        //var tabla = resultado;
+        var columnas = [];
 
-                columnas.push(new Columna("Titulo", { generar: function (un_estudio) { return un_estudio.titulo } }));
-                columnas.push(new Columna("Nivel", { generar: function (un_estudio) { return un_estudio.nombreDeNivel } }));
-                columnas.push(new Columna("Institución", { generar: function (un_estudio) { return un_estudio.nombreUniversidad } }));
-                columnas.push(new Columna("F. Egreso", { generar: function (un_estudio) {
-                    var fecha_sin_hora = un_estudio.fechaEgreso.split("T");
-                    var fecha = fecha_sin_hora[0].split("-");
-                    return fecha[2] + "/" + fecha[1] + "/" + fecha[0];
-                }
-                }));
+        columnas.push(new Columna("Titulo", { generar: function (un_estudio) { return un_estudio.titulo } }));
+        columnas.push(new Columna("Nivel", { generar: function (un_estudio) { return un_estudio.nombreDeNivel } }));
+        columnas.push(new Columna("Institución", { generar: function (un_estudio) { return un_estudio.nombreUniversidad } }));
+        columnas.push(new Columna("F. Egreso", { generar: function (un_estudio) {
+        var fecha_sin_hora = un_estudio.fechaEgreso.split("T");
+        var fecha = fecha_sin_hora[0].split("-");
+        return fecha[2] + "/" + fecha[1] + "/" + fecha[0];
+        }
+        }));
 
-                _this.Grilla = new Grilla(columnas);
-                _this.Grilla.SetOnRowClickEventHandler(function (un_estudio) { });
-                _this.Grilla.CambiarEstiloCabecera("estilo_tabla_portal");
-                _this.Grilla.CargarObjetos(estudios);
-                _this.Grilla.DibujarEn(divGrilla);
-                $('.table-hover').removeClass("table-hover");
+        _this.Grilla = new Grilla(columnas);
+        _this.Grilla.SetOnRowClickEventHandler(function (un_estudio) { });
+        _this.Grilla.CambiarEstiloCabecera("estilo_tabla_portal");
+        _this.Grilla.CargarObjetos(estudios);
+        _this.Grilla.DibujarEn(divGrilla);
+        $('.table-hover').removeClass("table-hover");
+
+
+        })
+        .onError(function (e) {
+        spinner.stop();
+        });*/
+    },
+    eliminarPermiso: function (idUsuario, idArea) {
+        //return idArea;
+        var _this = this;
+        Backend.DenegarFuncionalidadA(idUsuario, 4) //Backend.eliminarPerfilRCA(idUsuario, idArea)
+            .onSuccess(function (resultado) {
+
+                //location.reload();
+                _this.traerAreasConRCA();
 
 
             })
             .onError(function (e) {
                 spinner.stop();
             });
+
     },
-    eliminarPermiso: function (idUsuario, idArea) {
-        return idArea;
-        Backend.eliminarPerfilRCA(idUsuario, idArea)
+    mostrarPersona: function (id_persona) {
+        //var _this = this;
+        var _this = this;
+        Backend.AgregarPermisoRCA(id_persona, 4) //Backend.eliminarPerfilRCA(idUsuario, idArea)
             .onSuccess(function (resultado) {
 
-
-
+                //location.reload();
+                _this.traerAreasConRCA();
 
             })
             .onError(function (e) {

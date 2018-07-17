@@ -243,7 +243,7 @@ namespace General.Repositorios
 
             //traigo las personas del ministerio que tienen permiso de rca (cambiar este)
             //List<Persona> personas = General.Repositorios.RepositorioDePersonas.NuevoRepositorioDePersonas(this.conexion).TodasLasPersonas();
-            List<Usuario> usuariosConFuncionalidad = RepositorioDeFuncionalidadesDeUsuarios.NuevoRepositorioDeFuncionalidadesDeUsuarios(this.conexion, RepositorioDeFuncionalidades.NuevoRepositorioDeFuncionalidades(conexion)).UsuariosConLaFuncionalidad(4);
+            List<Usuario> usuariosConFuncionalidad = RepositorioDeFuncionalidadesDeUsuarios.NuevoRepositorioDeFuncionalidadesDeUsuarios(this.conexion, RepositorioDeFuncionalidades.NuevoRepositorioDeFuncionalidades(conexion)).UsuariosConLaFuncionalidadSinPersona(4);
             
             //traigo los id areas con los documentos de las personas
             List<Area> listadoIdAreasConDocumentoPersonas = this.traerIdAreasConIdPersonas();
@@ -282,14 +282,22 @@ namespace General.Repositorios
                         {
                             Usuario usuario = usuariosConFuncionalidad.Find(p3 =>
                             {
-                                if (p3.Owner != null)
+                                if (p3 != null)
                                 {
-                                    return p3.Owner.Documento == p.Documento;
+                                    if (p3.Owner != null)
+                                    {
+                                        return p3.Owner.Documento == p.Documento;
+                                    }
+                                    else
+                                    {
+                                        return false;
+                                    }
                                 }
                                 else
                                 {
                                     return false;
                                 }
+                                
                             }
                            );
                             if (usuario != null)

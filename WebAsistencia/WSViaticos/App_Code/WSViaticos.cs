@@ -3013,16 +3013,25 @@ public class WSViaticos : System.Web.Services.WebService
     //}
 
     [WebMethod]
+    public void AgregarPermisoRCA(int idPersona, int id_funcionalidad, Usuario usuario)
+    {
+        //GetUsuarioPorIdPersona
+        Usuario usu = RepositorioDeUsuarios().GetUsuarioPorIdPersona(idPersona);
+        this.ConcederFuncionalidadA(usu.Id, id_funcionalidad, usuario);
+    }
+
+    [WebMethod]
     public void ConcederFuncionalidadA(int id_usuario, int id_funcionalidad, Usuario usuario)
     {
-        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 24)) Autorizador().ConcederFuncionalidadA(id_usuario, id_funcionalidad);
+        if (Autorizador().ElUsuarioTienePermisosPara(id_usuario, 24)) Autorizador().ConcederFuncionalidadA(id_usuario, id_funcionalidad);
         else throw new Exception("No está habilitado para modificar permisos");
     }
 
     [WebMethod]
-    public void DenegarFuncionalidadA(int id_usuario, int id_funcionalidad, Usuario usuario)
+    public void DenegarFuncionalidadA(int idPersona, int id_funcionalidad, Usuario usuario)
     {
-        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 24)) Autorizador().DenegarFuncionalidadA(id_usuario, id_funcionalidad);
+        Usuario usuarioADenegar = RepositorioDeUsuarios().GetUsuarioPorIdPersona(idPersona);
+        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 24)) Autorizador().DenegarFuncionalidadA(usuarioADenegar.Id, id_funcionalidad);
         else throw new Exception("No está habilitado para modificar permisos");
     }
 
