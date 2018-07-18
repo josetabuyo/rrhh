@@ -20,10 +20,10 @@
             </div>
             <div class="caja_der papel">
                 <legend style="margin-top: 20px;">Comités</legend>
+                <input id="btn_add_comite" type=button value="+"/>
                 <div id="tabla_comites">
                 </div>
             </div>
-            <asp:HiddenField ID="ComitesHiddenField" runat="server" />
         </div>
     </div>   
     <div id="plantillas">
@@ -42,69 +42,76 @@
     <script type="text/javascript" src="../Scripts/Spin.js"></script>
     <script type="text/javascript" src="../Scripts/jquery.maskedinput.min.js"></script>
     <script type="text/javascript">
+        var comites = [];
+        var grilla;
         $(document).ready(function () {
-            var comites = JSON.parse($('#ComitesHiddenField').val());
-
             Backend.start(function () {
                 var spinner = new Spinner({ scale: 2 });
                 spinner.spin($("html")[0]);
 
-                Backend.GetEstadosEvaluaciones().onSuccess(
-                    function (ues) {
-                        localStorage.setItem("estadosEvaluaciones", JSON.stringify(ues));
-                    });
+                Backend.GetEstadosEvaluaciones().onSuccess(function (ues) {
+                    localStorage.setItem("estadosEvaluaciones", JSON.stringify(ues));
+                });
 
-                Backend.GetAllComites().onSuccess(
-                function (comites) {
-                    var _this = this;
-                    $("#tabla_comites").empty();
-                    var divGrilla = $("#tabla_comites");
-                    var columnas = [];
-
-                    columnas.push(new Columna("Periodo", { generar: function (model) { return model.Periodo.descripcion_periodo; } }));
-                    columnas.push(new Columna("Fecha", { generar: function (model) { return model.Fecha.substring(0, 10); } }));
-                    columnas.push(new Columna("Unidades de Evaluacion", { generar: function (model) {
-                        var ues = model.UnidadesEvaluacion;
-                        if (ues.length == 0) {
-                            return "No especificado";
-                        }
-                        if (ues.length == 1) {
-                            return ues[0].NombreArea;
-                        }
-                        return ues[0].NombreArea & " y " & (ues.length - 1).toString() & " ue mas";
-                    }
-                    }));
-
-                    columnas.push(new Columna('Acciones', {
-                        generar: function (model) {
-                            var contenedorBtnAcciones = $("#plantillas .botonera_grilla").clone();
-                            var btn_editar = contenedorBtnAcciones.find("#btn_editar");
-                            var hidden_model = contenedorBtnAcciones.find("#hidden_model");
-                            hidden_model.attr('value', JSON.stringify(model));
-
-                            btn_editar.click(function () {
-                                localStorage.setItem("detalleComite", JSON.stringify(model));
-                                window.location.replace('PantallaDetalleComite.aspx');
-                            });
-
-                            return contenedorBtnAcciones;
-                        }
-                    }));
-
-                    _this.Grilla = new Grilla(columnas);
-                    _this.Grilla.SetOnRowClickEventHandler(function (model) { });
-                    _this.Grilla.CambiarEstiloCabecera("estilo_tabla_portal");
-                    _this.Grilla.CargarObjetos(comites);
-                    _this.Grilla.DibujarEn(divGrilla);
-                    $('.table-hover').removeClass("table-hover");
-
+                Backend.GetAllComites().onSuccess(function (comites_devueltos) {
+                    comites = comites_devueltos;
+                    CargarGrillaComites();
                     spinner.stop();
+                    $("#btn_add_comite").click(function () {
+                        Backend.AgregarComiteEvaluacionDesempenio().onSuccess(function (comite) {
+                            comites.push(comite);
+                            CargarGrillaComites();
+                        });                        
+                    });
                 }
             ).onError(function (e) {
                 spinner.stop();
             });
+            });
         });
-    });
+
+    var CargarGrillaComites = function () {
+        $("#tabla_comites").empty();
+        var divGrilla = $("#tabla_comites");
+        var columnas = [];
+
+        columnas.push(new Columna("Periodo", { generar: function (model) { return model.Periodo.descripcion_periodo; } }));
+        columnas.push(new Columna("Fecha", { generar: function (model) { return model.Fecha.substring(0, 10); } }));
+        columnas.push(new Columna("Unidades de Evaluacion", { generar: function (model) {
+            var ues = model.UnidadesEvaluacion;
+            if (ues.length == 0) {
+                return "No especificado";
+            }
+            if (ues.length == 1) {
+                return ues[0].NombreArea;
+            }
+            return ues[0].NombreArea & " y " & (ues.length - 1).toString() & " ue mas";
+        }
+        }));
+
+        columnas.push(new Columna('Acciones', {
+            generar: function (model) {
+                var contenedorBtnAcciones = $("#plantillas .botonera_grilla").clone();
+                var btn_editar = contenedorBtnAcciones.find("#btn_editar");
+                //var hidden_model = contenedorBtnAcciones.find("#hidden_model");
+                //hidden_model.attr('value', JSON.stringify(model));
+
+                btn_editar.click(function () {
+                    localStorage.setItem("detalleComite", JSON.stringify(model));
+                    window.location.replace('PantallaDetalleComite.aspx');
+                });
+
+                return contenedorBtnAcciones;
+            }
+        }));
+
+        grilla = new Grilla(columnas);
+        grilla.SetOnRowClickEventHandler(function (model) { });
+        grilla.CambiarEstiloCabecera("estilo_tabla_portal");
+        grilla.CargarObjetos(comites);
+        grilla.DibujarEn(divGrilla);
+        $('.table-hover').removeClass("table-hover");
+    };
     </script>
 </body>
 </html>
