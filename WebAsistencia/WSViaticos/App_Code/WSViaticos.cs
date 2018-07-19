@@ -116,6 +116,7 @@ public class WSViaticos : System.Web.Services.WebService
         {
             var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
             repo.RemoverIntegranteComite(idComite, idIntegrante);
+            //throw new Exception("blah blah");
         }
         catch (Exception e)
         {

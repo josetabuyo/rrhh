@@ -109,13 +109,7 @@
             <input type="button" class="btn_del" value="eliminar" />
         </div>
         <div class="celda_en_caracter_de_grilla_participantes">
-            <!--<select class="enCaracterDe" id="cmb_caracter">
-                <option>--Seleccione--</option>
-                <option value="1">Representante Gremial UPCN</option>
-                <option value="2">Representante Gremial ATE</option>
-                <option value="3">Coordinador del proceso de Selección</option>
-                <option value="4">Evaluador</option>
-            </select>-->
+          
         </div>
         <div class="botonera_grilla_ues">
             <input class="cb_ue" type="checkbox" />
@@ -140,7 +134,7 @@
                 start: function (model, ui) {
                     var _this = this;
                     this.ui = ui;
-                    var creador_columnas = new CreadorColumnas();
+                    var cc = new CreadorColumnas();
 
                     ui.find('#fecha_1').datepicker({
                         dateFormat: "dd/mm/yy",
@@ -156,33 +150,19 @@
                     var addIntegranteAGrilla = function (e) {
                         var _this = $(this)
                         var $panel_integrantes = _this.closest("#integrantes")
-
-                        var spinner = new Spinner({ scale: 2 })
-                        spinner.spin($panel_integrantes[0]);
-
-
+                        
                         var integrante = JSON.parse($panel_integrantes.find("#persona_buscada").val())
                         integrante.IdEnCaracterDe = $panel_integrantes.find("#cmb_caracter.enCaracterDe").val()
                         var detalle_comite = JSON.parse(localStorage.getItem("detalleComite"))
 
                         Backend.EvalAddIntegranteComite(detalle_comite.Id, integrante)
                                             .onSuccess(function (res) {
-                                                spinner.stop()
-                                                if (res.DioError) {
-                                                    alert(res.MensajeDeErrorAmigable)
-                                                    return
-                                                }
-
                                                 detalle_comite.Integrantes.push(integrante);
                                                 localStorage.setItem("detalleComite", JSON.stringify(detalle_comite))
 
                                                 var grilla_integrantes = e.data
                                                 grilla_integrantes.BorrarContenido()
                                                 grilla_integrantes.CargarObjetos(detalle_comite.Integrantes)
-
-                                            }).onError(function (err) {
-                                                alert("se produjo un error en la comunicación")
-                                                spinner.stop()
                                             })
                     }
 
@@ -196,9 +176,9 @@
                         var grilla_ue = ui.find("#tabla_unidades_evaluacion");
                         grilla_ue.empty();
 
-                        var columnas_ue = creador_columnas.triviales(["Codigo"]);
-                        columnas_ue.push(creador_columnas.con_alias("UNIDAD EVAL", "NombreArea"))
-                        columnas_ue = columnas_ue.concat(creador_columnas.con_submodelo("DetalleEvaluados",["Destacados", "Bueno", "Regular", "Deficiente", "Provisoria", "Pendiente"]))
+                        var columnas_ue = cc.triviales(["Codigo"]);
+                        columnas_ue.push(cc.con_alias("UNIDAD EVAL", "NombreArea"))
+                        columnas_ue = columnas_ue.concat(cc.con_submodelo("DetalleEvaluados",["Destacados", "Bueno", "Regular", "Deficiente", "Provisoria", "Pendiente"]))
                         columnas_ue.splice(6, 0, new Columna("Total Evaluados", { generar: function (ue) { return ue.DetalleEvaluados.Destacados + ue.DetalleEvaluados.Bueno + ue.DetalleEvaluados.Regular + ue.DetalleEvaluados.Deficiente; } }))
                         columnas_ue.push(new Columna("Total General", { generar: function (ue) { return ue.DetalleEvaluados.Destacados + ue.DetalleEvaluados.Bueno + ue.DetalleEvaluados.Regular + ue.DetalleEvaluados.Deficiente + ue.DetalleEvaluados.Provisoria + ue.DetalleEvaluados.Pendiente; } }));
                         columnas_ue.push(new Columna("", {
@@ -215,26 +195,23 @@
                                 }
 
                                 $cb.click(function (e) {
-                                    var spinner = new Spinner({ scale: 0.5, position: 'relative', left: '50%', top: '50%' })
-                                    spinner.spin($(e.currentTarget).parent())
+                                    /*var spinner = new Spinner({ scale: 0.5, position: 'relative', left: '50%', top: '50%' })
+                                    spinner.spin($(e.currentTarget).parent())*/
                                     var mcb = e.currentTarget
+                                    var $spin_panel = $(e.currentTarget).parent()
+                                    
+                                    
                                     var ue_id = $(e.currentTarget).parent().find(".hidden_model").first().val()
+
                                     var backend_call = function () { }
                                     if (mcb.checked) {
-                                        backend_call = Backend.EvalAddUnidadEvaluacionAComite
+                                        backend_call = Backend.spinerEn($spin_panel).EvalAddUnidadEvaluacionAComite
                                     } else {
-                                        backend_call = Backend.EvalRemoveUnidadEvaluacionAComite
+                                        backend_call = Backend.spinerEn($spin_panel).EvalRemoveUnidadEvaluacionAComite
                                     }
 
                                     backend_call(id_comite, ue_id)
                                             .onSuccess(function (res) {
-                                                spinner.stop()
-                                                if (res.DioError) {
-                                                    alert(res.MensajeDeErrorAmigable)
-                                                    mcb.checked = !mcb.checked
-                                                    return
-                                                }
-
                                                 if (res.Accion == "EvalRemoveUnidadEvaluacionAComite") {
                                                     var detalleComite = JSON.parse(localStorage.getItem("detalleComite"))
                                                     detalleComite.UnidadesEvaluacion = detalleComite.UnidadesEvaluacion.filter(function (ue) { return ue.Id != res.IdUE });
@@ -255,7 +232,6 @@
                                             }).onError(function (err) {
                                                 alert("se produjo un error en la comunicación")
                                                 mcb.checked = !mcb.checked
-                                                spinner.stop()
                                             })
                                 })
                                 return $buttons_ue
@@ -293,10 +269,7 @@
                     var tabla_grilla_integrantes = ui.find("#tabla_integrantes");
                     tabla_grilla_integrantes.empty();
 
-
-
-
-                    var columnas_integrantes = creador_columnas.triviales(["Dni", "Apellido", "Nombre"])
+                    var columnas_integrantes = cc.triviales(["Dni", "Apellido", "Nombre"])
 
                     columnas_integrantes.push(new Columna("En caracter de", { generar: function (int) {
                         var $celda = $("#plantillas .celda_en_caracter_de_grilla_participantes").clone();
@@ -313,18 +286,9 @@
                                 Dni: 0
                             }
                             Backend.EvalAddIntegranteComite(id_comite, integrante)
-                            .onSuccess(function (res) {
-                                spinner.stop()
-                                if (res.DioError) {
-                                    alert(res.MensajeDeErrorAmigable)
-                                    mcb.checked = !mcb.checked
-                                    return
-                                }
-                            }).onError(function (err) {
-                                spinner.stop();
+                            .onError(function (err) {
                                 alert("se produjo un error en la comunicación")
                                 mcb.checked = !mcb.checked
-                                spinner.stop()
                             })
                         });
 
@@ -343,21 +307,11 @@
                                                             var detalle_comite = JSON.parse(localStorage.getItem("detalleComite"))
                                                             var integrante_a_borrar = e.data.integrante.IdPersona
 
-                                                            var spinner = new Spinner({ scale: 2 })
-                                                            spinner.spin($panel_integrantes[0]);
-
                                                             Backend.EvalRemoverIntegranteComite(detalle_comite.Id, integrante_a_borrar)
                                                                 .onSuccess(function (res) {
-                                                                    spinner.stop()
-                                                                    if (res.DioError) {
-                                                                        alert(res.MensajeDeErrorAmigable)
-                                                                        return
-                                                                    }
-                                                                    model.Integrantes = _.reject(model.Integrantes, function (item) { return item.Id == e.data });
                                                                     e.data.grilla.EliminarObjeto(e.data.integrante)
-                                                                }).onError(function (err) {
-                                                                    alert("se produjo un error en la comunicación")
-                                                                    spinner.stop()
+                                                                    detalle_comite.Integrantes = _.reject(detalle_comite.Integrantes, function (item) { return item.IdPersona == e.data.integrante.IdPersona });
+                                                                    localStorage.setItem("detalleComite", JSON.stringify(detalle_comite))
                                                                 })
                                                         })
 
@@ -394,7 +348,7 @@
 
             }
             PantallaDetalleComite.start(JSON.parse(localStorage.getItem('detalleComite')), $("#pantallaDetalleComite"));
-        });
+        },  { spin_options: { config: { scale: 3 }, container: $("html")[0] }});
     });
    
 </script>

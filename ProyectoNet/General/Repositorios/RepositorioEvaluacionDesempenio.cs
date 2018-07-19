@@ -220,6 +220,7 @@ namespace General.Repositorios
 
         private void ConstruirIntegranteComite(ComiteEvaluacionDesempenio comite, RowDeDatos row)
         {
+            if (row.GetSmallintAsInt("id_persona_integrante", 0) == 0) { return; }
             if (!comite.Integrantes.Any(i => i.IdPersona == row.GetInt("id_persona_integrante")))
             {
                 var integrante = new IntegranteComiteEvalDesempenio();
