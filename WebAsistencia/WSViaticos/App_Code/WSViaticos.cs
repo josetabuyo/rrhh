@@ -174,6 +174,13 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public ComiteEvaluacionDesempenio AgregarComiteEvaluacionDesempenio()
+    {
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        return repo.AgregarComite();
+    }
+
+    [WebMethod]
     public List<UnidadDeEvaluacion> GetEstadosEvaluaciones()
     {
         var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());

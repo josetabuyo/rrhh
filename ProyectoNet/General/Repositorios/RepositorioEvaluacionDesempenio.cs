@@ -562,6 +562,14 @@ namespace General.Repositorios
             );
             return result;
         }
+
+        public ComiteEvaluacionDesempenio AgregarComite()
+        {
+            var comite = new ComiteEvaluacionDesempenio();
+            comite.Id = 1000;
+            return comite;
+
+        }
     }
 
 }
