@@ -24,17 +24,18 @@
         <%--Esto luego va a ser un panel de resumen de Licencias Pendientes y Ausencias inmediatas--%>
 
         <div id="titulo_areas_a_administrar" style="text-shadow: 2px 2px 5px rgba(150, 150, 150, 1);">
-            Áreas a Administrar                 
+            <h1>Áreas a Administrar</h1>
             <%--<a id="btn_consultar_consulta_ddjj" RequiereFuncionalidad="23" class="acomodar_botones_del_menu btn btn-primary" href="DDJJ104/ConsultaIndividualDDJJ.aspx">Consultas DDJJ 104/2001</a>
             <a id="btn_consultar_areas_ddjj" RequiereFuncionalidad="22" class="acomodar_botones_del_menu btn btn-primary" href="DDJJ104/FAreasConDDJJ.aspx">DDJJ 104/2001</a>--%>
-
-            <a id="btn_seleccion_contratos" RequiereFuncionalidad="43" class="acomodar_botones_del_menu btn btn-primary" href="Contratos/SeleccionDeContratos.aspx">Selección de Contratos</a>
-            <a id="btn_analisis_licencia" RequiereFuncionalidad="35" class="acomodar_botones_del_menu btn btn-primary" href="FormulariosDeLicencia/CalculoDeLicenciaOrdinaria.aspx">Analisis Licencias</a>
-            <a id="btn_consultar_mis_inasistencias" class="acomodar_botones_del_menu btn btn-primary" href="Protocolo/ConsultaListadoLicencias.aspx">Licencias y Pases E/T</a>
-            <a id="btn_consultar_areas" class="acomodar_botones_del_menu btn btn-primary" href="Protocolo/ConsultaProtocolo.aspx">Autoridades</a>
-            <a id="btn_consultar_trabajo" class="acomodar_botones_del_menu btn btn-primary" href="Protocolo/ConsultaLugaresDeTrabajo.aspx">Lugares de Trabajo</a>
-            <a id="btn_consultar_mis_areas" class="acomodar_botones_del_menu btn btn-primary"  href="Protocolo/ConsultaListadoPersonasACargo.aspx">Personas a Cargo</a>
-            
+            <div>
+                <a id="btn_seleccion_contratos" RequiereFuncionalidad="43" class="acomodar_botones_del_menu btn btn-primary" href="Contratos/SeleccionDeContratos.aspx">Selección de Contratos</a>
+                <a id="btn_analisis_licencia" RequiereFuncionalidad="35" class="acomodar_botones_del_menu btn btn-primary" href="FormulariosDeLicencia/CalculoDeLicenciaOrdinaria.aspx">Analisis Licencias</a>
+                <a id="btn_consultar_mis_inasistencias" class="acomodar_botones_del_menu btn btn-primary" href="Protocolo/ConsultaListadoLicencias.aspx">Licencias y Pases E/T</a>
+                <a id="btn_consultar_areas" class="acomodar_botones_del_menu btn btn-primary" href="Protocolo/ConsultaProtocolo.aspx">Autoridades</a>
+                <a id="btn_consultar_trabajo" class="acomodar_botones_del_menu btn btn-primary" href="Protocolo/ConsultaLugaresDeTrabajo.aspx">Lugares de Trabajo</a>
+                <a id="btn_consultar_mis_areas" class="acomodar_botones_del_menu btn btn-primary"  href="Protocolo/ConsultaListadoPersonasACargo.aspx">Personas a Cargo</a>
+                <a id="btn_gestion_rca" class="acomodar_botones_del_menu btn btn-primary"  href="Areas/GestionRCA.aspx">Gestion RCA</a>
+            </div>
             
             
         </div>

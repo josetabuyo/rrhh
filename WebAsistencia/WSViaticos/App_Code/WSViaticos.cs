@@ -3017,7 +3017,8 @@ public class WSViaticos : System.Web.Services.WebService
     {
         //GetUsuarioPorIdPersona
         Usuario usu = RepositorioDeUsuarios().GetUsuarioPorIdPersona(idPersona);
-        this.ConcederFuncionalidadA(usu.Id, id_funcionalidad, usuario);
+        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 24)) Autorizador().ConcederFuncionalidadA(usu.Id, id_funcionalidad);
+        //this.ConcederFuncionalidadA(usu.Id, id_funcionalidad, usuario);
     }
 
     [WebMethod]

@@ -50,17 +50,17 @@
         <div id="ContenedorPersona" runat="server" style="width: 90%"></div>
     </div>
 
-    <div class="contenedorArea" style="display:none;">
-     
+    <div class="contenedorArea" style="display:none; margin-top:30px;">
+         <h3 class="nombreArea"></h3>
          <div id="buscador_de_personas" >
-            <p class="buscarPersona">Agregar Persona a RCA:
-                <div id="selector_usuario" class="selector_personas" style="margin-bottom: 0px;">
+            <p class="buscarPersona" style="display:inline;">Agregar Persona a RCA:
+                <div id="selector_usuario" style="display:inline;" class="selector_personas" style="margin-bottom: 0px;">
                     <input id="buscador" type=hidden/>
                 </div>
             </p>
         </div>
        
-        <p class="nombreArea"></p>
+       
         <table class="table table-striped table-bordered table-condensed table-hover tablaPersonas" style="cursor: pointer;">
             <thead class="detalle_viatico_titulo_tabla_detalle">
                 <tr>

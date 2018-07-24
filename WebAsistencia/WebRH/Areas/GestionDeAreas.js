@@ -26,28 +26,34 @@ var GestionDeAreas = {
 
 
 
-                var plantilla = $('.contenedorArea').clone();
-                //var radioButtons = plantilla.find(".input_form");
-                //var idPregunta = value.idPregunta;
-                //var pregunta = plantilla.find(".pregunta");
-                //
-
-                plantilla.show();
 
 
 
-                var selector_personas = new SelectorDePersonas({
-                    ui: plantilla.find('#selector_usuario'),
-                    repositorioDePersonas: new RepositorioDePersonas(new ProveedorAjax("../")),
-                    placeholder: "nombre, apellido, documento o legajo"
-                });
-                selector_personas.alSeleccionarUnaPersona = function (la_persona_seleccionada) {
-                    _this.mostrarPersona(la_persona_seleccionada.id);
-                };
+
+
 
 
 
                 $.each(areas, function (key, valores) {
+                    var plantilla = $('.contenedorArea').clone();
+                    //var radioButtons = plantilla.find(".input_form");
+                    //var idPregunta = value.idPregunta;
+                    //var pregunta = plantilla.find(".pregunta");
+                    //
+                    plantilla.removeClass("contenedorArea");
+                    var buscadorPersonas = plantilla.find('#selector_usuario');
+                     buscadorPersonas.removeAttr("id");
+                    buscadorPersonas.attr("id","selector_usuario" + key);
+                    var selector_personas = new SelectorDePersonas({
+                        ui: buscadorPersonas,
+                        repositorioDePersonas: new RepositorioDePersonas(new ProveedorAjax("../")),
+                        placeholder: "nombre, apellido, documento o legajo"
+                    });
+                    selector_personas.alSeleccionarUnaPersona = function (la_persona_seleccionada) {
+                        _this.mostrarPersona(la_persona_seleccionada.id);
+                    };
+
+                    plantilla.show();
                     //pregunta.text(value.enunciado);
                     //pregunta.attr('data-identificador', value.id_pregunta);
                     //pregunta.addClass('pregunta-pendiente');
@@ -64,7 +70,7 @@ var GestionDeAreas = {
                         //fila.find(".permiso").append(botonEliminar);
 
                         //radioButtons.attr('name', value.id_pregunta);
-                        botonEliminar.attr('id', value.Id);
+                        botonEliminar.attr('name', value.Id);
                         botonEliminar.on('click', function () { _this.eliminarPermiso(value.Id, valores.Id); });
                         // Genera dinámicamente un id para cada radio button y su respectiva label
                         /*$.each(radioButtons, function (key, value) {
