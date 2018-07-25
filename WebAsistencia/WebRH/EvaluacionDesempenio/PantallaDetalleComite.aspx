@@ -16,7 +16,7 @@
     <form id="form1" runat="server">
     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:18px; font-weight: bold; padding-top:25px;'>Datos<br/>Personales</span> <br/> "
         UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
-    <div id="pantallaDetalleComite" class="">
+    <div id="pantallaDetalleComite" class="container-fluid">
         <div id="contenido_form_comite" class="fondo_form">
             <fieldset>
                 <h4>
