@@ -125,7 +125,7 @@ namespace General.Repositorios
             var result = new List<PeriodoEvaluacion>();
             tablaDatos.Rows.ForEach(row =>
                 {
-                    result.Add(new PeriodoEvaluacion(row.GetSmallintAsInt("id"), row.GetString("descripcion"), row.GetDateTime("desde"), row.GetDateTime("hasta")));
+                    result.Add(new PeriodoEvaluacion(row.GetSmallintAsInt("id"), row.GetString("descripcion"), row.GetDateTime("desde"), row.GetDateTime("hasta"), row.GetString("Descr_Tipo_Periodo", "No Especifica")));
                 });
             return result;
         }
@@ -544,7 +544,7 @@ namespace General.Repositorios
         protected PeriodoEvaluacion PeridoFrom(RowDeDatos row)
         {
             return new PeriodoEvaluacion(row.GetInt("id_periodo", 0),
-                            row.GetString("descripcion_periodo", ""), row.GetDateTime("periodo_desde"), row.GetDateTime("periodo_hasta"));
+                            row.GetString("descripcion_periodo", ""), row.GetDateTime("periodo_desde"), row.GetDateTime("periodo_hasta"), row.GetString("Descr_Tipo_Periodo", "No Especifica"));
         }
 
 

@@ -125,9 +125,6 @@
 <script type="text/javascript" src="../Scripts/SelectorDePersonas.js"></script>
 <script type="text/javascript" src="../Scripts/Spin.js"></script>
 <script type="text/javascript">
-
-
-
     $(document).ready(function () {
         Backend.start(function () {
             var PantallaDetalleComite = {
@@ -195,8 +192,6 @@
                                 }
 
                                 $cb.click(function (e) {
-                                    /*var spinner = new Spinner({ scale: 0.5, position: 'relative', left: '50%', top: '50%' })
-                                    spinner.spin($(e.currentTarget).parent())*/
                                     var mcb = e.currentTarget
                                     var $spin_panel = $(e.currentTarget).parent()
                                     
@@ -225,10 +220,7 @@
                                                     })
                                                     detalleComite.UnidadesEvaluacion.push(ue_agregada)
                                                     localStorage.setItem("detalleComite", JSON.stringify(detalleComite))
-
                                                 }
-
-
                                             }).onError(function (err) {
                                                 alert("se produjo un error en la comunicación")
                                                 mcb.checked = !mcb.checked
@@ -314,11 +306,9 @@
                                                                     localStorage.setItem("detalleComite", JSON.stringify(detalle_comite))
                                                                 })
                                                         })
-
                             return buttons_integrantes;
                         }
                     }));
-
 
                     _this.grilla_integrantes = new Grilla(columnas_integrantes);
                     _this.grilla_integrantes.SetOnRowClickEventHandler(function (int) { });
@@ -345,11 +335,9 @@
                         $("#persona_buscada").val(JSON.stringify(persona))
                     };
                 }
-
             }
             PantallaDetalleComite.start(JSON.parse(localStorage.getItem('detalleComite')), $("#pantallaDetalleComite"));
-        },  { spin_options: { config: { scale: 3 }, container: $("html")[0] }});
+        });
     });
-   
 </script>
 </html>

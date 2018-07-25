@@ -1,6 +1,6 @@
 ﻿var Backend = {
     start: function (on_ready, options) {
-        this.options = options;
+        this.options = options || { spin_options: { config: { scale: 3 }, container: $("html")[0]} };
         var _this = this;
         this.proveedor().postearAUrl({
             url: "MetodosDelBackend",
