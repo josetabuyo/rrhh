@@ -29,13 +29,14 @@
         <h1 style="text-align:center; margin:17px; "></h1>
         
         <div style="text-align:center;" class="caja_izq no-print">
-        Perfil empleador:<br />Firma Iterativa<br />Perfil empleado:<br />Confirmacion Recibo<br />Perfil auditor:<br />
-        Verificacion de una firma<br />Obtener un recibo firmado<br />...
+       <!-- Perfil empleador:<br />Firma Iterativa<br />Perfil empleado:<br />Confirmacion Recibo<br />Perfil auditor:<br />
+        Verificacion de una firma<br />Obtener un recibo firmado<br />...-->
         </div>
 
         <!--contenido derecho -->
          <div  class="caja_der papel" >
-           <div id="subcontenidoFirmaMasiva"> 
+           <!--modulo de firma iterativa -->
+           <div id="subcontenidoFirmaIterativa" class="panelDerOcultable" style="display: inline;"> 
          <fieldset>
          <legend style="margin-top: 20px;">FIRMA DE RECIBOS</legend>         
          </fieldset>
@@ -174,8 +175,62 @@
          
          </div>
            </div>
-           <div id="subcontenidoReciboEmpleado">
 
+           <!--modulo de obtencion de un recibo firmado -->
+           <div id="subcontenidoReciboEmpleado" style="display: none;" class="panelDerOcultable">
+                 <fieldset>
+         <legend style="margin-top: 20px;">Consulta de Recibo Firmado</legend>         
+         </fieldset>
+         <div id="div5">            
+         <div  style="margin:10px;">
+            <p><B>Descripción:</B>  En esta sección se pueden descargar recibos firmados. Para la posterior verificacion tecnica de los mismos</p>
+            <p>Seleccione la lista de recibos a verificar:</p>
+         <!--   <select style="width:130px;" id="cmb_filtro">
+                <option value="0">Sin Firmar</option>
+                <option value="1">Firmado Conforme</option>
+                <option value="2">Firmado No Conforme</option>
+             </select>-->
+             <!--nota: 0: indica que se firmen todos los tipos de liquidacion-->
+             <input type="text" id="idReciboFirmado" style="width:105px;line-height: 40px;padding: 1px 2px;margin: 4px 0;" maxlength="7">
+             <select style="width:230px;" id="Select10" size="1">
+                <option value="0" selected>TODOS</option>
+             </select>
+            <!--TODO: cargar dinamicamente los select si no se quieren mostrar meses no vigentes para el año actual-->
+             <select style="width:65px;" id="Select20">
+                <option value="2016" selected>2016</option>
+                <option value="2017" >2017</option>
+                <option value="2018" >2018</option>
+             </select>
+             <select style="width:105px;" id="Select30">
+                <option value="1" selected>Enero</option>
+                <option value="2">Febrero</option>
+                <option value="3">Marzo</option>
+                <option value="4">Abril</option>
+                <option value="5">Mayo</option>
+                <option value="6">Junio</option>
+                <option value="7">Julio</option>
+                <option value="8">Agosto</option>
+                <option value="9">Septiembre</option>
+                <option value="10">Octubre</option>
+                <option value="11">Noviembre</option>
+                <option value="12">Diciembre</option>
+             </select>
+              &nbsp;&nbsp;&nbsp;<input id="Button10" class="botonFirmaM" type="button" value="Buscar" onclick="javascript:buscarRecibos();return false;" />              
+   <BR>  <BR> 
+   <div><table class="tablex table-stripedx table-bordered table-condensed" style="width:100%">
+				 <tbody class="list">
+				 <tr><td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;width:10pt" >Operación</td>
+				 <td style="text-align: right;"><input id="Button20" enabled  style="text-align: right;cursor: pointer;" class="botonGrisadoFirmaM" type="button" value="Obtener Recibo" onclick="javascript:obtenerDocFirmado();return false;" />
+				 </td></tr>
+				 <tr><td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;" >Estatus</td><td><div id="divMensajeStatusBusqueda" style="margin-top:5px">&nbsp;</div></td></tr>
+				 </tbody></table></div><br/>
+
+    </div>                
+         <!-- 	lista de recibos a firmar -->    
+	     <div id ="div6" class="resultadoValidar">        
+	     </div>      
+         
+         </div><!--FIN obtener recibo firmado -->
 
 
            </div>
@@ -408,7 +463,8 @@
         //policyIdentifierHashAlgorithm=http://www.w3.org/2000/09/xmldsig#sha1
         //policyQualifier=http://rrhh.gob.ar/politicafirma/politica_firma_v1.0.pdf
 
-        params = params + "filters=issuer.rfc2254:(CN = Autoridad Certificante de Firma Digital);nonexpired:" + "\n";
+        // params = params + "filters=issuer.rfc2254:(CN = Autoridad Certificante de Firma Digital);nonexpired:" + "\n";
+        params = params + "filters=issuer.rfc2254:(CN = Autoridad Certificante de Firma Digital);" + "\n";
 //ambiente prueba        params = params + "filters=issuer.rfc2254:(CN = jcvelasquez);nonexpired:" + "\n";
         //cuando existe un solo certificado en la lista lo auto selecciono
         params = params + "headless=true"; //+ "\n";	
@@ -1180,7 +1236,8 @@
     //dominio desde el que se realiza la llamada al servicio
     //MiniApplet.cargarAppAfirma('miniapplet.js');
     //MiniApplet.setForceWSMode(true);
-    MiniApplet.cargarAppAfirma(HOST + 'FirmaDigital/js/miniapplet.js', MiniApplet.KEYSTORE_WINDOWS);
+  //  MiniApplet.cargarAppAfirma(HOST + 'FirmaDigital/js/miniapplet.js', MiniApplet.MOZILLA);
+    MiniApplet.cargarAppAfirma(HOST + 'FirmaDigital/js/miniapplet.js', MiniApplet.KEYSTORE_PKCS11 + ":C:\\Windows\\System32\\eTPKCS11.dll");
 
     //////////////////////////////////////////////////////
     //MiniApplet.cargarMiniApplet("https://valide.redsara.es/valide/applet");

@@ -79,27 +79,51 @@ public class GenReciboToPdfConverter : ModeloToPdfConverter
             mapa.Add("fechaDeposito", r.cabecera.Fecha_deposito.ToString("dd/MM/yyyy"));
             mapa.Add("descripcionTipoLiquidacion", r.cabecera.DescripcionTipoLiquidacionYMas);
         }
-        else { 
-            //utilizo el pdf de 2 paginas
-            mapa.Add("paginasPDF", "dos"); // para saber cual pdf utilizar
-            mapa.Add("totalH1", "****");
-            mapa.Add("totalD1", "****");
-            // mapa.Add("neto", Convert.ToDecimal(r.cabecera.Neto).ToString("C")); esto si directamente se retorna desde el SP un float asi en el campo del pdf lo formatea bien, poque si es un string lo pone como string y no lo formatea
-            //  mapa.Add("neto", string.Format("{0:C}", Convert.ToDecimal(r.cabecera.Neto) / 100));
-            mapa.Add("neto1", "****");
-            mapa.Add("totalH2", string.Format("{0:N}", Convert.ToDecimal(r.cabecera.Bruto) / 100));
-            mapa.Add("totalD2", string.Format("{0:N}", Convert.ToDecimal(r.cabecera.Descuentos) / 100));
-            mapa.Add("neto2", string.Format("{0:C2}", Convert.ToDecimal(r.cabecera.Neto) / 100));
-            mapa.Add("categoria", r.cabecera.NivelGrado);
-            mapa.Add("opcion", r.cabecera.OpcionJubilatoria);
-            mapa.Add("fechaLiquidacion", r.cabecera.FechaLiquidacion);
-            mapa.Add("tipoLiquidacion", Convert.ToString(r.cabecera.TipoLiquidacion));
-            mapa.Add("dni", Convert.ToString(r.cabecera.Nro_Documento));
-            mapa.Add("domicilio", r.cabecera.Domicilio);
-            mapa.Add("fechaFirmaEmpleado", DateTime.Now.ToString("dd/MM/yyyy"));// tomo la fecha actual del server como fecha de firma del empleado
-            mapa.Add("fechaDeposito", r.cabecera.Fecha_deposito.ToString("dd/MM/yyyy"));
-            mapa.Add("descripcionTipoLiquidacion", r.cabecera.DescripcionTipoLiquidacionYMas);
-
+        else {
+            if ((cantidadDetalles >= 21) && (cantidadDetalles <= 40))
+            {
+                //utilizo el pdf de 2 paginas
+                mapa.Add("paginasPDF", "dos"); // para saber cual pdf utilizar
+                mapa.Add("totalH1", "****");
+                mapa.Add("totalD1", "****");
+                // mapa.Add("neto", Convert.ToDecimal(r.cabecera.Neto).ToString("C")); esto si directamente se retorna desde el SP un float asi en el campo del pdf lo formatea bien, poque si es un string lo pone como string y no lo formatea
+                //  mapa.Add("neto", string.Format("{0:C}", Convert.ToDecimal(r.cabecera.Neto) / 100));
+                mapa.Add("neto1", "****");
+                mapa.Add("totalH2", string.Format("{0:N}", Convert.ToDecimal(r.cabecera.Bruto) / 100));
+                mapa.Add("totalD2", string.Format("{0:N}", Convert.ToDecimal(r.cabecera.Descuentos) / 100));
+                mapa.Add("neto2", string.Format("{0:C2}", Convert.ToDecimal(r.cabecera.Neto) / 100));
+                mapa.Add("categoria", r.cabecera.NivelGrado);
+                mapa.Add("opcion", r.cabecera.OpcionJubilatoria);
+                mapa.Add("fechaLiquidacion", r.cabecera.FechaLiquidacion);
+                mapa.Add("tipoLiquidacion", Convert.ToString(r.cabecera.TipoLiquidacion));
+                mapa.Add("dni", Convert.ToString(r.cabecera.Nro_Documento));
+                mapa.Add("domicilio", r.cabecera.Domicilio);
+                mapa.Add("fechaFirmaEmpleado", DateTime.Now.ToString("dd/MM/yyyy"));// tomo la fecha actual del server como fecha de firma del empleado
+                mapa.Add("fechaDeposito", r.cabecera.Fecha_deposito.ToString("dd/MM/yyyy"));
+                mapa.Add("descripcionTipoLiquidacion", r.cabecera.DescripcionTipoLiquidacionYMas);
+            }
+            else { //utilizo 3 paginas
+                mapa.Add("paginasPDF", "tres"); // para saber cual pdf utilizar
+                mapa.Add("totalH1", "****");
+                mapa.Add("totalD1", "****");
+                mapa.Add("neto1", "****");
+                mapa.Add("totalH2", "****");
+                mapa.Add("totalD2", "****");
+                mapa.Add("neto2", "****");
+                mapa.Add("totalH3", string.Format("{0:N}", Convert.ToDecimal(r.cabecera.Bruto) / 100));
+                mapa.Add("totalD3", string.Format("{0:N}", Convert.ToDecimal(r.cabecera.Descuentos) / 100));
+                mapa.Add("neto3", string.Format("{0:C2}", Convert.ToDecimal(r.cabecera.Neto) / 100));
+                mapa.Add("categoria", r.cabecera.NivelGrado);
+                mapa.Add("opcion", r.cabecera.OpcionJubilatoria);
+                mapa.Add("fechaLiquidacion", r.cabecera.FechaLiquidacion);
+                mapa.Add("tipoLiquidacion", Convert.ToString(r.cabecera.TipoLiquidacion));
+                mapa.Add("dni", Convert.ToString(r.cabecera.Nro_Documento));
+                mapa.Add("domicilio", r.cabecera.Domicilio);
+                mapa.Add("fechaFirmaEmpleado", DateTime.Now.ToString("dd/MM/yyyy"));// tomo la fecha actual del server como fecha de firma del empleado
+                mapa.Add("fechaDeposito", r.cabecera.Fecha_deposito.ToString("dd/MM/yyyy"));
+                mapa.Add("descripcionTipoLiquidacion", r.cabecera.DescripcionTipoLiquidacionYMas);           
+            
+            }      
 
         }
 

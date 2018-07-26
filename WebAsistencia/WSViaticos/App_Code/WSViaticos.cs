@@ -5464,11 +5464,19 @@ public class WSViaticos : System.Web.Services.WebService
                 bytes = creador_pdf.FillPDF(TemplatePath("ReciboEmpleador_v6.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
                 bytes2 = creador_pdf.AgregarImagenAPDF(bytes, "FRH0502," + Convert.ToString(id_recibo));
             }
-            else
-            {
-                //el nombre del pdf generado va a ser el idRecibo
-                bytes = creador_pdf.FillPDF(TemplatePath("ReciboEmpleador_v6b.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
-                bytes2 = creador_pdf.AgregarImagenAPDF(bytes, "FRH0502," + Convert.ToString(id_recibo));
+            else{
+                if (mapa_para_pdf["paginasPDF"] == "dos")
+                {
+                    //el nombre del pdf generado va a ser el idRecibo
+                    bytes = creador_pdf.FillPDF(TemplatePath("ReciboEmpleador_v6b.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
+                    bytes2 = creador_pdf.AgregarImagenAPDF(bytes, "FRH0502," + Convert.ToString(id_recibo));
+                }
+                else {
+                    //el nombre del pdf generado va a ser el idRecibo
+                    bytes = creador_pdf.FillPDF(TemplatePath("ReciboEmpleador_v6c.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
+                    bytes2 = creador_pdf.AgregarImagenAPDF(bytes, "FRH0502," + Convert.ToString(id_recibo));
+                
+                }                
             }
 
             //return Convert.ToBase64String(bytes2);
@@ -5522,11 +5530,19 @@ public class WSViaticos : System.Web.Services.WebService
             bytes = creador_pdf.FillPDF(TemplatePath("ReciboEmpleado_v2.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
             bytes2 = creador_pdf.AgregarImagenAPDF(bytes, "FRH0502," + Convert.ToString(id_recibo)); 
         }
-        else
-        {
-            //el nombre del pdf generado va a ser el idRecibo
-            bytes = creador_pdf.FillPDF(TemplatePath("ReciboEmpleado_v2b.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
-            bytes2 = creador_pdf.AgregarImagenAPDF(bytes, "FRH0502," + Convert.ToString(id_recibo)); 
+        else{
+            if (mapa_para_pdf["paginasPDF"] == "dos")
+            {   //el nombre del pdf generado va a ser el idRecibo
+                bytes = creador_pdf.FillPDF(TemplatePath("ReciboEmpleado_v2b.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
+                bytes2 = creador_pdf.AgregarImagenAPDF(bytes, "FRH0502," + Convert.ToString(id_recibo));
+            }
+            else {// hay tres paginas
+                //el nombre del pdf generado va a ser el idRecibo
+                bytes = creador_pdf.FillPDF(TemplatePath("ReciboEmpleado_v2c.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
+                bytes2 = creador_pdf.AgregarImagenAPDF(bytes, "FRH0502," + Convert.ToString(id_recibo));
+         
+            }
+            
         }
         return Convert.ToBase64String(bytes2);
 
