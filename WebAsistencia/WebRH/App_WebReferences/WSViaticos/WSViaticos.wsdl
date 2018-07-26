@@ -1500,6 +1500,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="descripcion_periodo" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="desde" type="s:dateTime" />
           <s:element minOccurs="1" maxOccurs="1" name="hasta" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="descripcion_tipo_periodo" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="EvaluacionDesempenio">

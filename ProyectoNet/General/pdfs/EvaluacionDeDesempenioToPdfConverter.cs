@@ -29,8 +29,16 @@ public class EvaluacionDeDesempenioToPdfConverter : ModeloToPdfConverter
         mapa.Add("Unidad_eval", asignacion.unidad_de_evaluacion.NombreArea);
         mapa.Add("Cod_unidad_eval", asignacion.unidad_de_evaluacion.Codigo);
 
-        mapa.Add("Periodo_desde", asignacion.periodo.desde.ToString("dd/MM/yyyy"));
-        mapa.Add("Periodo_hasta", asignacion.periodo.hasta.ToString("dd/MM/yyyy"));
+        if (asignacion.periodo.descripcion_tipo_periodo.Equals("No Especifica"))
+        {
+            mapa.Add("Periodo_desde", asignacion.periodo.desde.ToString("dd/MM/yyyy") + " AL " + asignacion.periodo.hasta.ToString("dd/MM/yyyy"));
+            //mapa.Add("Periodo_hasta", asignacion.periodo.hasta.ToString("dd/MM/yyyy"));
+        }
+        else
+        {
+            mapa.Add("Periodo_desde", asignacion.periodo.descripcion_tipo_periodo);
+            //mapa.Add("Periodo_hasta", "");
+        }
 
         mapa.Add("Evaluador_nya", asignacion.agente_evaluador.apellido + ", " + asignacion.agente_evaluador.nombre);
         mapa.Add("Evaluador_dni", asignacion.agente_evaluador.nro_documento.ToString());
