@@ -11,6 +11,17 @@
     <link rel="stylesheet" href="../estilos/SelectorDePersonas.css" type="text/css" />
     <link rel="stylesheet" href="../FormularioConcursar/EstilosPostular.css" />
     <link href="../scripts/select2-3.4.4/select2.css" rel="stylesheet" type="text/css" />
+    <style>
+        .bottom_menu 
+        {
+            height: 70px;
+   
+        }
+        .bottom_menu_content 
+        {
+            padding:10px 10px 30px 10px;
+        }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -39,7 +50,8 @@
                 </div>
                 <div id="integrantes" class="grupo_campos nueva_linea">
                     <!--<legend><a id="btn_agregar_ue" class="link">Agregar Unidad de Evaluacion</a></legend>-->
-                    <h4>Integrantes</h4>
+                    <h4>
+                        Integrantes</h4>
                     <div id="cmb_caracter" class="selector_personas grupo_campos nueva_linea">
                         <label for="lugar">
                             En Caracter De <em>*</em></label>
@@ -80,10 +92,17 @@
                             </table>
                         </div>
                     </div>
+                </div>
+                <div class="btn-fld navbar-fixed-bottom">
+                    <div class="container">
+                        <div class="offset-4 span-4 grupo_campos nueva_linea row-fluid bottom_menu text-center">
+                            <div class="bottom_menu_content" style="background-color:#dddddd;">
+                                <input type="button" class="btn btn-primary" id="btn_guardar" value="Guardar" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </fieldset>
-            <div class="btn-fld">
-                <input type="button" class="btn btn-primary" id="btn_guardar" value="Siguiente" />
-            </div>
         </div>
     </div>
     <div id="plantillas" syle="display: hidden">
@@ -109,7 +128,6 @@
             <input type="button" class="btn_del" value="eliminar" />
         </div>
         <div class="celda_en_caracter_de_grilla_participantes">
-          
         </div>
         <div class="botonera_grilla_ues">
             <input class="cb_ue" type="checkbox" />
@@ -147,7 +165,7 @@
                     var addIntegranteAGrilla = function (e) {
                         var _this = $(this)
                         var $panel_integrantes = _this.closest("#integrantes")
-                        
+
                         var integrante = JSON.parse($panel_integrantes.find("#persona_buscada").val())
                         integrante.IdEnCaracterDe = $panel_integrantes.find("#cmb_caracter.enCaracterDe").val()
                         var detalle_comite = JSON.parse(localStorage.getItem("detalleComite"))
@@ -165,7 +183,6 @@
 
 
                     var cargar_ues = function () {
-
                         /***
                         GRILLA: Unidades de Evaluacion
                         */
@@ -175,7 +192,7 @@
 
                         var columnas_ue = cc.triviales(["Codigo"]);
                         columnas_ue.push(cc.con_alias("UNIDAD EVAL", "NombreArea"))
-                        columnas_ue = columnas_ue.concat(cc.con_submodelo("DetalleEvaluados",["Destacados", "Bueno", "Regular", "Deficiente", "Provisoria", "Pendiente"]))
+                        columnas_ue = columnas_ue.concat(cc.con_submodelo("DetalleEvaluados", ["Destacados", "Bueno", "Regular", "Deficiente", "Provisoria", "Pendiente"]))
                         columnas_ue.splice(6, 0, new Columna("Total Evaluados", { generar: function (ue) { return ue.DetalleEvaluados.Destacados + ue.DetalleEvaluados.Bueno + ue.DetalleEvaluados.Regular + ue.DetalleEvaluados.Deficiente; } }))
                         columnas_ue.push(new Columna("Total General", { generar: function (ue) { return ue.DetalleEvaluados.Destacados + ue.DetalleEvaluados.Bueno + ue.DetalleEvaluados.Regular + ue.DetalleEvaluados.Deficiente + ue.DetalleEvaluados.Provisoria + ue.DetalleEvaluados.Pendiente; } }));
                         columnas_ue.push(new Columna("", {
@@ -194,8 +211,7 @@
                                 $cb.click(function (e) {
                                     var mcb = e.currentTarget
                                     var $spin_panel = $(e.currentTarget).parent()
-                                    
-                                    
+
                                     var ue_id = $(e.currentTarget).parent().find(".hidden_model").first().val()
 
                                     var backend_call = function () { }
