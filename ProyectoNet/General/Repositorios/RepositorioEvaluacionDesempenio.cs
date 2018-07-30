@@ -195,8 +195,8 @@ namespace General.Repositorios
                 asignaciones.Add(asignacion_evaluado_a_evaluador);
             }
             asignaciones = asignaciones.OrderBy(a => a.agente_evaluado.apellido).ThenBy(a => a.agente_evaluado.nombre).ToList();
-            return new RespuestaGetAgentesEvaluablesPor(asignaciones, es_agente_verificador);
-            
+            var respuesta = new RespuestaGetAgentesEvaluablesPor(asignaciones, es_agente_verificador, usuario);
+            return respuesta;
         }
 
         protected AgenteEvaluacionDesempenio GetAgenteEvaluadorEvaluacionDesempenio(int id_evaluador, int id_periodo, Dictionary<int, AgenteEvaluacionDesempenio> cache)
