@@ -36,7 +36,27 @@
             <input type="checkbox" id="chk_selected" />
             <input type="hidden" id="hidden1" />
         </div>
-
+        <div class="alta_comite">
+                <h4>
+                    Datos de la Reunión</h4>
+                <div>
+                    <label for="fecha_1">
+                        Fecha <em>*</em>
+                    </label>
+                    <input id="fecha_1" campo="fecha_1" type="text" placeholder="dd/mm/aaaa" style="flex-grow: 100;" />
+                </div>
+                <div class="grupo_campos nueva_linea">
+                    <label for="hora">
+                        Hora <em>*</em></label>
+                    <input id="txt_hora" type="text" style="width: 160px;" maxlength="100" />
+                </div>
+                <div class="grupo_campos nueva_linea">
+                    <label for="lugar">
+                        Lugar <em>*</em></label>
+                    <input id="txt_lugar" type="text" style="width: 160px;" maxlength="100" />
+                </div>
+            <input id="btn_aceptar_alta" value="OK" type="button"/>
+        </div>
     </div>
     </form>
     <script type="text/javascript" src="../Scripts/Spin.js"></script>
@@ -58,10 +78,22 @@
                     CargarGrillaComites();
                     spinner.stop();
                     $("#btn_add_comite").click(function () {
-                        Backend.AgregarComiteEvaluacionDesempenio().onSuccess(function (comite) {
-                            comites.push(comite);
-                            CargarGrillaComites();
-                        });                        
+                        vex.defaultOptions.className = 'vex-theme-os';
+                        vex.open({
+                            afterOpen: function ($vexContent) {
+                                var ui = $("#plantillas .alta_comite").clone();
+                                ui.find("#btn_aceptar_alta").click(function () {
+                                    Backend.AgregarComiteEvaluacionDesempenio().onSuccess(function (comite) {
+                                        comites.push(comite);
+                                        CargarGrillaComites();
+                                        vex.close();
+                                    });
+                                });
+                                $vexContent.append(ui);
+                                ui.show();
+                                return ui;
+                            }
+                        })
                     });
                 }
             ).onError(function (e) {
