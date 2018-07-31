@@ -34,7 +34,7 @@
                 <a id="btn_consultar_areas" class="acomodar_botones_del_menu btn btn-primary" href="Protocolo/ConsultaProtocolo.aspx">Autoridades</a>
                 <a id="btn_consultar_trabajo" class="acomodar_botones_del_menu btn btn-primary" href="Protocolo/ConsultaLugaresDeTrabajo.aspx">Lugares de Trabajo</a>
                 <a id="btn_consultar_mis_areas" class="acomodar_botones_del_menu btn btn-primary"  href="Protocolo/ConsultaListadoPersonasACargo.aspx">Personas a Cargo</a>
-                <a id="btn_gestion_rca" class="acomodar_botones_del_menu btn btn-primary"  href="Areas/GestionRCA.aspx">Gestion RCA</a>
+                <a id="btn_gestion_rca" RequiereFuncionalidad="78" class="acomodar_botones_del_menu btn btn-primary"  href="Areas/GestionRCA.aspx">Gestion RCA</a>
             </div>
             
             

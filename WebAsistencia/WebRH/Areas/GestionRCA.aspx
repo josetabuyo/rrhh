@@ -79,19 +79,19 @@
           </table>
 
           <div id="plantillas">
-        <div class="vista_persona_en_selector">
-            <div id="contenedor_legajo" class="label label-warning">
-                <div id="titulo_legajo">Leg:</div>
-                <div id="legajo"></div>
-            </div> 
-            <div id="nombre"></div>
-            <div id="apellido"></div>
-            <div id="contenedor_doc" class="label label-default">
-                <div id="titulo_doc">Doc:</div>
-                <div id="documento"></div>         
-            </div>   
-        </div>
-    </div>
+                <div class="vista_persona_en_selector">
+                    <div id="contenedor_legajo" class="label label-warning">
+                        <div id="titulo_legajo">Leg:</div>
+                        <div id="legajo"></div>
+                    </div> 
+                    <div id="nombre"></div>
+                    <div id="apellido"></div>
+                    <div id="contenedor_doc" class="label label-default">
+                        <div id="titulo_doc">Doc:</div>
+                        <div id="documento"></div>         
+                    </div>   
+                </div>
+            </div>
     </div>
       
     </form>
