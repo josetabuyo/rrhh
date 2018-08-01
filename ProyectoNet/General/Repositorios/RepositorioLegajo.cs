@@ -1469,12 +1469,12 @@ namespace General.Repositorios
             throw new NotImplementedException();
         }
 
-        protected override void GuardarEnLaBase(Legajo legajo)
+        protected override void GuardarEnLaBase(Legajo legajo, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }
 
-        protected override void QuitarDeLaBase(Legajo legajo)
+        protected override void QuitarDeLaBase(Legajo legajo, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }
@@ -1487,7 +1487,7 @@ namespace General.Repositorios
             aspirante.Documento = dni;
             aspirante.Email = email;
 
-            autorizador.RegistrarNuevoUsuario(aspirante);
+            autorizador.RegistrarNuevoUsuario(aspirante, admin.Id);
 
             var usuario = repoUsuarios.GetUsuarioPorDNI(dni);
 

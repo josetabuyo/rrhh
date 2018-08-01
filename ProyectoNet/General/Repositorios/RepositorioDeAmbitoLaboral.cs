@@ -41,12 +41,12 @@ namespace General.Repositorios
             return AmbitosLaborales;
         }
 
-        protected override void GuardarEnLaBase(AmbitoLaboral objeto)
+        protected override void GuardarEnLaBase(AmbitoLaboral objeto, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }
 
-        protected override void QuitarDeLaBase(AmbitoLaboral objeto)
+        protected override void QuitarDeLaBase(AmbitoLaboral objeto, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }

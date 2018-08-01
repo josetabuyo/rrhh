@@ -51,12 +51,12 @@ namespace General
             return comites;
         }
 
-        protected override void GuardarEnLaBase(Comite objeto)
+        protected override void GuardarEnLaBase(Comite objeto, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }
 
-        protected override void QuitarDeLaBase(Comite objeto)
+        protected override void QuitarDeLaBase(Comite objeto, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }

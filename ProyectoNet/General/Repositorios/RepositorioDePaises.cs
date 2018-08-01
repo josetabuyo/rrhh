@@ -42,12 +42,12 @@ namespace General.Repositorios
             return nacionalidades;
         }
 
-        protected override void GuardarEnLaBase(Pais objeto)
+        protected override void GuardarEnLaBase(Pais objeto, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }
 
-        protected override void QuitarDeLaBase(Pais objeto)
+        protected override void QuitarDeLaBase(Pais objeto, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }

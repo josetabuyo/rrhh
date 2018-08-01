@@ -68,12 +68,12 @@ namespace General.MAU
             return GetMenuesDeTablaDeDatos(tablaDatos);
         }
 
-        protected override void GuardarEnLaBase(MenuDelSistema objeto)
+        protected override void GuardarEnLaBase(MenuDelSistema objeto, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }
 
-        protected override void QuitarDeLaBase(MenuDelSistema objeto)
+        protected override void QuitarDeLaBase(MenuDelSistema objeto, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }

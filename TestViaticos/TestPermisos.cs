@@ -65,10 +65,10 @@ namespace TestAdministracionDeUsuarios
         }
 
         [TestMethod]
-        public void deberia_poder_darle_permisos_a_jorge_para_ingresar_a_modi()
+        public void deberia_poder_darle_permisos_a_jorge_para_ingresar_a_modi(Usuario usuario)
         {
             var autorizador = TestObjectsMau.Autorizador();
-            autorizador.ConcederFuncionalidadA(TestObjectsMau.Jorge(), TestObjectsMau.FuncionalidadIngresoModi());
+            autorizador.ConcederFuncionalidadA(TestObjectsMau.Jorge(), TestObjectsMau.FuncionalidadIngresoModi(), usuario.Id);
             Assert.IsTrue(autorizador.ElUsuarioTienePermisosPara(TestObjectsMau.Jorge(), TestObjectsMau.FuncionalidadIngresoModi()));
         }
 
@@ -88,7 +88,7 @@ namespace TestAdministracionDeUsuarios
         public void deberia_poder_darle_permisos_a_javier_para_ingresar_a_sacc()
         {
             var autorizador = TestObjectsMau.Autorizador();
-            autorizador.ConcederFuncionalidadA(TestObjectsMau.Javier(), TestObjectsMau.FuncionalidadIngresoSacc());
+            autorizador.ConcederFuncionalidadA(TestObjectsMau.Javier(), TestObjectsMau.FuncionalidadIngresoSacc(),1);
             Assert.IsTrue(autorizador.ElUsuarioTienePermisosPara(TestObjectsMau.Javier(), TestObjectsMau.FuncionalidadIngresoSacc()));
         }
 
@@ -104,7 +104,7 @@ namespace TestAdministracionDeUsuarios
         public void si_le_doy_permisos_a_jorge_para_acceder_a_administracion_de_areas_deberia_ver_tres_items_en_su_menu_principal()
         {
             var autorizador = TestObjectsMau.Autorizador();
-            autorizador.ConcederFuncionalidadA(TestObjectsMau.Jorge(), TestObjectsMau.FuncionalidadIngresoAdministracionDeAreas());
+            autorizador.ConcederFuncionalidadA(TestObjectsMau.Jorge(), TestObjectsMau.FuncionalidadIngresoAdministracionDeAreas(),1);
             var menu_principal_de_jorge = autorizador.GetMenuPara("PRINCIPAL", TestObjectsMau.Jorge());
             Assert.AreEqual(3, menu_principal_de_jorge.Items.Count);
         }
@@ -129,7 +129,7 @@ namespace TestAdministracionDeUsuarios
         public void deberia_poder_darle_permisos_a_javier_para_administrar_el_area_de_contratos()
         {
             var autorizador = TestObjectsMau.Autorizador();
-            autorizador.AsignarAreaAUnUsuario(TestObjectsMau.Javier(), TestObjectsMau.AreaDeContratos());
+            autorizador.AsignarAreaAUnUsuario(TestObjectsMau.Javier(), TestObjectsMau.AreaDeContratos(), 1);
             Assert.IsTrue(autorizador.AreasAdministradasPor(TestObjectsMau.Javier()).Contains(TestObjectsMau.AreaDeContratos()));
         }
 
@@ -137,7 +137,7 @@ namespace TestAdministracionDeUsuarios
         public void deberia_poder_quitarle_permisos_a_javier_para_administrar_el_area_de_legajos()
         {
             var autorizador = TestObjectsMau.Autorizador();
-            autorizador.DesAsignarAreaAUnUsuario(TestObjectsMau.Javier(), TestObjectsMau.AreaDeLegajos());
+            autorizador.DesAsignarAreaAUnUsuario(TestObjectsMau.Javier(), TestObjectsMau.AreaDeLegajos(), 1);
             Assert.IsFalse(autorizador.AreasAdministradasPor(TestObjectsMau.Javier()).Contains(TestObjectsMau.AreaDeLegajos()));
         }
 
