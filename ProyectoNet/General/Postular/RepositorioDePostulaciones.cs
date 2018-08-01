@@ -660,7 +660,7 @@ namespace General
                 //si no encuentra a la persona la creo
                 if (personaAInscribir.Count == 0 && nombre != "")
                 {
-                    repoPersonas.GuardarPersona(new Persona(0, int.Parse(dni), nombre, apellido, null));
+                    repoPersonas.GuardarPersona(new Persona(0, int.Parse(dni), nombre, apellido, null), 1);
                     personaAInscribir = repoPersonas.BuscarPersonas("{Documento:" + dni + "}");
                 }
                                    

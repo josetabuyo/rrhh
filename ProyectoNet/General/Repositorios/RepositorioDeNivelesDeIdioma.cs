@@ -44,12 +44,12 @@ namespace General.Repositorios
             return nacionalidades;
         }
 
-        protected override void GuardarEnLaBase(NivelDeIdioma objeto)
+        protected override void GuardarEnLaBase(NivelDeIdioma objeto, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }
 
-        protected override void QuitarDeLaBase(NivelDeIdioma objeto)
+        protected override void QuitarDeLaBase(NivelDeIdioma objeto, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }

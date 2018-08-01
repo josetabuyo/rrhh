@@ -45,12 +45,12 @@ namespace General.Repositorios
             return tiposLiquidacion;
         }
 
-        protected override void GuardarEnLaBase(TipoLiquidacion objeto)
+        protected override void GuardarEnLaBase(TipoLiquidacion objeto, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }
 
-        protected override void QuitarDeLaBase(TipoLiquidacion objeto)
+        protected override void QuitarDeLaBase(TipoLiquidacion objeto, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }

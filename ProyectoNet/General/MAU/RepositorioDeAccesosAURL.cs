@@ -61,12 +61,12 @@ namespace General.MAU
             return accesos;
         }
 
-        protected override void GuardarEnLaBase(AccesoAURL objeto)
+        protected override void GuardarEnLaBase(AccesoAURL objeto, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }
 
-        protected override void QuitarDeLaBase(AccesoAURL objeto)
+        protected override void QuitarDeLaBase(AccesoAURL objeto, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }

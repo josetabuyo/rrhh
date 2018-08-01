@@ -43,12 +43,12 @@ namespace General.Repositorios
             return tipos;
         }
 
-        protected override void GuardarEnLaBase(CVTiposDeEventoAcademico objeto)
+        protected override void GuardarEnLaBase(CVTiposDeEventoAcademico objeto, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }
 
-        protected override void QuitarDeLaBase(CVTiposDeEventoAcademico objeto)
+        protected override void QuitarDeLaBase(CVTiposDeEventoAcademico objeto, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }

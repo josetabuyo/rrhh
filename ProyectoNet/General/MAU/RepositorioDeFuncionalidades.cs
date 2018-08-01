@@ -58,12 +58,12 @@ namespace General.MAU
             return funcionalidades;
         }
 
-        protected override void GuardarEnLaBase(Funcionalidad objeto)
+        protected override void GuardarEnLaBase(Funcionalidad objeto, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }
 
-        protected override void QuitarDeLaBase(Funcionalidad objeto)
+        protected override void QuitarDeLaBase(Funcionalidad objeto, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }

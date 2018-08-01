@@ -42,12 +42,12 @@ namespace General.Repositorios
             return niveles;
         }
 
-        protected override void GuardarEnLaBase(CvModalidadContratacion objeto)
+        protected override void GuardarEnLaBase(CvModalidadContratacion objeto, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }
 
-        protected override void QuitarDeLaBase(CvModalidadContratacion objeto)
+        protected override void QuitarDeLaBase(CvModalidadContratacion objeto, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }

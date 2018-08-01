@@ -137,7 +137,7 @@ namespace TestAdministracionDeUsuarios
         public void deberia_poder_quitarle_permisos_a_javier_para_administrar_el_area_de_legajos()
         {
             var autorizador = TestObjectsMau.Autorizador();
-            autorizador.DesAsignarAreaAUnUsuario(TestObjectsMau.Javier(), TestObjectsMau.AreaDeLegajos());
+            autorizador.DesAsignarAreaAUnUsuario(TestObjectsMau.Javier(), TestObjectsMau.AreaDeLegajos(), 1);
             Assert.IsFalse(autorizador.AreasAdministradasPor(TestObjectsMau.Javier()).Contains(TestObjectsMau.AreaDeLegajos()));
         }
 
