@@ -174,10 +174,10 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public ComiteEvaluacionDesempenio AgregarComiteEvaluacionDesempenio()
+    public ComiteEvaluacionDesempenio AgregarComiteEvaluacionDesempenio(DateTime fecha, string hora, string lugar)
     {
         var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
-        return repo.AgregarComite();
+        return repo.AgregarComite(fecha, hora, lugar);
     }
 
     [WebMethod]

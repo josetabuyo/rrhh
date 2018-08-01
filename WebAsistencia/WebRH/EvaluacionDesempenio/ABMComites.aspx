@@ -82,8 +82,19 @@
                         vex.open({
                             afterOpen: function ($vexContent) {
                                 var ui = $("#plantillas .alta_comite").clone();
+                                ui.find('#fecha_1').datepicker({
+                                    dateFormat: "dd/mm/yy",
+                                    onSelect: function (date) {
+                                    }
+                                });
+
+                                ui.find('#fecha_1').datepicker("setDate", new Date());
+
                                 ui.find("#btn_aceptar_alta").click(function () {
-                                    Backend.AgregarComiteEvaluacionDesempenio().onSuccess(function (comite) {
+                                    var fecha = ui.find('#fecha_1').val();
+                                    var hora = ui.find('#txt_hora').val();
+                                    var lugar = ui.find('#txt_lugar').val();
+                                    Backend.AgregarComiteEvaluacionDesempenio(fecha, hora, lugar).onSuccess(function (comite) {
                                         comites.push(comite);
                                         CargarGrillaComites();
                                         vex.close();
