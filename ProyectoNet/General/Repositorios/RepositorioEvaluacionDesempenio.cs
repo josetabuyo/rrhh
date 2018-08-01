@@ -567,6 +567,9 @@ namespace General.Repositorios
         {
             ComiteEvaluacionDesempenio comite = new ComiteEvaluacionDesempenio();
             var parametros = new Dictionary<string, object>();
+            parametros.Add("@fecha", fecha );
+            parametros.Add("@hora", hora);
+            parametros.Add("@lugar", lugar);
 
             comite.Id = (int)_conexion.EjecutarEscalar("dbo.EVAL_ADD_Comite", parametros);
             comite.Fecha = fecha;
