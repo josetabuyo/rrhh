@@ -563,19 +563,19 @@ namespace General.Repositorios
             return result;
         }
 
-        public ComiteEvaluacionDesempenio AgregarComite(DateTime fecha, string hora, string lugar)
+        public ComiteEvaluacionDesempenio AgregarComite(string descripcion, DateTime fecha, string hora, string lugar, int periodo)
         {
             ComiteEvaluacionDesempenio comite = new ComiteEvaluacionDesempenio();
             var parametros = new Dictionary<string, object>();
+
+            parametros.Add("@descripcion", descripcion );
             parametros.Add("@fecha", fecha );
             parametros.Add("@hora", hora);
             parametros.Add("@lugar", lugar);
+            parametros.Add("@periodo", periodo);
 
-            comite.Id = (int)_conexion.EjecutarEscalar("dbo.EVAL_ADD_Comite", parametros);
-            comite.Fecha = fecha;
-            comite.Hora = hora;
-            comite.Lugar = lugar;
-
+            var tablaDeDatos = _conexion.Ejecutar("dbo.EVAL_ADD_Comite", parametros);
+            comite.Id = tablaDeDatos.Rows[0].GetSmallintAsInt("Id");
             return comite;
         }
     }
