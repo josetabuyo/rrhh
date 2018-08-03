@@ -42,7 +42,7 @@ namespace General
             RepositorioPersonas repoPersonas = new RepositorioPersonas();
             RepositorioDeOrganigrama repoOrganigrama = new RepositorioDeOrganigrama(Conexion());
             //var un_Organigrama = repoOrganigrama.GetOrganigrama();
-            DateTime fecha = Convert.ToDateTime("01" + "/" + mes + "/" + anio);
+            DateTime fecha = Convert.ToDateTime("15" + "/" + mes + "/" + anio);
             var un_Organigrama = repoOrganigrama.GetOrganigramaSegunFechaDesde(fecha);
             
             List<AreaParaDDJJ104> areas = new List<AreaParaDDJJ104>();

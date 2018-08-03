@@ -28,7 +28,21 @@ namespace General.MAU
 
         public List<Funcionalidad> FuncionalidadesPara(Usuario usuario)
         {
-            return this.FuncionalidadesPara(usuario.Id);
+            var funcionalidades = this.Obtener().FindAll(p => p.Key == usuario.Id)
+            .Select(p => this.repositorioDeFuncionalidades.GetFuncionalidadPorId(p.Value))
+            .Where(f => !f.NoPodriaUsarlaElUsuario(usuario))
+            .ToList();
+            if (funcionalidades.Any(f => f == null)) throw new Exception("El usuario tiene permisos para funcionalidades que no existen");
+            return funcionalidades;   
+        }
+
+        public List<Funcionalidad> FuncionalidadesOtorgadasA(Usuario usuario)
+        {
+            var funcionalidades = this.Obtener().FindAll(p => p.Key == usuario.Id)
+            .Select(p => this.repositorioDeFuncionalidades.GetFuncionalidadPorId(p.Value))
+            .ToList();
+            if (funcionalidades.Any(f => f == null)) throw new Exception("El usuario tiene permisos para funcionalidades que no existen");
+            return funcionalidades;   
         }
 
         public List<Usuario> UsuariosConLaFuncionalidad(int id_funcionalidad) {
@@ -38,14 +52,14 @@ namespace General.MAU
         }
 
 
-        public List<Funcionalidad> FuncionalidadesPara(int id_usuario)
-        {
-            var funcionalidades = this.Obtener().FindAll(p => p.Key == id_usuario)
-                .Select(p => this.repositorioDeFuncionalidades.GetFuncionalidadPorId(p.Value))
-                .ToList();
-            if (funcionalidades.Any(f => f == null)) throw new Exception("El usuario tiene permisos para funcionalidades que no existen");
-            return funcionalidades;           
-        }
+        //public List<Funcionalidad> FuncionalidadesPara(int id_usuario)
+        //{
+        //    var funcionalidades = this.Obtener().FindAll(p => p.Key == id_usuario)
+        //        .Select(p => this.repositorioDeFuncionalidades.GetFuncionalidadPorId(p.Value))
+        //        .ToList();
+        //    if (funcionalidades.Any(f => f == null)) throw new Exception("El usuario tiene permisos para funcionalidades que no existen");
+        //    return funcionalidades;           
+        //}
 
         public void ConcederFuncionalidadA(Usuario usuario, Funcionalidad funcionalidad)
         {

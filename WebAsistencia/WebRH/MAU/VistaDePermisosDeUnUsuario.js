@@ -76,7 +76,7 @@ VistaDePermisosDeUnUsuario.prototype.setUsuario = function (un_usuario) {
     var _this = this;
     var spinner = new Spinner({ scale: 3 });
     spinner.spin(this.ui[0]);
-    this.repositorioDeFuncionalidades.funcionalidadesPara(un_usuario,
+    this.repositorioDeFuncionalidades.FuncionalidadesOtorgadasA(un_usuario,
         function (funcionalidades) { //on success
             for (var i = 0; i < funcionalidades.length; i++) {
                 var nodo = _this.arbol.getNodeByKey(funcionalidades[i].Id.toString());

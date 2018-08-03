@@ -52,6 +52,24 @@ namespace General.MAU
             return tareas;
         }
 
+
+        public List<ResumenTipoTicket> GetResumenTicketsPorFuncionalidad(int idUsuario)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@idUsuario", idUsuario);
+            var tabla_resultado = this.conexion.Ejecutar("dbo.MAU_GET_ResumenTicketsPorFuncionalidad", parametros);
+
+            var tareas = new List<ResumenTipoTicket>();
+
+            tabla_resultado.Rows.ForEach(row =>
+            {
+                ResumenTipoTicket res_ticket = new ResumenTipoTicket(row.GetString("descripcionTipo", ""), row.GetInt("cantidad", 0));
+
+                tareas.Add(res_ticket);
+            });
+            return tareas;
+        }
+
         public int crearTicket(Ticket ticket, Usuario usuario)
         {
             return this.crearTicket(ticket.tipoTicket.codigo, usuario.Id);
@@ -86,7 +104,5 @@ namespace General.MAU
                 throw new Exception(e.Message);
             }
         }
-
-
     }
 }

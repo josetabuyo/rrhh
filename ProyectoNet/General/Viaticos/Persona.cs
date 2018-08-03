@@ -33,6 +33,9 @@ namespace General
         private bool _estaCertificadoEnLaDDJJ;
         private string _certificaHoraDesdeDDJJ;
         private string _certificaHoraHastaDDJJ;
+        private int p;
+        private string p_2;
+        private string p_3;
         private string _motivo_no_certificar { get; set; }
         private string _cco_no_certificar { get; set; }
 
@@ -86,6 +89,13 @@ namespace General
             this._Nombre = nombre;
             this._Area = area;
             this._Inasistencias = inasistencias;
+        }
+
+        public Persona(int id, string apellido, string nombre)
+        {
+            this._id = id;
+            this._Apellido = apellido;
+            this._Nombre = nombre;
         }
 
         //public List<Inasistencia> Inasistencias()

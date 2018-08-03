@@ -19,10 +19,10 @@ namespace General.MAU
             return diccionario_de_funcionalidades.GetValueOrDefault(usuario, new List<Funcionalidad>());
         }
 
-        public List<Funcionalidad> FuncionalidadesPara(int id_usuario)
-        {
-            throw new NotImplementedException();
-        }
+        //public List<Funcionalidad> FuncionalidadesPara(int id_usuario)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
 
         public void ConcederFuncionalidadA(Usuario usuario, Funcionalidad funcionalidad)
@@ -72,6 +72,12 @@ namespace General.MAU
 
 
         public List<Usuario> UsuariosConLaFuncionalidad(int id_funcionalidad)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public List<Funcionalidad> FuncionalidadesOtorgadasA(Usuario usuario)
         {
             throw new NotImplementedException();
         }
