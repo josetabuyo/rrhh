@@ -228,8 +228,8 @@
                         GRILLA: Unidades de Evaluacion
                         */
                         //
-                        var grilla_ue = ui.find("#tabla_unidades_evaluacion");
-                        grilla_ue.empty();
+                        var tabla_ue = $("#tabla_unidades_evaluacion");
+                        tabla_ue.empty();
 
                         var columnas_ue = cc.triviales(["Codigo"]);
                         columnas_ue.push(cc.con_alias("UNIDAD EVAL", "NombreArea"))
@@ -288,13 +288,13 @@
                         }))
 
                         var estadosEvaluaciones = JSON.parse(localStorage.getItem("estadosEvaluaciones"));
-                        var id_periodo = ui.find("#cmb_periodo").val();
+                        var id_periodo = $("#cmb_periodo").val();
 
                         _this.grilla_ue = new Grilla(columnas_ue)
                         _this.grilla_ue.SetOnRowClickEventHandler(function (ues) { })
                         _this.grilla_ue.CambiarEstiloCabecera("estilo_tabla_portal")
                         _this.grilla_ue.CargarObjetos(estadosEvaluaciones.filter(function (i) { return i.IdPeriodo == id_periodo; }))
-                        _this.grilla_ue.DibujarEn(grilla_ue)
+                        _this.grilla_ue.DibujarEn(tabla_ue)
                     }
 
                     Backend.GetPeriodosEvaluacion()
@@ -303,7 +303,7 @@
                                 var opt = $("<option>");
                                 opt.text(periodo.descripcion_periodo);
                                 opt.attr("value", periodo.Id);
-                                ui.find("#cmb_periodo").append(opt);
+                                $("#cmb_periodo").append(opt);
                             });
                             cargar_ues();
                         });
