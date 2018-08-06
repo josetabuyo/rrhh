@@ -9,17 +9,15 @@
     <%= Referencias.Css("../")%>
     <%= Referencias.Javascript("../")%>
     <link rel="stylesheet" href="../estilos/SelectorDePersonas.css" type="text/css" />
-    <link rel="stylesheet" href="../FormularioConcursar/EstilosPostular.css" />
     <link href="../scripts/select2-3.4.4/select2.css" rel="stylesheet" type="text/css" />
     <style>
-        .bottom_menu 
+        .bottom_menu
         {
             height: 70px;
-   
         }
-        .bottom_menu_content 
+        .bottom_menu_content
         {
-            padding:10px 10px 30px 10px;
+            padding: 10px 10px 30px 10px;
         }
     </style>
 </head>
@@ -28,34 +26,74 @@
     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:18px; font-weight: bold; padding-top:25px;'>Datos<br/>Personales</span> <br/> "
         UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <div id="pantallaDetalleComite" class="container-fluid">
-        <div id="contenido_form_comite" class="fondo_form">
-            <fieldset>
-                <h4>
-                    Datos de la Reunión</h4>
-                <div>
-                    <label for="fecha_1">
-                        Fecha <em>*</em>
-                    </label>
-                    <input id="fecha_1" campo="fecha_1" type="text" placeholder="dd/mm/aaaa" style="flex-grow: 100;" />
+        <div class="row-fluid">
+            <div class="span8 offset2 well well-large">
+                <div class="row-fluid">
+                    <div class="span12">
+                        <h4>
+                            Datos de la Reunión</h4>
+                    </div>
                 </div>
-                <div class="grupo_campos nueva_linea">
-                    <label for="hora">
-                        Hora <em>*</em></label>
-                    <input id="txt_hora" type="text" style="width: 160px;" maxlength="100" />
+                <div class="row-fluid">
+                    <div class="span12">
+                        <hr />
+                    </div>
                 </div>
-                <div class="grupo_campos nueva_linea">
-                    <label for="lugar">
-                        Lugar <em>*</em></label>
-                    <input id="txt_lugar" type="text" style="width: 160px;" maxlength="100" />
+                <div class="row-fluid">
+                    <div class="span2">
+                        <label for="test_bl">
+                            TEST <em>*</em></label>
+                    </div>
+                    <div class="span10">
+                        <input id="Text1" />
+                    </div>
                 </div>
-                <div id="integrantes" class="grupo_campos nueva_linea">
-                    <!--<legend><a id="btn_agregar_ue" class="link">Agregar Unidad de Evaluacion</a></legend>-->
-                    <h4>
-                        Integrantes</h4>
-                    <div id="cmb_caracter" class="selector_personas grupo_campos nueva_linea">
+                <div class="row-fluid">
+                    <div class="span2">
+                        <label for="fecha_1">
+                            Fecha <em>*</em></label>
+                    </div>
+                    <div class="span10">
+                        <input id="fecha_1" campo="fecha_1" type="text" placeholder="dd/mm/aaaa" />
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span2">
+                        <label for="hora">
+                            Hora <em>*</em></label>
+                    </div>
+                    <div class="span10">
+                        <input id="txt_hora" type="text" style="width: 160px;" maxlength="100" />
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span2">
                         <label for="lugar">
-                            En Caracter De <em>*</em></label>
-                        <select class="enCaracterDe" id="cmb_caracter">
+                            Lugar <em>*</em></label></div>
+                    <div class="span10">
+                        <input id="txt_lugar" type="text" style="width: 160px;" maxlength="100" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row-fluid"  id="integrantes">
+            <div class="span8 offset2 well well-large">
+                <div class="row-fluid">
+                    <div class="span12">
+                        <h4>Integrantes</h4>
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span12">
+                        <hr />
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span2">
+                        <label for="enCaracterDe">En Caracter De <em>*</em></label>
+                    </div>
+                    <div class="span10">
+                        <select class="enCaracterDe" id="Select1">
                             <option>--Seleccione--</option>
                             <option value="1">Representante Gremial UPCN</option>
                             <option value="2">Representante Gremial ATE</option>
@@ -63,46 +101,54 @@
                             <option value="4">Evaluador</option>
                         </select>
                     </div>
-                    <div id="cmb_selector_integrantes" class="selector_personas grupo_campos nueva_linea">
+                </div>
+                <div class="row-fluid">
+                    <div class="span2">
                         <label for="buscador">
                             Integrante
                         </label>
+                    </div>
+                    <div id="cmb_selector_integrantes" class="span8">
                         <input id="buscador" type="hidden" class="buscarPersona" />
                         <input type="hidden" id="persona_buscada" />
                     </div>
-                    <div class="selector_personas grupo_campos nueva_linea">
-                        <input type="button" id="btn_agregar_integrante" value="Agregar" />
+                </div>
+                <div class="row-fluid">
+                    <div class="span12">
+                        <div class="selector_personas">
+                            <input type="button" id="btn_agregar_integrante" value="Agregar" />
+                        </div>
                     </div>
-                    <div id="ContenedorPlanillaIntegrantes" runat="server" class="grupo_campos nueva_linea">
+                </div>
+                <div class="row-fluid">
+                    <div id="ContenedorPlanillaIntegrantes" runat="server" class="span12">
                         <table id="tabla_integrantes" class="table table-striped">
                         </table>
                     </div>
-                    <div class="grupo_campos nueva_linea">
-                        <label for="cmb_periodo">
-                            Proceso Evaluatorio <em>*</em></label>
-                        <select id="cmb_periodo" style="width: 280px;">
-                        </select>
-                    </div>
-                    <div class="grupo_campos nueva_linea">
-                        <!--<legend><a id="btn_agregar_ue" class="link">Agregar Unidad de Evaluacion</a></legend>-->
-                        <h4>
-                            Unidades de Evaluacion</h4>
-                        <div id="ContenedorPlanillaUnidadesEvaluacion" runat="server">
-                            <table id="tabla_unidades_evaluacion" class="table table-striped">
-                            </table>
-                        </div>
-                    </div>
                 </div>
-                <div class="btn-fld navbar-fixed-bottom">
-                    <div class="container">
-                        <div class="offset-4 span-4 grupo_campos nueva_linea row-fluid bottom_menu text-center">
-                            <div class="bottom_menu_content" style="background-color:#dddddd;">
-                                <input type="button" class="btn btn-primary" id="btn_guardar" value="Guardar" />
-                            </div>
-                        </div>
-                    </div>
+            </div>
+        </div>
+    </div>
+    <div class="row well well-large">
+        <label for="cmb_periodo">
+            Proceso Evaluatorio <em>*</em></label>
+        <select id="cmb_periodo" style="width: 280px;">
+        </select>
+        <h4>Unidades de Evaluacion</h4>
+        <div id="ContenedorPlanillaUnidadesEvaluacion" runat="server">
+            <table id="tabla_unidades_evaluacion" class="table table-striped">
+            </table>
+        </div>
+    </div>
+    </div>
+    <div class="btn-fld navbar-fixed-bottom">
+        <div class="container">
+            <div class="offset-4 span-4 grupo_campos nueva_linea row-fluid bottom_menu text-center">
+                <div class="bottom_menu_content" style="background-color: #1c2431;">
+                    <input type="button" class="btn " id="btn_cancel" value="Cancelar" />
+                    <input type="button" class="btn btn-primary" id="btn_guardar" value="Guardar" />
                 </div>
-            </fieldset>
+            </div>
         </div>
     </div>
     <div id="plantillas" syle="display: hidden">
@@ -133,7 +179,6 @@
             <input class="cb_ue" type="checkbox" />
             <input type="hidden" class="hidden_model" />
         </div>
-    </div>
     </form>
 </body>
 <script type="text/javascript" src="../Scripts/select2-3.4.4/Select2.min.js"></script>
@@ -216,9 +261,9 @@
 
                                     var backend_call = function () { }
                                     if (mcb.checked) {
-                                        backend_call = Backend.spinerEn($spin_panel).EvalAddUnidadEvaluacionAComite
+                                        backend_call = Backend.EvalAddUnidadEvaluacionAComite
                                     } else {
-                                        backend_call = Backend.spinerEn($spin_panel).EvalRemoveUnidadEvaluacionAComite
+                                        backend_call = Backend.EvalRemoveUnidadEvaluacionAComite
                                     }
 
                                     backend_call(id_comite, ue_id)
@@ -280,27 +325,9 @@
                     var columnas_integrantes = cc.triviales(["Dni", "Apellido", "Nombre"])
 
                     columnas_integrantes.push(new Columna("En caracter de", { generar: function (int) {
-                        var $celda = $("#plantillas .celda_en_caracter_de_grilla_participantes").clone();
-                        $celda.find("#cmb_caracter").change(function (e) {
-                            var spinner = new Spinner({ scale: 0.5, position: 'relative', left: '50%', top: '50%' })
-                            spinner.spin($(e.currentTarget).parent())
-                            var id_comite = JSON.parse(localStorage.getItem("detalleComite")).Id
-                            var integrante =
-                            {
-                                Apellido: '',
-                                Nombre: '',
-                                IdEnCaracterDe: e.currentTarget.value,
-                                IdPersona: int.IdPersona,
-                                Dni: 0
-                            }
-                            Backend.EvalAddIntegranteComite(id_comite, integrante)
-                            .onError(function (err) {
-                                alert("se produjo un error en la comunicación")
-                                mcb.checked = !mcb.checked
-                            })
-                        });
-
-                        return $celda;
+                        //var $celda = $("#plantillas .celda_en_caracter_de_grilla_participantes").clone();
+                        return $('#cmb_caracter option[value="' + int.IdEnCaracterDe + '"]').text()
+                        //return $celda;
                     }
                     }));
                     columnas_integrantes.push(new Columna("Acciones", {
