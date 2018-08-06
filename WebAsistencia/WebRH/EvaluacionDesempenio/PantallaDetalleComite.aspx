@@ -41,15 +41,6 @@
                 </div>
                 <div class="row-fluid">
                     <div class="span2">
-                        <label for="test_bl">
-                            TEST <em>*</em></label>
-                    </div>
-                    <div class="span10">
-                        <input id="Text1" />
-                    </div>
-                </div>
-                <div class="row-fluid">
-                    <div class="span2">
                         <label for="fecha_1">
                             Fecha <em>*</em></label>
                     </div>
@@ -189,6 +180,11 @@
 <script type="text/javascript" src="../Scripts/Spin.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
+
+        $("#btn_cancel").click(function () {
+            window.location.href = "ABMComites.aspx";
+        })
+
         Backend.start(function () {
             var PantallaDetalleComite = {
                 start: function (model, ui) {
