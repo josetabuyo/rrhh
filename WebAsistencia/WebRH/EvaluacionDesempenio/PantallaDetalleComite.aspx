@@ -25,128 +25,166 @@
     <form id="form1" runat="server">
     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:18px; font-weight: bold; padding-top:25px;'>Datos<br/>Personales</span> <br/> "
         UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
+    <!--container -->
     <div id="pantallaDetalleComite" class="container-fluid">
         <div class="row-fluid">
-            <div class="span8 offset2 well well-large">
-                <div class="row-fluid">
-                    <div class="span12">
-                        <h4>
-                            Datos de la Reunión</h4>
-                    </div>
-                </div>
-                <div class="row-fluid">
-                    <div class="span12">
-                        <hr />
-                    </div>
-                </div>
-                <div class="row-fluid">
-                    <div class="span2">
-                        <label for="fecha_1">
-                            Fecha <em>*</em></label>
-                    </div>
-                    <div class="span10">
-                        <input id="fecha_1" campo="fecha_1" type="text" placeholder="dd/mm/aaaa" />
-                    </div>
-                </div>
-                <div class="row-fluid">
-                    <div class="span2">
-                        <label for="hora">
-                            Hora <em>*</em></label>
-                    </div>
-                    <div class="span10">
-                        <input id="txt_hora" type="text" style="width: 160px;" maxlength="100" />
-                    </div>
-                </div>
-                <div class="row-fluid">
-                    <div class="span2">
-                        <label for="lugar">
-                            Lugar <em>*</em></label></div>
-                    <div class="span10">
-                        <input id="txt_lugar" type="text" style="width: 160px;" maxlength="100" />
-                    </div>
-                </div>
+            <!-- offset -->
+            <div class="span12">
             </div>
         </div>
-        <div class="row-fluid"  id="integrantes">
-            <div class="span8 offset2 well well-large">
-                <div class="row-fluid">
+        <div class="row-fluid">
+            <!-- offset -->
+            <div class="span1"></div>
+            <!-- columna central -->
+            <div class="span10">
+                <!-- row datos de la reunion -->
+                <div class="row-fluid well well-large">
                     <div class="span12">
-                        <h4>Integrantes</h4>
-                    </div>
-                </div>
-                <div class="row-fluid">
-                    <div class="span12">
-                        <hr />
-                    </div>
-                </div>
-                <div class="row-fluid">
-                    <div class="span2">
-                        <label for="enCaracterDe">En Caracter De <em>*</em></label>
-                    </div>
-                    <div class="span10">
-                        <select class="enCaracterDe" id="Select1">
-                            <option>--Seleccione--</option>
-                            <option value="1">Representante Gremial UPCN</option>
-                            <option value="2">Representante Gremial ATE</option>
-                            <option value="3">Coordinador del proceso de Selección</option>
-                            <option value="4">Evaluador</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row-fluid">
-                    <div class="span2">
-                        <label for="buscador">
-                            Integrante
-                        </label>
-                    </div>
-                    <div id="cmb_selector_integrantes" class="span8">
-                        <input id="buscador" type="hidden" class="buscarPersona" />
-                        <input type="hidden" id="persona_buscada" />
-                    </div>
-                </div>
-                <div class="row-fluid">
-                    <div class="span12">
-                        <div class="selector_personas">
-                            <input type="button" id="btn_agregar_integrante" value="Agregar" />
+                        <!-- row cabecera datos de la reunion -->
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <h4>Datos de la Reunión</h4>
+                                <hr />
+                            </div>
+                        </div>
+                        <!-- rows campos datos de la reunion -->
+                        <div class="row-fluid">
+                            <div class="span2">
+                                <label for="fecha_1">
+                                    Fecha <em>*</em></label>
+                            </div>
+                            <div class="span10">
+                                <input id="fecha_1" campo="fecha_1" type="text" placeholder="dd/mm/aaaa" />
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span2">
+                                <label for="hora">
+                                    Hora <em>*</em></label>
+                            </div>
+                            <div class="span10">
+                                <input id="txt_hora" type="text" style="width: 160px;" maxlength="100" />
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span2">
+                                <label for="lugar">
+                                    Lugar <em>*</em></label></div>
+                            <div class="span10">
+                                <input id="txt_lugar" type="text" style="width: 160px;" maxlength="100" />
+                            </div>
+                        </div>
+                        <!-- row botones datos de la reunion -->
+                        <div class="row-fluid justify-content-end">
+                            <div class="offset-4 span-4 grupo_campos nueva_linea row-fluid bottom_menu text-center">
+                                <div class="bottom_menu_content">
+                                    <input type="button" class="btn btn-link" id="btn_cancel" value="Cancelar" />
+                                    <input type="button" class="btn btn-primary" id="btn_guardar" value="Guardar" />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="row-fluid">
-                    <div id="ContenedorPlanillaIntegrantes" runat="server" class="span12">
-                        <table id="tabla_integrantes" class="table table-striped">
-                        </table>
+                <!-- row integrantes -->
+                <div class="row-fluid well well-large" id="integrantes">
+                    <div class="span12">
+                        <!-- row cabecera integrantes -->
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <h4>Integrantes</h4><hr />
+                            </div>
+                        </div>
+                        <!-- campos integrantes -->
+                        <div class="row-fluid">
+                            <div class="span2">
+                                <label for="enCaracterDe">
+                                    En Caracter De <em>*</em></label>
+                            </div>
+                            <div class="span10">
+                                <select class="enCaracterDe" id="cmb_caracter">
+                                    <option>--Seleccione--</option>
+                                    <option value="1">Representante Gremial UPCN</option>
+                                    <option value="2">Representante Gremial ATE</option>
+                                    <option value="3">Coordinador del proceso de Selección</option>
+                                    <option value="4">Evaluador</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span2">
+                                <label for="buscador">
+                                    Integrante
+                                </label>
+                            </div>
+                            <div class="span8">
+                                <div id="cmb_selector_integrantes">
+                                    <input id="buscador" type="hidden" class="buscarPersona" />
+                                    <input type="hidden" id="persona_buscada" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <div class="selector_personas">
+                                    <input type="button" id="btn_agregar_integrante" value="Agregar" />
+                                </div>
+                            </div>
+                        </div>
+                        <!-- row grilla integrantes -->
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <div id="ContenedorPlanillaIntegrantes" runat="server" class="span12">
+                                    <table id="tabla_integrantes" class="table table-striped">
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- row proceso evaluatorio -->
+                <div class="row-fluid well well-large">
+                    <div class="span12">
+                        <!--row contenido proceso evaluatorio -->
+                        <div class="row-fluid">
+                            <div class="span2">
+                                <label for="cmb_periodo">
+                                    Proceso Evaluatorio <em>*</em></label>
+                            </div>
+                            <div="span10">
+                                <select id="cmb_periodo" style="width: 280px;">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                <!-- row unidades evaluacion -->
+                <div class="row-fluid well well-large">
+                    <div class="span12">
+                    <!-- row titulo unidades eval -->
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <h4>
+                                Unidades de Evaluacion</h4>
+                        </div>
+                    </div>
+                    <!-- row tabla ue-->
+                    <div class="row-fluid">
+                        <div class="span12" id="ContenedorPlanillaUnidadesEvaluacion">
+                            <table id="tabla_unidades_evaluacion" class="table table-striped">
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
-    <div class="row well well-large">
-        <label for="cmb_periodo">
-            Proceso Evaluatorio <em>*</em></label>
-        <select id="cmb_periodo" style="width: 280px;">
-        </select>
-        <h4>Unidades de Evaluacion</h4>
-        <div id="ContenedorPlanillaUnidadesEvaluacion" runat="server">
-            <table id="tabla_unidades_evaluacion" class="table table-striped">
-            </table>
-        </div>
-    </div>
-    </div>
-    <div class="btn-fld navbar-fixed-bottom">
-        <div class="container">
-            <div class="offset-4 span-4 grupo_campos nueva_linea row-fluid bottom_menu text-center">
-                <div class="bottom_menu_content" style="background-color: #1c2431;">
-                    <input type="button" class="btn " id="btn_cancel" value="Cancelar" />
-                    <input type="button" class="btn btn-primary" id="btn_guardar" value="Guardar" />
-                </div>
-            </div>
-        </div>
-    </div>
-    <div id="plantillas" syle="display: hidden">
+            <div class="span1"></div>
+    <div id="plantillas" style="display:none">
         <div class="vista_persona_en_selector">
             <div id="contenedor_legajo" class="label label-warning">
                 <div id="titulo_legajo">
-                    Leg:</div>
+                    Leg:
+                </div>
                 <div id="legajo">
                 </div>
             </div>
@@ -155,12 +193,12 @@
             <div id="apellido">
             </div>
             <div id="contenedor_doc" class="label label-default">
-                <div id="titulo_doc">
-                    Doc:</div>
-                <div id="documento">
-                </div>
+                <div id="titulo_doc">Doc:</div>
+                <div id="documento"></div>
             </div>
         </div>
+   
+
         <div class="botonera_grilla_participantes">
             <input type="button" class="btn_del" value="eliminar" />
         </div>
@@ -170,6 +208,7 @@
             <input class="cb_ue" type="checkbox" />
             <input type="hidden" class="hidden_model" />
         </div>
+     </div>
     </form>
 </body>
 <script type="text/javascript" src="../Scripts/select2-3.4.4/Select2.min.js"></script>
@@ -202,13 +241,14 @@
                     ui.find('#txt_lugar').val(model.Lugar);
                     ui.find('#txt_hora').val(model.Hora);
 
+      
 
                     var addIntegranteAGrilla = function (e) {
                         var _this = $(this)
                         var $panel_integrantes = _this.closest("#integrantes")
 
                         var integrante = JSON.parse($panel_integrantes.find("#persona_buscada").val())
-                        integrante.IdEnCaracterDe = $panel_integrantes.find("#cmb_caracter.enCaracterDe").val()
+                        integrante.IdEnCaracterDe = $panel_integrantes.find("#cmb_caracter").val()
                         var detalle_comite = JSON.parse(localStorage.getItem("detalleComite"))
 
                         Backend.EvalAddIntegranteComite(detalle_comite.Id, integrante)
@@ -299,12 +339,15 @@
 
                     Backend.GetPeriodosEvaluacion()
                         .onSuccess(function (periodos) {
+                            var $cmb_periodo = $("#cmb_periodo")
                             _.forEach(periodos, function (periodo) {
                                 var opt = $("<option>");
                                 opt.text(periodo.descripcion_periodo);
                                 opt.attr("value", periodo.Id);
-                                $("#cmb_periodo").append(opt);
+                                $cmb_periodo.append(opt);
+
                             });
+                            $cmb_periodo.val(model.Periodo.Id);
                             cargar_ues();
                         });
 
@@ -314,7 +357,6 @@
                     /******
                     GRILLA INTEGRANTES COMITE
                     ******/
-
                     var tabla_grilla_integrantes = ui.find("#tabla_integrantes");
                     tabla_grilla_integrantes.empty();
 
