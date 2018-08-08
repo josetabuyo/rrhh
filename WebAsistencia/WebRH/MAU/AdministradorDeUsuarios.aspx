@@ -55,7 +55,8 @@
                             <div>Email:</div>
                             <div id="email"></div>   
                             <input id="btn_modificar_mail" type="button" class="btn btn-warning" value="Modificar"  RequiereFuncionalidad = "45"/> 
-                        </div>                 
+                        </div>      
+                        <input id="btn_credencial_usuario" type="button" class="btn btn-warning" value="Credencial" />           
                     </div>
                     <div id="panel_password">
                         <div class="linea linea_nombre_usuario">

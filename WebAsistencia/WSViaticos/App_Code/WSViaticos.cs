@@ -3137,6 +3137,14 @@ public class WSViaticos : System.Web.Services.WebService
         return repositorio.GetCredencialesTodasDePortal(usuario.Owner.Id).ToArray();
     }
 
+    [WebMethod]
+    public Credencial[] GetCredencialesDeUnaPersona(int id_persona, Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+
+        return repositorio.GetCredencialesTodasDePortal(id_persona).ToArray();
+    }
+
 
     [WebMethod]
     public SolicitudCredencial[] GetSolicitudesDeCredencialPorPersona(Usuario usuario)
@@ -3156,6 +3164,30 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public TipoCredencial[] GetTiposDeCredencial(Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+
+        return repositorio.GetTiposDeCredencial().ToArray();
+    }
+
+    [WebMethod]
+    public VinculoCredencial[] GetVinculosCredenciales(Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+
+        return repositorio.GetVinculosCredenciales().ToArray();
+    }
+
+    [WebMethod]
+    public Persona[] GetAutorizantesCredenciales(Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+
+        return repositorio.GetAutorizantesCredenciales().ToArray();
+    }
+
+    [WebMethod]
     public string PuedePedirCredencial(Usuario usuario)
     {
         RepositorioLegajo repositorio = RepoLegajo();
@@ -3166,12 +3198,21 @@ public class WSViaticos : System.Web.Services.WebService
 
 
     [WebMethod]
-    public string SolicitarRenovacionCredencial(string motivo, string organismo, int id_lugar_entrega, Usuario usuario)
+    public string SolicitarRenovacionCredencial(Usuario usuario_solicitante, string motivo, string organismo, int id_lugar_entrega, bool personal_externo, Usuario usuario)
     {
         RepositorioLegajo repositorio = RepoLegajo();
 
 
-        return repositorio.SolicitarRenovacionCredencial(usuario, motivo, organismo, id_lugar_entrega);
+        return repositorio.SolicitarRenovacionCredencial(usuario_solicitante, motivo, organismo, id_lugar_entrega, personal_externo);
+    }
+
+    [WebMethod]
+    public string SolicitarCredencialExterna(int dni, string apellido, string nombres, string email, DateTime fecha_nacimiento, string telefono, int id_foto, int id_tipo_credencial, int id_autorizante, int id_vinculo, int id_lugar_de_entrega, Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+
+
+        return ""; // repositorio.SolicitarCredencialExterna(Autorizador(), RepositorioDeUsuarios(), dni, apellido, nombres, email, fecha_nacimiento, telefono, id_foto, id_tipo_credencial, id_autorizante, id_vinculo, id_lugar_de_entrega);
     }
 
     [WebMethod]
@@ -5059,6 +5100,11 @@ public class WSViaticos : System.Web.Services.WebService
         return General.Repositorios.RepositorioLegajo.NuevoRepositorioDeLegajos(Conexion());
     }
 
+    private RepositorioRecibosFirmados RepoReciboFirmado()
+    {
+        return General.Repositorios.RepositorioRecibosFirmados.NuevoRepositorioRecibosFirmados(Conexion());
+    }
+
     private IRepositorioDeUsuarios RepositorioDeUsuarios()
     {
         return new RepositorioDeUsuarios(Conexion(), RepositorioDePersonas());
@@ -5133,6 +5179,15 @@ public class WSViaticos : System.Web.Services.WebService
         return RepositorioDeComites.Nuevo(Conexion());
     }
 
+    private RepositorioDeArchivos RepositorioDeArchivos()
+    {
+        return new RepositorioDeArchivos(Conexion());
+    }
+
+    private RepositorioDeArchivosFirmados RepositorioDeArchivosFirmados()
+    {
+        return new RepositorioDeArchivosFirmados(Conexion());
+    }
 
     /*Excel Consulta Personas DDJJ104*/
     [WebMethod]
@@ -5374,6 +5429,179 @@ public class WSViaticos : System.Web.Services.WebService
         return Server.MapPath("~") + "\\PdfTemplates\\" + fileName;
     }
 
+    /*[WebMethod]
+    public List<TipoLiquidacion> GetTiposLiquidacion()
+    {
+        List<TipoLiquidacion> areas = new List<TipoLiquidacion>();
+        var repositorio = RepositorioDeTipoDeLiquidacion.Nuevo(Conexion());
+        return repositorio.All();
+    }*/
+    [WebMethod]
+    public String GetTiposLiquidacion()
+    {
+        List<TipoLiquidacion> areas = new List<TipoLiquidacion>();
+        var repositorio = RepositorioDeTipoDeLiquidacion.Nuevo(Conexion());
+        return JsonConvert.SerializeObject(repositorio.All());    
+    }
+
+    /*cuando se prueba con soap ui es mejor quitar el objeto usuario asi, es mas directo realizar pruebas*/
+    [WebMethod]
+    public string GetRecibosResumen(int tipoLiquidacion, int anio, int mes, Usuario usuario)
+    {
+        //tira error porque puede ser null el tipo liquidacion y los demas, poner un '' o 0 y verificar aca
+        RepositorioLegajo repo = RepoLegajo();
+        //TODO VER:     obtengo los recibos NO firmados
+        return repo.GetRecibosResumen(tipoLiquidacion, anio, mes);
+    }
+
+    [WebMethod]
+    public string GetIdRecibosSinFirmar(int tipoLiquidacion, int anio, int mes, Usuario usuario)
+    {
+        //tira error porque puede ser null el tipo liquidacion y los demas, poner un '' o 0 y verificar aca
+        RepositorioLegajo repo = RepoLegajo();
+        return repo.GetIdRecibosSinFirmar(tipoLiquidacion, anio, mes);
+    }
+
+    /////////////////VER
+    [WebMethod]
+    public StringRespuestaWS GetReciboPDFEmpleador(int id_recibo)
+    {
+        var respuesta = new StringRespuestaWS();
+        try
+        {
+            RepositorioLegajo repo = RepoLegajo();
+            Recibo recibo;
+
+            //para trabajarlo como objeto es mejor definir un objeto que traiga el recibo, asi se puede acceder a
+            //sus propiedades desde el back(desde el front con js se puede acceder), porque no se puede acceder a campos 
+            //especificos del objecto recibo cuando el casteo es a object.
+
+            //datos del recibo a rellenar    
+            recibo = repo.GetReciboDeSueldoPorID(id_recibo);
+
+            //
+            var modelo_para_pdf = new List<object>() { recibo };
+            var converter = new GenReciboToPdfConverter();
+            var mapa_para_pdf = converter.CrearMapa(modelo_para_pdf);
+            var creador_pdf = new CreadorDePdfs();
+            byte[] bytes;
+            byte[] bytes2;
+
+            if (mapa_para_pdf["paginasPDF"] == "una")
+            {
+                //el nombre del pdf generado va a ser el idRecibo
+                bytes = creador_pdf.FillPDF(TemplatePath("ReciboEmpleador_v6.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
+                bytes2 = creador_pdf.AgregarImagenAPDF(bytes, "FRH0502," + Convert.ToString(id_recibo));
+            }
+            else
+            {
+                //el nombre del pdf generado va a ser el idRecibo
+                bytes = creador_pdf.FillPDF(TemplatePath("ReciboEmpleador_v6b.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
+                bytes2 = creador_pdf.AgregarImagenAPDF(bytes, "FRH0502," + Convert.ToString(id_recibo));
+            }
+
+            //return Convert.ToBase64String(bytes2);
+            //return Convert.ToBase64String(bytes2);
+            respuesta.Respuesta = Convert.ToBase64String(bytes2);
+
+            //////////////////////////////////
+            ///      Object x = JsonConvert.DeserializeObject<Object>(datos);
+            ///      //JsonConvert.SerializeObject(x);
+
+
+            ///      return x.Cabecera ;
+        }
+        catch (Exception e)
+        {
+            respuesta.MensajeDeErrorAmigable = "Se produjo un error al obtener el PDF del recibo del empleador";
+            respuesta.setException(e);
+            
+        }
+
+
+        return respuesta;
+    }
+
+    [WebMethod]
+    public string GetReciboPDFEmpleado(int id_recibo)
+    {
+        RepositorioLegajo repo = RepoLegajo();
+        Recibo recibo;
+
+        //para trabajarlo como objeto es mejor definir un objeto que traiga el recibo, asi se puede acceder a
+        //sus propiedades desde el back(desde el front con js se puede acceder), porque no se puede acceder a campos 
+        //especificos del objecto recibo cuando el casteo es a object.
+
+        //datos del recibo a rellenar    
+        recibo = repo.GetReciboDeSueldoPorID(id_recibo);
+
+        //
+        var modelo_para_pdf = new List<object>() { recibo };
+        var converter = new GenReciboEmpleadoToPdfConverter();
+        var mapa_para_pdf = converter.CrearMapa(modelo_para_pdf);
+        var creador_pdf = new CreadorDePdfs();
+
+        byte[] bytes;
+        byte[] bytes2;
+
+        if (mapa_para_pdf["paginasPDF"] == "una")
+        {
+            //el nombre del pdf generado va a ser el idRecibo
+            bytes = creador_pdf.FillPDF(TemplatePath("ReciboEmpleado_v2.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
+            bytes2 = creador_pdf.AgregarImagenAPDF(bytes, "FRH0502," + Convert.ToString(id_recibo)); 
+        }
+        else
+        {
+            //el nombre del pdf generado va a ser el idRecibo
+            bytes = creador_pdf.FillPDF(TemplatePath("ReciboEmpleado_v2b.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
+            bytes2 = creador_pdf.AgregarImagenAPDF(bytes, "FRH0502," + Convert.ToString(id_recibo)); 
+        }
+        return Convert.ToBase64String(bytes2);
+
+        //////////////////////////////////
+        ///      Object x = JsonConvert.DeserializeObject<Object>(datos);
+        ///      //JsonConvert.SerializeObject(x);
+
+
+        ///      return x.Cabecera ;
+    }
+
+    [WebMethod]
+    public int GuardarReciboPDFFirmado(string bytes_pdf, int id_recibo, int anio, int mes, int tipoLiquidacion)
+    {
+        int id_archivo=0;
+//        try
+//        {//COMO el proceso de guardado desde la tabla de la BD al disco es externo, no genero una subclase de archivo
+         //que tendria el path de disco donde guardar el archivo. Se puede agregar una clase con propieda la clase archivo 
+            //subo el archivo firmado y actualiza la tabla que indica que el idRecibo fue firmado
+            id_archivo = RepositorioDeArchivosFirmados().GuardarArchivo(bytes_pdf);
+ //           id_archivo = 20;//RepositorioDeArchivos().GuardarArchivo(bytes_pdf);// id_recibo;//simulo el guardado del archivo
+            //var r = RepositorioDeArchivos().GetArchivo(id_archivo); //19444 es un pdf firmado          
+            //actualizo el recibo firmado por el empleado, 
+            RepoReciboFirmado().agregarReciboFirmado(id_recibo, id_archivo, anio, mes, tipoLiquidacion);
+                                                 //        var s=  Convert.FromBase64String(r);
+        //TODOOOOOO
+            return id_archivo;
+//        }
+//        catch (Exception ex)
+//        {   //si se puedo subir el archivo a disco actualizo la tabla de recibo firmado
+//           return -1;
+          //  throw ex; si relanzo la exception, en el cliente se lo toma como exception javascript?
+//        }
+
+    }
+
+    /*   [WebMethod]
+       public string GetReciboPDFEmpleado(int id_recibo)
+       {
+           return new RepositorioDeImagenes(Conexion()).SubirImagen(bytes_imagen);
+       }
+        * 
+        * 
+        * 
+        * 
+          }*/
+
     #region " Control de Acceso "
 
     [WebMethod]
@@ -5426,6 +5654,7 @@ public class WSViaticos : System.Web.Services.WebService
         ddjj.AsignaAreaAPersonasNoCertificadas(mes, anio, lista_DDJJ104, id_area, usuario);
 
     }
+
 
 
 

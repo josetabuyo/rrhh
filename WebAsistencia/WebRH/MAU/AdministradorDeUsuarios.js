@@ -50,7 +50,14 @@
                 .onError(function () {
                     alertify.error("Error al cambiar imagen");
                 });
-        }, true);
+        }, true, 500);
+    });
+
+    $('#btn_credencial_usuario').click(function () {
+        var div = $("<div>");
+        div.load(window.location.origin + '/Componentes/CredencialVigente.htm', function () {
+            Componente.start(false, div, _this.usuario);
+        });
     });
 
     this.selector_usuario.alSeleccionarUnaPersona = function (la_persona_seleccionada) {

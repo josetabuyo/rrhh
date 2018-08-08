@@ -90,6 +90,7 @@ var ListadoAgentes = {
     },
     GetAgentesSuccess: function (respuesta) {
         _this = this;
+        localStorage.setItem("usuario_logueado", JSON.stringify(respuesta.UsuarioRequest));
         var asignacion_evaluado_a_evaluador = respuesta.asignaciones;
         if (asignacion_evaluado_a_evaluador.length == 0) return;
         if (!asignacion_evaluado_a_evaluador[0].hasOwnProperty('agente_evaluado')) return;
@@ -189,10 +190,10 @@ var ListadoAgentes = {
         return !(calificacion == 'A Evaluar' || calificacion == 'Evaluacion Incompleta');
     },
     /*FiltrarPorPeriodo: function (periodo_busqueda) {
-        var _this = this;
-        if (periodo_busqueda != "") {
-            $('#select_periodo option[value="' + clave + '"]').html()
-        }
+    var _this = this;
+    if (periodo_busqueda != "") {
+    $('#select_periodo option[value="' + clave + '"]').html()
+    }
     },*/
     FiltrarPorDNIApellidoONombre: function (txt_busqueda) {
         var _this = this;
@@ -207,7 +208,7 @@ var ListadoAgentes = {
     FiltrarPorPeriodo: function (clave) {
         if (clave != -1) {
             $("#tablaAgentes tbody tr").find("td[class=Periodo]").each(function () {
-                if ($(this).text() != $('#select_periodo option[value="' + clave +'"]').html()) {
+                if ($(this).text() != $('#select_periodo option[value="' + clave + '"]').html()) {
                     $(this).parent().remove();
                 };
             })
@@ -263,6 +264,7 @@ var ListadoAgentes = {
         return coleccion_respuestas;
     },
     setAgenteValuesToLocalStorage: function (asignacion_evaluado_a_evaluador) {
+        localStorage.setItem("id_agente_evaluador", asignacion_evaluado_a_evaluador.agente_evaluador.id)
         localStorage.setItem("idPeriodo", asignacion_evaluado_a_evaluador.id_periodo);
         localStorage.setItem("idEvaluado", asignacion_evaluado_a_evaluador.id_evaluado);
         localStorage.setItem("idEvaluacion", asignacion_evaluado_a_evaluador.id_evaluacion);
@@ -772,6 +774,9 @@ var ListadoAgentes = {
         elementoTotalPuntaje.text(' ' + puntaje);
     },
     habilitarBotonGuardarDefinitivo: function (_this) {
+        var id_usuario_logueado = JSON.parse(localStorage.getItem("usuario_logueado")).Owner.Id;
+        var id_agente_evaluador = JSON.parse(localStorage.getItem("id_agente_evaluador"))
+        var es_evaluador_primario = (id_usuario_logueado == id_agente_evaluador);
         var preguntas = $('.pregunta');
         var totalPreguntasPendientes = 0;
         var totalPreguntas = preguntas.length - 1; // Se resta 1 porque hay una plantilla oculta con la clase pregunta
@@ -789,7 +794,7 @@ var ListadoAgentes = {
         elementoTotalPreguntasPendientes.text(" (" + totalPreguntasPendientes + " de " + totalPreguntas + ") ");
         _this.completarPuntaje();
 
-        if (totalPreguntasPendientes === 0) {
+        if (totalPreguntasPendientes === 0 && es_evaluador_primario) {
             btnGuardarDefinitivo.prop('disabled', false);
         } else {
             btnGuardarDefinitivo.prop('disabled', true);

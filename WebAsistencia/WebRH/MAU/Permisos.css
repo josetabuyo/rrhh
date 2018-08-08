@@ -91,6 +91,7 @@
     position: absolute;
     top: 2px;
     left: 144px;
+    right: 1px;
 }
 
 #panel_password
@@ -254,6 +255,14 @@
 .linea_passwrd
 {
     margin-left: 75px;
+}
+
+#btn_credencial_usuario
+{
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    border-radius: 10px;
 }
 
 #lista_areas_administradas

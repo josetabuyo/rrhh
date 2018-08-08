@@ -82,11 +82,14 @@
                     <h3 style="margin-top:20px;" class="panel-title" >Información de la Convocatoria</h3>
                     <hr class="lineas-subraya"/>
                     <p>Resolución N° RESOL-2017-1367-APN-MDS - <a href="bases/RESOL_2017_1367_APN_MDS.pdf" target="_blank" >Aprueba las Bases de la convocatoria</a></p>
-                    
+                    <p>Resolución N° RESOL-2018-568-APN-MDS - <a href="bases/RESOL_2018_0568_APN_MDS.pdf" target="_blank" >Aprueba las Ordenes de Merito de la convocatoria</a></p>
+
                     <h5 style="margin-top:20px;" ><b>Comité 1: Técnico en Gestión Administrativa (C - General)</b></h5>
                     <hr class="lineas-subraya"/>
                     <p>
 
+			<a href="bases/Conv03_2017_Perfil_16685_Acta_15_Comite_01.pdf" target="_blank" >Acta 15</a> -
+			<a href="bases/Conv03_2017_Perfil_16685_Acta_14_Comite_01.pdf" target="_blank" >Acta 14</a> -
 			<a href="bases/Conv03_2017_Perfil_16685_Acta_13_Comite_01.pdf" target="_blank" >Acta 13</a> -
 			<a href="bases/Conv03_2017_Perfil_16685_Acta_12_Comite_01.pdf" target="_blank" >Acta 12</a> -
 			<a href="bases/Conv03_2017_Perfil_16685_Acta_11_Comite_01.pdf" target="_blank" >Acta 11</a> -
@@ -107,6 +110,8 @@
                     <h5 style="margin-top:20px;" ><b>Comité 2: Asistente Administrativo (D - General)</b></h5>
                     <hr class="lineas-subraya"/>
                     <p>
+			<a href="bases/Conv03_2017_Perfil_17180_Acta_13_Comite_02.pdf" target="_blank" >Acta 13</a> -
+			<a href="bases/Conv03_2017_Perfil_17180_Acta_12_Comite_02.pdf" target="_blank" >Acta 12</a> -
 			<a href="bases/Conv03_2017_Perfil_17180_Acta_11_Comite_02.pdf" target="_blank" >Acta 11</a> -
 			<a href="bases/Conv03_2017_Perfil_17180_Acta_10_Comite_02.pdf" target="_blank" >Acta 10</a> -
 			<a href="bases/Conv03_2017_Perfil_17180_Acta_09_Comite_02.pdf" target="_blank" >Acta 9</a> -
