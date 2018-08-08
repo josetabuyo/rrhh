@@ -19,7 +19,7 @@ public partial class FacturasContratos_PanelControlFacturacion : System.Web.UI.P
 
     protected void btnConsultaFacturas_Click(object sender, EventArgs e)
     {
-        //Response.Redirect("ConsultaIndividualDDJJ.aspx");
+        Response.Redirect("ConsultaDeFacturas.aspx");
     }
 
     //protected void btnPersonasNoCertificadas_Click(object sender, EventArgs e)

@@ -5297,7 +5297,7 @@ public class WSViaticos : System.Web.Services.WebService
         var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
         
         int documento = Int32.Parse((((JValue)criterio_deserializado["doc"]).ToString()));
-        DateTime FechaPase = DateTime.Parse((((JValue)criterio_deserializado["facha_pase"]).ToString()));
+        DateTime? FechaPase = null; //DateTime.Parse((((JValue)criterio_deserializado["facha_pase"]).ToString()));
         DateTime FechaFactura = DateTime.Parse((((JValue)criterio_deserializado["fecha_factura"]).ToString()));
         string NroFactura = ((JValue)criterio_deserializado["nro_factura"]).ToString();
         decimal MontoAFactura =  Decimal.Parse((((JValue)criterio_deserializado["monto_a_facturar"]).ToString()));
@@ -5325,6 +5325,34 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
 
+
+    [WebMethod]
+    public MesDto[] GetMesesDeFacturas()
+    {
+        var RepositorioFactura = new RepositorioFactura();
+        List<Factura> ListaMeses = RepositorioFactura.GetMesesGenerados();
+        
+        List<MesDto> meses = new List<MesDto>();
+        
+        foreach (var item in ListaMeses)
+        {
+            meses.Add(new MesDto() { Mes = item.Mes, NombreMes = DateTimeFormatInfo.CurrentInfo.GetMonthName(item.Mes), Anio = item.Anio });
+        }
+
+        return meses.ToArray();
+    }
+
+
+    //CONSULTA DE FACTURAS
+    [WebMethod]
+    public Factura_Consulta[] GetConsultaFacturas(int mesdesde, int aniodesde, int meshasta, int aniohasta, int nrodoc_persona, Usuario usuario)
+    {
+        var RepositorioFactura = new RepositorioFactura();
+        //var fact = new Factura_Consulta[1];
+
+        return RepositorioFactura.GetConsultaFacturas(mesdesde, aniodesde, meshasta, aniohasta, nrodoc_persona, usuario).ToArray();
+
+    }
 
 
 }

@@ -30,7 +30,7 @@ namespace General.Repositorios
             {
                 factura = new Factura();
                 factura.Mes = dr.GetInt32(dr.GetOrdinal("Mes_Cont"));
-                factura.Año = dr.GetInt32(dr.GetOrdinal("Año_Cont"));
+                factura.Anio = dr.GetInt32(dr.GetOrdinal("Año_Cont"));
 
                 factura.Monto_Contrato = dr.GetDecimal(dr.GetOrdinal("Monto_Cont"));
                 factura.Monto_Otras_Factura = dr.GetDecimal(dr.GetOrdinal("Monto_Factura"));
@@ -101,7 +101,7 @@ namespace General.Repositorios
 
 
 
-        public bool GuardarFactura(int documento, DateTime FechaPase, DateTime FechaFactura, string NroFactura, DateTime FechaRecibida, decimal MontoAFactura, int idarea, int DocumentoFirmanteSeleccionado, Factura[] lista, Usuario usuario)
+        public bool GuardarFactura(int documento, DateTime? FechaPase, DateTime FechaFactura, string NroFactura, DateTime FechaRecibida, decimal MontoAFactura, int idarea, int DocumentoFirmanteSeleccionado, Factura[] lista, Usuario usuario)
         {
             ConexionDB cn = new ConexionDB("dbo.CTR_GET_Maxid_Factura");
 
@@ -136,7 +136,7 @@ namespace General.Repositorios
                 cn.AsignarParametro("@monto", MontoAFactura);
                 cn.AsignarParametro("@area", idarea);
                 cn.AsignarParametro("@Docfirmante", DocumentoFirmanteSeleccionado);
-                cn.AsignarParametro("@Fecha_pase", FechaPase);
+                //cn.AsignarParametro("@Fecha_pase", FechaPase);
                 cn.EjecutarSinResultado();
 
 
@@ -147,7 +147,7 @@ namespace General.Repositorios
                         cn.CrearComandoConTransaccionIniciada("dbo.CTR_ADD_Facturas_Detalle");
                         cn.AsignarParametro("@Id_Factura_1", Max_IdFactura + 1); //la cabecera tiene adentro el +1
                         cn.AsignarParametro("@Mes_Factura_2", item.Mes);
-                        cn.AsignarParametro("@Año_Factura_3", item.Año);
+                        cn.AsignarParametro("@Año_Factura_3", item.Anio);
                         cn.AsignarParametro("@Monto_Factura_4", item.Monto_A_Factura);
                         cn.AsignarParametro("@Id_Contrato", item.Id_Contrato);
                         cn.EjecutarSinResultado();
@@ -165,6 +165,70 @@ namespace General.Repositorios
 
             return true;
 
+        }
+
+        public static List<Factura> GetMesesGenerados()
+        {
+            SqlDataReader dr;
+            ConexionDB cn = new ConexionDB("dbo.CTR_GET_Facturas_Meses_Generados");
+            dr = cn.EjecutarConsulta();
+
+            Factura factura;
+            List<Factura> listaFact = new List<Factura>();
+
+            while (dr.Read())
+            {
+                factura = new Factura();
+                factura.Mes = dr.GetInt32(dr.GetOrdinal("Mes"));
+                factura.Anio = dr.GetInt32(dr.GetOrdinal("Año"));
+                listaFact.Add(factura);
+            }
+
+            cn.Desconestar();
+            return listaFact;
+        }
+
+
+        public List<Factura_Consulta> GetConsultaFacturas(int mesdesde, int aniodesde, int meshasta, int aniohasta, int nrodoc_persona, Usuario usuario)
+        {
+            SqlDataReader dr;
+            ConexionDB cn = new ConexionDB("dbo.CTR_GET_Consulta_Facturas");
+            cn.AsignarParametro("@Mes_Desde", mesdesde);
+            cn.AsignarParametro("@Anio_Desde", aniodesde);
+            cn.AsignarParametro("@Mes_Hasta", meshasta);
+            cn.AsignarParametro("@Anio_Hasta", aniohasta);
+            cn.AsignarParametro("@Doc", nrodoc_persona);
+            
+            dr = cn.EjecutarConsulta();
+
+            Factura_Consulta factura;
+            List<Factura_Consulta> listaFact = new List<Factura_Consulta>();
+
+            while (dr.Read())
+            {
+                factura = new Factura_Consulta();
+                factura.Id_Factura = dr.GetInt32(dr.GetOrdinal("Id_Factura"));
+                factura.Persona = new Persona();
+                factura.Persona.Apellido = dr.GetString(dr.GetOrdinal("apellido"));
+                factura.Persona.Nombre = dr.GetString(dr.GetOrdinal("nombre"));
+                factura.Persona.Documento = dr.GetInt32(dr.GetOrdinal("documento"));
+                factura.Persona.Cuit = dr.GetString(dr.GetOrdinal("cuil_nro"));
+                factura.Fecha_Factura = dr.GetDateTime(dr.GetOrdinal("fecha_factura"));
+                factura.Fecha_Recibida = dr.GetDateTime(dr.GetOrdinal("fecha_recibida"));
+                //factura.Fecha_Pase = dr.GetDateTime(dr.GetOrdinal("fecha_pase_cont"));
+                factura.Nro_Factura = dr.GetString(dr.GetOrdinal("nro_factura"));
+                factura.Monto_Contrato = dr.GetDecimal(dr.GetOrdinal("monto_contrato"));
+                factura.Monto_Factura = dr.GetDecimal(dr.GetOrdinal("monto_factura"));
+                factura.Mes_Imputado = dr.GetInt32(dr.GetOrdinal("mes_imputado"));
+                factura.Anio_Imputado = dr.GetInt32(dr.GetOrdinal("anio_imputado"));
+                factura.Area = dr.GetString(dr.GetOrdinal("descripcion_area"));
+                factura.Firmante = dr.GetString(dr.GetOrdinal("firmante"));
+
+                listaFact.Add(factura);
+            }
+
+            cn.Desconestar();
+            return listaFact;
         }
     }
 }

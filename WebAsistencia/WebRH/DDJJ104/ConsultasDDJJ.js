@@ -28,6 +28,7 @@ Backend.start(function () {
         //completarComboEstado(0, $('#cmbEstado'));
 
         GenerarBoton();
+       
 
     });
 });
