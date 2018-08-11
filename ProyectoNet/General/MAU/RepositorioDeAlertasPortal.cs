@@ -23,21 +23,21 @@ namespace General.MAU
 
             var alertas = new List<AlertaPortal>();
 
-            tabla_resultado.Rows.ForEach(row =>
-            {
-                TipoAlertaPortal tipoTarea = new TipoAlertaPortal(row.GetInt("idtipo", 0), row.GetString("descripcionTipo", ""), row.GetString("url", ""), row.GetInt("idFuncionalidad", 0));
-                Usuario usuarioCreador = new Usuario(row.GetSmallintAsInt("idUsuario", 0), row.GetString("nombreUsuario", ""), "", true);
-                AlertaPortal alerta = new AlertaPortal(row.GetInt("id", 0), row.GetString("titulo", ""), row.GetString("descripcion", ""), tipoTarea, row.GetDateTime("fechaCreacion"), usuarioCreador, "Un Estado");
-                /* var alerta = new AlertaPortal();
-                 alerta.Id = row.GetInt("id");
-                 alerta.Tipo = new TipoAlertaPortal();
-                 alerta.Tipo.Id = row.GetInt("idtipo");
-                 alerta.Tipo.Nombre = row.GetString("tipo");
-                 alerta.Titulo = row.GetString("titulo");
-                 alerta.Descripcion = row.GetString("descripcion");*/
+            //tabla_resultado.Rows.ForEach(row =>
+            //{
+            //    TipoAlertaPortal tipoTarea = new TipoAlertaPortal(row.GetInt("idtipo", 0), row.GetString("descripcionTipo", ""), row.GetString("url", ""), row.GetInt("idFuncionalidad", 0));
+            //    Usuario usuarioCreador = new Usuario(row.GetSmallintAsInt("idUsuario", 0), row.GetString("nombreUsuario", ""), "", true);
+            //    AlertaPortal alerta = new AlertaPortal(row.GetInt("id", 0), row.GetString("titulo", ""), row.GetString("descripcion", ""), tipoTarea, row.GetDateTime("fechaCreacion"), usuarioCreador, "Un Estado");
+            //    /* var alerta = new AlertaPortal();
+            //     alerta.Id = row.GetInt("id");
+            //     alerta.Tipo = new TipoAlertaPortal();
+            //     alerta.Tipo.Id = row.GetInt("idtipo");
+            //     alerta.Tipo.Nombre = row.GetString("tipo");
+            //     alerta.Titulo = row.GetString("titulo");
+            //     alerta.Descripcion = row.GetString("descripcion");*/
 
-                alertas.Add(alerta);
-            });
+            //    alertas.Add(alerta);
+            //});
             return alertas;
         }
 

@@ -8,7 +8,6 @@
     <title>Áreas</title>
     <script type="text/javascript" src="../Scripts/FuncionesDreamWeaver.js"></script>
     <%= Referencias.Css("../")%>
-
     <link id="link1" rel="stylesheet" href="ConsultaProtocolo.css" type="text/css" runat="server" />
     <link id="link5" rel="stylesheet" href="VistaDeArea.css" type="text/css" runat="server" />
     <link href="../FormularioConcursar/EstilosPostular.css" rel="stylesheet" type="text/css" />
@@ -18,8 +17,6 @@
     <script src="jquery.ui.core.min.js" type="text/javascript"></script>
     <script src="jquery.ui.widget.min.js" type="text/javascript"></script>
     <script src="jquery.ui.accordion.min.js" type="text/javascript"></script>
-
-   
     <style>
         input
         {
@@ -70,7 +67,7 @@
                             <input id="txt_nombre_apellido" type="text" style="width: 285px;" rh-control-type="textbox"
                                 data-validar="esNoBlanco" disabled />
                             <span style="color: #183e98;">Para Modificar lo datos del Responsable, comuníquese con
-                                RR.HHx </span>
+                                RR.HH </span>
                         </div>
                         <%--<div class="grupo_campos nueva_linea">
                             <label for="NroDocumento" style="margin-left: 15px;">
@@ -90,83 +87,89 @@
                             <input type="button" class="btn btn-primary" style="margin: 4px 143px;" id="btn_modificar_responsable"
                                 value="Visualizar" />
                         </div>--%>
-                        <legend style="margin-bottom: 20px;">Dirección</legend>
-                        <div class="grupo_campos nueva_linea">
-                            <label for="Calle" style="margin-left: 38px;">
-                                Calle:
-                            </label>
-                            <input id="txt_Calle" type="text" style="width: 285px;" rh-control-type="textbox"
-                                data-validar="esNoBlanco" disabled />
-                        </div>
-                        <div class="grupo_campos">
-                            <label for="Nro">
-                                Nro:
-                            </label>
-                            <input id="txt_Nro" type="text" style="width: 50px;" disabled />
-                        </div>
-                        <div class="grupo_campos">
-                            <label for="Piso">
-                                Piso:
-                            </label>
-                            <input id="txt_Piso" type="text" style="width: 25px;" disabled />
-                        </div>
-                        <div class="grupo_campos nueva_linea">
-                            <label for="Oficina" style="margin-left: 27px;">
-                                Oficina:
-                            </label>
-                            <input id="txt_Oficina" type="text" style="width: 282px;" disabled />
-                        </div>
-                        <div class="grupo_campos">
-                            <label for="UF" style="margin-left: 5px;">
-                                UF:
-                            </label>
-                            <input id="txt_UF" type="text" style="width: 132px;" disabled />
-                        </div>
-                        <div class="grupo_campos nueva_linea">
-                            <label for="Localidad" style="margin-left: 14px;">
-                                Localidad:
-                            </label>
-                            <input id="txt_Localidad" type="text" style="width: 277px;" disabled />
-                        </div>
-                        <div class="grupo_campos">
-                            <label for="CodigoPostal">
-                                Código Postal:</label>
-                            <input id="txt_CodigoPostal" type="text" style="width: 60px;" disabled />
-                        </div>
-                        <div class="grupo_campos nueva_linea">
-                            <label for="Partido" style="margin-left: 2px;">
-                                Partido/Dto:
-                            </label>
-                            <input id="txt_Partido" type="text" style="width: 192px;" disabled />
-                        </div>
-                        <div class="grupo_campos">
-                            <label for="Provincia">
-                                Provincia:</label>
-                            <input id="txt_Provincia" type="text" style="width: 181px;" disabled />
-                        </div>
-                        <div class="btn-fld">
-                            <input type="button" class="btn btn-primary" style="margin-left: 25px;" id="btn_modificar_direccion"
-                                value="Modificar" />
-                        </div>
-                        <legend style="margin-bottom: 20px;">Información de Contacto</legend>
-                        <fieldset style="width: 100%;">
-                            <legend><a id="btn_agregar_contacto" class="btn btn-primary">Agregar Contacto</a></legend>
-                            <h4>
-                                Contactos Agregados</h4>
-                            <div id="ContenedorPlanillaContactos" runat="server">
-                                <table id="tabla_contactos" class="table table-striped">
-                                </table>
+                        <div style="display: inline-block; width: 100%; margin-top: 50px;">
+                            <legend style="margin-bottom: 20px;">Dirección</legend>
+                            <div class="grupo_campos nueva_linea">
+                                <label for="Calle" style="margin-left: 38px;">
+                                    Calle:
+                                </label>
+                                <input id="txt_Calle" type="text" style="width: 285px;" rh-control-type="textbox"
+                                    data-validar="esNoBlanco" disabled />
                             </div>
-                        </fieldset>
-                        <fieldset style="width: 100%;">
-                            <legend><a id="btn_agregar_asistente" class="btn btn-primary">Agregar Asistente</a></legend>
-                            <h4>
-                                Asistentes Agregados</h4>
-                            <div id="ContenedorPlanillaAsistentes" runat="server">
-                                <table id="tabla_asistentes" class="table table-striped">
-                                </table>
+                            <div class="grupo_campos">
+                                <label for="Nro">
+                                    Nro:
+                                </label>
+                                <input id="txt_Nro" type="text" style="width: 50px;" disabled />
                             </div>
-                        </fieldset>
+                            <div class="grupo_campos">
+                                <label for="Piso">
+                                    Piso:
+                                </label>
+                                <input id="txt_Piso" type="text" style="width: 25px;" disabled />
+                            </div>
+                            <div class="grupo_campos nueva_linea">
+                                <label for="Oficina" style="margin-left: 27px;">
+                                    Oficina:
+                                </label>
+                                <input id="txt_Oficina" type="text" style="width: 282px;" disabled />
+                            </div>
+                            <div class="grupo_campos">
+                                <label for="UF" style="margin-left: 5px;">
+                                    UF:
+                                </label>
+                                <input id="txt_UF" type="text" style="width: 132px;" disabled />
+                            </div>
+                            <div class="grupo_campos nueva_linea">
+                                <label for="Localidad" style="margin-left: 14px;">
+                                    Localidad:
+                                </label>
+                                <input id="txt_Localidad" type="text" style="width: 277px;" disabled />
+                            </div>
+                            <div class="grupo_campos">
+                                <label for="CodigoPostal">
+                                    Código Postal:</label>
+                                <input id="txt_CodigoPostal" type="text" style="width: 60px;" disabled />
+                            </div>
+                            <div class="grupo_campos nueva_linea">
+                                <label for="Partido" style="margin-left: 2px;">
+                                    Partido/Dto:
+                                </label>
+                                <input id="txt_Partido" type="text" style="width: 192px;" disabled />
+                            </div>
+                            <div class="grupo_campos">
+                                <label for="Provincia">
+                                    Provincia:</label>
+                                <input id="txt_Provincia" type="text" style="width: 181px;" disabled />
+                            </div>
+                            <div class="btn-fld">
+                                <input type="button" class="btn btn-primary" style="margin-left: 25px;" id="btn_modificar_direccion"
+                                    value="Modificar" />
+                            </div>
+                        </div>
+                        <div style="display: inline-block; width: 100%; margin-top: 50px;">
+                            <legend style="margin-bottom: 20px;">Información de Contacto</legend>
+                            <fieldset style="width: 100%;">
+                                <div style="text-align: right;margin-bottom: -37px;">
+                                    <a id="btn_agregar_contacto" class="btn btn-primary">Agregar Contacto</a></div>
+                                <h4>
+                                    Contactos Agregados</h4>
+                                <div id="ContenedorPlanillaContactos" runat="server">
+                                    <table id="tabla_contactos" class="table table-striped">
+                                    </table>
+                                </div>
+                            </fieldset>
+                            <fieldset style="width: 100%;">
+                                <div style="text-align: right;margin-bottom: -37px;">
+                                    <a id="btn_agregar_asistente" class="btn btn-primary">Agregar Asistente</a></div>
+                                <h4>
+                                    Asistentes Agregados</h4>
+                                <div id="ContenedorPlanillaAsistentes" runat="server">
+                                    <table id="tabla_asistentes" class="table table-striped">
+                                    </table>
+                                </div>
+                            </fieldset>
+                        </div>
                     </fieldset>
                 </div>
             </div>
