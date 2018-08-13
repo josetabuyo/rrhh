@@ -31,14 +31,13 @@
                     Text="Certificar personas no certificadas" UseSubmitBehavior="True" 
                     onclick="btnCertificarPersonasNoCertificadas_Click" />
             </div>
-            
-            <div id="DivBotonPersonasNoCertificadas" runat="server"   style="display: block; float:right;
+            --%>
+
+            <div id="DivBotonPaseFacturaContabilidad" runat="server"   style="display: block; float:right;
                 margin-top: 4px; margin-left: 4px; border: #0055cc;" >
-                <asp:Button runat="server" ID="btnPersonasNoCertificadas" 
-                    RequiereFuncionalidad="62" CssClass="btn btn-primary" 
-                    Text="Personas no certificadas" UseSubmitBehavior="True" 
-                    onclick="btnPersonasNoCertificadas_Click" />
-            </div>--%>
+                <asp:Button runat="server" ID="btnPaseFacturaContabilidad" RequiereFuncionalidad="79" CssClass="btn btn-primary" 
+                    Text="Pase Factura Contabilidad" UseSubmitBehavior="True" onclick="btnPaseFacturaContabilidad_Click" />
+            </div>
 
             <div id="DivBotonConsultarFacturas" runat="server"   style="display: block; float:right;
                 margin-top: 4px; margin-left: 4px; border: #0055cc;" >

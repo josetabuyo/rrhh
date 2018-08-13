@@ -5348,11 +5348,17 @@ public class WSViaticos : System.Web.Services.WebService
     public Factura_Consulta[] GetConsultaFacturas(int mesdesde, int aniodesde, int meshasta, int aniohasta, int nrodoc_persona, Usuario usuario)
     {
         var RepositorioFactura = new RepositorioFactura();
-        //var fact = new Factura_Consulta[1];
-
         return RepositorioFactura.GetConsultaFacturas(mesdesde, aniodesde, meshasta, aniohasta, nrodoc_persona, usuario).ToArray();
-
     }
+
+    //CONSULTA PASE DE FACTURAS A CONTABLIDAD
+    [WebMethod]
+    public Factura_Consulta[] GetConsultaPaseFacturasContabilidad(Usuario usuario)
+    {
+        var RepositorioFactura = new RepositorioFactura();
+        return RepositorioFactura.GetConsultaPaseFacturasContabilidad(usuario).ToArray();
+    }
+    
 
 
 }

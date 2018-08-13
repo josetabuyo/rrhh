@@ -22,10 +22,11 @@ public partial class FacturasContratos_PanelControlFacturacion : System.Web.UI.P
         Response.Redirect("ConsultaDeFacturas.aspx");
     }
 
-    //protected void btnPersonasNoCertificadas_Click(object sender, EventArgs e)
-    //{
-    //    Response.Redirect("PersonasNoCertificadas.aspx");
-    //}
+    protected void btnPaseFacturaContabilidad_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("PaseFacturaContabilidad.aspx");
+    }
+
     //protected void btnCertificarPersonasNoCertificadas_Click(object sender, EventArgs e)
     //{
     //    Response.Redirect("PersonasNoCertificadasAsigArea.aspx");

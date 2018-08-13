@@ -230,5 +230,37 @@ namespace General.Repositorios
             cn.Desconestar();
             return listaFact;
         }
+
+        public List<Factura_Consulta> GetConsultaPaseFacturasContabilidad(Usuario usuario)
+        {
+            SqlDataReader dr;
+            ConexionDB cn = new ConexionDB("dbo.CTR_GET_Mostrar_Pases");
+            dr = cn.EjecutarConsulta();
+
+            Factura_Consulta factura;
+            List<Factura_Consulta> listaFact = new List<Factura_Consulta>();
+
+            while (dr.Read())
+            {
+                factura = new Factura_Consulta();
+                factura.Id_Factura = dr.GetInt32(dr.GetOrdinal("id_factura"));
+                factura.Persona = new Persona();
+                factura.Persona.Apellido = dr.GetString(dr.GetOrdinal("apellido"));
+                factura.Persona.Nombre = dr.GetString(dr.GetOrdinal("nombre"));
+                factura.Persona.Documento = dr.GetInt32(dr.GetOrdinal("documento"));
+                factura.Persona.Cuit = dr.GetString(dr.GetOrdinal("cuil_nro"));
+                factura.Fecha_Recibida = dr.GetDateTime(dr.GetOrdinal("Fecha_Recibida"));
+                factura.Nro_Factura = dr.GetString(dr.GetOrdinal("Nro_Factura"));
+                factura.Monto_Factura = dr.GetDecimal(dr.GetOrdinal("monto_factura"));
+                factura.Area = dr.GetString(dr.GetOrdinal("Area"));
+                factura.Firmante = dr.GetString(dr.GetOrdinal("Firmante"));
+
+                listaFact.Add(factura);
+            }
+
+            cn.Desconestar();
+            return listaFact;
+        }
+
     }
 }
