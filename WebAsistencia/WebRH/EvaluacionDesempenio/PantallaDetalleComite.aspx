@@ -49,29 +49,41 @@
                         </div>
                         <!-- rows campos datos de la reunion -->
                         <div class="row-fluid">
+                            <div class="span3"></div>
                             <div class="span2">
                                 <label for="fecha_1">
                                     Fecha <em>*</em></label>
                             </div>
-                            <div class="span10">
+                            <div class="span7">
                                 <input id="fecha_1" campo="fecha_1" type="text" placeholder="dd/mm/aaaa" />
                             </div>
                         </div>
                         <div class="row-fluid">
+                            <div class="span3"></div>
                             <div class="span2">
                                 <label for="hora">
                                     Hora <em>*</em></label>
                             </div>
-                            <div class="span10">
+                            <div class="span7">
                                 <input id="txt_hora" type="text" style="width: 160px;" maxlength="100" />
                             </div>
                         </div>
                         <div class="row-fluid">
+                            <div class="span3"></div>
                             <div class="span2">
                                 <label for="lugar">
                                     Lugar <em>*</em></label></div>
-                            <div class="span10">
+                            <div class="span7">
                                 <input id="txt_lugar" type="text" style="width: 160px;" maxlength="100" />
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span3"></div>
+                            <div class="span2">
+                                <label for="txt_descripcion_comite">
+                                    Descripcion <em>*</em></label></div>
+                            <div class="span7">
+                                <input id="txt_descripcion_comite" type="text" style="width: 160px;" maxlength="100" />
                             </div>
                         </div>
                         <!-- row botones datos de la reunion -->
@@ -156,60 +168,57 @@
                             </div>
                         </div>
                     </div>
-                <!-- row unidades evaluacion -->
-                <div class="row-fluid well well-large">
-                    <div class="span12">
-                    <!-- row titulo unidades eval -->
-                    <div class="row-fluid">
+                    <!-- row unidades evaluacion -->
+                    <div class="row-fluid well well-large">
                         <div class="span12">
-                            <h4>
-                                Unidades de Evaluacion</h4>
+                        <!-- row titulo unidades eval -->
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <h4>
+                                    Unidades de Evaluacion</h4>
+                            </div>
+                        </div>
+                        <!-- row tabla ue-->
+                        <div class="row-fluid">
+                            <div class="span12" id="ContenedorPlanillaUnidadesEvaluacion">
+                                <table id="tabla_unidades_evaluacion" class="table table-striped">
+                                </table>
+                            </div>
                         </div>
                     </div>
-                    <!-- row tabla ue-->
-                    <div class="row-fluid">
-                        <div class="span12" id="ContenedorPlanillaUnidadesEvaluacion">
-                            <table id="tabla_unidades_evaluacion" class="table table-striped">
-                            </table>
+                </div>
+            </div>
+        </div>
+        <div class="span1"></div>
+            <div id="plantillas" style="display:none">
+                <div class="vista_persona_en_selector">
+                    <div id="contenedor_legajo" class="label label-warning">
+                        <div id="titulo_legajo">
+                            Leg:
+                        </div>
+                        <div id="legajo">
                         </div>
                     </div>
+                    <div id="nombre">
+                    </div>
+                    <div id="apellido">
+                    </div>
+                    <div id="contenedor_doc" class="label label-default">
+                        <div id="titulo_doc">Doc:</div>
+                        <div id="documento"></div>
+                    </div>
+                </div>
+                <div class="botonera_grilla_participantes">
+                    <input type="button" class="btn_del" value="eliminar" />
+                </div>
+                <div class="celda_en_caracter_de_grilla_participantes">
+                </div>
+                <div class="botonera_grilla_ues">
+                    <input class="cb_ue" type="checkbox" />
+                    <input type="hidden" class="hidden_model" />
                 </div>
             </div>
-        </div>
-
-    </div>
-            <div class="span1"></div>
-    <div id="plantillas" style="display:none">
-        <div class="vista_persona_en_selector">
-            <div id="contenedor_legajo" class="label label-warning">
-                <div id="titulo_legajo">
-                    Leg:
-                </div>
-                <div id="legajo">
-                </div>
-            </div>
-            <div id="nombre">
-            </div>
-            <div id="apellido">
-            </div>
-            <div id="contenedor_doc" class="label label-default">
-                <div id="titulo_doc">Doc:</div>
-                <div id="documento"></div>
-            </div>
-        </div>
-   
-
-        <div class="botonera_grilla_participantes">
-            <input type="button" class="btn_del" value="eliminar" />
-        </div>
-        <div class="celda_en_caracter_de_grilla_participantes">
-        </div>
-        <div class="botonera_grilla_ues">
-            <input class="cb_ue" type="checkbox" />
-            <input type="hidden" class="hidden_model" />
-        </div>
-     </div>
-    </form>
+        </form>
 </body>
 <script type="text/javascript" src="../Scripts/select2-3.4.4/Select2.min.js"></script>
 <script type="text/javascript" src="../Scripts/select2-3.4.4/select2_locale_es.js"></script>
@@ -219,10 +228,6 @@
 <script type="text/javascript" src="../Scripts/Spin.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-
-        $("#btn_cancel").click(function () {
-            window.location.href = "ABMComites.aspx";
-        })
 
         Backend.start(function () {
             var PantallaDetalleComite = {
@@ -240,8 +245,30 @@
                     ui.find('#fecha_1').datepicker("setDate", new Date(model.Fecha));
                     ui.find('#txt_lugar').val(model.Lugar);
                     ui.find('#txt_hora').val(model.Hora);
+                    ui.find('#txt_descripcion_comite').val(model.Descripcion);
 
-      
+                    $("#btn_cancel").click(function () {
+                        window.location.href = "ABMComites.aspx";
+                    })
+
+                    $("#btn_guardar").click(function () {
+                        var detalle_comite = JSON.parse(localStorage.getItem("detalleComite"));
+
+                        var id_comite = detalle_comite.Id;
+                        var descripcion = $("#txt_descripcion_comite").val();
+                        var fecha = $("#fecha_1").val();
+                        var hora = $("#txt_hora").val();
+                        var lugar = $("#txt_lugar").val();
+                        var id_periodo = $("#cmb_periodo option:selected").val(); 
+
+                        Backend.UpdateComiteEvaluacionDesempenio(id_comite, descripcion, fecha, hora, lugar, id_periodo)
+                            .onSuccess(function (res) {
+                                alert('Datos Guardados Correctamente')
+                            })
+                            .onError(function (err) {
+                                alert('Se produjo un error al guardar')
+                            })
+                    })
 
                     var addIntegranteAGrilla = function (e) {
                         var _this = $(this)
@@ -262,12 +289,12 @@
                                             })
                     }
 
-
                     var cargar_ues = function () {
                         /***
                         GRILLA: Unidades de Evaluacion
                         */
                         //
+
                         var tabla_ue = $("#tabla_unidades_evaluacion");
                         tabla_ue.empty();
 

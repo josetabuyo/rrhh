@@ -20,12 +20,12 @@
             </div>
             <div class="caja_der papel">
                 <legend style="margin-top: 20px;">Comités</legend>
-                <input id="btn_add_comite" type=button value="+"/>
                 <div id="tabla_comites">
                 </div>
+                <input id="btn_add_comite" type="button" class="btn btn-primary" value="Agregar Comite" />
             </div>
         </div>
-    </div>   
+    </div>
     <div id="plantillas">
         <div class="botonera_grilla">
             <img id="btn_editar" src="../Imagenes/edit2.png" height="25px" />
@@ -37,36 +37,37 @@
             <input type="hidden" id="hidden1" />
         </div>
         <div class="alta_comite">
-                <h4>
-                    Datos de la Reunión</h4>
-                <div class="grupo_campos nueva_linea">
-                    <label for="txt_descripcion_comite">
-                        Descripción: <em>*</em></label>
-                    <input id="txt_descripcion_comite" type="text" style="width: 160px;"/>
-                </div>
-                <div class="grupo_campos nueva_linea">
-                    <label for="fecha_reunion">
-                        Fecha <em>*</em>
-                    </label>
-                    <input id="fecha_reunion" campo="fecha_reunion" type="text" placeholder="dd/mm/aaaa" style="flex-grow: 100;" />
-                </div>
-                <div class="grupo_campos nueva_linea">
-                    <label for="hora">
-                        Hora <em>*</em></label>
-                    <input id="txt_hora" type="text" style="width: 160px;" maxlength="100" />
-                </div>
-                <div class="grupo_campos nueva_linea">
-                    <label for="lugar">
-                        Lugar <em>*</em></label>
-                    <input id="txt_lugar" type="text" style="width: 160px;" maxlength="100" />
-                </div>
-                <div class="grupo_campos nueva_linea">
-                    <label for="cmb_periodo">
-                        Proceso Evaluatorio <em>*</em></label>
-                    <select id="cmb_periodo" style="width: 280px;">
-                    </select>
-                </div>
-            <input id="btn_aceptar_alta" value="OK" type="button"/>
+            <h4>
+                Datos de la Reunión</h4>
+            <div class="grupo_campos nueva_linea">
+                <label for="txt_descripcion_comite">
+                    Descripción: <em>*</em></label>
+                <input id="txt_descripcion_comite" type="text" style="width: 160px;" />
+            </div>
+            <div class="grupo_campos nueva_linea">
+                <label for="fecha_reunion">
+                    Fecha <em>*</em>
+                </label>
+                <input id="fecha_reunion" campo="fecha_reunion" type="text" placeholder="dd/mm/aaaa"
+                    style="flex-grow: 100;" />
+            </div>
+            <div class="grupo_campos nueva_linea">
+                <label for="hora">
+                    Hora <em>*</em></label>
+                <input id="txt_hora" type="text" style="width: 160px;" maxlength="100" />
+            </div>
+            <div class="grupo_campos nueva_linea">
+                <label for="lugar">
+                    Lugar <em>*</em></label>
+                <input id="txt_lugar" type="text" style="width: 160px;" maxlength="100" />
+            </div>
+            <div class="grupo_campos nueva_linea">
+                <label for="cmb_periodo">
+                    Proceso Evaluatorio <em>*</em></label>
+                <select id="cmb_periodo" style="width: 280px;">
+                </select>
+            </div>
+            <input id="btn_aceptar_alta" style="btn btn-primary" value="Agregar" type="button" />
         </div>
     </div>
     </form>
@@ -128,7 +129,7 @@
             });
         });
 
-        var CargarGrillaComites = function () {    
+        var CargarGrillaComites = function () {
             var spinner = new Spinner({ scale: 2 });
             spinner.spin($("html")[0]);
 
@@ -140,15 +141,15 @@
                 columnas.push(new Columna("Periodo", { generar: function (model) { return model.Periodo.descripcion_periodo; } }));
                 columnas.push(new Columna("Fecha", { generar: function (model) { return model.Fecha.substring(0, 10); } }));
                 columnas.push(new Columna("Unidades de Evaluacion", { generar: function (model) {
-                        var ues = model.UnidadesEvaluacion;
-                        if (ues.length == 0) {
-                            return "No especificado";
-                        }
-                        if (ues.length == 1) {
-                            return ues[0].NombreArea;
-                        }
-                        return ues[0].NombreArea & " y " & (ues.length - 1).toString() & " ue mas";
+                    var ues = model.UnidadesEvaluacion;
+                    if (ues.length == 0) {
+                        return "No especificado";
                     }
+                    if (ues.length == 1) {
+                        return ues[0].NombreArea;
+                    }
+                    return ues[0].NombreArea & " y " & (ues.length - 1).toString() & " ue mas";
+                }
                 }));
 
                 columnas.push(new Columna('Acciones', {
@@ -176,7 +177,7 @@
                 spinner.stop();
             }).onError(function (e) {
                 spinner.stop();
-            });       
+            });
         };
     </script>
 </body>

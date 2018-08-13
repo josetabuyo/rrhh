@@ -14,5 +14,6 @@ namespace General.MED
         public List<IntegranteComiteEvalDesempenio> Integrantes { get; set; }
         public List<UnidadDeEvaluacion> UnidadesEvaluacion { get; set; }
         public string Lugar { get; set; }
+        public string Descripcion { get; set; }
     }
 }

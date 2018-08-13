@@ -181,6 +181,15 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public ComiteEvaluacionDesempenio UpdateComiteEvaluacionDesempenio(int id_comite, string descripcion, string fecha, string hora, string lugar, int id_periodo)
+    {
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        return repo.UpdateComite(id_comite, descripcion, DateTime.Parse(fecha), hora, lugar, id_periodo);
+    }
+
+    
+
+    [WebMethod]
     public List<UnidadDeEvaluacion> GetEstadosEvaluaciones()
     {
         var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());

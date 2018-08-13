@@ -240,6 +240,7 @@ namespace General.Repositorios
             comite.Fecha = row.GetDateTime("fecha_comite");
             comite.Lugar = row.GetString("lugar_comite");
             comite.Hora = row.GetString("hora_comite");
+            comite.Descripcion = row.GetString("descripcion_comite");
             comite.Integrantes = new List<IntegranteComiteEvalDesempenio>();
             comite.UnidadesEvaluacion = new List<UnidadDeEvaluacion>();
             comite.Periodo = GetPeriodosEvaluacion().Find(p => p.id_periodo.Equals(row.GetInt("idPeriodo")));
@@ -412,7 +413,7 @@ namespace General.Repositorios
             var unidad_evaluacion = UnidadDeEvaluacion.Nulio();
             if (row.GetInt("id_unidad_eval", 0) != 0)
             {
-                unidad_evaluacion = new UnidadDeEvaluacion(row.GetInt("id_unidad_eval"), row.GetString("codigo_unidad_eval"), row.GetString("nombre_area_ue", ""), row.GetSmallintAsInt("idPeriodo"));
+                unidad_evaluacion = new UnidadDeEvaluacion(row.GetInt("id_unidad_eval"), row.GetString("codigo_unidad_eval"), row.GetString("nombre_area_ue", ""), row.GetSmallintAsInt("id_Periodo"));
             }
 
             return new AsignacionEvaluadoAEvaluador(
@@ -576,6 +577,35 @@ namespace General.Repositorios
 
             var tablaDeDatos = _conexion.Ejecutar("dbo.EVAL_ADD_Comite", parametros);
             comite.Id = tablaDeDatos.Rows[0].GetSmallintAsInt("Id");
+            return comite;
+        }
+
+        public ComiteEvaluacionDesempenio UpdateComite(int id_comite, string descripcion, DateTime fecha, string hora, string lugar, int periodo)
+        {
+            ComiteEvaluacionDesempenio comite = new ComiteEvaluacionDesempenio();
+            var parametros = new Dictionary<string, object>();
+
+            parametros.Add("@descripcion", descripcion);
+            parametros.Add("@fecha", fecha);
+            parametros.Add("@hora", hora);
+            parametros.Add("@lugar", lugar);
+            parametros.Add("@id_periodo", periodo);
+            parametros.Add("@id_comite", periodo);
+
+            var tablaDeDatos = _conexion.Ejecutar("dbo.EVAL_UPD_Comite", parametros);
+
+            if (tablaDeDatos.Rows.Count.Equals(0)) {
+                throw new Exception("No se pudo actualizar el comité");
+            }
+
+            var row = tablaDeDatos.Rows[0];
+            comite.Descripcion = row.GetString("descripcion");
+            comite.Fecha = row.GetDateTime("fecha");
+            comite.Hora = row.GetString("hora");
+            comite.Lugar = row.GetString("lugar");
+            comite.Periodo = new PeriodoEvaluacion(row.GetInt("id_periodo"), row.GetString("desc_periodo"), row.GetDateTime("desde"), row.GetDateTime("hasta"), row.GetString("Descr_Tipo_Periodo", ""));
+            comite.Id = id_comite;
+
             return comite;
         }
     }
