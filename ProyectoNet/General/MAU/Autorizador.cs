@@ -87,19 +87,19 @@ namespace General.MAU
         }
 
 
-        public void ConcederFuncionalidadA(Usuario usuario, Funcionalidad funcionalidad)
+        public void ConcederFuncionalidadA(Usuario usuario, Funcionalidad funcionalidad, int id_usuario_logueado)
         {
-            this.repositorio_funcionalidades_usuarios.ConcederFuncionalidadA(usuario, funcionalidad);
+            this.repositorio_funcionalidades_usuarios.ConcederFuncionalidadA(usuario, funcionalidad, id_usuario_logueado);
         }
 
-        public void ConcederFuncionalidadA(int id_usuario, int id_funcionalidad)
+        public void ConcederFuncionalidadA(int id_usuario, int id_funcionalidad, int id_usuario_logueado)
         {
-            this.repositorio_funcionalidades_usuarios.ConcederFuncionalidadA(id_usuario, id_funcionalidad);
+            this.repositorio_funcionalidades_usuarios.ConcederFuncionalidadA(id_usuario, id_funcionalidad, id_usuario_logueado);
         }
 
-        public void DenegarFuncionalidadA(int id_usuario, int id_funcionalidad)
+        public void DenegarFuncionalidadA(int id_usuario, int id_funcionalidad, int id_usuario_logueado)
         {
-            this.repositorio_funcionalidades_usuarios.DenegarFuncionalidadA(id_usuario, id_funcionalidad);
+            this.repositorio_funcionalidades_usuarios.DenegarFuncionalidadA(id_usuario, id_funcionalidad, id_usuario_logueado);
         }
 
         public static Autorizador Instancia()
@@ -117,14 +117,14 @@ namespace General.MAU
             return repositorio_permisos_sobre_areas.AreasAdministradasPor(id_usuario);
         }
 
-        public void AsignarAreaAUnUsuario(Usuario usuario, Area area)
+        public void AsignarAreaAUnUsuario(Usuario usuario, Area area, int id_usuario_logueado)
         {
-            repositorio_permisos_sobre_areas.AsignarAreaAUnUsuario(usuario, area);
+            repositorio_permisos_sobre_areas.AsignarAreaAUnUsuario(usuario, area, id_usuario_logueado);
         }
 
-        public void DesAsignarAreaAUnUsuario(Usuario usuario, Area area)
+        public void DesAsignarAreaAUnUsuario(Usuario usuario, Area area, int id_usuario_logueado)
         {
-            repositorio_permisos_sobre_areas.DesAsignarAreaAUnUsuario(usuario, area);
+            repositorio_permisos_sobre_areas.DesAsignarAreaAUnUsuario(usuario, area, id_usuario_logueado);
         }
 
         public bool Login(string nombre_usuario, string clave)
@@ -158,17 +158,17 @@ namespace General.MAU
             return this.repositorio_funcionalidades_usuarios.FuncionalidadesPara(usuario).Intersect(funcionalidades_que_permiten_acceder_a_la_url).Count()>0;
         }
 
-        public void AsignarAreaAUnUsuario(int id_usuario, int id_area)
+        public void AsignarAreaAUnUsuario(int id_usuario, int id_area, int id_usuario_logueado)
         {
-            repositorio_permisos_sobre_areas.AsignarAreaAUnUsuario(id_usuario, id_area);
+            repositorio_permisos_sobre_areas.AsignarAreaAUnUsuario(id_usuario, id_area, id_usuario_logueado);
         }
 
-        public void DesAsignarAreaAUnUsuario(int id_usuario, int id_area)
+        public void DesAsignarAreaAUnUsuario(int id_usuario, int id_area, int id_usuario_logueado)
         {
-            repositorio_permisos_sobre_areas.DesAsignarAreaAUnUsuario(id_usuario, id_area);
+            repositorio_permisos_sobre_areas.DesAsignarAreaAUnUsuario(id_usuario, id_area, id_usuario_logueado);
         }
 
-        public bool RegistrarNuevoUsuario(AspiranteAUsuario aspirante)
+        public bool RegistrarNuevoUsuario(AspiranteAUsuario aspirante, int id_usuario_logueado)
         {
             var repo_personas = RepositorioDePersonas.NuevoRepositorioDePersonas(this.conexion);
             var repo_usuarios = new RepositorioDeUsuarios(this.conexion, repo_personas);
@@ -198,7 +198,7 @@ namespace General.MAU
             persona.Nombre = aspirante.Nombre;
             persona.Apellido = aspirante.Apellido;
 
-            repo_personas.GuardarPersona(persona);
+            repo_personas.GuardarPersona(persona, id_usuario_logueado);
 
 
             var usuario = repositorio_usuarios.CrearUsuarioPara(persona.Id);

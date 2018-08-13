@@ -41,12 +41,12 @@ namespace General.Repositorios
             return sexos;
         }
 
-        protected override void GuardarEnLaBase(Sexo objeto)
+        protected override void GuardarEnLaBase(Sexo objeto, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }
 
-        protected override void QuitarDeLaBase(Sexo objeto)
+        protected override void QuitarDeLaBase(Sexo objeto, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }

@@ -3098,14 +3098,14 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public void AsignarAreaAUnUsuario(int id_usuario, int id_area, Usuario usuario)
     {
-        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "mau_cambiar_permisos")) Autorizador().AsignarAreaAUnUsuario(id_usuario, id_area);
+        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "mau_cambiar_permisos")) Autorizador().AsignarAreaAUnUsuario(id_usuario, id_area, usuario.Id);
         else throw new Exception("No está habilitado para modificar permisos");
     }
 
     [WebMethod]
     public void DesAsignarAreaAUnUsuario(int id_usuario, int id_area, Usuario usuario)
     {
-        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "mau_cambiar_permisos")) Autorizador().DesAsignarAreaAUnUsuario(id_usuario, id_area);
+        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "mau_cambiar_permisos")) Autorizador().DesAsignarAreaAUnUsuario(id_usuario, id_area, usuario.Id);
         else throw new Exception("No está habilitado para modificar permisos");
     }
 
@@ -3118,14 +3118,14 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public void ConcederFuncionalidadA(int id_usuario, int id_funcionalidad, Usuario usuario)
     {
-        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "mau_cambiar_permisos")) Autorizador().ConcederFuncionalidadA(id_usuario, id_funcionalidad);
+        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "mau_cambiar_permisos")) Autorizador().ConcederFuncionalidadA(id_usuario, id_funcionalidad, usuario.Id);
         else throw new Exception("No está habilitado para modificar permisos");
     }
 
     [WebMethod]
     public void DenegarFuncionalidadA(int id_usuario, int id_funcionalidad, Usuario usuario)
     {
-        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 24)) Autorizador().DenegarFuncionalidadA(id_usuario, id_funcionalidad);
+        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 24)) Autorizador().DenegarFuncionalidadA(id_usuario, id_funcionalidad, usuario.Id);
         else throw new Exception("No está habilitado para modificar permisos");
     }
 
@@ -3741,7 +3741,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public bool RegistrarNuevoUsuario(AspiranteAUsuario aspirante)
     {
-        return Autorizador().RegistrarNuevoUsuario(aspirante);
+        return Autorizador().RegistrarNuevoUsuario(aspirante, 0);
     }
 
     [WebMethod]
@@ -3964,7 +3964,7 @@ public class WSViaticos : System.Web.Services.WebService
         var obj = new CVCaracterDeParticipacionEvento();
         obj.Descripcion = descripcion;
         obj.SoloVisiblePara = usuario.Id;
-        return RepositorioDeCaracterDeEventoAcademico.Nuevo(Conexion()).Guardar(obj);
+        return RepositorioDeCaracterDeEventoAcademico.Nuevo(Conexion()).Guardar(obj, usuario.Id);
     }
 
     [WebMethod]
@@ -3979,7 +3979,7 @@ public class WSViaticos : System.Web.Services.WebService
         var obj = new CVInstitucionesEventos();
         obj.Descripcion = descripcion;
         obj.SoloVisiblePara = usuario.Id;
-        return RepositorioDeInstitucionesEventosAcademicos.Nuevo(Conexion()).Guardar(obj);
+        return RepositorioDeInstitucionesEventosAcademicos.Nuevo(Conexion()).Guardar(obj, usuario.Id);
     }
 
     [WebMethod]
@@ -3994,7 +3994,7 @@ public class WSViaticos : System.Web.Services.WebService
         var obj = new CVTitulosAntecedentesAcademicos();
         obj.Descripcion = descripcion;
         obj.SoloVisiblePara = usuario.Id;
-        return RepositorioDeTitulosAntecedentesAcademicos.Nuevo(Conexion()).Guardar(obj);
+        return RepositorioDeTitulosAntecedentesAcademicos.Nuevo(Conexion()).Guardar(obj, usuario.Id);
     }
 
     #endregion
@@ -4365,7 +4365,7 @@ public class WSViaticos : System.Web.Services.WebService
         obj.Descripcion = descripcion;
         obj.SoloVisiblePara = usuario.Id;
         obj.Tipo = tipo;
-        return RepositorioDeConocimientosCompetenciasInformaticas.Nuevo(Conexion()).Guardar(obj);
+        return RepositorioDeConocimientosCompetenciasInformaticas.Nuevo(Conexion()).Guardar(obj, usuario.Id);
     }
 
     [WebMethod]

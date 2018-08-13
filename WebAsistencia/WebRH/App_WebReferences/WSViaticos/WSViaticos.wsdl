@@ -6633,6 +6633,7 @@
         <s:sequence>
           <s:element minOccurs="0" maxOccurs="1" name="asignaciones" type="tns:ArrayOfAsignacionEvaluadoAEvaluador" />
           <s:element minOccurs="1" maxOccurs="1" name="EsAgenteVerificador" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="UsuarioRequest" type="tns:Usuario" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfAsignacionEvaluadoAEvaluador">

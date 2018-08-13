@@ -42,12 +42,12 @@ namespace General.Repositorios
             return niveles;
         }
 
-        protected override void GuardarEnLaBase(CvNivelCompetenciaInformatica objeto)
+        protected override void GuardarEnLaBase(CvNivelCompetenciaInformatica objeto, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }
 
-        protected override void QuitarDeLaBase(CvNivelCompetenciaInformatica objeto)
+        protected override void QuitarDeLaBase(CvNivelCompetenciaInformatica objeto, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }

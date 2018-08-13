@@ -68,12 +68,12 @@ namespace General.Repositorios
             return provincias;
         }
 
-        protected override void GuardarEnLaBase(Provincia objeto)
+        protected override void GuardarEnLaBase(Provincia objeto, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }
 
-        protected override void QuitarDeLaBase(Provincia objeto)
+        protected override void QuitarDeLaBase(Provincia objeto, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }

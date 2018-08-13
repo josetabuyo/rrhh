@@ -36,7 +36,7 @@ namespace General.Repositorios
 
         }
 
-        protected override void QuitarDeLaBase(ReciboFirmado reciboFirmado)
+        protected override void QuitarDeLaBase(ReciboFirmado reciboFirmado, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }
@@ -45,7 +45,7 @@ namespace General.Repositorios
             throw new NotImplementedException();
         }
 
-        protected override void GuardarEnLaBase(ReciboFirmado reciboFirmado)
+        protected override void GuardarEnLaBase(ReciboFirmado reciboFirmado, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }
