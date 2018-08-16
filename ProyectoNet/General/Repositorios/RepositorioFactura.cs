@@ -125,7 +125,7 @@ namespace General.Repositorios
                     cn.RollbackTransaction();
                     return false;
                 }
-
+                Max_IdFactura = Max_IdFactura + 1;
             
                 //INICIO TRANSACCION
                 cn.CrearComandoConTransaccionIniciada("dbo.CTR_ADD_Facturas");
@@ -145,7 +145,7 @@ namespace General.Repositorios
                     if (item.estaSeleccionado)
 	                {
                         cn.CrearComandoConTransaccionIniciada("dbo.CTR_ADD_Facturas_Detalle");
-                        cn.AsignarParametro("@Id_Factura_1", Max_IdFactura + 1); //la cabecera tiene adentro el +1
+                        cn.AsignarParametro("@Id_Factura_1", Max_IdFactura); //la cabecera tiene adentro el +1
                         cn.AsignarParametro("@Mes_Factura_2", item.Mes);
                         cn.AsignarParametro("@Año_Factura_3", item.Anio);
                         cn.AsignarParametro("@Monto_Factura_4", item.Monto_A_Factura);
@@ -262,5 +262,73 @@ namespace General.Repositorios
             return listaFact;
         }
 
+
+        public int ObtenerNroPaseContabilidad()
+        {
+            int nro_pase = 0;
+
+            SqlDataReader dr;
+            ConexionDB cn = new ConexionDB("dbo.CTR_GET_Obtener_Max_NroPase_Contabilidad");
+            
+            dr = cn.EjecutarConsulta();
+            
+            while (dr.Read())
+            {
+                nro_pase = dr.GetInt32(dr.GetOrdinal("nro_pase_cont"));
+            }
+
+            cn.Desconestar();
+            return nro_pase;
+        }
+
+
+
+        public int GenerarPaseFacturaContabilidad(DateTime FechaPase, Factura[] lista, Usuario usuario)
+        {
+
+            ConexionDB cn = new ConexionDB("dbo.CTR_GET_Obtener_Max_NroPase_Contabilidad");
+
+            cn.BeginTransaction();
+
+            int Nro_Max_Pase = 0;
+            try
+            {
+                Nro_Max_Pase = (int)cn.EjecutarEscalar();
+
+                if (Nro_Max_Pase == 0)
+                {
+                    cn.RollbackTransaction();
+                    return 0;
+                }
+                Nro_Max_Pase = Nro_Max_Pase + 1;
+
+
+                foreach (var item in lista)
+                {
+                    if (item.estaSeleccionado)
+                    {
+                        cn.CrearComandoConTransaccionIniciada("dbo.CTR_UPD_Pase_Contabilidad");
+                        cn.AsignarParametro("@Id_fact", 0);
+                        cn.AsignarParametro("@pase", FechaPase);
+                        cn.AsignarParametro("@nro_pase", Nro_Max_Pase);
+                        cn.AsignarParametro("@Monto_Factura_4", item.Monto_A_Factura);
+                        cn.AsignarParametro("@Id_Contrato", item.Id_Contrato);
+                        cn.EjecutarSinResultado();
+                    }
+                }
+            }
+            catch (Exception exp)
+            {
+                cn.RollbackTransaction();
+                throw;
+            }
+
+            cn.CommitTransaction();
+            cn.Desconestar();
+
+            return Nro_Max_Pase;
+
+
+        }
     }
 }

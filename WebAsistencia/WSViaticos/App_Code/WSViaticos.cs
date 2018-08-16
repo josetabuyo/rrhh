@@ -5359,6 +5359,24 @@ public class WSViaticos : System.Web.Services.WebService
         return RepositorioFactura.GetConsultaPaseFacturasContabilidad(usuario).ToArray();
     }
     
-
+    [WebMethod]
+    public string GenerarPaseFacturaContabilidad(string criterio, Factura[] lista, Usuario usuario)
+    {
+        var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
+        DateTime FechaPase = DateTime.Parse((((JValue)criterio_deserializado["facha_pase"]).ToString()));
+        
+        RepositorioFactura Repo = new RepositorioFactura();
+        
+        int nro_pase = Repo.GenerarPaseFacturaContabilidad(FechaPase, lista, usuario);
+        if (nro_pase > 0)
+        {
+            return "Se genero el pase " + nro_pase.ToString() + " a contabilidad de las facturas correctamente ";
+        }
+        else
+        {
+            return "Hubo un error al generar el pase a contabilidad";
+        }
+    }
+    
 
 }

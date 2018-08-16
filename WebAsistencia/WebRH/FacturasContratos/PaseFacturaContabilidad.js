@@ -100,7 +100,6 @@ var PanelAltaDeDocumento = function (cfg) {
 
 $("#btn_Enviar").click(function () {
 
-
     var contador = 0;
     for (var i = 0; i < lista_de_facturas.length; i++) {
         if (lista_de_facturas[i].estaSeleccionado) {
@@ -117,28 +116,19 @@ $("#btn_Enviar").click(function () {
         return;
     }
 
-    alert("PASE!!");
-
-    /*
+    //alert("PASE!!");
     spinner = new Spinner({ scale: 2 }).spin($("body")[0]);
-    Backend.GuardarFactura({ doc: documento,
-    facha_pase: FechaPaseContabilidad,
-    fecha_factura: FechaFactura,
-    nro_factura: NroFactura.val(),
-    monto_a_facturar: MontoFactura.val(),
-    fecha_recibida: FechaRecibida,
-    id_area: idarea,
-    doc_firm_selecc: DocumentoFirmanteSeleccionado
-    }, lista_de_facturas)
+
+    Backend.GenerarPaseFacturaContabilidad({facha_pase: FechaPaseContabilidad}, lista_de_facturas)
     .onSuccess(function (respuesta) {
-    alertify.alert("", respuesta);
-    spinner.stop();
-    LimpiarPantalla();
+        alertify.alert("", respuesta);
+        spinner.stop();
+        Consultar();
     })
     .onError(function (error, as, asd) {
-    alertify.alert("", error);
-    spinner.stop();
+        alertify.alert("", error);
+        spinner.stop();
     });
-    */
+    
 
 });
