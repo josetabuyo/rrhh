@@ -25,6 +25,15 @@ public class Referencias
         return refs;
     }
 
+    public static string Css(string ruta_origen)
+    {
+        var refs = @"    
+            <link rel=""stylesheet"" href=""__RUTA_ORIGEN__Scripts/bootstrap/css/bootstrap.css"" type=""text/css""/>
+            <link rel=""stylesheet"" href=""__RUTA_ORIGEN__Scripts/jquery-ui-1.10.2.custom/css/smoothness/jquery-ui-1.10.2.custom.min.css"" />";
+        refs = refs.Replace("__RUTA_ORIGEN__", ruta_origen);
+        return refs;
+    }
+
     public static string Javascript(string ruta_origen){
         var refs = @"
             <script type=""text/javascript"" src=""__RUTA_ORIGEN__Scripts/jquery-latest.min.js""></script>
