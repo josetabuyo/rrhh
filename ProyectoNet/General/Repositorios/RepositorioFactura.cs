@@ -231,18 +231,18 @@ namespace General.Repositorios
             return listaFact;
         }
 
-        public List<Factura_Consulta> GetConsultaPaseFacturasContabilidad(Usuario usuario)
+        public List<Factura> GetConsultaPaseFacturasContabilidad(Usuario usuario)
         {
             SqlDataReader dr;
             ConexionDB cn = new ConexionDB("dbo.CTR_GET_Mostrar_Pases");
             dr = cn.EjecutarConsulta();
 
-            Factura_Consulta factura;
-            List<Factura_Consulta> listaFact = new List<Factura_Consulta>();
+            Factura factura;
+            List<Factura> listaFact = new List<Factura>();
 
             while (dr.Read())
             {
-                factura = new Factura_Consulta();
+                factura = new Factura();
                 factura.Id_Factura = dr.GetInt32(dr.GetOrdinal("id_factura"));
                 factura.Persona = new Persona();
                 factura.Persona.Apellido = dr.GetString(dr.GetOrdinal("apellido"));
@@ -308,16 +308,14 @@ namespace General.Repositorios
                     if (item.estaSeleccionado)
                     {
                         cn.CrearComandoConTransaccionIniciada("dbo.CTR_UPD_Pase_Contabilidad");
-                        cn.AsignarParametro("@Id_fact", 0);
+                        cn.AsignarParametro("@Id_fact", item.Id_Factura);
                         cn.AsignarParametro("@pase", FechaPase);
                         cn.AsignarParametro("@nro_pase", Nro_Max_Pase);
-                        cn.AsignarParametro("@Monto_Factura_4", item.Monto_A_Factura);
-                        cn.AsignarParametro("@Id_Contrato", item.Id_Contrato);
                         cn.EjecutarSinResultado();
                     }
                 }
             }
-            catch (Exception exp)
+            catch (Exception )
             {
                 cn.RollbackTransaction();
                 throw;

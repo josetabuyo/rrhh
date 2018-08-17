@@ -1216,6 +1216,7 @@
       </s:complexType>
       <s:complexType name="Factura">
         <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id_Factura" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="Mes" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="Anio" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="Monto_Contrato" type="s:decimal" />
@@ -1227,6 +1228,12 @@
           <s:element minOccurs="0" maxOccurs="1" name="Nro_Contrato" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Acto_Tipo" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Acto_Nro" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Persona" type="tns:Persona" />
+          <s:element minOccurs="1" maxOccurs="1" name="Fecha_Recibida" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nro_Factura" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Monto_Factura" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="Area" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Firmante" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="estaSeleccionado" type="s:boolean" />
         </s:sequence>
       </s:complexType>
@@ -1328,7 +1335,23 @@
       <s:element name="GetConsultaPaseFacturasContabilidadResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetConsultaPaseFacturasContabilidadResult" type="tns:ArrayOfFactura_Consulta" />
+            <s:element minOccurs="0" maxOccurs="1" name="GetConsultaPaseFacturasContabilidadResult" type="tns:ArrayOfFactura" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GenerarPaseFacturaContabilidad">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="lista" type="tns:ArrayOfFactura" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GenerarPaseFacturaContabilidadResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GenerarPaseFacturaContabilidadResult" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -8207,6 +8230,12 @@
   <wsdl:message name="GetConsultaPaseFacturasContabilidadSoapOut">
     <wsdl:part name="parameters" element="tns:GetConsultaPaseFacturasContabilidadResponse" />
   </wsdl:message>
+  <wsdl:message name="GenerarPaseFacturaContabilidadSoapIn">
+    <wsdl:part name="parameters" element="tns:GenerarPaseFacturaContabilidad" />
+  </wsdl:message>
+  <wsdl:message name="GenerarPaseFacturaContabilidadSoapOut">
+    <wsdl:part name="parameters" element="tns:GenerarPaseFacturaContabilidadResponse" />
+  </wsdl:message>
   <wsdl:message name="BuscarTitulosAntecedentesAcademicosSoapIn">
     <wsdl:part name="parameters" element="tns:BuscarTitulosAntecedentesAcademicos" />
   </wsdl:message>
@@ -10380,6 +10409,10 @@
       <wsdl:input message="tns:GetConsultaPaseFacturasContabilidadSoapIn" />
       <wsdl:output message="tns:GetConsultaPaseFacturasContabilidadSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GenerarPaseFacturaContabilidad">
+      <wsdl:input message="tns:GenerarPaseFacturaContabilidadSoapIn" />
+      <wsdl:output message="tns:GenerarPaseFacturaContabilidadSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="BuscarTitulosAntecedentesAcademicos">
       <wsdl:input message="tns:BuscarTitulosAntecedentesAcademicosSoapIn" />
       <wsdl:output message="tns:BuscarTitulosAntecedentesAcademicosSoapOut" />
@@ -12204,6 +12237,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetConsultaPaseFacturasContabilidad">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetConsultaPaseFacturasContabilidad" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerarPaseFacturaContabilidad">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GenerarPaseFacturaContabilidad" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -15645,6 +15687,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetConsultaPaseFacturasContabilidad">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetConsultaPaseFacturasContabilidad" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerarPaseFacturaContabilidad">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GenerarPaseFacturaContabilidad" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

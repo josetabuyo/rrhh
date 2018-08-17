@@ -5353,7 +5353,7 @@ public class WSViaticos : System.Web.Services.WebService
 
     //CONSULTA PASE DE FACTURAS A CONTABLIDAD
     [WebMethod]
-    public Factura_Consulta[] GetConsultaPaseFacturasContabilidad(Usuario usuario)
+    public Factura[] GetConsultaPaseFacturasContabilidad(Usuario usuario)
     {
         var RepositorioFactura = new RepositorioFactura();
         return RepositorioFactura.GetConsultaPaseFacturasContabilidad(usuario).ToArray();
@@ -5370,7 +5370,7 @@ public class WSViaticos : System.Web.Services.WebService
         int nro_pase = Repo.GenerarPaseFacturaContabilidad(FechaPase, lista, usuario);
         if (nro_pase > 0)
         {
-            return "Se genero el pase " + nro_pase.ToString() + " a contabilidad de las facturas correctamente ";
+            return "Se genero el pase " + nro_pase.ToString() + " a contabilidad correctamente ";
         }
         else
         {
