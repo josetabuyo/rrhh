@@ -3,10 +3,10 @@
     Iniciar: function () {
         _this = this;
         _this.CargarEventos();
-       // _this.DatosDelResponsable(area.Responsable);
-       // _this.ComboTratamientoPersona();
-       // _this.ComboTratamientoTitulo();
-       // _this.ComboCargoFuncion();
+        // _this.DatosDelResponsable(area.Responsable);
+        // _this.ComboTratamientoPersona();
+        // _this.ComboTratamientoTitulo();
+        // _this.ComboCargoFuncion();
     },
 
     CargarEventos: function () {
@@ -15,7 +15,7 @@
         });
         $('#txt_asistente_documento').blur(function () {
             _this.BuscarPersonal();
-        }); 
+        });
     },
 
     CambiarAreaCombo: function (combo, tipo) {
@@ -37,7 +37,7 @@
         if (persona.Documento != 0) {
             _this = this;
             $("#div_mensaje").hide();
-            $('#txt_responsable_documento').val(persona.Documento);0
+            $('#txt_responsable_documento').val(persona.Documento); 0
             $('#txt_responsable_id_interna').val(persona.IdInterna);
             $('#txt_responsable_nombre').val(persona.Nombre);
             $('#txt_responsable_apellido').val(persona.Apellido);
@@ -68,10 +68,6 @@
     BuscarPersonal: function () {
         _this = this;
         if ($("#txt_asistente_documento").esValido()) {
-            if ($("#txt_asistente_documento").val() == area_original.Responsable.Documento) {
-                _this.DatosDelResponsable(area_original.Responsable);
-            } else {
-
                 var criterio = {}
                 criterio.Documento = parseInt($("#txt_asistente_documento").val());
                 var persona = Backend.ejecutarSincronico("BuscarPersonas", [JSON.stringify(criterio)]);
@@ -94,8 +90,7 @@
                     $("#txt_responsable_apellido").prop('disabled', true);
                 } else {
                     _this.LimpiarDatos();
-                }
-            }
+                }       
         }
     },
 

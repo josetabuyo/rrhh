@@ -199,6 +199,7 @@
 <script src="ModificarAreas_Responsable.js" type="text/javascript"></script>
 <script src="ModificarAreas_Direccion.js" type="text/javascript"></script>
 <script src="ModificarAreas_Contacto.js" type="text/javascript"></script>
+<script src="ModificarAreas_Asistente.js" type="text/javascript"></script>
 <script type="text/javascript" src="../Scripts/FormularioBindeado.js"></script>
 <script type="text/javascript" src="../Scripts/ComboConBusquedaYAgregado.js"></script>
 <script type="text/javascript" src="../Scripts/jquery.maskedinput.min.js"> </script>
