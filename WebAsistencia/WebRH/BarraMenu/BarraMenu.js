@@ -86,7 +86,11 @@
             $('#btn_credenciales, #btn_Credencial_vigente').click(function () {
                 var div = $("<div>");
                 div.load(window.location.origin + '/Componentes/CredencialVigente.htm', function () {
-                    Componente.start(false, div);
+                    $.getScript('../Componentes/CredencialVigente.js', function(response,status) {
+                        $.getScript("../Scripts/jquery-barcode.js", function(response2,status2) {
+                            Componente.start(false, div);
+                        });
+                    });
                 });
             });
 
