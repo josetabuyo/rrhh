@@ -68,7 +68,8 @@ public class Referencias
         var prefijo = "\r\n            <link rel=\"stylesheet\" href=\"" + ruta_origen;
 
         //cambio la referencia de bootstrap.css a la carpeta de bootstrap4
-        var v2 = v1.Replace("bootstrap/css/bootstrap.css", "bootstrap4/css/bootstrap.min.css");
+        //Estilos/sigirh.css
+        var v2 = v1.Replace("Scripts/bootstrap/css/bootstrap.css", "Estilos/sigirh.css");
 
         //borro la linea de bootstra-presponsive porque la verseion 4 no lo usa
         v2 = Remover(v2, prefijo + @"Scripts/bootstrap/css/bootstrap-responsive.css"" type=""text/css""/>");

@@ -1,0 +1,14 @@
+{
+  "name": "webrh",
+  "version": "1.0.0",
+  "description": "Fronted Sitio Sigirh",
+  "main": "Login.aspx",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "rrhh",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^4.1.3"
+  }
+}
