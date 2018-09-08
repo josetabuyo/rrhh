@@ -1,10 +1,11 @@
 ﻿var ModificarAreas = {
-    
+
     Inicio: function () {
         var _this = this;
         this.SettearEventos();
         if (this.HayDatosPendientesDeAprobacion()) {
-            $("#btn_buscarSinAprobacion").show();  
+            $("#btn_buscarSinAprobacion").show();
+            alertify.alert('ATENCIÓN: Existe un ticket de cambio pendiente de aprobación. Si quiere ver los cambios enviados, seleccione el botón "Visualizar Datos Enviados para Aprobación". Si modifica los datos del áera, se actualizará el pedido pendiente con los datos ingresados.')
         }
     },
     //Configuracion Inicial

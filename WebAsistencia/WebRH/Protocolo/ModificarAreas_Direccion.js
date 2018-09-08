@@ -54,10 +54,10 @@ var ModificarAreas_Direccion = {
             $('#txt_oficina_codigopostal').val(area.DireccionCompleta.CodigoPostal);
         });
 
-//        $('#cmb_direccion_oficina').change(function () {
-//            area.DireccionCompleta.IdOficina = $('#cmb_direccion_oficina').val();
-//            _this.CargarDatosDeOficina();
-//        });
+        //        $('#cmb_direccion_oficina').change(function () {
+        //            area.DireccionCompleta.IdOficina = $('#cmb_direccion_oficina').val();
+        //            _this.CargarDatosDeOficina();
+        //        });
 
         $('#bnt_buscar_localidad').click(function () {
             _this.CargarDatosDeCodigoPostal($('#txt_oficina_codigopostal').val());
@@ -65,20 +65,24 @@ var ModificarAreas_Direccion = {
             $("#titulo_pasos").text("Modificación de la Dirección del Área - PASO 2 DE 4")
         });
 
-//        $('#cmb_direccion_edificio').change(function () {
-//            area.DireccionCompleta.IdEdificio = $('#cmb_direccion_edificio').val();
-//            _this.CargarDatosDeEdificio(area.DireccionCompleta.IdEdificio);
-//            _this.CargarComboOficina(area.DireccionCompleta.IdOficina, area.DireccionCompleta.IdEdificio);
-//        });
+        $('#cmb_direccion_edificio').change(function () {
+            area.DireccionCompleta.IdEdificio = $('#cmb_direccion_edificio').val();
+            _this.CargarDatosDeEdificio(area.DireccionCompleta.IdEdificio);
+            _this.CargarComboOficina(area.DireccionCompleta.IdOficina, area.DireccionCompleta.IdEdificio);
+        });
+
+        $("#btn_confirmar_edificio").click(function () {
+            $("#ui-accordion-accordion-header-2").click();
+        });
 
     },
     CargarCombos: function () {
 
-//        if (area.DireccionCompleta.Localidad != null) {
-//            this.CargarComboEdificio(area.DireccionCompleta.IdEdificio, area.DireccionCompleta.Localidad.Id);
-//        }
+        if (area.DireccionCompleta.Localidad != null) {
+            this.CargarComboEdificio(area.DireccionCompleta.IdEdificio, area.DireccionCompleta.Localidad.Id);
+        }
 
-//        this.CargarComboOficina(area.DireccionCompleta.IdOficina, area.DireccionCompleta.IdEdificio);
+        this.CargarComboOficina(area.DireccionCompleta.IdOficina, area.DireccionCompleta.IdEdificio);
     },
 
     GuardarCambiosEnDireccion: function () {
