@@ -1,0 +1,102 @@
+﻿<style type="text/css">
+      
+      .componenteCambioDomicilio 
+      {
+          padding-left: 15px;
+      }
+      
+      .fieldsetCambioDomicilio 
+      {
+            background-color: rgba(218, 218, 218, 0.31);
+            border-radius: 15px;
+            padding: 10px;
+      }
+        
+    </style>
+
+<div>
+<h2 style="text-align:center">Cambio Domicilio</h2>
+<br />
+<h4>Solicitado por: <span id="nombreUsuario"></span> el día <span id="fechaCreacion"></span> </h4>
+
+<fieldset class="fieldsetCambioDomicilio">
+
+<p class="componenteCambioDomicilio">Dirección:  <strong id="calle"></strong> N°<strong id="numero"></strong></p>
+<p class="componenteCambioDomicilio">Piso: <strong id="piso"></strong> Depto:<strong id="depto"></strong></p>
+ <p class="componenteCambioDomicilio">Localidad: <strong id="localidad"></strong></p>
+ <p class="componenteCambioDomicilio">Provincia: <strong id="provincia"></strong></p>
+ <p class="componenteCambioDomicilio"><strong id="manzana"></strong> <strong id="casa"></strong> <strong id="barrio"></strong> <strong id="torre"></strong> <strong id="uf"></strong> </p>
+ <p class="componenteCambioDomicilio">Folio: <input style="height: 30px; width: 120px;" type="text" placeholder="N° Folio" value="0" id="folio" /></p>
+
+ <div style="text-align:center;">
+    <input type="button" class="btn btn-primary" id="btnConfirmarDomicilio" value="Confirmar" />
+    <input type="button" class="btn btn-primary" id="btnCancelarDomicilio" value="Cancelar" />
+<!--    <input type="button" class="btn btn-primary" id="btnDelegarDomicilio" value="Delegar" />-->
+</div>
+
+</fieldset>
+
+
+
+
+
+</div>
+
+<script type="text/javascript">
+    var Componente = {
+        start: function (ticket, ui) {
+
+            var idTicket = ticket.id;
+            var documento = ticket.usuarioCreador.Owner.Documento;
+            var idUsuarioCreador = ticket.usuarioCreador.Id;
+
+
+            ui.find('#btnConfirmarDomicilio').click(function () {
+                if (ui.find('#folio').val() == 0) {
+                    alert('Debe ingresar un N° Folio');
+                    return;
+                }
+                Backend.VerificarDomicilioPendiente(idTicket, documento, folio, idUsuarioCreador)
+                .onSuccess(function (resultado) {
+                    alertify.success(resultado);
+                    vex.close();
+
+                }).onError(function () {
+                    alertify.error("Ha ocurrido un error. Por favor comuniquese con RRHH")
+                });
+            });
+
+            ui.find('#btnCancelarDomicilio').click(function () {
+                vex.close();
+            });
+
+            ui.find('#btnDelegarDomicilio').click(function () {
+                alert('Ha desarrollar');
+            });
+
+            Backend.GetDomicilioPendientePorAlerta(idTicket)
+                .onSuccess(function (domicilioJSON) {
+
+                    ui.find('#nombreUsuario').html(ticket.usuarioCreador.Owner.Apellido + ', ' + ticket.usuarioCreador.Owner.Nombre);
+                    ui.find('#fechaCreacion').html(ConversorDeFechas.deIsoAFechaEnCriollo(ticket.fechaCreacion));
+
+                    var domicilio = $.parseJSON(domicilioJSON);
+                    //alert(detalleTareaJSON);
+                    ui.find('#calle').html(domicilio.Calle);
+                    ui.find('#numero').html(domicilio.Numero);
+                    ui.find('#piso').html(domicilio.Piso);
+                    ui.find('#depto').html(domicilio.Depto);
+                    ui.find('#localidad').html(domicilio.NombreLocalidad);
+                    ui.find('#provincia').html(domicilio.NombreProvincia);
+
+                    ui.find('#manzana').html(domicilio.Manzana);
+                    ui.find('#casa').html(domicilio.Casa);
+                    ui.find('#torre').html(domicilio.Torre);
+                    ui.find('#barrio').html(domicilio.Barrio);
+                    ui.find('#uf').html(domicilio.Uf);
+
+                });
+        }
+    };
+
+</script>

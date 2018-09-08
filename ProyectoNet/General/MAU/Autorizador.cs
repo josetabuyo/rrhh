@@ -52,18 +52,26 @@ namespace General.MAU
 
         public bool ElUsuarioTienePermisosPara(Usuario usuario, Funcionalidad funcionalidad)
         {
-            return this.repositorio_funcionalidades_usuarios.FuncionalidadesPara(usuario).Exists(f =>
+            return this.repositorio_funcionalidades_usuarios.FuncionalidadesPara(usuario).Any(f =>
             {
-                if (f.NoPodriaUsarlaElUsuario(usuario)) return false;
-                return f.Equals(funcionalidad);
+                return f.Id == funcionalidad.Id;
             });
         }
 
         public bool ElUsuarioTienePermisosPara(Usuario usuario, string nombre_funcionalidad)
         {
-            return this.repositorio_funcionalidades_usuarios.FuncionalidadesPara(usuario).Exists(f =>
+            return this.repositorio_funcionalidades_usuarios.FuncionalidadesPara(usuario).Any(f =>
             {
-                if (f.NoPodriaUsarlaElUsuario(usuario)) return false;
+                return f.Nombre == nombre_funcionalidad;
+            });
+        }
+
+
+        public bool ElUsuarioTienePermisosPara(int id_usuario, string nombre_funcionalidad)
+        {
+            var usuario = repositorio_usuarios.GetUsuarioPorId(id_usuario);
+            return this.repositorio_funcionalidades_usuarios.FuncionalidadesPara(usuario).Any(f =>
+            {
                 return f.Nombre == nombre_funcionalidad;
             });
         }
@@ -72,27 +80,26 @@ namespace General.MAU
         public bool ElUsuarioTienePermisosPara(int id_usuario, int id_funcionalidad)
         {
             var usuario = repositorio_usuarios.GetUsuarioPorId(id_usuario);
-            return this.repositorio_funcionalidades_usuarios.FuncionalidadesPara(id_usuario).Exists(f =>
+            return this.repositorio_funcionalidades_usuarios.FuncionalidadesPara(usuario).Any(f =>
             {
-                if (f.NoPodriaUsarlaElUsuario(usuario)) return false;
                 return f.Id == id_funcionalidad;
             });
         }
 
 
-        public void ConcederFuncionalidadA(Usuario usuario, Funcionalidad funcionalidad)
+        public void ConcederFuncionalidadA(Usuario usuario, Funcionalidad funcionalidad, int id_usuario_logueado)
         {
-            this.repositorio_funcionalidades_usuarios.ConcederFuncionalidadA(usuario, funcionalidad);
+            this.repositorio_funcionalidades_usuarios.ConcederFuncionalidadA(usuario, funcionalidad, id_usuario_logueado);
         }
 
-        public void ConcederFuncionalidadA(int id_usuario, int id_funcionalidad)
+        public void ConcederFuncionalidadA(int id_usuario, int id_funcionalidad, int id_usuario_logueado)
         {
-            this.repositorio_funcionalidades_usuarios.ConcederFuncionalidadA(id_usuario, id_funcionalidad);
+            this.repositorio_funcionalidades_usuarios.ConcederFuncionalidadA(id_usuario, id_funcionalidad, id_usuario_logueado);
         }
 
-        public void DenegarFuncionalidadA(int id_usuario, int id_funcionalidad)
+        public void DenegarFuncionalidadA(int id_usuario, int id_funcionalidad, int id_usuario_logueado)
         {
-            this.repositorio_funcionalidades_usuarios.DenegarFuncionalidadA(id_usuario, id_funcionalidad);
+            this.repositorio_funcionalidades_usuarios.DenegarFuncionalidadA(id_usuario, id_funcionalidad, id_usuario_logueado);
         }
 
         public static Autorizador Instancia()
@@ -110,14 +117,14 @@ namespace General.MAU
             return repositorio_permisos_sobre_areas.AreasAdministradasPor(id_usuario);
         }
 
-        public void AsignarAreaAUnUsuario(Usuario usuario, Area area)
+        public void AsignarAreaAUnUsuario(Usuario usuario, Area area, int id_usuario_logueado)
         {
-            repositorio_permisos_sobre_areas.AsignarAreaAUnUsuario(usuario, area);
+            repositorio_permisos_sobre_areas.AsignarAreaAUnUsuario(usuario, area, id_usuario_logueado);
         }
 
-        public void DesAsignarAreaAUnUsuario(Usuario usuario, Area area)
+        public void DesAsignarAreaAUnUsuario(Usuario usuario, Area area, int id_usuario_logueado)
         {
-            repositorio_permisos_sobre_areas.DesAsignarAreaAUnUsuario(usuario, area);
+            repositorio_permisos_sobre_areas.DesAsignarAreaAUnUsuario(usuario, area, id_usuario_logueado);
         }
 
         public bool Login(string nombre_usuario, string clave)
@@ -148,25 +155,20 @@ namespace General.MAU
         {
             var funcionalidades_que_permiten_acceder_a_la_url = this.repositorio_accesos_a_url.TodosLosAccesos().FindAll(a => a.Url.ToUpper() == url.ToUpper()).Select(a => a.Funcionalidad);
             if (funcionalidades_que_permiten_acceder_a_la_url.Count() == 0) return true;
-            return this.repositorio_funcionalidades_usuarios.FuncionalidadesPara(usuario).Any(f =>
-            {
-                if (f.NoPodriaUsarlaElUsuario(usuario)) 
-                    return false;
-                return funcionalidades_que_permiten_acceder_a_la_url.Contains(f);
-            });
+            return this.repositorio_funcionalidades_usuarios.FuncionalidadesPara(usuario).Intersect(funcionalidades_que_permiten_acceder_a_la_url).Count()>0;
         }
 
-        public void AsignarAreaAUnUsuario(int id_usuario, int id_area)
+        public void AsignarAreaAUnUsuario(int id_usuario, int id_area, int id_usuario_logueado)
         {
-            repositorio_permisos_sobre_areas.AsignarAreaAUnUsuario(id_usuario, id_area);
+            repositorio_permisos_sobre_areas.AsignarAreaAUnUsuario(id_usuario, id_area, id_usuario_logueado);
         }
 
-        public void DesAsignarAreaAUnUsuario(int id_usuario, int id_area)
+        public void DesAsignarAreaAUnUsuario(int id_usuario, int id_area, int id_usuario_logueado)
         {
-            repositorio_permisos_sobre_areas.DesAsignarAreaAUnUsuario(id_usuario, id_area);
+            repositorio_permisos_sobre_areas.DesAsignarAreaAUnUsuario(id_usuario, id_area, id_usuario_logueado);
         }
 
-        public bool RegistrarNuevoUsuario(AspiranteAUsuario aspirante)
+        public bool RegistrarNuevoUsuario(AspiranteAUsuario aspirante, int id_usuario_logueado)
         {
             var repo_personas = RepositorioDePersonas.NuevoRepositorioDePersonas(this.conexion);
             var repo_usuarios = new RepositorioDeUsuarios(this.conexion, repo_personas);
@@ -196,7 +198,7 @@ namespace General.MAU
             persona.Nombre = aspirante.Nombre;
             persona.Apellido = aspirante.Apellido;
 
-            repo_personas.GuardarPersona(persona);
+            repo_personas.GuardarPersona(persona, id_usuario_logueado);
 
 
             var usuario = repositorio_usuarios.CrearUsuarioPara(persona.Id);
@@ -286,7 +288,7 @@ namespace General.MAU
 
         public bool VerificarUsuario(int id_usuario, Usuario usuario)
         {
-            if (!ElUsuarioTienePermisosPara(usuario.Id, 21)) return false;
+            if (!ElUsuarioTienePermisosPara(usuario.Id, "mau_verificar_usuarios")) return false;
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_usuario", id_usuario);
             parametros.Add("@id_usuario_verificador", usuario.Id);

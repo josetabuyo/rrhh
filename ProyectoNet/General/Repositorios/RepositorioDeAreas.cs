@@ -373,12 +373,12 @@ namespace General.Repositorios
             return areas;
         }
 
-        protected override void GuardarEnLaBase(Area objeto)
+        protected override void GuardarEnLaBase(Area objeto, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }
 
-        protected override void QuitarDeLaBase(Area objeto)
+        protected override void QuitarDeLaBase(Area objeto, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }

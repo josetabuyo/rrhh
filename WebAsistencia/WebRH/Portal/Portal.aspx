@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Portal.aspx.cs" Inherits="Portal_Portal" %>
+﻿<%@ page language="C#" autoeventwireup="true" inherits="Portal_Portal" CodeFile="Portal.aspx.cs" %>
 
 <%@ Register Src="~/BarraMenu/BarraMenu.ascx" TagName="BarraMenu" TagPrefix="uc2" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -19,6 +19,23 @@
         UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <div id="content">
     <div class="resumen_area"></div>
+     <div class="resumen_postular">
+     <p style="text-align: center; margin: 5px;"><span style="margin: 20px; display: block;">Para SABER MÁS sobre el Proceso de RETIRO VOLUNTARIO hacé click en el círculo de abajo</span><a href="../Imagenes/AficheRetiroV.jpg" target="_blank" ><img src="../MenuPrincipal/RetiroV.png" width="80px" height="80px" /></a></p>
+
+
+
+                    <p style="text-align: center; margin: 5px;"><span style="margin: 20px; display: block;"class="panel-title"><a href="../MenuPrincipal/FormulRetiroV.pdf" target="_blank" >Para DESCARGAR el FORMULARIO del Proceso de RETIRO VOLUNTARIO hacé click acá</a></p>
+
+<hr class="lineas-subraya"/>
+<hr class="lineas-subraya"/>
+
+     <p style="text-align: center; margin: 5px;"><span style="margin: 20px; display: block;">Para INSCRIBIRTE al Concurso de PLANTA PERMANENTE (Convocatoria Interna) hacé click en el circulo de abajo</span><a href="../FormularioConcursar/PanelDeControl.aspx" ><img src="../MenuPrincipal/Postular.png" width="80px" height="80px" /></a></p>
+     <div style="text-align: center; margin-top:20px;">
+     <p>Para mas información click en las imágenes</p>
+     <p style="display:inline-block; text-align: center; width: 100px; margin: 0 auto; margin-bottom:15px;"><span style="margin-bottom: 10px; display: inline-block;"></span><a href="../Imagenes/001afiche.promo.lanzamiento.2017.jpg" target="_blank"><img src="../Imagenes/001afiche.promo.lanzamiento.2017.jpg" width="100px" height="150px" /></a></p>
+     <p style="display:inline-block; text-align: center; width: 100px; margin: 0 auto;"><span style="margin-bottom: 10px; display: inline-block;"></span><a href="../Imagenes/002panfleto.promo.concurso.jpg" target="_blank"><img src="../Imagenes/002panfleto.promo.concurso.jpg" width="100px" height="120px" /></a></p>
+     </div>
+     </div>
         <div class="navigation ch-grid" id="nav">
             <div class="ch-item_3d ch-img-1_3d">
                 <div class="ch-info-wrap_3d">

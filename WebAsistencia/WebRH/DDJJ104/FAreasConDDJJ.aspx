@@ -46,11 +46,10 @@
     </form>
 </body>
 
-<script src="../scripts/underscore-min.js" type="text/javascript"></script>
-<script src="../scripts/ConversorDeFechas.js" type="text/javascript"></script>
-<script src="../scripts/jquery-barcode.js" type="text/javascript"></script>
-<script src="../scripts/Spin.js" type="text/javascript"></script>
-<script src="DDJJ.js" type="text/javascript"></script>
-
+    <script src="../scripts/underscore-min.js" type="text/javascript"></script>
+    <script src="../scripts/ConversorDeFechas.js" type="text/javascript"></script>
+    <script src="../scripts/jquery-barcode.js" type="text/javascript"></script>
+    <script src="../scripts/Spin.js" type="text/javascript"></script>
+    <script src="DDJJ.js" type="text/javascript"></script>
 
 </html>

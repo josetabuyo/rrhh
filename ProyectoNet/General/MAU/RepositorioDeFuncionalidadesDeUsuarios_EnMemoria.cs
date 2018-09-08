@@ -19,13 +19,13 @@ namespace General.MAU
             return diccionario_de_funcionalidades.GetValueOrDefault(usuario, new List<Funcionalidad>());
         }
 
-        public List<Funcionalidad> FuncionalidadesPara(int id_usuario)
-        {
-            throw new NotImplementedException();
-        }
+        //public List<Funcionalidad> FuncionalidadesPara(int id_usuario)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
 
-        public void ConcederFuncionalidadA(Usuario usuario, Funcionalidad funcionalidad)
+        public void ConcederFuncionalidadA(Usuario usuario, Funcionalidad funcionalidad, int id_usuario_logueado)
         {
             if (diccionario_de_funcionalidades.ContainsKey(usuario))
             {
@@ -42,13 +42,13 @@ namespace General.MAU
 
         }
 
-        public void DenegarFuncionalidadA(int id_usuario, int id_funcionalidad)
+        public void DenegarFuncionalidadA(int id_usuario, int id_funcionalidad, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }
 
 
-        public void ConcederFuncionalidadA(int id_usuario, int id_funcionalidad)
+        public void ConcederFuncionalidadA(int id_usuario, int id_funcionalidad, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }
@@ -72,6 +72,12 @@ namespace General.MAU
 
 
         public List<Usuario> UsuariosConLaFuncionalidad(int id_funcionalidad)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public List<Funcionalidad> FuncionalidadesOtorgadasA(Usuario usuario)
         {
             throw new NotImplementedException();
         }

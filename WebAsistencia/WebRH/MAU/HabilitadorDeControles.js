@@ -3,10 +3,13 @@
     $('[RequiereFuncionalidad]').each(function (index, control) {
 
         $(control).hide();
-        proveedor_ajax.postearAUrl({ url: "ElUsuarioLogueadoTieneLaFuncionalidad",
+
+        var funcionalidad = $(control).attr('RequiereFuncionalidad')
+
+        proveedor_ajax.postearAUrl({ url: "ElUsuarioLogueadoTienePermisosParaFuncionalidadPorNombre",
 
             data: {
-                id_funcionalidad: $(control).attr('RequiereFuncionalidad')
+                nombre_funcionalidad: funcionalidad
             },
             success: function (tiene_funcionalidad) {
                 if (!tiene_funcionalidad) $(control).remove();

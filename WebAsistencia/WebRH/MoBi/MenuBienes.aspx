@@ -29,14 +29,14 @@
             
             <div id="DivBotonAlta" runat="server" style="display: block; float: right;
                 margin-top: 4px; margin-left: 4px; border: #0055cc;">
-                <asp:Button runat="server" ID="btnAlta" RequiereFuncionalidad="37" CssClass="btn btn-primary" 
+                <asp:Button runat="server" ID="btnAlta" RequiereFuncionalidad="1.alta_baja_asoc_bien" CssClass="btn btn-primary" 
                     Text="Asociaci&oacute;n de Bienes" UseSubmitBehavior="True" 
                     onclick="btnAlta_Click" />
             </div>
 
             <div id="DivBotonConsulta" runat="server" style="display: block; float: right;
                 margin-top: 4px; margin-left: 4px; border: #0055cc;">
-                <asp:Button runat="server" ID="btnConsultar" RequiereFuncionalidad="41" CssClass="btn btn-primary" 
+                <asp:Button runat="server" ID="btnConsultar" RequiereFuncionalidad="PC_Planificacion_Dotaciones" CssClass="btn btn-primary" 
                     Text="Consultar Bienes" UseSubmitBehavior="True" 
                     onclick="btnConsultar_Click" /> 
             </div>

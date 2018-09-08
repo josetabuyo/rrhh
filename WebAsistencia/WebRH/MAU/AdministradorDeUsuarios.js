@@ -24,7 +24,7 @@
         placeholder: "nombre, apellido, documento o legajo"
     });
 
-    Backend.ElUsuarioLogueadoTienePermisosPara(24).onSuccess(function (tiene_permisos) {
+    Backend.ElUsuarioLogueadoTienePermisosParaFuncionalidadPorNombre("mau_cambiar_permisos").onSuccess(function (tiene_permisos) {
         if (tiene_permisos) {
             _this.vista_permisos = new VistaDePermisosDeUnUsuario({
                 ui: $('#vista_permisos'),
@@ -39,6 +39,31 @@
         repositorioDeAreas: this.repositorioDeAreas
     });
 
+    $("#foto_usuario, #foto_usuario_generica").click(function () {
+        vex.defaultOptions.className = 'vex-theme-os';
+        var subidor = new SubidorDeImagenes();
+        subidor.subirImagen(function (id_imagen) {
+            Backend.SolicitarCambioDeImagenPara(_this.usuario.Id, id_imagen)
+                .onSuccess(function () {
+                    alertify.success("Cambio de imagen realizado con éxito");
+                })
+                .onError(function () {
+                    alertify.error("Error al cambiar imagen");
+                });
+        }, true, 500);
+    });
+
+    $('#btn_credencial_usuario').click(function () {
+        var div = $("<div>");
+        div.load(window.location.origin + '/Componentes/CredencialVigente.htm', function () {
+            $.getScript('../Componentes/CredencialVigente.js', function (response, status) {
+                $.getScript("../Scripts/jquery-barcode.js", function (response2, status2) {
+                    Componente.start(false, div, _this.usuario);
+                });
+            });            
+        });
+    });
+
     this.selector_usuario.alSeleccionarUnaPersona = function (la_persona_seleccionada) {
         _this.panel_datos_usuario.hide();
         _this.repositorioDeUsuarios.getUsuarioPorIdPersona(
@@ -48,7 +73,7 @@
             },
             function (error) {
                 if (error == "LA_PERSONA_NO_TIENE_USUARIO") {
-                    Backend.ElUsuarioLogueadoTienePermisosPara(26).onSuccess(function (tiene_permisos) {
+                    Backend.ElUsuarioLogueadoTienePermisosParaFuncionalidadPorNombre("mau_crear_usuario").onSuccess(function (tiene_permisos) {
                         if (tiene_permisos) {
                             alertify.confirm("",
                                 la_persona_seleccionada.nombre + " " + la_persona_seleccionada.apellido + " no tiene usuario, desea crear uno?",
@@ -159,7 +184,7 @@ AdministradorDeUsuarios.prototype.cargarUsuario = function (usuario) {
     var _this = this;
     this.usuario = usuario;
     this.panel_datos_usuario.show();
-    Backend.ElUsuarioLogueadoTienePermisosPara(24).onSuccess(function (tiene_permisos) {
+    Backend.ElUsuarioLogueadoTienePermisosParaFuncionalidadPorNombre("mau_cambiar_permisos").onSuccess(function (tiene_permisos) {
         if (tiene_permisos) {
             _this.vista_permisos.setUsuario(usuario);
             _this.vista_areas.setUsuario(usuario);
@@ -197,7 +222,7 @@ AdministradorDeUsuarios.prototype.cargarUsuario = function (usuario) {
     this.txt_nombre_usuario.text(usuario.Alias);
 
     $("#cambio_imagen_pendiente").hide();
-    Backend.ElUsuarioLogueadoTienePermisosPara(50).onSuccess(function (tiene_permisos) {
+    Backend.ElUsuarioLogueadoTienePermisosParaFuncionalidadPorNombre("impresion_credencial").onSuccess(function (tiene_permisos) {
         if (tiene_permisos) {
             Backend.GetSolicitudesDeCambioDeImagenPendientesPara(usuario.Id).onSuccess(function (solicitudes) {
                 if (solicitudes.length > 0) {

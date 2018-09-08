@@ -43,7 +43,7 @@ VistaDeFolioModi.prototype.start = function () {
 
     this.ui.click(function () {
         if (_this.ui.find(".imagen_miniatura").length != 0) return;
-        var subidor = new SubidorDeImagenes();
+        var subidor = new SubidorDeImagenesMODI();
         subidor.subirImagen(function (bytes_imagen) {
             _this.o.servicioDeLegajos.agregarImagenAUnFolioDeUnLegajo(_this.o.numero_legajo,
                     _this.o.folio.folioLegajo,

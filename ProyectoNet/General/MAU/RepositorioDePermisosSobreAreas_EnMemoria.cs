@@ -26,7 +26,7 @@ namespace General.MAU
             throw new NotImplementedException();
         }
 
-        public void AsignarAreaAUnUsuario(Usuario usuario, Area area)
+        public void AsignarAreaAUnUsuario(Usuario usuario, Area area, int id_usuario_logueado)
         {
             if (diccionario_de_areas.ContainsKey(usuario))
             {
@@ -38,18 +38,18 @@ namespace General.MAU
             }
         }
 
-        public void DesAsignarAreaAUnUsuario(Usuario usuario, Area area)
+        public void DesAsignarAreaAUnUsuario(Usuario usuario, Area area, int id_usuario_logueado)
         {
             diccionario_de_areas[usuario].Remove(area);
         }
 
 
-        public void AsignarAreaAUnUsuario(int id_usuario, int id_area)
+        public void AsignarAreaAUnUsuario(int id_usuario, int id_area, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }
 
-        public void DesAsignarAreaAUnUsuario(int id_usuario, int id_area)
+        public void DesAsignarAreaAUnUsuario(int id_usuario, int id_area, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }

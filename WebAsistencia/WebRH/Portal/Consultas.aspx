@@ -54,7 +54,7 @@
                     <input id="btn_nueva_consulta" type="button" style="position: absolute; left: 25px;"
                         class="btn btn-primary boton_destellante" value="Realizar nueva consulta" />
                     <a id="boton_notificaciones" class="btn btn-primary" style="margin-left: 20px; float: right;">
-                        Notificaciones</a> <a id="Button1" href="GestionConsultas.aspx" requierefuncionalidad="49"
+                        Notificaciones</a> <a id="Button1" href="GestionConsultas.aspx" requierefuncionalidad="gestion_consultas"
                             class="btn btn-primary" style="float: right;">Gestión de consultas </a>
                 </div>
             </div>

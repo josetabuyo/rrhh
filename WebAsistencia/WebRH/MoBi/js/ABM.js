@@ -4,7 +4,7 @@ $(function () {
         var id_bien;
         vex.defaultOptions.className = 'vex-theme-os';
         var ui = $("#pantalla_edicion_bien");
-        Backend.ElUsuarioLogueadoTienePermisosPara(37).onSuccess(function (tiene_permisos_de_edicion) {
+        Backend.ElUsuarioLogueadoTienePermisosParaFuncionalidadPorNombre("1.alta_baja_asoc_bien").onSuccess(function (tiene_permisos_de_edicion) {
             $(".btnVerBien").click(function (e) {
                 id_bien = $($(this).parent().parent().children()[0]).text();
                 Backend.Mobi_GetBienPorId(id_bien).onSuccess(function (bien) {

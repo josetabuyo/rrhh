@@ -185,9 +185,16 @@ public class AjaxWS : System.Web.Services.WebService
 
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public bool ElUsuarioLogueadoTieneLaFuncionalidad(int id_funcionalidad)
+    public bool ElUsuarioLogueadoTienePermisosParaFuncionalidadPorNombre(string nombre_funcionalidad)
     {
-        return backEndService.ElUsuarioTienePermisosPara(usuarioLogueado.Id, id_funcionalidad); ;
+        return backEndService.ElUsuarioLogueadoTienePermisosParaFuncionalidadPorNombre(nombre_funcionalidad, usuarioLogueado);
+    }
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public bool ElUsuarioLogueadoTienePermisosParaFuncionalidadPorId(int id_funcionalidad)
+    {
+        return backEndService.ElUsuarioLogueadoTienePermisosParaFuncionalidadPorId(id_funcionalidad, usuarioLogueado);
     }
 
     [WebMethod(EnableSession = true)]
@@ -932,11 +939,8 @@ public class AjaxWS : System.Web.Services.WebService
             {
                 return Newtonsoft.Json.JsonConvert.SerializeObject("");
             }
-               
-
-            
-
         }
+
         var respuesta = metodo.Invoke(backEndService, argumentos_a_enviar.ToArray());
 
         if ((nombre_metodo == "ModificarMiMail") || (nombre_metodo == "ModificarMailRegistro"))

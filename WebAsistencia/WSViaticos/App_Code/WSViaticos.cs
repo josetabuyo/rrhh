@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -24,6 +25,15 @@ using System.Data;
 using System.IO;
 using ClosedXML.Excel;
 using General.DatosAbiertos;
+using General.MED;
+//using PdfPrinter.Core.DataContract;
+//using PdfPrinter.Core.Common;
+//using PdfPrinter.Core.Configuration;
+using System.Web.Hosting;
+using System.Runtime.Serialization.Formatters.Binary;
+using iTextSharp.text.pdf;
+using iTextSharp.text;
+using System.Data.SqlClient;
 
 
 [WebService(Namespace = "http://wsviaticos.gov.ar/")]
@@ -40,7 +50,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public Usuario[] GetUsuarios(Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 9)) throw (new Exception("El usuario no tiene permisos para el modulo de usuarios"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "ingreso_a_administracion_de_usuarios")) throw (new Exception("El usuario no tiene permisos para el modulo de usuarios"));
         RepositorioUsuarios repoUsuarios = new RepositorioUsuarios(Conexion());
         List<Usuario> usuarios = repoUsuarios.GetTodosLosUsuarios();
         Usuario[] retuUsuarios = new Usuario[usuarios.Count];
@@ -52,10 +62,138 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string EvalGetAgentesEvaluables(Usuario usuario)
+    public RespuestaGetAgentesEvaluablesPor EvalGetAgentesEvaluables(Usuario usuario)
     {
         var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
         return repo.GetAgentesEvaluablesPor(usuario);
+    }
+
+    [WebMethod]
+    public RespuestaGetAgentesEvaluablesPor GetAgentesEvaluablesParaVerificarGDE(Usuario usuario)
+    {
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        return repo.GetAgentesEvaluablesParaVerificarGDE(usuario);
+    }
+
+    [WebMethod]
+    public List<PeriodoEvaluacion> BuscarPeriodosEvaluacion(Usuario usuario, Usuario usuario2)
+    {
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        return repo.GetPeriodosEvaluacion();
+    }
+
+    [WebMethod]
+    public List<PeriodoEvaluacion> GetPeriodosEvaluacion(Usuario usuario)
+    {
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        return repo.GetPeriodosEvaluacion();
+    }
+
+    [WebMethod]
+    public IntRespuestaWS EvalAddIntegranteComite(int idComite, IntegranteComiteEvalDesempenio integrante) {
+        var respuesta= new IntRespuestaWS();
+        respuesta.Respuesta = integrante.IdPersona;
+        try
+        {
+            var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+            repo.AgregarIntegranteComite(idComite, integrante);
+        }
+        catch (Exception e)
+        {
+            
+            respuesta.MensajeDeErrorAmigable = "Se produjo un error al intentar agregar el responsable";
+            respuesta.setException(e);
+        }
+        return respuesta;
+    }
+
+    [WebMethod]
+    public IntRespuestaWS EvalRemoverIntegranteComite(int idComite, int idIntegrante)
+    {
+        var respuesta = new IntRespuestaWS();
+        respuesta.Respuesta = idIntegrante;
+        try
+        {
+            var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+            repo.RemoverIntegranteComite(idComite, idIntegrante);
+            //throw new Exception("blah blah");
+        }
+        catch (Exception e)
+        {
+            respuesta.MensajeDeErrorAmigable = "Se produjo un error al intentar remover el responsable";
+            respuesta.setException(e);
+        }
+        return respuesta;
+    }
+
+    [WebMethod]
+    public AltaBajaUEComiteRespuestaWS EvalAddUnidadEvaluacionAComite(int idComite, int idUnidadEvaluacion)
+    {
+        var respuesta = new AltaBajaUEComiteRespuestaWS();
+        try
+        {
+            var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+            repo.AgregarUnidadEvaluacionComite(idComite, idUnidadEvaluacion);
+        }
+        catch (Exception e)
+        {
+            respuesta.MensajeDeErrorAmigable = "Se produjo un error al intentar agregar la unidad de evaluacion a la unidad de comite";
+            respuesta.setException(e);
+        }
+        respuesta.Accion = "EvalAddUnidadEvaluacionAComite";
+        respuesta.IdComite = idComite;
+        respuesta.IdUE = idUnidadEvaluacion;
+        return respuesta;
+    }
+
+    [WebMethod]
+    public AltaBajaUEComiteRespuestaWS EvalRemoveUnidadEvaluacionAComite(int idComite, int idUnidadEvaluacion)
+    {
+        var respuesta = new AltaBajaUEComiteRespuestaWS();
+        try
+        {
+            var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+            repo.RemoverUnidadEvaluacionAComite(idComite, idUnidadEvaluacion);
+        }
+        catch (Exception e)
+        {
+            respuesta.MensajeDeErrorAmigable = "Se produjo un error al intentar quitar la unidad de evaluacion a la unidad de comite";
+            respuesta.setException(e);
+        }
+        respuesta.Accion = "EvalRemoveUnidadEvaluacionAComite";
+        respuesta.IdComite = idComite;
+        respuesta.IdUE = idUnidadEvaluacion;
+        return respuesta;
+    }
+
+    [WebMethod]
+    public List<ComiteEvaluacionDesempenio> GetAllComites()
+    {
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        return repo.GetAllComites();
+    }
+
+    [WebMethod]
+    public ComiteEvaluacionDesempenio AgregarComiteEvaluacionDesempenio(string descripcion, string fecha, string hora, string lugar, int periodo)
+    {
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        return repo.AgregarComite(descripcion, DateTime.Parse(fecha), hora, lugar, periodo);
+    }
+
+    [WebMethod]
+    public ComiteEvaluacionDesempenio UpdateComiteEvaluacionDesempenio(int id_comite, string descripcion, string fecha, string hora, string lugar, int id_periodo)
+    {
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        return repo.UpdateComite(id_comite, descripcion, DateTime.Parse(fecha), hora, lugar, id_periodo);
+    }
+
+    
+
+    [WebMethod]
+    public List<UnidadDeEvaluacion> GetEstadosEvaluaciones()
+    {
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        return repo.GetEstadosEvaluaciones();
     }
 
     [WebMethod]
@@ -168,7 +306,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public AreaParaDDJJ104[] GetAreasParaDDJJ104(int mes, int anio, int id_area, Usuario usuario)
+    public AreaParaDDJJ104[] GetAreasParaDDJJ104(int mes, int anio, int id_area, int complementaria, Usuario usuario)
     {
         var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas(), Autorizador());
         var a = new AreaParaDDJJ104[1];
@@ -180,24 +318,24 @@ public class WSViaticos : System.Web.Services.WebService
         }
         else
         {
-            a = responsableDDJJ.GetAreasParaDDJJ104InferioresA(mes, anio, id_area, usuario).ToArray();
+            a = responsableDDJJ.GetAreasParaDDJJ104InferioresA(mes, anio, id_area, complementaria, usuario).ToArray();
         }
 
         return a;
     }
 
     [WebMethod]
-    public DDJJ104_2001 GenerarDDJJ104(int id_area, int mes, int anio, Usuario usuario)
+    public DDJJ104_2001 GenerarDDJJ104(int id_area, int mes, int anio, Persona[] lista_persona, int estado_guardado, int complementaria, Usuario usuario)
     {
         //RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
         //return ddjj.GenerarDDJJ104(usuario, area, mes, anio);
 
-        var UnArea = GetAreasParaDDJJ104(mes, anio, id_area, usuario);
+        var UnArea = GetAreasParaDDJJ104(mes, anio, id_area, complementaria, usuario);
 
         RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
 
         DDJJ104_2001 cabe = new DDJJ104_2001();
-        cabe = ddjj.GenerarDDJJ104(usuario, UnArea[0], mes, anio);
+        cabe = ddjj.GenerarDDJJ104(usuario, UnArea[0], mes, anio, lista_persona, estado_guardado, complementaria);
 
 
         return cabe;
@@ -209,6 +347,17 @@ public class WSViaticos : System.Web.Services.WebService
         return new RepositorioDeParametrosGenerales(Conexion()).GetLeyendaAnio(anio);
     }
 
+    [WebMethod]
+    public string GetAnioDeContrato(Usuario usuario)
+    {
+        return new RepositorioDeParametrosGenerales(Conexion()).GetAnioDeContrato();
+    }
+
+    [WebMethod]
+    public DateTime[] GetFeriados()
+    {
+        return new RepositorioDeParametrosGenerales(Conexion()).GetFeriados().ToArray();
+    }
 
     //CONSULTA INDIVIDUAL
     [WebMethod]
@@ -311,6 +460,22 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
 
+
+
+    [WebMethod]
+    public DDJJ104_Consulta[] GetPersonasSinCertificar(int mes, int anio)
+    {
+        var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas(), Autorizador());
+        var a = new DDJJ104_Consulta[1];
+
+        a = responsableDDJJ.GetPersonasSinCertificar(mes, anio).ToArray();
+
+        return a;
+    }
+
+
+
+
     //FIN: DDJJ 104 ---------------
 
     [WebMethod]
@@ -373,8 +538,8 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public GraficoSueldo GetReporteSueldos(string criterio, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 31)) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 39)) throw (new Exception("El usuario no tiene permisos para acceder al reporte de sueldos"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "reportes_ingreso")) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "reportes_sueldo")) throw (new Exception("El usuario no tiene permisos para acceder al reporte de sueldos"));
         var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
         string tipo = ((JValue)criterio_deserializado["tipo"]).ToString();
         int dia = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(0, 2)));
@@ -390,8 +555,8 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public GraficoDotacion GetGrafico(string criterio, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 31)) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 38)) throw (new Exception("El usuario no tiene permisos para acceder al reporte de dotacion"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "reportes_ingreso")) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "reportes_dotacion")) throw (new Exception("El usuario no tiene permisos para acceder al reporte de dotacion"));
         var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
         string tipo = ((JValue)criterio_deserializado["tipo"]).ToString();
         int dia = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(0, 2)));
@@ -408,7 +573,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public GraficoRangoEtario GetGraficoRangoEtario(string criterio, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 31)) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "reportes_ingreso")) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
         var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
         string tipo = ((JValue)criterio_deserializado["tipo"]).ToString();
         int dia = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(0, 2)));
@@ -425,7 +590,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string AgregarRenovacionContrato(string criterio, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 43)) throw (new Exception("El usuario no tiene permisos para el modulo de contratos"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "ingreso_seleccion_contrato")) throw (new Exception("El usuario no tiene permisos para el modulo de contratos"));
         var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
         int id_area = (int)((JValue)criterio_deserializado["id_area"]);
         string documento = ((JValue)criterio_deserializado["documento"]).ToString();
@@ -440,7 +605,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string GenerarInformeContrato(string criterio, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 43)) throw (new Exception("El usuario no tiene permisos para el modulo de contratos"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "ingreso_seleccion_contrato")) throw (new Exception("El usuario no tiene permisos para el modulo de contratos"));
         var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
 
         bool incluir_dependencias = (bool)((JValue)criterio_deserializado["incluir_dependencias"]);
@@ -454,7 +619,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string GetInformesGeneradosPorArea(string criterio, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 43)) throw (new Exception("El usuario no tiene permisos para el modulo de contratos"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "ingreso_seleccion_contrato")) throw (new Exception("El usuario no tiene permisos para el modulo de contratos"));
         var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
 
         bool incluir_dependencias = (bool)((JValue)criterio_deserializado["incluir_dependencias"]);
@@ -468,7 +633,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public GraficoContratos GetGraficoContratados(string criterio, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 43)) throw (new Exception("El usuario no tiene permisos para el modulo de contratos"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "ingreso_seleccion_contrato")) throw (new Exception("El usuario no tiene permisos para el modulo de contratos"));
         var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
         string tipo = ((JValue)criterio_deserializado["tipo"]).ToString();
 
@@ -484,7 +649,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public GraficoBienes GetGraficoBienes(string criterio, Usuario usuario)
     {
-        //if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 43)) throw (new Exception("El usuario no tiene permisos para el modulo de contratos"));
+        //if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "ingreso_seleccion_contrato")) throw (new Exception("El usuario no tiene permisos para el modulo de contratos"));
         var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
         string tipo = ((JValue)criterio_deserializado["tipo"]).ToString();
 
@@ -502,7 +667,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string ExcelGeneradoContratos(string criterio, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 43)) throw (new Exception("El usuario no tiene permisos para el modulo de contratos"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "ingreso_seleccion_contrato")) throw (new Exception("El usuario no tiene permisos para el modulo de contratos"));
 
 
         try
@@ -537,7 +702,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string ExcelGeneradoRangoEtario(string criterio, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 31)) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "reportes_ingreso")) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
         try
         {
             var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
@@ -572,7 +737,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string ExcelGeneradoSueldos(string criterio, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 31)) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "reportes_ingreso")) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
         try
         {
             var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
@@ -604,7 +769,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string ExcelGenerado(string criterio, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 31)) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "reportes_ingreso")) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
         try
         {
             var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
@@ -641,7 +806,7 @@ public class WSViaticos : System.Web.Services.WebService
         int id_area = (int)((JValue)criterio_deserializado["id_area"]);
 
 
-        AreaParaDDJJ104[] areas = GetAreasParaDDJJ104(mes, anio, id_area, usuario);
+        AreaParaDDJJ104[] areas = GetAreasParaDDJJ104(mes, anio, id_area, 0, usuario); //COMPLEMENTARIA=0, No filtra por Area.
 
         try
         {
@@ -840,6 +1005,23 @@ public class WSViaticos : System.Web.Services.WebService
         SaldoLicencia saldo = servicioLicencias.GetSaldoLicencia(unaPersona, concepto_subclasificado, fecha_de_consulta, RepositorioDePersonas());
 
         return saldo;
+    }
+
+    [WebMethod]
+    public int GetSegmentosUtilizados(Persona unaPersona, DateTime desde)
+    {
+
+        int anio = desde.Year;
+        if (desde.Month == 12)
+        {
+            anio = anio + 1; //Porque cambia el período de licencias desde el 1ero de diciembre
+        }
+
+        ServicioDeLicencias servicioLicencias = new ServicioDeLicencias(RepoLicencias());
+
+        return servicioLicencias.GetSegmentosUtilizados(unaPersona.Documento, anio);
+
+
     }
 
     [WebMethod]
@@ -2569,63 +2751,63 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public RespuestaABusquedaDeLegajos BuscarLegajosParaDigitalizacion(string criterio, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 2)) throw (new Exception("El usuario no tiene permisos para MODI"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "ingreso_a_modi")) throw (new Exception("El usuario no tiene permisos para MODI"));
         return servicioDeDigitalizacionDeLegajos().BuscarLegajos(criterio);
     }
 
     [WebMethod]
     public ImagenModi GetImagenPorId(int id_imagen, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 2)) throw (new Exception("El usuario no tiene permisos para MODI"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "ingreso_a_modi")) throw (new Exception("El usuario no tiene permisos para MODI"));
         return servicioDeDigitalizacionDeLegajos().GetImagenPorId(id_imagen);
     }
 
     [WebMethod]
     public int AgregarImagenSinAsignarAUnLegajo(int id_interna, string nombre_imagen, string bytes_imagen, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 2)) throw (new Exception("El usuario no tiene permisos para MODI"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "ingreso_a_modi")) throw (new Exception("El usuario no tiene permisos para MODI"));
         return servicioDeDigitalizacionDeLegajos().AgregarImagenSinAsignarAUnLegajo(id_interna, nombre_imagen, bytes_imagen);
     }
 
     [WebMethod]
     public int AgregarImagenAUnFolioDeUnLegajo(int id_interna, int numero_folio, string nombre_imagen, string bytes_imagen, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 2)) throw (new Exception("El usuario no tiene permisos para MODI"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "ingreso_a_modi")) throw (new Exception("El usuario no tiene permisos para MODI"));
         return servicioDeDigitalizacionDeLegajos().AgregarImagenAUnFolioDeUnLegajo(id_interna, numero_folio, nombre_imagen, bytes_imagen);
     }
 
     [WebMethod]
     public ImagenModi GetThumbnailPorId(int id_imagen, int alto, int ancho, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 2)) throw (new Exception("El usuario no tiene permisos para MODI"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "ingreso_a_modi")) throw (new Exception("El usuario no tiene permisos para MODI"));
         return servicioDeDigitalizacionDeLegajos().GetThumbnailPorId(id_imagen, alto, ancho);
     }
 
     [WebMethod]
     public int AsignarImagenAFolioDeLegajo(int id_imagen, int nro_folio, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 2)) throw (new Exception("El usuario no tiene permisos para MODI"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "ingreso_a_modi")) throw (new Exception("El usuario no tiene permisos para MODI"));
         return servicioDeDigitalizacionDeLegajos().AsignarImagenAFolioDeLegajo(id_imagen, nro_folio, usuario);
     }
 
     [WebMethod]
     public void AsignarImagenAFolioDeLegajoPasandoPagina(int id_imagen, int nro_folio, int pagina, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 2)) throw (new Exception("El usuario no tiene permisos para MODI"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "ingreso_a_modi")) throw (new Exception("El usuario no tiene permisos para MODI"));
         servicioDeDigitalizacionDeLegajos().AsignarImagenAFolioDeLegajoPasandoPagina(id_imagen, nro_folio, pagina, usuario);
     }
 
     [WebMethod]
     public void AsignarCategoriaADocumento(int id_categoria, string tabla, int id_documento, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 2)) throw (new Exception("El usuario no tiene permisos para MODI"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "ingreso_a_modi")) throw (new Exception("El usuario no tiene permisos para MODI"));
         servicioDeDigitalizacionDeLegajos().AsignarCategoriaADocumento(id_categoria, tabla, id_documento, usuario);
     }
 
     [WebMethod]
     public void DesAsignarImagen(int id_imagen, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 2)) throw (new Exception("El usuario no tiene permisos para MODI"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "ingreso_a_modi")) throw (new Exception("El usuario no tiene permisos para MODI"));
         servicioDeDigitalizacionDeLegajos().DesAsignarImagen(id_imagen, usuario);
     }
 
@@ -2875,31 +3057,53 @@ public class WSViaticos : System.Web.Services.WebService
         return RepositorioDeUsuarios().SolicitarCambioImagen(usuario.Id, id_imagen);
     }
 
+
+    [WebMethod]
+    public bool SolicitarCambioDeImagenPara(int id_usuario, int id_imagen, Usuario usuario)
+    {
+        return RepositorioDeUsuarios().CambiarImagenPerfil(id_usuario, id_imagen, usuario.Id);
+    }
+
+
     [WebMethod]
     public bool AceptarCambioDeImagen(int id_usuario, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 50)) throw (new Exception("El usuario no tiene permisos para administrar cambios de imagen"));
-        return RepositorioDeUsuarios().AceptarCambioDeImagen(id_usuario);
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "mau_administrar_cambios_de_imagen")) throw (new Exception("El usuario no tiene permisos para administrar cambios de imagen"));
+        return RepositorioDeUsuarios().AceptarCambioDeImagen(id_usuario, usuario.Id);
+    }
+
+    [WebMethod]
+    public bool AceptarCambioImagenConImagenRecortada(int id_usuario, int id_imagen_recortada, Usuario usuario)
+    {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "mau_administrar_cambios_de_imagen")) throw (new Exception("El usuario no tiene permisos para administrar cambios de imagen"));
+        return RepositorioDeUsuarios().AceptarCambioImagenConImagenRecortada(id_imagen_recortada, id_usuario, usuario.Id);
     }
 
     [WebMethod]
     public bool RechazarCambioDeImagen(int id_usuario, string razon_de_rechazo, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 50)) throw (new Exception("El usuario no tiene permisos para administrar cambios de imagen"));
-        return RepositorioDeUsuarios().RechazarCambioDeImagen(id_usuario, razon_de_rechazo);
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "mau_administrar_cambios_de_imagen")) throw (new Exception("El usuario no tiene permisos para administrar cambios de imagen"));
+        return RepositorioDeUsuarios().RechazarCambioDeImagen(razon_de_rechazo, id_usuario, usuario.Id);
+    }
+
+    [WebMethod]
+    public SolicitudDeCambioDeImagen GetCambioImagenPorIdTicket(int id_ticket, Usuario usuario)
+    {
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "mau_administrar_cambios_de_imagen")) throw (new Exception("El usuario no tiene permisos para administrar cambios de imagen"));
+        return RepositorioDeUsuarios().GetCambioImagenPorIdTicket(id_ticket);
     }
 
     [WebMethod]
     public SolicitudDeCambioDeImagen[] GetSolicitudesDeCambioDeImagenPendientesPara(int id_usuario, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 50)) throw (new Exception("El usuario no tiene permisos para administrar cambios de imagen"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "mau_administrar_cambios_de_imagen")) throw (new Exception("El usuario no tiene permisos para administrar cambios de imagen"));
         return RepositorioDeUsuarios().GetSolicitudesDeCambioDeImagenPendientesPara(id_usuario).ToArray();
     }
 
     [WebMethod]
     public SolicitudDeCambioDeImagen[] GetSolicitudesDeCambioDeImagenPendientes(Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 50)) throw (new Exception("El usuario no tiene permisos para administrar cambios de imagen"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "mau_administrar_cambios_de_imagen")) throw (new Exception("El usuario no tiene permisos para administrar cambios de imagen"));
         return RepositorioDeUsuarios().GetSolicitudesDeCambioDeImagenPendientes().ToArray();
     }
 
@@ -2917,7 +3121,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string CambiarPassword( string PasswordActual, string PasswordNuevo, Usuario usuario)
+    public string CambiarPassword(string PasswordActual, string PasswordNuevo, Usuario usuario)
     {
         var repoUsuarios = RepositorioDeUsuarios();
 
@@ -2941,14 +3145,14 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string ResetearPassword(int id_usuario, Usuario usuario)
     {
-        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 25)) return RepositorioDeUsuarios().ResetearPassword(id_usuario);
+        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "mau_resetear_contraseña")) return RepositorioDeUsuarios().ResetearPassword(id_usuario);
         else throw new Exception("El usuario no tiene permisos para resetear contraseñas");
     }
 
     [WebMethod]
     public bool ModificarMailRegistro(int id_usuario, string mail, Usuario usuario)
     {
-        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 45)) return RepositorioDeUsuarios().ModificarMailRegistro(id_usuario, mail);
+        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "mau_modificar_mail")) return RepositorioDeUsuarios().ModificarMailRegistro(id_usuario, mail);
         else throw new Exception("El usuario no tiene permisos para modificar mails");
     }
 
@@ -2979,7 +3183,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public Usuario CrearUsuarioPara(int id_persona, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 26)) throw (new Exception("El usuario no tiene permisos para crear usuarios"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "mau_crear_usuario")) throw (new Exception("El usuario no tiene permisos para crear usuarios"));
         return RepositorioDeUsuarios().CrearUsuarioPara(id_persona);
     }
 
@@ -3010,23 +3214,42 @@ public class WSViaticos : System.Web.Services.WebService
 
 
     [WebMethod]
-    public bool ElUsuarioTienePermisosPara(int id_usuario, int id_funcionalidad)
+    public bool ElUsuarioTienePermisosParaFuncionalidadPorId(int id_usuario, int id_funcionalidad)
     {
         return Autorizador().ElUsuarioTienePermisosPara(id_usuario, id_funcionalidad);
-
     }
 
     [WebMethod]
-    public bool ElUsuarioLogueadoTienePermisosPara(int id_funcionalidad, Usuario usuario)
+    public bool ElUsuarioTienePermisosParaFuncionalidadPorNombre(int id_usuario, string nombre_funcionalidad)
+    {
+        return Autorizador().ElUsuarioTienePermisosPara(id_usuario, nombre_funcionalidad);
+    }
+
+    [WebMethod]
+    public bool ElUsuarioLogueadoTienePermisosParaFuncionalidadPorNombre(string nombre_funcionalidad, Usuario usuario)
+    {
+        return Autorizador().ElUsuarioTienePermisosPara(usuario.Id, nombre_funcionalidad);
+    }
+
+    [WebMethod]
+    public bool ElUsuarioLogueadoTienePermisosParaFuncionalidadPorId(int id_funcionalidad, Usuario usuario)
     {
         return Autorizador().ElUsuarioTienePermisosPara(usuario.Id, id_funcionalidad);
-
     }
 
     [WebMethod]
     public Funcionalidad[] FuncionalidadesPara(int id_usuario)
     {
-        var funcionalidades = RepositorioDeFuncionalidadesDeUsuarios().FuncionalidadesPara(id_usuario).ToArray();
+        var usuario = RepositorioDeUsuarios().GetUsuarioPorId(id_usuario);
+        var funcionalidades = RepositorioDeFuncionalidadesDeUsuarios().FuncionalidadesPara(usuario).ToArray();
+        return funcionalidades;
+    }
+
+    [WebMethod]
+    public Funcionalidad[] FuncionalidadesOtorgadasA(int id_usuario)   //tira las funcionalidades tildadas en MAU, independientemente de otras verificaciones
+    {
+        var usuario = RepositorioDeUsuarios().GetUsuarioPorId(id_usuario);
+        var funcionalidades = RepositorioDeFuncionalidadesDeUsuarios().FuncionalidadesOtorgadasA(usuario).ToArray();
         return funcionalidades;
     }
 
@@ -3105,14 +3328,14 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public void AsignarAreaAUnUsuario(int id_usuario, int id_area, Usuario usuario)
     {
-        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 24)) Autorizador().AsignarAreaAUnUsuario(id_usuario, id_area);
+        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "mau_cambiar_permisos")) Autorizador().AsignarAreaAUnUsuario(id_usuario, id_area, usuario.Id);
         else throw new Exception("No está habilitado para modificar permisos");
     }
 
     [WebMethod]
     public void DesAsignarAreaAUnUsuario(int id_usuario, int id_area, Usuario usuario)
     {
-        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 24)) Autorizador().DesAsignarAreaAUnUsuario(id_usuario, id_area);
+        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "mau_cambiar_permisos")) Autorizador().DesAsignarAreaAUnUsuario(id_usuario, id_area, usuario.Id);
         else throw new Exception("No está habilitado para modificar permisos");
     }
 
@@ -3125,14 +3348,14 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public void ConcederFuncionalidadA(int id_usuario, int id_funcionalidad, Usuario usuario)
     {
-        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 24)) Autorizador().ConcederFuncionalidadA(id_usuario, id_funcionalidad);
+        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "mau_cambiar_permisos")) Autorizador().ConcederFuncionalidadA(id_usuario, id_funcionalidad, usuario.Id);
         else throw new Exception("No está habilitado para modificar permisos");
     }
 
     [WebMethod]
     public void DenegarFuncionalidadA(int id_usuario, int id_funcionalidad, Usuario usuario)
     {
-        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 24)) Autorizador().DenegarFuncionalidadA(id_usuario, id_funcionalidad);
+        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 24)) Autorizador().DenegarFuncionalidadA(id_usuario, id_funcionalidad, usuario.Id);
         else throw new Exception("No está habilitado para modificar permisos");
     }
 
@@ -3144,6 +3367,243 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     #endregion
+
+    #region Credenciales
+
+    [WebMethod]
+    public string GetPDFDDJJRecepcionCredencial(SolicitudCredencial solicitud)
+    {
+        var solicitante = RepositorioDePersonas().GetPersonaPorId(solicitud.IdPersona);
+
+        var foto = this.GetThumbnail(solicitante.IdImagen, 100, 100);
+        while (foto.reintentar)
+        {
+            foto = this.GetThumbnail(solicitante.IdImagen, 100, 100);
+        }
+        Dictionary<string, string> mapa_para_pdf = new Dictionary<string, string>();
+        //mapa_para_pdf.Add("CodigoBarras1", usuario.Owner.Documento.ToString());
+        mapa_para_pdf.Add("APELLIDONombre1", solicitante.Apellido + ", " + solicitante.Nombre);
+        mapa_para_pdf.Add("APELLIDONombreDNI1", solicitante.Apellido + ", " + solicitante.Nombre + " (" + solicitante.Documento.ToString("#,##0") + ")");
+        mapa_para_pdf.Add("TipoNroDNI1", solicitante.Documento.ToString("#,##0"));
+        mapa_para_pdf.Add("Fecha1", DateTime.Now.ToShortDateString());
+
+        mapa_para_pdf.Add("APELLIDONombreDNI2", solicitante.Apellido + ", " + solicitante.Nombre + " (" + solicitante.Documento.ToString("#,##0") + ")");
+        mapa_para_pdf.Add("Fecha2", DateTime.Now.ToShortDateString());
+
+        var creador_pdf = new CreadorDePdfs();
+
+        byte[] bytes;
+        //if (solicitud.Organismo == "Ministerio de Desarrollo Social")
+        bytes = creador_pdf.FillPDF(TemplatePath("DDJJ_entrega_credencial_2018_MDS.pdf"), "DDJJEntregaCredencial", mapa_para_pdf);
+        //else
+        //    bytes = creador_pdf.FillPDF(TemplatePath("DDJJ_entrega_credencial_2018_MSAL.pdf"), "DDJJEntregaCredencial", mapa_para_pdf);
+
+        Document doc = new Document();
+        byte[] result;
+
+        using (MemoryStream ms = new MemoryStream())
+        {
+            PdfWriter writer = PdfWriter.GetInstance(doc, ms);
+
+            doc.SetPageSize(PageSize.LETTER);
+            doc.Open();
+            PdfContentByte cb = writer.DirectContent;
+            PdfImportedPage page;
+
+
+
+            PdfReader reader;
+            reader = new PdfReader(bytes);
+            int pages = reader.NumberOfPages;
+            // loop over document pages
+
+            doc.SetPageSize(PageSize.A4);
+            doc.NewPage();
+            page = writer.GetImportedPage(reader, 1);
+            cb.AddTemplate(page, 0, 0);
+
+            Barcode39 bc39 = new Barcode39();
+            bc39.Code = solicitante.Documento.ToString() + " " + DateTime.Now.ToShortDateString();
+            bc39.Font = null;
+            Image image = bc39.CreateImageWithBarcode(cb, null, null);
+
+            image.SetAbsolutePosition(270, 750);
+            image.ScaleAbsolute(250, 50);
+            doc.Add(image);
+
+            Byte[] bytes_foto = Convert.FromBase64String(foto.bytes);
+            var foto_usuario = iTextSharp.text.Image.GetInstance(bytes_foto);
+
+            foto_usuario.SetAbsolutePosition(480, 640);
+            foto_usuario.ScaleAbsolute(100, 100);
+            doc.Add(foto_usuario);
+
+            doc.SetPageSize(PageSize.A4);
+            doc.NewPage();
+            page = writer.GetImportedPage(reader, 2);
+            cb.AddTemplate(page, 0, 0);
+
+            doc.Close();
+            result = ms.ToArray();
+        }
+
+        return Convert.ToBase64String(result);
+    }
+
+
+
+    [WebMethod]
+    public Credencial[] GetCredencialesTodasDePortal(Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+
+        return repositorio.GetCredencialesTodasDePortal(usuario.Owner.Id).ToArray();
+    }
+
+    [WebMethod]
+    public Credencial[] GetCredencialesDeUnaPersona(int id_persona, Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+
+        return repositorio.GetCredencialesTodasDePortal(id_persona).ToArray();
+    }
+
+
+    [WebMethod]
+    public SolicitudCredencial[] GetSolicitudesDeCredencialPorPersona(Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+
+        return repositorio.GetSolicitudesDeCredencialPorPersona(usuario.Owner.Id).ToArray();
+    }
+
+
+    [WebMethod]
+    public LugarEntrega[] GetLugaresEntregaCredencial(Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+
+        return repositorio.GetLugaresEntregaCredencial().ToArray();
+    }
+
+    [WebMethod]
+    public TipoCredencial[] GetTiposDeCredencial(Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+
+        return repositorio.GetTiposDeCredencial().ToArray();
+    }
+
+    [WebMethod]
+    public VinculoCredencial[] GetVinculosCredenciales(Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+
+        return repositorio.GetVinculosCredenciales().ToArray();
+    }
+
+    [WebMethod]
+    public Persona[] GetAutorizantesCredenciales(Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+
+        return repositorio.GetAutorizantesCredenciales().ToArray();
+    }
+
+    [WebMethod]
+    public string PuedePedirCredencial(Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+
+
+        return repositorio.PuedePedirCredencial(usuario);
+    }
+
+
+    [WebMethod]
+    public string SolicitarRenovacionCredencial(Usuario usuario_solicitante, string motivo, string organismo, int id_lugar_entrega, bool personal_externo, Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+
+
+        return repositorio.SolicitarRenovacionCredencial(usuario_solicitante, motivo, organismo, id_lugar_entrega, personal_externo);
+    }
+
+    [WebMethod]
+    public string SolicitarCredencialExterna(int dni, string apellido, string nombres, string email, DateTime fecha_nacimiento, string telefono, int id_foto, int id_tipo_credencial, int id_autorizante, int id_vinculo, int id_lugar_de_entrega, Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+
+
+        return ""; // repositorio.SolicitarCredencialExterna(Autorizador(), RepositorioDeUsuarios(), dni, apellido, nombres, email, fecha_nacimiento, telefono, id_foto, id_tipo_credencial, id_autorizante, id_vinculo, id_lugar_de_entrega);
+    }
+
+    [WebMethod]
+    public SolicitudCredencial GetSolicitudDeCredencialPorIdTicketAprobacion(int id_ticket, Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+        return repositorio.GetSolicitudDeCredencialPorIdTicketAprobacion(id_ticket);
+    }
+
+    [WebMethod]
+    public SolicitudCredencial GetSolicitudDeCredencialPorIdTicketImpresion(int id_ticket, Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+        return repositorio.GetSolicitudDeCredencialPorIdTicketImpresion(id_ticket);
+    }
+
+    [WebMethod]
+    public SolicitudCredencial GetSolicitudDeCredencialPorIdTicketEntrega(int id_ticket, Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+        return repositorio.GetSolicitudDeCredencialPorIdTicketEntrega(id_ticket);
+    }
+
+
+    [WebMethod]
+    public bool AprobarSolicitudCredencial(SolicitudCredencial solicitud, Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+        return repositorio.AprobarSolicitudCredencial(solicitud, usuario);
+    }
+
+    [WebMethod]
+    public bool RechazarSolicitudCredencial(SolicitudCredencial solicitud, string motivo, Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+        return repositorio.RechazarSolicitudCredencial(solicitud, motivo, usuario);
+    }
+
+    [WebMethod]
+    public bool MarcarCredencialComoImpresa(int idCredencial, Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+        return repositorio.MarcarCredencialComoImpresa(idCredencial, usuario);
+    }
+
+    [WebMethod]
+    public bool AsociarCodigoMagneticoACredencial(int idCredencial, string codigo_magnetico, Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+        return repositorio.AsociarCodigoMagneticoACredencial(idCredencial, codigo_magnetico, usuario);
+    }
+
+    [WebMethod]
+    public bool CerrarTicketImpresion(SolicitudCredencial solicitud, string instrucciones_de_retiro, Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+        return repositorio.CerrarTicketImpresion(solicitud, instrucciones_de_retiro, usuario);
+    }
+
+    [WebMethod]
+    public bool CerrarTicketEntrega(SolicitudCredencial solicitud, Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+        return repositorio.CerrarTicketEntrega(solicitud, usuario);
+    }
+
+    #endregion
+
 
     [WebMethod]
     public bool RefrescarCacheMAU(Usuario usuario)
@@ -3164,7 +3624,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public EvaluacionDto[] GuardarEvaluaciones(EvaluacionDto[] evaluaciones_nuevas_dto, EvaluacionDto[] evaluaciones_originales_dto, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 8)) throw (new Exception("El usuario no tiene permisos para administrar macc"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "administracion_macc")) throw (new Exception("El usuario no tiene permisos para administrar macc"));
         var evaluaciones_no_procesadas = new List<EvaluacionDto>();
         var repo_alumnos = RepoAlumnos();
         var repo_cursos = RepositorioDeCursos();
@@ -3435,7 +3895,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public ObservacionDTO[] GuardarObservaciones(ObservacionDTO[] observaciones_nuevas_dto, ObservacionDTO[] observaciones_originales_dto, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 8)) throw (new Exception("El usuario no tiene permisos para administrar macc"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "administracion_macc")) throw (new Exception("El usuario no tiene permisos para administrar macc"));
         var observaciones_no_procesadas = new List<ObservacionDTO>();
         var repo_cursos = RepositorioDeCursos();
 
@@ -3511,13 +3971,13 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public bool RegistrarNuevoUsuario(AspiranteAUsuario aspirante)
     {
-        return Autorizador().RegistrarNuevoUsuario(aspirante);
+        return Autorizador().RegistrarNuevoUsuario(aspirante, 0);
     }
 
     [WebMethod]
     public bool VerificarUsuario(int id_usuario, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 21)) throw (new Exception("El usuario no tiene permisos para verificar usuario"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "mau_verificar_usuarios")) throw (new Exception("El usuario no tiene permisos para verificar usuario"));
         return Autorizador().VerificarUsuario(id_usuario, usuario);
     }
 
@@ -3554,16 +4014,31 @@ public class WSViaticos : System.Web.Services.WebService
     public Postulacion PostularseA(Postulacion postulacion, Usuario usuario)
     {
         // var postulaciones = new Postulacion();
+        //throw new Exception("a");
         return RepoPostulaciones().PostularseA(postulacion, usuario);
     }
 
     [WebMethod]
     public string GuardarPostulacionManual(string postulacion, string datosPersonales, string folio, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 20)) throw (new Exception("El usuario no tiene permisos inscripcion manual"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "postular_inscripcion_manual")) throw (new Exception("El usuario no tiene permisos inscripcion manual"));
 
         // var postulaciones = new Postulacion();
         return RepoPostulaciones().InscripcionManual(postulacion, datosPersonales, folio, usuario);
+    }
+
+    [WebMethod]
+    public string TraerReporteDePostulaciones(int idEtapa, Usuario usuario)
+    {
+        return JsonConvert.SerializeObject(RepoPostulaciones().traerReportesDePostulaciones(idEtapa)).ToString();
+    }
+
+
+    [WebMethod]
+    public bool ActualizarInformesGDEDeUnaPostulacion(string numeroPostulacion, string setDeInformes, Usuario usuario)
+    {
+        var informesArray = (JArray)JsonConvert.DeserializeObject(setDeInformes);
+        return RepoPostulaciones().ActualizarInformesGDE(numeroPostulacion, informesArray, usuario.Owner.Id);
     }
 
 
@@ -3719,7 +4194,7 @@ public class WSViaticos : System.Web.Services.WebService
         var obj = new CVCaracterDeParticipacionEvento();
         obj.Descripcion = descripcion;
         obj.SoloVisiblePara = usuario.Id;
-        return RepositorioDeCaracterDeEventoAcademico.Nuevo(Conexion()).Guardar(obj);
+        return RepositorioDeCaracterDeEventoAcademico.Nuevo(Conexion()).Guardar(obj, usuario.Id);
     }
 
     [WebMethod]
@@ -3734,7 +4209,7 @@ public class WSViaticos : System.Web.Services.WebService
         var obj = new CVInstitucionesEventos();
         obj.Descripcion = descripcion;
         obj.SoloVisiblePara = usuario.Id;
-        return RepositorioDeInstitucionesEventosAcademicos.Nuevo(Conexion()).Guardar(obj);
+        return RepositorioDeInstitucionesEventosAcademicos.Nuevo(Conexion()).Guardar(obj, usuario.Id);
     }
 
     [WebMethod]
@@ -3749,7 +4224,7 @@ public class WSViaticos : System.Web.Services.WebService
         var obj = new CVTitulosAntecedentesAcademicos();
         obj.Descripcion = descripcion;
         obj.SoloVisiblePara = usuario.Id;
-        return RepositorioDeTitulosAntecedentesAcademicos.Nuevo(Conexion()).Guardar(obj);
+        return RepositorioDeTitulosAntecedentesAcademicos.Nuevo(Conexion()).Guardar(obj, usuario.Id);
     }
 
     #endregion
@@ -3943,7 +4418,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public void GuardarFolios(string nro_inscripcion, int nro_ficha_inscripcion, int nro_foto, int nro_foto_dni, int nro_foto_titulo, int nro_cv, int nro_doc_respaldo, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 15)) throw (new Exception("El usuario no tiene permisos pre inscripcion documental"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "etapa_admision")) throw (new Exception("El usuario no tiene permisos pre inscripcion documental"));
 
         RepoPostulaciones().GuardarFolios(nro_inscripcion, DateTime.Today, nro_ficha_inscripcion, nro_foto, nro_foto_dni, nro_foto_titulo, nro_cv, nro_doc_respaldo, usuario.Id);
     }
@@ -3958,7 +4433,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public void GuardarCambiosEnAdmitidos(List<Postulacion> postulaciones, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 17)) throw (new Exception("El usuario no tiene permisos para admision"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "etapa_admision")) throw (new Exception("El usuario no tiene permisos para admision"));
 
         RepoPostulaciones().GuardarCambiosEnAdmitidos(postulaciones, usuario.Id);
     }
@@ -4120,7 +4595,7 @@ public class WSViaticos : System.Web.Services.WebService
         obj.Descripcion = descripcion;
         obj.SoloVisiblePara = usuario.Id;
         obj.Tipo = tipo;
-        return RepositorioDeConocimientosCompetenciasInformaticas.Nuevo(Conexion()).Guardar(obj);
+        return RepositorioDeConocimientosCompetenciasInformaticas.Nuevo(Conexion()).Guardar(obj, usuario.Id);
     }
 
     [WebMethod]
@@ -4197,21 +4672,21 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public Formulario GetFormulario(string criterio, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 27)) throw (new Exception("El usuario no tiene permisos para formularios"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "formularios_ingreso")) throw (new Exception("El usuario no tiene permisos para formularios"));
         return new RepositorioDeFormularios(Conexion()).GetFormulario(criterio, usuario);
     }
 
     [WebMethod]
     public void GuardarCambiosEnFormulario(Formulario form, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 27)) throw (new Exception("El usuario no tiene permisos para formularios"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "formularios_ingreso")) throw (new Exception("El usuario no tiene permisos para formularios"));
         new RepositorioDeFormularios(Conexion()).GuardarDatos(form, usuario);
     }
 
     [WebMethod]
     public void GuardarCabeceraFormulario(Formulario form, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 27)) throw (new Exception("El usuario no tiene permisos para formularios"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "formularios_ingreso")) throw (new Exception("El usuario no tiene permisos para formularios"));
         //el true es para poner en impreso
         new RepositorioDeFormularios(Conexion()).GuardarVersion(form, usuario, true);
     }
@@ -4219,7 +4694,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public int GetIdCabeceraFormulario(Formulario form, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 27)) throw (new Exception("El usuario no tiene permisos para formularios"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "formularios_ingreso")) throw (new Exception("El usuario no tiene permisos para formularios"));
         //el true es para poner en impreso
         return new RepositorioDeFormularios(Conexion()).GetUltimaCabeceraFormulario(form, usuario);
     }
@@ -4233,7 +4708,7 @@ public class WSViaticos : System.Web.Services.WebService
         return RepositorioDePersonas().GetConsultaRapida(documento);
 
     }
-    
+
 
     [WebMethod]
     public string GetCarreraAdministrativa(int documento, Usuario usuario)
@@ -4247,17 +4722,16 @@ public class WSViaticos : System.Web.Services.WebService
 
     #region mobi
 
-
     [WebMethod]
-    public Tarjeton NuevoTarjeton(int id_Bien, Usuario usuario)
+    public Tarjeton NuevoTarjeton(int id_Bien, string codigo_Holograma, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 33)) throw (new Exception("El usuario no tiene permisos para el modulo de bienes"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "0.ingreso_a_bienes")) throw (new Exception("El usuario no tiene permisos para el modulo de bienes"));
         var repo = new RepositorioTarjetones(Conexion());
         return new Tarjeton();//repo.NuevoTarjeton(id_Bien);
     }
 
     [WebMethod]
-    public RespuestaVehiculo ObtenerVehiculoPorIDVerificacion(string id_verificacion)
+    public RespuestaVehiculo ObtenerVehiculoPorCodigoWeb(string id_verificacion)
     {
         var repo = new RepositorioDeVehiculos(Conexion());
         var una_respuesta = new RespuestaVehiculo();
@@ -4267,7 +4741,7 @@ public class WSViaticos : System.Web.Services.WebService
             una_respuesta.Respuesta = 0;
             return una_respuesta;
         }
-        una_respuesta.vehiculo = repo.ObtenerVehiculoPorIDVerificacion(id_verificacion);
+        una_respuesta.vehiculo = repo.ObtenerVehiculoPorCodigoWeb(id_verificacion);
         if (string.IsNullOrEmpty(una_respuesta.vehiculo.Dominio))
         {
             una_respuesta.Respuesta = 0;
@@ -4328,9 +4802,8 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public MoBi_Bien Mobi_GetImagenesBienPorId(int id_bien)
     {
-        //RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
-        //return rMoBi.GetImagenesBienPorIdGetBienPorId(id_bien);
-        return null;
+        RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
+        return rMoBi.GetImagenesBienPorId(id_bien);
     }
 
     [WebMethod]
@@ -4378,7 +4851,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public bool Mobi_AsignarImagenABien(int id_bien, int id_imagen, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 37)) throw (new Exception("El usuario no tiene permisos editar bienes"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "1.alta_baja_asoc_bien")) throw (new Exception("El usuario no tiene permisos editar bienes"));
         RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
         return rMoBi.AsignarImagenABien(id_bien, id_imagen);
     }
@@ -4386,10 +4859,52 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public bool Mobi_DesAsignarImagenABien(int id_bien, int id_imagen, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 37)) throw (new Exception("El usuario no tiene permisos editar bienes"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "1.alta_baja_asoc_bien")) throw (new Exception("El usuario no tiene permisos editar bienes"));
         RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
         return rMoBi.DesAsignarImagenABien(id_bien, id_imagen);
     }
+
+
+    [WebMethod]
+    public AccionesMobi[] Mobi_GetAcciones(int id_bien, int id_estado, int id_area_seleccionada, int id_area_receptora, int id_area_propietaria)
+    {
+        RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
+        return rMoBi.GetAcciones(id_bien, id_estado, id_area_seleccionada, id_area_receptora, id_area_propietaria);
+    }
+
+
+    [WebMethod]
+    public bool Mobi_Alta_Vehiculo_Evento(int id_bien, int id_tipoevento, string observaciones, int id_receptor_area, int id_receptor_persona, Usuario usuario)
+    {
+        RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
+        return rMoBi.Mobi_Alta_Vehiculo_Evento(id_bien, id_tipoevento, observaciones, usuario.Id, id_receptor_area, id_receptor_persona);
+    }
+
+    [WebMethod]
+    public bool Mobi_Alta_Vehiculo_Evento_Persona(int id_bien, int id_tipoevento, string observaciones, int id_receptor_persona, Usuario usuario)
+    {
+        RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
+        return rMoBi.Mobi_Alta_Vehiculo_Evento_Persona(id_bien, id_tipoevento, observaciones, usuario.Id, id_receptor_persona);
+    }
+
+
+    [WebMethod]
+    public MoBi_Evento[] Mobi_GetMovimientos(int id_bien)
+    {
+        RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
+        return rMoBi.Mobi_GetMovimientos(id_bien);
+    }
+
+
+    [WebMethod]
+    public string ImportarArchivoExcel(string nombreArchivo, string detalleExcel, Usuario usuario)
+    {
+        RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
+        var respuesta = rMoBi.ImportarArchivoExcel(nombreArchivo, detalleExcel, usuario.Id);
+        return respuesta;
+    }
+
+
     #endregion
 
 
@@ -4541,6 +5056,31 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public General.MAU.Ticket[] getTicketsPorFuncionalidad(Usuario usuario)
+    {
+        RepositorioDeTickets repo = new RepositorioDeTickets(Conexion());
+
+        return repo.GetTicketsPorFuncionalidad(usuario.Id).ToArray();
+
+    }
+
+    [WebMethod]
+    public General.MAU.ResumenTipoTicket[] getResumenTicketsPorFuncionalidad(Usuario usuario)
+    {
+        RepositorioDeTickets repo = new RepositorioDeTickets(Conexion());
+
+        return repo.GetResumenTicketsPorFuncionalidad(usuario.Id).ToArray();
+    }
+
+
+    [WebMethod]
+    public string GetDomicilioPendientePorAlerta(int idAlerta, Usuario usuario)
+    {
+        RepositorioLegajo repo = RepoLegajo();
+        return repo.GetDomicilioPendientePorAlerta(idAlerta);
+    }
+
+    [WebMethod]
     public string GetNotificacionesTodasDePortal()
     {
         RepositorioLegajo repo = RepoLegajo();
@@ -4548,6 +5088,34 @@ public class WSViaticos : System.Web.Services.WebService
         return repo.GetNotificacionesTodasDePortal();
 
     }
+
+    [WebMethod]
+    public string GetDomicilioPendiente(Usuario usuario)
+    {
+        RepositorioLegajo repo = RepoLegajo();
+
+        return repo.GetDomicilioPendientePorPersona(usuario.Owner.Id);
+
+    }
+
+    [WebMethod]
+    public bool GuardarDomicilioPendiente(CvDomicilio domicilio, Usuario usuario)
+    {
+        RepositorioLegajo repo = RepoLegajo();
+
+        return repo.GuardarDomicilioPendiente(domicilio, usuario);
+
+    }
+
+    [WebMethod]
+    public string VerificarDomicilioPendiente(int idAlerta, int documento, string folio, int idUsuarioCreador, Usuario usuario)
+    {
+        RepositorioLegajo repo = RepoLegajo();
+
+        return repo.VerificarCambioDomicilio(idAlerta, documento, folio, idUsuarioCreador, usuario.Id);
+
+    }
+
     [WebMethod]
     public string MostrarDestinatariosDeLaNotificacion(int id_notificacion, Usuario usuario)
     {
@@ -4574,7 +5142,7 @@ public class WSViaticos : System.Web.Services.WebService
     {
         RepositorioLegajo repo = RepoLegajo();
 
-        repo.ResponderConsulta(id, respuesta, usuario.Owner.Id);
+        repo.ResponderConsulta(id, respuesta, usuario);
 
     }
 
@@ -4604,22 +5172,27 @@ public class WSViaticos : System.Web.Services.WebService
     {
         return RepoLegajo().GetDetalleDeConsulta(id_consulta);
     }
+    [WebMethod]
+    public Consulta GetConsultaPorIdTicket(int id_ticket)
+    {
+        return RepoLegajo().GetConsultaPorIdTicket(id_ticket);
+    }
 
     [WebMethod]
     public int NuevaConsultaDePortal(int id_tipo_consulta, string motivo, Usuario usuario)
     {
-        return RepoLegajo().NuevaConsultaDePortal(usuario.Owner.Id, id_tipo_consulta, motivo);
+        return RepoLegajo().NuevaConsultaDePortal(usuario, id_tipo_consulta, motivo);
 
     }
     [WebMethod]
     public void RepreguntarConsulta(int id_consulta, string motivo, Usuario usuario)
     {
-        RepoLegajo().RepreguntarConsulta(id_consulta, motivo, usuario.Owner.Id);
+        RepoLegajo().RepreguntarConsulta(id_consulta, motivo, usuario);
     }
     [WebMethod]
     public void CerrarConsulta(int id_consulta, int calificacion, Usuario usuario)
     {
-        RepoLegajo().CerrarConsulta(id_consulta, calificacion, usuario.Owner.Id);
+        RepoLegajo().CerrarConsulta(id_consulta, calificacion, usuario);
     }
 
     [WebMethod]
@@ -4689,7 +5262,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string ExcelMapaDelEstado(Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 46)) throw (new Exception("El usuario no tiene permisos para el modulo de datos abiertos-Mapa del estado"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "mapa_del_estado")) throw (new Exception("El usuario no tiene permisos para el modulo de datos abiertos-Mapa del estado"));
         try
         {
             RepositorioDeDatosAbiertos repositorio = new RepositorioDeDatosAbiertos(Conexion());
@@ -4707,7 +5280,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string ExcelPlanificacionDotaciones(Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 47)) throw (new Exception("El usuario no tiene permisos para el modulo de datos abiertos-Planificación de dotaciones"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "PC_Planificacion_Dotaciones")) throw (new Exception("El usuario no tiene permisos para el modulo de datos abiertos-Planificación de dotaciones"));
         try
         {
             RepositorioDeDatosAbiertos repositorio = new RepositorioDeDatosAbiertos(Conexion());
@@ -4729,19 +5302,53 @@ public class WSViaticos : System.Web.Services.WebService
     #region EvaluacionesDesempenio
 
     [WebMethod]
-    public string GetFormularioDeEvaluacion(int idNivel, int idEvaluacion, int idEvaluado, Usuario usuario)
+    public List<DetallePreguntas> GetFormularioDeEvaluacion(int idNivel, int idEvaluacion, int idEvaluado, Usuario usuario)
+
     {
         RepositorioEvaluacionDesempenio repositorio = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
         return repositorio.getFormularioDeEvaluacion(idNivel, idEvaluado, idEvaluacion);
     }
 
     [WebMethod]
-    public string InsertarEvaluacion(int idEvaluado, int idFormulario, int periodo, int idEval, string pregYRtas, int estado, Usuario usuario)
+    public string InsertarEvaluacion(int idEvaluado, int idFormulario, int periodo, int idEval, string pregYRtas, int estado, string id_doc_electronico, Usuario usuario)
     {
-        RepositorioEvaluacionDesempenio repositorio = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
-        //var preguntasYRespuestas = JsonConvert.DeserializeObject(pregYRtas);
+        try
+        {
+            RepositorioEvaluacionDesempenio repositorio = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+            if (periodo == 0)
+            {
+                PeriodoEvaluacion periodo_actual = repositorio.GetUltimoPeriodoEvaluacion();
+                periodo = periodo_actual.id_periodo;
+            }
+            //var preguntasYRespuestas = JsonConvert.DeserializeObject(pregYRtas);
 
-        var criterio_deserializado = (JArray)JsonConvert.DeserializeObject(pregYRtas);
+            var criterio_deserializado = (JArray)JsonConvert.DeserializeObject(pregYRtas);
+
+            var id_evaluador = repositorio.GetIdEvaluadorDelUsuario(usuario);
+
+
+            //FC:si viene un idEvaluacion entonces llamo a update, si viene 0 llamo a insert
+            if (idEval != 0)
+            {
+                if (estado == 1 && id_doc_electronico == string.Empty)
+                {
+                    GeneradorDeEtiquetas repoTicket = new GeneradorDeEtiquetas(Conexion());
+                    id_doc_electronico = repoTicket.GenerarTicket("EVAL_DES");
+                }
+                repositorio.deleteEvaluacionDetalle(idEval);
+                repositorio.updateEvaluacion(idEval, idEvaluado, id_evaluador, idFormulario, periodo, estado, id_doc_electronico);
+            }
+            else
+            {
+                if (estado == 1)
+                {
+                    GeneradorDeEtiquetas repoTicket = new GeneradorDeEtiquetas(Conexion());
+                    id_doc_electronico = repoTicket.GenerarTicket("EVAL_DES");
+                }
+
+                //FC:Inserto la cabecera de la evaluacion
+                idEval = repositorio.insertarEvaluacion(idEvaluado, id_evaluador, idFormulario, periodo, estado, id_doc_electronico);
+            }
 
         //FC:si viene un idEvaluacion entonces llamo a update, si viene 0 llamo a insert
         if (idEval != 0)
@@ -4757,16 +5364,28 @@ public class WSViaticos : System.Web.Services.WebService
 
         //var item1 = preguntasYRespuestas;
 
+            foreach (var item in criterio_deserializado)
+            {
+                int idPregunta = (int)item.First.First;
+                int idRespuesta = (int)item.Last.Last;
 
-        foreach (var item in criterio_deserializado)
+                repositorio.insertarEvaluacionDetalle(idEval, idPregunta, idRespuesta);
+            }
+
+            return "ok";
+        }
+        catch (Exception e)
         {
-            int idPregunta = (int)item.First.First;
-            int idRespuesta = (int)item.Last.Last;
 
-            repositorio.insertarEvaluacionDetalle(idEval, idPregunta, idRespuesta);
+            var error = "Server error message='" + e.Message + "' stacktrace='" + e.StackTrace.ToString() + "'";
+            if (e.InnerException != null)
+            {
+                error += "innerException message= '" + e.InnerException.Message + "' innerException stacktrace='" + e.InnerException.StackTrace.ToString() + "'";
+            }
+            return error;
+
         }
 
-        return "ok";
     }
 
     #endregion
@@ -4814,6 +5433,11 @@ public class WSViaticos : System.Web.Services.WebService
     private RepositorioLegajo RepoLegajo()
     {
         return General.Repositorios.RepositorioLegajo.NuevoRepositorioDeLegajos(Conexion());
+    }
+
+    private RepositorioRecibosFirmados RepoReciboFirmado()
+    {
+        return General.Repositorios.RepositorioRecibosFirmados.NuevoRepositorioRecibosFirmados(Conexion());
     }
 
     private IRepositorioDeUsuarios RepositorioDeUsuarios()
@@ -4890,6 +5514,15 @@ public class WSViaticos : System.Web.Services.WebService
         return RepositorioDeComites.Nuevo(Conexion());
     }
 
+    private RepositorioDeArchivos RepositorioDeArchivos()
+    {
+        return new RepositorioDeArchivos(Conexion());
+    }
+
+    private RepositorioDeArchivosFirmados RepositorioDeArchivosFirmados()
+    {
+        return new RepositorioDeArchivosFirmados(Conexion());
+    }
 
     /*Excel Consulta Personas DDJJ104*/
     [WebMethod]
@@ -5085,6 +5718,279 @@ public class WSViaticos : System.Web.Services.WebService
         }
 
     }
+
+    [WebMethod]
+    public string EvalVerificarCodigoGDE(int id_evaluacion, string codigo_gde, Usuario usuario)
+    {
+        //var repo = RepositorioEvaluacionDesempenio.NuevoReposi
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        repo.VerificarCodigoGDE(id_evaluacion, usuario);
+
+        return codigo_gde;
+    }
+
+    [WebMethod]
+    public string EvalGuardarCodigoGDE(int id, string codigo_gde)
+    {
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        repo.EvalGuardarCodigoGDE(id, codigo_gde);
+        return codigo_gde;
+    }
+
+    [WebMethod]
+    public string EvalCorregirCodigoGDE(int id, string codigo_gde, Usuario usuario)
+    {
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        repo.EvalGuardarCodigoGDE(id, codigo_gde);
+        repo.VerificarCodigoGDE(id, usuario);
+        return codigo_gde;
+    }
+
+    [WebMethod]
+    public string PrintPdfEvaluacionDesempenio(AsignacionEvaluadoAEvaluador asignacion, Usuario usuario)
+    {
+        var modelo_para_pdf = new List<object>() { asignacion, usuario };
+        var converter = new EvaluacionDeDesempenioToPdfConverter();
+        var mapa_para_pdf = converter.CrearMapa(modelo_para_pdf);
+
+        var creador_pdf = new CreadorDePdfs();
+
+        byte[] bytes = creador_pdf.FillPDF(TemplatePath("Formulario Evaluacion.pdf"), "Evaluacion de Desempeño", mapa_para_pdf);
+        return Convert.ToBase64String(bytes);
+    }
+
+    protected string TemplatePath(string fileName)
+    {
+        return Server.MapPath("~") + "\\PdfTemplates\\" + fileName;
+    }
+
+    /*[WebMethod]
+    public List<TipoLiquidacion> GetTiposLiquidacion()
+    {
+        List<TipoLiquidacion> areas = new List<TipoLiquidacion>();
+        var repositorio = RepositorioDeTipoDeLiquidacion.Nuevo(Conexion());
+        return repositorio.All();
+    }*/
+    [WebMethod]
+    public String GetTiposLiquidacion()
+    {
+        List<TipoLiquidacion> areas = new List<TipoLiquidacion>();
+        var repositorio = RepositorioDeTipoDeLiquidacion.Nuevo(Conexion());
+        return JsonConvert.SerializeObject(repositorio.All());
+    }
+
+    /*cuando se prueba con soap ui es mejor quitar el objeto usuario asi, es mas directo realizar pruebas*/
+    [WebMethod]
+    public string GetRecibosResumen(int tipoLiquidacion, int anio, int mes, Usuario usuario)
+    {
+        //tira error porque puede ser null el tipo liquidacion y los demas, poner un '' o 0 y verificar aca
+        RepositorioLegajo repo = RepoLegajo();
+        //TODO VER:     obtengo los recibos NO firmados
+        return repo.GetRecibosResumen(tipoLiquidacion, anio, mes);
+    }
+
+    [WebMethod]
+    public string GetIdRecibosSinFirmar(int tipoLiquidacion, int anio, int mes, Usuario usuario)
+    {
+        //tira error porque puede ser null el tipo liquidacion y los demas, poner un '' o 0 y verificar aca
+        RepositorioLegajo repo = RepoLegajo();
+        return repo.GetIdRecibosSinFirmar(tipoLiquidacion, anio, mes);
+    }
+
+    /////////////////VER
+    [WebMethod]
+    public StringRespuestaWS GetReciboPDFEmpleador(int id_recibo)
+    {
+        var respuesta = new StringRespuestaWS();
+        try
+        {
+            RepositorioLegajo repo = RepoLegajo();
+            Recibo recibo;
+
+            //para trabajarlo como objeto es mejor definir un objeto que traiga el recibo, asi se puede acceder a
+            //sus propiedades desde el back(desde el front con js se puede acceder), porque no se puede acceder a campos 
+            //especificos del objecto recibo cuando el casteo es a object.
+
+            //datos del recibo a rellenar    
+            recibo = repo.GetReciboDeSueldoPorID(id_recibo);
+
+            //
+            var modelo_para_pdf = new List<object>() { recibo };
+            var converter = new GenReciboToPdfConverter();
+            var mapa_para_pdf = converter.CrearMapa(modelo_para_pdf);
+            var creador_pdf = new CreadorDePdfs();
+            byte[] bytes;
+            byte[] bytes2;
+
+            if (mapa_para_pdf["paginasPDF"] == "una")
+            {
+                //el nombre del pdf generado va a ser el idRecibo
+                bytes = creador_pdf.FillPDF(TemplatePath("ReciboEmpleador_v6.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
+                bytes2 = creador_pdf.AgregarImagenAPDF(bytes, "FRH0502," + Convert.ToString(id_recibo));
+            }
+            else
+            {
+                //el nombre del pdf generado va a ser el idRecibo
+                bytes = creador_pdf.FillPDF(TemplatePath("ReciboEmpleador_v6b.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
+                bytes2 = creador_pdf.AgregarImagenAPDF(bytes, "FRH0502," + Convert.ToString(id_recibo));
+            }
+
+            //return Convert.ToBase64String(bytes2);
+            //return Convert.ToBase64String(bytes2);
+            respuesta.Respuesta = Convert.ToBase64String(bytes2);
+
+            //////////////////////////////////
+            ///      Object x = JsonConvert.DeserializeObject<Object>(datos);
+            ///      //JsonConvert.SerializeObject(x);
+
+
+            ///      return x.Cabecera ;
+        }
+        catch (Exception e)
+        {
+            respuesta.MensajeDeErrorAmigable = "Se produjo un error al obtener el PDF del recibo del empleador";
+            respuesta.setException(e);
+
+        }
+
+
+        return respuesta;
+    }
+
+    [WebMethod]
+    public string GetReciboPDFEmpleado(int id_recibo)
+    {
+        RepositorioLegajo repo = RepoLegajo();
+        Recibo recibo;
+
+        //para trabajarlo como objeto es mejor definir un objeto que traiga el recibo, asi se puede acceder a
+        //sus propiedades desde el back(desde el front con js se puede acceder), porque no se puede acceder a campos 
+        //especificos del objecto recibo cuando el casteo es a object.
+
+        //datos del recibo a rellenar    
+        recibo = repo.GetReciboDeSueldoPorID(id_recibo);
+
+        //
+        var modelo_para_pdf = new List<object>() { recibo };
+        var converter = new GenReciboEmpleadoToPdfConverter();
+        var mapa_para_pdf = converter.CrearMapa(modelo_para_pdf);
+        var creador_pdf = new CreadorDePdfs();
+
+        byte[] bytes;
+        byte[] bytes2;
+
+        if (mapa_para_pdf["paginasPDF"] == "una")
+        {
+            //el nombre del pdf generado va a ser el idRecibo
+            bytes = creador_pdf.FillPDF(TemplatePath("ReciboEmpleado_v2.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
+            bytes2 = creador_pdf.AgregarImagenAPDF(bytes, "FRH0502," + Convert.ToString(id_recibo));
+        }
+        else
+        {
+            //el nombre del pdf generado va a ser el idRecibo
+            bytes = creador_pdf.FillPDF(TemplatePath("ReciboEmpleado_v2b.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
+            bytes2 = creador_pdf.AgregarImagenAPDF(bytes, "FRH0502," + Convert.ToString(id_recibo));
+        }
+        return Convert.ToBase64String(bytes2);
+
+        //////////////////////////////////
+        ///      Object x = JsonConvert.DeserializeObject<Object>(datos);
+        ///      //JsonConvert.SerializeObject(x);
+
+
+        ///      return x.Cabecera ;
+    }
+
+    [WebMethod]
+    public int GuardarReciboPDFFirmado(string bytes_pdf, int id_recibo, int anio, int mes, int tipoLiquidacion)
+    {
+        int id_archivo = 0;
+        //        try
+        //        {//COMO el proceso de guardado desde la tabla de la BD al disco es externo, no genero una subclase de archivo
+        //que tendria el path de disco donde guardar el archivo. Se puede agregar una clase con propieda la clase archivo 
+        //subo el archivo firmado y actualiza la tabla que indica que el idRecibo fue firmado
+        id_archivo = RepositorioDeArchivosFirmados().GuardarArchivo(bytes_pdf);
+        //           id_archivo = 20;//RepositorioDeArchivos().GuardarArchivo(bytes_pdf);// id_recibo;//simulo el guardado del archivo
+        //var r = RepositorioDeArchivos().GetArchivo(id_archivo); //19444 es un pdf firmado          
+        //actualizo el recibo firmado por el empleado, 
+        RepoReciboFirmado().agregarReciboFirmado(id_recibo, id_archivo, anio, mes, tipoLiquidacion);
+        //        var s=  Convert.FromBase64String(r);
+        //TODOOOOOO
+        return id_archivo;
+        //        }
+        //        catch (Exception ex)
+        //        {   //si se puedo subir el archivo a disco actualizo la tabla de recibo firmado
+        //           return -1;
+        //  throw ex; si relanzo la exception, en el cliente se lo toma como exception javascript?
+        //        }
+
+    }
+
+    /*   [WebMethod]
+       public string GetReciboPDFEmpleado(int id_recibo)
+       {
+           return new RepositorioDeImagenes(Conexion()).SubirImagen(bytes_imagen);
+       }
+        * 
+        * 
+        * 
+        * 
+          }*/
+
+    #region " Control de Acceso "
+
+    [WebMethod]
+    public string CTL_ACC_Grabar_Lote(string json)
+    {
+        var ctlAcc = new General.CtrlAcc.RepositorioCtlAcc();
+        return ctlAcc.Grabar_Lote_Control_Acceso(json);
+    }
+
+    [WebMethod]
+    public string CTL_ACC_Get_Dotacion()
+    {
+        var ctlAcc = new General.CtrlAcc.RepositorioCtlAcc();
+        return ctlAcc.Get_Dotacion_Control_Acceso();
+    }
+
+    [WebMethod]
+    public string CTL_ACC_Login(string user, string pass)
+    {
+        return "";
+    }
+
+    [WebMethod]
+    public string CTL_ACC_Get_Personas_Buscador(string param_busqueda)
+    {
+        var ctlAcc = new General.CtrlAcc.RepositorioCtlAcc();
+        return ctlAcc.Get_Personas_Buscador(param_busqueda);
+    }
+
+    #endregion
+
+
+    [WebMethod]
+    public void GenerarMotivoEnPersonasNoCertificadas(int mes, int anio, DDJJ104_Consulta[] lista_DDJJ104, Usuario usuario)
+    {
+        RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
+
+        DDJJ104_2001 cabe = new DDJJ104_2001();
+        ddjj.GenerarMotivoEnPersonasNoCertificadas(mes, anio, lista_DDJJ104, usuario);
+
+    }
+
+
+    [WebMethod]
+    public void AsignaAreaAPersonasNoCertificadas(int mes, int anio, DDJJ104_Consulta[] lista_DDJJ104, int id_area, Usuario usuario)
+    {
+        RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
+
+        DDJJ104_2001 cabe = new DDJJ104_2001();
+        ddjj.AsignaAreaAPersonasNoCertificadas(mes, anio, lista_DDJJ104, id_area, usuario);
+
+    }
+
+
 
 
 }

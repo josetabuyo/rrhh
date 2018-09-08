@@ -43,12 +43,12 @@ namespace General.Repositorios
             return unidades;
         }
 
-        protected override void GuardarEnLaBase(UnidadDeTiempo objeto)
+        protected override void GuardarEnLaBase(UnidadDeTiempo objeto, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }
 
-        protected override void QuitarDeLaBase(UnidadDeTiempo objeto)
+        protected override void QuitarDeLaBase(UnidadDeTiempo objeto, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }

@@ -6,7 +6,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
+<head id="Head1" runat="server">
     <title></title>
      <%= Referencias.Css("../")%>    
 
@@ -23,7 +23,7 @@
     
     <div class="panel panel-heading">
         <div class="panel_izquierdo" style="height:auto; width:50%" >
-           
+           <a href="PresentaciónMóduloPostular.pdf" target="_blank" ><span>Instructivo de carga</span></a>                 
             <!--<div class="panel panel-default">
                 <div class=" estilo_paneles  ">
                 
@@ -44,15 +44,16 @@
                 </div>
                 </div>
             </div>-->
-            <legend><q>Bienvenid@</q></legend>
-            <p>El Ministerio de Desarrollo Social de la Naci&oacute;n tiene el gran placer de darte la bienvenida a este sitio web donde esperamos poder brindarte una &aacute;gil y c&oacute;moda experiencia para la gesti&oacute;n de tu informaci&oacute;n personal en forma de un Curr&iacute;culum Vitae electr&oacute;nico.</p>
-            <p>En este sitio podr&aacute;s ingresar tus datos personales, tu historial acad&eacute;mico y laboral, as&iacute; como toda otra informaci&oacute;n que pudiera resultar de inter&eacute;s para las b&uacute;squedas laborales que oportunamente ponga en vigencia el Ministerio.</p>
-            <p>Una vez que hayas ingresado tu informaci&oacute;n, podr&aacute;s volver y actualizarla cuanta veces lo desees, siempre teniendo en cuenta que los datos aqu&iacute; consignados deber&aacute;n ser factibles de verificaci&oacute;n documental, es decir deber&aacute;s contar con los comprobantes respectivos de toda la informaci&oacute;n volcada en tu Curr&iacute;culum Vitae.</p>
-            <p>Asimismo, desde esta p&aacute;gina, te ser&aacute; posible realizar tus postulaciones a las convocatorias que el Ministerio de Desarrollo Social habilite oportunamente, realizando la preinscripci&oacute;n electr&oacute;nica que implica adjuntar este Curr&iacute;culum Vitae digital al perfil que selecciones.</p>
-            <p>Para ello, encontrar&aacute;s publicadas las bases y condiciones de cada Perfil de Puesto de Trabajo que integre las distintas convocatorias, las cuales deber&aacute;s leer con atenci&oacute;n a fin de encontrar aquellas que resulten m&aacute;s adecuadas a tu historial, potencialidades y aspiraciones personales y laborales.</p>
-            <p>Tambi&eacute;n podr&aacute;s encontrar en esta p&aacute;gina toda la informaci&oacute;n relativa al desarrollo y evoluci&oacute;n de tus postulaciones en los distintos llamados en los que participes, pudiendo consultar las Actas de los Comit&eacute;s y toda otra informaci&oacute;n que pudiera resultar de inter&eacute;s.</p>
-            <p>Esperamos transformar este lugar en un instrumento din&aacute;mico de comunicaci&oacute;n, el cual ir&aacute; creciendo y evolucionando de acuerdo a la experiencia mutua de quienes integramos el Ministerio y, principalmente de quienes, como vos, nos aporten nuevas ideas y nos acerquen sus necesidades informativas para mejorar cada d&iacute;a en este gran desaf&iacute;o de gestionar personas y crear nuevas capacidades para un Estado moderno, inteligente y comprometido con la realidad actual.</p>
-            <p>Por &uacute;ltimo, en el siguiente link podr&aacute;n encontrar el manual de introducci&oacute;n al sistema POSTULAR. En el encontrar&aacute;n toda la informaci&oacute;n necesaria para aprender a usar el m&oacute;dulo con todas sus opciones. <a href="http://www.plataformapersonas.com.ar/archivos/instructivo.pdf" target="_blank">Abrir Gu&iacute;a</a></p>
+            <h3>Concursos Planta Permanente</h3>
+            <h4>Convocatoria Interna 2017</h4>
+            <div class = "panel-de-control-texto">
+                <p>El Ministerio de Desarrollo Social de la Nación inicia el proceso de concursos para ingresar a la Planta Permanente de la Administración Pública Nacional (APN).</p> 
+                <p>A través de la Resolución 5-E/2017 se identificaron y asignaron los cargos a concursar por esta jurisdicción; como consecuencia, se pondrá en marcha una Convocatoria Interna a Concursos que prevé la cobertura de 726 cargos.</p>
+                <p>En esta página vas a encontrar toda la información relevante sobre la Convocatoria Interna: la normativa vigente sobre los concursos, las Bases del Concurso de cada perfil con sus respectivos requisitos, y las Actas que se publicarán a medida que avance el Proceso de Selección.</p>
+                <p>Por dudas o consultas, podés comunicarte con la Secretaría Técnica de Concursos de  la Dirección General de Recursos Humanos y Organización al (011) 4380-2500 o acercarte a las MESAS DE AYUDA. Éstas últimas estarán disponibles de 10.00hs. a 16.00hs., en los pisos 15, 19 y 22 de la sede central del Ministerio de Desarrollo Social de la Nación ubicada en Avenida 9 de Julio 1925 de la Ciudad Autónoma de Buenos Aires.</p>
+            </div>
+            <br />
+            <br />
         
             <%--<img src="../Imagenes/underConstruccion.jpg" alt="actualizacion" width="400" height="400" />
             <h1>El Sitio se encuentra en mantenimiento <br /> Estamos trabajando para usted <br />Disculpes las molestias ocasionadas </h1>--%>
@@ -61,9 +62,8 @@
         <div style="float:right; " class="panel_derecho">
            <%-- <a href="#" ><span><img alt="imprimir" width="22px" height="22px" src="../Imagenes/Botones/impresora.png" />&nbsp;Imprimir CV</span></a>    --%>
             <a href="VistaPreliminar.aspx" target="_blank" ><span><img alt="descargar" width="22px" height="22px" src="../Imagenes/Botones/guardar.png" />&nbsp;Descargar CV</span></a>                 
-           
           <!--  <div class="panel panel-default">-->
-              <div style="height: 435px;"   ">
+              <div style="">
                <h3 class="panel-title" >Mis Postulaciones</h3>
                
                  <hr class="lineas-subraya"/>
@@ -76,11 +76,80 @@
                   </div>
 
                 <div class="feedPostulacionesAplicadas sombra_y_redondeado">
-                    <h3 class="subtitulo_postulaciones"><a href="#">Adminitrador de Redes RRHH/ CABA </a></h3>
+                    <h3 class="subtitulo_postulaciones"><a href="#">Administrador de Redes RRHH/ CABA </a></h3>
                     <hr class="SubrayadoPostulaciones degrade"/>
                     <p>Se require expertos en Redes para administrar la infraestructura</p>-->
-                    
-                    
+                    <h3 style="margin-top:20px;" class="panel-title" >Información de la Convocatoria</h3>
+                    <hr class="lineas-subraya"/>
+                    <p>Resolución N° RESOL-2017-1367-APN-MDS - <a href="bases/RESOL_2017_1367_APN_MDS.pdf" target="_blank" >Aprueba las Bases de la convocatoria</a></p>
+                    <p>Resolución N° RESOL-2018-568-APN-MDS - <a href="bases/RESOL_2018_0568_APN_MDS.pdf" target="_blank" >Aprueba las Ordenes de Merito de la convocatoria</a></p>
+
+                    <h5 style="margin-top:20px;" ><b>Comité 1: Técnico en Gestión Administrativa (C - General)</b></h5>
+                    <hr class="lineas-subraya"/>
+                    <p>
+
+			<a href="bases/Conv03_2017_Perfil_16685_Acta_15_Comite_01.pdf" target="_blank" >Acta 15</a> -
+			<a href="bases/Conv03_2017_Perfil_16685_Acta_14_Comite_01.pdf" target="_blank" >Acta 14</a> -
+			<a href="bases/Conv03_2017_Perfil_16685_Acta_13_Comite_01.pdf" target="_blank" >Acta 13</a> -
+			<a href="bases/Conv03_2017_Perfil_16685_Acta_12_Comite_01.pdf" target="_blank" >Acta 12</a> -
+			<a href="bases/Conv03_2017_Perfil_16685_Acta_11_Comite_01.pdf" target="_blank" >Acta 11</a> -
+			<a href="bases/Conv03_2017_Perfil_16685_Acta_10_Comite_01.pdf" target="_blank" >Acta 10</a> -
+			<a href="bases/Conv03_2017_Perfil_16685_Acta_09_Comite_01.pdf" target="_blank" >Acta 9</a> -
+			<a href="bases/Conv03_2017_Perfil_16685_Acta_08_Comite_01.pdf" target="_blank" >Acta 8</a> -
+                        <a href="bases/Conv03_2017_Perfil_16685_Acta_07_Comite_01.pdf" target="_blank" >Acta 7</a> -
+                        <a href="bases/Conv03_2017_Perfil_16685_Acta_06_Comite_01.pdf" target="_blank" >Acta 6</a> -
+                        <a href="bases/Conv03_2017_Perfil_16685_Acta_05_Comite_01.pdf" target="_blank" >Acta 5</a> -
+                        <a href="bases/Conv03_2017_Perfil_16685_Acta_04_Comite_01.pdf" target="_blank" >Acta 4</a> -
+                        <a href="bases/Conv03_2017_Perfil_16685_Acta_03_Comite_01.pdf" target="_blank" >Acta 3</a> -
+                        <a href="bases/Conv03_2017_Perfil_16685_Acta_02_Comite_01.pdf" target="_blank" >Acta 2</a> -
+                        <a href="bases/Conv03_2017_Perfil_16685_Acta_01_Comite_01.pdf" target="_blank" >Acta 1</a> -
+                        <a href="bases/Conv03_2017_Perfil_16685.pdf" target="_blank" >Bases</a> 
+                    </p>
+
+
+                    <h5 style="margin-top:20px;" ><b>Comité 2: Asistente Administrativo (D - General)</b></h5>
+                    <hr class="lineas-subraya"/>
+                    <p>
+			<a href="bases/Conv03_2017_Perfil_17180_Acta_13_Comite_02.pdf" target="_blank" >Acta 13</a> -
+			<a href="bases/Conv03_2017_Perfil_17180_Acta_12_Comite_02.pdf" target="_blank" >Acta 12</a> -
+			<a href="bases/Conv03_2017_Perfil_17180_Acta_11_Comite_02.pdf" target="_blank" >Acta 11</a> -
+			<a href="bases/Conv03_2017_Perfil_17180_Acta_10_Comite_02.pdf" target="_blank" >Acta 10</a> -
+			<a href="bases/Conv03_2017_Perfil_17180_Acta_09_Comite_02.pdf" target="_blank" >Acta 9</a> -
+			<a href="bases/Conv03_2017_Perfil_17180_Acta_08_Comite_02.pdf" target="_blank" >Acta 8</a> -
+                       	<a href="bases/Conv03_2017_Perfil_17180_Acta_07_Comite_02.pdf" target="_blank" >Acta 7</a> -
+                        <a href="bases/Conv03_2017_Perfil_17180_Acta_06_Comite_02.pdf" target="_blank" >Acta 6</a> -
+                        <a href="bases/Conv03_2017_Perfil_17180_Acta_05_Comite_02.pdf" target="_blank" >Acta 5</a> -
+                        <a href="bases/Conv03_2017_Perfil_17180_Acta_04_Comite_02.pdf" target="_blank" >Acta 4</a> -
+                        <a href="bases/Conv03_2017_Perfil_17180_Acta_03_Comite_02.pdf" target="_blank" >Acta 3</a> -
+                        <a href="bases/Conv03_2017_Perfil_17180_Acta_02_Comite_02.pdf" target="_blank" >Acta 2</a> -
+                        <a href="bases/Conv03_2017_Perfil_17180_Acta_01_Comite_02.pdf" target="_blank" >Acta 1</a> -
+                        <a href="bases/Conv03_2017_Perfil_17180.pdf" target="_blank" >Bases</a>  
+                    </p>
+                   
+
+                    <h5 style="margin-top:20px;" ><b>Comité 3: Asistente Administrativo - Reserva Art.8 Ley Nº 22.431 (D - General)</b></h5>
+                    <hr class="lineas-subraya"/>
+                    <p>
+                        <a href="bases/Conv03_2017_Perfil_17383_Acta_13_Comite_03.pdf" target="_blank" >Acta 13</a> -
+                        <a href="bases/Conv03_2017_Perfil_17383_Acta_12_Comite_03.pdf" target="_blank" >Acta 12</a> -
+                        <a href="bases/Conv03_2017_Perfil_17383_Acta_11_Comite_03.pdf" target="_blank" >Acta 11</a> -
+                        <a href="bases/Conv03_2017_Perfil_17383_Acta_10_Comite_03.pdf" target="_blank" >Acta 10</a> -
+                        <a href="bases/Conv03_2017_Perfil_17383_Acta_09_Comite_03.pdf" target="_blank" >Acta 9</a> -
+                        <a href="bases/Conv03_2017_Perfil_17383_Acta_08_Comite_03.pdf" target="_blank" >Acta 8</a> -
+                        <a href="bases/Conv03_2017_Perfil_17383_Acta_07_Comite_03.pdf" target="_blank" >Acta 7</a> -
+                        <a href="bases/Conv03_2017_Perfil_17383_Acta_06_Comite_03.pdf" target="_blank" >Acta 6</a> -
+                        <a href="bases/Conv03_2017_Perfil_17383_Acta_05_Comite_03.pdf" target="_blank" >Acta 5</a> -
+                        <a href="bases/Conv03_2017_Perfil_17383_Acta_04_Comite_03.pdf" target="_blank" >Acta 4</a> -
+                        <a href="bases/Conv03_2017_Perfil_17383_Acta_03_Comite_03.pdf" target="_blank" >Acta 3</a> -
+                        <a href="bases/Conv03_2017_Perfil_17383_Acta_02_Comite_03.pdf" target="_blank" >Acta 2</a> -
+                        <a href="bases/Conv03_2017_Perfil_17383_Acta_01_Comite_03.pdf" target="_blank" >Acta 1</a> -
+                        <a href="bases/Conv03_2017_Perfil_17383.pdf" target="_blank" >Bases</a>  
+                    </p>
+		 <h3 style="margin-top:20px;" class="panel-title" >Cronograma de Entrevistas Personales</h3>
+                    <hr class="lineas-subraya"/>
+                    <p>En caso de no poder asistir a la Entrevista laboral en la fecha y horario establecidos, mandar un mail a concursos2017@desarrollosocial.gob.ar o comunicarse al 4379-3909/3949 o 4382-0153</p>
+                    <p>Para acceder al cronograma, ordenado alfabéticamente, <a href="bases/Cronograma_de_Entrevistas_2018.pdf" target="_blank" >hacer clic aquí</a></p>
+                   
                 </div>
               </div>
             </div>
@@ -98,15 +167,15 @@
  <script type="text/javascript">
      $('#tab_panel').addClass('active');
 
-    Backend.start();
-    $(document).ready(function () {
-        var postulaciones = JSON.parse($('#postulaciones').val());
+     Backend.start();
+     $(document).ready(function () {
+         var postulaciones = JSON.parse($('#postulaciones').val());
 
-        if ($.browser.msie) {
-            alert("PARA UNA MEJOR EXPERIENCIA LE RECOMENDAMOS QUE POR FAVOR UTILICE NAVEGADORES MODERNOS COMO CHROME O FIREFOX " + $.browser.version);
-        }
+         if ($.browser.msie) {
+             alert("PARA UNA MEJOR EXPERIENCIA LE RECOMENDAMOS QUE POR FAVOR UTILICE NAVEGADORES MODERNOS COMO CHROME O FIREFOX " + $.browser.version);
+         }
 
-        PanelDeControl.armarPostulaciones(postulaciones);
-    });
+         PanelDeControl.armarPostulaciones(postulaciones);
+     });
  </script>
 </html>

@@ -4,6 +4,28 @@ var Grilla = function (columnas) {
     this.start();
 };
 
+var GrillaV2 = function (id_componente, definicion_columnas, modelo) {
+    id_componente = "#" + "tablaAgentes";
+
+    //var _this = this;
+    var divGrilla = $(id_componente);
+    divGrilla.empty();
+
+    var columnas = [];
+    $.each(definicion_columnas, function (index, col_def) {
+        columnas.push(new Columna(col_def.nombre_columna, { generar: col_def.value_getter }));
+    });
+
+    var grilla = new Grilla(columnas);
+    grilla.SetOnRowClickEventHandler(function (modelo) { });
+    grilla.CambiarEstiloCabecera("estilo_tabla_portal");
+    grilla.CargarObjetos(modelo);
+    grilla.DibujarEn(divGrilla);
+    $('.table-hover').removeClass("table-hover");
+    //_this.BuscadorDeTabla();
+    return grilla;
+}
+
 Grilla.prototype = {
     start: function () {
         this.tabla = $('<table>');
@@ -264,6 +286,51 @@ Grilla.prototype = {
     }
 };
 
+var CreadorColumnas = function () { }
+
+CreadorColumnas.prototype = {
+    /**********
+    * recibe "nombres": una lista de atributos que representan los nombres de columna
+    * devuelve una lista de columnas cuyo titulo se especifica en "nombres", 
+    *                           y el contenido de cada celda es el atributo del modelo con ese mismo nombre
+    ***********/
+    triviales: function (nombres) {
+        var result = []
+        for (var i = 0; i < nombres.length; i++) {
+            var col = new Columna(nombres[i].toUpperCase(), { generar: this.creador_contenido(nombres[i]) })
+            result.push(col)
+        }
+        return result
+    },
+    /**********
+    * recibe "model_shift", que representa el nombre de un miembro del modelo que contendrá los atributos a mostrar en la columna
+    * recibe "nombres", una lista de atributos que representan los nombres de columna
+    * devuelve una lista de columnas cuyo titulo se especifica en "nombres",
+    *                           y el contenido de cada celda es el atributo del "modelo.model_shift" con ese mismo nombre
+    *************/
+    con_submodelo: function (model_shift, nombres) {
+        var result = []
+        for (var i = 0; i < nombres.length; i++) {
+            var col = new Columna(nombres[i].toUpperCase(), { generar: this.creador_contenido_shifted(model_shift, nombres[i]) })
+            result.push(col)
+        }
+        return result
+    },
+    /********************
+    * recibe "nombre_columna": el nombre de la columna que se quiere crear
+    * recibe "attr": el atributo del modelo que se utilizará para completar la celda
+    * devuelve una columna para agregar a la grilla
+    ********************/
+    con_alias: function (nombre_columna, attr) {
+        return new Columna(nombre_columna, { generar: function (model) { return model[attr] } })
+    },
+    creador_contenido: function (prop) {
+        return function (model) { return model[prop] }
+    },
+    creador_contenido_shifted: function (model_shift, prop) {
+        return function (model) { return model[model_shift][prop] }
+    }
+}
 
 var Columna = function (titulo, generadorDeContenido, resumida) {
     this.titulo = titulo;

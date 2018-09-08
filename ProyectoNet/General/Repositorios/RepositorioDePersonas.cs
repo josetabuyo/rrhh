@@ -159,12 +159,12 @@ namespace General.Repositorios
             return GetPersonasDeTablaDeDatos(tablaDatos);
         }
 
-        public void GuardarPersona(Persona persona)
+        public void GuardarPersona(Persona persona, int id_usuario_logueado)
         {
-            this.Guardar(persona);
+            this.Guardar(persona, id_usuario_logueado);
         }
 
-        protected override void GuardarEnLaBase(Persona persona)
+        protected override void GuardarEnLaBase(Persona persona, int id_usuario_logueado)
         {
             //si existe entonces se obtiene el ese
             var personas = this.BuscarPersonas(JsonConvert.SerializeObject(new { Documento = persona.Documento, ConLegajo = true }));
@@ -186,7 +186,7 @@ namespace General.Repositorios
             }
         }
 
-        protected override void QuitarDeLaBase(Persona objeto)
+        protected override void QuitarDeLaBase(Persona objeto, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }
@@ -298,12 +298,12 @@ namespace General.Repositorios
                         Cargo = row.GetString("Cargo", "Sin dato"),
                         Agrupamiento = row.GetString("Agrupamiento", "Sin dato"),
                         IngresoMinisterio = row.GetDateTime("IngresoMinisterio", new DateTime(1900, 01, 01)).ToShortDateString(),
-                        AntMinisterio = row.GetString("AntMinisterio", "Sin dato"),
-                        AntEstado = row.GetString("AntEstado", "Sin dato"),
-                        AntPrivada = row.GetString("AntPrivada", "Sin dato"),
+  //MOD JUAN                      AntMinisterio = row.GetString("AntMinisterio", "Sin dato"),
+  //MOD JUAN                      AntEstado = row.GetString("AntEstado", "Sin dato"),
+  //MOD JUAN                      AntPrivada = row.GetString("AntPrivada", "Sin dato"),
                         //RestaAnt = row.GetString("RestaAnt", "Sin dato"),
                         //AntTotal = row.GetString("AntTotal", "Sin dato"),
-                        ANTTotalTotal = row.GetString("ANTTotalTotal", "Sin dato"),
+  //MOD JUAN                      ANTTotalTotal = row.GetString("ANTTotalTotal", "Sin dato"),
                         FechaBaja = row.GetString("FechaBaja", ""),
                         FechaBloqueo = row.GetDateTime("fecha_bloqueo", new DateTime(1900, 01, 01)).ToShortDateString(),
                         CargoGremial = row.GetString("cargo_gremial", ""),

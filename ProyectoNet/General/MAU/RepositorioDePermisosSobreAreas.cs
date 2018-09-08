@@ -45,24 +45,24 @@ namespace General.MAU
             return permisos.FindAll(p => p.Key == id_usuario).Select(p => this.repositorioDeAreas.GetAreaPorId(p.Value)).ToList();
         }
 
-        public void AsignarAreaAUnUsuario(Usuario usuario, Area area)
+        public void AsignarAreaAUnUsuario(Usuario usuario, Area area, int id_usuario_logueado)
         {
-            this.AsignarAreaAUnUsuario(usuario.Id, area.Id);
+            this.AsignarAreaAUnUsuario(usuario.Id, area.Id, id_usuario_logueado);
         }
 
-        public void AsignarAreaAUnUsuario(int id_usuario, int id_area)
+        public void AsignarAreaAUnUsuario(int id_usuario, int id_area, int id_usuario_logueado)
         {
-            this.Guardar(new KeyValuePair<int, int>(id_usuario, id_area));
+            this.Guardar(new KeyValuePair<int, int>(id_usuario, id_area), id_usuario_logueado);
         }
 
-        public void DesAsignarAreaAUnUsuario(Usuario usuario, Area area)
+        public void DesAsignarAreaAUnUsuario(Usuario usuario, Area area, int id_usuario_logueado)
         {
-            this.DesAsignarAreaAUnUsuario(usuario.Id, area.Id);
+            this.DesAsignarAreaAUnUsuario(usuario.Id, area.Id, id_usuario_logueado);
         }
 
-        public void DesAsignarAreaAUnUsuario(int id_usuario, int id_area)
+        public void DesAsignarAreaAUnUsuario(int id_usuario, int id_area, int id_usuario_logueado)
         {
-            this.Quitar(new KeyValuePair<int, int>(id_usuario, id_area));
+            this.Quitar(new KeyValuePair<int, int>(id_usuario, id_area), id_usuario_logueado);
         }
 
         protected override List<KeyValuePair<int, int>> ObtenerDesdeLaBase()
@@ -72,19 +72,21 @@ namespace General.MAU
                 .ToList();
         }
 
-        protected override void GuardarEnLaBase(KeyValuePair<int, int> objeto)
+        protected override void GuardarEnLaBase(KeyValuePair<int, int> objeto, int id_usuario_logueado)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_usuario", objeto.Key);
             parametros.Add("@id_area", objeto.Value);
+            parametros.Add("@id_usuario_alta", id_usuario_logueado);
             var tablaDatos = conexion.Ejecutar("dbo.MAU_AsignarAreaAUsuario", parametros);
         }
 
-        protected override void QuitarDeLaBase(KeyValuePair<int, int> objeto)
+        protected override void QuitarDeLaBase(KeyValuePair<int, int> objeto, int id_usuario_logueado)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_usuario", objeto.Key);
             parametros.Add("@id_area", objeto.Value);
+            parametros.Add("@id_usuario_baja", id_usuario_logueado);
             var tablaDatos = conexion.Ejecutar("dbo.MAU_DesAsignarAreaAUsuario", parametros);
         }
     }

@@ -28,10 +28,14 @@
             </div>  
             <div id="panel_datos_usuario" style="display:none">
                 <div id="panel_superior_izquierdo" class="estilo_formulario">
-                    <div id="foto_usuario">                        
+                    <div id="contenedor_foto">
+                        <div id="foto_usuario"> </div>
+                        <img id="foto_usuario_generica" src="usuario.png"/>
+                        <div id="barrita_cambio_foto">
+                            <div>Cambiar</div>
+                        </div>
                     </div>
-                    <img id="foto_usuario_generica" src=usuario.png/>
-                    <div id="cambio_imagen_pendiente" RequiereFuncionalidad = "50">
+                    <div id="cambio_imagen_pendiente" RequiereFuncionalidad = "mau_administrar_cambios_de_imagen">
                         <img src="camera.png"/>
                     </div>
                     <div id="panel_datos_personales">
@@ -50,8 +54,9 @@
                         <div class="linea dato_personal">
                             <div>Email:</div>
                             <div id="email"></div>   
-                            <input id="btn_modificar_mail" type="button" class="btn btn-warning" value="Modificar"  RequiereFuncionalidad = "45"/> 
-                        </div>                 
+                            <input id="btn_modificar_mail" type="button" class="btn btn-warning" value="Modificar"  RequiereFuncionalidad = "mau_modificar_mail"/> 
+                        </div>      
+                        <input id="btn_credencial_usuario" type="button" class="btn btn-warning" value="Credencial" />           
                     </div>
                     <div id="panel_password">
                         <div class="linea linea_nombre_usuario">
@@ -60,18 +65,18 @@
                         </div>
                         <div class="linea linea_passwrd">
                             <div class="titulo">Contraseña:</div>
-                            <input id="btn_reset_password" type="button" class="btn btn-warning" value="resetear" RequiereFuncionalidad = "25"/>
+                            <input id="btn_reset_password" type="button" class="btn btn-warning" value="resetear" RequiereFuncionalidad = "mau_resetear_contraseña"/>
                         </div>
                         <div class="seccion_verificacion_usuario">
                             <div id="usuario_verificado">DNI Verificado</div>    
                             <div id="usuario_no_verificado">DNI No Verificado</div>    
-                            <input id="btn_verificar_usuario" type="button" class="btn btn-warning" value="Verificar"  RequiereFuncionalidad = "21"/>
+                            <input id="btn_verificar_usuario" type="button" class="btn btn-warning" value="Verificar"  RequiereFuncionalidad = "mau_verificar_usuarios"/>
                         </div>
                     </div>
                 </div> 
                 <div id="panel_inferior_izquierdo" class="estilo_formulario">
                     <legend class="subtitulos"> Areas </legend>
-                    <div id="panel_areas_administradas" RequiereFuncionalidad = "24">
+                    <div id="panel_areas_administradas" RequiereFuncionalidad = "mau_cambiar_permisos">
                         <div id="lista_areas_administradas">
                         
                         </div>
@@ -88,7 +93,7 @@
                 
             </div> 
               <hr />  
-             <div id="panel_usuarios_por_area" RequiereFuncionalidad = "30" >
+             <div id="panel_usuarios_por_area" RequiereFuncionalidad = "mau_usuarios_por_area" >
                 <p class="persona_baja_con_funcionalidades">Consultar Usuarios Por Área</p>
                     <div id="lista_areas_para_consultar" style="display: inline;">
                         
@@ -103,7 +108,7 @@
                  <hr />  
              </div> 
 
-              <div id="panel_personas_de_baja_con_permisos" RequiereFuncionalidad = "29">
+              <div id="panel_personas_de_baja_con_permisos" RequiereFuncionalidad = "mau_permisos_personas_bajas">
                 <p class="persona_baja_con_funcionalidades">Consultar Personas de Baja con Permisos</p>
                 <input type="button" value="Consultar" id="btn_buscar_personas_de_baja" class="btn btn-primary" />
                 <div id="contenedor_personas_de_baja">

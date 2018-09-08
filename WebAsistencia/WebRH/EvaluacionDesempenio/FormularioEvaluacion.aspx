@@ -29,7 +29,7 @@
 }
 .pregunta-pendiente-leyenda
 {
-    margin-left: 20px;
+    margin-left: 150px;
     font-style: italic;     
 }
 .pregunta-pendiente-leyenda:before
@@ -47,7 +47,7 @@
 #foto_usuario {
     display: inline-block;
     vertical-align: top;
-    margin-top: 20px;
+    margin-top: 10px;
     display: block;
 }
 
@@ -120,21 +120,24 @@
         <div id="izq" style="width:60%; float:left; position: absolute;">
             <div id="foto_usuario" class="foto_usuario" class="bloque_foto" > </div>
            <%-- <img id="img_estatica" class="foto_usuario" src="../Imagenes/silueta.gif" style="margin-top: 25px;"/>--%>
+            <div style="display:inline-block;">
             <p style="margin: 10px; margin-left: 150px; margin-top:50px;"><label>Nivel: </label> <span id="nivel"></span> </p>
             <p style="margin: 10px; margin-left: 150px;"><label>Nombre: </label> <span id="nombre_evaluado"></span></p>
             <p style="margin: 10px; margin-left: 150px;"><label>Estado: </label> <span id="baja"></span></p>
             <p style="margin: 10px; margin-left: 150px; display:none;" ><label>Gremio: </label> <span id="cargo_gremial" ></span></p>
+            </div>
         </div>
-        <div id="der" class="" style="width:30%; float:right; border:1px solid; text-align:center; margin: 30px;">
-            <h1>Puntaje</h1>
-            <h1 id="puntaje"></h1>
+        <div id="der" class="" style="width:30%; float:right; border:1px solid; text-align:center; margin: -5px 30px 0px 30px;;">
+            <h2>Puntaje</h2>
+            <h2 id="puntaje"></h2>
         </div>
     </div>
         
         <div style="margin: 0 auto;" class="row">
             <div class="">
                 <legend style="margin-top: 20px; text-align: center;">FORMULARIO EVALUACIÓN</legend>
-                <p class="pregunta-pendiente-leyenda">Preguntas aún sin responder<span class="total-preguntas-pendiente"></span></p>
+                <p class="pregunta-pendiente-leyenda" style="margin-top: -3px;">Preguntas aún sin responder<span class="total-preguntas-pendiente"></span></p>
+                <p style="margin-left: 150px;">Puntaje actual<span class="puntaje-actual"></span></p>
                 <div id="contenedor">
                 
                 </div>
@@ -146,13 +149,12 @@
                        
                         <p class="pregunta"></p>
                         <div>
-                            <p><input type="radio"  data-opcion="5" class="input_form" /><label><span class="rta1"></span></label></p>
-                            <p><input type="radio"  data-opcion="4" class="input_form" /><label><span class="rta2"></span></label></p>
-                            <p><input type="radio"  data-opcion="3" class="input_form" /><label><span class="rta3"></span></label></p>
-                            <p><input type="radio"  data-opcion="2" class="input_form" /><label><span class="rta4"></span></label></p>
-                            <p><input type="radio"  data-opcion="1" class="input_form" /><label><span class="rta5"></span></label></p>
+                            <p><input type="radio" data-opcion="1" class="input_form" /><label><span class="rta1"></span></label></p>
+                            <p><input type="radio" data-opcion="2" class="input_form" /><label><span class="rta2"></span></label></p>
+                            <p><input type="radio" data-opcion="3" class="input_form" /><label><span class="rta3"></span></label></p>
+                            <p><input type="radio" data-opcion="4" class="input_form" /><label><span class="rta4"></span></label></p>
+                            <p><input type="radio" data-opcion="5" class="input_form" /><label><span class="rta5"></span></label></p>
                         </div>
-                       
                     </div>
                 </div>
             </div>

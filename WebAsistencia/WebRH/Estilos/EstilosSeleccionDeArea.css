@@ -129,29 +129,55 @@ img
     margin-right:4px;    
 }
 
+/*
 #btn_consultar_areas_ddjj
 {
     float: right;
     margin-top:4px;
         
 }
+*/
+
+#btn_seleccion_contratos
+{   
+    /*display: block;*/
+    float: right;
+    margin-top: 4px;
+    margin-left: 4px;   
+}
+
+
+#btn_analisis_licencia
+{   
+    /*display: block;*/
+    float: right;
+    margin-top: 4px;
+    margin-left: 4px;   
+}
 
 
 #btn_consultar_mis_inasistencias
 {
-    float: left;
-  /*  margin-top:4px;
+   /* float: left;*/
+  /* margin-top:4px;
     margin-right:4px;*/
-  margin: 6px 5px 0px 0px !important
+  /*margin: 6px 5px 0px 0px !important*/
+    
+    /*display: block;*/
+    float: right;
+    margin-top: 4px;
+    margin-left: 4px;
+    
 }
 
+/*
 #btn_consultar_consulta_ddjj {
     display: block;
     float: right;
     margin-top: 4px;
     margin-left: 4px;
 }
-
+*/
 .contenedor_principal_seleccion_areas
 {
     top:100px;
@@ -174,7 +200,7 @@ tbody tr:odd
     display: block;
     width: 100%;
     padding: 0;
-    margin-bottom: 27px;
+    margin-bottom: 50px;
     font-size: 30px;
     line-height: 36px;
     color: #333333;

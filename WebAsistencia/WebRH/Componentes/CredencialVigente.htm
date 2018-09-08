@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<head>
+    <style type="text/css">
+        #pantalla_credencial_vigente
+        {
+             width: 250px;
+             margin-top: 15px;
+        }       
+        #pantalla_credencial_vigente #credencial_vigente
+        {
+            position: relative;
+        }
+        
+        #pantalla_credencial_vigente #imagen_credencial
+        {
+            width: 250px;
+        }        
+        
+        #pantalla_credencial_vigente #foto_usuario
+        {
+            position: absolute;
+            top: 61px;
+            left: 15px;
+            height: 126px;
+            width: 126px;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px white solid;
+        }    
+        
+        #pantalla_credencial_vigente #codigo_barras
+        {
+            position: absolute;
+            right: -4%;
+            top: 25%;
+            -ms-transform: rotate(90deg); /* IE 9 */
+            -webkit-transform: rotate(90deg); /* Safari */
+            transform: rotate(90deg); /* Standard syntax */
+        }   
+            
+        #pantalla_credencial_vigente #apellido
+        {
+            position: absolute;
+            top: 196px;
+            left: 19px;
+            font-size: 20px;
+            color: white;
+        }    
+        
+        #pantalla_credencial_vigente #nombres
+        {
+            position: absolute;
+            top: 224px;
+            left: 18px;
+            font-size: 20px;
+            color: white;
+        }    
+        
+        #pantalla_credencial_vigente #documento
+        {
+            position: absolute;
+            top: 252px;
+            left: 66px;
+            font-size: 20px;
+            color: white;
+        }    
+            
+        #pantalla_credencial_vigente #titulo_documento
+        {
+            position: absolute;
+            top: 252px;
+            left: 18px;
+            font-size: 20px;
+            color: white;
+        }    
+        
+        #pantalla_credencial_vigente #btn_renovar_credencial
+        {
+            margin-top: 10px;
+            display: inline-block;
+            white-space: normal;
+            width: 100%;
+        }
+        
+        #pantalla_credencial_vigente #btn_renovar_credencial label
+        {
+            text-align: center;
+            width: 100%;
+            cursor: pointer;
+            white-space: normal;
+        }    
+        
+        #sin_credencial_vigente
+        {
+            text-align: center;
+        }
+    </style>
+</head>
+<div id=pantalla_credencial_vigente>
+    <div id="credencial_vigente">
+        <img id="imagen_credencial" src=""/>
+        <div id="foto_usuario"></div>
+        <div id="apellido"></div>    
+        <div id="nombres"></div>    
+        <div id="titulo_documento">DNI:</div>    
+        <div id="documento"></div>    
+        <div id="codigo_barras"></div>    
+    </div>
+    <div id="sin_credencial_vigente">
+        No tiene una credencial vigente
+    </div>
+    <input type=button id=btn_renovar_credencial class= "btn btn-primary" value= "Solicitar Credencial"/>
+</div>
+<script type="text/javascript" src="../Scripts/jquery-barcode.js"/>
+<script type="text/javascript" src="CredencialVigente.js"/>

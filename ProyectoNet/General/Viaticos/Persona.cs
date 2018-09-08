@@ -30,6 +30,15 @@ namespace General
         private string _Cuit;
         private string _Legajo;
         private string _categoria;
+        private bool _estaCertificadoEnLaDDJJ;
+        private string _certificaHoraDesdeDDJJ;
+        private string _certificaHoraHastaDDJJ;
+        private int p;
+        private string p_2;
+        private string p_3;
+        private string _motivo_no_certificar { get; set; }
+        private string _cco_no_certificar { get; set; }
+
 
         public int Id { get { return _id; } set { _id = value; } }
         public int Documento { get { return _Documento; } set { _Documento = value;  } }
@@ -54,7 +63,12 @@ namespace General
         public int Esta_Cargada { get; set; } //si ya existe en una DDJJ104
         public int IdImagen { get; set; }
         public bool BajaLegajo { get; set; }
-   
+        public bool EstaCertificadoEnLaDDJJ { get { return _estaCertificadoEnLaDDJJ; } set { _estaCertificadoEnLaDDJJ = value; } }
+        public string CertificaHoraDesdeDDJJ { get { return _certificaHoraDesdeDDJJ; } set { _certificaHoraDesdeDDJJ = value; } }
+        public string CertificaHoraHastaDDJJ { get { return _certificaHoraHastaDDJJ; } set { _certificaHoraHastaDDJJ = value; } }
+        public string MotivoNoCertificar { get { return _motivo_no_certificar; } set { _motivo_no_certificar = value; } }
+        public string CCONoCertificar { get { return _cco_no_certificar; } set { _cco_no_certificar = value; } }  
+
         public Persona() { }
 
         public Persona(int id, int documento, string nombre, string apellido, Area area) 
@@ -75,6 +89,13 @@ namespace General
             this._Nombre = nombre;
             this._Area = area;
             this._Inasistencias = inasistencias;
+        }
+
+        public Persona(int id, string apellido, string nombre)
+        {
+            this._id = id;
+            this._Apellido = apellido;
+            this._Nombre = nombre;
         }
 
         //public List<Inasistencia> Inasistencias()

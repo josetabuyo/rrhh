@@ -1,0 +1,362 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link id="link1" rel="stylesheet" href="../Scripts/imgareaselect/imgareaselect-animated.css" type="text/css" />
+    <style type="text/css">
+        #pantalla_impresion_credencial
+        {
+            position:relative;
+        }      
+         #pantalla_impresion_credencial #vista_previa_credencial
+        {
+            position: relative;
+            width: 250px;
+            display: inline-block;
+        }
+        
+         #pantalla_impresion_credencial #panel_derecho
+        {
+            position: absolute;
+            right: 10px;
+            left: 300px;
+            top: 60px;
+            bottom: 10px;
+        }
+        
+        #pantalla_impresion_credencial #imagen_credencial
+        {
+            width: 100%;
+        }        
+        
+        #pantalla_impresion_credencial #foto_usuario
+        {
+            position: absolute;
+            top: 14.6%;
+            left: 5.5%;
+            height: 32.8%;
+            width: 51.4%;
+            overflow: hidden;
+            border: 2px solid white;
+            border-radius: 14px;
+            background-color: white !important;
+        }    
+
+        #pantalla_impresion_credencial #codigo_barras
+        {
+            position: absolute;
+            right: -8%;
+            top: 28%;
+            -ms-transform: rotate(90deg);
+            -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
+            background-color: White !important;
+            height: 30px !important;
+            overflow: hidden !important;
+        }   
+        
+        #pantalla_impresion_credencial #foto_usuario #img_thumbnail
+        {
+            border-radius: 14px;
+        }
+        
+        #pantalla_impresion_credencial #apellido
+        {
+            position: absolute;
+            top: 50%;
+            left: 7.4%;
+            font-size: 20px;
+            color: white ;
+        }    
+        
+        #pantalla_impresion_credencial #nombres
+        {
+            position: absolute;
+            top: 57%;
+            left: 7.4%;
+            font-size: 20px;
+            color: white;
+        }    
+        
+        #pantalla_impresion_credencial #documento
+        {
+            position: absolute;
+            top: 64%;
+            left: 26%;
+            font-size: 20px;
+            color: white ;
+        }    
+            
+        #pantalla_impresion_credencial #titulo_documento
+        {
+            position: absolute;
+            top: 64%;
+            left: 7.4%;
+            font-size: 20px;
+            color: white ;
+        } 
+            
+        #pantalla_impresion_credencial #btn_imprimir_credencial
+        {
+
+        }
+        
+        #pantalla_impresion_credencial #titulo_vista_previa
+        {
+            margin-top:0px;
+        }
+        
+        #pantalla_impresion_credencial  #chk_credencial_impresa
+        {
+            /* Double-sized Checkboxes */
+            -ms-transform: scale(2); /* IE */
+            -moz-transform: scale(2); /* FF */
+            -webkit-transform: scale(2); /* Safari and Chrome */
+            -o-transform: scale(2); /* Opera */
+            padding: 10px;
+            margin-left: 27px;
+            margin-right: 10px;
+        }
+        
+        #pantalla_impresion_credencial  .checkboxtext
+        {
+            font-size: 110%;
+            display: inline;
+            vertical-align: middle;
+        }
+        
+        #pantalla_impresion_credencial  #txt_codigo_magnetico
+        {
+            height: 30px;
+            vertical-align: initial;
+        }
+        
+        #pantalla_impresion_credencial #panel_dar_aviso
+        {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            left: 0px;
+        }
+        #pantalla_impresion_credencial #txt_instrucciones_retiro
+        {
+            height: 30px;
+            vertical-align: initial;            
+            width: 100%;
+            height: 100px;
+        }
+        
+        #pantalla_impresion_credencial #btn_dar_aviso_y_cerrar
+        {
+            float: right;
+        }
+        
+        @media print {
+            form      
+            {
+                display:none;    
+            }
+            #pantalla_impresion_credencial #btn_dar_aviso_y_cerrar
+            {
+                display:none;   
+            }
+            #pantalla_impresion_credencial #vista_previa_credencial, 
+            #pantalla_impresion_credencial #vista_previa_credencial * {
+                visibility: visible;
+            }
+            
+            #pantalla_impresion_credencial 
+            {
+                position: absolute;
+                left: 0px;
+                right: 0px;
+                top: 0px;
+                bottom: 0px;
+              
+            }
+            #pantalla_impresion_credencial #vista_previa_credencial 
+            {
+                position: fixed;
+                left: -2px;
+                top: -1px;
+                width: 102%;                
+            }         
+            
+            #pantalla_impresion_credencial #apellido,
+            #pantalla_impresion_credencial #nombres,
+            #pantalla_impresion_credencial #documento,
+            #pantalla_impresion_credencial #titulo_documento
+            {
+                color: #fefefe !important;
+                font-size: 18px !important;
+            }
+            
+            #pantalla_impresion_credencial #codigo_barras
+            {                
+                right: -10% !important;
+                top: 27% !important;
+            }          
+        }
+    </style>
+</head>
+<div id="pantalla_impresion_credencial">
+    <h4 id="titulo_vista_previa">Credencial</h4>
+    <div id="vista_previa_credencial">        
+        <img id="imagen_credencial" src=""/>        
+        <div id="foto_usuario"></div>
+        <div id="apellido"></div>    
+        <div id="nombres"></div>    
+        <div id="titulo_documento">DNI:</div>    
+        <div id="documento"></div>
+        <div id="codigo_barras"> </div>    
+    </div>
+    <div id=panel_derecho>
+        <a id="lnk_formulario" style="cursor: pointer">Formulario de entrega</a>
+        <br />
+        <input id="btn_imprimir_credencial" type="button" class="btn btn-info" value="Imprimir"/>        
+        <input id="chk_credencial_impresa" type=checkbox />
+        <span class="checkboxtext">
+          Impresa
+        </span>
+        <div id="panel_codigo_magnetico" style="margin-top:30px;">
+            <label>Código Magnético:</label>
+            <input type=text id=txt_codigo_magnetico />
+            <input id="btn_asociar_codigo_magnetico" type="button" class="btn btn-info" value="Asociar Código"/>     
+        </div>
+        <div id="panel_dar_aviso">
+            <label style= "display: inline-block;">Lugar de entrega:</label>
+            <label id = "lugar_de_entrega"style= "display: inline-block;"></label>
+            <br />
+            <label style= "display: block;">Instrucciones adicionales para retirar Credencial</label>
+            <textarea type=text id=txt_instrucciones_retiro></textarea>
+            <input id="btn_dar_aviso_y_cerrar" type="button" class="btn btn-primary" value="Dar aviso y cerrar"/>     
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="../Scripts/jquery-barcode.js"/>
+<script type="text/javascript">
+    var Componente = {
+        start: function (ticket, ui) {
+            ui.find("#panel_codigo_magnetico").hide();
+            ui.find("#panel_dar_aviso").hide();
+            Backend.GetSolicitudDeCredencialPorIdTicketImpresion(ticket.id).onSuccess(function (solicitud) {
+                Backend.GetUsuarioPorIdPersona(solicitud.IdPersona).onSuccess(function (usuario) {
+                    ui.find("#apellido").text(usuario.Owner.Apellido);
+                    ui.find("#nombres").text(usuario.Owner.Nombre);
+                    ui.find("#documento").text(usuario.Owner.Documento);
+                    ui.find("#lugar_de_entrega").text(solicitud.LugarEntrega.Descripcion);
+
+                    var src = '';
+
+                    if (solicitud.Organismo == 'Ministerio de Desarrollo Social') {
+                        if (solicitud.TipoCredencial == 'Definitiva') src = '../BarraMenu/credencialMDS.jpg';
+                        if (solicitud.TipoCredencial == 'Externa') src = '../BarraMenu/credencialMDS_Externa.jpg';
+                    }
+                    if (solicitud.Organismo == 'Ministerio de Salud') {
+                        if (solicitud.TipoCredencial == 'Definitiva') src = '../BarraMenu/credencialMSAL.jpg';
+                        if (solicitud.TipoCredencial == 'Externa') src = '../BarraMenu/credencialMSAL_Externa.jpg';
+                    }
+                    if (solicitud.Organismo == 'Instituto Nacional de las Mujeres') {
+                        if (solicitud.TipoCredencial == 'Definitiva') src = '../BarraMenu/credencialINM.jpg';
+                        if (solicitud.TipoCredencial == 'Externa') src = '../BarraMenu/credencialINM_Externa.jpg';
+                    }
+
+                    ui.find("#imagen_credencial").attr('src', src);
+
+                    var img = new VistaThumbnail({
+                        id: solicitud.Credencial.IdFoto,
+                        contenedor: ui.find("#foto_usuario")
+                    });
+
+                    ui.find("#codigo_barras").barcode(usuario.Owner.Documento.toString(), "code128", {
+                        showHRI: false,
+                        barHeight: 30,
+                        barWidth: 1,
+                        output: 'bmp'
+                    });
+
+                    var btn_imprimir = ui.find("#btn_imprimir_credencial");
+                    btn_imprimir.click(function () {
+                        window.print();
+                    });
+
+                    ui.find("#lnk_formulario").click(function () {
+                        Backend.GetPDFDDJJRecepcionCredencial(solicitud)
+                            .onSuccess(function (base64pdf) {
+                                var lnk = $("<a>blabla<a/>");
+                                lnk.attr("href", "data:application/octet-stream;base64," + base64pdf);
+                                lnk.attr("download", "DDJJRecepcionCredencial.pdf");
+                                lnk.target = "blank";
+                                lnk.get(0).click();
+                            });
+                    });
+
+                    var chk_impresa = ui.find("#chk_credencial_impresa");
+                    if (solicitud.Credencial.Impresa) {
+                        btn_imprimir.val("ReImprimir");
+                        chk_impresa.attr("checked", true);
+                        chk_impresa.attr("disabled", true);
+                        ui.find("#panel_codigo_magnetico").show();
+                    }
+
+                    chk_impresa.click(function () {
+                        Backend.MarcarCredencialComoImpresa(solicitud.Credencial.Id)
+                            .onSuccess(function () {
+                                alertify.success("La credencial se marcó como impresa");
+                                btn_imprimir.val("ReImprimir");
+                                chk_impresa.attr("disabled", true);
+                                ui.find("#panel_codigo_magnetico").show();
+
+                            })
+                            .onError(function () {
+                                alertify.error("Error");
+                            });
+                    });
+
+                    var txt_codigo_magnetico = ui.find("#txt_codigo_magnetico");
+
+                    txt_codigo_magnetico.change(function () {
+                        var valor = parseInt(txt_codigo_magnetico.val());
+                        txt_codigo_magnetico.val(isNaN(valor) ? "" : valor);
+                    });
+
+                    var btn_asociar_codigo_magnetico = ui.find("#btn_asociar_codigo_magnetico");
+                    if (solicitud.Credencial.CodigoMagnetico != "") {
+                        txt_codigo_magnetico.val(solicitud.Credencial.CodigoMagnetico)
+                        btn_asociar_codigo_magnetico.val("ReAsociar");
+                        ui.find("#panel_dar_aviso").show();
+                    }
+                    btn_asociar_codigo_magnetico.click(function () {
+                        var codigo = txt_codigo_magnetico.val();
+                        Backend.AsociarCodigoMagneticoACredencial(solicitud.Credencial.Id, codigo)
+                            .onSuccess(function () {
+                                alertify.success("el código magnético se asoció correctamente");
+                                ui.find("#panel_dar_aviso").show();
+
+                            });
+                    });
+
+                    var btn_dar_aviso = ui.find("#btn_dar_aviso_y_cerrar");
+                    btn_dar_aviso.click(function () {
+                        btn_dar_aviso.prop("disabled", true);
+                        var instrucciones = ui.find("#txt_instrucciones_retiro").val();
+                        solicitud.IdTicketImpresion = ticket.id;
+                        Backend.CerrarTicketImpresion(solicitud, instrucciones)
+                            .onSuccess(function (respuesta) {
+                                if (!respuesta) alertify.error("Error al enviar el mail al usuario");
+                                else alertify.success("Se envió un mensaje al usuario para que retire su credencial");
+                                vex.close();
+                                GestionDeTareas.getTareasParaGestion();
+                            })
+                            .onError(function () {
+                                alertify.error("Error al dar aviso");
+                                btn_dar_aviso.prop("disabled", false);
+                            });
+
+                    });
+                });
+            });
+        }
+    };
+</script>

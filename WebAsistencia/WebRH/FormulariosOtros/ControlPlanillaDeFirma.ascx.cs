@@ -27,21 +27,35 @@ public partial class ControlPlanillaDeFirma : System.Web.UI.UserControl
     private string DiaDeLaSemana(string dia)
     {
         if (dia == "Sunday")
-            return "Domingo";
+            return "D";
         if (dia == "Monday")
-            return "Lunes";
+            return "L";
         if (dia == "Tuesday")
-            return "Martes";
+            return "M";
         if (dia == "Wednesday")
-            return "Miercoles";
+            return "M";
         if (dia == "Thursday")
-            return "Jueves";
+            return "J";
         if (dia == "Friday")
-            return "Viernes";
+            return "V";
         if (dia == "Saturday")
-            return "Sabado";
+            return "S";
 
         return dia;
+    }
+
+    private bool esFeriado(DateTime fecha, DateTime[] feriados)
+    {
+        foreach (DateTime feriado in feriados)
+        {
+            if (feriado.Date == fecha)
+            {
+                return true;
+            }
+            
+        }
+
+        return false;
     }
 
     protected void Page_Load(object sender, EventArgs e)
@@ -51,6 +65,10 @@ public partial class ControlPlanillaDeFirma : System.Web.UI.UserControl
         this.Table1.Style.Add(HtmlTextWriterStyle.Width, "100%");
         this.LPeriodo.Text = DateTime.Today.Month + "/" + DateTime.Today.Year;
         this.Table1.BorderWidth = 1;
+
+        WSViaticosSoapClient webService = new WSViaticosSoapClient();
+        //WSViaticos.WSViaticos s = new WSViaticos.WSViaticos();
+        DateTime[] feriados = webService.GetFeriados();
 
         int idArea = ((Area) Session["areaActual"]).Id;
         this.ImbBarcode.ImageUrl = "~/FormulariosOtros/GetBarCodes.aspx?codigo=FRH0201," + this.LDocumento.Text + "," + idArea + "," + DateTime.Today.Month.ToString() + "/" + DateTime.Today.Year.ToString();
@@ -65,61 +83,119 @@ public partial class ControlPlanillaDeFirma : System.Web.UI.UserControl
             tc = new TableCell();
             tc.BorderWidth = 1;
             tc.Height = 35;
-
+            tc.Style.Add("width", "6%");
 
             tc.Text = DiaDeLaSemana(PrimerDia.AddDays(i).DayOfWeek.ToString()) + " " + PrimerDia.AddDays(i).Day.ToString();
             tc.Style.Add(HtmlTextWriterStyle.TextAlign, "left");
             tr.Cells.Add(tc);
 
             tc = new TableCell();
-            if (DiaDeLaSemana(PrimerDia.AddDays(i).DayOfWeek.ToString()) == "Sabado" || DiaDeLaSemana(PrimerDia.AddDays(i).DayOfWeek.ToString()) == "Domingo")
+            if (DiaDeLaSemana(PrimerDia.AddDays(i).DayOfWeek.ToString()) == "S" || DiaDeLaSemana(PrimerDia.AddDays(i).DayOfWeek.ToString()) == "D")
             {
                 tc.Text = "No laborable";
                 tc.BorderWidth = 1;
+                tc.ColumnSpan = 2;
                 tr.Cells.Add(tc);
                 tc = new TableCell();
                 tc.Text = "No laborable";
+                tc.ColumnSpan = 2;
                 tc.BorderWidth = 1;
                 tr.Cells.Add(tc);
+            }
+            else if (esFeriado(PrimerDia.AddDays(i).Date, feriados))
+            {
+
+                tc.Text = "Feriado";
+                tc.BorderWidth = 1;
+                tc.ColumnSpan = 2;
+                tr.Cells.Add(tc);
+                tc = new TableCell();
+                tc.Text = "Feriado";
+                tc.ColumnSpan = 2;
+                tc.BorderWidth = 1;
+                tr.Cells.Add(tc);
+
             }
             else
             {
                 tc.Text = "&nbsp;";
                 tc.BorderWidth = 1;
+                tc.Style.Add("width", "7%");
+                tr.Cells.Add(tc);
+                tc = new TableCell();
+                tc.Text = "&nbsp;";
+                tc.Style.Add("width", "14.5%");
+                tc.BorderWidth = 1;
                 tr.Cells.Add(tc);
                 tc = new TableCell();
                 tc.Text = "&nbsp;";
                 tc.BorderWidth = 1;
                 tr.Cells.Add(tc);
+                tc.Style.Add("width", "8%");
+                tc = new TableCell();
+                tc.Text = "&nbsp;";
+                tc.BorderWidth = 1;
+                tc.Style.Add("width", "14.5%");
+                tr.Cells.Add(tc);
             }
 
+            /*2 tanda*/
             tc = new TableCell();
             if (PrimerDia.AddDays(i + Filas).Month == PrimerDia.Month)
             {
                 tc.Text = DiaDeLaSemana(PrimerDia.AddDays(i + Filas).DayOfWeek.ToString()) + " " + PrimerDia.AddDays(i + Filas).Day.ToString();
                 tc.Style.Add(HtmlTextWriterStyle.TextAlign, "left");
                 tc.BorderWidth = 1;
+                tc.Style.Add("width", "6%");
                 tr.Cells.Add(tc);
-                if (DiaDeLaSemana(PrimerDia.AddDays(i + Filas).DayOfWeek.ToString()) == "Sabado" || DiaDeLaSemana(PrimerDia.AddDays(i + Filas).DayOfWeek.ToString()) == "Domingo")
+                if (DiaDeLaSemana(PrimerDia.AddDays(i + Filas).DayOfWeek.ToString()) == "S" || DiaDeLaSemana(PrimerDia.AddDays(i + Filas).DayOfWeek.ToString()) == "D")
                 {
                     tc = new TableCell();
                     tc.Text = "No laborable";
                     tc.BorderWidth = 1;
+                    tc.ColumnSpan = 2;
                     tr.Cells.Add(tc);
                     tc = new TableCell();
                     tc.Text = "No laborable";
                     tc.BorderWidth = 1;
+                    tc.ColumnSpan = 2;
                     tr.Cells.Add(tc);
+                }
+                else if (esFeriado(PrimerDia.AddDays(i + Filas).Date, feriados))
+                {
+                    tc = new TableCell();
+                    tc.Text = "Feriado";
+                    tc.BorderWidth = 1;
+                    tc.ColumnSpan = 2;
+                    tr.Cells.Add(tc);
+                    tc = new TableCell();
+                    tc.Text = "Feriado";
+                    tc.ColumnSpan = 2;
+                    tc.BorderWidth = 1;
+                    tr.Cells.Add(tc);
+
                 }
                 else
                 {
                     tc = new TableCell();
                     tc.Text = "&nbsp;";
                     tc.BorderWidth = 1;
+                    tc.Style.Add("width", "7%");
                     tr.Cells.Add(tc);
                     tc = new TableCell();
                     tc.Text = "&nbsp;";
                     tc.BorderWidth = 1;
+                    tc.Style.Add("width", "14.5%");
+                    tr.Cells.Add(tc);
+                    tc = new TableCell();
+                    tc.Text = "&nbsp;";
+                    tc.BorderWidth = 1;
+                    tr.Cells.Add(tc);
+                    tc.Style.Add("width", "8%");
+                    tc = new TableCell();
+                    tc.Text = "&nbsp;";
+                    tc.BorderWidth = 1;
+                    tc.Style.Add("width", "14.5%");
                     tr.Cells.Add(tc);
                 }
             }
@@ -131,6 +207,15 @@ public partial class ControlPlanillaDeFirma : System.Web.UI.UserControl
                 tc = new TableCell();
                 tc.Text = "####";
                 tc.BorderWidth = 1;
+                tr.Cells.Add(tc);
+                tc = new TableCell();
+                tc.Text = "####";
+                tc.BorderWidth = 1;
+                tr.Cells.Add(tc);
+                tc = new TableCell();
+                tc.Text = "####";
+                tc.BorderWidth = 1;
+
                 tr.Cells.Add(tc);
                 tc = new TableCell();
                 tc.Text = "####";
@@ -138,6 +223,7 @@ public partial class ControlPlanillaDeFirma : System.Web.UI.UserControl
                 tr.Cells.Add(tc);
             }
             this.Table1.Rows.Add(tr);
+            this.Table1.Style.Add("border-collapse", "collapse");
         }
     }
 

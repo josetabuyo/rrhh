@@ -42,7 +42,7 @@ namespace General.Repositorios
             return niveles;
         }
 
-        protected override void GuardarEnLaBase(CvConocimientoCompetenciaInformatica objeto)
+        protected override void GuardarEnLaBase(CvConocimientoCompetenciaInformatica objeto, int id_usuario_logueado)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@descripcion", objeto.Descripcion);
@@ -51,7 +51,7 @@ namespace General.Repositorios
             objeto.Id = Convert.ToInt32(conexion.EjecutarEscalar("dbo.CV_AgregarConocimientosCompetenciasInformaticas", parametros));
         }
 
-        protected override void QuitarDeLaBase(CvConocimientoCompetenciaInformatica objeto)
+        protected override void QuitarDeLaBase(CvConocimientoCompetenciaInformatica objeto, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }

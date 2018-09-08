@@ -185,6 +185,40 @@ namespace General.Repositorios
                 data_adapter.Dispose();
             }
         }
+
+        public List<DataTable> EjecutarConVariosResultados(string procedimiento, int command_timeout = 30)
+        {
+            AbrirBD();
+
+            var data_adapter = new SqlDataAdapter();
+            var data_tables = new List<DataTable>();
+            var data_set = new DataSet();
+
+            try
+            {
+                data_adapter.SelectCommand = CrearComando(procedimiento, command_timeout);
+                data_adapter.Fill(data_set);
+                for (var i = 0; i < data_set.Tables.Count; i++)
+                {
+                    data_tables.Add(data_set.Tables[i]);
+                }         
+
+                return data_tables;
+            }
+            catch (SqlException e)
+            {
+                throw e;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            finally
+            {
+                CerrarBD();
+                data_adapter.Dispose();
+            }
+        }
         /*
         public void PseudoBulk(AnalisisDeLicenciaOrdinaria analisis, Persona persona)
         {
@@ -261,6 +295,28 @@ namespace General.Repositorios
 
             analisis.Clear();
         }
+
+        public IDbTransaction BeginTransaction()
+        {
+            conexion = new SqlConnection(this.cadenaDeConexion);
+            conexion.Open();
+            return conexion.BeginTransaction();
+            //_Transaccion = conexion.BeginTransaction();
+            //var comando = CrearComando(
+           // _Comando.Transaction = _Transaccion;
+        }
+
+        //public void RollbackTransaction()
+        //{
+        //    _Transaccion.Rollback();
+        //    CerrarBD();
+        //}
+
+        //public void CommitTransaction()
+        //{
+        //    _Transaccion.Commit();
+        //    CerrarBD();
+        //}
     }
 
 }

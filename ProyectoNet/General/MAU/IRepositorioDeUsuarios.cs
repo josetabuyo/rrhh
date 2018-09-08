@@ -10,6 +10,7 @@ namespace General.MAU
     {
         Usuario GetUsuarioPorAlias(string alias, bool incluir_bajas=false);
         Usuario GetUsuarioPorIdPersona(int id_persona);
+        Usuario GetUsuarioPorDNI(int dni);
         Usuario CrearUsuarioPara(int id_persona);
         bool CambiarPassword(int id_usuario, string pass_actual, string pass_nueva);
         string ResetearPassword(int id_usuario);
@@ -23,12 +24,14 @@ namespace General.MAU
         bool SolicitarCambioImagen(int id_usuario, int id_imagen);
         List<SolicitudDeCambioDeImagen> GetSolicitudesDeCambioDeImagenPendientesPara(int id_usuario);
 
-        bool AceptarCambioDeImagen(int id_usuario);
+        bool AceptarCambioDeImagen(int id_usuario_solicitante, int id_administrador);
 
-        bool RechazarCambioDeImagen(int id_usuario, string razon_rechazo);
+        bool RechazarCambioDeImagen(string razon_de_rechazo, int id_usuario_solicitante, int id_administrador);
 
         List<SolicitudDeCambioDeImagen> GetSolicitudesDeCambioDeImagenPendientes();
+        SolicitudDeCambioDeImagen GetCambioImagenPorIdTicket(int id_ticket);
+        bool AceptarCambioImagenConImagenRecortada(int id_imagen_recortada, int id_usuario_solicitante, int id_administrador);
 
-        bool AceptarCambioImagenConImagenRecortada(int id_usuario, int id_imagen_recortada);
+        bool CambiarImagenPerfil(int id_usuario, int id_imagen, int id_administrador);
     }
 }

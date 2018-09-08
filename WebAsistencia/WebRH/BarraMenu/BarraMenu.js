@@ -17,11 +17,10 @@
                         return ui;
                     }
                 })             
-                
             });
         
         $('#boton_home').click(function () {
-            Backend.ElUsuarioLogueadoTienePermisosPara(51).onSuccess(function (tiene_permisos) {   
+            Backend.ElUsuarioLogueadoTienePermisosParaFuncionalidadPorNombre("Ingreso_al_portal").onSuccess(function (tiene_permisos) {   
                 if(tiene_permisos) window.location.href = '../Portal/Portal.aspx';
                 else window.location.href = '../MenuPrincipal/Menu.aspx';
             });
@@ -46,7 +45,7 @@
 
         var cargar_alertas = function () {
             $("#contenedor_alertas").empty();            
-            Backend.GetMisAlertasPendientes().onSuccess(function (alertas) {                 
+            Backend.GetMisAlertasPendientes().onSuccess(function (alertas) {                   
                 _.forEach(alertas, function (alerta) {
                     var vista = new VistaAlerta(alerta);                    
                     menu_alertas.agregar(vista);                    
@@ -56,21 +55,13 @@
 
         var cargar_tareas = function () {
             $("#contenedor_tareas").empty()
-            Backend.ElUsuarioLogueadoTienePermisosPara(50).onSuccess(function (tiene_permisos) {
-                if (tiene_permisos) {
-                    $("#menu_tareas").show();
-                    Backend.GetSolicitudesDeCambioDeImagenPendientes().onSuccess(function (solicitudes) {
-                        _.forEach(solicitudes, function (solicitud) {
-                            var vista = new VistaSolicitudDeCambioDeImagen(solicitud);
-                            menu_tareas.agregar(vista);           
-                        });
-                    });
-                    
-                }else{
-                    
-                }
-            });
-           
+            $("#menu_tareas").show();
+            Backend.getResumenTicketsPorFuncionalidad().onSuccess(function (res_tickets) {
+                _.forEach(res_tickets, function (res_ticket) {
+                    var vista = new VistaTipoTicket(res_ticket.DescripcionTipo, res_ticket.CantidadTickets);
+                    menu_tareas.agregar(vista, res_ticket.CantidadTickets);           
+                });
+            });        
         };
 
         cargar_alertas();
@@ -90,6 +81,19 @@
             document.getElementById('apellido_user').innerHTML = usuario.Owner.Apellido;
             document.getElementById('dni_user').innerHTML = usuario.Owner.Documento;
             document.getElementById('email_user').innerHTML = usuario.MailRegistro;
+
+            $('#btn_credenciales').show();
+            $('#btn_credenciales, #btn_Credencial_vigente').click(function () {
+                var div = $("<div>");
+                div.load(window.location.origin + '/Componentes/CredencialVigente.htm', function () {
+                    $.getScript('../Componentes/CredencialVigente.js', function(response,status) {
+                        $.getScript("../Scripts/jquery-barcode.js", function(response2,status2) {
+                            Componente.start(false, div);
+                        });
+                    });
+                });
+            });
+
 
             $('#cambiar-constrasena_usuario').click(function () {
 
@@ -116,14 +120,22 @@
                             vex.close();
                             var subidor = new SubidorDeImagenes();
                             subidor.subirImagen(function (id_imagen) {
-                                Backend.SolicitarCambioDeImagen(id_imagen).onSuccess(function () {
-                                    alertify.success("solicitud de cambio de imagen realizada con éxito");
-                                });
-                            }, true);
+                                Backend.SolicitarCambioDeImagen(id_imagen)
+                                    .onSuccess(function () {
+                                        alertify.success("solicitud de cambio de imagen realizada con éxito");
+                                    })
+                                    .onError(function () {
+                                        alertify.error("error al solicitar imagen");
+                                    });
+                            }, true, 500);
                         });
                         $vexContent.append(ui);
                         ui.show();
                         return ui;
+                    },
+                    css: {
+                        'padding-top': "4%",
+                        'padding-bottom': "0%"
                     }
                 })             
                 

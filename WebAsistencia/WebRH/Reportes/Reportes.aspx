@@ -26,12 +26,12 @@
             <div id="contenedor_arbol_organigrama"> 
 
             </div>
-            <input id="btn_consulta_rapida" type="button" class="btn_consulta_individual" requierefuncionalidad="32" value="Consulta Individual" />
+            <input id="btn_consulta_rapida" type="button" class="btn_consulta_individual" requierefuncionalidad="reportes_consulta_individual" value="Consulta Individual" />
             <input type="button" class="btn_organigrama" id="showLeftPush" value="Organigrama" />
             <div id="menu_grafico">
                <h2 class="">Gráficos</h2>
                  <ul class="lista" >
-                   <li requierefuncionalidad="38"><a href="#" id="btn_grafico_dotacion" class="link_listado">Dotación</a>
+                   <li requierefuncionalidad="reportes_dotacion"><a href="#" id="btn_grafico_dotacion" class="link_listado">Dotación</a>
                        <ul>
                            <li class="Rango Etáreo"><a href="#" id="btn_genero" class="link_listado">Género</a></li>
                            <li class="Rango Etáreo"><a href="#" id="btn_nivel" class="link_listado">Nivel</a></li>
@@ -42,8 +42,8 @@
                            <li class="Rango Etáreo"><a href="#" id="btn_subsecretarias" class="link_listado">SubSecretarías</a></li>
                        </ul>
                    </li>
-                   <li class="Dotacion" requierefuncionalidad="39"><a href="#" id="btn_grafico_sueldo" class="link_listado">Sueldo</a></li>
-                   <li class="Dotacion" requierefuncionalidad="38"><a href="#" id="btn_grafico_rangoEtario" class="link_listado">Rango Etário</a></li>
+                   <li class="Dotacion" requierefuncionalidad="reportes_sueldo"><a href="#" id="btn_grafico_sueldo" class="link_listado">Sueldo</a></li>
+                   <li class="Dotacion" requierefuncionalidad="reportes_dotacion"><a href="#" id="btn_grafico_rangoEtario" class="link_listado">Rango Etário</a></li>
                </ul>
             </div>
 

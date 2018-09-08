@@ -46,7 +46,7 @@
     
     <div style="width: 75%; margin-left:10%; height: 949px;" class="">
         <div style=" text-align:left;" class="">
-            <p style="float:left;" class="">Postulación Nº:     <span id="num_postulacion"></span> <label class="">     Recepcionó:</label> <span id ="span_recepcion"></span> </p>
+            <p style="float:left;" class=""><b>Postulación Nº:     <span id="num_postulacion" style="font-size:1.2em;"></span></b> <label class="">. Recepcionó:</label> <span id ="span_recepcion"></span> </p>
             <p style="float:right;">ANEXO III</p>
             <div style="clear:both;"></div>
             <p class="encabezado"style="font-size:20px; margin-bottom:1%;margin-top:1%">CONSTANCIA DE RECEPCIÓN DE LA SOLICITUD.
@@ -59,10 +59,10 @@
                 <td colspan="2" class="celda">FICHA DE INSCRIPCIÓN Nº</td>
                 <td colspan="2" class="celda"></td>
             </tr>
-            <tr >
+           <%-- <tr >
                 <td colspan="2" class="celda">N° DEL REGISTRO CENTRAL DE OFERTAS DE EMPLEO</td>
                 <td id="numero_de_oferta" colspan="2" class="celda"></td>
-            </tr>
+            </tr>--%>
             <tr>
                 <td colspan="2" class="celda">TIPO DE CONVOCATORIA</td>
                 <td id="puesto_tipo" colspan="2" class="celda"></td>
@@ -150,7 +150,10 @@
             </tr>
             </table>
             <br />
-           <input type ="button" value="Imprimir" onclick="Imprimir();" class="no-print" />
+            <div style="text-align:center;">
+                <input  type ="button" value="IMPRIMIR" onclick="Imprimir();" class="btn btn-primary no-print" />
+            </div>
+           
            <%-- <p class="p-imprimir"><button class="btn btn-primary" onclick="ImprimirCVPostulado()">Imprimir</button></p>--%>
         </div>	
     </div>

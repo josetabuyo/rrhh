@@ -44,9 +44,6 @@
                 <option value="12">Diciembre</option>
              </select>
               <select style="width:60px;" id="cmb_anio">
-                <option value="2017">2017</option>
-                <option value="2016">2016</option>
-                <option value="2015">2015</option>
              </select>
              <div id="caja_controles">
                 
@@ -131,9 +128,20 @@
                 var mes = day.getMonth() + 1;
                 var anio = day.getFullYear();
 
+
+                $("#cmb_anio").empty();
+
+                for (var i = 0; i <= 2; i++) {
+                    $("#cmb_anio").append('<option value=' + (anio - i).toString() + '>' + (anio - i).toString() + '</option>');
+                }
+
+
                 $("#cmb_meses").val(mes)
                 $("#cmb_anio").trigger('change');
                 //$("#cmb_meses").val(mes).trigger('change');
+
+
+
             });
         });
 

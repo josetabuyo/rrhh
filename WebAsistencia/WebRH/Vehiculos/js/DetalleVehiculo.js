@@ -2,7 +2,7 @@
     Backend.start(function () {
         var param = document.URL.split('?')[1];
 
-        Backend.ObtenerVehiculoPorIDVerificacion(param).onSuccess(function (respuesta_vehiculo) {
+        Backend.ObtenerVehiculoPorCodigoWeb(param).onSuccess(function (respuesta_vehiculo) {
             $("#volver").addClass("animated slideInLeft");
             $("#boton-imagenes").addClass("animated slideInLeft");
 
@@ -13,21 +13,12 @@
                 return;
             }
 
-            if (respuesta_vehiculo.vehiculo.MensajeTarjeton) {
-                $("#mensaje_tarjeton").text(respuesta_vehiculo.vehiculo.MensajeTarjeton);
-                $("#mensaje_tarjeton").show();
-            }
 
-            if (respuesta_vehiculo.vehiculo.Mensaje) {
-                $("#mensaje_vehiculo").text(respuesta_vehiculo.vehiculo.Mensaje);
-                $("#mensaje_vehiculo").show();
-            }
-
-            if (respuesta_vehiculo.vehiculo.Apellido == "Sin Asignación") {
-                $("#responsable").text(respuesta_vehiculo.vehiculo.Apellido);
+            if (respuesta_vehiculo.vehiculo.Conductor.Apellido == null || respuesta_vehiculo.vehiculo.Conductor.Apellido == "") {
+                $("#responsable").text("Sin Asignación");
             }
             else {
-                $("#responsable").text(respuesta_vehiculo.vehiculo.Apellido + ', ' + respuesta_vehiculo.vehiculo.Nombre);
+                $("#responsable").text(respuesta_vehiculo.vehiculo.Conductor.Apellido + ', ' + respuesta_vehiculo.vehiculo.Conductor.Nombre);
             }
 
             $("#marca").text(respuesta_vehiculo.vehiculo.Marca);
