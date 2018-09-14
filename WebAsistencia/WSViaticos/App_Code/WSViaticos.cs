@@ -3118,7 +3118,16 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public void ConcederFuncionalidadA(int id_usuario, int id_funcionalidad, Usuario usuario)
     {
-        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "mau_cambiar_permisos")) Autorizador().ConcederFuncionalidadA(id_usuario, id_funcionalidad, usuario.Id);
+        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "mau_cambiar_permisos")) 
+            Autorizador().ConcederFuncionalidadA(id_usuario, id_funcionalidad, usuario.Id);
+        else throw new Exception("No está habilitado para modificar permisos");
+    }
+
+    [WebMethod]
+    public void ConcederFuncionalidadPorAreaA(int id_usuario, int id_funcionalidad, int id_area, Usuario usuario)
+    {
+        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "mau_cambiar_permisos"))
+            Autorizador().ConcederFuncionalidadPorAreaA(id_usuario, id_funcionalidad, id_area, usuario.Id);
         else throw new Exception("No está habilitado para modificar permisos");
     }
 
@@ -3126,6 +3135,13 @@ public class WSViaticos : System.Web.Services.WebService
     public void DenegarFuncionalidadA(int id_usuario, int id_funcionalidad, Usuario usuario)
     {
         if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 24)) Autorizador().DenegarFuncionalidadA(id_usuario, id_funcionalidad, usuario.Id);
+        else throw new Exception("No está habilitado para modificar permisos");
+    }
+
+    [WebMethod]
+    public void DenegarFuncionalidadPorAreaA(int id_usuario, int id_funcionalidad, int id_area, Usuario usuario)
+    {
+        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 24)) Autorizador().DenegarFuncionalidadPorAreaA(id_usuario, id_funcionalidad, id_area, usuario.Id);
         else throw new Exception("No está habilitado para modificar permisos");
     }
 

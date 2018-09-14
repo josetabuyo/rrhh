@@ -102,6 +102,20 @@ namespace General.MAU
             this.repositorio_funcionalidades_usuarios.DenegarFuncionalidadA(id_usuario, id_funcionalidad, id_usuario_logueado);
         }
 
+        //FC: nuevas por area
+        public void ConcederFuncionalidadPorAreaA(int id_usuario, int id_funcionalidad, int id_area, int id_usuario_logueado)
+        {
+            this.repositorio_funcionalidades_usuarios.GuardarFuncionalidadPorAreaYUsuario(id_usuario, id_funcionalidad, id_area, id_usuario_logueado);
+        }
+
+        //FC: nuevas por area
+        public void DenegarFuncionalidadPorAreaA(int id_usuario, int id_funcionalidad, int id_area, int id_usuario_logueado)
+        {
+            this.repositorio_funcionalidades_usuarios.QuitarFuncionalidadPorAreaYUsuario(id_usuario, id_funcionalidad, id_area, id_usuario_logueado);
+        }
+
+        
+
         public static Autorizador Instancia()
         {
             return new Autorizador();

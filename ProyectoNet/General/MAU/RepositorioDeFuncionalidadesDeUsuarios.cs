@@ -71,6 +71,11 @@ namespace General.MAU
             this.Guardar(new KeyValuePair<int, int>(id_usuario, id_funcionalidad), id_usuario_logueado);
         }
 
+       /* public void ConcederFuncionalidadPorAreaA(int id_usuario, int id_funcionalidad, int id_area, int id_usuario_logueado)
+        {
+            this.GuardarFuncionalidadPorAreaYUsuario(id_usuario, id_funcionalidad, id_area, id_usuario_logueado);
+        }*/
+
         public void DenegarFuncionalidadA(int id_usuario, int id_funcionalidad, int id_usuario_logueado)
         {
             this.Quitar(new KeyValuePair<int, int>(id_usuario, id_funcionalidad), id_usuario_logueado);
@@ -96,6 +101,26 @@ namespace General.MAU
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_usuario", objeto.Key);
             parametros.Add("@id_funcionalidad", objeto.Value);
+            var tablaDatos = conexion.Ejecutar("dbo.MAU_DenegarFuncionalidadA", parametros);
+        }
+        //FC nuevas
+        public void GuardarFuncionalidadPorAreaYUsuario(int idUsuario, int idFuncionalidad, int idArea, int id_usuario_logueado)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_usuario", idUsuario);
+            parametros.Add("@id_funcionalidad", idFuncionalidad);
+            parametros.Add("@id_usuario_logueado", id_usuario_logueado);
+            parametros.Add("@id_area", idArea);
+            var tablaDatos = conexion.Ejecutar("dbo.MAU_ConcederFuncionalidadA", parametros);
+        }
+
+        public void QuitarFuncionalidadPorAreaYUsuario(int idUsuario, int idFuncionalidad, int idArea, int id_usuario_logueado)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_usuario", idUsuario);
+            parametros.Add("@id_funcionalidad", idFuncionalidad);
+            parametros.Add("@id_usuario_logueado", id_usuario_logueado);
+            parametros.Add("@id_area", idArea);
             var tablaDatos = conexion.Ejecutar("dbo.MAU_DenegarFuncionalidadA", parametros);
         }
 

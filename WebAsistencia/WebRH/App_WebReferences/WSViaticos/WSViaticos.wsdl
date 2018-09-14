@@ -619,6 +619,64 @@
       <s:element name="AsignaAreaAPersonasNoCertificadasResponse">
         <s:complexType />
       </s:element>
+      <s:element name="ObtenerVehiculoPorCodigoWeb">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="id_verificacion" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerVehiculoPorCodigoWebResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerVehiculoPorCodigoWebResult" type="tns:RespuestaVehiculo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RespuestaVehiculo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="id_verificacion" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Respuesta" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="vehiculo" type="tns:Vehiculo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Vehiculo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="NumeroVehiculo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Dominio" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Segmento" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Marca" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Modelo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Motor" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Chasis" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Anio" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Observacion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Area" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Apellido" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="imagenes" type="tns:ArrayOfInt" />
+          <s:element minOccurs="0" maxOccurs="1" name="Conductor" type="tns:Persona" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfInt">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="int" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ObtenerVehiculoPorID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_bien" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerVehiculoPorIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerVehiculoPorIDResult" type="tns:RespuestaVehiculo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="Mobi_GetAreasUsuario">
         <s:complexType>
           <s:sequence>
@@ -728,11 +786,6 @@
           <s:element minOccurs="0" maxOccurs="1" name="Imagenes" type="tns:ArrayOfInt" />
           <s:element minOccurs="0" maxOccurs="1" name="Ubicacion" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Verificacion" type="s:string" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="ArrayOfInt">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="int" type="s:int" />
         </s:sequence>
       </s:complexType>
       <s:element name="Mobi_GetBienesDelArea">
@@ -1788,20 +1841,41 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetPostulacionesPorCodigo">
+      <s:element name="ActualizarInformesGDEDeUnaPostulacion">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="codigo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="numeroPostulacion" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="setDeInformes" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetPostulacionesPorCodigoResponse">
+      <s:element name="ActualizarInformesGDEDeUnaPostulacionResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetPostulacionesPorCodigoResult" type="tns:Postulacion" />
+            <s:element minOccurs="1" maxOccurs="1" name="ActualizarInformesGDEDeUnaPostulacionResult" type="s:boolean" />
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetPostulaciones">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPostulacionesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPostulacionesResult" type="tns:ArrayOfPostulacion" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfPostulacion">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Postulacion" nillable="true" type="tns:Postulacion" />
+        </s:sequence>
+      </s:complexType>
       <s:complexType name="Postulacion">
         <s:sequence>
           <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
@@ -2088,6 +2162,20 @@
           <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
         </s:sequence>
       </s:complexType>
+      <s:element name="GetPostulacionesPorCodigo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="codigo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPostulacionesPorCodigoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPostulacionesPorCodigoResult" type="tns:Postulacion" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="BuscarEtapasConcurso">
         <s:complexType>
           <s:sequence>
@@ -2823,11 +2911,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="ArrayOfPostulacion">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Postulacion" nillable="true" type="tns:Postulacion" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="GuardarFolios">
         <s:complexType>
           <s:sequence>
@@ -3625,59 +3708,6 @@
           <s:element minOccurs="1" maxOccurs="1" name="id_Bien_Tarjeton" type="s:int" />
         </s:sequence>
       </s:complexType>
-      <s:element name="ObtenerVehiculoPorCodigoWeb">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="id_verificacion" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ObtenerVehiculoPorCodigoWebResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ObtenerVehiculoPorCodigoWebResult" type="tns:RespuestaVehiculo" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:complexType name="RespuestaVehiculo">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="id_verificacion" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="Respuesta" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="vehiculo" type="tns:Vehiculo" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="Vehiculo">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="NumeroVehiculo" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Dominio" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Segmento" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Marca" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Modelo" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Motor" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Chasis" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Anio" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Observacion" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Area" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Apellido" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="imagenes" type="tns:ArrayOfInt" />
-          <s:element minOccurs="0" maxOccurs="1" name="Conductor" type="tns:Persona" />
-        </s:sequence>
-      </s:complexType>
-      <s:element name="ObtenerVehiculoPorID">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id_bien" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ObtenerVehiculoPorIDResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ObtenerVehiculoPorIDResult" type="tns:RespuestaVehiculo" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
       <s:element name="AsignarCategoriaADocumento">
         <s:complexType>
           <s:sequence>
@@ -4291,6 +4321,19 @@
       <s:element name="ConcederFuncionalidadAResponse">
         <s:complexType />
       </s:element>
+      <s:element name="ConcederFuncionalidadPorAreaA">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_usuario" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_funcionalidad" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_area" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConcederFuncionalidadPorAreaAResponse">
+        <s:complexType />
+      </s:element>
       <s:element name="DenegarFuncionalidadA">
         <s:complexType>
           <s:sequence>
@@ -4301,6 +4344,19 @@
         </s:complexType>
       </s:element>
       <s:element name="DenegarFuncionalidadAResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="DenegarFuncionalidadPorAreaA">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_usuario" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_funcionalidad" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_area" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DenegarFuncionalidadPorAreaAResponse">
         <s:complexType />
       </s:element>
       <s:element name="GetMenuPara">
@@ -5249,36 +5305,6 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="TraerReporteDePostulacionesResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ActualizarInformesGDEDeUnaPostulacion">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="numeroPostulacion" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="setDeInformes" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ActualizarInformesGDEDeUnaPostulacionResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="ActualizarInformesGDEDeUnaPostulacionResult" type="s:boolean" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetPostulaciones">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetPostulacionesResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetPostulacionesResult" type="tns:ArrayOfPostulacion" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -8391,6 +8417,18 @@
   <wsdl:message name="AsignaAreaAPersonasNoCertificadasSoapOut">
     <wsdl:part name="parameters" element="tns:AsignaAreaAPersonasNoCertificadasResponse" />
   </wsdl:message>
+  <wsdl:message name="ObtenerVehiculoPorCodigoWebSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerVehiculoPorCodigoWeb" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerVehiculoPorCodigoWebSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerVehiculoPorCodigoWebResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerVehiculoPorIDSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerVehiculoPorID" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerVehiculoPorIDSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerVehiculoPorIDResponse" />
+  </wsdl:message>
   <wsdl:message name="Mobi_GetAreasUsuarioSoapIn">
     <wsdl:part name="parameters" element="tns:Mobi_GetAreasUsuario" />
   </wsdl:message>
@@ -8780,6 +8818,18 @@
   </wsdl:message>
   <wsdl:message name="InsertarEvaluacionSoapOut">
     <wsdl:part name="parameters" element="tns:InsertarEvaluacionResponse" />
+  </wsdl:message>
+  <wsdl:message name="ActualizarInformesGDEDeUnaPostulacionSoapIn">
+    <wsdl:part name="parameters" element="tns:ActualizarInformesGDEDeUnaPostulacion" />
+  </wsdl:message>
+  <wsdl:message name="ActualizarInformesGDEDeUnaPostulacionSoapOut">
+    <wsdl:part name="parameters" element="tns:ActualizarInformesGDEDeUnaPostulacionResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPostulacionesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPostulaciones" />
+  </wsdl:message>
+  <wsdl:message name="GetPostulacionesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPostulacionesResponse" />
   </wsdl:message>
   <wsdl:message name="GetPostulacionesPorCodigoSoapIn">
     <wsdl:part name="parameters" element="tns:GetPostulacionesPorCodigo" />
@@ -9279,18 +9329,6 @@
   <wsdl:message name="NuevoTarjetonSoapOut">
     <wsdl:part name="parameters" element="tns:NuevoTarjetonResponse" />
   </wsdl:message>
-  <wsdl:message name="ObtenerVehiculoPorCodigoWebSoapIn">
-    <wsdl:part name="parameters" element="tns:ObtenerVehiculoPorCodigoWeb" />
-  </wsdl:message>
-  <wsdl:message name="ObtenerVehiculoPorCodigoWebSoapOut">
-    <wsdl:part name="parameters" element="tns:ObtenerVehiculoPorCodigoWebResponse" />
-  </wsdl:message>
-  <wsdl:message name="ObtenerVehiculoPorIDSoapIn">
-    <wsdl:part name="parameters" element="tns:ObtenerVehiculoPorID" />
-  </wsdl:message>
-  <wsdl:message name="ObtenerVehiculoPorIDSoapOut">
-    <wsdl:part name="parameters" element="tns:ObtenerVehiculoPorIDResponse" />
-  </wsdl:message>
   <wsdl:message name="AsignarCategoriaADocumentoSoapIn">
     <wsdl:part name="parameters" element="tns:AsignarCategoriaADocumento" />
   </wsdl:message>
@@ -9537,11 +9575,23 @@
   <wsdl:message name="ConcederFuncionalidadASoapOut">
     <wsdl:part name="parameters" element="tns:ConcederFuncionalidadAResponse" />
   </wsdl:message>
+  <wsdl:message name="ConcederFuncionalidadPorAreaASoapIn">
+    <wsdl:part name="parameters" element="tns:ConcederFuncionalidadPorAreaA" />
+  </wsdl:message>
+  <wsdl:message name="ConcederFuncionalidadPorAreaASoapOut">
+    <wsdl:part name="parameters" element="tns:ConcederFuncionalidadPorAreaAResponse" />
+  </wsdl:message>
   <wsdl:message name="DenegarFuncionalidadASoapIn">
     <wsdl:part name="parameters" element="tns:DenegarFuncionalidadA" />
   </wsdl:message>
   <wsdl:message name="DenegarFuncionalidadASoapOut">
     <wsdl:part name="parameters" element="tns:DenegarFuncionalidadAResponse" />
+  </wsdl:message>
+  <wsdl:message name="DenegarFuncionalidadPorAreaASoapIn">
+    <wsdl:part name="parameters" element="tns:DenegarFuncionalidadPorAreaA" />
+  </wsdl:message>
+  <wsdl:message name="DenegarFuncionalidadPorAreaASoapOut">
+    <wsdl:part name="parameters" element="tns:DenegarFuncionalidadPorAreaAResponse" />
   </wsdl:message>
   <wsdl:message name="GetMenuParaSoapIn">
     <wsdl:part name="parameters" element="tns:GetMenuPara" />
@@ -9776,18 +9826,6 @@
   </wsdl:message>
   <wsdl:message name="TraerReporteDePostulacionesSoapOut">
     <wsdl:part name="parameters" element="tns:TraerReporteDePostulacionesResponse" />
-  </wsdl:message>
-  <wsdl:message name="ActualizarInformesGDEDeUnaPostulacionSoapIn">
-    <wsdl:part name="parameters" element="tns:ActualizarInformesGDEDeUnaPostulacion" />
-  </wsdl:message>
-  <wsdl:message name="ActualizarInformesGDEDeUnaPostulacionSoapOut">
-    <wsdl:part name="parameters" element="tns:ActualizarInformesGDEDeUnaPostulacionResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetPostulacionesSoapIn">
-    <wsdl:part name="parameters" element="tns:GetPostulaciones" />
-  </wsdl:message>
-  <wsdl:message name="GetPostulacionesSoapOut">
-    <wsdl:part name="parameters" element="tns:GetPostulacionesResponse" />
   </wsdl:message>
   <wsdl:message name="GuardarDocumento_AjaxSoapIn">
     <wsdl:part name="parameters" element="tns:GuardarDocumento_Ajax" />
@@ -10786,6 +10824,14 @@
       <wsdl:input message="tns:AsignaAreaAPersonasNoCertificadasSoapIn" />
       <wsdl:output message="tns:AsignaAreaAPersonasNoCertificadasSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="ObtenerVehiculoPorCodigoWeb">
+      <wsdl:input message="tns:ObtenerVehiculoPorCodigoWebSoapIn" />
+      <wsdl:output message="tns:ObtenerVehiculoPorCodigoWebSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerVehiculoPorID">
+      <wsdl:input message="tns:ObtenerVehiculoPorIDSoapIn" />
+      <wsdl:output message="tns:ObtenerVehiculoPorIDSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="Mobi_GetAreasUsuario">
       <wsdl:input message="tns:Mobi_GetAreasUsuarioSoapIn" />
       <wsdl:output message="tns:Mobi_GetAreasUsuarioSoapOut" />
@@ -11045,6 +11091,14 @@
     <wsdl:operation name="InsertarEvaluacion">
       <wsdl:input message="tns:InsertarEvaluacionSoapIn" />
       <wsdl:output message="tns:InsertarEvaluacionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarInformesGDEDeUnaPostulacion">
+      <wsdl:input message="tns:ActualizarInformesGDEDeUnaPostulacionSoapIn" />
+      <wsdl:output message="tns:ActualizarInformesGDEDeUnaPostulacionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPostulaciones">
+      <wsdl:input message="tns:GetPostulacionesSoapIn" />
+      <wsdl:output message="tns:GetPostulacionesSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetPostulacionesPorCodigo">
       <wsdl:input message="tns:GetPostulacionesPorCodigoSoapIn" />
@@ -11378,14 +11432,6 @@
       <wsdl:input message="tns:NuevoTarjetonSoapIn" />
       <wsdl:output message="tns:NuevoTarjetonSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="ObtenerVehiculoPorCodigoWeb">
-      <wsdl:input message="tns:ObtenerVehiculoPorCodigoWebSoapIn" />
-      <wsdl:output message="tns:ObtenerVehiculoPorCodigoWebSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerVehiculoPorID">
-      <wsdl:input message="tns:ObtenerVehiculoPorIDSoapIn" />
-      <wsdl:output message="tns:ObtenerVehiculoPorIDSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="AsignarCategoriaADocumento">
       <wsdl:input message="tns:AsignarCategoriaADocumentoSoapIn" />
       <wsdl:output message="tns:AsignarCategoriaADocumentoSoapOut" />
@@ -11550,9 +11596,17 @@
       <wsdl:input message="tns:ConcederFuncionalidadASoapIn" />
       <wsdl:output message="tns:ConcederFuncionalidadASoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="ConcederFuncionalidadPorAreaA">
+      <wsdl:input message="tns:ConcederFuncionalidadPorAreaASoapIn" />
+      <wsdl:output message="tns:ConcederFuncionalidadPorAreaASoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="DenegarFuncionalidadA">
       <wsdl:input message="tns:DenegarFuncionalidadASoapIn" />
       <wsdl:output message="tns:DenegarFuncionalidadASoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DenegarFuncionalidadPorAreaA">
+      <wsdl:input message="tns:DenegarFuncionalidadPorAreaASoapIn" />
+      <wsdl:output message="tns:DenegarFuncionalidadPorAreaASoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetMenuPara">
       <wsdl:input message="tns:GetMenuParaSoapIn" />
@@ -11709,14 +11763,6 @@
     <wsdl:operation name="TraerReporteDePostulaciones">
       <wsdl:input message="tns:TraerReporteDePostulacionesSoapIn" />
       <wsdl:output message="tns:TraerReporteDePostulacionesSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="ActualizarInformesGDEDeUnaPostulacion">
-      <wsdl:input message="tns:ActualizarInformesGDEDeUnaPostulacionSoapIn" />
-      <wsdl:output message="tns:ActualizarInformesGDEDeUnaPostulacionSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetPostulaciones">
-      <wsdl:input message="tns:GetPostulacionesSoapIn" />
-      <wsdl:output message="tns:GetPostulacionesSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GuardarDocumento_Ajax">
       <wsdl:input message="tns:GuardarDocumento_AjaxSoapIn" />
@@ -12499,6 +12545,24 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ObtenerVehiculoPorCodigoWeb">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ObtenerVehiculoPorCodigoWeb" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerVehiculoPorID">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ObtenerVehiculoPorID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="Mobi_GetAreasUsuario">
       <soap:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetAreasUsuario" style="document" />
       <wsdl:input>
@@ -13077,6 +13141,24 @@
     </wsdl:operation>
     <wsdl:operation name="InsertarEvaluacion">
       <soap:operation soapAction="http://wsviaticos.gov.ar/InsertarEvaluacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarInformesGDEDeUnaPostulacion">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ActualizarInformesGDEDeUnaPostulacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPostulaciones">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetPostulaciones" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -13831,24 +13913,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ObtenerVehiculoPorCodigoWeb">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/ObtenerVehiculoPorCodigoWeb" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerVehiculoPorID">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/ObtenerVehiculoPorID" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="AsignarCategoriaADocumento">
       <soap:operation soapAction="http://wsviaticos.gov.ar/AsignarCategoriaADocumento" style="document" />
       <wsdl:input>
@@ -14218,8 +14282,26 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ConcederFuncionalidadPorAreaA">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ConcederFuncionalidadPorAreaA" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="DenegarFuncionalidadA">
       <soap:operation soapAction="http://wsviaticos.gov.ar/DenegarFuncionalidadA" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DenegarFuncionalidadPorAreaA">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/DenegarFuncionalidadPorAreaA" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -14571,24 +14653,6 @@
     </wsdl:operation>
     <wsdl:operation name="TraerReporteDePostulaciones">
       <soap:operation soapAction="http://wsviaticos.gov.ar/TraerReporteDePostulaciones" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ActualizarInformesGDEDeUnaPostulacion">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/ActualizarInformesGDEDeUnaPostulacion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetPostulaciones">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetPostulaciones" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -16147,6 +16211,24 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ObtenerVehiculoPorCodigoWeb">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ObtenerVehiculoPorCodigoWeb" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerVehiculoPorID">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ObtenerVehiculoPorID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="Mobi_GetAreasUsuario">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetAreasUsuario" style="document" />
       <wsdl:input>
@@ -16725,6 +16807,24 @@
     </wsdl:operation>
     <wsdl:operation name="InsertarEvaluacion">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/InsertarEvaluacion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarInformesGDEDeUnaPostulacion">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ActualizarInformesGDEDeUnaPostulacion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPostulaciones">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetPostulaciones" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -17479,24 +17579,6 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ObtenerVehiculoPorCodigoWeb">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/ObtenerVehiculoPorCodigoWeb" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerVehiculoPorID">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/ObtenerVehiculoPorID" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="AsignarCategoriaADocumento">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/AsignarCategoriaADocumento" style="document" />
       <wsdl:input>
@@ -17866,8 +17948,26 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ConcederFuncionalidadPorAreaA">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ConcederFuncionalidadPorAreaA" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="DenegarFuncionalidadA">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/DenegarFuncionalidadA" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DenegarFuncionalidadPorAreaA">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/DenegarFuncionalidadPorAreaA" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -18219,24 +18319,6 @@
     </wsdl:operation>
     <wsdl:operation name="TraerReporteDePostulaciones">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/TraerReporteDePostulaciones" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ActualizarInformesGDEDeUnaPostulacion">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/ActualizarInformesGDEDeUnaPostulacion" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetPostulaciones">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetPostulaciones" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

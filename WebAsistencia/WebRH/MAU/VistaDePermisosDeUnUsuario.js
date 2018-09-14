@@ -34,9 +34,11 @@ VistaDePermisosDeUnUsuario.prototype.start = function () {
                     if(node.data.unselectable) return;
                     if (node.getEventTargetType(event) == 'checkbox') {
                         if (node.isSelected()) {
-                            _this.autorizador.denegarFuncionalidadA(
+                            //_this.autorizador.denegarFuncionalidadA( ANTES
+                            _this.autorizador.denegarFuncionalidadPorAreaA(
                                 _this.usuario.Id,
                                 node.data.key,
+                                _this.area.Id,//FC: AGREGUE PERO FALTA HACER
                                 function () {
                                     node.select(false);
                                 },
@@ -44,9 +46,11 @@ VistaDePermisosDeUnUsuario.prototype.start = function () {
                             );
                         }
                         else {
-                            _this.autorizador.concederFuncionalidadA(
+                            //_this.autorizador.concederFuncionalidadA( ANTES
+                            _this.autorizador.concederFuncionalidadPorAreaA(
                                 _this.usuario.Id,
                                 node.data.key,
+                                _this.area.Id, //FC: AGREGUE PERO FALTA HACER
                                 function () {
                                     node.select(true);
                                 },
@@ -108,4 +112,26 @@ VistaDePermisosDeUnUsuario.prototype.setUsuario = function (un_usuario) {
             alertify.alert("error al cargar funcionalidades", 'error');
             spinner.stop();
         })
-};
+    };
+
+VistaDePermisosDeUnUsuario.prototype.setArea = function (un_area) {
+        //FC: FALTA HACER
+        this.area = un_area;
+        var _this = this;
+        var spinner = new Spinner({ scale: 3 });
+        spinner.spin(this.ui[0]);
+        this.repositorioDeFuncionalidades.FuncionalidadesOtorgadasA(un_usuario,
+        function (funcionalidades) { //on success
+            for (var i = 0; i < funcionalidades.length; i++) {
+                var nodo = _this.arbol.getNodeByKey(funcionalidades[i].Id.toString());
+                nodo.select(true);
+            }
+            spinner.stop();
+        },
+        function (error) { //on error
+            alertify.alert("error al cargar funcionalidades del usuario", 'error');
+            spinner.stop();
+        }
+    );
+       
+    };

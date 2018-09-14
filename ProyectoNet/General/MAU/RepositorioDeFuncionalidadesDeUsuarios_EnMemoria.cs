@@ -53,6 +53,16 @@ namespace General.MAU
             throw new NotImplementedException();
         }
 
+        public void GuardarFuncionalidadPorAreaYUsuario(int idUsuario, int idFuncionalidad, int idArea, int id_usuario_logueado)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void QuitarFuncionalidadPorAreaYUsuario(int idUsuario, int idFuncionalidad, int idArea, int id_usuario_logueado)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Refresh()
         {
 

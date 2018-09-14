@@ -17,11 +17,45 @@ Autorizador.prototype.concederFuncionalidadA = function (id_usuario, id_funciona
     });
 };
 
+Autorizador.prototype.concederFuncionalidadPorAreaA = function (id_usuario, id_funcionalidad, id_area, onSuccess, onError) {
+    this.proveedor_ajax.postearAUrl({ url: "ConcederFuncionalidadPorAreaA",
+        data: {
+            id_usuario: id_usuario,
+            id_funcionalidad: id_funcionalidad,
+            id_area: id_area
+        },
+        success: function () {
+            onSuccess();
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            onerror(errorThrown);
+        }
+    });
+};
+
+
 Autorizador.prototype.denegarFuncionalidadA = function (id_usuario, id_funcionalidad, onSuccess, onError) {
     this.proveedor_ajax.postearAUrl({ url: "DenegarFuncionalidadA",
         data: {
             id_usuario: id_usuario,
             id_funcionalidad: id_funcionalidad
+        },
+        success: function () {
+            onSuccess();
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            onerror(errorThrown);
+        }
+    });
+
+};
+
+Autorizador.prototype.denegarFuncionalidadPorAreaA = function (id_usuario, id_funcionalidad, id_area, onSuccess, onError) {
+    this.proveedor_ajax.postearAUrl({ url: "DenegarFuncionalidadPorAreaA",
+        data: {
+            id_usuario: id_usuario,
+            id_funcionalidad: id_funcionalidad,
+            id_area: id_area
         },
         success: function () {
             onSuccess();
