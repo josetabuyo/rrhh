@@ -266,6 +266,17 @@ namespace General.Repositorios
         }
         public void EnviarNotificacion(string notificacion, List<int> documentos, string titulo, int usuario)
         {
+            var repo_personas = RepositorioDePersonas.NuevoRepositorioDePersonas(this.conexion);
+            var repo_usuarios = new RepositorioDeUsuarios(this.conexion, repo_personas);
+            var repo_alertas = new RepositorioDeAlertasPortal(this.conexion);           
+
+            documentos.ForEach(d =>
+            {
+                var persona = repo_personas.GetPersonaPorDNI(d);
+                var usr = repo_usuarios.GetUsuarioPorIdPersona(persona.Id);
+                repo_alertas.crearAlerta("Notificación", notificacion, usr.Id, usuario);
+            });
+
             var parametros = new Dictionary<string, object>();
             parametros.Add("@notificacion", notificacion);
             parametros.Add("@titulo", titulo);
@@ -278,7 +289,7 @@ namespace General.Repositorios
                 parametros.Add("@documento", d);
                 parametros.Add("@id_notificacion", id_notificacion);
                 conexion.EjecutarSinResultado("dbo.LEG_INSNotificacionUsuario", parametros);
-            });
+            });            
         }
 
         public string GetLiquidaciones(int anio, int mes, string cuil)
