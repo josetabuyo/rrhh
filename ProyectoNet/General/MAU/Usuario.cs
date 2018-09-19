@@ -23,6 +23,8 @@ namespace General.MAU
 
         public Usuario()
         {
+            this.Funcionalidades = new List<Funcionalidad>();
+            this.Owner = new PersonaNula();
         }
 
         public Usuario(int id, string alias, string clave_encriptada, Persona owner, bool habilitado)
@@ -42,6 +44,7 @@ namespace General.MAU
             this.clave_encriptada = clave_encriptada;
             this.Habilitado = habilitado;
             this.Funcionalidades = new List<Funcionalidad>();
+            this.Owner = new PersonaNula();
         }
 
         public bool EsFirmante { get; set; }

@@ -118,7 +118,9 @@ namespace General.Repositorios
 
         public Persona GetPersonaPorId(int id_persona)
         {
-            return TodasLasPersonas().Find(persona => persona.Id == id_persona);
+            var persona = TodasLasPersonas().Find(p => p.Id == id_persona);
+            if (persona == null) persona = new PersonaNula();
+            return persona;
             //var parametros = new Dictionary<string, object>();
             //parametros.Add("@id_persona", id_persona);
             //var tablaDatos = conexion.Ejecutar("dbo.WEB_Get_Personas", parametros);

@@ -9,7 +9,10 @@ namespace General
     {
         public PersonaNula()
         {
-
+            this.Id = -1;
+            this.Documento = -1;
+            this.Nombre = "";
+            this.Apellido = "";
         }
 
         public override bool Equals(object obj)

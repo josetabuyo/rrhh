@@ -548,7 +548,7 @@ namespace General
                 return e.Message;
             }
            
-            RepositorioDeUsuarios repoUsuarios = new RepositorioDeUsuarios(conexion_bd,repoPersonas);
+            RepositorioDeUsuarios repoUsuarios = RepositorioDeUsuarios.NuevoRepositorioDeUsuarios(conexion_bd);
             Usuario usuarioAInscribir;
             try {
                 //busco el usuario de la persona que se va postular

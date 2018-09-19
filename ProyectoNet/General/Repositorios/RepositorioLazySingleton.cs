@@ -12,16 +12,18 @@ namespace General.Repositorios
         protected List<T> objetos;
 
         protected DateTime _fecha_creacion;
+        protected bool _expiracion_forzada;
         protected int minutos_de_vida;
         public RepositorioLazySingleton(IConexionBD conexion, int _minutos_de_vida)
             : base(conexion)
         {
             this.minutos_de_vida = _minutos_de_vida;
             this._fecha_creacion = DateTime.Now;
+            this._expiracion_forzada = false;
         }
         protected bool ExpiroTiempoDelRepositorio()
         {
-            if (FechaExpiracion() < DateTime.Now)
+            if (FechaExpiracion() < DateTime.Now || _expiracion_forzada)
             {
                 return true;
             }
@@ -31,6 +33,11 @@ namespace General.Repositorios
         {
             return _fecha_creacion.AddMinutes(minutos_de_vida);
         }
+
+        protected void ForzarExpiracion()
+        {
+            this._expiracion_forzada = true;
+    }
 
         abstract protected List<T> ObtenerDesdeLaBase();
         protected List<T> Obtener()

@@ -12,7 +12,7 @@ namespace General.MAU
         public UsuarioNulo()
         {
             this.EsNulo = true;
-            //this.Owner = new PersonaNula();
+            this.Owner = null;
         }
 
         public override bool ValidarClave(string clave)

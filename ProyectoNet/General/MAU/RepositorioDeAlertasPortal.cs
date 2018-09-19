@@ -52,7 +52,7 @@ namespace General.MAU
 
             var id_alerta = Int32.Parse((this.conexion.EjecutarEscalar("dbo.MAU_CrearAlerta", parametros).ToString()));
             var repo_personas = RepositorioDePersonas.NuevoRepositorioDePersonas(this.conexion);
-            var repo_usuarios = new RepositorioDeUsuarios(this.conexion, repo_personas);
+            var repo_usuarios = RepositorioDeUsuarios.NuevoRepositorioDeUsuarios(this.conexion);
 
             var usuario = repo_usuarios.GetUsuarioPorId(id_usuario_destinatario);
 

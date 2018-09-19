@@ -267,7 +267,7 @@ namespace General.Repositorios
         public void EnviarNotificacion(string notificacion, List<int> documentos, string titulo, int usuario)
         {
             var repo_personas = RepositorioDePersonas.NuevoRepositorioDePersonas(this.conexion);
-            var repo_usuarios = new RepositorioDeUsuarios(this.conexion, repo_personas);
+            var repo_usuarios = RepositorioDeUsuarios.NuevoRepositorioDeUsuarios(this.conexion);
             var repo_alertas = new RepositorioDeAlertasPortal(this.conexion);           
 
             documentos.ForEach(d =>
@@ -761,7 +761,7 @@ namespace General.Repositorios
 
         public bool AprobarSolicitudCredencial(SolicitudCredencial solicitud, Usuario usuario_aprobador)
         {
-            var repo_usuarios = new RepositorioDeUsuarios(this.conexion, RepositorioDePersonas.NuevoRepositorioDePersonas(this.conexion));
+            var repo_usuarios = RepositorioDeUsuarios.NuevoRepositorioDeUsuarios(this.conexion);
             var usuario_solicitante = repo_usuarios.GetUsuarioPorIdPersona(solicitud.IdPersona);
 
             RepositorioDeTickets repo = new RepositorioDeTickets(this.conexion);
@@ -798,7 +798,7 @@ namespace General.Repositorios
 
             var tablaDatos = conexion.Ejecutar("dbo.Acre_RechazarSolicitudCredencial", parametros);
 
-            var repo_usuarios = new RepositorioDeUsuarios(this.conexion, RepositorioDePersonas.NuevoRepositorioDePersonas(this.conexion));
+            var repo_usuarios = RepositorioDeUsuarios.NuevoRepositorioDeUsuarios(this.conexion);
 
             var usuario_solicitante = repo_usuarios.GetUsuarioPorIdPersona(solicitud.IdPersona);
             new RepositorioDeAlertasPortal(this.conexion)
@@ -1001,7 +1001,7 @@ namespace General.Repositorios
 
         public bool CerrarTicketImpresion(SolicitudCredencial solicitud, string instrucciones_de_retiro, Usuario usuario)
         {
-            var repo_usuarios = new RepositorioDeUsuarios(this.conexion, RepositorioDePersonas.NuevoRepositorioDePersonas(this.conexion));
+            var repo_usuarios = RepositorioDeUsuarios.NuevoRepositorioDeUsuarios(this.conexion);
             var repo_tickets = new RepositorioDeTickets(this.conexion);
 
             var usuario_solicitante = repo_usuarios.GetUsuarioPorIdPersona(solicitud.IdPersona);

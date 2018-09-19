@@ -130,6 +130,7 @@ namespace General.MAU
         public bool Login(string nombre_usuario, string clave)
         {
             var usuario = this.repositorio_usuarios.GetUsuarioPorAlias(nombre_usuario);
+            if (usuario == null) return false;
             if (!usuario.Habilitado) return false;
             if (!usuario.ValidarClave(clave)) return false;
             this.loguearIngresoDe(usuario);
@@ -171,7 +172,7 @@ namespace General.MAU
         public bool RegistrarNuevoUsuario(AspiranteAUsuario aspirante, int id_usuario_logueado)
         {
             var repo_personas = RepositorioDePersonas.NuevoRepositorioDePersonas(this.conexion);
-            var repo_usuarios = new RepositorioDeUsuarios(this.conexion, repo_personas);
+            var repo_usuarios = RepositorioDeUsuarios.NuevoRepositorioDeUsuarios(this.conexion);
             //if (repo_personas.BuscarPersonas(JsonConvert.SerializeObject(new { Documento=aspirante.Documento, ConLegajo=true})).Count > 0)
             //{
             //    throw new Exception("Ya hay alguien registrado con su documento."); 
@@ -235,7 +236,7 @@ namespace General.MAU
         {
 
             var repo_personas = RepositorioDePersonas.NuevoRepositorioDePersonas(this.conexion);
-            var repo_usuarios = new RepositorioDeUsuarios(this.conexion, repo_personas);
+            var repo_usuarios = RepositorioDeUsuarios.NuevoRepositorioDeUsuarios(this.conexion);
             var validador_datos = new Validador();
             var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
             if (criterio_deserializado["Mail"] != null)

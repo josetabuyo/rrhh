@@ -33,7 +33,7 @@ namespace General.MAU
         }
 
         public List<Usuario> UsuariosQueAdministranElArea(int id_area) {
-            var repo_usuarios = new RepositorioDeUsuarios(conexion, RepositorioDePersonas.NuevoRepositorioDePersonas(conexion)); ;
+            var repo_usuarios = RepositorioDeUsuarios.NuevoRepositorioDeUsuarios(this.conexion);
             var permisos = this.Obtener();
             return permisos.FindAll(p => p.Value == id_area).Select(p => repo_usuarios.GetUsuarioPorId(p.Key)).ToList(); ;
         }

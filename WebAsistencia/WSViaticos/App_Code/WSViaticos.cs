@@ -5200,7 +5200,7 @@ public class WSViaticos : System.Web.Services.WebService
 
     private IRepositorioDeUsuarios RepositorioDeUsuarios()
     {
-        return new RepositorioDeUsuarios(Conexion(), RepositorioDePersonas());
+        return General.MAU.RepositorioDeUsuarios.NuevoRepositorioDeUsuarios(Conexion());
     }
 
     private IRepositorioDeFuncionalidades RepositorioDeFuncionalidades()

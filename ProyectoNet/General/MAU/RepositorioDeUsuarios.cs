@@ -6,27 +6,80 @@ using System.Net.Mail;
 
 namespace General.MAU
 {
-    public class RepositorioDeUsuarios:IRepositorioDeUsuarios
+    public class RepositorioDeUsuarios : RepositorioLazySingleton<Usuario> , IRepositorioDeUsuarios
     {
-        private IConexionBD conexion;
+        private static RepositorioDeUsuarios _instancia;
         private IRepositorioDePersonas repositorio_de_personas;
 
-        public RepositorioDeUsuarios(IConexionBD conexion, IRepositorioDePersonas repo_personas)
+        private RepositorioDeUsuarios(IConexionBD conexion)
+            : base(conexion, 10)
         {
-            this.conexion = conexion;
-            this.repositorio_de_personas = repo_personas; 
+            this.repositorio_de_personas = RepositorioDePersonas.NuevoRepositorioDePersonas(conexion);
+        }
+
+        public static RepositorioDeUsuarios NuevoRepositorioDeUsuarios(IConexionBD conexion)
+        {
+            if (!(_instancia != null && !_instancia.ExpiroTiempoDelRepositorio())) _instancia = new RepositorioDeUsuarios(conexion);
+            return _instancia;
+        }
+
+        public List<Usuario> TodosLosUsuarios()
+        {
+            return this.Obtener();
+        }
+
+        protected override List<Usuario> ObtenerDesdeLaBase()
+        {
+            var tablaDatos = conexion.Ejecutar("dbo.WEB_Get_Usuarios");
+            return GetUsuariosDeTablaDeDatos(tablaDatos);
+        }
+
+        private List<Usuario> GetUsuariosDeTablaDeDatos(TablaDeDatos tablaDatos)
+        {
+            var usuarios = new List<Usuario>();
+            if (tablaDatos.Rows.Count > 0)
+            {
+                Usuario usr = null;
+
+                tablaDatos.Rows.ForEach(row =>
+                {
+                    if (usr != null)
+                    {
+                        if(usr.Id == row.GetSmallintAsInt("Id")) return;
+                    }
+                    usr = new Usuario(row.GetSmallintAsInt("Id"), row.GetString("Alias"), row.GetString("Clave_Encriptada"), !row.GetBoolean("Baja"));
+                    usr.MailRegistro = row.GetString("MailRegistro", "");
+                    if (!(row.GetObject("Id_Persona") is DBNull))
+                    {
+                        usr.Owner = this.repositorio_de_personas.GetPersonaPorId(row.GetInt("Id_Persona"));
+                    }
+                    usr.Verificado = row.GetBoolean("Verificado", false);
+                    usuarios.Add(usr);           
+                });
+            }
+
+            return usuarios;
+        }
+
+        protected override void GuardarEnLaBase(Usuario objeto, int id_usuario_logueado)
+        {
+            
+        }
+
+        protected override void QuitarDeLaBase(Usuario objeto, int id_usuario_logueado)
+        {
+            throw new NotImplementedException();
         }
 
         public Usuario GetUsuarioPorAlias(string alias, bool incluir_bajas=false)
         {
-            var parametros = new Dictionary<string, object>();
-            parametros.Add("@alias", alias);
-            if(incluir_bajas) parametros.Add("@incluir_bajas", 1);
-            var tablaDatos = conexion.Ejecutar("dbo.Web_GetUsuario", parametros);
-            if (tablaDatos.Rows.Count > 1) throw new Exception("hay mas de un usuario con el mismo alias: " + alias);
-
-            return GetUsuarioDeTablaDeDatos(tablaDatos);                                 
+            var usuarios = TodosLosUsuarios();
+            var user = usuarios.Find(usr => 
+                usr.Alias.ToUpper().Trim() == alias.ToUpper().Trim() && (usr.Habilitado || incluir_bajas)
+            );
+            return user;
         }
+
         public List<Usuario> GetUsuariosQueAdministranLaFuncionalidadDelArea(int id_funcionalidad, Area area) {
 
             var usuarios_1 = RepositorioDePermisosSobreAreas.NuevoRepositorioDePermisosSobreAreas(conexion, RepositorioDeAreas.NuevoRepositorioDeAreas(conexion)).UsuariosQueAdministranElArea(area.Id);
@@ -36,71 +89,25 @@ namespace General.MAU
 
         public Usuario GetUsuarioPorId(int id)
         {
-            var parametros = new Dictionary<string, object>();
-            parametros.Add("@id", id);
-            var tablaDatos = conexion.Ejecutar("dbo.Web_GetUsuario", parametros);
-            return GetUsuarioDeTablaDeDatos(tablaDatos);
+            return TodosLosUsuarios().Find(usr => usr.Id == id && usr.Habilitado);
         }
 
         public int GetDniPorAlias(string alias)
         {
-            var parametros = new Dictionary<string, object>();
-            parametros.Add("@alias", alias);
-            var tablaDatos = conexion.Ejecutar("dbo.Web_Get_UsuarioPorAlias", parametros);
-            return GetDNIUsuarioDeTablaDeDatos(tablaDatos);
+            return GetUsuarioPorAlias(alias).Owner.Documento;
         }
-
-
 
         public Usuario GetUsuarioPorIdPersona(int id_persona)
         {
-            var parametros = new Dictionary<string, object>();
-            parametros.Add("@id_persona", id_persona);
-            var tablaDatos = conexion.Ejecutar("dbo.Web_GetUsuario", parametros);
-            
-            if (tablaDatos.Rows.Count > 1) throw new Exception("hay mas de un usuario con el mismo id persona: " + id_persona);
-            return GetUsuarioDeTablaDeDatos(tablaDatos);
+            return TodosLosUsuarios().Find(usr => usr.Owner.Id == id_persona && usr.Habilitado);
         }
 
 
         public Usuario GetUsuarioPorDNI(int dni)
         {
-            var parametros = new Dictionary<string, object>();
-            parametros.Add("@dni", dni);
-            var tablaDatos = conexion.Ejecutar("dbo.Web_GetUsuario", parametros);
-
-            if (tablaDatos.Rows.Count > 1) throw new Exception("hay mas de un usuario con el mismo dni: " + dni);
-            return GetUsuarioDeTablaDeDatos(tablaDatos);
+            return TodosLosUsuarios().Find(usr => usr.Owner.Documento == dni && usr.Habilitado);           
         }
-
-
-        private Usuario GetUsuarioDeTablaDeDatos(TablaDeDatos tablaDatos)
-        {
-            if (tablaDatos.Rows.Count == 0) return new UsuarioNulo();
-            var row = tablaDatos.Rows.First();
-            Usuario usuario = new Usuario(row.GetSmallintAsInt("Id"), row.GetString("Alias"), row.GetString("Clave_Encriptada"), !row.GetBoolean("Baja"));
-            usuario.MailRegistro = row.GetString("MailRegistro", "");
-            if (!(row.GetObject("Id_Persona") is DBNull))
-            {
-                usuario.Owner = repositorio_de_personas.GetPersonaPorId(row.GetInt("Id_Persona"));
-            }
-            usuario.Verificado = row.GetBoolean("Verificado", false);
-            return usuario;     
-        }
-
-
-        private int GetDNIUsuarioDeTablaDeDatos(TablaDeDatos tablaDatos)
-        {
-            if (tablaDatos.Rows.Count == 0) return 0;
-            var row = tablaDatos.Rows.First();
-            if ((row.GetObject("NroDocumento") is DBNull))
-            {
-                return 0;
-            }
-            return row.GetSmallintAsInt("NroDocumento");
-        }
-
-        
+       
         public Usuario CrearUsuarioPara(int id_persona)
         {
             var persona = repositorio_de_personas.GetPersonaPorId(id_persona);
@@ -125,6 +132,8 @@ namespace General.MAU
             var usuario = new Usuario(id_usuario, alias, clave_encriptada, persona, true);
             repo_funcionalidades_usuarios.ConcederBasicas(usuario);
 
+            this.ForzarExpiracion();
+
             return usuario;
         }
 
@@ -134,6 +143,7 @@ namespace General.MAU
             parametros.Add("@Mail_Registro", mail);
 
             conexion.Ejecutar("dbo.CV_AsociarUsuarioConMailRegistrado", parametros);
+            this.ForzarExpiracion();
         }
 
         public bool CambiarPassword(int id_usuario, string clave_actual, string clave_nueva)
@@ -151,6 +161,7 @@ namespace General.MAU
 
             conexion.Ejecutar("dbo.MAU_GuardarUsuario", parametros);
 
+            this.ForzarExpiracion();
             return true;
         }
 
@@ -161,6 +172,7 @@ namespace General.MAU
             parametros.Add("@NuevoMail", mail);
 
             conexion.Ejecutar("dbo.GEN_Modificar_email_registro", parametros);
+            this.ForzarExpiracion();
             return true;
         }
 
@@ -176,7 +188,8 @@ namespace General.MAU
             var usuario = this.GetUsuarioPorId(id_usuario);
             var titulo = "Bienvenido al SIGIRH";
             var cuerpo = "Nombre de Usuario: " + usuario.Alias + Environment.NewLine + "Contraseña: " + clave_nueva;
-           // EnviadorDeMails.EnviarMail(usuario.MailRegistro, titulo, cuerpo);
+            // EnviadorDeMails.EnviarMail(usuario.MailRegistro, titulo, cuerpo);
+            this.ForzarExpiracion();
             return clave_nueva;
         }
 
@@ -223,8 +236,7 @@ namespace General.MAU
 
         public Persona GetPersonaPorIdUsuario(int id_usuario)
         {
-            var usr = GetUsuarioPorId(id_usuario);
-            return repositorio_de_personas.GetPersonaPorId(usr.Owner.Id);
+            return GetUsuarioPorId(id_usuario).Owner;
         }
 
         internal bool ValidarMailExistente(string mail)

@@ -47,7 +47,7 @@ namespace General.MAU
 
         public List<Usuario> UsuariosConLaFuncionalidad(int id_funcionalidad) {
             
-            RepositorioDeUsuarios repositorioDeUsuarios = new RepositorioDeUsuarios(conexion, RepositorioDePersonas.NuevoRepositorioDePersonas(conexion));
+            RepositorioDeUsuarios repositorioDeUsuarios = RepositorioDeUsuarios.NuevoRepositorioDeUsuarios(this.conexion);
             return this.Obtener().FindAll(p => p.Value == id_funcionalidad).Select(p => repositorioDeUsuarios.GetUsuarioPorId(p.Key)).ToList(); 
         }
 
