@@ -13,29 +13,36 @@
 </head>
 <body style="padding: 0px !important;">
     <form id="form1" runat="server">
-    <uc2:BarraMenu ID="BarraMenu1" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'></span>"
-        UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
-    <%-- <fieldset style="text-align: center">
+        <uc2:BarraMenu ID="BarraMenu1" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'></span>"
+            UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
+        <%-- <fieldset style="text-align: center">
         <legend>Consultas DDJJ 104/2001</legend>
     </fieldset>--%>
-    <div style="margin-top: 40px" align="center">
-        <div style="display: block; width: 50%; padding: 0; margin-bottom: 27px; font-size: 19.5px;
-            line-height: 36px; color: #333333; border: 0; border-bottom: 1px solid #e5e5e5;
-            text-shadow: 2px 2px 5px rgba(150, 150, 150, 1); text-align: left;">
-            Remisión de Facturas a Contabilidad
+        <div style="margin-top: 40px" align="center">
+            <div style="display: block; width: 50%; padding: 0; margin-bottom: 27px; font-size: 19.5px; line-height: 36px; color: #333333; border: 0; border-bottom: 1px solid #e5e5e5; text-shadow: 2px 2px 5px rgba(150, 150, 150, 1); text-align: left;">
+                Remisión de Facturas a Contabilidad
             <%--<div id="DivBotonConsultaPorPersona" runat="server" style="display: block; float: right; margin-top: 4px; margin-left: 4px; border: #0055cc;"></div>
         <div id="DivBotonConsultaPorArea" runat="server" style="display: block; float: right; margin-top: 4px; margin-left: 4px; border: #0055cc;"></div>--%>
+            </div>
         </div>
-    </div>
-    <div id="ContenedorGrilla" runat="server" style="width: 90%" align="center">
-        <div id="ContenedorPersona" runat="server" style="width: 90%">
+
+        <div>
+            <label id="lblPaseNro" style="margin-left: 50px;">Nro de Pase</label>
+            <input type="text" id="txtPaseNro" style="width: 110px; text-align: right;" />
+            <input type="button" value="Imprimir por nro de pase" class="btn btn-primary" id="btn_Imprimir_Nro_Pase" />
         </div>
-    </div>
-    <div>
-        <label id="lblPaseContabilidad">Pase a Contabilidad</label>
-        <input type="text" id="txtPaseContabilidad" style="width: 110px;" placeholder="dd/mm/aaaa"/>
-    </div>
-    <input type="button" value="Enviar" class="btn btn-primary" id="btn_Enviar" />
+        <br />
+        <div id="ContenedorGrilla" runat="server" style="width: 90%" align="center">
+            <div id="ContenedorPersona" runat="server" style="width: 90%">
+            </div>
+        </div>
+        <div>
+            <label id="lblPaseContabilidad" style="margin-left: 50px;">Pase a Contabilidad</label>
+            <input type="text" id="txtPaseContabilidad" style="width: 110px;" placeholder="dd/mm/aaaa" />
+            <input type="button" value="Enviar" class="btn btn-primary" id="btn_Enviar" style="margin-left: 10px;" />
+        </div>
+
+
     </form>
 </body>
 <script type="text/javascript" src="PaseFacturaContabilidad.js"></script>
@@ -44,6 +51,7 @@
 <script src="../scripts/jquery-barcode.js" type="text/javascript"></script>
 <script src="../scripts/Spin.js" type="text/javascript"></script>
 <script type="text/javascript" src="../Scripts/alertify.js"></script>
+
 
 <script type="text/javascript">
     $(document).ready(function () {

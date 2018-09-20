@@ -1355,6 +1355,21 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetConsultaImpresionPaseFacturasContabilidad">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="nropase" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetConsultaImpresionPaseFacturasContabilidadResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetConsultaImpresionPaseFacturasContabilidadResult" type="tns:ArrayOfFactura" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="BuscarTitulosAntecedentesAcademicos">
         <s:complexType>
           <s:sequence>
@@ -8236,6 +8251,12 @@
   <wsdl:message name="GenerarPaseFacturaContabilidadSoapOut">
     <wsdl:part name="parameters" element="tns:GenerarPaseFacturaContabilidadResponse" />
   </wsdl:message>
+  <wsdl:message name="GetConsultaImpresionPaseFacturasContabilidadSoapIn">
+    <wsdl:part name="parameters" element="tns:GetConsultaImpresionPaseFacturasContabilidad" />
+  </wsdl:message>
+  <wsdl:message name="GetConsultaImpresionPaseFacturasContabilidadSoapOut">
+    <wsdl:part name="parameters" element="tns:GetConsultaImpresionPaseFacturasContabilidadResponse" />
+  </wsdl:message>
   <wsdl:message name="BuscarTitulosAntecedentesAcademicosSoapIn">
     <wsdl:part name="parameters" element="tns:BuscarTitulosAntecedentesAcademicos" />
   </wsdl:message>
@@ -10413,6 +10434,10 @@
       <wsdl:input message="tns:GenerarPaseFacturaContabilidadSoapIn" />
       <wsdl:output message="tns:GenerarPaseFacturaContabilidadSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetConsultaImpresionPaseFacturasContabilidad">
+      <wsdl:input message="tns:GetConsultaImpresionPaseFacturasContabilidadSoapIn" />
+      <wsdl:output message="tns:GetConsultaImpresionPaseFacturasContabilidadSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="BuscarTitulosAntecedentesAcademicos">
       <wsdl:input message="tns:BuscarTitulosAntecedentesAcademicosSoapIn" />
       <wsdl:output message="tns:BuscarTitulosAntecedentesAcademicosSoapOut" />
@@ -12246,6 +12271,15 @@
     </wsdl:operation>
     <wsdl:operation name="GenerarPaseFacturaContabilidad">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GenerarPaseFacturaContabilidad" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultaImpresionPaseFacturasContabilidad">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetConsultaImpresionPaseFacturasContabilidad" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -15703,6 +15737,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetConsultaImpresionPaseFacturasContabilidad">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetConsultaImpresionPaseFacturasContabilidad" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="BuscarTitulosAntecedentesAcademicos">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarTitulosAntecedentesAcademicos" style="document" />
       <wsdl:input>
@@ -18604,10 +18647,10 @@
   </wsdl:binding>
   <wsdl:service name="WSViaticos">
     <wsdl:port name="WSViaticosSoap" binding="tns:WSViaticosSoap">
-      <soap:address location="http://localhost:43412/WSViaticos/WSViaticos.asmx" />
+      <soap:address location="http://localhost:43412/WSViaticos.asmx" />
     </wsdl:port>
     <wsdl:port name="WSViaticosSoap12" binding="tns:WSViaticosSoap12">
-      <soap12:address location="http://localhost:43412/WSViaticos/WSViaticos.asmx" />
+      <soap12:address location="http://localhost:43412/WSViaticos.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

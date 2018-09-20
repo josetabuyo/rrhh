@@ -328,5 +328,43 @@ namespace General.Repositorios
 
 
         }
+
+        public List<Factura> GetConsultaImpresionPaseFacturasContabilidad(int nropase, Usuario usuario)
+        {
+            SqlDataReader dr;
+            ConexionDB cn = new ConexionDB("dbo.RPT_CTR_Pases_Factura");
+            cn.AsignarParametro("@nro_pase", nropase);
+            cn.AsignarParametro("@fecha", null);
+            
+
+            dr = cn.EjecutarConsulta();
+
+            Factura factura;
+            List<Factura> listaFact = new List<Factura>();
+
+            while (dr.Read())
+            {
+                factura = new Factura();
+                //factura.Id_Factura = dr.GetInt32(dr.GetOrdinal("id_factura"));
+                factura.Persona = new Persona();
+                //factura.Persona.Apellido = dr.GetString(dr.GetOrdinal("apellido"));
+                factura.Persona.Nombre = dr.GetString(dr.GetOrdinal("ApeNom"));
+                //factura.Persona.Documento = dr.GetInt32(dr.GetOrdinal("documento"));
+                factura.Persona.Cuit = dr.GetString(dr.GetOrdinal("Cuil_Nro"));
+                factura.Fecha_Recibida = dr.GetDateTime(dr.GetOrdinal("Fecha_Recibida"));
+                factura.Nro_Factura = dr.GetString(dr.GetOrdinal("Nro_Factura"));
+                factura.Monto_Factura = dr.GetDecimal(dr.GetOrdinal("Monto_Factura"));
+                factura.Area = dr.GetString(dr.GetOrdinal("Area"));
+                factura.Firmante = dr.GetString(dr.GetOrdinal("Firmante"));
+                //Acto_Adm
+                //Mes
+
+
+                listaFact.Add(factura);
+            }
+
+            cn.Desconestar();
+            return listaFact;
+        }
     }
 }

@@ -5377,6 +5377,14 @@ public class WSViaticos : System.Web.Services.WebService
             return "Hubo un error al generar el pase a contabilidad";
         }
     }
-    
+
+
+    [WebMethod]
+    public Factura[] GetConsultaImpresionPaseFacturasContabilidad(int nropase, Usuario usuario)
+    {
+        var RepositorioFactura = new RepositorioFactura();
+        return RepositorioFactura.GetConsultaImpresionPaseFacturasContabilidad(nropase, usuario).ToArray();
+    }
+
 
 }

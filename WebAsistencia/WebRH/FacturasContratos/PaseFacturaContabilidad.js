@@ -132,3 +132,99 @@ $("#btn_Enviar").click(function () {
     
 
 });
+
+
+
+$("#btn_Imprimir_Nro_Pase").click(function () {
+
+    var nropase = $("#txtPaseNro").val();
+    if (nropase == "") {
+        alert("Debe ingresar el Nro de Pase");
+        return;
+    }
+    //alert("Imprimir Nro Pase " + nropase );
+    Backend.GetConsultaImpresionPaseFacturasContabilidad(nropase)
+        .onSuccess(function (respuesta) {
+            DibujarFormularioImpresion(respuesta[0], nropase);
+        })
+        .onError(function (error, as, asd) {
+            alertify.alert("", error);
+        });
+        
+});
+
+
+var DibujarFormularioImpresion = function (lista_de_impresion, nropase) {
+
+    var vista_imprimir = $("<div>");
+
+    ImprimirPase(lista_de_impresion, vista_imprimir);
+
+    var w = window.open("/FacturasContratos/ImpresionPases.aspx"); //GER 19:38
+    
+    w.onload = function () {
+        var pantalla_impresion = $(w.document);
+        var t = w.document.getElementById("PanelImpresion");
+
+        //var mesddjj = w.document.getElementById("MesDDJJ104");
+        //var anioddjj = w.document.getElementById("AnioDDJJ104");
+        //var areaddjj = w.document.getElementById("AreaDDJJ104");
+        var leyendaporanio = w.document.getElementById("LeyendaPorAnio");
+        var nroPase = w.document.getElementById("nroPase");
+        var fecha = w.document.getElementById("fecha");
+
+        Backend.GetLeyendaAnio(2018)
+            .onSuccess(function (respuesta) {
+                $(leyendaporanio).html(respuesta);
+            })
+            .onError(function (error, as, asd) {
+                alertify.alert("", "error al obtener leyenda del año");
+            });
+
+        $(nroPase).html(nropase);
+        $(fecha).html("13/04/1979");
+        //$(anioddjj).html(anioSeleccionado);
+        
+        //var ddjj = un_area.DDJJ; 
+        //pantalla_impresion.find("#nroddjj104").barcode("FRHDDJJ104," + ddjj.Id, "code128", {
+        //    showHRI: true,
+        //    height: 30,
+        //    width: 100
+        //});
+        //$(nroidDDJJ).html(ddjj.Id);
+        //pantalla_impresion.find("#fecha").html("Buenos Aires " + ConversorDeFechas.deIsoAFechaEnCriollo(ddjj.FechaGeneracion));
+    
+
+        $(t).html(vista_imprimir.html());
+    }
+    
+}
+
+
+
+var ImprimirPase = function (lista_de_impresion, contenedor_grilla) {
+    var grilla;
+    //$("#ContenedorPersona").empty();
+    contenedor_grilla.empty();
+
+    grilla = new Grilla(
+        [
+            new Columna("Cuil", { generar: function (consulta) { return consulta.Persona.Cuit; } }),
+            new Columna("Nombre", { generar: function (consulta) { return consulta.Persona.Nombre; } }),
+            //ACTO ADMINISTRATIVO
+            new Columna("Monto de Factura", { generar: function (consulta) { return consulta.Monto_Factura; } }),
+            //MES
+            new Columna("Nro de Factura", { generar: function (consulta) { return consulta.Nro_Factura; } }),
+            new Columna("Fecha Recibida", { generar: function (consulta) { return consulta.Fecha_Recibida; } }),
+            new Columna("Area", { generar: function (consulta) { return consulta.Area; } }),
+            new Columna("Firmante", { generar: function (consulta) { return consulta.Firmante; } }),
+            //new Columna("Id Factura", { generar: function (consulta) { return consulta.Id_Factura; } })
+        ]);
+
+    grilla.CargarObjetos(lista_de_impresion);
+    grilla.DibujarEn(contenedor_grilla);
+
+    grilla.SetOnRowClickEventHandler(function () {
+        return true;
+    });
+}
