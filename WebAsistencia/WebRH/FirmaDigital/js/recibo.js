@@ -202,6 +202,7 @@ var RECIBOS = (function (window, undefined) {
         
     }
 
+    //esta funcion no la estoy utilizando, como no necesito mandar mas que el idRecibo directamente llamo al ws desde el backend
     function downloadRemoteDataB64POSTEmpleado(url, idRecibo, params, successFunction, errorFunction) {
 
         downloadSuccessFunction = successFunction;

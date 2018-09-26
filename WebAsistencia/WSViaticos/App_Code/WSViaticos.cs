@@ -5643,7 +5643,23 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
 
+    [WebMethod]
+    public string ConformarRecibo(int idRecibo, Usuario usuario)
+    {
 
+        if (RepoReciboFirmado().conformarRecibo(idRecibo)) {
+            return JsonConvert.SerializeObject(new
+            {
+                tipoDeRespuesta = "conformarRecibo.ok"
+            });
+        } else{
+            return JsonConvert.SerializeObject(new
+            {
+                tipoDeRespuesta = "conformarRecibo.error"
+                //error = e.Message
+            });
+        }
+    }
 
 
 }

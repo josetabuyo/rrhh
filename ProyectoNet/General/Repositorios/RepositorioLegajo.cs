@@ -322,13 +322,18 @@ namespace General.Repositorios
         public string GetReciboDeSueldo(int documento, int liq)
         {
             var parametros = new Dictionary<string, object>();
+            var parametros2 = new Dictionary<string, object>();
             parametros.Add("@Documento", documento);
             parametros.Add("@liquidacion", liq);
 
             var recibo = new object();
             var listaReciboDetalle = new List<object>();
             var cabeceraRecibo = new object();
-
+            /*la variable conforme puede tener los siguientes valores:
+             * -1: el recibo aun no fue firmado.
+             * 0: el recibo aun no fue conformado.
+             * 1: el recibo fue conformado.*/
+            var conforme = -1;
             var tablaDatos = conexion.Ejecutar("dbo.PLA_GET_Impresion_Recibos_Haberes", parametros);
 
             if (tablaDatos.Rows.Count > 0)
@@ -339,8 +344,29 @@ namespace General.Repositorios
 
                 listaReciboDetalle = traerDetalleRecibo(idRecibo);
 
+                /*obtengo si esta conforme o no con el recibo digital*/
+                parametros2.Add("@idRecibo", idRecibo);
+                var tablaDatos2 = conexion.Ejecutar("dbo.PLA_GET_Recibo_Firmado", parametros2);
+
+                if (tablaDatos2.Rows.Count == 0)
+                {
+                    //el recibo aun no fue firmado 
+                    
+                }
+                else {
+                    /*por lo menos hay un elemento: 0-indica recibo NO conformado,1-indica recibo conformado*/
+                    if (tablaDatos2.Rows.First().GetSmallintAsInt("conforme", 0) == 0){
+                        conforme = 0; 
+                    }
+                    else{
+                        conforme = 1;
+                        }
+                }
+
                 recibo = new
                 {
+                    Conforme = conforme,
+                    IdRecibo = idRecibo,
                     Cabecera = cabeceraRecibo,
                     Detalle = listaReciboDetalle
                 };

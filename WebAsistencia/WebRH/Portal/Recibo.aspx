@@ -48,6 +48,9 @@
              <div id="caja_controles">
                 
              </div>
+             <div id="caja_info_recibos">
+                
+             </div>
              </div>
 
          <table id="tabla_recibo_encabezado">
@@ -113,6 +116,7 @@
 <script type="text/javascript" src="Legajo.js"></script>
 <script type="text/javascript" src="../Scripts/Spin.js"></script>
 <script type="text/javascript" src="../Scripts/ControlesImagenes/VistaThumbnail.js"></script>
+<script type="text/javascript" src="../Scripts/jsPortal/RepoFirmaDigital.js"></script>
 <script type="text/javascript" >
 
     $(document).ready(function ($) {

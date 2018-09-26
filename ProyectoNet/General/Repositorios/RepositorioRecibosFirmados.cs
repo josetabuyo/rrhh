@@ -36,6 +36,17 @@ namespace General.Repositorios
 
         }
 
+        public bool conformarRecibo(int idRecibo)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_Recibo", idRecibo);
+            var resultado = conexion.EjecutarSinResultado("dbo.[PLA_UPD_ConformarRecibo]", parametros);
+            //en ejecutar sinresultado hay un try catch pero en caso de catch no retorna false sino eleva una excepcion
+            //no deberia retornar false? en caso de elevar la excepcion se la atenderia en el javascript del cliente
+            return resultado;
+
+        }
+
         protected override void QuitarDeLaBase(ReciboFirmado reciboFirmado)
         {
             throw new NotImplementedException();

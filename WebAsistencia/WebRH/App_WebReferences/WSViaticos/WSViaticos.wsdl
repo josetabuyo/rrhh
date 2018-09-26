@@ -401,6 +401,21 @@
       <s:element name="AsignaAreaAPersonasNoCertificadasResponse">
         <s:complexType />
       </s:element>
+      <s:element name="ConformarRecibo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idRecibo" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConformarReciboResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConformarReciboResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="Mobi_AsignarImagenABien">
         <s:complexType>
           <s:sequence>
@@ -8123,6 +8138,12 @@
   <wsdl:message name="AsignaAreaAPersonasNoCertificadasSoapOut">
     <wsdl:part name="parameters" element="tns:AsignaAreaAPersonasNoCertificadasResponse" />
   </wsdl:message>
+  <wsdl:message name="ConformarReciboSoapIn">
+    <wsdl:part name="parameters" element="tns:ConformarRecibo" />
+  </wsdl:message>
+  <wsdl:message name="ConformarReciboSoapOut">
+    <wsdl:part name="parameters" element="tns:ConformarReciboResponse" />
+  </wsdl:message>
   <wsdl:message name="Mobi_AsignarImagenABienSoapIn">
     <wsdl:part name="parameters" element="tns:Mobi_AsignarImagenABien" />
   </wsdl:message>
@@ -10464,6 +10485,10 @@
       <wsdl:input message="tns:AsignaAreaAPersonasNoCertificadasSoapIn" />
       <wsdl:output message="tns:AsignaAreaAPersonasNoCertificadasSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="ConformarRecibo">
+      <wsdl:input message="tns:ConformarReciboSoapIn" />
+      <wsdl:output message="tns:ConformarReciboSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="Mobi_AsignarImagenABien">
       <wsdl:input message="tns:Mobi_AsignarImagenABienSoapIn" />
       <wsdl:output message="tns:Mobi_AsignarImagenABienSoapOut" />
@@ -12096,6 +12121,15 @@
     </wsdl:operation>
     <wsdl:operation name="AsignaAreaAPersonasNoCertificadas">
       <soap:operation soapAction="http://wsviaticos.gov.ar/AsignaAreaAPersonasNoCertificadas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConformarRecibo">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ConformarRecibo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -15645,6 +15679,15 @@
     </wsdl:operation>
     <wsdl:operation name="AsignaAreaAPersonasNoCertificadas">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/AsignaAreaAPersonasNoCertificadas" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConformarRecibo">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ConformarRecibo" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
