@@ -880,7 +880,10 @@
             data = "http://localhost:43412/WSViaticos/WSViaticos.asmx/GetReciboPDF";  //ya no lo uso en la actualidad
 /////////////////////VER
             try {
-                RECIBOS.downloadRemoteDataB64POSTEmpleador(
+                //modo pdf
+                //RECIBOS.downloadRemoteDataB64POSTEmpleador(
+                //modo plano,osea firma CADES
+                RECIBOS.downloadRemoteDataB64POSTReciboPlano(
 									data,idRecibo,parametros,
 									downloadedFileSuccessCallback,
 									downloadedErrorCallback);

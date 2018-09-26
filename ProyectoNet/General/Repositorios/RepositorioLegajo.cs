@@ -395,6 +395,25 @@ namespace General.Repositorios
 
         }
 
+        //aca en los destalles del recibo no se agregan filas vacias en caso de no llegar a rellenar el recibo(eso era por compatibilidad app escritorio, aunque creo que eso ya estaba funcionando sin esa agregacion de filas de relleno)
+        public Recibo GetReciboDeSueldoPorIDSinRelleno(int id_recibo)
+        {
+            var recibo = new Recibo();
+            var listaReciboDetalle = new List<Detalle>();
+            var cabeceraRecibo = new Cabecera();
+
+            cabeceraRecibo = getCabeceraRecibo(id_recibo);
+
+            listaReciboDetalle = getDetalleReciboSinRelleno(id_recibo);
+
+            recibo.cabecera = cabeceraRecibo;
+            recibo.detalles = listaReciboDetalle;
+
+            return recibo;
+
+        }
+
+
         private Cabecera getCabeceraRecibo(int idRecibo)
         {
             var parametros = new Dictionary<string, object>();
@@ -441,6 +460,8 @@ namespace General.Repositorios
             var listaDetalleRecibo = new List<Detalle>();
             var un_detalle = new Detalle();
 
+            //esta version siempre rellena los detalles con vacios hasta completar 20 filas, en la web esto ya no afecta, pero puede que afecte a la app de escritorio
+            //por eso se deja asi. En caso de utilizar la firma en formato CADES se debe evitar este relleno porque sino no se cumple el patron definido en el texto a firmar
             var tablaDatos = conexion.Ejecutar("dbo.RPT_PLA_Recibos_Haberes_Detalle", parametros);
 
             tablaDatos.Rows.ForEach(row =>
@@ -456,6 +477,33 @@ namespace General.Repositorios
 
             return listaDetalleRecibo;
         }
+
+        private List<Detalle> getDetalleReciboSinRelleno(int idRecibo)
+        {
+
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@Id_Recibo", idRecibo);
+            var listaDetalleRecibo = new List<Detalle>();
+            var un_detalle = new Detalle();
+
+            //esta version siempre rellena los detalles con vacios hasta completar 20 filas, en la web esto ya no afecta, pero puede que afecte a la app de escritorio
+            //por eso se deja asi. En caso de utilizar la firma en formato CADES se debe evitar este relleno porque sino no se cumple el patron definido en el texto a firmar
+            var tablaDatos = conexion.Ejecutar("dbo.RPT_PLA_Recibos_Haberes_DetalleSinRelleno", parametros);
+
+            tablaDatos.Rows.ForEach(row =>
+            {
+                un_detalle = new Detalle();
+                un_detalle.Concepto = row.GetString("Concepto", "");
+                un_detalle.Aporte = row.GetDecimal("Aporte", 0);
+                un_detalle.Descuento = row.GetDecimal("Descuento", 0);
+                un_detalle.Descripcion = row.GetString("Descripcion", "");
+
+                listaDetalleRecibo.Add(un_detalle);
+            });
+
+            return listaDetalleRecibo;
+        }
+
 
         private List<object> traerDetalleRecibo(int idRecibo)
         {
@@ -1672,7 +1720,8 @@ namespace General.Repositorios
 
                     idRecibo = new
                     {
-                        Id_Recibo = row.GetInt("Id_Recibo"),
+                        //Id_Recibo = row.GetInt("Id_Recibo"),
+                        Id_Recibo = int.Parse(row.GetObject("Id_Recibo").ToString()),
                     };
 
 

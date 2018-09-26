@@ -25,6 +25,7 @@ namespace General
         public int Nro_Documento { get; set; }
         public DateTime Fecha_deposito { get; set; }
 
+        //TODO:  REVIZAR SI van o no los campos de abajo
         //datos para el recibo del empleador
         public string Domicilio { get; set; }
         public string DescripcionTipoLiquidacionYMas { get; set; }
@@ -34,6 +35,28 @@ namespace General
 
         public Cabecera() { }
 
+        public override string ToString() {
+            StringBuilder s = new StringBuilder();
+            //agrego la cabecera
+            s.Append(this.idRecibo); s.Append("||");
+            s.Append(this.Legajo); s.Append("||");
+            s.Append(this.Agente); s.Append("||");
+            s.Append(this.CUIL); s.Append("||");
+            s.Append(this.Oficina); s.Append("||");
+            s.Append(this.Orden); s.Append("||");
+            s.Append(this.Bruto); s.Append("||");
+            s.Append(this.Neto); s.Append("||");
+            s.Append(this.Descuentos); s.Append("||");
+            s.Append(this.NivelGrado); s.Append("||");
+            s.Append(this.Area); s.Append("||");
+            s.Append(this.FechaLiquidacion); s.Append("||");
+            s.Append(this.TipoLiquidacion); s.Append("||");
+            s.Append(this.Nro_Documento); s.Append("||");
+            s.Append(this.Fecha_deposito); 
+           
+            return s.ToString();
+
+        } 
 
     }
 }

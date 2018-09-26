@@ -180,7 +180,7 @@ var RECIBOS = (function (window, undefined) {
         }
         httpRequest.send(params);
     }
-    //Modo actual
+    //Modo anterior
     function downloadRemoteDataB64POSTEmpleador(url, idRecibo, params, successFunction, errorFunction) {
 
         downloadSuccessFunction = successFunction;
@@ -201,6 +201,28 @@ var RECIBOS = (function (window, undefined) {
 
         
     }
+
+    function downloadRemoteDataB64POSTReciboPlano(url, idRecibo, params, successFunction, errorFunction) {
+
+        downloadSuccessFunction = successFunction;
+        downloadErrorFunction = errorFunction;
+
+        Backend.GetReciboParseado(params)
+                .onSuccess(function (res) {
+                    //en esta version siempre retorna exito a menos que sea un error antes del webservice
+                    if (!res.DioError) {
+                        //en el caso de los archivos estos ya vienen en b64 porque aun no encontre una funcion de conversion a b64 que codifique correctamente desde javascript
+                        downloadSuccessFunction(res.Respuesta, idRecibo);
+                    }
+
+                })
+            .onError(function (e) {
+                downloadErrorFunction(e);
+            });
+
+
+        }
+
 
     //esta funcion no la estoy utilizando, como no necesito mandar mas que el idRecibo directamente llamo al ws desde el backend
     function downloadRemoteDataB64POSTEmpleado(url, idRecibo, params, successFunction, errorFunction) {
@@ -288,6 +310,7 @@ var RECIBOS = (function (window, undefined) {
         getTiposLiquidacion: getTiposLiquidacion,
         getRecibos: getRecibos,
         downloadRemoteDataB64POSTEmpleador: downloadRemoteDataB64POSTEmpleador,
+        downloadRemoteDataB64POSTReciboPlano: downloadRemoteDataB64POSTReciboPlano,
         downloadRemoteDataB64POSTEmpleado: downloadRemoteDataB64POSTEmpleado,
         guardarReciboPDFFirmado: guardarReciboPDFFirmado,
         getIdRecibosSinFirmar: getIdRecibosSinFirmar

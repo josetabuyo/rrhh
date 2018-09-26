@@ -5431,6 +5431,8 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     /////////////////VER
+
+    //es la visualizacion del recibo desde el punto de vista del empleado
     [WebMethod]
     public StringRespuestaWS GetReciboPDFEmpleador(int id_recibo)
     {
@@ -5502,6 +5504,46 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
 
+    //se retorna los datos del recibo separado por un patron determinado
+    //FALTA depurar en caso de usar, eso es porque se debe limpiar el SP dbo.RPT_PLA_Recibos_Haberes_Detalle para que no rellene con filas vacias
+    [WebMethod]
+    public StringRespuestaWS GetReciboParseado(int id_recibo)
+    {
+
+        var respuesta = new StringRespuestaWS();
+
+        try
+        {
+            RepositorioLegajo repo = RepoLegajo();
+            Recibo recibo;
+
+            //para trabajarlo como objeto es mejor definir un objeto que traiga el recibo, asi se puede acceder a
+            //sus propiedades desde el back(desde el front con js se puede acceder), porque no se puede acceder a campos 
+            //especificos del objecto recibo cuando el casteo es a object.
+
+
+            //datos del recibo a rellenar    
+            recibo = repo.GetReciboDeSueldoPorIDSinRelleno(id_recibo);
+
+            string reciboPlanText = recibo.getReciboParseado(recibo);
+            
+            var reciboPlanTextBytes = System.Text.Encoding.UTF8.GetBytes(reciboPlanText);
+            respuesta.Respuesta = System.Convert.ToBase64String(reciboPlanTextBytes);   
+            
+        }
+        catch (Exception e)
+        {
+            respuesta.MensajeDeErrorAmigable = "Se produjo un error al obtener el PDF del recibo del empleador";
+            respuesta.setException(e);
+
+        }
+
+
+        return respuesta;
+
+    }
+
+    //es la visualizacion del recibo desde el punto de vista del empleado
     [WebMethod]
     public string GetReciboPDFEmpleado(int id_recibo)
     {

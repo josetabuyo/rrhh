@@ -14,5 +14,19 @@ namespace General
 
         public Detalle() { }
 
+        public override string ToString()
+        {
+            StringBuilder s = new StringBuilder();
+            //agrego la cabecera
+            s.Append(this.Concepto); s.Append("||");
+            s.Append(this.Aporte); s.Append("||");
+            s.Append(this.Descuento); s.Append("||");
+            s.Append(this.Descripcion); 
+           
+
+            return s.ToString();
+
+        } 
+
     }
 }

@@ -266,6 +266,20 @@
           <s:element minOccurs="1" maxOccurs="1" name="DioError" type="s:boolean" />
         </s:sequence>
       </s:complexType>
+      <s:element name="GetReciboParseado">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_recibo" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReciboParseadoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetReciboParseadoResult" type="tns:StringRespuestaWS" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetReciboPDFEmpleado">
         <s:complexType>
           <s:sequence>
@@ -8090,6 +8104,12 @@
   <wsdl:message name="GetReciboPDFEmpleadorSoapOut">
     <wsdl:part name="parameters" element="tns:GetReciboPDFEmpleadorResponse" />
   </wsdl:message>
+  <wsdl:message name="GetReciboParseadoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetReciboParseado" />
+  </wsdl:message>
+  <wsdl:message name="GetReciboParseadoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetReciboParseadoResponse" />
+  </wsdl:message>
   <wsdl:message name="GetReciboPDFEmpleadoSoapIn">
     <wsdl:part name="parameters" element="tns:GetReciboPDFEmpleado" />
   </wsdl:message>
@@ -10453,6 +10473,10 @@
       <wsdl:input message="tns:GetReciboPDFEmpleadorSoapIn" />
       <wsdl:output message="tns:GetReciboPDFEmpleadorSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetReciboParseado">
+      <wsdl:input message="tns:GetReciboParseadoSoapIn" />
+      <wsdl:output message="tns:GetReciboParseadoSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetReciboPDFEmpleado">
       <wsdl:input message="tns:GetReciboPDFEmpleadoSoapIn" />
       <wsdl:output message="tns:GetReciboPDFEmpleadoSoapOut" />
@@ -12049,6 +12073,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetReciboPDFEmpleador">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetReciboPDFEmpleador" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReciboParseado">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetReciboParseado" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -15607,6 +15640,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetReciboPDFEmpleador">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetReciboPDFEmpleador" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReciboParseado">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetReciboParseado" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
