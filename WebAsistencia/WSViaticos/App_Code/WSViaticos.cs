@@ -5595,9 +5595,9 @@ public class WSViaticos : System.Web.Services.WebService
 
         ///      return x.Cabecera ;
     }
-
+//TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOPROBAR
     [WebMethod]
-    public int GuardarReciboPDFFirmado(string bytes_pdf, int id_recibo, int anio, int mes, int tipoLiquidacion)
+    public int GuardarReciboPDFFirmado(string bytes_pdf, int id_recibo, int anio, int mes, int tipoLiquidacion, Usuario usuario)
     {
         int id_archivo=0;
 //        try
@@ -5608,7 +5608,17 @@ public class WSViaticos : System.Web.Services.WebService
  //           id_archivo = 20;//RepositorioDeArchivos().GuardarArchivo(bytes_pdf);// id_recibo;//simulo el guardado del archivo
             //var r = RepositorioDeArchivos().GetArchivo(id_archivo); //19444 es un pdf firmado          
             //actualizo el recibo firmado por el empleado, 
-            RepoReciboFirmado().agregarReciboFirmado(id_recibo, id_archivo, anio, mes, tipoLiquidacion);
+
+            //la hora de conformacion de firma es la del reloj del servidor de la app, pero se puede dejar que sea la del reloj del server db
+            DateTime hoy = DateTime.Today;
+            string CadenaOriginal = Convert.ToString(id_recibo) + Convert.ToString(id_archivo) + Convert.ToString(anio) + Convert.ToString(mes) + Convert.ToString(tipoLiquidacion) + Convert.ToString(usuario.Owner.Id) + hoy;
+            //uso el encriptador del password 
+            System.Security.Cryptography.HashAlgorithm hashValue = new System.Security.Cryptography.SHA1CryptoServiceProvider();
+            byte[] bytes = System.Text.Encoding.UTF8.GetBytes(CadenaOriginal); 
+            byte[] byteHash = hashValue.ComputeHash(bytes);
+            hashValue.Clear();
+
+            RepoReciboFirmado().agregarReciboFirmado(id_recibo, id_archivo, anio, mes, tipoLiquidacion, usuario.Owner.Id, hoy, Convert.ToBase64String(byteHash));
                                                  //        var s=  Convert.FromBase64String(r);
         //TODOOOOOO
             return id_archivo;

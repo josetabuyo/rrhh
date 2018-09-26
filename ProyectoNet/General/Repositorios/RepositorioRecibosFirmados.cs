@@ -21,7 +21,7 @@ namespace General.Repositorios
             return _instancia;
         }
 
-        public bool agregarReciboFirmado(int idRecibo, int idArchivo, int año, int mes, int tipoLiquidacion)
+        public bool agregarReciboFirmado(int idRecibo, int idArchivo, int año, int mes, int tipoLiquidacion, int usuario, DateTime hoy,string hash)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_Recibo", idRecibo);
@@ -29,6 +29,9 @@ namespace General.Repositorios
             parametros.Add("@año", año);
             parametros.Add("@mes", mes);
             parametros.Add("@tipoLiquidacion", tipoLiquidacion);
+            parametros.Add("@usuario", usuario);
+            parametros.Add("@fechaConformacion", hoy);
+            parametros.Add("@hash", hash);
             var resultado = conexion.EjecutarSinResultado("dbo.[PLA_ADD_Recibo_Firmado]", parametros);
             //en ejecutar sinresultado hay un try catch pero en caso de catch no retorna false sino eleva una excepcion
             //no deberia retornar false? en caso de elevar la excepcion se la atenderia en el javascript del cliente
