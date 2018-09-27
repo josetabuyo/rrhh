@@ -1075,7 +1075,7 @@ var Legajo = {
                                     _this.divGrilla = new Grilla(columnas);
                                     _this.divGrilla.CambiarEstiloCabecera("estilo_tabla_portal");
                                     _this.divGrilla.SetOnRowClickEventHandler(function (una_notificacion) { });
-                                    _this.divGrilla.CargarObjetos(notificaciones);
+                                    _this.divGrilla.CargarObjetos(_.sortBy(notificaciones, function (n) { return -n.Id; }));
                                     _this.divGrilla.DibujarEn(divGrilla);
 
                                     $('.table-hover').removeClass("table-hover");
@@ -1319,7 +1319,7 @@ var Legajo = {
         });
         $('#btn_notificaciones_creacion').click(function () {
             if (CKEDITOR.instances['editor1']) {
-                delete CKEDITOR.instances['editor1']
+                CKEDITOR.instances['editor1'].destroy()
             };
             CKEDITOR.replace('editor1');
             Editor.Inicializar();

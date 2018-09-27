@@ -139,10 +139,14 @@
             display: block; width: 100px; height: 30px; margin-top: 10px; padding-bottom: 25px;"
             value="ENVIAR" />
     </div>
-    <div id="pantalla_notificaciones" style="display: none">
+    <div id="pantalla_notificaciones" style="display: none;  position: absolute; 
+                        top: 10px;
+                        left: 10px;
+                        right: 10px;
+                        bottom: 10px;
+                        overflow-y: auto;">
         <p style="font-size: xx-large; text-align: center; margin-top: 10px;">
             Notificaciones</p>
-        <br />
         <div id="table_notificaciones" class="table table-striped table-bordered table-condensed">
         </div>
     </div>
