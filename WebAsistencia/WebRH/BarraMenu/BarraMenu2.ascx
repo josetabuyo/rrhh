@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="BarraMenu2.ascx.cs" Inherits="FormularioDeViaticos_BarraMenu" %>
-<%@ Register Src="FormPassword.ascx" TagName="FormPassword" TagPrefix="uc5" %>
+<%@ Register Src="FormPassword2.ascx" TagName="FormPassword2" TagPrefix="uc5" %>
 <head>
     <title></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -10,14 +10,14 @@
     <link href="../scripts/vex-2.1.1/css/vex.css" rel="stylesheet">
     <link href="../scripts/vex-2.1.1/css/vex-theme-os.css" rel="stylesheet">
 
-    <script type="text/javascript" src="../BarraMenu/BarraMenu2.js"></script>
+    <!--<script type="text/javascript" src="../BarraMenu/BarraMenu2.js"></script>
     <script type="text/javascript" src="../BarraMenu/MenuDesplegable.js"></script>
     <script type="text/javascript" src="../BarraMenu/VistaAlerta.js"></script>
     <script type="text/javascript" src="../BarraMenu/VistaTipoTicket.js"></script>
     <script type="text/javascript" src="../BarraMenu/VistaItemMenu.js"></script>
     <script type="text/javascript" src="../Scripts/ControlesImagenes/VistaThumbnail.js"></script>
     <script type="text/javascript" src="../Scripts/ControlesImagenes/SubidorDeImagenes.js"></script>
-    <script type="text/javascript" src="../scripts/vex-2.1.1/js/vex.combined.min.js"></script>
+    <script type="text/javascript" src="../scripts/vex-2.1.1/js/vex.combined.min.js"></script>-->
 
     
 </head>
@@ -71,7 +71,7 @@
 
             <div id=barrita_acciones_usuario>
                 <a id="cambiar_contrasenia" rel="leanModal" class="" name="signup" href="#signup">Cambiar Contraseña</a>
-                <uc5:FormPassword ID="FormPassword" runat="server" />
+                <uc5:FormPassword2 ID="FormPassword" runat="server" />
                 <asp:Button ID="CerrarSessionLinkButton" CssClass="btn btn-primary" UseSubmitBehavior=false
                     runat="server" OnClick="CerrarSessionLinkButton_Click" Text="Cerrar Sesión">
                 </asp:Button>

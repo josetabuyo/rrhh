@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
-
+    <script data-main="ComitesDeEvaluacion" src="../node_modules/requirejs/require.js"></script>
     <title>Sigirh -Comités de Evaluacion</title>
 </head>
 <body>
@@ -338,9 +338,9 @@
             </div>
         </div>
     </form>
-    <script src="../node_modules/jquery/jquery.min.js"></script>
+    <!--<script src="../node_modules/jquery/jquery.min.js"></script>
     <script src="../node_modules/popper.js/dist/umd/popper.min.js"></script>
     <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="ComitesDeEvaluacion.js"></script>
+    <script src="ComitesDeEvaluacion.js"></script>-->
 </body>
 </html>

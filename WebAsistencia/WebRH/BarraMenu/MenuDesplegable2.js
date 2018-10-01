@@ -1,4 +1,4 @@
-﻿
+﻿define(['jquery', 'opentip'], function ($) {
     var MenuDesplegable = function (nombre_boton, elemento_desplegable, tooltip, expandir_siempre, mostrar_cantidad) {
         var _this = this;
         this.expandirSiempre = expandir_siempre;
@@ -37,10 +37,10 @@
 
     MenuDesplegable.prototype.agregar = function (elemento_dibujable, cantidad_que_suma) {
         var _this = this;
-        this.cant_elementos_dibujados += cantidad_que_suma||1;
+        this.cant_elementos_dibujados += cantidad_que_suma || 1;
 
         if (this.cant_elementos_dibujados > 0 && this.mostrar_cantidad) this.contador.show();
-        this.contador.html(this.cant_elementos_dibujados);              
+        this.contador.html(this.cant_elementos_dibujados);
 
         elemento_dibujable.dibujarEn(this.elemento_desplegable);
         elemento_dibujable.alQuitar = function () {
@@ -50,3 +50,5 @@
             if (_this.cant_elementos_dibujados == 0 && !_this.expandirSiempre) _this.contraer();
         };
     };
+    return MenuDesplegable;
+});
