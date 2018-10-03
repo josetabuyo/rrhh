@@ -125,6 +125,15 @@ namespace General.Repositorios
             //return GetPersonasDeTablaDeDatos(tablaDatos).First();
         }
 
+        public Persona GetPersonaPorDNI(int dni)
+        {
+            return TodasLasPersonas().Find(persona => persona.Documento == dni);
+            //var parametros = new Dictionary<string, object>();
+            //parametros.Add("@id_persona", id_persona);
+            //var tablaDatos = conexion.Ejecutar("dbo.WEB_Get_Personas", parametros);
+            //return GetPersonasDeTablaDeDatos(tablaDatos).First();
+        }
+
         private static List<Persona> GetPersonasDeTablaDeDatos(TablaDeDatos tablaDatos)
         {
             var personas = new List<Persona>();
