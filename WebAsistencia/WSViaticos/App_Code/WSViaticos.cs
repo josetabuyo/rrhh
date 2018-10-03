@@ -5350,19 +5350,8 @@ public class WSViaticos : System.Web.Services.WebService
                 idEval = repositorio.insertarEvaluacion(idEvaluado, id_evaluador, idFormulario, periodo, estado, id_doc_electronico);
             }
 
-        //FC:si viene un idEvaluacion entonces llamo a update, si viene 0 llamo a insert
-        if (idEval != 0)
-        {
-            repositorio.deleteEvaluacionDetalle(idEval);
-            repositorio.updateEvaluacion(idEval, idEvaluado, usuario.Owner.Id, idFormulario, periodo, estado);
-        }
-        else
-        {
-            //FC:Inserto la cabecera de la evaluacion
-            idEval = repositorio.insertarEvaluacion(idEvaluado, usuario.Owner.Id, idFormulario, periodo, estado);
-        }
+            //var item1 = preguntasYRespuestas;
 
-        //var item1 = preguntasYRespuestas;
 
             foreach (var item in criterio_deserializado)
             {
