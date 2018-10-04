@@ -54,6 +54,7 @@
                                 style="display: none" />
                             <input type="button" class="btn btn-primary" id="btn_buscarDatosOriginales" value="Volver a los Datos Actuales"
                                 style="display: none" />
+                                <label id="modificado_por"></label>
                         </div>
                     </p>
                 </div>

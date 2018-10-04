@@ -800,7 +800,11 @@ namespace General.Repositorios
                 area.DireccionCompleta.Piso = registro.GetString("Piso");
                 area.DireccionCompleta.Dto = registro.GetString("Dpto");
                 area.DireccionCompleta.UF = registro.GetString("UF");
-               // area.IdUsuarioModificaor = registro.GetInt("Usuario_Alta");
+                area.IdUsuarioModificaor = registro.GetInt("Usuario_Alta");
+                area.NombreUsuarioModificador = registro.GetString("Apellido") + " " +  registro.GetString("Nombre");
+
+                
+
             }
             tablaDatos = conexion.Ejecutar("dbo.ESTR_Get_ContactosPendientesAprobacion", parametros);
             if (tablaDatos.Rows.Count > 0)
