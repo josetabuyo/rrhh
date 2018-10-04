@@ -6,6 +6,9 @@ require.config({
         },
         opentip: {
             deps: ["jquery"]
+        },
+        'jquery-ui': {
+            deps: ["jquery"]
         }
     },
     paths: {
@@ -21,5 +24,8 @@ require.config({
         opentip: '../Scripts/opentip/opentip-jquery-excanvas.min',
         promesa: '../Scripts/promesa2',
         underscore: '../Scripts/underscore-min',
+        'jquery-ui': '../Scripts/jquery-ui-1.10.2.custom/js/jquery-ui-1.10.2.custom.min',
+        eval: '../EvaluacionDesempenio',
+        creadorDeGrillas: '../Scripts/CreadorDeGrillas'
     }
 });

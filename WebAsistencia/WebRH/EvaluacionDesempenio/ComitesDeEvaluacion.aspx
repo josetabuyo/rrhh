@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../Scripts/jquery-ui-1.10.2.custom/css/smoothness/jquery-ui-1.10.2.custom.min.css">
     <script data-main="ComitesDeEvaluacion" src="../node_modules/requirejs/require.js"></script>
     <title>Sigirh -Comités de Evaluacion</title>
 </head>
@@ -33,10 +34,10 @@
                 </div>
                 <div class="row">
                     <div class="col col-md-12">
-                        <table class="table  table-bordered table-striped table-sm">
+                        <table id="tabla_periodos" class="table  table-bordered table-striped table-sm">
                             <thead>
                                 <tr>
-                                    <th scope="col" rowspan="2" class="align-middle">#</th>
+                                    <!--<th scope="col" rowspan="2" class="align-middle">#</th>-->
                                     <th rowspan="2" class="align-middle w-25">Periodo</th>
                                     <th rowspan="2" class="align-middle">Evaluaciones Pendientes</th>
                                     <th rowspan="2" class="align-middle">Evaluaciones Provisorias</th>
@@ -51,7 +52,18 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                               <tr class="row-template">
+                                    <td>{{Periodo}}</td>
+                                    <td class="text-right" >{{EvaluacionesPendientes}}</td>
+                                    <td class="text-right" >{{EvaluacionesProvisorias}}</td>
+                                    <td class="text-right" >{{SinGDE}}</td>
+                                    <td class="text-right" >{{SinComite}}</td>
+                                    <td class="text-right" >{{Finalizado}}</td>
+                                    <td class="text-right" >{{ReunionesRealizadas}}<a style="display: inline" data-toggle="tooltip" data-placement="top" title="Ver Reuniones" class="nav-link" href="#"><span class="fa fa fa-eye"></span></a></td>
+                                    <td class="text-right">
+                                        <button type="button" class="btn btn-sm btn-primary" target_scr="#scr_primer_paso">Crear Nueva Reunion</button></td>
+                                </tr>
+                                <!-- <tr>
                                     <th scope="row">1</th>
                                     <td>2016 - Planta Permanente</td>
                                     <td class="text-right">30</td>
@@ -62,8 +74,8 @@
                                     <td class="text-right">6<a style="display: inline" data-toggle="tooltip" data-placement="top" title="Ver Reuniones" class="nav-link" href="#"><span class="fa fa fa-eye"></span></a></td>
                                     <td class="text-right">
                                         <button type="button" class="btn btn-sm btn-primary" target_scr="#scr_primer_paso">Crear Nueva Reunion</button></td>
-                                </tr>
-                                <tr>
+                               </tr>
+                               <tr>
                                     <th scope="row">2</th>
                                     <td>2017 - P. P. Ingresantes</td>
                                     <td class="text-right">50</td>
@@ -74,7 +86,7 @@
                                     <td class="text-right">19<a style="display: inline" data-toggle="tooltip" data-placement="top" title="Ver Reuniones" class="nav-link" href="#"><span class="fa fa fa-eye"></span></a></td>
                                     <td class="text-right">
                                         <button type="button" class="btn btn-sm btn-primary" target_scr="#scr_primer_paso">Crear Nueva Reunion</button></td>
-                                </tr>
+                                </tr>-->
                             </tbody>
                         </table>
                     </div>

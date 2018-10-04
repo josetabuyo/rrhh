@@ -110,12 +110,17 @@ namespace General.Repositorios
 
         public RespuestaGetAgentesEvaluablesPor GetAgentesEvaluablesPor(Usuario usuario)
         {
-            return GetAgentesEvaluablesPor(usuario, false);
+            return GetAgentesEvaluablesPor(usuario, false, false);
         }
 
         public RespuestaGetAgentesEvaluablesPor GetAgentesEvaluablesParaVerificarGDE(Usuario usuario)
         {
-            return GetAgentesEvaluablesPor(usuario, true);
+            return GetAgentesEvaluablesPor(usuario, true, false);
+        }
+
+        public RespuestaGetAgentesEvaluablesPor GetAgentesEvaluablesParaComites(Usuario usuario)
+        {
+            return GetAgentesEvaluablesPor(usuario, true, true);
         }
 
         public List<PeriodoEvaluacion> GetPeriodosEvaluacion()
@@ -267,19 +272,21 @@ namespace General.Repositorios
 
         }
 
-        protected RespuestaGetAgentesEvaluablesPor GetAgentesEvaluablesPor(Usuario usuario, bool ModoVerificadorGDE)
+        protected RespuestaGetAgentesEvaluablesPor GetAgentesEvaluablesPor(Usuario usuario, bool ModoVerificadorGDE, bool ModoComitesEvaluacion)
         {
             var parametros = new Dictionary<string, object>();
             var id_persona_usuario = usuario.Owner.Id;
             var es_agente_verificador = true;
-            if (!EsAgenteVerificador(usuario) || !ModoVerificadorGDE)
-            {
-                parametros.Add("@id_persona_evaluadora", id_persona_usuario);
-                es_agente_verificador = false;
-            }
-            else
-            {
-                parametros.Add("@solo_con_codigo_gde", 1);
+            if (!ModoComitesEvaluacion) { 
+                if (!EsAgenteVerificador(usuario) || !ModoVerificadorGDE)
+                {
+                    parametros.Add("@id_persona_evaluadora", id_persona_usuario);
+                    es_agente_verificador = false;
+                }
+                else
+                {
+                    parametros.Add("@solo_con_codigo_gde", 1);
+                }
             }
 
             var tablaDatos = _conexion.Ejecutar("dbo.EVAL_GET_Evaluados_Evaluador", parametros);
@@ -549,10 +556,17 @@ namespace General.Repositorios
         }
 
 
-        public List<UnidadDeEvaluacion> GetEstadosEvaluaciones()
+
+
+        public List<UnidadDeEvaluacion> GetEstadosEvaluaciones(bool excluirPeriodosDeBaja)
         {
             var result = new List<UnidadDeEvaluacion>();
             var parametros = new Dictionary<string, object>();
+            if (excluirPeriodosDeBaja)
+            {
+                parametros.Add("@excluirPeriodosDeBaja", 1);
+            }
+
             var tablaDeDatos = _conexion.Ejecutar("dbo.[EVAL_GET_Estado_Evaluaciones_TdeC]", parametros);
             tablaDeDatos.Rows.ForEach(row =>
             {

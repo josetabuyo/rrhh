@@ -74,6 +74,12 @@ public class WSViaticos : System.Web.Services.WebService
         var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
         return repo.GetAgentesEvaluablesParaVerificarGDE(usuario);
     }
+    [WebMethod]
+    public RespuestaGetAgentesEvaluablesPor GetAgentesEvaluablesParaComites(Usuario usuario)
+    {
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        return repo.GetAgentesEvaluablesParaComites(usuario);
+    }
 
     [WebMethod]
     public List<PeriodoEvaluacion> BuscarPeriodosEvaluacion(Usuario usuario, Usuario usuario2)
@@ -192,8 +198,17 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public List<UnidadDeEvaluacion> GetEstadosEvaluaciones()
     {
+        var excluirPeriodosDeBaja = false;
         var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
-        return repo.GetEstadosEvaluaciones();
+        return repo.GetEstadosEvaluaciones(excluirPeriodosDeBaja);
+    }
+
+    [WebMethod]
+    public List<UnidadDeEvaluacion> GetEstadosEvaluacionesPeriodosActivos()
+    {
+        var excluirPeriodosDeBaja = true;
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        return repo.GetEstadosEvaluaciones(excluirPeriodosDeBaja);
     }
 
     [WebMethod]
