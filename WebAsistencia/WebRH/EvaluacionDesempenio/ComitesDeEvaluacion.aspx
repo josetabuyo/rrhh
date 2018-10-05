@@ -52,7 +52,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                               <tr class="row-template">
+                               <tr class="row-template" style="display:none">
                                     <td>{{Periodo}}</td>
                                     <td class="text-right" >{{EvaluacionesPendientes}}</td>
                                     <td class="text-right" >{{EvaluacionesProvisorias}}</td>
@@ -63,30 +63,6 @@
                                     <td class="text-right">
                                         <button type="button" class="btn btn-sm btn-primary" target_scr="#scr_primer_paso">Crear Nueva Reunion</button></td>
                                 </tr>
-                                <!-- <tr>
-                                    <th scope="row">1</th>
-                                    <td>2016 - Planta Permanente</td>
-                                    <td class="text-right">30</td>
-                                    <td class="text-right">19</td>
-                                    <td class="text-right">125</td>
-                                    <td class="text-right">37</td>
-                                    <td class="text-right">32</td>
-                                    <td class="text-right">6<a style="display: inline" data-toggle="tooltip" data-placement="top" title="Ver Reuniones" class="nav-link" href="#"><span class="fa fa fa-eye"></span></a></td>
-                                    <td class="text-right">
-                                        <button type="button" class="btn btn-sm btn-primary" target_scr="#scr_primer_paso">Crear Nueva Reunion</button></td>
-                               </tr>
-                               <tr>
-                                    <th scope="row">2</th>
-                                    <td>2017 - P. P. Ingresantes</td>
-                                    <td class="text-right">50</td>
-                                    <td class="text-right">26</td>
-                                    <td class="text-right">17</td>
-                                    <td class="text-right">7</td>
-                                    <td class="text-right">9</td>
-                                    <td class="text-right">19<a style="display: inline" data-toggle="tooltip" data-placement="top" title="Ver Reuniones" class="nav-link" href="#"><span class="fa fa fa-eye"></span></a></td>
-                                    <td class="text-right">
-                                        <button type="button" class="btn btn-sm btn-primary" target_scr="#scr_primer_paso">Crear Nueva Reunion</button></td>
-                                </tr>-->
                             </tbody>
                         </table>
                     </div>

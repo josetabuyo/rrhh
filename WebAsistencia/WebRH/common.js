@@ -9,7 +9,11 @@ require.config({
         },
         'jquery-ui': {
             deps: ["jquery"]
+        },
+        Modernizr: {
+            exports: 'Modernizr'
         }
+        
     },
     paths: {
         jquery: 'jquery/jquery',
@@ -26,6 +30,7 @@ require.config({
         underscore: '../Scripts/underscore-min',
         'jquery-ui': '../Scripts/jquery-ui-1.10.2.custom/js/jquery-ui-1.10.2.custom.min',
         eval: '../EvaluacionDesempenio',
-        creadorDeGrillas: '../Scripts/CreadorDeGrillas'
+        creadorDeGrillas: '../Scripts/CreadorDeGrillas',
+        Modernizr: '../Scripts/modernizr-history'
     }
 });

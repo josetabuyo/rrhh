@@ -29,7 +29,7 @@
         cursor.ReunionesRealizadas = _.filter(comites, function (each) { return each.Periodo.Id == ue.IdPeriodo }).length
     }
 
-
+    //evals_por_periodo es un diccionario (usado como cache) para agrupar las evaluaciones por cada key=id_periodo
     function getEvalsPeriodo(evals_por_periodo, evals, id_periodo) {
         if (!evals_por_periodo[id_periodo]) {
             evals_por_periodo[id_periodo] = _.filter(evals, function (each) { return each.periodo.id_periodo == id_periodo })
@@ -37,25 +37,15 @@
         return evals_por_periodo[id_periodo]
     }
 
-    /*function removerUesConPeriodosDeBaja(ues, periodos_alta) {
-        return _.filter(ues, function (ue) {
-            return _.some(periodos_alta, function (periodo) {
-                return periodo.id_periodo == ue.IdPeriodo
-            })
-        })
-    }*/
-
     ///devuelve la lista de comites agrupadas por período
     function agruparComitesPorPeriodo(ues, periodos, evals, comites) {
-
-        //esto se utiliza porque el backend devuelve todas las ue,
-        //incluso las de periodos de baja.
-        //ues = removerUesConPeriodosDeBaja(ues, periodos)
 
         var periodo_anterior = -1
         var result = [];
         var cursor;
         var evals_por_periodo = {}
+
+        //corte de control por id periodo
         for (var i = 1; i < ues.length; i++) {
             if (ues[i].IdPeriodo != periodo_anterior) {
                 periodo_anterior = ues[i].IdPeriodo
