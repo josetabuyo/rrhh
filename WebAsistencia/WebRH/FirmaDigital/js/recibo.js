@@ -241,7 +241,29 @@ var RECIBOS = (function (window, undefined) {
             });
 
 
-    }
+        }
+
+     //descargo el recibo unico digital,este es tanto para el empleado como par ael empleador
+     function downloadRemoteDataB64POSTReciboDigital(url, idRecibo, params, successFunction, errorFunction) {
+
+            downloadSuccessFunction = successFunction;
+            downloadErrorFunction = errorFunction;
+
+            Backend.GetReciboPDFDigital(params)
+                .onSuccess(function (res) {
+                    //en esta version siempre retorna exito a menos que sea un error antes del webservice
+                    if (!res.DioError) {
+                        //en el caso de los archivos estos ya vienen en b64 porque aun no encontre una funcion de conversion a b64 que codifique correctamente desde javascript
+                        downloadSuccessFunction(res.Respuesta, idRecibo);
+                    }
+
+                })
+            .onError(function (e) {
+                downloadErrorFunction(e);
+            });
+
+
+        }
 
     function guardarReciboPDFFirmado(idRecibo, signatureB64, anio, mes, tipoLiquidacion, successFunction, errorFunction) {
 

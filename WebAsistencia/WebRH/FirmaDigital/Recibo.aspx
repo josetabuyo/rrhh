@@ -482,7 +482,7 @@
 //            estado.classList.remove('estadoNoFirmado');
 //            estado.classList.add('estadoProcesando');
 
-            MiniApplet.sign(
+            MiniApplet.signAndSaveToFile(
             dataB64,
             algorithm,
             format,
@@ -882,8 +882,8 @@
             try {
                 //modo pdf
                 //RECIBOS.downloadRemoteDataB64POSTEmpleador(
-                //modo plano,osea firma CADES
-                RECIBOS.downloadRemoteDataB64POSTReciboPlano(
+                //modo recibo digital unico
+                RECIBOS.downloadRemoteDataB64POSTReciboDigital(
 									data,idRecibo,parametros,
 									downloadedFileSuccessCallback,
 									downloadedErrorCallback);

@@ -280,6 +280,20 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetReciboPDFDigital">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_recibo" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReciboPDFDigitalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetReciboPDFDigitalResult" type="tns:StringRespuestaWS" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetReciboPDFEmpleado">
         <s:complexType>
           <s:sequence>
@@ -302,6 +316,7 @@
             <s:element minOccurs="1" maxOccurs="1" name="anio" type="s:int" />
             <s:element minOccurs="1" maxOccurs="1" name="mes" type="s:int" />
             <s:element minOccurs="1" maxOccurs="1" name="tipoLiquidacion" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -8110,6 +8125,12 @@
   <wsdl:message name="GetReciboParseadoSoapOut">
     <wsdl:part name="parameters" element="tns:GetReciboParseadoResponse" />
   </wsdl:message>
+  <wsdl:message name="GetReciboPDFDigitalSoapIn">
+    <wsdl:part name="parameters" element="tns:GetReciboPDFDigital" />
+  </wsdl:message>
+  <wsdl:message name="GetReciboPDFDigitalSoapOut">
+    <wsdl:part name="parameters" element="tns:GetReciboPDFDigitalResponse" />
+  </wsdl:message>
   <wsdl:message name="GetReciboPDFEmpleadoSoapIn">
     <wsdl:part name="parameters" element="tns:GetReciboPDFEmpleado" />
   </wsdl:message>
@@ -10477,6 +10498,10 @@
       <wsdl:input message="tns:GetReciboParseadoSoapIn" />
       <wsdl:output message="tns:GetReciboParseadoSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetReciboPDFDigital">
+      <wsdl:input message="tns:GetReciboPDFDigitalSoapIn" />
+      <wsdl:output message="tns:GetReciboPDFDigitalSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetReciboPDFEmpleado">
       <wsdl:input message="tns:GetReciboPDFEmpleadoSoapIn" />
       <wsdl:output message="tns:GetReciboPDFEmpleadoSoapOut" />
@@ -12082,6 +12107,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetReciboParseado">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetReciboParseado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReciboPDFDigital">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetReciboPDFDigital" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -15649,6 +15683,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetReciboParseado">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetReciboParseado" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReciboPDFDigital">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetReciboPDFDigital" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

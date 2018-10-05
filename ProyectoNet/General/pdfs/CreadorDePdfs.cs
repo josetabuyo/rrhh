@@ -211,7 +211,7 @@ public class CreadorDePdfs //where T:IPrintableDocument
                 imagen.ScaleAbsolute(1.0f, 1.0f);//mismo tamaño
                 imagen.ScalePercent(percentage * 100);
                 //imagen.ScalePercent(100.0f); // 100.0f == same size
-                imagen.SetAbsolutePosition(410, 740);
+                imagen.SetAbsolutePosition(410, 540);
 
                 cb.AddImage(imagen);
                 ///aggrego la capa que hace la imagen redonda

@@ -5543,6 +5543,80 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
 
+    //recibo digital unico tanto para el empleado como para el emplreador
+    [WebMethod]
+    public StringRespuestaWS GetReciboPDFDigital(int id_recibo)
+    {
+
+        var respuesta = new StringRespuestaWS();
+
+        try
+        {
+            RepositorioLegajo repo = RepoLegajo();
+            Recibo recibo;
+
+            //para trabajarlo como objeto es mejor definir un objeto que traiga el recibo, asi se puede acceder a
+            //sus propiedades desde el back(desde el front con js se puede acceder), porque no se puede acceder a campos 
+            //especificos del objecto recibo cuando el casteo es a object.
+
+
+            //datos del recibo a rellenar    
+            recibo = repo.GetReciboDeSueldoPorID(id_recibo);
+
+            //
+            var modelo_para_pdf = new List<object>() { recibo };
+            var converter = new GenReciboToPdfConverter();
+            var mapa_para_pdf = converter.CrearMapa(modelo_para_pdf);
+            var creador_pdf = new CreadorDePdfs();
+            byte[] bytes;
+            byte[] bytes2;
+
+            if (mapa_para_pdf["paginasPDF"] == "una")
+            {
+                //el nombre del pdf generado va a ser el idRecibo
+                bytes = creador_pdf.FillPDF(TemplatePath("Recibodigital_v1a.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
+                bytes2 = creador_pdf.AgregarImagenAPDF(bytes, "FRH0502," + Convert.ToString(id_recibo));
+            }
+            else
+            {
+                if (mapa_para_pdf["paginasPDF"] == "dos")
+                {
+                    //el nombre del pdf generado va a ser el idRecibo
+                    bytes = creador_pdf.FillPDF(TemplatePath("ReciboDigital_v1b.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
+                    bytes2 = creador_pdf.AgregarImagenAPDF(bytes, "FRH0502," + Convert.ToString(id_recibo));
+                }
+                else
+                {
+                    //el nombre del pdf generado va a ser el idRecibo
+                    bytes = creador_pdf.FillPDF(TemplatePath("ReciboDigital_v1c.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
+                    bytes2 = creador_pdf.AgregarImagenAPDF(bytes, "FRH0502," + Convert.ToString(id_recibo));
+
+                }
+            }
+
+            //return Convert.ToBase64String(bytes2);
+            //return Convert.ToBase64String(bytes2);
+            respuesta.Respuesta = Convert.ToBase64String(bytes2);
+
+            //////////////////////////////////
+            ///      Object x = JsonConvert.DeserializeObject<Object>(datos);
+            ///      //JsonConvert.SerializeObject(x);
+
+
+            ///      return x.Cabecera ;
+        }
+        catch (Exception e)
+        {
+            respuesta.MensajeDeErrorAmigable = "Se produjo un error al obtener el PDF del recibo del empleador";
+            respuesta.setException(e);
+
+        }
+
+
+        return respuesta;
+
+    }
+
     //es la visualizacion del recibo desde el punto de vista del empleado
     [WebMethod]
     public string GetReciboPDFEmpleado(int id_recibo)
@@ -5610,7 +5684,7 @@ public class WSViaticos : System.Web.Services.WebService
             //actualizo el recibo firmado por el empleado, 
 
             //la hora de conformacion de firma es la del reloj del servidor de la app, pero se puede dejar que sea la del reloj del server db
-            DateTime hoy = DateTime.Today;
+            DateTime hoy = DateTime.Now;
             string CadenaOriginal = Convert.ToString(id_recibo) + Convert.ToString(id_archivo) + Convert.ToString(anio) + Convert.ToString(mes) + Convert.ToString(tipoLiquidacion) + Convert.ToString(usuario.Owner.Id) + hoy;
             //uso el encriptador del password 
             System.Security.Cryptography.HashAlgorithm hashValue = new System.Security.Cryptography.SHA1CryptoServiceProvider();
