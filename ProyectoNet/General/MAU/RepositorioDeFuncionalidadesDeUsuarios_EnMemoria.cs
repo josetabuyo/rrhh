@@ -25,7 +25,7 @@ namespace General.MAU
         //}
 
 
-        public void ConcederFuncionalidadA(Usuario usuario, Funcionalidad funcionalidad)
+        public void ConcederFuncionalidadA(Usuario usuario, Funcionalidad funcionalidad, int id_usuario_logueado)
         {
             if (diccionario_de_funcionalidades.ContainsKey(usuario))
             {
@@ -42,13 +42,13 @@ namespace General.MAU
 
         }
 
-        public void DenegarFuncionalidadA(int id_usuario, int id_funcionalidad)
+        public void DenegarFuncionalidadA(int id_usuario, int id_funcionalidad, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }
 
 
-        public void ConcederFuncionalidadA(int id_usuario, int id_funcionalidad)
+        public void ConcederFuncionalidadA(int id_usuario, int id_funcionalidad, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }

@@ -43,7 +43,7 @@ namespace General.Repositorios
             return niveles;
         }
 
-        protected override void GuardarEnLaBase(CVInstitucionesEventos objeto)
+        protected override void GuardarEnLaBase(CVInstitucionesEventos objeto, int id_usuario_logueado)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@descripcion", objeto.Descripcion);
@@ -52,7 +52,7 @@ namespace General.Repositorios
         }
 
 
-        protected override void QuitarDeLaBase(CVInstitucionesEventos objeto)
+        protected override void QuitarDeLaBase(CVInstitucionesEventos objeto, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }

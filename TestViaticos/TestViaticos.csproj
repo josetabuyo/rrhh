@@ -132,14 +132,7 @@
     <Compile Include="TestRepositorioZonas.cs" />
     <Compile Include="TestTablasFake.cs" />
     <Compile Include="TestViaticos.cs" />
-    <Compile Include="ViaticosDataSet.cs">
-      <DependentUpon>ViaticosDataSet.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="ViaticosDataSet.Designer.cs">
-      <DependentUpon>ViaticosDataSet.xsd</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
+   
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

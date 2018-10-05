@@ -6,12 +6,12 @@ using System.Web;
 /// <summary>
 /// Descripción breve de VoidRespuestaWS
 /// </summary>
-public class VoidRespuestaWS : RespuestaWS
+public class VoidRespuestaWS:RespuestaWS
 {
-    public VoidRespuestaWS()
-    {
-        //
-        // TODO: Agregar aquí la lógica del constructor
-        //
-    }
+	public VoidRespuestaWS()
+	{
+		//
+		// TODO: Agregar aquí la lógica del constructor
+		//
+	}
 }

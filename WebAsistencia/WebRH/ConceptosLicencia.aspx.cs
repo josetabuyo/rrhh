@@ -15,8 +15,8 @@ public partial class ConceptosLicencia : System.Web.UI.Page
         WSViaticosSoapClient s = new WSViaticosSoapClient();
         //WSViaticos.WSViaticos s = new WSViaticos.WSViaticos();
         GrupoConceptosDeLicencia[] grupos = s.GetGruposConceptosLicencia();
-        
-        bool puede_solicitar_viaticos = s.ElUsuarioTienePermisosPara(((Usuario)Session[ConstantesDeSesion.USUARIO]).Id,12);
+
+        bool puede_solicitar_viaticos = s.ElUsuarioTienePermisosParaFuncionalidadPorNombre(((Usuario)Session[ConstantesDeSesion.USUARIO]).Id, "solicitud_de_viaticos");
 
         if (!puede_solicitar_viaticos)
         {

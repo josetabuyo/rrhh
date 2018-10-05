@@ -61,19 +61,19 @@ namespace General.MAU
         //    return funcionalidades;           
         //}
 
-        public void ConcederFuncionalidadA(Usuario usuario, Funcionalidad funcionalidad)
+        public void ConcederFuncionalidadA(Usuario usuario, Funcionalidad funcionalidad, int id_usuario_logueado)
         {
-            this.ConcederFuncionalidadA(usuario.Id, funcionalidad.Id);
+            this.ConcederFuncionalidadA(usuario.Id, funcionalidad.Id, id_usuario_logueado);
         }
 
-        public void ConcederFuncionalidadA(int id_usuario, int id_funcionalidad)
+        public void ConcederFuncionalidadA(int id_usuario, int id_funcionalidad, int id_usuario_logueado)
         {
-            this.Guardar(new KeyValuePair<int, int>(id_usuario, id_funcionalidad));
+            this.Guardar(new KeyValuePair<int, int>(id_usuario, id_funcionalidad), id_usuario_logueado);
         }
 
-        public void DenegarFuncionalidadA(int id_usuario, int id_funcionalidad)
+        public void DenegarFuncionalidadA(int id_usuario, int id_funcionalidad, int id_usuario_logueado)
         {
-            this.Quitar(new KeyValuePair<int, int>(id_usuario, id_funcionalidad));
+            this.Quitar(new KeyValuePair<int, int>(id_usuario, id_funcionalidad), id_usuario_logueado);
         }
 
         protected override List<KeyValuePair<int, int>> ObtenerDesdeLaBase()
@@ -83,7 +83,7 @@ namespace General.MAU
                 .ToList();
         }
 
-        protected override void GuardarEnLaBase(KeyValuePair<int, int> objeto)
+        protected override void GuardarEnLaBase(KeyValuePair<int, int> objeto, int id_usuario_logueado)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_usuario", objeto.Key);
@@ -91,7 +91,7 @@ namespace General.MAU
             var tablaDatos = conexion.Ejecutar("dbo.MAU_ConcederFuncionalidadA", parametros);
         }
 
-        protected override void QuitarDeLaBase(KeyValuePair<int, int> objeto)
+        protected override void QuitarDeLaBase(KeyValuePair<int, int> objeto, int id_usuario_logueado)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_usuario", objeto.Key);
@@ -113,7 +113,7 @@ namespace General.MAU
                 if (f.SoloParaEmpleados && usuario.Owner.Legajo == null) return;
                 if (f.SoloParaVerificados && !usuario.Verificado) return;
 
-                this.ConcederFuncionalidadA(usuario.Id, f.Id);
+                this.ConcederFuncionalidadA(usuario.Id, f.Id, usuario.Id);
             });
         }
     }

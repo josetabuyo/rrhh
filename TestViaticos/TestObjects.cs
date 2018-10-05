@@ -169,7 +169,7 @@ namespace General
         {
             Usuario usucenard = new Usuario();
             usucenard.Alias = "usucenard";
-            Autorizador.Instancia().AsignarAreaAUnUsuario(usucenard, new Area(621, "Secretaria de Deporte"));
+            Autorizador.Instancia().AsignarAreaAUnUsuario(usucenard, new Area(621, "Secretaria de Deporte"),1);
             return usucenard;
         }
 
@@ -177,7 +177,7 @@ namespace General
         {
             Usuario ususacc = new Usuario();
             ususacc.Alias = "ususacc";
-            Autorizador.Instancia().AsignarAreaAUnUsuario(ususacc, new Area(1, "Unidad Ministro"));
+            Autorizador.Instancia().AsignarAreaAUnUsuario(ususacc, new Area(1, "Unidad Ministro"),1);
             return ususacc;
         }
 

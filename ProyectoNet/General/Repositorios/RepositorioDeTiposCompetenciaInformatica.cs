@@ -42,12 +42,12 @@ namespace General.Repositorios
             return tipos;
         }
 
-        protected override void GuardarEnLaBase(CvTipoCompetenciaInformatica objeto)
+        protected override void GuardarEnLaBase(CvTipoCompetenciaInformatica objeto, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }
 
-        protected override void QuitarDeLaBase(CvTipoCompetenciaInformatica objeto)
+        protected override void QuitarDeLaBase(CvTipoCompetenciaInformatica objeto, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }

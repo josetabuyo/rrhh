@@ -33,6 +33,7 @@ using System.Web.Hosting;
 using System.Runtime.Serialization.Formatters.Binary;
 using iTextSharp.text.pdf;
 using iTextSharp.text;
+using System.Data.SqlClient;
 
 
 [WebService(Namespace = "http://wsviaticos.gov.ar/")]
@@ -49,7 +50,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public Usuario[] GetUsuarios(Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 9)) throw (new Exception("El usuario no tiene permisos para el modulo de usuarios"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "ingreso_a_administracion_de_usuarios")) throw (new Exception("El usuario no tiene permisos para el modulo de usuarios"));
         RepositorioUsuarios repoUsuarios = new RepositorioUsuarios(Conexion());
         List<Usuario> usuarios = repoUsuarios.GetTodosLosUsuarios();
         Usuario[] retuUsuarios = new Usuario[usuarios.Count];
@@ -75,10 +76,124 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public List<PeriodoEvaluacion> BuscarPeriodosEvaluacion(Usuario usuario, Usuario usuario2)
+    {
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        return repo.GetPeriodosEvaluacion();
+    }
+
+    [WebMethod]
     public List<PeriodoEvaluacion> GetPeriodosEvaluacion(Usuario usuario)
     {
         var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
-        return repo.GetPeriodosEvaluacion(usuario);
+        return repo.GetPeriodosEvaluacion();
+    }
+
+    [WebMethod]
+    public IntRespuestaWS EvalAddIntegranteComite(int idComite, IntegranteComiteEvalDesempenio integrante) {
+        var respuesta= new IntRespuestaWS();
+        respuesta.Respuesta = integrante.IdPersona;
+        try
+        {
+            var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+            repo.AgregarIntegranteComite(idComite, integrante);
+        }
+        catch (Exception e)
+        {
+            
+            respuesta.MensajeDeErrorAmigable = "Se produjo un error al intentar agregar el responsable";
+            respuesta.setException(e);
+        }
+        return respuesta;
+    }
+
+    [WebMethod]
+    public IntRespuestaWS EvalRemoverIntegranteComite(int idComite, int idIntegrante)
+    {
+        var respuesta = new IntRespuestaWS();
+        respuesta.Respuesta = idIntegrante;
+        try
+        {
+            var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+            repo.RemoverIntegranteComite(idComite, idIntegrante);
+            //throw new Exception("blah blah");
+        }
+        catch (Exception e)
+        {
+            respuesta.MensajeDeErrorAmigable = "Se produjo un error al intentar remover el responsable";
+            respuesta.setException(e);
+        }
+        return respuesta;
+    }
+
+    [WebMethod]
+    public AltaBajaUEComiteRespuestaWS EvalAddUnidadEvaluacionAComite(int idComite, int idUnidadEvaluacion)
+    {
+        var respuesta = new AltaBajaUEComiteRespuestaWS();
+        try
+        {
+            var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+            repo.AgregarUnidadEvaluacionComite(idComite, idUnidadEvaluacion);
+        }
+        catch (Exception e)
+        {
+            respuesta.MensajeDeErrorAmigable = "Se produjo un error al intentar agregar la unidad de evaluacion a la unidad de comite";
+            respuesta.setException(e);
+        }
+        respuesta.Accion = "EvalAddUnidadEvaluacionAComite";
+        respuesta.IdComite = idComite;
+        respuesta.IdUE = idUnidadEvaluacion;
+        return respuesta;
+    }
+
+    [WebMethod]
+    public AltaBajaUEComiteRespuestaWS EvalRemoveUnidadEvaluacionAComite(int idComite, int idUnidadEvaluacion)
+    {
+        var respuesta = new AltaBajaUEComiteRespuestaWS();
+        try
+        {
+            var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+            repo.RemoverUnidadEvaluacionAComite(idComite, idUnidadEvaluacion);
+        }
+        catch (Exception e)
+        {
+            respuesta.MensajeDeErrorAmigable = "Se produjo un error al intentar quitar la unidad de evaluacion a la unidad de comite";
+            respuesta.setException(e);
+        }
+        respuesta.Accion = "EvalRemoveUnidadEvaluacionAComite";
+        respuesta.IdComite = idComite;
+        respuesta.IdUE = idUnidadEvaluacion;
+        return respuesta;
+    }
+
+    [WebMethod]
+    public List<ComiteEvaluacionDesempenio> GetAllComites()
+    {
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        return repo.GetAllComites();
+    }
+
+    [WebMethod]
+    public ComiteEvaluacionDesempenio AgregarComiteEvaluacionDesempenio(string descripcion, string fecha, string hora, string lugar, int periodo)
+    {
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        return repo.AgregarComite(descripcion, DateTime.Parse(fecha), hora, lugar, periodo);
+    }
+
+    [WebMethod]
+    public ComiteEvaluacionDesempenio UpdateComiteEvaluacionDesempenio(int id_comite, string descripcion, string fecha, string hora, string lugar, int id_periodo)
+    {
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        return repo.UpdateComite(id_comite, descripcion, DateTime.Parse(fecha), hora, lugar, id_periodo);
+    }
+
+    
+
+    [WebMethod]
+    public List<UnidadDeEvaluacion> GetEstadosEvaluaciones()
+    {
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        return repo.GetEstadosEvaluaciones();
     }
 
     [WebMethod]
@@ -346,7 +461,7 @@ public class WSViaticos : System.Web.Services.WebService
 
 
 
-   
+
     [WebMethod]
     public DDJJ104_Consulta[] GetPersonasSinCertificar(int mes, int anio)
     {
@@ -423,8 +538,8 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public GraficoSueldo GetReporteSueldos(string criterio, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 31)) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 39)) throw (new Exception("El usuario no tiene permisos para acceder al reporte de sueldos"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "reportes_ingreso")) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "reportes_sueldo")) throw (new Exception("El usuario no tiene permisos para acceder al reporte de sueldos"));
         var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
         string tipo = ((JValue)criterio_deserializado["tipo"]).ToString();
         int dia = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(0, 2)));
@@ -440,8 +555,8 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public GraficoDotacion GetGrafico(string criterio, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 31)) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 38)) throw (new Exception("El usuario no tiene permisos para acceder al reporte de dotacion"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "reportes_ingreso")) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "reportes_dotacion")) throw (new Exception("El usuario no tiene permisos para acceder al reporte de dotacion"));
         var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
         string tipo = ((JValue)criterio_deserializado["tipo"]).ToString();
         int dia = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(0, 2)));
@@ -458,7 +573,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public GraficoRangoEtario GetGraficoRangoEtario(string criterio, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 31)) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "reportes_ingreso")) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
         var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
         string tipo = ((JValue)criterio_deserializado["tipo"]).ToString();
         int dia = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(0, 2)));
@@ -475,7 +590,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string AgregarRenovacionContrato(string criterio, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 43)) throw (new Exception("El usuario no tiene permisos para el modulo de contratos"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "ingreso_seleccion_contrato")) throw (new Exception("El usuario no tiene permisos para el modulo de contratos"));
         var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
         int id_area = (int)((JValue)criterio_deserializado["id_area"]);
         string documento = ((JValue)criterio_deserializado["documento"]).ToString();
@@ -490,7 +605,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string GenerarInformeContrato(string criterio, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 43)) throw (new Exception("El usuario no tiene permisos para el modulo de contratos"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "ingreso_seleccion_contrato")) throw (new Exception("El usuario no tiene permisos para el modulo de contratos"));
         var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
 
         bool incluir_dependencias = (bool)((JValue)criterio_deserializado["incluir_dependencias"]);
@@ -504,7 +619,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string GetInformesGeneradosPorArea(string criterio, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 43)) throw (new Exception("El usuario no tiene permisos para el modulo de contratos"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "ingreso_seleccion_contrato")) throw (new Exception("El usuario no tiene permisos para el modulo de contratos"));
         var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
 
         bool incluir_dependencias = (bool)((JValue)criterio_deserializado["incluir_dependencias"]);
@@ -518,7 +633,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public GraficoContratos GetGraficoContratados(string criterio, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 43)) throw (new Exception("El usuario no tiene permisos para el modulo de contratos"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "ingreso_seleccion_contrato")) throw (new Exception("El usuario no tiene permisos para el modulo de contratos"));
         var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
         string tipo = ((JValue)criterio_deserializado["tipo"]).ToString();
 
@@ -534,7 +649,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public GraficoBienes GetGraficoBienes(string criterio, Usuario usuario)
     {
-        //if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 43)) throw (new Exception("El usuario no tiene permisos para el modulo de contratos"));
+        //if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "ingreso_seleccion_contrato")) throw (new Exception("El usuario no tiene permisos para el modulo de contratos"));
         var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
         string tipo = ((JValue)criterio_deserializado["tipo"]).ToString();
 
@@ -552,7 +667,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string ExcelGeneradoContratos(string criterio, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 43)) throw (new Exception("El usuario no tiene permisos para el modulo de contratos"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "ingreso_seleccion_contrato")) throw (new Exception("El usuario no tiene permisos para el modulo de contratos"));
 
 
         try
@@ -587,7 +702,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string ExcelGeneradoRangoEtario(string criterio, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 31)) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "reportes_ingreso")) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
         try
         {
             var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
@@ -622,7 +737,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string ExcelGeneradoSueldos(string criterio, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 31)) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "reportes_ingreso")) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
         try
         {
             var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
@@ -654,7 +769,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string ExcelGenerado(string criterio, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 31)) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "reportes_ingreso")) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
         try
         {
             var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
@@ -906,7 +1021,7 @@ public class WSViaticos : System.Web.Services.WebService
 
         return servicioLicencias.GetSegmentosUtilizados(unaPersona.Documento, anio);
 
-        
+
     }
 
     [WebMethod]
@@ -2636,63 +2751,63 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public RespuestaABusquedaDeLegajos BuscarLegajosParaDigitalizacion(string criterio, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 2)) throw (new Exception("El usuario no tiene permisos para MODI"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "ingreso_a_modi")) throw (new Exception("El usuario no tiene permisos para MODI"));
         return servicioDeDigitalizacionDeLegajos().BuscarLegajos(criterio);
     }
 
     [WebMethod]
     public ImagenModi GetImagenPorId(int id_imagen, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 2)) throw (new Exception("El usuario no tiene permisos para MODI"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "ingreso_a_modi")) throw (new Exception("El usuario no tiene permisos para MODI"));
         return servicioDeDigitalizacionDeLegajos().GetImagenPorId(id_imagen);
     }
 
     [WebMethod]
     public int AgregarImagenSinAsignarAUnLegajo(int id_interna, string nombre_imagen, string bytes_imagen, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 2)) throw (new Exception("El usuario no tiene permisos para MODI"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "ingreso_a_modi")) throw (new Exception("El usuario no tiene permisos para MODI"));
         return servicioDeDigitalizacionDeLegajos().AgregarImagenSinAsignarAUnLegajo(id_interna, nombre_imagen, bytes_imagen);
     }
 
     [WebMethod]
     public int AgregarImagenAUnFolioDeUnLegajo(int id_interna, int numero_folio, string nombre_imagen, string bytes_imagen, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 2)) throw (new Exception("El usuario no tiene permisos para MODI"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "ingreso_a_modi")) throw (new Exception("El usuario no tiene permisos para MODI"));
         return servicioDeDigitalizacionDeLegajos().AgregarImagenAUnFolioDeUnLegajo(id_interna, numero_folio, nombre_imagen, bytes_imagen);
     }
 
     [WebMethod]
     public ImagenModi GetThumbnailPorId(int id_imagen, int alto, int ancho, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 2)) throw (new Exception("El usuario no tiene permisos para MODI"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "ingreso_a_modi")) throw (new Exception("El usuario no tiene permisos para MODI"));
         return servicioDeDigitalizacionDeLegajos().GetThumbnailPorId(id_imagen, alto, ancho);
     }
 
     [WebMethod]
     public int AsignarImagenAFolioDeLegajo(int id_imagen, int nro_folio, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 2)) throw (new Exception("El usuario no tiene permisos para MODI"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "ingreso_a_modi")) throw (new Exception("El usuario no tiene permisos para MODI"));
         return servicioDeDigitalizacionDeLegajos().AsignarImagenAFolioDeLegajo(id_imagen, nro_folio, usuario);
     }
 
     [WebMethod]
     public void AsignarImagenAFolioDeLegajoPasandoPagina(int id_imagen, int nro_folio, int pagina, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 2)) throw (new Exception("El usuario no tiene permisos para MODI"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "ingreso_a_modi")) throw (new Exception("El usuario no tiene permisos para MODI"));
         servicioDeDigitalizacionDeLegajos().AsignarImagenAFolioDeLegajoPasandoPagina(id_imagen, nro_folio, pagina, usuario);
     }
 
     [WebMethod]
     public void AsignarCategoriaADocumento(int id_categoria, string tabla, int id_documento, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 2)) throw (new Exception("El usuario no tiene permisos para MODI"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "ingreso_a_modi")) throw (new Exception("El usuario no tiene permisos para MODI"));
         servicioDeDigitalizacionDeLegajos().AsignarCategoriaADocumento(id_categoria, tabla, id_documento, usuario);
     }
 
     [WebMethod]
     public void DesAsignarImagen(int id_imagen, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 2)) throw (new Exception("El usuario no tiene permisos para MODI"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "ingreso_a_modi")) throw (new Exception("El usuario no tiene permisos para MODI"));
         servicioDeDigitalizacionDeLegajos().DesAsignarImagen(id_imagen, usuario);
     }
 
@@ -2729,42 +2844,42 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public bool AceptarCambioDeImagen(int id_usuario, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 50)) throw (new Exception("El usuario no tiene permisos para administrar cambios de imagen"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "mau_administrar_cambios_de_imagen")) throw (new Exception("El usuario no tiene permisos para administrar cambios de imagen"));
         return RepositorioDeUsuarios().AceptarCambioDeImagen(id_usuario, usuario.Id);
     }
 
     [WebMethod]
     public bool AceptarCambioImagenConImagenRecortada(int id_usuario, int id_imagen_recortada, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 50)) throw (new Exception("El usuario no tiene permisos para administrar cambios de imagen"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "mau_administrar_cambios_de_imagen")) throw (new Exception("El usuario no tiene permisos para administrar cambios de imagen"));
         return RepositorioDeUsuarios().AceptarCambioImagenConImagenRecortada(id_imagen_recortada, id_usuario, usuario.Id);
     }
 
     [WebMethod]
     public bool RechazarCambioDeImagen(int id_usuario, string razon_de_rechazo, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 50)) throw (new Exception("El usuario no tiene permisos para administrar cambios de imagen"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "mau_administrar_cambios_de_imagen")) throw (new Exception("El usuario no tiene permisos para administrar cambios de imagen"));
         return RepositorioDeUsuarios().RechazarCambioDeImagen(razon_de_rechazo, id_usuario, usuario.Id);
     }
 
     [WebMethod]
     public SolicitudDeCambioDeImagen GetCambioImagenPorIdTicket(int id_ticket, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 50)) throw (new Exception("El usuario no tiene permisos para administrar cambios de imagen"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "mau_administrar_cambios_de_imagen")) throw (new Exception("El usuario no tiene permisos para administrar cambios de imagen"));
         return RepositorioDeUsuarios().GetCambioImagenPorIdTicket(id_ticket);
     }
 
     [WebMethod]
     public SolicitudDeCambioDeImagen[] GetSolicitudesDeCambioDeImagenPendientesPara(int id_usuario, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 50)) throw (new Exception("El usuario no tiene permisos para administrar cambios de imagen"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "mau_administrar_cambios_de_imagen")) throw (new Exception("El usuario no tiene permisos para administrar cambios de imagen"));
         return RepositorioDeUsuarios().GetSolicitudesDeCambioDeImagenPendientesPara(id_usuario).ToArray();
     }
 
     [WebMethod]
     public SolicitudDeCambioDeImagen[] GetSolicitudesDeCambioDeImagenPendientes(Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 50)) throw (new Exception("El usuario no tiene permisos para administrar cambios de imagen"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "mau_administrar_cambios_de_imagen")) throw (new Exception("El usuario no tiene permisos para administrar cambios de imagen"));
         return RepositorioDeUsuarios().GetSolicitudesDeCambioDeImagenPendientes().ToArray();
     }
 
@@ -2806,14 +2921,14 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string ResetearPassword(int id_usuario, Usuario usuario)
     {
-        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 25)) return RepositorioDeUsuarios().ResetearPassword(id_usuario);
+        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "mau_resetear_contraseña")) return RepositorioDeUsuarios().ResetearPassword(id_usuario);
         else throw new Exception("El usuario no tiene permisos para resetear contraseñas");
     }
 
     [WebMethod]
     public bool ModificarMailRegistro(int id_usuario, string mail, Usuario usuario)
     {
-        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 45)) return RepositorioDeUsuarios().ModificarMailRegistro(id_usuario, mail);
+        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "mau_modificar_mail")) return RepositorioDeUsuarios().ModificarMailRegistro(id_usuario, mail);
         else throw new Exception("El usuario no tiene permisos para modificar mails");
     }
 
@@ -2844,7 +2959,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public Usuario CrearUsuarioPara(int id_persona, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 26)) throw (new Exception("El usuario no tiene permisos para crear usuarios"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "mau_crear_usuario")) throw (new Exception("El usuario no tiene permisos para crear usuarios"));
         return RepositorioDeUsuarios().CrearUsuarioPara(id_persona);
     }
 
@@ -2875,17 +2990,27 @@ public class WSViaticos : System.Web.Services.WebService
 
 
     [WebMethod]
-    public bool ElUsuarioTienePermisosPara(int id_usuario, int id_funcionalidad)
+    public bool ElUsuarioTienePermisosParaFuncionalidadPorId(int id_usuario, int id_funcionalidad)
     {
         return Autorizador().ElUsuarioTienePermisosPara(id_usuario, id_funcionalidad);
-
     }
 
     [WebMethod]
-    public bool ElUsuarioLogueadoTienePermisosPara(int id_funcionalidad, Usuario usuario)
+    public bool ElUsuarioTienePermisosParaFuncionalidadPorNombre(int id_usuario, string nombre_funcionalidad)
+    {
+        return Autorizador().ElUsuarioTienePermisosPara(id_usuario, nombre_funcionalidad);
+    }
+
+    [WebMethod]
+    public bool ElUsuarioLogueadoTienePermisosParaFuncionalidadPorNombre(string nombre_funcionalidad, Usuario usuario)
+    {
+        return Autorizador().ElUsuarioTienePermisosPara(usuario.Id, nombre_funcionalidad);
+    }
+
+    [WebMethod]
+    public bool ElUsuarioLogueadoTienePermisosParaFuncionalidadPorId(int id_funcionalidad, Usuario usuario)
     {
         return Autorizador().ElUsuarioTienePermisosPara(usuario.Id, id_funcionalidad);
-
     }
 
     [WebMethod]
@@ -2903,7 +3028,7 @@ public class WSViaticos : System.Web.Services.WebService
         var funcionalidades = RepositorioDeFuncionalidadesDeUsuarios().FuncionalidadesOtorgadasA(usuario).ToArray();
         return funcionalidades;
     }
-    
+
     [WebMethod]
     public Persona[] BuscarPersonas(string criterio)
     {
@@ -2973,14 +3098,14 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public void AsignarAreaAUnUsuario(int id_usuario, int id_area, Usuario usuario)
     {
-        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 24)) Autorizador().AsignarAreaAUnUsuario(id_usuario, id_area);
+        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "mau_cambiar_permisos")) Autorizador().AsignarAreaAUnUsuario(id_usuario, id_area, usuario.Id);
         else throw new Exception("No está habilitado para modificar permisos");
     }
 
     [WebMethod]
     public void DesAsignarAreaAUnUsuario(int id_usuario, int id_area, Usuario usuario)
     {
-        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 24)) Autorizador().DesAsignarAreaAUnUsuario(id_usuario, id_area);
+        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "mau_cambiar_permisos")) Autorizador().DesAsignarAreaAUnUsuario(id_usuario, id_area, usuario.Id);
         else throw new Exception("No está habilitado para modificar permisos");
     }
 
@@ -2993,14 +3118,14 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public void ConcederFuncionalidadA(int id_usuario, int id_funcionalidad, Usuario usuario)
     {
-        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 24)) Autorizador().ConcederFuncionalidadA(id_usuario, id_funcionalidad);
+        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "mau_cambiar_permisos")) Autorizador().ConcederFuncionalidadA(id_usuario, id_funcionalidad, usuario.Id);
         else throw new Exception("No está habilitado para modificar permisos");
     }
 
     [WebMethod]
     public void DenegarFuncionalidadA(int id_usuario, int id_funcionalidad, Usuario usuario)
     {
-        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 24)) Autorizador().DenegarFuncionalidadA(id_usuario, id_funcionalidad);
+        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 24)) Autorizador().DenegarFuncionalidadA(id_usuario, id_funcionalidad, usuario.Id);
         else throw new Exception("No está habilitado para modificar permisos");
     }
 
@@ -3023,9 +3148,9 @@ public class WSViaticos : System.Web.Services.WebService
         var foto = this.GetThumbnail(solicitante.IdImagen, 100, 100);
         while (foto.reintentar)
         {
-            foto = this.GetThumbnail(solicitante.IdImagen, 100, 100);            
+            foto = this.GetThumbnail(solicitante.IdImagen, 100, 100);
         }
-        Dictionary<string, string> mapa_para_pdf = new Dictionary<string,string>();
+        Dictionary<string, string> mapa_para_pdf = new Dictionary<string, string>();
         //mapa_para_pdf.Add("CodigoBarras1", usuario.Owner.Documento.ToString());
         mapa_para_pdf.Add("APELLIDONombre1", solicitante.Apellido + ", " + solicitante.Nombre);
         mapa_para_pdf.Add("APELLIDONombreDNI1", solicitante.Apellido + ", " + solicitante.Nombre + " (" + solicitante.Documento.ToString("#,##0") + ")");
@@ -3039,10 +3164,10 @@ public class WSViaticos : System.Web.Services.WebService
 
         byte[] bytes;
         //if (solicitud.Organismo == "Ministerio de Desarrollo Social")
-            bytes = creador_pdf.FillPDF(TemplatePath("DDJJ_entrega_credencial_2018_MDS.pdf"), "DDJJEntregaCredencial", mapa_para_pdf);
+        bytes = creador_pdf.FillPDF(TemplatePath("DDJJ_entrega_credencial_2018_MDS.pdf"), "DDJJEntregaCredencial", mapa_para_pdf);
         //else
         //    bytes = creador_pdf.FillPDF(TemplatePath("DDJJ_entrega_credencial_2018_MSAL.pdf"), "DDJJEntregaCredencial", mapa_para_pdf);
-           
+
         Document doc = new Document();
         byte[] result;
 
@@ -3227,7 +3352,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public bool AsociarCodigoMagneticoACredencial(int idCredencial,string codigo_magnetico, Usuario usuario)
+    public bool AsociarCodigoMagneticoACredencial(int idCredencial, string codigo_magnetico, Usuario usuario)
     {
         RepositorioLegajo repositorio = RepoLegajo();
         return repositorio.AsociarCodigoMagneticoACredencial(idCredencial, codigo_magnetico, usuario);
@@ -3269,7 +3394,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public EvaluacionDto[] GuardarEvaluaciones(EvaluacionDto[] evaluaciones_nuevas_dto, EvaluacionDto[] evaluaciones_originales_dto, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 8)) throw (new Exception("El usuario no tiene permisos para administrar macc"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "administracion_macc")) throw (new Exception("El usuario no tiene permisos para administrar macc"));
         var evaluaciones_no_procesadas = new List<EvaluacionDto>();
         var repo_alumnos = RepoAlumnos();
         var repo_cursos = RepositorioDeCursos();
@@ -3540,7 +3665,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public ObservacionDTO[] GuardarObservaciones(ObservacionDTO[] observaciones_nuevas_dto, ObservacionDTO[] observaciones_originales_dto, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 8)) throw (new Exception("El usuario no tiene permisos para administrar macc"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "administracion_macc")) throw (new Exception("El usuario no tiene permisos para administrar macc"));
         var observaciones_no_procesadas = new List<ObservacionDTO>();
         var repo_cursos = RepositorioDeCursos();
 
@@ -3616,13 +3741,13 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public bool RegistrarNuevoUsuario(AspiranteAUsuario aspirante)
     {
-        return Autorizador().RegistrarNuevoUsuario(aspirante);
+        return Autorizador().RegistrarNuevoUsuario(aspirante, 0);
     }
 
     [WebMethod]
     public bool VerificarUsuario(int id_usuario, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 21)) throw (new Exception("El usuario no tiene permisos para verificar usuario"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "mau_verificar_usuarios")) throw (new Exception("El usuario no tiene permisos para verificar usuario"));
         return Autorizador().VerificarUsuario(id_usuario, usuario);
     }
 
@@ -3666,7 +3791,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string GuardarPostulacionManual(string postulacion, string datosPersonales, string folio, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 20)) throw (new Exception("El usuario no tiene permisos inscripcion manual"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "postular_inscripcion_manual")) throw (new Exception("El usuario no tiene permisos inscripcion manual"));
 
         // var postulaciones = new Postulacion();
         return RepoPostulaciones().InscripcionManual(postulacion, datosPersonales, folio, usuario);
@@ -3839,7 +3964,7 @@ public class WSViaticos : System.Web.Services.WebService
         var obj = new CVCaracterDeParticipacionEvento();
         obj.Descripcion = descripcion;
         obj.SoloVisiblePara = usuario.Id;
-        return RepositorioDeCaracterDeEventoAcademico.Nuevo(Conexion()).Guardar(obj);
+        return RepositorioDeCaracterDeEventoAcademico.Nuevo(Conexion()).Guardar(obj, usuario.Id);
     }
 
     [WebMethod]
@@ -3854,7 +3979,7 @@ public class WSViaticos : System.Web.Services.WebService
         var obj = new CVInstitucionesEventos();
         obj.Descripcion = descripcion;
         obj.SoloVisiblePara = usuario.Id;
-        return RepositorioDeInstitucionesEventosAcademicos.Nuevo(Conexion()).Guardar(obj);
+        return RepositorioDeInstitucionesEventosAcademicos.Nuevo(Conexion()).Guardar(obj, usuario.Id);
     }
 
     [WebMethod]
@@ -3869,7 +3994,7 @@ public class WSViaticos : System.Web.Services.WebService
         var obj = new CVTitulosAntecedentesAcademicos();
         obj.Descripcion = descripcion;
         obj.SoloVisiblePara = usuario.Id;
-        return RepositorioDeTitulosAntecedentesAcademicos.Nuevo(Conexion()).Guardar(obj);
+        return RepositorioDeTitulosAntecedentesAcademicos.Nuevo(Conexion()).Guardar(obj, usuario.Id);
     }
 
     #endregion
@@ -4063,7 +4188,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public void GuardarFolios(string nro_inscripcion, int nro_ficha_inscripcion, int nro_foto, int nro_foto_dni, int nro_foto_titulo, int nro_cv, int nro_doc_respaldo, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 15)) throw (new Exception("El usuario no tiene permisos pre inscripcion documental"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "etapa_admision")) throw (new Exception("El usuario no tiene permisos pre inscripcion documental"));
 
         RepoPostulaciones().GuardarFolios(nro_inscripcion, DateTime.Today, nro_ficha_inscripcion, nro_foto, nro_foto_dni, nro_foto_titulo, nro_cv, nro_doc_respaldo, usuario.Id);
     }
@@ -4078,7 +4203,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public void GuardarCambiosEnAdmitidos(List<Postulacion> postulaciones, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 17)) throw (new Exception("El usuario no tiene permisos para admision"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "etapa_admision")) throw (new Exception("El usuario no tiene permisos para admision"));
 
         RepoPostulaciones().GuardarCambiosEnAdmitidos(postulaciones, usuario.Id);
     }
@@ -4240,7 +4365,7 @@ public class WSViaticos : System.Web.Services.WebService
         obj.Descripcion = descripcion;
         obj.SoloVisiblePara = usuario.Id;
         obj.Tipo = tipo;
-        return RepositorioDeConocimientosCompetenciasInformaticas.Nuevo(Conexion()).Guardar(obj);
+        return RepositorioDeConocimientosCompetenciasInformaticas.Nuevo(Conexion()).Guardar(obj, usuario.Id);
     }
 
     [WebMethod]
@@ -4317,21 +4442,21 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public Formulario GetFormulario(string criterio, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 27)) throw (new Exception("El usuario no tiene permisos para formularios"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "formularios_ingreso")) throw (new Exception("El usuario no tiene permisos para formularios"));
         return new RepositorioDeFormularios(Conexion()).GetFormulario(criterio, usuario);
     }
 
     [WebMethod]
     public void GuardarCambiosEnFormulario(Formulario form, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 27)) throw (new Exception("El usuario no tiene permisos para formularios"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "formularios_ingreso")) throw (new Exception("El usuario no tiene permisos para formularios"));
         new RepositorioDeFormularios(Conexion()).GuardarDatos(form, usuario);
     }
 
     [WebMethod]
     public void GuardarCabeceraFormulario(Formulario form, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 27)) throw (new Exception("El usuario no tiene permisos para formularios"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "formularios_ingreso")) throw (new Exception("El usuario no tiene permisos para formularios"));
         //el true es para poner en impreso
         new RepositorioDeFormularios(Conexion()).GuardarVersion(form, usuario, true);
     }
@@ -4339,7 +4464,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public int GetIdCabeceraFormulario(Formulario form, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 27)) throw (new Exception("El usuario no tiene permisos para formularios"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "formularios_ingreso")) throw (new Exception("El usuario no tiene permisos para formularios"));
         //el true es para poner en impreso
         return new RepositorioDeFormularios(Conexion()).GetUltimaCabeceraFormulario(form, usuario);
     }
@@ -4353,7 +4478,7 @@ public class WSViaticos : System.Web.Services.WebService
         return RepositorioDePersonas().GetConsultaRapida(documento);
 
     }
-    
+
 
     [WebMethod]
     public string GetCarreraAdministrativa(int documento, Usuario usuario)
@@ -4368,9 +4493,9 @@ public class WSViaticos : System.Web.Services.WebService
     #region mobi
 
     [WebMethod]
-    public Tarjeton NuevoTarjeton(int id_Bien,string codigo_Holograma, Usuario usuario)
+    public Tarjeton NuevoTarjeton(int id_Bien, string codigo_Holograma, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 33)) throw (new Exception("El usuario no tiene permisos para el modulo de bienes"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "0.ingreso_a_bienes")) throw (new Exception("El usuario no tiene permisos para el modulo de bienes"));
         var repo = new RepositorioTarjetones(Conexion());
         return new Tarjeton();//repo.NuevoTarjeton(id_Bien);
     }
@@ -4496,7 +4621,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public bool Mobi_AsignarImagenABien(int id_bien, int id_imagen, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 37)) throw (new Exception("El usuario no tiene permisos editar bienes"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "1.alta_baja_asoc_bien")) throw (new Exception("El usuario no tiene permisos editar bienes"));
         RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
         return rMoBi.AsignarImagenABien(id_bien, id_imagen);
     }
@@ -4504,7 +4629,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public bool Mobi_DesAsignarImagenABien(int id_bien, int id_imagen, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 37)) throw (new Exception("El usuario no tiene permisos editar bienes"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "1.alta_baja_asoc_bien")) throw (new Exception("El usuario no tiene permisos editar bienes"));
         RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
         return rMoBi.DesAsignarImagenABien(id_bien, id_imagen);
     }
@@ -4545,7 +4670,7 @@ public class WSViaticos : System.Web.Services.WebService
     public string ImportarArchivoExcel(string nombreArchivo, string detalleExcel, Usuario usuario)
     {
         RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
-        var respuesta =  rMoBi.ImportarArchivoExcel(nombreArchivo, detalleExcel, usuario.Id);
+        var respuesta = rMoBi.ImportarArchivoExcel(nombreArchivo, detalleExcel, usuario.Id);
         return respuesta;
     }
 
@@ -4722,7 +4847,7 @@ public class WSViaticos : System.Web.Services.WebService
     public string GetDomicilioPendientePorAlerta(int idAlerta, Usuario usuario)
     {
         RepositorioLegajo repo = RepoLegajo();
-        return repo.GetDomicilioPendientePorAlerta(idAlerta);  
+        return repo.GetDomicilioPendientePorAlerta(idAlerta);
     }
 
     [WebMethod]
@@ -4907,7 +5032,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string ExcelMapaDelEstado(Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 46)) throw (new Exception("El usuario no tiene permisos para el modulo de datos abiertos-Mapa del estado"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "mapa_del_estado")) throw (new Exception("El usuario no tiene permisos para el modulo de datos abiertos-Mapa del estado"));
         try
         {
             RepositorioDeDatosAbiertos repositorio = new RepositorioDeDatosAbiertos(Conexion());
@@ -4925,7 +5050,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string ExcelPlanificacionDotaciones(Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, 47)) throw (new Exception("El usuario no tiene permisos para el modulo de datos abiertos-Planificación de dotaciones"));
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "PC_Planificacion_Dotaciones")) throw (new Exception("El usuario no tiene permisos para el modulo de datos abiertos-Planificación de dotaciones"));
         try
         {
             RepositorioDeDatosAbiertos repositorio = new RepositorioDeDatosAbiertos(Conexion());
@@ -4973,7 +5098,7 @@ public class WSViaticos : System.Web.Services.WebService
 
             //FC:si viene un idEvaluacion entonces llamo a update, si viene 0 llamo a insert
             if (idEval != 0)
-            {  
+            {
                 if (estado == 1 && id_doc_electronico == string.Empty)
                 {
                     GeneradorDeEtiquetas repoTicket = new GeneradorDeEtiquetas(Conexion());
@@ -5358,7 +5483,7 @@ public class WSViaticos : System.Web.Services.WebService
         //var repo = RepositorioEvaluacionDesempenio.NuevoReposi
         var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
         repo.VerificarCodigoGDE(id_evaluacion, usuario);
-        
+
         return codigo_gde;
     }
 
@@ -5385,7 +5510,7 @@ public class WSViaticos : System.Web.Services.WebService
         var modelo_para_pdf = new List<object>() { asignacion, usuario };
         var converter = new EvaluacionDeDesempenioToPdfConverter();
         var mapa_para_pdf = converter.CrearMapa(modelo_para_pdf);
-    
+
         var creador_pdf = new CreadorDePdfs();
 
         byte[] bytes = creador_pdf.FillPDF(TemplatePath("Formulario Evaluacion.pdf"), "Evaluacion de Desempeño", mapa_para_pdf);
@@ -5409,7 +5534,7 @@ public class WSViaticos : System.Web.Services.WebService
     {
         List<TipoLiquidacion> areas = new List<TipoLiquidacion>();
         var repositorio = RepositorioDeTipoDeLiquidacion.Nuevo(Conexion());
-        return JsonConvert.SerializeObject(repositorio.All());    
+        return JsonConvert.SerializeObject(repositorio.All());
     }
 
     /*cuando se prueba con soap ui es mejor quitar el objeto usuario asi, es mas directo realizar pruebas*/
@@ -5644,8 +5769,9 @@ public class WSViaticos : System.Web.Services.WebService
         {
             //el nombre del pdf generado va a ser el idRecibo
             bytes = creador_pdf.FillPDF(TemplatePath("ReciboEmpleado_v2.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
-            bytes2 = creador_pdf.AgregarImagenAPDF(bytes, "FRH0502," + Convert.ToString(id_recibo)); 
+            bytes2 = creador_pdf.AgregarImagenAPDF(bytes, "FRH0502," + Convert.ToString(id_recibo));
         }
+
         else{
             if (mapa_para_pdf["paginasPDF"] == "dos")
             {   //el nombre del pdf generado va a ser el idRecibo
@@ -5657,8 +5783,8 @@ public class WSViaticos : System.Web.Services.WebService
                 bytes = creador_pdf.FillPDF(TemplatePath("ReciboEmpleado_v2c.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
                 bytes2 = creador_pdf.AgregarImagenAPDF(bytes, "FRH0502," + Convert.ToString(id_recibo));
          
-            }
-            
+            }          
+
         }
         return Convert.ToBase64String(bytes2);
 
@@ -5673,6 +5799,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public int GuardarReciboPDFFirmado(string bytes_pdf, int id_recibo, int anio, int mes, int tipoLiquidacion, Usuario usuario)
     {
+
         int id_archivo=0;
 //        try
 //        {//COMO el proceso de guardado desde la tabla de la BD al disco es externo, no genero una subclase de archivo
@@ -5694,14 +5821,15 @@ public class WSViaticos : System.Web.Services.WebService
 
             RepoReciboFirmado().agregarReciboFirmado(id_recibo, id_archivo, anio, mes, tipoLiquidacion, usuario.Owner.Id, hoy, Convert.ToBase64String(byteHash));
                                                  //        var s=  Convert.FromBase64String(r);
+
         //TODOOOOOO
-            return id_archivo;
-//        }
-//        catch (Exception ex)
-//        {   //si se puedo subir el archivo a disco actualizo la tabla de recibo firmado
-//           return -1;
-          //  throw ex; si relanzo la exception, en el cliente se lo toma como exception javascript?
-//        }
+        return id_archivo;
+        //        }
+        //        catch (Exception ex)
+        //        {   //si se puedo subir el archivo a disco actualizo la tabla de recibo firmado
+        //           return -1;
+        //  throw ex; si relanzo la exception, en el cliente se lo toma como exception javascript?
+        //        }
 
     }
 
@@ -5745,7 +5873,7 @@ public class WSViaticos : System.Web.Services.WebService
         return ctlAcc.Get_Personas_Buscador(param_busqueda);
     }
 
-    #endregion	
+    #endregion
 
 
     [WebMethod]

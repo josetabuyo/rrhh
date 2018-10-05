@@ -125,6 +125,15 @@ namespace General.Repositorios
             //return GetPersonasDeTablaDeDatos(tablaDatos).First();
         }
 
+        public Persona GetPersonaPorDNI(int dni)
+        {
+            return TodasLasPersonas().Find(persona => persona.Documento == dni);
+            //var parametros = new Dictionary<string, object>();
+            //parametros.Add("@id_persona", id_persona);
+            //var tablaDatos = conexion.Ejecutar("dbo.WEB_Get_Personas", parametros);
+            //return GetPersonasDeTablaDeDatos(tablaDatos).First();
+        }
+
         private static List<Persona> GetPersonasDeTablaDeDatos(TablaDeDatos tablaDatos)
         {
             var personas = new List<Persona>();
@@ -159,12 +168,12 @@ namespace General.Repositorios
             return GetPersonasDeTablaDeDatos(tablaDatos);
         }
 
-        public void GuardarPersona(Persona persona)
+        public void GuardarPersona(Persona persona, int id_usuario_logueado)
         {
-            this.Guardar(persona);
+            this.Guardar(persona, id_usuario_logueado);
         }
 
-        protected override void GuardarEnLaBase(Persona persona)
+        protected override void GuardarEnLaBase(Persona persona, int id_usuario_logueado)
         {
             //si existe entonces se obtiene el ese
             var personas = this.BuscarPersonas(JsonConvert.SerializeObject(new { Documento = persona.Documento, ConLegajo = true }));
@@ -186,7 +195,7 @@ namespace General.Repositorios
             }
         }
 
-        protected override void QuitarDeLaBase(Persona objeto)
+        protected override void QuitarDeLaBase(Persona objeto, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }

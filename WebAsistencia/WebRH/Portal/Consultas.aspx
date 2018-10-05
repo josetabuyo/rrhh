@@ -54,7 +54,7 @@
                     <input id="btn_nueva_consulta" type="button" style="position: absolute; left: 25px;"
                         class="btn btn-primary boton_destellante" value="Realizar nueva consulta" />
                     <a id="boton_notificaciones" class="btn btn-primary" style="margin-left: 20px; float: right;">
-                        Notificaciones</a> <a id="Button1" href="GestionConsultas.aspx" requierefuncionalidad="49"
+                        Notificaciones</a> <a id="Button1" href="GestionConsultas.aspx" requierefuncionalidad="gestion_consultas"
                             class="btn btn-primary" style="float: right;">Gestión de consultas </a>
                 </div>
             </div>
@@ -139,10 +139,14 @@
             display: block; width: 100px; height: 30px; margin-top: 10px; padding-bottom: 25px;"
             value="ENVIAR" />
     </div>
-    <div id="pantalla_notificaciones" style="display: none">
+    <div id="pantalla_notificaciones" style="display: none;  position: absolute; 
+                        top: 10px;
+                        left: 10px;
+                        right: 10px;
+                        bottom: 10px;
+                        overflow-y: auto;">
         <p style="font-size: xx-large; text-align: center; margin-top: 10px;">
             Notificaciones</p>
-        <br />
         <div id="table_notificaciones" class="table table-striped table-bordered table-condensed">
         </div>
     </div>

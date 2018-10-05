@@ -42,12 +42,12 @@ namespace General.Repositorios
             return tipos;
         }
 
-        protected override void GuardarEnLaBase(TipoDeDocumento objeto)
+        protected override void GuardarEnLaBase(TipoDeDocumento objeto, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }
 
-        protected override void QuitarDeLaBase(TipoDeDocumento objeto)
+        protected override void QuitarDeLaBase(TipoDeDocumento objeto, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }

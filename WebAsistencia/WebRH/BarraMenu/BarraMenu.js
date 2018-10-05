@@ -20,7 +20,7 @@
             });
         
         $('#boton_home').click(function () {
-            Backend.ElUsuarioLogueadoTienePermisosPara(51).onSuccess(function (tiene_permisos) {   
+            Backend.ElUsuarioLogueadoTienePermisosParaFuncionalidadPorNombre("Ingreso_al_portal").onSuccess(function (tiene_permisos) {   
                 if(tiene_permisos) window.location.href = '../Portal/Portal.aspx';
                 else window.location.href = '../MenuPrincipal/Menu.aspx';
             });
@@ -86,7 +86,11 @@
             $('#btn_credenciales, #btn_Credencial_vigente').click(function () {
                 var div = $("<div>");
                 div.load(window.location.origin + '/Componentes/CredencialVigente.htm', function () {
-                    Componente.start(false, div);
+                    $.getScript('../Componentes/CredencialVigente.js', function(response,status) {
+                        $.getScript("../Scripts/jquery-barcode.js", function(response2,status2) {
+                            Componente.start(false, div);
+                        });
+                    });
                 });
             });
 

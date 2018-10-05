@@ -39,18 +39,18 @@ namespace General.Repositorios
             return objetos;
         }
 
-        abstract protected void GuardarEnLaBase(T objeto);
-        public T Guardar(T objeto)
+        abstract protected void GuardarEnLaBase(T objeto, int id_usuario_logueado);
+        public T Guardar(T objeto, int id_usuario_logueado)
         {
-            GuardarEnLaBase(objeto);
+            GuardarEnLaBase(objeto, id_usuario_logueado);
             if (objetos != null) objetos.Add(objeto);
             return objeto;
         }
 
-        abstract protected void QuitarDeLaBase(T objeto);
-        protected void Quitar(T objeto)
+        abstract protected void QuitarDeLaBase(T objeto, int id_usuario_logueado);
+        protected void Quitar(T objeto, int id_usuario_logueado)
         {
-            QuitarDeLaBase(objeto);
+            QuitarDeLaBase(objeto, id_usuario_logueado);
             if (objetos != null) objetos.Remove(objeto);
         }
 

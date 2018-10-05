@@ -130,12 +130,12 @@ ESTA SOLICITUD DEBE SER RECIBIDA EN LA DIRECCION DE ADMINISTRACIÓN DE PERSONAL 
         WSViaticosSoapClient s = new WSViaticosSoapClient();
         var usuario = (Usuario)Session["usuario"];
         this.SaldoOrdinaria1.BuscarSegmentos(this.DesdeHasta1.Desde);
-        if (this.SaldoOrdinaria1.SegmentosDisponibles == 0 && !s.ElUsuarioTienePermisosPara(usuario.Id, 57))
+        if (this.SaldoOrdinaria1.SegmentosDisponibles == 0 && !s.ElUsuarioTienePermisosParaFuncionalidadPorNombre(usuario.Id, "mas_de_dos_periodos"))
         {
             DatosValidos = false;
         }
 
-        if (this.DesdeHasta1.Desde < DateTime.Today && !s.ElUsuarioTienePermisosPara(usuario.Id, 54))
+        if (this.DesdeHasta1.Desde < DateTime.Today && !s.ElUsuarioTienePermisosParaFuncionalidadPorNombre(usuario.Id, "licencias_antiguas"))
         {
             DatosValidos = false;
         }
