@@ -1,94 +1,63 @@
 ﻿requirejs(['../common'], function (common) {
     requirejs(['jquery', 'backend', 'Modernizr', 'creadorDeGrillas', 'eval/comitesPorPeriodo', 'barramenu2', 'jquery-ui'], function ($, Backend, Modernizr, CreadorDeGrillas, ComitesPorPeriodo) {
+        var load_screen = function () {
+            var data = JSON.parse(window.localStorage.getItem('ComitesDeEvaluacionData'))
+            var comites = data.GetAllComites
+            var ues = data.GetEstadosEvaluacionesPeriodosActivos
+            var evals = data.GetAgentesEvaluablesParaComites
+            var periodos = data.GetPeriodosEvaluacion
 
-        Backend.start(function () {
-            Backend.GetAllComites().onSuccess(function (comites) {
-                Backend.GetEstadosEvaluacionesPeriodosActivos().onSuccess(function (ues) {
-                    Backend.GetAgentesEvaluablesParaComites().onSuccess(function (evals) {
-                        Backend.GetPeriodosEvaluacion().onSuccess(function (periodos) {
+            //localStorage.setItem("estadosEvaluaciones", JSON.stringify(ues));
+            var agrupados = ComitesPorPeriodo(ues, periodos, evals, comites)
+            CreadorDeGrillas('#tabla_periodos', agrupados)
 
-                            //localStorage.setItem("estadosEvaluaciones", JSON.stringify(ues));
-                            var agrupados = ComitesPorPeriodo(ues, periodos, evals, comites)
-                            CreadorDeGrillas('#tabla_periodos', agrupados)
+            //activo los tooltips
+            $('[data-toggle="tooltip"]').tooltip()
 
-                            //activo los tooltips
-                            $('[data-toggle="tooltip"]').tooltip()
+            var mostrarTab = function (tab_name) {
+                $('[role="tabpanel"]').hide()
+                $(tab_name).show()
+            }
 
+            $('[target_scr]').click(function (e) {
+                var pageName = this.attributes.target_scr.value
+                mostrarTab(pageName)
+                history.pushState(null, null, pageName);
+                e.preventDefault();
+            });
 
+            window.addEventListener("popstate", function (e) {
+                var activeTab = $(location.hash);
+                if (activeTab.length) {
+                    mostrarTab(location.hash)
+                } else {
+                    mostrarTab('#scr_home')
+                }
+            });
+        }
 
-
-                            function getPageName() {
-                                var
-                                    pathName = window.location.pathname,
-                                    pageName = "";
-                                if (pathName.indexOf("/") != -1) {
-                                    pageName = pathName.split("/").pop();
-                                } else {
-                                    pageName = pathName;
+        
+        if (!window.localStorage.getItem('ComitesDeEvaluacionData')) {
+            Backend.start(function () {
+                Backend.GetAllComites().onSuccess(function (comites_response) {
+                    Backend.GetEstadosEvaluacionesPeriodosActivos().onSuccess(function (ues_response) {
+                        Backend.GetAgentesEvaluablesParaComites().onSuccess(function (evals_response) {
+                            Backend.GetPeriodosEvaluacion().onSuccess(function (periodos_response) {
+                                var ComitesDeEvaluacionData = {
+                                    GetAllComites: comites_response,
+                                    GetEstadosEvaluacionesPeriodosActivos: ues_response,
+                                    GetAgentesEvaluablesParaComites: evals_response,
+                                    GetPeriodosEvaluacion: periodos_response
                                 }
-                                return pageName;
-                            }
-
-
-                            function navigateToPage() {
-                                var pageName = getPageName();
-                                //$.get(pageName, function (response) {
-
-                                    $('[role="tabpanel"]').hide()
-                                    $(pageName).show()
-
-                                    /*var
-                                        markup = $("<div>" + response + "</div>"),
-                                        fragment = markup.find(".fragment").html();*/
-                                    //$("#content-host").html(fragment);
-                                //});
-                            }
-
-                            $('[target_scr]').click(function (e) {
-                                if (Modernizr.history) {
-                                    e.preventDefault();
-                                    //var pageName = $(this).attr("href");
-                                    var pageName = this.attributes.target_scr.value
-                                    window.history.pushState(null, "", pageName);
-                                    navigateToPage(pageName);
-                                }
-                            });
-
-
-                            $(window).on('popstate', function (e) {
-
-                                this._popStateEventCount++;
-
-                                if (this._popStateEventCount == 1) {
-                                    return;
-                                }
-
-                                navigateToPage();
-                            });
-
-
-
-
-
-
-
-                            /*
-                            //agrego el handler de los componentes que cambian de pantalla
-                            $('[target_scr]').click(function () {
-
-                                var pantalla = this.attributes.target_scr.value
-                                mostrarPantalla(pantalla);
+                                window.localStorage.setItem('ComitesDeEvaluacionData', JSON.stringify(ComitesDeEvaluacionData))
+                                load_screen()
                             })
-
-                            var mostrarPantalla = function (pantalla) {
-                                $('[role="tabpanel"]').hide()
-                                $(pantalla).show()
-                            }
-                            */
                         })
                     })
                 })
             })
-        })
+        } else {
+            load_screen()
+        }
     })
 })

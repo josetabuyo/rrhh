@@ -53,7 +53,7 @@ namespace General.Repositorios
         {
             tablaDatos.Rows.ForEach(row =>
             {
-                AddDetallePreguntasA(list_de_pregYRtasRespondidas, row);
+                AddDetallePreguntasA(list_de_pregYRtasRespondidas, row, true);
             });
         }
 
@@ -110,18 +110,19 @@ namespace General.Repositorios
 
         public RespuestaGetAgentesEvaluablesPor GetAgentesEvaluablesPor(Usuario usuario)
         {
-            return GetAgentesEvaluablesPor(usuario, false, false);
+            return GetAgentesEvaluablesPor(usuario, false, false, true);
         }
 
         public RespuestaGetAgentesEvaluablesPor GetAgentesEvaluablesParaVerificarGDE(Usuario usuario)
         {
-            return GetAgentesEvaluablesPor(usuario, true, false);
+            return GetAgentesEvaluablesPor(usuario, true, false, true);
         }
 
         public RespuestaGetAgentesEvaluablesPor GetAgentesEvaluablesParaComites(Usuario usuario)
         {
-            return GetAgentesEvaluablesPor(usuario, true, true);
+            return GetAgentesEvaluablesPor(usuario, true, true, false);
         }
+
 
         public List<PeriodoEvaluacion> GetPeriodosEvaluacion()
         {
@@ -272,7 +273,7 @@ namespace General.Repositorios
 
         }
 
-        protected RespuestaGetAgentesEvaluablesPor GetAgentesEvaluablesPor(Usuario usuario, bool ModoVerificadorGDE, bool ModoComitesEvaluacion)
+        protected RespuestaGetAgentesEvaluablesPor GetAgentesEvaluablesPor(Usuario usuario, bool ModoVerificadorGDE, bool ModoComitesEvaluacion, bool IncludeTextosPreguntas)
         {
             var parametros = new Dictionary<string, object>();
             var id_persona_usuario = usuario.Owner.Id;
@@ -326,11 +327,11 @@ namespace General.Repositorios
                         detalle_preguntas = new List<DetallePreguntas>();
                         var id_evaluado = row.GetSmallintAsInt("id_evaluado", 0);
                         asignacion_evaluado_a_evaluador = newAsignacionEvaluadoAEvaluadorFromRow(row, detalle_preguntas, id_evaluado, cache_areas, resp_primario_ue);
-                        AddDetallePreguntasA(detalle_preguntas, row);
+                        AddDetallePreguntasA(detalle_preguntas, row, IncludeTextosPreguntas);
                     }
                     else
                     {
-                        AddDetallePreguntasA(detalle_preguntas, row);
+                        AddDetallePreguntasA(detalle_preguntas, row, IncludeTextosPreguntas);
                     }
                 });
             }
@@ -380,12 +381,18 @@ namespace General.Repositorios
             return evaluador;
         }
 
-        protected void AddDetallePreguntasA(List<DetallePreguntas> detalle_preguntas, RowDeDatos row)
+        protected void AddDetallePreguntasA(List<DetallePreguntas> detalle_preguntas, RowDeDatos row, bool IncludeTextosPreguntas)
         {
+            var rpta1 = IncludeTextosPreguntas ? row.GetString("rpta1", "") : String.Empty;
+            var rpta2 = IncludeTextosPreguntas ? row.GetString("rpta2", "") : String.Empty;
+            var rpta3 = IncludeTextosPreguntas ? row.GetString("rpta3", "") : String.Empty;
+            var rpta4 = IncludeTextosPreguntas ? row.GetString("rpta4", "") : String.Empty;
+            var rpta5 = IncludeTextosPreguntas ? row.GetString("rpta5", "") : String.Empty;
+            var enunciado = IncludeTextosPreguntas ? row.GetString("enunciado", "") : String.Empty;
             detalle_preguntas.Add(new DetallePreguntas(row.GetSmallintAsInt("id_pregunta", 0), row.GetSmallintAsInt("orden_pregunta", 0),
-                row.GetSmallintAsInt("opcion_elegida", 0), row.GetString("enunciado", ""),
-                row.GetString("rpta1", ""), row.GetString("rpta2", ""), row.GetString("rpta3", ""),
-                row.GetString("rpta4", ""), row.GetString("rpta5", ""), row.GetString("factor", "")));
+                row.GetSmallintAsInt("opcion_elegida", 0), enunciado,
+                rpta1, rpta2, rpta3,
+                rpta4, rpta5, row.GetString("factor", "")));
         }
 
         protected AsignacionEvaluadoAEvaluador newAsignacionEvaluadoAEvaluadorFromRow(RowDeDatos row, List<DetallePreguntas> detalle_preguntas, int id_evaluado, Dictionary<int, DescripcionAreaEvaluacion> cache_areas, AgenteEvaluacionDesempenio evaluador)

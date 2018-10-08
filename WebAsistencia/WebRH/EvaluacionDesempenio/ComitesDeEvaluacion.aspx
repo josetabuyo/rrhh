@@ -34,7 +34,7 @@
                 </div>
                 <div class="row">
                     <div class="col col-md-12">
-                        <table id="tabla_periodos" class="table  table-bordered table-striped table-sm">
+                        <table id="tabla_periodos" class="table table-bordered table-striped table-sm">
                             <thead>
                                 <tr>
                                     <!--<th scope="col" rowspan="2" class="align-middle">#</th>-->
@@ -87,7 +87,6 @@
                                 <h5 class="card-title">Nueva Reunión</h5>
                                 <h6 class="card-subtitle mb-2 text-muted">Paso 1: Datos Generales</h6>
                                 <div class="card-text">
-                                    <!--<form>-->
                                     <div class="form-group row">
                                         <label for="telnum" class="col-12 col-md-2 col-form-label">Fecha</label>
                                         <div class="col-5 col-md-3">
@@ -120,7 +119,6 @@
                                             <a href="#" class="btn btn-primary active" role="button" target_scr="#scr_integrantes">Siguiente</a>
                                         </div>
                                     </div>
-                                    <!--</form>-->
                                 </div>
                             </div>
                         </div>
