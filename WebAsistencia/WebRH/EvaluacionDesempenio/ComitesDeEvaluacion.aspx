@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../Scripts/jquery-ui-1.10.2.custom/css/smoothness/jquery-ui-1.10.2.custom.min.css">
+    <link rel="stylesheet" href="../node_modules/jquery-timepicker/jquery.timepicker.css" >
+
     <script data-main="ComitesDeEvaluacion" src="../node_modules/requirejs/require.js"></script>
     <title>Sigirh -Comités de Evaluacion</title>
 </head>
@@ -61,14 +63,14 @@
                                     <td class="text-right" >{{Finalizado}}</td>
                                     <td class="text-right" >{{ReunionesRealizadas}}<a style="display: inline" data-toggle="tooltip" data-placement="top" title="Ver Reuniones" class="nav-link" href="#"><span class="fa fa fa-eye"></span></a></td>
                                     <td class="text-right">
-                                        <button type="button" class="btn btn-sm btn-primary" target_scr="#scr_primer_paso">Crear Nueva Reunion</button></td>
+                                        <button type="button" class="btn btn-sm btn-primary" target_scr="#scr_datos_generales/{{IdPeriodo}}">Crear Nueva Reunion</button></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
-            <div role="tabpanel" id="scr_primer_paso" style="display: none">
+            <div role="tabpanel" id="scr_datos_generales" style="display: none">
                 <div class="row">
                     <div class="col col-md-5">
                         <nav aria-label="breadcrumb">
@@ -93,7 +95,7 @@
                                             <input type="tel" class="form-control" id="fecha" name="Fecha" placeholder="Fecha">
                                         </div>
                                         <div class="col-7 col-md-7">
-                                            <input type="tel" class="form-control" id="hora" name="telnum" placeholder="hora">
+                                            <input type="tel" class="form-control timepicker" id="hora" name="telnum" placeholder="hora">
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -131,7 +133,7 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item" target_scr="#scr_home"><a href="#">Comités de Evaluacion</a></li>
-                                <li class="breadcrumb-item" target_scr="#scr_primer_paso"><a href="#">Paso 1: Datos Generales</a></li>
+                                <li class="breadcrumb-item" target_scr="#scr_datos_generales"><a href="#">Paso 1: Datos Generales</a></li>
                                 <li class="breadcrumb-item  active">Paso 2: Integrantes</li>
                             </ol>
                         </nav>
@@ -208,7 +210,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col col-md-12 text-right">
-                                            <a href="#" class="btn btn-secondary" role="button" target_scr="#scr_primer_paso">Atras</a>
+                                            <a href="#" class="btn btn-secondary" role="button" target_scr="#scr_datos_generales">Atras</a>
                                             <a href="#" class="btn btn-primary active" role="button" target_scr="#scr_unidades">Siguiente</a>
                                         </div>
                                     </div>
@@ -224,7 +226,7 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item" target_scr="#scr_home"><a href="#">Comités de Evaluacion</a></li>
-                                <li class="breadcrumb-item" target_scr="#scr_primer_paso"><a href="#">Paso 1: Datos Generales</a></li>
+                                <li class="breadcrumb-item" target_scr="#scr_datos_generales"><a href="#">Paso 1: Datos Generales</a></li>
                                 <li class="breadcrumb-item" target_scr="#scr_integrantes"><a href="#">Paso 2: Integrantes</a></li>
                                 <li class="breadcrumb-item  active">Paso 3: Unidades de Evaluacion</li>
                             </ol>

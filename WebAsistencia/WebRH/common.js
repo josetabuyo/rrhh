@@ -10,8 +10,8 @@ require.config({
         'jquery-ui': {
             deps: ["jquery"]
         },
-        Modernizr: {
-            exports: 'Modernizr'
+        'jquery-timepicker': {
+            deps: ["jquery"]
         }
         
     },
@@ -31,6 +31,6 @@ require.config({
         'jquery-ui': '../Scripts/jquery-ui-1.10.2.custom/js/jquery-ui-1.10.2.custom.min',
         eval: '../EvaluacionDesempenio',
         creadorDeGrillas: '../Scripts/CreadorDeGrillas',
-        Modernizr: '../Scripts/modernizr-history'
+        'jquery-timepicker': 'jquery-timepicker/jquery.timepicker'
     }
 });
