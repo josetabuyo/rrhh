@@ -285,8 +285,8 @@ namespace General.Repositorios
                 var persona = repo_personas.GetPersonaPorDNI(d);
                 var usr = repo_usuarios.GetUsuarioPorIdPersona(persona.Id);
 
-                var cuerpo_alerta = "<a href='#' onClick='var w = window.open(); $(w.document.body).html("+notificacion+"); return false;'>Abrir notificación</a>";
-                repo_alertas.crearAlerta(titulo, cuerpo_alerta, usr.Id, usuario);
+                //var cuerpo_alerta = "<a href='#' onClick='function(){var w = window.open(); $(w.document.body).html('"+notificacion+"'); return false;}'>Abrir notificación</a>";
+                repo_alertas.crearAlerta(titulo, notificacion, usr.Id, usuario);
             });
         }
 

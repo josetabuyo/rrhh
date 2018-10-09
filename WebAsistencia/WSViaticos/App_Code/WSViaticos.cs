@@ -2921,7 +2921,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string ResetearPassword(int id_usuario, Usuario usuario)
     {
-        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "mau_resetear_contraseña")) return RepositorioDeUsuarios().ResetearPassword(id_usuario);
+        if (Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "mau_resetear_contrasenia")) return RepositorioDeUsuarios().ResetearPassword(id_usuario);
         else throw new Exception("El usuario no tiene permisos para resetear contraseñas");
     }
 
