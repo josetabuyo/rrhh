@@ -284,7 +284,9 @@ namespace General.Repositorios
                 conexion.EjecutarSinResultado("dbo.LEG_INSNotificacionUsuario", parametros);
                 var persona = repo_personas.GetPersonaPorDNI(d);
                 var usr = repo_usuarios.GetUsuarioPorIdPersona(persona.Id);
-                repo_alertas.crearAlerta(titulo, notificacion, usr.Id, usuario);
+
+                var cuerpo_alerta = "<a href='#' onClick='var w = window.open(); $(w.document.body).html("+notificacion+"); return false;'>Abrir notificación</a>";
+                repo_alertas.crearAlerta(titulo, cuerpo_alerta, usr.Id, usuario);
             });
         }
 
