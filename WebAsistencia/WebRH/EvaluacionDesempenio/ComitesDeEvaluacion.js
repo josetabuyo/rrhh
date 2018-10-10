@@ -1,9 +1,10 @@
 ﻿requirejs(['../common'], function (common) {
-    requirejs(['jquery', 'underscore', 'backend',  'creadorDeGrillas', 'eval/comitesPorPeriodo', 'barramenu2', 'jquery-ui', 'jquery-timepicker'], function ($, _, Backend, CreadorDeGrillas, ComitesPorPeriodo) {
+    requirejs(['jquery', 'underscore', 'backend', 'spa-tabs', 'creadorDeGrillas', 'eval/comitesPorPeriodo', 'barramenu2', 'jquery-ui', 'jquery-timepicker'], function ($, _, Backend, spa_tabs, CreadorDeGrillas, ComitesPorPeriodo) {
 
         var on_scr_home_next = function (show_next) {
             show_next()
         }
+
         var on_datos_generales_next = function (show_next) {
             Backend.start(function () {
                 Backend.AgregarComiteEvaluacionDesempenio(descripcion, fecha, hora, lugar, periodo).onSuccess(function (comite) {
@@ -11,6 +12,7 @@
                 });
             });
         }
+
 
         var tabs_config = [
             {
@@ -54,48 +56,10 @@
                 dropdown: true,
                 scrollbar: true
             })
+          
 
-            var mostrarTab = function (tab_name, parameter) {
-                $('[role="tabpanel"]').hide()
-                $(tab_name).show()
-            }
+            spa_tabs.createTabs(tabs_config)
 
-            var tab_definition_from_url = function (url) {
-                if (!url) {
-                    return {
-                        name: '',
-                        parameter: ''
-                    }
-                }
-                var tab_definition = url.split('/')
-                var tab_name = tab_definition[0]
-                var tab_parameter = tab_definition[1]
-                return {
-                    name: tab_name,
-                    parameter: tab_parameter
-                }
-            }
-
-            $('[target_scr]').click(function (e) {
-                e.preventDefault();
-                var url = this.attributes.target_scr.value
-                var next_tab = tab_definition_from_url(this.attributes.target_scr.value)
-                var current_tab = tab_definition_from_url(location.hash)
-                var tab_config = _.find(tabs_config, function (each) { return each.tab_name == current_tab.name })
-                tab_config.on_next(function () { mostrarTab(next_tab.name, next_tab.parameter) })
-                history.pushState(null, null, url);
-                
-            })
-
-            window.addEventListener("popstate", function (e) {
-                var tab = tab_definition_from_url(location.hash)
-                var activeTab = $(tab.name);
-                if (activeTab.length) {
-                    mostrarTab(tab.name, tab.parameter)
-                } else {
-                    mostrarTab('#scr_home')
-                }
-            });
         }
 
 

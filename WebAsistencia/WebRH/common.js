@@ -31,6 +31,7 @@ require.config({
         'jquery-ui': '../Scripts/jquery-ui-1.10.2.custom/js/jquery-ui-1.10.2.custom.min',
         eval: '../EvaluacionDesempenio',
         creadorDeGrillas: '../Scripts/CreadorDeGrillas',
-        'jquery-timepicker': 'jquery-timepicker/jquery.timepicker'
+        'jquery-timepicker': 'jquery-timepicker/jquery.timepicker',
+        'spa-tabs': '../Scripts/SPATabs'
     }
 });
