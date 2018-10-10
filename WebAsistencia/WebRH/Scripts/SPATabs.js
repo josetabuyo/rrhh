@@ -1,13 +1,13 @@
-﻿define(['jquery'], function ($) {
+﻿///este módulo sirve para convertir una página con tabs
+///en una SPA (maneja el 'back' y 'forward' del navegador)
+///
+///los componentes del html que tengan el atributo target_scr="#nombre_de_tab"
+///dispara un eventode mostrar ese otro tab, y cambiar la url en el browser
+///los tabs en el html tienen que tener el id="#nombre_de_tab"
+define(['jquery'], function ($) {
 
 
-    ///este módulo sirve para convertir una página con tabs
-    ///en una SPA (maneja el 'back' y 'forward' del navegador)
-    ///
-    ///los componentes del html que tengan el atributo target_scr="#nombre_de_tab"
-    ///dispara un eventode mostrar ese otro tab, y cambiar la url en el browser
-    ///los tabs en el html tienen que tener el id="#nombre_de_tab"
-    var mostrarTab = function (tab_name, parameter) {
+    var mostrarTab = function (tab_name) {
         $('[role="tabpanel"]').hide()
         $(tab_name).show()
     }
@@ -45,7 +45,8 @@
             var next_tab = tab_definition_from_url(this.attributes.target_scr.value)
             var current_tab = tab_definition_from_url(location.hash)
             var tab_config = _.find(tabs_config, function (each) { return each.tab_name == current_tab.name })
-            tab_config.on_next(function () { mostrarTab(next_tab.name, next_tab.parameter) })
+            var url_param = current_tab.parameter
+            tab_config.on_next(function () { mostrarTab(next_tab.name) }, url_param)
             history.pushState(null, null, url);
         })
     }
@@ -54,7 +55,8 @@
         var tab = tab_definition_from_url(location.hash)
         var activeTab = $(tab.name);
         if (activeTab.length) {
-            mostrarTab(tab.name, tab.parameter)
+            var url_param =  tab.parameter
+            mostrarTab(tab.name)
         } else {
             mostrarTab('#scr_home')
         }

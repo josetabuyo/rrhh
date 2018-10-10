@@ -4,17 +4,30 @@
         //window.localStorage.clear()
 
         //cuando se hace click en "siguiente" (solapa home)
-        var on_scr_home_next = function (show_next) {
-            show_next()
+        var on_scr_home_next = function (show_next_tab) {
+            show_next_tab()
         }
 
         //cuando se hace click en "siguiente (datos generales)
-        var on_datos_generales_next = function (show_next) {
-            Backend.start(function () {
-                Backend.AgregarComiteEvaluacionDesempenio(descripcion, fecha, hora, lugar, periodo).onSuccess(function (comite) {
-                    show_next()
-                });
-            });
+        var on_datos_generales_next = function (show_next_tab, params) {
+            //params['IdPeriodo']<--todo
+            var req = [{
+                nombre_metodo: "AgregarComiteEvaluacionDesempenio",
+                argumentos_json: [
+                    $("#descripcion").val(),
+                    $("#fecha").val(),
+                    $("#hora").val(),
+                    $("#lugar").val(),
+                    params
+                ]
+            }]
+            ws.parallel(req, function (err, res) {
+                if (err) {
+                    alert("se produjo un error al guardar " + err)
+                    return
+                }
+                show_next_tab()
+            })
         }
 
         //config para la Single Page App con Tabs
@@ -35,17 +48,18 @@
             var evals = data.GetAgentesEvaluablesParaComites
             var periodos = data.GetPeriodosEvaluacion
 
-            
             var agrupados = ComitesPorPeriodo(ues, periodos, evals, comites)
             CreadorDeGrillas('#tabla_periodos', agrupados)
 
             //activo los tooltips
             $('[data-toggle="tooltip"]').tooltip()
 
-            $('#fecha').datepicker()
+            $('#fecha').datepicker({
+                dateFormat: "dd/mm/yy"
+            })
 
             $('.timepicker').timepicker({
-                timeFormat: 'h:mm p',
+                timeFormat: 'HH:mm',
                 interval: 60,
                 minTime: '10',
                 maxTime: '6:00pm',
@@ -66,22 +80,20 @@
                 { nombre_metodo: "GetAgentesEvaluablesParaComites", argumentos_json: [] },
                 { nombre_metodo: "GetPeriodosEvaluacion", argumentos_json: [] }
             ]
-            ws.parallel(requests, function (err, respuestas) {
+            ws.parallel(requests, function (err, res) {
                 if (err) {
                     console.log('Se produjo un error ' + err)
                     return 
                 }
-                var ComitesDeEvaluacionData = {
-                    GetAllComites: respuestas[0],
-                    GetEstadosEvaluacionesPeriodosActivos: respuestas[1],
-                    GetAgentesEvaluablesParaComites: respuestas[2],
-                    GetPeriodosEvaluacion: respuestas[3]
-                }
-                window.localStorage.setItem('ComitesDeEvaluacionData', JSON.stringify(ComitesDeEvaluacionData))
+                window.localStorage.setItem('ComitesDeEvaluacionData', JSON.stringify( {
+                    GetAllComites: res[0],
+                    GetEstadosEvaluacionesPeriodosActivos: res[1],
+                    GetAgentesEvaluablesParaComites: res[2],
+                    GetPeriodosEvaluacion: res[3]
+                }))
                 load_screen()
             })
-        } else {
-            load_screen()
         }
+        load_screen()
     })
 })
