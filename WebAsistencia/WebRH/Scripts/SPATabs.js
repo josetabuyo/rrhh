@@ -7,7 +7,6 @@
     ///los componentes del html que tengan el atributo target_scr="#nombre_de_tab"
     ///dispara un eventode mostrar ese otro tab, y cambiar la url en el browser
     ///los tabs en el html tienen que tener el id="#nombre_de_tab"
-
     var mostrarTab = function (tab_name, parameter) {
         $('[role="tabpanel"]').hide()
         $(tab_name).show()
@@ -39,7 +38,6 @@
     ///    on_next: on_scr_home_next   <--funcion evaluada al presionar "next" (que es un boton html tipo <button target_scr="#siguiente_tab">)
     /// }, ...
     ///]
-
     var createTabs = function (tabs_config) {
         $('[target_scr]').click(function (e) {
             e.preventDefault();

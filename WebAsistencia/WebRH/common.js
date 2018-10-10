@@ -32,6 +32,7 @@ require.config({
         eval: '../EvaluacionDesempenio',
         creadorDeGrillas: '../Scripts/CreadorDeGrillas',
         'jquery-timepicker': 'jquery-timepicker/jquery.timepicker',
-        'spa-tabs': '../Scripts/SPATabs'
+        'spa-tabs': '../Scripts/SPATabs',
+        'wsviaticos': '../Scripts/WSViaticosAPI'
     }
 });
