@@ -3,6 +3,7 @@
 
     function tableRowFrom(model, row_template) {
         row = row_template.clone()
+        row.removeClass('row-template')
         row.show()
 
         _.each(model, function (attr_value, attr_name) {
@@ -44,14 +45,18 @@
     */
     function GrillaFrom(id, registros) {
         var body = $(id + ' > tbody')
-
+        
         var row_template = body.find('.row-template')
-        row_template.removeClass('row-template')
+
+        //borro los registros
+        body.empty()
+        //pero salvaguardo el template
+        body.append(row_template)
 
         _.each(registros, function (each) {
             body.append(tableRowFrom(each, row_template))
         })
-        row_template.hide();
+        
         $(id).append(body)
     }
 

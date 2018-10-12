@@ -6,7 +6,6 @@
 ///los tabs en el html tienen que tener el id="#nombre_de_tab"
 define(['jquery'], function ($) {
 
-
     var mostrarTab = function (tab_name) {
         $('[role="tabpanel"]').hide()
         $(tab_name).show()
@@ -46,10 +45,15 @@ define(['jquery'], function ($) {
             var current_tab = tab_definition_from_url(location.hash)
             var tab_config = _.find(tabs_config, function (each) { return each.tab_name == current_tab.name })
             var url_param = current_tab.parameter
-            tab_config.on_next(function () { mostrarTab(next_tab.name) }, url_param)
+            var on_tab_leave = function () {
+                mostrarTab(next_tab.name)
+            }
+            tab_config.on_next(on_tab_leave, url_param)
             history.pushState(null, null, url);
         })
     }
+
+    
 
     window.addEventListener("popstate", function (e) {
         var tab = tab_definition_from_url(location.hash)

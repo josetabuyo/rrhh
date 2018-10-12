@@ -186,6 +186,7 @@ public class WSViaticos : System.Web.Services.WebService
         return repo.AgregarComite(descripcion, DateTime.Parse(fecha), hora, lugar, periodo);
     }
 
+
     [WebMethod]
     public ComiteEvaluacionDesempenio UpdateComiteEvaluacionDesempenio(int id_comite, string descripcion, string fecha, string hora, string lugar, int id_periodo)
     {

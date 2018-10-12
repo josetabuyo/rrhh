@@ -184,10 +184,28 @@ namespace General.Repositorios
             _conexion.EjecutarEscalar("dbo.EVAL_DEL_IntegranteComite", parametros);
         }
 
+        public ComiteEvaluacionDesempenio GetComiteById(int idComite)
+        {
+            var parametros = new Dictionary<string, object>();
+            var tablaDatos = _conexion.Ejecutar("dbo.EVAL_GET_Comites", parametros);
+            parametros.Add("@idComite", idComite);
+
+            var resultado = new List<ComiteEvaluacionDesempenio>();
+            if (tablaDatos.Rows.Count > 0)
+            {
+                tablaDatos.Rows.ForEach(row =>
+                {
+                    this.CrearOCompletarComite(row, resultado);
+                });
+            }
+            return resultado[0];
+        }
+
         public List<ComiteEvaluacionDesempenio> GetAllComites()
         {
             var parametros = new Dictionary<string, object>();
             var tablaDatos = _conexion.Ejecutar("dbo.EVAL_GET_Comites", parametros);
+
             var resultado = new List<ComiteEvaluacionDesempenio>();
             if (tablaDatos.Rows.Count > 0)
             {
@@ -587,7 +605,7 @@ namespace General.Repositorios
 
         public ComiteEvaluacionDesempenio AgregarComite(string descripcion, DateTime fecha, string hora, string lugar, int periodo)
         {
-            ComiteEvaluacionDesempenio comite = new ComiteEvaluacionDesempenio();
+            //ComiteEvaluacionDesempenio comite = new ComiteEvaluacionDesempenio();
             var parametros = new Dictionary<string, object>();
 
             parametros.Add("@descripcion", descripcion );
@@ -597,8 +615,9 @@ namespace General.Repositorios
             parametros.Add("@periodo", periodo);
 
             var tablaDeDatos = _conexion.Ejecutar("dbo.EVAL_ADD_Comite", parametros);
-            comite.Id = tablaDeDatos.Rows[0].GetSmallintAsInt("Id");
-            return comite;
+            //comite.Id = tablaDeDatos.Rows[0].GetSmallintAsInt("Id");
+            return GetComiteById(tablaDeDatos.Rows[0].GetSmallintAsInt("Id"));
+            //return comite;
         }
 
         public ComiteEvaluacionDesempenio UpdateComite(int id_comite, string descripcion, DateTime fecha, string hora, string lugar, int periodo)

@@ -19,9 +19,14 @@ require.config({
         jquery: 'jquery/jquery',
         bootstrap: 'bootstrap/dist/js/bootstrap.bundle',
         barramenu2: '../BarraMenu/BarraMenu2',
+        'jquery-timepicker': 'jquery-timepicker/jquery.timepicker',
+
+        eval: '../EvaluacionDesempenio',
+
         menuDesplegable: '../BarraMenu/MenuDesplegable2',
         vistaTipoTicket: '../BarraMenu/VistaTipoTicket2',
         vistaItemMenu: '../BarraMenu/VistaItemMenu2',
+
         vistaThumbnail: '../Scripts/ControlesImagenes/VistaThumbnail2',
         backend: '../Scripts/Backend2',
         proveedorAjax: '../Scripts/ProveedorAjax2',
@@ -29,9 +34,7 @@ require.config({
         promesa: '../Scripts/promesa2',
         underscore: '../Scripts/underscore-min',
         'jquery-ui': '../Scripts/jquery-ui-1.10.2.custom/js/jquery-ui-1.10.2.custom.min',
-        eval: '../EvaluacionDesempenio',
         creadorDeGrillas: '../Scripts/CreadorDeGrillas',
-        'jquery-timepicker': 'jquery-timepicker/jquery.timepicker',
         'spa-tabs': '../Scripts/SPATabs',
         'wsviaticos': '../Scripts/WSViaticosAPI'
     }
