@@ -6,6 +6,11 @@
 ///los tabs en el html tienen que tener el id="#nombre_de_tab"
 define(['jquery'], function ($) {
 
+    //cuando se hace click en "siguiente" (solapa home)
+    var do_nothing = function (show_next_tab) {
+        show_next_tab()
+    }
+
     var mostrarTab = function (tab_name) {
         $('[role="tabpanel"]').hide()
         $(tab_name).show()
@@ -37,18 +42,25 @@ define(['jquery'], function ($) {
     ///    on_next: on_scr_home_next   <--funcion evaluada al presionar "next" (que es un boton html tipo <button target_scr="#siguiente_tab">)
     /// }, ...
     ///]
-    var createTabs = function (tabs_config) {
+    var createTabs = function (tabs_events) {
         $('[target_scr]').click(function (e) {
             e.preventDefault();
             var url = this.attributes.target_scr.value
             var next_tab = tab_definition_from_url(this.attributes.target_scr.value)
             var current_tab = tab_definition_from_url(location.hash)
-            var tab_config = _.find(tabs_config, function (each) { return each.tab_name == current_tab.name })
+            var tab_config = _.find(tabs_events, function (each) { return each.tab_name == current_tab.name })
             var url_param = current_tab.parameter
             var on_tab_leave = function () {
                 mostrarTab(next_tab.name)
             }
+            if (!tab_config) {
+                tab_config = {
+                    tab_name: current_tab.name,
+                    on_next: do_nothing
+                }
+            }
             tab_config.on_next(on_tab_leave, url_param)
+            
             history.pushState(null, null, url);
         })
     }

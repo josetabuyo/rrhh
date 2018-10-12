@@ -3,11 +3,6 @@
 
         window.localStorage.clear()
 
-        //cuando se hace click en "siguiente" (solapa home)
-        var do_nothing = function (show_next_tab) {
-            show_next_tab()
-        }
-
         //cuando se hace click en "siguiente (datos generales)
         var on_datos_generales_next = function (show_next_tab, params) {
             //params['IdPeriodo']<--todo
@@ -24,21 +19,10 @@
         }
 
         //config para la Single Page App con Tabs
-        var tabs_config = [
-            {
-                tab_name: '#scr_home',
-                on_next: do_nothing
-            }, {
-                tab_name: '',
-                on_next: do_nothing
-            }, {
+        var tabs_events = [{
                 tab_name: '#scr_datos_generales',
                 on_next: on_datos_generales_next
-            }, {
-                tab_name: '#scr_integrantes',
-                on_next: do_nothing
-            }
-        ]
+            }]
 
         var load_grid_periodos = function() {
             app_sate.GetDataGridPeriodos(data => {
@@ -51,7 +35,7 @@
                 CreadorDeGrillas('#tabla_periodos', agrupados)
 
                 //activo los tooltips
-                spa_tabs.createTabs(tabs_config)
+                spa_tabs.createTabs(tabs_events)
                 $('#tabla_periodos [data-toggle="tooltip"]').tooltip()
             })
         }
