@@ -5,7 +5,7 @@
 ///
 ///En esta 'capa' nos aseguramos de tener sincronizados los datos de la caché (localStorage)
 ///con el estado de los datos en el backend
-define(['wsviaticos'], function (ws) {
+define(['wsviaticos', 'underscore'], function (ws, _) {
 
 
     //cargar todos los datos necesarios para completar la grilla de periodos
@@ -56,11 +56,62 @@ define(['wsviaticos'], function (ws) {
         })
     }
 
+    var GetPeriodo = function (idPeriodo) {
+        var periodos = JSON.parse(window.localStorage.getItem('ComitesDeEvaluacionData')).GetPeriodosEvaluacion
+        return _.find(periodos, p => p.id_periodo == idPeriodo)
+    }
+
+    var BuscarPersonas = function (criterio, onSuccess, onError) {
+        var req = [{
+            nombre_metodo: "BuscarPersonas",
+            argumentos_json: [descripcion, fecha, hora, lugar, periodo]
+        }]
+
+        ws.parallel(req, function (err, res) {
+            if (err) {
+                alert("se produjo un error al guardar " + err)
+                return
+            }
+            state = JSON.parse(window.localStorage.getItem('ComitesDeEvaluacionData'))
+            var comite_agregado = res[0]
+            state.GetAllComites.push(comite_agregado)
+            window.localStorage.setItem('ComitesDeEvaluacionData', JSON.stringify(state))
+            cb(res)
+        })
+
+        /*
+        this.proveedor_ajax.postearAUrl({
+            url: "BuscarPersonas",
+            data: {
+                criterio: criterio
+            },
+            success: function (personas_json) {
+                var lista_personas = [];
+                for (var i = 0; i < personas_json.length; i++) {
+                    var persona_json = personas_json[i];
+                    lista_personas.push(new Persona({
+                        id: persona_json.Id,
+                        nombre: persona_json.Nombre,
+                        apellido: persona_json.Apellido,
+                        legajo: persona_json.Legajo,
+                        documento: persona_json.Documento
+                    }));
+                }
+                onSuccess(lista_personas);
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                onerror(errorThrown);
+            }
+        });*/
+    }
+
 
     //API del modulo
     return {
         AddComite: AddComite,
-        GetDataGridPeriodos: GetDataGridPeriodos
+        GetDataGridPeriodos: GetDataGridPeriodos,
+        BuscarPersonas: BuscarPersonas,
+        GetPeriodo: GetPeriodo
     }
 
 })

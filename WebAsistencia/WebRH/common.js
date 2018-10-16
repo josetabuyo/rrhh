@@ -12,6 +12,9 @@ require.config({
         },
         'jquery-timepicker': {
             deps: ["jquery"]
+        },
+        'select2': {
+            deps: ["jquery"]
         }
         
     },
@@ -36,6 +39,8 @@ require.config({
         'jquery-ui': '../Scripts/jquery-ui-1.10.2.custom/js/jquery-ui-1.10.2.custom.min',
         creadorDeGrillas: '../Scripts/CreadorDeGrillas',
         'spa-tabs': '../Scripts/SPATabs',
-        'wsviaticos': '../Scripts/WSViaticosAPI'
+        'wsviaticos': '../Scripts/WSViaticosAPI',
+        'selector-personas': '../Scripts/SelectorDePersonas2',
+        'select2': '../Scripts/select2-3.4.4/select2.min'
     }
 });

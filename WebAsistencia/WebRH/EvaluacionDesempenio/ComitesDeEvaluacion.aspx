@@ -6,11 +6,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../Scripts/jquery-ui-1.10.2.custom/css/smoothness/jquery-ui-1.10.2.custom.min.css">
-    <link rel="stylesheet" href="../node_modules/jquery-timepicker/jquery.timepicker.css" >
+    <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../Scripts/jquery-ui-1.10.2.custom/css/smoothness/jquery-ui-1.10.2.custom.min.css"/>
+    <link rel="stylesheet" href="../node_modules/jquery-timepicker/jquery.timepicker.css"/>
+    <link rel="stylesheet" href="../scripts/select2-3.4.4/select2.css"/>
+    <link rel="stylesheet" href="../estilos/SelectorDePersonas.css"/>   
 
     <script data-main="ComitesDeEvaluacion" src="../node_modules/requirejs/require.js"></script>
     <title>Sigirh -Comités de Evaluacion</title>
@@ -88,6 +90,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">Nueva Reunión</h5>
                                 <h6 class="card-subtitle mb-2 text-muted">Paso 1: Datos Generales</h6>
+                                <p class="lead" id="desc_periodo" />
                                 <div class="card-text">
                                     <div class="form-group row">
                                         <label for="telnum" class="col-12 col-md-2 col-form-label">Fecha</label>
@@ -150,10 +153,16 @@
                                     <div class="row">
                                         <div class="col-12 col-md-5">
                                             <div class="form-group row">
-                                                <label for="integrante" class="col-12 col-md-4 col-form-label">Integrante</label>
-                                                <div class="col-12 col-md-8">
-                                                    <input type="tel" class="form-control" id="integrante" name="Integrante" placeholder="Integrante">
+                                                <label for="buscador" class="col-12 col-md-4 col-form-label">Integrante</label>
+                                                <div id="selector_usuario" class="col-12 col-md-8 selector_personas">
+                                                    <input type="tel" class="form-control buscarPersona" id="buscador" name="Integrante" placeholder="Integrante" />
                                                 </div>
+
+              <!--<input id="buscador" type=hidden class="buscarPersona" />
+                                                        <input type="hidden" class="form-control buscarPersona" id="integrante" name="Integrante" /> 
+                                                        <!--placeholder="Integrante"-->
+
+
                                             </div>
                                             <div class="form-group row">
                                                 <label for="integrante" class="col-12 col-md-4 col-form-label">En Caracter De</label>
@@ -303,8 +312,6 @@
                                                 <td class="text-right">28</td>
                                                 <td></td>
                                             </tr>
-
-                                           
                                         </tbody>
                                     </table>
                                 </div>

@@ -32,7 +32,25 @@ define(['jquery'], function ($) {
         }
     }
 
+    var get_tab_config = function(tabs_events, tab_name) {
+        var tab_config = _.find(tabs_events, function (each) { return each.tab_name == tab_name })
+        if (!tab_config) {
+            tab_config = {
+                tab_name: tab_name,
+            }
+        }
 
+        //por default no hacer nada
+        if (!tab_config.on_next) {
+            tab_config.on_next = do_nothing
+        }
+
+        //por default no hacer nada
+        if (!tab_config.on_enter) {
+            tab_config.on_enter = do_nothing
+        }
+        return tab_config
+    }
 
     ///recibe tabs_config, con los métodos definiendo las acciones a realizar por cada solapa, de la forma:
     ///
@@ -47,21 +65,19 @@ define(['jquery'], function ($) {
             e.preventDefault();
             var url = this.attributes.target_scr.value
             var next_tab = tab_definition_from_url(this.attributes.target_scr.value)
-            var current_tab = tab_definition_from_url(location.hash)
-            var tab_config = _.find(tabs_events, function (each) { return each.tab_name == current_tab.name })
-            var url_param = current_tab.parameter
+
+            var leaving_tab = tab_definition_from_url(location.hash)
+            var leaving_tab_config = get_tab_config(tabs_events, leaving_tab .name)
+            
+            var url_param = leaving_tab.parameter
             var on_tab_leave = function () {
                 mostrarTab(next_tab.name)
             }
-            if (!tab_config) {
-                tab_config = {
-                    tab_name: current_tab.name,
-                    on_next: do_nothing
-                }
-            }
-            tab_config.on_next(on_tab_leave, url_param)
-            
+            leaving_tab_config.on_next(on_tab_leave, url_param)
             history.pushState(null, null, url);
+
+            var entering_tab_config = get_tab_config(tabs_events, next_tab.name)
+            entering_tab_config.on_enter(next_tab.parameter)
         })
     }
 
