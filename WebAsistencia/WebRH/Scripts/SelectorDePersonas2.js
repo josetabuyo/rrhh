@@ -14,7 +14,7 @@
             placeholder: this.placeholder || 'ingrese nombre, apellido, documento o legajo',
             allowClear: true,
             query: function (query) {
-                _this.repositorioDePersonas.buscarPersonas(
+                _this.repositorioDePersonas.BuscarPersonas(
                     query.term,
                     function (personas) {
                         var data = { results: personas };

@@ -64,19 +64,39 @@ define(['wsviaticos', 'underscore'], function (ws, _) {
     var BuscarPersonas = function (criterio, onSuccess, onError) {
         var req = [{
             nombre_metodo: "BuscarPersonas",
-            argumentos_json: [descripcion, fecha, hora, lugar, periodo]
+            argumentos_json: [criterio]
         }]
 
         ws.parallel(req, function (err, res) {
             if (err) {
-                alert("se produjo un error al guardar " + err)
-                return
+                //alert("se produjo un error al obtener datos personales " + err)
+                onError(err)
+                //return
             }
-            state = JSON.parse(window.localStorage.getItem('ComitesDeEvaluacionData'))
+            var personas_json = res[0]
+            var lista_personas = [];
+            for (var i = 0; i < personas_json.length; i++) {
+                var persona_json = personas_json[i];
+                lista_personas.push({
+                    id: persona_json.Id,
+                    nombre: persona_json.Nombre,
+                    apellido: persona_json.Apellido,
+                    legajo: persona_json.Legajo,
+                    documento: persona_json.Documento
+                });
+            }
+
+            onSuccess(lista_personas);
+
+
+
+            
+
+            /*state = JSON.parse(window.localStorage.getItem('ComitesDeEvaluacionData'))
             var comite_agregado = res[0]
             state.GetAllComites.push(comite_agregado)
             window.localStorage.setItem('ComitesDeEvaluacionData', JSON.stringify(state))
-            cb(res)
+            cb(res)*/
         })
 
         /*

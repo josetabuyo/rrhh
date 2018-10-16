@@ -7,8 +7,12 @@
 define(['jquery'], function ($) {
 
     //cuando se hace click en "siguiente" (solapa home)
-    var do_nothing = function (show_next_tab) {
-        show_next_tab()
+    var do_nothing = function () { 
+        
+    }
+
+    var just_go_next = function(go_next) {
+        go_next()
     }
 
     var mostrarTab = function (tab_name) {
@@ -42,7 +46,7 @@ define(['jquery'], function ($) {
 
         //por default no hacer nada
         if (!tab_config.on_next) {
-            tab_config.on_next = do_nothing
+            tab_config.on_next = just_go_next
         }
 
         //por default no hacer nada
@@ -53,11 +57,11 @@ define(['jquery'], function ($) {
     }
 
     ///recibe tabs_config, con los métodos definiendo las acciones a realizar por cada solapa, de la forma:
-    ///
     ///var tabs_config = [
     /// {
     ///    tab_name: '#scr_home',      <--nombre del tab html
     ///    on_next: on_scr_home_next   <--funcion evaluada al presionar "next" (que es un boton html tipo <button target_scr="#siguiente_tab">)
+    ///    on_enter: on_scr_home_enter <-- funcion evaluada al entrar al tab
     /// }, ...
     ///]
     var createTabs = function (tabs_events) {

@@ -7,12 +7,11 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.min.css"/>
-    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="../Scripts/jquery-ui-1.10.2.custom/css/smoothness/jquery-ui-1.10.2.custom.min.css"/>
-    <link rel="stylesheet" href="../node_modules/jquery-timepicker/jquery.timepicker.css"/>
-    <link rel="stylesheet" href="../scripts/select2-3.4.4/select2.css"/>
-    <link rel="stylesheet" href="../estilos/SelectorDePersonas.css"/>   
+    <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../Scripts/jquery-ui-1.10.2.custom/css/smoothness/jquery-ui-1.10.2.custom.min.css" />
+    <link rel="stylesheet" href="../node_modules/jquery-timepicker/jquery.timepicker.css" />
+    <link rel="stylesheet" href="../scripts/select2-3.4.4/select2.css" />
 
     <script data-main="ComitesDeEvaluacion" src="../node_modules/requirejs/require.js"></script>
     <title>Sigirh -Comités de Evaluacion</title>
@@ -56,14 +55,14 @@
                                 </tr>
                             </thead>
                             <tbody>
-                               <tr class="row-template" style="display:none">
+                                <tr class="row-template" style="display: none">
                                     <td>{{Periodo}}</td>
-                                    <td class="text-right" >{{EvaluacionesPendientes}}</td>
-                                    <td class="text-right" >{{EvaluacionesProvisorias}}</td>
-                                    <td class="text-right" >{{SinGDE}}</td>
-                                    <td class="text-right" >{{SinComite}}</td>
-                                    <td class="text-right" >{{Finalizado}}</td>
-                                    <td class="text-right" >{{ReunionesRealizadas}}<a style="display: inline" data-toggle="tooltip" data-placement="top" title="Ver Reuniones" class="nav-link" href="#"><span class="fa fa fa-eye"></span></a></td>
+                                    <td class="text-right">{{EvaluacionesPendientes}}</td>
+                                    <td class="text-right">{{EvaluacionesProvisorias}}</td>
+                                    <td class="text-right">{{SinGDE}}</td>
+                                    <td class="text-right">{{SinComite}}</td>
+                                    <td class="text-right">{{Finalizado}}</td>
+                                    <td class="text-right">{{ReunionesRealizadas}}<a style="display: inline" data-toggle="tooltip" data-placement="top" title="Ver Reuniones" class="nav-link" href="#"><span class="fa fa fa-eye"></span></a></td>
                                     <td class="text-right">
                                         <button type="button" class="btn btn-sm btn-primary" target_scr="#scr_datos_generales/{{IdPeriodo}}">Crear Nueva Reunion</button></td>
                                 </tr>
@@ -154,18 +153,13 @@
                                         <div class="col-12 col-md-5">
                                             <div class="form-group row">
                                                 <label for="buscador" class="col-12 col-md-4 col-form-label">Integrante</label>
-                                                <div id="selector_usuario" class="col-12 col-md-8 selector_personas">
-                                                    <input type="tel" class="form-control buscarPersona" id="buscador" name="Integrante" placeholder="Integrante" />
+                                                <div id="cmb_selector_integrantes" class="col-12 col-md-8">
+                                                    <input id="buscador" type="hidden" class="buscarPersona" />
+                                                    <input type="hidden" id="persona_buscada" />
                                                 </div>
-
-              <!--<input id="buscador" type=hidden class="buscarPersona" />
-                                                        <input type="hidden" class="form-control buscarPersona" id="integrante" name="Integrante" /> 
-                                                        <!--placeholder="Integrante"-->
-
-
                                             </div>
                                             <div class="form-group row">
-                                                <label for="integrante" class="col-12 col-md-4 col-form-label">En Caracter De</label>
+                                                <label for="caracter" class="col-12 col-md-4 col-form-label">En Caracter De</label>
                                                 <div class="col-12 col-md-8">
                                                     <select class="form-control">
                                                         <option>Tel.</option>
@@ -174,7 +168,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-12 col-md-2">
+                                        <div class="col-12 col-md-2 align-self-center">
                                             <div class="row text-center align-items-center">
                                                 <div class="col-12">
                                                     <button type="button" class="btn btn-sm btn-primary">Agregar >></button>
@@ -281,7 +275,7 @@
                                                 <td class="text-right">13</td>
                                                 <td class="text-right">40</td>
                                                 <td class="text-right">
-                                                     <input type="checkbox">
+                                                    <input type="checkbox">
                                                 </td>
                                             </tr>
                                             <tr>
@@ -297,7 +291,7 @@
                                                 <td class="text-right">0</td>
                                                 <td class="text-right">28</td>
                                                 <td class="text-right">
-                                                     <input type="checkbox">
+                                                    <input type="checkbox">
                                                 </td>
                                             </tr>
                                             <tr class="table-info">
@@ -333,6 +327,25 @@
             </div>
         </div>
     </form>
+    <div id="plantillas" style="display: none">
+        <div class="vista_persona_en_selector">
+            <span id="contenedor_legajo" class="badge badge-pill badge-success">
+                <span id="titulo_legajo">
+                    Leg:
+                </span>
+                <span id="legajo">
+                </span>
+            </span>
+            <span id="nombre">
+            </span>
+            <span id="apellido">
+            </span>
+            <span id="contenedor_doc" class="badge badge-pill badge-info">
+                <span id="titulo_doc">Doc:</span>
+                <span id="documento"></span>
+            </span>
+        </div>
+    </div>
     <!--<script src="../node_modules/jquery/jquery.min.js"></script>
     <script src="../node_modules/popper.js/dist/umd/popper.min.js"></script>
     <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>

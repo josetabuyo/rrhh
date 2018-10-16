@@ -1,7 +1,7 @@
 ﻿requirejs(['../common'], function (common) {
     requirejs(['jquery', 'underscore', 'eval/EvaluacionDesempenioAppState', 'spa-tabs', 'creadorDeGrillas', 'eval/comitesPorPeriodo', 'selector-personas', 'barramenu2', 'jquery-ui', 'jquery-timepicker'], function ($, _, app_state, spa_tabs, CreadorDeGrillas, ComitesPorPeriodo, SelectorDePersonas) {
 
-        window.localStorage.clear()
+        //window.localStorage.clear()
 
 
         //cuando se muestra la pantalla de datos generales
@@ -65,11 +65,22 @@
                 scrollbar: true
             })
 
-            this.selector_usuario = new SelectorDePersonas({
-                ui: $('#selector_usuario'),
+            var selector_integrantes = new SelectorDePersonas({
+                ui: $('#cmb_selector_integrantes'),
                 repositorioDePersonas: app_state,
                 placeholder: "nombre, apellido, documento o legajo"
             });
+            selector_integrantes.alSeleccionarUnaPersona = function (la_persona_seleccionada) {
+                var persona = {
+                    Dni: la_persona_seleccionada.documento,
+                    Apellido: la_persona_seleccionada.apellido,
+                    Nombre: la_persona_seleccionada.nombre,
+                    IdPersona: la_persona_seleccionada.id
+                }
+                $("#persona_buscada").val(JSON.stringify(persona))
+            };
+
+
 
             load_grid_periodos()
         }
