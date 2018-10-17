@@ -21,7 +21,8 @@ namespace General.Repositorios
             return _instancia;
         }
 
-        public bool agregarReciboFirmado(int idRecibo, int idArchivo, int año, int mes, int tipoLiquidacion, int usuario, DateTime hoy,string hash)
+
+        public bool agregarReciboFirmado(int idRecibo, int idArchivo, int año, int mes, int tipoLiquidacion, int usuario)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_Recibo", idRecibo);
@@ -30,8 +31,6 @@ namespace General.Repositorios
             parametros.Add("@mes", mes);
             parametros.Add("@tipoLiquidacion", tipoLiquidacion);
             parametros.Add("@usuario", usuario);
-            parametros.Add("@fechaConformacion", hoy);
-            parametros.Add("@hash", hash);
             var resultado = conexion.EjecutarSinResultado("dbo.[PLA_ADD_Recibo_Firmado]", parametros);
             //en ejecutar sinresultado hay un try catch pero en caso de catch no retorna false sino eleva una excepcion
             //no deberia retornar false? en caso de elevar la excepcion se la atenderia en el javascript del cliente
@@ -39,10 +38,13 @@ namespace General.Repositorios
 
         }
 
-        public bool conformarRecibo(int idRecibo)
+        public bool conformarRecibo(int idRecibo, int idUsuario, DateTime hoy, string hash)
         {
-            var parametros = new Dictionary<string, object>();
+            var parametros = new Dictionary<string, object>();            
             parametros.Add("@id_Recibo", idRecibo);
+            parametros.Add("@id_Usuario", idUsuario);
+            parametros.Add("@fechaConformidadUsuario", hoy);
+            parametros.Add("@hash", hash);
             var resultado = conexion.EjecutarSinResultado("dbo.[PLA_UPD_ConformarRecibo]", parametros);
             //en ejecutar sinresultado hay un try catch pero en caso de catch no retorna false sino eleva una excepcion
             //no deberia retornar false? en caso de elevar la excepcion se la atenderia en el javascript del cliente
@@ -50,11 +52,33 @@ namespace General.Repositorios
 
         }
 
-        protected override void QuitarDeLaBase(ReciboFirmado reciboFirmado)
+        protected override void QuitarDeLaBase(ReciboFirmado reciboFirmado, int usuario)
 
         {
             throw new NotImplementedException();
         }
+        public  List<ReciboFirmado> ObtenerDesdeLaBase(int idRecibo)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_Recibo", idRecibo);
+            var tablaDatos = conexion.Ejecutar("dbo.PLA_GET_Recibo_Firmado", parametros);
+            var recibos = new List<ReciboFirmado>();
+            if (tablaDatos.Rows.Count > 0)
+            {
+                tablaDatos.Rows.ForEach(row =>
+                {
+                    recibos.Add(new ReciboFirmado(row.GetInt("idRecibo"),row.GetInt("idArchivo"),row.GetSmallintAsInt("mes"),row.GetSmallintAsInt("año"),row.GetSmallintAsInt("tipoLiquidacion"),row.GetSmallintAsInt("conforme"),row.GetInt("idUsuario")));
+                    
+                    /*row.GetInt("Id"),
+                    rto.GetString(8);
+                    fechas.Add(row.GetDateTime("Fecha"));*/
+
+                });
+            }
+
+            return recibos;
+        }
+
         protected override List<ReciboFirmado> ObtenerDesdeLaBase()
         {
             throw new NotImplementedException();

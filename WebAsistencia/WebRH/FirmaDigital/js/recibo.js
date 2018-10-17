@@ -335,7 +335,8 @@ var RECIBOS = (function (window, undefined) {
         downloadRemoteDataB64POSTReciboPlano: downloadRemoteDataB64POSTReciboPlano,
         downloadRemoteDataB64POSTEmpleado: downloadRemoteDataB64POSTEmpleado,
         guardarReciboPDFFirmado: guardarReciboPDFFirmado,
-        getIdRecibosSinFirmar: getIdRecibosSinFirmar
+        getIdRecibosSinFirmar: getIdRecibosSinFirmar,
+        downloadRemoteDataB64POSTReciboDigital: downloadRemoteDataB64POSTReciboDigital
     }
 
 })(window, undefined);

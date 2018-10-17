@@ -34,6 +34,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using iTextSharp.text.pdf;
 using iTextSharp.text;
 using System.Data.SqlClient;
+using General.Recibos;
 
 
 [WebService(Namespace = "http://wsviaticos.gov.ar/")]
@@ -5690,7 +5691,7 @@ public class WSViaticos : System.Web.Services.WebService
 
             //
             var modelo_para_pdf = new List<object>() { recibo };
-            var converter = new GenReciboToPdfConverter();
+            var converter = new GenReciboEmpleadoToPdfConverter();
             var mapa_para_pdf = converter.CrearMapa(modelo_para_pdf);
             var creador_pdf = new CreadorDePdfs();
             byte[] bytes;
@@ -5811,7 +5812,7 @@ public class WSViaticos : System.Web.Services.WebService
             //actualizo el recibo firmado por el empleado, 
 
             //la hora de conformacion de firma es la del reloj del servidor de la app, pero se puede dejar que sea la del reloj del server db
-            DateTime hoy = DateTime.Now;
+/*borrado            DateTime hoy = DateTime.Now;
             string CadenaOriginal = Convert.ToString(id_recibo) + Convert.ToString(id_archivo) + Convert.ToString(anio) + Convert.ToString(mes) + Convert.ToString(tipoLiquidacion) + Convert.ToString(usuario.Owner.Id) + hoy;
             //uso el encriptador del password 
             System.Security.Cryptography.HashAlgorithm hashValue = new System.Security.Cryptography.SHA1CryptoServiceProvider();
@@ -5820,7 +5821,9 @@ public class WSViaticos : System.Web.Services.WebService
             hashValue.Clear();
 
             RepoReciboFirmado().agregarReciboFirmado(id_recibo, id_archivo, anio, mes, tipoLiquidacion, usuario.Owner.Id, hoy, Convert.ToBase64String(byteHash));
-                                                 //        var s=  Convert.FromBase64String(r);
+ */
+            RepoReciboFirmado().agregarReciboFirmado(id_recibo, id_archivo, anio, mes, tipoLiquidacion, usuario.Owner.Id);
+            //        var s=  Convert.FromBase64String(r);
 
         //TODOOOOOO
         return id_archivo;
@@ -5900,8 +5903,21 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string ConformarRecibo(int idRecibo, Usuario usuario)
     {
+        //obtengo el recibo
+        List<ReciboFirmado> recibos = RepoReciboFirmado().ObtenerDesdeLaBase(idRecibo);
+        ReciboFirmado recibo = recibos[1];
+        //Cuando conforma el recibo el empleado, recien ahi se produce el hash de toda la fila 
+        DateTime hoy = DateTime.Now;
+        //como voy a adelantarme para generar el hash, asumo conformidad con valor 1, con este valor se va a setear despues
+        string CadenaOriginal = Convert.ToString(recibo.idRecibo) + Convert.ToString(recibo.idArchivo) + Convert.ToString(recibo.anio) + Convert.ToString(recibo.mes) + Convert.ToString(recibo.tipoLiquidacion) + Convert.ToString(1) + Convert.ToString(usuario.Owner.Id) + hoy;
+        //uso el encriptador del password 
+        System.Security.Cryptography.HashAlgorithm hashValue = new System.Security.Cryptography.SHA1CryptoServiceProvider();
+        byte[] bytes = System.Text.Encoding.UTF8.GetBytes(CadenaOriginal);
+        byte[] byteHash = hashValue.ComputeHash(bytes);
+        hashValue.Clear();
 
-        if (RepoReciboFirmado().conformarRecibo(idRecibo)) {
+        if (RepoReciboFirmado().conformarRecibo(idRecibo, usuario.Owner.Id,hoy, Convert.ToBase64String(byteHash)))
+        {
             return JsonConvert.SerializeObject(new
             {
                 tipoDeRespuesta = "conformarRecibo.ok"

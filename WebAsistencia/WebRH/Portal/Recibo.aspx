@@ -43,7 +43,7 @@
                 <option value="11">Noviembre</option>
                 <option value="12">Diciembre</option>
              </select>
-              <select style="width:60px;" id="cmb_anio">
+              <select style="width:65px;" id="cmb_anio">
              </select>
              <div id="caja_controles">
                 

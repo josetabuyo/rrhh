@@ -421,15 +421,21 @@
         var format = "AUTO";
         var algorithm = "SHA1withRSA";
         var params = "";
-        params = params + "signaturePositionOnPageLowerLeftX = 60" + "\n";
+        //vieja ubicacion en una pagina mas grande
+        /*params = params + "signaturePositionOnPageLowerLeftX = 60" + "\n";
         params = params + "signaturePositionOnPageLowerLeftY = 120" + "\n";
         params = params + "signaturePositionOnPageUpperRightX = 410" + "\n";
-        params = params + "signaturePositionOnPageUpperRightY = 190" + "\n";
+        params = params + "signaturePositionOnPageUpperRightY = 190" + "\n";*/
+        params = params + "signaturePositionOnPageLowerLeftX = 125" + "\n";
+        params = params + "signaturePositionOnPageLowerLeftY = 225" + "\n";
+        params = params + "signaturePositionOnPageUpperRightX = 410" + "\n";
+        params = params + "signaturePositionOnPageUpperRightY = 280" + "\n";
+
         params = params + "signaturePage = -1" + "\n";
         //nota: por el momento no se puede enviar texto enriquecido  /n /r /t
         params = params + "layer2Text = Firmado Digitalmente conforme Ley 25.506 por: $$SUBJECTCN$$ el día $$SIGNDATE=dd/MM/yyyy HH:mm:ss$$ certificado emitido por $$ISSUERCN$$ con serial $$CERTSERIAL$$" + "\n";
         params = params + "layer2FontFamily = 0" + "\n";
-        params = params + "layer2FontSize = 10" + "\n";
+        params = params + "layer2FontSize = 7" + "\n";
         params = params + "layer2FontStyle = 0" + "\n";
         params = params + "layer2FontColor = black" + "\n";
 
@@ -482,17 +488,17 @@
 //            estado.classList.remove('estadoNoFirmado');
 //            estado.classList.add('estadoProcesando');
 
-            MiniApplet.signAndSaveToFile(
+/*            MiniApplet.sign(
             dataB64,
             algorithm,
             format,
             params,
             SignSuccessCallback,
             SignErrorCallback);
-
+*/
             //el nombre del pdf sera idRecibo
             //MiniApplet.signAndSaveToFile(
-/*            MiniApplet.signAndSaveToFile(
+            MiniApplet.signAndSaveToFile(
 					"SIGN",
 					dataB64,
 					algorithm,
@@ -500,7 +506,7 @@
 					params,
 					idRecibo+".pdf",
 					SignSuccessCallback,
-					SignErrorCallback);*/
+					SignErrorCallback);
         }
         catch (e) {
             //Se muestra el mensaje de error si NO es de cancelación de la operación

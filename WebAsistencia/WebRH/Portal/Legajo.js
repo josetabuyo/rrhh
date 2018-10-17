@@ -456,21 +456,31 @@ var Legajo = {
                 div_caja_info_recibos.empty();
                 var texto1;
                 var boton1;
+                var fondoRecibo = $("#tabla_recibo_encabezado");
 
                 switch (conformado) {
                     case -1:
                         /*no muestro nada*/
+                        // quito el texto que indica que el recibo no es valido
+                        fondoRecibo.removeClass('tabla_recibo_encabezadoSinBackground');
+                        fondoRecibo.addClass('tabla_recibo_encabezado');
                         break;
                     case 0:
                         texto1 = "<BR/>Para obtener (imprimir/descargar) una versión VALIDA del recibo usted debe clickear este botón. ";
                         boton1 = "<button type='button' onclick=\"GeneralPortal.conformar(\'" + idRecibo + "\')\">Conformar</button>";
                         div_caja_info_recibos.append(texto1 + boton1);
+                        //seteo que muestre el no valido en el fondo
+                        fondoRecibo.removeClass('tabla_recibo_encabezadoSinBackground');
+                        fondoRecibo.addClass('tabla_recibo_encabezado');
                         break;
                     default:
                         // texto1 = "Recibo conformado por el agente a traves del sistema Si.G.I.R.H ";
                         texto1 = "<BR/>";
                         boton1 = "<button type='button' onclick=\"GeneralPortal.descargarRecibo(\'" + idRecibo + "\')\">Descargar</button>";
                         div_caja_info_recibos.append(texto1 + boton1);
+                        // quito el texto que indica que el recibo no es valido
+                        fondoRecibo.removeClass('tabla_recibo_encabezado');
+                        fondoRecibo.addClass('tabla_recibo_encabezadoSinBackground');
                 }
 
 
