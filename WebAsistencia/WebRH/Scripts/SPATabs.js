@@ -79,17 +79,16 @@ define(['jquery'], function ($) {
                 mostrarTab(next_tab_url, param)
                 var url = next_tab.name
                 if (param) {
-                    url += '/' + param
-                } else if (next_tab.parameter) {
+                    next_tab.parameter = param
+                }
+                if (next_tab.parameter) {
                     url += '/' + next_tab.parameter
                 }
                 history.pushState(null, null, url);
+                var entering_tab_config = get_tab_config(tabs_events, next_tab.name)
+                entering_tab_config.on_enter(next_tab.parameter)
             }
             leaving_tab_config.on_next(on_tab_leave, url_param)
-            
-
-            var entering_tab_config = get_tab_config(tabs_events, next_tab.name)
-            entering_tab_config.on_enter(next_tab.parameter)
         })
     }
 

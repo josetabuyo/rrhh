@@ -153,28 +153,18 @@
                                     <div class="row">
 
                                         <div class="col-12 col-md-12">
-                                            <table class="table  table-bordered table-striped table-sm">
+                                            <table id="tabla_integrantes" class="table table-bordered table-striped table-sm">
                                                 <thead>
                                                     <tr>
-                                                        <th scope="col" class="align-middle">#</th>
                                                         <th scope="col">Integrante</th>
                                                         <th scope="col">En Caracter De</th>
                                                         <th scope="col">Acciones</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <th scope="row">1</th>
-                                                        <td>PEREZ, Rodrigo</td>
-                                                        <td>Representante Gremial UPCN</td>
-                                                        <td>
-                                                            <a style="display: inline" data-toggle="tooltip" data-placement="top" title="Eliminar Integrante" class="nav-link" href="#"><span class="fa fa fa-trash"></span></a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">2</th>
-                                                        <td>GUTIERREZ, Amanda</td>
-                                                        <td>Coordinador del Proceso de Selección</td>
+                                                    <tr class="row-template" style="display: none">
+                                                        <td>{{Apellido}}, {{Nombre}}</td>
+                                                        <td>{{EnCaracterDe}}</td>
                                                         <td>
                                                             <a style="display: inline" data-toggle="tooltip" data-placement="top" title="Eliminar Integrante" class="nav-link" href="#"><span class="fa fa fa-trash"></span></a>
                                                         </td>
@@ -204,7 +194,7 @@
                                                 <div class="form-group row">
                                                     <label for="caracter" class="col-12 col-md-2 offset-md-2 col-form-label">En Caracter De</label>
                                                     <div class="col-12 col-md-6">
-                                                        <select class="form-control">
+                                                        <select class="form-control" id="cmb_en_caracter_de">
                                                             <option>--Seleccione--</option>
                                                             <option value="1">Representante Gremial UPCN</option>
                                                             <option value="2">Representante Gremial ATE</option>
@@ -216,7 +206,7 @@
                                                 </div>
                                                 <div class="form-group row">
                                                     <div class="col-12 col-md-8 offset-md-2 text-right">
-                                                        <button type="button" class="btn btn-sm btn-primary">Agregar >></button>
+                                                        <button id="btn_agregar_integrante" type="button" class="btn btn-sm btn-primary">Agregar >></button>
                                                     </div>
                                                     <div class="col col-md-2"></div>
                                                 </div>

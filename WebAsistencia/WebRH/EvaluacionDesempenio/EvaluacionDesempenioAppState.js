@@ -60,6 +60,15 @@ define(['wsviaticos', 'underscore'], function (ws, _) {
         return _.find(periodos, p => p.id_periodo == idPeriodo)
     }
 
+    var GetComite = function (idComite) {
+        var comites = JSON.parse(window.localStorage.getItem('ComitesDeEvaluacionData')).GetAllComites
+        return _.find(comites, c => c.Id == idComite)
+    }
+
+    var PeriodoDe = function (idComite) {
+        return GetComite(idComite).Periodo
+    }
+
     var BuscarPersonas = function (criterio, onSuccess, onError) {
         var req = [{
             nombre_metodo: "BuscarPersonas",
@@ -70,7 +79,7 @@ define(['wsviaticos', 'underscore'], function (ws, _) {
             if (err) {
                 //alert("se produjo un error al obtener datos personales " + err)
                 onError(err)
-                //return
+                return
             }
             var personas_json = res[0]
             var lista_personas = [];
@@ -84,7 +93,45 @@ define(['wsviaticos', 'underscore'], function (ws, _) {
                     documento: persona_json.Documento
                 });
             }
-            onSuccess(lista_personas);
+            onSuccess(lista_personas)
+        })
+    }
+
+    var GetCaracteres = function () {
+        return [{ Id: '1', Descripcion: 'Representante Gremial UPCN' },
+            { Id: '2', Descripcion: 'Representante Gremial ATE' },
+            { Id: '3', Descripcion: 'Coordinador del proceso de Selección' },
+            { Id: '4', Descripcion: 'Evaluador' },
+        ]
+    }
+
+    var GetEnCaracterDe = function (id) {
+        var caracteres = GetCaracteres()
+        return _.find(caracteres, c => { return c.Id == id }).Descripcion
+    }
+
+    var AddIntegrante = function (integrante, idComite, cb) {
+        var req = [{
+            nombre_metodo: "EvalAddIntegranteComite",
+            argumentos_json: [idComite, JSON.stringify(integrante)]
+        }]
+
+        ws.parallel(req, function (err, res) {
+            if (err) {
+                cb(err)
+                return
+            }
+            if (res[0].DioError) {
+                cb(res.MensajeDeErrorAmigable)
+                return
+            } 
+            var id_integrante = res[0].Respuesta
+
+            app_data = JSON.parse(window.localStorage.getItem('ComitesDeEvaluacionData'))
+            var c = _.find(app_data.GetAllComites, c => c.Id == idComite)
+            c.Integrantes.push(integrante)
+            window.localStorage.setItem('ComitesDeEvaluacionData', JSON.stringify(app_data))
+            cb(null, id_integrante)
         })
     }
 
@@ -94,7 +141,11 @@ define(['wsviaticos', 'underscore'], function (ws, _) {
         AddComite: AddComite,
         GetDataGridPeriodos: GetDataGridPeriodos,
         BuscarPersonas: BuscarPersonas,
-        GetPeriodo: GetPeriodo
+        GetPeriodo: GetPeriodo,
+        PeriodoDe: PeriodoDe,
+        GetComite: GetComite,
+        AddIntegrante: AddIntegrante,
+        GetCaracteres: GetCaracteres,
+        GetEnCaracterDe: GetEnCaracterDe
     }
-
 })
