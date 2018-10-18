@@ -123,7 +123,6 @@ namespace General.Repositorios
             return GetAgentesEvaluablesPor(usuario, true, true, false);
         }
 
-
         public List<PeriodoEvaluacion> GetPeriodosEvaluacion()
         {
             var parametros = new Dictionary<string, object>();
@@ -187,8 +186,9 @@ namespace General.Repositorios
         public ComiteEvaluacionDesempenio GetComiteById(int idComite)
         {
             var parametros = new Dictionary<string, object>();
-            var tablaDatos = _conexion.Ejecutar("dbo.EVAL_GET_Comites", parametros);
             parametros.Add("@idComite", idComite);
+            var tablaDatos = _conexion.Ejecutar("dbo.EVAL_GET_Comite", parametros);
+            
 
             var resultado = new List<ComiteEvaluacionDesempenio>();
             if (tablaDatos.Rows.Count > 0)
@@ -296,7 +296,8 @@ namespace General.Repositorios
             var parametros = new Dictionary<string, object>();
             var id_persona_usuario = usuario.Owner.Id;
             var es_agente_verificador = true;
-            if (!ModoComitesEvaluacion) { 
+            if (!ModoComitesEvaluacion)
+            {
                 if (!EsAgenteVerificador(usuario) || !ModoVerificadorGDE)
                 {
                     parametros.Add("@id_persona_evaluadora", id_persona_usuario);
@@ -308,7 +309,9 @@ namespace General.Repositorios
                 }
             }
 
-            var tablaDatos = _conexion.Ejecutar("dbo.EVAL_GET_Evaluados_Evaluador", parametros);
+            var sp = IncludeTextosPreguntas ? "dbo.EVAL_GET_Evaluados_Evaluador" : "dbo.EVAL_GET_Evaluados_Evaluador_Slim";
+
+            var tablaDatos = _conexion.Ejecutar(sp, parametros);
 
             var asignaciones = new List<AsignacionEvaluadoAEvaluador> { };
             var detalle_preguntas = new List<DetallePreguntas> { };
@@ -407,10 +410,14 @@ namespace General.Repositorios
             var rpta4 = IncludeTextosPreguntas ? row.GetString("rpta4", "") : String.Empty;
             var rpta5 = IncludeTextosPreguntas ? row.GetString("rpta5", "") : String.Empty;
             var enunciado = IncludeTextosPreguntas ? row.GetString("enunciado", "") : String.Empty;
-            detalle_preguntas.Add(new DetallePreguntas(row.GetSmallintAsInt("id_pregunta", 0), row.GetSmallintAsInt("orden_pregunta", 0),
-                row.GetSmallintAsInt("opcion_elegida", 0), enunciado,
-                rpta1, rpta2, rpta3,
-                rpta4, rpta5, row.GetString("factor", "")));
+
+            if (IncludeTextosPreguntas)
+            {
+                detalle_preguntas.Add(new DetallePreguntas(row.GetSmallintAsInt("id_pregunta", 0), row.GetSmallintAsInt("orden_pregunta", 0),
+                    row.GetSmallintAsInt("opcion_elegida", 0), enunciado,
+                    rpta1, rpta2, rpta3,
+                    rpta4, rpta5, row.GetString("factor", "")));
+            }
         }
 
         protected AsignacionEvaluadoAEvaluador newAsignacionEvaluadoAEvaluadorFromRow(RowDeDatos row, List<DetallePreguntas> detalle_preguntas, int id_evaluado, Dictionary<int, DescripcionAreaEvaluacion> cache_areas, AgenteEvaluacionDesempenio evaluador)
@@ -608,8 +615,8 @@ namespace General.Repositorios
             //ComiteEvaluacionDesempenio comite = new ComiteEvaluacionDesempenio();
             var parametros = new Dictionary<string, object>();
 
-            parametros.Add("@descripcion", descripcion );
-            parametros.Add("@fecha", fecha );
+            parametros.Add("@descripcion", descripcion);
+            parametros.Add("@fecha", fecha);
             parametros.Add("@hora", hora);
             parametros.Add("@lugar", lugar);
             parametros.Add("@periodo", periodo);
@@ -634,7 +641,8 @@ namespace General.Repositorios
 
             var tablaDeDatos = _conexion.Ejecutar("dbo.EVAL_UPD_Comite", parametros);
 
-            if (tablaDeDatos.Rows.Count.Equals(0)) {
+            if (tablaDeDatos.Rows.Count.Equals(0))
+            {
                 throw new Exception("No se pudo actualizar el comité");
             }
 

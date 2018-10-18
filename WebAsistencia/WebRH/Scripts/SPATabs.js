@@ -6,11 +6,12 @@
 ///los tabs en el html tienen que tener el id="#nombre_de_tab"
 define(['jquery'], function ($) {
 
-    //cuando se hace click en "siguiente" (solapa home)
+    
     var do_nothing = function () { 
         
     }
 
+    
     var just_go_next = function(go_next) {
         go_next()
     }
@@ -67,25 +68,30 @@ define(['jquery'], function ($) {
     var createTabs = function (tabs_events) {
         $('[target_scr]').click(function (e) {
             e.preventDefault();
-            var url = this.attributes.target_scr.value
             var next_tab = tab_definition_from_url(this.attributes.target_scr.value)
 
             var leaving_tab = tab_definition_from_url(location.hash)
             var leaving_tab_config = get_tab_config(tabs_events, leaving_tab .name)
             
             var url_param = leaving_tab.parameter
-            var on_tab_leave = function () {
-                mostrarTab(next_tab.name)
+            var on_tab_leave = function (param) {
+                var next_tab_url = next_tab.name
+                mostrarTab(next_tab_url, param)
+                var url = next_tab.name
+                if (param) {
+                    url += '/' + param
+                } else if (next_tab.parameter) {
+                    url += '/' + next_tab.parameter
+                }
+                history.pushState(null, null, url);
             }
             leaving_tab_config.on_next(on_tab_leave, url_param)
-            history.pushState(null, null, url);
+            
 
             var entering_tab_config = get_tab_config(tabs_events, next_tab.name)
             entering_tab_config.on_enter(next_tab.parameter)
         })
     }
-
-    
 
     window.addEventListener("popstate", function (e) {
         var tab = tab_definition_from_url(location.hash)

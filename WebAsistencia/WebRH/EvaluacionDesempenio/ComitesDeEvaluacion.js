@@ -1,8 +1,11 @@
 ﻿requirejs(['../common'], function (common) {
     requirejs(['jquery', 'underscore', 'eval/EvaluacionDesempenioAppState', 'spa-tabs', 'creadorDeGrillas', 'eval/comitesPorPeriodo', 'selector-personas', 'barramenu2', 'jquery-ui', 'jquery-timepicker'], function ($, _, app_state, spa_tabs, CreadorDeGrillas, ComitesPorPeriodo, SelectorDePersonas) {
 
-        //window.localStorage.clear()
+        window.localStorage.clear()
 
+        var on_integrantes_enter = function (param) {
+            $("#desc_periodo_int").text(app_state.GetPeriodo(param).descripcion_periodo)
+        }
 
         //cuando se muestra la pantalla de datos generales
         var on_datos_generales_enter = function (param) {
@@ -18,8 +21,8 @@
                 $("#hora").val(),
                 $("#lugar").val(),
                 params,
-                eval => {
-                    show_next_tab()
+                comite_agregado => {
+                    show_next_tab(comite_agregado[0].Id)
                     load_grid_periodos()
                 })
         }
@@ -29,7 +32,10 @@
                 tab_name: '#scr_datos_generales',
                 on_next: on_datos_generales_next,
                 on_enter: on_datos_generales_enter
-            }]
+        }, {
+                tab_name: '#scr_integrantes',
+                on_enter: on_integrantes_enter
+        }]
 
         var load_grid_periodos = function() {
             app_state.GetDataGridPeriodos(data => {
@@ -41,8 +47,9 @@
                 var agrupados = ComitesPorPeriodo(ues, periodos, evals, comites)
                 CreadorDeGrillas('#tabla_periodos', agrupados)
 
-                //activo los tooltips
                 spa_tabs.createTabs(tabs_events)
+
+                //activo los tooltips
                 $('#tabla_periodos [data-toggle="tooltip"]').tooltip()
             })
         }
@@ -69,7 +76,8 @@
                 ui: $('#cmb_selector_integrantes'),
                 repositorioDePersonas: app_state,
                 placeholder: "nombre, apellido, documento o legajo"
-            });
+            })
+
             selector_integrantes.alSeleccionarUnaPersona = function (la_persona_seleccionada) {
                 var persona = {
                     Dni: la_persona_seleccionada.documento,
@@ -78,9 +86,7 @@
                     IdPersona: la_persona_seleccionada.id
                 }
                 $("#persona_buscada").val(JSON.stringify(persona))
-            };
-
-
+            }
 
             load_grid_periodos()
         }

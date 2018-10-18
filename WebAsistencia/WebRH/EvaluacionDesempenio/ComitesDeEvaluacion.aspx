@@ -148,34 +148,11 @@
                             <div class="card-body">
                                 <h5 class="card-title">Nueva Reunión</h5>
                                 <h6 class="card-subtitle mb-2 text-muted">Paso 2: Integrantes</h6>
+                                <p class="lead" id="desc_periodo_int" />
                                 <div class="card-text">
                                     <div class="row">
-                                        <div class="col-12 col-md-5">
-                                            <div class="form-group row">
-                                                <label for="buscador" class="col-12 col-md-4 col-form-label">Integrante</label>
-                                                <div id="cmb_selector_integrantes" class="col-12 col-md-8">
-                                                    <input id="buscador" type="hidden" class="buscarPersona" />
-                                                    <input type="hidden" id="persona_buscada" />
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label for="caracter" class="col-12 col-md-4 col-form-label">En Caracter De</label>
-                                                <div class="col-12 col-md-8">
-                                                    <select class="form-control">
-                                                        <option>Tel.</option>
-                                                        <option>Email</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-md-2 align-self-center">
-                                            <div class="row text-center align-items-center">
-                                                <div class="col-12">
-                                                    <button type="button" class="btn btn-sm btn-primary">Agregar >></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-md-5">
+
+                                        <div class="col-12 col-md-12">
                                             <table class="table  table-bordered table-striped table-sm">
                                                 <thead>
                                                     <tr>
@@ -206,6 +183,48 @@
                                             </table>
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <hr />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="card bg-light mb-3 col-12">
+                                            <div class="card-body">
+                                                <h5 class="card-title">Agregar Integrante</h5>
+                                                <div class="form-group row">
+                                                    <label for="buscador" class="col-12 col-md-2 offset-md-2 col-form-label">Integrante</label>
+                                                    <div id="cmb_selector_integrantes" class="col-12 col-md-6">
+                                                        <input id="buscador" type="hidden" class="buscarPersona" />
+                                                        <input type="hidden" id="persona_buscada" />
+                                                    </div>
+                                                    <div class="col col-md-2"></div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label for="caracter" class="col-12 col-md-2 offset-md-2 col-form-label">En Caracter De</label>
+                                                    <div class="col-12 col-md-6">
+                                                        <select class="form-control">
+                                                            <option>--Seleccione--</option>
+                                                            <option value="1">Representante Gremial UPCN</option>
+                                                            <option value="2">Representante Gremial ATE</option>
+                                                            <option value="3">Coordinador del proceso de Selección</option>
+                                                            <option value="4">Evaluador</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col col-md-2"></div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="col-12 col-md-8 offset-md-2 text-right">
+                                                        <button type="button" class="btn btn-sm btn-primary">Agregar >></button>
+                                                    </div>
+                                                    <div class="col col-md-2"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
                                     <div class="row">
                                         <div class="col-12">
                                             <hr />
@@ -330,16 +349,12 @@
     <div id="plantillas" style="display: none">
         <div class="vista_persona_en_selector">
             <span id="contenedor_legajo" class="badge badge-pill badge-success">
-                <span id="titulo_legajo">
-                    Leg:
+                <span id="titulo_legajo">Leg:
                 </span>
-                <span id="legajo">
-                </span>
+                <span id="legajo"></span>
             </span>
-            <span id="nombre">
-            </span>
-            <span id="apellido">
-            </span>
+            <span id="nombre"></span>
+            <span id="apellido"></span>
             <span id="contenedor_doc" class="badge badge-pill badge-info">
                 <span id="titulo_doc">Doc:</span>
                 <span id="documento"></span>

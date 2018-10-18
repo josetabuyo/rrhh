@@ -10,7 +10,7 @@
         this.plantilla_vista_persona = $("#plantillas .vista_persona_en_selector");
         this.buscador.select2({
             minimumInputLength: 3,
-            width: 'resolve',
+            width: '100%',
             placeholder: this.placeholder || 'ingrese nombre, apellido, documento o legajo',
             allowClear: true,
             query: function (query) {

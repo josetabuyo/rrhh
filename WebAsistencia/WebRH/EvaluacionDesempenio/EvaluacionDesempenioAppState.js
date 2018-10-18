@@ -7,7 +7,6 @@
 ///con el estado de los datos en el backend
 define(['wsviaticos', 'underscore'], function (ws, _) {
 
-
     //cargar todos los datos necesarios para completar la grilla de periodos
     var GetDataGridPeriodos = function (cb) {
         //var traigo todos los datos del backend en paralelo y los guardo en el local storage
@@ -85,44 +84,8 @@ define(['wsviaticos', 'underscore'], function (ws, _) {
                     documento: persona_json.Documento
                 });
             }
-
             onSuccess(lista_personas);
-
-
-
-            
-
-            /*state = JSON.parse(window.localStorage.getItem('ComitesDeEvaluacionData'))
-            var comite_agregado = res[0]
-            state.GetAllComites.push(comite_agregado)
-            window.localStorage.setItem('ComitesDeEvaluacionData', JSON.stringify(state))
-            cb(res)*/
         })
-
-        /*
-        this.proveedor_ajax.postearAUrl({
-            url: "BuscarPersonas",
-            data: {
-                criterio: criterio
-            },
-            success: function (personas_json) {
-                var lista_personas = [];
-                for (var i = 0; i < personas_json.length; i++) {
-                    var persona_json = personas_json[i];
-                    lista_personas.push(new Persona({
-                        id: persona_json.Id,
-                        nombre: persona_json.Nombre,
-                        apellido: persona_json.Apellido,
-                        legajo: persona_json.Legajo,
-                        documento: persona_json.Documento
-                    }));
-                }
-                onSuccess(lista_personas);
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                onerror(errorThrown);
-            }
-        });*/
     }
 
 
