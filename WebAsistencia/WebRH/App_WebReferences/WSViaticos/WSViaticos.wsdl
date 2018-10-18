@@ -2,9 +2,10 @@
 <wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsviaticos.gov.ar/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wsviaticos.gov.ar/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://wsviaticos.gov.ar/">
-      <s:element name="getAreaDeLaPersona">
+      <s:element name="GetServicios_Adm_Publica_Principal">
         <s:complexType>
           <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="nroDocumento" type="s:int" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
@@ -198,6 +199,50 @@
           <s:element minOccurs="1" maxOccurs="1" name="basica" type="s:boolean" />
         </s:sequence>
       </s:complexType>
+      <s:element name="GetServicios_Adm_Publica_PrincipalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetServicios_Adm_Publica_PrincipalResult" type="tns:ArrayOfServ_Adm_Publica_Privada" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfServ_Adm_Publica_Privada">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Serv_Adm_Publica_Privada" nillable="true" type="tns:Serv_Adm_Publica_Privada" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Serv_Adm_Publica_Privada">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Ambito" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Jurisdiccion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Organismo" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cargo" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="Remunerativo" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Fecha_Desde" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Fecha_Hasta" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Causa_Egreso" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Folio" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Id_Interna" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Doc_Titular" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Caja" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Afiliado" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DatoDeBaja" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="datonoimprime" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Ctr_Cert" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Usuario" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="Fecha_Carga" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Institucion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Domicilio" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getAreaDeLaPersona">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="getAreaDeLaPersonaResponse">
         <s:complexType>
           <s:sequence>
@@ -7885,6 +7930,12 @@
       </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="GetServicios_Adm_Publica_PrincipalSoapIn">
+    <wsdl:part name="parameters" element="tns:GetServicios_Adm_Publica_Principal" />
+  </wsdl:message>
+  <wsdl:message name="GetServicios_Adm_Publica_PrincipalSoapOut">
+    <wsdl:part name="parameters" element="tns:GetServicios_Adm_Publica_PrincipalResponse" />
+  </wsdl:message>
   <wsdl:message name="getAreaDeLaPersonaSoapIn">
     <wsdl:part name="parameters" element="tns:getAreaDeLaPersona" />
   </wsdl:message>
@@ -10190,6 +10241,10 @@
     <wsdl:part name="parameters" element="tns:CategoriasDocumentosSICOIResponse" />
   </wsdl:message>
   <wsdl:portType name="WSViaticosSoap">
+    <wsdl:operation name="GetServicios_Adm_Publica_Principal">
+      <wsdl:input message="tns:GetServicios_Adm_Publica_PrincipalSoapIn" />
+      <wsdl:output message="tns:GetServicios_Adm_Publica_PrincipalSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="getAreaDeLaPersona">
       <wsdl:input message="tns:getAreaDeLaPersonaSoapIn" />
       <wsdl:output message="tns:getAreaDeLaPersonaSoapOut" />
@@ -11729,6 +11784,15 @@
   </wsdl:portType>
   <wsdl:binding name="WSViaticosSoap" type="tns:WSViaticosSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetServicios_Adm_Publica_Principal">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetServicios_Adm_Publica_Principal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="getAreaDeLaPersona">
       <soap:operation soapAction="http://wsviaticos.gov.ar/getAreaDeLaPersona" style="document" />
       <wsdl:input>
@@ -15188,6 +15252,15 @@
   </wsdl:binding>
   <wsdl:binding name="WSViaticosSoap12" type="tns:WSViaticosSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetServicios_Adm_Publica_Principal">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetServicios_Adm_Publica_Principal" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="getAreaDeLaPersona">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/getAreaDeLaPersona" style="document" />
       <wsdl:input>
@@ -18647,10 +18720,10 @@
   </wsdl:binding>
   <wsdl:service name="WSViaticos">
     <wsdl:port name="WSViaticosSoap" binding="tns:WSViaticosSoap">
-      <soap:address location="http://localhost:43412/WSViaticos.asmx" />
+      <soap:address location="http://localhost:43412/WSViaticos/WSViaticos.asmx" />
     </wsdl:port>
     <wsdl:port name="WSViaticosSoap12" binding="tns:WSViaticosSoap12">
-      <soap12:address location="http://localhost:43412/WSViaticos.asmx" />
+      <soap12:address location="http://localhost:43412/WSViaticos/WSViaticos.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

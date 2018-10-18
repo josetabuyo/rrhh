@@ -134,6 +134,7 @@
     <Compile Include="TestViaticos.cs" />
     <Compile Include="ViaticosDataSet.cs">
       <DependentUpon>ViaticosDataSet.xsd</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="ViaticosDataSet.Designer.cs">
       <DependentUpon>ViaticosDataSet.xsd</DependentUpon>

@@ -142,6 +142,7 @@
 <script src="../scripts/jquery-barcode.js" type="text/javascript"></script>
 <script src="../scripts/Spin.js" type="text/javascript"></script>
 <script type="text/javascript" src="../Scripts/alertify.js"></script>
+
 <script type="text/javascript">
     $(document).ready(function () {
         $(window).keydown(function (event) {

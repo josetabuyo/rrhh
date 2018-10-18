@@ -32,6 +32,7 @@ using General.MED;
 using System.Web.Hosting;
 using System.Runtime.Serialization.Formatters.Binary;
 using General.Facturas;
+using General.Contrato;
 
 
 [WebService(Namespace = "http://wsviaticos.gov.ar/")]
@@ -5386,5 +5387,14 @@ public class WSViaticos : System.Web.Services.WebService
         return RepositorioFactura.GetConsultaImpresionPaseFacturasContabilidad(nropase, usuario).ToArray();
     }
 
+
+    [WebMethod]
+    public Serv_Adm_Publica_Privada[] GetServicios_Adm_Publica_Principal(int nroDocumento, Usuario usuario)
+    {
+        var RepositorioServAdm = new RepositorioServicios();
+        return RepositorioServAdm.GetServicios_Adm_Publica_Principal(nroDocumento, usuario).ToArray();
+    }
+
+    
 
 }

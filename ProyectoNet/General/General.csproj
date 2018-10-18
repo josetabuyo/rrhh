@@ -108,6 +108,7 @@
     <Compile Include="Asistencia\VacacionesSolicitables.cs" />
     <Compile Include="Calendario\CalculadorDeDias.cs" />
     <Compile Include="Calendario\Periodo.cs" />
+    <Compile Include="Contrato\Serv_Adm_Publica_Privada.cs" />
     <Compile Include="CtrlAcc\RepositorioCtlAcc.cs" />
     <Compile Include="DatosAbiertos\ConsultaOPD.cs" />
     <Compile Include="DatosAbiertos\ParametroConsultaOPD.cs" />
@@ -290,6 +291,7 @@
     <Compile Include="Repositorios\RepositorioLazySingleton.cs" />
     <Compile Include="Postular\Sexo.cs" />
     <Compile Include="Postular\TipoDeDocumento.cs" />
+    <Compile Include="Repositorios\RepositorioServicios.cs" />
     <Compile Include="Repositorios\SolicitudCredencial.cs" />
     <Compile Include="Repositorios\SueldoPersona.cs" />
     <Compile Include="Viaticos\PersonaNula.cs" />
