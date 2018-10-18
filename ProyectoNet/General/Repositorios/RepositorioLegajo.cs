@@ -800,7 +800,7 @@ namespace General.Repositorios
 
             var usuario_solicitante = repo_usuarios.GetUsuarioPorIdPersona(solicitud.IdPersona);
             new RepositorioDeAlertasPortal(this.conexion)
-                .crearAlerta("Solicitud de Credencial", "Tu solicitud ha sido rechazada por:" + motivo, usuario_solicitante.Id, usuario.Id);
+                .crearAlerta("Solicitud de Credencial", "Tu solicitud ha sido rechazada. <br/>" + motivo, usuario_solicitante.Id, usuario.Id);
             return true;
         }
 
