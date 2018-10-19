@@ -1,0 +1,380 @@
+﻿html, body, form
+{
+    height:100%;
+}
+
+#vista_permisos .dynatree-container
+{
+    border:inherit;
+}
+
+#btn_crear_usuario
+{
+
+}
+
+#instrucciones_de_uso
+{
+    font-weight: bold;
+    font-size:20px;
+    display:inline-block; 
+    font-family:Monospace;
+    vertical-align:middle;
+    margin-left: 37px;   
+}
+
+#selector_usuario
+{
+    display: inline-block;
+}
+
+#administrador_usuarios
+{
+    position: absolute;
+    top: 134px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+}
+
+#panel_busqueda
+{
+    padding:5px;
+}
+
+#panel_datos_usuario
+{
+   
+}
+
+#btn_reset_password
+{
+    margin-top:-4px;
+}
+
+#panel_superior_izquierdo
+{
+    /*position: absolute;
+    left:10px;
+    top: 35px;*/
+    width: 564px;
+    height: 235px;
+}
+
+#panel_inferior_izquierdo
+{
+    position: absolute;
+    left:10px;
+    bottom:10px;
+    top: 281px;
+    width: 565px;
+    height: 303px;
+}
+
+#panel_derecho
+{
+    position: absolute;
+    left:580px;
+    top: 35px;
+    bottom:10px;
+    right:10px;
+}
+
+#panel_datos_personales
+{
+    font-weight: bold;
+    font-size: medium;
+    position: absolute;
+    top: 2px;
+    left: 144px;
+    right: 1px;
+}
+
+#panel_password
+{
+    background-color: lavender;
+    padding-top: 7px;
+    top: 160px;
+    height: 80px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    transition: all .3s ease-in-out;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+}
+
+#panel_password:hover
+{
+    background-color:darkgrey;
+}
+
+.seccion_verificacion_usuario
+{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border-radius: 15px;
+}
+.linea>*
+{
+    display: inline-block;
+}
+ 
+.linea>.titulo
+{
+    font-weight:bold;
+}
+  
+.dato_personal
+{
+    margin:12px;
+}
+
+#contenedor_foto
+{
+    position: absolute;
+    top: 15px;
+    left: 12px;
+    height: 128px;
+    width: 128px;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+#barrita_cambio_foto
+{
+    position: absolute;
+    bottom: 0px;
+    background-color: black;
+    color: white;
+    height: 20%;
+    left: 0px;
+    right: 0px;
+    text-align: center;
+    transition: height 0.2s;
+    font-size: 12px;
+    opacity: 0.6;
+    padding-top: 3px;
+}
+
+#foto_usuario
+{
+    height: 100%;
+    width: 100%;
+}
+
+#cambio_imagen_pendiente
+{
+    display: none;
+    cursor: pointer;  
+    height:30px;
+    width: 30px;
+    margin-top: -9px;
+    position: absolute;
+    top: 119px;
+    left: 13px;
+}
+
+#cambio_imagen_pendiente img
+{
+    width:100%;
+}
+
+#pantalla_actualizacion_imagen
+{
+    
+}
+
+#pantalla_actualizacion_imagen #panel_imagenes
+{
+    position: absolute;
+    top: 40px;
+    bottom: 40px;
+    left: 0px;
+    right: 0px;
+}
+
+#pantalla_actualizacion_imagen #imagen_anterior
+{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    right: 50%;
+}
+
+#pantalla_actualizacion_imagen #imagen_nueva
+{
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    left: 50%;
+}
+
+#pantalla_actualizacion_imagen #btn_aceptar_cambio_imagen
+{
+    position: absolute;
+    bottom: 2px;
+    right: 10px;
+}
+
+#pantalla_actualizacion_imagen #btn_rechazar_cambio_imagen 
+{
+    position: absolute;
+    bottom: 2px;
+    right: 100px;
+}
+
+#pantalla_actualizacion_imagen #titulo_actualizacion_imagen 
+{
+    position: absolute;
+    font-size: 28px;
+    top: 8px;
+}
+
+#txt_nombre_usuario
+{
+    width:100px;
+}
+
+.linea_nombre_usuario
+{
+    margin-left: 25px;
+    margin-bottom: 10px;
+    margin-top: 5px;
+}
+
+.linea_passwrd
+{
+    margin-left: 75px;
+}
+
+#btn_credencial_usuario
+{
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    border-radius: 10px;
+}
+
+#lista_areas_administradas
+{
+    position:absolute;
+    top: 48px;
+    bottom: 35px;
+    left:0px;
+    right:0px;
+    overflow-y:auto;
+    height: 203px;
+}
+
+#selector_area_administrada
+{
+    
+}
+
+#btn_agregar_area
+{
+    position:absolute;
+    bottom: 8px;
+    right: 8px; 
+    border-radius:10px;
+}
+
+.area_administrada
+{
+    height: 45px;
+    border-radius:6px;
+    padding:5px;
+    background-color:lavender;
+    margin:5px;
+    transition: all .3s ease-in-out;
+}
+
+.area_administrada:hover
+{
+    background-color:darkgrey;
+}
+
+.area_administrada #nombre_area
+{
+    margin-top: 6px;
+    display: inline-block;
+}
+
+.area_administrada #btn_quitar_area
+{
+    float: right;
+}
+
+.selector_areas
+{
+    margin: 2px;
+    position:absolute;
+    bottom:5px;
+    left: 5px;
+    right: 5px;
+    /* margin-top: 0px; */
+}
+
+.selector_areas #buscador
+{
+    width:535px !important;
+}
+
+#usuario_no_verificado
+{
+    display:none;
+    color: Red;
+}
+
+#usuario_verificado
+{
+    display:none;
+    color: Green;
+}
+
+#vista_permisos
+{
+    position: absolute;
+    bottom: 19px;
+    top: 59px;
+    right: 10px;
+    left: 10px;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+    overflow: visible;
+}
+ 
+::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, .2);
+    min-height: 25px;
+    box-shadow: inset 1px 1px 0 rgba(0, 0, 0, .1),inset 0 -1px 0 rgba(0, 0, 0, .07);
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0, 0, 0, .3);
+}
+ 
+::-webkit-scrollbar-track {
+    background-color: #dddddd;
+    border: solid transparent;
+}
+::-webkit-scrollbar-track:hover {
+    background-color: #cccccc;
+}
+ 
+::-webkit-scrollbar-corner {
+    background: transparent;
+}
+::-webkit-scrollbar-button {
+    height: 0px;
+    width: 0px;
+}
