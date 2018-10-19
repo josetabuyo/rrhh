@@ -49,8 +49,7 @@
      *          <td> {{apellido}} </td>
      *      </tr>
      *  </tbody>
-     * </table>
-    */
+     * </table> */
     function GrillaFrom(id, registros) {
         var body = $(id + ' > tbody')
 

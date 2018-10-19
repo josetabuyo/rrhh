@@ -44,14 +44,18 @@ define(['wsviaticos', 'underscore'], function (ws, _) {
         }]
         ws.parallel(req, function (err, res) {
             if (err) {
-                alert("se produjo un error al guardar " + err)
+                cb(err)
+                return
+            }
+            if (res[0].ExceptionType) {
+                cb(err)
                 return
             }
             state = JSON.parse(window.localStorage.getItem('ComitesDeEvaluacionData'))
-            var comite_agregado = res [0]
+            var comite_agregado = res[0]
             state.GetAllComites.push(comite_agregado)
             window.localStorage.setItem('ComitesDeEvaluacionData', JSON.stringify(state))
-            cb(res)
+            cb(null, comite_agregado)
         })
     }
 

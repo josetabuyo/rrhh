@@ -1,7 +1,7 @@
 ﻿requirejs(['../common'], function (common) {
     requirejs(['jquery', 'underscore', 'eval/EvaluacionDesempenioAppState', 'spa-tabs', 'creadorDeGrillas', 'eval/comitesPorPeriodo', 'selector-personas', 'barramenu2', 'jquery-ui', 'jquery-timepicker'], function ($, _, app_state, spa_tabs, CreadorDeGrillas, ComitesPorPeriodo, SelectorDePersonas) {
 
-        //window.localStorage.clear()
+        window.localStorage.clear()
 
         var on_integrantes_enter = function (idComite) {
 
@@ -33,15 +33,19 @@
 
         //cuando se hace click en "siguiente" (datos generales)
         var on_datos_generales_next = function (show_next_tab, params) {
-            //params['IdPeriodo']<--todo
+            //params['IdPeriodo']<--todo, varios parametros con nombre
 
             app_state.AddComite($("#descripcion").val(),
                 $("#fecha").val(),
                 $("#hora").val(),
                 $("#lugar").val(),
                 params,
-                comite_agregado => {
-                    show_next_tab(comite_agregado[0].Id)
+                (err, comite_agregado) => {
+                    if (err) {
+                        alert('Error al agregar comite')
+                        console.log(err)
+                    }
+                    show_next_tab(comite_agregado.Id)
                     load_grid_periodos()
                 })
         }

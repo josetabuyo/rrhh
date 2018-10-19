@@ -64,7 +64,7 @@
                                     <td class="text-right">{{Finalizado}}</td>
                                     <td class="text-right">{{ReunionesRealizadas}}<a style="display: inline" data-toggle="tooltip" data-placement="top" title="Ver Reuniones" class="nav-link" href="#"><span class="fa fa fa-eye"></span></a></td>
                                     <td class="text-right">
-                                        <button type="button" class="btn btn-sm btn-primary" target_scr="#scr_datos_generales/{{IdPeriodo}}">Crear Nueva Reunion</button></td>
+                                        <button type="button" class="btn btn-sm btn-primary" on_next="#scr_datos_generales/{{IdPeriodo}}">Crear Nueva Reunion</button></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -76,7 +76,7 @@
                     <div class="col col-md-5">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item" target_scr="#scr_home"><a href="#">Comités de Evaluacion</a></li>
+                                <li class="breadcrumb-item" on_leave="#scr_home"><a href="#">Comités de Evaluacion</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">Paso 1: Datos Generales</li>
                             </ol>
                         </nav>
@@ -119,8 +119,8 @@
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-md-12 text-right">
-                                            <a href="#" class="btn btn-secondary" role="button" target_scr="#scr_home">Atras</a>
-                                            <a href="#" class="btn btn-primary active" role="button" target_scr="#scr_integrantes">Siguiente</a>
+                                            <a href="#" class="btn btn-secondary" role="button" on_leave="#scr_home">Atras</a>
+                                            <a href="#" class="btn btn-primary active" role="button" on_next="#scr_integrantes">Siguiente</a>
                                         </div>
                                     </div>
                                 </div>
@@ -134,8 +134,8 @@
                     <div class="col col-12 col-md-6">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item" target_scr="#scr_home"><a href="#">Comités de Evaluacion</a></li>
-                                <li class="breadcrumb-item" target_scr="#scr_datos_generales"><a href="#">Paso 1: Datos Generales</a></li>
+                                <li class="breadcrumb-item" on_leave="#scr_home"><a href="#">Comités de Evaluacion</a></li>
+                                <li class="breadcrumb-item" on_leave="#scr_datos_generales"><a href="#">Paso 1: Datos Generales</a></li>
                                 <li class="breadcrumb-item  active">Paso 2: Integrantes</li>
                             </ol>
                         </nav>
@@ -222,8 +222,8 @@
                                     </div>
                                     <div class="row">
                                         <div class="col col-md-12 text-right">
-                                            <a href="#" class="btn btn-secondary" role="button" target_scr="#scr_datos_generales">Atras</a>
-                                            <a href="#" class="btn btn-primary active" role="button" target_scr="#scr_unidades">Siguiente</a>
+                                            <a href="#" class="btn btn-secondary" role="button" on_leave="#scr_datos_generales">Atras</a>
+                                            <a href="#" class="btn btn-primary active" role="button" on_next="#scr_unidades">Siguiente</a>
                                         </div>
                                     </div>
                                 </div>
@@ -237,9 +237,9 @@
                     <div class="col col-9">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item" target_scr="#scr_home"><a href="#">Comités de Evaluacion</a></li>
-                                <li class="breadcrumb-item" target_scr="#scr_datos_generales"><a href="#">Paso 1: Datos Generales</a></li>
-                                <li class="breadcrumb-item" target_scr="#scr_integrantes"><a href="#">Paso 2: Integrantes</a></li>
+                                <li class="breadcrumb-item" on_leave="#scr_home"><a href="#">Comités de Evaluacion</a></li>
+                                <li class="breadcrumb-item" on_leave="#scr_datos_generales"><a href="#">Paso 1: Datos Generales</a></li>
+                                <li class="breadcrumb-item" on_leave="#scr_integrantes"><a href="#">Paso 2: Integrantes</a></li>
                                 <li class="breadcrumb-item  active">Paso 3: Unidades de Evaluacion</li>
                             </ol>
                         </nav>
@@ -329,8 +329,8 @@
                 </div>
                 <div class="row">
                     <div class="col col-md-12 text-right">
-                        <a href="#" class="btn btn-secondary" role="button" target_scr="#scr_integrantes">Atras</a>
-                        <a href="#" class="btn btn-primary active" role="button" target_scr="#scr_evaluaciones">Siguiente</a>
+                        <a href="#" class="btn btn-secondary" role="button" on_leave="#scr_integrantes">Atras</a>
+                        <a href="#" class="btn btn-primary active" role="button" on_next="#scr_evaluaciones">Siguiente</a>
                     </div>
                 </div>
             </div>
