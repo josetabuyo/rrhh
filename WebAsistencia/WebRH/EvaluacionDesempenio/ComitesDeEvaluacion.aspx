@@ -166,7 +166,7 @@
                                                         <td>{{Apellido}}, {{Nombre}}</td>
                                                         <td>{{EnCaracterDe}}</td>
                                                         <td>
-                                                            <a style="display: inline" data-toggle="tooltip" data-placement="top" title="Eliminar Integrante" class="nav-link" href="#"><span class="fa fa fa-trash"></span></a>
+                                                            <a style="display: inline" data-toggle="tooltip" data-placement="top" title="Eliminar Integrante" class="delete-integrante" href="#" integrante="{{IdPersona}}"><span class="fa fa fa-trash"></span></a>
                                                         </td>
                                                     </tr>
                                                 </tbody>

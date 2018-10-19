@@ -1,21 +1,29 @@
 ﻿requirejs(['../common'], function (common) {
     requirejs(['jquery', 'underscore', 'eval/EvaluacionDesempenioAppState', 'spa-tabs', 'creadorDeGrillas', 'eval/comitesPorPeriodo', 'selector-personas', 'barramenu2', 'jquery-ui', 'jquery-timepicker'], function ($, _, app_state, spa_tabs, CreadorDeGrillas, ComitesPorPeriodo, SelectorDePersonas) {
 
-        window.localStorage.clear()
+        //window.localStorage.clear()
 
         var on_integrantes_enter = function (idComite) {
-
-            $("#btn_agregar_integrante").attr('idComite', idComite)
 
             var periodo = app_state.PeriodoDe(idComite)
             $("#desc_periodo_int").text(periodo.descripcion_periodo)
 
+            crear_grilla_integrantes()
+        }
+
+        var crear_grilla_integrantes = function () {
+
+            var idComite = spa_tabs.getParam()
             var comite = app_state.GetComite(idComite)
 
             //cargo la descripcion de "en caracter de" a partir del id para mostrarlo en la grilla
             _.each(comite.Integrantes, i => i.EnCaracterDe = app_state.GetEnCaracterDe(i.IdEnCaracterDe))
 
             CreadorDeGrillas('#tabla_integrantes', comite.Integrantes)
+            $(".delete-integrante").click(e => {
+                e.preventDefault()
+                remover_integrante(e.currentTarget.attributes.integrante.value, idComite)
+            })
         }
 
         //cuando se muestra la pantalla de datos generales
@@ -65,7 +73,14 @@
             })
         }
 
-        var agregar_integrante = function (idComite) {
+        var remover_integrante = function (id_integrante, idComite) {
+            app_state.DelIntegrante(id_integrante, idComite, i => {
+                crear_grilla_integrantes()
+            })
+        }
+
+        var agregar_integrante = function () {
+            var idComite = spa_tabs.getParam()
             var persona = JSON.parse($('#persona_buscada').val())
             var caracter = $('#cmb_en_caracter_de').val()
 
@@ -82,12 +97,7 @@
                     alert(err)
                     return
                 }
-                var comite = app_state.GetComite(idComite)
-
-                //cargo la descripcion de "en caracter de" a partir del id para mostrarlo en la grilla
-                _.each(comite.Integrantes, i => i.EnCaracterDe = app_state.GetEnCaracterDe(i.IdEnCaracterDe))
-
-                CreadorDeGrillas('#tabla_integrantes', comite.Integrantes)
+                crear_grilla_integrantes()
             })
         }
 
@@ -109,7 +119,7 @@
                 scrollbar: true
             })
 
-            $("#btn_agregar_integrante").click(e => agregar_integrante(e.currentTarget.attributes.idComite.value))
+            $("#btn_agregar_integrante").click(e => agregar_integrante())
 
             var selector_integrantes = new SelectorDePersonas({
                 ui: $('#cmb_selector_integrantes'),

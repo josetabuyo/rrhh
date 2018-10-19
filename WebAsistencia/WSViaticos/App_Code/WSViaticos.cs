@@ -106,8 +106,7 @@ public class WSViaticos : System.Web.Services.WebService
         }
         catch (Exception e)
         {
-            
-            respuesta.MensajeDeErrorAmigable = "Se produjo un error al intentar agregar el responsable";
+            respuesta.MensajeDeErrorAmigable = "Se produjo un error al intentar agregar el integrante";
             respuesta.setException(e);
         }
         return respuesta;

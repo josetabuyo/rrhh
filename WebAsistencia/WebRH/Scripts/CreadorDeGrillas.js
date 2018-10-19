@@ -19,6 +19,14 @@
         return row
     }
 
+    var insert_empty_row = function (body) {
+        var cant_columnas = body.siblings('thead').find('th').length
+        var td = $('<td>')
+            .attr('colspan', cant_columnas)
+            .text('Tabla sin registros')
+        var tr = $('<tr>').append(td)
+        body.append(tr)
+    }
 
     /*
      * Esta funcion recibe
@@ -45,7 +53,7 @@
     */
     function GrillaFrom(id, registros) {
         var body = $(id + ' > tbody')
-        
+
         var row_template = body.find('.row-template')
 
         //borro los registros
@@ -53,10 +61,14 @@
         //pero salvaguardo el template
         body.append(row_template)
 
-        _.each(registros, function (each) {
-            body.append(tableRowFrom(each, row_template))
-        })
-        
+        if (!registros || registros.length < 1) {
+            insert_empty_row(body)
+            return
+        } else {
+            _.each(registros, function (each) {
+                body.append(tableRowFrom(each, row_template))
+            })
+        }
         $(id).append(body)
     }
 

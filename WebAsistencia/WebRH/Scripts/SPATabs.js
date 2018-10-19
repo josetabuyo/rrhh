@@ -1,5 +1,5 @@
 ﻿///este módulo sirve para convertir una página con tabs
-///en una SPA (maneja el 'back' y 'forward' del navegador)
+///en una SinglePageApp (maneja el 'back' y 'forward' del navegador)
 ///
 ///los componentes del html que tengan el atributo target_scr="#nombre_de_tab"
 ///dispara un eventode mostrar ese otro tab, y cambiar la url en el browser
@@ -92,6 +92,11 @@ define(['jquery'], function ($) {
         })
     }
 
+    var getParam = function () {
+        var def = tab_definition_from_url(location.hash)
+        return def.parameter
+    }
+
     window.addEventListener("popstate", function (e) {
         var tab = tab_definition_from_url(location.hash)
         var activeTab = $(tab.name);
@@ -104,6 +109,7 @@ define(['jquery'], function ($) {
     });
 
     return {
-        createTabs: createTabs
+        createTabs: createTabs,
+        getParam: getParam
     }
 })

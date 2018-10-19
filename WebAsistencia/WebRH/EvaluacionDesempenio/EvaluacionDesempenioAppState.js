@@ -110,6 +110,31 @@ define(['wsviaticos', 'underscore'], function (ws, _) {
         return _.find(caracteres, c => { return c.Id == id }).Descripcion
     }
 
+    var DelIntegrante = function (id_integrante, idComite, cb) {
+        var req = [{
+            nombre_metodo: "EvalRemoverIntegranteComite",
+            argumentos_json: [idComite, id_integrante]
+        }]
+
+        ws.parallel(req, function (err, res) {
+            if (err) {
+                cb(err)
+                return
+            }
+            if (res[0].DioError) {
+                cb(res[0].MensajeDeErrorAmigable)
+                return
+            }
+            //var id_integrante = res[0].Respuesta
+
+            app_data = JSON.parse(window.localStorage.getItem('ComitesDeEvaluacionData'))
+            var c = _.find(app_data.GetAllComites, c => c.Id == idComite)
+            c.Integrantes = _.reject(c.Integrantes, i => i.IdPersona == id_integrante)
+            window.localStorage.setItem('ComitesDeEvaluacionData', JSON.stringify(app_data))
+            cb(null, id_integrante)
+        })       
+    }
+
     var AddIntegrante = function (integrante, idComite, cb) {
         var req = [{
             nombre_metodo: "EvalAddIntegranteComite",
@@ -122,7 +147,7 @@ define(['wsviaticos', 'underscore'], function (ws, _) {
                 return
             }
             if (res[0].DioError) {
-                cb(res.MensajeDeErrorAmigable)
+                cb(res[0].MensajeDeErrorAmigable)
                 return
             } 
             var id_integrante = res[0].Respuesta
@@ -135,7 +160,6 @@ define(['wsviaticos', 'underscore'], function (ws, _) {
         })
     }
 
-
     //API del modulo
     return {
         AddComite: AddComite,
@@ -146,6 +170,7 @@ define(['wsviaticos', 'underscore'], function (ws, _) {
         GetComite: GetComite,
         AddIntegrante: AddIntegrante,
         GetCaracteres: GetCaracteres,
-        GetEnCaracterDe: GetEnCaracterDe
+        GetEnCaracterDe: GetEnCaracterDe,
+        DelIntegrante: DelIntegrante
     }
 })
