@@ -63,35 +63,62 @@ define(['jquery'], function ($) {
         return tab_config
     }
 
+    
+    ///establece el parametro en la url (#blah/param) para los links que vayan hacia atras (back_actions).
+    var set_url_to_back_actions = function (next_tab, leaving_tab) {
+
+        var back_actions = $('[on_leave]').each(function (index) {
+            var url = this.attributes.on_leave.value
+
+            //si apunta al tab anterior (si apunta a algún otro tab, no modificarlo)
+            if (url.split('/')[0] === next_tab.name) {
+                this.attributes.on_leave.value = url.split('/')[0] + '/' + next_tab.parameter
+            }
+        })
+    }
+
+    var on_tab_leave_cb = function (next_tab, tabs_events, current_tab) {
+        var on_tab_leave = function (next_tab_param) {
+            var next_tab_url = next_tab.name
+            mostrarTab(next_tab_url, next_tab_param)
+            var new_url = next_tab.name
+            if (next_tab_param) {
+                next_tab.parameter = next_tab_param
+            }
+            if (next_tab.parameter) {
+                new_url += '/' + next_tab.parameter
+            }
+            history.pushState(null, null, new_url);
+            var entering_tab_config = get_tab_config(tabs_events, next_tab.name)
+            
+            set_url_to_back_actions(next_tab, current_tab)
+            entering_tab_config.on_enter(next_tab.parameter)
+        }
+        return on_tab_leave
+    }
+
+    var set_links_parameters = function () {
+
+    }
 
     var change_tab = function (destination_tab_id, tabs_events, es_on_next) {
 
-        var next_tab = tab_definition_from_url(destination_tab_id)
+        var destination_tab = tab_definition_from_url(destination_tab_id)
 
-        var leaving_tab = tab_definition_from_url(location.hash)
-        var leaving_tab_config = get_tab_config(tabs_events, leaving_tab.name)
+        var current_tab = tab_definition_from_url(location.hash)
+        var current_tab_config = get_tab_config(tabs_events, current_tab.name)
 
-        var url_param = leaving_tab.parameter
-        var on_tab_leave = function (param) {
-            var next_tab_url = next_tab.name
-            mostrarTab(next_tab_url, param)
-            var url = next_tab.name
-            if (param) {
-                next_tab.parameter = param
-            }
-            if (next_tab.parameter) {
-                url += '/' + next_tab.parameter
-            }
-            history.pushState(null, null, url);
-            var entering_tab_config = get_tab_config(tabs_events, next_tab.name)
-            entering_tab_config.on_enter(next_tab.parameter)
-        }
+        var url_param = current_tab.parameter
+
+        //tab_leave se produce siempre que se sale de una solapa, sea por que se presionó "next" o se hizo back
+        var on_tab_leave = on_tab_leave_cb(destination_tab, tabs_events, current_tab)
+
         if (es_on_next) {
-            leaving_tab_config.on_next(on_tab_leave, url_param, es_on_next)
+            
+            current_tab_config.on_next(on_tab_leave, url_param, es_on_next)
         } else {
             just_go_next(on_tab_leave)
         }
-        
     }
 
     ///recibe tabs_config, con los métodos definiendo las acciones a realizar por cada solapa, de la forma:
@@ -111,7 +138,6 @@ define(['jquery'], function ($) {
             e.preventDefault();
             change_tab(event.currentTarget.attributes.on_leave.value, tabs_events, false)
         })
-        
     }
 
     var getParam = function () {

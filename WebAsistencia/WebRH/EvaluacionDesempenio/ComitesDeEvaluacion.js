@@ -1,7 +1,7 @@
 ﻿requirejs(['../common'], function (common) {
     requirejs(['jquery', 'underscore', 'eval/EvaluacionDesempenioAppState', 'spa-tabs', 'creadorDeGrillas', 'eval/comitesPorPeriodo', 'selector-personas', 'barramenu2', 'jquery-ui', 'jquery-timepicker'], function ($, _, app_state, spa_tabs, CreadorDeGrillas, ComitesPorPeriodo, SelectorDePersonas) {
 
-        window.localStorage.clear()
+        //window.localStorage.clear()
 
         var on_integrantes_enter = function (idComite) {
 
