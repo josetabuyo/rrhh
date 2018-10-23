@@ -213,8 +213,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-
                                     <div class="row">
                                         <div class="col-12">
                                             <hr />
@@ -283,22 +281,6 @@
                                                 <td class="text-right">16</td>
                                                 <td class="text-right">13</td>
                                                 <td class="text-right">40</td>
-                                                <td class="text-right">
-                                                    <input type="checkbox">
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td>11</td>
-                                                <td>Dirección Nacional de Asistencia Critica</td>
-                                                <td class="text-right">2</td>
-                                                <td class="text-right">9</td>
-                                                <td class="text-right">16</td>
-                                                <td class="text-right">1</td>
-                                                <td class="text-right">28</td>
-                                                <td class="text-right">0</td>
-                                                <td class="text-right">0</td>
-                                                <td class="text-right">28</td>
                                                 <td class="text-right">
                                                     <input type="checkbox">
                                                 </td>

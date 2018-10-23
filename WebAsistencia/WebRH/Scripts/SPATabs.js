@@ -67,7 +67,8 @@ define(['jquery'], function ($) {
     ///establece el parametro en la url (#blah/param) para los links que vayan hacia atras (back_actions).
     var set_url_to_back_actions = function (next_tab, leaving_tab) {
 
-        var back_actions = $('[on_leave]').each(function (index) {
+        var back_actions = $('[on_leave]')
+        back_actions.each(function (index) {
             var url = this.attributes.on_leave.value
 
             //si apunta al tab anterior (si apunta a algún otro tab, no modificarlo)
@@ -97,15 +98,15 @@ define(['jquery'], function ($) {
         return on_tab_leave
     }
 
-    var set_links_parameters = function () {
-
+    var get_current_tab = function () {
+        return tab_definition_from_url(location.hash)
     }
 
     var change_tab = function (destination_tab_id, tabs_events, es_on_next) {
 
         var destination_tab = tab_definition_from_url(destination_tab_id)
 
-        var current_tab = tab_definition_from_url(location.hash)
+        var current_tab = get_current_tab()
         var current_tab_config = get_tab_config(tabs_events, current_tab.name)
 
         var url_param = current_tab.parameter
@@ -114,7 +115,6 @@ define(['jquery'], function ($) {
         var on_tab_leave = on_tab_leave_cb(destination_tab, tabs_events, current_tab)
 
         if (es_on_next) {
-            
             current_tab_config.on_next(on_tab_leave, url_param, es_on_next)
         } else {
             just_go_next(on_tab_leave)
@@ -140,6 +140,7 @@ define(['jquery'], function ($) {
         })
     }
 
+
     var getParam = function () {
         var def = tab_definition_from_url(location.hash)
         return def.parameter
@@ -156,8 +157,21 @@ define(['jquery'], function ($) {
         }
     });
 
+
+    ///tomar todos los links del tab actual, que apunten a la siguiente tab, y agregarles el parametro
+    var setNextParameter = function (new_parameter) {
+        var current_tab = get_current_tab()
+
+        var next_actions = $(current_tab.name).find('[on_next]')
+        next_actions.each(function (index) {
+            var url = this.attributes.on_next.value
+            this.attributes.on_next.value = url.split('/')[0] + '/' + new_parameter
+        })
+    }
+
     return {
         createTabs: createTabs,
-        getParam: getParam
+        getParam: getParam,
+        setNextParameter: setNextParameter
     }
 })

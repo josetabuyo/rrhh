@@ -6,6 +6,8 @@
         var on_integrantes_enter = function (idComite) {
 
             var periodo = app_state.PeriodoDe(idComite)
+            spa_tabs.setNextParameter(idComite)
+
             $("#desc_periodo_int").text(periodo.descripcion_periodo)
 
             crear_grilla_integrantes()
@@ -74,7 +76,12 @@
 
                 //activo los tooltips
                 $('#tabla_periodos [data-toggle="tooltip"]').tooltip()
+                $('[btnIdPeriodo]').click(set_id_periodo_seleccionado)
             })
+        }
+
+        var set_id_periodo_seleccionado = function (e) {
+            $("id_periodo_seleccionado").val(e.currentTarget.attributes.btnIdPeriodo.value)
         }
 
         var remover_integrante = function (id_integrante, idComite) {
@@ -105,7 +112,7 @@
             })
         }
 
-        var load_screen = function () {
+        var setup_componentes = function () {
 
             $('#fecha').datepicker({
                 dateFormat: "dd/mm/yy"
@@ -142,6 +149,6 @@
             }
             load_grid_periodos()
         }
-        load_screen()
+        setup_componentes()
     })
 })
