@@ -72,6 +72,7 @@
           <s:element minOccurs="1" maxOccurs="1" name="CantidadDeUsuarios" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="Jerarquia" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="Orden" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IncluyeDependencias" type="s:int" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="Responsable">
@@ -619,6 +620,50 @@
       <s:element name="AsignaAreaAPersonasNoCertificadasResponse">
         <s:complexType />
       </s:element>
+      <s:element name="ObtenerVehiculoPorID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_bien" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerVehiculoPorIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerVehiculoPorIDResult" type="tns:RespuestaVehiculo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RespuestaVehiculo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="id_verificacion" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Respuesta" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="vehiculo" type="tns:Vehiculo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Vehiculo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="NumeroVehiculo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Dominio" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Segmento" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Marca" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Modelo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Motor" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Chasis" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Anio" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Observacion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Area" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Apellido" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="imagenes" type="tns:ArrayOfInt" />
+          <s:element minOccurs="0" maxOccurs="1" name="Conductor" type="tns:Persona" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfInt">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="int" type="s:int" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="Mobi_GetAreasUsuario">
         <s:complexType>
           <s:sequence>
@@ -728,11 +773,6 @@
           <s:element minOccurs="0" maxOccurs="1" name="Imagenes" type="tns:ArrayOfInt" />
           <s:element minOccurs="0" maxOccurs="1" name="Ubicacion" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Verificacion" type="s:string" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="ArrayOfInt">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="int" type="s:int" />
         </s:sequence>
       </s:complexType>
       <s:element name="Mobi_GetBienesDelArea">
@@ -1788,20 +1828,25 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetPostulacionesPorCodigo">
+      <s:element name="GetPostulaciones">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="codigo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetPostulacionesPorCodigoResponse">
+      <s:element name="GetPostulacionesResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetPostulacionesPorCodigoResult" type="tns:Postulacion" />
+            <s:element minOccurs="0" maxOccurs="1" name="GetPostulacionesResult" type="tns:ArrayOfPostulacion" />
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:complexType name="ArrayOfPostulacion">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Postulacion" nillable="true" type="tns:Postulacion" />
+        </s:sequence>
+      </s:complexType>
       <s:complexType name="Postulacion">
         <s:sequence>
           <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
@@ -2088,6 +2133,20 @@
           <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
         </s:sequence>
       </s:complexType>
+      <s:element name="GetPostulacionesPorCodigo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="codigo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPostulacionesPorCodigoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPostulacionesPorCodigoResult" type="tns:Postulacion" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="BuscarEtapasConcurso">
         <s:complexType>
           <s:sequence>
@@ -2823,11 +2882,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="ArrayOfPostulacion">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Postulacion" nillable="true" type="tns:Postulacion" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="GuardarFolios">
         <s:complexType>
           <s:sequence>
@@ -3639,45 +3693,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="RespuestaVehiculo">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="id_verificacion" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="Respuesta" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="vehiculo" type="tns:Vehiculo" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="Vehiculo">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="NumeroVehiculo" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Dominio" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Segmento" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Marca" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Modelo" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Motor" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Chasis" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Anio" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Observacion" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Area" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Apellido" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="imagenes" type="tns:ArrayOfInt" />
-          <s:element minOccurs="0" maxOccurs="1" name="Conductor" type="tns:Persona" />
-        </s:sequence>
-      </s:complexType>
-      <s:element name="ObtenerVehiculoPorID">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id_bien" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ObtenerVehiculoPorIDResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ObtenerVehiculoPorIDResult" type="tns:RespuestaVehiculo" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
       <s:element name="AsignarCategoriaADocumento">
         <s:complexType>
           <s:sequence>
@@ -4142,6 +4157,35 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetPerfilesActuales">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_usuario" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPerfilesActualesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPerfilesActualesResult" type="tns:ArrayOfMAU_Perfil" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfMAU_Perfil">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MAU_Perfil" nillable="true" type="tns:MAU_Perfil" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MAU_Perfil">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Funcionalidades" type="tns:ArrayOfFuncionalidad" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaDesde" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Areas" type="tns:ArrayOfArea" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="FuncionalidadesOtorgadasA">
         <s:complexType>
           <s:sequence>
@@ -5265,20 +5309,6 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="ActualizarInformesGDEDeUnaPostulacionResult" type="s:boolean" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetPostulaciones">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetPostulacionesResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetPostulacionesResult" type="tns:ArrayOfPostulacion" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -8391,6 +8421,12 @@
   <wsdl:message name="AsignaAreaAPersonasNoCertificadasSoapOut">
     <wsdl:part name="parameters" element="tns:AsignaAreaAPersonasNoCertificadasResponse" />
   </wsdl:message>
+  <wsdl:message name="ObtenerVehiculoPorIDSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerVehiculoPorID" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerVehiculoPorIDSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerVehiculoPorIDResponse" />
+  </wsdl:message>
   <wsdl:message name="Mobi_GetAreasUsuarioSoapIn">
     <wsdl:part name="parameters" element="tns:Mobi_GetAreasUsuario" />
   </wsdl:message>
@@ -8780,6 +8816,12 @@
   </wsdl:message>
   <wsdl:message name="InsertarEvaluacionSoapOut">
     <wsdl:part name="parameters" element="tns:InsertarEvaluacionResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPostulacionesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPostulaciones" />
+  </wsdl:message>
+  <wsdl:message name="GetPostulacionesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPostulacionesResponse" />
   </wsdl:message>
   <wsdl:message name="GetPostulacionesPorCodigoSoapIn">
     <wsdl:part name="parameters" element="tns:GetPostulacionesPorCodigo" />
@@ -9285,12 +9327,6 @@
   <wsdl:message name="ObtenerVehiculoPorCodigoWebSoapOut">
     <wsdl:part name="parameters" element="tns:ObtenerVehiculoPorCodigoWebResponse" />
   </wsdl:message>
-  <wsdl:message name="ObtenerVehiculoPorIDSoapIn">
-    <wsdl:part name="parameters" element="tns:ObtenerVehiculoPorID" />
-  </wsdl:message>
-  <wsdl:message name="ObtenerVehiculoPorIDSoapOut">
-    <wsdl:part name="parameters" element="tns:ObtenerVehiculoPorIDResponse" />
-  </wsdl:message>
   <wsdl:message name="AsignarCategoriaADocumentoSoapIn">
     <wsdl:part name="parameters" element="tns:AsignarCategoriaADocumento" />
   </wsdl:message>
@@ -9470,6 +9506,12 @@
   </wsdl:message>
   <wsdl:message name="FuncionalidadesParaSoapOut">
     <wsdl:part name="parameters" element="tns:FuncionalidadesParaResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPerfilesActualesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPerfilesActuales" />
+  </wsdl:message>
+  <wsdl:message name="GetPerfilesActualesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPerfilesActualesResponse" />
   </wsdl:message>
   <wsdl:message name="FuncionalidadesOtorgadasASoapIn">
     <wsdl:part name="parameters" element="tns:FuncionalidadesOtorgadasA" />
@@ -9782,12 +9824,6 @@
   </wsdl:message>
   <wsdl:message name="ActualizarInformesGDEDeUnaPostulacionSoapOut">
     <wsdl:part name="parameters" element="tns:ActualizarInformesGDEDeUnaPostulacionResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetPostulacionesSoapIn">
-    <wsdl:part name="parameters" element="tns:GetPostulaciones" />
-  </wsdl:message>
-  <wsdl:message name="GetPostulacionesSoapOut">
-    <wsdl:part name="parameters" element="tns:GetPostulacionesResponse" />
   </wsdl:message>
   <wsdl:message name="GuardarDocumento_AjaxSoapIn">
     <wsdl:part name="parameters" element="tns:GuardarDocumento_Ajax" />
@@ -10786,6 +10822,10 @@
       <wsdl:input message="tns:AsignaAreaAPersonasNoCertificadasSoapIn" />
       <wsdl:output message="tns:AsignaAreaAPersonasNoCertificadasSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="ObtenerVehiculoPorID">
+      <wsdl:input message="tns:ObtenerVehiculoPorIDSoapIn" />
+      <wsdl:output message="tns:ObtenerVehiculoPorIDSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="Mobi_GetAreasUsuario">
       <wsdl:input message="tns:Mobi_GetAreasUsuarioSoapIn" />
       <wsdl:output message="tns:Mobi_GetAreasUsuarioSoapOut" />
@@ -11045,6 +11085,10 @@
     <wsdl:operation name="InsertarEvaluacion">
       <wsdl:input message="tns:InsertarEvaluacionSoapIn" />
       <wsdl:output message="tns:InsertarEvaluacionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPostulaciones">
+      <wsdl:input message="tns:GetPostulacionesSoapIn" />
+      <wsdl:output message="tns:GetPostulacionesSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetPostulacionesPorCodigo">
       <wsdl:input message="tns:GetPostulacionesPorCodigoSoapIn" />
@@ -11382,10 +11426,6 @@
       <wsdl:input message="tns:ObtenerVehiculoPorCodigoWebSoapIn" />
       <wsdl:output message="tns:ObtenerVehiculoPorCodigoWebSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="ObtenerVehiculoPorID">
-      <wsdl:input message="tns:ObtenerVehiculoPorIDSoapIn" />
-      <wsdl:output message="tns:ObtenerVehiculoPorIDSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="AsignarCategoriaADocumento">
       <wsdl:input message="tns:AsignarCategoriaADocumentoSoapIn" />
       <wsdl:output message="tns:AsignarCategoriaADocumentoSoapOut" />
@@ -11505,6 +11545,10 @@
     <wsdl:operation name="FuncionalidadesPara">
       <wsdl:input message="tns:FuncionalidadesParaSoapIn" />
       <wsdl:output message="tns:FuncionalidadesParaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPerfilesActuales">
+      <wsdl:input message="tns:GetPerfilesActualesSoapIn" />
+      <wsdl:output message="tns:GetPerfilesActualesSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="FuncionalidadesOtorgadasA">
       <wsdl:input message="tns:FuncionalidadesOtorgadasASoapIn" />
@@ -11713,10 +11757,6 @@
     <wsdl:operation name="ActualizarInformesGDEDeUnaPostulacion">
       <wsdl:input message="tns:ActualizarInformesGDEDeUnaPostulacionSoapIn" />
       <wsdl:output message="tns:ActualizarInformesGDEDeUnaPostulacionSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetPostulaciones">
-      <wsdl:input message="tns:GetPostulacionesSoapIn" />
-      <wsdl:output message="tns:GetPostulacionesSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GuardarDocumento_Ajax">
       <wsdl:input message="tns:GuardarDocumento_AjaxSoapIn" />
@@ -12499,6 +12539,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ObtenerVehiculoPorID">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ObtenerVehiculoPorID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="Mobi_GetAreasUsuario">
       <soap:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetAreasUsuario" style="document" />
       <wsdl:input>
@@ -13077,6 +13126,15 @@
     </wsdl:operation>
     <wsdl:operation name="InsertarEvaluacion">
       <soap:operation soapAction="http://wsviaticos.gov.ar/InsertarEvaluacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPostulaciones">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetPostulaciones" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -13840,15 +13898,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ObtenerVehiculoPorID">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/ObtenerVehiculoPorID" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="AsignarCategoriaADocumento">
       <soap:operation soapAction="http://wsviaticos.gov.ar/AsignarCategoriaADocumento" style="document" />
       <wsdl:input>
@@ -14112,6 +14161,15 @@
     </wsdl:operation>
     <wsdl:operation name="FuncionalidadesPara">
       <soap:operation soapAction="http://wsviaticos.gov.ar/FuncionalidadesPara" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPerfilesActuales">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetPerfilesActuales" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -14580,15 +14638,6 @@
     </wsdl:operation>
     <wsdl:operation name="ActualizarInformesGDEDeUnaPostulacion">
       <soap:operation soapAction="http://wsviaticos.gov.ar/ActualizarInformesGDEDeUnaPostulacion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetPostulaciones">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetPostulaciones" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -16147,6 +16196,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ObtenerVehiculoPorID">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ObtenerVehiculoPorID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="Mobi_GetAreasUsuario">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/Mobi_GetAreasUsuario" style="document" />
       <wsdl:input>
@@ -16725,6 +16783,15 @@
     </wsdl:operation>
     <wsdl:operation name="InsertarEvaluacion">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/InsertarEvaluacion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPostulaciones">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetPostulaciones" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -17488,15 +17555,6 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ObtenerVehiculoPorID">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/ObtenerVehiculoPorID" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="AsignarCategoriaADocumento">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/AsignarCategoriaADocumento" style="document" />
       <wsdl:input>
@@ -17760,6 +17818,15 @@
     </wsdl:operation>
     <wsdl:operation name="FuncionalidadesPara">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/FuncionalidadesPara" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPerfilesActuales">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetPerfilesActuales" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -18228,15 +18295,6 @@
     </wsdl:operation>
     <wsdl:operation name="ActualizarInformesGDEDeUnaPostulacion">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/ActualizarInformesGDEDeUnaPostulacion" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetPostulaciones">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetPostulaciones" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

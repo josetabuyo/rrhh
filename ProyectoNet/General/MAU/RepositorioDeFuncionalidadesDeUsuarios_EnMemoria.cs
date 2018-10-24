@@ -81,5 +81,10 @@ namespace General.MAU
         {
             throw new NotImplementedException();
         }
+
+        public List<MAU_Perfil> GetPerfilesActuales(int id_usuario)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -63,16 +63,16 @@ ul li:before {
     text-decoration:none;
     }
         
-#apellido
+#apellido2
 {
-    color: #cdc8c4;
-    font-size: 1.8em;
+    /*color: #cdc8c4;*/
+    font-size: 1.4em;
 }
         
-#nombre 
+#nombre2 
 {
-    color: #fff;
-    font-size: 1.8em;
+    /*color: #fff;*/
+    font-size: 1.4em;
 }
         
 #cargo 

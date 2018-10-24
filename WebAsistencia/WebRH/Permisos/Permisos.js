@@ -4,7 +4,7 @@ var idUsuario;
 
 var Permisos = {
     init: function () {
-       /* this.panel_datos_usuario = $('#panel_datos_usuario');
+        /* this.panel_datos_usuario = $('#panel_datos_usuario');
         this.lbl_nombre = $('#nombre');
         this.lbl_apellido = $('#apellido');
         this.lbl_documento = $('#documento');
@@ -19,33 +19,48 @@ var Permisos = {
         this.repositorioDeFuncionalidades = new RepositorioDeFuncionalidades(proveedor_ajax);
         this.repositorioDeUsuarios = new RepositorioDeUsuarios(proveedor_ajax);
         this.repositorioDePersonas = new RepositorioDePersonas(proveedor_ajax);
-        this.repositorioDeAreas = new RepositorioDeAreas(proveedor_ajax);
+
     },
 
-    getDatosFamiliares: function () {
+    getPerfiles: function (idUsuario) {
 
-        Backend.GetFamiliares()
-            .onSuccess(function (familiaresJSON) {
+        var _this = this;
 
-                var familiares = JSON.parse(familiaresJSON);
+        Backend.GetPerfilesActuales(idUsuario)
+            .onSuccess(function (perfiles) {
 
-                var _this = this;
-                $("#tabla_familiar").empty();
-                var divGrilla = $("#tabla_familiar");
+                //var perfiles = JSON.parse(perfilesJSON);
+
+
+                $("#tabla_permisos").empty();
+                var divGrilla = $("#tabla_permisos");
                 //var tabla = resultado;
                 var columnas = [];
 
-                columnas.push(new Columna("Parentesco", { generar: function (un_familiar) { return un_familiar.Parentesco } }));
-                columnas.push(new Columna("Apellido", { generar: function (un_familiar) { return un_familiar.Apellido } }));
-                columnas.push(new Columna("Nombre", { generar: function (un_familiar) { return un_familiar.Nombre } }));
-                columnas.push(new Columna("N doc", { generar: function (un_familiar) { return un_familiar.Documento } }));
-                columnas.push(new Columna("Tipo DNI", { generar: function (un_familiar) { return un_familiar.TipoDNI } }));
+                columnas.push(new Columna("Perfiles", { generar: function (un_permiso) { return un_permiso.Nombre } }));
+                columnas.push(new Columna("Areas", { generar: function (un_permiso) { return un_permiso.Areas[0].Nombre } }));
+                columnas.push(new Columna("Incluye Dep.", { generar: function (un_permiso) { return un_permiso.Areas[0].IncluyeDependencias } }));
+                columnas.push(new Columna("Desde", { generar: function (un_permiso) { return '01/01/2018' } }));
+                columnas.push(new Columna('Accion', {
+                    generar: function (un_permiso) {
+                        var btn_accion = $('<a>');
+                        var img = $('<img>');
+                        img.attr('src', '../Imagenes/delete.jpg');
+                        img.attr('width', '20px');
+                        img.attr('height', '20px');
+                        btn_accion.append(img);
+                        btn_accion.click(function () {
+                            _this.EliminarPerfil(un_permiso);
+                        });
+                        return btn_accion;
+                    }
+                }));
 
 
                 _this.Grilla = new Grilla(columnas);
-                _this.Grilla.SetOnRowClickEventHandler(function (un_familiar) { });
+                _this.Grilla.SetOnRowClickEventHandler(function (un_permiso) { });
                 _this.Grilla.CambiarEstiloCabecera("estilo_tabla_portal");
-                _this.Grilla.CargarObjetos(familiares);
+                _this.Grilla.CargarObjetos(perfiles);
                 _this.Grilla.DibujarEn(divGrilla);
                 $('.table-hover').removeClass("table-hover");
 
@@ -55,6 +70,9 @@ var Permisos = {
 
             });
 
+    },
+    EliminarPerfil: function (perfil) {
+        alert('¿Esta seguro de eliminar el Perfil?');
     },
     iniciarConsultaRapida: function () {
         var _this = this;
@@ -115,11 +133,11 @@ var Permisos = {
         var _this = this;
         _this.usuario = usuario;
         $("#panel_datos_usuario").show();
-       /* Backend.ElUsuarioLogueadoTienePermisosParaFuncionalidadPorNombre("mau_cambiar_permisos").onSuccess(function (tiene_permisos) {
-            if (tiene_permisos) {
-                _this.vista_permisos.setUsuario(usuario);
-                _this.vista_areas.setUsuario(usuario);
-            }
+        /* Backend.ElUsuarioLogueadoTienePermisosParaFuncionalidadPorNombre("mau_cambiar_permisos").onSuccess(function (tiene_permisos) {
+        if (tiene_permisos) {
+        _this.vista_permisos.setUsuario(usuario);
+        _this.vista_areas.setUsuario(usuario);
+        }
         });*/
         $("#nombre2").html(usuario.Owner.Nombre);
         $("#apellido2").html(usuario.Owner.Apellido);
@@ -162,8 +180,8 @@ var Permisos = {
                             alertify.alert("Se ha modificado la contraseña.", "La nueva contraseña para el usuario: "
                                                 + _this.usuario.Alias + " es: " + nueva_clave);
                         });
-                }
-                ,function () {
+            }
+                , function () {
                     alertify.alert("Modificación cancelada.");
                 }
             );
@@ -171,15 +189,15 @@ var Permisos = {
 
         $("#btn_modificar_mail").click(function () {
             alertify.prompt(' ', 'Ingrese el mail del usuario', '', function (evt, value) {
-                   Backend.ModificarMailRegistro(_this.usuario.Id, value).onSuccess(function () {
-                       alertify.success("Se ha modificado correctamente su mail");
-                       alertify.prompt().close();
-                       _this.lbl_email.text(value);
-                   }).onError(function () {
-                       alertify.error("Error al modificar el mail");
-                       alertify.prompt().close();
-                   });
-               }, function () { });
+                Backend.ModificarMailRegistro(_this.usuario.Id, value).onSuccess(function () {
+                    alertify.success("Se ha modificado correctamente su mail");
+                    alertify.prompt().close();
+                    _this.lbl_email.text(value);
+                }).onError(function () {
+                    alertify.error("Error al modificar el mail");
+                    alertify.prompt().close();
+                });
+            }, function () { });
         });
 
 
@@ -196,104 +214,41 @@ var Permisos = {
             });
         });
 
+    },
+    iniciarPantallaAsignacionPerfiles: function () {
+
+        var proveedor_ajax = new ProveedorAjax("../");
+        this.repositorioDeAreas = new RepositorioDeAreas(proveedor_ajax);
+
+        this.div_lista_areas = $("#lista_areas_para_consultar");
+
+        $("#comboPerfiles").change(function (e) {
+            alert($(this).val());
+
+            $("#perfilSeleccionado").html($("select option:selected").text());
+            $("#perfilSeleccionado").attr('class', $(this).val());
+            
+        });
+
+        this.selector_de_areas = new SelectorDeAreas({
+            ui: $("#selector_area_usuarios"),
+            repositorioDeAreas: this.repositorioDeAreas,
+            placeholder: "ingrese el área que desea buscar",
+            alSeleccionarUnArea: function (area) {
+
+                //alert(area.nombre);
+
+                var plantilla = $("#plantillaArea").clone();
+                plantilla.find("#areaSeleccionada").html(area.nombre);
+                plantilla.find("#checkIncluyeDependencias").val(area.id);
+
+                plantilla[0].id = area.id;
+
+
+                $("#listadoAreasElegidas").append(plantilla);
+            }
+        });
+
     }
-
-    /*AdministradorDeUsuarios.prototype.cargarUsuario = function (usuario) {
-    var _this = this;
-    this.usuario = usuario;
-    this.panel_datos_usuario.show();
-    Backend.ElUsuarioLogueadoTienePermisosParaFuncionalidadPorNombre("mau_cambiar_permisos").onSuccess(function (tiene_permisos) {
-        if (tiene_permisos) {
-            _this.vista_permisos.setUsuario(usuario);
-            _this.vista_areas.setUsuario(usuario);
-        }
-    });
-    this.lbl_nombre.text(usuario.Owner.Nombre);
-    this.lbl_apellido.text(usuario.Owner.Apellido);
-    this.lbl_documento.text(usuario.Owner.Documento);
-    this.lbl_legajo.text(usuario.Owner.Legajo);
-    this.lbl_email.text(usuario.MailRegistro);
-
-    if (usuario.Owner.IdImagen >= 0) {
-        var img = new VistaThumbnail({ id: usuario.Owner.IdImagen, contenedor: $("#foto_usuario") });
-        $("#foto_usuario").show();
-        $("#foto_usuario_generica").hide();
-    }
-    else {
-        $("#foto_usuario").hide();
-        $("#foto_usuario_generica").show();
-    }
-
-    $("#usuario_verificado").hide();
-    $("#usuario_no_verificado").hide();
-    $("#btn_verificar_usuario").hide();
-    $('#panel_personas_de_baja_con_permisos').insertAfter("#form1");
-    $('#panel_usuarios_por_area').insertAfter("#form1");
-
-    $('.dynatree-folder span.dynatree-checkbox').remove();
-
-    if (usuario.Verificado) $("#usuario_verificado").show();
-    else {
-        $("#usuario_no_verificado").show();
-        $("#btn_verificar_usuario").show();
-    }
-    this.txt_nombre_usuario.text(usuario.Alias);
-
-    $("#cambio_imagen_pendiente").hide();
-    Backend.ElUsuarioLogueadoTienePermisosParaFuncionalidadPorNombre("impresion_credencial").onSuccess(function (tiene_permisos) {
-        if (tiene_permisos) {
-            Backend.GetSolicitudesDeCambioDeImagenPendientesPara(usuario.Id).onSuccess(function (solicitudes) {
-                if (solicitudes.length > 0) {
-                    $("#cambio_imagen_pendiente").off("click");
-
-                    $("#cambio_imagen_pendiente").click(function () {
-
-                        vex.defaultOptions.className = 'vex-theme-os';
-                        vex.open({
-                            afterOpen: function ($vexContent) {
-                                var ui = $("#plantillas #pantalla_actualizacion_imagen").clone();
-                                var ultima_solicitud = solicitudes[solicitudes.length - 1];
-
-                                ui.find("#btn_aceptar_cambio_imagen")
-                                    .off("click")
-                                    .click(function () {
-                                        Backend.AceptarCambioDeImagen(usuario.Id).onSuccess(function () {
-                                            alertify.success('solicitud de cambio de imagen aceptada');
-                                            vex.close();
-                                        });
-                                    });
-                                ui.find("#btn_rechazar_cambio_imagen")
-                                    .off("click")
-                                    .click(function () {
-                                        Backend.RechazarCambioDeImagen(usuario.Id).onSuccess(function () {
-                                            alertify.success('solicitud de cambio de imagen rechazada');
-                                            vex.close();
-                                        });
-                                    });
-
-                                $vexContent.append(ui);
-                                ui.show();
-
-                                var vista_imagen_anterior = new VistaThumbnail({ id: ultima_solicitud.idImagenAnterior, contenedor: ui.find("#imagen_anterior") })
-                                var vista_imagen_nueva = new VistaThumbnail({ id: ultima_solicitud.idImagenNueva, contenedor: ui.find("#imagen_nueva") })
-                                return ui;
-                            },
-                            css: {
-                                'padding-top': "4%",
-                                'padding-bottom': "0%"
-                            },
-                            contentCSS: {
-                                width: "70%",
-                                height: "80%"
-                            }
-                        });
-                    });
-
-                    $("#cambio_imagen_pendiente").show();
-                }
-            });
-        }
-    });
-};*/
 
 }

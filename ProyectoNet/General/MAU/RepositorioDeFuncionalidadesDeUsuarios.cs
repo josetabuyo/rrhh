@@ -116,5 +116,65 @@ namespace General.MAU
                 this.ConcederFuncionalidadA(usuario.Id, f.Id, usuario.Id);
             });
         }
+
+        public List<MAU_Perfil> GetPerfilesActuales(int id_usuario)
+        {
+            var perfiles = new List<MAU_Perfil>();
+
+            MAU_Perfil unPerfil = new MAU_Perfil(1, "Responsable Control Asistencia");
+            MAU_Perfil unPerfil1 = new MAU_Perfil(1, "Responsable Control Asistencia");
+            MAU_Perfil unPerfil2 = new MAU_Perfil(2, "Reportes Dotacion Nivel 1");
+            MAU_Perfil unPerfil3 = new MAU_Perfil(3, "Administrador de Medialunas");
+
+            Area area1 = new Area(1, "Direccion General de Recursos Humanos");
+            area1.IncluyeDependencias = 1;
+            Area area2 = new Area(2, "Centro de Referencia Mendoza");
+            area2.IncluyeDependencias = 0;
+            Area area3 = new Area(3, "Programa Alimentario Mendoza");
+            area3.IncluyeDependencias = 1;
+
+            unPerfil.Areas.Add(area1);
+            unPerfil1.Areas.Add(area2);
+            unPerfil.Areas.Add(area3);
+            unPerfil.Areas.Add(area2);
+
+            unPerfil2.Areas.Add(area1);
+            unPerfil3.Areas.Add(area3);
+
+            perfiles.Add(unPerfil);
+            perfiles.Add(unPerfil1);
+            perfiles.Add(unPerfil2);
+            perfiles.Add(unPerfil3);
+
+            /*
+           
+            var tablaDatos = conexion.Ejecutar("dbo.MAU_GetPerfiles");
+             * 
+             * var parametros = new Dictionary<string, object>();
+            parametros.Add("@Id_usuario", id_usuario);
+            var tablaDatos = conexion.Ejecutar("dbo.MAU_GET_FuncionalidadesPerfilesAreas", parametros);
+
+            
+            tablaDatos.Rows.ForEach(row =>
+            {
+                Perfil perfil;
+                try
+                {
+                    perfil = new Perfil(row.GetInt("Id"), row.GetString("Nombre"));
+
+                    perfiles.Add(perfil);
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            });*/
+
+
+            return perfiles;
+
+            /*RepositorioDeUsuarios repositorioDeUsuarios = new RepositorioDeUsuarios(conexion, RepositorioDePersonas.NuevoRepositorioDePersonas(conexion));
+            return this.Obtener().FindAll(p => p.Value == id_funcionalidad).Select(p => repositorioDeUsuarios.GetUsuarioPorId(p.Key)).ToList();*/
+        }
     }
 }

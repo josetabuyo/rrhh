@@ -26,8 +26,8 @@
             
                 <div class="caja_der papel">
             
-                    <legend style="margin-top: 20px;">DATOS FAMILIARES</legend>
-                    <div id="tabla_familiar">
+                    <legend style="margin-top: 20px;">PERFILES ACTUALES</legend>
+                    <div id="tabla_permisos">
     
                     </div>
 
@@ -48,8 +48,8 @@
         Backend.start(function () {
             //para cargar el menu izquierdo 
             $(".caja_izq").load("SeccionIzquierda.htm", function () {
-                
-                Permisos.getDatosFamiliares();
+
+                Permisos.getPerfiles(311);
                 
 
             });

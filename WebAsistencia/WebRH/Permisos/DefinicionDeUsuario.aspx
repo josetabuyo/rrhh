@@ -14,7 +14,7 @@
         <link rel="stylesheet"  href="estilosPermisos.css" />
         <link rel="stylesheet" href="Permisos.css" type="text/css"/>    
         <link rel="stylesheet" href="../estilos/SelectorDePersonas.css" type="text/css"/>    
-        <link rel="stylesheet" href="../estilos/SelectorDeAreas.css" type="text/css"/>    
+         
         <link href="../scripts/vex-2.1.1/css/vex.css" rel="stylesheet">
         <link href="../scripts/vex-2.1.1/css/vex-theme-os.css" rel="stylesheet">
 
@@ -113,8 +113,7 @@
     </form>
 </body>
 
-<script type="text/javascript" src="../MAU/VistaDeAreasAdministradas.js"></script>
-<script type="text/javascript" src="../MAU/VistaDeAreaAdministrada.js"></script>
+
 <script type="text/javascript" src="../MAU/VistaDePermisosDeUnUsuario.js"></script>
 <script type="text/javascript" src="../MAU/Autorizador.js"></script>
 <script type="text/javascript" src="../MAU/RepositorioDeFuncionalidades.js"></script>
@@ -128,9 +127,8 @@
 <script type="text/javascript" src="../Scripts/RepositorioDePersonas.js"></script>
 <script type="text/javascript" src="../Scripts/Persona.js"></script>
 <script type="text/javascript" src="../Scripts/SelectorDePersonas.js"></script>
-<script type="text/javascript" src="../Scripts/SelectorDeAreas.js"></script>
-<script type="text/javascript" src="../Scripts/RepositorioDeAreas.js"></script>
-<script type="text/javascript" src="../Scripts/Area.js"></script>
+
+
 <script type="text/javascript" src="../Scripts/alertify.js"></script>
 <script type="text/javascript" src="../Scripts/ControlesImagenes/VistaThumbnail.js"></script>
 <script type="text/javascript" src="../scripts/vex-2.1.1/js/vex.combined.min.js"></script>

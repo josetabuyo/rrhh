@@ -3022,6 +3022,14 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public General.MAU.MAU_Perfil[] GetPerfilesActuales(int id_usuario, Usuario usuario)
+    {
+        //var usu = RepositorioDeUsuarios().GetUsuarioPorId(id_usuario);
+        var perfiles = RepositorioDeFuncionalidadesDeUsuarios().GetPerfilesActuales(id_usuario).ToArray();
+        return perfiles;
+    }
+
+    [WebMethod]
     public Funcionalidad[] FuncionalidadesOtorgadasA(int id_usuario)   //tira las funcionalidades tildadas en MAU, independientemente de otras verificaciones
     {
         var usuario = RepositorioDeUsuarios().GetUsuarioPorId(id_usuario);
@@ -4154,7 +4162,7 @@ public class WSViaticos : System.Web.Services.WebService
     //}
 
     [WebMethod]
-    public Perfil[] GetCvPerfiles()
+    public General.Perfil[] GetCvPerfiles()
     {
         return RepoPerfiles().GetPerfiles().ToArray();
     }
