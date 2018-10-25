@@ -5395,6 +5395,53 @@ public class WSViaticos : System.Web.Services.WebService
         return RepositorioServAdm.GetServicios_Adm_Publica_Principal(nroDocumento, usuario).ToArray();
     }
 
-    
+
+    [WebMethod]
+    public Serv_Adm_Publica_Privada[] GetOtrosServicios(int nroDocumento, Usuario usuario)
+    {
+        var RepositorioServAdm = new RepositorioServicios();
+        return RepositorioServAdm.GetOtrosServicios(nroDocumento, usuario).ToArray();
+    }
+
+
+    [WebMethod]
+    public GeneralCombos[] GetAmbitos()
+    {
+        var RepositorioServAdm = new RepositorioServicios();
+
+        var Lista = RepositorioServAdm.GetAmbitos();
+
+        List<GeneralCombos> ambitos = new List<GeneralCombos>();
+
+        foreach (var item in Lista)
+        {
+            ambitos.Add(new GeneralCombos() { id = item.id, descripcion = item.descripcion });
+        }
+
+        return ambitos.ToArray();
+    }
+
+
+    [WebMethod]
+    public GeneralCombos[] GetCargos()
+    {
+        var RepositorioServAdm = new RepositorioServicios();
+
+        var Lista = RepositorioServAdm.GetCargos();
+
+        List<GeneralCombos> cargo = new List<GeneralCombos>();
+
+        foreach (var item in Lista)
+        {
+            cargo.Add(new GeneralCombos() { id = item.id, descripcion = item.descripcion });
+        }
+
+        return cargo.ToArray();
+    }
+
+
+
+
+
 
 }

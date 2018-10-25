@@ -1,0 +1,706 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://ar.gob.gcaba.ee.services.external/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="IConsultaExpedienteService" targetNamespace="http://ar.gob.gcaba.ee.services.external/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://ar.gob.gcaba.ee.services.external/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="consultaEE" type="tns:consultaEE" />
+      <xs:element name="consultaEEDetallado" type="tns:consultaEEDetallado" />
+      <xs:element name="consultaEEDetalladoResponse" type="tns:consultaEEDetalladoResponse" />
+      <xs:element name="consultaEEResponse" type="tns:consultaEEResponse" />
+      <xs:element name="consultaExpedientesPorSistemaOrigenReparticion" type="tns:consultaExpedientesPorSistemaOrigenReparticion" />
+      <xs:element name="consultaExpedientesPorSistemaOrigenReparticionResponse" type="tns:consultaExpedientesPorSistemaOrigenReparticionResponse" />
+      <xs:element name="consultaExpedientesPorSistemaOrigenUsuario" type="tns:consultaExpedientesPorSistemaOrigenUsuario" />
+      <xs:element name="consultaExpedientesPorSistemaOrigenUsuarioResponse" type="tns:consultaExpedientesPorSistemaOrigenUsuarioResponse" />
+      <xs:element name="consultaIdFCPorExpediente" type="tns:consultaIdFCPorExpediente" />
+      <xs:element name="consultaIdFCPorExpedienteResponse" type="tns:consultaIdFCPorExpedienteResponse" />
+      <xs:element name="consultarDatosExpedientePorCodigosDeTrata" type="tns:consultarDatosExpedientePorCodigosDeTrata" />
+      <xs:element name="consultarDatosExpedientePorCodigosDeTrataResponse" type="tns:consultarDatosExpedientePorCodigosDeTrataResponse" />
+      <xs:element name="obtenerCaratulaPorCodigoEE" type="tns:obtenerCaratulaPorCodigoEE" />
+      <xs:element name="obtenerCaratulaPorCodigoEEResponse" type="tns:obtenerCaratulaPorCodigoEEResponse" />
+      <xs:element name="obtenerCaratulaPorNumeroExpediente" type="tns:obtenerCaratulaPorNumeroExpediente" />
+      <xs:element name="obtenerCaratulaPorNumeroExpedienteResponse" type="tns:obtenerCaratulaPorNumeroExpedienteResponse" />
+      <xs:element name="obtenerDatosCaratulaVariable" type="tns:obtenerDatosCaratulaVariable" />
+      <xs:element name="obtenerDatosCaratulaVariableResponse" type="tns:obtenerDatosCaratulaVariableResponse" />
+      <xs:element name="obtenerDocumentoCaratulaVariable" type="tns:obtenerDocumentoCaratulaVariable" />
+      <xs:element name="obtenerDocumentoCaratulaVariableResponse" type="tns:obtenerDocumentoCaratulaVariableResponse" />
+      <xs:element name="obtenerEEPorIdSistemaExterno" type="tns:obtenerEEPorIdSistemaExterno" />
+      <xs:element name="obtenerEEPorIdSistemaExternoResponse" type="tns:obtenerEEPorIdSistemaExternoResponse" />
+      <xs:element name="obtenerHistorialDePasesDeExpediente" type="tns:obtenerHistorialDePasesDeExpediente" />
+      <xs:element name="obtenerHistorialDePasesDeExpedienteResponse" type="tns:obtenerHistorialDePasesDeExpedienteResponse" />
+      <xs:element name="validarEE" type="tns:validarEE" />
+      <xs:element name="validarEEResponse" type="tns:validarEEResponse" />
+      <xs:complexType name="obtenerDocumentoCaratulaVariable">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="codigoEE" type="xs:string" />
+          <xs:element minOccurs="0" name="usuario" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="obtenerDocumentoCaratulaVariableResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="xs:base64Binary" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="obtenerCaratulaPorNumeroExpediente">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="expedienteCodigo" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="obtenerCaratulaPorNumeroExpedienteResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:consultaExpedienteResponse" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="consultaExpedienteResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="codigoDocCaratula" type="xs:string" />
+          <xs:element minOccurs="0" name="codigoEE" type="xs:string" />
+          <xs:element minOccurs="0" name="codigotrata" type="xs:string" />
+          <xs:element minOccurs="0" name="descripcionTrata" type="xs:string" />
+          <xs:element minOccurs="0" name="estado" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="listArchivosAdjuntos" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="listDocumentosOficiales" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="listExpedientesAsociados" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="listaDatosTarea" nillable="true" type="tns:datosTareaBean" />
+          <xs:element minOccurs="0" name="motivo" type="xs:string" />
+          <xs:element minOccurs="0" name="sistemaOrigen" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="datosTareaBean">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="codigoExpediente" type="xs:string" />
+          <xs:element minOccurs="0" name="codigoTrata" type="xs:string" />
+          <xs:element minOccurs="0" name="descripcionTrata" type="xs:string" />
+          <xs:element minOccurs="0" name="estado" type="xs:string" />
+          <xs:element minOccurs="0" name="fechaModificacion" type="xs:string" />
+          <xs:element minOccurs="0" name="motivo" type="xs:string" />
+          <xs:element minOccurs="0" name="usuarioAnterior" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="consultaIdFCPorExpediente">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="codigoEE" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="consultaIdFCPorExpedienteResponse">
+        <xs:sequence>
+          <xs:element name="return" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="obtenerHistorialDePasesDeExpediente">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="codigoEE" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="obtenerHistorialDePasesDeExpedienteResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:historialDePasesResponse" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="historialDePasesResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="documentosVinculados" nillable="true" type="tns:documentosVinculadosResponse" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="expedientesAsociados" nillable="true" type="tns:expedienteAsociadoResponse" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="expedientesFusionAsociados" nillable="true" type="tns:expedientesFusionResponse" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="expedientesVinculados" nillable="true" type="tns:expedientesVinculadosResponse" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="historialDeOperacion" nillable="true" type="tns:historialDeOperacionResponse" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="documentosVinculadosResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="fechaCreacion" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="fechavinculacionDefinitiva" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="numeroEspecialDocumento" type="xs:string" />
+          <xs:element minOccurs="0" name="numeroSadeDocumento" type="xs:string" />
+          <xs:element minOccurs="0" name="referencia" type="xs:string" />
+          <xs:element minOccurs="0" name="tipodeDocumento" type="xs:string" />
+          <xs:element minOccurs="0" name="usuarioAsociacion" type="xs:string" />
+          <xs:element minOccurs="0" name="usuarioGenerador" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="expedienteAsociadoResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="codigoExpediente" type="xs:string" />
+          <xs:element minOccurs="0" name="descTrataExAsociado" type="xs:string" />
+          <xs:element minOccurs="0" name="estadoExpedienteAsociado" type="xs:string" />
+          <xs:element minOccurs="0" name="fechaAsociacion" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="trataExpedienteASociado" type="xs:string" />
+          <xs:element minOccurs="0" name="usuarioAsociador" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="expedientesFusionResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="codigoExpediente" type="xs:string" />
+          <xs:element minOccurs="0" name="codigoTrata" type="xs:string" />
+          <xs:element minOccurs="0" name="descripcionTrata" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="expedientesVinculadosResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="codigoExpediente" type="xs:string" />
+          <xs:element minOccurs="0" name="descTrataExVinculado" type="xs:string" />
+          <xs:element minOccurs="0" name="estadoExpedienteVinculado" type="xs:string" />
+          <xs:element minOccurs="0" name="fechaVinculacion" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="trataExpedienteVinculado" type="xs:string" />
+          <xs:element minOccurs="0" name="usuarioVinculador" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="historialDeOperacionResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="destinatario" type="xs:string" />
+          <xs:element minOccurs="0" name="destinoPaseCodigoReparticion" type="xs:string" />
+          <xs:element minOccurs="0" name="destinoPaseCodigoSector" type="xs:string" />
+          <xs:element minOccurs="0" name="destinoPaseDescripcionReparticion" type="xs:string" />
+          <xs:element minOccurs="0" name="destinoPaseDescripcionSector" type="xs:string" />
+          <xs:element minOccurs="0" name="estado" type="xs:string" />
+          <xs:element minOccurs="0" name="expediente" type="xs:string" />
+          <xs:element minOccurs="0" name="fechaOperacion" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="idExpediente" type="xs:int" />
+          <xs:element minOccurs="0" name="motivo" type="xs:string" />
+          <xs:element minOccurs="0" name="origenPaseCodigoReparticion" type="xs:string" />
+          <xs:element minOccurs="0" name="origenPaseCodigoSector" type="xs:string" />
+          <xs:element minOccurs="0" name="origenPaseDescripcionReparticion" type="xs:string" />
+          <xs:element minOccurs="0" name="origenPaseDescripcionSector" type="xs:string" />
+          <xs:element minOccurs="0" name="tipoOperacion" type="xs:string" />
+          <xs:element minOccurs="0" name="usuario" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="consultaExpedientesPorSistemaOrigenUsuario">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="sistemaOrigen" type="xs:string" />
+          <xs:element minOccurs="0" name="usuario" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="consultaExpedientesPorSistemaOrigenUsuarioResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="consultaEEDetallado">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="codigoEE" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="consultaEEDetalladoResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:consultaExpedienteResponseDetallado" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="consultaExpedienteResponseDetallado">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:consultaExpedienteResponse">
+            <xs:sequence>
+              <xs:element minOccurs="0" maxOccurs="unbounded" name="datoVariable" nillable="true" type="tns:expedienteMetadataExternal" />
+              <xs:element minOccurs="0" name="descripcionTramite" type="xs:string" />
+              <xs:element minOccurs="0" name="f_caratulacion" type="xs:dateTime" />
+              <xs:element minOccurs="0" maxOccurs="unbounded" name="listaExpedientesAsociados" nillable="true" type="tns:expedienteAsociadoDTO" />
+              <xs:element minOccurs="0" maxOccurs="unbounded" name="listaExpedientesAsociadosFusion" nillable="true" type="tns:expedienteAsociadoDTO" />
+              <xs:element minOccurs="0" maxOccurs="unbounded" name="listaExpedientesAsociadosTC" nillable="true" type="tns:expedienteAsociadoDTO" />
+              <xs:element minOccurs="0" name="sectorDestino" type="xs:string" />
+              <xs:element minOccurs="0" name="usuarioCaratulador" type="xs:string" />
+              <xs:element minOccurs="0" name="usuarioDestino" type="xs:string" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="expedienteMetadataExternal">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="nombreMetadata" type="xs:string" />
+          <xs:element name="obligatoriedadMetadata" type="xs:boolean" />
+          <xs:element name="ordenMetadata" type="xs:int" />
+          <xs:element minOccurs="0" name="tipoMetadata" type="xs:int" />
+          <xs:element minOccurs="0" name="valorMetadata" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="expedienteAsociadoDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="esCabecera" type="xs:boolean" />
+          <xs:element minOccurs="0" name="numeroSade" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="obtenerEEPorIdSistemaExterno">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="sistemaOrigen" type="xs:string" />
+          <xs:element minOccurs="0" name="idSistemaExterno" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="obtenerEEPorIdSistemaExternoResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="consultaEE">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="codigoEE" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="consultaEEResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:consultaExpedienteResponse" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="consultarDatosExpedientePorCodigosDeTrata">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="listaDeCodigosTrata" type="xs:string" />
+          <xs:element minOccurs="0" name="expedienteEstado" type="xs:string" />
+          <xs:element minOccurs="0" name="expedienteUsuarioAsignado" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="consultarDatosExpedientePorCodigosDeTrataResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:consultaExpedienteResponse" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="obtenerDatosCaratulaVariable">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="codigoEE" type="xs:string" />
+          <xs:element minOccurs="0" name="usuario" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="obtenerDatosCaratulaVariableResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:caratulaVariableResponse" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="caratulaVariableResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="campos" nillable="true" type="tns:campoFFCCDTO" />
+          <xs:element minOccurs="0" name="nombre" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="campoFFCCDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="campo" type="xs:string" />
+          <xs:element minOccurs="0" name="valor" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="validarEE">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="codigoEE" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="validarEEResponse">
+        <xs:sequence>
+          <xs:element name="return" type="xs:boolean" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="obtenerCaratulaPorCodigoEE">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="request" type="tns:obtenerCaratulaPorCodigoEERequest" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="obtenerCaratulaPorCodigoEERequest">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="codigoEE" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="obtenerCaratulaPorCodigoEEResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:ObtenerCaratulaPorCodigoEEResponse" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ObtenerCaratulaPorCodigoEEResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="dtoDatosCaratula" type="tns:dtoDatosCaratula" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="dtoDatosCaratula">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="apellidoSolicitante" type="xs:string" />
+          <xs:element minOccurs="0" name="barrioElectoral" type="xs:string" />
+          <xs:element minOccurs="0" name="ciudadElectoral" type="xs:string" />
+          <xs:element minOccurs="0" name="codigoPostal" type="xs:string" />
+          <xs:element minOccurs="0" name="codigoPostalElectoral" type="xs:string" />
+          <xs:element minOccurs="0" name="cuitCuil" type="xs:string" />
+          <xs:element minOccurs="0" name="departamento" type="xs:string" />
+          <xs:element minOccurs="0" name="departamentoElectoral" type="xs:string" />
+          <xs:element minOccurs="0" name="departamento_provincia" type="xs:string" />
+          <xs:element minOccurs="0" name="direccionElectoral" type="xs:string" />
+          <xs:element minOccurs="0" name="domicilio" type="xs:string" />
+          <xs:element minOccurs="0" name="esPersonaJuridica" type="xs:boolean" />
+          <xs:element minOccurs="0" name="localidad" type="xs:string" />
+          <xs:element minOccurs="0" name="mail" type="xs:string" />
+          <xs:element minOccurs="0" name="monoblockElectoral" type="xs:string" />
+          <xs:element minOccurs="0" name="municipioElectoral" type="xs:string" />
+          <xs:element minOccurs="0" name="nombreSolicitante" type="xs:string" />
+          <xs:element minOccurs="0" name="numeroDocumento" type="xs:string" />
+          <xs:element minOccurs="0" name="numeroSadeDocumentoCaratula" type="xs:string" />
+          <xs:element minOccurs="0" name="observaciones" type="xs:string" />
+          <xs:element minOccurs="0" name="pais" type="xs:string" />
+          <xs:element minOccurs="0" name="paisElectoral" type="xs:string" />
+          <xs:element minOccurs="0" name="piso" type="xs:string" />
+          <xs:element minOccurs="0" name="pisoElectoral" type="xs:string" />
+          <xs:element minOccurs="0" name="provincia" type="xs:string" />
+          <xs:element minOccurs="0" name="provinciaElectoral" type="xs:string" />
+          <xs:element minOccurs="0" name="razonSocialSolicitante" type="xs:string" />
+          <xs:element minOccurs="0" name="segundoApellidoSolicitante" type="xs:string" />
+          <xs:element minOccurs="0" name="segundoNombreSolicitante" type="xs:string" />
+          <xs:element minOccurs="0" name="sexo" type="xs:string" />
+          <xs:element minOccurs="0" name="telefono" type="xs:string" />
+          <xs:element minOccurs="0" name="tercerApellidoSolicitante" type="xs:string" />
+          <xs:element minOccurs="0" name="tercerNombreSolicitante" type="xs:string" />
+          <xs:element minOccurs="0" name="tipoDocumento" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="consultaExpedientesPorSistemaOrigenReparticion">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="sistemaOrigen" type="xs:string" />
+          <xs:element minOccurs="0" name="reparticion" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="consultaExpedientesPorSistemaOrigenReparticionResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ParametroIncorrectoException" type="tns:ParametroIncorrectoException" />
+      <xs:complexType name="ParametroIncorrectoException">
+        <xs:sequence />
+      </xs:complexType>
+      <xs:element name="ProcesoFallidoException" type="tns:ProcesoFallidoException" />
+      <xs:complexType name="ProcesoFallidoException">
+        <xs:sequence />
+      </xs:complexType>
+      <xs:element name="ExpedienteInexistenteException" type="tns:ExpedienteInexistenteException" />
+      <xs:complexType name="ExpedienteInexistenteException">
+        <xs:sequence />
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="ProcesoFallidoException">
+    <wsdl:part name="ProcesoFallidoException" element="tns:ProcesoFallidoException" />
+  </wsdl:message>
+  <wsdl:message name="obtenerHistorialDePasesDeExpedienteResponse">
+    <wsdl:part name="parameters" element="tns:obtenerHistorialDePasesDeExpedienteResponse" />
+  </wsdl:message>
+  <wsdl:message name="obtenerDocumentoCaratulaVariableResponse">
+    <wsdl:part name="parameters" element="tns:obtenerDocumentoCaratulaVariableResponse" />
+  </wsdl:message>
+  <wsdl:message name="ParametroIncorrectoException">
+    <wsdl:part name="ParametroIncorrectoException" element="tns:ParametroIncorrectoException" />
+  </wsdl:message>
+  <wsdl:message name="consultaEEDetallado">
+    <wsdl:part name="parameters" element="tns:consultaEEDetallado" />
+  </wsdl:message>
+  <wsdl:message name="obtenerCaratulaPorCodigoEE">
+    <wsdl:part name="parameters" element="tns:obtenerCaratulaPorCodigoEE" />
+  </wsdl:message>
+  <wsdl:message name="obtenerDatosCaratulaVariable">
+    <wsdl:part name="parameters" element="tns:obtenerDatosCaratulaVariable" />
+  </wsdl:message>
+  <wsdl:message name="validarEE">
+    <wsdl:part name="parameters" element="tns:validarEE" />
+  </wsdl:message>
+  <wsdl:message name="consultaExpedientesPorSistemaOrigenUsuario">
+    <wsdl:part name="parameters" element="tns:consultaExpedientesPorSistemaOrigenUsuario" />
+  </wsdl:message>
+  <wsdl:message name="consultaIdFCPorExpediente">
+    <wsdl:part name="parameters" element="tns:consultaIdFCPorExpediente" />
+  </wsdl:message>
+  <wsdl:message name="obtenerCaratulaPorNumeroExpediente">
+    <wsdl:part name="parameters" element="tns:obtenerCaratulaPorNumeroExpediente" />
+  </wsdl:message>
+  <wsdl:message name="consultaExpedientesPorSistemaOrigenReparticion">
+    <wsdl:part name="parameters" element="tns:consultaExpedientesPorSistemaOrigenReparticion" />
+  </wsdl:message>
+  <wsdl:message name="obtenerEEPorIdSistemaExterno">
+    <wsdl:part name="parameters" element="tns:obtenerEEPorIdSistemaExterno" />
+  </wsdl:message>
+  <wsdl:message name="validarEEResponse">
+    <wsdl:part name="parameters" element="tns:validarEEResponse" />
+  </wsdl:message>
+  <wsdl:message name="obtenerCaratulaPorNumeroExpedienteResponse">
+    <wsdl:part name="parameters" element="tns:obtenerCaratulaPorNumeroExpedienteResponse" />
+  </wsdl:message>
+  <wsdl:message name="obtenerEEPorIdSistemaExternoResponse">
+    <wsdl:part name="parameters" element="tns:obtenerEEPorIdSistemaExternoResponse" />
+  </wsdl:message>
+  <wsdl:message name="consultarDatosExpedientePorCodigosDeTrataResponse">
+    <wsdl:part name="parameters" element="tns:consultarDatosExpedientePorCodigosDeTrataResponse" />
+  </wsdl:message>
+  <wsdl:message name="consultaExpedientesPorSistemaOrigenReparticionResponse">
+    <wsdl:part name="parameters" element="tns:consultaExpedientesPorSistemaOrigenReparticionResponse" />
+  </wsdl:message>
+  <wsdl:message name="consultaEEResponse">
+    <wsdl:part name="parameters" element="tns:consultaEEResponse" />
+  </wsdl:message>
+  <wsdl:message name="consultarDatosExpedientePorCodigosDeTrata">
+    <wsdl:part name="parameters" element="tns:consultarDatosExpedientePorCodigosDeTrata" />
+  </wsdl:message>
+  <wsdl:message name="consultaEE">
+    <wsdl:part name="parameters" element="tns:consultaEE" />
+  </wsdl:message>
+  <wsdl:message name="obtenerDatosCaratulaVariableResponse">
+    <wsdl:part name="parameters" element="tns:obtenerDatosCaratulaVariableResponse" />
+  </wsdl:message>
+  <wsdl:message name="ExpedienteInexistenteException">
+    <wsdl:part name="ExpedienteInexistenteException" element="tns:ExpedienteInexistenteException" />
+  </wsdl:message>
+  <wsdl:message name="consultaIdFCPorExpedienteResponse">
+    <wsdl:part name="parameters" element="tns:consultaIdFCPorExpedienteResponse" />
+  </wsdl:message>
+  <wsdl:message name="obtenerCaratulaPorCodigoEEResponse">
+    <wsdl:part name="parameters" element="tns:obtenerCaratulaPorCodigoEEResponse" />
+  </wsdl:message>
+  <wsdl:message name="consultaEEDetalladoResponse">
+    <wsdl:part name="parameters" element="tns:consultaEEDetalladoResponse" />
+  </wsdl:message>
+  <wsdl:message name="consultaExpedientesPorSistemaOrigenUsuarioResponse">
+    <wsdl:part name="parameters" element="tns:consultaExpedientesPorSistemaOrigenUsuarioResponse" />
+  </wsdl:message>
+  <wsdl:message name="obtenerDocumentoCaratulaVariable">
+    <wsdl:part name="parameters" element="tns:obtenerDocumentoCaratulaVariable" />
+  </wsdl:message>
+  <wsdl:message name="obtenerHistorialDePasesDeExpediente">
+    <wsdl:part name="parameters" element="tns:obtenerHistorialDePasesDeExpediente" />
+  </wsdl:message>
+  <wsdl:portType name="IConsultaExpedienteService">
+    <wsdl:operation name="obtenerDocumentoCaratulaVariable">
+      <wsdl:input name="obtenerDocumentoCaratulaVariable" message="tns:obtenerDocumentoCaratulaVariable" />
+      <wsdl:output name="obtenerDocumentoCaratulaVariableResponse" message="tns:obtenerDocumentoCaratulaVariableResponse" />
+      <wsdl:fault name="ParametroIncorrectoException" message="tns:ParametroIncorrectoException" />
+    </wsdl:operation>
+    <wsdl:operation name="obtenerCaratulaPorNumeroExpediente">
+      <wsdl:input name="obtenerCaratulaPorNumeroExpediente" message="tns:obtenerCaratulaPorNumeroExpediente" />
+      <wsdl:output name="obtenerCaratulaPorNumeroExpedienteResponse" message="tns:obtenerCaratulaPorNumeroExpedienteResponse" />
+      <wsdl:fault name="ProcesoFallidoException" message="tns:ProcesoFallidoException" />
+    </wsdl:operation>
+    <wsdl:operation name="consultaIdFCPorExpediente">
+      <wsdl:input name="consultaIdFCPorExpediente" message="tns:consultaIdFCPorExpediente" />
+      <wsdl:output name="consultaIdFCPorExpedienteResponse" message="tns:consultaIdFCPorExpedienteResponse" />
+      <wsdl:fault name="ExpedienteInexistenteException" message="tns:ExpedienteInexistenteException" />
+      <wsdl:fault name="ParametroIncorrectoException" message="tns:ParametroIncorrectoException" />
+    </wsdl:operation>
+    <wsdl:operation name="obtenerHistorialDePasesDeExpediente">
+      <wsdl:input name="obtenerHistorialDePasesDeExpediente" message="tns:obtenerHistorialDePasesDeExpediente" />
+      <wsdl:output name="obtenerHistorialDePasesDeExpedienteResponse" message="tns:obtenerHistorialDePasesDeExpedienteResponse" />
+      <wsdl:fault name="ParametroIncorrectoException" message="tns:ParametroIncorrectoException" />
+    </wsdl:operation>
+    <wsdl:operation name="consultaExpedientesPorSistemaOrigenUsuario">
+      <wsdl:input name="consultaExpedientesPorSistemaOrigenUsuario" message="tns:consultaExpedientesPorSistemaOrigenUsuario" />
+      <wsdl:output name="consultaExpedientesPorSistemaOrigenUsuarioResponse" message="tns:consultaExpedientesPorSistemaOrigenUsuarioResponse" />
+      <wsdl:fault name="ParametroIncorrectoException" message="tns:ParametroIncorrectoException" />
+    </wsdl:operation>
+    <wsdl:operation name="consultaEEDetallado">
+      <wsdl:input name="consultaEEDetallado" message="tns:consultaEEDetallado" />
+      <wsdl:output name="consultaEEDetalladoResponse" message="tns:consultaEEDetalladoResponse" />
+      <wsdl:fault name="ExpedienteInexistenteException" message="tns:ExpedienteInexistenteException" />
+      <wsdl:fault name="ProcesoFallidoException" message="tns:ProcesoFallidoException" />
+      <wsdl:fault name="ParametroIncorrectoException" message="tns:ParametroIncorrectoException" />
+    </wsdl:operation>
+    <wsdl:operation name="obtenerEEPorIdSistemaExterno">
+      <wsdl:input name="obtenerEEPorIdSistemaExterno" message="tns:obtenerEEPorIdSistemaExterno" />
+      <wsdl:output name="obtenerEEPorIdSistemaExternoResponse" message="tns:obtenerEEPorIdSistemaExternoResponse" />
+      <wsdl:fault name="ExpedienteInexistenteException" message="tns:ExpedienteInexistenteException" />
+      <wsdl:fault name="ParametroIncorrectoException" message="tns:ParametroIncorrectoException" />
+    </wsdl:operation>
+    <wsdl:operation name="consultaEE">
+      <wsdl:input name="consultaEE" message="tns:consultaEE" />
+      <wsdl:output name="consultaEEResponse" message="tns:consultaEEResponse" />
+      <wsdl:fault name="ExpedienteInexistenteException" message="tns:ExpedienteInexistenteException" />
+      <wsdl:fault name="ProcesoFallidoException" message="tns:ProcesoFallidoException" />
+      <wsdl:fault name="ParametroIncorrectoException" message="tns:ParametroIncorrectoException" />
+    </wsdl:operation>
+    <wsdl:operation name="consultarDatosExpedientePorCodigosDeTrata">
+      <wsdl:input name="consultarDatosExpedientePorCodigosDeTrata" message="tns:consultarDatosExpedientePorCodigosDeTrata" />
+      <wsdl:output name="consultarDatosExpedientePorCodigosDeTrataResponse" message="tns:consultarDatosExpedientePorCodigosDeTrataResponse" />
+      <wsdl:fault name="ProcesoFallidoException" message="tns:ProcesoFallidoException" />
+    </wsdl:operation>
+    <wsdl:operation name="obtenerDatosCaratulaVariable">
+      <wsdl:input name="obtenerDatosCaratulaVariable" message="tns:obtenerDatosCaratulaVariable" />
+      <wsdl:output name="obtenerDatosCaratulaVariableResponse" message="tns:obtenerDatosCaratulaVariableResponse" />
+      <wsdl:fault name="ParametroIncorrectoException" message="tns:ParametroIncorrectoException" />
+    </wsdl:operation>
+    <wsdl:operation name="validarEE">
+      <wsdl:input name="validarEE" message="tns:validarEE" />
+      <wsdl:output name="validarEEResponse" message="tns:validarEEResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="obtenerCaratulaPorCodigoEE">
+      <wsdl:input name="obtenerCaratulaPorCodigoEE" message="tns:obtenerCaratulaPorCodigoEE" />
+      <wsdl:output name="obtenerCaratulaPorCodigoEEResponse" message="tns:obtenerCaratulaPorCodigoEEResponse" />
+      <wsdl:fault name="ProcesoFallidoException" message="tns:ProcesoFallidoException" />
+    </wsdl:operation>
+    <wsdl:operation name="consultaExpedientesPorSistemaOrigenReparticion">
+      <wsdl:input name="consultaExpedientesPorSistemaOrigenReparticion" message="tns:consultaExpedientesPorSistemaOrigenReparticion" />
+      <wsdl:output name="consultaExpedientesPorSistemaOrigenReparticionResponse" message="tns:consultaExpedientesPorSistemaOrigenReparticionResponse" />
+      <wsdl:fault name="ParametroIncorrectoException" message="tns:ParametroIncorrectoException" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="IConsultaExpedienteServiceSoapBinding" type="tns:IConsultaExpedienteService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="obtenerDocumentoCaratulaVariable">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="obtenerDocumentoCaratulaVariable">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="obtenerDocumentoCaratulaVariableResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="ParametroIncorrectoException">
+        <soap:fault use="literal" name="ParametroIncorrectoException" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="consultaIdFCPorExpediente">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="consultaIdFCPorExpediente">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="consultaIdFCPorExpedienteResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="ExpedienteInexistenteException">
+        <soap:fault use="literal" name="ExpedienteInexistenteException" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="ParametroIncorrectoException">
+        <soap:fault use="literal" name="ParametroIncorrectoException" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="obtenerCaratulaPorNumeroExpediente">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="obtenerCaratulaPorNumeroExpediente">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="obtenerCaratulaPorNumeroExpedienteResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="ProcesoFallidoException">
+        <soap:fault use="literal" name="ProcesoFallidoException" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="consultaExpedientesPorSistemaOrigenUsuario">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="consultaExpedientesPorSistemaOrigenUsuario">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="consultaExpedientesPorSistemaOrigenUsuarioResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="ParametroIncorrectoException">
+        <soap:fault use="literal" name="ParametroIncorrectoException" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="obtenerHistorialDePasesDeExpediente">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="obtenerHistorialDePasesDeExpediente">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="obtenerHistorialDePasesDeExpedienteResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="ParametroIncorrectoException">
+        <soap:fault use="literal" name="ParametroIncorrectoException" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="consultaEEDetallado">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="consultaEEDetallado">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="consultaEEDetalladoResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="ExpedienteInexistenteException">
+        <soap:fault use="literal" name="ExpedienteInexistenteException" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="ProcesoFallidoException">
+        <soap:fault use="literal" name="ProcesoFallidoException" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="ParametroIncorrectoException">
+        <soap:fault use="literal" name="ParametroIncorrectoException" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="obtenerEEPorIdSistemaExterno">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="obtenerEEPorIdSistemaExterno">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="obtenerEEPorIdSistemaExternoResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="ExpedienteInexistenteException">
+        <soap:fault use="literal" name="ExpedienteInexistenteException" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="ParametroIncorrectoException">
+        <soap:fault use="literal" name="ParametroIncorrectoException" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="consultaEE">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="consultaEE">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="consultaEEResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="ExpedienteInexistenteException">
+        <soap:fault use="literal" name="ExpedienteInexistenteException" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="ProcesoFallidoException">
+        <soap:fault use="literal" name="ProcesoFallidoException" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="ParametroIncorrectoException">
+        <soap:fault use="literal" name="ParametroIncorrectoException" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="consultarDatosExpedientePorCodigosDeTrata">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="consultarDatosExpedientePorCodigosDeTrata">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="consultarDatosExpedientePorCodigosDeTrataResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="ProcesoFallidoException">
+        <soap:fault use="literal" name="ProcesoFallidoException" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="obtenerDatosCaratulaVariable">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="obtenerDatosCaratulaVariable">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="obtenerDatosCaratulaVariableResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="ParametroIncorrectoException">
+        <soap:fault use="literal" name="ParametroIncorrectoException" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="validarEE">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="validarEE">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="validarEEResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="obtenerCaratulaPorCodigoEE">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="obtenerCaratulaPorCodigoEE">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="obtenerCaratulaPorCodigoEEResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="ProcesoFallidoException">
+        <soap:fault use="literal" name="ProcesoFallidoException" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="consultaExpedientesPorSistemaOrigenReparticion">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="consultaExpedientesPorSistemaOrigenReparticion">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="consultaExpedientesPorSistemaOrigenReparticionResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="ParametroIncorrectoException">
+        <soap:fault use="literal" name="ParametroIncorrectoException" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="IConsultaExpedienteService">
+    <wsdl:port name="IConsultaExpedienteServicePort" binding="tns:IConsultaExpedienteServiceSoapBinding">
+      <soap:address location="http://mule.tst.gde.gob.ar/EEServices/consulta" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

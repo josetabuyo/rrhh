@@ -115,6 +115,7 @@
     <Compile Include="DatosAbiertos\RepositorioDeDatosAbiertos.cs" />
     <Compile Include="Facturas\Factura.cs" />
     <Compile Include="Facturas\Factura_Consulta.cs" />
+    <Compile Include="GeneralCombos.cs" />
     <Compile Include="MAU\AlertaPortal.cs" />
     <Compile Include="MAU\TipoTicket.cs" />
     <Compile Include="MAU\Ticket.cs" />

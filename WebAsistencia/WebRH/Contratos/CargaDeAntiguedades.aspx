@@ -31,26 +31,13 @@
         </div>
 
         <div id="divBuscadorPersona">
-            <table>
-                <tr>
-                    <td>
-                        <uc3:buscadordepersonas id="buscadorPersonas1" runat="server" style="display: inline-block;
-                            margin: auto;" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="button" value="Estado" class="btn btn-primary" id="btn_Estado" />
-                    </td>
-                    <td>
-                        <input type="button" value="Privado" class="btn btn-primary" id="btn_Privado" />
-                    </td>
-                </tr>
-            </table>
+            <uc3:buscadordepersonas id="buscadorPersonas1" runat="server" style="display: inline-block;margin: auto;" />
+            <input type="button" value="Estado" class="btn btn-primary" id="btn_Estado" />    
+            <input type="button" value="Privado" class="btn btn-primary" id="btn_Privado" />
         </div>
 
-        <div id="ContenedorGrilla" runat="server" style="width: 50%" align="center">
-            <div id="ContenedorPersona" runat="server" style="width: 50%"></div>
+        <div id="ContenedorGrilla" runat="server" style="width: 95%" align="center">
+            <div id="ContenedorPersona" runat="server" style="width: 95%"></div>
         </div>
         <input type="button" value="Agregar Servicio" class="btn btn-primary" id="btn_AgregarServicio" />
 
