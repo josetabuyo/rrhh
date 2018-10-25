@@ -7879,6 +7879,7 @@
           <s:element minOccurs="1" maxOccurs="1" name="Desde" type="s:dateTime" />
           <s:element minOccurs="1" maxOccurs="1" name="Hasta" type="s:dateTime" />
           <s:element minOccurs="1" maxOccurs="1" name="IdConcepto" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Denegada" type="s:boolean" />
         </s:sequence>
       </s:complexType>
       <s:element name="CargarLicenciaResponse">
@@ -19633,10 +19634,10 @@
   </wsdl:binding>
   <wsdl:service name="WSViaticos">
     <wsdl:port name="WSViaticosSoap" binding="tns:WSViaticosSoap">
-      <soap:address location="http://localhost:43412/WSViaticos/WSViaticos.asmx" />
+      <soap:address location="http://localhost:43412/WSViaticos.asmx" />
     </wsdl:port>
     <wsdl:port name="WSViaticosSoap12" binding="tns:WSViaticosSoap12">
-      <soap12:address location="http://localhost:43412/WSViaticos/WSViaticos.asmx" />
+      <soap12:address location="http://localhost:43412/WSViaticos.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

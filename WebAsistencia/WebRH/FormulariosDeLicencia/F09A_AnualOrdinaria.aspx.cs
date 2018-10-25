@@ -66,6 +66,9 @@ ESTA SOLICITUD DEBE SER RECIBIDA EN LA DIRECCION DE ADMINISTRACIÓN DE PERSONAL 
             Licencia l = new Licencia();
             l.Desde = this.DesdeHasta1.Desde;
             l.Hasta = this.DesdeHasta1.Hasta;
+
+            l.Denegada = this.RBDenegada.Checked;
+
             l.Concepto = _Concepto;
             l.Persona = (Persona)Session["persona"];
             l.Persona.Area = (Area)Session["areaActual"];
