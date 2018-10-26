@@ -30,7 +30,7 @@ namespace General.Repositorios
             parametros.Add("@año", año);
             parametros.Add("@mes", mes);
             parametros.Add("@tipoLiquidacion", tipoLiquidacion);
-            parametros.Add("@usuario", usuario);
+            parametros.Add("@idUsuario", usuario);
             var resultado = conexion.EjecutarSinResultado("dbo.[PLA_ADD_Recibo_Firmado]", parametros);
             //en ejecutar sinresultado hay un try catch pero en caso de catch no retorna false sino eleva una excepcion
             //no deberia retornar false? en caso de elevar la excepcion se la atenderia en el javascript del cliente
@@ -60,7 +60,7 @@ namespace General.Repositorios
         public  List<ReciboFirmado> ObtenerDesdeLaBase(int idRecibo)
         {
             var parametros = new Dictionary<string, object>();
-            parametros.Add("@id_Recibo", idRecibo);
+            parametros.Add("@idRecibo", idRecibo);
             var tablaDatos = conexion.Ejecutar("dbo.PLA_GET_Recibo_Firmado", parametros);
             var recibos = new List<ReciboFirmado>();
             if (tablaDatos.Rows.Count > 0)

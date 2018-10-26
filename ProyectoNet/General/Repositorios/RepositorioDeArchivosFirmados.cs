@@ -14,10 +14,11 @@ namespace General.Repositorios
             this.conexion = una_conexion; 
         }
 
-        public int GuardarArchivo(string bytes_archivo)
+        public int GuardarArchivo(string bytes_archivo, int idPersona)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@bytes", bytes_archivo);
+            parametros.Add("@idPersona", idPersona);
             return int.Parse(this.conexion.EjecutarEscalar("dbo.FS_SubirArchivoFirmado", parametros).ToString());
         }
 
@@ -45,10 +46,11 @@ namespace General.Repositorios
             }            
         }*/
 
-        public string GetArchivoAsync(int id_archivo)
+        public string GetArchivoAsync(int id_archivo, int idPersona)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@idArchivo", id_archivo);
+            parametros.Add("@idPersona", idPersona);
             var tabla_resultado = this.conexion.Ejecutar("dbo.FS_ObtenerArchivoFirmado", parametros);
             if (tabla_resultado.Rows.Count == 0) throw new Exception("no existe el archivo buscado");
 

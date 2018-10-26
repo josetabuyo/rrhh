@@ -5723,7 +5723,7 @@ public class WSViaticos : System.Web.Services.WebService
             //return Convert.ToBase64String(bytes2);
             //return Convert.ToBase64String(bytes2);
             respuesta.Respuesta = Convert.ToBase64String(bytes2);
-
+            
             //////////////////////////////////
             ///      Object x = JsonConvert.DeserializeObject<Object>(datos);
             ///      //JsonConvert.SerializeObject(x);
@@ -5806,7 +5806,7 @@ public class WSViaticos : System.Web.Services.WebService
 //        {//COMO el proceso de guardado desde la tabla de la BD al disco es externo, no genero una subclase de archivo
          //que tendria el path de disco donde guardar el archivo. Se puede agregar una clase con propieda la clase archivo 
             //subo el archivo firmado y actualiza la tabla que indica que el idRecibo fue firmado
-            id_archivo = RepositorioDeArchivosFirmados().GuardarArchivo(bytes_pdf);
+        id_archivo = RepositorioDeArchivosFirmados().GuardarArchivo(bytes_pdf, usuario.Owner.Id);
  //           id_archivo = 20;//RepositorioDeArchivos().GuardarArchivo(bytes_pdf);// id_recibo;//simulo el guardado del archivo
             //var r = RepositorioDeArchivos().GetArchivo(id_archivo); //19444 es un pdf firmado          
             //actualizo el recibo firmado por el empleado, 
@@ -5836,16 +5836,35 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
 
-    /*   [WebMethod]
-       public string GetReciboPDFEmpleado(int id_recibo)
-       {
-           return new RepositorioDeImagenes(Conexion()).SubirImagen(bytes_imagen);
-       }
-        * 
-        * 
-        * 
-        * 
-          }*/
+    [WebMethod]
+    public StringRespuestaWS GetReciboPDFDigitalArchivado(int idArchivo, Usuario usuario)
+    {
+
+        var respuesta = new StringRespuestaWS();
+        try
+        {
+        //        try
+        //        {//COMO el proceso de guardado desde la tabla de la BD al disco es externo, no genero una subclase de archivo
+        //que tendria el path de disco donde guardar el archivo. Se puede agregar una clase con propieda la clase archivo 
+        //subo el archivo firmado y actualiza la tabla que indica que el idRecibo fue firmado
+        respuesta.Respuesta = RepositorioDeArchivosFirmados().GetArchivoAsync(idArchivo);
+        //           id_archivo = 20;//RepositorioDeArchivos().GuardarArchivo(bytes_pdf);// id_recibo;//simulo el guardado del archivo
+        //var r = RepositorioDeArchivos().GetArchivo(id_archivo); //19444 es un pdf firmado          
+        //actualizo el recibo firmado por el empleado, 
+
+        //la hora de conformacion de firma es la del reloj del servidor de la app, pero se puede dejar que sea la del reloj del server db
+        }
+        catch (Exception e)
+        {
+            respuesta.MensajeDeErrorAmigable = "Se produjo un error al obtener el PDF del recibo del empleador";
+            respuesta.setException(e);
+
+        }
+
+
+        return respuesta;     
+
+    }
 
     #region " Control de Acceso "
 
@@ -5905,7 +5924,7 @@ public class WSViaticos : System.Web.Services.WebService
     {
         //obtengo el recibo
         List<ReciboFirmado> recibos = RepoReciboFirmado().ObtenerDesdeLaBase(idRecibo);
-        ReciboFirmado recibo = recibos[1];
+        ReciboFirmado recibo = recibos[0];
         //Cuando conforma el recibo el empleado, recien ahi se produce el hash de toda la fila 
         DateTime hoy = DateTime.Now;
         //como voy a adelantarme para generar el hash, asumo conformidad con valor 1, con este valor se va a setear despues

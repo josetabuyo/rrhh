@@ -64,11 +64,11 @@ public class GenReciboEmpleadoToPdfConverter : ModeloToPdfConverter
         {
             //utilizo el pdf de 1 pagina 
             mapa.Add("paginasPDF", "una"); // para saber cual pdf utilizar
-            mapa.Add("totalH", string.Format("{0:N}", Convert.ToDecimal(r.cabecera.Bruto) / 100) );
-            mapa.Add("totalD", string.Format("{0:N}", Convert.ToDecimal(r.cabecera.Descuentos) / 100));
+            mapa.Add("totalH1", string.Format("{0:N}", Convert.ToDecimal(r.cabecera.Bruto) / 100) );
+            mapa.Add("totalD1", string.Format("{0:N}", Convert.ToDecimal(r.cabecera.Descuentos) / 100));
             // mapa.Add("neto", Convert.ToDecimal(r.cabecera.Neto).ToString("C")); esto si directamente se retorna desde el SP un float asi en el campo del pdf lo formatea bien, poque si es un string lo pone como string y no lo formatea
             //  mapa.Add("neto", string.Format("{0:C}", Convert.ToDecimal(r.cabecera.Neto) / 100));
-            mapa.Add("neto", string.Format("{0:C2}", Convert.ToDecimal(r.cabecera.Neto) / 100));
+            mapa.Add("neto1", string.Format("{0:C2}", Convert.ToDecimal(r.cabecera.Neto) / 100));
             mapa.Add("categoria", r.cabecera.NivelGrado);
             mapa.Add("opcion", r.cabecera.OpcionJubilatoria);
             mapa.Add("fechaLiquidacion", r.cabecera.FechaLiquidacion);
