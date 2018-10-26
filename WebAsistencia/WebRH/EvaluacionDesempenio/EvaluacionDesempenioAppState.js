@@ -64,6 +64,11 @@ define(['wsviaticos', 'underscore'], function (ws, _) {
         return _.find(periodos, p => p.id_periodo == idPeriodo)
     }
 
+    var GetUnidadesEvaluacion = function () {
+        var ues = JSON.parse(window.localStorage.getItem('ComitesDeEvaluacionData')).GetEstadosEvaluacionesPeriodosActivos
+        return ues
+    }
+
     var GetComite = function (idComite) {
         var comites = JSON.parse(window.localStorage.getItem('ComitesDeEvaluacionData')).GetAllComites
         return _.find(comites, c => c.Id == idComite)
@@ -164,6 +169,56 @@ define(['wsviaticos', 'underscore'], function (ws, _) {
         })
     }
 
+    var EvalAddUnidadEvaluacionAComite = function (id_comite, id_ue, cb) {
+        var req = [{
+            nombre_metodo: "EvalAddUnidadEvaluacionAComite",
+            argumentos_json: [id_comite, id_ue]
+        }]
+
+        ws.parallel(req, function (err, res) {
+            if (err) {
+                cb(err)
+                return
+            }
+            if (res[0].DioError) {
+                cb(res[0].MensajeDeErrorAmigable)
+                return
+            }
+            var ue = _.find(GetUnidadesEvaluacion(), e => e.Id == id_ue)
+            app_data = JSON.parse(window.localStorage.getItem('ComitesDeEvaluacionData'))
+            var c = _.find(app_data.GetAllComites, c => c.Id == id_comite)
+            c.UnidadesEvaluacion.push(ue)
+            window.localStorage.setItem('ComitesDeEvaluacionData', JSON.stringify(app_data))
+
+            cb(null, res[0])
+        })
+    }
+
+    var EvalRemoveUnidadEvaluacionAComite = function (id_comite, id_ue, cb) {
+        var req = [{
+            nombre_metodo: "EvalRemoveUnidadEvaluacionAComite",
+            argumentos_json: [id_comite, id_ue]
+        }]
+
+        ws.parallel(req, function (err, res) {
+            if (err) {
+                cb(err)
+                return
+            }
+            if (res[0].DioError) {
+                cb(res[0].MensajeDeErrorAmigable)
+                return
+            }
+
+            app_data = JSON.parse(window.localStorage.getItem('ComitesDeEvaluacionData'))
+            var c = _.find(app_data.GetAllComites, c => c.Id == id_comite)
+            c.UnidadesEvaluacion = _.reject(c.UnidadesEvaluacion, ue => ue.Id == id_ue)
+            window.localStorage.setItem('ComitesDeEvaluacionData', JSON.stringify(app_data))
+
+            cb(null, res[0])
+        })
+    }
+
     //API del modulo
     return {
         AddComite: AddComite,
@@ -175,6 +230,10 @@ define(['wsviaticos', 'underscore'], function (ws, _) {
         AddIntegrante: AddIntegrante,
         GetCaracteres: GetCaracteres,
         GetEnCaracterDe: GetEnCaracterDe,
-        DelIntegrante: DelIntegrante
+        DelIntegrante: DelIntegrante,
+        GetUnidadesEvaluacion: GetUnidadesEvaluacion,
+        EvalAddUnidadEvaluacionAComite: EvalAddUnidadEvaluacionAComite,
+        EvalRemoveUnidadEvaluacionAComite: EvalRemoveUnidadEvaluacionAComite
+
     }
 })

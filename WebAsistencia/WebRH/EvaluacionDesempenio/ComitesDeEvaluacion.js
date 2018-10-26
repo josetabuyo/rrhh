@@ -52,15 +52,72 @@
                 })
         }
 
+        var ue_clicked = function (event) {
+
+            var id_ue = event.currentTarget.attributes.model_id.value
+            var idComite = spa_tabs.getParam()
+            var checked = event.currentTarget.checked
+            event.currentTarget.checked = !event.currentTarget.checked
+
+            if (checked) {
+                app_state.EvalAddUnidadEvaluacionAComite(idComite, id_ue, (err, r) => {
+                    if (err) {
+                        event.currentTarget.checked = false
+                        alert(err)
+                    } else {
+                        event.currentTarget.checked = true
+                    }
+                })
+            } else {
+                app_state.EvalRemoveUnidadEvaluacionAComite(idComite, id_ue, (err, r) => {
+                    if (err) {
+                        event.currentTarget.checked = true
+                        alert(err)
+                    } else {
+                        event.currentTarget.checked = false
+                    }
+                })
+            }
+        }
+
+        var crear_grilla_unidades = function () {
+
+            var idComite = spa_tabs.getParam()
+            var periodo = app_state.PeriodoDe(idComite)
+            var comite = app_state.GetComite(idComite)
+            var all_ues = app_state.GetUnidadesEvaluacion(idComite)
+            var ues_periodo = _.filter(all_ues, ue => ue.IdPeriodo == periodo.Id)
+
+            //si el comite tiene a la ue, entonces tiene que estar checked (Selected)
+            _.each(ues_periodo, ue => ue.Selected = _.some(comite.UnidadesEvaluacion, cue => cue.Id == ue.Id) ? "checked" : "" )
+
+            CreadorDeGrillas('#tabla_unidades', ues_periodo)
+
+            $('[type=checkbox]').click(ue_clicked)
+        }
+
+        var on_scr_unidades_enter = function (idComite) {
+
+            var periodo = app_state.PeriodoDe(idComite)
+            spa_tabs.setNextParameter(idComite)
+
+            $("#desc_periodo_ues").text(periodo.descripcion_periodo)
+
+            crear_grilla_unidades()
+        }
+
         //config para la Single Page App con Tabs
         var tabs_events = [{
                 tab_name: '#scr_datos_generales',
                 on_next: on_datos_generales_next,
                 on_enter: on_datos_generales_enter
-        }, {
+            }, {
                 tab_name: '#scr_integrantes',
                 on_enter: on_integrantes_enter
-        }]
+            }, {
+                tab_name: '#scr_unidades',
+                on_enter: on_scr_unidades_enter
+            }]
 
         var load_grid_periodos = function() {
             app_state.GetDataGridPeriodos(data => {

@@ -190,7 +190,6 @@
                                                     </div>
                                                     <div class="col col-md-2"></div>
                                                 </div>
-
                                                 <div class="form-group row">
                                                     <label for="caracter" class="col-12 col-md-2 offset-md-2 col-form-label">En Caracter De</label>
                                                     <div class="col-12 col-md-6">
@@ -250,11 +249,11 @@
                             <div class="card-body">
                                 <h5 class="card-title">Nueva Reunión</h5>
                                 <h6 class="card-subtitle mb-2 text-muted">Paso 3: Unidades de Evaluación</h6>
+                                <p class="lead" id="desc_periodo_ues" />
                                 <div class="card-text">
-                                    <table class="table  table-bordered table-striped table-sm">
+                                    <table class="table table-bordered table-striped table-sm" id="tabla_unidades">
                                         <thead>
                                             <tr>
-                                                <th scope="col" class="align-middle">#</th>
                                                 <th>Codigo</th>
                                                 <th class="w-100">Unidad de Evaluación</th>
                                                 <th class="text-center">DESTA CADOS</th>
@@ -269,10 +268,9 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td>10</td>
-                                                <td>Dirección Nacional de Comunicación Estratégica</td>
+                                            <tr class="row-template" style="display: none">
+                                                <td>{{Codigo}}</td>
+                                                <td>{{NombreArea}}</td>
                                                 <td class="text-right">1</td>
                                                 <td class="text-right">5</td>
                                                 <td class="text-right">5</td>
@@ -282,7 +280,7 @@
                                                 <td class="text-right">13</td>
                                                 <td class="text-right">40</td>
                                                 <td class="text-right">
-                                                    <input type="checkbox">
+                                                    <input type="checkbox" {{Selected}} model_id="{{Id}}" />
                                                 </td>
                                             </tr>
                                             <tr class="table-info">

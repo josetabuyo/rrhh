@@ -228,7 +228,6 @@
 <script type="text/javascript" src="../Scripts/Spin.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-
         Backend.start(function () {
             var PantallaDetalleComite = {
                 start: function (model, ui) {
@@ -292,8 +291,8 @@
                     var cargar_ues = function () {
                         /***
                         GRILLA: Unidades de Evaluacion
-                        */
-                        //
+                        *///
+                        
 
                         var tabla_ue = $("#tabla_unidades_evaluacion");
                         tabla_ue.empty();
