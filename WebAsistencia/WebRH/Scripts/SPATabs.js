@@ -43,6 +43,8 @@ define(['jquery'], function ($) {
         }
     }
 
+    ///devuelve la configuracion del tab dado "tab_name"
+    ///segun el mapa de configuraciones "tab_events"
     var get_tab_config = function(tabs_events, tab_name) {
         var tab_config = _.find(tabs_events, function (each) { return each.tab_name == tab_name })
         if (!tab_config) {
@@ -78,6 +80,7 @@ define(['jquery'], function ($) {
         })
     }
 
+
     var on_tab_leave_cb = function (next_tab, tabs_events, current_tab) {
         var on_tab_leave = function (next_tab_param) {
             var next_tab_url = next_tab.name
@@ -98,9 +101,11 @@ define(['jquery'], function ($) {
         return on_tab_leave
     }
 
+    //el tab que está viendo el user (basado en la url)
     var get_current_tab = function () {
         return tab_definition_from_url(location.hash)
     }
+
 
     var change_tab = function (destination_tab_id, tabs_events, es_on_next) {
 
@@ -130,7 +135,10 @@ define(['jquery'], function ($) {
     /// }, ...
     ///]
     var createTabs = function (tabs_events) {
+
+        //TODO: Fix que se agrega de nuevo el handler
         $('[on_next]').click(function (e) {
+        //$('[on_next]').off("click").click(function (e) {
             e.preventDefault();
             change_tab(event.currentTarget.attributes.on_next.value, tabs_events, true)
         })
@@ -140,7 +148,7 @@ define(['jquery'], function ($) {
         })
     }
 
-
+    ///devuelve el parametro en la url (despues de la "/")
     var getParam = function () {
         var def = tab_definition_from_url(location.hash)
         return def.parameter

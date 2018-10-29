@@ -29,8 +29,9 @@
         }
 
         //cuando se muestra la pantalla de datos generales
-        var on_datos_generales_enter = function (idPeriodo) {
-            $("#desc_periodo").text(app_state.GetPeriodo(idPeriodo).descripcion_periodo)
+        var on_datos_generales_enter = function () {
+            var id_periodo = $("#id_periodo_seleccionado").val()
+            $("#desc_periodo").text(app_state.GetPeriodo(id_periodo).descripcion_periodo)
         }
 
         //cuando se hace click en "siguiente" (datos generales)
@@ -41,7 +42,7 @@
                 $("#fecha").val(),
                 $("#hora").val(),
                 $("#lugar").val(),
-                params,
+                $("#id_periodo_seleccionado").val(),
                 (err, comite_agregado) => {
                     if (err) {
                         alert('Error al agregar comite')
@@ -89,7 +90,12 @@
             var ues_periodo = _.filter(all_ues, ue => ue.IdPeriodo == periodo.Id)
 
             //si el comite tiene a la ue, entonces tiene que estar checked (Selected)
-            _.each(ues_periodo, ue => ue.Selected = _.some(comite.UnidadesEvaluacion, cue => cue.Id == ue.Id) ? "checked" : "" )
+            _.each(ues_periodo, ue => {
+                ue.Selected = _.some(comite.UnidadesEvaluacion, cue => cue.Id == ue.Id) ? "checked" : ""
+                $.extend(ue, ue.DetalleEvaluados) //flatten
+                ue.TotalEvaluados = ue.Destacados + ue.Bueno + ue.Regular + ue.Deficiente
+                ue.TotalGeneral = ue.TotalEvaluados + ue.Provisoria + ue.Pendiente
+            })
 
             CreadorDeGrillas('#tabla_unidades', ues_periodo)
 
@@ -119,7 +125,11 @@
                 on_enter: on_scr_unidades_enter
             }]
 
-        var load_grid_periodos = function() {
+        var set_id_periodo_seleccionado = function (e) {
+            $("#id_periodo_seleccionado").val(e.currentTarget.attributes.btn_id_periodo.value)
+        }
+
+        var load_grid_periodos = function () {
             app_state.GetDataGridPeriodos(data => {
                 var comites = data.GetAllComites
                 var ues = data.GetEstadosEvaluacionesPeriodosActivos
@@ -129,17 +139,17 @@
                 var agrupados = ComitesPorPeriodo(ues, periodos, evals, comites)
                 CreadorDeGrillas('#tabla_periodos', agrupados)
 
+                $('[btn_id_periodo]').click(set_id_periodo_seleccionado)
+
                 spa_tabs.createTabs(tabs_events)
 
                 //activo los tooltips
                 $('#tabla_periodos [data-toggle="tooltip"]').tooltip()
-                $('[btnIdPeriodo]').click(set_id_periodo_seleccionado)
+
             })
         }
 
-        var set_id_periodo_seleccionado = function (e) {
-            $("id_periodo_seleccionado").val(e.currentTarget.attributes.btnIdPeriodo.value)
-        }
+     
 
         var remover_integrante = function (id_integrante, idComite) {
             app_state.DelIntegrante(id_integrante, idComite, i => {

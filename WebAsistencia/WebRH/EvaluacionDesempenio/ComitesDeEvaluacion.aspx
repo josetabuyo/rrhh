@@ -64,7 +64,7 @@
                                     <td class="text-right">{{Finalizado}}</td>
                                     <td class="text-right">{{ReunionesRealizadas}}<a style="display: inline" data-toggle="tooltip" data-placement="top" title="Ver Reuniones" class="nav-link" href="#"><span class="fa fa fa-eye"></span></a></td>
                                     <td class="text-right">
-                                        <button type="button" class="btn btn-sm btn-primary" on_next="#scr_datos_generales/{{IdPeriodo}}">Crear Nueva Reunion</button></td>
+                                        <button type="button" class="btn btn-sm btn-primary" btn_id_periodo="{{IdPeriodo}}" on_next="#scr_datos_generales">Crear Nueva Reunion</button></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -271,14 +271,14 @@
                                             <tr class="row-template" style="display: none">
                                                 <td>{{Codigo}}</td>
                                                 <td>{{NombreArea}}</td>
-                                                <td class="text-right">1</td>
-                                                <td class="text-right">5</td>
-                                                <td class="text-right">5</td>
-                                                <td class="text-right">0</td>
-                                                <td class="text-right">11</td>
-                                                <td class="text-right">16</td>
-                                                <td class="text-right">13</td>
-                                                <td class="text-right">40</td>
+                                                <td class="text-right">{{Destacados}}</td>
+                                                <td class="text-right">{{Bueno}}</td>
+                                                <td class="text-right">{{Regular}}</td>
+                                                <td class="text-right">{{Deficiente}}</td>
+                                                <td class="text-right">{{TotalEvaluados}}</td>
+                                                <td class="text-right">{{Provisoria}}</td>
+                                                <td class="text-right">{{Pendiente}}</td>
+                                                <td class="text-right">{{TotalGeneral}}</td>
                                                 <td class="text-right">
                                                     <input type="checkbox" {{Selected}} model_id="{{Id}}" />
                                                 </td>
@@ -316,6 +316,7 @@
             </div>
         </div>
     </form>
+    <input type="hidden" id="id_periodo_seleccionado" />
     <div id="plantillas" style="display: none">
         <div class="vista_persona_en_selector">
             <span id="contenedor_legajo" class="badge badge-pill badge-success">
