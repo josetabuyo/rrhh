@@ -126,6 +126,18 @@ define(['jquery'], function ($) {
         }
     }
 
+    var on_next_click = function (event) {
+        event.preventDefault();
+        var tabs_events = event.data
+        change_tab(event.currentTarget.attributes.on_next.value, tabs_events, true)
+    }
+
+    var on_leave_click = function (event) {
+        event.preventDefault();
+        var tabs_events = event.data
+        change_tab(event.currentTarget.attributes.on_next.value, tabs_events, false)
+    }
+
     ///recibe tabs_config, con los métodos definiendo las acciones a realizar por cada solapa, de la forma:
     ///var tabs_config = [
     /// {
@@ -136,16 +148,11 @@ define(['jquery'], function ($) {
     ///]
     var createTabs = function (tabs_events) {
 
-        //TODO: Fix que se agrega de nuevo el handler
-        $('[on_next]').click(function (e) {
-        //$('[on_next]').off("click").click(function (e) {
-            e.preventDefault();
-            change_tab(event.currentTarget.attributes.on_next.value, tabs_events, true)
-        })
-        $('[on_leave]').click(function (e) {
-            e.preventDefault();
-            change_tab(event.currentTarget.attributes.on_leave.value, tabs_events, false)
-        })
+        $('[on_next]').unbind('click', on_next_click );
+        $('[on_next]').click(tabs_events, on_next_click)
+
+        $('[on_leave]').unbind('click', on_leave_click);
+        $('[on_leave]').click(tabs_events, on_leave_click)
     }
 
     ///devuelve el parametro en la url (despues de la "/")
