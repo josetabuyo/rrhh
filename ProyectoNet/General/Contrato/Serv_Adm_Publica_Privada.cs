@@ -8,10 +8,10 @@ namespace General.Contrato
     public class Serv_Adm_Publica_Privada
     {
         public int Id { get; set; }
-        public string Ambito { get; set; }
+        public Int16 Ambito { get; set; }
         public string Jurisdiccion { get; set; }
         public string Organismo { get; set; }
-        public Int16 Cargo { get; set; }
+        public Cargo Cargo { get; set; }
         public bool Remunerativo { get; set; }
         public DateTime Fecha_Desde { get; set; }
         public DateTime Fecha_Hasta { get; set; }

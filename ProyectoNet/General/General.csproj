@@ -108,6 +108,7 @@
     <Compile Include="Asistencia\VacacionesSolicitables.cs" />
     <Compile Include="Calendario\CalculadorDeDias.cs" />
     <Compile Include="Calendario\Periodo.cs" />
+    <Compile Include="Contrato\Cargo.cs" />
     <Compile Include="Contrato\Serv_Adm_Publica_Privada.cs" />
     <Compile Include="CtrlAcc\RepositorioCtlAcc.cs" />
     <Compile Include="DatosAbiertos\ConsultaOPD.cs" />

@@ -282,6 +282,22 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GET_Servicios_Adm_Publica_Detalles">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="legajo" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="folio" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GET_Servicios_Adm_Publica_DetallesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GET_Servicios_Adm_Publica_DetallesResult" type="tns:ArrayOfServ_Adm_Publica_Privada" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="getAreaDeLaPersona">
         <s:complexType>
           <s:sequence>
@@ -8000,6 +8016,12 @@
   <wsdl:message name="GetCargosSoapOut">
     <wsdl:part name="parameters" element="tns:GetCargosResponse" />
   </wsdl:message>
+  <wsdl:message name="GET_Servicios_Adm_Publica_DetallesSoapIn">
+    <wsdl:part name="parameters" element="tns:GET_Servicios_Adm_Publica_Detalles" />
+  </wsdl:message>
+  <wsdl:message name="GET_Servicios_Adm_Publica_DetallesSoapOut">
+    <wsdl:part name="parameters" element="tns:GET_Servicios_Adm_Publica_DetallesResponse" />
+  </wsdl:message>
   <wsdl:message name="getAreaDeLaPersonaSoapIn">
     <wsdl:part name="parameters" element="tns:getAreaDeLaPersona" />
   </wsdl:message>
@@ -10321,6 +10343,10 @@
       <wsdl:input message="tns:GetCargosSoapIn" />
       <wsdl:output message="tns:GetCargosSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GET_Servicios_Adm_Publica_Detalles">
+      <wsdl:input message="tns:GET_Servicios_Adm_Publica_DetallesSoapIn" />
+      <wsdl:output message="tns:GET_Servicios_Adm_Publica_DetallesSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="getAreaDeLaPersona">
       <wsdl:input message="tns:getAreaDeLaPersonaSoapIn" />
       <wsdl:output message="tns:getAreaDeLaPersonaSoapOut" />
@@ -11889,6 +11915,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetCargos">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetCargos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET_Servicios_Adm_Publica_Detalles">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GET_Servicios_Adm_Publica_Detalles" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -15384,6 +15419,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetCargos">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetCargos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET_Servicios_Adm_Publica_Detalles">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GET_Servicios_Adm_Publica_Detalles" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

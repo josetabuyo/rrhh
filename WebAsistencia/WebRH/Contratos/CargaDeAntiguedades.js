@@ -58,8 +58,12 @@ var CargarGrilla = function (boton) {
     botonSeleccionado = boton;
 
     var documento = $('#documento').text().trim();
+    var legajo = $('#legajo').text().trim();
+
+
     if (documento == "") {
         documento = 0;
+        legajo = 0;
         alert("Ingrese una persona");
         return;
     }

@@ -5440,6 +5440,12 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
 
+    [WebMethod]
+    public Serv_Adm_Publica_Privada[] GET_Servicios_Adm_Publica_Detalles(int legajo, string folio, Usuario usuario)
+    {
+        var RepositorioServAdm = new RepositorioServicios();
+        return RepositorioServAdm.GET_Servicios_Adm_Publica_Detalles(legajo, folio, usuario).ToArray();
+    }
 
 
 
