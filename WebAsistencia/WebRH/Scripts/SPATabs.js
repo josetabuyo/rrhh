@@ -148,14 +148,18 @@ define(['jquery'], function ($) {
     ///]
     var createTabs = function (tabs_events) {
 
-        $('[on_next]').unbind('click', on_next_click );
+        $('[on_next]').unbind('click', on_next_click )
         $('[on_next]').click(tabs_events, on_next_click)
 
-        $('[on_leave]').unbind('click', on_leave_click);
+        $('[on_leave]').unbind('click', on_leave_click)
         $('[on_leave]').click(tabs_events, on_leave_click)
 
         //start in the tab form the url
-        change_tab(location.hash, tabs_events, false)
+        var starting_tab = location.hash
+        if (location.hash === "") {
+            starting_tab = '#'+$('[role="tabpanel"]').first().attr('id')
+        }
+        change_tab(starting_tab, tabs_events, false)
     }
 
     ///devuelve el parametro en la url (despues de la "/")
