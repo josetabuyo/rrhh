@@ -802,6 +802,7 @@ namespace General.Repositorios
                 area.DireccionCompleta.UF = registro.GetString("UF");
                 area.IdUsuarioModificaor = registro.GetInt("Usuario_Alta");
                 area.NombreUsuarioModificador = registro.GetString("Apellido") + " " +  registro.GetString("Nombre");
+                area.FechaAudotiria = registro.GetDateTime("FechaCreacion");
 
                 
 

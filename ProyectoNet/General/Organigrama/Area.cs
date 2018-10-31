@@ -38,7 +38,7 @@
         public int Orden { get; set; }
         public int IdUsuarioModificaor { get; set; }
         public string NombreUsuarioModificador { get; set; }
-        public DateTime fecha_creacion_pedido { get; set; }
+        public DateTime FechaAudotiria { get; set; }
 
         public Area(int IdArea)
         {
