@@ -135,7 +135,7 @@ define(['jquery'], function ($) {
     var on_leave_click = function (event) {
         event.preventDefault();
         var tabs_events = event.data
-        change_tab(event.currentTarget.attributes.on_next.value, tabs_events, false)
+        change_tab(event.currentTarget.attributes.on_leave.value, tabs_events, false)
     }
 
     ///recibe tabs_config, con los métodos definiendo las acciones a realizar por cada solapa, de la forma:
@@ -153,6 +153,9 @@ define(['jquery'], function ($) {
 
         $('[on_leave]').unbind('click', on_leave_click);
         $('[on_leave]').click(tabs_events, on_leave_click)
+
+        //start in the tab form the url
+        change_tab(location.hash, tabs_events, false)
     }
 
     ///devuelve el parametro en la url (despues de la "/")

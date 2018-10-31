@@ -109,12 +109,12 @@
             var totalEvaluados = destacados + bueno + regular + deficiente
             var totalGeneral = totalEvaluados + provisoria + pendiente
 
-            construir_ue_footer(destacados, bueno, regular, deficiente, provisoria, pendiente, totalEvaluados, totalGeneral) 
+            construir_ue_footer(destacados, bueno, regular, deficiente, provisoria, pendiente, totalEvaluados, totalGeneral, selected_rows.length) 
         }
 
-        var construir_ue_footer = function (destacados, bueno, regular, deficiente, provisoria, pendiente, totalEvaluados, totalGeneral) {
+        var construir_ue_footer = function (destacados, bueno, regular, deficiente, provisoria, pendiente, totalEvaluados, totalGeneral, cont) {
             $(".totalizador").remove()
-            var tr = $('<tr class="totalizador bg-info text-white"><td colspan="2">Total:</td><td>' + destacados + '</td><td>' + bueno + '</td><td>' + regular + '</td><td>' + deficiente + '</td><td>' + totalEvaluados + '</td><td>' + provisoria + '</td><td>' + pendiente + '</td><td>' + totalGeneral + '</td>')
+            var tr = $('<tr class="totalizador bg-info text-white"><td colspan="2">Total para las UE Seleccionadas:</td><td>' + destacados + '</td><td>' + bueno + '</td><td>' + regular + '</td><td>' + deficiente + '</td><td>' + totalEvaluados + '</td><td>' + provisoria + '</td><td>' + pendiente + '</td><td>' + totalGeneral + '</td><td>' + cont + '</td>')
             tr.children().addClass('text-right')
             $("#tabla_unidades > tbody").append(tr)
 
