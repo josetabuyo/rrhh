@@ -30,8 +30,30 @@
 
         //cuando se muestra la pantalla de datos generales
         var on_datos_generales_enter = function () {
-            var id_periodo = $("#id_periodo_seleccionado").val()
-            $("#desc_periodo").text(app_state.GetPeriodo(id_periodo).descripcion_periodo)
+
+            var id_comite = spa_tabs.getParam()
+            if (id_comite) {
+                var comite = app_state.GetComite(id_comite)
+                var fh = new Date(comite.Fecha)
+                var fh_formateada = fh.getDate() + '/' + (fh.getMonth() + 1) + '/' + (fh.getYear() + 1900)
+                var periodo = comite.Periodo
+
+                $("#fecha").val(fh_formateada)
+                $("#hora").val(comite.Hora)
+                $("#lugar").val(comite.Lugar)
+                $("#descripcion").val(comite.Descripcion)
+                $("#id_periodo_seleccionado").val(periodo.id_periodo)
+                $("#desc_periodo").text(periodo.descripcion_periodo)
+
+            } else {
+                var id_periodo = $("#id_periodo_seleccionado").val()
+                if (id_periodo == "") {
+                    alert("Debe seleccionar un período")
+                    spa_tabs.goHome()
+                    return
+                }
+                $("#desc_periodo").text(app_state.GetPeriodo(id_periodo).descripcion_periodo)
+            }
         }
 
         //cuando se hace click en "siguiente" (datos generales)
@@ -109,7 +131,7 @@
             var totalEvaluados = destacados + bueno + regular + deficiente
             var totalGeneral = totalEvaluados + provisoria + pendiente
 
-            construir_ue_footer(destacados, bueno, regular, deficiente, provisoria, pendiente, totalEvaluados, totalGeneral, selected_rows.length) 
+            construir_ue_footer(destacados, bueno, regular, deficiente, provisoria, pendiente, totalEvaluados, totalGeneral, selected_rows.length)
         }
 
         var construir_ue_footer = function (destacados, bueno, regular, deficiente, provisoria, pendiente, totalEvaluados, totalGeneral, cont) {
