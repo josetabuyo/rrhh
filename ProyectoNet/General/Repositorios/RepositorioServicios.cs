@@ -28,7 +28,8 @@ namespace General
             {
                 Servicio = new Serv_Adm_Publica_Privada();
                 Servicio.Id = dr.GetInt32(dr.GetOrdinal("Id"));
-                Servicio.Ambito = dr.GetInt16(dr.GetOrdinal("Ambito"));
+                Servicio.Ambito = new Ambito();
+                Servicio.Ambito.Descripcion = dr.GetString(dr.GetOrdinal("Ambito"));
                 Servicio.Jurisdiccion = dr.GetString(dr.GetOrdinal("Jurisdiccion"));
                 Servicio.Folio = dr.GetString(dr.GetOrdinal("Folio"));
                 Servicio.Caja = dr.GetString(dr.GetOrdinal("Caja"));
@@ -144,7 +145,8 @@ namespace General
             {
                 Servicio = new Serv_Adm_Publica_Privada();
                 Servicio.Id = dr.GetInt32(dr.GetOrdinal("id_adm_publica"));
-                Servicio.Ambito = dr.GetInt16(dr.GetOrdinal("ambito"));
+                Servicio.Ambito = new Ambito();
+                Servicio.Ambito.Id = dr.GetInt16(dr.GetOrdinal("ambito"));
                 Servicio.Jurisdiccion = dr.GetString(dr.GetOrdinal("jurisdiccion"));
                 Servicio.Organismo = dr.GetString(dr.GetOrdinal("organismo"));
                 Servicio.Cargo = new Cargo();

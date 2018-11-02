@@ -21,8 +21,7 @@ $("#btn_Privado").click(function () {
 });
 $("#btn_AgregarServicio").click(function () {
     if (botonSeleccionado=="ESTADO") {
-        alert("abrir pagina adm_pub");
-        window.open("CargaDeAntiguedadesAdmPublica.aspx");
+        window.open("CargaDeAntiguedadesAdmPublica.aspx?legajo=" + $('#legajo').text().trim() + "&" + "folio=" + "00-018/018");
     }
     if (botonSeleccionado == "PRIVADO") {
         alert("abrir pagina privado");
@@ -47,8 +46,6 @@ var FormatearFecha = function (p_fecha) {
     var fecha = fecha_sin_hora[0].split("-");
     return fecha[2] + "/" + fecha[1] + "/" + fecha[0];
 };
-
-
 
 
 
@@ -130,11 +127,45 @@ var DibujarGrillaServPublico = function () {
 //            }
 //            }),
             new Columna("Id", { generar: function (consulta) { return consulta.Id; } }),
-            new Columna("Ambito", { generar: function (consulta) { return consulta.Ambito; } }),
+            new Columna("Ambito", { generar: function (consulta) { return consulta.Ambito.Descripcion; } }),
             new Columna("Jurisdiccion", { generar: function (consulta) { return consulta.Jurisdiccion; } }),
             new Columna("Folio", { generar: function (consulta) { return consulta.Folio; } }),
             new Columna("Caja", { generar: function (consulta) { return consulta.Caja; } }),
-            new Columna("Afiliado", { generar: function (consulta) { return consulta.Afiliado; } }) 
+            new Columna("Afiliado", { generar: function (consulta) { return consulta.Afiliado; } }),
+
+            new Columna("Ver", { generar: function (consulta) {
+                //return consulta.Afiliado; 
+                var cont = $('<div>');
+
+                //if (consulta.Id == 0) return cont;
+
+                var btn_accion = $('<a>');
+                var img = $('<img>');
+                img.attr('src', '../Imagenes/detalle.png');
+                img.attr('width', '15px');
+                img.attr('height', '15px');
+                btn_accion.attr('style', 'display:inline-block');
+                btn_accion.append(img);
+                btn_accion.click(function () {
+                    var spinner = new Spinner({ scale: 3 });
+                    spinner.spin($("html")[0]);
+
+                    setTimeout(function () {
+                        //checks_activos = ["GraficoPorArea"];
+                        //$('#div_tabla_detalle').hide();
+                        //$('#div_tabla_informes').hide();
+                        //_this.FiltrarPersonasParaTablaDetalle(un_registro.Id, tabla_detalle);
+                        window.open("CargaDeAntiguedadesAdmPublica.aspx?legajo=" + $('#legajo').text().trim() + "&" + "folio=" + consulta.Folio);
+
+                        spinner.stop();
+                    }, 10);
+
+                });
+                cont.append(btn_accion);
+                return cont;
+                } }),
+
+
             ]);
 
     grilla.CargarObjetos(lista_de_serv_publico);

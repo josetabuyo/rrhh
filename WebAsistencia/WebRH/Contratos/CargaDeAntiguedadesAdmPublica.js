@@ -1,4 +1,9 @@
 ﻿
+var valores;
+
+var pLegajo;
+var pFolio;
+
 var ambitoIdSeleccionado;
 var ambitoDescripSeleccionado;
 var cargoIdSeleccionado;
@@ -10,6 +15,11 @@ var lista_de_serv_publico;
 
 Backend.start(function () {
     $(document).ready(function () {
+
+        var valores = getParametrosURL();
+        pLegajo = valores['legajo'];
+        pFolio  = valores['folio'];
+
         completarComboAmbitos();
         completarComboCargo();
 
@@ -19,6 +29,30 @@ Backend.start(function () {
         ConsultarServicioAdmPublica();
     });
 });
+
+
+function getParametrosURL() {
+    // url
+    var loc = document.location.href;
+    // si existe el signo ?
+    if (loc.indexOf('?') > 0) {
+        var getString = loc.split('?')[1];
+        var GET = getString.split('&');
+        var get = {};
+        for (var i = 0, l = GET.length; i < l; i++) {
+            var tmp = GET[i].split('=');
+            get[tmp[0]] = unescape(decodeURI(tmp[1]));
+        }
+        return get;
+    }
+}
+
+
+var FormatearFecha = function (p_fecha) {
+    var fecha_sin_hora = p_fecha.split("T");
+    var fecha = fecha_sin_hora[0].split("-");
+    return fecha[2] + "/" + fecha[1] + "/" + fecha[0];
+};
 
 var completarComboAmbitos = function () {
     var ambitos = $('#cmbAmbitos');
@@ -81,7 +115,7 @@ var completarComboCargo = function () {
 var ConsultarServicioAdmPublica = function (documento) {
     spinner = new Spinner({ scale: 2 }).spin($("body")[0]);
 
-    Backend.GET_Servicios_Adm_Publica_Detalles(201609, '00-018/018')
+    Backend.GET_Servicios_Adm_Publica_Detalles(pLegajo, pFolio)
     .onSuccess(function (respuesta) {
         lista_de_serv_publico = respuesta;
         DibujarGrillaServPublico();
@@ -125,8 +159,8 @@ var DibujarGrillaServPublico = function () {
     //            }),
             new Columna("Organismo", { generar: function (consulta) { return consulta.Organismo; } }),
             new Columna("Cargo", { generar: function (consulta) { return consulta.Cargo; } }),
-            new Columna("Desde", { generar: function (consulta) { return consulta.Fecha_Desde; } }),
-            new Columna("Hasta", { generar: function (consulta) { return consulta.Fecha_Hasta; } })
+            new Columna("Desde", { generar: function (consulta) { return FormatearFecha(consulta.Fecha_Desde); } }),
+            new Columna("Hasta", { generar: function (consulta) { return FormatearFecha(consulta.Fecha_Hasta); } })
             ]);
 
     grilla.CargarObjetos(lista_de_serv_publico);

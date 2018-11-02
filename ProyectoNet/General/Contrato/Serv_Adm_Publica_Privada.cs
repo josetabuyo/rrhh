@@ -8,7 +8,7 @@ namespace General.Contrato
     public class Serv_Adm_Publica_Privada
     {
         public int Id { get; set; }
-        public Int16 Ambito { get; set; }
+        public Ambito Ambito { get; set; }
         public string Jurisdiccion { get; set; }
         public string Organismo { get; set; }
         public Cargo Cargo { get; set; }
