@@ -76,6 +76,7 @@
     }
 
     return {
+        tab_name: '#scr_integrantes',
         init: setup_componentes,
         on_tab_enter: on_tab_enter
     }

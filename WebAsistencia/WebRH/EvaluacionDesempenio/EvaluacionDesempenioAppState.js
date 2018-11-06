@@ -225,7 +225,9 @@ define(['wsviaticos', 'underscore'], function (ws, _) {
 
     var StateChanged = function () {
         this.observers = this.observers || []
-        _.each(this.observers, each => each())
+        _.each(this.observers, each =>
+            each()
+        )
     }
 
     //API del modulo

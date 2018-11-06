@@ -10,7 +10,7 @@
 ///osea, es como presionar "back", sin avanzar. Es para los casos en los que se quiere mostrar otro tab sin, por ejemplo "guardar" 
 ///o alguna otra cosa.
 
-define(['jquery'], function ($) {
+define(['jquery','underscore'], function ($, _) {
 
     
     var do_nothing = function () { 
@@ -151,8 +151,8 @@ define(['jquery'], function ($) {
     ///    on_enter: on_scr_home_enter <-- funcion evaluada al entrar al tab
     /// }, ...
     ///]
-    var createTabs = function (tabs_events) {
-        this.tabs_events = tabs_events
+    var createTabs = function () {
+        var tabs_events = this.tabs_events
         $('a[on_next]').unbind('click', on_next_click)
         $('a[on_next]').click(tabs_events, on_next_click)
 
@@ -207,11 +207,34 @@ define(['jquery'], function ($) {
         })
     }
 
+    var addTabs = function (tabs) {
+        this.tabs_events = this.tabs_events || []
+
+        _.each(tabs, tab => {
+            var tab_def = {}
+            tab_def.tab_name = tab.tab_name
+            if (tab.on_next) {
+                tab_def.on_next = tab.on_next
+            }
+
+            if (tab.on_tab_enter) {
+                tab_def.on_enter = tab.on_tab_enter
+            }
+
+            this.tabs_events.push(tab_def)
+
+            if (tab.init) {
+                tab.init()
+            }
+        })
+    }
+
     return {
         createTabs: createTabs,
         getParam: getParam,
         setNextParameter: setNextParameter,
         goHome: goHome,
-        formSubmitted: formSubmitted
+        formSubmitted: formSubmitted,
+        addTabs: addTabs
     }
 })

@@ -104,6 +104,7 @@
     }
 
     return {
+        tab_name: '#scr_datos_generales',
         init: setup_componentes,
         on_tab_enter: on_tab_enter,
         on_next: on_next
