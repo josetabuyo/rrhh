@@ -1,189 +1,17 @@
 ﻿requirejs(['../common'], function (common) {
-    requirejs(['jquery', 'underscore', 'eval/EvaluacionDesempenioAppState', 'spa-tabs', 'creadorDeGrillas', 'eval/comitesPorPeriodo', 'selector-personas', 'barramenu2', 'jquery-ui', 'jquery-timepicker', 'additional-methods'], function ($, _, app_state, spa_tabs, CreadorDeGrillas, ComitesPorPeriodo, SelectorDePersonas) {
+    requirejs(['jquery', 'underscore', 'eval/EvaluacionDesempenioAppState', 'spa-tabs', 'creadorDeGrillas', 'eval/comitesPorPeriodo', 'eval/TabIntegrantes', 'eval/TabDatosGenerales', 'eval/TabUnidadesEvaluacion', 'barramenu2', 'jquery-ui', 'jquery-timepicker', 'additional-methods'], function ($, _, app_state, spa_tabs, CreadorDeGrillas, ComitesPorPeriodo, tab_integrantes, tab_datos_generales, tab_unidades_evaluacion) {
 
-        //window.localStorage.clear()
-
-        var on_integrantes_enter = function (idComite) {
-
-            var periodo = app_state.PeriodoDe(idComite)
-            spa_tabs.setNextParameter(idComite)
-
-            $("#desc_periodo_int").text(periodo.descripcion_periodo)
-
-            crear_grilla_integrantes()
-        }
-
-        var crear_grilla_integrantes = function () {
-
-            var idComite = spa_tabs.getParam()
-            var comite = app_state.GetComite(idComite)
-
-            //cargo la descripcion de "en caracter de" a partir del id para mostrarlo en la grilla
-            _.each(comite.Integrantes, i => i.EnCaracterDe = app_state.GetEnCaracterDe(i.IdEnCaracterDe))
-
-            CreadorDeGrillas('#tabla_integrantes', comite.Integrantes)
-            $(".delete-integrante").click(e => {
-                e.preventDefault()
-                remover_integrante(e.currentTarget.attributes.integrante.value, idComite)
-            })
-        }
-
-        //cuando se muestra la pantalla de datos generales
-        var on_datos_generales_enter = function () {
-
-            var id_comite = spa_tabs.getParam()
-            if (id_comite) {
-                var comite = app_state.GetComite(id_comite)
-                var fh = new Date(comite.Fecha)
-                var fh_formateada = fh.getDate() + '/' + (fh.getMonth() + 1) + '/' + (fh.getYear() + 1900)
-                var periodo = comite.Periodo
-
-                $("#fecha").val(fh_formateada)
-                $("#hora").val(comite.Hora)
-                $("#lugar").val(comite.Lugar)
-                $("#descripcion").val(comite.Descripcion)
-                $("#id_periodo_seleccionado").val(periodo.id_periodo)
-                $("#desc_periodo").text(periodo.descripcion_periodo)
-
-            } else {
-                var id_periodo = $("#id_periodo_seleccionado").val()
-                if (id_periodo == "") {
-                    alert("Debe seleccionar un período")
-                    spa_tabs.goHome()
-                    return
-                }
-                $("#desc_periodo").text(app_state.GetPeriodo(id_periodo).descripcion_periodo)
-            }
-        }
-
-        //cuando se hace click en "siguiente" (datos generales)
-        var on_datos_generales_next = function (show_next_tab, params) {
-            //params['IdPeriodo']<--todo, varios parametros con nombre
-
-            app_state.AddComite($("#descripcion").val(),
-                $("#fecha").val(),
-                $("#hora").val(),
-                $("#lugar").val(),
-                $("#id_periodo_seleccionado").val(),
-                (err, comite_agregado) => {
-                    if (err) {
-                        alert('Error al agregar comite')
-                        console.log(err)
-                    }
-                    show_next_tab(comite_agregado.Id)
-                    load_grid_periodos()
-                })
-        }
-
-        var checkbox_ue_clicked = function (event) {
-
-            var id_ue = event.currentTarget.attributes.model_id.value
-            var idComite = spa_tabs.getParam()
-            var checked = event.currentTarget.checked
-            event.currentTarget.checked = !event.currentTarget.checked
-
-            if (checked) {
-                app_state.EvalAddUnidadEvaluacionAComite(idComite, id_ue, (err, r) => {
-                    if (err) {
-                        event.currentTarget.checked = false
-                        alert(err)
-                    } else {
-                        event.currentTarget.checked = true
-                        calcular_totales_ue()
-                    }
-                })
-            } else {
-                app_state.EvalRemoveUnidadEvaluacionAComite(idComite, id_ue, (err, r) => {
-                    if (err) {
-                        event.currentTarget.checked = true
-                        alert(err)
-                    } else {
-                        event.currentTarget.checked = false
-                        calcular_totales_ue()
-                    }
-                })
-            }
-        }
-
-        var intFromTableCell = function (row, index) {
-            return parseInt(row.children[index].innerText)
-        }
-
-        var calcular_totales_ue = function () {
-            var selected_rows = $("#tabla_unidades input:checked").closest("tr")
-
-            var destacados = 0
-            var bueno = 0
-            var regular = 0
-            var deficiente = 0
-            var provisoria = 0
-            var pendiente = 0
-
-            _.each(selected_rows, row => {
-                destacados += intFromTableCell(row, 2)
-                bueno += intFromTableCell(row, 3)
-                regular += intFromTableCell(row, 4)
-                deficiente += intFromTableCell(row, 5)
-                provisoria += intFromTableCell(row, 7)
-                pendiente += intFromTableCell(row, 8)
-            })
-
-            var totalEvaluados = destacados + bueno + regular + deficiente
-            var totalGeneral = totalEvaluados + provisoria + pendiente
-
-            construir_ue_footer(destacados, bueno, regular, deficiente, provisoria, pendiente, totalEvaluados, totalGeneral, selected_rows.length)
-        }
-
-        var construir_ue_footer = function (destacados, bueno, regular, deficiente, provisoria, pendiente, totalEvaluados, totalGeneral, cont) {
-            $(".totalizador").remove()
-            var tr = $('<tr class="totalizador bg-info text-white"><td colspan="2">Total para las UE Seleccionadas:</td><td>' + destacados + '</td><td>' + bueno + '</td><td>' + regular + '</td><td>' + deficiente + '</td><td>' + totalEvaluados + '</td><td>' + provisoria + '</td><td>' + pendiente + '</td><td>' + totalGeneral + '</td><td>' + cont + '</td>')
-            tr.children().addClass('text-right')
-            $("#tabla_unidades > tbody").append(tr)
-
-        }
-
-        var crear_grilla_unidades = function () {
-
-            var idComite = spa_tabs.getParam()
-            var periodo = app_state.PeriodoDe(idComite)
-            var comite = app_state.GetComite(idComite)
-            var all_ues = app_state.GetUnidadesEvaluacion(idComite)
-            var ues_periodo = _.filter(all_ues, ue => ue.IdPeriodo == periodo.Id)
-
-            //si el comite tiene a la ue, entonces tiene que estar checked (Selected)
-            _.each(ues_periodo, ue => {
-                ue.Selected = _.some(comite.UnidadesEvaluacion, cue => cue.Id == ue.Id) ? "checked" : ""
-                $.extend(ue, ue.DetalleEvaluados) //flatten
-                ue.TotalEvaluados = ue.Destacados + ue.Bueno + ue.Regular + ue.Deficiente
-                ue.TotalGeneral = ue.TotalEvaluados + ue.Provisoria + ue.Pendiente
-            })
-
-            CreadorDeGrillas('#tabla_unidades', ues_periodo)
-
-            $('[type=checkbox]').click(checkbox_ue_clicked)
-        }
-
-        var on_scr_unidades_enter = function (idComite) {
-
-            var periodo = app_state.PeriodoDe(idComite)
-            spa_tabs.setNextParameter(idComite)
-
-            $("#desc_periodo_ues").text(periodo.descripcion_periodo)
-
-            crear_grilla_unidades()
-        }
-
-        //config para la Single Page App con Tabs
+         //config para la Single Page App con Tabs
         var tabs_events = [{
             tab_name: '#scr_datos_generales',
-            on_next: on_datos_generales_next,
-            on_enter: on_datos_generales_enter
+            on_next: tab_datos_generales.on_next,
+            on_enter: tab_datos_generales.on_enter
         }, {
             tab_name: '#scr_integrantes',
-            on_enter: on_integrantes_enter
+            on_enter: tab_integrantes.on_tab_enter
         }, {
             tab_name: '#scr_unidades',
-            on_enter: on_scr_unidades_enter
+            on_enter: tab_unidades_evaluacion.on_tab_enter
         }]
 
         var set_id_periodo_seleccionado = function (e) {
@@ -210,108 +38,20 @@
             })
         }
 
-        var remover_integrante = function (id_integrante, idComite) {
-            app_state.DelIntegrante(id_integrante, idComite, i => {
-                crear_grilla_integrantes()
-            })
-        }
-
-        var agregar_integrante = function () {
-            var idComite = spa_tabs.getParam()
-            var persona = JSON.parse($('#persona_buscada').val())
-            var caracter = $('#cmb_en_caracter_de').val()
-
-            var integrante = {
-                IdPersona: persona.IdPersona,
-                Apellido: persona.Apellido,
-                Nombre: persona.Nombre,
-                Dni: persona.Dni,
-                IdEnCaracterDe: caracter
-            }
-
-            app_state.AddIntegrante(integrante, idComite, (err) => {
-                if (err) {
-                    alert(err)
-                    return
-                }
-                crear_grilla_integrantes()
-            })
-        }
 
         var setup_componentes = function () {
 
-            $.validator.addMethod("hhmm", function (value, element) {
-                return this.optional(element) || /^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/.test(value);
-                }, "El fromato de la hora debe ser hh:mm");
-               
 
 
-            $('#fecha').datepicker({
-                dateFormat: "dd/mm/yy",
-                yearRange: '2015:2040',
-            })
+            app_state.OnStateChange(load_grid_periodos)
 
-            $('.timepicker').timepicker({
-                timeFormat: 'HH:mm',
-                interval: 60,
-                minTime: '10',
-                maxTime: '6:00pm',
-                defaultTime: '11',
-                startTime: '10:00',
-                dynamic: false,
-                dropdown: true,
-                scrollbar: true
-            })
+            tab_unidades_evaluacion.init()
+            tab_datos_generales.init()
+            tab_integrantes.init()
 
-            $("#btn_agregar_integrante").click(e => agregar_integrante())
-
-            $("#frm_datos_generales").validate({
-                rules: {
-                    fecha: {
-                        dateITA: true
-                    }
-                },
-                messages: {
-                    fecha: {
-                        required: 'Debe especificar la fecha de reunión',
-                        dateITA: 'El formato de la fecha debe ser dd/mm/aaaa',
-                    },
-                    hora: {
-                        minlength: 'La hora debe tener el formato hh:mm (eg: 18:30)',
-                        maxlength: 'La hora debe tener el formato hh:mm (eg: 18:30)'
-                    },
-                    lugar: {
-                        required: 'Debe especificar un lugar',
-                        minlength: 'El lugar debe contener al menos {0} caracteres'
-                    },
-                    descripcion: {
-                        required: 'Debe especificar una descripción',
-                        minlength: 'La descripción es muy corta'
-                    }
-                },
-                submitHandler: function (form, event) {
-                    spa_tabs.formSubmitted(event)
-                    var next = event.currentTarget.attributes.on_next.value
-                }
-            });
-
-            var selector_integrantes = new SelectorDePersonas({
-                ui: $('#cmb_selector_integrantes'),
-                repositorioDePersonas: app_state,
-                placeholder: "nombre, apellido, documento o legajo"
-            })
-
-            selector_integrantes.alSeleccionarUnaPersona = function (la_persona_seleccionada) {
-                var persona = {
-                    Dni: la_persona_seleccionada.documento,
-                    Apellido: la_persona_seleccionada.apellido,
-                    Nombre: la_persona_seleccionada.nombre,
-                    IdPersona: la_persona_seleccionada.id
-                }
-                $("#persona_buscada").val(JSON.stringify(persona))
-            }
-            load_grid_periodos()
+            app_state.StateChanged()
         }
+
         setup_componentes()
     })
 })

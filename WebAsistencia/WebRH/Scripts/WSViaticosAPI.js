@@ -25,8 +25,14 @@
                 } else {
                     return res
                 }
-            })
-            cb(null, respuestas)
+                })
+                try {
+                    cb(null, respuestas)
+                } catch (e) {
+                    alert('Se produjo al recibir la respuesta del servidor, consulte la consola para ver detalles')
+                    console.log(e)
+                }
+            
         }).catch(err => cb(err))
     }
 

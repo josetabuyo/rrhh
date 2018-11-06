@@ -25,17 +25,19 @@ require.config({
     },
     paths: {
         'jquery': 'jquery/jquery',
-        'bootstrap': 'bootstrap/dist/js/bootstrap.bundle',
-        'barramenu2': '../BarraMenu/BarraMenu2',
         'jquery-timepicker': 'jquery-timepicker/jquery.timepicker',
+
         'jquery.validate': 'jquery-validation/dist/jquery.validate',
         'additional-methods': 'jquery-validation/dist/additional-methods',
+
+        'bootstrap': 'bootstrap/dist/js/bootstrap.bundle',
 
         'eval': '../EvaluacionDesempenio',
 
         'menuDesplegable': '../BarraMenu/MenuDesplegable2',
         'vistaTipoTicket': '../BarraMenu/VistaTipoTicket2',
         'vistaItemMenu': '../BarraMenu/VistaItemMenu2',
+        'barramenu2': '../BarraMenu/BarraMenu2',
 
         'vistaThumbnail': '../Scripts/ControlesImagenes/VistaThumbnail2',
         'backend': '../Scripts/Backend2',

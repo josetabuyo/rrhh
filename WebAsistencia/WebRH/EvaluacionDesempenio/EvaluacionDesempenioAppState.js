@@ -218,6 +218,15 @@ define(['wsviaticos', 'underscore'], function (ws, _) {
             cb(null, res[0])
         })
     }
+    var OnStateChange = function (observer) {
+        this.observers = this.observers || []
+        this.observers.push(observer)
+    }
+
+    var StateChanged = function () {
+        this.observers = this.observers || []
+        _.each(this.observers, each => each())
+    }
 
     //API del modulo
     return {
@@ -233,7 +242,9 @@ define(['wsviaticos', 'underscore'], function (ws, _) {
         DelIntegrante: DelIntegrante,
         GetUnidadesEvaluacion: GetUnidadesEvaluacion,
         EvalAddUnidadEvaluacionAComite: EvalAddUnidadEvaluacionAComite,
-        EvalRemoveUnidadEvaluacionAComite: EvalRemoveUnidadEvaluacionAComite
+        EvalRemoveUnidadEvaluacionAComite: EvalRemoveUnidadEvaluacionAComite,
+        OnStateChange: OnStateChange,
+        StateChanged: StateChanged
 
     }
 })
