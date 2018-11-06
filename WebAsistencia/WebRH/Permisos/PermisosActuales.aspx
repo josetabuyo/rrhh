@@ -26,8 +26,12 @@
             
                 <div class="caja_der papel">
             
-                    <legend style="margin-top: 20px;">PERFILES ACTUALES</legend>
+                    <legend style="margin-top: 20px;">PERMISOS ACTUALES</legend>
                     <div id="tabla_permisos">
+    
+                    </div>
+
+                     <div id="tabla_funcionalidades">
     
                     </div>
 

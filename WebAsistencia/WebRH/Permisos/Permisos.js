@@ -25,6 +25,10 @@ var Permisos = {
     getPerfiles: function (idUsuario) {
 
         var _this = this;
+        if (!sessionStorage.getItem("idUsuario")) {
+            alert("Debe seleccionar un usuario antes de proseguir");
+            window.location.replace("DefinicionDeUsuario.aspx");
+        }
 
         Backend.GetPerfilesActuales(idUsuario)
             .onSuccess(function (perfiles) {
@@ -39,18 +43,18 @@ var Permisos = {
 
                 columnas.push(new Columna("Perfiles", { generar: function (un_permiso) { return un_permiso.Nombre } }));
                 columnas.push(new Columna("Areas", { generar: function (un_permiso) { return un_permiso.Areas[0].Nombre } }));
-                columnas.push(new Columna("Incluye Dep.", { generar: function (un_permiso) { return un_permiso.Areas[0].IncluyeDependencias } }));
+                columnas.push(new Columna("Incluye Dep.", { generar: function (un_permiso) { if (un_permiso.Areas[0].IncluyeDependencias) return 'Si'; return 'No' } }));
                 columnas.push(new Columna("Desde", { generar: function (un_permiso) { return '01/01/2018' } }));
                 columnas.push(new Columna('Accion', {
                     generar: function (un_permiso) {
                         var btn_accion = $('<a>');
                         var img = $('<img>');
-                        img.attr('src', '../Imagenes/delete.jpg');
+                        img.attr('src', '../Imagenes/eliminar.jpg');
                         img.attr('width', '20px');
                         img.attr('height', '20px');
                         btn_accion.append(img);
                         btn_accion.click(function () {
-                            _this.EliminarPerfil(un_permiso);
+                            _this.eliminarPerfil(un_permiso);
                         });
                         return btn_accion;
                     }
@@ -70,9 +74,69 @@ var Permisos = {
 
             });
 
+        Backend.GetFuncionalidadesActuales(idUsuario)
+            .onSuccess(function (funcionalidades) {
+
+                //var perfiles = JSON.parse(perfilesJSON);
+
+
+                $("#tabla_funcionalidades").empty();
+                var divGrilla = $("#tabla_funcionalidades");
+                //var tabla = resultado;
+                var columnas = [];
+
+                columnas.push(new Columna("Funciones", { generar: function (un_permiso) { return un_permiso.Nombre } }));
+                columnas.push(new Columna("Areas", { generar: function (un_permiso) { if (un_permiso.Areas.length > 0) return un_permiso.Areas[0].Nombre; return 'Sin Area'; } }));
+                columnas.push(new Columna("Incluye Dep.", { generar: function (un_permiso) { if (un_permiso.Areas.length > 0) { if (un_permiso.Areas[0].IncluyeDependencias) return 'Si'; return 'No' } else { return '' } } }));
+                columnas.push(new Columna("Desde", { generar: function (un_permiso) { return '01/01/2018' } }));
+                columnas.push(new Columna('Accion', {
+                    generar: function (un_permiso) {
+                        var btn_accion = $('<a>');
+                        var img = $('<img>');
+                        img.attr('src', '../Imagenes/eliminar.jpg');
+                        img.attr('width', '20px');
+                        img.attr('height', '20px');
+                        btn_accion.append(img);
+                        btn_accion.click(function () {
+                            _this.eliminarFuncionalidad(un_permiso);
+                        });
+                        return btn_accion;
+                    }
+                }));
+
+
+                _this.Grilla = new Grilla(columnas);
+                _this.Grilla.SetOnRowClickEventHandler(function (un_permiso) { });
+                _this.Grilla.CambiarEstiloCabecera("estilo_tabla_portal");
+                _this.Grilla.CargarObjetos(funcionalidades);
+                _this.Grilla.DibujarEn(divGrilla);
+                $('.table-hover').removeClass("table-hover");
+
+
+            })
+            .onError(function (e) {
+
+            });
+
+
     },
-    EliminarPerfil: function (perfil) {
-        alert('¿Esta seguro de eliminar el Perfil?');
+    eliminarPerfil: function (perfil) {
+        var r = confirm("¿Está seguro de eliminar el Perfil?");
+        if (r == true) {
+            txt = "Borrar";
+        } else {
+            txt = "Cancelar";
+        }
+
+    },
+    eliminarFuncionalidad: function (funcionalidad) {
+        var r = confirm("¿Está seguro de eliminar la Funcionalidad?");
+        if (r == true) {
+            txt = "Borrar";
+        } else {
+            txt = "Cancelar";
+        }
+
     },
     iniciarConsultaRapida: function () {
         var _this = this;
@@ -126,9 +190,13 @@ var Permisos = {
                 }
             });
     },
-
+    //FC: cuando seleccione una persona del buscador de Personas
     cargarUsuario: function (usuario) {
         console.log(usuario);
+        sessionStorage.setItem("nombre", usuario.Owner.Nombre);
+        sessionStorage.setItem("apellido", usuario.Owner.Apellido);
+        sessionStorage.setItem("idUsuario", usuario.Id);
+        this.completarDatosDeLaSesion();
 
         var _this = this;
         _this.usuario = usuario;
@@ -216,6 +284,11 @@ var Permisos = {
 
     },
     iniciarPantallaAsignacionPerfiles: function () {
+        this.completarDatosDeLaSesion();
+        if (!sessionStorage.getItem("idUsuario")) {
+            alert("Debe seleccionar un usuario antes de proseguir");
+            window.location.replace("DefinicionDeUsuario.aspx");
+        }
 
         var proveedor_ajax = new ProveedorAjax("../");
         this.repositorioDeAreas = new RepositorioDeAreas(proveedor_ajax);
@@ -223,11 +296,23 @@ var Permisos = {
         this.div_lista_areas = $("#lista_areas_para_consultar");
 
         $("#comboPerfiles").change(function (e) {
-            alert($(this).val());
+            //alert($(this).val());
+            var plantillaPerfiles = $("#plantillaPerfilSeleccionado").clone();
 
-            $("#perfilSeleccionado").html($("select option:selected").text());
-            $("#perfilSeleccionado").attr('class', $(this).val());
-            
+            plantillaPerfiles.find(".nombrePerfil").html($("select option:selected").text());
+
+            plantillaPerfiles.attr('id', $(this).val());
+            plantillaPerfiles.attr('class', 'perfilesSeleccionados');
+
+            plantillaPerfiles.find(".quitar").click(function () {
+                //plantillaPerfiles.find("#" + $(this).attr('class')).remove();
+                plantillaPerfiles.remove();
+            });
+
+            //plantillaPerfiles.find(".quitar").attr("class", $(this).val());
+            plantillaPerfiles.show();
+            $("#perfilesSeleccionado").append(plantillaPerfiles);
+
         });
 
         this.selector_de_areas = new SelectorDeAreas({
@@ -239,15 +324,151 @@ var Permisos = {
                 //alert(area.nombre);
 
                 var plantilla = $("#plantillaArea").clone();
+                plantilla.show();
                 plantilla.find("#areaSeleccionada").html(area.nombre);
-                plantilla.find("#checkIncluyeDependencias").val(area.id);
+                plantilla.find("#checkIncluyeDependencias").attr('class', 'checksIncluyeDependencia');
 
                 plantilla[0].id = area.id;
+                plantilla.attr('class', 'areasSeleccionadas');
+
+                $("#listadoAreasElegidas").append(plantilla);
+            }
+        });
+
+
+        $("#btnAsignarPerfilConAreas").click(function (e) {
+            //alert($(this).val());
+            var perfilesSeleccionados = $('.perfilesSeleccionados').map(function () {
+                return $(this).attr('id');
+            }).get();
+
+
+            var areasSeleccionadas = $('.areasSeleccionadas').map(function () {
+                return { id: $(this).attr('id'), incluyeDependencia: $(this)[0].children[1].checked };
+            }).get();
+
+            /* var dependencias = $('.checksIncluyeDependencia').map(function () {
+            return $(this)[0].checked;
+            }).get();*/
+
+            var idUsuarioSeleccionado = sessionStorage.getItem("idUsuario");
+
+            Backend.asignarPerfiles(JSON.stringify(perfilesSeleccionados), JSON.stringify(areasSeleccionadas), idUsuarioSeleccionado)
+            .onSuccess(function (rto) {
+                console.log(rto);
+
+            })
+            .onError(function (e) {
+
+            });
+
+        });
+
+    },
+    iniciarPantallaAsignacionFuncionalidad: function () {
+        this.completarDatosDeLaSesion();
+        if (!sessionStorage.getItem("idUsuario")) {
+            alert("Debe seleccionar un usuario antes de proseguir");
+            window.location.replace("DefinicionDeUsuario.aspx");
+        }
+
+        var proveedor_ajax = new ProveedorAjax("../");
+        this.repositorioDeAreas = new RepositorioDeAreas(proveedor_ajax);
+
+        this.div_lista_areas = $("#lista_areas_para_consultar");
+
+
+        Backend.TodasLasFuncionalidades()
+            .onSuccess(function (funcionalidades) {
+
+                $("#comboFuncionalidades").empty();
+                $("#comboFuncionalidades").append("<option value='0'>Seleccionar Funcionalidad</option>");
+
+                $.each(funcionalidades, function (key, value) {
+                    $("#comboFuncionalidades").append("<option value=" + value.Id + ">" + value.Nombre + "</option>");
+
+                });
+
+            })
+            .onError(function (e) {
+
+            });
+
+
+        $("#comboFuncionalidades").change(function (e) {
+            alert($(this).val());
+
+            var plantillaFuncionalidad = $('#plantillaFuncionalidadSeleccionada').clone();
+
+            plantillaFuncionalidad.find(".nombreFuncionalidad").html($("select option:selected").text());
+
+            plantillaFuncionalidad.attr('id', $(this).val());
+            plantillaFuncionalidad.attr('class', 'funcionalidadesSeleccionadas');
+
+            plantillaFuncionalidad.find(".quitar").click(function () {
+                plantillaFuncionalidad.remove();
+            });
+
+            //plantillaPerfiles.find(".quitar").attr("class", $(this).val());
+            plantillaFuncionalidad.show();
+            $("#funcionalidadesSeleccionadas").append(plantillaFuncionalidad);
+
+
+        });
+
+        this.selector_de_areas = new SelectorDeAreas({
+            ui: $("#selector_area_usuarios"),
+            repositorioDeAreas: this.repositorioDeAreas,
+            placeholder: "ingrese el área que desea buscar",
+            alSeleccionarUnArea: function (area) {
+
+                //alert(area.nombre);
+
+                var plantilla = $("#plantillaArea").clone();
+                plantilla.show();
+                plantilla.find("#areaSeleccionada").html(area.nombre);
+                plantilla.find("#checkIncluyeDependencias").attr('class', 'checksIncluyeDependencia');
+
+                plantilla[0].id = area.id;
+                plantilla.attr('class', 'areasSeleccionadas');
 
 
                 $("#listadoAreasElegidas").append(plantilla);
             }
         });
+
+        $("#btnAsignarFuncionalidadConAreas").click(function (e) {
+            //alert($(this).val());
+            var funcionalidadesSeleccionados = $('.funcionalidadesSeleccionadas').map(function () {
+                return $(this).attr('id');
+            }).get();
+
+
+            var areasSeleccionadas = $('.areasSeleccionadas').map(function () {
+                return { id: $(this).attr('id'), incluyeDependencia: $(this)[0].children[1].checked };
+            }).get();
+
+            /* var dependencias = $('.checksIncluyeDependencia').map(function () {
+            return $(this)[0].checked;
+            }).get();*/
+
+            var idUsuarioSeleccionado = sessionStorage.getItem("idUsuario");
+
+            Backend.asignarFuncionalidades(JSON.stringify(funcionalidadesSeleccionados), JSON.stringify(areasSeleccionadas), idUsuarioSeleccionado)
+            .onSuccess(function (rto) {
+                console.log(rto);
+
+            })
+            .onError(function (e) {
+
+            });
+
+        });
+
+    },
+    completarDatosDeLaSesion: function () {
+        $("#nombre_empleado").html(sessionStorage.getItem("nombre"));
+        $("#apellido_empleado").html(sessionStorage.getItem("apellido"));
 
     }
 

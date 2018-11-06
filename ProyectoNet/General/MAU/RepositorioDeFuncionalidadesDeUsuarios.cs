@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using General.Repositorios;
+using Newtonsoft.Json.Linq;
 
 namespace General.MAU
 {
@@ -175,6 +176,73 @@ namespace General.MAU
 
             /*RepositorioDeUsuarios repositorioDeUsuarios = new RepositorioDeUsuarios(conexion, RepositorioDePersonas.NuevoRepositorioDePersonas(conexion));
             return this.Obtener().FindAll(p => p.Value == id_funcionalidad).Select(p => repositorioDeUsuarios.GetUsuarioPorId(p.Key)).ToList();*/
+        }
+
+        public List<Funcionalidad> GetFuncionalidadesActuales(int id_usuario)
+        {
+            var funcionalidades = new List<Funcionalidad>();
+
+            Funcionalidad unaFuncionalidad = new Funcionalidad(1, "Imprimir Planillas", "", false, false, false);
+            Funcionalidad unaFuncionalidad1 = new Funcionalidad(2, "Acceso MAU", "", false, false, false);
+            Funcionalidad unaFuncionalidad2 = new Funcionalidad(3, "Acceso a MODI", "", false, false, false);
+            Funcionalidad unaFuncionalidad3 = new Funcionalidad(4, "Generar DDJJ104", "", false, false, false);
+            Funcionalidad unaFuncionalidad4 = new Funcionalidad(5, "Acceso Portal", "", false, false, false);
+
+            Area area1 = new Area(1, "Direccion General de Recursos Humanos");
+            area1.IncluyeDependencias = 1;
+            Area area2 = new Area(2, "Centro de Referencia Mendoza");
+            area2.IncluyeDependencias = 0;
+            Area area3 = new Area(3, "Programa Alimentario Mendoza");
+            area3.IncluyeDependencias = 1;
+
+            unaFuncionalidad.Areas.Add(area1);
+            unaFuncionalidad1.Areas.Add(area2);
+            unaFuncionalidad.Areas.Add(area3);
+            unaFuncionalidad.Areas.Add(area2);
+
+            unaFuncionalidad2.Areas.Add(area1);
+            unaFuncionalidad3.Areas.Add(area3);
+
+            funcionalidades.Add(unaFuncionalidad);
+            funcionalidades.Add(unaFuncionalidad1);
+            funcionalidades.Add(unaFuncionalidad2);
+            funcionalidades.Add(unaFuncionalidad3);
+            funcionalidades.Add(unaFuncionalidad4);
+
+
+            return funcionalidades;
+
+            /*RepositorioDeUsuarios repositorioDeUsuarios = new RepositorioDeUsuarios(conexion, RepositorioDePersonas.NuevoRepositorioDePersonas(conexion));
+            return this.Obtener().FindAll(p => p.Value == id_funcionalidad).Select(p => repositorioDeUsuarios.GetUsuarioPorId(p.Key)).ToList();*/
+        }
+
+        public string AsignarPerfilesAUsuario(List<int> perfiles, JArray areas, int idUsuario, int id_usuario_alta)
+        {
+
+            try
+            {
+                  var parametros = new Dictionary<string, object>();
+                  perfiles.ForEach(idPerfil => areas.ToList().ForEach(area => area.ToList()
+
+                      //parametros.Add("@id_usuario", area.idArea);
+                      //parametros.Add("@id_funcionalidad", objeto.Value);
+                      //var tablaDatos = conexion.Ejecutar("dbo.MAU_DenegarFuncionalidadA", parametros);
+
+                      )
+
+                      );
+
+               
+
+                return "ok";
+            }
+            catch (Exception e) {
+                return e.Message;
+            }
+
+            
+
+           
         }
     }
 }

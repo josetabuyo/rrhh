@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json.Linq;
 
 namespace General.MAU
 {
@@ -83,6 +84,16 @@ namespace General.MAU
         }
 
         public List<MAU_Perfil> GetPerfilesActuales(int id_usuario)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Funcionalidad> GetFuncionalidadesActuales(int id_usuario)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string AsignarPerfilesAUsuario(List<int> perfiles, JArray areas, int idUsuario, int id_usuario_alta)
         {
             throw new NotImplementedException();
         }

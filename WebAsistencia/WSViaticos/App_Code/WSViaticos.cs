@@ -3030,6 +3030,34 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public Funcionalidad[] GetFuncionalidadesActuales(int id_usuario, Usuario usuario)
+    {
+        //var usu = RepositorioDeUsuarios().GetUsuarioPorId(id_usuario);
+        var funcionalidades = RepositorioDeFuncionalidadesDeUsuarios().GetFuncionalidadesActuales(id_usuario).ToArray();
+        return funcionalidades;
+    }
+
+    [WebMethod]
+    public string asignarPerfiles(string idPerfiles, string areas, int id_usuario, Usuario usuario)
+    {
+        //var usu = RepositorioDeUsuarios().GetUsuarioPorId(id_usuario);
+        int[] perfiles = JsonConvert.DeserializeObject<int[]>(idPerfiles);
+        var informesArray = (JArray)JsonConvert.DeserializeObject(areas);
+        return "ok";
+    }
+
+    [WebMethod]
+    public string asignarFuncionalidades(string idFuncionalidades, string areas, int id_usuario, Usuario usuario)
+    {
+        //var usu = RepositorioDeUsuarios().GetUsuarioPorId(id_usuario);
+        int[] funcionalidades = JsonConvert.DeserializeObject<int[]>(idFuncionalidades);
+        var areasArray = (JArray)JsonConvert.DeserializeObject(areas);
+        return RepositorioDeFuncionalidadesDeUsuarios().AsignarPerfilesAUsuario(funcionalidades.ToList(), areasArray, id_usuario, usuario.Id);
+        
+    }
+    
+
+    [WebMethod]
     public Funcionalidad[] FuncionalidadesOtorgadasA(int id_usuario)   //tira las funcionalidades tildadas en MAU, independientemente de otras verificaciones
     {
         var usuario = RepositorioDeUsuarios().GetUsuarioPorId(id_usuario);

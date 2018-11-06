@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="AsignacionDePerfiles.aspx.cs" Inherits="Permisos_AsignacionDePerfiles" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="AsignacionDeFuncionalidades.aspx.cs" Inherits="Permisos_AsignacionDeFuncionalidades" %>
 <%@ Register Src="~/BarraMenu/BarraMenu.ascx" TagName="BarraMenu" TagPrefix="uc2" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -27,33 +27,14 @@
             
                 <div class="caja_der papel">
             
-                    <legend style="margin-top: 20px;">ASIGNACION DE PERFILES</legend>
-                    <label>Seleccione el Perfil a Asignar: </label>
-                    <select id="comboPerfiles">
-                        <option value="0">Seleccionar Perfil</option>
-                        <option value="1">Responsable de Control de Asistencia</option>
-                        <option value="2">Reportes de Dotacion Nivel 1</option>
-                        <option value="3">Administracion de Medialunas</option>
+                    <legend style="margin-top: 20px;">ASIGNACION DE FUNCIONALIDADES</legend>
+                    <label>Seleccione la funcionalidad a Asignar: </label>
+                    <select id="comboFuncionalidades">
+                       
                     </select>
 
-                    <span id="mostrarDialogo">ver Listado de Func. de cada Perfil</span>
-
-                    <div id="dialog" title="Listado de Funcionalidades por Perfil">
-                      <div>
-                        <p class="dialogNombrePerfil" >Responsable de RCA</p>
-                        <hr />
-                        <ul class="dialogListaFunc">
-                            <li>Control Acceso</li>
-                            <li>Control Asistencia</li>
-                            <li>Carga Licencias</li>
-                            <li>Control Planilla</li>
-                        </ul>
-
-                      </div>
-                    </div>
-
-                    <p style="margin-top: 20px;"><strong>Perfil Seleccionado:</strong></p>
-                    <div id="perfilesSeleccionado"></div>
+                    <p style="margin-top: 20px;"><strong>Funcionalidad Seleccionada:</strong></p>
+                    <div id="funcionalidadesSeleccionadas"></div>
 
                     <hr />
 
@@ -72,7 +53,7 @@
 
                      <hr />
                      <div style="text-align:center;">
-                        <input type="button" class="btn-primary" value="Agregar Perfil a las Areas seleccionadas" id="btnAsignarPerfilConAreas" />
+                        <input type="button" class="btn-primary" value="Agregar Funcionalidad con las Areas seleccionadas" id="btnAsignarFuncionalidadConAreas" />
                      </div>
 
                 </div>
@@ -94,8 +75,8 @@
         <hr />
     </div>
 
-    <div id="plantillaPerfilSeleccionado" style="display:none;" class="listadoPerfiles">
-        <span style="width: 50%; display: inline-block;" class="nombrePerfil"></span>
+    <div id="plantillaFuncionalidadSeleccionada" style="display:none;" class="listadoFuncionalidades">
+        <span style="width: 50%; display: inline-block;" class="nombreFuncionalidad"></span>
         <input  type="button" class="quitar" value="Quitar" /> 
     </div>
 
@@ -114,7 +95,7 @@
 
     $(document).ready(function ($) {
 
-        $("#dialog").dialog({
+       /* $("#dialog").dialog({
             autoOpen: false,
             show: {
                 effect: "blind",
@@ -128,7 +109,7 @@
 
         $("#mostrarDialogo").click(function () {
             $("#dialog").dialog("open");
-        });
+        });*/
 
 
         Backend.start(function () {
@@ -136,7 +117,7 @@
             $(".caja_izq").load("SeccionIzquierda.htm", function () {
 
                 //Permisos.init();
-                Permisos.iniciarPantallaAsignacionPerfiles();
+                Permisos.iniciarPantallaAsignacionFuncionalidad();
 
 
             });

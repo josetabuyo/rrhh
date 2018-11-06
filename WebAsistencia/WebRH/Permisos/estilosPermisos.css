@@ -199,8 +199,8 @@ legend {
 
 .estilo_tabla_portal 
 {
-    font-family: "Humnst777 BT" !important;
-    font-size: 11px !important;
+    /*font-family: "Humnst777 BT" !important;
+    font-size: 11px !important;*/
     background-color: #003e67 !important;
     color: #FFF !important;
     text-align: center !important;
@@ -578,4 +578,12 @@ legend {
     -pie-background: linear-gradient(#fff 0%, #F8FAFD 100%, #fff) 0 / 50px #0ae;
     behavior: url(../Estilos/css3_for_ie/PIE.htc);
     /*background: #E1E5F1; */
+}
+
+#mostrarDialogo 
+{
+    color: Blue;
+    text-decoration: underline;
+    cursor:pointer;
+    font-size:11;
 }
