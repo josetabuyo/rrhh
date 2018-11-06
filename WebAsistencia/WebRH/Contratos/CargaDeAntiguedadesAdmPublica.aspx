@@ -62,6 +62,7 @@
                 </asp:RadioButtonList>
             </div>
 
+
             <div>
                 <asp:Label ID="lblTipoDocumento" runat="server" Text="Tipo Documento" />
                 <asp:RadioButtonList ID="rdTipoDocumento" runat="server">
