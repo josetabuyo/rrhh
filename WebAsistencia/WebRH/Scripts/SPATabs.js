@@ -126,6 +126,11 @@ define(['jquery'], function ($) {
         }
     }
 
+    var formSubmitted = function (event) {
+        event.data = this.tabs_events
+        on_next_click(event)
+    }
+
     var on_next_click = function (event) {
         event.preventDefault();
         var tabs_events = event.data
@@ -148,11 +153,14 @@ define(['jquery'], function ($) {
     ///]
     var createTabs = function (tabs_events) {
         this.tabs_events = tabs_events
-        $('[on_next]').unbind('click', on_next_click )
-        $('[on_next]').click(tabs_events, on_next_click)
+        $('a[on_next]').unbind('click', on_next_click)
+        $('a[on_next]').click(tabs_events, on_next_click)
 
-        $('[on_leave]').unbind('click', on_leave_click)
-        $('[on_leave]').click(tabs_events, on_leave_click)
+        $('button[on_next]').unbind('click', on_next_click)
+        $('button[on_next]').click(tabs_events, on_next_click)
+
+        $('a[on_leave]').unbind('click', on_leave_click)
+        $('a[on_leave]').click(tabs_events, on_leave_click)
 
         //start in the tab form the url
         var start_tab = location.hash
@@ -203,6 +211,7 @@ define(['jquery'], function ($) {
         createTabs: createTabs,
         getParam: getParam,
         setNextParameter: setNextParameter,
-        goHome: goHome
+        goHome: goHome,
+        formSubmitted: formSubmitted
     }
 })

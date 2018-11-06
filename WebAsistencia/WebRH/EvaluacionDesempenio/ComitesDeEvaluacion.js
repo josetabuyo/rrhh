@@ -1,5 +1,5 @@
 ﻿requirejs(['../common'], function (common) {
-    requirejs(['jquery', 'underscore', 'eval/EvaluacionDesempenioAppState', 'spa-tabs', 'creadorDeGrillas', 'eval/comitesPorPeriodo', 'selector-personas', 'barramenu2', 'jquery-ui', 'jquery-timepicker'], function ($, _, app_state, spa_tabs, CreadorDeGrillas, ComitesPorPeriodo, SelectorDePersonas) {
+    requirejs(['jquery', 'underscore', 'eval/EvaluacionDesempenioAppState', 'spa-tabs', 'creadorDeGrillas', 'eval/comitesPorPeriodo', 'selector-personas', 'barramenu2', 'jquery-ui', 'jquery-timepicker', 'additional-methods'], function ($, _, app_state, spa_tabs, CreadorDeGrillas, ComitesPorPeriodo, SelectorDePersonas) {
 
         //window.localStorage.clear()
 
@@ -240,8 +240,15 @@
 
         var setup_componentes = function () {
 
+            $.validator.addMethod("hhmm", function (value, element) {
+                return this.optional(element) || /^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/.test(value);
+                }, "El fromato de la hora debe ser hh:mm");
+               
+
+
             $('#fecha').datepicker({
-                dateFormat: "dd/mm/yy"
+                dateFormat: "dd/mm/yy",
+                yearRange: '2015:2040',
             })
 
             $('.timepicker').timepicker({
@@ -257,6 +264,36 @@
             })
 
             $("#btn_agregar_integrante").click(e => agregar_integrante())
+
+            $("#frm_datos_generales").validate({
+                rules: {
+                    fecha: {
+                        dateITA: true
+                    }
+                },
+                messages: {
+                    fecha: {
+                        required: 'Debe especificar la fecha de reunión',
+                        dateITA: 'El formato de la fecha debe ser dd/mm/aaaa',
+                    },
+                    hora: {
+                        minlength: 'La hora debe tener el formato hh:mm (eg: 18:30)',
+                        maxlength: 'La hora debe tener el formato hh:mm (eg: 18:30)'
+                    },
+                    lugar: {
+                        required: 'Debe especificar un lugar',
+                        minlength: 'El lugar debe contener al menos {0} caracteres'
+                    },
+                    descripcion: {
+                        required: 'Debe especificar una descripción',
+                        minlength: 'La descripción es muy corta'
+                    }
+                },
+                submitHandler: function (form, event) {
+                    spa_tabs.formSubmitted(event)
+                    var next = event.currentTarget.attributes.on_next.value
+                }
+            });
 
             var selector_integrantes = new SelectorDePersonas({
                 ui: $('#cmb_selector_integrantes'),

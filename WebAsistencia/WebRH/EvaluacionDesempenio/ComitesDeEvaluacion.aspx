@@ -20,6 +20,7 @@
     <form id="form1" runat="server">
         <uc1:BarraMenu2 ID="BarraMenu21" runat="server" Feature="<span style='font-size:18px; font-weight: bold;'></span> <br/> <span style='font-size:18px;font-weight: bold;'> Menú Principal </span>"
             UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" UrlPassword="../" />
+        </form>
         <div class="container tab-content">
             <div class="row">
                 <div class="col">&nbsp;</div>
@@ -91,38 +92,40 @@
                                 <h6 class="card-subtitle mb-2 text-muted">Paso 1: Datos Generales</h6>
                                 <p class="lead" id="desc_periodo" />
                                 <div class="card-text">
-                                    <div class="form-group row">
-                                        <label for="telnum" class="col-12 col-md-2 col-form-label">Fecha</label>
-                                        <div class="col-5 col-md-3">
-                                            <input type="tel" class="form-control" id="fecha" name="Fecha" placeholder="Fecha">
+                                    <form id="frm_datos_generales" method="get" action="" on_next="#scr_integrantes">
+                                        <div class="form-group row">
+                                            <label for="date" class="col-12 col-md-2 col-form-label">Fecha</label>
+                                            <div class="col-5 col-md-3">
+                                                <input type="text" class="form-control" id="fecha" name="fecha" placeholder="fecha" required>
+                                            </div>
+                                            <div class="col-7 col-md-7">
+                                                <input type="hora" class="form-control timepicker" id="hora" name="hora" placeholder="hora" minlength="5" maxlength="5">
+                                            </div>
                                         </div>
-                                        <div class="col-7 col-md-7">
-                                            <input type="tel" class="form-control timepicker" id="hora" name="telnum" placeholder="hora">
+                                        <div class="form-group row">
+                                            <label for="lugar" class="col-md-2 col-form-label">Lugar</label>
+                                            <div class="col-md-10">
+                                                <input type="text" class="form-control" id="lugar" name="lugar" placeholder="Lugar" required minlength="3">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="emailid" class="col-md-2 col-form-label">Lugar</label>
-                                        <div class="col-md-10">
-                                            <input type="email" class="form-control" id="lugar" name="lugar" placeholder="Lugar">
+                                        <div class="form-group row">
+                                            <label for="descripcion" class="col-md-2 col-form-label">Descripcion</label>
+                                            <div class="col-md-10">
+                                                <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Descripcion" required minlength="3">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="emailid" class="col-md-2 col-form-label">Descripcion</label>
-                                        <div class="col-md-10">
-                                            <input type="email" class="form-control" id="descripcion" name="descripcion" placeholder="Descripcion">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <hr />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <hr />
+                                        <div class="form-group row">
+                                            <div class="col-md-12 text-right">
+                                                <a href="#" class="btn btn-secondary" role="button" on_leave="#scr_home">Atras</a>
+                                                <input type="submit" class="btn btn-primary active" role="button" value="Siguiente" />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-md-12 text-right">
-                                            <a href="#" class="btn btn-secondary" role="button" on_leave="#scr_home">Atras</a>
-                                            <a href="#" class="btn btn-primary active" role="button" on_next="#scr_integrantes">Siguiente</a>
-                                        </div>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -151,7 +154,6 @@
                                 <p class="lead" id="desc_periodo_int" />
                                 <div class="card-text">
                                     <div class="row">
-
                                         <div class="col-12 col-md-12">
                                             <table id="tabla_integrantes" class="table table-bordered table-striped table-sm">
                                                 <thead>
@@ -315,7 +317,7 @@
                 </div>
             </div>
         </div>
-    </form>
+    
     <input type="hidden" id="id_periodo_seleccionado" />
     <div id="plantillas" style="display: none">
         <div class="vista_persona_en_selector">
