@@ -825,7 +825,7 @@ namespace General.Repositorios
                           });
             }
             return area;
-        }
+        } 
 
         public void EliminarContactoArea(int id_contacto, int tipo_dato, string dato, int orden, int id_area, Usuario usuario)
         {
