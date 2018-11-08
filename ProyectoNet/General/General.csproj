@@ -119,7 +119,10 @@
     <Compile Include="MAU\RepositorioDeAlertasPortal.cs" />
     <Compile Include="MAU\RepositorioDeTickets.cs" />
     <Compile Include="MAU\SolicitudDeCambioDeImagen.cs" />
+    <Compile Include="MED\ComiteEvaluacionDesempenio.cs" />
+    <Compile Include="MED\DetalleEvaluadosPorUnidadEvaluacion.cs" />
     <Compile Include="MED\EvaluacionDesempenio.cs" />
+    <Compile Include="MED\IntegranteComiteEvalDesempenio.cs" />
     <Compile Include="MED\RespuestaGetAgentesEvaluablesPor.cs" />
     <Compile Include="MED\UnidadDeEvaluacion.cs" />
     <Compile Include="MED\VerificacionCodigoGdeDocumento.cs" />

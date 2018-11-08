@@ -42,13 +42,13 @@ namespace General.Repositorios
 
             return niveles;
         }
-    
-        protected override void  GuardarEnLaBase(NivelDeEstudio objeto)
+
+        protected override void GuardarEnLaBase(NivelDeEstudio objeto, int id_usuario_logueado)
         {
  	        throw new NotImplementedException();
         }
 
-        protected override void  QuitarDeLaBase(NivelDeEstudio objeto)
+        protected override void QuitarDeLaBase(NivelDeEstudio objeto, int id_usuario_logueado)
         {
  	        throw new NotImplementedException();
         }

@@ -27,9 +27,9 @@
         }
     }));
 
-    // Backend.sync.ElUsuarioLogueadoTienePermisosPara(30).onSuccess(function (tiene_permisos) {
+    // Backend.sync.ElUsuarioLogueadoTienePermisosParaFuncionalidadPorNombre("mau_usuarios_por_area").onSuccess(function (tiene_permisos) {
 
-    if (Backend.sync.ElUsuarioLogueadoTienePermisosPara(30)) {
+    if (Backend.sync.ElUsuarioLogueadoTienePermisosParaFuncionalidadPorNombre("mau_usuarios_por_area")) {
 
         columnas.push(new Columna("Cant. Usuarios", {
             generar: function (un_area) {

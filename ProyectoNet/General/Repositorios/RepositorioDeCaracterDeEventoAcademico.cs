@@ -43,7 +43,7 @@ namespace General.Repositorios
             return niveles;
         }
 
-        protected override void GuardarEnLaBase(CVCaracterDeParticipacionEvento objeto)
+        protected override void GuardarEnLaBase(CVCaracterDeParticipacionEvento objeto, int id_usuario_logueado)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@descripcion", objeto.Descripcion);
@@ -51,7 +51,7 @@ namespace General.Repositorios
             objeto.Id = Convert.ToInt32(conexion.EjecutarEscalar("dbo.CV_AgregarCaracterParticipacionEvento", parametros));
         }
 
-        protected override void QuitarDeLaBase(CVCaracterDeParticipacionEvento objeto)
+        protected override void QuitarDeLaBase(CVCaracterDeParticipacionEvento objeto, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }

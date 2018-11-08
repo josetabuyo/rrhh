@@ -45,12 +45,12 @@ namespace General.Repositorios
             return localidades;
         }
 
-        protected override void GuardarEnLaBase(Localidad objeto)
+        protected override void GuardarEnLaBase(Localidad objeto, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }
 
-        protected override void QuitarDeLaBase(Localidad objeto)
+        protected override void QuitarDeLaBase(Localidad objeto, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }

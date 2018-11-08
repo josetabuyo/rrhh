@@ -118,16 +118,153 @@ namespace General.Repositorios
             return GetAgentesEvaluablesPor(usuario, true);
         }
 
-        public List<PeriodoEvaluacion> GetPeriodosEvaluacion(Usuario usuario)
+        public List<PeriodoEvaluacion> GetPeriodosEvaluacion()
         {
             var parametros = new Dictionary<string, object>();
             var tablaDatos = _conexion.Ejecutar("dbo.EVAL_GET_PERIODOS_EVALUACION", parametros);
             var result = new List<PeriodoEvaluacion>();
             tablaDatos.Rows.ForEach(row =>
                 {
-                    result.Add(new PeriodoEvaluacion(row.GetSmallintAsInt("id"), row.GetString("descripcion"), row.GetDateTime("desde"), row.GetDateTime("hasta")));
+                    result.Add(new PeriodoEvaluacion(row.GetSmallintAsInt("id"), row.GetString("descripcion"), row.GetDateTime("desde"), row.GetDateTime("hasta"), row.GetString("Descr_Tipo_Periodo", "No Especifica")));
                 });
             return result;
+        }
+
+        /*public ComiteEvaluacionDesempenio GuardarComiteEvaluacionDesempenio(ComiteEvaluacionDesempenio comite)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@idPeriodo", comite.Periodo.id_periodo);
+            parametros.Add("@fecha", comite.Fecha);
+            parametros.Add("@lugar", comite.Lugar);
+
+            comite.Id = (int)_conexion.EjecutarEscalar("dbo.EVAL_INS_Comite", parametros);
+
+            comite.Integrantes.ForEach(i => AgregarIntegranteComite(comite.Id, i));
+            comite.UnidadesEvaluacion.ForEach(i => AgregarUnidadEvaluacionComite(comite.Id, i.Id));
+
+            return comite;
+        }*/
+
+        public void AgregarUnidadEvaluacionComite(int idComite, int idUnidadEvaluacion)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@idComite", idComite);
+            parametros.Add("@idUnidadEvaluacion", idUnidadEvaluacion);
+            _conexion.EjecutarEscalar("dbo.EVAL_INS_UnidadEvaluacionComite", parametros);
+        }
+
+        public void RemoverUnidadEvaluacionAComite(int idComite, int idUnidadEvaluacion)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@idComite", idComite);
+            parametros.Add("@idUnidadEvaluacion", idUnidadEvaluacion);
+            _conexion.EjecutarEscalar("dbo.EVAL_DEL_UnidadEvaluacionComite", parametros);
+        }
+
+        public void AgregarIntegranteComite(int idComite, IntegranteComiteEvalDesempenio integrante)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@idComite", idComite);
+            parametros.Add("@idPersona", integrante.IdPersona);
+            parametros.Add("@idEnCaracterDe", integrante.IdEnCaracterDe);
+            _conexion.EjecutarEscalar("dbo.EVAL_INS_IntegranteComite", parametros);
+        }
+
+        public void RemoverIntegranteComite(int idComite, int idPersonaIntegrante)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@idComite", idComite);
+            parametros.Add("@idPersona", idPersonaIntegrante);
+            _conexion.EjecutarEscalar("dbo.EVAL_DEL_IntegranteComite", parametros);
+        }
+
+        public List<ComiteEvaluacionDesempenio> GetAllComites()
+        {
+            var parametros = new Dictionary<string, object>();
+            var tablaDatos = _conexion.Ejecutar("dbo.EVAL_GET_Comites", parametros);
+            var resultado = new List<ComiteEvaluacionDesempenio>();
+            if (tablaDatos.Rows.Count > 0)
+            {
+                tablaDatos.Rows.ForEach(row =>
+                {
+                    this.CrearOCompletarComite(row, resultado);
+                });
+            }
+            return resultado;
+        }
+
+        protected void CrearOCompletarComite(RowDeDatos row, List<ComiteEvaluacionDesempenio> resultado)
+        {
+            if (!resultado.Any(c => c.Id == row.GetInt("id_comite")))
+            {
+                resultado.Add(ConstruirCabeceraComite(row));
+            }
+            else
+            {
+                var new_comite = resultado.Find(c => c.Id == row.GetInt("id_comite"));
+                //resultado.Add(new_comite);
+            }
+            var comite = resultado.Find(c => c.Id == row.GetInt("id_comite"));
+            ConstruirIntegranteComite(comite, row);
+            //ConstruirUnidadEvaluacionComite(comite, row);
+        }
+
+        private void ConstruirUnidadEvaluacionComite(ComiteEvaluacionDesempenio comite, RowDeDatos row)
+        {
+            if (!comite.UnidadesEvaluacion.Any(u => u.Id == row.GetInt("id_ue")))
+            {
+                var ue = new UnidadDeEvaluacion(row.GetInt("id_ue", 0), row.GetString("codigo_ue", "No Especifica"), row.GetString("nombre_area", "No Especifica"), row.GetSmallintAsInt("idPeriodo"));
+                comite.UnidadesEvaluacion.Add(ue);
+            }
+        }
+
+        private void ConstruirIntegranteComite(ComiteEvaluacionDesempenio comite, RowDeDatos row)
+        {
+            if (row.GetSmallintAsInt("id_persona_integrante", 0) == 0) { return; }
+            if (!comite.Integrantes.Any(i => i.IdPersona == row.GetInt("id_persona_integrante")))
+            {
+                var integrante = new IntegranteComiteEvalDesempenio();
+                integrante.IdPersona = row.GetInt("id_persona_integrante");
+                integrante.Apellido = row.GetString("apellido_integrante");
+                integrante.Nombre = row.GetString("nombre_integrante");
+                integrante.Dni = row.GetInt("documento_integrante");
+                integrante.IdEnCaracterDe = row.GetSmallintAsInt("idEnCaracterDe");
+                comite.Integrantes.Add(integrante);
+            }
+        }
+
+        private ComiteEvaluacionDesempenio ConstruirCabeceraComite(RowDeDatos row)
+        {
+            var comite = new ComiteEvaluacionDesempenio();
+            comite.Id = row.GetInt("id_comite");
+            comite.Fecha = row.GetDateTime("fecha_comite");
+            comite.Lugar = row.GetString("lugar_comite");
+            comite.Hora = row.GetString("hora_comite");
+            comite.Descripcion = row.GetString("descripcion_comite");
+            comite.Integrantes = new List<IntegranteComiteEvalDesempenio>();
+            comite.UnidadesEvaluacion = new List<UnidadDeEvaluacion>();
+            comite.Periodo = GetPeriodosEvaluacion().Find(p => p.id_periodo.Equals(row.GetInt("idPeriodo")));
+
+            AgregarUnidadesEvaluacion(comite);
+
+            return comite;
+        }
+
+        protected void AgregarUnidadesEvaluacion(ComiteEvaluacionDesempenio comite)
+        {
+            if (comite.UnidadesEvaluacion.Count > 0) return;
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@idComite", comite.Id);
+            var tablaDatos = _conexion.Ejecutar("dbo.EVAL_GET_UES_Comite", parametros);
+            var resultado = new List<ComiteEvaluacionDesempenio>();
+            if (tablaDatos.Rows.Count > 0)
+            {
+                tablaDatos.Rows.ForEach(row =>
+                {
+                    ConstruirUnidadEvaluacionComite(comite, row);
+                });
+            }
+
         }
 
         protected RespuestaGetAgentesEvaluablesPor GetAgentesEvaluablesPor(Usuario usuario, bool ModoVerificadorGDE)
@@ -144,7 +281,7 @@ namespace General.Repositorios
             {
                 parametros.Add("@solo_con_codigo_gde", 1);
             }
-            
+
             var tablaDatos = _conexion.Ejecutar("dbo.EVAL_GET_Evaluados_Evaluador", parametros);
 
             var asignaciones = new List<AsignacionEvaluadoAEvaluador> { };
@@ -195,8 +332,8 @@ namespace General.Repositorios
                 asignaciones.Add(asignacion_evaluado_a_evaluador);
             }
             asignaciones = asignaciones.OrderBy(a => a.agente_evaluado.apellido).ThenBy(a => a.agente_evaluado.nombre).ToList();
-            return new RespuestaGetAgentesEvaluablesPor(asignaciones, es_agente_verificador);
-            
+            return new RespuestaGetAgentesEvaluablesPor(asignaciones, es_agente_verificador, usuario);
+
         }
 
         protected AgenteEvaluacionDesempenio GetAgenteEvaluadorEvaluacionDesempenio(int id_evaluador, int id_periodo, Dictionary<int, AgenteEvaluacionDesempenio> cache)
@@ -230,8 +367,8 @@ namespace General.Repositorios
             //if (tablaDatos.Rows.Count > 0)
             //{
             //    var row = tablaDatos.Rows[0];
-                evaluador = new AgenteEvaluacionDesempenio(id_evaluado, row.GetString("apellido"), row.GetString("nombre"),
-                                                    row.GetInt("NroDocumento"), "SINEP", row.GetString("nivel_evaluado"), row.GetString("grado_evaluado"), row.GetString("agrupamiento_evaluado", "No Especificado"), string.Empty, row.GetString("Nivel_Estudios", ""), area, row.GetInt("legajo"));
+            evaluador = new AgenteEvaluacionDesempenio(id_evaluado, row.GetString("apellido"), row.GetString("nombre"),
+                                                row.GetInt("NroDocumento"), "SINEP", row.GetString("nivel_evaluado"), row.GetString("grado_evaluado"), row.GetString("agrupamiento_evaluado", "No Especificado"), string.Empty, row.GetString("Nivel_Estudios", ""), area, row.GetInt("legajo"));
             //}
             return evaluador;
         }
@@ -268,7 +405,7 @@ namespace General.Repositorios
                                             nivel,
                                             detalle_preguntas,
                                             row.GetString("codigo_gde", ""),
-                                            row.GetString("codigo_doc_electronico",""),
+                                            row.GetString("codigo_doc_electronico", ""),
                                             row.GetDateTime("fecha"),
                                             new VerificacionCodigoGdeDocumento(row.GetDateTime("fechaVerificacionGDE", DateTime.MinValue), VerificacionCodigoGdeDocumento.UsuarioVerifFromDB(row.GetSmallintAsInt("idUsuarioVerificadorGDE", 0))));
             }
@@ -276,7 +413,7 @@ namespace General.Repositorios
             var unidad_evaluacion = UnidadDeEvaluacion.Nulio();
             if (row.GetInt("id_unidad_eval", 0) != 0)
             {
-                unidad_evaluacion = new UnidadDeEvaluacion(row.GetInt("id_unidad_eval"), row.GetString("codigo_unidad_eval"), row.GetString("nombre_area_ue", ""));
+                unidad_evaluacion = new UnidadDeEvaluacion(row.GetInt("id_unidad_eval"), row.GetString("codigo_unidad_eval"), row.GetString("nombre_area_ue", ""), row.GetSmallintAsInt("id_Periodo"));
             }
 
             return new AsignacionEvaluadoAEvaluador(
@@ -408,9 +545,69 @@ namespace General.Repositorios
         protected PeriodoEvaluacion PeridoFrom(RowDeDatos row)
         {
             return new PeriodoEvaluacion(row.GetInt("id_periodo", 0),
-                            row.GetString("descripcion_periodo", ""), row.GetDateTime("periodo_desde"), row.GetDateTime("periodo_hasta"));
+                            row.GetString("descripcion_periodo", ""), row.GetDateTime("periodo_desde"), row.GetDateTime("periodo_hasta"), row.GetString("Descr_Tipo_Periodo", "No Especifica"));
         }
 
+
+        public List<UnidadDeEvaluacion> GetEstadosEvaluaciones()
+        {
+            var result = new List<UnidadDeEvaluacion>();
+            var parametros = new Dictionary<string, object>();
+            var tablaDeDatos = _conexion.Ejecutar("dbo.[EVAL_GET_Estado_Evaluaciones_TdeC]", parametros);
+            tablaDeDatos.Rows.ForEach(row =>
+            {
+                var ue = new UnidadDeEvaluacion(row.GetSmallintAsInt("id_unidad_evaluacion"), row.GetString("codigo_unidad_de_evaluacion"), row.GetString("unidad_de_evaluacion"), row.GetSmallintAsInt("id_periodo"));
+                ue.DetalleEvaluados = new DetalleEvaluadosPorUnidadEvaluacion(row.GetSmallintAsInt("Evaluado_Destacado"), row.GetSmallintAsInt("Evaluado_Bueno"), row.GetSmallintAsInt("Evaluado_Regular"), row.GetSmallintAsInt("Evaluado_Deficiente"), row.GetSmallintAsInt("Provisoria"), row.GetSmallintAsInt("Pendiente"));
+                result.Add(ue);
+            }
+            );
+            return result;
+        }
+
+        public ComiteEvaluacionDesempenio AgregarComite(string descripcion, DateTime fecha, string hora, string lugar, int periodo)
+        {
+            ComiteEvaluacionDesempenio comite = new ComiteEvaluacionDesempenio();
+            var parametros = new Dictionary<string, object>();
+
+            parametros.Add("@descripcion", descripcion );
+            parametros.Add("@fecha", fecha );
+            parametros.Add("@hora", hora);
+            parametros.Add("@lugar", lugar);
+            parametros.Add("@periodo", periodo);
+
+            var tablaDeDatos = _conexion.Ejecutar("dbo.EVAL_ADD_Comite", parametros);
+            comite.Id = tablaDeDatos.Rows[0].GetSmallintAsInt("Id");
+            return comite;
+        }
+
+        public ComiteEvaluacionDesempenio UpdateComite(int id_comite, string descripcion, DateTime fecha, string hora, string lugar, int periodo)
+        {
+            ComiteEvaluacionDesempenio comite = new ComiteEvaluacionDesempenio();
+            var parametros = new Dictionary<string, object>();
+
+            parametros.Add("@descripcion", descripcion);
+            parametros.Add("@fecha", fecha);
+            parametros.Add("@hora", hora);
+            parametros.Add("@lugar", lugar);
+            parametros.Add("@id_periodo", periodo);
+            parametros.Add("@id_comite", periodo);
+
+            var tablaDeDatos = _conexion.Ejecutar("dbo.EVAL_UPD_Comite", parametros);
+
+            if (tablaDeDatos.Rows.Count.Equals(0)) {
+                throw new Exception("No se pudo actualizar el comité");
+            }
+
+            var row = tablaDeDatos.Rows[0];
+            comite.Descripcion = row.GetString("descripcion");
+            comite.Fecha = row.GetDateTime("fecha");
+            comite.Hora = row.GetString("hora");
+            comite.Lugar = row.GetString("lugar");
+            comite.Periodo = new PeriodoEvaluacion(row.GetInt("id_periodo"), row.GetString("desc_periodo"), row.GetDateTime("desde"), row.GetDateTime("hasta"), row.GetString("Descr_Tipo_Periodo", ""));
+            comite.Id = id_comite;
+
+            return comite;
+        }
     }
 
 }

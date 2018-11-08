@@ -21,7 +21,7 @@ Promesa.prototype.onSuccess = function (callback) {
 Promesa.prototype.error = function (XMLHttpRequest, textStatus, errorThrown) {
     if (this._on_error_callback) this._on_error_callback(XMLHttpRequest, textStatus, errorThrown);
     this._error = true;
-    this._data_error = data;
+    this._data_error = errorThrown;
 };
 
 Promesa.prototype.onError = function (callback) {

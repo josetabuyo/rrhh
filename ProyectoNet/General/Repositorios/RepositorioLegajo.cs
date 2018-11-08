@@ -266,6 +266,10 @@ namespace General.Repositorios
         }
         public void EnviarNotificacion(string notificacion, List<int> documentos, string titulo, int usuario)
         {
+            var repo_personas = RepositorioDePersonas.NuevoRepositorioDePersonas(this.conexion);
+            var repo_usuarios = new RepositorioDeUsuarios(this.conexion, repo_personas);
+            var repo_alertas = new RepositorioDeAlertasPortal(this.conexion);           
+
             var parametros = new Dictionary<string, object>();
             parametros.Add("@notificacion", notificacion);
             parametros.Add("@titulo", titulo);
@@ -278,6 +282,11 @@ namespace General.Repositorios
                 parametros.Add("@documento", d);
                 parametros.Add("@id_notificacion", id_notificacion);
                 conexion.EjecutarSinResultado("dbo.LEG_INSNotificacionUsuario", parametros);
+                var persona = repo_personas.GetPersonaPorDNI(d);
+                var usr = repo_usuarios.GetUsuarioPorIdPersona(persona.Id);
+
+                //var cuerpo_alerta = "<a href='#' onClick='function(){var w = window.open(); $(w.document.body).html('"+notificacion+"'); return false;}'>Abrir notificación</a>";
+                repo_alertas.crearAlerta(titulo, notificacion, usr.Id, usuario);
             });
         }
 
@@ -807,7 +816,7 @@ namespace General.Repositorios
 
             var usuario_solicitante = repo_usuarios.GetUsuarioPorIdPersona(solicitud.IdPersona);
             new RepositorioDeAlertasPortal(this.conexion)
-                .crearAlerta("Solicitud de Credencial", "Tu solicitud ha sido rechazada por:" + motivo, usuario_solicitante.Id, usuario.Id);
+                .crearAlerta("Solicitud de Credencial", "Tu solicitud ha sido rechazada. <br/>" + motivo, usuario_solicitante.Id, usuario.Id);
             return true;
         }
 
@@ -1487,12 +1496,12 @@ namespace General.Repositorios
             throw new NotImplementedException();
         }
 
-        protected override void GuardarEnLaBase(Legajo legajo)
+        protected override void GuardarEnLaBase(Legajo legajo, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }
 
-        protected override void QuitarDeLaBase(Legajo legajo)
+        protected override void QuitarDeLaBase(Legajo legajo, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }
@@ -1505,7 +1514,7 @@ namespace General.Repositorios
             aspirante.Documento = dni;
             aspirante.Email = email;
 
-            autorizador.RegistrarNuevoUsuario(aspirante);
+            autorizador.RegistrarNuevoUsuario(aspirante, admin.Id);
 
             var usuario = repoUsuarios.GetUsuarioPorDNI(dni);
 

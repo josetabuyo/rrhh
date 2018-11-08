@@ -14,8 +14,8 @@ public partial class FormularioConcursar_MenuConcursar : System.Web.UI.UserContr
         //reemplazado por el requiere funcionalidad dentro del html
 
         /* WSViaticosSoapClient s = new WSViaticosSoapClient();
-           var puede_cambiar_etapas = s.ElUsuarioTienePermisosPara(((Usuario)Session[ConstantesDeSesion.USUARIO]).Id, 14);
-           var puede_foliar_documentos = s.ElUsuarioTienePermisosPara(((Usuario)Session[ConstantesDeSesion.USUARIO]).Id, 15);
+           var puede_cambiar_etapas = s.ElUsuarioTienePermisosParaFuncionalidadPorNombre(((Usuario)Session[ConstantesDeSesion.USUARIO]).Id, "etapas_postular");
+           var puede_foliar_documentos = s.ElUsuarioTienePermisosParaFuncionalidadPorNombre(((Usuario)Session[ConstantesDeSesion.USUARIO]).Id, "etapa_preinscripcion_documental");
 
            var menu = this.MenuNavegacion;
            var subMenu = this.subMenu_administracion;

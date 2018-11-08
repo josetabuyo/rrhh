@@ -41,12 +41,12 @@ namespace General.Repositorios
             return estados_civiles;
         }
 
-        protected override void GuardarEnLaBase(EstadoCivil objeto)
+        protected override void GuardarEnLaBase(EstadoCivil objeto, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }
 
-        protected override void QuitarDeLaBase(EstadoCivil objeto)
+        protected override void QuitarDeLaBase(EstadoCivil objeto, int id_usuario_logueado)
         {
             throw new NotImplementedException();
         }

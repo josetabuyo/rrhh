@@ -20,6 +20,7 @@
             <div style="margin: 0 auto;" class="row">
                 <div class="caja_der papel">
                     <legend style="margin-top: 20px;">Comprobacion de Códigos GDE</legend>
+                    <div id ="contenedorResumen"></div>
                     <div id="contenedorTabla">
                         <label for="Text1">
                             Filtrar planilla por:

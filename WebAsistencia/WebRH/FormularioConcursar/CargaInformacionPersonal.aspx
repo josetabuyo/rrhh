@@ -277,8 +277,7 @@
     titulo_acordion" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">III. ACTIVIDADES DE
                         CAPACITACI&Oacute;N </a>
                 </div>
-                <div id="collapseThree" class="accordion-body
-    collapse">
+                <div id="collapseThree" class="accordion-body collapse">
                     <div class="accordion-inner fondo_form">
                         <fieldset style="width: 100%;">
                             <legend><a id="btn_agregar_actividad_capacitacion" class="link">Cargar actividad de capacitación</a></legend>
@@ -558,26 +557,7 @@
         $('a[rel*=leanModalConcursar]').leanModal({ top: 300, closeButton: ".modal_close_concursar" });
 
 
-        //Estilos para ver coloreada la grilla en Internet Explorer
-        $("tbody tr:even").css('background-color', '#fff');
-        $("tbody tr:odd").css('background-color', 'transparent ');
-
-        $("#IrArriba").hide();
-        $(function () {
-            $(window).scroll(function () {
-                if ($(this).scrollTop() > 200) {
-                    $('#IrArriba').fadeIn();
-                } else {
-                    $('#IrArriba').fadeOut();
-                }
-            });
-            $('#IrArriba a').click(function () {
-                $('body,html').animate({
-                    scrollTop: 0
-                }, 800);
-                return false;
-            });
-        });
+      
     });
 
 </script>

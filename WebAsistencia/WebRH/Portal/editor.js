@@ -5,12 +5,15 @@
     SetearEventos: function () {
         //var data = CKEDITOR.instances.editor1.setData('');
         var _this = this;
+        $('#boton_grabar_notificacion').off('click');
         $('#boton_grabar_notificacion').click(function () {
             _this.Grabar();
         });
+        $('#boton_vista_previa').off('click');
         $('#boton_vista_previa').click(function () {
             _this.VistaPrevia();
         });
+        $('#input_documentos').off('keypress');
         $("#input_documentos").keypress(function () {
             if ($("#input_documentos").val() != "") {
                 lastChar = $("#input_documentos").val()[$("#input_documentos").val().length - 1];
