@@ -120,7 +120,7 @@ define(['wsviaticos', 'underscore'], function (ws, _) {
                 });
             }
             onSuccess(lista_personas)
-        })
+        }, true) //avoid spinner
     }
 
     var GetCaracteres = function () {

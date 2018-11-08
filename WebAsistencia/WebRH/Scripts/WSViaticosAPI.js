@@ -1,18 +1,31 @@
 ﻿define(['jquery','underscore'], function ($, _) {
 
-    var update_spinner = function() {
+    var update_spinner = function () {
+        var $modal_element = $('.spinner-modal')
         if (this.req_count > 0) {
-            $('.spinner-modal').modal('show')
+
+            //se pone el event handler de onload, porque si se completa
+            //el request antes de que esto termine de mostrarse, 
+            //el 'hide' se ejecuta antes de que el modal haya sido mostrado, 
+            //y no tiene efecto.
+            $modal_element.unbind('shown.bs.modal')
+            $modal_element.on('shown.bs.modal', function (e) {
+                update_spinner()
+            })
+            $modal_element.modal('show')
         } else {
-            $('.spinner-modal').modal('hide')
+            $modal_element.modal('hide')
         }
     }
 
-    var parallel = function(requests, cb) {
+    var parallel = function(requests, cb, avoid_spinner) {
 
         this.req_count = this.req_count || 0
-        this.req_count += requests.length
-        this.update_spinner()
+
+        if (!avoid_spinner) {
+            this.req_count += requests.length
+            this.update_spinner()
+        }
 
         Promise.all(requests.map(req =>
             fetch('http://localhost:43414/AjaxWS.asmx/EjecutarEnBackend', {
@@ -24,8 +37,6 @@
             })
         ))
             .then(respuestas => {
-                this.req_count -= respuestas.length
-                update_spinner()
                 return Promise.all(respuestas.map(r => r.json()))
             })
             .then(responses => {
@@ -36,7 +47,10 @@
                         return res
                     }
                 })
-            
+                if (!avoid_spinner) {
+                    this.req_count -= respuestas.length
+                    this.update_spinner()
+                }
                 try {
                     cb(null, respuestas)
                 } catch (e) {
