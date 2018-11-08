@@ -7,15 +7,35 @@
         row.show()
 
         _.each(model, function (attr_value, attr_name) {
-            tds = _.filter(row.find('td'), function (td) {
+            var tds = _.filter(row.find('td'), function (td) {
                 return td.innerHTML.includes('{{' + attr_name + '}}')
             })
 
             _.each(tds, function (td) {
+                //td.innerHTML = td.innerHTML.replace('cb_checked="{{' + attr_name + '}}"', 'checked')
+                var $cb = $(td).find('[type="checkbox"][cb_checked="{{' + attr_name + '}}"]')
+
+                if ($cb.length > 0) {
+                    $cb.attr('checked', attr_value == 'checked')
+                    $cb.removeAttr('cb_checked')
+                }
+
                 td.innerHTML = td.innerHTML.replace('{{' + attr_name + '}}', attr_value)
             })
+
+
+
+            /*var $checkboxes = $(row).find('[cb_checked]')
+            _.each($checkboxes, each => {
+                var $each = $(each)
+                if ($each.attr('cb_checked').includes('{{' + attr_name + '}}')) {
+                    if (attr_value == 'checked') {
+                        $(each).prop('checked', true)
+                    }
+                }
+            })*/
         })
-       
+
         return row
     }
 
@@ -68,7 +88,10 @@
                 body.append(tableRowFrom(each, row_template))
             })
         }
+
         $(id).append(body)
+
+
     }
 
     return GrillaFrom;

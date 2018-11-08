@@ -33,244 +33,335 @@
     <form id="form1" runat="server">
         <uc1:BarraMenu2 ID="BarraMenu21" runat="server" Feature="<span style='font-size:18px; font-weight: bold;'></span> <br/> <span style='font-size:18px;font-weight: bold;'> Menú Principal </span>"
             UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" UrlPassword="../" />
-        </form>
-        <div class="container tab-content">
+    </form>
+    <div class="container tab-content">
+        <div class="row">
+            <div class="col">&nbsp;</div>
+        </div>
+        <div role="tabpanel" id="scr_home">
+            <div class="row">
+                <div class="col col-md-3">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item active" aria-current="page">Comités de Evaluacion</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col"></div>
+            </div>
+            <div class="row">
+                <div class="col col-md-12">
+                    <table id="tabla_periodos" class="table table-bordered table-striped table-sm">
+                        <thead>
+                            <tr>
+                                <!--<th scope="col" rowspan="2" class="align-middle">#</th>-->
+                                <th rowspan="2" class="align-middle w-25">Periodo</th>
+                                <th rowspan="2" class="align-middle">Evaluaciones Pendientes</th>
+                                <th rowspan="2" class="align-middle">Evaluaciones Provisorias</th>
+                                <th colspan="3" class="align-middle w-50">Evaluaciones Realizadas</th>
+                                <th rowspan="2" class="align-middle">Reuniones Realizadas</th>
+                                <th rowspan="2" class="align-middle">Crear Nueva Reunion</th>
+                            </tr>
+                            <tr>
+                                <th scope="col">Sin GDE</th>
+                                <th scope="col">Sin Comité</th>
+                                <th scope="col">Finalizado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="row-template" style="display: none">
+                                <td>{{Periodo}}</td>
+                                <td class="text-right">{{EvaluacionesPendientes}}</td>
+                                <td class="text-right">{{EvaluacionesProvisorias}}</td>
+                                <td class="text-right">{{SinGDE}}</td>
+                                <td class="text-right">{{SinComite}}</td>
+                                <td class="text-right">{{Finalizado}}</td>
+                                <td class="text-right">{{ReunionesRealizadas}}<a style="display: inline" data-toggle="tooltip" data-placement="top" title="Ver Reuniones" class="nav-link" href="#"><span class="fa fa fa-eye"></span></a></td>
+                                <td class="text-right">
+                                    <button type="button" class="btn btn-sm btn-primary" btn_id_periodo="{{IdPeriodo}}" on_next="#scr_datos_generales">Crear Nueva Reunion</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div role="tabpanel" id="scr_datos_generales" style="display: none">
+            <div class="row">
+                <div class="col col-md-5">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item" on_leave="#scr_home"><a href="#">Comités de Evaluacion</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Paso 1: Datos Generales</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col"></div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Nueva Reunión</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Paso 1: Datos Generales</h6>
+                            <p class="lead" id="desc_periodo" />
+                            <div class="card-text">
+                                <form id="frm_datos_generales" method="get" action="" on_next="#scr_integrantes">
+                                    <div class="form-group row">
+                                        <label for="date" class="col-12 col-md-2 col-form-label">Fecha</label>
+                                        <div class="col-5 col-md-3">
+                                            <input type="text" class="form-control" id="fecha" name="fecha" placeholder="fecha" required>
+                                        </div>
+                                        <div class="col-7 col-md-7">
+                                            <input type="hora" class="form-control timepicker" id="hora" name="hora" placeholder="hora" minlength="5" maxlength="5">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="lugar" class="col-md-2 col-form-label">Lugar</label>
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control" id="lugar" name="lugar" placeholder="Lugar" required minlength="3">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="descripcion" class="col-md-2 col-form-label">Descripcion</label>
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Descripcion" required minlength="3">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <hr />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-12 text-right">
+                                            <a href="#" class="btn btn-secondary" role="button" on_leave="#scr_home">Atras</a>
+                                            <input type="submit" class="btn btn-primary active" role="button" value="Siguiente" />
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div role="tabpanel" id="scr_integrantes" style="display: none">
+            <div class="row">
+                <div class="col col-12 col-md-6">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item" on_leave="#scr_home"><a href="#">Comités de Evaluacion</a></li>
+                            <li class="breadcrumb-item" on_leave="#scr_datos_generales"><a href="#">Paso 1: Datos Generales</a></li>
+                            <li class="breadcrumb-item  active">Paso 2: Integrantes</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col"></div>
+            </div>
+            <div class="row">
+                <div class="col col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Nueva Reunión</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Paso 2: Integrantes</h6>
+                            <p class="lead" id="desc_periodo_int" />
+                            <div class="card-text">
+                                <div class="row">
+                                    <div class="col-12 col-md-12">
+                                        <table id="tabla_integrantes" class="table table-bordered table-striped table-sm">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Integrante</th>
+                                                    <th scope="col">En Caracter De</th>
+                                                    <th scope="col">Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="row-template" style="display: none">
+                                                    <td>{{Apellido}}, {{Nombre}}</td>
+                                                    <td>{{EnCaracterDe}}</td>
+                                                    <td>
+                                                        <a style="display: inline" data-toggle="tooltip" data-placement="top" title="Eliminar Integrante" class="delete-integrante" href="#" integrante="{{IdPersona}}"><span class="fa fa fa-trash"></span></a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <hr />
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="card bg-light mb-3 col-12">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Agregar Integrante</h5>
+                                            <div class="form-group row">
+                                                <label for="buscador" class="col-12 col-md-2 offset-md-2 col-form-label">Integrante</label>
+                                                <div id="cmb_selector_integrantes" class="col-12 col-md-6">
+                                                    <input id="buscador" type="hidden" class="buscarPersona" />
+                                                    <input type="hidden" id="persona_buscada" />
+                                                </div>
+                                                <div class="col col-md-2"></div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="caracter" class="col-12 col-md-2 offset-md-2 col-form-label">En Caracter De</label>
+                                                <div class="col-12 col-md-6">
+                                                    <select class="form-control" id="cmb_en_caracter_de">
+                                                        <option>--Seleccione--</option>
+                                                        <option value="1">Representante Gremial UPCN</option>
+                                                        <option value="2">Representante Gremial ATE</option>
+                                                        <option value="3">Coordinador del proceso de Selección</option>
+                                                        <option value="4">Evaluador</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col col-md-2"></div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-12 col-md-8 offset-md-2 text-right">
+                                                    <button id="btn_agregar_integrante" type="button" class="btn btn-sm btn-primary">Agregar >></button>
+                                                </div>
+                                                <div class="col col-md-2"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <hr />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col col-md-12 text-right">
+                                        <a href="#" class="btn btn-secondary" role="button" on_leave="#scr_datos_generales">Atras</a>
+                                        <a href="#" class="btn btn-primary active" role="button" on_next="#scr_unidades">Siguiente</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div role="tabpanel" id="scr_unidades" style="display: none">
+            <div class="row">
+                <div class="col col-9">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item" on_leave="#scr_home"><a href="#">Comités de Evaluacion</a></li>
+                            <li class="breadcrumb-item" on_leave="#scr_datos_generales"><a href="#">Paso 1: Datos Generales</a></li>
+                            <li class="breadcrumb-item" on_leave="#scr_integrantes"><a href="#">Paso 2: Integrantes</a></li>
+                            <li class="breadcrumb-item  active">Paso 3: Unidades de Evaluacion</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col"></div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Nueva Reunión</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Paso 3: Unidades de Evaluación</h6>
+                            <p class="lead" id="desc_periodo_ues" />
+                            <div class="card-text">
+                                <table class="table table-bordered table-striped table-sm" id="tabla_unidades">
+                                    <thead>
+                                        <tr>
+                                            <th>Codigo</th>
+                                            <th class="w-100">Unidad de Evaluación</th>
+                                            <th class="text-center">DESTA CADOS</th>
+                                            <th class="text-center">BUENO</th>
+                                            <th class="text-center">REGU LAR</th>
+                                            <th class="text-center">DEFI CIENTE</th>
+                                            <th class="text-center">Total Evaluados</th>
+                                            <th class="text-center">PROVI SORIA</th>
+                                            <th class="text-center">PENDIEN TE</th>
+                                            <th class="text-center">Total General</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="row-template" style="display: none">
+                                            <td>{{Codigo}}</td>
+                                            <td>{{NombreArea}}</td>
+                                            <td class="text-right">{{Destacados}}</td>
+                                            <td class="text-right">{{Bueno}}</td>
+                                            <td class="text-right">{{Regular}}</td>
+                                            <td class="text-right">{{Deficiente}}</td>
+                                            <td class="text-right">{{TotalEvaluados}}</td>
+                                            <td class="text-right">{{Provisoria}}</td>
+                                            <td class="text-right">{{Pendiente}}</td>
+                                            <td class="text-right">{{TotalGeneral}}</td>
+                                            <td class="text-right">
+                                                <input type="checkbox" cb_checked="{{Selected}}" model_id="{{Id}}" />
+                                            </td>
+                                        </tr>
+                                        <tr class="table-info">
+                                            <td colspan="3" class="text-right">Total para UE Seleccionadas</td>
+                                            <td class="text-right">2</td>
+                                            <td class="text-right">9</td>
+                                            <td class="text-right">16</td>
+                                            <td class="text-right">1</td>
+                                            <td class="text-right">28</td>
+                                            <td class="text-right">0</td>
+                                            <td class="text-right">0</td>
+                                            <td class="text-right">28</td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <hr />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-md-12 text-right">
+                    <a href="#" class="btn btn-secondary" role="button" on_leave="#scr_integrantes">Atras</a>
+                    <a href="#" class="btn btn-primary active" role="button" on_next="#scr_evaluaciones">Siguiente</a>
+                </div>
+            </div>
             <div class="row">
                 <div class="col">&nbsp;</div>
             </div>
-            <div role="tabpanel" id="scr_home">
-                <div class="row">
-                    <div class="col col-md-3">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item active" aria-current="page">Comités de Evaluacion</li>
-                            </ol>
-                        </nav>
-                    </div>
-                    <div class="col"></div>
+        </div>
+        <div role="tabpanel" id="scr_evaluaciones" style="display: none">
+            <div class="row">
+                <div class="col col-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item" on_leave="#scr_home"><a href="#">Comités de Evaluacion</a></li>
+                            <li class="breadcrumb-item" on_leave="#scr_datos_generales"><a href="#">Paso 1: Datos Generales</a></li>
+                            <li class="breadcrumb-item" on_leave="#scr_integrantes"><a href="#">Paso 2: Integrantes</a></li>
+                            <li class="breadcrumb-item" on_leave="#scr_unidades"><a href="#">Paso 3: Unidades de Evaluacion</a></li>
+                            <li class="breadcrumb-item  active">Paso 4: Evaluaciones</li>
+                        </ol>
+                    </nav>
                 </div>
-                <div class="row">
-                    <div class="col col-md-12">
-                        <table id="tabla_periodos" class="table table-bordered table-striped table-sm">
-                            <thead>
-                                <tr>
-                                    <!--<th scope="col" rowspan="2" class="align-middle">#</th>-->
-                                    <th rowspan="2" class="align-middle w-25">Periodo</th>
-                                    <th rowspan="2" class="align-middle">Evaluaciones Pendientes</th>
-                                    <th rowspan="2" class="align-middle">Evaluaciones Provisorias</th>
-                                    <th colspan="3" class="align-middle w-50">Evaluaciones Realizadas</th>
-                                    <th rowspan="2" class="align-middle">Reuniones Realizadas</th>
-                                    <th rowspan="2" class="align-middle">Crear Nueva Reunion</th>
-                                </tr>
-                                <tr>
-                                    <th scope="col">Sin GDE</th>
-                                    <th scope="col">Sin Comité</th>
-                                    <th scope="col">Finalizado</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="row-template" style="display: none">
-                                    <td>{{Periodo}}</td>
-                                    <td class="text-right">{{EvaluacionesPendientes}}</td>
-                                    <td class="text-right">{{EvaluacionesProvisorias}}</td>
-                                    <td class="text-right">{{SinGDE}}</td>
-                                    <td class="text-right">{{SinComite}}</td>
-                                    <td class="text-right">{{Finalizado}}</td>
-                                    <td class="text-right">{{ReunionesRealizadas}}<a style="display: inline" data-toggle="tooltip" data-placement="top" title="Ver Reuniones" class="nav-link" href="#"><span class="fa fa fa-eye"></span></a></td>
-                                    <td class="text-right">
-                                        <button type="button" class="btn btn-sm btn-primary" btn_id_periodo="{{IdPeriodo}}" on_next="#scr_datos_generales">Crear Nueva Reunion</button></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                <div class="col"></div>
             </div>
-            <div role="tabpanel" id="scr_datos_generales" style="display: none">
-                <div class="row">
-                    <div class="col col-md-5">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item" on_leave="#scr_home"><a href="#">Comités de Evaluacion</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Paso 1: Datos Generales</li>
-                            </ol>
-                        </nav>
-                    </div>
-                    <div class="col"></div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Nueva Reunión</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Paso 1: Datos Generales</h6>
-                                <p class="lead" id="desc_periodo" />
-                                <div class="card-text">
-                                    <form id="frm_datos_generales" method="get" action="" on_next="#scr_integrantes">
-                                        <div class="form-group row">
-                                            <label for="date" class="col-12 col-md-2 col-form-label">Fecha</label>
-                                            <div class="col-5 col-md-3">
-                                                <input type="text" class="form-control" id="fecha" name="fecha" placeholder="fecha" required>
-                                            </div>
-                                            <div class="col-7 col-md-7">
-                                                <input type="hora" class="form-control timepicker" id="hora" name="hora" placeholder="hora" minlength="5" maxlength="5">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="lugar" class="col-md-2 col-form-label">Lugar</label>
-                                            <div class="col-md-10">
-                                                <input type="text" class="form-control" id="lugar" name="lugar" placeholder="Lugar" required minlength="3">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="descripcion" class="col-md-2 col-form-label">Descripcion</label>
-                                            <div class="col-md-10">
-                                                <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Descripcion" required minlength="3">
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <hr />
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="col-md-12 text-right">
-                                                <a href="#" class="btn btn-secondary" role="button" on_leave="#scr_home">Atras</a>
-                                                <input type="submit" class="btn btn-primary active" role="button" value="Siguiente" />
-                                            </div>
-                                        </div>
-                                    </form>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-4">
+                                    <h5 class="card-title">Nueva Reunión</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">Paso 4: Evaluaciones</h6>
+                                    <p class="lead" id="desc_periodo_eval" />
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div role="tabpanel" id="scr_integrantes" style="display: none">
-                <div class="row">
-                    <div class="col col-12 col-md-6">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item" on_leave="#scr_home"><a href="#">Comités de Evaluacion</a></li>
-                                <li class="breadcrumb-item" on_leave="#scr_datos_generales"><a href="#">Paso 1: Datos Generales</a></li>
-                                <li class="breadcrumb-item  active">Paso 2: Integrantes</li>
-                            </ol>
-                        </nav>
-                    </div>
-                    <div class="col"></div>
-                </div>
-                <div class="row">
-                    <div class="col col-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Nueva Reunión</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Paso 2: Integrantes</h6>
-                                <p class="lead" id="desc_periodo_int" />
-                                <div class="card-text">
-                                    <div class="row">
-                                        <div class="col-12 col-md-12">
-                                            <table id="tabla_integrantes" class="table table-bordered table-striped table-sm">
-                                                <thead>
-                                                    <tr>
-                                                        <th scope="col">Integrante</th>
-                                                        <th scope="col">En Caracter De</th>
-                                                        <th scope="col">Acciones</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr class="row-template" style="display: none">
-                                                        <td>{{Apellido}}, {{Nombre}}</td>
-                                                        <td>{{EnCaracterDe}}</td>
-                                                        <td>
-                                                            <a style="display: inline" data-toggle="tooltip" data-placement="top" title="Eliminar Integrante" class="delete-integrante" href="#" integrante="{{IdPersona}}"><span class="fa fa fa-trash"></span></a>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <hr />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="card bg-light mb-3 col-12">
-                                            <div class="card-body">
-                                                <h5 class="card-title">Agregar Integrante</h5>
-                                                <div class="form-group row">
-                                                    <label for="buscador" class="col-12 col-md-2 offset-md-2 col-form-label">Integrante</label>
-                                                    <div id="cmb_selector_integrantes" class="col-12 col-md-6">
-                                                        <input id="buscador" type="hidden" class="buscarPersona" />
-                                                        <input type="hidden" id="persona_buscada" />
-                                                    </div>
-                                                    <div class="col col-md-2"></div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label for="caracter" class="col-12 col-md-2 offset-md-2 col-form-label">En Caracter De</label>
-                                                    <div class="col-12 col-md-6">
-                                                        <select class="form-control" id="cmb_en_caracter_de">
-                                                            <option>--Seleccione--</option>
-                                                            <option value="1">Representante Gremial UPCN</option>
-                                                            <option value="2">Representante Gremial ATE</option>
-                                                            <option value="3">Coordinador del proceso de Selección</option>
-                                                            <option value="4">Evaluador</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="col col-md-2"></div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <div class="col-12 col-md-8 offset-md-2 text-right">
-                                                        <button id="btn_agregar_integrante" type="button" class="btn btn-sm btn-primary">Agregar >></button>
-                                                    </div>
-                                                    <div class="col col-md-2"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <hr />
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col col-md-12 text-right">
-                                            <a href="#" class="btn btn-secondary" role="button" on_leave="#scr_datos_generales">Atras</a>
-                                            <a href="#" class="btn btn-primary active" role="button" on_next="#scr_unidades">Siguiente</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div role="tabpanel" id="scr_unidades" style="display: none">
-                <div class="row">
-                    <div class="col col-9">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item" on_leave="#scr_home"><a href="#">Comités de Evaluacion</a></li>
-                                <li class="breadcrumb-item" on_leave="#scr_datos_generales"><a href="#">Paso 1: Datos Generales</a></li>
-                                <li class="breadcrumb-item" on_leave="#scr_integrantes"><a href="#">Paso 2: Integrantes</a></li>
-                                <li class="breadcrumb-item  active">Paso 3: Unidades de Evaluacion</li>
-                            </ol>
-                        </nav>
-                    </div>
-                    <div class="col"></div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Nueva Reunión</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Paso 3: Unidades de Evaluación</h6>
-                                <p class="lead" id="desc_periodo_ues" />
-                                <div class="card-text">
-                                    <table class="table table-bordered table-striped table-sm" id="tabla_unidades">
+                                <div class="col-8">
+                                    <!--tabla resumen en tab evaluaciones -->
+                                    <table class="table table-bordered table-striped table-sm" id="tabla_resumen">
                                         <thead>
                                             <tr>
-                                                <th>Codigo</th>
-                                                <th class="w-100">Unidad de Evaluación</th>
                                                 <th class="text-center">DESTA CADOS</th>
                                                 <th class="text-center">BUENO</th>
                                                 <th class="text-center">REGU LAR</th>
@@ -279,157 +370,65 @@
                                                 <th class="text-center">PROVI SORIA</th>
                                                 <th class="text-center">PENDIEN TE</th>
                                                 <th class="text-center">Total General</th>
-                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr class="row-template" style="display: none">
-                                                <td>{{Codigo}}</td>
-                                                <td>{{NombreArea}}</td>
-                                                <td class="text-right">{{Destacados}}</td>
-                                                <td class="text-right">{{Bueno}}</td>
-                                                <td class="text-right">{{Regular}}</td>
-                                                <td class="text-right">{{Deficiente}}</td>
-                                                <td class="text-right">{{TotalEvaluados}}</td>
-                                                <td class="text-right">{{Provisoria}}</td>
-                                                <td class="text-right">{{Pendiente}}</td>
-                                                <td class="text-right">{{TotalGeneral}}</td>
-                                                <td class="text-right">
-                                                    <input type="checkbox" {{Selected}} model_id="{{Id}}" />
-                                                </td>
-                                            </tr>
-                                            <tr class="table-info">
-                                                <td colspan="3" class="text-right">Total para UE Seleccionadas</td>
-                                                <td class="text-right">2</td>
-                                                <td class="text-right">9</td>
-                                                <td class="text-right">16</td>
-                                                <td class="text-right">1</td>
-                                                <td class="text-right">28</td>
-                                                <td class="text-right">0</td>
-                                                <td class="text-right">0</td>
-                                                <td class="text-right">28</td>
-                                                <td></td>
+                                            <tr class="row-template">
+                                                <td colspan="8">tt</td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <hr />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col col-md-12 text-right">
-                        <a href="#" class="btn btn-secondary" role="button" on_leave="#scr_integrantes">Atras</a>
-                        <a href="#" class="btn btn-primary active" role="button" on_next="#scr_evaluaciones">Siguiente</a>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">&nbsp;</div>
-                </div>
-            </div>
-            <div role="tabpanel" id="scr_evaluaciones" style="display: none">
-                <div class="row">
-                    <div class="col col-12">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item" on_leave="#scr_home"><a href="#">Comités de Evaluacion</a></li>
-                                <li class="breadcrumb-item" on_leave="#scr_datos_generales"><a href="#">Paso 1: Datos Generales</a></li>
-                                <li class="breadcrumb-item" on_leave="#scr_integrantes"><a href="#">Paso 2: Integrantes</a></li>
-                                <li class="breadcrumb-item" on_leave="#scr_unidades"><a href="#">Paso 3: Unidades de Evaluacion</a></li>
-                                <li class="breadcrumb-item  active">Paso 4: Evaluaciones</li>
-                            </ol>
-                        </nav>
-                    </div>
-                    <div class="col"></div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-4">
-                                        <h5 class="card-title">Nueva Reunión</h5>
-                                        <h6 class="card-subtitle mb-2 text-muted">Paso 4: Evaluaciones</h6>
-                                        <p class="lead" id="desc_periodo_eval" />
-                                    </div>
-                                    <div class="col-8">
-                                        <!--tabla resumen en tab evaluaciones -->
-                                        <table class="table table-bordered table-striped table-sm" id="tabla_resumen">
-                                            <thead>
-                                                <tr>
-                                                    <th class="text-center">DESTA CADOS</th>
-                                                    <th class="text-center">BUENO</th>
-                                                    <th class="text-center">REGU LAR</th>
-                                                    <th class="text-center">DEFI CIENTE</th>
-                                                    <th class="text-center">Total Evaluados</th>
-                                                    <th class="text-center">PROVI SORIA</th>
-                                                    <th class="text-center">PENDIEN TE</th>
-                                                    <th class="text-center">Total General</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr class="row-template">
-                                                    <td colspan="8">tt</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="card-text">
-                                    <td class="col-12">
-                                        <div class="form-group row">
-                                            <label for="txt_filtro_apellido" class="col-12 col-md-2 col-form-label text-right">Filtro por apellido</label>
-                                            <div class="col-5 col-md-3">
-                                                <input type="text" class="form-control" id="txt_filtro_apellido" name="txt_filtro_apellido" placeholder="Apellido">
-                                            </div>
-                                            <label for="txt_filtro_estado" class="col-12 col-md-2 col-form-label text-right">Filtro por estado</label>
-                                            <div class="col-5 col-md-3">
-                                                  <select class="custom-select" id="inputGroupSelect01">
-                                                    <option selected>Seleccione</option>
-                                                    <option>Provisoria</option>
-                                                    <option>Pendiente</option>
-                                                    <option disabled>──────────</option>
-                                                    <option value="1">Destacados</option>
-                                                    <option value="2">Bueno</option>
-                                                    <option value="3">Regular</option>
-                                                    <option value="3">Deficiente</option>
-                                                  </select>
-                                            </div>
-                                            <div class="col"></div>
+                            <div class="card-text">
+                                <td class="col-12">
+                                    <div class="form-group row">
+                                        <label for="txt_filtro_apellido" class="col-12 col-md-2 col-form-label text-right">Filtro por apellido</label>
+                                        <div class="col-5 col-md-3">
+                                            <input type="text" class="form-control" id="txt_filtro_apellido" name="txt_filtro_apellido" placeholder="Apellido">
                                         </div>
-                                    </td>
-                                </div>
+                                        <label for="txt_filtro_estado" class="col-12 col-md-2 col-form-label text-right">Filtro por estado</label>
+                                        <div class="col-5 col-md-3">
+                                            <select class="custom-select" id="inputGroupSelect01">
+                                                <option selected>Seleccione</option>
+                                                <option>Provisoria</option>
+                                                <option>Pendiente</option>
+                                                <option disabled>──────────</option>
+                                                <option value="1">Destacados</option>
+                                                <option value="2">Bueno</option>
+                                                <option value="3">Regular</option>
+                                                <option value="3">Deficiente</option>
+                                            </select>
+                                        </div>
+                                        <div class="col"></div>
+                                    </div>
+                                </td>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-12">
-                        <hr />
-                    </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <hr />
                 </div>
-                <div class="row">
-                    <div class="col col-md-12 text-right">
-                        <a href="#" class="btn btn-secondary" role="button" on_leave="#scr_integrantes">Atras</a>
-                        <a href="#" class="btn btn-primary active" role="button" on_leave="#scr_home">Finalizar</a>
-                    </div>
+            </div>
+            <div class="row">
+                <div class="col col-md-12 text-right">
+                    <a href="#" class="btn btn-secondary" role="button" on_leave="#scr_integrantes">Atras</a>
+                    <a href="#" class="btn btn-primary active" role="button" on_leave="#scr_home">Finalizar</a>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="modal spinner-modal fade bd-example-modal-lg" data-backdrop="static" data-keyboard="false" tabindex="-1">
-            <div class="modal-dialog modal-sm">
-                <div class="modal-content" style="width: 48px">
-                    <span class="fa fa-spinner fa-pulse fa-3x"></span>
-                </div>
+    <div class="modal spinner-modal fade bd-example-modal-lg" data-backdrop="static" data-keyboard="false" tabindex="-1">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content" style="width: 48px">
+                <span class="fa fa-spinner fa-pulse fa-3x"></span>
             </div>
         </div>
-    
+    </div>
     <input type="hidden" id="id_periodo_seleccionado" />
     <div id="plantillas" style="display: none">
         <div class="vista_persona_en_selector">
