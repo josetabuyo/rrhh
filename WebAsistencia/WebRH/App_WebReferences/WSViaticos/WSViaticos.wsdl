@@ -7948,6 +7948,7 @@
           <s:element minOccurs="1" maxOccurs="1" name="Desde" type="s:dateTime" />
           <s:element minOccurs="1" maxOccurs="1" name="Hasta" type="s:dateTime" />
           <s:element minOccurs="1" maxOccurs="1" name="IdConcepto" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Denegada" type="s:boolean" />
         </s:sequence>
       </s:complexType>
       <s:element name="CargarLicenciaResponse">

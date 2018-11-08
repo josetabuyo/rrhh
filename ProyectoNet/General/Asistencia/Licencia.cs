@@ -27,5 +27,8 @@ namespace General
         private int _IdConcepto;
         public int IdConcepto { get { return _IdConcepto; } set { _IdConcepto = value; } }
 
+        private bool _Denegada;
+        public bool Denegada { get { return _Denegada; } set { _Denegada = value; } }
+
     }
 }
