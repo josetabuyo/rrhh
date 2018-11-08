@@ -7,11 +7,24 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.min.css" />
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="../Scripts/jquery-ui-1.10.2.custom/css/smoothness/jquery-ui-1.10.2.custom.min.css" />
     <link rel="stylesheet" href="../node_modules/jquery-timepicker/jquery.timepicker.css" />
     <link rel="stylesheet" href="../scripts/select2-3.4.4/select2.css" />
+
+    <style>
+        .bd-example-modal-lg .modal-dialog {
+            display: table;
+            position: relative;
+            margin: 0 auto;
+            top: calc(50% - 24px);
+        }
+
+            .bd-example-modal-lg .modal-dialog .modal-content {
+                background-color: transparent;
+                border: none;
+            }
+    </style>
 
     <script data-main="ComitesDeEvaluacion" src="../node_modules/requirejs/require.js"></script>
     <title>Sigirh -Comités de Evaluacion</title>
@@ -314,6 +327,105 @@
                         <a href="#" class="btn btn-secondary" role="button" on_leave="#scr_integrantes">Atras</a>
                         <a href="#" class="btn btn-primary active" role="button" on_next="#scr_evaluaciones">Siguiente</a>
                     </div>
+                </div>
+                <div class="row">
+                    <div class="col">&nbsp;</div>
+                </div>
+            </div>
+            <div role="tabpanel" id="scr_evaluaciones" style="display: none">
+                <div class="row">
+                    <div class="col col-12">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item" on_leave="#scr_home"><a href="#">Comités de Evaluacion</a></li>
+                                <li class="breadcrumb-item" on_leave="#scr_datos_generales"><a href="#">Paso 1: Datos Generales</a></li>
+                                <li class="breadcrumb-item" on_leave="#scr_integrantes"><a href="#">Paso 2: Integrantes</a></li>
+                                <li class="breadcrumb-item" on_leave="#scr_unidades"><a href="#">Paso 3: Unidades de Evaluacion</a></li>
+                                <li class="breadcrumb-item  active">Paso 4: Evaluaciones</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <div class="col"></div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <h5 class="card-title">Nueva Reunión</h5>
+                                        <h6 class="card-subtitle mb-2 text-muted">Paso 4: Evaluaciones</h6>
+                                        <p class="lead" id="desc_periodo_eval" />
+                                    </div>
+                                    <div class="col-8">
+                                        <!--tabla resumen en tab evaluaciones -->
+                                        <table class="table table-bordered table-striped table-sm" id="tabla_resumen">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">DESTA CADOS</th>
+                                                    <th class="text-center">BUENO</th>
+                                                    <th class="text-center">REGU LAR</th>
+                                                    <th class="text-center">DEFI CIENTE</th>
+                                                    <th class="text-center">Total Evaluados</th>
+                                                    <th class="text-center">PROVI SORIA</th>
+                                                    <th class="text-center">PENDIEN TE</th>
+                                                    <th class="text-center">Total General</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="row-template">
+                                                    <td colspan="8">tt</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="card-text">
+                                    <td class="col-12">
+                                        <div class="form-group row">
+                                            <label for="txt_filtro_apellido" class="col-12 col-md-2 col-form-label text-right">Filtro por apellido</label>
+                                            <div class="col-5 col-md-3">
+                                                <input type="text" class="form-control" id="txt_filtro_apellido" name="txt_filtro_apellido" placeholder="Apellido">
+                                            </div>
+                                            <label for="txt_filtro_estado" class="col-12 col-md-2 col-form-label text-right">Filtro por estado</label>
+                                            <div class="col-5 col-md-3">
+                                                  <select class="custom-select" id="inputGroupSelect01">
+                                                    <option selected>Seleccione</option>
+                                                    <option>Provisoria</option>
+                                                    <option>Pendiente</option>
+                                                    <option disabled>──────────</option>
+                                                    <option value="1">Destacados</option>
+                                                    <option value="2">Bueno</option>
+                                                    <option value="3">Regular</option>
+                                                    <option value="3">Deficiente</option>
+                                                  </select>
+                                            </div>
+                                            <div class="col"></div>
+                                        </div>
+                                    </td>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <hr />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col col-md-12 text-right">
+                        <a href="#" class="btn btn-secondary" role="button" on_leave="#scr_integrantes">Atras</a>
+                        <a href="#" class="btn btn-primary active" role="button" on_leave="#scr_home">Finalizar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal spinner-modal fade bd-example-modal-lg" data-backdrop="static" data-keyboard="false" tabindex="-1">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content" style="width: 48px">
+                    <span class="fa fa-spinner fa-pulse fa-3x"></span>
                 </div>
             </div>
         </div>

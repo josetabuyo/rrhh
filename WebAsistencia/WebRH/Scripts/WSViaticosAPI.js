@@ -1,13 +1,19 @@
-﻿define(['underscore'], function (_) {
+﻿define(['jquery','underscore'], function ($, _) {
 
-    var handleErrors = function (response) {
-        if (response.some(r => !r.ok)) {
-            throw Error(response.find(r => !r.ok).statusText);
+    var update_spinner = function() {
+        if (this.req_count > 0) {
+            $('.spinner-modal').modal('show')
+        } else {
+            $('.spinner-modal').modal('hide')
         }
-        return response;
     }
 
-    function parallel(requests, cb) {
+    var parallel = function(requests, cb) {
+
+        this.req_count = this.req_count || 0
+        this.req_count += requests.length
+        this.update_spinner()
+
         Promise.all(requests.map(req =>
             fetch('http://localhost:43414/AjaxWS.asmx/EjecutarEnBackend', {
                 method: 'POST',
@@ -17,26 +23,31 @@
                 body: JSON.stringify(req)
             })
         ))
-            .then(respuestas => Promise.all(respuestas.map(r => r.json())))
+            .then(respuestas => {
+                this.req_count -= respuestas.length
+                update_spinner()
+                return Promise.all(respuestas.map(r => r.json()))
+            })
             .then(responses => {
             var respuestas = responses.map((res) => {
-                if (res.hasOwnProperty('d')) {
-                    return JSON.parse(res.d)
-                } else {
-                    return res
-                }
+                    if (res.hasOwnProperty('d')) {
+                        return JSON.parse(res.d)
+                    } else {
+                        return res
+                    }
                 })
+            
                 try {
                     cb(null, respuestas)
                 } catch (e) {
                     alert('Se produjo al recibir la respuesta del servidor, consulte la consola para ver detalles')
                     console.log(e)
                 }
-            
         }).catch(err => cb(err))
     }
 
     return {
-        parallel: parallel
+        parallel: parallel,
+        update_spinner: update_spinner
     }
 })

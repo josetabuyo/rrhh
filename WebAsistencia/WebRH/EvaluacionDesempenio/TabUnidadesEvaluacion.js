@@ -65,7 +65,6 @@
             var tr = $('<tr class="totalizador bg-info text-white"><td colspan="2">Total para las UE Seleccionadas:</td><td>' + destacados + '</td><td>' + bueno + '</td><td>' + regular + '</td><td>' + deficiente + '</td><td>' + totalEvaluados + '</td><td>' + provisoria + '</td><td>' + pendiente + '</td><td>' + totalGeneral + '</td><td>' + cont + '</td>')
             tr.children().addClass('text-right')
             $("#tabla_unidades > tbody").append(tr)
-
         }
 
         var crear_grilla_unidades = function () {
@@ -87,6 +86,7 @@
             CreadorDeGrillas('#tabla_unidades', ues_periodo)
 
             $('[type=checkbox]').click(checkbox_ue_clicked)
+            calcular_totales_ue()
         }
 
         var on_tab_enter = function (idComite) {
@@ -99,13 +99,10 @@
             crear_grilla_unidades()
         }
 
-        var setup_componentes = function () {
 
-        }
 
         return {
             tab_name: '#scr_unidades',
-            init: setup_componentes,
             on_tab_enter: on_tab_enter,
             //on_next: on_next
         }

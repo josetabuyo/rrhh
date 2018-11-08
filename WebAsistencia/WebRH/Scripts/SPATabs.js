@@ -74,8 +74,9 @@ define(['jquery','underscore'], function ($, _) {
             var url = this.attributes.on_leave.value
 
             //si apunta al tab anterior (si apunta a algún otro tab, no modificarlo)
-            if (url.split('/')[0] === next_tab.name) {
-                this.attributes.on_leave.value = url.split('/')[0] + '/' + next_tab.parameter
+            var url_split = url.split('/')
+            if (url_split[0] === next_tab.name || url_split[0] === leaving_tab.name) {
+                this.attributes.on_leave.value = url_split[0] + '/' + next_tab.parameter
             }
         })
     }
@@ -161,6 +162,9 @@ define(['jquery','underscore'], function ($, _) {
 
         $('a[on_leave]').unbind('click', on_leave_click)
         $('a[on_leave]').click(tabs_events, on_leave_click)
+
+        $('li[on_leave]').unbind('click', on_leave_click)
+        $('li[on_leave]').click(tabs_events, on_leave_click)
 
         //start in the tab form the url
         var start_tab = location.hash

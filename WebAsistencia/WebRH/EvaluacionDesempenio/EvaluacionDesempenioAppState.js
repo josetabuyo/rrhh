@@ -7,10 +7,26 @@
 ///con el estado de los datos en el backend
 define(['wsviaticos', 'underscore'], function (ws, _) {
 
+    var HasExpired = function (key) {
+        
+        this.expiration_seconds = this.expiration_seconds || 15 * 60 //default 15 minutos
+
+        var now = new Date().getTime();
+        var object_timestamp = JSON.parse(window.localStorage.getItem(key)).TimeStamp
+
+        if (!object_timestamp) return true
+
+        var diff = Math.abs(now - object_timestamp) //milliseconds
+        var diff_seconds = Math.floor((diff / 1000) );
+
+        return diff_seconds >= this.expiration_seconds
+
+    }
+
     //cargar todos los datos necesarios para completar la grilla de periodos
     var GetDataGridPeriodos = function (cb) {
         //var traigo todos los datos del backend en paralelo y los guardo en el local storage
-        if (!window.localStorage.getItem('ComitesDeEvaluacionData')) {
+        if (!window.localStorage.getItem('ComitesDeEvaluacionData') || HasExpired('ComitesDeEvaluacionData')) {
             var requests = [
                 { nombre_metodo: "GetAllComites", argumentos_json: [] },
                 { nombre_metodo: "GetEstadosEvaluacionesPeriodosActivos", argumentos_json: [] },
@@ -26,7 +42,8 @@ define(['wsviaticos', 'underscore'], function (ws, _) {
                     GetAllComites: res[0],
                     GetEstadosEvaluacionesPeriodosActivos: res[1],
                     GetAgentesEvaluablesParaComites: res[2],
-                    GetPeriodosEvaluacion: res[3]
+                    GetPeriodosEvaluacion: res[3],
+                    TimeStamp: new Date().getTime()
                 }))
                 cb(JSON.parse(window.localStorage.getItem('ComitesDeEvaluacionData')))
             })
