@@ -48,8 +48,7 @@
         body.append(tr)
     }
 
-    /*
-     * Esta funcion recibe
+     /* Esta funcion recibe
      * id: el selector de jquery para obtener la tabla del html (e.g. #tablaPersonas)
      * registros: un array de objetos del modelo que se quieren cargar en la grilla (e.g. [ { nombre: 'juan', apellido: 'perez'}, 
      *                                                                                      { nombre: 'pedro', apellido: 'mendez'}])

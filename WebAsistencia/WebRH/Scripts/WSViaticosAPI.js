@@ -9,8 +9,9 @@
             //el 'hide' se ejecuta antes de que el modal haya sido mostrado, 
             //y no tiene efecto.
             $modal_element.unbind('shown.bs.modal')
+            var _this = this
             $modal_element.on('shown.bs.modal', function (e) {
-                update_spinner()
+                _this.update_spinner()
             })
             $modal_element.modal('show')
         } else {
