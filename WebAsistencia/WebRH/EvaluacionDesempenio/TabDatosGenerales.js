@@ -76,7 +76,6 @@
             },
             submitHandler: function (form, event) {
                 spa_tabs.formSubmitted(event)
-                var next = event.currentTarget.attributes.on_next.value
             }
         }
     }
@@ -100,7 +99,7 @@
             scrollbar: true
         })
 
-        $("#frm_datos_generales").validate(form_validations());
+        $("#frm_datos_generales").validate(form_validations())
     }
 
     return {

@@ -30,6 +30,11 @@
             formatResult: function (persona) { return _this.generarVistaPersona(persona); },
             formatSelection: function (persona) { return _this.generarVistaPersona(persona); }
         });
+
+        this.buscador.on("select2-removed", function (e) {
+            _this.alDesSeleccionarUnaPersona();
+        })
+
         this.buscador.on("select2-selecting", function (e) {
             for (var i = 0; i < _this.personasEncontradas.length; i++) {
                 if (_this.personasEncontradas[i].id == e.val) _this.personaSeleccionada = _this.personasEncontradas[i];

@@ -99,8 +99,6 @@
             crear_grilla_unidades()
         }
 
-
-
         return {
             tab_name: '#scr_unidades',
             on_tab_enter: on_tab_enter,

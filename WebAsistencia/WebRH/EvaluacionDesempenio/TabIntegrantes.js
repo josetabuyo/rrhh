@@ -43,6 +43,8 @@
                 alert(err)
                 return
             }
+            $("#cmb_en_caracter_de").val("").change()
+            $("#cmb_selector_integrantes").val([]).trigger('change');
             crear_grilla_integrantes()
         })
     }
@@ -53,10 +55,30 @@
         })
     }
 
+    var add_integrante_form_validations = function () {
+        return {
+            ignore: [],
+            rules: {
+                persona_buscada: {
+                    required: true
+                }
+            },
+            messages: {
+                cmb_en_caracter_de: {
+                    required: 'Debe seleccionar "En Caracter De"'
+                },
+                persona_buscada: {
+                    required: 'Debe seleccionar persona'
+                }
+            },
+            submitHandler: function (form, event) {
+                agregar_integrante()
+                //spa_tabs.formSubmitted(event)
+            }
+        }
+    }
 
     var setup_componentes = function () {
-
-        $("#btn_agregar_integrante").click(e => agregar_integrante())
 
         var selector_integrantes = new SelectorDePersonas({
             ui: $('#cmb_selector_integrantes'),
@@ -73,6 +95,12 @@
             }
             $("#persona_buscada").val(JSON.stringify(persona))
         }
+
+        selector_integrantes.alDesSeleccionarUnaPersona = function () {
+            $("#persona_buscada").val("")
+        }
+
+        $("#frm_agregar_integrante").validate(add_integrante_form_validations())
     }
 
     return {

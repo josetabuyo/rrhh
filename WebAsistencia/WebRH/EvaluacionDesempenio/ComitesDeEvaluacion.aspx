@@ -105,7 +105,7 @@
                             <h6 class="card-subtitle mb-2 text-muted">Paso 1: Datos Generales</h6>
                             <p class="lead" id="desc_periodo" />
                             <div class="card-text">
-                                <form id="frm_datos_generales" method="get" action="" on_next="#scr_integrantes">
+                                <form id="frm_datos_generales" method="get" on_next="#scr_integrantes">
                                     <div class="form-group row">
                                         <label for="date" class="col-12 col-md-2 col-form-label">Fecha</label>
                                         <div class="col-5 col-md-3">
@@ -196,34 +196,37 @@
                                 <div>
                                     <div class="card bg-light mb-3 col-12">
                                         <div class="card-body">
-                                            <h5 class="card-title">Agregar Integrante</h5>
-                                            <div class="form-group row">
-                                                <label for="buscador" class="col-12 col-md-2 offset-md-2 col-form-label">Integrante</label>
-                                                <div id="cmb_selector_integrantes" class="col-12 col-md-6">
-                                                    <input id="buscador" type="hidden" class="buscarPersona" />
-                                                    <input type="hidden" id="persona_buscada" />
+                                            <form id="frm_agregar_integrante" method="get">
+                                                <h5 class="card-title">Agregar Integrante</h5>
+                                                <div class="form-group row">
+                                                    <label for="buscador" class="col-12 col-md-2 offset-md-2 col-form-label">Integrante</label>
+                                                    <div id="cmb_selector_integrantes" class="col-12 col-md-6">
+                                                        <input id="buscador" name="buscador" type="hidden" class="buscarPersona" />
+                                                        <input type="hidden" id="persona_buscada" name="persona_buscada" required/>
+                                                    </div>
+                                                    <div class="col col-md-2"></div>
                                                 </div>
-                                                <div class="col col-md-2"></div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label for="caracter" class="col-12 col-md-2 offset-md-2 col-form-label">En Caracter De</label>
-                                                <div class="col-12 col-md-6">
-                                                    <select class="form-control" id="cmb_en_caracter_de">
-                                                        <option>--Seleccione--</option>
-                                                        <option value="1">Representante Gremial UPCN</option>
-                                                        <option value="2">Representante Gremial ATE</option>
-                                                        <option value="3">Coordinador del proceso de Selección</option>
-                                                        <option value="4">Evaluador</option>
-                                                    </select>
+                                                <div class="form-group row">
+                                                    <label for="caracter" class="col-12 col-md-2 offset-md-2 col-form-label">En Caracter De</label>
+                                                    <div class="col-12 col-md-6">
+                                                        <select class="form-control" id="cmb_en_caracter_de" name="cmb_en_caracter_de" required >
+                                                            <option value="">--Seleccione--</option>
+                                                            <option value="1">Representante Gremial UPCN</option>
+                                                            <option value="2">Representante Gremial ATE</option>
+                                                            <option value="3">Coordinador del proceso de Selección</option>
+                                                            <option value="4">Evaluador</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col col-md-2"></div>
                                                 </div>
-                                                <div class="col col-md-2"></div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class="col-12 col-md-8 offset-md-2 text-right">
-                                                    <button id="btn_agregar_integrante" type="button" class="btn btn-sm btn-primary">Agregar >></button>
+                                                <div class="form-group row">
+                                                    <div class="col-12 col-md-8 offset-md-2 text-right">
+                                                        <input id="btn_agregar_integrante" type="submit" class="btn btn-primary active" role="button" value="Agregar" />
+                                                        <!--<button id="btn_agregar_integrante" type="button" class="btn btn-sm btn-primary">Agregar >></button>-->
+                                                    </div>
+                                                    <div class="col col-md-2"></div>
                                                 </div>
-                                                <div class="col col-md-2"></div>
-                                            </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -441,7 +444,7 @@
             <span id="apellido"></span>
             <span id="contenedor_doc" class="badge badge-pill badge-info">
                 <span id="titulo_doc">Doc:</span>
-                <span id="documento"></span>
+                <span id="documento" name="documento" ></span>
             </span>
         </div>
     </div>
