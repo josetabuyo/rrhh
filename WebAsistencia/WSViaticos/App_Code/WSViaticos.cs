@@ -3042,7 +3042,8 @@ public class WSViaticos : System.Web.Services.WebService
     {
         //var usu = RepositorioDeUsuarios().GetUsuarioPorId(id_usuario);
         int[] perfiles = JsonConvert.DeserializeObject<int[]>(idPerfiles);
-        var informesArray = (JArray)JsonConvert.DeserializeObject(areas);
+        List<Area> lista_areas = JsonConvert.DeserializeObject<List<Area>>(areas);
+        var funcionalidades = RepositorioDeFuncionalidadesDeUsuarios().AsignarPerfilesAUsuario(perfiles.ToList(), lista_areas, id_usuario, usuario.Id);
         return "ok";
     }
 
@@ -3051,8 +3052,8 @@ public class WSViaticos : System.Web.Services.WebService
     {
         //var usu = RepositorioDeUsuarios().GetUsuarioPorId(id_usuario);
         int[] funcionalidades = JsonConvert.DeserializeObject<int[]>(idFuncionalidades);
-        var areasArray = (JArray)JsonConvert.DeserializeObject(areas);
-        return RepositorioDeFuncionalidadesDeUsuarios().AsignarPerfilesAUsuario(funcionalidades.ToList(), areasArray, id_usuario, usuario.Id);
+        List<Area> listas_areas = JsonConvert.DeserializeObject<List<Area>>(areas);
+        return RepositorioDeFuncionalidadesDeUsuarios().AsignarPerfilesAUsuario(funcionalidades.ToList(), listas_areas, id_usuario, usuario.Id);
         
     }
     

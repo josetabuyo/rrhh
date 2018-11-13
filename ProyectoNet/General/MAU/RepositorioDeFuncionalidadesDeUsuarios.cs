@@ -216,18 +216,19 @@ namespace General.MAU
             return this.Obtener().FindAll(p => p.Value == id_funcionalidad).Select(p => repositorioDeUsuarios.GetUsuarioPorId(p.Key)).ToList();*/
         }
 
-        public string AsignarPerfilesAUsuario(List<int> perfiles, JArray areas, int idUsuario, int id_usuario_alta)
+        public string AsignarPerfilesAUsuario(List<int> perfiles, List<Area> areas, int idUsuario, int id_usuario_alta)
         {
 
             try
             {
                   var parametros = new Dictionary<string, object>();
-                  perfiles.ForEach(idPerfil => areas.ToList().ForEach(area => area.ToList()
+                  perfiles.ForEach(idPerfil => areas.ForEach(area => {
 
-                      //parametros.Add("@id_usuario", area.idArea);
-                      //parametros.Add("@id_funcionalidad", objeto.Value);
+                      parametros.Add("@id_usuario", area.Id);
+                      parametros.Add("@id_perfil", idPerfil);
+                      parametros.Add("@incluye_dependendencia", area.IncluyeDependencias);
                       //var tablaDatos = conexion.Ejecutar("dbo.MAU_DenegarFuncionalidadA", parametros);
-
+                  }
                       )
 
                       );

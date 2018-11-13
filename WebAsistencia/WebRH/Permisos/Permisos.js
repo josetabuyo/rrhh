@@ -344,7 +344,10 @@ var Permisos = {
 
 
             var areasSeleccionadas = $('.areasSeleccionadas').map(function () {
-                return { id: $(this).attr('id'), incluyeDependencia: $(this)[0].children[1].checked };
+                var valor = 0;
+                if ($(this)[0].children[1].checked)
+                    valor = 1;
+                return { Id: $(this).attr('id'), IncluyeDependencias: valor };
             }).get();
 
             /* var dependencias = $('.checksIncluyeDependencia').map(function () {
@@ -353,7 +356,7 @@ var Permisos = {
 
             var idUsuarioSeleccionado = sessionStorage.getItem("idUsuario");
 
-            Backend.asignarPerfiles(JSON.stringify(perfilesSeleccionados), JSON.stringify(areasSeleccionadas), idUsuarioSeleccionado)
+            Backend.asignarPerfiles(JSON.stringify(perfilesSeleccionados), areasSeleccionadas, idUsuarioSeleccionado)
             .onSuccess(function (rto) {
                 console.log(rto);
 

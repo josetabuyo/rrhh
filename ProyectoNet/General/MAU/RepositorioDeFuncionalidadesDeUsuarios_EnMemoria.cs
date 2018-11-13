@@ -93,7 +93,7 @@ namespace General.MAU
             throw new NotImplementedException();
         }
 
-        public string AsignarPerfilesAUsuario(List<int> perfiles, JArray areas, int idUsuario, int id_usuario_alta)
+        public string AsignarPerfilesAUsuario(List<int> perfiles, List<Area> areas, int idUsuario, int id_usuario_alta)
         {
             throw new NotImplementedException();
         }
