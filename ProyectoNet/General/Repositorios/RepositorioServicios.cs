@@ -178,6 +178,54 @@ namespace General
 
 
 
+        public bool Alta_Servicios_Adm_Publica(List<Serv_Adm_Publica_Privada> servicio, Usuario usuario)
+        {
+            ConexionDB cn = new ConexionDB("dbo.LEG_DEL_Servicios_Adm_Publica");
+            cn.AsignarParametro("@Id_interna", servicio[0].Id_Interna);
+            cn.AsignarParametro("@Folio", servicio[0].Folio);
+
+            cn.BeginTransaction();
+
+            try
+            {
+                cn.EjecutarSinResultado();
+
+                foreach (var item in servicio)
+                {
+                   cn.AsignarParametro("@Ambito_1", item.Ambito.Id); //  smallint,    
+                   cn.AsignarParametro("@Jurisdiccion_2", item.Jurisdiccion); //  [varchar](50),    
+                   cn.AsignarParametro("@Organismo_3",item.Organismo); //  [varchar](50),    
+                   cn.AsignarParametro("@Cargo_4", item.Cargo.Id); //  smallint,    
+                   cn.AsignarParametro("@Remunerativo_5", item.Remunerativo); //  bit,    
+                   cn.AsignarParametro("@Fecha_Desde_6", item.Fecha_Desde); //  [datetime],    
+                   cn.AsignarParametro("@Fecha_Hasta_7", item.Fecha_Hasta); //  [datetime],    
+                   cn.AsignarParametro("@Causa_Egreso_8", item.Causa_Egreso); //  [varchar](100),    
+                   cn.AsignarParametro("@Folio_9", item.Folio); //  [char](10),    
+                   cn.AsignarParametro("@Id_Interna_10", item.Id_Interna); //  [int],    
+                   cn.AsignarParametro("@doc_tit_11", item.Doc_Titular); //   [int] ,    
+                   cn.AsignarParametro("@Caja_12", item.Caja); //  [varchar](50),     
+                   cn.AsignarParametro("@Afiliado_13", item.Afiliado); //  [varchar](50),    
+                   cn.AsignarParametro("@datonoimprime", item.datonoimprime); // bit,    
+                   cn.AsignarParametro("@Ctr_Cert", item.Ctr_Cert); // bit =null,    
+                   cn.AsignarParametro("@Usuario", usuario.Id); // smallint
+                   
+                   cn.EjecutarSinResultado();
+
+                }
+
+            }
+            catch (Exception)
+            {
+                cn.RollbackTransaction();
+                return false;
+            }
+
+            cn.CommitTransaction();
+            cn.Desconestar();
+
+            return true;
+
+        }
 
 
     }

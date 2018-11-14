@@ -54,22 +54,22 @@
                 <input type="text" id="txtNroAfiliacion" value="" style="width: 400px" />
             </div>
 
-            <div>
+            <div id='Remunerado'>
                 <asp:Label ID="lblRemunerado" runat="server" Text="Remunerado " />
-                <asp:RadioButtonList ID="rdRemunerado" runat="server">
-                     <asp:ListItem Text="SI" Value="1" />
-                    <asp:ListItem Text="NO (Ad Honorem)" Value="0" />
-                </asp:RadioButtonList>
+                <br/>
+                <input type="radio" id="rdRemuneradoSI" value="1" name="Remunerado" /> SI
+                <br/>
+                <input type="radio" id="rdRemuneradoNO" value="0" name="Remunerado" /> NO (Ad Honorem)  
             </div>
-
-
-            <div>
+            <br/>
+            <div id='TipoDocumento'>
                 <asp:Label ID="lblTipoDocumento" runat="server" Text="Tipo Documento" />
-                <asp:RadioButtonList ID="rdTipoDocumento" runat="server">
-                    <asp:ListItem Text="Contrato" Value="0" />
-                    <asp:ListItem Text="Cert. de Serv." Value="1" />
-                    <asp:ListItem Text="Otros" Value="2" />
-                </asp:RadioButtonList>
+                <br/>
+                <input type="radio" id="rdTipoDocumentoCTR" value="1" name="TipoDocumento" /> Contrato        
+                <br/>
+                <input type="radio" id="rdTipoDocumentoCER" value="0" name="TipoDocumento" /> Cert. de Serv.  
+                <br/>
+                <input type="radio" id="rdTipoDocumentoOTR" value="2" name="TipoDocumento" /> Otros
             </div>
         </fieldset>
 
@@ -96,12 +96,28 @@
                 <input type="text" id="txtFechaHasta" style="width: 110px;" placeholder="dd/mm/aaaa" />
             </div>
 
-            <input type="button" value="Agregar" class="btn btn-primary" id="btn_Agregar" />
-            <input type="button" value="Borrar" class="btn btn-primary" id="btn_Borrar" />
+            
 
+            <input type="button" value="Agregar" class="btn btn-primary" id="btn_Agregar" />
+            
+
+            <br /><br />
             <div id="ContenedorGrilla" runat="server" style="width: 95%" align="center">
                 <div id="ContenedorServicios" runat="server" style="width: 95%"></div>
             </div>
+
+            <br/>
+            <div>
+                <asp:Label ID="lblCausaEgreso" runat="server" Text="Causa de Egreso " />
+                <input type="text" id="txtCausaEgreso" value="" style="width: 400px" />
+            </div>
+
+            <input type="checkbox" name="chkNoImprime" value="0" /> No Imprime 
+            <br/>
+            <input type="checkbox" name="DarDeBaja" value="0" /> Dar de Baja
+
+
+            <input type="button" value="Guardar" class="btn btn-primary" id="btn_Guardar" />
 
         </fieldset>
 

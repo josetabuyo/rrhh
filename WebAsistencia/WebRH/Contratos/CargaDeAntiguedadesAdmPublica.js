@@ -1,6 +1,7 @@
 ﻿
 var valores;
 var pLegajo;
+var pDocumento;
 var pFolio;
 var ambitoIdSeleccionado;
 var ambitoDescripSeleccionado;
@@ -16,6 +17,7 @@ Backend.start(function () {
 
         var valores = getParametrosURL();
         pLegajo = valores['legajo'];
+        pDocumento = valores['documento'];
         pFolio  = valores['folio'];
 
         completarComboAmbitos();
@@ -27,6 +29,53 @@ Backend.start(function () {
         ConsultarServicioAdmPublica();
     });
 });
+
+$("#btn_Agregar").click(function () {
+    
+    var ServPublico = {};
+
+    ServPublico.Ambito.Id = $("#cmbAmbitos").val();
+    ServPublico.Jurisdiccion = $('#txtJurisdiccion').val();
+    ServPublico.Organismo = 0;
+    ServPublico.Cargo.Id = 0;
+
+    if ($("#rdRemuneradoSI").checked) {
+        ServPublico.Remunerativo = 1;
+    }
+
+    ServPublico.Fecha_Desde = 0;
+    ServPublico.Fecha_Hasta = 0;
+    ServPublico.Causa_Egreso = $('#txtCausaEgreso').val();
+    ServPublico.Folio = $('#NroFolio').val() + "-" + $('#NroFolioDesde').val() + "/" + $('#NroFolioHasta').val();
+    ServPublico.Id_Interna = pLegajo;
+    ServPublico.Doc_Titular = pDocumento;
+    ServPublico.Caja = $('#txtCaja').val();
+    ServPublico.Afiliado = $('#txtNroAfiliacion').val();
+
+    if ($("#chkNoImprime").checked) {
+        ServPublico.datonoimprime = 1;
+    }
+
+    if ($("#rdTipoDocumentoCTR").checked) {
+        ServPublico.Ctr_Cert = 1;
+    }
+    if ($("#rdTipoDocumentoCER").checked) {
+        ServPublico.Ctr_Cert = 0;
+    }
+    if ($("#rdTipoDocumentoOTR").checked) {
+        ServPublico.Ctr_Cert = null;
+    }
+
+
+    //lista_de_serv_publico.append(ServPublico);
+    lista_de_serv_publico.push(ServPublico);
+
+});
+
+
+$("#btn_Guardar").click(function () {
+    var aa = ServPublico;
+}); 
 
 
 function getParametrosURL() {
@@ -51,6 +100,7 @@ var FormatearFecha = function (p_fecha) {
     var fecha = fecha_sin_hora[0].split("-");
     return fecha[2] + "/" + fecha[1] + "/" + fecha[0];
 };
+
 
 var GetFolio = function (folio, dato) {
 
@@ -96,7 +146,7 @@ var completarComboAmbitos = function () {
     .onSuccess(function (respuesta) {
         for (var i = 0; i < respuesta.length; i++) {
             //item = new Option(respuesta[i].id + ' - ' + respuesta[i].descripcion, respuesta[i].id + '-' + respuesta[i].descripcion);
-            item = new Option(respuesta[i].id, respuesta[i].descripcion);
+            item = new Option(respuesta[i].descripcion, respuesta[i].id);
             $(item).html(respuesta[i].descripcion);
             ambitos.append(item);
         }
@@ -125,7 +175,7 @@ var completarComboCargo = function () {
     .onSuccess(function (respuesta) {
         for (var i = 0; i < respuesta.length; i++) {
             //item = new Option(respuesta[i].id + ' - ' + respuesta[i].descripcion, respuesta[i].id + '-' + respuesta[i].descripcion);
-            item = new Option(respuesta[i].id, respuesta[i].descripcion);
+            item = new Option(respuesta[i].descripcion, respuesta[i].id);
             $(item).html(respuesta[i].descripcion);
             cargo.append(item);
         }
@@ -169,11 +219,8 @@ var ConsultarServicioAdmPublica = function (documento) {
 var CargarPantalla = function (ListaDeDatos) {
 
     if (ListaDeDatos.length > 0) {
-        //$('#cmbAmbitos')
-        // $("#cmbAmbitos").puidropdown('selectValue', lista_de_serv_publico[0].Ambito.Id);
-        //$("#tidservicio").val(datosViajes[1]);
-        //$('#tidservicio').change();
 
+        $("#cmbAmbitos").val(lista_de_serv_publico[0].Ambito.Id).change();
         $('#NroFolio').val(GetFolio(lista_de_serv_publico[0].Folio, 1));
         $('#NroFolioDesde').val(GetFolio(lista_de_serv_publico[0].Folio, 2));
         $('#NroFolioHasta').val(GetFolio(lista_de_serv_publico[0].Folio, 3));
@@ -182,13 +229,35 @@ var CargarPantalla = function (ListaDeDatos) {
         $('#txtNroAfiliacion').val(lista_de_serv_publico[0].Afiliado);
 
         if (lista_de_serv_publico[0].Remunerativo) {
-            //document.getElementById('idofcorespondingradiobutton').checked = true;
+            $("#rdRemuneradoSI").prop("checked", true);
+        }
+        else {
+            $("#rdRemuneradoNO").prop("checked", true);
         }
 
-        //$('#rdRemunerado')
-        //$('#rdTipoDocumento')
-    }
+        if (lista_de_serv_publico[0].Ctr_Cert == true) {
+            $("#rdTipoDocumentoCTR").prop("checked", true);
+        }
+        else {
+            if (lista_de_serv_publico[0].Ctr_Cert == false) {
+                $("#rdTipoDocumentoCER").prop("checked", true);
+            }
+            else {
+                $("#rdTipoDocumentoOTR").prop("checked", true);
+            }
+        }
 
+        $('#txtCausaEgreso').val(lista_de_serv_publico[0].Causa_Egreso);
+
+        if (lista_de_serv_publico[0].datonoimprime == true) {
+            $("#chkNoImprime").prop("checked", true);
+        }
+
+        if (lista_de_serv_publico[0].DatoDeBaja == true) {
+            $("#DarDeBaja").prop("checked", true);
+        }
+
+    }
 };
 
 
@@ -222,9 +291,10 @@ var DibujarGrillaServPublico = function () {
     //            }
     //            }),
             new Columna("Organismo", { generar: function (consulta) { return consulta.Organismo; } }),
-            new Columna("Cargo", { generar: function (consulta) { return consulta.Cargo; } }),
+            new Columna("Cargo", { generar: function (consulta) { return consulta.Cargo.Descripcion; } }),
             new Columna("Desde", { generar: function (consulta) { return FormatearFecha(consulta.Fecha_Desde); } }),
-            new Columna("Hasta", { generar: function (consulta) { return FormatearFecha(consulta.Fecha_Hasta); } })
+            new Columna("Hasta", { generar: function (consulta) { return FormatearFecha(consulta.Fecha_Hasta); } }),
+
             ]);
 
     grilla.CargarObjetos(lista_de_serv_publico);

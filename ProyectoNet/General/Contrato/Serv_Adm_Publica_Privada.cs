@@ -29,5 +29,11 @@ namespace General.Contrato
 
         public string Institucion { get; set; }
         public string Domicilio { get; set; }
+
+
+        public Serv_Adm_Publica_Privada()
+        {
+                
+        }
     }
 }

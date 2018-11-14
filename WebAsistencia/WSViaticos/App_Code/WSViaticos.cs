@@ -5448,6 +5448,13 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
 
+    [WebMethod]
+    public bool Alta_Servicios_Adm_Publica(List<Serv_Adm_Publica_Privada> servicio, Usuario usuario)
+    {
+        var RepositorioServAdm = new RepositorioServicios();
+        return RepositorioServAdm.Alta_Servicios_Adm_Publica(servicio, usuario);
+    }
+
 
 
 }

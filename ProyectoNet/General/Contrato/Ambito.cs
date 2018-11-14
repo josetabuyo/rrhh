@@ -9,5 +9,12 @@ namespace General.Contrato
     {
         public Int16 Id { get; set; }
         public string Descripcion { get; set; }
+
+
+        public Ambito()
+        {
+
+        }
+
     }
 }

@@ -207,7 +207,6 @@ var GraficoContratos = {
     },
 
     FiltrarPersonasParaTablaDetalle: function (criterio, tabla) {
-
         var _this = this;
         var tabla_final = [];
         _this.VisualizarTablaDetalle(true);
