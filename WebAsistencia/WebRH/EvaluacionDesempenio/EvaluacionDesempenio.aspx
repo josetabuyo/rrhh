@@ -23,7 +23,7 @@
             </tr>
             <tr>
                 <td>
-                    <a id="btn_listado_agentes" requierefuncionalidad="ingreso_evaluacion_desempeño" class="acomodar_botones_del_menu btn btn-primary"
+                    <a id="btn_listado_agentes" requierefuncionalidad="ingreso_evaluacion_desempenio" class="acomodar_botones_del_menu btn btn-primary"
                         href="ListadoAgentes.aspx">Listado Agentes Evaluables</a>
                 </td>
             </tr>

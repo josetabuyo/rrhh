@@ -44,6 +44,7 @@ namespace General.Repositorios
             cn.AsignarParametro("@hasta", unaLicencia.Hasta.ToShortDateString());
             cn.AsignarParametro("@idUsuario", unaLicencia.Auditoria.UsuarioDeCarga.Id);
             cn.AsignarParametro("@idArea", unaLicencia.Persona.Area.Id);
+            cn.AsignarParametro("@denegada", unaLicencia.Denegada);
 
             cn.EjecutarSinResultado();
             cn.Desconestar();
