@@ -46,7 +46,7 @@
             <tr>
                 <td>
                     <a id="A2" requierefuncionalidad="ABM_reuniones_comite" class="acomodar_botones_del_menu btn btn-primary"
-                        href="ABMComites.aspx">Comités</a>
+                        href="ComitesDeEvaluacion.aspx">Comités</a>
                     <!--<a id="A1" requierefuncionalidad="comprobacion_codigos_gde" class="acomodar_botones_del_menu btn btn-primary"
                         href="ComprobacionGDEListadoAgentes.aspx">Comprobacion GDE</a>-->
                 </td>
