@@ -30,6 +30,11 @@ namespace General.MED
 
         //public List<DetallePreguntas> detalle_preguntas  { get { return evaluacion.detalle_preguntas; } set { } }
 
+        public AsignacionEvaluadoEvaluadorDTO ToDto()
+        {
+            return new AsignacionEvaluadoEvaluadorDTO(this.agente_evaluador, this.periodo, this.unidad_de_evaluacion, this.evaluacion);
+        }
+
         public AsignacionEvaluadoAEvaluador(AgenteEvaluacionDesempenio agente_evaluado, AgenteEvaluacionDesempenio agente_evaluador, EvaluacionDesempenio evaluacion, PeriodoEvaluacion periodo, NivelEvaluacionDesempenio nivel, UnidadDeEvaluacion unidad_evaluacion)
         {
             this.agente_evaluado = agente_evaluado;

@@ -118,9 +118,10 @@ namespace General.Repositorios
             return GetAgentesEvaluablesPor(usuario, true, false, true);
         }
 
-        public RespuestaGetAgentesEvaluablesPor GetAgentesEvaluablesParaComites(Usuario usuario)
+        public RespuestaGetAgentesEvaluablesParaComites GetAgentesEvaluablesParaComites(Usuario usuario)
         {
-            return GetAgentesEvaluablesPor(usuario, true, true, false);
+            var res =  GetAgentesEvaluablesPor(usuario, true, true, false);
+            return new RespuestaGetAgentesEvaluablesParaComites(res.asignaciones, res.EsAgenteVerificador, res.UsuarioRequest);
         }
 
         public List<PeriodoEvaluacion> GetPeriodosEvaluacion()
@@ -310,8 +311,8 @@ namespace General.Repositorios
             }
 
             var sp = IncludeTextosPreguntas ? "dbo.EVAL_GET_Evaluados_Evaluador" : "dbo.EVAL_GET_Evaluados_Evaluador_Slim";
-
-            var tablaDatos = _conexion.Ejecutar(sp, parametros);
+            //var sp = "dbo.EVAL_GET_Evaluados_Evaluador";
+           var tablaDatos = _conexion.Ejecutar(sp, parametros);
 
             var asignaciones = new List<AsignacionEvaluadoAEvaluador> { };
             var detalle_preguntas = new List<DetallePreguntas> { };
@@ -323,7 +324,6 @@ namespace General.Repositorios
 
             if (tablaDatos.Rows.Count > 0)
             {
-
                 var id_evaluacion_anterior = 0;
                 var id_evaluado_anterior = 0;
                 tablaDatos.Rows.ForEach(row =>
@@ -446,7 +446,8 @@ namespace General.Repositorios
                                             row.GetString("codigo_gde", ""),
                                             row.GetString("codigo_doc_electronico", ""),
                                             row.GetDateTime("fecha"),
-                                            new VerificacionCodigoGdeDocumento(row.GetDateTime("fechaVerificacionGDE", DateTime.MinValue), VerificacionCodigoGdeDocumento.UsuarioVerifFromDB(row.GetSmallintAsInt("idUsuarioVerificadorGDE", 0))));
+                                            new VerificacionCodigoGdeDocumento(row.GetDateTime("fechaVerificacionGDE", DateTime.MinValue), VerificacionCodigoGdeDocumento.UsuarioVerifFromDB(row.GetSmallintAsInt("idUsuarioVerificadorGDE", 0))),
+                                            row.GetSmallintAsInt("sum_puntaje"));
             }
 
             var unidad_evaluacion = UnidadDeEvaluacion.Nulio();
