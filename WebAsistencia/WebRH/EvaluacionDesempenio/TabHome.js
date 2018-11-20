@@ -1,4 +1,4 @@
-﻿define(['jquery', 'eval/EvaluacionDesempenioAppState', 'spa-tabs', 'creadorDeGrillas', 'eval/comitesPorPeriodo', 'jquery-ui'],
+﻿define(['jquery', 'eval/EvaluacionDesempenioAppState', 'spa-tabs', 'creadorDeGrillas', 'eval/ComitesPorPeriodo', 'jquery-ui'],
     function ($, app_state, spa_tabs, CreadorDeGrillas, ComitesPorPeriodo) {
 
         var set_id_periodo_seleccionado = function (e) {
@@ -12,7 +12,7 @@
                 var evals = data.GetAgentesEvaluablesParaComites
                 var periodos = data.GetPeriodosEvaluacion
 
-                var agrupados = ComitesPorPeriodo(ues, periodos, evals, comites)
+                var agrupados = ComitesPorPeriodo.AgruparComitesPorPeriodo(ues, periodos, evals, comites)
                 CreadorDeGrillas('#tabla_periodos', agrupados)
 
                 $('[btn_id_periodo]').click(set_id_periodo_seleccionado)

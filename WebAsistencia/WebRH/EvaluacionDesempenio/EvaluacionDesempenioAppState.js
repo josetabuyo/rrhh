@@ -247,6 +247,21 @@ define(['wsviaticos', 'underscore'], function (ws, _) {
         )
     }
 
+    var GetEvaluacionesUes = function (ues) {
+        var ids_ues = _.map(ues, ue  => ue.Id)
+        var app_state = JSON.parse(window.localStorage.getItem('ComitesDeEvaluacionData'))
+        var agentes_evaluables = app_state.GetAgentesEvaluablesParaComites
+        var all_asignaciones = agentes_evaluables.asignaciones
+
+        var asignaciones_ues = _.filter(all_asignaciones, a => {
+            return _.some(ids_ues, id_ue => {
+                return a.id_unidad_eval == id_ue
+            })
+        })
+
+        return asignaciones_ues
+    }
+
     //API del modulo
     return {
         AddComite: AddComite,
@@ -263,7 +278,8 @@ define(['wsviaticos', 'underscore'], function (ws, _) {
         EvalAddUnidadEvaluacionAComite: EvalAddUnidadEvaluacionAComite,
         EvalRemoveUnidadEvaluacionAComite: EvalRemoveUnidadEvaluacionAComite,
         OnStateChange: OnStateChange,
-        StateChanged: StateChanged
+        StateChanged: StateChanged,
+        GetEvaluacionesUes: GetEvaluacionesUes
 
     }
 })

@@ -6809,10 +6809,33 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:complexType name="RespuestaGetAgentesEvaluablesParaComites">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="asignaciones" type="tns:ArrayOfAsignacionEvaluadoEvaluadorDTO" />
+          <s:element minOccurs="1" maxOccurs="1" name="EsAgenteVerificador" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="UsuarioRequest" type="tns:Usuario" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfAsignacionEvaluadoEvaluadorDTO">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AsignacionEvaluadoEvaluadorDTO" nillable="true" type="tns:AsignacionEvaluadoEvaluadorDTO" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AsignacionEvaluadoEvaluadorDTO">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="dni_agente_evaluado" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="apellido_agente_evaluado" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="nombre_agente_evaluado" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="periodo" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="id_unidad_eval" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="area" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="evaluacion" type="tns:EvaluacionDesempenio" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="GetAgentesEvaluablesParaComitesResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetAgentesEvaluablesParaComitesResult" type="tns:RespuestaGetAgentesEvaluablesPor" />
+            <s:element minOccurs="0" maxOccurs="1" name="GetAgentesEvaluablesParaComitesResult" type="tns:RespuestaGetAgentesEvaluablesParaComites" />
           </s:sequence>
         </s:complexType>
       </s:element>

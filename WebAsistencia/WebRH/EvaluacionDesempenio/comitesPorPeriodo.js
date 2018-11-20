@@ -33,13 +33,13 @@
     //evals_por_periodo es un diccionario (usado como cache) para agrupar las evaluaciones por cada key=id_periodo
     function getEvalsPeriodo(evals_por_periodo, evals, id_periodo) {
         if (!evals_por_periodo[id_periodo]) {
-            evals_por_periodo[id_periodo] = _.filter(evals, function (each) { return each.periodo.id_periodo == id_periodo })
+            evals_por_periodo[id_periodo] = _.filter(evals, function (each) { return each.periodo == id_periodo })
         }
         return evals_por_periodo[id_periodo]
     }
 
     ///devuelve la lista de comites agrupadas por período
-    function agruparComitesPorPeriodo(ues, periodos, evals, comites) {
+    function AgruparComitesPorPeriodo(ues, periodos, evals, comites) {
 
         var periodo_anterior = -1
         var result = [];
@@ -50,16 +50,18 @@
         for (var i = 1; i < ues.length; i++) {
             if (ues[i].IdPeriodo != periodo_anterior) {
                 periodo_anterior = ues[i].IdPeriodo
-                cursor = {
-                    Periodo: nombrePeriodoFrom(ues[i].IdPeriodo, periodos),
-                    IdPeriodo: ues[i].IdPeriodo,
-                    EvaluacionesPendientes: 0,
-                    EvaluacionesProvisorias: 0,
-                    SinGDE: 0,
-                    SinComite: 0,
-                    Finalizado: 0,
-                    Reuniones: 0
-                }
+
+                var cursor = {
+                        EvaluacionesPendientes: 0,
+                        EvaluacionesProvisorias: 0,
+                        SinGDE: 0,
+                        SinComite: 0,
+                        Finalizado: 0,
+                        Reuniones: 0,
+                        Periodo: nombrePeriodoFrom(ues[i].IdPeriodo, periodos),
+                        IdPeriodo: ues[i].IdPeriodo
+                    }
+
                 var evals_periodo = getEvalsPeriodo(evals_por_periodo, evals.asignaciones, ues[i].IdPeriodo)
                 camposSumarizadosDe(cursor, ues[i], evals_periodo, comites)
                 result.push(cursor)
@@ -74,5 +76,35 @@
         return result;
     }
 
-    return agruparComitesPorPeriodo;
+    var AgruparUnidadesEvaluacion = function (ues) {
+
+        var cursor = {
+            Destacados: 0,
+            Bueno: 0,
+            Regular: 0,
+            Deficiente: 0,
+            Pendientes: 0,
+            Provisorias: 0
+        }
+
+        for (var i = 0; i < ues.length; i++) {
+            var detalle = ues[i].DetalleEvaluados
+            cursor.Destacados += detalle.Destacados
+            cursor.Bueno += detalle.Bueno
+            cursor.Regular += detalle.Regular
+            cursor.Deficiente += detalle.Deficiente
+            cursor.Pendientes += detalle.Pendiente
+            cursor.Provisorias += detalle.Provisoria
+        }
+
+        cursor.TotalEvaluados = cursor.Destacados + cursor.Bueno + cursor.Regular + cursor.Deficiente
+        cursor.TotalGeneral = cursor.TotalEvaluados + cursor.Provisorias + cursor.Pendientes
+
+        return [cursor]
+    }
+
+    return {
+        AgruparComitesPorPeriodo: AgruparComitesPorPeriodo,
+        AgruparUnidadesEvaluacion: AgruparUnidadesEvaluacion
+    }
 })

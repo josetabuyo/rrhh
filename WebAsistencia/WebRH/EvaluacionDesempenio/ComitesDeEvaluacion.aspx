@@ -202,15 +202,15 @@
                                                     <label for="buscador" class="col-12 col-md-2 offset-md-2 col-form-label">Integrante</label>
                                                     <div id="cmb_selector_integrantes" class="col-12 col-md-6">
                                                         <input id="buscador" name="buscador" type="hidden" class="buscarPersona" />
-                                                        <input type="hidden" id="persona_buscada" name="persona_buscada" required/>
+                                                        <input type="hidden" id="persona_buscada" name="persona_buscada" required />
                                                     </div>
                                                     <div class="col col-md-2"></div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <label for="caracter" class="col-12 col-md-2 offset-md-2 col-form-label">En Caracter De</label>
                                                     <div class="col-12 col-md-6">
-                                                        <select class="form-control" id="cmb_en_caracter_de" name="cmb_en_caracter_de" required >
-                                                            <option value="">--Seleccione--</option>
+                                                        <select class="form-control" id="cmb_en_caracter_de" name="cmb_en_caracter_de" required>
+                                                            <option value="">--Todos--</option>
                                                             <option value="1">Representante Gremial UPCN</option>
                                                             <option value="2">Representante Gremial ATE</option>
                                                             <option value="3">Coordinador del proceso de Selección</option>
@@ -365,19 +365,26 @@
                                     <table class="table table-bordered table-striped table-sm" id="tabla_resumen">
                                         <thead>
                                             <tr>
-                                                <th class="text-center">DESTA CADOS</th>
-                                                <th class="text-center">BUENO</th>
-                                                <th class="text-center">REGU LAR</th>
-                                                <th class="text-center">DEFI CIENTE</th>
-                                                <th class="text-center">Total Evaluados</th>
-                                                <th class="text-center">PROVI SORIA</th>
-                                                <th class="text-center">PENDIEN TE</th>
-                                                <th class="text-center">Total General</th>
+                                                <th class="text-center"><small class="text-muted">Destacados</small></th>
+                                                <th class="text-center"><small class="text-muted">Bueno</small></th>
+                                                <th class="text-center"><small class="text-muted">Regular</small></th>
+                                                <th class="text-center"><small class="text-muted">Deficiente</small></th>
+                                                <th class="text-center"><small>Total Evaluados</small></th>
+                                                <th class="text-center"><small class="text-muted">Provisoria</small></th>
+                                                <th class="text-center"><small class="text-muted">Pendiente</small></th>
+                                                <th class="text-center"><small>Total General</small></th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr class="row-template">
-                                                <td colspan="8">tt</td>
+                                            <tr class="row-template" style="display: none">
+                                                <td class="text-right">{{Destacados}}</td>
+                                                <td class="text-right">{{Bueno}}</td>
+                                                <td class="text-right">{{Regular}}</td>
+                                                <td class="text-right">{{Deficiente}}</td>
+                                                <td class="text-right">{{TotalEvaluados}}</td>
+                                                <td class="text-right">{{Provisorias}}</td>
+                                                <td class="text-right">{{Pendientes}}</td>
+                                                <td class="text-right">{{TotalGeneral}}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -405,6 +412,32 @@
                                         </div>
                                         <div class="col"></div>
                                     </div>
+                                    <td class="row">
+                                        <table class="table table-bordered table-striped table-sm" id="tabla_evaluaciones">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">Dni</th>
+                                                    <th class="text-center">Apellido</th>
+                                                    <th class="text-center">Nombre</th>
+                                                    <th class="text-center">Area</th>
+                                                    <th class="text-center">Evaluacion</th>
+                                                    <th class="text-center">GDE</th>
+                                                    <th class="text-center">Accion</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="row-template" style="display: none">
+                                                    <td class="text-right">{{Dni}}</td>
+                                                    <td class="text">{{Apellido}}</td>
+                                                    <td class="text">{{Nombre}}</td>
+                                                    <td class="text">{{Area}}</td>
+                                                    <td class="text">{{Evaluacion}}</td>
+                                                    <td class="text">{{GDE}}</td>
+                                                    <td class="text">{{Accion}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
                                 </td>
                             </div>
                         </div>
@@ -418,7 +451,7 @@
             </div>
             <div class="row">
                 <div class="col col-md-12 text-right">
-                    <a href="#" class="btn btn-secondary" role="button" on_leave="#scr_integrantes">Atras</a>
+                    <a href="#" class="btn btn-secondary" role="button" on_leave="#scr_unidades">Atras</a>
                     <a href="#" class="btn btn-primary active" role="button" on_leave="#scr_home">Finalizar</a>
                 </div>
             </div>
@@ -444,7 +477,7 @@
             <span id="apellido"></span>
             <span id="contenedor_doc" class="badge badge-pill badge-info">
                 <span id="titulo_doc">Doc:</span>
-                <span id="documento" name="documento" ></span>
+                <span id="documento" name="documento"></span>
             </span>
         </div>
     </div>

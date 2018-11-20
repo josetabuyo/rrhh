@@ -75,7 +75,7 @@ public class WSViaticos : System.Web.Services.WebService
         return repo.GetAgentesEvaluablesParaVerificarGDE(usuario);
     }
     [WebMethod]
-    public RespuestaGetAgentesEvaluablesPor GetAgentesEvaluablesParaComites(Usuario usuario)
+    public RespuestaGetAgentesEvaluablesParaComites GetAgentesEvaluablesParaComites(Usuario usuario)
     {
         var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
         return repo.GetAgentesEvaluablesParaComites(usuario);
