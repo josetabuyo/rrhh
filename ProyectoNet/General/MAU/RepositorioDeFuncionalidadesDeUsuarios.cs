@@ -120,100 +120,67 @@ namespace General.MAU
 
         public List<MAU_Perfil> GetPerfilesActuales(int id_usuario)
         {
-            var perfiles = new List<MAU_Perfil>();
-
-            MAU_Perfil unPerfil = new MAU_Perfil(1, "Responsable Control Asistencia");
-            MAU_Perfil unPerfil1 = new MAU_Perfil(1, "Responsable Control Asistencia");
-            MAU_Perfil unPerfil2 = new MAU_Perfil(2, "Reportes Dotacion Nivel 1");
-            MAU_Perfil unPerfil3 = new MAU_Perfil(3, "Administrador de Medialunas");
-
-            Area area1 = new Area(1, "Direccion General de Recursos Humanos");
-            area1.IncluyeDependencias = 1;
-            Area area2 = new Area(2, "Centro de Referencia Mendoza");
-            area2.IncluyeDependencias = 0;
-            Area area3 = new Area(3, "Programa Alimentario Mendoza");
-            area3.IncluyeDependencias = 1;
-
-            unPerfil.Areas.Add(area1);
-            unPerfil1.Areas.Add(area2);
-            unPerfil.Areas.Add(area3);
-            unPerfil.Areas.Add(area2);
-
-            unPerfil2.Areas.Add(area1);
-            unPerfil3.Areas.Add(area3);
-
-            perfiles.Add(unPerfil);
-            perfiles.Add(unPerfil1);
-            perfiles.Add(unPerfil2);
-            perfiles.Add(unPerfil3);
-
-            /*
-           
-            var tablaDatos = conexion.Ejecutar("dbo.MAU_GetPerfiles");
-             * 
-             * var parametros = new Dictionary<string, object>();
-            parametros.Add("@Id_usuario", id_usuario);
-            var tablaDatos = conexion.Ejecutar("dbo.MAU_GET_FuncionalidadesPerfilesAreas", parametros);
-
             
-            tablaDatos.Rows.ForEach(row =>
+            try
             {
-                Perfil perfil;
-                try
-                {
-                    perfil = new Perfil(row.GetInt("Id"), row.GetString("Nombre"));
+                var perfiles = new List<MAU_Perfil>();
+                var parametros = new Dictionary<string, object>();
+                parametros.Add("@id_usuario", id_usuario);
+                var tablaDatos = conexion.Ejecutar("dbo.MAU_GET_PerfilesDeUnUsuario", parametros);
 
+
+                tablaDatos.Rows.ForEach(row =>
+                {
+                    MAU_Perfil perfil;
+                    perfil = new MAU_Perfil(row.GetInt("IdPerfil", 0), row.GetString("descripcionPerfil", ""));
+                    Area area = new Area(row.GetInt("IdArea", 0), row.GetString("descripcion", "Sin Area"));
+                    area.IncluyeDependencias = row.GetBoolean("incluyeDependencias", false) ? 1 : 0;
+                    perfil.Areas.Add(area);
                     perfiles.Add(perfil);
-                }
-                catch (Exception)
-                {
-                    throw;
-                }
-            });*/
 
+                });
 
-            return perfiles;
+                return perfiles;
 
-            /*RepositorioDeUsuarios repositorioDeUsuarios = new RepositorioDeUsuarios(conexion, RepositorioDePersonas.NuevoRepositorioDePersonas(conexion));
-            return this.Obtener().FindAll(p => p.Value == id_funcionalidad).Select(p => repositorioDeUsuarios.GetUsuarioPorId(p.Key)).ToList();*/
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+
+          
         }
 
         public List<Funcionalidad> GetFuncionalidadesActuales(int id_usuario)
         {
-            var funcionalidades = new List<Funcionalidad>();
 
-            Funcionalidad unaFuncionalidad = new Funcionalidad(1, "Imprimir Planillas", "", false, false, false);
-            Funcionalidad unaFuncionalidad1 = new Funcionalidad(2, "Acceso MAU", "", false, false, false);
-            Funcionalidad unaFuncionalidad2 = new Funcionalidad(3, "Acceso a MODI", "", false, false, false);
-            Funcionalidad unaFuncionalidad3 = new Funcionalidad(4, "Generar DDJJ104", "", false, false, false);
-            Funcionalidad unaFuncionalidad4 = new Funcionalidad(5, "Acceso Portal", "", false, false, false);
+            try
+            {
+                var funcionalidades = new List<Funcionalidad>();
+                var parametros = new Dictionary<string, object>();
+                parametros.Add("@id_usuario", id_usuario);
+                var tablaDatos = conexion.Ejecutar("dbo.MAU_GET_FuncionalidadesDeUnUsuario", parametros);
 
-            Area area1 = new Area(1, "Direccion General de Recursos Humanos");
-            area1.IncluyeDependencias = 1;
-            Area area2 = new Area(2, "Centro de Referencia Mendoza");
-            area2.IncluyeDependencias = 0;
-            Area area3 = new Area(3, "Programa Alimentario Mendoza");
-            area3.IncluyeDependencias = 1;
+            
+                tablaDatos.Rows.ForEach(row =>
+                {
+                    Funcionalidad funcionalidad;              
+                    funcionalidad = new Funcionalidad(row.GetInt("id_funcionalidad"), row.GetString("Nombre"), "", false, false, false);
+                    Area area = new Area(row.GetInt("IdArea",0), row.GetString("descripcion", "Sin Area"));
+                    area.IncluyeDependencias =  row.GetBoolean("incluyeDependencias",false) ? 1 : 0; 
+                    funcionalidad.Areas.Add(area);
+                    funcionalidades.Add(funcionalidad);
+                
+                });
 
-            unaFuncionalidad.Areas.Add(area1);
-            unaFuncionalidad1.Areas.Add(area2);
-            unaFuncionalidad.Areas.Add(area3);
-            unaFuncionalidad.Areas.Add(area2);
+                return funcionalidades;
 
-            unaFuncionalidad2.Areas.Add(area1);
-            unaFuncionalidad3.Areas.Add(area3);
+            } catch (Exception e)
+             {
+                 throw;
+             }
 
-            funcionalidades.Add(unaFuncionalidad);
-            funcionalidades.Add(unaFuncionalidad1);
-            funcionalidades.Add(unaFuncionalidad2);
-            funcionalidades.Add(unaFuncionalidad3);
-            funcionalidades.Add(unaFuncionalidad4);
-
-
-            return funcionalidades;
-
-            /*RepositorioDeUsuarios repositorioDeUsuarios = new RepositorioDeUsuarios(conexion, RepositorioDePersonas.NuevoRepositorioDePersonas(conexion));
-            return this.Obtener().FindAll(p => p.Value == id_funcionalidad).Select(p => repositorioDeUsuarios.GetUsuarioPorId(p.Key)).ToList();*/
+           
         }
 
         public string AsignarPerfilesAUsuario(List<int> perfiles, List<Area> areas, int idUsuario, int id_usuario_alta)
@@ -224,10 +191,12 @@ namespace General.MAU
                   var parametros = new Dictionary<string, object>();
                   perfiles.ForEach(idPerfil => areas.ForEach(area => {
 
-                      parametros.Add("@id_usuario", area.Id);
+                      parametros.Add("@id_area", area.Id);
+                      parametros.Add("@id_usuario", idUsuario);
                       parametros.Add("@id_perfil", idPerfil);
-                      parametros.Add("@incluye_dependendencia", area.IncluyeDependencias);
-                      //var tablaDatos = conexion.Ejecutar("dbo.MAU_DenegarFuncionalidadA", parametros);
+                      parametros.Add("@incluye_dependencia", area.IncluyeDependencias);
+                      parametros.Add("@id_usuario_alta", id_usuario_alta);
+                      var tablaDatos = conexion.Ejecutar("dbo.MAU_AsignarPerfilFuncionalidadAUsuario", parametros);
                   }
                       )
 
@@ -239,11 +208,77 @@ namespace General.MAU
             }
             catch (Exception e) {
                 return e.Message;
-            }
-
-            
-
-           
+            }  
         }
+
+        public string AsignarFuncionalidadesAUsuario(List<int> funcionalidades, List<Area> areas, int idUsuario, int id_usuario_alta)
+        {
+
+            try
+            {
+                var parametros = new Dictionary<string, object>();
+                funcionalidades.ForEach(idFuncionalidad => areas.ForEach(area =>
+                {
+
+                    parametros.Add("@id_area", area.Id);
+                    parametros.Add("@id_usuario", idUsuario);
+                    parametros.Add("@id_perfil", idFuncionalidad);
+                    parametros.Add("@incluye_dependencia", area.IncluyeDependencias);
+                    parametros.Add("@id_usuario_alta", id_usuario_alta);
+                    var tablaDatos = conexion.Ejecutar("dbo.MAU_AsignarPerfilFuncionalidadAUsuario", parametros);
+                }
+                    )
+
+                    );
+
+
+
+                return "ok";
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+        }
+
+        public string DesAsignarPerfilDeUsuario(int idPerfil, int idUsuario, int id_usuario_alta)
+        {
+
+            try
+            {
+                var parametros = new Dictionary<string, object>();
+                parametros.Add("@id_usuario", idUsuario);
+                parametros.Add("@id_perfil", idPerfil);
+                parametros.Add("@id_usuario_alta", id_usuario_alta);
+                var tablaDatos = conexion.Ejecutar("dbo.MAU_DesAsignarPerfilFuncionalidadAUsuario", parametros);
+            
+                return "ok";
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+        }
+
+        public string DesAsignarFuncionalidadDeUsuario(int idFuncionalidad, int idUsuario, int id_usuario_alta)
+        {
+
+            try
+            {
+                var parametros = new Dictionary<string, object>();
+                parametros.Add("@id_usuario", idUsuario);
+                parametros.Add("@id_funcionalidad", idFuncionalidad);
+                parametros.Add("@id_usuario_alta", id_usuario_alta);
+                var tablaDatos = conexion.Ejecutar("dbo.MAU_DesAsignarPerfilFuncionalidadAUsuario", parametros);
+
+                return "ok";
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+        }
+
+
     }
 }

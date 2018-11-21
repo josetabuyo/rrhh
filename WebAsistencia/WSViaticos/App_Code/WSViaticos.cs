@@ -3043,8 +3043,15 @@ public class WSViaticos : System.Web.Services.WebService
         //var usu = RepositorioDeUsuarios().GetUsuarioPorId(id_usuario);
         int[] perfiles = JsonConvert.DeserializeObject<int[]>(idPerfiles);
         List<Area> lista_areas = JsonConvert.DeserializeObject<List<Area>>(areas);
-        var funcionalidades = RepositorioDeFuncionalidadesDeUsuarios().AsignarPerfilesAUsuario(perfiles.ToList(), lista_areas, id_usuario, usuario.Id);
-        return "ok";
+        var rto = RepositorioDeFuncionalidadesDeUsuarios().AsignarPerfilesAUsuario(perfiles.ToList(), lista_areas, id_usuario, usuario.Id);
+        return rto;
+    }
+
+    [WebMethod]
+    public string desasignarPerfiles(int idPerfil, int id_usuario, Usuario usuario)
+    {
+        var rto = RepositorioDeFuncionalidadesDeUsuarios().DesAsignarPerfilDeUsuario(idPerfil, id_usuario, usuario.Id);
+        return rto;
     }
 
     [WebMethod]
@@ -3053,8 +3060,16 @@ public class WSViaticos : System.Web.Services.WebService
         //var usu = RepositorioDeUsuarios().GetUsuarioPorId(id_usuario);
         int[] funcionalidades = JsonConvert.DeserializeObject<int[]>(idFuncionalidades);
         List<Area> listas_areas = JsonConvert.DeserializeObject<List<Area>>(areas);
-        return RepositorioDeFuncionalidadesDeUsuarios().AsignarPerfilesAUsuario(funcionalidades.ToList(), listas_areas, id_usuario, usuario.Id);
+        var rto = RepositorioDeFuncionalidadesDeUsuarios().AsignarPerfilesAUsuario(funcionalidades.ToList(), listas_areas, id_usuario, usuario.Id);
+        return rto;
         
+    }
+
+    [WebMethod]
+    public string desasignarFuncionaldiad(int idFuncionalidad, int id_usuario, Usuario usuario)
+    {
+        var rto = RepositorioDeFuncionalidadesDeUsuarios().DesAsignarFuncionalidadDeUsuario(idFuncionalidad, id_usuario, usuario.Id);
+        return rto;
     }
     
 

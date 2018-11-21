@@ -44,7 +44,7 @@ var Permisos = {
                 columnas.push(new Columna("Perfiles", { generar: function (un_permiso) { return un_permiso.Nombre } }));
                 columnas.push(new Columna("Areas", { generar: function (un_permiso) { return un_permiso.Areas[0].Nombre } }));
                 columnas.push(new Columna("Incluye Dep.", { generar: function (un_permiso) { if (un_permiso.Areas[0].IncluyeDependencias) return 'Si'; return 'No' } }));
-                columnas.push(new Columna("Desde", { generar: function (un_permiso) { return '01/01/2018' } }));
+                //columnas.push(new Columna("Desde", { generar: function (un_permiso) { return '01/01/2018' } }));
                 columnas.push(new Columna('Accion', {
                     generar: function (un_permiso) {
                         var btn_accion = $('<a>');
@@ -88,7 +88,7 @@ var Permisos = {
                 columnas.push(new Columna("Funciones", { generar: function (un_permiso) { return un_permiso.Nombre } }));
                 columnas.push(new Columna("Areas", { generar: function (un_permiso) { if (un_permiso.Areas.length > 0) return un_permiso.Areas[0].Nombre; return 'Sin Area'; } }));
                 columnas.push(new Columna("Incluye Dep.", { generar: function (un_permiso) { if (un_permiso.Areas.length > 0) { if (un_permiso.Areas[0].IncluyeDependencias) return 'Si'; return 'No' } else { return '' } } }));
-                columnas.push(new Columna("Desde", { generar: function (un_permiso) { return '01/01/2018' } }));
+                //columnas.push(new Columna("Desde", { generar: function (un_permiso) { return '01/01/2018' } }));
                 columnas.push(new Columna('Accion', {
                     generar: function (un_permiso) {
                         var btn_accion = $('<a>');
@@ -123,7 +123,14 @@ var Permisos = {
     eliminarPerfil: function (perfil) {
         var r = confirm("¿Está seguro de eliminar el Perfil?");
         if (r == true) {
-            txt = "Borrar";
+            var idUsuarioSeleccionado = sessionStorage.getItem("idUsuario");
+            Backend.desasignarPerfiles(perfil.Id, idUsuarioSeleccionado).onSuccess(function (rto) {
+                if (rto = 'ok') {
+                    window.location.reload();
+                }
+
+                console.log(rto);
+            });
         } else {
             txt = "Cancelar";
         }
@@ -132,7 +139,13 @@ var Permisos = {
     eliminarFuncionalidad: function (funcionalidad) {
         var r = confirm("¿Está seguro de eliminar la Funcionalidad?");
         if (r == true) {
-            txt = "Borrar";
+            var idUsuarioSeleccionado = sessionStorage.getItem("idUsuario");
+            Backend.desasignarFuncionaldiad(funcionalidad.Id, idUsuarioSeleccionado).onSuccess(function (rto) {
+                if (rto = 'ok') {
+                    window.location.reload();
+                }
+                console.log(rto);
+            });
         } else {
             txt = "Cancelar";
         }

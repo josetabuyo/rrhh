@@ -97,5 +97,23 @@ namespace General.MAU
         {
             throw new NotImplementedException();
         }
+
+        public string AsignarFuncionalidadesAUsuario(List<int> funcionalidades, List<Area> areas, int idUsuario, int id_usuario_alta)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string DesAsignarPerfilDeUsuario(int idPerfil, int idUsuario, int id_usuario_alta)
+        {
+
+            throw new NotImplementedException();
+        }
+
+        public string DesAsignarFuncionalidadDeUsuario(int idFuncionalidad, int idUsuario, int id_usuario_alta)
+        {
+
+            throw new NotImplementedException();
+        }
+
     }
 }
