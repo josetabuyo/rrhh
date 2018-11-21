@@ -30,51 +30,108 @@ Backend.start(function () {
     });
 });
 
-$("#btn_Agregar").click(function () {
-    
-    var ServPublico = {};
+var PanelFechas = function (cfg) {
+    var self = this;
+    this.cfg = cfg;
 
-    ServPublico.Ambito.Id = $("#cmbAmbitos").val();
+    cfg.inputFechaDesde.datepicker({ dateFormat: "dd/mm/yy",
+        onSelect: function (date) {
+            self.cfg.inputFechaDesde.change();
+            self.cfg.inputFechaDesde.blur();
+            FechaDesde = date;
+        }
+    });
+
+    cfg.inputFechaHasta.datepicker({ dateFormat: "dd/mm/yy",
+        onSelect: function (date) {
+            self.cfg.inputFechaHasta.change();
+            self.cfg.inputFechaHasta.blur();
+            FechaHasta = date;
+        }
+    });
+}
+
+$("#btn_Agregar").click(function () {
+
+    var ServPublico = {};
+    ServPublico.Ambito = [];
+    ServPublico.Ambito.Id = parseInt($("#cmbAmbitos").val());
+    ServPublico.Ambito.Descripcion = $("#cmbAmbitos option:selected").text();
     ServPublico.Jurisdiccion = $('#txtJurisdiccion').val();
-    ServPublico.Organismo = 0;
-    ServPublico.Cargo.Id = 0;
+    ServPublico.Organismo = $('#txtOrganismo').val();
+    ServPublico.Cargo = [];
+    ServPublico.Cargo.Id = parseInt($("#cmbCargo").val());
+    ServPublico.Cargo.Descripcion = $("#cmbCargo option:selected").text();
 
     if ($("#rdRemuneradoSI").checked) {
-        ServPublico.Remunerativo = 1;
+        ServPublico.Remunerativo = true;
+    }
+    else {
+        ServPublico.Remunerativo = false;
     }
 
-    ServPublico.Fecha_Desde = 0;
-    ServPublico.Fecha_Hasta = 0;
+    ServPublico.Fecha_Desde = $("#txtFechaDesde").val();
+    ServPublico.Fecha_Hasta = $("#txtFechaHasta").val();
     ServPublico.Causa_Egreso = $('#txtCausaEgreso').val();
     ServPublico.Folio = $('#NroFolio').val() + "-" + $('#NroFolioDesde').val() + "/" + $('#NroFolioHasta').val();
-    ServPublico.Id_Interna = pLegajo;
-    ServPublico.Doc_Titular = pDocumento;
+    ServPublico.Id_Interna = parseInt(pLegajo);
+    ServPublico.Doc_Titular = parseInt(pDocumento);
     ServPublico.Caja = $('#txtCaja').val();
     ServPublico.Afiliado = $('#txtNroAfiliacion').val();
 
     if ($("#chkNoImprime").checked) {
-        ServPublico.datonoimprime = 1;
+        ServPublico.datonoimprime = true;
+    }
+    else {
+        ServPublico.datonoimprime = false;
     }
 
+    if ($("#DarDeBaja").checked) {
+        ServPublico.DatoDeBaja = true;
+    }
+    else {
+        ServPublico.DatoDeBaja = false;
+    }
+
+
     if ($("#rdTipoDocumentoCTR").checked) {
-        ServPublico.Ctr_Cert = 1;
+        ServPublico.Ctr_Cert = true;
     }
     if ($("#rdTipoDocumentoCER").checked) {
-        ServPublico.Ctr_Cert = 0;
+        ServPublico.Ctr_Cert = false;
     }
     if ($("#rdTipoDocumentoOTR").checked) {
         ServPublico.Ctr_Cert = null;
     }
 
+    ServPublico.Domicilio = null;
+    ServPublico.Institucion = null;
 
     //lista_de_serv_publico.append(ServPublico);
     lista_de_serv_publico.push(ServPublico);
-
+    DibujarGrillaServPublico();
 });
 
 
 $("#btn_Guardar").click(function () {
-    var aa = ServPublico;
+    //var aa = ServPublico;
+
+    spinner = new Spinner({ scale: 2 }).spin($("body")[0]);
+
+    Backend.Alta_Servicios_Adm_Publica(lista_de_serv_publico)
+    .onSuccess(function (respuesta) {
+        alert("Datos guardados correctamente");
+        //lista_de_serv_publico = respuesta;
+        //CargarPantalla(lista_de_serv_publico);
+        //DibujarGrillaServPublico();
+        spinner.stop();
+    })
+    .onError(function (error, as, asd) {
+        alertify.alert("Error al guardar los servicios", error);
+        spinner.stop();
+        //LimpiarPantalla();
+    });
+
 }); 
 
 
@@ -96,9 +153,16 @@ function getParametrosURL() {
 
 
 var FormatearFecha = function (p_fecha) {
-    var fecha_sin_hora = p_fecha.split("T");
-    var fecha = fecha_sin_hora[0].split("-");
-    return fecha[2] + "/" + fecha[1] + "/" + fecha[0];
+
+    if (p_fecha.split("T").length == 1) {
+        return p_fecha;
+    }
+    else {
+        var fecha_sin_hora = p_fecha.split("T");
+        var fecha = fecha_sin_hora[0].split("-");
+        return fecha[2] + "/" + fecha[1] + "/" + fecha[0];
+    }
+    
 };
 
 
@@ -294,8 +358,7 @@ var DibujarGrillaServPublico = function () {
             new Columna("Cargo", { generar: function (consulta) { return consulta.Cargo.Descripcion; } }),
             new Columna("Desde", { generar: function (consulta) { return FormatearFecha(consulta.Fecha_Desde); } }),
             new Columna("Hasta", { generar: function (consulta) { return FormatearFecha(consulta.Fecha_Hasta); } }),
-
-            ]);
+        ]);
 
     grilla.CargarObjetos(lista_de_serv_publico);
     grilla.DibujarEn(ContenedorGrilla);

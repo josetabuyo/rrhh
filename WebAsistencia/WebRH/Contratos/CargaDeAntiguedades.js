@@ -21,7 +21,7 @@ $("#btn_Privado").click(function () {
 });
 $("#btn_AgregarServicio").click(function () {
     if (botonSeleccionado=="ESTADO") {
-        window.open("CargaDeAntiguedadesAdmPublica.aspx?legajo=" + $('#legajo').text().trim() + "&" + "folio=" + "00-018/018");
+        window.open("CargaDeAntiguedadesAdmPublica.aspx?legajo=" + $('#legajo').text().trim() + "&" + $('#documento').text().trim() + "&" + "folio=" + "00-018/018");
     }
     if (botonSeleccionado == "PRIVADO") {
         alert("abrir pagina privado");

@@ -130,4 +130,26 @@
 <script src="../scripts/jquery-barcode.js" type="text/javascript"></script>
 <script src="../scripts/Spin.js" type="text/javascript"></script>
 <script type="text/javascript" src="../Scripts/alertify.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(window).keydown(function (event) {
+            if (event.keyCode == 13) {
+                event.preventDefault();
+                return false;
+            }
+        });
+
+
+        var cfg_panel_alta = {
+            inputFechaDesde: $('#txtFechaDesde'),
+            inputFechaHasta: $('#txtFechaHasta'),
+        }
+        var panel_alta = new PanelFechas(cfg_panel_alta);
+
+
+    });
+</script>
+
+
 </html>

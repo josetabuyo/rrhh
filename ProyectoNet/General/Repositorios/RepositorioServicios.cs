@@ -178,7 +178,7 @@ namespace General
 
 
 
-        public bool Alta_Servicios_Adm_Publica(List<Serv_Adm_Publica_Privada> servicio, Usuario usuario)
+        public bool Alta_Servicios_Adm_Publica(Serv_Adm_Publica_Privada[] servicio, Usuario usuario)
         {
             ConexionDB cn = new ConexionDB("dbo.LEG_DEL_Servicios_Adm_Publica");
             cn.AsignarParametro("@Id_interna", servicio[0].Id_Interna);
@@ -192,6 +192,7 @@ namespace General
 
                 foreach (var item in servicio)
                 {
+                    cn.CrearComandoConTransaccionIniciada("dbo.LEG_ADD_Servicios_Adm_Publica");
                    cn.AsignarParametro("@Ambito_1", item.Ambito.Id); //  smallint,    
                    cn.AsignarParametro("@Jurisdiccion_2", item.Jurisdiccion); //  [varchar](50),    
                    cn.AsignarParametro("@Organismo_3",item.Organismo); //  [varchar](50),    
