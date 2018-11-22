@@ -76,6 +76,11 @@ define(['wsviaticos', 'underscore'], function (ws, _) {
         })
     }
 
+    var GetComitesPeriodo = function (idPeriodo) {
+        var comites = JSON.parse(window.localStorage.getItem('ComitesDeEvaluacionData')).GetAllComites
+        return _.filter(comites, c => c.Periodo.id_periodo == idPeriodo)
+    }
+
     var GetPeriodo = function (idPeriodo) {
         var periodos = JSON.parse(window.localStorage.getItem('ComitesDeEvaluacionData')).GetPeriodosEvaluacion
         return _.find(periodos, p => p.id_periodo == idPeriodo)
@@ -262,8 +267,15 @@ define(['wsviaticos', 'underscore'], function (ws, _) {
         return asignaciones_ues
     }
 
+    var FormatDate = function (string_ISO) {
+        var fh = new Date(string_ISO)
+        return fh.getDate() + '/' + (fh.getMonth() + 1) + '/' + (fh.getYear() + 1900)
+    }
+
     //API del modulo
     return {
+        FormatDate: FormatDate,
+        GetComitesPeriodo: GetComitesPeriodo,
         AddComite: AddComite,
         GetDataGridPeriodos: GetDataGridPeriodos,
         BuscarPersonas: BuscarPersonas,
@@ -280,6 +292,5 @@ define(['wsviaticos', 'underscore'], function (ws, _) {
         OnStateChange: OnStateChange,
         StateChanged: StateChanged,
         GetEvaluacionesUes: GetEvaluacionesUes
-
     }
 })

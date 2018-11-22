@@ -33,5 +33,4 @@
             load_grid_periodos: load_grid_periodos,
             init: init
         }
-
     })

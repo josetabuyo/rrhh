@@ -76,7 +76,7 @@
                                 <td class="text-right">{{SinGDE}}</td>
                                 <td class="text-right">{{SinComite}}</td>
                                 <td class="text-right">{{Finalizado}}</td>
-                                <td class="text-right">{{ReunionesRealizadas}}<a style="display: inline" data-toggle="tooltip" data-placement="top" on_next="#scr_reuniones_comites" title="Ver Reuniones" class="nav-link text-info" href="#"><span class="fa fa fa-eye"></span></a></td>
+                                <td class="text-right">{{ReunionesRealizadas}}<a style="display: inline" data-toggle="tooltip" data-placement="top" on_next="#scr_reuniones_comites" title="Ver Reuniones" class="nav-link text-info" href="#" btn_id_periodo="{{IdPeriodo}}" ><span class="fa fa fa-eye"></span></a></td>
                                 <td class="text-center">
                                     <a style="display: inline" data-toggle="tooltip" data-placement="top" on_next="#scr_datos_generales" btn_id_periodo="{{IdPeriodo}}" title="Crear Nueva Reunion" class="nav-link" href="#"><span class="fa fa fa-plus-circle"></span></a>
                                 </td>
@@ -116,11 +116,10 @@
                             <tr class="row-template" style="display: none">
                                 <td>{{Periodo}}</td>
                                 <td class="text-right">{{Fecha}}</td>
-                                <td class="text-right">{{Lugar}}</td>
-                                <td class="text-right">{{Integrantes}}</td>
-                                <td class="text-right">{{SinComite}}</td>
-                                <td class="text-right">
-                                    <a style="display: inline" data-toggle="tooltip" data-placement="top" title="Ver Detalle" btn_id_periodo="{{IdPeriodo}}" class="detalle" href="#" evaluacion="{{IdEvaluacion}}"><span class="fa fa fa-trash"></span></a>
+                                <td class="text">{{Lugar}}</td>
+                                <td class="text">{{Integrantes}}</td>
+                                <td class="text">
+                                    <a style="display: inline" data-toggle="tooltip" data-placement="top" title="Ver Detalle" btn_id_periodo="{{IdPeriodo}}" class="detalle" href="#" evaluacion="{{IdEvaluacion}}"><span class="fa fa fa-eye"></span></a>
                             </tr>
                         </tbody>
                     </table>

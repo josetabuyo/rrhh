@@ -6,8 +6,36 @@
             //alert(idPeriodo)
         }
 
-        var on_tab_enter = function (idPeriodo) {
-            alert(idPeriodo)
+        var resumen_integrantes = function (integrantes) {
+            var big_str = _.reduce(integrantes, (str, i) => {
+                return str + i.Apellido + ', ' // + i.Nombre + ' - '
+            }, '')
+
+            var max_len = 35
+
+            big_str = big_str.substring(0, big_str.length - 2)
+
+            if (big_str.length > max_len) {
+                return big_str.substring(0, max_len-3) + '...'
+            } else {
+                return big_str
+            }
+        }
+
+        var on_tab_enter = function () {
+            var id_periodo = $("#id_periodo_seleccionado").val()
+            var comites = app_state.GetComitesPeriodo(id_periodo)
+
+            var rows = _.map(comites, c => {
+                return {
+                    Fecha: app_state.FormatDate(c.Fecha),
+                    Lugar: c.Lugar,
+                    Periodo: c.Periodo.descripcion_periodo,
+                    Integrantes: resumen_integrantes(c.Integrantes)
+                }
+            })
+
+            CreadorDeGrillas("#tabla_reuniones", rows)
         }
 
 

@@ -27,8 +27,7 @@
         var id_comite = spa_tabs.getParam()
         if (id_comite) {
             var comite = app_state.GetComite(id_comite)
-            var fh = new Date(comite.Fecha)
-            var fh_formateada = fh.getDate() + '/' + (fh.getMonth() + 1) + '/' + (fh.getYear() + 1900)
+            var fh_formateada = app_state.FormatDate(comite.Fecha)
             var periodo = comite.Periodo
 
             $("#fecha").val(fh_formateada)
