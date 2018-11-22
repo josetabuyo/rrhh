@@ -1,5 +1,5 @@
-﻿define(['jquery', 'eval/EvaluacionDesempenioAppState', 'spa-tabs', 'creadorDeGrillas', 'eval/ComitesPorPeriodo'],
-    function ($, app_state, spa_tabs, CreadorDeGrillas, ComitesPorPeriodo) {
+﻿define(['jquery', 'eval/EvaluacionDesempenioAppState',  'creadorDeGrillas', 'eval/ComitesPorPeriodo'],
+    function ($, app_state, CreadorDeGrillas, ComitesPorPeriodo) {
 
         var on_tab_enter = function (idComite) {
             var comite = app_state.GetComite(idComite)

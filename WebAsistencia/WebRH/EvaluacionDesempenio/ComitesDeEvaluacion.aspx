@@ -76,15 +76,58 @@
                                 <td class="text-right">{{SinGDE}}</td>
                                 <td class="text-right">{{SinComite}}</td>
                                 <td class="text-right">{{Finalizado}}</td>
-                                <td class="text-right">{{ReunionesRealizadas}}<a style="display: inline" data-toggle="tooltip" data-placement="top" title="Ver Reuniones" class="nav-link" href="#"><span class="fa fa fa-eye"></span></a></td>
-                                <td class="text-right">
-                                    <button type="button" class="btn btn-sm btn-primary" btn_id_periodo="{{IdPeriodo}}" on_next="#scr_datos_generales">Crear Nueva Reunion</button></td>
+                                <td class="text-right">{{ReunionesRealizadas}}<a style="display: inline" data-toggle="tooltip" data-placement="top" on_next="#scr_reuniones_comites" title="Ver Reuniones" class="nav-link text-info" href="#"><span class="fa fa fa-eye"></span></a></td>
+                                <td class="text-center">
+                                    <a style="display: inline" data-toggle="tooltip" data-placement="top" on_next="#scr_datos_generales" btn_id_periodo="{{IdPeriodo}}" title="Crear Nueva Reunion" class="nav-link" href="#"><span class="fa fa fa-plus-circle"></span></a>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
+
+        <div role="tabpanel" id="scr_reuniones_comites" style="display: none">
+            <div class="row">
+                <div class="col col-md-7">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item" on_leave="#scr_home"><a href="#">Comités de Evaluacion</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Reuniones Realizadas - $DescripcionPeriodo</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col"></div>
+            </div>
+            <div class="row">
+                <div class="col col-md-12">
+                    <table id="tabla_reuniones" class="table table-bordered table-striped table-sm">
+                        <thead>
+                            <tr>
+                                <!--<th scope="col" rowspan="2" class="align-middle">#</th>-->
+                                <th class="align-middle w-25">Periodo</th>
+                                <th class="align-middle">Fecha</th>
+                                <th class="align-middle">Lugar</th>
+                                <th class="align-middle">Integrantes</th>
+                                <th class="align-middle">Ver Detalle</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="row-template" style="display: none">
+                                <td>{{Periodo}}</td>
+                                <td class="text-right">{{Fecha}}</td>
+                                <td class="text-right">{{Lugar}}</td>
+                                <td class="text-right">{{Integrantes}}</td>
+                                <td class="text-right">{{SinComite}}</td>
+                                <td class="text-right">
+                                    <a style="display: inline" data-toggle="tooltip" data-placement="top" title="Ver Detalle" btn_id_periodo="{{IdPeriodo}}" class="detalle" href="#" evaluacion="{{IdEvaluacion}}"><span class="fa fa fa-trash"></span></a>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
         <div role="tabpanel" id="scr_datos_generales" style="display: none">
             <div class="row">
                 <div class="col col-md-5">
@@ -433,7 +476,13 @@
                                                     <td class="text">{{Area}}</td>
                                                     <td class="text">{{Evaluacion}}</td>
                                                     <td class="text">{{GDE}}</td>
-                                                    <td class="text">{{Accion}}</td>
+                                                    <td class="text-center">
+                                                        <span style="display: inline">
+                                                            <a style="display: inline" data-toggle="tooltip" data-placement="top" title="Reevaluar" class="text-info" href="#"><span class="fa fa fa-undo"></span></a>
+                                                            <a style="display: inline" data-toggle="tooltip" data-placement="top" title="Ver" class="nav-link" href="#"><span class="fa fa fa-eye"></span></a>
+                                                            <a style="display: inline" data-toggle="tooltip" data-placement="top" title="Aprobar" class="text-success" href="#"><span class="fa fa fa-check-circle"></span></a>
+                                                        </span>
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -455,9 +504,11 @@
                     <a href="#" class="btn btn-primary active" role="button" on_leave="#scr_home">Finalizar</a>
                 </div>
             </div>
+            <div class="row">
+                <div class="col">&nbsp;</div>
+            </div>
         </div>
     </div>
-
     <div class="modal spinner-modal fade bd-example-modal-lg" data-backdrop="static" data-keyboard="false" tabindex="-1">
         <div class="modal-dialog modal-sm">
             <div class="modal-content" style="width: 48px">
@@ -481,9 +532,5 @@
             </span>
         </div>
     </div>
-    <!--<script src="../node_modules/jquery/jquery.min.js"></script>
-    <script src="../node_modules/popper.js/dist/umd/popper.min.js"></script>
-    <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="ComitesDeEvaluacion.js"></script>-->
 </body>
 </html>

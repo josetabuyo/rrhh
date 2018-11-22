@@ -1,4 +1,5 @@
-﻿define(['jquery', 'underscore', 'eval/EvaluacionDesempenioAppState', 'spa-tabs', 'creadorDeGrillas', 'selector-personas', 'jquery-ui'], function ($, _, app_state, spa_tabs, CreadorDeGrillas, SelectorDePersonas) {
+﻿define(['jquery', 'underscore', 'eval/EvaluacionDesempenioAppState', 'spa-tabs', 'creadorDeGrillas', 'selector-personas', 'jquery-ui'],
+    function ($, _, app_state, spa_tabs, CreadorDeGrillas, SelectorDePersonas) {
 
     var on_tab_enter = function (idComite) {
 
