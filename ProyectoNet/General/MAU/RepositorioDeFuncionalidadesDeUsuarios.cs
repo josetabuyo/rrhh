@@ -17,7 +17,7 @@ namespace General.MAU
             :base(conexion, 10)
         {
             repositorioDeFuncionalidades = repo_funcionalidades;
-
+            cache_por_usuario = new Dictionary<Usuario, List<Funcionalidad>>();
         }
 
         public static RepositorioDeFuncionalidadesDeUsuarios NuevoRepositorioDeFuncionalidadesDeUsuarios(IConexionBD conexion, IRepositorioDeFuncionalidades repo_funcionalidades)
@@ -26,14 +26,21 @@ namespace General.MAU
             return _instancia;
         }
 
+        protected Dictionary<Usuario, List<Funcionalidad>> cache_por_usuario;
+
         public List<Funcionalidad> FuncionalidadesPara(Usuario usuario)
         {
-            var funcionalidades = this.Obtener().FindAll(p => p.Key == usuario.Id)
-            .Select(p => this.repositorioDeFuncionalidades.GetFuncionalidadPorId(p.Value))
-            .Where(f => !f.NoPodriaUsarlaElUsuario(usuario))
-            .ToList();
-            if (funcionalidades.Any(f => f == null)) throw new Exception("El usuario tiene permisos para funcionalidades que no existen");
-            return funcionalidades;   
+            if (!cache_por_usuario.ContainsKey(usuario))
+            {
+                var funcionalidades = this.Obtener().FindAll(p => p.Key == usuario.Id)
+                .Select(p => this.repositorioDeFuncionalidades.GetFuncionalidadPorId(p.Value))
+                .Where(f => !f.NoPodriaUsarlaElUsuario(usuario))
+                .ToList();
+                if (funcionalidades.Any(f => f == null)) throw new Exception("El usuario tiene permisos para funcionalidades que no existen");
+                //return funcionalidades;
+                cache_por_usuario.Add(usuario, funcionalidades);
+            }
+            return cache_por_usuario[usuario];
         }
 
         public List<Funcionalidad> FuncionalidadesOtorgadasA(Usuario usuario)
@@ -42,7 +49,7 @@ namespace General.MAU
             .Select(p => this.repositorioDeFuncionalidades.GetFuncionalidadPorId(p.Value))
             .ToList();
             if (funcionalidades.Any(f => f == null)) throw new Exception("El usuario tiene permisos para funcionalidades que no existen");
-            return funcionalidades;   
+            return funcionalidades;
         }
 
         public List<Usuario> UsuariosConLaFuncionalidad(int id_funcionalidad) {
@@ -50,16 +57,6 @@ namespace General.MAU
             RepositorioDeUsuarios repositorioDeUsuarios = new RepositorioDeUsuarios(conexion, RepositorioDePersonas.NuevoRepositorioDePersonas(conexion));
             return this.Obtener().FindAll(p => p.Value == id_funcionalidad).Select(p => repositorioDeUsuarios.GetUsuarioPorId(p.Key)).ToList(); 
         }
-
-
-        //public List<Funcionalidad> FuncionalidadesPara(int id_usuario)
-        //{
-        //    var funcionalidades = this.Obtener().FindAll(p => p.Key == id_usuario)
-        //        .Select(p => this.repositorioDeFuncionalidades.GetFuncionalidadPorId(p.Value))
-        //        .ToList();
-        //    if (funcionalidades.Any(f => f == null)) throw new Exception("El usuario tiene permisos para funcionalidades que no existen");
-        //    return funcionalidades;           
-        //}
 
         public void ConcederFuncionalidadA(Usuario usuario, Funcionalidad funcionalidad, int id_usuario_logueado)
         {
