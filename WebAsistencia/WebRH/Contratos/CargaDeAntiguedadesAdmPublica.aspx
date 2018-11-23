@@ -24,7 +24,7 @@
             </div>
         </div>
 
-        <fieldset>
+        
             <div>
                 <asp:Label ID="lblAmbito" runat="server" Text="Ambito " />
                 <select runat="server" id="cmbAmbitos" name="Ambitos" enableviewstate="false" style="text-transform: capitalize;"></select>
@@ -71,40 +71,34 @@
                 <br/>
                 <input type="radio" id="rdTipoDocumentoOTR" value="2" name="TipoDocumento" /> Otros
             </div>
-        </fieldset>
+        
 
         <br /><br />
 
-        <fieldset>
-            <div>
-                <asp:Label ID="lblOrganismo" runat="server" Text="Organismo " />
-                <input type="text" id="txtOrganismo" value="" style="width: 400px" />
-            </div>
-
-            <div>
-                <asp:Label ID="lblCargo" runat="server" Text="Cargo " />
-                <select runat="server" id="cmbCargo" name="Cargo" enableviewstate="false" style="text-transform: capitalize;"></select>
-            </div>
-
-            <div>
-                <asp:Label ID="lblFechaDesde" runat="server" Text="Fecha Desde " />
-                <input type="text" id="txtFechaDesde" style="width: 110px;" placeholder="dd/mm/aaaa" />
-            </div>
-
-            <div>
-                <asp:Label ID="lblFechaHasta" runat="server" Text="Fecha Hasta " />
-                <input type="text" id="txtFechaHasta" style="width: 110px;" placeholder="dd/mm/aaaa" />
-            </div>
-
+        <div style="border: thin solid #3366FF; width:95%" >
+            <%--Organismo--%>
+            <asp:Label ID="lblOrganismo" runat="server" Text="Organismo " />
+            <input type="text" id="txtOrganismo" value="" style="width: 400px; margin-right: 10px" />
+            <%--Cargo--%>
+            <asp:Label ID="lblCargo" runat="server" Text="Cargo " />
+            <select runat="server" id="cmbCargo" name="Cargo" enableviewstate="false" style="text-transform: capitalize;margin-right: 10px"></select>
+            <%--Desde--%>
+            <asp:Label ID="lblFechaDesde" runat="server" Text="Fecha Desde " />
+            <input type="text" id="txtFechaDesde" style="width: 110px; ; margin-right: 10px" placeholder="dd/mm/aaaa" />
+            <%--Hasta--%>
+            <asp:Label ID="lblFechaHasta" runat="server" Text="Fecha Hasta " />
+            <input type="text" id="txtFechaHasta" style="width: 110px; margin-right: 20px" placeholder="dd/mm/aaaa" />
             
 
             <input type="button" value="Agregar" class="btn btn-primary" id="btn_Agregar" />
             
 
-            <br /><br />
+            <br />
             <div id="ContenedorGrilla" runat="server" style="width: 95%" align="center">
                 <div id="ContenedorServicios" runat="server" style="width: 95%"></div>
             </div>
+        </div>
+
 
             <br/>
             <div>
@@ -116,10 +110,10 @@
             <br/>
             <input type="checkbox" name="DarDeBaja" value="0" /> Dar de Baja
 
-
+            <br /><br />
             <input type="button" value="Guardar" class="btn btn-primary" id="btn_Guardar" />
 
-        </fieldset>
+        
 
     </div>
     </form>

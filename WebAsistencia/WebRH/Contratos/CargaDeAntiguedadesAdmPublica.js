@@ -358,6 +358,48 @@ var DibujarGrillaServPublico = function () {
             new Columna("Cargo", { generar: function (consulta) { return consulta.Cargo.Descripcion; } }),
             new Columna("Desde", { generar: function (consulta) { return FormatearFecha(consulta.Fecha_Desde); } }),
             new Columna("Hasta", { generar: function (consulta) { return FormatearFecha(consulta.Fecha_Hasta); } }),
+
+
+
+            new Columna("Ver", { generar: function (consulta) {
+                //return consulta.Afiliado; 
+                var cont = $('<div>');
+
+                //if (consulta.Id == 0) return cont;
+
+                var btn_accion = $('<a>');
+                var img = $('<img>');
+                img.attr('src', '../Imagenes/eliminar.png');
+                img.attr('width', '15px');
+                img.attr('height', '15px');
+                btn_accion.attr('style', 'display:inline-block');
+                btn_accion.append(img);
+                btn_accion.click(function () {
+                    var spinner = new Spinner({ scale: 3 });
+                    spinner.spin($("html")[0]);
+
+                    setTimeout(function () {
+                        //window.open("CargaDeAntiguedadesAdmPublica.aspx?legajo=" + $('#legajo').text().trim() + "&" + "folio=" + consulta.Folio);
+                        alertify.confirm("Eliminar Cargo", "¿Desea eliminar el cargo " + consulta.Cargo.Descripcion + " entre las fechas " + FormatearFecha(consulta.Fecha_Desde) + " y " + FormatearFecha(consulta.Fecha_Hasta) + " ?", function () {
+                            //ACEPTO
+                            alertify.success("OK - Borrar");
+                            //lista_de_serv_publico.splice(lista_de_serv_publico.index(), 1)
+                        }, function () {
+                            //CANCELA
+                            alertify.success("Eliminación cancelada");
+                        }).setting('labels', { 'ok': 'Aceptar', 'cancel': 'Cancelar' });
+
+                        spinner.stop();
+                    }, 10);
+
+                });
+                cont.append(btn_accion);
+                return cont;
+            } 
+            }),
+
+
+
         ]);
 
     grilla.CargarObjetos(lista_de_serv_publico);
