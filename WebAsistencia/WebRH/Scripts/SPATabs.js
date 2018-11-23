@@ -31,15 +31,16 @@ define(['jquery','underscore'], function ($, _) {
         if (!url) {
             return {
                 name: '',
-                parameter: ''
+                parameters: []
             }
         }
         var tab_definition = url.split('/')
         var tab_name = tab_definition[0]
-        var tab_parameter = tab_definition[1]
+        tab_definition.shift()
+
         return {
             name: tab_name,
-            parameter: tab_parameter
+            parameters: tab_definition
         }
     }
 
@@ -76,28 +77,28 @@ define(['jquery','underscore'], function ($, _) {
             //si apunta al tab anterior (si apunta a algún otro tab, no modificarlo)
             var url_split = url.split('/')
             if (url_split[0] === next_tab.name || url_split[0] === leaving_tab.name) {
-                this.attributes.on_leave.value = url_split[0] + '/' + next_tab.parameter
+                this.attributes.on_leave.value = url_split[0] + '/' + next_tab.parameters.join('/')
             }
         })
     }
 
 
     var on_tab_leave_cb = function (next_tab, tabs_events, current_tab) {
-        var on_tab_leave = function (next_tab_param) {
+        var on_tab_leave = function (next_tab_params) {
             var next_tab_url = next_tab.name
-            mostrarTab(next_tab_url, next_tab_param)
+            mostrarTab(next_tab_url, next_tab_params)
             var new_url = next_tab.name
-            if (next_tab_param) {
-                next_tab.parameter = next_tab_param
+            if (next_tab_params) {
+                next_tab.parameters = next_tab_params
             }
-            if (next_tab.parameter) {
-                new_url += '/' + next_tab.parameter
+            if (next_tab.parameters) {
+                new_url += '/' + next_tab.parameters.join('/')
             }
             history.pushState(null, null, new_url);
             var entering_tab_config = get_tab_config(tabs_events, next_tab.name)
             
             set_url_to_back_actions(next_tab, current_tab)
-            entering_tab_config.on_enter(next_tab.parameter)
+            entering_tab_config.on_enter(next_tab.parameters)
         }
         return on_tab_leave
     }
@@ -115,7 +116,7 @@ define(['jquery','underscore'], function ($, _) {
         var current_tab = get_current_tab()
         var current_tab_config = get_tab_config(tabs_events, current_tab.name)
 
-        var url_param = current_tab.parameter
+        var url_param = current_tab.parameters
 
         //tab_leave se produce siempre que se sale de una solapa, sea por que se presionó "next" o se hizo back
         var on_tab_leave = on_tab_leave_cb(destination_tab, tabs_events, current_tab)
@@ -185,14 +186,14 @@ define(['jquery','underscore'], function ($, _) {
     ///devuelve el parametro en la url (despues de la "/")
     var getParam = function () {
         var def = tab_definition_from_url(location.hash)
-        return def.parameter
+        return def.parameters
     }
 
     window.addEventListener("popstate", function (e) {
         var tab = tab_definition_from_url(location.hash)
         var activeTab = $(tab.name);
         if (activeTab.length) {
-            var url_param =  tab.parameter
+            var url_param =  tab.parameters
             mostrarTab(tab.name)
         } else {
             mostrarTab('#scr_home')

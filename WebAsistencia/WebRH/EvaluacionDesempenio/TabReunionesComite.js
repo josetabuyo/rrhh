@@ -22,8 +22,9 @@
             }
         }
 
-        var on_tab_enter = function () {
-            var id_periodo = $("#id_periodo_seleccionado").val()
+        var on_tab_enter = function (params) {
+            var id_periodo = params[0]
+            var periodo = app_state.GetPeriodo(id_periodo)
             var comites = app_state.GetComitesPeriodo(id_periodo)
 
             var rows = _.map(comites, c => {
@@ -34,7 +35,7 @@
                     Integrantes: resumen_integrantes(c.Integrantes)
                 }
             })
-
+            $("#desc_periodo").text(periodo.descripcion_periodo)
             CreadorDeGrillas("#tabla_reuniones", rows)
         }
 

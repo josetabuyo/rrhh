@@ -3,18 +3,18 @@
     //cuando se hace click en "siguiente" (datos generales)
     var on_next = function (show_next_tab, params) {
         //params['IdPeriodo']<--todo, varios parametros con nombre
-
+        var id_periodo_seleccionado = params[0]
         app_state.AddComite($("#descripcion").val(),
             $("#fecha").val(),
             $("#hora").val(),
             $("#lugar").val(),
-            $("#id_periodo_seleccionado").val(),
+            id_periodo_seleccionado,
             (err, comite_agregado) => {
                 if (err) {
                     alert('Error al agregar comite')
                     console.log(err)
                 } else {
-                    show_next_tab(comite_agregado.Id)
+                    show_next_tab([comite_agregado.Id])
                     app_state.StateChanged()
                     //load_grid_periodos()
                 }
@@ -22,9 +22,9 @@
     }
 
     //cuando se muestra la pantalla de datos generales
-    var on_tab_enter = function () {
-
-        var id_comite = spa_tabs.getParam()
+    var on_tab_enter = function (params) {
+        var id_periodo = params[0]
+        var id_comite = params[1]
         if (id_comite) {
             var comite = app_state.GetComite(id_comite)
             var fh_formateada = app_state.FormatDate(comite.Fecha)
@@ -34,11 +34,9 @@
             $("#hora").val(comite.Hora)
             $("#lugar").val(comite.Lugar)
             $("#descripcion").val(comite.Descripcion)
-            $("#id_periodo_seleccionado").val(periodo.id_periodo)
             $("#desc_periodo").text(periodo.descripcion_periodo)
 
         } else {
-            var id_periodo = $("#id_periodo_seleccionado").val()
             if (id_periodo == "") {
                 alert("Debe seleccionar un período")
                 spa_tabs.goHome()

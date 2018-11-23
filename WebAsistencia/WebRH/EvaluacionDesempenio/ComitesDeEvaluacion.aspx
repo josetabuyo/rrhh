@@ -38,7 +38,7 @@
         <div class="row">
             <div class="col">&nbsp;</div>
         </div>
-        <div role="tabpanel" id="scr_home">
+        <div role="tabpanel" id="scr_periodos">
             <div class="row">
                 <div class="col col-md-3">
                     <nav aria-label="breadcrumb">
@@ -76,9 +76,9 @@
                                 <td class="text-right">{{SinGDE}}</td>
                                 <td class="text-right">{{SinComite}}</td>
                                 <td class="text-right">{{Finalizado}}</td>
-                                <td class="text-right">{{ReunionesRealizadas}}<a style="display: inline" data-toggle="tooltip" data-placement="top" on_next="#scr_reuniones_comites" title="Ver Reuniones" class="nav-link text-info" href="#" btn_id_periodo="{{IdPeriodo}}" ><span class="fa fa fa-eye"></span></a></td>
+                                <td class="text-right">{{ReunionesRealizadas}}<a style="display: inline" data-toggle="tooltip" data-placement="top" on_next="#scr_reuniones_comites/{{IdPeriodo}}" title="Ver Reuniones" class="nav-link text-info" href="#" ><span class="fa fa fa-eye"></span></a></td>
                                 <td class="text-center">
-                                    <a style="display: inline" data-toggle="tooltip" data-placement="top" on_next="#scr_datos_generales" btn_id_periodo="{{IdPeriodo}}" title="Crear Nueva Reunion" class="nav-link" href="#"><span class="fa fa fa-plus-circle"></span></a>
+                                    <a style="display: inline" data-toggle="tooltip" data-placement="top" on_next="#scr_datos_generales/{{IdPeriodo}}" title="Crear Nueva Reunion" class="nav-link" href="#"><span class="fa fa fa-plus-circle"></span></a>
                                 </td>
                             </tr>
                         </tbody>
@@ -92,8 +92,8 @@
                 <div class="col col-md-7">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item" on_leave="#scr_home"><a href="#">Comités de Evaluacion</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Reuniones Realizadas - $DescripcionPeriodo</li>
+                            <li class="breadcrumb-item" on_leave="#scr_periodos"><a href="#">Comités de Evaluacion</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Reuniones Realizadas - <span id="desc_periodo"></span></li>
                         </ol>
                     </nav>
                 </div>
@@ -119,7 +119,7 @@
                                 <td class="text">{{Lugar}}</td>
                                 <td class="text">{{Integrantes}}</td>
                                 <td class="text">
-                                    <a style="display: inline" data-toggle="tooltip" data-placement="top" title="Ver Detalle" btn_id_periodo="{{IdPeriodo}}" class="detalle" href="#" evaluacion="{{IdEvaluacion}}"><span class="fa fa fa-eye"></span></a>
+                                    <a style="display: inline" data-toggle="tooltip" data-placement="top" title="Ver Detalle" class="detalle" href="#" on_next="#scr_evaluacion/{{IdEvaluacion}}"><span class="fa fa fa-eye"></span></a>
                             </tr>
                         </tbody>
                     </table>
@@ -132,7 +132,7 @@
                 <div class="col col-md-5">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item" on_leave="#scr_home"><a href="#">Comités de Evaluacion</a></li>
+                            <li class="breadcrumb-item" on_leave="#scr_periodos"><a href="#">Comités de Evaluacion</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Paso 1: Datos Generales</li>
                         </ol>
                     </nav>
@@ -176,7 +176,7 @@
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-md-12 text-right">
-                                            <a href="#" class="btn btn-secondary" role="button" on_leave="#scr_home">Atras</a>
+                                            <a href="#" class="btn btn-secondary" role="button" on_leave="#scr_periodos">Atras</a>
                                             <input type="submit" class="btn btn-primary active" role="button" value="Siguiente" />
                                         </div>
                                     </div>
@@ -192,7 +192,7 @@
                 <div class="col col-12 col-md-6">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item" on_leave="#scr_home"><a href="#">Comités de Evaluacion</a></li>
+                            <li class="breadcrumb-item" on_leave="#scr_periodos"><a href="#">Comités de Evaluacion</a></li>
                             <li class="breadcrumb-item" on_leave="#scr_datos_generales"><a href="#">Paso 1: Datos Generales</a></li>
                             <li class="breadcrumb-item  active">Paso 2: Integrantes</li>
                         </ol>
@@ -294,7 +294,7 @@
                 <div class="col col-9">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item" on_leave="#scr_home"><a href="#">Comités de Evaluacion</a></li>
+                            <li class="breadcrumb-item" on_leave="#scr_periodos"><a href="#">Comités de Evaluacion</a></li>
                             <li class="breadcrumb-item" on_leave="#scr_datos_generales"><a href="#">Paso 1: Datos Generales</a></li>
                             <li class="breadcrumb-item" on_leave="#scr_integrantes"><a href="#">Paso 2: Integrantes</a></li>
                             <li class="breadcrumb-item  active">Paso 3: Unidades de Evaluacion</li>
@@ -382,7 +382,7 @@
                 <div class="col col-12">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item" on_leave="#scr_home"><a href="#">Comités de Evaluacion</a></li>
+                            <li class="breadcrumb-item" on_leave="#scr_periodos"><a href="#">Comités de Evaluacion</a></li>
                             <li class="breadcrumb-item" on_leave="#scr_datos_generales"><a href="#">Paso 1: Datos Generales</a></li>
                             <li class="breadcrumb-item" on_leave="#scr_integrantes"><a href="#">Paso 2: Integrantes</a></li>
                             <li class="breadcrumb-item" on_leave="#scr_unidades"><a href="#">Paso 3: Unidades de Evaluacion</a></li>
@@ -500,7 +500,7 @@
             <div class="row">
                 <div class="col col-md-12 text-right">
                     <a href="#" class="btn btn-secondary" role="button" on_leave="#scr_unidades">Atras</a>
-                    <a href="#" class="btn btn-primary active" role="button" on_leave="#scr_home">Finalizar</a>
+                    <a href="#" class="btn btn-primary active" role="button" on_leave="#scr_periodos">Finalizar</a>
                 </div>
             </div>
             <div class="row">
@@ -515,7 +515,6 @@
             </div>
         </div>
     </div>
-    <input type="hidden" id="id_periodo_seleccionado" />
     <div id="plantillas" style="display: none">
         <div class="vista_persona_en_selector">
             <span id="contenedor_legajo" class="badge badge-pill badge-success">

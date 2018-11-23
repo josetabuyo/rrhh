@@ -1,10 +1,6 @@
 ﻿define(['jquery', 'eval/EvaluacionDesempenioAppState', 'spa-tabs', 'creadorDeGrillas', 'eval/ComitesPorPeriodo', 'jquery-ui'],
     function ($, app_state, spa_tabs, CreadorDeGrillas, ComitesPorPeriodo) {
 
-        var set_id_periodo_seleccionado = function (e) {
-            $("#id_periodo_seleccionado").val(e.currentTarget.attributes.btn_id_periodo.value)
-        }
-
         var load_grid_periodos = function () {
             app_state.GetDataGridPeriodos(data => {
                 var comites = data.GetAllComites
@@ -14,8 +10,6 @@
 
                 var agrupados = ComitesPorPeriodo.AgruparComitesPorPeriodo(ues, periodos, evals, comites)
                 CreadorDeGrillas('#tabla_periodos', agrupados)
-
-                $('[btn_id_periodo]').click(set_id_periodo_seleccionado)
 
                 spa_tabs.createTabs()
 
@@ -29,7 +23,7 @@
         }
 
         return {
-            tab_name: '#scr_home',
+            tab_name: '#scr_periodos',
             load_grid_periodos: load_grid_periodos,
             init: init
         }

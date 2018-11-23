@@ -20,20 +20,10 @@
                     $cb.removeAttr('cb_checked')
                 }
 
-                td.innerHTML = td.innerHTML.replace('{{' + attr_name + '}}', attr_value)
-            })
-
-
-
-            /*var $checkboxes = $(row).find('[cb_checked]')
-            _.each($checkboxes, each => {
-                var $each = $(each)
-                if ($each.attr('cb_checked').includes('{{' + attr_name + '}}')) {
-                    if (attr_value == 'checked') {
-                        $(each).prop('checked', true)
-                    }
+                while (td.innerHTML.includes('{{' + attr_name + '}}')) {
+                    td.innerHTML = td.innerHTML.replace('{{' + attr_name + '}}', attr_value)
                 }
-            })*/
+            })
         })
 
         return row
