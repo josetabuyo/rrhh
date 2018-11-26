@@ -3329,6 +3329,12 @@ public class WSViaticos : System.Web.Services.WebService
         return repositorio.GetSolicitudDeCredencialPorIdTicketEntrega(id_ticket);
     }
 
+    [WebMethod]
+    public bool CambiarOrganismoEnSolicitudCredencial(SolicitudCredencial solicitud, int id_organismo_nuevo,  Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+        return repositorio.CambiarOrganismoEnSolicitudCredencial(solicitud, id_organismo_nuevo, usuario);
+    }
 
     [WebMethod]
     public bool AprobarSolicitudCredencial(SolicitudCredencial solicitud, Usuario usuario)

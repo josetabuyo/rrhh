@@ -124,8 +124,20 @@
         {
             position: absolute;
             bottom: 30px;
-            right: 300px;
+            left: 20px;
         }      
+        
+        .label_combo
+        {
+            width: 250px;
+            text-align: right;
+            margin-right: 10px;
+        }
+            
+        .combo
+        {
+            width: 470px;;
+        }
         
     </style>
 </head>
@@ -134,9 +146,16 @@
     <br/>
     <div class='campo'><label>Solicitante:</label> <div id="nombre_solicitante"></div></div>
     <div class='campo'><label>DNI:</label> <div id="dni_solicitante"></div></div>
-    <div class='campo'><label>Organismo:</label> <div id="organismo_solicitud"></div></div>
-    <div class='campo'><label>Motivo de la solicitud:</label> <div id="motivo_solicitud"></div></div>
-    
+    <div class='campo'><label>Motivo de la solicitud:</label> <div id="Div1"></div></div>
+    <div class='campo'>
+        <label class="label_combo" for="organismo_solicitud">Organismo:</label>
+        <select class="combo" id="organismo_solicitud">                                
+            <option value="1">Ministerio de Desarrollo Social</option>
+            <option value="2">Ministerio de Salud</option>
+            <option value="3">Instituto Nacional de la Mujer</option>
+        </select>       
+    </div>
+
     <div id=panel_derecho>
         <h4 id="titulo_vista_previa">Vista Previa Credencial</h4>
         <div id="vista_previa_credencial">        
@@ -151,7 +170,8 @@
     </div>
 
     <div class="botonera">
-        <input id="btn_aprobar_solicitud" type="button" class="btn btn-primary" value="Aprobar"/>
+        <input id="btn_cambiar_organismo" type="button" class="btn btn-primary" value="Cambiar organismo"/>
+        <input id="btn_aprobar_solicitud" type="button" class="btn btn-primary" value="Aprobar"/>        
         <input id="btn_rechazar_solicitud" type="button" class="btn btn-primary" value="Rechazar"/>
     </div>
 </div>
@@ -159,28 +179,28 @@
 <script type="text/javascript">
     var Componente = {
         start: function (ticket, ui) {
+            var _this = this;
             Backend.GetSolicitudDeCredencialPorIdTicketAprobacion(ticket.id).onSuccess(function (solicitud) {
                 Backend.GetUsuarioPorIdPersona(solicitud.IdPersona).onSuccess(function (usuario) {
-                    var src = '';
-                    debugger;
-                    if (solicitud.Organismo == 'Ministerio de Desarrollo Social') {
-                        if (solicitud.TipoCredencial == 'Definitiva') var src = '../BarraMenu/credencialMDS.jpg';
-                        if (solicitud.TipoCredencial == 'Externa') var src = '../BarraMenu/credencialMDS_Externa.jpg';
-                    }
-                    if (solicitud.Organismo == 'Ministerio de Salud') {
-                        if (solicitud.TipoCredencial == 'Definitiva') var src = '../BarraMenu/credencialMSAL.jpg';
-                        if (solicitud.TipoCredencial == 'Externa') var src = '../BarraMenu/credencialMSAL_Externa.jpg';
-                    }
-                    if (solicitud.Organismo == 'Instituto Nacional de las Mujeres') {
-                        if (solicitud.TipoCredencial == 'Definitiva') var src = '../BarraMenu/credencialINM.jpg';
-                        if (solicitud.TipoCredencial == 'Externa') var src = '../BarraMenu/credencialINM_Externa.jpg';
-                    }
+                    _this.ui = ui;
+                    _this.solicitud = solicitud;
 
-                    ui.find("#imagen_credencial").attr('src', src);
+                    ui.find("#organismo_solicitud").val(solicitud.IdOrganismo);
+
+                    ui.find("#organismo_solicitud").change(function () {
+                        _this.renderCredencial();
+                        if (solicitud.IdOrganismo != ui.find("#organismo_solicitud").val()) {
+                            ui.find("#btn_aprobar_solicitud").hide();
+                            ui.find("#btn_cambiar_organismo").show();
+                        } else {
+                            ui.find("#btn_aprobar_solicitud").show();
+                            ui.find("#btn_cambiar_organismo").hide();
+                        }
+                    }).change();
 
                     ui.find("#nombre_solicitante").text(usuario.Owner.Nombre + ' ' + usuario.Owner.Apellido);
                     ui.find("#dni_solicitante").text(usuario.Owner.Documento);
-                    ui.find("#organismo_solicitud").text(solicitud.Organismo);
+                    //ui.find("#organismo_solicitud").text(solicitud.Organismo);
                     ui.find("#motivo_solicitud").text(solicitud.Motivo);
 
                     ui.find("#apellido").text(usuario.Owner.Apellido);
@@ -210,6 +230,21 @@
                         ui.find("#btn_aprobar_solicitud").prop("disabled", false);
                     });
                 });
+
+
+                ui.find("#btn_cambiar_organismo").click(function () {
+                    ui.find("#btn_cambiar_organismo").prop("disabled", true);
+                    Backend.CambiarOrganismoEnSolicitudCredencial(solicitud, ui.find("#organismo_solicitud").val()).onSuccess(function (respuesta) {
+                        if (!respuesta) alertify.error("Error");
+                        else alertify.success("Solicitud enviada a otro organismo con éxito");
+                        vex.close();
+                        GestionDeTareas.getTareasParaGestion();
+                    }).onError(function () {
+                        alertify.error("Error al enviar la solicitud");
+                        ui.find("#btn_cambiar_organismo").prop("disabled", false);
+                    });
+                });
+
                 ui.find("#btn_rechazar_solicitud").click(function () {
                     vex.dialog.prompt({
                         message: 'Indique razón de rechazo',
@@ -231,6 +266,26 @@
 
                 });
             });
+        },
+        renderCredencial: function () {
+            var src = '';
+            var id_organismo = this.ui.find("#organismo_solicitud").val();
+            var tipo_credencial = this.solicitud.TipoCredencial;
+
+            if (id_organismo == 1) {
+                if (tipo_credencial == 'Definitiva') src = '../BarraMenu/credencialMDS.jpg';
+                if (tipo_credencial == 'Externa') src = '../BarraMenu/credencialMDS_Externa.jpg';
+            }
+            if (id_organismo == 2) {
+                if (tipo_credencial == 'Definitiva') src = '../BarraMenu/credencialMSAL.jpg';
+                if (tipo_credencial == 'Externa') src = '../BarraMenu/credencialMSAL_Externa.jpg';
+            }
+            if (id_organismo == 3) {
+                if (tipo_credencial == 'Definitiva') src = '../BarraMenu/credencialINM.jpg';
+                if (tipo_credencial == 'Externa') src = '../BarraMenu/credencialINM_Externa.jpg';
+            }
+
+            this.ui.find("#imagen_credencial").attr('src', src);
         }
     };
 </script>
