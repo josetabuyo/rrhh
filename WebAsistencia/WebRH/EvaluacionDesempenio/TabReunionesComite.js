@@ -32,7 +32,8 @@
                     Fecha: app_state.FormatDate(c.Fecha),
                     Lugar: c.Lugar,
                     Periodo: c.Periodo.descripcion_periodo,
-                    Integrantes: resumen_integrantes(c.Integrantes)
+                    Integrantes: resumen_integrantes(c.Integrantes),
+                    IdComite: c.Id
                 }
             })
             $("#desc_periodo").text(periodo.descripcion_periodo)

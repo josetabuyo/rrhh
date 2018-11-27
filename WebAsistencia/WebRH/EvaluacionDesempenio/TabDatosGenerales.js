@@ -16,7 +16,6 @@
                 } else {
                     show_next_tab([comite_agregado.Id])
                     app_state.StateChanged()
-                    //load_grid_periodos()
                 }
             })
     }

@@ -119,7 +119,7 @@
                                 <td class="text">{{Lugar}}</td>
                                 <td class="text">{{Integrantes}}</td>
                                 <td class="text">
-                                    <a style="display: inline" data-toggle="tooltip" data-placement="top" title="Ver Detalle" class="detalle" href="#" on_next="#scr_evaluacion/{{IdEvaluacion}}"><span class="fa fa fa-eye"></span></a>
+                                    <a style="display: inline" data-toggle="tooltip" data-placement="top" title="Ver Detalle" class="detalle" href="#" on_next="#scr_evaluaciones/{{IdComite}}"><span class="fa fa fa-eye"></span></a>
                             </tr>
                         </tbody>
                     </table>
