@@ -3060,7 +3060,7 @@ public class WSViaticos : System.Web.Services.WebService
         //var usu = RepositorioDeUsuarios().GetUsuarioPorId(id_usuario);
         int[] funcionalidades = JsonConvert.DeserializeObject<int[]>(idFuncionalidades);
         List<Area> listas_areas = JsonConvert.DeserializeObject<List<Area>>(areas);
-        var rto = RepositorioDeFuncionalidadesDeUsuarios().AsignarPerfilesAUsuario(funcionalidades.ToList(), listas_areas, id_usuario, usuario.Id);
+        var rto = RepositorioDeFuncionalidadesDeUsuarios().AsignarFuncionalidadesAUsuario(funcionalidades.ToList(), listas_areas, id_usuario, usuario.Id);
         return rto;
         
     }

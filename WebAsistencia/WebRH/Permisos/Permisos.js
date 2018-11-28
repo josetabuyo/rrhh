@@ -22,7 +22,7 @@ var Permisos = {
 
     },
 
-    getPerfiles: function (idUsuario) {
+    getPerfilesDelUsuario: function () {
 
         var _this = this;
         if (!sessionStorage.getItem("idUsuario")) {
@@ -30,6 +30,7 @@ var Permisos = {
             window.location.replace("DefinicionDeUsuario.aspx");
         }
 
+        var idUsuario = sessionStorage.getItem("idUsuario");
         Backend.GetPerfilesActuales(idUsuario)
             .onSuccess(function (perfiles) {
 
@@ -74,6 +75,19 @@ var Permisos = {
 
             });
 
+
+
+
+    },
+    getFuncionalidadesDelUsuario: function () {
+
+        var _this = this;
+        if (!sessionStorage.getItem("idUsuario")) {
+            alert("Debe seleccionar un usuario antes de proseguir");
+            window.location.replace("DefinicionDeUsuario.aspx");
+        }
+
+        var idUsuario = sessionStorage.getItem("idUsuario");
         Backend.GetFuncionalidadesActuales(idUsuario)
             .onSuccess(function (funcionalidades) {
 
@@ -118,14 +132,13 @@ var Permisos = {
 
             });
 
-
     },
     eliminarPerfil: function (perfil) {
         var r = confirm("¿Está seguro de eliminar el Perfil?");
         if (r == true) {
             var idUsuarioSeleccionado = sessionStorage.getItem("idUsuario");
             Backend.desasignarPerfiles(perfil.Id, idUsuarioSeleccionado).onSuccess(function (rto) {
-                if (rto = 'ok') {
+                if (rto == 'ok') {
                     window.location.reload();
                 }
 
@@ -141,7 +154,7 @@ var Permisos = {
         if (r == true) {
             var idUsuarioSeleccionado = sessionStorage.getItem("idUsuario");
             Backend.desasignarFuncionaldiad(funcionalidad.Id, idUsuarioSeleccionado).onSuccess(function (rto) {
-                if (rto = 'ok') {
+                if (rto == 'ok') {
                     window.location.reload();
                 }
                 console.log(rto);
@@ -340,6 +353,9 @@ var Permisos = {
                 plantilla.show();
                 plantilla.find("#areaSeleccionada").html(area.nombre);
                 plantilla.find("#checkIncluyeDependencias").attr('class', 'checksIncluyeDependencia');
+                plantilla.find(".quitar").click(function () {
+                    plantilla.remove();
+                });
 
                 plantilla[0].id = area.id;
                 plantilla.attr('class', 'areasSeleccionadas');
@@ -371,7 +387,7 @@ var Permisos = {
 
             Backend.asignarPerfiles(JSON.stringify(perfilesSeleccionados), areasSeleccionadas, idUsuarioSeleccionado)
             .onSuccess(function (rto) {
-                console.log(rto);
+                window.location.reload();
 
             })
             .onError(function (e) {
@@ -412,7 +428,7 @@ var Permisos = {
 
 
         $("#comboFuncionalidades").change(function (e) {
-            alert($(this).val());
+            //alert($(this).val());
 
             var plantillaFuncionalidad = $('#plantillaFuncionalidadSeleccionada').clone();
 
@@ -444,6 +460,9 @@ var Permisos = {
                 plantilla.show();
                 plantilla.find("#areaSeleccionada").html(area.nombre);
                 plantilla.find("#checkIncluyeDependencias").attr('class', 'checksIncluyeDependencia');
+                plantilla.find(".quitar").click(function () {
+                    plantilla.remove();
+                });
 
                 plantilla[0].id = area.id;
                 plantilla.attr('class', 'areasSeleccionadas');
@@ -472,7 +491,7 @@ var Permisos = {
 
             Backend.asignarFuncionalidades(JSON.stringify(funcionalidadesSeleccionados), JSON.stringify(areasSeleccionadas), idUsuarioSeleccionado)
             .onSuccess(function (rto) {
-                console.log(rto);
+                window.location.reload();
 
             })
             .onError(function (e) {

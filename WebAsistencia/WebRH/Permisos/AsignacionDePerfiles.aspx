@@ -26,60 +26,74 @@
                 <div style="text-align:center;" class="caja_izq"></div>
             
                 <div class="caja_der papel">
-            
+                   
                     <legend style="margin-top: 20px;">ASIGNACION DE PERFILES</legend>
-                    <label>Seleccione el Perfil a Asignar: </label>
-                    <select id="comboPerfiles">
-                        <option value="0">Seleccionar Perfil</option>
-                        <option value="1">Responsable de Control de Asistencia</option>
-                        <option value="2">Reportes de Dotacion Nivel 1</option>
-                        <option value="3">Administracion de Medialunas</option>
-                    </select>
 
-                    <span id="mostrarDialogo">ver Listado de Func. de cada Perfil</span>
+                        <div class="cajaPermisos">
+                        <p>Seleccione el/los Perfil/es a Asignar: </p>
+                        <select id="comboPerfiles">
+                            <option value="0">Seleccionar Perfil</option>
+                            <option value="1">Responsable de Control de Asistencia</option>
+                            <option value="2">Reportes de Dotacion Nivel 1</option>
+                            <option value="3">Administracion de Medialunas</option>
+                        </select>
 
-                    <div id="dialog" title="Listado de Funcionalidades por Perfil">
-                      <div>
-                        <p class="dialogNombrePerfil" >Responsable de RCA</p>
-                        <hr />
-                        <ul class="dialogListaFunc">
-                            <li>Control Acceso</li>
-                            <li>Control Asistencia</li>
-                            <li>Carga Licencias</li>
-                            <li>Control Planilla</li>
-                        </ul>
+                        <span id="mostrarDialogo">ver Listado de Func. de cada Perfil</span>
 
-                      </div>
+                        <div id="dialog" title="Listado de Funcionalidades por Perfil">
+                          <div>
+                            <p class="dialogNombrePerfil" >Responsable de RCA</p>
+                            <hr />
+                            <ul class="dialogListaFunc">
+                                <li>Control Acceso</li>
+                                <li>Control Asistencia</li>
+                                <li>Carga Licencias</li>
+                                <li>Control Planilla</li>
+                            </ul>
+
+                          </div>
+                        </div>
+
+                        
+
+                        <h5 style="margin-top: 20px;"><strong>Perfiles Seleccionados:</strong></h5>
+                        <div id="perfilesSeleccionado"></div>
+
                     </div>
-
-                    <p style="margin-top: 20px;"><strong>Perfil Seleccionado:</strong></p>
-                    <div id="perfilesSeleccionado"></div>
-
                     <hr />
 
-                    <label>Seleccione el Area a Asignar al Perfil: </label>
+                    <div class="cajaPermisos">
+                        <p>Seleccione el/las Areas a Asignar al Perfil: </p>
 
-                    <div id="panel_usuarios_por_area" >     
-                        <div id="selector_area_usuarios" class="selector_areas" style="position: inherit; display: inline;">
-                            <input id="buscador" type="hidden" class="buscarUsuarioPorArea" />
-                        </div>
+                        <div id="panel_usuarios_por_area" >     
+                            <div id="selector_area_usuarios" class="selector_areas" style="position: inherit; display: inline;">
+                                <input id="buscador" type="hidden" class="buscarUsuarioPorArea" />
+                            </div>
                             
-                        <div style="margin-top: 20px;">
-                            <p><strong>Areas Seleccionadas</strong></p>
-                            <div id="listadoAreasElegidas"></div>
-                        </div>
-                     </div> 
-
+                            <div style="margin-top: 20px;">
+                                <p><strong>Areas Seleccionadas</strong></p>
+                                <div id="listadoAreasElegidas"></div>
+                            </div>
+                         </div> 
+                     </div>
                      <hr />
                      <div style="text-align:center;">
                         <input type="button" class="btn-primary" value="Agregar Perfil a las Areas seleccionadas" id="btnAsignarPerfilConAreas" />
                      </div>
+
+                     <hr />
+                     <h4>Perfiles actuales</h4>
+                      
+                      <div id="tabla_permisos">  
+                    </div>
 
                 </div>
                
              </div>
         </div>
     </form>
+
+   
 
     <div id="plantillas">
         <div class="vista_area_en_selector">
@@ -91,12 +105,13 @@
     <div id="plantillaArea" style="width:100%; display:none;" class="listadoAreas">
         <span style="width: 50%; display: inline-block;" id="areaSeleccionada"></span>
         <input  id="checkIncluyeDependencias" type="checkbox" /> Incluye Dependencias
+        <input  type="button" class="quitar btnQuitar" value="Quitar" /> 
         <hr />
     </div>
 
     <div id="plantillaPerfilSeleccionado" style="display:none;" class="listadoPerfiles">
         <span style="width: 50%; display: inline-block;" class="nombrePerfil"></span>
-        <input  type="button" class="quitar" value="Quitar" /> 
+        <input  type="button" class="quitar btnQuitar" value="Quitar" /> 
     </div>
 
 </body>
@@ -137,6 +152,7 @@
 
                 //Permisos.init();
                 Permisos.iniciarPantallaAsignacionPerfiles();
+                Permisos.getPerfilesDelUsuario();
 
 
             });

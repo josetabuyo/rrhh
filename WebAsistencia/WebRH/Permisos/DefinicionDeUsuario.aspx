@@ -30,13 +30,42 @@
             <div style="text-align:center;" class="caja_izq"></div>
             
             <div class="caja_der papel">
-            <div id="buscador_de_personas">
-                <p class="buscarPersona" style="display: inline-block;">Buscar persona:
-                    <div id="selector_usuario" class="selector_personas" style="display: inline-block;">
-                        <input id="buscador" type="hidden" />
-                    </div>
-                </p>
+            <br />
+            <div class="cajaPermisos">
+                <div id="buscador_de_personas">
+                    <p class="buscarPersona" style="display: inline-block;">Buscar persona:
+                        <div id="selector_usuario" class="selector_personas" style="display: inline-block;">
+                            <input id="buscador" type="hidden" />
+                        </div>
+                    </p>
+                </div>
             </div>
+
+            <!--
+            <div id="panel_usuarios_por_area" >
+                <p class="persona_baja_con_funcionalidades">Consultar Usuarios Por Área</p>
+                    <div id="lista_areas_para_consultar" style="display: inline;">
+                        
+                    </div>
+                    <div id="selector_area_usuarios" class="selector_areas" style="position: inherit; display: inline;">
+                        <input id="Hidden1" type="hidden" class="buscarUsuarioPorArea" />
+                    </div>
+                <div id="contenedor_usuarios_por_area">
+                    <p id="p_nombre_area"></p>
+                    <table id="tabla_usuarios_por_area"></table>
+                </div>
+                 <hr />  
+             </div> 
+
+              <div id="panel_personas_de_baja_con_permisos" >
+                <p class="persona_baja_con_funcionalidades">Consultar Personas de Baja con Permisos</p>
+                <input type="button" value="Consultar" id="btn_buscar_personas_de_baja" class="btn btn-primary" />
+                <div id="contenedor_personas_de_baja">
+                    <table id="tabla_personas_de_baja"></table>
+                </div>
+                <hr />  
+             </div> -->
+
 
             <div id="panel_datos_usuario" style="display:none">
                 <div id="panel_superior_izquierdo" class="estilo_formulario">
@@ -66,7 +95,7 @@
                         <div class="linea dato_personal">
                             <div>Email:</div>
                             <div id="email"></div>   
-                            <input id="btn_modificar_mail" type="button" class="btn btn-warning" value="Modificar"  RequiereFuncionalidad = "mau_modificar_mail"/> 
+                            <input id="btn_modificar_mail" type="button" class="btn btn-warning" value="Modificar"  /> 
                         </div>      
                         <input id="btn_credencial_usuario" type="button" class="btn btn-warning" value="Credencial" />           
                     </div>
@@ -77,12 +106,12 @@
                         </div>
                         <div class="linea linea_passwrd">
                             <div class="titulo">Contraseña:</div>
-                            <input id="btn_reset_password" type="button" class="btn btn-warning" value="resetear" RequiereFuncionalidad = "mau_resetear_contrasenia"/>
+                            <input id="btn_reset_password" type="button" class="btn btn-warning" value="resetear" />
                         </div>
                         <div class="seccion_verificacion_usuario">
                             <div id="usuario_verificado">DNI Verificado</div>    
                             <div id="usuario_no_verificado">DNI No Verificado</div>    
-                            <input id="btn_verificar_usuario" type="button" class="btn btn-warning" value="Verificar"  RequiereFuncionalidad = "mau_verificar_usuarios"/>
+                            <input id="btn_verificar_usuario" type="button" class="btn btn-warning" value="Verificar"  />
                         </div>
                     </div>
                 </div> 

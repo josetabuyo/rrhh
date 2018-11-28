@@ -587,3 +587,25 @@ legend {
     cursor:pointer;
     font-size:11;
 }
+
+.cajaPermisos 
+{
+    background-color: #f1f1f1;
+    padding: 1rem;
+    border-radius: 15px;
+ }
+ 
+ .cajaPermisos > p
+ {
+    background-color: #337ab7;
+    color: #fff;
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+.btnQuitar 
+{
+    background-color: #ff1010bf;
+    color: #fff;
+    border: none;
+}

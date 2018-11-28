@@ -188,21 +188,47 @@ namespace General.MAU
 
             try
             {
-                  var parametros = new Dictionary<string, object>();
-                  perfiles.ForEach(idPerfil => areas.ForEach(area => {
+                //traigo los perfiles actuales para verificar que ya no los tenga
+                List<MAU_Perfil> perfilesActuales = this.GetPerfilesActuales(idUsuario);
 
-                      parametros.Add("@id_area", area.Id);
-                      parametros.Add("@id_usuario", idUsuario);
-                      parametros.Add("@id_perfil", idPerfil);
-                      parametros.Add("@incluye_dependencia", area.IncluyeDependencias);
-                      parametros.Add("@id_usuario_alta", id_usuario_alta);
-                      var tablaDatos = conexion.Ejecutar("dbo.MAU_AsignarPerfilFuncionalidadAUsuario", parametros);
-                  }
-                      )
+                 //Si pusieron areas al perfil
+                if (areas.Count > 0)
+                {
+                    
+                    perfiles.ForEach(idPerfil => areas.ForEach(area =>
+                    {
+                        //Valido que no tenga el perfil ya
+                        if (!perfilesActuales.Exists(p => p.Id == idPerfil))
+                            {
+                            var parametros = new Dictionary<string, object>();
+                            parametros.Add("@id_area", area.Id);
+                            parametros.Add("@id_usuario", idUsuario);
+                            parametros.Add("@id_perfil", idPerfil);
+                            parametros.Add("@incluye_dependencia", area.IncluyeDependencias);
+                            parametros.Add("@id_usuario_alta", id_usuario_alta);
+                            var tablaDatos = conexion.Ejecutar("dbo.MAU_AsignarPerfilFuncionalidadAUsuario", parametros);
+                            }
 
-                      );
-
-               
+                    })
+                        );
+                }
+                else //Si no tiene areas
+                {
+                    
+                    perfiles.ForEach(idPerfil => 
+                    {
+                        //Valido que no tenga el perfil ya
+                        if (!perfilesActuales.Exists(p => p.Id == idPerfil))
+                        {
+                            var parametros = new Dictionary<string, object>();
+                            parametros.Add("@id_usuario", idUsuario);
+                            parametros.Add("@id_perfil", idPerfil);
+                            parametros.Add("@id_usuario_alta", id_usuario_alta);
+                            var tablaDatos = conexion.Ejecutar("dbo.MAU_AsignarPerfilFuncionalidadAUsuario", parametros);
+                        }
+                    });
+                }
+                
 
                 return "ok";
             }
@@ -216,22 +242,46 @@ namespace General.MAU
 
             try
             {
-                var parametros = new Dictionary<string, object>();
-                funcionalidades.ForEach(idFuncionalidad => areas.ForEach(area =>
+                //traigo los perfiles actuales para verificar que ya no los tenga
+                List<Funcionalidad> funcionalidadesActuales = this.GetFuncionalidadesActuales(idUsuario);
+
+                 //Si pusieron areas a la funcionalidad
+                if (areas.Count > 0)
                 {
+                    
+                    funcionalidades.ForEach(idFuncionalidad => areas.ForEach(area =>
+                    {
+                        //Valido que no tenga el perfil ya
+                        if (!funcionalidadesActuales.Exists(f => f.Id == idFuncionalidad))
+                        {
+                            var parametros = new Dictionary<string, object>();
+                            parametros.Add("@id_area", area.Id);
+                            parametros.Add("@id_usuario", idUsuario);
+                            parametros.Add("@id_funcionalidad", idFuncionalidad);
+                            parametros.Add("@incluye_dependencia", area.IncluyeDependencias);
+                            parametros.Add("@id_usuario_alta", id_usuario_alta);
+                            var tablaDatos = conexion.Ejecutar("dbo.MAU_AsignarPerfilFuncionalidadAUsuario", parametros);
+                        }
+                    })
+                        );
 
-                    parametros.Add("@id_area", area.Id);
-                    parametros.Add("@id_usuario", idUsuario);
-                    parametros.Add("@id_perfil", idFuncionalidad);
-                    parametros.Add("@incluye_dependencia", area.IncluyeDependencias);
-                    parametros.Add("@id_usuario_alta", id_usuario_alta);
-                    var tablaDatos = conexion.Ejecutar("dbo.MAU_AsignarPerfilFuncionalidadAUsuario", parametros);
                 }
-                    )
-
-                    );
-
-
+                else //Si no tiene areas
+                {
+                    
+                    funcionalidades.ForEach(idFuncionalidad =>
+                    {
+                        //Valido que no tenga el perfil ya
+                        if (!funcionalidadesActuales.Exists(f => f.Id == idFuncionalidad))
+                        {
+                            var parametros = new Dictionary<string, object>();
+                            parametros.Add("@id_usuario", idUsuario);
+                            parametros.Add("@id_funcionalidad", idFuncionalidad);
+                            parametros.Add("@id_usuario_alta", id_usuario_alta);
+                            var tablaDatos = conexion.Ejecutar("dbo.MAU_AsignarPerfilFuncionalidadAUsuario", parametros);
+                        }
+                    });
+                }
 
                 return "ok";
             }

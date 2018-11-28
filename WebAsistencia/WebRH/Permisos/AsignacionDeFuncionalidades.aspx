@@ -28,39 +28,48 @@
                 <div class="caja_der papel">
             
                     <legend style="margin-top: 20px;">ASIGNACION DE FUNCIONALIDADES</legend>
-                    <label>Seleccione la funcionalidad a Asignar: </label>
-                    <select id="comboFuncionalidades">
-                       
-                    </select>
 
-                    <p style="margin-top: 20px;"><strong>Funcionalidad Seleccionada:</strong></p>
-                    <div id="funcionalidadesSeleccionadas"></div>
+                    <div class="cajaPermisos">
+                        <p>Seleccione la/s funcionalidad/es a Asignar: </p>
+                        <select id="comboFuncionalidades">
+                       
+                        </select>
+
+                        <h5 style="margin-top: 20px;"><strong>Funcionalidades Seleccionadas:</strong></h5>
+                        <div id="funcionalidadesSeleccionadas"></div>
+
+                    </div>
 
                     <hr />
+                    <div class="cajaPermisos">
+                        <p>Seleccione el/las Areas a Asignar al Perfil: </p>
 
-                    <label>Seleccione el Area a Asignar al Perfil: </label>
-
-                    <div id="panel_usuarios_por_area" >     
-                        <div id="selector_area_usuarios" class="selector_areas" style="position: inherit; display: inline;">
-                            <input id="buscador" type="hidden" class="buscarUsuarioPorArea" />
-                        </div>
+                        <div id="panel_usuarios_por_area" >     
+                            <div id="selector_area_usuarios" class="selector_areas" style="position: inherit; display: inline;">
+                                <input id="buscador" type="hidden" class="buscarUsuarioPorArea" />
+                            </div>
                             
-                        <div style="margin-top: 20px;">
-                            <p><strong>Areas Seleccionadas</strong></p>
-                            <div id="listadoAreasElegidas"></div>
-                        </div>
-                     </div> 
-
+                            <div style="margin-top: 20px;">
+                                <p><strong>Areas Seleccionadas</strong></p>
+                                <div id="listadoAreasElegidas"></div>
+                            </div>
+                         </div> 
+                     </div>
                      <hr />
                      <div style="text-align:center;">
                         <input type="button" class="btn-primary" value="Agregar Funcionalidad con las Areas seleccionadas" id="btnAsignarFuncionalidadConAreas" />
                      </div>
+
+                    <hr />
+                    <h4>Funcionalidades actuales</h4>
+                    <div id="tabla_funcionalidades"></div>
 
                 </div>
                
              </div>
         </div>
     </form>
+
 
     <div id="plantillas">
         <div class="vista_area_en_selector">
@@ -72,12 +81,13 @@
     <div id="plantillaArea" style="width:100%; display:none;" class="listadoAreas">
         <span style="width: 50%; display: inline-block;" id="areaSeleccionada"></span>
         <input  id="checkIncluyeDependencias" type="checkbox" /> Incluye Dependencias
+        <input  type="button" class="quitar btnQuitar" value="Quitar" /> 
         <hr />
     </div>
 
     <div id="plantillaFuncionalidadSeleccionada" style="display:none;" class="listadoFuncionalidades">
         <span style="width: 50%; display: inline-block;" class="nombreFuncionalidad"></span>
-        <input  type="button" class="quitar" value="Quitar" /> 
+        <input  type="button" class="quitar btnQuitar" value="Quitar" /> 
     </div>
 
 </body>
@@ -118,6 +128,7 @@
 
                 //Permisos.init();
                 Permisos.iniciarPantallaAsignacionFuncionalidad();
+                Permisos.getFuncionalidadesDelUsuario();
 
 
             });

@@ -53,8 +53,8 @@
             //para cargar el menu izquierdo 
             $(".caja_izq").load("SeccionIzquierda.htm", function () {
 
-                Permisos.getPerfiles(311);
-                
+                Permisos.getPerfilesDelUsuario();
+                Permisos.getFuncionalidadesDelUsuario();
 
             });
 
