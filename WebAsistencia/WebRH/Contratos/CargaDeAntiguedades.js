@@ -1,7 +1,9 @@
 ﻿var botonSeleccionado;
 var ContenedorGrilla;
 var lista_de_serv_publico;
-var lista_de_otros_servicios
+var lista_de_otros_servicios;
+var documento;
+var legajo;
 
 Backend.start(function () {
     $(document).ready(function () {
@@ -21,7 +23,7 @@ $("#btn_Privado").click(function () {
 });
 $("#btn_AgregarServicio").click(function () {
     if (botonSeleccionado=="ESTADO") {
-        window.open("CargaDeAntiguedadesAdmPublica.aspx?legajo=" + $('#legajo').text().trim() + "&" + $('#documento').text().trim() + "&" + "folio=" + "00-018/018");
+       // window.open("CargaDeAntiguedadesAdmPublica.aspx?legajo=" + $('#legajo').text().trim() + "&documento=" + $('#documento').text().trim() + "&folio=" + "00-018/018");
     }
     if (botonSeleccionado == "PRIVADO") {
         alert("abrir pagina privado");
@@ -155,7 +157,8 @@ var DibujarGrillaServPublico = function () {
                         //$('#div_tabla_detalle').hide();
                         //$('#div_tabla_informes').hide();
                         //_this.FiltrarPersonasParaTablaDetalle(un_registro.Id, tabla_detalle);
-                        window.open("CargaDeAntiguedadesAdmPublica.aspx?legajo=" + $('#legajo').text().trim() + "&" + "folio=" + consulta.Folio);
+                        //window.open("CargaDeAntiguedadesAdmPublica.aspx?legajo=" + $('#legajo').text().trim() + "&" + "folio=" + consulta.Folio);
+                        window.open("CargaDeAntiguedadesAdmPublica.aspx?legajo=" + $('#legajo').text().trim() + "&documento=" + $('#documento').text().trim() + "&folio=" + consulta.Folio);
 
                         spinner.stop();
                     }, 10);

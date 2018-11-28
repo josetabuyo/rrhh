@@ -3,6 +3,7 @@ var valores;
 var pLegajo;
 var pDocumento;
 var pFolio;
+var pUsuarioLogueado;
 var ambitoIdSeleccionado;
 var ambitoDescripSeleccionado;
 var cargoIdSeleccionado;
@@ -18,10 +19,11 @@ Backend.start(function () {
         var valores = getParametrosURL();
         pLegajo = valores['legajo'];
         pDocumento = valores['documento'];
-        pFolio  = valores['folio'];
+        pFolio = valores['folio'];
 
         completarComboAmbitos();
         completarComboCargo();
+        GetUsuario();
 
         ContenedorGrilla = $("#ContenedorGrilla");
         $("#ContenedorServicios").empty();
@@ -29,6 +31,19 @@ Backend.start(function () {
         ConsultarServicioAdmPublica();
     });
 });
+
+var GetUsuario = function () {
+    Backend.GetUsuarioLogueado()
+    .onSuccess(function (respuesta) {
+        pUsuarioLogueado = respuesta.Id;
+        spinner.stop();
+    })
+    .onError(function (error, as, asd) {
+        alertify.alert("", error);
+        spinner.stop();
+    });
+}
+
 
 var PanelFechas = function (cfg) {
     var self = this;
@@ -54,12 +69,12 @@ var PanelFechas = function (cfg) {
 $("#btn_Agregar").click(function () {
 
     var ServPublico = {};
-    ServPublico.Ambito = [];
+    ServPublico.Ambito = {};
     ServPublico.Ambito.Id = parseInt($("#cmbAmbitos").val());
     ServPublico.Ambito.Descripcion = $("#cmbAmbitos option:selected").text();
     ServPublico.Jurisdiccion = $('#txtJurisdiccion').val();
     ServPublico.Organismo = $('#txtOrganismo').val();
-    ServPublico.Cargo = [];
+    ServPublico.Cargo = {};
     ServPublico.Cargo.Id = parseInt($("#cmbCargo").val());
     ServPublico.Cargo.Descripcion = $("#cmbCargo option:selected").text();
 
@@ -70,8 +85,8 @@ $("#btn_Agregar").click(function () {
         ServPublico.Remunerativo = false;
     }
 
-    ServPublico.Fecha_Desde = $("#txtFechaDesde").val();
-    ServPublico.Fecha_Hasta = $("#txtFechaHasta").val();
+    ServPublico.Fecha_Desde = toDateYYYYMMDD($("#txtFechaDesde").val()) //$("#txtFechaDesde").val(); //$.datepicker.parseDate('dd/mm/yy', $("#txtFechaDesde").val());
+    ServPublico.Fecha_Hasta = toDateYYYYMMDD($("#txtFechaHasta").val()) //$("#txtFechaHasta").val(); //$.datepicker.parseDate('dd/mm/yy', $("#txtFechaHasta").val());
     ServPublico.Causa_Egreso = $('#txtCausaEgreso').val();
     ServPublico.Folio = $('#NroFolio').val() + "-" + $('#NroFolioDesde').val() + "/" + $('#NroFolioHasta').val();
     ServPublico.Id_Interna = parseInt(pLegajo);
@@ -93,7 +108,6 @@ $("#btn_Agregar").click(function () {
         ServPublico.DatoDeBaja = false;
     }
 
-
     if ($("#rdTipoDocumentoCTR").checked) {
         ServPublico.Ctr_Cert = true;
     }
@@ -106,6 +120,13 @@ $("#btn_Agregar").click(function () {
 
     ServPublico.Domicilio = null;
     ServPublico.Institucion = null;
+
+    var d = new Date();
+    var dFecha = d.getDate() + "/" + (d.getMonth() + 1) + "/" + d.getFullYear();
+    ServPublico.Fecha_Carga = toDateYYYYMMDD(dFecha); //ConversorDeFechas.deIsoAFechaEnCriollo(dFecha);
+
+    ServPublico.Usuario = pUsuarioLogueado;
+
 
     //lista_de_serv_publico.append(ServPublico);
     lista_de_serv_publico.push(ServPublico);
@@ -153,17 +174,16 @@ function getParametrosURL() {
 
 
 var FormatearFecha = function (p_fecha) {
-
-    if (p_fecha.split("T").length == 1) {
-        return p_fecha;
-    }
-    else {
         var fecha_sin_hora = p_fecha.split("T");
         var fecha = fecha_sin_hora[0].split("-");
         return fecha[2] + "/" + fecha[1] + "/" + fecha[0];
-    }
-    
 };
+
+
+function toDateYYYYMMDD(dateStr) {
+    var parts = dateStr.split("/")
+    return parts[2] + "-" + parts[1] + "-" + parts[0] + "T00:00:00.000"
+}
 
 
 var GetFolio = function (folio, dato) {

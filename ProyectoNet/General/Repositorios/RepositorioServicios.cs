@@ -158,14 +158,14 @@ namespace General
                 Servicio.Causa_Egreso = dr.GetString(dr.GetOrdinal("causa_egreso"));
                 Servicio.Folio = dr.GetString(dr.GetOrdinal("folio"));
                 Servicio.Id_Interna = dr.GetInt32(dr.GetOrdinal("id_interna"));
-                //Servicio.Doc_Titular = dr.GetInt32(dr.GetOrdinal("Doc_Titular"));
+                Servicio.Doc_Titular = dr.GetInt32(dr.GetOrdinal("Doc_Titular"));
                 Servicio.Caja = dr.GetString(dr.GetOrdinal("caja"));
                 Servicio.Afiliado = dr.GetString(dr.GetOrdinal("afiliado"));
                 Servicio.DatoDeBaja = dr.GetBoolean(dr.GetOrdinal("datodebaja"));
                 Servicio.datonoimprime = dr.GetBoolean(dr.GetOrdinal("datonoimprime"));
                 Servicio.Ctr_Cert = dr.GetBoolean(dr.GetOrdinal("ctr_cert"));
-                //Servicio.Usuario = dr.GetInt16(dr.GetOrdinal("Usuario"));
-                //Servicio.Fecha_Carga = dr.GetDateTime(dr.GetOrdinal("Fecha_Carga"));
+                Servicio.Usuario = dr.GetInt16(dr.GetOrdinal("Usuario"));
+                Servicio.Fecha_Carga = dr.GetDateTime(dr.GetOrdinal("fecha_carga"));
                 
 
                 listaServAdmPubica.Add(Servicio);
@@ -181,7 +181,7 @@ namespace General
         public bool Alta_Servicios_Adm_Publica(Serv_Adm_Publica_Privada[] servicio, Usuario usuario)
         {
             ConexionDB cn = new ConexionDB("dbo.LEG_DEL_Servicios_Adm_Publica");
-            cn.AsignarParametro("@Id_interna", servicio[0].Id_Interna);
+            cn.AsignarParametro("@Id_Interna", servicio[0].Id_Interna);
             cn.AsignarParametro("@Folio", servicio[0].Folio);
 
             cn.BeginTransaction();
@@ -208,14 +208,14 @@ namespace General
                    cn.AsignarParametro("@Afiliado_13", item.Afiliado); //  [varchar](50),    
                    cn.AsignarParametro("@datonoimprime", item.datonoimprime); // bit,    
                    cn.AsignarParametro("@Ctr_Cert", item.Ctr_Cert); // bit =null,    
-                   cn.AsignarParametro("@Usuario", usuario.Id); // smallint
+                   cn.AsignarParametro("@Usuario", item.Usuario); // smallint
                    
                    cn.EjecutarSinResultado();
 
                 }
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 cn.RollbackTransaction();
                 return false;
