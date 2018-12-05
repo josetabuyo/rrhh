@@ -76,7 +76,7 @@
                             <div>Cambiar</div>
                         </div>
                     </div>
-                    <div id="cambio_imagen_pendiente" RequiereFuncionalidad = "mau_administrar_cambios_de_imagen">
+                    <div id="cambio_imagen_pendiente" >
                         <img src="camera.png"/>
                     </div>
                     <div id="panel_datos_personales">
@@ -95,9 +95,9 @@
                         <div class="linea dato_personal">
                             <div>Email:</div>
                             <div id="email"></div>   
-                            <input id="btn_modificar_mail" type="button" class="btn btn-warning" value="Modificar"  /> 
+                            <input id="btn_modificar_mail" type="button" class="btn-primary botonesPermisos" value="Modificar"  /> 
                         </div>      
-                        <input id="btn_credencial_usuario" type="button" class="btn btn-warning" value="Credencial" />           
+                        <input id="btn_credencial_usuario" type="button" class="btn-primary botonesPermisos" value="Credencial" />           
                     </div>
                     <div id="panel_password">
                         <div class="linea linea_nombre_usuario">
@@ -106,12 +106,12 @@
                         </div>
                         <div class="linea linea_passwrd">
                             <div class="titulo">Contraseña:</div>
-                            <input id="btn_reset_password" type="button" class="btn btn-warning" value="resetear" />
+                            <input id="btn_reset_password" type="button" class="btn-primary botonesPermisos" value="Resetear" />
                         </div>
                         <div class="seccion_verificacion_usuario">
                             <div id="usuario_verificado">DNI Verificado</div>    
                             <div id="usuario_no_verificado">DNI No Verificado</div>    
-                            <input id="btn_verificar_usuario" type="button" class="btn btn-warning" value="Verificar"  />
+                            <input id="btn_verificar_usuario" type="button" class="btn-primary botonesPermisos" value="Verificar"  />
                         </div>
                     </div>
                 </div> 

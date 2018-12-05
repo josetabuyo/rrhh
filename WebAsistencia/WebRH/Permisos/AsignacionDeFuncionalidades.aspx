@@ -31,8 +31,8 @@
 
                     <div class="cajaPermisos">
                         <p>Seleccione la/s funcionalidad/es a Asignar: </p>
-                        <select id="comboFuncionalidades">
-                       
+                        <select style="width: 50%;" id="comboFuncionalidades">
+                            <optgroup label="">
                         </select>
 
                         <h5 style="margin-top: 20px;"><strong>Funcionalidades Seleccionadas:</strong></h5>
@@ -57,7 +57,7 @@
                      </div>
                      <hr />
                      <div style="text-align:center;">
-                        <input type="button" class="btn-primary" value="Agregar Funcionalidad con las Areas seleccionadas" id="btnAsignarFuncionalidadConAreas" />
+                        <input type="button" class="btn-primary botonesPermisos" value="Agregar Funcionalidad con las Areas seleccionadas" id="btnAsignarFuncionalidadConAreas" />
                      </div>
 
                     <hr />

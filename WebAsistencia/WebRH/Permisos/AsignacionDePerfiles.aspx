@@ -40,15 +40,27 @@
 
                         <span id="mostrarDialogo">ver Listado de Func. de cada Perfil</span>
 
-                        <div id="dialog" title="Listado de Funcionalidades por Perfil">
+                        <div style="font-size: 12px;" id="dialog" title="Listado de Funcionalidades por Perfil">
                           <div>
                             <p class="dialogNombrePerfil" >Responsable de RCA</p>
-                            <hr />
                             <ul class="dialogListaFunc">
                                 <li>Control Acceso</li>
                                 <li>Control Asistencia</li>
                                 <li>Carga Licencias</li>
                                 <li>Control Planilla</li>
+                            </ul>
+                            <hr />
+
+                            <p class="dialogNombrePerfil" >Direccion</p>
+                            
+                            <ul class="dialogListaFunc">
+                                <li>Reportes</li>
+                            </ul>
+                            <hr />
+
+                            <p class="dialogNombrePerfil" >Publico</p>
+                            <ul class="dialogListaFunc">
+                                <li>Postular</li>
                             </ul>
 
                           </div>
@@ -78,7 +90,7 @@
                      </div>
                      <hr />
                      <div style="text-align:center;">
-                        <input type="button" class="btn-primary" value="Agregar Perfil a las Areas seleccionadas" id="btnAsignarPerfilConAreas" />
+                        <input type="button" class="btn-primary botonesPermisos" value="Agregar Perfil a las Areas seleccionadas" id="btnAsignarPerfilConAreas" />
                      </div>
 
                      <hr />

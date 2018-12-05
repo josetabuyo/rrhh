@@ -134,12 +134,17 @@ var Permisos = {
 
     },
     eliminarPerfil: function (perfil) {
+        var _this = this;
         var r = confirm("¿Está seguro de eliminar el Perfil?");
         if (r == true) {
             var idUsuarioSeleccionado = sessionStorage.getItem("idUsuario");
             Backend.desasignarPerfiles(perfil.Id, idUsuarioSeleccionado).onSuccess(function (rto) {
                 if (rto == 'ok') {
-                    window.location.reload();
+                    //window.location.reload();
+                    alertify.success("Se ha eliminado correctamente");
+                    _this.getPerfilesDelUsuario();
+                } else {
+                    alertify.error(rto);
                 }
 
                 console.log(rto);
@@ -150,12 +155,17 @@ var Permisos = {
 
     },
     eliminarFuncionalidad: function (funcionalidad) {
+        var _this = this;
         var r = confirm("¿Está seguro de eliminar la Funcionalidad?");
         if (r == true) {
             var idUsuarioSeleccionado = sessionStorage.getItem("idUsuario");
             Backend.desasignarFuncionaldiad(funcionalidad.Id, idUsuarioSeleccionado).onSuccess(function (rto) {
                 if (rto == 'ok') {
-                    window.location.reload();
+                    //window.location.reload();
+                    alertify.success("Se ha eliminado correctamente");
+                    _this.getFuncionalidadesDelUsuario();
+                } else {
+                    alertify.error(rto);
                 }
                 console.log(rto);
             });
@@ -310,6 +320,7 @@ var Permisos = {
 
     },
     iniciarPantallaAsignacionPerfiles: function () {
+        var _this = this;
         this.completarDatosDeLaSesion();
         if (!sessionStorage.getItem("idUsuario")) {
             alert("Debe seleccionar un usuario antes de proseguir");
@@ -387,7 +398,16 @@ var Permisos = {
 
             Backend.asignarPerfiles(JSON.stringify(perfilesSeleccionados), areasSeleccionadas, idUsuarioSeleccionado)
             .onSuccess(function (rto) {
-                window.location.reload();
+                //window.location.reload();
+                if (rto == 'ok') {
+                    alertify.success("Se ha agregado el perfil correctamente");
+                    _this.getPerfilesDelUsuario();
+                    $("#perfilesSeleccionado").empty();
+                    $("#listadoAreasElegidas").empty();
+                } else {
+                    alertify.error(rto);
+                }
+
 
             })
             .onError(function (e) {
@@ -398,6 +418,7 @@ var Permisos = {
 
     },
     iniciarPantallaAsignacionFuncionalidad: function () {
+        var _this = this;
         this.completarDatosDeLaSesion();
         if (!sessionStorage.getItem("idUsuario")) {
             alert("Debe seleccionar un usuario antes de proseguir");
@@ -416,7 +437,14 @@ var Permisos = {
                 $("#comboFuncionalidades").empty();
                 $("#comboFuncionalidades").append("<option value='0'>Seleccionar Funcionalidad</option>");
 
+                var grupo = '';
                 $.each(funcionalidades, function (key, value) {
+                    if (grupo != value.Grupo) {
+                        grupo = value.Grupo;
+                        $("#comboFuncionalidades").append("</optgroup>");
+                        $("#comboFuncionalidades").append("<optgroup label='" + grupo + "'>");
+                    }
+
                     $("#comboFuncionalidades").append("<option value=" + value.Id + ">" + value.Nombre + "</option>");
 
                 });
@@ -474,6 +502,7 @@ var Permisos = {
 
         $("#btnAsignarFuncionalidadConAreas").click(function (e) {
             //alert($(this).val());
+
             var funcionalidadesSeleccionados = $('.funcionalidadesSeleccionadas').map(function () {
                 return $(this).attr('id');
             }).get();
@@ -491,7 +520,15 @@ var Permisos = {
 
             Backend.asignarFuncionalidades(JSON.stringify(funcionalidadesSeleccionados), JSON.stringify(areasSeleccionadas), idUsuarioSeleccionado)
             .onSuccess(function (rto) {
-                window.location.reload();
+                if (rto == 'ok') {
+                    //window.location.reload();
+                    alertify.success("Se ha eliminado correctamente");
+                    _this.getFuncionalidadesDelUsuario();
+                    $("#funcionalidadesSeleccionadas").empty();
+                    $("#listadoAreasElegidas").empty();
+                } else {
+                    alertify.error(rto);
+                }
 
             })
             .onError(function (e) {

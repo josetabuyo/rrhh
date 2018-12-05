@@ -426,11 +426,7 @@ legend {
 }
 
 
-#nombre_empleado 
-{
-    color: #fff;
-    font-size: 1.5em;
-}
+
 
  /*estilos alta consulta*/
  
@@ -582,9 +578,10 @@ legend {
 
 #mostrarDialogo 
 {
-    color: Blue;
-    text-decoration: underline;
+    color: #00a1ff;
+    /*text-decoration: underline;*/
     cursor:pointer;
+    float:right;
     font-size:11;
 }
 
@@ -608,4 +605,32 @@ legend {
     background-color: #ff1010bf;
     color: #fff;
     border: none;
+}
+
+optgroup
+{
+    margin: 10px 0;
+    background-color: #eaeaea;
+    padding: 15px 0;   
+}
+
+.ui-widget-header 
+{
+    background: #337ab7 !important;  
+    color: #fff;
+    font-weight:normal; 
+}
+
+.dialogNombrePerfil 
+{  
+    font-weight: bold;
+    background-color: #f1f1f1;
+    padding: 5px;   
+}
+
+.botonesPermisos 
+{
+    border: none;
+    padding: 10px;
+    background-color: #23639a;
 }
