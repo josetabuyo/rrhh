@@ -68,6 +68,10 @@ var PanelFechas = function (cfg) {
 
 $("#btn_Agregar").click(function () {
 
+    if (ValidarDatos() == false) {
+        return;
+    }
+
     var ServPublico = {};
     ServPublico.Ambito = {};
     ServPublico.Ambito.Id = parseInt($("#cmbAmbitos").val());
@@ -137,23 +141,118 @@ $("#btn_Agregar").click(function () {
 $("#btn_Guardar").click(function () {
     //var aa = ServPublico;
 
+    if (ValidarDatos() == false) {
+        return;
+    }
+
+    if (lista_de_serv_publico.length == 0) {
+        alertify.alert("Debe agregar un organismo a la lista");
+        return;
+    };
+
+
     spinner = new Spinner({ scale: 2 }).spin($("body")[0]);
 
     Backend.Alta_Servicios_Adm_Publica(lista_de_serv_publico)
     .onSuccess(function (respuesta) {
-        alert("Datos guardados correctamente");
+        alertify.success("Datos guardados con éxito");
         //lista_de_serv_publico = respuesta;
         //CargarPantalla(lista_de_serv_publico);
         //DibujarGrillaServPublico();
         spinner.stop();
     })
     .onError(function (error, as, asd) {
-        alertify.alert("Error al guardar los servicios", error);
+        alertify.alert("Error al guardar los servicios");
         spinner.stop();
         //LimpiarPantalla();
     });
 
-}); 
+});
+
+
+
+function ValidarDatos() {
+    
+        if ($("#cmbAmbitos").val() == 0) {
+            alertify.alert("Debe cargar el ambito");
+            return false;
+        };
+
+        if ($("#NroFolio").val() == 0) {
+            alertify.alert("Debe cargar el numero de folio");
+            return false;
+        };
+
+        if ($("#NroFolioDesde").val() == 0) {
+            alertify.alert("Debe cargar el numero de folio desde");
+            return false;
+        };
+
+        if ($("#NroFolioHasta").val() == 0) {
+            alertify.alert("Debe cargar el numero de folio hasta");
+            return false;
+        };
+
+        if ($("#txtJurisdiccion").val() == "") {
+            alertify.alert("Debe cargar la Jurisdiccion");
+            return false;
+        };
+
+        if ($("#txtCaja").val() == "") {
+            alertify.alert("Debe cargar la Caja");
+            return false;
+        };
+
+        if ($("#txtNroAfiliacion").val() == "") {
+            alertify.alert("Debe cargar el numero de afiliacion");
+            return false;
+        };
+
+        if ( ($("#rdRemuneradoSI").prop("checked") == false) && ($("#rdRemuneradoNO").prop("checked") == false)) {
+            alertify.alert("Debe cargar la opcion de remunerado");
+            return false;
+        };
+
+
+        if (($("#rdTipoDocumentoCTR").prop("checked") == false) && ($("#rdTipoDocumentoCER").prop("checked") == false) && ($("#rdTipoDocumentoOTR").prop("checked") == false)) {
+            alertify.alert("Debe cargar el tipo de documento");
+            return false;
+        };
+
+
+        if ($("#txtOrganismo").val() == "") {
+            alertify.alert("Debe cargar el organismo");
+            return false;
+        };
+
+        if ($("#cmbCargo").val() == 0) {
+            alertify.alert("Debe cargar el cargo");
+            return false;
+        };
+
+        if ($("#txtFechaDesde").val() == 0) {
+            alertify.alert("Debe cargar la fecha desde");
+            return false;
+        };
+
+        if ($("#txtFechaHasta").val() == 0) {
+            alertify.alert("Debe cargar la fecha hasta");
+            return false;
+        };
+
+
+        //if (lista_de_serv_publico.length == 0) {
+        //alertify.alert("Debe agregar un organismo");
+        //return false;
+        //};
+
+        //$("#chkNoImprime").prop("checked", true);
+        //$("#DarDeBaja").prop("checked", true);
+        //if (("#txtCausaEgreso").val() == 0) {
+        //}
+
+    return true;
+};
 
 
 function getParametrosURL() {
@@ -340,8 +439,43 @@ var CargarPantalla = function (ListaDeDatos) {
         if (lista_de_serv_publico[0].DatoDeBaja == true) {
             $("#DarDeBaja").prop("checked", true);
         }
+    }
+
+
+    if (pFolio == "0") {
+
+        $("#cmbAmbitos").val(ambitoIdSeleccionado);
+        $('#NroFolio').val(0);
+        $('#NroFolioDesde').val(0);
+        $('#NroFolioHasta').val(0);
+        $('#txtJurisdiccion').val(null);
+        $('#txtCaja').val(null);
+        $('#txtNroAfiliacion').val(null);
+
+        $("#rdRemuneradoSI").prop("checked", false);
+        $("#rdRemuneradoNO").prop("checked", false);
+
+        $("#rdTipoDocumentoCTR").prop("checked", false);
+        $("#rdTipoDocumentoCER").prop("checked", false);
+        $("#rdTipoDocumentoOTR").prop("checked", false);
+
+        $('#txtCausaEgreso').val(null);
+        $("#chkNoImprime").prop("checked", false);
+        $("#DarDeBaja").prop("checked", false);
+
+        $("#txtOrganismo").val(null);
+        $("#cmbCargo").val(cargoIdSeleccionado);
+        $("#txtFechaDesde").val(null);
+        $("#txtFechaHasta").val(null);
+
+        $("#chkNoImprime").prop("checked", false);
+        $("#DarDeBaja").prop("checked", false);
+        ("#txtCausaEgreso").val(null);
+
+        lista_de_serv_publico.length == 0;
 
     }
+
 };
 
 
