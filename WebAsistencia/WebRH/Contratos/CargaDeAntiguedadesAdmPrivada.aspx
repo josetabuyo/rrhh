@@ -1,12 +1,13 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="CargaDeAntiguedadesAdmPublica.aspx.cs"
-    Inherits="Contratos_CargaDeAntiguedadesAdmPublica" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="CargaDeAntiguedadesAdmPrivada.aspx.cs" Inherits="Contratos_CargaDeAntiguedadesAdmPrivada" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <%@ Register Src="~/BarraMenu/BarraMenu.ascx" TagName="BarraMenu" TagPrefix="uc2" %>
+
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
-    <title>Servicio Administracion Publica</title>
+    <title>Otros Servicios</title>
     <%= Referencias.Css("../")%>
     <link rel="stylesheet" type="text/css" href="../Formularios/EstilosFormularios.css" />
     <link rel="stylesheet" href="../estilos/estilos.css" type="text/css" />
@@ -21,14 +22,14 @@
             <div style="display: block; width: 50%; padding: 0; margin-bottom: 27px; font-size: 19.5px;
                 line-height: 36px; color: #333333; border: 0; border-bottom: 1px solid #e5e5e5;
                 text-shadow: 2px 2px 5px rgba(150, 150, 150, 1); text-align: left;">
-                Carga de Servicio de Administracion Publica
+                Carga de Otros Servicios
             </div>
         </div>
 
         
             <div>
-                <asp:Label ID="lblAmbito" runat="server" Text="Ambito " />
-                <select runat="server" id="cmbAmbitos" name="Ambitos" enableviewstate="false" style="text-transform: capitalize;"></select>
+                <asp:Label ID="lblInstitucion" runat="server" Text="Institucion o Razon Social " />
+                <input type="text" id="txtInstitucion" value="" style="width: 400px" />
             </div>
         
             <div>
@@ -41,9 +42,23 @@
             </div>
 
             <div>
-                <asp:Label ID="lblJurisdiccion" runat="server" Text="Jurisdicción " />
-                <input type="text" id="txtJurisdiccion" value="" style="width: 400px" />
+                <asp:Label ID="lblDomicilio" runat="server" Text="Domicilio " />
+                <input type="text" id="txtDomicilio" value="" style="width: 400px" />
             </div>
+
+            <div>
+                <asp:Label ID="lblCargo" runat="server" Text="Cargo " />
+                <select runat="server" id="cmbCargo" name="Cargo" enableviewstate="false" style="text-transform: capitalize;margin-right: 10px"></select>
+            </div>
+
+            <div id='Remunerado'>
+                <asp:Label ID="lblRemunerado" runat="server" Text="Remunerado " />
+                <br/>
+                <input type="radio" id="rdRemuneradoSI" value="1" name="Remunerado" /> SI
+                <br/>
+                <input type="radio" id="rdRemuneradoNO" value="0" name="Remunerado" /> NO (Ad Honorem)  
+            </div>
+
 
             <div>
                 <asp:Label ID="lblCaja" runat="server" Text="Caja de Previsión " />
@@ -55,50 +70,33 @@
                 <input type="text" id="txtNroAfiliacion" value="" style="width: 400px" />
             </div>
 
-            <div id='Remunerado'>
-                <asp:Label ID="lblRemunerado" runat="server" Text="Remunerado " />
-                <br/>
-                <input type="radio" id="rdRemuneradoSI" value="1" name="Remunerado" /> SI
-                <br/>
-                <input type="radio" id="rdRemuneradoNO" value="0" name="Remunerado" /> NO (Ad Honorem)  
+            <div>
+                <asp:Label ID="lblFechaDesde" runat="server" Text="Fecha Desde " />
+                <input type="text" id="txtFechaDesde" style="width: 110px; ; margin-right: 10px" placeholder="dd/mm/aaaa" />
             </div>
-            <br/>
-            <div id='TipoDocumento'>
-                <asp:Label ID="lblTipoDocumento" runat="server" Text="Tipo Documento" />
-                <br/>
-                <input type="radio" id="rdTipoDocumentoCTR" value="1" name="TipoDocumento" /> Contrato        
-                <br/>
-                <input type="radio" id="rdTipoDocumentoCER" value="0" name="TipoDocumento" /> Cert. de Serv.  
-                <br/>
-                <input type="radio" id="rdTipoDocumentoOTR" value="2" name="TipoDocumento" /> Otros
+
+            <div>
+                <asp:Label ID="lblFechaHasta" runat="server" Text="Fecha Hasta " />
+                <input type="text" id="txtFechaHasta" style="width: 110px; margin-right: 20px" placeholder="dd/mm/aaaa" />
             </div>
-        
 
-        <br /><br />
 
-        <div style="border: thin solid #3366FF; width:95%" >
-            <%--Organismo--%>
-            <asp:Label ID="lblOrganismo" runat="server" Text="Organismo " />
-            <input type="text" id="txtOrganismo" value="" style="width: 400px; margin-right: 10px" />
-            <%--Cargo--%>
-            <asp:Label ID="lblCargo" runat="server" Text="Cargo " />
-            <select runat="server" id="cmbCargo" name="Cargo" enableviewstate="false" style="text-transform: capitalize;margin-right: 10px"></select>
-            <%--Desde--%>
-            <asp:Label ID="lblFechaDesde" runat="server" Text="Fecha Desde " />
-            <input type="text" id="txtFechaDesde" style="width: 110px; ; margin-right: 10px" placeholder="dd/mm/aaaa" />
-            <%--Hasta--%>
-            <asp:Label ID="lblFechaHasta" runat="server" Text="Fecha Hasta " />
-            <input type="text" id="txtFechaHasta" style="width: 110px; margin-right: 20px" placeholder="dd/mm/aaaa" />
-            
 
             <input type="button" value="Agregar" class="btn btn-primary" id="btn_Agregar" />
             
-
             <br />
             <div id="ContenedorGrilla" runat="server" style="width: 95%" align="center">
                 <div id="ContenedorServicios" runat="server" style="width: 95%"></div>
             </div>
-        </div>
+        
+
+
+            <div>
+                <asp:Label ID="lblTiempoNoComputable" runat="server" Text="Tiempo No Computable " />
+                Años: <input type="text" id="txtAños" value="00" style="width: 40px" />
+                Meses: <input type="text" id="txtMeses" value="00" style="width: 40px" />
+                Dias: <input type="text" id="txtDias" value="00" style="width: 40px" />
+            </div>
 
 
             <br/>
@@ -148,3 +146,4 @@
 
 
 </html>
+

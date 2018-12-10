@@ -21,12 +21,13 @@ $("#btn_Estado").click(function () {
 $("#btn_Privado").click(function () {
     CargarGrilla("PRIVADO");
 });
+
 $("#btn_AgregarServicio").click(function () {
     if (botonSeleccionado=="ESTADO") {
        window.open("CargaDeAntiguedadesAdmPublica.aspx?legajo=" + $('#legajo').text().trim() + "&documento=" + $('#documento').text().trim() + "&folio=" + "0");
     }
     if (botonSeleccionado == "PRIVADO") {
-        alert("abrir pagina privado");
+        window.open("CargaDeAntiguedadesAdmPrivada.aspx?legajo=" + $('#legajo').text().trim() + "&documento=" + $('#documento').text().trim() + "&folio=" + "0");
     }   
 });
 

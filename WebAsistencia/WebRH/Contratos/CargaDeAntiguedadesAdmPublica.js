@@ -68,7 +68,7 @@ var PanelFechas = function (cfg) {
 
 $("#btn_Agregar").click(function () {
 
-    if (ValidarDatos() == false) {
+    if (ValidarDatos("AGREGAR") == false) {
         return;
     }
 
@@ -135,13 +135,20 @@ $("#btn_Agregar").click(function () {
     //lista_de_serv_publico.append(ServPublico);
     lista_de_serv_publico.push(ServPublico);
     DibujarGrillaServPublico();
+
+
+    $("#txtOrganismo").val("");
+    $("#cmbCargo").val("");
+    $("#txtFechaDesde").val("");
+    $("#txtFechaHasta").val("");
+
 });
 
 
 $("#btn_Guardar").click(function () {
     //var aa = ServPublico;
 
-    if (ValidarDatos() == false) {
+    if (ValidarDatos("GUARDAR") == false) {
         return;
     }
 
@@ -171,7 +178,7 @@ $("#btn_Guardar").click(function () {
 
 
 
-function ValidarDatos() {
+function ValidarDatos(accion) {
     
         if ($("#cmbAmbitos").val() == 0) {
             alertify.alert("Debe cargar el ambito");
@@ -220,25 +227,28 @@ function ValidarDatos() {
         };
 
 
-        if ($("#txtOrganismo").val() == "") {
-            alertify.alert("Debe cargar el organismo");
-            return false;
-        };
+        if (accion == "AGREGAR") {
+            if ($("#txtOrganismo").val() == "") {
+                alertify.alert("Debe cargar el organismo");
+                return false;
+            };
 
-        if ($("#cmbCargo").val() == 0) {
-            alertify.alert("Debe cargar el cargo");
-            return false;
-        };
+            if ($("#cmbCargo").val() == 0) {
+                alertify.alert("Debe cargar el cargo");
+                return false;
+            };
 
-        if ($("#txtFechaDesde").val() == 0) {
-            alertify.alert("Debe cargar la fecha desde");
-            return false;
-        };
+            if ($("#txtFechaDesde").val() == 0) {
+                alertify.alert("Debe cargar la fecha desde");
+                return false;
+            };
 
-        if ($("#txtFechaHasta").val() == 0) {
-            alertify.alert("Debe cargar la fecha hasta");
-            return false;
-        };
+            if ($("#txtFechaHasta").val() == 0) {
+                alertify.alert("Debe cargar la fecha hasta");
+                return false;
+            };
+        }
+        
 
 
         //if (lista_de_serv_publico.length == 0) {
@@ -445,9 +455,9 @@ var CargarPantalla = function (ListaDeDatos) {
     if (pFolio == "0") {
 
         $("#cmbAmbitos").val(ambitoIdSeleccionado);
-        $('#NroFolio').val(0);
-        $('#NroFolioDesde').val(0);
-        $('#NroFolioHasta').val(0);
+        $('#NroFolio').val(00);
+        $('#NroFolioDesde').val(000);
+        $('#NroFolioHasta').val(000);
         $('#txtJurisdiccion').val(null);
         $('#txtCaja').val(null);
         $('#txtNroAfiliacion').val(null);
@@ -470,7 +480,7 @@ var CargarPantalla = function (ListaDeDatos) {
 
         $("#chkNoImprime").prop("checked", false);
         $("#DarDeBaja").prop("checked", false);
-        ("#txtCausaEgreso").val(null);
+        $("#txtCausaEgreso").val(null);
 
         lista_de_serv_publico.length == 0;
 

@@ -192,22 +192,22 @@ namespace General
 
                 foreach (var item in servicio)
                 {
-                    cn.CrearComandoConTransaccionIniciada("dbo.LEG_ADD_Servicios_Adm_Publica");
-                   cn.AsignarParametro("@Ambito_1", item.Ambito.Id); //  smallint,    
-                   cn.AsignarParametro("@Jurisdiccion_2", item.Jurisdiccion); //  [varchar](50),    
+                   cn.CrearComandoConTransaccionIniciada("dbo.LEG_ADD_Servicios_Adm_Publica");
+                   cn.AsignarParametro("@Ambito_1", servicio[servicio.Length - 1].Ambito.Id); //  smallint,    
+                   cn.AsignarParametro("@Jurisdiccion_2", servicio[servicio.Length - 1].Jurisdiccion); //  [varchar](50),    
                    cn.AsignarParametro("@Organismo_3",item.Organismo); //  [varchar](50),    
                    cn.AsignarParametro("@Cargo_4", item.Cargo.Id); //  smallint,    
-                   cn.AsignarParametro("@Remunerativo_5", item.Remunerativo); //  bit,    
+                   cn.AsignarParametro("@Remunerativo_5", servicio[servicio.Length - 1].Remunerativo); //  bit,    
                    cn.AsignarParametro("@Fecha_Desde_6", item.Fecha_Desde); //  [datetime],    
                    cn.AsignarParametro("@Fecha_Hasta_7", item.Fecha_Hasta); //  [datetime],    
-                   cn.AsignarParametro("@Causa_Egreso_8", item.Causa_Egreso); //  [varchar](100),    
-                   cn.AsignarParametro("@Folio_9", item.Folio); //  [char](10),    
+                   cn.AsignarParametro("@Causa_Egreso_8", servicio[servicio.Length - 1].Causa_Egreso); //  [varchar](100),    
+                   cn.AsignarParametro("@Folio_9", servicio[servicio.Length - 1].Folio); //  [char](10),    
                    cn.AsignarParametro("@Id_Interna_10", item.Id_Interna); //  [int],    
                    cn.AsignarParametro("@doc_tit_11", item.Doc_Titular); //   [int] ,    
-                   cn.AsignarParametro("@Caja_12", item.Caja); //  [varchar](50),     
-                   cn.AsignarParametro("@Afiliado_13", item.Afiliado); //  [varchar](50),    
-                   cn.AsignarParametro("@datonoimprime", item.datonoimprime); // bit,    
-                   cn.AsignarParametro("@Ctr_Cert", item.Ctr_Cert); // bit =null,    
+                   cn.AsignarParametro("@Caja_12", servicio[servicio.Length - 1].Caja); //  [varchar](50),     
+                   cn.AsignarParametro("@Afiliado_13", servicio[servicio.Length - 1].Afiliado); //  [varchar](50),    
+                   cn.AsignarParametro("@datonoimprime", servicio[servicio.Length - 1].datonoimprime); // bit,    
+                   cn.AsignarParametro("@Ctr_Cert", servicio[servicio.Length - 1].Ctr_Cert); // bit =null,    
                    cn.AsignarParametro("@Usuario", item.Usuario); // smallint
                    
                    cn.EjecutarSinResultado();
