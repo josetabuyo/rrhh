@@ -175,6 +175,21 @@ define(['jquery','underscore'], function ($, _) {
         change_tab(start_tab, tabs_events, false)
     }
 
+    var appendTabsTo = function (component_id) {
+        var tabs_events = this.tabs_events
+        $(component_id +' a[on_next]').unbind('click', on_next_click)
+        $(component_id + 'a[on_next]').click(tabs_events, on_next_click)
+
+        $(component_id + 'button[on_next]').unbind('click', on_next_click)
+        $(component_id + 'button[on_next]').click(tabs_events, on_next_click)
+
+        $(component_id + 'a[on_leave]').unbind('click', on_leave_click)
+        $(component_id + 'a[on_leave]').click(tabs_events, on_leave_click)
+
+        $(component_id + 'li[on_leave]').unbind('click', on_leave_click)
+        $(component_id + 'li[on_leave]').click(tabs_events, on_leave_click)
+    }
+
     var starting_tab = function () {
         return '#' + $('[role="tabpanel"]').first().attr('id')
     }
@@ -240,6 +255,7 @@ define(['jquery','underscore'], function ($, _) {
         setNextParameter: setNextParameter,
         goHome: goHome,
         formSubmitted: formSubmitted,
-        addTabs: addTabs
+        addTabs: addTabs,
+        appendTabsTo: appendTabsTo
     }
 })

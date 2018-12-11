@@ -119,7 +119,8 @@
                                 <td class="text">{{Lugar}}</td>
                                 <td class="text">{{Integrantes}}</td>
                                 <td class="text">
-                                    <a style="display: inline" data-toggle="tooltip" data-placement="top" title="Ver Detalle" class="detalle" href="#" on_next="#scr_evaluaciones/{{IdComite}}"><span class="fa fa fa-eye"></span></a>
+                                    <a style="display: inline" data-toggle="tooltip" data-placement="top" title="Ver Detalle" class="detalle" href="#" on_next="#scr_evaluaciones/{{IdComite}}" ><span class="fa fa fa-eye"></span></a>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -478,7 +479,7 @@
                                                     <td class="text-center">
                                                         <span style="display: inline">
                                                             <a style="display: inline" data-toggle="tooltip" data-placement="top" title="Reevaluar" class="text-info" href="#"><span class="fa fa fa-undo"></span></a>
-                                                            <a style="display: inline" data-toggle="tooltip" data-placement="top" title="Ver" class="nav-link" href="#"><span class="fa fa fa-eye"></span></a>
+                                                            <a style="display: inline" data-toggle="tooltip" data-placement="top" title="Ver" class="nav-link ver_eval" model_id="{{IdEvaluacion}}" href="#" ><span class="fa fa fa-eye"></span></a>
                                                             <a style="display: inline" data-toggle="tooltip" data-placement="top" title="Aprobar" class="text-success" href="#"><span class="fa fa fa-check-circle"></span></a>
                                                         </span>
                                                     </td>

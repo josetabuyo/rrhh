@@ -23,8 +23,8 @@
         cursor.EvaluacionesPendientes += ue.DetalleEvaluados.Pendiente;
         cursor.EvaluacionesProvisorias += ue.DetalleEvaluados.Provisoria;
         var contGDE = getSinGde(evals)
-        cursor.SinGDE += contGDE.SinGDE;
-        cursor.SinComite += contGDE.SinComite;
+        cursor.SinGDE += contGDE.SinGDE ? contGDE.SinGDE: 0;
+        cursor.SinComite += contGDE.SinComite ? contGDE.SinComite: 0;
         cursor.Finalizado = 0;
         cursor.ReunionesRealizadas = _.filter(comites, function (each) { return each.Periodo.Id == ue.IdPeriodo }).length
         

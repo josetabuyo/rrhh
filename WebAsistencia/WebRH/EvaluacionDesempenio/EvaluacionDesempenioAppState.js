@@ -272,6 +272,29 @@ define(['wsviaticos', 'underscore'], function (ws, _) {
         return fh.getDate() + '/' + (fh.getMonth() + 1) + '/' + (fh.getYear() + 1900)
     }
 
+    var GetAsignacionEvaluadoEvaluador = function (id_evaluacion) {
+        var asignaciones = JSON.parse(window.localStorage.getItem('ComitesDeEvaluacionData')).GetAgentesEvaluablesParaComites.asignaciones
+        var asignacion = _.find(asignaciones, a => a.evaluacion.id_evaluacion == id_evaluacion)
+        return asignacion
+    }
+
+
+    var PrintPdfEvaluacionDesempenio = function (asignacion, cb) {
+        var req = [{
+            nombre_metodo: "PrintPdfEvaluacionDesempenio",
+            argumentos_json: [JSON.stringify(asignacion)]
+        }]
+
+        ws.parallel(req, function (err, res) {
+            if (err) {
+                cb(err)
+                return
+            }
+            cb(null, res[0])
+        })
+    }
+
+
     //API del modulo
     return {
         FormatDate: FormatDate,
@@ -291,6 +314,8 @@ define(['wsviaticos', 'underscore'], function (ws, _) {
         EvalRemoveUnidadEvaluacionAComite: EvalRemoveUnidadEvaluacionAComite,
         OnStateChange: OnStateChange,
         StateChanged: StateChanged,
-        GetEvaluacionesUes: GetEvaluacionesUes
+        GetEvaluacionesUes: GetEvaluacionesUes,
+        GetAsignacionEvaluadoEvaluador: GetAsignacionEvaluadoEvaluador,
+        PrintPdfEvaluacionDesempenio: PrintPdfEvaluacionDesempenio
     }
 })

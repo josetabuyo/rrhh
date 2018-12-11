@@ -29,6 +29,7 @@
 
             var setup_componentes = function () {
                 spa_tabs.addTabs([tab_periodos, tab_unidades_evaluacion, tab_datos_generales, tab_integrantes, tab_evaluaciones, tab_reuniones_comite])
+                //esto changed es para que la grilla de periodos se actualice cuando se agrega un comite.
                 app_state.StateChanged()
             }
 
