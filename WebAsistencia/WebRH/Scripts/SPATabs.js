@@ -154,7 +154,9 @@ define(['jquery','underscore'], function ($, _) {
     /// }, ...
     ///]
     var createTabs = function () {
-        var tabs_events = this.tabs_events
+
+        appendTabsTo('', this.tabs_events)
+        /*var tabs_events = this.tabs_events
         $('a[on_next]').unbind('click', on_next_click)
         $('a[on_next]').click(tabs_events, on_next_click)
 
@@ -172,12 +174,21 @@ define(['jquery','underscore'], function ($, _) {
         if (location.hash === "") {
             start_tab = starting_tab()
         }
+        change_tab(start_tab, tabs_events, false)*/
+
+        //start in the tab form the url
+        var start_tab = location.hash
+        if (location.hash === "") {
+            start_tab = starting_tab()
+        }
         change_tab(start_tab, tabs_events, false)
     }
 
-    var appendTabsTo = function (component_id) {
-        var tabs_events = this.tabs_events
-        $(component_id +' a[on_next]').unbind('click', on_next_click)
+    var appendTabsTo = function (component_id, tabs_events ) {
+        this.tabs_events = this.tabs_events || tabs_events
+        tabs_events = this.tabs_events
+        if (component_id) component_id += ' '
+        $(component_id + 'a[on_next]').unbind('click', on_next_click)
         $(component_id + 'a[on_next]').click(tabs_events, on_next_click)
 
         $(component_id + 'button[on_next]').unbind('click', on_next_click)
@@ -188,6 +199,8 @@ define(['jquery','underscore'], function ($, _) {
 
         $(component_id + 'li[on_leave]').unbind('click', on_leave_click)
         $(component_id + 'li[on_leave]').click(tabs_events, on_leave_click)
+
+      
     }
 
     var starting_tab = function () {
