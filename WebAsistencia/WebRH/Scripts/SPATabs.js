@@ -156,25 +156,6 @@ define(['jquery','underscore'], function ($, _) {
     var createTabs = function () {
 
         appendTabsTo('', this.tabs_events)
-        /*var tabs_events = this.tabs_events
-        $('a[on_next]').unbind('click', on_next_click)
-        $('a[on_next]').click(tabs_events, on_next_click)
-
-        $('button[on_next]').unbind('click', on_next_click)
-        $('button[on_next]').click(tabs_events, on_next_click)
-
-        $('a[on_leave]').unbind('click', on_leave_click)
-        $('a[on_leave]').click(tabs_events, on_leave_click)
-
-        $('li[on_leave]').unbind('click', on_leave_click)
-        $('li[on_leave]').click(tabs_events, on_leave_click)
-
-        //start in the tab form the url
-        var start_tab = location.hash
-        if (location.hash === "") {
-            start_tab = starting_tab()
-        }
-        change_tab(start_tab, tabs_events, false)*/
 
         //start in the tab form the url
         var start_tab = location.hash
