@@ -17,11 +17,11 @@
     <uc2:BarraMenu ID="BarraMenu1" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'></span>"
         UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <div>
-        <div style="margin-top: 40px" align="center">
+        <div style="margin-top: 40px" align="center" >
             <div style="display: block; width: 50%; padding: 0; margin-bottom: 27px; font-size: 19.5px;
                 line-height: 36px; color: #333333; border: 0; border-bottom: 1px solid #e5e5e5;
                 text-shadow: 2px 2px 5px rgba(150, 150, 150, 1); text-align: left;">
-                Carga de Servicio de Administracion Publica
+                Carga de Servicio de Administracion
             </div>
         </div>
 
@@ -107,8 +107,6 @@
                 <input type="text" id="txtCausaEgreso" value="" style="width: 400px" />
             </div>
 
-            <input type="checkbox" name="chkNoImprime" value="0" /> No Imprime 
-            <br/>
             <input type="checkbox" name="DarDeBaja" value="0" /> Dar de Baja
 
             <br /><br />

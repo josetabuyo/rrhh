@@ -3,6 +3,7 @@ var valores;
 var pLegajo;
 var pDocumento;
 var pFolio;
+var pServicio;
 var pUsuarioLogueado;
 var ambitoIdSeleccionado;
 var ambitoDescripSeleccionado;
@@ -20,6 +21,7 @@ Backend.start(function () {
         pLegajo = valores['legajo'];
         pDocumento = valores['documento'];
         pFolio = valores['folio'];
+        pServicio = valores['servicio'];
 
         completarComboAmbitos();
         completarComboCargo();
@@ -31,6 +33,24 @@ Backend.start(function () {
         ConsultarServicioAdmPublica();
     });
 });
+
+
+function getParametrosURL() {
+    // url
+    var loc = document.location.href;
+    // si existe el signo ?
+    if (loc.indexOf('?') > 0) {
+        var getString = loc.split('?')[1];
+        var GET = getString.split('&');
+        var get = {};
+        for (var i = 0, l = GET.length; i < l; i++) {
+            var tmp = GET[i].split('=');
+            get[tmp[0]] = unescape(decodeURI(tmp[1]));
+        }
+        return get;
+    }
+}
+
 
 var GetUsuario = function () {
     Backend.GetUsuarioLogueado()
@@ -98,12 +118,12 @@ $("#btn_Agregar").click(function () {
     ServPublico.Caja = $('#txtCaja').val();
     ServPublico.Afiliado = $('#txtNroAfiliacion').val();
 
-    if ($("#chkNoImprime").checked) {
-        ServPublico.datonoimprime = true;
-    }
-    else {
-        ServPublico.datonoimprime = false;
-    }
+//    if ($("#chkNoImprime").checked) {
+//        ServPublico.datonoimprime = true;
+//    }
+//    else {
+//        ServPublico.datonoimprime = false;
+//    }
 
     if ($("#DarDeBaja").checked) {
         ServPublico.DatoDeBaja = true;
@@ -265,21 +285,7 @@ function ValidarDatos(accion) {
 };
 
 
-function getParametrosURL() {
-    // url
-    var loc = document.location.href;
-    // si existe el signo ?
-    if (loc.indexOf('?') > 0) {
-        var getString = loc.split('?')[1];
-        var GET = getString.split('&');
-        var get = {};
-        for (var i = 0, l = GET.length; i < l; i++) {
-            var tmp = GET[i].split('=');
-            get[tmp[0]] = unescape(decodeURI(tmp[1]));
-        }
-        return get;
-    }
-}
+
 
 
 var FormatearFecha = function (p_fecha) {
@@ -395,7 +401,7 @@ var completarComboCargo = function () {
 var ConsultarServicioAdmPublica = function (documento) {
     spinner = new Spinner({ scale: 2 }).spin($("body")[0]);
 
-    Backend.GET_Servicios_Adm_Publica_Detalles(pLegajo, pFolio)
+    Backend.GET_Servicios_Adm_Detalles(pLegajo, pFolio, pServicio)
     .onSuccess(function (respuesta) {
         lista_de_serv_publico = respuesta;
         CargarPantalla(lista_de_serv_publico);
@@ -405,7 +411,7 @@ var ConsultarServicioAdmPublica = function (documento) {
     .onError(function (error, as, asd) {
         alertify.alert("", error);
         spinner.stop();
-        LimpiarPantalla();
+        //LimpiarPantalla();
     });
 };
 
@@ -442,9 +448,9 @@ var CargarPantalla = function (ListaDeDatos) {
 
         $('#txtCausaEgreso').val(lista_de_serv_publico[0].Causa_Egreso);
 
-        if (lista_de_serv_publico[0].datonoimprime == true) {
-            $("#chkNoImprime").prop("checked", true);
-        }
+//        if (lista_de_serv_publico[0].datonoimprime == true) {
+//            $("#chkNoImprime").prop("checked", true);
+//        }
 
         if (lista_de_serv_publico[0].DatoDeBaja == true) {
             $("#DarDeBaja").prop("checked", true);
@@ -470,7 +476,7 @@ var CargarPantalla = function (ListaDeDatos) {
         $("#rdTipoDocumentoOTR").prop("checked", false);
 
         $('#txtCausaEgreso').val(null);
-        $("#chkNoImprime").prop("checked", false);
+        //$("#chkNoImprime").prop("checked", false);
         $("#DarDeBaja").prop("checked", false);
 
         $("#txtOrganismo").val(null);
@@ -478,7 +484,7 @@ var CargarPantalla = function (ListaDeDatos) {
         $("#txtFechaDesde").val(null);
         $("#txtFechaHasta").val(null);
 
-        $("#chkNoImprime").prop("checked", false);
+        //$("#chkNoImprime").prop("checked", false);
         $("#DarDeBaja").prop("checked", false);
         $("#txtCausaEgreso").val(null);
 
@@ -561,8 +567,6 @@ var DibujarGrillaServPublico = function () {
                 return cont;
             } 
             }),
-
-
 
         ]);
 

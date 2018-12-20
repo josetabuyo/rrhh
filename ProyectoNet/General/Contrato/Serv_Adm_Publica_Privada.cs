@@ -22,12 +22,12 @@ namespace General.Contrato
         public string Caja { get; set; }
         public string Afiliado { get; set; }
         public bool DatoDeBaja { get; set; }
-        public bool datonoimprime { get; set; }
+        //public bool datonoimprime { get; set; }
         public bool Ctr_Cert { get; set; }
         public Int16 Usuario { get; set; }
         public DateTime Fecha_Carga { get; set; }
 
-        public string Institucion { get; set; }
+        //public string Institucion { get; set; }
         public string Domicilio { get; set; }
 
 

@@ -44,6 +44,38 @@ namespace General
         }
 
 
+        public List<Serv_Adm_Publica_Privada> GetServicios_Adm_Privada_Principal(int documento, Usuario usuario)
+        {
+            SqlDataReader dr;
+            ConexionDB cn = new ConexionDB("dbo.LEG_GET_Servicios_Adm_Privada_Principal");
+            cn.AsignarParametro("@Documento", documento);
+
+            dr = cn.EjecutarConsulta();
+
+            Serv_Adm_Publica_Privada Servicio;
+            List<Serv_Adm_Publica_Privada> listaServAdmPubica = new List<Serv_Adm_Publica_Privada>();
+
+            while (dr.Read())
+            {
+                Servicio = new Serv_Adm_Publica_Privada();
+                Servicio.Id = dr.GetInt32(dr.GetOrdinal("Id"));
+                Servicio.Ambito = new Ambito();
+                Servicio.Ambito.Descripcion = dr.GetString(dr.GetOrdinal("Ambito"));
+                Servicio.Organismo = dr.GetString(dr.GetOrdinal("Institucion"));
+                Servicio.Folio = dr.GetString(dr.GetOrdinal("Folio"));
+                Servicio.Caja = dr.GetString(dr.GetOrdinal("Caja"));
+                Servicio.Afiliado = dr.GetString(dr.GetOrdinal("Afiliado"));
+
+                listaServAdmPubica.Add(Servicio);
+            }
+
+            cn.Desconestar();
+
+            return listaServAdmPubica;
+        }
+
+
+
         public List<Serv_Adm_Publica_Privada> GetOtrosServicios(int documento, Usuario usuario)
         {
             SqlDataReader dr;
@@ -59,7 +91,7 @@ namespace General
             {
                 Servicio = new Serv_Adm_Publica_Privada();
                 Servicio.Id = dr.GetInt32(dr.GetOrdinal("Id"));
-                Servicio.Institucion = dr.GetString(dr.GetOrdinal("Institucion"));
+                Servicio.Organismo = dr.GetString(dr.GetOrdinal("Institucion"));
                 Servicio.Domicilio = dr.GetString(dr.GetOrdinal("Domicilio"));
                 Servicio.Cargo = new Cargo();
                 Servicio.Cargo.Id = dr.GetInt16(dr.GetOrdinal("Cargo"));
@@ -71,7 +103,7 @@ namespace General
                 Servicio.Afiliado = dr.GetString(dr.GetOrdinal("Afiliado"));
                 Servicio.Folio = dr.GetString(dr.GetOrdinal("Folio"));
                 Servicio.DatoDeBaja = dr.GetBoolean(dr.GetOrdinal("datodebaja"));
-                Servicio.datonoimprime = dr.GetBoolean(dr.GetOrdinal("datonoimprime"));
+                //Servicio.datonoimprime = dr.GetBoolean(dr.GetOrdinal("datonoimprime"));
 
                 listaOtrosServicios.Add(Servicio);
             }
@@ -162,7 +194,7 @@ namespace General
                 Servicio.Caja = dr.GetString(dr.GetOrdinal("caja"));
                 Servicio.Afiliado = dr.GetString(dr.GetOrdinal("afiliado"));
                 Servicio.DatoDeBaja = dr.GetBoolean(dr.GetOrdinal("datodebaja"));
-                Servicio.datonoimprime = dr.GetBoolean(dr.GetOrdinal("datonoimprime"));
+                //Servicio.datonoimprime = dr.GetBoolean(dr.GetOrdinal("datonoimprime"));
                 Servicio.Ctr_Cert = dr.GetBoolean(dr.GetOrdinal("ctr_cert"));
                 Servicio.Usuario = dr.GetInt16(dr.GetOrdinal("Usuario"));
                 Servicio.Fecha_Carga = dr.GetDateTime(dr.GetOrdinal("fecha_carga"));
@@ -206,7 +238,7 @@ namespace General
                    cn.AsignarParametro("@doc_tit_11", item.Doc_Titular); //   [int] ,    
                    cn.AsignarParametro("@Caja_12", servicio[servicio.Length - 1].Caja); //  [varchar](50),     
                    cn.AsignarParametro("@Afiliado_13", servicio[servicio.Length - 1].Afiliado); //  [varchar](50),    
-                   cn.AsignarParametro("@datonoimprime", servicio[servicio.Length - 1].datonoimprime); // bit,    
+                   //cn.AsignarParametro("@datonoimprime", servicio[servicio.Length - 1].datonoimprime); // bit,    
                    cn.AsignarParametro("@Ctr_Cert", servicio[servicio.Length - 1].Ctr_Cert); // bit =null,    
                    cn.AsignarParametro("@Usuario", item.Usuario); // smallint
                    
@@ -227,6 +259,53 @@ namespace General
             return true;
 
         }
+
+
+        public List<Serv_Adm_Publica_Privada> GET_Servicios_Adm_Privada_Detalles(int legajo, string folio, Usuario usuario)
+        {
+            SqlDataReader dr;
+            ConexionDB cn = new ConexionDB("dbo.LEG_GET_Servicios_Adm_Privada_Detalles");
+            cn.AsignarParametro("@Id_interna", legajo);
+            cn.AsignarParametro("@Folio", folio);
+
+            dr = cn.EjecutarConsulta();
+
+            Serv_Adm_Publica_Privada Servicio;
+            List<Serv_Adm_Publica_Privada> listaServAdmPrivada = new List<Serv_Adm_Publica_Privada>();
+
+            while (dr.Read())
+            {
+                Servicio = new Serv_Adm_Publica_Privada();
+                Servicio.Id = dr.GetInt32(dr.GetOrdinal("Id"));
+                Servicio.Ambito = new Ambito();
+                Servicio.Ambito.Id = dr.GetInt16(dr.GetOrdinal("ambito"));
+                Servicio.Organismo = dr.GetString(dr.GetOrdinal("institucion"));
+                Servicio.Cargo = new Cargo();
+                Servicio.Cargo.Id = dr.GetInt16(dr.GetOrdinal("Id_Cargo"));
+                Servicio.Cargo.Descripcion = dr.GetString(dr.GetOrdinal("cargo"));
+                Servicio.Remunerativo = dr.GetBoolean(dr.GetOrdinal("remunerativo"));
+                Servicio.Fecha_Desde = dr.GetDateTime(dr.GetOrdinal("fecha_desde"));
+                Servicio.Fecha_Hasta = dr.GetDateTime(dr.GetOrdinal("fecha_hasta"));
+                Servicio.Causa_Egreso = dr.GetString(dr.GetOrdinal("causa_egreso"));
+                Servicio.Folio = dr.GetString(dr.GetOrdinal("folio"));
+                Servicio.Id_Interna = dr.GetInt32(dr.GetOrdinal("id_interna"));
+                Servicio.Doc_Titular = dr.GetInt32(dr.GetOrdinal("documento"));
+                Servicio.Caja = dr.GetString(dr.GetOrdinal("caja"));
+                Servicio.Afiliado = dr.GetString(dr.GetOrdinal("afiliado"));
+                Servicio.DatoDeBaja = dr.GetBoolean(dr.GetOrdinal("datodebaja"));
+                //Servicio.datonoimprime = dr.GetBoolean(dr.GetOrdinal("datonoimprime"));
+                Servicio.Ctr_Cert = dr.GetBoolean(dr.GetOrdinal("Ctr_Cert"));
+                Servicio.Usuario = dr.GetInt16(dr.GetOrdinal("Usuario"));
+                Servicio.Fecha_Carga = dr.GetDateTime(dr.GetOrdinal("Fecha_Carga"));
+                
+                listaServAdmPrivada.Add(Servicio);
+            }
+
+            cn.Desconestar();
+
+            return listaServAdmPrivada;
+        }
+
 
 
     }

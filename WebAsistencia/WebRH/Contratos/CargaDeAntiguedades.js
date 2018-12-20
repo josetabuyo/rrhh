@@ -16,19 +16,20 @@ Backend.start(function () {
 
 
 $("#btn_Estado").click(function () {
-    CargarGrilla("ESTADO");
+    CargarGrilla("PUBLICO");
 });
 $("#btn_Privado").click(function () {
     CargarGrilla("PRIVADO");
 });
 
 $("#btn_AgregarServicio").click(function () {
-    if (botonSeleccionado=="ESTADO") {
-       window.open("CargaDeAntiguedadesAdmPublica.aspx?legajo=" + $('#legajo').text().trim() + "&documento=" + $('#documento').text().trim() + "&folio=" + "0");
-    }
-    if (botonSeleccionado == "PRIVADO") {
-        window.open("CargaDeAntiguedadesAdmPrivada.aspx?legajo=" + $('#legajo').text().trim() + "&documento=" + $('#documento').text().trim() + "&folio=" + "0");
-    }   
+    window.open("CargaDeAntiguedadesAdmPublica.aspx?legajo=" + $('#legajo').text().trim() + "&documento=" + $('#documento').text().trim() + "&folio=0" + "&servicio=" + botonSeleccionado);
+//    if (botonSeleccionado=="ESTADO") {
+//       window.open("CargaDeAntiguedadesAdmPublica.aspx?legajo=" + $('#legajo').text().trim() + "&documento=" + $('#documento').text().trim() + "&folio= 0" + "&servicio= E");
+//    }
+//    if (botonSeleccionado == "PRIVADO") {
+//        window.open("CargaDeAntiguedadesAdmPublica.aspx?legajo=" + $('#legajo').text().trim() + "&documento=" + $('#documento').text().trim() + "&folio= 0" + "&servicio= P");
+//    }   
 });
 
 var LimpiarPantalla = function () {
@@ -72,7 +73,7 @@ var CargarGrilla = function (boton) {
     //        alert("NO PASA");
     //    };
 
-    if (botonSeleccionado == "ESTADO") {
+    if (botonSeleccionado == "PUBLICO") {
         ConsultarServicioAdmPublica(documento);
     }
 
@@ -136,7 +137,7 @@ var DibujarGrillaServPublico = function () {
             new Columna("Caja", { generar: function (consulta) { return consulta.Caja; } }),
             new Columna("Afiliado", { generar: function (consulta) { return consulta.Afiliado; } }),
 
-            new Columna("Ver", { generar: function (consulta) {
+            new Columna("Modif.", { generar: function (consulta) {
                 //return consulta.Afiliado; 
                 var cont = $('<div>');
 
@@ -159,7 +160,7 @@ var DibujarGrillaServPublico = function () {
                         //$('#div_tabla_informes').hide();
                         //_this.FiltrarPersonasParaTablaDetalle(un_registro.Id, tabla_detalle);
                         //window.open("CargaDeAntiguedadesAdmPublica.aspx?legajo=" + $('#legajo').text().trim() + "&" + "folio=" + consulta.Folio);
-                        window.open("CargaDeAntiguedadesAdmPublica.aspx?legajo=" + $('#legajo').text().trim() + "&documento=" + $('#documento').text().trim() + "&folio=" + consulta.Folio);
+                        window.open("CargaDeAntiguedadesAdmPublica.aspx?legajo=" + $('#legajo').text().trim() + "&documento=" + $('#documento').text().trim() + "&folio=" + consulta.Folio + "&servicio=" + botonSeleccionado);
 
                         spinner.stop();
                     }, 10);
@@ -186,7 +187,7 @@ var DibujarGrillaServPublico = function () {
 var ConsultarOtrosServicios = function (documento) {
     spinner = new Spinner({ scale: 2 }).spin($("body")[0]);
 
-    Backend.GetOtrosServicios(documento)
+    Backend.GetServicios_Adm_Privada_Principal(documento)
     .onSuccess(function (respuesta) {
         lista_de_otros_servicios = respuesta;
         DibujarGrillaOtrosServicios();
@@ -229,19 +230,46 @@ var DibujarGrillaOtrosServicios = function () {
     //            }
     //            }),
             new Columna("Id", { generar: function (consulta) { return consulta.Id; } }),
-            new Columna("Institucion", { generar: function (consulta) { return consulta.Institucion; } }),
-            new Columna("Domicilio", { generar: function (consulta) { return consulta.Domicilio; } }),
-            new Columna("Cargo", { generar: function (consulta) { return consulta.Cargo; } }),
-            new Columna("Remunerativo", { generar: function (consulta) { return consulta.Remunerativo; } }),
-            new Columna("Fecha_Desde", { generar: function (consulta) { return FormatearFecha(consulta.Fecha_Desde); } }),
-            new Columna("Fecha_Hasta", { generar: function (consulta) { return consulta.Fecha_Hasta; } }),
-            new Columna("Causa_Egreso", { generar: function (consulta) { return consulta.Causa_Egreso; } }),
+            new Columna("Ambito", { generar: function (consulta) { return consulta.Ambito.Descripcion; } }),
+            new Columna("Razon Social", { generar: function (consulta) { return consulta.Organismo; } }),
+            new Columna("Folio", { generar: function (consulta) { return consulta.Folio; } }),
             new Columna("Caja", { generar: function (consulta) { return consulta.Caja; } }),
             new Columna("Afiliado", { generar: function (consulta) { return consulta.Afiliado; } }),
-            new Columna("Folio", { generar: function (consulta) { return consulta.Folio; } })
-            
-            ]);
 
+            new Columna("Modif.", { generar: function (consulta) {
+                //return consulta.Afiliado; 
+                var cont = $('<div>');
+
+                //if (consulta.Id == 0) return cont;
+
+                var btn_accion = $('<a>');
+                var img = $('<img>');
+                img.attr('src', '../Imagenes/detalle.png');
+                img.attr('width', '15px');
+                img.attr('height', '15px');
+                btn_accion.attr('style', 'display:inline-block');
+                btn_accion.append(img);
+                btn_accion.click(function () {
+                    var spinner = new Spinner({ scale: 3 });
+                    spinner.spin($("html")[0]);
+
+                    setTimeout(function () {
+                        //checks_activos = ["GraficoPorArea"];
+                        //$('#div_tabla_detalle').hide();
+                        //$('#div_tabla_informes').hide();
+                        //_this.FiltrarPersonasParaTablaDetalle(un_registro.Id, tabla_detalle);
+                        //window.open("CargaDeAntiguedadesAdmPublica.aspx?legajo=" + $('#legajo').text().trim() + "&" + "folio=" + consulta.Folio);
+                        window.open("CargaDeAntiguedadesAdmPublica.aspx?legajo=" + $('#legajo').text().trim() + "&documento=" + $('#documento').text().trim() + "&folio=" + consulta.Folio + "&servicio=" + botonSeleccionado);
+
+                        spinner.stop();
+                    }, 10);
+
+                });
+                cont.append(btn_accion);
+                return cont;
+            } 
+            }),
+            ]);
 
     grilla.CargarObjetos(lista_de_otros_servicios);
     grilla.DibujarEn(ContenedorGrilla);

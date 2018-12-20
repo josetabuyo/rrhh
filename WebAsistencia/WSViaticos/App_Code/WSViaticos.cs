@@ -5394,6 +5394,45 @@ public class WSViaticos : System.Web.Services.WebService
         var RepositorioServAdm = new RepositorioServicios();
         return RepositorioServAdm.GetServicios_Adm_Publica_Principal(nroDocumento, usuario).ToArray();
     }
+    [WebMethod]
+    public Serv_Adm_Publica_Privada[] GetServicios_Adm_Privada_Principal(int nroDocumento, Usuario usuario)
+    {
+        var RepositorioServAdm = new RepositorioServicios();
+        return RepositorioServAdm.GetServicios_Adm_Privada_Principal(nroDocumento, usuario).ToArray();
+    }
+
+
+    [WebMethod]
+    public Serv_Adm_Publica_Privada[] GET_Servicios_Adm_Detalles(int legajo, string folio, string servicio, Usuario usuario)
+    {
+        var RepositorioServAdm = new RepositorioServicios();
+
+        if (servicio == "PUBLICO")
+        {
+            return RepositorioServAdm.GET_Servicios_Adm_Publica_Detalles(legajo, folio, usuario).ToArray();    
+        }
+
+        if (servicio == "PRIVADO")
+        {
+            return RepositorioServAdm.GET_Servicios_Adm_Privada_Detalles(legajo, folio, usuario).ToArray();
+        }
+
+        return null;
+    }
+    
+    [WebMethod]
+    public Serv_Adm_Publica_Privada[] GET_Servicios_Adm_Publica_Detalles(int legajo, string folio, Usuario usuario)
+    {
+        var RepositorioServAdm = new RepositorioServicios();
+        return RepositorioServAdm.GET_Servicios_Adm_Publica_Detalles(legajo, folio, usuario).ToArray();
+    }
+    
+    [WebMethod]
+    public Serv_Adm_Publica_Privada[] GET_Servicios_Adm_Privada_Detalles(int legajo, string folio, Usuario usuario)
+    {
+        var RepositorioServAdm = new RepositorioServicios();
+        return RepositorioServAdm.GET_Servicios_Adm_Privada_Detalles(legajo, folio, usuario).ToArray();
+    }
 
 
     [WebMethod]
@@ -5441,20 +5480,17 @@ public class WSViaticos : System.Web.Services.WebService
 
 
     [WebMethod]
-    public Serv_Adm_Publica_Privada[] GET_Servicios_Adm_Publica_Detalles(int legajo, string folio, Usuario usuario)
-    {
-        var RepositorioServAdm = new RepositorioServicios();
-        return RepositorioServAdm.GET_Servicios_Adm_Publica_Detalles(legajo, folio, usuario).ToArray();
-    }
-
-
-    [WebMethod]
     public bool Alta_Servicios_Adm_Publica(Serv_Adm_Publica_Privada[] servicio, Usuario usuario)
     {
         var RepositorioServAdm = new RepositorioServicios();
         return RepositorioServAdm.Alta_Servicios_Adm_Publica(servicio, usuario);
-        
+
     }
+
+    
+
+
+  
 
 
 

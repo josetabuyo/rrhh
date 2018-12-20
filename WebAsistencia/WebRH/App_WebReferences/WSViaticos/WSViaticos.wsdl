@@ -228,11 +228,9 @@
           <s:element minOccurs="0" maxOccurs="1" name="Caja" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Afiliado" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="DatoDeBaja" type="s:boolean" />
-          <s:element minOccurs="1" maxOccurs="1" name="datonoimprime" type="s:boolean" />
           <s:element minOccurs="1" maxOccurs="1" name="Ctr_Cert" type="s:boolean" />
           <s:element minOccurs="1" maxOccurs="1" name="Usuario" type="s:short" />
           <s:element minOccurs="1" maxOccurs="1" name="Fecha_Carga" type="s:dateTime" />
-          <s:element minOccurs="0" maxOccurs="1" name="Institucion" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Domicilio" type="s:string" />
         </s:sequence>
       </s:complexType>
@@ -248,6 +246,70 @@
           <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
         </s:sequence>
       </s:complexType>
+      <s:element name="GET_Servicios_Adm_Detalles">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="legajo" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="folio" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="servicio" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GET_Servicios_Adm_DetallesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GET_Servicios_Adm_DetallesResult" type="tns:ArrayOfServ_Adm_Publica_Privada" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GET_Servicios_Adm_Publica_Detalles">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="legajo" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="folio" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GET_Servicios_Adm_Publica_DetallesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GET_Servicios_Adm_Publica_DetallesResult" type="tns:ArrayOfServ_Adm_Publica_Privada" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetServicios_Adm_Privada_Principal">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="nroDocumento" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetServicios_Adm_Privada_PrincipalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetServicios_Adm_Privada_PrincipalResult" type="tns:ArrayOfServ_Adm_Publica_Privada" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GET_Servicios_Adm_Privada_Detalles">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="legajo" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="folio" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GET_Servicios_Adm_Privada_DetallesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GET_Servicios_Adm_Privada_DetallesResult" type="tns:ArrayOfServ_Adm_Publica_Privada" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetOtrosServicios">
         <s:complexType>
           <s:sequence>
@@ -291,22 +353,6 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="GetCargosResult" type="tns:ArrayOfGeneralCombos" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GET_Servicios_Adm_Publica_Detalles">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="legajo" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="folio" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GET_Servicios_Adm_Publica_DetallesResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GET_Servicios_Adm_Publica_DetallesResult" type="tns:ArrayOfServ_Adm_Publica_Privada" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -8025,6 +8071,30 @@
   <wsdl:message name="GetServicios_Adm_Publica_PrincipalSoapOut">
     <wsdl:part name="parameters" element="tns:GetServicios_Adm_Publica_PrincipalResponse" />
   </wsdl:message>
+  <wsdl:message name="GET_Servicios_Adm_DetallesSoapIn">
+    <wsdl:part name="parameters" element="tns:GET_Servicios_Adm_Detalles" />
+  </wsdl:message>
+  <wsdl:message name="GET_Servicios_Adm_DetallesSoapOut">
+    <wsdl:part name="parameters" element="tns:GET_Servicios_Adm_DetallesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GET_Servicios_Adm_Publica_DetallesSoapIn">
+    <wsdl:part name="parameters" element="tns:GET_Servicios_Adm_Publica_Detalles" />
+  </wsdl:message>
+  <wsdl:message name="GET_Servicios_Adm_Publica_DetallesSoapOut">
+    <wsdl:part name="parameters" element="tns:GET_Servicios_Adm_Publica_DetallesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetServicios_Adm_Privada_PrincipalSoapIn">
+    <wsdl:part name="parameters" element="tns:GetServicios_Adm_Privada_Principal" />
+  </wsdl:message>
+  <wsdl:message name="GetServicios_Adm_Privada_PrincipalSoapOut">
+    <wsdl:part name="parameters" element="tns:GetServicios_Adm_Privada_PrincipalResponse" />
+  </wsdl:message>
+  <wsdl:message name="GET_Servicios_Adm_Privada_DetallesSoapIn">
+    <wsdl:part name="parameters" element="tns:GET_Servicios_Adm_Privada_Detalles" />
+  </wsdl:message>
+  <wsdl:message name="GET_Servicios_Adm_Privada_DetallesSoapOut">
+    <wsdl:part name="parameters" element="tns:GET_Servicios_Adm_Privada_DetallesResponse" />
+  </wsdl:message>
   <wsdl:message name="GetOtrosServiciosSoapIn">
     <wsdl:part name="parameters" element="tns:GetOtrosServicios" />
   </wsdl:message>
@@ -8042,12 +8112,6 @@
   </wsdl:message>
   <wsdl:message name="GetCargosSoapOut">
     <wsdl:part name="parameters" element="tns:GetCargosResponse" />
-  </wsdl:message>
-  <wsdl:message name="GET_Servicios_Adm_Publica_DetallesSoapIn">
-    <wsdl:part name="parameters" element="tns:GET_Servicios_Adm_Publica_Detalles" />
-  </wsdl:message>
-  <wsdl:message name="GET_Servicios_Adm_Publica_DetallesSoapOut">
-    <wsdl:part name="parameters" element="tns:GET_Servicios_Adm_Publica_DetallesResponse" />
   </wsdl:message>
   <wsdl:message name="Alta_Servicios_Adm_PublicaSoapIn">
     <wsdl:part name="parameters" element="tns:Alta_Servicios_Adm_Publica" />
@@ -10364,6 +10428,22 @@
       <wsdl:input message="tns:GetServicios_Adm_Publica_PrincipalSoapIn" />
       <wsdl:output message="tns:GetServicios_Adm_Publica_PrincipalSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GET_Servicios_Adm_Detalles">
+      <wsdl:input message="tns:GET_Servicios_Adm_DetallesSoapIn" />
+      <wsdl:output message="tns:GET_Servicios_Adm_DetallesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GET_Servicios_Adm_Publica_Detalles">
+      <wsdl:input message="tns:GET_Servicios_Adm_Publica_DetallesSoapIn" />
+      <wsdl:output message="tns:GET_Servicios_Adm_Publica_DetallesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetServicios_Adm_Privada_Principal">
+      <wsdl:input message="tns:GetServicios_Adm_Privada_PrincipalSoapIn" />
+      <wsdl:output message="tns:GetServicios_Adm_Privada_PrincipalSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GET_Servicios_Adm_Privada_Detalles">
+      <wsdl:input message="tns:GET_Servicios_Adm_Privada_DetallesSoapIn" />
+      <wsdl:output message="tns:GET_Servicios_Adm_Privada_DetallesSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetOtrosServicios">
       <wsdl:input message="tns:GetOtrosServiciosSoapIn" />
       <wsdl:output message="tns:GetOtrosServiciosSoapOut" />
@@ -10375,10 +10455,6 @@
     <wsdl:operation name="GetCargos">
       <wsdl:input message="tns:GetCargosSoapIn" />
       <wsdl:output message="tns:GetCargosSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GET_Servicios_Adm_Publica_Detalles">
-      <wsdl:input message="tns:GET_Servicios_Adm_Publica_DetallesSoapIn" />
-      <wsdl:output message="tns:GET_Servicios_Adm_Publica_DetallesSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="Alta_Servicios_Adm_Publica">
       <wsdl:input message="tns:Alta_Servicios_Adm_PublicaSoapIn" />
@@ -11932,6 +12008,42 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GET_Servicios_Adm_Detalles">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GET_Servicios_Adm_Detalles" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET_Servicios_Adm_Publica_Detalles">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GET_Servicios_Adm_Publica_Detalles" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetServicios_Adm_Privada_Principal">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetServicios_Adm_Privada_Principal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET_Servicios_Adm_Privada_Detalles">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GET_Servicios_Adm_Privada_Detalles" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetOtrosServicios">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetOtrosServicios" style="document" />
       <wsdl:input>
@@ -11952,15 +12064,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetCargos">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetCargos" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GET_Servicios_Adm_Publica_Detalles">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GET_Servicios_Adm_Publica_Detalles" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -15445,6 +15548,42 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GET_Servicios_Adm_Detalles">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GET_Servicios_Adm_Detalles" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET_Servicios_Adm_Publica_Detalles">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GET_Servicios_Adm_Publica_Detalles" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetServicios_Adm_Privada_Principal">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetServicios_Adm_Privada_Principal" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET_Servicios_Adm_Privada_Detalles">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GET_Servicios_Adm_Privada_Detalles" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetOtrosServicios">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetOtrosServicios" style="document" />
       <wsdl:input>
@@ -15465,15 +15604,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetCargos">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetCargos" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GET_Servicios_Adm_Publica_Detalles">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GET_Servicios_Adm_Publica_Detalles" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
