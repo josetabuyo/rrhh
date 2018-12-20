@@ -621,11 +621,18 @@
       <s:element name="AsignaAreaAPersonasNoCertificadasResponse">
         <s:complexType />
       </s:element>
-      <s:element name="GetIdCabeceraFormulario">
+      <s:element name="GetFormulario">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="form" type="tns:Formulario" />
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFormularioResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetFormularioResult" type="tns:Formulario" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -648,6 +655,36 @@
           <s:element minOccurs="1" maxOccurs="1" name="fijo" type="s:boolean" />
         </s:sequence>
       </s:complexType>
+      <s:element name="GuardarCambiosEnFormulario">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="form" type="tns:Formulario" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarCambiosEnFormularioResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GuardarCabeceraFormulario">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="form" type="tns:Formulario" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarCabeceraFormularioResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetIdCabeceraFormulario">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="form" type="tns:Formulario" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetIdCabeceraFormularioResponse">
         <s:complexType>
           <s:sequence>
@@ -1932,14 +1969,52 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GuardarCvDatosPersonales">
+      <s:element name="VerificarUsuario">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="datosPersonalesDTO" type="tns:CvDatosPersonales" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_usuario" type="s:int" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="VerificarUsuarioResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="VerificarUsuarioResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCurriculum">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCurriculumResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCurriculumResult" type="tns:CurriculumVitae" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="CurriculumVitae">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="DatosPersonales" type="tns:CvDatosPersonales" />
+          <s:element minOccurs="0" maxOccurs="1" name="CvEstudios" type="tns:ArrayOfCvEstudios" />
+          <s:element minOccurs="0" maxOccurs="1" name="CvEventosAcademicos" type="tns:ArrayOfCvEventoAcademico" />
+          <s:element minOccurs="0" maxOccurs="1" name="CvExperienciaLaboral" type="tns:ArrayOfCvExperienciaLaboral" />
+          <s:element minOccurs="0" maxOccurs="1" name="CvIdiomas" type="tns:ArrayOfCvIdiomas" />
+          <s:element minOccurs="0" maxOccurs="1" name="CvInstitucionesAcademicas" type="tns:ArrayOfCvInstitucionesAcademicas" />
+          <s:element minOccurs="0" maxOccurs="1" name="CvMatricula" type="tns:ArrayOfCvMatricula" />
+          <s:element minOccurs="0" maxOccurs="1" name="CvPublicaciones" type="tns:ArrayOfCvPublicaciones" />
+          <s:element minOccurs="0" maxOccurs="1" name="CvDocencias" type="tns:ArrayOfCvDocencia" />
+          <s:element minOccurs="0" maxOccurs="1" name="CvCompetenciasInformaticas" type="tns:ArrayOfCvCompetenciasInformaticas" />
+          <s:element minOccurs="0" maxOccurs="1" name="CvCertificadosDeCapacitacion" type="tns:ArrayOfCvCertificadoDeCapacitacion" />
+          <s:element minOccurs="0" maxOccurs="1" name="CvCapacidadesPersonales" type="tns:ArrayOfCvCapacidadPersonal" />
+          <s:element minOccurs="1" maxOccurs="1" name="TieneCv" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
       <s:complexType name="CvDatosPersonales">
         <s:sequence>
           <s:element minOccurs="1" maxOccurs="1" name="Dni" type="s:int" />
@@ -1965,106 +2040,28 @@
           <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
         </s:sequence>
       </s:complexType>
-      <s:element name="GuardarCvDatosPersonalesResponse">
-        <s:complexType />
-      </s:element>
-      <s:element name="PostularseA">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="postulacion" type="tns:Postulacion" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:complexType name="Postulacion">
+      <s:complexType name="ArrayOfCvEstudios">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Perfil" type="tns:Perfil" />
-          <s:element minOccurs="0" maxOccurs="1" name="Postulante" type="tns:Persona" />
-          <s:element minOccurs="1" maxOccurs="1" name="FechaPostulacion" type="s:dateTime" />
-          <s:element minOccurs="0" maxOccurs="1" name="Motivo" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Observaciones" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Numero" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Etapas" type="tns:ArrayOfEtapaPostulacion" />
-          <s:element minOccurs="0" maxOccurs="1" name="DocumentacionRecibida" type="tns:ArrayOfDocumentacionRecibida" />
-          <s:element minOccurs="0" maxOccurs="1" name="DocumentacionARecibir" type="tns:ArrayOfDocumentacionRecibida" />
-          <s:element minOccurs="0" maxOccurs="1" name="NumerosDeInformeGDE" type="tns:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CvEstudios" nillable="true" type="tns:CvEstudios" />
         </s:sequence>
       </s:complexType>
-      <s:complexType name="Perfil">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Familia" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Profesion" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Denominacion" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Nivel" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Agrupamiento" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="Vacantes" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Tipo" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Numero" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Comite" type="tns:Comite" />
-          <s:element minOccurs="1" maxOccurs="1" name="FechaDesde" type="s:dateTime" />
-          <s:element minOccurs="1" maxOccurs="1" name="FechaHasta" type="s:dateTime" />
-          <s:element minOccurs="1" maxOccurs="1" name="Baja" type="s:boolean" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="Comite">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Integrantes" type="tns:ArrayOfIntegranteComite" />
-          <s:element minOccurs="0" maxOccurs="1" name="Puesto" type="tns:Perfil" />
-          <s:element minOccurs="1" maxOccurs="1" name="Numero" type="s:int" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="ArrayOfIntegranteComite">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="IntegranteComite" nillable="true" type="tns:IntegranteComite" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="IntegranteComite">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Apellido" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="TipoDocumento" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="NroDocumento" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="EsTitular" type="s:boolean" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="ArrayOfEtapaPostulacion">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="EtapaPostulacion" nillable="true" type="tns:EtapaPostulacion" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="EtapaPostulacion">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Fecha" type="s:dateTime" />
-          <s:element minOccurs="0" maxOccurs="1" name="Etapa" type="tns:EtapaConcurso" />
-          <s:element minOccurs="1" maxOccurs="1" name="IdUsuario" type="s:int" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="EtapaConcurso">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="ArrayOfDocumentacionRecibida">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="DocumentacionRecibida" nillable="true" type="tns:DocumentacionRecibida" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="DocumentacionRecibida">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="ItemCV" type="tns:ItemCv" />
-          <s:element minOccurs="0" maxOccurs="1" name="Folio" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="IdPostulacion" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="Fecha" type="s:dateTime" />
-          <s:element minOccurs="0" maxOccurs="1" name="FolioPersistido" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="IdItemCV" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="IdTabla" type="s:int" />
-        </s:sequence>
+      <s:complexType name="CvEstudios">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ItemCv">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Titulo" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="IdTitulo" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="Anios" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="Establecimiento" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Nivel" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="Especialidad" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="FechaIngreso" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="FechaEgreso" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="Localidad" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Pais" type="s:int" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
       </s:complexType>
       <s:complexType name="ItemCv">
         <s:sequence>
@@ -2239,23 +2236,184 @@
           </s:extension>
         </s:complexContent>
       </s:complexType>
-      <s:complexType name="CvEstudios">
+      <s:complexType name="ArrayOfCvEventoAcademico">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CvEventoAcademico" nillable="true" type="tns:CvEventoAcademico" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfCvExperienciaLaboral">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CvExperienciaLaboral" nillable="true" type="tns:CvExperienciaLaboral" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfCvIdiomas">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CvIdiomas" nillable="true" type="tns:CvIdiomas" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfCvInstitucionesAcademicas">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CvInstitucionesAcademicas" nillable="true" type="tns:CvInstitucionesAcademicas" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfCvMatricula">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CvMatricula" nillable="true" type="tns:CvMatricula" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfCvPublicaciones">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CvPublicaciones" nillable="true" type="tns:CvPublicaciones" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfCvDocencia">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CvDocencia" nillable="true" type="tns:CvDocencia" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfCvCompetenciasInformaticas">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CvCompetenciasInformaticas" nillable="true" type="tns:CvCompetenciasInformaticas" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfCvCertificadoDeCapacitacion">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CvCertificadoDeCapacitacion" nillable="true" type="tns:CvCertificadoDeCapacitacion" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfCvCapacidadPersonal">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CvCapacidadPersonal" nillable="true" type="tns:CvCapacidadPersonal" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CurriculumVitaeNull">
         <s:complexContent mixed="false">
-          <s:extension base="tns:ItemCv">
-            <s:sequence>
-              <s:element minOccurs="0" maxOccurs="1" name="Titulo" type="s:string" />
-              <s:element minOccurs="1" maxOccurs="1" name="IdTitulo" type="s:int" />
-              <s:element minOccurs="1" maxOccurs="1" name="Anios" type="s:int" />
-              <s:element minOccurs="0" maxOccurs="1" name="Establecimiento" type="s:string" />
-              <s:element minOccurs="1" maxOccurs="1" name="Nivel" type="s:int" />
-              <s:element minOccurs="0" maxOccurs="1" name="Especialidad" type="s:string" />
-              <s:element minOccurs="1" maxOccurs="1" name="FechaIngreso" type="s:dateTime" />
-              <s:element minOccurs="1" maxOccurs="1" name="FechaEgreso" type="s:dateTime" />
-              <s:element minOccurs="0" maxOccurs="1" name="Localidad" type="s:string" />
-              <s:element minOccurs="1" maxOccurs="1" name="Pais" type="s:int" />
-            </s:sequence>
-          </s:extension>
+          <s:extension base="tns:CurriculumVitae" />
         </s:complexContent>
+      </s:complexType>
+      <s:element name="GetCurriculumVersion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="fechaDeLaVersion" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCurriculumVersionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCurriculumVersionResult" type="tns:CurriculumVitae" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarCvDatosPersonales">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="datosPersonalesDTO" type="tns:CvDatosPersonales" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarCvDatosPersonalesResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="PostularseA">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="postulacion" type="tns:Postulacion" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Postulacion">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Perfil" type="tns:Perfil" />
+          <s:element minOccurs="0" maxOccurs="1" name="Postulante" type="tns:Persona" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaPostulacion" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Motivo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Observaciones" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Numero" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Etapas" type="tns:ArrayOfEtapaPostulacion" />
+          <s:element minOccurs="0" maxOccurs="1" name="DocumentacionRecibida" type="tns:ArrayOfDocumentacionRecibida" />
+          <s:element minOccurs="0" maxOccurs="1" name="DocumentacionARecibir" type="tns:ArrayOfDocumentacionRecibida" />
+          <s:element minOccurs="0" maxOccurs="1" name="NumerosDeInformeGDE" type="tns:ArrayOfString" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Perfil">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Familia" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Profesion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Denominacion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nivel" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Agrupamiento" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Vacantes" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Tipo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Numero" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Comite" type="tns:Comite" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaDesde" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaHasta" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Baja" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Comite">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Integrantes" type="tns:ArrayOfIntegranteComite" />
+          <s:element minOccurs="0" maxOccurs="1" name="Puesto" type="tns:Perfil" />
+          <s:element minOccurs="1" maxOccurs="1" name="Numero" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfIntegranteComite">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="IntegranteComite" nillable="true" type="tns:IntegranteComite" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="IntegranteComite">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Apellido" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TipoDocumento" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="NroDocumento" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="EsTitular" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfEtapaPostulacion">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="EtapaPostulacion" nillable="true" type="tns:EtapaPostulacion" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="EtapaPostulacion">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Fecha" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Etapa" type="tns:EtapaConcurso" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdUsuario" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="EtapaConcurso">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfDocumentacionRecibida">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DocumentacionRecibida" nillable="true" type="tns:DocumentacionRecibida" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DocumentacionRecibida">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ItemCV" type="tns:ItemCv" />
+          <s:element minOccurs="0" maxOccurs="1" name="Folio" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdPostulacion" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Fecha" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="FolioPersistido" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdItemCV" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdTabla" type="s:int" />
+        </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfString">
         <s:sequence>
@@ -3756,41 +3914,33 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetFormulario">
+      <s:element name="AsignarImagenAFolioDeLegajo">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_imagen" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="nro_folio" type="s:int" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetFormularioResponse">
+      <s:element name="AsignarImagenAFolioDeLegajoResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetFormularioResult" type="tns:Formulario" />
+            <s:element minOccurs="1" maxOccurs="1" name="AsignarImagenAFolioDeLegajoResult" type="s:int" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GuardarCambiosEnFormulario">
+      <s:element name="AsignarImagenAFolioDeLegajoPasandoPagina">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="form" type="tns:Formulario" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_imagen" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="nro_folio" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="pagina" type="s:int" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GuardarCambiosEnFormularioResponse">
-        <s:complexType />
-      </s:element>
-      <s:element name="GuardarCabeceraFormulario">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="form" type="tns:Formulario" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GuardarCabeceraFormularioResponse">
+      <s:element name="AsignarImagenAFolioDeLegajoPasandoPaginaResponse">
         <s:complexType />
       </s:element>
       <s:element name="AsignarCategoriaADocumento">
@@ -4585,6 +4735,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="TipoCredencial" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Motivo" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Organismo" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdOrganismo" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="Estado" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="Fecha" type="s:dateTime" />
           <s:element minOccurs="1" maxOccurs="1" name="IdTicketAprobacion" type="s:int" />
@@ -4860,6 +5011,22 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="GetSolicitudDeCredencialPorIdTicketEntregaResult" type="tns:SolicitudCredencial" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CambiarOrganismoEnSolicitudCredencial">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="solicitud" type="tns:SolicitudCredencial" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_organismo_nuevo" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CambiarOrganismoEnSolicitudCredencialResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CambiarOrganismoEnSolicitudCredencialResult" type="s:boolean" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -5273,124 +5440,143 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="VerificarUsuario">
+      <s:element name="GetComisionesPorProvincia">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id_usuario" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+            <s:element minOccurs="0" maxOccurs="1" name="lista_provincias" type="tns:ArrayOfProvincia" />
+            <s:element minOccurs="1" maxOccurs="1" name="fechaDesde" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="fechaHasta" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="comisiones" type="tns:ArrayOfComisionDeServicio" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="VerificarUsuarioResponse">
+      <s:complexType name="ArrayOfComisionDeServicio">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ComisionDeServicio" nillable="true" type="tns:ComisionDeServicio" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ComisionDeServicio">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="AreaSuperior" type="tns:Area" />
+          <s:element minOccurs="0" maxOccurs="1" name="AreaCreadora" type="tns:Area" />
+          <s:element minOccurs="0" maxOccurs="1" name="AreaActual" type="tns:Area" />
+          <s:element minOccurs="0" maxOccurs="1" name="EstadoActual" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Estadias" type="tns:ArrayOfEstadia" />
+          <s:element minOccurs="0" maxOccurs="1" name="Pasajes" type="tns:ArrayOfPasaje" />
+          <s:element minOccurs="0" maxOccurs="1" name="TransicionesRealizadas" type="tns:ArrayOfTransicionDeViatico" />
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Persona" type="tns:Persona" />
+          <s:element minOccurs="1" maxOccurs="1" name="Estado" type="tns:EstadosDeComision" />
+          <s:element minOccurs="1" maxOccurs="1" name="Baja" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaCreacion" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfEstadia">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Estadia" nillable="true" type="tns:Estadia" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Estadia">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ComisionDeServicio" type="tns:ComisionDeServicio" />
+          <s:element minOccurs="1" maxOccurs="1" name="Desde" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Hasta" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Motivo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Provincia" type="tns:Provincia" />
+          <s:element minOccurs="1" maxOccurs="1" name="Eventuales" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="Persona" type="tns:Persona" />
+          <s:element minOccurs="1" maxOccurs="1" name="AdicionalParaPasajes" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="CalculadoPorCategoria" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfPasaje">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Pasaje" nillable="true" type="tns:Pasaje" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Pasaje">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ComisionDeServicio" type="tns:ComisionDeServicio" />
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Origen" type="tns:Localidad" />
+          <s:element minOccurs="0" maxOccurs="1" name="Destino" type="tns:Localidad" />
+          <s:element minOccurs="1" maxOccurs="1" name="Precio" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaDeViaje" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="MedioDeTransporte" type="tns:MedioDeTransporte" />
+          <s:element minOccurs="0" maxOccurs="1" name="MedioDePago" type="tns:MedioDePago" />
+          <s:element minOccurs="1" maxOccurs="1" name="Baja" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MedioDeTransporte">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MedioDePago">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfTransicionDeViatico">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TransicionDeViatico" nillable="true" type="tns:TransicionDeViatico" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TransicionDeViatico">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="AreaOrigen" type="tns:Area" />
+          <s:element minOccurs="0" maxOccurs="1" name="AreaDestino" type="tns:Area" />
+          <s:element minOccurs="0" maxOccurs="1" name="Accion" type="tns:AccionDeTransicion" />
+          <s:element minOccurs="1" maxOccurs="1" name="Fecha" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Comentario" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AccionDeTransicion">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DescripcionPasado" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DescripcionEstadoInbox" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="EstadosDeComision">
+        <s:restriction base="s:string">
+          <s:enumeration value="Pendiente" />
+          <s:enumeration value="Aprobada" />
+          <s:enumeration value="Rechazada" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="GetComisionesPorProvinciaResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="VerificarUsuarioResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="GetComisionesPorProvinciaResult" type="tns:ArrayOfArrayOfString" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetCurriculum">
+      <s:complexType name="ArrayOfArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ArrayOfString" nillable="true" type="tns:ArrayOfString" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetComisionesPorAgente">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="areas_autorizadas" type="tns:ArrayOfArea" />
+            <s:element minOccurs="0" maxOccurs="1" name="persona" type="tns:Persona" />
+            <s:element minOccurs="1" maxOccurs="1" name="fechaDesde" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="fechaHasta" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="comisiones" type="tns:ArrayOfComisionDeServicio" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetCurriculumResponse">
+      <s:element name="GetComisionesPorAgenteResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetCurriculumResult" type="tns:CurriculumVitae" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:complexType name="CurriculumVitae">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="DatosPersonales" type="tns:CvDatosPersonales" />
-          <s:element minOccurs="0" maxOccurs="1" name="CvEstudios" type="tns:ArrayOfCvEstudios" />
-          <s:element minOccurs="0" maxOccurs="1" name="CvEventosAcademicos" type="tns:ArrayOfCvEventoAcademico" />
-          <s:element minOccurs="0" maxOccurs="1" name="CvExperienciaLaboral" type="tns:ArrayOfCvExperienciaLaboral" />
-          <s:element minOccurs="0" maxOccurs="1" name="CvIdiomas" type="tns:ArrayOfCvIdiomas" />
-          <s:element minOccurs="0" maxOccurs="1" name="CvInstitucionesAcademicas" type="tns:ArrayOfCvInstitucionesAcademicas" />
-          <s:element minOccurs="0" maxOccurs="1" name="CvMatricula" type="tns:ArrayOfCvMatricula" />
-          <s:element minOccurs="0" maxOccurs="1" name="CvPublicaciones" type="tns:ArrayOfCvPublicaciones" />
-          <s:element minOccurs="0" maxOccurs="1" name="CvDocencias" type="tns:ArrayOfCvDocencia" />
-          <s:element minOccurs="0" maxOccurs="1" name="CvCompetenciasInformaticas" type="tns:ArrayOfCvCompetenciasInformaticas" />
-          <s:element minOccurs="0" maxOccurs="1" name="CvCertificadosDeCapacitacion" type="tns:ArrayOfCvCertificadoDeCapacitacion" />
-          <s:element minOccurs="0" maxOccurs="1" name="CvCapacidadesPersonales" type="tns:ArrayOfCvCapacidadPersonal" />
-          <s:element minOccurs="1" maxOccurs="1" name="TieneCv" type="s:boolean" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="ArrayOfCvEstudios">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="CvEstudios" nillable="true" type="tns:CvEstudios" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="ArrayOfCvEventoAcademico">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="CvEventoAcademico" nillable="true" type="tns:CvEventoAcademico" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="ArrayOfCvExperienciaLaboral">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="CvExperienciaLaboral" nillable="true" type="tns:CvExperienciaLaboral" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="ArrayOfCvIdiomas">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="CvIdiomas" nillable="true" type="tns:CvIdiomas" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="ArrayOfCvInstitucionesAcademicas">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="CvInstitucionesAcademicas" nillable="true" type="tns:CvInstitucionesAcademicas" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="ArrayOfCvMatricula">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="CvMatricula" nillable="true" type="tns:CvMatricula" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="ArrayOfCvPublicaciones">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="CvPublicaciones" nillable="true" type="tns:CvPublicaciones" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="ArrayOfCvDocencia">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="CvDocencia" nillable="true" type="tns:CvDocencia" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="ArrayOfCvCompetenciasInformaticas">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="CvCompetenciasInformaticas" nillable="true" type="tns:CvCompetenciasInformaticas" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="ArrayOfCvCertificadoDeCapacitacion">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="CvCertificadoDeCapacitacion" nillable="true" type="tns:CvCertificadoDeCapacitacion" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="ArrayOfCvCapacidadPersonal">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="CvCapacidadPersonal" nillable="true" type="tns:CvCapacidadPersonal" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="CurriculumVitaeNull">
-        <s:complexContent mixed="false">
-          <s:extension base="tns:CurriculumVitae" />
-        </s:complexContent>
-      </s:complexType>
-      <s:element name="GetCurriculumVersion">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="fechaDeLaVersion" type="s:dateTime" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetCurriculumVersionResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetCurriculumVersionResult" type="tns:CurriculumVitae" />
+            <s:element minOccurs="0" maxOccurs="1" name="GetComisionesPorAgenteResult" type="tns:ArrayOfArrayOfString" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -6691,35 +6877,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="AsignarImagenAFolioDeLegajo">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id_imagen" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="nro_folio" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="AsignarImagenAFolioDeLegajoResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="AsignarImagenAFolioDeLegajoResult" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="AsignarImagenAFolioDeLegajoPasandoPagina">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id_imagen" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="nro_folio" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="pagina" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="AsignarImagenAFolioDeLegajoPasandoPaginaResponse">
-        <s:complexType />
-      </s:element>
       <s:element name="GetUsuarios">
         <s:complexType>
           <s:sequence>
@@ -6771,6 +6928,43 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="GetAgentesEvaluablesParaVerificarGDEResult" type="tns:RespuestaGetAgentesEvaluablesPor" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAgentesEvaluablesParaComites">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RespuestaGetAgentesEvaluablesParaComites">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="asignaciones" type="tns:ArrayOfAsignacionEvaluadoEvaluadorDTO" />
+          <s:element minOccurs="1" maxOccurs="1" name="EsAgenteVerificador" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="UsuarioRequest" type="tns:Usuario" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfAsignacionEvaluadoEvaluadorDTO">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AsignacionEvaluadoEvaluadorDTO" nillable="true" type="tns:AsignacionEvaluadoEvaluadorDTO" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AsignacionEvaluadoEvaluadorDTO">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="dni_agente_evaluado" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="apellido_agente_evaluado" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="nombre_agente_evaluado" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="periodo" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="id_unidad_eval" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="area" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="evaluacion" type="tns:EvaluacionDesempenio" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetAgentesEvaluablesParaComitesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAgentesEvaluablesParaComitesResult" type="tns:RespuestaGetAgentesEvaluablesParaComites" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -6977,6 +7171,16 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="GetEstadosEvaluacionesResult" type="tns:ArrayOfUnidadDeEvaluacion" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEstadosEvaluacionesPeriodosActivos">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetEstadosEvaluacionesPeriodosActivosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetEstadosEvaluacionesPeriodosActivosResult" type="tns:ArrayOfUnidadDeEvaluacion" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -7754,101 +7958,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="ComisionDeServicio">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="AreaSuperior" type="tns:Area" />
-          <s:element minOccurs="0" maxOccurs="1" name="AreaCreadora" type="tns:Area" />
-          <s:element minOccurs="0" maxOccurs="1" name="AreaActual" type="tns:Area" />
-          <s:element minOccurs="0" maxOccurs="1" name="EstadoActual" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Estadias" type="tns:ArrayOfEstadia" />
-          <s:element minOccurs="0" maxOccurs="1" name="Pasajes" type="tns:ArrayOfPasaje" />
-          <s:element minOccurs="0" maxOccurs="1" name="TransicionesRealizadas" type="tns:ArrayOfTransicionDeViatico" />
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Persona" type="tns:Persona" />
-          <s:element minOccurs="1" maxOccurs="1" name="Estado" type="tns:EstadosDeComision" />
-          <s:element minOccurs="1" maxOccurs="1" name="Baja" type="s:boolean" />
-          <s:element minOccurs="1" maxOccurs="1" name="FechaCreacion" type="s:dateTime" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="ArrayOfEstadia">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Estadia" nillable="true" type="tns:Estadia" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="Estadia">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="ComisionDeServicio" type="tns:ComisionDeServicio" />
-          <s:element minOccurs="1" maxOccurs="1" name="Desde" type="s:dateTime" />
-          <s:element minOccurs="1" maxOccurs="1" name="Hasta" type="s:dateTime" />
-          <s:element minOccurs="0" maxOccurs="1" name="Motivo" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Provincia" type="tns:Provincia" />
-          <s:element minOccurs="1" maxOccurs="1" name="Eventuales" type="s:decimal" />
-          <s:element minOccurs="0" maxOccurs="1" name="Persona" type="tns:Persona" />
-          <s:element minOccurs="1" maxOccurs="1" name="AdicionalParaPasajes" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="CalculadoPorCategoria" type="s:decimal" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="ArrayOfPasaje">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Pasaje" nillable="true" type="tns:Pasaje" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="Pasaje">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="ComisionDeServicio" type="tns:ComisionDeServicio" />
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Origen" type="tns:Localidad" />
-          <s:element minOccurs="0" maxOccurs="1" name="Destino" type="tns:Localidad" />
-          <s:element minOccurs="1" maxOccurs="1" name="Precio" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="FechaDeViaje" type="s:dateTime" />
-          <s:element minOccurs="0" maxOccurs="1" name="MedioDeTransporte" type="tns:MedioDeTransporte" />
-          <s:element minOccurs="0" maxOccurs="1" name="MedioDePago" type="tns:MedioDePago" />
-          <s:element minOccurs="1" maxOccurs="1" name="Baja" type="s:boolean" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="MedioDeTransporte">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="MedioDePago">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="ArrayOfTransicionDeViatico">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="TransicionDeViatico" nillable="true" type="tns:TransicionDeViatico" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="TransicionDeViatico">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="AreaOrigen" type="tns:Area" />
-          <s:element minOccurs="0" maxOccurs="1" name="AreaDestino" type="tns:Area" />
-          <s:element minOccurs="0" maxOccurs="1" name="Accion" type="tns:AccionDeTransicion" />
-          <s:element minOccurs="1" maxOccurs="1" name="Fecha" type="s:dateTime" />
-          <s:element minOccurs="0" maxOccurs="1" name="Comentario" type="s:string" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="AccionDeTransicion">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="DescripcionPasado" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="DescripcionEstadoInbox" type="s:string" />
-        </s:sequence>
-      </s:complexType>
-      <s:simpleType name="EstadosDeComision">
-        <s:restriction base="s:string">
-          <s:enumeration value="Pendiente" />
-          <s:enumeration value="Aprobada" />
-          <s:enumeration value="Rechazada" />
-        </s:restriction>
-      </s:simpleType>
       <s:element name="GetAreaPreviaDeResponse">
         <s:complexType>
           <s:sequence>
@@ -7991,6 +8100,7 @@
           <s:element minOccurs="1" maxOccurs="1" name="Desde" type="s:dateTime" />
           <s:element minOccurs="1" maxOccurs="1" name="Hasta" type="s:dateTime" />
           <s:element minOccurs="1" maxOccurs="1" name="IdConcepto" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Denegada" type="s:boolean" />
         </s:sequence>
       </s:complexType>
       <s:element name="CargarLicenciaResponse">
@@ -8200,11 +8310,6 @@
       <s:element name="GetTodasLasComisionesDeServicios">
         <s:complexType />
       </s:element>
-      <s:complexType name="ArrayOfComisionDeServicio">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="ComisionDeServicio" nillable="true" type="tns:ComisionDeServicio" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="GetTodasLasComisionesDeServiciosResponse">
         <s:complexType>
           <s:sequence>
@@ -8346,50 +8451,10 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="ArrayOfArrayOfString">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="ArrayOfString" nillable="true" type="tns:ArrayOfString" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="GetComisionesPorFiltroResponse">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="GetComisionesPorFiltroResult" type="tns:ArrayOfArrayOfString" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetComisionesPorProvincia">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="lista_provincias" type="tns:ArrayOfProvincia" />
-            <s:element minOccurs="1" maxOccurs="1" name="fechaDesde" type="s:dateTime" />
-            <s:element minOccurs="1" maxOccurs="1" name="fechaHasta" type="s:dateTime" />
-            <s:element minOccurs="0" maxOccurs="1" name="comisiones" type="tns:ArrayOfComisionDeServicio" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetComisionesPorProvinciaResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetComisionesPorProvinciaResult" type="tns:ArrayOfArrayOfString" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetComisionesPorAgente">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="areas_autorizadas" type="tns:ArrayOfArea" />
-            <s:element minOccurs="0" maxOccurs="1" name="persona" type="tns:Persona" />
-            <s:element minOccurs="1" maxOccurs="1" name="fechaDesde" type="s:dateTime" />
-            <s:element minOccurs="1" maxOccurs="1" name="fechaHasta" type="s:dateTime" />
-            <s:element minOccurs="0" maxOccurs="1" name="comisiones" type="tns:ArrayOfComisionDeServicio" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetComisionesPorAgenteResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetComisionesPorAgenteResult" type="tns:ArrayOfArrayOfString" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -8502,6 +8567,24 @@
   </wsdl:message>
   <wsdl:message name="AsignaAreaAPersonasNoCertificadasSoapOut">
     <wsdl:part name="parameters" element="tns:AsignaAreaAPersonasNoCertificadasResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFormularioSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFormulario" />
+  </wsdl:message>
+  <wsdl:message name="GetFormularioSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFormularioResponse" />
+  </wsdl:message>
+  <wsdl:message name="GuardarCambiosEnFormularioSoapIn">
+    <wsdl:part name="parameters" element="tns:GuardarCambiosEnFormulario" />
+  </wsdl:message>
+  <wsdl:message name="GuardarCambiosEnFormularioSoapOut">
+    <wsdl:part name="parameters" element="tns:GuardarCambiosEnFormularioResponse" />
+  </wsdl:message>
+  <wsdl:message name="GuardarCabeceraFormularioSoapIn">
+    <wsdl:part name="parameters" element="tns:GuardarCabeceraFormulario" />
+  </wsdl:message>
+  <wsdl:message name="GuardarCabeceraFormularioSoapOut">
+    <wsdl:part name="parameters" element="tns:GuardarCabeceraFormularioResponse" />
   </wsdl:message>
   <wsdl:message name="GetIdCabeceraFormularioSoapIn">
     <wsdl:part name="parameters" element="tns:GetIdCabeceraFormulario" />
@@ -8928,6 +9011,24 @@
   </wsdl:message>
   <wsdl:message name="InsertarEvaluacionSoapOut">
     <wsdl:part name="parameters" element="tns:InsertarEvaluacionResponse" />
+  </wsdl:message>
+  <wsdl:message name="VerificarUsuarioSoapIn">
+    <wsdl:part name="parameters" element="tns:VerificarUsuario" />
+  </wsdl:message>
+  <wsdl:message name="VerificarUsuarioSoapOut">
+    <wsdl:part name="parameters" element="tns:VerificarUsuarioResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCurriculumSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCurriculum" />
+  </wsdl:message>
+  <wsdl:message name="GetCurriculumSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCurriculumResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCurriculumVersionSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCurriculumVersion" />
+  </wsdl:message>
+  <wsdl:message name="GetCurriculumVersionSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCurriculumVersionResponse" />
   </wsdl:message>
   <wsdl:message name="GuardarCvDatosPersonalesSoapIn">
     <wsdl:part name="parameters" element="tns:GuardarCvDatosPersonales" />
@@ -9421,23 +9522,17 @@
   <wsdl:message name="BuscarLocalidadesSoapOut">
     <wsdl:part name="parameters" element="tns:BuscarLocalidadesResponse" />
   </wsdl:message>
-  <wsdl:message name="GetFormularioSoapIn">
-    <wsdl:part name="parameters" element="tns:GetFormulario" />
+  <wsdl:message name="AsignarImagenAFolioDeLegajoSoapIn">
+    <wsdl:part name="parameters" element="tns:AsignarImagenAFolioDeLegajo" />
   </wsdl:message>
-  <wsdl:message name="GetFormularioSoapOut">
-    <wsdl:part name="parameters" element="tns:GetFormularioResponse" />
+  <wsdl:message name="AsignarImagenAFolioDeLegajoSoapOut">
+    <wsdl:part name="parameters" element="tns:AsignarImagenAFolioDeLegajoResponse" />
   </wsdl:message>
-  <wsdl:message name="GuardarCambiosEnFormularioSoapIn">
-    <wsdl:part name="parameters" element="tns:GuardarCambiosEnFormulario" />
+  <wsdl:message name="AsignarImagenAFolioDeLegajoPasandoPaginaSoapIn">
+    <wsdl:part name="parameters" element="tns:AsignarImagenAFolioDeLegajoPasandoPagina" />
   </wsdl:message>
-  <wsdl:message name="GuardarCambiosEnFormularioSoapOut">
-    <wsdl:part name="parameters" element="tns:GuardarCambiosEnFormularioResponse" />
-  </wsdl:message>
-  <wsdl:message name="GuardarCabeceraFormularioSoapIn">
-    <wsdl:part name="parameters" element="tns:GuardarCabeceraFormulario" />
-  </wsdl:message>
-  <wsdl:message name="GuardarCabeceraFormularioSoapOut">
-    <wsdl:part name="parameters" element="tns:GuardarCabeceraFormularioResponse" />
+  <wsdl:message name="AsignarImagenAFolioDeLegajoPasandoPaginaSoapOut">
+    <wsdl:part name="parameters" element="tns:AsignarImagenAFolioDeLegajoPasandoPaginaResponse" />
   </wsdl:message>
   <wsdl:message name="AsignarCategoriaADocumentoSoapIn">
     <wsdl:part name="parameters" element="tns:AsignarCategoriaADocumento" />
@@ -9817,6 +9912,12 @@
   <wsdl:message name="GetSolicitudDeCredencialPorIdTicketEntregaSoapOut">
     <wsdl:part name="parameters" element="tns:GetSolicitudDeCredencialPorIdTicketEntregaResponse" />
   </wsdl:message>
+  <wsdl:message name="CambiarOrganismoEnSolicitudCredencialSoapIn">
+    <wsdl:part name="parameters" element="tns:CambiarOrganismoEnSolicitudCredencial" />
+  </wsdl:message>
+  <wsdl:message name="CambiarOrganismoEnSolicitudCredencialSoapOut">
+    <wsdl:part name="parameters" element="tns:CambiarOrganismoEnSolicitudCredencialResponse" />
+  </wsdl:message>
   <wsdl:message name="AprobarSolicitudCredencialSoapIn">
     <wsdl:part name="parameters" element="tns:AprobarSolicitudCredencial" />
   </wsdl:message>
@@ -9919,23 +10020,17 @@
   <wsdl:message name="RegistrarNuevoUsuarioSoapOut">
     <wsdl:part name="parameters" element="tns:RegistrarNuevoUsuarioResponse" />
   </wsdl:message>
-  <wsdl:message name="VerificarUsuarioSoapIn">
-    <wsdl:part name="parameters" element="tns:VerificarUsuario" />
+  <wsdl:message name="GetComisionesPorProvinciaSoapIn">
+    <wsdl:part name="parameters" element="tns:GetComisionesPorProvincia" />
   </wsdl:message>
-  <wsdl:message name="VerificarUsuarioSoapOut">
-    <wsdl:part name="parameters" element="tns:VerificarUsuarioResponse" />
+  <wsdl:message name="GetComisionesPorProvinciaSoapOut">
+    <wsdl:part name="parameters" element="tns:GetComisionesPorProvinciaResponse" />
   </wsdl:message>
-  <wsdl:message name="GetCurriculumSoapIn">
-    <wsdl:part name="parameters" element="tns:GetCurriculum" />
+  <wsdl:message name="GetComisionesPorAgenteSoapIn">
+    <wsdl:part name="parameters" element="tns:GetComisionesPorAgente" />
   </wsdl:message>
-  <wsdl:message name="GetCurriculumSoapOut">
-    <wsdl:part name="parameters" element="tns:GetCurriculumResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetCurriculumVersionSoapIn">
-    <wsdl:part name="parameters" element="tns:GetCurriculumVersion" />
-  </wsdl:message>
-  <wsdl:message name="GetCurriculumVersionSoapOut">
-    <wsdl:part name="parameters" element="tns:GetCurriculumVersionResponse" />
+  <wsdl:message name="GetComisionesPorAgenteSoapOut">
+    <wsdl:part name="parameters" element="tns:GetComisionesPorAgenteResponse" />
   </wsdl:message>
   <wsdl:message name="GuardarDocumento_AjaxSoapIn">
     <wsdl:part name="parameters" element="tns:GuardarDocumento_Ajax" />
@@ -10357,18 +10452,6 @@
   <wsdl:message name="GetThumbnailPorIdSoapOut">
     <wsdl:part name="parameters" element="tns:GetThumbnailPorIdResponse" />
   </wsdl:message>
-  <wsdl:message name="AsignarImagenAFolioDeLegajoSoapIn">
-    <wsdl:part name="parameters" element="tns:AsignarImagenAFolioDeLegajo" />
-  </wsdl:message>
-  <wsdl:message name="AsignarImagenAFolioDeLegajoSoapOut">
-    <wsdl:part name="parameters" element="tns:AsignarImagenAFolioDeLegajoResponse" />
-  </wsdl:message>
-  <wsdl:message name="AsignarImagenAFolioDeLegajoPasandoPaginaSoapIn">
-    <wsdl:part name="parameters" element="tns:AsignarImagenAFolioDeLegajoPasandoPagina" />
-  </wsdl:message>
-  <wsdl:message name="AsignarImagenAFolioDeLegajoPasandoPaginaSoapOut">
-    <wsdl:part name="parameters" element="tns:AsignarImagenAFolioDeLegajoPasandoPaginaResponse" />
-  </wsdl:message>
   <wsdl:message name="GetUsuariosSoapIn">
     <wsdl:part name="parameters" element="tns:GetUsuarios" />
   </wsdl:message>
@@ -10386,6 +10469,12 @@
   </wsdl:message>
   <wsdl:message name="GetAgentesEvaluablesParaVerificarGDESoapOut">
     <wsdl:part name="parameters" element="tns:GetAgentesEvaluablesParaVerificarGDEResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAgentesEvaluablesParaComitesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAgentesEvaluablesParaComites" />
+  </wsdl:message>
+  <wsdl:message name="GetAgentesEvaluablesParaComitesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAgentesEvaluablesParaComitesResponse" />
   </wsdl:message>
   <wsdl:message name="BuscarPeriodosEvaluacionSoapIn">
     <wsdl:part name="parameters" element="tns:BuscarPeriodosEvaluacion" />
@@ -10446,6 +10535,12 @@
   </wsdl:message>
   <wsdl:message name="GetEstadosEvaluacionesSoapOut">
     <wsdl:part name="parameters" element="tns:GetEstadosEvaluacionesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetEstadosEvaluacionesPeriodosActivosSoapIn">
+    <wsdl:part name="parameters" element="tns:GetEstadosEvaluacionesPeriodosActivos" />
+  </wsdl:message>
+  <wsdl:message name="GetEstadosEvaluacionesPeriodosActivosSoapOut">
+    <wsdl:part name="parameters" element="tns:GetEstadosEvaluacionesPeriodosActivosResponse" />
   </wsdl:message>
   <wsdl:message name="EvalGetNivelesFormularioSoapIn">
     <wsdl:part name="parameters" element="tns:EvalGetNivelesFormulario" />
@@ -10849,18 +10944,6 @@
   <wsdl:message name="GetComisionesPorFiltroSoapOut">
     <wsdl:part name="parameters" element="tns:GetComisionesPorFiltroResponse" />
   </wsdl:message>
-  <wsdl:message name="GetComisionesPorProvinciaSoapIn">
-    <wsdl:part name="parameters" element="tns:GetComisionesPorProvincia" />
-  </wsdl:message>
-  <wsdl:message name="GetComisionesPorProvinciaSoapOut">
-    <wsdl:part name="parameters" element="tns:GetComisionesPorProvinciaResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetComisionesPorAgenteSoapIn">
-    <wsdl:part name="parameters" element="tns:GetComisionesPorAgente" />
-  </wsdl:message>
-  <wsdl:message name="GetComisionesPorAgenteSoapOut">
-    <wsdl:part name="parameters" element="tns:GetComisionesPorAgenteResponse" />
-  </wsdl:message>
   <wsdl:portType name="WSViaticosSoap">
     <wsdl:operation name="ConsultaExcelDDJJ104_Persona">
       <wsdl:input message="tns:ConsultaExcelDDJJ104_PersonaSoapIn" />
@@ -10933,6 +11016,18 @@
     <wsdl:operation name="AsignaAreaAPersonasNoCertificadas">
       <wsdl:input message="tns:AsignaAreaAPersonasNoCertificadasSoapIn" />
       <wsdl:output message="tns:AsignaAreaAPersonasNoCertificadasSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFormulario">
+      <wsdl:input message="tns:GetFormularioSoapIn" />
+      <wsdl:output message="tns:GetFormularioSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GuardarCambiosEnFormulario">
+      <wsdl:input message="tns:GuardarCambiosEnFormularioSoapIn" />
+      <wsdl:output message="tns:GuardarCambiosEnFormularioSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GuardarCabeceraFormulario">
+      <wsdl:input message="tns:GuardarCabeceraFormularioSoapIn" />
+      <wsdl:output message="tns:GuardarCabeceraFormularioSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetIdCabeceraFormulario">
       <wsdl:input message="tns:GetIdCabeceraFormularioSoapIn" />
@@ -11217,6 +11312,18 @@
     <wsdl:operation name="InsertarEvaluacion">
       <wsdl:input message="tns:InsertarEvaluacionSoapIn" />
       <wsdl:output message="tns:InsertarEvaluacionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="VerificarUsuario">
+      <wsdl:input message="tns:VerificarUsuarioSoapIn" />
+      <wsdl:output message="tns:VerificarUsuarioSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCurriculum">
+      <wsdl:input message="tns:GetCurriculumSoapIn" />
+      <wsdl:output message="tns:GetCurriculumSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCurriculumVersion">
+      <wsdl:input message="tns:GetCurriculumVersionSoapIn" />
+      <wsdl:output message="tns:GetCurriculumVersionSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GuardarCvDatosPersonales">
       <wsdl:input message="tns:GuardarCvDatosPersonalesSoapIn" />
@@ -11546,17 +11653,13 @@
       <wsdl:input message="tns:BuscarLocalidadesSoapIn" />
       <wsdl:output message="tns:BuscarLocalidadesSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="GetFormulario">
-      <wsdl:input message="tns:GetFormularioSoapIn" />
-      <wsdl:output message="tns:GetFormularioSoapOut" />
+    <wsdl:operation name="AsignarImagenAFolioDeLegajo">
+      <wsdl:input message="tns:AsignarImagenAFolioDeLegajoSoapIn" />
+      <wsdl:output message="tns:AsignarImagenAFolioDeLegajoSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="GuardarCambiosEnFormulario">
-      <wsdl:input message="tns:GuardarCambiosEnFormularioSoapIn" />
-      <wsdl:output message="tns:GuardarCambiosEnFormularioSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GuardarCabeceraFormulario">
-      <wsdl:input message="tns:GuardarCabeceraFormularioSoapIn" />
-      <wsdl:output message="tns:GuardarCabeceraFormularioSoapOut" />
+    <wsdl:operation name="AsignarImagenAFolioDeLegajoPasandoPagina">
+      <wsdl:input message="tns:AsignarImagenAFolioDeLegajoPasandoPaginaSoapIn" />
+      <wsdl:output message="tns:AsignarImagenAFolioDeLegajoPasandoPaginaSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="AsignarCategoriaADocumento">
       <wsdl:input message="tns:AsignarCategoriaADocumentoSoapIn" />
@@ -11810,6 +11913,10 @@
       <wsdl:input message="tns:GetSolicitudDeCredencialPorIdTicketEntregaSoapIn" />
       <wsdl:output message="tns:GetSolicitudDeCredencialPorIdTicketEntregaSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="CambiarOrganismoEnSolicitudCredencial">
+      <wsdl:input message="tns:CambiarOrganismoEnSolicitudCredencialSoapIn" />
+      <wsdl:output message="tns:CambiarOrganismoEnSolicitudCredencialSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="AprobarSolicitudCredencial">
       <wsdl:input message="tns:AprobarSolicitudCredencialSoapIn" />
       <wsdl:output message="tns:AprobarSolicitudCredencialSoapOut" />
@@ -11878,17 +11985,13 @@
       <wsdl:input message="tns:RegistrarNuevoUsuarioSoapIn" />
       <wsdl:output message="tns:RegistrarNuevoUsuarioSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="VerificarUsuario">
-      <wsdl:input message="tns:VerificarUsuarioSoapIn" />
-      <wsdl:output message="tns:VerificarUsuarioSoapOut" />
+    <wsdl:operation name="GetComisionesPorProvincia">
+      <wsdl:input message="tns:GetComisionesPorProvinciaSoapIn" />
+      <wsdl:output message="tns:GetComisionesPorProvinciaSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="GetCurriculum">
-      <wsdl:input message="tns:GetCurriculumSoapIn" />
-      <wsdl:output message="tns:GetCurriculumSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetCurriculumVersion">
-      <wsdl:input message="tns:GetCurriculumVersionSoapIn" />
-      <wsdl:output message="tns:GetCurriculumVersionSoapOut" />
+    <wsdl:operation name="GetComisionesPorAgente">
+      <wsdl:input message="tns:GetComisionesPorAgenteSoapIn" />
+      <wsdl:output message="tns:GetComisionesPorAgenteSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GuardarDocumento_Ajax">
       <wsdl:input message="tns:GuardarDocumento_AjaxSoapIn" />
@@ -12170,14 +12273,6 @@
       <wsdl:input message="tns:GetThumbnailPorIdSoapIn" />
       <wsdl:output message="tns:GetThumbnailPorIdSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="AsignarImagenAFolioDeLegajo">
-      <wsdl:input message="tns:AsignarImagenAFolioDeLegajoSoapIn" />
-      <wsdl:output message="tns:AsignarImagenAFolioDeLegajoSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="AsignarImagenAFolioDeLegajoPasandoPagina">
-      <wsdl:input message="tns:AsignarImagenAFolioDeLegajoPasandoPaginaSoapIn" />
-      <wsdl:output message="tns:AsignarImagenAFolioDeLegajoPasandoPaginaSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="GetUsuarios">
       <wsdl:input message="tns:GetUsuariosSoapIn" />
       <wsdl:output message="tns:GetUsuariosSoapOut" />
@@ -12189,6 +12284,10 @@
     <wsdl:operation name="GetAgentesEvaluablesParaVerificarGDE">
       <wsdl:input message="tns:GetAgentesEvaluablesParaVerificarGDESoapIn" />
       <wsdl:output message="tns:GetAgentesEvaluablesParaVerificarGDESoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAgentesEvaluablesParaComites">
+      <wsdl:input message="tns:GetAgentesEvaluablesParaComitesSoapIn" />
+      <wsdl:output message="tns:GetAgentesEvaluablesParaComitesSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="BuscarPeriodosEvaluacion">
       <wsdl:input message="tns:BuscarPeriodosEvaluacionSoapIn" />
@@ -12229,6 +12328,10 @@
     <wsdl:operation name="GetEstadosEvaluaciones">
       <wsdl:input message="tns:GetEstadosEvaluacionesSoapIn" />
       <wsdl:output message="tns:GetEstadosEvaluacionesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEstadosEvaluacionesPeriodosActivos">
+      <wsdl:input message="tns:GetEstadosEvaluacionesPeriodosActivosSoapIn" />
+      <wsdl:output message="tns:GetEstadosEvaluacionesPeriodosActivosSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="EvalGetNivelesFormulario">
       <wsdl:input message="tns:EvalGetNivelesFormularioSoapIn" />
@@ -12498,14 +12601,6 @@
       <wsdl:input message="tns:GetComisionesPorFiltroSoapIn" />
       <wsdl:output message="tns:GetComisionesPorFiltroSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="GetComisionesPorProvincia">
-      <wsdl:input message="tns:GetComisionesPorProvinciaSoapIn" />
-      <wsdl:output message="tns:GetComisionesPorProvinciaSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetComisionesPorAgente">
-      <wsdl:input message="tns:GetComisionesPorAgenteSoapIn" />
-      <wsdl:output message="tns:GetComisionesPorAgenteSoapOut" />
-    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="WSViaticosSoap" type="tns:WSViaticosSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -12664,6 +12759,33 @@
     </wsdl:operation>
     <wsdl:operation name="AsignaAreaAPersonasNoCertificadas">
       <soap:operation soapAction="http://wsviaticos.gov.ar/AsignaAreaAPersonasNoCertificadas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFormulario">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetFormulario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarCambiosEnFormulario">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarCambiosEnFormulario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarCabeceraFormulario">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarCabeceraFormulario" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -13303,6 +13425,33 @@
     </wsdl:operation>
     <wsdl:operation name="InsertarEvaluacion">
       <soap:operation soapAction="http://wsviaticos.gov.ar/InsertarEvaluacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VerificarUsuario">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/VerificarUsuario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCurriculum">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetCurriculum" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCurriculumVersion">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetCurriculumVersion" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -14048,8 +14197,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetFormulario">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetFormulario" style="document" />
+    <wsdl:operation name="AsignarImagenAFolioDeLegajo">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/AsignarImagenAFolioDeLegajo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -14057,17 +14206,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GuardarCambiosEnFormulario">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarCambiosEnFormulario" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GuardarCabeceraFormulario">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarCabeceraFormulario" style="document" />
+    <wsdl:operation name="AsignarImagenAFolioDeLegajoPasandoPagina">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/AsignarImagenAFolioDeLegajoPasandoPagina" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -14642,6 +14782,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="CambiarOrganismoEnSolicitudCredencial">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/CambiarOrganismoEnSolicitudCredencial" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="AprobarSolicitudCredencial">
       <soap:operation soapAction="http://wsviaticos.gov.ar/AprobarSolicitudCredencial" style="document" />
       <wsdl:input>
@@ -14795,8 +14944,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="VerificarUsuario">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/VerificarUsuario" style="document" />
+    <wsdl:operation name="GetComisionesPorProvincia">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetComisionesPorProvincia" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -14804,17 +14953,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetCurriculum">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetCurriculum" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetCurriculumVersion">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetCurriculumVersion" style="document" />
+    <wsdl:operation name="GetComisionesPorAgente">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetComisionesPorAgente" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -15452,24 +15592,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="AsignarImagenAFolioDeLegajo">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/AsignarImagenAFolioDeLegajo" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="AsignarImagenAFolioDeLegajoPasandoPagina">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/AsignarImagenAFolioDeLegajoPasandoPagina" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetUsuarios">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetUsuarios" style="document" />
       <wsdl:input>
@@ -15490,6 +15612,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetAgentesEvaluablesParaVerificarGDE">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetAgentesEvaluablesParaVerificarGDE" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAgentesEvaluablesParaComites">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetAgentesEvaluablesParaComites" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -15580,6 +15711,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetEstadosEvaluaciones">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetEstadosEvaluaciones" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEstadosEvaluacionesPeriodosActivos">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetEstadosEvaluacionesPeriodosActivos" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -16190,24 +16330,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetComisionesPorProvincia">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetComisionesPorProvincia" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetComisionesPorAgente">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetComisionesPorAgente" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="WSViaticosSoap12" type="tns:WSViaticosSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -16366,6 +16488,33 @@
     </wsdl:operation>
     <wsdl:operation name="AsignaAreaAPersonasNoCertificadas">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/AsignaAreaAPersonasNoCertificadas" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFormulario">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetFormulario" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarCambiosEnFormulario">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarCambiosEnFormulario" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarCabeceraFormulario">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarCabeceraFormulario" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -17005,6 +17154,33 @@
     </wsdl:operation>
     <wsdl:operation name="InsertarEvaluacion">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/InsertarEvaluacion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VerificarUsuario">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/VerificarUsuario" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCurriculum">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetCurriculum" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCurriculumVersion">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetCurriculumVersion" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -17750,8 +17926,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetFormulario">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetFormulario" style="document" />
+    <wsdl:operation name="AsignarImagenAFolioDeLegajo">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/AsignarImagenAFolioDeLegajo" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -17759,17 +17935,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GuardarCambiosEnFormulario">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarCambiosEnFormulario" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GuardarCabeceraFormulario">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarCabeceraFormulario" style="document" />
+    <wsdl:operation name="AsignarImagenAFolioDeLegajoPasandoPagina">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/AsignarImagenAFolioDeLegajoPasandoPagina" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -18344,6 +18511,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="CambiarOrganismoEnSolicitudCredencial">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/CambiarOrganismoEnSolicitudCredencial" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="AprobarSolicitudCredencial">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/AprobarSolicitudCredencial" style="document" />
       <wsdl:input>
@@ -18497,8 +18673,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="VerificarUsuario">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/VerificarUsuario" style="document" />
+    <wsdl:operation name="GetComisionesPorProvincia">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetComisionesPorProvincia" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -18506,17 +18682,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetCurriculum">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetCurriculum" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetCurriculumVersion">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetCurriculumVersion" style="document" />
+    <wsdl:operation name="GetComisionesPorAgente">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetComisionesPorAgente" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -19154,24 +19321,6 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="AsignarImagenAFolioDeLegajo">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/AsignarImagenAFolioDeLegajo" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="AsignarImagenAFolioDeLegajoPasandoPagina">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/AsignarImagenAFolioDeLegajoPasandoPagina" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetUsuarios">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetUsuarios" style="document" />
       <wsdl:input>
@@ -19192,6 +19341,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetAgentesEvaluablesParaVerificarGDE">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetAgentesEvaluablesParaVerificarGDE" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAgentesEvaluablesParaComites">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetAgentesEvaluablesParaComites" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -19282,6 +19440,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetEstadosEvaluaciones">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetEstadosEvaluaciones" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEstadosEvaluacionesPeriodosActivos">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetEstadosEvaluacionesPeriodosActivos" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -19892,31 +20059,13 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetComisionesPorProvincia">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetComisionesPorProvincia" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetComisionesPorAgente">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetComisionesPorAgente" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="WSViaticos">
     <wsdl:port name="WSViaticosSoap" binding="tns:WSViaticosSoap">
-      <soap:address location="http://localhost:43412/WSViaticos/WSViaticos.asmx" />
+      <soap:address location="http://localhost:43412/WSViaticos.asmx" />
     </wsdl:port>
     <wsdl:port name="WSViaticosSoap12" binding="tns:WSViaticosSoap12">
-      <soap12:address location="http://localhost:43412/WSViaticos/WSViaticos.asmx" />
+      <soap12:address location="http://localhost:43412/WSViaticos.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>
