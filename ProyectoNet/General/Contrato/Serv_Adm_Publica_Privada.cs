@@ -23,13 +23,12 @@ namespace General.Contrato
         public string Afiliado { get; set; }
         public bool DatoDeBaja { get; set; }
         //public bool datonoimprime { get; set; }
-        public bool Ctr_Cert { get; set; }
+        public Nullable<bool> Ctr_Cert { get; set; }
         public Int16 Usuario { get; set; }
-        public DateTime Fecha_Carga { get; set; }
-
-        //public string Institucion { get; set; }
+        public DateTime? Fecha_Carga { get; set; }
         public string Domicilio { get; set; }
 
+        //public Int16? TipoDoc { get; set; } //Este lo utilizo para que tenga los valores 0,1,null para la propiedad "Ctr_Cert" ya que este es un bool.
 
         public Serv_Adm_Publica_Privada()
         {

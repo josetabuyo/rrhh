@@ -23,6 +23,13 @@ Backend.start(function () {
         pFolio = valores['folio'];
         pServicio = valores['servicio'];
 
+        if (pServicio == "PUBLICO")
+            $('#lblTitulo').val("Carga de Servicio de Administracion Publico");
+
+        if (pServicio == "PRIVADO")
+            $('#lblTitulo').val("Carga de Servicio de Administracion Privado");
+
+
         completarComboAmbitos();
         completarComboCargo();
         GetUsuario();
@@ -176,7 +183,6 @@ $("#btn_Guardar").click(function () {
         alertify.alert("Debe agregar un organismo a la lista");
         return;
     };
-
 
     spinner = new Spinner({ scale: 2 }).spin($("body")[0]);
 

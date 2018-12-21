@@ -1,4 +1,5 @@
-﻿var cargoIdSeleccionado;
+﻿/*
+var cargoIdSeleccionado;
 var cargoDescripSeleccionado;
 var ContenedorGrilla;
 var lista_de_serv_publico;
@@ -272,3 +273,5 @@ var DibujarGrillaServPublico = function () {
 };
 
 //----------------------------------------------------------------------------------
+
+*/

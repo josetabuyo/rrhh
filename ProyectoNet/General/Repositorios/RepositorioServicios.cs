@@ -195,9 +195,20 @@ namespace General
                 Servicio.Afiliado = dr.GetString(dr.GetOrdinal("afiliado"));
                 Servicio.DatoDeBaja = dr.GetBoolean(dr.GetOrdinal("datodebaja"));
                 //Servicio.datonoimprime = dr.GetBoolean(dr.GetOrdinal("datonoimprime"));
-                Servicio.Ctr_Cert = dr.GetBoolean(dr.GetOrdinal("ctr_cert"));
-                Servicio.Usuario = dr.GetInt16(dr.GetOrdinal("Usuario"));
-                Servicio.Fecha_Carga = dr.GetDateTime(dr.GetOrdinal("fecha_carga"));
+                if (dr.IsDBNull(dr.GetOrdinal("Ctr_Cert")))
+                    Servicio.Ctr_Cert = null;
+                else
+                    Servicio.Ctr_Cert = dr.GetBoolean(dr.GetOrdinal("Ctr_Cert"));
+
+                if (dr.IsDBNull(dr.GetOrdinal("Usuario")))
+                    Servicio.Usuario = 0;
+                else
+                    Servicio.Usuario = dr.GetInt16(dr.GetOrdinal("Usuario"));
+
+                if (dr.IsDBNull(dr.GetOrdinal("Fecha_Carga")))
+                    Servicio.Fecha_Carga = null;
+                else
+                    Servicio.Fecha_Carga = dr.GetDateTime(dr.GetOrdinal("Fecha_Carga"));
                 
 
                 listaServAdmPubica.Add(Servicio);
@@ -239,9 +250,19 @@ namespace General
                    cn.AsignarParametro("@Caja_12", servicio[servicio.Length - 1].Caja); //  [varchar](50),     
                    cn.AsignarParametro("@Afiliado_13", servicio[servicio.Length - 1].Afiliado); //  [varchar](50),    
                    //cn.AsignarParametro("@datonoimprime", servicio[servicio.Length - 1].datonoimprime); // bit,    
-                   cn.AsignarParametro("@Ctr_Cert", servicio[servicio.Length - 1].Ctr_Cert); // bit =null,    
+                   
+                   if ((bool?) servicio[servicio.Length - 1].Ctr_Cert == null)
+                   {
+                       cn.AsignarParametro("@Ctr_Cert", null); // bit =null, 
+                   }
+                   else
+                   {
+                       cn.AsignarParametro("@Ctr_Cert", (bool)servicio[servicio.Length - 1].Ctr_Cert); // bit =null, 
+                   }
+
                    cn.AsignarParametro("@Usuario", item.Usuario); // smallint
                    
+
                    cn.EjecutarSinResultado();
 
                 }
@@ -294,9 +315,22 @@ namespace General
                 Servicio.Afiliado = dr.GetString(dr.GetOrdinal("afiliado"));
                 Servicio.DatoDeBaja = dr.GetBoolean(dr.GetOrdinal("datodebaja"));
                 //Servicio.datonoimprime = dr.GetBoolean(dr.GetOrdinal("datonoimprime"));
-                Servicio.Ctr_Cert = dr.GetBoolean(dr.GetOrdinal("Ctr_Cert"));
-                Servicio.Usuario = dr.GetInt16(dr.GetOrdinal("Usuario"));
-                Servicio.Fecha_Carga = dr.GetDateTime(dr.GetOrdinal("Fecha_Carga"));
+                if (dr.IsDBNull(dr.GetOrdinal("Ctr_Cert")))
+                    Servicio.Ctr_Cert = null;
+                else
+                    Servicio.Ctr_Cert = dr.GetBoolean(dr.GetOrdinal("Ctr_Cert"));
+
+                if (dr.IsDBNull(dr.GetOrdinal("Usuario")))
+                    Servicio.Usuario = 0;
+                else
+                    Servicio.Usuario = dr.GetInt16(dr.GetOrdinal("Usuario"));
+
+                if (dr.IsDBNull(dr.GetOrdinal("Fecha_Carga")))
+                    Servicio.Fecha_Carga = null;
+                else
+                    Servicio.Fecha_Carga = dr.GetDateTime(dr.GetOrdinal("Fecha_Carga"));
+
+                                
                 
                 listaServAdmPrivada.Add(Servicio);
             }
