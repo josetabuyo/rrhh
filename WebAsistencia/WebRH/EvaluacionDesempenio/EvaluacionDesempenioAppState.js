@@ -38,6 +38,12 @@ define(['wsviaticos', 'underscore'], function (ws, _) {
                     console.log('Se produjo un error ' + err)
                     return
                 }
+
+                var comites = res[0]
+                var ues = res[1]
+
+                SetUESComites(comites, ues)
+
                 window.localStorage.setItem('ComitesDeEvaluacionData', JSON.stringify({
                     GetAllComites: res[0],
                     GetEstadosEvaluacionesPeriodosActivos: res[1],
@@ -45,11 +51,28 @@ define(['wsviaticos', 'underscore'], function (ws, _) {
                     GetPeriodosEvaluacion: res[3],
                     TimeStamp: new Date().getTime()
                 }))
+
                 cb(JSON.parse(window.localStorage.getItem('ComitesDeEvaluacionData')))
             })
         } else {
             cb(JSON.parse(window.localStorage.getItem('ComitesDeEvaluacionData')))
         }
+    }
+
+
+    //reemplazo las UnidadesEvaluacion de cada por las de "ues" que están mas completas
+    var SetUESComites = function (comites, ues) {
+        _.each(comites, c => {
+            var ids_ues_comite = _.map(c.UnidadesEvaluacion, ue => ue.Id)
+            
+            var ues_comite = _.filter(ues, u => {
+                return _.some(ids_ues_comite, id => {
+                    return id == u.Id
+                })
+            })
+
+            c.UnidadesEvaluacion = ues_comite
+        });
     }
 
 
