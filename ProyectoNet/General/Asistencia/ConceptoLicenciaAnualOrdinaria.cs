@@ -41,8 +41,9 @@ namespace General
             var calculador_de_vacaciones = new CalculadorDeVacaciones(repositorio_licencia);
 
             var aprobadas = this.LicenciasAprobadasPara(repositorio_licencia, unaPersona);
-            var solicitudes = new List<SolicitudesDeVacaciones>(aprobadas.ToArray());
+            List<SolicitudesDeVacaciones> solicitudes = new List<SolicitudesDeVacaciones>(aprobadas.ToArray());
             this.LicenciasPendientesPara(repositorio_licencia, unaPersona).ForEach(pendiente => solicitudes.Add(pendiente));
+            solicitudes = solicitudes.OrderBy(s => s.Persona.Documento).ThenBy(t => t.Desde()).ToList();
             var permitidas_descontando_perdidas = this.LicenciasPermitidasPara(repositorio_licencia, unaPersona, vacas_perdidas);
             var vacaciones_solicitables = calculador_de_vacaciones.DiasSolicitables(permitidas_descontando_perdidas, solicitudes, fecha_de_consulta, unaPersona, analisis, vacas_perdidas);
             var permitidas_calculadas = this.LicenciasCalculadasPara(repositorio_licencia, unaPersona);

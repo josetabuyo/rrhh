@@ -471,7 +471,7 @@ namespace General.Repositorios
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_evaluacion", 0);
-            parametros.Add("@id_evaluador", idEvaluador);
+            parametros.Add("@id_evaluador", idEvaluador); //AGU: 27/11/2018 - Este dato se ignora en el SP por el bug de que lo está tomando desde el usuario logueado, y eso está mal.
             parametros.Add("@id_evaluado", idEvaluado);
             parametros.Add("@id_formulario", idFormulario);
             parametros.Add("@id_periodo", periodo);

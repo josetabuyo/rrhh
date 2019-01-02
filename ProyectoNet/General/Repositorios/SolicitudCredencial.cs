@@ -12,6 +12,7 @@ namespace General.Repositorios
         public string TipoCredencial { get; set; }
         public string Motivo { get; set; }
         public string Organismo { get; set; }
+        public int IdOrganismo { get; set; }
         public string Estado { get; set; }        
         public DateTime Fecha { get; set; }
         public int IdTicketAprobacion { get; set; }
