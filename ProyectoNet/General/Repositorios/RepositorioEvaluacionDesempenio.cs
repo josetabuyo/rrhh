@@ -108,6 +108,12 @@ namespace General.Repositorios
             return tablaDatos.Rows.Count > 0;
         }
 
+
+        public RespuestaGetAgentesEvaluablesPor GetAgentesEvaluablesParaImprimir(Usuario usuario)
+        {
+            return GetAgentesEvaluablesPor(usuario, false, true, true);
+        }
+
         public RespuestaGetAgentesEvaluablesPor GetAgentesEvaluablesPor(Usuario usuario)
         {
             return GetAgentesEvaluablesPor(usuario, false, false, true);
@@ -292,6 +298,15 @@ namespace General.Repositorios
 
         }
 
+
+
+        /// <summary>
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <param name="ModoVerificadorGDE">Existe un perfil de usuario que se encarga de verificar que los codigos de GDE esten bien cargados, para ese usuario, este param va en true</param>
+        /// <param name="ModoComitesEvaluacion">Cuando el usuario es de un comite de evaluacion, puede ver todas las evaluaciones, con/sin codigo gde. Y de todas las personas (sin importar el evaluador)</param>
+        /// <param name="IncludeTextosPreguntas">Para evitar transferir por el webservice responses demasiado grande, se quitan las respuestas de las evaluaciones</param>
+        /// <returns></returns>
         protected RespuestaGetAgentesEvaluablesPor GetAgentesEvaluablesPor(Usuario usuario, bool ModoVerificadorGDE, bool ModoComitesEvaluacion, bool IncludeTextosPreguntas)
         {
             var parametros = new Dictionary<string, object>();

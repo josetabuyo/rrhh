@@ -5526,6 +5526,16 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public string PrintPdfEvaluacionDesempenioConFetch(AsignacionEvaluadoAEvaluador asignacion, Usuario usuario)
+    {
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        var asigs = repo.GetAgentesEvaluablesParaImprimir(usuario).asignaciones;
+        var fetch_asignacion = asigs.Find(a => a.id_evaluacion == asignacion.id_evaluacion);
+        
+        return PrintPdfEvaluacionDesempenio(fetch_asignacion, usuario);
+    }
+
+    [WebMethod]
     public string PrintPdfEvaluacionDesempenio(AsignacionEvaluadoAEvaluador asignacion, Usuario usuario)
     {
         var modelo_para_pdf = new List<object>() { asignacion, usuario };

@@ -268,7 +268,7 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="PrintPdfEvaluacionDesempenio">
+      <s:element name="PrintPdfEvaluacionDesempenioConFetch">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="asignacion" type="tns:AsignacionEvaluadoAEvaluador" />
@@ -401,6 +401,21 @@
           <s:element minOccurs="1" maxOccurs="1" name="Pendiente" type="s:int" />
         </s:sequence>
       </s:complexType>
+      <s:element name="PrintPdfEvaluacionDesempenioConFetchResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PrintPdfEvaluacionDesempenioConFetchResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PrintPdfEvaluacionDesempenio">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="asignacion" type="tns:AsignacionEvaluadoAEvaluador" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="PrintPdfEvaluacionDesempenioResponse">
         <s:complexType>
           <s:sequence>
@@ -8378,6 +8393,12 @@
   <wsdl:message name="EvalCorregirCodigoGDESoapOut">
     <wsdl:part name="parameters" element="tns:EvalCorregirCodigoGDEResponse" />
   </wsdl:message>
+  <wsdl:message name="PrintPdfEvaluacionDesempenioConFetchSoapIn">
+    <wsdl:part name="parameters" element="tns:PrintPdfEvaluacionDesempenioConFetch" />
+  </wsdl:message>
+  <wsdl:message name="PrintPdfEvaluacionDesempenioConFetchSoapOut">
+    <wsdl:part name="parameters" element="tns:PrintPdfEvaluacionDesempenioConFetchResponse" />
+  </wsdl:message>
   <wsdl:message name="PrintPdfEvaluacionDesempenioSoapIn">
     <wsdl:part name="parameters" element="tns:PrintPdfEvaluacionDesempenio" />
   </wsdl:message>
@@ -10817,6 +10838,10 @@
       <wsdl:input message="tns:EvalCorregirCodigoGDESoapIn" />
       <wsdl:output message="tns:EvalCorregirCodigoGDESoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="PrintPdfEvaluacionDesempenioConFetch">
+      <wsdl:input message="tns:PrintPdfEvaluacionDesempenioConFetchSoapIn" />
+      <wsdl:output message="tns:PrintPdfEvaluacionDesempenioConFetchSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="PrintPdfEvaluacionDesempenio">
       <wsdl:input message="tns:PrintPdfEvaluacionDesempenioSoapIn" />
       <wsdl:output message="tns:PrintPdfEvaluacionDesempenioSoapOut" />
@@ -12470,6 +12495,15 @@
     </wsdl:operation>
     <wsdl:operation name="EvalCorregirCodigoGDE">
       <soap:operation soapAction="http://wsviaticos.gov.ar/EvalCorregirCodigoGDE" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PrintPdfEvaluacionDesempenioConFetch">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/PrintPdfEvaluacionDesempenioConFetch" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -16152,6 +16186,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="PrintPdfEvaluacionDesempenioConFetch">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/PrintPdfEvaluacionDesempenioConFetch" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="PrintPdfEvaluacionDesempenio">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/PrintPdfEvaluacionDesempenio" style="document" />
       <wsdl:input>
@@ -19782,10 +19825,10 @@
   </wsdl:binding>
   <wsdl:service name="WSViaticos">
     <wsdl:port name="WSViaticosSoap" binding="tns:WSViaticosSoap">
-      <soap:address location="http://localhost:43412/WSViaticos/WSViaticos.asmx" />
+      <soap:address location="http://localhost:43412/WSViaticos.asmx" />
     </wsdl:port>
     <wsdl:port name="WSViaticosSoap12" binding="tns:WSViaticosSoap12">
-      <soap12:address location="http://localhost:43412/WSViaticos/WSViaticos.asmx" />
+      <soap12:address location="http://localhost:43412/WSViaticos.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

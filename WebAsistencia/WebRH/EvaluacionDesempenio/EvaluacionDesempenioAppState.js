@@ -304,7 +304,7 @@ define(['wsviaticos', 'underscore'], function (ws, _) {
 
     var PrintPdfEvaluacionDesempenio = function (asignacion, cb) {
         var req = [{
-            nombre_metodo: "PrintPdfEvaluacionDesempenio",
+            nombre_metodo: "PrintPdfEvaluacionDesempenioConFetch",
             argumentos_json: [JSON.stringify(asignacion)]
         }]
 
