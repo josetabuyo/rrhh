@@ -447,7 +447,7 @@ namespace General.Repositorios
                                             row.GetString("codigo_doc_electronico", ""),
                                             row.GetDateTime("fecha"),
                                             new VerificacionCodigoGdeDocumento(row.GetDateTime("fechaVerificacionGDE", DateTime.MinValue), VerificacionCodigoGdeDocumento.UsuarioVerifFromDB(row.GetSmallintAsInt("idUsuarioVerificadorGDE", 0))),
-                                            row.GetSmallintAsInt("sum_puntaje"));
+                                            row.GetSmallintAsInt("sum_puntaje", 0));
             }
 
             var unidad_evaluacion = UnidadDeEvaluacion.Nulio();
