@@ -149,8 +149,8 @@ $("#btn_Agregar").click(function () {
         ServPublico.Ctr_Cert = null;
     }
 
-    ServPublico.Domicilio = null;
-    ServPublico.Institucion = null;
+    //ServPublico.Domicilio = null;
+    //ServPublico.Institucion = null;
 
     var d = new Date();
     var dFecha = d.getDate() + "/" + (d.getMonth() + 1) + "/" + d.getFullYear();
@@ -168,6 +168,7 @@ $("#btn_Agregar").click(function () {
     $("#cmbCargo").val("");
     $("#txtFechaDesde").val("");
     $("#txtFechaHasta").val("");
+    $("#txtDomicilio").val("");
 
 });
 
@@ -186,7 +187,7 @@ $("#btn_Guardar").click(function () {
 
     spinner = new Spinner({ scale: 2 }).spin($("body")[0]);
 
-    Backend.Alta_Servicios_Adm_Publica(lista_de_serv_publico)
+    Backend.Alta_Servicios_Administracion(lista_de_serv_publico, pServicio)
     .onSuccess(function (respuesta) {
         alertify.success("Datos guardados con éxito");
         //lista_de_serv_publico = respuesta;
@@ -273,9 +274,13 @@ function ValidarDatos(accion) {
                 alertify.alert("Debe cargar la fecha hasta");
                 return false;
             };
+
+            if ($("#txtDomicilio").val() == "") {
+                alertify.alert("Debe cargar el domicilio");
+                return false;
+            };
         }
         
-
 
         //if (lista_de_serv_publico.length == 0) {
         //alertify.alert("Debe agregar un organismo");
@@ -534,7 +539,7 @@ var DibujarGrillaServPublico = function () {
             new Columna("Cargo", { generar: function (consulta) { return consulta.Cargo.Descripcion; } }),
             new Columna("Desde", { generar: function (consulta) { return FormatearFecha(consulta.Fecha_Desde); } }),
             new Columna("Hasta", { generar: function (consulta) { return FormatearFecha(consulta.Fecha_Hasta); } }),
-
+            new Columna("Domicilio", { generar: function (consulta) { return consulta.Domicilio; } }),
 
 
             new Columna("Ver", { generar: function (consulta) {

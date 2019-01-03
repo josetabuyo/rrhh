@@ -5388,6 +5388,8 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
 
+
+    //---- SERVICIO DE ADM. PUBLICA PRIVADA
     [WebMethod]
     public Serv_Adm_Publica_Privada[] GetServicios_Adm_Publica_Principal(int nroDocumento, Usuario usuario)
     {
@@ -5480,13 +5482,25 @@ public class WSViaticos : System.Web.Services.WebService
 
 
     [WebMethod]
-    public bool Alta_Servicios_Adm_Publica(Serv_Adm_Publica_Privada[] servicio, Usuario usuario)
+    public bool Alta_Servicios_Administracion(Serv_Adm_Publica_Privada[] AdmPublicoPrivado, string servicio, Usuario usuario)
     {
         var RepositorioServAdm = new RepositorioServicios();
-        return RepositorioServAdm.Alta_Servicios_Adm_Publica(servicio, usuario);
+
+        if (servicio == "PUBLICO")
+        {
+            return RepositorioServAdm.Alta_Servicios_Adm_Publica(AdmPublicoPrivado, usuario);
+        }
+
+        if (servicio == "PRIVADO")
+        {
+            //return RepositorioServAdm.Alta_Servicios_Adm_Publica(AdmPublicoPrivado, usuario);
+        }
+
+        return false;
 
     }
 
+    //---- SERVICIO DE ADM. PUBLICA PRIVADA
     
 
 

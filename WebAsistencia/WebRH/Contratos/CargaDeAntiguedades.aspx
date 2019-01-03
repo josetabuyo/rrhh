@@ -9,7 +9,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head runat="server">
-        <title>Carga de Antiguedades</title>
+        <title>Carga de Antigüedad</title>
     <%= Referencias.Css("../")%>
     <link rel="stylesheet" type="text/css" href="../Formularios/EstilosFormularios.css" />
     <link rel="stylesheet" href="../estilos/estilos.css" type="text/css" />
@@ -26,7 +26,7 @@
             <div style="display: block; width: 50%; padding: 0; margin-bottom: 27px; font-size: 19.5px;
                 line-height: 36px; color: #333333; border: 0; border-bottom: 1px solid #e5e5e5;
                 text-shadow: 2px 2px 5px rgba(150, 150, 150, 1); text-align: left;">
-                Carga de Antiguedades
+                Carga de Antigüedad Laboral
             </div>
         </div>
 

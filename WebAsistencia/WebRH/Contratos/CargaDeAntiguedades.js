@@ -23,13 +23,7 @@ $("#btn_Privado").click(function () {
 });
 
 $("#btn_AgregarServicio").click(function () {
-    window.open("CargaDeAntiguedadesAdmPublica.aspx?legajo=" + $('#legajo').text().trim() + "&documento=" + $('#documento').text().trim() + "&folio=0" + "&servicio=" + botonSeleccionado);
-//    if (botonSeleccionado=="ESTADO") {
-//       window.open("CargaDeAntiguedadesAdmPublica.aspx?legajo=" + $('#legajo').text().trim() + "&documento=" + $('#documento').text().trim() + "&folio= 0" + "&servicio= E");
-//    }
-//    if (botonSeleccionado == "PRIVADO") {
-//        window.open("CargaDeAntiguedadesAdmPublica.aspx?legajo=" + $('#legajo').text().trim() + "&documento=" + $('#documento').text().trim() + "&folio= 0" + "&servicio= P");
-//    }   
+    window.open("CargaDeAntiguedadesAdmPublicaPrivada.aspx?legajo=" + $('#legajo').text().trim() + "&documento=" + $('#documento').text().trim() + "&folio=0" + "&servicio=" + botonSeleccionado);
 });
 
 var LimpiarPantalla = function () {
@@ -159,8 +153,7 @@ var DibujarGrillaServPublico = function () {
                         //$('#div_tabla_detalle').hide();
                         //$('#div_tabla_informes').hide();
                         //_this.FiltrarPersonasParaTablaDetalle(un_registro.Id, tabla_detalle);
-                        //window.open("CargaDeAntiguedadesAdmPublica.aspx?legajo=" + $('#legajo').text().trim() + "&" + "folio=" + consulta.Folio);
-                        window.open("CargaDeAntiguedadesAdmPublica.aspx?legajo=" + $('#legajo').text().trim() + "&documento=" + $('#documento').text().trim() + "&folio=" + consulta.Folio + "&servicio=" + botonSeleccionado);
+                        window.open("CargaDeAntiguedadesAdmPublicaPrivada.aspx?legajo=" + $('#legajo').text().trim() + "&documento=" + $('#documento').text().trim() + "&folio=" + consulta.Folio + "&servicio=" + botonSeleccionado);
 
                         spinner.stop();
                     }, 10);
@@ -257,9 +250,8 @@ var DibujarGrillaOtrosServicios = function () {
                         //checks_activos = ["GraficoPorArea"];
                         //$('#div_tabla_detalle').hide();
                         //$('#div_tabla_informes').hide();
-                        //_this.FiltrarPersonasParaTablaDetalle(un_registro.Id, tabla_detalle);
-                        //window.open("CargaDeAntiguedadesAdmPublica.aspx?legajo=" + $('#legajo').text().trim() + "&" + "folio=" + consulta.Folio);
-                        window.open("CargaDeAntiguedadesAdmPublica.aspx?legajo=" + $('#legajo').text().trim() + "&documento=" + $('#documento').text().trim() + "&folio=" + consulta.Folio + "&servicio=" + botonSeleccionado);
+                        //_this.FiltrarPersonasParaTablaDetalle(un_registro.Id, tabla_detalle);                        
+                        window.open("CargaDeAntiguedadesAdmPublicaPrivada.aspx?legajo=" + $('#legajo').text().trim() + "&documento=" + $('#documento').text().trim() + "&folio=" + consulta.Folio + "&servicio=" + botonSeleccionado);
 
                         spinner.stop();
                     }, 10);

@@ -209,7 +209,8 @@ namespace General
                     Servicio.Fecha_Carga = null;
                 else
                     Servicio.Fecha_Carga = dr.GetDateTime(dr.GetOrdinal("Fecha_Carga"));
-                
+
+                Servicio.Domicilio = dr.GetString(dr.GetOrdinal("Domicilio"));
 
                 listaServAdmPubica.Add(Servicio);
             }
@@ -261,6 +262,7 @@ namespace General
                    }
 
                    cn.AsignarParametro("@Usuario", item.Usuario); // smallint
+
                    
 
                    cn.EjecutarSinResultado();
@@ -329,6 +331,7 @@ namespace General
                     Servicio.Fecha_Carga = null;
                 else
                     Servicio.Fecha_Carga = dr.GetDateTime(dr.GetOrdinal("Fecha_Carga"));
+
 
                                 
                 
