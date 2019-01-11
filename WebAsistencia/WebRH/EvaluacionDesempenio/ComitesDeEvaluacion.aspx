@@ -76,7 +76,7 @@
                                 <td class="text-right">{{SinGDE}}</td>
                                 <td class="text-right">{{SinComite}}</td>
                                 <td class="text-right">{{Finalizado}}</td>
-                                <td class="text-right">{{ReunionesRealizadas}}<a style="display: inline" data-toggle="tooltip" data-placement="top" on_next="#scr_reuniones_comites/{{IdPeriodo}}" title="Ver Reuniones" class="nav-link text-info" href="#" ><span class="fa fa fa-eye"></span></a></td>
+                                <td class="text-right">{{ReunionesRealizadas}}<a style="display: inline" data-toggle="tooltip" data-placement="top" on_next="#scr_reuniones_comites/{{IdPeriodo}}" title="Ver Reuniones" class="nav-link text-info" href="#"><span class="fa fa fa-eye"></span></a></td>
                                 <td class="text-center">
                                     <a style="display: inline" data-toggle="tooltip" data-placement="top" on_next="#scr_datos_generales/{{IdPeriodo}}" title="Crear Nueva Reunion" class="nav-link" href="#"><span class="fa fa fa-plus-circle"></span></a>
                                 </td>
@@ -119,7 +119,7 @@
                                 <td class="text">{{Lugar}}</td>
                                 <td class="text">{{Integrantes}}</td>
                                 <td class="text">
-                                    <a style="display: inline" data-toggle="tooltip" data-placement="top" title="Ver Detalle" class="detalle" href="#" on_next="#scr_evaluaciones/{{IdComite}}" ><span class="fa fa fa-eye"></span></a>
+                                    <a style="display: inline" data-toggle="tooltip" data-placement="top" title="Ver Detalle" class="detalle" href="#" on_next="#scr_evaluaciones/{{IdComite}}"><span class="fa fa fa-eye"></span></a>
                                 </td>
                             </tr>
                         </tbody>
@@ -434,27 +434,33 @@
                                 </div>
                             </div>
                             <div class="card-text">
-                                <td class="col-12">
-                                    <div class="form-group row">
-                                        <label for="txt_filtro_apellido" class="col-12 col-md-2 col-form-label text-right">Filtro por apellido</label>
-                                        <div class="col-5 col-md-3">
-                                            <input type="text" class="form-control" id="txt_filtro_apellido" name="txt_filtro_apellido" placeholder="Apellido">
+                                <div class="card border-dark mb-3 col-12">
+                                    <div class="card-body text-dark">
+                                        <div class="form-group row">
+                                            <label for="txt_filtro_apellido" class="col-12 col-md-2 col-form-label text-right">Filtro por apellido</label>
+                                            <div class="col-5 col-md-3">
+                                                <input type="text" class="form-control" id="txt_filtro_apellido" name="txt_filtro_apellido" placeholder="Apellido">
+                                            </div>
+                                            <label for="txt_filtro_estado" class="col-12 col-md-2 col-form-label text-right">Filtro por estado</label>
+                                            <div class="col-5 col-md-3">
+                                                <select class="custom-select" id="inputGroupSelect01">
+                                                    <option selected>Seleccione</option>
+                                                    <option>Provisoria</option>
+                                                    <option>Pendiente</option>
+                                                    <option disabled>──────────</option>
+                                                    <option value="1">Destacados</option>
+                                                    <option value="2">Bueno</option>
+                                                    <option value="3">Regular</option>
+                                                    <option value="3">Deficiente</option>
+                                                </select>
+                                            </div>
+                                            <div class="col">
+                                                <input type="submit" class="btn btn-primary active" role="button" value="Filtrar" />
+                                            </div>
                                         </div>
-                                        <label for="txt_filtro_estado" class="col-12 col-md-2 col-form-label text-right">Filtro por estado</label>
-                                        <div class="col-5 col-md-3">
-                                            <select class="custom-select" id="inputGroupSelect01">
-                                                <option selected>Seleccione</option>
-                                                <option>Provisoria</option>
-                                                <option>Pendiente</option>
-                                                <option disabled>──────────</option>
-                                                <option value="1">Destacados</option>
-                                                <option value="2">Bueno</option>
-                                                <option value="3">Regular</option>
-                                                <option value="3">Deficiente</option>
-                                            </select>
-                                        </div>
-                                        <div class="col"></div>
                                     </div>
+                                </div>
+                                <div class="card-text">
                                     <td class="row">
                                         <table class="table table-bordered table-striped table-sm" id="tabla_evaluaciones">
                                             <thead>
@@ -475,61 +481,95 @@
                                                     <td class="text">{{Nombre}}</td>
                                                     <td class="text">{{Area}}</td>
                                                     <td class="text">{{Evaluacion}}</td>
-                                                    <td class="text">{{GDE}}</td>
+                                                    <td class="text small">{{GDE}}</td>
                                                     <td class="text-center">
                                                         <span style="display: inline">
-                                                            <a style="display: inline" data-toggle="tooltip" data-placement="top" title="Reevaluar" class="text-info" href="#"><span class="fa fa fa-undo"></span></a>
-                                                            <a style="display: inline" data-toggle="tooltip" data-placement="top" title="Ver" class="nav-link ver_eval" model_id="{{IdEvaluacion}}" href="#" ><span class="fa fa fa-eye"></span></a>
-                                                            <a style="display: inline" data-toggle="tooltip" data-placement="top" title="Aprobar" class="text-success" href="#"><span class="fa fa fa-check-circle"></span></a>
+                                                            <a style="display: inline" data-toggle="tooltip" data-placement="top" title="Reevaluar" class="text-info modificar_evaluacion" href="#" opcion_disponible="{{AunNoAprobado}}" model_id="{{IdEvaluacion}}" ><span class="fa fa fa-undo"></span></a>
+                                                            <a style="display: inline" data-toggle="tooltip" data-placement="top" title="Ver" class="nav-link ver_eval" model_id="{{IdEvaluacion}}" href="#"><span class="fa fa fa-eye"></span></a>
+                                                            <a style="display: inline" data-toggle="tooltip" data-placement="top" title="Aprobar" class="text-success aprobador_evaluacion" href="#" opcion_disponible="{{AunNoAprobado}}" model_id="{{IdEvaluacion}}"><span class="fa fa fa-check-circle"></span></a>
                                                         </span>
                                                     </td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                     </td>
-                                </td>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <hr />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col col-md-12 text-right">
+                                    <a href="#" class="btn btn-secondary" role="button" on_leave="#scr_unidades">Atras</a>
+                                    <a href="#" class="btn btn-primary active" role="button" on_leave="#scr_periodos">Finalizar</a>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col">&nbsp;</div>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <hr />
-                </div>
-            </div>
-            <div class="row">
-                <div class="col col-md-12 text-right">
-                    <a href="#" class="btn btn-secondary" role="button" on_leave="#scr_unidades">Atras</a>
-                    <a href="#" class="btn btn-primary active" role="button" on_leave="#scr_periodos">Finalizar</a>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">&nbsp;</div>
             </div>
         </div>
-    </div>
-    <div class="modal spinner-modal fade bd-example-modal-lg" data-backdrop="static" data-keyboard="false" tabindex="-1">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content" style="width: 48px">
-                <span class="fa fa-spinner fa-pulse fa-3x"></span>
+
+        <div class="modal spinner-modal fade bd-example-modal-lg" data-backdrop="static" data-keyboard="false" tabindex="-1">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content" style="width: 48px">
+                </div>
             </div>
         </div>
-    </div>
-    <div id="plantillas" style="display: none">
-        <div class="vista_persona_en_selector">
-            <span id="contenedor_legajo" class="badge badge-pill badge-success">
-                <span id="titulo_legajo">Leg:
+
+        <!-- Modal -->
+        <div class="modal fade" id="AprobarEvaluacionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Aprobar Evaluación</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <p>
+                            ¿Esta seguro que desea aprobar la evaluacion de <br /><b><span id="span_evaluado_a_aprobar"></b></span>?
+                            <br /><small>(esta opción no se puede "deshacer")</small>
+                        </p>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="button" id="btn_aprobar_evaluacion" class="btn btn-primary">Aprobar</button>
+                        <input type="hidden" id="id_evaluacion_a_aprobar" ></input>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal spinner-modal fade bd-example-modal-lg" data-backdrop="static" data-keyboard="false" tabindex="-1">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content" style="width: 48px">
+                    <span class="fa fa-spinner fa-pulse fa-3x"></span>
+                </div>
+            </div>
+        </div>
+        <div id="plantillas" style="display: none">
+            <div class="vista_persona_en_selector">
+                <span id="contenedor_legajo" class="badge badge-pill badge-success">
+                    <span id="titulo_legajo">Leg:
+                    </span>
+                    <span id="legajo"></span>
                 </span>
-                <span id="legajo"></span>
-            </span>
-            <span id="nombre"></span>
-            <span id="apellido"></span>
-            <span id="contenedor_doc" class="badge badge-pill badge-info">
-                <span id="titulo_doc">Doc:</span>
-                <span id="documento" name="documento"></span>
-            </span>
+                <span id="nombre"></span>
+                <span id="apellido"></span>
+                <span id="contenedor_doc" class="badge badge-pill badge-info">
+                    <span id="titulo_doc">Doc:</span>
+                    <span id="documento" name="documento"></span>
+                </span>
+            </div>
         </div>
-    </div>
 </body>
 </html>

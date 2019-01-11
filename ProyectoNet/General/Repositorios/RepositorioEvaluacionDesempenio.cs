@@ -30,6 +30,23 @@ namespace General.Repositorios
             return _instancia;
         }
 
+        public AprobacionPorComite InsertarAprobacionEvaluacion(int id_evaluacion, int id_comite, int id_usuario, DateTime fecha)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_evaluacion", id_evaluacion);
+            parametros.Add("@id_comite", id_comite);
+            parametros.Add("@id_usuario", id_comite);
+            parametros.Add("@fecha", fecha);
+
+            var tablaDatos = _conexion.Ejecutar("dbo.EVAL_INS_AprobacionComite", parametros);
+
+            var row = tablaDatos.Rows[0];
+            var result = new AprobacionPorComite(row.GetDateTime("fecha"), row.GetSmallintAsInt("id"), row.GetSmallintAsInt("id_comite"), row.GetSmallintAsInt("id_evaluacion"), row.GetSmallintAsInt("id_usuario"));
+
+            return result;
+
+        }
+
         public List<DetallePreguntas> getFormularioDeEvaluacion(int nivel, int evaluado, int evaluacion)
         {
             var parametros = new Dictionary<string, object>();
@@ -126,7 +143,7 @@ namespace General.Repositorios
 
         public RespuestaGetAgentesEvaluablesParaComites GetAgentesEvaluablesParaComites(Usuario usuario)
         {
-            var res =  GetAgentesEvaluablesPor(usuario, true, true, false);
+            var res = GetAgentesEvaluablesPor(usuario, true, true, false);
             return new RespuestaGetAgentesEvaluablesParaComites(res.asignaciones, res.EsAgenteVerificador, res.UsuarioRequest);
         }
 
@@ -195,7 +212,7 @@ namespace General.Repositorios
             var parametros = new Dictionary<string, object>();
             parametros.Add("@idComite", idComite);
             var tablaDatos = _conexion.Ejecutar("dbo.EVAL_GET_Comite", parametros);
-            
+
 
             var resultado = new List<ComiteEvaluacionDesempenio>();
             if (tablaDatos.Rows.Count > 0)
@@ -327,7 +344,7 @@ namespace General.Repositorios
 
             var sp = IncludeTextosPreguntas ? "dbo.EVAL_GET_Evaluados_Evaluador" : "dbo.EVAL_GET_Evaluados_Evaluador_Slim";
             //var sp = "dbo.EVAL_GET_Evaluados_Evaluador";
-           var tablaDatos = _conexion.Ejecutar(sp, parametros);
+            var tablaDatos = _conexion.Ejecutar(sp, parametros);
 
             var asignaciones = new List<AsignacionEvaluadoAEvaluador> { };
             var detalle_preguntas = new List<DetallePreguntas> { };
@@ -463,7 +480,9 @@ namespace General.Repositorios
                                             row.GetString("codigo_doc_electronico", ""),
                                             row.GetDateTime("fecha"),
                                             new VerificacionCodigoGdeDocumento(row.GetDateTime("fechaVerificacionGDE", DateTime.MinValue), VerificacionCodigoGdeDocumento.UsuarioVerifFromDB(row.GetSmallintAsInt("idUsuarioVerificadorGDE", 0))),
-                                            row.GetSmallintAsInt("sum_puntaje", 0));
+                                            row.GetSmallintAsInt("sum_puntaje", 0),
+                                            new AprobacionPorComite(row.GetDateTime("fecha_aprobacion_comite", DateTime.MinValue), row.GetInt("id_aprobacion_comite", 0), row.GetInt("comite_aprobador", 0), row.GetInt("id_evaluacion", 0), row.GetSmallintAsInt("id_usuario_aprobacion", 0))
+                                            );
             }
 
             var unidad_evaluacion = UnidadDeEvaluacion.Nulio();

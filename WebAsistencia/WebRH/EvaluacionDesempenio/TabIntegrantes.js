@@ -13,7 +13,7 @@
 
     var crear_grilla_integrantes = function () {
 
-        var idComite = spa_tabs.getParam()
+        var idComite = spa_tabs.getParams()
         var comite = app_state.GetComite(idComite)
 
         //cargo la descripcion de "en caracter de" a partir del id para mostrarlo en la grilla
@@ -27,7 +27,7 @@
     }
 
     var agregar_integrante = function () {
-        var idComite = spa_tabs.getParam()
+        var idComite = spa_tabs.getParams()
         var persona = JSON.parse($('#persona_buscada').val())
         var caracter = $('#cmb_en_caracter_de').val()
 

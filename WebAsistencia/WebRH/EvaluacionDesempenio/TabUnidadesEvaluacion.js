@@ -4,7 +4,7 @@
         var checkbox_ue_clicked = function (event) {
 
             var id_ue = event.currentTarget.attributes.model_id.value
-            var idComite = spa_tabs.getParam()
+            var idComite = spa_tabs.getParams()
             var checked = event.currentTarget.checked
             event.currentTarget.checked = !event.currentTarget.checked
 
@@ -69,7 +69,7 @@
 
         var crear_grilla_unidades = function () {
 
-            var idComite = spa_tabs.getParam()
+            var idComite = spa_tabs.getParams()
             var periodo = app_state.PeriodoDe(idComite)
             var comite = app_state.GetComite(idComite)
             var all_ues = app_state.GetUnidadesEvaluacion(idComite)

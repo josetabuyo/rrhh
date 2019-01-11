@@ -25,7 +25,7 @@
         var contGDE = getSinGde(evals)
         cursor.SinGDE += contGDE.SinGDE || 0; 
         cursor.SinComite += contGDE.SinComite || 0;
-        cursor.Finalizado = 0;
+        cursor.Finalizado = _.filter(evals, e => e.periodo == ue.IdPeriodo && e.evaluacion.aprobacion_comite.IdComiteAprobador != 0 ).length;
         cursor.ReunionesRealizadas = _.filter(comites, function (each) { return each.Periodo.Id == ue.IdPeriodo }).length
         
     }

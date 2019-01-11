@@ -145,7 +145,7 @@ define(['jquery','underscore'], function ($, _) {
         change_tab(event.currentTarget.attributes.on_leave.value, tabs_events, false)
     }
 
-    ///recibe tabs_config, con los métodos definiendo las acciones a realizar por cada solapa, de la forma:
+    ///recibe tabs_events, con los métodos definiendo las acciones a realizar por cada solapa, de la forma:
     ///var tabs_config = [
     /// {
     ///    tab_name: '#scr_home',      <--nombre del tab html
@@ -165,6 +165,9 @@ define(['jquery','underscore'], function ($, _) {
         change_tab(start_tab, tabs_events, false)
     }
 
+
+    //funcion para agregar los links a otros tabs 
+    //a un componente jquery (en general, es para cuando se re-dibuja una grilla)
     var appendTabsTo = function (component_id, tabs_events ) {
         this.tabs_events = this.tabs_events || tabs_events
         tabs_events = this.tabs_events
@@ -180,8 +183,6 @@ define(['jquery','underscore'], function ($, _) {
 
         $(component_id + 'li[on_leave]').unbind('click', on_leave_click)
         $(component_id + 'li[on_leave]').click(tabs_events, on_leave_click)
-
-      
     }
 
     var starting_tab = function () {
@@ -193,7 +194,7 @@ define(['jquery','underscore'], function ($, _) {
     }
 
     ///devuelve el parametro en la url (despues de la "/")
-    var getParam = function () {
+    var getParams = function () {
         var def = tab_definition_from_url(location.hash)
         return def.parameters
     }
@@ -245,7 +246,7 @@ define(['jquery','underscore'], function ($, _) {
 
     return {
         createTabs: createTabs,
-        getParam: getParam,
+        getParams: getParams,
         setNextParameter: setNextParameter,
         goHome: goHome,
         formSubmitted: formSubmitted,

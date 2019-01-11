@@ -11,7 +11,7 @@
                 var agrupados = ComitesPorPeriodo.AgruparComitesPorPeriodo(ues, periodos, evals, comites)
                 CreadorDeGrillas('#tabla_periodos', agrupados)
 
-                spa_tabs.createTabs()
+                spa_tabs.appendTabsTo('#tabla_periodos')
 
                 //activo los tooltips
                 $('#tabla_periodos [data-toggle="tooltip"]').tooltip()

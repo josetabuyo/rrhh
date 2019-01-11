@@ -69,6 +69,26 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public RespuestaAprobarEvaluacionDesempenio AprobarEvaluacionDesempenio(int id_evaluacion, int id_comite, Usuario usuario)
+    {
+        var respuesta = new RespuestaAprobarEvaluacionDesempenio();
+        try
+        {
+            var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+            var r = repo.InsertarAprobacionEvaluacion(id_evaluacion, id_comite, usuario.Owner.Id, DateTime.Now);
+            respuesta.Aprobacion = r;
+        }
+        catch (Exception e)
+        {
+            respuesta.MensajeDeErrorAmigable = "Se produjo un error al intentar aprobar la evaluacion de desempeno";
+            respuesta.setException(e);
+        }
+        respuesta.Accion = "AprobarEvaluacionDesempenio";
+        return respuesta;
+
+    }
+
+    [WebMethod]
     public RespuestaGetAgentesEvaluablesPor GetAgentesEvaluablesParaVerificarGDE(Usuario usuario)
     {
         var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());

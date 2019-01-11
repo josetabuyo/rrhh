@@ -317,6 +317,33 @@ define(['wsviaticos', 'underscore'], function (ws, _) {
         })
     }
 
+    var GetEvaluacion = function (id_evaluacion) {
+        var evaluacion = _.find(JSON.parse(window.localStorage.getItem('ComitesDeEvaluacionData')).GetAgentesEvaluablesParaComites.asignaciones, a => a.evaluacion.id_evaluacion == id_evaluacion)
+        return evaluacion
+    }
+
+    var AprobarEvaluacion = function (id_evaluacion, id_comite, cb) {
+        var req = [{
+            nombre_metodo: "AprobarEvaluacionDesempenio",
+            argumentos_json: [parseInt(id_evaluacion), parseInt(id_comite)]
+        }]
+
+        ws.parallel(req, function (err, res) {
+            if (err) {
+                cb(err)
+                return
+            }
+
+            //var ue = _.find(GetUnidadesEvaluacion(), e => e.Id == id_ue)
+            app_data = JSON.parse(window.localStorage.getItem('ComitesDeEvaluacionData'))
+            var eval = _.find(app_data.GetAgentesEvaluablesParaComites.asignaciones, a => a.evaluacion.id_evaluacion == id_evaluacion)
+            eval.evaluacion.aprobacion_comite = res[0].Aprobacion
+            window.localStorage.setItem('ComitesDeEvaluacionData', JSON.stringify(app_data))
+
+            cb(null, res[0])
+        })
+
+    }
 
     //API del modulo
     return {
@@ -339,6 +366,8 @@ define(['wsviaticos', 'underscore'], function (ws, _) {
         StateChanged: StateChanged,
         GetEvaluacionesUes: GetEvaluacionesUes,
         GetAsignacionEvaluadoEvaluador: GetAsignacionEvaluadoEvaluador,
-        PrintPdfEvaluacionDesempenio: PrintPdfEvaluacionDesempenio
+        PrintPdfEvaluacionDesempenio: PrintPdfEvaluacionDesempenio,
+        AprobarEvaluacion: AprobarEvaluacion,
+        GetEvaluacion: GetEvaluacion
     }
 })
