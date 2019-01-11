@@ -5493,7 +5493,7 @@ public class WSViaticos : System.Web.Services.WebService
 
         if (servicio == "PRIVADO")
         {
-            //return RepositorioServAdm.Alta_Servicios_Adm_Publica(AdmPublicoPrivado, usuario);
+            return RepositorioServAdm.Alta_Servicios_Adm_Privada(AdmPublicoPrivado, usuario);
         }
 
         return false;

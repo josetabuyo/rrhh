@@ -108,8 +108,9 @@ $("#btn_Agregar").click(function () {
     ServPublico.Cargo = {};
     ServPublico.Cargo.Id = parseInt($("#cmbCargo").val());
     ServPublico.Cargo.Descripcion = $("#cmbCargo option:selected").text();
+    ServPublico.Domicilio = $('#txtDomicilio').val();
 
-    if ($("#rdRemuneradoSI").checked) {
+    if ($("#rdRemuneradoSI").prop("checked") == true) {
         ServPublico.Remunerativo = true;
     }
     else {
@@ -132,20 +133,20 @@ $("#btn_Agregar").click(function () {
 //        ServPublico.datonoimprime = false;
 //    }
 
-    if ($("#DarDeBaja").checked) {
+    if ($("#DarDeBaja").prop("checked") == true) {
         ServPublico.DatoDeBaja = true;
     }
     else {
         ServPublico.DatoDeBaja = false;
     }
 
-    if ($("#rdTipoDocumentoCTR").checked) {
+    if ($("#rdTipoDocumentoCTR").prop("checked") == true) {
         ServPublico.Ctr_Cert = true;
     }
-    if ($("#rdTipoDocumentoCER").checked) {
+    if ($("#rdTipoDocumentoCER").prop("checked") == true) {
         ServPublico.Ctr_Cert = false;
     }
-    if ($("#rdTipoDocumentoOTR").checked) {
+    if ($("#rdTipoDocumentoOTR").prop("checked") == true) {
         ServPublico.Ctr_Cert = null;
     }
 
@@ -157,18 +158,18 @@ $("#btn_Agregar").click(function () {
     ServPublico.Fecha_Carga = toDateYYYYMMDD(dFecha); //ConversorDeFechas.deIsoAFechaEnCriollo(dFecha);
 
     ServPublico.Usuario = pUsuarioLogueado;
-
+    
 
     //lista_de_serv_publico.append(ServPublico);
     lista_de_serv_publico.push(ServPublico);
     DibujarGrillaServPublico();
 
 
-    $("#txtOrganismo").val("");
-    $("#cmbCargo").val("");
-    $("#txtFechaDesde").val("");
-    $("#txtFechaHasta").val("");
-    $("#txtDomicilio").val("");
+//    $("#txtOrganismo").val("");
+//    $("#cmbCargo").val("");
+//    $("#txtFechaDesde").val("");
+//    $("#txtFechaHasta").val("");
+   
 
 });
 
@@ -494,6 +495,7 @@ var CargarPantalla = function (ListaDeDatos) {
         $("#cmbCargo").val(cargoIdSeleccionado);
         $("#txtFechaDesde").val(null);
         $("#txtFechaHasta").val(null);
+        $("#txtDomicilio").val(null);
 
         //$("#chkNoImprime").prop("checked", false);
         $("#DarDeBaja").prop("checked", false);
@@ -542,7 +544,7 @@ var DibujarGrillaServPublico = function () {
             new Columna("Domicilio", { generar: function (consulta) { return consulta.Domicilio; } }),
 
 
-            new Columna("Ver", { generar: function (consulta) {
+            new Columna("Eliminar", { generar: function (consulta) {
                 //return consulta.Afiliado; 
                 var cont = $('<div>');
 
@@ -563,8 +565,8 @@ var DibujarGrillaServPublico = function () {
                         //window.open("CargaDeAntiguedadesAdmPublica.aspx?legajo=" + $('#legajo').text().trim() + "&" + "folio=" + consulta.Folio);
                         alertify.confirm("Eliminar Cargo", "¿Desea eliminar el cargo " + consulta.Cargo.Descripcion + " entre las fechas " + FormatearFecha(consulta.Fecha_Desde) + " y " + FormatearFecha(consulta.Fecha_Hasta) + " ?", function () {
                             //ACEPTO
+                            lista_de_serv_publico.splice(lista_de_serv_publico.index(), 1)
                             alertify.success("OK - Borrar");
-                            //lista_de_serv_publico.splice(lista_de_serv_publico.index(), 1)
                         }, function () {
                             //CANCELA
                             alertify.success("Eliminación cancelada");

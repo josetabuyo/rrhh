@@ -356,18 +356,19 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="Alta_Servicios_Adm_Publica">
+      <s:element name="Alta_Servicios_Administracion">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="servicio" type="tns:ArrayOfServ_Adm_Publica_Privada" />
+            <s:element minOccurs="0" maxOccurs="1" name="AdmPublicoPrivado" type="tns:ArrayOfServ_Adm_Publica_Privada" />
+            <s:element minOccurs="0" maxOccurs="1" name="servicio" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="Alta_Servicios_Adm_PublicaResponse">
+      <s:element name="Alta_Servicios_AdministracionResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="Alta_Servicios_Adm_PublicaResult" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="Alta_Servicios_AdministracionResult" type="s:boolean" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -8113,11 +8114,11 @@
   <wsdl:message name="GetCargosSoapOut">
     <wsdl:part name="parameters" element="tns:GetCargosResponse" />
   </wsdl:message>
-  <wsdl:message name="Alta_Servicios_Adm_PublicaSoapIn">
-    <wsdl:part name="parameters" element="tns:Alta_Servicios_Adm_Publica" />
+  <wsdl:message name="Alta_Servicios_AdministracionSoapIn">
+    <wsdl:part name="parameters" element="tns:Alta_Servicios_Administracion" />
   </wsdl:message>
-  <wsdl:message name="Alta_Servicios_Adm_PublicaSoapOut">
-    <wsdl:part name="parameters" element="tns:Alta_Servicios_Adm_PublicaResponse" />
+  <wsdl:message name="Alta_Servicios_AdministracionSoapOut">
+    <wsdl:part name="parameters" element="tns:Alta_Servicios_AdministracionResponse" />
   </wsdl:message>
   <wsdl:message name="getAreaDeLaPersonaSoapIn">
     <wsdl:part name="parameters" element="tns:getAreaDeLaPersona" />
@@ -10456,9 +10457,9 @@
       <wsdl:input message="tns:GetCargosSoapIn" />
       <wsdl:output message="tns:GetCargosSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="Alta_Servicios_Adm_Publica">
-      <wsdl:input message="tns:Alta_Servicios_Adm_PublicaSoapIn" />
-      <wsdl:output message="tns:Alta_Servicios_Adm_PublicaSoapOut" />
+    <wsdl:operation name="Alta_Servicios_Administracion">
+      <wsdl:input message="tns:Alta_Servicios_AdministracionSoapIn" />
+      <wsdl:output message="tns:Alta_Servicios_AdministracionSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="getAreaDeLaPersona">
       <wsdl:input message="tns:getAreaDeLaPersonaSoapIn" />
@@ -12071,8 +12072,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="Alta_Servicios_Adm_Publica">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/Alta_Servicios_Adm_Publica" style="document" />
+    <wsdl:operation name="Alta_Servicios_Administracion">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/Alta_Servicios_Administracion" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -15611,8 +15612,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="Alta_Servicios_Adm_Publica">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/Alta_Servicios_Adm_Publica" style="document" />
+    <wsdl:operation name="Alta_Servicios_Administracion">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/Alta_Servicios_Administracion" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
