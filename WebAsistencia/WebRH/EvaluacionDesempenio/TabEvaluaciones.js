@@ -35,6 +35,8 @@
                 }
             })
             grid_rows = _.chain(grid_rows).sortBy('Nombre').sortBy('Apellido').value()
+
+
             CreadorDeGrillas('#tabla_evaluaciones', grid_rows)
 
             $('[opcion_disponible="false"]').hide()

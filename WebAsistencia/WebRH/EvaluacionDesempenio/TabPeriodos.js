@@ -20,6 +20,7 @@
 
         var init = function () {
             app_state.OnStateChange(load_grid_periodos)
+            spa_tabs.createTabs()
         }
 
         return {
