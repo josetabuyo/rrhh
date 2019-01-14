@@ -437,13 +437,13 @@
                                 <div class="card border-dark mb-3 col-12">
                                     <div class="card-body text-dark">
                                         <div class="form-group row">
-                                            <label for="txt_filtro_apellido" class="col-12 col-md-2 col-form-label text-right">Filtro por apellido</label>
+                                            <label for="txt_filtro_apellido" class="col-12 col-md-2 col-form-label text-right">Filtro por dni/apellido/nombre</label>
                                             <div class="col-5 col-md-3">
                                                 <input type="text" class="form-control" id="txt_filtro_apellido" name="txt_filtro_apellido" placeholder="Apellido">
                                             </div>
                                             <label for="txt_filtro_estado" class="col-12 col-md-2 col-form-label text-right">Filtro por estado</label>
                                             <div class="col-5 col-md-3">
-                                                <select class="custom-select" id="inputGroupSelect01">
+                                                <select class="custom-select" id="select_estado">
                                                     <option selected>Seleccione</option>
                                                     <option>Provisoria</option>
                                                     <option>Pendiente</option>
@@ -455,7 +455,7 @@
                                                 </select>
                                             </div>
                                             <div class="col">
-                                                <input type="submit" class="btn btn-primary active" role="button" value="Filtrar" />
+                                                <input type="submit" class="btn btn-primary active" role="button" value="Filtrar" id="btn_filtrar_eval" />
                                             </div>
                                         </div>
                                     </div>
@@ -476,11 +476,11 @@
                                             </thead>
                                             <tbody>
                                                 <tr class="row-template" style="display: none">
-                                                    <td class="text-right">{{Dni}}</td>
-                                                    <td class="text">{{Apellido}}</td>
-                                                    <td class="text">{{Nombre}}</td>
+                                                    <td class="text-right dni_evaluado">{{Dni}}</td>
+                                                    <td class="text apellido_evaluado">{{Apellido}}</td>
+                                                    <td class="text nombre_evaluado">{{Nombre}}</td>
                                                     <td class="text">{{Area}}</td>
-                                                    <td class="text">{{Evaluacion}}</td>
+                                                    <td class="text evaluacion_evaluado">{{Evaluacion}}</td>
                                                     <td class="text small">{{GDE}}</td>
                                                     <td class="text-center">
                                                         <span style="display: inline">

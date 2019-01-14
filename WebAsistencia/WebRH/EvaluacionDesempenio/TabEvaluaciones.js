@@ -14,6 +14,20 @@
             $('#btn_aprobar_evaluacion').click(aprobar_evaluacion)
         }
 
+        var aplicar_filtros = function () {
+            var filtro_nomApe = $('#txt_filtro_apellido').val().toUpperCase()
+            var filtro_estado = $('select_estado').val()
+
+            var $td_apellidos = $('#tabla_evaluaciones .dni_evaluado, #tabla_evaluaciones .apellido_evaluado, #tabla_evaluaciones .nombre_evaluado')
+            $($td_apellidos).parent().hide()
+            for (i = 0; i < $td_apellidos.length; i++) {
+                if ($td_apellidos[i].innerHTML.toUpperCase().indexOf(filtro_nomApe) > -1) {
+                    $($td_apellidos[i]).parent().not('.row-template').show()
+                } 
+            }
+
+        }
+
         var dibujar_tabla_evaluaciones = function () {
             var idComite = spa_tabs.getParams()
             var comite = app_state.GetComite(idComite)
@@ -36,8 +50,9 @@
             })
             grid_rows = _.chain(grid_rows).sortBy('Nombre').sortBy('Apellido').value()
 
-
             CreadorDeGrillas('#tabla_evaluaciones', grid_rows)
+
+            aplicar_filtros()
 
             $('[opcion_disponible="false"]').hide()
             $('[opcion_disponible]').click(event => event.preventDefault())
@@ -111,6 +126,8 @@
 
         var setup_componentes = function () {
             //cargar combo de tipos de evaluacion
+            $('#btn_filtrar_eval').click(aplicar_filtros)
+            $('#txt_filtro_apellido').keyup(aplicar_filtros)
         }
 
         return {
