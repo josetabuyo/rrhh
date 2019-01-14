@@ -10,34 +10,6 @@
 
             dibujar_tabla_evaluaciones()
 
-            /*
-            var evals = app_state.GetEvaluacionesUes(ues)
-
-            var grid_rows = _.map(evals, e => {
-                return {
-                    Dni: e.dni_agente_evaluado,
-                    Apellido: e.apellido_agente_evaluado,
-                    Nombre: e.nombre_agente_evaluado,
-                    Area: e.area,
-                    Evaluacion: e.evaluacion.calificacion,
-                    GDE: e.evaluacion.codigo_gde,
-                    IdEvaluacion: e.evaluacion.id_evaluacion,
-                    Accion: 'Acc',
-                    AunNoAprobado: e.evaluacion.aprobacion_comite.IdComiteAprobador == 0
-                }
-            })
-            grid_rows = _.chain(grid_rows).sortBy('Nombre').sortBy('Apellido').value()
-            CreadorDeGrillas('#tabla_evaluaciones', grid_rows)
-            
-
-            //ocultar las opciones de "aprobar" o "rechazar" para las evaluaciones ya aprobadas
-            $('[opcion_disponible="false"]').hide()
-            $('[opcion_disponible]').click(event => event.preventDefault())
-            $('.aprobador_evaluacion').click(show_popup_aprobar_evaluacion)
-            $('#btn_aprobar_evaluacion').click(aprobar_evaluacion)
-
-            pdf_printer.BindVerEvalButtons()*/
-
             app_state.OnStateChange(dibujar_tabla_evaluaciones)
             $('#btn_aprobar_evaluacion').click(aprobar_evaluacion)
         }
@@ -68,17 +40,27 @@
             $('[opcion_disponible="false"]').hide()
             $('[opcion_disponible]').click(event => event.preventDefault())
             $('.aprobador_evaluacion').click(show_popup_aprobar_evaluacion)
-            $('.modificar_evaluacion').click(setAgenteValuesToLocalStorage)
+            $('.modificar_evaluacion').click(Reevaluar)
             
             pdf_printer.BindVerEvalButtons()
         }
 
+
+        var Reevaluar = function (event) {
+            var eval_id = $(event.currentTarget).attr('model_id')
+            app_state.GetAsignacionEvaluacionCompleta(eval_id, setAgenteValuesToLocalStorage)
+        }
+
         //se utiliza para llamar al formulario
         //codigo duplicado (en caso de modificar, modificar también en ListadoAgentes.js)
-        var setAgenteValuesToLocalStorage = function (event) {
+        var setAgenteValuesToLocalStorage = function (err, respuesta) {
 
-            var eval_id = $(event.currentTarget).attr('model_id')
-            asignacion_evaluado_a_evaluador = app_state.GetEvaluacion(eval_id)
+            if (err) {
+                alert('Se produjo un error, contacte al administrador del sistema')
+                console.log(err)
+            }
+
+            var asignacion_evaluado_a_evaluador = respuesta.asignaciones[0]
 
             localStorage.setItem("id_agente_evaluador", asignacion_evaluado_a_evaluador.agente_evaluador.id)
             localStorage.setItem("idPeriodo", asignacion_evaluado_a_evaluador.id_periodo);

@@ -128,22 +128,28 @@ namespace General.Repositorios
 
         public RespuestaGetAgentesEvaluablesPor GetAgentesEvaluablesParaImprimir(Usuario usuario)
         {
-            return GetAgentesEvaluablesPor(usuario, false, true, true);
+            return GetAgentesEvaluablesPor(0, usuario, false, true, true);
         }
 
         public RespuestaGetAgentesEvaluablesPor GetAgentesEvaluablesPor(Usuario usuario)
         {
-            return GetAgentesEvaluablesPor(usuario, false, false, true);
+            return GetAgentesEvaluablesPor(0, usuario, false, false, true);
         }
 
         public RespuestaGetAgentesEvaluablesPor GetAgentesEvaluablesParaVerificarGDE(Usuario usuario)
         {
-            return GetAgentesEvaluablesPor(usuario, true, false, true);
+            return GetAgentesEvaluablesPor(0, usuario, true, false, true);
+        }
+
+        public RespuestaGetAgentesEvaluablesPor GetAsignacionEvaluacionCompleta(int id_evaluacion, Usuario usuario)
+        {
+            var res = GetAgentesEvaluablesPor(id_evaluacion, usuario, true, true, true);
+            return res;
         }
 
         public RespuestaGetAgentesEvaluablesParaComites GetAgentesEvaluablesParaComites(Usuario usuario)
         {
-            var res = GetAgentesEvaluablesPor(usuario, true, true, false);
+            var res = GetAgentesEvaluablesPor(0, usuario, true, true, false);
             return new RespuestaGetAgentesEvaluablesParaComites(res.asignaciones, res.EsAgenteVerificador, res.UsuarioRequest);
         }
 
@@ -324,7 +330,7 @@ namespace General.Repositorios
         /// <param name="ModoComitesEvaluacion">Cuando el usuario es de un comite de evaluacion, puede ver todas las evaluaciones, con/sin codigo gde. Y de todas las personas (sin importar el evaluador)</param>
         /// <param name="IncludeTextosPreguntas">Para evitar transferir por el webservice responses demasiado grande, se quitan las respuestas de las evaluaciones</param>
         /// <returns></returns>
-        protected RespuestaGetAgentesEvaluablesPor GetAgentesEvaluablesPor(Usuario usuario, bool ModoVerificadorGDE, bool ModoComitesEvaluacion, bool IncludeTextosPreguntas)
+        protected RespuestaGetAgentesEvaluablesPor GetAgentesEvaluablesPor(int id_evaluacion, Usuario usuario, bool ModoVerificadorGDE, bool ModoComitesEvaluacion, bool IncludeTextosPreguntas)
         {
             var parametros = new Dictionary<string, object>();
             var id_persona_usuario = usuario.Owner.Id;
@@ -341,6 +347,12 @@ namespace General.Repositorios
                     parametros.Add("@solo_con_codigo_gde", 1);
                 }
             }
+
+            if (id_evaluacion > 0)
+            {
+                parametros.Add("@id_evaluacion", id_evaluacion);
+            }
+
 
             var sp = IncludeTextosPreguntas ? "dbo.EVAL_GET_Evaluados_Evaluador" : "dbo.EVAL_GET_Evaluados_Evaluador_Slim";
             //var sp = "dbo.EVAL_GET_Evaluados_Evaluador";

@@ -644,6 +644,21 @@
       <s:element name="AsignaAreaAPersonasNoCertificadasResponse">
         <s:complexType />
       </s:element>
+      <s:element name="GetConsultaRapida">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="documento" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetConsultaRapidaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetConsultaRapidaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetCarreraAdministrativa">
         <s:complexType>
           <s:sequence>
@@ -1906,73 +1921,14 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GuardarPostulacionManual">
+      <s:element name="PostularseA">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="postulacion" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="datosPersonales" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="folio" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="postulacion" type="tns:Postulacion" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GuardarPostulacionManualResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GuardarPostulacionManualResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="TraerReporteDePostulaciones">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="idEtapa" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="TraerReporteDePostulacionesResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="TraerReporteDePostulacionesResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ActualizarInformesGDEDeUnaPostulacion">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="numeroPostulacion" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="setDeInformes" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="ActualizarInformesGDEDeUnaPostulacionResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="ActualizarInformesGDEDeUnaPostulacionResult" type="s:boolean" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetPostulaciones">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetPostulacionesResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetPostulacionesResult" type="tns:ArrayOfPostulacion" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:complexType name="ArrayOfPostulacion">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Postulacion" nillable="true" type="tns:Postulacion" />
-        </s:sequence>
-      </s:complexType>
       <s:complexType name="Postulacion">
         <s:sequence>
           <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
@@ -2257,6 +2213,80 @@
       <s:complexType name="ArrayOfString">
         <s:sequence>
           <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="PostularseAResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PostularseAResult" type="tns:Postulacion" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarPostulacionManual">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="postulacion" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="datosPersonales" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="folio" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarPostulacionManualResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GuardarPostulacionManualResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TraerReporteDePostulaciones">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idEtapa" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TraerReporteDePostulacionesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TraerReporteDePostulacionesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ActualizarInformesGDEDeUnaPostulacion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="numeroPostulacion" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="setDeInformes" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ActualizarInformesGDEDeUnaPostulacionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ActualizarInformesGDEDeUnaPostulacionResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPostulaciones">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPostulacionesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPostulacionesResult" type="tns:ArrayOfPostulacion" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfPostulacion">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Postulacion" nillable="true" type="tns:Postulacion" />
         </s:sequence>
       </s:complexType>
       <s:element name="GetPostulacionesPorCodigo">
@@ -3750,18 +3780,21 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetConsultaRapida">
+      <s:element name="AgregarImagenAUnFolioDeUnLegajo">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="documento" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_interna" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="numero_folio" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="nombre_imagen" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="bytes_imagen" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetConsultaRapidaResponse">
+      <s:element name="AgregarImagenAUnFolioDeUnLegajoResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetConsultaRapidaResult" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="AgregarImagenAUnFolioDeUnLegajoResult" type="s:int" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -5368,37 +5401,13 @@
       <s:element name="GuardarCvDatosPersonalesResponse">
         <s:complexType />
       </s:element>
-      <s:element name="PostularseA">
+      <s:element name="PuedeGuardarseComision">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="postulacion" type="tns:Postulacion" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+            <s:element minOccurs="0" maxOccurs="1" name="comision" type="tns:ComisionDeServicio" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="PostularseAResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="PostularseAResult" type="tns:Postulacion" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetComisionesPorFiltro">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="lista_areas" type="tns:ArrayOfArea" />
-            <s:element minOccurs="0" maxOccurs="1" name="lista_provincias" type="tns:ArrayOfProvincia" />
-            <s:element minOccurs="1" maxOccurs="1" name="fechaDesde" type="s:dateTime" />
-            <s:element minOccurs="1" maxOccurs="1" name="fechaHasta" type="s:dateTime" />
-            <s:element minOccurs="0" maxOccurs="1" name="comisiones" type="tns:ArrayOfComisionDeServicio" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:complexType name="ArrayOfComisionDeServicio">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="ComisionDeServicio" nillable="true" type="tns:ComisionDeServicio" />
-        </s:sequence>
-      </s:complexType>
       <s:complexType name="ComisionDeServicio">
         <s:sequence>
           <s:element minOccurs="0" maxOccurs="1" name="AreaSuperior" type="tns:Area" />
@@ -5494,6 +5503,29 @@
           <s:enumeration value="Rechazada" />
         </s:restriction>
       </s:simpleType>
+      <s:element name="PuedeGuardarseComisionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="PuedeGuardarseComisionResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetComisionesPorFiltro">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="lista_areas" type="tns:ArrayOfArea" />
+            <s:element minOccurs="0" maxOccurs="1" name="lista_provincias" type="tns:ArrayOfProvincia" />
+            <s:element minOccurs="1" maxOccurs="1" name="fechaDesde" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="fechaHasta" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="comisiones" type="tns:ArrayOfComisionDeServicio" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfComisionDeServicio">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ComisionDeServicio" nillable="true" type="tns:ComisionDeServicio" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="GetComisionesPorFiltroResponse">
         <s:complexType>
           <s:sequence>
@@ -6790,24 +6822,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="AgregarImagenAUnFolioDeUnLegajo">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id_interna" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="numero_folio" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="nombre_imagen" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="bytes_imagen" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="AgregarImagenAUnFolioDeUnLegajoResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="AgregarImagenAUnFolioDeUnLegajoResult" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
       <s:element name="GetUsuarios">
         <s:complexType>
           <s:sequence>
@@ -6921,6 +6935,21 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="GetAgentesEvaluablesParaComitesResult" type="tns:RespuestaGetAgentesEvaluablesParaComites" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAsignacionEvaluacionCompleta">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_evaluacion" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAsignacionEvaluacionCompletaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAsignacionEvaluacionCompletaResult" type="tns:RespuestaGetAgentesEvaluablesPor" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -8382,20 +8411,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="PuedeGuardarseComision">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="comision" type="tns:ComisionDeServicio" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="PuedeGuardarseComisionResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="PuedeGuardarseComisionResult" type="s:boolean" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="ConsultaExcelDDJJ104_PersonaSoapIn">
@@ -8511,6 +8526,12 @@
   </wsdl:message>
   <wsdl:message name="AsignaAreaAPersonasNoCertificadasSoapOut">
     <wsdl:part name="parameters" element="tns:AsignaAreaAPersonasNoCertificadasResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetConsultaRapidaSoapIn">
+    <wsdl:part name="parameters" element="tns:GetConsultaRapida" />
+  </wsdl:message>
+  <wsdl:message name="GetConsultaRapidaSoapOut">
+    <wsdl:part name="parameters" element="tns:GetConsultaRapidaResponse" />
   </wsdl:message>
   <wsdl:message name="GetCarreraAdministrativaSoapIn">
     <wsdl:part name="parameters" element="tns:GetCarreraAdministrativa" />
@@ -8925,6 +8946,12 @@
   </wsdl:message>
   <wsdl:message name="InsertarEvaluacionSoapOut">
     <wsdl:part name="parameters" element="tns:InsertarEvaluacionResponse" />
+  </wsdl:message>
+  <wsdl:message name="PostularseASoapIn">
+    <wsdl:part name="parameters" element="tns:PostularseA" />
+  </wsdl:message>
+  <wsdl:message name="PostularseASoapOut">
+    <wsdl:part name="parameters" element="tns:PostularseAResponse" />
   </wsdl:message>
   <wsdl:message name="GuardarPostulacionManualSoapIn">
     <wsdl:part name="parameters" element="tns:GuardarPostulacionManual" />
@@ -9430,11 +9457,11 @@
   <wsdl:message name="GetIdCabeceraFormularioSoapOut">
     <wsdl:part name="parameters" element="tns:GetIdCabeceraFormularioResponse" />
   </wsdl:message>
-  <wsdl:message name="GetConsultaRapidaSoapIn">
-    <wsdl:part name="parameters" element="tns:GetConsultaRapida" />
+  <wsdl:message name="AgregarImagenAUnFolioDeUnLegajoSoapIn">
+    <wsdl:part name="parameters" element="tns:AgregarImagenAUnFolioDeUnLegajo" />
   </wsdl:message>
-  <wsdl:message name="GetConsultaRapidaSoapOut">
-    <wsdl:part name="parameters" element="tns:GetConsultaRapidaResponse" />
+  <wsdl:message name="AgregarImagenAUnFolioDeUnLegajoSoapOut">
+    <wsdl:part name="parameters" element="tns:AgregarImagenAUnFolioDeUnLegajoResponse" />
   </wsdl:message>
   <wsdl:message name="GetThumbnailPorIdSoapIn">
     <wsdl:part name="parameters" element="tns:GetThumbnailPorId" />
@@ -9928,11 +9955,11 @@
   <wsdl:message name="GuardarCvDatosPersonalesSoapOut">
     <wsdl:part name="parameters" element="tns:GuardarCvDatosPersonalesResponse" />
   </wsdl:message>
-  <wsdl:message name="PostularseASoapIn">
-    <wsdl:part name="parameters" element="tns:PostularseA" />
+  <wsdl:message name="PuedeGuardarseComisionSoapIn">
+    <wsdl:part name="parameters" element="tns:PuedeGuardarseComision" />
   </wsdl:message>
-  <wsdl:message name="PostularseASoapOut">
-    <wsdl:part name="parameters" element="tns:PostularseAResponse" />
+  <wsdl:message name="PuedeGuardarseComisionSoapOut">
+    <wsdl:part name="parameters" element="tns:PuedeGuardarseComisionResponse" />
   </wsdl:message>
   <wsdl:message name="GetComisionesPorFiltroSoapIn">
     <wsdl:part name="parameters" element="tns:GetComisionesPorFiltro" />
@@ -10360,12 +10387,6 @@
   <wsdl:message name="AgregarImagenSinAsignarAUnLegajoSoapOut">
     <wsdl:part name="parameters" element="tns:AgregarImagenSinAsignarAUnLegajoResponse" />
   </wsdl:message>
-  <wsdl:message name="AgregarImagenAUnFolioDeUnLegajoSoapIn">
-    <wsdl:part name="parameters" element="tns:AgregarImagenAUnFolioDeUnLegajo" />
-  </wsdl:message>
-  <wsdl:message name="AgregarImagenAUnFolioDeUnLegajoSoapOut">
-    <wsdl:part name="parameters" element="tns:AgregarImagenAUnFolioDeUnLegajoResponse" />
-  </wsdl:message>
   <wsdl:message name="GetUsuariosSoapIn">
     <wsdl:part name="parameters" element="tns:GetUsuarios" />
   </wsdl:message>
@@ -10395,6 +10416,12 @@
   </wsdl:message>
   <wsdl:message name="GetAgentesEvaluablesParaComitesSoapOut">
     <wsdl:part name="parameters" element="tns:GetAgentesEvaluablesParaComitesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAsignacionEvaluacionCompletaSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAsignacionEvaluacionCompleta" />
+  </wsdl:message>
+  <wsdl:message name="GetAsignacionEvaluacionCompletaSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAsignacionEvaluacionCompletaResponse" />
   </wsdl:message>
   <wsdl:message name="BuscarPeriodosEvaluacionSoapIn">
     <wsdl:part name="parameters" element="tns:BuscarPeriodosEvaluacion" />
@@ -10852,12 +10879,6 @@
   <wsdl:message name="SiguientePasoDelCircuitoDelAreaSoapOut">
     <wsdl:part name="parameters" element="tns:SiguientePasoDelCircuitoDelAreaResponse" />
   </wsdl:message>
-  <wsdl:message name="PuedeGuardarseComisionSoapIn">
-    <wsdl:part name="parameters" element="tns:PuedeGuardarseComision" />
-  </wsdl:message>
-  <wsdl:message name="PuedeGuardarseComisionSoapOut">
-    <wsdl:part name="parameters" element="tns:PuedeGuardarseComisionResponse" />
-  </wsdl:message>
   <wsdl:portType name="WSViaticosSoap">
     <wsdl:operation name="ConsultaExcelDDJJ104_Persona">
       <wsdl:input message="tns:ConsultaExcelDDJJ104_PersonaSoapIn" />
@@ -10934,6 +10955,10 @@
     <wsdl:operation name="AsignaAreaAPersonasNoCertificadas">
       <wsdl:input message="tns:AsignaAreaAPersonasNoCertificadasSoapIn" />
       <wsdl:output message="tns:AsignaAreaAPersonasNoCertificadasSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultaRapida">
+      <wsdl:input message="tns:GetConsultaRapidaSoapIn" />
+      <wsdl:output message="tns:GetConsultaRapidaSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetCarreraAdministrativa">
       <wsdl:input message="tns:GetCarreraAdministrativaSoapIn" />
@@ -11210,6 +11235,10 @@
     <wsdl:operation name="InsertarEvaluacion">
       <wsdl:input message="tns:InsertarEvaluacionSoapIn" />
       <wsdl:output message="tns:InsertarEvaluacionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PostularseA">
+      <wsdl:input message="tns:PostularseASoapIn" />
+      <wsdl:output message="tns:PostularseASoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GuardarPostulacionManual">
       <wsdl:input message="tns:GuardarPostulacionManualSoapIn" />
@@ -11547,9 +11576,9 @@
       <wsdl:input message="tns:GetIdCabeceraFormularioSoapIn" />
       <wsdl:output message="tns:GetIdCabeceraFormularioSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="GetConsultaRapida">
-      <wsdl:input message="tns:GetConsultaRapidaSoapIn" />
-      <wsdl:output message="tns:GetConsultaRapidaSoapOut" />
+    <wsdl:operation name="AgregarImagenAUnFolioDeUnLegajo">
+      <wsdl:input message="tns:AgregarImagenAUnFolioDeUnLegajoSoapIn" />
+      <wsdl:output message="tns:AgregarImagenAUnFolioDeUnLegajoSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetThumbnailPorId">
       <wsdl:input message="tns:GetThumbnailPorIdSoapIn" />
@@ -11879,9 +11908,9 @@
       <wsdl:input message="tns:GuardarCvDatosPersonalesSoapIn" />
       <wsdl:output message="tns:GuardarCvDatosPersonalesSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="PostularseA">
-      <wsdl:input message="tns:PostularseASoapIn" />
-      <wsdl:output message="tns:PostularseASoapOut" />
+    <wsdl:operation name="PuedeGuardarseComision">
+      <wsdl:input message="tns:PuedeGuardarseComisionSoapIn" />
+      <wsdl:output message="tns:PuedeGuardarseComisionSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetComisionesPorFiltro">
       <wsdl:input message="tns:GetComisionesPorFiltroSoapIn" />
@@ -12167,10 +12196,6 @@
       <wsdl:input message="tns:AgregarImagenSinAsignarAUnLegajoSoapIn" />
       <wsdl:output message="tns:AgregarImagenSinAsignarAUnLegajoSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="AgregarImagenAUnFolioDeUnLegajo">
-      <wsdl:input message="tns:AgregarImagenAUnFolioDeUnLegajoSoapIn" />
-      <wsdl:output message="tns:AgregarImagenAUnFolioDeUnLegajoSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="GetUsuarios">
       <wsdl:input message="tns:GetUsuariosSoapIn" />
       <wsdl:output message="tns:GetUsuariosSoapOut" />
@@ -12190,6 +12215,10 @@
     <wsdl:operation name="GetAgentesEvaluablesParaComites">
       <wsdl:input message="tns:GetAgentesEvaluablesParaComitesSoapIn" />
       <wsdl:output message="tns:GetAgentesEvaluablesParaComitesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAsignacionEvaluacionCompleta">
+      <wsdl:input message="tns:GetAsignacionEvaluacionCompletaSoapIn" />
+      <wsdl:output message="tns:GetAsignacionEvaluacionCompletaSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="BuscarPeriodosEvaluacion">
       <wsdl:input message="tns:BuscarPeriodosEvaluacionSoapIn" />
@@ -12495,10 +12524,6 @@
       <wsdl:input message="tns:SiguientePasoDelCircuitoDelAreaSoapIn" />
       <wsdl:output message="tns:SiguientePasoDelCircuitoDelAreaSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="PuedeGuardarseComision">
-      <wsdl:input message="tns:PuedeGuardarseComisionSoapIn" />
-      <wsdl:output message="tns:PuedeGuardarseComisionSoapOut" />
-    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="WSViaticosSoap" type="tns:WSViaticosSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -12666,6 +12691,15 @@
     </wsdl:operation>
     <wsdl:operation name="AsignaAreaAPersonasNoCertificadas">
       <soap:operation soapAction="http://wsviaticos.gov.ar/AsignaAreaAPersonasNoCertificadas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultaRapida">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetConsultaRapida" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -13287,6 +13321,15 @@
     </wsdl:operation>
     <wsdl:operation name="InsertarEvaluacion">
       <soap:operation soapAction="http://wsviaticos.gov.ar/InsertarEvaluacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PostularseA">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/PostularseA" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -14050,8 +14093,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetConsultaRapida">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetConsultaRapida" style="document" />
+    <wsdl:operation name="AgregarImagenAUnFolioDeUnLegajo">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/AgregarImagenAUnFolioDeUnLegajo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -14797,8 +14840,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="PostularseA">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/PostularseA" style="document" />
+    <wsdl:operation name="PuedeGuardarseComision">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/PuedeGuardarseComision" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -15445,15 +15488,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="AgregarImagenAUnFolioDeUnLegajo">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/AgregarImagenAUnFolioDeUnLegajo" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetUsuarios">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetUsuarios" style="document" />
       <wsdl:input>
@@ -15492,6 +15526,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetAgentesEvaluablesParaComites">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetAgentesEvaluablesParaComites" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAsignacionEvaluacionCompleta">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetAsignacionEvaluacionCompleta" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -16183,15 +16226,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="PuedeGuardarseComision">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/PuedeGuardarseComision" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="WSViaticosSoap12" type="tns:WSViaticosSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -16359,6 +16393,15 @@
     </wsdl:operation>
     <wsdl:operation name="AsignaAreaAPersonasNoCertificadas">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/AsignaAreaAPersonasNoCertificadas" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultaRapida">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetConsultaRapida" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -16980,6 +17023,15 @@
     </wsdl:operation>
     <wsdl:operation name="InsertarEvaluacion">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/InsertarEvaluacion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PostularseA">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/PostularseA" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -17743,8 +17795,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetConsultaRapida">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetConsultaRapida" style="document" />
+    <wsdl:operation name="AgregarImagenAUnFolioDeUnLegajo">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/AgregarImagenAUnFolioDeUnLegajo" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -18490,8 +18542,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="PostularseA">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/PostularseA" style="document" />
+    <wsdl:operation name="PuedeGuardarseComision">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/PuedeGuardarseComision" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -19138,15 +19190,6 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="AgregarImagenAUnFolioDeUnLegajo">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/AgregarImagenAUnFolioDeUnLegajo" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetUsuarios">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetUsuarios" style="document" />
       <wsdl:input>
@@ -19185,6 +19228,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetAgentesEvaluablesParaComites">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetAgentesEvaluablesParaComites" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAsignacionEvaluacionCompleta">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetAsignacionEvaluacionCompleta" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -19869,15 +19921,6 @@
     </wsdl:operation>
     <wsdl:operation name="SiguientePasoDelCircuitoDelArea">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/SiguientePasoDelCircuitoDelArea" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="PuedeGuardarseComision">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/PuedeGuardarseComision" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

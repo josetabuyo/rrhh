@@ -102,6 +102,13 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public RespuestaGetAgentesEvaluablesPor GetAsignacionEvaluacionCompleta(int id_evaluacion, Usuario usuario)
+    {
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        return repo.GetAsignacionEvaluacionCompleta(id_evaluacion, usuario);
+    }
+
+    [WebMethod]
     public List<PeriodoEvaluacion> BuscarPeriodosEvaluacion(Usuario usuario, Usuario usuario2)
     {
         var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());

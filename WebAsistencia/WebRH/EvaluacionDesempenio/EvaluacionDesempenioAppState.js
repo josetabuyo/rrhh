@@ -322,6 +322,25 @@ define(['wsviaticos', 'underscore'], function (ws, _) {
         return evaluacion
     }
 
+    var GetAsignacionEvaluacionCompleta = function (id_evaluacion, cb) {
+        var req = [{
+            nombre_metodo: "GetAsignacionEvaluacionCompleta",
+            argumentos_json: [parseInt(id_evaluacion)]
+        }]
+
+        ws.parallel(req, function (err, res) {
+            if (err) {
+                cb(err)
+                return
+            }
+            if (res[0].ExceptionType) {
+                cb(err)
+                return
+            }
+            cb(null, res[0])
+        })
+    }
+
     var AprobarEvaluacion = function (id_evaluacion, id_comite, cb) {
         var req = [{
             nombre_metodo: "AprobarEvaluacionDesempenio",
@@ -368,6 +387,7 @@ define(['wsviaticos', 'underscore'], function (ws, _) {
         GetAsignacionEvaluadoEvaluador: GetAsignacionEvaluadoEvaluador,
         PrintPdfEvaluacionDesempenio: PrintPdfEvaluacionDesempenio,
         AprobarEvaluacion: AprobarEvaluacion,
-        GetEvaluacion: GetEvaluacion
+        GetEvaluacion: GetEvaluacion,
+        GetAsignacionEvaluacionCompleta: GetAsignacionEvaluacionCompleta
     }
 })
