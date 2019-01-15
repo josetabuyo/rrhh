@@ -93,6 +93,8 @@
             localStorage.setItem("bueno", asignacion_evaluado_a_evaluador.nivel.bueno);
             localStorage.setItem("destacado", asignacion_evaluado_a_evaluador.nivel.destacado);
             localStorage.setItem("id_doc_electronico", asignacion_evaluado_a_evaluador.evaluacion.id_doc_electronico);
+            localStorage.setItem("documento", asignacion_evaluado_a_evaluador.agente_evaluado.nro_documento);
+            localStorage.setItem("es_evaluador_de_comite", true);
 
             window.open('FormularioEvaluacion.aspx', '_blank');
         }
