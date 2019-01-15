@@ -14,18 +14,31 @@
             $('#btn_aprobar_evaluacion').click(aprobar_evaluacion)
         }
 
-        var aplicar_filtros = function () {
+        var aplicar_filtros = function (event) {
+
             var filtro_nomApe = $('#txt_filtro_apellido').val().toUpperCase()
-            var filtro_estado = $('select_estado').val()
+            var filtro_estado = $('#select_estado').find('option:selected').text().toUpperCase()
 
-            var $td_apellidos = $('#tabla_evaluaciones .dni_evaluado, #tabla_evaluaciones .apellido_evaluado, #tabla_evaluaciones .nombre_evaluado')
-            $($td_apellidos).parent().hide()
-            for (i = 0; i < $td_apellidos.length; i++) {
-                if ($td_apellidos[i].innerHTML.toUpperCase().indexOf(filtro_nomApe) > -1) {
-                    $($td_apellidos[i]).parent().not('.row-template').show()
-                } 
+
+            if (event.currentTarget.id == 'txt_filtro_apellido') {
+                $("#select_estado").val($("#select_estado option:first").val());
+                var $td_apellidos = $('#tabla_evaluaciones .dni_evaluado, #tabla_evaluaciones .apellido_evaluado, #tabla_evaluaciones .nombre_evaluado')
+                $($td_apellidos).parent().hide()
+                for (i = 0; i < $td_apellidos.length; i++) {
+                    if ($td_apellidos[i].innerHTML.toUpperCase().indexOf(filtro_nomApe) > -1) {
+                        $($td_apellidos[i]).parent().not('.row-template').show()
+                    }
+                }
+            } else {
+                $('#txt_filtro_apellido').val('')
+                var $td_evals = $('#tabla_evaluaciones .evaluacion_evaluado')
+                $($td_evals).parent().hide()
+                for (i = 0; i < $td_evals.length; i++) {
+                    if ($td_evals[i].innerHTML.toUpperCase().indexOf(filtro_estado) > -1) {
+                        $($td_evals[i]).parent().not('.row-template').show()
+                    }
+                }
             }
-
         }
 
         var dibujar_tabla_evaluaciones = function () {
@@ -52,13 +65,11 @@
 
             CreadorDeGrillas('#tabla_evaluaciones', grid_rows)
 
-            aplicar_filtros()
-
             $('[opcion_disponible="false"]').hide()
             $('[opcion_disponible]').click(event => event.preventDefault())
             $('.aprobador_evaluacion').click(show_popup_aprobar_evaluacion)
             $('.modificar_evaluacion').click(Reevaluar)
-            
+
             pdf_printer.BindVerEvalButtons()
         }
 
@@ -130,6 +141,7 @@
             //cargar combo de tipos de evaluacion
             $('#btn_filtrar_eval').click(aplicar_filtros)
             $('#txt_filtro_apellido').keyup(aplicar_filtros)
+            $('#select_estado').on('change', aplicar_filtros)
         }
 
         return {

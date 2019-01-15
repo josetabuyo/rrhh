@@ -437,7 +437,7 @@
                                 <div class="card border-dark mb-3 col-12">
                                     <div class="card-body text-dark">
                                         <div class="form-group row">
-                                            <label for="txt_filtro_apellido" class="col-12 col-md-2 col-form-label text-right">Filtro por dni/apellido/nombre</label>
+                                            <label for="txt_filtro_apellido" class="col-12 col-md-2 col-form-label text-right">dni / apellido / nombre</label>
                                             <div class="col-5 col-md-3">
                                                 <input type="text" class="form-control" id="txt_filtro_apellido" name="txt_filtro_apellido" placeholder="Apellido">
                                             </div>
