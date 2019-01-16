@@ -17,8 +17,8 @@
         var aplicar_filtros = function (event) {
 
             var filtro_nomApe = $('#txt_filtro_apellido').val().toUpperCase()
-            var filtro_estado = $('#select_estado').find('option:selected').text().toUpperCase()
-
+            var filtro_estado = $('#select_estado').find('option:selected').text().toUpperCase().replace('TODOS LOS ESTADOS', '')
+            
 
             if (event.currentTarget.id == 'txt_filtro_apellido') {
                 $("#select_estado").val($("#select_estado option:first").val());
@@ -139,7 +139,7 @@
 
         var setup_componentes = function () {
             //cargar combo de tipos de evaluacion
-            $('#btn_filtrar_eval').click(aplicar_filtros)
+            //$('#btn_filtrar_eval').click(aplicar_filtros)
             $('#txt_filtro_apellido').keyup(aplicar_filtros)
             $('#select_estado').on('change', aplicar_filtros)
         }

@@ -86,7 +86,7 @@ define(['jquery','underscore'], function ($, _) {
     var on_tab_leave_cb = function (next_tab, tabs_events, current_tab) {
         var on_tab_leave = function (next_tab_params) {
             var next_tab_url = next_tab.name
-            mostrarTab(next_tab_url, next_tab_params)
+            
             var new_url = next_tab.name
             if (next_tab_params) {
                 next_tab.parameters = next_tab_params
@@ -94,6 +94,11 @@ define(['jquery','underscore'], function ($, _) {
             if (next_tab.parameters) {
                 new_url += '/' + next_tab.parameters.join('/')
             }
+
+            next_tab_params = next_tab.parameters
+
+            mostrarTab(next_tab_url, next_tab_params)
+
             history.pushState(null, null, new_url);
             var entering_tab_config = get_tab_config(tabs_events, next_tab.name)
             

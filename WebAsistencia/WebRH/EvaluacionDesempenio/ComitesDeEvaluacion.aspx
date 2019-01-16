@@ -437,14 +437,18 @@
                                 <div class="card border-dark mb-3 col-12">
                                     <div class="card-body text-dark">
                                         <div class="form-group row">
-                                            <label for="txt_filtro_apellido" class="col-12 col-md-2 col-form-label text-right">dni / apellido / nombre</label>
-                                            <div class="col-5 col-md-3">
-                                                <input type="text" class="form-control" id="txt_filtro_apellido" name="txt_filtro_apellido" placeholder="Apellido">
+                                            <div class="input-group col-5 col-md-6">
+                                              <input type="text" class="form-control" id="txt_filtro_apellido" name="txt_filtro_apellido" placeholder="DNI / Apellido / Nombre">
+                                              <div class="input-group-append">
+                                                <span class="input-group-text">
+                                                    <a style="display: inline" data-toggle="tooltip" data-placement="top" title="Remover filtro" class="text-info " href="#" ><span class="fa fa-remove"></span></a>
+                                                </span>
+
+                                              </div>
                                             </div>
-                                            <label for="txt_filtro_estado" class="col-12 col-md-2 col-form-label text-right">Filtro por estado</label>
-                                            <div class="col-5 col-md-3">
+                                            <div class="col-5 col-md-6">
                                                 <select class="custom-select" id="select_estado">
-                                                    <option selected>Seleccione</option>
+                                                    <option selected>Todos los Estados</option>
                                                     <option>Provisoria</option>
                                                     <option>Pendiente</option>
                                                     <option disabled>──────────</option>
@@ -453,9 +457,6 @@
                                                     <option value="3">Regular</option>
                                                     <option value="3">Deficiente</option>
                                                 </select>
-                                            </div>
-                                            <div class="col">
-                                                <input type="submit" class="btn btn-primary active" role="button" value="Filtrar" id="btn_filtrar_eval" />
                                             </div>
                                         </div>
                                     </div>
