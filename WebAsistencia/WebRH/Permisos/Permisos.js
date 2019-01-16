@@ -25,6 +25,7 @@ var Permisos = {
     getPerfilesDelUsuario: function () {
 
         var _this = this;
+        this.completarDatosDeLaSesion();
         if (!sessionStorage.getItem("idUsuario")) {
             alert("Debe seleccionar un usuario antes de proseguir");
             window.location.replace("DefinicionDeUsuario.aspx");
@@ -522,7 +523,7 @@ var Permisos = {
             .onSuccess(function (rto) {
                 if (rto == 'ok') {
                     //window.location.reload();
-                    alertify.success("Se ha eliminado correctamente");
+                    alertify.success("Se ha asignado la funcionalidad correctamente");
                     _this.getFuncionalidadesDelUsuario();
                     $("#funcionalidadesSeleccionadas").empty();
                     $("#listadoAreasElegidas").empty();
