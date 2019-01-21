@@ -1,4 +1,4 @@
-﻿var contador_guardado = 0;
+﻿+var contador_guardado = 0;
 var ModificarAreas_Direccion = {
 
     Iniciar: function () {
