@@ -109,7 +109,7 @@ namespace General.MAU
             throw new NotImplementedException();
         }
 
-        public string DesAsignarFuncionalidadDeUsuario(int idFuncionalidad, int idUsuario, int id_usuario_alta)
+        public string DesAsignarFuncionalidadDeUsuario(int idFuncionalidad, int idArea, int idUsuario, int id_usuario_alta)
         {
 
             throw new NotImplementedException();

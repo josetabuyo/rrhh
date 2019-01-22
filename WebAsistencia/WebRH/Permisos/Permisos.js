@@ -157,10 +157,11 @@ var Permisos = {
     },
     eliminarFuncionalidad: function (funcionalidad) {
         var _this = this;
+        var idArea = 0;
         var r = confirm("¿Está seguro de eliminar la Funcionalidad?");
         if (r == true) {
             var idUsuarioSeleccionado = sessionStorage.getItem("idUsuario");
-            Backend.desasignarFuncionaldiad(funcionalidad.Id, idUsuarioSeleccionado).onSuccess(function (rto) {
+            Backend.desasignarFuncionaldiad(funcionalidad.Id, idArea, idUsuarioSeleccionado).onSuccess(function (rto) {
                 if (rto == 'ok') {
                     //window.location.reload();
                     alertify.success("Se ha eliminado correctamente");

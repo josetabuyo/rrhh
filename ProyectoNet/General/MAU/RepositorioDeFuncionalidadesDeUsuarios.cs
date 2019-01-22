@@ -249,7 +249,8 @@ namespace General.MAU
                     funcionalidades.ForEach(idFuncionalidad => areas.ForEach(area =>
                     {
                         //Valido que no tenga el perfil ya
-                        if (!funcionalidadesActuales.Exists(f => f.Id == idFuncionalidad))
+                        //if (!funcionalidadesActuales.Exists(f => f.Id == idFuncionalidad))
+                        if (this.tieneMismaFuncionalidadEnMismaArea(funcionalidadesActuales, idFuncionalidad, area.Id))
                         {
                             var parametros = new Dictionary<string, object>();
                             parametros.Add("@id_area", area.Id);
@@ -288,6 +289,22 @@ namespace General.MAU
             }
         }
 
+        public bool tieneMismaFuncionalidadEnMismaArea(List<Funcionalidad> funcionalidadesActuales, int idFuncionalidad, int idArea)
+        {
+            var rto = true;
+            funcionalidadesActuales.ForEach(funcionalidad => funcionalidad.Areas.ForEach(area =>
+                {
+                    if (funcionalidad.Id == idFuncionalidad && area.Id == idArea)
+                    {
+                        rto = false;
+                    }
+                }
+                )
+            );
+
+            return rto;
+        }
+
         public string DesAsignarPerfilDeUsuario(int idPerfil, int idUsuario, int id_usuario_alta)
         {
 
@@ -307,15 +324,20 @@ namespace General.MAU
             }
         }
 
-        public string DesAsignarFuncionalidadDeUsuario(int idFuncionalidad, int idUsuario, int id_usuario_alta)
+        public string DesAsignarFuncionalidadDeUsuario(int idFuncionalidad, int idUsuario, int idArea, int id_usuario_alta)
         {
 
             try
             {
+
+
                 var parametros = new Dictionary<string, object>();
                 parametros.Add("@id_usuario", idUsuario);
                 parametros.Add("@id_funcionalidad", idFuncionalidad);
                 parametros.Add("@id_usuario_alta", id_usuario_alta);
+                if (idArea != 0)
+                    parametros.Add("@id_area", idArea);
+
                 var tablaDatos = conexion.Ejecutar("dbo.MAU_DesAsignarPerfilFuncionalidadAUsuario", parametros);
 
                 return "ok";

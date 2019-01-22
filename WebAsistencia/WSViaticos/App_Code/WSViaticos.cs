@@ -3081,9 +3081,9 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string desasignarFuncionaldiad(int idFuncionalidad, int id_usuario, Usuario usuario)
+    public string desasignarFuncionaldiad(int idFuncionalidad, int idArea, int id_usuario, Usuario usuario)
     {
-        var rto = RepositorioDeFuncionalidadesDeUsuarios().DesAsignarFuncionalidadDeUsuario(idFuncionalidad, id_usuario, usuario.Id);
+        var rto = RepositorioDeFuncionalidadesDeUsuarios().DesAsignarFuncionalidadDeUsuario(idFuncionalidad, idArea, id_usuario, usuario.Id);
         return rto;
     }
     
