@@ -3053,6 +3053,14 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public Funcionalidad[] GetFuncionalidadesPerfilesAreas(int id_usuario, Usuario usuario)
+    {
+        //var usu = RepositorioDeUsuarios().GetUsuarioPorId(id_usuario);
+        var funcionalidades = RepositorioDeFuncionalidadesDeUsuarios().GetFuncionalidadesPerfilesAreas(id_usuario).ToArray();
+        return funcionalidades;
+    }
+
+    [WebMethod]
     public string asignarPerfiles(string idPerfiles, string areas, int id_usuario, Usuario usuario)
     {
         //var usu = RepositorioDeUsuarios().GetUsuarioPorId(id_usuario);
@@ -3063,9 +3071,9 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string desasignarPerfiles(int idPerfil, int id_usuario, Usuario usuario)
+    public string desasignarPerfiles(int idPerfil, int idArea, int id_usuario, Usuario usuario)
     {
-        var rto = RepositorioDeFuncionalidadesDeUsuarios().DesAsignarPerfilDeUsuario(idPerfil, id_usuario, usuario.Id);
+        var rto = RepositorioDeFuncionalidadesDeUsuarios().DesAsignarPerfilDeUsuario(idPerfil, idArea, id_usuario, usuario.Id);
         return rto;
     }
 

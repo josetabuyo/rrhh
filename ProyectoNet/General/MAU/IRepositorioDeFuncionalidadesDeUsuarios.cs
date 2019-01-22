@@ -11,9 +11,10 @@ namespace General.MAU
         List<Funcionalidad> FuncionalidadesPara(Usuario usuario);
         List<MAU_Perfil> GetPerfilesActuales(int id_usuario);
         List<Funcionalidad> GetFuncionalidadesActuales(int id_usuario);
+        List<Funcionalidad> GetFuncionalidadesPerfilesAreas(int id_usuario); 
         string AsignarPerfilesAUsuario(List<int> perfiles, List<Area> areas, int idUsuario, int id_usuario_alta);
         string AsignarFuncionalidadesAUsuario(List<int> funcionalidades, List<Area> areas, int idUsuario, int id_usuario_alta);
-        string DesAsignarPerfilDeUsuario(int idPerfil, int idUsuario, int id_usuario_alta);
+        string DesAsignarPerfilDeUsuario(int idPerfil, int idArea, int idUsuario, int id_usuario_alta);
         string DesAsignarFuncionalidadDeUsuario(int idFuncionalidad, int idArea, int idUsuario, int id_usuario_alta);
         //List<Funcionalidad> FuncionalidadesPara(int id_usuario);
         List<Usuario> UsuariosConLaFuncionalidad(int id_funcionalidad);

@@ -77,7 +77,7 @@ var Permisos = {
             });
 
 
-
+        this.getFuncionalidadesPerfilesAreas();
 
     },
     getFuncionalidadesDelUsuario: function () {
@@ -139,7 +139,8 @@ var Permisos = {
         var r = confirm("¿Está seguro de eliminar el Perfil?");
         if (r == true) {
             var idUsuarioSeleccionado = sessionStorage.getItem("idUsuario");
-            Backend.desasignarPerfiles(perfil.Id, idUsuarioSeleccionado).onSuccess(function (rto) {
+            var idArea = perfil.Areas[0].Id;
+            Backend.desasignarPerfiles(perfil.Id, idArea, idUsuarioSeleccionado).onSuccess(function (rto) {
                 if (rto == 'ok') {
                     //window.location.reload();
                     alertify.success("Se ha eliminado correctamente");
@@ -157,7 +158,7 @@ var Permisos = {
     },
     eliminarFuncionalidad: function (funcionalidad) {
         var _this = this;
-        var idArea = 0;
+        var idArea = funcionalidad.Areas[0].Id;
         var r = confirm("¿Está seguro de eliminar la Funcionalidad?");
         if (r == true) {
             var idUsuarioSeleccionado = sessionStorage.getItem("idUsuario");
@@ -538,6 +539,23 @@ var Permisos = {
             });
 
         });
+
+    },
+    getFuncionalidadesPerfilesAreas: function () {
+        var idUsuarioSeleccionado = sessionStorage.getItem("idUsuario");
+
+        Backend.GetFuncionalidadesPerfilesAreas(idUsuarioSeleccionado)
+            .onSuccess(function (rto) {
+                if (rto) {
+                    console.log(rto);
+                } else {
+                    alertify.error('Error');
+                }
+
+            })
+            .onError(function (e) {
+
+            });
 
     },
     completarDatosDeLaSesion: function () {

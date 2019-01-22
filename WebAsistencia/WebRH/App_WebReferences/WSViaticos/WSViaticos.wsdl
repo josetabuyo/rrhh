@@ -621,6 +621,32 @@
       <s:element name="AsignaAreaAPersonasNoCertificadasResponse">
         <s:complexType />
       </s:element>
+      <s:element name="BuscarLocalidades">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuscarLocalidadesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BuscarLocalidadesResult" type="tns:ArrayOfLocalidad" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfLocalidad">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Localidad" nillable="true" type="tns:Localidad" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Localidad">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdProvincia" type="s:int" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="GetFormulario">
         <s:complexType>
           <s:sequence>
@@ -1966,6 +1992,28 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="InsertarEvaluacionResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegistrarNuevoUsuario">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="aspirante" type="tns:AspiranteAUsuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="AspiranteAUsuario">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Documento" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Apellido" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="RegistrarNuevoUsuarioResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="RegistrarNuevoUsuarioResult" type="s:boolean" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -3498,18 +3546,6 @@
           <s:element minOccurs="0" maxOccurs="1" name="Zona" type="tns:Zona" />
         </s:sequence>
       </s:complexType>
-      <s:complexType name="ArrayOfLocalidad">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Localidad" nillable="true" type="tns:Localidad" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="Localidad">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="IdProvincia" type="s:int" />
-        </s:sequence>
-      </s:complexType>
       <s:complexType name="Zona">
         <s:sequence>
           <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
@@ -3900,20 +3936,6 @@
           <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
         </s:sequence>
       </s:complexType>
-      <s:element name="BuscarLocalidades">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="criterio" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="BuscarLocalidadesResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="BuscarLocalidadesResult" type="tns:ArrayOfLocalidad" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
       <s:element name="AsignarImagenAFolioDeLegajo">
         <s:complexType>
           <s:sequence>
@@ -4451,6 +4473,21 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetFuncionalidadesPerfilesAreas">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_usuario" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFuncionalidadesPerfilesAreasResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetFuncionalidadesPerfilesAreasResult" type="tns:ArrayOfFuncionalidad" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="asignarPerfiles">
         <s:complexType>
           <s:sequence>
@@ -4472,6 +4509,7 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="idPerfil" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="idArea" type="s:int" />
             <s:element minOccurs="1" maxOccurs="1" name="id_usuario" type="s:int" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
@@ -5416,28 +5454,6 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="RecuperarUsuarioResult" type="s:boolean" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="RegistrarNuevoUsuario">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="aspirante" type="tns:AspiranteAUsuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:complexType name="AspiranteAUsuario">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Documento" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Apellido" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
-        </s:sequence>
-      </s:complexType>
-      <s:element name="RegistrarNuevoUsuarioResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="RegistrarNuevoUsuarioResult" type="s:boolean" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -8569,6 +8585,12 @@
   <wsdl:message name="AsignaAreaAPersonasNoCertificadasSoapOut">
     <wsdl:part name="parameters" element="tns:AsignaAreaAPersonasNoCertificadasResponse" />
   </wsdl:message>
+  <wsdl:message name="BuscarLocalidadesSoapIn">
+    <wsdl:part name="parameters" element="tns:BuscarLocalidades" />
+  </wsdl:message>
+  <wsdl:message name="BuscarLocalidadesSoapOut">
+    <wsdl:part name="parameters" element="tns:BuscarLocalidadesResponse" />
+  </wsdl:message>
   <wsdl:message name="GetFormularioSoapIn">
     <wsdl:part name="parameters" element="tns:GetFormulario" />
   </wsdl:message>
@@ -9012,6 +9034,12 @@
   </wsdl:message>
   <wsdl:message name="InsertarEvaluacionSoapOut">
     <wsdl:part name="parameters" element="tns:InsertarEvaluacionResponse" />
+  </wsdl:message>
+  <wsdl:message name="RegistrarNuevoUsuarioSoapIn">
+    <wsdl:part name="parameters" element="tns:RegistrarNuevoUsuario" />
+  </wsdl:message>
+  <wsdl:message name="RegistrarNuevoUsuarioSoapOut">
+    <wsdl:part name="parameters" element="tns:RegistrarNuevoUsuarioResponse" />
   </wsdl:message>
   <wsdl:message name="VerificarUsuarioSoapIn">
     <wsdl:part name="parameters" element="tns:VerificarUsuario" />
@@ -9517,12 +9545,6 @@
   <wsdl:message name="BuscarNivelesDeEstudioSoapOut">
     <wsdl:part name="parameters" element="tns:BuscarNivelesDeEstudioResponse" />
   </wsdl:message>
-  <wsdl:message name="BuscarLocalidadesSoapIn">
-    <wsdl:part name="parameters" element="tns:BuscarLocalidades" />
-  </wsdl:message>
-  <wsdl:message name="BuscarLocalidadesSoapOut">
-    <wsdl:part name="parameters" element="tns:BuscarLocalidadesResponse" />
-  </wsdl:message>
   <wsdl:message name="AsignarImagenAFolioDeLegajoSoapIn">
     <wsdl:part name="parameters" element="tns:AsignarImagenAFolioDeLegajo" />
   </wsdl:message>
@@ -9726,6 +9748,12 @@
   </wsdl:message>
   <wsdl:message name="GetFuncionalidadesActualesSoapOut">
     <wsdl:part name="parameters" element="tns:GetFuncionalidadesActualesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFuncionalidadesPerfilesAreasSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFuncionalidadesPerfilesAreas" />
+  </wsdl:message>
+  <wsdl:message name="GetFuncionalidadesPerfilesAreasSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFuncionalidadesPerfilesAreasResponse" />
   </wsdl:message>
   <wsdl:message name="asignarPerfilesSoapIn">
     <wsdl:part name="parameters" element="tns:asignarPerfiles" />
@@ -10014,12 +10042,6 @@
   </wsdl:message>
   <wsdl:message name="RecuperarUsuarioSoapOut">
     <wsdl:part name="parameters" element="tns:RecuperarUsuarioResponse" />
-  </wsdl:message>
-  <wsdl:message name="RegistrarNuevoUsuarioSoapIn">
-    <wsdl:part name="parameters" element="tns:RegistrarNuevoUsuario" />
-  </wsdl:message>
-  <wsdl:message name="RegistrarNuevoUsuarioSoapOut">
-    <wsdl:part name="parameters" element="tns:RegistrarNuevoUsuarioResponse" />
   </wsdl:message>
   <wsdl:message name="GetComisionesPorProvinciaSoapIn">
     <wsdl:part name="parameters" element="tns:GetComisionesPorProvincia" />
@@ -11018,6 +11040,10 @@
       <wsdl:input message="tns:AsignaAreaAPersonasNoCertificadasSoapIn" />
       <wsdl:output message="tns:AsignaAreaAPersonasNoCertificadasSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="BuscarLocalidades">
+      <wsdl:input message="tns:BuscarLocalidadesSoapIn" />
+      <wsdl:output message="tns:BuscarLocalidadesSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetFormulario">
       <wsdl:input message="tns:GetFormularioSoapIn" />
       <wsdl:output message="tns:GetFormularioSoapOut" />
@@ -11313,6 +11339,10 @@
     <wsdl:operation name="InsertarEvaluacion">
       <wsdl:input message="tns:InsertarEvaluacionSoapIn" />
       <wsdl:output message="tns:InsertarEvaluacionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarNuevoUsuario">
+      <wsdl:input message="tns:RegistrarNuevoUsuarioSoapIn" />
+      <wsdl:output message="tns:RegistrarNuevoUsuarioSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="VerificarUsuario">
       <wsdl:input message="tns:VerificarUsuarioSoapIn" />
@@ -11650,10 +11680,6 @@
       <wsdl:input message="tns:BuscarNivelesDeEstudioSoapIn" />
       <wsdl:output message="tns:BuscarNivelesDeEstudioSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="BuscarLocalidades">
-      <wsdl:input message="tns:BuscarLocalidadesSoapIn" />
-      <wsdl:output message="tns:BuscarLocalidadesSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="AsignarImagenAFolioDeLegajo">
       <wsdl:input message="tns:AsignarImagenAFolioDeLegajoSoapIn" />
       <wsdl:output message="tns:AsignarImagenAFolioDeLegajoSoapOut" />
@@ -11789,6 +11815,10 @@
     <wsdl:operation name="GetFuncionalidadesActuales">
       <wsdl:input message="tns:GetFuncionalidadesActualesSoapIn" />
       <wsdl:output message="tns:GetFuncionalidadesActualesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFuncionalidadesPerfilesAreas">
+      <wsdl:input message="tns:GetFuncionalidadesPerfilesAreasSoapIn" />
+      <wsdl:output message="tns:GetFuncionalidadesPerfilesAreasSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="asignarPerfiles">
       <wsdl:input message="tns:asignarPerfilesSoapIn" />
@@ -11981,10 +12011,6 @@
     <wsdl:operation name="RecuperarUsuario">
       <wsdl:input message="tns:RecuperarUsuarioSoapIn" />
       <wsdl:output message="tns:RecuperarUsuarioSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="RegistrarNuevoUsuario">
-      <wsdl:input message="tns:RegistrarNuevoUsuarioSoapIn" />
-      <wsdl:output message="tns:RegistrarNuevoUsuarioSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetComisionesPorProvincia">
       <wsdl:input message="tns:GetComisionesPorProvinciaSoapIn" />
@@ -12767,6 +12793,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="BuscarLocalidades">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarLocalidades" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetFormulario">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetFormulario" style="document" />
       <wsdl:input>
@@ -13426,6 +13461,15 @@
     </wsdl:operation>
     <wsdl:operation name="InsertarEvaluacion">
       <soap:operation soapAction="http://wsviaticos.gov.ar/InsertarEvaluacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarNuevoUsuario">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/RegistrarNuevoUsuario" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -14189,15 +14233,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="BuscarLocalidades">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/BuscarLocalidades" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="AsignarImagenAFolioDeLegajo">
       <soap:operation soapAction="http://wsviaticos.gov.ar/AsignarImagenAFolioDeLegajo" style="document" />
       <wsdl:input>
@@ -14497,6 +14532,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetFuncionalidadesActuales">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetFuncionalidadesActuales" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFuncionalidadesPerfilesAreas">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetFuncionalidadesPerfilesAreas" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -14929,15 +14973,6 @@
     </wsdl:operation>
     <wsdl:operation name="RecuperarUsuario">
       <soap:operation soapAction="http://wsviaticos.gov.ar/RecuperarUsuario" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="RegistrarNuevoUsuario">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/RegistrarNuevoUsuario" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -16496,6 +16531,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="BuscarLocalidades">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarLocalidades" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetFormulario">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetFormulario" style="document" />
       <wsdl:input>
@@ -17155,6 +17199,15 @@
     </wsdl:operation>
     <wsdl:operation name="InsertarEvaluacion">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/InsertarEvaluacion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarNuevoUsuario">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/RegistrarNuevoUsuario" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -17918,15 +17971,6 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="BuscarLocalidades">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/BuscarLocalidades" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="AsignarImagenAFolioDeLegajo">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/AsignarImagenAFolioDeLegajo" style="document" />
       <wsdl:input>
@@ -18226,6 +18270,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetFuncionalidadesActuales">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetFuncionalidadesActuales" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFuncionalidadesPerfilesAreas">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetFuncionalidadesPerfilesAreas" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -18658,15 +18711,6 @@
     </wsdl:operation>
     <wsdl:operation name="RecuperarUsuario">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/RecuperarUsuario" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="RegistrarNuevoUsuario">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/RegistrarNuevoUsuario" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

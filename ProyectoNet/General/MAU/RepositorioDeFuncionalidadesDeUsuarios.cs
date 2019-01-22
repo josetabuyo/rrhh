@@ -305,7 +305,40 @@ namespace General.MAU
             return rto;
         }
 
-        public string DesAsignarPerfilDeUsuario(int idPerfil, int idUsuario, int id_usuario_alta)
+        public List<Funcionalidad> GetFuncionalidadesPerfilesAreas(int id_usuario)
+        {
+
+            try
+            {
+                var funcionalidades = new List<Funcionalidad>();
+                var parametros = new Dictionary<string, object>();
+                parametros.Add("@id_usuario", id_usuario);
+                var tablaDatos = conexion.Ejecutar("dbo.MAU_GET_FuncionalidadesPerfilesAreas", parametros);
+
+
+                tablaDatos.Rows.ForEach(row =>
+                {
+                    Funcionalidad funcionalidad;
+                    funcionalidad = new Funcionalidad(row.GetInt("IdFuncionalidad"), row.GetString("Nombre"), "", false, false, false);
+                    Area area = new Area(row.GetInt("IdArea", 0), row.GetString("descripcion", "Sin Area"));
+                    area.IncluyeDependencias = row.GetBoolean("incluyeDependencias", false) ? 1 : 0;
+                    funcionalidad.Areas.Add(area);
+                    funcionalidades.Add(funcionalidad);
+
+                });
+
+                return funcionalidades;
+
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+
+
+        }
+
+        public string DesAsignarPerfilDeUsuario(int idPerfil, int idArea, int idUsuario, int id_usuario_alta)
         {
 
             try
@@ -314,6 +347,9 @@ namespace General.MAU
                 parametros.Add("@id_usuario", idUsuario);
                 parametros.Add("@id_perfil", idPerfil);
                 parametros.Add("@id_usuario_alta", id_usuario_alta);
+                if (idArea != 0)
+                    parametros.Add("@id_area", idArea);
+
                 var tablaDatos = conexion.Ejecutar("dbo.MAU_DesAsignarPerfilFuncionalidadAUsuario", parametros);
             
                 return "ok";
@@ -324,7 +360,7 @@ namespace General.MAU
             }
         }
 
-        public string DesAsignarFuncionalidadDeUsuario(int idFuncionalidad, int idUsuario, int idArea, int id_usuario_alta)
+        public string DesAsignarFuncionalidadDeUsuario(int idFuncionalidad, int idArea, int idUsuario, int id_usuario_alta)
         {
 
             try

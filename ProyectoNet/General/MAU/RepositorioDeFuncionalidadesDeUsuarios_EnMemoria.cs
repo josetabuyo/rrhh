@@ -93,6 +93,11 @@ namespace General.MAU
             throw new NotImplementedException();
         }
 
+        public List<Funcionalidad> GetFuncionalidadesPerfilesAreas(int id_usuario)
+        {
+            throw new NotImplementedException();
+        }
+
         public string AsignarPerfilesAUsuario(List<int> perfiles, List<Area> areas, int idUsuario, int id_usuario_alta)
         {
             throw new NotImplementedException();
@@ -103,7 +108,7 @@ namespace General.MAU
             throw new NotImplementedException();
         }
 
-        public string DesAsignarPerfilDeUsuario(int idPerfil, int idUsuario, int id_usuario_alta)
+        public string DesAsignarPerfilDeUsuario(int idPerfil, int idArea, int idUsuario, int id_usuario_alta)
         {
 
             throw new NotImplementedException();
