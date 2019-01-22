@@ -39,6 +39,12 @@ define(['wsviaticos', 'underscore'], function (ws, _) {
                     return
                 }
 
+
+                if (_.some(res, r => r.Message)) {
+                    console.log('Se produjo un error ' + res)
+                    return
+                }
+
                 var comites = res[0]
                 var ues = res[1]
 
