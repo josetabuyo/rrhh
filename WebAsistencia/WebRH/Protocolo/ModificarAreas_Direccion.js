@@ -1,4 +1,4 @@
-﻿+var contador_guardado = 0;
+﻿var contador_guardado = 0;
 var ModificarAreas_Direccion = {
 
     Iniciar: function () {
@@ -61,9 +61,14 @@ var ModificarAreas_Direccion = {
 
         $('#bnt_buscar_localidad').click(function () {
             _this.CargarDatosDeCodigoPostal($('#txt_oficina_codigopostal').val());
-            $("#ui-accordion-accordion-header-1").click();
-            $("#titulo_pasos").text("Modificación de la Dirección del Área - PASO 2 DE 4")
+            $("#div_detalle_codigo_postal").show();
         });
+
+        $("#btn_confirmar_codigo_postal").click(function () {
+            $("#ui-accordion-accordion-header-1").click();
+            $("#titulo_pasos").text("Modificación de la Dirección del Área - PASO 2 DE 4");
+           
+        })
 
         $('#cmb_direccion_edificio').change(function () {
             area.DireccionCompleta.IdEdificio = $('#cmb_direccion_edificio').val();

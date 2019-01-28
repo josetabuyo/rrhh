@@ -24,45 +24,50 @@
             <div id="div_contenido_direccion" class="fondo_form">
                 <div id="accordion">
                     <h3>
-                        1) INGRESE EL CÓDIGO POSTAL DONDE SE ENCUENTRA SU OFICINA</h3>
+                        CÓDIGO POSTAL</h3>
                     <div>
                         <ul>
                             <div id="div2" class="grupo_campos">
                                 <label for="CodigoPostal">
-                                    Código Postal:</label>
+                                    INGRESE EL CÓDIGO POSTAL DONDE SE ENCUENTRA SU OFICINA:
+                                </label>
                                 <input id="txt_oficina_codigopostal" type="text" style="width: 75px;" data-validar="esNumeroNaturalSinCero,esNoBlanco" />
-                            </div>
-                            <div id="div8" class="grupo_campos">
-                                <input type="button" class="btn btn-primary" style="margin-left: 100px;" id="bnt_buscar_localidad"
+                                <input type="button" class="btn btn-primary" style="margin-top: -10px;" id="bnt_buscar_localidad"
                                     value="Buscar Localidad" />
                             </div>
-                            <div id="div7" class="grupo_campos nueva_linea">
-                                <label for="Provincia" style="margin-left: 31px;">
-                                    Provincia:
-                                </label>
-                                <input type="text" id="input_provincia" style="width: 328px;" disabled />
-                                <select id="cmb_edificio_provincia" style="width: 323px;display:none;" data-validar="haySeleccionEnCombo"
-                        disabled>
-                    </select>
-                            </div>
-                            <div id="div_a_localidad" class="grupo_campos nueva_linea">
-                                <label for="Localidad" style="margin-left: 29px;">
-                                    Localidad:
-                                </label>
-                                <input type="text" id="input_localidad" style="width: 326px;" disabled />
-                                <!--<select id="cmb_direccion_localidad" style="width: 285px;" data-validar="haySeleccionEnCombo"
+                            <div id="div_detalle_codigo_postal" class="grupo_campos nueva_linea" style="display: none;">
+                                <br />
+                                <br />
+                                <div>
+                                    <label for="Provincia" style="margin-left: 31px;">
+                                        Provincia:
+                                    </label>
+                                    <input type="text" id="input_provincia" style="width: 328px;" disabled />
+                                    <select id="cmb_edificio_provincia" style="width: 323px; display: none;" data-validar="haySeleccionEnCombo"
+                                        disabled>
+                                    </select>
+                                </div>
+                                <div id="div_a_localidad" class="grupo_campos nueva_linea">
+                                    <label for="Localidad" style="margin-left: 29px;">
+                                        Localidad:
+                                    </label>
+                                    <input type="text" id="input_localidad" style="width: 326px;" disabled />
+                                    <!--<select id="cmb_direccion_localidad" style="width: 285px;" data-validar="haySeleccionEnCombo"
                         disabled>
                     </select>-->
+                                    <input type="button" class="btn btn-primary" style="margin-top: -10px;" id="btn_confirmar_codigo_postal"
+                                        value="Confirmar" />
+                                </div>
                             </div>
                         </ul>
                     </div>
                     <h3>
-                        2) SELECCIONE UNO DE LOS EDIFICIOS QUE APARECEN EN EL COMBO.</h3>
+                        EDIFICIO</h3>
                     <div>
                         <ul>
                             <div id="div_x_edificio" class="grupo_campos nueva_linea">
                                 <label for="Provincia" style="margin-left: 27px;">
-                                    Edificio:</label>
+                                    SELECCIONE EL EDIFICIO DEL SIGUIENTE LISTADO:</label>
                                 <select id="cmb_direccion_edificio" style="width: 201px;" data-validar="haySeleccionEnCombo">
                                 </select>
                                 <input type="button" class="btn btn-primary" style="margin: 0px 25px 0px;" id="btn_confirmar_edificio"
@@ -70,7 +75,7 @@
                                 <br />
                                 <br />
                                 <br />
-                                <span style="font-size:12px; color: Red;" >(*)Si su edificio no se encuentra en el combo, puede crearlo desde el siguiente botón:</span>
+                                <span style="font-size: 12px; color: Red;">(*)¿El edificio no está ?:</span>
                                 <input type="button" class="btn btn-primary" style="margin: 0px 25px 0px;" id="btn_nueva_oficina_edificio"
                                     value="Crear Edificio" />
                                 <!-- <input type="button" class="btn btn-primary" style="margin: 0px 10px 10px;" id="btn_nuevo_edificio"
@@ -94,7 +99,8 @@
                         </ul>
                     </div>
                     <h3>
-                        3) Seleccione una de las oficinas del edificio seleccionado. Si no la encuentra puede crearla.</h3>
+                        3) Seleccione una de las oficinas del edificio seleccionado. Si no la encuentra
+                        puede crearla.</h3>
                     <div>
                         <ul>
                             <div id="div_x_oficina" class="grupo_campos nueva_linea">
