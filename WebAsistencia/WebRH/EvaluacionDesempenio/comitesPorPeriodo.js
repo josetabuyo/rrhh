@@ -73,7 +73,15 @@
                 Periodo: periodoFrom(ues[ues.length - 1].IdPeriodo, periodos)
             })
         }
+
+        result = _.sortBy(result, p => ordenPeriodo(p, periodos)).reverse()
         return result;
+    }
+
+    var ordenPeriodo = function (definicion, periodos) {
+        var periodo = _.find(periodos, p => p.descripcion_periodo == definicion.Periodo)
+
+        return periodo.desde
     }
 
     var AgruparUnidadesEvaluacion = function (ues) {
