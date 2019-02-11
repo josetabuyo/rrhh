@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="../estilos/estilos.css" type="text/css" />
     <%= Referencias.Javascript("../")%>
 </head>
+
 <body>
     <form id="form1" runat="server">
     <uc2:BarraMenu ID="BarraMenu1" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'></span>"
@@ -24,8 +25,7 @@
                 <asp:Label ID="lblTitulo" runat="server" Text="" />
             </div>
         </div>
-
-        
+                
             <div>
                 <asp:Label ID="lblAmbito" runat="server" Text="Ambito " />
                 <select runat="server" id="cmbAmbitos" name="Ambitos" enableviewstate="false" style="text-transform: capitalize;"></select>
