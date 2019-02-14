@@ -228,9 +228,11 @@ function ValidarDatos(accion) {
             return false;
         };
 
-        if ($("#txtJurisdiccion").val() == "") {
-            alertify.alert("Debe cargar la Jurisdiccion");
-            return false;
+        if (pServicio == "PUBLICO") {
+            if ($("#txtJurisdiccion").val() == "") {
+                alertify.alert("Debe cargar la Jurisdiccion");
+                return false;
+            };
         };
 
         if ($("#txtCaja").val() == "") {
