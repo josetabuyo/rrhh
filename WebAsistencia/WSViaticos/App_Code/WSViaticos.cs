@@ -5482,18 +5482,18 @@ public class WSViaticos : System.Web.Services.WebService
 
 
     [WebMethod]
-    public bool Alta_Servicios_Administracion(Serv_Adm_Publica_Privada[] AdmPublicoPrivado, string servicio, Usuario usuario)
+    public bool Alta_Servicios_Administracion(Serv_Adm_Publica_Privada[] ListaAdmPublicoPrivado, Serv_Adm_Publica_Privada AdmPublicoPrivado, string servicio, Usuario usuario)
     {
         var RepositorioServAdm = new RepositorioServicios();
 
         if (servicio == "PUBLICO")
         {
-            return RepositorioServAdm.Alta_Servicios_Adm_Publica(AdmPublicoPrivado, usuario);
+            return RepositorioServAdm.Alta_Servicios_Adm_Publica(ListaAdmPublicoPrivado, AdmPublicoPrivado, usuario);
         }
 
         if (servicio == "PRIVADO")
         {
-            return RepositorioServAdm.Alta_Servicios_Adm_Privada(AdmPublicoPrivado, usuario);
+            return RepositorioServAdm.Alta_Servicios_Adm_Privada(ListaAdmPublicoPrivado,AdmPublicoPrivado, usuario);
         }
 
         return false;
