@@ -26,9 +26,11 @@ Backend.start(function () {
         if (pServicio == "PUBLICO")
             $('#lblTitulo').val("Carga de Servicio de Administracion Publico");
 
-        if (pServicio == "PRIVADO")
+        if (pServicio == "PRIVADO") {
             $('#lblTitulo').val("Carga de Servicio de Administracion Privado");
+        };
 
+        
         $("#NroFolio").focusout(function () {
             $("#NroFolio").val(pad($("#NroFolio").val(),2));
         });
@@ -46,12 +48,14 @@ Backend.start(function () {
         completarComboCargo();
         GetUsuario();
 
+
         ContenedorGrilla = $("#ContenedorGrilla");
         $("#ContenedorServicios").empty();
 
         ConsultarServicioAdmPublica();
     });
 });
+
 
 function pad(str, max) {
     str = str.toString();
@@ -304,6 +308,11 @@ function ValidarDatos(accion) {
                 return false;
             };
 
+            if ($("#txtFechaDesde").val() > $("#txtFechaHasta").val()) {
+                alertify.alert("La fecha desde no puede ser mayor a la fecha hasta");
+                return false;
+            };
+
             if ($("#txtDomicilio").val() == "") {
                 alertify.alert("Debe cargar el domicilio");
                 return false;
@@ -328,6 +337,11 @@ function ValidarDatos(accion) {
 
             if ($("#NroFolioHasta").val() == 0) {
                 alertify.alert("Debe cargar el numero de folio hasta");
+                return false;
+            };
+
+            if ($("#NroFolioDesde").val() > $("#NroFolioHasta").val()) {
+                alertify.alert("El nro de folio desde no puede ser mayor al nro hasta");
                 return false;
             };
 
@@ -510,7 +524,14 @@ var CargarPantalla = function (ListaDeDatos) {
 
     if (ListaDeDatos.length > 0) {
 
-        $("#cmbAmbitos").val(lista_de_serv_publico[0].Ambito.Id).change();
+        if (pServicio == "PRIVADO") {
+            $("#cmbAmbitos").val(6).change();
+            $("#cmbAmbitos").attr('disabled', true);
+        }
+        else {
+            $("#cmbAmbitos").val(lista_de_serv_publico[0].Ambito.Id).change();
+            $("#cmbAmbitos").attr('disabled', false);
+        }
         $('#NroFolio').val(pad((GetFolio(lista_de_serv_publico[0].Folio, 1)).trim(), 2));
         $('#NroFolioDesde').val(pad((GetFolio(lista_de_serv_publico[0].Folio, 2)).trim(), 3));
         $('#NroFolioHasta').val(pad((GetFolio(lista_de_serv_publico[0].Folio, 3)).trim(),3));
