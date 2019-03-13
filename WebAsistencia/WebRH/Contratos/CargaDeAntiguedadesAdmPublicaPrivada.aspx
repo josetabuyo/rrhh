@@ -111,7 +111,7 @@
                 <input type="text" id="txtCausaEgreso" value="" style="width: 400px" />
             </div>
 
-            <input type="checkbox" name="DarDeBaja" value="0" /> Dar de Baja
+            <input type="checkbox" id="DarDeBaja" name="DarDeBaja"  /> Dar de Baja
 
             <br /><br />
             <input type="button" value="Guardar" class="btn btn-primary" id="btn_Guardar" />

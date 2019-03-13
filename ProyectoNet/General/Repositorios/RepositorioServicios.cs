@@ -365,7 +365,7 @@ namespace General
                     cn.AsignarParametro("@documento", AdmPublicaPrivada.Doc_Titular); //   [int] ,    
                     cn.AsignarParametro("@Caja", AdmPublicaPrivada.Caja); //  [varchar](50),     
                     cn.AsignarParametro("@afiliado", AdmPublicaPrivada.Afiliado); //  [varchar](50),    
-                    //cn.AsignarParametro("@datonoimprime", servicio[servicio.Length - 1].datonoimprime); // bit,    
+                    cn.AsignarParametro("@Datodebaja", AdmPublicaPrivada.DatoDeBaja); // bit,    
 
                     if ((bool?) AdmPublicaPrivada.Ctr_Cert == null)
                     {

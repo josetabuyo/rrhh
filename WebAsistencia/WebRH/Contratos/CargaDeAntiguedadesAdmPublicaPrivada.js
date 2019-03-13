@@ -568,6 +568,17 @@ var CargarPantalla = function (ListaDeDatos) {
             $("#DarDeBaja").prop("checked", true);
         }
     }
+    else {
+
+        if (pServicio == "PRIVADO") {
+            $("#cmbAmbitos").val(6).change();
+            $("#cmbAmbitos").attr('disabled', true);
+        }
+        else {
+            $("#cmbAmbitos").attr('disabled', false);
+        }
+
+    }
 
 
     if (pFolio == "0") {
