@@ -5558,6 +5558,7 @@ public class WSViaticos : System.Web.Services.WebService
 
     /////////////////VER
 
+    //YA NO SE USA, la forma de visualizacion del recibo es UNICA.....!
     //es la visualizacion del recibo desde el punto de vista del empleado
     [WebMethod]
     public StringRespuestaWS GetReciboPDFEmpleador(int id_recibo)
@@ -5669,7 +5670,7 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
 
-    //recibo digital unico tanto para el empleado como para el emplreador
+    //recibo digital unico tanto para el empleado como para el empleador
     [WebMethod]
     public StringRespuestaWS GetReciboPDFDigital(int id_recibo)
     {
@@ -5743,6 +5744,7 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
 
+    //YA NO SE USA, la forma de visualizacion del recibo es UNICA.....!
     //es la visualizacion del recibo desde el punto de vista del empleado
     [WebMethod]
     public string GetReciboPDFEmpleado(int id_recibo)
@@ -5796,7 +5798,7 @@ public class WSViaticos : System.Web.Services.WebService
 
         ///      return x.Cabecera ;
     }
-//TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOPROBAR
+//TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOPROBAR FALTA permitir que se guarde el archivo en la BD
     [WebMethod]
     public int GuardarReciboPDFFirmado(string bytes_pdf, int id_recibo, int anio, int mes, int tipoLiquidacion, Usuario usuario)
     {
