@@ -284,6 +284,8 @@ namespace General.Repositorios
                 conexion.EjecutarSinResultado("dbo.LEG_INSNotificacionUsuario", parametros);
                 var persona = repo_personas.GetPersonaPorDNI(d);
                 var usr = repo_usuarios.GetUsuarioPorIdPersona(persona.Id);
+
+                //var cuerpo_alerta = "<a href='#' onClick='function(){var w = window.open(); $(w.document.body).html('"+notificacion+"'); return false;}'>Abrir notificación</a>";
                 repo_alertas.crearAlerta(titulo, notificacion, usr.Id, usuario);
             });
         }
@@ -798,7 +800,7 @@ namespace General.Repositorios
 
             var usuario_solicitante = repo_usuarios.GetUsuarioPorIdPersona(solicitud.IdPersona);
             new RepositorioDeAlertasPortal(this.conexion)
-                .crearAlerta("Solicitud de Credencial", "Tu solicitud ha sido rechazada por:" + motivo, usuario_solicitante.Id, usuario.Id);
+                .crearAlerta("Solicitud de Credencial", "Tu solicitud ha sido rechazada. <br/>" + motivo, usuario_solicitante.Id, usuario.Id);
             return true;
         }
 
@@ -943,6 +945,7 @@ namespace General.Repositorios
             solicitud.Motivo = row.GetString("Motivo");
             solicitud.TipoCredencial = row.GetString("TipoCredencial");
             solicitud.Organismo = row.GetString("Organismo");
+            solicitud.IdOrganismo = row.GetInt("idOrganismo");
             if (!(row.GetObject("idCredencial") is DBNull))
             {
                 solicitud.Credencial = new Credencial();
@@ -1664,6 +1667,53 @@ namespace General.Repositorios
 
             return JsonConvert.SerializeObject(listaIdRecibos);
 
+        }
+
+        public bool CambiarOrganismoEnSolicitudCredencial(SolicitudCredencial solicitud, int id_organismo_nuevo, Usuario usuario_aprobador)
+        {
+            var repo_usuarios = new RepositorioDeUsuarios(this.conexion, RepositorioDePersonas.NuevoRepositorioDePersonas(this.conexion));
+            var usuario_solicitante = repo_usuarios.GetUsuarioPorIdPersona(solicitud.IdPersona);
+
+            RepositorioDeTickets repo = new RepositorioDeTickets(this.conexion);
+
+            int id_ticket_nuevo;
+
+            switch (id_organismo_nuevo)
+            {   
+                case 1:
+                    id_ticket_nuevo = repo.crearTicket("solicitud_cred_mds", usuario_solicitante.Id);
+                    break;
+                case 2:
+                    id_ticket_nuevo = repo.crearTicket("solicitud_cred_msal", usuario_solicitante.Id);
+                    break;
+                case 3:
+                    id_ticket_nuevo = repo.crearTicket("solicitud_cred_inm", usuario_solicitante.Id);
+                    break;
+
+                default:
+                    throw new Exception("Valor desconocido en id de organismo");
+            }
+
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_solicitud", solicitud.Id);
+            parametros.Add("@id_organismo", id_organismo_nuevo);
+            parametros.Add("@id_ticket_aprobacion", id_ticket_nuevo);
+
+            var tablaDatos = conexion.Ejecutar("dbo.Acre_ModificarSolicitudCredencial", parametros);
+
+            repo.MarcarEstadoTicket(solicitud.IdTicketAprobacion, usuario_aprobador.Id); 
+
+            try
+            {
+                new RepositorioDeAlertasPortal(this.conexion)
+                    .crearAlerta("Solicitud de Credencial", "Tu solicitud ha sido enviada a otro organismo, se te mantendrá informado", usuario_solicitante.Id, usuario_aprobador.Id);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

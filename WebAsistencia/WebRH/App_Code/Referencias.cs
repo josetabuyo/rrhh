@@ -25,6 +25,8 @@ public class Referencias
         return refs;
     }
 
+
+
     public static string Javascript(string ruta_origen){
         var refs = @"
             <script type=""text/javascript"" src=""__RUTA_ORIGEN__Scripts/jquery-latest.min.js""></script>
@@ -58,5 +60,43 @@ public class Referencias
             <script type=""text/javascript"" src=""__RUTA_ORIGEN__Scripts/Spin.js""></script>";
         refs = refs.Replace("__RUTA_ORIGEN__", ruta_origen);
         return refs;
+    }
+
+    public static string Css2(string ruta_origen)
+    {
+        var v1 = Css(ruta_origen);
+        var prefijo = "\r\n            <link rel=\"stylesheet\" href=\"" + ruta_origen;
+
+        //cambio la referencia de bootstrap.css a la carpeta de bootstrap4
+        //Estilos/sigirh.css
+        var v2 = v1.Replace("Scripts/bootstrap/css/bootstrap.css", "Estilos/sigirh.css");
+
+        //borro la linea de bootstra-presponsive porque la verseion 4 no lo usa
+        v2 = Remover(v2, prefijo + @"Scripts/bootstrap/css/bootstrap-responsive.css"" type=""text/css""/>");
+
+        return v2;
+    }
+
+    public static string Javascript2(string ruta_origen)
+    {
+        var v1 = Javascript(ruta_origen);
+        var prefijo = "\r\n            <script type=\"text/javascript\" src=\"" + ruta_origen;
+
+        var v2 = Remover(v1, prefijo + "Scripts/bootstrap/js/bootstrap-transition.js\"></script>");
+        v2 = Remover(v2, prefijo + "Scripts/bootstrap/js/bootstrap-collapse.js\"></script>");
+        v2 = Remover(v2, prefijo + "Scripts/bootstrap/js/bootstrap-dropdown.js\"></script>");
+        v2 = Remover(v2, prefijo + "Scripts/jquery-ui-1.10.2.custom/js/jquery-1.9.1.js\"></script>");
+        v2 = Remover(v2, prefijo + "Scripts/bootstrap/js/jquery.js\"></script>");
+        
+
+        v2 = v2.Replace("Scripts/jquery-latest.min.js\"", "Scripts/jquery3.3.1/jquery-3.3.1.min.js\"");
+        
+        return v2;
+    }
+
+
+    protected static string Remover(string original, string str_a_remover)
+    {
+        return original.Replace(str_a_remover, "");
     }
 }

@@ -65,7 +65,7 @@
                         </div>
                         <div class="linea linea_passwrd">
                             <div class="titulo">Contraseña:</div>
-                            <input id="btn_reset_password" type="button" class="btn btn-warning" value="resetear" RequiereFuncionalidad = "mau_resetear_contraseña"/>
+                            <input id="btn_reset_password" type="button" class="btn btn-warning" value="resetear" RequiereFuncionalidad = "mau_resetear_contrasenia"/>
                         </div>
                         <div class="seccion_verificacion_usuario">
                             <div id="usuario_verificado">DNI Verificado</div>    

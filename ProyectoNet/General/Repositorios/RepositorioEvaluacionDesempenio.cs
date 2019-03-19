@@ -30,6 +30,23 @@ namespace General.Repositorios
             return _instancia;
         }
 
+        public AprobacionPorComite InsertarAprobacionEvaluacion(int id_evaluacion, int id_comite, int id_usuario, DateTime fecha)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_evaluacion", id_evaluacion);
+            parametros.Add("@id_comite", id_comite);
+            parametros.Add("@id_usuario", id_comite);
+            parametros.Add("@fecha", fecha);
+
+            var tablaDatos = _conexion.Ejecutar("dbo.EVAL_INS_AprobacionComite", parametros);
+
+            var row = tablaDatos.Rows[0];
+            var result = new AprobacionPorComite(row.GetDateTime("fecha"), row.GetSmallintAsInt("id"), row.GetSmallintAsInt("id_comite"), row.GetSmallintAsInt("id_evaluacion"), row.GetSmallintAsInt("id_usuario"));
+
+            return result;
+
+        }
+
         public List<DetallePreguntas> getFormularioDeEvaluacion(int nivel, int evaluado, int evaluacion)
         {
             var parametros = new Dictionary<string, object>();
@@ -53,7 +70,7 @@ namespace General.Repositorios
         {
             tablaDatos.Rows.ForEach(row =>
             {
-                AddDetallePreguntasA(list_de_pregYRtasRespondidas, row);
+                AddDetallePreguntasA(list_de_pregYRtasRespondidas, row, true);
             });
         }
 
@@ -108,14 +125,32 @@ namespace General.Repositorios
             return tablaDatos.Rows.Count > 0;
         }
 
+
+        public RespuestaGetAgentesEvaluablesPor GetAgentesEvaluablesParaImprimir(Usuario usuario)
+        {
+            return GetAgentesEvaluablesPor(0, usuario, false, true, true);
+        }
+
         public RespuestaGetAgentesEvaluablesPor GetAgentesEvaluablesPor(Usuario usuario)
         {
-            return GetAgentesEvaluablesPor(usuario, false);
+            return GetAgentesEvaluablesPor(0, usuario, false, false, true);
         }
 
         public RespuestaGetAgentesEvaluablesPor GetAgentesEvaluablesParaVerificarGDE(Usuario usuario)
         {
-            return GetAgentesEvaluablesPor(usuario, true);
+            return GetAgentesEvaluablesPor(0, usuario, true, false, true);
+        }
+
+        public RespuestaGetAgentesEvaluablesPor GetAsignacionEvaluacionCompleta(int id_evaluacion, Usuario usuario)
+        {
+            var res = GetAgentesEvaluablesPor(id_evaluacion, usuario, true, true, true);
+            return res;
+        }
+
+        public RespuestaGetAgentesEvaluablesParaComites GetAgentesEvaluablesParaComites(Usuario usuario)
+        {
+            var res = GetAgentesEvaluablesPor(0, usuario, true, true, false);
+            return new RespuestaGetAgentesEvaluablesParaComites(res.asignaciones, res.EsAgenteVerificador, res.UsuarioRequest);
         }
 
         public List<PeriodoEvaluacion> GetPeriodosEvaluacion()
@@ -178,10 +213,29 @@ namespace General.Repositorios
             _conexion.EjecutarEscalar("dbo.EVAL_DEL_IntegranteComite", parametros);
         }
 
+        public ComiteEvaluacionDesempenio GetComiteById(int idComite)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@idComite", idComite);
+            var tablaDatos = _conexion.Ejecutar("dbo.EVAL_GET_Comite", parametros);
+
+
+            var resultado = new List<ComiteEvaluacionDesempenio>();
+            if (tablaDatos.Rows.Count > 0)
+            {
+                tablaDatos.Rows.ForEach(row =>
+                {
+                    this.CrearOCompletarComite(row, resultado);
+                });
+            }
+            return resultado[0];
+        }
+
         public List<ComiteEvaluacionDesempenio> GetAllComites()
         {
             var parametros = new Dictionary<string, object>();
             var tablaDatos = _conexion.Ejecutar("dbo.EVAL_GET_Comites", parametros);
+
             var resultado = new List<ComiteEvaluacionDesempenio>();
             if (tablaDatos.Rows.Count > 0)
             {
@@ -267,22 +321,42 @@ namespace General.Repositorios
 
         }
 
-        protected RespuestaGetAgentesEvaluablesPor GetAgentesEvaluablesPor(Usuario usuario, bool ModoVerificadorGDE)
+
+
+        /// <summary>
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <param name="ModoVerificadorGDE">Existe un perfil de usuario que se encarga de verificar que los codigos de GDE esten bien cargados, para ese usuario, este param va en true</param>
+        /// <param name="ModoComitesEvaluacion">Cuando el usuario es de un comite de evaluacion, puede ver todas las evaluaciones, con/sin codigo gde. Y de todas las personas (sin importar el evaluador)</param>
+        /// <param name="IncludeTextosPreguntas">Para evitar transferir por el webservice responses demasiado grande, se quitan las respuestas de las evaluaciones</param>
+        /// <returns></returns>
+        protected RespuestaGetAgentesEvaluablesPor GetAgentesEvaluablesPor(int id_evaluacion, Usuario usuario, bool ModoVerificadorGDE, bool ModoComitesEvaluacion, bool IncludeTextosPreguntas)
         {
             var parametros = new Dictionary<string, object>();
             var id_persona_usuario = usuario.Owner.Id;
             var es_agente_verificador = true;
-            if (!EsAgenteVerificador(usuario) || !ModoVerificadorGDE)
+            if (!ModoComitesEvaluacion)
             {
-                parametros.Add("@id_persona_evaluadora", id_persona_usuario);
-                es_agente_verificador = false;
-            }
-            else
-            {
-                parametros.Add("@solo_con_codigo_gde", 1);
+                if (!EsAgenteVerificador(usuario) || !ModoVerificadorGDE)
+                {
+                    parametros.Add("@id_persona_evaluadora", id_persona_usuario);
+                    es_agente_verificador = false;
+                }
+                else
+                {
+                    parametros.Add("@solo_con_codigo_gde", 1);
+                }
             }
 
-            var tablaDatos = _conexion.Ejecutar("dbo.EVAL_GET_Evaluados_Evaluador", parametros);
+            if (id_evaluacion > 0)
+            {
+                parametros.Add("@id_evaluacion", id_evaluacion);
+            }
+
+
+            var sp = IncludeTextosPreguntas ? "dbo.EVAL_GET_Evaluados_Evaluador" : "dbo.EVAL_GET_Evaluados_Evaluador_Slim";
+            //var sp = "dbo.EVAL_GET_Evaluados_Evaluador";
+            var tablaDatos = _conexion.Ejecutar(sp, parametros);
 
             var asignaciones = new List<AsignacionEvaluadoAEvaluador> { };
             var detalle_preguntas = new List<DetallePreguntas> { };
@@ -294,7 +368,6 @@ namespace General.Repositorios
 
             if (tablaDatos.Rows.Count > 0)
             {
-
                 var id_evaluacion_anterior = 0;
                 var id_evaluado_anterior = 0;
                 tablaDatos.Rows.ForEach(row =>
@@ -319,11 +392,11 @@ namespace General.Repositorios
                         detalle_preguntas = new List<DetallePreguntas>();
                         var id_evaluado = row.GetSmallintAsInt("id_evaluado", 0);
                         asignacion_evaluado_a_evaluador = newAsignacionEvaluadoAEvaluadorFromRow(row, detalle_preguntas, id_evaluado, cache_areas, resp_primario_ue);
-                        AddDetallePreguntasA(detalle_preguntas, row);
+                        AddDetallePreguntasA(detalle_preguntas, row, IncludeTextosPreguntas);
                     }
                     else
                     {
-                        AddDetallePreguntasA(detalle_preguntas, row);
+                        AddDetallePreguntasA(detalle_preguntas, row, IncludeTextosPreguntas);
                     }
                 });
             }
@@ -373,12 +446,22 @@ namespace General.Repositorios
             return evaluador;
         }
 
-        protected void AddDetallePreguntasA(List<DetallePreguntas> detalle_preguntas, RowDeDatos row)
+        protected void AddDetallePreguntasA(List<DetallePreguntas> detalle_preguntas, RowDeDatos row, bool IncludeTextosPreguntas)
         {
-            detalle_preguntas.Add(new DetallePreguntas(row.GetSmallintAsInt("id_pregunta", 0), row.GetSmallintAsInt("orden_pregunta", 0),
-                row.GetSmallintAsInt("opcion_elegida", 0), row.GetString("enunciado", ""),
-                row.GetString("rpta1", ""), row.GetString("rpta2", ""), row.GetString("rpta3", ""),
-                row.GetString("rpta4", ""), row.GetString("rpta5", ""), row.GetString("factor", "")));
+            var rpta1 = IncludeTextosPreguntas ? row.GetString("rpta1", "") : String.Empty;
+            var rpta2 = IncludeTextosPreguntas ? row.GetString("rpta2", "") : String.Empty;
+            var rpta3 = IncludeTextosPreguntas ? row.GetString("rpta3", "") : String.Empty;
+            var rpta4 = IncludeTextosPreguntas ? row.GetString("rpta4", "") : String.Empty;
+            var rpta5 = IncludeTextosPreguntas ? row.GetString("rpta5", "") : String.Empty;
+            var enunciado = IncludeTextosPreguntas ? row.GetString("enunciado", "") : String.Empty;
+
+            if (IncludeTextosPreguntas)
+            {
+                detalle_preguntas.Add(new DetallePreguntas(row.GetSmallintAsInt("id_pregunta", 0), row.GetSmallintAsInt("orden_pregunta", 0),
+                    row.GetSmallintAsInt("opcion_elegida", 0), enunciado,
+                    rpta1, rpta2, rpta3,
+                    rpta4, rpta5, row.GetString("factor", "")));
+            }
         }
 
         protected AsignacionEvaluadoAEvaluador newAsignacionEvaluadoAEvaluadorFromRow(RowDeDatos row, List<DetallePreguntas> detalle_preguntas, int id_evaluado, Dictionary<int, DescripcionAreaEvaluacion> cache_areas, AgenteEvaluacionDesempenio evaluador)
@@ -400,6 +483,7 @@ namespace General.Repositorios
 
             if (row.GetInt("id_evaluacion", 0) != 0)
             {
+
                 evaluacion = new EvaluacionDesempenio(row.GetInt("id_evaluacion", 0),
                                             row.GetSmallintAsInt("estado_evaluacion", 0),
                                             nivel,
@@ -407,7 +491,10 @@ namespace General.Repositorios
                                             row.GetString("codigo_gde", ""),
                                             row.GetString("codigo_doc_electronico", ""),
                                             row.GetDateTime("fecha"),
-                                            new VerificacionCodigoGdeDocumento(row.GetDateTime("fechaVerificacionGDE", DateTime.MinValue), VerificacionCodigoGdeDocumento.UsuarioVerifFromDB(row.GetSmallintAsInt("idUsuarioVerificadorGDE", 0))));
+                                            new VerificacionCodigoGdeDocumento(row.GetDateTime("fechaVerificacionGDE", DateTime.MinValue), VerificacionCodigoGdeDocumento.UsuarioVerifFromDB(row.GetSmallintAsInt("idUsuarioVerificadorGDE", 0))),
+                                            row.GetSmallintAsInt("sum_puntaje", 0),
+                                            new AprobacionPorComite(row.GetDateTime("fecha_aprobacion_comite", DateTime.MinValue), row.GetInt("id_aprobacion_comite", 0), row.GetInt("comite_aprobador", 0), row.GetInt("id_evaluacion", 0), row.GetSmallintAsInt("id_usuario_aprobacion", 0))
+                                            );
             }
 
             var unidad_evaluacion = UnidadDeEvaluacion.Nulio();
@@ -430,7 +517,7 @@ namespace General.Repositorios
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_evaluacion", 0);
-            parametros.Add("@id_evaluador", idEvaluador);
+            parametros.Add("@id_evaluador", idEvaluador); //AGU: 27/11/2018 - Este dato se ignora en el SP por el bug de que lo está tomando desde el usuario logueado, y eso está mal.
             parametros.Add("@id_evaluado", idEvaluado);
             parametros.Add("@id_formulario", idFormulario);
             parametros.Add("@id_periodo", periodo);
@@ -549,10 +636,17 @@ namespace General.Repositorios
         }
 
 
-        public List<UnidadDeEvaluacion> GetEstadosEvaluaciones()
+
+
+        public List<UnidadDeEvaluacion> GetEstadosEvaluaciones(bool excluirPeriodosDeBaja)
         {
             var result = new List<UnidadDeEvaluacion>();
             var parametros = new Dictionary<string, object>();
+            if (excluirPeriodosDeBaja)
+            {
+                parametros.Add("@excluirPeriodosDeBaja", 1);
+            }
+
             var tablaDeDatos = _conexion.Ejecutar("dbo.[EVAL_GET_Estado_Evaluaciones_TdeC]", parametros);
             tablaDeDatos.Rows.ForEach(row =>
             {
@@ -566,18 +660,19 @@ namespace General.Repositorios
 
         public ComiteEvaluacionDesempenio AgregarComite(string descripcion, DateTime fecha, string hora, string lugar, int periodo)
         {
-            ComiteEvaluacionDesempenio comite = new ComiteEvaluacionDesempenio();
+            //ComiteEvaluacionDesempenio comite = new ComiteEvaluacionDesempenio();
             var parametros = new Dictionary<string, object>();
 
-            parametros.Add("@descripcion", descripcion );
-            parametros.Add("@fecha", fecha );
+            parametros.Add("@descripcion", descripcion);
+            parametros.Add("@fecha", fecha);
             parametros.Add("@hora", hora);
             parametros.Add("@lugar", lugar);
             parametros.Add("@periodo", periodo);
 
             var tablaDeDatos = _conexion.Ejecutar("dbo.EVAL_ADD_Comite", parametros);
-            comite.Id = tablaDeDatos.Rows[0].GetSmallintAsInt("Id");
-            return comite;
+            //comite.Id = tablaDeDatos.Rows[0].GetSmallintAsInt("Id");
+            return GetComiteById(tablaDeDatos.Rows[0].GetSmallintAsInt("Id"));
+            //return comite;
         }
 
         public ComiteEvaluacionDesempenio UpdateComite(int id_comite, string descripcion, DateTime fecha, string hora, string lugar, int periodo)
@@ -594,7 +689,8 @@ namespace General.Repositorios
 
             var tablaDeDatos = _conexion.Ejecutar("dbo.EVAL_UPD_Comite", parametros);
 
-            if (tablaDeDatos.Rows.Count.Equals(0)) {
+            if (tablaDeDatos.Rows.Count.Equals(0))
+            {
                 throw new Exception("No se pudo actualizar el comité");
             }
 
