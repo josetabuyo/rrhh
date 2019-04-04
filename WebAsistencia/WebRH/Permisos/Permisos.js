@@ -240,6 +240,9 @@ var Permisos = {
         var _this = this;
         _this.usuario = usuario;
         $("#panel_datos_usuario").show();
+        $("#caja_permisos_actuales").show();
+        _this.getPerfilesDelUsuario();
+        _this.getFuncionalidadesDelUsuario();
         /* Backend.ElUsuarioLogueadoTienePermisosParaFuncionalidadPorNombre("mau_cambiar_permisos").onSuccess(function (tiene_permisos) {
         if (tiene_permisos) {
         _this.vista_permisos.setUsuario(usuario);
@@ -512,9 +515,14 @@ var Permisos = {
 
 
             var areasSeleccionadas = $('.areasSeleccionadas').map(function () {
-                return { id: $(this).attr('id'), incluyeDependencia: $(this)[0].children[1].checked };
+                return { id: $(this).attr('id'), IncluyeDependencias: $(this)[0].children[1].checked };
             }).get();
 
+            $.each(areasSeleccionadas, function (key, value) {
+                if (value.IncluyeDependencias) {
+                    value.IncluyeDependencias = 1;
+                }
+            });
             /* var dependencias = $('.checksIncluyeDependencia').map(function () {
             return $(this)[0].checked;
             }).get();*/

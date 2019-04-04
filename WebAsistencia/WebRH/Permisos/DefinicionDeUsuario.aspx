@@ -115,10 +115,18 @@
                         </div>
                     </div>
                 </div> 
-
-                
             </div> 
 
+                <div id="caja_permisos_actuales" style="display:none;">
+                    <legend style="margin-top: 20px;">PERMISOS ACTUALES</legend>
+                    <div id="tabla_permisos">
+    
+                    </div>
+
+                     <div id="tabla_funcionalidades">
+    
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -150,6 +158,7 @@
 <script type="text/javascript" src="../MAU/NodoEnArbolDeFuncionalidades.js"></script>
 <script type="text/javascript" src="../MAU/AdministradorDeUsuarios.js"></script>
 <script type="text/javascript" src="../MAU/Usuario.js"></script>
+<script type="text/javascript" src="../MAU/HabilitadorDeControles.js"></script>
 
 <script type="text/javascript" src="../Scripts/ProveedorAjax.js"></script>
 
@@ -180,7 +189,6 @@
             $(".caja_izq").load("SeccionIzquierda.htm", function () {
                 Permisos.init();
                 Permisos.iniciarConsultaRapida();
-
             });
  
         });

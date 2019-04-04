@@ -243,5 +243,10 @@ namespace AdministracionDeUsuarios
         {
             throw new NotImplementedException();
         }
+
+        public Usuario GetUsuarioPorAliasYConFuncionalidades(string alias, bool incluir_bajas = false)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

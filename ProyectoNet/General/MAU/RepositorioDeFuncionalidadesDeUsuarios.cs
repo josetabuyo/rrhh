@@ -86,6 +86,7 @@ namespace General.MAU
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_usuario", objeto.Key);
             parametros.Add("@id_funcionalidad", objeto.Value);
+            parametros.Add("@Id_usuario_logueado", id_usuario_logueado); 
             var tablaDatos = conexion.Ejecutar("dbo.MAU_ConcederFuncionalidadA", parametros);
         }
 
@@ -327,7 +328,9 @@ namespace General.MAU
 
                 });
 
-                return funcionalidades;
+                List<Funcionalidad> funcionalidadesOrdenadas = funcionalidades.OrderBy(o => o.Id).ToList();
+
+                return funcionalidadesOrdenadas;
 
             }
             catch (Exception e)

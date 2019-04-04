@@ -36,6 +36,8 @@
                     </div>
 
                 </div>
+
+                <a id="btn_seleccion_contratos" RequiereFuncionalidad="ingreso_seleccion_contrato" RequiereArea="2584" class="btn btn-primary">Selección de Contratos</a>
                
              </div>
         </div>
@@ -43,6 +45,8 @@
 </body>
 
 <script type="text/javascript" src="Permisos.js"></script>
+<script type="text/javascript" src="../MAU/HabilitadorDePermisos.js"></script>
+<script type="text/javascript" src="../MAU/HabilitadorDeControles.js"></script>
 <script type="text/javascript" src="../Scripts/Spin.js"></script>
 <script type="text/javascript" >
 
@@ -55,7 +59,7 @@
 
                 Permisos.getPerfilesDelUsuario();
                 Permisos.getFuncionalidadesDelUsuario();
-
+                //HabilitadorDePermisos.comprobarPermisosEnPantalla();
             });
 
         });

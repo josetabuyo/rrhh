@@ -197,12 +197,15 @@
     <script type="text/javascript" src="Legajo.js?version=01"></script>
     <script type="text/javascript" src="../Scripts/jquery.easing.1.3.js"></script>
     <script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-tooltip.js"></script>
+    <script type="text/javascript" src="../MAU/HabilitadorDePermisos.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
 
             //DESCOMENTAR CUANDO SE TERMINE SINO HINCHABA LAS PELOTAS
             Backend.start(function () {
                 Legajo.getAreaDeLaPersona();
+                HabilitadorDePermisos.traerPermisos();
+                
                 /* Backend.GetUsuarioLogueado().onSuccess(function (usuario) {
                         
                 /*var levantar_prompt = function () {

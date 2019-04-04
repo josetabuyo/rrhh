@@ -2960,6 +2960,12 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public Usuario GetUsuarioPorAliasYFuncionalidades(string alias)
+    {
+        return RepositorioDeUsuarios().GetUsuarioPorAliasYConFuncionalidades(alias);
+    }
+
+    [WebMethod]
     public Usuario GetUsuarioPorId(int id_usuario)
     {
         return RepositorioDeUsuarios().GetUsuarioPorId(id_usuario);
@@ -3056,6 +3062,8 @@ public class WSViaticos : System.Web.Services.WebService
     public Funcionalidad[] GetFuncionalidadesPerfilesAreas(int id_usuario, Usuario usuario)
     {
         //var usu = RepositorioDeUsuarios().GetUsuarioPorId(id_usuario);
+        if (id_usuario == 0)
+            id_usuario = usuario.Id;
         var funcionalidades = RepositorioDeFuncionalidadesDeUsuarios().GetFuncionalidadesPerfilesAreas(id_usuario).ToArray();
         return funcionalidades;
     }
