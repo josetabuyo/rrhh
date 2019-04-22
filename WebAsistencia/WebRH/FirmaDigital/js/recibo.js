@@ -39,6 +39,7 @@ var RECIBOS = (function (window, undefined) {
                 select.add(option); //insertamos el elemento
 
             }
+            tiposLiquidaciones = resp;
             /*usando jquery no me funciona, fix despues*/
             /*$.each(tiposLiquidacion, function () {
             options.append($("<option />").val(this.Id).text(this.Descripcion));
@@ -49,8 +50,10 @@ var RECIBOS = (function (window, undefined) {
         });
 
     }
-    
+
     function getRecibos(tipoLiquidacion, anio, mes) {
+        /*VERRR:Esta funcionalidad cno la uso, revizar y revizar el sql , que quedo obsoleto debido a la modificacion de get 
+        id recibo sin firmar*/
         Backend.GetRecibosResumen(tipoLiquidacion, anio, mes)
         .onSuccess(function (recibosResumen) {
             /*recibosResumen es la respuesta*/
@@ -126,12 +129,12 @@ var RECIBOS = (function (window, undefined) {
 
             //habilito el boton para poder firmar si hay mas de un recibo para firmar
             if (lista_recibos_resumen.length != 0) {
-               // divMensajeStatus.innerHTML = '<div class="iconInfo">Debe existir al menos un documento para firmar.</div>';
+                // divMensajeStatus.innerHTML = '<div class="iconInfo">Debe existir al menos un documento para firmar.</div>';
                 btn_firmar.disabled = false;
                 btn_firmar.classList.remove('botonGrisadoFirmaM');
                 btn_firmar.classList.add('botonFirmaM');
             }
-            
+
 
             /*usando jquery no me funciona, fix despues*/
             /*$.each(tiposLiquidacion, function () {
@@ -189,17 +192,17 @@ var RECIBOS = (function (window, undefined) {
         Backend.GetReciboPDFEmpleador(params)
                 .onSuccess(function (res) {
                     //en esta version siempre retorna exito a menos que sea un error antes del webservice
-                    if (! res.DioError) {
+                    if (!res.DioError) {
                         //en el caso de los archivos estos ya vienen en b64 porque aun no encontre una funcion de conversion a b64 que codifique correctamente desde javascript
-                        downloadSuccessFunction(res.Respuesta, idRecibo);                
+                        downloadSuccessFunction(res.Respuesta, idRecibo);
                     }
-                   
+
                 })
             .onError(function (e) {
-                   downloadErrorFunction(e);
+                downloadErrorFunction(e);
             });
 
-        
+
     }
 
     function downloadRemoteDataB64POSTReciboPlano(url, idRecibo, params, successFunction, errorFunction) {
@@ -221,7 +224,7 @@ var RECIBOS = (function (window, undefined) {
             });
 
 
-        }
+    }
 
 
     //esta funcion no la estoy utilizando, como no necesito mandar mas que el idRecibo directamente llamo al ws desde el backend
@@ -241,15 +244,15 @@ var RECIBOS = (function (window, undefined) {
             });
 
 
-        }
+    }
 
-     //descargo el recibo unico digital,este es tanto para el empleado como par ael empleador
-     function downloadRemoteDataB64POSTReciboDigital(url, idRecibo, params, successFunction, errorFunction) {
+    //descargo el recibo unico digital,este es tanto para el empleado como par ael empleador
+    function downloadRemoteDataB64POSTReciboDigital(url, idRecibo, params, successFunction, errorFunction) {
 
-            downloadSuccessFunction = successFunction;
-            downloadErrorFunction = errorFunction;
+        downloadSuccessFunction = successFunction;
+        downloadErrorFunction = errorFunction;
 
-            Backend.GetReciboPDFDigital(params)
+        Backend.GetReciboPDFDigital(params)
                 .onSuccess(function (res) {
                     //en esta version siempre retorna exito a menos que sea un error antes del webservice
                     if (!res.DioError) {
@@ -263,14 +266,14 @@ var RECIBOS = (function (window, undefined) {
             });
 
 
-        }
+    }
 
     function guardarReciboPDFFirmado(idRecibo, signatureB64, anio, mes, tipoLiquidacion, successFunction, errorFunction) {
 
         saveSuccessFunction = successFunction;
         saveErrorFunction = errorFunction;
 
-        Backend.GuardarReciboPDFFirmado(signatureB64,idRecibo,anio,mes,tipoLiquidacion)
+        Backend.GuardarReciboPDFFirmado(signatureB64, idRecibo, anio, mes, tipoLiquidacion)
                 .onSuccess(function (res) {
 
                     //en el caso de los archivos estos ya vienen en b64 porque aun no encontre una funcion de conversion a b64 que codifique correctamente desde javascript

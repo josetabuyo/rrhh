@@ -49,18 +49,12 @@
                 <option value="1">Firmado Conforme</option>
                 <option value="2">Firmado No Conforme</option>
              </select>-->
-             <!--nota: 0: indica que se firmen todos los tipos de liquidacion-->
-             <select style="width:230px;" id="cmb_tipo_liquidacion" size="1">
-                <option value="0" selected>TODOS</option>
+             
+             <!--TODO: ver si los años y meses se cargan bien, luego estos son los nuevos parametros para las consultas-->
+             <select style="width:65px;" id="cmb_anio">
              </select>
-            <!--TODO: cargar dinamicamente los select si no se quieren mostrar meses no vigentes para el año actual-->
-             <select style="width:65px;" id="cmb_anio2">
-                <option value="2016" selected>2016</option>
-                <option value="2017" >2017</option>
-                <option value="2018" >2018</option>
-             </select>
-             <select style="width:105px;" id="cmb_meses2">
-                <option value="1" selected>Enero</option>
+             <select style="width:105px;" id="cmb_meses">
+                <option value="1">Enero</option>
                 <option value="2">Febrero</option>
                 <option value="3">Marzo</option>
                 <option value="4">Abril</option>
@@ -73,6 +67,11 @@
                 <option value="11">Noviembre</option>
                 <option value="12">Diciembre</option>
              </select>
+             <!--nota: 0: indica que se firmen todos los tipos de liquidacion-->
+             <select style="width:230px;" id="cmb_tipo_liquidacion" size="1">
+                <option value="0" selected>TODOS</option>
+             </select>
+              
               &nbsp;&nbsp;&nbsp;<input id="btn_Buscar" class="botonFirmaM" type="button" value="Buscar" onclick="javascript:buscarRecibos();return false;" />
               <!--<div id="caja_controles"> </div>-->
          
@@ -92,14 +91,35 @@
          </div>--> 
    <BR>  <BR> 
    <div><table class="tablex table-stripedx table-bordered table-condensed" style="width:100%">
-				 <tbody class="list">
-				 <tr><td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;width:10pt" >Operación</td>
+				 <tbody class="list">				 
+				 <tr><td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;" >Estatus</td><td><div id="divMensajeStatus" style="margin-top:5px">&nbsp;</div></td></tr>
+                 <tr><td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;width:10pt" >Operación</td>
 				 <td style="text-align: right;"><input id="btn_firmar" disabled  style="text-align: right;cursor: pointer;" class="botonGrisadoFirmaM" type="button" value="Firmar Seleccionados" onclick="javascript:iniciarOperaciones3();return false;" />
 				 </td></tr>
-				 <tr><td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;" >Estatus</td><td><div id="divMensajeStatus" style="margin-top:5px">&nbsp;</div></td></tr>
 				 </tbody></table></div><br/>
 
     </div>  
+    <div><table class="tablex table-stripedx table-bordered table-condensed" style="width:100%">
+				 <tbody class="list">				 
+				 <tr><td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;" >Liquidación</td>
+                 <td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;width:65px;" >Año</td>
+                 <td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;width:105px;" >Mes</td>
+                 <td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;width:230px;" >Descripción</td>
+                 <td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;" >Firmados</td>
+                 <td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;" >Pendientes</td>
+                 <td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;" >Operación</td>
+                 </tr>
+                 <tr><td><div id="div1" style="margin-top:5px">&nbsp;523</div></td>
+                 <td><div id="div2" style="margin-top:5px">&nbsp;2007</div></td>
+                 <td><div id="div3" style="margin-top:5px">&nbsp;1</div></td>
+                 <td><div id="div4" style="margin-top:5px">&nbsp;Es el tipo de liquidacion</div></td>
+                 <td><div id="div7" style="margin-top:5px">&nbsp;4000</div></td>
+                 <td><div id="div8" style="margin-top:5px">&nbsp;2</div></td>
+				 <td style="text-align: right;"><input id="Button1" disabled  style="text-align: right;cursor: pointer;" class="botonGrisadoFirmaM" type="button" value="Firmar Seleccionados" onclick="javascript:iniciarOperaciones3();return false;" />
+				 </td></tr>
+				 </tbody></table></div><br/>
+
+    </div> 
 
               
          <!-- 	lista de recibos a firmar -->    
@@ -259,6 +279,7 @@
     var anio;
     var mes;
     var tipoLiquidacion;
+    var tiposLiquidaciones;
 
     function buscarRecibos() {
         //NOTA: si tipo liquidacion es 0 entonces por ahora no se traer TODOS los recibos de un dado año y mes
@@ -271,9 +292,29 @@
             divMensajeStatus.innerHTML = '<div class="iconProcesando">Procesando Solicitud ...</div>';
 
             //realizo la operacion
-            anio = document.getElementById('cmb_anio2').value;
-            mes = document.getElementById('cmb_meses2').value;
+            anio = document.getElementById('cmb_anio').value;
+            mes = document.getElementById('cmb_meses').value;
             tipoLiquidacion = document.getElementById('cmb_tipo_liquidacion').value;
+
+            /*nota1: las horas extra siempre se migran un mes despues del mes de liquidacion.Aun asi en la tabla de PLA_RECIBO el año y el mes de la liquidacion es el correcto.
+            Por ejemplo: cuando el tipo de liquidacion es "hora extra" :
+
+            PLA_RECIBOS_MIGRADOS, año=2019, mes=2  .año=2019, mes=1
+            PLA_RECIBOS,     año=2019, mes 1       .año=2018, mes=12*/
+
+            /*verifico si el tipo de liquidacion pertenece a los extras*/
+            if (tiposLiquidaciones[tipoLiquidacion].Meses_Retraso > 0) {
+            /*if (tipoLiquidacion.toLowerCase().indexOf("extras") >= 0) {*/
+                /*actualizo la fecha a la liquidacion de un mes atras*/
+                if (mes == "1") { /*es enero*/
+                    mes = 12;
+                    anio = anio - 1;
+                } else {
+                    mes = mes - 1;
+                }
+            
+            }
+                     
             RECIBOS.getIdRecibosSinFirmar(tipoLiquidacion, anio, mes);
                         
             //seteo el mensage con el resultado de la operacion
@@ -322,29 +363,69 @@
         $(".caja_izq").load("SeccionIzquierda.htm", function () {
             Backend.start(function () {
                 // las funciones de inicio se deben ejecutar aqui dentro
-               
+
                 //cargo las listas seleccionables
                 RECIBOS.getTiposLiquidacion();
                 
-
-
-                /*          Legajo.getNombre();
-
-                Legajo.bindearBotonLiquidacion();
-
-                $("#tabla_recibo_encabezado").hide();
+                /*cargo la lista de años, los ultimos 3 años*/
                 var day = new Date();
                 var mes = day.getMonth() + 1;
                 var anio = day.getFullYear();
 
+
+                $("#cmb_anio").empty();
+
+                for (var i = 0; i <= 2; i++) {
+                    $("#cmb_anio").append('<option value=' + (anio - i).toString() + '>' + (anio - i).toString() + '</option>');
+                }
+                /*seteo el mes al mes actual*/
                 $("#cmb_meses").val(mes)
-                $("#cmb_anio").trigger('change');*/
-                //$("#cmb_meses").val(mes).trigger('change');
+
+                /*verifico si el mes del año seleccionado esta permitido para seleccionar*/
+                var btn = $('#cmb_meses').change(function () {
+                                    
+                    var mes = $("#cmb_meses option:selected").val() - 1;
+                   
+                    var anio_combo = $("#cmb_anio option:selected").val();
+                    var day = new Date();
+                    var mes_no_permitido = day.getMonth() + 2;
+                    var anio = day.getFullYear();
+
+                    //si el año seleccionado es el actual seteo el mes al mes actual y el mes seleccionado es mayor al mes actual
+                    if ((anio_combo == anio) && (mes > mes_no_permitido - 1)) {
+                        $("#cmb_meses").val(mes_no_permitido - 1);
+                    }
+                });
+
+                /*seteo el evento cambio en la seleccion del año*/
+                var btn_combo_anio = $('#cmb_anio').change(function () {
+                    $('#cmb_meses').change();
+                    var anio_combo = $("#cmb_anio option:selected").val();
+                    var day = new Date();
+                    mes_para_inhabilitar = day.getMonth() + 2;
+                    var anio = day.getFullYear();
+
+                    //inhabilito lo meses que no estan vigentes para este año
+                    if (anio_combo == anio) {
+                        $("#cmb_meses option").each(function () {
+                            if (mes_para_inhabilitar <= $(this).val()) {
+                                $(this).attr('disabled', 'disabled');
+                            }
+                        });
+                    } else {
+                        $("#cmb_meses option").each(function () {
+                            $(this).removeAttr('disabled');
+                        });
+                    }
+                });
+                /*llamo al metodo change en la carga de la pagina*/
+                $("#cmb_anio").trigger('change');
+
             });
         });
 
-        
-        
+
+
     });
 
     
