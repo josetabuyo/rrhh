@@ -15,23 +15,13 @@ namespace General.MED
         public string id_doc_electronico { get; set; }
         public DateTime fecha { get; set; }
         public VerificacionCodigoGdeDocumento verificacion_gde { get; set; }
-        public int puntaje { get; set; }/*
-        public int puntaje
-        {
-            get
-            {
-                return this.detalle_preguntas.Sum(p => 5 - p.opcion_elegida);
-            }
-            set
-            {
-
-            }
-        }*/
+        public int puntaje { get; set; }
+        public AprobacionPorComite aprobacion_comite { get; set; }
         public string calificacion { get { return this.nivel.CalificacionPara(this.puntaje); } set { return; } }
 
         public List<DetallePreguntas> detalle_preguntas { get; set; }
 
-        public EvaluacionDesempenio(int id_evaluacion, int estado_evaluacion, NivelEvaluacionDesempenio nivel, List<DetallePreguntas> detalle_preguntas, string codigo_gde, string id_doc_electronico, DateTime fecha, VerificacionCodigoGdeDocumento verificacion_codigo_gde, int puntaje)
+        public EvaluacionDesempenio(int id_evaluacion, int estado_evaluacion, NivelEvaluacionDesempenio nivel, List<DetallePreguntas> detalle_preguntas, string codigo_gde, string id_doc_electronico, DateTime fecha, VerificacionCodigoGdeDocumento verificacion_codigo_gde, int puntaje, AprobacionPorComite aprobacion)
         {
             this.id_evaluacion = id_evaluacion;
             this.estado_evaluacion = estado_evaluacion;
@@ -42,13 +32,14 @@ namespace General.MED
             this.fecha = fecha;
             this.verificacion_gde = verificacion_codigo_gde;
             this.puntaje = puntaje;
+            this.aprobacion_comite = aprobacion;
         }
 
         public EvaluacionDesempenio() { }
 
         public static EvaluacionDesempenio Nula()
         {
-            return new EvaluacionDesempenio(0, 0, NivelEvaluacionDesempenio.Nulo(), new List<DetallePreguntas>(), String.Empty, String.Empty, DateTime.MinValue, VerificacionCodigoGdeDocumento.Null(), 0);
+            return new EvaluacionDesempenio(0, 0, NivelEvaluacionDesempenio.Nulo(), new List<DetallePreguntas>(), String.Empty, String.Empty, DateTime.MinValue, VerificacionCodigoGdeDocumento.Null(), 0, new AprobacionPorComite());
         }
     }
 }

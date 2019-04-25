@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="chat.css" />
     <link rel="stylesheet" href="estilosPortalSecciones.css" />
 </head>
+
 <body>
     <form id="form1" runat="server">
     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:18px; font-weight: bold; padding-top:25px;'>Datos<br/>Personales</span> <br/> "

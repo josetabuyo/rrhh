@@ -69,6 +69,26 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public RespuestaAprobarEvaluacionDesempenio AprobarEvaluacionDesempenio(int id_evaluacion, int id_comite, Usuario usuario)
+    {
+        var respuesta = new RespuestaAprobarEvaluacionDesempenio();
+        try
+        {
+            var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+            var r = repo.InsertarAprobacionEvaluacion(id_evaluacion, id_comite, usuario.Owner.Id, DateTime.Now);
+            respuesta.Aprobacion = r;
+        }
+        catch (Exception e)
+        {
+            respuesta.MensajeDeErrorAmigable = "Se produjo un error al intentar aprobar la evaluacion de desempeno";
+            respuesta.setException(e);
+        }
+        respuesta.Accion = "AprobarEvaluacionDesempenio";
+        return respuesta;
+
+    }
+
+    [WebMethod]
     public RespuestaGetAgentesEvaluablesPor GetAgentesEvaluablesParaVerificarGDE(Usuario usuario)
     {
         var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
@@ -79,6 +99,13 @@ public class WSViaticos : System.Web.Services.WebService
     {
         var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
         return repo.GetAgentesEvaluablesParaComites(usuario);
+    }
+
+    [WebMethod]
+    public RespuestaGetAgentesEvaluablesPor GetAsignacionEvaluacionCompleta(int id_evaluacion, Usuario usuario)
+    {
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        return repo.GetAsignacionEvaluacionCompleta(id_evaluacion, usuario);
     }
 
     [WebMethod]
@@ -3059,6 +3086,14 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public Perfil[] GetPerfilesConFuncionalidades(Usuario usuario)
+    {
+
+        var perfiles = RepositorioDeFuncionalidadesDeUsuarios().GetPerfilesConFuncionalidades().ToArray();
+        return perfiles;
+    }
+
+    [WebMethod]
     public Funcionalidad[] GetFuncionalidadesPerfilesAreas(int id_usuario, Usuario usuario)
     {
         //var usu = RepositorioDeUsuarios().GetUsuarioPorId(id_usuario);
@@ -5591,6 +5626,16 @@ public class WSViaticos : System.Web.Services.WebService
         repo.EvalGuardarCodigoGDE(id, codigo_gde);
         repo.VerificarCodigoGDE(id, usuario);
         return codigo_gde;
+    }
+
+    [WebMethod]
+    public string PrintPdfEvaluacionDesempenioConFetch(AsignacionEvaluadoAEvaluador asignacion, Usuario usuario)
+    {
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        var asigs = repo.GetAgentesEvaluablesParaImprimir(usuario).asignaciones;
+        var fetch_asignacion = asigs.Find(a => a.id_evaluacion == asignacion.id_evaluacion);
+        
+        return PrintPdfEvaluacionDesempenio(fetch_asignacion, usuario);
     }
 
     [WebMethod]

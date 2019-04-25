@@ -165,7 +165,7 @@
                 //Permisos.init();
                 Permisos.iniciarPantallaAsignacionPerfiles();
                 Permisos.getPerfilesDelUsuario();
-
+                Permisos.getPerfilesConFuncionalidades();
 
             });
 

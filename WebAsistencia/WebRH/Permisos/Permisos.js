@@ -572,6 +572,21 @@ var Permisos = {
             });
 
     },
+    getPerfilesConFuncionalidades: function () {
+
+        Backend.GetPerfilesConFuncionalidades()
+            .onSuccess(function (rto) {
+                if (rto) {
+                    console.log(rto);
+                } else {
+                    alertify.error('Error');
+                }
+
+            })
+            .onError(function (e) {
+
+            });
+    },
     completarDatosDeLaSesion: function () {
         $("#nombre_empleado").html(sessionStorage.getItem("nombre"));
         $("#apellido_empleado").html(sessionStorage.getItem("apellido"));

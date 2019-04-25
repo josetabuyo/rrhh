@@ -38,6 +38,18 @@ define(['wsviaticos', 'underscore'], function (ws, _) {
                     console.log('Se produjo un error ' + err)
                     return
                 }
+
+
+                if (_.some(res, r => r.Message)) {
+                    console.log('Se produjo un error ' + res)
+                    return
+                }
+
+                var comites = res[0]
+                var ues = res[1]
+
+                SetUESComites(comites, ues)
+
                 window.localStorage.setItem('ComitesDeEvaluacionData', JSON.stringify({
                     GetAllComites: res[0],
                     GetEstadosEvaluacionesPeriodosActivos: res[1],
@@ -45,11 +57,28 @@ define(['wsviaticos', 'underscore'], function (ws, _) {
                     GetPeriodosEvaluacion: res[3],
                     TimeStamp: new Date().getTime()
                 }))
+
                 cb(JSON.parse(window.localStorage.getItem('ComitesDeEvaluacionData')))
             })
         } else {
             cb(JSON.parse(window.localStorage.getItem('ComitesDeEvaluacionData')))
         }
+    }
+
+
+    //reemplazo las UnidadesEvaluacion de cada por las de "ues" que están mas completas
+    var SetUESComites = function (comites, ues) {
+        _.each(comites, c => {
+            var ids_ues_comite = _.map(c.UnidadesEvaluacion, ue => ue.Id)
+            
+            var ues_comite = _.filter(ues, u => {
+                return _.some(ids_ues_comite, id => {
+                    return id == u.Id
+                })
+            })
+
+            c.UnidadesEvaluacion = ues_comite
+        });
     }
 
 
@@ -74,6 +103,11 @@ define(['wsviaticos', 'underscore'], function (ws, _) {
             window.localStorage.setItem('ComitesDeEvaluacionData', JSON.stringify(state))
             cb(null, comite_agregado)
         })
+    }
+
+    var GetComitesPeriodo = function (idPeriodo) {
+        var comites = JSON.parse(window.localStorage.getItem('ComitesDeEvaluacionData')).GetAllComites
+        return _.filter(comites, c => c.Periodo.id_periodo == idPeriodo)
     }
 
     var GetPeriodo = function (idPeriodo) {
@@ -262,8 +296,84 @@ define(['wsviaticos', 'underscore'], function (ws, _) {
         return asignaciones_ues
     }
 
+    var FormatDate = function (string_ISO) {
+        var fh = new Date(string_ISO)
+        return fh.getDate() + '/' + (fh.getMonth() + 1) + '/' + (fh.getYear() + 1900)
+    }
+
+    var GetAsignacionEvaluadoEvaluador = function (id_evaluacion) {
+        var asignaciones = JSON.parse(window.localStorage.getItem('ComitesDeEvaluacionData')).GetAgentesEvaluablesParaComites.asignaciones
+        var asignacion = _.find(asignaciones, a => a.evaluacion.id_evaluacion == id_evaluacion)
+        return asignacion
+    }
+
+
+    var PrintPdfEvaluacionDesempenio = function (asignacion, cb) {
+        var req = [{
+            nombre_metodo: "PrintPdfEvaluacionDesempenioConFetch",
+            argumentos_json: [JSON.stringify(asignacion)]
+        }]
+
+        ws.parallel(req, function (err, res) {
+            if (err) {
+                cb(err)
+                return
+            }
+            cb(null, res[0])
+        })
+    }
+
+    var GetEvaluacion = function (id_evaluacion) {
+        var evaluacion = _.find(JSON.parse(window.localStorage.getItem('ComitesDeEvaluacionData')).GetAgentesEvaluablesParaComites.asignaciones, a => a.evaluacion.id_evaluacion == id_evaluacion)
+        return evaluacion
+    }
+
+    var GetAsignacionEvaluacionCompleta = function (id_evaluacion, cb) {
+        var req = [{
+            nombre_metodo: "GetAsignacionEvaluacionCompleta",
+            argumentos_json: [parseInt(id_evaluacion)]
+        }]
+
+        ws.parallel(req, function (err, res) {
+            if (err) {
+                cb(err)
+                return
+            }
+            if (res[0].ExceptionType) {
+                cb(err)
+                return
+            }
+            cb(null, res[0])
+        })
+    }
+
+    var AprobarEvaluacion = function (id_evaluacion, id_comite, cb) {
+        var req = [{
+            nombre_metodo: "AprobarEvaluacionDesempenio",
+            argumentos_json: [parseInt(id_evaluacion), parseInt(id_comite)]
+        }]
+
+        ws.parallel(req, function (err, res) {
+            if (err) {
+                cb(err)
+                return
+            }
+
+            //var ue = _.find(GetUnidadesEvaluacion(), e => e.Id == id_ue)
+            app_data = JSON.parse(window.localStorage.getItem('ComitesDeEvaluacionData'))
+            var eval = _.find(app_data.GetAgentesEvaluablesParaComites.asignaciones, a => a.evaluacion.id_evaluacion == id_evaluacion)
+            eval.evaluacion.aprobacion_comite = res[0].Aprobacion
+            window.localStorage.setItem('ComitesDeEvaluacionData', JSON.stringify(app_data))
+
+            cb(null, res[0])
+        })
+
+    }
+
     //API del modulo
     return {
+        FormatDate: FormatDate,
+        GetComitesPeriodo: GetComitesPeriodo,
         AddComite: AddComite,
         GetDataGridPeriodos: GetDataGridPeriodos,
         BuscarPersonas: BuscarPersonas,
@@ -279,7 +389,11 @@ define(['wsviaticos', 'underscore'], function (ws, _) {
         EvalRemoveUnidadEvaluacionAComite: EvalRemoveUnidadEvaluacionAComite,
         OnStateChange: OnStateChange,
         StateChanged: StateChanged,
-        GetEvaluacionesUes: GetEvaluacionesUes
-
+        GetEvaluacionesUes: GetEvaluacionesUes,
+        GetAsignacionEvaluadoEvaluador: GetAsignacionEvaluadoEvaluador,
+        PrintPdfEvaluacionDesempenio: PrintPdfEvaluacionDesempenio,
+        AprobarEvaluacion: AprobarEvaluacion,
+        GetEvaluacion: GetEvaluacion,
+        GetAsignacionEvaluacionCompleta: GetAsignacionEvaluacionCompleta
     }
 })

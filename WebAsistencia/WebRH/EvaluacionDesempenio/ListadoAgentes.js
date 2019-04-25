@@ -348,6 +348,7 @@ var ListadoAgentes = {
         localStorage.setItem("bueno", asignacion_evaluado_a_evaluador.nivel.bueno);
         localStorage.setItem("destacado", asignacion_evaluado_a_evaluador.nivel.destacado);
         localStorage.setItem("id_doc_electronico", asignacion_evaluado_a_evaluador.evaluacion.id_doc_electronico);
+        localStorage.setItem("documento", asignacion_evaluado_a_evaluador.agente_evaluado.nro_documento);
     },
     getLinkMarcarGDEVerificado: function (id_evaluacion, codigo_gde, agente) {
         var _this = this;
@@ -742,6 +743,11 @@ var ListadoAgentes = {
                     .onSuccess(function (rto) {
                         spinner.stop();
                         alert('Se ha guardado con exito!');
+
+                        if (localStorage.getItem("es_evaluador_de_comite")) {
+                            window.close();
+                        }
+
                         window.location.href = "ListadoAgentes.aspx";
                         //var form = JSON.parse(formularioJSON);
                     })
@@ -846,6 +852,9 @@ var ListadoAgentes = {
     habilitarBotonGuardarDefinitivo: function (_this) {
         var id_usuario_logueado = JSON.parse(localStorage.getItem("usuario_logueado")).Owner.Id;
         var id_agente_evaluador = JSON.parse(localStorage.getItem("id_agente_evaluador"))
+
+        var es_evaluador_de_comite = JSON.parse(localStorage.getItem("es_evaluador_de_comite"))
+
         var es_evaluador_primario = (id_usuario_logueado == id_agente_evaluador);
         var preguntas = $('.pregunta');
         var totalPreguntasPendientes = 0;
@@ -864,7 +873,7 @@ var ListadoAgentes = {
         elementoTotalPreguntasPendientes.text(" (" + totalPreguntasPendientes + " de " + totalPreguntas + ") ");
         _this.completarPuntaje();
 
-        if (totalPreguntasPendientes === 0 && es_evaluador_primario) {
+        if (totalPreguntasPendientes === 0 && (es_evaluador_primario || es_evaluador_de_comite)) {
             btnGuardarDefinitivo.prop('disabled', false);
         } else {
             btnGuardarDefinitivo.prop('disabled', true);

@@ -120,6 +120,7 @@
     <Compile Include="MAU\RepositorioDeAlertasPortal.cs" />
     <Compile Include="MAU\RepositorioDeTickets.cs" />
     <Compile Include="MAU\SolicitudDeCambioDeImagen.cs" />
+    <Compile Include="MED\AprobacionPorComite.cs" />
     <Compile Include="MED\AsignacionEvaluadoEvaluadorDTO.cs" />
     <Compile Include="MED\ComiteEvaluacionDesempenio.cs" />
     <Compile Include="MED\DetalleEvaluadosPorUnidadEvaluacion.cs" />

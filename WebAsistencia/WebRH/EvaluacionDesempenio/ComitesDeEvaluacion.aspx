@@ -20,10 +20,10 @@
             top: calc(50% - 24px);
         }
 
-            .bd-example-modal-lg .modal-dialog .modal-content {
-                background-color: transparent;
-                border: none;
-            }
+        .bd-example-modal-lg .modal-dialog .modal-content {
+            background-color: transparent;
+            border: none;
+        }
     </style>
 
     <script data-main="ComitesDeEvaluacion" src="../node_modules/requirejs/require.js"></script>
@@ -38,7 +38,7 @@
         <div class="row">
             <div class="col">&nbsp;</div>
         </div>
-        <div role="tabpanel" id="scr_home">
+        <div role="tabpanel" id="scr_periodos">
             <div class="row">
                 <div class="col col-md-3">
                     <nav aria-label="breadcrumb">
@@ -76,21 +76,64 @@
                                 <td class="text-right">{{SinGDE}}</td>
                                 <td class="text-right">{{SinComite}}</td>
                                 <td class="text-right">{{Finalizado}}</td>
-                                <td class="text-right">{{ReunionesRealizadas}}<a style="display: inline" data-toggle="tooltip" data-placement="top" title="Ver Reuniones" class="nav-link" href="#"><span class="fa fa fa-eye"></span></a></td>
-                                <td class="text-right">
-                                    <button type="button" class="btn btn-sm btn-primary" btn_id_periodo="{{IdPeriodo}}" on_next="#scr_datos_generales">Crear Nueva Reunion</button></td>
+                                <td class="text-right">{{ReunionesRealizadas}}<a style="display: inline" data-toggle="tooltip" data-placement="top" on_next="#scr_reuniones_comites/{{IdPeriodo}}" title="Ver Reuniones" class="nav-link text-info" href="#"><span class="fa fa fa-eye"></span></a></td>
+                                <td class="text-center">
+                                    <a style="display: inline" data-toggle="tooltip" data-placement="top" on_next="#scr_datos_generales/{{IdPeriodo}}" title="Crear Nueva Reunion" class="nav-link" href="#"><span class="fa fa fa-plus-circle"></span></a>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
+
+        <div role="tabpanel" id="scr_reuniones_comites" style="display: none">
+            <div class="row">
+                <div class="col col-md-7">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item" on_leave="#scr_periodos"><a href="#">Comités de Evaluacion</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Reuniones Realizadas - <span id="desc_periodo"></span></li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col"></div>
+            </div>
+            <div class="row">
+                <div class="col col-md-12">
+                    <table id="tabla_reuniones" class="table table-bordered table-striped table-sm">
+                        <thead>
+                            <tr>
+                                <!--<th scope="col" rowspan="2" class="align-middle">#</th>-->
+                                <th class="align-middle w-25">Periodo</th>
+                                <th class="align-middle">Fecha</th>
+                                <th class="align-middle">Lugar</th>
+                                <th class="align-middle">Integrantes</th>
+                                <th class="align-middle">Ver Detalle</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="row-template" style="display: none">
+                                <td>{{Periodo}}</td>
+                                <td class="text-right">{{Fecha}}</td>
+                                <td class="text">{{Lugar}}</td>
+                                <td class="text">{{Integrantes}}</td>
+                                <td class="text">
+                                    <a style="display: inline" data-toggle="tooltip" data-placement="top" title="Ver Detalle" class="detalle" href="#" on_next="#scr_evaluaciones/{{IdComite}}"><span class="fa fa fa-eye"></span></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
         <div role="tabpanel" id="scr_datos_generales" style="display: none">
             <div class="row">
                 <div class="col col-md-5">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item" on_leave="#scr_home"><a href="#">Comités de Evaluacion</a></li>
+                            <li class="breadcrumb-item" on_leave="#scr_periodos"><a href="#">Comités de Evaluacion</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Paso 1: Datos Generales</li>
                         </ol>
                     </nav>
@@ -134,7 +177,7 @@
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-md-12 text-right">
-                                            <a href="#" class="btn btn-secondary" role="button" on_leave="#scr_home">Atras</a>
+                                            <a href="#" class="btn btn-secondary" role="button" on_leave="#scr_periodos">Atras</a>
                                             <input type="submit" class="btn btn-primary active" role="button" value="Siguiente" />
                                         </div>
                                     </div>
@@ -150,7 +193,7 @@
                 <div class="col col-12 col-md-6">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item" on_leave="#scr_home"><a href="#">Comités de Evaluacion</a></li>
+                            <li class="breadcrumb-item" on_leave="#scr_periodos"><a href="#">Comités de Evaluacion</a></li>
                             <li class="breadcrumb-item" on_leave="#scr_datos_generales"><a href="#">Paso 1: Datos Generales</a></li>
                             <li class="breadcrumb-item  active">Paso 2: Integrantes</li>
                         </ol>
@@ -252,7 +295,7 @@
                 <div class="col col-9">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item" on_leave="#scr_home"><a href="#">Comités de Evaluacion</a></li>
+                            <li class="breadcrumb-item" on_leave="#scr_periodos"><a href="#">Comités de Evaluacion</a></li>
                             <li class="breadcrumb-item" on_leave="#scr_datos_generales"><a href="#">Paso 1: Datos Generales</a></li>
                             <li class="breadcrumb-item" on_leave="#scr_integrantes"><a href="#">Paso 2: Integrantes</a></li>
                             <li class="breadcrumb-item  active">Paso 3: Unidades de Evaluacion</li>
@@ -340,7 +383,7 @@
                 <div class="col col-12">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item" on_leave="#scr_home"><a href="#">Comités de Evaluacion</a></li>
+                            <li class="breadcrumb-item" on_leave="#scr_periodos"><a href="#">Comités de Evaluacion</a></li>
                             <li class="breadcrumb-item" on_leave="#scr_datos_generales"><a href="#">Paso 1: Datos Generales</a></li>
                             <li class="breadcrumb-item" on_leave="#scr_integrantes"><a href="#">Paso 2: Integrantes</a></li>
                             <li class="breadcrumb-item" on_leave="#scr_unidades"><a href="#">Paso 3: Unidades de Evaluacion</a></li>
@@ -391,27 +434,34 @@
                                 </div>
                             </div>
                             <div class="card-text">
-                                <td class="col-12">
-                                    <div class="form-group row">
-                                        <label for="txt_filtro_apellido" class="col-12 col-md-2 col-form-label text-right">Filtro por apellido</label>
-                                        <div class="col-5 col-md-3">
-                                            <input type="text" class="form-control" id="txt_filtro_apellido" name="txt_filtro_apellido" placeholder="Apellido">
+                                <div class="card border-dark mb-3 col-12">
+                                    <div class="card-body text-dark">
+                                        <div class="form-group row">
+                                            <div class="input-group col-5 col-md-6">
+                                              <input type="text" class="form-control" id="txt_filtro_apellido" name="txt_filtro_apellido" placeholder="DNI / Apellido / Nombre">
+                                              <div class="input-group-append">
+                                                <span class="input-group-text">
+                                                    <a style="display: inline" data-toggle="tooltip" data-placement="top" title="Remover filtro" class="text-info " href="#" ><span class="fa fa-remove"></span></a>
+                                                </span>
+
+                                              </div>
+                                            </div>
+                                            <div class="col-5 col-md-6">
+                                                <select class="custom-select" id="select_estado">
+                                                    <option selected>Todos los Estados</option>
+                                                    <option>Provisoria</option>
+                                                    <option>Pendiente</option>
+                                                    <option disabled>──────────</option>
+                                                    <option value="1">Destacados</option>
+                                                    <option value="2">Bueno</option>
+                                                    <option value="3">Regular</option>
+                                                    <option value="3">Deficiente</option>
+                                                </select>
+                                            </div>
                                         </div>
-                                        <label for="txt_filtro_estado" class="col-12 col-md-2 col-form-label text-right">Filtro por estado</label>
-                                        <div class="col-5 col-md-3">
-                                            <select class="custom-select" id="inputGroupSelect01">
-                                                <option selected>Seleccione</option>
-                                                <option>Provisoria</option>
-                                                <option>Pendiente</option>
-                                                <option disabled>──────────</option>
-                                                <option value="1">Destacados</option>
-                                                <option value="2">Bueno</option>
-                                                <option value="3">Regular</option>
-                                                <option value="3">Deficiente</option>
-                                            </select>
-                                        </div>
-                                        <div class="col"></div>
                                     </div>
+                                </div>
+                                <div class="card-text">
                                     <td class="row">
                                         <table class="table table-bordered table-striped table-sm" id="tabla_evaluaciones">
                                             <thead>
@@ -427,63 +477,100 @@
                                             </thead>
                                             <tbody>
                                                 <tr class="row-template" style="display: none">
-                                                    <td class="text-right">{{Dni}}</td>
-                                                    <td class="text">{{Apellido}}</td>
-                                                    <td class="text">{{Nombre}}</td>
+                                                    <td class="text-right dni_evaluado">{{Dni}}</td>
+                                                    <td class="text apellido_evaluado">{{Apellido}}</td>
+                                                    <td class="text nombre_evaluado">{{Nombre}}</td>
                                                     <td class="text">{{Area}}</td>
-                                                    <td class="text">{{Evaluacion}}</td>
-                                                    <td class="text">{{GDE}}</td>
-                                                    <td class="text">{{Accion}}</td>
+                                                    <td class="text evaluacion_evaluado">{{Evaluacion}}</td>
+                                                    <td class="text small">{{GDE}}</td>
+                                                    <td class="text-center">
+                                                        <span style="display: inline">
+                                                            <a style="display: inline" data-toggle="tooltip" data-placement="top" title="Reevaluar" class="text-info modificar_evaluacion" href="#" opcion_disponible="{{AunNoAprobado}}" model_id="{{IdEvaluacion}}" ><span class="fa fa fa-undo"></span></a>
+                                                            <a style="display: inline" data-toggle="tooltip" data-placement="top" title="Ver" class="nav-link ver_eval" model_id="{{IdEvaluacion}}" href="#"><span class="fa fa fa-eye"></span></a>
+                                                            <a style="display: inline" data-toggle="tooltip" data-placement="top" title="Aprobar" class="text-success aprobador_evaluacion" href="#" opcion_disponible="{{AunNoAprobado}}" model_id="{{IdEvaluacion}}"><span class="fa fa fa-check-circle"></span></a>
+                                                        </span>
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                     </td>
-                                </td>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <hr />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col col-md-12 text-right">
+                                    <a href="#" class="btn btn-secondary" role="button" on_leave="#scr_unidades">Atras</a>
+                                    <a href="#" class="btn btn-primary active" role="button" on_leave="#scr_periodos">Finalizar</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <hr />
-                </div>
-            </div>
-            <div class="row">
-                <div class="col col-md-12 text-right">
-                    <a href="#" class="btn btn-secondary" role="button" on_leave="#scr_unidades">Atras</a>
-                    <a href="#" class="btn btn-primary active" role="button" on_leave="#scr_home">Finalizar</a>
+                    <div class="row">
+                        <div class="col">&nbsp;</div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="modal spinner-modal fade bd-example-modal-lg" data-backdrop="static" data-keyboard="false" tabindex="-1">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content" style="width: 48px">
-                <span class="fa fa-spinner fa-pulse fa-3x"></span>
+        <div class="modal spinner-modal fade bd-example-modal-lg" data-backdrop="static" data-keyboard="false" tabindex="-1">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content" style="width: 48px">
+                </div>
             </div>
         </div>
-    </div>
-    <input type="hidden" id="id_periodo_seleccionado" />
-    <div id="plantillas" style="display: none">
-        <div class="vista_persona_en_selector">
-            <span id="contenedor_legajo" class="badge badge-pill badge-success">
-                <span id="titulo_legajo">Leg:
-                </span>
-                <span id="legajo"></span>
-            </span>
-            <span id="nombre"></span>
-            <span id="apellido"></span>
-            <span id="contenedor_doc" class="badge badge-pill badge-info">
-                <span id="titulo_doc">Doc:</span>
-                <span id="documento" name="documento"></span>
-            </span>
+
+        <!-- Modal -->
+        <div class="modal fade" id="AprobarEvaluacionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Aprobar Evaluación</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <p>
+                            ¿Esta seguro que desea aprobar la evaluacion de <br /><b><span id="span_evaluado_a_aprobar"></b></span>?
+                            <br /><small>(esta opción no se puede "deshacer")</small>
+                        </p>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="button" id="btn_aprobar_evaluacion" class="btn btn-primary">Aprobar</button>
+                        <input type="hidden" id="id_evaluacion_a_aprobar" ></input>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-    <!--<script src="../node_modules/jquery/jquery.min.js"></script>
-    <script src="../node_modules/popper.js/dist/umd/popper.min.js"></script>
-    <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="ComitesDeEvaluacion.js"></script>-->
+
+
+        <div class="modal spinner-modal fade bd-example-modal-lg" data-backdrop="static" data-keyboard="false" tabindex="-1">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content" style="width: 48px">
+                    <span class="fa fa-spinner fa-pulse fa-3x"></span>
+                </div>
+            </div>
+        </div>
+        <div id="plantillas" style="display: none">
+            <div class="vista_persona_en_selector">
+                <span id="contenedor_legajo" class="badge badge-pill badge-success">
+                    <span id="titulo_legajo">Leg:
+                    </span>
+                    <span id="legajo"></span>
+                </span>
+                <span id="nombre"></span>
+                <span id="apellido"></span>
+                <span id="contenedor_doc" class="badge badge-pill badge-info">
+                    <span id="titulo_doc">Doc:</span>
+                    <span id="documento" name="documento"></span>
+                </span>
+            </div>
+        </div>
 </body>
 </html>

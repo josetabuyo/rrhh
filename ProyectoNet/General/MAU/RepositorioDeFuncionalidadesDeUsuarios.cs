@@ -388,5 +388,11 @@ namespace General.MAU
         }
 
 
+        public List<Perfil> GetPerfilesConFuncionalidades()
+        {
+            return new List<Perfil>();
+        }
+
+
     }
 }

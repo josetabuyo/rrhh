@@ -30,6 +30,23 @@ namespace General.Repositorios
             return _instancia;
         }
 
+        public AprobacionPorComite InsertarAprobacionEvaluacion(int id_evaluacion, int id_comite, int id_usuario, DateTime fecha)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_evaluacion", id_evaluacion);
+            parametros.Add("@id_comite", id_comite);
+            parametros.Add("@id_usuario", id_comite);
+            parametros.Add("@fecha", fecha);
+
+            var tablaDatos = _conexion.Ejecutar("dbo.EVAL_INS_AprobacionComite", parametros);
+
+            var row = tablaDatos.Rows[0];
+            var result = new AprobacionPorComite(row.GetDateTime("fecha"), row.GetSmallintAsInt("id"), row.GetSmallintAsInt("id_comite"), row.GetSmallintAsInt("id_evaluacion"), row.GetSmallintAsInt("id_usuario"));
+
+            return result;
+
+        }
+
         public List<DetallePreguntas> getFormularioDeEvaluacion(int nivel, int evaluado, int evaluacion)
         {
             var parametros = new Dictionary<string, object>();
@@ -108,19 +125,31 @@ namespace General.Repositorios
             return tablaDatos.Rows.Count > 0;
         }
 
+
+        public RespuestaGetAgentesEvaluablesPor GetAgentesEvaluablesParaImprimir(Usuario usuario)
+        {
+            return GetAgentesEvaluablesPor(0, usuario, false, true, true);
+        }
+
         public RespuestaGetAgentesEvaluablesPor GetAgentesEvaluablesPor(Usuario usuario)
         {
-            return GetAgentesEvaluablesPor(usuario, false, false, true);
+            return GetAgentesEvaluablesPor(0, usuario, false, false, true);
         }
 
         public RespuestaGetAgentesEvaluablesPor GetAgentesEvaluablesParaVerificarGDE(Usuario usuario)
         {
-            return GetAgentesEvaluablesPor(usuario, true, false, true);
+            return GetAgentesEvaluablesPor(0, usuario, true, false, true);
+        }
+
+        public RespuestaGetAgentesEvaluablesPor GetAsignacionEvaluacionCompleta(int id_evaluacion, Usuario usuario)
+        {
+            var res = GetAgentesEvaluablesPor(id_evaluacion, usuario, true, true, true);
+            return res;
         }
 
         public RespuestaGetAgentesEvaluablesParaComites GetAgentesEvaluablesParaComites(Usuario usuario)
         {
-            var res =  GetAgentesEvaluablesPor(usuario, true, true, false);
+            var res = GetAgentesEvaluablesPor(0, usuario, true, true, false);
             return new RespuestaGetAgentesEvaluablesParaComites(res.asignaciones, res.EsAgenteVerificador, res.UsuarioRequest);
         }
 
@@ -189,7 +218,7 @@ namespace General.Repositorios
             var parametros = new Dictionary<string, object>();
             parametros.Add("@idComite", idComite);
             var tablaDatos = _conexion.Ejecutar("dbo.EVAL_GET_Comite", parametros);
-            
+
 
             var resultado = new List<ComiteEvaluacionDesempenio>();
             if (tablaDatos.Rows.Count > 0)
@@ -292,7 +321,16 @@ namespace General.Repositorios
 
         }
 
-        protected RespuestaGetAgentesEvaluablesPor GetAgentesEvaluablesPor(Usuario usuario, bool ModoVerificadorGDE, bool ModoComitesEvaluacion, bool IncludeTextosPreguntas)
+
+
+        /// <summary>
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <param name="ModoVerificadorGDE">Existe un perfil de usuario que se encarga de verificar que los codigos de GDE esten bien cargados, para ese usuario, este param va en true</param>
+        /// <param name="ModoComitesEvaluacion">Cuando el usuario es de un comite de evaluacion, puede ver todas las evaluaciones, con/sin codigo gde. Y de todas las personas (sin importar el evaluador)</param>
+        /// <param name="IncludeTextosPreguntas">Para evitar transferir por el webservice responses demasiado grande, se quitan las respuestas de las evaluaciones</param>
+        /// <returns></returns>
+        protected RespuestaGetAgentesEvaluablesPor GetAgentesEvaluablesPor(int id_evaluacion, Usuario usuario, bool ModoVerificadorGDE, bool ModoComitesEvaluacion, bool IncludeTextosPreguntas)
         {
             var parametros = new Dictionary<string, object>();
             var id_persona_usuario = usuario.Owner.Id;
@@ -310,9 +348,15 @@ namespace General.Repositorios
                 }
             }
 
+            if (id_evaluacion > 0)
+            {
+                parametros.Add("@id_evaluacion", id_evaluacion);
+            }
+
+
             var sp = IncludeTextosPreguntas ? "dbo.EVAL_GET_Evaluados_Evaluador" : "dbo.EVAL_GET_Evaluados_Evaluador_Slim";
             //var sp = "dbo.EVAL_GET_Evaluados_Evaluador";
-           var tablaDatos = _conexion.Ejecutar(sp, parametros);
+            var tablaDatos = _conexion.Ejecutar(sp, parametros);
 
             var asignaciones = new List<AsignacionEvaluadoAEvaluador> { };
             var detalle_preguntas = new List<DetallePreguntas> { };
@@ -439,6 +483,7 @@ namespace General.Repositorios
 
             if (row.GetInt("id_evaluacion", 0) != 0)
             {
+
                 evaluacion = new EvaluacionDesempenio(row.GetInt("id_evaluacion", 0),
                                             row.GetSmallintAsInt("estado_evaluacion", 0),
                                             nivel,
@@ -447,7 +492,9 @@ namespace General.Repositorios
                                             row.GetString("codigo_doc_electronico", ""),
                                             row.GetDateTime("fecha"),
                                             new VerificacionCodigoGdeDocumento(row.GetDateTime("fechaVerificacionGDE", DateTime.MinValue), VerificacionCodigoGdeDocumento.UsuarioVerifFromDB(row.GetSmallintAsInt("idUsuarioVerificadorGDE", 0))),
-                                            row.GetSmallintAsInt("sum_puntaje"));
+                                            row.GetSmallintAsInt("sum_puntaje", 0),
+                                            new AprobacionPorComite(row.GetDateTime("fecha_aprobacion_comite", DateTime.MinValue), row.GetInt("id_aprobacion_comite", 0), row.GetInt("comite_aprobador", 0), row.GetInt("id_evaluacion", 0), row.GetSmallintAsInt("id_usuario_aprobacion", 0))
+                                            );
             }
 
             var unidad_evaluacion = UnidadDeEvaluacion.Nulio();
