@@ -87,7 +87,7 @@ namespace General.MAU
             parametros.Add("@id_usuario", objeto.Key);
             parametros.Add("@id_funcionalidad", objeto.Value);
             parametros.Add("@Id_usuario_logueado", id_usuario_logueado); 
-            var tablaDatos = conexion.Ejecutar("dbo.MAU_ConcederFuncionalidadA", parametros);
+            var tablaDatos = conexion.Ejecutar("dbo.MAU_Nuevo_ConcederFuncionalidadA", parametros);
         }
 
         protected override void QuitarDeLaBase(KeyValuePair<int, int> objeto, int id_usuario_logueado)
@@ -95,7 +95,7 @@ namespace General.MAU
             var parametros = new Dictionary<string, object>();
             parametros.Add("@id_usuario", objeto.Key);
             parametros.Add("@id_funcionalidad", objeto.Value);
-            var tablaDatos = conexion.Ejecutar("dbo.MAU_DenegarFuncionalidadA", parametros);
+            var tablaDatos = conexion.Ejecutar("dbo.MAU_Nuevo_DenegarFuncionalidadA", parametros);
         }
 
         public void Refresh()

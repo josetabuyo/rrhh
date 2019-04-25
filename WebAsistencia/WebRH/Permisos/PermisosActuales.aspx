@@ -45,8 +45,7 @@
 </body>
 
 <script type="text/javascript" src="Permisos.js"></script>
-<script type="text/javascript" src="../MAU/HabilitadorDePermisos.js"></script>
-<script type="text/javascript" src="../MAU/HabilitadorDeControles.js"></script>
+
 <script type="text/javascript" src="../Scripts/Spin.js"></script>
 <script type="text/javascript" >
 
@@ -59,7 +58,11 @@
 
                 Permisos.getPerfilesDelUsuario();
                 Permisos.getFuncionalidadesDelUsuario();
-                //HabilitadorDePermisos.comprobarPermisosEnPantalla();
+
+                //FC: para importar el HabilitadorDeControles y afecte la seccion izquierda
+                var imported = document.createElement('script');
+                    imported.src = '../MAU/HabilitadorDeControles.js';
+                    document.head.appendChild(imported);
             });
 
         });

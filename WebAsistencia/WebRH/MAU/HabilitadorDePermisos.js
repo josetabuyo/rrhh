@@ -1,4 +1,5 @@
-﻿var HabilitadorDePermisos = {
+﻿//FC: no deberia ir mas este, se usa HabilitadorDeControles
+var HabilitadorDePermisos = {
     traerPermisos: function () {
         var idUsuarioSeleccionado = sessionStorage.getItem("idUsuario");
         if (!idUsuarioSeleccionado)

@@ -127,6 +127,10 @@ var Permisos = {
                 _this.Grilla.DibujarEn(divGrilla);
                 $('.table-hover').removeClass("table-hover");
 
+                var options = {
+                    valueNames: ['Funciones', 'Areas']
+                };
+                var featureList = new List('caja_funcionalidades', options);
 
             })
             .onError(function (e) {
@@ -235,6 +239,7 @@ var Permisos = {
         sessionStorage.setItem("nombre", usuario.Owner.Nombre);
         sessionStorage.setItem("apellido", usuario.Owner.Apellido);
         sessionStorage.setItem("idUsuario", usuario.Id);
+        sessionStorage.setItem("idImagen", usuario.Owner.IdImagen);
         this.completarDatosDeLaSesion();
 
         var _this = this;
@@ -256,6 +261,7 @@ var Permisos = {
         $("#email").html(usuario.MailRegistro);
 
         if (usuario.Owner.IdImagen >= 0) {
+            
             var img = new VistaThumbnail({ id: usuario.Owner.IdImagen, contenedor: $("#foto_usuario") });
             $("#foto_usuario").show();
             $("#foto_usuario_generica").hide();
@@ -569,7 +575,10 @@ var Permisos = {
     completarDatosDeLaSesion: function () {
         $("#nombre_empleado").html(sessionStorage.getItem("nombre"));
         $("#apellido_empleado").html(sessionStorage.getItem("apellido"));
-
+        var idImagen = parseInt(sessionStorage.getItem("idImagen"));
+        if (idImagen >= 0) {
+            var img = new VistaThumbnail({ id: idImagen, contenedor: $(".imagen") });
+        }
     }
 
 }

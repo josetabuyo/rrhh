@@ -62,7 +62,12 @@
 
                     <hr />
                     <h4>Funcionalidades actuales</h4>
-                    <div id="tabla_funcionalidades"></div>
+                    <div id="caja_funcionalidades">
+                         <input type="text" id="search" class="search buscador" style="height: 30px;" placeholder="Buscar Funcionalidad"  />
+                         <div id="tabla_funcionalidades">
+    
+                        </div>
+                    </div>
 
                 </div>
                
@@ -129,6 +134,11 @@
                 //Permisos.init();
                 Permisos.iniciarPantallaAsignacionFuncionalidad();
                 Permisos.getFuncionalidadesDelUsuario();
+
+                //FC: para importar el HabilitadorDeControles y afecte la seccion izquierda
+                var imported = document.createElement('script');
+                    imported.src = '../MAU/HabilitadorDeControles.js';
+                    document.head.appendChild(imported);
 
 
             });
