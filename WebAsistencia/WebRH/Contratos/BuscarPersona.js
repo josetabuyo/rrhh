@@ -23,6 +23,7 @@ var Permisos = {
     },
 
     getPerfilesDelUsuario: function () {
+        alert("getPerfilesDelUsuario"); //GERMAN
 
         var _this = this;
         this.completarDatosDeLaSesion();
@@ -80,6 +81,7 @@ var Permisos = {
     },
 
     getFuncionalidadesDelUsuario: function () {
+        alert("getFuncionalidadesDelUsuario"); //GERMAN
 
         var _this = this;
         if (!sessionStorage.getItem("idUsuario")) {
@@ -165,7 +167,7 @@ var Permisos = {
                 if (rto == 'ok') {
                     //window.location.reload();
                     alertify.success("Se ha eliminado correctamente");
-                    _this.getFuncionalidadesDelUsuario();
+                   // _this.getFuncionalidadesDelUsuario();
                 } else {
                     alertify.error(rto);
                 }
@@ -177,6 +179,7 @@ var Permisos = {
 
     },
     iniciarConsultaRapida: function () {
+        
         var _this = this;
         var selector_personas = new SelectorDePersonas({
             ui: $('#selector_usuario'),
@@ -189,6 +192,24 @@ var Permisos = {
 
     },
     alSeleccionarUnaPersona: function (la_persona_seleccionada) {
+       
+        $('[RequiereFuncionalidad]').each(function (index, control) {
+
+            $(control).hide();
+
+            var funcionalidad = $(control).attr('RequiereFuncionalidad')
+
+            Backend.ElUsuarioTienePermisosParaFuncionalidadPorId(la_persona_seleccionada.id, funcionalidad).onSuccess(function (tiene_funcionalidad) {
+                if (!tiene_funcionalidad) $(control).remove();
+                else {
+                    $(control).show();
+                }
+            }).onError(function () {
+               
+            });
+        });
+
+
         var _this = this;
         $('#panel_datos_usuario').hide();
         _this.repositorioDeUsuarios.getUsuarioPorIdPersona(
@@ -234,6 +255,10 @@ var Permisos = {
         sessionStorage.setItem("nombre", usuario.Owner.Nombre);
         sessionStorage.setItem("apellido", usuario.Owner.Apellido);
         sessionStorage.setItem("idUsuario", usuario.Id);
+        sessionStorage.setItem("documento", usuario.Owner.Documento);
+        sessionStorage.setItem("legajo", usuario.Owner.Legajo);
+
+        
         this.completarDatosDeLaSesion();
 
         var _this = this;
@@ -326,6 +351,8 @@ var Permisos = {
 
     },
     iniciarPantallaAsignacionPerfiles: function () {
+        alert("iniciarPantallaAsignacionPerfiles"); //GERMAN
+
         var _this = this;
         this.completarDatosDeLaSesion();
         if (!sessionStorage.getItem("idUsuario")) {
@@ -424,6 +451,8 @@ var Permisos = {
 
     },
     iniciarPantallaAsignacionFuncionalidad: function () {
+        alert("iniciarPantallaAsignacionFuncionalidad"); //GERMAN
+
         var _this = this;
         this.completarDatosDeLaSesion();
         if (!sessionStorage.getItem("idUsuario")) {
@@ -534,7 +563,7 @@ var Permisos = {
                     if (rto == 'ok') {
                         //window.location.reload();
                         alertify.success("Se ha asignado la funcionalidad correctamente");
-                        _this.getFuncionalidadesDelUsuario();
+                        //_this.getFuncionalidadesDelUsuario();
                         $("#funcionalidadesSeleccionadas").empty();
                         $("#listadoAreasElegidas").empty();
                     } else {
@@ -571,7 +600,6 @@ var Permisos = {
     completarDatosDeLaSesion: function () {
         $("#nombre_empleado").html(sessionStorage.getItem("nombre"));
         $("#apellido_empleado").html(sessionStorage.getItem("apellido"));
-
     }
 
 }

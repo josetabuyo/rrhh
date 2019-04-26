@@ -8,9 +8,9 @@ ul {
     margin-top: 20px;
 }
 
-    ul li:before {
-        /*content: "\00BB \0020";*/
-    }
+    /*ul li:before {
+        content: "\00BB \0020";
+    }*/
 
 .caja_izq {
     color: #f4efe9;
@@ -58,7 +58,7 @@ ul {
     text-decoration: none;
 }
 
-#apellido {
+/*#apellido {
     color: #cdc8c4;
     font-size: 1.8em;
 }
@@ -66,7 +66,7 @@ ul {
 #nombre {
     color: #fff;
     font-size: 1.8em;
-}
+}*/
 
 #cargo {
     font-size: 1.1em;
@@ -191,8 +191,8 @@ legend {
     background: transparent;
 }
 
-.nada {
-}
+/*.nada {
+}*/
 
 /*RECIBOOOOO */
 
@@ -234,8 +234,8 @@ legend {
     left: 110px;
 }
 
-.p_cuil {
-}
+/*.p_cuil {
+}*/
 
 #tabla_recibo_encabezado {
     text-align: center;
@@ -495,8 +495,8 @@ legend {
 
 /*ESTILO ACORDION*/
 
-#accordion {
-}
+/*#accordion {
+}*/
 
     #accordion .accordion-heading a {
         color: #fff;

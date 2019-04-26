@@ -8,19 +8,22 @@
 <head id="Head1" runat="server">
     <title>Buscador Contratos</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width"/>
     <!-- CSS media query on a link element -->
     <%= Referencias.Css("../")%>
     <%= Referencias.Javascript("../")%>
     <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
-    <link rel="stylesheet"  href="estiloBuscarPersona.css" />
-    <link rel="stylesheet" href="../MAU/Permisos.css" type="text/css"/>    
-    <link rel="stylesheet" href="../estilos/SelectorDePersonas.css" type="text/css"/>    
-         
-    <link href="../scripts/vex-2.1.1/css/vex.css" rel="stylesheet">
-    <link href="../scripts/vex-2.1.1/css/vex-theme-os.css" rel="stylesheet">
-
+    
+    <link rel="stylesheet" href="../estilos/SelectorDePersonas.css" type="text/css"/> 
     <link href="../scripts/select2-3.4.4/select2.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet"  href="EstiloBuscarPersona.css" />
+    <link rel="stylesheet" href="../MAU/Permisos.css" type="text/css"/>    
+       
+    
+    <link href="../scripts/vex-2.1.1/css/vex.css" rel="stylesheet"/>
+    <link href="../scripts/vex-2.1.1/css/vex-theme-os.css" rel="stylesheet"/>
+
+    
        
 </head>
 
@@ -30,7 +33,8 @@
     <div class="container-fluid">
         <h1 style="text-align:center; margin:17px; "></h1>
         <div style="margin: 0 auto;" class="row">
-            <div style="text-align:center;" class="caja_izq"></div>
+            <div style="text-align:center;" class="caja_izq">
+            </div>
             
             <div class="caja_der papel">
             <br />
@@ -152,7 +156,7 @@
 <script type="text/javascript" src="../Scripts/select2-3.4.4/Select2.min.js"></script>
 <script type="text/javascript" src="../Scripts/select2-3.4.4/select2_locale_es.js"></script>
 
-<script type="text/javascript" src="Permisos.js"></script>
+<script type="text/javascript" src="BuscarPersona.js"></script>
 <script type="text/javascript" src="../Scripts/Spin.js"></script>
 
 
@@ -164,7 +168,7 @@
      
         Backend.start(function () {
             //para cargar el menu izquierdo 
-            $(".caja_izq").load("../Portal/SeccionIzquierda.htm", function () {
+            $(".caja_izq").load("PanelIzquierdo.html", function () {
                 Permisos.init();
                 Permisos.iniciarConsultaRapida();
             });

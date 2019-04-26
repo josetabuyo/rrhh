@@ -34,6 +34,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using iTextSharp.text.pdf;
 using iTextSharp.text;
 using System.Data.SqlClient;
+using General.Contrato;
 
 
 [WebService(Namespace = "http://wsviaticos.gov.ar/")]
@@ -5808,5 +5809,19 @@ public class WSViaticos : System.Web.Services.WebService
 
 
 
+    //---- SERVICIO DE ADM. PUBLICA PRIVADA
+    [WebMethod]
+    public Serv_Adm_Publica_Privada[] GetServicios_Adm_Publica_Principal(int nroDocumento, Usuario usuario)
+    {
+        var RepositorioServAdm = new RepositorioServicios();
+        return RepositorioServAdm.GetServicios_Adm_Publica_Principal(nroDocumento, usuario).ToArray();
+    }
+
+    public Serv_Adm_Publica_Privada[] GetServicios_Adm_Privada_Principal(int nroDocumento, Usuario usuario)
+    {
+        var RepositorioServAdm = new RepositorioServicios();
+        return RepositorioServAdm.GetServicios_Adm_Privada_Principal(nroDocumento, usuario).ToArray();
+    }
+    //---- SERVICIO DE ADM. PUBLICA PRIVADA
 
 }
