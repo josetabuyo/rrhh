@@ -120,7 +120,7 @@ namespace General.MAU
             throw new NotImplementedException();
         }
 
-        public List<Perfil> GetPerfilesConFuncionalidades()
+        public List<MAU_Perfil> GetPerfilesConFuncionalidades()
         {
 
             throw new NotImplementedException();

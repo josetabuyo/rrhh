@@ -3086,7 +3086,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public Perfil[] GetPerfilesConFuncionalidades(Usuario usuario)
+    public MAU_Perfil[] GetPerfilesConFuncionalidades(Usuario usuario)
     {
 
         var perfiles = RepositorioDeFuncionalidadesDeUsuarios().GetPerfilesConFuncionalidades().ToArray();

@@ -344,6 +344,47 @@ var Permisos = {
 
         this.div_lista_areas = $("#lista_areas_para_consultar");
 
+        Backend.GetPerfilesConFuncionalidades()
+            .onSuccess(function (perfiles) {
+
+                $("#comboPerfiles").empty();
+                $("#comboPerfiles").append("<option value='0'>Seleccionar Perfil</option>");
+                var contenedorDialogo = $("#cajaContenedoraDelDialogo");
+
+                $.each(perfiles, function (key, value) {
+
+                    $("#comboPerfiles").append("<option value=" + value.Id + ">" + value.Nombre + "</option>");
+
+
+                    contenedorDialogo.append("<p class='dialogNombrePerfil'>" + value.Nombre + "</p>");
+                    contenedorDialogo.append("<ul class='dialogListaFunc'>");
+                    $.each(value.Funcionalidades, function (keyFunc, value) {
+                        contenedorDialogo.append("<li>" + value.Nombre + "</li>");
+                   
+                    });
+                    contenedorDialogo.append("</ul>");
+                    contenedorDialogo.append("<hr />");
+
+                    /*
+                     * <p class="dialogNombrePerfil" >Responsable de RCA</p>
+                        <ul class="dialogListaFunc">
+                            <li>Control Acceso</li>
+                            <li>Control Asistencia</li>
+                            <li>Carga Licencias</li>
+                            <li>Control Planilla</li>
+                        </ul>
+                        <hr />
+                        */
+
+
+                });
+
+            })
+            .onError(function (e) {
+
+            });
+
+
         $("#comboPerfiles").change(function (e) {
             //alert($(this).val());
             var plantillaPerfiles = $("#plantillaPerfilSeleccionado").clone();
@@ -524,11 +565,18 @@ var Permisos = {
                 return { id: $(this).attr('id'), IncluyeDependencias: $(this)[0].children[1].checked };
             }).get();
 
-            $.each(areasSeleccionadas, function (key, value) {
+            var areasSeleccionadas = $('.areasSeleccionadas').map(function () {
+                var valor = 0;
+                if ($(this)[0].children[1].checked)
+                    valor = 1;
+                return { Id: $(this).attr('id'), IncluyeDependencias: valor };
+            }).get();
+
+            /*$.each(areasSeleccionadas, function (key, value) {               
                 if (value.IncluyeDependencias) {
                     value.IncluyeDependencias = 1;
                 }
-            });
+            });*/
             /* var dependencias = $('.checksIncluyeDependencia').map(function () {
             return $(this)[0].checked;
             }).get();*/

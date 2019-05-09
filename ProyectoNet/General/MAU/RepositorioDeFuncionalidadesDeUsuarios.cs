@@ -388,9 +388,41 @@ namespace General.MAU
         }
 
 
-        public List<Perfil> GetPerfilesConFuncionalidades()
+        public List<MAU_Perfil> GetPerfilesConFuncionalidades()
         {
-            return new List<Perfil>();
+            
+            try
+            {
+
+                List <MAU_Perfil>  perfiles = new List<MAU_Perfil>();
+
+                var tablaDatos = conexion.Ejecutar("dbo.MAU_GetPerfiles");
+
+                int idPerfil = 0;
+                tablaDatos.Rows.ForEach(row =>
+                {
+ 
+                    if (idPerfil != row.GetInt("Id"))
+                    {
+                        MAU_Perfil unPerfil = new MAU_Perfil(row.GetInt("Id", 0), row.GetString("NombrePerfil", "Sin Perfil"));
+                        perfiles.Add(unPerfil);
+                        idPerfil = row.GetInt("Id");
+                    }
+
+                    Funcionalidad funcionalidad;
+                    funcionalidad = new Funcionalidad(row.GetInt("IdFuncionalidad",0), row.GetString("NombreFuncionalidad", "Sin Funcionalidad"), "", false, false, false);
+
+                    perfiles.Last().Funcionalidades.Add(funcionalidad);
+
+                });
+
+                return perfiles;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+                
+            }
         }
 
 

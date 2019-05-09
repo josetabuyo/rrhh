@@ -33,16 +33,13 @@
                         <p>Seleccione el/los Perfil/es a Asignar: </p>
                         <select id="comboPerfiles">
                             <option value="0">Seleccionar Perfil</option>
-                            <option value="1">Responsable de Control de Asistencia</option>
-                            <option value="2">Reportes de Dotacion Nivel 1</option>
-                            <option value="3">Administracion de Medialunas</option>
                         </select>
 
                         <span id="mostrarDialogo">ver Listado de Func. de cada Perfil</span>
 
                         <div style="font-size: 12px;" id="dialog" title="Listado de Funcionalidades por Perfil">
-                          <div>
-                            <p class="dialogNombrePerfil" >Responsable de RCA</p>
+                          <div id="cajaContenedoraDelDialogo">
+                            <!--<p class="dialogNombrePerfil" >Responsable de RCA</p>
                             <ul class="dialogListaFunc">
                                 <li>Control Acceso</li>
                                 <li>Control Asistencia</li>
@@ -52,7 +49,6 @@
                             <hr />
 
                             <p class="dialogNombrePerfil" >Direccion</p>
-                            
                             <ul class="dialogListaFunc">
                                 <li>Reportes</li>
                             </ul>
@@ -61,7 +57,7 @@
                             <p class="dialogNombrePerfil" >Publico</p>
                             <ul class="dialogListaFunc">
                                 <li>Postular</li>
-                            </ul>
+                            </ul>-->
 
                           </div>
                         </div>

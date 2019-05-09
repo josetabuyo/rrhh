@@ -4644,7 +4644,7 @@
       <s:element name="GetPerfilesConFuncionalidadesResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetPerfilesConFuncionalidadesResult" type="tns:ArrayOfPerfil" />
+            <s:element minOccurs="0" maxOccurs="1" name="GetPerfilesConFuncionalidadesResult" type="tns:ArrayOfMAU_Perfil" />
           </s:sequence>
         </s:complexType>
       </s:element>
