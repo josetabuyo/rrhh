@@ -281,6 +281,7 @@
     var tipoLiquidacion;
     var tiposLiquidaciones;
 
+    /********BORRAR: MODELO VIEJO ahora se requiere historico de liquidaciones*/
     function buscarRecibos() {
         //NOTA: si tipo liquidacion es 0 entonces por ahora no se traer TODOS los recibos de un dado año y mes
         //se limita aqui, pero se puede hacer un bucle aqui e iterar por todos los tipos de liquidacion y obtener todos los recibos y luego firmar, hacer eso por cada tipo de liquidacion
@@ -295,6 +296,7 @@
             anio = document.getElementById('cmb_anio').value;
             mes = document.getElementById('cmb_meses').value;
             tipoLiquidacion = document.getElementById('cmb_tipo_liquidacion').value;
+
 
             /*nota1: las horas extra siempre se migran un mes despues del mes de liquidacion.Aun asi en la tabla de PLA_RECIBO el año y el mes de la liquidacion es el correcto.
             Por ejemplo: cuando el tipo de liquidacion es "hora extra" :
@@ -325,6 +327,15 @@
             //muestro el panel de seleccion de documento firmado 
 //        document.getElementById('validarFirmaForm').style.display = 'block';
         }
+    }
+
+    function ArmarListaLiquidaciones() {
+
+        /*obtengo la lista de liquidaciones a firmar*/
+
+
+
+
     }
 
     function xxxfirmarRecibos() {
