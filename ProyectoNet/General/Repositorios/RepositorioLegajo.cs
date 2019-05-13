@@ -1742,5 +1742,53 @@ namespace General.Repositorios
             return JsonConvert.SerializeObject(listaIdRecibos);
 
         }
+
+        public string GetLiquidacionesAFirmar(int año, int mes)
+        {
+            var parametros = new Dictionary<string, object>();
+                        
+            parametros.Add("@añoInicial", año);
+            parametros.Add("@mesInicial", mes);
+
+
+            var liquidacion = new object();
+            var listaLiquidaciones = new List<object>();
+
+            var tablaDatos = conexion.Ejecutar("dbo.PLA_GET_LiquidacionesAFirmar", parametros);
+
+            if (tablaDatos.Rows.Count > 0)
+            {
+                tablaDatos.Rows.ForEach(row =>
+                {/*Tambien se puede crear un objeto contenedor de cada fila, esto me sirve para  retornar una 
+                  * lista en lugar de un objeto string json
+                  * 
+                    Persona persona = new Persona(row.GetInt("id_usuario"), row.GetInt("NroDocumento"), row.GetString("nombre"), row.GetString("apellido"), area);
+                    Respuesta respuesta = new Respuesta(
+                        row.GetInt("id_orden"),
+                        persona,
+                        row.GetDateTime("fecha_creacion"),
+                        row.GetString("texto"));
+                    */
+
+                    liquidacion = new
+                    {
+                        //Id_Recibo = row.GetInt("Id_Recibo"),
+                        id = int.Parse(row.GetObject("id").ToString()),//int
+                        descripcion = row.GetString("descripcion"),
+                        anio = int.Parse(row.GetObject("anio").ToString()),//smallint
+                        mes = int.Parse(row.GetObject("mes").ToString()),//smallint
+                        tipo_liquidacion = int.Parse(row.GetObject("tipo_liquidacion").ToString()),//int
+                    };
+
+
+                    listaLiquidaciones.Add(liquidacion);
+                });
+
+            }
+
+            return JsonConvert.SerializeObject(listaLiquidaciones);
+
+        }
+
     }
 }
