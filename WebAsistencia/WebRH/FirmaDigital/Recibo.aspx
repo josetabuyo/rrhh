@@ -104,6 +104,7 @@
 				 <tr><td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;" >Liquidación</td>
                  <td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;width:65px;" >Año</td>
                  <td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;width:105px;" >Mes</td>
+                 <td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;" >Tipo Liquidación</td>
                  <td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;width:230px;" >Descripción</td>
                  <td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;" >Firmados</td>
                  <td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;" >Pendientes</td>
@@ -113,11 +114,18 @@
                  <td><div id="div2" style="margin-top:5px">&nbsp;2007</div></td>
                  <td><div id="div3" style="margin-top:5px">&nbsp;1</div></td>
                  <td><div id="div4" style="margin-top:5px">&nbsp;Es el tipo de liquidacion</div></td>
-                 <td><div id="div7" style="margin-top:5px">&nbsp;4000</div></td>
+                 <td><div id="div7" style="margin-top:5px">&nbsp;512 hs exztra</div></td>
                  <td><div id="div8" style="margin-top:5px">&nbsp;2</div></td>
+                 <td><div id="div9" style="margin-top:5px">&nbsp;2000</div></td>
 				 <td style="text-align: right;"><input id="Button1" disabled  style="text-align: right;cursor: pointer;" class="botonGrisadoFirmaM" type="button" value="Firmar Seleccionados" onclick="javascript:iniciarOperaciones3();return false;" />
 				 </td></tr>
 				 </tbody></table></div><br/>
+
+                 <!-- 	lista de liquidaciones -->
+                 <input id="Button2" class="botonFirmaM" type="button" value="BuscarLiq" onclick="javascript:ArmarListaLiquidaciones();return false;" />
+                 <div id="capaListaLiquidaciones">
+                
+                 </div>
 
     </div> 
 
@@ -244,8 +252,8 @@
 				 </td></tr>
 				 <tr><td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;" >Estatus</td><td><div id="divMensajeStatusBusqueda" style="margin-top:5px">&nbsp;</div></td></tr>
 				 </tbody></table></div><br/>
-
-    </div>                
+    </div>    
+                                  
          <!-- 	lista de recibos a firmar -->    
 	     <div id ="div6" class="resultadoValidar">        
 	     </div>      
@@ -280,8 +288,17 @@
     var mes;
     var tipoLiquidacion;
     var tiposLiquidaciones;
+    var liquidaciones;
+
+    function ArmarListaLiquidaciones() {
+        /*obtengo la lista de liquidaciones*/
+        RECIBOS.getLiquidacionesAFirmar();       
+    
+    }
+
 
     /********BORRAR: MODELO VIEJO ahora se requiere historico de liquidaciones*/
+    /************BORRAR:YA no usada**************/
     function buscarRecibos() {
         //NOTA: si tipo liquidacion es 0 entonces por ahora no se traer TODOS los recibos de un dado año y mes
         //se limita aqui, pero se puede hacer un bucle aqui e iterar por todos los tipos de liquidacion y obtener todos los recibos y luego firmar, hacer eso por cada tipo de liquidacion

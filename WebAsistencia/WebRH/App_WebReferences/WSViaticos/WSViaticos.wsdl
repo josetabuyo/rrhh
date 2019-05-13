@@ -678,6 +678,20 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetLiquidacionesAFirmar">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLiquidacionesAFirmarResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetLiquidacionesAFirmarResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="Mobi_GetAreasUsuario">
         <s:complexType>
           <s:sequence>
@@ -8475,6 +8489,12 @@
   <wsdl:message name="ConformarReciboSoapOut">
     <wsdl:part name="parameters" element="tns:ConformarReciboResponse" />
   </wsdl:message>
+  <wsdl:message name="GetLiquidacionesAFirmarSoapIn">
+    <wsdl:part name="parameters" element="tns:GetLiquidacionesAFirmar" />
+  </wsdl:message>
+  <wsdl:message name="GetLiquidacionesAFirmarSoapOut">
+    <wsdl:part name="parameters" element="tns:GetLiquidacionesAFirmarResponse" />
+  </wsdl:message>
   <wsdl:message name="Mobi_GetAreasUsuarioSoapIn">
     <wsdl:part name="parameters" element="tns:Mobi_GetAreasUsuario" />
   </wsdl:message>
@@ -10886,6 +10906,10 @@
       <wsdl:input message="tns:ConformarReciboSoapIn" />
       <wsdl:output message="tns:ConformarReciboSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetLiquidacionesAFirmar">
+      <wsdl:input message="tns:GetLiquidacionesAFirmarSoapIn" />
+      <wsdl:output message="tns:GetLiquidacionesAFirmarSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="Mobi_GetAreasUsuario">
       <wsdl:input message="tns:Mobi_GetAreasUsuarioSoapIn" />
       <wsdl:output message="tns:Mobi_GetAreasUsuarioSoapOut" />
@@ -12628,6 +12652,15 @@
     </wsdl:operation>
     <wsdl:operation name="ConformarRecibo">
       <soap:operation soapAction="http://wsviaticos.gov.ar/ConformarRecibo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLiquidacionesAFirmar">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetLiquidacionesAFirmar" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -16312,6 +16345,15 @@
     </wsdl:operation>
     <wsdl:operation name="ConformarRecibo">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/ConformarRecibo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLiquidacionesAFirmar">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetLiquidacionesAFirmar" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

@@ -330,6 +330,49 @@ var RECIBOS = (function (window, undefined) {
         });
     }
 
+    function getLiquidacionesAFirmar() {
+        Backend.GetLiquidacionesAFirmar()
+        .onSuccess(function (respLiquidaciones) {
+            /*respLiquidaciones es la respuesta*/
+            var capa = document.getElementById("capaListaLiquidaciones");
+            var i;
+            //**parsear el objeto json y loopear para cargar las liquidaciones*/
+            //recupero la respuesta en forma de objeto json
+            //este contiene id,descripcion,anio,mes,tipo_liquidacion
+
+            var resp = JSON.parse(respLiquidaciones);
+            var longitud; //tamaño de la lista de liquidaciones
+            longitud = Object.keys(resp).length;
+
+            capa.innerHTML = '';
+
+            //genero la lista de liquidaciones
+            for (i = 0; i < longitud; i++) {
+                //var option = document.createElement("option"); //creamos el elemento
+                //option.value = resp[i].Id; //asignamos valores a sus parametros
+                //option.text = resp[i].Descripcion;
+                //select.add(option); //insertamos el elemento
+                
+                /*para cada liquidacion obtengo la cantidad de recibos firmados y pendientes por firmar*/
+                /**VEEEEEERRRRRRR*/
+                RECIBOS.getIdRecibosSinFirmar(resp[i].tipo_liquidacion, resp[i].anio, resp[i].mes);
+
+                capa.innerHTML += '<div class="iconInfo">Liquidación <B>' + resp[i].id+'   '+  resp[i].anio+'   '+ resp[i].mes+'   '+ resp[i].tipo_liquidacion+'   '+resp[i].descripcion + '</B>   </div></BR>';
+
+            }
+            liquidaciones = resp;
+            /*usando jquery no me funciona, fix despues*/
+            /*$.each(tiposLiquidacion, function () {
+            options.append($("<option />").val(this.Id).text(this.Descripcion));
+            });*/
+        })
+        .onError(function (e) {
+
+        });
+
+    }
+
+
     /* Metodos que publicamos del objeto RECIBOS */
     return {
         getTiposLiquidacion: getTiposLiquidacion,
@@ -339,7 +382,8 @@ var RECIBOS = (function (window, undefined) {
         downloadRemoteDataB64POSTEmpleado: downloadRemoteDataB64POSTEmpleado,
         guardarReciboPDFFirmado: guardarReciboPDFFirmado,
         getIdRecibosSinFirmar: getIdRecibosSinFirmar,
-        downloadRemoteDataB64POSTReciboDigital: downloadRemoteDataB64POSTReciboDigital
+        downloadRemoteDataB64POSTReciboDigital: downloadRemoteDataB64POSTReciboDigital,
+        getLiquidacionesAFirmar: getLiquidacionesAFirmar,
     }
 
 })(window, undefined);

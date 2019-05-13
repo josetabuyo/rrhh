@@ -5952,5 +5952,14 @@ public class WSViaticos : System.Web.Services.WebService
         }
     }
 
+    [WebMethod]
+    public string GetLiquidacionesAFirmar(Usuario usuario)
+    {
+        /*el año y mes de inicio de posibilidad de firmar esta HARCODEADO AQUI*/
+        int anio = 2019;
+        int mes = 1;
+        RepositorioLegajo repo = RepoLegajo();
+        return repo.GetLiquidacionesAFirmar(anio,mes);
+    }
 
 }
