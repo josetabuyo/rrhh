@@ -330,6 +330,25 @@ var RECIBOS = (function (window, undefined) {
         });
     }
 
+    function getIdRecibosSinFirmar2(tipoLiquidacion, anio, mes) {
+        Backend.GetIdRecibosSinFirmar(tipoLiquidacion, anio, mes)
+        .onSuccess(function (recibosResumen) {
+            /*recibosResumen es la respuesta*/
+
+            //este contine Id_Recibo, legajo,Cuil,Nyap,Nro_Orden
+
+            //var resp = JSON.parse(recibosResumen);
+           
+            if (!recibosResumen.DioError) {
+                resp = JSON.parse(recibosResumen.Respuesta);
+                return resp;
+            }
+        })
+        .onError(function (e) {
+
+        });
+    }
+
     function getLiquidacionesAFirmar() {
         Backend.GetLiquidacionesAFirmar()
         .onSuccess(function (respLiquidaciones) {
@@ -343,7 +362,7 @@ var RECIBOS = (function (window, undefined) {
             var resp = JSON.parse(respLiquidaciones);
             var longitud; //tamaño de la lista de liquidaciones
             longitud = Object.keys(resp).length;
-
+            var lista_recibos_resumen;
             capa.innerHTML = '';
 
             //genero la lista de liquidaciones
@@ -352,12 +371,12 @@ var RECIBOS = (function (window, undefined) {
                 //option.value = resp[i].Id; //asignamos valores a sus parametros
                 //option.text = resp[i].Descripcion;
                 //select.add(option); //insertamos el elemento
-                
+
                 /*para cada liquidacion obtengo la cantidad de recibos firmados y pendientes por firmar*/
                 /**VEEEEEERRRRRRR*/
-                RECIBOS.getIdRecibosSinFirmar(resp[i].tipo_liquidacion, resp[i].anio, resp[i].mes);
+                lista_recibos_resumen = getIdRecibosSinFirmar2(resp[i].tipo_liquidacion, resp[i].anio, resp[i].mes);
 
-                capa.innerHTML += '<div class="iconInfo">Liquidación <B>' + resp[i].id+'   '+  resp[i].anio+'   '+ resp[i].mes+'   '+ resp[i].tipo_liquidacion+'   '+resp[i].descripcion + '</B>   </div></BR>';
+               // capa.innerHTML += '<div class="iconInfo">Liquidación <B>' + resp[i].id + '   ' + resp[i].anio + '   ' + resp[i].mes + '   ' + resp[i].tipo_liquidacion + '   ' + resp[i].descripcion + '   ' + Object.keys(lista_recibos_resumen).length + '</B>   </div></BR>';
 
             }
             liquidaciones = resp;
@@ -383,8 +402,8 @@ var RECIBOS = (function (window, undefined) {
         guardarReciboPDFFirmado: guardarReciboPDFFirmado,
         getIdRecibosSinFirmar: getIdRecibosSinFirmar,
         downloadRemoteDataB64POSTReciboDigital: downloadRemoteDataB64POSTReciboDigital,
-        getLiquidacionesAFirmar: getLiquidacionesAFirmar,
-    }
+        getLiquidacionesAFirmar: getLiquidacionesAFirmar
+    };
 
 })(window, undefined);
 

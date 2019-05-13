@@ -448,21 +448,7 @@
       <s:element name="GetIdRecibosSinFirmarResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetIdRecibosSinFirmarResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetReciboPDFEmpleador">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id_recibo" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetReciboPDFEmpleadorResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetReciboPDFEmpleadorResult" type="tns:StringRespuestaWS" />
+            <s:element minOccurs="0" maxOccurs="1" name="GetIdRecibosSinFirmarResult" type="tns:StringRespuestaWS" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -484,6 +470,20 @@
           <s:element minOccurs="1" maxOccurs="1" name="DioError" type="s:boolean" />
         </s:sequence>
       </s:complexType>
+      <s:element name="GetReciboPDFEmpleador">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_recibo" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReciboPDFEmpleadorResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetReciboPDFEmpleadorResult" type="tns:StringRespuestaWS" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetReciboParseado">
         <s:complexType>
           <s:sequence>

@@ -122,7 +122,8 @@
 				 </tbody></table></div><br/>
 
                  <!-- 	lista de liquidaciones -->
-                 <input id="Button2" class="botonFirmaM" type="button" value="BuscarLiq" onclick="javascript:ArmarListaLiquidaciones();return false;" />
+                 <input id="Button2" class="botonFirmaM" type="button" value="BuscarLiq" onclick="javascript:armarListaLiquidaciones();return false;" />
+
                  <div id="capaListaLiquidaciones">
                 
                  </div>
@@ -290,8 +291,9 @@
     var tiposLiquidaciones;
     var liquidaciones;
 
-    function ArmarListaLiquidaciones() {
+    function armarListaLiquidaciones() {
         /*obtengo la lista de liquidaciones*/
+        
         RECIBOS.getLiquidacionesAFirmar();       
     
     }

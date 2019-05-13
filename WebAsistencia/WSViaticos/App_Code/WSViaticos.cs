@@ -5549,11 +5549,24 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string GetIdRecibosSinFirmar(int tipoLiquidacion, int anio, int mes, Usuario usuario)
+    public StringRespuestaWS GetIdRecibosSinFirmar(int tipoLiquidacion, int anio, int mes, Usuario usuario)
     {
+
         //tira error porque puede ser null el tipo liquidacion y los demas, poner un '' o 0 y verificar aca
-        RepositorioLegajo repo = RepoLegajo();
-        return repo.GetIdRecibosSinFirmar(tipoLiquidacion, anio, mes);
+        var respuesta = new StringRespuestaWS();
+        try {
+
+            RepositorioLegajo repo = RepoLegajo();
+            string lista = repo.GetIdRecibosSinFirmar(tipoLiquidacion, anio, mes);
+            respuesta.Respuesta = lista;
+        }
+        catch (Exception e)
+        {
+            respuesta.MensajeDeErrorAmigable = "Se produjo un error al obtener la lista de ids recibos";
+            respuesta.setException(e);
+
+        }
+        return respuesta;
     }
 
     /////////////////VER
