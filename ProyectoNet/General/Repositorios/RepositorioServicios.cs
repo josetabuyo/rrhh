@@ -10,65 +10,45 @@ namespace General.Repositorios
 {
     public class RepositorioServicios
     {
-        public List<Serv_Adm_Publica_Privada> GetServicios_Adm_Publica_Principal(int documento, Usuario usuario)
+        public List<Serv_Adm_Publica_Privada> GetExperienciaLaboral_Principal(int documento, Usuario usuario)
         {
             SqlDataReader dr;
-            ConexionDB cn = new ConexionDB("dbo.LEG_GET_Servicios_Adm_Publica_Principal");
+            ConexionDB cn = new ConexionDB("dbo.LEG_GET_ExperienciaLaboral_Principal");
             cn.AsignarParametro("@Documento", documento);
 
             dr = cn.EjecutarConsulta();
 
             Serv_Adm_Publica_Privada Servicio;
-            List<Serv_Adm_Publica_Privada> listaServAdmPubica = new List<Serv_Adm_Publica_Privada>();
+            List<Serv_Adm_Publica_Privada> listaExperienciaLaboral = new List<Serv_Adm_Publica_Privada>();
 
             while (dr.Read())
             {
                 Servicio = new Serv_Adm_Publica_Privada();
                 Servicio.Id = dr.GetInt32(dr.GetOrdinal("Id"));
                 Servicio.Ambito = new Ambito();
+                Servicio.Ambito.Id = dr.GetInt16(dr.GetOrdinal("Id_Ambito"));
                 Servicio.Ambito.Descripcion = dr.GetString(dr.GetOrdinal("Ambito"));
                 Servicio.Jurisdiccion = dr.GetString(dr.GetOrdinal("Jurisdiccion"));
                 Servicio.Folio = dr.GetString(dr.GetOrdinal("Folio"));
-                Servicio.Caja = dr.GetString(dr.GetOrdinal("Caja"));
-                Servicio.Afiliado = dr.GetString(dr.GetOrdinal("Afiliado"));
+                Servicio.Doc_Titular = dr.GetInt32(dr.GetOrdinal("Documento"));
+                Servicio.Fecha_Desde = dr.GetDateTime(dr.GetOrdinal("MIN_Fecha_Desde"));
+                Servicio.Fecha_Hasta = dr.GetDateTime(dr.GetOrdinal("MAX_Fecha_Hasta"));
 
-                listaServAdmPubica.Add(Servicio);
+                if (!listaExperienciaLaboral.Exists(X=> X.Folio == Servicio.Folio && X.Doc_Titular == Servicio.Doc_Titular && X.Ambito.Id == Servicio.Ambito.Id) )
+                {
+                    listaExperienciaLaboral.Add(Servicio);
+                }
+
+
+                
             }
 
             cn.Desconestar();
 
-            return listaServAdmPubica;
+            return listaExperienciaLaboral;
         }
 
-        public List<Serv_Adm_Publica_Privada> GetServicios_Adm_Privada_Principal(int documento, Usuario usuario)
-        {
-            SqlDataReader dr;
-            ConexionDB cn = new ConexionDB("dbo.LEG_GET_Servicios_Adm_Privada_Principal");
-            cn.AsignarParametro("@Documento", documento);
-
-            dr = cn.EjecutarConsulta();
-
-            Serv_Adm_Publica_Privada Servicio;
-            List<Serv_Adm_Publica_Privada> listaServAdmPubica = new List<Serv_Adm_Publica_Privada>();
-
-            while (dr.Read())
-            {
-                Servicio = new Serv_Adm_Publica_Privada();
-                Servicio.Id = dr.GetInt32(dr.GetOrdinal("Id"));
-                Servicio.Ambito = new Ambito();
-                Servicio.Ambito.Descripcion = dr.GetString(dr.GetOrdinal("Ambito"));
-                Servicio.Organismo = dr.GetString(dr.GetOrdinal("Institucion"));
-                Servicio.Folio = dr.GetString(dr.GetOrdinal("Folio"));
-                Servicio.Caja = dr.GetString(dr.GetOrdinal("Caja"));
-                Servicio.Afiliado = dr.GetString(dr.GetOrdinal("Afiliado"));
-
-                listaServAdmPubica.Add(Servicio);
-            }
-
-            cn.Desconestar();
-
-            return listaServAdmPubica;
-        }
+        
 
     }
 }

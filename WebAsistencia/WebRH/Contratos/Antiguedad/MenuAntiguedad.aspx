@@ -12,7 +12,7 @@
         <%= Referencias.Css("../../")%>
         <%= Referencias.Javascript("../../")%>
 
-        <%--<script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script> estilosPortalSecciones.css--%>
+        <script type="text/javascript" src="../../Scripts/ConversorDeFechas.js" ></script>
         <link rel="stylesheet" href="../../Portal/estilosPortalSecciones.css" type="text/css"  />
         <link rel="stylesheet" href="../../Formularios/EstilosFormularios.css" type="text/css"  />
         <link rel="stylesheet" href="../../estilos/estilos.css" type="text/css" />
@@ -151,18 +151,17 @@
                 </div>
                 <br />
 
-                <div id="TablaHistoriaCredencial" class="table table-striped table-bordered table-condensed" >
-                </div>
+                <%--<div id="TablaHistoriaCredencial" class="table table-striped table-bordered table-condensed" >
+                </div>--%>
 
 
               
 
-            <div id="cajaSolicitudCredencial" style="display:none;" class="">
+           <%-- <div id="cajaSolicitudCredencial" style="display:none;" class="">
                 <h3 style="text-align: center;">Solicitud de Credencial</h3>
                 <br />
                 <h4 id="titulo_vista_previa">Vista Previa Credencial</h4>
                 <div id="vista_previa_credencial">
-                    <%--<img id="imagen_credencial" src="../BarraMenu/credencialMds.png"/>--%>
                     <div id="foto_usuario"></div>
                     <div id="apellido"></div>    
                     <div id="nombres"></div>    
@@ -187,8 +186,6 @@
                         <select class="combo" id="select_organismo">
                                 
                         <option value="1">Ministerio de Desarrollo Social</option>
-                        <%--   <option value="2">Ministerio de Salud</option>
-                        <option value="3">Externo</option>     --%>
                         </select>                    
 
                     </div>
@@ -212,11 +209,11 @@
                     <br />
                     <input  id="btn_realizar_solicitud" value="Solicitar nueva credencial" class="btn btn-primary" type="button" />
                 </div>          
-            </div>
+            </div>--%>
 
 
-                 <div id="cajaCambiarDomicilio" style="display:none;" class="">
-                 <h3 style="text-align: center;">Solicitud de actualización de domicilio</h3>
+                 <div id="cajaDatosExpLaboral" style="display:none;" class="">
+                     <h3 style="text-align: center;" id="tituloExpLaboral"></h3>
                     <br />
                         <div class="">
                             <p><em style="color:Red;">*</em> Campos Obligatorios</p>
@@ -265,17 +262,11 @@
                             
                         </div>
 
-                <legend style="margin-top: 20px;">Servicio Administración Pública</legend>
-                    <div id="tabla_Serv_Adm_Publico">
-    
+                <legend style="margin-top: 20px;">Historial de Experiencia Laboral</legend>
+                    <div id="tabla_Exp_Laboral">
                     </div>
                    
-                    <legend style="margin-top: 50px;">Servicio Administración Privada</legend>
-                    <div id="tabla_Serv_Adm_Privada">
-    
-                    </div>
                     <%--<table id="tabla_Serv_Adm_Privada" class="table table-striped table-bordered table-condensed"></table>--%>
-
                     <%--<legend style="margin-top: 20px;">ESTUDIOS</legend>
                     <div id="tabla_estudios"></div>--%>
 
@@ -292,9 +283,9 @@
             </div>
         </div>--%>
 
-        <div class="plantillas" style="display: none">
-           
-        </div>
+        <%--<div class="plantillas" style="display: none">
+        </div>--%>
+
     </form>
 </body>
 

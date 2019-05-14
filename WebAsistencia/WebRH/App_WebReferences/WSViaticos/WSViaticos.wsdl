@@ -644,7 +644,7 @@
       <s:element name="AsignaAreaAPersonasNoCertificadasResponse">
         <s:complexType />
       </s:element>
-      <s:element name="GetServicios_Adm_Publica_Principal">
+      <s:element name="GetExperienciaLaboral_Principal">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="nroDocumento" type="s:int" />
@@ -652,10 +652,10 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetServicios_Adm_Publica_PrincipalResponse">
+      <s:element name="GetExperienciaLaboral_PrincipalResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetServicios_Adm_Publica_PrincipalResult" type="tns:ArrayOfServ_Adm_Publica_Privada" />
+            <s:element minOccurs="0" maxOccurs="1" name="GetExperienciaLaboral_PrincipalResult" type="tns:ArrayOfServ_Adm_Publica_Privada" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -8582,11 +8582,11 @@
   <wsdl:message name="AsignaAreaAPersonasNoCertificadasSoapOut">
     <wsdl:part name="parameters" element="tns:AsignaAreaAPersonasNoCertificadasResponse" />
   </wsdl:message>
-  <wsdl:message name="GetServicios_Adm_Publica_PrincipalSoapIn">
-    <wsdl:part name="parameters" element="tns:GetServicios_Adm_Publica_Principal" />
+  <wsdl:message name="GetExperienciaLaboral_PrincipalSoapIn">
+    <wsdl:part name="parameters" element="tns:GetExperienciaLaboral_Principal" />
   </wsdl:message>
-  <wsdl:message name="GetServicios_Adm_Publica_PrincipalSoapOut">
-    <wsdl:part name="parameters" element="tns:GetServicios_Adm_Publica_PrincipalResponse" />
+  <wsdl:message name="GetExperienciaLaboral_PrincipalSoapOut">
+    <wsdl:part name="parameters" element="tns:GetExperienciaLaboral_PrincipalResponse" />
   </wsdl:message>
   <wsdl:message name="GetConsultaRapidaSoapIn">
     <wsdl:part name="parameters" element="tns:GetConsultaRapida" />
@@ -11017,9 +11017,9 @@
       <wsdl:input message="tns:AsignaAreaAPersonasNoCertificadasSoapIn" />
       <wsdl:output message="tns:AsignaAreaAPersonasNoCertificadasSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="GetServicios_Adm_Publica_Principal">
-      <wsdl:input message="tns:GetServicios_Adm_Publica_PrincipalSoapIn" />
-      <wsdl:output message="tns:GetServicios_Adm_Publica_PrincipalSoapOut" />
+    <wsdl:operation name="GetExperienciaLaboral_Principal">
+      <wsdl:input message="tns:GetExperienciaLaboral_PrincipalSoapIn" />
+      <wsdl:output message="tns:GetExperienciaLaboral_PrincipalSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetConsultaRapida">
       <wsdl:input message="tns:GetConsultaRapidaSoapIn" />
@@ -12763,8 +12763,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetServicios_Adm_Publica_Principal">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetServicios_Adm_Publica_Principal" style="document" />
+    <wsdl:operation name="GetExperienciaLaboral_Principal">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetExperienciaLaboral_Principal" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -16474,8 +16474,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetServicios_Adm_Publica_Principal">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetServicios_Adm_Publica_Principal" style="document" />
+    <wsdl:operation name="GetExperienciaLaboral_Principal">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetExperienciaLaboral_Principal" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
