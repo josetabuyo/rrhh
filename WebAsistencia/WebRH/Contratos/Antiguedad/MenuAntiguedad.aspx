@@ -212,52 +212,88 @@
             </div>--%>
 
 
-                 <div id="cajaDatosExpLaboral" style="display:none;" class="">
-                     <h3 style="text-align: center;" id="tituloExpLaboral"></h3>
+                 <div id="cajaDatosExpLaboral" style="display:none;"  class="">
+                        <h3 style="text-align: center;" id="tituloExpLaboral"></h3>
                     <br />
                         <div class="">
-                            <p><em style="color:Red;">*</em> Campos Obligatorios</p>
-                            <label class="etiqueta_campo" style="margin-right: 28px;" for="txt_calle">Calle: <em style="color:Red;">*</em></label>
-                            <input type="text" value="" id="txt_calle" name="txt_calle" style="width: 250px; height: 30px;" />
-                            <label class="etiqueta_campo" style="margin: 0 10px;" for="txt_numero">N°: <em style="color:Red;">*</em></label>
-                            <input type="number" value="" id="txt_numero" name="txt_numero" style="width: 50px; height: 30px;" />
+                            <%--<label class="etiqueta_campo" style="margin-right: 28px;" for="cmbAmbitos">Ambito: <em style="color:Red;">*</em></label>--%>
+                            Ambito: 
+                            <select id="cmbAmbitos" style="width: 250px; margin-right: 30px;"></select>
+                        
+                            
+                            Folio: 
+                            <input type="text" id="txt_NroFolio" value="00" style="width: 30px;" maxlength="2"/>
+                            -
+                            <input type="text" id="txt_NroFolioDesde" value="000" style="width: 35px" maxlength="3" />
+                            -
+                            <input type="text" id="txt_NroFolioHasta" value="000" style="width: 35px; margin-right: 30px;" maxlength="3"  />
 
-                                <label class="etiqueta_campo" style="margin: 0 10px;" for="txt_piso">Piso: </label>
-                                <input type="text" value="" id="txt_piso" name="txt_piso" style="width: 30px; height: 30px;" />
+                            
+                            Remunerado: 
+                            SI <input type="radio" id="rdRemuneradoSI" value="1" name="Remunerado" style="margin-right: 15px" /> 
+                            NO (Ad Honorem) <input type="radio" id="rdRemuneradoNO" value="0" name="Remunerado";/>  
+                        </div>
 
-                                <label class="etiqueta_campo" style="margin: 0 10px;" for="txt_dto">Dpto: </label>
-                                <input type="text" value="" id="txt_dto" name="txt_dto" style="width: 30px; height: 30px;" />
+                        <div class="">
+                            Jurisdiccion:
+                            <input type="text" value="" id="txtJurisdiccion" style="width: 300px" />
+                        </div>
+                        <div class="">
+                            Caja de Previsión:
+                            <input type="text" value="" id="txtCaja" style="width: 300px;" />
+                        </div>
+                        <div class="">
+                            Nro de Afiliación:
+                            <input type="text" value="" id="txtNroAfiliacion" style="width: 300px" />
+                        </div>
 
-                                 <label class="etiqueta_campo_small" style="margin: 0 10px;" for="txt_cp">C.P.: <em style="color:Red;">*</em></label>
-                                <input type="text" value="" id="txt_cp" name="txt_cp" style="width: 50px; height: 30px;" />
-                            </div>
+                        <div class="">
+                            Tipo Documento:
+                            <br/>
+                            <input type="radio" id="rdTipoDocumentoCTR" value="1" name="TipoDocumento" /> Contrato        
+                            <br/>
+                            <input type="radio" id="rdTipoDocumentoCER" value="0" name="TipoDocumento" /> Cert. de Serv.  
+                            <br/>
+                            <input type="radio" id="rdTipoDocumentoOTR" value="2" name="TipoDocumento" /> Otros
+                        </div>
 
-                            <div class="">
-                                <label class="etiqueta_campo" style="margin-right: 13px;" for="txt_calle">Manzana:</label>
-                                <input type="text" value="" id="txt_manzana" name="txt_calle" style="width: 30px; height: 30px;" />
-                                <label class="etiqueta_campo" style="margin: 0 10px;" for="txt_numero">Barrio:</label>
-                                <input type="text" value="" id="txt_barrio" name="txt_numero" style="width: 30px; height: 30px;" />
 
-                                <label class="etiqueta_campo" style="margin: 0 10px;" for="txt_piso">Torre:</label>
-                                <input type="text" value="" id="txt_torre" name="txt_piso" style="width: 30px; height: 30px;" />
 
-                                <label class="etiqueta_campo" style="margin: 0 10px;" for="txt_dto">Uf:</label>
-                                <input type="text" value="" id="txt_uf" name="txt_dto" style="width: 30px; height: 30px;" />
 
-                                 <label class="etiqueta_campo_small" style="margin: 0 10px;" for="txt_cp">Casa:</label>
-                                <input type="text" value="" id="txt_casa" name="txt_cp" style="width: 30px; height: 30px;" />
-                            </div>
-
-                            <div class="">
-                                <label class="etiqueta_campo" for="cmb_provincia">Provincia: <em style="color:Red;">*</em></label>
-                                <select id="cmb_provincia" style="width: 200px;"></select>
-
-                                <label class="etiqueta_campo_small" for="cmb_localidad">Localidad: <em style="color:Red;">*</em></label>
-                                <select id="cmb_localidad" style="width: 250px;"></select>
-                            </div>
+                        <div style="border: thin solid #848484; width:100%;" >
+                            
+                            Organismo:
+                            <input type="text" id="txtOrganismo" value="" style="width: 350px; margin-right: 30px" />
+                            
+                            Cargo:
+                            <select runat="server" id="cmbCargo" name="Cargo" enableviewstate="false"></select>
+                            
                             <br />
+
+                            Fecha Desde:
+                            <input type="text" id="txtFechaDesde" style="width: 110px; margin-right: 30px" placeholder="dd/mm/aaaa" />
+                            
+                            Fecha Hasta:
+                            <input type="text" id="txtFechaHasta" style="width: 110px;" placeholder="dd/mm/aaaa" />
+                            
+                            <br />
+
+                            Domicilio:
+                            <input type="text" id="txtDomicilio" value="" style="width: 400px" />
+                            <br/>
+                            <input type="button" value="Agregar" class="btn btn-primary" id="btn_Agregar" />
+            
+
+                            <br />
+                            <div id="ContenedorGrillaServicios" runat="server" style="width: 95%" align="center">
+                                <div id="ContenedorServicios" runat="server" style="width: 95%"></div>
+                            </div>
+                        </div>
+
+
+                           
                             <div style="text-align:center;">
-                                <input  id="btnCambiarDomicilio" value="Solicitar Cambio" class="btn btn-primary" type="button" />
+                                <input  id="btnGuardarExpLaboral" value="Guardar" class="btn btn-primary" type="button" />
                             </div>
                             
                         </div>
