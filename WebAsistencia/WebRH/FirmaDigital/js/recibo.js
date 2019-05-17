@@ -338,17 +338,17 @@ var RECIBOS = (function (window, undefined) {
             //este contine Id_Recibo, legajo,Cuil,Nyap,Nro_Orden
 
             //var resp = JSON.parse(recibosResumen);
-           
+
             if (!recibosResumen.DioError) {
-                resp = JSON.parse(recibosResumen.Respuesta);
-                return resp;
+                respList = JSON.parse(recibosResumen.Respuesta);
+                //return resp;
             }
         })
         .onError(function (e) {
 
         });
     }
-
+    var respList;
     function getLiquidacionesAFirmar() {
         Backend.GetLiquidacionesAFirmar()
         .onSuccess(function (respLiquidaciones) {
@@ -373,11 +373,20 @@ var RECIBOS = (function (window, undefined) {
                 //select.add(option); //insertamos el elemento
 
                 /*para cada liquidacion obtengo la cantidad de recibos firmados y pendientes por firmar*/
-                /**VEEEEEERRRRRRR*/
-                lista_recibos_resumen = getIdRecibosSinFirmar2(resp[i].tipo_liquidacion, resp[i].anio, resp[i].mes);
+                /**VEEEEEERRRRRRR como retornar la variable desde la funcion en javascript, porque aca uso el resp
+                retornado por la funcion siguiente y llega como undefined??????*/
+                getIdRecibosSinFirmar2(resp[i].tipo_liquidacion, resp[i].anio, resp[i].mes);
 
-               // capa.innerHTML += '<div class="iconInfo">Liquidación <B>' + resp[i].id + '   ' + resp[i].anio + '   ' + resp[i].mes + '   ' + resp[i].tipo_liquidacion + '   ' + resp[i].descripcion + '   ' + Object.keys(lista_recibos_resumen).length + '</B>   </div></BR>';
+                if (Object.keys(respList).length != 0) {
+                    capa.innerHTML += '<div class="iconInfo">Liquidación <B>' + resp[i].id + '   ' + resp[i].anio + '   ' + resp[i].mes + '   ' + resp[i].tipo_liquidacion + '   ' + resp[i].descripcion + '   ' + Object.keys(respList).length + '</B>   </div></BR>';
 
+                }
+                else {
+                    capa.innerHTML += '<div class="iconInfo">Liquidación <B>' + resp[i].id + '   ' + resp[i].anio + '   ' + resp[i].mes + '   ' + resp[i].tipo_liquidacion + '   ' + resp[i].descripcion + '   ' + '</B>   </div></BR>';
+                }
+
+                //  capa.innerHTML += '<div class="iconInfo">Liquidación <B>' + resp[i].id + '   ' + resp[i].anio + '   ' + resp[i].mes + '   ' + resp[i].tipo_liquidacion + '   ' + resp[i].descripcion + '   ' + Object.keys(lista_recibos_resumen).length + '</B>   </div></BR>';
+                //capa.innerHTML += '<div class="iconInfo">Liquidación <B>' + resp[i].id + '   ' + resp[i].anio + '   ' + resp[i].mes + '   ' + resp[i].tipo_liquidacion + '   ' + resp[i].descripcion + '   ' + '</B>   </div></BR>';
             }
             liquidaciones = resp;
             /*usando jquery no me funciona, fix despues*/
