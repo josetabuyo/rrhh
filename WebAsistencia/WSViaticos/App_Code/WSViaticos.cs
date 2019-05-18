@@ -5569,6 +5569,28 @@ public class WSViaticos : System.Web.Services.WebService
         return respuesta;
     }
 
+    [WebMethod]
+    public StringRespuestaWS GetIdRecibosFirmados(int tipoLiquidacion, int anio, int mes, Usuario usuario)
+    {
+
+        //tira error porque puede ser null el tipo liquidacion y los demas, poner un '' o 0 y verificar aca
+        var respuesta = new StringRespuestaWS();
+        try
+        {
+
+            RepositorioLegajo repo = RepoLegajo();
+            string lista = repo.GetIdRecibosFirmados(tipoLiquidacion, anio, mes);
+            respuesta.Respuesta = lista;
+        }
+        catch (Exception e)
+        {
+            respuesta.MensajeDeErrorAmigable = "Se produjo un error al obtener la lista de ids recibos firmados";
+            respuesta.setException(e);
+
+        }
+        return respuesta;
+    }
+
     /////////////////VER
 
     //YA NO SE USA, la forma de visualizacion del recibo es UNICA.....!

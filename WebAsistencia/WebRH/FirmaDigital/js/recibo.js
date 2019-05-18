@@ -340,7 +340,7 @@ var RECIBOS = (function (window, undefined) {
             //var resp = JSON.parse(recibosResumen);
 
             if (!recibosResumen.DioError) {
-                respList = JSON.parse(recibosResumen.Respuesta);
+                respListSinFirmar = JSON.parse(recibosResumen.Respuesta);
                 //return resp;
             }
         })
@@ -348,7 +348,29 @@ var RECIBOS = (function (window, undefined) {
 
         });
     }
-    var respList;
+
+    function getIdRecibosFirmados2(tipoLiquidacion, anio, mes) {
+        Backend.GetIdRecibosFirmados(tipoLiquidacion, anio, mes)
+        .onSuccess(function (recibosResumen) {
+            /*recibosResumen es la respuesta*/
+
+            //este contine Id_Recibo, legajo,Cuil,Nyap,Nro_Orden
+
+            //var resp = JSON.parse(recibosResumen);
+
+            if (!recibosResumen.DioError) {
+                respListSinFirmar = JSON.parse(recibosResumen.Respuesta);
+                //return resp;
+            }
+        })
+        .onError(function (e) {
+
+        });
+    }
+
+    var respListSinFirmar;
+    var respListFirmados;
+
     function getLiquidacionesAFirmar() {
         Backend.GetLiquidacionesAFirmar()
         .onSuccess(function (respLiquidaciones) {
@@ -376,13 +398,14 @@ var RECIBOS = (function (window, undefined) {
                 /**VEEEEEERRRRRRR como retornar la variable desde la funcion en javascript, porque aca uso el resp
                 retornado por la funcion siguiente y llega como undefined??????*/
                 getIdRecibosSinFirmar2(resp[i].tipo_liquidacion, resp[i].anio, resp[i].mes);
+                getIdRecibosFirmados2(resp[i].tipo_liquidacion, resp[i].anio, resp[i].mes);
 
                 if (Object.keys(respList).length != 0) {
-                    capa.innerHTML += '<div class="iconInfo">Liquidación <B>' + resp[i].id + '   ' + resp[i].anio + '   ' + resp[i].mes + '   ' + resp[i].tipo_liquidacion + '   ' + resp[i].descripcion + '   ' + Object.keys(respList).length + '</B>   </div></BR>';
+                    capa.innerHTML += '<div class="iconInfo">Liquidación <B>' + resp[i].id + '   ' + resp[i].anio + '   ' + resp[i].mes + '   ' + resp[i].tipo_liquidacion + '   ' + resp[i].descripcion + '   ' + Object.keys(respListSinFirmar).length + '   ' + Object.keys(respListFirmados).length + '</B>   </div></BR>';
 
                 }
                 else {
-                    capa.innerHTML += '<div class="iconInfo">Liquidación <B>' + resp[i].id + '   ' + resp[i].anio + '   ' + resp[i].mes + '   ' + resp[i].tipo_liquidacion + '   ' + resp[i].descripcion + '   ' + '</B>   </div></BR>';
+                    capa.innerHTML += '<div class="iconInfo">Liquidación <B>' + resp[i].id + '   ' + resp[i].anio + '   ' + resp[i].mes + '   ' + resp[i].tipo_liquidacion + '   ' + resp[i].descripcion + '  0  ' + '  0  ' + '</B>   </div></BR>';
                 }
 
                 //  capa.innerHTML += '<div class="iconInfo">Liquidación <B>' + resp[i].id + '   ' + resp[i].anio + '   ' + resp[i].mes + '   ' + resp[i].tipo_liquidacion + '   ' + resp[i].descripcion + '   ' + Object.keys(lista_recibos_resumen).length + '</B>   </div></BR>';
