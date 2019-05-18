@@ -398,7 +398,7 @@ var RECIBOS = (function (window, undefined) {
                 /**VEEEEEERRRRRRR como retornar la variable desde la funcion en javascript, porque aca uso el resp
                 retornado por la funcion siguiente y llega como undefined??????*/
                 getIdRecibosSinFirmar2(resp[i].tipo_liquidacion, resp[i].anio, resp[i].mes);
-             //   getIdRecibosFirmados2(resp[i].tipo_liquidacion, resp[i].anio, resp[i].mes);
+                //   getIdRecibosFirmados2(resp[i].tipo_liquidacion, resp[i].anio, resp[i].mes);
 
                 /*if (Object.keys(respListFirmados).length ==) {
                 }*/
