@@ -359,7 +359,7 @@ var RECIBOS = (function (window, undefined) {
             //var resp = JSON.parse(recibosResumen);
 
             if (!recibosResumen.DioError) {
-                respListSinFirmar = JSON.parse(recibosResumen.Respuesta);
+                respListFirmados = JSON.parse(recibosResumen.Respuesta);
                 //return resp;
             }
         })
@@ -398,10 +398,13 @@ var RECIBOS = (function (window, undefined) {
                 /**VEEEEEERRRRRRR como retornar la variable desde la funcion en javascript, porque aca uso el resp
                 retornado por la funcion siguiente y llega como undefined??????*/
                 getIdRecibosSinFirmar2(resp[i].tipo_liquidacion, resp[i].anio, resp[i].mes);
-                getIdRecibosFirmados2(resp[i].tipo_liquidacion, resp[i].anio, resp[i].mes);
+             //   getIdRecibosFirmados2(resp[i].tipo_liquidacion, resp[i].anio, resp[i].mes);
 
-                if (Object.keys(respList).length != 0) {
-                    capa.innerHTML += '<div class="iconInfo">Liquidación <B>' + resp[i].id + '   ' + resp[i].anio + '   ' + resp[i].mes + '   ' + resp[i].tipo_liquidacion + '   ' + resp[i].descripcion + '   ' + Object.keys(respListSinFirmar).length + '   ' + Object.keys(respListFirmados).length + '</B>   </div></BR>';
+                /*if (Object.keys(respListFirmados).length ==) {
+                }*/
+
+                if (Object.keys(respListSinFirmar).length != 0) {
+                    capa.innerHTML += '<div class="iconInfo">Liquidación <B>' + resp[i].id + '   ' + resp[i].anio + '   ' + resp[i].mes + '   ' + resp[i].tipo_liquidacion + '   ' + resp[i].descripcion + '   ' + Object.keys(respListSinFirmar).length + '   ' + 0 + '</B>   </div></BR>';
 
                 }
                 else {

@@ -470,6 +470,23 @@
           <s:element minOccurs="1" maxOccurs="1" name="DioError" type="s:boolean" />
         </s:sequence>
       </s:complexType>
+      <s:element name="GetIdRecibosFirmados">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="tipoLiquidacion" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="anio" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="mes" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetIdRecibosFirmadosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetIdRecibosFirmadosResult" type="tns:StringRespuestaWS" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetReciboPDFEmpleador">
         <s:complexType>
           <s:sequence>
@@ -8411,6 +8428,12 @@
   <wsdl:message name="GetIdRecibosSinFirmarSoapOut">
     <wsdl:part name="parameters" element="tns:GetIdRecibosSinFirmarResponse" />
   </wsdl:message>
+  <wsdl:message name="GetIdRecibosFirmadosSoapIn">
+    <wsdl:part name="parameters" element="tns:GetIdRecibosFirmados" />
+  </wsdl:message>
+  <wsdl:message name="GetIdRecibosFirmadosSoapOut">
+    <wsdl:part name="parameters" element="tns:GetIdRecibosFirmadosResponse" />
+  </wsdl:message>
   <wsdl:message name="GetReciboPDFEmpleadorSoapIn">
     <wsdl:part name="parameters" element="tns:GetReciboPDFEmpleador" />
   </wsdl:message>
@@ -10854,6 +10877,10 @@
       <wsdl:input message="tns:GetIdRecibosSinFirmarSoapIn" />
       <wsdl:output message="tns:GetIdRecibosSinFirmarSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetIdRecibosFirmados">
+      <wsdl:input message="tns:GetIdRecibosFirmadosSoapIn" />
+      <wsdl:output message="tns:GetIdRecibosFirmadosSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetReciboPDFEmpleador">
       <wsdl:input message="tns:GetReciboPDFEmpleadorSoapIn" />
       <wsdl:output message="tns:GetReciboPDFEmpleadorSoapOut" />
@@ -12535,6 +12562,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetIdRecibosSinFirmar">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetIdRecibosSinFirmar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIdRecibosFirmados">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetIdRecibosFirmados" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -16228,6 +16264,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetIdRecibosSinFirmar">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetIdRecibosSinFirmar" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIdRecibosFirmados">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetIdRecibosFirmados" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
