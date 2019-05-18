@@ -940,16 +940,23 @@ public class AjaxWS : System.Web.Services.WebService
                 return Newtonsoft.Json.JsonConvert.SerializeObject("");
             }
         }
-
-        var respuesta = metodo.Invoke(backEndService, argumentos_a_enviar.ToArray());
-
-        if ((nombre_metodo == "ModificarMiMail") || (nombre_metodo == "ModificarMailRegistro"))
+        try
         {
-            this.usuarioLogueado = backEndService.GetUsuarioPorId(this.usuarioLogueado.Id);
-            Session[ConstantesDeSesion.USUARIO] = this.usuarioLogueado;
+            var respuesta = metodo.Invoke(backEndService, argumentos_a_enviar.ToArray());
+
+            if ((nombre_metodo == "ModificarMiMail") || (nombre_metodo == "ModificarMailRegistro"))
+            {
+                this.usuarioLogueado = backEndService.GetUsuarioPorId(this.usuarioLogueado.Id);
+                Session[ConstantesDeSesion.USUARIO] = this.usuarioLogueado;
+            }
+
+            return Newtonsoft.Json.JsonConvert.SerializeObject(respuesta);
+        }
+        catch (Exception e)
+        {
+            return Newtonsoft.Json.JsonConvert.SerializeObject(e);
         }
 
-        return Newtonsoft.Json.JsonConvert.SerializeObject(respuesta);
     }
 
     [WebMethod(EnableSession = true)]

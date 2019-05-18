@@ -69,10 +69,43 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public RespuestaAprobarEvaluacionDesempenio AprobarEvaluacionDesempenio(int id_evaluacion, int id_comite, Usuario usuario)
+    {
+        var respuesta = new RespuestaAprobarEvaluacionDesempenio();
+        try
+        {
+            var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+            var r = repo.InsertarAprobacionEvaluacion(id_evaluacion, id_comite, usuario.Owner.Id, DateTime.Now);
+            respuesta.Aprobacion = r;
+        }
+        catch (Exception e)
+        {
+            respuesta.MensajeDeErrorAmigable = "Se produjo un error al intentar aprobar la evaluacion de desempeno";
+            respuesta.setException(e);
+        }
+        respuesta.Accion = "AprobarEvaluacionDesempenio";
+        return respuesta;
+
+    }
+
+    [WebMethod]
     public RespuestaGetAgentesEvaluablesPor GetAgentesEvaluablesParaVerificarGDE(Usuario usuario)
     {
         var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
         return repo.GetAgentesEvaluablesParaVerificarGDE(usuario);
+    }
+    [WebMethod]
+    public RespuestaGetAgentesEvaluablesParaComites GetAgentesEvaluablesParaComites(Usuario usuario)
+    {
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        return repo.GetAgentesEvaluablesParaComites(usuario);
+    }
+
+    [WebMethod]
+    public RespuestaGetAgentesEvaluablesPor GetAsignacionEvaluacionCompleta(int id_evaluacion, Usuario usuario)
+    {
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        return repo.GetAsignacionEvaluacionCompleta(id_evaluacion, usuario);
     }
 
     [WebMethod]
@@ -100,8 +133,7 @@ public class WSViaticos : System.Web.Services.WebService
         }
         catch (Exception e)
         {
-            
-            respuesta.MensajeDeErrorAmigable = "Se produjo un error al intentar agregar el responsable";
+            respuesta.MensajeDeErrorAmigable = "Se produjo un error al intentar agregar el integrante";
             respuesta.setException(e);
         }
         return respuesta;
@@ -180,6 +212,7 @@ public class WSViaticos : System.Web.Services.WebService
         return repo.AgregarComite(descripcion, DateTime.Parse(fecha), hora, lugar, periodo);
     }
 
+
     [WebMethod]
     public ComiteEvaluacionDesempenio UpdateComiteEvaluacionDesempenio(int id_comite, string descripcion, string fecha, string hora, string lugar, int id_periodo)
     {
@@ -192,8 +225,17 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public List<UnidadDeEvaluacion> GetEstadosEvaluaciones()
     {
+        var excluirPeriodosDeBaja = false;
         var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
-        return repo.GetEstadosEvaluaciones();
+        return repo.GetEstadosEvaluaciones(excluirPeriodosDeBaja);
+    }
+
+    [WebMethod]
+    public List<UnidadDeEvaluacion> GetEstadosEvaluacionesPeriodosActivos()
+    {
+        var excluirPeriodosDeBaja = true;
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        return repo.GetEstadosEvaluaciones(excluirPeriodosDeBaja);
     }
 
     [WebMethod]
@@ -3335,6 +3377,12 @@ public class WSViaticos : System.Web.Services.WebService
         return repositorio.GetSolicitudDeCredencialPorIdTicketEntrega(id_ticket);
     }
 
+    [WebMethod]
+    public bool CambiarOrganismoEnSolicitudCredencial(SolicitudCredencial solicitud, int id_organismo_nuevo,  Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+        return repositorio.CambiarOrganismoEnSolicitudCredencial(solicitud, id_organismo_nuevo, usuario);
+    }
 
     [WebMethod]
     public bool AprobarSolicitudCredencial(SolicitudCredencial solicitud, Usuario usuario)
@@ -5536,6 +5584,16 @@ public class WSViaticos : System.Web.Services.WebService
         repo.EvalGuardarCodigoGDE(id, codigo_gde);
         repo.VerificarCodigoGDE(id, usuario);
         return codigo_gde;
+    }
+
+    [WebMethod]
+    public string PrintPdfEvaluacionDesempenioConFetch(AsignacionEvaluadoAEvaluador asignacion, Usuario usuario)
+    {
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        var asigs = repo.GetAgentesEvaluablesParaImprimir(usuario).asignaciones;
+        var fetch_asignacion = asigs.Find(a => a.id_evaluacion == asignacion.id_evaluacion);
+        
+        return PrintPdfEvaluacionDesempenio(fetch_asignacion, usuario);
     }
 
     [WebMethod]
