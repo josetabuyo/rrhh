@@ -699,6 +699,37 @@
           <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
         </s:sequence>
       </s:complexType>
+      <s:element name="GetAmbitos">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetAmbitosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAmbitosResult" type="tns:ArrayOfGeneralCombos" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfGeneralCombos">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="GeneralCombos" nillable="true" type="tns:GeneralCombos" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="GeneralCombos">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="descripcion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetCargos">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetCargosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCargosResult" type="tns:ArrayOfGeneralCombos" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetConsultaRapida">
         <s:complexType>
           <s:sequence>
@@ -8588,6 +8619,18 @@
   <wsdl:message name="GetExperienciaLaboral_PrincipalSoapOut">
     <wsdl:part name="parameters" element="tns:GetExperienciaLaboral_PrincipalResponse" />
   </wsdl:message>
+  <wsdl:message name="GetAmbitosSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAmbitos" />
+  </wsdl:message>
+  <wsdl:message name="GetAmbitosSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAmbitosResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCargosSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCargos" />
+  </wsdl:message>
+  <wsdl:message name="GetCargosSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCargosResponse" />
+  </wsdl:message>
   <wsdl:message name="GetConsultaRapidaSoapIn">
     <wsdl:part name="parameters" element="tns:GetConsultaRapida" />
   </wsdl:message>
@@ -11021,6 +11064,14 @@
       <wsdl:input message="tns:GetExperienciaLaboral_PrincipalSoapIn" />
       <wsdl:output message="tns:GetExperienciaLaboral_PrincipalSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetAmbitos">
+      <wsdl:input message="tns:GetAmbitosSoapIn" />
+      <wsdl:output message="tns:GetAmbitosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCargos">
+      <wsdl:input message="tns:GetCargosSoapIn" />
+      <wsdl:output message="tns:GetCargosSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetConsultaRapida">
       <wsdl:input message="tns:GetConsultaRapidaSoapIn" />
       <wsdl:output message="tns:GetConsultaRapidaSoapOut" />
@@ -12765,6 +12816,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetExperienciaLaboral_Principal">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetExperienciaLaboral_Principal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAmbitos">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetAmbitos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCargos">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetCargos" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -16476,6 +16545,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetExperienciaLaboral_Principal">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetExperienciaLaboral_Principal" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAmbitos">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetAmbitos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCargos">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetCargos" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

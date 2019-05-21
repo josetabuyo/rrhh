@@ -6,10 +6,12 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 
+
 namespace General.Repositorios
 {
     public class RepositorioServicios
     {
+
         public List<Serv_Adm_Publica_Privada> GetExperienciaLaboral_Principal(int documento, Usuario usuario)
         {
             SqlDataReader dr;
@@ -38,17 +40,67 @@ namespace General.Repositorios
                 {
                     listaExperienciaLaboral.Add(Servicio);
                 }
-
-
+                
                 
             }
 
+            
             cn.Desconestar();
 
             return listaExperienciaLaboral;
         }
 
-        
+
+
+
+        public List<GeneralCombos> GetAmbitos()
+        {
+            SqlDataReader dr;
+            ConexionDB cn = new ConexionDB("dbo.TG_Tabla_Ambitos_Antiguedad");
+
+            dr = cn.EjecutarConsulta();
+
+            GeneralCombos ambitos;
+            List<GeneralCombos> listaAmbitos = new List<GeneralCombos>();
+
+            while (dr.Read())
+            {
+                ambitos = new GeneralCombos();
+                ambitos.id = dr.GetInt16(dr.GetOrdinal("Id"));
+                ambitos.descripcion = dr.GetString(dr.GetOrdinal("Descripcion"));
+
+                listaAmbitos.Add(ambitos);
+            }
+
+            cn.Desconestar();
+            return listaAmbitos;
+        }
+
+
+        public List<GeneralCombos> GetCargos()
+        {
+            SqlDataReader dr;
+            ConexionDB cn = new ConexionDB("dbo.TG_Tabla_Funciones_Cargos");
+
+            dr = cn.EjecutarConsulta();
+
+            GeneralCombos cargo;
+            List<GeneralCombos> listaCargos = new List<GeneralCombos>();
+
+            while (dr.Read())
+            {
+                cargo = new GeneralCombos();
+                cargo.id = dr.GetInt16(dr.GetOrdinal("Id"));
+                cargo.descripcion = dr.GetString(dr.GetOrdinal("Descripcion"));
+
+                listaCargos.Add(cargo);
+            }
+
+            cn.Desconestar();
+            return listaCargos;
+        }
+
+
 
     }
 }

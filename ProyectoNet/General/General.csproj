@@ -117,6 +117,7 @@
     <Compile Include="DatosAbiertos\ConsultaOPD.cs" />
     <Compile Include="DatosAbiertos\ParametroConsultaOPD.cs" />
     <Compile Include="DatosAbiertos\RepositorioDeDatosAbiertos.cs" />
+    <Compile Include="GeneralCombos.cs" />
     <Compile Include="MAU\AlertaPortal.cs" />
     <Compile Include="MAU\ResumenTipoTicket.cs" />
     <Compile Include="MAU\TipoTicket.cs" />

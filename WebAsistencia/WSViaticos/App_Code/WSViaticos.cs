@@ -5808,8 +5808,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
 
-
-    //---- SERVICIO DE ADM. PUBLICA PRIVADA
+   
     [WebMethod]
     public Serv_Adm_Publica_Privada[] GetExperienciaLaboral_Principal(int nroDocumento, Usuario usuario)
     {
@@ -5817,6 +5816,40 @@ public class WSViaticos : System.Web.Services.WebService
         return RepositorioServAdm.GetExperienciaLaboral_Principal(nroDocumento, usuario).ToArray();
     }
 
-    //---- SERVICIO DE ADM. PUBLICA PRIVADA
+
+    [WebMethod]
+    public GeneralCombos[] GetAmbitos()
+    {
+        var RepositorioServAdm = new RepositorioServicios();
+
+        var Lista = RepositorioServAdm.GetAmbitos();
+
+        List<GeneralCombos> ambitos = new List<GeneralCombos>();
+
+        foreach (var item in Lista)
+        {
+            ambitos.Add(new GeneralCombos() { id = item.id, descripcion = item.descripcion });
+        }
+
+        return ambitos.ToArray();
+    }
+
+
+    [WebMethod]
+    public GeneralCombos[] GetCargos()
+    {
+        var RepositorioServAdm = new RepositorioServicios();
+
+        var Lista = RepositorioServAdm.GetCargos();
+
+        List<GeneralCombos> cargo = new List<GeneralCombos>();
+
+        foreach (var item in Lista)
+        {
+            cargo.Add(new GeneralCombos() { id = item.id, descripcion = item.descripcion });
+        }
+
+        return cargo.ToArray();
+    }
 
 }

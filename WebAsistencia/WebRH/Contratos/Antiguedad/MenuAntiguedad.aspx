@@ -124,6 +124,9 @@
                 bottom: 10px;
                 left: 48px;
             }
+            .auto-style1 {
+                width: 153px;
+            }
         </style>
     </head>
 <body>
@@ -213,90 +216,108 @@
 
 
                  <div id="cajaDatosExpLaboral" style="display:none;"  class="">
-                        <h3 style="text-align: center;" id="tituloExpLaboral"></h3>
+                    <h3 style="text-align: center;" id="tituloExpLaboral"></h3>
                     <br />
-                        <div class="">
-                            <%--<label class="etiqueta_campo" style="margin-right: 28px;" for="cmbAmbitos">Ambito: <em style="color:Red;">*</em></label>--%>
-                            Ambito: 
-                            <select id="cmbAmbitos" style="width: 250px; margin-right: 30px;"></select>
                         
+                    <table>
+                        <tr>
+                            <div class="">
+                                <%--<label class="etiqueta_campo" style="margin-right: 28px;" for="cmbAmbitos">Ambito: <em style="color:Red;">*</em></label>--%>
+                                    <td>
+                                        Ambito: 
+                                        <select id="cmbAmbitos" style="width: 250px; margin-right: 30px;"></select>
                             
-                            Folio: 
-                            <input type="text" id="txt_NroFolio" value="00" style="width: 30px;" maxlength="2"/>
-                            -
-                            <input type="text" id="txt_NroFolioDesde" value="000" style="width: 35px" maxlength="3" />
-                            -
-                            <input type="text" id="txt_NroFolioHasta" value="000" style="width: 35px; margin-right: 30px;" maxlength="3"  />
+                                        Folio: 
+                                        <input type="text" id="txt_NroFolio" value="00" style="width: 30px;" maxlength="2"/>
+                                        -
+                                        <input type="text" id="txt_NroFolioDesde" value="000" style="width: 35px" maxlength="3" />
+                                        -
+                                        <input type="text" id="txt_NroFolioHasta" value="000" style="width: 35px; margin-right: 30px;" maxlength="3"  />
+                                    </td>
+                                    <td >
+                                        Remunerado: 
+                                        <br />
+                                        <input type="radio" id="rdRemuneradoSI" value="1" name="Remunerado"/>  SI 
+                                        <br />
+                                        <input type="radio" id="rdRemuneradoNO" value="0" name="Remunerado"/>  NO (Ad Honorem) 
+                                    </td>   
+                            </div>
+                        </tr>
+                        <tr>  
+                            <td>
+                                <div class="">
+                                    Jurisdiccion:
+                                    <input type="text" value="" id="txtJurisdiccion" style="width: 400px" />
+                                </div>
+                                <div class="">
+                                    Caja de Previsión:
+                                    <input type="text" value="" id="txtCaja" style="width: 400px;" />
+                                </div>
+                                <div class="">
+                                    Nro de Afiliación:
+                                    <input type="text" value="" id="txtNroAfiliacion" style="width: 400px;" />
+                                </div>
+                            </td>
+                            <td>
+                                <div class="">
+                                    Tipo Documento:
+                                    <br/>
+                                    <input type="radio" id="rdTipoDocumentoCTR" value="1" name="TipoDocumento" /> Contrato        
+                                    <br/>
+                                    <input type="radio" id="rdTipoDocumentoCER" value="0" name="TipoDocumento" /> Cert. de Serv.  
+                                    <br/>
+                                    <input type="radio" id="rdTipoDocumentoOTR" value="2" name="TipoDocumento" /> Otros
+                                </div>
+                            </td>
+                        </tr>  
+                    </table>
 
+
+                    <div style="border: thin solid #848484; width:100%;" >
                             
-                            Remunerado: 
-                            SI <input type="radio" id="rdRemuneradoSI" value="1" name="Remunerado" style="margin-right: 15px" /> 
-                            NO (Ad Honorem) <input type="radio" id="rdRemuneradoNO" value="0" name="Remunerado";/>  
-                        </div>
-
-                        <div class="">
-                            Jurisdiccion:
-                            <input type="text" value="" id="txtJurisdiccion" style="width: 300px" />
-                        </div>
-                        <div class="">
-                            Caja de Previsión:
-                            <input type="text" value="" id="txtCaja" style="width: 300px;" />
-                        </div>
-                        <div class="">
-                            Nro de Afiliación:
-                            <input type="text" value="" id="txtNroAfiliacion" style="width: 300px" />
-                        </div>
-
-                        <div class="">
-                            Tipo Documento:
-                            <br/>
-                            <input type="radio" id="rdTipoDocumentoCTR" value="1" name="TipoDocumento" /> Contrato        
-                            <br/>
-                            <input type="radio" id="rdTipoDocumentoCER" value="0" name="TipoDocumento" /> Cert. de Serv.  
-                            <br/>
-                            <input type="radio" id="rdTipoDocumentoOTR" value="2" name="TipoDocumento" /> Otros
-                        </div>
-
-
-
-
-                        <div style="border: thin solid #848484; width:100%;" >
+                        Organismo:
+                        <input type="text" id="txtOrganismo" value="" style="width: 350px; margin-right: 30px" />
                             
-                            Organismo:
-                            <input type="text" id="txtOrganismo" value="" style="width: 350px; margin-right: 30px" />
+                        Cargo:
+                        <select runat="server" id="cmbCargo" name="Cargo" enableviewstate="false"></select>
                             
-                            Cargo:
-                            <select runat="server" id="cmbCargo" name="Cargo" enableviewstate="false"></select>
-                            
-                            <br />
+                        <br />
 
-                            Fecha Desde:
-                            <input type="text" id="txtFechaDesde" style="width: 110px; margin-right: 30px" placeholder="dd/mm/aaaa" />
+                        Fecha Desde:
+                        <input type="text" id="txtFechaDesde" style="width: 110px; margin-right: 30px" placeholder="dd/mm/aaaa" />
                             
-                            Fecha Hasta:
-                            <input type="text" id="txtFechaHasta" style="width: 110px;" placeholder="dd/mm/aaaa" />
+                        Fecha Hasta:
+                        <input type="text" id="txtFechaHasta" style="width: 110px;" placeholder="dd/mm/aaaa" />
                             
-                            <br />
+                        <br />
 
-                            Domicilio:
-                            <input type="text" id="txtDomicilio" value="" style="width: 400px" />
-                            <br/>
-                            <input type="button" value="Agregar" class="btn btn-primary" id="btn_Agregar" />
+                        Domicilio:
+                        <input type="text" id="txtDomicilio" value="" style="width: 500px" />
+                        
+                        <div style="text-align:right"><input type="button" value="Agregar" class="btn btn-primary" id="btn_Agregar" /></div>
             
 
-                            <br />
-                            <div id="ContenedorGrillaServicios" runat="server" style="width: 95%" align="center">
-                                <div id="ContenedorServicios" runat="server" style="width: 95%"></div>
-                            </div>
+                        <br />
+                        <div id="ContenedorGrillaServicios" runat="server" style="width: 95%" align="center">
+                            <div id="ContenedorServicios" runat="server" style="width: 95%"></div>
                         </div>
+                    </div>
+                     <br />
+                    <div>
+                        Causa de Egreso: 
+                        <input type="text" id="txtCausaEgreso" value="" style="width: 400px" />
+                    </div>
+
+                    <input type="checkbox" id="DarDeBaja" name="DarDeBaja"  /> Dar de Baja
 
 
-                           
-                            <div style="text-align:center;">
-                                <input  id="btnGuardarExpLaboral" value="Guardar" class="btn btn-primary" type="button" />
-                            </div>
+                    <div style="text-align:center;">
+                        <input  id="btnGuardarExpLaboral" value="Guardar" class="btn btn-primary" type="button" />
+                    </div>
+                    
                             
-                        </div>
+                </div>
+
 
                 <legend style="margin-top: 20px;">Historial de Experiencia Laboral</legend>
                     <div id="tabla_Exp_Laboral">

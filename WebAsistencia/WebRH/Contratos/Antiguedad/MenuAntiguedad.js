@@ -5,19 +5,99 @@ Backend.start(function () {
         alert(sessionStorage.getItem("nombre") + " " + (sessionStorage.getItem("apellido")) + "|" + (sessionStorage.getItem("documento")) + "|" + (sessionStorage.getItem("legajo")) );        
 
         CargarGrillaServicios();
+
+
+        $("#txt_NroFolio").focusout(function () {
+            $("#txt_NroFolio").val(pad($("#txt_NroFolio").val(), 2));
+        });
+
+        $("#txt_NroFolioDesde").focusout(function () {
+            $("#txt_NroFolioDesde").val(pad($("#txt_NroFolioDesde").val(), 3));
+        });
+
+        $("#txt_NroFolioHasta").focusout(function () {
+            $("#txt_NroFolioHasta").val(pad($("#txt_NroFolioHasta").val(), 3));
+        });
+
+       completarComboAmbitos();
+       completarComboCargo();
+
     });
 });
+
+
+////--- CARGAR COMBOS -----------------------------------------------------------------------------
+var completarComboAmbitos = function () {
+    var ambitos = $('#cmbAmbitos');
+    ambitos.html("");
+    Backend.GetAmbitos()
+        .onSuccess(function (respuesta) {
+            for (var i = 0; i < respuesta.length; i++) {
+                //item = new Option(respuesta[i].id + ' - ' + respuesta[i].descripcion, respuesta[i].id + '-' + respuesta[i].descripcion);
+                item = new Option(respuesta[i].descripcion, respuesta[i].id);
+                $(item).html(respuesta[i].descripcion);
+                ambitos.append(item);
+            }
+            ambitos.change(function () {
+                ambitoIdSeleccionado = parseInt($("#cmbAmbitos").val().split("-")[0]);
+                ambitoDescripSeleccionado = parseInt($("#cmbAmbitos").val().split("-")[1]);
+
+                //alert(ambitoIdSeleccionado);
+                //alert(ambitoDescripSeleccionado);
+
+            });
+
+            ambitos.change();
+            ambitos.show();
+        })
+        .onError(function (error, as, asd) {
+            alertify.alert("", error);
+        });
+}
+
+var completarComboCargo = function () {
+    var cargo = $('#cmbCargo');
+    cargo.html("");
+    Backend.GetCargos()
+        .onSuccess(function (respuesta) {
+            for (var i = 0; i < respuesta.length; i++) {
+                //item = new Option(respuesta[i].id + ' - ' + respuesta[i].descripcion, respuesta[i].id + '-' + respuesta[i].descripcion);
+                item = new Option(respuesta[i].descripcion, respuesta[i].id);
+                $(item).html(respuesta[i].descripcion);
+                cargo.append(item);
+            }
+            cargo.change(function () {
+                cargoIdSeleccionado = parseInt($("#cmbCargo").val().split("-")[0]);
+                cargoDescripSeleccionado = parseInt($("#cmbCargo").val().split("-")[1]);
+
+                //alert(cargoIdSeleccionado);
+                //alert(cargoDescripSeleccionado);
+
+            });
+
+            cargo.change();
+            cargo.show();
+        })
+        .onError(function (error, as, asd) {
+            alertify.alert("", error);
+        });
+}
+////--- CARGAR COMBOS -----------------------------------------------------------------------------
+
+
 
 $("#btn_Estado").click(function () {
     $('#cajaDatosExpLaboral').show();
     $('#tituloExpLaboral').html("Servicio de Administración Pública");
-    
-
 });
 $("#btn_Privado").click(function () {
     $('#cajaDatosExpLaboral').show();
     $('#tituloExpLaboral').html("Servicio de Administración Privada");
 });
+$("#btnGuardarExpLaboral").click(function () {
+    $('#cajaDatosExpLaboral').hide();
+});
+
 
 
     var CargarGrillaServicios = function () {
