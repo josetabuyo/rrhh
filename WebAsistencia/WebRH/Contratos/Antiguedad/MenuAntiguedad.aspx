@@ -17,6 +17,13 @@
         <link rel="stylesheet" href="../../Formularios/EstilosFormularios.css" type="text/css"  />
         <link rel="stylesheet" href="../../estilos/estilos.css" type="text/css" />
        
+        
+        <%--<link id="link1" rel="stylesheet" href="~/Scripts/bootstrap/css/bootstrap.css" type="text/css" runat="server" />
+        <link id="link2" rel="stylesheet" href="~/Scripts/bootstrap/css/bootstrap-responsive.css" type="text/css" runat="server" />
+        <link id="link3" rel="stylesheet" href="~/Scripts/bootstrap/css/bootstrap.min.css" type="text/css" runat="server" />
+        <link id="link4" rel="stylesheet" href="~/Scripts/bootstrap/css/bootstrap-responsive.min.css" type="text/css" runat="server" />--%>
+        
+
         <style>
             #btn_realizar_solicitud
             {
@@ -215,6 +222,17 @@
             </div>--%>
 
 
+                    <%--<div class="row">
+                         <div class="form-group col-sm-6 col-sm-4 col-md-2">
+                                <label for="tar">tarjeta:</label>
+                                <input class="form-control" name="tar" type="text" id="tar" value="00" style="width: 30px;" maxlength="2"/>
+                         </div>
+                         <div class="form-group col-sm-6 col-sm-4 col-md-2">
+                                <label for="tar1">tarjeta1:</label>
+                                <input class="form-control" name="tar1" type="text" id="tar1" value="00" style="width: 30px;" maxlength="2"/>
+                         </div>       
+                     </div>--%>
+
                  <div id="cajaDatosExpLaboral" style="display:none;"  class="">
                     <h3 style="text-align: center;" id="tituloExpLaboral"></h3>
                     <br />
@@ -224,18 +242,19 @@
                             <div class="">
                                 <%--<label class="etiqueta_campo" style="margin-right: 28px;" for="cmbAmbitos">Ambito: <em style="color:Red;">*</em></label>--%>
                                     <td>
-                                        Ambito: 
-                                        <select id="cmbAmbitos" style="width: 250px; margin-right: 30px;"></select>
+                                         
+                                        <label>Ambito:</label>
+                                        <select id="cmbAmbitos" style="width: 200px; margin-right: 30px;"></select>
                             
-                                        Folio: 
-                                        <input type="text" id="txt_NroFolio" value="00" style="width: 30px;" maxlength="2"/>
+                                        <label>Folio:</label>
+                                        <input type="text" id="txtNroFolio" value="00" style="width: 30px;" maxlength="2"/>
                                         -
-                                        <input type="text" id="txt_NroFolioDesde" value="000" style="width: 35px" maxlength="3" />
+                                        <input type="text" id="txtNroFolioDesde" value="000" style="width: 35px" maxlength="3" />
                                         -
-                                        <input type="text" id="txt_NroFolioHasta" value="000" style="width: 35px; margin-right: 30px;" maxlength="3"  />
+                                        <input type="text" id="txtNroFolioHasta" value="000" style="width: 35px; margin-right: 30px;" maxlength="3"  />
                                     </td>
                                     <td >
-                                        Remunerado: 
+                                        <label>Remunerado:</label>
                                         <br />
                                         <input type="radio" id="rdRemuneradoSI" value="1" name="Remunerado"/>  SI 
                                         <br />
@@ -246,27 +265,30 @@
                         <tr>  
                             <td>
                                 <div class="">
-                                    Jurisdiccion:
+                                    <label>Jurisdiccion:</label>
                                     <input type="text" value="" id="txtJurisdiccion" style="width: 400px" />
                                 </div>
                                 <div class="">
-                                    Caja de Previsión:
+                                    <label>Caja de Previsión:</label>
                                     <input type="text" value="" id="txtCaja" style="width: 400px;" />
                                 </div>
                                 <div class="">
-                                    Nro de Afiliación:
+                                    <label>Nro de Afiliación:</label>
                                     <input type="text" value="" id="txtNroAfiliacion" style="width: 400px;" />
                                 </div>
                             </td>
                             <td>
                                 <div class="">
-                                    Tipo Documento:
+                                    <label>Tipo Documento:</label>
                                     <br/>
-                                    <input type="radio" id="rdTipoDocumentoCTR" value="1" name="TipoDocumento" /> Contrato        
+                                    <input type="radio" id="rdTipoDocumentoCTR" value="1" name="TipoDocumento" />  
+                                    <label>Contrato</label>
                                     <br/>
-                                    <input type="radio" id="rdTipoDocumentoCER" value="0" name="TipoDocumento" /> Cert. de Serv.  
+                                    <input type="radio" id="rdTipoDocumentoCER" value="0" name="TipoDocumento" />   
+                                    <label>Cert. de Serv.</label>
                                     <br/>
-                                    <input type="radio" id="rdTipoDocumentoOTR" value="2" name="TipoDocumento" /> Otros
+                                    <input type="radio" id="rdTipoDocumentoOTR" value="2" name="TipoDocumento" /> 
+                                    <label>Otros</label>
                                 </div>
                             </td>
                         </tr>  
@@ -274,24 +296,24 @@
 
 
                     <div style="border: thin solid #848484; width:100%;" >
-                            
-                        Organismo:
+                        
+                        <label>Organismo:</label>
                         <input type="text" id="txtOrganismo" value="" style="width: 350px; margin-right: 30px" />
                             
-                        Cargo:
+                        <label>Cargo:</label>
                         <select runat="server" id="cmbCargo" name="Cargo" enableviewstate="false"></select>
                             
                         <br />
 
-                        Fecha Desde:
+                        <label>Fecha Desde:</label>
                         <input type="text" id="txtFechaDesde" style="width: 110px; margin-right: 30px" placeholder="dd/mm/aaaa" />
-                            
-                        Fecha Hasta:
+                        
+                        <label>Fecha Hasta:</label>
                         <input type="text" id="txtFechaHasta" style="width: 110px;" placeholder="dd/mm/aaaa" />
                             
                         <br />
 
-                        Domicilio:
+                        <label>Domicilio:</label>
                         <input type="text" id="txtDomicilio" value="" style="width: 500px" />
                         
                         <div style="text-align:right"><input type="button" value="Agregar" class="btn btn-primary" id="btn_Agregar" /></div>
@@ -304,18 +326,18 @@
                     </div>
                      <br />
                     <div>
-                        Causa de Egreso: 
+                        <label>Causa de Egreso:</label>
                         <input type="text" id="txtCausaEgreso" value="" style="width: 400px" />
                     </div>
 
-                    <input type="checkbox" id="DarDeBaja" name="DarDeBaja"  /> Dar de Baja
+                    <input type="checkbox" id="DarDeBaja" name="DarDeBaja"  /> 
+                     <label>Dar de Baja</label>
 
 
                     <div style="text-align:center;">
                         <input  id="btnGuardarExpLaboral" value="Guardar" class="btn btn-primary" type="button" />
                     </div>
                     
-                            
                 </div>
 
 
@@ -351,6 +373,28 @@
 <script type="text/javascript" src="../../Scripts/ControlesImagenes/VistaThumbnail.js"></script>
 <script type="text/javascript" src="../../scripts/vex-2.1.1/js/vex.combined.min.js"></script>
 <script type="text/javascript" src="MenuAntiguedad.js"></script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(window).keydown(function (event) {
+            if (event.keyCode == 13) {
+                event.preventDefault();
+                return false;
+            }
+        });
+
+
+        var cfg_panel_alta = {
+            inputFechaDesde: $('#txtFechaDesde'),
+            inputFechaHasta: $('#txtFechaHasta'),
+        }
+        var panel_alta = new PanelFechas(cfg_panel_alta);
+
+
+    });
+</script>
+
 
 <%--<script type="text/javascript" >
     $("#btn_credencial_vigente").hide();
