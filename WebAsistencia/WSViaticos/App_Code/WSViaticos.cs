@@ -5549,12 +5549,23 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public StringRespuestaWS GetIdRecibosSinFirmar(int tipoLiquidacion, int anio, int mes, Usuario usuario)
+    public string GetIdRecibosSinFirmar(int tipoLiquidacion, int anio, int mes, Usuario usuario)
+    {
+                
+
+        RepositorioLegajo repo = RepoLegajo();
+        
+        return repo.GetIdRecibosSinFirmar(tipoLiquidacion, anio, mes);
+    }
+
+    [WebMethod] /*no me funciono cuando lo probe*/
+    public StringRespuestaWS GetIdRecibosSinFirmarAnterior(int tipoLiquidacion, int anio, int mes, Usuario usuario)
     {
 
         //tira error porque puede ser null el tipo liquidacion y los demas, poner un '' o 0 y verificar aca
         var respuesta = new StringRespuestaWS();
-        try {
+        try
+        {
 
             RepositorioLegajo repo = RepoLegajo();
             string lista = repo.GetIdRecibosSinFirmar(tipoLiquidacion, anio, mes);

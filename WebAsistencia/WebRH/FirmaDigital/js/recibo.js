@@ -330,6 +330,9 @@ var RECIBOS = (function (window, undefined) {
         });
     }
 
+    var respListSinFirmar;
+    var respListFirmados;
+
     function getIdRecibosSinFirmar2(tipoLiquidacion, anio, mes) {
         Backend.GetIdRecibosSinFirmar(tipoLiquidacion, anio, mes)
         .onSuccess(function (recibosResumen) {
@@ -341,14 +344,20 @@ var RECIBOS = (function (window, undefined) {
 
             if (!recibosResumen.DioError) {
                 respListSinFirmar = JSON.parse(recibosResumen.Respuesta);
-                //return resp;
+                if (Object.keys(respListSinFirmar).length != 0) {
+                    capa.innerHTML += '<div class="iconInfo">Liquidación <B>' + resp[i].id + '   ' + resp[i].anio + '   ' + resp[i].mes + '   ' + resp[i].tipo_liquidacion + '   ' + resp[i].descripcion + '   ' + Object.keys(respListSinFirmar).length + '   ' + 0 + '</B>   </div></BR>';
+
+                }
+                else {
+                    capa.innerHTML += '<div class="iconInfo">Liquidación <B>' + resp[i].id + '   ' + resp[i].anio + '   ' + resp[i].mes + '   ' + resp[i].tipo_liquidacion + '   ' + resp[i].descripcion + '  0  ' + '  0  ' + '</B>   </div></BR>';
+                }
             }
         })
         .onError(function (e) {
 
         });
     }
-
+    /*no la uso*/
     function getIdRecibosFirmados2(tipoLiquidacion, anio, mes) {
         Backend.GetIdRecibosFirmados(tipoLiquidacion, anio, mes)
         .onSuccess(function (recibosResumen) {
@@ -360,7 +369,7 @@ var RECIBOS = (function (window, undefined) {
 
             if (!recibosResumen.DioError) {
                 respListFirmados = JSON.parse(recibosResumen.Respuesta);
-                //return resp;
+                
             }
         })
         .onError(function (e) {
@@ -368,8 +377,7 @@ var RECIBOS = (function (window, undefined) {
         });
     }
 
-    var respListSinFirmar;
-    var respListFirmados;
+    
 
     function getLiquidacionesAFirmar() {
         Backend.GetLiquidacionesAFirmar()
@@ -397,33 +405,34 @@ var RECIBOS = (function (window, undefined) {
                 /*para cada liquidacion obtengo la cantidad de recibos firmados y pendientes por firmar*/
                 /**VEEEEEERRRRRRR como retornar la variable desde la funcion en javascript, porque aca uso el resp
                 retornado por la funcion siguiente y llega como undefined??????*/
-                getIdRecibosSinFirmar2(resp[i].tipo_liquidacion, resp[i].anio, resp[i].mes);
+ //               getIdRecibosSinFirmar2(resp[i].tipo_liquidacion, resp[i].anio, resp[i].mes);
                 //   getIdRecibosFirmados2(resp[i].tipo_liquidacion, resp[i].anio, resp[i].mes);
 
                 /*if (Object.keys(respListFirmados).length ==) {
                 }*/
 
-                if (Object.keys(respListSinFirmar).length != 0) {
+               /* if (Object.keys(respListSinFirmar).length != 0) {
                     capa.innerHTML += '<div class="iconInfo">Liquidación <B>' + resp[i].id + '   ' + resp[i].anio + '   ' + resp[i].mes + '   ' + resp[i].tipo_liquidacion + '   ' + resp[i].descripcion + '   ' + Object.keys(respListSinFirmar).length + '   ' + 0 + '</B>   </div></BR>';
 
                 }
                 else {
                     capa.innerHTML += '<div class="iconInfo">Liquidación <B>' + resp[i].id + '   ' + resp[i].anio + '   ' + resp[i].mes + '   ' + resp[i].tipo_liquidacion + '   ' + resp[i].descripcion + '  0  ' + '  0  ' + '</B>   </div></BR>';
-                }
+                }*/
 
                 //  capa.innerHTML += '<div class="iconInfo">Liquidación <B>' + resp[i].id + '   ' + resp[i].anio + '   ' + resp[i].mes + '   ' + resp[i].tipo_liquidacion + '   ' + resp[i].descripcion + '   ' + Object.keys(lista_recibos_resumen).length + '</B>   </div></BR>';
-                //capa.innerHTML += '<div class="iconInfo">Liquidación <B>' + resp[i].id + '   ' + resp[i].anio + '   ' + resp[i].mes + '   ' + resp[i].tipo_liquidacion + '   ' + resp[i].descripcion + '   ' + '</B>   </div></BR>';
+                capa.innerHTML += '<div class="iconInfo">Liquidación <B>' + resp[i].id + '   ' + resp[i].anio + '   ' + resp[i].mes + '   ' + resp[i].tipo_liquidacion + '   ' + resp[i].descripcion + '   ' + '</B>   </div></BR>';
             }
             liquidaciones = resp;
             /*usando jquery no me funciona, fix despues*/
             /*$.each(tiposLiquidacion, function () {
             options.append($("<option />").val(this.Id).text(this.Descripcion));
             });*/
+            
         })
         .onError(function (e) {
 
         });
-
+        
     }
 
 
