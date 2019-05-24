@@ -101,6 +101,121 @@ namespace General.Repositorios
         }
 
 
+        public bool Alta_Servicios_Adm_Publica(Serv_Adm_Publica_Privada[] servicio, Serv_Adm_Publica_Privada AdmPublicaPrivada, Usuario usuario)
+        {
+            ConexionDB cn = new ConexionDB("dbo.LEG_DEL_Servicios_Adm_Publica");
+            cn.AsignarParametro("@Id_Interna", AdmPublicaPrivada.Id_Interna);
+            cn.AsignarParametro("@Folio", AdmPublicaPrivada.Folio);
+
+            cn.BeginTransaction();
+
+            try
+            {
+                cn.EjecutarSinResultado();
+
+                foreach (var item in servicio)
+                {
+                    cn.CrearComandoConTransaccionIniciada("dbo.LEG_ADD_Servicios_Adm_Publica");
+                    cn.AsignarParametro("@Ambito_1", AdmPublicaPrivada.Ambito.Id); //  smallint,    
+                    cn.AsignarParametro("@Jurisdiccion_2", AdmPublicaPrivada.Jurisdiccion); //  [varchar](50),    
+                    cn.AsignarParametro("@Organismo_3", item.Organismo); //  [varchar](50),    
+                    cn.AsignarParametro("@Cargo_4", item.Cargo.Id); //  smallint,    
+                    cn.AsignarParametro("@Remunerativo_5", AdmPublicaPrivada.Remunerativo); //  bit,    
+                    cn.AsignarParametro("@Fecha_Desde_6", item.Fecha_Desde); //  [datetime],    
+                    cn.AsignarParametro("@Fecha_Hasta_7", item.Fecha_Hasta); //  [datetime],    
+                    cn.AsignarParametro("@Causa_Egreso_8", AdmPublicaPrivada.Causa_Egreso); //  [varchar](100),    
+                    cn.AsignarParametro("@Folio_9", AdmPublicaPrivada.Folio); //  [char](10),    
+                    cn.AsignarParametro("@Id_Interna_10", AdmPublicaPrivada.Id_Interna); //  [int],    
+                    cn.AsignarParametro("@doc_tit_11", AdmPublicaPrivada.Doc_Titular); //   [int] ,    
+                    cn.AsignarParametro("@Caja_12", AdmPublicaPrivada.Caja); //  [varchar](50),     
+                    cn.AsignarParametro("@Afiliado_13", AdmPublicaPrivada.Afiliado); //  [varchar](50),    
+                    //cn.AsignarParametro("@datonoimprime", servicio[servicio.Length - 1].datonoimprime); // bit,    
+
+                    if ((bool?)AdmPublicaPrivada.Ctr_Cert == null)
+                    {
+                        cn.AsignarParametro("@Ctr_Cert", null); // bit =null, 
+                    }
+                    else
+                    {
+                        cn.AsignarParametro("@Ctr_Cert", (bool)AdmPublicaPrivada.Ctr_Cert); // bit =null, 
+                    }
+
+                    cn.AsignarParametro("@Usuario", AdmPublicaPrivada.Usuario); // smallint
+                    cn.AsignarParametro("@Domicilio", item.Domicilio);
+                    cn.EjecutarSinResultado();
+                }
+            }
+            catch (Exception e)
+            {
+                cn.RollbackTransaction();
+                return false;
+            }
+
+            cn.CommitTransaction();
+            cn.Desconestar();
+
+            return true;
+
+        }
+
+
+        public bool Alta_Servicios_Adm_Privada(Serv_Adm_Publica_Privada[] servicio, Serv_Adm_Publica_Privada AdmPublicaPrivada, Usuario usuario)
+        {
+            ConexionDB cn = new ConexionDB("dbo.LEG_DEL_Servicios_Adm_Privada");
+            cn.AsignarParametro("@Id_Interna", AdmPublicaPrivada.Id_Interna);
+            cn.AsignarParametro("@Folio", AdmPublicaPrivada.Folio);
+
+            cn.BeginTransaction();
+
+            try
+            {
+                cn.EjecutarSinResultado();
+
+                foreach (var item in servicio)
+                {
+                    cn.CrearComandoConTransaccionIniciada("dbo.LEG_ADD_Otros_Servicios");
+                    cn.AsignarParametro("@Ambito", AdmPublicaPrivada.Ambito.Id); //  smallint,    
+                    cn.AsignarParametro("@Institución_1", item.Organismo); //  [varchar](50),    
+                    cn.AsignarParametro("@Cargo_3", item.Cargo.Id); //  smallint,    
+                    cn.AsignarParametro("@Remun_4", AdmPublicaPrivada.Remunerativo); //  bit,    
+                    cn.AsignarParametro("@Fecha_Desde_5", item.Fecha_Desde); //  [datetime],    
+                    cn.AsignarParametro("@Fecha_Hasta_6", item.Fecha_Hasta); //  [datetime],    
+                    cn.AsignarParametro("@Causa_Egreso_7", AdmPublicaPrivada.Causa_Egreso); //  [varchar](100),    
+                    cn.AsignarParametro("@Folio_10", AdmPublicaPrivada.Folio); //  [char](10),    
+                    cn.AsignarParametro("@Id_Interna_8", AdmPublicaPrivada.Id_Interna); //  [int],    
+                    cn.AsignarParametro("@documento", AdmPublicaPrivada.Doc_Titular); //   [int] ,    
+                    cn.AsignarParametro("@Caja", AdmPublicaPrivada.Caja); //  [varchar](50),     
+                    cn.AsignarParametro("@afiliado", AdmPublicaPrivada.Afiliado); //  [varchar](50),    
+                    cn.AsignarParametro("@Datodebaja", AdmPublicaPrivada.DatoDeBaja); // bit,    
+
+                    if ((bool?)AdmPublicaPrivada.Ctr_Cert == null)
+                    {
+                        cn.AsignarParametro("@Ctr_Cert", null); // bit =null, 
+                    }
+                    else
+                    {
+                        cn.AsignarParametro("@Ctr_Cert", (bool)AdmPublicaPrivada.Ctr_Cert); // bit =null, 
+                    }
+
+                    cn.AsignarParametro("@Usuario", AdmPublicaPrivada.Usuario); // smallint
+                    cn.AsignarParametro("@Domicilio_2", item.Domicilio);
+                    cn.EjecutarSinResultado();
+                }
+            }
+            catch (Exception e)
+            {
+                cn.RollbackTransaction();
+                return false;
+            }
+
+            cn.CommitTransaction();
+            cn.Desconestar();
+
+            return true;
+
+        }
+
+
 
     }
 }

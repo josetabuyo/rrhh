@@ -730,6 +730,23 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="Alta_Servicios_Administracion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListaAdmPublicoPrivado" type="tns:ArrayOfServ_Adm_Publica_Privada" />
+            <s:element minOccurs="0" maxOccurs="1" name="AdmPublicoPrivado" type="tns:Serv_Adm_Publica_Privada" />
+            <s:element minOccurs="0" maxOccurs="1" name="servicio" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Alta_Servicios_AdministracionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Alta_Servicios_AdministracionResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetConsultaRapida">
         <s:complexType>
           <s:sequence>
@@ -8631,6 +8648,12 @@
   <wsdl:message name="GetCargosSoapOut">
     <wsdl:part name="parameters" element="tns:GetCargosResponse" />
   </wsdl:message>
+  <wsdl:message name="Alta_Servicios_AdministracionSoapIn">
+    <wsdl:part name="parameters" element="tns:Alta_Servicios_Administracion" />
+  </wsdl:message>
+  <wsdl:message name="Alta_Servicios_AdministracionSoapOut">
+    <wsdl:part name="parameters" element="tns:Alta_Servicios_AdministracionResponse" />
+  </wsdl:message>
   <wsdl:message name="GetConsultaRapidaSoapIn">
     <wsdl:part name="parameters" element="tns:GetConsultaRapida" />
   </wsdl:message>
@@ -11072,6 +11095,10 @@
       <wsdl:input message="tns:GetCargosSoapIn" />
       <wsdl:output message="tns:GetCargosSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="Alta_Servicios_Administracion">
+      <wsdl:input message="tns:Alta_Servicios_AdministracionSoapIn" />
+      <wsdl:output message="tns:Alta_Servicios_AdministracionSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetConsultaRapida">
       <wsdl:input message="tns:GetConsultaRapidaSoapIn" />
       <wsdl:output message="tns:GetConsultaRapidaSoapOut" />
@@ -12834,6 +12861,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetCargos">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetCargos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Alta_Servicios_Administracion">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/Alta_Servicios_Administracion" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -16563,6 +16599,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetCargos">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetCargos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Alta_Servicios_Administracion">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/Alta_Servicios_Administracion" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
