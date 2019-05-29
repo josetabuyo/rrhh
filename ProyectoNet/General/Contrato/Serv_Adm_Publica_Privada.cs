@@ -27,6 +27,9 @@ namespace General.Contrato
         public DateTime? Fecha_Carga { get; set; }
         public string Domicilio { get; set; }
 
+        public int Exp_Laboral_Id { get; set; }
+
+
         public Serv_Adm_Publica_Privada()
         {
 

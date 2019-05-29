@@ -26,13 +26,14 @@ namespace General.Repositorios
             while (dr.Read())
             {
                 Servicio = new Serv_Adm_Publica_Privada();
-                Servicio.Id = dr.GetInt32(dr.GetOrdinal("Id"));
+                Servicio.Exp_Laboral_Id = dr.GetInt32(dr.GetOrdinal("Exp_Laboral_Id"));
                 Servicio.Ambito = new Ambito();
                 Servicio.Ambito.Id = dr.GetInt16(dr.GetOrdinal("Id_Ambito"));
                 Servicio.Ambito.Descripcion = dr.GetString(dr.GetOrdinal("Ambito"));
                 Servicio.Jurisdiccion = dr.GetString(dr.GetOrdinal("Jurisdiccion"));
                 Servicio.Folio = dr.GetString(dr.GetOrdinal("Folio"));
                 Servicio.Doc_Titular = dr.GetInt32(dr.GetOrdinal("Documento"));
+                Servicio.Id_Interna = dr.GetInt32(dr.GetOrdinal("Id_Interna"));
                 Servicio.Fecha_Desde = dr.GetDateTime(dr.GetOrdinal("MIN_Fecha_Desde"));
                 Servicio.Fecha_Hasta = dr.GetDateTime(dr.GetOrdinal("MAX_Fecha_Hasta"));
 
@@ -213,6 +214,125 @@ namespace General.Repositorios
 
             return true;
 
+        }
+
+
+        public List<Serv_Adm_Publica_Privada> GET_Servicios_Adm_Privada_Detalles(int legajo, string folio, Usuario usuario)
+        {
+            SqlDataReader dr;
+            ConexionDB cn = new ConexionDB("dbo.LEG_GET_Servicios_Adm_Privada_Detalles");
+            cn.AsignarParametro("@Id_interna", legajo);
+            cn.AsignarParametro("@Folio", folio);
+
+            dr = cn.EjecutarConsulta();
+
+            Serv_Adm_Publica_Privada Servicio;
+            List<Serv_Adm_Publica_Privada> listaServAdmPrivada = new List<Serv_Adm_Publica_Privada>();
+
+            while (dr.Read())
+            {
+                Servicio = new Serv_Adm_Publica_Privada();
+                Servicio.Id = dr.GetInt32(dr.GetOrdinal("Id"));
+                Servicio.Ambito = new Ambito();
+                Servicio.Ambito.Id = dr.GetInt16(dr.GetOrdinal("ambito"));
+                Servicio.Organismo = dr.GetString(dr.GetOrdinal("institucion"));
+                Servicio.Cargo = new Cargo();
+                Servicio.Cargo.Id = dr.GetInt16(dr.GetOrdinal("Id_Cargo"));
+                Servicio.Cargo.Descripcion = dr.GetString(dr.GetOrdinal("cargo"));
+                Servicio.Remunerativo = dr.GetBoolean(dr.GetOrdinal("remunerativo"));
+                Servicio.Fecha_Desde = dr.GetDateTime(dr.GetOrdinal("fecha_desde"));
+                Servicio.Fecha_Hasta = dr.GetDateTime(dr.GetOrdinal("fecha_hasta"));
+                Servicio.Causa_Egreso = dr.GetString(dr.GetOrdinal("causa_egreso"));
+                Servicio.Folio = dr.GetString(dr.GetOrdinal("folio"));
+                Servicio.Id_Interna = dr.GetInt32(dr.GetOrdinal("id_interna"));
+                Servicio.Doc_Titular = dr.GetInt32(dr.GetOrdinal("documento"));
+                Servicio.Caja = dr.GetString(dr.GetOrdinal("caja"));
+                Servicio.Afiliado = dr.GetString(dr.GetOrdinal("afiliado"));
+                Servicio.DatoDeBaja = dr.GetBoolean(dr.GetOrdinal("datodebaja"));
+                //Servicio.datonoimprime = dr.GetBoolean(dr.GetOrdinal("datonoimprime"));
+                if (dr.IsDBNull(dr.GetOrdinal("Ctr_Cert")))
+                    Servicio.Ctr_Cert = null;
+                else
+                    Servicio.Ctr_Cert = dr.GetBoolean(dr.GetOrdinal("Ctr_Cert"));
+
+                if (dr.IsDBNull(dr.GetOrdinal("Usuario")))
+                    Servicio.Usuario = 0;
+                else
+                    Servicio.Usuario = dr.GetInt16(dr.GetOrdinal("Usuario"));
+
+                if (dr.IsDBNull(dr.GetOrdinal("Fecha_Carga")))
+                    Servicio.Fecha_Carga = null;
+                else
+                    Servicio.Fecha_Carga = dr.GetDateTime(dr.GetOrdinal("Fecha_Carga"));
+
+                Servicio.Domicilio = dr.GetString(dr.GetOrdinal("Domicilio"));
+
+                listaServAdmPrivada.Add(Servicio);
+            }
+
+            cn.Desconestar();
+
+            return listaServAdmPrivada;
+        }
+
+
+        public List<Serv_Adm_Publica_Privada> GET_Servicios_Adm_Publica_Detalles(int legajo, string folio, Usuario usuario)
+        {
+            SqlDataReader dr;
+            ConexionDB cn = new ConexionDB("dbo.LEG_GET_Servicios_Adm_Publica_Detalles");
+            cn.AsignarParametro("@Id_interna", legajo);
+            cn.AsignarParametro("@Folio", folio);
+
+            dr = cn.EjecutarConsulta();
+
+            Serv_Adm_Publica_Privada Servicio;
+            List<Serv_Adm_Publica_Privada> listaServAdmPubica = new List<Serv_Adm_Publica_Privada>();
+
+            while (dr.Read())
+            {
+                Servicio = new Serv_Adm_Publica_Privada();
+                Servicio.Id = dr.GetInt32(dr.GetOrdinal("id_adm_publica"));
+                Servicio.Ambito = new Ambito();
+                Servicio.Ambito.Id = dr.GetInt16(dr.GetOrdinal("ambito"));
+                Servicio.Jurisdiccion = dr.GetString(dr.GetOrdinal("jurisdiccion"));
+                Servicio.Organismo = dr.GetString(dr.GetOrdinal("organismo"));
+                Servicio.Cargo = new Cargo();
+                Servicio.Cargo.Id = dr.GetInt16(dr.GetOrdinal("Id_Cargo"));
+                Servicio.Cargo.Descripcion = dr.GetString(dr.GetOrdinal("cargo"));
+                Servicio.Remunerativo = dr.GetBoolean(dr.GetOrdinal("remunerativo"));
+                Servicio.Fecha_Desde = dr.GetDateTime(dr.GetOrdinal("fecha_desde"));
+                Servicio.Fecha_Hasta = dr.GetDateTime(dr.GetOrdinal("fecha_hasta"));
+                Servicio.Causa_Egreso = dr.GetString(dr.GetOrdinal("causa_egreso"));
+                Servicio.Folio = dr.GetString(dr.GetOrdinal("folio"));
+                Servicio.Id_Interna = dr.GetInt32(dr.GetOrdinal("id_interna"));
+                Servicio.Doc_Titular = dr.GetInt32(dr.GetOrdinal("Doc_Titular"));
+                Servicio.Caja = dr.GetString(dr.GetOrdinal("caja"));
+                Servicio.Afiliado = dr.GetString(dr.GetOrdinal("afiliado"));
+                Servicio.DatoDeBaja = dr.GetBoolean(dr.GetOrdinal("datodebaja"));
+                //Servicio.datonoimprime = dr.GetBoolean(dr.GetOrdinal("datonoimprime"));
+                if (dr.IsDBNull(dr.GetOrdinal("Ctr_Cert")))
+                    Servicio.Ctr_Cert = null;
+                else
+                    Servicio.Ctr_Cert = dr.GetBoolean(dr.GetOrdinal("Ctr_Cert"));
+
+                if (dr.IsDBNull(dr.GetOrdinal("Usuario")))
+                    Servicio.Usuario = 0;
+                else
+                    Servicio.Usuario = dr.GetInt16(dr.GetOrdinal("Usuario"));
+
+                if (dr.IsDBNull(dr.GetOrdinal("Fecha_Carga")))
+                    Servicio.Fecha_Carga = null;
+                else
+                    Servicio.Fecha_Carga = dr.GetDateTime(dr.GetOrdinal("Fecha_Carga"));
+
+                Servicio.Domicilio = dr.GetString(dr.GetOrdinal("Domicilio"));
+
+                listaServAdmPubica.Add(Servicio);
+            }
+
+            cn.Desconestar();
+
+            return listaServAdmPubica;
         }
 
 
