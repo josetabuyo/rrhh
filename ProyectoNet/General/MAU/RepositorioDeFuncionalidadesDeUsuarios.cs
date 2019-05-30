@@ -84,8 +84,8 @@ namespace General.MAU
         protected override void GuardarEnLaBase(KeyValuePair<int, int> objeto, int id_usuario_logueado)
         {
             var parametros = new Dictionary<string, object>();
-            parametros.Add("@id_usuario", objeto.Key);
-            parametros.Add("@id_funcionalidad", objeto.Value);
+            parametros.Add("@Id_usuario", objeto.Key);
+            parametros.Add("@Id_funcionalidad", objeto.Value);
             parametros.Add("@Id_usuario_logueado", id_usuario_logueado); 
             var tablaDatos = conexion.Ejecutar("dbo.MAU_Nuevo_ConcederFuncionalidadA", parametros);
         }
@@ -93,8 +93,9 @@ namespace General.MAU
         protected override void QuitarDeLaBase(KeyValuePair<int, int> objeto, int id_usuario_logueado)
         {
             var parametros = new Dictionary<string, object>();
-            parametros.Add("@id_usuario", objeto.Key);
-            parametros.Add("@id_funcionalidad", objeto.Value);
+            parametros.Add("@Id_usuario", objeto.Key);
+            parametros.Add("@Id_funcionalidad", objeto.Value);
+            parametros.Add("@Id_usuario_logueado", id_usuario_logueado);
             var tablaDatos = conexion.Ejecutar("dbo.MAU_Nuevo_DenegarFuncionalidadA", parametros);
         }
 
