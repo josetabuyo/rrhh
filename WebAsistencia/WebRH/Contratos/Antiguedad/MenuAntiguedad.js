@@ -18,15 +18,15 @@ Backend.start(function () {
         lista_de_servicio = [];
 
         $("#txtNroFolio").focusout(function () {
-            $("#txtNroFolio").val(pad($("#txtNroFolio").val(), 2));
+            $("#txtNroFolio").val(pad($("#txtNroFolio").val("00"), 2));
         });
 
         $("#txtNroFolioDesde").focusout(function () {
-            $("#txtNroFolioDesde").val(pad($("#txtNroFolioDesde").val(), 3));
+            $("#txtNroFolioDesde").val(pad($("#txtNroFolioDesde").val("000"), 3));
         });
 
         $("#txtNroFolioHasta").focusout(function () {
-            $("#txtNroFolioHasta").val(pad($("#txtNroFolioHasta").val(), 3));
+            $("#txtNroFolioHasta").val(pad($("#txtNroFolioHasta").val("000"), 3));
         });
 
         completarComboAmbitos();
@@ -168,12 +168,14 @@ var FormatearFecha = function (p_fecha) {
 
 
 $("#btn_Estado").click(function () {
+    LimpiarPantalla();
     $('#cajaDatosExpLaboral').show();
     pServicio = "PUBLICO";
     MostrarTitulo(pServicio);
 });
 
 $("#btn_Privado").click(function () {
+    LimpiarPantalla();
     $('#cajaDatosExpLaboral').show();
     pServicio = "PRIVADO";
     MostrarTitulo(pServicio);
@@ -181,12 +183,20 @@ $("#btn_Privado").click(function () {
 
 var MostrarTitulo = function (pServicio)
 {
-    if (pServicio = "PUBLICO") {
+    if (pServicio == "PUBLICO") {
         $('#tituloExpLaboral').html("Servicio de Administración Pública");
     }
 
-    if (pServicio = "PRIVADO") {
+    if (pServicio == "PRIVADO") {
         $('#tituloExpLaboral').html("Servicio de Administración Privada");
+    }
+
+    if (pServicio == "PRIVADO") {
+        $("#cmbAmbitos").val(6).change();
+        $("#cmbAmbitos").attr('disabled', true);
+    }
+    else {
+        $("#cmbAmbitos").attr('disabled', false);
     }
 }
 
@@ -291,6 +301,15 @@ $("#btn_Agregar").click(function () {
 });
 //------------ AGREGAR ITEM A LA LISTA DE ORGANISMOS ---------------------------------
 
+
+//------------ CERRAR --------------------------------------------------------------
+$("#btn_Cerrar").click(function () {
+
+    LimpiarPantalla();
+    $('#cajaDatosExpLaboral').hide();
+
+});
+//------------ CERRAR --------------------------------------------------------------
 
 
     var CargarGrillaServicios = function () {
@@ -589,9 +608,9 @@ var CargarFormulario = function (ListaDeDatos) {
             $("#cmbAmbitos").val(ListaDeDatos[0].Ambito.Id).change();
             $("#cmbAmbitos").attr('disabled', false);
         }
-        $('#TxtNroFolio').val(pad((GetFolio(ListaDeDatos[0].Folio, 1)).trim(), 2));
-        $('#TxtNroFolioDesde').val(pad((GetFolio(ListaDeDatos[0].Folio, 2)).trim(), 3));
-        $('#TxtNroFolioHasta').val(pad((GetFolio(ListaDeDatos[0].Folio, 3)).trim(), 3));
+        $('#txtNroFolio').val(pad((GetFolio(ListaDeDatos[0].Folio, 1)).trim(), 2));
+        $('#txtNroFolioDesde').val(pad((GetFolio(ListaDeDatos[0].Folio, 2)).trim(), 3));
+        $('#txtNroFolioHasta').val(pad((GetFolio(ListaDeDatos[0].Folio, 3)).trim(), 3));
         $('#txtJurisdiccion').val(ListaDeDatos[0].Jurisdiccion);
         $('#txtCaja').val(ListaDeDatos[0].Caja);
         $('#txtNroAfiliacion').val(ListaDeDatos[0].Afiliado);
@@ -643,10 +662,11 @@ var CargarFormulario = function (ListaDeDatos) {
 
 var LimpiarPantalla = function () {
 
+    $("#cmbAmbitos").attr('disabled', false);
     $("#cmbAmbitos").val(ambitoIdSeleccionado);
-    $('#TxtNroFolio').val(00);
-    $('#TxtNroFolioDesde').val(000);
-    $('#TxtNroFolioHasta').val(000);
+    $('#txtNroFolio').val("00");
+    $('#txtNroFolioDesde').val("000");
+    $('#txtNroFolioHasta').val("000");
     $('#txtJurisdiccion').val(null);
     $('#txtCaja').val(null);
     $('#txtNroAfiliacion').val(null);

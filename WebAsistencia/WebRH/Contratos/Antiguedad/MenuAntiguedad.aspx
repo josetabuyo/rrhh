@@ -316,9 +316,11 @@
                         <label>Domicilio:</label>
                         <input type="text" id="txtDomicilio" value="" style="width: 500px" />
                         
-                        <div style="text-align:right"><input type="button" value="Agregar" class="btn btn-primary" id="btn_Agregar" /></div>
-            
-
+                        <div style="text-align:center">
+                            <input type="button" value="Agregar" class="btn btn-primary" id="btn_Agregar" />
+                            
+                        </div>
+                        
                         <br />
                         <div id="ContenedorGrillaServicios" runat="server" style="width: 95%" align="center">
                             <div id="ContenedorServicios" runat="server" style="width: 95%"></div>
@@ -336,6 +338,7 @@
 
                     <div style="text-align:center;">
                         <input  id="btnGuardarExpLaboral" value="Guardar" class="btn btn-primary" type="button" />
+                        <input  id="btn_Cerrar"  value="Cerrar" class="btn btn-primary" type="button"/>
                     </div>
                     
                 </div>
