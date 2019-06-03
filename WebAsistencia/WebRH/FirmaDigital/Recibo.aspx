@@ -43,15 +43,16 @@
          <div id="div_recibo">            
          <div  style="margin:10px;">
             <p><B>Descripción:</B>  En esta sección se realiza la firma iterativa de todos los recibos<!-- que hayan sido confirmados por los empleados,--> para un determinado intervalo, y que ademas no hayan sido aun firmados digitalmente.</p>
-            <p>Seleccione la lista de recibos a firmar:</p>
-         <!--   <select style="width:130px;" id="cmb_filtro">
+ <!--           <p>Seleccione la lista de recibos a firmar:</p>
+            <select style="width:130px;" id="cmb_filtro">
                 <option value="0">Sin Firmar</option>
                 <option value="1">Firmado Conforme</option>
                 <option value="2">Firmado No Conforme</option>
              </select>-->
              
              <!--TODO: ver si los años y meses se cargan bien, luego estos son los nuevos parametros para las consultas-->
-             <select style="width:65px;" id="cmb_anio">
+
+<!--             <select style="width:65px;" id="cmb_anio">
              </select>
              <select style="width:105px;" id="cmb_meses">
                 <option value="1">Enero</option>
@@ -66,31 +67,17 @@
                 <option value="10">Octubre</option>
                 <option value="11">Noviembre</option>
                 <option value="12">Diciembre</option>
-             </select>
+             </select>-->
              <!--nota: 0: indica que se firmen todos los tipos de liquidacion-->
-             <select style="width:230px;" id="cmb_tipo_liquidacion" size="1">
+<!--             <select style="width:230px;" id="cmb_tipo_liquidacion" size="1">
                 <option value="0" selected>TODOS</option>
              </select>
               
               &nbsp;&nbsp;&nbsp;<input id="btn_Buscar" class="botonFirmaM" type="button" value="Buscar" onclick="javascript:buscarRecibos();return false;" />
-              <!--<div id="caja_controles"> </div>-->
-         
-         <!-- 	estatus de la operacion realizada --> 
-<!--          <div id ="Div1"> 
-         <div id ="Div2"></div><div id ="Div3"></div>
-         <div id ="Div4"></div><div id ="Div6"></div>
-         </div>
--->
-        <!--  <div class="Table"> 
-            <div class="Title"><p> Esta es la tabla</p> </div>  
-            <div class="Heading"> <div class="Cell">
-              <p> Primer Nombre</p>  
-            </div>  
-            <div class="Cell"><p> Segundo Nombre</p></div>  
-            <div class="Cell"> <p>  Edad</p> </div>  
-         </div>--> 
-   <BR>  <BR> 
-   <div><table class="tablex table-stripedx table-bordered table-condensed" style="width:100%">
+
+   <BR>  <BR> -->
+
+   <!--<div><table class="tablex table-stripedx table-bordered table-condensed" style="width:100%">
 				 <tbody class="list">				 
 				 <tr><td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;" >Estatus</td><td><div id="divMensajeStatus" style="margin-top:5px">&nbsp;</div></td></tr>
                  <tr><td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;width:10pt" >Operación</td>
@@ -98,39 +85,16 @@
 				 </td></tr>
 				 </tbody></table></div><br/>
 
-    </div>  
-    <div><table class="tablex table-stripedx table-bordered table-condensed" style="width:100%">
-				 <tbody class="list">				 
-				 <tr><td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;" >Liquidación</td>
-                 <td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;width:65px;" >Año</td>
-                 <td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;width:105px;" >Mes</td>
-                 <td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;" >Tipo Liquidación</td>
-                 <td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;width:230px;" >Descripción</td>
-                 <td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;" >Firmados</td>
-                 <td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;" >Pendientes</td>
-                 <td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;" >Operación</td>
-                 </tr>
-                 <tr><td><div id="div1" style="margin-top:5px">&nbsp;523</div></td>
-                 <td><div id="div2" style="margin-top:5px">&nbsp;2007</div></td>
-                 <td><div id="div3" style="margin-top:5px">&nbsp;1</div></td>
-                 <td><div id="div4" style="margin-top:5px">&nbsp;Es el tipo de liquidacion</div></td>
-                 <td><div id="div7" style="margin-top:5px">&nbsp;512 hs exztra</div></td>
-                 <td><div id="div8" style="margin-top:5px">&nbsp;2</div></td>
-                 <td><div id="div9" style="margin-top:5px">&nbsp;2000</div></td>
-				 <td style="text-align: right;"><input id="Button1" disabled  style="text-align: right;cursor: pointer;" class="botonGrisadoFirmaM" type="button" value="Firmar Seleccionados" onclick="javascript:iniciarOperaciones3();return false;" />
-				 </td></tr>
-				 </tbody></table></div><br/>
+    </div>  -->
+    <!--lista de liquidaciones -->
 
-                 <!-- 	lista de liquidaciones -->
-                 <input id="Button2" class="botonFirmaM" type="button" value="BuscarLiq" onclick="javascript:armarListaLiquidaciones();return false;" />
+    <div id="listaDeLiquidaciones"></div><br/>
+     
+     <!-- 	armar liquidaciones -->
+     <input id="Button2" class="botonFirmaM" type="button" value="BuscarLiq" onclick="javascript:armarListaLiquidaciones();return false;" />
 
-                 <div id="capaListaLiquidaciones">
-                
-                 </div>
 
-    </div> 
-
-              
+           <div id="divMensajeStatus">&nbsp;</div>   
          <!-- 	lista de recibos a firmar -->    
 	     <div id ="resumenRecibos" class="resultadoValidar">        
 	     </div>
@@ -281,21 +245,22 @@
 <script type="text/javascript" src="../Scripts/ControlesImagenes/VistaThumbnail.js"></script>
 
 <!-- js de los servicios propios de la pagina -->
-<script type="text/javascript" >
+<script type="text/javascript">
     var divMensajeStatus = document.getElementById('divMensajeStatus');
-    var btn_firmar = document.getElementById("btn_firmar");
+//    var btn_firmar = document.getElementById("btn_firmar");  //BORRAR ya no la uso
     var lista_recibos_resumen; /*variable que mantiene la lista de recibos */
     var anio;
     var mes;
     var tipoLiquidacion;
     var tiposLiquidaciones;
-    var liquidaciones;
+    var liquidaciones; //lista de liquidaciones
+    var rsfLiquidaciones = new Array(); //diccionario de recibos sin firmar
+    var rfLiquidaciones = new Array();  //diccionario de recibos firmados
 
     function armarListaLiquidaciones() {
         /*obtengo la lista de liquidaciones*/
-        
-        RECIBOS.getLiquidacionesAFirmar();       
-    
+
+       RECIBOS.getLiquidacionesAFirmar();
     }
 
 
@@ -348,14 +313,6 @@
         }
     }
 
-    function ArmarListaLiquidaciones() {
-
-        /*obtengo la lista de liquidaciones a firmar*/
-
-
-
-
-    }
 
     function xxxfirmarRecibos() {
 
@@ -395,61 +352,61 @@
                 // las funciones de inicio se deben ejecutar aqui dentro
 
                 //cargo las listas seleccionables
-                RECIBOS.getTiposLiquidacion();
+//                RECIBOS.getTiposLiquidacion();
                 
                 /*cargo la lista de años, los ultimos 3 años*/
-                var day = new Date();
-                var mes = day.getMonth() + 1;
-                var anio = day.getFullYear();
+//                var day = new Date();
+//                var mes = day.getMonth() + 1;
+//                var anio = day.getFullYear();
 
 
-                $("#cmb_anio").empty();
+//                $("#cmb_anio").empty();
 
-                for (var i = 0; i <= 2; i++) {
-                    $("#cmb_anio").append('<option value=' + (anio - i).toString() + '>' + (anio - i).toString() + '</option>');
-                }
+//                for (var i = 0; i <= 2; i++) {
+//                    $("#cmb_anio").append('<option value=' + (anio - i).toString() + '>' + (anio - i).toString() + '</option>');
+//                }
                 /*seteo el mes al mes actual*/
-                $("#cmb_meses").val(mes)
+//                $("#cmb_meses").val(mes)
 
                 /*verifico si el mes del año seleccionado esta permitido para seleccionar*/
-                var btn = $('#cmb_meses').change(function () {
+//                var btn = $('#cmb_meses').change(function () {
                                     
-                    var mes = $("#cmb_meses option:selected").val() - 1;
+//                    var mes = $("#cmb_meses option:selected").val() - 1;
                    
-                    var anio_combo = $("#cmb_anio option:selected").val();
-                    var day = new Date();
-                    var mes_no_permitido = day.getMonth() + 2;
-                    var anio = day.getFullYear();
+//                    var anio_combo = $("#cmb_anio option:selected").val();
+//                    var day = new Date();
+//                    var mes_no_permitido = day.getMonth() + 2;
+//                    var anio = day.getFullYear();
 
                     //si el año seleccionado es el actual seteo el mes al mes actual y el mes seleccionado es mayor al mes actual
-                    if ((anio_combo == anio) && (mes > mes_no_permitido - 1)) {
-                        $("#cmb_meses").val(mes_no_permitido - 1);
-                    }
-                });
+//                    if ((anio_combo == anio) && (mes > mes_no_permitido - 1)) {
+//                        $("#cmb_meses").val(mes_no_permitido - 1);
+//                   }
+//                });
 
                 /*seteo el evento cambio en la seleccion del año*/
-                var btn_combo_anio = $('#cmb_anio').change(function () {
-                    $('#cmb_meses').change();
-                    var anio_combo = $("#cmb_anio option:selected").val();
-                    var day = new Date();
-                    mes_para_inhabilitar = day.getMonth() + 2;
-                    var anio = day.getFullYear();
+//                var btn_combo_anio = $('#cmb_anio').change(function () {
+//                    $('#cmb_meses').change();
+//                    var anio_combo = $("#cmb_anio option:selected").val();
+//                    var day = new Date();
+//                    mes_para_inhabilitar = day.getMonth() + 2;
+//                    var anio = day.getFullYear();
 
                     //inhabilito lo meses que no estan vigentes para este año
-                    if (anio_combo == anio) {
-                        $("#cmb_meses option").each(function () {
-                            if (mes_para_inhabilitar <= $(this).val()) {
-                                $(this).attr('disabled', 'disabled');
-                            }
-                        });
-                    } else {
-                        $("#cmb_meses option").each(function () {
-                            $(this).removeAttr('disabled');
-                        });
-                    }
-                });
+//                    if (anio_combo == anio) {
+//                        $("#cmb_meses option").each(function () {
+//                            if (mes_para_inhabilitar <= $(this).val()) {
+//                                $(this).attr('disabled', 'disabled');
+//                            }
+//                        });
+//                    } else {
+//                        $("#cmb_meses option").each(function () {
+//                            $(this).removeAttr('disabled');
+//                        });
+//                    }
+//                });
                 /*llamo al metodo change en la carga de la pagina*/
-                $("#cmb_anio").trigger('change');
+//                $("#cmb_anio").trigger('change');
 
             });
         });
@@ -964,6 +921,40 @@
         cada iteracion*/
     }
 
+    //recibe el id de la lista de recibos sin firmar  
+    function iniciarOperaciones4(idrsf, anio, mes, tipoLiquidacion) {
+        var s3 = 'bf' + anio + mes + tipoLiquidacion;
+        // longitud = Object.keys(lista_recibos_resumen).length;
+        //VER: deshabilitar los demas botones habilitados
+
+        //compruebo si minimamente hay elementos en la lista para firmar
+        lista_recibos_resumen = rsfLiquidaciones[idrsf];
+        if (lista_recibos_resumen.length != 0) {
+                       totalFirmas = 3; //**********es la limitacion   
+           // totalFirmas = lista_recibos_resumen.length;
+            if (totalFirmas > 0) {
+                //deshabilito el boton porque inicio la operacion de firma ciclica y no quiero que este haciendo click y click sobre el boton
+                var btn_firmar = document.getElementById(s3);
+                btn_firmar.disabled = true;
+                btn_firmar.classList.remove('botonFirmaM');
+                btn_firmar.classList.add('botonGrisadoFirmaM');
+
+                //seteo el estatus de la operacion
+                divMensajeStatus.innerHTML = '<div class="iconProcesando">Procesando Documentos ...</div>';
+                firmarFileB64ServerExternoMasivo3();
+
+            } else {
+                divMensajeStatus.innerHTML = '<div class="iconInfo">Debe existir al menos un documento para firmar.</div>';
+
+            }
+        }
+
+        /*a medida que se va firmando los archivos se setean las propiedades
+        de los checkbox seteados asi la lista de seleccionados disminuye en 
+        cada iteracion*/
+        
+        //VER: habilitar los botones deshabilitados
+    }
 
     //NOTA: los checkbox,idEstado de una misma fila deben llamarse
     /*para la fila numero x:

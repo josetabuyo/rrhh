@@ -5549,16 +5549,19 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    //el id puede ser el idLiquidacion o (tipoLiquidacion+anio+mes)
     public string GetIdRecibosSinFirmar(int tipoLiquidacion, int anio, int mes, Usuario usuario)
     {
                 
 
         RepositorioLegajo repo = RepoLegajo();
-        
-        return repo.GetIdRecibosSinFirmar(tipoLiquidacion, anio, mes);
+
+        var respuesta = new { anio= anio,mes= mes, tipoLiquidacion= tipoLiquidacion, recibosSinFirmar= repo.GetIdRecibosSinFirmar(tipoLiquidacion, anio, mes)};
+
+        return JsonConvert.SerializeObject(respuesta);
     }
 
-    [WebMethod] /*no me funciono cuando lo probe*/
+    [WebMethod] /*NOTA:SE puede borrar*/
     public StringRespuestaWS GetIdRecibosSinFirmarAnterior(int tipoLiquidacion, int anio, int mes, Usuario usuario)
     {
 
@@ -5580,11 +5583,10 @@ public class WSViaticos : System.Web.Services.WebService
         return respuesta;
     }
 
-    [WebMethod]
+   /* [WebMethod]
     public StringRespuestaWS GetIdRecibosFirmados(int tipoLiquidacion, int anio, int mes, Usuario usuario)
     {
 
-        //tira error porque puede ser null el tipo liquidacion y los demas, poner un '' o 0 y verificar aca
         var respuesta = new StringRespuestaWS();
         try
         {
@@ -5600,7 +5602,21 @@ public class WSViaticos : System.Web.Services.WebService
 
         }
         return respuesta;
+    }*/
+
+    [WebMethod]
+    //el id puede ser el idLiquidacion o (tipoLiquidacion+anio+mes)
+    public string GetIdRecibosFirmados(int tipoLiquidacion, int anio, int mes, Usuario usuario)
+    {
+
+
+        RepositorioLegajo repo = RepoLegajo();
+
+        var respuesta = new { anio = anio, mes = mes, tipoLiquidacion = tipoLiquidacion, recibosFirmados = repo.GetIdRecibosFirmados(tipoLiquidacion, anio, mes) };
+
+        return JsonConvert.SerializeObject(respuesta);
     }
+
 
     /////////////////VER
 

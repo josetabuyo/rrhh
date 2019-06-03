@@ -330,34 +330,7 @@ var RECIBOS = (function (window, undefined) {
         });
     }
 
-    var respListSinFirmar;
-    var respListFirmados;
-
-    function getIdRecibosSinFirmar2(tipoLiquidacion, anio, mes) {
-        Backend.GetIdRecibosSinFirmar(tipoLiquidacion, anio, mes)
-        .onSuccess(function (recibosResumen) {
-            /*recibosResumen es la respuesta*/
-
-            //este contine Id_Recibo, legajo,Cuil,Nyap,Nro_Orden
-
-            //var resp = JSON.parse(recibosResumen);
-
-            if (!recibosResumen.DioError) {
-                respListSinFirmar = JSON.parse(recibosResumen.Respuesta);
-                if (Object.keys(respListSinFirmar).length != 0) {
-                    capa.innerHTML += '<div class="iconInfo">Liquidación <B>' + resp[i].id + '   ' + resp[i].anio + '   ' + resp[i].mes + '   ' + resp[i].tipo_liquidacion + '   ' + resp[i].descripcion + '   ' + Object.keys(respListSinFirmar).length + '   ' + 0 + '</B>   </div></BR>';
-
-                }
-                else {
-                    capa.innerHTML += '<div class="iconInfo">Liquidación <B>' + resp[i].id + '   ' + resp[i].anio + '   ' + resp[i].mes + '   ' + resp[i].tipo_liquidacion + '   ' + resp[i].descripcion + '  0  ' + '  0  ' + '</B>   </div></BR>';
-                }
-            }
-        })
-        .onError(function (e) {
-
-        });
-    }
-    /*no la uso*/
+    /*BORRAR*/
     function getIdRecibosFirmados2(tipoLiquidacion, anio, mes) {
         Backend.GetIdRecibosFirmados(tipoLiquidacion, anio, mes)
         .onSuccess(function (recibosResumen) {
@@ -369,17 +342,17 @@ var RECIBOS = (function (window, undefined) {
 
             if (!recibosResumen.DioError) {
                 respListFirmados = JSON.parse(recibosResumen.Respuesta);
-                
+
             }
         })
         .onError(function (e) {
-
+            console.log(e);
         });
     }
 
-    
 
-    function getLiquidacionesAFirmar() {
+    /**BORRAR*/
+    function getLiquidacionesAFirmar2() {
         Backend.GetLiquidacionesAFirmar()
         .onSuccess(function (respLiquidaciones) {
             /*respLiquidaciones es la respuesta*/
@@ -405,18 +378,18 @@ var RECIBOS = (function (window, undefined) {
                 /*para cada liquidacion obtengo la cantidad de recibos firmados y pendientes por firmar*/
                 /**VEEEEEERRRRRRR como retornar la variable desde la funcion en javascript, porque aca uso el resp
                 retornado por la funcion siguiente y llega como undefined??????*/
-                getIdRecibosSinFirmar2(resp[i].tipo_liquidacion, resp[i].anio, resp[i].mes);
+                //                getIdRecibosSinFirmar2(resp[i].tipo_liquidacion, resp[i].anio, resp[i].mes);
                 //   getIdRecibosFirmados2(resp[i].tipo_liquidacion, resp[i].anio, resp[i].mes);
 
                 /*if (Object.keys(respListFirmados).length ==) {
                 }*/
 
-               /* if (Object.keys(respListSinFirmar).length != 0) {
-                    capa.innerHTML += '<div class="iconInfo">Liquidación <B>' + resp[i].id + '   ' + resp[i].anio + '   ' + resp[i].mes + '   ' + resp[i].tipo_liquidacion + '   ' + resp[i].descripcion + '   ' + Object.keys(respListSinFirmar).length + '   ' + 0 + '</B>   </div></BR>';
+                /* if (Object.keys(respListSinFirmar).length != 0) {
+                capa.innerHTML += '<div class="iconInfo">Liquidación <B>' + resp[i].id + '   ' + resp[i].anio + '   ' + resp[i].mes + '   ' + resp[i].tipo_liquidacion + '   ' + resp[i].descripcion + '   ' + Object.keys(respListSinFirmar).length + '   ' + 0 + '</B>   </div></BR>';
 
                 }
                 else {
-                    capa.innerHTML += '<div class="iconInfo">Liquidación <B>' + resp[i].id + '   ' + resp[i].anio + '   ' + resp[i].mes + '   ' + resp[i].tipo_liquidacion + '   ' + resp[i].descripcion + '  0  ' + '  0  ' + '</B>   </div></BR>';
+                capa.innerHTML += '<div class="iconInfo">Liquidación <B>' + resp[i].id + '   ' + resp[i].anio + '   ' + resp[i].mes + '   ' + resp[i].tipo_liquidacion + '   ' + resp[i].descripcion + '  0  ' + '  0  ' + '</B>   </div></BR>';
                 }*/
 
                 //  capa.innerHTML += '<div class="iconInfo">Liquidación <B>' + resp[i].id + '   ' + resp[i].anio + '   ' + resp[i].mes + '   ' + resp[i].tipo_liquidacion + '   ' + resp[i].descripcion + '   ' + Object.keys(lista_recibos_resumen).length + '</B>   </div></BR>';
@@ -427,14 +400,122 @@ var RECIBOS = (function (window, undefined) {
             /*$.each(tiposLiquidacion, function () {
             options.append($("<option />").val(this.Id).text(this.Descripcion));
             });*/
-            
+
         })
         .onError(function (e) {
 
         });
-        
+
     }
 
+    var respListSinFirmar;
+    var respListFirmados;
+
+    function getLiquidacionesAFirmar() {
+
+        Backend.GetLiquidacionesAFirmar()
+                .onSuccess(function (respLiquidaciones) {
+
+                    /*respLiquidaciones es la respuesta*/
+                    //var capa = document.getElementById("capaListaLiquidaciones"); //borrar
+                    var capaListaLiq = document.getElementById("listaDeLiquidaciones");
+                    var i;
+                    //**parsear el objeto json y loopear para cargar las liquidaciones*/
+                    //recupero la respuesta en forma de objeto json
+                    //este contiene id,descripcion,anio,mes,tipo_liquidacion
+
+                    var resp = JSON.parse(respLiquidaciones);
+                    var longitud; //tamaño de la lista de liquidaciones
+                    longitud = Object.keys(resp).length;
+                    var lista_recibos_resumen;
+                    //capa.innerHTML = '';
+                    //var capa2 = '';
+                    var capaInicio = ''; //representa la capa que muestran a las liquidaciones
+                    var capaFin = '';
+                    var capaLiq = '';
+                    var capaAcumulada = '';
+                    capaInicio = '<table class="tablex table-stripedx table-bordered table-condensed" style="width:100%"><tbody class="list"><tr><td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;" >Liquidación</td><td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;width:65px;" >Año</td><td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;width:105px;" >Mes</td><td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;" >Tipo Liquidación</td><td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;width:230px;" >Descripción</td><td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;" >Pendientes</td><td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;" >Firmados</td><td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;" >Operación</td></tr>';
+
+                    capaFin = '</tbody></table>';
+
+                    capaAcumulada = capaInicio;
+                    //genero la lista de liquidaciones
+                    for (i = 0; i < longitud; i++) {
+                        //como las llamadas son asincronas necesito un id para relacionar las llamadas que pueden ser retornadas en cualquier
+                        //orden
+                        var s, s2, s3;
+                        s = 'rsf' + resp[i].anio + resp[i].mes + resp[i].tipo_liquidacion; //id recibo sin firmar local
+                        s2 = 'rf' + resp[i].anio + resp[i].mes + resp[i].tipo_liquidacion; //id recibo firmado local
+                        s3 = 'bf' + resp[i].anio + resp[i].mes + resp[i].tipo_liquidacion; //id boton de firma local
+                        //capa2 = '<div class="iconInfo">Liquidación <B><span>' + resp[i].id + '   ' + resp[i].anio + '   ' + resp[i].mes + '   ' + resp[i].tipo_liquidacion + '   ' + resp[i].descripcion + '   ' + '</span><span id="' + s + '"></span><span id="' + s2 + '"></span><span id="span' + s3 + '"><input id="' + s3 + '" disabled  style="text-align: right;cursor: pointer;" class="botonGrisadoFirmaM" type="button" value="Firmar" onclick="iniciarOperaciones4(' + s + ');return false;" /></span></B>   </div></BR>';
+                        //capa.innerHTML = capa.innerHTML + capa2;
+
+                        capaLiq = '<tr><td><div style="margin-top:5px">' + resp[i].id + '</div></td> <td><div style="margin-top:5px">' + resp[i].anio + '</div></td> <td><div style="margin-top:5px">' + resp[i].mes + '</div></td> <td><div style="margin-top:5px">' + resp[i].tipo_liquidacion + '</div></td> <td><div style="margin-top:5px">' + resp[i].descripcion + '</div></td>  <td><div style="margin-top:5px"><span id="' + s + '"></span></div></td>  <td><div style="margin-top:5px"><span id="' + s2 + '"></span></div></td> <td style="text-align: right;"><input id="' + s3 + '" disabled  style="text-align: right;cursor: pointer;" class="botonGrisadoFirmaM" type="button" value="Firmar" onclick="iniciarOperaciones4(\'' + s + '\','+resp[i].anio+',' + resp[i].mes +','+ resp[i].tipo_liquidacion+');return false;" /></td></tr>';
+
+                        capaAcumulada = capaAcumulada + capaLiq;
+
+                        Backend.GetIdRecibosSinFirmar(resp[i].tipo_liquidacion, resp[i].anio, resp[i].mes)
+                            .onSuccess(function (respuesta) {
+                                /*respuesta es la respuesta*/
+
+                                respListSinFirmar = JSON.parse(respuesta);
+                                var s = 'rsf' + respListSinFirmar.anio + respListSinFirmar.mes + respListSinFirmar.tipoLiquidacion;
+                                var s3 = 'bf' + respListSinFirmar.anio + respListSinFirmar.mes + respListSinFirmar.tipoLiquidacion;
+                                var lista = JSON.parse(respListSinFirmar.recibosSinFirmar);
+                                var long = Object.keys(lista).length;
+
+                                //guardo la lista de recibos sin firmar
+                                rsfLiquidaciones[s] = lista;
+
+                                document.getElementById(s).innerHTML = long;
+
+                                if (long > 0) {//faltan firmar recibos
+                                    //habilitar boton y cambiar estilo a rojo                                    
+                                    var btn_firmar = document.getElementById(s3);
+                                    btn_firmar.disabled = false;
+                                    btn_firmar.classList.remove('botonGrisadoFirmaM'); //VERIFICAR LA CLASE se impriome mal el boton
+                                    btn_firmar.classList.add('botonFirmaM');
+                                }
+
+                            })
+                            .onError(function (e) {
+
+                            });
+                        Backend.GetIdRecibosFirmados(resp[i].tipo_liquidacion, resp[i].anio, resp[i].mes)
+                            .onSuccess(function (respuesta) {
+
+                                respListFirmados = JSON.parse(respuesta);
+                                var s = 'rf' + respListFirmados.anio + respListFirmados.mes + respListFirmados.tipoLiquidacion;
+
+                                var lista = JSON.parse(respListFirmados.recibosFirmados);
+                                var long = Object.keys(lista).length;
+                                //guardo la lista de recibos sin firmar
+                                rfLiquidaciones[s] = lista;
+
+                                document.getElementById(s).innerHTML = long;
+
+                            })
+                            .onError(function (e) {
+
+                            });
+
+                    }
+                    liquidaciones = resp; //VEERRRRRR YA NO LO USO
+
+                    capaAcumulada = capaAcumulada + capaFin;
+                    capaListaLiq.innerHTML = capaAcumulada;
+                    /*usando jquery no me funciona, fix despues*/
+                    /*$.each(tiposLiquidacion, function () {
+                    options.append($("<option />").val(this.Id).text(this.Descripcion));
+                    });*/
+
+                })
+            .onError(function (e) {
+
+            });
+
+
+    }
 
     /* Metodos que publicamos del objeto RECIBOS */
     return {
@@ -445,6 +526,7 @@ var RECIBOS = (function (window, undefined) {
         downloadRemoteDataB64POSTEmpleado: downloadRemoteDataB64POSTEmpleado,
         guardarReciboPDFFirmado: guardarReciboPDFFirmado,
         getIdRecibosSinFirmar: getIdRecibosSinFirmar,
+        getLiquidacionesAFirmar: getLiquidacionesAFirmar,
         downloadRemoteDataB64POSTReciboDigital: downloadRemoteDataB64POSTReciboDigital,
         getLiquidacionesAFirmar: getLiquidacionesAFirmar
     };
