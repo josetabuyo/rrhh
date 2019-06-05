@@ -194,9 +194,11 @@ var MostrarTitulo = function (pServicio)
     if (pServicio == "PRIVADO") {
         $("#cmbAmbitos").val(6).change();
         $("#cmbAmbitos").attr('disabled', true);
+        $('#txtJurisdiccion').attr('disabled', true);
     }
     else {
         $("#cmbAmbitos").attr('disabled', false);
+        $('#txtJurisdiccion').attr('disabled', false);
     }
 }
 
@@ -270,6 +272,7 @@ $("#btnGuardarExpLaboral").click(function () {
 
     $('#cajaDatosExpLaboral').hide();
     CargarGrillaServicios();
+    spinner.stop();
 });
 //------------ GUARDAR ---------------------------------
 
@@ -291,7 +294,8 @@ $("#btn_Agregar").click(function () {
     Servicio.Domicilio = $('#txtDomicilio').val();
 
     lista_de_servicio.push(Servicio);
-    
+    DibujarGrillaServicios();
+
     $("#txtOrganismo").val(null);
     $("#cmbCargo").val(0);
     $("#txtFechaDesde").val(null);
@@ -546,7 +550,7 @@ var DibujarGrillaServicios = function () {
                             //window.open("CargaDeAntiguedadesAdmPublica.aspx?legajo=" + $('#legajo').text().trim() + "&" + "folio=" + consulta.Folio);
                             alertify.confirm("Eliminar Cargo", "¿Desea eliminar el cargo " + consulta.Cargo.Descripcion + " entre las fechas " + FormatearFecha(consulta.Fecha_Desde) + " y " + FormatearFecha(consulta.Fecha_Hasta) + " ?", function () {
                                 //ACEPTO
-                                lista_de_servicio.splice(lista_de_servicio.index(), 1)
+                                //lista_de_servicio.splice(lista_de_servicio.index(), 1)
                                 alertify.success("OK - Borrar");
                             }, function () {
                                 //CANCELA
@@ -649,9 +653,11 @@ var CargarFormulario = function (ListaDeDatos) {
         if (pServicio == "PRIVADO") {
             $("#cmbAmbitos").val(6).change();
             $("#cmbAmbitos").attr('disabled', true);
+            $('#txtJurisdiccion').attr('disabled', true);
         }
         else {
             $("#cmbAmbitos").attr('disabled', false);
+            $('#txtJurisdiccion').attr('disabled', false);
         }
 
     }
