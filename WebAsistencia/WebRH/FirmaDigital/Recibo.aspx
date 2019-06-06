@@ -42,7 +42,7 @@
          </fieldset>
          <div id="div_recibo">            
          <div  style="margin:10px;">
-            <p><B>Descripción:</B>  En esta sección se realiza la firma iterativa de todos los recibos<!-- que hayan sido confirmados por los empleados,--> para un determinado intervalo, y que ademas no hayan sido aun firmados digitalmente.</p>
+            <p><B></B>  Para realizar la Firma Digital (del Empleador) de los recibos de haberes aún no firmados, de acuerdo a las cantidades indicadas en la grilla que sigue deberá conectarse el Token de Firma Digital con Certificado Vigente que corresponda al Funcionario autorizado a realizar dicha rúbrica.<!-- que hayan sido confirmados por los empleados,--> para un determinado intervalo, y que ademas no hayan sido aun firmados digitalmente.</p>
  <!--           <p>Seleccione la lista de recibos a firmar:</p>
             <select style="width:130px;" id="cmb_filtro">
                 <option value="0">Sin Firmar</option>
@@ -556,17 +556,17 @@
 //            estado.classList.remove('estadoNoFirmado');
 //            estado.classList.add('estadoProcesando');
 
-            MiniApplet.sign(
+           /* MiniApplet.sign(
             dataB64,
             algorithm,
             format,
             params,
             SignSuccessCallback,
-            SignErrorCallback);
+            SignErrorCallback);*/
 
             //el nombre del pdf sera idRecibo
             //MiniApplet.signAndSaveToFile(
-/*            MiniApplet.signAndSaveToFile(
+            MiniApplet.signAndSaveToFile(
 					"SIGN",
 					dataB64,
 					algorithm,
@@ -574,7 +574,7 @@
 					params,
 					idRecibo+".pdf",
 					SignSuccessCallback,
-					SignErrorCallback);*/
+					SignErrorCallback);
         }
         catch (e) {
             //Se muestra el mensaje de error si NO es de cancelación de la operación
