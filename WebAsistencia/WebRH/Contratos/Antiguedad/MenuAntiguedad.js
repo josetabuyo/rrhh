@@ -550,7 +550,13 @@ var DibujarGrillaServicios = function () {
                             //window.open("CargaDeAntiguedadesAdmPublica.aspx?legajo=" + $('#legajo').text().trim() + "&" + "folio=" + consulta.Folio);
                             alertify.confirm("Eliminar Cargo", "¿Desea eliminar el cargo " + consulta.Cargo.Descripcion + " entre las fechas " + FormatearFecha(consulta.Fecha_Desde) + " y " + FormatearFecha(consulta.Fecha_Hasta) + " ?", function () {
                                 //ACEPTO
-                                //lista_de_servicio.splice(lista_de_servicio.index(), 1)
+                                for (var i = 0; i < lista_de_servicio.length; i++) {
+                                    if (lista_de_servicio[i].Id == consulta.Id) {
+                                        lista_de_servicio.splice(i, 1);
+                                        i = lista_de_servicio.length;
+                                    };
+                                };
+                                DibujarGrillaServicios();
                                 alertify.success("OK - Borrar");
                             }, function () {
                                 //CANCELA
