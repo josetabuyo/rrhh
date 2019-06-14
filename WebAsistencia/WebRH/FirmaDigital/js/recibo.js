@@ -477,8 +477,12 @@ var RECIBOS = (function (window, undefined) {
                                     //habilitar boton y cambiar estilo a rojo                                    
                                     var btn_firmar = document.getElementById(s3);
                                     btn_firmar.disabled = false;
-                                    btn_firmar.classList.remove('botonGrisadoFirmaM'); //VERIFICAR LA CLASE se impriome mal el boton
+                                    btn_firmar.classList.remove('botonGrisadoFirmaM');
                                     btn_firmar.classList.add('botonFirmaM');
+
+                                    //agrego a la lista de botones habilitados el boton habilitado
+                                    listaBotonesHabilitados.push(s3);
+
                                 }
 
                             })

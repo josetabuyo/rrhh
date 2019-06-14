@@ -1828,7 +1828,7 @@ namespace General.Repositorios
                     idRecibo = new
                     {
                         //Id_Recibo = row.GetInt("Id_Recibo"),
-                        Id_Recibo = int.Parse(row.GetObject("recibosFirmados").ToString()),
+                        Id_Recibo = int.Parse(row.GetObject("idRecibo").ToString()),
                     };
 
 

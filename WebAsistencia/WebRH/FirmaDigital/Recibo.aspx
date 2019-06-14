@@ -44,6 +44,8 @@
          <div  style="margin:10px;">
             <p><B></B>  Para realizar la Firma Digital (del Empleador) de los recibos de haberes aún no firmados, de acuerdo a las cantidades indicadas en la grilla que sigue deberá conectarse el Token de Firma Digital con Certificado Vigente que corresponda al Funcionario autorizado a realizar dicha rúbrica.<!-- que hayan sido confirmados por los empleados,--> para un determinado intervalo, y que ademas no hayan sido aun firmados digitalmente.</p>
                     <BR>
+                    <div id="divMensajeStatus">&nbsp;</div> 
+                    <BR><BR>
  <!--           <p>Seleccione la lista de recibos a firmar:</p>
             <select style="width:130px;" id="cmb_filtro">
                 <option value="0">Sin Firmar</option>
@@ -95,7 +97,7 @@
      <input id="Button2" class="botonFirmaM" type="button" value="BuscarLiq" onclick="javascript:armarListaLiquidaciones();return false;" />
 
 
-           <div id="divMensajeStatus">&nbsp;</div>   
+             
          <!-- 	lista de recibos a firmar -->    
 	     <div id ="resumenRecibos" class="resultadoValidar">        
 	     </div>
@@ -435,6 +437,8 @@
     var totalOperaciones = 0; //cantidad de operaciones de firmas realizadas ya sea si salieron bien o fallaron
 
     var indiceListaRecibos = 0; //item actual que se esta procesando de la lista de recibos resumen
+    var anio_aux, mes_aux, tipoLiquidacion_aux; ///variables para mantener los valores de la operacion en curso
+    var listaBotonesHabilitados = new Array(); 
 
     function downloadedErrorCallback(e) {
   //      showLog("Error en la descarga de los datos: " + e);
@@ -604,34 +608,76 @@
     //verifico si aun hay firmas por realizar
     function verificarContinuacionProceso() {
         //divMensajeStatus.innerHTML = '<div class="iconInfo">procesando...' + totalOperaciones + '-' + totalFirmas + '</div>';
-       
+        var s, s2;
+        s = 'rsf' + anio_aux + mes_aux + tipoLiquidacion_aux; //id recibo sin firmar local
+        s2 = 'rf' + anio_aux + mes_aux + tipoLiquidacion_aux; //id recibo firmado local
+
         //compruebo si se realizaron todas las operaciones
         if (totalOperaciones != totalFirmas) {
-
+            document.getElementById(s).innerHTML = totalFirmas - totalOperaciones;
+            document.getElementById(s2).innerHTML = parseInt(document.getElementById(s2).innerHTML)+1;
             divMensajeStatus.innerHTML = '<div class="iconProcesando">Total de archivos a firmar: <b>' + totalFirmas + '</b>. Archivos firmados correctamente: <b>' + totalFirmasRealizadas + '</b>. No se pudieron procesar: <b>' + (totalOperaciones - totalFirmasRealizadas) + '</b>.</div>';
             firmarFileB64ServerExternoMasivo3();
         } else {
             //ya se realizaron todas las operaciones
             //compruebo si se realizaron todas las operaciones de firma
             if (totalFirmasRealizadas == totalFirmas) {
+
+                document.getElementById(s).innerHTML = totalFirmas - totalOperaciones;
+                document.getElementById(s2).innerHTML = parseInt(document.getElementById(s2).innerHTML) + totalFirmasRealizadas;
                 /*  divMensajeStatus.innerHTML = '<div class="iconOKFirmados">Archivos firmados correctamente.</div>';*/
                 divMensajeStatus.innerHTML = '<div class="iconOKFirmados">Total de archivos a firmar: <b>' + totalFirmas + '</b>. Archivos firmados correctamente: <b>' + totalFirmasRealizadas + '</b>. No se pudieron procesar: <b>' + (totalOperaciones - totalFirmasRealizadas) + '</b>.</div>';
+                //no rehabilito el boton de busqueda porque todo salio bien, lo quito de la lista de botones habilitados
+                var s3 = 'bf' + anio_aux + mes_aux + tipoLiquidacion_aux;
+                var index = listaBotonesHabilitados.indexOf(s3);
+                listaBotonesHabilitados.splice(index, 1); //1 representa la cantidad de elementos a elmiminar a partir de la posicion
+
+                //reseteo las variables globales
+                totalOperaciones = 0;
+                totalFirmasRealizadas = 0;
+                totalFirmas = 0;
+                indiceListaRecibos = 0;
+
+                //habilitar los demas botones habilitados
+                for (j = 0; j < listaBotonesHabilitados.length; j++) {
+                    var btn_firmar2 = document.getElementById(listaBotonesHabilitados[j]);
+                    btn_firmar2.disabled = false;
+                    btn_firmar2.classList.remove('botonGrisadoFirmaM');
+                    btn_firmar2.classList.add('botonFirmaM');
+                }
+
             } else {
                 var archivosNoFirmados = totalOperaciones - totalFirmasRealizadas;
                 /*divMensajeStatus.innerHTML = '<div class="iconAlerta">No se pudieron procesar ' + archivosNoFirmados + ' documentos.</div>';*/
                 divMensajeStatus.innerHTML = '<div class="iconAlerta">Total de archivos a firmar: <b>' + totalFirmas + '</b>. Archivos firmados correctamente: <b>' + totalFirmasRealizadas + '</b>. No se pudieron procesar: <b>' + (totalOperaciones - totalFirmasRealizadas) + '</b>.</div>';
+
+                //reseteo las variables globales
+                totalOperaciones = 0;
+                totalFirmasRealizadas = 0;
+                totalFirmas = 0;
+                indiceListaRecibos = 0;
+
+                //vuelvo a armar la lista de liquidaciones a firmar, asi se filtran los recibos que faltaron firmar con los ya firmados
+                armarListaLiquidaciones();
+                
             }
             //reseteo las variables globales
-            totalOperaciones = 0;
-            totalFirmasRealizadas = 0;
-            totalFirmas = 0;
-            indiceListaRecibos = 0;
+            //nota: las siguientes lineas se realizan recursivamente al retornar de las llamadas, 
+ //           totalOperaciones = 0;
+ //           totalFirmasRealizadas = 0;
+ //           totalFirmas = 0;
+ //           indiceListaRecibos = 0;
             //NO rehabilito de nuevo el boton de firmar porque el que lo habilita es las busqueda de recibos a firmar
             //ya no hay elementos a procesar
 //            btn_firmar.disabled = false;
 //            btn_firmar.classList.remove('botonGrisadoFirmaM');
 //            btn_firmar.classList.add('botonFirmaM');
 
+            /*a medida que se va firmando los archivos se setean las propiedades
+            de los checkbox seteados asi la lista de seleccionados disminuye en 
+            cada iteracion*/
+
+            
 
         }
     }
@@ -670,7 +716,7 @@
         
         RECIBOS.guardarRecibo(fichero,saveSuccessCallback,saveErrorCallback);
     */
-        RECIBOS.guardarReciboPDFFirmado(lista_recibos_resumen[indiceListaRecibos - 1].Id_Recibo, fichero, anio, mes, tipoLiquidacion,successCallback, errorCallback);    
+        RECIBOS.guardarReciboPDFFirmado(lista_recibos_resumen[indiceListaRecibos - 1].Id_Recibo, fichero, anio_aux, mes_aux, tipoLiquidacion_aux,successCallback, errorCallback);    
      
         //seteo el enlace al nuevo documento firmado
         
@@ -926,13 +972,25 @@
     function iniciarOperaciones4(idrsf, anio, mes, tipoLiquidacion) {
         var s3 = 'bf' + anio + mes + tipoLiquidacion;
         // longitud = Object.keys(lista_recibos_resumen).length;
-        //VER: deshabilitar los demas botones habilitados
+
+        //deshabilitar los demas botones habilitados
+        for (j = 0; j < listaBotonesHabilitados.length; j++) {
+            var btn_firmar2 = document.getElementById(listaBotonesHabilitados[j]);
+            btn_firmar2.disabled = true;
+            btn_firmar2.classList.remove('botonFirmaM');
+            btn_firmar2.classList.add('botonGrisadoFirmaM');
+        }
+
+
+        anio_aux = anio;
+        mes_aux = mes;
+        tipoLiquidacion_aux = tipoLiquidacion;
 
         //compruebo si minimamente hay elementos en la lista para firmar
         lista_recibos_resumen = rsfLiquidaciones[idrsf];
         if (lista_recibos_resumen.length != 0) {
-                       totalFirmas = 3; //**********es la limitacion   
-           // totalFirmas = lista_recibos_resumen.length;
+            //totalFirmas = 1; //**********es la limitacion   
+            totalFirmas = lista_recibos_resumen.length;
             if (totalFirmas > 0) {
                 //deshabilito el boton porque inicio la operacion de firma ciclica y no quiero que este haciendo click y click sobre el boton
                 var btn_firmar = document.getElementById(s3);
@@ -948,13 +1006,9 @@
                 divMensajeStatus.innerHTML = '<div class="iconInfo">Debe existir al menos un documento para firmar.</div>';
 
             }
-        }
+        }       
 
-        /*a medida que se va firmando los archivos se setean las propiedades
-        de los checkbox seteados asi la lista de seleccionados disminuye en 
-        cada iteracion*/
         
-        //VER: habilitar los botones deshabilitados
     }
 
     //NOTA: los checkbox,idEstado de una misma fila deben llamarse
