@@ -147,7 +147,7 @@ var RECIBOS = (function (window, undefined) {
     }
 
 
-    //descarga archivo ya codificado en base64
+    //nota: no la uso , descarga archivo ya codificado en base64
     function downloadRemoteDataB64POSTXXXXXXXYO(url, params, successFunction, errorFunction) {
 
         downloadSuccessFunction = successFunction;
@@ -183,7 +183,7 @@ var RECIBOS = (function (window, undefined) {
         }
         httpRequest.send(params);
     }
-    //Modo anterior
+    //nNOTA: no la uso, Modo anterior
     function downloadRemoteDataB64POSTEmpleador(url, idRecibo, params, successFunction, errorFunction) {
 
         downloadSuccessFunction = successFunction;
@@ -227,7 +227,7 @@ var RECIBOS = (function (window, undefined) {
     }
 
 
-    //esta funcion no la estoy utilizando, como no necesito mandar mas que el idRecibo directamente llamo al ws desde el backend
+    //nota: no la uso, como no necesito mandar mas que el idRecibo directamente llamo al ws desde el backend
     function downloadRemoteDataB64POSTEmpleado(url, idRecibo, params, successFunction, errorFunction) {
 
         downloadSuccessFunction = successFunction;
@@ -246,7 +246,7 @@ var RECIBOS = (function (window, undefined) {
 
     }
 
-    //descargo el recibo unico digital,este es tanto para el empleado como par ael empleador
+    //descargo el recibo unico digital,este es tanto para el empleado como para el empleador
     function downloadRemoteDataB64POSTReciboDigital(url, idRecibo, params, successFunction, errorFunction) {
 
         downloadSuccessFunction = successFunction;
@@ -286,6 +286,7 @@ var RECIBOS = (function (window, undefined) {
 
     }
 
+    //NOTA: no la uso
     function firmarRecibosxxxx(lista_recibos_resumen) {
         Backend.firmarRecibos(tipoLiquidacion, anio, mes)
         .onSuccess(function (recibosResumen) {
@@ -330,7 +331,7 @@ var RECIBOS = (function (window, undefined) {
         });
     }
 
-    /*BORRAR*/
+    /*NOTA: no la uso BORRAR*/
     function getIdRecibosFirmados2(tipoLiquidacion, anio, mes) {
         Backend.GetIdRecibosFirmados(tipoLiquidacion, anio, mes)
         .onSuccess(function (recibosResumen) {
@@ -350,66 +351,9 @@ var RECIBOS = (function (window, undefined) {
         });
     }
 
-
-    /**BORRAR*/
-    function getLiquidacionesAFirmar2() {
-        Backend.GetLiquidacionesAFirmar()
-        .onSuccess(function (respLiquidaciones) {
-            /*respLiquidaciones es la respuesta*/
-            var capa = document.getElementById("capaListaLiquidaciones");
-            var i;
-            //**parsear el objeto json y loopear para cargar las liquidaciones*/
-            //recupero la respuesta en forma de objeto json
-            //este contiene id,descripcion,anio,mes,tipo_liquidacion
-
-            var resp = JSON.parse(respLiquidaciones);
-            var longitud; //tamaño de la lista de liquidaciones
-            longitud = Object.keys(resp).length;
-            var lista_recibos_resumen;
-            capa.innerHTML = '';
-
-            //genero la lista de liquidaciones
-            for (i = 0; i < longitud; i++) {
-                //var option = document.createElement("option"); //creamos el elemento
-                //option.value = resp[i].Id; //asignamos valores a sus parametros
-                //option.text = resp[i].Descripcion;
-                //select.add(option); //insertamos el elemento
-
-                /*para cada liquidacion obtengo la cantidad de recibos firmados y pendientes por firmar*/
-                /**VEEEEEERRRRRRR como retornar la variable desde la funcion en javascript, porque aca uso el resp
-                retornado por la funcion siguiente y llega como undefined??????*/
-                //                getIdRecibosSinFirmar2(resp[i].tipo_liquidacion, resp[i].anio, resp[i].mes);
-                //   getIdRecibosFirmados2(resp[i].tipo_liquidacion, resp[i].anio, resp[i].mes);
-
-                /*if (Object.keys(respListFirmados).length ==) {
-                }*/
-
-                /* if (Object.keys(respListSinFirmar).length != 0) {
-                capa.innerHTML += '<div class="iconInfo">Liquidación <B>' + resp[i].id + '   ' + resp[i].anio + '   ' + resp[i].mes + '   ' + resp[i].tipo_liquidacion + '   ' + resp[i].descripcion + '   ' + Object.keys(respListSinFirmar).length + '   ' + 0 + '</B>   </div></BR>';
-
-                }
-                else {
-                capa.innerHTML += '<div class="iconInfo">Liquidación <B>' + resp[i].id + '   ' + resp[i].anio + '   ' + resp[i].mes + '   ' + resp[i].tipo_liquidacion + '   ' + resp[i].descripcion + '  0  ' + '  0  ' + '</B>   </div></BR>';
-                }*/
-
-                //  capa.innerHTML += '<div class="iconInfo">Liquidación <B>' + resp[i].id + '   ' + resp[i].anio + '   ' + resp[i].mes + '   ' + resp[i].tipo_liquidacion + '   ' + resp[i].descripcion + '   ' + Object.keys(lista_recibos_resumen).length + '</B>   </div></BR>';
-                capa.innerHTML += '<div class="iconInfo">Liquidación <B>' + resp[i].id + '   ' + resp[i].anio + '   ' + resp[i].mes + '   ' + resp[i].tipo_liquidacion + '   ' + resp[i].descripcion + '   ' + '</B>   </div></BR>';
-            }
-            liquidaciones = resp;
-            /*usando jquery no me funciona, fix despues*/
-            /*$.each(tiposLiquidacion, function () {
-            options.append($("<option />").val(this.Id).text(this.Descripcion));
-            });*/
-
-        })
-        .onError(function (e) {
-
-        });
-
-    }
-
-    var respListSinFirmar;
-    var respListFirmados;
+    //variables globales ya no usadas
+    //var respListSinFirmar;
+    //var respListFirmados;
 
     function getLiquidacionesAFirmar() {
 
@@ -462,7 +406,7 @@ var RECIBOS = (function (window, undefined) {
                             .onSuccess(function (respuesta) {
                                 /*respuesta es la respuesta*/
 
-                                respListSinFirmar = JSON.parse(respuesta);
+                                var respListSinFirmar = JSON.parse(respuesta);
                                 var s = 'rsf' + respListSinFirmar.anio + respListSinFirmar.mes + respListSinFirmar.tipoLiquidacion;
                                 var s3 = 'bf' + respListSinFirmar.anio + respListSinFirmar.mes + respListSinFirmar.tipoLiquidacion;
                                 var lista = JSON.parse(respListSinFirmar.recibosSinFirmar);
@@ -492,7 +436,7 @@ var RECIBOS = (function (window, undefined) {
                         Backend.GetIdRecibosFirmados(resp[i].tipo_liquidacion, resp[i].anio, resp[i].mes)
                             .onSuccess(function (respuesta) {
 
-                                respListFirmados = JSON.parse(respuesta);
+                                var respListFirmados = JSON.parse(respuesta);
                                 var s = 'rf' + respListFirmados.anio + respListFirmados.mes + respListFirmados.tipoLiquidacion;
 
                                 var lista = JSON.parse(respListFirmados.recibosFirmados);

@@ -5523,13 +5523,71 @@ public class WSViaticos : System.Web.Services.WebService
         return Server.MapPath("~") + "\\PdfTemplates\\" + fileName;
     }
 
-    /*[WebMethod]
-    public List<TipoLiquidacion> GetTiposLiquidacion()
+   
+
+    #region " Control de Acceso "
+
+    [WebMethod]
+    public string CTL_ACC_Grabar_Lote(string json)
     {
-        List<TipoLiquidacion> areas = new List<TipoLiquidacion>();
-        var repositorio = RepositorioDeTipoDeLiquidacion.Nuevo(Conexion());
-        return repositorio.All();
-    }*/
+        var ctlAcc = new General.CtrlAcc.RepositorioCtlAcc();
+        return ctlAcc.Grabar_Lote_Control_Acceso(json);
+    }
+
+    [WebMethod]
+    public string CTL_ACC_Get_Dotacion()
+    {
+        var ctlAcc = new General.CtrlAcc.RepositorioCtlAcc();
+        return ctlAcc.Get_Dotacion_Control_Acceso();
+    }
+
+    [WebMethod]
+    public string CTL_ACC_Login(string user, string pass)
+    {
+        return "";
+    }
+
+    [WebMethod]
+    public string CTL_ACC_Get_Personas_Buscador(string param_busqueda)
+    {
+        var ctlAcc = new General.CtrlAcc.RepositorioCtlAcc();
+        return ctlAcc.Get_Personas_Buscador(param_busqueda);
+    }
+
+    #endregion
+
+
+    [WebMethod]
+    public void GenerarMotivoEnPersonasNoCertificadas(int mes, int anio, DDJJ104_Consulta[] lista_DDJJ104, Usuario usuario)
+    {
+        RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
+
+        DDJJ104_2001 cabe = new DDJJ104_2001();
+        ddjj.GenerarMotivoEnPersonasNoCertificadas(mes, anio, lista_DDJJ104, usuario);
+
+    }
+
+
+    [WebMethod]
+    public void AsignaAreaAPersonasNoCertificadas(int mes, int anio, DDJJ104_Consulta[] lista_DDJJ104, int id_area, Usuario usuario)
+    {
+        RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
+
+        DDJJ104_2001 cabe = new DDJJ104_2001();
+        ddjj.AsignaAreaAPersonasNoCertificadas(mes, anio, lista_DDJJ104, id_area, usuario);
+
+    }
+
+    #region " Recibo digital "
+
+    /*[WebMethod]
+   public List<TipoLiquidacion> GetTiposLiquidacion()
+   {
+       List<TipoLiquidacion> areas = new List<TipoLiquidacion>();
+       var repositorio = RepositorioDeTipoDeLiquidacion.Nuevo(Conexion());
+       return repositorio.All();
+   }*/
+
     [WebMethod]
     public String GetTiposLiquidacion()
     {
@@ -5552,16 +5610,17 @@ public class WSViaticos : System.Web.Services.WebService
     //el id puede ser el idLiquidacion o (tipoLiquidacion+anio+mes)
     public string GetIdRecibosSinFirmar(int tipoLiquidacion, int anio, int mes, Usuario usuario)
     {
-                
+
 
         RepositorioLegajo repo = RepoLegajo();
 
-        var respuesta = new { anio= anio,mes= mes, tipoLiquidacion= tipoLiquidacion, recibosSinFirmar= repo.GetIdRecibosSinFirmar(tipoLiquidacion, anio, mes)};
+        var respuesta = new { anio = anio, mes = mes, tipoLiquidacion = tipoLiquidacion, recibosSinFirmar = repo.GetIdRecibosSinFirmar(tipoLiquidacion, anio, mes) };
 
         return JsonConvert.SerializeObject(respuesta);
     }
 
-    [WebMethod] /*NOTA:SE puede borrar*/
+    [WebMethod] 
+    /*NOTA:SE puede borrar*/
     public StringRespuestaWS GetIdRecibosSinFirmarAnterior(int tipoLiquidacion, int anio, int mes, Usuario usuario)
     {
 
@@ -5583,26 +5642,26 @@ public class WSViaticos : System.Web.Services.WebService
         return respuesta;
     }
 
-   /* [WebMethod]
-    public StringRespuestaWS GetIdRecibosFirmados(int tipoLiquidacion, int anio, int mes, Usuario usuario)
-    {
+    /* [WebMethod]
+     public StringRespuestaWS GetIdRecibosFirmados(int tipoLiquidacion, int anio, int mes, Usuario usuario)
+     {
 
-        var respuesta = new StringRespuestaWS();
-        try
-        {
+         var respuesta = new StringRespuestaWS();
+         try
+         {
 
-            RepositorioLegajo repo = RepoLegajo();
-            string lista = repo.GetIdRecibosFirmados(tipoLiquidacion, anio, mes);
-            respuesta.Respuesta = lista;
-        }
-        catch (Exception e)
-        {
-            respuesta.MensajeDeErrorAmigable = "Se produjo un error al obtener la lista de ids recibos firmados";
-            respuesta.setException(e);
+             RepositorioLegajo repo = RepoLegajo();
+             string lista = repo.GetIdRecibosFirmados(tipoLiquidacion, anio, mes);
+             respuesta.Respuesta = lista;
+         }
+         catch (Exception e)
+         {
+             respuesta.MensajeDeErrorAmigable = "Se produjo un error al obtener la lista de ids recibos firmados";
+             respuesta.setException(e);
 
-        }
-        return respuesta;
-    }*/
+         }
+         return respuesta;
+     }*/
 
     [WebMethod]
     //el id puede ser el idLiquidacion o (tipoLiquidacion+anio+mes)
@@ -5620,7 +5679,7 @@ public class WSViaticos : System.Web.Services.WebService
 
     /////////////////VER
 
-    //YA NO SE USA, la forma de visualizacion del recibo es UNICA.....!
+    //NOTA: YA NO SE USA, la forma de visualizacion del recibo es UNICA.....!
     //es la visualizacion del recibo desde el punto de vista del empleado
     [WebMethod]
     public StringRespuestaWS GetReciboPDFEmpleador(int id_recibo)
@@ -5636,7 +5695,7 @@ public class WSViaticos : System.Web.Services.WebService
             //para trabajarlo como objeto es mejor definir un objeto que traiga el recibo, asi se puede acceder a
             //sus propiedades desde el back(desde el front con js se puede acceder), porque no se puede acceder a campos 
             //especificos del objecto recibo cuando el casteo es a object.
-                
+
 
             //datos del recibo a rellenar    
             recibo = repo.GetReciboDeSueldoPorID(id_recibo);
@@ -5655,19 +5714,21 @@ public class WSViaticos : System.Web.Services.WebService
                 bytes = creador_pdf.FillPDF(TemplatePath("ReciboEmpleador_v6.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
                 bytes2 = creador_pdf.AgregarImagenAPDF(bytes, "FRH0502," + Convert.ToString(id_recibo));
             }
-            else{
+            else
+            {
                 if (mapa_para_pdf["paginasPDF"] == "dos")
                 {
                     //el nombre del pdf generado va a ser el idRecibo
                     bytes = creador_pdf.FillPDF(TemplatePath("ReciboEmpleador_v6b.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
                     bytes2 = creador_pdf.AgregarImagenAPDF(bytes, "FRH0502," + Convert.ToString(id_recibo));
                 }
-                else {
+                else
+                {
                     //el nombre del pdf generado va a ser el idRecibo
                     bytes = creador_pdf.FillPDF(TemplatePath("ReciboEmpleador_v6c.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
                     bytes2 = creador_pdf.AgregarImagenAPDF(bytes, "FRH0502," + Convert.ToString(id_recibo));
-                
-                }                
+
+                }
             }
 
             //return Convert.ToBase64String(bytes2);
@@ -5685,7 +5746,7 @@ public class WSViaticos : System.Web.Services.WebService
         {
             respuesta.MensajeDeErrorAmigable = "Se produjo un error al obtener el PDF del recibo del empleador";
             respuesta.setException(e);
-            
+
         }
 
 
@@ -5715,10 +5776,10 @@ public class WSViaticos : System.Web.Services.WebService
             recibo = repo.GetReciboDeSueldoPorIDSinRelleno(id_recibo);
 
             string reciboPlanText = recibo.getReciboParseado(recibo);
-            
+
             var reciboPlanTextBytes = System.Text.Encoding.UTF8.GetBytes(reciboPlanText);
-            respuesta.Respuesta = System.Convert.ToBase64String(reciboPlanTextBytes);   
-            
+            respuesta.Respuesta = System.Convert.ToBase64String(reciboPlanTextBytes);
+
         }
         catch (Exception e)
         {
@@ -5786,7 +5847,7 @@ public class WSViaticos : System.Web.Services.WebService
             //return Convert.ToBase64String(bytes2);
             //return Convert.ToBase64String(bytes2);
             respuesta.Respuesta = Convert.ToBase64String(bytes2);
-            
+
             //////////////////////////////////
             ///      Object x = JsonConvert.DeserializeObject<Object>(datos);
             ///      //JsonConvert.SerializeObject(x);
@@ -5806,7 +5867,7 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
 
-    //YA NO SE USA, la forma de visualizacion del recibo es UNICA.....!
+    //NOTA: YA NO SE USA, la forma de visualizacion del recibo es UNICA.....!
     //es la visualizacion del recibo desde el punto de vista del empleado
     [WebMethod]
     public string GetReciboPDFEmpleado(int id_recibo)
@@ -5837,18 +5898,20 @@ public class WSViaticos : System.Web.Services.WebService
             bytes2 = creador_pdf.AgregarImagenAPDF(bytes, "FRH0502," + Convert.ToString(id_recibo));
         }
 
-        else{
+        else
+        {
             if (mapa_para_pdf["paginasPDF"] == "dos")
             {   //el nombre del pdf generado va a ser el idRecibo
                 bytes = creador_pdf.FillPDF(TemplatePath("ReciboEmpleado_v2b.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
                 bytes2 = creador_pdf.AgregarImagenAPDF(bytes, "FRH0502," + Convert.ToString(id_recibo));
             }
-            else {// hay tres paginas
+            else
+            {// hay tres paginas
                 //el nombre del pdf generado va a ser el idRecibo
                 bytes = creador_pdf.FillPDF(TemplatePath("ReciboEmpleado_v2c.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
                 bytes2 = creador_pdf.AgregarImagenAPDF(bytes, "FRH0502," + Convert.ToString(id_recibo));
-         
-            }          
+
+            }
 
         }
         return Convert.ToBase64String(bytes2);
@@ -5860,34 +5923,34 @@ public class WSViaticos : System.Web.Services.WebService
 
         ///      return x.Cabecera ;
     }
-//TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOPROBAR FALTA permitir que se guarde el archivo en la BD
+
     [WebMethod]
     public int GuardarReciboPDFFirmado(string bytes_pdf, int id_recibo, int anio, int mes, int tipoLiquidacion, Usuario usuario)
     {
 
-        int id_archivo=0;
-//        try
-//        {//COMO el proceso de guardado desde la tabla de la BD al disco es externo, no genero una subclase de archivo
-         //que tendria el path de disco donde guardar el archivo. Se puede agregar una clase con propieda la clase archivo 
-            //subo el archivo firmado y actualiza la tabla que indica que el idRecibo fue firmado
- //       id_archivo = RepositorioDeArchivosFirmados().GuardarArchivo(bytes_pdf, usuario.Owner.Id);
-            id_archivo = 20;//RepositorioDeArchivos().GuardarArchivo(bytes_pdf);// id_recibo;//simulo el guardado del archivo
-            //var r = RepositorioDeArchivos().GetArchivo(id_archivo); //19444 es un pdf firmado          
-            //actualizo el recibo firmado por el empleado, 
+        int id_archivo = 0;
+        //        try
+        //        {//COMO el proceso de guardado desde la tabla de la BD al disco es externo, no genero una subclase de archivo
+        //que tendria el path de disco donde guardar el archivo. Se puede agregar una clase con propieda la clase archivo 
+        //subo el archivo firmado y actualiza la tabla que indica que el idRecibo fue firmado
+        id_archivo = RepositorioDeArchivosFirmados().GuardarArchivo(bytes_pdf, usuario.Owner.Id);
+//                   id_archivo = 20;//RepositorioDeArchivos().GuardarArchivo(bytes_pdf);// id_recibo;//simulo el guardado del archivo
+        //var r = RepositorioDeArchivos().GetArchivo(id_archivo); //19444 es un pdf firmado          
+        //actualizo el recibo firmado por el empleado, 
 
-            //la hora de conformacion de firma es la del reloj del servidor de la app, pero se puede dejar que sea la del reloj del server db
-/*borrado            DateTime hoy = DateTime.Now;
-            string CadenaOriginal = Convert.ToString(id_recibo) + Convert.ToString(id_archivo) + Convert.ToString(anio) + Convert.ToString(mes) + Convert.ToString(tipoLiquidacion) + Convert.ToString(usuario.Owner.Id) + hoy;
-            //uso el encriptador del password 
-            System.Security.Cryptography.HashAlgorithm hashValue = new System.Security.Cryptography.SHA1CryptoServiceProvider();
-            byte[] bytes = System.Text.Encoding.UTF8.GetBytes(CadenaOriginal); 
-            byte[] byteHash = hashValue.ComputeHash(bytes);
-            hashValue.Clear();
+        //la hora de conformacion de firma es la del reloj del servidor de la app, pero se puede dejar que sea la del reloj del server db
+        /*borrado            DateTime hoy = DateTime.Now;
+                    string CadenaOriginal = Convert.ToString(id_recibo) + Convert.ToString(id_archivo) + Convert.ToString(anio) + Convert.ToString(mes) + Convert.ToString(tipoLiquidacion) + Convert.ToString(usuario.Owner.Id) + hoy;
+                    //uso el encriptador del password 
+                    System.Security.Cryptography.HashAlgorithm hashValue = new System.Security.Cryptography.SHA1CryptoServiceProvider();
+                    byte[] bytes = System.Text.Encoding.UTF8.GetBytes(CadenaOriginal); 
+                    byte[] byteHash = hashValue.ComputeHash(bytes);
+                    hashValue.Clear();
 
-            RepoReciboFirmado().agregarReciboFirmado(id_recibo, id_archivo, anio, mes, tipoLiquidacion, usuario.Owner.Id, hoy, Convert.ToBase64String(byteHash));
- */
-            RepoReciboFirmado().agregarReciboFirmado(id_recibo, id_archivo, anio, mes, tipoLiquidacion, usuario.Owner.Id);
-            //        var s=  Convert.FromBase64String(r);
+                    RepoReciboFirmado().agregarReciboFirmado(id_recibo, id_archivo, anio, mes, tipoLiquidacion, usuario.Owner.Id, hoy, Convert.ToBase64String(byteHash));
+         */
+        RepoReciboFirmado().agregarReciboFirmado(id_recibo, id_archivo, anio, mes, tipoLiquidacion, usuario.Owner.Id);
+        //        var s=  Convert.FromBase64String(r);
 
         //TODOOOOOO
         return id_archivo;
@@ -5907,16 +5970,16 @@ public class WSViaticos : System.Web.Services.WebService
         var respuesta = new StringRespuestaWS();
         try
         {
-        //        try
-        //        {//COMO el proceso de guardado desde la tabla de la BD al disco es externo, no genero una subclase de archivo
-        //que tendria el path de disco donde guardar el archivo. Se puede agregar una clase con propieda la clase archivo 
-        //subo el archivo firmado y actualiza la tabla que indica que el idRecibo fue firmado
+            //        try
+            //        {//COMO el proceso de guardado desde la tabla de la BD al disco es externo, no genero una subclase de archivo
+            //que tendria el path de disco donde guardar el archivo. Se puede agregar una clase con propieda la clase archivo 
+            //subo el archivo firmado y actualiza la tabla que indica que el idRecibo fue firmado
             respuesta.Respuesta = RepositorioDeArchivosFirmados().GetArchivoAsync(idArchivo, usuario.Owner.Id);
-        //           id_archivo = 20;//RepositorioDeArchivos().GuardarArchivo(bytes_pdf);// id_recibo;//simulo el guardado del archivo
-        //var r = RepositorioDeArchivos().GetArchivo(id_archivo); //19444 es un pdf firmado          
-        //actualizo el recibo firmado por el empleado, 
+            //           id_archivo = 20;//RepositorioDeArchivos().GuardarArchivo(bytes_pdf);// id_recibo;//simulo el guardado del archivo
+            //var r = RepositorioDeArchivos().GetArchivo(id_archivo); //19444 es un pdf firmado          
+            //actualizo el recibo firmado por el empleado, 
 
-        //la hora de conformacion de firma es la del reloj del servidor de la app, pero se puede dejar que sea la del reloj del server db
+            //la hora de conformacion de firma es la del reloj del servidor de la app, pero se puede dejar que sea la del reloj del server db
         }
         catch (Exception e)
         {
@@ -5926,60 +5989,7 @@ public class WSViaticos : System.Web.Services.WebService
         }
 
 
-        return respuesta;     
-
-    }
-
-    #region " Control de Acceso "
-
-    [WebMethod]
-    public string CTL_ACC_Grabar_Lote(string json)
-    {
-        var ctlAcc = new General.CtrlAcc.RepositorioCtlAcc();
-        return ctlAcc.Grabar_Lote_Control_Acceso(json);
-    }
-
-    [WebMethod]
-    public string CTL_ACC_Get_Dotacion()
-    {
-        var ctlAcc = new General.CtrlAcc.RepositorioCtlAcc();
-        return ctlAcc.Get_Dotacion_Control_Acceso();
-    }
-
-    [WebMethod]
-    public string CTL_ACC_Login(string user, string pass)
-    {
-        return "";
-    }
-
-    [WebMethod]
-    public string CTL_ACC_Get_Personas_Buscador(string param_busqueda)
-    {
-        var ctlAcc = new General.CtrlAcc.RepositorioCtlAcc();
-        return ctlAcc.Get_Personas_Buscador(param_busqueda);
-    }
-
-    #endregion
-
-
-    [WebMethod]
-    public void GenerarMotivoEnPersonasNoCertificadas(int mes, int anio, DDJJ104_Consulta[] lista_DDJJ104, Usuario usuario)
-    {
-        RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
-
-        DDJJ104_2001 cabe = new DDJJ104_2001();
-        ddjj.GenerarMotivoEnPersonasNoCertificadas(mes, anio, lista_DDJJ104, usuario);
-
-    }
-
-
-    [WebMethod]
-    public void AsignaAreaAPersonasNoCertificadas(int mes, int anio, DDJJ104_Consulta[] lista_DDJJ104, int id_area, Usuario usuario)
-    {
-        RepositorioDDJJ104 ddjj = new RepositorioDDJJ104();
-
-        DDJJ104_2001 cabe = new DDJJ104_2001();
-        ddjj.AsignaAreaAPersonasNoCertificadas(mes, anio, lista_DDJJ104, id_area, usuario);
+        return respuesta;
 
     }
 
@@ -6024,4 +6034,5 @@ public class WSViaticos : System.Web.Services.WebService
         return repo.GetLiquidacionesAFirmar(anio,mes);
     }
 
+    #endregion
 }

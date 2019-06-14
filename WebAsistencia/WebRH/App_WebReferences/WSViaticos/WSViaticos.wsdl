@@ -408,6 +408,109 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="CTL_ACC_Grabar_Lote">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="json" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CTL_ACC_Grabar_LoteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CTL_ACC_Grabar_LoteResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CTL_ACC_Get_Dotacion">
+        <s:complexType />
+      </s:element>
+      <s:element name="CTL_ACC_Get_DotacionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CTL_ACC_Get_DotacionResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CTL_ACC_Login">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="user" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pass" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CTL_ACC_LoginResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CTL_ACC_LoginResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CTL_ACC_Get_Personas_Buscador">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="param_busqueda" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CTL_ACC_Get_Personas_BuscadorResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CTL_ACC_Get_Personas_BuscadorResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GenerarMotivoEnPersonasNoCertificadas">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="mes" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="anio" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="lista_DDJJ104" type="tns:ArrayOfDDJJ104_Consulta" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfDDJJ104_Consulta">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DDJJ104_Consulta" nillable="true" type="tns:DDJJ104_Consulta" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DDJJ104_Consulta">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="mes" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="anio" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="area_generacion" type="tns:Area" />
+          <s:element minOccurs="0" maxOccurs="1" name="fecha_generacion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="usuario_generacion" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="recepcionada" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="fecha_recibido" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="usuario_recibido" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="firmante" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="persona" type="tns:Persona" />
+          <s:element minOccurs="0" maxOccurs="1" name="mod_contratacion" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="estado" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="estado_descrip" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GenerarMotivoEnPersonasNoCertificadasResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="AsignaAreaAPersonasNoCertificadas">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="mes" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="anio" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="lista_DDJJ104" type="tns:ArrayOfDDJJ104_Consulta" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_area" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AsignaAreaAPersonasNoCertificadasResponse">
+        <s:complexType />
+      </s:element>
       <s:element name="GetTiposLiquidacion">
         <s:complexType />
       </s:element>
@@ -593,109 +696,6 @@
             <s:element minOccurs="0" maxOccurs="1" name="GetReciboPDFDigitalArchivadoResult" type="tns:StringRespuestaWS" />
           </s:sequence>
         </s:complexType>
-      </s:element>
-      <s:element name="CTL_ACC_Grabar_Lote">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="json" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="CTL_ACC_Grabar_LoteResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="CTL_ACC_Grabar_LoteResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="CTL_ACC_Get_Dotacion">
-        <s:complexType />
-      </s:element>
-      <s:element name="CTL_ACC_Get_DotacionResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="CTL_ACC_Get_DotacionResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="CTL_ACC_Login">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="user" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="pass" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="CTL_ACC_LoginResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="CTL_ACC_LoginResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="CTL_ACC_Get_Personas_Buscador">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="param_busqueda" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="CTL_ACC_Get_Personas_BuscadorResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="CTL_ACC_Get_Personas_BuscadorResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GenerarMotivoEnPersonasNoCertificadas">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="mes" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="anio" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="lista_DDJJ104" type="tns:ArrayOfDDJJ104_Consulta" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:complexType name="ArrayOfDDJJ104_Consulta">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="DDJJ104_Consulta" nillable="true" type="tns:DDJJ104_Consulta" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="DDJJ104_Consulta">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="mes" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="anio" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="area_generacion" type="tns:Area" />
-          <s:element minOccurs="0" maxOccurs="1" name="fecha_generacion" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="usuario_generacion" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="recepcionada" type="s:boolean" />
-          <s:element minOccurs="0" maxOccurs="1" name="fecha_recibido" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="usuario_recibido" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="firmante" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="persona" type="tns:Persona" />
-          <s:element minOccurs="0" maxOccurs="1" name="mod_contratacion" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="estado" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="estado_descrip" type="s:string" />
-        </s:sequence>
-      </s:complexType>
-      <s:element name="GenerarMotivoEnPersonasNoCertificadasResponse">
-        <s:complexType />
-      </s:element>
-      <s:element name="AsignaAreaAPersonasNoCertificadas">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="mes" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="anio" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="lista_DDJJ104" type="tns:ArrayOfDDJJ104_Consulta" />
-            <s:element minOccurs="1" maxOccurs="1" name="id_area" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="AsignaAreaAPersonasNoCertificadasResponse">
-        <s:complexType />
       </s:element>
       <s:element name="ConformarRecibo">
         <s:complexType>
@@ -8427,6 +8427,42 @@
   <wsdl:message name="PrintPdfEvaluacionDesempenioSoapOut">
     <wsdl:part name="parameters" element="tns:PrintPdfEvaluacionDesempenioResponse" />
   </wsdl:message>
+  <wsdl:message name="CTL_ACC_Grabar_LoteSoapIn">
+    <wsdl:part name="parameters" element="tns:CTL_ACC_Grabar_Lote" />
+  </wsdl:message>
+  <wsdl:message name="CTL_ACC_Grabar_LoteSoapOut">
+    <wsdl:part name="parameters" element="tns:CTL_ACC_Grabar_LoteResponse" />
+  </wsdl:message>
+  <wsdl:message name="CTL_ACC_Get_DotacionSoapIn">
+    <wsdl:part name="parameters" element="tns:CTL_ACC_Get_Dotacion" />
+  </wsdl:message>
+  <wsdl:message name="CTL_ACC_Get_DotacionSoapOut">
+    <wsdl:part name="parameters" element="tns:CTL_ACC_Get_DotacionResponse" />
+  </wsdl:message>
+  <wsdl:message name="CTL_ACC_LoginSoapIn">
+    <wsdl:part name="parameters" element="tns:CTL_ACC_Login" />
+  </wsdl:message>
+  <wsdl:message name="CTL_ACC_LoginSoapOut">
+    <wsdl:part name="parameters" element="tns:CTL_ACC_LoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="CTL_ACC_Get_Personas_BuscadorSoapIn">
+    <wsdl:part name="parameters" element="tns:CTL_ACC_Get_Personas_Buscador" />
+  </wsdl:message>
+  <wsdl:message name="CTL_ACC_Get_Personas_BuscadorSoapOut">
+    <wsdl:part name="parameters" element="tns:CTL_ACC_Get_Personas_BuscadorResponse" />
+  </wsdl:message>
+  <wsdl:message name="GenerarMotivoEnPersonasNoCertificadasSoapIn">
+    <wsdl:part name="parameters" element="tns:GenerarMotivoEnPersonasNoCertificadas" />
+  </wsdl:message>
+  <wsdl:message name="GenerarMotivoEnPersonasNoCertificadasSoapOut">
+    <wsdl:part name="parameters" element="tns:GenerarMotivoEnPersonasNoCertificadasResponse" />
+  </wsdl:message>
+  <wsdl:message name="AsignaAreaAPersonasNoCertificadasSoapIn">
+    <wsdl:part name="parameters" element="tns:AsignaAreaAPersonasNoCertificadas" />
+  </wsdl:message>
+  <wsdl:message name="AsignaAreaAPersonasNoCertificadasSoapOut">
+    <wsdl:part name="parameters" element="tns:AsignaAreaAPersonasNoCertificadasResponse" />
+  </wsdl:message>
   <wsdl:message name="GetTiposLiquidacionSoapIn">
     <wsdl:part name="parameters" element="tns:GetTiposLiquidacion" />
   </wsdl:message>
@@ -8492,42 +8528,6 @@
   </wsdl:message>
   <wsdl:message name="GetReciboPDFDigitalArchivadoSoapOut">
     <wsdl:part name="parameters" element="tns:GetReciboPDFDigitalArchivadoResponse" />
-  </wsdl:message>
-  <wsdl:message name="CTL_ACC_Grabar_LoteSoapIn">
-    <wsdl:part name="parameters" element="tns:CTL_ACC_Grabar_Lote" />
-  </wsdl:message>
-  <wsdl:message name="CTL_ACC_Grabar_LoteSoapOut">
-    <wsdl:part name="parameters" element="tns:CTL_ACC_Grabar_LoteResponse" />
-  </wsdl:message>
-  <wsdl:message name="CTL_ACC_Get_DotacionSoapIn">
-    <wsdl:part name="parameters" element="tns:CTL_ACC_Get_Dotacion" />
-  </wsdl:message>
-  <wsdl:message name="CTL_ACC_Get_DotacionSoapOut">
-    <wsdl:part name="parameters" element="tns:CTL_ACC_Get_DotacionResponse" />
-  </wsdl:message>
-  <wsdl:message name="CTL_ACC_LoginSoapIn">
-    <wsdl:part name="parameters" element="tns:CTL_ACC_Login" />
-  </wsdl:message>
-  <wsdl:message name="CTL_ACC_LoginSoapOut">
-    <wsdl:part name="parameters" element="tns:CTL_ACC_LoginResponse" />
-  </wsdl:message>
-  <wsdl:message name="CTL_ACC_Get_Personas_BuscadorSoapIn">
-    <wsdl:part name="parameters" element="tns:CTL_ACC_Get_Personas_Buscador" />
-  </wsdl:message>
-  <wsdl:message name="CTL_ACC_Get_Personas_BuscadorSoapOut">
-    <wsdl:part name="parameters" element="tns:CTL_ACC_Get_Personas_BuscadorResponse" />
-  </wsdl:message>
-  <wsdl:message name="GenerarMotivoEnPersonasNoCertificadasSoapIn">
-    <wsdl:part name="parameters" element="tns:GenerarMotivoEnPersonasNoCertificadas" />
-  </wsdl:message>
-  <wsdl:message name="GenerarMotivoEnPersonasNoCertificadasSoapOut">
-    <wsdl:part name="parameters" element="tns:GenerarMotivoEnPersonasNoCertificadasResponse" />
-  </wsdl:message>
-  <wsdl:message name="AsignaAreaAPersonasNoCertificadasSoapIn">
-    <wsdl:part name="parameters" element="tns:AsignaAreaAPersonasNoCertificadas" />
-  </wsdl:message>
-  <wsdl:message name="AsignaAreaAPersonasNoCertificadasSoapOut">
-    <wsdl:part name="parameters" element="tns:AsignaAreaAPersonasNoCertificadasResponse" />
   </wsdl:message>
   <wsdl:message name="ConformarReciboSoapIn">
     <wsdl:part name="parameters" element="tns:ConformarRecibo" />
@@ -10888,6 +10888,30 @@
       <wsdl:input message="tns:PrintPdfEvaluacionDesempenioSoapIn" />
       <wsdl:output message="tns:PrintPdfEvaluacionDesempenioSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="CTL_ACC_Grabar_Lote">
+      <wsdl:input message="tns:CTL_ACC_Grabar_LoteSoapIn" />
+      <wsdl:output message="tns:CTL_ACC_Grabar_LoteSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CTL_ACC_Get_Dotacion">
+      <wsdl:input message="tns:CTL_ACC_Get_DotacionSoapIn" />
+      <wsdl:output message="tns:CTL_ACC_Get_DotacionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CTL_ACC_Login">
+      <wsdl:input message="tns:CTL_ACC_LoginSoapIn" />
+      <wsdl:output message="tns:CTL_ACC_LoginSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CTL_ACC_Get_Personas_Buscador">
+      <wsdl:input message="tns:CTL_ACC_Get_Personas_BuscadorSoapIn" />
+      <wsdl:output message="tns:CTL_ACC_Get_Personas_BuscadorSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GenerarMotivoEnPersonasNoCertificadas">
+      <wsdl:input message="tns:GenerarMotivoEnPersonasNoCertificadasSoapIn" />
+      <wsdl:output message="tns:GenerarMotivoEnPersonasNoCertificadasSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AsignaAreaAPersonasNoCertificadas">
+      <wsdl:input message="tns:AsignaAreaAPersonasNoCertificadasSoapIn" />
+      <wsdl:output message="tns:AsignaAreaAPersonasNoCertificadasSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetTiposLiquidacion">
       <wsdl:input message="tns:GetTiposLiquidacionSoapIn" />
       <wsdl:output message="tns:GetTiposLiquidacionSoapOut" />
@@ -10931,30 +10955,6 @@
     <wsdl:operation name="GetReciboPDFDigitalArchivado">
       <wsdl:input message="tns:GetReciboPDFDigitalArchivadoSoapIn" />
       <wsdl:output message="tns:GetReciboPDFDigitalArchivadoSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="CTL_ACC_Grabar_Lote">
-      <wsdl:input message="tns:CTL_ACC_Grabar_LoteSoapIn" />
-      <wsdl:output message="tns:CTL_ACC_Grabar_LoteSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="CTL_ACC_Get_Dotacion">
-      <wsdl:input message="tns:CTL_ACC_Get_DotacionSoapIn" />
-      <wsdl:output message="tns:CTL_ACC_Get_DotacionSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="CTL_ACC_Login">
-      <wsdl:input message="tns:CTL_ACC_LoginSoapIn" />
-      <wsdl:output message="tns:CTL_ACC_LoginSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="CTL_ACC_Get_Personas_Buscador">
-      <wsdl:input message="tns:CTL_ACC_Get_Personas_BuscadorSoapIn" />
-      <wsdl:output message="tns:CTL_ACC_Get_Personas_BuscadorSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GenerarMotivoEnPersonasNoCertificadas">
-      <wsdl:input message="tns:GenerarMotivoEnPersonasNoCertificadasSoapIn" />
-      <wsdl:output message="tns:GenerarMotivoEnPersonasNoCertificadasSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="AsignaAreaAPersonasNoCertificadas">
-      <wsdl:input message="tns:AsignaAreaAPersonasNoCertificadasSoapIn" />
-      <wsdl:output message="tns:AsignaAreaAPersonasNoCertificadasSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="ConformarRecibo">
       <wsdl:input message="tns:ConformarReciboSoapIn" />
@@ -12569,6 +12569,60 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="CTL_ACC_Grabar_Lote">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/CTL_ACC_Grabar_Lote" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CTL_ACC_Get_Dotacion">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/CTL_ACC_Get_Dotacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CTL_ACC_Login">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/CTL_ACC_Login" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CTL_ACC_Get_Personas_Buscador">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/CTL_ACC_Get_Personas_Buscador" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerarMotivoEnPersonasNoCertificadas">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GenerarMotivoEnPersonasNoCertificadas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AsignaAreaAPersonasNoCertificadas">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/AsignaAreaAPersonasNoCertificadas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetTiposLiquidacion">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetTiposLiquidacion" style="document" />
       <wsdl:input>
@@ -12661,60 +12715,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetReciboPDFDigitalArchivado">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetReciboPDFDigitalArchivado" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="CTL_ACC_Grabar_Lote">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/CTL_ACC_Grabar_Lote" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="CTL_ACC_Get_Dotacion">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/CTL_ACC_Get_Dotacion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="CTL_ACC_Login">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/CTL_ACC_Login" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="CTL_ACC_Get_Personas_Buscador">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/CTL_ACC_Get_Personas_Buscador" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GenerarMotivoEnPersonasNoCertificadas">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GenerarMotivoEnPersonasNoCertificadas" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="AsignaAreaAPersonasNoCertificadas">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/AsignaAreaAPersonasNoCertificadas" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -16280,6 +16280,60 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="CTL_ACC_Grabar_Lote">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/CTL_ACC_Grabar_Lote" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CTL_ACC_Get_Dotacion">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/CTL_ACC_Get_Dotacion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CTL_ACC_Login">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/CTL_ACC_Login" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CTL_ACC_Get_Personas_Buscador">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/CTL_ACC_Get_Personas_Buscador" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerarMotivoEnPersonasNoCertificadas">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GenerarMotivoEnPersonasNoCertificadas" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AsignaAreaAPersonasNoCertificadas">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/AsignaAreaAPersonasNoCertificadas" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetTiposLiquidacion">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetTiposLiquidacion" style="document" />
       <wsdl:input>
@@ -16372,60 +16426,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetReciboPDFDigitalArchivado">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetReciboPDFDigitalArchivado" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="CTL_ACC_Grabar_Lote">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/CTL_ACC_Grabar_Lote" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="CTL_ACC_Get_Dotacion">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/CTL_ACC_Get_Dotacion" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="CTL_ACC_Login">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/CTL_ACC_Login" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="CTL_ACC_Get_Personas_Buscador">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/CTL_ACC_Get_Personas_Buscador" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GenerarMotivoEnPersonasNoCertificadas">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GenerarMotivoEnPersonasNoCertificadas" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="AsignaAreaAPersonasNoCertificadas">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/AsignaAreaAPersonasNoCertificadas" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
