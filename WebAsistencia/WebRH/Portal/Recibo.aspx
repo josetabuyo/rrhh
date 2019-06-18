@@ -153,4 +153,21 @@
 
 
 </script> 
+
+
+<script type="text/javascript" >
+    /*funcionalidadaes de la pagina web*/
+    function mostrarObservacion(opcion) {
+
+        if (opcion == 0) {
+            //hizo click en conformar, entonces oculto el panel de observacion
+            document.getElementById('capaObservacion').style.display = 'none';
+        } else {
+            document.getElementById('capaObservacion').style.display = 'block';
+        
+       }
+    }
+
+</script> 
+
 </html>

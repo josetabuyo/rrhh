@@ -466,7 +466,7 @@ var Legajo = {
                         fondoRecibo.addClass('tabla_recibo_encabezado');
                         break;
                     case 0:
-                        texto1 = "<BR/>Para obtener (imprimir/descargar) una versión VALIDA del recibo usted debe clickear este botón. ";
+                        texto1 = "<BR/>Firmar en:<BR/><input style='margin-left:10px;vertical-align: text-bottom;' type='radio' id='conforme' value='conforme' checked name='modoFirma' onclick=\"mostrarObservacion(0)\"> <label  for='conforme'>Conformidad</label><BR/><input style='margin-left:10px;vertical-align: text-bottom;' type='radio' id='disconforme' value='disconforme' name='modoFirma' onclick=\"mostrarObservacion(1)\"> <label  for='disconforme'>Disconformidad</label> <BR/><div id='capaObservacion' style='display:none;'>Observaci&oacuten: <textarea id='observacion2' name='observacion2' rows='10' cols='100' maxlength='220' placeholder='En caso de disconformidad indique el motivo' style='margin: 0px; width: 595px; height: 70px;resize: none;'></textarea></div><BR/> Para obtener (imprimir/descargar) una versión VALIDA del recibo usted debe clickear este botón. ";
                         boton1 = "<button type='button' onclick=\"GeneralPortal.conformar(\'" + idRecibo + "\')\">Conformar</button>";
                         div_caja_info_recibos.append(texto1 + boton1);
                         //seteo que muestre el no valido en el fondo
