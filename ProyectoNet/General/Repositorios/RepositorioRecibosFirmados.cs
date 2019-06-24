@@ -38,12 +38,14 @@ namespace General.Repositorios
 
         }
 
-        public bool conformarRecibo(int idRecibo, int idUsuario, DateTime hoy, string hash)
+        public bool conformarRecibo(int idRecibo, int idUsuario, DateTime hoy, int recibo_aceptado, string observacion, string hash )
         {
             var parametros = new Dictionary<string, object>();            
             parametros.Add("@id_Recibo", idRecibo);
             parametros.Add("@id_Usuario", idUsuario);
             parametros.Add("@fechaConformidadUsuario", hoy);
+            parametros.Add("@recibo_aceptado", recibo_aceptado);
+            parametros.Add("@observacion", observacion);
             parametros.Add("@hash", hash);
             var resultado = conexion.EjecutarSinResultado("dbo.[PLA_UPD_ConformarRecibo]", parametros);
             //en ejecutar sinresultado hay un try catch pero en caso de catch no retorna false sino eleva una excepcion

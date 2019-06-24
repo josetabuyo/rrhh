@@ -162,11 +162,32 @@
         if (opcion == 0) {
             //hizo click en conformar, entonces oculto el panel de observacion
             document.getElementById('capaObservacion').style.display = 'none';
+            document.getElementById('observacion2').value = '';
         } else {
             document.getElementById('capaObservacion').style.display = 'block';
         
        }
     }
+
+    function conformarRecibo(idRecibo) {
+
+        var obs = document.getElementById('observacion2').value;
+        var resultado = 0;
+
+        var porNombre = document.getElementsByName("modoFirma");
+        // Recorremos todos los valores del radio button para encontrar el
+        // seleccionado
+        for (var i = 0; i < porNombre.length; i++) {
+            if (porNombre[i].checked)
+                resultado = porNombre[i].value;
+        }
+        //resultado 1 = conforme
+        //resultado 0 = disconforme
+
+        GeneralPortal.conformar(idRecibo,resultado,obs);
+
+    }
+
 
 </script> 
 

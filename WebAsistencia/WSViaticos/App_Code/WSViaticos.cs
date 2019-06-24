@@ -5994,7 +5994,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string ConformarRecibo(int idRecibo, Usuario usuario)
+    public string ConformarRecibo(int idRecibo, int recibo_aceptado, string observacion,Usuario usuario)
     {
         //obtengo el recibo
         List<ReciboFirmado> recibos = RepoReciboFirmado().ObtenerDesdeLaBase(idRecibo);
@@ -6002,14 +6002,14 @@ public class WSViaticos : System.Web.Services.WebService
         //Cuando conforma el recibo el empleado, recien ahi se produce el hash de toda la fila 
         DateTime hoy = DateTime.Now;
         //como voy a adelantarme para generar el hash, asumo conformidad con valor 1, con este valor se va a setear despues
-        string CadenaOriginal = Convert.ToString(recibo.idRecibo) + Convert.ToString(recibo.idArchivo) + Convert.ToString(recibo.anio) + Convert.ToString(recibo.mes) + Convert.ToString(recibo.tipoLiquidacion) + Convert.ToString(1) + Convert.ToString(usuario.Owner.Id) + hoy;
+        string CadenaOriginal = Convert.ToString(recibo.idRecibo) + Convert.ToString(recibo.idArchivo) + Convert.ToString(recibo.anio) + Convert.ToString(recibo.mes) + Convert.ToString(recibo.tipoLiquidacion) + Convert.ToString(1) + Convert.ToString(usuario.Owner.Id) + hoy + Convert.ToString(recibo_aceptado) + observacion;
         //uso el encriptador del password 
         System.Security.Cryptography.HashAlgorithm hashValue = new System.Security.Cryptography.SHA1CryptoServiceProvider();
         byte[] bytes = System.Text.Encoding.UTF8.GetBytes(CadenaOriginal);
         byte[] byteHash = hashValue.ComputeHash(bytes);
         hashValue.Clear();
 
-        if (RepoReciboFirmado().conformarRecibo(idRecibo, usuario.Owner.Id,hoy, Convert.ToBase64String(byteHash)))
+        if (RepoReciboFirmado().conformarRecibo(idRecibo, usuario.Owner.Id, hoy, recibo_aceptado, observacion, Convert.ToBase64String(byteHash)))
         {
             return JsonConvert.SerializeObject(new
             {

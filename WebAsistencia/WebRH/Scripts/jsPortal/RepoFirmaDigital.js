@@ -1,10 +1,10 @@
 var GeneralPortal = {
-    conformar: function (idRecibo) {
+    conformar: function (idRecibo, resultado, obs) {
 
         var spinner = new Spinner({ scale: 2 });
         //spinner.spin($("html")[0]);
 
-        Backend.ConformarRecibo(idRecibo)
+        Backend.ConformarRecibo(idRecibo, resultado, obs)
             .onSuccess(function (respuestaJSON) {
                 //spinner.stop();
                 var respuesta = JSON.parse(respuestaJSON);
