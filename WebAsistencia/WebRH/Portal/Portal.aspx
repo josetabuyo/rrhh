@@ -21,6 +21,7 @@
     <div class="resumen_area"></div>
      <div class="resumen_postular">
      
+     <p style="text-align:center">Información de la Comisión de Igualdad de Oportunidades y Trato - CIOT</p>
      <p style="text-align: center; margin: 5px;"><a href="../ciot/Principal.aspx" ><img src="../ciot/imagenes/logo.png" width="150px" height="80px" style="background-color:white" /></a></p>
         <%--<p style="text-align: center; margin: 5px;"><span style="margin: 20px; display: block;">Para SABER MÁS sobre el Proceso de RETIRO VOLUNTARIO hacé click en el círculo de abajo</span><a href="../Imagenes/AficheRetiroV.jpg" target="_blank" ><img src="../MenuPrincipal/RetiroV.png" width="80px" height="80px" /></a></p>--%>
         <%--<p style="text-align: center; margin: 5px;"><span style="margin: 20px; display: block;"class="panel-title"><a href="../MenuPrincipal/FormulRetiroV.pdf" target="_blank" >Para DESCARGAR el FORMULARIO del Proceso de RETIRO VOLUNTARIO hacé click acá</a></p>--%>
