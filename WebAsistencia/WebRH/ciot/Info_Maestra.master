@@ -1,0 +1,41 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Info_Maestra.master.cs" Inherits="ciot_Info_Maestra" %>
+
+<%@ Register Src="~/BarraMenu/BarraMenu.ascx" TagName="BarraMenu" TagPrefix="uc2" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    
+    
+   <%= Referencias.Css("../")%>
+    <link rel="stylesheet" type="text/css" href="../Formularios/EstilosFormularios.css" />
+    <link rel="stylesheet" href="../estilos/estilos.css" type="text/css"/>   
+    <%= Referencias.Javascript("../")%>
+
+    <asp:ContentPlaceHolder id="head" runat="server">
+        
+    </asp:ContentPlaceHolder>
+</head>
+
+
+<body>
+    <form id="form1" runat="server">
+
+        <uc2:BarraMenu ID="BarraMenu1" UrlPassword="../" runat="server" Feature="<span style='font-size:20px; font-weight: bold;'></span>"
+             UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
+
+    <div>
+        
+        
+                    <asp:ContentPlaceHolder id="ContentPlaceHolderInfo" runat="server">
+                    </asp:ContentPlaceHolder>
+                
+
+    </div>
+
+    </form>
+</body>
+</html>
