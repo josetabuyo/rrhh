@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<head>
+    <link href="../scripts/select2-3.4.4/select2.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+    #buscador_de_personas {
+        margin: 5px;
+    }
+
+    #buscador_de_personas #buscador {
+        width: 450px !important;
+    }
+
+    .vista_persona_en_selector {
+    }
+
+    .vista_persona_en_selector #legajo {
+        margin-right: 5px;
+    }
+
+    .vista_persona_en_selector #contenedor_doc {
+        margin-left: 5px;
+    }
+
+    .vista_persona_en_selector div {
+        display: inline-block;
+    }
+    </style>
+</head>
+<div id=buscador_de_personas>
+    <input id="buscador" type=hidden class="buscarPersona" />
+</div>
+<div id="plantillas" hidden=hidden>
+    <div class="vista_persona_en_selector">
+        <div id="contenedor_legajo" class="label label-warning">
+            <div id="titulo_legajo">Leg:</div>
+            <div id="legajo"></div>
+        </div>
+        <div id="nombre"></div>
+        <div id="apellido"></div>
+        <div id="contenedor_doc" class="label label-default">
+            <div id="titulo_doc">Doc:</div>
+            <div id="documento"></div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="../Scripts/select2-3.4.4/Select2.min.js"></script>
+<script type="text/javascript" src="../Scripts/select2-3.4.4/select2_locale_es.js"></script>
+<script type="text/javascript">
+    var Componente = {
+        start: function (ui) {
+            var _this = this;
+            this.ui = ui;
+            this.buscador = this.ui.find("#buscador");
+            this.plantilla_vista_persona = $("#plantillas .vista_persona_en_selector");
+            this.buscador.select2({
+                minimumInputLength: 3,
+                width: 'resolve',
+                placeholder: this.placeholder || 'ingrese nombre, apellido, documento o legajo',
+                allowClear: true,
+                query: function (query) {
+                    Backend.BuscarPersonas(query.term).onSuccess(function (personas) {
+                        console.warn(personas);
+                        var data = { results: personas };
+                        _this.personasEncontradas = personas;
+                        query.callback(data);
+                    }).onError(function () {
+                        console.log('error al buscar personas');
+                    });
+                },
+                dropdownCssClass: "bigdrop",
+                escapeMarkup: function (m) { return m; },
+                formatResult: function (persona) { return _this.generarVistaPersona(persona); },
+                formatSelection: function (persona) { return _this.generarVistaPersona(persona); }
+            });
+
+            this.buscador.on("select2-selecting", function (e) {
+                for (var i = 0; i < _this.personasEncontradas.length; i++) {
+                    if (_this.personasEncontradas[i].id == e.val) _this.personaSeleccionada = _this.personasEncontradas[i];
+                }
+                _this.alSeleccionarUnaPersona(_this.personaSeleccionada);
+            });
+        },
+        generarVistaPersona: function (persona) {
+            console.warn(persona);
+            var ui = this.plantilla_vista_persona.clone();
+            ui.find("#nombre").text(persona.Nombre);
+            ui.find("#apellido").text(persona.Apellido);
+            ui.find("#legajo").text(persona.Legajo);
+            ui.find("#documento").text(persona.Documento);
+            return ui;
+        },
+        mostrar: function () {
+            this.ui.show();
+        },
+        ocultar: function () {
+            this.ui.hide();
+        }
+    };
+</script>
