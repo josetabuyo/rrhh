@@ -35,7 +35,7 @@ var HabilitadorDePermisos = {
             .onError(function (e) {
 
             });
-    },
+    }/*,
     comprobarPermisosEnPantalla: function () {
         var _this = this;
         var permisos = JSON.parse(localStorage.getItem('permisos'));
@@ -78,5 +78,5 @@ var HabilitadorDePermisos = {
         }
 
         return false;
-    }
+    }*/
 }

@@ -34,6 +34,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using iTextSharp.text.pdf;
 using iTextSharp.text;
 using System.Data.SqlClient;
+using General.Contrato;
 
 
 [WebService(Namespace = "http://wsviaticos.gov.ar/")]
@@ -5880,6 +5881,89 @@ public class WSViaticos : System.Web.Services.WebService
         DDJJ104_2001 cabe = new DDJJ104_2001();
         ddjj.AsignaAreaAPersonasNoCertificadas(mes, anio, lista_DDJJ104, id_area, usuario);
 
+    }
+
+
+   
+    [WebMethod]
+    public Serv_Adm_Publica_Privada[] GetExperienciaLaboral_Principal(int nroDocumento, Usuario usuario)
+    {
+        var RepositorioServAdm = new RepositorioServicios();
+        return RepositorioServAdm.GetExperienciaLaboral_Principal(nroDocumento, usuario).ToArray();
+    }
+
+
+    [WebMethod]
+    public GeneralCombos[] GetAmbitos()
+    {
+        var RepositorioServAdm = new RepositorioServicios();
+
+        var Lista = RepositorioServAdm.GetAmbitos();
+
+        List<GeneralCombos> ambitos = new List<GeneralCombos>();
+
+        foreach (var item in Lista)
+        {
+            ambitos.Add(new GeneralCombos() { id = item.id, descripcion = item.descripcion });
+        }
+
+        return ambitos.ToArray();
+    }
+
+
+    [WebMethod]
+    public GeneralCombos[] GetCargos()
+    {
+        var RepositorioServAdm = new RepositorioServicios();
+
+        var Lista = RepositorioServAdm.GetCargos();
+
+        List<GeneralCombos> cargo = new List<GeneralCombos>();
+
+        foreach (var item in Lista)
+        {
+            cargo.Add(new GeneralCombos() { id = item.id, descripcion = item.descripcion });
+        }
+
+        return cargo.ToArray();
+    }
+
+
+    [WebMethod]
+    public bool Alta_Servicios_Administracion(Serv_Adm_Publica_Privada[] ListaAdmPublicoPrivado, Serv_Adm_Publica_Privada AdmPublicoPrivado, string servicio, Usuario usuario)
+    {
+        var RepositorioServAdm = new RepositorioServicios();
+
+        if (servicio == "PUBLICO")
+        {
+            return RepositorioServAdm.Alta_Servicios_Adm_Publica(ListaAdmPublicoPrivado, AdmPublicoPrivado, usuario);
+        }
+
+        if (servicio == "PRIVADO")
+        {
+            return RepositorioServAdm.Alta_Servicios_Adm_Privada(ListaAdmPublicoPrivado, AdmPublicoPrivado, usuario);
+        }
+
+        return false;
+    }
+
+
+    [WebMethod]
+    public Serv_Adm_Publica_Privada[] GET_Servicios_Adm_Detalles(int legajo, string folio, string servicio, Usuario usuario)
+    {
+        var RepositorioServAdm = new RepositorioServicios();
+
+        if (servicio == "PUBLICO")
+        {
+            return RepositorioServAdm.GET_Servicios_Adm_Publica_Detalles(legajo, folio, usuario).ToArray();
+        }
+
+        if (servicio == "PRIVADO")
+        {
+            return RepositorioServAdm.GET_Servicios_Adm_Privada_Detalles(legajo, folio, usuario).ToArray();
+        }
+
+        return null;
     }
 
 

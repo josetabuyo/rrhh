@@ -64,8 +64,10 @@
       <HintPath>..\..\SharedLibs\itextsharp.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Office.Interop.Excel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\Windows\assembly\GAC_MSIL\Microsoft.Office.Interop.Excel\15.0.0.0__71e9bce111e9429c\Microsoft.Office.Interop.Excel.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\SharedLibs\Newtonsoft.Json.dll</HintPath>
@@ -108,10 +110,14 @@
     <Compile Include="Asistencia\VacacionesSolicitables.cs" />
     <Compile Include="Calendario\CalculadorDeDias.cs" />
     <Compile Include="Calendario\Periodo.cs" />
+    <Compile Include="Contrato\Ambito.cs" />
+    <Compile Include="Contrato\Cargo.cs" />
+    <Compile Include="Contrato\Serv_Adm_Publica_Privada.cs" />
     <Compile Include="CtrlAcc\RepositorioCtlAcc.cs" />
     <Compile Include="DatosAbiertos\ConsultaOPD.cs" />
     <Compile Include="DatosAbiertos\ParametroConsultaOPD.cs" />
     <Compile Include="DatosAbiertos\RepositorioDeDatosAbiertos.cs" />
+    <Compile Include="GeneralCombos.cs" />
     <Compile Include="MAU\AlertaPortal.cs" />
     <Compile Include="MAU\Perfil.cs" />
     <Compile Include="MAU\ResumenTipoTicket.cs" />
@@ -306,6 +312,7 @@
     <Compile Include="Postular\Sexo.cs" />
     <Compile Include="Postular\TipoDeDocumento.cs" />
     <Compile Include="Repositorios\RepositorioRecibosFirmados.cs" />
+    <Compile Include="Repositorios\RepositorioServicios.cs" />
     <Compile Include="Repositorios\SolicitudCredencial.cs" />
     <Compile Include="Repositorios\SueldoPersona.cs" />
     <Compile Include="Repositorios\TipoCredencial.cs" />
