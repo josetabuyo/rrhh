@@ -23,11 +23,17 @@
      
      <p style="text-align:center">Información de la Comisión de Igualdad de Oportunidades y Trato - CIOT</p>
      <p style="text-align: center; margin: 5px;"><a href="../ciot/Principal.aspx" ><img src="../ciot/imagenes/logo.png" width="150px" height="80px" style="background-color:white" /></a></p>
+         <br />
+     <p style="text-align:center">Etica y Transparencia</p>
+     <p style="text-align: center; margin: 5px;"><a href="../EticayTransparencia/Etica.aspx" ><img src="../EticayTransparencia/Imagenes/etica_transparencia.jpg" width="150px" height="80px" style="background-color:white" /></a></p>
+
         <%--<p style="text-align: center; margin: 5px;"><span style="margin: 20px; display: block;">Para SABER MÁS sobre el Proceso de RETIRO VOLUNTARIO hacé click en el círculo de abajo</span><a href="../Imagenes/AficheRetiroV.jpg" target="_blank" ><img src="../MenuPrincipal/RetiroV.png" width="80px" height="80px" /></a></p>--%>
         <%--<p style="text-align: center; margin: 5px;"><span style="margin: 20px; display: block;"class="panel-title"><a href="../MenuPrincipal/FormulRetiroV.pdf" target="_blank" >Para DESCARGAR el FORMULARIO del Proceso de RETIRO VOLUNTARIO hacé click acá</a></p>--%>
         <%--<hr class="lineas-subraya"/>--%>
         <%--<hr class="lineas-subraya"/>--%>
         <%--<p style="text-align: center; margin: 5px;"><span style="margin: 20px; display: block;">Para INSCRIBIRTE al Concurso de PLANTA PERMANENTE (Convocatoria Interna) hacé click en el circulo de abajo</span><a href="../FormularioConcursar/PanelDeControl.aspx" ><img src="../MenuPrincipal/Postular.png" width="80px" height="80px" /></a></p>--%>
+     
+         
      <div style="text-align: center; margin-top:20px;">
      <p>Para mas información click en las imágenes</p>
         <%--<p style="display:inline-block; text-align: center; width: 100px; margin: 0 auto; margin-bottom:15px;"><span style="margin-bottom: 10px; display: inline-block;"></span><a href="../Imagenes/001afiche.promo.lanzamiento.2017.jpg" target="_blank"><img src="../Imagenes/001afiche.promo.lanzamiento.2017.jpg" width="100px" height="150px" /></a></p>--%>
