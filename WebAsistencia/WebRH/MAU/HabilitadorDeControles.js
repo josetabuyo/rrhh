@@ -1,5 +1,10 @@
 ﻿$(document).ready(function () {
     var permisos = JSON.parse(localStorage.getItem('permisos'));
+    /*if (permisos)
+    {
+        permisos = Base64.decode(permisos);
+    }*/
+    
     //FC: traigo todos los elementos del html que tengan el atributo RequiereFuncionalidad
     $('[RequiereFuncionalidad]').each(function (index, control) {
 

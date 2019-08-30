@@ -9,24 +9,30 @@ var HabilitadorDePermisos = {
         Backend.GetFuncionalidadesPerfilesAreas(idUsuarioSeleccionado)
             .onSuccess(function (permisos) {
                 if (permisos) {
-                    localStorage.setItem('permisos', JSON.stringify(permisos));
+                    var p = JSON.stringify(permisos);
+                    /*if (p) {
+                        p = Base64.encode(p);
+                    }*/
+
+
+                    localStorage.setItem('permisos', p);
                     //FC: traigo todos los elementos del html que tengan el atributo RequiereFuncionalidad
-                   /* $('[RequiereFuncionalidad]').each(function (index, control) {
+                    /* $('[RequiereFuncionalidad]').each(function (index, control) {
+ 
+                         $(control).hide();
+ 
+                         var funcionalidad = $(control).attr('RequiereFuncionalidad');
+                         var area = $(control).attr('RequiereArea');
+                         //FC: evaluo si los permisos que tiene el usaurio, coincide con la funcionalidad y el area q requiere
+                         if (_this.tieneLaFuncionalidad(permisos, funcionalidad) && _this.tieneElArea(permisos, area)) {
+                             $(control).show();
+                         } else {
+                             $(control).remove();
+                         }
+ 
+                     });*/
 
-                        $(control).hide();
-
-                        var funcionalidad = $(control).attr('RequiereFuncionalidad');
-                        var area = $(control).attr('RequiereArea');
-                        //FC: evaluo si los permisos que tiene el usaurio, coincide con la funcionalidad y el area q requiere
-                        if (_this.tieneLaFuncionalidad(permisos, funcionalidad) && _this.tieneElArea(permisos, area)) {
-                            $(control).show();
-                        } else {
-                            $(control).remove();
-                        }
-
-                    });*/
-
-                    console.log(permisos);
+                    console.log(p);
                 } else {
                     alertify.error('Error');
                 }
@@ -35,6 +41,10 @@ var HabilitadorDePermisos = {
             .onError(function (e) {
 
             });
+    },
+    limpiarPermisos: function () {
+        localStorage.removeItem('permisos');
+
     }/*,
     comprobarPermisosEnPantalla: function () {
         var _this = this;

@@ -58,7 +58,8 @@ public class Referencias
             <script type=""text/javascript"" src=""__RUTA_ORIGEN__Scripts/Repositorio.js""></script>
             <script type=""text/javascript"" src=""__RUTA_ORIGEN__MAU/HabilitadorDeControles.js""></script>
             <script type=""text/javascript"" src=""__RUTA_ORIGEN__Scripts/Spin.js""></script>";
-        refs = refs.Replace("__RUTA_ORIGEN__", ruta_origen);
+           
+         refs = refs.Replace("__RUTA_ORIGEN__", ruta_origen);
         return refs;
     }
 
