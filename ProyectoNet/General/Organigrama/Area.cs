@@ -33,7 +33,8 @@
         public int CantidadDeUsuarios { get; set; }
         public int Jerarquia { get; set; }
         public int Orden { get; set; }
-        
+
+        public int IncluyeDependencias { get; set; }
 
         public Area(int IdArea)
         {

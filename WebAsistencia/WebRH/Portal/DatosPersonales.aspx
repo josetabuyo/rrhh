@@ -247,8 +247,6 @@
                     <input  id="btn_realizar_solicitud" value="Solicitar nueva credencial" class="btn btn-primary" type="button" />
                 </div>          
             </div>
-
-
                  <div id="cajaCambiarDomicilio" style="display:none;" class="">
                  <h3 style="text-align: center;">Solicitud de actualización de domicilio</h3>
                     <br />
@@ -258,37 +256,28 @@
                             <input type="text" value="" id="txt_calle" name="txt_calle" style="width: 250px; height: 30px;" />
                             <label class="etiqueta_campo" style="margin: 0 10px;" for="txt_numero">N°: <em style="color:Red;">*</em></label>
                             <input type="number" value="" id="txt_numero" name="txt_numero" style="width: 50px; height: 30px;" />
-
                                 <label class="etiqueta_campo" style="margin: 0 10px;" for="txt_piso">Piso: </label>
                                 <input type="text" value="" id="txt_piso" name="txt_piso" style="width: 30px; height: 30px;" />
-
                                 <label class="etiqueta_campo" style="margin: 0 10px;" for="txt_dto">Dpto: </label>
                                 <input type="text" value="" id="txt_dto" name="txt_dto" style="width: 30px; height: 30px;" />
-
                                  <label class="etiqueta_campo_small" style="margin: 0 10px;" for="txt_cp">C.P.: <em style="color:Red;">*</em></label>
                                 <input type="text" value="" id="txt_cp" name="txt_cp" style="width: 50px; height: 30px;" />
                             </div>
-
                             <div class="">
                                 <label class="etiqueta_campo" style="margin-right: 13px;" for="txt_calle">Manzana:</label>
                                 <input type="text" value="" id="txt_manzana" name="txt_calle" style="width: 30px; height: 30px;" />
                                 <label class="etiqueta_campo" style="margin: 0 10px;" for="txt_numero">Barrio:</label>
                                 <input type="text" value="" id="txt_barrio" name="txt_numero" style="width: 30px; height: 30px;" />
-
                                 <label class="etiqueta_campo" style="margin: 0 10px;" for="txt_piso">Torre:</label>
                                 <input type="text" value="" id="txt_torre" name="txt_piso" style="width: 30px; height: 30px;" />
-
                                 <label class="etiqueta_campo" style="margin: 0 10px;" for="txt_dto">Uf:</label>
                                 <input type="text" value="" id="txt_uf" name="txt_dto" style="width: 30px; height: 30px;" />
-
                                  <label class="etiqueta_campo_small" style="margin: 0 10px;" for="txt_cp">Casa:</label>
                                 <input type="text" value="" id="txt_casa" name="txt_cp" style="width: 30px; height: 30px;" />
                             </div>
-
                             <div class="">
                                 <label class="etiqueta_campo" for="cmb_provincia">Provincia: <em style="color:Red;">*</em></label>
                                 <select id="cmb_provincia" style="width: 200px;"></select>
-
                                 <label class="etiqueta_campo_small" for="cmb_localidad">Localidad: <em style="color:Red;">*</em></label>
                                 <select id="cmb_localidad" style="width: 250px;"></select>
                             </div>
@@ -298,7 +287,6 @@
                             </div>
                             
                         </div>
-
                 <legend style="margin-top: 20px;">DATOS FAMILIARES</legend>
                     <div id="tabla_familiar">
     
@@ -308,18 +296,14 @@
                     <table id="tabla_psicofisicos" class="table table-striped table-bordered table-condensed">
                         
                     </table>
-
                     <legend style="margin-top: 20px;">ESTUDIOS</legend>
-
                     <div id="tabla_estudios">
     
                     </div>
-
                 </div>
                
             </div>
         </div>
-
          <div class="cajaEstudioOculta">
             <img src="../Imagenes/diploma.png" class="img_caja_estudio" alt="diploma" />
             <div class="div_dentro_de_caja_estudio" >
@@ -327,24 +311,18 @@
                 <p>Fecha Egreso: <span class="fecha"></span> </p>
             </div>
         </div>
-
         <div class="plantillas" style="display: none">
            
         </div>
     </form>
 </body>
-
 <script type="text/javascript" src="Legajo.js"></script>
 <script type="text/javascript" src="../Scripts/Spin.js"></script>
 <script type="text/javascript" src="../Scripts/ControlesImagenes/VistaThumbnail.js"></script>
 <script type="text/javascript" src="../scripts/vex-2.1.1/js/vex.combined.min.js"></script>
-
-
 <script type="text/javascript" >
     $("#btn_credencial_vigente").hide();
     $(document).ready(function ($) {
-
-
         $("#texto_deterioro").hide();
         $("#texto_robo").hide();
         $("#texto_seleccione_motivo").hide();
@@ -355,7 +333,6 @@
         Backend.start(function () {
             //para cargar el menu izquierdo 
             $(".caja_izq").load("SeccionIzquierda.htm", function () {
-
                 Legajo.getNombre();
                 Legajo.getDatosPersonales();
                 Legajo.getDatosFamiliares();
@@ -363,21 +340,14 @@
                 Legajo.getEstudios();
                 Legajo.getCredencialesUsuario();
             });
-
             Backend.GetUsuarioLogueado().onSuccess(function (usuario) {
-
                 if (usuario.Owner.IdImagen == -1) {
-
-
                     $("#cajaAgregarFotoPerfil").show();
                     $("#botonera_credenciales").hide();
                     $("#btn_cargar_foto").click(function () { $("#contenedor_foto_usuario").click(); });
-
                 }
                 else {
-
                     Backend.GetSolicitudesDeCredencialPorPersona().onSuccess(function (solicitudes) {
-
                         $("#botonera_credenciales").show();
                         if (_.some(solicitudes, function (sol) {
                             if (sol.Id == 0) return false;
@@ -394,11 +364,8 @@
                         }
                         $("#btn_historial_credenciales").show();
                     });
-
                 }
-
             });
-
             
             
             Backend.GetCredencialesTodasDePortal().onSuccess(function (credenciales) {
