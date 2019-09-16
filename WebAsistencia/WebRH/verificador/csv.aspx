@@ -38,17 +38,20 @@
 		<div class="back-colorNOUSADOESLALETRADELRESULTADO" style="background-image: url('../Imagenes/fondo_verificadorpng.png'); height:60%;width:100%;background-repeat:no-repeat;background-size: cover;">
         <div id="contenedor_imagen" style="width:100%" >
             <img src="../Imagenes/logo_sistema.png" id="img_logo_sistema" alt="logosistema" style="width:10%;margin-top:30px; margin-left:2%">
-            <img src="../Imagenes/logo_direccion.png" id="img_logo_direccion" alt="logosistema" style="width:13%;margin-top:40px;float:right;margin-right: 2%">
-            <img src="../Imagenes/logo_ministerio.png" id="img_logo_minis" alt="logosistema" style="width:14%;margin-top:40px;float:right;margin-right: 2%;">
+            <!--<img src="../Imagenes/logo_direccion.png" id="img_logo_direccion" alt="logosistema" style="width:13%;margin-top:40px;float:right;margin-right: 2%">
+            <img src="../Imagenes/logo_ministerio.png" id="img_logo_minis" alt="logosistema" style="width:14%;margin-top:40px;float:right;margin-right: 2%;">-->            
+            <img src="../Imagenes/003logo_rrhh.gif" id="img2" alt="logosistema" style="width:10%;margin-top:55px;float:right;margin-right: 2%;">  
+            <img src="../Imagenes/002logo_ministerio.gif" id="img1" alt="logosistema" style="width:17%;margin-top:40px;float:right;margin-right: 2%">         
+            
                    
         </div><br />
 
 		<div class="container h-100">
 			<div class="row h-100">
 				<div class="col-sm-12 my-auto card-container">
-					<div class=" col-lg-5 col-md-7 col-sm-9 mx-auto h-100" style ="margin-top:10%;">
+					<div class=" col-lg-5 col-md-7 col-sm-9 mx-auto h-100" style ="margin-top:10%;max-width: 41.666667%;">
 						<div class="card card-block  altura-div fondo-color" >
-							<div class="card-header fondo-color" style="height: 30%; border-bottom: 0px solid rgba(0,0,0,.125);">
+							<div class="card-header fondo-color" style="height: 38%; border-bottom: 0px solid rgba(0,0,0,.125);">
 								<div class="text-center" style="height: 90%">
                                    
 									<img alt="" class="img-fluid fondo-color" style="border: 0px solid #006b74 ;/*background-color: rgba(0, 108, 116, 0.74);*/height: 90%; width:auto; 
@@ -84,7 +87,7 @@
 <div id="divPrincipal" style="display: inline;">
 	<div class="form-group pt-4 mt-3" >
 		<div class="alert alert-warning" style="display: none;" role="alert" id="alertFiltro"></div>		
-		<input type="text" class="form-control" style="width:100%;height:100%;"value="" name="codigoVerificador" id="codigoVerificador" placeholder="Ingrese el código">
+		<input type="text" class="form-control" style="width:86%;height:100%;margin-left:7%"value="" name="codigoVerificador" id="codigoVerificador" placeholder="Ingrese el código">
 		
 	</div>
 	<script src='https://www.google.com/recaptcha/api.js?hl=es'></script>
