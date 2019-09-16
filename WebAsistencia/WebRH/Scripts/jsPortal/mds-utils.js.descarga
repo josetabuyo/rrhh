@@ -1,0 +1,271 @@
+$(document).ready(function () {
+	MDSUtils.activeTooltips();
+//	$('.dataTable').on( 'draw.dt addedRow.conicet.dt', function () {
+//		$('[data-toggle="tooltip"]').tooltip();
+//	} );
+});
+
+//Hace la primer letra de la palabra mayuscula
+String.prototype.capitalizeFirstLetter = function() {
+	return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
+var xhr;
+var MDSUtils = {
+	activeTooltips: function (){
+		$('[data-toggle="tooltip"]').tooltip();
+		$('[data-tooltip="tooltip"]').tooltip();
+	},
+
+	/**
+	 * Devuelve el valor string de value
+	 * Si es null o undefined devuelve un string vacio 
+	 * @param value
+	 * @returns
+	 */
+	toString: function (value) {
+	    return (value == null) ? "" : value
+	},
+	
+	booleanToString: function (value){
+		return (value == true) ? strings['si']
+				: strings['no'];
+	},
+	
+	getBooleanCenteredData: function (data, type, obj, meta) {
+		var retorno = "<center>";
+		retorno += MDSUtils.booleanToString(data);
+		retorno += "</center>";
+		return retorno;
+	},
+	
+	
+	dateToDateTime: function (fecha, type, obj, meta) {
+		return (fecha == "" || fecha == null ) ? "-" : moment(fecha, "DD/MM/YYYY").format("DD/MM/YYYY hh:mm");
+	},
+	
+	
+	dateTimeToDate: function (fecha, type, obj, meta) {
+		return (fecha == "" || fecha == null ) ? "-" : moment(fecha, "DD/MM/YYYY hh:mm").format("DD/MM/YYYY");
+	},
+	
+	//example postJson('provincias', { paisId : value }, function(results) {...}, function() {...});
+	postJson: function (url, data, done, fail) {
+		$.isFunction(data) && (fail = fail || done, done = data, data = {});
+		data["_csrf"]=$("input[name='_csrf']").val();
+		xhr && xhr.abort();
+		xhr = $.post(url + '.json', data).done(done).fail(fail);
+	},
+	
+	postJsonSync: function (url, data, done, fail) {
+		$.isFunction(data) && (fail = fail || done, done = data, data = void 0);
+		xhr && xhr.abort();
+		
+		xhr = $.ajax({
+			  type: "POST",
+			  async: false,
+			  url: url + '.json',
+			  data: data,
+			  success: done,
+			  error: fail
+			});
+	},
+	
+	
+	// Realiza un submit de un form con method POST
+	// Parameters debe ser un arreglo de objetos con el siguiente formato {name:"tramiteId",value:"123"}
+	postData: function (action, parameters) {
+	    var form = $('<form></form>');
+	
+	    form.attr("method", "post");
+	    form.attr("action", action);
+	
+	    $.each(parameters, function() {
+	        var field = $('<input></input>');
+	
+	        field.attr("type", "hidden");
+	        field.attr("name", this.name);
+	        field.attr("value", this.value);
+	
+	        form.append(field);
+	    });
+	
+	    // The form needs to be a part of the document in
+	    // order for us to be able to submit it.
+	    $(document.body).append(form);
+	    form.submit();
+	},
+	
+	// Escapa un string que contenga caracteres claves de query, para poder ser utilizado como selctor
+	jqIdEscape: function (id) {	 
+	    return id.replace( /(:|\.|\[|\])/g, "\\\$1" );
+	},
+	
+	// Inicializa un datepicker con el nuestro formato estandar
+	cDatepickerDefaultConfig: { locale:'es' },
+	cDatepicker: function (pickerId, extraConfig) {
+		var config = _(MDSUtils.cDatepickerDefaultConfig).extend(extraConfig);
+		return $("#"+MDSUtils.jqIdEscape(pickerId)).datetimepicker(config);
+	},
+	
+	cDatepickersMinAndMax: function (minDatePickerId, maxDatePickerId){
+		var $minDatePicker = $(MDSUtils.cDatepicker(minDatePickerId));
+		var $maxDatePicker = $(MDSUtils.cDatepicker(maxDatePickerId, {
+			useCurrent: false //Important! See issue #1075
+		}));
+		$minDatePicker.on("dp.change", function (e) {
+			$maxDatePicker.data("DateTimePicker").minDate(e.date);
+		});
+		$maxDatePicker.on("dp.change", function (e) {
+			$minDatePicker.data("DateTimePicker").maxDate(e.date);
+		});
+		return [$minDatePicker, $maxDatePicker];
+	},
+	
+	/*
+	 * CREACION DE INPUTS
+	 */
+	createInputText: function (id, name, value, cssClass, style){
+		return MDSUtils.createInput('text', id, name, value, cssClass, style);
+	},
+	
+	createInputHidden: function (id, name, value){
+		return MDSUtils.createInput('hidden', id, name, value, null, null);
+	},
+	
+	createInputRadio: function (id, name, value, cssClass, style){
+		return MDSUtils.createInput('radio', id, name, value, cssClass, style);
+	},
+	
+	createButtonAnchor: function (id, name, html, style, onClick, url, title, dataToggle, dataTarget, dataTooltip){
+		var button = MDSUtils.create('a', id, name, 'btn-icon btn-main-action', style);
+		return $(button)
+			.html(html)
+			.attr('onClick', onClick)
+			.attr('href', url)
+			.attr('title', title)
+			.attr('data-toggle', dataToggle)
+			.attr('data-target', dataTarget)
+			.attr('data-tooltip', dataTooltip)
+			.attr('role', 'button')
+			.prop('outerHTML');
+	},
+	
+	/**
+	 * En lo preferible usar los create para los types especificos
+	 */
+	createInput: function (type, id, name, value, cssClass, style){
+		var input = MDSUtils.create('input', id, name, cssClass, style)
+		return $(input)
+			.attr('value', value)
+			.attr('type', type)
+			.prop('outerHTML');
+	},
+	
+	/**
+	 * En lo preferible usar los create para los elementos especificos
+	 * @param element
+	 * @param id
+	 * @param name
+	 * @param value
+	 * @param cssClass
+	 * @param style
+	 * @returns debuelve el html del elemento
+	 */
+	create: function (element, id, name, cssClass, style){
+		return $('<'+element+'>')
+			.attr('id', id)
+			.attr('name', name)
+			.attr('class', cssClass)
+			.attr('style', style)
+			.prop('outerHTML');
+	},
+	
+	
+	/**
+	 * Dado un array de inputs con nombres correspondientes a la estructura de un objeto
+	 * se construye un objeto json reflejando esa estructura
+	 * 
+	 * Ej: inputs con nombre domicilio.calle, domicilio.numero, domicilio.pais.id
+	 * 	generan un objeto { domicilio : {calle : valor , numero : valor , pais : {id : valor} } }
+	 */
+	buildJsonObject: function (inputArray){
+	    var jsonArray = inputArray.serializeArray();
+	    var object = {};
+	    for (var j = 0; j<jsonArray.length; j++){
+	       var nav = object;
+	       var nameSplit = jsonArray[j].name.split(".");
+	       for(var i = 0; i<nameSplit.length; i++){
+	       		if(i<nameSplit.length -1){
+	       			if(nav[nameSplit[i]] == undefined){
+	       				nav[nameSplit[i]] = {};
+	       			}
+	       			nav = nav[nameSplit[i]] ;
+	   			}else{
+	   				nav[nameSplit[i]] = jsonArray[j].value;
+	   			}
+	       }
+	    }
+	    return object;
+	},
+	
+	hideElementById: function (elementId){
+		MDSUtils.hideElementBySelector("#"+MDSUtils.jqIdEscape(elementId));
+	},
+	
+	hideElementBySelector: function (elementSelector){
+		var $element = $(elementSelector);
+		MDSUtils.hideElement($element);
+	},
+	hideElement: function($element) {
+		if ($element.hasClass("show")) {
+			$element.removeClass("show");
+		}
+		if (!$element.hasClass("hidden")){
+			$element.addClass("hidden");
+		}
+	},
+	showElementById: function (elementId){
+		MDSUtils.showElementBySelector("#"+MDSUtils.jqIdEscape(elementId));
+	},	
+	showElementBySelector: function (elementSelector){
+		var $element = $(elementSelector);
+		MDSUtils.showElement($element);
+	},
+	showElement: function ($element) {
+		if ($element.hasClass("d-none")){
+			$element.removeClass("d-none");
+		}
+		if (!$element.hasClass("d-block")) {
+			$element.addClass("d-block");
+		}
+	},
+	validateForm: function (formId, validatorUrl, success){
+		var $form = $("#"+formId); 
+		$form.find("span[id$=errors]").empty();
+		var $formData = $domicilioForm
+			.find(":input").serialize();
+		MDSUtils.postJson(
+				validatorUrl,
+				$formData,
+				function(results) {
+					if (results.status == 'FAIL') {
+						for ( var i = 0; i < results.errorMessageList.length; i++) {
+							var item = results.errorMessageList[i];
+							var $controlGroup = $("#"+MDSUtils.jqIdEscape(item.fieldName
+									+ '.errors'));
+							$controlGroup
+									.html(item.message);
+						}
+					} else {
+						success();
+					}
+				}, function() {
+	
+				});
+	},
+	
+	findElement: function (elementId){
+		return $(MDSUtils.jqIdEscape(elementId));
+	}
+}

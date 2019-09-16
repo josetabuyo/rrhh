@@ -728,6 +728,20 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="VerificarCSV">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="codigoCSV" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="VerificarCSVResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="VerificarCSVResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="Mobi_GetAreasUsuario">
         <s:complexType>
           <s:sequence>
@@ -8543,6 +8557,12 @@
   <wsdl:message name="GetLiquidacionesAFirmarSoapOut">
     <wsdl:part name="parameters" element="tns:GetLiquidacionesAFirmarResponse" />
   </wsdl:message>
+  <wsdl:message name="VerificarCSVSoapIn">
+    <wsdl:part name="parameters" element="tns:VerificarCSV" />
+  </wsdl:message>
+  <wsdl:message name="VerificarCSVSoapOut">
+    <wsdl:part name="parameters" element="tns:VerificarCSVResponse" />
+  </wsdl:message>
   <wsdl:message name="Mobi_GetAreasUsuarioSoapIn">
     <wsdl:part name="parameters" element="tns:Mobi_GetAreasUsuario" />
   </wsdl:message>
@@ -10966,6 +10986,10 @@
       <wsdl:input message="tns:GetLiquidacionesAFirmarSoapIn" />
       <wsdl:output message="tns:GetLiquidacionesAFirmarSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="VerificarCSV">
+      <wsdl:input message="tns:VerificarCSVSoapIn" />
+      <wsdl:output message="tns:VerificarCSVSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="Mobi_GetAreasUsuario">
       <wsdl:input message="tns:Mobi_GetAreasUsuarioSoapIn" />
       <wsdl:output message="tns:Mobi_GetAreasUsuarioSoapOut" />
@@ -12735,6 +12759,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetLiquidacionesAFirmar">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetLiquidacionesAFirmar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VerificarCSV">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/VerificarCSV" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -16446,6 +16479,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetLiquidacionesAFirmar">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetLiquidacionesAFirmar" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VerificarCSV">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/VerificarCSV" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

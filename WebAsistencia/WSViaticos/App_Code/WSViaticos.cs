@@ -35,6 +35,7 @@ using iTextSharp.text.pdf;
 using iTextSharp.text;
 using System.Data.SqlClient;
 using General.Recibos;
+using General.Csv;
 
 
 [WebService(Namespace = "http://wsviaticos.gov.ar/")]
@@ -5199,6 +5200,11 @@ public class WSViaticos : System.Web.Services.WebService
         return General.Repositorios.RepositorioRecibosFirmados.NuevoRepositorioRecibosFirmados(Conexion());
     }
 
+    private RepositorioVerificador RepoVerificador()
+    {
+        return General.Repositorios.RepositorioVerificador.NuevoRepositorioVerificador(Conexion());
+    }
+
     private IRepositorioDeUsuarios RepositorioDeUsuarios()
     {
         return new RepositorioDeUsuarios(Conexion(), RepositorioDePersonas());
@@ -5797,8 +5803,9 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public StringRespuestaWS GetReciboPDFDigital(int id_recibo)
     {
-
         var respuesta = new StringRespuestaWS();
+
+        RepositorioVerificador repoVeri = RepoVerificador();        
 
         try
         {
@@ -5820,12 +5827,20 @@ public class WSViaticos : System.Web.Services.WebService
             var creador_pdf = new CreadorDePdfs();
             byte[] bytes;
             byte[] bytes2;
+            byte[] bytes3;
+            String csv;
+            CSVUtil csvUtil = new CSVUtil();
 
             if (mapa_para_pdf["paginasPDF"] == "una")
             {
                 //el nombre del pdf generado va a ser el idRecibo
                 bytes = creador_pdf.FillPDF(TemplatePath("Recibodigital_v1a.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
                 bytes2 = creador_pdf.AgregarImagenAPDF(bytes, "FRH0502," + Convert.ToString(id_recibo));
+
+                //hasta aqui el pdf esta rellenado solo falta agregar el csv                
+                csv = csvUtil.generarCodigoCSV(bytes2, CSVUtil.SAF_MDS, id_recibo, CSVUtil.TIPO_RECIBO_DIGITAL);
+                bytes3 = creador_pdf.AgregarCSVyQRAPDF(bytes2, csv,1);
+
             }
             else
             {
@@ -5834,6 +5849,10 @@ public class WSViaticos : System.Web.Services.WebService
                     //el nombre del pdf generado va a ser el idRecibo
                     bytes = creador_pdf.FillPDF(TemplatePath("ReciboDigital_v1b.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
                     bytes2 = creador_pdf.AgregarImagenAPDF(bytes, "FRH0502," + Convert.ToString(id_recibo));
+
+                    //hasta aqui el pdf esta rellenado solo falta agregar el csv                
+                    csv = csvUtil.generarCodigoCSV(bytes2, CSVUtil.SAF_MDS, id_recibo, CSVUtil.TIPO_RECIBO_DIGITAL);
+                    bytes3 = creador_pdf.AgregarCSVyQRAPDF(bytes2, csv,2);
                 }
                 else
                 {
@@ -5841,12 +5860,19 @@ public class WSViaticos : System.Web.Services.WebService
                     bytes = creador_pdf.FillPDF(TemplatePath("ReciboDigital_v1c.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
                     bytes2 = creador_pdf.AgregarImagenAPDF(bytes, "FRH0502," + Convert.ToString(id_recibo));
 
+                    //hasta aqui el pdf esta rellenado solo falta agregar el csv                
+                    csv = csvUtil.generarCodigoCSV(bytes2, CSVUtil.SAF_MDS, id_recibo, CSVUtil.TIPO_RECIBO_DIGITAL);
+                    bytes3 = creador_pdf.AgregarCSVyQRAPDF(bytes2, csv,3);
                 }
             }
 
+//            //agregar el csv a la tabla respectiva
+//            //CSVUtil.formatCSV(s, 4, CSV_SEPARATOR)   //agrega los "-" cada 4 caracteres al csv
+//            bool resultado = repoVeri.agregarCsv(csv, CSVUtil.ID_TIPO_RECIBO_DIGITAL, id_recibo);
+
             //return Convert.ToBase64String(bytes2);
             //return Convert.ToBase64String(bytes2);
-            respuesta.Respuesta = Convert.ToBase64String(bytes2);
+            respuesta.Respuesta = Convert.ToBase64String(bytes3);
 
             //////////////////////////////////
             ///      Object x = JsonConvert.DeserializeObject<Object>(datos);
@@ -5925,16 +5951,20 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    //Se guarda el pdf firmado y el csv en otra tabla
     public int GuardarReciboPDFFirmado(string bytes_pdf, int id_recibo, int anio, int mes, int tipoLiquidacion, Usuario usuario)
     {
+        RepositorioVerificador repoVeri = RepoVerificador();
+
+        var creador_pdf = new CreadorDePdfs();
 
         int id_archivo = 0;
         //        try
         //        {//COMO el proceso de guardado desde la tabla de la BD al disco es externo, no genero una subclase de archivo
         //que tendria el path de disco donde guardar el archivo. Se puede agregar una clase con propieda la clase archivo 
         //subo el archivo firmado y actualiza la tabla que indica que el idRecibo fue firmado
-        id_archivo = RepositorioDeArchivosFirmados().GuardarArchivo(bytes_pdf, usuario.Owner.Id);
-//                   id_archivo = 20;//RepositorioDeArchivos().GuardarArchivo(bytes_pdf);// id_recibo;//simulo el guardado del archivo
+//        id_archivo = RepositorioDeArchivosFirmados().GuardarArchivo(bytes_pdf, usuario.Owner.Id);
+                   id_archivo = 20;//RepositorioDeArchivos().GuardarArchivo(bytes_pdf);// id_recibo;//simulo el guardado del archivo
         //var r = RepositorioDeArchivos().GetArchivo(id_archivo); //19444 es un pdf firmado          
         //actualizo el recibo firmado por el empleado, 
 
@@ -5950,6 +5980,17 @@ public class WSViaticos : System.Web.Services.WebService
                     RepoReciboFirmado().agregarReciboFirmado(id_recibo, id_archivo, anio, mes, tipoLiquidacion, usuario.Owner.Id, hoy, Convert.ToBase64String(byteHash));
          */
         RepoReciboFirmado().agregarReciboFirmado(id_recibo, id_archivo, anio, mes, tipoLiquidacion, usuario.Owner.Id);
+                
+        //los bytes vienen en base64, convierto de base64 a string y luego a bytes.
+        byte[] data = System.Convert.FromBase64String(bytes_pdf);
+        //string csv = creador_pdf.ObtenerCsv(System.Text.Encoding.UTF8.GetBytes(bytes_pdf));
+
+        //Obtener el csv del pdf
+        string csv = creador_pdf.ObtenerCsv(data);
+        //agregar el csv a la tabla respectiva
+        //CSVUtil.formatCSV(s, 4, CSV_SEPARATOR)   //agrega los "-" cada 4 caracteres al csv
+        bool resultado = repoVeri.agregarCsv(csv, CSVUtil.ID_TIPO_RECIBO_DIGITAL, id_recibo);
+
         //        var s=  Convert.FromBase64String(r);
 
         //TODOOOOOO
@@ -6028,10 +6069,52 @@ public class WSViaticos : System.Web.Services.WebService
     public string GetLiquidacionesAFirmar(Usuario usuario)
     {
         /*el año y mes de inicio de posibilidad de firmar esta HARCODEADO AQUI*/
-        int anio = 2019;
+        int anio = 2018;
         int mes = 1;
         RepositorioLegajo repo = RepoLegajo();
         return repo.GetLiquidacionesAFirmar(anio,mes);
+    }
+
+    #endregion
+
+    #region " Verificacion Electronica"
+
+    [WebMethod] /*********TO DO*****/
+    public string VerificarCSV(string codigoCSV)
+    {
+        RepositorioLegajo repoL = RepoLegajo();
+        Recibo recibo;
+
+        //el codigo csv puede venir con o sin guiones
+        string csv = codigoCSV.Replace("-", ""); 
+
+        //return JsonConvert.SerializeObject(new { tipoDeRespuesta = "nok", cuil = "", periodo = "", neto = "" });
+        recibo = repoL.GetReciboDeSueldoPorID(788022); //788022 recibo de prueba
+        return JsonConvert.SerializeObject(new { tipoDeRespuesta = "ok", cuil = recibo.cabecera.CUIL, periodo = recibo.cabecera.FechaLiquidacion, neto = recibo.cabecera.Neto });
+
+        /************/
+        RepositorioVerificador repo = RepoVerificador();
+        List<CSV> listaCSV = repo.ObtenerDesdeLaBase(codigoCSV);
+        //verifico que existe el numero de csv
+        if (listaCSV.Count > 0)
+        {
+            int tipo_doc = listaCSV[0].tipo_doc_electronico;
+            int id_doc = listaCSV[0].id_doc;
+            //Obtengo los datos del documento 
+            //FABI quiere hacer un SP que automaticamente obtenga el documento PERO aca por el momento lo dejo harcodeado
+            //nota: aca se obtiene a todo el recibo, lo ideal seria solo obtener los datos que se mostraran...
+            recibo = repoL.GetReciboDeSueldoPorID(id_doc); //788022 recibo de prueba
+            
+            return JsonConvert.SerializeObject(new { tipoDeRespuesta = "ok", cuil = recibo.cabecera.CUIL, periodo = recibo.cabecera.FechaLiquidacion, neto = recibo.cabecera.Neto });
+
+        }
+        else {
+            return JsonConvert.SerializeObject(new { tipoDeRespuesta = "nok", cuil = "", periodo = "", neto = "" });
+        }
+        // y obtengo el tipo_doc_electrico, id_doc
+
+        //recibosFirmados = repo.GetIdRecibosFirmados(tipoLiquidacion, anio, mes);
+
     }
 
     #endregion
