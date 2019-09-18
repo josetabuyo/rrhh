@@ -86,16 +86,16 @@
 <!--<form id="verificadorForm" role="form" class="form-horizontal" action="https://si.con.gov.ar/verificador/index.htm" method="post">-->
 <div id="divPrincipal" style="display: inline;">
 	<div class="form-group pt-4 mt-3" >
-		<div class="alert alert-warning" style="display: none;" role="alert" id="alertFiltro"></div>		
+		<div class="alert alert-warning" style="display: none;width:86%;margin-left:24px" role="alert" id="alertFiltro"></div>		
 		<input type="text" class="form-control" style="width:86%;height:100%;margin-left:7%"value="" name="codigoVerificador" id="codigoVerificador" placeholder="Ingrese el código">
 		
 	</div>
 	<script src='https://www.google.com/recaptcha/api.js?hl=es'></script>
-    <div class="g-recaptcha" data-sitekey="6LeawLgUAAAAAIuhAIq5kdwe1bvHFpyST5ih5ghM" data-callback="verifyCaptcha" style= "display: flex;justify-content: center"></div>
+    <div class="g-recaptcha" data-sitekey="6LeawLgUAAAAAIuhAIq5kdwe1bvHFpyST5ih5ghM" data-callback="habilitarBtnVerificador" style= "display: flex;justify-content: center"></div>
     <div id="g-recaptcha-error"></div>
 
 	<div class="row" style="padding-top: 40px;">
-    <input type="submit" onclick="javascript:submitUserForm();return false;"  style="margin:0 auto;font-weight: bold;" value="Verificar" class="btn boton">
+    <input type="submit" onclick="javascript:verifyCaptcha();return false;"  style="margin:0 auto;font-weight: bold;color:Gray" value="Verificar" class="btn boton" id="btnVerificar" disabled>
 		<div class="col-lg-12 text-right" >
 			<!--<input type="submit" onclick="javascript:submitUserForm();return false;"  value="Verificar" class="btn boton">-->
 		</div>
@@ -106,25 +106,25 @@
 <!--<form id="verificadorForm" role="form" class="form-horizontal" action="https://si.con.gov.ar/verificador/index.htm" method="post">-->
 <div id="divReciboOK" style="display: none;color:white">
 	<div class="form-group pt-4 mt-3" >
-		<div class="form-group row">
+		<div class="form-group row" style="margin-right: 0px;margin-left: 0px;">
 		<label for="recibo.cuil" class="col-sm-5 col-form-label"> <b>CUIL&nbsp;</b>
 		</label>
 		<div class="col-sm-7">
-			<p class="form-control-plaintext" id="cuil">27-22500885-5</p>
+			<div class="form-control-plaintext" id="divCuil"></div>
 		</div>
 	</div>
-	<div class="form-group row">
+	<div class="form-group row" style="margin-right: 0px;margin-left: 0px;">
 		<label for="recibo.periodo" class="col-sm-5 col-form-label"> <b>Periodo&nbsp;</b>
 		</label>
 		<div class="col-sm-7">
-			<p class="form-control-plaintext" id="periodo">05/2019</p>
+			<div class="form-control-plaintext" id="divPeriodo"></div>
 		</div>
 	</div>
-	<div class="form-group row">
+	<div class="form-group row" style="margin-right: 0px;margin-left: 0px;">
 		<label for="recibo.importe" class="col-sm-5 col-form-label"> <b>Importe Neto&nbsp;</b>
 		</label>
 		<div class="col-sm-7">
-			<p class="form-control-plaintext" id="neto">51.572,88</p>
+			<div class="form-control-plaintext" id="divNeto"></div>
 		</div>
 	</div>
 	<div class="row" style="padding-top: 10px;">
@@ -148,15 +148,27 @@
 	
 </body>
 
+<!-- controladores de verificacion de csv -->
 <script type="text/javascript">
-    function submitUserForm() {
+
+    var divCuil = document.getElementById('divCuil');
+    var divPeriodo = document.getElementById('divPeriodo');
+    var divNeto = document.getElementById('divNeto');
+    var botonVerificar = document.getElementById('btnVerificar'); 
+
+    function habilitarBtnVerificador() {
+        botonVerificar.disabled = false;
+        botonVerificar.style.color = 'black';
+    }
+
+    /*function submitUserForm() {
         var response = grecaptcha.getResponse();
         if (response.length == 0) {
             document.getElementById('g-recaptcha-error').innerHTML = '<span style="color:red;">El captcha es invalido.Intente nuevamente.</span>';
             return false;
         }
         return true;
-    }
+    }*/
 
     function verifyCaptcha() {
         document.getElementById('g-recaptcha-error').innerHTML = '';        
@@ -166,11 +178,13 @@
     function verificarCSV() {
 
         var codigo = document.getElementById('codigoVerificador').value;
-        if ( codigo != '') {
+        if (codigo != '') {
             CSV.verificarCSV(codigo);
+        } else {
+            document.getElementById('g-recaptcha-error').innerHTML = '<span style="color:red;margin-right: 0px;margin-left: 24px;">Debe escribir un CSV.</span>';
         }
         //probando un csv hack
-        CSV.verificarCSV("MDS1-1234-1234-1234-1234-1234");
+        //CSV.verificarCSV("MDS1-1234-1234-1234-1234-1234");
 
     }
 
@@ -189,9 +203,9 @@
         document.getElementById('divReciboOK').style.display = 'none';
         //limpio los datos
         document.getElementById('codigoVerificador').value = '';
-        document.getElementById('cuil').value = '';
-        document.getElementById('periodo').value = '';
-        document.getElementById('neto').value = '';
+        divCuil.innerHTML = '&nbsp;';
+        divPeriodo.innerHTML = '&nbsp;';
+        divNeto.innerHTML = '&nbsp;';
         ocultarAlert();        
 
     }

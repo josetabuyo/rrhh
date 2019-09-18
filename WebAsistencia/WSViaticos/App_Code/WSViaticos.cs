@@ -6085,12 +6085,18 @@ public class WSViaticos : System.Web.Services.WebService
         RepositorioLegajo repoL = RepoLegajo();
         Recibo recibo;
 
-        //el codigo csv puede venir con o sin guiones
-        string csv = codigoCSV.Replace("-", ""); 
+        //el codigo csv puede venir sin guiones
+        //string csv = codigoCSV.Replace("-", ""); 
+        int indiceGuion = codigoCSV.IndexOf("-");
+        if (indiceGuion < 0) { 
+            //entonces no tiene guiones, se los agregamos
+            codigoCSV = CSVUtil.formatCSV(codigoCSV,4,"-");
+        }
 
+        //obtengo el id del documento a
         //return JsonConvert.SerializeObject(new { tipoDeRespuesta = "nok", cuil = "", periodo = "", neto = "" });
-        recibo = repoL.GetReciboDeSueldoPorID(788022); //788022 recibo de prueba
-        return JsonConvert.SerializeObject(new { tipoDeRespuesta = "ok", cuil = recibo.cabecera.CUIL, periodo = recibo.cabecera.FechaLiquidacion, neto = recibo.cabecera.Neto });
+//        recibo = repoL.GetReciboDeSueldoPorID(788022); //788022 recibo de prueba
+//        return JsonConvert.SerializeObject(new { tipoDeRespuesta = "ok", cuil = recibo.cabecera.CUIL, periodo = recibo.cabecera.FechaLiquidacion, neto = recibo.cabecera.Neto });
 
         /************/
         RepositorioVerificador repo = RepoVerificador();
@@ -6103,9 +6109,24 @@ public class WSViaticos : System.Web.Services.WebService
             //Obtengo los datos del documento 
             //FABI quiere hacer un SP que automaticamente obtenga el documento PERO aca por el momento lo dejo harcodeado
             //nota: aca se obtiene a todo el recibo, lo ideal seria solo obtener los datos que se mostraran...
-            recibo = repoL.GetReciboDeSueldoPorID(id_doc); //788022 recibo de prueba
+            recibo = repoL.GetReciboDeSueldoPorID((int)id_doc); //788022 recibo de prueba
             
-            return JsonConvert.SerializeObject(new { tipoDeRespuesta = "ok", cuil = recibo.cabecera.CUIL, periodo = recibo.cabecera.FechaLiquidacion, neto = recibo.cabecera.Neto });
+            //string montoFormato = recibo.cabecera.Neto.ToString("c2", CultureInfo.CreateSpecificCulture("es-ES"));            
+
+            /* Codigo que le da mormato monetario al valor devuelto por la consulta al sqlserver (ej 46582,83)*/
+            CultureInfo culture = new CultureInfo("es-AR");
+            NumberFormatInfo nfi = new CultureInfo("es-AR", true).NumberFormat;
+            int indice = recibo.cabecera.Neto.IndexOf(".");
+            string montoSinDecimales = recibo.cabecera.Neto.Substring(indice+1, 2);
+            string montoDecimales = recibo.cabecera.Neto.Substring(0, indice);
+
+            decimal attempt1 = decimal.Parse(montoDecimales, culture);
+            string monto = attempt1.ToString("c", nfi);
+            int indice2 = monto.IndexOf(",");
+            string monto2 = monto.Substring(0, indice2);
+            string montoFormato = monto2 + "," + montoSinDecimales;            
+ 
+            return JsonConvert.SerializeObject(new { tipoDeRespuesta = "ok", cuil = recibo.cabecera.CUIL, periodo = recibo.cabecera.FechaLiquidacion, neto = montoFormato });
 
         }
         else {

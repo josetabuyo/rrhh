@@ -1,4 +1,5 @@
 ﻿/********funciones de la pagina***/
+
 var CSV = (function (window, undefined) {
 
     function verificarCSV(codigoCSV) {
@@ -9,11 +10,12 @@ var CSV = (function (window, undefined) {
         Backend.start(function () {
             Backend.VerificarCSV(codigoCSV)
                 .onSuccess(function (res) {
-                    if (res.tipoDeRespuesta = "ok") { //todo salio bien
-                        ocultarAlert() //limpio avisos de error
-                        document.getElementById('cuil').value = res.cuil;
-                        document.getElementById('periodo').value = res.periodo;
-                        document.getElementById('neto').value = res.neto;
+                    var resp = JSON.parse(res);
+                    if (resp.tipoDeRespuesta == "ok") { //todo salio bien
+                        ocultarAlert() //limpio avisos de error                        
+                        divCuil.innerHTML = resp.cuil;
+                        divPeriodo.innerHTML = resp.periodo;
+                        divNeto.innerHTML = resp.neto;
                         mostrarPanelRecibo();
                     } else {
                         document.getElementById("alertFiltro").innerHTML = "Recibo inexistente";

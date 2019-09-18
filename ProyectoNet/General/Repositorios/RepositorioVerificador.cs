@@ -54,7 +54,7 @@ namespace General.Repositorios
             {
                 tablaDatos.Rows.ForEach(row =>
                 {
-                    csvs.Add(new CSV(row.GetInt("id"), row.GetString("csv"), row.GetInt("tipo_doc_electronico"), row.GetInt("id_doc")));
+                    csvs.Add(new CSV(row.GetLong("id"), row.GetString("csv"), row.GetInt("tipo_doc_electronico"), row.GetInt("id_doc")));
                     
                     /*row.GetInt("Id"),
                     rto.GetString(8);

@@ -326,7 +326,7 @@ namespace General.Csv
 	 * @param ss cadena que se desea introducir
 	 * @return el csv formateado.
 	 */
-        public String formatCSV(String csv, int num, String ss)
+        public static String formatCSV(String csv, int num, String ss)
         {
             StringBuilder result = new StringBuilder("");
             if (csv.Length < num)
