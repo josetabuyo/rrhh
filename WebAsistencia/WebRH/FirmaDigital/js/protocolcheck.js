@@ -63,7 +63,7 @@
             failCb();
             handler.remove();
         }, 5000); //5 segundos
-        timeout = 5000; /*por algun motivo el timeout seteado en la funcion anterior siempre es variable, 9,255,etc, esto produce que se abran mas de una vez las 
+        timeout = 6000; /*por algun motivo el timeout seteado en la funcion anterior siempre es variable, 9,255,etc, esto produce que se abran mas de una vez las 
         descargas de los jnlp; por eso lo seteo en un tiempo alto de 5 segundo creo*/
         var handler = _registerEvent(window, "blur", onBlur);
 
