@@ -12,13 +12,16 @@ namespace General.MAU
         protected IRepositorioDeFuncionalidades repositorioDeFuncionalidades;
 
         private static RepositorioDeFuncionalidadesDeUsuarios _instancia;
-       
+        private RepositorioDeAreas _repositorioDeAreas;
+
 
         private RepositorioDeFuncionalidadesDeUsuarios(IConexionBD conexion, IRepositorioDeFuncionalidades repo_funcionalidades)
             :base(conexion, 10)
         {
             repositorioDeFuncionalidades = repo_funcionalidades;
             cache_por_usuario = new Dictionary<Usuario, List<Funcionalidad>>();
+            listadoFuncionalidades = new Dictionary<Usuario, List<Funcionalidad>>();
+            _repositorioDeAreas = RepositorioDeAreas.NuevoRepositorioDeAreas(conexion);
         }
 
         public static RepositorioDeFuncionalidadesDeUsuarios NuevoRepositorioDeFuncionalidadesDeUsuarios(IConexionBD conexion, IRepositorioDeFuncionalidades repo_funcionalidades)
@@ -28,6 +31,7 @@ namespace General.MAU
         }
 
         protected Dictionary<Usuario, List<Funcionalidad>> cache_por_usuario;
+        protected Dictionary<Usuario, List<Funcionalidad>> listadoFuncionalidades;
 
         public List<Funcionalidad> FuncionalidadesPara(Usuario usuario)
         {
@@ -184,7 +188,7 @@ namespace General.MAU
 
         public string AsignarPerfilesAUsuario(List<int> perfiles, List<Area> areas, int idUsuario, int id_usuario_alta)
         {
-
+            var mensaje = "Se ha agregado el perfil correctamente";
             try
             {
                 //traigo los perfiles actuales para verificar que ya no los tenga
@@ -197,7 +201,7 @@ namespace General.MAU
                     perfiles.ForEach(idPerfil => areas.ForEach(area =>
                     {
                         //Valido que no tenga el perfil ya
-                        if (!perfilesActuales.Exists(p => p.Id == idPerfil))
+                        if (!perfilesActuales.Exists(p => p.Id == idPerfil && p.Areas.Exists(a => a.Id == area.Id) ) )
                             {
                             var parametros = new Dictionary<string, object>();
                             parametros.Add("@id_area", area.Id);
@@ -206,7 +210,10 @@ namespace General.MAU
                             parametros.Add("@incluye_dependencia", area.IncluyeDependencias);
                             parametros.Add("@id_usuario_alta", id_usuario_alta);
                             var tablaDatos = conexion.Ejecutar("dbo.MAU_AsignarPerfilFuncionalidadAUsuario", parametros);
-                            }
+                            } else
+                        {
+                            mensaje = "El perfil ya estaba asignado a la misma area";
+                        }
 
                     })
                         );
@@ -229,7 +236,7 @@ namespace General.MAU
                 }
                 
 
-                return "ok";
+                return mensaje;
             }
             catch (Exception e) {
                 return e.Message;
@@ -307,38 +314,65 @@ namespace General.MAU
             return rto;
         }
 
-        public List<Funcionalidad> GetFuncionalidadesPerfilesAreas(int id_usuario)
+        public List<Funcionalidad> GetFuncionalidadesPerfilesAreas(Usuario usuario)
         {
 
             try
             {
-                var funcionalidades = new List<Funcionalidad>();
-                var parametros = new Dictionary<string, object>();
-                parametros.Add("@id_usuario", id_usuario);
-                var tablaDatos = conexion.Ejecutar("dbo.MAU_GET_FuncionalidadesPerfilesAreas", parametros);
 
-
-                tablaDatos.Rows.ForEach(row =>
+                if (!listadoFuncionalidades.ContainsKey(usuario))
+                    //if (listadoFuncionalidades.Count() == 0)
                 {
-                    Funcionalidad funcionalidad;
-                    funcionalidad = new Funcionalidad(row.GetInt("IdFuncionalidad"), row.GetString("Nombre"), "", false, false, false);
-                    Area area = new Area(row.GetInt("IdArea", 0), row.GetString("descripcion", "Sin Area"));
-                    area.IncluyeDependencias = row.GetBoolean("incluyeDependencias", false) ? 1 : 0;
-                    funcionalidad.Areas.Add(area);
-                    funcionalidades.Add(funcionalidad);
+                    var funcionalidades = new List<Funcionalidad>();
+                    var parametros = new Dictionary<string, object>();
+                    parametros.Add("@id_usuario", usuario.Id);
+                    var tablaDatos = conexion.Ejecutar("dbo.MAU_GET_FuncionalidadesPerfilesAreas", parametros);
 
-                });
 
-                List<Funcionalidad> funcionalidadesOrdenadas = funcionalidades.OrderBy(o => o.Id).ToList();
+                    tablaDatos.Rows.ForEach(row =>
+                    {
+                        Funcionalidad funcionalidad;
+                        funcionalidad = new Funcionalidad(row.GetInt("IdFuncionalidad"), row.GetString("Nombre"), "", false, false, false);
+                        Area area = new Area(row.GetInt("IdArea", 0), row.GetString("descripcion", "Sin Area"));
+                        area.IncluyeDependencias = row.GetBoolean("incluyeDependencias", false) ? 1 : 0;
+                        funcionalidad.Areas.Add(area);
+                        funcionalidades.Add(funcionalidad);
 
-                return funcionalidadesOrdenadas;
+                    });
+
+                    listadoFuncionalidades.Add(usuario, funcionalidades.OrderBy(o => o.Id).ToList());
+                }
+
+                return listadoFuncionalidades[usuario];
 
             }
             catch (Exception e)
             {
                 throw;
             }
+        }
 
+        public List<Area> AreasAdministradasPor(Usuario usuario, int idFuncionalidad = 0)
+        {
+
+            try
+            {
+                List<Funcionalidad> funcionalidades = this.GetFuncionalidadesPerfilesAreas(usuario);
+                List<Area> listadoAreas = new List<Area>();
+                if (idFuncionalidad != 0)
+                {
+                    funcionalidades = funcionalidades.Where(funcionalidad => funcionalidad.Id == idFuncionalidad).ToList();
+                }
+                
+                funcionalidades.ForEach(func => listadoAreas.Add(func.Areas.First()));
+                listadoAreas = listadoAreas.Distinct().Where(area => area.Id > 0).Select(p => this._repositorioDeAreas.GetAreaPorId(p.Id)).ToList();
+
+                return listadoAreas;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
 
         }
 

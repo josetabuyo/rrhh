@@ -54,7 +54,7 @@
     <%= Referencias.Javascript("") %>
     <script type="text/javascript" src="Scripts/vex-2.1.1/js/vex.combined.min.js"></script>
     <script type="text/javascript" src="RegistroPostular/PantallaRegistro.js">  </script>
-    <script type="text/javascript" src="MAU/HabilitadorDePermisos.js"></script>
+    <!--<script type="text/javascript" src="MAU/HabilitadorDePermisos.js"></script>-->
 </body>
 <script>
     vex.defaultOptions.className = 'vex-theme-os';
@@ -78,9 +78,9 @@
         PantallaRegistro.mostrarInformacionAcerca();
     });
 
-    $(document).ready(function () {
+    /*$(document).ready(function () {
         HabilitadorDePermisos.limpiarPermisos();
-    });
+    });*/
     
 </script>
 </html>

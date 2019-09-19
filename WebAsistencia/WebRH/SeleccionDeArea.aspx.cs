@@ -19,6 +19,9 @@ public partial class SeleccionDeArea : System.Web.UI.Page
     {
         Usuario usuario = ((Usuario)Session["usuario"]);
         var ws = new WSViaticosSoapClient();
-        this.areasDelUsuarioJSON.Value = JsonConvert.SerializeObject(ws.AreasAdministradasPor(usuario));
+        //this.areasDelUsuarioJSON.Value = JsonConvert.SerializeObject(ws.AreasAdministradasPor(usuario));
+        //FC: nueva funcion que busca las areas administradas por el usuario y para una funcionalidad, en este caso la 4 es ingreso_a_administracion_areas
+        this.areasDelUsuarioJSON.Value = JsonConvert.SerializeObject(ws.AreasAdministradasPorUsuarioYFuncionalidad(usuario, 4));
+        
     }
 }

@@ -3027,7 +3027,9 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public bool ElUsuarioPuedeAccederALaURL(Usuario usuario, string url)
     {
-        return Autorizador().ElUsuarioPuedeAccederALaURL(usuario, url);
+        //return Autorizador().ElUsuarioPuedeAccederALaURL(usuario, url);
+        return Autorizador().NuevoElUsuarioPuedeAccederALaURL(usuario, url);
+        
     }
 
     [WebMethod]
@@ -3095,12 +3097,23 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public Funcionalidad[] GetFuncionalidadesPerfilesAreas(int id_usuario, Usuario usuario)
+    public Funcionalidad[] GetFuncionalidadesPerfilesAreas(Usuario usuario)
+    {
+
+        var funcionalidades = RepositorioDeFuncionalidadesDeUsuarios().GetFuncionalidadesPerfilesAreas(usuario).ToArray();
+        //Session["permisos"] = funcionalidades;
+        return funcionalidades;
+    }
+
+    [WebMethod]
+    public Funcionalidad[] GetFuncionalidadesPerfilesAreasDeUnUsuario(int id_usuario, Usuario usuario)
     {
         //var usu = RepositorioDeUsuarios().GetUsuarioPorId(id_usuario);
-        if (id_usuario == 0)
-            id_usuario = usuario.Id;
-        var funcionalidades = RepositorioDeFuncionalidadesDeUsuarios().GetFuncionalidadesPerfilesAreas(id_usuario).ToArray();
+        
+        usuario.Id = id_usuario;
+
+        var funcionalidades = RepositorioDeFuncionalidadesDeUsuarios().GetFuncionalidadesPerfilesAreas(usuario).ToArray();
+        //Session["permisos"] = funcionalidades;
         return funcionalidades;
     }
 
@@ -3192,7 +3205,24 @@ public class WSViaticos : System.Web.Services.WebService
 
         JsonSerializerSettings settings = new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects };
 
+        //FC: antes del nuevos permisos
         var listaDeAreas = Autorizador().AreasAdministradasPor(usuario).ToArray();
+        //var listaDeAreas = Autorizador().NuevoAreasAdministradasPor(usuario).ToArray();
+        var stringDeAreas = JsonConvert.SerializeObject(listaDeAreas, Formatting.Indented, new JsonSerializerSettings() { ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore });
+
+        Area[] areas = JsonConvert.DeserializeObject<Area[]>(stringDeAreas);
+        return areas;
+    }
+
+    [WebMethod]
+    public Area[] AreasAdministradasPorUsuarioYFuncionalidad(Usuario usuario, int idFuncionalidad)
+    {
+
+        JsonSerializerSettings settings = new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects };
+
+        //FC: antes del nuevos permisos
+        //var listaDeAreas = Autorizador().AreasAdministradasPor(usuario).ToArray();
+        var listaDeAreas = Autorizador().NuevoAreasAdministradasPorUsuarioYFuncionalidad(usuario,idFuncionalidad).ToArray();
         var stringDeAreas = JsonConvert.SerializeObject(listaDeAreas, Formatting.Indented, new JsonSerializerSettings() { ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore });
 
         Area[] areas = JsonConvert.DeserializeObject<Area[]>(stringDeAreas);
@@ -3251,7 +3281,8 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public MenuDelSistema GetMenuPara(string nombre_menu, Usuario usuario)
     {
-        MenuDelSistema menu = Autorizador().GetMenuPara(nombre_menu, usuario);
+        //MenuDelSistema menu = Autorizador().GetMenuPara(nombre_menu, usuario);
+        MenuDelSistema menu = Autorizador().NuevoGetMenuPara(nombre_menu, usuario);
         return menu;
     }
 

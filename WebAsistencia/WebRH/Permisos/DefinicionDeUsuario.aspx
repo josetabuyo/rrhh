@@ -30,16 +30,16 @@
             <div style="text-align:center;" class="caja_izq"></div>
             
             <div class="caja_der papel">
-            <br />
-            <div class="cajaPermisos">
-                <div id="buscador_de_personas">
-                    <p class="buscarPersona" style="display: inline-block;">Buscar persona:
-                        <div id="selector_usuario" class="selector_personas" style="display: inline-block;">
-                            <input id="buscador" type="hidden" />
-                        </div>
-                    </p>
+                <br />
+                <div class="cajaPermisos">
+                    <div id="buscador_de_personas">
+                        <p class="buscarPersona" style="display: inline-block;">Buscar persona:
+                            <div id="selector_usuario" class="selector_personas" style="display: inline-block;">
+                                <input id="buscador" type="hidden" />
+                            </div>
+                        </p>
+                    </div>
                 </div>
-            </div>
 
             <!--
             <div id="panel_usuarios_por_area" >
@@ -171,6 +171,12 @@
 <script type="text/javascript" src="../Scripts/SelectorDePersonas.js"></script>
 
 
+<script type="text/javascript" src="../MAU/VistaDeAreasAdministradas.js"></script>
+<script type="text/javascript" src="../MAU/VistaDeAreaAdministrada.js"></script>
+<script type="text/javascript" src="../Scripts/Area.js"></script>
+<script type="text/javascript" src="../Scripts/SelectorDeAreas.js"></script>
+<script type="text/javascript" src="../Scripts/RepositorioDeAreas.js"></script>
+
 <script type="text/javascript" src="../Scripts/alertify.js"></script>
 <script type="text/javascript" src="../Scripts/ControlesImagenes/VistaThumbnail.js"></script>
 <script type="text/javascript" src="../scripts/vex-2.1.1/js/vex.combined.min.js"></script>
@@ -189,14 +195,54 @@
 
      
         Backend.start(function () {
+            Permisos.init();
             //para cargar el menu izquierdo 
             $(".caja_izq").load("SeccionIzquierda.htm", function () {
-                Permisos.init();
+                
                 Permisos.iniciarConsultaRapida();
                 //FC: para importar el HabilitadorDeControles y afecte la seccion izquierda
                 var imported = document.createElement('script');
                     imported.src = '../MAU/HabilitadorDeControles.js';
-                    document.head.appendChild(imported);
+                document.head.appendChild(imported);
+
+
+                $('#btnPantallaAsignarPerfil').click(function () {
+                    $(".caja_der").load("AsignacionDePerfiles.htm", function () {
+                        Permisos.iniciarPantallaAsignacionPerfiles();
+                        Permisos.getPerfilesDelUsuario();
+                        Permisos.getPerfilesConFuncionalidades();
+
+                        $("#dialog").dialog({
+                            autoOpen: false,
+                            show: {
+                                effect: "blind",
+                                duration: 1000
+                            },
+                            hide: {
+                                effect: "explode",
+                                duration: 1000
+                            }
+                        });
+
+                        $("#mostrarDialogo").click(function () {
+                            $("#dialog").dialog("open");
+                        });
+                        
+                    });
+                });//FIN clickBtnPantalla
+                
+                $('#btnPantallaAsignarFuncionalidad').click(function () {
+                    $(".caja_der").load("AsignacionDeFuncionalidades.htm", function () {
+                        Permisos.iniciarPantallaAsignacionFuncionalidad();
+                        Permisos.getFuncionalidadesDelUsuario();
+
+
+                        
+                    });
+                });
+
+                
+
             });
  
         });

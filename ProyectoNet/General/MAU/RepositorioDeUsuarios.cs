@@ -38,7 +38,7 @@ namespace General.MAU
 
             Usuario usuario = GetUsuarioDeTablaDeDatos(tablaDatos);
 
-            usuario.Funcionalidades = RepositorioDeFuncionalidadesDeUsuarios.NuevoRepositorioDeFuncionalidadesDeUsuarios(conexion, RepositorioDeFuncionalidades.NuevoRepositorioDeFuncionalidades(conexion)).GetFuncionalidadesPerfilesAreas(usuario.Id);
+            usuario.Funcionalidades = RepositorioDeFuncionalidadesDeUsuarios.NuevoRepositorioDeFuncionalidadesDeUsuarios(conexion, RepositorioDeFuncionalidades.NuevoRepositorioDeFuncionalidades(conexion)).GetFuncionalidadesPerfilesAreas(usuario);
 
             return usuario;
         }

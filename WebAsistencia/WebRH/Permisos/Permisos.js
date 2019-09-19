@@ -1,6 +1,7 @@
 ﻿var spinner;
 var mes;
 var idUsuario;
+var usuarioEncontrado;
 
 var Permisos = {
     init: function () {
@@ -19,20 +20,25 @@ var Permisos = {
         this.repositorioDeFuncionalidades = new RepositorioDeFuncionalidades(proveedor_ajax);
         this.repositorioDeUsuarios = new RepositorioDeUsuarios(proveedor_ajax);
         this.repositorioDePersonas = new RepositorioDePersonas(proveedor_ajax);
+        usuarioEncontrado = { Id: 0 };
 
     },
 
     getPerfilesDelUsuario: function () {
 
         var _this = this;
-        this.completarDatosDeLaSesion();
-        if (!sessionStorage.getItem("idUsuario")) {
+        //this.completarDatosDeLaSesion();
+       /* if (!sessionStorage.getItem("idUsuario")) {
             alert("Debe seleccionar un usuario antes de proseguir");
             window.location.replace("DefinicionDeUsuario.aspx");
-        }
+        }*/
 
-        var idUsuario = sessionStorage.getItem("idUsuario");
-        Backend.GetPerfilesActuales(idUsuario)
+        if (!_this.validarUsuarioCargado())
+            return;
+        
+
+        //var idUsuario = sessionStorage.getItem("idUsuario");
+        Backend.GetPerfilesActuales(usuarioEncontrado.Id)
             .onSuccess(function (perfiles) {
 
                 //var perfiles = JSON.parse(perfilesJSON);
@@ -77,19 +83,22 @@ var Permisos = {
             });
 
 
-        this.getFuncionalidadesPerfilesAreas();
+        //this.getFuncionalidadesPerfilesAreas();
 
     },
     getFuncionalidadesDelUsuario: function () {
 
         var _this = this;
-        if (!sessionStorage.getItem("idUsuario")) {
+        /*if (!sessionStorage.getItem("idUsuario")) {
             alert("Debe seleccionar un usuario antes de proseguir");
             window.location.replace("DefinicionDeUsuario.aspx");
-        }
+        }*/
 
-        var idUsuario = sessionStorage.getItem("idUsuario");
-        Backend.GetFuncionalidadesActuales(idUsuario)
+        if (!_this.validarUsuarioCargado())
+            return;
+
+        //var idUsuario = sessionStorage.getItem("idUsuario");
+        Backend.GetFuncionalidadesActuales(usuarioEncontrado.Id)
             .onSuccess(function (funcionalidades) {
 
                 //var perfiles = JSON.parse(perfilesJSON);
@@ -142,9 +151,10 @@ var Permisos = {
         var _this = this;
         var r = confirm("¿Está seguro de eliminar el Perfil?");
         if (r == true) {
-            var idUsuarioSeleccionado = sessionStorage.getItem("idUsuario");
+            //var idUsuarioSeleccionado = sessionStorage.getItem("idUsuario");
+
             var idArea = perfil.Areas[0].Id;
-            Backend.desasignarPerfiles(perfil.Id, idArea, idUsuarioSeleccionado).onSuccess(function (rto) {
+            Backend.desasignarPerfiles(perfil.Id, idArea, usuarioEncontrado.Id).onSuccess(function (rto) {
                 if (rto == 'ok') {
                     //window.location.reload();
                     alertify.success("Se ha eliminado correctamente");
@@ -165,8 +175,8 @@ var Permisos = {
         var idArea = funcionalidad.Areas[0].Id;
         var r = confirm("¿Está seguro de eliminar la Funcionalidad?");
         if (r == true) {
-            var idUsuarioSeleccionado = sessionStorage.getItem("idUsuario");
-            Backend.desasignarFuncionaldiad(funcionalidad.Id, idArea, idUsuarioSeleccionado).onSuccess(function (rto) {
+            //var idUsuarioSeleccionado = sessionStorage.getItem("idUsuario");
+            Backend.desasignarFuncionaldiad(funcionalidad.Id, idArea, usuarioEncontrado.Id).onSuccess(function (rto) {
                 if (rto == 'ok') {
                     //window.location.reload();
                     alertify.success("Se ha eliminado correctamente");
@@ -235,12 +245,13 @@ var Permisos = {
     },
     //FC: cuando seleccione una persona del buscador de Personas
     cargarUsuario: function (usuario) {
+        usuarioEncontrado = usuario;
         console.log(usuario);
-        sessionStorage.setItem("nombre", usuario.Owner.Nombre);
-        sessionStorage.setItem("apellido", usuario.Owner.Apellido);
-        sessionStorage.setItem("idUsuario", usuario.Id);
-        sessionStorage.setItem("idImagen", usuario.Owner.IdImagen);
-        this.completarDatosDeLaSesion();
+        //sessionStorage.setItem("nombre", usuario.Owner.Nombre);
+        //sessionStorage.setItem("apellido", usuario.Owner.Apellido);
+        //sessionStorage.setItem("idUsuario", usuario.Id);
+        //sessionStorage.setItem("idImagen", usuario.Owner.IdImagen);
+        //this.completarDatosDeLaSesion();
 
         var _this = this;
         _this.usuario = usuario;
@@ -254,6 +265,8 @@ var Permisos = {
         _this.vista_areas.setUsuario(usuario);
         }
         });*/
+        $("#nombre_empleado").html(usuario.Owner.Nombre);
+        $("#apellido_empleado").html(usuario.Owner.Apellido);
         $("#nombre2").html(usuario.Owner.Nombre);
         $("#apellido2").html(usuario.Owner.Apellido);
         $("#documento2").html(usuario.Owner.Documento);
@@ -333,11 +346,14 @@ var Permisos = {
     },
     iniciarPantallaAsignacionPerfiles: function () {
         var _this = this;
-        this.completarDatosDeLaSesion();
-        if (!sessionStorage.getItem("idUsuario")) {
+        //this.completarDatosDeLaSesion();
+        /*if (!sessionStorage.getItem("idUsuario")) {
             alert("Debe seleccionar un usuario antes de proseguir");
             window.location.replace("DefinicionDeUsuario.aspx");
-        }
+        }*/
+
+        if (!_this.validarUsuarioCargado())
+            return;
 
         var proveedor_ajax = new ProveedorAjax("../");
         this.repositorioDeAreas = new RepositorioDeAreas(proveedor_ajax);
@@ -447,9 +463,9 @@ var Permisos = {
             return $(this)[0].checked;
             }).get();*/
 
-            var idUsuarioSeleccionado = sessionStorage.getItem("idUsuario");
+            //var idUsuarioSeleccionado = sessionStorage.getItem("idUsuario");
 
-            Backend.asignarPerfiles(JSON.stringify(perfilesSeleccionados), areasSeleccionadas, idUsuarioSeleccionado)
+            Backend.asignarPerfiles(JSON.stringify(perfilesSeleccionados), areasSeleccionadas, usuarioEncontrado.Id)
             .onSuccess(function (rto) {
                 //window.location.reload();
                 if (rto == 'ok') {
@@ -472,11 +488,14 @@ var Permisos = {
     },
     iniciarPantallaAsignacionFuncionalidad: function () {
         var _this = this;
-        this.completarDatosDeLaSesion();
+       /* this.completarDatosDeLaSesion();
         if (!sessionStorage.getItem("idUsuario")) {
             alert("Debe seleccionar un usuario antes de proseguir");
             window.location.replace("DefinicionDeUsuario.aspx");
-        }
+        }*/
+        if (!_this.validarUsuarioCargado())
+            return;
+        
 
         var proveedor_ajax = new ProveedorAjax("../");
         this.repositorioDeAreas = new RepositorioDeAreas(proveedor_ajax);
@@ -581,9 +600,9 @@ var Permisos = {
             return $(this)[0].checked;
             }).get();*/
 
-            var idUsuarioSeleccionado = sessionStorage.getItem("idUsuario");
+            //var idUsuarioSeleccionado = sessionStorage.getItem("idUsuario");
 
-            Backend.asignarFuncionalidades(JSON.stringify(funcionalidadesSeleccionados), JSON.stringify(areasSeleccionadas), idUsuarioSeleccionado)
+            Backend.asignarFuncionalidades(JSON.stringify(funcionalidadesSeleccionados), JSON.stringify(areasSeleccionadas), usuarioEncontrado.Id)
             .onSuccess(function (rto) {
                 if (rto == 'ok') {
                     //window.location.reload();
@@ -603,10 +622,10 @@ var Permisos = {
         });
 
     },
-    getFuncionalidadesPerfilesAreas: function () {
-        var idUsuarioSeleccionado = sessionStorage.getItem("idUsuario");
+    /*getFuncionalidadesPerfilesAreas: function () {
+        //var idUsuarioSeleccionado = sessionStorage.getItem("idUsuario");
 
-        Backend.GetFuncionalidadesPerfilesAreas(idUsuarioSeleccionado)
+        Backend.GetFuncionalidadesPerfilesAreasDeUnUsuario(usuarioEncontrado.Id)
             .onSuccess(function (rto) {
                 if (rto) {
                     console.log(rto);
@@ -619,7 +638,7 @@ var Permisos = {
 
             });
 
-    },
+    },*/
     getPerfilesConFuncionalidades: function () {
 
         Backend.GetPerfilesConFuncionalidades()
@@ -642,6 +661,15 @@ var Permisos = {
         if (idImagen >= 0) {
             var img = new VistaThumbnail({ id: idImagen, contenedor: $(".imagen") });
         }
+    },
+    validarUsuarioCargado: function () {
+        if (usuarioEncontrado.Id == 0) {
+            alert('Debe seleccionar un usuario antes de proseguir');
+            window.location.replace("DefinicionDeUsuario.aspx");
+            return false;
+            
+        }
+        return true;
     }
 
 }

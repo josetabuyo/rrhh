@@ -93,7 +93,7 @@ namespace General.MAU
             throw new NotImplementedException();
         }
 
-        public List<Funcionalidad> GetFuncionalidadesPerfilesAreas(int id_usuario)
+        public List<Funcionalidad> GetFuncionalidadesPerfilesAreas(Usuario usuario)
         {
             throw new NotImplementedException();
         }
@@ -125,6 +125,14 @@ namespace General.MAU
 
             throw new NotImplementedException();
         }
+
+        public List<Area> AreasAdministradasPor(Usuario usuario, int idFuncionalidad)
+        {
+
+            throw new NotImplementedException();
+        }
+
+        
 
     }
 }
