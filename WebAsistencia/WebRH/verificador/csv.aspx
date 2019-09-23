@@ -68,22 +68,30 @@
     //limpiar los mensajes de error
     // deshabilitar el boton verificar disable(this);
     //luego de hacer click en el captcha, se debe poder habilitar el boton verificar*-*********************
-    var $alertFiltro = null;
+    //var $alertFiltro = null;
 
     $(document).ready(function () {
 
-        $alertFiltro = $("#alertFiltro");
+       /* $alertFiltro = $("#alertFiltro");
         $divPrincipal = $("#divPrincipal");
         if ($alertFiltro.html() != '') {
             CConicetUtils.showElement($alertFiltro);
             $divPrincipal.removeClass("pt-4");
             $divPrincipal.removeClass("mt-3");
-        }
+        }*/
+
+        /*En caso de venir desde una lectura por QR ya se dispone del csv*/
+        var valor = CSV.obtenerValorParametro('c');
+        if (valor){
+            document.getElementById('codigoVerificador').value = valor;
+        }else{
+             //alert('El parámetro no existe en la URL');
+         }
 
     });
 </script>
 
-<!--<form id="verificadorForm" role="form" class="form-horizontal" action="https://si.con.gov.ar/verificador/index.htm" method="post">-->
+
 <div id="divPrincipal" style="display: inline;">
 	<div class="form-group pt-4 mt-3" >
 		<div class="alert alert-warning" style="display: none;width:86%;margin-left:24px" role="alert" id="alertFiltro"></div>		
@@ -102,8 +110,8 @@
 	</div>
 
     </div>
-<!---</form>-->
-<!--<form id="verificadorForm" role="form" class="form-horizontal" action="https://si.con.gov.ar/verificador/index.htm" method="post">-->
+
+
 <div id="divReciboOK" style="display: none;color:white">
 	<div class="form-group pt-4 mt-3" >
 		<div class="form-group row" style="margin-right: 0px;margin-left: 0px;">
@@ -134,7 +142,6 @@
 	</div>
 	</div>  
 </div>
-<!---</form>-->
 
 
 
