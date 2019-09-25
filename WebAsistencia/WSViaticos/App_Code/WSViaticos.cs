@@ -3205,9 +3205,8 @@ public class WSViaticos : System.Web.Services.WebService
 
         JsonSerializerSettings settings = new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects };
 
-        //FC: antes del nuevos permisos
+
         var listaDeAreas = Autorizador().AreasAdministradasPor(usuario).ToArray();
-        //var listaDeAreas = Autorizador().NuevoAreasAdministradasPor(usuario).ToArray();
         var stringDeAreas = JsonConvert.SerializeObject(listaDeAreas, Formatting.Indented, new JsonSerializerSettings() { ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore });
 
         Area[] areas = JsonConvert.DeserializeObject<Area[]>(stringDeAreas);

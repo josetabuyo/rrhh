@@ -14,9 +14,11 @@
         <link rel="stylesheet"  href="estilosPermisos.css" />
         <link rel="stylesheet" href="Permisos.css" type="text/css"/>    
         <link rel="stylesheet" href="../estilos/SelectorDePersonas.css" type="text/css"/>    
+        <link rel="stylesheet" href="../estilos/SelectorDeAreas.css" type="text/css"/>   
          
         <link href="../scripts/vex-2.1.1/css/vex.css" rel="stylesheet">
         <link href="../scripts/vex-2.1.1/css/vex-theme-os.css" rel="stylesheet">
+ 
 
         <link href="../scripts/select2-3.4.4/select2.css" rel="stylesheet" type="text/css"/>
        
@@ -240,6 +242,23 @@
                         
                     });
                 });
+
+                $("#btnBuscarPersonasDeBaja").click(function () {
+                    $(".caja_der").load("ConsultaPermisosDeBaja.htm", function () {
+                        Permisos.getPersonasDeBajaConPermisos();
+                    });
+                   
+                });
+
+                $("#btnBuscarUsuariosPorArea").click(function () {
+                    $(".caja_der").load("ConsultarUsuariosPorArea.htm", function () {
+                        Permisos.buscadorUsuariosPorArea();
+                    });
+                   
+                });
+
+
+                
 
                 
 

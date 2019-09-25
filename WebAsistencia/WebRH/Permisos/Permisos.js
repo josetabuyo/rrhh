@@ -20,6 +20,7 @@ var Permisos = {
         this.repositorioDeFuncionalidades = new RepositorioDeFuncionalidades(proveedor_ajax);
         this.repositorioDeUsuarios = new RepositorioDeUsuarios(proveedor_ajax);
         this.repositorioDePersonas = new RepositorioDePersonas(proveedor_ajax);
+        this.repositorioDeAreas = new RepositorioDeAreas(proveedor_ajax);
         usuarioEncontrado = { Id: 0 };
 
     },
@@ -28,14 +29,14 @@ var Permisos = {
 
         var _this = this;
         //this.completarDatosDeLaSesion();
-       /* if (!sessionStorage.getItem("idUsuario")) {
-            alert("Debe seleccionar un usuario antes de proseguir");
-            window.location.replace("DefinicionDeUsuario.aspx");
-        }*/
+        /* if (!sessionStorage.getItem("idUsuario")) {
+             alert("Debe seleccionar un usuario antes de proseguir");
+             window.location.replace("DefinicionDeUsuario.aspx");
+         }*/
 
         if (!_this.validarUsuarioCargado())
             return;
-        
+
 
         //var idUsuario = sessionStorage.getItem("idUsuario");
         Backend.GetPerfilesActuales(usuarioEncontrado.Id)
@@ -274,7 +275,7 @@ var Permisos = {
         $("#email").html(usuario.MailRegistro);
 
         if (usuario.Owner.IdImagen >= 0) {
-            
+
             var img = new VistaThumbnail({ id: usuario.Owner.IdImagen, contenedor: $("#foto_usuario") });
             $("#foto_usuario").show();
             $("#foto_usuario_generica").hide();
@@ -305,10 +306,10 @@ var Permisos = {
 
             alertify.confirm('Modificar contraseña', '¿Está seguro de querer reinciar la contraseña', function () {
                 Backend.ResetearPassword(_this.usuario.Id).onSuccess(
-                        function (nueva_clave) {
-                            alertify.alert("Se ha modificado la contraseña.", "La nueva contraseña para el usuario: "
-                                                + _this.usuario.Alias + " es: " + nueva_clave);
-                        });
+                    function (nueva_clave) {
+                        alertify.alert("Se ha modificado la contraseña.", "La nueva contraseña para el usuario: "
+                            + _this.usuario.Alias + " es: " + nueva_clave);
+                    });
             }
                 , function () {
                     alertify.alert("Modificación cancelada.");
@@ -376,7 +377,7 @@ var Permisos = {
                     contenedorDialogo.append("<ul class='dialogListaFunc'>");
                     $.each(value.Funcionalidades, function (keyFunc, value) {
                         contenedorDialogo.append("<li>" + value.Nombre + "</li>");
-                   
+
                     });
                     contenedorDialogo.append("</ul>");
                     contenedorDialogo.append("<hr />");
@@ -466,36 +467,36 @@ var Permisos = {
             //var idUsuarioSeleccionado = sessionStorage.getItem("idUsuario");
 
             Backend.asignarPerfiles(JSON.stringify(perfilesSeleccionados), areasSeleccionadas, usuarioEncontrado.Id)
-            .onSuccess(function (rto) {
-                //window.location.reload();
-                if (rto == 'ok') {
-                    alertify.success("Se ha agregado el perfil correctamente");
-                    _this.getPerfilesDelUsuario();
-                    $("#perfilesSeleccionado").empty();
-                    $("#listadoAreasElegidas").empty();
-                } else {
-                    alertify.error(rto);
-                }
+                .onSuccess(function (rto) {
+                    //window.location.reload();
+                    if (rto == 'ok') {
+                        alertify.success("Se ha agregado el perfil correctamente");
+                        _this.getPerfilesDelUsuario();
+                        $("#perfilesSeleccionado").empty();
+                        $("#listadoAreasElegidas").empty();
+                    } else {
+                        alertify.error(rto);
+                    }
 
 
-            })
-            .onError(function (e) {
+                })
+                .onError(function (e) {
 
-            });
+                });
 
         });
 
     },
     iniciarPantallaAsignacionFuncionalidad: function () {
         var _this = this;
-       /* this.completarDatosDeLaSesion();
-        if (!sessionStorage.getItem("idUsuario")) {
-            alert("Debe seleccionar un usuario antes de proseguir");
-            window.location.replace("DefinicionDeUsuario.aspx");
-        }*/
+        /* this.completarDatosDeLaSesion();
+         if (!sessionStorage.getItem("idUsuario")) {
+             alert("Debe seleccionar un usuario antes de proseguir");
+             window.location.replace("DefinicionDeUsuario.aspx");
+         }*/
         if (!_this.validarUsuarioCargado())
             return;
-        
+
 
         var proveedor_ajax = new ProveedorAjax("../");
         this.repositorioDeAreas = new RepositorioDeAreas(proveedor_ajax);
@@ -603,21 +604,21 @@ var Permisos = {
             //var idUsuarioSeleccionado = sessionStorage.getItem("idUsuario");
 
             Backend.asignarFuncionalidades(JSON.stringify(funcionalidadesSeleccionados), JSON.stringify(areasSeleccionadas), usuarioEncontrado.Id)
-            .onSuccess(function (rto) {
-                if (rto == 'ok') {
-                    //window.location.reload();
-                    alertify.success("Se ha asignado la funcionalidad correctamente");
-                    _this.getFuncionalidadesDelUsuario();
-                    $("#funcionalidadesSeleccionadas").empty();
-                    $("#listadoAreasElegidas").empty();
-                } else {
-                    alertify.error(rto);
-                }
+                .onSuccess(function (rto) {
+                    if (rto == 'ok') {
+                        //window.location.reload();
+                        alertify.success("Se ha asignado la funcionalidad correctamente");
+                        _this.getFuncionalidadesDelUsuario();
+                        $("#funcionalidadesSeleccionadas").empty();
+                        $("#listadoAreasElegidas").empty();
+                    } else {
+                        alertify.error(rto);
+                    }
 
-            })
-            .onError(function (e) {
+                })
+                .onError(function (e) {
 
-            });
+                });
 
         });
 
@@ -667,9 +668,90 @@ var Permisos = {
             alert('Debe seleccionar un usuario antes de proseguir');
             window.location.replace("DefinicionDeUsuario.aspx");
             return false;
-            
+
         }
         return true;
+    },
+    getPersonasDeBajaConPermisos: function () {
+        var _this = this;
+        Backend.BuscarPersonaDeBajaConPermisos().onSuccess(function (data) {
+            _this.armarTabla($('#tabla_personas_de_baja'), data, _this);
+        });
+
+    },
+    buscadorUsuariosPorArea: function () {
+        var _this = this;
+        this.div_lista_areas = $("#lista_areas_para_consultar");
+
+
+        this.selector_de_areas = new SelectorDeAreas({
+            ui: $("#selector_area_usuarios"),
+            repositorioDeAreas: this.repositorioDeAreas,
+            placeholder: "ingrese el área que desea buscar",
+            alSeleccionarUnArea: function (area) {
+                $("#tabla_usuarios_por_area").html("");
+                _this.backendBuscarUsuariosPorArea(_this, area.nombre);
+            }
+        });
+    },
+    backendBuscarUsuariosPorArea: function (contexto, nombre_area) {
+        $("body").addClass("loading");
+        Backend.BuscarUsuariosPorArea(nombre_area).onSuccess(function (data) {
+            $("body").removeClass("loading");
+            $("#p_nombre_area").html("Área: " + nombre_area);
+            contexto.armarTabla($('#tabla_usuarios_por_area'), data, contexto);
+        });
+    },
+    armarTabla: function (tabla, data, contexto_para_row_click) {
+
+        var columnas = [];
+
+        columnas.push(new Columna("Apellido", { generar: function (un_usuario) { if (un_usuario.Owner != null) return un_usuario.Owner.Apellido } }));
+        columnas.push(new Columna("Nombre", { generar: function (un_usuario) { if (un_usuario.Owner != null) return un_usuario.Owner.Nombre } }));
+        columnas.push(new Columna("Documento", { generar: function (un_usuario) { if (un_usuario.Owner != null) return un_usuario.Owner.Documento } }));
+        columnas.push(new Columna("Usuario", { generar: function (un_usuario) { return un_usuario.Alias } }));
+
+        //columnas.push(new Columna("Funcionalidades", { generar: function (un_usuario) { return un_usuario.Fun } }));
+
+        var generador_de_celda_funcionalidades = {
+            generar: function (un_usuario) {
+
+                var funcionalidades = "";
+                for (var i = 0; i < un_usuario.Funcionalidades.length; i++) {
+                    funcionalidades += un_usuario.Funcionalidades[i].Nombre + ' | ';
+                }
+
+                return funcionalidades;
+            }
+        };
+
+        columnas.push(new Columna('Permisos Asignados', generador_de_celda_funcionalidades));
+
+        this.GrillaDeUsuarios = new Grilla(columnas);
+        //this.GrillaDeUsuarios.AgregarEstilo("cuerpo_tabla_usuarios tr td");
+        //this.GrillaDeUsuarios.AgregarEstilo("celda_seleccionada");
+        this.GrillaDeUsuarios.AgregarEstilo("cuerpo_tabla_usuarios");
+
+        this.GrillaDeUsuarios.CambiarEstiloCabecera("cabecera_tabla_usuarios");
+        this.GrillaDeUsuarios.SetOnRowClickEventHandler(function (un_usuario) {
+            //$('#selector_usuario').val(un_usuario.Owner.Documento);
+            var persona_seleccionada = {};
+            persona_seleccionada.apellido = un_usuario.Owner.Apellido;
+            persona_seleccionada.nombre = un_usuario.Owner.Nombre;
+            persona_seleccionada.documento = un_usuario.Owner.Documento;
+            persona_seleccionada.id = un_usuario.Owner.Id;
+
+            //para subir al tope de la pantalla
+            $('html,body').animate({
+                scrollTop: $("#instrucciones_de_uso").offset().top
+            }, 1000);
+
+            $('.select2-chosen').html("");
+            contexto_para_row_click.selector_usuario.alSeleccionarUnaPersona(persona_seleccionada);
+        });
+        this.GrillaDeUsuarios.CargarObjetos(data);
+        this.GrillaDeUsuarios.DibujarEn(tabla);
     }
+
 
 }
