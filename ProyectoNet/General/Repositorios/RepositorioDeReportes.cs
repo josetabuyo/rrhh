@@ -902,5 +902,68 @@ namespace General.Repositorios
             GRAFICORANGOETARIO = grafico;
             return grafico;
         }
+
+
+
+        public List<Presentismo> GET_Reporte_Presentismo_Individual(int documento, DateTime fecha_desde, DateTime fecha_hasta)
+        {
+            
+            SqlDataReader dr;
+            ConexionDB cn = new ConexionDB("dbo.CTL_ACC_Crea_Reporte_PresentismoIndividual");
+            cn.AsignarParametro("@NroDocumento", documento);
+            cn.AsignarParametro("@FechaDesde", fecha_desde);
+            cn.AsignarParametro("@FechaHasta", fecha_hasta);
+            
+            dr = cn.EjecutarConsulta();
+
+            List<Presentismo> listaPresentismo = new List<Presentismo>();
+
+            while (dr.Read())
+            {
+                Presentismo pre = new Presentismo();
+                pre.Fecha = dr.GetString(dr.GetOrdinal("Fecha"));
+
+                if (string.IsNullOrEmpty(dr.GetString(dr.GetOrdinal("HoraDesde"))))
+                {
+                    pre.Hora_Desde = "";
+                }
+                else
+                {
+                    pre.Hora_Desde = dr.GetString(dr.GetOrdinal("HoraDesde"));
+                }
+
+                if (string.IsNullOrEmpty(dr.GetString(dr.GetOrdinal("HoraHasta"))))
+                {
+                    pre.Hora_Hasta = "";
+                }
+                else
+                {
+                    pre.Hora_Hasta = dr.GetString(dr.GetOrdinal("HoraHasta"));
+                }
+                
+                pre.Estado = dr.GetString(dr.GetOrdinal("Estado"));
+
+                string lic = "";
+                if (string.IsNullOrEmpty(dr.GetString(dr.GetOrdinal("Nro_Articulo"))))
+                {
+                    pre.Licencia = "";
+                }
+                else
+                {
+                    lic = dr.GetString(dr.GetOrdinal("Nro_Articulo")) + " " + dr.GetString(dr.GetOrdinal("Concepto")) + " " + dr.GetString(dr.GetOrdinal("DescripcionLicencia"));
+                }
+
+
+                listaPresentismo.Add(pre);
+            }
+
+            cn.Desconestar();
+            
+            return listaPresentismo;
+            
+        }
+
+
+
     }
 }

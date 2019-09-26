@@ -5892,5 +5892,16 @@ public class WSViaticos : System.Web.Services.WebService
 
 
 
+    [WebMethod]
+    public Presentismo[] GET_Reporte_Presentismo_Individual(int documento, DateTime fecha_desde, DateTime fecha_hasta, Usuario usuario)
+    {
+        RepositorioDeReportes RepositorioReporte = new RepositorioDeReportes(Conexion());
+        
+        return RepositorioReporte.GET_Reporte_Presentismo_Individual(documento, fecha_desde, fecha_hasta).ToArray();
+       
+    }
+
+
+
 
 }

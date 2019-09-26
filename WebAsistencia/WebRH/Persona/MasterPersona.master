@@ -1,4 +1,5 @@
-﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="BuscarPersona.aspx.vb" Inherits="Contratos_BuscarPersona" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPersona.master.cs" Inherits="Persona_MasterPersona" %>
+
 
 <%@ Register Src="~/BarraMenu/BarraMenu.ascx" TagName="BarraMenu" TagPrefix="uc2" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -13,17 +14,14 @@
     <!-- CSS media query on a link element -->
     <%= Referencias.Css("../")%>
     <%= Referencias.Javascript("../")%>
-    <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
+    <%--<script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>--%>
     
     <link rel="stylesheet" href="../estilos/SelectorDePersonas.css" type="text/css"/> 
     <link href="../scripts/select2-3.4.4/select2.css" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet"  href="EstiloBuscarPersona.css" />
-    <link rel="stylesheet" href="../MAU/Permisos.css" type="text/css"/>    
-       
-    
     <link href="../scripts/vex-2.1.1/css/vex.css" rel="stylesheet"/>
     <link href="../scripts/vex-2.1.1/css/vex-theme-os.css" rel="stylesheet"/>
-
+    <link rel="stylesheet" href="../MAU/Permisos.css" type="text/css"/>    
+    <link rel="stylesheet"  href="BuscarPersona.css" />
     
        
 </head>
@@ -39,17 +37,26 @@
             
             <div class="caja_der papel">
             <br />
-            <div class="cajaPermisos">
-                <div id="buscador_de_personas">
-                    <p class="buscarPersona" style="display: inline-block;">Buscar persona:
-                        <div id="selector_usuario" class="selector_personas" style="display: inline-block;">
-                            <input id="buscador" type="hidden" />
-                        </div>
-                    </p>
-                </div>
-            </div>
+            
+                    <div class="cajaPermisos">
 
-            <div id="panel_datos_usuario" style="display:none">
+                                <div id="PanelMaster">
+                                    <asp:ContentPlaceHolder id="ContentPlaceHolder" runat="server">
+                                    </asp:ContentPlaceHolder>
+                                </div>
+
+                        <%--<div id="buscador_de_personas">
+                            <p class="buscarPersona" style="display: inline-block;">Buscar persona:
+                                <div id="selector_usuario" class="selector_personas" style="display: inline-block;">
+                                    <input id="buscador" type="hidden" />
+                                </div>
+                            </p>
+                        </div>--%>
+
+                    </div>
+
+
+            <%--<div id="panel_datos_usuario" style="display:none">
                 <div id="panel_superior_izquierdo" class="estilo_formulario">
                     <div id="contenedor_foto">
                         <div id="foto_usuario"> </div>
@@ -97,7 +104,7 @@
                         </div>
                     </div>
                 </div> 
-            </div> 
+            </div> --%>
 
                 <div id="caja_permisos_actuales" style="display:none;">
                     <legend style="margin-top: 20px;">PERMISOS ACTUALES</legend>
@@ -148,8 +155,7 @@
 <script type="text/javascript" src="../Scripts/RepositorioDePersonas.js"></script>
 <script type="text/javascript" src="../Scripts/Persona.js"></script>
 <script type="text/javascript" src="../Scripts/SelectorDePersonas.js"></script>
-
-
+    
 <script type="text/javascript" src="../Scripts/alertify.js"></script>
 <script type="text/javascript" src="../Scripts/ControlesImagenes/VistaThumbnail.js"></script>
 <script type="text/javascript" src="../scripts/vex-2.1.1/js/vex.combined.min.js"></script>
@@ -169,10 +175,18 @@
      
         Backend.start(function () {
             //para cargar el menu izquierdo 
-            $(".caja_izq").load("PanelIzquierdo.html", function () {
+            $(".caja_izq").load("SeleccionIzquierda.html", function () {
                 Permisos.init();
                 Permisos.iniciarConsultaRapida();
+
+                $("#btnReporte").click(function () {
+                    $("#PanelMaster").load("../Reportes/IngresosyEgresos.html", function () {
+                    });
+                });
+
+               
             });
+
  
         });
     });
@@ -180,3 +194,25 @@
 </script> 
 </html>
 
+
+
+
+
+
+<%--<!DOCTYPE html>--%>
+<%--<html>
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div>
+        <asp:ContentPlaceHolder id="ContentPlaceHolder" runat="server">
+        </asp:ContentPlaceHolder>
+    </div>
+    </form>
+</body>
+</html>--%>

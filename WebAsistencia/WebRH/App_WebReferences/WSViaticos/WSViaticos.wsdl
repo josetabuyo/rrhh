@@ -765,6 +765,37 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GET_Reporte_Presentismo_Individual">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="documento" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="fecha_desde" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="fecha_hasta" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GET_Reporte_Presentismo_IndividualResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GET_Reporte_Presentismo_IndividualResult" type="tns:ArrayOfPresentismo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfPresentismo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Presentismo" nillable="true" type="tns:Presentismo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Presentismo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Fecha" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Hora_Desde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Hora_Hasta" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Estado" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Licencia" type="s:string" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="GetConsultaRapida">
         <s:complexType>
           <s:sequence>
@@ -8678,6 +8709,12 @@
   <wsdl:message name="GET_Servicios_Adm_DetallesSoapOut">
     <wsdl:part name="parameters" element="tns:GET_Servicios_Adm_DetallesResponse" />
   </wsdl:message>
+  <wsdl:message name="GET_Reporte_Presentismo_IndividualSoapIn">
+    <wsdl:part name="parameters" element="tns:GET_Reporte_Presentismo_Individual" />
+  </wsdl:message>
+  <wsdl:message name="GET_Reporte_Presentismo_IndividualSoapOut">
+    <wsdl:part name="parameters" element="tns:GET_Reporte_Presentismo_IndividualResponse" />
+  </wsdl:message>
   <wsdl:message name="GetConsultaRapidaSoapIn">
     <wsdl:part name="parameters" element="tns:GetConsultaRapida" />
   </wsdl:message>
@@ -11127,6 +11164,10 @@
       <wsdl:input message="tns:GET_Servicios_Adm_DetallesSoapIn" />
       <wsdl:output message="tns:GET_Servicios_Adm_DetallesSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GET_Reporte_Presentismo_Individual">
+      <wsdl:input message="tns:GET_Reporte_Presentismo_IndividualSoapIn" />
+      <wsdl:output message="tns:GET_Reporte_Presentismo_IndividualSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetConsultaRapida">
       <wsdl:input message="tns:GetConsultaRapidaSoapIn" />
       <wsdl:output message="tns:GetConsultaRapidaSoapOut" />
@@ -12907,6 +12948,15 @@
     </wsdl:operation>
     <wsdl:operation name="GET_Servicios_Adm_Detalles">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GET_Servicios_Adm_Detalles" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET_Reporte_Presentismo_Individual">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GET_Reporte_Presentismo_Individual" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -16654,6 +16704,15 @@
     </wsdl:operation>
     <wsdl:operation name="GET_Servicios_Adm_Detalles">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GET_Servicios_Adm_Detalles" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET_Reporte_Presentismo_Individual">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GET_Reporte_Presentismo_Individual" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

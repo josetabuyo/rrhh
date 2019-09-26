@@ -88,6 +88,7 @@
     <Compile Include="Asistencia\ConceptoLicenciaAnualOrdinaria.cs" />
     <Compile Include="Asistencia\ConceptoLicenciaGeneral.cs" />
     <Compile Include="Asistencia\LogCalculoVacaciones.cs" />
+    <Compile Include="Asistencia\Presentismo.cs" />
     <Compile Include="Asistencia\ResponsableDDJJ.cs" />
     <Compile Include="Asistencia\SolicitudesDeVacaciones.cs" />
     <Compile Include="Asistencia\TipoDePlantaGeneral.cs" />
