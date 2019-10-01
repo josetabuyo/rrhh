@@ -5893,11 +5893,11 @@ public class WSViaticos : System.Web.Services.WebService
 
 
     [WebMethod]
-    public Presentismo[] GET_Reporte_Presentismo_Individual(int documento, DateTime fecha_desde, DateTime fecha_hasta, Usuario usuario)
+    public Presentismo[] GET_Reporte_Presentismo_Individual(int documento, string fecha_desde, string fecha_hasta, Usuario usuario)
     {
         RepositorioDeReportes RepositorioReporte = new RepositorioDeReportes(Conexion());
         
-        return RepositorioReporte.GET_Reporte_Presentismo_Individual(documento, fecha_desde, fecha_hasta).ToArray();
+        return RepositorioReporte.GET_Reporte_Presentismo_Individual(documento, DateTime.Parse(fecha_desde), DateTime.Parse(fecha_hasta)).ToArray();
        
     }
 

@@ -16,7 +16,6 @@ Backend.start(function () {
         botonConsultar = $("<input type='button'>");
         botonConsultar.val("Consultar");
         botonConsultar.click(function () {
-            alert("clik");
             Consultar();
         });
         botonConsultar.addClass("btn btn-primary");
@@ -33,84 +32,73 @@ var Consultar = function () {
     
     spinner = new Spinner({ scale: 2 }).spin($("body")[0]);
 
-    //getConsulta(function () {
-    //    DibujarGrilla();
-    //});
+    getConsulta(function () {
+        DibujarGrilla();
+    });
 
-    alert("consultar");
-    getConsulta();
-
+   
     spinner.stop();
     //$('#DivBotonExcel').show();
-
 }
 
 
 
-//var getConsulta = function (callback) {
-var getConsulta = function () {
+var getConsulta = function (callback) {
 
-    alert("getConsulta");
-
-    var documento = $('#documento').text().trim();
+    var documento = sessionStorage.getItem("documento");
     var fechadesde = $("#fecha_desde").val();
     var fechahasta = $("#fecha_hasta").val();
-
-    alert(documento);
-    alert(fechadesde);
-    alert(fechahasta);
 
 
     if (documento == "") {
         documento = 0;
     }
 
-    /*
+    
     Backend.GET_Reporte_Presentismo_Individual(documento, fechadesde, fechahasta)
         .onSuccess(function (respuesta) {
             lista_presentismo = respuesta;
-            //callback();
+            DibujarGrilla();
         })
         .onError(function (error, as, asd) {
             alertify.alert("", error);
         });
-    */
-
+    
 }
 
 
 
-//var DibujarGrilla = function () {
-//    var grilla;
+var DibujarGrilla = function () {
+    var grilla;
 
-//    $("#Contenedor").empty();
+    $("#Contenedor").empty();
     
-//    grilla = new Grilla(
-//        [
-//            new Columna("Fecha", { generar: function (consulta) { return consulta.Fecha; } }),
-//            new Columna("Hora Desde", { generar: function (consulta) { return consulta.Hora_Desde; } }),
-//            new Columna("Hora Hasta", { generar: function (consulta) { return consulta.Hora_Hasta; } }),
-//            new Columna("Estado", { generar: function (consulta) { return consulta.Estado; } }),
-//            new Columna("Licencia", { generar: function (consulta) { return consulta.Licencia; } })
-//        ]);
+    grilla = new Grilla(
+        [
+            new Columna("Fecha", { generar: function (consulta) { return consulta.Fecha; } }),
+            new Columna("Hora Desde", { generar: function (consulta) { return consulta.Hora_Desde; } }),
+            new Columna("Hora Hasta", { generar: function (consulta) { return consulta.Hora_Hasta; } }),
+            new Columna("Estado", { generar: function (consulta) { return consulta.Estado; } }),
+            new Columna("Licencia", { generar: function (consulta) { return consulta.Licencia; } })
+        ]);
     
 
-//    grilla.CargarObjetos(lista_presentismo);
-//    grilla.DibujarEn(ContenedorGrilla);
+    grilla.CargarObjetos(lista_presentismo);
+    grilla.DibujarEn(ContenedorGrilla);
 
 
-//    //$("#DivBotonExcel").empty();
-//    //var divBtnExportarExcel = $("#DivBotonExcel")
-//    //botonExcel = $("<input type='button'>");
-//    //botonExcel.val("Exportar a Excel");
-//    //botonExcel.click(function () {
-//    //    BuscarExcel();
-//    //});
-//    //botonExcel.addClass("btn btn-primary");
-//    //divBtnExportarExcel.append(botonExcel);
+    //$("#DivBotonExcel").empty();
+    //var divBtnExportarExcel = $("#DivBotonExcel")
+    //botonExcel = $("<input type='button'>");
+    //botonExcel.val("Exportar a Excel");
+    //botonExcel.click(function () {
+    //    BuscarExcel();
+    //});
+    //botonExcel.addClass("btn btn-primary");
+    //divBtnExportarExcel.append(botonExcel);
 
 
-//    grilla.SetOnRowClickEventHandler(function () {
-//        return true;
-//    });
-//}
+    grilla.SetOnRowClickEventHandler(function () {
+        return true;
+    });
+}

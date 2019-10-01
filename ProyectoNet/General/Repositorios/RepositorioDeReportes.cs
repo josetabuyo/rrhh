@@ -921,36 +921,37 @@ namespace General.Repositorios
             while (dr.Read())
             {
                 Presentismo pre = new Presentismo();
-                pre.Fecha = dr.GetString(dr.GetOrdinal("Fecha"));
-
-                if (string.IsNullOrEmpty(dr.GetString(dr.GetOrdinal("HoraDesde"))))
+                pre.Fecha = dr.GetDateTime(dr.GetOrdinal("Fecha")).ToShortDateString();
+                
+                if (dr.IsDBNull(dr.GetOrdinal("HoraDesde")))
                 {
                     pre.Hora_Desde = "";
                 }
                 else
                 {
-                    pre.Hora_Desde = dr.GetString(dr.GetOrdinal("HoraDesde"));
+                    pre.Hora_Desde = dr.GetSqlString(dr.GetOrdinal("HoraDesde")).ToString();
                 }
-
-                if (string.IsNullOrEmpty(dr.GetString(dr.GetOrdinal("HoraHasta"))))
-                {
+                
+                if (dr.IsDBNull(dr.GetOrdinal("HoraHasta")))
+                    {
                     pre.Hora_Hasta = "";
                 }
                 else
                 {
-                    pre.Hora_Hasta = dr.GetString(dr.GetOrdinal("HoraHasta"));
+                    pre.Hora_Hasta = dr.GetSqlString(dr.GetOrdinal("HoraHasta")).ToString();
                 }
                 
                 pre.Estado = dr.GetString(dr.GetOrdinal("Estado"));
 
-                string lic = "";
-                if (string.IsNullOrEmpty(dr.GetString(dr.GetOrdinal("Nro_Articulo"))))
+                string lic = "";                
+                if (dr.IsDBNull(dr.GetOrdinal("Nro_Articulo")))
                 {
                     pre.Licencia = "";
                 }
                 else
                 {
-                    lic = dr.GetString(dr.GetOrdinal("Nro_Articulo")) + " " + dr.GetString(dr.GetOrdinal("Concepto")) + " " + dr.GetString(dr.GetOrdinal("DescripcionLicencia"));
+                    lic = dr.GetString(dr.GetOrdinal("Nro_Articulo")) + dr.GetString(dr.GetOrdinal("Concepto")).ToUpper() + " - " + dr.GetString(dr.GetOrdinal("DescripcionLicencia"));
+                    pre.Licencia = lic;
                 }
 
 
