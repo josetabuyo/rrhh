@@ -27,6 +27,23 @@ namespace General.MAU
 
             return GetUsuarioDeTablaDeDatos(tablaDatos);                                 
         }
+
+        public Usuario GetUsuarioPorAliasYConFuncionalidades(string alias, bool incluir_bajas = false)
+        {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@alias", alias);
+            if (incluir_bajas) parametros.Add("@incluir_bajas", 1);
+            var tablaDatos = conexion.Ejecutar("dbo.Web_GetUsuario", parametros);
+            if (tablaDatos.Rows.Count > 1) throw new Exception("hay mas de un usuario con el mismo alias: " + alias);
+
+            Usuario usuario = GetUsuarioDeTablaDeDatos(tablaDatos);
+
+            usuario.Funcionalidades = RepositorioDeFuncionalidadesDeUsuarios.NuevoRepositorioDeFuncionalidadesDeUsuarios(conexion, RepositorioDeFuncionalidades.NuevoRepositorioDeFuncionalidades(conexion)).GetFuncionalidadesPerfilesAreas(usuario.Id);
+
+            return usuario;
+        }
+             
+
         public List<Usuario> GetUsuariosQueAdministranLaFuncionalidadDelArea(int id_funcionalidad, Area area) {
 
             var usuarios_1 = RepositorioDePermisosSobreAreas.NuevoRepositorioDePermisosSobreAreas(conexion, RepositorioDeAreas.NuevoRepositorioDeAreas(conexion)).UsuariosQueAdministranElArea(area.Id);

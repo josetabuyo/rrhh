@@ -289,6 +289,7 @@ namespace General
                     lineas[index - 1].CantidadDiasDescontados = lineas[index].CantidadDiasDescontados;
                     lineas[index - 1].LicenciaDesde = lineas[index].LicenciaDesde;
                     lineas[index - 1].LicenciaHasta = lineas[index].LicenciaHasta;
+                    lineas[index - 1].Observacion = lineas[index].Observacion;
                     lineas[index - 1].PerdidaExplicitamente = lineas[index].PerdidaExplicitamente;
                     lineas[index - 1].PerdidaPorVencimiento = lineas[index].PerdidaPorVencimiento;
                     lineas.Remove(lineas[index]);

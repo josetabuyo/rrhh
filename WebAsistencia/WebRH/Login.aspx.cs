@@ -23,6 +23,7 @@ public partial class _Default : System.Web.UI.Page
         WSViaticosSoapClient ws = new WSViaticosSoapClient();
         if (ws.Login(nombre_usuario, password)){
             var usu = ws.GetUsuarioPorAlias(nombre_usuario);
+            //var usu = ws.GetUsuarioPorAliasYFuncionalidades(nombre_usuario); 
             Session[ConstantesDeSesion.USUARIO] = usu;
             //FC: esta logica también está en el botón INICIO de la barra de menu del sistema. Si se cambia aca, cambiar alla también.
             if (usu.Verificado && !usu.Owner.BajaLegajo)
