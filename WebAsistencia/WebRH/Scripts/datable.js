@@ -127,6 +127,7 @@ $.datable = function(x){
            
             if( t.val().length !== 0 && err ) {
                 t.addClass('error').closest('.control-group').addClass('has-error');
+                alert("La fecha ingresada es invalida");
             } else {
                 t.removeClass('error').closest('.control-group').removeClass('has-error');
             }

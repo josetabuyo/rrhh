@@ -30,18 +30,22 @@ var Consultar = function () {
     ContenedorGrilla.html("");
     $("#Contenedor").empty();
     
-    spinner = new Spinner({ scale: 2 }).spin($("body")[0]);
+    
 
     getConsulta(function () {
-        DibujarGrilla();
+        //DibujarGrilla();
     });
 
    
-    spinner.stop();
+    
     //$('#DivBotonExcel').show();
 }
 
 
+
+    var regexDateValidator = function (fecha) {
+        return (fecha).match(/([0-9]{4})\-([0-9]{2})\-([0-9]{2})/);
+    }
 
 var getConsulta = function (callback) {
 
@@ -49,11 +53,21 @@ var getConsulta = function (callback) {
     var fechadesde = $("#fecha_desde").val();
     var fechahasta = $("#fecha_hasta").val();
 
-
     if (documento == "") {
         documento = 0;
     }
 
+   
+    accept = regexDateValidator(fechadesde);
+    if (!accept) {
+        alert("fecha ok");
+    }
+    else {
+        alert("fecha mal");
+    }
+   
+
+        spinner = new Spinner({ scale: 2 }).spin($("body")[0]);
     
     Backend.GET_Reporte_Presentismo_Individual(documento, fechadesde, fechahasta)
         .onSuccess(function (respuesta) {
@@ -63,6 +77,9 @@ var getConsulta = function (callback) {
         .onError(function (error, as, asd) {
             alertify.alert("", error);
         });
+
+
+        spinner.stop();
     
 }
 
