@@ -5613,21 +5613,21 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    //el id puede ser el idLiquidacion o (tipoLiquidacion+anio+mes)
-    public string GetIdRecibosSinFirmar(int tipoLiquidacion, int anio, int mes, Usuario usuario)
+    //el id puede ser el idLiquidacion o (tipoLiquidacion+anio+mes),////NOOOOOOOO falta agregar el idLiquidacion,porque pueden haber varias liquidacion con esos datos
+    public string GetIdRecibosSinFirmar(int idLiquidacion, int tipoLiquidacion, int anio, int mes, Usuario usuario)
     {
 
 
         RepositorioLegajo repo = RepoLegajo();
 
-        var respuesta = new { anio = anio, mes = mes, tipoLiquidacion = tipoLiquidacion, recibosSinFirmar = repo.GetIdRecibosSinFirmar(tipoLiquidacion, anio, mes) };
+        var respuesta = new { idLiquidacion = idLiquidacion, anio = anio, mes = mes, tipoLiquidacion = tipoLiquidacion, recibosSinFirmar = repo.GetIdRecibosSinFirmar(idLiquidacion, tipoLiquidacion, anio, mes) };
 
         return JsonConvert.SerializeObject(respuesta);
     }
 
-    [WebMethod] 
+    /*[WebMethod] */
     /*NOTA:SE puede borrar*/
-    public StringRespuestaWS GetIdRecibosSinFirmarAnterior(int tipoLiquidacion, int anio, int mes, Usuario usuario)
+    /*public StringRespuestaWS GetIdRecibosSinFirmarAnterior(int tipoLiquidacion, int anio, int mes, Usuario usuario)
     {
 
         //tira error porque puede ser null el tipo liquidacion y los demas, poner un '' o 0 y verificar aca
@@ -5646,7 +5646,7 @@ public class WSViaticos : System.Web.Services.WebService
 
         }
         return respuesta;
-    }
+    }*/
 
     /* [WebMethod]
      public StringRespuestaWS GetIdRecibosFirmados(int tipoLiquidacion, int anio, int mes, Usuario usuario)
@@ -5671,13 +5671,13 @@ public class WSViaticos : System.Web.Services.WebService
 
     [WebMethod]
     //el id puede ser el idLiquidacion o (tipoLiquidacion+anio+mes)
-    public string GetIdRecibosFirmados(int tipoLiquidacion, int anio, int mes, Usuario usuario)
+    public string GetIdRecibosFirmados(int idLiquidacion, int tipoLiquidacion, int anio, int mes, Usuario usuario)
     {
 
 
         RepositorioLegajo repo = RepoLegajo();
 
-        var respuesta = new { anio = anio, mes = mes, tipoLiquidacion = tipoLiquidacion, recibosFirmados = repo.GetIdRecibosFirmados(tipoLiquidacion, anio, mes) };
+        var respuesta = new { idLiquidacion = idLiquidacion, anio = anio, mes = mes, tipoLiquidacion = tipoLiquidacion, recibosFirmados = repo.GetIdRecibosFirmados(idLiquidacion, tipoLiquidacion, anio, mes) };
 
         return JsonConvert.SerializeObject(respuesta);
     }
@@ -5952,7 +5952,7 @@ public class WSViaticos : System.Web.Services.WebService
 
     [WebMethod]
     //Se guarda el pdf firmado y el csv en otra tabla
-    public int GuardarReciboPDFFirmado(string bytes_pdf, int id_recibo, int anio, int mes, int tipoLiquidacion, Usuario usuario)
+    public int GuardarReciboPDFFirmado(string bytes_pdf,int idLiquidacion, int id_recibo, int anio, int mes, int tipoLiquidacion, Usuario usuario)
     {
         RepositorioVerificador repoVeri = RepoVerificador();
 
@@ -5979,7 +5979,7 @@ public class WSViaticos : System.Web.Services.WebService
 
                     RepoReciboFirmado().agregarReciboFirmado(id_recibo, id_archivo, anio, mes, tipoLiquidacion, usuario.Owner.Id, hoy, Convert.ToBase64String(byteHash));
          */
-        RepoReciboFirmado().agregarReciboFirmado(id_recibo, id_archivo, anio, mes, tipoLiquidacion, usuario.Owner.Id);
+        RepoReciboFirmado().agregarReciboFirmado(idLiquidacion, id_recibo, id_archivo, anio, mes, tipoLiquidacion, usuario.Owner.Id);
                 
         //los bytes vienen en base64, convierto de base64 a string y luego a bytes.
         byte[] data = System.Convert.FromBase64String(bytes_pdf);

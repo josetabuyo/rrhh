@@ -1692,7 +1692,7 @@ namespace General.Repositorios
         }
 
 
-        public string GetIdRecibosSinFirmar(int tipoLiquidacion, int anio, int mes)
+        public string GetIdRecibosSinFirmar(int idLiquidacion, int tipoLiquidacion, int anio, int mes)
         {
             var parametros = new Dictionary<string, object>();
 
@@ -1706,6 +1706,7 @@ namespace General.Repositorios
             }
             parametros.Add("@mes", mes);
             parametros.Add("@año", anio);
+            parametros.Add("@idLiquidacion", idLiquidacion);
 
 
             var idRecibo = new object();
@@ -1790,7 +1791,7 @@ namespace General.Repositorios
 
         }
 
-        public string GetIdRecibosFirmados(int tipoLiquidacion, int anio, int mes)
+        public string GetIdRecibosFirmados(int idLiquidacion, int tipoLiquidacion, int anio, int mes)
         {
             var parametros = new Dictionary<string, object>();
 
@@ -1804,7 +1805,7 @@ namespace General.Repositorios
             }
             parametros.Add("@mes", mes);
             parametros.Add("@año", anio);
-
+            parametros.Add("@idLiquidacion", idLiquidacion);
 
             var idRecibo = new object();
             var listaIdRecibos = new List<object>();

@@ -22,9 +22,10 @@ namespace General.Repositorios
         }
 
 
-        public bool agregarReciboFirmado(int idRecibo, int idArchivo, int año, int mes, int tipoLiquidacion, int usuario)
+        public bool agregarReciboFirmado(int idLiquidacion, int idRecibo, int idArchivo, int año, int mes, int tipoLiquidacion, int usuario)
         {
             var parametros = new Dictionary<string, object>();
+            parametros.Add("@id_Liquidacion", idLiquidacion);
             parametros.Add("@id_Recibo", idRecibo);
             parametros.Add("@id_Archivo", idArchivo);
             parametros.Add("@año", año);

@@ -116,7 +116,7 @@ var MiniApplet = ( function ( window, undefined ) {
 		var CHECKTIME_OBLIGATORY = "CT_OBLIGATORY";
 
 		// Tiempo de espera entre los intentos de conexion con autofirma.
-		var AUTOFIRMA_LAUNCHING_TIME = 2800;
+		var AUTOFIRMA_LAUNCHING_TIME = 5000;
 
 		// Reintentos de conexion totales para detectar que esta instalado AutoFirma
 		var AUTOFIRMA_CONNECTION_RETRIES = 100;  //20 cantidad original;puse 100 porque debo dar tiempo a que se descargue e instale en modo jnlp

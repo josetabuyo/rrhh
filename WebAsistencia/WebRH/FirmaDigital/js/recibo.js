@@ -273,12 +273,12 @@ var RECIBOS = (function (window, undefined) {
 
     }
 
-    function guardarReciboPDFFirmado(idRecibo, signatureB64, anio, mes, tipoLiquidacion, successFunction, errorFunction) {
+    function guardarReciboPDFFirmado(idLiquidacion,idRecibo, signatureB64, anio, mes, tipoLiquidacion, successFunction, errorFunction) {
 
         saveSuccessFunction = successFunction;
         saveErrorFunction = errorFunction;
 
-        Backend.GuardarReciboPDFFirmado(signatureB64, idRecibo, anio, mes, tipoLiquidacion)
+        Backend.GuardarReciboPDFFirmado(signatureB64, idLiquidacion, idRecibo, anio, mes, tipoLiquidacion)
                 .onSuccess(function (res) {
 
                     //en el caso de los archivos estos ya vienen en b64 porque aun no encontre una funcion de conversion a b64 que codifique correctamente desde javascript
@@ -395,25 +395,25 @@ var RECIBOS = (function (window, undefined) {
                         //como las llamadas son asincronas necesito un id para relacionar las llamadas que pueden ser retornadas en cualquier
                         //orden
                         var s, s2, s3;
-                        s = 'rsf' + resp[i].anio + resp[i].mes + resp[i].tipo_liquidacion; //id recibo sin firmar local
-                        s2 = 'rf' + resp[i].anio + resp[i].mes + resp[i].tipo_liquidacion; //id recibo firmado local
-                        s3 = 'bf' + resp[i].anio + resp[i].mes + resp[i].tipo_liquidacion; //id boton de firma local
+                        s = 'rsf' + resp[i].id + resp[i].anio + resp[i].mes + resp[i].tipo_liquidacion; //id recibo sin firmar local
+                        s2 = 'rf' + resp[i].id + resp[i].anio + resp[i].mes + resp[i].tipo_liquidacion; //id recibo firmado local
+                        s3 = 'bf' + resp[i].id + resp[i].anio + resp[i].mes + resp[i].tipo_liquidacion; //id boton de firma local
                         //capa2 = '<div class="iconInfo">Liquidación <B><span>' + resp[i].id + '   ' + resp[i].anio + '   ' + resp[i].mes + '   ' + resp[i].tipo_liquidacion + '   ' + resp[i].descripcion + '   ' + '</span><span id="' + s + '"></span><span id="' + s2 + '"></span><span id="span' + s3 + '"><input id="' + s3 + '" disabled  style="text-align: right;cursor: pointer;" class="botonGrisadoFirmaM" type="button" value="Firmar" onclick="iniciarOperaciones4(' + s + ');return false;" /></span></B>   </div></BR>';
                         //capa.innerHTML = capa.innerHTML + capa2;
 
                         /*capaLiq = '<tr><td><div style="margin-top:5px">' + resp[i].id + '</div></td> <td><div style="margin-top:5px">' + resp[i].anio + '</div></td> <td><div style="margin-top:5px">' + resp[i].mes + '</div></td> <td><div style="margin-top:5px">' + resp[i].tipo_liquidacion + '</div></td> <td><div style="margin-top:5px">' + resp[i].descripcion + '</div></td>  <td><div style="margin-top:5px"><span id="' + s + '"></span></div></td>  <td><div style="margin-top:5px"><span id="' + s2 + '"></span></div></td> <td style="text-align: right;"><input id="' + s3 + '" disabled  style="text-align: right;cursor: pointer;" class="botonGrisadoFirmaM" type="button" value="Firmar" onclick="iniciarOperaciones4(\'' + s + '\','+resp[i].anio+',' + resp[i].mes +','+ resp[i].tipo_liquidacion+');return false;" /></td></tr>';
                         */
-                        capaLiq = '<tr>  <td><div style="margin-top:5px">' + resp[i].descripcion + '</div></td>  <td><div style="margin-top:5px;text-align:center"><span id="' + s + '"></span></div></td>  <td><div style="margin-top:5px;text-align:center"><span id="' + s2 + '"></span></div></td> <td style="text-align: center;"><input id="' + s3 + '" disabled  style="cursor: pointer;" class="botonGrisadoFirmaM" type="button" value="Firmar" onclick="iniciarOperaciones4(\'' + s + '\',' + resp[i].anio + ',' + resp[i].mes + ',' + resp[i].tipo_liquidacion + ');return false;" /></td></tr>';
+                        capaLiq = '<tr>  <td><div style="margin-top:5px">' + resp[i].descripcion + '</div></td>  <td><div style="margin-top:5px;text-align:center"><span id="' + s + '"></span></div></td>  <td><div style="margin-top:5px;text-align:center"><span id="' + s2 + '"></span></div></td> <td style="text-align: center;"><input id="' + s3 + '" disabled  style="cursor: pointer;" class="botonGrisadoFirmaM" type="button" value="Firmar" onclick="iniciarOperaciones4(\'' + s + '\',' + '\'' + s3 + '\',' + resp[i].anio + ',' + resp[i].mes + ',' + resp[i].tipo_liquidacion + ',' + resp[i].id + ');return false;" /></td></tr>';
 
                         capaAcumulada = capaAcumulada + capaLiq;
 
-                        Backend.GetIdRecibosSinFirmar(resp[i].tipo_liquidacion, resp[i].anio, resp[i].mes)
+                        Backend.GetIdRecibosSinFirmar(resp[i].id,resp[i].tipo_liquidacion, resp[i].anio, resp[i].mes)
                             .onSuccess(function (respuesta) {
                                 /*respuesta es la respuesta*/
 
                                 var respListSinFirmar = JSON.parse(respuesta);
-                                var s = 'rsf' + respListSinFirmar.anio + respListSinFirmar.mes + respListSinFirmar.tipoLiquidacion;
-                                var s3 = 'bf' + respListSinFirmar.anio + respListSinFirmar.mes + respListSinFirmar.tipoLiquidacion;
+                                var s = 'rsf' + respListSinFirmar.idLiquidacion + respListSinFirmar.anio + respListSinFirmar.mes + respListSinFirmar.tipoLiquidacion;
+                                var s3 = 'bf' + respListSinFirmar.idLiquidacion + respListSinFirmar.anio + respListSinFirmar.mes + respListSinFirmar.tipoLiquidacion;
                                 var lista = JSON.parse(respListSinFirmar.recibosSinFirmar);
                                 var long = Object.keys(lista).length;
 
@@ -438,11 +438,11 @@ var RECIBOS = (function (window, undefined) {
                             .onError(function (e) {
 
                             });
-                        Backend.GetIdRecibosFirmados(resp[i].tipo_liquidacion, resp[i].anio, resp[i].mes)
+                        Backend.GetIdRecibosFirmados(resp[i].id, resp[i].tipo_liquidacion, resp[i].anio, resp[i].mes)
                             .onSuccess(function (respuesta) {
 
                                 var respListFirmados = JSON.parse(respuesta);
-                                var s = 'rf' + respListFirmados.anio + respListFirmados.mes + respListFirmados.tipoLiquidacion;
+                                var s = 'rf' + respListFirmados.idLiquidacion + respListFirmados.anio + respListFirmados.mes + respListFirmados.tipoLiquidacion;
 
                                 var lista = JSON.parse(respListFirmados.recibosFirmados);
                                 var long = Object.keys(lista).length;

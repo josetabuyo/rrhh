@@ -541,6 +541,7 @@
       <s:element name="GetIdRecibosSinFirmar">
         <s:complexType>
           <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idLiquidacion" type="s:int" />
             <s:element minOccurs="1" maxOccurs="1" name="tipoLiquidacion" type="s:int" />
             <s:element minOccurs="1" maxOccurs="1" name="anio" type="s:int" />
             <s:element minOccurs="1" maxOccurs="1" name="mes" type="s:int" />
@@ -555,44 +556,10 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetIdRecibosSinFirmarAnterior">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="tipoLiquidacion" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="anio" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="mes" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetIdRecibosSinFirmarAnteriorResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetIdRecibosSinFirmarAnteriorResult" type="tns:StringRespuestaWS" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:complexType name="StringRespuestaWS">
-        <s:complexContent mixed="false">
-          <s:extension base="tns:RespuestaWS">
-            <s:sequence>
-              <s:element minOccurs="0" maxOccurs="1" name="Respuesta" type="s:string" />
-            </s:sequence>
-          </s:extension>
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="RespuestaWS" abstract="true">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="Accion" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="MensajeDeErrorAmigable" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="DefaultErrorMessage" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="ExceptionStack" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="DioError" type="s:boolean" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="GetIdRecibosFirmados">
         <s:complexType>
           <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idLiquidacion" type="s:int" />
             <s:element minOccurs="1" maxOccurs="1" name="tipoLiquidacion" type="s:int" />
             <s:element minOccurs="1" maxOccurs="1" name="anio" type="s:int" />
             <s:element minOccurs="1" maxOccurs="1" name="mes" type="s:int" />
@@ -621,6 +588,24 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:complexType name="StringRespuestaWS">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:RespuestaWS">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Respuesta" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="RespuestaWS" abstract="true">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Accion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MensajeDeErrorAmigable" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DefaultErrorMessage" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ExceptionStack" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DioError" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="GetReciboParseado">
         <s:complexType>
           <s:sequence>
@@ -667,6 +652,7 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="bytes_pdf" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="idLiquidacion" type="s:int" />
             <s:element minOccurs="1" maxOccurs="1" name="id_recibo" type="s:int" />
             <s:element minOccurs="1" maxOccurs="1" name="anio" type="s:int" />
             <s:element minOccurs="1" maxOccurs="1" name="mes" type="s:int" />
@@ -8497,12 +8483,6 @@
   <wsdl:message name="GetIdRecibosSinFirmarSoapOut">
     <wsdl:part name="parameters" element="tns:GetIdRecibosSinFirmarResponse" />
   </wsdl:message>
-  <wsdl:message name="GetIdRecibosSinFirmarAnteriorSoapIn">
-    <wsdl:part name="parameters" element="tns:GetIdRecibosSinFirmarAnterior" />
-  </wsdl:message>
-  <wsdl:message name="GetIdRecibosSinFirmarAnteriorSoapOut">
-    <wsdl:part name="parameters" element="tns:GetIdRecibosSinFirmarAnteriorResponse" />
-  </wsdl:message>
   <wsdl:message name="GetIdRecibosFirmadosSoapIn">
     <wsdl:part name="parameters" element="tns:GetIdRecibosFirmados" />
   </wsdl:message>
@@ -10946,10 +10926,6 @@
       <wsdl:input message="tns:GetIdRecibosSinFirmarSoapIn" />
       <wsdl:output message="tns:GetIdRecibosSinFirmarSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="GetIdRecibosSinFirmarAnterior">
-      <wsdl:input message="tns:GetIdRecibosSinFirmarAnteriorSoapIn" />
-      <wsdl:output message="tns:GetIdRecibosSinFirmarAnteriorSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="GetIdRecibosFirmados">
       <wsdl:input message="tns:GetIdRecibosFirmadosSoapIn" />
       <wsdl:output message="tns:GetIdRecibosFirmadosSoapOut" />
@@ -12669,15 +12645,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetIdRecibosSinFirmar">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetIdRecibosSinFirmar" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetIdRecibosSinFirmarAnterior">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetIdRecibosSinFirmarAnterior" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -16389,15 +16356,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetIdRecibosSinFirmar">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetIdRecibosSinFirmar" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetIdRecibosSinFirmarAnterior">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetIdRecibosSinFirmarAnterior" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
