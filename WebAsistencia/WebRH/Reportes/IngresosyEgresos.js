@@ -43,9 +43,26 @@ var Consultar = function () {
 
 
 
-    var regexDateValidator = function (fecha) {
-        return (fecha).match(/([0-9]{4})\-([0-9]{2})\-([0-9]{2})/);
+function existeFecha(fecha) {
+    var fechaf = fecha.split("/");
+    var day = fechaf[0];
+    var month = fechaf[1];
+    var year = fechaf[2];
+    var date = new Date(year, month, '0');
+    if ((day - 0) > (date.getDate() - 0)) {
+        return false;
     }
+    return true;
+}
+
+function existeFecha2(fecha) {
+    var fechaf = fecha.split("/");
+    var d = fechaf[0];
+    var m = fechaf[1];
+    var y = fechaf[2];
+    return m > 0 && m < 13 && y > 0 && y < 32768 && d > 0 && d <= (new Date(y, m, 0)).getDate();
+}
+
 
 var getConsulta = function (callback) {
 
@@ -58,16 +75,25 @@ var getConsulta = function (callback) {
     }
 
    
-    accept = regexDateValidator(fechadesde);
+    var accept = existeFecha(fechadesde);
     if (!accept) {
-        alert("fecha ok");
+        alert("La Fecha Desde es incorrecta");
+        return;
     }
-    else {
-        alert("fecha mal");
-    }
-   
 
-        spinner = new Spinner({ scale: 2 }).spin($("body")[0]);
+    var accept = existeFecha(fechahasta);
+    if (!accept) {
+        alert("La Fecha Hasta es incorrecta");
+        return;
+    }
+
+    if (fechadesde > fechahasta ) {
+        alert("La Fecha Desde no puede ser mayor a la Fecha Hasta");
+        return;
+    }
+
+
+    spinner = new Spinner({ scale: 2 }).spin($("body")[0]);
     
     Backend.GET_Reporte_Presentismo_Individual(documento, fechadesde, fechahasta)
         .onSuccess(function (respuesta) {
