@@ -1,6 +1,7 @@
 ﻿var spinner;
 var mes;
 var idUsuario;
+var la_persona_seleccionada;
 
 var Permisos = {
     init: function () {
@@ -20,165 +21,30 @@ var Permisos = {
         this.repositorioDeUsuarios = new RepositorioDeUsuarios(proveedor_ajax);
         this.repositorioDePersonas = new RepositorioDePersonas(proveedor_ajax);
 
-    },
+        //alert("Permisos"); //GERMAN
+        if (sessionStorage.getItem("id")) {
+            var _this = this;
+           
+            //alert("load");
 
-    getPerfilesDelUsuario: function () {
-        alert("getPerfilesDelUsuario"); //GERMAN
+            la_persona_seleccionada = [];
+            la_persona_seleccionada.id = sessionStorage.getItem("id");
+            la_persona_seleccionada.apellido = sessionStorage.getItem("apellido");
+            la_persona_seleccionada.nombre = sessionStorage.getItem("nombre");
+            la_persona_seleccionada.documento = sessionStorage.getItem("documento");
+            la_persona_seleccionada.legajo = sessionStorage.getItem("legajo");
 
-        var _this = this;
-        this.completarDatosDeLaSesion();
-        if (!sessionStorage.getItem("idUsuario")) {
-            alert("Debe seleccionar un usuario antes de proseguir");
-            window.location.replace("DefinicionDeUsuario.aspx");
+            
+            _this.alSeleccionarUnaPersona(la_persona_seleccionada);
+            
         }
 
-        var idUsuario = sessionStorage.getItem("idUsuario");
-        //Backend.GetPerfilesActuales(idUsuario)
-        //    .onSuccess(function (perfiles) {
-        //        //var perfiles = JSON.parse(perfilesJSON);
-
-        //        $("#tabla_permisos").empty();
-        //        var divGrilla = $("#tabla_permisos");
-        //        //var tabla = resultado;
-        //        var columnas = [];
-
-        //        columnas.push(new Columna("Perfiles", { generar: function (un_permiso) { return un_permiso.Nombre } }));
-        //        columnas.push(new Columna("Areas", { generar: function (un_permiso) { return un_permiso.Areas[0].Nombre } }));
-        //        columnas.push(new Columna("Incluye Dep.", { generar: function (un_permiso) { if (un_permiso.Areas[0].IncluyeDependencias) return 'Si'; return 'No' } }));
-        //        //columnas.push(new Columna("Desde", { generar: function (un_permiso) { return '01/01/2018' } }));
-        //        columnas.push(new Columna('Accion', {
-        //            generar: function (un_permiso) {
-        //                var btn_accion = $('<a>');
-        //                var img = $('<img>');
-        //                img.attr('src', '../Imagenes/eliminar.jpg');
-        //                img.attr('width', '20px');
-        //                img.attr('height', '20px');
-        //                btn_accion.append(img);
-        //                btn_accion.click(function () {
-        //                    _this.eliminarPerfil(un_permiso);
-        //                });
-        //                return btn_accion;
-        //            }
-        //        }));
-
-
-        //        _this.Grilla = new Grilla(columnas);
-        //        _this.Grilla.SetOnRowClickEventHandler(function (un_permiso) { });
-        //        _this.Grilla.CambiarEstiloCabecera("estilo_tabla_portal");
-        //        _this.Grilla.CargarObjetos(perfiles);
-        //        _this.Grilla.DibujarEn(divGrilla);
-        //        $('.table-hover').removeClass("table-hover");
-
-
-        //    })
-        //    .onError(function (e) {
-
-        //    });
-
-
-        //this.getFuncionalidadesPerfilesAreas();
 
     },
 
-    getFuncionalidadesDelUsuario: function () {
-        alert("getFuncionalidadesDelUsuario"); //GERMAN
-
-        var _this = this;
-        if (!sessionStorage.getItem("idUsuario")) {
-            alert("Debe seleccionar un usuario antes de proseguir");
-            window.location.replace("DefinicionDeUsuario.aspx");
-        }
-
-        var idUsuario = sessionStorage.getItem("idUsuario");
-        Backend.GetFuncionalidadesActuales(idUsuario)
-            .onSuccess(function (funcionalidades) {
-
-                //var perfiles = JSON.parse(perfilesJSON);
-
-
-                $("#tabla_funcionalidades").empty();
-                var divGrilla = $("#tabla_funcionalidades");
-                //var tabla = resultado;
-                var columnas = [];
-
-                columnas.push(new Columna("Funciones", { generar: function (un_permiso) { return un_permiso.Nombre } }));
-                columnas.push(new Columna("Areas", { generar: function (un_permiso) { if (un_permiso.Areas.length > 0) return un_permiso.Areas[0].Nombre; return 'Sin Area'; } }));
-                columnas.push(new Columna("Incluye Dep.", { generar: function (un_permiso) { if (un_permiso.Areas.length > 0) { if (un_permiso.Areas[0].IncluyeDependencias) return 'Si'; return 'No' } else { return '' } } }));
-                //columnas.push(new Columna("Desde", { generar: function (un_permiso) { return '01/01/2018' } }));
-                columnas.push(new Columna('Accion', {
-                    generar: function (un_permiso) {
-                        var btn_accion = $('<a>');
-                        var img = $('<img>');
-                        img.attr('src', '../Imagenes/eliminar.jpg');
-                        img.attr('width', '20px');
-                        img.attr('height', '20px');
-                        btn_accion.append(img);
-                        btn_accion.click(function () {
-                            _this.eliminarFuncionalidad(un_permiso);
-                        });
-                        return btn_accion;
-                    }
-                }));
-
-
-                _this.Grilla = new Grilla(columnas);
-                _this.Grilla.SetOnRowClickEventHandler(function (un_permiso) { });
-                _this.Grilla.CambiarEstiloCabecera("estilo_tabla_portal");
-                _this.Grilla.CargarObjetos(funcionalidades);
-                _this.Grilla.DibujarEn(divGrilla);
-                $('.table-hover').removeClass("table-hover");
-
-
-            })
-            .onError(function (e) {
-
-            });
-
-    },
-    eliminarPerfil: function (perfil) {
-        var _this = this;
-        var r = confirm("¿Está seguro de eliminar el Perfil?");
-        if (r == true) {
-            var idUsuarioSeleccionado = sessionStorage.getItem("idUsuario");
-            var idArea = perfil.Areas[0].Id;
-            Backend.desasignarPerfiles(perfil.Id, idArea, idUsuarioSeleccionado).onSuccess(function (rto) {
-                if (rto == 'ok') {
-                    //window.location.reload();
-                    alertify.success("Se ha eliminado correctamente");
-                    _this.getPerfilesDelUsuario();
-                } else {
-                    alertify.error(rto);
-                }
-
-                console.log(rto);
-            });
-        } else {
-            txt = "Cancelar";
-        }
-
-    },
-    eliminarFuncionalidad: function (funcionalidad) {
-        var _this = this;
-        var idArea = funcionalidad.Areas[0].Id;
-        var r = confirm("¿Está seguro de eliminar la Funcionalidad?");
-        if (r == true) {
-            var idUsuarioSeleccionado = sessionStorage.getItem("idUsuario");
-            Backend.desasignarFuncionaldiad(funcionalidad.Id, idArea, idUsuarioSeleccionado).onSuccess(function (rto) {
-                if (rto == 'ok') {
-                    //window.location.reload();
-                    alertify.success("Se ha eliminado correctamente");
-                    // _this.getFuncionalidadesDelUsuario();
-                } else {
-                    alertify.error(rto);
-                }
-                console.log(rto);
-            });
-        } else {
-            txt = "Cancelar";
-        }
-
-    },
     iniciarConsultaRapida: function () {
+
+        //alert("iniciarConsultaRapida");
 
         var _this = this;
         var selector_personas = new SelectorDePersonas({
@@ -186,13 +52,19 @@ var Permisos = {
             repositorioDePersonas: new RepositorioDePersonas(new ProveedorAjax("../")),
             placeholder: "nombre, apellido, documento o legajo"
         });
+        
         selector_personas.alSeleccionarUnaPersona = function (la_persona_seleccionada) {
             _this.alSeleccionarUnaPersona(la_persona_seleccionada);
         };
 
     },
+
+
     alSeleccionarUnaPersona: function (la_persona_seleccionada) {
 
+        //alert("alseleccionarpersona");
+
+       
         $('[RequiereFuncionalidad]').each(function (index, control) {
 
             $(control).hide();
@@ -249,15 +121,22 @@ var Permisos = {
                 }
             });
     },
+
+
+
+
     //FC: cuando seleccione una persona del buscador de Personas
     cargarUsuario: function (usuario) {
+
+       // alert("carga datos");
+
         console.log(usuario);
         sessionStorage.setItem("nombre", usuario.Owner.Nombre);
         sessionStorage.setItem("apellido", usuario.Owner.Apellido);
         sessionStorage.setItem("idUsuario", usuario.Id);
         sessionStorage.setItem("documento", usuario.Owner.Documento);
         sessionStorage.setItem("legajo", usuario.Owner.Legajo);
-
+        sessionStorage.setItem("id", usuario.Owner.Id);
 
         this.completarDatosDeLaSesion();
 
@@ -350,234 +229,411 @@ var Permisos = {
         });
 
     },
-    iniciarPantallaAsignacionPerfiles: function () {
-        alert("iniciarPantallaAsignacionPerfiles"); //GERMAN
-
-        var _this = this;
-        this.completarDatosDeLaSesion();
-        if (!sessionStorage.getItem("idUsuario")) {
-            alert("Debe seleccionar un usuario antes de proseguir");
-            window.location.replace("DefinicionDeUsuario.aspx");
-        }
-
-        var proveedor_ajax = new ProveedorAjax("../");
-        this.repositorioDeAreas = new RepositorioDeAreas(proveedor_ajax);
-
-        this.div_lista_areas = $("#lista_areas_para_consultar");
-
-        $("#comboPerfiles").change(function (e) {
-            //alert($(this).val());
-            var plantillaPerfiles = $("#plantillaPerfilSeleccionado").clone();
-
-            plantillaPerfiles.find(".nombrePerfil").html($("select option:selected").text());
-
-            plantillaPerfiles.attr('id', $(this).val());
-            plantillaPerfiles.attr('class', 'perfilesSeleccionados');
-
-            plantillaPerfiles.find(".quitar").click(function () {
-                //plantillaPerfiles.find("#" + $(this).attr('class')).remove();
-                plantillaPerfiles.remove();
-            });
-
-            //plantillaPerfiles.find(".quitar").attr("class", $(this).val());
-            plantillaPerfiles.show();
-            $("#perfilesSeleccionado").append(plantillaPerfiles);
-
-        });
-
-        this.selector_de_areas = new SelectorDeAreas({
-            ui: $("#selector_area_usuarios"),
-            repositorioDeAreas: this.repositorioDeAreas,
-            placeholder: "ingrese el área que desea buscar",
-            alSeleccionarUnArea: function (area) {
-
-                //alert(area.nombre);
-
-                var plantilla = $("#plantillaArea").clone();
-                plantilla.show();
-                plantilla.find("#areaSeleccionada").html(area.nombre);
-                plantilla.find("#checkIncluyeDependencias").attr('class', 'checksIncluyeDependencia');
-                plantilla.find(".quitar").click(function () {
-                    plantilla.remove();
-                });
-
-                plantilla[0].id = area.id;
-                plantilla.attr('class', 'areasSeleccionadas');
-
-                $("#listadoAreasElegidas").append(plantilla);
-            }
-        });
 
 
-        $("#btnAsignarPerfilConAreas").click(function (e) {
-            //alert($(this).val());
-            var perfilesSeleccionados = $('.perfilesSeleccionados').map(function () {
-                return $(this).attr('id');
-            }).get();
+    completarDatosDeLaSesion: function () {
+        //$("#nombre_empleado").html(sessionStorage.getItem("nombre"));
+        //$("#apellido_empleado").html(sessionStorage.getItem("apellido"));
 
+        //alert("datos");
 
-            var areasSeleccionadas = $('.areasSeleccionadas').map(function () {
-                var valor = 0;
-                if ($(this)[0].children[1].checked)
-                    valor = 1;
-                return { Id: $(this).attr('id'), IncluyeDependencias: valor };
-            }).get();
-
-            /* var dependencias = $('.checksIncluyeDependencia').map(function () {
-            return $(this)[0].checked;
-            }).get();*/
-
-            var idUsuarioSeleccionado = sessionStorage.getItem("idUsuario");
-
-            Backend.asignarPerfiles(JSON.stringify(perfilesSeleccionados), areasSeleccionadas, idUsuarioSeleccionado)
-                .onSuccess(function (rto) {
-                    //window.location.reload();
-                    if (rto == 'ok') {
-                        alertify.success("Se ha agregado el perfil correctamente");
-                        _this.getPerfilesDelUsuario();
-                        $("#perfilesSeleccionado").empty();
-                        $("#listadoAreasElegidas").empty();
-                    } else {
-                        alertify.error(rto);
-                    }
-
-
-                })
-                .onError(function (e) {
-
-                });
-
-        });
-
+        var nom = sessionStorage.getItem("apellido") + ", " + sessionStorage.getItem("nombre");
+        $("#nombre_empleado").html(nom);
+        
     },
-    iniciarPantallaAsignacionFuncionalidad: function () {
-        alert("iniciarPantallaAsignacionFuncionalidad"); //GERMAN
-
-        var _this = this;
-        this.completarDatosDeLaSesion();
-        if (!sessionStorage.getItem("idUsuario")) {
-            alert("Debe seleccionar un usuario antes de proseguir");
-            window.location.replace("DefinicionDeUsuario.aspx");
-        }
-
-        var proveedor_ajax = new ProveedorAjax("../");
-        this.repositorioDeAreas = new RepositorioDeAreas(proveedor_ajax);
-
-        this.div_lista_areas = $("#lista_areas_para_consultar");
 
 
-        Backend.TodasLasFuncionalidades()
-            .onSuccess(function (funcionalidades) {
 
-                $("#comboFuncionalidades").empty();
-                $("#comboFuncionalidades").append("<option value='0'>Seleccionar Funcionalidad</option>");
+    //getPerfilesDelUsuario: function () {
+    //    alert("getPerfilesDelUsuario"); //GERMAN
 
-                var grupo = '';
-                $.each(funcionalidades, function (key, value) {
-                    if (grupo != value.Grupo) {
-                        grupo = value.Grupo;
-                        $("#comboFuncionalidades").append("</optgroup>");
-                        $("#comboFuncionalidades").append("<optgroup label='" + grupo + "'>");
-                    }
+    //    var _this = this;
+    //    this.completarDatosDeLaSesion();
+    //    if (!sessionStorage.getItem("idUsuario")) {
+    //        alert("Debe seleccionar un usuario antes de proseguir");
+    //        window.location.replace("DefinicionDeUsuario.aspx");
+    //    }
 
-                    $("#comboFuncionalidades").append("<option value=" + value.Id + ">" + value.Nombre + "</option>");
+    //    var idUsuario = sessionStorage.getItem("idUsuario");
+    //    //Backend.GetPerfilesActuales(idUsuario)
+    //    //    .onSuccess(function (perfiles) {
+    //    //        //var perfiles = JSON.parse(perfilesJSON);
 
-                });
+    //    //        $("#tabla_permisos").empty();
+    //    //        var divGrilla = $("#tabla_permisos");
+    //    //        //var tabla = resultado;
+    //    //        var columnas = [];
 
-            })
-            .onError(function (e) {
-
-            });
-
-
-        $("#comboFuncionalidades").change(function (e) {
-            //alert($(this).val());
-
-            var plantillaFuncionalidad = $('#plantillaFuncionalidadSeleccionada').clone();
-
-            plantillaFuncionalidad.find(".nombreFuncionalidad").html($("select option:selected").text());
-
-            plantillaFuncionalidad.attr('id', $(this).val());
-            plantillaFuncionalidad.attr('class', 'funcionalidadesSeleccionadas');
-
-            plantillaFuncionalidad.find(".quitar").click(function () {
-                plantillaFuncionalidad.remove();
-            });
-
-            //plantillaPerfiles.find(".quitar").attr("class", $(this).val());
-            plantillaFuncionalidad.show();
-            $("#funcionalidadesSeleccionadas").append(plantillaFuncionalidad);
+    //    //        columnas.push(new Columna("Perfiles", { generar: function (un_permiso) { return un_permiso.Nombre } }));
+    //    //        columnas.push(new Columna("Areas", { generar: function (un_permiso) { return un_permiso.Areas[0].Nombre } }));
+    //    //        columnas.push(new Columna("Incluye Dep.", { generar: function (un_permiso) { if (un_permiso.Areas[0].IncluyeDependencias) return 'Si'; return 'No' } }));
+    //    //        //columnas.push(new Columna("Desde", { generar: function (un_permiso) { return '01/01/2018' } }));
+    //    //        columnas.push(new Columna('Accion', {
+    //    //            generar: function (un_permiso) {
+    //    //                var btn_accion = $('<a>');
+    //    //                var img = $('<img>');
+    //    //                img.attr('src', '../Imagenes/eliminar.jpg');
+    //    //                img.attr('width', '20px');
+    //    //                img.attr('height', '20px');
+    //    //                btn_accion.append(img);
+    //    //                btn_accion.click(function () {
+    //    //                    _this.eliminarPerfil(un_permiso);
+    //    //                });
+    //    //                return btn_accion;
+    //    //            }
+    //    //        }));
 
 
-        });
-
-        this.selector_de_areas = new SelectorDeAreas({
-            ui: $("#selector_area_usuarios"),
-            repositorioDeAreas: this.repositorioDeAreas,
-            placeholder: "ingrese el área que desea buscar",
-            alSeleccionarUnArea: function (area) {
-
-                //alert(area.nombre);
-
-                var plantilla = $("#plantillaArea").clone();
-                plantilla.show();
-                plantilla.find("#areaSeleccionada").html(area.nombre);
-                plantilla.find("#checkIncluyeDependencias").attr('class', 'checksIncluyeDependencia');
-                plantilla.find(".quitar").click(function () {
-                    plantilla.remove();
-                });
-
-                plantilla[0].id = area.id;
-                plantilla.attr('class', 'areasSeleccionadas');
+    //    //        _this.Grilla = new Grilla(columnas);
+    //    //        _this.Grilla.SetOnRowClickEventHandler(function (un_permiso) { });
+    //    //        _this.Grilla.CambiarEstiloCabecera("estilo_tabla_portal");
+    //    //        _this.Grilla.CargarObjetos(perfiles);
+    //    //        _this.Grilla.DibujarEn(divGrilla);
+    //    //        $('.table-hover').removeClass("table-hover");
 
 
-                $("#listadoAreasElegidas").append(plantilla);
-            }
-        });
+    //    //    })
+    //    //    .onError(function (e) {
 
-        $("#btnAsignarFuncionalidadConAreas").click(function (e) {
-            //alert($(this).val());
-
-            var funcionalidadesSeleccionados = $('.funcionalidadesSeleccionadas').map(function () {
-                return $(this).attr('id');
-            }).get();
+    //    //    });
 
 
-            var areasSeleccionadas = $('.areasSeleccionadas').map(function () {
-                return { id: $(this).attr('id'), IncluyeDependencias: $(this)[0].children[1].checked };
-            }).get();
+    //    //this.getFuncionalidadesPerfilesAreas();
 
-            $.each(areasSeleccionadas, function (key, value) {
-                if (value.IncluyeDependencias) {
-                    value.IncluyeDependencias = 1;
-                }
-            });
-            /* var dependencias = $('.checksIncluyeDependencia').map(function () {
-            return $(this)[0].checked;
-            }).get();*/
+    //},
 
-            var idUsuarioSeleccionado = sessionStorage.getItem("idUsuario");
+    //getFuncionalidadesDelUsuario: function () {
+    //    alert("getFuncionalidadesDelUsuario"); //GERMAN
 
-            Backend.asignarFuncionalidades(JSON.stringify(funcionalidadesSeleccionados), JSON.stringify(areasSeleccionadas), idUsuarioSeleccionado)
-                .onSuccess(function (rto) {
-                    if (rto == 'ok') {
-                        //window.location.reload();
-                        alertify.success("Se ha asignado la funcionalidad correctamente");
-                        //_this.getFuncionalidadesDelUsuario();
-                        $("#funcionalidadesSeleccionadas").empty();
-                        $("#listadoAreasElegidas").empty();
-                    } else {
-                        alertify.error(rto);
-                    }
+    //    var _this = this;
+    //    if (!sessionStorage.getItem("idUsuario")) {
+    //        alert("Debe seleccionar un usuario antes de proseguir");
+    //        window.location.replace("DefinicionDeUsuario.aspx");
+    //    }
 
-                })
-                .onError(function (e) {
+    //    var idUsuario = sessionStorage.getItem("idUsuario");
+    //    Backend.GetFuncionalidadesActuales(idUsuario)
+    //        .onSuccess(function (funcionalidades) {
 
-                });
+    //            //var perfiles = JSON.parse(perfilesJSON);
 
-        });
 
-    },
+    //            $("#tabla_funcionalidades").empty();
+    //            var divGrilla = $("#tabla_funcionalidades");
+    //            //var tabla = resultado;
+    //            var columnas = [];
+
+    //            columnas.push(new Columna("Funciones", { generar: function (un_permiso) { return un_permiso.Nombre } }));
+    //            columnas.push(new Columna("Areas", { generar: function (un_permiso) { if (un_permiso.Areas.length > 0) return un_permiso.Areas[0].Nombre; return 'Sin Area'; } }));
+    //            columnas.push(new Columna("Incluye Dep.", { generar: function (un_permiso) { if (un_permiso.Areas.length > 0) { if (un_permiso.Areas[0].IncluyeDependencias) return 'Si'; return 'No' } else { return '' } } }));
+    //            //columnas.push(new Columna("Desde", { generar: function (un_permiso) { return '01/01/2018' } }));
+    //            columnas.push(new Columna('Accion', {
+    //                generar: function (un_permiso) {
+    //                    var btn_accion = $('<a>');
+    //                    var img = $('<img>');
+    //                    img.attr('src', '../Imagenes/eliminar.jpg');
+    //                    img.attr('width', '20px');
+    //                    img.attr('height', '20px');
+    //                    btn_accion.append(img);
+    //                    btn_accion.click(function () {
+    //                        _this.eliminarFuncionalidad(un_permiso);
+    //                    });
+    //                    return btn_accion;
+    //                }
+    //            }));
+
+
+    //            _this.Grilla = new Grilla(columnas);
+    //            _this.Grilla.SetOnRowClickEventHandler(function (un_permiso) { });
+    //            _this.Grilla.CambiarEstiloCabecera("estilo_tabla_portal");
+    //            _this.Grilla.CargarObjetos(funcionalidades);
+    //            _this.Grilla.DibujarEn(divGrilla);
+    //            $('.table-hover').removeClass("table-hover");
+
+
+    //        })
+    //        .onError(function (e) {
+
+    //        });
+
+    //},
+
+    //eliminarPerfil: function (perfil) {
+    //    var _this = this;
+    //    var r = confirm("¿Está seguro de eliminar el Perfil?");
+    //    if (r == true) {
+    //        var idUsuarioSeleccionado = sessionStorage.getItem("idUsuario");
+    //        var idArea = perfil.Areas[0].Id;
+    //        Backend.desasignarPerfiles(perfil.Id, idArea, idUsuarioSeleccionado).onSuccess(function (rto) {
+    //            if (rto == 'ok') {
+    //                //window.location.reload();
+    //                alertify.success("Se ha eliminado correctamente");
+    //                _this.getPerfilesDelUsuario();
+    //            } else {
+    //                alertify.error(rto);
+    //            }
+
+    //            console.log(rto);
+    //        });
+    //    } else {
+    //        txt = "Cancelar";
+    //    }
+
+    //},
+
+    //eliminarFuncionalidad: function (funcionalidad) {
+    //    var _this = this;
+    //    var idArea = funcionalidad.Areas[0].Id;
+    //    var r = confirm("¿Está seguro de eliminar la Funcionalidad?");
+    //    if (r == true) {
+    //        var idUsuarioSeleccionado = sessionStorage.getItem("idUsuario");
+    //        Backend.desasignarFuncionaldiad(funcionalidad.Id, idArea, idUsuarioSeleccionado).onSuccess(function (rto) {
+    //            if (rto == 'ok') {
+    //                //window.location.reload();
+    //                alertify.success("Se ha eliminado correctamente");
+    //                // _this.getFuncionalidadesDelUsuario();
+    //            } else {
+    //                alertify.error(rto);
+    //            }
+    //            console.log(rto);
+    //        });
+    //    } else {
+    //        txt = "Cancelar";
+    //    }
+
+    //},
+
+   
+    //iniciarPantallaAsignacionPerfiles: function () {
+    //    alert("iniciarPantallaAsignacionPerfiles"); //GERMAN
+
+    //    var _this = this;
+    //    this.completarDatosDeLaSesion();
+    //    if (!sessionStorage.getItem("idUsuario")) {
+    //        alert("Debe seleccionar un usuario antes de proseguir");
+    //        window.location.replace("DefinicionDeUsuario.aspx");
+    //    }
+
+    //    var proveedor_ajax = new ProveedorAjax("../");
+    //    this.repositorioDeAreas = new RepositorioDeAreas(proveedor_ajax);
+
+    //    this.div_lista_areas = $("#lista_areas_para_consultar");
+
+    //    $("#comboPerfiles").change(function (e) {
+    //        //alert($(this).val());
+    //        var plantillaPerfiles = $("#plantillaPerfilSeleccionado").clone();
+
+    //        plantillaPerfiles.find(".nombrePerfil").html($("select option:selected").text());
+
+    //        plantillaPerfiles.attr('id', $(this).val());
+    //        plantillaPerfiles.attr('class', 'perfilesSeleccionados');
+
+    //        plantillaPerfiles.find(".quitar").click(function () {
+    //            //plantillaPerfiles.find("#" + $(this).attr('class')).remove();
+    //            plantillaPerfiles.remove();
+    //        });
+
+    //        //plantillaPerfiles.find(".quitar").attr("class", $(this).val());
+    //        plantillaPerfiles.show();
+    //        $("#perfilesSeleccionado").append(plantillaPerfiles);
+
+    //    });
+
+    //    this.selector_de_areas = new SelectorDeAreas({
+    //        ui: $("#selector_area_usuarios"),
+    //        repositorioDeAreas: this.repositorioDeAreas,
+    //        placeholder: "ingrese el área que desea buscar",
+    //        alSeleccionarUnArea: function (area) {
+
+    //            //alert(area.nombre);
+
+    //            var plantilla = $("#plantillaArea").clone();
+    //            plantilla.show();
+    //            plantilla.find("#areaSeleccionada").html(area.nombre);
+    //            plantilla.find("#checkIncluyeDependencias").attr('class', 'checksIncluyeDependencia');
+    //            plantilla.find(".quitar").click(function () {
+    //                plantilla.remove();
+    //            });
+
+    //            plantilla[0].id = area.id;
+    //            plantilla.attr('class', 'areasSeleccionadas');
+
+    //            $("#listadoAreasElegidas").append(plantilla);
+    //        }
+    //    });
+
+
+    //    $("#btnAsignarPerfilConAreas").click(function (e) {
+    //        alert("btnAsignarPerfilConAreas");
+
+    //        var perfilesSeleccionados = $('.perfilesSeleccionados').map(function () {
+    //            return $(this).attr('id');
+    //        }).get();
+
+
+    //        var areasSeleccionadas = $('.areasSeleccionadas').map(function () {
+    //            var valor = 0;
+    //            if ($(this)[0].children[1].checked)
+    //                valor = 1;
+    //            return { Id: $(this).attr('id'), IncluyeDependencias: valor };
+    //        }).get();
+
+    //        /* var dependencias = $('.checksIncluyeDependencia').map(function () {
+    //        return $(this)[0].checked;
+    //        }).get();*/
+
+    //        var idUsuarioSeleccionado = sessionStorage.getItem("idUsuario");
+
+    //        Backend.asignarPerfiles(JSON.stringify(perfilesSeleccionados), areasSeleccionadas, idUsuarioSeleccionado)
+    //            .onSuccess(function (rto) {
+    //                //window.location.reload();
+    //                if (rto == 'ok') {
+    //                    alertify.success("Se ha agregado el perfil correctamente");
+    //                    _this.getPerfilesDelUsuario();
+    //                    $("#perfilesSeleccionado").empty();
+    //                    $("#listadoAreasElegidas").empty();
+    //                } else {
+    //                    alertify.error(rto);
+    //                }
+
+    //            })
+    //            .onError(function (e) {
+    //            });
+    //    });
+    //},
+
+    //iniciarPantallaAsignacionFuncionalidad: function () {
+    //    alert("iniciarPantallaAsignacionFuncionalidad"); //GERMAN
+
+    //    var _this = this;
+    //    this.completarDatosDeLaSesion();
+    //    if (!sessionStorage.getItem("idUsuario")) {
+    //        alert("Debe seleccionar un usuario antes de proseguir");
+    //        window.location.replace("DefinicionDeUsuario.aspx");
+    //    }
+
+    //    var proveedor_ajax = new ProveedorAjax("../");
+    //    this.repositorioDeAreas = new RepositorioDeAreas(proveedor_ajax);
+
+    //    this.div_lista_areas = $("#lista_areas_para_consultar");
+
+
+    //    Backend.TodasLasFuncionalidades()
+    //        .onSuccess(function (funcionalidades) {
+
+    //            $("#comboFuncionalidades").empty();
+    //            $("#comboFuncionalidades").append("<option value='0'>Seleccionar Funcionalidad</option>");
+
+    //            var grupo = '';
+    //            $.each(funcionalidades, function (key, value) {
+    //                if (grupo != value.Grupo) {
+    //                    grupo = value.Grupo;
+    //                    $("#comboFuncionalidades").append("</optgroup>");
+    //                    $("#comboFuncionalidades").append("<optgroup label='" + grupo + "'>");
+    //                }
+
+    //                $("#comboFuncionalidades").append("<option value=" + value.Id + ">" + value.Nombre + "</option>");
+
+    //            });
+
+    //        })
+    //        .onError(function (e) {
+
+    //        });
+
+
+    //    $("#comboFuncionalidades").change(function (e) {
+    //        //alert($(this).val());
+
+    //        var plantillaFuncionalidad = $('#plantillaFuncionalidadSeleccionada').clone();
+
+    //        plantillaFuncionalidad.find(".nombreFuncionalidad").html($("select option:selected").text());
+
+    //        plantillaFuncionalidad.attr('id', $(this).val());
+    //        plantillaFuncionalidad.attr('class', 'funcionalidadesSeleccionadas');
+
+    //        plantillaFuncionalidad.find(".quitar").click(function () {
+    //            plantillaFuncionalidad.remove();
+    //        });
+
+    //        //plantillaPerfiles.find(".quitar").attr("class", $(this).val());
+    //        plantillaFuncionalidad.show();
+    //        $("#funcionalidadesSeleccionadas").append(plantillaFuncionalidad);
+
+
+    //    });
+
+    //    this.selector_de_areas = new SelectorDeAreas({
+    //        ui: $("#selector_area_usuarios"),
+    //        repositorioDeAreas: this.repositorioDeAreas,
+    //        placeholder: "ingrese el área que desea buscar",
+    //        alSeleccionarUnArea: function (area) {
+
+    //            //alert(area.nombre);
+
+    //            var plantilla = $("#plantillaArea").clone();
+    //            plantilla.show();
+    //            plantilla.find("#areaSeleccionada").html(area.nombre);
+    //            plantilla.find("#checkIncluyeDependencias").attr('class', 'checksIncluyeDependencia');
+    //            plantilla.find(".quitar").click(function () {
+    //                plantilla.remove();
+    //            });
+
+    //            plantilla[0].id = area.id;
+    //            plantilla.attr('class', 'areasSeleccionadas');
+
+
+    //            $("#listadoAreasElegidas").append(plantilla);
+    //        }
+    //    });
+
+    //    $("#btnAsignarFuncionalidadConAreas").click(function (e) {
+    //        //alert($(this).val());
+
+    //        alert("btnAsignarFuncionalidadConAreas");
+
+
+    //        var funcionalidadesSeleccionados = $('.funcionalidadesSeleccionadas').map(function () {
+    //            return $(this).attr('id');
+    //        }).get();
+
+
+    //        var areasSeleccionadas = $('.areasSeleccionadas').map(function () {
+    //            return { id: $(this).attr('id'), IncluyeDependencias: $(this)[0].children[1].checked };
+    //        }).get();
+
+    //        $.each(areasSeleccionadas, function (key, value) {
+    //            if (value.IncluyeDependencias) {
+    //                value.IncluyeDependencias = 1;
+    //            }
+    //        });
+    //        /* var dependencias = $('.checksIncluyeDependencia').map(function () {
+    //        return $(this)[0].checked;
+    //        }).get();*/
+
+    //        var idUsuarioSeleccionado = sessionStorage.getItem("idUsuario");
+
+    //        Backend.asignarFuncionalidades(JSON.stringify(funcionalidadesSeleccionados), JSON.stringify(areasSeleccionadas), idUsuarioSeleccionado)
+    //            .onSuccess(function (rto) {
+    //                if (rto == 'ok') {
+    //                    //window.location.reload();
+    //                    alertify.success("Se ha asignado la funcionalidad correctamente");
+    //                    //_this.getFuncionalidadesDelUsuario();
+    //                    $("#funcionalidadesSeleccionadas").empty();
+    //                    $("#listadoAreasElegidas").empty();
+    //                } else {
+    //                    alertify.error(rto);
+    //                }
+
+    //            })
+    //            .onError(function (e) {
+
+    //            });
+
+    //    });
+
+    //},
+
 
     //getFuncionalidadesPerfilesAreas: function () {
     //    var idUsuarioSeleccionado = sessionStorage.getItem("idUsuario");
@@ -597,13 +653,6 @@ var Permisos = {
 
     //},
 
-    completarDatosDeLaSesion: function () {
-        //$("#nombre_empleado").html(sessionStorage.getItem("nombre"));
-        //$("#apellido_empleado").html(sessionStorage.getItem("apellido"));
-
-        var nom = sessionStorage.getItem("apellido") + ", " + sessionStorage.getItem("nombre");
-        $("#nombre_empleado").html(nom);
-        
-    }
+   
 
 }
