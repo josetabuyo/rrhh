@@ -528,7 +528,8 @@ public class AjaxWS : System.Web.Services.WebService
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public void SetAreaActualEnSesion(int id_area)
     {
-        HttpContext.Current.Session[ConstantesDeSesion.AREA_ACTUAL] = backEndService.AreasAdministradasPor(usuarioLogueado).ToList().Find(a => a.Id == id_area);
+        //HttpContext.Current.Session[ConstantesDeSesion.AREA_ACTUAL] = backEndService.AreasAdministradasPor(usuarioLogueado).ToList().Find(a => a.Id == id_area);
+        HttpContext.Current.Session[ConstantesDeSesion.AREA_ACTUAL] = backEndService.AreasAdministradasPorUsuarioYFuncionalidad(usuarioLogueado, 4).ToList().Find(a => a.Id == id_area);
     }
 
     [WebMethod(EnableSession = true)]
