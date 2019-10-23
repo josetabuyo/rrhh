@@ -188,7 +188,7 @@ namespace General.MAU
 
         public string AsignarPerfilesAUsuario(List<int> perfiles, List<Area> areas, int idUsuario, int id_usuario_alta)
         {
-            var mensaje = "Se ha agregado el perfil correctamente";
+            var mensaje = "ok";
             try
             {
                 //traigo los perfiles actuales para verificar que ya no los tenga
@@ -234,7 +234,8 @@ namespace General.MAU
                         }
                     });
                 }
-                
+
+                this.limpiarCache();
 
                 return mensaje;
             }
@@ -289,6 +290,8 @@ namespace General.MAU
                         }
                     });
                 }
+
+                this.limpiarCache();
 
                 return "ok";
             }
@@ -389,7 +392,9 @@ namespace General.MAU
                     parametros.Add("@id_area", idArea);
 
                 var tablaDatos = conexion.Ejecutar("dbo.MAU_DesAsignarPerfilFuncionalidadAUsuario", parametros);
-            
+
+                this.limpiarCache();
+
                 return "ok";
             }
             catch (Exception e)
@@ -413,6 +418,8 @@ namespace General.MAU
                     parametros.Add("@id_area", idArea);
 
                 var tablaDatos = conexion.Ejecutar("dbo.MAU_DesAsignarPerfilFuncionalidadAUsuario", parametros);
+
+                this.limpiarCache();
 
                 return "ok";
             }
@@ -460,6 +467,10 @@ namespace General.MAU
             }
         }
 
+        public void limpiarCache()
+        {
+            listadoFuncionalidades = new Dictionary<Usuario, List<Funcionalidad>>();
+        }
 
     }
 }
