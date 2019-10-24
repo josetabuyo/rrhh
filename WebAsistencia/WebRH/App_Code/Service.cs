@@ -529,7 +529,20 @@ public class AjaxWS : System.Web.Services.WebService
     public void SetAreaActualEnSesion(int id_area)
     {
         //HttpContext.Current.Session[ConstantesDeSesion.AREA_ACTUAL] = backEndService.AreasAdministradasPor(usuarioLogueado).ToList().Find(a => a.Id == id_area);
-        HttpContext.Current.Session[ConstantesDeSesion.AREA_ACTUAL] = backEndService.AreasAdministradasPorUsuarioYFuncionalidad(usuarioLogueado, 4).ToList().Find(a => a.Id == id_area);
+        List<WSViaticos.Area> areas = backEndService.AreasAdministradasPorUsuarioYFuncionalidad(usuarioLogueado, 4).ToList();
+        WSViaticos.Area areaEncontrada = areas.Find(a => a.Id == id_area);
+        HttpContext.Current.Session[ConstantesDeSesion.AREA_ACTUAL] = areaEncontrada;
+    }
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public void SetAreaActualEnSesionNuevo(string areaJSON)
+    {
+        //HttpContext.Current.Session[ConstantesDeSesion.AREA_ACTUAL] = backEndService.AreasAdministradasPor(usuarioLogueado).ToList().Find(a => a.Id == id_area);
+        //List<WSViaticos.Area> areas = backEndService.AreasAdministradasPorUsuarioYFuncionalidad(usuarioLogueado, 4).ToList();
+        //WSViaticos.Area areaEncontrada = areas.Find(a => a.Id == id_area);
+        WSViaticos.Area area = Newtonsoft.Json.JsonConvert.DeserializeObject<WSViaticos.Area>(areaJSON);
+        HttpContext.Current.Session[ConstantesDeSesion.AREA_ACTUAL] = area;
     }
 
     [WebMethod(EnableSession = true)]

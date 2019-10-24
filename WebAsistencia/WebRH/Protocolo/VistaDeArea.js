@@ -17,7 +17,8 @@ VistaDeArea.prototype.start = function () {
     }
     var _this = this;
     this.ui.find("#btn_administrar_personal").click(function () {
-        _this.o.sesion.setAreaActual(_this.o.area.id(), function () {
+        //_this.o.sesion.setAreaActual(_this.o.area.id(), function () {
+        _this.o.sesion.setAreaActualEnSesionNuevo(_this.o.area._area, function () {
             window.location.href = "Principal.aspx";
         });
     });
