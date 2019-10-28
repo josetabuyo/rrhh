@@ -59,19 +59,19 @@
 
     function openUriWithTimeoutHack(uri, successCb, failCb) {
 
-        var timeout = setTimeout(function () {
+      /*  var timeout = setTimeout(function () {
             failCb();
             handler.remove();
         }, 5000); //5 segundos
         timeout = 6000; /*por algun motivo el timeout seteado en la funcion anterior siempre es variable, 9,255,etc, esto produce que se abran mas de una vez las 
         descargas de los jnlp; por eso lo seteo en un tiempo alto de 5 segundo creo*/
-        var handler = _registerEvent(window, "blur", onBlur);
-
-        function onBlur() {
+ /*       var handler = _registerEvent(window, "blur", onBlur);
+*/
+        /*function onBlur() {
             clearTimeout(timeout);
             handler.remove();
             successCb()
-        }
+        }*/
         window.location = uri;
 
     }

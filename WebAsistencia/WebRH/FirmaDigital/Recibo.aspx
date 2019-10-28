@@ -18,23 +18,20 @@
         <link rel="stylesheet" href="recibo.css" />
 
 
-
-
-
     </head>
 <body>
     <form id="form1" runat="server">
     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:18px; font-weight: bold; padding-top:25px;'>Datos<br/>Recibo</span> <br/> " UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <div class="container-fluid">
-        <h1 style="text-align:center; margin:17px; "></h1>
-        
-        <div style="text-align:center;" class="caja_izq no-print">
+    
+
+        <div style="/*text-align:center;margin-top:5px; margin-left: 5px;margin-right:5px;background-color:rgb(1,70,99);*/" class="caja_izq no-print">
        <!-- Perfil empleador:<br />Firma Iterativa<br />Perfil empleado:<br />Confirmacion Recibo<br />Perfil auditor:<br />
         Verificacion de una firma<br />Obtener un recibo firmado<br />...-->
         </div>
 
         <!--contenido derecho -->
-         <div  class="caja_der papel" >
+         <div  class="caja_der papel" style="margin-top:5px">
            <!--modulo de firma iterativa -->
            <div id="subcontenidoFirmaIterativa" class="panelDerOcultable" style="display: inline;"> 
          <fieldset>
