@@ -755,51 +755,7 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-<<<<<<< HEAD
-      <s:element name="Mobi_GetAreasUsuario">
-=======
-      <s:complexType name="ArrayOfDDJJ104_Consulta">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="DDJJ104_Consulta" nillable="true" type="tns:DDJJ104_Consulta" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="DDJJ104_Consulta">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="mes" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="anio" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="area_generacion" type="tns:Area" />
-          <s:element minOccurs="0" maxOccurs="1" name="fecha_generacion" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="usuario_generacion" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="recepcionada" type="s:boolean" />
-          <s:element minOccurs="0" maxOccurs="1" name="fecha_recibido" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="usuario_recibido" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="firmante" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="persona" type="tns:Persona" />
-          <s:element minOccurs="0" maxOccurs="1" name="mod_contratacion" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="estado" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="estado_descrip" type="s:string" />
-        </s:sequence>
-      </s:complexType>
-      <s:element name="GenerarMotivoEnPersonasNoCertificadasResponse">
-        <s:complexType />
-      </s:element>
-      <s:element name="AsignaAreaAPersonasNoCertificadas">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="mes" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="anio" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="lista_DDJJ104" type="tns:ArrayOfDDJJ104_Consulta" />
-            <s:element minOccurs="1" maxOccurs="1" name="id_area" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="AsignaAreaAPersonasNoCertificadasResponse">
-        <s:complexType />
-      </s:element>
       <s:element name="GetExperienciaLaboral_Principal">
->>>>>>> a5ae8639f196d570b8d49c7626fc4a1e6ef5f4e0
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="nroDocumento" type="s:int" />
@@ -8969,7 +8925,6 @@
   <wsdl:message name="GetIdRecibosSinFirmarSoapOut">
     <wsdl:part name="parameters" element="tns:GetIdRecibosSinFirmarResponse" />
   </wsdl:message>
-<<<<<<< HEAD
   <wsdl:message name="GetIdRecibosFirmadosSoapIn">
     <wsdl:part name="parameters" element="tns:GetIdRecibosFirmados" />
   </wsdl:message>
@@ -8978,12 +8933,21 @@
   </wsdl:message>
   <wsdl:message name="GetReciboPDFEmpleadorSoapIn">
     <wsdl:part name="parameters" element="tns:GetReciboPDFEmpleador" />
-=======
-  <wsdl:message name="GetReciboPDFEmpleadorSoapIn">
-    <wsdl:part name="parameters" element="tns:GetReciboPDFEmpleador" />
   </wsdl:message>
   <wsdl:message name="GetReciboPDFEmpleadorSoapOut">
     <wsdl:part name="parameters" element="tns:GetReciboPDFEmpleadorResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetReciboParseadoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetReciboParseado" />
+  </wsdl:message>
+  <wsdl:message name="GetReciboParseadoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetReciboParseadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetReciboPDFDigitalSoapIn">
+    <wsdl:part name="parameters" element="tns:GetReciboPDFDigital" />
+  </wsdl:message>
+  <wsdl:message name="GetReciboPDFDigitalSoapOut">
+    <wsdl:part name="parameters" element="tns:GetReciboPDFDigitalResponse" />
   </wsdl:message>
   <wsdl:message name="GetReciboPDFEmpleadoSoapIn">
     <wsdl:part name="parameters" element="tns:GetReciboPDFEmpleado" />
@@ -8997,41 +8961,29 @@
   <wsdl:message name="GuardarReciboPDFFirmadoSoapOut">
     <wsdl:part name="parameters" element="tns:GuardarReciboPDFFirmadoResponse" />
   </wsdl:message>
-  <wsdl:message name="CTL_ACC_Grabar_LoteSoapIn">
-    <wsdl:part name="parameters" element="tns:CTL_ACC_Grabar_Lote" />
+  <wsdl:message name="GetReciboPDFDigitalArchivadoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetReciboPDFDigitalArchivado" />
   </wsdl:message>
-  <wsdl:message name="CTL_ACC_Grabar_LoteSoapOut">
-    <wsdl:part name="parameters" element="tns:CTL_ACC_Grabar_LoteResponse" />
+  <wsdl:message name="GetReciboPDFDigitalArchivadoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetReciboPDFDigitalArchivadoResponse" />
   </wsdl:message>
-  <wsdl:message name="CTL_ACC_Get_DotacionSoapIn">
-    <wsdl:part name="parameters" element="tns:CTL_ACC_Get_Dotacion" />
+  <wsdl:message name="ConformarReciboSoapIn">
+    <wsdl:part name="parameters" element="tns:ConformarRecibo" />
   </wsdl:message>
-  <wsdl:message name="CTL_ACC_Get_DotacionSoapOut">
-    <wsdl:part name="parameters" element="tns:CTL_ACC_Get_DotacionResponse" />
+  <wsdl:message name="ConformarReciboSoapOut">
+    <wsdl:part name="parameters" element="tns:ConformarReciboResponse" />
   </wsdl:message>
-  <wsdl:message name="CTL_ACC_LoginSoapIn">
-    <wsdl:part name="parameters" element="tns:CTL_ACC_Login" />
+  <wsdl:message name="GetLiquidacionesAFirmarSoapIn">
+    <wsdl:part name="parameters" element="tns:GetLiquidacionesAFirmar" />
   </wsdl:message>
-  <wsdl:message name="CTL_ACC_LoginSoapOut">
-    <wsdl:part name="parameters" element="tns:CTL_ACC_LoginResponse" />
+  <wsdl:message name="GetLiquidacionesAFirmarSoapOut">
+    <wsdl:part name="parameters" element="tns:GetLiquidacionesAFirmarResponse" />
   </wsdl:message>
-  <wsdl:message name="CTL_ACC_Get_Personas_BuscadorSoapIn">
-    <wsdl:part name="parameters" element="tns:CTL_ACC_Get_Personas_Buscador" />
+  <wsdl:message name="VerificarCSVSoapIn">
+    <wsdl:part name="parameters" element="tns:VerificarCSV" />
   </wsdl:message>
-  <wsdl:message name="CTL_ACC_Get_Personas_BuscadorSoapOut">
-    <wsdl:part name="parameters" element="tns:CTL_ACC_Get_Personas_BuscadorResponse" />
-  </wsdl:message>
-  <wsdl:message name="GenerarMotivoEnPersonasNoCertificadasSoapIn">
-    <wsdl:part name="parameters" element="tns:GenerarMotivoEnPersonasNoCertificadas" />
-  </wsdl:message>
-  <wsdl:message name="GenerarMotivoEnPersonasNoCertificadasSoapOut">
-    <wsdl:part name="parameters" element="tns:GenerarMotivoEnPersonasNoCertificadasResponse" />
-  </wsdl:message>
-  <wsdl:message name="AsignaAreaAPersonasNoCertificadasSoapIn">
-    <wsdl:part name="parameters" element="tns:AsignaAreaAPersonasNoCertificadas" />
-  </wsdl:message>
-  <wsdl:message name="AsignaAreaAPersonasNoCertificadasSoapOut">
-    <wsdl:part name="parameters" element="tns:AsignaAreaAPersonasNoCertificadasResponse" />
+  <wsdl:message name="VerificarCSVSoapOut">
+    <wsdl:part name="parameters" element="tns:VerificarCSVResponse" />
   </wsdl:message>
   <wsdl:message name="GetExperienciaLaboral_PrincipalSoapIn">
     <wsdl:part name="parameters" element="tns:GetExperienciaLaboral_Principal" />
@@ -9107,30 +9059,12 @@
   </wsdl:message>
   <wsdl:message name="GetFormularioSoapIn">
     <wsdl:part name="parameters" element="tns:GetFormulario" />
->>>>>>> a5ae8639f196d570b8d49c7626fc4a1e6ef5f4e0
   </wsdl:message>
   <wsdl:message name="GetFormularioSoapOut">
     <wsdl:part name="parameters" element="tns:GetFormularioResponse" />
   </wsdl:message>
-<<<<<<< HEAD
-  <wsdl:message name="GetReciboParseadoSoapIn">
-    <wsdl:part name="parameters" element="tns:GetReciboParseado" />
-  </wsdl:message>
-  <wsdl:message name="GetReciboParseadoSoapOut">
-    <wsdl:part name="parameters" element="tns:GetReciboParseadoResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetReciboPDFDigitalSoapIn">
-    <wsdl:part name="parameters" element="tns:GetReciboPDFDigital" />
-  </wsdl:message>
-  <wsdl:message name="GetReciboPDFDigitalSoapOut">
-    <wsdl:part name="parameters" element="tns:GetReciboPDFDigitalResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetReciboPDFEmpleadoSoapIn">
-    <wsdl:part name="parameters" element="tns:GetReciboPDFEmpleado" />
-=======
   <wsdl:message name="GuardarCambiosEnFormularioSoapIn">
     <wsdl:part name="parameters" element="tns:GuardarCambiosEnFormulario" />
->>>>>>> a5ae8639f196d570b8d49c7626fc4a1e6ef5f4e0
   </wsdl:message>
   <wsdl:message name="GuardarCambiosEnFormularioSoapOut">
     <wsdl:part name="parameters" element="tns:GuardarCambiosEnFormularioResponse" />
@@ -9141,31 +9075,6 @@
   <wsdl:message name="GuardarCabeceraFormularioSoapOut">
     <wsdl:part name="parameters" element="tns:GuardarCabeceraFormularioResponse" />
   </wsdl:message>
-<<<<<<< HEAD
-  <wsdl:message name="GetReciboPDFDigitalArchivadoSoapIn">
-    <wsdl:part name="parameters" element="tns:GetReciboPDFDigitalArchivado" />
-  </wsdl:message>
-  <wsdl:message name="GetReciboPDFDigitalArchivadoSoapOut">
-    <wsdl:part name="parameters" element="tns:GetReciboPDFDigitalArchivadoResponse" />
-  </wsdl:message>
-  <wsdl:message name="ConformarReciboSoapIn">
-    <wsdl:part name="parameters" element="tns:ConformarRecibo" />
-  </wsdl:message>
-  <wsdl:message name="ConformarReciboSoapOut">
-    <wsdl:part name="parameters" element="tns:ConformarReciboResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetLiquidacionesAFirmarSoapIn">
-    <wsdl:part name="parameters" element="tns:GetLiquidacionesAFirmar" />
-  </wsdl:message>
-  <wsdl:message name="GetLiquidacionesAFirmarSoapOut">
-    <wsdl:part name="parameters" element="tns:GetLiquidacionesAFirmarResponse" />
-  </wsdl:message>
-  <wsdl:message name="VerificarCSVSoapIn">
-    <wsdl:part name="parameters" element="tns:VerificarCSV" />
-  </wsdl:message>
-  <wsdl:message name="VerificarCSVSoapOut">
-    <wsdl:part name="parameters" element="tns:VerificarCSVResponse" />
-=======
   <wsdl:message name="GetIdCabeceraFormularioSoapIn">
     <wsdl:part name="parameters" element="tns:GetIdCabeceraFormulario" />
   </wsdl:message>
@@ -9201,7 +9110,6 @@
   </wsdl:message>
   <wsdl:message name="ObtenerVehiculoPorIDSoapOut">
     <wsdl:part name="parameters" element="tns:ObtenerVehiculoPorIDResponse" />
->>>>>>> a5ae8639f196d570b8d49c7626fc4a1e6ef5f4e0
   </wsdl:message>
   <wsdl:message name="Mobi_GetAreasUsuarioSoapIn">
     <wsdl:part name="parameters" element="tns:Mobi_GetAreasUsuario" />
@@ -11590,9 +11498,21 @@
       <wsdl:input message="tns:GetIdRecibosSinFirmarSoapIn" />
       <wsdl:output message="tns:GetIdRecibosSinFirmarSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetIdRecibosFirmados">
+      <wsdl:input message="tns:GetIdRecibosFirmadosSoapIn" />
+      <wsdl:output message="tns:GetIdRecibosFirmadosSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetReciboPDFEmpleador">
       <wsdl:input message="tns:GetReciboPDFEmpleadorSoapIn" />
       <wsdl:output message="tns:GetReciboPDFEmpleadorSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReciboParseado">
+      <wsdl:input message="tns:GetReciboParseadoSoapIn" />
+      <wsdl:output message="tns:GetReciboParseadoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReciboPDFDigital">
+      <wsdl:input message="tns:GetReciboPDFDigitalSoapIn" />
+      <wsdl:output message="tns:GetReciboPDFDigitalSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetReciboPDFEmpleado">
       <wsdl:input message="tns:GetReciboPDFEmpleadoSoapIn" />
@@ -11602,29 +11522,21 @@
       <wsdl:input message="tns:GuardarReciboPDFFirmadoSoapIn" />
       <wsdl:output message="tns:GuardarReciboPDFFirmadoSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="CTL_ACC_Grabar_Lote">
-      <wsdl:input message="tns:CTL_ACC_Grabar_LoteSoapIn" />
-      <wsdl:output message="tns:CTL_ACC_Grabar_LoteSoapOut" />
+    <wsdl:operation name="GetReciboPDFDigitalArchivado">
+      <wsdl:input message="tns:GetReciboPDFDigitalArchivadoSoapIn" />
+      <wsdl:output message="tns:GetReciboPDFDigitalArchivadoSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="CTL_ACC_Get_Dotacion">
-      <wsdl:input message="tns:CTL_ACC_Get_DotacionSoapIn" />
-      <wsdl:output message="tns:CTL_ACC_Get_DotacionSoapOut" />
+    <wsdl:operation name="ConformarRecibo">
+      <wsdl:input message="tns:ConformarReciboSoapIn" />
+      <wsdl:output message="tns:ConformarReciboSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="CTL_ACC_Login">
-      <wsdl:input message="tns:CTL_ACC_LoginSoapIn" />
-      <wsdl:output message="tns:CTL_ACC_LoginSoapOut" />
+    <wsdl:operation name="GetLiquidacionesAFirmar">
+      <wsdl:input message="tns:GetLiquidacionesAFirmarSoapIn" />
+      <wsdl:output message="tns:GetLiquidacionesAFirmarSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="CTL_ACC_Get_Personas_Buscador">
-      <wsdl:input message="tns:CTL_ACC_Get_Personas_BuscadorSoapIn" />
-      <wsdl:output message="tns:CTL_ACC_Get_Personas_BuscadorSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GenerarMotivoEnPersonasNoCertificadas">
-      <wsdl:input message="tns:GenerarMotivoEnPersonasNoCertificadasSoapIn" />
-      <wsdl:output message="tns:GenerarMotivoEnPersonasNoCertificadasSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="AsignaAreaAPersonasNoCertificadas">
-      <wsdl:input message="tns:AsignaAreaAPersonasNoCertificadasSoapIn" />
-      <wsdl:output message="tns:AsignaAreaAPersonasNoCertificadasSoapOut" />
+    <wsdl:operation name="VerificarCSV">
+      <wsdl:input message="tns:VerificarCSVSoapIn" />
+      <wsdl:output message="tns:VerificarCSVSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetExperienciaLaboral_Principal">
       <wsdl:input message="tns:GetExperienciaLaboral_PrincipalSoapIn" />
@@ -11670,27 +11582,6 @@
       <wsdl:input message="tns:BuscarNivelesDeEstudioSoapIn" />
       <wsdl:output message="tns:BuscarNivelesDeEstudioSoapOut" />
     </wsdl:operation>
-<<<<<<< HEAD
-    <wsdl:operation name="GetIdRecibosFirmados">
-      <wsdl:input message="tns:GetIdRecibosFirmadosSoapIn" />
-      <wsdl:output message="tns:GetIdRecibosFirmadosSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetReciboPDFEmpleador">
-      <wsdl:input message="tns:GetReciboPDFEmpleadorSoapIn" />
-      <wsdl:output message="tns:GetReciboPDFEmpleadorSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetReciboParseado">
-      <wsdl:input message="tns:GetReciboParseadoSoapIn" />
-      <wsdl:output message="tns:GetReciboParseadoSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetReciboPDFDigital">
-      <wsdl:input message="tns:GetReciboPDFDigitalSoapIn" />
-      <wsdl:output message="tns:GetReciboPDFDigitalSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetReciboPDFEmpleado">
-      <wsdl:input message="tns:GetReciboPDFEmpleadoSoapIn" />
-      <wsdl:output message="tns:GetReciboPDFEmpleadoSoapOut" />
-=======
     <wsdl:operation name="BuscarLocalidades">
       <wsdl:input message="tns:BuscarLocalidadesSoapIn" />
       <wsdl:output message="tns:BuscarLocalidadesSoapOut" />
@@ -11698,29 +11589,11 @@
     <wsdl:operation name="GetFormulario">
       <wsdl:input message="tns:GetFormularioSoapIn" />
       <wsdl:output message="tns:GetFormularioSoapOut" />
->>>>>>> a5ae8639f196d570b8d49c7626fc4a1e6ef5f4e0
     </wsdl:operation>
     <wsdl:operation name="GuardarCambiosEnFormulario">
       <wsdl:input message="tns:GuardarCambiosEnFormularioSoapIn" />
       <wsdl:output message="tns:GuardarCambiosEnFormularioSoapOut" />
     </wsdl:operation>
-<<<<<<< HEAD
-    <wsdl:operation name="GetReciboPDFDigitalArchivado">
-      <wsdl:input message="tns:GetReciboPDFDigitalArchivadoSoapIn" />
-      <wsdl:output message="tns:GetReciboPDFDigitalArchivadoSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="ConformarRecibo">
-      <wsdl:input message="tns:ConformarReciboSoapIn" />
-      <wsdl:output message="tns:ConformarReciboSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetLiquidacionesAFirmar">
-      <wsdl:input message="tns:GetLiquidacionesAFirmarSoapIn" />
-      <wsdl:output message="tns:GetLiquidacionesAFirmarSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="VerificarCSV">
-      <wsdl:input message="tns:VerificarCSVSoapIn" />
-      <wsdl:output message="tns:VerificarCSVSoapOut" />
-=======
     <wsdl:operation name="GuardarCabeceraFormulario">
       <wsdl:input message="tns:GuardarCabeceraFormularioSoapIn" />
       <wsdl:output message="tns:GuardarCabeceraFormularioSoapOut" />
@@ -11748,7 +11621,6 @@
     <wsdl:operation name="ObtenerVehiculoPorID">
       <wsdl:input message="tns:ObtenerVehiculoPorIDSoapIn" />
       <wsdl:output message="tns:ObtenerVehiculoPorIDSoapOut" />
->>>>>>> a5ae8639f196d570b8d49c7626fc4a1e6ef5f4e0
     </wsdl:operation>
     <wsdl:operation name="Mobi_GetAreasUsuario">
       <wsdl:input message="tns:Mobi_GetAreasUsuarioSoapIn" />
@@ -13508,12 +13380,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-<<<<<<< HEAD
     <wsdl:operation name="ConformarRecibo">
       <soap:operation soapAction="http://wsviaticos.gov.ar/ConformarRecibo" style="document" />
-=======
-    <wsdl:operation name="CTL_ACC_Get_Personas_Buscador">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/CTL_ACC_Get_Personas_Buscador" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -13521,8 +13389,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GenerarMotivoEnPersonasNoCertificadas">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GenerarMotivoEnPersonasNoCertificadas" style="document" />
+    <wsdl:operation name="GetLiquidacionesAFirmar">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetLiquidacionesAFirmar" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -13530,8 +13398,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="AsignaAreaAPersonasNoCertificadas">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/AsignaAreaAPersonasNoCertificadas" style="document" />
+    <wsdl:operation name="VerificarCSV">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/VerificarCSV" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -13703,7 +13571,6 @@
     </wsdl:operation>
     <wsdl:operation name="NuevoTarjeton">
       <soap:operation soapAction="http://wsviaticos.gov.ar/NuevoTarjeton" style="document" />
->>>>>>> a5ae8639f196d570b8d49c7626fc4a1e6ef5f4e0
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -13711,13 +13578,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-<<<<<<< HEAD
-    <wsdl:operation name="GetLiquidacionesAFirmar">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetLiquidacionesAFirmar" style="document" />
-=======
     <wsdl:operation name="ObtenerVehiculoPorCodigoWeb">
       <soap:operation soapAction="http://wsviaticos.gov.ar/ObtenerVehiculoPorCodigoWeb" style="document" />
->>>>>>> a5ae8639f196d570b8d49c7626fc4a1e6ef5f4e0
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -13725,13 +13587,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-<<<<<<< HEAD
-    <wsdl:operation name="VerificarCSV">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/VerificarCSV" style="document" />
-=======
     <wsdl:operation name="ObtenerVehiculoPorID">
       <soap:operation soapAction="http://wsviaticos.gov.ar/ObtenerVehiculoPorID" style="document" />
->>>>>>> a5ae8639f196d570b8d49c7626fc4a1e6ef5f4e0
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -21134,10 +20991,10 @@
   </wsdl:binding>
   <wsdl:service name="WSViaticos">
     <wsdl:port name="WSViaticosSoap" binding="tns:WSViaticosSoap">
-      <soap:address location="http://localhost:43412/WSViaticos/WSViaticos.asmx" />
+      <soap:address location="http://localhost:43412/WSViaticos.asmx" />
     </wsdl:port>
     <wsdl:port name="WSViaticosSoap12" binding="tns:WSViaticosSoap12">
-      <soap12:address location="http://localhost:43412/WSViaticos/WSViaticos.asmx" />
+      <soap12:address location="http://localhost:43412/WSViaticos.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

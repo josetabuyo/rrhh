@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<<<<<<< HEAD
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="01e32d2d-b5c5-4bf9-aac2-10535772d5e5" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
-=======
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="e0097790-2979-4308-ba8a-ae935b6b035a" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
->>>>>>> a5ae8639f196d570b8d49c7626fc4a1e6ef5f4e0
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="8d95f776-9b39-4ede-8d87-e2e81f318de1" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <EnableDataBinding>true</EnableDataBinding>
@@ -22,16 +18,11 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:43412/WSViaticos/WSViaticos.asmx" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:43412/WSViaticos.asmx" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-<<<<<<< HEAD
-    <MetadataFile FileName="WSViaticos.wsdl" MetadataType="Wsdl" ID="015b6db2-9636-4542-8120-7ca4564cf66f" SourceId="1" SourceUrl="http://localhost:43412/WSViaticos/WSViaticos.asmx?wsdl" />
-    <MetadataFile FileName="WSViaticos.disco" MetadataType="Disco" ID="db215c76-5ce3-4627-ab53-5b2ed43d1d3c" SourceId="1" SourceUrl="http://localhost:43412/WSViaticos/WSViaticos.asmx?disco" />
-=======
-    <MetadataFile FileName="WSViaticos.wsdl" MetadataType="Wsdl" ID="c2fffc3d-0066-4c57-b320-0bad59bc5590" SourceId="1" SourceUrl="http://localhost:43412/WSViaticos.asmx?wsdl" />
-    <MetadataFile FileName="WSViaticos.disco" MetadataType="Disco" ID="c4c87ab0-3d5b-48bf-b7b8-58ccf6f6ae9d" SourceId="1" SourceUrl="http://localhost:43412/WSViaticos.asmx?disco" />
->>>>>>> a5ae8639f196d570b8d49c7626fc4a1e6ef5f4e0
+    <MetadataFile FileName="WSViaticos.wsdl" MetadataType="Wsdl" ID="3503d389-ac53-41d5-9de3-40ff2e68ab5c" SourceId="1" SourceUrl="http://localhost:43412/WSViaticos.asmx?wsdl" />
+    <MetadataFile FileName="WSViaticos.disco" MetadataType="Disco" ID="4684f7d9-4844-430f-bf28-b834214a90d1" SourceId="1" SourceUrl="http://localhost:43412/WSViaticos.asmx?disco" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

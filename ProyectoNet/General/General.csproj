@@ -114,15 +114,12 @@
     <Compile Include="Asistencia\VacacionesSolicitables.cs" />
     <Compile Include="Calendario\CalculadorDeDias.cs" />
     <Compile Include="Calendario\Periodo.cs" />
-<<<<<<< HEAD
     <Compile Include="Csv\Base36.cs" />
     <Compile Include="Csv\CSVUtil.cs" />
     <Compile Include="Csv\ReciboFirmado.cs" />
-=======
     <Compile Include="Contrato\Ambito.cs" />
     <Compile Include="Contrato\Cargo.cs" />
     <Compile Include="Contrato\Serv_Adm_Publica_Privada.cs" />
->>>>>>> a5ae8639f196d570b8d49c7626fc4a1e6ef5f4e0
     <Compile Include="CtrlAcc\RepositorioCtlAcc.cs" />
     <Compile Include="DatosAbiertos\ConsultaOPD.cs" />
     <Compile Include="DatosAbiertos\ParametroConsultaOPD.cs" />

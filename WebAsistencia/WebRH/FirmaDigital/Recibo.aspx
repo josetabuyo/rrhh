@@ -22,7 +22,9 @@
 <body>
     <form id="form1" runat="server">
     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:18px; font-weight: bold; padding-top:25px;'>Datos<br/>Recibo</span> <br/> " UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
-    <div class="container-fluid">
+    
+    <!--caja de contenido por debajo del menu-->
+    <div style="width:99%; margin-left:11px; margin-right:11px">
     
 
         <div style="/*text-align:center;margin-top:5px; margin-left: 5px;margin-right:5px;background-color:rgb(1,70,99);*/" class="caja_izq no-print">
@@ -31,61 +33,24 @@
         </div>
 
         <!--contenido derecho -->
-         <div  class="caja_der papel" style="margin-top:5px">
+         <div  class="caja_derxxxx papel" style="margin-top:5px;float:left;width:80% ">
            <!--modulo de firma iterativa -->
            <div id="subcontenidoFirmaIterativa" class="panelDerOcultable" style="display: inline;"> 
-         <fieldset>
-         <legend style="margin-top: 20px;">FIRMA DE RECIBOS</legend>         
-         </fieldset>
-         <div id="div_recibo">            
-         <div  style="margin:10px;">
-            <p><B></B>  Para realizar la Firma Digital (del Empleador) de los recibos de haberes aún no firmados, de acuerdo a las cantidades indicadas en la grilla que sigue deberá conectarse el Token de Firma Digital con Certificado Vigente que corresponda al Funcionario autorizado a realizar dicha rúbrica.<!-- que hayan sido confirmados por los empleados,--> para un determinado intervalo, y que ademas no hayan sido aun firmados digitalmente.</p>
+               <!--no uso la clase de table pero la dejo para ver si la llego a usar-->
+         <table class="tablex1 table-stripedx1 table-bordered1 table-condensed1" style="width:90%;margin:20pt;-webkit-border-radius: 7px 7px 0px 0px;
+-moz-border-radius: 7px 7px 0px 0px;border-radius: 7px 7px 0px 0px;border-collapse: collapse;border: 0px solid #1C6EA4;">
+             <tbody>
+                 <tr><td style="background-image: linear-gradient(to bottom, rgb(1,70,99), rgb(1,70,99))/*linear-gradient(to bottom, #2574AD, #2574AD)*/; color: #fff;font-size: 13pt;font-weight: bold;text-align:center;padding:10px">FIRMA DE RECIBOS</td></tr>
+                 <tr>  <td><div style="padding:10px; border:1px; border-color:rgb(1,70,99);border-style:solid">Para realizar la Firma Digital (del Empleador) de los recibos de haberes aún no firmados, de acuerdo a las cantidades indicadas en la grilla que sigue deberá conectarse el Token de Firma Digital con Certificado Vigente que corresponda al Funcionario autorizado a realizar dicha rúbrica. para un determinado intervalo, y que ademas no hayan sido aun firmados digitalmente.
+                       </div></td></tr>
+             </tbody></table>
+
+         <div id="div_recibo" style="margin:20pt;">            
+         <div >
                     <BR>
                     <div id="divMensajeStatus">&nbsp;</div> 
                     <BR><BR>
- <!--           <p>Seleccione la lista de recibos a firmar:</p>
-            <select style="width:130px;" id="cmb_filtro">
-                <option value="0">Sin Firmar</option>
-                <option value="1">Firmado Conforme</option>
-                <option value="2">Firmado No Conforme</option>
-             </select>-->
-             
-             <!--TODO: ver si los años y meses se cargan bien, luego estos son los nuevos parametros para las consultas-->
-
-<!--             <select style="width:65px;" id="cmb_anio">
-             </select>
-             <select style="width:105px;" id="cmb_meses">
-                <option value="1">Enero</option>
-                <option value="2">Febrero</option>
-                <option value="3">Marzo</option>
-                <option value="4">Abril</option>
-                <option value="5">Mayo</option>
-                <option value="6">Junio</option>
-                <option value="7">Julio</option>
-                <option value="8">Agosto</option>
-                <option value="9">Septiembre</option>
-                <option value="10">Octubre</option>
-                <option value="11">Noviembre</option>
-                <option value="12">Diciembre</option>
-             </select>-->
-             <!--nota: 0: indica que se firmen todos los tipos de liquidacion-->
-<!--             <select style="width:230px;" id="cmb_tipo_liquidacion" size="1">
-                <option value="0" selected>TODOS</option>
-             </select>
-              
-              &nbsp;&nbsp;&nbsp;<input id="btn_Buscar" class="botonFirmaM" type="button" value="Buscar" onclick="javascript:buscarRecibos();return false;" />
-
-   <BR>  <BR> -->
-
-   <!--<div><table class="tablex table-stripedx table-bordered table-condensed" style="width:100%">
-				 <tbody class="list">				 
-				 <tr><td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;" >Estatus</td><td><div id="divMensajeStatus" style="margin-top:5px">&nbsp;</div></td></tr>
-                 <tr><td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;width:10pt" >Operación</td>
-				 <td style="text-align: right;"><input id="btn_firmar" disabled  style="text-align: right;cursor: pointer;" class="botonGrisadoFirmaM" type="button" value="Firmar Seleccionados" onclick="javascript:iniciarOperaciones3();return false;" />
-				 </td></tr>
-				 </tbody></table></div><br/>
-
-    </div>  -->
+ 
     <!--lista de liquidaciones -->
 
     <div id="listaDeLiquidaciones"></div><br/>
