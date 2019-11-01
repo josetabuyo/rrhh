@@ -19,7 +19,7 @@ namespace TestViaticos
     public class TestRepositorioDePerfiles
     {
 
-        Perfil perfil;
+        General.Perfil perfil;
         CurriculumVitae cv = TestObjects.UnCV();
         CreadorDePantallas creador;
         ItemCv un_item_estudio;

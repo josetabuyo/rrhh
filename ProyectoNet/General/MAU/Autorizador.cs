@@ -117,6 +117,11 @@ namespace General.MAU
             return repositorio_permisos_sobre_areas.AreasAdministradasPor(id_usuario);
         }
 
+        public List<Area> NuevoAreasAdministradasPorUsuarioYFuncionalidad(Usuario usuario, int idFuncionalidad)
+        {
+            return this.repositorio_funcionalidades_usuarios.AreasAdministradasPor(usuario, idFuncionalidad);
+        }
+
         public void AsignarAreaAUnUsuario(Usuario usuario, Area area, int id_usuario_logueado)
         {
             repositorio_permisos_sobre_areas.AsignarAreaAUnUsuario(usuario, area, id_usuario_logueado);
@@ -151,11 +156,28 @@ namespace General.MAU
             return repositorio_menues.TodosLosMenues().Find(m => m.SeLlama(nombre_menu)).FitrarPorFuncionalidades(repositorio_funcionalidades_usuarios.FuncionalidadesPara(usuario));
         }
 
+        public MenuDelSistema NuevoGetMenuPara(string nombre_menu, Usuario usuario)
+        {
+            return repositorio_menues.TodosLosMenues().Find(m => m.SeLlama(nombre_menu)).FitrarPorFuncionalidades(repositorio_funcionalidades_usuarios.GetFuncionalidadesPerfilesAreas(usuario));
+        }
+
         public Boolean ElUsuarioPuedeAccederALaURL(Usuario usuario, string url)
         {
             var funcionalidades_que_permiten_acceder_a_la_url = this.repositorio_accesos_a_url.TodosLosAccesos().FindAll(a => a.Url.ToUpper() == url.ToUpper()).Select(a => a.Funcionalidad);
             if (funcionalidades_que_permiten_acceder_a_la_url.Count() == 0) return true;
             return this.repositorio_funcionalidades_usuarios.FuncionalidadesPara(usuario).Intersect(funcionalidades_que_permiten_acceder_a_la_url).Count()>0;
+        }
+
+        public Boolean NuevoElUsuarioPuedeAccederALaURL(Usuario usuario, string url)
+        {
+            List<Funcionalidad> funcionalidades_que_permiten_acceder_a_la_url = this.repositorio_accesos_a_url.TodosLosAccesos().FindAll(a => a.Url.ToUpper() == url.ToUpper()).Select(a => a.Funcionalidad).ToList();
+            if (funcionalidades_que_permiten_acceder_a_la_url.Count() == 0) return true;
+            List<Funcionalidad> funcionalidadesDelUsuario = this.repositorio_funcionalidades_usuarios.GetFuncionalidadesPerfilesAreas(usuario);
+            HashSet<int> diffids = new HashSet<int>(funcionalidades_que_permiten_acceder_a_la_url.Select(f => f.Id));
+            //You will have the intersection here
+            var results = funcionalidadesDelUsuario.Where(f => diffids.Contains(f.Id)).ToList();
+            //var interseccion = funcionalidades_que_permiten_acceder_a_la_url.ForEach(func1 => funcionalidadesDelUsuario.ForEach(func2 => { if (func2.Id == func1.Id) return true; }));
+            return results.Count() > 0;
         }
 
         public void AsignarAreaAUnUsuario(int id_usuario, int id_area, int id_usuario_logueado)

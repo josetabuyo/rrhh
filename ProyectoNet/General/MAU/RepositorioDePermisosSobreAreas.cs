@@ -35,14 +35,16 @@ namespace General.MAU
         public List<Usuario> UsuariosQueAdministranElArea(int id_area) {
             var repo_usuarios = new RepositorioDeUsuarios(conexion, RepositorioDePersonas.NuevoRepositorioDePersonas(conexion)); ;
             var permisos = this.Obtener();
-            return permisos.FindAll(p => p.Value == id_area).Select(p => repo_usuarios.GetUsuarioPorId(p.Key)).ToList(); ;
+            List<Usuario> usuariosEncontrados = permisos.FindAll(p => p.Value == id_area).Select(p => repo_usuarios.GetUsuarioPorId(p.Key)).ToList();
+            return usuariosEncontrados;
         }
 
 
         public List<Area> AreasAdministradasPor(int id_usuario)
         {
             var permisos = this.Obtener();
-            return permisos.FindAll(p => p.Key == id_usuario).Select(p => this.repositorioDeAreas.GetAreaPorId(p.Value)).ToList();
+            List<Area> areasEncontradas = permisos.FindAll(p => p.Key == id_usuario).Select(p => this.repositorioDeAreas.GetAreaPorId(p.Value)).ToList();
+            return areasEncontradas;
         }
 
         public void AsignarAreaAUnUsuario(Usuario usuario, Area area, int id_usuario_logueado)

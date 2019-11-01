@@ -19,8 +19,10 @@
                     <img src="Imagenes/warning.png" alt="actualizacion" width="50" height="50" />
                     <h5 style="color: white; aligment: center">Bienvenidos !!! <br /><br />
                     Comunicamos a todos los visitantes que actualmente este es un sitio de uso interno del Ministerio de Desarrollo Social. <br /> <br /></h5>
+
                     <%--<h5 style="color: white;aligment: Justify">En este momento NO SE ENCUENTRA VIGENTE NINGUNA BUSQUEDA de personal, ni Proceso de Selección, ni Concurso por parte de este Organismo. <br /><br />
                     Por este motivo, si bien es posible realizar la carga de los datos personales y Currículum Vitae, dichos datos NO SERÁN UTILIZADOS en lo inmediato para incorporaciones al Ministerio.--%></h5>
+
                 </div>-->
                 
            
@@ -65,6 +67,7 @@
     <%= Referencias.Javascript("") %>
     <script type="text/javascript" src="Scripts/vex-2.1.1/js/vex.combined.min.js"></script>
     <script type="text/javascript" src="RegistroPostular/PantallaRegistro.js">  </script>
+    <!--<script type="text/javascript" src="MAU/HabilitadorDePermisos.js"></script>-->
 </body>
 <script>
     vex.defaultOptions.className = 'vex-theme-os';
@@ -87,6 +90,10 @@
     lnk_acerca.click(function () {
         PantallaRegistro.mostrarInformacionAcerca();
     });
+
+    /*$(document).ready(function () {
+        HabilitadorDePermisos.limpiarPermisos();
+    });*/
     
 </script>
 </html>

@@ -1,0 +1,16 @@
+﻿setAgenteValuesToLocalStorage: function (asignacion_evaluado_a_evaluador) {
+    localStorage.setItem("id_agente_evaluador", asignacion_evaluado_a_evaluador.agente_evaluador.id)
+    localStorage.setItem("idPeriodo", asignacion_evaluado_a_evaluador.id_periodo);
+    localStorage.setItem("idEvaluado", asignacion_evaluado_a_evaluador.id_evaluado);
+    localStorage.setItem("idEvaluacion", asignacion_evaluado_a_evaluador.id_evaluacion);
+    localStorage.setItem("apellido", asignacion_evaluado_a_evaluador.apellido_evaluado);
+    localStorage.setItem("nombre", asignacion_evaluado_a_evaluador.nombre_evaluado);
+    localStorage.setItem("descripcionPeriodo", asignacion_evaluado_a_evaluador.descripcion_periodo);
+    localStorage.setItem("idNivel", asignacion_evaluado_a_evaluador.id_nivel);
+    localStorage.setItem("descripcionNivel", asignacion_evaluado_a_evaluador.descripcion_corta_nivel);
+    localStorage.setItem("deficiente", asignacion_evaluado_a_evaluador.nivel.deficiente);
+    localStorage.setItem("regular", asignacion_evaluado_a_evaluador.nivel.regular);
+    localStorage.setItem("bueno", asignacion_evaluado_a_evaluador.nivel.bueno);
+    localStorage.setItem("destacado", asignacion_evaluado_a_evaluador.nivel.destacado);
+    localStorage.setItem("id_doc_electronico", asignacion_evaluado_a_evaluador.evaluacion.id_doc_electronico);
+}

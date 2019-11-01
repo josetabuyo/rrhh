@@ -17,8 +17,11 @@ public partial class FormularioProtocolo_ConsultaListadoLicencias : System.Web.U
         List<Persona> personas_todas_areas_a_cargo = new List<Persona>();
         List<Persona> personas_con_ausencias = new List<Persona>();
         List<Persona> personas_con_pases = new List<Persona>();
-        foreach (var area in servicio.AreasAdministradasPor(usuario))
-        {
+        //FC: antes del refactor
+        //foreach (var area in servicio.AreasAdministradasPor(usuario))
+        //FC: refactor permisos, ahora se puede llamar AreasAdministradasPorUsuarioYFuncionalidad, en este caso le mando 4 = ingreso_administracion_areas
+         foreach (var area in servicio.AreasAdministradasPorUsuarioYFuncionalidad(usuario, 4))
+            {
             personas = servicio.GetPersonasACargo(area);
 
             foreach (var per in personas)

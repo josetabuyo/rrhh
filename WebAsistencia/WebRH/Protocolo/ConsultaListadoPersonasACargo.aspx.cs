@@ -17,7 +17,10 @@ public partial class FormularioProtocolo_ConsultaListadoPersonasACargo : System.
         List<Persona> personas_todas_areas_a_cargo = new List<Persona>();
 
 
-        foreach (var area in servicio.AreasAdministradasPor(usuario))
+        //FC: antes del refactor
+        //foreach (var area in servicio.AreasAdministradasPor(usuario))
+        //FC: refactor permisos, ahora se puede llamar AreasAdministradasPorUsuarioYFuncionalidad, en este caso le mando 4 = ingreso_administracion_areas
+        foreach (var area in servicio.AreasAdministradasPorUsuarioYFuncionalidad(usuario, 4))
         {
             personas = servicio.GetPersonasACargo(area);
 

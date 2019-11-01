@@ -53,9 +53,12 @@
         <script type="text/javascript" src="../MAU/Autorizador.js"></script>
         <script type="text/javascript" src="../Scripts/ProveedorAjax.js"></script>
         <script type="text/javascript" src="../Scripts/bootstrap/js/bootstrap-tooltip.js"></script>
+        <script type="text/javascript" src="../MAU/HabilitadorDePermisos.js"></script>
 
         <script type="text/javascript">
             Backend.start(function () {
+                HabilitadorDePermisos.traerPermisos();
+
                 $(document).ready(function () {
                     var menu = new MenuPrincipal({ ui: $("#menu_principal"), autorizador: new Autorizador(new ProveedorAjax("../")) });
                 });

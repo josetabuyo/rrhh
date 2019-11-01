@@ -528,7 +528,21 @@ public class AjaxWS : System.Web.Services.WebService
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public void SetAreaActualEnSesion(int id_area)
     {
-        HttpContext.Current.Session[ConstantesDeSesion.AREA_ACTUAL] = backEndService.AreasAdministradasPor(usuarioLogueado).ToList().Find(a => a.Id == id_area);
+        //HttpContext.Current.Session[ConstantesDeSesion.AREA_ACTUAL] = backEndService.AreasAdministradasPor(usuarioLogueado).ToList().Find(a => a.Id == id_area);
+        List<WSViaticos.Area> areas = backEndService.AreasAdministradasPorUsuarioYFuncionalidad(usuarioLogueado, 4).ToList();
+        WSViaticos.Area areaEncontrada = areas.Find(a => a.Id == id_area);
+        HttpContext.Current.Session[ConstantesDeSesion.AREA_ACTUAL] = areaEncontrada;
+    }
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public void SetAreaActualEnSesionNuevo(string areaJSON)
+    {
+        //HttpContext.Current.Session[ConstantesDeSesion.AREA_ACTUAL] = backEndService.AreasAdministradasPor(usuarioLogueado).ToList().Find(a => a.Id == id_area);
+        //List<WSViaticos.Area> areas = backEndService.AreasAdministradasPorUsuarioYFuncionalidad(usuarioLogueado, 4).ToList();
+        //WSViaticos.Area areaEncontrada = areas.Find(a => a.Id == id_area);
+        WSViaticos.Area area = Newtonsoft.Json.JsonConvert.DeserializeObject<WSViaticos.Area>(areaJSON);
+        HttpContext.Current.Session[ConstantesDeSesion.AREA_ACTUAL] = area;
     }
 
     [WebMethod(EnableSession = true)]
@@ -940,16 +954,23 @@ public class AjaxWS : System.Web.Services.WebService
                 return Newtonsoft.Json.JsonConvert.SerializeObject("");
             }
         }
-
-        var respuesta = metodo.Invoke(backEndService, argumentos_a_enviar.ToArray());
-
-        if ((nombre_metodo == "ModificarMiMail") || (nombre_metodo == "ModificarMailRegistro"))
+        try
         {
-            this.usuarioLogueado = backEndService.GetUsuarioPorId(this.usuarioLogueado.Id);
-            Session[ConstantesDeSesion.USUARIO] = this.usuarioLogueado;
+            var respuesta = metodo.Invoke(backEndService, argumentos_a_enviar.ToArray());
+
+            if ((nombre_metodo == "ModificarMiMail") || (nombre_metodo == "ModificarMailRegistro"))
+            {
+                this.usuarioLogueado = backEndService.GetUsuarioPorId(this.usuarioLogueado.Id);
+                Session[ConstantesDeSesion.USUARIO] = this.usuarioLogueado;
+            }
+
+            return Newtonsoft.Json.JsonConvert.SerializeObject(respuesta);
+        }
+        catch (Exception e)
+        {
+            return Newtonsoft.Json.JsonConvert.SerializeObject(e);
         }
 
-        return Newtonsoft.Json.JsonConvert.SerializeObject(respuesta);
     }
 
     [WebMethod(EnableSession = true)]

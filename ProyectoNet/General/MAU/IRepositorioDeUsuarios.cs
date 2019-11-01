@@ -9,6 +9,7 @@ namespace General.MAU
     public interface IRepositorioDeUsuarios
     {
         Usuario GetUsuarioPorAlias(string alias, bool incluir_bajas=false);
+        Usuario GetUsuarioPorAliasYConFuncionalidades(string alias, bool incluir_bajas = false);
         Usuario GetUsuarioPorIdPersona(int id_persona);
         Usuario GetUsuarioPorDNI(int dni);
         Usuario CrearUsuarioPara(int id_persona);

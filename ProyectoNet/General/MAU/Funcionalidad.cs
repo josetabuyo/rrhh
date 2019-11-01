@@ -13,6 +13,7 @@ namespace General.MAU
         public bool SoloParaVerificados { get; set; }
         public bool SoloParaEmpleados { get; set; }
         public bool basica { get; set; }
+        public List<Area> Areas { get; set; }
 
         public Funcionalidad()
         {
@@ -26,6 +27,7 @@ namespace General.MAU
             this.SoloParaVerificados = solo_para_verificados;
             this.SoloParaEmpleados = solo_para_empleados;
             this.basica = basica;
+            this.Areas = new List<Area>();
         }
 
         public override bool Equals(Object obj)

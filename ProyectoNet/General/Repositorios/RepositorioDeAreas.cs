@@ -214,7 +214,9 @@ namespace General.Repositorios
 
         public Area GetAreaPorId(int id_area)
         {
-            return this.GetTodasLasAreasCompletas().Find(a => a.Id == id_area);
+            Area areaEncontrada = this.GetTodasLasAreasCompletas().Find(a => a.Id == id_area);
+
+            return areaEncontrada;
         }
         
         private FiltroDeAreas DeterminarFiltro(int idCombo, string dato_ingresado_en_filtro)

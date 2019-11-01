@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json.Linq;
 
 namespace General.MAU
 {
@@ -81,5 +82,57 @@ namespace General.MAU
         {
             throw new NotImplementedException();
         }
+
+        public List<MAU_Perfil> GetPerfilesActuales(int id_usuario)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Funcionalidad> GetFuncionalidadesActuales(int id_usuario)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Funcionalidad> GetFuncionalidadesPerfilesAreas(Usuario usuario)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string AsignarPerfilesAUsuario(List<int> perfiles, List<Area> areas, int idUsuario, int id_usuario_alta)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string AsignarFuncionalidadesAUsuario(List<int> funcionalidades, List<Area> areas, int idUsuario, int id_usuario_alta)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string DesAsignarPerfilDeUsuario(int idPerfil, int idArea, int idUsuario, int id_usuario_alta)
+        {
+
+            throw new NotImplementedException();
+        }
+
+        public string DesAsignarFuncionalidadDeUsuario(int idFuncionalidad, int idArea, int idUsuario, int id_usuario_alta)
+        {
+
+            throw new NotImplementedException();
+        }
+
+        public List<MAU_Perfil> GetPerfilesConFuncionalidades()
+        {
+
+            throw new NotImplementedException();
+        }
+
+        public List<Area> AreasAdministradasPor(Usuario usuario, int idFuncionalidad)
+        {
+
+            throw new NotImplementedException();
+        }
+
+        
+
     }
 }

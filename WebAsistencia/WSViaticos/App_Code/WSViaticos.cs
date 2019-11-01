@@ -34,8 +34,11 @@ using System.Runtime.Serialization.Formatters.Binary;
 using iTextSharp.text.pdf;
 using iTextSharp.text;
 using System.Data.SqlClient;
+
 using General.Recibos;
 using General.Csv;
+using General.Contrato;
+
 
 
 [WebService(Namespace = "http://wsviaticos.gov.ar/")]
@@ -71,10 +74,43 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public RespuestaAprobarEvaluacionDesempenio AprobarEvaluacionDesempenio(int id_evaluacion, int id_comite, Usuario usuario)
+    {
+        var respuesta = new RespuestaAprobarEvaluacionDesempenio();
+        try
+        {
+            var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+            var r = repo.InsertarAprobacionEvaluacion(id_evaluacion, id_comite, usuario.Owner.Id, DateTime.Now);
+            respuesta.Aprobacion = r;
+        }
+        catch (Exception e)
+        {
+            respuesta.MensajeDeErrorAmigable = "Se produjo un error al intentar aprobar la evaluacion de desempeno";
+            respuesta.setException(e);
+        }
+        respuesta.Accion = "AprobarEvaluacionDesempenio";
+        return respuesta;
+
+    }
+
+    [WebMethod]
     public RespuestaGetAgentesEvaluablesPor GetAgentesEvaluablesParaVerificarGDE(Usuario usuario)
     {
         var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
         return repo.GetAgentesEvaluablesParaVerificarGDE(usuario);
+    }
+    [WebMethod]
+    public RespuestaGetAgentesEvaluablesParaComites GetAgentesEvaluablesParaComites(Usuario usuario)
+    {
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        return repo.GetAgentesEvaluablesParaComites(usuario);
+    }
+
+    [WebMethod]
+    public RespuestaGetAgentesEvaluablesPor GetAsignacionEvaluacionCompleta(int id_evaluacion, Usuario usuario)
+    {
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        return repo.GetAsignacionEvaluacionCompleta(id_evaluacion, usuario);
     }
 
     [WebMethod]
@@ -102,8 +138,7 @@ public class WSViaticos : System.Web.Services.WebService
         }
         catch (Exception e)
         {
-            
-            respuesta.MensajeDeErrorAmigable = "Se produjo un error al intentar agregar el responsable";
+            respuesta.MensajeDeErrorAmigable = "Se produjo un error al intentar agregar el integrante";
             respuesta.setException(e);
         }
         return respuesta;
@@ -182,6 +217,7 @@ public class WSViaticos : System.Web.Services.WebService
         return repo.AgregarComite(descripcion, DateTime.Parse(fecha), hora, lugar, periodo);
     }
 
+
     [WebMethod]
     public ComiteEvaluacionDesempenio UpdateComiteEvaluacionDesempenio(int id_comite, string descripcion, string fecha, string hora, string lugar, int id_periodo)
     {
@@ -194,8 +230,17 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public List<UnidadDeEvaluacion> GetEstadosEvaluaciones()
     {
+        var excluirPeriodosDeBaja = false;
         var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
-        return repo.GetEstadosEvaluaciones();
+        return repo.GetEstadosEvaluaciones(excluirPeriodosDeBaja);
+    }
+
+    [WebMethod]
+    public List<UnidadDeEvaluacion> GetEstadosEvaluacionesPeriodosActivos()
+    {
+        var excluirPeriodosDeBaja = true;
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        return repo.GetEstadosEvaluaciones(excluirPeriodosDeBaja);
     }
 
     [WebMethod]
@@ -2947,6 +2992,12 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public Usuario GetUsuarioPorAliasYFuncionalidades(string alias)
+    {
+        return RepositorioDeUsuarios().GetUsuarioPorAliasYConFuncionalidades(alias);
+    }
+
+    [WebMethod]
     public Usuario GetUsuarioPorId(int id_usuario)
     {
         return RepositorioDeUsuarios().GetUsuarioPorId(id_usuario);
@@ -2980,7 +3031,9 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public bool ElUsuarioPuedeAccederALaURL(Usuario usuario, string url)
     {
-        return Autorizador().ElUsuarioPuedeAccederALaURL(usuario, url);
+        //return Autorizador().ElUsuarioPuedeAccederALaURL(usuario, url);
+        return Autorizador().NuevoElUsuarioPuedeAccederALaURL(usuario, url);
+        
     }
 
     [WebMethod]
@@ -3022,6 +3075,87 @@ public class WSViaticos : System.Web.Services.WebService
         var funcionalidades = RepositorioDeFuncionalidadesDeUsuarios().FuncionalidadesPara(usuario).ToArray();
         return funcionalidades;
     }
+
+    [WebMethod]
+    public General.MAU.MAU_Perfil[] GetPerfilesActuales(int id_usuario, Usuario usuario)
+    {
+        //var usu = RepositorioDeUsuarios().GetUsuarioPorId(id_usuario);
+        var perfiles = RepositorioDeFuncionalidadesDeUsuarios().GetPerfilesActuales(id_usuario).ToArray();
+        return perfiles;
+    }
+
+    [WebMethod]
+    public Funcionalidad[] GetFuncionalidadesActuales(int id_usuario, Usuario usuario)
+    {
+        //var usu = RepositorioDeUsuarios().GetUsuarioPorId(id_usuario);
+        var funcionalidades = RepositorioDeFuncionalidadesDeUsuarios().GetFuncionalidadesActuales(id_usuario).ToArray();
+        return funcionalidades;
+    }
+
+    [WebMethod]
+    public MAU_Perfil[] GetPerfilesConFuncionalidades(Usuario usuario)
+    {
+
+        var perfiles = RepositorioDeFuncionalidadesDeUsuarios().GetPerfilesConFuncionalidades().ToArray();
+        return perfiles;
+    }
+
+    [WebMethod]
+    public Funcionalidad[] GetFuncionalidadesPerfilesAreas(Usuario usuario)
+    {
+
+        var funcionalidades = RepositorioDeFuncionalidadesDeUsuarios().GetFuncionalidadesPerfilesAreas(usuario).ToArray();
+        //Session["permisos"] = funcionalidades;
+        return funcionalidades;
+    }
+
+    [WebMethod]
+    public Funcionalidad[] GetFuncionalidadesPerfilesAreasDeUnUsuario(int id_usuario, Usuario usuario)
+    {
+        //var usu = RepositorioDeUsuarios().GetUsuarioPorId(id_usuario);
+        
+        usuario.Id = id_usuario;
+
+        var funcionalidades = RepositorioDeFuncionalidadesDeUsuarios().GetFuncionalidadesPerfilesAreas(usuario).ToArray();
+        //Session["permisos"] = funcionalidades;
+        return funcionalidades;
+    }
+
+    [WebMethod]
+    public string asignarPerfiles(string idPerfiles, string areas, int id_usuario, Usuario usuario)
+    {
+        //var usu = RepositorioDeUsuarios().GetUsuarioPorId(id_usuario);
+        int[] perfiles = JsonConvert.DeserializeObject<int[]>(idPerfiles);
+        List<Area> lista_areas = JsonConvert.DeserializeObject<List<Area>>(areas);
+        var rto = RepositorioDeFuncionalidadesDeUsuarios().AsignarPerfilesAUsuario(perfiles.ToList(), lista_areas, id_usuario, usuario.Id);
+        return rto;
+    }
+
+    [WebMethod]
+    public string desasignarPerfiles(int idPerfil, int idArea, int id_usuario, Usuario usuario)
+    {
+        var rto = RepositorioDeFuncionalidadesDeUsuarios().DesAsignarPerfilDeUsuario(idPerfil, idArea, id_usuario, usuario.Id);
+        return rto;
+    }
+
+    [WebMethod]
+    public string asignarFuncionalidades(string idFuncionalidades, string areas, int id_usuario, Usuario usuario)
+    {
+        //var usu = RepositorioDeUsuarios().GetUsuarioPorId(id_usuario);
+        int[] funcionalidades = JsonConvert.DeserializeObject<int[]>(idFuncionalidades);
+        List<Area> listas_areas = JsonConvert.DeserializeObject<List<Area>>(areas);
+        var rto = RepositorioDeFuncionalidadesDeUsuarios().AsignarFuncionalidadesAUsuario(funcionalidades.ToList(), listas_areas, id_usuario, usuario.Id);
+        return rto;
+        
+    }
+
+    [WebMethod]
+    public string desasignarFuncionaldiad(int idFuncionalidad, int idArea, int id_usuario, Usuario usuario)
+    {
+        var rto = RepositorioDeFuncionalidadesDeUsuarios().DesAsignarFuncionalidadDeUsuario(idFuncionalidad, idArea, id_usuario, usuario.Id);
+        return rto;
+    }
+    
 
     [WebMethod]
     public Funcionalidad[] FuncionalidadesOtorgadasA(int id_usuario)   //tira las funcionalidades tildadas en MAU, independientemente de otras verificaciones
@@ -3075,7 +3209,23 @@ public class WSViaticos : System.Web.Services.WebService
 
         JsonSerializerSettings settings = new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects };
 
+
         var listaDeAreas = Autorizador().AreasAdministradasPor(usuario).ToArray();
+        var stringDeAreas = JsonConvert.SerializeObject(listaDeAreas, Formatting.Indented, new JsonSerializerSettings() { ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore });
+
+        Area[] areas = JsonConvert.DeserializeObject<Area[]>(stringDeAreas);
+        return areas;
+    }
+
+    [WebMethod]
+    public Area[] AreasAdministradasPorUsuarioYFuncionalidad(Usuario usuario, int idFuncionalidad)
+    {
+
+        JsonSerializerSettings settings = new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects };
+
+        //FC: antes del nuevos permisos
+        //var listaDeAreas = Autorizador().AreasAdministradasPor(usuario).ToArray();
+        var listaDeAreas = Autorizador().NuevoAreasAdministradasPorUsuarioYFuncionalidad(usuario,idFuncionalidad).ToArray();
         var stringDeAreas = JsonConvert.SerializeObject(listaDeAreas, Formatting.Indented, new JsonSerializerSettings() { ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore });
 
         Area[] areas = JsonConvert.DeserializeObject<Area[]>(stringDeAreas);
@@ -3134,7 +3284,8 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public MenuDelSistema GetMenuPara(string nombre_menu, Usuario usuario)
     {
-        MenuDelSistema menu = Autorizador().GetMenuPara(nombre_menu, usuario);
+        //MenuDelSistema menu = Autorizador().GetMenuPara(nombre_menu, usuario);
+        MenuDelSistema menu = Autorizador().NuevoGetMenuPara(nombre_menu, usuario);
         return menu;
     }
 
@@ -3331,6 +3482,12 @@ public class WSViaticos : System.Web.Services.WebService
         return repositorio.GetSolicitudDeCredencialPorIdTicketEntrega(id_ticket);
     }
 
+    [WebMethod]
+    public bool CambiarOrganismoEnSolicitudCredencial(SolicitudCredencial solicitud, int id_organismo_nuevo,  Usuario usuario)
+    {
+        RepositorioLegajo repositorio = RepoLegajo();
+        return repositorio.CambiarOrganismoEnSolicitudCredencial(solicitud, id_organismo_nuevo, usuario);
+    }
 
     [WebMethod]
     public bool AprobarSolicitudCredencial(SolicitudCredencial solicitud, Usuario usuario)
@@ -4156,7 +4313,7 @@ public class WSViaticos : System.Web.Services.WebService
     //}
 
     [WebMethod]
-    public Perfil[] GetCvPerfiles()
+    public General.Perfil[] GetCvPerfiles()
     {
         return RepoPerfiles().GetPerfiles().ToArray();
     }
@@ -5512,6 +5669,16 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public string PrintPdfEvaluacionDesempenioConFetch(AsignacionEvaluadoAEvaluador asignacion, Usuario usuario)
+    {
+        var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        var asigs = repo.GetAgentesEvaluablesParaImprimir(usuario).asignaciones;
+        var fetch_asignacion = asigs.Find(a => a.id_evaluacion == asignacion.id_evaluacion);
+        
+        return PrintPdfEvaluacionDesempenio(fetch_asignacion, usuario);
+    }
+
+    [WebMethod]
     public string PrintPdfEvaluacionDesempenio(AsignacionEvaluadoAEvaluador asignacion, Usuario usuario)
     {
         var modelo_para_pdf = new List<object>() { asignacion, usuario };
@@ -6138,5 +6305,91 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
 
+
     #endregion
+
+   
+    [WebMethod]
+    public Serv_Adm_Publica_Privada[] GetExperienciaLaboral_Principal(int nroDocumento, Usuario usuario)
+    {
+        var RepositorioServAdm = new RepositorioServicios();
+        return RepositorioServAdm.GetExperienciaLaboral_Principal(nroDocumento, usuario).ToArray();
+    }
+
+
+    [WebMethod]
+    public GeneralCombos[] GetAmbitos()
+    {
+        var RepositorioServAdm = new RepositorioServicios();
+
+        var Lista = RepositorioServAdm.GetAmbitos();
+
+        List<GeneralCombos> ambitos = new List<GeneralCombos>();
+
+        foreach (var item in Lista)
+        {
+            ambitos.Add(new GeneralCombos() { id = item.id, descripcion = item.descripcion });
+        }
+
+        return ambitos.ToArray();
+    }
+
+
+    [WebMethod]
+    public GeneralCombos[] GetCargos()
+    {
+        var RepositorioServAdm = new RepositorioServicios();
+
+        var Lista = RepositorioServAdm.GetCargos();
+
+        List<GeneralCombos> cargo = new List<GeneralCombos>();
+
+        foreach (var item in Lista)
+        {
+            cargo.Add(new GeneralCombos() { id = item.id, descripcion = item.descripcion });
+        }
+
+        return cargo.ToArray();
+    }
+
+
+    [WebMethod]
+    public bool Alta_Servicios_Administracion(Serv_Adm_Publica_Privada[] ListaAdmPublicoPrivado, Serv_Adm_Publica_Privada AdmPublicoPrivado, string servicio, Usuario usuario)
+    {
+        var RepositorioServAdm = new RepositorioServicios();
+
+        if (servicio == "PUBLICO")
+        {
+            return RepositorioServAdm.Alta_Servicios_Adm_Publica(ListaAdmPublicoPrivado, AdmPublicoPrivado, usuario);
+        }
+
+        if (servicio == "PRIVADO")
+        {
+            return RepositorioServAdm.Alta_Servicios_Adm_Privada(ListaAdmPublicoPrivado, AdmPublicoPrivado, usuario);
+        }
+
+        return false;
+    }
+
+
+    [WebMethod]
+    public Serv_Adm_Publica_Privada[] GET_Servicios_Adm_Detalles(int legajo, string folio, string servicio, Usuario usuario)
+    {
+        var RepositorioServAdm = new RepositorioServicios();
+
+        if (servicio == "PUBLICO")
+        {
+            return RepositorioServAdm.GET_Servicios_Adm_Publica_Detalles(legajo, folio, usuario).ToArray();
+        }
+
+        if (servicio == "PRIVADO")
+        {
+            return RepositorioServAdm.GET_Servicios_Adm_Privada_Detalles(legajo, folio, usuario).ToArray();
+        }
+
+        return null;
+    }
+
+
+
 }
