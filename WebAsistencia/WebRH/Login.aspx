@@ -30,7 +30,7 @@
                         Iniciar Sesión </button><br />
                         <a id="lnk_registrarse" style="margin-left: 25px; margin-right: 20px;">Registrame </a>
                     <%--<a href="http://www.plataformapersonas.com.ar/archivos/instructivo.pdf" target="_blank">Instructivo del Sistema</a>--%>
-                    <a id="lnk_recuperar" style="cursor: pointer; ">¿Olvidé mi clave?</a>
+                    <a id="lnk_recuperar" style="cursor: pointer; ">Olvidé mi clave</a>
                      <br />
                      <div style="font-size: 0.7em; margin: 10px auto; width: 500px; margin-left: -120px; display: inline-block;">
                         <input style="width: 190px;" class="btn btn-primary" id="linkAcerca" value="¿Para que se utiliza este sitio?" />
