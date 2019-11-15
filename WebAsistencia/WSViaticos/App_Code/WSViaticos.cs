@@ -5997,6 +5997,15 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
 
+    [WebMethod]
+    public CvDomicilio ObtenerDomicilioPersonal(Persona persona,, Usuario usuario)
+    {
+        RepositorioLegajo repo = RepoLegajo();
+
+        return repo.ObtenerDomicilioPersonal(persona, usuario);
+
+    }
+
 
 
 }

@@ -5,6 +5,8 @@ using System.Text;
 using General;
 using Newtonsoft.Json;
 using General.MAU;
+using System.Data.SqlClient;
+
 
 namespace General.Repositorios
 {
@@ -1715,5 +1717,62 @@ namespace General.Repositorios
 
             return true;
         }
+
+        
+        public CvDomicilio ObtenerDomicilioPersonal(Persona persona, Usuario usuario)
+        {
+            try
+            {
+                DateTime fecha = DateTime.Now;
+
+                SqlDataReader dr;
+                ConexionDB cn = new ConexionDB("dbo.Get_Domicilio_Vigente");
+                cn.AsignarParametro("@DNI", persona.Documento);
+                cn.AsignarParametro("@fecha_corte", fecha);
+
+                dr = cn.EjecutarConsulta();
+
+                CvDomicilio dom;
+                dom = new CvDomicilio();
+
+                while (dr.Read())
+                {
+                    
+                    dom.Id = dr.GetInt32(dr.GetOrdinal("ID_Domicilio"));
+                    dom.Calle = dr.GetString(dr.GetOrdinal("Calle"));
+                    dom.Numero = dr.GetInt32(dr.GetOrdinal("Número"));
+                    dom.Piso = dr.GetString(dr.GetOrdinal("Piso"));
+                    dom.Depto = dr.GetString(dr.GetOrdinal("Dpto"));
+                    dom.Uf = dr.GetString(dr.GetOrdinal("UF"));
+                    dom.Barrio = dr.GetString(dr.GetOrdinal("Barrio"));
+                    dom.Cp = dr.GetInt32(dr.GetOrdinal("Codigo_Postal"));
+                    dom.Partido = dr.GetInt32(dr.GetOrdinal("ID_Partido"));
+                    dom.Partido_Nombre = dr.GetString(dr.GetOrdinal("Partido_Dpto"));
+                    
+                    dom.Dom_Localidad = new Localidad();
+                    dom.Dom_Localidad.Id = dr.GetInt32(dr.GetOrdinal("idLocalidad"));
+                    dom.Dom_Localidad.Nombre = dr.GetString(dr.GetOrdinal("nombrelocalidad"));
+                    dom.Dom_Localidad.IdProvincia = dr.GetInt32(dr.GetOrdinal("id_provincia"));
+
+                    dom.Dom_Provincia = new Provincia();
+                    dom.Dom_Provincia.Id = dr.GetInt32(dr.GetOrdinal("id_provincia"));
+                    dom.Dom_Provincia.Nombre = dr.GetString(dr.GetOrdinal("nombreProvincia"));
+                    
+                }
+
+                cn.Desconestar();
+
+                return dom;
+
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+
+        }
+
+
+
     }
 }

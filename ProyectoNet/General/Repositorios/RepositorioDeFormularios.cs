@@ -239,5 +239,48 @@ namespace General.Repositorios
             return id;
 
         }
+
+
+        private List<Campo> traer_domicilio(int documento)
+        {
+            List<Campo> campos = new List<Campo>();
+
+            var parametros = new Dictionary<string, object>();
+            try
+            {
+                //parametros.Add("@Doc", documento);
+                //var tablaDatos = conexion_bd.Ejecutar("dbo.LEG_GET_Domicilios", parametros);
+
+                parametros.Add("@DNI", documento);
+                parametros.Add("@fecha_corte", DateTime.Now);
+
+                var tablaDatos = conexion_bd.Ejecutar("dbo.Get_Domicilio_Vigente", parametros);
+
+                if (tablaDatos.Rows.Count > 0)
+                {
+                    var primer_fila = tablaDatos.Rows[0];
+                    campos.Add(new Campo("domicilio_calle", primer_fila.GetString("Calle"), true));
+                    campos.Add(new Campo("domicilio_numero", primer_fila.GetSmallintAsInt("Número").ToString(), true));
+                    campos.Add(new Campo("domicilio_piso", primer_fila.GetString("Piso"), true));
+                    campos.Add(new Campo("domicilio_depto", primer_fila.GetString("Dpto"), true));
+                    campos.Add(new Campo("domicilio_cp", primer_fila.GetSmallintAsInt("Codigo_Postal").ToString(), true));
+                    //campos.Add(new Campo("domicilio_provincia", primer_fila.GetSmallintAsInt("Provincia").ToString()));
+                    //campos.Add(new Campo("domicilio_localidad", primer_fila.GetSmallintAsInt("Localidad").ToString()));
+                    campos.Add(new Campo("domicilio_provincia", primer_fila.GetString("nombreProvincia", "No hay dato").ToString(), true));
+                    campos.Add(new Campo("domicilio_localidad", primer_fila.GetString("nombrelocalidad", "No hay dato").ToString(), true));
+                    campos.Add(new Campo("domicilio_telefono", "", true));
+
+
+                }
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+            return campos;
+        }
+
+
     }
 }
