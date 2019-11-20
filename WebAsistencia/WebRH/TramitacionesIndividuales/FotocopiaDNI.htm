@@ -1,0 +1,46 @@
+﻿<div id="cajaSelectorDocumentos" class="" >
+   
+    <div id="cajaCambiarDomicilio" class="">
+        <h3 style="text-align: center;">Modificación de datos del DNI</h3>
+        <br />
+        <div class="">
+            <p><em style="color:Red;">*</em> Campos Obligatorios</p>
+            <p style="text-align:right;">
+                Folio:
+                <input class="etiqueta_campo" style="width: 30px; height: 40px;" name="folioParte1" type="number" /> :
+                <input style="width: 50px; height: 30px;" class="etiqueta_campo" name="folioParte2" type="number" /> :
+                <input style="width: 40px; height: 30px;" class="etiqueta_campo" name="folioParte3" type="number" />
+            </p>
+            <label class="etiqueta_campo" for="txt_tipo_documento" style="min-width: 130px;">Tipo Documento: <em style="color:Red;">*</em></label>
+            <select id="cmb_tipo_documento" style="width: 200px;margin-bottom: 10px;"></select>
+            <br />
+
+            <label class="etiqueta_campo" for="txt_apellido" style="min-width: 130px;">Apellidos: <em style="color:Red;">*</em></label>
+            <input type="text" value="" id="txt_apellido" name="txt_apellido" style="width: 300px; height: 30px;" disabled />
+            <br />
+            <label class="etiqueta_campo" for="txt_nombre" style="min-width: 130px;">Nombres: <em style="color:Red;">*</em></label>
+            <input type="text" value="" id="txt_nombre" name="txt_nombre" style="width: 300px; height: 30px;" disabled />
+            <br />
+            <label class="etiqueta_campo" for="txt_fecha_nacimiento" style="min-width: 130px;">Fecha de Nac.: <em style="color:Red;">*</em></label>
+            <input type="date" value="" id="txt_fecha_nacimiento" name="txt_fecha_nacimiento" style="width: 200px; height: 30px;" />
+            <br />
+            <label class="etiqueta_campo" for="txt_lugar_nacimiento" style="min-width: 130px;">Lugar de Nac.: <em style="color:Red;">*</em></label>
+            <input type="text" value="" id="txt_lugar_nacimiento" name="txt_lugar_nacimiento" style="width: 200px; height: 30px;" />
+            <br />
+            <label class="etiqueta_campo" for="txt_sexo" style="min-width: 130px;">Sexo: <em style="color:Red;">*</em></label>
+            <select id="cmb_sexo" style="width: 200px;margin-bottom: 10px;"></select>
+            <br />
+            <label class="etiqueta_campo" for="txt_lugar_nacimiento" style="min-width: 130px;">Nacionalidad: <em style="color:Red;">*</em></label>
+            <select id="cmb_nacionalidad" style="width: 200px;margin-bottom: 10px;"></select>
+            <br />
+        </div>
+        <br />
+        <div style="text-align:center;">
+            <input id="btnCambiarDomicilio" value="Aceptar" class="btn btn-primary" type="button" />
+            <input id="btnCambiarDomicilio" value="Solo Recepcionar" class="btn btn-primary" type="button" />
+            <input id="btnCambiarDomicilio" value="Aceptar Sin Folio" class="btn btn-primary" type="button" />
+            <input id="imagen" type="file" value="Imagen" class="btn btn-primary" />
+        </div>
+
+    </div>
+</div>

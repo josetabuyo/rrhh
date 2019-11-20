@@ -45,7 +45,7 @@
                 <div id="cajaSelectorDocumentos" class="cajaSelectorDocumentos" style="display:none;">
                     <label>Seleccione el tipo de documento a recepcionar</label>
                     <select id="comboTiposDeDocumento">
-                        <option value="dni">Fotocopia DNI</option>
+                        <option value="FotocopiaDNI.htm">Fotocopia DNI</option>
                         <option value="CambioDomicilio.htm">DDJJ Cambio domicilio</option>
                         <option value="obraSocial">Cambio Obra Social</option>
                         <option value="estudio">Carga Estudio</option>
