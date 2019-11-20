@@ -241,7 +241,7 @@ namespace General.Repositorios
         }
 
 
-        private List<Campo> traer_domicilio(int documento)
+        /*private List<Campo> traer_domicilio(int documento)
         {
             List<Campo> campos = new List<Campo>();
 
@@ -279,7 +279,7 @@ namespace General.Repositorios
                 throw e;
             }
             return campos;
-        }
+        }*/
 
 
     }
