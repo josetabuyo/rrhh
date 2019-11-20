@@ -44,9 +44,9 @@
 
                 <div id="cajaSelectorDocumentos" class="cajaSelectorDocumentos" style="display:none;">
                     <label>Seleccione el tipo de documento a recepcionar</label>
-                    <select>
+                    <select id="comboTiposDeDocumento">
                         <option value="dni">Fotocopia DNI</option>
-                        <option value="domicilio">DDJJ Cambio domicilio</option>
+                        <option value="CambioDomicilio.htm">DDJJ Cambio domicilio</option>
                         <option value="obraSocial">Cambio Obra Social</option>
                         <option value="estudio">Carga Estudio</option>
                     </select>
@@ -125,8 +125,10 @@
                 document.head.appendChild(imported);
 
 
-                 $('#btnCargarComponente').click(function () {
-                    $(".caja_der").load("PantallaRecepcionar.htm", function () {
+                $('#btnCargarComponente').click(function (e) {
+                    e.preventDefault();
+                    var componente = $('#comboTiposDeDocumento').children("option:selected").val();
+                    $(".caja_der").load(componente, function () {
                        
                        
                         
