@@ -33,6 +33,10 @@ namespace General
         public string NombreLocalidad { get; set; }
         public string NombreProvincia { get; set; }
 
+        public Localidad Dom_Localidad { get; set; }
+        public Provincia Dom_Provincia { get; set; }
+        public string Partido_Nombre { get; set; }
+
 
         public CvDomicilio(int id, string calle, int numero, string piso, string depto, int localidad, int cp, int provincia)
         {
@@ -46,6 +50,7 @@ namespace General
             this.Id = id;
 
         }
+
 
         public CvDomicilio(int id, string calle, int numero, string piso, string depto, Localidad localidad, int cp, Provincia provincia, string manzana, string casa, string barrio, string torre, string uf)
         {
