@@ -1,5 +1,14 @@
-﻿<div id="cajaSelectorDocumentos" class="" >
-   
+﻿<style>
+    .div_resaltado {
+        margin-left: 20px;
+        border: 1px solid #dddddd;
+        padding: 15px;
+        border-radius: 5px;
+        background-color: #eeeeee;
+    }
+</style>
+<div id="cajaSelectorDocumentos" class="">
+
     <div id="cajaCambiarDomicilio" class="">
         <h3 style="text-align: center;">Modificación de datos del DNI</h3>
         <br />
@@ -11,28 +20,50 @@
                 <input style="width: 50px; height: 30px;" class="etiqueta_campo" name="folioParte2" type="number" /> :
                 <input style="width: 40px; height: 30px;" class="etiqueta_campo" name="folioParte3" type="number" />
             </p>
-            <label class="etiqueta_campo" for="txt_tipo_documento" style="min-width: 130px;">Tipo Documento: <em style="color:Red;">*</em></label>
-            <select id="cmb_tipo_documento" style="width: 200px;margin-bottom: 10px;"></select>
-            <br />
+            <div style="display:flex;">
+                <div>
+                    <label class="etiqueta_campo" for="txt_tipo_documento" style="min-width: 130px;">Tipo Documento: <em style="color:Red;">*</em></label>
+                    <select id="cmb_tipo_documento" style="width: 200px;margin-bottom: 10px;"></select>
+                    <br />
 
-            <label class="etiqueta_campo" for="txt_apellido" style="min-width: 130px;">Apellidos: <em style="color:Red;">*</em></label>
-            <input type="text" value="" id="txt_apellido" name="txt_apellido" style="width: 300px; height: 30px;" disabled />
-            <br />
-            <label class="etiqueta_campo" for="txt_nombre" style="min-width: 130px;">Nombres: <em style="color:Red;">*</em></label>
-            <input type="text" value="" id="txt_nombre" name="txt_nombre" style="width: 300px; height: 30px;" disabled />
-            <br />
-            <label class="etiqueta_campo" for="txt_fecha_nacimiento" style="min-width: 130px;">Fecha de Nac.: <em style="color:Red;">*</em></label>
-            <input type="date" value="" id="txt_fecha_nacimiento" name="txt_fecha_nacimiento" style="width: 200px; height: 30px;" />
-            <br />
-            <label class="etiqueta_campo" for="txt_lugar_nacimiento" style="min-width: 130px;">Lugar de Nac.: <em style="color:Red;">*</em></label>
-            <input type="text" value="" id="txt_lugar_nacimiento" name="txt_lugar_nacimiento" style="width: 200px; height: 30px;" />
-            <br />
-            <label class="etiqueta_campo" for="txt_sexo" style="min-width: 130px;">Sexo: <em style="color:Red;">*</em></label>
-            <select id="cmb_sexo" style="width: 200px;margin-bottom: 10px;"></select>
-            <br />
-            <label class="etiqueta_campo" for="txt_lugar_nacimiento" style="min-width: 130px;">Nacionalidad: <em style="color:Red;">*</em></label>
-            <select id="cmb_nacionalidad" style="width: 200px;margin-bottom: 10px;"></select>
-            <br />
+                    <label class="etiqueta_campo" for="txt_apellido" style="min-width: 130px;">Apellidos: <em style="color:Red;">*</em></label>
+                    <input type="text" value="" id="txt_apellido" name="txt_apellido" style="width: 300px; height: 30px;" disabled />
+                    <br />
+                    <label class="etiqueta_campo" for="txt_nombre" style="min-width: 130px;">Nombres: <em style="color:Red;">*</em></label>
+                    <input type="text" value="" id="txt_nombre" name="txt_nombre" style="width: 300px; height: 30px;" disabled />
+                    <br />
+                    <label class="etiqueta_campo" for="txt_fecha_nacimiento" style="min-width: 130px;">Fecha de Nac.: <em style="color:Red;">*</em></label>
+                    <input type="date" value="" id="txt_fecha_nacimiento" name="txt_fecha_nacimiento" style="width: 200px; height: 30px;" />
+                    <br />
+                    <label class="etiqueta_campo" for="txt_lugar_nacimiento" style="min-width: 130px;">Lugar de Nac.: <em style="color:Red;">*</em></label>
+                    <input type="text" value="" id="txt_lugar_nacimiento" name="txt_lugar_nacimiento" style="width: 200px; height: 30px;" />
+                    <br />
+                    <label class="etiqueta_campo" for="txt_sexo" style="min-width: 130px;">Sexo: <em style="color:Red;">*</em></label>
+                    <select id="cmb_sexo" style="width: 200px;margin-bottom: 10px;"></select>
+                    <br />
+                    <label class="etiqueta_campo" for="txt_lugar_nacimiento" style="min-width: 130px;">Nacionalidad: <em style="color:Red;">*</em></label>
+                    <select id="cmb_nacionalidad" style="width: 200px;margin-bottom: 10px;"></select>
+                    <br />
+                    <br />
+                </div>
+                <div id="div_otra_nacionalidad" class="div_resaltado" style="display:none;">
+                    <label class="etiqueta_campo" for="txt_fecha_ingreso" style="min-width: 170px;">Fecha de Ingreso al País: <em style="color:Red;">*</em></label>
+                    <input type="date" value="" id="txt_fecha_ingreso" name="txt_fecha_ingreso" style="width: 200px; height: 30px;" />
+                    <br />
+                    <label class="etiqueta_campo" for="txt_carta_ciudadania" style="min-width: 170px;">Carta de Ciudadanía N°: <em style="color:Red;">*</em></label>
+                    <input type="text" value="" id="txt_carta_ciudadania" name="txt_carta_ciudadania" style="width: 200px; height: 30px;" />
+                    <br />
+                    <label class="etiqueta_campo" for="txt_juzgado" style="min-width: 170px;">Juzgado: <em style="color:Red;">*</em></label>
+                    <input type="text" value="" id="txt_juzgado" name="txt_juzgado" style="width: 200px; height: 30px;" />
+                    <br />
+                    <label class="etiqueta_campo" for="txt_secretario" style="min-width: 170px;">Secretario: <em style="color:Red;">*</em></label>
+                    <input type="text" value="" id="txt_secretario" name="txt_secretario" style="width: 200px; height: 30px;" />
+                    <br />
+                    <label class="etiqueta_campo" for="txt_fecha_juzgado" style="min-width: 170px;">Fecha Juzgado: <em style="color:Red;">*</em></label>
+                    <input type="text" value="" id="txt_fecha_juzgado" name="txt_fecha_juzgado" style="width: 200px; height: 30px;" />
+                    <br />
+                </div>
+            </div>
         </div>
         <br />
         <div style="text-align:center;">
@@ -44,6 +75,50 @@
 
     </div>
 </div>
-<script>
+<script type="text/javascript">
+
+    $(document).ready(function ($) {
+
+        $("#cmb_nacionalidad").change(function (e) {
+            debugger;
+            if ($(this).val() != "Argentina") {
+                $("#div_otra_nacionalidad").show();
+            } else {
+                $("#div_otra_nacionalidad").find("input").val("")
+                $("#div_otra_nacionalidad").hide();
+            }
+        });
+
+        Backend.start(function () {
+            debugger;
+            //    Backend.BuscarTipoDeDocumento({})
+            //        .onSuccess(function (tipo_documento) {
+            //            $.each(tipos_documento, function () {
+            //                $('#cmb_tipo_documento').append($("<option />").val(this.Id).text(this.Nombre));
+            //            });
+            //        })
+            //        .onError(function (e) {
+
+            //        });
+            //    Backend.BuscarSexo({})
+            //        .onSuccess(function (sexos) {
+            //            $.each(sexos, function () {
+            //                $('#cmb_sexo').append($("<option />").val(this.Id).text(this.Nombre));
+            //            });
+            //        })
+            //        .onError(function (e) {
+
+            //        });
+            Backend.BuscarNacionalidad({})
+                .onSuccess(function (nacionalidades) {
+                    debugger;
+                    $.each(nacionalidades, function () {
+                        $('#cmb_nacionalidad').append($("<option />").val(this.Id).text(this.Nombre));
+                    });
+                })
+                .onError(function (e) {
+                    debugger;
+                });
+        });
 
 </script>

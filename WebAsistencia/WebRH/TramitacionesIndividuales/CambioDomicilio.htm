@@ -1,19 +1,20 @@
-﻿<div id="cajaSelectorDocumentos" class="" >
-   
+﻿<div id="cajaSelectorDocumentos" class="">
+
     <div id="cajaCambiarDomicilio" class="">
         <h3 style="text-align: center;">Modificación de datos de domicilio</h3>
         <br />
         <div class="">
             <p><em style="color:Red;">*</em> Campos Obligatorios</p>
-            <p style="text-align:right;">Folio: 
-                <input class="etiqueta_campo" style="width: 30px; height: 40px;" name="folioParte1" type="number" /> : 
-                <input style="width: 50px; height: 30px;" class="etiqueta_campo" name="folioParte2" type="number"/> : 
+            <p style="text-align:right;">
+                Folio:
+                <input class="etiqueta_campo" style="width: 40px; height: 30px;" name="folioParte1" type="number" /> :
+                <input style="width: 50px; height: 30px;" class="etiqueta_campo" name="folioParte2" type="number" /> :
                 <input style="width: 40px; height: 30px;" class="etiqueta_campo" name="folioParte3" type="number" />
             </p>
-            <label class="etiqueta_campo"  for="txt_calle">Calle: <em style="color:Red;">*</em></label>
+            <label class="etiqueta_campo" for="txt_calle">Calle: <em style="color:Red;">*</em></label>
             <input type="text" value="" id="txt_calle" name="txt_calle" style="width: 250px; height: 30px;" />
             <br />
-            <label class="etiqueta_campo"  for="txt_numero">N°: <em style="color:Red;">*</em></label>
+            <label class="etiqueta_campo" for="txt_numero">N°: <em style="color:Red;">*</em></label>
             <input type="number" value="" id="txt_numero" name="txt_numero" style="width: 50px; height: 30px;" />
             <label class="etiqueta_campo" style="margin: 0 10px;" for="txt_piso">Piso: </label>
             <input type="text" value="" id="txt_piso" name="txt_piso" style="width: 30px; height: 30px;" />
@@ -40,11 +41,45 @@
         </div>
         <br />
         <div style="text-align:center;">
-            <input id="btnCambiarDomicilio" value="Aceptar" class="btn btn-primary" type="button" />
-            <input id="btnCambiarDomicilio" value="Solo Recepcionar" class="btn btn-primary" type="button" />
-            <input id="btnCambiarDomicilio" value="Aceptar Sin Folio" class="btn btn-primary" type="button" />
-            <input id="imagen" type="file" value="Imagen" class="btn btn-primary" />
+            <input id="btnAceptar" value="Aceptar" class="btn btn-primary" type="button" />
+            <input id="btnSoloRecepcionar" value="Solo Recepcionar" class="btn btn-primary" type="button" />
+            <input id="btnAceptarSinFolio" value="Aceptar Sin Folio" class="btn btn-primary" type="button" />
+            <input id="imagen" type="file" class="btn" />
         </div>
 
     </div>
 </div>
+<script type="text/javascript">
+
+    $(document).ready(function ($) {
+
+
+        Backend.start(function () {
+           
+            Backend.BuscarProvincias({})
+                .onSuccess(function (provincias) {
+                    $.each(provincias, function () {
+                        $('#cmb_provincia').append($("<option />").val(this.Id).text(this.Nombre));
+                    });
+                })
+                .onError(function (e) {
+
+                });
+
+            $("#cmb_provincia").change(function (e) {
+                var idProvincia = $('#cmb_provincia').children("option:selected").val();
+                Backend.BuscarLocalidades({ IdProvincia: parseInt(idProvincia) })
+                    .onSuccess(function (localidades) {
+                        $.each(localidades, function () {
+                            $('#cmb_localidad').append($("<option />").val(this.Id).text(this.Nombre));
+                        });
+                    })
+                    .onError(function (e) {
+
+                    });
+            })
+                
+        });
+    });
+
+</script>
