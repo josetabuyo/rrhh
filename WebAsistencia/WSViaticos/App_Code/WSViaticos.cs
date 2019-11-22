@@ -125,7 +125,7 @@ public class WSViaticos : System.Web.Services.WebService
 
     [WebMethod]
     public IntRespuestaWS EvalAddIntegranteComite(int idComite, IntegranteComiteEvalDesempenio integrante) {
-        var respuesta= new IntRespuestaWS();
+        var respuesta = new IntRespuestaWS();
         respuesta.Respuesta = integrante.IdPersona;
         try
         {
@@ -221,7 +221,7 @@ public class WSViaticos : System.Web.Services.WebService
         return repo.UpdateComite(id_comite, descripcion, DateTime.Parse(fecha), hora, lugar, id_periodo);
     }
 
-    
+
 
     [WebMethod]
     public List<UnidadDeEvaluacion> GetEstadosEvaluaciones()
@@ -1591,7 +1591,7 @@ public class WSViaticos : System.Web.Services.WebService
         var repositorio = new RepositorioDeOrganigrama(Conexion());
         var areasFormales = repositorio.GetOrganigrama().ObtenerAreas(true);
         var areasFormales_dto = new List<Object>();
-        areasFormales.ForEach(delegate(Area a)
+        areasFormales.ForEach(delegate (Area a)
         {
             areasFormales_dto.Add(new AreaDTO(a));
         });
@@ -1625,7 +1625,7 @@ public class WSViaticos : System.Web.Services.WebService
     {
         var repositorio = new RepositorioDeDocumentos(Conexion());
         var categorias_ordenadas = repositorio.GetCategoriasDeDocumentos();
-        categorias_ordenadas.Sort(delegate(CategoriaDeDocumentoSICOI c1, CategoriaDeDocumentoSICOI c2)
+        categorias_ordenadas.Sort(delegate (CategoriaDeDocumentoSICOI c1, CategoriaDeDocumentoSICOI c2)
             {
                 return c1.descripcion.CompareTo(c2.descripcion);
             }
@@ -1641,7 +1641,7 @@ public class WSViaticos : System.Web.Services.WebService
         var documentos_dto = new List<DocumentoDTO>();
         var mensajeria = Mensajeria();
         if (documentos.Count > 50) documentos.RemoveRange(51, documentos.Count - 51);
-        documentos.ForEach(delegate(Documento doc)
+        documentos.ForEach(delegate (Documento doc)
         {
             documentos_dto.Add(new DocumentoDTO(doc, mensajeria));
         });
@@ -1656,7 +1656,7 @@ public class WSViaticos : System.Web.Services.WebService
         var documentos_dto = new List<Object>();
         var mensajeria = Mensajeria();
 
-        documentos.ForEach(delegate(Documento doc)
+        documentos.ForEach(delegate (Documento doc)
         {
             documentos_dto.Add(new DocumentoDTO(doc, mensajeria));
         });
@@ -1964,7 +1964,7 @@ public class WSViaticos : System.Web.Services.WebService
 
         if (personas.Count() > 0)
         {
-            personas.ForEach(delegate(Persona persona)
+            personas.ForEach(delegate (Persona persona)
             {
                 Inasistencia inasistenciadto = new Inasistencia();
                 inasistenciadto.Aprobada = persona.Inasistencias.First().Aprobada;
@@ -2002,7 +2002,7 @@ public class WSViaticos : System.Web.Services.WebService
 
         if (alumnos.Count() > 0)
         {
-            alumnos.ForEach(delegate(Alumno alumno)
+            alumnos.ForEach(delegate (Alumno alumno)
             {
                 alumnos_dto.Add(new
                 {
@@ -2065,7 +2065,7 @@ public class WSViaticos : System.Web.Services.WebService
 
         if (cursos_del_alumno.Count() > 0)
         {
-            cursos_del_alumno.ForEach(delegate(Curso curso)
+            cursos_del_alumno.ForEach(delegate (Curso curso)
             {
                 var un_curso = new CursoDto();
                 un_curso.Id = curso.Id;
@@ -2258,7 +2258,7 @@ public class WSViaticos : System.Web.Services.WebService
             {
                 var alumnos_dto = new List<Object>();
 
-                alumnos_que_no_se_pueden_desinscribir.ForEach(delegate(Alumno alumno)
+                alumnos_que_no_se_pueden_desinscribir.ForEach(delegate (Alumno alumno)
                 {
                     alumnos_dto.Add(new
                     {
@@ -2339,7 +2339,7 @@ public class WSViaticos : System.Web.Services.WebService
 
         if (cursos.Count() > 0)
         {
-            cursos.ForEach(delegate(Curso curso)
+            cursos.ForEach(delegate (Curso curso)
             {
                 var un_curso = new CursoDto();
                 un_curso.Id = curso.Id;
@@ -2371,7 +2371,7 @@ public class WSViaticos : System.Web.Services.WebService
 
         if (materias.Count > 0)
         {
-            materias.ForEach(delegate(Materia materia)
+            materias.ForEach(delegate (Materia materia)
             {
                 materias_dto.Add(new
                 {
@@ -2400,7 +2400,7 @@ public class WSViaticos : System.Web.Services.WebService
 
         if (docentes.Count > 0)
         {
-            docentes.ForEach(delegate(Docente docente)
+            docentes.ForEach(delegate (Docente docente)
             {
                 docentes_dto.Add(new
                 {
@@ -2678,7 +2678,7 @@ public class WSViaticos : System.Web.Services.WebService
 
         if (espacios_fisicos.Count > 0)
         {
-            espacios_fisicos.ForEach(delegate(EspacioFisico espacio_fisico)
+            espacios_fisicos.ForEach(delegate (EspacioFisico espacio_fisico)
             {
                 espacios_fisicos_dto.Add(new
                 {
@@ -2725,7 +2725,7 @@ public class WSViaticos : System.Web.Services.WebService
 
         if (areas.Count > 0)
         {
-            areas.ForEach(delegate(Area area)
+            areas.ForEach(delegate (Area area)
             {
                 areas_dto.Add(new
                 {
@@ -3029,7 +3029,7 @@ public class WSViaticos : System.Web.Services.WebService
     {
         //return Autorizador().ElUsuarioPuedeAccederALaURL(usuario, url);
         return Autorizador().NuevoElUsuarioPuedeAccederALaURL(usuario, url);
-        
+
     }
 
     [WebMethod]
@@ -3109,7 +3109,7 @@ public class WSViaticos : System.Web.Services.WebService
     public Funcionalidad[] GetFuncionalidadesPerfilesAreasDeUnUsuario(int id_usuario, Usuario usuario)
     {
         //var usu = RepositorioDeUsuarios().GetUsuarioPorId(id_usuario);
-        
+
         usuario.Id = id_usuario;
 
         var funcionalidades = RepositorioDeFuncionalidadesDeUsuarios().GetFuncionalidadesPerfilesAreas(usuario).ToArray();
@@ -3142,7 +3142,7 @@ public class WSViaticos : System.Web.Services.WebService
         List<Area> listas_areas = JsonConvert.DeserializeObject<List<Area>>(areas);
         var rto = RepositorioDeFuncionalidadesDeUsuarios().AsignarFuncionalidadesAUsuario(funcionalidades.ToList(), listas_areas, id_usuario, usuario.Id);
         return rto;
-        
+
     }
 
     [WebMethod]
@@ -3151,7 +3151,7 @@ public class WSViaticos : System.Web.Services.WebService
         var rto = RepositorioDeFuncionalidadesDeUsuarios().DesAsignarFuncionalidadDeUsuario(idFuncionalidad, idArea, id_usuario, usuario.Id);
         return rto;
     }
-    
+
 
     [WebMethod]
     public Funcionalidad[] FuncionalidadesOtorgadasA(int id_usuario)   //tira las funcionalidades tildadas en MAU, independientemente de otras verificaciones
@@ -3221,7 +3221,7 @@ public class WSViaticos : System.Web.Services.WebService
 
         //FC: antes del nuevos permisos
         //var listaDeAreas = Autorizador().AreasAdministradasPor(usuario).ToArray();
-        var listaDeAreas = Autorizador().NuevoAreasAdministradasPorUsuarioYFuncionalidad(usuario,idFuncionalidad).ToArray();
+        var listaDeAreas = Autorizador().NuevoAreasAdministradasPorUsuarioYFuncionalidad(usuario, idFuncionalidad).ToArray();
         var stringDeAreas = JsonConvert.SerializeObject(listaDeAreas, Formatting.Indented, new JsonSerializerSettings() { ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore });
 
         Area[] areas = JsonConvert.DeserializeObject<Area[]>(stringDeAreas);
@@ -3479,7 +3479,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public bool CambiarOrganismoEnSolicitudCredencial(SolicitudCredencial solicitud, int id_organismo_nuevo,  Usuario usuario)
+    public bool CambiarOrganismoEnSolicitudCredencial(SolicitudCredencial solicitud, int id_organismo_nuevo, Usuario usuario)
     {
         RepositorioLegajo repositorio = RepoLegajo();
         return repositorio.CambiarOrganismoEnSolicitudCredencial(solicitud, id_organismo_nuevo, usuario);
@@ -5665,7 +5665,7 @@ public class WSViaticos : System.Web.Services.WebService
         var repo = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
         var asigs = repo.GetAgentesEvaluablesParaImprimir(usuario).asignaciones;
         var fetch_asignacion = asigs.Find(a => a.id_evaluacion == asignacion.id_evaluacion);
-        
+
         return PrintPdfEvaluacionDesempenio(fetch_asignacion, usuario);
     }
 
@@ -5914,7 +5914,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
 
-   
+
     [WebMethod]
     public Serv_Adm_Publica_Privada[] GetExperienciaLaboral_Principal(int nroDocumento, Usuario usuario)
     {
@@ -6003,6 +6003,24 @@ public class WSViaticos : System.Web.Services.WebService
         RepositorioLegajo repo = RepoLegajo();
 
         return repo.ObtenerDomicilioPersonal(persona, usuario);
+    }
+
+
+    [WebMethod]
+    public TipoDeDocumento[] GetTipoDocumento_A_Generar()
+    {
+        RepositorioDocumentosRecepcionados tipodoc = new RepositorioDocumentosRecepcionados();
+        
+        return tipodoc.GetTipoDocumento_A_Generar().ToArray();
+    }
+
+
+    [WebMethod]
+    public DocumentosRecepcionados[] GetDocumentos_Recepcionados()
+    {
+        RepositorioDocumentosRecepcionados doc = new RepositorioDocumentosRecepcionados();
+
+        return doc.GetDocumentos_Recepcionados().ToArray();
 
     }
 

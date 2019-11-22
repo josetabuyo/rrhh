@@ -767,6 +767,125 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="ObtenerDomicilioPersonal">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="persona" type="tns:Persona" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerDomicilioPersonalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerDomicilioPersonalResult" type="tns:CvDomicilio" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="CvDomicilio">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Calle" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Numero" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Piso" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Depto" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Localidad" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cp" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Provincia" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Manzana" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Barrio" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Casa" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Torre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Uf" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Partido" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="NombreLocalidad" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NombreProvincia" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Dom_Localidad" type="tns:Localidad" />
+          <s:element minOccurs="0" maxOccurs="1" name="Dom_Provincia" type="tns:Provincia" />
+          <s:element minOccurs="0" maxOccurs="1" name="Partido_Nombre" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Localidad">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdProvincia" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Provincia">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CodigoAFIP" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Localidades" type="tns:ArrayOfLocalidad" />
+          <s:element minOccurs="0" maxOccurs="1" name="Zona" type="tns:Zona" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfLocalidad">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Localidad" nillable="true" type="tns:Localidad" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Zona">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Provincias" type="tns:ArrayOfProvincia" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfProvincia">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Provincia" nillable="true" type="tns:Provincia" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetTipoDocumento_A_Generar">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetTipoDocumento_A_GenerarResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTipoDocumento_A_GenerarResult" type="tns:ArrayOfTipoDeDocumento" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfTipoDeDocumento">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TipoDeDocumento" nillable="true" type="tns:TipoDeDocumento" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TipoDeDocumento">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetDocumentos_Recepcionados">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetDocumentos_RecepcionadosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDocumentos_RecepcionadosResult" type="tns:ArrayOfDocumentosRecepcionados" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfDocumentosRecepcionados">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DocumentosRecepcionados" nillable="true" type="tns:DocumentosRecepcionados" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DocumentosRecepcionados">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Id_Tipo_Doc" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdPersona" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cantidad_Folios" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Fecha_Recepcion" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Usuario_Recepcion" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Fecha_Carga" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Usuario_Carga" type="s:int" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="BuscarEstadosCiviles">
         <s:complexType>
           <s:sequence>
@@ -806,17 +925,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="ArrayOfTipoDeDocumento">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="TipoDeDocumento" nillable="true" type="tns:TipoDeDocumento" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="TipoDeDocumento">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="BuscarSexos">
         <s:complexType>
           <s:sequence>
@@ -931,18 +1039,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="ArrayOfLocalidad">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Localidad" nillable="true" type="tns:Localidad" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="Localidad">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="IdProvincia" type="s:int" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="GetFormulario">
         <s:complexType>
           <s:sequence>
@@ -1869,26 +1965,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="CvDomicilio">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Calle" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="Numero" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Piso" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Depto" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="Localidad" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="Cp" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="Provincia" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Manzana" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Barrio" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Casa" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Torre" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Uf" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="Partido" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="NombreLocalidad" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="NombreProvincia" type="s:string" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="GuardarDomicilioPendienteResponse">
         <s:complexType>
           <s:sequence>
@@ -3999,27 +4075,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="ArrayOfProvincia">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Provincia" nillable="true" type="tns:Provincia" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="Provincia">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="CodigoAFIP" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Localidades" type="tns:ArrayOfLocalidad" />
-          <s:element minOccurs="0" maxOccurs="1" name="Zona" type="tns:Zona" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="Zona">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Provincias" type="tns:ArrayOfProvincia" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="BuscarNacionalidades">
         <s:complexType>
           <s:sequence>
@@ -8864,6 +8919,24 @@
   <wsdl:message name="GET_Servicios_Adm_DetallesSoapOut">
     <wsdl:part name="parameters" element="tns:GET_Servicios_Adm_DetallesResponse" />
   </wsdl:message>
+  <wsdl:message name="ObtenerDomicilioPersonalSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerDomicilioPersonal" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerDomicilioPersonalSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerDomicilioPersonalResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTipoDocumento_A_GenerarSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTipoDocumento_A_Generar" />
+  </wsdl:message>
+  <wsdl:message name="GetTipoDocumento_A_GenerarSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTipoDocumento_A_GenerarResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentos_RecepcionadosSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDocumentos_Recepcionados" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentos_RecepcionadosSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDocumentos_RecepcionadosResponse" />
+  </wsdl:message>
   <wsdl:message name="BuscarEstadosCivilesSoapIn">
     <wsdl:part name="parameters" element="tns:BuscarEstadosCiviles" />
   </wsdl:message>
@@ -11379,6 +11452,18 @@
       <wsdl:input message="tns:GET_Servicios_Adm_DetallesSoapIn" />
       <wsdl:output message="tns:GET_Servicios_Adm_DetallesSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="ObtenerDomicilioPersonal">
+      <wsdl:input message="tns:ObtenerDomicilioPersonalSoapIn" />
+      <wsdl:output message="tns:ObtenerDomicilioPersonalSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTipoDocumento_A_Generar">
+      <wsdl:input message="tns:GetTipoDocumento_A_GenerarSoapIn" />
+      <wsdl:output message="tns:GetTipoDocumento_A_GenerarSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentos_Recepcionados">
+      <wsdl:input message="tns:GetDocumentos_RecepcionadosSoapIn" />
+      <wsdl:output message="tns:GetDocumentos_RecepcionadosSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="BuscarEstadosCiviles">
       <wsdl:input message="tns:BuscarEstadosCivilesSoapIn" />
       <wsdl:output message="tns:BuscarEstadosCivilesSoapOut" />
@@ -13203,6 +13288,33 @@
     </wsdl:operation>
     <wsdl:operation name="GET_Servicios_Adm_Detalles">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GET_Servicios_Adm_Detalles" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDomicilioPersonal">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ObtenerDomicilioPersonal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTipoDocumento_A_Generar">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetTipoDocumento_A_Generar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentos_Recepcionados">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetDocumentos_Recepcionados" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -17049,6 +17161,33 @@
     </wsdl:operation>
     <wsdl:operation name="GET_Servicios_Adm_Detalles">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GET_Servicios_Adm_Detalles" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDomicilioPersonal">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ObtenerDomicilioPersonal" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTipoDocumento_A_Generar">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetTipoDocumento_A_Generar" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentos_Recepcionados">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetDocumentos_Recepcionados" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
