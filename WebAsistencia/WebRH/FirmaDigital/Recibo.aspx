@@ -33,7 +33,7 @@
         </div>
 
         <!--contenido derecho -->
-         <div  class="caja_derxxxx papel" style="margin-top:5px;float:left;width:80% ">
+         <div  class="caja_derxxxx papelxxx" style="margin-top:5px;float:left;width:80% ">
            <!--modulo de firma iterativa -->
            <div id="subcontenidoFirmaIterativa" class="panelDerOcultable" style="display: inline;"> 
                <!--no uso la clase de table pero la dejo para ver si la llego a usar-->
