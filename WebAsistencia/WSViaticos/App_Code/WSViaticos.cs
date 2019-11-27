@@ -351,7 +351,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public AreaParaDDJJ104[] GetAreasParaDDJJ104(int mes, int anio, int id_area, int complementaria, Usuario usuario)
     {
-        var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas(), Autorizador());
+        var responsableDDJJ = new ResponsableDDJJ(RepoPermisosSobreAreas(), RepositorioDeFuncionalidadesDeUsuarios(), Autorizador());
         var a = new AreaParaDDJJ104[1];
 
         if (id_area == 0)

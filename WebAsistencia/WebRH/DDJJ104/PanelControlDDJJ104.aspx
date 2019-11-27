@@ -23,36 +23,29 @@
             Men&uacute; de DDJJ 104
             
             
-            <div id="DivBotonCertificarPersonasNoCertificadas" runat="server" style="display: block; float:right;
-                margin-top: 4px; margin-left: 4px; border: #0055cc;" >
-                <asp:Button runat="server" ID="btnCertificarPersonasNoCertificadas" 
+
+                <asp:Button runat="server" ID="btnCertificarPersonasNoCertificadas" style="display: none; float:right;
+                margin-top: 4px; margin-left: 4px; border: #0055cc;"
                     RequiereFuncionalidad="certificar_personas_no_certificadas" CssClass="btn btn-primary" 
                     Text="Certificar personas no certificadas" UseSubmitBehavior="True" 
                     onclick="btnCertificarPersonasNoCertificadas_Click" />
-            </div>
-            
-            <div id="DivBotonPersonasNoCertificadas" runat="server"   style="display: block; float:right;
-                margin-top: 4px; margin-left: 4px; border: #0055cc;" >
-                <asp:Button runat="server" ID="btnPersonasNoCertificadas" 
+
+                <asp:Button runat="server" ID="btnPersonasNoCertificadas" style="display: none; float:right;
+                margin-top: 4px; margin-left: 4px; border: #0055cc;" 
                     RequiereFuncionalidad="personas_no_certificadas" CssClass="btn btn-primary" 
                     Text="Personas no certificadas" UseSubmitBehavior="True" 
                     onclick="btnPersonasNoCertificadas_Click" />
-            </div>
 
-            <div id="DivBotonConsultarDDJJ" runat="server"   style="display: block; float:right;
-                margin-top: 4px; margin-left: 4px; border: #0055cc;" >
                 <asp:Button runat="server" ID="btnConsultaDDJJ" RequiereFuncionalidad="consultar_ddjj" CssClass="btn btn-primary" 
-                    Text="Consultar DDJJ" UseSubmitBehavior="True" 
+                    Text="Consultar DDJJ" UseSubmitBehavior="True" style="display: none; float:right;
+                    margin-top: 4px; margin-left: 4px; border: #0055cc;"
                     onclick="btnConsultaDDJJ_Click"/> 
-            </div>
-            
-            <div id="DivBotonCertificarArea" runat="server"  style="display: block; float:right;
-                margin-top: 4px; margin-left: 4px; border: #0055cc;" >
+   
+
                 <asp:Button runat="server" ID="btnCertificarArea" RequiereFuncionalidad="ingreso_a_ddjj104" CssClass="btn btn-primary" 
-                    Text="Certificar Areas" UseSubmitBehavior="True"
+                    Text="Certificar Areas" UseSubmitBehavior="True" style="display: none; float:right;
+                    margin-top: 4px; margin-left: 4px; border: #0055cc;"
                     onclick="btnCertificarArea_Click" /> 
-            </div>
-            
 
         </div>
     </div>

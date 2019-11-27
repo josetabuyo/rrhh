@@ -288,7 +288,7 @@ namespace General.MAU
                              "<br/>" +
                              "Nombre de Usuario: " + usuario.Alias +
                              "<br/>" +
-                             "Contraseña: " + clave_nueva +
+                             "Contraseña: " + clave_nueva +  
                              "<br/>" +
                              "<br/>" +
                              "Luego de ingresar al sistema con esta nueva clave, recuerde cambiar la misma desde la opción " +
