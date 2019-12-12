@@ -7,15 +7,15 @@
             <p><em style="color:Red;">*</em> Campos Obligatorios</p>
             <p style="text-align:right;">
                 Folio:
-                <input class="etiqueta_campo" style="width: 40px; height: 30px;" name="folioParte1" type="number" /> :
-                <input style="width: 50px; height: 30px;" class="etiqueta_campo" name="folioParte2" type="number" /> :
-                <input style="width: 40px; height: 30px;" class="etiqueta_campo" name="folioParte3" type="number" />
+                <input class="etiqueta_campo" style="width: 40px; height: 30px;" id="folioParte1" name="folioParte1" type="number" /> :
+                <input style="width: 60px; height: 30px;" class="etiqueta_campo" id="folioParte2" name="folioParte2" type="number" /> :
+                <input style="width: 40px; height: 30px;" class="etiqueta_campo" id="folioParte3" name="folioParte3" type="number" />
             </p>
             <label class="etiqueta_campo" for="txt_calle">Calle: <em style="color:Red;">*</em></label>
             <input type="text" value="" id="txt_calle" name="txt_calle" style="width: 250px; height: 30px;" />
             <br />
             <label class="etiqueta_campo" for="txt_numero">N°: <em style="color:Red;">*</em></label>
-            <input type="number" value="" id="txt_numero" name="txt_numero" style="width: 50px; height: 30px;" />
+            <input type="number" value="" id="txt_numero" name="txt_numero" style="width: 70px; height: 30px;" />
             <label class="etiqueta_campo" style="margin: 0 10px;" for="txt_piso">Piso: </label>
             <input type="text" value="" id="txt_piso" name="txt_piso" style="width: 30px; height: 30px;" />
             <label class="etiqueta_campo" style="margin: 0 10px;" for="txt_dto">Dpto: </label>
@@ -44,18 +44,28 @@
             <input id="btnAceptar" value="Aceptar" class="btn btn-primary" type="button" />
             <input id="btnSoloRecepcionar" value="Solo Recepcionar" class="btn btn-primary" type="button" />
             <input id="btnAceptarSinFolio" value="Aceptar Sin Folio" class="btn btn-primary" type="button" />
-            <input id="imagen" type="file" class="btn" />
+            <label class="labelInputFile" for="inputImagen"><span id="textoLabel">Subir Imagen</span></label>
+            <span class="inputImagen"><input id="inputImagen" name="inputImagen" type="file" class="btnOculto" /></span>
         </div>
 
     </div>
 </div>
+
 <script type="text/javascript">
 
     $(document).ready(function ($) {
 
+        $('input[type=file]').change(function () {
+            var filename = $(this).val().split('\\').pop();
+            var idname = $(this).attr('id');
+            console.log($(this));
+            console.log(filename);
+            console.log(idname);
+            $('#textoLabel').html(filename);
+        });
 
         Backend.start(function () {
-           
+
             Backend.BuscarProvincias({})
                 .onSuccess(function (provincias) {
                     $.each(provincias, function () {
@@ -78,8 +88,50 @@
 
                     });
             })
+
+            $("#btnAceptar").click(function (e) {
+                var domicilio = armarDomicilio();
                 
+
+                console.log(domicilio);
+                
+            })
+
+            $("#btnSoloRecepcionar").click(function (e) {
+
+
+            })
+
+            $("#btnAceptarSinFolio").click(function (e) {
+
+
+            })
+
+            $("#btnAceptar").click(function (e) {
+
+
+            })
         });
+
+        function armarDomicilio() {
+            var domicilio = {};
+            domicilio.Folio = $('#folioParte1').val() + '-' + $('#folioParte2').val() + '-' + $('#folioParte3').val();
+            domicilio.Calle = $('#txt_calle').val();
+            domicilio.Numero = $('#txt_numero').val();
+            domicilio.Piso = $('#txt_piso').val();
+            domicilio.Depto = $('#txt_dto').val();
+            domicilio.Cp = $('#txt_cp').val();
+            domicilio.Localidad = $('#cmb_localidad').val();
+            domicilio.Provincia = $('#cmb_provincia').val();
+            domicilio.Manzana = $('#txt_manzana').val();
+            domicilio.Casa = $('#txt_casa').val();
+            domicilio.Barrio = $('#cmb_barrio').val();
+            domicilio.Torre = $('#cmb_torre').val();
+            domicilio.Uf = $('#cmb_uf').val();
+
+            return domicilio;
+        } 
+        
     });
 
 </script>
