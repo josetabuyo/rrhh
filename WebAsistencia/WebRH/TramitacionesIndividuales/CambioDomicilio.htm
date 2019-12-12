@@ -46,6 +46,7 @@
             <input id="btnAceptarSinFolio" value="Aceptar Sin Folio" class="btn btn-primary" type="button" />
             <label class="labelInputFile" for="inputImagen"><span id="textoLabel">Subir Imagen</span></label>
             <span class="inputImagen"><input id="inputImagen" name="inputImagen" type="file" class="btnOculto" /></span>
+            <input type="hidden" id="imagenBase64" />
         </div>
 
     </div>
@@ -62,6 +63,14 @@
             console.log(filename);
             console.log(idname);
             $('#textoLabel').html(filename);
+            //FC convierto la iamgen a base64
+            var file = $(this)[0].files[0];
+            var reader = new FileReader();
+            reader.onloadend = function () {
+                $("#imagenBase64").val(reader.result);
+            }
+
+            reader.readAsDataURL(file);
         });
 
         Backend.start(function () {
@@ -128,6 +137,7 @@
             domicilio.Barrio = $('#cmb_barrio').val();
             domicilio.Torre = $('#cmb_torre').val();
             domicilio.Uf = $('#cmb_uf').val();
+            domicilio.Foto = $("#imagenBase64").val();
 
             return domicilio;
         } 
