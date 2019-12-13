@@ -47,7 +47,7 @@
                     <select id="comboTiposDeDocumento">
                         <option value="FotocopiaDNI.htm">Fotocopia DNI</option>
                         <option value="CambioDomicilio.htm">DDJJ Cambio domicilio</option>
-                        <option value="obraSocial">Cambio Obra Social</option>
+                        <option value="CambioObraSocial.htm">Cambio Obra Social</option>
                         <option value="estudio">Carga Estudio</option>
                     </select>
                 </div>

@@ -411,3 +411,18 @@
     background-color: #106BA0;
     cursor: pointer;
 }
+
+.contenedorGeneral {
+    background-color: #f3f3f3;
+    padding: 10px;
+}
+
+.miniCaja {
+    float: left;
+    width: 50%;
+    height: 100px;
+}
+
+.miniCajaDer {
+
+}

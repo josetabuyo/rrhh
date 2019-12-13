@@ -1,0 +1,131 @@
+﻿<div id="cajaSelectorDocumentos" class="">
+
+    <div id="cajaCambiarDomicilio" class="">
+        <h3 style="text-align: center;">Formulario de Libre Elección de Obra Social</h3>
+        <br />
+        <div class="contenedorGeneral">
+            <p>N° Formulario: <input class="etiqueta_campo" style="width: 100px; height: 30px;" id="formulario" name="formulario" type="number" /></p>
+            <p style="text-align:right;">
+                Folio:
+                <input class="etiqueta_campo" style="width: 40px; height: 30px;" id="folioParte1" name="folioParte1" type="number" /> :
+                <input style="width: 60px; height: 30px;" class="etiqueta_campo" id="folioParte2" name="folioParte2" type="number" /> :
+                <input style="width: 40px; height: 30px;" class="etiqueta_campo" id="folioParte3" name="folioParte3" type="number" />
+            </p>
+            <div>
+                <div class="miniCaja">
+                    <label>OBRA SOCIAL VIGENTE HASTA HOY:</label>
+                    <p>Código y Sigla: <span id="codigoObraSocialVigente">125707-OSPCN</span></p>
+                    <p>Denominacion y Sigla: <span id="denominacionObraSocialVigente">Union Personal</span></p>
+                </div>
+                <div class="miniCaja">
+                    <p>Fecha de Presentación: <input type="text" style="width: 100px; height: 30px;" value="16/04/2019" disabled /></p>
+                </div>
+            </div>
+            <hr style="border-top: 1px solid #ccc;" />
+            <div>
+                <label class="etiqueta_campo" for="cmb_provincia">Seleccionar Obra Social:</label>
+                <select id="cmb_obrasSociales">
+                    <option>UPCS</option>
+                    <option>Marica Mercante</option>
+                </select>
+            </div>
+            <hr style="border-top: 1px solid #ccc;" />
+            <div>
+                <div class="miniCaja">
+                    <label>OBRA SOCIAL ELEGIDA:</label>
+                    <p>Código y Sigla: <span id="codigoObraSocialNueva">125707-OSPCN</span></p>
+                    <p>Denominacion y Sigla: <span id="denominacionObraSocialNueva">Union Personal</span></p>
+                </div>
+                <div class="miniCaja">
+                    <p>Fecha de Presentación: <input type="date" style="height: 30px;" id="fechaPresentacionObra" /></p>
+                </div>
+            </div>
+            <p style="clear:left;"></p>
+
+        </div>
+        <br />
+        <div style="text-align:center;">
+            <input id="btnAceptar" value="Aceptar" class="btn btn-primary" type="button" />
+            <input id="btnSoloRecepcionar" value="Solo Recepcionar" class="btn btn-primary" type="button" />
+            <input id="btnAceptarSinFolio" value="Aceptar Sin Folio" class="btn btn-primary" type="button" />
+            <label class="labelInputFile" for="inputImagen"><span id="textoLabel">Subir Imagen</span></label>
+            <span class="inputImagen"><input id="inputImagen" name="inputImagen" type="file" class="btnOculto" /></span>
+            <input type="hidden" id="imagenBase64" />
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function ($) {
+
+        $('input[type=file]').change(function () {
+            var filename = $(this).val().split('\\').pop();
+            var idname = $(this).attr('id');
+            console.log($(this));
+            console.log(filename);
+            console.log(idname);
+            $('#textoLabel').html(filename);
+            //FC convierto la iamgen a base64
+            var file = $(this)[0].files[0];
+            var reader = new FileReader();
+            reader.onloadend = function () {
+                $("#imagenBase64").val(reader.result);
+            }
+
+            reader.readAsDataURL(file);
+        });
+
+        Backend.start(function () {
+
+           /* Backend.BuscarObrasSociales()
+                .onSuccess(function (obrasSociales) {
+                    $.each(obrasSociales, function () {
+                        //$('#cmb_provincia').append($("<option />").val(this.Id).text(this.Nombre));
+                    });
+                })
+                .onError(function (e) {
+
+                });*/
+
+           
+            $("#btnAceptar").click(function (e) {
+                var obraSocial = armarObraSocial();
+                
+
+                console.log(obraSocial);
+                
+            })
+
+            $("#btnSoloRecepcionar").click(function (e) {
+
+
+            })
+
+            $("#btnAceptarSinFolio").click(function (e) {
+
+
+            })
+
+            $("#btnAceptar").click(function (e) {
+
+
+            })
+        });
+
+        function armarObraSocial() {
+            var obraSocial = {};
+            obraSocial.Folio = $('#folioParte1').val() + '-' + $('#folioParte2').val() + '-' + $('#folioParte3').val();
+            obraSocial.codigo = $('#codigoObraSocialNueva').html();
+            obraSocial.denominacion = $('#denominacionObraSocialNueva').html();
+            obraSocial.fechaPresentacion = $('#fechaPresentacionObra').val();
+            obraSocial.formulario = $('#formulario').val();
+            obraSocial.Foto = $("#imagenBase64").val();
+
+            return obraSocial;
+        } 
+        
+    });
+
+</script>
