@@ -13,7 +13,7 @@
         <link rel="stylesheet" href="estilosPortalSecciones.css" />
 
         <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
-        <link rel="stylesheet"  href="../Permisos/estilosPermisos.css" />
+        <link rel="stylesheet"  href="estilosPermisos.css" />
         <link rel="stylesheet" href="../Permisos/Permisos.css" type="text/css"/>    
         <link rel="stylesheet" href="../estilos/SelectorDePersonas.css" type="text/css"/>    
         <link rel="stylesheet" href="../estilos/SelectorDeAreas.css" type="text/css"/>   
@@ -32,104 +32,98 @@
         <!--caja de contenido por debajo del menu-->
     <div style="width:99%; margin-left:11px; margin-right:11px">
         <!-- el back-ground lo setee abajo porque justo hay unn estilo en permisos de caja_izq con otro color de azul-->
-        <div style="background-image: linear-gradient(to bottom, rgb(1,70,99), rgb(1,70,99))" class="caja_izq no-print"></div>
+        <!--<div style="background-image: linear-gradient(to bottom, rgb(1,70,99), rgb(1,70,99))" class="caja_izq no-print"></div>-->
+        <div class="caja_izq no-print"></div>
         <!--contenido derecho -->
-         <div  class="caja_derxxxx papelxxx" style="margin-top:5px;float:left;width:80% ">
+         <div  class="caja_derxxxx papelxxx" style="margin-top:32px;float:left;width:80% ">
            <!--modulo de firma iterativa -->
            <div id="subcontenidoFirmaIterativa" class="panelDerOcultable" style="display: inline;"> 
 
                <div style="width:80%;margin:20pt;-webkit-border-radius: 7px 7px 0px 0px;
--moz-border-radius: 7px 7px 0px 0px;border-radius: 7px 7px 0px 0px;border-collapse: collapse;border: 0px solid #1C6EA4;padding-left:40pt">
+-moz-border-radius: 7px 7px 0px 0px;border-radius: 7px 7px 0px 0px;border-collapse: collapse;border: 0px solid #1C6EA4;padding-left:40pt;text-align: center;margin: 0 auto;">
                    <div class="cajaPermisos">
-                       <div id="buscador_de_personas">
+                       <div id="buscador_de_personas" style="vertical-align: middle; padding:5px;;margin-bottom:20px">
                          <p class="buscarPersona" style="display: inline-block;">Buscar persona:
                             <div id="selector_usuario" class="selector_personas" style="display: inline-block;">
                                 <input id="buscador" type="hidden" />
                             </div>
                         </p>
                        </div>
-                    </div>
-               </div> 
+                    </div>                   
+                   <hr class="barraHorizontal">
+                   <br />
 
-                
-
-
-            <div id="panel_datos_usuario" style="display:none">
-                <div id="panel_superior_izquierdo" class="estilo_formulario">
-                    <div id="contenedor_foto">
+                   <div id="panel_datos_usuario" style="display:none">
+                   <div id="panel_superior_izquierdo" class="estilo_formulario3">
+                    <div id="contenedor_foto2">
                         <div id="foto_usuario"> </div>
                         <img id="foto_usuario_generica" src="usuario.png"/>
                         <div id="barrita_cambio_foto">
-                            <div>Cambiar</div>
+                            <div></div>
                         </div>
                     </div>
                     <div id="cambio_imagen_pendiente" >
                         <img src="camera.png"/>
                     </div>
-                    <div id="panel_datos_personales">
-                        <div class="linea dato_personal">
+                    <div id="panel_datos_personales3">
+                        <div class="linea dato_personal2">
                             <div id="nombre2"></div>
                             <div id="apellido2"></div>
                         </div>
-                        <div class="linea dato_personal">
+                        <div class="linea dato_personal2">
                             <div>Documento:</div>
                             <div id="documento2" ></div>
                         </div>
-                        <div class="linea dato_personal">
+                        <div class="linea dato_personal2">
                             <div>Legajo:</div>
                             <div id="legajo2"></div>    
                         </div>     
-                        <div class="linea dato_personal">
+
+                        <div class="linea dato_personal2">
                             <div>Email:</div>
-                            <div id="email"></div>   
-                            <input id="btn_modificar_mail" type="button" class="btn-primary botonesPermisos" value="Modificar"  /> 
-                        </div>      
-                        <input id="btn_credencial_usuario" type="button" class="btn-primary botonesPermisos" value="Credencial" />           
-                    </div>
-                    <div id="panel_password">
-                        <div class="linea linea_nombre_usuario">
-                            <div class="titulo">Nombre de Usuario</div>
-                            <div id="txt_nombre_usuario"> </div>  
-                        </div>
-                        <div class="linea linea_passwrd">
-                            <div class="titulo">Contraseña:</div>
-                            <input id="btn_reset_password" type="button" class="btn-primary botonesPermisos" value="Resetear" />
-                        </div>
-                        <div class="seccion_verificacion_usuario">
-                            <div id="usuario_verificado">DNI Verificado</div>    
-                            <div id="usuario_no_verificado">DNI No Verificado</div>    
-                            <input id="btn_verificar_usuario" type="button" class="btn-primary botonesPermisos" value="Verificar"  />
-                        </div>
-                    </div>
-                </div> 
-            </div> 
-
-                <div id="caja_permisos_actuales" style="display:none;">
-                    <legend style="margin-top: 20px;">PERMISOS ACTUALES</legend>
-                    <div id="tabla_permisos">
-    
-                    </div>
-
-                    <div id="caja_funcionalidades">
-                         <input type="text" id="search" class="search buscador" style="height: 30px;" placeholder="Buscar Funcionalidad"  />
-                         <div id="tabla_funcionalidades">
-    
-                        </div>
+                            <div id="email"></div>                               
+                        </div>    
+                        <div class="linea dato_personal2">
+                            <div>Area:</div>
+                            <div id="areaActual"></div>                               
+                        </div> 
                     </div>
                     
-                </div>
+                </div> 
+
+                <!-- 	lista de recibos -->    
+	            <div id ="div6" class="resultadoValidarxxx">  
+                    <table class="stripedGris tablex table-stripedx table-bordered table-condensed" style="width:100%"><tbody class="list"><tr><td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;width:10px;text-align:center" >&nbsp;</td><td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;text-align:center" >Liquidación</td><td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;text-align:center" >Sector</td></tr>';
+
+                    </tbody></table>';
+	            </div>     
+         
+
+
+            </div> 
+                
             </div>
 
 
-         
+
+               </div> 
+
+               
+                
+
+
+            
+
+
+         <!-- plantilla de carga de prebusquedas en el input de la busqueda-->
         <div id="plantillas">
             <div class="vista_persona_en_selector">
                 <div id="contenedor_legajo" class="label label-warning">
                     <div id="titulo_legajo">Leg:</div>
                     <div id="legajo"></div>
                 </div> 
-                <div id="nombre"></div>
-                <div id="apellido"></div>
+                <div id="nombre" style="font-size:15px;color:black;" ></div>
+                <div id="apellido" style="font-size:15px;color:black;"></div>
                 <div id="contenedor_doc" class="label label-default">
                     <div id="titulo_doc">Doc:</div>
                     <div id="documento"></div>         
@@ -179,7 +173,7 @@
 <script type="text/javascript" src="../Scripts/select2-3.4.4/Select2.min.js"></script>
 <script type="text/javascript" src="../Scripts/select2-3.4.4/select2_locale_es.js"></script>
 
-<script type="text/javascript" src="../Permisos/Permisos.js"></script>
+<script type="text/javascript" src="js/imprimirRecibo.js"></script>
 <script type="text/javascript" src="../Scripts/Spin.js"></script>
 
 
