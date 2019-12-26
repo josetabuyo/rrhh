@@ -6146,7 +6146,9 @@ public class WSViaticos : System.Web.Services.WebService
 
                     RepoReciboFirmado().agregarReciboFirmado(id_recibo, id_archivo, anio, mes, tipoLiquidacion, usuario.Owner.Id, hoy, Convert.ToBase64String(byteHash));
          */
-        RepoReciboFirmado().agregarReciboFirmado(idLiquidacion, id_recibo, id_archivo, anio, mes, tipoLiquidacion, usuario.Owner.Id);
+
+        
+        RepoReciboFirmado().agregarReciboFirmado(idLiquidacion, id_recibo, id_archivo, anio, mes, tipoLiquidacion);
                 
         //los bytes vienen en base64, convierto de base64 a string y luego a bytes.
         byte[] data = System.Convert.FromBase64String(bytes_pdf);
@@ -6240,6 +6242,18 @@ public class WSViaticos : System.Web.Services.WebService
         int mes = 1;
         RepositorioLegajo repo = RepoLegajo();
         return repo.GetLiquidacionesAFirmar(anio,mes);
+    }
+
+
+    /*recibos de sueldos de un dado usuario*/
+    [WebMethod]
+    public string GetRecibos(Usuario usuario)
+    {
+        /*el año y mes de inicio de posibilidad de firmar esta HARCODEADO AQUI*/
+        int anio = 2018;
+        int mes = 1;
+        //RepositorioLegajo repo = RepoLegajo();
+        //return repo.GetLiquidacionesAFirmar(anio, mes);
     }
 
     #endregion
