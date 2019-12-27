@@ -150,6 +150,7 @@
     <Compile Include="pdfs\GenReciboEmpleadoToPdfConverter.cs" />
     <Compile Include="pdfs\GenReciboToPdfConverter.cs" />
     <Compile Include="pdfs\ModeloToPdfConverter.cs" />
+    <Compile Include="Persona\ObraSocial.cs" />
     <Compile Include="Portal\Consulta.cs" />
     <Compile Include="Portal\Credencial.cs" />
     <Compile Include="Portal\Destinatario.cs" />
@@ -576,6 +577,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

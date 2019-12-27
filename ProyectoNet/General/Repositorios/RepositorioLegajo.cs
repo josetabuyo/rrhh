@@ -1772,6 +1772,99 @@ namespace General.Repositorios
 
         }
 
+    
+        public List<ObraSocial> ObtenerObras_Sociales()
+        {
+
+            SqlDataReader dr;
+            ConexionDB cn = new ConexionDB("dbo.VW_obrasocial");
+       
+            dr = cn.EjecutarConsulta();
+
+            List<ObraSocial> lista_OS = new List<ObraSocial>();
+
+            while (dr.Read())
+            {
+                ObraSocial OS = new ObraSocial();
+                OS.Id = dr.GetInt32(dr.GetOrdinal("Id"));
+                OS.Sigla = dr.GetString(dr.GetOrdinal("Sigla"));
+                OS.Descripcion = dr.GetString(dr.GetOrdinal("Nombre"));
+                OS.Rnos = dr.GetString(dr.GetOrdinal("RNOS"));
+                lista_OS.Add(OS);
+            }
+
+            cn.Desconestar();
+
+            return lista_OS;
+        }
+
+
+        public bool AltaObras_Sociales(ObraSocial OS)
+        {
+
+            ConexionDB cn = new ConexionDB("dbo.GEN_ADD_ObraSocial");
+            cn.AsignarParametro("@Sigla", OS.Sigla);
+            cn.AsignarParametro("@Nombre", OS.Descripcion);
+            cn.AsignarParametro("@RNOS", OS.Rnos);
+
+            try
+            {
+                cn.EjecutarSinResultado();
+                cn.Desconestar();
+                return true;
+                
+            }
+            catch (Exception)
+            {
+                cn.Desconestar();
+                return false;
+            }
+        }
+
+
+        public bool ModificarObras_Sociales(ObraSocial OS)
+        {
+
+            ConexionDB cn = new ConexionDB("dbo.GEN_UPD_ObraSocial");
+            cn.AsignarParametro("@Id", OS.Id);
+            cn.AsignarParametro("@Sigla", OS.Sigla);
+            cn.AsignarParametro("@Nombre", OS.Descripcion);
+            cn.AsignarParametro("@RNOS", OS.Rnos);
+            cn.AsignarParametro("@Baja", OS.Baja);
+            
+            try
+            {
+                cn.EjecutarSinResultado();
+                cn.Desconestar();
+                return true;
+
+            }
+            catch (Exception)
+            {
+                cn.Desconestar();
+                return false;
+            }
+        }
+
+        public bool BajaObras_Sociales(ObraSocial OS)
+        {
+
+            ConexionDB cn = new ConexionDB("dbo.GEN_DEL_ObraSocial");
+            cn.AsignarParametro("@Id", OS.Id);
+
+            try
+            {
+                cn.EjecutarSinResultado();
+                cn.Desconestar();
+                return true;
+
+            }
+            catch (Exception)
+            {
+                cn.Desconestar();
+                return false;
+            }
+        }
 
 
     }

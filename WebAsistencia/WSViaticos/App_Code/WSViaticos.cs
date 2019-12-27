@@ -6025,5 +6025,36 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
 
+    [WebMethod]
+    public ObraSocial[] ObtenerObras_Sociales()
+    {
+        RepositorioLegajo repo = RepoLegajo();
+
+        return repo.ObtenerObras_Sociales().ToArray();
+    }
+
+    [WebMethod]
+    public bool AltaObras_Sociales(ObraSocial os)
+    {
+        RepositorioLegajo repo = RepoLegajo();
+        return repo.AltaObras_Sociales(os);
+    }
+
+    [WebMethod]
+    public bool ModificarObras_Sociales(ObraSocial os)
+    {
+        RepositorioLegajo repo = RepoLegajo();
+        return repo.ModificarObras_Sociales(os);
+    }
+
+    [WebMethod]
+    public bool BajaObras_Sociales(ObraSocial os)
+    {
+        RepositorioLegajo repo = RepoLegajo();
+        return repo.BajaObras_Sociales(os);
+    }
+
+
+
 
 }
