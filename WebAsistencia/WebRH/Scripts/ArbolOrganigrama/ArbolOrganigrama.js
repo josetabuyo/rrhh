@@ -1,11 +1,12 @@
-﻿var ArbolOrganigrama = function (contenedor) {
+﻿var ArbolOrganigrama = function (contenedor, idFuncionalidad) {
     var _this = this;
     this.vistaArbol = $("#plantillas .arbol_organigrama").clone();
     contenedor.append(this.vistaArbol);
     //var spinner = new Spinner({ scale: 2 });
     //spinner.spin(this.vistaArbol[0]);
     Backend.GetArbolOrganigrama().onSuccess(function (area_raiz) {
-        Backend.AreasAdministradasPor().onSuccess(function (areas_usuario) {
+        Backend.AreasAdministradasPorMiUsuarioYFuncionalidad(idFuncionalidad).onSuccess(function (areas_usuario) {
+        //Backend.AreasAdministradasPor().onSuccess(function (areas_usuario) {
             _this.areasUsuario = areas_usuario;
             _this.dibujarArea(area_raiz, _this.vistaArbol.find("#areas_arbol"));
             //spinner.stop();

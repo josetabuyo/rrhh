@@ -3,7 +3,7 @@ var mes;
 var idUsuario;
 var usuarioEncontrado;
 
-var TramitacionesIndividuales = {
+var Gestion = {
     init: function () {
 
         var proveedor_ajax = new ProveedorAjax("../");
@@ -27,6 +27,8 @@ var TramitacionesIndividuales = {
         selector_personas.alSeleccionarUnaPersona = function (la_persona_seleccionada) {
             _this.alSeleccionarUnaPersona(la_persona_seleccionada);
         };
+
+        _this.buscadorUsuariosPorArea();
 
     },
     alSeleccionarUnaPersona: function (la_persona_seleccionada) {

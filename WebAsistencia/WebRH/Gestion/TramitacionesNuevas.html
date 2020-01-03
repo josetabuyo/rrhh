@@ -1,0 +1,177 @@
+﻿<div id="buscador_de_personas">
+    <p class="buscarPersona" style="display: inline-block;">
+        Buscar persona:
+        <div id="selector_usuario" class="selector_personas" style="display: inline-block;">
+            <input id="buscador" type="hidden" />
+        </div>
+    </p>
+</div>
+
+<div>
+    <p>Datos de Contacto Personal para continuar el tramite</p>
+
+    <label>Telefono</label>
+    <input style="height: 30px;" type="text" id="telefono" />
+
+    <label>Correo Electronico</label>
+    <input style="height: 30px;" type="text" id="correo" />
+
+</div>
+
+<div class="divConsultaRapidaRevista">
+    Puede mostrarse una especia de consulta rapida para ver la situacion de revista actual
+
+</div>
+<br />
+<div>
+    <fieldset>
+        <legend>Funcionario que firma la solicitud</legend>
+        <select style="width: 100%;">
+            <option></option>
+        </select>
+    </fieldset>
+</div>
+<br />
+<div>
+    <fieldset>
+        <legend>Seleccione un Grupo de Solicitudes</legend>
+        <input name="grupoSolicitud" type="radio" value="" /> Designac/Contratat
+        <input name="grupoSolicitud" type="radio" value="" /> Movilidad
+        <input name="grupoSolicitud" type="radio" value="" /> Retribuciones
+        <input name="grupoSolicitud" type="radio" value="" /> Bajas
+    </fieldset>
+</div>
+<br />
+<div>
+    <fieldset>
+        <legend>Tipo de Solicitud</legend>
+        <select>
+            <optgroup label="Designaciones">
+                <option value="volvo">Titular del Area</option>
+                <option value="saab">Asesor de Gabinete</option>
+                <option value="saab">Contrato</option>
+            </optgroup>
+            <optgroup label="Movilidad">
+                <option value="mercedes">Cambio de Lugar de Trabajo</option>
+                <option value="audi">Adscripcion / Comision</option>
+                <option value="audi">Prestamo</option>
+            </optgroup>
+            <optgroup label="Retribuciones">
+                <option value="mercedes">Funcion Especifica</option>
+                <option value="audi">Autorizacion Hs Extras</option>
+            </optgroup>
+            <optgroup label="Bajas"></optgroup>
+        </select>
+        <br />
+        <p>Dependencias</p>
+        <div id="selector_area_usuarios" class="selector_areas" style="position: inherit; display: inline;">
+            <input id="buscador" type="hidden" class="buscarUsuarioPorArea" />
+        </div>
+
+        <p>Tipo de Asesor</p>
+        <select>
+            <option>AD HONOREM</option>
+            <option>EXTRA ESCALAFONARIO</option>
+            <option>CON UNIDADES RETRIBUTIVAS</option>
+        </select>
+
+        <p>Fecha Inicio</p>
+        <input style="height: 30px;" type="date" />
+
+    </fieldset>
+</div>
+
+<br />
+<div style="text-align:center;">
+    <input id="btnCancelar" value="Cancelar" class="btn btn-primary" type="button" />
+    <input id="btnGenerarNota" value="Generar Nota de Solicitud" class="btn btn-primary" type="button" />
+</div>
+
+
+
+<div id="plantillas">
+    <div class="vista_persona_en_selector">
+        <div id="contenedor_legajo" class="label label-warning">
+            <div id="titulo_legajo">Leg:</div>
+            <div id="legajo"></div>
+        </div>
+        <div id="nombre"></div>
+        <div id="apellido"></div>
+        <div id="contenedor_doc" class="label label-default">
+            <div id="titulo_doc">Doc:</div>
+            <div id="documento"></div>
+        </div>
+    </div>
+
+    <div class="vista_area_en_selector">
+        <div id="nombre"></div>
+    </div>
+
+</div>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function ($) {
+
+        $('input[type=file]').change(function () {
+            var filename = $(this).val().split('\\').pop();
+            var idname = $(this).attr('id');
+            console.log($(this));
+            console.log(filename);
+            console.log(idname);
+            $('#textoLabel').html(filename);
+            //FC convierto la iamgen a base64
+            var file = $(this)[0].files[0];
+            var reader = new FileReader();
+            reader.onloadend = function () {
+                $("#imagenBase64").val(reader.result);
+            }
+
+            reader.readAsDataURL(file);
+        });
+
+        Backend.start(function () {
+
+            Gestion.iniciarConsultaRapida();
+
+            /*Backend.ObtenerObras_Sociales()
+                .onSuccess(function (obrasSociales) {
+                    $.each(obrasSociales, function () {
+                        $('#cmb_obrasSociales').append($("<option />").val(this.Id).text(this.Descripcion));
+                    });
+                })
+                .onError(function (e) {
+
+                });*/
+
+
+            $("#btnAceptar").click(function (e) {
+                var obraSocial = armarObraSocial();
+
+
+                console.log(obraSocial);
+
+            })
+
+            $("#btnSoloRecepcionar").click(function (e) {
+
+
+            })
+
+            $("#btnAceptarSinFolio").click(function (e) {
+
+
+            })
+
+            $("#btnAceptar").click(function (e) {
+
+
+            })
+        });
+
+        
+
+    });
+
+</script>
