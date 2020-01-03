@@ -16,9 +16,9 @@
             <p><em style="color:Red;">*</em> Campos Obligatorios</p>
             <p style="text-align:right;">
                 Folio:
-                <input class="etiqueta_campo" style="width: 30px; height: 30px;" name="folioParte1" type="number" /> :
-                <input style="width: 50px; height: 30px;" class="etiqueta_campo" name="folioParte2" type="number" /> :
-                <input style="width: 40px; height: 30px;" class="etiqueta_campo" name="folioParte3" type="number" />
+                <input class="etiqueta_campo" style="width: 40px; height: 30px;" id="folioParte1" name="folioParte1" type="number" /> :
+                <input style="width: 60px; height: 30px;" class="etiqueta_campo" id="folioParte2" name="folioParte2" type="number" /> :
+                <input style="width: 40px; height: 30px;" class="etiqueta_campo" id="folioParte3" name="folioParte3" type="number" />
             </p>
             <div style="display:flex;">
                 <div>
@@ -36,7 +36,7 @@
                     <input type="date" value="" id="txt_fecha_nacimiento" name="txt_fecha_nacimiento" style="width: 200px; height: 30px;" />
                     <br />
                     <label class="etiqueta_campo" for="txt_lugar_nacimiento" style="min-width: 130px;">Lugar de Nac.: <em style="color:Red;">*</em></label>
-                    <input type="text" value="" id="txt_lugar_nacimiento" name="txt_lugar_nacimiento" style="width: 200px; height: 30px;" />
+                    <select id="cmb_lugar_nacimiento" style="width: 200px;margin-bottom: 10px;"></select>
                     <br />
                     <label class="etiqueta_campo" for="txt_sexo" style="min-width: 130px;">Sexo: <em style="color:Red;">*</em></label>
                     <select id="cmb_sexo" style="width: 200px;margin-bottom: 10px;"></select>
@@ -47,19 +47,19 @@
                     <br />
                 </div>
                 <div id="div_otra_nacionalidad" class="div_resaltado" style="display:none;">
-                    <label class="etiqueta_campo" for="txt_fecha_ingreso" style="min-width: 170px;">Fecha de Ingreso al País: <em style="color:Red;">*</em></label>
+                    <label class="etiqueta_campo" for="txt_fecha_ingreso" style="min-width: 170px;">Fecha de Ingreso al País: </label>
                     <input type="date" value="" id="txt_fecha_ingreso" name="txt_fecha_ingreso" style="width: 200px; height: 30px;" />
                     <br />
-                    <label class="etiqueta_campo" for="txt_carta_ciudadania" style="min-width: 170px;">Carta de Ciudadanía N°: <em style="color:Red;">*</em></label>
+                    <label class="etiqueta_campo" for="txt_carta_ciudadania" style="min-width: 170px;">Carta de Ciudadanía N°: </label>
                     <input type="text" value="" id="txt_carta_ciudadania" name="txt_carta_ciudadania" style="width: 200px; height: 30px;" />
                     <br />
-                    <label class="etiqueta_campo" for="txt_juzgado" style="min-width: 170px;">Juzgado: <em style="color:Red;">*</em></label>
+                    <label class="etiqueta_campo" for="txt_juzgado" style="min-width: 170px;">Juzgado: </label>
                     <input type="text" value="" id="txt_juzgado" name="txt_juzgado" style="width: 200px; height: 30px;" />
                     <br />
-                    <label class="etiqueta_campo" for="txt_secretario" style="min-width: 170px;">Secretario: <em style="color:Red;">*</em></label>
+                    <label class="etiqueta_campo" for="txt_secretario" style="min-width: 170px;">Secretario: </label>
                     <input type="text" value="" id="txt_secretario" name="txt_secretario" style="width: 200px; height: 30px;" />
                     <br />
-                    <label class="etiqueta_campo" for="txt_fecha_juzgado" style="min-width: 170px;">Fecha Juzgado: <em style="color:Red;">*</em></label>
+                    <label class="etiqueta_campo" for="txt_fecha_juzgado" style="min-width: 170px;">Fecha Juzgado: </label>
                     <input type="text" value="" id="txt_fecha_juzgado" name="txt_fecha_juzgado" style="width: 200px; height: 30px;" />
                     <br />
                 </div>
@@ -67,10 +67,12 @@
         </div>
         <br />
         <div style="text-align:center;">
-            <input id="btnCambiarDomicilio" value="Aceptar" class="btn btn-primary" type="button" />
-            <input id="btnCambiarDomicilio" value="Solo Recepcionar" class="btn btn-primary" type="button" />
-            <input id="btnCambiarDomicilio" value="Aceptar Sin Folio" class="btn btn-primary" type="button" />
-            <input id="imagen" type="file" value="Imagen" class="btn btn-primary" />
+            <input id="btnAceptar" value="Aceptar" class="btn btn-primary" type="button" />
+            <input id="btnSoloRecepcionar" value="Solo Recepcionar" class="btn btn-primary" type="button" />
+            <input id="btnAceptarSinFolio" value="Aceptar Sin Folio" class="btn btn-primary" type="button" />
+            <label class="labelInputFile" for="inputImagen"><span id="textoLabel">Subir Imagen</span></label>
+            <span class="inputImagen"><input id="inputImagen" name="inputImagen" type="file" class="btnOculto" /></span>
+            <input type="hidden" id="imagenBase64" />
         </div>
 
     </div>
@@ -78,47 +80,59 @@
 <script type="text/javascript">
 
     $(document).ready(function ($) {
-
         $("#cmb_nacionalidad").change(function (e) {
-            debugger;
-            if ($(this).val() != "Argentina") {
+            if (parseInt($(this).val()) != 1 || parseInt($("#cmb_lugar_nacimiento").val()) != 9) {
                 $("#div_otra_nacionalidad").show();
             } else {
                 $("#div_otra_nacionalidad").find("input").val("")
                 $("#div_otra_nacionalidad").hide();
             }
         });
-
+        $("#cmb_lugar_nacimiento").change(function (e) {
+            if (parseInt($(this).val()) != 9 || parseInt($("#cmb_nacionalidad").val()) != 1) {
+                $("#div_otra_nacionalidad").show();
+            } else {
+                $("#div_otra_nacionalidad").find("input").val("")
+                $("#div_otra_nacionalidad").hide();
+            }
+        });
+        $("#txt_apellido").val(usuarioEncontrado.Owner.Apellido);
+        $("#txt_nombre").val(usuarioEncontrado.Owner.Nombre);
         Backend.start(function () {
-            debugger;
-            //    Backend.BuscarTipoDeDocumento({})
-            //        .onSuccess(function (tipo_documento) {
-            //            $.each(tipos_documento, function () {
-            //                $('#cmb_tipo_documento').append($("<option />").val(this.Id).text(this.Nombre));
-            //            });
-            //        })
-            //        .onError(function (e) {
-
-            //        });
-            //    Backend.BuscarSexo({})
-            //        .onSuccess(function (sexos) {
-            //            $.each(sexos, function () {
-            //                $('#cmb_sexo').append($("<option />").val(this.Id).text(this.Nombre));
-            //            });
-            //        })
-            //        .onError(function (e) {
-
-            //        });
-            Backend.BuscarNacionalidad({})
-                .onSuccess(function (nacionalidades) {
-                    debugger;
-                    $.each(nacionalidades, function () {
-                        $('#cmb_nacionalidad').append($("<option />").val(this.Id).text(this.Nombre));
+            Backend.BuscarTiposDeDocumento({})
+                .onSuccess(function (sexos) {
+                    $.each(sexos, function () {
+                        $('#cmb_tipo_documento').append($("<option />").val(this.Id).text(this.Descripcion));
                     });
                 })
                 .onError(function (e) {
-                    debugger;
+                });
+            Backend.BuscarPaises({})
+                .onSuccess(function (paises) {
+                    $.each(paises, function () {
+                        $('#cmb_lugar_nacimiento').append($("<option />").val(this.Id).text(this.Descripcion));
+                    });
+                    $('#cmb_lugar_nacimiento').val(9);
+                })
+                .onError(function (e) {
+                });
+            Backend.BuscarSexos({})
+                .onSuccess(function (sexos) {
+                    $.each(sexos, function () {
+                        $('#cmb_sexo').append($("<option />").val(this.Id).text(this.Descripcion));
+                    });
+                })
+                .onError(function (e) {
+                });
+            Backend.BuscarNacionalidades({})
+                .onSuccess(function (nacionalidades) {
+                    $.each(nacionalidades, function () {
+                        $('#cmb_nacionalidad').append($("<option />").val(this.Id).text(this.Descripcion));
+                    });
+                })
+                .onError(function (e) {
                 });
         });
+    });
 
 </script>
