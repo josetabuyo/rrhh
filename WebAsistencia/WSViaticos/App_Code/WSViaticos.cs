@@ -3228,6 +3228,19 @@ public class WSViaticos : System.Web.Services.WebService
         return areas;
     }
 
+    [WebMethod]
+    public Area[] AreasAdministradasPorMiUsuarioYFuncionalidad(int idFuncionalidad, Usuario usuario)
+    {
+
+        JsonSerializerSettings settings = new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects };
+
+        var listaDeAreas = Autorizador().NuevoAreasAdministradasPorUsuarioYFuncionalidad(usuario, idFuncionalidad).ToArray();
+        var stringDeAreas = JsonConvert.SerializeObject(listaDeAreas, Formatting.Indented, new JsonSerializerSettings() { ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore });
+
+        Area[] areas = JsonConvert.DeserializeObject<Area[]>(stringDeAreas);
+        return areas;
+    }
+
     //[WebMethod]
     //public string AreasAdministradasPor2(Usuario usuario)
     //{

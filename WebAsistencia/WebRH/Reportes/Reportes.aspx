@@ -26,10 +26,10 @@
             <div id="contenedor_arbol_organigrama"> 
 
             </div>
-            <input id="btn_consulta_rapida" type="button" class="btn_consulta_individual" requierefuncionalidad="reportes_consulta_individual" value="Consulta Individual" />
+            <input id="btn_consulta_rapida" type="button" class="btn_consulta_individual" requierefuncionalidad="reportes_consulta_individual" value="Consulta Ind." />
             <input type="button" class="btn_organigrama" id="showLeftPush" value="Organigrama" />
             <div id="menu_grafico">
-               <h2 class="">Gráficos</h2>
+               <h2 class="">Reporte</h2>
                  <ul class="lista" >
                    <li requierefuncionalidad="reportes_dotacion"><a href="#" id="btn_grafico_dotacion" class="link_listado">Dotación</a>
                        <ul>
@@ -46,6 +46,7 @@
                    <li class="Dotacion" requierefuncionalidad="reportes_dotacion"><a href="#" id="btn_grafico_rangoEtario" class="link_listado">Rango Etário</a></li>
                </ul>
             </div>
+  
 
             <div id="div_filtros_graficos_y_tablas" style="position: absolute; left: 650px; width: 100%;">
                 <div style="position: absolute; left: 156px; margin-top: -13px;">

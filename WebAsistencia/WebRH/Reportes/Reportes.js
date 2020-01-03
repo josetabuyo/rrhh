@@ -14,23 +14,27 @@ var Reportes = {
             checks_activos = ["GraficoPorGenero"];
             $('#titulo_grafico').html(this.innerHTML);
             GraficoHerramientas.OcultarTodosLosReportesExcepto("Dotacion");
+            _this.dibujarArbolOrganigrama(38);//idFuncionalidad Reporte Dotacion = 38
             GraficoDotacion.Inicializar();
         })
         $('#btn_grafico_rangoEtario').click(function () {
             $('#titulo_grafico_rangoEtario').html(this.innerHTML);
             checks_activos = ["GraficoPorArea"];
             GraficoHerramientas.OcultarTodosLosReportesExcepto("RangoEtario");
+            _this.dibujarArbolOrganigrama(38);//idFuncionalidad Reporte Dotacion = 38
             GraficoRangoEtario.Inicializar();
+
         })
 
         $('#btn_grafico_sueldo').click(function () {
             $('#titulo_grafico').html(this.innerHTML);
             checks_activos = ["GraficoPorArea"];
             GraficoHerramientas.OcultarTodosLosReportesExcepto("Sueldo");
+            _this.dibujarArbolOrganigrama(39);//idFuncionalidad Reporte Sueldo = 39
             GraficoSueldos.Inicializar();
         })
 
-        this.dibujarArbolOrganigrama();
+        //this.dibujarArbolOrganigrama();
     },
     iniciarConsultaRapida: function () {
         var _this = this;
@@ -145,8 +149,8 @@ var Reportes = {
         });
     },
 
-    dibujarArbolOrganigrama: function () {
-        var arbol_organigrama = new ArbolOrganigrama($("#contenedor_arbol_organigrama"));
+    dibujarArbolOrganigrama: function (idFuncionalidad) {
+        var arbol_organigrama = new ArbolOrganigrama($("#contenedor_arbol_organigrama"), idFuncionalidad);
         arbol_organigrama.alSeleccionar(function (area) {
             $('.lista').show();
             $('#showLeftPush').click();
