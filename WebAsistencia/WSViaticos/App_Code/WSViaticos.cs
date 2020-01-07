@@ -124,7 +124,8 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public IntRespuestaWS EvalAddIntegranteComite(int idComite, IntegranteComiteEvalDesempenio integrante) {
+    public IntRespuestaWS EvalAddIntegranteComite(int idComite, IntegranteComiteEvalDesempenio integrante)
+    {
         var respuesta = new IntRespuestaWS();
         respuesta.Respuesta = integrante.IdPersona;
         try
@@ -6023,7 +6024,7 @@ public class WSViaticos : System.Web.Services.WebService
     public TipoDeDocumento[] GetTipoDocumento_A_Generar()
     {
         RepositorioDocumentosRecepcionados tipodoc = new RepositorioDocumentosRecepcionados();
-        
+
         return tipodoc.GetTipoDocumento_A_Generar().ToArray();
     }
 
@@ -6067,6 +6068,12 @@ public class WSViaticos : System.Web.Services.WebService
         return repo.BajaObras_Sociales(os);
     }
 
+    [WebMethod]
+    public ObraSocial ObtenerObra_Social_Por_Agente(int Legajo, int Id, bool TraerBajas)
+    {
+        RepositorioLegajo repo = RepoLegajo();
+        return repo.ObtenerObra_Social_Por_Agente(Legajo, Id, TraerBajas);
+    }
 
 
 

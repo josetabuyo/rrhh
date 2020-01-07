@@ -1777,7 +1777,7 @@ namespace General.Repositorios
         {
 
             SqlDataReader dr;
-            ConexionDB cn = new ConexionDB("dbo.VW_obrasocial");
+            ConexionDB cn = new ConexionDB("dbo.GEN_GET_ObraSocial");
        
             dr = cn.EjecutarConsulta();
 
@@ -1864,6 +1864,34 @@ namespace General.Repositorios
                 cn.Desconestar();
                 return false;
             }
+        }
+
+
+
+        
+        public ObraSocial ObtenerObra_Social_Por_Agente(int Legajo, int Id, bool TraerBajas)
+        {
+
+            SqlDataReader dr;
+            ConexionDB cn = new ConexionDB("dbo.GetDatosPersonales");
+            cn.AsignarParametro("@Legajo", Legajo);
+            cn.AsignarParametro("@id", Id);
+            cn.AsignarParametro("@traerbajas", TraerBajas);
+            
+            dr = cn.EjecutarConsulta();
+
+            ObraSocial OS = new ObraSocial();
+
+            while (dr.Read())
+            {                
+                OS.Id = dr.GetInt16(dr.GetOrdinal("Obra_Social"));
+                OS.Sigla = dr.GetString(dr.GetOrdinal("Sigla_Obra_Social"));
+                OS.Descripcion = dr.GetString(dr.GetOrdinal("Nombre_Obra_Social"));                
+            }
+
+            cn.Desconestar();
+
+            return OS;
         }
 
 
