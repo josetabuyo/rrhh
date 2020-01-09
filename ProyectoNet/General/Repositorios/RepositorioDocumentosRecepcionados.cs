@@ -61,6 +61,39 @@ namespace General.Repositorios
         }
 
 
+        public bool GetDocumentos_Recepcionados(DocumentosRecepcionados doc)
+        {
+            ConexionDB cn = new ConexionDB("dbo.TRAM_ADD_Documentos_Recepcionados");
+            cn.AsignarParametro("@Id_Tipo_Doc", doc.Id_Tipo_Doc);
+            cn.AsignarParametro("@Id_Persona", doc.IdPersona);
+            cn.AsignarParametro("@Cantidad_Folios", doc.Cantidad_Folios);
+            cn.AsignarParametro("@Fecha_Recepcion", doc.Fecha_Recepcion);
+            cn.AsignarParametro("@Usuario_Recepcion", doc.Usuario_Recepcion);
+            cn.AsignarParametro("@Fecha_Carga", doc.Fecha_Carga);
+            cn.AsignarParametro("@Usuario_Carga", doc.Usuario_Carga);
+            
+            try
+            {
+                cn.EjecutarSinResultado();
+                cn.Desconestar();
+                return true;
+
+            }
+            catch (Exception)
+            {
+                cn.Desconestar();
+                return false;
+            }
+        }
+
+
+
+
+
+
+
+
+
 
     }
 }
