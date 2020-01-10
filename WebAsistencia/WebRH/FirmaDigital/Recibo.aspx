@@ -523,17 +523,16 @@
 //            estado.classList.remove('estadoNoFirmado');
 //            estado.classList.add('estadoProcesando');
 
-    /*        MiniApplet.sign(
+            MiniApplet.sign(
             dataB64,
             algorithm,
             format,
             params,
             SignSuccessCallback,
-            SignErrorCallback);*/
+            SignErrorCallback);
 
             //el nombre del pdf sera idRecibo
-            //MiniApplet.signAndSaveToFile(
-            MiniApplet.signAndSaveToFile(
+ /*           MiniApplet.signAndSaveToFile(
 					"SIGN",
 					dataB64,
 					algorithm,
@@ -541,7 +540,7 @@
 					params,
 					idRecibo+".pdf",
 					SignSuccessCallback,
-					SignErrorCallback);
+					SignErrorCallback);*/
         }
         catch (e) {
             //Se muestra el mensaje de error si NO es de cancelación de la operación
