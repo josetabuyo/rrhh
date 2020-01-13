@@ -356,7 +356,7 @@ namespace General.Repositorios
                 /*obtengo si esta conforme o no con el recibo digital*/
                 parametros2.Add("@idRecibo", idRecibo);
                 var tablaDatos2 = conexion.Ejecutar("dbo.PLA_GET_Recibo_Firmado", parametros2);
-
+                var idArchivo = -1;
                 if (tablaDatos2.Rows.Count == 0)
                 {
                     //el recibo aun no fue firmado 
@@ -369,7 +369,8 @@ namespace General.Repositorios
                     }
                     else{
                         conforme = 1;
-                        }
+                        idArchivo = tablaDatos2.Rows.First().GetInt("idArchivo", 0);
+                    }
                 }
 
                 recibo = new
@@ -377,7 +378,8 @@ namespace General.Repositorios
                     Conforme = conforme,
                     IdRecibo = idRecibo,
                     Cabecera = cabeceraRecibo,
-                    Detalle = listaReciboDetalle
+                    Detalle = listaReciboDetalle,
+                    IdArchivo =idArchivo
                 };
 
             }

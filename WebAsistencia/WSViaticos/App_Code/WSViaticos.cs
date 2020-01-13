@@ -6184,7 +6184,8 @@ public class WSViaticos : System.Web.Services.WebService
             //        {//COMO el proceso de guardado desde la tabla de la BD al disco es externo, no genero una subclase de archivo
             //que tendria el path de disco donde guardar el archivo. Se puede agregar una clase con propieda la clase archivo 
             //subo el archivo firmado y actualiza la tabla que indica que el idRecibo fue firmado
-            respuesta.Respuesta = RepositorioDeArchivosFirmados().GetArchivoAsync(idArchivo, usuario.Owner.Id);
+            //respuesta.Respuesta = RepositorioDeArchivosFirmados().GetArchivoAsync(idArchivo, usuario.Owner.Id);
+            respuesta.Respuesta = RepositorioDeArchivosFirmados().GetArchivoAsync(idArchivo);
             //           id_archivo = 20;//RepositorioDeArchivos().GuardarArchivo(bytes_pdf);// id_recibo;//simulo el guardado del archivo
             //var r = RepositorioDeArchivos().GetArchivo(id_archivo); //19444 es un pdf firmado          
             //actualizo el recibo firmado por el empleado, 
@@ -6223,7 +6224,7 @@ public class WSViaticos : System.Web.Services.WebService
         {
             return JsonConvert.SerializeObject(new
             {
-                tipoDeRespuesta = "conformarRecibo.ok"
+                tipoDeRespuesta = "conformarRecibo.ok", idArchivo = recibo.idArchivo
             });
         } else{
             return JsonConvert.SerializeObject(new

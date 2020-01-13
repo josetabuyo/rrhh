@@ -46,11 +46,11 @@ namespace General.Repositorios
             }            
         }*/
 
-        public string GetArchivoAsync(int id_archivo, int idPersona)
+        public string GetArchivoAsync(int id_archivo/*, int idPersona*/)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@idArchivo", id_archivo);
-            parametros.Add("@idPersona", idPersona);
+            //parametros.Add("@idPersona", idPersona);
             var tabla_resultado = this.conexion.Ejecutar("dbo.FS_ObtenerArchivoFirmado", parametros);
             if (tabla_resultado.Rows.Count == 0) throw new Exception("no existe el archivo buscado");
 

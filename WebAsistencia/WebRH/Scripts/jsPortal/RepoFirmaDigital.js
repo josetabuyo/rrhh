@@ -17,7 +17,7 @@ var GeneralPortal = {
                 if (respuesta.tipoDeRespuesta = "conformarRecibo.ok") {
                     // agrego un enlace de descarga
                     texto1 = "<BR/>";
-                    boton1 = "<button type='button' onclick=\"GeneralPortal.descargarRecibo(\'" + idRecibo + "\')\">Descargar</button>";
+                    boton1 = "<button type='button' onclick=\"GeneralPortal.descargarRecibo(\'" + respuesta.idArchivo + "\')\">Descargar</button>";
                     div_caja_info_recibos.append(texto1 + boton1);
 
                 } else { 
@@ -40,14 +40,14 @@ var GeneralPortal = {
             });
 
     },
-    descargarRecibo: function (idRecibo) {
+    descargarRecibo: function (idArchivo) {
         //hacer
 
         //Backend.GetReciboPDFEmpleado(idRecibo)
         /*forma de descarga de generacion de pdf al vuelo, sin el sello de la firma digital*/
 //        Backend.GetReciboPDFDigital(idRecibo) 
         /*forma de descarga desde la tabla de archivos firmados*/
-        Backend.GetReciboPDFDigitalArchivado(idRecibo)
+        Backend.GetReciboPDFDigitalArchivado(idArchivo)
             .onSuccess(function (res) {
                 //en esta version siempre retorna exito a menos que sea un error antes del webservice
                 if (!res.DioError) {
