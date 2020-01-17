@@ -1,0 +1,138 @@
+﻿<style>
+    .div_resaltado {
+        margin-left: 20px;
+        border: 1px solid #dddddd;
+        padding: 15px;
+        border-radius: 5px;
+        background-color: #eeeeee;
+    }
+</style>
+<div id="cajaSelectorDocumentos" class="">
+
+    <div id="cajaCambiarDomicilio" class="">
+        <h3 style="text-align: center;">Modificación de datos del DNI</h3>
+        <br />
+        <div class="">
+            <p><em style="color:Red;">*</em> Campos Obligatorios</p>
+            <p style="text-align:right;">
+                Folio:
+                <input class="etiqueta_campo" style="width: 40px; height: 30px;" id="folioParte1" name="folioParte1" type="number" /> :
+                <input style="width: 60px; height: 30px;" class="etiqueta_campo" id="folioParte2" name="folioParte2" type="number" /> :
+                <input style="width: 40px; height: 30px;" class="etiqueta_campo" id="folioParte3" name="folioParte3" type="number" />
+            </p>
+            <div style="display:flex;">
+                <div>
+                    <label class="etiqueta_campo" for="txt_tipo_documento" style="min-width: 130px;">Tipo Documento: <em style="color:Red;">*</em></label>
+                    <select id="cmb_tipo_documento" style="width: 200px;margin-bottom: 10px;"></select>
+                    <br />
+
+                    <label class="etiqueta_campo" for="txt_apellido" style="min-width: 130px;">Apellidos: <em style="color:Red;">*</em></label>
+                    <input type="text" value="" id="txt_apellido" name="txt_apellido" style="width: 300px; height: 30px;" disabled />
+                    <br />
+                    <label class="etiqueta_campo" for="txt_nombre" style="min-width: 130px;">Nombres: <em style="color:Red;">*</em></label>
+                    <input type="text" value="" id="txt_nombre" name="txt_nombre" style="width: 300px; height: 30px;" disabled />
+                    <br />
+                    <label class="etiqueta_campo" for="txt_fecha_nacimiento" style="min-width: 130px;">Fecha de Nac.: <em style="color:Red;">*</em></label>
+                    <input type="date" value="" id="txt_fecha_nacimiento" name="txt_fecha_nacimiento" style="width: 200px; height: 30px;" />
+                    <br />
+                    <label class="etiqueta_campo" for="txt_lugar_nacimiento" style="min-width: 130px;">Lugar de Nac.: <em style="color:Red;">*</em></label>
+                    <select id="cmb_lugar_nacimiento" style="width: 200px;margin-bottom: 10px;"></select>
+                    <br />
+                    <label class="etiqueta_campo" for="txt_sexo" style="min-width: 130px;">Sexo: <em style="color:Red;">*</em></label>
+                    <select id="cmb_sexo" style="width: 200px;margin-bottom: 10px;"></select>
+                    <br />
+                    <label class="etiqueta_campo" for="txt_lugar_nacimiento" style="min-width: 130px;">Nacionalidad: <em style="color:Red;">*</em></label>
+                    <select id="cmb_nacionalidad" style="width: 200px;margin-bottom: 10px;"></select>
+                    <br />
+                    <br />
+                </div>
+                <div id="div_otra_nacionalidad" class="div_resaltado" style="display:none;">
+                    <label class="etiqueta_campo" for="txt_fecha_ingreso" style="min-width: 170px;">Fecha de Ingreso al País: </label>
+                    <input type="date" value="" id="txt_fecha_ingreso" name="txt_fecha_ingreso" style="width: 200px; height: 30px;" />
+                    <br />
+                    <label class="etiqueta_campo" for="txt_carta_ciudadania" style="min-width: 170px;">Carta de Ciudadanía N°: </label>
+                    <input type="text" value="" id="txt_carta_ciudadania" name="txt_carta_ciudadania" style="width: 200px; height: 30px;" />
+                    <br />
+                    <label class="etiqueta_campo" for="txt_juzgado" style="min-width: 170px;">Juzgado: </label>
+                    <input type="text" value="" id="txt_juzgado" name="txt_juzgado" style="width: 200px; height: 30px;" />
+                    <br />
+                    <label class="etiqueta_campo" for="txt_secretario" style="min-width: 170px;">Secretario: </label>
+                    <input type="text" value="" id="txt_secretario" name="txt_secretario" style="width: 200px; height: 30px;" />
+                    <br />
+                    <label class="etiqueta_campo" for="txt_fecha_juzgado" style="min-width: 170px;">Fecha Juzgado: </label>
+                    <input type="text" value="" id="txt_fecha_juzgado" name="txt_fecha_juzgado" style="width: 200px; height: 30px;" />
+                    <br />
+                </div>
+            </div>
+        </div>
+        <br />
+        <div style="text-align:center;">
+            <input id="btnAceptar" value="Aceptar" class="btn btn-primary" type="button" />
+            <input id="btnSoloRecepcionar" value="Solo Recepcionar" class="btn btn-primary" type="button" />
+            <input id="btnAceptarSinFolio" value="Aceptar Sin Folio" class="btn btn-primary" type="button" />
+            <label class="labelInputFile" for="inputImagen"><span id="textoLabel">Subir Imagen</span></label>
+            <span class="inputImagen"><input id="inputImagen" name="inputImagen" type="file" class="btnOculto" /></span>
+            <input type="hidden" id="imagenBase64" />
+        </div>
+
+    </div>
+</div>
+<script type="text/javascript">
+
+    $(document).ready(function ($) {
+        $("#cmb_nacionalidad").change(function (e) {
+            if (parseInt($(this).val()) != 1 || parseInt($("#cmb_lugar_nacimiento").val()) != 9) {
+                $("#div_otra_nacionalidad").show();
+            } else {
+                $("#div_otra_nacionalidad").find("input").val("")
+                $("#div_otra_nacionalidad").hide();
+            }
+        });
+        $("#cmb_lugar_nacimiento").change(function (e) {
+            if (parseInt($(this).val()) != 9 || parseInt($("#cmb_nacionalidad").val()) != 1) {
+                $("#div_otra_nacionalidad").show();
+            } else {
+                $("#div_otra_nacionalidad").find("input").val("")
+                $("#div_otra_nacionalidad").hide();
+            }
+        });
+        $("#txt_apellido").val(usuarioEncontrado.Owner.Apellido);
+        $("#txt_nombre").val(usuarioEncontrado.Owner.Nombre);
+        Backend.start(function () {
+            Backend.BuscarTiposDeDocumento({})
+                .onSuccess(function (sexos) {
+                    $.each(sexos, function () {
+                        $('#cmb_tipo_documento').append($("<option />").val(this.Id).text(this.Descripcion));
+                    });
+                })
+                .onError(function (e) {
+                });
+            Backend.BuscarPaises({})
+                .onSuccess(function (paises) {
+                    $.each(paises, function () {
+                        $('#cmb_lugar_nacimiento').append($("<option />").val(this.Id).text(this.Descripcion));
+                    });
+                    $('#cmb_lugar_nacimiento').val(9);
+                })
+                .onError(function (e) {
+                });
+            Backend.BuscarSexos({})
+                .onSuccess(function (sexos) {
+                    $.each(sexos, function () {
+                        $('#cmb_sexo').append($("<option />").val(this.Id).text(this.Descripcion));
+                    });
+                })
+                .onError(function (e) {
+                });
+            Backend.BuscarNacionalidades({})
+                .onSuccess(function (nacionalidades) {
+                    $.each(nacionalidades, function () {
+                        $('#cmb_nacionalidad').append($("<option />").val(this.Id).text(this.Descripcion));
+                    });
+                })
+                .onError(function (e) {
+                });
+        });
+    });
+
+</script>

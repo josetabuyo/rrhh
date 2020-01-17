@@ -1,0 +1,147 @@
+﻿<div id="cajaSelectorDocumentos" class="">
+
+    <div id="cajaCambiarDomicilio" class="">
+        <h3 style="text-align: center;">Modificación de datos de domicilio</h3>
+        <br />
+        <div class="">
+            <p><em style="color:Red;">*</em> Campos Obligatorios</p>
+            <p style="text-align:right;">
+                Folio:
+                <input class="etiqueta_campo" style="width: 40px; height: 30px;" id="folioParte1" name="folioParte1" type="number" /> :
+                <input style="width: 60px; height: 30px;" class="etiqueta_campo" id="folioParte2" name="folioParte2" type="number" /> :
+                <input style="width: 40px; height: 30px;" class="etiqueta_campo" id="folioParte3" name="folioParte3" type="number" />
+            </p>
+            <label class="etiqueta_campo" for="txt_calle">Calle: <em style="color:Red;">*</em></label>
+            <input type="text" value="" id="txt_calle" name="txt_calle" style="width: 250px; height: 30px;" />
+            <br />
+            <label class="etiqueta_campo" for="txt_numero">N°: <em style="color:Red;">*</em></label>
+            <input type="number" value="" id="txt_numero" name="txt_numero" style="width: 70px; height: 30px;" />
+            <label class="etiqueta_campo" style="margin: 0 10px;" for="txt_piso">Piso: </label>
+            <input type="text" value="" id="txt_piso" name="txt_piso" style="width: 30px; height: 30px;" />
+            <label class="etiqueta_campo" style="margin: 0 10px;" for="txt_dto">Dpto: </label>
+            <input type="text" value="" id="txt_dto" name="txt_dto" style="width: 30px; height: 30px;" />
+            <label class="etiqueta_campo_small" style="margin: 0 10px;" for="txt_cp">C.P.: <em style="color:Red;">*</em></label>
+            <input type="text" value="" id="txt_cp" name="txt_cp" style="width: 50px; height: 30px;" />
+            <br />
+            <label class="etiqueta_campo" style="margin-right: 13px;" for="txt_calle">Manzana:</label>
+            <input type="text" value="" id="txt_manzana" name="txt_calle" style="width: 30px; height: 30px;" />
+            <label class="etiqueta_campo" style="margin: 0 10px;" for="txt_numero">Barrio:</label>
+            <input type="text" value="" id="txt_barrio" name="txt_numero" style="width: 30px; height: 30px;" />
+            <label class="etiqueta_campo" style="margin: 0 10px;" for="txt_piso">Torre:</label>
+            <input type="text" value="" id="txt_torre" name="txt_piso" style="width: 30px; height: 30px;" />
+            <label class="etiqueta_campo" style="margin: 0 10px;" for="txt_dto">Uf:</label>
+            <input type="text" value="" id="txt_uf" name="txt_dto" style="width: 30px; height: 30px;" />
+            <label class="etiqueta_campo_small" style="margin: 0 10px;" for="txt_cp">Casa:</label>
+            <input type="text" value="" id="txt_casa" name="txt_cp" style="width: 30px; height: 30px;" />
+            <br />
+            <label class="etiqueta_campo" for="cmb_provincia">Provincia: <em style="color:Red;">*</em></label>
+            <select id="cmb_provincia" style="width: 200px;"></select>
+            <label class="etiqueta_campo_small" for="cmb_localidad">Localidad: <em style="color:Red;">*</em></label>
+            <select id="cmb_localidad" style="width: 250px;"></select>
+        </div>
+        <br />
+        <div style="text-align:center;">
+            <input id="btnAceptar" value="Aceptar" class="btn btn-primary" type="button" />
+            <input id="btnSoloRecepcionar" value="Solo Recepcionar" class="btn btn-primary" type="button" />
+            <input id="btnAceptarSinFolio" value="Aceptar Sin Folio" class="btn btn-primary" type="button" />
+            <label class="labelInputFile" for="inputImagen"><span id="textoLabel">Subir Imagen</span></label>
+            <span class="inputImagen"><input id="inputImagen" name="inputImagen" type="file" class="btnOculto" /></span>
+            <input type="hidden" id="imagenBase64" />
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function ($) {
+
+        $('input[type=file]').change(function () {
+            var filename = $(this).val().split('\\').pop();
+            var idname = $(this).attr('id');
+            console.log($(this));
+            console.log(filename);
+            console.log(idname);
+            $('#textoLabel').html(filename);
+            //FC convierto la iamgen a base64
+            var file = $(this)[0].files[0];
+            var reader = new FileReader();
+            reader.onloadend = function () {
+                $("#imagenBase64").val(reader.result);
+            }
+
+            reader.readAsDataURL(file);
+        });
+
+        Backend.start(function () {
+
+            Backend.BuscarProvincias({})
+                .onSuccess(function (provincias) {
+                    $.each(provincias, function () {
+                        $('#cmb_provincia').append($("<option />").val(this.Id).text(this.Nombre));
+                    });
+                })
+                .onError(function (e) {
+
+                });
+
+            $("#cmb_provincia").change(function (e) {
+                var idProvincia = $('#cmb_provincia').children("option:selected").val();
+                Backend.BuscarLocalidades({ IdProvincia: parseInt(idProvincia) })
+                    .onSuccess(function (localidades) {
+                        $.each(localidades, function () {
+                            $('#cmb_localidad').append($("<option />").val(this.Id).text(this.Nombre));
+                        });
+                    })
+                    .onError(function (e) {
+
+                    });
+            })
+
+            $("#btnAceptar").click(function (e) {
+                var domicilio = armarDomicilio();
+                
+
+                console.log(domicilio);
+                
+            })
+
+            $("#btnSoloRecepcionar").click(function (e) {
+
+
+            })
+
+            $("#btnAceptarSinFolio").click(function (e) {
+
+
+            })
+
+            $("#btnAceptar").click(function (e) {
+
+
+            })
+        });
+
+        function armarDomicilio() {
+            var domicilio = {};
+            domicilio.Folio = $('#folioParte1').val() + '-' + $('#folioParte2').val() + '-' + $('#folioParte3').val();
+            domicilio.Calle = $('#txt_calle').val();
+            domicilio.Numero = $('#txt_numero').val();
+            domicilio.Piso = $('#txt_piso').val();
+            domicilio.Depto = $('#txt_dto').val();
+            domicilio.Cp = $('#txt_cp').val();
+            domicilio.Localidad = $('#cmb_localidad').val();
+            domicilio.Provincia = $('#cmb_provincia').val();
+            domicilio.Manzana = $('#txt_manzana').val();
+            domicilio.Casa = $('#txt_casa').val();
+            domicilio.Barrio = $('#cmb_barrio').val();
+            domicilio.Torre = $('#cmb_torre').val();
+            domicilio.Uf = $('#cmb_uf').val();
+            domicilio.Foto = $("#imagenBase64").val();
+
+            return domicilio;
+        } 
+        
+    });
+
+</script>
