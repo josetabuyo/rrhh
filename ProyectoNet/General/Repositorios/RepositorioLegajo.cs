@@ -1786,7 +1786,7 @@ namespace General.Repositorios
             while (dr.Read())
             {
                 ObraSocial OS = new ObraSocial();
-                OS.Id = dr.GetInt32(dr.GetOrdinal("Id"));
+                OS.Id = dr.GetInt16(dr.GetOrdinal("Id"));
                 OS.Sigla = dr.GetString(dr.GetOrdinal("Sigla"));
                 OS.Descripcion = dr.GetString(dr.GetOrdinal("Nombre"));
                 OS.Rnos = dr.GetString(dr.GetOrdinal("RNOS"));
@@ -1871,25 +1871,25 @@ namespace General.Repositorios
         
         public ObraSocial ObtenerObra_Social_Por_Agente(int Legajo, int Id, bool TraerBajas)
         {
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@Legajo", Legajo);
+            parametros.Add("@id", Id);
+            parametros.Add("@traerbajas", TraerBajas);
+            var tablaDatos = conexion.Ejecutar("dbo.GetDatosPersonales", parametros);
 
-            SqlDataReader dr;
-            ConexionDB cn = new ConexionDB("dbo.GetDatosPersonales");
-            cn.AsignarParametro("@Legajo", Legajo);
-            cn.AsignarParametro("@id", Id);
-            cn.AsignarParametro("@traerbajas", TraerBajas);
-            
-            dr = cn.EjecutarConsulta();
 
             ObraSocial OS = new ObraSocial();
 
-            while (dr.Read())
-            {                
-                OS.Id = dr.GetInt16(dr.GetOrdinal("Obra_Social"));
-                OS.Sigla = dr.GetString(dr.GetOrdinal("Sigla_Obra_Social"));
-                OS.Descripcion = dr.GetString(dr.GetOrdinal("Nombre_Obra_Social"));                
-            }
+            if (tablaDatos.Rows.Count > 0)
+            {
+                tablaDatos.Rows.ForEach(row =>
+                {
+                    OS.Id = row.GetSmallintAsInt("Obra_Social");
+                    OS.Sigla = row.GetString("Sigla_Obra_Social", "Sin especificar");
+                    OS.Descripcion = row.GetString("Nombre_Obra_Social", "Sin especificar");
+                });
 
-            cn.Desconestar();
+            }
 
             return OS;
         }

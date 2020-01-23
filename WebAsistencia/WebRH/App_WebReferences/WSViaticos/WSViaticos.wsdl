@@ -952,6 +952,22 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="ObtenerObra_Social_Por_Agente">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Legajo" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="TraerBajas" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerObra_Social_Por_AgenteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerObra_Social_Por_AgenteResult" type="tns:ObraSocial" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="BuscarUnidadesTiempo">
         <s:complexType>
           <s:sequence>
@@ -9042,6 +9058,12 @@
   <wsdl:message name="BajaObras_SocialesSoapOut">
     <wsdl:part name="parameters" element="tns:BajaObras_SocialesResponse" />
   </wsdl:message>
+  <wsdl:message name="ObtenerObra_Social_Por_AgenteSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerObra_Social_Por_Agente" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerObra_Social_Por_AgenteSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerObra_Social_Por_AgenteResponse" />
+  </wsdl:message>
   <wsdl:message name="BuscarUnidadesTiempoSoapIn">
     <wsdl:part name="parameters" element="tns:BuscarUnidadesTiempo" />
   </wsdl:message>
@@ -11591,6 +11613,10 @@
       <wsdl:input message="tns:BajaObras_SocialesSoapIn" />
       <wsdl:output message="tns:BajaObras_SocialesSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="ObtenerObra_Social_Por_Agente">
+      <wsdl:input message="tns:ObtenerObra_Social_Por_AgenteSoapIn" />
+      <wsdl:output message="tns:ObtenerObra_Social_Por_AgenteSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="BuscarUnidadesTiempo">
       <wsdl:input message="tns:BuscarUnidadesTiempoSoapIn" />
       <wsdl:output message="tns:BuscarUnidadesTiempoSoapOut" />
@@ -13482,6 +13508,15 @@
     </wsdl:operation>
     <wsdl:operation name="BajaObras_Sociales">
       <soap:operation soapAction="http://wsviaticos.gov.ar/BajaObras_Sociales" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerObra_Social_Por_Agente">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ObtenerObra_Social_Por_Agente" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -17400,6 +17435,15 @@
     </wsdl:operation>
     <wsdl:operation name="BajaObras_Sociales">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/BajaObras_Sociales" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerObra_Social_Por_Agente">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ObtenerObra_Social_Por_Agente" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

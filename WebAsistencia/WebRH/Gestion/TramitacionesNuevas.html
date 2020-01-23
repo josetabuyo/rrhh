@@ -1,4 +1,15 @@
-﻿<div id="buscador_de_personas">
+﻿<style>
+
+    .cajaComponenteTipoAsesor {
+        display: block;
+        background-color: #e8e8e8;
+        padding: 10px;
+        margin: 20px 10px;
+    }
+</style>
+
+
+<div id="buscador_de_personas">
     <p class="buscarPersona" style="display: inline-block;">
         Buscar persona:
         <div id="selector_usuario" class="selector_personas" style="display: inline-block;">
@@ -27,7 +38,7 @@
     <fieldset>
         <legend>Funcionario que firma la solicitud</legend>
         <select style="width: 100%;">
-            <option></option>
+            <option>De donde traer funcionarios</option>
         </select>
     </fieldset>
 </div>
@@ -69,14 +80,61 @@
         </div>
 
         <p>Tipo de Asesor</p>
-        <select>
-            <option>AD HONOREM</option>
-            <option>EXTRA ESCALAFONARIO</option>
-            <option>CON UNIDADES RETRIBUTIVAS</option>
+        <select id="cmbTipoAsesor">
+            <option value="1">AD HONOREM</option>
+            <option value="2">EXTRA ESCALAFONARIO</option>
+            <option value="3">CON UNIDADES RETRIBUTIVAS</option>
+            <option value="4">CONTRATO</option>
         </select>
 
-        <p>Fecha Inicio</p>
-        <input style="height: 30px;" type="date" />
+        <div id="compAdHonorem" class="cajaComponenteTipoAsesor" style="display:none;">
+            El componente queda vacio
+        </div>
+
+        <div id="compExtraEscalafonario" class="cajaComponenteTipoAsesor" style="display:none;">
+            Buscar los posibles cargos para la Dependencia seleccionada, mostrando "vacantes", "ocupado", etc
+        </div>
+
+        <div id="compUnidRetri" class="cajaComponenteTipoAsesor" style="display:none;">
+            Debera mostrar el credito  de UR de la Dependencia seleccionada o la posibilidad de elegir de otras
+            (ver tema de autorizaciones - ad referendum). Podria ser que se pidan y la solicitud vaya a Jefatura de Gab.
+        </div>
+
+        <div id="compContrato" class="cajaComponenteTipoAsesor" style="display:none;">
+            <div>
+                <label>Nivel de Estudios</label>
+                <select>
+                    <option value="1"></option>
+
+                </select>
+            </div>
+            <div>
+                <label>Duracion en años</label>
+                <select>
+                    <option value="1"></option>
+
+                </select>
+            </div>
+
+            <div>
+                <label>Titulo Alcanzado</label>
+                <select>
+                    <option value="1"></option>
+
+                </select>
+            </div>
+
+            <div>
+                <label>Institucion</label>
+                <select>
+                    <option value="1"></option>
+
+                </select>
+            </div>
+        </div>
+
+<p>Fecha Inicio</p>
+<input style="height: 30px;" type="date" />
 
     </fieldset>
 </div>
@@ -135,15 +193,41 @@
 
             Gestion.iniciarConsultaRapida();
 
-            /*Backend.ObtenerObras_Sociales()
-                .onSuccess(function (obrasSociales) {
-                    $.each(obrasSociales, function () {
-                        $('#cmb_obrasSociales').append($("<option />").val(this.Id).text(this.Descripcion));
-                    });
-                })
-                .onError(function (e) {
+            $('#cmbTipoAsesor').change(function (e) {
 
-                });*/
+
+
+                switch ($('#cmbTipoAsesor').children("option:selected").val()) {
+                    case "1":
+                        $('#compAdHonorem').show();
+                        $('#compExtraEscalafonario').hide();
+                        $('#compUnidRetri').hide();
+                        $('#compContrato').hide();
+                        break;
+                    case "2":
+                        $('#compAdHonorem').hide();
+                        $('#compExtraEscalafonario').show();
+                        $('#compUnidRetri').hide();
+                        $('#compContrato').hide();
+                        break;
+                    case "3":
+                        $('#compAdHonorem').hide();
+                        $('#compExtraEscalafonario').hide();
+                        $('#compUnidRetri').show();
+                        $('#compContrato').hide();
+                        break;
+                    case "4":
+                        $('#compAdHonorem').hide();
+                        $('#compExtraEscalafonario').hide();
+                        $('#compUnidRetri').hide();
+                        $('#compContrato').show();
+                        break;
+                }
+
+                $('#codigoObraSocialNueva').html($('#cmb_obrasSociales').children("option:selected").val());
+                $('#denominacionObraSocialNueva').html($('#cmb_obrasSociales').children("option:selected").text());
+
+            });
 
 
             $("#btnAceptar").click(function (e) {
@@ -170,7 +254,7 @@
             })
         });
 
-        
+
 
     });
 

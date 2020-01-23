@@ -14,8 +14,8 @@
             <div>
                 <div class="miniCaja">
                     <label>OBRA SOCIAL VIGENTE HASTA HOY:</label>
-                    <p>Código y Sigla: <span id="codigoObraSocialVigente">125707-OSPCN</span></p>
-                    <p>Denominacion y Sigla: <span id="denominacionObraSocialVigente">Union Personal</span></p>
+                    <p>Código y Sigla: <span style="font-weight: 700;" id="codigoObraSocialVigente"></span></p>
+                    <p>Denominacion y Sigla: <span style="font-weight: 700;" id="denominacionObraSocialVigente"></span></p>
                 </div>
                 <div class="miniCaja">
                     <p>Fecha de Presentación: <input type="text" style="width: 100px; height: 30px;" value="16/04/2019" disabled /></p>
@@ -25,16 +25,15 @@
             <div>
                 <label class="etiqueta_campo" for="cmb_provincia">Seleccionar Obra Social:</label>
                 <select id="cmb_obrasSociales">
-                    <option>UPCS</option>
-                    <option>Marica Mercante</option>
+                   
                 </select>
             </div>
             <hr style="border-top: 1px solid #ccc;" />
             <div>
                 <div class="miniCaja">
                     <label>OBRA SOCIAL ELEGIDA:</label>
-                    <p>Código y Sigla: <span id="codigoObraSocialNueva">125707-OSPCN</span></p>
-                    <p>Denominacion y Sigla: <span id="denominacionObraSocialNueva">Union Personal</span></p>
+                    <p>Código y Sigla: <span style="font-weight: 700;" id="codigoObraSocialNueva"></span></p>
+                    <p>Denominacion y Sigla: <span style="font-weight: 700;" id="denominacionObraSocialNueva"></span></p>
                 </div>
                 <div class="miniCaja">
                     <p>Fecha de Presentación: <input type="date" style="height: 30px;" id="fechaPresentacionObra" /></p>
@@ -79,7 +78,7 @@
 
         Backend.start(function () {
 
-            /*Backend.ObtenerObras_Sociales()
+            Backend.ObtenerObras_Sociales()
                 .onSuccess(function (obrasSociales) {
                     $.each(obrasSociales, function () {
                         $('#cmb_obrasSociales').append($("<option />").val(this.Id).text(this.Descripcion));
@@ -87,9 +86,29 @@
                 })
                 .onError(function (e) {
 
-                });*/
+                });
 
-           
+            var usuario = JSON.parse(sessionStorage.getItem("usuario"));
+            //console.log('a');
+            //console.log(usuario);
+
+            Backend.ObtenerObra_Social_Por_Agente(parseInt(usuario.Owner.Legajo), usuario.Owner.Id, false)
+                .onSuccess(function (obraSocial) {
+                    $('#codigoObraSocialVigente').html($('#cmb_obrasSociales').val());
+                    $('#denominacionObraSocialVigente').html(obraSocial.Descripcion);
+                })
+                .onError(function (e) {
+
+                });
+
+            $('#cmb_obrasSociales').change(function (e) {
+
+                $('#codigoObraSocialNueva').html($('#cmb_obrasSociales').children("option:selected").val());
+                $('#denominacionObraSocialNueva').html($('#cmb_obrasSociales').children("option:selected").text());
+
+            });
+            
+
             $("#btnAceptar").click(function (e) {
                 var obraSocial = armarObraSocial();
                 

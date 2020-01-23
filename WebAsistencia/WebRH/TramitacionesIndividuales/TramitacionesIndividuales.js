@@ -48,7 +48,7 @@ var TramitacionesIndividuales = {
     cargarUsuario: function (usuario) {
         usuarioEncontrado = usuario;
         console.log(usuario);
-
+        sessionStorage.setItem("usuario", JSON.stringify(usuario));
 
         var _this = this;
         _this.usuario = usuario;
