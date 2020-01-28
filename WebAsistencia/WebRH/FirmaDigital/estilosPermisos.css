@@ -659,11 +659,11 @@ optgroup
     /*position: relative;*/
 }
 
-.estilo_formulario3{
+.estilo_formulario3 {
     background-image: linear-gradient(to bottom, rgb(1,70,99), rgb(1,70,99));
-    border-radius: 10px;
+    border-radius: 10px 10px 0px 0px;
     color: #fff;
-    padding:30px;
+    padding: 30px;
 }
 
 #contenedor_foto2 {
@@ -676,10 +676,11 @@ optgroup
     border-radius: 10px;
     overflow: hidden;
     cursor: pointer;
+    margin-right: 20px;
 }
 
 #panel_datos_personales3 {
-    float:left;
+    /*float:left;*/
     font-weight: bold;
     font-size: medium;
     position: relative;
@@ -691,7 +692,7 @@ optgroup
 
 .dato_personal2 {
     margin-bottom: 5px;
-    margin-left: 20px;
+    /*margin-left: 20px;*/
     font-weight: normal;
 }
 

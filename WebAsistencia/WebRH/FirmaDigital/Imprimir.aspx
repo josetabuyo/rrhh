@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Imprimir.aspx.cs" Inherits="Permisos_DefinicionDeUsuario" %>
 <%@ Register Src="~/BarraMenu/BarraMenu.ascx" TagName="BarraMenu" TagPrefix="uc2" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
@@ -11,6 +11,7 @@
         <%= Referencias.Css("../")%>
         <%= Referencias.Javascript("../")%>
         <link rel="stylesheet" href="estilosPortalSecciones.css" />
+        <link rel="stylesheet" href="recibo.css" />
 
         <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
         <link rel="stylesheet"  href="estilosPermisos.css" />
@@ -36,8 +37,8 @@
         <div class="caja_izq no-print"></div>
         <!--contenido derecho -->
          <div  class="caja_derxxxx papelxxx" style="margin-top:32px;float:left;width:80% ">
-           <!--modulo de firma iterativa -->
-           <div id="subcontenidoFirmaIterativa" class="panelDerOcultable" style="display: inline;"> 
+           <!--modulo de busqueda de recibos -->
+           <div id="subcontenidoBusquedaRecibosConformados" class="panelDerOcultable" style="display: inline;"> 
 
                <div style="width:80%;margin:20pt;-webkit-border-radius: 7px 7px 0px 0px;
 -moz-border-radius: 7px 7px 0px 0px;border-radius: 7px 7px 0px 0px;border-collapse: collapse;border: 0px solid #1C6EA4;padding-left:40pt;text-align: center;margin: 0 auto;">
@@ -54,7 +55,7 @@
                    <br />
 
                    <div id="panel_datos_usuario" style="display:none">
-                   <div id="panel_superior_izquierdo" class="estilo_formulario3">
+                   <div id="panel_superior_izquierdoxxx" class="estilo_formulario3">
                     <div id="contenedor_foto2">
                         <div id="foto_usuario"> </div>
                         <img id="foto_usuario_generica" src="usuario.png"/>
@@ -91,29 +92,84 @@
                     
                 </div> 
 
-                <!-- 	lista de recibos -->    
-	            <div id ="div6" class="resultadoValidarxxx">  
-                    <table class="stripedGris tablex table-stripedx table-bordered table-condensed" style="width:100%"><tbody class="list"><tr><td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;width:10px;text-align:center" >&nbsp;</td><td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;text-align:center" >Liquidación</td><td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;text-align:center" >Sector</td></tr>';
+                   
+	            <div  style="margin:5px 0 5px 0;">
+                    <div >   
+                        <input type="radio" name="modoRecibo" value="0" checked id="recibosRecientes" style="margin-top: 0px;" onclick="getRecibosAEnlistar()" /> <label for="recibosRecientes">Recibos Recientes </label>   
+                        <input type="radio" name="modoRecibo" value="1" id="recibosHistoricos" style="margin-top: 0px;" onclick="getRecibosAEnlistar()" /> <label for="recibosHistoricos">Recibos Historicos  </label>    
+	                </div>
+                    <!-- 	lista de recibos de la persona--> 
+                    <div id ="listaRecibosConfomadosPersonal">  
+	                </div>
+	            </div>  
 
-                    </tbody></table>';
-	            </div>     
-         
-
-
+                <div style="margin-bottom:50px; float:right;" > 
+                    <input class="botonAzul" type ="button" value="Ver por pantalla" onclick="mostrarRecibo()">
+                    <input class="botonAzul" type="button" value="Descargar" onclick="descargarRecibo()">                     
+	            </div>                 
+                       
             </div> 
                 
-            </div>
-
-
+            </div>               
 
                </div> 
 
+           <!--modulo de visualizacion del recibo seleccionado-->
+           <div id="subcontenidoReciboConformado" class="panelDerOcultable" style="display: none;">
+               <div style="width:80%;margin:20pt;-webkit-border-radius: 7px 7px 0px 0px;
+-moz-border-radius: 7px 7px 0px 0px;border-radius: 7px 7px 0px 0px;border-collapse: collapse;border: 0px solid #1C6EA4;padding-left:40pt;text-align: center;margin: 0 auto;">
+
+                   <table id="tabla_recibo_encabezado">
+            <thead>
+                <tr class="fila_header">
+                    <th style="width:67px;" class="">Legajo No.</th>
+                    <th style="width:311px;" class="">Apellido y Nombre</th>
+                    <th style="width:100px;">CUIL</th>
+                    <th style="width:40px;">Of.</th>
+                    <th style="width:85px;">N. Orden</th>
+                </tr>
+           
+                <tr style="height: 30px;">
+                    <td id="celdaLegajo"></td>
+                    <td id="celdaNombre"></td>
+                    <td id="celdaCUIL"></td>
+                    <td id="celdaOficina"></td>
+                    <td id="celdaOrden"></td>
+                </tr>
+            <tr class="fila_header">
+                    <th colspan="1" rowspan="2" class="ancho_primera_columna">Código</th>
+                    <th colspan="1" rowspan="2" class="ancho_segunda_columna">Descripción</th>
+                    <th colspan="3" style="text-align:center;">Importe</th>
+                </tr>
+                <tr class="fila_header">
+                    <th colspan="1" style="width:110px;">Haberes</th>
+                    <th colspan="2" style="width:110px;">Descuentos</th>
+                </tr>
+           </thead>
+           <tbody>
                
+            </tbody>
+         </table>
+         
+        <div id="bloque_final" style="display:none; margin-top:20px;text-align:left;;width:88%">
+            <p style="font-weight: bold; text-align: center; margin-top: 20px;">SOLO PARA INFORMACIÓN - NO VÁLIDO COMO COMPROBANTE</p>
+       
+            <p><strong>Área:</strong> <span id="area"></span></p>
+            <p><strong>Categ:</strong> <span id="categoria"></span></p>
+            <p><strong>Fecha Liq:</strong> <span id="fechaLiquidacion"></span></p>
+            <p><strong>Domicilio:</strong> <span id="domicilio"></span></p>
+
+            <div style="margin-bottom:50px; float:right;" > 
+                <input type="button"  class="botonAzul" value="Volver" onclick="mostrar('subcontenidoBusquedaRecibosConformados')">
+                <input class="botonAzul" type="button" value="Descargar" onclick="descargarRecibo()">   
+            </div> 
+        </div> 
+      
+                   
+               </div> 
+
+           </div>  
                 
-
-
-            
-
 
          <!-- plantilla de carga de prebusquedas en el input de la busqueda-->
         <div id="plantillas">
@@ -137,7 +193,7 @@
 
         </div>
 
-    </div>
+    
 
         
     </form>
@@ -176,13 +232,17 @@
 <script type="text/javascript" src="js/imprimirRecibo.js"></script>
 <script type="text/javascript" src="../Scripts/Spin.js"></script>
 
-
+<script type="text/javascript" src="Legajo.js"></script>
+<script type="text/javascript" src="../Scripts/jsPortal/RepoFirmaDigital.js"></script>
 
 <script type="text/javascript" >
 
+    var listaRecibosConformados = new Array();
+    var agenteActual = '';
+
     $(document).ready(function ($) {
 
-     
+             
         Backend.start(function () {
             Permisos.init();
             //para cargar el menu izquierdo 
@@ -252,7 +312,160 @@
             });
  
         });
+         
+
     });
+
+    /*retorna si se esta en modo historico o no*/
+    function getModoRecibo() {
+
+        //obtengo la lista de radio button con un nombre de clase determinado
+        var lista = document.getElementsByName("modoRecibo");
+        var i;
+        var valorModo = 0;
+
+        for (i = 0; i < lista.length; i++) {
+            //si hay algo seleccionado
+            if (lista[i].checked) {
+                valorModo = lista[i].value;
+            }
+        }
+        return valorModo;
+    }
+
+    function getRecibosAEnlistar() {
+        
+        Permisos.getRecibos(idPersonaActual, getModoRecibo());
+    }
+
+    /*
+     */
+    function seleccionarRecibo() {
+
+        //obtengo la lista de checkbox con un nombre de clase determinado
+        var lista = document.getElementsByClassName("chk_listado");
+        var i;
+        var idRecibo = 0;
+
+        for (i = 0; i < lista.length; i++) {
+            //si hay algo seleccionado
+            if (lista[i].checked) {
+                idRecibo = lista[i].id;
+
+            }
+        }
+        return idRecibo;
+    }
+    function seleccionarArchivo() {
+
+        //obtengo la lista de checkbox con un nombre de clase determinado
+        var lista = document.getElementsByClassName("chk_listado");
+        var i;
+        var idArchivo = -1;
+
+        for (i = 0; i < lista.length; i++) {
+            //si hay algo seleccionado
+            if (lista[i].checked) {
+                idArchivo = lista[i].value;
+
+            }
+        }        
+        return idArchivo;
+    }
+
+
+          
+
+    function mostrarRecibo() {
+
+        var idRecibo = seleccionarRecibo();//obtengo al recibo seleccionado
+        if (idRecibo != 0) {
+            mostrar('subcontenidoReciboConformado');
+            var spinner = new Spinner({ scale: 2 });
+            spinner.spin($("html")[0]);
+            Backend.GetReciboPorId(idRecibo,getModoRecibo()).onSuccess(function (reciboJSON) {
+                spinner.stop();
+
+                $("#tabla_recibo_encabezado tbody tr").remove();
+                $("#tabla_recibo_encabezado").show();
+                $("#bloque_final").show();
+
+
+                var recibo = JSON.parse(reciboJSON);
+                var detalle = "";
+                var _this = this;
+
+                $('#celdaLegajo').html(recibo.cabecera.Legajo);
+                $('#celdaNombre').html(recibo.cabecera.Agente);
+                $('#celdaCUIL').html(recibo.cabecera.CUIL);
+                $('#celdaOficina').html(recibo.cabecera.Oficina);
+                $('#celdaOrden').html(recibo.cabecera.Orden);
+
+                $('#bloque_final').show();
+                $('#area').html(recibo.cabecera.Area);
+                $('#domicilio').html(recibo.cabecera.Domicilio);
+                $('#fechaLiquidacion').html(recibo.cabecera.FechaLiquidacion);
+                $('#categoria').html(recibo.cabecera.NivelGrado);
+
+                for (var i = 0; i < recibo.detalles.length; i++) {
+
+                    if (recibo.detalles[i].Aporte != "0" || recibo.detalles[i].Descuento != "0") {
+                        detalle = detalle + "<tr><td>" + recibo.detalles[i].Concepto + "</td><td class=\"columna_concepto\">"
+                        + recibo.detalles[i].Descripcion + "</td><td>" + Legajo.ConvertirAMonedaOVacio(recibo.detalles[i].Aporte) + "</td><td colspan=\"2\">"
+                        + Legajo.ConvertirAMonedaOVacio(recibo.detalles[i].Descuento) + "</td></tr>";
+                    }
+
+                }
+
+                detalle += "<tr style='border-bottom:none;' class='ultima_fila'><td style='border: none;'></td><td style='border: none;'></td><td class='celda_bruto_nombre'><strong>Bruto:</strong></td><td class='celda_bruto'>" + Legajo.ConvertirAMonedaOVacio(parseInt(recibo.cabecera.Bruto)) + "</td><td class=''> " + Legajo.ConvertirAMonedaOVacio(parseInt(recibo.cabecera.Descuentos)) + "</td></tr>";
+                detalle += "<tr style='border:none;' class='ultima_fila'><td style='border: none;'></td><td style='border: none;'></td><td class='celda_neto'><strong>Neto:</strong></td><td class='celda_importe_neto' colspan='2'><strong>" + Legajo.ConvertirAMonedaOVacio(parseInt(recibo.cabecera.Neto)) + "</strong></td></tr>";
+
+                $("#tabla_recibo_encabezado > tbody ").append(detalle);
+
+
+            })
+            .onError(function (e) {
+                spinner.stop();
+            });
+            
+        }
+    }
+
+    //subcontenidoBusquedaRecibosConformados
+    function mostrar(idPanel) {
+        //oculto todos los paneles y solo muestro el enviado como parametro
+        document.getElementById('subcontenidoBusquedaRecibosConformados').style.display = 'none';
+        document.getElementById('subcontenidoReciboConformado').style.display = 'none';
+
+        document.getElementById(idPanel).style.display = 'block';
+
+    }
+
+    /*SOLO: permito descargar recibos conformados por el agente, porque se le descarga recibos pdf firmados*/
+    function descargarRecibo() {
+
+        var idArchivo = seleccionarArchivo();//obtengo al recibo seleccionado
+
+        if (idArchivo == -1) {
+            alertify.alert("", "Debe seleccionar un recibo.");
+        } else {
+             // ahora verifico si esta conformado o no
+            var conformado = listaRecibosConformados['id' + seleccionarRecibo()];
+            if (conformado == 1) {
+                GeneralPortal.descargarRecibo(idArchivo);
+            }
+            else {
+                if (conformado == 0) {
+                    alertify.alert("","El recibo aun no esta conformado por el agente.");
+                }
+                else {
+                    alertify.alert("","No se dispone del recibo en formato digital con firma");
+                }
+            } 
+        }
+       
+    }
+
 
 </script> 
 </html>

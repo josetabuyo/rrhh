@@ -7,6 +7,7 @@ using System.IO;
 using iTextSharp.text.pdf;
 using iTextSharp.text;
 using iTextSharp.text.pdf.qrcode;
+using Newtonsoft.Json;
 
 /// <summary>
 /// Descripción breve de CreadorDePdfs
@@ -77,21 +78,21 @@ public class CreadorDePdfs //where T:IPrintableDocument
 
             if (keys_not_found.Count != 0)
             {
-              //  throw ex;
+                //  throw ex;
             }
 
             /*foreach (string name in stamp.AcroFields.Fields.Keys)
             {
                 stamp.AcroFields.SetField(name, "test");//agregar try cath por si la clave no esta en el dic
             }*/
-//            stamp.FormFlattening = true;
+            //            stamp.FormFlattening = true;
             stamp.Close(); //cierro el pdf
             reader.Close();
             ms.Close();
 
             byte[] Bytes = ms.ToArray();
 
-            
+
 
             return Bytes;
 
@@ -147,7 +148,7 @@ public class CreadorDePdfs //where T:IPrintableDocument
 
     }
 
-       
+
     public byte[] AgregarImagenAPDF(byte[] bytes, String codigoBarras)
     {
         PdfReader reader = null;
@@ -167,12 +168,12 @@ public class CreadorDePdfs //where T:IPrintableDocument
 
             // creo una nueva capa
             PdfLayer layer = new PdfLayer("Foto", stamper.Writer);
-            
+
             // Getting the Page Size
             //Rectangle rect = reader.GetPageSize(i);
 
             // obtengo el objeto ContentByte de la pagina i
-  //          int i = 1;
+            //          int i = 1;
 
             int total = reader.NumberOfPages + 1;
             for (int i = 1; i < total; i++)
@@ -234,19 +235,19 @@ public class CreadorDePdfs //where T:IPrintableDocument
                 cb.EndLayer();
                 //               }
             }
-                int length = Convert.ToInt32(ms.Length);
-                byte[] data = new byte[length];
-                ms.Read(data, 0, length);
+            int length = Convert.ToInt32(ms.Length);
+            byte[] data = new byte[length];
+            ms.Read(data, 0, length);
 
-//                stamper.FormFlattening = true;//para que no se pueda editar el pdf generado
-                stamper.Close(); //cierro el pdf
-                reader.Close();
-                ms.Close();
+            //                stamper.FormFlattening = true;//para que no se pueda editar el pdf generado
+            stamper.Close(); //cierro el pdf
+            reader.Close();
+            ms.Close();
 
-                byte[] Bytes = ms.ToArray();
-            
-                return Bytes;
-            
+            byte[] Bytes = ms.ToArray();
+
+            return Bytes;
+
         }
         finally
         {
@@ -317,18 +318,18 @@ public class CreadorDePdfs //where T:IPrintableDocument
                 /* if (document != null) document.Close();*/
 
         /*}*/
-        
+
         PdfReader reader = new PdfReader(bytes);
-                
+
 
         using (MemoryStream ms = new MemoryStream())
         {
             PdfStamper stamp = new PdfStamper(reader, ms);
 
-           /* foreach (string name in stamp.AcroFields.Fields.Keys)
-            {
-                Console.WriteLine(name + " ");
-            }*/
+            /* foreach (string name in stamp.AcroFields.Fields.Keys)
+             {
+                 Console.WriteLine(name + " ");
+             }*/
 
             List<string> keys_not_found = new List<string>();
             KeyNotFoundException ex = new KeyNotFoundException();
@@ -362,7 +363,7 @@ public class CreadorDePdfs //where T:IPrintableDocument
 
     /*Se agrega el codigo CSV y QR al recibo digital*/
     public byte[] AgregarCSVyQRAPDF(byte[] bytes, String csv, int paginas)
-    {      
+    {
 
         PdfReader reader = new PdfReader(bytes);
 
@@ -378,7 +379,7 @@ public class CreadorDePdfs //where T:IPrintableDocument
                 qrParam[EncodeHintType.ERROR_CORRECTION] = ErrorCorrectionLevel.M;
                 qrParam[EncodeHintType.CHARACTER_SET] = "UTF-8";
 
-                BarcodeQRCode barcodeQRCode = new BarcodeQRCode("https://rrhh.desarrollosocial.gob.ar/verificador/csv.aspx?c="+csv, 100, 100, qrParam);
+                BarcodeQRCode barcodeQRCode = new BarcodeQRCode("https://rrhh.desarrollosocial.gob.ar/verificador/csv.aspx?c=" + csv, 100, 100, qrParam);
                 Image codeQRImage = barcodeQRCode.GetImage();
                 //codeQRImage.ScaleAbsolute(100f,100f);
                 //codeQRImage.SetAbsolutePosition(doc.PageSize.Width - 36f - 128f, doc.PageSize.Height - 36f - 686.6f);//216
@@ -397,11 +398,11 @@ public class CreadorDePdfs //where T:IPrintableDocument
                         if (paginas >= 3) {
                             PdfContentByte content3 = stamp.GetUnderContent(3); //imprimo en la 3 pagina
                             content3.AddImage(codeQRImage);
-                        
+
                         }
                     }
-                    
-                }   
+
+                }
 
             }
             catch (KeyNotFoundException e)
@@ -414,7 +415,7 @@ public class CreadorDePdfs //where T:IPrintableDocument
             {
                 stamp.AcroFields.SetField(name, "test");//agregar try cath por si la clave no esta en el dic
             }*/
-//            stamp.FormFlattening = true; 
+            //            stamp.FormFlattening = true; 
             stamp.Close(); //cierro el pdf
             reader.Close();
             ms.Close();
@@ -428,7 +429,7 @@ public class CreadorDePdfs //where T:IPrintableDocument
 
     }
 
-    public string ObtenerCsv(byte[] bytes)
+    public void ObtenerCsvYcerrarPDF(ref string csv2, ref byte[] bytes)
     {
 
         PdfReader reader = new PdfReader(bytes);
@@ -454,7 +455,8 @@ public class CreadorDePdfs //where T:IPrintableDocument
             reader.Close();
             ms.Close();
 
-            return csv;
+            csv2 = csv;
+            bytes = ms.ToArray();
 
         }
 

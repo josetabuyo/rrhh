@@ -75,11 +75,35 @@ var GeneralPortal = {
 
                   res.end(result);
                     */
+                    /******************************/
+                    //var myWindow = window.open("data:application/pdf;base64," + b64);
+                    var base64Data = b64;
+                    var arrBuffer = base64ToArrayBuffer(base64Data);
 
-                    window.open("data:application/pdf;base64," + b64);
+                    // It is necessary to create a new blob object with mime-type explicitly set
+                    // otherwise only Chrome works like it should
+                    var newBlob = new Blob([arrBuffer], { type: "application/pdf" });
 
+                    // IE doesn't allow using a blob object directly as link href
+                    // instead it is necessary to use msSaveOrOpenBlob
+                    if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+                        window.navigator.msSaveOrOpenBlob(newBlob);
+                        return;
+                    }
 
+                    // For other browsers: 
+                    // Create a link pointing to the ObjectURL containing the blob.
+                    var data = window.URL.createObjectURL(newBlob);
 
+                    var link = document.createElement('a');
+                    document.body.appendChild(link); //required in FF, optional for Chrome
+                    link.href = data; link.target = "_blank";
+                    link.download = agenteActual + " " +idArchivo+".pdf";//este elemento hace que se descargue automaticamente si lo saco se abrira otra pagina
+                    link.click();
+                    window.URL.revokeObjectURL(data);
+                    link.remove(); 
+
+                    /********************************/
 //                    window.open("data:application/octet-stream;base64," + b64);
                     //var url = 'data:application/pdf;base64,' + Base64.encode(out); document.location.href = url;
   //                  var url = 'data:application/octet-stream;base64,' + b64; 
@@ -142,3 +166,15 @@ pdfWindow.document.write("<iframe width='100%' height='100%' src='data:applicati
 
     }
 };
+
+function base64ToArrayBuffer(data) {
+    var binaryString = window.atob(data);
+    var binaryLen = binaryString.length;
+    var bytes = new Uint8Array(binaryLen);
+    for (var i = 0; i < binaryLen; i++) {
+        var ascii = binaryString.charCodeAt(i);
+        bytes[i] = ascii;
+    }
+    return bytes;
+};
+

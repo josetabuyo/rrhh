@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using General.Recibos;
+using Newtonsoft.Json;
 
 namespace General.Repositorios
 {
@@ -38,11 +39,11 @@ namespace General.Repositorios
 
         }
 
-        public bool conformarRecibo(int idRecibo, int idUsuario, DateTime hoy, int recibo_aceptado, string observacion, string hash )
+        public bool conformarRecibo(int idRecibo, int idPersona, DateTime hoy, int recibo_aceptado, string observacion, string hash )
         {
             var parametros = new Dictionary<string, object>();            
             parametros.Add("@id_Recibo", idRecibo);
-            parametros.Add("@id_Usuario", idUsuario);
+            parametros.Add("@id_Usuario", idPersona);
             parametros.Add("@fechaConformidadUsuario", hoy);
             parametros.Add("@recibo_aceptado", recibo_aceptado);
             parametros.Add("@observacion", observacion);
@@ -91,8 +92,87 @@ namespace General.Repositorios
             throw new NotImplementedException();
         }
 
+        /*obtencion de recibos segun el modo: historica o no*/
+        public string GetRecibos(int idPersona, int modo)
+        {
+            var parametros = new Dictionary<string, object>();
+
+            parametros.Add("@idPersona", idPersona);
+            parametros.Add("@orden", 0);/*para que no retorne la lista segun un orden definido sino segun el modo enviado*/
+            parametros.Add("@modo", 1);/*para obtener los recibos para la busqueda web de recibos por persona*/
+            parametros.Add("@Historico", modo);
+
+            var recibo = new object();
+            var listaRecibos = new List<object>();
+
+            var tablaDatos = conexion.Ejecutar("dbo.PLAD_GET_Impresion_Recibos_Haberes", parametros);
+
+            if (tablaDatos.Rows.Count > 0)
+            {
+                tablaDatos.Rows.ForEach(row =>
+                {/*Tambien se puede crear un objeto contenedor de cada fila, esto me sirve para  retornar una 
+                  * lista en lugar de un objeto string json
+                  * 
+                    Persona persona = new Persona(row.GetInt("id_usuario"), row.GetInt("NroDocumento"), row.GetString("nombre"), row.GetString("apellido"), area);
+                    Respuesta respuesta = new Respuesta(
+                        row.GetInt("id_orden"),
+                        persona,
+                        row.GetDateTime("fecha_creacion"),
+                        row.GetString("texto"));
+                    */
+
+                    recibo = new
+                    {
+                        //Id_Recibo = row.GetInt("Id_Recibo"),
+                        idArchivo = row.GetInt("idArchivo",0),
+                        idLiquidacion = row.GetInt("idLiquidacion"),
+                        idRecibo = row.GetInt("idRecibo"),
+                        descripcionLiquidacion = row.GetString("descripcionLiquidacion"),
+                        area_desc = row.GetString("area_desc"),
+                        conformado = row.GetSmallintAsInt("conformado",-1),
+
+                    };
+
+
+                    listaRecibos.Add(recibo);
+                });
+
+            }
+
+            return JsonConvert.SerializeObject(listaRecibos);
+
+        }
+
+        public ConfiguracionReciboDigital GetConfiguracionReciboDigital()
+        {
+            ConfiguracionReciboDigital crd =null;
+
+            var tablaDatos = conexion.Ejecutar("dbo.PLA_GET_Configuracion_ReciboDigital");
+
+            if (tablaDatos.Rows.Count > 0)
+            {
+                tablaDatos.Rows.ForEach(row =>
+                {/* Persona persona = new Persona(row.GetInt("id_usuario"), row.GetInt("NroDocumento"), row.GetString("nombre"), row.GetString("apellido"), area);
+                    Respuesta respuesta = new Respuesta(
+                        row.GetInt("id_orden"),
+                        persona,
+                        row.GetDateTime("fecha_creacion"),
+                        row.GetString("texto"));
+                    */
+
+                    crd = new ConfiguracionReciboDigital(row.GetInt("fecha_añoInicio_reciboDigital"), row.GetInt("fecha_mesInicio_reciboDigital"), row.GetInt("fecha_añoHastaAca_recibosHistoricos"), row.GetInt("fecha_mesHastaAca_recibosHistoricos"));
+                                       
+                });
+
+            }
+
+            return crd;
+
+        }
+
+
         //TODO agregar recibo firmado, leer recibo firmado
-      
+
 
         /*
          public bool CambiarPassword(Usuario usuario, string pass_actual, string pass_nueva)

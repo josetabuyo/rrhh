@@ -132,7 +132,9 @@
                 var mes = day.getMonth() + 1;
                 var anio = day.getFullYear();
 
-
+                /*NOTA: por default la web solo permite ver los recibos de los ultimos 3 años, incluido el año actual, por lo
+                 * que se coincide con las tablas de recibos actuales; por eso no se se envia el parametro historico para
+                 * buscar en recibos historicos*/
                 $("#cmb_anio").empty();
 
                 for (var i = 0; i <= 2; i++) {
@@ -140,7 +142,7 @@
                 }
 
 
-                $("#cmb_meses").val(mes)
+                $("#cmb_meses").val(mes);
                 $("#cmb_anio").trigger('change');
                 //$("#cmb_meses").val(mes).trigger('change');
 

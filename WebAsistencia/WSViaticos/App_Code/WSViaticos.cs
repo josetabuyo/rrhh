@@ -4923,15 +4923,7 @@ public class WSViaticos : System.Web.Services.WebService
 
         return repo.getPsicofisicos(usuario.Owner.Documento);
     }
-
-    [WebMethod]
-    public string GetRecibo(int liquidacion, Usuario usuario)
-    {
-        RepositorioLegajo repo = RepoLegajo();
-
-        return repo.GetReciboDeSueldo(usuario.Owner.Documento, liquidacion);
-    }
-
+    
     [WebMethod]
     public string GetLiquidaciones(int anio, int mes, Usuario usuario)
     {
@@ -5446,6 +5438,11 @@ public class WSViaticos : System.Web.Services.WebService
         return new RepositorioDeArchivosFirmados(Conexion());
     }
 
+    private RepositorioDeArchivosMigrados RepositorioDeArchivosMigrados()
+    {
+        return new RepositorioDeArchivosMigrados(Conexion());
+    }
+
     /*Excel Consulta Personas DDJJ104*/
     [WebMethod]
     public string ConsultaExcelDDJJ104_Persona(string criterio, Usuario usuario)
@@ -5753,6 +5750,35 @@ public class WSViaticos : System.Web.Services.WebService
 
     #region " Recibo digital "
 
+    [WebMethod]
+    public string GetArchivoImportado(string nombreArchivo, Usuario usuario)
+    {
+        if (RepositorioDeArchivosMigrados().GetArchivoMigrado(nombreArchivo))
+        {
+            return JsonConvert.SerializeObject(new
+            {
+                tipoDeRespuesta = "archivoImportado.ok"/*,
+                idArchivo = recibo.idArchivo*/
+            });
+        }
+        else
+        {
+            return JsonConvert.SerializeObject(new
+            {
+                tipoDeRespuesta = "archivoImportado.nok"
+                //error = e.Message
+            });
+        }
+    }
+
+    [WebMethod]
+    public string GetRecibo(int liquidacion, Usuario usuario)
+    {
+        RepositorioLegajo repo = RepoLegajo();
+
+        return repo.GetReciboDeSueldo(usuario.Owner.Documento, liquidacion);
+    }
+
     /*[WebMethod]
    public List<TipoLiquidacion> GetTiposLiquidacion()
    {
@@ -5780,6 +5806,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    //este metodo es independiente de si el recibo es historico o no
     //el id puede ser el idLiquidacion o (tipoLiquidacion+anio+mes),////NOOOOOOOO falta agregar el idLiquidacion,porque pueden haber varias liquidacion con esos datos
     public string GetIdRecibosSinFirmar(int idLiquidacion, int tipoLiquidacion, int anio, int mes, Usuario usuario)
     {
@@ -5814,29 +5841,9 @@ public class WSViaticos : System.Web.Services.WebService
         }
         return respuesta;
     }*/
-
-    /* [WebMethod]
-     public StringRespuestaWS GetIdRecibosFirmados(int tipoLiquidacion, int anio, int mes, Usuario usuario)
-     {
-
-         var respuesta = new StringRespuestaWS();
-         try
-         {
-
-             RepositorioLegajo repo = RepoLegajo();
-             string lista = repo.GetIdRecibosFirmados(tipoLiquidacion, anio, mes);
-             respuesta.Respuesta = lista;
-         }
-         catch (Exception e)
-         {
-             respuesta.MensajeDeErrorAmigable = "Se produjo un error al obtener la lista de ids recibos firmados";
-             respuesta.setException(e);
-
-         }
-         return respuesta;
-     }*/
-
+       
     [WebMethod]
+    //este metodo es independiente de si el recibo es historico o no
     //el id puede ser el idLiquidacion o (tipoLiquidacion+anio+mes)
     public string GetIdRecibosFirmados(int idLiquidacion, int tipoLiquidacion, int anio, int mes, Usuario usuario)
     {
@@ -5848,89 +5855,11 @@ public class WSViaticos : System.Web.Services.WebService
 
         return JsonConvert.SerializeObject(respuesta);
     }
-
-
-    /////////////////VER
-
-    //NOTA: YA NO SE USA, la forma de visualizacion del recibo es UNICA.....!
-    //es la visualizacion del recibo desde el punto de vista del empleado
-    [WebMethod]
-    public StringRespuestaWS GetReciboPDFEmpleador(int id_recibo)
-    {
-
-        var respuesta = new StringRespuestaWS();
-
-        try
-        {
-            RepositorioLegajo repo = RepoLegajo();
-            Recibo recibo;
-
-            //para trabajarlo como objeto es mejor definir un objeto que traiga el recibo, asi se puede acceder a
-            //sus propiedades desde el back(desde el front con js se puede acceder), porque no se puede acceder a campos 
-            //especificos del objecto recibo cuando el casteo es a object.
-
-
-            //datos del recibo a rellenar    
-            recibo = repo.GetReciboDeSueldoPorID(id_recibo);
-
-            //
-            var modelo_para_pdf = new List<object>() { recibo };
-            var converter = new GenReciboToPdfConverter();
-            var mapa_para_pdf = converter.CrearMapa(modelo_para_pdf);
-            var creador_pdf = new CreadorDePdfs();
-            byte[] bytes;
-            byte[] bytes2;
-
-            if (mapa_para_pdf["paginasPDF"] == "una")
-            {
-                //el nombre del pdf generado va a ser el idRecibo
-                bytes = creador_pdf.FillPDF(TemplatePath("ReciboEmpleador_v6.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
-                bytes2 = creador_pdf.AgregarImagenAPDF(bytes, "FRH0502," + Convert.ToString(id_recibo));
-            }
-            else
-            {
-                if (mapa_para_pdf["paginasPDF"] == "dos")
-                {
-                    //el nombre del pdf generado va a ser el idRecibo
-                    bytes = creador_pdf.FillPDF(TemplatePath("ReciboEmpleador_v6b.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
-                    bytes2 = creador_pdf.AgregarImagenAPDF(bytes, "FRH0502," + Convert.ToString(id_recibo));
-                }
-                else
-                {
-                    //el nombre del pdf generado va a ser el idRecibo
-                    bytes = creador_pdf.FillPDF(TemplatePath("ReciboEmpleador_v6c.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
-                    bytes2 = creador_pdf.AgregarImagenAPDF(bytes, "FRH0502," + Convert.ToString(id_recibo));
-
-                }
-            }
-
-            //return Convert.ToBase64String(bytes2);
-            //return Convert.ToBase64String(bytes2);
-            respuesta.Respuesta = Convert.ToBase64String(bytes2);
-
-            //////////////////////////////////
-            ///      Object x = JsonConvert.DeserializeObject<Object>(datos);
-            ///      //JsonConvert.SerializeObject(x);
-
-
-            ///      return x.Cabecera ;
-        }
-        catch (Exception e)
-        {
-            respuesta.MensajeDeErrorAmigable = "Se produjo un error al obtener el PDF del recibo del empleador";
-            respuesta.setException(e);
-
-        }
-
-
-        return respuesta;
-
-    }
-
+    
     //se retorna los datos del recibo separado por un patron determinado
     //FALTA depurar en caso de usar, eso es porque se debe limpiar el SP dbo.RPT_PLA_Recibos_Haberes_Detalle para que no rellene con filas vacias
     [WebMethod]
-    public StringRespuestaWS GetReciboParseado(int id_recibo)
+    public StringRespuestaWS GetReciboParseado(int id_recibo, int modo)
     {
 
         var respuesta = new StringRespuestaWS();
@@ -5946,7 +5875,7 @@ public class WSViaticos : System.Web.Services.WebService
 
 
             //datos del recibo a rellenar    
-            recibo = repo.GetReciboDeSueldoPorIDSinRelleno(id_recibo);
+            recibo = repo.GetReciboDeSueldoPorIDSinRelleno(id_recibo,modo);
 
             string reciboPlanText = recibo.getReciboParseado(recibo);
 
@@ -5968,7 +5897,7 @@ public class WSViaticos : System.Web.Services.WebService
 
     //recibo digital unico tanto para el empleado como para el empleador
     [WebMethod]
-    public StringRespuestaWS GetReciboPDFDigital(int id_recibo)
+    public StringRespuestaWS GetReciboPDFDigital(int id_recibo,int modo)
     {
         var respuesta = new StringRespuestaWS();
 
@@ -5985,7 +5914,7 @@ public class WSViaticos : System.Web.Services.WebService
 
 
             //datos del recibo a rellenar    
-            recibo = repo.GetReciboDeSueldoPorID(id_recibo);
+            recibo = repo.GetReciboDeSueldoPorID(id_recibo,modo);
 
             //
             var modelo_para_pdf = new List<object>() { recibo };
@@ -6063,7 +5992,7 @@ public class WSViaticos : System.Web.Services.WebService
     //NOTA: YA NO SE USA, la forma de visualizacion del recibo es UNICA.....!
     //es la visualizacion del recibo desde el punto de vista del empleado
     [WebMethod]
-    public string GetReciboPDFEmpleado(int id_recibo)
+    public string GetReciboPDFEmpleado(int id_recibo,int modo)
     {
         RepositorioLegajo repo = RepoLegajo();
         Recibo recibo;
@@ -6073,7 +6002,7 @@ public class WSViaticos : System.Web.Services.WebService
         //especificos del objecto recibo cuando el casteo es a object.
 
         //datos del recibo a rellenar    
-        recibo = repo.GetReciboDeSueldoPorID(id_recibo);
+        recibo = repo.GetReciboDeSueldoPorID(id_recibo,modo);
 
         //
         var modelo_para_pdf = new List<object>() { recibo };
@@ -6118,6 +6047,7 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    //IMPORTANTE antes de guardar el pdf se debe obtenerCsv asi cierra el archivo..y lo deja ineditable antes de guardarlo!!!!!!
     //Se guarda el pdf firmado y el csv en otra tabla
     public int GuardarReciboPDFFirmado(string bytes_pdf,int idLiquidacion, int id_recibo, int anio, int mes, int tipoLiquidacion, Usuario usuario)
     {
@@ -6126,11 +6056,20 @@ public class WSViaticos : System.Web.Services.WebService
         var creador_pdf = new CreadorDePdfs();
 
         int id_archivo = 0;
+
+        //los bytes vienen en base64, convierto de base64 a string y luego a bytes.
+        byte[] data = System.Convert.FromBase64String(bytes_pdf);
+        //string csv = creador_pdf.ObtenerCsv(System.Text.Encoding.UTF8.GetBytes(bytes_pdf));
+
+        //Obtener el csv del pdf
+        //string r = creador_pdf.ObtenerCsvYcerrarPDF(data);
+        string csv = "";
+        creador_pdf.ObtenerCsvYcerrarPDF(ref csv, ref data);
         //        try
         //        {//COMO el proceso de guardado desde la tabla de la BD al disco es externo, no genero una subclase de archivo
         //que tendria el path de disco donde guardar el archivo. Se puede agregar una clase con propieda la clase archivo 
         //subo el archivo firmado y actualiza la tabla que indica que el idRecibo fue firmado
-        id_archivo = RepositorioDeArchivosFirmados().GuardarArchivo(bytes_pdf, usuario.Owner.Id);
+        id_archivo = RepositorioDeArchivosFirmados().GuardarArchivo(System.Convert.ToBase64String(data), usuario.Owner.Id);
 //                   id_archivo = 20;//RepositorioDeArchivos().GuardarArchivo(bytes_pdf);// id_recibo;//simulo el guardado del archivo
         //var r = RepositorioDeArchivos().GetArchivo(id_archivo); //19444 es un pdf firmado          
         //actualizo el recibo firmado por el empleado, 
@@ -6146,16 +6085,9 @@ public class WSViaticos : System.Web.Services.WebService
 
                     RepoReciboFirmado().agregarReciboFirmado(id_recibo, id_archivo, anio, mes, tipoLiquidacion, usuario.Owner.Id, hoy, Convert.ToBase64String(byteHash));
          */
-
-        
-        RepoReciboFirmado().agregarReciboFirmado(idLiquidacion, id_recibo, id_archivo, anio, mes, tipoLiquidacion);
                 
-        //los bytes vienen en base64, convierto de base64 a string y luego a bytes.
-        byte[] data = System.Convert.FromBase64String(bytes_pdf);
-        //string csv = creador_pdf.ObtenerCsv(System.Text.Encoding.UTF8.GetBytes(bytes_pdf));
+        RepoReciboFirmado().agregarReciboFirmado(idLiquidacion, id_recibo, id_archivo, anio, mes, tipoLiquidacion);
 
-        //Obtener el csv del pdf
-        string csv = creador_pdf.ObtenerCsv(data);
         //agregar el csv a la tabla respectiva
         //CSVUtil.formatCSV(s, 4, CSV_SEPARATOR)   //agrega los "-" cada 4 caracteres al csv
         bool resultado = repoVeri.agregarCsv(csv, CSVUtil.ID_TIPO_RECIBO_DIGITAL, id_recibo);
@@ -6235,28 +6167,36 @@ public class WSViaticos : System.Web.Services.WebService
         }
     }
 
+    /*obtener las liquidaciones es independiente de si los recibos son historicos o no*/
     [WebMethod]
     public string GetLiquidacionesAFirmar(Usuario usuario)
     {
-        /*el año y mes de inicio de posibilidad de firmar esta HARCODEADO AQUI*/
-        int anio = 2018;
-        int mes = 1;
+        
         RepositorioLegajo repo = RepoLegajo();
-        return repo.GetLiquidacionesAFirmar(anio,mes);
+        /*para obtener desde que fecha se realiza la firma de recibos*/
+        ConfiguracionReciboDigital crd = RepoReciboFirmado().GetConfiguracionReciboDigital();
+
+        return repo.GetLiquidacionesAFirmar(crd.fecha_anioInicio_ReciboDigital,crd.fecha_mesInicio_ReciboDigital);
     }
 
 
-    /*recibos de sueldos de un dado usuario*/
+    /*recibos de sueldos de un dado usuario segun el modo 0: recientes, 1 historico*/
     [WebMethod]
-    public string GetRecibos(Usuario usuario)
+    public string GetRecibos(int idPersona,int modo,Usuario usuario)
     {
-        /*el año y mes de inicio de posibilidad de firmar esta HARCODEADO AQUI*/
-        int anio = 2018;
-        int mes = 1;
-        //RepositorioLegajo repo = RepoLegajo();
-        //return repo.GetLiquidacionesAFirmar(anio, mes);
-        /*return fake*/
-        return "lista";
+        return RepoReciboFirmado().GetRecibos(idPersona,modo);
+    }
+
+    [WebMethod]
+    public string GetReciboPorId(int id_recibo, int modo)
+    {
+        RepositorioLegajo repo = RepoLegajo();
+        Recibo recibo;
+  
+        recibo = repo.GetReciboDeSueldoPorID(id_recibo,modo);
+
+        return JsonConvert.SerializeObject(recibo);
+
     }
 
     #endregion
@@ -6264,7 +6204,7 @@ public class WSViaticos : System.Web.Services.WebService
     #region " Verificacion Electronica"
 
     [WebMethod] /*********TO DO*****/
-    public string VerificarCSV(string codigoCSV)
+    public string VerificarCSV(string codigoCSV, int modo)
     {
         RepositorioLegajo repoL = RepoLegajo();
         Recibo recibo;
@@ -6293,7 +6233,7 @@ public class WSViaticos : System.Web.Services.WebService
             //Obtengo los datos del documento 
             //FABI quiere hacer un SP que automaticamente obtenga el documento PERO aca por el momento lo dejo harcodeado
             //nota: aca se obtiene a todo el recibo, lo ideal seria solo obtener los datos que se mostraran...
-            recibo = repoL.GetReciboDeSueldoPorID((int)id_doc); //788022 recibo de prueba
+            recibo = repoL.GetReciboDeSueldoPorID((int)id_doc,modo); //788022 recibo de prueba
             
             //string montoFormato = recibo.cabecera.Neto.ToString("c2", CultureInfo.CreateSpecificCulture("es-ES"));            
 

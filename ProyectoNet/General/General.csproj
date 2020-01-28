@@ -171,8 +171,10 @@
     <Compile Include="Recibos\Numalet.cs" />
     <Compile Include="Recibos\Recibo.cs" />
     <Compile Include="Recibos\ReciboFirmado.cs" />
+    <Compile Include="Recibos\ConfiguracionReciboDigital.cs" />
     <Compile Include="Recibos\TipoLiquidacion.cs" />
     <Compile Include="Repositorios\AccionesMobi.cs" />
+    <Compile Include="Repositorios\RepositorioDeArchivosMigrados.cs" />
     <Compile Include="Repositorios\RepositorioVerificador.cs" />
     <Compile Include="Repositorios\RepositorioDeArchivosFirmados.cs" />
     <Compile Include="Repositorios\RepositorioDeTipoDeLiquidacion.cs" />

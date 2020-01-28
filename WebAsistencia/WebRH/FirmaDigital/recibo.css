@@ -120,3 +120,22 @@ background-position: center;
 .stripedGris tr:nth-child(even) {
     background-color: #eae6f0;
 }
+
+.botonAzul {
+    background: -moz-linear-gradient(top, #587BA0, #38577f 15px);
+    background: -webkit-gradient(linear, 0 0, 0 50%, from(#587BA0), to(#38577f) );
+    background-image: linear-gradient(to bottom, #2574AD, #034574);
+    background-color: rgb(1,70,99);
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px; /*azul marino oscuro opaco*/
+    -ms-border-radius: 4px;
+    color: #fff;
+    /*float: center;*/
+    border: none;
+    padding: 3px 12px 3px 12px; /*padding: 5px 18px 5px 18px;*/
+    /*margin: 5px 0 0 0;*/
+    font-family: arial;
+    font-size: 10pt;
+    cursor: hand;
+    font-weight: bold;
+}

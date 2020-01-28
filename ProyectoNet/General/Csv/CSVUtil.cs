@@ -122,12 +122,12 @@ namespace General.Csv
 
             String binaryMask = Convert.ToString(maskValue, 2);
 
-            //rellenamos con 0 al principio hasta cubrir los 26 caracteres necesarios
-            //que es la cantidad de caracteres del codigo de seguridad + de el de unicidad
+            //rellenamos con 0 al principio hasta cubrir los 28 caracteres necesarios
+            //que es la cantidad de caracteres del codigo de seguridad + de el de unicidad+tipo doc
             //que se va a recorrer para ir mezclando ambos codigos de base 36
             //AQUI es donde se trunca el hash del contenido/firma digital, para obtener solo los
             //primeros 19            
-            while (binaryMask.Length < 26)
+            while (binaryMask.Length < 28)
             {
                 binaryMask = "0" + binaryMask;
             }
@@ -178,7 +178,7 @@ namespace General.Csv
 
             //Al final de este bucle posicionUnicidad debe ser 7
             //Al final de este bucle posicionSeguridad debe ser 19
-            //y seguridadUnicidad debe tener ambos codigos mezclados segun el patron, 26 caracteres
+            //y seguridadUnicidad debe tener ambos codigos mezclados segun el patron, 28 caracteres
 
             /*IMPORTANTE: la codificacionEntidad y el tipoDoc NO estan en base64...!  a modo de poder detectar visualmente la entidad de pertenencia y el tipo de 
              documento*/

@@ -328,15 +328,17 @@ namespace General.Repositorios
 
         }
 
+        /*en este caso siempre busca en las tablas de recibos actuales y no en la historica*/
         public string GetReciboDeSueldo(int documento, int liq)
         {
             var parametros = new Dictionary<string, object>();
             var parametros2 = new Dictionary<string, object>();
-            parametros.Add("@Documento", documento);
+            parametros.Add("@Documento", documento); 
             parametros.Add("@liquidacion", liq);
+            var modo = 0;
 
             var recibo = new object();
-            var listaReciboDetalle = new List<object>();
+            var listaReciboDetalle = new List<Detalle>();
             var cabeceraRecibo = new object();
             /*la variable conforme puede tener los siguientes valores:
              * -1: el recibo aun no fue firmado.
@@ -349,9 +351,9 @@ namespace General.Repositorios
             {
                 int idRecibo = tablaDatos.Rows.Last().GetInt("Id_Recibo");
 
-                cabeceraRecibo = traerCabeceraRecibo(idRecibo);
+                cabeceraRecibo = traerCabeceraRecibo(idRecibo,modo);
 
-                listaReciboDetalle = traerDetalleRecibo(idRecibo);
+                listaReciboDetalle = getDetalleRecibo(idRecibo,modo);
 
                 /*obtengo si esta conforme o no con el recibo digital*/
                 parametros2.Add("@idRecibo", idRecibo);
@@ -379,7 +381,7 @@ namespace General.Repositorios
                     IdRecibo = idRecibo,
                     Cabecera = cabeceraRecibo,
                     Detalle = listaReciboDetalle,
-                    IdArchivo =idArchivo
+                    IdArchivo = idArchivo
                 };
 
             }
@@ -389,15 +391,15 @@ namespace General.Repositorios
         }
 
         
-        public Recibo GetReciboDeSueldoPorID(int id_recibo)
+        public Recibo GetReciboDeSueldoPorID(int id_recibo, int modo)
         {            
             var recibo = new Recibo();
             var listaReciboDetalle = new List<Detalle>();
             var cabeceraRecibo = new Cabecera();
 
-            cabeceraRecibo = getCabeceraRecibo(id_recibo);
+            cabeceraRecibo = getCabeceraRecibo(id_recibo,modo);
 
-            listaReciboDetalle = getDetalleRecibo(id_recibo);
+            listaReciboDetalle = getDetalleRecibo(id_recibo,modo);
 
             recibo.cabecera = cabeceraRecibo;
             recibo.detalles = listaReciboDetalle;
@@ -407,13 +409,13 @@ namespace General.Repositorios
         }
 
         //aca en los destalles del recibo no se agregan filas vacias en caso de no llegar a rellenar el recibo(eso era por compatibilidad app escritorio, aunque creo que eso ya estaba funcionando sin esa agregacion de filas de relleno)
-        public Recibo GetReciboDeSueldoPorIDSinRelleno(int id_recibo)
+        public Recibo GetReciboDeSueldoPorIDSinRelleno(int id_recibo, int modo)
         {
             var recibo = new Recibo();
             var listaReciboDetalle = new List<Detalle>();
             var cabeceraRecibo = new Cabecera();
 
-            cabeceraRecibo = getCabeceraRecibo(id_recibo);
+            cabeceraRecibo = getCabeceraRecibo(id_recibo,modo);
 
             listaReciboDetalle = getDetalleReciboSinRelleno(id_recibo);
 
@@ -424,11 +426,12 @@ namespace General.Repositorios
 
         }
 
-
-        private Cabecera getCabeceraRecibo(int idRecibo)
+        /*es igual a la funcion traerCabeceraRecibo pero mas completa, trae mas datos, es para rellenar el pdf del recibo*/
+        private Cabecera getCabeceraRecibo(int idRecibo, int modo)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@Id_recibo", idRecibo);
+            parametros.Add("@Historico", modo);
             var cabeceraRecibo = new Cabecera();
 
             var tablaDatos = conexion.Ejecutar("dbo.RPT_PLA_Recibo_Haberes_Header", parametros);
@@ -463,11 +466,13 @@ namespace General.Repositorios
             return cabeceraRecibo;
         }
 
-        private List<Detalle> getDetalleRecibo(int idRecibo)
+       
+        private List<Detalle> getDetalleRecibo(int idRecibo, int modo)
         {
 
             var parametros = new Dictionary<string, object>();
             parametros.Add("@Id_Recibo", idRecibo);
+            parametros.Add("@Historico", modo);
             var listaDetalleRecibo = new List<Detalle>();
             var un_detalle = new Detalle();
 
@@ -515,8 +520,8 @@ namespace General.Repositorios
             return listaDetalleRecibo;
         }
 
-
-        private List<object> traerDetalleRecibo(int idRecibo)
+        /*borrar si anda todo bien en firma de recibos*/
+        private List<object> xxxtraerDetalleRecibo(int idRecibo)
         {
 
             var parametros = new Dictionary<string, object>();
@@ -543,10 +548,12 @@ namespace General.Repositorios
             return listaDetalleRecibo;
         }
 
-        private object traerCabeceraRecibo(int idRecibo)
+        /*para visualizar el recibo por web como html*/
+        private object traerCabeceraRecibo(int idRecibo, int modo)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@Id_recibo", idRecibo);
+            parametros.Add("@Historico", modo);
             var cabeceraRecibo = new object();
 
             var tablaDatos = conexion.Ejecutar("dbo.RPT_PLA_Recibo_Haberes_Header", parametros);

@@ -56,7 +56,7 @@
     <div id="listaDeLiquidaciones"></div><br/>
      
      <!-- 	armar liquidaciones -->
-     <input id="Button2" class="botonFirmaM" type="button" value="BuscarLiq" onclick="javascript:armarListaLiquidaciones();return false;" />
+     <input id="Button2" style= "float:right;margin-right:35pt;margin-bottom:20pt" class="botonFirmaM" type="button" value="BuscarLiq" onclick="javascript:armarListaLiquidaciones();return false;" />
 
 
              

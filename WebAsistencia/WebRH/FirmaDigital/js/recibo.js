@@ -52,7 +52,7 @@ var RECIBOS = (function (window, undefined) {
     }
 
     function getRecibos(tipoLiquidacion, anio, mes) {
-        /*VERRR:Esta funcionalidad cno la uso, revizar y revizar el sql , que quedo obsoleto debido a la modificacion de get 
+        /*VERRR:Esta funcionalidad no la uso, revizar y revizar el sql , que quedo obsoleto debido a la modificacion de get 
         id recibo sin firmar*/
         Backend.GetRecibosResumen(tipoLiquidacion, anio, mes)
         .onSuccess(function (recibosResumen) {
@@ -204,6 +204,7 @@ var RECIBOS = (function (window, undefined) {
 
 
     }
+
 
     function downloadRemoteDataB64POSTReciboPlano(url, idRecibo, params, successFunction, errorFunction) {
 

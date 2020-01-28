@@ -2,6 +2,7 @@
 var mes;
 var idUsuario;
 var usuarioEncontrado;
+var idPersonaActual;
 
 var Permisos = {
     init: function () {
@@ -206,13 +207,14 @@ var Permisos = {
     },
     alSeleccionarUnaPersona: function (la_persona_seleccionada) {
         var _this = this;
+        idPersonaActual = la_persona_seleccionada.id;
         $('#panel_datos_usuario').hide();
         _this.repositorioDeUsuarios.getUsuarioPorIdPersona(
             la_persona_seleccionada.id,
             function (usuario) {
                 //se encontro a la persona con id, entonces cargo los datos correspondientes
                 //_this.cargarUsuario(usuario);
-                _this.cargarUsuario(usuario);
+                _this.cargarUsuario(usuario, la_persona_seleccionada.id);
             },
             function (error) {
                 if (error == "LA_PERSONA_NO_TIENE_USUARIO") {
@@ -246,7 +248,58 @@ var Permisos = {
                 }
             });
     },
+    getRecibos: function (idPersona,modo) {
+        Backend.GetRecibos(idPersona,modo).onSuccess(function (listaRecibos) {
 
+            listaRecibosConformados = [];//reseteo la lista de recibos que indican cuales estan conformado:1, no conformado:0, resto anterios al inicio de los recibos digitales:-1
+
+            var capaListaRecibos = document.getElementById("listaRecibosConfomadosPersonal");
+            var i;
+            var resp = JSON.parse(listaRecibos);
+            var longitud; //tamaño de la lista de recibos conformados por el agente
+            longitud = Object.keys(resp).length;
+            
+            var capaInicio = ''; //representa la capa que muestran a las liquidaciones
+            var capaFin = '';
+            var capaRecibos = '';
+            var capaAcumulada = '';
+            
+            capaInicio = '<div style="height: 307px;overflow: auto;margin-bottom:20px"><table class="stripedGris tablexxx table-striped table-bordered table-condensedxxx" style="width:100%;border-collapse: inherit;"><tbody class="listxxx"><tr><td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 10pt;font-weight: bold;text-align:center;padding:5px;width:34%" >Liquidación</td><td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 10pt;font-weight: bold;text-align:center" >Area</td><td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;width:10px;text-align:center" >&nbsp;</td></tr>';
+
+            capaFin = '</tbody></table></div>';
+
+            capaAcumulada = capaInicio;
+            //genero la lista de recibos conformados
+            for (i = 0; i < longitud; i++) {
+                
+                //la lista va a ser de clave: 'id' +idRecibo y valor: conformado:1,no conformado:0, resto:-1
+                var s;
+                s = 'id' +resp[i].idRecibo; 
+               
+                capaRecibos = '<tr style="text-align:left;">  <td style="padding-left:5px;"><div style="margin-top:5px">' + resp[i].descripcionLiquidacion + '</div></td>  <td style="padding-left:5px;"><div style="margin-top:5px">' + resp[i].area_desc + '</div></td> <td style="text-align: center;padding:6px;"><input type="checkbox" class="chk_listado" id="' + resp[i].idRecibo + '" style="cursor: pointer;" value="' + resp[i].idArchivo + '"  /></td></tr>';
+
+                listaRecibosConformados[s] = resp[i].conformado;
+                capaAcumulada = capaAcumulada + capaRecibos;
+
+
+            }
+            //alert(Object.keys(listaRecibosConformados).length);
+            capaAcumulada = capaAcumulada + capaFin;
+            capaListaRecibos.innerHTML = capaAcumulada;
+
+            /*permite solo seleccionar un checkbox a la vez del grupo de clase chk_listado*/
+            $('.chk_listado').click(function () {
+                $('.chk_listado').not(this).prop('checked', false);
+            });
+
+        });
+
+
+    },
+
+    /**
+     *TODO limpiar e iniciar la lista de recibos conformados
+     */
     //FC: cuando seleccione una persona del buscador de Personas
     cargarUsuario: function (usuario,idPersona) {
         usuarioEncontrado = usuario;
@@ -270,7 +323,7 @@ var Permisos = {
             $("#areaActual").html(resp.Alias);
         });
 
-
+        agenteActual = usuario.Owner.Apellido + " " + usuario.Owner.Nombre;
 
         $("#nombre_empleado").html(usuario.Owner.Nombre);
         $("#apellido_empleado").html(usuario.Owner.Apellido);
@@ -308,36 +361,9 @@ var Permisos = {
 
         $("#cambio_imagen_pendiente").hide();
 
-        /*
-        $("#btn_reset_password").click(function () {
-
-            alertify.confirm('Modificar contraseña', '¿Está seguro de querer reinciar la contraseña', function () {
-                Backend.ResetearPassword(_this.usuario.Id).onSuccess(
-                    function (nueva_clave) {
-                        alertify.alert("Se ha modificado la contraseña.", "La nueva contraseña para el usuario: "
-                            + _this.usuario.Alias + " es: " + nueva_clave);
-                    });
-            }
-                , function () {
-                    alertify.alert("Modificación cancelada.");
-                }
-            );
-        });*/
-
-        /*
-        $("#btn_modificar_mail").click(function () {
-            alertify.prompt(' ', 'Ingrese el mail del usuario', '', function (evt, value) {
-                Backend.ModificarMailRegistro(_this.usuario.Id, value).onSuccess(function () {
-                    alertify.success("Se ha modificado correctamente su mail");
-                    alertify.prompt().close();
-                    _this.lbl_email.text(value);
-                }).onError(function () {
-                    alertify.error("Error al modificar el mail");
-                    alertify.prompt().close();
-                });
-            }, function () { });
-        });*/
-
+        /*obtengo los recibos de la personas seleccionada,recientes o hisoricas dependiendo de la seleccion
+         por default el modo es 0, osea solo obtener recibos recientes*/
+        this.getRecibos(idPersona,0); 
 
 
         $("#btn_verificar_usuario").click(function () {
@@ -353,111 +379,7 @@ var Permisos = {
         });
 
     },
-
-
-    //FC: cuando seleccione una persona del buscador de Personas
-    cargarUsuario2: function (usuario) {
-        usuarioEncontrado = usuario;
-        console.log(usuario);
-        //sessionStorage.setItem("nombre", usuario.Owner.Nombre);
-        //sessionStorage.setItem("apellido", usuario.Owner.Apellido);
-        //sessionStorage.setItem("idUsuario", usuario.Id);
-        //sessionStorage.setItem("idImagen", usuario.Owner.IdImagen);
-        //this.completarDatosDeLaSesion();
-
-        var _this = this;
-        _this.usuario = usuario;
-        $("#panel_datos_usuario").show();
-        $("#caja_permisos_actuales").show();
-        _this.getPerfilesDelUsuario();
-        _this.getFuncionalidadesDelUsuario();
-        /* Backend.ElUsuarioLogueadoTienePermisosParaFuncionalidadPorNombre("mau_cambiar_permisos").onSuccess(function (tiene_permisos) {
-        if (tiene_permisos) {
-        _this.vista_permisos.setUsuario(usuario);
-        _this.vista_areas.setUsuario(usuario);
-        }
-        });*/
-        $("#nombre_empleado").html(usuario.Owner.Nombre);
-        $("#apellido_empleado").html(usuario.Owner.Apellido);
-        $("#nombre2").html(usuario.Owner.Nombre);
-        $("#apellido2").html(usuario.Owner.Apellido);
-        $("#documento2").html(usuario.Owner.Documento);
-        $("#legajo2").html(usuario.Owner.Legajo);
-        $("#email").html(usuario.MailRegistro);
-
-        if (usuario.Owner.IdImagen >= 0) {
-
-            var img = new VistaThumbnail({ id: usuario.Owner.IdImagen, contenedor: $("#foto_usuario") });
-            $("#foto_usuario").show();
-            $("#foto_usuario_generica").hide();
-        }
-        else {
-            $("#foto_usuario").hide();
-            $("#foto_usuario_generica").show();
-        }
-
-        $("#usuario_verificado").hide();
-        $("#usuario_no_verificado").hide();
-        $("#btn_verificar_usuario").hide();
-        $('#panel_personas_de_baja_con_permisos').insertAfter("#form1");
-        $('#panel_usuarios_por_area').insertAfter("#form1");
-
-        $('.dynatree-folder span.dynatree-checkbox').remove();
-
-        if (usuario.Verificado) $("#usuario_verificado").show();
-        else {
-            $("#usuario_no_verificado").show();
-            $("#btn_verificar_usuario").show();
-        }
-        $("#txt_nombre_usuario").html(usuario.Alias);
-
-        $("#cambio_imagen_pendiente").hide();
-
-        /*
-        $("#btn_reset_password").click(function () {
-
-            alertify.confirm('Modificar contraseña', '¿Está seguro de querer reinciar la contraseña', function () {
-                Backend.ResetearPassword(_this.usuario.Id).onSuccess(
-                    function (nueva_clave) {
-                        alertify.alert("Se ha modificado la contraseña.", "La nueva contraseña para el usuario: "
-                            + _this.usuario.Alias + " es: " + nueva_clave);
-                    });
-            }
-                , function () {
-                    alertify.alert("Modificación cancelada.");
-                }
-            );
-        });*/
-
-        /*
-        $("#btn_modificar_mail").click(function () {
-            alertify.prompt(' ', 'Ingrese el mail del usuario', '', function (evt, value) {
-                Backend.ModificarMailRegistro(_this.usuario.Id, value).onSuccess(function () {
-                    alertify.success("Se ha modificado correctamente su mail");
-                    alertify.prompt().close();
-                    _this.lbl_email.text(value);
-                }).onError(function () {
-                    alertify.error("Error al modificar el mail");
-                    alertify.prompt().close();
-                });
-            }, function () { });
-        });*/
-
-
-
-        $("#btn_verificar_usuario").click(function () {
-            Backend.VerificarUsuario(_this.usuario.Id).onSuccess(function (verifico_ok) {
-                if (verifico_ok) {
-                    $("#usuario_no_verificado").hide();
-                    $("#usuario_verificado").show();
-                    $("#btn_verificar_usuario").hide();
-                    if (_this.vista_permisos)
-                        _this.vista_permisos.setUsuario(_this.usuario);
-                }
-            });
-        });
-
-    },
+       
     
     iniciarPantallaAsignacionPerfiles: function () {
         var _this = this;
