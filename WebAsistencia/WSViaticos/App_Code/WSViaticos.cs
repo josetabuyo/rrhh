@@ -5751,6 +5751,59 @@ public class WSViaticos : System.Web.Services.WebService
     #region " Recibo digital "
 
     [WebMethod]
+    public string ImportarRecibos(int mes,int anio,string descripcionImportacion,int tipoLiquidacion,String contenidoArchivo, Usuario usuario)
+    {
+        int idLiquidacion;
+        idLiquidacion = RepositorioDeArchivosMigrados().GET_Recibos_Migrados_MaxLiq();
+
+        string[] lineas = contenidoArchivo.Split(new string[] { "\n", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+        foreach (string linea in lineas)
+        {
+            //el primer caracter sirve para delinear que parte del recibo se procesa
+            //nota: en este nivel no se hace nada con las lineas que no empiezan con alguna de las opciones del case
+            switch (linea.ElementAt(0))
+            {
+                case '1':
+                    //no hace nada solo es el encabezado de cada registro
+                    break;
+                case '2':
+                    Recibo r = new Recibo(); //'\0'
+                    string s = linea.Substring(13, 7);
+                    string ss = s.Remove(s.IndexOf('.'), 1);
+                    int sss = int.Parse(ss);
+
+                    ////VERRRR
+                    r.cabecera.Legajo = int.Parse(linea.Substring(13, 7).Replace('.', '\0'));//Replace(Mid(Registro, 107, 7), ".", "")
+                    r.cabecera.CUIL = linea.Substring(147, 13);//Mid(Registro, 147, 13)
+                    r.cabecera.Oficina = int.Parse(linea.Substring(162, 3));//Mid(Registro, 162, 3)
+                    r.cabecera.Orden = int.Parse(linea.Substring(170, 5).Replace('.', '\0'));//Replace(Mid(Registro, 170, 5), ".", "")
+                    break;
+                default:
+                    Console.WriteLine("Default case");
+                    break;
+            }
+        }
+               
+
+        if (false)
+        {
+            return JsonConvert.SerializeObject(new
+            {
+                result = "archivoImportado.ok"/*,
+                idArchivo = recibo.idArchivo*/
+            });
+        }
+        else
+        {
+            return JsonConvert.SerializeObject(new
+            {
+                result = "archivoImportado.nok"
+                //error = e.Message
+            });
+        }
+    }
+
+    [WebMethod]
     public string GetArchivoImportado(string nombreArchivo, Usuario usuario)
     {
         if (RepositorioDeArchivosMigrados().GetArchivoMigrado(nombreArchivo))

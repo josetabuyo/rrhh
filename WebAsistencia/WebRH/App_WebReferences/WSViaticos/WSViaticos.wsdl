@@ -538,6 +538,25 @@
       <s:element name="AsignaAreaAPersonasNoCertificadasResponse">
         <s:complexType />
       </s:element>
+      <s:element name="ImportarRecibos">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="mes" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="anio" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="descripcionImportacion" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="tipoLiquidacion" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="contenidoArchivo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ImportarRecibosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ImportarRecibosResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetArchivoImportado">
         <s:complexType>
           <s:sequence>
@@ -8943,6 +8962,12 @@
   <wsdl:message name="AsignaAreaAPersonasNoCertificadasSoapOut">
     <wsdl:part name="parameters" element="tns:AsignaAreaAPersonasNoCertificadasResponse" />
   </wsdl:message>
+  <wsdl:message name="ImportarRecibosSoapIn">
+    <wsdl:part name="parameters" element="tns:ImportarRecibos" />
+  </wsdl:message>
+  <wsdl:message name="ImportarRecibosSoapOut">
+    <wsdl:part name="parameters" element="tns:ImportarRecibosResponse" />
+  </wsdl:message>
   <wsdl:message name="GetArchivoImportadoSoapIn">
     <wsdl:part name="parameters" element="tns:GetArchivoImportado" />
   </wsdl:message>
@@ -11534,6 +11559,10 @@
       <wsdl:input message="tns:AsignaAreaAPersonasNoCertificadasSoapIn" />
       <wsdl:output message="tns:AsignaAreaAPersonasNoCertificadasSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="ImportarRecibos">
+      <wsdl:input message="tns:ImportarRecibosSoapIn" />
+      <wsdl:output message="tns:ImportarRecibosSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetArchivoImportado">
       <wsdl:input message="tns:GetArchivoImportadoSoapIn" />
       <wsdl:output message="tns:GetArchivoImportadoSoapOut" />
@@ -13339,6 +13368,15 @@
     </wsdl:operation>
     <wsdl:operation name="AsignaAreaAPersonasNoCertificadas">
       <soap:operation soapAction="http://wsviaticos.gov.ar/AsignaAreaAPersonasNoCertificadas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ImportarRecibos">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ImportarRecibos" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -17266,6 +17304,15 @@
     </wsdl:operation>
     <wsdl:operation name="AsignaAreaAPersonasNoCertificadas">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/AsignaAreaAPersonasNoCertificadas" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ImportarRecibos">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ImportarRecibos" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

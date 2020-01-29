@@ -32,6 +32,11 @@ namespace General.Repositorios
             }            
         }
 
-        
+        public int GET_Recibos_Migrados_MaxLiq()
+        {
+            var parametros = new Dictionary<string, object>();
+            return int.Parse(this.conexion.EjecutarEscalar("dbo.PLA_GET_Recibos_Migrados_MaxLiq", parametros).ToString());
+        }
+
     }
 }

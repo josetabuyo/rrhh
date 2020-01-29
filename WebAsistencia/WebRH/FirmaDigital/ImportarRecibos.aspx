@@ -373,68 +373,86 @@
         var lista = document.getElementsByClassName("radio_listado");
         var i;
         var valorTipoLiquidacion = -1;
+        var comprobaciones = true;
 
         for (i = 0; i < lista.length; i++) {
             //si hay algo seleccionado
             if (lista[i].checked) {
-                valorTipoLiquidacion = lista[i].value;
+                valorTipoLiquidacion = lista[i].id;
             }
         } 
         if (valorTipoLiquidacion == -1) {
-            alertify.alert("","Debe seleccionar un Tipo de Liquidación.");
+            alertify.alert("", "Debe seleccionar un Tipo de Liquidación."); comprobaciones = false;
+        } else {
+            if (document.getElementById("descripcionImportacion").value == '') {
+                alertify.alert("", "Debe ingresar una Descripción.");comprobaciones = false;
+            } else {
+                if (document.getElementById("archivo1").value == "") {
+                    alertify.alert("", "Debe seleccionar un archivo de origen.");comprobaciones = false;
+                } else {
+                    if ($("#cmb_anio option:selected").val() == '') {
+                        alertify.alert("", "Debe ingresar un Año.");comprobaciones = false;
+                    } else {
+                        if ($("#cmb_meses option:selected").val() == '') {
+                            alertify.alert("", "Debe ingresar un Mes."); comprobaciones = false;
+                        } else {
+                            //controlo que tenga un registro por lo menos
+                            var fstChar = contenidoArchivo.charAt(0);
+                            if (fstChar != 1) {
+                                alertify.alert("El archivo seleccionado no contiene recibos."); comprobaciones = false;
+                            }
+                        }        
+                    }        
+                }  
+            }        
         }
-        if (document.getElementById("descripcionImportacion").value == '') {
-            alertify.alert("","Debe ingresar una Descripción.");
-        }
-        if (document.getElementById("archivo1").value == "") {
-            alertify.alert("","Debe seleccionar un archivo de origen.");
-        }        
-        if ($("#cmb_anio option:selected").val() == '') {
-            alertify.alert("","Debe ingresar un Año.");
-        }
-        if ($("#cmb_meses option:selected").val() == '') {
-            alertify.alert("","Debe ingresar un Mes.");
-        }
+         
 
-        var frm = document.form1;
-        var archivo = frm.archivo1.value;
-        var nom = archivo.substring(archivo.lastIndexOf("\\") + 1, archivo.length);
-        var nomSinExtension = archivo.substring(archivo.lastIndexOf("\\") + 1, archivo.length - 4);
-        //alert(nom);
-        //alert(contenidoArchivo);
+        if (comprobaciones) {
+            var frm = document.form1;
+            var archivo = frm.archivo1.value;
+            var nom = archivo.substring(archivo.lastIndexOf("\\") + 1, archivo.length);
+            var nomSinExtension = archivo.substring(archivo.lastIndexOf("\\") + 1, archivo.length - 4);
+            //alert(nom);
+            //alert(contenidoArchivo);
 
-        var spinner = new Spinner({ scale: 2 });
-        spinner.spin($("html")[0]);
-        Backend.GetArchivoImportado(nom).
+            var spinner = new Spinner({ scale: 2 });
+            spinner.spin($("html")[0]);
+            Backend.GetArchivoImportado(nom).
             onSuccess(function (respuestaJSON) {                
                 var resp = JSON.parse(respuestaJSON);
                 if (resp.tipoDeRespuesta == "archivoImportado.ok") {
                     spinner.stop();
                     //el archivo con ese nombre ya existe
                     alertify.alert("El archivo ya fue importado.");
-                } else {
-                    //controlo que tenga un registro por lo menos?VERRRRRR
+                } else {                    
                     //controlo la importacion
-                    /*Backend.ImportarRecibos($("#cmb_meses option:selected").val(),$("#cmb_anio option:selected").val(),document.getElementById("descripcionImportacion").value,valorTipoLiquidacion,contenidoArchivo).
-                        onSuccess(function (respuestaJSON) {
-                            spinner.stop(); 
-                            var resp = JSON.parse(respuestaJSON);
-                            if (resp.result == "OK") {
-                                alertify.success("La importación fue exitosa.");
-                            } else {
+                    Backend.ImportarRecibos($("#cmb_meses option:selected").val(),$("#cmb_anio option:selected").val(),document.getElementById("descripcionImportacion").value,valorTipoLiquidacion,contenidoArchivo).
+                            onSuccess(function (respuestaJSON) {
+                                spinner.stop(); 
+                                var resp = JSON.parse(respuestaJSON);
+                                if (resp.result == "OK") {
+                                    alertify.success("La importación fue exitosa.");
+                                } else {
+                                    alertify.error("No se ha podido realizar la importación");
+                                }
+                            })
+                            .onError(function (e) {
+                                spinner.stop();
                                 alertify.error("No se ha podido realizar la importación");
-                            }
-                        })
-                        .onError(function (e) {
-                            spinner.stop();
-                            alertify.error("No se ha podido realizar la importación");
-                        });*/
+                            });
+
+                    
+                    
                 }
             })
             .onError(function (e) {
                 spinner.stop();
             });
     
+
+        }
+        
          
     }
 
