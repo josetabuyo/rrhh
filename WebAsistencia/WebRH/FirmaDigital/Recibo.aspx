@@ -49,7 +49,7 @@
          <div >
                     <BR>
                     <div id="divMensajeStatus">&nbsp;</div> 
-                    <BR><BR>
+                    <BR>
  
     <!--lista de liquidaciones -->
 

@@ -168,6 +168,7 @@
     <Compile Include="Postular\ReporteDePostulaciones.cs" />
     <Compile Include="Recibos\Cabecera.cs" />
     <Compile Include="Recibos\Detalle.cs" />
+    <Compile Include="Recibos\Utils.cs" />
     <Compile Include="Recibos\Numalet.cs" />
     <Compile Include="Recibos\Recibo.cs" />
     <Compile Include="Recibos\ReciboFirmado.cs" />

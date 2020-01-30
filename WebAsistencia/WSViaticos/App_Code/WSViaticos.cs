@@ -38,8 +38,7 @@ using System.Data.SqlClient;
 using General.Recibos;
 using General.Csv;
 using General.Contrato;
-
-
+using System.Transactions;
 
 [WebService(Namespace = "http://wsviaticos.gov.ar/")]
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
@@ -5753,37 +5752,189 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string ImportarRecibos(int mes,int anio,string descripcionImportacion,int tipoLiquidacion,String contenidoArchivo, Usuario usuario)
     {
+        /*NOTA: importante se asume que nadie cobra mas de 999.9999,99; caso contrario se debe adecuar la conversion
+         de numeros desde un string a float,pj removiendo mas de un . en la funcion Utils de conversion*/
         int idLiquidacion;
         idLiquidacion = RepositorioDeArchivosMigrados().GET_Recibos_Migrados_MaxLiq();
+        //string temp;
+        Utils utils = new Utils();
+        Recibo r = new Recibo();
+        r.cabecera = new Cabecera();
+        r.detalles = new List<Detalle>();
+        Boolean leoConceptos = false;
+        ConexionBDSQL cn2 = Conexion();
+        ConexionDB cn = new ConexionDB("dbo.PLA_ADD_DDJJ104_Cabecera");
+
+        using (TransactionScope scope = new TransactionScope())
+        {
+            cn.BeginTransaction();cn2.
+            try
+            {//hacer todo
+            }
+            catch (Exception e)
+            {
+                cn.RollbackTransaction();
+                throw;
+            }
+
+            cn.CommitTransaction();
+            cn.Desconestar();
+        }
+
+        
 
         string[] lineas = contenidoArchivo.Split(new string[] { "\n", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
-        foreach (string linea in lineas)
+        //foreach (string linea in lineas)
+        int longitud = lineas.Length;
+        int i = 0;
+        string linea;
+        int Cant_Reg = 0; //indica la cantidad de recibos migrados
+
+        while (i < longitud)
         {
+            linea = lineas[i];
             //el primer caracter sirve para delinear que parte del recibo se procesa
             //nota: en este nivel no se hace nada con las lineas que no empiezan con alguna de las opciones del case
+            //a menos que se esten leyendo conceptos
             switch (linea.ElementAt(0))
             {
+                //como en cada linea se repide la informacion del recibo solo se va  a tomar los valores izquierdos
                 case '1':
-                    //no hace nada solo es el encabezado de cada registro
+                    //no hace nada solo indica el nombre de la institucion de donde vienen los recibos
                     break;
                 case '2':
-                    Recibo r = new Recibo(); //'\0'
-                    string s = linea.Substring(13, 7);
-                    string ss = s.Remove(s.IndexOf('.'), 1);
-                    int sss = int.Parse(ss);
+                    //leo la cabecera del recibo
+                    r.cabecera.reset();
+                    r.cabecera.Legajo = utils.SubstringAEntero(linea.Substring(13,7)); //Replace(Mid(Registro, 107, 7), ".", "")
+                    r.cabecera.CUIL = linea.Substring(53, 13);//Mid(Registro, 147, 13)
+                    r.cabecera.Oficina = int.Parse(linea.Substring(68, 3));//Mid(Registro, 162, 3)                   
+                    r.cabecera.Orden = utils.SubstringAEntero(linea.Substring(76, 5)); //Replace(Mid(Registro, 170, 5), ".", "")
+                    break;
+                case '3':
+                    //indico que se van a empezar a leer los conceptos
+                    leoConceptos = true;
+                    //limpio la lista de detalles
+                    r.detalles.Clear();
+                    /*Detalle det = new Detalle();
+                    do
+                    {
+                        //execute code block
 
-                    ////VERRRR
-                    r.cabecera.Legajo = int.Parse(linea.Substring(13, 7).Replace('.', '\0'));//Replace(Mid(Registro, 107, 7), ".", "")
-                    r.cabecera.CUIL = linea.Substring(147, 13);//Mid(Registro, 147, 13)
-                    r.cabecera.Oficina = int.Parse(linea.Substring(162, 3));//Mid(Registro, 162, 3)
-                    r.cabecera.Orden = int.Parse(linea.Substring(170, 5).Replace('.', '\0'));//Replace(Mid(Registro, 170, 5), ".", "")
+
+                    } while (linea.ElementAt(0) != 4);*/
+                    break;
+                case '4':
+                    //termino de leer los conceptos,
+                    leoConceptos = false;
+                    //agrego mas campos al encabezado
+                    r.cabecera.Bruto = utils.SubstringAFormatoFloat(linea.Substring(54, 10));//Replace(Mid(Registro, 148, 10), ",", ".")
+                    r.cabecera.Descuentos = utils.SubstringAFormatoFloat(linea.Substring(71, 10)); //Replace(Mid(Registro, 165, 10), ",", ".")
+                    r.cabecera.Nivel = linea.Substring(9, 1); //Mid(Registro, 103, 1)
+                    r.cabecera.Grado = linea.Substring(11, 2); //Mid(Registro, 105, 2)
+                    r.cabecera.OpcionJubilatoria = linea.Substring(22, 2); //Mid(Registro, 116, 2)
+                    r.cabecera.Afjp = linea.Substring(32, 10).Trim(); //Mid(Registro, 126, 10)
+
+                    break;
+                case '0':
+                    //termino de leer un recibo, primera parte
+                    //agrego mas campos al encabezado
+                    //linea.Substring(63, 10).Replace("*"," ").Replace(",",".");
+                    r.cabecera.Neto = utils.SubstringAFormatoFloat(linea.Substring(63, 10).Trim('*'));// Replace(Replace(Mid(Registro, 157, 10), ",", "."), "*", "")
+                    r.cabecera.mes = int.Parse(linea.Substring(13, 2));//Mid(Registro, 107, 2)
+                    r.cabecera.anio = int.Parse(linea.Substring(16, 4));//Mid(Registro, 110, 4)
+                    r.cabecera.TipoLiquidacion = int.Parse(linea.Substring(29, 2));// Mid(Registro, 123, 2)
+
+                    i++;
+                    linea = lineas[i]; //leo otra linea  para obtener la fecha de ingreso
+                    if (linea.Substring(117, 10) == "00/00/0000")
+                    {
+                        r.cabecera.FechaIngreso = new DateTime(1900, 1, 1);// Mid(Registro, 118, 10)
+                    }
+                    else
+                    {
+                        r.cabecera.FechaIngreso = new DateTime(int.Parse(linea.Substring(123, 4)), int.Parse(linea.Substring(120, 2)), int.Parse(linea.Substring(117, 2)));// Mid(Registro, 118, 10)
+
+                    }
+                    i++; 
+                    linea = lineas[i]; //leo otra linea  para obtener datos de la cuenta bancaria
+                    r.cabecera.Banco = linea.Substring(159, 20); //Mid(Registro, 160, 20)
+                    r.cabecera.CuentaBancaria = linea.Substring(149, 10);//Mid(Registro, 150, 10)
+                    break;
+                case '6':
+                    //termino de leer un recibo y guardo al recibo con sus conceptos
+
+                    //agrego mas campos al encabezado
+                    r.cabecera.Fecha_deposito = new DateTime(int.Parse(linea.Substring(54, 4)), int.Parse(linea.Substring(51, 2)), int.Parse(linea.Substring(48, 2)));// Mid(Trim(Registro), Len(Trim(Registro)) - 9, 10)
+
+                    /*guardo al recibo*/
+
+                    /*guardo los detalles*/
+                    Cant_Reg = Cant_Reg + 1;
+                   /* 'GUARDO EL RECIBO
+            StrSql = ""
+            StrSql = "'" & Val(Recibo.legajo) & "', '" & _
+                     "" & Val(Recibo.Mes) & "', '" & _
+                     "" & Val(Recibo.Año) & "', " & _
+                     "'" & Recibo.cuit & "', " & _
+                     "" & Val(Recibo.oficina) & ", " & _
+                     "" & Replace(Recibo.Orden, ",", ".") & ", " & _
+                     "'" & Recibo.Nivel & "', " & _
+                     "'" & Recibo.grado & "', " & _
+                     "'" & IIf(Recibo.fecha_ingreso = "00/00/0000", "01/01/1900", Recibo.fecha_ingreso) & "'," & _
+                     "" & FormatearCampoAFloat(Recibo.Sbruto) & ", " & _
+                     "" & FormatearCampoAFloat(Recibo.SDescuentos) & ", " & _
+                     "" & FormatearCampoAFloat(Recibo.SNeto) & ", " & _
+                     "'" & Recibo.Cta & "', " & _
+                     "'" & Recibo.banco & "', " & _
+                     "'" & Recibo.FDeposito & "', " & _
+                     "" & 0 & ", " & _
+                     "" & Fx.GetUserId & "," & _
+                     "'" & Recibo.TipoLiquidacion & "'," & _
+                     "'" & Recibo.OpcionJubilatoria & "'," & _
+                     "'" & Recibo.Afjp & "'," & _
+                     Liquidacion
+
+            Set Rs = Cn.selec("dbo.PLA_ADD_Recibos " & StrSql)
+
+
+            Cant_Reg = Cant_Reg + 1
+
+
+            'GUARDO EL DETALLE DEL RECIBO
+            If CargoConceptos = True Then
+                CargoConceptos = False
+                For i = 1 To TMP_Conceptos.Count
+                    Cn.execute "dbo.PLA_ADD_Recibos_Detalles " & Rs!Recibo & "," & Val(Recibo.legajo) & ", " & Val(Recibo.Mes) & ", " & Val(Recibo.Año) & ", " & TMP_Conceptos.item(i)
+                Next
+            Else
+                ''ESTO LO HAGO PORQUE SINO ME TIRA ERROR DESPUES
+                Cn.execute "dbo.PLA_ADD_Recibos_Detalles " & Rs!Recibo & "," & Val(Recibo.legajo) & ", " & Val(Recibo.Mes) & ", " & Val(Recibo.Año) & ", '" & "BORRAR" & "',0,0,''"
+            End If*/
+
                     break;
                 default:
-                    Console.WriteLine("Default case");
+                    //Console.WriteLine("Default case");
                     break;
             }
+            if (leoConceptos == true)
+            {
+                Detalle detalle = new Detalle();
+
+                detalle.Concepto = linea.Substring(9, 6).Trim();//Trim(Mid(Registro, 103, 6))
+                detalle.TipoConcepto = linea.Substring(15, 2).Trim();//Trim(Mid(Registro, 109, 2))
+                detalle.Descripcion = linea.Substring(17, 37).Trim();//Trim(Mid(Registro, 111, 37))
+                detalle.Aporte = utils.SubstringAFormatoFloatToDecimal(linea.Substring(54, 10));//Trim(Replace(Replace(Mid(Registro, 148, 10), ".", ""), ",", "."))
+                detalle.Descuento = utils.SubstringAFormatoFloatToDecimal(linea.Substring(71, 10));//Trim(Replace(Replace(Mid(Registro, 165, 10), ".", ""), ",", "."))
+
+                r.detalles.Add(detalle);
+
+
+            }
+
+            i++;
         }
                
+        /*guardo la liquidacion migrada*/
 
         if (false)
         {
