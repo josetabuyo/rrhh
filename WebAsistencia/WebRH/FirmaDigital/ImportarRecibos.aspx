@@ -427,14 +427,14 @@
                     alertify.alert("El archivo ya fue importado.");
                 } else {                    
                     //controlo la importacion
-                    Backend.ImportarRecibos($("#cmb_meses option:selected").val(),$("#cmb_anio option:selected").val(),document.getElementById("descripcionImportacion").value,valorTipoLiquidacion,contenidoArchivo).
+                    Backend.ImportarRecibos($("#cmb_meses option:selected").val(),$("#cmb_anio option:selected").val(),document.getElementById("descripcionImportacion").value,valorTipoLiquidacion,contenidoArchivo,nom).
                             onSuccess(function (respuestaJSON) {
                                 spinner.stop(); 
                                 var resp = JSON.parse(respuestaJSON);
-                                if (resp.result == "OK") {
-                                    alertify.success("La importación fue exitosa.");
+                                if (resp.result == "archivoImportado.ok") {
+                                    alertify.success("La importación fue exitosa. Se importaron " + resp.cantRegistros+ " recibos.");
                                 } else {
-                                    alertify.error("No se ha podido realizar la importación");
+                                    alertify.error(""+resp.error);
                                 }
                             })
                             .onError(function (e) {
