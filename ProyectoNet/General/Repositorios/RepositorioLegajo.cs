@@ -328,6 +328,12 @@ namespace General.Repositorios
 
         }
 
+        public int GET_Recibos_MaxIdRecibo()
+        {
+            var parametros = new Dictionary<string, object>();
+            return int.Parse(this.conexion.EjecutarEscalar("dbo.PLA_GET_Recibos_MaxIdRecibo", parametros).ToString());
+        }
+
         /*en este caso siempre busca en las tablas de recibos actuales y no en la historica*/
         public string GetReciboDeSueldo(int documento, int liq)
         {
@@ -1898,6 +1904,9 @@ namespace General.Repositorios
 
             return true;
         }
+   
+
+    
     }
 
 

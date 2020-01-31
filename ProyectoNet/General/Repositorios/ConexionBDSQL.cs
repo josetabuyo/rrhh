@@ -318,15 +318,15 @@ namespace General.Repositorios
             // _Comando.Transaction = _Transaccion;
         }
 
-        public void RollbackTransaction(SqlTransaction sqlTran)
+        public void RollbackTransaction(ref SqlTransaction sqlTran)
         {
             sqlTran.Rollback();
         
         }
 
-        public bool EjecutarSinResultadoEnContextoTransaccional(string nombreProcedimiento, Dictionary<string, object> parametros, SqlTransaction sqlTran)
+        public bool EjecutarSinResultadoEnContextoTransaccional(string nombreProcedimiento, Dictionary<string, object> parametros,ref SqlTransaction sqlTran)
         {            
-            var un_comando = CrearComandoEnContextoTransaccional(nombreProcedimiento, parametros, sqlTran);
+            var un_comando = CrearComandoEnContextoTransaccional(nombreProcedimiento, parametros, ref sqlTran);
             try
             {
                 un_comando.ExecuteNonQuery();
@@ -339,9 +339,9 @@ namespace General.Repositorios
 
         }
 
-        public object EjecutarEscalarEnContextoTransaccional(string nombreProcedimiento, Dictionary<string, object> parametros, SqlTransaction sqlTran)
+        public object EjecutarEscalarEnContextoTransaccional(string nombreProcedimiento, Dictionary<string, object> parametros, ref SqlTransaction sqlTran)
         {
-            var un_comando = CrearComandoEnContextoTransaccional(nombreProcedimiento, parametros, sqlTran);
+            var un_comando = CrearComandoEnContextoTransaccional(nombreProcedimiento, parametros, ref sqlTran);
             object resultado = new object();
             try
             {
@@ -353,7 +353,7 @@ namespace General.Repositorios
             }
             return resultado;
         }
-        private SqlCommand CrearComandoEnContextoTransaccional(string nombreProcedimiento, Dictionary<string, object> parametros, SqlTransaction sqlTran, int command_timeout = 30)
+        private SqlCommand CrearComandoEnContextoTransaccional(string nombreProcedimiento, Dictionary<string, object> parametros, ref SqlTransaction sqlTran, int command_timeout = 30)
         {
             var un_comando = conexion.CreateCommand();
             un_comando.CommandText = nombreProcedimiento;
@@ -363,6 +363,25 @@ namespace General.Repositorios
             parametros.Keys.ToList().ForEach(k => un_comando.Parameters.Add(new SqlParameter(k, parametros[k])));
             return un_comando;
         }
+
+        /*creo que se pierde la transaccion porque no la puedo pasar por referencia al sqlbulkcopy?????*/
+        public void BulkEnContextoTransaccional(System.Data.DataTable tabla, string table_name, ref SqlTransaction sqlTran)
+        {           
+            SqlBulkCopy bulkCopy =
+                new SqlBulkCopy
+                (
+                    this.conexion,
+                    SqlBulkCopyOptions.Default,
+                    sqlTran
+                    );
+                        
+            bulkCopy.DestinationTableName = table_name;
+
+            bulkCopy.WriteToServer(tabla);            
+
+            tabla.Clear();
+        }
+
 
         //public void CommitTransaction()
         //{
