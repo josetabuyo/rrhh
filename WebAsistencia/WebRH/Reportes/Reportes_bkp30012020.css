@@ -133,11 +133,10 @@
     
 .btn_organigrama 
  {
-
     position: absolute;
     left: 645px;
     height: 70px;
-    top: 70px;
+    top: -10px;
     background-color: #F8F8F8;
     border: 1px solid #D5D5D5;
     /* padding: 10px; */
@@ -200,7 +199,7 @@
 #menu_grafico 
 {
     position: absolute;
-    top: -10px;
+    top: 66px;
     width: 135px;
     left: 645px;
     background-color: #F8F8F8;
@@ -215,7 +214,7 @@
     font-variant: small-caps;
     font-size: initial;
     letter-spacing: 1px;
-    padding: 10px;
+    padding: 15px 10px;
     text-align: center;
     
 }

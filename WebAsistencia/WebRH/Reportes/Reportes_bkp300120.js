@@ -13,37 +13,24 @@ var Reportes = {
         $('#btn_grafico_dotacion').click(function () {
             checks_activos = ["GraficoPorGenero"];
             $('#titulo_grafico').html(this.innerHTML);
-            $('#titulo_area').html("Seleccionar Área");
             GraficoHerramientas.OcultarTodosLosReportesExcepto("Dotacion");
-            _this.dibujarArbolOrganigrama(38);//idFuncionalidad Reporte Dotacion = 38
-            localStorage.removeItem("idArea");
-            localStorage.removeItem("alias");
             GraficoDotacion.Inicializar();
         })
         $('#btn_grafico_rangoEtario').click(function () {
-            $('#titulo_grafico').html(this.innerHTML);
+            $('#titulo_grafico_rangoEtario').html(this.innerHTML);
             checks_activos = ["GraficoPorArea"];
-            $('#titulo_area').html("Seleccionar Área");
             GraficoHerramientas.OcultarTodosLosReportesExcepto("RangoEtario");
-            _this.dibujarArbolOrganigrama(38);//idFuncionalidad Reporte Dotacion = 38
-            localStorage.removeItem("idArea");
-            localStorage.removeItem("alias");
             GraficoRangoEtario.Inicializar();
-
         })
 
         $('#btn_grafico_sueldo').click(function () {
             $('#titulo_grafico').html(this.innerHTML);
             checks_activos = ["GraficoPorArea"];
-            $('#titulo_area').html("Seleccionar Área");
             GraficoHerramientas.OcultarTodosLosReportesExcepto("Sueldo");
-            _this.dibujarArbolOrganigrama(39);//idFuncionalidad Reporte Sueldo = 39
-            localStorage.removeItem("idArea");
-            localStorage.removeItem("alias");
             GraficoSueldos.Inicializar();
         })
 
-        //this.dibujarArbolOrganigrama();
+        this.dibujarArbolOrganigrama();
     },
     iniciarConsultaRapida: function () {
         var _this = this;
@@ -158,9 +145,8 @@ var Reportes = {
         });
     },
 
-    dibujarArbolOrganigrama: function (idFuncionalidad) {
-        $("#contenedor_arbol_organigrama").empty();
-        var arbol_organigrama = new ArbolOrganigrama($("#contenedor_arbol_organigrama"), idFuncionalidad);
+    dibujarArbolOrganigrama: function () {
+        var arbol_organigrama = new ArbolOrganigrama($("#contenedor_arbol_organigrama"));
         arbol_organigrama.alSeleccionar(function (area) {
             $('.lista').show();
             $('#showLeftPush').click();
@@ -168,9 +154,9 @@ var Reportes = {
             localStorage.setItem("alias", area.alias);
             $('#titulo_area').html(area.alias);
 
-            //$('#div_grafico_de_dotacion').hide();
-            //$('#div_grafico_de_rango_etareo').hide();
-            //$('#titulo_grafico').html("Seleccionar Informe");
+            $('#div_grafico_de_dotacion').hide();
+            $('#div_grafico_de_rango_etareo').hide();
+            $('#titulo_grafico').html("Seleccionar Informe");
 
             $("#chk_incluir_dependencias").show();
             $("#lbl_incluir_dependencias").show();

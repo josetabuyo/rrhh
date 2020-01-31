@@ -581,8 +581,8 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public GraficoSueldo GetReporteSueldos(string criterio, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "reportes_ingreso")) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "reportes_sueldo")) throw (new Exception("El usuario no tiene permisos para acceder al reporte de sueldos"));
+        //if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "reportes_ingreso")) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
+        //if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "reportes_sueldo")) throw (new Exception("El usuario no tiene permisos para acceder al reporte de sueldos"));
         var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
         string tipo = ((JValue)criterio_deserializado["tipo"]).ToString();
         int dia = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(0, 2)));
@@ -591,6 +591,8 @@ public class WSViaticos : System.Web.Services.WebService
         bool incluir_dependencias = (bool)((JValue)criterio_deserializado["incluir_dependencias"]);
         DateTime fecha = new DateTime(anio, mes, dia);
         int id_area = (int)((JValue)criterio_deserializado["id_area"]);
+        if (!Autorizador().ElUsuarioTienePermisosParaFuncionalidadYArea(usuario.Id, "reportes_ingreso", id_area)) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
+        if (!Autorizador().ElUsuarioTienePermisosParaFuncionalidadYArea(usuario.Id, "reportes_sueldo", id_area)) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
         RepositorioDeReportes repositorio = new RepositorioDeReportes(Conexion());
         return repositorio.GetReporteSueldosPorArea(tipo, fecha, id_area, incluir_dependencias);
     }
@@ -598,8 +600,8 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public GraficoDotacion GetGrafico(string criterio, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "reportes_ingreso")) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "reportes_dotacion")) throw (new Exception("El usuario no tiene permisos para acceder al reporte de dotacion"));
+        //if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "reportes_ingreso")) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
+        //if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "reportes_dotacion")) throw (new Exception("El usuario no tiene permisos para acceder al reporte de dotacion"));
         var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
         string tipo = ((JValue)criterio_deserializado["tipo"]).ToString();
         int dia = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(0, 2)));
@@ -608,6 +610,8 @@ public class WSViaticos : System.Web.Services.WebService
         bool incluir_dependencias = (bool)((JValue)criterio_deserializado["incluir_dependencias"]);
         DateTime fecha = new DateTime(anio, mes, dia);
         int id_area = (int)((JValue)criterio_deserializado["id_area"]);
+        if (!Autorizador().ElUsuarioTienePermisosParaFuncionalidadYArea(usuario.Id, "reportes_ingreso", id_area)) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
+        if (!Autorizador().ElUsuarioTienePermisosParaFuncionalidadYArea(usuario.Id, "reportes_dotacion", id_area)) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
         RepositorioDeReportes repositorio = new RepositorioDeReportes(Conexion());
         return repositorio.GetGraficoDotacion(tipo, fecha, id_area, incluir_dependencias);
 
@@ -616,7 +620,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public GraficoRangoEtario GetGraficoRangoEtario(string criterio, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "reportes_ingreso")) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
+        //if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "reportes_ingreso")) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
         var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
         string tipo = ((JValue)criterio_deserializado["tipo"]).ToString();
         int dia = Int32.Parse((((JValue)criterio_deserializado["fecha"]).ToString().Substring(0, 2)));
@@ -625,6 +629,7 @@ public class WSViaticos : System.Web.Services.WebService
         bool incluir_dependencias = (bool)((JValue)criterio_deserializado["incluir_dependencias"]);
         DateTime fecha = new DateTime(anio, mes, dia);
         int id_area = (int)((JValue)criterio_deserializado["id_area"]);
+        if (!Autorizador().ElUsuarioTienePermisosParaFuncionalidadYArea(usuario.Id, "reportes_ingreso", id_area)) throw (new Exception("El usuario no tiene permisos para el modulo de reportes")); 
         RepositorioDeReportes repositorio = new RepositorioDeReportes(Conexion());
         return repositorio.GetGraficoRangoEtario(tipo, fecha, id_area, incluir_dependencias);
 
@@ -710,7 +715,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string ExcelGeneradoContratos(string criterio, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "ingreso_seleccion_contrato")) throw (new Exception("El usuario no tiene permisos para el modulo de contratos"));
+        //if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "ingreso_seleccion_contrato")) throw (new Exception("El usuario no tiene permisos para el modulo de contratos"));
 
 
         try
@@ -723,6 +728,8 @@ public class WSViaticos : System.Web.Services.WebService
             bool incluir_dependencias = (bool)((JValue)criterio_deserializado["incluir_dependencias"]);
             DateTime fecha = new DateTime(anio, mes, dia);
             int id_area = (int)((JValue)criterio_deserializado["id_area"]);
+
+            if (!Autorizador().ElUsuarioTienePermisosParaFuncionalidadYArea(usuario.Id, "ingreso_seleccion_contrato", id_area)) throw (new Exception("El usuario no tiene permisos para el modulo de contratos"));
 
             RepositorioDeReportes repositorio = new RepositorioDeReportes(Conexion());
 
@@ -745,7 +752,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string ExcelGeneradoRangoEtario(string criterio, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "reportes_ingreso")) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
+        //if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "reportes_ingreso")) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
         try
         {
             var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
@@ -756,6 +763,8 @@ public class WSViaticos : System.Web.Services.WebService
             bool incluir_dependencias = (bool)((JValue)criterio_deserializado["incluir_dependencias"]);
             DateTime fecha = new DateTime(anio, mes, dia);
             int id_area = (int)((JValue)criterio_deserializado["id_area"]);
+
+            if (!Autorizador().ElUsuarioTienePermisosParaFuncionalidadYArea(usuario.Id, "reportes_ingreso", id_area)) throw (new Exception("El usuario no tiene permisos para el modulo de contratos"));
 
             RepositorioDeReportes repositorio = new RepositorioDeReportes(Conexion());
 
@@ -780,7 +789,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string ExcelGeneradoSueldos(string criterio, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "reportes_ingreso")) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
+        //if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "reportes_ingreso")) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
         try
         {
             var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
@@ -791,6 +800,8 @@ public class WSViaticos : System.Web.Services.WebService
             bool incluir_dependencias = (bool)((JValue)criterio_deserializado["incluir_dependencias"]);
             DateTime fecha = new DateTime(anio, mes, dia);
             int id_area = (int)((JValue)criterio_deserializado["id_area"]);
+
+            if (!Autorizador().ElUsuarioTienePermisosParaFuncionalidadYArea(usuario.Id, "reportes_ingreso", id_area)) throw (new Exception("El usuario no tiene permisos para el modulo de contratos"));
 
             RepositorioDeReportes repositorio = new RepositorioDeReportes(Conexion());
 
@@ -812,7 +823,7 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string ExcelGenerado(string criterio, Usuario usuario)
     {
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "reportes_ingreso")) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
+        //if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "reportes_ingreso")) throw (new Exception("El usuario no tiene permisos para el modulo de reportes"));
         try
         {
             var criterio_deserializado = (JObject)JsonConvert.DeserializeObject(criterio);
@@ -823,6 +834,8 @@ public class WSViaticos : System.Web.Services.WebService
             bool incluir_dependencias = (bool)((JValue)criterio_deserializado["incluir_dependencias"]);
             DateTime fecha = new DateTime(anio, mes, dia);
             int id_area = (int)((JValue)criterio_deserializado["id_area"]);
+
+            if (!Autorizador().ElUsuarioTienePermisosParaFuncionalidadYArea(usuario.Id, "reportes_ingreso", id_area)) throw (new Exception("El usuario no tiene permisos para el modulo de contratos"));
 
             RepositorioDeReportes repositorio = new RepositorioDeReportes(Conexion());
 
@@ -3222,6 +3235,19 @@ public class WSViaticos : System.Web.Services.WebService
         //FC: antes del nuevos permisos
         //var listaDeAreas = Autorizador().AreasAdministradasPor(usuario).ToArray();
         var listaDeAreas = Autorizador().NuevoAreasAdministradasPorUsuarioYFuncionalidad(usuario,idFuncionalidad).ToArray();
+        var stringDeAreas = JsonConvert.SerializeObject(listaDeAreas, Formatting.Indented, new JsonSerializerSettings() { ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore });
+
+        Area[] areas = JsonConvert.DeserializeObject<Area[]>(stringDeAreas);
+        return areas;
+    }
+
+    [WebMethod]
+    public Area[] AreasAdministradasPorMiUsuarioYFuncionalidad(int idFuncionalidad, Usuario usuario)
+    {
+
+        JsonSerializerSettings settings = new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects };
+
+        var listaDeAreas = Autorizador().NuevoAreasAdministradasPorUsuarioYFuncionalidad(usuario, idFuncionalidad).ToArray();
         var stringDeAreas = JsonConvert.SerializeObject(listaDeAreas, Formatting.Indented, new JsonSerializerSettings() { ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore });
 
         Area[] areas = JsonConvert.DeserializeObject<Area[]>(stringDeAreas);

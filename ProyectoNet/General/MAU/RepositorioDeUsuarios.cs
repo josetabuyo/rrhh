@@ -140,7 +140,8 @@ namespace General.MAU
             var repo_funcionalidades_usuarios = RepositorioDeFuncionalidadesDeUsuarios.NuevoRepositorioDeFuncionalidadesDeUsuarios(this.conexion, RepositorioDeFuncionalidades.NuevoRepositorioDeFuncionalidades(this.conexion));
 
             var usuario = new Usuario(id_usuario, alias, clave_encriptada, persona, true);
-            repo_funcionalidades_usuarios.ConcederBasicas(usuario);
+            //repo_funcionalidades_usuarios.ConcederBasicas(usuario);
+            repo_funcionalidades_usuarios.ConcederPerfilBasico(usuario);//FC: nuevo esquema de perfiles basicos
 
             return usuario;
         }
