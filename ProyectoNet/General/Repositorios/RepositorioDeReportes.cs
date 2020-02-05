@@ -58,7 +58,7 @@ namespace General.Repositorios
             parametros.Add("@fechacorte", fecha);
             parametros.Add("@id_area", id_area);
             parametros.Add("@incluir_dependencias", incluir_dependencias);
-            var tablaDatos = conexion_bd.Ejecutar("dbo.GRAF_RPT_Dotacion", parametros);
+            var tablaDatos = conexion_bd.Ejecutar("dbo.GRAF_RPT_Dotacion", parametros, 80);
             if (tablaDatos.Rows.Count > 0)
             {
                 grafico.CrearDatos(tablaDatos.Rows);
@@ -241,7 +241,7 @@ namespace General.Repositorios
             parametros.Add("@fechacorte", fecha);
             parametros.Add("@id_area", id_area);
             parametros.Add("@incluir_dependencias", incluir_dependencias);
-            var tablaDatos = conexion_bd.Ejecutar("dbo.GRAF_RPT_Dotacion_Sueldos", parametros);
+            var tablaDatos = conexion_bd.Ejecutar("dbo.GRAF_RPT_Dotacion_Sueldos", parametros, 80);
 
 
             if (tablaDatos.Rows.Count > 0)
@@ -887,7 +887,7 @@ namespace General.Repositorios
             parametros.Add("@fechacorte", fecha);
             parametros.Add("@id_area", id_area);
             parametros.Add("@incluir_dependencias", incluir_dependencias);
-            var tablaDatos = conexion_bd.Ejecutar("dbo.GRAF_RPT_Dotacion", parametros);
+            var tablaDatos = conexion_bd.Ejecutar("dbo.GRAF_RPT_Dotacion", parametros, 80);
 
 
             if (tablaDatos.Rows.Count > 0)
