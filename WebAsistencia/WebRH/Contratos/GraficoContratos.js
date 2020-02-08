@@ -557,7 +557,7 @@ var GraficoContratos = {
 
     dibujarArbolOrganigrama: function () {
         var _this = this;
-        _this.arbol_organigrama = new ArbolOrganigrama($("#contenedor_arbol_organigrama"));
+        _this.arbol_organigrama = new ArbolOrganigrama($("#contenedor_arbol_organigrama"), idFuncionalidadPagina);
         _this.arbol_organigrama.alSeleccionar(function (area) {
             $('.lista').show();
             $('#showLeftPush').click();
