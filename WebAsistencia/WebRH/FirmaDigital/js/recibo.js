@@ -253,7 +253,7 @@ var RECIBOS = (function (window, undefined) {
         downloadSuccessFunction = successFunction;
         downloadErrorFunction = errorFunction;
 
-        Backend.GetReciboPDFDigital(params)
+        Backend.GetReciboPDFDigital(params,0)/*se asume que el modo es 0 indicando que se deben obtener los datos de los recibos actuales y no los historicos*/
                 .onSuccess(function (res) {
                     //en esta version siempre retorna exito a menos que sea un error antes del webservice
                     if (!res.DioError) {
