@@ -10,7 +10,7 @@ namespace General.Repositorios
     {
         private string cadenaDeConexion;
         private SqlConnection conexion;
-
+        
         public ConexionBDSQL(string StringConnection)
         {
             this.cadenaDeConexion = StringConnection;
@@ -22,7 +22,7 @@ namespace General.Repositorios
             conexion.Open();
         }
 
-        private void CerrarBD()
+        public void CerrarBD()
         {
             conexion.Close();
             conexion.Dispose();
@@ -94,7 +94,7 @@ namespace General.Repositorios
             }
             catch (Exception e)
             {
-
+                CerrarBD();
                 throw;
             }
 
@@ -306,11 +306,82 @@ namespace General.Repositorios
            // _Comando.Transaction = _Transaccion;
         }
 
-        //public void RollbackTransaction()
-        //{
-        //    _Transaccion.Rollback();
-        //    CerrarBD();
-        //}
+        //********las siguientes funciones son para ser ejecutadas en un contexto transaccional
+        //mas grande, el cual desde codigo ejecuta varios llamados a SP y no solo uno
+        public SqlTransaction BeginTransaction2()
+        {
+            conexion = new SqlConnection(this.cadenaDeConexion);
+            conexion.Open();
+            return conexion.BeginTransaction();
+            //_Transaccion = conexion.BeginTransaction();
+            //var comando = CrearComando(
+            // _Comando.Transaction = _Transaccion;
+        }
+
+        public void RollbackTransaction(ref SqlTransaction sqlTran)
+        {
+            sqlTran.Rollback();
+        
+        }
+
+        public bool EjecutarSinResultadoEnContextoTransaccional(string nombreProcedimiento, Dictionary<string, object> parametros,ref SqlTransaction sqlTran)
+        {            
+            var un_comando = CrearComandoEnContextoTransaccional(nombreProcedimiento, parametros, ref sqlTran);
+            try
+            {
+                un_comando.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception Ex)
+            {              
+                throw Ex;
+            }
+
+        }
+
+        public object EjecutarEscalarEnContextoTransaccional(string nombreProcedimiento, Dictionary<string, object> parametros, ref SqlTransaction sqlTran)
+        {
+            var un_comando = CrearComandoEnContextoTransaccional(nombreProcedimiento, parametros, ref sqlTran);
+            object resultado = new object();
+            try
+            {
+                resultado = un_comando.ExecuteScalar();
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+            return resultado;
+        }
+        private SqlCommand CrearComandoEnContextoTransaccional(string nombreProcedimiento, Dictionary<string, object> parametros, ref SqlTransaction sqlTran, int command_timeout = 30)
+        {
+            var un_comando = conexion.CreateCommand();
+            un_comando.CommandText = nombreProcedimiento;
+            un_comando.CommandType = System.Data.CommandType.StoredProcedure;
+            un_comando.CommandTimeout = command_timeout;
+            un_comando.Transaction = sqlTran;
+            parametros.Keys.ToList().ForEach(k => un_comando.Parameters.Add(new SqlParameter(k, parametros[k])));
+            return un_comando;
+        }
+
+        /*creo que se pierde la transaccion porque no la puedo pasar por referencia al sqlbulkcopy?????*/
+        public void BulkEnContextoTransaccional(System.Data.DataTable tabla, string table_name, ref SqlTransaction sqlTran)
+        {           
+            SqlBulkCopy bulkCopy =
+                new SqlBulkCopy
+                (
+                    this.conexion,
+                    SqlBulkCopyOptions.Default,
+                    sqlTran
+                    );
+                        
+            bulkCopy.DestinationTableName = table_name;
+
+            bulkCopy.WriteToServer(tabla);            
+
+            tabla.Clear();
+        }
+
 
         //public void CommitTransaction()
         //{

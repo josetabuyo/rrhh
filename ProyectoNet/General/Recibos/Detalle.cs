@@ -11,6 +11,8 @@ namespace General
         public decimal Aporte { get; set; }
         public decimal Descuento { get; set; }
         public string Descripcion { get; set; }
+        public string TipoConcepto { get; set; }/*solo lo uso en la importacion al parsear el txt a importar en las demas
+        partes del codigo el tipo de concepto se une al concepto y se lo guarda en la propiedad Concepto*/
 
         public Detalle() { }
 
