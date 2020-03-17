@@ -1614,7 +1614,7 @@ document.write(f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear());
         if (djj2.checked) { v8 = "x" }
         else { v8 = "" }
                 
-        Backend.GuardarDDJJCOVID19(v1, v2, v3, v4, v5, v6, v7, v8, fi1.value, fh1.value, $("#pais1 option:selected").val(), fi2.value, fh2.value, $("#pais2 option:selected").val(), fi3.value, fh3.value, $("#pais3 option:selected").val(), fi4.value, fh4.value, $("#pais4 option:selected").val(), fi5.value, fh5.value, $("#pais5 option:selected").val(),"")     
+        Backend.GuardarDDJJCOVID19(v1, v2, v3, v4, v5, v6, v7, v8, fi1.value, fh1.value, $("#pais1 option:selected").val(), fi2.value, fh2.value, $("#pais2 option:selected").val(), fi3.value, fh3.value, $("#pais3 option:selected").val(), fi4.value, fh4.value, $("#pais4 option:selected").val(), fi5.value, fh5.value, $("#pais5 option:selected").val()/*,""*/)     
         .onSuccess(function (resp) {
             
             //var dataURI = "data:application/pdf;base64," +resp.Respuesta;
