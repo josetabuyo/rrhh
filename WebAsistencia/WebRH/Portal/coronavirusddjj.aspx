@@ -1369,7 +1369,7 @@ document.write(f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear());
     $(document).ready(function ($) {
              
         Backend.start(function () {
-           Permisos.init();
+           //Permisos.init();
             
             
  

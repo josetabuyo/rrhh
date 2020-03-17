@@ -5463,6 +5463,11 @@ public class WSViaticos : System.Web.Services.WebService
         return new RepositorioDeArchivosFirmados(Conexion());
     }
 
+    private RepositorioDeCovid19 RepositorioDeCovid19()
+    {
+        return new RepositorioDeCovid19(Conexion());
+    }
+
     /*Excel Consulta Personas DDJJ104*/
     [WebMethod]
     public string ConsultaExcelDDJJ104_Persona(string criterio, Usuario usuario)
@@ -6031,7 +6036,7 @@ public class WSViaticos : System.Web.Services.WebService
     {
         var respuesta = new StringRespuestaWS();
 
-        //RepositorioVerificador repoVeri = RepoVerificador();
+        int id_ddjj = RepositorioDeCovid19().GetMaxIdCovid();
 
         try
         {
