@@ -767,6 +767,43 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GuardarDDJJCOVID19">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="v1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="v2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="v3" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="v4" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="v5" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="v6" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="v7" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="v8" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="fi1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="fh1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="n1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="fi2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="fh2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="n2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="fi3" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="fh3" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="n3" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="fi4" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="fh4" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="n4" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="fi5" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="fh5" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="n5" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usr" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarDDJJCOVID19Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GuardarDDJJCOVID19Result" type="tns:StringRespuestaWS" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="BuscarUnidadesTiempo">
         <s:complexType>
           <s:sequence>
@@ -4867,6 +4904,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="Funcionalidades" type="tns:ArrayOfFuncionalidad" />
           <s:element minOccurs="1" maxOccurs="1" name="FechaDesde" type="s:dateTime" />
           <s:element minOccurs="0" maxOccurs="1" name="Areas" type="tns:ArrayOfArea" />
+          <s:element minOccurs="1" maxOccurs="1" name="Basica" type="s:boolean" />
         </s:sequence>
       </s:complexType>
       <s:element name="GetFuncionalidadesActuales">
@@ -8879,6 +8917,12 @@
   <wsdl:message name="GET_Servicios_Adm_DetallesSoapOut">
     <wsdl:part name="parameters" element="tns:GET_Servicios_Adm_DetallesResponse" />
   </wsdl:message>
+  <wsdl:message name="GuardarDDJJCOVID19SoapIn">
+    <wsdl:part name="parameters" element="tns:GuardarDDJJCOVID19" />
+  </wsdl:message>
+  <wsdl:message name="GuardarDDJJCOVID19SoapOut">
+    <wsdl:part name="parameters" element="tns:GuardarDDJJCOVID19Response" />
+  </wsdl:message>
   <wsdl:message name="BuscarUnidadesTiempoSoapIn">
     <wsdl:part name="parameters" element="tns:BuscarUnidadesTiempo" />
   </wsdl:message>
@@ -11400,6 +11444,10 @@
       <wsdl:input message="tns:GET_Servicios_Adm_DetallesSoapIn" />
       <wsdl:output message="tns:GET_Servicios_Adm_DetallesSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GuardarDDJJCOVID19">
+      <wsdl:input message="tns:GuardarDDJJCOVID19SoapIn" />
+      <wsdl:output message="tns:GuardarDDJJCOVID19SoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="BuscarUnidadesTiempo">
       <wsdl:input message="tns:BuscarUnidadesTiempoSoapIn" />
       <wsdl:output message="tns:BuscarUnidadesTiempoSoapOut" />
@@ -13228,6 +13276,15 @@
     </wsdl:operation>
     <wsdl:operation name="GET_Servicios_Adm_Detalles">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GET_Servicios_Adm_Detalles" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarDDJJCOVID19">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarDDJJCOVID19" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -17083,6 +17140,15 @@
     </wsdl:operation>
     <wsdl:operation name="GET_Servicios_Adm_Detalles">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GET_Servicios_Adm_Detalles" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarDDJJCOVID19">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarDDJJCOVID19" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

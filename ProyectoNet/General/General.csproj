@@ -146,6 +146,7 @@
     <Compile Include="Organigrama\PersonaContrato.cs" />
     <Compile Include="pdfs\CreadorDePdfs.cs" />
     <Compile Include="pdfs\EvaluacionDeDesempenioToPdfConverter.cs" />
+    <Compile Include="pdfs\GenDDJJCOVID19Converter.cs" />
     <Compile Include="pdfs\GenReciboEmpleadoToPdfConverter.cs" />
     <Compile Include="pdfs\GenReciboToPdfConverter.cs" />
     <Compile Include="pdfs\ModeloToPdfConverter.cs" />
