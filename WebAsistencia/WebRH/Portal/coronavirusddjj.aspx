@@ -1304,8 +1304,8 @@ name="comprendidoa" type="radio" class="radio_listado" id="comp4" style="cursor:
 
                          <br /> 
                          <B>Esta Declaración Jurada deberá remitirse por el Sistema GDE, firmada por el agente, al usuario RRHHMDS</B>
-                         
-                         <div style="margin-bottom:30pt;padding-left:80%;margin-top:20pt; " >                     
+                       
+                        <div style="margin-bottom:30pt; margin-top:20pt; padding-left:70%; "  > 
                              <input style="margin: 0 auto;" class="botonAzul" type="button" value="Generar IF para enviar por GDE" onclick="GuardarDDJJ()">                     
 	                     </div>
                      </div>
@@ -1364,7 +1364,7 @@ name="comprendidoa" type="radio" class="radio_listado" id="comp4" style="cursor:
 
 <script type="text/javascript" src="../Scripts/ProveedorAjax.js"></script>
 
-<script type="text/javascript" src="imprimirRecibo.js"></script>
+<%--<script type="text/javascript" src="imprimirRecibo.js"></script>--%>
 
 <script type="text/javascript" >
 
@@ -1633,12 +1633,12 @@ name="comprendidoa" type="radio" class="radio_listado" id="comp4" style="cursor:
             Backend.GuardarDDJJCOVID19(v1, v2, v3, v4, v5, v6, v7, v8, fi1.value, fh1.value, $("#pais1 option:selected").val(), fi2.value, fh2.value, $("#pais2 option:selected").val(), fi3.value, fh3.value, $("#pais3 option:selected").val(), fi4.value, fh4.value, $("#pais4 option:selected").val(), fi5.value, fh5.value, $("#pais5 option:selected").val(),nyap,nyap2,idUserx)     
             .onSuccess(function (resp) {           
           
-            var link = document.createElement('a');
-            link.download = "DDJJCOVID19_" + nyap2;
-            link.href= "data:application/pdf;base64," +resp.Respuesta;
-            link.textContent = 'Download PDF';
-            link.click();
-            document.body.appendChild(link);
+                var link = document.createElement('a');
+                link.download = "DDJJCOVID19_" + nyap2;
+                link.href= "data:application/pdf;base64," +resp.Respuesta;
+                link.textContent = 'Download PDF';
+                link.click();
+                document.body.appendChild(link);
             })
             .onError(function (e) {
             alert("0");
