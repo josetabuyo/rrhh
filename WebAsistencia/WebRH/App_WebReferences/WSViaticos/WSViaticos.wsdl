@@ -793,7 +793,9 @@
             <s:element minOccurs="0" maxOccurs="1" name="fi5" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="fh5" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="n5" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="usr" type="tns:Usuario" />
+            <s:element minOccurs="0" maxOccurs="1" name="nyap" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="nyap2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="idUsuario" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>

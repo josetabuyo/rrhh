@@ -52,7 +52,7 @@
 var f = new Date();
 document.write(f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear());
 </script></div><br />
-                         <span style="float:left;padding-top:3px;padding-right:5px;">Quien suscribe <B>MIRANDA, Fabián Adalberto (DNI 22.049.417)</B> manifiesto con carácter de Declaración Jurada que:</span><br /><br />
+                         <span style="float:left;padding-top:3px;padding-right:5px;">Quien suscribe, manifiesto con carácter de Declaración Jurada que:</span><br /><br />
                          <span style="float:left;padding-top:3px;padding-right:5px;cursor: pointer">Con respecto al Artículo 7 <img src="../Imagenes/Ver-articulo-7.png"  alt="logosistema" onclick="window.open('../Imagenes/decreto-1.png')">del Decreto Nº 260/2020 (“Aislamiento Obligatorio. Acciones Preventivas”) y al Artículo 2 <img src="../Imagenes/Ver-articulo-2.png"  alt="logosistema" onclick="window.open('../Imagenes/decreto-2.png')">de la Resolución Nº 3/2020 de la Secretaría de Gestión y Empleo Público, que se transcriben debajo: </span><br />
                          </div>
                          <br />
@@ -64,10 +64,14 @@ document.write(f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear());
                                      <table class="table-condensed" style="width:94%;margin-left:30px;border: 1px solid #ddd;">
                                         <tbody class="list">
                                             <tr><td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;width:280px;text-align:center;width:10px"></td><td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;width:280px;text-align:center;width:45%; border:1px solid">Situación</td><td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;text-align:center;width:45%">Forma de Acreditación</td></tr>
-                                            <tr><td style="width:10px;vertical-align:top;border: 1px solid #ddd"><input type="radio" class="radio_listado" id="comp1" style="cursor: pointer;margin: 2px;" value="comps1"><b>a)</b></td><td style="vertical-align:top;border: 1px solid #ddd">Caso sospechoso (Fiebre, uno o más síntomas respiratorios y, en los últimos días, historial de viaje a “zonas afectadas” o contacto con casos confirmados o probables de COVID-19.)</td><td style="vertical-align:top;border: 1px solid #ddd">Deberá acompañar la presente Declaración Jurada con Certificado Médico de Síntomas y completar el detalle de zonas visitadas</td></tr>
-                                            <tr><td style="width:10px;vertical-align:top;border: 1px solid #ddd"><input type="radio" class="radio_listado" id="comp2" style="cursor: pointer;margin: 2px;" value="comps2"><b>b)</b></td><td style="vertical-align:top;border: 1px solid #ddd">Confirmación médica de haber contraído el COVID – 19</td><td style="vertical-align:top;border: 1px solid #ddd">Deberá acompañar la presente Declaración Jurada con Certificado Médico</td></tr>
-                                            <tr><td style="width:10px;vertical-align:top;border: 1px solid #ddd"><input type="radio" class="radio_listado" id="comp3" style="cursor: pointer;margin: 2px;" value="comps3"><b>c)</b></td><td style="vertical-align:top;border: 1px solid #ddd">“Contactos estrechos” con personas comprendidas en los apartados a) y b)</td><td style="vertical-align:top;border: 1px solid #ddd">Esta Declaración Jurada oficia de acreditación suficiente.</td></tr>
-                                            <tr><td style="width:10px;vertical-align:top;border: 1px solid #ddd"><input type="radio" class="radio_listado" id="comp4" style="cursor: pointer;margin: 2px;" value="comps4"><b>d)</b></td><td style="vertical-align:top;border: 1px solid #ddd">Arribo al país habiendo transitado por “zonas afectadas”</td><td style="vertical-align:top;border: 1px solid #ddd">Esta Declaración Jurada oficia de acreditación suficiente, con especial cuidado en la información vertida en el próximo ítem.</td></tr>
+                                            <tr><td style="width:10px;vertical-align:top;border: 1px solid #ddd"><input type="radio" class="radio_listado" 
+name="comprendidoa" id="comp1" style="cursor: pointer;margin: 2px;" value="comps1"><b>a)</b></td><td style="vertical-align:top;border: 1px solid #ddd">Caso sospechoso (Fiebre, uno o más síntomas respiratorios y, en los últimos días, historial de viaje a “zonas afectadas” o contacto con casos confirmados o probables de COVID-19.)</td><td style="vertical-align:top;border: 1px solid #ddd">Deberá acompañar la presente Declaración Jurada con Certificado Médico de Síntomas y completar el detalle de zonas visitadas</td></tr>
+                                            <tr><td style="width:10px;vertical-align:top;border: 1px solid #ddd"><input 
+name="comprendidoa" type="radio" class="radio_listado" id="comp2" style="cursor: pointer;margin: 2px;" value="comps2"><b>b)</b></td><td style="vertical-align:top;border: 1px solid #ddd">Confirmación médica de haber contraído el COVID – 19</td><td style="vertical-align:top;border: 1px solid #ddd">Deberá acompañar la presente Declaración Jurada con Certificado Médico</td></tr>
+                                            <tr><td style="width:10px;vertical-align:top;border: 1px solid #ddd"><input 
+name="comprendidoa" type="radio" class="radio_listado" id="comp3" style="cursor: pointer;margin: 2px;" value="comps3"><b>c)</b></td><td style="vertical-align:top;border: 1px solid #ddd">“Contactos estrechos” con personas comprendidas en los apartados a) y b)</td><td style="vertical-align:top;border: 1px solid #ddd">Esta Declaración Jurada oficia de acreditación suficiente.</td></tr>
+                                            <tr><td style="width:10px;vertical-align:top;border: 1px solid #ddd"><input 
+name="comprendidoa" type="radio" class="radio_listado" id="comp4" style="cursor: pointer;margin: 2px;" value="comps4"><b>d)</b></td><td style="vertical-align:top;border: 1px solid #ddd">Arribo al país habiendo transitado por “zonas afectadas”</td><td style="vertical-align:top;border: 1px solid #ddd">Esta Declaración Jurada oficia de acreditación suficiente, con especial cuidado en la información vertida en el próximo ítem.</td></tr>
                                             
                                          </tbody>
                                     </table>
@@ -1302,7 +1306,7 @@ document.write(f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear());
                          <B>Esta Declaración Jurada deberá remitirse por el Sistema GDE, firmada por el agente, al usuario RRHHMDS</B>
                          
                          <div style="margin-bottom:30pt;padding-left:80%;margin-top:20pt; " >                     
-                             <input style="margin: 0 auto;" class="botonAzul" type="button" value="Enviar" onclick="GuardarDDJJ()">                     
+                             <input style="margin: 0 auto;" class="botonAzul" type="button" value="Generar IF para enviar por GDE" onclick="GuardarDDJJ()">                     
 	                     </div>
                      </div>
                     </td>
@@ -1364,7 +1368,9 @@ document.write(f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear());
 
 <script type="text/javascript" >
 
-    var agenteActual = '';
+    var nyap;
+    var nyap2;
+    var idUserx;
 
     $(document).ready(function ($) {
              
@@ -1572,7 +1578,7 @@ document.write(f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear());
     }
 
     function GuardarDDJJ() {
-
+        
         var compno = document.getElementById("compno");
         var compsi = document.getElementById("compsi");
         var comp1 = document.getElementById("comp1");
@@ -1599,7 +1605,7 @@ document.write(f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear());
 
         if (compno.checked) { v1 = "x" }
         else { v1 = "" }
-        if (compsi.checked) { v2 = "x" }
+        if (compsi.checked) { v2 = "x";   }
         else { v2 = "" }
         if (comp1.checked) { v3 = "x" }
         else { v3 = "" }
@@ -1611,25 +1617,43 @@ document.write(f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear());
         else { v6 = "" }
         if (djj1.checked) { v7 = "x" }
         else { v7 = "" }
-        if (djj2.checked) { v8 = "x" }
+        if (djj2.checked) { v8 = "x";  }
         else { v8 = "" }
-                
-        Backend.GuardarDDJJCOVID19(v1, v2, v3, v4, v5, v6, v7, v8, fi1.value, fh1.value, $("#pais1 option:selected").val(), fi2.value, fh2.value, $("#pais2 option:selected").val(), fi3.value, fh3.value, $("#pais3 option:selected").val(), fi4.value, fh4.value, $("#pais4 option:selected").val(), fi5.value, fh5.value, $("#pais5 option:selected").val()/*,""*/)     
-        .onSuccess(function (resp) {
-            
-            //var dataURI = "data:application/pdf;base64," +resp.Respuesta;
-            // window.open(dataURI);
+
+        Backend.GetUsuarioLogueado().onSuccess(function (resp) {            
+
+            var doc = resp.Owner.Documento;
+            var ape = resp.Owner.Apellido;
+            ape = ape.toUpperCase();
+            var nom = resp.Owner.Nombre;
+            nyap = ape + ", " + nom + " (DNI " + doc + ")";
+            nyap2 = ape + "_" + nom + doc;
+            idUserx = resp.Id;
+
+            Backend.GuardarDDJJCOVID19(v1, v2, v3, v4, v5, v6, v7, v8, fi1.value, fh1.value, $("#pais1 option:selected").val(), fi2.value, fh2.value, $("#pais2 option:selected").val(), fi3.value, fh3.value, $("#pais3 option:selected").val(), fi4.value, fh4.value, $("#pais4 option:selected").val(), fi5.value, fh5.value, $("#pais5 option:selected").val(),nyap,nyap2,idUserx)     
+            .onSuccess(function (resp) {           
+          
             var link = document.createElement('a');
-            link.download = 'Test.pdf';
+            link.download = "DDJJCOVID19_" + nyap2;
             link.href= "data:application/pdf;base64," +resp.Respuesta;
             link.textContent = 'Download PDF';
             link.click();
             document.body.appendChild(link);
-        })
-        .onError(function (e) {
+            })
+            .onError(function (e) {
             alert("0");
+                });
+
+            })
+        .onError(function (e) {
+            
             });
 
+
+
+    
+        
+            
 
         
 

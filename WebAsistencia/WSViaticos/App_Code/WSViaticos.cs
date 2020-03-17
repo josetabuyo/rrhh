@@ -6032,7 +6032,7 @@ public class WSViaticos : System.Web.Services.WebService
 
 
     [WebMethod]
-    public StringRespuestaWS GuardarDDJJCOVID19(string v1, string v2, string v3, string v4, string v5, string v6, string v7, string v8, string fi1, string fh1, string n1, string fi2, string fh2, string n2, string fi3, string fh3, string n3, string fi4, string fh4, string n4, string fi5, string fh5, string n5, Usuario usr)
+    public StringRespuestaWS GuardarDDJJCOVID19(string v1, string v2, string v3, string v4, string v5, string v6, string v7, string v8, string fi1, string fh1, string n1, string fi2, string fh2, string n2, string fi3, string fh3, string n3, string fi4, string fh4, string n4, string fi5, string fh5, string n5, string nyap, string nyap2, string idUsuario)
     {
         var respuesta = new StringRespuestaWS();
 
@@ -6048,7 +6048,7 @@ public class WSViaticos : System.Web.Services.WebService
 
             //
             //var modelo_para_pdf = new List<object>() {v1,v2,v3,v4,v5,v6,v7,v8, usr.Owner.Apellido + ", " + usr.Owner.Nombre + " (" + usr.Owner.Documento.ToString() + ")", fi1, fh1, n1, fi2, fh2, n2, fi3, fh3, n3, fi4, fh4, n4, fi5, fh5, n5 };
-            var modelo_para_pdf = new List<object>() { v1, v2, v3, v4, v5, v6, v7, v8, "vela" + ", " + "juan" + " (" + "29064932" + ")", fi1, fh1, n1, fi2, fh2, n2, fi3, fh3, n3, fi4, fh4, n4, fi5, fh5, n5, "Id_DDJJ: "+Convert.ToString(id_ddjj) };
+            var modelo_para_pdf = new List<object>() { v1, v2, v3, v4, v5, v6, v7, v8, nyap, fi1, fh1, n1, fi2, fh2, n2, fi3, fh3, n3, fi4, fh4, n4, fi5, fh5, n5, "Id_DDJJ: "+Convert.ToString(id_ddjj) };
 
             var converter = new GenDDJJCOVID19Converter();
             var mapa_para_pdf = converter.CrearMapa(modelo_para_pdf);
@@ -6057,12 +6057,12 @@ public class WSViaticos : System.Web.Services.WebService
 
             //el nombre del pdf generado va a ser el idRecibo
             //bytes = creador_pdf.FillPDF(TemplatePath("DDJJ_v4.pdf"), Convert.ToString("DDJJCOVID19_"+ usr.Owner.Apellido + usr.Owner.Nombre), mapa_para_pdf);
-            bytes = creador_pdf.FillPDF(TemplatePath("DDJJ_v5.pdf"), Convert.ToString("DDJJCOVID19_" + "vela" + "nombre"), mapa_para_pdf);
+            bytes = creador_pdf.FillPDF(TemplatePath("DDJJ_v5.pdf"), Convert.ToString("DDJJCOVID19_" + nyap2), mapa_para_pdf);
 
 
             respuesta.Respuesta = Convert.ToBase64String(bytes);
 
-            RepositorioDeCovid19().GuardarCovid19(v1, v2, v3, v4, v5, v6, v7, v8, 100, fi1, fh1, n1, fi2, fh2, n2, fi3, fh3, n3, fi4, fh4, n4, fi5, fh5, n5, id_ddjj, respuesta.Respuesta,mapa_para_pdf["Fecha"]);
+            RepositorioDeCovid19().GuardarCovid19(v1, v2, v3, v4, v5, v6, v7, v8, Int32.Parse(idUsuario), fi1, fh1, n1, fi2, fh2, n2, fi3, fh3, n3, fi4, fh4, n4, fi5, fh5, n5, id_ddjj, respuesta.Respuesta,mapa_para_pdf["Fecha"]);
 
 
         }
