@@ -20,7 +20,7 @@
     <div id="content">
     
        <div class="Corona">
-<img src="../Imagenes/Coronavirus-sigirh-bot-6.png" id="img_logo_corona" alt="logosistema" style="" onclick='abrirCorona()' />
+<img src="../Imagenes/Coronavirus-sigirh-bot-6.png" id="img_logo_corona" alt="logosistema" style="cursor: pointer;" onclick='abrirCorona()' />
 
        </div>
     <div class="resumen_area"></div>

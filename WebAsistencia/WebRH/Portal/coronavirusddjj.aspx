@@ -1303,8 +1303,20 @@ name="comprendidoa" type="radio" class="radio_listado" id="comp4" style="cursor:
                          </table>
 
                          <br /> 
-                         <B>Esta Declaración Jurada deberá remitirse por el Sistema GDE, firmada por el agente, al usuario RRHHMDS</B>
-                       
+                         <B>Esta Declaración Jurada deberá remitirse por el Sistema GDE, firmada por el agente, al usuario RRHHMDS</B><br /><br />
+                         <B>Recomendaciones para enviar la Declaración Jurada</B><br /><br />
+                         <p>De acuerdo a consultas recibidas, y para clarificar las posibles formas de hacer llegar la Declaración Jurada a la Dirección General de Recursos Humanos, te comentamos lo siguiente:</p>
+                         <br />
+                         <ul style="list-style-type:disc;margin-left:15px">
+                            <li style="line-height: 20px;">El archivo PDF que obtenés desde el SiGIRH tenés que enviarlo al <B>destinatario de GDE RRHHMDS</B>, puede ser <B>embebido en una Nota o Memo.</B></li>
+                            <li style="line-height: 20px;">En caso de no tener usuario de alta en el SIGIRH comunicarse al 4379 - 3871. </li>
+                            <li style="line-height: 20px;">En caso de no tener usuario de GDE (se recuerda que todos los empleados del MDS tienen que tenerlo) podrás Imprimir el PDF, firmarlo “a mano” (con aclaración y DNI) y luego:
+                                <ul style="list-style-type:circle;margin-left:18px;margin-top:5px;">
+                                    <li style="line-height: 20px;">Enviarlo a través del GDE de tu superior al usuario RRHHMDS</li>
+                                    <li style="line-height: 20px;">O scanearlo (o fotografiarlo) con la firma y aclaración bien legibles y enviarlo al mail <span style="color:royalblue">tlozano@desarrollosocial.gob.ar</span>. Utilizando esta es una <B>opción provisoria</B>, asumís el compromiso de entregar la DDJJ en papel al reintegrarte a la oficina.</li>
+                                </ul>
+                            </li>
+                        </ul> 
                         <div style="margin-bottom:30pt; margin-top:20pt; padding-left:70%; "  > 
                              <input style="margin: 0 auto;" class="botonAzul" type="button" value="Generar IF para enviar por GDE" onclick="GuardarDDJJ()">                     
 	                     </div>
@@ -1620,6 +1632,9 @@ name="comprendidoa" type="radio" class="radio_listado" id="comp4" style="cursor:
         if (djj2.checked) { v8 = "x";  }
         else { v8 = "" }
 
+        var spinner = new Spinner({ scale: 2 });
+        spinner.spin($("html")[0]);
+
         Backend.GetUsuarioLogueado().onSuccess(function (resp) {            
 
             var doc = resp.Owner.Documento;
@@ -1632,7 +1647,8 @@ name="comprendidoa" type="radio" class="radio_listado" id="comp4" style="cursor:
 
             Backend.GuardarDDJJCOVID19(v1, v2, v3, v4, v5, v6, v7, v8, fi1.value, fh1.value, $("#pais1 option:selected").val(), fi2.value, fh2.value, $("#pais2 option:selected").val(), fi3.value, fh3.value, $("#pais3 option:selected").val(), fi4.value, fh4.value, $("#pais4 option:selected").val(), fi5.value, fh5.value, $("#pais5 option:selected").val(),nyap,nyap2,idUserx)     
             .onSuccess(function (resp) {           
-          
+
+                spinner.stop();
                 var link = document.createElement('a');
                 link.download = "DDJJCOVID19_" + nyap2;
                 link.href= "data:application/pdf;base64," +resp.Respuesta;
@@ -1641,12 +1657,12 @@ name="comprendidoa" type="radio" class="radio_listado" id="comp4" style="cursor:
                 document.body.appendChild(link);
             })
             .onError(function (e) {
-            alert("0");
+                 spinner.stop();
                 });
 
             })
         .onError(function (e) {
-            
+            spinner.stop();
             });
 
 
