@@ -121,6 +121,16 @@ namespace General.MAU
             });
         }
 
+        public void ConcederPerfilBasico(Usuario usuario)
+        {
+            this.GetPerfilesConFuncionalidades().ForEach(perf =>
+            {
+                if (!perf.Basica) return;
+
+                this.AsignarPerfilesAUsuario(new List<int>() { perf.Id }, new List<Area>(), usuario.Id, usuario.Id);
+            });
+        }
+
         public List<MAU_Perfil> GetPerfilesActuales(int id_usuario)
         {
             
@@ -446,7 +456,7 @@ namespace General.MAU
  
                     if (idPerfil != row.GetInt("Id"))
                     {
-                        MAU_Perfil unPerfil = new MAU_Perfil(row.GetInt("Id", 0), row.GetString("NombrePerfil", "Sin Perfil"));
+                        MAU_Perfil unPerfil = new MAU_Perfil(row.GetInt("Id", 0), row.GetString("NombrePerfil", "Sin Perfil"), row.GetBoolean("basica", false));
                         perfiles.Add(unPerfil);
                         idPerfil = row.GetInt("Id");
                     }

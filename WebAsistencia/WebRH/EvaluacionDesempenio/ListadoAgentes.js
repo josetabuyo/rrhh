@@ -161,7 +161,8 @@ var ListadoAgentes = {
     },
     GetAgentesSuccess: function (respuesta) {
         _this = this;
-        this.CrearCuadroResumen(respuesta);        localStorage.setItem("usuario_logueado", JSON.stringify(respuesta.UsuarioRequest));        var asignacion_evaluado_a_evaluador = respuesta.asignaciones;
+        //this.CrearCuadroResumen(respuesta);       
+         localStorage.setItem("usuario_logueado", JSON.stringify(respuesta.UsuarioRequest));        var asignacion_evaluado_a_evaluador = respuesta.asignaciones;
         if (asignacion_evaluado_a_evaluador.length == 0) return;
         if (!asignacion_evaluado_a_evaluador[0].hasOwnProperty('agente_evaluado')) return;
         todas_las_evaluaciones = asignacion_evaluado_a_evaluador;

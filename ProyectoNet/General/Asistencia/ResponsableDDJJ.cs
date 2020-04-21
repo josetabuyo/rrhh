@@ -12,12 +12,20 @@ namespace General
     public class ResponsableDDJJ
     {
         IRepositorioDePermisosSobreAreas repositorio_permisos_areas;
+        IRepositorioDeFuncionalidadesDeUsuarios repositorio_funcionalidades;
         Autorizador autorizador;
 
         public ResponsableDDJJ(IRepositorioDePermisosSobreAreas un_repo, Autorizador auto)
         {
             repositorio_permisos_areas = un_repo;
             autorizador = auto;
+        }
+
+        public ResponsableDDJJ(IRepositorioDePermisosSobreAreas un_repo, IRepositorioDeFuncionalidadesDeUsuarios repo_funcionalidad, Autorizador auto)
+        {
+            repositorio_permisos_areas = un_repo;
+            autorizador = auto;
+            repositorio_funcionalidades = repo_funcionalidad;
         }
 
         public ConexionBDSQL Conexion()
@@ -27,7 +35,9 @@ namespace General
 
         public List<Area> AreasConDDJJAdministradasPor(Usuario usuario)
         {
-            return repositorio_permisos_areas.AreasAdministradasPor(usuario).FindAll(area => area.PresentaDDJJ);
+            //FC nuevo llamado a Permisos Areas
+            return repositorio_funcionalidades.AreasAdministradasPor(usuario, 22).FindAll(area =>  area != null).FindAll(area => area.PresentaDDJJ);
+            //return repositorio_permisos_areas.AreasAdministradasPor(usuario).FindAll(area => area.PresentaDDJJ);
         }
 
         public List<Area> AreasSinDDJJInferioresA(Area area)

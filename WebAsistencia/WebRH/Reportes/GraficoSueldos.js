@@ -59,13 +59,19 @@ var GraficoSueldos = {
             .onSuccess(function (grafico) {
                 var tabla_resumen = grafico.tabla_resumen;
                 var tabla_detalle = grafico.tabla_detalle;
-                if (tabla_detalle.length > 0) {
-                    _this.VisualizarTablaResumen(true);
-                    _this.DibujarTabla(tabla_resumen, div_tabla, tabla, tabla_detalle);
-                    _this.BuscadorDeTabla();
+
+                if (tabla_detalle) {
+
+                    if (tabla_detalle.length > 0) {
+                        _this.VisualizarTablaResumen(true);
+                        _this.DibujarTabla(tabla_resumen, div_tabla, tabla, tabla_detalle);
+                        _this.BuscadorDeTabla();
+                    } else {
+                        _this.VisualizarTablaResumen(false);
+                        alertify.error("No hay Personal en el Área seleccionada para la generación del Gráfico");
+                    }
                 } else {
-                    _this.VisualizarTablaResumen(false);
-                    alertify.error("No hay Personal en el Área seleccionada para la generación del Gráfico");
+                    alertify.error("Ha ocurrido un error");
                 }
                 spinner.stop();
             })

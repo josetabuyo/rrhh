@@ -86,6 +86,15 @@ namespace General.MAU
             });
         }
 
+        public bool ElUsuarioTienePermisosParaFuncionalidadYArea(int id_usuario, string nombre_funcionalidad, int idArea)
+        {
+            var usuario = repositorio_usuarios.GetUsuarioPorId(id_usuario);
+            return this.repositorio_funcionalidades_usuarios.GetFuncionalidadesPerfilesAreas(usuario).Any(f =>
+            {
+                return f.Nombre == nombre_funcionalidad;
+            });
+        }
+
 
         public void ConcederFuncionalidadA(Usuario usuario, Funcionalidad funcionalidad, int id_usuario_logueado)
         {
@@ -288,7 +297,7 @@ namespace General.MAU
                              "<br/>" +
                              "Nombre de Usuario: " + usuario.Alias +
                              "<br/>" +
-                             "Contraseña: " + clave_nueva +
+                             "Contraseña: " + clave_nueva +  
                              "<br/>" +
                              "<br/>" +
                              "Luego de ingresar al sistema con esta nueva clave, recuerde cambiar la misma desde la opción " +
@@ -316,7 +325,8 @@ namespace General.MAU
             parametros.Add("@id_usuario_verificador", usuario.Id);
             this.conexion.EjecutarSinResultado("MAU_Verificar_usuario", parametros);
 
-            this.repositorio_funcionalidades_usuarios.ConcederBasicas(repositorio_usuarios.GetUsuarioPorId(id_usuario));
+            //FC: por ahora no iria mas, porque esta en el perfil al crearse
+            //this.repositorio_funcionalidades_usuarios.ConcederBasicas(repositorio_usuarios.GetUsuarioPorId(id_usuario));
             return true;
         }
     }

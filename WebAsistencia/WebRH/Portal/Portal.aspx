@@ -18,9 +18,13 @@
     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:18px; font-weight: bold; padding-top:25px;'>Portal<br/> del Empleado</span> <br/> "
         UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <div id="content">
+    
+       <div class="Corona">
+<img src="../Imagenes/Coronavirus-sigirh-bot-6.png" id="img_logo_corona" alt="logosistema" style="cursor: pointer;" onclick='abrirCorona()' />
+
+       </div>
     <div class="resumen_area"></div>
      <div class="resumen_postular">
-     
      <p style="text-align:center">Información de la Comisión de Igualdad de Oportunidades y Trato - CIOT</p>
      <p style="text-align: center; margin: 5px;"><a href="../ciot/Principal.aspx" ><img src="../ciot/imagenes/logo.png" width="150px" height="80px" style="background-color:white" /></a></p>
          <br />
@@ -296,5 +300,13 @@
         );
         });*/
     </script>
+
+    <script type="text/javascript" >
+    function abrirCorona(){
+       //window.open("http://localhost:43414/Portal/coronavirusddjj.aspx");
+        window.location.assign("coronavirusddjj.aspx")
+    
+     }
+</script>
 </body>
 </html>
