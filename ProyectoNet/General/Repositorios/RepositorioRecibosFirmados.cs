@@ -105,7 +105,7 @@ namespace General.Repositorios
             var recibo = new object();
             var listaRecibos = new List<object>();
 
-            var tablaDatos = conexion.Ejecutar("dbo.PLAD_GET_Impresion_Recibos_Haberes", parametros);
+            var tablaDatos = conexion.Ejecutar("dbo.PLA_GET_Impresion_Recibos_Haberes", parametros);
 
             if (tablaDatos.Rows.Count > 0)
             {
@@ -160,7 +160,7 @@ namespace General.Repositorios
                         row.GetString("texto"));
                     */
 
-                    crd = new ConfiguracionReciboDigital(row.GetInt("fecha_añoInicio_reciboDigital"), row.GetInt("fecha_mesInicio_reciboDigital"), row.GetInt("fecha_añoHastaAca_recibosHistoricos"), row.GetInt("fecha_mesHastaAca_recibosHistoricos"));
+                    crd = new ConfiguracionReciboDigital(row.GetInt("fecha_añoInicio_reciboDigital"), row.GetInt("fecha_mesInicio_reciboDigital") );
                                        
                 });
 

@@ -8,7 +8,7 @@ var CSV = (function (window, undefined) {
         //siempre iniciar el Backend para asi poder disponer de los metodos del webservice......!
         //en este caso como es asincrono , luego de ejecutarse llamo a la funcion VerificarCSV..
         Backend.start(function () {
-            Backend.VerificarCSV(codigoCSV)
+            Backend.VerificarCSV(codigoCSV,0)  //0: indica que siempre se verifican csv de recibos nuevos
                 .onSuccess(function (res) {
                     var resp = JSON.parse(res);
                     if (resp.tipoDeRespuesta == "ok") { //todo salio bien

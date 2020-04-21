@@ -19,7 +19,7 @@ public partial class SimpleServlet : System.Web.UI.Page
 		//facu sea http o https:   out.println("<jnlp spec='1.0+' codebase='http://www.milocal.com:8080/AutofirmaJWS/' > ");
 		//server:    out.println("<jnlp spec='1.0+' codebase='https://clientefirma-pc16.rhcloud.com/AutofirmaJWS/' > ");
 		Response.Write("<information>");
-		Response.Write("<title>AutoFirma MDS</title> ");
+		Response.Write("<title>Firma Digital MDS</title> ");
 		Response.Write("<vendor>MDS</vendor> ");
         Response.Write("<homepage href='Login.aspx'/> ");
 		Response.Write("<description>Proyecto basado en AutoFirma</description>");

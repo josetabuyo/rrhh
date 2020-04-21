@@ -459,7 +459,7 @@
                     alertify.alert("","El recibo aun no esta conformado por el agente.");
                 }
                 else {
-                    alertify.alert("","No se dispone del recibo en formato digital con firma");
+                    alertify.alert("","El recibo aun no ha sido firmado digitalmente.");
                 }
             } 
         }

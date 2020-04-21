@@ -26,10 +26,9 @@
  <%= Referencias.Javascript("../")%>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="/Scripts/bootstrap/js/underscore-min.js.descarga"></script>
+
 
 <script type="text/javascript" src="/Scripts/jsPortal/verificadorCSV.js"></script>
-<script type="text/javascript" src="/Scripts/jsPortal/mds-utils.js.descarga"></script>
 
 
 </head>
