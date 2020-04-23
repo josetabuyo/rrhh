@@ -23,7 +23,7 @@ public partial class SimpleServlet : System.Web.UI.Page
 		Response.Write("<vendor>MDS</vendor> ");
         Response.Write("<homepage href='Login.aspx'/> ");
 		Response.Write("<description>Proyecto basado en AutoFirma</description>");
-		Response.Write("<description kind='short'>AutoFirma MDS</description> ");
+		Response.Write("<description kind='short'>Firma Digital MDS</description> ");
         //modificar a Response.Write("<icon href='" + Request["host"] + "Imagenes/recibos/images.jpg' width='64' height='64'/> ");
         //porque por no encuentra el recurso en desarrollo porque se ejecuta en http y no https
         Response.Write("<icon href='" + Request["host"] + "Imagenes/recibos/images.jpg' width='64' height='64'/> ");

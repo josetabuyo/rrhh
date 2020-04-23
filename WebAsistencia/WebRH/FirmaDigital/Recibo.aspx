@@ -567,7 +567,7 @@
     }
 
     //verifico si aun hay firmas por realizar
-    function verificarContinuacionProceso() {
+    function verificarContinuacionProceso(cant) {
         //divMensajeStatus.innerHTML = '<div class="iconInfo">procesando...' + totalOperaciones + '-' + totalFirmas + '</div>';
         var s, s2;
         s = 'rsf' + idLiquidacion_aux + anio_aux + mes_aux + tipoLiquidacion_aux; //id recibo sin firmar local
@@ -576,12 +576,12 @@
         //compruebo si se realizaron todas las operaciones
         if (totalOperaciones != totalFirmas) {
             document.getElementById(s).innerHTML = totalFirmas - totalOperaciones;
-            document.getElementById(s2).innerHTML = parseInt(document.getElementById(s2).innerHTML)+1;
+            document.getElementById(s2).innerHTML = parseInt(document.getElementById(s2).innerHTML)+cant;
             divMensajeStatus.innerHTML = '<div class="iconProcesando">Total de archivos a firmar: <b>' + totalFirmas + '</b>. Archivos firmados correctamente: <b>' + totalFirmasRealizadas + '</b>. No se pudieron procesar: <b>' + (totalOperaciones - totalFirmasRealizadas) + '</b>.</div>';
             firmarFileB64ServerExternoMasivo3();
         } else {
             //ya se realizaron todas las operaciones
-            //compruebo si se realizaron todas las operaciones de firma
+            //compruebo si se realizaron TODAS las operaciones de firma CORRECTAMENTE
             if (totalFirmasRealizadas == totalFirmas) {
 
                 document.getElementById(s).innerHTML = totalFirmas - totalOperaciones;
@@ -607,7 +607,7 @@
                     btn_firmar2.classList.add('botonFirmaM');
                 }
 
-            } else {
+            } else {//en este caso hubieron resultados ok y no ok al terminar las operaciones
                 var archivosNoFirmados = totalOperaciones - totalFirmasRealizadas;
                 /*divMensajeStatus.innerHTML = '<div class="iconAlerta">No se pudieron procesar ' + archivosNoFirmados + ' documentos.</div>';*/
                 divMensajeStatus.innerHTML = '<div class="iconAlerta">Total de archivos a firmar: <b>' + totalFirmas + '</b>. Archivos firmados correctamente: <b>' + totalFirmasRealizadas + '</b>. No se pudieron procesar: <b>' + (totalOperaciones - totalFirmasRealizadas) + '</b>.</div>';
@@ -685,7 +685,7 @@
         //SIMULACION BLOQUE GUARDADO OK
   /*      totalOperaciones++;
         totalFirmasRealizadas++;
-        verificarContinuacionProceso();*/
+        verificarContinuacionProceso(1);*/
 
 
 
@@ -716,14 +716,14 @@
         //        estado.classList.add('estadoNoFirmado');
 
         totalOperaciones++;
-        verificarContinuacionProceso();
+        verificarContinuacionProceso(0);
     }
 
     function successCallback(idRecibo) {
         //alert("guardado ok "+idRecibo);
         totalOperaciones++;
         totalFirmasRealizadas++; 
-        verificarContinuacionProceso();       
+        verificarContinuacionProceso(1);       
 
     }
 
@@ -741,7 +741,7 @@
 //        }*/
 //        alert("error en el guardado");
         totalOperaciones++;
-        verificarContinuacionProceso();
+        verificarContinuacionProceso(0);
     }
         
 
@@ -843,7 +843,7 @@
     //retorna el elemento apuntado por indice y actualiza el indice
     function siguienteSeleccion3(indice) {
 
-//limitacion        if (indice < (3)) {//lista_recibos_resumen.length
+//       if (indice < (3)) {//lista_recibos_resumen.length
         if (indice < lista_recibos_resumen.length) {//lista_recibos_resumen.length   //para procesar completamente la lista
             //actualizo el indice
             indiceListaRecibos++;

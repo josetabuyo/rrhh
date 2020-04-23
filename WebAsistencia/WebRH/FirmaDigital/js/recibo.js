@@ -262,7 +262,7 @@ var RECIBOS = (function (window, undefined) {
                     } else {
                         //en caso de error continuar el proceso
                         downloadErrorFunction("error obteniendo el pdf"); //se intento realizar una operacion mas
-                        verificarContinuacionProceso();
+                        verificarContinuacionProceso(0);
                     }
                     
 
