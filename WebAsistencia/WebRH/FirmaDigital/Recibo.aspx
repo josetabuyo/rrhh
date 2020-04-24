@@ -1368,9 +1368,9 @@
     MiniApplet.cargarAppAfirma(HOST + 'FirmaDigital/js/miniapplet.js', MiniApplet.KEYSTORE_PKCS11 + ":C:\\Windows\\System32\\eTPKCS11.dll");
 
     //////////////////////////////////////////////////////
-    //MiniApplet.cargarMiniApplet("https://valide.redsara.es/valide/applet");
+    //MiniApplet.cargarMiniApplet("https://valide/valide/applet");
 
-    //MiniApplet.setServlets("https://valide.redsara.es/firmaMovil/afirma-signature-storage/StorageService","https://valide.redsara.es/firmaMovil/afirma-signature-retriever/RetrieveService");
+    //MiniApplet.setServlets("https://valide/firmaMovil/afirma-signature-storage/StorageService","https://valide/firmaMovil/afirma-signature-retriever/RetrieveService");
 
     /*	if (navigator.userAgent.toUpperCase().indexOf("FIREFOX") != -1) {
     if (navigator.javaEnabled() == false) {
