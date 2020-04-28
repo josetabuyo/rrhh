@@ -58,13 +58,13 @@
                    <div id="panel_superior_izquierdoxxx" class="estilo_formulario3">
                     <div id="contenedor_foto2">
                         <div id="foto_usuario"> </div>
-                        <img id="foto_usuario_generica" src="usuario.png"/>
+                        <img id="foto_usuario_generica" src="../MAU/usuario.png"/>
                         <div id="barrita_cambio_foto">
                             <div></div>
                         </div>
                     </div>
                     <div id="cambio_imagen_pendiente" >
-                        <img src="camera.png"/>
+                        <img src="../MAU/camera.png"/>
                     </div>
                     <div id="panel_datos_personales3">
                         <div class="linea dato_personal2">
@@ -244,7 +244,7 @@
 
              
         Backend.start(function () {
-            Permisos.init();
+            Permisos.init();/*esta variable esta en imprimirRecibo.js*/
             //para cargar el menu izquierdo 
             $(".caja_izq").load("SeccionIzquierda.htm", function () {
                 
@@ -361,7 +361,7 @@
         //obtengo la lista de checkbox con un nombre de clase determinado
         var lista = document.getElementsByClassName("chk_listado");
         var i;
-        var idArchivo = -1;
+        var idArchivo = -2;
 
         for (i = 0; i < lista.length; i++) {
             //si hay algo seleccionado
@@ -446,22 +446,21 @@
 
         var idArchivo = seleccionarArchivo();//obtengo al recibo seleccionado
 
-        if (idArchivo == -1) {
+        if (idArchivo == -2) {
             alertify.alert("", "Debe seleccionar un recibo.");
         } else {
-             // ahora verifico si esta conformado o no
-            var conformado = listaRecibosConformados['id' + seleccionarRecibo()];
-            if (conformado == 1) {
-                GeneralPortal.descargarRecibo(idArchivo);
-            }
-            else {
-                if (conformado == 0) {
-                    alertify.alert("","El recibo aun no esta conformado por el agente.");
+            if (idArchivo == -1) {
+                alertify.alert("", "El recibo aun no ha sido firmado digitalmente.");
+            } else {
+                // ahora verifico si esta conformado o no
+                var conformado = listaRecibosConformados['id' + seleccionarRecibo()];
+                if (conformado == 1) {
+                    GeneralPortal.descargarRecibo(idArchivo);
+                } else {
+                    alertify.alert("", "El recibo aun no esta conformado por el agente.");
                 }
-                else {
-                    alertify.alert("","El recibo aun no ha sido firmado digitalmente.");
-                }
-            } 
+
+            }             
         }
        
     }

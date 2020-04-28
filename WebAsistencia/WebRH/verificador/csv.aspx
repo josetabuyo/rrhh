@@ -36,7 +36,7 @@
 
 		<div class="back-colorNOUSADOESLALETRADELRESULTADO" style="background-image: url('../Imagenes/fondo_verificadorpng.png'); height:60%;width:100%;background-repeat:no-repeat;background-size: cover;">
         <div id="contenedor_imagen" style="width:100%" >
-            <img src="../Imagenes/logo_sistema.png" id="img_logo_sistema" alt="logosistema" style="width:10%;margin-top:30px; margin-left:2%">
+            <img src="../Imagenes/logo_sistema.png" id="img_logo_sistema" alt="logosistema" style="width:10%;margin-top:30px; margin-left:2%;cursor:pointer" onclick="window.location.href='../Login.aspx'">
             <!--<img src="../Imagenes/logo_direccion.png" id="img_logo_direccion" alt="logosistema" style="width:13%;margin-top:40px;float:right;margin-right: 2%">
             <img src="../Imagenes/logo_ministerio.png" id="img_logo_minis" alt="logosistema" style="width:14%;margin-top:40px;float:right;margin-right: 2%;">-->            
             <img src="../Imagenes/003logo_rrhh.gif" id="img2" alt="logosistema" style="width:10%;margin-top:55px;float:right;margin-right: 2%;">  

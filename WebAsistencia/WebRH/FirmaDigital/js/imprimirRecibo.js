@@ -272,7 +272,7 @@ var Permisos = {
             //genero la lista de recibos conformados
             for (i = 0; i < longitud; i++) {
                 
-                //la lista va a ser de clave: 'id' +idRecibo y valor: conformado:1,no conformado:0, resto:-1
+                //la lista va a ser de clave: 'id' +idRecibo y valor: conformado:1,no conformado:0, resto:-1 (si aun no fue firmado el archivo)
                 var s;
                 s = 'id' +resp[i].idRecibo; 
                

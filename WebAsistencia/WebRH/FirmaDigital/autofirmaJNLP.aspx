@@ -1,1 +1,0 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="autofirmaJNLP.aspx.cs" Inherits="SimpleServlet" %>
