@@ -43,7 +43,7 @@ namespace General.Repositorios
         {
             var parametros = new Dictionary<string, object>();            
             parametros.Add("@id_Recibo", idRecibo);
-            parametros.Add("@id_Usuario", idPersona);
+            parametros.Add("@id_Persona", idPersona);
             parametros.Add("@fechaConformidadUsuario", hoy);
             parametros.Add("@recibo_aceptado", recibo_aceptado);
             parametros.Add("@observacion", observacion);
@@ -70,7 +70,7 @@ namespace General.Repositorios
             {
                 tablaDatos.Rows.ForEach(row =>
                 {
-                    recibos.Add(new ReciboFirmado(row.GetInt("idRecibo"),row.GetInt("idArchivo"),row.GetSmallintAsInt("mes"),row.GetSmallintAsInt("año"),row.GetSmallintAsInt("tipoLiquidacion"),row.GetSmallintAsInt("conforme"),row.GetInt("idUsuario")));
+                    recibos.Add(new ReciboFirmado(row.GetInt("idRecibo"),row.GetInt("idArchivo"),row.GetSmallintAsInt("mes"),row.GetSmallintAsInt("año"),row.GetSmallintAsInt("tipoLiquidacion"),row.GetSmallintAsInt("conforme"),row.GetInt("idPersona")));
                     
                     /*row.GetInt("Id"),
                     rto.GetString(8);

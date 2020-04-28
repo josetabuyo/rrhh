@@ -6844,7 +6844,7 @@ public class WSViaticos : System.Web.Services.WebService
         //        {//COMO el proceso de guardado desde la tabla de la BD al disco es externo, no genero una subclase de archivo
         //que tendria el path de disco donde guardar el archivo. Se puede agregar una clase con propieda la clase archivo 
         //subo el archivo firmado y actualiza la tabla que indica que el idRecibo fue firmado
-        id_archivo = RepositorioDeArchivosFirmados().GuardarArchivo(System.Convert.ToBase64String(data), usuario.Owner.Id);
+        id_archivo = RepositorioDeArchivosFirmados().GuardarArchivo(System.Convert.ToBase64String(data), /*usuario.Owner.Id*/0);/*por default a 0 luego este se actualizara al idPersona del usuario cuando conforma el recibo*/
 //                   id_archivo = 20;//RepositorioDeArchivos().GuardarArchivo(bytes_pdf);// id_recibo;//simulo el guardado del archivo
         //var r = RepositorioDeArchivos().GetArchivo(id_archivo); //19444 es un pdf firmado          
         //actualizo el recibo firmado por el empleado, 
@@ -6891,8 +6891,8 @@ public class WSViaticos : System.Web.Services.WebService
             //        {//COMO el proceso de guardado desde la tabla de la BD al disco es externo, no genero una subclase de archivo
             //que tendria el path de disco donde guardar el archivo. Se puede agregar una clase con propieda la clase archivo 
             //subo el archivo firmado y actualiza la tabla que indica que el idRecibo fue firmado
-            //respuesta.Respuesta = RepositorioDeArchivosFirmados().GetArchivoAsync(idArchivo, usuario.Owner.Id);
-            respuesta.Respuesta = RepositorioDeArchivosFirmados().GetArchivoAsync(idArchivo);
+            respuesta.Respuesta = RepositorioDeArchivosFirmados().GetArchivoAsync(idArchivo, usuario.Owner.Id);
+            //respuesta.Respuesta = RepositorioDeArchivosFirmados().GetArchivoAsync(idArchivo);
             //           id_archivo = 20;//RepositorioDeArchivos().GuardarArchivo(bytes_pdf);// id_recibo;//simulo el guardado del archivo
             //var r = RepositorioDeArchivos().GetArchivo(id_archivo); //19444 es un pdf firmado          
             //actualizo el recibo firmado por el empleado, 
@@ -6927,8 +6927,13 @@ public class WSViaticos : System.Web.Services.WebService
         byte[] byteHash = hashValue.ComputeHash(bytes);
         hashValue.Clear();
 
-        if (RepoReciboFirmado().conformarRecibo(idRecibo, usuario.Owner.Id, hoy, recibo_aceptado, observacion, Convert.ToBase64String(byteHash)))
-        {
+        //TODO: La siguiente seccion seria mejor poner a las dos transacciones en una sola transaccion
+        //ya sea en un bloque transaccioal o las dos en un mismo sp en la bd
+        bool a = RepoReciboFirmado().conformarRecibo(idRecibo, usuario.Owner.Id, hoy, recibo_aceptado, observacion, Convert.ToBase64String(byteHash));
+        bool b = RepositorioDeArchivosFirmados().ActualizarArchivoFirmado(recibo.idArchivo, usuario.Owner.Id);
+        //actualizo el conformado de la persona  y el idPersona
+        if (a && b)
+        {            
             return JsonConvert.SerializeObject(new
             {
                 tipoDeRespuesta = "conformarRecibo.ok", idArchivo = recibo.idArchivo

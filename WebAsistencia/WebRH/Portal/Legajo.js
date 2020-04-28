@@ -1,6 +1,7 @@
 ﻿var spinner;
 var mes;
 var idUsuario;
+var agenteActual = '';
 
 var Legajo = {
     init: function () {
@@ -755,6 +756,7 @@ var Legajo = {
             $("#nombre_empleado").html(usuario.Owner.Apellido + ", " + usuario.Owner.Nombre);
 
             idUsuario = usuario.Owner.Id;
+            agenteActual = usuario.Owner.Apellido + "_" + usuario.Owner.Nombre;
 
             if (usuario.Owner.IdImagen >= 0) {
                 var img = new VistaThumbnail({ id: usuario.Owner.IdImagen, contenedor: $(".imagen") });
