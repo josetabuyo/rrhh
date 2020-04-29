@@ -46,9 +46,12 @@ var GeneralPortal = {
         //Backend.GetReciboPDFEmpleado(idRecibo)
         /*forma de descarga de generacion de pdf al vuelo, sin el sello de la firma digital*/
 //        Backend.GetReciboPDFDigital(idRecibo) 
+        var spinner = new Spinner({ scale: 2 });
+        spinner.spin($("html")[0]);
         /*forma de descarga desde la tabla de archivos firmados*/
         Backend.GetReciboPDFDigitalArchivado(idArchivo)
             .onSuccess(function (res) {
+                spinner.stop();
                 //en esta version siempre retorna exito a menos que sea un error antes del webservice
                 if (!res.DioError) {
                     //en el caso de los archivos estos ya vienen en b64 porque aun no encontre una funcion de conversion a b64 que codifique correctamente desde javascript
@@ -160,7 +163,7 @@ pdfWindow.document.write("<iframe width='100%' height='100%' src='data:applicati
             })
             .onError(function (e) {
                 //por aca nunca se entra si desde el webserver no se levanta una excepcion   
-                //spinner.stop();
+                spinner.stop();
             });
 
 

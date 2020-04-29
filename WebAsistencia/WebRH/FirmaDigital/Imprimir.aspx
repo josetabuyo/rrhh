@@ -381,6 +381,15 @@
         var idRecibo = seleccionarRecibo();//obtengo al recibo seleccionado
         if (idRecibo != 0) {
             mostrar('subcontenidoReciboConformado');
+            //limpio datos especificos del recibo  dejo los generales
+            $("#tabla_recibo_encabezado tbody tr").remove();
+            $('#celdaOficina').html("");
+            $('#celdaOrden').html("");
+            $('#area').html("");
+            $('#domicilio').html("");
+            $('#fechaLiquidacion').html("");
+            $('#categoria').html("");
+
             var spinner = new Spinner({ scale: 2 });
             spinner.spin($("html")[0]);
             Backend.GetReciboPorId(idRecibo,getModoRecibo()).onSuccess(function (reciboJSON) {
