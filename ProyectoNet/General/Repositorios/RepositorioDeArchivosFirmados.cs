@@ -58,6 +58,18 @@ namespace General.Repositorios
 
             return tabla_resultado.Rows[0].GetString("bytes_file", "no existe los datos del archivo buscado");
         }
+        public string GetArchivoAsync(int id_archivo)
+        {
+            /*consulto por los dos parametros para de esta forma asegurarme que solo la persona pueda obtener recibos SUYOS y no haga hack desde la web*/
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@idArchivo", id_archivo);
+            //parametros.Add("@idPersona", idPersona);
+            var tabla_resultado = this.conexion.Ejecutar("dbo.FS_ObtenerArchivoFirmado", parametros);
+            if (tabla_resultado.Rows.Count == 0) throw new Exception("no existe el archivo buscado");
+
+            return tabla_resultado.Rows[0].GetString("bytes_file", "no existe los datos del archivo buscado");
+        }
+
 
         public bool ActualizarArchivoFirmado(int id_archivo,int id_persona/*, int idPersona*/)
         {

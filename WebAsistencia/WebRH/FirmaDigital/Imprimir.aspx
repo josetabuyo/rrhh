@@ -254,7 +254,8 @@
                     imported.src = '../MAU/HabilitadorDeControles.js';
                 document.head.appendChild(imported);
 
-
+               /* Backend.GetReciboPDFDigitalArchivado(418)
+                    .onSuccess(function (res) { });*/
                 /*                                                                                                                                                                                                                                                                                                            $('#btnPantallaAsignarPerfil').click(function () {
                     $(".caja_der").load("AsignacionDePerfiles.htm", function () {
                         Permisos.iniciarPantallaAsignacionPerfiles();

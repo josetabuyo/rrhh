@@ -68,7 +68,13 @@ public class GenReciboEmpleadoToPdfConverter : ModeloToPdfConverter
             mapa.Add("totalD1", string.Format("{0:N}", Convert.ToDecimal(r.cabecera.Descuentos) / 100));
             // mapa.Add("neto", Convert.ToDecimal(r.cabecera.Neto).ToString("C")); esto si directamente se retorna desde el SP un float asi en el campo del pdf lo formatea bien, poque si es un string lo pone como string y no lo formatea
             //  mapa.Add("neto", string.Format("{0:C}", Convert.ToDecimal(r.cabecera.Neto) / 100));
-            mapa.Add("neto1", string.Format("{0:C2}", Convert.ToDecimal(r.cabecera.Neto) / 100));
+            /*C2 como formato para que deje solo 2 decimales, en desarrollo pone ya el $xx.xxx,xx, pero en el server toma la deficion suya en este caso el euro
+             * por lo que al final el pdf no convierte el valor numerico en $.
+             * 
+             por si las dudas al pdf no le seteo el formato y dejo que sea libre y aca l doy el formato de $ y string.Creo que es la cuestion de la apariencia en pdf
+             porque cada item tiene un valor y una apariencia en pdf,uno se llena desde codigo (y puede ser cualquier cosa) el otro desde la app visual del adobe reader
+            */
+            mapa.Add("neto1", "$ "+string.Format("{0:N}", Convert.ToDecimal(r.cabecera.Neto) / 100));
             mapa.Add("categoria", r.cabecera.NivelGrado);
             mapa.Add("opcion", r.cabecera.OpcionJubilatoria);
             mapa.Add("fechaLiquidacion", r.cabecera.FechaLiquidacion);
@@ -109,7 +115,7 @@ public class GenReciboEmpleadoToPdfConverter : ModeloToPdfConverter
                 mapa.Add("neto1", "****");
                 mapa.Add("totalH2", string.Format("{0:N}", Convert.ToDecimal(r.cabecera.Bruto) / 100));
                 mapa.Add("totalD2", string.Format("{0:N}", Convert.ToDecimal(r.cabecera.Descuentos) / 100));
-                mapa.Add("neto2", string.Format("{0:C2}", Convert.ToDecimal(r.cabecera.Neto) / 100));
+                mapa.Add("neto2", "$ " + string.Format("{0:N}", Convert.ToDecimal(r.cabecera.Neto) / 100));
                 mapa.Add("categoria", r.cabecera.NivelGrado);
                 mapa.Add("opcion", r.cabecera.OpcionJubilatoria);
                 mapa.Add("fechaLiquidacion", r.cabecera.FechaLiquidacion);
@@ -134,7 +140,7 @@ public class GenReciboEmpleadoToPdfConverter : ModeloToPdfConverter
                 mapa.Add("neto2", "****");
                 mapa.Add("totalH3", string.Format("{0:N}", Convert.ToDecimal(r.cabecera.Bruto) / 100));
                 mapa.Add("totalD3", string.Format("{0:N}", Convert.ToDecimal(r.cabecera.Descuentos) / 100));
-                mapa.Add("neto3", string.Format("{0:C2}", Convert.ToDecimal(r.cabecera.Neto) / 100));
+                mapa.Add("neto3", "$ " + string.Format("{0:N}", Convert.ToDecimal(r.cabecera.Neto) / 100));
                 mapa.Add("categoria", r.cabecera.NivelGrado);
                 mapa.Add("opcion", r.cabecera.OpcionJubilatoria);
                 mapa.Add("fechaLiquidacion", r.cabecera.FechaLiquidacion);

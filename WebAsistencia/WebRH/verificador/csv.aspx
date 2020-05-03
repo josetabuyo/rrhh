@@ -48,12 +48,12 @@
 		<div class="container h-100">
 			<div class="row h-100">
 				<div class="col-sm-12 my-auto card-container">
-					<div class=" col-lg-5 col-md-7 col-sm-9 mx-auto h-100" style ="margin-top:10%;max-width: 41.666667%;">
-						<div class="card card-block  altura-div fondo-color" >
-							<div class="card-header fondo-color" style="height: 38%; border-bottom: 0px solid rgba(0,0,0,.125);">
-								<div class="text-center" style="height: 90%">
+					<div class=" col-lg-5 col-md-7 col-sm-9 mx-auto h-100" style ="margin-top:10%;/*max-width: 41.666667%;*/">
+						<div class="card card-block  fondo-color" >
+							<div class="card-header fondo-color" style="/*height: 38%;*/ border-bottom: 0px solid rgba(0,0,0,.125);">
+								<div class="text-center" style="/*height: 90%;*/margin-top:50pt;">
                                    
-									<img alt="" class="img-fluid fondo-color" style="border: 0px solid #006b74 ;/*background-color: rgba(0, 108, 116, 0.74);*/height: 90%; width:auto; 
+									<img alt="" class="img-fluid fondo-color" style="border: 0px solid #006b74 ;/*background-color: rgba(0, 108, 116, 0.74);height: 90%;*/ width:auto;background-size:contain 
 									    transform: translateY(40%);" src="/Imagenes/logo_sistema.png"> 
                                   
 								</div>
@@ -112,29 +112,29 @@
 
 
 <div id="divReciboOK" style="display: none;color:white">
-	<div class="form-group pt-4 mt-3" >
-		<div class="form-group row" style="margin-right: 0px;margin-left: 0px;">
-		<label for="recibo.cuil" class="col-sm-5 col-form-label"> <b>CUIL&nbsp;</b>
+	<div class="form-group pt-4x mt-3" >
+		<div style="margin-right: 0px;margin-left: 10pt;padding:5pt 0pt;font-size: 11pt;">
+		<label for="recibo.cuil" style="width:50%;float:left;"> <b>CUIL&nbsp;</b>
 		</label>
-		<div class="col-sm-7">
-			<div class="form-control-plaintext" id="divCuil"></div>
-		</div>
+		<span style="width:49%;">
+			<span id="divCuil"></span>
+		</span>
 	</div>
-	<div class="form-group row" style="margin-right: 0px;margin-left: 0px;">
-		<label for="recibo.periodo" class="col-sm-5 col-form-label"> <b>Periodo&nbsp;</b>
+	<div style="margin-right: 0px;margin-left: 10pt;padding:5pt 0pt;font-size: 11pt;">
+		<label for="recibo.periodo" style="width:50%;float:left;"> <b>Periodo&nbsp;</b>
 		</label>
-		<div class="col-sm-7">
-			<div class="form-control-plaintext" id="divPeriodo"></div>
-		</div>
+		<span style="width:49%;">
+			<span id="divPeriodo"></span>
+		</span>
 	</div>
-	<div class="form-group row" style="margin-right: 0px;margin-left: 0px;">
-		<label for="recibo.importe" class="col-sm-5 col-form-label"> <b>Importe Neto&nbsp;</b>
+	<div  style="margin-right: 0px;margin-left: 10pt;padding:5pt 0pt;font-size: 11pt;">
+		<label for="recibo.importe" style="width:50%;float:left;"> <b>Importe Neto&nbsp;</b>
 		</label>
-		<div class="col-sm-7">
-			<div class="form-control-plaintext" id="divNeto"></div>
-		</div>
+		<span style="width:49%;">
+			<span id="divNeto"></span>
+		</span>
 	</div>
-	<div class="row" style="padding-top: 10px;">
+	<div class="row" style="padding-top: 20px;">
 		<div class="col-lg-12 text-right">
             <input type="submit" onclick="javascript:ocultarPanelRecibo();return false;"  value="Volver" class="btn boton">
 		</div>

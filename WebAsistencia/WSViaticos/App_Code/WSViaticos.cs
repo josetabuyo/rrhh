@@ -6880,6 +6880,8 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
 
+    /*NOTA: la funcion de abajo vuelve a verificar si el usuario tiene permiso de descarga de cualqueir recibo o no,
+     * deberia hacerse lo mismo par la visualizacion de recibos................*/
     [WebMethod]
     public StringRespuestaWS GetReciboPDFDigitalArchivado(int idArchivo, Usuario usuario)
     {
@@ -6887,11 +6889,22 @@ public class WSViaticos : System.Web.Services.WebService
         var respuesta = new StringRespuestaWS();
         try
         {
+            Funcionalidad[] f = GetFuncionalidadesActuales(usuario.Id, usuario);
+            bool tienePermiso = false;
+            foreach (Funcionalidad i in f)
+            {
+                if (i.Nombre.Equals("imprimir_recibos")){ tienePermiso = true; }
+            }
+            if (tienePermiso) {
+                respuesta.Respuesta = RepositorioDeArchivosFirmados().GetArchivoAsync(idArchivo);
+            } else {
+                respuesta.Respuesta = RepositorioDeArchivosFirmados().GetArchivoAsync(idArchivo, usuario.Owner.Id);
+            }
             //        try
             //        {//COMO el proceso de guardado desde la tabla de la BD al disco es externo, no genero una subclase de archivo
             //que tendria el path de disco donde guardar el archivo. Se puede agregar una clase con propieda la clase archivo 
             //subo el archivo firmado y actualiza la tabla que indica que el idRecibo fue firmado
-            respuesta.Respuesta = RepositorioDeArchivosFirmados().GetArchivoAsync(idArchivo, usuario.Owner.Id);
+            //respuesta.Respuesta = RepositorioDeArchivosFirmados().GetArchivoAsync(idArchivo, usuario.Owner.Id);
             //respuesta.Respuesta = RepositorioDeArchivosFirmados().GetArchivoAsync(idArchivo);
             //           id_archivo = 20;//RepositorioDeArchivos().GuardarArchivo(bytes_pdf);// id_recibo;//simulo el guardado del archivo
             //var r = RepositorioDeArchivos().GetArchivo(id_archivo); //19444 es un pdf firmado          
@@ -6900,7 +6913,7 @@ public class WSViaticos : System.Web.Services.WebService
             //la hora de conformacion de firma es la del reloj del servidor de la app, pero se puede dejar que sea la del reloj del server db
         }
         catch (Exception e)
-        {
+        { 
             respuesta.MensajeDeErrorAmigable = "Se produjo un error al obtener el PDF del recibo del empleador";
             respuesta.setException(e);
 
