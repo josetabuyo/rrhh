@@ -221,8 +221,17 @@
     var liquidaciones; //lista de liquidaciones
     var rsfLiquidaciones = new Array(); //diccionario de recibos sin firmar
     var rfLiquidaciones = new Array();  //diccionario de recibos firmados
+    var continuar = false; //es para detener la operacion
 
     function armarListaLiquidaciones() {
+        continuar = false;
+        //reseteo las variables globales
+        /*totalOperaciones = 0; 
+        totalFirmasRealizadas = 0;
+        totalFirmas = 0;
+        indiceListaRecibos = 0;*/
+
+        divMensajeStatus.innerHTML = '<div id="divMensajeStatus">&nbsp;</div> ';
         /*obtengo la lista de liquidaciones*/
 
        RECIBOS.getLiquidacionesAFirmar();
@@ -558,8 +567,7 @@
 
 //            checkbox.disabled = false;
 //            estado.classList.remove('estadoProcesando');
-//            estado.classList.add('estadoNoFirmado');
-
+//            estado.classList.add('estadoNoFirmado');            
             totalOperaciones++;
 
         }
@@ -568,78 +576,81 @@
 
     //verifico si aun hay firmas por realizar
     function verificarContinuacionProceso(cant) {
-        //divMensajeStatus.innerHTML = '<div class="iconInfo">procesando...' + totalOperaciones + '-' + totalFirmas + '</div>';
-        var s, s2;
-        s = 'rsf' + idLiquidacion_aux + anio_aux + mes_aux + tipoLiquidacion_aux; //id recibo sin firmar local
-        s2 = 'rf' + idLiquidacion_aux + anio_aux + mes_aux + tipoLiquidacion_aux; //id recibo firmado local
 
-        //compruebo si se realizaron todas las operaciones
-        if (totalOperaciones != totalFirmas) {
-            document.getElementById(s).innerHTML = totalFirmas - totalOperaciones;
-            document.getElementById(s2).innerHTML = parseInt(document.getElementById(s2).innerHTML)+cant;
-            divMensajeStatus.innerHTML = '<div class="iconProcesando">Total de archivos a firmar: <b>' + totalFirmas + '</b>. Archivos firmados correctamente: <b>' + totalFirmasRealizadas + '</b>. No se pudieron procesar: <b>' + (totalOperaciones - totalFirmasRealizadas) + '</b>.</div>';
-            firmarFileB64ServerExternoMasivo3();
-        } else {
-            //ya se realizaron todas las operaciones
-            //compruebo si se realizaron TODAS las operaciones de firma CORRECTAMENTE
-            if (totalFirmasRealizadas == totalFirmas) {
+        if (continuar) {
+            //divMensajeStatus.innerHTML = '<div class="iconInfo">procesando...' + totalOperaciones + '-' + totalFirmas + '</div>';
+            var s, s2;
+            s = 'rsf' + idLiquidacion_aux + anio_aux + mes_aux + tipoLiquidacion_aux; //id recibo sin firmar local
+            s2 = 'rf' + idLiquidacion_aux + anio_aux + mes_aux + tipoLiquidacion_aux; //id recibo firmado local
 
+            //compruebo si se realizaron todas las operaciones
+            if (totalOperaciones != totalFirmas) {
                 document.getElementById(s).innerHTML = totalFirmas - totalOperaciones;
-                document.getElementById(s2).innerHTML = parseInt(document.getElementById(s2).innerHTML) + totalFirmasRealizadas;
-                /*  divMensajeStatus.innerHTML = '<div class="iconOKFirmados">Archivos firmados correctamente.</div>';*/
-                divMensajeStatus.innerHTML = '<div class="iconOKFirmados">Total de archivos a firmar: <b>' + totalFirmas + '</b>. Archivos firmados correctamente: <b>' + totalFirmasRealizadas + '</b>. No se pudieron procesar: <b>' + (totalOperaciones - totalFirmasRealizadas) + '</b>.</div>';
-                //no rehabilito el boton de busqueda porque todo salio bien, lo quito de la lista de botones habilitados
-                var s3 = 'bf' + idLiquidacion_aux + anio_aux + mes_aux + tipoLiquidacion_aux;
-                var index = listaBotonesHabilitados.indexOf(s3);
-                listaBotonesHabilitados.splice(index, 1); //1 representa la cantidad de elementos a elmiminar a partir de la posicion
+                document.getElementById(s2).innerHTML = parseInt(document.getElementById(s2).innerHTML) + cant;
+                divMensajeStatus.innerHTML = '<div class="iconProcesando">Total de archivos a firmar: <b>' + totalFirmas + '</b>. Archivos firmados correctamente: <b>' + totalFirmasRealizadas + '</b>. No se pudieron procesar: <b>' + (totalOperaciones - totalFirmasRealizadas) + '</b>.</div>';
+                firmarFileB64ServerExternoMasivo3();
+            } else {
+                //ya se realizaron todas las operaciones
+                //compruebo si se realizaron TODAS las operaciones de firma CORRECTAMENTE
+                if (totalFirmasRealizadas == totalFirmas) {
 
-                //reseteo las variables globales
-                totalOperaciones = 0;
-                totalFirmasRealizadas = 0;
-                totalFirmas = 0;
-                indiceListaRecibos = 0;
+                    document.getElementById(s).innerHTML = totalFirmas - totalOperaciones;
+                    document.getElementById(s2).innerHTML = parseInt(document.getElementById(s2).innerHTML) + cant;// o directamente asignar totalFirmasRealizadas;
+                    /*  divMensajeStatus.innerHTML = '<div class="iconOKFirmados">Archivos firmados correctamente.</div>';*/
+                    divMensajeStatus.innerHTML = '<div class="iconOKFirmados">Total de archivos a firmar: <b>' + totalFirmas + '</b>. Archivos firmados correctamente: <b>' + totalFirmasRealizadas + '</b>. No se pudieron procesar: <b>' + (totalOperaciones - totalFirmasRealizadas) + '</b>.</div>';
+                    //no rehabilito el boton de busqueda porque todo salio bien, lo quito de la lista de botones habilitados
+                    var s3 = 'bf' + idLiquidacion_aux + anio_aux + mes_aux + tipoLiquidacion_aux;
+                    var index = listaBotonesHabilitados.indexOf(s3);
+                    listaBotonesHabilitados.splice(index, 1); //1 representa la cantidad de elementos a elmiminar a partir de la posicion
 
-                //habilitar los demas botones habilitados
-                for (j = 0; j < listaBotonesHabilitados.length; j++) {
-                    var btn_firmar2 = document.getElementById(listaBotonesHabilitados[j]);
-                    btn_firmar2.disabled = false;
-                    btn_firmar2.classList.remove('botonGrisadoFirmaM');
-                    btn_firmar2.classList.add('botonFirmaM');
+                    //reseteo las variables globales
+                    totalOperaciones = 0;
+                    totalFirmasRealizadas = 0;
+                    totalFirmas = 0;
+                    indiceListaRecibos = 0;
+
+                    //habilitar los demas botones habilitados
+                    for (j = 0; j < listaBotonesHabilitados.length; j++) {
+                        var btn_firmar2 = document.getElementById(listaBotonesHabilitados[j]);
+                        btn_firmar2.disabled = false;
+                        btn_firmar2.classList.remove('botonGrisadoFirmaM');
+                        btn_firmar2.classList.add('botonFirmaM');
+                    }
+
+                } else {//en este caso hubieron resultados ok y no ok al terminar las operaciones
+                    var archivosNoFirmados = totalOperaciones - totalFirmasRealizadas;
+                    /*divMensajeStatus.innerHTML = '<div class="iconAlerta">No se pudieron procesar ' + archivosNoFirmados + ' documentos.</div>';*/
+                    divMensajeStatus.innerHTML = '<div class="iconAlerta">Total de archivos a firmar: <b>' + totalFirmas + '</b>. Archivos firmados correctamente: <b>' + totalFirmasRealizadas + '</b>. No se pudieron procesar: <b>' + (totalOperaciones - totalFirmasRealizadas) + '</b>.</div>';
+
+                    //reseteo las variables globales
+                    totalOperaciones = 0;
+                    totalFirmasRealizadas = 0;
+                    totalFirmas = 0;
+                    indiceListaRecibos = 0;
+
+                    //vuelvo a armar la lista de liquidaciones a firmar, asi se filtran los recibos que faltaron firmar con los ya firmados
+                    armarListaLiquidaciones();
+
                 }
-
-            } else {//en este caso hubieron resultados ok y no ok al terminar las operaciones
-                var archivosNoFirmados = totalOperaciones - totalFirmasRealizadas;
-                /*divMensajeStatus.innerHTML = '<div class="iconAlerta">No se pudieron procesar ' + archivosNoFirmados + ' documentos.</div>';*/
-                divMensajeStatus.innerHTML = '<div class="iconAlerta">Total de archivos a firmar: <b>' + totalFirmas + '</b>. Archivos firmados correctamente: <b>' + totalFirmasRealizadas + '</b>. No se pudieron procesar: <b>' + (totalOperaciones - totalFirmasRealizadas) + '</b>.</div>';
-
                 //reseteo las variables globales
-                totalOperaciones = 0;
-                totalFirmasRealizadas = 0;
-                totalFirmas = 0;
-                indiceListaRecibos = 0;
+                //nota: las siguientes lineas se realizan recursivamente al retornar de las llamadas, 
+                //           totalOperaciones = 0;
+                //           totalFirmasRealizadas = 0;
+                //           totalFirmas = 0;
+                //           indiceListaRecibos = 0;
+                //NO rehabilito de nuevo el boton de firmar porque el que lo habilita es las busqueda de recibos a firmar
+                //ya no hay elementos a procesar
+                //            btn_firmar.disabled = false;
+                //            btn_firmar.classList.remove('botonGrisadoFirmaM');
+                //            btn_firmar.classList.add('botonFirmaM');
 
-                //vuelvo a armar la lista de liquidaciones a firmar, asi se filtran los recibos que faltaron firmar con los ya firmados
-                armarListaLiquidaciones();
-                
+                /*a medida que se va firmando los archivos se setean las propiedades
+                de los checkbox seteados asi la lista de seleccionados disminuye en 
+                cada iteracion*/
+
+
+
             }
-            //reseteo las variables globales
-            //nota: las siguientes lineas se realizan recursivamente al retornar de las llamadas, 
- //           totalOperaciones = 0;
- //           totalFirmasRealizadas = 0;
- //           totalFirmas = 0;
- //           indiceListaRecibos = 0;
-            //NO rehabilito de nuevo el boton de firmar porque el que lo habilita es las busqueda de recibos a firmar
-            //ya no hay elementos a procesar
-//            btn_firmar.disabled = false;
-//            btn_firmar.classList.remove('botonGrisadoFirmaM');
-//            btn_firmar.classList.add('botonFirmaM');
-
-            /*a medida que se va firmando los archivos se setean las propiedades
-            de los checkbox seteados asi la lista de seleccionados disminuye en 
-            cada iteracion*/
-
-            
-
         }
     }
 
@@ -954,6 +965,11 @@
             //totalFirmas = 1; //**********es la limitacion   
             totalFirmas = lista_recibos_resumen.length;
             if (totalFirmas > 0) {
+                //habilito las operaciones de firma
+                continuar = true;
+                totalOperaciones = 0;
+                totalFirmasRealizadas = 0;
+                indiceListaRecibos = 0;
                 //deshabilito el boton porque inicio la operacion de firma ciclica y no quiero que este haciendo click y click sobre el boton
                 var btn_firmar = document.getElementById(s3);
                 btn_firmar.disabled = true;
