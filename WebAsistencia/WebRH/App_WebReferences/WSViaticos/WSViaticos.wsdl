@@ -4867,6 +4867,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="Funcionalidades" type="tns:ArrayOfFuncionalidad" />
           <s:element minOccurs="1" maxOccurs="1" name="FechaDesde" type="s:dateTime" />
           <s:element minOccurs="0" maxOccurs="1" name="Areas" type="tns:ArrayOfArea" />
+          <s:element minOccurs="1" maxOccurs="1" name="Basica" type="s:boolean" />
         </s:sequence>
       </s:complexType>
       <s:element name="GetFuncionalidadesActuales">
