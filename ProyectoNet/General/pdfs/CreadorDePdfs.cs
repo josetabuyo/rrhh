@@ -6,6 +6,8 @@ using System.Web.Hosting;
 using System.IO;
 using iTextSharp.text.pdf;
 using iTextSharp.text;
+using iTextSharp.text.pdf.qrcode;
+using Newtonsoft.Json;
 
 /// <summary>
 /// Descripción breve de CreadorDePdfs
@@ -69,27 +71,28 @@ public class CreadorDePdfs //where T:IPrintableDocument
                 {
                     ex = e;
                     keys_not_found.Add(name);
+                    //aqui va a entrar cuando no encuentre el csv en el dic
                 }
             }
 
 
             if (keys_not_found.Count != 0)
             {
-              //  throw ex;
+                //  throw ex;
             }
 
             /*foreach (string name in stamp.AcroFields.Fields.Keys)
             {
                 stamp.AcroFields.SetField(name, "test");//agregar try cath por si la clave no esta en el dic
             }*/
-            stamp.FormFlattening = true;
+            //            stamp.FormFlattening = true;
             stamp.Close(); //cierro el pdf
             reader.Close();
             ms.Close();
 
             byte[] Bytes = ms.ToArray();
 
-            
+
 
             return Bytes;
 
@@ -145,7 +148,7 @@ public class CreadorDePdfs //where T:IPrintableDocument
 
     }
 
-       
+
     public byte[] AgregarImagenAPDF(byte[] bytes, String codigoBarras)
     {
         PdfReader reader = null;
@@ -165,12 +168,12 @@ public class CreadorDePdfs //where T:IPrintableDocument
 
             // creo una nueva capa
             PdfLayer layer = new PdfLayer("Foto", stamper.Writer);
-            
+
             // Getting the Page Size
             //Rectangle rect = reader.GetPageSize(i);
 
             // obtengo el objeto ContentByte de la pagina i
-  //          int i = 1;
+            //          int i = 1;
 
             int total = reader.NumberOfPages + 1;
             for (int i = 1; i < total; i++)
@@ -209,9 +212,9 @@ public class CreadorDePdfs //where T:IPrintableDocument
                 float percentage = 0.0f;
                 percentage = 150 / imagen.Width;
                 imagen.ScaleAbsolute(1.0f, 1.0f);//mismo tamaño
-                imagen.ScalePercent(percentage * 100);
+                imagen.ScalePercent(percentage * 85);//escalo a un 85%
                 //imagen.ScalePercent(100.0f); // 100.0f == same size
-                imagen.SetAbsolutePosition(410, 740);
+                imagen.SetAbsolutePosition(360, 690);
 
                 cb.AddImage(imagen);
                 ///aggrego la capa que hace la imagen redonda
@@ -232,19 +235,19 @@ public class CreadorDePdfs //where T:IPrintableDocument
                 cb.EndLayer();
                 //               }
             }
-                int length = Convert.ToInt32(ms.Length);
-                byte[] data = new byte[length];
-                ms.Read(data, 0, length);
+            int length = Convert.ToInt32(ms.Length);
+            byte[] data = new byte[length];
+            ms.Read(data, 0, length);
 
-                stamper.FormFlattening = true;//para que no se pueda editar el pdf generado
-                stamper.Close(); //cierro el pdf
-                reader.Close();
-                ms.Close();
+            //                stamper.FormFlattening = true;//para que no se pueda editar el pdf generado
+            stamper.Close(); //cierro el pdf
+            reader.Close();
+            ms.Close();
 
-                byte[] Bytes = ms.ToArray();
-            
-                return Bytes;
-            
+            byte[] Bytes = ms.ToArray();
+
+            return Bytes;
+
         }
         finally
         {
@@ -264,6 +267,198 @@ public class CreadorDePdfs //where T:IPrintableDocument
         }
 
 
+    }
+
+    /*nota:::: no la uso*/
+    public byte[] AgregarCSVAPDF(byte[] bytes, String csv)
+    {
+        /*    PdfReader reader = null;
+            FileStream fs = null;
+            MemoryStream ms = null;
+            PdfStamper stamper = null;
+
+            try
+            {
+                // agrego la imagen en una capa separada
+                //creo el objeto reader para leer el documento pdf
+                reader = new PdfReader(bytes);
+                ms = new MemoryStream();
+                //creo el objeto stamper para escribir datos desde el objeto pdfreader al objeto memorystream/filestream
+                stamper = new PdfStamper(reader, ms);
+
+                stamper.AcroFields.SetField("csv", codigoBarras);
+            
+                    int length = Convert.ToInt32(ms.Length);
+                    byte[] data = new byte[length];
+                    ms.Read(data, 0, length);
+
+                    stamper.FormFlattening = true;//para que no se pueda editar el pdf generado
+                    stamper.Close(); //cierro el pdf
+                    reader.Close();
+                    ms.Close();
+
+                    byte[] Bytes = ms.ToArray();
+            
+                    return Bytes;
+            
+            }
+            finally
+            {
+
+                // Garantizamos que aunque falle se cierran los objetos
+
+                // alternativa:usar using
+
+                reader.Close();
+
+                if (stamper != null) stamper.Close();
+
+                if (fs != null) fs.Close();
+
+                /* if (document != null) document.Close();*/
+
+        /*}*/
+
+        PdfReader reader = new PdfReader(bytes);
+
+
+        using (MemoryStream ms = new MemoryStream())
+        {
+            PdfStamper stamp = new PdfStamper(reader, ms);
+
+            /* foreach (string name in stamp.AcroFields.Fields.Keys)
+             {
+                 Console.WriteLine(name + " ");
+             }*/
+
+            List<string> keys_not_found = new List<string>();
+            KeyNotFoundException ex = new KeyNotFoundException();
+            try
+            {
+                stamp.AcroFields.SetField("csv", csv);
+            }
+            catch (KeyNotFoundException e)
+            {
+                ex = e;
+                keys_not_found.Add("csv");
+            }
+
+            /*foreach (string name in stamp.AcroFields.Fields.Keys)
+            {
+                stamp.AcroFields.SetField(name, "test");//agregar try cath por si la clave no esta en el dic
+            }*/
+            stamp.FormFlattening = true;   //recien aca cierro el pdf para que no puedan setearse los campos del pdf
+            stamp.Close(); //cierro el pdf
+            reader.Close();
+            ms.Close();
+
+            byte[] Bytes = ms.ToArray();
+
+            return Bytes;
+
+        }
+
+
+    }
+
+    /*Se agrega el codigo CSV y QR al recibo digital*/
+    public byte[] AgregarCSVyQRAPDF(byte[] bytes, String csv, int paginas)
+    {
+
+        PdfReader reader = new PdfReader(bytes);
+
+        using (MemoryStream ms = new MemoryStream())
+        {
+            PdfStamper stamp = new PdfStamper(reader, ms);
+            List<string> keys_not_found = new List<string>();
+            KeyNotFoundException ex = new KeyNotFoundException();
+            try
+            {
+                stamp.AcroFields.SetField("csv", csv);
+                Dictionary<EncodeHintType, Object> qrParam = new Dictionary<EncodeHintType, Object>();
+                qrParam[EncodeHintType.ERROR_CORRECTION] = ErrorCorrectionLevel.M;
+                qrParam[EncodeHintType.CHARACTER_SET] = "UTF-8";
+
+                BarcodeQRCode barcodeQRCode = new BarcodeQRCode("https://rrhh.desarrollosocial.gob.ar/verificador/csv.aspx?c=" + csv, 100, 100, qrParam);
+                Image codeQRImage = barcodeQRCode.GetImage();
+                //codeQRImage.ScaleAbsolute(100f,100f);
+                //codeQRImage.SetAbsolutePosition(doc.PageSize.Width - 36f - 128f, doc.PageSize.Height - 36f - 686.6f);//216
+                codeQRImage.ScaleAbsolute(75, 75);
+                codeQRImage.SetAbsolutePosition(420, 115);
+
+                if (paginas >= 1)
+                {
+                    PdfContentByte content = stamp.GetUnderContent(1); //imprimo en la 1 pagina
+                    content.AddImage(codeQRImage);
+
+                    if (paginas >= 2) {
+                        PdfContentByte content2 = stamp.GetUnderContent(2); //imprimo en la 2 pagina
+                        content2.AddImage(codeQRImage);
+
+                        if (paginas >= 3) {
+                            PdfContentByte content3 = stamp.GetUnderContent(3); //imprimo en la 3 pagina
+                            content3.AddImage(codeQRImage);
+
+                        }
+                    }
+
+                }
+
+            }
+            catch (KeyNotFoundException e)
+            {
+                ex = e;
+                keys_not_found.Add("csv");
+            }
+
+            /*foreach (string name in stamp.AcroFields.Fields.Keys)
+            {
+                stamp.AcroFields.SetField(name, "test");//agregar try cath por si la clave no esta en el dic
+            }*/
+            //            stamp.FormFlattening = true; 
+            stamp.Close(); //cierro el pdf
+            reader.Close();
+            ms.Close();
+
+            byte[] Bytes = ms.ToArray();
+
+            return Bytes;
+
+        }
+
+
+    }
+
+    public void ObtenerCsvYcerrarPDF(ref string csv2, ref byte[] bytes)
+    {
+
+        PdfReader reader = new PdfReader(bytes);
+        string csv ="";
+
+        using (MemoryStream ms = new MemoryStream())
+        {
+            PdfStamper stamp = new PdfStamper(reader, ms);
+            List<string> keys_not_found = new List<string>();
+            KeyNotFoundException ex = new KeyNotFoundException();
+            try
+            {
+                csv = stamp.AcroFields.GetField("csv");
+            }
+            catch (KeyNotFoundException e)
+            {
+                ex = e;
+                keys_not_found.Add("csv");
+            }
+
+            stamp.FormFlattening = true;//recien aca cierro el pdf para que no puedan setearse los campos del pdf
+            stamp.Close(); //cierro el pdf
+            reader.Close();
+            ms.Close();
+
+            csv2 = csv;
+            bytes = ms.ToArray();
+
+        }
 
 
     }

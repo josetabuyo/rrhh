@@ -1,8 +1,8 @@
-var Generales = ( function ( window, undefined ) {
-		
-	//esta funcion de llamadas ajax asincronas esta repetida en miniapplet
-	//pero considero que deberia ser una funcion de ayuda
-	function getHttpRequest() {
+var Generales = (function (window, undefined) {
+
+    //esta funcion de llamadas ajax asincronas esta repetida en miniapplet
+    //pero considero que deberia ser una funcion de ayuda
+    function getHttpRequest() {
         var xmlHttp = null;
         if (typeof XMLHttpRequest != "undefined") {	// Navegadores actuales
             xmlHttp = new XMLHttpRequest();
@@ -22,27 +22,27 @@ var Generales = ( function ( window, undefined ) {
             }
         }
         return xmlHttp;
-	}
-	
-	//oculto todos los elementos con una dada clase y muestro solo el elemento
-	//con identificador id
-	function mostrarPanelDerYOcultarClase(id,clase){	
-		
-		var x = document.getElementsByClassName(clase);
-		var i;
-		for (i = 0; i < x.length; i++) {
-		    x[i].style.display="none";
-		}
-		//muestro el elemento con id
-		document.getElementById(id).style.display="inline";
-	}
-	
-	
-	
-	/* Metodos que publicamos del objeto Generales */
-	return {
-		getHttpRequest : getHttpRequest,
-		mostrarPanelDerYOcultarClase : mostrarPanelDerYOcultarClase
-	}
-	
+    }
+
+    //oculto todos los elementos con una dada clase y muestro solo el elemento
+    //con identificador id
+    function mostrarPanelDerYOcultarClase(id, clase) {
+
+        var x = document.getElementsByClassName(clase);
+        var i;
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+        //muestro el elemento con id
+        document.getElementById(id).style.display = "inline"; 
+    }
+
+
+
+    /* Metodos que publicamos del objeto Generales */
+    return {
+        getHttpRequest: getHttpRequest,
+        mostrarPanelDerYOcultarClase: mostrarPanelDerYOcultarClase
+    }
+
 })(window, undefined);

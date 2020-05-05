@@ -43,9 +43,12 @@
                 <option value="11">Noviembre</option>
                 <option value="12">Diciembre</option>
              </select>
-              <select style="width:60px;" id="cmb_anio">
+              <select style="width:65px;" id="cmb_anio">
              </select>
              <div id="caja_controles">
+                
+             </div>
+             <div id="caja_info_recibos">
                 
              </div>
              </div>
@@ -113,6 +116,7 @@
 <script type="text/javascript" src="Legajo.js"></script>
 <script type="text/javascript" src="../Scripts/Spin.js"></script>
 <script type="text/javascript" src="../Scripts/ControlesImagenes/VistaThumbnail.js"></script>
+<script type="text/javascript" src="../Scripts/jsPortal/RepoFirmaDigital.js"></script>
 <script type="text/javascript" >
 
     $(document).ready(function ($) {
@@ -128,7 +132,9 @@
                 var mes = day.getMonth() + 1;
                 var anio = day.getFullYear();
 
-
+                /*NOTA: por default la web solo permite ver los recibos de los ultimos 3 años, incluido el año actual, por lo
+                 * que se coincide con las tablas de recibos actuales; por eso no se se envia el parametro historico para
+                 * buscar en recibos historicos*/
                 $("#cmb_anio").empty();
 
                 for (var i = 0; i <= 2; i++) {
@@ -136,7 +142,7 @@
                 }
 
 
-                $("#cmb_meses").val(mes)
+                $("#cmb_meses").val(mes);
                 $("#cmb_anio").trigger('change');
                 //$("#cmb_meses").val(mes).trigger('change');
 
@@ -149,4 +155,42 @@
 
 
 </script> 
+
+
+<script type="text/javascript" >
+    /*funcionalidadaes de la pagina web*/
+    function mostrarObservacion(opcion) {
+
+        if (opcion == 0) {
+            //hizo click en conformar, entonces oculto el panel de observacion
+            document.getElementById('capaObservacion').style.display = 'none';
+            document.getElementById('observacion2').value = '';
+        } else {
+            document.getElementById('capaObservacion').style.display = 'block';
+        
+       }
+    }
+
+    function conformarRecibo(idRecibo) {
+
+        var obs = document.getElementById('observacion2').value;
+        var resultado = 0;
+
+        var porNombre = document.getElementsByName("modoFirma");
+        // Recorremos todos los valores del radio button para encontrar el
+        // seleccionado
+        for (var i = 0; i < porNombre.length; i++) {
+            if (porNombre[i].checked)
+                resultado = porNombre[i].value;
+        }
+        //resultado 1 = conforme
+        //resultado 0 = disconforme
+
+        GeneralPortal.conformar(idRecibo,resultado,obs);
+
+    }
+
+
+</script> 
+
 </html>

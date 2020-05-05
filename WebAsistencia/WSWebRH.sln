@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2003
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29411.108
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "General", "..\ProyectoNet\General\General.csproj", "{D6802AD2-A6E1-4612-8F01-811E926A1D2E}"
 EndProject
@@ -55,7 +55,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WebRH", "WebRH\", "{A75712E
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "43414"
-		VWDDynamicPort = "true"
+		VWDDynamicPort = "false"
 		VWDVirtualPath = "/"
 		SlnRelativePath = "WebRH\"
 	EndProjectSection

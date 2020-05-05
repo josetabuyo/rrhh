@@ -1,6 +1,7 @@
 ﻿var spinner;
 var mes;
 var idUsuario;
+var agenteActual = '';
 
 var Legajo = {
     init: function () {
@@ -441,8 +442,52 @@ var Legajo = {
                 $("#tabla_recibo_encabezado").show();
                 $("#bloque_final").show();
 
-
                 var recibo = JSON.parse(reciboJSON);
+
+                /*la variable conforme puede tener los siguientes valores:
+                * -1: el recibo aun no fue firmado.
+                * 0: el recibo aun no fue conformado.
+                * 1: el recibo fue conformado.*/
+                var conformado = recibo.Conforme;
+                var idRecibo = recibo.IdRecibo;
+                var idArchivo = recibo.IdArchivo;
+                /*if(conforme==-1){
+                //no muestro nada
+                }*/
+                var div_caja_info_recibos = $("#caja_info_recibos");
+                div_caja_info_recibos.empty();
+                var texto1;
+                var boton1;
+                var fondoRecibo = $("#tabla_recibo_encabezado");
+
+                switch (conformado) {
+                    case -1:
+                        /*no muestro nada*/
+                        // quito el texto que indica que el recibo no es valido
+                        fondoRecibo.removeClass('tabla_recibo_encabezadoSinBackground');
+                        fondoRecibo.addClass('tabla_recibo_encabezado');
+                        break;
+                    case 0:
+                        texto1 = "<BR/>Firmar en:<BR/><input style='margin-left:10px;vertical-align: text-bottom;' type='radio' id='conforme' value='1' checked name='modoFirma' onclick=\"mostrarObservacion(0)\"> <label  for='conforme'>Conformidad</label><BR/><input style='margin-left:10px;vertical-align: text-bottom;' type='radio' id='disconforme' value='0' name='modoFirma' onclick=\"mostrarObservacion(1)\"> <label  for='disconforme'>Disconformidad</label> <BR/><div id='capaObservacion' style='display:none;'>Observaci&oacuten: <textarea id='observacion2' name='observacion2' rows='10' cols='100' maxlength='220' placeholder='En caso de disconformidad indique el motivo' style='margin: 0px; width: 595px; height: 70px;resize: none;'></textarea></div><BR/> Para obtener (imprimir/descargar) una versión VALIDA del recibo usted debe clickear este botón. ";
+                        //boton1 = "<button type='button' onclick=\"GeneralPortal.conformar(\'" + idRecibo + "\')\">Conformar</button>";
+                        boton1 = "<button type='button' onclick=\"conformarRecibo(\'" + idRecibo + "\')\">Conformar</button>";
+                        div_caja_info_recibos.append(texto1 + boton1);
+                        //seteo que muestre el no valido en el fondo
+                        fondoRecibo.removeClass('tabla_recibo_encabezadoSinBackground');
+                        fondoRecibo.addClass('tabla_recibo_encabezado');
+                        break;
+                    default:
+                        // texto1 = "Recibo conformado por el agente a traves del sistema Si.G.I.R.H ";
+                        texto1 = "<BR/>";
+                        boton1 = "<button type='button' onclick=\"GeneralPortal.descargarRecibo(\'" + idArchivo + "\')\">Descargar</button>";
+                        div_caja_info_recibos.append(texto1 + boton1);
+                        // quito el texto que indica que el recibo no es valido
+                        fondoRecibo.removeClass('tabla_recibo_encabezado');
+                        fondoRecibo.addClass('tabla_recibo_encabezadoSinBackground');
+                }
+
+
+
                 var detalle = "";
                 var _this = this;
 
@@ -517,6 +562,8 @@ var Legajo = {
             }
             var div_controles = $("#caja_controles");
             div_controles.empty();
+            //limpio la info respectiva a los recibos de sueldos
+            $("#caja_info_recibos").empty();
 
             var spinner = new Spinner({ scale: 2 });
             spinner.spin($("html")[0]);
@@ -709,6 +756,7 @@ var Legajo = {
             $("#nombre_empleado").html(usuario.Owner.Apellido + ", " + usuario.Owner.Nombre);
 
             idUsuario = usuario.Owner.Id;
+            agenteActual = usuario.Owner.Apellido + "_" + usuario.Owner.Nombre;
 
             if (usuario.Owner.IdImagen >= 0) {
                 var img = new VistaThumbnail({ id: usuario.Owner.IdImagen, contenedor: $(".imagen") });
@@ -1487,12 +1535,12 @@ var Legajo = {
         spinner.spin($("html")[0]);
 
 
-//        $("#btn_renovar_credencial").click(function () {
-//            var div = $("<div>");
-//            div.load(window.location.origin + '/Componentes/SolicitarRenovacionCredencial.htm', function () {
-//                Componente.start({ credencial: credencial_vigente }, div);
-//            });
-//        });
+        //        $("#btn_renovar_credencial").click(function () {
+        //            var div = $("<div>");
+        //            div.load(window.location.origin + '/Componentes/SolicitarRenovacionCredencial.htm', function () {
+        //                Componente.start({ credencial: credencial_vigente }, div);
+        //            });
+        //        });
 
         Backend.GetCredencialesTodasDePortal()
                     .onSuccess(function (consultas) {
@@ -1517,20 +1565,20 @@ var Legajo = {
 
                             $.each(consultas, function (i, val) {
 
-                                if (consultas[i].Estado == "VIGENTE") {                                 
-                                 
+                                if (consultas[i].Estado == "VIGENTE") {
+
                                     columnasHisto.push(new Columna("Desde", { generar: function (una_consulta) { return ConversorDeFechas.deIsoAFechaEnCriollo(consultas[i].FechaAlta) } }));
                                     columnasHisto.push(new Columna("Organismo", { generar: function (una_consulta) { return consultas[i].Organismo } }));
                                     columnasHisto.push(new Columna("Tipo", { generar: function (una_consulta) { return consultas[i].Tipo } }));
                                     columnasHisto.push(new Columna("Estado", { generar: function (una_consulta) { return consultas[i].Estado } }));
-                                                                    
+
                                 }
 
-                               // alert(consultas[i].Estado);
+                                // alert(consultas[i].Estado);
                             });
 
-//                            _this.Grilla = new Grilla(columnasHisto);
-//                            _this.Grilla.DibujarEn(divGrillaHisto);
+                            //                            _this.Grilla = new Grilla(columnasHisto);
+                            //                            _this.Grilla.DibujarEn(divGrillaHisto);
 
                             for (var cred in consultas) {
                                 if (consultas[0].Estado != "VIGENTE") {
@@ -1546,7 +1594,7 @@ var Legajo = {
 
                                 }
                             }
-                            
+
 
                             $("#tablaConsultas").empty();
                             var divGrilla = $("#tablaConsultas");
@@ -1607,7 +1655,7 @@ var Legajo = {
                             }));
 
 
-                         
+
 
 
                             _this.Grilla = new Grilla(columnas);

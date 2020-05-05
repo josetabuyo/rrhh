@@ -116,7 +116,7 @@ var MiniApplet = ( function ( window, undefined ) {
 		var CHECKTIME_OBLIGATORY = "CT_OBLIGATORY";
 
 		// Tiempo de espera entre los intentos de conexion con autofirma.
-		var AUTOFIRMA_LAUNCHING_TIME = 2000;
+		var AUTOFIRMA_LAUNCHING_TIME = 6500;
 
 		// Reintentos de conexion totales para detectar que esta instalado AutoFirma
 		var AUTOFIRMA_CONNECTION_RETRIES = 100;  //20 cantidad original;puse 100 porque debo dar tiempo a que se descargue e instale en modo jnlp
@@ -1869,11 +1869,11 @@ var MiniApplet = ( function ( window, undefined ) {
 				httpRequest.onload= function() {
 					 var responseText = httpRequest.responseText;
 					 console.log("load: "+responseText);
-				}
-				httpRequest.onerror= function() {
-					var responseText = httpRequest.responseText;
-					 console.log("error: "+ responseText);
 				}*/
+                httpRequest.onerror = function () {
+                    //var responseText = httpRequest.responseText; 
+                    //console.log(" c:"+httpRequest.responseText);
+                };
 				
 				httpRequest.open("POST", URL_REQUEST + currentPort + "/afirma", true);
 				httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -1931,11 +1931,14 @@ var MiniApplet = ( function ( window, undefined ) {
 					}
 				}
 
-				if (!connection) {
-					// Mandamos un echo con - por lo que las variables de control se resetearan
-					// Se anade EOF para que cuando el socket SSL lea la peticion del buffer sepa que ha llegado al final y no se quede en espera
-					httpRequest.send("echo=-idsession=" + idSession + "@EOF");
+                if (!connection) {
+                    
+                    // Mandamos un echo con - por lo que las variables de control se resetearan
+                    // Se anade EOF para que cuando el socket SSL lea la peticion del buffer sepa que ha llegado al final y no se quede en espera
+                    httpRequest.send("echo=-idsession=" + idSession + "@EOF");
 					//console.log("probamos puerto " +currentPort)
+                    
+					
 				}
 			}
 

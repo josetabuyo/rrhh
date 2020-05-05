@@ -16,12 +16,14 @@ ul li:before {
 {
     color:#f4efe9; 
     /*background:#413f40; */
-    background:#003e67;
-    min-width: 185px;
+    /*background:#003e67;*/
+    background:rgb(1,70,99);
+    /*min-width: 185px;*/
     width:18%; 
-    display:inline-block; 
+    /*display:inline-block; */
     min-height:600px;
     float:left;
+    text-align:center;margin-top:5px; margin-left: 5px;margin-right:5px;
 }
 
 .icon_menu_izq 
@@ -30,7 +32,16 @@ ul li:before {
   width:40px;
   height:40px;
 }
-        
+   
+.logo_menu_izq 
+{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width:50%;
+  height:50%;
+}
+
+     
 .caja_der 
 {
     color:#4d4b4c; 

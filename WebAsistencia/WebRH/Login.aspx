@@ -19,6 +19,10 @@
                     <img src="Imagenes/warning.png" alt="actualizacion" width="50" height="50" />
                     <h5 style="color: white; aligment: center">Bienvenidos !!! <br /><br />
                     Comunicamos a todos los visitantes que actualmente este es un sitio de uso interno del Ministerio de Desarrollo Social. <br /> <br /></h5>
+
+                    <%--<h5 style="color: white;aligment: Justify">En este momento NO SE ENCUENTRA VIGENTE NINGUNA BUSQUEDA de personal, ni Proceso de Selección, ni Concurso por parte de este Organismo. <br /><br />
+                    Por este motivo, si bien es posible realizar la carga de los datos personales y Currículum Vitae, dichos datos NO SERÁN UTILIZADOS en lo inmediato para incorporaciones al Ministerio.--%></h5>
+
                 </div>-->
                 
            
@@ -34,7 +38,7 @@
                      <br />
                      <div style="font-size: 0.7em; margin: 10px auto; width: 500px; margin-left: -120px; display: inline-block;">
                         <input style="width: 190px;" class="btn btn-primary" id="linkAcerca" value="¿Para que se utiliza este sitio?" />
-                        <input style="width: 190px;" class="btn btn-primary" id="linkAcceso" value="Instructivo de Acceso" />
+                        <input style="width: 190px;" class="btn btn-primary" id="linkAcceso" value="Instructivo de Acceso" />                        
                      </div>
                     <%-- <a href="Imagenes/SIGIRH_Acerca.jpg" target="_blank"></a>
                      <a href="Imagenes/SIGIRH_Registro.jpg" target="_blank"></a>--%>
@@ -42,13 +46,24 @@
                 <div id="loginAlertaInvalido" class="alert  alert-error" runat="server">
                      <a class="close" data-dismiss="alert">×</a> <strong>Error</strong> El nombre de
                                 usuario o la contraseña ingresados no son v&aacute;lidos o el usuario está dado de baja.
-                </div>  
+                </div> <br />
+                <div style="background-image: url('../Imagenes/boton_verificador.gif');  float: right;position: relative;margin-right:10%;margin-top:5%;">
+                     <img src="../Imagenes/boton_verificador.gif" style="width:100%;height:100%;cursor:pointer" onclick="window.location.href='/verificador/csv.aspx'"/>
+                </div> 
             </div>
-            <div style="margin: 0 auto; ;padding: 10px; position: absolute; right: 0; bottom:0; margin-bottom: 5px; margin-right: 50px; color: beige;">Versión: 1.1</div>
+            
+            
         <div id="registrarse_dialog"></div>
         <div id="recuperar_dialog"></div>
+               
+
+    </div>
+
     </div>
     </form>
+
+    
+
     <%= Referencias.Javascript("") %>
     <script type="text/javascript" src="Scripts/vex-2.1.1/js/vex.combined.min.js"></script>
     <script type="text/javascript" src="RegistroPostular/PantallaRegistro.js">  </script>

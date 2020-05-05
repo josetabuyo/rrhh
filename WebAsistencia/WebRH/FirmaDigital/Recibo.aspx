@@ -18,89 +18,48 @@
         <link rel="stylesheet" href="recibo.css" />
 
 
-
-
-
     </head>
 <body>
     <form id="form1" runat="server">
     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:18px; font-weight: bold; padding-top:25px;'>Datos<br/>Recibo</span> <br/> " UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
-    <div class="container-fluid">
-        <h1 style="text-align:center; margin:17px; "></h1>
-        
-        <div style="text-align:center;" class="caja_izq no-print">
-        Perfil empleador:<br />Firma Iterativa<br />Perfil empleado:<br />Confirmacion Recibo<br />Perfil auditor:<br />
-        Verificacion de una firma<br />Obtener un recibo firmado<br />...
+    
+    <!--caja de contenido por debajo del menu-->
+    <div style="width:99%; margin-left:11px; margin-right:11px">
+    
+
+        <div style="/*text-align:center;margin-top:5px; margin-left: 5px;margin-right:5px;background-color:rgb(1,70,99);*/" class="caja_izq no-print">
+       <!-- Perfil empleador:<br />Firma Iterativa<br />Perfil empleado:<br />Confirmacion Recibo<br />Perfil auditor:<br />
+        Verificacion de una firma<br />Obtener un recibo firmado<br />...-->
         </div>
 
         <!--contenido derecho -->
-         <div  class="caja_der papel" >
-           <div id="subcontenidoFirmaMasiva"> 
-         <fieldset>
-         <legend style="margin-top: 20px;">FIRMA DE RECIBOS</legend>         
-         </fieldset>
-         <div id="div_recibo">            
-         <div  style="margin:10px;">
-            <p><B>Descripción:</B>  En esta sección se realiza la firma iterativa de todos los recibos<!-- que hayan sido confirmados por los empleados,--> para un determinado intervalo, y que ademas no hayan sido aun firmados digitalmente.</p>
-            <p>Seleccione la lista de recibos a firmar:</p>
-         <!--   <select style="width:130px;" id="cmb_filtro">
-                <option value="0">Sin Firmar</option>
-                <option value="1">Firmado Conforme</option>
-                <option value="2">Firmado No Conforme</option>
-             </select>-->
-             <!--nota: 0: indica que se firmen todos los tipos de liquidacion-->
-             <select style="width:230px;" id="cmb_tipo_liquidacion" size="1">
-                <option value="0" selected>TODOS</option>
-             </select>
-            <!--TODO: cargar dinamicamente los select si no se quieren mostrar meses no vigentes para el año actual-->
-             <select style="width:65px;" id="cmb_anio2">
-                <option value="2016" selected>2016</option>
-                <option value="2017" >2017</option>
-                <option value="2018" >2018</option>
-             </select>
-             <select style="width:105px;" id="cmb_meses2">
-                <option value="1" selected>Enero</option>
-                <option value="2">Febrero</option>
-                <option value="3">Marzo</option>
-                <option value="4">Abril</option>
-                <option value="5">Mayo</option>
-                <option value="6">Junio</option>
-                <option value="7">Julio</option>
-                <option value="8">Agosto</option>
-                <option value="9">Septiembre</option>
-                <option value="10">Octubre</option>
-                <option value="11">Noviembre</option>
-                <option value="12">Diciembre</option>
-             </select>
-              &nbsp;&nbsp;&nbsp;<input id="btn_Buscar" class="botonFirmaM" type="button" value="Buscar" onclick="javascript:buscarRecibos();return false;" />
-              <!--<div id="caja_controles"> </div>-->
-         
-         <!-- 	estatus de la operacion realizada --> 
-<!--          <div id ="Div1"> 
-         <div id ="Div2"></div><div id ="Div3"></div>
-         <div id ="Div4"></div><div id ="Div6"></div>
-         </div>
--->
-        <!--  <div class="Table"> 
-            <div class="Title"><p> Esta es la tabla</p> </div>  
-            <div class="Heading"> <div class="Cell">
-              <p> Primer Nombre</p>  
-            </div>  
-            <div class="Cell"><p> Segundo Nombre</p></div>  
-            <div class="Cell"> <p>  Edad</p> </div>  
-         </div>--> 
-   <BR>  <BR> 
-   <div><table class="tablex table-stripedx table-bordered table-condensed" style="width:100%">
-				 <tbody class="list">
-				 <tr><td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;width:10pt" >Operación</td>
-				 <td style="text-align: right;"><input id="btn_firmar" disabled  style="text-align: right;cursor: pointer;" class="botonGrisadoFirmaM" type="button" value="Firmar Seleccionados" onclick="javascript:iniciarOperaciones3();return false;" />
-				 </td></tr>
-				 <tr><td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;" >Estatus</td><td><div id="divMensajeStatus" style="margin-top:5px">&nbsp;</div></td></tr>
-				 </tbody></table></div><br/>
+         <div  class="caja_derxxxx papelxxx" style="margin-top:5px;float:left;width:80% ">
+           <!--modulo de firma iterativa -->
+           <div id="subcontenidoFirmaIterativa" class="panelDerOcultable" style="display: inline;"> 
+               <!--no uso la clase de table pero la dejo para ver si la llego a usar-->
+         <table class="tablex1 table-stripedx1 table-bordered1 table-condensed1" style="width:90%;margin:20pt;-webkit-border-radius: 7px 7px 0px 0px;
+-moz-border-radius: 7px 7px 0px 0px;border-radius: 7px 7px 0px 0px;border-collapse: collapse;border: 0px solid #1C6EA4;">
+             <tbody>
+                 <tr><td style="background-image: linear-gradient(to bottom, rgb(1,70,99), rgb(1,70,99))/*linear-gradient(to bottom, #2574AD, #2574AD)*/; color: #fff;font-size: 13pt;font-weight: bold;text-align:center;padding:10px">FIRMA DE RECIBOS</td></tr>
+                 <tr>  <td><div style="padding:10px; border:1px; border-color:rgb(1,70,99);border-style:solid">Para realizar la Firma Digital (del Empleador) de los recibos de haberes aún no firmados, de acuerdo a las cantidades indicadas en la grilla que sigue deberá conectarse el Token de Firma Digital con Certificado Vigente que corresponda al Funcionario autorizado a realizar dicha rúbrica. para un determinado intervalo, y que ademas no hayan sido aun firmados digitalmente.
+                       </div></td></tr>
+             </tbody></table>
 
-    </div>  
+         <div id="div_recibo" style="margin:20pt;">            
+         <div >
+                    <BR>
+                    <div id="divMensajeStatus">&nbsp;</div> 
+                    <BR>
+ 
+    <!--lista de liquidaciones -->
 
-              
+    <div id="listaDeLiquidaciones"></div><br/>
+     
+     <!-- 	armar liquidaciones -->
+     <input id="Button2" style= "float:right;margin-right:35pt;margin-bottom:20pt" class="botonFirmaM" type="button" value="BuscarLiq" onclick="javascript:armarListaLiquidaciones();return false;" />
+
+
+             
          <!-- 	lista de recibos a firmar -->    
 	     <div id ="resumenRecibos" class="resultadoValidar">        
 	     </div>
@@ -174,8 +133,62 @@
          
          </div>
            </div>
-           <div id="subcontenidoReciboEmpleado">
 
+           <!--modulo de obtencion de un recibo firmado -->
+           <div id="subcontenidoReciboEmpleado" style="display: none;" class="panelDerOcultable">
+                 <fieldset>
+         <legend style="margin-top: 20px;">Consulta de Recibo Firmado</legend>         
+         </fieldset>
+         <div id="div5">            
+         <div  style="margin:10px;">
+            <p><B>Descripción:</B>  En esta sección se pueden descargar recibos firmados. Para la posterior verificacion tecnica de los mismos</p>
+            <p>Seleccione la lista de recibos a verificar:</p>
+         <!--   <select style="width:130px;" id="cmb_filtro">
+                <option value="0">Sin Firmar</option>
+                <option value="1">Firmado Conforme</option>
+                <option value="2">Firmado No Conforme</option>
+             </select>-->
+             <!--nota: 0: indica que se firmen todos los tipos de liquidacion-->
+             <input type="text" id="idReciboFirmado" style="width:105px;line-height: 40px;padding: 1px 2px;margin: 4px 0;" maxlength="7">
+             <select style="width:230px;" id="Select10" size="1">
+                <option value="0" selected>TODOS</option>
+             </select>
+            <!--TODO: cargar dinamicamente los select si no se quieren mostrar meses no vigentes para el año actual-->
+             <select style="width:65px;" id="Select20">
+                <option value="2016" selected>2016</option>
+                <option value="2017" >2017</option>
+                <option value="2018" >2018</option>
+             </select>
+             <select style="width:105px;" id="Select30">
+                <option value="1" selected>Enero</option>
+                <option value="2">Febrero</option>
+                <option value="3">Marzo</option>
+                <option value="4">Abril</option>
+                <option value="5">Mayo</option>
+                <option value="6">Junio</option>
+                <option value="7">Julio</option>
+                <option value="8">Agosto</option>
+                <option value="9">Septiembre</option>
+                <option value="10">Octubre</option>
+                <option value="11">Noviembre</option>
+                <option value="12">Diciembre</option>
+             </select>
+              &nbsp;&nbsp;&nbsp;<input id="Button10" class="botonFirmaM" type="button" value="Buscar" onclick="javascript:buscarRecibos();return false;" />              
+   <BR>  <BR> 
+   <div><table class="tablex table-stripedx table-bordered table-condensed" style="width:100%">
+				 <tbody class="list">
+				 <tr><td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;width:10pt" >Operación</td>
+				 <td style="text-align: right;"><input id="Button20" enabled  style="text-align: right;cursor: pointer;" class="botonGrisadoFirmaM" type="button" value="Obtener Recibo" onclick="javascript:obtenerDocFirmado();return false;" />
+				 </td></tr>
+				 <tr><td style="background-image: linear-gradient(to bottom, #2574AD, #2574AD); color: #fff;font-size: 9pt;font-weight: bold;" >Estatus</td><td><div id="divMensajeStatusBusqueda" style="margin-top:5px">&nbsp;</div></td></tr>
+				 </tbody></table></div><br/>
+    </div>    
+                                  
+         <!-- 	lista de recibos a firmar -->    
+	     <div id ="div6" class="resultadoValidar">        
+	     </div>      
+         
+         </div><!--FIN obtener recibo firmado -->
 
 
            </div>
@@ -197,14 +210,27 @@
 <script type="text/javascript" src="../Scripts/ControlesImagenes/VistaThumbnail.js"></script>
 
 <!-- js de los servicios propios de la pagina -->
-<script type="text/javascript" >
+<script type="text/javascript">
     var divMensajeStatus = document.getElementById('divMensajeStatus');
-    var btn_firmar = document.getElementById("btn_firmar");
+//    var btn_firmar = document.getElementById("btn_firmar");  //BORRAR ya no la uso
     var lista_recibos_resumen; /*variable que mantiene la lista de recibos */
     var anio;
     var mes;
     var tipoLiquidacion;
+    var tiposLiquidaciones;
+    var liquidaciones; //lista de liquidaciones
+    var rsfLiquidaciones = new Array(); //diccionario de recibos sin firmar
+    var rfLiquidaciones = new Array();  //diccionario de recibos firmados
 
+    function armarListaLiquidaciones() {
+        /*obtengo la lista de liquidaciones*/
+
+       RECIBOS.getLiquidacionesAFirmar();
+    }
+
+
+    /********BORRAR: MODELO VIEJO ahora se requiere historico de liquidaciones*/
+    /************BORRAR:YA no usada**************/
     function buscarRecibos() {
         //NOTA: si tipo liquidacion es 0 entonces por ahora no se traer TODOS los recibos de un dado año y mes
         //se limita aqui, pero se puede hacer un bucle aqui e iterar por todos los tipos de liquidacion y obtener todos los recibos y luego firmar, hacer eso por cada tipo de liquidacion
@@ -216,9 +242,30 @@
             divMensajeStatus.innerHTML = '<div class="iconProcesando">Procesando Solicitud ...</div>';
 
             //realizo la operacion
-            anio = document.getElementById('cmb_anio2').value;
-            mes = document.getElementById('cmb_meses2').value;
+            anio = document.getElementById('cmb_anio').value;
+            mes = document.getElementById('cmb_meses').value;
             tipoLiquidacion = document.getElementById('cmb_tipo_liquidacion').value;
+
+
+            /*nota1: las horas extra siempre se migran un mes despues del mes de liquidacion.Aun asi en la tabla de PLA_RECIBO el año y el mes de la liquidacion es el correcto.
+            Por ejemplo: cuando el tipo de liquidacion es "hora extra" :
+
+            PLA_RECIBOS_MIGRADOS, año=2019, mes=2  .año=2019, mes=1
+            PLA_RECIBOS,     año=2019, mes 1       .año=2018, mes=12*/
+
+            /*verifico si el tipo de liquidacion pertenece a los extras*/
+            if (tiposLiquidaciones[tipoLiquidacion].Meses_Retraso > 0) {
+            /*if (tipoLiquidacion.toLowerCase().indexOf("extras") >= 0) {*/
+                /*actualizo la fecha a la liquidacion de un mes atras*/
+                if (mes == "1") { /*es enero*/
+                    mes = 12;
+                    anio = anio - 1;
+                } else {
+                    mes = mes - 1;
+                }
+            
+            }
+                     
             RECIBOS.getIdRecibosSinFirmar(tipoLiquidacion, anio, mes);
                         
             //seteo el mensage con el resultado de la operacion
@@ -230,6 +277,7 @@
 //        document.getElementById('validarFirmaForm').style.display = 'block';
         }
     }
+
 
     function xxxfirmarRecibos() {
 
@@ -267,29 +315,69 @@
         $(".caja_izq").load("SeccionIzquierda.htm", function () {
             Backend.start(function () {
                 // las funciones de inicio se deben ejecutar aqui dentro
-               
+
                 //cargo las listas seleccionables
-                RECIBOS.getTiposLiquidacion();
+//                RECIBOS.getTiposLiquidacion();
                 
+                /*cargo la lista de años, los ultimos 3 años*/
+//                var day = new Date();
+//                var mes = day.getMonth() + 1;
+//                var anio = day.getFullYear();
 
 
-                /*          Legajo.getNombre();
+//                $("#cmb_anio").empty();
 
-                Legajo.bindearBotonLiquidacion();
+//                for (var i = 0; i <= 2; i++) {
+//                    $("#cmb_anio").append('<option value=' + (anio - i).toString() + '>' + (anio - i).toString() + '</option>');
+//                }
+                /*seteo el mes al mes actual*/
+//                $("#cmb_meses").val(mes)
 
-                $("#tabla_recibo_encabezado").hide();
-                var day = new Date();
-                var mes = day.getMonth() + 1;
-                var anio = day.getFullYear();
+                /*verifico si el mes del año seleccionado esta permitido para seleccionar*/
+//                var btn = $('#cmb_meses').change(function () {
+                                    
+//                    var mes = $("#cmb_meses option:selected").val() - 1;
+                   
+//                    var anio_combo = $("#cmb_anio option:selected").val();
+//                    var day = new Date();
+//                    var mes_no_permitido = day.getMonth() + 2;
+//                    var anio = day.getFullYear();
 
-                $("#cmb_meses").val(mes)
-                $("#cmb_anio").trigger('change');*/
-                //$("#cmb_meses").val(mes).trigger('change');
+                    //si el año seleccionado es el actual seteo el mes al mes actual y el mes seleccionado es mayor al mes actual
+//                    if ((anio_combo == anio) && (mes > mes_no_permitido - 1)) {
+//                        $("#cmb_meses").val(mes_no_permitido - 1);
+//                   }
+//                });
+
+                /*seteo el evento cambio en la seleccion del año*/
+//                var btn_combo_anio = $('#cmb_anio').change(function () {
+//                    $('#cmb_meses').change();
+//                    var anio_combo = $("#cmb_anio option:selected").val();
+//                    var day = new Date();
+//                    mes_para_inhabilitar = day.getMonth() + 2;
+//                    var anio = day.getFullYear();
+
+                    //inhabilito lo meses que no estan vigentes para este año
+//                    if (anio_combo == anio) {
+//                        $("#cmb_meses option").each(function () {
+//                            if (mes_para_inhabilitar <= $(this).val()) {
+//                                $(this).attr('disabled', 'disabled');
+//                            }
+//                        });
+//                    } else {
+//                        $("#cmb_meses option").each(function () {
+//                            $(this).removeAttr('disabled');
+//                        });
+//                    }
+//                });
+                /*llamo al metodo change en la carga de la pagina*/
+//                $("#cmb_anio").trigger('change');
+
             });
         });
 
-        
-        
+
+
     });
 
     
@@ -311,6 +399,8 @@
     var totalOperaciones = 0; //cantidad de operaciones de firmas realizadas ya sea si salieron bien o fallaron
 
     var indiceListaRecibos = 0; //item actual que se esta procesando de la lista de recibos resumen
+    var anio_aux, mes_aux, tipoLiquidacion_aux, idLiquidacion_aux; ///variables para mantener los valores de la operacion en curso
+    var listaBotonesHabilitados = new Array(); 
 
     function downloadedErrorCallback(e) {
   //      showLog("Error en la descarga de los datos: " + e);
@@ -366,15 +456,21 @@
         var format = "AUTO";
         var algorithm = "SHA1withRSA";
         var params = "";
-        params = params + "signaturePositionOnPageLowerLeftX = 60" + "\n";
+        //vieja ubicacion en una pagina mas grande
+        /*params = params + "signaturePositionOnPageLowerLeftX = 60" + "\n";
         params = params + "signaturePositionOnPageLowerLeftY = 120" + "\n";
         params = params + "signaturePositionOnPageUpperRightX = 410" + "\n";
-        params = params + "signaturePositionOnPageUpperRightY = 190" + "\n";
+        params = params + "signaturePositionOnPageUpperRightY = 190" + "\n";*/
+        params = params + "signaturePositionOnPageLowerLeftX = 125" + "\n";
+        params = params + "signaturePositionOnPageLowerLeftY = 225" + "\n";
+        params = params + "signaturePositionOnPageUpperRightX = 410" + "\n";
+        params = params + "signaturePositionOnPageUpperRightY = 280" + "\n";
+
         params = params + "signaturePage = -1" + "\n";
         //nota: por el momento no se puede enviar texto enriquecido  /n /r /t
         params = params + "layer2Text = Firmado Digitalmente conforme Ley 25.506 por: $$SUBJECTCN$$ el día $$SIGNDATE=dd/MM/yyyy HH:mm:ss$$ certificado emitido por $$ISSUERCN$$ con serial $$CERTSERIAL$$" + "\n";
         params = params + "layer2FontFamily = 0" + "\n";
-        params = params + "layer2FontSize = 10" + "\n";
+        params = params + "layer2FontSize = 7" + "\n";
         params = params + "layer2FontStyle = 0" + "\n";
         params = params + "layer2FontColor = black" + "\n";
 
@@ -408,7 +504,8 @@
         //policyIdentifierHashAlgorithm=http://www.w3.org/2000/09/xmldsig#sha1
         //policyQualifier=http://rrhh.gob.ar/politicafirma/politica_firma_v1.0.pdf
 
-        params = params + "filters=issuer.rfc2254:(O=Jefatura de Gabinete de Ministros);nonexpired:" + "\n";
+        // params = params + "filters=issuer.rfc2254:(CN = Autoridad Certificante de Firma Digital);nonexpired:" + "\n";
+        params = params + "filters=issuer.rfc2254:(CN = Autoridad Certificante de Firma Digital);" + "\n";
 //ambiente prueba        params = params + "filters=issuer.rfc2254:(CN = jcvelasquez);nonexpired:" + "\n";
         //cuando existe un solo certificado en la lista lo auto selecciono
         params = params + "headless=true"; //+ "\n";	
@@ -426,7 +523,7 @@
 //            estado.classList.remove('estadoNoFirmado');
 //            estado.classList.add('estadoProcesando');
 
-            MiniApplet.sign(
+           MiniApplet.sign(
             dataB64,
             algorithm,
             format,
@@ -435,7 +532,6 @@
             SignErrorCallback);
 
             //el nombre del pdf sera idRecibo
-            //MiniApplet.signAndSaveToFile(
 /*            MiniApplet.signAndSaveToFile(
 					"SIGN",
 					dataB64,
@@ -471,36 +567,78 @@
     }
 
     //verifico si aun hay firmas por realizar
-    function verificarContinuacionProceso() {
+    function verificarContinuacionProceso(cant) {
         //divMensajeStatus.innerHTML = '<div class="iconInfo">procesando...' + totalOperaciones + '-' + totalFirmas + '</div>';
-       
+        var s, s2;
+        s = 'rsf' + idLiquidacion_aux + anio_aux + mes_aux + tipoLiquidacion_aux; //id recibo sin firmar local
+        s2 = 'rf' + idLiquidacion_aux + anio_aux + mes_aux + tipoLiquidacion_aux; //id recibo firmado local
+
         //compruebo si se realizaron todas las operaciones
         if (totalOperaciones != totalFirmas) {
-
+            document.getElementById(s).innerHTML = totalFirmas - totalOperaciones;
+            document.getElementById(s2).innerHTML = parseInt(document.getElementById(s2).innerHTML)+cant;
             divMensajeStatus.innerHTML = '<div class="iconProcesando">Total de archivos a firmar: <b>' + totalFirmas + '</b>. Archivos firmados correctamente: <b>' + totalFirmasRealizadas + '</b>. No se pudieron procesar: <b>' + (totalOperaciones - totalFirmasRealizadas) + '</b>.</div>';
             firmarFileB64ServerExternoMasivo3();
         } else {
             //ya se realizaron todas las operaciones
-            //compruebo si se realizaron todas las operaciones de firma
+            //compruebo si se realizaron TODAS las operaciones de firma CORRECTAMENTE
             if (totalFirmasRealizadas == totalFirmas) {
+
+                document.getElementById(s).innerHTML = totalFirmas - totalOperaciones;
+                document.getElementById(s2).innerHTML = parseInt(document.getElementById(s2).innerHTML) + totalFirmasRealizadas;
                 /*  divMensajeStatus.innerHTML = '<div class="iconOKFirmados">Archivos firmados correctamente.</div>';*/
                 divMensajeStatus.innerHTML = '<div class="iconOKFirmados">Total de archivos a firmar: <b>' + totalFirmas + '</b>. Archivos firmados correctamente: <b>' + totalFirmasRealizadas + '</b>. No se pudieron procesar: <b>' + (totalOperaciones - totalFirmasRealizadas) + '</b>.</div>';
-            } else {
+                //no rehabilito el boton de busqueda porque todo salio bien, lo quito de la lista de botones habilitados
+                var s3 = 'bf' + idLiquidacion_aux + anio_aux + mes_aux + tipoLiquidacion_aux;
+                var index = listaBotonesHabilitados.indexOf(s3);
+                listaBotonesHabilitados.splice(index, 1); //1 representa la cantidad de elementos a elmiminar a partir de la posicion
+
+                //reseteo las variables globales
+                totalOperaciones = 0;
+                totalFirmasRealizadas = 0;
+                totalFirmas = 0;
+                indiceListaRecibos = 0;
+
+                //habilitar los demas botones habilitados
+                for (j = 0; j < listaBotonesHabilitados.length; j++) {
+                    var btn_firmar2 = document.getElementById(listaBotonesHabilitados[j]);
+                    btn_firmar2.disabled = false;
+                    btn_firmar2.classList.remove('botonGrisadoFirmaM');
+                    btn_firmar2.classList.add('botonFirmaM');
+                }
+
+            } else {//en este caso hubieron resultados ok y no ok al terminar las operaciones
                 var archivosNoFirmados = totalOperaciones - totalFirmasRealizadas;
                 /*divMensajeStatus.innerHTML = '<div class="iconAlerta">No se pudieron procesar ' + archivosNoFirmados + ' documentos.</div>';*/
                 divMensajeStatus.innerHTML = '<div class="iconAlerta">Total de archivos a firmar: <b>' + totalFirmas + '</b>. Archivos firmados correctamente: <b>' + totalFirmasRealizadas + '</b>. No se pudieron procesar: <b>' + (totalOperaciones - totalFirmasRealizadas) + '</b>.</div>';
+
+                //reseteo las variables globales
+                totalOperaciones = 0;
+                totalFirmasRealizadas = 0;
+                totalFirmas = 0;
+                indiceListaRecibos = 0;
+
+                //vuelvo a armar la lista de liquidaciones a firmar, asi se filtran los recibos que faltaron firmar con los ya firmados
+                armarListaLiquidaciones();
+                
             }
             //reseteo las variables globales
-            totalOperaciones = 0;
-            totalFirmasRealizadas = 0;
-            totalFirmas = 0;
-            indiceListaRecibos = 0;
+            //nota: las siguientes lineas se realizan recursivamente al retornar de las llamadas, 
+ //           totalOperaciones = 0;
+ //           totalFirmasRealizadas = 0;
+ //           totalFirmas = 0;
+ //           indiceListaRecibos = 0;
             //NO rehabilito de nuevo el boton de firmar porque el que lo habilita es las busqueda de recibos a firmar
             //ya no hay elementos a procesar
 //            btn_firmar.disabled = false;
 //            btn_firmar.classList.remove('botonGrisadoFirmaM');
 //            btn_firmar.classList.add('botonFirmaM');
 
+            /*a medida que se va firmando los archivos se setean las propiedades
+            de los checkbox seteados asi la lista de seleccionados disminuye en 
+            cada iteracion*/
+
+            
 
         }
     }
@@ -539,7 +677,7 @@
         
         RECIBOS.guardarRecibo(fichero,saveSuccessCallback,saveErrorCallback);
     */
-        RECIBOS.guardarReciboPDFFirmado(lista_recibos_resumen[indiceListaRecibos - 1].Id_Recibo, fichero, anio, mes, tipoLiquidacion,successCallback, errorCallback);    
+        RECIBOS.guardarReciboPDFFirmado(idLiquidacion_aux,lista_recibos_resumen[indiceListaRecibos - 1].Id_Recibo, fichero, anio_aux, mes_aux, tipoLiquidacion_aux, successCallback, errorCallback);    
      
         //seteo el enlace al nuevo documento firmado
         
@@ -547,7 +685,7 @@
         //SIMULACION BLOQUE GUARDADO OK
   /*      totalOperaciones++;
         totalFirmasRealizadas++;
-        verificarContinuacionProceso();*/
+        verificarContinuacionProceso(1);*/
 
 
 
@@ -578,14 +716,14 @@
         //        estado.classList.add('estadoNoFirmado');
 
         totalOperaciones++;
-        verificarContinuacionProceso();
+        verificarContinuacionProceso(0);
     }
 
     function successCallback(idRecibo) {
         //alert("guardado ok "+idRecibo);
         totalOperaciones++;
         totalFirmasRealizadas++; 
-        verificarContinuacionProceso();       
+        verificarContinuacionProceso(1);       
 
     }
 
@@ -603,7 +741,7 @@
 //        }*/
 //        alert("error en el guardado");
         totalOperaciones++;
-        verificarContinuacionProceso();
+        verificarContinuacionProceso(0);
     }
         
 
@@ -705,7 +843,7 @@
     //retorna el elemento apuntado por indice y actualiza el indice
     function siguienteSeleccion3(indice) {
 
-//limitacion        if (indice < (3)) {//lista_recibos_resumen.length
+//       if (indice < (3)) {//lista_recibos_resumen.length
         if (indice < lista_recibos_resumen.length) {//lista_recibos_resumen.length   //para procesar completamente la lista
             //actualizo el indice
             indiceListaRecibos++;
@@ -791,6 +929,49 @@
         cada iteracion*/
     }
 
+    //recibe el id de la lista de recibos sin firmar  
+    function iniciarOperaciones4(idrsf,idbf, anio, mes, tipoLiquidacion, idLiquidacion) {
+        var s3 = idbf; //'bf' + anio + mes + tipoLiquidacion;
+        // longitud = Object.keys(lista_recibos_resumen).length;
+
+        //deshabilitar los demas botones habilitados
+        for (j = 0; j < listaBotonesHabilitados.length; j++) {
+            var btn_firmar2 = document.getElementById(listaBotonesHabilitados[j]);
+            btn_firmar2.disabled = true;
+            btn_firmar2.classList.remove('botonFirmaM');
+            btn_firmar2.classList.add('botonGrisadoFirmaM');
+        }
+
+
+        anio_aux = anio;
+        mes_aux = mes;
+        tipoLiquidacion_aux = tipoLiquidacion;
+        idLiquidacion_aux = idLiquidacion;
+
+        //compruebo si minimamente hay elementos en la lista para firmar
+        lista_recibos_resumen = rsfLiquidaciones[idrsf];
+        if (lista_recibos_resumen.length != 0) {
+            //totalFirmas = 1; //**********es la limitacion   
+            totalFirmas = lista_recibos_resumen.length;
+            if (totalFirmas > 0) {
+                //deshabilito el boton porque inicio la operacion de firma ciclica y no quiero que este haciendo click y click sobre el boton
+                var btn_firmar = document.getElementById(s3);
+                btn_firmar.disabled = true;
+                btn_firmar.classList.remove('botonFirmaM');
+                btn_firmar.classList.add('botonGrisadoFirmaM');
+
+                //seteo el estatus de la operacion
+                divMensajeStatus.innerHTML = '<div class="iconProcesando">Procesando Documentos ...</div>';
+                firmarFileB64ServerExternoMasivo3();
+
+            } else {
+                divMensajeStatus.innerHTML = '<div class="iconInfo">Debe existir al menos un documento para firmar.</div>';
+
+            }
+        }       
+
+        
+    }
 
     //NOTA: los checkbox,idEstado de una misma fila deben llamarse
     /*para la fila numero x:
@@ -824,7 +1005,10 @@
             data = "http://localhost:43412/WSViaticos/WSViaticos.asmx/GetReciboPDF";  //ya no lo uso en la actualidad
 /////////////////////VER
             try {
-                RECIBOS.downloadRemoteDataB64POSTEmpleador(
+                //modo pdf
+                //RECIBOS.downloadRemoteDataB64POSTEmpleador(
+                //modo recibo digital unico
+                RECIBOS.downloadRemoteDataB64POSTReciboDigital(
 									data,idRecibo,parametros,
 									downloadedFileSuccessCallback,
 									downloadedErrorCallback);
@@ -1180,12 +1364,13 @@
     //dominio desde el que se realiza la llamada al servicio
     //MiniApplet.cargarAppAfirma('miniapplet.js');
     //MiniApplet.setForceWSMode(true);
-    MiniApplet.cargarAppAfirma(HOST + 'FirmaDigital/js/miniapplet.js', MiniApplet.KEYSTORE_WINDOWS);
+  //  MiniApplet.cargarAppAfirma(HOST + 'FirmaDigital/js/miniapplet.js', MiniApplet.MOZILLA);
+    MiniApplet.cargarAppAfirma(HOST + 'FirmaDigital/js/miniapplet.js', MiniApplet.KEYSTORE_PKCS11 + ":C:\\Windows\\System32\\eTPKCS11.dll");
 
     //////////////////////////////////////////////////////
-    //MiniApplet.cargarMiniApplet("https://valide.redsara.es/valide/applet");
+    //MiniApplet.cargarMiniApplet("https://valide/valide/applet");
 
-    //MiniApplet.setServlets("https://valide.redsara.es/firmaMovil/afirma-signature-storage/StorageService","https://valide.redsara.es/firmaMovil/afirma-signature-retriever/RetrieveService");
+    //MiniApplet.setServlets("https://valide/firmaMovil/afirma-signature-storage/StorageService","https://valide/firmaMovil/afirma-signature-retriever/RetrieveService");
 
     /*	if (navigator.userAgent.toUpperCase().indexOf("FIREFOX") != -1) {
     if (navigator.javaEnabled() == false) {

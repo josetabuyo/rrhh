@@ -328,30 +328,66 @@ namespace General.Repositorios
 
         }
 
+        public int GET_Recibos_MaxIdRecibo()
+        {
+            var parametros = new Dictionary<string, object>();
+            return int.Parse(this.conexion.EjecutarEscalar("dbo.PLA_GET_Recibos_MaxIdRecibo", parametros).ToString());
+        }
+
+        /*en este caso siempre busca en las tablas de recibos actuales y no en la historica*/
         public string GetReciboDeSueldo(int documento, int liq)
         {
             var parametros = new Dictionary<string, object>();
-            parametros.Add("@Documento", documento);
+            var parametros2 = new Dictionary<string, object>();
+            parametros.Add("@Documento", documento); 
             parametros.Add("@liquidacion", liq);
+            var modo = 0;
 
             var recibo = new object();
-            var listaReciboDetalle = new List<object>();
+            var listaReciboDetalle = new List<Detalle>();
             var cabeceraRecibo = new object();
-
+            /*la variable conforme puede tener los siguientes valores:
+             * -1: el recibo aun no fue firmado.
+             * 0: el recibo aun no fue conformado.
+             * 1: el recibo fue conformado.*/
+            var conforme = -1;
             var tablaDatos = conexion.Ejecutar("dbo.PLA_GET_Impresion_Recibos_Haberes", parametros);
 
             if (tablaDatos.Rows.Count > 0)
             {
                 int idRecibo = tablaDatos.Rows.Last().GetInt("Id_Recibo");
 
-                cabeceraRecibo = traerCabeceraRecibo(idRecibo);
+                cabeceraRecibo = traerCabeceraRecibo(idRecibo,modo);
 
-                listaReciboDetalle = traerDetalleRecibo(idRecibo);
+                listaReciboDetalle = getDetalleRecibo(idRecibo,modo);
+
+                /*obtengo si esta conforme o no con el recibo digital*/
+                parametros2.Add("@idRecibo", idRecibo);
+                var tablaDatos2 = conexion.Ejecutar("dbo.PLA_GET_Recibo_Firmado", parametros2);
+                var idArchivo = -1;
+                if (tablaDatos2.Rows.Count == 0)
+                {
+                    //el recibo aun no fue firmado 
+                    
+                }
+                else {
+                    /*por lo menos hay un elemento: 0-indica recibo NO conformado,1-indica recibo conformado*/
+                    if (tablaDatos2.Rows.First().GetSmallintAsInt("conforme", 0) == 0){
+                        conforme = 0; 
+                    }
+                    else{
+                        conforme = 1;
+                        idArchivo = tablaDatos2.Rows.First().GetInt("idArchivo", 0);
+                    }
+                }
 
                 recibo = new
                 {
+                    Conforme = conforme,
+                    IdRecibo = idRecibo,
                     Cabecera = cabeceraRecibo,
-                    Detalle = listaReciboDetalle
+                    Detalle = listaReciboDetalle,
+                    IdArchivo = idArchivo
                 };
 
             }
@@ -361,15 +397,15 @@ namespace General.Repositorios
         }
 
         
-        public Recibo GetReciboDeSueldoPorID(int id_recibo)
+        public Recibo GetReciboDeSueldoPorID(int id_recibo, int modo)
         {            
             var recibo = new Recibo();
             var listaReciboDetalle = new List<Detalle>();
             var cabeceraRecibo = new Cabecera();
 
-            cabeceraRecibo = getCabeceraRecibo(id_recibo);
+            cabeceraRecibo = getCabeceraRecibo(id_recibo,modo);
 
-            listaReciboDetalle = getDetalleRecibo(id_recibo);
+            listaReciboDetalle = getDetalleRecibo(id_recibo,modo);
 
             recibo.cabecera = cabeceraRecibo;
             recibo.detalles = listaReciboDetalle;
@@ -378,10 +414,30 @@ namespace General.Repositorios
 
         }
 
-        private Cabecera getCabeceraRecibo(int idRecibo)
+        //aca en los destalles del recibo no se agregan filas vacias en caso de no llegar a rellenar el recibo(eso era por compatibilidad app escritorio, aunque creo que eso ya estaba funcionando sin esa agregacion de filas de relleno)
+        public Recibo GetReciboDeSueldoPorIDSinRelleno(int id_recibo, int modo)
+        {
+            var recibo = new Recibo();
+            var listaReciboDetalle = new List<Detalle>();
+            var cabeceraRecibo = new Cabecera();
+
+            cabeceraRecibo = getCabeceraRecibo(id_recibo,modo);
+
+            listaReciboDetalle = getDetalleReciboSinRelleno(id_recibo);
+
+            recibo.cabecera = cabeceraRecibo;
+            recibo.detalles = listaReciboDetalle;
+
+            return recibo;
+
+        }
+
+        /*es igual a la funcion traerCabeceraRecibo pero mas completa, trae mas datos, es para rellenar el pdf del recibo*/
+        private Cabecera getCabeceraRecibo(int idRecibo, int modo)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@Id_recibo", idRecibo);
+            parametros.Add("@Historico", modo);
             var cabeceraRecibo = new Cabecera();
 
             var tablaDatos = conexion.Ejecutar("dbo.RPT_PLA_Recibo_Haberes_Header", parametros);
@@ -416,14 +472,18 @@ namespace General.Repositorios
             return cabeceraRecibo;
         }
 
-        private List<Detalle> getDetalleRecibo(int idRecibo)
+       
+        private List<Detalle> getDetalleRecibo(int idRecibo, int modo)
         {
 
             var parametros = new Dictionary<string, object>();
             parametros.Add("@Id_Recibo", idRecibo);
+            parametros.Add("@Historico", modo);
             var listaDetalleRecibo = new List<Detalle>();
             var un_detalle = new Detalle();
 
+            //esta version siempre rellena los detalles con vacios hasta completar 20 filas, en la web esto ya no afecta, pero puede que afecte a la app de escritorio
+            //por eso se deja asi. En caso de utilizar la firma en formato CADES se debe evitar este relleno porque sino no se cumple el patron definido en el texto a firmar
             var tablaDatos = conexion.Ejecutar("dbo.RPT_PLA_Recibos_Haberes_Detalle", parametros);
 
             tablaDatos.Rows.ForEach(row =>
@@ -440,7 +500,34 @@ namespace General.Repositorios
             return listaDetalleRecibo;
         }
 
-        private List<object> traerDetalleRecibo(int idRecibo)
+        private List<Detalle> getDetalleReciboSinRelleno(int idRecibo)
+        {
+
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@Id_Recibo", idRecibo);
+            var listaDetalleRecibo = new List<Detalle>();
+            var un_detalle = new Detalle();
+
+            //esta version siempre rellena los detalles con vacios hasta completar 20 filas, en la web esto ya no afecta, pero puede que afecte a la app de escritorio
+            //por eso se deja asi. En caso de utilizar la firma en formato CADES se debe evitar este relleno porque sino no se cumple el patron definido en el texto a firmar
+            var tablaDatos = conexion.Ejecutar("dbo.RPT_PLA_Recibos_Haberes_DetalleSinRelleno", parametros);
+
+            tablaDatos.Rows.ForEach(row =>
+            {
+                un_detalle = new Detalle();
+                un_detalle.Concepto = row.GetString("Concepto", "");
+                un_detalle.Aporte = row.GetDecimal("Aporte", 0);
+                un_detalle.Descuento = row.GetDecimal("Descuento", 0);
+                un_detalle.Descripcion = row.GetString("Descripcion", "");
+
+                listaDetalleRecibo.Add(un_detalle);
+            });
+
+            return listaDetalleRecibo;
+        }
+
+        /*borrar si anda todo bien en firma de recibos*/
+        private List<object> xxxtraerDetalleRecibo(int idRecibo)
         {
 
             var parametros = new Dictionary<string, object>();
@@ -467,10 +554,12 @@ namespace General.Repositorios
             return listaDetalleRecibo;
         }
 
-        private object traerCabeceraRecibo(int idRecibo)
+        /*para visualizar el recibo por web como html*/
+        private object traerCabeceraRecibo(int idRecibo, int modo)
         {
             var parametros = new Dictionary<string, object>();
             parametros.Add("@Id_recibo", idRecibo);
+            parametros.Add("@Historico", modo);
             var cabeceraRecibo = new object();
 
             var tablaDatos = conexion.Ejecutar("dbo.RPT_PLA_Recibo_Haberes_Header", parametros);
@@ -1619,7 +1708,7 @@ namespace General.Repositorios
         }
 
 
-        public string GetIdRecibosSinFirmar(int tipoLiquidacion, int anio, int mes)
+        public string GetIdRecibosSinFirmar(int idLiquidacion, int tipoLiquidacion, int anio, int mes)
         {
             var parametros = new Dictionary<string, object>();
 
@@ -1633,6 +1722,7 @@ namespace General.Repositorios
             }
             parametros.Add("@mes", mes);
             parametros.Add("@año", anio);
+            parametros.Add("@idLiquidacion", idLiquidacion);
 
 
             var idRecibo = new object();
@@ -1656,7 +1746,106 @@ namespace General.Repositorios
 
                     idRecibo = new
                     {
-                        Id_Recibo = row.GetInt("Id_Recibo"),
+                        //Id_Recibo = row.GetInt("Id_Recibo"),
+                        Id_Recibo = int.Parse(row.GetObject("Id_Recibo").ToString()),
+                    };
+
+
+                    listaIdRecibos.Add(idRecibo);
+                });
+
+            }
+
+            return JsonConvert.SerializeObject(listaIdRecibos);
+
+        }
+
+        public string GetLiquidacionesAFirmar(int año, int mes)
+        {
+            var parametros = new Dictionary<string, object>();
+                        
+            parametros.Add("@añoInicial", año);
+            parametros.Add("@mesInicial", mes);
+
+
+            var liquidacion = new object();
+            var listaLiquidaciones = new List<object>();
+
+            var tablaDatos = conexion.Ejecutar("dbo.PLA_GET_LiquidacionesAFirmar", parametros);
+
+            if (tablaDatos.Rows.Count > 0)
+            {
+                tablaDatos.Rows.ForEach(row =>
+                {/*Tambien se puede crear un objeto contenedor de cada fila, esto me sirve para  retornar una 
+                  * lista en lugar de un objeto string json
+                  * 
+                    Persona persona = new Persona(row.GetInt("id_usuario"), row.GetInt("NroDocumento"), row.GetString("nombre"), row.GetString("apellido"), area);
+                    Respuesta respuesta = new Respuesta(
+                        row.GetInt("id_orden"),
+                        persona,
+                        row.GetDateTime("fecha_creacion"),
+                        row.GetString("texto"));
+                    */
+
+                    liquidacion = new
+                    {
+                        //Id_Recibo = row.GetInt("Id_Recibo"),
+                        id = int.Parse(row.GetObject("id").ToString()),//int
+                        descripcion = row.GetString("descripcion"),
+                        anio = int.Parse(row.GetObject("anio").ToString()),//smallint
+                        mes = int.Parse(row.GetObject("mes").ToString()),//smallint
+                        tipo_liquidacion = int.Parse(row.GetObject("tipo_liquidacion").ToString()),//int
+                    };
+
+
+                    listaLiquidaciones.Add(liquidacion);
+                });
+
+            }
+
+            return JsonConvert.SerializeObject(listaLiquidaciones);
+
+        }
+
+        public string GetIdRecibosFirmados(int idLiquidacion, int tipoLiquidacion, int anio, int mes)
+        {
+            var parametros = new Dictionary<string, object>();
+
+            if (tipoLiquidacion == 0)
+            { //entonces se trae todos los tipo de liquidacion
+                parametros.Add("@tipoLiquidacion", null);
+            }
+            else
+            {
+                parametros.Add("@tipoLiquidacion", tipoLiquidacion);
+            }
+            parametros.Add("@mes", mes);
+            parametros.Add("@año", anio);
+            parametros.Add("@idLiquidacion", idLiquidacion);
+
+            var idRecibo = new object();
+            var listaIdRecibos = new List<object>();
+
+            var tablaDatos = conexion.Ejecutar("dbo.PLA_GET_Recibos_Firmados", parametros);
+
+            if (tablaDatos.Rows.Count > 0)
+            {
+                tablaDatos.Rows.ForEach(row =>
+                {/*Tambien se puede crear un objeto contenedor de cada fila, esto me sirve para  retornar una 
+                  * lista en lugar de un objeto string json
+                  * 
+                    Persona persona = new Persona(row.GetInt("id_usuario"), row.GetInt("NroDocumento"), row.GetString("nombre"), row.GetString("apellido"), area);
+                    Respuesta respuesta = new Respuesta(
+                        row.GetInt("id_orden"),
+                        persona,
+                        row.GetDateTime("fecha_creacion"),
+                        row.GetString("texto"));
+                    */
+
+                    idRecibo = new
+                    {
+                        //Id_Recibo = row.GetInt("Id_Recibo"),
+                        Id_Recibo = int.Parse(row.GetObject("idRecibo").ToString()),
                     };
 
 
@@ -1715,5 +1904,10 @@ namespace General.Repositorios
 
             return true;
         }
+   
+
+    
     }
+
+
 }

@@ -38,7 +38,7 @@ namespace General.Repositorios
             {
                 tablaDatos.Rows.ForEach(row =>
                 {
-                    tiposLiquidacion.Add(new TipoLiquidacion(row.GetInt("Id"), row.GetString("Descripcion")));
+                    tiposLiquidacion.Add(new TipoLiquidacion(row.GetInt("Id"), row.GetString("Descripcion"),row.GetInt("Meses_Retraso")));
                 });
             }
 

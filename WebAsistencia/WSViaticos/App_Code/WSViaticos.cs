@@ -34,8 +34,12 @@ using System.Runtime.Serialization.Formatters.Binary;
 using iTextSharp.text.pdf;
 using iTextSharp.text;
 using System.Data.SqlClient;
-using General.Contrato;
 
+using General.Recibos;
+using General.Csv;
+using General.Contrato;
+using System.Transactions;
+using System.Text;
 
 [WebService(Namespace = "http://wsviaticos.gov.ar/")]
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
@@ -4945,15 +4949,7 @@ public class WSViaticos : System.Web.Services.WebService
 
         return repo.getPsicofisicos(usuario.Owner.Documento);
     }
-
-    [WebMethod]
-    public string GetRecibo(int liquidacion, Usuario usuario)
-    {
-        RepositorioLegajo repo = RepoLegajo();
-
-        return repo.GetReciboDeSueldo(usuario.Owner.Documento, liquidacion);
-    }
-
+    
     [WebMethod]
     public string GetLiquidaciones(int anio, int mes, Usuario usuario)
     {
@@ -5379,6 +5375,11 @@ public class WSViaticos : System.Web.Services.WebService
         return General.Repositorios.RepositorioRecibosFirmados.NuevoRepositorioRecibosFirmados(Conexion());
     }
 
+    private RepositorioVerificador RepoVerificador()
+    {
+        return General.Repositorios.RepositorioVerificador.NuevoRepositorioVerificador(Conexion());
+    }
+
     private IRepositorioDeUsuarios RepositorioDeUsuarios()
     {
         return new RepositorioDeUsuarios(Conexion(), RepositorioDePersonas());
@@ -5461,6 +5462,16 @@ public class WSViaticos : System.Web.Services.WebService
     private RepositorioDeArchivosFirmados RepositorioDeArchivosFirmados()
     {
         return new RepositorioDeArchivosFirmados(Conexion());
+    }
+
+    private RepositorioDeArchivosMigrados RepositorioDeArchivosMigrados()
+    {
+        return new RepositorioDeArchivosMigrados(Conexion());
+    }
+
+    private RepositorioDeCovid19 RepositorioDeCovid19()
+    {
+        return new RepositorioDeCovid19(Conexion());
     }
 
     /*Excel Consulta Personas DDJJ104*/
@@ -5713,178 +5724,7 @@ public class WSViaticos : System.Web.Services.WebService
         return Server.MapPath("~") + "\\PdfTemplates\\" + fileName;
     }
 
-    /*[WebMethod]
-    public List<TipoLiquidacion> GetTiposLiquidacion()
-    {
-        List<TipoLiquidacion> areas = new List<TipoLiquidacion>();
-        var repositorio = RepositorioDeTipoDeLiquidacion.Nuevo(Conexion());
-        return repositorio.All();
-    }*/
-    [WebMethod]
-    public String GetTiposLiquidacion()
-    {
-        List<TipoLiquidacion> areas = new List<TipoLiquidacion>();
-        var repositorio = RepositorioDeTipoDeLiquidacion.Nuevo(Conexion());
-        return JsonConvert.SerializeObject(repositorio.All());
-    }
-
-    /*cuando se prueba con soap ui es mejor quitar el objeto usuario asi, es mas directo realizar pruebas*/
-    [WebMethod]
-    public string GetRecibosResumen(int tipoLiquidacion, int anio, int mes, Usuario usuario)
-    {
-        //tira error porque puede ser null el tipo liquidacion y los demas, poner un '' o 0 y verificar aca
-        RepositorioLegajo repo = RepoLegajo();
-        //TODO VER:     obtengo los recibos NO firmados
-        return repo.GetRecibosResumen(tipoLiquidacion, anio, mes);
-    }
-
-    [WebMethod]
-    public string GetIdRecibosSinFirmar(int tipoLiquidacion, int anio, int mes, Usuario usuario)
-    {
-        //tira error porque puede ser null el tipo liquidacion y los demas, poner un '' o 0 y verificar aca
-        RepositorioLegajo repo = RepoLegajo();
-        return repo.GetIdRecibosSinFirmar(tipoLiquidacion, anio, mes);
-    }
-
-    /////////////////VER
-    [WebMethod]
-    public StringRespuestaWS GetReciboPDFEmpleador(int id_recibo)
-    {
-        var respuesta = new StringRespuestaWS();
-        try
-        {
-            RepositorioLegajo repo = RepoLegajo();
-            Recibo recibo;
-
-            //para trabajarlo como objeto es mejor definir un objeto que traiga el recibo, asi se puede acceder a
-            //sus propiedades desde el back(desde el front con js se puede acceder), porque no se puede acceder a campos 
-            //especificos del objecto recibo cuando el casteo es a object.
-
-            //datos del recibo a rellenar    
-            recibo = repo.GetReciboDeSueldoPorID(id_recibo);
-
-            //
-            var modelo_para_pdf = new List<object>() { recibo };
-            var converter = new GenReciboToPdfConverter();
-            var mapa_para_pdf = converter.CrearMapa(modelo_para_pdf);
-            var creador_pdf = new CreadorDePdfs();
-            byte[] bytes;
-            byte[] bytes2;
-
-            if (mapa_para_pdf["paginasPDF"] == "una")
-            {
-                //el nombre del pdf generado va a ser el idRecibo
-                bytes = creador_pdf.FillPDF(TemplatePath("ReciboEmpleador_v6.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
-                bytes2 = creador_pdf.AgregarImagenAPDF(bytes, "FRH0502," + Convert.ToString(id_recibo));
-            }
-            else
-            {
-                //el nombre del pdf generado va a ser el idRecibo
-                bytes = creador_pdf.FillPDF(TemplatePath("ReciboEmpleador_v6b.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
-                bytes2 = creador_pdf.AgregarImagenAPDF(bytes, "FRH0502," + Convert.ToString(id_recibo));
-            }
-
-            //return Convert.ToBase64String(bytes2);
-            //return Convert.ToBase64String(bytes2);
-            respuesta.Respuesta = Convert.ToBase64String(bytes2);
-
-            //////////////////////////////////
-            ///      Object x = JsonConvert.DeserializeObject<Object>(datos);
-            ///      //JsonConvert.SerializeObject(x);
-
-
-            ///      return x.Cabecera ;
-        }
-        catch (Exception e)
-        {
-            respuesta.MensajeDeErrorAmigable = "Se produjo un error al obtener el PDF del recibo del empleador";
-            respuesta.setException(e);
-
-        }
-
-
-        return respuesta;
-    }
-
-    [WebMethod]
-    public string GetReciboPDFEmpleado(int id_recibo)
-    {
-        RepositorioLegajo repo = RepoLegajo();
-        Recibo recibo;
-
-        //para trabajarlo como objeto es mejor definir un objeto que traiga el recibo, asi se puede acceder a
-        //sus propiedades desde el back(desde el front con js se puede acceder), porque no se puede acceder a campos 
-        //especificos del objecto recibo cuando el casteo es a object.
-
-        //datos del recibo a rellenar    
-        recibo = repo.GetReciboDeSueldoPorID(id_recibo);
-
-        //
-        var modelo_para_pdf = new List<object>() { recibo };
-        var converter = new GenReciboEmpleadoToPdfConverter();
-        var mapa_para_pdf = converter.CrearMapa(modelo_para_pdf);
-        var creador_pdf = new CreadorDePdfs();
-
-        byte[] bytes;
-        byte[] bytes2;
-
-        if (mapa_para_pdf["paginasPDF"] == "una")
-        {
-            //el nombre del pdf generado va a ser el idRecibo
-            bytes = creador_pdf.FillPDF(TemplatePath("ReciboEmpleado_v2.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
-            bytes2 = creador_pdf.AgregarImagenAPDF(bytes, "FRH0502," + Convert.ToString(id_recibo));
-        }
-        else
-        {
-            //el nombre del pdf generado va a ser el idRecibo
-            bytes = creador_pdf.FillPDF(TemplatePath("ReciboEmpleado_v2b.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
-            bytes2 = creador_pdf.AgregarImagenAPDF(bytes, "FRH0502," + Convert.ToString(id_recibo));
-        }
-        return Convert.ToBase64String(bytes2);
-
-        //////////////////////////////////
-        ///      Object x = JsonConvert.DeserializeObject<Object>(datos);
-        ///      //JsonConvert.SerializeObject(x);
-
-
-        ///      return x.Cabecera ;
-    }
-
-    [WebMethod]
-    public int GuardarReciboPDFFirmado(string bytes_pdf, int id_recibo, int anio, int mes, int tipoLiquidacion)
-    {
-        int id_archivo = 0;
-        //        try
-        //        {//COMO el proceso de guardado desde la tabla de la BD al disco es externo, no genero una subclase de archivo
-        //que tendria el path de disco donde guardar el archivo. Se puede agregar una clase con propieda la clase archivo 
-        //subo el archivo firmado y actualiza la tabla que indica que el idRecibo fue firmado
-        id_archivo = RepositorioDeArchivosFirmados().GuardarArchivo(bytes_pdf);
-        //           id_archivo = 20;//RepositorioDeArchivos().GuardarArchivo(bytes_pdf);// id_recibo;//simulo el guardado del archivo
-        //var r = RepositorioDeArchivos().GetArchivo(id_archivo); //19444 es un pdf firmado          
-        //actualizo el recibo firmado por el empleado, 
-        RepoReciboFirmado().agregarReciboFirmado(id_recibo, id_archivo, anio, mes, tipoLiquidacion);
-        //        var s=  Convert.FromBase64String(r);
-        //TODOOOOOO
-        return id_archivo;
-        //        }
-        //        catch (Exception ex)
-        //        {   //si se puedo subir el archivo a disco actualizo la tabla de recibo firmado
-        //           return -1;
-        //  throw ex; si relanzo la exception, en el cliente se lo toma como exception javascript?
-        //        }
-
-    }
-
-    /*   [WebMethod]
-       public string GetReciboPDFEmpleado(int id_recibo)
-       {
-           return new RepositorioDeImagenes(Conexion()).SubirImagen(bytes_imagen);
-       }
-        * 
-        * 
-        * 
-        * 
-          }*/
+   
 
     #region " Control de Acceso "
 
@@ -5939,6 +5779,1284 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
 
+    #region " Recibo digital "
+
+    [WebMethod]
+    //transaccional de a partes
+    public string ImportarRecibos2(int mes,int anio,string descripcionImportacion,int tipoLiquidacion,String contenidoArchivo, String nombreArchivo,Usuario usuario)
+    {
+        /*NOTA: importante se asume que nadie cobra mas de 999.9999,99; caso contrario se debe adecuar la conversion
+         de numeros desde un string a float,pj removiendo mas de un . en la funcion Utils de conversion*/
+        int idLiquidacion;
+        idLiquidacion = RepositorioDeArchivosMigrados().GET_Recibos_Migrados_MaxLiq();
+        //string temp;
+        Utils utils = new Utils();
+        Recibo r = new Recibo();
+        r.cabecera = new Cabecera();
+        r.detalles = new List<Detalle>();
+        Boolean leoConceptos = false;
+        ConexionBDSQL cn = Conexion();
+
+        string[] lineas = contenidoArchivo.Split(new string[] { "\n", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+        //foreach (string linea in lineas)
+        int longitud = lineas.Length;
+        int i = 0;
+        string linea;
+        int Cant_Reg = 0; //indica la cantidad de recibos migrados
+        var parametros = new Dictionary<string, object>();
+
+        //codificacion para la ñ, no se porque en esta consulta el objeto dictionary no acepta a a ñ como key??????
+        Encoding ascii = Encoding.UTF32;
+        byte[] t = ascii.GetBytes("\u00F1");//codigo para la ñ
+        string g = ascii.GetString(t);
+
+        try
+        {
+            while (i < longitud)
+            {
+                linea = lineas[i];
+                //el primer caracter sirve para delinear que parte del recibo se procesa
+                //nota: en este nivel no se hace nada con las lineas que no empiezan con alguna de las opciones del case
+                //a menos que se esten leyendo conceptos
+                switch (linea.ElementAt(0))
+                {
+                    //como en cada linea se repide la informacion del recibo solo se va  a tomar los valores izquierdos
+                    case '1':
+                        //no hace nada solo indica el nombre de la institucion de donde vienen los recibos
+                        break;
+                    case '2':
+                        //leo la cabecera del recibo
+                        r.cabecera.reset();
+                        r.cabecera.Legajo = utils.SubstringAEntero(linea.Substring(13, 7)); //Replace(Mid(Registro, 107, 7), ".", "")
+                        r.cabecera.CUIL = linea.Substring(53, 13);//Mid(Registro, 147, 13)
+                        r.cabecera.Oficina = int.Parse(linea.Substring(68, 3));//Mid(Registro, 162, 3)                   
+                        r.cabecera.Orden = utils.SubstringAEntero(linea.Substring(76, 5)); //Replace(Mid(Registro, 170, 5), ".", "")
+                        break;
+                    case '3':
+                        //indico que se van a empezar a leer los conceptos
+                        leoConceptos = true;
+                        //limpio la lista de detalles
+                        r.detalles.Clear();
+                        break;
+                    case '4':
+                        //termino de leer los conceptos,
+                        leoConceptos = false;
+                        //agrego mas campos al encabezado
+                        r.cabecera.Bruto = utils.SubstringAFormatoFloat(linea.Substring(54, 10));//Replace(Mid(Registro, 148, 10), ",", ".")
+                        r.cabecera.Descuentos = utils.SubstringAFormatoFloat(linea.Substring(71, 10)); //Replace(Mid(Registro, 165, 10), ",", ".")
+                        r.cabecera.Nivel = linea.Substring(9, 1); //Mid(Registro, 103, 1)
+                        r.cabecera.Grado = linea.Substring(11, 2); //Mid(Registro, 105, 2)
+                        r.cabecera.OpcionJubilatoria = linea.Substring(22, 2); //Mid(Registro, 116, 2)
+                        r.cabecera.Afjp = linea.Substring(32, 10).Trim(); //Mid(Registro, 126, 10)
+
+                        break;
+                    case '0':
+                        //termino de leer un recibo, primera parte
+                        //agrego mas campos al encabezado
+                        //linea.Substring(63, 10).Replace("*"," ").Replace(",",".");
+                        r.cabecera.Neto = utils.SubstringAFormatoFloat(linea.Substring(63, 10).Trim('*'));// Replace(Replace(Mid(Registro, 157, 10), ",", "."), "*", "")
+                        r.cabecera.mes = int.Parse(linea.Substring(13, 2));//Mid(Registro, 107, 2)
+                        r.cabecera.anio = int.Parse(linea.Substring(16, 4));//Mid(Registro, 110, 4)
+                        r.cabecera.TipoLiquidacion = int.Parse(linea.Substring(29, 2));// Mid(Registro, 123, 2)
+
+                        i++;
+                        linea = lineas[i]; //leo otra linea  para obtener la fecha de ingreso
+                        if (linea.Substring(117, 10) == "00/00/0000")
+                        {
+                            r.cabecera.FechaIngreso = new DateTime(1900, 1, 1);// Mid(Registro, 118, 10)
+                        }
+                        else
+                        {
+                            r.cabecera.FechaIngreso = new DateTime(int.Parse(linea.Substring(123, 4)), int.Parse(linea.Substring(120, 2)), int.Parse(linea.Substring(117, 2)));// Mid(Registro, 118, 10)
+
+                        }
+                        i++;
+                        linea = lineas[i]; //leo otra linea  para obtener datos de la cuenta bancaria
+                        r.cabecera.Banco = linea.Substring(159, 20); //Mid(Registro, 160, 20)
+                        r.cabecera.CuentaBancaria = linea.Substring(149, 10);//Mid(Registro, 150, 10)
+                        break;
+                    case '6':
+                        //termino de leer un recibo y guardo al recibo con sus conceptos
+
+                        //agrego mas campos al encabezado
+                        r.cabecera.Fecha_deposito = new DateTime(int.Parse(linea.Substring(54, 4)), int.Parse(linea.Substring(51, 2)), int.Parse(linea.Substring(48, 2)));// Mid(Trim(Registro), Len(Trim(Registro)) - 9, 10)
+
+                        /*guardo al recibo*/
+                        parametros.Clear();
+
+                        parametros.Add("@Id_Interna", r.cabecera.Legajo);
+                        parametros.Add("@mes", r.cabecera.mes);
+                        parametros.Add("@a" + g + "o", r.cabecera.anio);
+                        parametros.Add("@Cuil", r.cabecera.CUIL);
+                        parametros.Add("@Id_Oficina", r.cabecera.Oficina);
+                        parametros.Add("@Nro_Orden", r.cabecera.Orden);
+                        parametros.Add("@Nivel", r.cabecera.Nivel);
+                        parametros.Add("@grado", r.cabecera.Grado);
+                        parametros.Add("@F_Ingreso", r.cabecera.FechaIngreso);
+                        parametros.Add("@SBruto", r.cabecera.Bruto);
+                        parametros.Add("@SDescuento", r.cabecera.Descuentos);
+                        parametros.Add("@SNeto", r.cabecera.Neto);
+                        parametros.Add("@NroCta", r.cabecera.CuentaBancaria);
+                        parametros.Add("@Banco", r.cabecera.Banco);
+                        parametros.Add("@F_Deposito", r.cabecera.Fecha_deposito);
+                        parametros.Add("@confirmado", 0);//seteo default
+                        parametros.Add("@Usuario", usuario.Id);
+                        parametros.Add("@TipoLiquidacion", r.cabecera.TipoLiquidacion);
+                        parametros.Add("@opcionJubilatoria", r.cabecera.OpcionJubilatoria);
+                        parametros.Add("@afjp", r.cabecera.Afjp);
+                        parametros.Add("@liquidacion", idLiquidacion);
+
+                        int resultado = int.Parse(cn.EjecutarEscalar("dbo.[PLA_ADD_Recibos]", parametros).ToString());
+
+                        /*actualizo la cantidad de recibos procesados*/
+                        Cant_Reg = Cant_Reg + 1;
+                        /*guardo los detalles*/
+                        foreach (Detalle detalle in r.detalles)
+                        {
+                            parametros.Clear();
+                            //datos propios del recibo
+                            parametros.Add("@Id_recibo", resultado);
+                            parametros.Add("@Id_interna", r.cabecera.Legajo);
+                            parametros.Add("@Mes", r.cabecera.mes);
+                            parametros.Add("@A" + g + "o", r.cabecera.anio);
+                            //datos propios del detalle
+                            parametros.Add("@Concepto", detalle.Concepto);
+                            parametros.Add("@Aporte", detalle.Aporte);
+                            parametros.Add("@Descuento", detalle.Descuento);
+                            parametros.Add("@TipoConcepto", detalle.TipoConcepto);
+                            parametros.Add("@Concepto_Descrip", detalle.Descripcion);
+
+                            cn.EjecutarSinResultado("dbo.[PLA_ADD_Recibos_Detalles]", parametros);
+                        }
+                        break;
+                    default:
+                        //Console.WriteLine("Default case");
+                        break;
+                }
+                if (leoConceptos == true)
+                {
+                    Detalle detalle = new Detalle();
+
+                    detalle.Concepto = linea.Substring(9, 6).Trim();//Trim(Mid(Registro, 103, 6))
+                    detalle.TipoConcepto = linea.Substring(15, 2).Trim();//Trim(Mid(Registro, 109, 2))
+                    detalle.Descripcion = linea.Substring(17, 37).Trim();//Trim(Mid(Registro, 111, 37))
+                    detalle.Aporte = utils.SubstringAFormatoFloatToDecimal(linea.Substring(54, 10));//Trim(Replace(Replace(Mid(Registro, 148, 10), ".", ""), ",", "."))
+                    detalle.Descuento = utils.SubstringAFormatoFloatToDecimal(linea.Substring(71, 10));//Trim(Replace(Replace(Mid(Registro, 165, 10), ".", ""), ",", "."))
+
+                    r.detalles.Add(detalle);
+
+
+                }
+
+                i++;
+            }
+
+            /*guardo la liquidacion migrada*/
+            parametros.Clear();
+            parametros.Add("@Archivo", nombreArchivo);
+            parametros.Add("@Cant_Registros", Cant_Reg);
+            parametros.Add("@Usuario", usuario.Id);
+            parametros.Add("@liquidacion", idLiquidacion);
+            parametros.Add("@mes", mes);
+            parametros.Add("@a" + g + "o", anio);
+            parametros.Add("@descripcion", descripcionImportacion);
+            parametros.Add("@tipo_liquidacion", tipoLiquidacion);
+
+            cn.EjecutarSinResultado("dbo.[PLA_ADD_Recibos_Migrados]", parametros);
+
+            //si todo salio bien hasta aca retorno exito
+            return JsonConvert.SerializeObject(new
+            {
+                result = "archivoImportado.ok",
+                cantRegistros = Cant_Reg
+            });
+        }
+        catch (Exception ex)
+        {
+            if (ex is SqlException)
+            {
+                // Handle more specific SqlException exception here.
+                return JsonConvert.SerializeObject(new
+                {
+                    result = "archivoImportado.nok",
+                    error = "Hubo un problema en la importacion. Registro "+ (Cant_Reg+1) + ". Intente mas tarde."//ex.Message
+                });
+            }
+            else
+            {
+                return JsonConvert.SerializeObject(new
+                {
+                    result = "archivoImportado.nok",
+                    error = "Error en linea " + i//ex.Message
+                });
+            }
+        }
+
+    }
+
+    [WebMethod]//modo 1- transaccional completo o nada
+    public string ImportarRecibos(int mes, int anio, string descripcionImportacion, int tipoLiquidacion, String contenidoArchivo, String nombreArchivo, Usuario usuario)
+    {
+        /*NOTA: importante se asume que nadie cobra mas de 999.9999,99; caso contrario se debe adecuar la conversion
+         de numeros desde un string a float,pj removiendo mas de un . en la funcion Utils de conversion*/
+        int idLiquidacion;
+        idLiquidacion = RepositorioDeArchivosMigrados().GET_Recibos_Migrados_MaxLiq();        
+        Utils utils = new Utils();
+        Recibo r = new Recibo();
+        r.cabecera = new Cabecera();
+        r.detalles = new List<Detalle>();
+        Boolean leoConceptos = false;
+        string[] lineas = contenidoArchivo.Split(new string[] { "\n", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+        int longitud = lineas.Length;
+        int i = 0;
+        string linea;
+        int Cant_Reg = 0; //indica la cantidad de recibos migrados
+        var parametros = new Dictionary<string, object>();
+        
+        //codificacion para la ñ, no se porque en esta consulta el objeto dictionary no acepta a a ñ como key??????
+        Encoding ascii = Encoding.UTF32;
+        byte[] t = ascii.GetBytes("\u00F1");//codigo para la ñ
+        string g = ascii.GetString(t);
+
+        using (TransactionScope scope = new TransactionScope())
+        {
+            ConexionBDSQL cn = Conexion();
+            SqlTransaction sqlTran = cn.BeginTransaction2();
+            try
+            {   // realizar todas las operaciones de SP
+                while (i < longitud)
+                {
+                    linea = lineas[i];
+                    //el primer caracter sirve para delinear que parte del recibo se procesa
+                    //nota: en este nivel no se hace nada con las lineas que no empiezan con alguna de las opciones del case
+                    //a menos que se esten leyendo conceptos
+                    switch (linea.ElementAt(0))
+                    {
+                        //como en cada linea se repide la informacion del recibo solo se va  a tomar los valores izquierdos
+                        case '1':
+                            //no hace nada solo indica el nombre de la institucion de donde vienen los recibos
+                            break;
+                        case '2':
+                            //leo la cabecera del recibo
+                            r.cabecera.reset();
+                            r.cabecera.Legajo = utils.SubstringAEntero(linea.Substring(13, 7)); //Replace(Mid(Registro, 107, 7), ".", "")
+                            r.cabecera.CUIL = linea.Substring(53, 13);//Mid(Registro, 147, 13)
+                            r.cabecera.Oficina = int.Parse(linea.Substring(68, 3));//Mid(Registro, 162, 3)                   
+                            r.cabecera.Orden = utils.SubstringAEntero(linea.Substring(76, 5)); //Replace(Mid(Registro, 170, 5), ".", "")
+                            break;
+                        case '3':
+                            //indico que se van a empezar a leer los conceptos
+                            leoConceptos = true;
+                            //limpio la lista de detalles
+                            r.detalles.Clear();
+                            break;
+                        case '4':
+                            //termino de leer los conceptos,
+                            leoConceptos = false;
+                            //agrego mas campos al encabezado
+                            r.cabecera.Bruto = utils.SubstringAFormatoFloat(linea.Substring(54, 10));//Replace(Mid(Registro, 148, 10), ",", ".")
+                            r.cabecera.Descuentos = utils.SubstringAFormatoFloat(linea.Substring(71, 10)); //Replace(Mid(Registro, 165, 10), ",", ".")
+                            r.cabecera.Nivel = linea.Substring(9, 1); //Mid(Registro, 103, 1)
+                            r.cabecera.Grado = linea.Substring(11, 2); //Mid(Registro, 105, 2)
+                            r.cabecera.OpcionJubilatoria = linea.Substring(22, 2); //Mid(Registro, 116, 2)
+                            r.cabecera.Afjp = linea.Substring(32, 10).Trim(); //Mid(Registro, 126, 10)
+
+                            break;
+                        case '0':
+                            //termino de leer un recibo, primera parte
+                            //agrego mas campos al encabezado
+                            //linea.Substring(63, 10).Replace("*"," ").Replace(",",".");
+                            r.cabecera.Neto = utils.SubstringAFormatoFloat(linea.Substring(63, 10).Trim('*'));// Replace(Replace(Mid(Registro, 157, 10), ",", "."), "*", "")
+                            r.cabecera.mes = int.Parse(linea.Substring(13, 2));//Mid(Registro, 107, 2)
+                            r.cabecera.anio = int.Parse(linea.Substring(16, 4));//Mid(Registro, 110, 4)
+                            r.cabecera.TipoLiquidacion = int.Parse(linea.Substring(29, 2));// Mid(Registro, 123, 2)
+
+                            i++;
+                            linea = lineas[i]; //leo otra linea  para obtener la fecha de ingreso
+                            if (linea.Substring(117, 10) == "00/00/0000")
+                            {
+                                r.cabecera.FechaIngreso = new DateTime(1900, 1, 1);// Mid(Registro, 118, 10)
+                            }
+                            else
+                            {
+                                r.cabecera.FechaIngreso = new DateTime(int.Parse(linea.Substring(123, 4)), int.Parse(linea.Substring(120, 2)), int.Parse(linea.Substring(117, 2)));// Mid(Registro, 118, 10)
+
+                            }
+                            i++;
+                            linea = lineas[i]; //leo otra linea  para obtener datos de la cuenta bancaria
+                            r.cabecera.Banco = linea.Substring(159, 20); //Mid(Registro, 160, 20)
+                            r.cabecera.CuentaBancaria = linea.Substring(149, 10);//Mid(Registro, 150, 10)
+                            break;
+                        case '6':
+                            //termino de leer un recibo y guardo al recibo con sus conceptos
+
+                            //agrego mas campos al encabezado
+                            r.cabecera.Fecha_deposito = new DateTime(int.Parse(linea.Substring(54, 4)), int.Parse(linea.Substring(51, 2)), int.Parse(linea.Substring(48, 2)));// Mid(Trim(Registro), Len(Trim(Registro)) - 9, 10)
+
+                            /*guardo al recibo*/
+                            parametros.Clear();
+
+                            parametros.Add("@Id_Interna", r.cabecera.Legajo);
+                            parametros.Add("@mes", r.cabecera.mes);
+                            parametros.Add("@a" + g + "o", r.cabecera.anio);
+                            parametros.Add("@Cuil", r.cabecera.CUIL);
+                            parametros.Add("@Id_Oficina", r.cabecera.Oficina);
+                            parametros.Add("@Nro_Orden", r.cabecera.Orden);
+                            parametros.Add("@Nivel", r.cabecera.Nivel);
+                            parametros.Add("@grado", r.cabecera.Grado);
+                            parametros.Add("@F_Ingreso", r.cabecera.FechaIngreso);
+                            parametros.Add("@SBruto", r.cabecera.Bruto);
+                            parametros.Add("@SDescuento", r.cabecera.Descuentos);
+                            parametros.Add("@SNeto", r.cabecera.Neto);
+                            parametros.Add("@NroCta", r.cabecera.CuentaBancaria);
+                            parametros.Add("@Banco", r.cabecera.Banco);
+                            parametros.Add("@F_Deposito", r.cabecera.Fecha_deposito);
+                            parametros.Add("@confirmado", 0);//seteo default
+                            parametros.Add("@Usuario", usuario.Id);
+                            parametros.Add("@TipoLiquidacion", r.cabecera.TipoLiquidacion);
+                            parametros.Add("@opcionJubilatoria", r.cabecera.OpcionJubilatoria);
+                            parametros.Add("@afjp", r.cabecera.Afjp);
+                            parametros.Add("@liquidacion", idLiquidacion);
+
+                            int resultado = int.Parse(cn.EjecutarEscalarEnContextoTransaccional("dbo.[PLA_ADD_Recibos]", parametros, ref sqlTran).ToString());
+                            
+                            /*actualizo la cantidad de recibos procesados*/
+                            Cant_Reg = Cant_Reg + 1;
+                            /*guardo los detalles*/
+                            foreach (Detalle detalle in r.detalles)
+                            {
+                                parametros.Clear();
+                                //datos propios del recibo
+                                parametros.Add("@Id_recibo", resultado);
+                                parametros.Add("@Id_interna", r.cabecera.Legajo);
+                                parametros.Add("@Mes", r.cabecera.mes);
+                                parametros.Add("@A" + g + "o", r.cabecera.anio);
+                                //datos propios del detalle
+                                parametros.Add("@Concepto", detalle.Concepto);
+                                parametros.Add("@Aporte", detalle.Aporte);
+                                parametros.Add("@Descuento", detalle.Descuento);
+                                parametros.Add("@TipoConcepto", detalle.TipoConcepto);
+                                parametros.Add("@Concepto_Descrip", detalle.Descripcion);
+
+                                cn.EjecutarSinResultadoEnContextoTransaccional("dbo.[PLA_ADD_Recibos_Detalles]", parametros, ref sqlTran);
+                                
+                            }
+                            break;
+                        default:
+                            //Console.WriteLine("Default case");
+                            break;
+                    }
+                    if (leoConceptos == true)
+                    {
+                        Detalle detalle = new Detalle();
+
+                        detalle.Concepto = linea.Substring(9, 6).Trim();//Trim(Mid(Registro, 103, 6))
+                        detalle.TipoConcepto = linea.Substring(15, 2).Trim();//Trim(Mid(Registro, 109, 2))
+                        detalle.Descripcion = linea.Substring(17, 37).Trim();//Trim(Mid(Registro, 111, 37))
+                        detalle.Aporte = utils.SubstringAFormatoFloatToDecimal(linea.Substring(54, 10));//Trim(Replace(Replace(Mid(Registro, 148, 10), ".", ""), ",", "."))
+                        detalle.Descuento = utils.SubstringAFormatoFloatToDecimal(linea.Substring(71, 10));//Trim(Replace(Replace(Mid(Registro, 165, 10), ".", ""), ",", "."))
+
+                        r.detalles.Add(detalle);
+
+
+                    }
+
+                    i++;
+                }
+
+                /*guardo la liquidacion migrada*/
+                parametros.Clear();
+                parametros.Add("@Archivo", nombreArchivo);
+                parametros.Add("@Cant_Registros", Cant_Reg);
+                parametros.Add("@Usuario", usuario.Id);
+                parametros.Add("@liquidacion", idLiquidacion);
+                parametros.Add("@mes", mes);
+                parametros.Add("@a" + g + "o", anio);
+                parametros.Add("@descripcion", descripcionImportacion);
+                parametros.Add("@tipo_liquidacion", tipoLiquidacion);
+
+                cn.EjecutarSinResultadoEnContextoTransaccional("dbo.[PLA_ADD_Recibos_Migrados]", parametros, ref sqlTran);
+
+                sqlTran.Commit();
+
+                //si todo salio bien hasta aca retorno exito
+                return JsonConvert.SerializeObject(new
+                {
+                    result = "archivoImportado.ok",
+                    cantRegistros = Cant_Reg
+                });
+
+            }
+            catch (Exception ex)
+            {
+                cn.RollbackTransaction(ref sqlTran);
+                if (ex is SqlException)
+                {
+                    // Handle more specific SqlException exception here.
+                    return JsonConvert.SerializeObject(new
+                    {
+                        result = "archivoImportado.nok",
+                        error = "Hubo un problema en la importacion. Intente mas tarde."//ex.Message
+                    });
+                }
+                else
+                {
+                    return JsonConvert.SerializeObject(new
+                    {
+                        result = "archivoImportado.nok",
+                        error = "Error en linea " + i//ex.Message
+                    });
+                }
+            }
+            finally
+            {   //siempre se ejecuta por mas que este el return anterior en el catch
+                cn.CerrarBD();
+            }            
+        }
+    }
+
+    [WebMethod]//modo bulk- transaccional completo o nada ,NO funciona creo que pierdo la transaccion
+    //en el bulk
+    public string ImportarRecibos3(int mes, int anio, string descripcionImportacion, int tipoLiquidacion, String contenidoArchivo, String nombreArchivo, Usuario usuario)
+    {
+        /*NOTA: importante se asume que nadie cobra mas de 999.9999,99; caso contrario se debe adecuar la conversion
+         de numeros desde un string a float,pj removiendo mas de un . en la funcion Utils de conversion*/
+        int idLiquidacion;
+        idLiquidacion = RepositorioDeArchivosMigrados().GET_Recibos_Migrados_MaxLiq();
+        //obtengo un id de recibo disponible para insertar los siguientes recibos
+        //int idReciboSiguiente = RepoLegajo().GET_Recibos_MaxIdRecibo();
+
+        Utils utils = new Utils();
+        Recibo r = new Recibo();
+        r.cabecera = new Cabecera();
+        r.detalles = new List<Detalle>();
+        Boolean leoConceptos = false;
+        string[] lineas = contenidoArchivo.Split(new string[] { "\n", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+        int longitud = lineas.Length;
+        int i = 0;
+        string linea;
+        int Cant_Reg = 0; //indica la cantidad de recibos migrados
+        var parametros = new Dictionary<string, object>();
+
+        //codificacion para la ñ, no se porque en esta consulta el objeto dictionary no acepta a a ñ como key??????
+        Encoding ascii = Encoding.UTF32;
+        byte[] t = ascii.GetBytes("\u00F1");//codigo para la ñ
+        string g = ascii.GetString(t);
+
+        //creo la tabla de recibos
+        /*var tablaRecibos = new DataTable();
+        tablaRecibos.Columns.Add("Id_interna", typeof(int));
+        tablaRecibos.Columns.Add("mes", typeof(Int16));
+        tablaRecibos.Columns.Add("a" + g + "o", typeof(Int16));
+        tablaRecibos.Columns.Add("Cuil", typeof(string));
+        tablaRecibos.Columns.Add("Id_Oficina", typeof(Int16));
+        tablaRecibos.Columns.Add("Nro_Orden", typeof(Int16));
+        tablaRecibos.Columns.Add("Nivel", typeof(string));
+        tablaRecibos.Columns.Add("grado", typeof(string));
+        tablaRecibos.Columns.Add("F_Ingreso", typeof(DateTime));
+        tablaRecibos.Columns.Add("SBruto", typeof(float));        
+        tablaRecibos.Columns.Add("SNeto", typeof(float));
+        tablaRecibos.Columns.Add("NroCta", typeof(string));
+        tablaRecibos.Columns.Add("Banco", typeof(string));
+        tablaRecibos.Columns.Add("F_Deposito", typeof(DateTime));
+        tablaRecibos.Columns.Add("confirmado", typeof(int));
+        tablaRecibos.Columns.Add("Usuario", typeof(Int16));
+        tablaRecibos.Columns.Add("SDescuento", typeof(float));
+        tablaRecibos.Columns.Add("TipoLiquidacion", typeof(string));
+        tablaRecibos.Columns.Add("OpcionJubilatoria", typeof(string));
+        tablaRecibos.Columns.Add("AFJP", typeof(string));
+        tablaRecibos.Columns.Add("liquidacion", typeof(int));*/
+
+        //creo la tabla de detalles
+        var tablaDetalles = new DataTable();
+        tablaDetalles.Columns.Add("Id_recibo", typeof(int));
+        tablaDetalles.Columns.Add("Id_interna", typeof(int));
+        tablaDetalles.Columns.Add("Mes", typeof(Int16));
+        tablaDetalles.Columns.Add("A" + g + "o", typeof(Int16));
+        tablaDetalles.Columns.Add("Concepto", typeof(string));
+        tablaDetalles.Columns.Add("Aporte", typeof(float));
+        tablaDetalles.Columns.Add("Descuento", typeof(float));
+        tablaDetalles.Columns.Add("TipoConcepto", typeof(string));
+        tablaDetalles.Columns.Add("Concepto_Descrip", typeof(string));
+
+        using (TransactionScope scope = new TransactionScope())
+        {
+            ConexionBDSQL cn = Conexion();
+            SqlTransaction sqlTran = cn.BeginTransaction2();
+            try
+            {   // realizar todas las operaciones de SP
+                while (i < longitud)
+                {
+                    linea = lineas[i];
+                    //el primer caracter sirve para delinear que parte del recibo se procesa
+                    //nota: en este nivel no se hace nada con las lineas que no empiezan con alguna de las opciones del case
+                    //a menos que se esten leyendo conceptos
+                    switch (linea.ElementAt(0))
+                    {
+                        //como en cada linea se repide la informacion del recibo solo se va  a tomar los valores izquierdos
+                        case '1':
+                            //no hace nada solo indica el nombre de la institucion de donde vienen los recibos
+                            break;
+                        case '2':
+                            //leo la cabecera del recibo
+                            r.cabecera.reset();
+                            r.cabecera.Legajo = utils.SubstringAEntero(linea.Substring(13, 7)); //Replace(Mid(Registro, 107, 7), ".", "")
+                            r.cabecera.CUIL = linea.Substring(53, 13);//Mid(Registro, 147, 13)
+                            r.cabecera.Oficina = int.Parse(linea.Substring(68, 3));//Mid(Registro, 162, 3)                   
+                            r.cabecera.Orden = utils.SubstringAEntero(linea.Substring(76, 5)); //Replace(Mid(Registro, 170, 5), ".", "")
+                            break;
+                        case '3':
+                            //indico que se van a empezar a leer los conceptos
+                            leoConceptos = true;
+                            //limpio la lista de detalles
+                            r.detalles.Clear();
+                            break;
+                        case '4':
+                            //termino de leer los conceptos,
+                            leoConceptos = false;
+                            //agrego mas campos al encabezado
+                            r.cabecera.Bruto = utils.SubstringAFormatoFloat(linea.Substring(54, 10));//Replace(Mid(Registro, 148, 10), ",", ".")
+                            r.cabecera.Descuentos = utils.SubstringAFormatoFloat(linea.Substring(71, 10)); //Replace(Mid(Registro, 165, 10), ",", ".")
+                            r.cabecera.Nivel = linea.Substring(9, 1); //Mid(Registro, 103, 1)
+                            r.cabecera.Grado = linea.Substring(11, 2); //Mid(Registro, 105, 2)
+                            r.cabecera.OpcionJubilatoria = linea.Substring(22, 2); //Mid(Registro, 116, 2)
+                            r.cabecera.Afjp = linea.Substring(32, 10).Trim(); //Mid(Registro, 126, 10)
+
+                            break;
+                        case '0':
+                            //termino de leer un recibo, primera parte
+                            //agrego mas campos al encabezado
+                            //linea.Substring(63, 10).Replace("*"," ").Replace(",",".");
+                            r.cabecera.Neto = utils.SubstringAFormatoFloat(linea.Substring(63, 10).Trim('*'));// Replace(Replace(Mid(Registro, 157, 10), ",", "."), "*", "")
+                            r.cabecera.mes = int.Parse(linea.Substring(13, 2));//Mid(Registro, 107, 2)
+                            r.cabecera.anio = int.Parse(linea.Substring(16, 4));//Mid(Registro, 110, 4)
+                            r.cabecera.TipoLiquidacion = int.Parse(linea.Substring(29, 2));// Mid(Registro, 123, 2)
+
+                            i++;
+                            linea = lineas[i]; //leo otra linea  para obtener la fecha de ingreso
+                            if (linea.Substring(117, 10) == "00/00/0000")
+                            {
+                                r.cabecera.FechaIngreso = new DateTime(1900, 1, 1);// Mid(Registro, 118, 10)
+                            }
+                            else
+                            {
+                                r.cabecera.FechaIngreso = new DateTime(int.Parse(linea.Substring(123, 4)), int.Parse(linea.Substring(120, 2)), int.Parse(linea.Substring(117, 2)));// Mid(Registro, 118, 10)
+
+                            }
+                            i++;
+                            linea = lineas[i]; //leo otra linea  para obtener datos de la cuenta bancaria
+                            r.cabecera.Banco = linea.Substring(159, 20); //Mid(Registro, 160, 20)
+                            r.cabecera.CuentaBancaria = linea.Substring(149, 10);//Mid(Registro, 150, 10)
+                            break;
+                        case '6':
+                            //termino de leer un recibo y guardo al recibo con sus conceptos
+
+
+                            //agrego mas campos al encabezado
+                            r.cabecera.Fecha_deposito = new DateTime(int.Parse(linea.Substring(54, 4)), int.Parse(linea.Substring(51, 2)), int.Parse(linea.Substring(48, 2)));// Mid(Trim(Registro), Len(Trim(Registro)) - 9, 10)
+
+                            /*guardo al recibo*/
+                            parametros.Clear();
+
+                            parametros.Add("@Id_Interna", r.cabecera.Legajo);
+                            parametros.Add("@mes", r.cabecera.mes);
+                            parametros.Add("@a" + g + "o", r.cabecera.anio);
+                            parametros.Add("@Cuil", r.cabecera.CUIL);
+                            parametros.Add("@Id_Oficina", r.cabecera.Oficina);
+                            parametros.Add("@Nro_Orden", r.cabecera.Orden);
+                            parametros.Add("@Nivel", r.cabecera.Nivel);
+                            parametros.Add("@grado", r.cabecera.Grado);
+                            parametros.Add("@F_Ingreso", r.cabecera.FechaIngreso);
+                            parametros.Add("@SBruto", r.cabecera.Bruto);
+                            parametros.Add("@SDescuento", r.cabecera.Descuentos);
+                            parametros.Add("@SNeto", r.cabecera.Neto);
+                            parametros.Add("@NroCta", r.cabecera.CuentaBancaria);
+                            parametros.Add("@Banco", r.cabecera.Banco);
+                            parametros.Add("@F_Deposito", r.cabecera.Fecha_deposito);
+                            parametros.Add("@confirmado", 0);//seteo default
+                            parametros.Add("@Usuario", usuario.Id);
+                            parametros.Add("@TipoLiquidacion", r.cabecera.TipoLiquidacion);
+                            parametros.Add("@opcionJubilatoria", r.cabecera.OpcionJubilatoria);
+                            parametros.Add("@afjp", r.cabecera.Afjp);
+                            parametros.Add("@liquidacion", idLiquidacion);
+
+                            int resultado = int.Parse(cn.EjecutarEscalarEnContextoTransaccional("dbo.[PLA_ADD_Recibos]", parametros, ref sqlTran).ToString());
+
+                            //Convert.ToInt16(r.cabecera.anio);
+                            /*guardo al recibo en la tabla temporal*/
+                            /*tablaRecibos.Rows.Add(new object[]
+                            {
+                                r.cabecera.Legajo,
+                                r.cabecera.mes,
+                                r.cabecera.anio,
+                                r.cabecera.CUIL,
+                                r.cabecera.Oficina,
+                                r.cabecera.Orden,
+                                r.cabecera.Nivel,
+                                r.cabecera.Grado,
+                                r.cabecera.FechaIngreso,
+                                r.cabecera.Bruto,
+                                r.cabecera.Descuentos,
+                                r.cabecera.Neto,
+                                r.cabecera.CuentaBancaria,
+                                r.cabecera.Banco,
+                                r.cabecera.Fecha_deposito,
+                                0,
+                                usuario.Id,
+                                r.cabecera.TipoLiquidacion,
+                                r.cabecera.OpcionJubilatoria,
+                                r.cabecera.Afjp,
+                                idLiquidacion
+                            });*/
+
+                            /*actualizo la cantidad de recibos procesados*/
+                            Cant_Reg = Cant_Reg + 1;
+                            
+                            /*guardo los detalles*/
+                            foreach (Detalle detalle in r.detalles)
+                            {                                
+                                /*guardo los detalles en la tabla temporal*/
+                                /*tablaDetalles.Rows.Add(new object[]
+                                {
+                                    resultado,
+                                    r.cabecera.Legajo,
+                                    r.cabecera.mes,
+                                    r.cabecera.anio,
+                                    detalle.Concepto,
+                                    detalle.Aporte,
+                                    detalle.Descuento,
+                                    detalle.TipoConcepto,
+                                    detalle.Descripcion
+                                });*/
+                                var row = tablaDetalles.NewRow();
+                                row["Id_Recibo"] = resultado;
+                                row["Id_interna"] = r.cabecera.Legajo;
+                                row["Mes"] = r.cabecera.mes;
+                                row["A"+g+"o"] = r.cabecera.anio;
+                                row["Concepto"] = detalle.Concepto;
+                                row["Aporte"] = detalle.Aporte;
+                                row["Descuento"] = detalle.Descuento;
+                                row["TipoConcepto"] = detalle.TipoConcepto;
+                                row["Concepto_Descrip"] = detalle.Descripcion;
+                                tablaDetalles.Rows.Add((DataRow)row);
+                            }
+
+                            /*actualizo el idRecibo para el siguiente recibo*/
+                            //idReciboSiguiente++;
+
+                            break;
+                        default:
+                            //Console.WriteLine("Default case");
+                            break;
+                    }
+                    if (leoConceptos == true)
+                    {
+                        Detalle detalle = new Detalle();
+
+                        detalle.Concepto = linea.Substring(9, 6).Trim();//Trim(Mid(Registro, 103, 6))
+                        detalle.TipoConcepto = linea.Substring(15, 2).Trim();//Trim(Mid(Registro, 109, 2))
+                        detalle.Descripcion = linea.Substring(17, 37).Trim();//Trim(Mid(Registro, 111, 37))
+                        detalle.Aporte = utils.SubstringAFormatoFloatToDecimal(linea.Substring(54, 10));//Trim(Replace(Replace(Mid(Registro, 148, 10), ".", ""), ",", "."))
+                        detalle.Descuento = utils.SubstringAFormatoFloatToDecimal(linea.Substring(71, 10));//Trim(Replace(Replace(Mid(Registro, 165, 10), ".", ""), ",", "."))
+
+                        r.detalles.Add(detalle);
+
+
+                    }
+
+                    i++;
+                }
+
+                /*ahora si guardo los recibos y los detalles en forma masiva*/
+                /*como el insert de los recibos controla una condicion y actualiza idArea, NO es solo
+                 un insert por lo que no puedo hacer el insert de forma bulk*/
+                //cn.BulkEnContextoTransaccional(tablaRecibos,"PLA_Recibos",ref sqlTran);
+                cn.BulkEnContextoTransaccional(tablaDetalles, "PLA_Recibos_Detalle", ref sqlTran);
+
+
+                /*guardo la liquidacion migrada*/
+                parametros.Clear();
+                parametros.Add("@Archivo", nombreArchivo);
+                parametros.Add("@Cant_Registros", Cant_Reg);
+                parametros.Add("@Usuario", usuario.Id);
+                parametros.Add("@liquidacion", idLiquidacion);
+                parametros.Add("@mes", mes);
+                parametros.Add("@a" + g + "o", anio);
+                parametros.Add("@descripcion", descripcionImportacion);
+                parametros.Add("@tipo_liquidacion", tipoLiquidacion);
+
+                cn.EjecutarSinResultadoEnContextoTransaccional("dbo.[PLA_ADD_Recibos_Migrados]", parametros, ref sqlTran);
+
+                sqlTran.Commit();
+
+                //si todo salio bien hasta aca retorno exito
+                return JsonConvert.SerializeObject(new
+                {
+                    result = "archivoImportado.ok",
+                    cantRegistros = Cant_Reg
+                });
+
+            }
+            catch (Exception ex)
+            {
+                cn.RollbackTransaction(ref sqlTran);
+                if (ex is SqlException)
+                {
+                    // Handle more specific SqlException exception here.
+                    return JsonConvert.SerializeObject(new
+                    {
+                        result = "archivoImportado.nok",
+                        error = "Hubo un problema en la importacion. Intente mas tarde."//ex.Message
+                    });
+                }
+                else
+                {
+                    return JsonConvert.SerializeObject(new
+                    {
+                        result = "archivoImportado.nok",
+                        error = "Error en linea " + i//ex.Message
+                    });
+                }
+            }
+            finally
+            {   //siempre se ejecuta por mas que este el return anterior en el catch
+                cn.CerrarBD();
+            }
+        }
+    }
+
+    [WebMethod]
+    public string GetArchivoImportado(string nombreArchivo, Usuario usuario)
+    {
+        if (RepositorioDeArchivosMigrados().GetArchivoMigrado(nombreArchivo))
+        {
+            return JsonConvert.SerializeObject(new
+            {
+                tipoDeRespuesta = "archivoImportado.ok"/*,
+                idArchivo = recibo.idArchivo*/
+            });
+        }
+        else
+        {
+            return JsonConvert.SerializeObject(new
+            {
+                tipoDeRespuesta = "archivoImportado.nok"
+                //error = e.Message
+            });
+        }
+    }
+
+    [WebMethod]
+    public string GetRecibo(int liquidacion, Usuario usuario)
+    {
+        RepositorioLegajo repo = RepoLegajo();
+
+        return repo.GetReciboDeSueldo(usuario.Owner.Documento, liquidacion);
+    }
+
+    /*[WebMethod]
+   public List<TipoLiquidacion> GetTiposLiquidacion()
+   {
+       List<TipoLiquidacion> areas = new List<TipoLiquidacion>();
+       var repositorio = RepositorioDeTipoDeLiquidacion.Nuevo(Conexion());
+       return repositorio.All();
+   }*/
+
+    [WebMethod]
+    public String GetTiposLiquidacion()
+    {
+        List<TipoLiquidacion> areas = new List<TipoLiquidacion>();
+        var repositorio = RepositorioDeTipoDeLiquidacion.Nuevo(Conexion());
+        return JsonConvert.SerializeObject(repositorio.All());
+    }
+
+    /*cuando se prueba con soap ui es mejor quitar el objeto usuario asi, es mas directo realizar pruebas*/
+    [WebMethod]
+    public string GetRecibosResumen(int tipoLiquidacion, int anio, int mes, Usuario usuario)
+    {
+        //tira error porque puede ser null el tipo liquidacion y los demas, poner un '' o 0 y verificar aca
+        RepositorioLegajo repo = RepoLegajo();
+        //TODO VER:     obtengo los recibos NO firmados
+        return repo.GetRecibosResumen(tipoLiquidacion, anio, mes);
+    }
+
+    [WebMethod]
+    //este metodo es independiente de si el recibo es historico o no
+    //el id puede ser el idLiquidacion o (tipoLiquidacion+anio+mes),////NOOOOOOOO falta agregar el idLiquidacion,porque pueden haber varias liquidacion con esos datos
+    public string GetIdRecibosSinFirmar(int idLiquidacion, int tipoLiquidacion, int anio, int mes, Usuario usuario)
+    {
+
+
+        RepositorioLegajo repo = RepoLegajo();
+
+        var respuesta = new { idLiquidacion = idLiquidacion, anio = anio, mes = mes, tipoLiquidacion = tipoLiquidacion, recibosSinFirmar = repo.GetIdRecibosSinFirmar(idLiquidacion, tipoLiquidacion, anio, mes) };
+
+        return JsonConvert.SerializeObject(respuesta);
+    }
+
+    /*[WebMethod] */
+    /*NOTA:SE puede borrar*/
+    /*public StringRespuestaWS GetIdRecibosSinFirmarAnterior(int tipoLiquidacion, int anio, int mes, Usuario usuario)
+    {
+
+        //tira error porque puede ser null el tipo liquidacion y los demas, poner un '' o 0 y verificar aca
+        var respuesta = new StringRespuestaWS();
+        try
+        {
+
+            RepositorioLegajo repo = RepoLegajo();
+            string lista = repo.GetIdRecibosSinFirmar(tipoLiquidacion, anio, mes);
+            respuesta.Respuesta = lista;
+        }
+        catch (Exception e)
+        {
+            respuesta.MensajeDeErrorAmigable = "Se produjo un error al obtener la lista de ids recibos";
+            respuesta.setException(e);
+
+        }
+        return respuesta;
+    }*/
+       
+    [WebMethod]
+    //este metodo es independiente de si el recibo es historico o no
+    //el id puede ser el idLiquidacion o (tipoLiquidacion+anio+mes)
+    public string GetIdRecibosFirmados(int idLiquidacion, int tipoLiquidacion, int anio, int mes, Usuario usuario)
+    {
+
+
+        RepositorioLegajo repo = RepoLegajo();
+
+        var respuesta = new { idLiquidacion = idLiquidacion, anio = anio, mes = mes, tipoLiquidacion = tipoLiquidacion, recibosFirmados = repo.GetIdRecibosFirmados(idLiquidacion, tipoLiquidacion, anio, mes) };
+
+        return JsonConvert.SerializeObject(respuesta);
+    }
+    
+    //se retorna los datos del recibo separado por un patron determinado
+    //FALTA depurar en caso de usar, eso es porque se debe limpiar el SP dbo.RPT_PLA_Recibos_Haberes_Detalle para que no rellene con filas vacias
+    [WebMethod]
+    public StringRespuestaWS GetReciboParseado(int id_recibo, int modo)
+    {
+
+        var respuesta = new StringRespuestaWS();
+
+        try
+        {
+            RepositorioLegajo repo = RepoLegajo();
+            Recibo recibo;
+
+            //para trabajarlo como objeto es mejor definir un objeto que traiga el recibo, asi se puede acceder a
+            //sus propiedades desde el back(desde el front con js se puede acceder), porque no se puede acceder a campos 
+            //especificos del objecto recibo cuando el casteo es a object.
+
+
+            //datos del recibo a rellenar    
+            recibo = repo.GetReciboDeSueldoPorIDSinRelleno(id_recibo,modo);
+
+            string reciboPlanText = recibo.getReciboParseado(recibo);
+
+            var reciboPlanTextBytes = System.Text.Encoding.UTF8.GetBytes(reciboPlanText);
+            respuesta.Respuesta = System.Convert.ToBase64String(reciboPlanTextBytes);
+
+        }
+        catch (Exception e)
+        {
+            respuesta.MensajeDeErrorAmigable = "Se produjo un error al obtener el PDF del recibo del empleador";
+            respuesta.setException(e);
+
+        }
+
+
+        return respuesta;
+
+    }
+
+    //recibo digital unico tanto para el empleado como para el empleador
+    [WebMethod]
+    public StringRespuestaWS GetReciboPDFDigital(int id_recibo,int modo)
+    {
+        var respuesta = new StringRespuestaWS();
+
+        RepositorioVerificador repoVeri = RepoVerificador();        
+
+        try
+        {
+            RepositorioLegajo repo = RepoLegajo();
+            Recibo recibo;
+
+            //para trabajarlo como objeto es mejor definir un objeto que traiga el recibo, asi se puede acceder a
+            //sus propiedades desde el back(desde el front con js se puede acceder), porque no se puede acceder a campos 
+            //especificos del objecto recibo cuando el casteo es a object.
+
+
+            //datos del recibo a rellenar    
+            recibo = repo.GetReciboDeSueldoPorID(id_recibo,modo);
+
+            //
+            var modelo_para_pdf = new List<object>() { recibo };
+            var converter = new GenReciboEmpleadoToPdfConverter();
+            var mapa_para_pdf = converter.CrearMapa(modelo_para_pdf);
+            var creador_pdf = new CreadorDePdfs();
+            byte[] bytes;
+            byte[] bytes2;
+            byte[] bytes3;
+            String csv;
+            CSVUtil csvUtil = new CSVUtil();
+
+            if (mapa_para_pdf["paginasPDF"] == "una")
+            {
+                //el nombre del pdf generado va a ser el idRecibo
+                bytes = creador_pdf.FillPDF(TemplatePath("Recibodigital_v1a.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
+                bytes2 = creador_pdf.AgregarImagenAPDF(bytes, "FRH0502," + Convert.ToString(id_recibo));
+
+                //hasta aqui el pdf esta rellenado solo falta agregar el csv                
+                csv = csvUtil.generarCodigoCSV(bytes2, CSVUtil.SAF_MDS, id_recibo, CSVUtil.TIPO_RECIBO_DIGITAL);
+                bytes3 = creador_pdf.AgregarCSVyQRAPDF(bytes2, csv,1);
+
+            }
+            else
+            {
+                if (mapa_para_pdf["paginasPDF"] == "dos")
+                {
+                    //el nombre del pdf generado va a ser el idRecibo
+                    bytes = creador_pdf.FillPDF(TemplatePath("ReciboDigital_v1b.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
+                    bytes2 = creador_pdf.AgregarImagenAPDF(bytes, "FRH0502," + Convert.ToString(id_recibo));
+
+                    //hasta aqui el pdf esta rellenado solo falta agregar el csv                
+                    csv = csvUtil.generarCodigoCSV(bytes2, CSVUtil.SAF_MDS, id_recibo, CSVUtil.TIPO_RECIBO_DIGITAL);
+                    bytes3 = creador_pdf.AgregarCSVyQRAPDF(bytes2, csv,2);
+                }
+                else
+                {
+                    //el nombre del pdf generado va a ser el idRecibo
+                    bytes = creador_pdf.FillPDF(TemplatePath("ReciboDigital_v1c.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
+                    bytes2 = creador_pdf.AgregarImagenAPDF(bytes, "FRH0502," + Convert.ToString(id_recibo));
+
+                    //hasta aqui el pdf esta rellenado solo falta agregar el csv                
+                    csv = csvUtil.generarCodigoCSV(bytes2, CSVUtil.SAF_MDS, id_recibo, CSVUtil.TIPO_RECIBO_DIGITAL);
+                    bytes3 = creador_pdf.AgregarCSVyQRAPDF(bytes2, csv,3);
+                }
+            }
+
+//            //agregar el csv a la tabla respectiva
+//            //CSVUtil.formatCSV(s, 4, CSV_SEPARATOR)   //agrega los "-" cada 4 caracteres al csv
+//            bool resultado = repoVeri.agregarCsv(csv, CSVUtil.ID_TIPO_RECIBO_DIGITAL, id_recibo);
+
+            //return Convert.ToBase64String(bytes2);
+            //return Convert.ToBase64String(bytes2);
+            respuesta.Respuesta = Convert.ToBase64String(bytes3);
+
+            //////////////////////////////////
+            ///      Object x = JsonConvert.DeserializeObject<Object>(datos);
+            ///      //JsonConvert.SerializeObject(x);
+
+
+            ///      return x.Cabecera ;
+        }
+        catch (Exception e)
+        {
+            respuesta.MensajeDeErrorAmigable = "Se produjo un error al obtener el PDF del recibo del empleador";
+            respuesta.setException(e);
+
+        }
+
+
+        return respuesta;
+
+    }
+
+    //NOTA: YA NO SE USA, la forma de visualizacion del recibo es UNICA.....!
+    //es la visualizacion del recibo desde el punto de vista del empleado
+    [WebMethod]
+    public string GetReciboPDFEmpleado(int id_recibo,int modo)
+    {
+        RepositorioLegajo repo = RepoLegajo();
+        Recibo recibo;
+
+        //para trabajarlo como objeto es mejor definir un objeto que traiga el recibo, asi se puede acceder a
+        //sus propiedades desde el back(desde el front con js se puede acceder), porque no se puede acceder a campos 
+        //especificos del objecto recibo cuando el casteo es a object.
+
+        //datos del recibo a rellenar    
+        recibo = repo.GetReciboDeSueldoPorID(id_recibo,modo);
+
+        //
+        var modelo_para_pdf = new List<object>() { recibo };
+        var converter = new GenReciboEmpleadoToPdfConverter();
+        var mapa_para_pdf = converter.CrearMapa(modelo_para_pdf);
+        var creador_pdf = new CreadorDePdfs();
+
+        byte[] bytes;
+        byte[] bytes2;
+
+        if (mapa_para_pdf["paginasPDF"] == "una")
+        {
+            //el nombre del pdf generado va a ser el idRecibo
+            bytes = creador_pdf.FillPDF(TemplatePath("ReciboEmpleado_v2.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
+            bytes2 = creador_pdf.AgregarImagenAPDF(bytes, "FRH0502," + Convert.ToString(id_recibo));
+        }
+
+        else
+        {
+            if (mapa_para_pdf["paginasPDF"] == "dos")
+            {   //el nombre del pdf generado va a ser el idRecibo
+                bytes = creador_pdf.FillPDF(TemplatePath("ReciboEmpleado_v2b.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
+                bytes2 = creador_pdf.AgregarImagenAPDF(bytes, "FRH0502," + Convert.ToString(id_recibo));
+            }
+            else
+            {// hay tres paginas
+                //el nombre del pdf generado va a ser el idRecibo
+                bytes = creador_pdf.FillPDF(TemplatePath("ReciboEmpleado_v2c.pdf"), Convert.ToString(id_recibo), mapa_para_pdf);
+                bytes2 = creador_pdf.AgregarImagenAPDF(bytes, "FRH0502," + Convert.ToString(id_recibo));
+
+            }
+
+        }
+        return Convert.ToBase64String(bytes2);
+
+        //////////////////////////////////
+        ///      Object x = JsonConvert.DeserializeObject<Object>(datos);
+        ///      //JsonConvert.SerializeObject(x);
+
+
+        ///      return x.Cabecera ;
+    }
+
+    [WebMethod]
+    //IMPORTANTE antes de guardar el pdf se debe obtenerCsv asi cierra el archivo..y lo deja ineditable antes de guardarlo!!!!!!
+    //Se guarda el pdf firmado y el csv en otra tabla
+    public int GuardarReciboPDFFirmado(string bytes_pdf,int idLiquidacion, int id_recibo, int anio, int mes, int tipoLiquidacion, Usuario usuario)
+    {
+        RepositorioVerificador repoVeri = RepoVerificador();
+
+        var creador_pdf = new CreadorDePdfs();
+
+        int id_archivo = 0;
+
+        //los bytes vienen en base64, convierto de base64 a string y luego a bytes.
+        byte[] data = System.Convert.FromBase64String(bytes_pdf);
+        //string csv = creador_pdf.ObtenerCsv(System.Text.Encoding.UTF8.GetBytes(bytes_pdf));
+
+        //Obtener el csv del pdf
+        //string r = creador_pdf.ObtenerCsvYcerrarPDF(data);
+        string csv = "";
+        creador_pdf.ObtenerCsvYcerrarPDF(ref csv, ref data);
+        //        try
+        //        {//COMO el proceso de guardado desde la tabla de la BD al disco es externo, no genero una subclase de archivo
+        //que tendria el path de disco donde guardar el archivo. Se puede agregar una clase con propieda la clase archivo 
+        //subo el archivo firmado y actualiza la tabla que indica que el idRecibo fue firmado
+        id_archivo = RepositorioDeArchivosFirmados().GuardarArchivo(System.Convert.ToBase64String(data), /*usuario.Owner.Id*/0);/*por default a 0 luego este se actualizara al idPersona del usuario cuando conforma el recibo*/
+//                   id_archivo = 20;//RepositorioDeArchivos().GuardarArchivo(bytes_pdf);// id_recibo;//simulo el guardado del archivo
+        //var r = RepositorioDeArchivos().GetArchivo(id_archivo); //19444 es un pdf firmado          
+        //actualizo el recibo firmado por el empleado, 
+
+        //la hora de conformacion de firma es la del reloj del servidor de la app, pero se puede dejar que sea la del reloj del server db
+        /*borrado            DateTime hoy = DateTime.Now;
+                    string CadenaOriginal = Convert.ToString(id_recibo) + Convert.ToString(id_archivo) + Convert.ToString(anio) + Convert.ToString(mes) + Convert.ToString(tipoLiquidacion) + Convert.ToString(usuario.Owner.Id) + hoy;
+                    //uso el encriptador del password 
+                    System.Security.Cryptography.HashAlgorithm hashValue = new System.Security.Cryptography.SHA1CryptoServiceProvider();
+                    byte[] bytes = System.Text.Encoding.UTF8.GetBytes(CadenaOriginal); 
+                    byte[] byteHash = hashValue.ComputeHash(bytes);
+                    hashValue.Clear();
+
+                    RepoReciboFirmado().agregarReciboFirmado(id_recibo, id_archivo, anio, mes, tipoLiquidacion, usuario.Owner.Id, hoy, Convert.ToBase64String(byteHash));
+         */
+                
+        RepoReciboFirmado().agregarReciboFirmado(idLiquidacion, id_recibo, id_archivo, anio, mes, tipoLiquidacion);
+
+        //agregar el csv a la tabla respectiva
+        //CSVUtil.formatCSV(s, 4, CSV_SEPARATOR)   //agrega los "-" cada 4 caracteres al csv
+        bool resultado = repoVeri.agregarCsv(csv, CSVUtil.ID_TIPO_RECIBO_DIGITAL, id_recibo);
+
+        //        var s=  Convert.FromBase64String(r);
+
+        //TODOOOOOO
+        return id_archivo;
+        //        }
+        //        catch (Exception ex)
+        //        {   //si se puedo subir el archivo a disco actualizo la tabla de recibo firmado
+        //           return -1;
+        //  throw ex; si relanzo la exception, en el cliente se lo toma como exception javascript?
+        //        }
+
+    }
+
+    /*NOTA: la funcion de abajo vuelve a verificar si el usuario tiene permiso de descarga de cualqueir recibo o no,
+     * deberia hacerse lo mismo par la visualizacion de recibos................*/
+    [WebMethod]
+    public StringRespuestaWS GetReciboPDFDigitalArchivado(int idArchivo, Usuario usuario)
+    {
+
+        var respuesta = new StringRespuestaWS();
+        try
+        {
+            Funcionalidad[] f = GetFuncionalidadesActuales(usuario.Id, usuario);
+            bool tienePermiso = false;
+            foreach (Funcionalidad i in f)
+            {
+                if (i.Nombre.Equals("imprimir_recibos")){ tienePermiso = true; }
+            }
+            if (tienePermiso) {
+                respuesta.Respuesta = RepositorioDeArchivosFirmados().GetArchivoAsync(idArchivo);
+            } else {
+                respuesta.Respuesta = RepositorioDeArchivosFirmados().GetArchivoAsync(idArchivo, usuario.Owner.Id);
+            }
+            //        try
+            //        {//COMO el proceso de guardado desde la tabla de la BD al disco es externo, no genero una subclase de archivo
+            //que tendria el path de disco donde guardar el archivo. Se puede agregar una clase con propieda la clase archivo 
+            //subo el archivo firmado y actualiza la tabla que indica que el idRecibo fue firmado
+            //respuesta.Respuesta = RepositorioDeArchivosFirmados().GetArchivoAsync(idArchivo, usuario.Owner.Id);
+            //respuesta.Respuesta = RepositorioDeArchivosFirmados().GetArchivoAsync(idArchivo);
+            //           id_archivo = 20;//RepositorioDeArchivos().GuardarArchivo(bytes_pdf);// id_recibo;//simulo el guardado del archivo
+            //var r = RepositorioDeArchivos().GetArchivo(id_archivo); //19444 es un pdf firmado          
+            //actualizo el recibo firmado por el empleado, 
+
+            //la hora de conformacion de firma es la del reloj del servidor de la app, pero se puede dejar que sea la del reloj del server db
+        }
+        catch (Exception e)
+        { 
+            respuesta.MensajeDeErrorAmigable = "Se produjo un error al obtener el PDF del recibo del empleador";
+            respuesta.setException(e);
+
+        }
+
+
+        return respuesta;
+
+    }
+
+    [WebMethod]
+    public string ConformarRecibo(int idRecibo, int recibo_aceptado, string observacion,Usuario usuario)
+    {
+        //obtengo el recibo
+        List<ReciboFirmado> recibos = RepoReciboFirmado().ObtenerDesdeLaBase(idRecibo);
+        ReciboFirmado recibo = recibos[0];
+        //Cuando conforma el recibo el empleado, recien ahi se produce el hash de toda la fila 
+        DateTime hoy = DateTime.Now;
+        //como voy a adelantarme para generar el hash, asumo conformidad con valor 1, con este valor se va a setear despues
+        string CadenaOriginal = Convert.ToString(recibo.idRecibo) + Convert.ToString(recibo.idArchivo) + Convert.ToString(recibo.anio) + Convert.ToString(recibo.mes) + Convert.ToString(recibo.tipoLiquidacion) + Convert.ToString(1) + Convert.ToString(usuario.Owner.Id) + hoy + Convert.ToString(recibo_aceptado) + observacion;
+        //uso el encriptador del password 
+        System.Security.Cryptography.HashAlgorithm hashValue = new System.Security.Cryptography.SHA1CryptoServiceProvider();
+        byte[] bytes = System.Text.Encoding.UTF8.GetBytes(CadenaOriginal);
+        byte[] byteHash = hashValue.ComputeHash(bytes);
+        hashValue.Clear();
+
+        //TODO: La siguiente seccion seria mejor poner a las dos transacciones en una sola transaccion
+        //ya sea en un bloque transaccioal o las dos en un mismo sp en la bd
+        bool a = RepoReciboFirmado().conformarRecibo(idRecibo, usuario.Owner.Id, hoy, recibo_aceptado, observacion, Convert.ToBase64String(byteHash));
+        bool b = RepositorioDeArchivosFirmados().ActualizarArchivoFirmado(recibo.idArchivo, usuario.Owner.Id);
+        //actualizo el conformado de la persona  y el idPersona
+        if (a && b)
+        {            
+            return JsonConvert.SerializeObject(new
+            {
+                tipoDeRespuesta = "conformarRecibo.ok", idArchivo = recibo.idArchivo
+            });
+        } else{
+            return JsonConvert.SerializeObject(new
+            {
+                tipoDeRespuesta = "conformarRecibo.error"
+                //error = e.Message
+            });
+        }
+    }
+
+    /*obtener las liquidaciones es independiente de si los recibos son historicos o no*/
+    [WebMethod]
+    public string GetLiquidacionesAFirmar(Usuario usuario)
+    {
+        
+        RepositorioLegajo repo = RepoLegajo();
+        /*para obtener desde que fecha se realiza la firma de recibos*/
+        ConfiguracionReciboDigital crd = RepoReciboFirmado().GetConfiguracionReciboDigital();
+
+        return repo.GetLiquidacionesAFirmar(crd.fecha_anioInicio_ReciboDigital,crd.fecha_mesInicio_ReciboDigital);
+    }
+
+
+    /*recibos de sueldos de un dado usuario segun el modo 0: recientes, 1 historico*/
+    [WebMethod]
+    public string GetRecibos(int idPersona,int modo,Usuario usuario)
+    {
+        return RepoReciboFirmado().GetRecibos(idPersona,modo);
+    }
+
+    [WebMethod]
+    public string GetReciboPorId(int id_recibo, int modo)
+    {
+        RepositorioLegajo repo = RepoLegajo();
+        Recibo recibo;
+  
+        recibo = repo.GetReciboDeSueldoPorID(id_recibo,modo);
+
+        return JsonConvert.SerializeObject(recibo);
+
+    }
+
+    #endregion
+
+    #region " Verificacion Electronica"
+
+    [WebMethod] /*********TO DO*****/
+    public string VerificarCSV(string codigoCSV, int modo)
+    {
+        RepositorioLegajo repoL = RepoLegajo();
+        Recibo recibo;
+
+        //el codigo csv puede venir sin guiones
+        //string csv = codigoCSV.Replace("-", ""); 
+        int indiceGuion = codigoCSV.IndexOf("-");
+        if (indiceGuion < 0) { 
+            //entonces no tiene guiones, se los agregamos
+            codigoCSV = CSVUtil.formatCSV(codigoCSV,4,"-");
+        }
+
+        //obtengo el id del documento a
+        //return JsonConvert.SerializeObject(new { tipoDeRespuesta = "nok", cuil = "", periodo = "", neto = "" });
+//        recibo = repoL.GetReciboDeSueldoPorID(788022); //788022 recibo de prueba
+//        return JsonConvert.SerializeObject(new { tipoDeRespuesta = "ok", cuil = recibo.cabecera.CUIL, periodo = recibo.cabecera.FechaLiquidacion, neto = recibo.cabecera.Neto });
+
+        /************/
+        RepositorioVerificador repo = RepoVerificador();
+        List<CSV> listaCSV = repo.ObtenerDesdeLaBase(codigoCSV);
+        //verifico que existe el numero de csv
+        if (listaCSV.Count > 0)
+        {
+            int tipo_doc = listaCSV[0].tipo_doc_electronico;
+            int id_doc = listaCSV[0].id_doc;
+            //Obtengo los datos del documento 
+            //FABI quiere hacer un SP que automaticamente obtenga el documento PERO aca por el momento lo dejo harcodeado
+            //nota: aca se obtiene a todo el recibo, lo ideal seria solo obtener los datos que se mostraran...
+            recibo = repoL.GetReciboDeSueldoPorID((int)id_doc,modo); //788022 recibo de prueba
+            
+            //string montoFormato = recibo.cabecera.Neto.ToString("c2", CultureInfo.CreateSpecificCulture("es-ES"));            
+
+            /* Codigo que le da mormato monetario al valor devuelto por la consulta al sqlserver (ej 46582,83)*/
+            CultureInfo culture = new CultureInfo("es-AR");
+            NumberFormatInfo nfi = new CultureInfo("es-AR", true).NumberFormat;
+            int indice = recibo.cabecera.Neto.IndexOf(".");
+            string montoSinDecimales = recibo.cabecera.Neto.Substring(indice+1, 2);
+            string montoDecimales = recibo.cabecera.Neto.Substring(0, indice);
+
+            decimal attempt1 = decimal.Parse(montoDecimales, culture);
+            string monto = attempt1.ToString("c", nfi);
+            int indice2 = monto.IndexOf(",");
+            string monto2 = monto.Substring(0, indice2);
+            string montoFormato = monto2 + "," + montoSinDecimales;            
+ 
+            return JsonConvert.SerializeObject(new { tipoDeRespuesta = "ok", cuil = recibo.cabecera.CUIL, periodo = recibo.cabecera.FechaLiquidacion, neto = montoFormato });
+
+        }
+        else {
+            return JsonConvert.SerializeObject(new { tipoDeRespuesta = "nok", cuil = "", periodo = "", neto = "" });
+        }
+        // y obtengo el tipo_doc_electrico, id_doc
+
+        //recibosFirmados = repo.GetIdRecibosFirmados(tipoLiquidacion, anio, mes);
+
+    }
+
+
+    #endregion
 
    
     [WebMethod]
@@ -6022,5 +7140,57 @@ public class WSViaticos : System.Web.Services.WebService
         return null;
     }
 
+
+    #region " Coronavirus "
+
+    [WebMethod]
+    public StringRespuestaWS GuardarDDJJCOVID19(string v1, string v2, string v3, string v4, string v5, string v6, string v7, string v8, string fi1, string fh1, string n1, string fi2, string fh2, string n2, string fi3, string fh3, string n3, string fi4, string fh4, string n4, string fi5, string fh5, string n5, string nyap, string nyap2, string idUsuario)
+    {
+        var respuesta = new StringRespuestaWS();
+
+        int id_ddjj = RepositorioDeCovid19().GetMaxIdCovid();
+
+        try
+        {
+            //RepositorioLegajo repo = RepoLegajo();
+            //Recibo recibo;
+
+            //datos del recibo a rellenar    
+            //recibo = repo.GetReciboDeSueldoPorID(id_recibo, modo);
+
+            //
+            //var modelo_para_pdf = new List<object>() {v1,v2,v3,v4,v5,v6,v7,v8, usr.Owner.Apellido + ", " + usr.Owner.Nombre + " (" + usr.Owner.Documento.ToString() + ")", fi1, fh1, n1, fi2, fh2, n2, fi3, fh3, n3, fi4, fh4, n4, fi5, fh5, n5 };
+            var modelo_para_pdf = new List<object>() { v1, v2, v3, v4, v5, v6, v7, v8, nyap, fi1, fh1, n1, fi2, fh2, n2, fi3, fh3, n3, fi4, fh4, n4, fi5, fh5, n5, "Id_DDJJ: "+Convert.ToString(id_ddjj) };
+
+            var converter = new GenDDJJCOVID19Converter();
+            var mapa_para_pdf = converter.CrearMapa(modelo_para_pdf);
+            var creador_pdf = new CreadorDePdfs();
+            byte[] bytes;
+
+            //el nombre del pdf generado va a ser el idRecibo
+            //bytes = creador_pdf.FillPDF(TemplatePath("DDJJ_v4.pdf"), Convert.ToString("DDJJCOVID19_"+ usr.Owner.Apellido + usr.Owner.Nombre), mapa_para_pdf);
+            bytes = creador_pdf.FillPDF(TemplatePath("DDJJ_v5.pdf"), Convert.ToString("DDJJCOVID19_" + nyap2), mapa_para_pdf);
+
+
+            respuesta.Respuesta = Convert.ToBase64String(bytes);
+
+            RepositorioDeCovid19().GuardarCovid19(v1, v2, v3, v4, v5, v6, v7, v8, Int32.Parse(idUsuario), fi1, fh1, n1, fi2, fh2, n2, fi3, fh3, n3, fi4, fh4, n4, fi5, fh5, n5, id_ddjj, respuesta.Respuesta,mapa_para_pdf["Fecha"]);
+
+
+        }
+        catch (Exception e)
+        {
+            respuesta.MensajeDeErrorAmigable = "Se produjo un error al obtener el PDF del recibo del empleador";
+            respuesta.setException(e);
+
+        }
+
+
+        return respuesta;
+
+    }
+
+
+    #endregion
 
 }

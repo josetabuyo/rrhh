@@ -54,6 +54,9 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto">
+      <HintPath>..\..\..\..\..\Users\jcvelasquez\Desktop\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
     <Reference Include="ClosedXML">
       <HintPath>..\..\SharedLibs\ClosedXML.dll</HintPath>
     </Reference>
@@ -77,6 +80,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
@@ -110,6 +114,9 @@
     <Compile Include="Asistencia\VacacionesSolicitables.cs" />
     <Compile Include="Calendario\CalculadorDeDias.cs" />
     <Compile Include="Calendario\Periodo.cs" />
+    <Compile Include="Csv\Base36.cs" />
+    <Compile Include="Csv\CSVUtil.cs" />
+    <Compile Include="Csv\ReciboFirmado.cs" />
     <Compile Include="Contrato\Ambito.cs" />
     <Compile Include="Contrato\Cargo.cs" />
     <Compile Include="Contrato\Serv_Adm_Publica_Privada.cs" />
@@ -146,6 +153,7 @@
     <Compile Include="Organigrama\PersonaContrato.cs" />
     <Compile Include="pdfs\CreadorDePdfs.cs" />
     <Compile Include="pdfs\EvaluacionDeDesempenioToPdfConverter.cs" />
+    <Compile Include="pdfs\GenDDJJCOVID19Converter.cs" />
     <Compile Include="pdfs\GenReciboEmpleadoToPdfConverter.cs" />
     <Compile Include="pdfs\GenReciboToPdfConverter.cs" />
     <Compile Include="pdfs\ModeloToPdfConverter.cs" />
@@ -161,11 +169,16 @@
     <Compile Include="Postular\ReporteDePostulaciones.cs" />
     <Compile Include="Recibos\Cabecera.cs" />
     <Compile Include="Recibos\Detalle.cs" />
+    <Compile Include="Recibos\Utils.cs" />
     <Compile Include="Recibos\Numalet.cs" />
     <Compile Include="Recibos\Recibo.cs" />
     <Compile Include="Recibos\ReciboFirmado.cs" />
+    <Compile Include="Recibos\ConfiguracionReciboDigital.cs" />
     <Compile Include="Recibos\TipoLiquidacion.cs" />
     <Compile Include="Repositorios\AccionesMobi.cs" />
+    <Compile Include="Repositorios\RepositorioDeCovid19.cs" />
+    <Compile Include="Repositorios\RepositorioDeArchivosMigrados.cs" />
+    <Compile Include="Repositorios\RepositorioVerificador.cs" />
     <Compile Include="Repositorios\RepositorioDeArchivosFirmados.cs" />
     <Compile Include="Repositorios\RepositorioDeTipoDeLiquidacion.cs" />
     <Compile Include="Repositorios\CredencialParaImpresion.cs" />

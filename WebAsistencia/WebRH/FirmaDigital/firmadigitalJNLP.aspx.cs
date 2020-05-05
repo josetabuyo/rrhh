@@ -15,15 +15,15 @@ public partial class SimpleServlet : System.Web.UI.Page
 		Response.Write("<?xml version='1.0' encoding='utf-8'?>");
 		//TRABAJO: modificar a https://127.0.0.1:8443 para evitar la busqueda por dns para que funcione
         Response.Write("<jnlp spec='1.0+' codebase='" + Request["host"] + "'> "); //request host es https://127.0.0.1:43414
-		
+
 		//facu sea http o https:   out.println("<jnlp spec='1.0+' codebase='http://www.milocal.com:8080/AutofirmaJWS/' > ");
 		//server:    out.println("<jnlp spec='1.0+' codebase='https://clientefirma-pc16.rhcloud.com/AutofirmaJWS/' > ");
 		Response.Write("<information>");
-		Response.Write("<title>AutoFirma MDS</title> ");
+		Response.Write("<title>Firma Digital MDS</title> ");
 		Response.Write("<vendor>MDS</vendor> ");
         Response.Write("<homepage href='Login.aspx'/> ");
 		Response.Write("<description>Proyecto basado en AutoFirma</description>");
-		Response.Write("<description kind='short'>AutoFirma MDS</description> ");
+		Response.Write("<description kind='short'>Firma Digital MDS</description> ");
         //modificar a Response.Write("<icon href='" + Request["host"] + "Imagenes/recibos/images.jpg' width='64' height='64'/> ");
         //porque por no encuentra el recurso en desarrollo porque se ejecuta en http y no https
         Response.Write("<icon href='" + Request["host"] + "Imagenes/recibos/images.jpg' width='64' height='64'/> ");
@@ -35,7 +35,7 @@ public partial class SimpleServlet : System.Web.UI.Page
 		Response.Write("<update check='timeout' policy='always'/>");
 		Response.Write("<resources> ");
 		Response.Write("<j2se version='1.6+' />");
-		Response.Write("<jar href='FirmaDigital/simple_afirma_3_4s.jar' size='20005256 '/> ");/*nota:actualizar el tamaÃ±o en bytes cuando este todo bien*/
+		Response.Write("<jar href='FirmaDigital/simple_afirma_3_4s.jar' size='28616000 '/> ");/*nota:actualizar el tamaÃ±o en bytes cuando este todo bien*/
 		Response.Write("<property name='jnlp.packEnabled' value='true'/>");
 		Response.Write("</resources>");
 		Response.Write("<application-desc main-class='es.gob.afirma.standalone.SimpleAfirma'>");

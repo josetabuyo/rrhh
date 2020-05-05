@@ -435,114 +435,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetTiposLiquidacion">
-        <s:complexType />
-      </s:element>
-      <s:element name="GetTiposLiquidacionResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetTiposLiquidacionResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetRecibosResumen">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="tipoLiquidacion" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="anio" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="mes" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetRecibosResumenResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetRecibosResumenResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetIdRecibosSinFirmar">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="tipoLiquidacion" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="anio" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="mes" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetIdRecibosSinFirmarResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetIdRecibosSinFirmarResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetReciboPDFEmpleador">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id_recibo" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetReciboPDFEmpleadorResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetReciboPDFEmpleadorResult" type="tns:StringRespuestaWS" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:complexType name="StringRespuestaWS">
-        <s:complexContent mixed="false">
-          <s:extension base="tns:RespuestaWS">
-            <s:sequence>
-              <s:element minOccurs="0" maxOccurs="1" name="Respuesta" type="s:string" />
-            </s:sequence>
-          </s:extension>
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="RespuestaWS" abstract="true">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="Accion" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="MensajeDeErrorAmigable" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="DefaultErrorMessage" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="ExceptionStack" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="DioError" type="s:boolean" />
-        </s:sequence>
-      </s:complexType>
-      <s:element name="GetReciboPDFEmpleado">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="id_recibo" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetReciboPDFEmpleadoResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetReciboPDFEmpleadoResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GuardarReciboPDFFirmado">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="bytes_pdf" type="s:string" />
-            <s:element minOccurs="1" maxOccurs="1" name="id_recibo" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="anio" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="mes" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="tipoLiquidacion" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GuardarReciboPDFFirmadoResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="GuardarReciboPDFFirmadoResult" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
       <s:element name="CTL_ACC_Grabar_Lote">
         <s:complexType>
           <s:sequence>
@@ -645,6 +537,334 @@
       </s:element>
       <s:element name="AsignaAreaAPersonasNoCertificadasResponse">
         <s:complexType />
+      </s:element>
+      <s:element name="ImportarRecibos2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="mes" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="anio" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="descripcionImportacion" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="tipoLiquidacion" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="contenidoArchivo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="nombreArchivo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ImportarRecibos2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ImportarRecibos2Result" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ImportarRecibos">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="mes" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="anio" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="descripcionImportacion" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="tipoLiquidacion" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="contenidoArchivo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="nombreArchivo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ImportarRecibosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ImportarRecibosResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ImportarRecibos3">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="mes" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="anio" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="descripcionImportacion" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="tipoLiquidacion" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="contenidoArchivo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="nombreArchivo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ImportarRecibos3Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ImportarRecibos3Result" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetArchivoImportado">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="nombreArchivo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetArchivoImportadoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetArchivoImportadoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRecibo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="liquidacion" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReciboResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetReciboResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTiposLiquidacion">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetTiposLiquidacionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTiposLiquidacionResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRecibosResumen">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="tipoLiquidacion" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="anio" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="mes" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRecibosResumenResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetRecibosResumenResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetIdRecibosSinFirmar">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idLiquidacion" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="tipoLiquidacion" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="anio" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="mes" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetIdRecibosSinFirmarResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetIdRecibosSinFirmarResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetIdRecibosFirmados">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idLiquidacion" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="tipoLiquidacion" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="anio" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="mes" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetIdRecibosFirmadosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetIdRecibosFirmadosResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReciboParseado">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_recibo" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="modo" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReciboParseadoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetReciboParseadoResult" type="tns:StringRespuestaWS" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="StringRespuestaWS">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:RespuestaWS">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Respuesta" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="RespuestaWS" abstract="true">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Accion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MensajeDeErrorAmigable" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DefaultErrorMessage" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ExceptionStack" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DioError" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetReciboPDFDigital">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_recibo" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="modo" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReciboPDFDigitalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetReciboPDFDigitalResult" type="tns:StringRespuestaWS" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReciboPDFEmpleado">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_recibo" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="modo" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReciboPDFEmpleadoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetReciboPDFEmpleadoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarReciboPDFFirmado">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="bytes_pdf" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="idLiquidacion" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_recibo" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="anio" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="mes" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="tipoLiquidacion" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarReciboPDFFirmadoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GuardarReciboPDFFirmadoResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReciboPDFDigitalArchivado">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idArchivo" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReciboPDFDigitalArchivadoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetReciboPDFDigitalArchivadoResult" type="tns:StringRespuestaWS" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConformarRecibo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idRecibo" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="recibo_aceptado" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="observacion" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConformarReciboResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConformarReciboResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLiquidacionesAFirmar">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLiquidacionesAFirmarResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetLiquidacionesAFirmarResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRecibos">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idPersona" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="modo" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRecibosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetRecibosResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReciboPorId">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_recibo" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="modo" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReciboPorIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetReciboPorIdResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="VerificarCSV">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="codigoCSV" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="modo" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="VerificarCSVResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="VerificarCSVResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
       </s:element>
       <s:element name="GetExperienciaLaboral_Principal">
         <s:complexType>
@@ -764,6 +984,45 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="GET_Servicios_Adm_DetallesResult" type="tns:ArrayOfServ_Adm_Publica_Privada" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarDDJJCOVID19">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="v1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="v2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="v3" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="v4" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="v5" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="v6" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="v7" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="v8" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="fi1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="fh1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="n1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="fi2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="fh2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="n2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="fi3" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="fh3" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="n3" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="fi4" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="fh4" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="n4" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="fi5" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="fh5" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="n5" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="nyap" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="nyap2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="idUsuario" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarDDJJCOVID19Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GuardarDDJJCOVID19Result" type="tns:StringRespuestaWS" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -1680,21 +1939,6 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="GetPsicofisicosResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetRecibo">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="liquidacion" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetReciboResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetReciboResult" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -8778,42 +9022,6 @@
   <wsdl:message name="PrintPdfEvaluacionDesempenioSoapOut">
     <wsdl:part name="parameters" element="tns:PrintPdfEvaluacionDesempenioResponse" />
   </wsdl:message>
-  <wsdl:message name="GetTiposLiquidacionSoapIn">
-    <wsdl:part name="parameters" element="tns:GetTiposLiquidacion" />
-  </wsdl:message>
-  <wsdl:message name="GetTiposLiquidacionSoapOut">
-    <wsdl:part name="parameters" element="tns:GetTiposLiquidacionResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetRecibosResumenSoapIn">
-    <wsdl:part name="parameters" element="tns:GetRecibosResumen" />
-  </wsdl:message>
-  <wsdl:message name="GetRecibosResumenSoapOut">
-    <wsdl:part name="parameters" element="tns:GetRecibosResumenResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetIdRecibosSinFirmarSoapIn">
-    <wsdl:part name="parameters" element="tns:GetIdRecibosSinFirmar" />
-  </wsdl:message>
-  <wsdl:message name="GetIdRecibosSinFirmarSoapOut">
-    <wsdl:part name="parameters" element="tns:GetIdRecibosSinFirmarResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetReciboPDFEmpleadorSoapIn">
-    <wsdl:part name="parameters" element="tns:GetReciboPDFEmpleador" />
-  </wsdl:message>
-  <wsdl:message name="GetReciboPDFEmpleadorSoapOut">
-    <wsdl:part name="parameters" element="tns:GetReciboPDFEmpleadorResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetReciboPDFEmpleadoSoapIn">
-    <wsdl:part name="parameters" element="tns:GetReciboPDFEmpleado" />
-  </wsdl:message>
-  <wsdl:message name="GetReciboPDFEmpleadoSoapOut">
-    <wsdl:part name="parameters" element="tns:GetReciboPDFEmpleadoResponse" />
-  </wsdl:message>
-  <wsdl:message name="GuardarReciboPDFFirmadoSoapIn">
-    <wsdl:part name="parameters" element="tns:GuardarReciboPDFFirmado" />
-  </wsdl:message>
-  <wsdl:message name="GuardarReciboPDFFirmadoSoapOut">
-    <wsdl:part name="parameters" element="tns:GuardarReciboPDFFirmadoResponse" />
-  </wsdl:message>
   <wsdl:message name="CTL_ACC_Grabar_LoteSoapIn">
     <wsdl:part name="parameters" element="tns:CTL_ACC_Grabar_Lote" />
   </wsdl:message>
@@ -8850,6 +9058,120 @@
   <wsdl:message name="AsignaAreaAPersonasNoCertificadasSoapOut">
     <wsdl:part name="parameters" element="tns:AsignaAreaAPersonasNoCertificadasResponse" />
   </wsdl:message>
+  <wsdl:message name="ImportarRecibos2SoapIn">
+    <wsdl:part name="parameters" element="tns:ImportarRecibos2" />
+  </wsdl:message>
+  <wsdl:message name="ImportarRecibos2SoapOut">
+    <wsdl:part name="parameters" element="tns:ImportarRecibos2Response" />
+  </wsdl:message>
+  <wsdl:message name="ImportarRecibosSoapIn">
+    <wsdl:part name="parameters" element="tns:ImportarRecibos" />
+  </wsdl:message>
+  <wsdl:message name="ImportarRecibosSoapOut">
+    <wsdl:part name="parameters" element="tns:ImportarRecibosResponse" />
+  </wsdl:message>
+  <wsdl:message name="ImportarRecibos3SoapIn">
+    <wsdl:part name="parameters" element="tns:ImportarRecibos3" />
+  </wsdl:message>
+  <wsdl:message name="ImportarRecibos3SoapOut">
+    <wsdl:part name="parameters" element="tns:ImportarRecibos3Response" />
+  </wsdl:message>
+  <wsdl:message name="GetArchivoImportadoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetArchivoImportado" />
+  </wsdl:message>
+  <wsdl:message name="GetArchivoImportadoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetArchivoImportadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetReciboSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRecibo" />
+  </wsdl:message>
+  <wsdl:message name="GetReciboSoapOut">
+    <wsdl:part name="parameters" element="tns:GetReciboResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTiposLiquidacionSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTiposLiquidacion" />
+  </wsdl:message>
+  <wsdl:message name="GetTiposLiquidacionSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTiposLiquidacionResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetRecibosResumenSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRecibosResumen" />
+  </wsdl:message>
+  <wsdl:message name="GetRecibosResumenSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRecibosResumenResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetIdRecibosSinFirmarSoapIn">
+    <wsdl:part name="parameters" element="tns:GetIdRecibosSinFirmar" />
+  </wsdl:message>
+  <wsdl:message name="GetIdRecibosSinFirmarSoapOut">
+    <wsdl:part name="parameters" element="tns:GetIdRecibosSinFirmarResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetIdRecibosFirmadosSoapIn">
+    <wsdl:part name="parameters" element="tns:GetIdRecibosFirmados" />
+  </wsdl:message>
+  <wsdl:message name="GetIdRecibosFirmadosSoapOut">
+    <wsdl:part name="parameters" element="tns:GetIdRecibosFirmadosResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetReciboParseadoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetReciboParseado" />
+  </wsdl:message>
+  <wsdl:message name="GetReciboParseadoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetReciboParseadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetReciboPDFDigitalSoapIn">
+    <wsdl:part name="parameters" element="tns:GetReciboPDFDigital" />
+  </wsdl:message>
+  <wsdl:message name="GetReciboPDFDigitalSoapOut">
+    <wsdl:part name="parameters" element="tns:GetReciboPDFDigitalResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetReciboPDFEmpleadoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetReciboPDFEmpleado" />
+  </wsdl:message>
+  <wsdl:message name="GetReciboPDFEmpleadoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetReciboPDFEmpleadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GuardarReciboPDFFirmadoSoapIn">
+    <wsdl:part name="parameters" element="tns:GuardarReciboPDFFirmado" />
+  </wsdl:message>
+  <wsdl:message name="GuardarReciboPDFFirmadoSoapOut">
+    <wsdl:part name="parameters" element="tns:GuardarReciboPDFFirmadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetReciboPDFDigitalArchivadoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetReciboPDFDigitalArchivado" />
+  </wsdl:message>
+  <wsdl:message name="GetReciboPDFDigitalArchivadoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetReciboPDFDigitalArchivadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConformarReciboSoapIn">
+    <wsdl:part name="parameters" element="tns:ConformarRecibo" />
+  </wsdl:message>
+  <wsdl:message name="ConformarReciboSoapOut">
+    <wsdl:part name="parameters" element="tns:ConformarReciboResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetLiquidacionesAFirmarSoapIn">
+    <wsdl:part name="parameters" element="tns:GetLiquidacionesAFirmar" />
+  </wsdl:message>
+  <wsdl:message name="GetLiquidacionesAFirmarSoapOut">
+    <wsdl:part name="parameters" element="tns:GetLiquidacionesAFirmarResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetRecibosSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRecibos" />
+  </wsdl:message>
+  <wsdl:message name="GetRecibosSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRecibosResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetReciboPorIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetReciboPorId" />
+  </wsdl:message>
+  <wsdl:message name="GetReciboPorIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetReciboPorIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="VerificarCSVSoapIn">
+    <wsdl:part name="parameters" element="tns:VerificarCSV" />
+  </wsdl:message>
+  <wsdl:message name="VerificarCSVSoapOut">
+    <wsdl:part name="parameters" element="tns:VerificarCSVResponse" />
+  </wsdl:message>
   <wsdl:message name="GetExperienciaLaboral_PrincipalSoapIn">
     <wsdl:part name="parameters" element="tns:GetExperienciaLaboral_Principal" />
   </wsdl:message>
@@ -8879,6 +9201,12 @@
   </wsdl:message>
   <wsdl:message name="GET_Servicios_Adm_DetallesSoapOut">
     <wsdl:part name="parameters" element="tns:GET_Servicios_Adm_DetallesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GuardarDDJJCOVID19SoapIn">
+    <wsdl:part name="parameters" element="tns:GuardarDDJJCOVID19" />
+  </wsdl:message>
+  <wsdl:message name="GuardarDDJJCOVID19SoapOut">
+    <wsdl:part name="parameters" element="tns:GuardarDDJJCOVID19Response" />
   </wsdl:message>
   <wsdl:message name="BuscarUnidadesTiempoSoapIn">
     <wsdl:part name="parameters" element="tns:BuscarUnidadesTiempo" />
@@ -9149,12 +9477,6 @@
   </wsdl:message>
   <wsdl:message name="GetPsicofisicosSoapOut">
     <wsdl:part name="parameters" element="tns:GetPsicofisicosResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetReciboSoapIn">
-    <wsdl:part name="parameters" element="tns:GetRecibo" />
-  </wsdl:message>
-  <wsdl:message name="GetReciboSoapOut">
-    <wsdl:part name="parameters" element="tns:GetReciboResponse" />
   </wsdl:message>
   <wsdl:message name="GetLiquidacionesSoapIn">
     <wsdl:part name="parameters" element="tns:GetLiquidaciones" />
@@ -11333,30 +11655,6 @@
       <wsdl:input message="tns:PrintPdfEvaluacionDesempenioSoapIn" />
       <wsdl:output message="tns:PrintPdfEvaluacionDesempenioSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="GetTiposLiquidacion">
-      <wsdl:input message="tns:GetTiposLiquidacionSoapIn" />
-      <wsdl:output message="tns:GetTiposLiquidacionSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetRecibosResumen">
-      <wsdl:input message="tns:GetRecibosResumenSoapIn" />
-      <wsdl:output message="tns:GetRecibosResumenSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetIdRecibosSinFirmar">
-      <wsdl:input message="tns:GetIdRecibosSinFirmarSoapIn" />
-      <wsdl:output message="tns:GetIdRecibosSinFirmarSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetReciboPDFEmpleador">
-      <wsdl:input message="tns:GetReciboPDFEmpleadorSoapIn" />
-      <wsdl:output message="tns:GetReciboPDFEmpleadorSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetReciboPDFEmpleado">
-      <wsdl:input message="tns:GetReciboPDFEmpleadoSoapIn" />
-      <wsdl:output message="tns:GetReciboPDFEmpleadoSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GuardarReciboPDFFirmado">
-      <wsdl:input message="tns:GuardarReciboPDFFirmadoSoapIn" />
-      <wsdl:output message="tns:GuardarReciboPDFFirmadoSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="CTL_ACC_Grabar_Lote">
       <wsdl:input message="tns:CTL_ACC_Grabar_LoteSoapIn" />
       <wsdl:output message="tns:CTL_ACC_Grabar_LoteSoapOut" />
@@ -11381,6 +11679,82 @@
       <wsdl:input message="tns:AsignaAreaAPersonasNoCertificadasSoapIn" />
       <wsdl:output message="tns:AsignaAreaAPersonasNoCertificadasSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="ImportarRecibos2">
+      <wsdl:input message="tns:ImportarRecibos2SoapIn" />
+      <wsdl:output message="tns:ImportarRecibos2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ImportarRecibos">
+      <wsdl:input message="tns:ImportarRecibosSoapIn" />
+      <wsdl:output message="tns:ImportarRecibosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ImportarRecibos3">
+      <wsdl:input message="tns:ImportarRecibos3SoapIn" />
+      <wsdl:output message="tns:ImportarRecibos3SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetArchivoImportado">
+      <wsdl:input message="tns:GetArchivoImportadoSoapIn" />
+      <wsdl:output message="tns:GetArchivoImportadoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRecibo">
+      <wsdl:input message="tns:GetReciboSoapIn" />
+      <wsdl:output message="tns:GetReciboSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTiposLiquidacion">
+      <wsdl:input message="tns:GetTiposLiquidacionSoapIn" />
+      <wsdl:output message="tns:GetTiposLiquidacionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRecibosResumen">
+      <wsdl:input message="tns:GetRecibosResumenSoapIn" />
+      <wsdl:output message="tns:GetRecibosResumenSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetIdRecibosSinFirmar">
+      <wsdl:input message="tns:GetIdRecibosSinFirmarSoapIn" />
+      <wsdl:output message="tns:GetIdRecibosSinFirmarSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetIdRecibosFirmados">
+      <wsdl:input message="tns:GetIdRecibosFirmadosSoapIn" />
+      <wsdl:output message="tns:GetIdRecibosFirmadosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReciboParseado">
+      <wsdl:input message="tns:GetReciboParseadoSoapIn" />
+      <wsdl:output message="tns:GetReciboParseadoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReciboPDFDigital">
+      <wsdl:input message="tns:GetReciboPDFDigitalSoapIn" />
+      <wsdl:output message="tns:GetReciboPDFDigitalSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReciboPDFEmpleado">
+      <wsdl:input message="tns:GetReciboPDFEmpleadoSoapIn" />
+      <wsdl:output message="tns:GetReciboPDFEmpleadoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GuardarReciboPDFFirmado">
+      <wsdl:input message="tns:GuardarReciboPDFFirmadoSoapIn" />
+      <wsdl:output message="tns:GuardarReciboPDFFirmadoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReciboPDFDigitalArchivado">
+      <wsdl:input message="tns:GetReciboPDFDigitalArchivadoSoapIn" />
+      <wsdl:output message="tns:GetReciboPDFDigitalArchivadoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConformarRecibo">
+      <wsdl:input message="tns:ConformarReciboSoapIn" />
+      <wsdl:output message="tns:ConformarReciboSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLiquidacionesAFirmar">
+      <wsdl:input message="tns:GetLiquidacionesAFirmarSoapIn" />
+      <wsdl:output message="tns:GetLiquidacionesAFirmarSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRecibos">
+      <wsdl:input message="tns:GetRecibosSoapIn" />
+      <wsdl:output message="tns:GetRecibosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReciboPorId">
+      <wsdl:input message="tns:GetReciboPorIdSoapIn" />
+      <wsdl:output message="tns:GetReciboPorIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="VerificarCSV">
+      <wsdl:input message="tns:VerificarCSVSoapIn" />
+      <wsdl:output message="tns:VerificarCSVSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetExperienciaLaboral_Principal">
       <wsdl:input message="tns:GetExperienciaLaboral_PrincipalSoapIn" />
       <wsdl:output message="tns:GetExperienciaLaboral_PrincipalSoapOut" />
@@ -11400,6 +11774,10 @@
     <wsdl:operation name="GET_Servicios_Adm_Detalles">
       <wsdl:input message="tns:GET_Servicios_Adm_DetallesSoapIn" />
       <wsdl:output message="tns:GET_Servicios_Adm_DetallesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GuardarDDJJCOVID19">
+      <wsdl:input message="tns:GuardarDDJJCOVID19SoapIn" />
+      <wsdl:output message="tns:GuardarDDJJCOVID19SoapOut" />
     </wsdl:operation>
     <wsdl:operation name="BuscarUnidadesTiempo">
       <wsdl:input message="tns:BuscarUnidadesTiempoSoapIn" />
@@ -11580,10 +11958,6 @@
     <wsdl:operation name="GetPsicofisicos">
       <wsdl:input message="tns:GetPsicofisicosSoapIn" />
       <wsdl:output message="tns:GetPsicofisicosSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetRecibo">
-      <wsdl:input message="tns:GetReciboSoapIn" />
-      <wsdl:output message="tns:GetReciboSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetLiquidaciones">
       <wsdl:input message="tns:GetLiquidacionesSoapIn" />
@@ -13083,60 +13457,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetTiposLiquidacion">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetTiposLiquidacion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetRecibosResumen">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetRecibosResumen" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetIdRecibosSinFirmar">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetIdRecibosSinFirmar" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetReciboPDFEmpleador">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetReciboPDFEmpleador" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetReciboPDFEmpleado">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetReciboPDFEmpleado" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GuardarReciboPDFFirmado">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarReciboPDFFirmado" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="CTL_ACC_Grabar_Lote">
       <soap:operation soapAction="http://wsviaticos.gov.ar/CTL_ACC_Grabar_Lote" style="document" />
       <wsdl:input>
@@ -13191,6 +13511,177 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ImportarRecibos2">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ImportarRecibos2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ImportarRecibos">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ImportarRecibos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ImportarRecibos3">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ImportarRecibos3" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetArchivoImportado">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetArchivoImportado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRecibo">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetRecibo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTiposLiquidacion">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetTiposLiquidacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRecibosResumen">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetRecibosResumen" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIdRecibosSinFirmar">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetIdRecibosSinFirmar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIdRecibosFirmados">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetIdRecibosFirmados" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReciboParseado">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetReciboParseado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReciboPDFDigital">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetReciboPDFDigital" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReciboPDFEmpleado">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetReciboPDFEmpleado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarReciboPDFFirmado">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarReciboPDFFirmado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReciboPDFDigitalArchivado">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetReciboPDFDigitalArchivado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConformarRecibo">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/ConformarRecibo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLiquidacionesAFirmar">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetLiquidacionesAFirmar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRecibos">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetRecibos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReciboPorId">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GetReciboPorId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VerificarCSV">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/VerificarCSV" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetExperienciaLaboral_Principal">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetExperienciaLaboral_Principal" style="document" />
       <wsdl:input>
@@ -13229,6 +13720,15 @@
     </wsdl:operation>
     <wsdl:operation name="GET_Servicios_Adm_Detalles">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GET_Servicios_Adm_Detalles" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarDDJJCOVID19">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/GuardarDDJJCOVID19" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -13634,15 +14134,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetPsicofisicos">
       <soap:operation soapAction="http://wsviaticos.gov.ar/GetPsicofisicos" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetRecibo">
-      <soap:operation soapAction="http://wsviaticos.gov.ar/GetRecibo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -16938,60 +17429,6 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetTiposLiquidacion">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetTiposLiquidacion" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetRecibosResumen">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetRecibosResumen" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetIdRecibosSinFirmar">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetIdRecibosSinFirmar" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetReciboPDFEmpleador">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetReciboPDFEmpleador" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetReciboPDFEmpleado">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetReciboPDFEmpleado" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GuardarReciboPDFFirmado">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarReciboPDFFirmado" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="CTL_ACC_Grabar_Lote">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/CTL_ACC_Grabar_Lote" style="document" />
       <wsdl:input>
@@ -17046,6 +17483,177 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ImportarRecibos2">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ImportarRecibos2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ImportarRecibos">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ImportarRecibos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ImportarRecibos3">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ImportarRecibos3" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetArchivoImportado">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetArchivoImportado" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRecibo">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetRecibo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTiposLiquidacion">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetTiposLiquidacion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRecibosResumen">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetRecibosResumen" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIdRecibosSinFirmar">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetIdRecibosSinFirmar" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIdRecibosFirmados">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetIdRecibosFirmados" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReciboParseado">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetReciboParseado" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReciboPDFDigital">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetReciboPDFDigital" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReciboPDFEmpleado">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetReciboPDFEmpleado" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarReciboPDFFirmado">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarReciboPDFFirmado" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReciboPDFDigitalArchivado">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetReciboPDFDigitalArchivado" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConformarRecibo">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/ConformarRecibo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLiquidacionesAFirmar">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetLiquidacionesAFirmar" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRecibos">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetRecibos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReciboPorId">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetReciboPorId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VerificarCSV">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/VerificarCSV" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetExperienciaLaboral_Principal">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetExperienciaLaboral_Principal" style="document" />
       <wsdl:input>
@@ -17084,6 +17692,15 @@
     </wsdl:operation>
     <wsdl:operation name="GET_Servicios_Adm_Detalles">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GET_Servicios_Adm_Detalles" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarDDJJCOVID19">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/GuardarDDJJCOVID19" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -17489,15 +18106,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetPsicofisicos">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/GetPsicofisicos" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetRecibo">
-      <soap12:operation soapAction="http://wsviaticos.gov.ar/GetRecibo" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

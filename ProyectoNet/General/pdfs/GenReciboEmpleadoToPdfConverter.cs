@@ -64,11 +64,17 @@ public class GenReciboEmpleadoToPdfConverter : ModeloToPdfConverter
         {
             //utilizo el pdf de 1 pagina 
             mapa.Add("paginasPDF", "una"); // para saber cual pdf utilizar
-            mapa.Add("totalH", string.Format("{0:N}", Convert.ToDecimal(r.cabecera.Bruto) / 100) );
-            mapa.Add("totalD", string.Format("{0:N}", Convert.ToDecimal(r.cabecera.Descuentos) / 100));
+            mapa.Add("totalH1", string.Format("{0:N}", Convert.ToDecimal(r.cabecera.Bruto) / 100) );
+            mapa.Add("totalD1", string.Format("{0:N}", Convert.ToDecimal(r.cabecera.Descuentos) / 100));
             // mapa.Add("neto", Convert.ToDecimal(r.cabecera.Neto).ToString("C")); esto si directamente se retorna desde el SP un float asi en el campo del pdf lo formatea bien, poque si es un string lo pone como string y no lo formatea
             //  mapa.Add("neto", string.Format("{0:C}", Convert.ToDecimal(r.cabecera.Neto) / 100));
-            mapa.Add("neto", string.Format("{0:C2}", Convert.ToDecimal(r.cabecera.Neto) / 100));
+            /*C2 como formato para que deje solo 2 decimales, en desarrollo pone ya el $xx.xxx,xx, pero en el server toma la deficion suya en este caso el euro
+             * por lo que al final el pdf no convierte el valor numerico en $.
+             * 
+             por si las dudas al pdf no le seteo el formato y dejo que sea libre y aca l doy el formato de $ y string.Creo que es la cuestion de la apariencia en pdf
+             porque cada item tiene un valor y una apariencia en pdf,uno se llena desde codigo (y puede ser cualquier cosa) el otro desde la app visual del adobe reader
+            */
+            mapa.Add("neto1", "$ "+string.Format("{0:N}", Convert.ToDecimal(r.cabecera.Neto) / 100));
             mapa.Add("categoria", r.cabecera.NivelGrado);
             mapa.Add("opcion", r.cabecera.OpcionJubilatoria);
             mapa.Add("fechaLiquidacion", r.cabecera.FechaLiquidacion);
@@ -100,26 +106,57 @@ public class GenReciboEmpleadoToPdfConverter : ModeloToPdfConverter
 */
          }
         else {
-            //utilizo el pdf de 2 paginas
-            mapa.Add("paginasPDF", "dos"); // para saber cual pdf utilizar
-            mapa.Add("totalH1", "****");
-            mapa.Add("totalD1", "****");
-            mapa.Add("neto1", "****");
-            mapa.Add("totalH2", string.Format("{0:N}", Convert.ToDecimal(r.cabecera.Bruto) / 100));
-            mapa.Add("totalD2", string.Format("{0:N}", Convert.ToDecimal(r.cabecera.Descuentos) / 100));
-            mapa.Add("neto2", string.Format("{0:C2}", Convert.ToDecimal(r.cabecera.Neto) / 100));
-            mapa.Add("categoria", r.cabecera.NivelGrado);
-            mapa.Add("opcion", r.cabecera.OpcionJubilatoria);
-            mapa.Add("fechaLiquidacion", r.cabecera.FechaLiquidacion);
-            mapa.Add("tipoLiquidacion", Convert.ToString(r.cabecera.TipoLiquidacion));
-            mapa.Add("dni", Convert.ToString(r.cabecera.Nro_Documento));
-            mapa.Add("fechaDeposito", r.cabecera.Fecha_deposito.ToString("dd/MM/yyyy"));
+            if ((cantidadDetalles >= 21) && (cantidadDetalles <= 40))
+            {
+                //utilizo el pdf de 2 paginas
+                mapa.Add("paginasPDF", "dos"); // para saber cual pdf utilizar
+                mapa.Add("totalH1", "****");
+                mapa.Add("totalD1", "****");
+                mapa.Add("neto1", "****");
+                mapa.Add("totalH2", string.Format("{0:N}", Convert.ToDecimal(r.cabecera.Bruto) / 100));
+                mapa.Add("totalD2", string.Format("{0:N}", Convert.ToDecimal(r.cabecera.Descuentos) / 100));
+                mapa.Add("neto2", "$ " + string.Format("{0:N}", Convert.ToDecimal(r.cabecera.Neto) / 100));
+                mapa.Add("categoria", r.cabecera.NivelGrado);
+                mapa.Add("opcion", r.cabecera.OpcionJubilatoria);
+                mapa.Add("fechaLiquidacion", r.cabecera.FechaLiquidacion);
+                mapa.Add("tipoLiquidacion", Convert.ToString(r.cabecera.TipoLiquidacion));
+                mapa.Add("dni", Convert.ToString(r.cabecera.Nro_Documento));
+                mapa.Add("fechaDeposito", r.cabecera.Fecha_deposito.ToString("dd/MM/yyyy"));
 
-            mapa.Add("fechaIngreso", r.cabecera.FechaIngreso.ToString("dd/MM/yyyy"));
-            mapa.Add("cuenta", r.cabecera.CuentaBancaria);
-            //genero el string en letras
-            mapa.Add("montoLetras", "*****");
-            mapa.Add("montoLetras2", General.Numalet.ToCardinal(r.cabecera.Neto, new CultureInfo("en-US")));
+                mapa.Add("fechaIngreso", r.cabecera.FechaIngreso.ToString("dd/MM/yyyy"));
+                mapa.Add("cuenta", r.cabecera.CuentaBancaria);
+                //genero el string en letras
+                mapa.Add("montoLetras", "*****");
+                mapa.Add("montoLetras2", General.Numalet.ToCardinal(r.cabecera.Neto, new CultureInfo("en-US")));
+            }
+            else {
+                //utilizo el pdf de 3 paginas
+                mapa.Add("paginasPDF", "tres"); // para saber cual pdf utilizar
+                mapa.Add("totalH1", "****");
+                mapa.Add("totalD1", "****");
+                mapa.Add("neto1", "****");
+                mapa.Add("totalH2", "****");
+                mapa.Add("totalD2", "****");
+                mapa.Add("neto2", "****");
+                mapa.Add("totalH3", string.Format("{0:N}", Convert.ToDecimal(r.cabecera.Bruto) / 100));
+                mapa.Add("totalD3", string.Format("{0:N}", Convert.ToDecimal(r.cabecera.Descuentos) / 100));
+                mapa.Add("neto3", "$ " + string.Format("{0:N}", Convert.ToDecimal(r.cabecera.Neto) / 100));
+                mapa.Add("categoria", r.cabecera.NivelGrado);
+                mapa.Add("opcion", r.cabecera.OpcionJubilatoria);
+                mapa.Add("fechaLiquidacion", r.cabecera.FechaLiquidacion);
+                mapa.Add("tipoLiquidacion", Convert.ToString(r.cabecera.TipoLiquidacion));
+                mapa.Add("dni", Convert.ToString(r.cabecera.Nro_Documento));
+                mapa.Add("fechaDeposito", r.cabecera.Fecha_deposito.ToString("dd/MM/yyyy"));
+
+                mapa.Add("fechaIngreso", r.cabecera.FechaIngreso.ToString("dd/MM/yyyy"));
+                mapa.Add("cuenta", r.cabecera.CuentaBancaria);
+                //genero el string en letras
+                mapa.Add("montoLetras", "*****");
+                mapa.Add("montoLetras2", "*****");
+                mapa.Add("montoLetras3", General.Numalet.ToCardinal(r.cabecera.Neto, new CultureInfo("en-US"))); 
+            
+            }
+            
         }
 
         return mapa;

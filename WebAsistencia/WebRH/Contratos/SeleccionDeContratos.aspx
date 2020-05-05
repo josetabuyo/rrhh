@@ -153,43 +153,78 @@
     <script type="text/javascript" src="../Scripts/Area.js"></script>
     <script type="text/javascript" src="../Scripts/select2-3.4.4/Select2.min.js"></script>
     <script type="text/javascript" src="../Scripts/select2-3.4.4/select2_locale_es.js"></script>
-    <script type="text/javascript" src="GraficoContratos.js"></script>
-    <script type="text/javascript" src="../Reportes/GraficoHerramientas.js"></script>
+
+    <script type="text/javascript" src="../MAU/VistaDePermisosDeUnUsuario.js"></script>
+    <script type="text/javascript" src="../MAU/Autorizador.js"></script>
+    <script type="text/javascript" src="../MAU/RepositorioDeFuncionalidades.js"></script>
+    <script type="text/javascript" src="../MAU/RepositorioDeUsuarios.js"></script>
+    <script type="text/javascript" src="../MAU/NodoEnArbolDeFuncionalidades.js"></script>
+    <script type="text/javascript" src="../MAU/AdministradorDeUsuarios.js"></script>
+    <script type="text/javascript" src="../MAU/Usuario.js"></script>
+    <%--<script type="text/javascript" src="../MAU/HabilitadorDeControles.js"></script>--%>
+    <script type="text/javascript" src="../Permisos/Permisos.js"></script>
+    <script type="text/javascript" src="../Scripts/RepositorioDePersonas.js"></script>
+    <script type="text/javascript" src="../Scripts/Persona.js"></script>
+    <script type="text/javascript" src="../Scripts/SelectorDePersonas.js"></script>
+
 
     <script type="text/javascript">
-
+        var idFuncionalidadPagina;
         //EFECTOS DEL MENU ORGANIGRAMA
 
         Backend.start(function () {
+            
             $(document).ready(function () {
-                var menuLeft = document.getElementById('cbp-spmenu-s1'),
-				    showLeftPush = document.getElementById('showLeftPush'),
-				    body = document.body;
+                Backend.GetFuncionalidadesPerfilesAreas()
+                    .onSuccess(function (permisos) {
 
-                showLeftPush.onclick = function () {
-                    classie.toggle(this, 'active');
-                    classie.toggle(body, 'cbp-spmenu-push-toright');
-                    classie.toggle(menuLeft, 'cbp-spmenu-open');
-                    //disableOther('showLeftPush');
-                };
-                GraficoHerramientas.BlanquearParametrosDeBusqueda();
-                GraficoContratos.Inicializar();
+                        idFuncionalidadPagina = IdFuncionalidad(permisos, 'ingreso_seleccion_contrato');
 
-                $('#btn_exportarExcelDetalle').click(function () {
-                    ExportarAExcel.fnExcelReport(document.getElementById('tabla_detalle'));
-                });
+                        function IdFuncionalidad(permisos, funcionalidad) {
+                            if (!funcionalidad)
+                                return true;
 
-                $('#exportar_datos').click(function () {
-                    ExportarAExcel.fnExcelReport(document.getElementById('tabla_resultado_totales'));
-                });
+                            for (i = 0; i < permisos.length; i++) {
+                                if (permisos[i].Nombre === funcionalidad) {
+                                    return permisos[i].Id;
+                                }
 
-//                $('#btn_generarInforme').click(function () {
-//                    alert("informe");
-//                });
-            });
+                            }
+
+                            return false;
+                        }
+
+                        var menuLeft = document.getElementById('cbp-spmenu-s1'),
+                            showLeftPush = document.getElementById('showLeftPush'),
+                            body = document.body;
+
+                        showLeftPush.onclick = function () {
+                            classie.toggle(this, 'active');
+                            classie.toggle(body, 'cbp-spmenu-push-toright');
+                            classie.toggle(menuLeft, 'cbp-spmenu-open');
+                            //disableOther('showLeftPush');
+                        };
+                        GraficoHerramientas.BlanquearParametrosDeBusqueda();
+                        GraficoContratos.Inicializar();
+
+                        $('#btn_exportarExcelDetalle').click(function () {
+                            ExportarAExcel.fnExcelReport(document.getElementById('tabla_detalle'));
+                        });
+
+                        $('#exportar_datos').click(function () {
+                            ExportarAExcel.fnExcelReport(document.getElementById('tabla_resultado_totales'));
+                        });
+
+                    });
+            });                        
+
+            
         });
-
+        
         
     </script>
+    <script type="text/javascript" src="../MAU/HabilitadorDeControles.js"></script>
+    <script type="text/javascript" src="GraficoContratos.js"></script>
+    <script type="text/javascript" src="../Reportes/GraficoHerramientas.js"></script>
 </body>
 </html>

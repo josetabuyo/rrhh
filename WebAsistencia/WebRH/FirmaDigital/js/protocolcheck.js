@@ -20,7 +20,7 @@
 
     function _createHiddenIframe(target, uri) {
         var iframe = document.createElement("iframe");
-        iframe.src = uri;        
+        iframe.src = uri;
         iframe.id = "hiddenIframe";
         iframe.style.display = "none";
         target.appendChild(iframe);
@@ -28,7 +28,7 @@
     }
     function _createHiddenIframe2(target, uri) {
         var iframe = document.createElement("iframe");
-        iframe.src = uri;        
+        iframe.src = uri;
         iframe.id = "hiddenIframe2";
         iframe.style.display = "none";
         //target.appendChild(iframe);
@@ -59,43 +59,44 @@
 
     function openUriWithTimeoutHack(uri, successCb, failCb) {
 
-        var timeout = setTimeout(function () {
+      /*  var timeout = setTimeout(function () {
             failCb();
             handler.remove();
-        }, 5000);//5 segundos
-
-        var handler = _registerEvent(window, "blur", onBlur);
-
-        function onBlur() {
+        }, 5000); //5 segundos
+        timeout = 6000; /*por algun motivo el timeout seteado en la funcion anterior siempre es variable, 9,255,etc, esto produce que se abran mas de una vez las 
+        descargas de los jnlp; por eso lo seteo en un tiempo alto de 5 segundo creo*/
+ /*       var handler = _registerEvent(window, "blur", onBlur);
+*/
+        /*function onBlur() {
             clearTimeout(timeout);
             handler.remove();
             successCb()
-        }
+        }*/
         window.location = uri;
 
     }
-//MODIFICAR para que cuando recien al descargar el archivo se ejecute el evento load
+    //MODIFICAR para que cuando recien al descargar el archivo se ejecute el evento load
     function openUriUsingFirefox2(uri, successCb, failCb) {
         var iframe = document.querySelector("#hiddenIframe");
-       // var iframe2 = document.querySelector("#hiddenIframe2");
+        // var iframe2 = document.querySelector("#hiddenIframe2");
         //var iframeInicial = false;
         if (!iframe) {
             iframe = _createHiddenIframe(document.body, "about:blank");
-           // iframe2 = _createHiddenIframe2(document.body, "about:blank");
-           // iframeInicial = true;
+            // iframe2 = _createHiddenIframe2(document.body, "about:blank");
+            // iframeInicial = true;
         }
         try {
-        	//NOTA:por alguna razon dejo de funcionar y abre dos veces el launch al setear src y agregar child iframe
+            //NOTA:por alguna razon dejo de funcionar y abre dos veces el launch al setear src y agregar child iframe
             //iframe.onload("mostrarPantalla()");            
-         //   if (iframeInicial) {
-            	iframe.addEventListener("load", mostrarPantalla);
-            	iframe.src = uri;
-            	document.body.appendChild(iframe);//aqui recien se toma , con esto aparece el dialogo de descarga
-            	
-         //   }else{            	
-            	//iframe2.contentWindow.location.href = uri;//con esto ya aparece el launch
-         //   }            
-                 
+            //   if (iframeInicial) {
+            iframe.addEventListener("load", mostrarPantalla);
+            iframe.src = uri;
+            document.body.appendChild(iframe); //aqui recien se toma , con esto aparece el dialogo de descarga
+
+            //   }else{            	
+            //iframe2.contentWindow.location.href = uri;//con esto ya aparece el launch
+            //   }            
+
             successCb();
         } catch (e) {
             if (e.name == "NS_ERROR_UNKNOWN_PROTOCOL") {
@@ -112,8 +113,8 @@
             iframe = _createHiddenIframe(document.body, "about:blank");
         }
         try {
-            	iframe.contentWindow.location.href = uri;
-                successCb();
+            iframe.contentWindow.location.href = uri;
+            successCb();
         } catch (e) {
             if (e.name == "NS_ERROR_UNKNOWN_PROTOCOL") {
                 failCb();
@@ -229,4 +230,4 @@
             }
         }
     }
-}(window));
+} (window));

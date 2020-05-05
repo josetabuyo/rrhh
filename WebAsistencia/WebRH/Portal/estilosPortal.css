@@ -37,7 +37,7 @@ a.back{
     background-color: rgba(0, 108, 116, 0.74);
     border: 3px solid #006b74;
     color: #FFF;
-    margin-top: -60px;
+    /*margin-top: -60px;   coronavirus*/
     padding: 2px;
     font-size: 12px;
 }
