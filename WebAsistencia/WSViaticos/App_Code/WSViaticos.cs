@@ -4892,6 +4892,12 @@ public class WSViaticos : System.Web.Services.WebService
         //aaaaaaaaaaaaaaaaaaaaaaaa
         return RepoLegajo().getAreaDeLaPersona(usuario.Owner.Documento);
     }
+    [WebMethod]
+    public string getAreaDeUnaPersona(int documento, Usuario usuario)
+    {
+        //aaaaaaaaaaaaaaaaaaaaaaaa
+        return RepoLegajo().getAreaDeLaPersona(documento);
+    }
 
     [WebMethod]
     public string GetEstudios(Usuario usuario)
