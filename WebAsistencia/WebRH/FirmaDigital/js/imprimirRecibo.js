@@ -214,6 +214,9 @@ var Permisos = {
             function (usuario) {
                 //se encontro a la persona con id, entonces cargo los datos correspondientes
                 //_this.cargarUsuario(usuario);
+                //dejo el radio buton seteado por default a los recibos actuales
+                document.getElementById("recibosRecientes").checked = true;
+
                 _this.cargarUsuario(usuario, la_persona_seleccionada.id);
             },
             function (error) {
@@ -317,7 +320,7 @@ var Permisos = {
         _this.getPerfilesDelUsuario();
         _this.getFuncionalidadesDelUsuario();
 
-        Backend.getAreaDeLaPersona().onSuccess(function (descripcionArea) {
+        Backend.getAreaDeUnaPersona(usuario.Owner.Documento).onSuccess(function (descripcionArea) {
             var resp = JSON.parse(descripcionArea);
 
             $("#areaActual").html(resp.Alias);

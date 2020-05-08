@@ -16,8 +16,11 @@ var GeneralPortal = {
 
                 if (respuesta.tipoDeRespuesta = "conformarRecibo.ok") {
                     // agrego un enlace de descarga
-                    texto1 = "<BR/>";
-                    boton1 = "<button type='button' onclick=\"GeneralPortal.descargarRecibo(\'" + respuesta.idArchivo + "\')\">Descargar</button>";
+                    //texto1 = "<BR/>";
+                    //boton1 = "<button type='button' onclick=\"GeneralPortal.descargarRecibo(\'" + respuesta.idArchivo + "\')\">Descargar</button>";
+                    texto1 = "<hr style='border-top: 1px solid #d0cdd6; border-radius: 5px; width: 100%; margin: 0 auto; margin-top: 5px;'>";
+                    boton1 = "<div style='width:100%;text-align: left;padding:5pt 0pt' ><img src='../../Imagenes/005boton_descargar.gif' style='width:80pt;cursor:pointer' onclick=\"GeneralPortal.descargarRecibo(\'" + respuesta.idArchivo + "\')\"><span style='font-style: italic;padding-left:7px;vertical-align:bottom;'>(Recibo de Haberes V&#193;LIDO en formato pdf)</span></div>";
+
                     div_caja_info_recibos.append(texto1 + boton1);
 
                 } else { 
