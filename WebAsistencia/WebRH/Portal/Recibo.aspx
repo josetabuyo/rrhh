@@ -19,17 +19,20 @@
     <form id="form1" runat="server">
     <uc2:BarraMenu ID="BarraMenu" UrlPassword="../" runat="server" Feature="<span style='font-size:18px; font-weight: bold; padding-top:25px;'>Datos<br/>Recibo</span> <br/> " UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <div class="container-fluid">
-        <h1 style="text-align:center; margin:17px; "></h1>
-        
-        <div style="text-align:center;" class="caja_izq no-print"></div>
-         <div  class="caja_der papel" >
-         <legend style="margin-top: 20px;">RECIBO DE SUELDO</legend>
+         
+        <div style="text-align:center;margin-top:20px; padding-bottom:7px;" class="caja_izq no-print"></div>
+         <div  class="caja_derxxxx papelxxx" style="float:left;margin-top:20px;width:80%;padding: 0px 20px 0px 20px; ">
+             <div style="background-image: linear-gradient(to bottom, rgb(1,70,99), rgb(1,70,99));border-radius: 10px;color: #fff;font-weight: bold;padding:10pt 0pt 10pt 0pt;font-size: 13pt;text-align: center;">
+                       
+                          RECIBO DE SUELDO      
+                       
+              </div>
          <div id="div_recibo">
             <%--<p class="">Dirección de Diseño y Desarrollo Organizacional para la Gestión de Personas, Dirección de Recursos Humanos y 
          Organización, Secretaría de Coordinación y Monitoreo Institucional, Unidad Ministro, Ministerio de Desarrollo Social </p>--%>
-         <div  style="margin:10px;">
+         <div  style="margin:10px;font-size:12pt">
          <p>Seleccioná un mes para ver los recibos correspondientes al sueldo cobrado a principios del mes de:</p>
-             <select style="width:100px;" id="cmb_meses">
+             <select style="width:115px;" id="cmb_meses">
                 <option value="1">Enero</option>
                 <option value="2">Febrero</option>
                 <option value="3">Marzo</option>
@@ -43,16 +46,23 @@
                 <option value="11">Noviembre</option>
                 <option value="12">Diciembre</option>
              </select>
-              <select style="width:65px;" id="cmb_anio">
+              <select style="width:70px;" id="cmb_anio">
              </select>
-             <div id="caja_controles">
+             <div id="caja_controles" style="margin-top:5pt;">
                 
              </div>
              <div id="caja_info_recibos">
                 
              </div>
-             </div>
 
+             
+
+             <hr style="border-top: 1px solid #d0cdd6;border-radius: 5px;width: 100%;margin: 0 auto;margin-top:5px;">
+             </div>
+                          
+
+             <div style="max-width:650px;-webkit-border-radius: 7px 7px 0px 0px;
+-moz-border-radius: 7px 7px 0px 0px;border-radius: 7px 7px 0px 0px;border-collapse: collapse;border: 0px solid #1C6EA4;text-align: center;margin: 0 auto;">
          <table id="tabla_recibo_encabezado">
             <thead>
                 <tr class="fila_header">
@@ -73,7 +83,7 @@
             <tr class="fila_header">
                     <th colspan="1" rowspan="2" class="ancho_primera_columna">Código</th>
                     <th colspan="1" rowspan="2" class="ancho_segunda_columna">Descripción</th>
-                    <th colspan="3" class="">Importe</th>
+                    <th colspan="3" style="text-align:center;">Importe</th>
                 </tr>
                 <tr class="fila_header">
                     <th colspan="1" style="width:110px;">Haberes</th>
@@ -84,15 +94,15 @@
                
             </tbody>
          </table>
-         
-        <p style="font-weight: bold; text-align: center; margin-top: 20px;">SOLO PARA INFORMACIÓN - NO VÁLIDO COMO COMPROBANTE</p>
-       <div id="bloque_final" style="display:none; margin-top:20px;">
+                 <div id="bloque_final" style="display:none; margin-top:20px;text-align:left;;width:100%">
+            <p style="font-weight: bold; text-align: center; margin-top: 20px;">SOLO PARA INFORMACIÓN - NO VÁLIDO COMO COMPROBANTE</p>
+       
             <p><strong>Área:</strong> <span id="area"></span></p>
             <p><strong>Categ:</strong> <span id="categoria"></span></p>
             <p><strong>Fecha Liq:</strong> <span id="fechaLiquidacion"></span></p>
             <p><strong>Domicilio:</strong> <span id="domicilio"></span></p>
         </div>
-
+         </div>
 
 <%--
          <p>Recibí el importe neto y Copia del recibo de la presente liquidación.</p>
@@ -113,7 +123,7 @@
     </div>
     </form>
 </body>
-<script type="text/javascript" src="Legajo.js"></script>
+<script type="text/javascript" src="Legajo.js?"></script>
 <script type="text/javascript" src="../Scripts/Spin.js"></script>
 <script type="text/javascript" src="../Scripts/ControlesImagenes/VistaThumbnail.js"></script>
 <script type="text/javascript" src="../Scripts/jsPortal/RepoFirmaDigital.js"></script>
@@ -164,7 +174,7 @@
         if (opcion == 0) {
             //hizo click en conformar, entonces oculto el panel de observacion
             document.getElementById('capaObservacion').style.display = 'none';
-            document.getElementById('observacion2').value = '';
+            //document.getElementById('observacion2').value = '';
         } else {
             document.getElementById('capaObservacion').style.display = 'block';
         
@@ -173,7 +183,7 @@
 
     function conformarRecibo(idRecibo) {
 
-        var obs = document.getElementById('observacion2').value;
+        var obs = document.getElementById('observacion2').innerHTML;//value;
         var resultado = 0;
 
         var porNombre = document.getElementsByName("modoFirma");
@@ -185,7 +195,7 @@
         }
         //resultado 1 = conforme
         //resultado 0 = disconforme
-
+        
         GeneralPortal.conformar(idRecibo,resultado,obs);
 
     }

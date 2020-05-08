@@ -468,22 +468,31 @@ var Legajo = {
                         fondoRecibo.addClass('tabla_recibo_encabezado');
                         break;
                     case 0:
-                        texto1 = "<BR/>Firmar en:<BR/><input style='margin-left:10px;vertical-align: text-bottom;' type='radio' id='conforme' value='1' checked name='modoFirma' onclick=\"mostrarObservacion(0)\"> <label  for='conforme'>Conformidad</label><BR/><input style='margin-left:10px;vertical-align: text-bottom;' type='radio' id='disconforme' value='0' name='modoFirma' onclick=\"mostrarObservacion(1)\"> <label  for='disconforme'>Disconformidad</label> <BR/><div id='capaObservacion' style='display:none;'>Observaci&oacuten: <textarea id='observacion2' name='observacion2' rows='10' cols='100' maxlength='220' placeholder='En caso de disconformidad indique el motivo' style='margin: 0px; width: 595px; height: 70px;resize: none;'></textarea></div><BR/> Para obtener (imprimir/descargar) una versión VALIDA del recibo usted debe clickear este botón. ";
+ //                       texto1 = "<BR/>Firmar en:<BR/><input style='margin-left:10px;vertical-align: text-bottom;' type='radio' id='conforme' value='1' checked name='modoFirma' onclick=\"mostrarObservacion(0)\"> <label  for='conforme'>Conformidad</label><BR/><input style='margin-left:10px;vertical-align: text-bottom;' type='radio' id='disconforme' value='0' name='modoFirma' onclick=\"mostrarObservacion(1)\"> <label  for='disconforme'>Disconformidad</label> <BR/><div id='capaObservacion' style='display:none;'>Observaci&oacuten: <textarea id='observacion2' name='observacion2' rows='10' cols='100' maxlength='220' placeholder='En caso de disconformidad indique el motivo' style='margin: 0px; width: 595px; height: 70px;resize: none;'></textarea></div><BR/> Para obtener (imprimir/descargar) una versión VALIDA del recibo usted debe clickear este botón. ";
                         //boton1 = "<button type='button' onclick=\"GeneralPortal.conformar(\'" + idRecibo + "\')\">Conformar</button>";
-                        boton1 = "<button type='button' onclick=\"conformarRecibo(\'" + idRecibo + "\')\">Conformar</button>";
-                        div_caja_info_recibos.append(texto1 + boton1);
+                        //boton1 = "<button type='button' onclick=\"conformarRecibo(\'" + idRecibo + "\')\">Conformar</button>";
+ //                       boton1 = "<hr style='border-top: 1px solid #d0cdd6; border-radius: 5px; width: 100 %; margin: 0 auto;'><div style = 'width:100%;text-align: center;padding:10pt 0pt' > <img src='../../Imagenes/004boton_conformar.gif' style='width:80pt;cursor:pointer' onclick=\"conformarRecibo(\'" + idRecibo + "\')\"></div>";
+
+                        //boton1 = "<fieldset style='border:1px solid #d0cdd6;margin: 10px 0px;;padding-bottom:5px'><legend style='margin-bottom: 10px;border-bottom:0px;background:center;font-size: 12pt;text-align:left;margin-left:5px;width:auto;padding: 0px 5px;'>Para obtener la versión VÁLIDA del recibo de haberes, Usted debe prestar su conformidad:</legend><input style='margin-left:10px;vertical-align: text-bottom;' type='radio' id='conforme' value='1' checked name='modoFirma' onclick=\"mostrarObservacion(0)\"><label for='conforme'>Conforme <span style='font-style: italic;'>(el monto indicado en el recibo de haberes ha sido acreditado en mi cuenta sueldo)</span></label><BR /><input style='margin-left:10px;vertical-align: text-bottom;' type='radio' id='disconforme' value='0' name='modoFirma' onclick=\"mostrarObservacion(1)\"><label for='disconforme'>En Disconformidad <span style='font-style: italic;'>(el monto indicado en el recibo de haberes NO ha sido acreditado en mi cuenta sueldo)</span></label> <BR /><div id='capaObservacion' style='display:none; padding: 10px;'>Observaci&oacuten: <textarea id='observacion2' name='observacion2' rows='10' cols='100' maxlength='220' placeholder='En caso de disconformidad indique el motivo' style='margin: 0px; width: 595px; height: 70px;resize: none;'></textarea></div></fieldset><div style='width:100%;text-align: center;padding:5pt 0pt' ><img src='../Imagenes/004boton_conformar.gif' style='width:80pt;cursor:pointer' onclick=\"conformarRecibo(\'" + idRecibo + "\')\"></div>";
+                        boton1 = "<fieldset style='border:1px solid #d0cdd6;margin: 10px 0px;;padding-bottom:5px'><legend style='margin-bottom: 10px;border-bottom:0px;background:center;font-size: 12pt;text-align:left;margin-left:5px;width:auto;padding: 0px 5px;'>Para obtener la versión VÁLIDA del recibo de haberes, Usted debe prestar su conformidad:</legend><input style='margin-left:10px;vertical-align: text-bottom;' type='radio' id='conforme' value='1' checked name='modoFirma' onclick=\"mostrarObservacion(0)\"><label for='conforme'>Conforme <span style='font-style: italic;'>(el monto indicado en el recibo de haberes ha sido acreditado en mi cuenta sueldo)</span></label><BR /><input style='margin-left:10px;vertical-align: text-bottom;' type='radio' id='disconforme' value='0' name='modoFirma' onclick=\"mostrarObservacion(1)\"><label for='disconforme'>En Disconformidad <span style='font-style: italic;'>(el monto indicado en el recibo de haberes NO ha sido acreditado en mi cuenta sueldo)</span></label> <BR /><div id='capaObservacion' style='display:none; padding: 10px;'>Observaci&oacuten: <span id='observacion2' style='color:red;font-weight: bold;'>Declaro que el monto del recibo no ha sido acreditado en mi cuenta sueldo</span></div></fieldset><div style='width:100%;text-align: center;padding:5pt 0pt' ><img src='../Imagenes/004boton_conformar.gif' style='width:80pt;cursor:pointer' onclick=\"conformarRecibo(\'" + idRecibo + "\')\"></div>";
+
+
+                        div_caja_info_recibos.append(/*texto1 +*/boton1);
                         //seteo que muestre el no valido en el fondo
                         fondoRecibo.removeClass('tabla_recibo_encabezadoSinBackground');
                         fondoRecibo.addClass('tabla_recibo_encabezado');
                         break;
                     default:
-                        // texto1 = "Recibo conformado por el agente a traves del sistema Si.G.I.R.H ";
-                        texto1 = "<BR/>";
-                        boton1 = "<button type='button' onclick=\"GeneralPortal.descargarRecibo(\'" + idArchivo + "\')\">Descargar</button>";
+                //       texto1 = "Recibo conformado por el agente a traves del sistema Si.G.I.R.H ";
+                        //texto1 = "<BR/>";
+                        //boton1 = "<button type='button' onclick=\"GeneralPortal.descargarRecibo(\'" + idArchivo + "\')\">Descargar</button>";
+                        texto1 = "<hr style='border-top: 1px solid #d0cdd6; border-radius: 5px; width: 100%; margin: 0 auto; margin-top: 5px;'>";
+                        boton1 = "<div style='width:100%;text-align: left;padding:5pt 0pt' ><img src='../Imagenes/005boton_descargar.gif' style='width:80pt;cursor:pointer' onclick=\"GeneralPortal.descargarRecibo(\'" + idArchivo + "\')\"><span style='font-style: italic;padding-left:7px;vertical-align:bottom;'>(Recibo de Haberes V&#193;LIDO en formato pdf)</span></div>";
+
                         div_caja_info_recibos.append(texto1 + boton1);
                         // quito el texto que indica que el recibo no es valido
-                        fondoRecibo.removeClass('tabla_recibo_encabezado');
-                        fondoRecibo.addClass('tabla_recibo_encabezadoSinBackground');
+             //           fondoRecibo.removeClass('tabla_recibo_encabezado');
+             //           fondoRecibo.addClass('tabla_recibo_encabezadoSinBackground');
                 }
 
 
@@ -604,7 +613,7 @@ var Legajo = {
                                     texto_extra = "(cobrado a principios del mes de " + mes_cobrado_texto + ", liquidación de " + mes_liquidado_texto + ")";
                                 }
 
-                                var radio = "<input style='margin-left:10px' type='radio' name='liquidacion' value='" + liquidaciones[i].Id + "'/> " + liquidaciones[i].Descripcion + ' ' + texto_extra + "<br/>";
+                                var radio = "<input style='margin:0px' type='radio' name='liquidacion' value='" + liquidaciones[i].Id + "'/><span> " + liquidaciones[i].Descripcion + ' ' + texto_extra + "</span><br/>";
                                 div_controles.append(radio);
 
                             }

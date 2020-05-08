@@ -6692,7 +6692,7 @@ public class WSViaticos : System.Web.Services.WebService
             //para trabajarlo como objeto es mejor definir un objeto que traiga el recibo, asi se puede acceder a
             //sus propiedades desde el back(desde el front con js se puede acceder), porque no se puede acceder a campos 
             //especificos del objecto recibo cuando el casteo es a object.
-
+            
 
             //datos del recibo a rellenar    
             recibo = repo.GetReciboDeSueldoPorID(id_recibo,modo);
@@ -6933,6 +6933,15 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string ConformarRecibo(int idRecibo, int recibo_aceptado, string observacion,Usuario usuario)
     {
+        //la observacion la seteo a este valor por default, sin importar que observacion venga desde el html
+        if (recibo_aceptado == 0)
+        {
+            observacion = "Declaro que el monto del recibo no ha sido acreditado en mi cuenta sueldo";
+        }
+        else {
+            observacion = "";
+        }
+        
         //obtengo el recibo
         List<ReciboFirmado> recibos = RepoReciboFirmado().ObtenerDesdeLaBase(idRecibo);
         ReciboFirmado recibo = recibos[0];
