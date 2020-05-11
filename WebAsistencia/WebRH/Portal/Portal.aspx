@@ -19,10 +19,10 @@
         UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" />
     <div id="content">
     
-       <div class="Corona">
-<img src="../Imagenes/Coronavirus-sigirh-bot-6.png" id="img_logo_corona" alt="logosistema" style="cursor: pointer;" onclick='abrirCorona()' />
+      <!-- <div class="Corona">
+                <img src="../Imagenes/Coronavirus-sigirh-bot-6.png" id="img_logo_corona" alt="logosistema" style="cursor: pointer;" onclick='abrirCorona()' />
+            </div>-->
 
-       </div>
     <div class="resumen_area"></div>
      <div class="resumen_postular">
      <p style="text-align:center">Información de la Comisión de Igualdad de Oportunidades y Trato - CIOT</p>
