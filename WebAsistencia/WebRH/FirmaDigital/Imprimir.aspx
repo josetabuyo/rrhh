@@ -254,9 +254,9 @@
                     imported.src = '../MAU/HabilitadorDeControles.js';
                 document.head.appendChild(imported);
 
-               /* Backend.GetReciboPDFDigitalArchivado(418)
-                    .onSuccess(function (res) { });*/
-             /*   Backend.GetReciboPDFDigital(980679,0)
+                Backend.GetReciboPDFDigitalArchivado(586)
+                    /*.onSuccess(function (res) { });*/
+               /* Backend.GetReciboPDFDigital(980679,0)*/
                     .onSuccess(function (res) {
                         //en esta version siempre retorna exito a menos que sea un error antes del webservice
                         if (!res.DioError) {
@@ -293,7 +293,8 @@
                     .onError(function (e) {
                         //por aca nunca se entra si desde el webserver no se levanta una excepcion   
                         spinner.stop();
-                    });*/
+                    });
+
 
                 /*                                                                                                                                                                                                                                                                                                            $('#btnPantallaAsignarPerfil').click(function () {
                     $(".caja_der").load("AsignacionDePerfiles.htm", function () {

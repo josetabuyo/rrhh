@@ -22,7 +22,7 @@
          
         <div style="text-align:center;margin-top:20px; padding-bottom:7px;" class="caja_izq no-print"></div>
          <div  class="caja_derxxxx papelxxx" style="float:left;margin-top:20px;width:80%;padding: 0px 20px 0px 20px; ">
-             <div style="background-image: linear-gradient(to bottom, rgb(1,70,99), rgb(1,70,99));border-radius: 10px;color: #fff;font-weight: bold;padding:10pt 0pt 10pt 0pt;font-size: 13pt;text-align: center;">
+             <div style="background-image: linear-gradient(to bottom, rgb(1,70,99), rgb(1,70,99));border-radius: 10px;color: #fff;font-weight: bold;padding:8pt 0pt 8pt 0pt;font-size: 13pt;text-align: center;">
                        
                           RECIBO DE SUELDO      
                        

@@ -1382,7 +1382,7 @@
     //dominio desde el que se realiza la llamada al servicio
     //MiniApplet.cargarAppAfirma('miniapplet.js');
     //MiniApplet.setForceWSMode(true);
-  //  MiniApplet.cargarAppAfirma(HOST + 'FirmaDigital/js/miniapplet.js', MiniApplet.MOZILLA);
+ //   MiniApplet.cargarAppAfirma(HOST + 'FirmaDigital/js/miniapplet.js', MiniApplet.MOZILLA);
     MiniApplet.cargarAppAfirma(HOST + 'FirmaDigital/js/miniapplet.js', MiniApplet.KEYSTORE_PKCS11 + ":C:\\Windows\\System32\\eTPKCS11.dll");
 
     //////////////////////////////////////////////////////
