@@ -19,7 +19,7 @@ Copyright (C) Microsoft Corporation. Todos los derechos reservados.
     <ProjectGuid>{a483354f-67f1-4d64-9afa-6b4c172aebef}</ProjectGuid>
     <SourceWebPhysicalPath>$(MSBuildThisFileDirectory)</SourceWebPhysicalPath>
     <SourceWebVirtualPath>/WebRH</SourceWebVirtualPath>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <SourceWebProject>
     </SourceWebProject>
     <SourceWebMetabasePath>
