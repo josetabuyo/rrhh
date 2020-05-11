@@ -415,7 +415,7 @@ public class CreadorDePdfs //where T:IPrintableDocument
             {
                 stamp.AcroFields.SetField(name, "test");//agregar try cath por si la clave no esta en el dic
             }*/
-            //            stamp.FormFlattening = true; 
+            stamp.FormFlattening = true; //recien aca cierro el pdf para que no puedan editarse los campos llenables del pdf
             stamp.Close(); //cierro el pdf
             reader.Close();
             ms.Close();
@@ -429,6 +429,7 @@ public class CreadorDePdfs //where T:IPrintableDocument
 
     }
 
+    //esta funcion ya no se usa porque al utilizarla genera una copia del archivo y descarta la firma digital,no es solo por el ref de los parametros
     public void ObtenerCsvYcerrarPDF(ref string csv2, ref byte[] bytes)
     {
 

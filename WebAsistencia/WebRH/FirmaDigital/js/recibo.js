@@ -97,6 +97,7 @@ var RECIBOS = (function (window, undefined) {
         });
     }
 
+    //NOTA: puede que no este usando esta funcion
     function getIdRecibosSinFirmar(tipoLiquidacion, anio, mes) {
         Backend.GetIdRecibosSinFirmar(tipoLiquidacion, anio, mes)
         .onSuccess(function (recibosResumen) {
@@ -302,11 +303,13 @@ var RECIBOS = (function (window, undefined) {
         downloadErrorFunction = errorFunction;
 
         Backend.GetReciboPDFDigital(params,0)/*se asume que el modo es 0 indicando que se deben obtener los datos de los recibos actuales y no los historicos*/
-                .onSuccess(function (res) {
+            .onSuccess(function (res) {
+                    var resp = JSON.parse(res);
                     //en esta version siempre retorna exito a menos que sea un error antes del webservice
-                    if (!res.DioError) {
+                if (!resp.DioError) {
+                        csv = resp.csv; //asigno el csv en curso del recibo actual que se va a firmar
                         //en el caso de los archivos estos ya vienen en b64 porque aun no encontre una funcion de conversion a b64 que codifique correctamente desde javascript
-                        downloadSuccessFunction(res.Respuesta, idRecibo);
+                        downloadSuccessFunction(resp.Respuesta, idRecibo);
                     } else {
                         //en caso de error continuar el proceso
                         downloadErrorFunction("error obteniendo el pdf"); //se intento realizar una operacion mas
@@ -322,12 +325,12 @@ var RECIBOS = (function (window, undefined) {
 
     }
 
-    function guardarReciboPDFFirmado(idLiquidacion,idRecibo, signatureB64, anio, mes, tipoLiquidacion, successFunction, errorFunction) {
+    function guardarReciboPDFFirmado(idLiquidacion,idRecibo, signatureB64, anio, mes, tipoLiquidacion, successFunction, errorFunction, csv) {
 
         saveSuccessFunction = successFunction;
         saveErrorFunction = errorFunction;
 
-        Backend.GuardarReciboPDFFirmado(signatureB64, idLiquidacion, idRecibo, anio, mes, tipoLiquidacion)
+        Backend.GuardarReciboPDFFirmado(signatureB64, idLiquidacion, idRecibo, anio, mes, tipoLiquidacion, csv)
                 .onSuccess(function (res) {
 
                     //en el caso de los archivos estos ya vienen en b64 porque aun no encontre una funcion de conversion a b64 que codifique correctamente desde javascript
@@ -456,20 +459,28 @@ var RECIBOS = (function (window, undefined) {
 
                         capaAcumulada = capaAcumulada + capaLiq;
 
-                        Backend.GetIdRecibosSinFirmar(resp[i].id,resp[i].tipo_liquidacion, resp[i].anio, resp[i].mes)
+                        Backend.GetIdRecibosSinFirmarYFirmados(resp[i].id,resp[i].tipo_liquidacion, resp[i].anio, resp[i].mes)
                             .onSuccess(function (respuesta) {
                                 /*respuesta es la respuesta*/
 
-                                var respListSinFirmar = JSON.parse(respuesta);
-                                var s = 'rsf' + respListSinFirmar.idLiquidacion + respListSinFirmar.anio + respListSinFirmar.mes + respListSinFirmar.tipoLiquidacion;
-                                var s3 = 'bf' + respListSinFirmar.idLiquidacion + respListSinFirmar.anio + respListSinFirmar.mes + respListSinFirmar.tipoLiquidacion;
-                                var lista = JSON.parse(respListSinFirmar.recibosSinFirmar);
+                                ///////seteo de recibos sin firmar
+                                var respList = JSON.parse(respuesta);
+                                var s = 'rsf' + respList.idLiquidacion + respList.anio + respList.mes + respList.tipoLiquidacion;
+                                var s3 = 'bf' + respList.idLiquidacion + respList.anio + respList.mes + respList.tipoLiquidacion;
+                                var lista = JSON.parse(respList.recibosSinFirmar);
                                 var long = Object.keys(lista).length;
-
                                 //guardo la lista de recibos sin firmar
                                 rsfLiquidaciones[s] = lista;
-
                                 document.getElementById(s).innerHTML = long;
+
+                                //////////seteo de recibos firmados
+                                var s2 = 'rf' + respList.idLiquidacion + respList.anio + respList.mes + respList.tipoLiquidacion;
+                                var lista2 = JSON.parse(respList.recibosFirmados);
+                                var long2 = Object.keys(lista2).length;
+                                //guardo la lista de recibos sin firmar
+                                rfLiquidaciones[s2] = lista2;
+                                document.getElementById(s2).innerHTML = long2;
+                                ////////
 
                                 if (long > 0) {//faltan firmar recibos
                                     //habilitar boton y cambiar estilo a rojo                                    
@@ -487,7 +498,7 @@ var RECIBOS = (function (window, undefined) {
                             .onError(function (e) {
 
                             });
-                        Backend.GetIdRecibosFirmados(resp[i].id, resp[i].tipo_liquidacion, resp[i].anio, resp[i].mes)
+                        /*Backend.GetIdRecibosFirmados(resp[i].id, resp[i].tipo_liquidacion, resp[i].anio, resp[i].mes)
                             .onSuccess(function (respuesta) {
 
                                 var respListFirmados = JSON.parse(respuesta);
@@ -503,7 +514,7 @@ var RECIBOS = (function (window, undefined) {
                             })
                             .onError(function (e) {
 
-                            });
+                            });*/
 
                     }
                     liquidaciones = resp; //VEERRRRRR YA NO LO USO
@@ -533,8 +544,7 @@ var RECIBOS = (function (window, undefined) {
         guardarReciboPDFFirmado: guardarReciboPDFFirmado,
         getIdRecibosSinFirmar: getIdRecibosSinFirmar,
         getLiquidacionesAFirmar: getLiquidacionesAFirmar,
-        downloadRemoteDataB64POSTReciboDigital: downloadRemoteDataB64POSTReciboDigital,
-        getLiquidacionesAFirmar: getLiquidacionesAFirmar
+        downloadRemoteDataB64POSTReciboDigital: downloadRemoteDataB64POSTReciboDigital
     };
 
 })(window, undefined);

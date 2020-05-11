@@ -223,6 +223,8 @@
     var rfLiquidaciones = new Array();  //diccionario de recibos firmados
     var continuar = false; //es para detener la operacion
 
+    var csv = ""; //para guardar el csv actual del recibo que se esta por firmar
+
     function armarListaLiquidaciones() {
         continuar = false;
         //reseteo las variables globales
@@ -688,7 +690,7 @@
         
         RECIBOS.guardarRecibo(fichero,saveSuccessCallback,saveErrorCallback);
     */
-        RECIBOS.guardarReciboPDFFirmado(idLiquidacion_aux,lista_recibos_resumen[indiceListaRecibos - 1].Id_Recibo, fichero, anio_aux, mes_aux, tipoLiquidacion_aux, successCallback, errorCallback);    
+        RECIBOS.guardarReciboPDFFirmado(idLiquidacion_aux,lista_recibos_resumen[indiceListaRecibos - 1].Id_Recibo, fichero, anio_aux, mes_aux, tipoLiquidacion_aux, successCallback, errorCallback, csv);    
      
         //seteo el enlace al nuevo documento firmado
         
