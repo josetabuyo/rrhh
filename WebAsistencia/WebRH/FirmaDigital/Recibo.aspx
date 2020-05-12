@@ -516,7 +516,7 @@
         //policyQualifier=http://rrhh.gob.ar/politicafirma/politica_firma_v1.0.pdf
 
         // params = params + "filters=issuer.rfc2254:(CN = Autoridad Certificante de Firma Digital);nonexpired:" + "\n";
-        params = params + "filters=issuer.rfc2254:(CN = Autoridad Certificante de Firma Digital);" + "\n";
+//        params = params + "filters=issuer.rfc2254:(CN = Autoridad Certificante de Firma Digital);" + "\n";
 //ambiente prueba        params = params + "filters=issuer.rfc2254:(CN = jcvelasquez);nonexpired:" + "\n";
         //cuando existe un solo certificado en la lista lo auto selecciono
         params = params + "headless=true"; //+ "\n";	
@@ -1382,8 +1382,8 @@
     //dominio desde el que se realiza la llamada al servicio
     //MiniApplet.cargarAppAfirma('miniapplet.js');
     //MiniApplet.setForceWSMode(true);
- //   MiniApplet.cargarAppAfirma(HOST + 'FirmaDigital/js/miniapplet.js', MiniApplet.MOZILLA);
-    MiniApplet.cargarAppAfirma(HOST + 'FirmaDigital/js/miniapplet.js', MiniApplet.KEYSTORE_PKCS11 + ":C:\\Windows\\System32\\eTPKCS11.dll");
+    MiniApplet.cargarAppAfirma(HOST + 'FirmaDigital/js/miniapplet.js', MiniApplet.MOZILLA);
+//    MiniApplet.cargarAppAfirma(HOST + 'FirmaDigital/js/miniapplet.js', MiniApplet.KEYSTORE_PKCS11 + ":C:\\Windows\\System32\\eTPKCS11.dll");
 
     //////////////////////////////////////////////////////
     //MiniApplet.cargarMiniApplet("https://valide/valide/applet");
