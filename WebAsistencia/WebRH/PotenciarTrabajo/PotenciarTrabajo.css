@@ -1,0 +1,67 @@
+﻿#pt_plantillas {
+    display: none;
+}
+#pt_pagina {
+  flex: 1 1 auto;
+  display: flex;
+  padding-left: 100px;
+  padding-right: 100px;
+  background-color: #e6e6e6;
+}
+#pt_barra_izquierda {
+  flex: 0 0 350px;
+  background-color: #01476b;
+  margin-right: 20px;
+}
+#pt_titulo_barra {
+  height: 50px;
+  margin-left: -10px;
+  margin-right: -10px;
+  margin-top: 70px;
+  background-color: #00293f;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: x-large;
+  font-variant: petite-caps;
+}
+#pt_seccion {
+
+}
+#pt_titulo_seccion {
+  font-size: x-large;
+  font-weight: bold;
+  margin: 30px;
+  font-variant-caps: petite-caps;
+}
+#pt_controles_superiores {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.pt_seccion {
+  flex: 1 1 auto;
+}
+.pt_label_combo {
+  font-weight: bold;
+}
+.pt_combo {
+  margin-left: 10px;
+  background-color: white;
+}
+#cmb_grupo {
+
+}
+#cmb_mes {
+
+}
+#pt_nota {
+
+}
+#pt_contenedor_tabla {
+
+}
+#pt_controles_inferiores{
+
+}
