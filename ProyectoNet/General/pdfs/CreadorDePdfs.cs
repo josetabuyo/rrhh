@@ -86,6 +86,10 @@ public class CreadorDePdfs //where T:IPrintableDocument
                 stamp.AcroFields.SetField(name, "test");//agregar try cath por si la clave no esta en el dic
             }*/
             //            stamp.FormFlattening = true;
+
+            /*Dictionary<String, String> info = reader.Info;
+            info.Add("Title", "Hello World stamped");*/
+
             stamp.Close(); //cierro el pdf
             reader.Close();
             ms.Close();
@@ -463,5 +467,67 @@ public class CreadorDePdfs //where T:IPrintableDocument
 
 
     }
+
+
+    public byte[] AgregarQRsAPDF(byte[] bytes, String contenidoQR, List<int> listaPaginaImagen, List<int> listaTamEscalasImagen, List<float> listaPosicionesX, List<float> listaPosicionesY)
+    {
+
+        PdfReader reader = new PdfReader(bytes);
+        BarcodeQRCode barcodeQRCode;
+        Image codeQRImage;
+
+        using (MemoryStream ms = new MemoryStream())
+        {
+            PdfStamper stamp = new PdfStamper(reader, ms);
+            try
+            {
+                //stamp.AcroFields.SetField("texto5", csv);--ACA se debe agregar el nuevo codigo CSV
+                Dictionary<EncodeHintType, Object> qrParam = new Dictionary<EncodeHintType, Object>();
+                qrParam[EncodeHintType.ERROR_CORRECTION] = ErrorCorrectionLevel.M;
+                qrParam[EncodeHintType.CHARACTER_SET] = "UTF-8";
+                 
+                //codeQRImage.ScaleAbsolute(100f,100f);
+                //codeQRImage.SetAbsolutePosition(doc.PageSize.Width - 36f - 128f, doc.PageSize.Height - 36f - 686.6f);//216
+
+                //foreach (float escala in listaTamEscalasImagen) {
+                for (int i=0; i<listaTamEscalasImagen.Count;i++) {
+                    barcodeQRCode = new BarcodeQRCode(contenidoQR, listaTamEscalasImagen.ElementAt(i), listaTamEscalasImagen.ElementAt(i), qrParam);
+                    codeQRImage = barcodeQRCode.GetImage(); 
+                    //codeQRImage.ScaleAbsolute(listaTamEscalasImagen.ElementAt(i), listaTamEscalasImagen.ElementAt(i));
+                    codeQRImage.SetAbsolutePosition(listaPosicionesX.ElementAt(i), listaPosicionesY.ElementAt(i));
+
+                    //codeQRImage.Rotate();
+                    //codeQRImage.Rotate();
+                    //codeQRImage.Rotation = (float)Math.PI / 2; //angulo en radianes, osea esto equivale a 90 grados
+                //    codeQRImage.RotationDegrees = 90f;
+
+                    PdfContentByte content = stamp.GetOverContent(listaPaginaImagen.ElementAt(i)); //imprimo en la 1 pagina
+                    content.AddImage(codeQRImage);
+                }
+
+                //codeQRImage.ScaleAbsolute(75, 75);
+                //codeQRImage.SetAbsolutePosition(420, 115);
+
+            }
+            catch (Exception e)
+            {
+                throw new Exception("no se pudieron agregar las imagenes de Qr al pdf");
+            }
+
+            stamp.FormFlattening = true; //recien aca cierro el pdf para que no puedan editarse los campos llenables del pdf
+            stamp.Close(); //cierro el pdf
+            reader.Close();
+            ms.Close();
+
+            byte[] Bytes = ms.ToArray();
+
+            return Bytes;
+
+        }
+
+
+    }
+
+
 
 }

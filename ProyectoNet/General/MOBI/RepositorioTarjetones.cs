@@ -30,7 +30,24 @@ namespace General.Repositorios
         {
             this.conexion_bd = conexion;
         }
-        
+
+        public int AsociarTarjeton(int idBienVehiculo, string patente, string observacion, string vigencia, string codHolograma, string codigoTarjeton, int idUsuario)
+        {
+            var parametros = new Dictionary<string, object>();
+
+            parametros.Add("@Cod_Web", codigoTarjeton);
+            parametros.Add("@Codigo_Holograma", codHolograma);
+            parametros.Add("@Vehiculo_Id_Bien", idBienVehiculo);
+            parametros.Add("@IdUser", idUsuario); 
+            parametros.Add("@vigencia", vigencia);
+            parametros.Add("@Observaciones", observacion);
+
+            //conexion_bd.EjecutarSinResultado("dbo.MOBI_ADD_Tarjeton", parametros);
+            return int.Parse(this.conexion_bd.EjecutarEscalar("dbo.MOBI_ADD_Tarjeton", parametros).ToString());
+            //return codigoWeb;
+        }
+
+       
 
         public Tarjeton NuevoTarjeton(int id_Bien_Tarjeton, string codigo_Holograma, Usuario usuario)
         {

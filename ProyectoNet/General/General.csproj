@@ -155,6 +155,7 @@
     <Compile Include="pdfs\EvaluacionDeDesempenioToPdfConverter.cs" />
     <Compile Include="pdfs\GenDDJJCOVID19Converter.cs" />
     <Compile Include="pdfs\GenReciboEmpleadoToPdfConverter.cs" />
+    <Compile Include="pdfs\GenTarjetonToPdfConverter.cs" />
     <Compile Include="pdfs\GenReciboToPdfConverter.cs" />
     <Compile Include="pdfs\ModeloToPdfConverter.cs" />
     <Compile Include="Portal\Consulta.cs" />

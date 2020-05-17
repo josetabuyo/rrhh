@@ -6,6 +6,8 @@ using System.Data.SqlClient;
 using General.Repositorios;
 using System.IO;
 using Microsoft.Office.Interop.Excel;
+using Newtonsoft.Json;
+using System.Data;
 
 namespace General.Repositorios
 {
@@ -622,7 +624,67 @@ namespace General.Repositorios
 
 
 
+        public string MOBI_GET_EventosxTipoBienxClaveAtributoBienxValor(int Id_ClaveAtributoBien, string valor, int Id_TipoBien, int tipoConsulta)
+        {
+           
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("@Id_ClaveAtributoBien", Id_ClaveAtributoBien);
+            parametros.Add("@valor", valor);
+            parametros.Add("@Id_TipoBien", Id_TipoBien);
+            parametros.Add("@tipoConsulta", tipoConsulta);
 
-    }
+            var resultado = new object();
+            var lista = new List<object>();
+
+            var tablaDatos = conexion_bd.Ejecutar("dbo.MOBI_GET_EventosxTipoBienxClaveAtributoBienxValor", parametros);
+
+            if (tablaDatos.Rows.Count > 0)
+            {
+                tablaDatos.Rows.ForEach(row =>
+                {/*Tambien se puede crear un objeto contenedor de cada fila, esto me sirve para  retornar una 
+                  * lista en lugar de un objeto string json
+                  * 
+                    Persona persona = new Persona(row.GetInt("id_usuario"), row.GetInt("NroDocumento"), row.GetString("nombre"), row.GetString("apellido"), area);
+                    Respuesta respuesta = new Respuesta(
+                        row.GetInt("id_orden"),
+                        persona,
+                        row.GetDateTime("fecha_creacion"),
+                        row.GetString("texto"));
+                    */
+                 /* NOTA: para procesar las columnas dinamicamente segun su longitud e ir imprimiendo el nombre la columna y su valor se debe rehacer el
+                  * conexion_db_Ejecutar o dar una alternativa para que use los contenedores default y no los renombrados sino no se puede
+                  * sacar esos metadatos o indexar y recuperar las columnas dinamicamente
+                  * foreach (DataColumn column in tablaDatos.Columns)
+                  {
+                      Console.WriteLine(row[column]);
+                  }*/                    
+
+                    resultado = new
+                    {
+                        //Id_Recibo = row.GetInt("Id_Recibo"),
+                        //id = int.Parse(row.GetObject("id").ToString())
+                        //anio = int.Parse(row.GetObject("anio").ToString()),//smallint
+                        idEvento = row.GetInt("idEvento"),
+                        idVehiculoAsociado = row.GetInt("idVehiculoAsociado"),
+                        idTipoEvento = row.GetSmallintAsInt("idTipoEvento"),
+                        observacion = row.GetString("observacion", ""),
+                        idTarjeton = row.GetInt("idTarjeton"),
+                        fechaCreacion = row.GetDateTime("fechaCreacion").ToString("yyyy'-'dd'-'MM"),
+                        descripcionTipoEvento = row.GetString("descripcionTipoEvento", ""),
+                        vigencia = row.GetString("Vigencia", ""),
+                        codigoWeb = row.GetString("codigoWeb", "")
+
+                    };
+                    lista.Add(resultado);
+                });
+
+            }
+
+            return JsonConvert.SerializeObject(lista);
+        }
+
+
+
+}
 
 }

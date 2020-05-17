@@ -5,7 +5,7 @@ using System.Text;
 
 namespace General
 {
-    class MoBi_Vehiculo
+    public class MoBi_Vehiculo
     {
         protected int _id;
         protected int _numeroVehiculo;
