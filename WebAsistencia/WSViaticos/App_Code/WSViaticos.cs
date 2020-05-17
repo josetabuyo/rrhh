@@ -4902,16 +4902,17 @@ public class WSViaticos : System.Web.Services.WebService
             var contenidoQR = "";
             /*ubicacion pagina, tamaños y escalas de las imagenes de QR*/
             List<int> listaPaginaImagen = new List<int>() { 1,2,2 };
-            List<int> listaTamEscalasImagen = new List<int>() {60,120,180};/*los tamaños de los qr el ancho y alto son iguales*/
-            List<float> listaPosicionesX = new List<float>() { 800, 100, 600 };
-            List<float> listaPosicionesY = new List<float>() { 50, 200, 300 };
+            List<int> listaTamEscalasImagen = new List<int>() { 60, 120, 240 };/*320los tamaños de los qr el ancho y alto son iguales*/
+            /*los valores del eje x van desde la izquierda hacia la derecha y del eje y desde abajo hacia arriba*/
+            List<float> listaPosicionesX = new List<float>() { 745, 65, 560 };
+            List<float> listaPosicionesY = new List<float>() { 65, 335, 300 };
 
             //codeQRImage.ScaleAbsolute(75, 75);
             //codeQRImage.SetAbsolutePosition(420, 115);
             //"https://rrhh.desarrollosocial.gob.ar/verificador/csv.aspx?c=" + csv
 
             contenidoQR = mapa_para_pdf.Values.ElementAt(6); //obtengo el septimo elemento osea el valor del key:texto7
-            contenidoQR = contenidoQR+" - Verificar Validez: "+"https://rrhh.desarrollosocial.gob.ar/Vehiculos";
+            contenidoQR = contenidoQR+" - Verificar Validez: "+"https://rrhh.desarrollosocial.gob.ar/Vehiculos/DetalleVehiculo.aspx?"+ codigoTarjeton;
 
             //el nombre del pdf generado va a ser el idRecibo
             nombrePDF = "Tarjeton " + patente;
@@ -4921,7 +4922,7 @@ public class WSViaticos : System.Web.Services.WebService
             //hasta aqui el pdf esta rellenado         
 
             //genero los registros de asociacion necesarios para el evento
-  //          idTarjeton = repo.AsociarTarjeton(idBienVehiculo, patente, observacion, vigencia, codHolograma, codigoTarjeton, usuario.Id);
+            idTarjeton = repo.AsociarTarjeton(idBienVehiculo, patente, observacion, vigencia, codHolograma, codigoTarjeton, usuario.Id);
             
             //obtengo al pdf y lo lleno
 

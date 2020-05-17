@@ -84,6 +84,7 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
@@ -143,6 +144,7 @@
     <Compile Include="MED\RespuestaGetAgentesEvaluablesPor.cs" />
     <Compile Include="MED\UnidadDeEvaluacion.cs" />
     <Compile Include="MED\VerificacionCodigoGdeDocumento.cs" />
+    <Compile Include="MOBI\MoBi_Vehiculo.cs" />
     <Compile Include="Organigrama\GraficoBienes.cs" />
     <Compile Include="MED\AgenteEvaluacionDesempenio.cs" />
     <Compile Include="MED\DescripcionAreaEvaluacion.cs" />
@@ -205,7 +207,6 @@
     <Compile Include="MoBi\MoBi_Bien.cs" />
     <Compile Include="MoBi\MoBi_Evento.cs" />
     <Compile Include="MoBi\MoBi_TipoBien.cs" />
-    <Compile Include="MoBi\MoBi_Vehiculo.cs" />
     <Compile Include="MoBi\RepositorioMoBi.cs" />
     <Compile Include="Modi\Impersonator.cs" />
     <Compile Include="Modi\NetworkConnection.cs" />

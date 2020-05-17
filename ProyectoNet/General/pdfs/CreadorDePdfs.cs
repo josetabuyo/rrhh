@@ -505,7 +505,7 @@ public class CreadorDePdfs //where T:IPrintableDocument
                     content.AddImage(codeQRImage);
                 }
 
-                //codeQRImage.ScaleAbsolute(75, 75);
+                //codeQRImage.ScaleAbsolute(75, 75);  //escala el tamaño de la imagen
                 //codeQRImage.SetAbsolutePosition(420, 115);
 
             }
