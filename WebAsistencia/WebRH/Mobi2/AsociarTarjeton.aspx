@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Bienes.aspx.cs" Inherits="Portal_Recibo" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="AsociarTarjeton.aspx.cs" Inherits="Portal_Recibo" %>
 <%@ Register Src="~/BarraMenu/BarraMenu.ascx" TagName="BarraMenu" TagPrefix="uc2" %>
 
 <!Doctype html>
@@ -60,12 +60,12 @@
                    <br />
 
                    <div class="/*estilo_formulario3*//*cajaPermisos*/" style="text-align: left;padding: 20px 20px">
-                       <div id="buscador_de_personas" style="vertical-align: middle; margin-bottom:0px">
+                       <!--<div id="buscador_de_personas" style="vertical-align: middle; margin-bottom:0px">
                           <label for="buscador" style="padding-right:2pt">Usuario Receptor:</label>
                           <div id="selector_usuario" class="selector_personas" style="display: inline-block;">
                                 <input id="buscador" name="buscador" type="hidden" />
                           </div>                        
-                       </div>
+                       </div>-->
                        <div style="vertical-align: middle; padding:0px;;margin-bottom:0px">
                            <label for="observacionmobi" style="padding-right:28pt">Observación:</label>
                            <input type="text" id="observacionmobi" name="observacionmobi" style="margin: 4px 0;padding:15px;font-size:12pt;font-weight:bold;width: 323pt;">
@@ -90,8 +90,8 @@
 
                    <div id="listaEventosTarjetones"></div><br/>
 
-
-                   <div id="panel_datos_vehiculo" style="/*display:none*/">
+                   <!--la siguiente descripcion del vehiculo se puede quitar -->
+                   <div id="panel_datos_vehiculo" style="display:none">
                    <div id="panel_superior_izquierdoxxx" class="estilo_formulario3"> 
                     <div id="panel_datos_vehiculares">                        
                         <div class="linea dato_personal2">
@@ -257,10 +257,12 @@
                 if (valor == '') {
                     /// no hago nada
                 } else {
+                    var spinner = new Spinner({ scale: 2 });
+                    spinner.spin($("html")[0]);
                     //muestro la lista de eventos de tarjeton de sa patente
                     Backend.MOBI_GET_EventosxTipoBienxClaveAtributoBienxValor(idClaveAtributoBien, valor, idTipoBien, tipoConsulta)
                         .onSuccess(function (res) {
-                            
+                            spinner.stop();
                             var capaLista = document.getElementById("listaEventosTarjetones");
 
                             var resp = JSON.parse(res);
@@ -309,7 +311,7 @@
                             
                         })
                         .onError(function (e) {
-                            //spinner.stop();
+                            spinner.stop();
                         });
                     
                 }
@@ -329,9 +331,13 @@
                     /// no hago nada
                     //alertify.error("Error al enviar consulta");
                 } else {
+                    var spinner = new Spinner({ scale: 2 });
+                    spinner.spin($("html")[0]);
+
                     //no envio el idVehiculo porque vuelvo a encontrarlo segun la patente en el webservice asi se puede incluso asociar tarjeton sin realizar una prebusqueda de eventos de esa patente
                     Backend.AsociarTarjeton(patente, observacion, vigencia, codHolograma)
                         .onSuccess(function (res) {
+                            spinner.stop();
                             var resp = JSON.parse(res);
                             if (!resp.DioError) {
                                 UTIL.descargarPDF(resp.Respuesta, resp.nombrePDF);
@@ -342,7 +348,7 @@
 
                         })
                         .onError(function (e) {
-                            //spinner.stop();                            
+                            spinner.stop();                            
                         });
 
                 }

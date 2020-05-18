@@ -4870,9 +4870,9 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string AsociarTarjeton(string patente,string observacion,string vigencia, string codHolograma, Usuario usuario)
     {
- 
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "0.ingreso_a_bienes")) throw (new Exception("El usuario no tiene permisos para el modulo de bienes"));
-
+        //"0.ingreso_a_bienes"  es el viejo modulo
+        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "mobi_asociarTarjeton")) throw (new Exception("El usuario no tiene permisos para el modulo de bienes 2"));
+        
         try
         {
             var repo = new RepositorioTarjetones(Conexion());
@@ -4902,9 +4902,9 @@ public class WSViaticos : System.Web.Services.WebService
             var contenidoQR = "";
             /*ubicacion pagina, tamaños y escalas de las imagenes de QR*/
             List<int> listaPaginaImagen = new List<int>() { 1,2,2 };
-            List<int> listaTamEscalasImagen = new List<int>() { 60, 120, 240 };/*320los tamaños de los qr el ancho y alto son iguales*/
+            List<int> listaTamEscalasImagen = new List<int>() { 60, 136, 244 };/*320los tamaños de los qr el ancho y alto son iguales*/
             /*los valores del eje x van desde la izquierda hacia la derecha y del eje y desde abajo hacia arriba*/
-            List<float> listaPosicionesX = new List<float>() { 745, 65, 560 };
+            List<float> listaPosicionesX = new List<float>() { 745, 54, 560 };
             List<float> listaPosicionesY = new List<float>() { 65, 335, 300 };
 
             //codeQRImage.ScaleAbsolute(75, 75);

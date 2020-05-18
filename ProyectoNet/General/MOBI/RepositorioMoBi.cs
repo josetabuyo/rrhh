@@ -669,7 +669,7 @@ namespace General.Repositorios
                         idTipoEvento = row.GetSmallintAsInt("idTipoEvento"),
                         observacion = row.GetString("observacion", ""),
                         idTarjeton = row.GetInt("idTarjeton"),
-                        fechaCreacion = row.GetDateTime("fechaCreacion").ToString("yyyy'-'dd'-'MM"),
+                        fechaCreacion = row.GetDateTime("fechaCreacion").ToString("yyyy'-'MM'-'dd"),
                         descripcionTipoEvento = row.GetString("descripcionTipoEvento", ""),
                         vigencia = row.GetString("Vigencia", ""),
                         codigoWeb = row.GetString("codigoWeb", "")

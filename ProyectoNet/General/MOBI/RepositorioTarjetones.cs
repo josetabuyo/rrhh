@@ -35,7 +35,7 @@ namespace General.Repositorios
         {
             var parametros = new Dictionary<string, object>();
 
-            parametros.Add("@Cod_Web", codigoTarjeton);
+            parametros.Add("@Codigo_Web", codigoTarjeton);
             parametros.Add("@Codigo_Holograma", codHolograma);
             parametros.Add("@Vehiculo_Id_Bien", idBienVehiculo);
             parametros.Add("@IdUser", idUsuario); 
