@@ -52,7 +52,7 @@ public partial class PruebaGDE : System.Web.UI.Page
         {
             HttpContext.Current.GetOwinContext().Authentication.Challenge(
               new AuthenticationProperties { RedirectUri = "/" },
-              CookieAuthenticationDefaults.AuthenticationType);
+              CookieAuthenticationDefaults.ReturnUrlParameter);
         }
     }
 

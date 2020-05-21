@@ -19,6 +19,7 @@ public class Startup
             AuthenticationType = persistentAuthType
         });
         app.SetDefaultSignInAsAuthenticationType(persistentAuthType);
+
         app.UseKeycloakAuthentication(new KeycloakAuthenticationOptions
         {
             Realm = WebConfigurationManager.AppSettings["RealmId"],
@@ -29,9 +30,12 @@ public class Startup
             SignInAsAuthenticationType = persistentAuthType,
             AllowUnsignedTokens = false,
             //DisableIssuerSigningKeyValidation = false,
+            //CallbackPath = "/",
+            //VirtualDirectory = "PruebaGDE.aspx",
             DisableIssuerValidation = false,
             DisableAudienceValidation = false,
             TokenClockSkew = TimeSpan.FromSeconds(2)
+            //ResponseType = "token id_token"
         });
         /*
         app.UseCors(CorsOptions.AllowAll);
