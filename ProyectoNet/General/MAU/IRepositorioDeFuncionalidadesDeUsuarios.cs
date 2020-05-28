@@ -14,10 +14,10 @@ namespace General.MAU
         List<Funcionalidad> GetFuncionalidadesPerfilesAreas(Usuario usuario);
         List<MAU_Perfil> GetPerfilesConFuncionalidades();
         List<Area> AreasAdministradasPor(Usuario usuario, int idFuncionalidad);
-        string AsignarPerfilesAUsuario(List<int> perfiles, List<Area> areas, int idUsuario, int id_usuario_alta);
-        string AsignarFuncionalidadesAUsuario(List<int> funcionalidades, List<Area> areas, int idUsuario, int id_usuario_alta);
-        string DesAsignarPerfilDeUsuario(int idPerfil, int idArea, int idUsuario, int id_usuario_alta);
-        string DesAsignarFuncionalidadDeUsuario(int idFuncionalidad, int idArea, int idUsuario, int id_usuario_alta);
+        string AsignarPerfilesAUsuario(List<int> perfiles, List<Area> areas, List<Entidad> entidades, int idUsuario, int id_usuario_alta);
+        string AsignarFuncionalidadesAUsuario(List<int> funcionalidades, List<Area> areas, List<Entidad> entidades, int idUsuario, int id_usuario_alta);
+        string DesAsignarPerfilDeUsuario(int idPerfil, int idArea, int idEntidad, int idUsuario, int id_usuario_alta);
+        string DesAsignarFuncionalidadDeUsuario(int idFuncionalidad, int idArea, int idEntidad, int idUsuario, int id_usuario_alta);
         //List<Funcionalidad> FuncionalidadesPara(int id_usuario);
         List<Usuario> UsuariosConLaFuncionalidad(int id_funcionalidad);
         void ConcederFuncionalidadA(Usuario usuario, Funcionalidad funcionalidad, int id_usuario_logueado);

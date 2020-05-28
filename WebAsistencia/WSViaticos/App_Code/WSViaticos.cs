@@ -3135,37 +3135,39 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string asignarPerfiles(string idPerfiles, string areas, int id_usuario, Usuario usuario)
+    public string asignarPerfiles(string idPerfiles, string areas, string entidades, int id_usuario, Usuario usuario)
     {
         //var usu = RepositorioDeUsuarios().GetUsuarioPorId(id_usuario);
         int[] perfiles = JsonConvert.DeserializeObject<int[]>(idPerfiles);
         List<Area> lista_areas = JsonConvert.DeserializeObject<List<Area>>(areas);
-        var rto = RepositorioDeFuncionalidadesDeUsuarios().AsignarPerfilesAUsuario(perfiles.ToList(), lista_areas, id_usuario, usuario.Id);
+        List<Entidad> lista_entidades = JsonConvert.DeserializeObject<List<Entidad>>(entidades);
+        var rto = RepositorioDeFuncionalidadesDeUsuarios().AsignarPerfilesAUsuario(perfiles.ToList(), lista_areas, lista_entidades, id_usuario, usuario.Id);
         return rto;
     }
 
     [WebMethod]
-    public string desasignarPerfiles(int idPerfil, int idArea, int id_usuario, Usuario usuario)
+    public string desasignarPerfiles(int idPerfil, int idArea, int idEntidad, int id_usuario, Usuario usuario)
     {
-        var rto = RepositorioDeFuncionalidadesDeUsuarios().DesAsignarPerfilDeUsuario(idPerfil, idArea, id_usuario, usuario.Id);
+        var rto = RepositorioDeFuncionalidadesDeUsuarios().DesAsignarPerfilDeUsuario(idPerfil, idArea, idEntidad, id_usuario, usuario.Id);
         return rto;
     }
 
     [WebMethod]
-    public string asignarFuncionalidades(string idFuncionalidades, string areas, int id_usuario, Usuario usuario)
+    public string asignarFuncionalidades(string idFuncionalidades, string areas, string entidades, int id_usuario, Usuario usuario)
     {
         //var usu = RepositorioDeUsuarios().GetUsuarioPorId(id_usuario);
         int[] funcionalidades = JsonConvert.DeserializeObject<int[]>(idFuncionalidades);
         List<Area> listas_areas = JsonConvert.DeserializeObject<List<Area>>(areas);
-        var rto = RepositorioDeFuncionalidadesDeUsuarios().AsignarFuncionalidadesAUsuario(funcionalidades.ToList(), listas_areas, id_usuario, usuario.Id);
+        List<Entidad> lista_entidades = JsonConvert.DeserializeObject<List<Entidad>>(entidades);
+        var rto = RepositorioDeFuncionalidadesDeUsuarios().AsignarFuncionalidadesAUsuario(funcionalidades.ToList(), listas_areas, lista_entidades, id_usuario, usuario.Id);
         return rto;
         
     }
 
     [WebMethod]
-    public string desasignarFuncionaldiad(int idFuncionalidad, int idArea, int id_usuario, Usuario usuario)
+    public string desasignarFuncionaldiad(int idFuncionalidad, int idArea, int idEntidad, int id_usuario, Usuario usuario)
     {
-        var rto = RepositorioDeFuncionalidadesDeUsuarios().DesAsignarFuncionalidadDeUsuario(idFuncionalidad, idArea, id_usuario, usuario.Id);
+        var rto = RepositorioDeFuncionalidadesDeUsuarios().DesAsignarFuncionalidadDeUsuario(idFuncionalidad, idArea, idEntidad, id_usuario, usuario.Id);
         return rto;
     }
     

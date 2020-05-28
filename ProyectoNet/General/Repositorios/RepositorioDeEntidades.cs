@@ -63,7 +63,7 @@ namespace General.Repositorios
             if (tablaDatos.Rows.Count > 0)
             {
                 tablaDatos.Rows.ForEach(row =>
-                    entidades.Add(new Entidad(row.GetInt("Id_Entidad"), row.GetString("Nombre_Entidad")))
+                    entidades.Add(new Entidad(row.GetInt("Id"), row.GetString("Descripcion")))
                     );
 
 

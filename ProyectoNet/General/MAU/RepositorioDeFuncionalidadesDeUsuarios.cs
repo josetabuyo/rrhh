@@ -127,7 +127,7 @@ namespace General.MAU
             {
                 if (!perf.Basica) return;
 
-                this.AsignarPerfilesAUsuario(new List<int>() { perf.Id }, new List<Area>(), usuario.Id, usuario.Id);
+                this.AsignarPerfilesAUsuario(new List<int>() { perf.Id }, new List<Area>(), new List<Entidad>(), usuario.Id, usuario.Id);
             });
         }
 
@@ -146,9 +146,13 @@ namespace General.MAU
                 {
                     MAU_Perfil perfil;
                     perfil = new MAU_Perfil(row.GetInt("IdPerfil", 0), row.GetString("descripcionPerfil", ""));
+                    perfil.TipoPerfil = row.GetInt("Tipo_Perfil", 0);
                     Area area = new Area(row.GetInt("IdArea", 0), row.GetString("descripcion", "Sin Area"));
                     area.IncluyeDependencias = row.GetBoolean("incluyeDependencias", false) ? 1 : 0;
+                    Entidad entidad = new Entidad(row.GetInt("IdEntidadSoc", 0), row.GetString("Nombre_Entidad", "Sin Entidad"));
+                    entidad.IncluyeDependencias = row.GetBoolean("IncluyeDepEntidadSoc", false) ? 1 : 0;
                     perfil.Areas.Add(area);
+                    perfil.Entidades.Add(entidad);
                     perfiles.Add(perfil);
 
                 });
@@ -179,11 +183,15 @@ namespace General.MAU
                 {
                     Funcionalidad funcionalidad;              
                     funcionalidad = new Funcionalidad(row.GetInt("id_funcionalidad"), row.GetString("Nombre"), "", false, false, false);
+                    funcionalidad.TipoFuncionalidad = row.GetInt("Tipo_Funcionalidad", 0);
                     Area area = new Area(row.GetInt("IdArea",0), row.GetString("descripcion", "Sin Area"));
-                    area.IncluyeDependencias =  row.GetBoolean("incluyeDependencias",false) ? 1 : 0; 
+                    area.IncluyeDependencias =  row.GetBoolean("incluyeDependencias",false) ? 1 : 0;
+                    Entidad entidad = new Entidad(row.GetInt("IdEntidadSoc", 0), row.GetString("Nombre_Entidad", "Sin Entidad"));
+                    entidad.IncluyeDependencias = row.GetBoolean("IncluyeDepEntidadSoc", false) ? 1 : 0;
                     funcionalidad.Areas.Add(area);
+                    funcionalidad.Entidades.Add(entidad);
                     funcionalidades.Add(funcionalidad);
-                
+
                 });
 
                 return funcionalidades;
@@ -196,7 +204,7 @@ namespace General.MAU
            
         }
 
-        public string AsignarPerfilesAUsuario(List<int> perfiles, List<Area> areas, int idUsuario, int id_usuario_alta)
+        public string AsignarPerfilesAUsuario(List<int> perfiles, List<Area> areas, List<Entidad> entidades, int idUsuario, int id_usuario_alta)
         {
             var mensaje = "ok";
             try
@@ -228,10 +236,39 @@ namespace General.MAU
                     })
                         );
                 }
-                else //Si no tiene areas
+               
+
+
+                //Si pusieron entidades al perfil
+                if (entidades.Count > 0)
                 {
-                    
-                    perfiles.ForEach(idPerfil => 
+
+                    perfiles.ForEach(idPerfil => entidades.ForEach(entidad =>
+                    {
+                        //Valido que no tenga el perfil ya
+                        if (!perfilesActuales.Exists(p => p.Id == idPerfil && p.Areas.Exists(a => a.Id == entidad.Id)))
+                        {
+                            var parametros = new Dictionary<string, object>();
+                            parametros.Add("@id_entidad", entidad.Id);
+                            parametros.Add("@id_usuario", idUsuario);
+                            parametros.Add("@id_perfil", idPerfil);
+                            parametros.Add("@incluye_dependencia_entidad", entidad.IncluyeDependencias);
+                            parametros.Add("@id_usuario_alta", id_usuario_alta);
+                            var tablaDatos = conexion.Ejecutar("dbo.MAU_AsignarPerfilFuncionalidadAUsuario", parametros);
+                        }
+                        else
+                        {
+                            mensaje = "El perfil ya estaba asignado a la misma entidad";
+                        }
+
+                    })
+                        );
+                }
+
+                //Si no tiene areas ni entidades inserto solo el perfil
+                if (areas.Count == 0 && entidades.Count == 0)
+                {
+                    perfiles.ForEach(idPerfil =>
                     {
                         //Valido que no tenga el perfil ya
                         if (!perfilesActuales.Exists(p => p.Id == idPerfil))
@@ -245,6 +282,7 @@ namespace General.MAU
                     });
                 }
 
+
                 this.limpiarCache();
 
                 return mensaje;
@@ -254,7 +292,7 @@ namespace General.MAU
             }  
         }
 
-        public string AsignarFuncionalidadesAUsuario(List<int> funcionalidades, List<Area> areas, int idUsuario, int id_usuario_alta)
+        public string AsignarFuncionalidadesAUsuario(List<int> funcionalidades, List<Area> areas, List<Entidad> entidades, int idUsuario, int id_usuario_alta)
         {
 
             try
@@ -284,9 +322,34 @@ namespace General.MAU
                         );
 
                 }
-                else //Si no tiene areas
+               
+
+                //Si tiene entidades
+                if (entidades.Count > 0)
                 {
-                    
+
+                    funcionalidades.ForEach(idFuncionalidad => entidades.ForEach(entidad =>
+                    {
+                        //Valido que no tenga el perfil ya
+                        //if (!funcionalidadesActuales.Exists(f => f.Id == idFuncionalidad))
+                        if (this.tieneMismaFuncionalidadEnMismaArea(funcionalidadesActuales, idFuncionalidad, entidad.Id))
+                        {
+                            var parametros = new Dictionary<string, object>();
+                            parametros.Add("@id_entidad", entidad.Id);
+                            parametros.Add("@id_usuario", idUsuario);
+                            parametros.Add("@id_funcionalidad", idFuncionalidad);
+                            parametros.Add("@incluye_dependencia_entidad", entidad.IncluyeDependencias);
+                            parametros.Add("@id_usuario_alta", id_usuario_alta);
+                            var tablaDatos = conexion.Ejecutar("dbo.MAU_AsignarPerfilFuncionalidadAUsuario", parametros);
+                        }
+                    })
+                        );
+
+                }
+
+                //Si no tiene areas ni entidades inserto solo el perfil
+                if (areas.Count == 0 && entidades.Count == 0)
+                {
                     funcionalidades.ForEach(idFuncionalidad =>
                     {
                         //Valido que no tenga el perfil ya
@@ -389,7 +452,7 @@ namespace General.MAU
 
         }
 
-        public string DesAsignarPerfilDeUsuario(int idPerfil, int idArea, int idUsuario, int id_usuario_alta)
+        public string DesAsignarPerfilDeUsuario(int idPerfil, int idArea, int idEntidad, int idUsuario, int id_usuario_alta)
         {
 
             try
@@ -400,6 +463,8 @@ namespace General.MAU
                 parametros.Add("@id_usuario_alta", id_usuario_alta);
                 if (idArea != 0)
                     parametros.Add("@id_area", idArea);
+                if (idEntidad != 0)
+                    parametros.Add("@id_entidad", idEntidad);
 
                 var tablaDatos = conexion.Ejecutar("dbo.MAU_DesAsignarPerfilFuncionalidadAUsuario", parametros);
 
@@ -413,7 +478,7 @@ namespace General.MAU
             }
         }
 
-        public string DesAsignarFuncionalidadDeUsuario(int idFuncionalidad, int idArea, int idUsuario, int id_usuario_alta)
+        public string DesAsignarFuncionalidadDeUsuario(int idFuncionalidad, int idArea, int idEntidad, int idUsuario, int id_usuario_alta)
         {
 
             try
@@ -426,6 +491,8 @@ namespace General.MAU
                 parametros.Add("@id_usuario_alta", id_usuario_alta);
                 if (idArea != 0)
                     parametros.Add("@id_area", idArea);
+                if (idEntidad != 0)
+                    parametros.Add("@id_entidad", idEntidad);
 
                 var tablaDatos = conexion.Ejecutar("dbo.MAU_DesAsignarPerfilFuncionalidadAUsuario", parametros);
 
