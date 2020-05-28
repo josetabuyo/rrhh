@@ -14,6 +14,7 @@ namespace General.MAU
         public bool SoloParaEmpleados { get; set; }
         public bool basica { get; set; }
         public List<Area> Areas { get; set; }
+        public int TipoFuncionalidad { get; set; }
 
         public Funcionalidad()
         {

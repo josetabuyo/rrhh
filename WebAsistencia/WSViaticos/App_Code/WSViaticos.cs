@@ -3193,6 +3193,13 @@ public class WSViaticos : System.Web.Services.WebService
     }
 
     [WebMethod]
+    public Entidad[] BuscarEntidades(string criterio)
+    {
+        var entidades = RepositorioDeEntidades().BuscarEntidades(criterio).ToArray();
+        return entidades;
+    }
+
+    [WebMethod]
     public Persona[] BuscarPersonasConLegajo(string criterio)
     {
         var personas = RepositorioDePersonas().BuscarPersonasConLegajo(criterio).ToArray();
@@ -5369,6 +5376,11 @@ public class WSViaticos : System.Web.Services.WebService
     private RepositorioDeAreas RepositorioDeAreas()
     {
         return General.Repositorios.RepositorioDeAreas.NuevoRepositorioDeAreas(Conexion());
+    }
+
+    private RepositorioDeEntidades RepositorioDeEntidades()
+    {
+        return General.Repositorios.RepositorioDeEntidades.NuevoRepositorioDeEntidades(Conexion());
     }
 
     private RepositorioLegajo RepoLegajo()

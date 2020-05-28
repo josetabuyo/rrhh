@@ -44,7 +44,7 @@
     </div>
     <hr />
 
-    <div class="cajaPermisos">
+    <div id="cajaSeleccionDeAreas" class="cajaPermisos">
         <p>Seleccione el/las Areas a Asignar al Perfil: </p>
 
         <div id="panel_usuarios_por_area">
@@ -55,6 +55,21 @@
             <div style="margin-top: 20px;">
                 <p><strong>Areas Seleccionadas</strong></p>
                 <div id="listadoAreasElegidas"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="cajaSeleccionDeEntidades" class="cajaPermisos" >
+        <p>Seleccione el/las Entidades a Asignar al Perfil: </p>
+
+        <div id="panel_usuarios_por_entidad">
+            <div id="selector_entidades_usuarios" class="selector_entidades" style="position: inherit; display: inline;">
+                <input id="buscadorEntidades" type="hidden" class="buscarUsuarioPorArea" />
+            </div>
+
+            <div style="margin-top: 20px;">
+                <p><strong>Entidades Seleccionadas</strong></p>
+                <div id="listadoEntidadesElegidas"></div>
             </div>
         </div>
     </div>
@@ -78,10 +93,21 @@
         <div id="nombre"></div>
     </div>
 
+    <div class="vista_entidad_en_selector">
+        <div id="nombre"></div>
+    </div>
+
 </div>
 
 <div id="plantillaArea" style="width:100%; display:none;" class="listadoAreas">
     <span style="width: 50%; display: inline-block;" id="areaSeleccionada"></span>
+    <input id="checkIncluyeDependencias" type="checkbox" /> Incluye Dependencias
+    <input type="button" class="quitar btnQuitar" value="Quitar" />
+    <hr />
+</div>
+
+<div id="plantillaEntidad" style="width:100%; display:none;" class="listadoEntidades">
+    <span style="width: 50%; display: inline-block;" id="entidadSeleccionada"></span>
     <input id="checkIncluyeDependencias" type="checkbox" /> Incluye Dependencias
     <input type="button" class="quitar btnQuitar" value="Quitar" />
     <hr />

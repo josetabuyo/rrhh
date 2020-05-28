@@ -21,6 +21,7 @@ var Permisos = {
         this.repositorioDeUsuarios = new RepositorioDeUsuarios(proveedor_ajax);
         this.repositorioDePersonas = new RepositorioDePersonas(proveedor_ajax);
         this.repositorioDeAreas = new RepositorioDeAreas(proveedor_ajax);
+        this.repositorioDeEntidades = new RepositorioDeEntidades(proveedor_ajax);
         usuarioEncontrado = { Id: 0 };
 
     },
@@ -358,8 +359,10 @@ var Permisos = {
 
         var proveedor_ajax = new ProveedorAjax("../");
         this.repositorioDeAreas = new RepositorioDeAreas(proveedor_ajax);
+        this.repositorioDeEntidades = new RepositorioDeEntidades(proveedor_ajax);
 
         this.div_lista_areas = $("#lista_areas_para_consultar");
+        this.div_lista_entidades = $("#lista_areas_para_consultar");
 
         Backend.GetPerfilesConFuncionalidades()
             .onSuccess(function (perfiles) {
@@ -370,7 +373,7 @@ var Permisos = {
 
                 $.each(perfiles, function (key, value) {
 
-                    $("#comboPerfiles").append("<option value=" + value.Id + ">" + value.Nombre + "</option>");
+                    $("#comboPerfiles").append("<option data-tipoperfil=" + value.TipoPerfil + " value=" + value.Id + ">" + value.Nombre + "</option>");
 
 
                     contenedorDialogo.append("<p class='dialogNombrePerfil'>" + value.Nombre + "</p>");
@@ -407,8 +410,18 @@ var Permisos = {
             var plantillaPerfiles = $("#plantillaPerfilSeleccionado").clone();
 
             plantillaPerfiles.find(".nombrePerfil").html($("select option:selected").text());
+            var idPerfil = $(this).val();
+            var tipoPerfil = $(this).find(':selected').data('tipoperfil');
 
-            plantillaPerfiles.attr('id', $(this).val());
+            if (tipoPerfil >= 200) {
+                $("#cajaSeleccionDeEntidades").show();
+                $("#cajaSeleccionDeAreas").hide();
+            } else {
+                $("#cajaSeleccionDeEntidades").hide();
+                $("#cajaSeleccionDeAreas").show();
+            }
+
+            plantillaPerfiles.attr('id', idPerfil);
             plantillaPerfiles.attr('class', 'perfilesSeleccionados');
 
             plantillaPerfiles.find(".quitar").click(function () {
@@ -442,6 +455,29 @@ var Permisos = {
                 plantilla.attr('class', 'areasSeleccionadas');
 
                 $("#listadoAreasElegidas").append(plantilla);
+            }
+        });
+
+        this.selector_de_entidades = new SelectorDeEntidades({
+            ui: $("#selector_area_usuarios"),
+            repositorioDeEntidades: this.repositorioDeEntidades,
+            placeholder: "ingrese la entidad que desea buscar",
+            alSeleccionarUnaEntidad: function (entidad) {
+
+                //alert(area.nombre);
+
+                var plantilla = $("#plantillaEntidad").clone();
+                plantilla.show();
+                plantilla.find("#entidadSeleccionada").html(entidad.nombre);
+                plantilla.find("#checkIncluyeDependencias").attr('class', 'checksIncluyeDependencia');
+                plantilla.find(".quitar").click(function () {
+                    plantilla.remove();
+                });
+
+                plantilla[0].id = entidad.id;
+                plantilla.attr('class', 'areasSeleccionadas');
+
+                $("#listadoEntidadesElegidas").append(plantilla);
             }
         });
 

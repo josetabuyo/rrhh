@@ -281,6 +281,16 @@ public class AjaxWS : System.Web.Services.WebService
 
     [WebMethod(EnableSession = true)]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string BuscarEntidades(string criterio)
+    {
+        var respuesta = backEndService.BuscarEntidades(criterio);
+        var respuestaSerializada = Newtonsoft.Json.JsonConvert.SerializeObject(respuesta);
+        return respuestaSerializada;
+    }
+
+
+    [WebMethod(EnableSession = true)]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public string BuscarPersonasConLegajo(string criterio)
     {
         var respuesta = backEndService.BuscarPersonasConLegajo(criterio);

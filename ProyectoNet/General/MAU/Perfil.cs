@@ -13,6 +13,7 @@ namespace General.MAU
         public DateTime FechaDesde { get; set; }
         public List<Area> Areas { get; set; }
         public bool Basica { get; set; }
+        public int TipoPerfil { get; set; }
 
 
         public MAU_Perfil()

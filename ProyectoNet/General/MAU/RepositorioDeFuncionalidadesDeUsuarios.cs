@@ -457,13 +457,14 @@ namespace General.MAU
                     if (idPerfil != row.GetInt("Id"))
                     {
                         MAU_Perfil unPerfil = new MAU_Perfil(row.GetInt("Id", 0), row.GetString("NombrePerfil", "Sin Perfil"), row.GetBoolean("basica", false));
+                        unPerfil.TipoPerfil = row.GetInt("Tipo_Perfil", 0);
                         perfiles.Add(unPerfil);
                         idPerfil = row.GetInt("Id");
                     }
 
                     Funcionalidad funcionalidad;
                     funcionalidad = new Funcionalidad(row.GetInt("IdFuncionalidad",0), row.GetString("NombreFuncionalidad", "Sin Funcionalidad"), "", false, false, false);
-
+                    funcionalidad.TipoFuncionalidad = row.GetInt("Tipo_Funcionalidad", 0);
                     perfiles.Last().Funcionalidades.Add(funcionalidad);
 
                 });
