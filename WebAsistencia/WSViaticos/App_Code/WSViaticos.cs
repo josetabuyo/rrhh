@@ -40,6 +40,7 @@ using General.Csv;
 using General.Contrato;
 using System.Transactions;
 using System.Text;
+using General.PotenciarTrabajo;
 
 [WebService(Namespace = "http://wsviaticos.gov.ar/")]
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
@@ -7173,6 +7174,63 @@ public class WSViaticos : System.Web.Services.WebService
 
         return null;
     }
+
+
+    #region  Potenciar Trabajo
+    /// -------------------- Potenciar Trabajo -------------------------------------------------
+    [WebMethod]
+    public GeneralCombos[] Get_Cargar_Combo(string nombre_combo, Usuario usuario)
+    {
+        var RepositorioPT = new RepositorioPotenciarTrabajo();
+
+        var Lista = RepositorioPT.Get_Cargar_Combo(nombre_combo, usuario);
+
+        List<GeneralCombos> combo = new List<GeneralCombos>();
+
+        foreach (var item in Lista)
+        {
+            combo.Add(new GeneralCombos() { id = item.id, descripcion = item.descripcion });
+        }
+
+        return combo.ToArray();
+    }
+
+
+    [WebMethod]
+    public PT_Periodo[] Get_Periodos()
+    {
+        var RepositorioPT = new RepositorioPotenciarTrabajo();
+
+        var Lista = RepositorioPT.Get_Periodos();
+
+        List<PT_Periodo> combo = new List<PT_Periodo>();
+
+        foreach (var item in Lista)
+        {
+            combo.Add(new PT_Periodo() { Id = item.Id, Mes = item.Mes, Anio = item.Anio, CantSemanas= item.CantSemanas });
+        }
+
+        return combo.ToArray();
+    }
+    
+
+
+    [WebMethod]
+    public List<PT_Participacion> Get_Participacion_por_Entidad_Periodo (int idEntidad, string idPeriodo, Usuario usuario)
+    {
+        //RepositorioEvaluacionDesempenio repositorio = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
+        //return repositorio.getFormularioDeEvaluacion(idNivel, idEvaluado, idEvaluacion);
+
+        var RepositorioPT = new RepositorioPotenciarTrabajo();
+
+        return RepositorioPT.Get_Participacion_por_Entidad_Periodo(idEntidad, idPeriodo);
+
+
+    }
+
+    /// -------------------- Potenciar Trabajo -------------------------------------------------
+    #endregion
+
 
 
     #region " Coronavirus "

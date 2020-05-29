@@ -166,6 +166,9 @@
     <Compile Include="Portal\Legajo.cs" />
     <Compile Include="Portal\Respuesta.cs" />
     <Compile Include="Postular\ReporteDePostulaciones.cs" />
+    <Compile Include="PotenciarTrabajo\PT_Participacion.cs" />
+    <Compile Include="PotenciarTrabajo\PT_Periodo.cs" />
+    <Compile Include="PotenciarTrabajo\PT_Personas.cs" />
     <Compile Include="Recibos\Cabecera.cs" />
     <Compile Include="Recibos\Detalle.cs" />
     <Compile Include="Recibos\Utils.cs" />
@@ -177,6 +180,7 @@
     <Compile Include="Repositorios\AccionesMobi.cs" />
     <Compile Include="Repositorios\RepositorioDeCovid19.cs" />
     <Compile Include="Repositorios\RepositorioDeArchivosMigrados.cs" />
+    <Compile Include="Repositorios\RepositorioPotenciarTrabajo.cs" />
     <Compile Include="Repositorios\RepositorioVerificador.cs" />
     <Compile Include="Repositorios\RepositorioDeArchivosFirmados.cs" />
     <Compile Include="Repositorios\RepositorioDeTipoDeLiquidacion.cs" />
