@@ -14,7 +14,7 @@ namespace General.Repositorios
     public class RepositorioPotenciarTrabajo
     {
      
-        public List<GeneralCombos> Get_Cargar_Combo(string nombre_combo, Usuario usuario)
+        public List<GeneralCombos> PT_Get_Cargar_Combo(string nombre_combo, Usuario usuario)
         {
             SqlDataReader dr = null;
             ConexionDB cn = null;
@@ -49,7 +49,7 @@ namespace General.Repositorios
         }
 
 
-        public List<PT_Periodo> Get_Periodos()
+        public List<PT_Periodo> PT_Get_Periodos()
         {
             SqlDataReader dr;
             ConexionDB cn = new ConexionDB("dbo.PRGSOC_GET_Periodos");
@@ -75,12 +75,14 @@ namespace General.Repositorios
         }
 
 
-        public List<PT_Participacion> Get_Participacion_por_Entidad_Periodo(int idEntidad, string idPeriodo)
+        public List<PT_Participacion> PT_Get_Participacion_por_Entidad_Periodo(int idEntidad, int mes, int anio, Usuario usuario)
         {
             SqlDataReader dr;
             ConexionDB cn = new ConexionDB("dbo.PRGSOC_GET_Participacion_Por_Entidad_Periodo");
             cn.AsignarParametro("@Id_Entidad", idEntidad);
-            cn.AsignarParametro("@Periodo", idPeriodo);
+            cn.AsignarParametro("@Mes", mes);
+            cn.AsignarParametro("@Anio", anio);
+            cn.AsignarParametro("@Usuario", usuario);
 
             dr = cn.EjecutarConsulta();
 

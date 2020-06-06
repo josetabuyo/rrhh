@@ -7179,11 +7179,11 @@ public class WSViaticos : System.Web.Services.WebService
     #region  Potenciar Trabajo
     /// -------------------- Potenciar Trabajo -------------------------------------------------
     [WebMethod]
-    public GeneralCombos[] Get_Cargar_Combo(string nombre_combo, Usuario usuario)
+    public GeneralCombos[] PT_Get_Cargar_Combo(string nombre_combo, Usuario usuario)
     {
         var RepositorioPT = new RepositorioPotenciarTrabajo();
 
-        var Lista = RepositorioPT.Get_Cargar_Combo(nombre_combo, usuario);
+        var Lista = RepositorioPT.PT_Get_Cargar_Combo(nombre_combo, usuario);
 
         List<GeneralCombos> combo = new List<GeneralCombos>();
 
@@ -7197,11 +7197,11 @@ public class WSViaticos : System.Web.Services.WebService
 
 
     [WebMethod]
-    public PT_Periodo[] Get_Periodos()
+    public PT_Periodo[] PT_Get_Periodos()
     {
         var RepositorioPT = new RepositorioPotenciarTrabajo();
 
-        var Lista = RepositorioPT.Get_Periodos();
+        var Lista = RepositorioPT.PT_Get_Periodos();
 
         List<PT_Periodo> combo = new List<PT_Periodo>();
 
@@ -7216,14 +7216,14 @@ public class WSViaticos : System.Web.Services.WebService
 
 
     [WebMethod]
-    public List<PT_Participacion> Get_Participacion_por_Entidad_Periodo (int idEntidad, string idPeriodo, Usuario usuario)
+    public List<PT_Participacion> PT_Get_Add_Participacion_por_Entidad_Periodo(int idEntidad, int mes, int anio, Usuario usuario)
     {
         //RepositorioEvaluacionDesempenio repositorio = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
         //return repositorio.getFormularioDeEvaluacion(idNivel, idEvaluado, idEvaluacion);
 
         var RepositorioPT = new RepositorioPotenciarTrabajo();
 
-        return RepositorioPT.Get_Participacion_por_Entidad_Periodo(idEntidad, idPeriodo);
+        return RepositorioPT.PT_Get_Add_Participacion_por_Entidad_Periodo(idEntidad, mes, anio, usuario);
 
 
     }
