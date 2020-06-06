@@ -75,10 +75,10 @@ namespace General.Repositorios
         }
 
 
-        public List<PT_Participacion> PT_Get_Participacion_por_Entidad_Periodo(int idEntidad, int mes, int anio, Usuario usuario)
+        public List<PT_Participacion> PT_Get_Add_Participacion_por_Entidad_Periodo(int idEntidad, int mes, int anio, Usuario usuario)
         {
             SqlDataReader dr;
-            ConexionDB cn = new ConexionDB("dbo.PRGSOC_GET_Participacion_Por_Entidad_Periodo");
+            ConexionDB cn = new ConexionDB("dbo.PRGSOC_GET_ADD_Participacion_Por_Entidad_Periodo");
             cn.AsignarParametro("@Id_Entidad", idEntidad);
             cn.AsignarParametro("@Mes", mes);
             cn.AsignarParametro("@Anio", anio);
