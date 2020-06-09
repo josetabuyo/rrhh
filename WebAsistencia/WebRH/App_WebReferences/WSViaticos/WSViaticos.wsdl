@@ -1847,6 +1847,34 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="Mobi_AltaVehiculo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idTipoBien" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="dominio" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="segmento" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="marca" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="modelo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="nummotor" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="numchasis" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="anio" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="dataForm" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Mobi_AltaVehiculoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Mobi_AltaVehiculoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetThumbnail">
         <s:complexType>
           <s:sequence>
@@ -3298,11 +3326,6 @@
           <s:element minOccurs="0" maxOccurs="1" name="FolioPersistido" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="IdItemCV" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="IdTabla" type="s:int" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="ArrayOfString">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="PostularseAResponse">
@@ -9505,6 +9528,12 @@
   <wsdl:message name="AsociarTarjetonSoapOut">
     <wsdl:part name="parameters" element="tns:AsociarTarjetonResponse" />
   </wsdl:message>
+  <wsdl:message name="Mobi_AltaVehiculoSoapIn">
+    <wsdl:part name="parameters" element="tns:Mobi_AltaVehiculo" />
+  </wsdl:message>
+  <wsdl:message name="Mobi_AltaVehiculoSoapOut">
+    <wsdl:part name="parameters" element="tns:Mobi_AltaVehiculoResponse" />
+  </wsdl:message>
   <wsdl:message name="GetThumbnailSoapIn">
     <wsdl:part name="parameters" element="tns:GetThumbnail" />
   </wsdl:message>
@@ -12024,6 +12053,10 @@
       <wsdl:input message="tns:AsociarTarjetonSoapIn" />
       <wsdl:output message="tns:AsociarTarjetonSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="Mobi_AltaVehiculo">
+      <wsdl:input message="tns:Mobi_AltaVehiculoSoapIn" />
+      <wsdl:output message="tns:Mobi_AltaVehiculoSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetThumbnail">
       <wsdl:input message="tns:GetThumbnailSoapIn" />
       <wsdl:output message="tns:GetThumbnailSoapOut" />
@@ -14180,6 +14213,15 @@
     </wsdl:operation>
     <wsdl:operation name="AsociarTarjeton">
       <soap:operation soapAction="http://wsviaticos.gov.ar/AsociarTarjeton" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_AltaVehiculo">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/Mobi_AltaVehiculo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -18188,6 +18230,15 @@
     </wsdl:operation>
     <wsdl:operation name="AsociarTarjeton">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/AsociarTarjeton" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Mobi_AltaVehiculo">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/Mobi_AltaVehiculo" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

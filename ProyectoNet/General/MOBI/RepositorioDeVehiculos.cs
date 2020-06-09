@@ -173,9 +173,32 @@ namespace General.Repositorios
             var parametros = new Dictionary<string, object>();
 
             parametros.Add("@patente", patente);
+            //retorna el id del objeto o un null si no lo encuentra
+            var r = this.conexion_bd.EjecutarEscalar("dbo.MOBI_GetIdVehiculoxPatente", parametros);
+            if (r is null) {
+                return -1;
+            } else return int.Parse(r.ToString());
+              
+            //return int.Parse(this.conexion_bd.EjecutarEscalar("dbo.MOBI_GetIdVehiculoxPatente", parametros).ToString());
             
-            return int.Parse(this.conexion_bd.EjecutarEscalar("dbo.MOBI_GetIdVehiculoxPatente", parametros).ToString());
-            
+        }
+
+        public int AltaVehiculo(string dominio, string segmento, string marca, string modelo, string motor, string chasis, string anio, int usuario)
+        {
+            var parametros = new Dictionary<string, object>();
+
+            parametros.Add("@Dominio", dominio);
+            parametros.Add("@Segmento", segmento);
+            parametros.Add("@Marca", marca);
+            parametros.Add("@Modelo", modelo);
+            parametros.Add("@Motor", motor);
+            parametros.Add("@Chasis", chasis);
+            parametros.Add("@Anio", anio);
+            parametros.Add("@IdUser", usuario);
+
+            return int.Parse(this.conexion_bd.EjecutarEscalar("dbo.MOBI_ADD_Vehiculo_NEW", parametros).ToString());
+
+
         }
 
 

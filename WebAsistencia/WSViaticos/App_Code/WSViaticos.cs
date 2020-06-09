@@ -4870,11 +4870,12 @@ public class WSViaticos : System.Web.Services.WebService
     [WebMethod]
     public string AsociarTarjeton(string patente,string observacion,string vigencia, string codHolograma, Usuario usuario)
     {
-        //"0.ingreso_a_bienes"  es el viejo modulo
-        if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "mobi_asociarTarjeton")) throw (new Exception("El usuario no tiene permisos para el modulo de bienes 2"));
-        
+         
         try
         {
+            //"0.ingreso_a_bienes"  es el viejo modulo
+            if (!Autorizador().ElUsuarioTienePermisosPara(usuario.Id, "MOBI_Alta_Bien")) throw (new Exception("El usuario no tiene permisos para el modulo de bienes 2"));
+
             var repo = new RepositorioTarjetones(Conexion());
             var repo2 = new RepositorioDeVehiculos(Conexion());
             byte[] bytes;
@@ -4949,6 +4950,61 @@ public class WSViaticos : System.Web.Services.WebService
 
     }
 
+    [WebMethod]
+    public string Mobi_AltaVehiculo(int idTipoBien, string dominio, string segmento, string marca, string modelo, string nummotor, string numchasis, string anio, string[] dataForm, Usuario usuario)
+    {
+        //JObject jObject = JObject.FromObject(dataForm);
+        //dynamic data = JsonConvert.DeserializeObject(dataForm);
+        //object data2 = JsonConvert.DeserializeObject(dataForm);
+
+        //RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
+        //return rMoBi.GetTipoDeBienes();
+
+        //
+        RepositorioMoBi rMoBi = new RepositorioMoBi(Conexion());
+        var repo = new RepositorioDeVehiculos(Conexion());
+        int id_Bien;
+        try {
+            //verifico si ese dominio ya esta dado de alta
+            id_Bien = repo.ObtenerIdVehiculoxDominio(dominio);
+            if (id_Bien == -1 ){
+                id_Bien = repo.AltaVehiculo(dominio, segmento, marca, modelo, nummotor, numchasis, anio, usuario.Id);
+                //subo las imagenes y las relaciono al bien
+                foreach (string i in dataForm)
+                {
+                    int id_imagen = this.SubirImagen(i);
+                    rMoBi.AsignarImagenABien(id_Bien, id_imagen);
+                }
+
+                return JsonConvert.SerializeObject(new
+                {
+                    DioError = false/*,
+               *Respuesta = Convert.ToBase64String(bytes2),
+                nombrePDF = nombrePDF*/
+                });
+            }
+            else
+            {
+                return JsonConvert.SerializeObject(new
+                {
+                    DioError = true,
+                    MensajeDeErrorAmigable = "El dominio ya existe"
+                });
+
+            }
+            
+        }
+        catch (Exception e)
+        {
+            return JsonConvert.SerializeObject(new
+            {
+                DioError = true,
+                MensajeDeErrorAmigable = "Se produjo un error en la incorporacion del vehiculo",
+                error = e
+            });
+        }
+        
+    }
     #endregion
 
 

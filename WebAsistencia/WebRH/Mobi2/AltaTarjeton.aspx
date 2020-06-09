@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="AsociarTarjeton.aspx.cs" Inherits="Portal_Recibo" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="AltaTarjeton.aspx.cs" Inherits="Portal_Recibo" %>
 <%@ Register Src="~/BarraMenu/BarraMenu.ascx" TagName="BarraMenu" TagPrefix="uc2" %>
 
 <!Doctype html>

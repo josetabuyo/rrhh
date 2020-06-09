@@ -14,6 +14,17 @@ var UTIL = (function (window, undefined) {
         }); 
     }
 
+    function generarAnios(idSelect, cantAnios) {
+        /*codigo para capturar el enter, emulando el click sobre el boton buscar */
+        var input = document.getElementById(idSelect);
+        var day = new Date();
+        var anio = day.getFullYear();        
+
+        for (var i = 0; i <= cantAnios; i++) {
+            $("#" + idSelect).append('<option value=' + (anio - i).toString() + '>' + (anio - i).toString() + '</option>');
+        }
+    }
+
     function descargarPDF(b64,nombrePDF) {
         var base64Data = b64;
         var arrBuffer = base64ToArrayBuffer(base64Data);
@@ -59,7 +70,8 @@ var UTIL = (function (window, undefined) {
 return {
         enlazarEnter: enlazarEnter,
         descargarPDF: descargarPDF,
-        base64ToArrayBuffer: base64ToArrayBuffer
+    base64ToArrayBuffer: base64ToArrayBuffer,
+        generarAnios:generarAnios
     }
 
 })(window, undefined);
