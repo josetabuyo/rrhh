@@ -121,6 +121,7 @@ namespace General.Repositorios
                 part.Persona.Id_Rol = dr.GetInt32(dr.GetOrdinal("Id_Persona_Rol"));
                 part.Persona.CUIL = dr.GetString(dr.GetOrdinal("CUIL"));
                 part.Persona.Nombre_Apellido = dr.GetString(dr.GetOrdinal("Apellido_Nombre"));
+                part.Persona.Id_Estado = dr.GetInt32(dr.GetOrdinal("Id_Estado_Persona"));
                 part.PartSemana1 = dr.GetInt32(dr.GetOrdinal("Part_Semana1"));
                 part.Justif_Semana1 = dr.GetInt32(dr.GetOrdinal("Justif_Semana1"));
                 part.PartSemana2 = dr.GetInt32(dr.GetOrdinal("Part_Semana2"));

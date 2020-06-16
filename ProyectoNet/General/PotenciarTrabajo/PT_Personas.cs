@@ -12,6 +12,7 @@ namespace General.PotenciarTrabajo
         public string Nombre { get; set; }
         public string Nombre_Apellido { get; set; }
         public string CUIL { get; set; }
+        public int Id_Estado { get; set; }
         
     }
 }
