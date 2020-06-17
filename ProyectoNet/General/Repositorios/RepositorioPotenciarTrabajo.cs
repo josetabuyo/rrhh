@@ -14,7 +14,7 @@ namespace General.Repositorios
     public class RepositorioPotenciarTrabajo
     {
      
-        public List<GeneralCombos> Get_Cargar_Combo(string nombre_combo, Usuario usuario)
+        public List<GeneralCombos> PT_Get_Cargar_Combo(string nombre_combo, Usuario usuario)
         {
             SqlDataReader dr = null;
             ConexionDB cn = null;
@@ -49,7 +49,7 @@ namespace General.Repositorios
         }
 
 
-        public List<PT_Periodo> Get_Periodos()
+        public List<PT_Periodo> PT_Get_Periodos()
         {
             SqlDataReader dr;
             ConexionDB cn = new ConexionDB("dbo.PRGSOC_GET_Periodos");
@@ -74,13 +74,40 @@ namespace General.Repositorios
             return lista;
         }
 
-
-        public List<PT_Participacion> Get_Participacion_por_Entidad_Periodo(int idEntidad, string idPeriodo)
+        
+        public List<PT_Participacion_Dato> PT_Get_Participaciones_Dato()
         {
             SqlDataReader dr;
-            ConexionDB cn = new ConexionDB("dbo.PRGSOC_GET_Participacion_Por_Entidad_Periodo");
-            cn.AsignarParametro("@Id_Entidad", idEntidad);
-            cn.AsignarParametro("@Periodo", idPeriodo);
+            ConexionDB cn = new ConexionDB("dbo.PRGSOC_GET_Tabla_Datos_Participacion");
+
+            dr = cn.EjecutarConsulta();
+
+            PT_Participacion_Dato combo;
+            List<PT_Participacion_Dato> lista = new List<PT_Participacion_Dato>();
+
+            while (dr.Read())
+            {
+                combo = new PT_Participacion_Dato();
+                combo.Id = dr.GetInt32(dr.GetOrdinal("Id"));
+                combo.Dato_Participacion = dr.GetString(dr.GetOrdinal("Dato_Participacion"));
+                combo.PermiteObservaciones = dr.GetInt32(dr.GetOrdinal("PermiteObservaciones"));
+               
+                lista.Add(combo);
+            }
+
+            cn.Desconestar();
+            return lista;
+        }
+        
+
+        public List<PT_Participacion> PT_Get_Add_Participacion_por_Entidad_Periodo(int id_entidad, int mes, int anio, Usuario usuario)
+        {
+            SqlDataReader dr;
+            ConexionDB cn = new ConexionDB("dbo.PRGSOC_GET_ADD_Participacion_Por_Entidad_Periodo");
+            cn.AsignarParametro("@Id_Entidad", id_entidad);
+            cn.AsignarParametro("@Mes", mes);
+            cn.AsignarParametro("@Anio", anio);
+            cn.AsignarParametro("@Usuario", usuario.Id);
 
             dr = cn.EjecutarConsulta();
 
@@ -91,16 +118,23 @@ namespace General.Repositorios
             {
                 part = new PT_Participacion();
                 part.Persona = new PT_Personas();
-                part.Persona.Id = dr.GetInt32(dr.GetOrdinal("Id_Persona"));
+                part.Persona.Id_Rol = dr.GetInt32(dr.GetOrdinal("Id_Persona_Rol"));
                 part.Persona.CUIL = dr.GetString(dr.GetOrdinal("CUIL"));
                 part.Persona.Nombre_Apellido = dr.GetString(dr.GetOrdinal("Apellido_Nombre"));
+                part.Persona.Id_Estado = dr.GetInt32(dr.GetOrdinal("Id_Estado_Persona"));
                 part.PartSemana1 = dr.GetInt32(dr.GetOrdinal("Part_Semana1"));
+                part.Justif_Semana1 = dr.GetInt32(dr.GetOrdinal("Justif_Semana1"));
                 part.PartSemana2 = dr.GetInt32(dr.GetOrdinal("Part_Semana2"));
+                part.Justif_Semana2 = dr.GetInt32(dr.GetOrdinal("Justif_Semana2"));
                 part.PartSemana3 = dr.GetInt32(dr.GetOrdinal("Part_Semana3"));
+                part.Justif_Semana3 = dr.GetInt32(dr.GetOrdinal("Justif_Semana3"));
                 part.PartSemana4 = dr.GetInt32(dr.GetOrdinal("Part_Semana4"));
+                part.Justif_Semana4 = dr.GetInt32(dr.GetOrdinal("Justif_Semana4"));
                 part.PartSemana5 = dr.GetInt32(dr.GetOrdinal("Part_Semana5"));
+                part.Justif_Semana5 = dr.GetInt32(dr.GetOrdinal("Justif_Semana5"));
                 part.Observacion = dr.GetString(dr.GetOrdinal("Observacion"));
 
+                
                 lista.Add(part);
             }
 
@@ -108,7 +142,86 @@ namespace General.Repositorios
             return lista;
         }
 
+        public void PT_Upd_Participacion_por_Entidad_Periodo(int id_entidad, int mes, int anio, int semana, int id_persona_rol, int id_dato_justificacion, Usuario usuario)
+        {
+            SqlDataReader dr;
+            ConexionDB cn = new ConexionDB("dbo.PRGSOC_UPD_Participacion_Por_Entidad_Periodo");
+            cn.AsignarParametro("@Id_Entidad", id_entidad);
+            cn.AsignarParametro("@Mes", mes);
+            cn.AsignarParametro("@Anio", anio);
+            cn.AsignarParametro("@Semana", semana);
+            cn.AsignarParametro("@Id_Persona_Rol", id_persona_rol);
+            cn.AsignarParametro("@Id_Dato_Justificacion", id_dato_justificacion);
+            cn.AsignarParametro("@Usuario", usuario.Id);
+            
+           cn.EjecutarSinResultado();
+        }
 
+        public void PT_Add_Justificacion(int id_persona_rol, int id_motivo, int anio_desde, int mes_desde, int semana_desde, int anio_hasta, int mes_hasta, int semana_hasta, string id_justificacion, Usuario usuario)
+        {
+            SqlDataReader dr;
+            ConexionDB cn = new ConexionDB("dbo.PRGSOC_ADD_PRGSOC_Participacion_Justificacion");
+            cn.AsignarParametro("@Id_Persona_Rol", id_persona_rol);
+            cn.AsignarParametro("@Id_Motivo", id_motivo);
+            cn.AsignarParametro("@Anio_Desde", anio_desde);
+            cn.AsignarParametro("@Mes_Desde", mes_desde);
+            cn.AsignarParametro("@Semana_Desde", semana_desde);
+            cn.AsignarParametro("@Anio_Hasta", anio_hasta);
+            cn.AsignarParametro("@Mes_Hasta", mes_hasta);
+            cn.AsignarParametro("@Semana_Hasta", semana_hasta);
+            cn.AsignarParametro("@Justificacion", id_justificacion);
+            cn.AsignarParametro("@Id_Usuario_Carga", usuario.Id);
+            
+            cn.EjecutarSinResultado();
+        }
+        
+        public void PT_Upd_Justificacion(int id_registro, int anio_hasta, int mes_hasta, int semana_hasta, string id_justificacion, Usuario usuario)
+        {
+            SqlDataReader dr;
+            ConexionDB cn = new ConexionDB("dbo.PRGSOC_UPD_PRGSOC_Participacion_Justificacion");
+            cn.AsignarParametro("@Id_Registro", id_registro);
+            cn.AsignarParametro("@Anio_Hasta", anio_hasta);
+            cn.AsignarParametro("@Mes_Hasta", mes_hasta);
+            cn.AsignarParametro("@Semana_Hasta", semana_hasta);
+            cn.AsignarParametro("@Justificacion", id_justificacion);
+            cn.AsignarParametro("@Id_Usuario_Carga", usuario.Id);
+        
+            cn.EjecutarSinResultado();
+        }
 
+        public List<PT_Justificacion> PT_Get_Justificacion(object id_registro)
+        {
+            SqlDataReader dr;
+            ConexionDB cn = new ConexionDB("dbo.PRGSOC_Carga_Participacion_Justificacion");
+            cn.AsignarParametro("@Id_Registro", id_registro);
+            
+            dr = cn.EjecutarConsulta();
+
+            PT_Justificacion just;
+            List<PT_Justificacion> lista = new List<PT_Justificacion>();
+
+            while (dr.Read())
+            {
+                just = new PT_Justificacion();
+                just.Id_Registro = dr.GetInt32(dr.GetOrdinal("Id_Registro"));
+                just.Id_Persona_Rol = dr.GetInt32(dr.GetOrdinal("Id_Persona_Rol"));
+                just.Id_Motivo = dr.GetInt32(dr.GetOrdinal("Id_Motivo"));
+                just.Anio_Desde = dr.GetInt32(dr.GetOrdinal("Anio_Desde"));
+                just.Mes_Desde = dr.GetInt32(dr.GetOrdinal("Mes_Desde"));
+                just.Semana_Desde = dr.GetInt32(dr.GetOrdinal("Semana_Desde"));
+                just.Anio_Hasta = dr.GetInt32(dr.GetOrdinal("Anio_Hasta"));
+                just.Mes_Hasta = dr.GetInt32(dr.GetOrdinal("Mes_Hasta"));
+                just.Semana_Hasta = dr.GetInt32(dr.GetOrdinal("Semana_Hasta"));
+                just.Justificacion = dr.GetString(dr.GetOrdinal("Justificacion"));
+                just.Id_Usuario_Carga = dr.GetInt32(dr.GetOrdinal("Id_Usuario_Carga"));
+                just.Fecha_Carga = dr.GetDateTime(dr.GetOrdinal("Fecha_Carga"));
+                
+
+                lista.Add(just);
+            }
+
+            cn.Desconestar();
+            return lista;
+        }
     }
 }

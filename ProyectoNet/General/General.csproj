@@ -166,7 +166,9 @@
     <Compile Include="Portal\Legajo.cs" />
     <Compile Include="Portal\Respuesta.cs" />
     <Compile Include="Postular\ReporteDePostulaciones.cs" />
+    <Compile Include="PotenciarTrabajo\PT_Justificacion.cs" />
     <Compile Include="PotenciarTrabajo\PT_Participacion.cs" />
+    <Compile Include="PotenciarTrabajo\PT_Participacion_Dato.cs" />
     <Compile Include="PotenciarTrabajo\PT_Periodo.cs" />
     <Compile Include="PotenciarTrabajo\PT_Personas.cs" />
     <Compile Include="Recibos\Cabecera.cs" />

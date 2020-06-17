@@ -22,7 +22,7 @@ namespace General
 
             ConexionDB cn = new ConexionDB("dbo.Web_GetAgentesDelArea");
             cn.AsignarParametro("@idArea", unArea.Id);
-            cn.AsignarParametro("@imprimeplanillafirma", imprimeplanillafirma);
+            cn.AsignarParametro("@imprimeplanillafirma", imprimeplanillafirma); 
             unArea.Personas = new List<Persona>();
             dr = cn.EjecutarConsulta();
 

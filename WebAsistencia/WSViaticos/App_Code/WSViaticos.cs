@@ -7178,12 +7178,13 @@ public class WSViaticos : System.Web.Services.WebService
 
     #region  Potenciar Trabajo
     /// -------------------- Potenciar Trabajo -------------------------------------------------
+    
     [WebMethod]
-    public GeneralCombos[] Get_Cargar_Combo(string nombre_combo, Usuario usuario)
+    public GeneralCombos[] PT_Get_Cargar_Combo(string nombre_combo, Usuario usuario)
     {
         var RepositorioPT = new RepositorioPotenciarTrabajo();
 
-        var Lista = RepositorioPT.Get_Cargar_Combo(nombre_combo, usuario);
+        var Lista = RepositorioPT.PT_Get_Cargar_Combo(nombre_combo, usuario);
 
         List<GeneralCombos> combo = new List<GeneralCombos>();
 
@@ -7197,11 +7198,11 @@ public class WSViaticos : System.Web.Services.WebService
 
 
     [WebMethod]
-    public PT_Periodo[] Get_Periodos()
+    public PT_Periodo[] PT_Get_Periodos()
     {
         var RepositorioPT = new RepositorioPotenciarTrabajo();
 
-        var Lista = RepositorioPT.Get_Periodos();
+        var Lista = RepositorioPT.PT_Get_Periodos();
 
         List<PT_Periodo> combo = new List<PT_Periodo>();
 
@@ -7212,21 +7213,72 @@ public class WSViaticos : System.Web.Services.WebService
 
         return combo.ToArray();
     }
-    
 
 
     [WebMethod]
-    public List<PT_Participacion> Get_Participacion_por_Entidad_Periodo (int idEntidad, string idPeriodo, Usuario usuario)
+    public PT_Participacion_Dato[] PT_Get_Participaciones_Dato()
     {
-        //RepositorioEvaluacionDesempenio repositorio = RepositorioEvaluacionDesempenio.NuevoRepositorioEvaluacion(Conexion());
-        //return repositorio.getFormularioDeEvaluacion(idNivel, idEvaluado, idEvaluacion);
-
         var RepositorioPT = new RepositorioPotenciarTrabajo();
 
-        return RepositorioPT.Get_Participacion_por_Entidad_Periodo(idEntidad, idPeriodo);
+        var Lista = RepositorioPT.PT_Get_Participaciones_Dato();
 
+        List<PT_Participacion_Dato> combo = new List<PT_Participacion_Dato>();
 
+        foreach (var item in Lista)
+        {
+            combo.Add(new PT_Participacion_Dato() { Id = item.Id, Dato_Participacion = item.Dato_Participacion, PermiteObservaciones = item.PermiteObservaciones });
+        }
+
+        return combo.ToArray();
     }
+
+
+    [WebMethod]
+    public List<PT_Participacion> PT_Get_Add_Participacion_por_Entidad_Periodo(int id_entidad, int mes, int anio, Usuario usuario)
+    {
+        var RepositorioPT = new RepositorioPotenciarTrabajo();
+
+        return RepositorioPT.PT_Get_Add_Participacion_por_Entidad_Periodo(id_entidad, mes, anio, usuario);
+    }
+
+
+    [WebMethod]
+    public void PT_Upd_Participacion_por_Entidad_Periodo (int id_entidad, int mes, int anio, int semana, int id_persona_rol, int id_dato_justificacion, Usuario usuario)
+    {
+        var RepositorioPT = new RepositorioPotenciarTrabajo();
+
+        RepositorioPT.PT_Upd_Participacion_por_Entidad_Periodo(id_entidad, mes, anio, semana, id_persona_rol, id_dato_justificacion, usuario);
+    }
+
+
+    [WebMethod]
+    public List<PT_Justificacion> PT_Get_Justificacion(int id_registro)
+    {
+        var RepositorioPT = new RepositorioPotenciarTrabajo();
+
+        return RepositorioPT.PT_Get_Justificacion(id_registro);
+    }
+
+
+    [WebMethod]
+    public void PT_Add_Justificacion(int id_persona_rol, int id_motivo, int anio_desde, int mes_desde, int semana_desde, int anio_hasta, int mes_hasta, int semana_hasta, string id_justificacion, Usuario usuario)
+    {
+        var RepositorioPT = new RepositorioPotenciarTrabajo();
+
+        RepositorioPT.PT_Add_Justificacion(id_persona_rol, id_motivo, anio_desde, mes_desde, semana_desde, anio_hasta, mes_hasta, semana_hasta, id_justificacion, usuario);
+    }
+
+
+    [WebMethod]
+    public void PT_Upd_Justificacion(int id_registro, int anio_hasta, int mes_hasta, int semana_hasta, string id_justificacion, Usuario usuario)
+    {
+        var RepositorioPT = new RepositorioPotenciarTrabajo();
+
+        RepositorioPT.PT_Upd_Justificacion(id_registro, anio_hasta, mes_hasta, semana_hasta, id_justificacion, usuario);
+    }
+
+
+
 
     /// -------------------- Potenciar Trabajo -------------------------------------------------
     #endregion
