@@ -65,7 +65,7 @@ namespace General.Repositorios
                 combo.Id = dr.GetString(dr.GetOrdinal("Id"));
                 combo.Mes = dr.GetInt32(dr.GetOrdinal("Mes"));
                 combo.Anio = dr.GetInt32(dr.GetOrdinal("Anio"));
-                combo.CantSemanas = dr.GetInt32(dr.GetOrdinal("Cantidad_Semannas"));
+                combo.Cant_Semanas = dr.GetInt32(dr.GetOrdinal("Cantidad_Semannas"));
 
                 lista.Add(combo);
             }
@@ -90,7 +90,7 @@ namespace General.Repositorios
                 combo = new PT_Participacion_Dato();
                 combo.Id = dr.GetInt32(dr.GetOrdinal("Id"));
                 combo.Dato_Participacion = dr.GetString(dr.GetOrdinal("Dato_Participacion"));
-                combo.PermiteObservaciones = dr.GetInt32(dr.GetOrdinal("PermiteObservaciones"));
+                combo.Permite_Observaciones = dr.GetInt32(dr.GetOrdinal("PermiteObservaciones"));
                
                 lista.Add(combo);
             }
@@ -122,18 +122,18 @@ namespace General.Repositorios
                 part.Persona.CUIL = dr.GetString(dr.GetOrdinal("CUIL"));
                 part.Persona.Nombre_Apellido = dr.GetString(dr.GetOrdinal("Apellido_Nombre"));
                 part.Persona.Id_Estado = dr.GetInt32(dr.GetOrdinal("Id_Estado_Persona"));
-                part.PartSemana1 = dr.GetInt32(dr.GetOrdinal("Part_Semana1"));
+                part.Persona.Nombre_Estado = dr.GetInt32(dr.GetOrdinal("Nombre_Estado"));
+                part.Part_Semana1 = dr.GetInt32(dr.GetOrdinal("Part_Semana1"));
                 part.Justif_Semana1 = dr.GetInt32(dr.GetOrdinal("Justif_Semana1"));
-                part.PartSemana2 = dr.GetInt32(dr.GetOrdinal("Part_Semana2"));
+                part.Part_Semana2 = dr.GetInt32(dr.GetOrdinal("Part_Semana2"));
                 part.Justif_Semana2 = dr.GetInt32(dr.GetOrdinal("Justif_Semana2"));
-                part.PartSemana3 = dr.GetInt32(dr.GetOrdinal("Part_Semana3"));
+                part.Part_Semana3 = dr.GetInt32(dr.GetOrdinal("Part_Semana3"));
                 part.Justif_Semana3 = dr.GetInt32(dr.GetOrdinal("Justif_Semana3"));
-                part.PartSemana4 = dr.GetInt32(dr.GetOrdinal("Part_Semana4"));
+                part.Part_Semana4 = dr.GetInt32(dr.GetOrdinal("Part_Semana4"));
                 part.Justif_Semana4 = dr.GetInt32(dr.GetOrdinal("Justif_Semana4"));
-                part.PartSemana5 = dr.GetInt32(dr.GetOrdinal("Part_Semana5"));
+                part.Part_Semana5 = dr.GetInt32(dr.GetOrdinal("Part_Semana5"));
                 part.Justif_Semana5 = dr.GetInt32(dr.GetOrdinal("Justif_Semana5"));
                 part.Observacion = dr.GetString(dr.GetOrdinal("Observacion"));
-
                 
                 lista.Add(part);
             }
@@ -189,7 +189,7 @@ namespace General.Repositorios
             cn.EjecutarSinResultado();
         }
 
-        public List<PT_Justificacion> PT_Get_Justificacion(object id_registro)
+        public List<PT_Justificacion> PT_Get_Justificacion(int id_registro)
         {
             SqlDataReader dr;
             ConexionDB cn = new ConexionDB("dbo.PRGSOC_Carga_Participacion_Justificacion");

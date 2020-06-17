@@ -10,7 +10,7 @@ namespace General.PotenciarTrabajo
         public string Id { get; set; }
         public int Mes { get; set; }
         public int Anio { get; set; }
-        public int CantSemanas { get; set; }
+        public int Cant_Semanas { get; set; }
 
 
     }
