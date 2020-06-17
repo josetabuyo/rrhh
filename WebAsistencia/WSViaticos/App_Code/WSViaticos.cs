@@ -7208,7 +7208,7 @@ public class WSViaticos : System.Web.Services.WebService
 
         foreach (var item in Lista)
         {
-            combo.Add(new PT_Periodo() { Id = item.Id, Mes = item.Mes, Anio = item.Anio, CantSemanas= item.CantSemanas });
+            combo.Add(new PT_Periodo() { Id = item.Id, Mes = item.Mes, Anio = item.Anio, Cant_Semanas= item.Cant_Semanas });
         }
 
         return combo.ToArray();
@@ -7226,7 +7226,7 @@ public class WSViaticos : System.Web.Services.WebService
 
         foreach (var item in Lista)
         {
-            combo.Add(new PT_Participacion_Dato() { Id = item.Id, Dato_Participacion = item.Dato_Participacion, PermiteObservaciones = item.PermiteObservaciones });
+            combo.Add(new PT_Participacion_Dato() { Id = item.Id, Dato_Participacion = item.Dato_Participacion, Permite_Observaciones = item.Permite_Observaciones });
         }
 
         return combo.ToArray();
