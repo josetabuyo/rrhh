@@ -9,7 +9,7 @@ namespace General.PotenciarTrabajo
     {
         public int Id { get; set; }
         public string Dato_Participacion { get; set; }
-        public int PermiteObservaciones { get; set; }
+        public int Permite_Observaciones { get; set; }
 
     }
 }
