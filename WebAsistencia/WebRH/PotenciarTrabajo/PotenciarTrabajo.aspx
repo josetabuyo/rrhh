@@ -5,50 +5,112 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>Datos Abiertos</title>
-    <link rel="stylesheet" type="text/css" href="DatosAbiertos.css" />
+    <title>Potenciar Trabajo</title>
+    <link rel="stylesheet" type="text/css" href="PotenciarTrabajo.css" />
     <%= Referencias.Css("../")%>
     <%= Referencias.Javascript("../")%>
 </head>
     <body>
         <form id="form1" runat="server">
             <uc2:BarraMenu ID="BarraMenu" runat="server" Feature="<span style='font-size:18px; font-weight: bold;'>Datos Abiertos</span> <br/> <span style='font-size:12px;'> Administración de Usuarios </span>" UrlImagenes="../Imagenes/" UrlEstilos="../Estilos/" UrlPassword="../" />
-            <div id="pagina">
-                <%--<div requierefuncionalidad="mapa_del_estado">
-                    <div id="titulo_mapa_estado">Mapa del estado</div>
-                    <div id="presentacion">Desde este acceso se puede descargar en formato xls  la Planilla de Mapa del Estado (correspondiente al Ministerio de Desarrollo Social) con datos actualizados a este momento, de acuerdo a la información registrada en el SIGIRH&reg; </div>
-                    <a href="#" id="btn_mapa_del_estado_xls">
-                        <img src="xls.png" height=50px width=50px />
-                        <div>Mapa del MDS</div>
-                    </a>
-                    <br /><br />
+            <div id="pt_pagina">
+                <div id="pt_barra_izquierda">
+                    <div id="pt_titulo_barra">
+                      <div>
+                        Potenciar Trabajo
+                      </div>
+                    </div>
+                    <img id="pt_logo_seccion"
+                      src="../MenuPrincipal/Administración_de_Areas.png"/>
+                    <div id="pt_controles_barra_izq">
+                      PARTICIPACION
+                      <div id="pt_boton_carga_participacion">
+                        - Carga Participación
+                      </div>
+                      <div id="">
+                        - Informes Mensuales
+                      </div>
+                      <div id="">
+                        - Historial
+                      </div>
+                      <div id="">
+                        - Consultas al Programa
+                      </div>
+                    </div>
                 </div>
-
-                <div requierefuncionalidad="PC_Planificacion_Dotaciones">
-                    <div id="titulo_planificacion">Planificación de Dotaciones</div>
-                    <div id="presentacion_planificacion" >Desde este acceso se puede descargar en formato xls  la Planilla Contenedora del Programa de Planificación de Dotaciones con datos actualizados a este momento, de acuerdo a la información registrada en el SIGIRH&reg; </div>
-                    <a href="#" id="btn_planif_dotaciones_xls">
-                        <img src="xls.png" height=50px width=50px />
-                        <div>Planilla del Programa de Planificación de Dotaciones</div>
-                    </a>
-                </div>--%>
+                <div id="pt_seccion_gestion_semanal" class="pt_seccion">
+                  <div id='pt_estado_mensual'>
+                    <div id="pt_titulo_seccion">
+                      Estado Mensual de la Carga de Participación
+                    </div>
+                    <div id="pt_controles_superiores">
+                        <div>
+                            <label for="pt_cmb_periodo" class="pt_label_combo">Mes</label>
+                            <select id="pt_cmb_periodo" class="pt_combo">
+                            </select>
+                        </div>
+                    </div>
+                    <div id="pt_contenedor_tabla_participacion_mensual"
+                      class="pt_contenedor_tabla">
+                      <table id="pt_tabla_participacion_mensual" class="pt_tabla">
+                        <tr id="pt_titulos_tabla_participacion_mensual"
+                          class="pt_fila_titulo_tabla" >
+                          <th rowspan="2"> Grupo de Trabajo</th>
+                          <th colspan="4"> Estados </th>
+                          <th colspan="4"> Carga </th>
+                        </tr>
+                        <tr id="pt_titulos2_tabla_participacion_mensual"
+                          class="pt_fila_subtitulo_tabla">
+                          <th> Activos </th>
+                          <th> Suspendidos </th>
+                          <th> Incompatibles </th>
+                          <th> Total </th>
+                          <th> Sin Carga </th>
+                          <th> Parciales </th>
+                          <th> Completos </th>
+                          <th> Con informe </th>
+                        </tr>
+                      </table>
+                    </div>
+                  </div>
+                  <div id="pt_estado_semanal">
+                    <div id="pt_titulo_seccion">
+                      Registro de Participacion en Actividades del Grupo de Trabajo
+                    </div>
+                    <div id="pt_nota">
+                      Nota: Por defecto, todas las personas presentan un cumplimiento del 100%
+                    </div>
+                    <div id="pt_nota">
+                      MODIFIQUE las que corresponda a MENORES porcentajes de cumplimiento (seleccionando el valor correcto de la lista desplegable)
+                    </div>
+                    <div id="pt_contenedor_tabla_participacion_semanal"
+                      class="pt_contenedor_tabla">
+                      <table id="pt_tabla_participacion_semanal"
+                        class="pt_tabla">
+                        <tr id="pt_titulos_tabla_participacion_semanal"
+                          class="pt_fila_titulo_tabla">
+                          <th>CUIL</th>
+                          <th>Apellido y Nombre</th>
+                          <th>Semana 1</th>
+                          <th>Semana 2</th>
+                          <th>Semana 3</th>
+                          <th>Semana 4</th>
+                          <th>observaciones a la participación</th>
+                        </tr>
+                      </table>
+                    </div>
+                    <div class="pt_nota_pie_table">
+                      Atención: La carga de participación para Participantes
+                      en Estado "incompatible" no generan ningún tipo de derecho
+                      a cobro por el período y su consideración está
+                      completamente supeditada a la evaluación del PROGRAMA
+                      sobre la documentación que oportunamente se presente.
+                    </div>
+                  </div>
+                  <div id="pt_controles_inferiores"></div>
+                </div>
             </div>
-        </form>
-        <div id=plantillas>
-            <div class="consulta">
-                <div class="titulo"></div>
-                <div class="descripcion"></div>
-                <a href="#" class="btn_xls">
-                    <img src="xls.png" height=50px width=50px />
-                    <div class=descripcion_boton></div>
-                </a>
-                <br /><br />
-            </div>
-        </div>
     </body>
-    <script type="text/javascript" src="../Scripts/ConversorDeFechas.js" ></script>
-    <script type="text/javascript" src="../Scripts/ExportarAExcel.js" ></script>
-    <script type="text/javascript" src="../Scripts/Spin.js" ></script>
-    <script type="text/javascript" src="DatosAbiertos.js"></script>
+    <script type="text/javascript" src="PotenciarTrabajo.js"></script>
 
 </html>

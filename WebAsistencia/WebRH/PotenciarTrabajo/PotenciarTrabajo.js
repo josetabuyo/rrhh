@@ -13,18 +13,36 @@
 class SeccionEstadoCargaParticipacion {
   constructor() {
     this.tablaMensual = new TablaParticipacionMensual();
+
+    Backend.PT_Get_Periodos()
+      .onSuccess((periodos) => {
+          console.log('periodos obtenidos:', periodos);
+          periodos.forEach((periodo) => {
+            $("#pt_cmb_periodo").append(new Option(
+              periodo.Mes + periodo.Anio, periodo.Id));
+          });
+          $("#pt_cmb_periodo").change((e) => {
+              this.periodoSeleccionado = _.findWhere({Id: e.target.value});
+              this.render();
+          });
+          this.periodoSeleccionado = periodos ? periodos[0] : undefined;
+          this.render();
+      })
+      .onError(function (e) {
+          console.error("error al obtener periodos: " + e);
+      });
   }
 
   render () {
     $("#pt_estado_semanal").hide();
     $("#pt_estado_mensual").show();
-    Backend.PTGetEstadoCargaParticipacionPorPeriodo("1")
+    Backend.PT_Get_Estado_Carga_Participacion_Por_Periodo(this.periodoSeleccionado.Id)
       .onSuccess((estados) => {
-          console.warn('estados obtenidos:', estados);
-          this.tablaMensual.render(estados);
+          console.log('estados obtenidos:', estados);
+          this.tablaMensual.render(estados, this.periodoSeleccionado);
       })
       .onError(function (e) {
-          this.alertify.error("error al obtener asistencias: " + e);
+          console.error("error al obtener asistencias: " + e);
       });
   }
 }
@@ -43,29 +61,29 @@ class TablaParticipacionMensual extends TablaPT{
     this.tablaSemanal = new TablaParticipacionSemanal();
   }
 
-  render (estados) {
+  render (estados, periodo) {
     $("#pt_tabla_participacion_mensual").find(".pt_fila_participacion_mensual").remove();
     _.forEach(estados, (e) => {
       const fila = $("<tr>")
-      this.agregarCeldaTextoAFila(fila, e.nombreGrupoTrabajo);
-      this.agregarCeldaTextoAFila(fila, e.activos);
-      this.agregarCeldaTextoAFila(fila, e.suspendidos);
-      this.agregarCeldaTextoAFila(fila, e.incompatibles);
-      this.agregarCeldaTextoAFila(fila, e.activos + e.suspendidos + e.incompatibles);
-      this.agregarCeldaTextoAFila(fila, e.sinCarga);
-      this.agregarCeldaTextoAFila(fila, e.parciales);
+      this.agregarCeldaTextoAFila(fila, e.NombreGrupoTrabajo);
+      this.agregarCeldaTextoAFila(fila, e.Activos);
+      this.agregarCeldaTextoAFila(fila, e.Suspendidos);
+      this.agregarCeldaTextoAFila(fila, e.Incompatibles);
+      this.agregarCeldaTextoAFila(fila, e.Activos + e.Suspendidos + e.Incompatibles);
+      this.agregarCeldaTextoAFila(fila, e.SinCarga);
+      this.agregarCeldaTextoAFila(fila, e.Parciales);
 
       const celda = $("<td>")
-      celda.text(e.completos);
+      celda.text(e.Completos);
       const icono_lista = $("<img>");
       icono_lista.attr("src", "IconoLista.png");
       icono_lista.addClass("pt_icono_lista");
       icono_lista.click(() => {
-        Backend.PTGetAsistenciasPorGrupoYPeriodo(e.idGrupoTrabajo)
+        Backend.PT_Get_Add_Participacion_por_Entidad_Periodo(e.IdGrupoTrabajo, periodo.Id)
           .onSuccess((personas) => {
               $("#pt_estado_mensual").hide();
               $("#pt_estado_semanal").show();
-              this.tablaSemanal.render(personas);
+              this.tablaSemanal.render(personas, e.IdGrupoTrabajo, periodo);
           })
           .onError(function (e) {
               this.alertify.error("error al obtener asistencias: " + e);
@@ -74,45 +92,70 @@ class TablaParticipacionMensual extends TablaPT{
       celda.append(icono_lista);
       fila.append(celda);
 
-      this.agregarCeldaTextoAFila(fila, e.conInforme);
+      this.agregarCeldaTextoAFila(fila, e.ConInforme);
       fila.addClass("pt_fila_participacion_mensual");
       $("#pt_tabla_participacion_mensual").append(fila);
     });
   }
 }
 
-class TablaParticipacionSemanal {
-  render (personas) {
+class TablaParticipacionSemanal extends TablaPT{
+  constructor () {
+    super();
+    Backend.PT_Get_Participaciones_Dato()
+      .onSuccess((datos) => {
+          this.nivelesDeParticipacion = datos;
+      })
+      .onError(function (e) {
+          this.alertify.error("error al obtener niveles de participacion: " + e);
+      });
+  }
+  render (personas, id_grupo_trabajo, periodo) {
+    this.idGrupoTrabajo = id_grupo_trabajo;
+    this.periodo = periodo;
+
     $("#pt_tabla_participacion_semanal").find(".pt_fila_participacion_semanal").remove();
     _.forEach(personas, (p) => {
       var fila = $("<tr>")
 
-      var celda = $("<td>")
-      celda.text(p.cuil);
-      fila.append(celda);
+      this.agregarCeldaTextoAFila(fila, p.Persona.Cuil);
+      this.agregarCeldaTextoAFila(fila, p.Persona.Nombre_Apellido);
+      this.renderComboAsistencia(fila, p.Part_Semana1, (nuevo_valor)=>{
+        this.updateParticipacionSemanalPersona(p, 1, nuevo_valor);
+      });
+      this.renderComboAsistencia(fila, p.Part_Semana2, (nuevo_valor)=>{
+        this.updateParticipacionSemanalPersona(p, 2, nuevo_valor);
+      });
+      this.renderComboAsistencia(fila, p.Part_Semana3, (nuevo_valor)=>{
+        this.updateParticipacionSemanalPersona(p, 3, nuevo_valor);
+      });
+      this.renderComboAsistencia(fila, p.Part_Semana4, (nuevo_valor)=>{
+        this.updateParticipacionSemanalPersona(p, 4, nuevo_valor);
+      });
+      this.agregarCeldaTextoAFila(fila, p.Observacion, );
 
-      celda = $("<td>")
-      celda.text(p.nombre);
-      fila.append(celda);
-
-      this.renderComboAsistencia(fila, p.asistSemana1);
-      this.renderComboAsistencia(fila, p.asistSemana2);
-      this.renderComboAsistencia(fila, p.asistSemana3);
-      this.renderComboAsistencia(fila, p.asistSemana4);
-
-      celda = $("<td>")
-      celda.text(p.observaciones);
-      fila.append(celda);
       fila.addClass("pt_fila_participacion_semanal");
       $("#pt_tabla_participacion_semanal").append(fila);
     });
   }
 
-  renderComboAsistencia (fila, asistencia) {
+  renderComboAsistencia (fila, asistencia, change_handler) {
     var celda = $("<td>")
-    var combo_semanal = $("#pt_plantillas").find(".cmb_porcentaje_asistencia").clone();
-    combo_semanal.val(asistencia === '' ? '100' : asistencia);
+    var combo_semanal = $("<select>");
+    combo_semanal.addClass("cmb_porcentaje_asistencia");
+    this.nivelesDeParticipacion.forEach((nivel) => {
+      combo_semanal.append(new Option(nivel.Dato_Participacion, nivel.Id));
+    });
+    combo_semanal.val(asistencia);
+    combo_semanal.change((e) => {
+      change_handler(e.target.value);
+    });
     celda.append(combo_semanal);
     fila.append(celda);
+  }
+
+  updateParticipacionSemanalPersona (asistencia, semana, id_dato) {
+    Backend.PT_Upd_Participacion_por_Entidad_Periodo(this.idGrupoTrabajo,
+      this.periodo.Mes, this.periodo.Anio, asistencia.Persona.Id_Rol, semana, id_dato);
   }
 }
