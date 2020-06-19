@@ -7,7 +7,7 @@
     <link id="link2" rel="stylesheet" href="<%= UrlEstilos %>BarraMenuUsuarios.css" type="text/css" />
     <link href="../scripts/vex-2.1.1/css/vex.css" rel="stylesheet">
     <link href="../scripts/vex-2.1.1/css/vex-theme-os.css" rel="stylesheet">
-    <link rel="stylesheet" href="../Estilos/bootstrap.min.css">
+    <link rel="stylesheet" href="../Estilos/bootstrap/bootstrap.min.css">
     <link href="../scripts/vex-2.1.1/css/vex.css" rel="stylesheet">
     <link href="../scripts/vex-2.1.1/css/vex-theme-os.css" rel="stylesheet">
     <script type="text/javascript" src="../BarraMenu/BarraMenu.js"></script>

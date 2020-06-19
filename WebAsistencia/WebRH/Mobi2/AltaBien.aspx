@@ -27,9 +27,17 @@
         <link rel="stylesheet" href="plugin_custom_input_file/css/jquery.Jcrop.min.css" type="text/css" /> 
 
         <!--Custom Input File-->
-        <script src="plugin_custom_input_file/js/custominputfile.min-es.js"></script> 
-        <link rel="stylesheet" href="plugin_custom_input_file/css/custominputfile.min.css"  type="text/css" />
+        <script src="plugin_custom_input_file/js/custominputfile.min-es.js?"></script> 
+        <link rel="stylesheet" href="plugin_custom_input_file/css/custominputfile.css?"  type="text/css" />
 
+        <link rel="stylesheet" href="kartik-v-bootstrap-fileinput/css/fileinput.css"  type="text/css" media="all"/>
+        <link href="kartik-v-bootstrap-fileinput/themes/explorer-fas/theme.css" media="all" rel="stylesheet" type="text/css"/>        
+        <script src="kartik-v-bootstrap-fileinput/js/fileinput.js"></script>
+        <script src="kartik-v-bootstrap-fileinput/themes/fas/theme.js"></script>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="js/bootstrap-3.3.7.min.css" type="text/css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous">
+        
     </head>
 <body>
     <form id="form1" runat="server">
@@ -48,7 +56,7 @@
            <div id="subcontenidoBusquedaPatentes" class="panelDerOcultable" style="display: inline;"> 
 
                <div style="width:80%;margin:20pt;-webkit-border-radius: 7px 7px 0px 0px;
--moz-border-radius: 7px 7px 0px 0px;border-radius: 7px 7px 0px 0px;border-collapse: collapse;border: 0px solid #1C6EA4;padding-left:40pt;text-align: center;margin: 0 auto;">
+-moz-border-radius: 7px 7px 0px 0px;border-radius: 7px 7px 0px 0px;border-collapse: collapse;border: 0px solid #1C6EA4;padding-left:0pt;text-align: center;margin: 0 auto;">
                    <div class="/*estilo_formulario3*//*cajaPermisos*/" style="text-align: left;padding: 20px 20px">                      
                        <div style="vertical-align: middle; padding:0px;;margin-bottom:0px">
                            <label for="tipoBien" style="padding-right:28pt">Tipo Bien:</label>
@@ -59,14 +67,21 @@
                    <hr class="barraHorizontal">
                    <br />
 
-                   <div class="cajaPermisos">
+                   <div class="/*cajaPermisos*/">
+                       <span class="" style="">
+                            <!-- donde se ubican los archivos precargados-->
+                            <span style="float:left;color:black;padding:0px 10px;;width:380px">
+                                <span id="contenedorFiles" >
+
+                                </span>
+                            </span>
+                        </span> 
                        <!--la siguiente descripcion del vehiculo se puede quitar -->
-                       <div class="/*estilo_formulario3*//*cajaPermisos*/" style="text-align: left;padding: 20px 20px">   
+                       <div class="/*estilo_formulario3*//*cajaPermisos*/" style="float:right;text-align: left;padding: 20px 20px;width:550px;">   
                            <div style="vertical-align: middle; padding:0px;;margin-bottom:0px">
                                 <label for="buscadorPatentes" style="padding-right:48pt">Dominio:</label>
                                 <input id="buscadorPatentes" name="buscadorPatentes" type="text" style="margin: 4px 0;padding:20px 10px;font-size:30pt;font-weight:bold;width: 280px;" maxlength="8"/>                                
-                                <!-- donde se ubican los archivos precargados-->
-                                <span style="float:right;color:black;"><span id="contenedorFiles" ></span></span>
+                               
                            </div>
                            <div style="vertical-align: middle; padding:0px;margin-bottom:0px">
                                 <label for="segmento" style="padding-right:40pt">Segmento:</label>
@@ -77,7 +92,7 @@
                                 <input type="text" id="marca" name="marca" style="margin: 4px 0;padding:15px;font-size:12pt;font-weight:bold;width: 210pt;">
                            </div>
                            <div style="vertical-align: middle; padding:0px;margin-bottom:0px">
-                                <label for="modelo" style="padding-right:52pt">modelo:</label>
+                                <label for="modelo" style="padding-right:52pt">Modelo:</label>
                                 <input type="text" id="modelo" name="modelo" style="margin: 4px 0;padding:15px;font-size:12pt;font-weight:bold;width: 210pt;">
                            </div>
                            <div style="vertical-align: middle; padding:0px;margin-bottom:0px">
@@ -90,10 +105,11 @@
                            </div>      
                            <div style="vertical-align: middle; padding:0px;margin-bottom:0px">
                                 <label for="anio" style="padding-right:2pt">Año: (Según Tarjeta Verde)</label>
-                                <select name="anio" id="cmb_anio" style="width:70px;color:black;border-radius: 3px;"> </select>
+                                <select name="anio" id="cmb_anio" style="width:70px;color:black;border-radius: 3px;"> </select>                                
+                                <input name="input-file-1" id="input-file-1">                                
                            </div>
-                           <div style="vertical-align: middle; padding:5px 0px;margin-bottom:0px">
-                                <input name="input-file-1" id="input-file-1">
+                           <div> 
+                               <input name="input-file-2" id="input-file-2"> 
                            </div>
                            <div style="vertical-align: middle; padding:5px 0px;text-align:center;">
                                 <input id="btn_guardarVehiculo" class="botonAzul" type="button" value="Guardar" style="margin-left:5px;" onclick="BIENES.guardarVehiculo()" >                       
@@ -205,8 +221,32 @@
             	
         </div>
            <!--FIN contenido derecho -->
+
     </div>
     </form>
+
+    <div id="kvFileinputModal" class="file-zoom-dialog modal fade show" onclick="opSalir()" aria-labelledby="kvFileinputModalLabel" style="z-index:-1; transition: none;background-color: rgba(0,0,0,0.6);margin:0px;width:100%;display: block; padding-right: 0px;" aria-modal="true">
+        <div id="contenedormodalhori" class="modal-dialog modal-lg" role="document" onclick="event.stopPropagation()" style="z-index:101;" >
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" style="margin-bottom: 0px;line-height: 1.5;font-size: 18px;font-weight: bold;">Detalles</h5>
+      <span id="nombreImg" class="kv-zoom-title" title="Liquidacion_de_Haberes.png  (3.2 KB)"></span>
+      <div class="kv-zoom-actions">
+          <button type="button" class="btn btn-sm btn-kv btn-default btn-outline-secondary btn-borderless" onclick="opAgrandar()" title="agrandar" data-toggle="button" aria-pressed="false" autocomplete="off"><i class="fas fa-fw fa-external-link-alt"></i></button>
+          <button type="button" class="btn btn-sm btn-kv btn-default btn-outline-secondary btn-close" onclick="opSalir()"  title="Cerrar" data-dismiss="modal" aria-hidden="true"><i class="fas fa-fw fa-times"></i></button></div>
+    </div>
+    <div class="modal-body" id="contenedormodalverti" stylexxx="overflow-x:auto;max-height: 100%; ">
+      <div class="floating-buttons"></div>
+      <div class="kv-zoom-body file-zoom-content krajee-default">
+<img id="imagenImg" class="file-preview-image kv-preview-data file-zoom-detail" title="Liquidacion_de_Haberes.png" alt="Liquidacion_de_Haberes.png" style="width: auto; height: auto; max-width: 100%; max-height: 100%;">
+</div>
+<button type="button" class="btn btn-navigate btn-prev" title="View previous file" style="display: none;"><i class="fas fa-caret-left fa-lg"></i></button> 
+        <button type="button" class="btn btn-navigate btn-next" title="View next file" style="display: none;"><i class="fas fa-caret-right fa-lg"></i></button>
+    </div>
+  </div>
+</div>
+</div>
+
 </body>
 
 
@@ -245,6 +285,41 @@
 
     <script type="text/javascript" >
 
+        function opAgrandar() {
+            //var btn_firmar2 = document.getElementById(listaBotonesHabilitados[j]);
+            //btn_firmar2.disabled = false;
+            //btn_firmar2.classList.remove('botonGrisadoFirmaM');
+            //btn_firmar2.classList.add('botonFirmaM');
+            //document.getElementById('contenedormodalhori').classList.add('fade');
+            //oculto el panel del resultado 
+            if (document.getElementById('contenedormodalhori').style.maxWidth) {
+               // $("h1").removeAttr("style");
+                //$("span").css("margin-top", "initial");
+                document.getElementById('kvFileinputModal').style.removeProperty('maxWidth'); 
+
+            } else {
+                document.getElementById('contenedormodalhori').style.maxWidth = "100%";
+                document.getElementById('contenedormodalhori').style.margin = "0px";
+                document.getElementById('contenedormodalverti').style.maxHeight = "100%";
+                document.getElementById('kvFileinputModal').style.overflowY = "auto";
+            }
+            
+            //muestro el panel de seleccion de documento firmado 
+            //document.getElementById('validarFirmaForm').style.display = 'block';
+        }
+
+        function opSalir() {
+            //var btn_firmar2 = document.getElementById(listaBotonesHabilitados[j]);
+            //btn_firmar2.disabled = false;
+            //btn_firmar2.classList.remove('botonGrisadoFirmaM');
+            //btn_firmar2.classList.add('botonFirmaM');
+            document.getElementById('kvFileinputModal').classList.add('fade');
+            //oculto el panel del resultado
+            document.getElementById('kvFileinputModal').style.zIndex ="-1";
+            //muestro el panel de seleccion de documento firmado 
+            //document.getElementById('validarFirmaForm').style.display = 'block';
+        }
+
         //    var listaRecibosConformados = new Array();
         //  var agenteActual = '';
 
@@ -262,8 +337,18 @@
 
             //inicializo el manejador de la carga de archivos
             $('#input-file-1').customFile({
+                allowed: ["jpeg", "jpg", "png"],
                 maxFiles: 10,
-                addContainerAfter: $('#contenedorFiles')
+                name:'Subir Foto de Tarjeta Verde',
+                addContainerAfter: $('#contenedorFiles'),
+                type: 'image'
+            });
+            $('#input-file-2').customFile({
+                allowed: ["jpeg", "jpg", "png"],
+                maxFiles: 10,
+                name: 'Subir Foto de Vehiculo',
+                addContainerAfter: $('#contenedorFiles'),
+                type: 'image'
             });
 
             UTIL.enlazarEnter("buscadorPatentes", "btn_buscarPatente");
