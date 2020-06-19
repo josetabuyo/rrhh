@@ -84,6 +84,21 @@
                             </div>
                          </div> 
                      </div>
+
+                    <div class="cajaPermisos">
+                        <p>Seleccione el/las Entidades a Asignar al Perfil: </p>
+
+                        <div id="panel_usuarios_por_entidad" >     
+                            <div id="selector_entidades_usuarios" class="selector_areas" style="position: inherit; display: inline;">
+                                <input id="buscadorEntidades" type="hidden" class="buscarUsuarioPorArea" />
+                            </div>
+                            
+                            <div style="margin-top: 20px;">
+                                <p><strong>Entidades Seleccionadas</strong></p>
+                                <div id="listadoEntidadesElegidas"></div>
+                            </div>
+                         </div> 
+                     </div>
                      <hr />
                      <div style="text-align:center;">
                         <input type="button" class="btn-primary botonesPermisos" value="Agregar Perfil a las Areas seleccionadas" id="btnAsignarPerfilConAreas" />
@@ -108,10 +123,21 @@
             <div id="nombre"></div> 
         </div>
 
+        <div class="vista_entidad_en_selector">
+            <div id="nombre"></div> 
+        </div>
+
     </div>
 
     <div id="plantillaArea" style="width:100%; display:none;" class="listadoAreas">
         <span style="width: 50%; display: inline-block;" id="areaSeleccionada"></span>
+        <input  id="checkIncluyeDependencias" type="checkbox" /> Incluye Dependencias
+        <input  type="button" class="quitar btnQuitar" value="Quitar" /> 
+        <hr />
+    </div>
+
+    <div id="plantillaEntidad" style="width:100%; display:none;" class="listadoEntidades">
+        <span style="width: 50%; display: inline-block;" id="entidadSeleccionada"></span>
         <input  id="checkIncluyeDependencias" type="checkbox" /> Incluye Dependencias
         <input  type="button" class="quitar btnQuitar" value="Quitar" /> 
         <hr />
@@ -129,6 +155,8 @@
 <script type="text/javascript" src="../Scripts/Area.js"></script>
 <script type="text/javascript" src="../Scripts/SelectorDeAreas.js"></script>
 <script type="text/javascript" src="../Scripts/RepositorioDeAreas.js"></script>
+<script type="text/javascript" src="../Scripts/SelectorDeEntidades.js"></script>
+<script type="text/javascript" src="../Scripts/RepositorioDeEntidades.js"></script>
 <script type="text/javascript" src="../Scripts/select2-3.4.4/Select2.min.js"></script>
 <script type="text/javascript" src="../Scripts/select2-3.4.4/select2_locale_es.js"></script>
 <script type="text/javascript" src="Permisos.js"></script>

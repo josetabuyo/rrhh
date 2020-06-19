@@ -54,9 +54,8 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BouncyCastle.Crypto">
-      <HintPath>..\..\..\..\..\Users\jcvelasquez\Desktop\BouncyCastle.Crypto.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.1.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>..\..\WebAsistencia\packages\BouncyCastle.Crypto.dll.1.8.1\lib\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
     <Reference Include="ClosedXML">
       <HintPath>..\..\SharedLibs\ClosedXML.dll</HintPath>
@@ -170,6 +169,7 @@
     <Compile Include="Portal\Legajo.cs" />
     <Compile Include="Portal\Respuesta.cs" />
     <Compile Include="Postular\ReporteDePostulaciones.cs" />
+    <Compile Include="PRGSOC\Entidad.cs" />
     <Compile Include="Recibos\Cabecera.cs" />
     <Compile Include="Recibos\Detalle.cs" />
     <Compile Include="Recibos\Utils.cs" />
@@ -179,6 +179,7 @@
     <Compile Include="Recibos\ConfiguracionReciboDigital.cs" />
     <Compile Include="Recibos\TipoLiquidacion.cs" />
     <Compile Include="Repositorios\AccionesMobi.cs" />
+    <Compile Include="Repositorios\RepositorioDeEntidades.cs" />
     <Compile Include="Repositorios\RepositorioDeCovid19.cs" />
     <Compile Include="Repositorios\RepositorioDeArchivosMigrados.cs" />
     <Compile Include="Repositorios\RepositorioVerificador.cs" />

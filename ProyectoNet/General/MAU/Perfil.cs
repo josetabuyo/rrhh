@@ -12,7 +12,9 @@ namespace General.MAU
         public List<Funcionalidad> Funcionalidades { get; set; }
         public DateTime FechaDesde { get; set; }
         public List<Area> Areas { get; set; }
+        public List<Entidad> Entidades { get; set; }
         public bool Basica { get; set; }
+        public int TipoPerfil { get; set; }
 
 
         public MAU_Perfil()
@@ -24,6 +26,7 @@ namespace General.MAU
             this.Id = id;
             this.Nombre = nombre;
             this.Areas = new List<Area>();
+            this.Entidades = new List<Entidad>();
             this.Funcionalidades = new List<Funcionalidad>();
 
         }
@@ -33,6 +36,7 @@ namespace General.MAU
             this.Id = id;
             this.Nombre = nombre;
             this.Areas = new List<Area>();
+            this.Entidades = new List<Entidad>();
             this.Funcionalidades = new List<Funcionalidad>();
             this.Basica = basica;
 
