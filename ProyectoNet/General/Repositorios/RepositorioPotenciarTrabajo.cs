@@ -223,5 +223,38 @@ namespace General.Repositorios
             cn.Desconestar();
             return lista;
         }
+
+        public List<PT_Resumen_Inicial> PT_Get_Estado_Carga_Participacion_Por_Periodo(int anio, int mes)
+        {
+            SqlDataReader dr;
+            ConexionDB cn = new ConexionDB("dbo.PRGSOC_GET_Estado_Carga_Participacion_Por_Periodo");
+            cn.AsignarParametro("@anio", anio);
+            cn.AsignarParametro("@mes", mes);
+            
+            dr = cn.EjecutarConsulta();
+
+            PT_Resumen_Inicial res;
+            List<PT_Resumen_Inicial> lista = new List<PT_Resumen_Inicial>();
+
+            while (dr.Read())
+            {
+                res = new PT_Resumen_Inicial();
+                res.Id_Entidad = dr.GetInt32(dr.GetOrdinal("Id_Entidad"));
+                res.Nombre_Entidad = dr.GetString(dr.GetOrdinal("Nombre_Entidad"));
+                res.Activo = dr.GetInt32(dr.GetOrdinal("Activo"));
+                res.Activo_Parcial = dr.GetInt32(dr.GetOrdinal("Activo_Parcial"));
+                res.Suspendidos = dr.GetInt32(dr.GetOrdinal("Suspendidos"));
+                res.Inactivo = dr.GetInt32(dr.GetOrdinal("Inactivo"));
+                res.Sin_Carga = dr.GetInt32(dr.GetOrdinal("SinCarga"));
+                res.En_Proceso = dr.GetInt32(dr.GetOrdinal("EnProceso"));
+                res.Con_Informe = dr.GetInt32(dr.GetOrdinal("ConInforme"));
+
+
+                lista.Add(res);
+            }
+
+            cn.Desconestar();
+            return lista;
+        }
     }
 }

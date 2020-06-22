@@ -171,6 +171,7 @@
     <Compile Include="PotenciarTrabajo\PT_Participacion_Dato.cs" />
     <Compile Include="PotenciarTrabajo\PT_Periodo.cs" />
     <Compile Include="PotenciarTrabajo\PT_Personas.cs" />
+    <Compile Include="PotenciarTrabajo\PT_Resumen_Inicial.cs" />
     <Compile Include="PRGSOC\Entidad.cs" />
     <Compile Include="Recibos\Cabecera.cs" />
     <Compile Include="Recibos\Detalle.cs" />
