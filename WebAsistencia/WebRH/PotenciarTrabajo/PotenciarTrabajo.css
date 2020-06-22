@@ -1,0 +1,133 @@
+﻿#pt_plantillas {
+  display: none;
+}
+#pt_pagina {
+  flex: 1 1 auto;
+  display: flex;
+  padding-left: 100px;
+  background-color: #e6e6e6;
+}
+#pt_barra_izquierda {
+  flex: 0 0 350px;
+  background-color: #01476b;
+  margin-right: 20px;
+}
+#pt_controles_barra_izq {
+  color: white;
+  margin-left: 50px;
+  font-size: 23px;
+  font-weight: bold;
+}
+#pt_controles_barra_izq div {
+  cursor: pointer;
+  margin-top: 15px;
+  font-weight: normal;
+  margin-left: 10px;
+}
+.pt_selected_section_button {
+  font-weight: bold !important;
+}
+#pt_titulo_barra {
+  height: 50px;
+  margin-left: -10px;
+  margin-right: -10px;
+  margin-top: 70px;
+  background-color: #00293f;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: x-large;
+  font-variant: petite-caps;
+}
+#pt_logo_seccion {
+  height: 180px;
+  margin-left: 82px;
+  margin-top: 50px;
+  margin-bottom: 30px;
+}
+#pt_titulo_seccion {
+  font-size: x-large;
+  font-weight: bold;
+  margin: 30px;
+  font-variant-caps: petite-caps;
+}
+#pt_controles_superiores {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.pt_seccion {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+.pt_label_combo {
+  font-weight: bold;
+}
+.pt_combo {
+  margin-left: 10px;
+  background-color: white;
+}
+#cmb_grupo {
+
+}
+#pt_cmb_periodo {
+
+}
+#pt_nota {
+
+}
+
+.pt_icono_lista {
+  cursor: pointer;
+  height: 22px;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+}
+
+#pt_estado_semanal, #pt_estado_mensual {
+  display: none;
+}
+
+.pt_contenedor_tabla {
+  flex: 1 1 auto;
+  overflow: hidden;
+  position: relative;
+  padding-right: 20px;
+}
+.pt_tabla {
+  width: 100%;
+}
+.pt_tabla td, .pt_tabla th{
+  border: 2px solid white;
+}
+.pt_tabla tr:nth-child(even) {
+  background-color: #cfd5eb
+}
+.pt_tabla tr:nth-child(odd) {
+  background-color: #e9ecf5
+}
+.pt_fila_titulo_tabla {
+  border-bottom: 4px solid white;
+  background-color: #4473c5 !important;
+  color: white;
+}
+.pt_tabla td {
+  position: relative;
+  height: 30px;
+  text-align: center;
+}
+.cmb_porcentaje_asistencia {
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  right: 2px;
+  left: 2px;
+  width: 97%;
+}
+#pt_controles_inferiores{
+
+}
