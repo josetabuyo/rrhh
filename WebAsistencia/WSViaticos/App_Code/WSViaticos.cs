@@ -7178,7 +7178,16 @@ public class WSViaticos : System.Web.Services.WebService
 
     #region  Potenciar Trabajo
     /// -------------------- Potenciar Trabajo -------------------------------------------------
-    
+
+    [WebMethod]
+    public List<PT_Resumen_Inicial> PT_Get_Estado_Carga_Participacion_Por_Periodo (int anio, int mes)
+    {
+        var RepositorioPT = new RepositorioPotenciarTrabajo();
+
+        return RepositorioPT.PT_Get_Estado_Carga_Participacion_Por_Periodo(anio, mes);
+    }
+
+
     [WebMethod]
     public GeneralCombos[] PT_Get_Cargar_Combo(string nombre_combo, Usuario usuario)
     {
