@@ -241,10 +241,10 @@ namespace General.Repositorios
                 res = new PT_Resumen_Inicial();
                 res.Id_Entidad = dr.GetInt32(dr.GetOrdinal("Id_Entidad"));
                 res.Nombre_Entidad = dr.GetString(dr.GetOrdinal("Nombre_Entidad"));
-                res.Activo = dr.GetInt32(dr.GetOrdinal("Activo"));
-                res.Activo_Parcial = dr.GetInt32(dr.GetOrdinal("Activo_Parcial"));
+                res.Activos = dr.GetInt32(dr.GetOrdinal("Activos"));
+                res.Activos_Parcial = dr.GetInt32(dr.GetOrdinal("Activos_Parcial"));
                 res.Suspendidos = dr.GetInt32(dr.GetOrdinal("Suspendidos"));
-                res.Inactivo = dr.GetInt32(dr.GetOrdinal("Inactivo"));
+                res.Inactivos = dr.GetInt32(dr.GetOrdinal("Inactivos"));
                 res.Sin_Carga = dr.GetInt32(dr.GetOrdinal("SinCarga"));
                 res.En_Proceso = dr.GetInt32(dr.GetOrdinal("EnProceso"));
                 res.Con_Informe = dr.GetInt32(dr.GetOrdinal("ConInforme"));
