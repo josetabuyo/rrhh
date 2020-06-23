@@ -36,14 +36,7 @@ class SeccionEstadoCargaParticipacion {
   render () {
     $("#pt_estado_semanal").hide();
     $("#pt_estado_mensual").show();
-    Backend.PT_Get_Estado_Carga_Participacion_Por_Periodo(this.periodoSeleccionado.Id)
-      .onSuccess((estados) => {
-          console.log('estados obtenidos:', estados);
-          this.tablaMensual.render(estados, this.periodoSeleccionado);
-      })
-      .onError(function (e) {
-          console.error("error al obtener asistencias: " + e);
-      });
+    this.tablaMensual.render(this.periodoSeleccionado);
   }
 }
 
@@ -61,41 +54,42 @@ class TablaParticipacionMensual extends TablaPT{
     this.tablaSemanal = new TablaParticipacionSemanal();
   }
 
-  render (estados, periodo) {
+  render (periodo) {
     $("#pt_tabla_participacion_mensual").find(".pt_fila_participacion_mensual").remove();
-    _.forEach(estados, (e) => {
-      const fila = $("<tr>")
-      this.agregarCeldaTextoAFila(fila, e.NombreGrupoTrabajo);
-      this.agregarCeldaTextoAFila(fila, e.Activos);
-      this.agregarCeldaTextoAFila(fila, e.Suspendidos);
-      this.agregarCeldaTextoAFila(fila, e.Incompatibles);
-      this.agregarCeldaTextoAFila(fila, e.Activos + e.Suspendidos + e.Incompatibles);
-      this.agregarCeldaTextoAFila(fila, e.SinCarga);
-      this.agregarCeldaTextoAFila(fila, e.Parciales);
+    Backend.PT_Get_Estado_Carga_Participacion_Por_Periodo(periodo.Id)
+      .onSuccess((estados) => {
+          console.log('estados obtenidos:', estados);
+          _.forEach(estados, (e) => {
+            const fila = $("<tr>")
+            this.agregarCeldaTextoAFila(fila, e.Nombre_Entidad);
+            this.agregarCeldaTextoAFila(fila, e.Activos);
+            this.agregarCeldaTextoAFila(fila, e.Suspendidos);
+            this.agregarCeldaTextoAFila(fila, e.Incompatibles);
+            this.agregarCeldaTextoAFila(fila, e.Activos + e.Suspendidos + e.Incompatibles);
+            this.agregarCeldaTextoAFila(fila, e.Sin_Carga);
+            this.agregarCeldaTextoAFila(fila, e.Activos_Parcial);
 
-      const celda = $("<td>")
-      celda.text(e.Completos);
-      const icono_lista = $("<img>");
-      icono_lista.attr("src", "IconoLista.png");
-      icono_lista.addClass("pt_icono_lista");
-      icono_lista.click(() => {
-        Backend.PT_Get_Add_Participacion_por_Entidad_Periodo(e.IdGrupoTrabajo, periodo.Id)
-          .onSuccess((personas) => {
+            const celda = $("<td>")
+            celda.text(e.Completos);
+            const icono_lista = $("<img>");
+            icono_lista.attr("src", "IconoLista.png");
+            icono_lista.addClass("pt_icono_lista");
+            icono_lista.click(() => {
               $("#pt_estado_mensual").hide();
+              this.tablaSemanal.render(e.Id_Entidad, periodo);
               $("#pt_estado_semanal").show();
-              this.tablaSemanal.render(personas, e.IdGrupoTrabajo, periodo);
-          })
-          .onError(function (e) {
-              this.alertify.error("error al obtener asistencias: " + e);
-          });
-      });
-      celda.append(icono_lista);
-      fila.append(celda);
+            });
+            celda.append(icono_lista);
+            fila.append(celda);
 
-      this.agregarCeldaTextoAFila(fila, e.ConInforme);
-      fila.addClass("pt_fila_participacion_mensual");
-      $("#pt_tabla_participacion_mensual").append(fila);
-    });
+            this.agregarCeldaTextoAFila(fila, e.Con_Informe);
+            fila.addClass("pt_fila_participacion_mensual");
+            $("#pt_tabla_participacion_mensual").append(fila);
+          });
+      })
+      .onError(function (e) {
+          console.error("error al obtener asistencias: " + e);
+      });
   }
 }
 
@@ -110,33 +104,39 @@ class TablaParticipacionSemanal extends TablaPT{
           this.alertify.error("error al obtener niveles de participacion: " + e);
       });
   }
-  render (personas, id_grupo_trabajo, periodo) {
-    this.idGrupoTrabajo = id_grupo_trabajo;
+  render (id_entidad, periodo) {
+    this.idEntidad = id_entidad;
     this.periodo = periodo;
 
     $("#pt_tabla_participacion_semanal").find(".pt_fila_participacion_semanal").remove();
-    _.forEach(personas, (p) => {
-      var fila = $("<tr>")
+    Backend.PT_Get_Add_Participacion_por_Entidad_Periodo(id_entidad, periodo.Id)
+      .onSuccess((personas) => {
+        _.forEach(personas, (p) => {
+          var fila = $("<tr>")
 
-      this.agregarCeldaTextoAFila(fila, p.Persona.Cuil);
-      this.agregarCeldaTextoAFila(fila, p.Persona.Nombre_Apellido);
-      this.renderComboAsistencia(fila, p.Part_Semana1, (nuevo_valor)=>{
-        this.updateParticipacionSemanalPersona(p, 1, nuevo_valor);
-      });
-      this.renderComboAsistencia(fila, p.Part_Semana2, (nuevo_valor)=>{
-        this.updateParticipacionSemanalPersona(p, 2, nuevo_valor);
-      });
-      this.renderComboAsistencia(fila, p.Part_Semana3, (nuevo_valor)=>{
-        this.updateParticipacionSemanalPersona(p, 3, nuevo_valor);
-      });
-      this.renderComboAsistencia(fila, p.Part_Semana4, (nuevo_valor)=>{
-        this.updateParticipacionSemanalPersona(p, 4, nuevo_valor);
-      });
-      this.agregarCeldaTextoAFila(fila, p.Observacion, );
+          this.agregarCeldaTextoAFila(fila, p.Persona.Cuil);
+          this.agregarCeldaTextoAFila(fila, p.Persona.Nombre_Apellido);
+          this.renderComboAsistencia(fila, p.Part_Semana1, (nuevo_valor)=>{
+            this.updateParticipacionSemanalPersona(p, 1, nuevo_valor);
+          });
+          this.renderComboAsistencia(fila, p.Part_Semana2, (nuevo_valor)=>{
+            this.updateParticipacionSemanalPersona(p, 2, nuevo_valor);
+          });
+          this.renderComboAsistencia(fila, p.Part_Semana3, (nuevo_valor)=>{
+            this.updateParticipacionSemanalPersona(p, 3, nuevo_valor);
+          });
+          this.renderComboAsistencia(fila, p.Part_Semana4, (nuevo_valor)=>{
+            this.updateParticipacionSemanalPersona(p, 4, nuevo_valor);
+          });
+          this.agregarCeldaTextoAFila(fila, p.Observacion, );
 
-      fila.addClass("pt_fila_participacion_semanal");
-      $("#pt_tabla_participacion_semanal").append(fila);
-    });
+          fila.addClass("pt_fila_participacion_semanal");
+          $("#pt_tabla_participacion_semanal").append(fila);
+        });
+      })
+      .onError(function (e) {
+          this.alertify.error("error al obtener asistencias: " + e);
+      });
   }
 
   renderComboAsistencia (fila, asistencia, change_handler) {
@@ -155,7 +155,14 @@ class TablaParticipacionSemanal extends TablaPT{
   }
 
   updateParticipacionSemanalPersona (asistencia, semana, id_dato) {
-    Backend.PT_Upd_Participacion_por_Entidad_Periodo(this.idGrupoTrabajo,
-      this.periodo.Mes, this.periodo.Anio, asistencia.Persona.Id_Rol, semana, id_dato);
+    Backend.PT_Upd_Participacion_por_Entidad_Periodo(this.idEntidad,
+        this.periodo.Mes, this.periodo.Anio, asistencia.Persona.Id_Rol,
+        semana, id_dato)
+      .onSuccess((datos) => {
+          this.render(this.idEntidad, this.periodo);
+      })
+      .onError(function (e) {
+          this.alertify.error("error al obtener niveles de participacion: " + e);
+      });
   }
 }

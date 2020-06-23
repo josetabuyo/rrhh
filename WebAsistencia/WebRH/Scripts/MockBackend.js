@@ -9,24 +9,24 @@ var Backend = {
     },
     PT_Get_Estado_Carga_Participacion_Por_Periodo (id_periodo) {
         return this.ReturnAsync([
-          { IdGrupoTrabajo: '1', NombreGrupoTrabajo: 'Los tigres de tigre',
+          { Id_Entidad: '1', Nombre_Entidad: 'Los tigres de tigre',
             Activos: 115, Suspendidos: 16, Incompatibles: 16,
-            SinCarga: 0, Parciales: 0, Completos: 0, ConInforme: 10},
-          { IdGrupoTrabajo: '2', NombreGrupoTrabajo: 'Los caniches de Domingo',
+            Sin_Carga: 0, Activos_Parcial: 0, Completos: 0, Con_Informe: 10},
+          { Id_Entidad: '2', Nombre_Entidad: 'Los caniches de Domingo',
             Activos: 25, Suspendidos: 0, Incompatibles: 0,
-            SinCarga: 0, Parciales: 0, Completos: 0, ConInforme: 25},
-          { IdGrupoTrabajo: '3', NombreGrupoTrabajo: 'Todos Juntos Podemos',
+            Sin_Carga: 0, Activos_Parcial: 0, Completos: 0, Con_Informe: 25},
+          { Id_Entidad: '3', Nombre_Entidad: 'Todos Juntos Podemos',
             Activos: 20, Suspendidos: 6, Incompatibles: 2,
-            SinCarga: 0, Parciales: 0, Completos: 0, ConInforme: 20},
-          { IdGrupoTrabajo: '4', NombreGrupoTrabajo: 'Esperanza',
+            Sin_Carga: 0, Activos_Parcial: 0, Completos: 0, Con_Informe: 20},
+          { Id_Entidad: '4', Nombre_Entidad: 'Esperanza',
             Activos: 20, Suspendidos: 5, Incompatibles: 5,
-            SinCarga: 0, Parciales: 0, Completos: 0, ConInforme: 20},
-          { IdGrupoTrabajo: '5', NombreGrupoTrabajo: 'Lealtad',
+            Sin_Carga: 0, Activos_Parcial: 0, Completos: 0, Con_Informe: 20},
+          { Id_Entidad: '5', Nombre_Entidad: 'Lealtad',
             Activos: 25, Suspendidos: 3, Incompatibles: 2,
-            SinCarga: 0, Parciales: 0, Completos: 0, ConInforme: 25},
-          { IdGrupoTrabajo: '6', NombreGrupoTrabajo: 'Compromiso',
+            Sin_Carga: 0, Activos_Parcial: 0, Completos: 0, Con_Informe: 25},
+          { Id_Entidad: '6', Nombre_Entidad: 'Compromiso',
             Activos: 25, Suspendidos: 2, Incompatibles: 2,
-            SinCarga: 0, Parciales: 0, Completos: 0, ConInforme: 25},
+            Sin_Carga: 0, Activos_Parcial: 0, Completos: 0, Con_Informe: 25},
         ]);
     },
     PT_Get_Participaciones_Dato() {
@@ -70,6 +70,7 @@ var Backend = {
     },
     PT_Upd_Participacion_por_Entidad_Periodo(id_entidad, mes, anio, semana, id_persona_rol, id_dato_justificacion) {
       console.log('guardando', id_entidad, mes, anio, semana, id_persona_rol, id_dato_justificacion);
+      return this.ReturnAsync({});
     },
     ReturnAsync(data) {
       var promesa = new Promesa();
