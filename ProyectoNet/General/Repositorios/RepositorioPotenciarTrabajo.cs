@@ -62,8 +62,8 @@ namespace General.Repositorios
             while (dr.Read())
             {
                 combo = new PT_Periodo();
-                combo.Id = dr.GetString(dr.GetOrdinal("Id"));
-                combo.Mes = dr.GetInt32(dr.GetOrdinal("Mes"));
+                combo.Id = dr.GetInt32(dr.GetOrdinal("Id"));
+                combo.Mes = dr.GetString(dr.GetOrdinal("Mes"));
                 combo.Anio = dr.GetInt32(dr.GetOrdinal("Anio"));
                 combo.Cant_Semanas = dr.GetInt32(dr.GetOrdinal("Cantidad_Semannas"));
 
