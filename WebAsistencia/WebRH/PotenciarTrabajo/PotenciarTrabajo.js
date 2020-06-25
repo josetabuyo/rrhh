@@ -56,7 +56,7 @@ class TablaParticipacionMensual extends TablaPT{
 
   render (periodo) {
     $("#pt_tabla_participacion_mensual").find(".pt_fila_participacion_mensual").remove();
-    Backend.PT_Get_Estado_Carga_Participacion_Por_Periodo(periodo.Id)
+      Backend.PT_Get_Estado_Carga_Participacion_Por_Periodo(2020, 5) //periodo.Id
       .onSuccess((estados) => {
           console.log('estados obtenidos:', estados);
           _.forEach(estados, (e) => {

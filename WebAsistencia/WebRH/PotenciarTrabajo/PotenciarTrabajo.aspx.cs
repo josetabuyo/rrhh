@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class DatosAbiertos_DatosAbiertos : System.Web.UI.Page
+public partial class PotenciarTrabajo_PotenciarTrabajo : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
