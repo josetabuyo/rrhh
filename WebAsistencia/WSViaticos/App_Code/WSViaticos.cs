@@ -7221,23 +7221,14 @@ public class WSViaticos : System.Web.Services.WebService
 
 
     [WebMethod]
-    public PT_Periodo[] PT_Get_Periodos()
-    {
+    public List<PT_Periodo> PT_Get_Periodos()
+    {   
         var RepositorioPT = new RepositorioPotenciarTrabajo();
 
-        var Lista = RepositorioPT.PT_Get_Periodos();
-
-        List<PT_Periodo> combo = new List<PT_Periodo>();
-
-        foreach (var item in Lista)
-        {
-            combo.Add(new PT_Periodo() { Id = item.Id, Mes = item.Mes, Anio = item.Anio, Cant_Semanas= item.Cant_Semanas });
-        }
-
-        return combo.ToArray();
+        return RepositorioPT.PT_Get_Periodos();
     }
 
-
+    
     [WebMethod]
     public PT_Participacion_Dato[] PT_Get_Participaciones_Dato()
     {

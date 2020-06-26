@@ -19,7 +19,7 @@ class SeccionEstadoCargaParticipacion {
           console.log('periodos obtenidos:', periodos);
           periodos.forEach((periodo) => {
             $("#pt_cmb_periodo").append(new Option(
-              periodo.Mes + periodo.Anio, periodo.Id));
+              periodo.Mes +' '+ periodo.Anio, periodo.Id));
           });
           $("#pt_cmb_periodo").change((e) => {
               this.periodoSeleccionado = _.findWhere({Id: e.target.value});
@@ -56,21 +56,21 @@ class TablaParticipacionMensual extends TablaPT{
 
   render (periodo) {
     $("#pt_tabla_participacion_mensual").find(".pt_fila_participacion_mensual").remove();
-      Backend.PT_Get_Estado_Carga_Participacion_Por_Periodo(2020, 5) //periodo.Id
+      Backend.PT_Get_Estado_Carga_Participacion_Por_Periodo(periodo.Anio, periodo.Id) 
       .onSuccess((estados) => {
           console.log('estados obtenidos:', estados);
           _.forEach(estados, (e) => {
             const fila = $("<tr>")
             this.agregarCeldaTextoAFila(fila, e.Nombre_Entidad);
             this.agregarCeldaTextoAFila(fila, e.Activos);
-            this.agregarCeldaTextoAFila(fila, e.Suspendidos);
-            this.agregarCeldaTextoAFila(fila, e.Incompatibles);
-            this.agregarCeldaTextoAFila(fila, e.Activos + e.Suspendidos + e.Incompatibles);
-            this.agregarCeldaTextoAFila(fila, e.Sin_Carga);
             this.agregarCeldaTextoAFila(fila, e.Activos_Parcial);
-
+            this.agregarCeldaTextoAFila(fila, e.Suspendidos);
+            this.agregarCeldaTextoAFila(fila, e.Inactivos);
+            this.agregarCeldaTextoAFila(fila, e.Activos + e.Activos_Parcial + e.Suspendidos + e.Inactivos);
+            this.agregarCeldaTextoAFila(fila, e.Sin_Carga);
+            
             const celda = $("<td>")
-            celda.text(e.Completos);
+            celda.text(e.En_Proceso);
             const icono_lista = $("<img>");
             icono_lista.attr("src", "IconoLista.png");
             icono_lista.addClass("pt_icono_lista");
