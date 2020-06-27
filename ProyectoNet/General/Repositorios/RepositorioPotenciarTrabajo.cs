@@ -122,7 +122,7 @@ namespace General.Repositorios
                 part.Persona.CUIL = dr.GetString(dr.GetOrdinal("CUIL"));
                 part.Persona.Nombre_Apellido = dr.GetString(dr.GetOrdinal("Apellido_Nombre"));
                 part.Persona.Id_Estado = dr.GetInt32(dr.GetOrdinal("Id_Estado_Persona"));
-                part.Persona.Nombre_Estado = dr.GetInt32(dr.GetOrdinal("Nombre_Estado"));
+                part.Persona.Nombre_Estado = dr.GetString(dr.GetOrdinal("Nombre_Estado"));
                 part.Part_Semana1 = dr.GetInt32(dr.GetOrdinal("Part_Semana1"));
                 part.Justif_Semana1 = dr.GetInt32(dr.GetOrdinal("Justif_Semana1"));
                 part.Part_Semana2 = dr.GetInt32(dr.GetOrdinal("Part_Semana2"));
@@ -133,8 +133,10 @@ namespace General.Repositorios
                 part.Justif_Semana4 = dr.GetInt32(dr.GetOrdinal("Justif_Semana4"));
                 part.Part_Semana5 = dr.GetInt32(dr.GetOrdinal("Part_Semana5"));
                 part.Justif_Semana5 = dr.GetInt32(dr.GetOrdinal("Justif_Semana5"));
-                part.Observacion = dr.GetString(dr.GetOrdinal("Observacion"));
-                
+                if (!dr.IsDBNull(dr.GetOrdinal("Observacion"))) {
+                    part.Observacion = dr.GetString(dr.GetOrdinal("Observacion"));
+                };
+
                 lista.Add(part);
             }
 
