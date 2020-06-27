@@ -4,7 +4,6 @@
       console.warn('backend started');
       $("#pt_boton_carga_participacion").click(() => {
         var seccion = new SeccionEstadoCargaParticipacion();
-        seccion.render();
         $("#pt_boton_carga_participacion").addClass("pt_selected_section_button");
       });
     });
@@ -19,13 +18,13 @@ class SeccionEstadoCargaParticipacion {
           console.log('periodos obtenidos:', periodos);
           periodos.forEach((periodo) => {
             $("#pt_cmb_periodo").append(new Option(
-              periodo.Mes +' '+ periodo.Anio, periodo.Id));
+              periodo.Mes +' '+ periodo.Anio, JSON.stringify(periodo)));
           });
           $("#pt_cmb_periodo").change((e) => {
-              this.periodoSeleccionado = _.findWhere({Id: e.target.value});
+              this.periodoSeleccionado = e.target.value;
               this.render();
           });
-          this.periodoSeleccionado = periodos ? periodos[0] : undefined;
+          this.periodoSeleccionado = JSON.stringify(periodos ? periodos[0] : undefined);
           this.render();
       })
       .onError(function (e) {
@@ -36,7 +35,7 @@ class SeccionEstadoCargaParticipacion {
   render () {
     $("#pt_estado_semanal").hide();
     $("#pt_estado_mensual").show();
-    this.tablaMensual.render(this.periodoSeleccionado);
+    this.tablaMensual.render(JSON.parse(this.periodoSeleccionado));
   }
 }
 
@@ -56,7 +55,9 @@ class TablaParticipacionMensual extends TablaPT{
 
   render (periodo) {
     $("#pt_tabla_participacion_mensual").find(".pt_fila_participacion_mensual").remove();
-      Backend.PT_Get_Estado_Carga_Participacion_Por_Periodo(periodo.Anio, periodo.Id) 
+      console.log("periodo:", JSON.stringify(periodo));
+      Backend.PT_Get_Estado_Carga_Participacion_Por_Periodo(
+        periodo.Anio, periodo.Id)
       .onSuccess((estados) => {
           console.log('estados obtenidos:', estados);
           _.forEach(estados, (e) => {
@@ -68,7 +69,7 @@ class TablaParticipacionMensual extends TablaPT{
             this.agregarCeldaTextoAFila(fila, e.Inactivos);
             this.agregarCeldaTextoAFila(fila, e.Activos + e.Activos_Parcial + e.Suspendidos + e.Inactivos);
             this.agregarCeldaTextoAFila(fila, e.Sin_Carga);
-            
+
             const celda = $("<td>")
             celda.text(e.En_Proceso);
             const icono_lista = $("<img>");
