@@ -110,12 +110,12 @@ class TablaParticipacionSemanal extends TablaPT{
     this.periodo = periodo;
 
     $("#pt_tabla_participacion_semanal").find(".pt_fila_participacion_semanal").remove();
-    Backend.PT_Get_Add_Participacion_por_Entidad_Periodo(id_entidad, periodo.Id)
+      Backend.PT_Get_Add_Participacion_por_Entidad_Periodo(id_entidad, periodo.Id, periodo.Anio)
       .onSuccess((personas) => {
         _.forEach(personas, (p) => {
           var fila = $("<tr>")
 
-          this.agregarCeldaTextoAFila(fila, p.Persona.Cuil);
+            this.agregarCeldaTextoAFila(fila, p.Persona.CUIL);
           this.agregarCeldaTextoAFila(fila, p.Persona.Nombre_Apellido);
           this.renderComboAsistencia(fila, p.Part_Semana1, (nuevo_valor)=>{
             this.updateParticipacionSemanalPersona(p, 1, nuevo_valor);
