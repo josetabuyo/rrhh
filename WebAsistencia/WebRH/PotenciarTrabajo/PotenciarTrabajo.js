@@ -156,9 +156,13 @@ class TablaParticipacionSemanal extends TablaPT{
   }
 
   updateParticipacionSemanalPersona (asistencia, semana, id_dato) {
-    Backend.PT_Upd_Participacion_por_Entidad_Periodo(this.idEntidad,
-        this.periodo.Mes, this.periodo.Anio, asistencia.Persona.Id_Rol,
-        semana, id_dato)
+    Backend.PT_Upd_Participacion_por_Entidad_Periodo(
+        this.idEntidad,
+        this.periodo.Id, 
+        this.periodo.Anio, 
+        semana,
+        asistencia.Persona.Id_Rol,
+        id_dato)
       .onSuccess((datos) => {
           this.render(this.idEntidad, this.periodo);
       })

@@ -96,7 +96,6 @@
                           <th>Semana 2</th>
                           <th>Semana 3</th>
                           <th>Semana 4</th>
-                          <th>Semana 5</th>
                           <th>observaciones a la participación</th>
                         </tr>
                       </table>
