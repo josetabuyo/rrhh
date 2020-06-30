@@ -1,1 +1,0 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="firmadigitalJNLP2.aspx.cs" Inherits="SimpleServlet" %>
