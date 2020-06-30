@@ -169,6 +169,12 @@
     <Compile Include="Portal\Legajo.cs" />
     <Compile Include="Portal\Respuesta.cs" />
     <Compile Include="Postular\ReporteDePostulaciones.cs" />
+    <Compile Include="PotenciarTrabajo\PT_Justificacion.cs" />
+    <Compile Include="PotenciarTrabajo\PT_Participacion.cs" />
+    <Compile Include="PotenciarTrabajo\PT_Participacion_Dato.cs" />
+    <Compile Include="PotenciarTrabajo\PT_Periodo.cs" />
+    <Compile Include="PotenciarTrabajo\PT_Personas.cs" />
+    <Compile Include="PotenciarTrabajo\PT_Resumen_Inicial.cs" />
     <Compile Include="PRGSOC\Entidad.cs" />
     <Compile Include="Recibos\Cabecera.cs" />
     <Compile Include="Recibos\Detalle.cs" />
@@ -182,6 +188,7 @@
     <Compile Include="Repositorios\RepositorioDeEntidades.cs" />
     <Compile Include="Repositorios\RepositorioDeCovid19.cs" />
     <Compile Include="Repositorios\RepositorioDeArchivosMigrados.cs" />
+    <Compile Include="Repositorios\RepositorioPotenciarTrabajo.cs" />
     <Compile Include="Repositorios\RepositorioVerificador.cs" />
     <Compile Include="Repositorios\RepositorioDeArchivosFirmados.cs" />
     <Compile Include="Repositorios\RepositorioDeTipoDeLiquidacion.cs" />
@@ -592,7 +599,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
