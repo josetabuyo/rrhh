@@ -7266,6 +7266,14 @@ public class WSViaticos : System.Web.Services.WebService
 
 
     [WebMethod]
+    public void PT_UPD_Participacion_Observacion (int id_entidad, int mes, int anio, int id_persona_rol, string observacion, Usuario usuario)
+    {
+        var RepositorioPT = new RepositorioPotenciarTrabajo();
+
+        RepositorioPT.PT_UPD_Participacion_Observacion(id_entidad, mes, anio, id_persona_rol, observacion, usuario);
+    }
+
+    [WebMethod]
     public List<PT_Justificacion> PT_Get_Justificacion(int id_registro)
     {
         var RepositorioPT = new RepositorioPotenciarTrabajo();
