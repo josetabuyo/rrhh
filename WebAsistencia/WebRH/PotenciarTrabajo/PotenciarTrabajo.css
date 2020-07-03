@@ -131,3 +131,11 @@
 #pt_controles_inferiores{
 
 }
+.celda_observacion{
+  overflow: hidden;
+  max-width: 300px;
+  padding-right: 33px;
+  padding-left: 10px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

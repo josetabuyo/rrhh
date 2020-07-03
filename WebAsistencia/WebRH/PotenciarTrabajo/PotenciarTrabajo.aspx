@@ -6,6 +6,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Potenciar Trabajo</title>
+    <link href="../Scripts/vex-2.1.1/css/vex.css" rel="stylesheet">
+    <link href="../Scripts/vex-2.1.1/css/vex-theme-os.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="PotenciarTrabajo.css" />
     <%= Referencias.Css("../")%>
     <%= Referencias.Javascript("../")%>
@@ -69,7 +71,6 @@
                           <th> Sin Carga </th>
                           <th> En Proceso </th>
                           <th> Con Informe </th>
-
                         </tr>
                       </table>
                     </div>
@@ -90,13 +91,6 @@
                         class="pt_tabla">
                         <tr id="pt_titulos_tabla_participacion_semanal"
                           class="pt_fila_titulo_tabla">
-                          <th>CUIL</th>
-                          <th>Apellido y Nombre</th>
-                          <th>Semana 1</th>
-                          <th>Semana 2</th>
-                          <th>Semana 3</th>
-                          <th>Semana 4</th>
-                          <th>observaciones a la participación</th>
                         </tr>
                       </table>
                     </div>
@@ -113,6 +107,7 @@
             </div>
         </form>
     </body>
+    <script type="text/javascript" src="../Scripts/vex-2.1.1/js/vex.combined.min.js"></script>
     <script type="text/javascript" src="PotenciarTrabajo.js"></script>
 
 </html>

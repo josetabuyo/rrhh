@@ -40,24 +40,24 @@ var Backend = {
     },
     PT_Get_Add_Participacion_por_Entidad_Periodo (id_grupo, id_periodo) {
         return this.ReturnAsync([
-          { Persona: { Id_Rol: 1, Cuil: '20-41342135-9', Nombre_Apellido: 'PEREZ, Juan Manuel'},
+          { Persona: { Id_Rol: 1, CUIL: '20-41342135-9', Nombre_Apellido: 'PEREZ, Juan Manuel'},
             Part_Semana1: 1, Part_Semana2: 1, Part_Semana3: 1, Part_Semana4: 4,
-            Part_Semana5: null, Observaciones: 'bla bla'},
-          { Persona: { Id_Rol: 2, Cuil: '20-41384535-7', Nombre_Apellido: 'GONZALEZ, Maria Jimena'},
+            Part_Semana5: 1, Observacion: 'bla bla weagawrh aetrha setrhserhsaewrhg nsfa wegfaw fgoawoñef gowaegf awoe gf gawg efawgof gwa ge-fg aw ogawegfawef kgawe gfa gwef awe gfawgef agwe gfaw lef awleawergb aewbñrgasewrogasor sarog esdvfa we gfhaw egf phawe hFawfphywfe faweh-fhsegflghgf-he-fhaeñ-fh f- ñlhf -hwefñ aeñ fawr garp gr ease'},
+          { Persona: { Id_Rol: 2, CUIL: '20-41384535-7', Nombre_Apellido: 'GONZALEZ, Maria Jimena'},
             Part_Semana1: 3, Part_Semana2: 1, Part_Semana3: 2, Part_Semana4: 1,
-            Part_Semana5: null, Observaciones: 'bla bla'},
-          { Persona: { Id_Rol: 3, Cuil: '20-42344135-3', Nombre_Apellido: 'SCHMIDT, Marisa Paola'},
+            Part_Semana5: 1, Observacion: 'bla bla'},
+          { Persona: { Id_Rol: 3, CUIL: '20-42344135-3', Nombre_Apellido: 'SCHMIDT, Marisa Paola'},
             Part_Semana1: 1, Part_Semana2: 2, Part_Semana3: 1, Part_Semana4: 1,
-            Part_Semana5: null, Observaciones: 'bla bla'},
-          { Persona: { Id_Rol: 4, Cuil: '20-45344115-4', Nombre_Apellido: 'VIÑATE, Fabiana Carmen'},
+            Part_Semana5: 1, Observacion: 'bla bla'},
+          { Persona: { Id_Rol: 4, CUIL: '20-45344115-4', Nombre_Apellido: 'VIÑATE, Fabiana Carmen'},
             Part_Semana1: 1, Part_Semana2: 1, Part_Semana3: 1, Part_Semana4: 1,
-            Part_Semana5: null, Observaciones: ''},
-          { Persona: { Id_Rol: 5, Cuil: '20-42124135-5', Nombre_Apellido: 'LOPEZ, Alberto Mario'},
+            Part_Semana5: 1, Observacion: ''},
+          { Persona: { Id_Rol: 5, CUIL: '20-42124135-5', Nombre_Apellido: 'LOPEZ, Alberto Mario'},
             Part_Semana1: 1, Part_Semana2: 1, Part_Semana3: 1, Part_Semana4: 1,
-            Part_Semana5: null, Observaciones: ''},
-          { Persona: { Id_Rol: 6, Cuil: '20-42345135-6', Nombre_Apellido: 'MARINI, Pedro Pablo'},
+            Part_Semana5: 1, Observacion: ''},
+          { Persona: { Id_Rol: 6, CUIL: '20-42345135-6', Nombre_Apellido: 'MARINI, Pedro Pablo'},
             Part_Semana1: 1, Part_Semana2: 1, Part_Semana3: 1, Part_Semana4: 1,
-            Part_Semana5: null, Observaciones: ''},
+            Part_Semana5: 1, Observacion: ''},
         ]);
     },
     PT_Get_Periodos() {
@@ -70,6 +70,10 @@ var Backend = {
     },
     PT_Upd_Participacion_por_Entidad_Periodo(id_entidad, mes, anio, semana, id_persona_rol, id_dato_justificacion) {
       console.log('guardando', id_entidad, mes, anio, semana, id_persona_rol, id_dato_justificacion);
+      return this.ReturnAsync({});
+    },
+    PT_UPD_Participacion_Observacion(id_entidad, mes, anio, id_persona_rol, observacion) {
+      console.log('guardando', id_entidad, mes, anio, id_persona_rol, observacion);
       return this.ReturnAsync({});
     },
     ReturnAsync(data) {
