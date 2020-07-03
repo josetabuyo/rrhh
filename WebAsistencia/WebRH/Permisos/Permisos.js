@@ -21,6 +21,7 @@ var Permisos = {
         this.repositorioDeUsuarios = new RepositorioDeUsuarios(proveedor_ajax);
         this.repositorioDePersonas = new RepositorioDePersonas(proveedor_ajax);
         this.repositorioDeAreas = new RepositorioDeAreas(proveedor_ajax);
+        this.repositorioDeEntidades = new RepositorioDeEntidades(proveedor_ajax);
         usuarioEncontrado = { Id: 0 };
 
     },
@@ -51,8 +52,26 @@ var Permisos = {
                 var columnas = [];
 
                 columnas.push(new Columna("Perfiles", { generar: function (un_permiso) { return un_permiso.Nombre } }));
-                columnas.push(new Columna("Areas", { generar: function (un_permiso) { return un_permiso.Areas[0].Nombre } }));
-                columnas.push(new Columna("Incluye Dep.", { generar: function (un_permiso) { if (un_permiso.Areas[0].IncluyeDependencias) return 'Si'; return 'No' } }));
+                columnas.push(new Columna("Areas/Entidades", {
+                    generar: function (un_permiso) {
+                        if (un_permiso.TipoPerfil < 200) {
+                            return un_permiso.Areas[0].Nombre
+                        } else {
+                            return un_permiso.Entidades[0].Nombre
+                        }
+                        
+                    }
+                }));
+                columnas.push(new Columna("Incluye Dep.", {
+                    generar: function (un_permiso) {
+                        if (un_permiso.TipoPerfil < 200) {
+                            if (un_permiso.Areas[0].IncluyeDependencias) return 'Si'; return 'No'
+                        } else {
+                            if (un_permiso.Entidades[0].IncluyeDependencias) return 'Si'; return 'No'
+                        }
+                        
+                    }
+                }));
                 //columnas.push(new Columna("Desde", { generar: function (un_permiso) { return '01/01/2018' } }));
                 columnas.push(new Columna('Accion', {
                     generar: function (un_permiso) {
@@ -111,8 +130,26 @@ var Permisos = {
                 var columnas = [];
 
                 columnas.push(new Columna("Funciones", { generar: function (un_permiso) { return un_permiso.Nombre } }));
-                columnas.push(new Columna("Areas", { generar: function (un_permiso) { if (un_permiso.Areas.length > 0) return un_permiso.Areas[0].Nombre; return 'Sin Area'; } }));
-                columnas.push(new Columna("Incluye Dep.", { generar: function (un_permiso) { if (un_permiso.Areas.length > 0) { if (un_permiso.Areas[0].IncluyeDependencias) return 'Si'; return 'No' } else { return '' } } }));
+                columnas.push(new Columna("Areas/Entidades", {
+                        generar: function (un_permiso) {
+                            if (un_permiso.TipoFuncionalidad < 200) {
+                                return un_permiso.Areas[0].Nombre
+                            } else {
+                                return un_permiso.Entidades[0].Nombre
+                            }
+
+                        }
+                }));
+                columnas.push(new Columna("Incluye Dep.", {
+                    generar: function (un_permiso) {
+                        if (un_permiso.TipoFuncionalidad < 200) {
+                            if (un_permiso.Areas[0].IncluyeDependencias) return 'Si'; return 'No'
+                        } else {
+                            if (un_permiso.Entidades[0].IncluyeDependencias) return 'Si'; return 'No'
+                        }
+
+                    }
+                }));
                 //columnas.push(new Columna("Desde", { generar: function (un_permiso) { return '01/01/2018' } }));
                 columnas.push(new Columna('Accion', {
                     generar: function (un_permiso) {
@@ -155,7 +192,8 @@ var Permisos = {
             //var idUsuarioSeleccionado = sessionStorage.getItem("idUsuario");
 
             var idArea = perfil.Areas[0].Id;
-            Backend.desasignarPerfiles(perfil.Id, idArea, usuarioEncontrado.Id).onSuccess(function (rto) {
+            var idEntidad = perfil.Entidades[0].Id;
+            Backend.desasignarPerfiles(perfil.Id, idArea, idEntidad, usuarioEncontrado.Id).onSuccess(function (rto) {
                 if (rto == 'ok') {
                     //window.location.reload();
                     alertify.success("Se ha eliminado correctamente");
@@ -174,10 +212,11 @@ var Permisos = {
     eliminarFuncionalidad: function (funcionalidad) {
         var _this = this;
         var idArea = funcionalidad.Areas[0].Id;
+        var idEntidad = funcionalidad.Entidades[0].Id;
         var r = confirm("¿Está seguro de eliminar la Funcionalidad?");
         if (r == true) {
             //var idUsuarioSeleccionado = sessionStorage.getItem("idUsuario");
-            Backend.desasignarFuncionaldiad(funcionalidad.Id, idArea, usuarioEncontrado.Id).onSuccess(function (rto) {
+            Backend.desasignarFuncionaldiad(funcionalidad.Id, idArea, idEntidad, usuarioEncontrado.Id).onSuccess(function (rto) {
                 if (rto == 'ok') {
                     //window.location.reload();
                     alertify.success("Se ha eliminado correctamente");
@@ -358,8 +397,10 @@ var Permisos = {
 
         var proveedor_ajax = new ProveedorAjax("../");
         this.repositorioDeAreas = new RepositorioDeAreas(proveedor_ajax);
+        this.repositorioDeEntidades = new RepositorioDeEntidades(proveedor_ajax);
 
         this.div_lista_areas = $("#lista_areas_para_consultar");
+        this.div_lista_entidades = $("#lista_areas_para_consultar");
 
         Backend.GetPerfilesConFuncionalidades()
             .onSuccess(function (perfiles) {
@@ -370,7 +411,7 @@ var Permisos = {
 
                 $.each(perfiles, function (key, value) {
 
-                    $("#comboPerfiles").append("<option value=" + value.Id + ">" + value.Nombre + "</option>");
+                    $("#comboPerfiles").append("<option data-tipoperfil=" + value.TipoPerfil + " value=" + value.Id + ">" + value.Nombre + "</option>");
 
 
                     contenedorDialogo.append("<p class='dialogNombrePerfil'>" + value.Nombre + "</p>");
@@ -381,18 +422,6 @@ var Permisos = {
                     });
                     contenedorDialogo.append("</ul>");
                     contenedorDialogo.append("<hr />");
-
-                    /*
-                     * <p class="dialogNombrePerfil" >Responsable de RCA</p>
-                        <ul class="dialogListaFunc">
-                            <li>Control Acceso</li>
-                            <li>Control Asistencia</li>
-                            <li>Carga Licencias</li>
-                            <li>Control Planilla</li>
-                        </ul>
-                        <hr />
-                        */
-
 
                 });
 
@@ -407,8 +436,18 @@ var Permisos = {
             var plantillaPerfiles = $("#plantillaPerfilSeleccionado").clone();
 
             plantillaPerfiles.find(".nombrePerfil").html($("select option:selected").text());
+            var idPerfil = $(this).val();
+            var tipoPerfil = $(this).find(':selected').data('tipoperfil');
 
-            plantillaPerfiles.attr('id', $(this).val());
+            if (tipoPerfil >= 200) {
+                $("#cajaSeleccionDeEntidades").show();
+                $("#cajaSeleccionDeAreas").hide();
+            } else {
+                $("#cajaSeleccionDeEntidades").hide();
+                $("#cajaSeleccionDeAreas").show();
+            }
+
+            plantillaPerfiles.attr('id', idPerfil);
             plantillaPerfiles.attr('class', 'perfilesSeleccionados');
 
             plantillaPerfiles.find(".quitar").click(function () {
@@ -445,6 +484,29 @@ var Permisos = {
             }
         });
 
+        this.selector_de_entidades = new SelectorDeEntidades({
+            ui: $("#selector_entidades_usuarios"),
+            repositorioDeEntidades: this.repositorioDeEntidades,
+            placeholder: "ingrese la entidad que desea buscar",
+            alSeleccionarUnaEntidad: function (entidad) {
+
+                //alert(area.nombre);
+
+                var plantilla = $("#plantillaEntidad").clone();
+                plantilla.show();
+                plantilla.find("#entidadSeleccionada").html(entidad.nombre);
+                plantilla.find("#checkIncluyeDependencias").attr('class', 'checksIncluyeDependencia');
+                plantilla.find(".quitar").click(function () {
+                    plantilla.remove();
+                });
+
+                plantilla[0].id = entidad.id;
+                plantilla.attr('class', 'entidadesSeleccionadas');
+
+                $("#listadoEntidadesElegidas").append(plantilla);
+            }
+        });
+
 
         $("#btnAsignarPerfilConAreas").click(function (e) {
             //alert($(this).val());
@@ -460,13 +522,20 @@ var Permisos = {
                 return { Id: $(this).attr('id'), IncluyeDependencias: valor };
             }).get();
 
+            var entidadesSeleccionadas = $('.entidadesSeleccionadas').map(function () {
+                var valor = 0;
+                if ($(this)[0].children[1].checked)
+                    valor = 1;
+                return { Id: $(this).attr('id'), IncluyeDependencias: valor };
+            }).get();
+
             /* var dependencias = $('.checksIncluyeDependencia').map(function () {
             return $(this)[0].checked;
             }).get();*/
 
             //var idUsuarioSeleccionado = sessionStorage.getItem("idUsuario");
 
-            Backend.asignarPerfiles(JSON.stringify(perfilesSeleccionados), areasSeleccionadas, usuarioEncontrado.Id)
+            Backend.asignarPerfiles(JSON.stringify(perfilesSeleccionados), areasSeleccionadas, entidadesSeleccionadas, usuarioEncontrado.Id)
                 .onSuccess(function (rto) {
                     //window.location.reload();
                     if (rto == 'ok') {
@@ -518,7 +587,7 @@ var Permisos = {
                         $("#comboFuncionalidades").append("<optgroup label='" + grupo + "'>");
                     }
 
-                    $("#comboFuncionalidades").append("<option value=" + value.Id + ">" + value.Nombre + "</option>");
+                    $("#comboFuncionalidades").append("<option data-tipofuncionalidad=" + value.TipoFuncionalidad + " value=" + value.Id + ">" + value.Nombre + "</option>");
 
                 });
 
@@ -535,12 +604,23 @@ var Permisos = {
 
             plantillaFuncionalidad.find(".nombreFuncionalidad").html($("select option:selected").text());
 
+            var tipoFuncionalidad = $(this).find(':selected').data('tipofuncionalidad');
+
+            if (tipoFuncionalidad >= 200) {
+                $("#cajaSeleccionDeEntidades").show();
+                $("#cajaSeleccionDeAreas").hide();
+            } else {
+                $("#cajaSeleccionDeEntidades").hide();
+                $("#cajaSeleccionDeAreas").show();
+            }
+
             plantillaFuncionalidad.attr('id', $(this).val());
             plantillaFuncionalidad.attr('class', 'funcionalidadesSeleccionadas');
 
             plantillaFuncionalidad.find(".quitar").click(function () {
                 plantillaFuncionalidad.remove();
             });
+
 
             //plantillaPerfiles.find(".quitar").attr("class", $(this).val());
             plantillaFuncionalidad.show();
@@ -573,6 +653,30 @@ var Permisos = {
             }
         });
 
+        this.selector_de_entidades = new SelectorDeEntidades({
+            ui: $("#selector_entidades_usuarios"),
+            repositorioDeEntidades: this.repositorioDeEntidades,
+            placeholder: "ingrese la entidad que desea buscar",
+            alSeleccionarUnaEntidad: function (entidad) {
+
+                //alert(area.nombre);
+
+                var plantilla = $("#plantillaEntidad").clone();
+                plantilla.show();
+                plantilla.find("#entidadSeleccionada").html(entidad.nombre);
+                plantilla.find("#checkIncluyeDependencias").attr('class', 'checksIncluyeDependencia');
+                plantilla.find(".quitar").click(function () {
+                    plantilla.remove();
+                });
+
+                plantilla[0].id = entidad.id;
+                plantilla.attr('class', 'entidadesSeleccionadas');
+
+                $("#listadoEntidadesElegidas").append(plantilla);
+            }
+        });
+
+
         $("#btnAsignarFuncionalidadConAreas").click(function (e) {
             //alert($(this).val());
 
@@ -592,6 +696,13 @@ var Permisos = {
                 return { Id: $(this).attr('id'), IncluyeDependencias: valor };
             }).get();
 
+            var entidadesSeleccionadas = $('.entidadesSeleccionadas').map(function () {
+                var valor = 0;
+                if ($(this)[0].children[1].checked)
+                    valor = 1;
+                return { Id: $(this).attr('id'), IncluyeDependencias: valor };
+            }).get();
+
             /*$.each(areasSeleccionadas, function (key, value) {               
                 if (value.IncluyeDependencias) {
                     value.IncluyeDependencias = 1;
@@ -603,7 +714,7 @@ var Permisos = {
 
             //var idUsuarioSeleccionado = sessionStorage.getItem("idUsuario");
 
-            Backend.asignarFuncionalidades(JSON.stringify(funcionalidadesSeleccionados), JSON.stringify(areasSeleccionadas), usuarioEncontrado.Id)
+            Backend.asignarFuncionalidades(JSON.stringify(funcionalidadesSeleccionados), JSON.stringify(areasSeleccionadas), JSON.stringify(entidadesSeleccionadas), usuarioEncontrado.Id)
                 .onSuccess(function (rto) {
                     if (rto == 'ok') {
                         //window.location.reload();

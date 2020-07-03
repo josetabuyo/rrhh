@@ -98,23 +98,23 @@ namespace General.MAU
             throw new NotImplementedException();
         }
 
-        public string AsignarPerfilesAUsuario(List<int> perfiles, List<Area> areas, int idUsuario, int id_usuario_alta)
+        public string AsignarPerfilesAUsuario(List<int> perfiles, List<Area> areas, List<Entidad> entidades, int idUsuario, int id_usuario_alta)
         {
             throw new NotImplementedException();
         }
 
-        public string AsignarFuncionalidadesAUsuario(List<int> funcionalidades, List<Area> areas, int idUsuario, int id_usuario_alta)
+        public string AsignarFuncionalidadesAUsuario(List<int> funcionalidades, List<Area> areas, List<Entidad> entidades, int idUsuario, int id_usuario_alta)
         {
             throw new NotImplementedException();
         }
 
-        public string DesAsignarPerfilDeUsuario(int idPerfil, int idArea, int idUsuario, int id_usuario_alta)
+        public string DesAsignarPerfilDeUsuario(int idPerfil, int idArea, int idEntidad, int idUsuario, int id_usuario_alta)
         {
 
             throw new NotImplementedException();
         }
 
-        public string DesAsignarFuncionalidadDeUsuario(int idFuncionalidad, int idArea, int idUsuario, int id_usuario_alta)
+        public string DesAsignarFuncionalidadDeUsuario(int idFuncionalidad, int idArea, int idEntidad, int idUsuario, int id_usuario_alta)
         {
 
             throw new NotImplementedException();

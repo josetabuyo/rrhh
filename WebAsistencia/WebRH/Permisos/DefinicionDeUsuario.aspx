@@ -178,7 +178,8 @@
 <script type="text/javascript" src="../Scripts/Area.js"></script>
 <script type="text/javascript" src="../Scripts/SelectorDeAreas.js"></script>
 <script type="text/javascript" src="../Scripts/RepositorioDeAreas.js"></script>
-
+<script type="text/javascript" src="../Scripts/RepositorioDeEntidades.js"></script>
+<script type="text/javascript" src="../Scripts/SelectorDeEntidades.js"></script>
 <script type="text/javascript" src="../Scripts/alertify.js"></script>
 <script type="text/javascript" src="../Scripts/ControlesImagenes/VistaThumbnail.js"></script>
 <script type="text/javascript" src="../scripts/vex-2.1.1/js/vex.combined.min.js"></script>

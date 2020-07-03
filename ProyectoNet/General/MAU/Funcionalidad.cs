@@ -14,6 +14,8 @@ namespace General.MAU
         public bool SoloParaEmpleados { get; set; }
         public bool basica { get; set; }
         public List<Area> Areas { get; set; }
+        public List<Entidad> Entidades { get; set; }
+        public int TipoFuncionalidad { get; set; }
 
         public Funcionalidad()
         {
@@ -28,6 +30,7 @@ namespace General.MAU
             this.SoloParaEmpleados = solo_para_empleados;
             this.basica = basica;
             this.Areas = new List<Area>();
+            this.Entidades = new List<Entidad>();
         }
 
         public override bool Equals(Object obj)

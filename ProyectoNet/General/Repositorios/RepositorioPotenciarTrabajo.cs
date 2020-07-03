@@ -146,7 +146,6 @@ namespace General.Repositorios
 
         public void PT_Upd_Participacion_por_Entidad_Periodo(int id_entidad, int mes, int anio, int semana, int id_persona_rol, int id_dato_justificacion, Usuario usuario)
         {
-            SqlDataReader dr;
             ConexionDB cn = new ConexionDB("dbo.PRGSOC_UPD_Participacion_Por_Entidad_Periodo");
             cn.AsignarParametro("@Id_Entidad", id_entidad);
             cn.AsignarParametro("@Mes", mes);
@@ -159,9 +158,24 @@ namespace General.Repositorios
            cn.EjecutarSinResultado();
         }
 
+
+        public void PT_UPD_Participacion_Observacion(int id_entidad, int mes, int anio, int id_persona_rol, string observacion, Usuario usuario)
+        {            
+            ConexionDB cn = new ConexionDB("dbo.PRGSOC_UPD_Participacion_Observacion");
+            cn.AsignarParametro("@Id_Entidad", id_entidad);
+            cn.AsignarParametro("@Mes", mes);
+            cn.AsignarParametro("@Anio", anio);
+            cn.AsignarParametro("@Id_Persona_Rol", id_persona_rol);
+            cn.AsignarParametro("@Observacion", observacion);
+            cn.AsignarParametro("@Usuario", usuario.Id);
+
+            cn.EjecutarSinResultado();
+        }
+
+
+
         public void PT_Add_Justificacion(int id_persona_rol, int id_motivo, int anio_desde, int mes_desde, int semana_desde, int anio_hasta, int mes_hasta, int semana_hasta, string id_justificacion, Usuario usuario)
         {
-            SqlDataReader dr;
             ConexionDB cn = new ConexionDB("dbo.PRGSOC_ADD_PRGSOC_Participacion_Justificacion");
             cn.AsignarParametro("@Id_Persona_Rol", id_persona_rol);
             cn.AsignarParametro("@Id_Motivo", id_motivo);
@@ -179,7 +193,6 @@ namespace General.Repositorios
         
         public void PT_Upd_Justificacion(int id_registro, int anio_hasta, int mes_hasta, int semana_hasta, string id_justificacion, Usuario usuario)
         {
-            SqlDataReader dr;
             ConexionDB cn = new ConexionDB("dbo.PRGSOC_UPD_PRGSOC_Participacion_Justificacion");
             cn.AsignarParametro("@Id_Registro", id_registro);
             cn.AsignarParametro("@Anio_Hasta", anio_hasta);
@@ -258,5 +271,8 @@ namespace General.Repositorios
             cn.Desconestar();
             return lista;
         }
+
+       
+        
     }
 }

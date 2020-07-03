@@ -30,7 +30,8 @@
          <br />
      <p style="text-align:center">Etica y Transparencia</p>
      <p style="text-align: center; margin: 5px;"><a href="../EticayTransparencia/Etica.aspx" ><img src="../EticayTransparencia/Imagenes/etica_transparencia.jpg" width="150px" height="80px" style="background-color:white" /></a></p>
-
+     <p style="text-align:center">COVID</p>
+     <p style="text-align: center; margin: 5px;"><a href="../covid/Principal.aspx" ><img src="../covid/imagenes/btnCovid.jpg" width="150px" height="80px" style="background-color:white" /></a></p>
         <%--<p style="text-align: center; margin: 5px;"><span style="margin: 20px; display: block;">Para SABER MÁS sobre el Proceso de RETIRO VOLUNTARIO hacé click en el círculo de abajo</span><a href="../Imagenes/AficheRetiroV.jpg" target="_blank" ><img src="../MenuPrincipal/RetiroV.png" width="80px" height="80px" /></a></p>--%>
         <%--<p style="text-align: center; margin: 5px;"><span style="margin: 20px; display: block;"class="panel-title"><a href="../MenuPrincipal/FormulRetiroV.pdf" target="_blank" >Para DESCARGAR el FORMULARIO del Proceso de RETIRO VOLUNTARIO hacé click acá</a></p>--%>
         <%--<hr class="lineas-subraya"/>--%>
