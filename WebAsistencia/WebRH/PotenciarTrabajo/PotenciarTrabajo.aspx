@@ -79,10 +79,10 @@
                     <div id="pt_titulo_seccion">
                       Registro de Participacion en Actividades del Grupo de Trabajo
                     </div>
-                    <div id="pt_nota">
+                    <div class="pt_nota">
                       Nota: Por defecto, todas las personas presentan un cumplimiento del 100%
                     </div>
-                    <div id="pt_nota">
+                    <div id="pt_nota_de_abajo" class="pt_nota">
                       MODIFIQUE las que corresponda a MENORES porcentajes de cumplimiento (seleccionando el valor correcto de la lista desplegable)
                     </div>
                     <div id="pt_contenedor_tabla_participacion_semanal"

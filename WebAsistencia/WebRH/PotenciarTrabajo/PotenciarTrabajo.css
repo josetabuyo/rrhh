@@ -76,7 +76,11 @@
 #pt_cmb_periodo {
 
 }
-#pt_nota {
+#pt_nota_de_abajo {
+  margin-bottom: 10px;
+}
+
+.pt_nota {
 
 }
 
