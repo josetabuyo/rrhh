@@ -2,9 +2,10 @@
     console.warn('document ready');
     Backend.start(function () {
       console.warn('backend started');
-      $("#pt_boton_carga_participacion").click(() => {
-        var seccion = new SeccionEstadoCargaParticipacion();
+      var seccion = new SeccionEstadoCargaParticipacion();
+      $("#pt_boton_carga_participacion").click(() => {        
         $("#pt_boton_carga_participacion").addClass("pt_selected_section_button");
+        seccion.render();
       });
     });
 });
