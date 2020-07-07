@@ -1179,6 +1179,21 @@
       <s:element name="PT_Upd_Participacion_por_Entidad_PeriodoResponse">
         <s:complexType />
       </s:element>
+      <s:element name="PT_UPD_Participacion_Observacion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_entidad" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="mes" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="anio" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_persona_rol" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="observacion" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PT_UPD_Participacion_ObservacionResponse">
+        <s:complexType />
+      </s:element>
       <s:element name="PT_Get_Justificacion">
         <s:complexType>
           <s:sequence>
@@ -9540,6 +9555,12 @@
   <wsdl:message name="PT_Upd_Participacion_por_Entidad_PeriodoSoapOut">
     <wsdl:part name="parameters" element="tns:PT_Upd_Participacion_por_Entidad_PeriodoResponse" />
   </wsdl:message>
+  <wsdl:message name="PT_UPD_Participacion_ObservacionSoapIn">
+    <wsdl:part name="parameters" element="tns:PT_UPD_Participacion_Observacion" />
+  </wsdl:message>
+  <wsdl:message name="PT_UPD_Participacion_ObservacionSoapOut">
+    <wsdl:part name="parameters" element="tns:PT_UPD_Participacion_ObservacionResponse" />
+  </wsdl:message>
   <wsdl:message name="PT_Get_JustificacionSoapIn">
     <wsdl:part name="parameters" element="tns:PT_Get_Justificacion" />
   </wsdl:message>
@@ -12171,6 +12192,10 @@
       <wsdl:input message="tns:PT_Upd_Participacion_por_Entidad_PeriodoSoapIn" />
       <wsdl:output message="tns:PT_Upd_Participacion_por_Entidad_PeriodoSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="PT_UPD_Participacion_Observacion">
+      <wsdl:input message="tns:PT_UPD_Participacion_ObservacionSoapIn" />
+      <wsdl:output message="tns:PT_UPD_Participacion_ObservacionSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="PT_Get_Justificacion">
       <wsdl:input message="tns:PT_Get_JustificacionSoapIn" />
       <wsdl:output message="tns:PT_Get_JustificacionSoapOut" />
@@ -14199,6 +14224,15 @@
     </wsdl:operation>
     <wsdl:operation name="PT_Upd_Participacion_por_Entidad_Periodo">
       <soap:operation soapAction="http://wsviaticos.gov.ar/PT_Upd_Participacion_por_Entidad_Periodo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PT_UPD_Participacion_Observacion">
+      <soap:operation soapAction="http://wsviaticos.gov.ar/PT_UPD_Participacion_Observacion" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -18279,6 +18313,15 @@
     </wsdl:operation>
     <wsdl:operation name="PT_Upd_Participacion_por_Entidad_Periodo">
       <soap12:operation soapAction="http://wsviaticos.gov.ar/PT_Upd_Participacion_por_Entidad_Periodo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PT_UPD_Participacion_Observacion">
+      <soap12:operation soapAction="http://wsviaticos.gov.ar/PT_UPD_Participacion_Observacion" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
