@@ -25,6 +25,10 @@ namespace General.Repositorios
                     cn = new ConexionDB("dbo.PRGSOC_GET_Entidades");
                     break;
 
+                case "MotivoJustificacion":
+                    cn = new ConexionDB("dbo.PRGSOC_GET_Tabla_Motivos_Justificacion");
+                    break;
+                    
 
                 default:
                     break;
