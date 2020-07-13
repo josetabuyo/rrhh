@@ -116,7 +116,7 @@ class TablaParticipacionSemanal extends TablaPT{
     // <th>Semana 3</th>
     // <th>Semana 4</th>
     // <th>observaciones a la participación</th>
-    
+
     const fila_titulos = $("#pt_tabla_participacion_semanal").find("#pt_titulos_tabla_participacion_semanal");
     fila_titulos.empty();
     fila_titulos.append($("<th>CUIL</th>"));
@@ -134,7 +134,7 @@ class TablaParticipacionSemanal extends TablaPT{
     Backend.PT_Get_Add_Participacion_por_Entidad_Periodo(id_entidad, periodo.Id, periodo.Anio)
     .onSuccess((personas) => {
       _.forEach(personas, (p) => {
-        var fila = $("<tr>")
+        var fila = $("<tr>");
 
         this.agregarCeldaTextoAFila(fila, p.Persona.CUIL);
         this.agregarCeldaTextoAFila(fila, p.Persona.Nombre_Apellido);
@@ -170,7 +170,7 @@ class TablaParticipacionSemanal extends TablaPT{
               if(observacion===false) return;
               this.updateObservacionMensualPersona(p, observacion);
             }
-          });            
+          });
         });
         celda_obs.append(icono_lista);
 
@@ -199,10 +199,26 @@ class TablaParticipacionSemanal extends TablaPT{
   }
 
   updateParticipacionSemanalPersona (asistencia, semana, id_dato) {
+    //Si Id del dato es justificacion, se abre popup
+    if (id_dato === '4') {
+      var pt_popup_justificación =
+      vex.defaultOptions.className = 'vex-theme-os';
+      vex.dialog.open({
+        message: 'Justificacion',
+        input: [
+        //  $('#pt_plantillas').find('.pt_justificacion').clone(),
+          '<input name="tipo" type="text" placeholder="Inserte aquí una breve descripción de la situación" required />'
+        ].join(''),
+        callback: (observacion) => {
+          if(observacion===false) return;
+        }
+      });
+      return;
+    }
     Backend.PT_Upd_Participacion_por_Entidad_Periodo(
         this.idEntidad,
-        this.periodo.Id, 
-        this.periodo.Anio, 
+        this.periodo.Id,
+        this.periodo.Anio,
         semana,
         asistencia.Persona.Id_Rol,
         id_dato)
@@ -217,8 +233,8 @@ class TablaParticipacionSemanal extends TablaPT{
   updateObservacionMensualPersona (asistencia, observacion) {
     Backend.PT_UPD_Participacion_Observacion(
         this.idEntidad,
-        this.periodo.Id, 
-        this.periodo.Anio, 
+        this.periodo.Id,
+        this.periodo.Anio,
         asistencia.Persona.Id_Rol,
         observacion)
       .onSuccess((datos) => {
