@@ -202,14 +202,12 @@ class TablaParticipacionSemanal extends TablaPT{
   updateParticipacionSemanalPersona (asistencia, semana, id_dato) {
     //Si Id del dato es justificacion, se abre popup
     if (id_dato === '4') {
-      var pt_popup_justificación =
+      var pt_popup_justificación = $('#pt_plantillas').find('.pt_justificacion').clone();
+      var input_descripcion = pt_popup_justificación.find('.pt_descripcion');
       vex.defaultOptions.className = 'vex-theme-os';
       vex.dialog.open({
         message: 'Justificacion',
-        input: [
-        //  $('#pt_plantillas').find('.pt_justificacion').clone(),
-          '<input name="tipo" type="text" placeholder="Inserte aquí una breve descripción de la situación" required />'
-        ].join(''),
+        input: pt_popup_justificación,
         callback: (observacion) => {
           if(observacion===false) return;
         }
