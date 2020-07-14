@@ -143,3 +143,22 @@
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+
+.pt_justificacion{
+
+}
+
+.pt_justificacion_semana_desde_hasta{
+  position: relative;
+  padding-left: 2px;
+    font-size: 10px;
+  }
+
+#pt_justificacion_cmb_semana_hasta{
+  height: 23px;
+  weight: 23px;
+  font-size: 10px;
+}
+#pt_descripcion_justificacion{
+  
+}

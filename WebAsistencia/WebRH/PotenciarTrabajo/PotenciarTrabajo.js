@@ -3,7 +3,7 @@
     Backend.start(function () {
       console.warn('backend started');
       var seccion = new SeccionEstadoCargaParticipacion();
-      $("#pt_boton_carga_participacion").click(() => {        
+      $("#pt_boton_carga_participacion").click(() => {
         $("#pt_boton_carga_participacion").addClass("pt_selected_section_button");
         seccion.render();
       });
@@ -224,7 +224,7 @@ class TablaParticipacionSemanal extends TablaPT{
           _.forEach(periodos, (periodo) => {
             for (let i = 1; i <= periodo.Cant_Semanas; i++) {
               cmb_semana_hasta.append($(`<option value=${periodo.Anio}-${periodo.Mes}-${i}> ${periodo.Anio} ${periodo.Mes} semana ${i} </option>`));
-            } 
+            }
           })
         })
         .onError(function (e) {
@@ -234,6 +234,10 @@ class TablaParticipacionSemanal extends TablaPT{
       vex.dialog.open({
         message: 'Justificacion',
         input: pt_popup_justificación,
+        buttons: [
+          $.extend({}, vex.dialog.buttons.YES, { text: 'Guardar' }),
+          $.extend({}, vex.dialog.buttons.NO, { text: 'Cancelar' })
+        ],
         callback: (valor) => {
           if(valor===false) return;
 
