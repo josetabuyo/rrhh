@@ -42,7 +42,7 @@ namespace General.Repositorios
             while (dr.Read())
             {
                 combo = new GeneralCombos();
-                combo.id = dr.GetInt16(dr.GetOrdinal("Id"));
+                combo.id = dr.GetInt32(dr.GetOrdinal("Id"));
                 combo.descripcion = dr.GetString(dr.GetOrdinal("Descripcion"));
 
                 lista.Add(combo);

@@ -210,7 +210,7 @@ class TablaParticipacionSemanal extends TablaPT{
       Backend.PT_Get_Cargar_Combo('MotivoJustificacion')
         .onSuccess((motivos) => {
           _.forEach(motivos, (motivo) => {
-            cmb_motivo.append($(`<option value=${motivo.Id}> ${motivo.Descripcion} </option>`));
+            cmb_motivo.append($(`<option value=${motivo.id}> ${motivo.descripcion} </option>`));
           })
         })
         .onError(function (e) {
