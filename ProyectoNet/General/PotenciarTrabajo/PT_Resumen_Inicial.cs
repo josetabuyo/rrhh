@@ -17,7 +17,8 @@ namespace General.PotenciarTrabajo
         public int Sin_Carga { get; set; }
         public int En_Proceso { get; set; }
         public int Con_Informe { get; set; }
+        public int IdFuncionalidad { get; set; }
+        public string NombreFuncionalidad { get; set; }
         
-
     }
 }
