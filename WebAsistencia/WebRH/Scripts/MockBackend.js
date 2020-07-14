@@ -79,6 +79,10 @@ var Backend = {
       console.log('guardando', id_entidad, mes, anio, id_persona_rol, observacion);
       return this.ReturnAsync({});
     },
+    PT_Add_Justificacion(id_persona_rol, id_motivo, anio_desde, mes_desde, semana_desde, anio_hasta, mes_hasta, semana_hasta, justificacion) {
+      console.log('creando justificacion', id_persona_rol, id_motivo, anio_desde, mes_desde, semana_desde, anio_hasta, mes_hasta, semana_hasta, justificacion);
+      return this.ReturnAsync({});
+    },    
     ReturnAsync(data) {
       var promesa = new Promesa();
       setTimeout(function() {

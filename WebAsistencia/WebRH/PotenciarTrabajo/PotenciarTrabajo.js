@@ -3,7 +3,7 @@
     Backend.start(function () {
       console.warn('backend started');
       var seccion = new SeccionEstadoCargaParticipacion();
-      $("#pt_boton_carga_participacion").click(() => {
+      $("#pt_boton_carga_participacion").click(() => {        
         $("#pt_boton_carga_participacion").addClass("pt_selected_section_button");
         seccion.render();
       });
@@ -205,12 +205,12 @@ class TablaParticipacionSemanal extends TablaPT{
       var pt_popup_justificación = $('#pt_plantillas').find('.pt_justificacion').clone();
       var lbl_semana_desde = pt_popup_justificación.find('#pt_justificacion_semana_desde');
       lbl_semana_desde.html(`${this.periodo.Anio} ${this.periodo.Mes} semana ${semana}`);
-      var cmb_tipo = pt_popup_justificación.find('#pt_justificacion_cmb_tipo');
-      cmb_tipo.empty();
+      var cmb_motivo = pt_popup_justificación.find('#pt_justificacion_cmb_motivo');
+      cmb_motivo.empty();
       Backend.PT_Get_Cargar_Combo('MotivoJustificacion')
         .onSuccess((motivos) => {
           _.forEach(motivos, (motivo) => {
-            cmb_tipo.append($(`<option value=${motivo.Id}> ${motivo.Descripcion} </option>`));
+            cmb_motivo.append($(`<option value=${motivo.Id}> ${motivo.Descripcion} </option>`));
           })
         })
         .onError(function (e) {
@@ -223,13 +223,15 @@ class TablaParticipacionSemanal extends TablaPT{
           console.log(periodos)
           _.forEach(periodos, (periodo) => {
             for (let i = 1; i <= periodo.Cant_Semanas; i++) {
-              cmb_semana_hasta.append($(`<option value=${periodo.Anio}-${periodo.Mes}-${i}> ${periodo.Anio} ${periodo.Mes} semana ${i} </option>`));
-            }
+              cmb_semana_hasta.append($(`<option value=${periodo.Anio}-${periodo.Id}-${i}> ${periodo.Anio} ${periodo.Mes} semana ${i} </option>`));
+            } 
           })
         })
         .onError(function (e) {
             this.alertify.error("error al cargar periodos: " + e);
         });
+      var txt_descripcion = pt_popup_justificación.find('#pt_descripcion_justificacion');
+      txt_descripcion.val('');
       vex.defaultOptions.className = 'vex-theme-os';
       vex.dialog.open({
         message: 'Justificacion',
@@ -240,8 +242,23 @@ class TablaParticipacionSemanal extends TablaPT{
         ],
         callback: (valor) => {
           if(valor===false) return;
-
-
+          var descripcion = txt_descripcion.val();
+          var motivo = cmb_motivo.val();
+          var desde_anio = this.periodo.Anio;
+          var desde_mes = this.periodo.Id;
+          var desde_semana = semana;
+          var str_semana_hasta = cmb_semana_hasta.val();
+          var hasta_anio = str_semana_hasta.split('-')[0];
+          var hasta_mes = str_semana_hasta.split('-')[1];
+          var hasta_semana = str_semana_hasta.split('-')[2];
+          Backend.PT_Add_Justificacion(asistencia.Persona.Id_Rol, motivo, desde_anio, 
+            desde_mes, desde_semana, hasta_anio, hasta_mes, hasta_semana, descripcion)
+            .onSuccess((datos) => {
+              this.render(this.idEntidad, this.periodo);
+            })
+            .onError(function (e) {
+              this.alertify.error("error al guardar participacion: " + e);
+            });
         }
       });
       return;
