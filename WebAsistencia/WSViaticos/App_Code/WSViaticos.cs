@@ -7194,11 +7194,11 @@ public class WSViaticos : System.Web.Services.WebService
     /// -------------------- Potenciar Trabajo -------------------------------------------------
 
     [WebMethod]
-    public List<PT_Resumen_Inicial> PT_Get_Estado_Carga_Participacion_Por_Periodo (int anio, int mes)
+    public List<PT_Resumen_Inicial> PT_Get_Estado_Carga_Participacion_Por_Periodo (int anio, int mes, Usuario usuario)
     {
         var RepositorioPT = new RepositorioPotenciarTrabajo();
 
-        return RepositorioPT.PT_Get_Estado_Carga_Participacion_Por_Periodo(anio, mes);
+        return RepositorioPT.PT_Get_Estado_Carga_Participacion_Por_Periodo(anio, mes, usuario);
     }
 
 
@@ -7283,20 +7283,20 @@ public class WSViaticos : System.Web.Services.WebService
 
 
     [WebMethod]
-    public void PT_Add_Justificacion(int id_persona_rol, int id_motivo, int anio_desde, int mes_desde, int semana_desde, int anio_hasta, int mes_hasta, int semana_hasta, string id_justificacion, Usuario usuario)
+    public void PT_Add_Justificacion(int id_persona_rol, int id_motivo, int anio_desde, int mes_desde, int semana_desde, int anio_hasta, int mes_hasta, int semana_hasta, string justificacion, int id_entidad, Usuario usuario)
     {
         var RepositorioPT = new RepositorioPotenciarTrabajo();
 
-        RepositorioPT.PT_Add_Justificacion(id_persona_rol, id_motivo, anio_desde, mes_desde, semana_desde, anio_hasta, mes_hasta, semana_hasta, id_justificacion, usuario);
+        RepositorioPT.PT_Add_Justificacion(id_persona_rol, id_motivo, anio_desde, mes_desde, semana_desde, anio_hasta, mes_hasta, semana_hasta, justificacion, id_entidad, usuario);
     }
 
 
     [WebMethod]
-    public void PT_Upd_Justificacion(int id_registro, int anio_hasta, int mes_hasta, int semana_hasta, string id_justificacion, Usuario usuario)
+    public void PT_Upd_Justificacion(int id_registro_justif, int anio_hasta, int mes_hasta, int semana_hasta, string justificacion, int id_entidad, Usuario usuario)
     {
         var RepositorioPT = new RepositorioPotenciarTrabajo();
 
-        RepositorioPT.PT_Upd_Justificacion(id_registro, anio_hasta, mes_hasta, semana_hasta, id_justificacion, usuario);
+        RepositorioPT.PT_Upd_Justificacion(id_registro_justif, anio_hasta, mes_hasta, semana_hasta, justificacion, id_entidad, usuario);
     }
 
 
