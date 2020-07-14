@@ -4,7 +4,10 @@ var Backend = {
     },
     PT_Get_Cargar_Combo (nombre_combo) {
       return this.ReturnAsync([
-        {id: 1, descripcion: 'nombre entidad'}
+        {Id: 1, Descripcion: 'Accidente'},
+        {Id: 2, Descripcion: 'Casamiento'},
+        {Id: 3, Descripcion: 'Mudanza'},
+        {Id: 4, Descripcion: 'Estudio'},
       ]);
     },
     PT_Get_Estado_Carga_Participacion_Por_Periodo (id_periodo) {

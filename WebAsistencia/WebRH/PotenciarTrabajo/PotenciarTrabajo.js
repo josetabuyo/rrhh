@@ -203,13 +203,41 @@ class TablaParticipacionSemanal extends TablaPT{
     //Si Id del dato es justificacion, se abre popup
     if (id_dato === '4') {
       var pt_popup_justificación = $('#pt_plantillas').find('.pt_justificacion').clone();
-      var input_descripcion = pt_popup_justificación.find('.pt_descripcion');
+      var lbl_semana_desde = pt_popup_justificación.find('#pt_justificacion_semana_desde');
+      lbl_semana_desde.html(`${this.periodo.Anio} ${this.periodo.Mes} semana ${semana}`);
+      var cmb_tipo = pt_popup_justificación.find('#pt_justificacion_cmb_tipo');
+      cmb_tipo.empty();
+      Backend.PT_Get_Cargar_Combo('MotivoJustificacion')
+        .onSuccess((motivos) => {
+          _.forEach(motivos, (motivo) => {
+            cmb_tipo.append($(`<option value=${motivo.Id}> ${motivo.Descripcion} </option>`));
+          })
+        })
+        .onError(function (e) {
+            this.alertify.error("error cargar motivos de justificacion: " + e);
+        });
+      var cmb_semana_hasta = pt_popup_justificación.find('#pt_justificacion_cmb_semana_hasta');
+      cmb_semana_hasta.empty();
+      Backend.PT_Get_Periodos()
+        .onSuccess((periodos) => {
+          console.log(periodos)
+          _.forEach(periodos, (periodo) => {
+            for (let i = 1; i <= periodo.Cant_Semanas; i++) {
+              cmb_semana_hasta.append($(`<option value=${periodo.Anio}-${periodo.Mes}-${i}> ${periodo.Anio} ${periodo.Mes} semana ${i} </option>`));
+            } 
+          })
+        })
+        .onError(function (e) {
+            this.alertify.error("error al cargar periodos: " + e);
+        });
       vex.defaultOptions.className = 'vex-theme-os';
       vex.dialog.open({
         message: 'Justificacion',
         input: pt_popup_justificación,
-        callback: (observacion) => {
-          if(observacion===false) return;
+        callback: (valor) => {
+          if(valor===false) return;
+
+
         }
       });
       return;
