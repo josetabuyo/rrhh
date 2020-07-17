@@ -4,10 +4,10 @@ var Backend = {
     },
     PT_Get_Cargar_Combo (nombre_combo) {
       return this.ReturnAsync([
-        {Id: 1, Descripcion: 'Accidente'},
-        {Id: 2, Descripcion: 'Casamiento'},
-        {Id: 3, Descripcion: 'Mudanza'},
-        {Id: 4, Descripcion: 'Estudio'},
+        {id: 1, descripcion: 'Accidente'},
+        {id: 2, descripcion: 'Casamiento'},
+        {id: 3, descripcion: 'Mudanza'},
+        {id: 4, descripcion: 'Estudio'},
       ]);
     },
     PT_Get_Estado_Carga_Participacion_Por_Periodo (id_periodo) {
@@ -79,8 +79,8 @@ var Backend = {
       console.log('guardando', id_entidad, mes, anio, id_persona_rol, observacion);
       return this.ReturnAsync({});
     },
-    PT_Add_Justificacion(id_persona_rol, id_motivo, anio_desde, mes_desde, semana_desde, anio_hasta, mes_hasta, semana_hasta, justificacion) {
-      console.log('creando justificacion', id_persona_rol, id_motivo, anio_desde, mes_desde, semana_desde, anio_hasta, mes_hasta, semana_hasta, justificacion);
+    PT_Add_Justificacion(id_persona_rol, id_motivo, anio_desde, mes_desde, semana_desde, anio_hasta, mes_hasta, semana_hasta, justificacion, id_entidad) {
+      console.log('creando justificacion', id_persona_rol, id_motivo, anio_desde, mes_desde, semana_desde, anio_hasta, mes_hasta, semana_hasta, justificacion, id_entidad);
       return this.ReturnAsync({});
     },    
     ReturnAsync(data) {

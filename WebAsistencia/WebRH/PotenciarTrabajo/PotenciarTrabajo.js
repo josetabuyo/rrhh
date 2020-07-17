@@ -29,7 +29,7 @@ class SeccionEstadoCargaParticipacion {
           this.render();
       })
       .onError(function (e) {
-          console.error("error al obtener periodos: " + e);
+        console.error("error al obtener periodos: " + e);
       });
   }
 
@@ -104,7 +104,7 @@ class TablaParticipacionSemanal extends TablaPT{
           this.nivelesDeParticipacion = datos;
       })
       .onError(function (e) {
-          this.alertify.error("error al obtener niveles de participacion: " + e);
+        console.error("error al obtener niveles de participacion: " + e);
       });
   }
   render (id_entidad, periodo) {
@@ -180,7 +180,7 @@ class TablaParticipacionSemanal extends TablaPT{
       });
     })
     .onError(function (e) {
-        this.alertify.error("error al obtener asistencias: " + e);
+      console.error("error al obtener asistencias: " + e);
     });
   }
 
@@ -214,7 +214,7 @@ class TablaParticipacionSemanal extends TablaPT{
           })
         })
         .onError(function (e) {
-            this.alertify.error("error cargar motivos de justificacion: " + e);
+          console.error("error cargar motivos de justificacion: " + e);
         });
       var cmb_semana_hasta = pt_popup_justificación.find('#pt_justificacion_cmb_semana_hasta');
       cmb_semana_hasta.empty();
@@ -223,12 +223,14 @@ class TablaParticipacionSemanal extends TablaPT{
           console.log(periodos)
           _.forEach(periodos, (periodo) => {
             for (let i = 1; i <= periodo.Cant_Semanas; i++) {
+              if(this.periodo.Id > periodo.Id) continue;
+              if(this.periodo.Id == periodo.Id && semana >= i) continue;
               cmb_semana_hasta.append($(`<option value=${periodo.Anio}-${periodo.Id}-${i}> ${periodo.Anio} ${periodo.Mes} semana ${i} </option>`));
             } 
           })
         })
         .onError(function (e) {
-            this.alertify.error("error al cargar periodos: " + e);
+          console.error("error al cargar periodos: " + e);
         });
       var txt_descripcion = pt_popup_justificación.find('#pt_descripcion_justificacion');
       txt_descripcion.val('');
@@ -241,7 +243,11 @@ class TablaParticipacionSemanal extends TablaPT{
           $.extend({}, vex.dialog.buttons.NO, { text: 'Cancelar' })
         ],
         callback: (valor) => {
-          if(valor===false) return;
+          if(valor===false) {
+            this.render(this.idEntidad, this.periodo);
+            return;
+          }
+
           var descripcion = txt_descripcion.val();
           var motivo = cmb_motivo.val();
           var desde_anio = this.periodo.Anio;
@@ -251,13 +257,15 @@ class TablaParticipacionSemanal extends TablaPT{
           var hasta_anio = str_semana_hasta.split('-')[0];
           var hasta_mes = str_semana_hasta.split('-')[1];
           var hasta_semana = str_semana_hasta.split('-')[2];
+          var id_entidad = this.idEntidad;
           Backend.PT_Add_Justificacion(asistencia.Persona.Id_Rol, motivo, desde_anio, 
-            desde_mes, desde_semana, hasta_anio, hasta_mes, hasta_semana, descripcion)
+            desde_mes, desde_semana, hasta_anio, hasta_mes, hasta_semana, descripcion, id_entidad)
             .onSuccess((datos) => {
               this.render(this.idEntidad, this.periodo);
             })
             .onError(function (e) {
-              this.alertify.error("error al guardar participacion: " + e);
+              this.render(this.idEntidad, this.periodo);
+              console.error("error al guardar participacion: " + e);
             });
         }
       });
@@ -271,10 +279,11 @@ class TablaParticipacionSemanal extends TablaPT{
         asistencia.Persona.Id_Rol,
         id_dato)
       .onSuccess((datos) => {
-          this.render(this.idEntidad, this.periodo);
+        this.render(this.idEntidad, this.periodo);
       })
       .onError(function (e) {
-          this.alertify.error("error al guardar participacion: " + e);
+        this.render(this.idEntidad, this.periodo);
+        console.error("error al guardar participacion: " + e);
       });
   }
 
@@ -289,7 +298,7 @@ class TablaParticipacionSemanal extends TablaPT{
           this.render(this.idEntidad, this.periodo);
       })
       .onError(function (e) {
-          this.alertify.error("error al guardar comentarios: " + e);
+        console.error("error al guardar comentarios: " + e);
       });
   }
 }
