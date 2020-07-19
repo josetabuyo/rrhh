@@ -7257,11 +7257,11 @@ public class WSViaticos : System.Web.Services.WebService
 
 
     [WebMethod]
-    public void PT_Upd_Participacion_por_Entidad_Periodo (int id_entidad, int mes, int anio, int semana, int id_persona_rol, int id_dato_justificacion, Usuario usuario)
+    public void PT_Upd_Participacion_por_Entidad_Periodo (int id_entidad, int mes, int anio, int semana, int id_persona_rol, int id_dato_participacion, Usuario usuario)
     {
         var RepositorioPT = new RepositorioPotenciarTrabajo();
 
-        RepositorioPT.PT_Upd_Participacion_por_Entidad_Periodo(id_entidad, mes, anio, semana, id_persona_rol, id_dato_justificacion, usuario);
+        RepositorioPT.PT_Upd_Participacion_por_Entidad_Periodo(id_entidad, mes, anio, semana, id_persona_rol, id_dato_participacion, usuario);
     }
 
 

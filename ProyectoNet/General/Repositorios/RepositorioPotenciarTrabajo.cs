@@ -148,7 +148,7 @@ namespace General.Repositorios
             return lista;
         }
 
-        public void PT_Upd_Participacion_por_Entidad_Periodo(int id_entidad, int mes, int anio, int semana, int id_persona_rol, int id_dato_justificacion, Usuario usuario)
+        public void PT_Upd_Participacion_por_Entidad_Periodo(int id_entidad, int mes, int anio, int semana, int id_persona_rol, int id_dato_participacion, Usuario usuario)
         {
             ConexionDB cn = new ConexionDB("dbo.PRGSOC_UPD_Participacion_Por_Entidad_Periodo");
             cn.AsignarParametro("@Id_Entidad", id_entidad);
@@ -156,7 +156,7 @@ namespace General.Repositorios
             cn.AsignarParametro("@Anio", anio);
             cn.AsignarParametro("@Semana", semana);
             cn.AsignarParametro("@Id_Persona_Rol", id_persona_rol);
-            cn.AsignarParametro("@Id_Dato_Justificacion", id_dato_justificacion);
+            cn.AsignarParametro("@Id_Dato_Participacion", id_dato_participacion);
             cn.AsignarParametro("@Usuario", usuario.Id);
             
            cn.EjecutarSinResultado();

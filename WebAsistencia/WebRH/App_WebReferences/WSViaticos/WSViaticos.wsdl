@@ -1174,7 +1174,7 @@
             <s:element minOccurs="1" maxOccurs="1" name="anio" type="s:int" />
             <s:element minOccurs="1" maxOccurs="1" name="semana" type="s:int" />
             <s:element minOccurs="1" maxOccurs="1" name="id_persona_rol" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="id_dato_justificacion" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_dato_participacion" type="s:int" />
             <s:element minOccurs="0" maxOccurs="1" name="usuario" type="tns:Usuario" />
           </s:sequence>
         </s:complexType>
