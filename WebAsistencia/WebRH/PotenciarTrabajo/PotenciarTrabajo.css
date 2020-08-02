@@ -96,6 +96,11 @@
   display: none;
 }
 
+#pt_seccion_informes_mensuales {
+  display: none;
+}
+
+
 .pt_contenedor_tabla {
   flex: 1 1 auto;
   overflow: hidden;

@@ -3,10 +3,13 @@
     Backend.start(function () {
       console.warn('backend started');
       var seccion = new SeccionEstadoCargaParticipacion();
-      $("#pt_boton_carga_participacion").click(() => {        
+      $("#pt_boton_carga_participacion").click(() => {
+        $(".pt_selected_section_button").removeClass("pt_selected_section_button");
         $("#pt_boton_carga_participacion").addClass("pt_selected_section_button");
         seccion.render();
       });
+      //es el default
+      $("#pt_boton_carga_participacion").addClass("pt_selected_section_button");
     });
 });
 
@@ -34,6 +37,9 @@ class SeccionEstadoCargaParticipacion {
   }
 
   render () {
+    $(".pt_seccion").hide();
+    $("#pt_seccion_gestion_semanal").show();
+
     $("#pt_estado_semanal").hide();
     $("#pt_estado_mensual").show();
     this.tablaMensual.render(JSON.parse(this.periodoSeleccionado));

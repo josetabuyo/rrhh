@@ -82,7 +82,24 @@ var Backend = {
     PT_Add_Justificacion(id_persona_rol, id_motivo, anio_desde, mes_desde, semana_desde, anio_hasta, mes_hasta, semana_hasta, justificacion, id_entidad) {
       console.log('creando justificacion', id_persona_rol, id_motivo, anio_desde, mes_desde, semana_desde, anio_hasta, mes_hasta, semana_hasta, justificacion, id_entidad);
       return this.ReturnAsync({});
-    },    
+    },
+
+    PT_Get_Estado_Informes_Participacion_Por_Periodo(usuario){
+      return this.ReturnAsync([
+          { Entidad: {Anio: 2020, Mes: 1},Ent_SinCarga: 1, Ent_EnProceso:3,  Ent_ConInforme: 2, Partic_SinCarga: 2, Partic_EnProceso: 0, Partic_ConInforme: 0},
+          { Entidad: {Anio: 2020, Mes: 2},Ent_SinCarga: 1, Ent_EnProceso:3,  Ent_ConInforme: 2, Partic_SinCarga: 2, Partic_EnProceso: 0, Partic_ConInforme: 0},
+          { Entidad: {Anio: 2020, Mes: 3},Ent_SinCarga: 1, Ent_EnProceso:3,  Ent_ConInforme: 2, Partic_SinCarga: 2, Partic_EnProceso: 0, Partic_ConInforme: 0},
+          { Entidad: {Anio: 2020, Mes: 4},Ent_SinCarga: 1, Ent_EnProceso:3,  Ent_ConInforme: 2, Partic_SinCarga: 2, Partic_EnProceso: 0, Partic_ConInforme: 0},
+          { Entidad: {Anio: 2020, Mes: 5},Ent_SinCarga: 1, Ent_EnProceso:3,  Ent_ConInforme: 2, Partic_SinCarga: 2, Partic_EnProceso: 0, Partic_ConInforme: 0},
+          { Entidad: {Anio: 2020, Mes: 6},Ent_SinCarga: 1, Ent_EnProceso:3,  Ent_ConInforme: 2, Partic_SinCarga: 2, Partic_EnProceso: 0, Partic_ConInforme: 0},
+          { Entidad: {Anio: 2020, Mes: 7},Ent_SinCarga: 1, Ent_EnProceso:3,  Ent_ConInforme: 2, Partic_SinCarga: 2, Partic_EnProceso: 0, Partic_ConInforme: 0},
+          { Entidad: {Anio: 2020, Mes: 8},Ent_SinCarga: 1, Ent_EnProceso:3,  Ent_ConInforme: 2, Partic_SinCarga: 2, Partic_EnProceso: 0, Partic_ConInforme: 0},
+          { Entidad: {Anio: 2020, Mes: 9},Ent_SinCarga: 1, Ent_EnProceso:3,  Ent_ConInforme: 2, Partic_SinCarga: 2, Partic_EnProceso: 0, Partic_ConInforme: 0},
+          { Entidad: {Anio: 2020, Mes: 10},Ent_SinCarga: 1, Ent_EnProceso:3,  Ent_ConInforme: 2, Partic_SinCarga: 2, Partic_EnProceso: 0, Partic_ConInforme: 0},
+          { Entidad: {Anio: 2020, Mes: 11},Ent_SinCarga: 1, Ent_EnProceso:3,  Ent_ConInforme: 2, Partic_SinCarga: 2, Partic_EnProceso: 0, Partic_ConInforme: 0},
+      ]);
+    },
+
     ReturnAsync(data) {
       var promesa = new Promesa();
       setTimeout(function() {
