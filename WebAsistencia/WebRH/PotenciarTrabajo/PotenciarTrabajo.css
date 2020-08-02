@@ -105,6 +105,22 @@
 }
 
 
+
+#pt_encabezados{
+  text-align: right;
+}
+#pt_unidad_gestion{
+    border: solid 1px black;
+    font-size: x-large;
+    font-weight: bold;
+    margin: 10px;
+    padding: 10px;
+    font-variant-caps: petite-caps;
+    display: inline-block;
+
+}
+
+
 .pt_contenedor_tabla {
   flex: 1 1 auto;
   overflow: hidden;
@@ -167,4 +183,11 @@
 }
 #pt_descripcion_justificacion{
 
+}
+
+
+.empty_cell{
+  border: none;
+  background-color: #e6e6e6;
+  color: transparent;
 }

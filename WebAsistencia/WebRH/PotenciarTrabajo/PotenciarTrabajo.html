@@ -146,21 +146,20 @@
                       Estados Mensuales
                     </div>
                     <div id="pt_encabezados">
-                        <div id="pt_unidad_gestion">
-                            Unidad de Gestión: XXXXXXXXXXXXX XXXXX XXXXXXXXX
-                        </div>
-                        <div id="pt_grupo_trabajo">
-                            Grupo de Trabajo
-                        </div>
-                        <div id="pt_personas">
-                            Personas
-                        </div>
+                      <div id="pt_unidad_gestion">
+                        Unidad de Gestión: XXXXXXXXXXXXX XXXXX XXXXXXXXX
+                      </div>
                     </div>
                     <div id="pt_contenedor_tabla_informes_mensuales"
                       class="pt_contenedor_tabla">
                       <table id="pt_tabla_informes_mensuales" class="pt_tabla">
-                        <tr id="pt_titulos_tabla_informes_mensuales"
-                          class="pt_fila_titulo_tabla" >
+                        <tr id="pt_titulos_tabla_informes_mensuales" class="pt_fila_titulo_tabla" >
+                          <th  colspan="2" class="empty_cell"></th>
+                          <th  colspan="3"> Grupo de Trabajo </th>
+                          <th  colspan="3"> Personas </th>
+                        </tr>
+
+                        <tr id="pt_titulos2_tabla_informes_mensuales" class="pt_fila_titulo_tabla" >
                           <th > Año </th>
                           <th > Mes </th>
                           <th > Sin Carga </th>
@@ -192,11 +191,13 @@
                     </div>
                     <div id="pt_controles_inferiores"></div>
                     <div class="pt_nota_pie_table">
-                      Atención: La carga de participación para Participantes
-                      en Estado "incompatible" no generan ningún tipo de derecho
-                      a cobro por el período y su consideración está
-                      completamente supeditada a la evaluación del PROGRAMA
-                      sobre la documentación que oportunamente se presente.
+                      1, FILAS “Sin carga”= en color ROJO y guiones en las dos últimas columnas (como
+                      “no corresponde dato”)
+                      2. FILAS “En proceso” = en color AMARILLO, con una casilla para chequear en la
+                      columna “Incluir en Informe” así el informe se va a generar UNICAMENTE para los
+                      grupos marcados. Y guiones en la última columna (como “no corresponde dato”)
+                      3. FILAS “Con Informe” = todo sin color de fondo, con un ícono en la ultima
+                      columna al lado del número de informe, que permita bajar el PDF.
                     </div>
                   </div>
                 </div>
