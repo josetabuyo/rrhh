@@ -31,7 +31,7 @@ class TablaInformesParticipacion extends TablaPT{
           this.agregarCeldaTextoAFila(fila, i.Partic_ConInforme);
 
           fila.addClass("pt_fila_participacion_semanal");
-          $("#pt_tabla_participacion_semanal").append(fila);
+          $("#pt_tabla_informes_mensuales").append(fila);
         });
       })
       .onError(function (e) {
