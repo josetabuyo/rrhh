@@ -202,13 +202,23 @@
   text-overflow: ellipsis;
 }
 
-.pt_justificacion{
 
+
+
+.vex.vex-theme-os .vex-content {
+  background: #ffe699;
+  width: 600px;
+}
+.vex-dialog-message{
+  text-align: center;
+  font-weight: bold;
 }
 
+
 .pt_justificacion_semana_desde_hasta{
-  position: relative;
-  padding-left: 2px;
+  position: absolute;
+  right: 10px;
+  top: 40px;
 }
 
 #pt_justificacion_cmb_semana_hasta{
