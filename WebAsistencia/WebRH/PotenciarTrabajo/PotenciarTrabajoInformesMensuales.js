@@ -1,28 +1,64 @@
 ﻿$(document).ready(function () {
     Backend.start(function () {
-      tablaInformesParticipacion = new TablaInformesParticipacion();
 
+      var seccion = new SeccionEstadoInformesParticipacion();
+
+      $("#pt_detalle_mensual").hide();
       $("#pt_boton_informes_mensuales").click(() => {
 
         $(".pt_selected_section_button").removeClass("pt_selected_section_button");
         $("#pt_boton_informes_mensuales").addClass("pt_selected_section_button");
 
-        tablaInformesParticipacion.render();
+        seccion.render();
       });
 
     });
 });
 
+class SeccionEstadoInformesParticipacion {
+  constructor() {
+    this.tablaInformesParticipacion = new TablaInformesParticipacion();
+  }
+  render() {
+    this.tablaInformesParticipacion.render(); // DEBUG: pregunta a Char: debo pasar parámetro usuario? quien es ese parámetro?
+  }
+}
+
+
 class TablaInformesParticipacion extends TablaPT{
   constructor () {
     super();
+    self = this;
+    this.tablaInformesParticipacionDetalleMensual =  new TablaInformesParticipacionDetalleMensual();
+
     Backend.PT_Get_Estado_Informes_Participacion_Por_Periodo()
       .onSuccess((informes_participacion) => {
         _.forEach(informes_participacion, (i) => {
           var fila = $("<tr>");
 
+
+          fila.attr("Anio", i.Entidad.Anio);
+          fila.attr("Mes", i.Entidad.Mes);
+
+
           this.agregarCeldaTextoAFila(fila, i.Entidad.Anio);
-          this.agregarCeldaTextoAFila(fila, i.Entidad.Mes);
+
+          const celda = $("<td>")
+          celda.text(i.Entidad.Mes);
+
+          const icono_lupa = $("<img>");
+          icono_lupa.attr("src", "IconoLupa.png");
+          icono_lupa.addClass("pt_icono_lupa");
+          icono_lupa.click(() => {
+
+            fila = icono_lupa.parent().parent();
+
+            self.tablaInformesParticipacionDetalleMensual.render(fila.attr("Anio"), fila.attr("Mes"));
+          });
+          celda.append(icono_lupa);
+          fila.append(celda);
+
+
           this.agregarCeldaTextoAFila(fila, i.Ent_SinCarga);
           this.agregarCeldaTextoAFila(fila, i.Ent_EnProceso);
           this.agregarCeldaTextoAFila(fila, i.Ent_ConInforme);
@@ -30,7 +66,7 @@ class TablaInformesParticipacion extends TablaPT{
           this.agregarCeldaTextoAFila(fila, i.Partic_EnProceso);
           this.agregarCeldaTextoAFila(fila, i.Partic_ConInforme);
 
-          fila.addClass("pt_fila_participacion_semanal");
+          fila.addClass("pt_fila_informes_mensuales");
           $("#pt_tabla_informes_mensuales").append(fila);
         });
       })
@@ -41,123 +77,78 @@ class TablaInformesParticipacion extends TablaPT{
   render () {
       $(".pt_seccion").hide();
       $("#pt_seccion_informes_mensuales").show();
+      $("#pt_detalle_mensual").hide();
   }
+}
 
-  // renderComboAsistencia (fila, asistencia, change_handler) {
-  //   var celda = $("<td>")
-  //   var combo_semanal = $("<select>");
-  //   combo_semanal.addClass("cmb_porcentaje_asistencia");
-  //   this.nivelesDeParticipacion.forEach((nivel) => {
-  //     combo_semanal.append(new Option(nivel.Dato_Participacion, nivel.Id));
-  //   });
-  //   combo_semanal.val(asistencia);
-  //   combo_semanal.change((e) => {
-  //     change_handler(e.target.value);
-  //   });
-  //   celda.append(combo_semanal);
-  //   fila.append(celda);
-  // }
 
-  // updateParticipacionSemanalPersona (asistencia, semana, id_dato) {
-  //   //Si Id del dato es justificacion, se abre popup
-  //   if (id_dato === '4') {
-  //     var pt_popup_justificación = $('#pt_plantillas').find('.pt_justificacion').clone();
-  //     var lbl_semana_desde = pt_popup_justificación.find('#pt_justificacion_semana_desde');
-  //     lbl_semana_desde.html(`${this.periodo.Anio} ${this.periodo.Mes} semana ${semana}`);
-  //     var cmb_motivo = pt_popup_justificación.find('#pt_justificacion_cmb_motivo');
-  //     cmb_motivo.empty();
-  //     Backend.PT_Get_Cargar_Combo('MotivoJustificacion')
-  //       .onSuccess((motivos) => {
-  //         _.forEach(motivos, (motivo) => {
-  //           cmb_motivo.append($(`<option value=${motivo.id}> ${motivo.descripcion} </option>`));
-  //         })
-  //       })
-  //       .onError(function (e) {
-  //         console.error("error cargar motivos de justificacion: " + e);
-  //       });
-  //     var cmb_semana_hasta = pt_popup_justificación.find('#pt_justificacion_cmb_semana_hasta');
-  //     cmb_semana_hasta.empty();
-  //     Backend.PT_Get_Periodos()
-  //       .onSuccess((periodos) => {
-  //         console.log(periodos)
-  //         _.forEach(periodos, (periodo) => {
-  //           for (let i = 1; i <= periodo.Cant_Semanas; i++) {
-  //             if(this.periodo.Id > periodo.Id) continue;
-  //             if(this.periodo.Id == periodo.Id && semana >= i) continue;
-  //             cmb_semana_hasta.append($(`<option value=${periodo.Anio}-${periodo.Id}-${i}> ${periodo.Anio} ${periodo.Mes} semana ${i} </option>`));
-  //           }
-  //         })
-  //       })
-  //       .onError(function (e) {
-  //         console.error("error al cargar periodos: " + e);
-  //       });
-  //     var txt_descripcion = pt_popup_justificación.find('#pt_descripcion_justificacion');
-  //     txt_descripcion.val('');
-  //     vex.defaultOptions.className = 'vex-theme-os';
-  //     vex.dialog.open({
-  //       message: 'Justificacion',
-  //       input: pt_popup_justificación,
-  //       buttons: [
-  //         $.extend({}, vex.dialog.buttons.YES, { text: 'Guardar' }),
-  //         $.extend({}, vex.dialog.buttons.NO, { text: 'Cancelar' })
-  //       ],
-  //       callback: (valor) => {
-  //         if(valor===false) {
-  //           this.render(this.idEntidad, this.periodo);
-  //           return;
-  //         }
-  //
-  //         var descripcion = txt_descripcion.val();
-  //         var motivo = cmb_motivo.val();
-  //         var desde_anio = this.periodo.Anio;
-  //         var desde_mes = this.periodo.Id;
-  //         var desde_semana = semana;
-  //         var str_semana_hasta = cmb_semana_hasta.val();
-  //         var hasta_anio = str_semana_hasta.split('-')[0];
-  //         var hasta_mes = str_semana_hasta.split('-')[1];
-  //         var hasta_semana = str_semana_hasta.split('-')[2];
-  //         var id_entidad = this.idEntidad;
-  //         Backend.PT_Add_Justificacion(asistencia.Persona.Id_Rol, motivo, desde_anio,
-  //           desde_mes, desde_semana, hasta_anio, hasta_mes, hasta_semana, descripcion, id_entidad)
-  //           .onSuccess((datos) => {
-  //             this.render(this.idEntidad, this.periodo);
-  //           })
-  //           .onError(function (e) {
-  //             this.render(this.idEntidad, this.periodo);
-  //             console.error("error al guardar participacion: " + e);
-  //           });
-  //       }
-  //     });
-  //     return;
-  //   }
-  //   Backend.PT_Upd_Participacion_por_Entidad_Periodo(
-  //       this.idEntidad,
-  //       this.periodo.Id,
-  //       this.periodo.Anio,
-  //       semana,
-  //       asistencia.Persona.Id_Rol,
-  //       id_dato)
-  //     .onSuccess((datos) => {
-  //       this.render(this.idEntidad, this.periodo);
-  //     })
-  //     .onError(function (e) {
-  //       this.render(this.idEntidad, this.periodo);
-  //       console.error("error al guardar participacion: " + e);
-  //     });
-  // }
-  //
-  // updateObservacionMensualPersona (asistencia, observacion) {
-  //   Backend.PT_UPD_Participacion_Observacion(
-  //       this.idEntidad,
-  //       this.periodo.Id,
-  //       this.periodo.Anio,
-  //       asistencia.Persona.Id_Rol,
-  //       observacion)
-  //     .onSuccess((datos) => {
-  //         this.render(this.idEntidad, this.periodo);
-  //     })
-  //     .onError(function (e) {
-  //       console.error("error al guardar comentarios: " + e);
-  //     });
-  // }
+
+class TablaInformesParticipacionDetalleMensual extends TablaPT{
+  constructor () {
+    super();
+  }
+  render (anio, mes) {
+
+      // DEBUG: quiero ver si llegan los parametros
+      console.log(anio, mes);
+
+
+      $("#pt_detalle_mensual").show();
+
+
+
+      Backend.PT_Get_Estado_Informes_Participacion_Por_PeriodoyEntidad(anio, mes) // TODO: , "usuario")
+        .onSuccess((informes_participacion) => {
+
+
+          $("#pt_tabla_informes_participacion_detalle_mensual").find(".pt_fila_informes_participacion_detalle_mensual").remove();
+
+          _.forEach(informes_participacion, (i) => {
+            var fila = $("<tr>");
+
+            // TODO: TBD es To Be Defined
+            this.agregarCeldaTextoAFila(fila, "TBD Entidad TBD Entidad TBD");
+            this.agregarCeldaTextoAFila(fila, i.Entidad.Nombre_Entidad);
+
+
+            var celda = $("<td>");
+            celda.text(i.Cant_Personas);
+            var icono_lupa = $("<img>");
+            icono_lupa.attr("src", "IconoLupa.png");
+            icono_lupa.addClass("pt_icono_lupa");
+            icono_lupa.click(() => {
+              // TODO:
+              alert("En construcción TBD")
+            });
+            celda.append(icono_lupa);
+            fila.append(celda);
+
+            this.agregarCeldaTextoAFila(fila, i.Entidad.Estado);
+
+
+            // TODO: TBD es To Be Defined
+            var celda = $("<td>");
+            celda.text("TBD SI");
+            var icono_lupa = $("<img>");
+            icono_lupa.attr("src", "IconoLupa.png");
+            icono_lupa.addClass("pt_icono_lupa");
+            icono_lupa.click(() => {
+              // TODO:
+              alert("En construcción TBD")
+            });
+            celda.append(icono_lupa);
+            fila.append(celda);
+
+            this.agregarCeldaTextoAFila(fila, i.Entidad.Id_Informe);
+
+            fila.addClass("pt_fila_informes_participacion_detalle_mensual");
+            $("#pt_tabla_informes_participacion_detalle_mensual").append(fila);
+          });
+        })
+        .onError(function (e) {
+          console.error("error al obtener niveles de participacion: " + e);
+        });
+
+
+  }
 }

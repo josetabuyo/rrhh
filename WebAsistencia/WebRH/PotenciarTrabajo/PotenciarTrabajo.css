@@ -84,13 +84,17 @@
 
 }
 
-.pt_icono_lista {
+/*tal vez mejor refactorizar a una clase para iconos en celdas*/
+.pt_icono_lista , .pt_icono_lupa{
   cursor: pointer;
   height: 22px;
   position: absolute;
   right: 5px;
   top: 5px;
 }
+
+
+
 
 #pt_estado_semanal, #pt_estado_mensual {
   display: none;
@@ -162,5 +166,5 @@
   height: 23px;
 }
 #pt_descripcion_justificacion{
-  
+
 }
