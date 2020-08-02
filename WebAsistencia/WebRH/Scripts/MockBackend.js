@@ -107,9 +107,9 @@ var Backend = {
       return this.ReturnAsync([
         { Entidad: {Anio: anio, Mes: mes, Id_Entidad:1, Nombre_Entidad: 'nombre entidad ' + mes, Estado:'Sin Informe', Id_Informe:1, Id_Cabecera:20}, Cant_Personas:3},
         { Entidad: {Anio: anio, Mes: mes, Id_Entidad:1, Nombre_Entidad: 'nombre entidad ' + mes, Estado:'Sin Informe', Id_Informe:1, Id_Cabecera:20}, Cant_Personas:2},
-        { Entidad: {Anio: anio, Mes: mes, Id_Entidad:1, Nombre_Entidad: 'nombre entidad ' + mes, Estado:'Sin Informe', Id_Informe:1, Id_Cabecera:20}, Cant_Personas:3},
+        { Entidad: {Anio: anio, Mes: mes, Id_Entidad:1, Nombre_Entidad: 'nombre entidad ' + mes, Estado:'Sin Informe', Id_Informe:4, Id_Cabecera:20}, Cant_Personas:3},
         { Entidad: {Anio: anio, Mes: mes, Id_Entidad:1, Nombre_Entidad: 'nombre entidad ' + mes, Estado:'Sin Informe', Id_Informe:1, Id_Cabecera:20}, Cant_Personas:6},
-        { Entidad: {Anio: anio, Mes: mes, Id_Entidad:1, Nombre_Entidad: 'nombre entidad ' + mes, Estado:'Sin Informe', Id_Informe:1, Id_Cabecera:20}, Cant_Personas:3},
+        { Entidad: {Anio: anio, Mes: mes, Id_Entidad:1, Nombre_Entidad: 'nombre entidad ' + mes, Estado:'Sin Informe', Id_Informe:7, Id_Cabecera:20}, Cant_Personas:3},
         { Entidad: {Anio: anio, Mes: mes, Id_Entidad:1, Nombre_Entidad: 'nombre entidad ' + mes, Estado:'Sin Informe', Id_Informe:1, Id_Cabecera:20}, Cant_Personas:3},
       ]);
     },

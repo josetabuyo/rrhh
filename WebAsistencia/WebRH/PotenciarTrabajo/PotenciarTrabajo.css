@@ -121,6 +121,39 @@
 }
 
 
+
+
+
+#pt_encabezados_semanal{
+  text-align: right;
+}
+
+
+#pt_encabezados_semanal div{
+  display: inline-block;
+}
+#pt_grupo_de_trabajo{
+    border: solid 1px black;
+    font-size: x-large;
+    font-weight: bold;
+    margin: 10px;
+    padding: 10px;
+    font-variant-caps: petite-caps;
+
+}
+
+#pt_periodo {
+    border: solid 1px black;
+    font-size: x-large;
+    font-weight: bold;
+    margin: 10px;
+    padding: 10px;
+    font-variant-caps: petite-caps;
+}
+
+
+
+
 .pt_contenedor_tabla {
   flex: 1 1 auto;
   overflow: hidden;

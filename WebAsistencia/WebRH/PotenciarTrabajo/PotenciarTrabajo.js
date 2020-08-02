@@ -85,7 +85,7 @@ class TablaParticipacionMensual extends TablaPT{
           icono_lista.addClass("pt_icono_lista");
           icono_lista.click(() => {
             $("#pt_estado_mensual").hide();
-            this.tablaSemanal.render(e.Id_Entidad, periodo);
+            this.tablaSemanal.render(e.Id_Entidad, periodo, e.Nombre_Entidad);
             $("#pt_estado_semanal").show();
           });
           celda.append(icono_lista);
@@ -113,7 +113,7 @@ class TablaParticipacionSemanal extends TablaPT{
         console.error("error al obtener niveles de participacion: " + e);
       });
   }
-  render (id_entidad, periodo) {
+  render (id_entidad, periodo, Nombre_Entidad) {
     this.idEntidad = id_entidad;
     this.periodo = periodo;
     // <th>CUIL</th>
@@ -123,6 +123,13 @@ class TablaParticipacionSemanal extends TablaPT{
     // <th>Semana 3</th>
     // <th>Semana 4</th>
     // <th>observaciones a la participación</th>
+
+
+    $("#pt_estado_semanal #pt_grupo_de_trabajo").text(Nombre_Entidad);
+    $("#pt_estado_semanal #pt_periodo").text(periodo.Mes + " " + periodo.Anio);
+
+
+
 
     const fila_titulos = $("#pt_tabla_participacion_semanal").find("#pt_titulos_tabla_participacion_semanal");
     fila_titulos.empty();
@@ -232,7 +239,7 @@ class TablaParticipacionSemanal extends TablaPT{
               if(this.periodo.Id > periodo.Id) continue;
               if(this.periodo.Id == periodo.Id && semana >= i) continue;
               cmb_semana_hasta.append($(`<option value=${periodo.Anio}-${periodo.Id}-${i}> ${periodo.Anio} ${periodo.Mes} semana ${i} </option>`));
-            } 
+            }
           })
         })
         .onError(function (e) {
@@ -264,7 +271,7 @@ class TablaParticipacionSemanal extends TablaPT{
           var hasta_mes = str_semana_hasta.split('-')[1];
           var hasta_semana = str_semana_hasta.split('-')[2];
           var id_entidad = this.idEntidad;
-          Backend.PT_Add_Justificacion(asistencia.Persona.Id_Rol, motivo, desde_anio, 
+          Backend.PT_Add_Justificacion(asistencia.Persona.Id_Rol, motivo, desde_anio,
             desde_mes, desde_semana, hasta_anio, hasta_mes, hasta_semana, descripcion, id_entidad)
             .onSuccess((datos) => {
               this.render(this.idEntidad, this.periodo);
